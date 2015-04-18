@@ -45,9 +45,12 @@ struct with_rotation<
 	>
 >
 {
-	typedef typename sge::sprite::config::custom_center<
+	typedef
+	typename
+	sge::sprite::config::custom_center<
 		CustomCenter
-	>::type custom_center;
+	>::type
+	custom_center;
 
 	template<
 		typename Choices

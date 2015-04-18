@@ -264,6 +264,7 @@ add_sge_base_library(
 		sgeplugin
 		sgerenderer
 		sgesprite
+		sgetexture
 		sgeviewport
 		sgewindow
 	ADDITIONAL_DEPS

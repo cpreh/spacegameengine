@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/color/any/convert.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
@@ -36,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/testbed/systems.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/buffers/single_impl.hpp>
 #include <sge/sprite/buffers/with_declaration_impl.hpp>
 #include <sge/sprite/compare/default.hpp>
@@ -44,6 +44,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
 #include <sge/sprite/process/all.hpp>
+#include <sge/sprite/roles/color.hpp>
+#include <sge/sprite/roles/pos.hpp>
+#include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/state/object_impl.hpp>
 #include <sge/sprite/state/parameters_impl.hpp>
 #include <sge/src/rucksack/testbed/object_impl.hpp>
@@ -62,6 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -140,9 +144,19 @@ sge::rucksack::testbed::object_impl::add_widget(
 		std::make_pair(
 			&_widget,
 			sprite_object(
-				sprite_parameters()
-					.any_color(
-						_color))));
+				sge::sprite::roles::pos{} =
+					sprite_object::vector::null(),
+				sge::sprite::roles::size{} =
+					sprite_object::dim::null(),
+				sge::sprite::roles::color{} =
+					sge::image::color::any::convert<
+						color_format
+					>(
+						_color
+					)
+			)
+		)
+	);
 }
 
 awl::main::exit_code const
@@ -193,33 +207,28 @@ sge::rucksack::testbed::object_impl::render(
 			(sge::renderer::state::color::back_buffer_clear_color = sge::image::colors::black()));
 			*/
 
-	typedef
-	std::vector<sprite_object>
-	sprite_sequence;
-
-	sprite_sequence raw_sprites;
-
-	raw_sprites.reserve(
-		sprites_.size()
-	);
-
-	for(
-		auto const &entry
-		:
-		sprites_
-	)
-		raw_sprites.push_back(
-			entry.second
-		);
-
 	sge::sprite::process::all(
 		_render_context,
 		sge::sprite::geometry::make_random_access_range(
-			raw_sprites.begin(),
-			raw_sprites.end()),
+			fcppt::algorithm::map<
+				std::vector<
+					sprite_object
+				>
+			>(
+				sprites_,
+				[](
+					sprite_list::value_type const &_element
+				)
+				{
+					return
+						_element.second;
+				}
+			)
+		),
 		buffers_,
 		sge::sprite::compare::default_(),
-		sprite_states_);
+		sprite_states_
+	);
 }
 
 sge::rucksack::testbed::systems const &

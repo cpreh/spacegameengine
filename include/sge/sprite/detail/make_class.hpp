@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
 
 #include <sge/sprite/detail/application.hpp>
-#include <sge/sprite/roles/pos.hpp>
-#include <sge/sprite/types/vector_fwd.hpp>
 #include <majutsu/class.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
@@ -45,36 +43,35 @@ namespace detail
 {
 
 template<
-	typename Choices,
-	typename ExtraElements
+	typename Choices
 >
 using make_class
 =
 majutsu::class_<
-	typename boost::mpl::joint_view<
-		typename boost::mpl::transform<
-			typename Choices::optional_elements,
+	typename
+	boost::mpl::joint_view<
+		typename
+		boost::mpl::transform<
+			typename
+			Choices::optional_elements,
 			sge::sprite::detail::application<
 				boost::mpl::_1,
 				Choices
 			>
 		>::type,
-		boost::mpl::joint_view<
-			boost::mpl::vector2<
-				majutsu::role<
-					majutsu::simple<
-						sge::sprite::types::vector<
-							typename Choices::type_choices
-						>
-					>,
-					sge::sprite::roles::pos
-				>,
-				typename boost::mpl::apply<
-					typename Choices::size_choice,
-					Choices
-				>::type
-			>,
-			ExtraElements
+		boost::mpl::vector2<
+			typename
+			boost::mpl::apply<
+				typename
+				Choices::pos_choice,
+				Choices
+			>::type,
+			typename
+			boost::mpl::apply<
+				typename
+				Choices::size_choice,
+				Choices
+			>::type
 		>
 	>::type,
 	majutsu::memory::fusion

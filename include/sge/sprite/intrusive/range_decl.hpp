@@ -47,9 +47,11 @@ class range
 		range
 	);
 
-	typedef typename sge::sprite::intrusive::detail::list<
+	typedef
+	sge::sprite::intrusive::detail::list<
 		Choices
-	>::type list;
+	>
+	list;
 public:
 	typedef typename boost::mpl::if_c<
 		IsConst,

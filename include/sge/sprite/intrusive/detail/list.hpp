@@ -39,17 +39,17 @@ namespace detail
 template<
 	typename Choices
 >
-struct list
-{
-	typedef boost::intrusive::list<
-		sge::sprite::object<
-			Choices
-		>,
-		boost::intrusive::constant_time_size<
-			false
-		>
-	> type;
-};
+using
+list
+=
+boost::intrusive::list<
+	sge::sprite::object<
+		Choices
+	>,
+	boost::intrusive::constant_time_size<
+		false
+	>
+>;
 
 }
 }

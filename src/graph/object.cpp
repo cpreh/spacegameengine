@@ -43,11 +43,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single_impl.hpp>
 #include <sge/sprite/buffers/with_declaration_impl.hpp>
 #include <sge/sprite/process/one.hpp>
+#include <sge/sprite/roles/pos.hpp>
+#include <sge/sprite/roles/texture0.hpp>
 #include <sge/sprite/state/object_impl.hpp>
 #include <sge/sprite/state/parameters_impl.hpp>
 #include <sge/src/graph/detail/draw_visitor.hpp>
@@ -296,17 +297,15 @@ sge::graph::object::object(
 			)
 		)
 	),
-	sprite_object_(
-		sprite_parameters()
-		.pos(
+	sprite_object_{
+		sge::sprite::roles::pos{} =
 			fcppt::math::vector::structure_cast<
 				sprite_object::vector,
 				fcppt::cast::float_to_int_fun
 			>(
 				_position.get()
-			)
-		)
-		.texture(
+			),
+		sge::sprite::roles::texture0{} =
 			sprite_object::texture_type{
 				fcppt::make_shared_ptr<
 					sge::texture::part_raw_ref
@@ -314,9 +313,7 @@ sge::graph::object::object(
 					*texture_
 				)
 			}
-		)
-		.texture_size()
-	),
+	},
 	sprite_buffers_(
 		_renderer,
 		sge::sprite::buffers::option::dynamic

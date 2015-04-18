@@ -52,6 +52,7 @@ template<
 struct object
 {
 private:
+	// TODO: Don't use shared_ptrs here!
 	typedef majutsu::role<
 		majutsu::simple<
 			sge::renderer::vertex::buffer_shared_ptr

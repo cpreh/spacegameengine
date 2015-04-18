@@ -23,7 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/sprite/count.hpp>
+#include <sge/sprite/buffers/object.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
+#include <sge/sprite/buffers/roles/index_buffer.hpp>
+#include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <sge/sprite/detail/buffers/allocate_indices.hpp>
 #include <sge/sprite/detail/buffers/allocate_vertices.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
@@ -42,66 +45,80 @@ namespace buffers
 {
 
 template<
-	typename Choices,
-	typename Buffers
+	typename Choices
 >
-typename boost::enable_if<
+inline
+typename
+boost::enable_if<
 	sge::sprite::detail::config::needs_index_buffer<
 		Choices
 	>,
-	void
+	sge::sprite::buffers::object<
+		Choices
+	>
 >::type
 allocate(
 	sge::sprite::buffers::parameters const &_parameters,
 	sge::sprite::count const _num_sprites,
-	Buffers &_buffers,
 	sge::renderer::resource_flags_field const &_resource_flags
 )
 {
-	sge::sprite::detail::buffers::allocate_vertices<
-		Choices
-	>(
-		_parameters,
-		_num_sprites,
-		_buffers,
-		_resource_flags
-	);
-
-	sge::sprite::detail::buffers::allocate_indices<
-		Choices
-	>(
-		_parameters.device(),
-		_num_sprites,
-		_buffers,
-		_resource_flags
-	);
+	return
+		sge::sprite::buffers::object<
+			Choices
+		>{
+			sge::sprite::buffers::roles::vertex_buffer{} =
+				sge::sprite::detail::buffers::allocate_vertices<
+					Choices
+				>(
+					_parameters,
+					_num_sprites,
+					_resource_flags
+				),
+			sge::sprite::buffers::roles::index_buffer{} =
+				sge::sprite::detail::buffers::allocate_indices<
+					Choices
+				>(
+					_parameters.device(),
+					_num_sprites,
+					_resource_flags
+				)
+		};
 }
 
 template<
 	typename Choices,
 	typename Buffers
 >
-typename boost::disable_if<
+inline
+typename
+boost::disable_if<
 	sge::sprite::detail::config::needs_index_buffer<
 		Choices
 	>,
-	void
+	sge::sprite::buffers::object<
+		Choices
+	>
 >::type
 allocate(
 	sge::sprite::buffers::parameters const &_parameters,
 	sge::sprite::count const _num_sprites,
-	Buffers &_buffers,
 	sge::renderer::resource_flags_field const &_resource_flags
 )
 {
-	sge::sprite::detail::buffers::allocate_vertices<
-		Choices
-	>(
-		_parameters,
-		_num_sprites,
-		_buffers,
-		_resource_flags
-	);
+	return
+		sge::sprite::buffers::object<
+			Choices
+		>(
+			sge::sprite::buffers::roles::vertex_buffer{} =
+				sge::sprite::detail::buffers::allocate_vertices<
+					Choices
+				>(
+					_parameters,
+					_num_sprites,
+					_resource_flags
+				)
+		);
 }
 
 }

@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/vertex_count.hpp>
-#include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <sge/sprite/detail/vf/part_index.hpp>
 
 
@@ -44,20 +43,16 @@ namespace buffers
 {
 
 template<
-	typename Choices,
-	typename BufferObject
+	typename Choices
 >
-void
+sge::renderer::vertex::buffer_shared_ptr
 allocate_vertices(
 	sge::sprite::buffers::parameters const &_parameters,
 	sge::sprite::count const _num_sprites,
-	BufferObject &_buffers,
 	sge::renderer::resource_flags_field const &_resource_flags
 )
 {
-	_buffers. template set<
-		sge::sprite::buffers::roles::vertex_buffer
-	>(
+	return
 		sge::renderer::vertex::buffer_shared_ptr(
 			_parameters.device().create_vertex_buffer(
 				sge::renderer::vertex::buffer_parameters(
@@ -71,8 +66,7 @@ allocate_vertices(
 					_resource_flags
 				)
 			)
-		)
-	);
+		);
 }
 
 }

@@ -26,11 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/sprite/buffers/slice_decl.hpp>
-#include <sge/sprite/buffers/roles/first_index.hpp>
-#include <sge/sprite/buffers/roles/first_vertex.hpp>
 #include <sge/sprite/buffers/roles/index_buffer.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <sge/sprite/render/range_part_impl.hpp>
+#include <majutsu/get.hpp>
 
 
 template<
@@ -39,19 +38,36 @@ template<
 sge::sprite::buffers::slice<
 	Choices
 >::slice(
-	object const &_object,
-	offset_object const &_offset_object
+	object const &_object
 )
 :
 	object_(
 		_object
 	),
-	offset_object_(
-		_offset_object
-	),
 	part_vector_()
 {
 }
+
+template<
+	typename Choices
+>
+sge::sprite::buffers::slice<
+	Choices
+>::slice(
+	slice &&
+) = default;
+
+template<
+	typename Choices
+>
+sge::sprite::buffers::slice<
+	Choices
+> &
+sge::sprite::buffers::slice<
+	Choices
+>::operator=(
+	slice &&
+) = default;
 
 template<
 	typename Choices
@@ -71,9 +87,11 @@ sge::sprite::buffers::slice<
 >::vertex_buffer() const
 {
 	return
-		*object_. template get<
+		*majutsu::get<
 			sge::sprite::buffers::roles::vertex_buffer
-		>();
+		>(
+			object_
+		);
 }
 
 template<
@@ -85,9 +103,11 @@ sge::sprite::buffers::slice<
 >::index_buffer() const
 {
 	return
-		*object_. template get<
+		*majutsu::get<
 			sge::sprite::buffers::roles::index_buffer
-		>();
+		>(
+			object_
+		);
 }
 
 template<
@@ -98,10 +118,11 @@ sge::sprite::buffers::slice<
 	Choices
 >::first_vertex() const
 {
+	// TODO!
 	return
-		offset_object_. template get<
-			sge::sprite::buffers::roles::first_vertex
-		>();
+		sge::renderer::vertex::first{
+			0u
+		};
 }
 
 template<
@@ -112,10 +133,11 @@ sge::sprite::buffers::slice<
 	Choices
 >::first_index() const
 {
+	// TODO!
 	return
-		offset_object_. template get<
-			sge::sprite::buffers::roles::first_index
-		>();
+		sge::renderer::index::first{
+			0u
+		};
 }
 
 template<
@@ -144,26 +166,6 @@ sge::sprite::buffers::slice<
 {
 	return
 		object_;
-}
-
-template<
-	typename Choices
->
-void
-sge::sprite::buffers::slice<
-	Choices
->::reset(
-	object const &_object,
-	offset_object const &_offset_object
-)
-{
-	object_ =
-		_object;
-
-	offset_object_ =
-		_offset_object;
-
-	part_vector_.clear();
 }
 
 #endif

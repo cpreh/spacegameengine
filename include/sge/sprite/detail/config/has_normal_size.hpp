@@ -21,10 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_CONFIG_HAS_NORMAL_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_CONFIG_HAS_NORMAL_SIZE_HPP_INCLUDED
 
-#include <sge/sprite/config/normal_size.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
+#include <sge/sprite/config/is_normal_size.hpp>
 
 
 namespace sge
@@ -41,9 +38,8 @@ template<
 >
 using has_normal_size
 =
-std::is_same<
-	typename Choices::size_choice,
-	sge::sprite::config::normal_size
+sge::sprite::config::is_normal_size<
+	typename Choices::size_choice
 >;
 
 }

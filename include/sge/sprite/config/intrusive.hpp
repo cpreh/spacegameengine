@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_CONFIG_INTRUSIVE_HPP_INCLUDED
 
 #include <sge/sprite/config/intrusive_fwd.hpp>
-#include <sge/sprite/detail/wrapped_connection.hpp>
+#include <sge/sprite/intrusive/connection_ref.hpp>
 #include <sge/sprite/roles/connection.hpp>
 #include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
@@ -50,7 +50,7 @@ struct intrusive
 			boost::mpl::vector1<
 				majutsu::role<
 					majutsu::simple<
-						sge::sprite::detail::wrapped_connection<
+						sge::sprite::intrusive::connection_ref<
 							Choices
 						>
 					>,

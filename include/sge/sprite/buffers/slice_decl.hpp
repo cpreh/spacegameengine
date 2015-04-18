@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/sprite/buffers/object.hpp>
-#include <sge/sprite/buffers/offset_object.hpp>
 #include <sge/sprite/buffers/slice_fwd.hpp>
 #include <sge/sprite/render/range_part_fwd.hpp>
 #include <sge/sprite/render/range_part_vector.hpp>
@@ -56,20 +55,23 @@ public:
 	object;
 
 	typedef
-	sge::sprite::buffers::offset_object<
-		Choices
-	>
-	offset_object;
-
-	typedef
 	sge::sprite::render::range_part_vector<
 		Choices
 	>
 	range_part_vector;
 
+	explicit
 	slice(
-		object const &,
-		offset_object const &
+		object const &
+	);
+
+	slice(
+		slice &&
+	);
+
+	slice &
+	operator=(
+		slice &&
 	);
 
 	~slice();
@@ -91,16 +93,8 @@ public:
 
 	object const &
 	buffer_object() const;
-
-	void
-	reset(
-		object const &,
-		offset_object const &
-	);
 private:
 	object object_;
-
-	offset_object offset_object_;
 
 	range_part_vector part_vector_;
 };

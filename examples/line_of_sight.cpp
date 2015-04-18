@@ -44,7 +44,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single.hpp>
 #include <sge/sprite/buffers/with_declaration.hpp>
@@ -52,11 +51,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/pos.hpp>
+#include <sge/sprite/config/pos_option.hpp>
+#include <sge/sprite/config/texture_size_option.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_color.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
 #include <sge/sprite/process/all.hpp>
+#include <sge/sprite/roles/color.hpp>
+#include <sge/sprite/roles/pos.hpp>
+#include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object.hpp>
 #include <sge/systems/cursor_demuxer.hpp>
@@ -175,7 +180,12 @@ try
 				float
 			>
 		>,
-		sge::sprite::config::normal_size,
+		sge::sprite::config::pos<
+			sge::sprite::config::pos_option::pos
+		>,
+		sge::sprite::config::normal_size<
+			sge::sprite::config::texture_size_option::never
+		>,
 		boost::mpl::vector1<
 			sge::sprite::config::with_color<
 				color_format
@@ -197,12 +207,6 @@ try
 		sprite_choices
 	>
 	sprite_object;
-
-	typedef
-	sge::sprite::parameters<
-		sprite_choices
-	>
-	sprite_parameters;
 
 	typedef
 	sge::sprite::state::all_choices
@@ -242,21 +246,23 @@ try
 		32
 	);
 
-	auto const make_sprite_parameters(
+	auto const make_sprite(
 		[
 			cell_size
 		]()
 		{
 			return
-				sprite_parameters()
-				.pos(
-					sprite_object::vector::null()
-				)
-				.size(
-					cell_size
-				)
-				.any_color(
-					sge::image::color::predef::white()
+				sprite_object(
+					sge::sprite::roles::pos{} =
+						sprite_object::vector::null(),
+					sge::sprite::roles::size{} =
+						cell_size,
+					sge::sprite::roles::color{} =
+						sge::image::color::any::convert<
+							color_format
+						>(
+							sge::image::color::predef::white()
+						)
 				);
 		}
 	);
@@ -276,9 +282,7 @@ try
 		>(
 			cell_size
 		),
-		sprite_object(
-			make_sprite_parameters()
-		)
+		make_sprite()
 	);
 
 	auto const update_positions(
@@ -330,7 +334,7 @@ try
 			[
 				&sprites,
 				update_positions,
-				make_sprite_parameters,
+				make_sprite,
 				cell_size
 			](
 				sge::renderer::target::viewport const &_viewport
@@ -356,9 +360,7 @@ try
 					>(
 						cell_size
 					),
-					sprite_object(
-						make_sprite_parameters()
-					)
+					make_sprite()
 				);
 
 				update_positions(

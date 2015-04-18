@@ -25,6 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/gfx/sprite_type_choices_fwd.hpp>
 #include <sge/sprite/config/choices_fwd.hpp>
 #include <sge/sprite/config/normal_size_fwd.hpp>
+#include <sge/sprite/config/pos_fwd.hpp>
+#include <sge/sprite/config/pos_option.hpp>
+#include <sge/sprite/config/texture_size_option.hpp>
 
 
 namespace sge
@@ -37,7 +40,12 @@ namespace gfx
 typedef
 sge::sprite::config::choices<
 	sge::console::gfx::sprite_type_choices,
-	sge::sprite::config::normal_size,
+	sge::sprite::config::pos<
+		sge::sprite::config::pos_option::pos_or_center
+	>,
+	sge::sprite::config::normal_size<
+		sge::sprite::config::texture_size_option::maybe
+	>,
 	sge::console::gfx::sprite_elements
 >
 sprite_choices;

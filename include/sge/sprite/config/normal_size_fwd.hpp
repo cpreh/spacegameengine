@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_CONFIG_NORMAL_SIZE_FWD_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_NORMAL_SIZE_FWD_HPP_INCLUDED
 
+#include <sge/sprite/config/texture_size_option_fwd.hpp>
+
 
 namespace sge
 {
@@ -29,6 +31,9 @@ namespace sprite
 namespace config
 {
 
+template<
+	sge::sprite::config::texture_size_option
+>
 struct normal_size;
 
 }

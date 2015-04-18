@@ -51,12 +51,14 @@ boost::mpl::false_
 
 template<
 	typename TypeChoices,
+	typename PosChoices,
 	typename SizeChoice,
 	typename OptionalElements
 >
 struct is_choices<
 	sge::sprite::config::choices<
 		TypeChoices,
+		PosChoices,
 		SizeChoice,
 		OptionalElements
 	>

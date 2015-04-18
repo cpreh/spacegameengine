@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/index_count.hpp>
-#include <sge/sprite/buffers/roles/index_buffer.hpp>
 
 
 namespace sge
@@ -42,20 +41,16 @@ namespace buffers
 {
 
 template<
-	typename Choices,
-	typename BufferObject
+	typename Choices
 >
-void
+sge::renderer::index::buffer_shared_ptr
 allocate_indices(
 	sge::renderer::device::core &_renderer,
 	sge::sprite::count const _num_sprites,
-	BufferObject &_buffers,
 	sge::renderer::resource_flags_field const &_resource_flags
 )
 {
-	_buffers. template set<
-		sge::sprite::buffers::roles::index_buffer
-	>(
+	return
 		sge::renderer::index::buffer_shared_ptr(
 			_renderer.create_index_buffer(
 				sge::renderer::index::buffer_parameters(
@@ -68,8 +63,7 @@ allocate_indices(
 					_resource_flags
 				)
 			)
-		)
-	);
+		);
 }
 
 }

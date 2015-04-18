@@ -51,10 +51,9 @@ class connection
 	);
 public:
 	typedef
-	typename
 	sge::sprite::intrusive::detail::list<
 		Choices
-	>::type
+	>
 	list;
 
 	connection(

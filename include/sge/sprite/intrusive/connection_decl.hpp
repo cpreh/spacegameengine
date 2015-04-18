@@ -46,9 +46,11 @@ protected:
 	{
 	}
 public:
-	typedef sge::sprite::object<
+	typedef
+	sge::sprite::object<
 		Choices
-	> object;
+	>
+	object;
 
 	virtual
 	void

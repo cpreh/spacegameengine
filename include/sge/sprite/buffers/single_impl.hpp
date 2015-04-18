@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/default_initialize_class.hpp>
 #include <sge/sprite/buffers/allocate.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/option_to_resource_flags.hpp>
@@ -33,7 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/slice_impl.hpp>
 #include <sge/sprite/buffers/vertex_count.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <majutsu/get.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
 template<
@@ -52,11 +53,7 @@ sge::sprite::buffers::single<
 	buffers_option_(
 		_buffers_option
 	),
-	buffers_object_(
-		sge::sprite::default_initialize_class<
-			buffers_object
-		>()
-	),
+	buffers_object_{},
 	slice_()
 {
 }
@@ -82,56 +79,70 @@ sge::sprite::buffers::single<
 	sge::sprite::count const _num_sprites
 )
 {
-	sge::renderer::vertex::buffer *const vb(
-		buffers_object_. template get<
-			sge::sprite::buffers::roles::vertex_buffer
-		>().get()
+	fcppt::maybe(
+		buffers_object_,
+		[
+			this,
+			_num_sprites
+		]{
+			buffers_object_ =
+				optional_buffers_object(
+					sge::sprite::buffers::allocate<
+						Choices
+					>(
+						parameters_,
+						_num_sprites,
+						sge::sprite::buffers::option_to_resource_flags(
+							buffers_option_
+						)
+					)
+				);
+
+		},
+		[
+			this,
+			_num_sprites
+		](
+			buffers_object &_buffers
+		)
+		{
+			if(
+				majutsu::get<
+					sge::sprite::buffers::roles::vertex_buffer
+				>(
+					_buffers
+				)->size()
+				<
+				sge::sprite::buffers::vertex_count<
+					Choices
+				>(
+					_num_sprites
+				)
+			)
+				_buffers =
+					sge::sprite::buffers::allocate<
+						Choices
+					>(
+						parameters_,
+						_num_sprites,
+						sge::sprite::buffers::option_to_resource_flags(
+							buffers_option_
+						)
+					);
+		}
 	);
 
-	if(
-		!vb
-		||
-		vb->size()
-		<
-		sge::sprite::buffers::vertex_count<
-			Choices
-		>(
-			_num_sprites
-		)
-	)
-		sge::sprite::buffers::allocate<
-			Choices
-		>(
-			parameters_,
-			_num_sprites,
-			buffers_object_,
-			sge::sprite::buffers::option_to_resource_flags(
-				buffers_option_
+	slice_ =
+		optional_slice(
+			slice_type(
+				// TODO
+				buffers_object_.get_unsafe()
 			)
 		);
 
-	if(
-		!slice_
-	)
-		slice_ =
-			fcppt::make_unique_ptr<
-				slice_type
-			>(
-				buffers_object_,
-				sge::sprite::default_initialize_class<
-					typename slice_type::offset_object
-				>()
-			);
-	else
-		slice_->reset(
-			buffers_object_,
-			sge::sprite::default_initialize_class<
-				typename slice_type::offset_object
-			>()
-		);
-
+	// TODO!
 	return
-		*slice_;
+		slice_.get_unsafe();
 }
 
 template<
@@ -142,7 +153,8 @@ sge::sprite::buffers::single<
 	Choices
 >::parameters() const
 {
-	return parameters_;
+	return
+		parameters_;
 }
 
 #endif

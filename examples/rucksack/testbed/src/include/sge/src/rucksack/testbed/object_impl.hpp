@@ -28,11 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/testbed/systems.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/sprite/object_decl.hpp>
-#include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/pos.hpp>
+#include <sge/sprite/config/pos_option.hpp>
+#include <sge/sprite/config/texture_size_option.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/with_color.hpp>
 #include <sge/sprite/state/all_choices.hpp>
@@ -86,6 +88,10 @@ public:
 	~object_impl();
 private:
 	typedef
+	sge::image::color::rgba8_format
+	color_format;
+
+	typedef
 	sge::sprite::config::choices
 	<
 		sge::sprite::config::type_choices
@@ -93,10 +99,17 @@ private:
 			sge::sprite::config::unit_type<rucksack::scalar>,
 			sge::sprite::config::float_type<float>
 		>,
-		sge::sprite::config::normal_size,
+		sge::sprite::config::pos<
+			sge::sprite::config::pos_option::pos
+		>,
+		sge::sprite::config::normal_size<
+			sge::sprite::config::texture_size_option::never
+		>,
 		boost::mpl::vector1
 		<
-			sge::sprite::config::with_color<sge::image::color::rgba8_format>
+			sge::sprite::config::with_color<
+				color_format
+			>
 		>
 	>
 	sprite_choices;
@@ -114,13 +127,6 @@ private:
 		sprite_choices
 	>
 	sprite_object;
-
-	typedef
-	sge::sprite::parameters
-	<
-		sprite_choices
-	>
-	sprite_parameters;
 
 	typedef
 	sge::sprite::state::all_choices

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/default_initialize_class.hpp>
 #include <sge/sprite/buffers/allocate.hpp>
 #include <sge/sprite/buffers/multi_decl.hpp>
 #include <sge/sprite/buffers/option.hpp>
@@ -31,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/no_init.hpp>
 
 
 template<
@@ -50,7 +48,6 @@ sge::sprite::buffers::multi<
 	buffers_option_(
 		_buffers_option
 	),
-	buffer_objects_(),
 	slices_()
 {
 }
@@ -76,33 +73,20 @@ sge::sprite::buffers::multi<
 	sge::sprite::count const _num_sprites
 )
 {
-	buffer_object new_object{
-		fcppt::no_init()
-	};
-
-	sge::sprite::buffers::allocate<
-		Choices
-	>(
-		parameters_,
-		_num_sprites,
-		new_object,
-		sge::sprite::buffers::option_to_resource_flags(
-			buffers_option_
-		)
-	);
-
-	buffer_objects_.push_back(
-		new_object
-	);
-
 	slices_.push_back(
+		// Make sure that slice addresses always stay the same
 		fcppt::make_unique_ptr<
 			slice_type
 		>(
-			new_object,
-			sge::sprite::default_initialize_class<
-				typename slice_type::offset_object
-			>()
+			sge::sprite::buffers::allocate<
+				Choices
+			>(
+				parameters_,
+				_num_sprites,
+				sge::sprite::buffers::option_to_resource_flags(
+					buffers_option_
+				)
+			)
 		)
 	);
 
@@ -118,7 +102,8 @@ sge::sprite::buffers::multi<
 	Choices
 >::parameters() const
 {
-	return parameters_;
+	return
+		parameters_;
 }
 
 #endif

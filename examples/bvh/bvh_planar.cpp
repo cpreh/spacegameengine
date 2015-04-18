@@ -43,7 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single.hpp>
 #include <sge/sprite/buffers/with_declaration.hpp>
@@ -51,11 +50,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/pos.hpp>
+#include <sge/sprite/config/pos_option.hpp>
+#include <sge/sprite/config/texture_size_option.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_color.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
 #include <sge/sprite/process/all.hpp>
+#include <sge/sprite/roles/color.hpp>
+#include <sge/sprite/roles/pos.hpp>
+#include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object.hpp>
 #include <sge/sprite/state/parameters.hpp>
@@ -128,7 +133,12 @@ typedef sge::sprite::config::choices<
 			sge::renderer::scalar
 		>
 	>,
-	sge::sprite::config::normal_size,
+	sge::sprite::config::pos<
+		sge::sprite::config::pos_option::pos
+	>,
+	sge::sprite::config::normal_size<
+		sge::sprite::config::texture_size_option::never
+	>,
 	boost::mpl::vector1<
 		sge::sprite::config::with_color<
 			sge::image::color::rgba8_format
@@ -145,10 +155,6 @@ typedef sge::sprite::buffers::with_declaration<
 typedef sge::sprite::object<
 	sprite_choices
 > sprite_object;
-
-typedef sge::sprite::parameters<
-	sprite_choices
-> sprite_parameters;
 
 typedef sge::sprite::state::all_choices sprite_state_choices;
 
@@ -181,20 +187,20 @@ typedef
 std::vector<sprite_object>
 sprite_sequence;
 
-static sprite_object const
+sprite_object const
 create_sprite(
 	bvh_box const &_rect,
 	sge::image::color::rgba8 const &_color)
 {
 	return
 		sprite_object(
-			sprite_parameters()
-				.pos(
-					_rect.pos())
-				.color(
-						_color)
-				.size(
-					_rect.size()));
+			sge::sprite::roles::pos{} =
+				_rect.pos(),
+			sge::sprite::roles::color{} =
+				_color,
+			sge::sprite::roles::size{} =
+				_rect.size()
+		);
 }
 
 class bvh_traverser

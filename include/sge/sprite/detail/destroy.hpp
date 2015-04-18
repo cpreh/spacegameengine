@@ -53,7 +53,7 @@ destroy(
 {
 	_this.template get<
 		sge::sprite::roles::connection
-	>()->remove();
+	>().get().remove();
 }
 
 template<

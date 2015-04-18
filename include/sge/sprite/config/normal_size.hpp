@@ -23,16 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/config/normal_size_fwd.hpp>
 #include <sge/sprite/config/size_choice.hpp>
-#include <sge/sprite/roles/size.hpp>
-#include <sge/sprite/types/dim_fwd.hpp>
-#include <majutsu/composite.hpp>
-#include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
+#include <sge/sprite/config/texture_size_option.hpp>
+#include <sge/sprite/detail/primitives/normal_size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -46,27 +43,30 @@ namespace config
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-struct normal_size
+template<
+	sge::sprite::config::texture_size_option TextureSize
+>
+struct normal_size final
 :
 	sge::sprite::config::size_choice
 {
+	typedef
+	std::integral_constant<
+		sge::sprite::config::texture_size_option,
+		TextureSize
+	>
+	texture_option;
+
 	template<
 		typename Choices
 	>
 	struct apply
+	:
+	sge::sprite::detail::primitives::normal_size<
+		Choices,
+		TextureSize
+	>
 	{
-		typedef majutsu::composite<
-			boost::mpl::vector1<
-				majutsu::role<
-					majutsu::simple<
-						sge::sprite::types::dim<
-							typename Choices::type_choices
-						>
-					>,
-					sge::sprite::roles::size
-				>
-			>
-		> type;
 	};
 };
 

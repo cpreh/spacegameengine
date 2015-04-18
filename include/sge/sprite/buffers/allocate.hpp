@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/sprite/count.hpp>
+#include <sge/sprite/buffers/object.hpp>
 #include <sge/sprite/buffers/parameters_fwd.hpp>
 #include <sge/sprite/detail/buffers/allocate.hpp>
 
@@ -35,25 +36,26 @@ namespace buffers
 {
 
 template<
-	typename Choices,
-	typename BuffersObject
+	typename Choices
 >
-void
+inline
+sge::sprite::buffers::object<
+	Choices
+>
 allocate(
 	sge::sprite::buffers::parameters const &_parameters,
 	sge::sprite::count const _num_sprites,
-	BuffersObject &_buffers_object,
 	sge::renderer::resource_flags_field const &_resource_flags
 )
 {
-	sge::sprite::detail::buffers::allocate<
-		Choices
-	>(
-		_parameters,
-		_num_sprites,
-		_buffers_object,
-		_resource_flags
-	);
+	return
+		sge::sprite::detail::buffers::allocate<
+			Choices
+		>(
+			_parameters,
+			_num_sprites,
+			_resource_flags
+		);
 }
 
 }

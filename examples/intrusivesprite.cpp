@@ -44,7 +44,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single.hpp>
 #include <sge/sprite/buffers/with_declaration.hpp>
@@ -54,9 +53,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/intrusive.hpp>
 #include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/pos.hpp>
+#include <sge/sprite/config/pos_option.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
 #include <sge/sprite/config/texture_ownership.hpp>
+#include <sge/sprite/config/texture_size_option.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_rotation.hpp>
@@ -64,6 +66,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/ordered/collection.hpp>
 #include <sge/sprite/intrusive/process/ordered.hpp>
 #include <sge/sprite/process/all.hpp>
+#include <sge/sprite/roles/connection.hpp>
+#include <sge/sprite/roles/pos.hpp>
+#include <sge/sprite/roles/repetition.hpp>
+#include <sge/sprite/roles/rotation.hpp>
+#include <sge/sprite/roles/texture0.hpp>
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object.hpp>
 #include <sge/sprite/state/parameters.hpp>
@@ -217,7 +224,12 @@ try
 				float
 			>
 		>,
-		sge::sprite::config::normal_size,
+		sge::sprite::config::pos<
+			sge::sprite::config::pos_option::pos
+		>,
+		sge::sprite::config::normal_size<
+			sge::sprite::config::texture_size_option::always
+		>,
 		boost::mpl::vector3<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
@@ -244,10 +256,6 @@ try
 	typedef sge::sprite::object<
 		sprite_choices
 	> sprite_object;
-
-	typedef sge::sprite::parameters<
-		sprite_choices
-	> sprite_parameters;
 
 	typedef unsigned order;
 
@@ -279,34 +287,23 @@ try
 	ordered_collection_type ordered_collection;
 
 	sprite_object test(
-		sprite_parameters()
-		.pos(
-			sprite_object::vector::null()
-		)
-		.texture(
+		sge::sprite::roles::pos{} =
+			sprite_object::vector::null(),
+		sge::sprite::roles::texture0{} =
 			sprite_object::texture_type(
 				*tex1
-			)
-		)
-		.texture_size()
-		.rotation(
-			1.5f
-		)
-		.connection(
+			),
+		sge::sprite::roles::rotation{} =
+			1.5f,
+		sge::sprite::roles::connection{} =
 			ordered_collection.connection(
-				static_cast<
-					order
-				>(
-					2u
-				)
-			)
-		)
-		.repetition(
+				2u
+			),
+		sge::sprite::roles::repetition{} =
 			sprite_object::repetition_type(
 				2.f,
 				2.f
 			)
-		)
 	);
 
 	// Test copy construction and assignment
@@ -314,7 +311,8 @@ try
 		test
 	);
 
-	test2 = test;
+	test2 =
+		test;
 
 	test2.pos(
 		sprite_object::vector(
@@ -329,11 +327,7 @@ try
 
 	test2.transfer(
 		ordered_collection.connection(
-			static_cast<
-				order
-			>(
-				1u
-			)
+			1u
 		)
 	);
 
@@ -384,7 +378,8 @@ try
 		);
 
 		// Test sprite destruction
-		test3 = optional_sprite();
+		test3 =
+			optional_sprite();
 	}
 
 	return
@@ -398,7 +393,8 @@ catch(
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
@@ -408,5 +404,6 @@ catch(
 		<< _error.what()
 		<< FCPPT_TEXT('\n');
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }

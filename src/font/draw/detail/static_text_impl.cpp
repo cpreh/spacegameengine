@@ -39,11 +39,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/sampler/scoped_unique_ptr.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single_impl.hpp>
 #include <sge/sprite/buffers/with_declaration_impl.hpp>
 #include <sge/sprite/geometry/update_one.hpp>
+#include <sge/sprite/roles/color.hpp>
+#include <sge/sprite/roles/pos.hpp>
+#include <sge/sprite/roles/texture0.hpp>
 #include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/range_impl.hpp>
 #include <sge/sprite/render/range_with_options.hpp>
@@ -114,23 +116,21 @@ sge::font::draw::detail::static_text_impl::static_text_impl(
 		sge::font::draw::detail::static_text_impl::sprite_state_parameters()
 	),
 	sprite_(
-		sge::font::draw::detail::static_text_impl::sprite_parameters()
-		.pos(
+		sge::sprite::roles::pos{} =
 			this->sprite_pos(
 				_pos
-			)
-		)
-		.size(
-			text_->rect().size()
-		)
-		.any_color(
-			_color
-		)
-		.texture(
+			),
+		sge::sprite::roles::color{} =
+			sge::image::color::any::convert<
+				sge::font::draw::detail::static_text_impl::color_format
+			>(
+				_color
+			),
+		sge::sprite::roles::texture0{} =
+			// FIXME: Don't make a sprite if the text size is 0
 			sge::texture::const_optional_part_ref(
 				*texture_part_
 			)
-		)
 	),
 	sprite_range_(
 		this->make_sprite_range()

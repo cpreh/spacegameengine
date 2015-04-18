@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_ROTATION_CENTER_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_ROTATION_CENTER_HPP_INCLUDED
 
-#include <sge/sprite/center.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/detail/config/has_rotation_center.hpp>
 #include <sge/sprite/roles/rotate_around.hpp>
@@ -65,9 +64,7 @@ rotation_center(
 				sge::sprite::roles::rotate_around
 			>()
 		:
-			sge::sprite::center(
-				_sprite
-			)
+			_sprite.center()
 		;
 }
 
@@ -89,9 +86,7 @@ rotation_center(
 )
 {
 	return
-		sge::sprite::center(
-			_sprite
-		);
+		_sprite.center();
 }
 
 }

@@ -26,11 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/single_fwd.hpp>
-#include <sge/sprite/buffers/slice_fwd.hpp>
+#include <sge/sprite/buffers/slice_decl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/optional_decl.hpp>
 
 
 namespace sge
@@ -49,7 +47,9 @@ class single
 		single
 	);
 public:
-	typedef Choices choices;
+	typedef
+	Choices
+	choices;
 
 	single(
 		sge::sprite::buffers::parameters const &,
@@ -58,9 +58,11 @@ public:
 
 	~single();
 
-	typedef sge::sprite::buffers::slice<
+	typedef
+	sge::sprite::buffers::slice<
 		Choices
-	> slice_type;
+	>
+	slice_type;
 
 	slice_type &
 	allocate(
@@ -76,14 +78,20 @@ private:
 	>
 	buffers_object;
 
+	typedef
+	fcppt::optional<
+		buffers_object
+	>
+	optional_buffers_object;
+
 	sge::sprite::buffers::parameters const parameters_;
 
 	sge::sprite::buffers::option const buffers_option_;
 
-	buffers_object buffers_object_;
+	optional_buffers_object buffers_object_;
 
 	typedef
-	std::unique_ptr<
+	fcppt::optional<
 		slice_type
 	>
 	optional_slice;

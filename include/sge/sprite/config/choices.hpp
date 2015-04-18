@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_CONFIG_CHOICES_HPP_INCLUDED
 
 #include <sge/sprite/config/choices_fwd.hpp>
+#include <sge/sprite/config/is_pos_choice.hpp>
 #include <sge/sprite/config/is_size_choice.hpp>
 #include <sge/sprite/config/is_type_choices.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -38,22 +39,40 @@ namespace config
 
 template<
 	typename TypeChoices,
+	typename PosChoice,
 	typename SizeChoice,
 	typename OptionalElements
 >
 struct choices
 {
-	typedef TypeChoices type_choices;
+	typedef
+	TypeChoices
+	type_choices;
 
-	typedef SizeChoice size_choice;
+	typedef
+	PosChoice
+	pos_choice;
 
-	typedef OptionalElements optional_elements;
+	typedef
+	SizeChoice
+	size_choice;
+
+	typedef
+	OptionalElements
+	optional_elements;
 
 	static_assert(
 		sge::sprite::config::is_type_choices<
 			TypeChoices
 		>::value,
 		"TypeChoices must be a sprite type_choices struct"
+	);
+
+	static_assert(
+		sge::sprite::config::is_pos_choice<
+			PosChoice
+		>::value,
+		"PosChoice must be one of sprite's pos choices"
 	);
 
 	static_assert(

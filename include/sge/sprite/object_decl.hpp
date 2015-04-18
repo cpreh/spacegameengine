@@ -23,19 +23,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/color_fwd.hpp>
 #include <sge/sprite/object_fwd.hpp>
-#include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/texture.hpp>
 #include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/detail/make_class.hpp>
 #include <sge/sprite/detail/object_base.hpp>
 #include <sge/sprite/intrusive/connection_fwd.hpp>
 #include <sge/sprite/roles/connection.hpp>
+#include <sge/sprite/types/center_fwd.hpp>
 #include <sge/sprite/types/depth.hpp>
 #include <sge/sprite/types/dim_fwd.hpp>
 #include <sge/sprite/types/point_size.hpp>
+#include <sge/sprite/types/pos_fwd.hpp>
+#include <sge/sprite/types/pos_or_center.hpp>
 #include <sge/sprite/types/repetition_fwd.hpp>
 #include <sge/sprite/types/rotation.hpp>
 #include <sge/sprite/types/rotation_center_fwd.hpp>
+#include <sge/sprite/types/size_or_texture_size.hpp>
 #include <sge/sprite/types/texture_coordinates_fwd.hpp>
 #include <sge/sprite/types/texture_point_pos_fwd.hpp>
 #include <sge/sprite/types/texture_point_size.hpp>
@@ -49,9 +52,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -65,107 +65,180 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 template<
 	typename Choices
 >
-class object
+class object final
 :
 	public
 		sge::sprite::detail::object_base<
 			Choices
 		>
 {
+public:
 	typedef
 	sge::sprite::detail::make_class<
-		Choices,
-		boost::mpl::vector0<>
+		Choices
 	>
 	element_type;
 
-	typedef typename element_type::memory_type::types flattened_types;
-public:
-	typedef Choices choices;
+	typedef
+	typename
+	element_type::memory_type::types
+	flattened_types;
 
-	typedef typename Choices::type_choices type_choices;
+	typedef
+	Choices
+	choices;
 
-	typedef sge::sprite::types::basic::unit<
+	typedef
+	typename
+	Choices::type_choices
+	type_choices;
+
+	typedef
+	sge::sprite::types::basic::unit<
 		type_choices
-	> unit;
+	>
+	unit;
 
-	typedef sge::sprite::types::basic::float_<
+	typedef
+	sge::sprite::types::basic::float_<
 		type_choices
-	> float_type;
+	>
+	float_type;
 
-	typedef sge::sprite::types::depth<
+	typedef
+	sge::sprite::types::depth<
 		type_choices
-	> depth_type;
+	>
+	depth_type;
 
-	typedef sge::sprite::types::rotation<
+	typedef
+	sge::sprite::types::rotation<
 		type_choices
-	> rotation_type;
+	>
+	rotation_type;
 
-	typedef sge::sprite::types::rotation_center<
+	typedef
+	sge::sprite::types::rotation_center<
 		type_choices
-	> rotation_center_type;
+	>
+	rotation_center_type;
 
-	typedef sge::sprite::types::repetition<
+	typedef
+	sge::sprite::types::repetition<
 		type_choices
-	> repetition_type;
+	>
+	repetition_type;
 
-	typedef sge::sprite::types::texture_coordinates<
+	typedef
+	sge::sprite::types::texture_coordinates<
 		type_choices
-	> texture_coordinates_type;
+	>
+	texture_coordinates_type;
 
-	typedef sge::sprite::types::vector<
+	typedef
+	sge::sprite::types::vector<
 		type_choices
-	> vector;
+	>
+	vector;
 
-	typedef sge::sprite::types::dim<
+	typedef
+	sge::sprite::types::pos<
 		type_choices
-	> dim;
+	>
+	pos_type;
 
-	typedef sge::sprite::types::point_size<
+	typedef
+	sge::sprite::types::center<
 		type_choices
-	> point_size_type;
+	>
+	center_type;
 
-	typedef sge::sprite::types::texture_point_pos<
+	typedef
+	sge::sprite::types::pos_or_center<
 		type_choices
-	> texture_point_pos_type;
+	>
+	pos_or_center_type;
 
-	typedef sge::sprite::types::texture_point_size<
+	typedef
+	sge::sprite::types::dim<
 		type_choices
-	> texture_point_size_type;
+	>
+	dim;
 
-	typedef sge::sprite::color<
+	typedef
+	sge::sprite::types::size_or_texture_size<
+		type_choices
+	>
+	size_or_texture_size_type;
+
+	typedef
+	sge::sprite::types::point_size<
+		type_choices
+	>
+	point_size_type;
+
+	typedef
+	sge::sprite::types::texture_point_pos<
+		type_choices
+	>
+	texture_point_pos_type;
+
+	typedef
+	sge::sprite::types::texture_point_size<
+		type_choices
+	>
+	texture_point_size_type;
+
+	typedef
+	sge::sprite::color<
 		choices
-	> color_type;
+	>
+	color_type;
 
-	typedef sge::sprite::texture<
+	typedef
+	sge::sprite::texture<
 		choices
-	> texture_type;
+	>
+	texture_type;
 
-	typedef sge::sprite::parameters<
+	typedef
+	sge::sprite::intrusive::connection<
 		choices
-	> parameters_type;
+	>
+	connection_type;
 
-	typedef sge::sprite::intrusive::connection<
-		choices
-	> connection_type;
-
+	template<
+		typename... Args
+	>
 	explicit
 	object(
-		element_type const &
-	);
-
-	explicit
-	object(
-		parameters_type const &
+		Args &&...
 	);
 
 	object(
 		object const &
+	);
+
+	object(
+		object &
+	);
+
+	object(
+		object &&
+	);
+
+	object(
+		object const &&
 	);
 
 	object &
 	operator=(
 		object const &
+	);
+
+	object &
+	operator=(
+		object &&
 	);
 
 	~object();
@@ -178,6 +251,9 @@ public:
 
 	vector const
 	pos() const;
+
+	vector const
+	center() const;
 
 	unit
 	w() const;
@@ -259,7 +335,12 @@ public:
 
 	void
 	pos(
-		vector const &
+		vector
+	);
+
+	void
+	center(
+		vector
 	);
 
 	void
@@ -274,7 +355,7 @@ public:
 
 	void
 	size(
-		dim const &
+		dim
 	);
 
 	void
@@ -363,11 +444,6 @@ public:
 			flattened_types,
 			sge::sprite::roles::connection
 		>::type const &
-	);
-
-	void
-	transfer(
-		connection_type &
 	);
 
 	template<

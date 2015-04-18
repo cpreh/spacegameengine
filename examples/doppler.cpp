@@ -67,22 +67,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/center.hpp>
 #include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single.hpp>
 #include <sge/sprite/buffers/with_declaration.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/pos.hpp>
+#include <sge/sprite/config/pos_option.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
 #include <sge/sprite/config/texture_ownership.hpp>
+#include <sge/sprite/config/texture_size_option.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
 #include <sge/sprite/process/one.hpp>
+#include <sge/sprite/roles/pos_or_center.hpp>
+#include <sge/sprite/roles/texture0.hpp>
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object.hpp>
 #include <sge/sprite/state/parameters.hpp>
@@ -287,7 +290,12 @@ try
 				float
 			>
 		>,
-		sge::sprite::config::normal_size,
+		sge::sprite::config::pos<
+			sge::sprite::config::pos_option::pos_or_center
+		>,
+		sge::sprite::config::normal_size<
+			sge::sprite::config::texture_size_option::always
+		>,
 		boost::mpl::vector1<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
@@ -308,10 +316,6 @@ try
 			sprite_choices
 		>
 	> sprite_buffers;
-
-	typedef sge::sprite::parameters<
-		sprite_choices
-	> sprite_parameters;
 
 	typedef sge::sprite::state::all_choices sprite_state_choices;
 
@@ -334,31 +338,29 @@ try
 	);
 
 	sprite_object background(
-		sprite_parameters()
-		.texture(
+		sge::sprite::roles::texture0{} =
 			sprite_object::texture_type(
 				*tex_bg
+			),
+		sge::sprite::roles::pos_or_center{} =
+			sprite_object::pos_or_center_type(
+				sprite_object::pos_type(
+					sprite_object::vector::null()
+				)
 			)
-		)
-		.pos(
-			sprite_object::vector::null()
-		)
-		.texture_size()
 	);
 
 	sprite_object tux(
-		sprite_parameters()
-		.center(
-			sge::sprite::center(
-				background
-			)
-		)
-		.texture(
+		sge::sprite::roles::pos_or_center{} =
+			sprite_object::pos_or_center_type(
+				sprite_object::center_type(
+					background.center()
+				)
+			),
+		sge::sprite::roles::texture0{} =
 			sprite_object::texture_type(
 				*tex_tux
 			)
-		)
-		.texture_size()
 	);
 
 	sge::audio::file_unique_ptr const af_siren(
@@ -428,13 +430,11 @@ try
 					)
 				);
 
-				sge::sprite::center(
-					tux,
+				tux.center(
 					center
 				);
 
-				sge::sprite::center(
-					background,
+				background.center(
 					center
 				);
 			}

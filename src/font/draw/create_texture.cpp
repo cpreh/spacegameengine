@@ -67,6 +67,7 @@ sge::font::draw::create_texture(
 		==
 		0u
 	)
+		// FIXME: This is wrong!
 		return
 			sge::texture::part_unique_ptr();
 

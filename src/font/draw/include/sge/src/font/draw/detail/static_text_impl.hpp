@@ -39,15 +39,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <sge/sprite/object_decl.hpp>
-#include <sge/sprite/parameters_fwd.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/pos.hpp>
+#include <sge/sprite/config/pos_option.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
 #include <sge/sprite/config/texture_ownership.hpp>
+#include <sge/sprite/config/texture_size_option.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_color.hpp>
@@ -130,9 +132,12 @@ private:
 
 	sge::texture::part_unique_ptr const texture_part_;
 
-	typedef sge::image::color::rgba8_format color_format;
+	typedef
+	sge::image::color::rgba8_format
+	color_format;
 
-	typedef sge::sprite::config::choices<
+	typedef
+	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
 				sge::font::unit
@@ -141,7 +146,12 @@ private:
 				float
 			>
 		>,
-		sge::sprite::config::normal_size,
+		sge::sprite::config::pos<
+			sge::sprite::config::pos_option::pos
+		>,
+		sge::sprite::config::normal_size<
+			sge::sprite::config::texture_size_option::always
+		>,
 		boost::mpl::vector2<
 			sge::sprite::config::with_color<
 				sge::font::draw::detail::static_text_impl::color_format
@@ -154,51 +164,64 @@ private:
 				sge::sprite::config::texture_ownership::reference
 			>
 		>
-	> sprite_choices;
+	>
+	sprite_choices;
 
-	typedef sge::sprite::object<
+	typedef
+	sge::sprite::object<
 		sprite_choices
-	> sprite_object;
+	>
+	sprite_object;
 
-	typedef sge::sprite::buffers::with_declaration<
+	typedef
+	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
-	> sprite_buffers;
+	>
+	sprite_buffers;
 
-	typedef sge::sprite::state::all_choices sprite_state_choices;
+	typedef
+	sge::sprite::state::all_choices
+	sprite_state_choices;
 
-	typedef sge::sprite::state::object<
+	typedef
+	sge::sprite::state::object<
 		sprite_state_choices
-	> sprite_state;
+	>
+	sprite_state;
 
-	typedef sge::sprite::state::parameters<
+	typedef
+	sge::sprite::state::parameters<
 		sprite_state_choices
-	> sprite_state_parameters;
+	>
+	sprite_state_parameters;
 
-	typedef sge::sprite::state::options<
+	typedef
+	sge::sprite::state::options<
 		sprite_state_choices
-	> sprite_state_options;
+	>
+	sprite_state_options;
 
-	typedef sge::sprite::render::range<
+	typedef
+	sge::sprite::render::range<
 		sprite_choices
-	> sprite_range;
+	>
+	sprite_range;
 
 	sge::font::draw::detail::static_text_impl::sprite_range const
 	make_sprite_range();
 
-	typedef sge::sprite::types::vector<
+	typedef
+	sge::sprite::types::vector<
 		sprite_choices::type_choices
-	> sprite_pos_type;
+	>
+	sprite_pos_type;
 
 	sge::font::draw::detail::static_text_impl::sprite_pos_type const
 	sprite_pos(
 		sge::font::vector const &
 	) const;
-
-	typedef sge::sprite::parameters<
-		sprite_choices
-	> sprite_parameters;
 
 	sprite_buffers sprite_buffers_;
 

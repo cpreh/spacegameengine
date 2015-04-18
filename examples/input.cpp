@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/gfx/object.hpp>
 #include <sge/console/gfx/output_line_limit.hpp>
 #include <sge/console/gfx/sprite_object.hpp>
-#include <sge/console/gfx/sprite_parameters.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/object_unique_ptr.hpp>
@@ -105,6 +104,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <sge/sprite/roles/pos_or_center.hpp>
+#include <sge/sprite/roles/size_or_texture_size.hpp>
+#include <sge/sprite/roles/texture0.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
@@ -446,13 +448,18 @@ try
 		*font,
 		sys.keyboard_collector(),
 		sge::console::gfx::sprite_object(
-			sge::console::gfx::sprite_parameters()
-			.pos(
-				sge::console::gfx::sprite_object::vector::null()
-			)
-			.size(
-				sge::console::gfx::sprite_object::dim::null()
-			)
+			sge::sprite::roles::pos_or_center{} =
+				sge::console::gfx::sprite_object::pos_or_center_type(
+					sge::console::gfx::sprite_object::pos_type(
+						sge::console::gfx::sprite_object::vector::null()
+					)
+				),
+			sge::sprite::roles::size_or_texture_size{} =
+				sge::console::gfx::sprite_object::size_or_texture_size_type(
+					sge::console::gfx::sprite_object::dim::null()
+				),
+			sge::sprite::roles::texture0{} =
+				sge::console::gfx::sprite_object::texture_type{}
 		),
 		sge::console::gfx::output_line_limit(
 			200u

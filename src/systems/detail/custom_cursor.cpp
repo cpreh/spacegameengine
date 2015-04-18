@@ -26,11 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/parameters_impl.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single_impl.hpp>
 #include <sge/sprite/buffers/with_declaration_impl.hpp>
 #include <sge/sprite/process/one.hpp>
+#include <sge/sprite/roles/pos.hpp>
+#include <sge/sprite/roles/texture0.hpp>
 #include <sge/sprite/state/object_impl.hpp>
 #include <sge/sprite/state/parameters_impl.hpp>
 #include <sge/src/systems/detail/custom_cursor.hpp>
@@ -128,23 +129,22 @@ sge::systems::detail::custom_cursor::hotspot() const
 
 sge::systems::detail::custom_cursor::optional_sprite
 sge::systems::detail::custom_cursor::make_sprite(
-	sge::input::cursor::optional_position const _pos
+	sge::input::cursor::optional_position const _opt_pos
 ) const
 {
 	return
 		fcppt::optional_bind_construct(
-			_pos,
+			_opt_pos,
 			[
 				this
 			](
-				sge::input::cursor::position const &_npos
+				sge::input::cursor::position const _pos
 			)
 			{
 				return
 					sprite_object{
-						sprite_parameters{}
-						.pos(
-							_npos
+						sge::sprite::roles::pos{} =
+							_pos
 							-
 							fcppt::math::vector::structure_cast<
 								sge::input::cursor::position,
@@ -153,14 +153,11 @@ sge::systems::detail::custom_cursor::make_sprite(
 								fcppt::math::vector::to_signed(
 									hotspot_.get()
 								)
-							)
-						)
-						.texture(
+							),
+						sge::sprite::roles::texture0{} =
 							sge::texture::const_optional_part_ref{
 								texture_
 							}
-						)
-						.texture_size()
 					};
 			}
 		);

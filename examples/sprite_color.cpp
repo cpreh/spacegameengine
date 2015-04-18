@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
+#include <sge/image/color/any/convert.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
@@ -36,20 +37,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
-#include <sge/sprite/default_parameters.hpp>
 #include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
 #include <sge/sprite/buffers/multi.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/with_declaration.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/pos.hpp>
+#include <sge/sprite/config/pos_option.hpp>
+#include <sge/sprite/config/texture_size_option.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_color.hpp>
-#include <sge/sprite/defaults/defaults.hpp>
 #include <sge/sprite/process/one.hpp>
+#include <sge/sprite/roles/color.hpp>
+#include <sge/sprite/roles/pos.hpp>
+#include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object.hpp>
 #include <sge/sprite/state/parameters.hpp>
@@ -153,6 +157,10 @@ try
 		)
 	);
 
+	typedef
+	sge::image::color::rgba8_format
+	color_format;
+
 	typedef sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
@@ -162,10 +170,15 @@ try
 				float
 			>
 		>,
-		sge::sprite::config::normal_size,
+		sge::sprite::config::pos<
+			sge::sprite::config::pos_option::pos
+		>,
+		sge::sprite::config::normal_size<
+			sge::sprite::config::texture_size_option::never
+		>,
 		boost::mpl::vector1<
 			sge::sprite::config::with_color<
-				sge::image::color::rgba8_format
+				color_format
 			>
 		>
 	> sprite_choices;
@@ -196,34 +209,26 @@ try
 		sprite_state_parameters()
 	);
 
-	/*
-	typedef sge::sprite::parameters<
-		sprite_choices
-	> sprite_parameters;*/
-
 	sprite_buffers_type sprite_buffers(
 		sys.renderer_device_ffp(),
 		sge::sprite::buffers::option::dynamic
 	);
 
 	sprite_object const spr(
-		sge::sprite::default_parameters<
-			sprite_choices
-		>()
-		//sprite_parameters()
-		/*.pos(
-			sprite_object::point::null()
-		)*/
-		.size(
+		sge::sprite::roles::pos{} =
+			sprite_object::vector::null(),
+		sge::sprite::roles::size{} =
 			fcppt::math::dim::fill<
 				sprite_object::dim
 			>(
 				128
+			),
+		sge::sprite::roles::color{} =
+			sge::image::color::any::convert<
+				color_format
+			>(
+				sge::image::color::predef::red()
 			)
-		)
-		.any_color(
-			sge::image::color::predef::red()
-		)
 	);
 
 	fcppt::signal::scoped_connection const escape_connection(

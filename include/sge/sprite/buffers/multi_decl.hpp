@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/multi_fwd.hpp>
-#include <sge/sprite/buffers/object.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/slice_fwd.hpp>
@@ -59,9 +58,11 @@ public:
 
 	~multi();
 
-	typedef sge::sprite::buffers::slice<
+	typedef
+	sge::sprite::buffers::slice<
 		Choices
-	> slice_type;
+	>
+	slice_type;
 
 	slice_type &
 	allocate(
@@ -71,27 +72,21 @@ public:
 	sge::sprite::buffers::parameters const &
 	parameters() const;
 private:
-	typedef
-	sge::sprite::buffers::object<
-		Choices
-	>
-	buffer_object;
-
 	sge::sprite::buffers::parameters const parameters_;
 
 	sge::sprite::buffers::option const buffers_option_;
 
-	typedef std::vector<
-		buffer_object
-	> buffer_object_vector;
+	typedef
+	std::unique_ptr<
+		slice_type
+	>
+	slice_unique_ptr;
 
-	typedef std::vector<
-		std::unique_ptr<
-			slice_type
-		>
-	> slice_vector;
-
-	buffer_object_vector buffer_objects_;
+	typedef
+	std::vector<
+		slice_unique_ptr
+	>
+	slice_vector;
 
 	slice_vector slices_;
 };

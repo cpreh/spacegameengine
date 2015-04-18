@@ -15,8 +15,6 @@ set(
 	include/sge/console/gfx/sprite_elements_fwd.hpp
 	include/sge/console/gfx/sprite_object.hpp
 	include/sge/console/gfx/sprite_object_fwd.hpp
-	include/sge/console/gfx/sprite_parameters.hpp
-	include/sge/console/gfx/sprite_parameters_fwd.hpp
 	include/sge/console/gfx/sprite_type_choices.hpp
 	include/sge/console/gfx/sprite_type_choices_fwd.hpp
 	src/console/gfx/cursor.cpp
@@ -40,6 +38,7 @@ add_sge_base_library(
 		sgeinput
 		sgerenderer
 		sgesprite
+		sgetexture
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 	TRANSITIVE_INCLUDE_DIRS

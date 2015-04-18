@@ -48,23 +48,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/sprite/default_parameters.hpp>
 #include <sge/sprite/object.hpp>
-#include <sge/sprite/parameters.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single.hpp>
 #include <sge/sprite/buffers/with_declaration.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
+#include <sge/sprite/config/pos.hpp>
+#include <sge/sprite/config/pos_option.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/config/texture_level_count.hpp>
 #include <sge/sprite/config/texture_ownership.hpp>
+#include <sge/sprite/config/texture_size_option.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
-#include <sge/sprite/defaults/defaults.hpp>
 #include <sge/sprite/process/one.hpp>
+#include <sge/sprite/roles/pos.hpp>
+#include <sge/sprite/roles/texture0.hpp>
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object.hpp>
 #include <sge/sprite/state/parameters.hpp>
@@ -260,7 +262,12 @@ try
 				float
 			>
 		>,
-		sge::sprite::config::normal_size,
+		sge::sprite::config::pos<
+			sge::sprite::config::pos_option::pos
+		>,
+		sge::sprite::config::normal_size<
+			sge::sprite::config::texture_size_option::always
+		>,
 		boost::mpl::vector1<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
@@ -323,11 +330,9 @@ try
 	);
 
 	sprite_object const spr(
-		sge::sprite::default_parameters<
-			sprite_choices
-		>()
-		.texture_size()
-		.texture(
+		sge::sprite::roles::pos{} =
+			sprite_object::vector::null(),
+		sge::sprite::roles::texture0{} =
 			sprite_object::texture_type{
 				fcppt::make_shared_ptr<
 					sge::texture::part_raw_ref
@@ -335,7 +340,6 @@ try
 					*noise_texture
 				)
 			}
-		)
 	);
 
 	while(
@@ -362,7 +366,8 @@ try
 		);
 	}
 
-	return sys.window_system().exit_code();
+	return
+		sys.window_system().exit_code();
 }
 catch(fcppt::exception const &e)
 {
