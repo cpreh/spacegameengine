@@ -127,7 +127,6 @@ sge::font::draw::detail::static_text_impl::static_text_impl(
 				_color
 			),
 		sge::sprite::roles::texture0{} =
-			// FIXME: Don't make a sprite if the text size is 0
 			sge::texture::const_optional_part_ref(
 				*texture_part_
 			)

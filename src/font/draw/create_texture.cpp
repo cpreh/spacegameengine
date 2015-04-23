@@ -51,31 +51,18 @@ sge::font::draw::create_texture(
 	sge::renderer::texture::emulate_srgb const _emulate_srgb
 )
 {
-	sge::renderer::dim2 const new_size(
-		fcppt::math::dim::structure_cast<
-			sge::renderer::dim2,
-			fcppt::cast::size_fun
-		>(
-			fcppt::math::dim::to_unsigned(
-				_text.rect().size()
-			)
-		)
-	);
-
-	if(
-		new_size.content()
-		==
-		0u
-	)
-		// FIXME: This is wrong!
-		return
-			sge::texture::part_unique_ptr();
-
 	sge::texture::part_unique_ptr result(
 		sge::texture::wrap_npot(
 			_renderer,
 			sge::renderer::texture::planar_parameters(
-				new_size,
+				fcppt::math::dim::structure_cast<
+					sge::renderer::dim2,
+					fcppt::cast::size_fun
+				>(
+					fcppt::math::dim::to_unsigned(
+						_text.rect().size()
+					)
+				),
 				sge::renderer::texture::color_format(
 					_color_format,
 					_emulate_srgb
