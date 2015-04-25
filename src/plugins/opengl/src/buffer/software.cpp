@@ -30,11 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/raw_value.hpp>
 #include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/container/find_opt.hpp>
 #include <fcppt/container/find_opt_iterator.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
-#include <cstddef>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -174,17 +174,11 @@ sge::opengl::buffer::software::buffer_data(
 
 	delete[] buffer;
 
-	std::size_t const alloc_size(
-		static_cast<
-			std::size_t
-		>(
-			_size
-		)
-	);
-
 	buffer =
 		new sge::renderer::raw_value[
-			alloc_size
+			fcppt::cast::to_unsigned(
+				_size
+			)
 		];
 
 	if(

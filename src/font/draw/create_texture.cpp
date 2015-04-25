@@ -74,6 +74,11 @@ sge::font::draw::create_texture(
 		)
 	);
 
+	if(
+		result->size().content()
+		!=
+		0u
+	)
 	{
 		sge::renderer::texture::scoped_planar_lock const lock(
 			result->texture(),
