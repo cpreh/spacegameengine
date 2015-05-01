@@ -49,7 +49,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/with_declaration.hpp>
 #include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/config/choices.hpp>
-#include <sge/sprite/config/custom_center.hpp>
 #include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/intrusive.hpp>
 #include <sge/sprite/config/normal_size.hpp>
@@ -238,11 +237,7 @@ try
 				sge::sprite::config::texture_coordinates::repetition,
 				sge::sprite::config::texture_ownership::reference
 			>,
-			sge::sprite::config::with_rotation<
-				sge::sprite::config::custom_center<
-					false
-				>
-			>,
+			sge::sprite::config::with_rotation,
 			sge::sprite::config::intrusive
 		>
 	> sprite_choices;

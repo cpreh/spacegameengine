@@ -21,12 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_CONFIG_WITH_ROTATION_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_WITH_ROTATION_HPP_INCLUDED
 
-#include <sge/sprite/config/custom_center_fwd.hpp>
 #include <sge/sprite/config/with_rotation_fwd.hpp>
-#include <sge/sprite/detail/primitives/rotation.hpp>
+#include <sge/sprite/roles/rotation.hpp>
+#include <sge/sprite/types/rotation.hpp>
+#include <majutsu/composite.hpp>
+#include <majutsu/role.hpp>
+#include <majutsu/simple.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
+
+
 
 
 namespace sge
@@ -36,33 +41,27 @@ namespace sprite
 namespace config
 {
 
-template<
-	bool CustomCenter
->
-struct with_rotation<
-	sge::sprite::config::custom_center<
-		CustomCenter
-	>
->
+struct with_rotation
 {
-	typedef
-	typename
-	sge::sprite::config::custom_center<
-		CustomCenter
-	>::type
-	custom_center;
-
 	template<
 		typename Choices
 	>
 	struct apply
 	{
 		typedef
-		typename
-		sge::sprite::detail::primitives::rotation<
-			Choices,
-			CustomCenter
-		>::type
+		majutsu::composite<
+			boost::mpl::vector1<
+				majutsu::role<
+					majutsu::simple<
+						sge::sprite::types::rotation<
+							typename
+							Choices::type_choices
+						>
+					>,
+					sge::sprite::roles::rotation
+				>
+			>
+		>
 		type;
 	};
 };

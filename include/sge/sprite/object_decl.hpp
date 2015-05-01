@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/pos_or_center.hpp>
 #include <sge/sprite/types/repetition_fwd.hpp>
 #include <sge/sprite/types/rotation.hpp>
-#include <sge/sprite/types/rotation_center_fwd.hpp>
 #include <sge/sprite/types/size_or_texture_size.hpp>
 #include <sge/sprite/types/texture_coordinates_fwd.hpp>
 #include <sge/sprite/types/texture_point_pos_fwd.hpp>
@@ -116,12 +115,6 @@ public:
 		type_choices
 	>
 	rotation_type;
-
-	typedef
-	sge::sprite::types::rotation_center<
-		type_choices
-	>
-	rotation_center_type;
 
 	typedef
 	sge::sprite::types::repetition<
@@ -291,9 +284,6 @@ public:
 	rotation_type
 	rotation() const;
 
-	rotation_center_type const
-	rotation_center() const;
-
 	repetition_type
 	repetition() const;
 
@@ -406,14 +396,6 @@ public:
 	rotation(
 		rotation_type
 	);
-
-	void
-	rotate_around(
-		rotation_center_type const &
-	);
-
-	void
-	reset_rotation();
 
 	void
 	repeat(

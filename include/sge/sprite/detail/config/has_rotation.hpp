@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_CONFIG_HAS_ROTATION_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_CONFIG_HAS_ROTATION_HPP_INCLUDED
 
-#include <sge/sprite/config/is_with_rotation.hpp>
-#include <sge/sprite/detail/config/contains_if.hpp>
+#include <sge/sprite/config/with_rotation_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/contains.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -40,9 +42,9 @@ template<
 using has_rotation
 =
 typename
-sge::sprite::detail::config::contains_if<
+boost::mpl::contains<
 	typename Choices::optional_elements,
-	sge::sprite::config::is_with_rotation
+	sge::sprite::config::with_rotation
 >::type;
 
 }

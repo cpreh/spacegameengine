@@ -77,7 +77,7 @@ fill_position_rotated(
 			pos2,
 			fcppt::cast::static_cast_fun
 		>(
-			_sprite.rotation_center()
+			_sprite.center()
 		)
 	);
 
@@ -158,7 +158,9 @@ fill_position_rotated(
 	>::type vertex_pos;
 
 	for(
-		auto const &cur_pos : positions
+		auto const &cur_pos
+		:
+		positions
 	)
 		(*_iterator++). template set<
 			vertex_pos

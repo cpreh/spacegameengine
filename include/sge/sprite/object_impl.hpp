@@ -34,20 +34,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/set_center.hpp>
 #include <sge/sprite/detail/set_pos.hpp>
 #include <sge/sprite/detail/set_size.hpp>
-#include <sge/sprite/detail/rotation_center.hpp>
 #include <sge/sprite/detail/unlink.hpp>
 #include <sge/sprite/roles/color.hpp>
 #include <sge/sprite/roles/connection.hpp>
 #include <sge/sprite/roles/depth.hpp>
 #include <sge/sprite/roles/point_size.hpp>
 #include <sge/sprite/roles/repetition.hpp>
-#include <sge/sprite/roles/rotate_around.hpp>
 #include <sge/sprite/roles/rotation.hpp>
 #include <sge/sprite/roles/texture.hpp>
 #include <sge/sprite/roles/texture_coordinates.hpp>
 #include <sge/sprite/roles/texture_point_pos.hpp>
 #include <sge/sprite/roles/texture_point_size.hpp>
-#include <sge/sprite/roles/use_rotation.hpp>
 #include <sge/sprite/types/center.hpp>
 #include <sge/sprite/types/pos.hpp>
 #include <sge/sprite/types/basic/dim_impl.hpp>
@@ -478,22 +475,6 @@ template<
 >
 typename sge::sprite::object<
 	Choices
->::rotation_center_type const
-sge::sprite::object<
-	Choices
->::rotation_center() const
-{
-	return
-		sge::sprite::detail::rotation_center(
-			*this
-		);
-}
-
-template<
-	typename Choices
->
-typename sge::sprite::object<
-	Choices
 >::repetition_type
 sge::sprite::object<
 	Choices
@@ -890,44 +871,6 @@ sge::sprite::object<
 		sge::sprite::roles::rotation
 	>(
 		_rotation
-	);
-}
-
-template<
-	typename Choices
->
-void
-sge::sprite::object<
-	Choices
->::rotate_around(
-	rotation_center_type const &_rotate_around
-)
-{
-	this->set<
-		sge::sprite::roles::rotate_around
-	>(
-		_rotate_around
-	);
-
-	this->set<
-		sge::sprite::roles::use_rotation
-	>(
-		true
-	);
-}
-
-template<
-	typename Choices
->
-void
-sge::sprite::object<
-	Choices
->::reset_rotation()
-{
-	this->set<
-		sge::sprite::roles::use_rotation
-	>(
-		false
 	);
 }
 
