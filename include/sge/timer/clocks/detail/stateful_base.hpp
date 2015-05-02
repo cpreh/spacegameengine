@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIMER_CLOCKS_DETAIL_STATEFUL_BASE_HPP_INCLUDED
 #define SGE_TIMER_CLOCKS_DETAIL_STATEFUL_BASE_HPP_INCLUDED
 
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 
 
 namespace sge
@@ -38,9 +38,6 @@ template<
 >
 class stateful_base
 {
-	FCPPT_NONASSIGNABLE(
-		stateful_base
-	);
 public:
 	explicit
 	stateful_base(
@@ -57,10 +54,12 @@ public:
 	clock_base() const
 	{
 		return
-			clock_;
+			clock_.get();
 	}
 private:
-	Clock const &clock_;
+	fcppt::reference_wrapper<
+		Clock const
+	> clock_;
 };
 
 }

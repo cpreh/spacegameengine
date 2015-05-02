@@ -80,6 +80,15 @@ public:
 		parameters const &
 	);
 
+	basic(
+		basic &&
+	);
+
+	basic &
+	operator=(
+		basic &&
+	);
+
 	~basic();
 
 	bool

@@ -67,6 +67,29 @@ template<
 >
 sge::timer::basic<
 	Clock
+>::basic(
+	basic &&
+)
+= default;
+
+template<
+	typename Clock
+>
+sge::timer::basic<
+	Clock
+> &
+sge::timer::basic<
+	Clock
+>::operator=(
+	basic &&
+)
+= default;
+
+template<
+	typename Clock
+>
+sge::timer::basic<
+	Clock
 >::~basic()
 {
 }
