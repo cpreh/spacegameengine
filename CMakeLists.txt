@@ -30,17 +30,6 @@ include(
 	SGEFunctions
 )
 
-# Put libraries and exe files in the same directory
-# because Windows lacks 'rpath'
-if(
-	MSVC
-)
-	set(
-		LIBRARY_OUTPUT_PATH
-		${EXECUTABLE_OUTPUT_PATH}
-	)
-endif()
-
 fcppt_utils_static_shared()
 
 include_directories(

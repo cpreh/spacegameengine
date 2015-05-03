@@ -2,6 +2,12 @@ include(
 	CMakeParseArguments
 )
 
+# configure some resource paths
+set(
+	SGE_PLUGIN_BUILD_PATH
+	"${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/plugins"
+)
+
 macro(
 	transform_sge_link_targets
 	SGELIBS
@@ -630,6 +636,13 @@ function(
 		${SGE_PLUGIN_NAME}
 		PRIVATE
 		${_COMPILE_DEFINITIONS}
+	)
+
+	set_target_properties(
+		${SGE_PLUGIN_NAME}
+		PROPERTIES
+		LIBRARY_OUTPUT_DIRECTORY
+		${SGE_PLUGIN_BUILD_PATH}
 	)
 
 	target_link_libraries(

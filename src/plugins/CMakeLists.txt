@@ -1,8 +1,3 @@
-set(
-	LIBRARY_OUTPUT_PATH
-	${SGE_PLUGIN_BUILD_PATH}
-)
-
 find_package(D3D9)
 find_package(DInput)
 find_package(EVDEV)

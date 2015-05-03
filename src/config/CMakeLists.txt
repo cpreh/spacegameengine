@@ -2,6 +2,21 @@ include(
 	SGECustomPath
 )
 
+set(
+	SGE_PLUGIN_INSTALL_PATH
+	"${PLUGIN_INSTALL_DIR}"
+)
+
+set(
+	SGE_MEDIA_BUILD_PATH
+	"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/media"
+)
+
+set(
+	SGE_MEDIA_INSTALL_PATH
+	"${MEDIA_INSTALL_DIR}"
+)
+
 sge_config_add_custom_path(
 	sge
 	media

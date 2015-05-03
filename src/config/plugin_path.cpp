@@ -31,8 +31,7 @@ sge::config::plugin_path()
 {
 	return
 		sge::build_plugin_path()
-// VC++ puts the binaries inside ${LIBRARY_OUTPUT_PATH}/Release or Debug
-#if defined(SGE_CONFIG_LOCAL_BUILD) && defined(_MSC_VER)
+#if defined(SGE_CONFIG_LOCAL_BUILD) && defined(CMAKE_INTDIR)
 		/
 		fcppt::from_std_string(
 			CMAKE_INTDIR
