@@ -158,6 +158,7 @@ set(
 add_sge_base_library(
 	camera
 	SGE_DEPS
+		sgecore
 		sgeinput
 		sgelog
 		sgeparsejson

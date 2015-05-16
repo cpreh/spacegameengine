@@ -41,12 +41,16 @@ sge::libpng::color_type_from_format(
 			PNG_COLOR_TYPE_GRAY_ALPHA;
 	case sge::libpng::format::rgba8:
 	case sge::libpng::format::bgra8:
+	case sge::libpng::format::srgba8:
+	case sge::libpng::format::sbgra8:
 		return
 			PNG_COLOR_TYPE_RGB_ALPHA;
 	case sge::libpng::format::rgb8:
 	case sge::libpng::format::rgbx8:
 	case sge::libpng::format::bgrx8:
 	case sge::libpng::format::bgr8:
+	case sge::libpng::format::srgb8:
+	case sge::libpng::format::sbgr8:
 		return
 			PNG_COLOR_TYPE_RGB;
 	}

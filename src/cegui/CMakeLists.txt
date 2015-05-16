@@ -126,6 +126,7 @@ add_sge_base_library(
 	cegui
 	SGE_DEPS
 		sgecharconv
+		sgecore
 		sgeimagecolor
 		sgeimage2d
 		sgeinput

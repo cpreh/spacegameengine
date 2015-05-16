@@ -36,16 +36,19 @@ sge::image::color::element_count(
 	case sge::image::color::format::a8:
 	case sge::image::color::format::l8:
 	case sge::image::color::format::r32f:
-		return 1;
+		return
+			1;
 	case sge::image::color::format::la8:
-		return 2;
+		return
+			2;
 	case sge::image::color::format::rgb8:
 	case sge::image::color::format::bgr8:
 	case sge::image::color::format::rgb32f:
 	case sge::image::color::format::bgr32f:
 	case sge::image::color::format::srgb8:
 	case sge::image::color::format::sbgr8:
-		return 3;
+		return
+			3;
 	case sge::image::color::format::rgba8:
 	case sge::image::color::format::rgbx8:
 	case sge::image::color::format::bgra8:
@@ -54,7 +57,8 @@ sge::image::color::element_count(
 	case sge::image::color::format::bgra32f:
 	case sge::image::color::format::srgba8:
 	case sge::image::color::format::sbgra8:
-		return 4;
+		return
+			4;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;
