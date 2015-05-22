@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstring>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -70,7 +69,5 @@ sge::renderer::vertex::create_buffer_from_view(
 	);
 
 	return
-		std::move(
-			buffer
-		);
+		buffer;
 }

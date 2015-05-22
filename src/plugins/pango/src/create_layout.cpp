@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
 #include <pango/pango-types.h>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -103,7 +102,5 @@ sge::pango::create_layout(
 	);
 
 	return
-		std::move(
-			result
-		);
+		result;
 }

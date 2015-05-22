@@ -53,9 +53,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/narrow_cast.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace
@@ -487,6 +484,5 @@ sge::scenic::scene::from_blender_file(
 				FCPPT_TEXT("lights"))));
 
 	return
-		std::move(
-			result);
+		result;
 }

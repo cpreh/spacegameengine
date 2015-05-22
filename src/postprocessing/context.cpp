@@ -72,7 +72,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -441,7 +440,6 @@ sge::postprocessing::context::finalize()
 		result->get());
 
 	return
-		std::move(
-			result);
+		result;
 }
 

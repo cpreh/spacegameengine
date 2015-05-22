@@ -179,7 +179,5 @@ sge::font::bitmap::load_one_file(
 	}
 
 	return
-		std::move(
-			return_file
-		);
+		return_file;
 }

@@ -336,9 +336,7 @@ sge::opengl::fbo::target::create_texture_binding(
 	this->check();
 
 	return
-		std::move(
-			ret
-		);
+		ret;
 }
 
 sge::opengl::fbo::attachment_unique_ptr
@@ -360,9 +358,7 @@ sge::opengl::fbo::target::create_buffer_binding(
 	this->check();
 
 	return
-		std::move(
-			ret
-		);
+		ret;
 }
 
 void

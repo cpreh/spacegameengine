@@ -148,9 +148,7 @@ sge::media::detail::muxer<
 					);
 
 				return
-					std::move(
-						result
-					);
+					result;
 			}
 		)
 	),
@@ -271,9 +269,7 @@ sge::media::detail::muxer<
 			result.has_value()
 		)
 			return
-				std::move(
-					result
-				);
+				result;
 	}
 
 	return

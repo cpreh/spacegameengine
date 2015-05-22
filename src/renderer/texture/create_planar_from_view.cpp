@@ -37,9 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::texture::planar_unique_ptr
@@ -83,7 +80,5 @@ sge::renderer::texture::create_planar_from_view(
 	);
 
 	return
-		std::move(
-			tex
-		);
+		tex;
 }

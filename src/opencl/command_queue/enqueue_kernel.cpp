@@ -39,7 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <cstddef>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -188,8 +187,7 @@ enqueue_kernel_internal(
 		FCPPT_TEXT("clEnqueueNDRangeKernel(work)"));
 
 	return
-		std::move(
-			result);
+		result;
 }
 
 template<typename GlobalDim,typename LocalDim>

@@ -35,9 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/to_signed_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::target::offscreen_unique_ptr
@@ -95,7 +92,5 @@ sge::renderer::target::from_texture(
 	);
 
 	return
-		std::move(
-			target
-		);
+		target;
 }

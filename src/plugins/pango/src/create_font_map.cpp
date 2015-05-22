@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pangoft2.h>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -60,7 +59,5 @@ sge::pango::create_font_map(
 	);
 
 	return
-		std::move(
-			result
-		);
+		result;
 }

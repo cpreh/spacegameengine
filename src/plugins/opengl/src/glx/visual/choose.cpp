@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -59,7 +58,5 @@ sge::opengl::glx::visual::choose(
 		);
 
 	return
-		std::move(
-			info
-		);
+		info;
 }

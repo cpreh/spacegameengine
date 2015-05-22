@@ -26,9 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::texture::part_unique_ptr
@@ -51,7 +48,5 @@ sge::texture::consume_and_set_fragment(
 	);
 
 	return
-		std::move(
-			ret
-		);
+		ret;
 }

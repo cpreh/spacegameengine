@@ -88,9 +88,7 @@ sge::texture::manager::add(
 				);
 
 			return
-				std::move(
-					part
-				);
+				part;
 		}
 	);
 
@@ -110,9 +108,7 @@ sge::texture::manager::add(
 				)
 		)
 			return
-				std::move(
-					current_part
-				);
+				current_part;
 
 	sge::texture::fragmented &new_tex(
 		*textures_.insert(
@@ -141,9 +137,7 @@ sge::texture::manager::add(
 		);
 
 	return
-		std::move(
-			new_part
-		);
+		new_part;
 }
 
 void
@@ -158,6 +152,7 @@ sge::texture::manager::on_alloc(
 void
 sge::texture::manager::free_empty_textures()
 {
+	// TODO: Use map_iteration
 	for(
 		sge::texture::manager::fragmented_map::iterator it(
 			textures_.begin()
