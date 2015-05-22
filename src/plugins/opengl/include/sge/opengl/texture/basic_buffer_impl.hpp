@@ -54,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/maybe.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/box/comparison.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/object_impl.hpp>

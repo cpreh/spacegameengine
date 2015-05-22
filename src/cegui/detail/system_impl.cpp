@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/math/box/comparison.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -282,7 +283,9 @@ sge::cegui::detail::system_impl::viewport_change(
 			_viewport
 		)
 		||
-		old_viewport_ == _viewport
+		old_viewport_
+		==
+		_viewport
 	)
 		return;
 
