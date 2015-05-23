@@ -26,12 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/detail/element_decl.hpp>
 #include <sge/resource_tree/detail/path_with_resource_impl.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/throw.hpp>
+#include <fcppt/random/make_variate.hpp>
 #include <fcppt/random/variate_impl.hpp>
-#include <fcppt/random/distribution/basic_impl.hpp>
-#include <fcppt/random/distribution/parameters/uniform_int_impl.hpp>
+#include <fcppt/random/wrapper/make_uniform_container.hpp>
 
 
 template<
@@ -44,26 +45,36 @@ sge::resource_tree::detail::element<
 >::element(
 	resource_tree::path const &_base_path,
 	resource_container const &_resources,
-	Rng &_rng)
+	Rng &_rng
+)
 :
 	base_path_(
-		_base_path),
+		_base_path
+	),
 	resources_(
-		_resources),
+		_resources
+	),
 	rng_(
-		_rng,
-		// TODO: Create something else for this!
-		container_distribution(
-			typename container_distribution::param_type::min(
-				0u),
-			// Empty resource containers are allowed.
-			// In this case, rng_ should not be used.
-			typename container_distribution::param_type::max(
-				resources_.empty()
-				?
-					0u
-				:
-					resources_.size() - 1u)))
+		fcppt::optional_bind_construct(
+			fcppt::random::wrapper::make_uniform_container(
+				resources_
+			),
+			[
+				&_rng
+			](
+				fcppt::random::wrapper::uniform_container<
+					resource_container
+				> const &_distribution
+			)
+			{
+				return
+					fcppt::random::make_variate(
+						_rng,
+						_distribution
+					);
+			}
+		)
+	)
 {
 }
 
@@ -147,9 +158,19 @@ sge::resource_tree::detail::element<
 	);
 
 	return
-		resources_[
-			rng_()
-		].resource();
+		fcppt::optional_to_exception(
+			rng_,
+			[
+				this
+			]{
+				return
+					sge::resource_tree::exception(
+						FCPPT_TEXT("No elements in ")
+						+
+						base_path_.string()
+					);
+			}
+		)().resource();
 }
 
 template<

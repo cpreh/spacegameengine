@@ -25,10 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/detail/element_fwd.hpp>
 #include <sge/resource_tree/detail/path_with_resource_decl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional_decl.hpp>
 #include <fcppt/random/variate_decl.hpp>
-#include <fcppt/random/distribution/basic_decl.hpp>
-#include <fcppt/random/distribution/parameters/uniform_int_decl.hpp>
+#include <fcppt/random/wrapper/uniform_container_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -116,16 +115,24 @@ private:
 
 	resource_container resources_;
 
-	typedef fcppt::random::distribution::basic<
-		fcppt::random::distribution::parameters::uniform_int<
-			typename resource_container::size_type
-		>
-	> container_distribution;
+	typedef
+	fcppt::random::wrapper::uniform_container<
+		resource_container
+	>
+	container_distribution;
 
-	mutable fcppt::random::variate<
+	typedef
+	fcppt::random::variate<
 		Rng,
 		container_distribution
-	> rng_;
+	>
+	variate;
+
+	mutable
+	fcppt::optional<
+		variate
+	>
+	rng_;
 };
 
 }
