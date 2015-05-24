@@ -51,7 +51,9 @@ sge::opengl::glx::visual::choose(
 	);
 
 	if(
-		!info
+		info.get_pointer()
+		==
+		nullptr
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("glXChooseVisual() failed!")
