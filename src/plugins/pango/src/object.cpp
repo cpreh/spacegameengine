@@ -32,7 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/pango/make_metrics.hpp>
 #include <sge/pango/object.hpp>
 #include <sge/pango/text.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-fontmap.h>
 #include <pango/pango-types.h>
@@ -79,8 +80,10 @@ sge::pango::object::create_text(
 )
 {
 	return
-		sge::font::text_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::font::text
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::pango::text
 			>(
 				*layout_,

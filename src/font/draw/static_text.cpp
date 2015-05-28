@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/src/font/draw/detail/static_text_impl.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 
 
 sge::font::draw::static_text::static_text(
@@ -46,7 +46,7 @@ sge::font::draw::static_text::static_text(
 )
 :
 	impl_(
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			sge::font::draw::detail::static_text_impl
 		>(
 			_device,

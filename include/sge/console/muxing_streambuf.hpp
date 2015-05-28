@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
-#include <memory>
 #include <streambuf>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -96,7 +96,7 @@ private:
 
 	std::basic_ostream<Char,Traits> &stream_;
 
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		std::basic_streambuf<Char,Traits>
 	> old_streambuf_;
 

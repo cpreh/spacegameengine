@@ -38,9 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -124,7 +122,7 @@ public:
 	text() const;
 private:
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::font::draw::detail::static_text_impl
 	>
 	impl_ptr;

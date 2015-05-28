@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/font/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -32,9 +30,11 @@ namespace sge
 namespace font
 {
 
-typedef std::unique_ptr<
+typedef
+fcppt::unique_ptr<
 	sge::font::object
-> object_unique_ptr;
+>
+object_unique_ptr;
 
 }
 }

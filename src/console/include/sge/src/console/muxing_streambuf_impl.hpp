@@ -86,7 +86,7 @@ sge::console::muxing_streambuf<
 >::~muxing_streambuf()
 {
 	stream_.rdbuf(
-		old_streambuf_.release()
+		old_streambuf_.release_ownership()
 	);
 }
 

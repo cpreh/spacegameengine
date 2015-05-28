@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/height.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/string.hpp>
+#include <sge/font/text.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/text_unique_ptr.hpp>
 #include <sge/image/color/format.hpp>
@@ -43,9 +44,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/load_one_file.hpp>
 #include <sge/src/font/bitmap/object.hpp>
 #include <sge/src/font/bitmap/text.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -184,13 +186,17 @@ sge::font::bitmap::object::create_text(
 )
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::font::bitmap::text
+		fcppt::unique_ptr_to_base<
+			sge::font::text
 		>(
-			char_map_,
-			_string,
-			_text_parameters,
-			line_height_
+			fcppt::make_unique_ptr_fcppt<
+				sge::font::bitmap::text
+			>(
+				char_map_,
+				_string,
+				_text_parameters,
+				line_height_
+			)
 		);
 }
 

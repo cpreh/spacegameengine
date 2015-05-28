@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/system.hpp>
 #include <sge/font/system_unique_ptr.hpp>
 #include <sge/pango/logger_context.hpp>
 #include <sge/pango/system.hpp>
@@ -30,7 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/name.hpp>
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/library/make_interface.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -56,9 +58,13 @@ sge::font::system_unique_ptr
 create_font_system()
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::pango::system
-		>();
+		fcppt::unique_ptr_to_base<
+			sge::font::system
+		>(
+			fcppt::make_unique_ptr_fcppt<
+				sge::pango::system
+			>()
+		);
 }
 
 }
