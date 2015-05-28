@@ -29,9 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/linux/fd/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -69,13 +66,7 @@ private:
 
 	sge::evdev::focus_manager const &focus_manager_;
 
-	typedef
-	std::unique_ptr<
-		sge::evdev::device::fd
-	>
-	fd_unique_ptr;
-
-	fd_unique_ptr const fd_;
+	sge::evdev::device::fd_unique_ptr const fd_;
 
 	fcppt::signal::scoped_connection const scoped_connection_;
 };

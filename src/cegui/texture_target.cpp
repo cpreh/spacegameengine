@@ -49,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/texture.hpp>
 #include <sge/src/cegui/texture_target.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
@@ -435,14 +435,14 @@ sge::cegui::texture_target::declareRenderSize(
 			==
 			sge::renderer::dim2::null()
 			?
-				fcppt::make_unique_ptr<
+				fcppt::make_unique_ptr_fcppt<
 					sge::cegui::texture
 				>(
 					texture_parameters_,
 					texture_name
 				)
 			:
-				fcppt::make_unique_ptr<
+				fcppt::make_unique_ptr_fcppt<
 					sge::cegui::texture
 				>(
 					texture_parameters_,

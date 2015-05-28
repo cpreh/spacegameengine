@@ -22,9 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/transform/create.hpp>
 #include <sge/opengl/state/ffp/transform/make_actors.hpp>
 #include <sge/opengl/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp>
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::renderer::state::ffp::transform::object_unique_ptr
@@ -34,8 +36,10 @@ sge::opengl::state::ffp::transform::create(
 )
 {
 	return
-		sge::renderer::state::ffp::transform::object_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::renderer::state::ffp::transform::object
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::opengl::state::ffp::transform::object
 			>(
 				sge::opengl::state::ffp::transform::make_actors(

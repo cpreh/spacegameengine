@@ -42,9 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_context/ffp/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -124,23 +122,58 @@ private:
 	friend class sge::scenic::render_context::ffp::manager;
 
 	sge::scenic::render_context::ffp::manager &manager_;
+
 	sge::renderer::context::ffp &context_;
+
 	sge::renderer::vertex::scoped_declaration scoped_vertex_declaration_;
-	sge::renderer::state::ffp::transform::object_unique_ptr projection_transform_;
-	sge::renderer::state::ffp::transform::object_unique_ptr world_transform_;
+
+	typedef
+	fcppt::optional<
+		sge::renderer::state::ffp::transform::object_unique_ptr
+	>
+	optional_transform_unique_ptr;
+
+	optional_transform_unique_ptr projection_transform_;
+
+	optional_transform_unique_ptr world_transform_;
+
 	sge::renderer::vertex::count current_vertex_buffer_size_;
-	std::unique_ptr<sge::renderer::vertex::scoped_buffer> current_vertex_buffer_;
+
+	typedef
+	fcppt::unique_ptr<
+		sge::renderer::vertex::scoped_buffer
+	>
+	scoped_vertex_buffer_unique_ptr;
+
+	typedef
+	fcppt::optional<
+		scoped_vertex_buffer_unique_ptr
+	>
+	optional_scoped_vertex_buffer_unique_ptr;
+
+	optional_scoped_vertex_buffer_unique_ptr current_vertex_buffer_;
+
 	sge::renderer::state::ffp::lighting::material::object_unique_ptr current_material_;
+
 	sge::renderer::state::core::sampler::object_unique_ptr const diffuse_texture_sampler_;
+
 	sge::renderer::state::core::sampler::scoped scoped_sampler_;
+
 	sge::renderer::state::ffp::lighting::object_unique_ptr const current_lighting_;
+
 	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_stencil_state_;
+
 	sge::renderer::state::core::blend::object_unique_ptr const blend_state_;
+
 	sge::renderer::state::core::rasterizer::object_unique_ptr const rasterizer_state_;
+
 	sge::renderer::state::core::depth_stencil::scoped scoped_depth_stencil_state_;
+
 	sge::renderer::state::core::blend::scoped scoped_blend_state_;
+
 	sge::renderer::state::core::rasterizer::scoped scoped_rasterizer_state_;
 };
+
 }
 }
 }

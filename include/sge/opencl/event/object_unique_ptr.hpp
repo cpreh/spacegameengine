@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_EVENT_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/opencl/event/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -33,9 +31,13 @@ namespace opencl
 {
 namespace event
 {
+
 typedef
-std::unique_ptr<sge::opencl::event::object>
+fcppt::unique_ptr<
+	sge::opencl::event::object
+>
 object_unique_ptr;
+
 }
 }
 }

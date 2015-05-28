@@ -56,7 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/ffp/object.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assign/make_map.hpp>
 #include <fcppt/variant/apply_unary.hpp>
@@ -203,27 +203,47 @@ sge::scenic::render_context::ffp::object::transform(
 	sge::scenic::render_context::transform_matrix_type const _type,
 	sge::renderer::matrix4 const &_matrix)
 {
-	switch(_type)
+	switch(
+		_type
+	)
 	{
 	case sge::scenic::render_context::transform_matrix_type::projection:
 		projection_transform_ =
-			manager_.renderer_.create_transform_state(
-				sge::renderer::state::ffp::transform::parameters(
-					_matrix));
+			optional_transform_unique_ptr(
+				manager_.renderer_.create_transform_state(
+					sge::renderer::state::ffp::transform::parameters(
+						_matrix
+					)
+				)
+			);
+
 		context_.transform(
 			sge::renderer::state::ffp::transform::mode::projection,
 			sge::renderer::state::ffp::transform::const_optional_object_ref(
-				*projection_transform_));
+				// FIXME
+				*projection_transform_.get_unsafe()
+			)
+		);
+
 		break;
 	case sge::scenic::render_context::transform_matrix_type::world:
 		world_transform_ =
-			manager_.renderer_.create_transform_state(
-				sge::renderer::state::ffp::transform::parameters(
-					_matrix));
+			optional_transform_unique_ptr(
+				manager_.renderer_.create_transform_state(
+					sge::renderer::state::ffp::transform::parameters(
+						_matrix
+					)
+				)
+			);
+
 		context_.transform(
 			sge::renderer::state::ffp::transform::mode::world,
 			sge::renderer::state::ffp::transform::const_optional_object_ref(
-				*world_transform_));
+				// FIXME
+				*world_transform_.get_unsafe()
+			)
+		);
+
 		break;
 	}
 }
@@ -299,12 +319,18 @@ void
 sge::scenic::render_context::ffp::object::vertex_buffer(
 	sge::renderer::vertex::buffer const &_vertex_buffer)
 {
-	current_vertex_buffer_.reset();
+	current_vertex_buffer_ =
+		optional_scoped_vertex_buffer_unique_ptr();
 
 	current_vertex_buffer_ =
-		fcppt::make_unique_ptr<sge::renderer::vertex::scoped_buffer>(
-			context_,
-			_vertex_buffer);
+		optional_scoped_vertex_buffer_unique_ptr(
+			fcppt::make_unique_ptr_fcppt<
+				sge::renderer::vertex::scoped_buffer
+			>(
+				context_,
+				_vertex_buffer
+			)
+		);
 
 	current_vertex_buffer_size_ =
 		_vertex_buffer.size();

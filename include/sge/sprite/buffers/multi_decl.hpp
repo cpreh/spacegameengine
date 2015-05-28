@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/slice_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <memory>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -77,7 +77,7 @@ private:
 	sge::sprite::buffers::option const buffers_option_;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		slice_type
 	>
 	slice_unique_ptr;

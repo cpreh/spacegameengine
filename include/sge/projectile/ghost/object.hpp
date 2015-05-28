@@ -33,11 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/ghost/detail/pair_callback_fwd.hpp>
 #include <sge/projectile/group/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
 
 
 class btCollisionShape;
@@ -80,8 +78,8 @@ private:
 
 	fcppt::signal::object<body_enter_fn> body_enter_;
 	fcppt::signal::object<body_exit_fn> body_exit_;
-	std::unique_ptr<btCollisionShape> const box_shape_;
-	std::unique_ptr<btPairCachingGhostObject> const ghost_object_;
+	fcppt::unique_ptr<btCollisionShape> const box_shape_;
+	fcppt::unique_ptr<btPairCachingGhostObject> const ghost_object_;
 
 	void
 	enter_internal(

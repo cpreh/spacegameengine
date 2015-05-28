@@ -19,10 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/model/md3/load_flags.hpp>
+#include <sge/model/md3/object.hpp>
 #include <sge/model/md3/object_unique_ptr.hpp>
 #include <sge/src/model/md3/loader_impl.hpp>
 #include <sge/src/model/md3/object_impl.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
@@ -55,8 +57,10 @@ sge::model::md3::loader_impl::load(
 	);
 
 	return
-		sge::model::md3::object_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::model::md3::object
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::model::md3::object_impl
 			>(
 				file,
@@ -72,8 +76,10 @@ sge::model::md3::loader_impl::load_stream(
 )
 {
 	return
-		sge::model::md3::object_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::model::md3::object
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::model::md3::object_impl
 			>(
 				_stream,

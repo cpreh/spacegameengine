@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/projectile/collision_tester.hpp>
 #include <sge/src/projectile/declare_local_logger.hpp>
 #include <sge/src/projectile/ghost/detail/pair_callback.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/log/_.hpp>
@@ -103,22 +104,43 @@ sge::projectile::world::world()
 :
 	body_collision_(),
 	configuration_(
-		fcppt::make_unique_ptr<btDefaultCollisionConfiguration>()),
+		fcppt::unique_ptr_to_base<
+			btCollisionConfiguration
+		>(
+			fcppt::make_unique_ptr_fcppt<
+				btDefaultCollisionConfiguration
+			>()
+		)
+	),
 	dispatcher_(
-		fcppt::make_unique_ptr<btCollisionDispatcher>(
-			configuration_.get())),
+		fcppt::make_unique_ptr_fcppt<btCollisionDispatcher>(
+			configuration_.get_pointer())),
 	broadphase_(
-		fcppt::make_unique_ptr<btDbvtBroadphase>()),
+		fcppt::unique_ptr_to_base<
+			btBroadphaseInterface
+		>(
+			fcppt::make_unique_ptr_fcppt<
+				btDbvtBroadphase
+			>()
+		)
+	),
 	solver_(
-		fcppt::make_unique_ptr<btSequentialImpulseConstraintSolver>()),
+		fcppt::unique_ptr_to_base<
+			btConstraintSolver
+		>(
+			fcppt::make_unique_ptr_fcppt<
+				btSequentialImpulseConstraintSolver
+			>()
+		)
+	),
 	world_(
-		fcppt::make_unique_ptr<btDiscreteDynamicsWorld>(
-			dispatcher_.get(),
-			broadphase_.get(),
-			solver_.get(),
-			configuration_.get())),
+		fcppt::make_unique_ptr_fcppt<btDiscreteDynamicsWorld>(
+			dispatcher_.get_pointer(),
+			broadphase_.get_pointer(),
+			solver_.get_pointer(),
+			configuration_.get_pointer())),
 	ghost_pair_callback_(
-		fcppt::make_unique_ptr<ghost::detail::pair_callback>()),
+		fcppt::make_unique_ptr_fcppt<ghost::detail::pair_callback>()),
 	next_group_id_(
 		static_cast<group::id>(
 			1))
@@ -141,7 +163,7 @@ sge::projectile::world::world()
 		// isPreTick
 		false);
 	broadphase_->getOverlappingPairCache()->setInternalGhostPairCallback(
-		ghost_pair_callback_.get());
+		ghost_pair_callback_.get_pointer());
 }
 
 void
@@ -226,7 +248,7 @@ sge::projectile::world::add_body(
 	}
 
 	world_->addRigidBody(
-		_body.body_.get(),
+		_body.body_.get_pointer(),
 		group,
 		mask);
 }
@@ -236,7 +258,7 @@ sge::projectile::world::remove_body(
 	body::object &_body)
 {
 	world_->removeRigidBody(
-		_body.body_.get());
+		_body.body_.get_pointer());
 }
 
 void
@@ -258,7 +280,7 @@ sge::projectile::world::add_ghost(
 	}
 
 	world_->addCollisionObject(
-		_ghost.ghost_object_.get(),
+		_ghost.ghost_object_.get_pointer(),
 		group,
 		mask);
 }
@@ -268,7 +290,7 @@ sge::projectile::world::remove_ghost(
 	ghost::object &_ghost)
 {
 	world_->removeCollisionObject(
-		_ghost.ghost_object_.get());
+		_ghost.ghost_object_.get_pointer());
 }
 
 bool
@@ -280,8 +302,8 @@ sge::projectile::world::collides(
 	sge::projectile::collision_tester tester;
 
 	world_->contactPairTest(
-		_body_a.body_.get(),
-		_body_b.body_.get(),
+		_body_a.body_.get_pointer(),
+		_body_b.body_.get_pointer(),
 		tester
 	);
 

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/src/opencl/declare_local_logger.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
@@ -116,7 +116,7 @@ sge::opencl::single_device_system::object::object(
 	single_device_system::parameters const &_params)
 :
 	system_(
-		fcppt::make_unique_ptr<sge::opencl::system>()),
+		fcppt::make_unique_ptr_fcppt<sge::opencl::system>()),
 	platform_(
 		&choose_platform(
 			system_->platforms(),
@@ -124,7 +124,7 @@ sge::opencl::single_device_system::object::object(
 	device_(
 		&platform_->devices().front()),
 	context_(
-		fcppt::make_unique_ptr<context::object>(
+		fcppt::make_unique_ptr_fcppt<context::object>(
 			::construct_context_parameters(
 				*platform_,
 				*device_,
@@ -135,7 +135,7 @@ sge::opencl::single_device_system::object::object(
 					std::placeholders::_2),
 				_params.renderer()))),
 	queue_(
-		fcppt::make_unique_ptr<command_queue::object>(
+		fcppt::make_unique_ptr_fcppt<command_queue::object>(
 			*device_,
 			*context_,
 			command_queue::execution_mode::in_order,

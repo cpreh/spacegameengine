@@ -33,12 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/group/object_fwd.hpp>
 #include <sge/projectile/shape/shared_base_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/math/vector/object_decl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
 
 
 class btRigidBody;
@@ -106,12 +104,12 @@ private:
 	friend class sge::projectile::body::detail::motion_state;
 	friend class sge::projectile::world;
 
-	std::unique_ptr<btTransform> const transformation_;
-	std::unique_ptr<detail::motion_state> const motion_state_;
+	fcppt::unique_ptr<btTransform> const transformation_;
+	fcppt::unique_ptr<detail::motion_state> const motion_state_;
 	fcppt::signal::object<position_change_fn> position_change_;
 	fcppt::signal::object<rotation_change_fn> rotation_change_;
 	shape::shared_base_ptr shape_;
-	std::unique_ptr<btRigidBody >const body_;
+	fcppt::unique_ptr<btRigidBody >const body_;
 	sge::projectile::body::user_data user_data_;
 
 	// @override

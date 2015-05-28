@@ -47,11 +47,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system_fwd.hpp>
 #include <awl/backends/linux/fd/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -157,7 +158,7 @@ private:
 	awl::backends::linux::fd::processor &processor_;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::evdev::eventfd::object
 	>
 	eventfd_unique_ptr;
@@ -165,12 +166,18 @@ private:
 	eventfd_unique_ptr const eventfd_;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::evdev::inotify::reader
 	>
 	inotify_reader_unique_ptr;
 
-	inotify_reader_unique_ptr dev_reader_;
+	typedef
+	fcppt::optional<
+		inotify_reader_unique_ptr
+	>
+	optional_inotify_reader_unique_ptr;
+
+	optional_inotify_reader_unique_ptr dev_reader_;
 };
 
 }

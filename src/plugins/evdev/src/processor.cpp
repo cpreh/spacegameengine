@@ -44,7 +44,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system.hpp>
 #include <awl/backends/linux/fd/processor.hpp>
 #include <awl/system/event/processor.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
@@ -83,7 +84,7 @@ sge::evdev::processor::processor(
 		)
 	),
 	eventfd_(
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			sge::evdev::eventfd::object
 		>(
 			processor_,
@@ -198,16 +199,18 @@ sge::evdev::processor::dev_init()
 	eventfd_->read();
 
 	dev_reader_ =
-		fcppt::make_unique_ptr<
-			sge::evdev::inotify::reader
-		>(
-			path_,
-			processor_,
-			sge::evdev::inotify::callback(
-				std::bind(
-					&sge::evdev::processor::dev_event,
-					this,
-					std::placeholders::_1
+		optional_inotify_reader_unique_ptr(
+			fcppt::make_unique_ptr_fcppt<
+				sge::evdev::inotify::reader
+			>(
+				path_,
+				processor_,
+				sge::evdev::inotify::callback(
+					std::bind(
+						&sge::evdev::processor::dev_event,
+						this,
+						std::placeholders::_1
+					)
 				)
 			)
 		);

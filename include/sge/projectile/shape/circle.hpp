@@ -26,9 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/shape/base.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 class btCollisionShape;
@@ -64,7 +62,7 @@ public:
 	~circle()
 	override;
 private:
-	std::unique_ptr<btCollisionShape> const bullet_shape_;
+	fcppt::unique_ptr<btCollisionShape> const bullet_shape_;
 };
 }
 }

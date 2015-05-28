@@ -27,9 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -68,7 +66,7 @@ public:
 
 	SGE_PROJECTILE_DETAIL_SYMBOL ~debug_drawer();
 private:
-	std::unique_ptr<detail::debug_drawer_impl> const impl_;
+	fcppt::unique_ptr<sge::projectile::detail::debug_drawer_impl> const impl_;
 };
 }
 }

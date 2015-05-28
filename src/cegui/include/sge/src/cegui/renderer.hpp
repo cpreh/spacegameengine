@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/texture_parameters.hpp>
 #include <sge/src/cegui/texture_target_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
 #include <CEGUI/Renderer.h>
@@ -37,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUI/String.h>
 #include <CEGUI/Vector.h>
 #include <map>
-#include <memory>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -191,7 +191,7 @@ private:
 	override;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::cegui::texture
 	>
 	texture_unique_ptr;
@@ -203,7 +203,7 @@ private:
 	);
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::cegui::geometry_buffer
 	>
 	geometry_buffer_unique_ptr;
@@ -215,7 +215,7 @@ private:
 	geometry_buffer_sequence;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::cegui::texture_target
 	>
 	texture_target_unique_ptr;

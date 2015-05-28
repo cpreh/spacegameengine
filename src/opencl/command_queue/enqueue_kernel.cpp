@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/opencl/event/flatten_sequence.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/maybe.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -108,7 +108,7 @@ enqueue_kernel_internal(
 	);
 
 	sge::opencl::event::object_unique_ptr result(
-		fcppt::make_unique_ptr<sge::opencl::event::object>());
+		fcppt::make_unique_ptr_fcppt<sge::opencl::event::object>());
 
 	cl_int const error_code =
 		clEnqueueNDRangeKernel(

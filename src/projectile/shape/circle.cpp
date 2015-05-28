@@ -19,7 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/projectile/shape/circle.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionShapes/btSphereShape.h>
 #include <fcppt/config/external_end.hpp>
@@ -30,8 +31,11 @@ sge::projectile::shape::circle::circle(
 :
 	base(),
 	bullet_shape_(
-		fcppt::make_unique_ptr<btSphereShape>(
-			_radius))
+		fcppt::unique_ptr_to_base<
+			btCollisionShape
+		>(
+			fcppt::make_unique_ptr_fcppt<btSphereShape>(
+				_radius)))
 {
 }
 

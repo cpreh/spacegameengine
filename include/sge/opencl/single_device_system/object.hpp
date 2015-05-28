@@ -33,8 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/platform/object_fwd.hpp>
 #include <sge/opencl/single_device_system/parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <memory>
 #include <mutex>
 #include <fcppt/config/external_end.hpp>
 
@@ -90,11 +90,11 @@ public:
 	SGE_OPENCL_DETAIL_SYMBOL
 	~object();
 private:
-	std::unique_ptr<sge::opencl::system> const system_;
+	fcppt::unique_ptr<sge::opencl::system> const system_;
 	sge::opencl::platform::object *platform_;
 	sge::opencl::device::object *device_;
-	std::unique_ptr<sge::opencl::context::object> const context_;
-	std::unique_ptr<sge::opencl::command_queue::object> const queue_;
+	fcppt::unique_ptr<sge::opencl::context::object> const context_;
+	fcppt::unique_ptr<sge::opencl::command_queue::object> const queue_;
 	std::mutex error_mutex_;
 	bool error_occured_;
 	sge::opencl::error_information_string error_information_;

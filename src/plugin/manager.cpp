@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/plugin/logger.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_enum_range.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -47,6 +47,7 @@ sge::plugin::manager::manager(
 	sge::plugin::optional_cache_ref const &_cache
 )
 :
+	// TODO: Direct initialization
 	plugins_(),
 	categories_()
 {
@@ -58,8 +59,6 @@ sge::plugin::manager::manager(
 				_path
 			)
 	);
-
-	boost::filesystem::directory_iterator const it_end;
 
 	for(
 		boost::filesystem::path const &path
@@ -101,7 +100,7 @@ sge::plugin::manager::manager(
 		try
 		{
 			plugins_.push_back(
-				fcppt::make_unique_ptr<
+				fcppt::make_unique_ptr_fcppt<
 					sge::plugin::context_base
 				>(
 					_cache,
@@ -164,7 +163,7 @@ sge::plugin::manager::manager(
 				categories_[
 					index
 				].push_back(
-					context.get()
+					context.get_pointer()
 				);
 }
 

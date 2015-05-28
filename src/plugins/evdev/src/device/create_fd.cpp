@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <sge/evdev/device/optional_fd_unique_ptr.hpp>
 #include <sge/input/exception.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/error/strerrno.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -42,7 +42,7 @@ sge::evdev::device::create_fd(
 )
 {
 	sge::evdev::device::fd_unique_ptr ret(
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			sge::evdev::device::fd
 		>(
 			_path

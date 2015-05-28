@@ -29,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/option_to_resource_flags.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 template<
@@ -75,7 +76,7 @@ sge::sprite::buffers::multi<
 {
 	slices_.push_back(
 		// Make sure that slice addresses always stay the same
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			slice_type
 		>(
 			sge::sprite::buffers::allocate<
