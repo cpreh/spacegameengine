@@ -38,7 +38,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::systems::modules::input::cursor_modifier::cursor_modifier(
 	sge::input::processor &_processor,
-	systems::cursor_option_field const &_options
+	sge::systems::cursor_option_field const &_options
 )
 :
 	options_(
@@ -67,7 +67,9 @@ sge::systems::modules::input::cursor_modifier::cursor_discover(
 )
 {
 	if(
-		options_ & systems::cursor_option::exclusive
+		options_
+		&
+		sge::systems::cursor_option::exclusive
 	)
 		_event.get().mode(
 			sge::input::cursor::mode::exclusive

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/capabilities.hpp>
 #include <sge/input/capabilities_field.hpp>
 #include <sge/input/exception.hpp>
+#include <sge/input/processor.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system_fwd.hpp>
@@ -34,9 +35,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
@@ -137,8 +139,10 @@ sge::x11input::system::create_processor(
 	}
 
 	return
-		sge::input::processor_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::input::processor
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::x11input::processor
 			>(
 				_window,

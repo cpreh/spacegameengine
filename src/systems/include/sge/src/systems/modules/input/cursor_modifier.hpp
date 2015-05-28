@@ -47,7 +47,7 @@ class cursor_modifier
 public:
 	cursor_modifier(
 		sge::input::processor &,
-		systems::cursor_option_field const &
+		sge::systems::cursor_option_field const &
 	);
 
 	~cursor_modifier();
@@ -57,7 +57,7 @@ private:
 		sge::input::cursor::discover_event const &
 	);
 
-	systems::cursor_option_field const options_;
+	sge::systems::cursor_option_field const options_;
 
 	fcppt::signal::scoped_connection const connection_;
 };

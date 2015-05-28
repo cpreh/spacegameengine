@@ -39,9 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/system_fwd.hpp>
 #include <sge/systems/detail/input_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/optional_decl.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -88,19 +87,43 @@ private:
 
 	sge::input::processor_unique_ptr const input_processor_;
 
-	sge::input::cursor::object_unique_ptr const cursor_demuxer_;
+	typedef
+	fcppt::optional<
+		sge::input::cursor::object_unique_ptr
+	>
+	optional_cursor_unique_ptr;
 
-	sge::input::keyboard::device_unique_ptr const keyboard_collector_;
-
-	sge::input::mouse::device_unique_ptr const mouse_collector_;
+	optional_cursor_unique_ptr const cursor_demuxer_;
 
 	typedef
-	std::unique_ptr<
+	fcppt::optional<
+		sge::input::keyboard::device_unique_ptr
+	>
+	optional_keyboard_unique_ptr;
+
+	optional_keyboard_unique_ptr const keyboard_collector_;
+
+	typedef
+	fcppt::optional<
+		sge::input::mouse::device_unique_ptr
+	>
+	optional_mouse_unique_ptr;
+
+	optional_mouse_unique_ptr const mouse_collector_;
+
+	typedef
+	fcppt::unique_ptr<
 		sge::systems::modules::input::cursor_modifier
 	>
-	cursor_modifier_ptr;
+	cursor_modifier_unique_ptr;
 
-	cursor_modifier_ptr const cursor_modifier_;
+	typedef
+	fcppt::optional<
+		cursor_modifier_unique_ptr
+	>
+	optional_cursor_modifier_unique_ptr;
+
+	optional_cursor_modifier_unique_ptr const cursor_modifier_;
 };
 
 }

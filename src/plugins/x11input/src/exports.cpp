@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/system.hpp>
 #include <sge/input/system_unique_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
@@ -31,8 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/make_interface.hpp>
 #include <sge/x11input/logger_context.hpp>
 #include <sge/x11input/system.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 namespace
@@ -59,8 +61,10 @@ sge::input::system_unique_ptr
 create_input_system()
 {
 	return
-		sge::input::system_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::input::system
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::x11input::system
 			>()
 		);
