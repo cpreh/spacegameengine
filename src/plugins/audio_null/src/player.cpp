@@ -18,18 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/audio/buffer.hpp>
 #include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file_fwd.hpp>
 #include <sge/audio/listener_fwd.hpp>
 #include <sge/audio/scalar.hpp>
+#include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
+#include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
 #include <sge/audio_null/buffer.hpp>
 #include <sge/audio_null/player.hpp>
 #include <sge/audio_null/positional.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::audio_null::player::player()
@@ -76,8 +80,10 @@ sge::audio_null::player::create_buffer(
 )
 {
 	return
-		sge::audio::buffer_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::audio::buffer
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::audio_null::buffer
 			>()
 		);
@@ -90,8 +96,10 @@ sge::audio_null::player::create_positional_stream(
 )
 {
 	return
-		sge::audio::sound::positional_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::audio::sound::positional
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::audio_null::positional
 			>()
 		);
@@ -104,8 +112,10 @@ sge::audio_null::player::create_nonpositional_stream(
 )
 {
 	return
-		sge::audio::sound::base_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::audio::sound::base
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::audio_null::positional
 			>()
 		);

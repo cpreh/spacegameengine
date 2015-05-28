@@ -227,12 +227,6 @@ try
 			file_name,
 			sys.audio_loader()));
 
-	if(
-		!soundfile
-	)
-		return
-			EXIT_FAILURE;
-
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Sound file loaded\n")
 		<< FCPPT_TEXT("We will now try to create a nonstreaming buffer from it.\n");

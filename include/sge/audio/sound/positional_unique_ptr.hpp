@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_SOUND_POSITIONAL_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/audio/sound/positional_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -33,11 +31,13 @@ namespace audio
 {
 namespace sound
 {
+
 typedef
-std::unique_ptr<
+fcppt::unique_ptr<
 	sge::audio::sound::positional
 >
 positional_unique_ptr;
+
 }
 }
 }

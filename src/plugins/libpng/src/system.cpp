@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/exception.hpp>
+#include <sge/image2d/file.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
 #include <sge/libpng/check_extension.hpp>
 #include <sge/libpng/extension.hpp>
@@ -30,8 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/optional_path.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -154,10 +156,14 @@ sge::libpng::system::create(
 		)
 		?
 			sge::image2d::optional_file_unique_ptr(
-				fcppt::make_unique_ptr<
-					file
+				fcppt::unique_ptr_to_base<
+					sge::image2d::file
 				>(
-					_view
+					fcppt::make_unique_ptr_fcppt<
+						file
+					>(
+						_view
+					)
 				)
 			)
 		:
@@ -187,11 +193,15 @@ sge::libpng::system::load_impl(
 		)
 		?
 			sge::image2d::optional_file_unique_ptr(
-				fcppt::make_unique_ptr<
-					sge::libpng::file
+				fcppt::unique_ptr_to_base<
+					sge::image2d::file
 				>(
-					_stream,
-					_path
+					fcppt::make_unique_ptr_fcppt<
+						sge::libpng::file
+					>(
+						_stream,
+						_path
+					)
 				)
 			)
 		:

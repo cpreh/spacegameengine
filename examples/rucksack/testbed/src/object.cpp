@@ -23,28 +23,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/rucksack/testbed/object_impl.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 
 
 sge::rucksack::testbed::object::object(
 	sge::window::title const &_str)
 :
 	impl_(
-		fcppt::make_unique_ptr<
-			sge::rucksack::testbed::object_impl>(
-			_str))
+		fcppt::make_unique_ptr_fcppt<
+			sge::rucksack::testbed::object_impl
+		>(
+			_str
+		)
+	)
 {
 }
 
 void
 sge::rucksack::testbed::object::add_widget(
 	sge::rucksack::widget::base &_widget,
-	sge::image::color::any::object const &_color)
+	sge::image::color::any::object const &_color
+)
 {
 	return
 		impl_->add_widget(
 			_widget,
-			_color);
+			_color
+		);
 }
 
 awl::main::exit_code const

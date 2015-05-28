@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/audio/loader.hpp>
 #include <sge/audio/loader_unique_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
@@ -30,8 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/make_interface.hpp>
 #include <sge/vorbis/loader.hpp>
 #include <sge/vorbis/logger_context.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 namespace
@@ -57,8 +59,10 @@ sge::audio::loader_unique_ptr
 create_audio_loader()
 {
 	return
-		sge::audio::loader_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::audio::loader
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::vorbis::loader
 			>()
 		);

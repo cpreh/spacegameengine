@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/camera/base.hpp>
 #include <sge/camera/coordinate_system/identity.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
@@ -87,8 +88,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/matrix/output.hpp>
 #include <fcppt/math/vector/output.hpp>
@@ -100,7 +105,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
-#include <memory>
 #include <ostream>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -246,47 +250,84 @@ try
 
 //#define SGE_EXAMPLE_SCENIC_CAPTURE
 
-	std::unique_ptr<sge::camera::base> camera;
-	std::unique_ptr<sge::camera::tracking::json::interval_exporter> exporter;
-
-	if(!compiled_options.count("track-from-file"))
-	{
-		camera =
-			fcppt::make_unique_ptr<sge::camera::first_person::object>(
-				sge::camera::first_person::parameters(
-					sys.keyboard_collector(),
-					sys.mouse_collector(),
+	fcppt::unique_ptr<sge::camera::base> const camera(
+		compiled_options.count("track-from-file")
+		?
+			fcppt::unique_ptr_to_base<
+				sge::camera::base
+			>(
+				fcppt::make_unique_ptr_fcppt<
+					sge::camera::tracking::object
+				>(
+					sge::camera::optional_projection_matrix(),
+					sge::camera::tracking::json::keyframes_from_json(
+						sge::parse::json::parse_file_exn(
+							boost::filesystem::path(
+								track_from_file
+							)
+						).array()
+					),
+					sge::camera::tracking::is_looping(
+						true
+					),
 					sge::camera::is_active(
-						true),
-					sge::camera::first_person::movement_speed(
-						4.0f),
-					sge::camera::coordinate_system::identity()));
-	}
-	else
-	{
-		camera =
-			fcppt::make_unique_ptr<sge::camera::tracking::object>(
-				sge::camera::optional_projection_matrix(),
-				sge::camera::tracking::json::keyframes_from_json(
-					sge::parse::json::parse_file_exn(
-						boost::filesystem::path(
-							track_from_file)).array()),
-				sge::camera::tracking::is_looping(
-					true),
-				sge::camera::is_active(
-					true));
-	}
+						true
+					)
+				)
+			)
+		:
+			fcppt::unique_ptr_to_base<
+				sge::camera::base
+			>(
+				fcppt::make_unique_ptr_fcppt<
+					sge::camera::first_person::object
+				>(
+					sge::camera::first_person::parameters(
+						sys.keyboard_collector(),
+						sys.mouse_collector(),
+						sge::camera::is_active(
+							true
+						),
+						sge::camera::first_person::movement_speed(
+							4.0f
+						),
+						sge::camera::coordinate_system::identity()
+					)
+				)
+			)
+	);
 
-	if(compiled_options.count("record-to-file"))
-	{
-		exporter =
-			fcppt::make_unique_ptr<sge::camera::tracking::json::interval_exporter>(
-				*camera,
-				sge::camera::update_duration(
-					exporter_interval),
-				boost::filesystem::path(
-					record_to_file));
-	}
+	typedef
+	fcppt::unique_ptr<
+		sge::camera::tracking::json::interval_exporter
+	>
+	exporter_unique_ptr;
+
+	typedef
+	fcppt::optional<
+		exporter_unique_ptr
+	>
+	optional_exporter_unique_ptr;
+
+	optional_exporter_unique_ptr const exporter(
+		compiled_options.count("record-to-file")
+		?
+			optional_exporter_unique_ptr(
+				fcppt::make_unique_ptr_fcppt<
+					sge::camera::tracking::json::interval_exporter
+				>(
+					*camera,
+					sge::camera::update_duration(
+						exporter_interval
+					),
+					boost::filesystem::path(
+						record_to_file
+					)
+				)
+			)
+		:
+			optional_exporter_unique_ptr()
+	);
 
 	sge::scenic::scene::manager scene_manager(
 		sys.renderer_device_core(),
@@ -380,8 +421,15 @@ try
 		graph.push(
 			difference_since_last_frame.count());
 
-		if(exporter)
-			exporter->update();
+		fcppt::maybe_void(
+			exporter,
+			[](
+				exporter_unique_ptr const &_exporter
+			)
+			{
+				_exporter->update();
+			}
+		);
 
 		sge::renderer::context::scoped_ffp const scoped_block(
 			sys.renderer_device_ffp(),

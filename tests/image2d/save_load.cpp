@@ -128,10 +128,6 @@ FCPPT_PP_POP_WARNING
 			)
 		);
 
-		BOOST_REQUIRE(
-			file
-		);
-
 		sge::image2d::view::const_object const dest_view(
 			file->view()
 		);

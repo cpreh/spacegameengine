@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/audio/buffer.hpp>
 #include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file_fwd.hpp>
 #include <sge/audio/listener.hpp>
@@ -40,7 +41,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/funcs/doppler_factor.hpp>
 #include <sge/openal/funcs/listener_float.hpp>
 #include <sge/openal/funcs/speed_of_sound.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::openal::player::player()
@@ -146,10 +148,14 @@ sge::openal::player::create_buffer(
 )
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::openal::buffer
+		fcppt::unique_ptr_to_base<
+			sge::audio::buffer
 		>(
-			_file
+			fcppt::make_unique_ptr_fcppt<
+				sge::openal::buffer
+			>(
+				_file
+			)
 		);
 }
 
@@ -160,11 +166,15 @@ sge::openal::player::create_positional_stream(
 )
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::openal::stream_sound
+		fcppt::unique_ptr_to_base<
+			sge::audio::sound::positional
 		>(
-			_parameters,
-			_file
+			fcppt::make_unique_ptr_fcppt<
+				sge::openal::stream_sound
+			>(
+				_parameters,
+				_file
+			)
 		);
 }
 
@@ -175,11 +185,15 @@ sge::openal::player::create_nonpositional_stream(
 )
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::openal::stream_sound
+		fcppt::unique_ptr_to_base<
+			sge::audio::sound::base
 		>(
-			_parameters,
-			_file
+			fcppt::make_unique_ptr_fcppt<
+				sge::openal::stream_sound
+			>(
+				_parameters,
+				_file
+			)
 		);
 }
 

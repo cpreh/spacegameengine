@@ -28,8 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/array_init_move.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/random/variate.hpp>
@@ -41,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <array>
 #include <cstdlib>
 #include <example_main.hpp>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -121,7 +121,7 @@ try
 		sge::image::color::predef::cyan());
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::rucksack::widget::dummy
 	>
 	dummy_unique_ptr;
@@ -143,7 +143,9 @@ try
 			]
 			{
 				return
-					fcppt::make_unique_ptr<sge::rucksack::widget::dummy>(
+					fcppt::make_unique_ptr_fcppt<
+						sge::rucksack::widget::dummy
+					>(
 						sge::rucksack::axis_policy2(
 							sge::rucksack::axis_policy(
 								sge::rucksack::preferred_size(

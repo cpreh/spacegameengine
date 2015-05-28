@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/object.hpp>
 #include <sge/src/systems/plugin_pair_decl.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <memory>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -91,7 +91,7 @@ find_plugin_opt(
 		);
 
 		typedef
-		std::unique_ptr<
+		fcppt::unique_ptr<
 			System
 		>
 		system_unique_ptr;

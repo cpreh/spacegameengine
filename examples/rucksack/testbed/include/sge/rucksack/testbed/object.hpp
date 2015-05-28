@@ -30,9 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -68,7 +66,7 @@ public:
 	SGE_RUCKSACK_TESTBED_DETAIL_SYMBOL
 	~object();
 private:
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::rucksack::testbed::object_impl
 	> const impl_;
 };

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_fwd.hpp>
-#include <fcppt/container/bitfield/object_decl.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <functional>
@@ -70,7 +70,7 @@ public:
 	parameters;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		file
 	>
 	file_unique_ptr;
@@ -124,7 +124,7 @@ private:
 	plugin_container;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		system
 	>
 	system_unique_ptr;

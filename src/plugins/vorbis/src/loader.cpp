@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/audio/file.hpp>
 #include <sge/audio/file_exception.hpp>
 #include <sge/audio/optional_file_unique_ptr.hpp>
 #include <sge/audio/unsupported_format.hpp>
@@ -31,7 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/vorbis/loader.hpp>
 #include <sge/vorbis/stream_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/io/raw_container_source.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -80,6 +83,8 @@ sge::vorbis::loader::load(
 		fcppt::make_unique_ptr<boost::filesystem::ifstream>(
 			filename,
 			std::ios::binary));
+
+	// TODO: Remove the static_cast here
 	if(!static_cast<boost::filesystem::ifstream &>(*file_stream).is_open())
 		throw audio::file_exception(
 			sge::media::optional_path(
@@ -89,17 +94,28 @@ sge::vorbis::loader::load(
 	{
 		return
 			sge::audio::optional_file_unique_ptr(
-				fcppt::make_unique_ptr<
-					sge::vorbis::file
+				fcppt::unique_ptr_to_base<
+					sge::audio::file
 				>(
-					std::move(
-						file_stream),
-					sge::media::optional_path(
-						filename)));
+					fcppt::make_unique_ptr_fcppt<
+						sge::vorbis::file
+					>(
+						std::move(
+							file_stream
+						),
+						sge::media::optional_path(
+							filename
+						)
+					)
+				)
+			);
 	}
-	catch (audio::unsupported_format const &)
+	catch(
+		sge::audio::unsupported_format const &
+	)
 	{
-		return sge::audio::optional_file_unique_ptr();
+		return
+			sge::audio::optional_file_unique_ptr();
 	}
 }
 
@@ -138,16 +154,26 @@ sge::vorbis::loader::load_raw(
 	{
 		return
 			sge::audio::optional_file_unique_ptr(
-				fcppt::make_unique_ptr<
-					sge::vorbis::file
+				fcppt::unique_ptr_to_base<
+					sge::audio::file
 				>(
-					std::move(
-						raw_stream),
-					sge::media::optional_path()));
+					fcppt::make_unique_ptr_fcppt<
+						sge::vorbis::file
+					>(
+						std::move(
+							raw_stream
+						),
+						sge::media::optional_path()
+					)
+				)
+			);
 	}
-	catch (audio::unsupported_format const &)
+	catch(
+		sge::audio::unsupported_format const &
+	)
 	{
-		return sge::audio::optional_file_unique_ptr();
+		return
+			sge::audio::optional_file_unique_ptr();
 	}
 }
 
@@ -169,21 +195,34 @@ sge::vorbis::loader::load_stream(
 	{
 		return
 			sge::audio::optional_file_unique_ptr(
-				fcppt::make_unique_ptr<
-					sge::vorbis::file
+				fcppt::unique_ptr_to_base<
+					sge::audio::file
 				>(
-					// This is supposed to create a new istream which
-					// replaces the old one. I'm not sure if rdbuf(0)
-					// is allowed and if this is the best way to
-					// achieve the goal.
-					fcppt::make_unique_ptr<std::istream>(
-						_stream.rdbuf(
-							0)),
-					sge::media::optional_path()));
+					fcppt::make_unique_ptr_fcppt<
+						sge::vorbis::file
+					>(
+						// This is supposed to create a new istream which
+						// replaces the old one. I'm not sure if rdbuf(0)
+						// is allowed and if this is the best way to
+						// achieve the goal.
+						fcppt::make_unique_ptr<
+							std::istream
+						>(
+							_stream.rdbuf(
+								nullptr
+							)
+						),
+						sge::media::optional_path()
+					)
+				)
+			);
 	}
-	catch (audio::unsupported_format const &)
+	catch(
+		audio::unsupported_format const &
+	)
 	{
-		return sge::audio::optional_file_unique_ptr();
+		return
+			sge::audio::optional_file_unique_ptr();
 	}
 }
 

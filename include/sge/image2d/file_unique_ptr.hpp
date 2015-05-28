@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE2D_FILE_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/image2d/file_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -33,7 +31,7 @@ namespace image2d
 {
 
 typedef
-std::unique_ptr<
+fcppt::unique_ptr<
 	sge::image2d::file
 >
 file_unique_ptr;

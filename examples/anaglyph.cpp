@@ -151,9 +151,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/extract_from_string.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -184,7 +185,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
-#include <memory>
 #include <ostream>
 #include <string>
 #include <vector>
@@ -508,7 +508,7 @@ public:
 	~random_model_collection();
 private:
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		model_instance
 	>
 	model_instance_unique_ptr;
@@ -593,7 +593,7 @@ random_model_collection::random_model_collection(
 		// we're doing here. tl;dr: This is for exception safety and
 		// against memory leaks.
 		models_.push_back(
-			fcppt::make_unique_ptr<model_instance>(
+			fcppt::make_unique_ptr_fcppt<model_instance>(
 				backend_,
 				// Concatenate translation and rotation. Slightly expensive,
 				// but we only need to do it once, so...
