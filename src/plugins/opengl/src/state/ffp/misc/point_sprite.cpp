@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/algorithm/join_move.hpp>
+#include <fcppt/algorithm/join.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -82,7 +82,7 @@ sge::opengl::state::ffp::misc::point_sprite(
 	);
 
 	return
-		fcppt::algorithm::join_move(
+		fcppt::algorithm::join(
 			sge::opengl::state::actor_vector{
 				std::bind(
 					sge::opengl::enable_bool,

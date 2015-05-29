@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/algorithm/map_concat_move.hpp>
+#include <fcppt/algorithm/map_concat.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
@@ -88,7 +88,7 @@ sge::input::multi_processor::multi_processor(
 	joypad_discover_(),
 	joypad_remove_(),
 	connections_(
-		fcppt::algorithm::map_concat_move<
+		fcppt::algorithm::map_concat<
 			sge::input::multi_processor::connection_vector
 		>(
 			processors_,
