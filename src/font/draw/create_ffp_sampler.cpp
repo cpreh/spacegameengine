@@ -25,15 +25,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/sampler/arg1.hpp>
 #include <sge/renderer/state/ffp/sampler/color_op.hpp>
 #include <sge/renderer/state/ffp/sampler/object.hpp>
-#include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/sampler/op.hpp>
 #include <sge/renderer/state/ffp/sampler/parameters.hpp>
 #include <sge/renderer/state/ffp/sampler/unary_op.hpp>
 #include <sge/renderer/state/ffp/sampler/unary_op_type.hpp>
 #include <sge/src/font/draw/create_ffp_sampler.hpp>
+#include <sge/src/font/draw/optional_sampler_unique_ptr.hpp>
 
 
-sge::renderer::state::ffp::sampler::object_unique_ptr
+sge::font::draw::optional_sampler_unique_ptr
 sge::font::draw::create_ffp_sampler(
 	sge::renderer::device::ffp &_device,
 	sge::image::color::format const _color_format
@@ -44,24 +44,26 @@ sge::font::draw::create_ffp_sampler(
 		==
 		sge::image::color::format::a8
 		?
-			_device.create_ffp_sampler_state(
-				sge::renderer::state::ffp::sampler::parameters(
-					sge::renderer::state::ffp::sampler::color_op(
-						sge::renderer::state::ffp::sampler::op(
-							sge::renderer::state::ffp::sampler::unary_op(
-								sge::renderer::state::ffp::sampler::unary_op_type::arg,
-								sge::renderer::state::ffp::sampler::arg1(
-									sge::renderer::state::ffp::sampler::arg::vertex_color
+			sge::font::draw::optional_sampler_unique_ptr(
+				_device.create_ffp_sampler_state(
+					sge::renderer::state::ffp::sampler::parameters(
+						sge::renderer::state::ffp::sampler::color_op(
+							sge::renderer::state::ffp::sampler::op(
+								sge::renderer::state::ffp::sampler::unary_op(
+									sge::renderer::state::ffp::sampler::unary_op_type::arg,
+									sge::renderer::state::ffp::sampler::arg1(
+										sge::renderer::state::ffp::sampler::arg::vertex_color
+									)
 								)
 							)
-						)
-					),
-					sge::renderer::state::ffp::sampler::alpha_op(
-						sge::renderer::state::ffp::sampler::op(
-							sge::renderer::state::ffp::sampler::unary_op(
-								sge::renderer::state::ffp::sampler::unary_op_type::arg,
-								sge::renderer::state::ffp::sampler::arg1(
-									sge::renderer::state::ffp::sampler::arg::texture
+						),
+						sge::renderer::state::ffp::sampler::alpha_op(
+							sge::renderer::state::ffp::sampler::op(
+								sge::renderer::state::ffp::sampler::unary_op(
+									sge::renderer::state::ffp::sampler::unary_op_type::arg,
+									sge::renderer::state::ffp::sampler::arg1(
+										sge::renderer::state::ffp::sampler::arg::texture
+									)
 								)
 							)
 						)
@@ -69,6 +71,6 @@ sge::font::draw::create_ffp_sampler(
 				)
 			)
 		:
-			sge::renderer::state::ffp::sampler::object_unique_ptr()
+			sge::font::draw::optional_sampler_unique_ptr();
 		;
 }

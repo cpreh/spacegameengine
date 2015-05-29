@@ -38,7 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assert/pre.hpp>
 
 
@@ -78,7 +79,9 @@ sge::opengl::system::create_core_renderer(
 )
 {
 	return
-		sge::renderer::device::core_unique_ptr(
+		fcppt::unique_ptr_to_base<
+			sge::renderer::device::core
+		>(
 			this->create_ffp_renderer(
 				_parameters
 			)
@@ -97,8 +100,10 @@ sge::opengl::system::create_ffp_renderer(
 	);
 
 	return
-		sge::renderer::device::ffp_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::renderer::device::ffp
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::opengl::device
 			>(
 				_parameters.display_mode(),

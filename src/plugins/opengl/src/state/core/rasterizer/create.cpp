@@ -21,9 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/rasterizer/create.hpp>
 #include <sge/opengl/state/core/rasterizer/make_actors.hpp>
 #include <sge/opengl/state/core/rasterizer/object.hpp>
+#include <sge/renderer/state/core/rasterizer/object.hpp>
 #include <sge/renderer/state/core/rasterizer/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/rasterizer/parameters_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::renderer::state::core::rasterizer::object_unique_ptr
@@ -32,8 +34,10 @@ sge::opengl::state::core::rasterizer::create(
 )
 {
 	return
-		sge::renderer::state::core::rasterizer::object_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::renderer::state::core::rasterizer::object
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::opengl::state::core::rasterizer::object
 			>(
 				sge::opengl::state::core::rasterizer::make_actors(

@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::renderer::occlusion_query::object_unique_ptr
@@ -53,8 +54,10 @@ sge::opengl::occlusion_query::create(
 		);
 
 	return
-		sge::renderer::occlusion_query::object_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::renderer::occlusion_query::object
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::opengl::occlusion_query::object
 			>(
 				context

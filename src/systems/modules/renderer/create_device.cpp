@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/detail/renderer.hpp>
 #include <sge/window/object.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::renderer::device::core_unique_ptr
@@ -53,7 +54,9 @@ sge::systems::modules::renderer::create_device(
 			sge::systems::renderer_caps::ffp
 		)
 		?
-			sge::renderer::device::core_unique_ptr(
+			fcppt::unique_ptr_to_base<
+				sge::renderer::device::core
+			>(
 				_system.get().create_ffp_renderer(
 					parameters
 				)

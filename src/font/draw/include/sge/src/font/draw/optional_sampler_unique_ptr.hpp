@@ -18,31 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_BUFFER_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_BUFFER_UNIQUE_PTR_HPP_INCLUDED
+#ifndef SGE_SRC_FONT_DRAW_OPTIONAL_SAMPLER_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_SRC_FONT_DRAW_OPTIONAL_SAMPLER_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/renderer/index/buffer_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <sge/src/font/draw/optional_sampler_unique_ptr_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-
-/**
-\brief A unique pointer to an sge::renderer::index_buffer
-*/
-typedef
-fcppt::unique_ptr<
-	sge::renderer::index::buffer
->
-buffer_unique_ptr;
-
-}
-}
-}
 
 #endif

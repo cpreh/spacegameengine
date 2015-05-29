@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
@@ -60,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/options_fwd.hpp>
 #include <sge/sprite/state/parameters_fwd.hpp>
 #include <sge/sprite/types/vector_fwd.hpp>
+#include <sge/src/font/draw/optional_sampler_unique_ptr.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -126,7 +126,7 @@ private:
 	void
 	rebuild_sprite_range();
 
-	sge::renderer::state::ffp::sampler::object_unique_ptr const sampler_state_;
+	sge::font::draw::optional_sampler_unique_ptr const sampler_state_;
 
 	sge::font::text_unique_ptr const text_;
 

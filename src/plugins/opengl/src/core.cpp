@@ -21,14 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/core.hpp>
 #include <sge/opengl/system.hpp>
 #include <sge/renderer/core.hpp>
+#include <sge/renderer/system.hpp>
 #include <sge/renderer/system_unique_ptr.hpp>
 #include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
 #include <awl/system/object_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::opengl::core::core()
+:
+	sge::renderer::core()
 {
 }
 
@@ -42,10 +46,14 @@ sge::opengl::core::create_system(
 )
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::opengl::system
+		fcppt::unique_ptr_to_base<
+			sge::renderer::system
 		>(
-			_awl_system
+			fcppt::make_unique_ptr_fcppt<
+				sge::opengl::system
+			>(
+				_awl_system
+			)
 		);
 }
 

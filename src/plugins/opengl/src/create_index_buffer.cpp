@@ -21,9 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/create_index_buffer.hpp>
 #include <sge/opengl/index_buffer.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_parameters_fwd.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::renderer::index::buffer_unique_ptr
@@ -33,10 +35,14 @@ sge::opengl::create_index_buffer(
 )
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::opengl::index_buffer
+		fcppt::unique_ptr_to_base<
+			sge::renderer::index::buffer
 		>(
-			_system_context,
-			_parameters
+			fcppt::make_unique_ptr_fcppt<
+				sge::opengl::index_buffer
+			>(
+				_system_context,
+				_parameters
+			)
 		);
 }

@@ -21,14 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/parameter/named.hpp>
 #include <sge/cg/program/object.hpp>
 #include <sge/renderer/cg/loaded_texture.hpp>
+#include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/maybe_void.hpp>
+#include <fcppt/optional_assign.hpp>
+#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 
 
@@ -71,9 +75,11 @@ sge::shader::parameter::planar_texture::set(
 			sge::renderer::context::core &_render_context
 		)
 		{
-			scoped_texture_.reset();
+			scoped_texture_ =
+				optional_scoped_texture_ptr();
 
-			loaded_texture_.reset();
+			loaded_texture_ =
+				optional_loaded_texture_ptr();
 
 			fcppt::maybe_void(
 				value_,
@@ -84,18 +90,24 @@ sge::shader::parameter::planar_texture::set(
 					sge::renderer::texture::planar &_texture
 				)
 				{
-					loaded_texture_ =
-						renderer_.load_cg_texture(
-							parameter_.object(),
-							_texture
-						);
+					sge::renderer::cg::loaded_texture_unique_ptr const &loaded_texture(
+						fcppt::optional_assign(
+							loaded_texture_,
+							renderer_.load_cg_texture(
+								parameter_.object(),
+								_texture
+							)
+						)
+					);
 
 					scoped_texture_ =
-						fcppt::make_unique_ptr<
-							sge::renderer::cg::scoped_texture
-						>(
-							_render_context,
-							*loaded_texture_
+						optional_scoped_texture_ptr(
+							fcppt::make_unique_ptr_fcppt<
+								sge::renderer::cg::scoped_texture
+							>(
+								_render_context,
+								*loaded_texture
+							)
 						);
 				}
 			);
@@ -108,10 +120,12 @@ sge::shader::parameter::planar_texture::activate(
 	sge::renderer::context::core &_render_context)
 {
 	FCPPT_ASSERT_PRE(
-		!optional_render_context_.has_value());
+		!optional_render_context_.has_value()
+	);
 
 	FCPPT_ASSERT_PRE(
-		!scoped_texture_);
+		!scoped_texture_.has_value()
+	);
 
 	optional_render_context_ =
 		optional_render_context(
@@ -127,8 +141,12 @@ sge::shader::parameter::planar_texture::deactivate()
 	FCPPT_ASSERT_PRE(
 		optional_render_context_.has_value());
 
-	scoped_texture_.reset();
-	loaded_texture_.reset();
+	scoped_texture_ =
+		optional_scoped_texture_ptr();
+
+	loaded_texture_ =
+		optional_loaded_texture_ptr();
+
 	optional_render_context_ =
 		optional_render_context();
 }
@@ -137,21 +155,26 @@ sge::shader::parameter::planar_texture::optional_loaded_texture
 sge::shader::parameter::planar_texture::loaded_texture()
 {
 	return
-		loaded_texture_
-		?
-			sge::shader::parameter::planar_texture::optional_loaded_texture(
-				*loaded_texture_)
-		:
-			sge::shader::parameter::planar_texture::optional_loaded_texture();
+		fcppt::optional_bind_construct(
+			loaded_texture_,
+			[](
+				sge::renderer::cg::loaded_texture_unique_ptr const &_loaded_texture
+			)
+			-> sge::renderer::cg::loaded_texture &
+			{
+				return
+					*_loaded_texture;
+			}
+		);
 }
 
 sge::renderer::texture::stage const
 sge::shader::parameter::planar_texture::stage() const
 {
-	FCPPT_ASSERT_PRE(
-		scoped_texture_);
 	return
-		scoped_texture_->stage();
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			scoped_texture_
+		)->stage();
 }
 
 sge::shader::parameter::planar_texture::~planar_texture()

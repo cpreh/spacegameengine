@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/parameter/vector.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 
 
@@ -85,9 +86,30 @@ private:
 	sge::shader::parameter::planar_texture finalize_input_texture_parameter_;
 		//sge::shader::parameter::planar_texture finalize_blurred_texture_parameter_;
 	fcppt::signal::scoped_connection const viewport_connection_;
-	sge::renderer::texture::planar_unique_ptr rendering_result_texture_;
-	sge::renderer::target::offscreen_unique_ptr offscreen_target_;
-	sge::renderer::depth_stencil_buffer::surface_unique_ptr depth_stencil_surface_;
+
+	typedef
+	fcppt::optional<
+		sge::renderer::texture::planar_unique_ptr
+	>
+	optional_planar_texture_ptr;
+
+	optional_planar_texture_ptr rendering_result_texture_;
+
+	typedef
+	fcppt::optional<
+		sge::renderer::target::offscreen_unique_ptr
+	>
+	optional_offscreen_target_ptr;
+
+	optional_offscreen_target_ptr offscreen_target_;
+
+	typedef
+	fcppt::optional<
+		sge::renderer::depth_stencil_buffer::surface_unique_ptr
+	>
+	optional_depth_stencil_surface_ptr;
+
+	optional_depth_stencil_surface_ptr depth_stencil_surface_;
 		/*
 	sge::renderer::target::offscreen_unique_ptr offscreen_downsampled_target_;
 	sge::renderer::texture::planar_unique_ptr downsampled_texture_0_;

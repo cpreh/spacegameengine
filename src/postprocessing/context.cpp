@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer/optional_surface_ref.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_parameters.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/context/core.hpp>
@@ -34,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/object.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen_unique_ptr.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
@@ -41,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/parameters.hpp>
@@ -57,10 +60,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <sge/viewport/manager.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/optional_assign.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/assign/make_map.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -131,19 +135,21 @@ FCPPT_PP_POP_WARNING
 sge::renderer::context::scoped_core_unique_ptr
 sge::postprocessing::context::create_render_context()
 {
-	FCPPT_ASSERT_PRE(
-		rendering_result_texture_);
-
-	FCPPT_ASSERT_PRE(
-		offscreen_target_);
-
 	this->switch_target_texture(
-		*rendering_result_texture_);
+		*FCPPT_ASSERT_OPTIONAL_ERROR(
+			rendering_result_texture_
+		)
+	);
 
 	return
-		fcppt::make_unique_ptr<sge::renderer::context::scoped_core>(
+		fcppt::make_unique_ptr_fcppt<
+			sge::renderer::context::scoped_core
+		>(
 			renderer_,
-			*offscreen_target_);
+			*FCPPT_ASSERT_OPTIONAL_ERROR(
+				offscreen_target_
+			)
+		);
 }
 
 void
@@ -207,34 +213,45 @@ sge::postprocessing::context::viewport_callback()
 					sge::renderer::texture::capabilities::render_target))));
 	*/
 
-	rendering_result_texture_ =
-		renderer_.create_planar_texture(
-			sge::renderer::texture::planar_parameters(
-				target_size,
-				sge::renderer::texture::color_format(
-					sge::image::color::format::rgba32f,
-					sge::renderer::texture::emulate_srgb::no),
-				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags_field::null(),
-				sge::renderer::texture::capabilities_field{
-					sge::renderer::texture::capabilities::render_target
-				}
+	sge::renderer::texture::planar_unique_ptr const &result_texture(
+		fcppt::optional_assign(
+			rendering_result_texture_,
+			renderer_.create_planar_texture(
+				sge::renderer::texture::planar_parameters(
+					target_size,
+					sge::renderer::texture::color_format(
+						sge::image::color::format::rgba32f,
+						sge::renderer::texture::emulate_srgb::no),
+					sge::renderer::texture::mipmap::off(),
+					sge::renderer::resource_flags_field::null(),
+					sge::renderer::texture::capabilities_field{
+						sge::renderer::texture::capabilities::render_target
+					}
+				)
 			)
-		);
+		)
+	);
 
 	finalize_input_texture_parameter_.set(
 		sge::shader::parameter::planar_texture::optional_value(
-			*rendering_result_texture_));
+			*result_texture
+		)
+	);
 
 	/*
 	finalize_blurred_texture_parameter_.set(
 		*downsampled_texture_0_);
 		*/
 
-	offscreen_target_ =
-		sge::renderer::target::from_texture(
-			renderer_,
-			*rendering_result_texture_);
+	sge::renderer::target::offscreen_unique_ptr const &offscreen_target(
+		fcppt::optional_assign(
+			offscreen_target_,
+			sge::renderer::target::from_texture(
+				renderer_,
+				*result_texture
+			)
+		)
+	);
 
 	/*
 	offscreen_downsampled_target_.take(
@@ -243,15 +260,23 @@ sge::postprocessing::context::viewport_callback()
 			*downsampled_texture_0_));
 			*/
 
-	depth_stencil_surface_ =
-		renderer_.create_depth_stencil_surface(
-			sge::renderer::depth_stencil_buffer::surface_parameters(
-				target_size,
-				sge::image::ds::format::d32));
+	sge::renderer::depth_stencil_buffer::surface_unique_ptr const &depth_stencil_surface(
+		fcppt::optional_assign(
+			depth_stencil_surface_,
+			renderer_.create_depth_stencil_surface(
+				sge::renderer::depth_stencil_buffer::surface_parameters(
+					target_size,
+					sge::image::ds::format::d32
+				)
+			)
+		)
+	);
 
-	offscreen_target_->depth_stencil_surface(
+	offscreen_target->depth_stencil_surface(
 		sge::renderer::depth_stencil_buffer::optional_surface_ref(
-			*depth_stencil_surface_));
+			*depth_stencil_surface
+		)
+	);
 }
 
 	/*
@@ -280,7 +305,9 @@ void
 sge::postprocessing::context::switch_target_texture(
 	sge::renderer::texture::planar &_new_texture)
 {
-	offscreen_target_->color_surface(
+	FCPPT_ASSERT_OPTIONAL_ERROR(
+		offscreen_target_
+	)->color_surface(
 		sge::renderer::color_buffer::optional_surface_ref(
 			_new_texture.level(
 				sge::renderer::texture::mipmap::level(
@@ -288,7 +315,9 @@ sge::postprocessing::context::switch_target_texture(
 		sge::renderer::target::surface_index(
 			0u));
 
-	offscreen_target_->viewport(
+	FCPPT_ASSERT_OPTIONAL_ERROR(
+		offscreen_target_
+	)->viewport(
 		sge::renderer::target::viewport(
 			sge::renderer::pixel_rect(
 				sge::renderer::pixel_rect::vector::null(),
@@ -413,9 +442,13 @@ sge::renderer::context::scoped_core_unique_ptr
 sge::postprocessing::context::finalize()
 {
 	sge::renderer::context::scoped_core_unique_ptr result(
-		fcppt::make_unique_ptr<sge::renderer::context::scoped_core>(
+		fcppt::make_unique_ptr_fcppt<
+			sge::renderer::context::scoped_core
+		>(
 			renderer_,
-			renderer_.onscreen_target()));
+			renderer_.onscreen_target()
+		)
+	);
 
 	sge::shader::scoped_pair scoped_shader(
 		result->get(),

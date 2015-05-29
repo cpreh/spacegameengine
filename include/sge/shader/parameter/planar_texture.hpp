@@ -33,9 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/parameter/name.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -44,6 +42,7 @@ namespace shader
 {
 namespace parameter
 {
+
 class planar_texture
 {
 FCPPT_NONCOPYABLE(
@@ -91,17 +90,44 @@ public:
 	~planar_texture();
 private:
 	typedef
-	fcppt::optional<sge::renderer::context::core &>
+	fcppt::optional<
+		sge::renderer::context::core &
+	>
 	optional_render_context;
 
 	sge::shader::pair &parent_;
+
 	sge::renderer::device::core &renderer_;
+
 	sge::cg::parameter::named const parameter_;
-	sge::renderer::cg::loaded_texture_unique_ptr loaded_texture_;
-	std::unique_ptr<sge::renderer::cg::scoped_texture> scoped_texture_;
+
+	typedef
+	fcppt::optional<
+		sge::renderer::cg::loaded_texture_unique_ptr
+	>
+	optional_loaded_texture_ptr;
+
+	optional_loaded_texture_ptr loaded_texture_;
+
+	typedef
+	fcppt::unique_ptr<
+		sge::renderer::cg::scoped_texture
+	>
+	scoped_texture_unique_ptr;
+
+	typedef
+	fcppt::optional<
+		scoped_texture_unique_ptr
+	>
+	optional_scoped_texture_ptr;
+
+	optional_scoped_texture_ptr scoped_texture_;
+
 	optional_render_context optional_render_context_;
+
 	optional_value value_;
 };
+
 }
 }
 }

@@ -30,34 +30,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 
 
 namespace sge
 {
 namespace line_drawer
 {
+
 class object
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONCOPYABLE(
+		object
+	);
 public:
-	SGE_LINE_DRAWER_DETAIL_SYMBOL explicit
+	SGE_LINE_DRAWER_DETAIL_SYMBOL
+	explicit
 	object(
-		sge::renderer::device::core &);
+		sge::renderer::device::core &
+	);
 
-	SGE_LINE_DRAWER_DETAIL_SYMBOL void
+	SGE_LINE_DRAWER_DETAIL_SYMBOL
+	void
 	render(
-		sge::renderer::context::core &);
+		sge::renderer::context::core &
+	);
 
-	SGE_LINE_DRAWER_DETAIL_SYMBOL ~object();
+	SGE_LINE_DRAWER_DETAIL_SYMBOL
+	~object();
 private:
 	friend class sge::line_drawer::scoped_lock;
 
 	sge::renderer::device::core &renderer_;
+
 	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration_;
+
 	sge::renderer::state::core::blend::object_unique_ptr const blend_state_;
-	sge::renderer::vertex::buffer_unique_ptr vb_;
-	line_sequence lines_;
+
+	typedef
+	fcppt::optional<
+		sge::renderer::vertex::buffer_unique_ptr
+	>
+	optional_vertex_buffer_unique_ptr;
+
+	optional_vertex_buffer_unique_ptr vb_;
+
+	sge::line_drawer::line_sequence lines_;
 
 	void
 	lock();
@@ -65,6 +83,7 @@ private:
 	void
 	unlock();
 };
+
 }
 }
 

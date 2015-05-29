@@ -42,9 +42,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/lighting/light/object.hpp>
 #include <sge/renderer/state/ffp/lighting/light/parameters.hpp>
 #include <sge/renderer/state/ffp/lighting/material/object.hpp>
+#include <sge/renderer/state/ffp/lighting/material/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/material/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
@@ -57,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/material/object.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/optional_assign.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assign/make_map.hpp>
 #include <fcppt/variant/apply_unary.hpp>
@@ -208,43 +211,49 @@ sge::scenic::render_context::ffp::object::transform(
 	)
 	{
 	case sge::scenic::render_context::transform_matrix_type::projection:
-		projection_transform_ =
-			optional_transform_unique_ptr(
-				manager_.renderer_.create_transform_state(
-					sge::renderer::state::ffp::transform::parameters(
-						_matrix
+		{
+			sge::renderer::state::ffp::transform::object_unique_ptr const &transform(
+				fcppt::optional_assign(
+					projection_transform_,
+					manager_.renderer_.create_transform_state(
+						sge::renderer::state::ffp::transform::parameters(
+							_matrix
+						)
 					)
 				)
 			);
 
-		context_.transform(
-			sge::renderer::state::ffp::transform::mode::projection,
-			sge::renderer::state::ffp::transform::const_optional_object_ref(
-				// FIXME
-				*projection_transform_.get_unsafe()
-			)
-		);
+			context_.transform(
+				sge::renderer::state::ffp::transform::mode::projection,
+				sge::renderer::state::ffp::transform::const_optional_object_ref(
+					*transform
+				)
+			);
 
 		break;
+		}
 	case sge::scenic::render_context::transform_matrix_type::world:
-		world_transform_ =
-			optional_transform_unique_ptr(
-				manager_.renderer_.create_transform_state(
-					sge::renderer::state::ffp::transform::parameters(
-						_matrix
+		{
+			sge::renderer::state::ffp::transform::object_unique_ptr const &transform(
+				fcppt::optional_assign(
+					world_transform_,
+					manager_.renderer_.create_transform_state(
+						sge::renderer::state::ffp::transform::parameters(
+							_matrix
+						)
 					)
 				)
 			);
 
-		context_.transform(
-			sge::renderer::state::ffp::transform::mode::world,
-			sge::renderer::state::ffp::transform::const_optional_object_ref(
-				// FIXME
-				*world_transform_.get_unsafe()
-			)
-		);
+			context_.transform(
+				sge::renderer::state::ffp::transform::mode::world,
+				sge::renderer::state::ffp::transform::const_optional_object_ref(
+					*transform
+				)
+			);
 
 		break;
+		}
 	}
 }
 
@@ -252,23 +261,32 @@ void
 sge::scenic::render_context::ffp::object::material(
 	sge::scenic::render_context::material::object const &_material)
 {
-	current_material_ =
-		manager_.renderer_.create_material_state(
-			sge::renderer::state::ffp::lighting::material::parameters(
-				sge::renderer::state::ffp::lighting::diffuse_color(
-					_material.diffuse_color().get()),
-				sge::renderer::state::ffp::lighting::ambient_color(
-					_material.ambient_color().get()),
-				sge::renderer::state::ffp::lighting::specular_color(
-					_material.specular_color().get()),
-				sge::renderer::state::ffp::lighting::material::emissive_color(
-					_material.emissive_color().get()),
-				sge::renderer::state::ffp::lighting::material::shininess(
-					_material.shininess().get())));
+	sge::renderer::state::ffp::lighting::material::object_unique_ptr const &current_material(
+		fcppt::optional_assign(
+			current_material_,
+			manager_.renderer_.create_material_state(
+				sge::renderer::state::ffp::lighting::material::parameters(
+					sge::renderer::state::ffp::lighting::diffuse_color(
+						_material.diffuse_color().get()),
+					sge::renderer::state::ffp::lighting::ambient_color(
+						_material.ambient_color().get()),
+					sge::renderer::state::ffp::lighting::specular_color(
+						_material.specular_color().get()),
+					sge::renderer::state::ffp::lighting::material::emissive_color(
+						_material.emissive_color().get()),
+					sge::renderer::state::ffp::lighting::material::shininess(
+						_material.shininess().get()
+					)
+				)
+			)
+		)
+	);
 
 	context_.material_state(
 		sge::renderer::state::ffp::lighting::material::const_optional_object_ref(
-			*current_material_));
+			*current_material
+		)
+	);
 
 	context_.texture(
 		sge::renderer::texture::const_optional_base_ref(

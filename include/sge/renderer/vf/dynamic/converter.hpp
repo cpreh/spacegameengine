@@ -29,9 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/detail/lock_interval_set.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -87,7 +85,7 @@ private:
 	optional_locked_part locked_part_;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::renderer::vf::dynamic::detail::converter_impl
 	>
 	converter_unique_ptr;

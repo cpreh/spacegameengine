@@ -153,7 +153,13 @@ private:
 
 	optional_scoped_vertex_buffer_unique_ptr current_vertex_buffer_;
 
-	sge::renderer::state::ffp::lighting::material::object_unique_ptr current_material_;
+	typedef
+	fcppt::optional<
+		sge::renderer::state::ffp::lighting::material::object_unique_ptr
+	>
+	optional_material_unique_ptr;
+
+	optional_material_unique_ptr current_material_;
 
 	sge::renderer::state::core::sampler::object_unique_ptr const diffuse_texture_sampler_;
 

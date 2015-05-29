@@ -16,6 +16,8 @@ set(
 	src/font/draw/include/sge/src/font/draw/create_ffp_sampler.hpp
 	src/font/draw/include/sge/src/font/draw/create_texture.hpp
 	src/font/draw/include/sge/src/font/draw/detail/static_text_impl.hpp
+	src/font/draw/include/sge/src/font/draw/optional_sampler_unique_ptr.hpp
+	src/font/draw/include/sge/src/font/draw/optional_sampler_unique_ptr_fwd.hpp
 	src/font/draw/simple.cpp
 	src/font/draw/static_text.cpp
 )

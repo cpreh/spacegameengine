@@ -21,9 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/lighting/create.hpp>
 #include <sge/opengl/state/ffp/lighting/make_actors.hpp>
 #include <sge/opengl/state/ffp/lighting/object.hpp>
+#include <sge/renderer/state/ffp/lighting/object.hpp>
 #include <sge/renderer/state/ffp/lighting/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/parameters_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::renderer::state::ffp::lighting::object_unique_ptr
@@ -32,8 +34,10 @@ sge::opengl::state::ffp::lighting::create(
 )
 {
 	return
-		sge::renderer::state::ffp::lighting::object_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::renderer::state::ffp::lighting::object
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::opengl::state::ffp::lighting::object
 			>(
 				sge::opengl::state::ffp::lighting::make_actors(

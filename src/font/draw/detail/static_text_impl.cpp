@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/sampler/const_object_ref.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/sampler/object.hpp>
+#include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/sampler/scoped.hpp>
 #include <sge/renderer/state/ffp/sampler/scoped_unique_ptr.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
@@ -63,7 +64,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/draw/detail/static_text_impl.hpp>
 #include <sge/texture/const_optional_part_ref.hpp>
 #include <sge/texture/part.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -156,21 +159,34 @@ sge::font::draw::detail::static_text_impl::draw(
 	)
 		return;
 
-	sge::renderer::state::ffp::sampler::scoped_unique_ptr const scoepd_state(
-		sampler_state_
-		?
-			fcppt::make_unique_ptr<
-				sge::renderer::state::ffp::sampler::scoped
-			>(
-				_context,
-				sge::renderer::state::ffp::sampler::const_object_ref_vector{
-					sge::renderer::state::ffp::sampler::const_object_ref(
-						*sampler_state_
-					)
-				}
+	typedef
+	fcppt::optional<
+		sge::renderer::state::ffp::sampler::scoped_unique_ptr
+	>
+	optional_scoped_sampler;
+
+	optional_scoped_sampler const scoped_state(
+		fcppt::optional_bind_construct(
+			sampler_state_,
+			[
+				&_context
+			](
+				sge::renderer::state::ffp::sampler::object_unique_ptr const &_sampler_state
 			)
-		:
-			sge::renderer::state::ffp::sampler::scoped_unique_ptr()
+			{
+				return
+					fcppt::make_unique_ptr_fcppt<
+						sge::renderer::state::ffp::sampler::scoped
+					>(
+						_context,
+						sge::renderer::state::ffp::sampler::const_object_ref_vector{
+							sge::renderer::state::ffp::sampler::const_object_ref(
+								*_sampler_state
+							)
+						}
+					);
+			}
+		)
 	);
 
 	sge::sprite::render::range_with_options(

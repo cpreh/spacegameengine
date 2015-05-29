@@ -135,6 +135,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/object.hpp>
 #include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/maybe_void.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/try_dynamic.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
@@ -240,7 +241,9 @@ sge::opengl::device::begin_rendering(
 )
 {
 	return
-		sge::renderer::context::core_unique_ptr(
+		fcppt::unique_ptr_to_base<
+			sge::renderer::context::core
+		>(
 			this->begin_rendering_ffp(
 				_target
 			)
