@@ -20,9 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/config.hpp>
 #include <sge/opengl/egl/create_native_display.hpp>
+#include <sge/opengl/egl/native_display.hpp>
 #include <sge/opengl/egl/native_display_unique_ptr.hpp>
 #include <awl/system/object.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #if defined(SGE_OPENGL_HAVE_X11)
 #include <sge/opengl/egl/x11/native_display.hpp>
@@ -40,29 +42,32 @@ sge::opengl::egl::create_native_display(
 	awl::system::object &_awl_system
 )
 {
+	return
+		fcppt::unique_ptr_to_base<
+			sge::opengl::egl::native_display
+		>(
 #if defined(SGE_OPENGL_HAVE_X11)
-	return
-		fcppt::make_unique_ptr<
-			sge::opengl::egl::x11::native_display
-		>(
-			fcppt::cast::static_downcast<
-				awl::backends::x11::system::object &
+			fcppt::make_unique_ptr_fcppt<
+				sge::opengl::egl::x11::native_display
 			>(
-				_awl_system
+				fcppt::cast::static_downcast<
+					awl::backends::x11::system::object &
+				>(
+					_awl_system
+				)
 			)
-		);
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-	return
-		fcppt::make_unique_ptr<
-			sge::opengl::egl::windows::native_display
-		>(
-			fcppt::cast::static_downcast<
-				awl::backends::windows::system::object &
+			fcppt::make_unique_ptr_fcppt<
+				sge::opengl::egl::windows::native_display
 			>(
-				_awl_system
+				fcppt::cast::static_downcast<
+					awl::backends::windows::system::object &
+				>(
+					_awl_system
+				)
 			)
-		);
 #else
 #error "Implement me!"
 #endif
+		);
 }

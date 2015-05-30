@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/single_device_system/parameters.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
@@ -89,13 +88,15 @@ try
 	sge::opencl::single_device_system::object opencl_system(
 		(sge::opencl::single_device_system::parameters()));
 
+	boost::filesystem::ifstream stream(
+		target_file_name
+	);
+
 	sge::opencl::program::object main_program(
 		opencl_system.context(),
 		sge::opencl::program::source_string_sequence{
 			fcppt::io::stream_to_string(
-				*fcppt::make_unique_ptr<boost::filesystem::ifstream>(
-					target_file_name
-				)
+				stream
 			)
 		},
 		sge::opencl::program::optional_build_parameters());

@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/logger.hpp>
+#include <sge/opengl/backend/context.hpp>
 #include <sge/opengl/backend/context_unique_ptr.hpp>
 #include <sge/opengl/backend/scoped_current_fwd.hpp>
 #include <sge/opengl/backend/system.hpp>
@@ -37,7 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/info.hpp>
@@ -101,14 +103,18 @@ sge::opengl::egl::system::create_context(
 )
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::opengl::egl::context
+		fcppt::unique_ptr_to_base<
+			sge::opengl::backend::context
 		>(
-			egl_display_,
-			sge::opengl::egl::native_window(
-				_window
-			),
-			_window.visual()
+			fcppt::make_unique_ptr_fcppt<
+				sge::opengl::egl::context
+			>(
+				egl_display_,
+				sge::opengl::egl::native_window(
+					_window
+				),
+				_window.visual()
+			)
 		);
 }
 

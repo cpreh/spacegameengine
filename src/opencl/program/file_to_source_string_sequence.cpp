@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opencl/program/file_to_source_string_sequence.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/io/stream_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -32,14 +31,14 @@ sge::opencl::program::file_to_source_string_sequence(
 	boost::filesystem::path const &_path
 )
 {
+	boost::filesystem::ifstream stream(
+		_path
+	);
+
 	return
 		sge::opencl::program::source_string_sequence{
 			fcppt::io::stream_to_string(
-				*fcppt::make_unique_ptr<
-					boost::filesystem::ifstream
-				>(
-					_path
-				)
+				stream
 			)
 		};
 }
