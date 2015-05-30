@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/system_unique_ptr.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(SGE_OPENGL_HAVE_EGL)
 #include <sge/opengl/egl/system.hpp>
@@ -44,19 +45,18 @@ sge::opengl::backend::create_system(
 	awl::system::object &_awl_system
 )
 {
-#if defined(SGE_OPENGL_HAVE_EGL)
 	return
-		sge::opengl::backend::system_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::opengl::backend::system
+		>(
+#if defined(SGE_OPENGL_HAVE_EGL)
+			fcppt::make_unique_ptr_fcppt<
 				sge::opengl::egl::system
 			>(
 				_awl_system
 			)
-		);
 #elif defined(SGE_OPENGL_HAVE_X11)
-	return
-		sge::opengl::backend::system_unique_ptr(
-			fcppt::make_unique_ptr<
+			fcppt::make_unique_ptr_fcppt<
 				sge::opengl::glx::system
 			>(
 				_system_context,
@@ -66,18 +66,15 @@ sge::opengl::backend::create_system(
 					_awl_system
 				)
 			)
-		);
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-	return
-		sge::opengl::backend::system_unique_ptr(
-			fcppt::make_unique_ptr<
+			fcppt::make_unique_ptr_fcppt<
 				sge::opengl::wgl::system
 			>(
 				_system_context,
 				_awl_system
 			)
-		);
 #else
 #error "Implement me!"
 #endif
+		);
 }

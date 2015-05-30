@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_XRANDR_STATE_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/state_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -35,7 +33,7 @@ namespace xrandr
 {
 
 typedef
-std::unique_ptr<
+fcppt::unique_ptr<
 	sge::opengl::xrandr::state
 >
 state_unique_ptr;

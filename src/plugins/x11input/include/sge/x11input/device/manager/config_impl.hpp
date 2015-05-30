@@ -233,12 +233,6 @@ sge::x11input::device::manager::config<
 		)
 	);
 
-	if(
-		!object
-	)
-		return
-			optional_object_ref();
-
 	sge::x11input::device::id const id(
 		object->id()
 	);

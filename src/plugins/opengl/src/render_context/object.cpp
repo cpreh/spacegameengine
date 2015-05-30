@@ -75,8 +75,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/const_optional_declaration_ref_fwd.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/maybe.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/pre.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
@@ -158,10 +160,11 @@ sge::opengl::render_context::object::offscreen_target(
 			this
 		]{
 			FCPPT_ASSERT_PRE(
-				scoped_offscreen_target_
+				scoped_offscreen_target_.has_value()
 			);
 
-			scoped_offscreen_target_.reset();
+			scoped_offscreen_target_ =
+				optional_scoped_offscreen_target_ptr();
 
 			scoped_target_.target().bind();
 		},
@@ -172,19 +175,21 @@ sge::opengl::render_context::object::offscreen_target(
 		)
 		{
 			FCPPT_ASSERT_PRE(
-				!scoped_offscreen_target_
+				!scoped_offscreen_target_.has_value()
 			);
 
 			scoped_target_.target().unbind();
 
 			scoped_offscreen_target_ =
-				fcppt::make_unique_ptr<
-					sge::opengl::scoped_target
-				>(
-					dynamic_cast<
-						sge::opengl::target_base &
+				optional_scoped_offscreen_target_ptr(
+					fcppt::make_unique_ptr_fcppt<
+						sge::opengl::scoped_target
 					>(
-						_target
+						dynamic_cast<
+							sge::opengl::target_base &
+						>(
+							_target
+						)
 					)
 				);
 		}

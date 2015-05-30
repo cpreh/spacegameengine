@@ -97,7 +97,7 @@ sge::pango::create_layout(
 	);
 
 	::pango_layout_set_font_description(
-		result.get(),
+		result.get_pointer(),
 		font_description.get()
 	);
 

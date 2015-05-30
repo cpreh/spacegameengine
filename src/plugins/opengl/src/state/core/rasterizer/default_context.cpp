@@ -26,14 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/rasterizer/object.hpp>
 #include <sge/renderer/state/core/rasterizer/default.hpp>
 #include <sge/renderer/state/core/rasterizer/parameters.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 
 
 sge::opengl::state::core::rasterizer::default_context::default_context()
 :
 	sge::opengl::context::system::base(),
 	default_state_(
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			sge::opengl::state::core::rasterizer::object
 		>(
 			sge::opengl::state::core::rasterizer::make_actors(

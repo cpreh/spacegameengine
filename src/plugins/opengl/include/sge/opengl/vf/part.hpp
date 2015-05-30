@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <memory>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -73,7 +73,7 @@ private:
 	sge::renderer::vf::dynamic::part const part_;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::opengl::vf::actor
 	>
 	actor_unique_ptr;

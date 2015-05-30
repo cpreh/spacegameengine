@@ -29,9 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -83,7 +83,7 @@ public:
 	static_id;
 private:
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::opengl::state::core::sampler::object
 	>
 	object_unique_ptr;

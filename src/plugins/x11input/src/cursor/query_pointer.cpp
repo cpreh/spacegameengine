@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/deleter.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/object.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/cast/float_to_int.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -74,7 +74,7 @@ sge::x11input::cursor::query_pointer(
 		return sge::input::cursor::optional_position();
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		unsigned char,
 		awl::backends::x11::deleter
 	>

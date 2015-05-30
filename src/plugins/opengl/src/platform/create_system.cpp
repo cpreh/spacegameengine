@@ -20,9 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/config.hpp>
 #include <sge/opengl/platform/create_system.hpp>
+#include <sge/opengl/platform/system.hpp>
 #include <sge/opengl/platform/system_unique_ptr.hpp>
 #include <awl/system/object.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(SGE_OPENGL_HAVE_X11)
 #include <sge/opengl/x11/system.hpp>
@@ -40,23 +42,26 @@ sge::opengl::platform::create_system(
 	awl::system::object &_awl_system
 )
 {
-#if defined(SGE_OPENGL_HAVE_X11)
 	return
-		fcppt::make_unique_ptr<
-			sge::opengl::x11::system
+		fcppt::unique_ptr_to_base<
+			sge::opengl::platform::system
 		>(
-			fcppt::cast::static_downcast<
-				awl::backends::x11::system::object &
+#if defined(SGE_OPENGL_HAVE_X11)
+			fcppt::make_unique_ptr_fcppt<
+				sge::opengl::x11::system
 			>(
-				_awl_system
+				fcppt::cast::static_downcast<
+					awl::backends::x11::system::object &
+				>(
+					_awl_system
+				)
 			)
-		);
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-	return
-		fcppt::make_unique_ptr<
-			sge::opengl::windows::system
-		>();
+			fcppt::make_unique_ptr_fcppt<
+				sge::opengl::windows::system
+			>()
 #else
 #error "Implement me!"
 #endif
+		);
 }

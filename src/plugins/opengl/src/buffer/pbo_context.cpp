@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/create.hpp>
+#include <sge/opengl/buffer/hw_supported.hpp>
 #include <sge/opengl/buffer/make_type.hpp>
 #include <sge/opengl/buffer/pbo_context.hpp>
 #include <sge/opengl/buffer/type.hpp>
@@ -40,9 +41,11 @@ sge::opengl::buffer::pbo_context::pbo_context()
 	sge::opengl::context::system::base(),
 	impl_(
 		sge::opengl::buffer::create(
-			GLEW_VERSION_2_1
-			||
-			GLEW_ARB_pixel_buffer_object
+			sge::opengl::buffer::hw_supported(
+				GLEW_VERSION_2_1
+				||
+				GLEW_ARB_pixel_buffer_object
+			)
 		)
 	),
 	pixel_pack_buffer_type_(

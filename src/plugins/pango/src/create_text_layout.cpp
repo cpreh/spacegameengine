@@ -67,7 +67,7 @@ sge::pango::create_text_layout(
 		);
 
 		::pango_layout_set_text(
-			layout.get(),
+			layout.get_pointer(),
 			fcppt::cast::to_char_ptr<
 				char const *
 			>(
@@ -84,7 +84,7 @@ sge::pango::create_text_layout(
 	}
 
 	::pango_layout_set_alignment(
-		layout.get(),
+		layout.get_pointer(),
 		sge::pango::convert::alignment(
 			_text_parameters.align_h()
 		)
@@ -101,7 +101,7 @@ sge::pango::create_text_layout(
 		)
 		{
 			::pango_layout_set_width(
-				layout.get(),
+				layout.get_pointer(),
 				sge::pango::convert::to_unit(
 					_max_width.get()
 				)
@@ -110,7 +110,7 @@ sge::pango::create_text_layout(
 	);
 
 	::pango_layout_set_wrap(
-		layout.get(),
+		layout.get_pointer(),
 		(
 			_text_parameters.flags()
 			&
@@ -123,7 +123,7 @@ sge::pango::create_text_layout(
 	);
 
 	::pango_layout_set_single_paragraph_mode(
-		layout.get(),
+		layout.get_pointer(),
 		(
 			_text_parameters.flags()
 			&
@@ -136,12 +136,12 @@ sge::pango::create_text_layout(
 	);
 
 	::pango_layout_set_ellipsize(
-		layout.get(),
+		layout.get_pointer(),
 		PANGO_ELLIPSIZE_NONE
 	);
 
 	::pango_layout_set_indent(
-		layout.get(),
+		layout.get_pointer(),
 		0
 	);
 

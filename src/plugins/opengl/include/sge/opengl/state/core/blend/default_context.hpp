@@ -26,9 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/state/core/blend/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -68,7 +66,7 @@ public:
 	static_id;
 private:
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::opengl::state::core::blend::object
 	>
 	object_unique_ptr;

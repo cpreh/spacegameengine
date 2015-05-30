@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/platform/device_state.hpp>
 #include <sge/opengl/platform/device_state_unique_ptr.hpp>
 #include <sge/opengl/platform/system.hpp>
 #include <sge/opengl/x11/device_state.hpp>
@@ -34,8 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <awl/window/object.hpp>
 #include <awl/window/event/processor.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
 
@@ -83,30 +85,34 @@ sge::opengl::x11::system::create_device_state(
 )
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::opengl::x11::device_state
+		fcppt::unique_ptr_to_base<
+			sge::opengl::platform::device_state
 		>(
-			fcppt::optional_bind_construct(
-				xrandr_system_,
-				[](
-					sge::opengl::xrandr::system_unique_ptr const &_system
+			fcppt::make_unique_ptr_fcppt<
+				sge::opengl::x11::device_state
+			>(
+				fcppt::optional_bind_construct(
+					xrandr_system_,
+					[](
+						sge::opengl::xrandr::system_unique_ptr const &_system
+					)
+					-> sge::opengl::xrandr::system &
+					{
+						return
+							*_system;
+					}
+				),
+				_display_mode,
+				fcppt::cast::static_downcast<
+					awl::backends::x11::window::object &
+				>(
+					_window
+				),
+				fcppt::cast::static_downcast<
+					awl::backends::x11::window::event::processor &
+				>(
+					_processor
 				)
-				-> sge::opengl::xrandr::system &
-				{
-					return
-						*_system;
-				}
-			),
-			_display_mode,
-			fcppt::cast::static_downcast<
-				awl::backends::x11::window::object &
-			>(
-				_window
-			),
-			fcppt::cast::static_downcast<
-				awl::backends::x11::window::event::processor &
-			>(
-				_processor
 			)
 		);
 }

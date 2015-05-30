@@ -27,11 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_fwd.hpp>
 #include <fcppt/strong_typedef_std_hash.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/signal/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <functional>
-#include <memory>
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
@@ -66,7 +66,7 @@ public:
 		void (RemoveEvent const &)
 	> remove_signal;
 
-	typedef std::unique_ptr<
+	typedef fcppt::unique_ptr<
 		X11Object
 	> object_unique_ptr;
 

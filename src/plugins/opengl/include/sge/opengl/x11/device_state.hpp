@@ -30,9 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -71,7 +69,7 @@ private:
 	override;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::opengl::xrandr::state
 	>
 	xrandr_state_unique_ptr;
@@ -83,7 +81,7 @@ private:
 	optional_xrandr_state_unique_ptr;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::opengl::xrandr::resolution
 	>
 	resolution_unique_ptr;

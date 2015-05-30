@@ -42,9 +42,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/valuator/index.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
 #include <awl/backends/x11/cursor/object_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/maybe_void.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/cast/float_to_int.hpp>
@@ -417,26 +419,30 @@ sge::x11input::cursor::object::check_grab()
 	{
 	case sge::input::cursor::mode::exclusive:
 		if(
-			!cursor_grab_
+			!cursor_grab_.has_value()
 			&&
 			entered_.get()
 		)
 			cursor_grab_ =
-				fcppt::make_unique_ptr<
-					sge::x11input::cursor::grab
-				>(
-					window_,
-					this->id(),
-					cursor_
+				optional_cursor_grab_unique_ptr(
+					fcppt::make_unique_ptr_fcppt<
+						sge::x11input::cursor::grab
+					>(
+						window_,
+						this->id(),
+						cursor_
+					)
 				);
 		else if(
 			!entered_.get()
 		)
-			cursor_grab_.reset();
+			cursor_grab_ =
+				optional_cursor_grab_unique_ptr();
 
 		return;
 	case sge::input::cursor::mode::normal:
-		cursor_grab_.reset();
+		cursor_grab_ =
+			optional_cursor_grab_unique_ptr();
 		return;
 	}
 

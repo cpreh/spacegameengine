@@ -52,7 +52,7 @@ sge::pango::object::object(
 	),
 	context_(
 		::pango_font_map_create_context(
-			font_map_.get()
+			font_map_.get_pointer()
 		)
 	),
 	layout_(

@@ -18,29 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/buffer/base.hpp>
+#include <sge/opengl/buffer/base_unique_ptr.hpp>
 #include <sge/opengl/buffer/create.hpp>
 #include <sge/opengl/buffer/hardware.hpp>
+#include <sge/opengl/buffer/hw_supported.hpp>
 #include <sge/opengl/buffer/software.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::opengl::buffer::base_unique_ptr
 sge::opengl::buffer::create(
-	bool const _hw_supported
+	sge::opengl::buffer::hw_supported const _hw_supported
 )
 {
 	return
-		_hw_supported
+		_hw_supported.get()
 		?
-			buffer::base_unique_ptr(
-				fcppt::make_unique_ptr<
-					buffer::hardware
+			fcppt::unique_ptr_to_base<
+				sge::opengl::buffer::base
+			>(
+				fcppt::make_unique_ptr_fcppt<
+					sge::opengl::buffer::hardware
 				>()
 			)
 		:
-			buffer::base_unique_ptr(
-				fcppt::make_unique_ptr<
-					buffer::software
+			fcppt::unique_ptr_to_base<
+				sge::opengl::buffer::base
+			>(
+				fcppt::make_unique_ptr_fcppt<
+					sge::opengl::buffer::software
 				>()
-			);
+			)
+		;
 }

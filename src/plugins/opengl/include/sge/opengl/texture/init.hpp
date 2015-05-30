@@ -42,9 +42,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_int_range_count.hpp>
+#include <fcppt/make_literal_strong_typedef.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <memory>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -63,7 +67,7 @@ void
 init(
 	sge::opengl::texture::binding const &_binding,
 	std::vector<
-		std::unique_ptr<
+		fcppt::unique_ptr<
 			typename Types::buffer_types::base
 		>
 	> &_levels,
@@ -178,33 +182,64 @@ init(
 		typename Types::buffer_types
 	> gl_buffer;
 
-	for(
-		sge::renderer::texture::mipmap::level index(
-			0u
-		);
-		index.get() < mip_levels.get();
-		++index
-	)
-		_levels.push_back(
-			fcppt::make_unique_ptr<
-				gl_buffer
-			>(
-				format,
-				sge::opengl::texture::basic_buffer_parameters(
-					_binding,
-					_basic_parameters.system_context(),
-					_basic_parameters.device_context(),
-					index,
-					_type,
-					_buffer_type,
-					_id,
-					_parameters.resource_flags(),
-					color_format,
-					color_format_type,
-					internal_color_format,
-					is_target
+	typedef
+	std::vector<
+		fcppt::unique_ptr<
+			typename Types::buffer_types::base
+		>
+	>
+	level_container;
+
+	_levels =
+		fcppt::algorithm::map<
+			level_container
+		>(
+			fcppt::make_int_range_count(
+				sge::renderer::texture::mipmap::level(
+					mip_levels.get()
 				)
+			),
+			[
+				&_binding,
+				&_basic_parameters,
+				_type,
+				_buffer_type,
+				_id,
+				&_parameters,
+				color_format,
+				color_format_type,
+				format,
+				internal_color_format,
+				is_target
+			](
+				sge::renderer::texture::mipmap::level const _index
 			)
+			{
+				return
+					fcppt::unique_ptr_to_base<
+						typename Types::buffer_types::base
+					>(
+						fcppt::make_unique_ptr_fcppt<
+							gl_buffer
+						>(
+							format,
+							sge::opengl::texture::basic_buffer_parameters(
+								_binding,
+								_basic_parameters.system_context(),
+								_basic_parameters.device_context(),
+								_index,
+								_type,
+								_buffer_type,
+								_id,
+								_parameters.resource_flags(),
+								color_format,
+								color_format_type,
+								internal_color_format,
+								is_target
+							)
+						)
+					);
+			}
 		);
 }
 

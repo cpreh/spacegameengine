@@ -40,10 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/math/box/object_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -144,12 +142,6 @@ private:
 	dim const
 	lock_dim() const;
 
-	void
-	check_locked() const;
-
-	void
-	check_not_locked() const;
-
 	sge::opengl::context::system::object &system_context_;
 
 	sge::opengl::context::device::object &device_context_;
@@ -172,11 +164,19 @@ private:
 
 	size_type const stride_;
 
-	typedef std::unique_ptr<
+	typedef
+	fcppt::unique_ptr<
 		sge::opengl::texture::lock_base
-	> scoped_lock_ptr;
+	>
+	lock_unique_ptr;
 
-	mutable scoped_lock_ptr lock_;
+	typedef
+	fcppt::optional<
+		lock_unique_ptr
+	>
+	optional_lock_unique_ptr;
+
+	mutable optional_lock_unique_ptr lock_;
 
 	typedef fcppt::optional<
 		lock_area

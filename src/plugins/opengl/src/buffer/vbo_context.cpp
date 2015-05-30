@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/create.hpp>
+#include <sge/opengl/buffer/hw_supported.hpp>
 #include <sge/opengl/buffer/make_type.hpp>
 #include <sge/opengl/buffer/type.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
@@ -40,9 +41,11 @@ sge::opengl::buffer::vbo_context::vbo_context()
 	sge::opengl::context::system::base(),
 	impl_(
 		sge::opengl::buffer::create(
-			GLEW_VERSION_1_5
-			||
-			GLEW_ARB_vertex_buffer_object
+			sge::opengl::buffer::hw_supported(
+				GLEW_VERSION_1_5
+				||
+				GLEW_ARB_vertex_buffer_object
+			)
 		)
 	),
 	index_buffer_type_(

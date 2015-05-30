@@ -26,13 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/exception.hpp>
 #include <sge/shader/load_edited_string.hpp>
 #include <sge/shader/pair.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
-#include <memory>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -40,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 typedef
-std::unique_ptr<std::istream>
+fcppt::unique_ptr<std::istream>
 istream_unique_ptr;
 
 istream_unique_ptr
@@ -48,11 +49,11 @@ open_istream_exn(
 	boost::filesystem::path const &_path)
 {
 	typedef
-	std::unique_ptr<boost::filesystem::ifstream>
+	fcppt::unique_ptr<boost::filesystem::ifstream>
 	boost_filesystem_ifstream_unique_ptr;
 
 	boost_filesystem_ifstream_unique_ptr result(
-		fcppt::make_unique_ptr<boost::filesystem::ifstream>(
+		fcppt::make_unique_ptr_fcppt<boost::filesystem::ifstream>(
 			_path));
 
 	if(!result->is_open())
@@ -64,9 +65,13 @@ open_istream_exn(
 				FCPPT_TEXT("\""));
 
 	return
-		istream_unique_ptr(
+		fcppt::unique_ptr_to_base<
+			std::istream
+		>(
 			std::move(
-				result));
+				result
+			)
+		);
 }
 }
 

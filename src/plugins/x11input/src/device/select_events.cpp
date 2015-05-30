@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
@@ -39,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <algorithm>
 #include <cstddef>
 #include <limits>
-#include <memory>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -90,10 +90,12 @@ sge::x11input::device::select_events(
 	// sge will add or remove one event type for a device at a time
 	// because it does this lazily inside the event demuxers.
 
-	typedef std::unique_ptr<
+	typedef
+	fcppt::unique_ptr<
 		XIEventMask,
 		awl::backends::x11::deleter
-	> scoped_event_mask;
+	>
+	scoped_event_mask;
 
 	int num_masks;
 
@@ -122,8 +124,8 @@ sge::x11input::device::select_events(
 
 	// Copy all masks over because we might need to add a new mask.
 	event_mask_vector event_masks(
-		mask.get(),
-		mask.get()
+		mask.get_pointer(),
+		mask.get_pointer()
 		+ num_masks
 	);
 

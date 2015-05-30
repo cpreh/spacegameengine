@@ -20,6 +20,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/buffer/create.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/hardware.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/holder.hpp
+	src/plugins/opengl/include/sge/opengl/buffer/hw_supported.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/id.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/make_type.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/normal_lock_method.hpp
@@ -586,7 +587,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/vf/pos_actor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/texpos_actor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/to_actor.hpp
-	src/plugins/opengl/include/sge/opengl/vf/to_actor_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/vertex_attrib_pointer.hpp
 	src/plugins/opengl/include/sge/opengl/viewport.hpp
 	src/plugins/opengl/src/backend/context.cpp
@@ -973,7 +973,6 @@ set(
 	src/plugins/opengl/src/vf/pos_actor.cpp
 	src/plugins/opengl/src/vf/texpos_actor.cpp
 	src/plugins/opengl/src/vf/to_actor.cpp
-	src/plugins/opengl/src/vf/to_actor_visitor.cpp
 	src/plugins/opengl/src/vf/vertex_attrib_pointer.cpp
 	src/plugins/opengl/src/viewport.cpp
 )

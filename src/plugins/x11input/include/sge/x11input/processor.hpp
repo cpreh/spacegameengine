@@ -65,12 +65,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/event/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -213,15 +211,19 @@ private:
 
 	awl::backends::x11::cursor::object_unique_ptr const invisible_cursor_;
 
-	typedef std::unique_ptr<
+	typedef
+	fcppt::unique_ptr<
 		sge::x11input::input_method
-	> input_method_ptr;
+	>
+	input_method_ptr;
 
 	input_method_ptr const input_method_;
 
-	typedef std::unique_ptr<
+	typedef
+	fcppt::unique_ptr<
 		sge::x11input::input_context
-	> input_context_ptr;
+	>
+	input_context_ptr;
 
 	input_context_ptr const input_context_;
 

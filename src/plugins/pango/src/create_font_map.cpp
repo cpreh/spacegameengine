@@ -50,7 +50,7 @@ sge::pango::create_font_map(
 				reinterpret_cast<
 					PangoFT2FontMap *
 				>(
-					result.get()
+					result.get_pointer()
 				),
 				_dpi.w(),
 				_dpi.h()

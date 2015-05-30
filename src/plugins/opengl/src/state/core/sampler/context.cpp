@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/from_optional.hpp>
 #include <fcppt/identity.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/optional_bind.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/static_optional_cast.hpp>
@@ -44,7 +44,7 @@ sge::opengl::state::core::sampler::context::context(
 :
 	sge::opengl::context::device::base(),
 	defaults_(
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			sge::opengl::state::core::sampler::object
 		>(
 			sge::opengl::state::core::sampler::make_actors(

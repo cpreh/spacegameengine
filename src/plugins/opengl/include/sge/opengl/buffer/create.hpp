@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BUFFER_CREATE_HPP_INCLUDED
 
 #include <sge/opengl/buffer/base_unique_ptr.hpp>
+#include <sge/opengl/buffer/hw_supported.hpp>
+
 
 namespace sge
 {
@@ -30,9 +32,9 @@ namespace opengl
 namespace buffer
 {
 
-buffer::base_unique_ptr
+sge::opengl::buffer::base_unique_ptr
 create(
-	bool hw_supported
+	sge::opengl::buffer::hw_supported
 );
 
 }

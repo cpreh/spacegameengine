@@ -31,11 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/pango/glib_deleter_fwd.hpp>
 #include <sge/pango/pango_layout_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-fontmap.h>
 #include <pango/pango-layout.h>
 #include <pango/pango-types.h>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -76,7 +76,7 @@ private:
 	override;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		PangoFontMap,
 		sge::pango::glib_deleter
 	>
@@ -85,7 +85,7 @@ private:
 	font_map_unique_ptr const font_map_;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		PangoContext,
 		sge::pango::glib_deleter
 	>

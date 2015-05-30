@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/vorbis/file.hpp>
 #include <sge/vorbis/loader.hpp>
 #include <sge/vorbis/stream_ptr.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -80,9 +79,17 @@ sge::vorbis::loader::load(
 )
 {
 	stream_ptr file_stream(
-		fcppt::make_unique_ptr<boost::filesystem::ifstream>(
-			filename,
-			std::ios::binary));
+		fcppt::unique_ptr_to_base<
+			std::istream
+		>(
+			fcppt::make_unique_ptr_fcppt<
+				boost::filesystem::ifstream
+			>(
+				filename,
+				std::ios::binary
+			)
+		)
+	);
 
 	// TODO: Remove the static_cast here
 	if(!static_cast<boost::filesystem::ifstream &>(*file_stream).is_open())
@@ -144,11 +151,18 @@ sge::vorbis::loader::load_raw(
 	stream_type;
 
 	stream_ptr raw_stream(
-		fcppt::make_unique_ptr<stream_type>(
-			reinterpret_cast<boost::iostreams::array_source::char_type const *>(
-				_range.begin()),
-			reinterpret_cast<boost::iostreams::array_source::char_type const *>(
-				_range.end())));
+		fcppt::unique_ptr_to_base<
+			std::istream
+		>(
+			fcppt::make_unique_ptr_fcppt<stream_type>(
+				reinterpret_cast<boost::iostreams::array_source::char_type const *>(
+					_range.begin()),
+				reinterpret_cast<boost::iostreams::array_source::char_type const *>(
+					_range.end()
+				)
+			)
+		)
+	);
 
 	try
 	{
@@ -205,7 +219,7 @@ sge::vorbis::loader::load_stream(
 						// replaces the old one. I'm not sure if rdbuf(0)
 						// is allowed and if this is the best way to
 						// achieve the goal.
-						fcppt::make_unique_ptr<
+						fcppt::make_unique_ptr_fcppt<
 							std::istream
 						>(
 							_stream.rdbuf(

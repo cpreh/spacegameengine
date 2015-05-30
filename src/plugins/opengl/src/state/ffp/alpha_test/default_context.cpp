@@ -26,14 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/alpha_test/object.hpp>
 #include <sge/renderer/state/ffp/alpha_test/default.hpp>
 #include <sge/renderer/state/ffp/alpha_test/parameters.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 
 
 sge::opengl::state::ffp::alpha_test::default_context::default_context()
 :
 	sge::opengl::context::system::base(),
 	default_state_(
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			sge::opengl::state::ffp::alpha_test::object
 		>(
 			sge::opengl::state::ffp::alpha_test::make_actors(

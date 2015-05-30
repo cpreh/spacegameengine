@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/misc/object.hpp>
 #include <sge/renderer/state/ffp/misc/default.hpp>
 #include <sge/renderer/state/ffp/misc/parameters.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 
 
 sge::opengl::state::ffp::misc::default_context::default_context(
@@ -35,7 +35,7 @@ sge::opengl::state::ffp::misc::default_context::default_context(
 :
 	sge::opengl::context::system::base(),
 	default_state_(
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			sge::opengl::state::ffp::misc::object
 		>(
 			sge::opengl::state::ffp::misc::make_actors(

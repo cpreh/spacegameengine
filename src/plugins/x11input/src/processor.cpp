@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <awl/backends/x11/window/event/type.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/cast/static_downcast.hpp>
@@ -156,7 +156,7 @@ sge::x11input::processor::processor(
 		)
 	),
 	input_method_(
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			sge::x11input::input_method
 		>(
 			x11_window_.display(),
@@ -164,7 +164,7 @@ sge::x11input::processor::processor(
 		)
 	),
 	input_context_(
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			x11input::input_context
 		>(
 			input_method_->get(),
@@ -460,7 +460,7 @@ sge::x11input::processor::create_keyboard(
 )
 {
 	return
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			sge::x11input::keyboard::device
 		>(
 			this->device_parameters(
@@ -476,7 +476,7 @@ sge::x11input::processor::create_mouse(
 )
 {
 	return
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			sge::x11input::mouse::device
 		>(
 			this->device_parameters(
@@ -491,7 +491,7 @@ sge::x11input::processor::create_cursor(
 )
 {
 	return
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			sge::x11input::cursor::object
 		>(
 			this->device_parameters(

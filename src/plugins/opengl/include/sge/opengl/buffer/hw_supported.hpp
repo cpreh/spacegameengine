@@ -18,25 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_PLATFORM_SYSTEM_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_OPENGL_PLATFORM_SYSTEM_UNIQUE_PTR_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_HW_SUPPORTED_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_HW_SUPPORTED_HPP_INCLUDED
 
-#include <sge/opengl/platform/system_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace platform
+namespace buffer
 {
 
-typedef
-fcppt::unique_ptr<
-	sge::opengl::platform::system
->
-system_unique_ptr;
+FCPPT_MAKE_STRONG_TYPEDEF(
+	bool,
+	hw_supported
+);
 
 }
 }

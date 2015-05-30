@@ -31,9 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/container/enum_array_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <memory>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -86,7 +86,7 @@ private:
 	sge::renderer::texture::cube::size_type const size_;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::renderer::texture::cube::color_buffer
 	>
 	color_buffer_unique_ptr;

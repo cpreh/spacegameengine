@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/id_fwd.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
 namespace sge
@@ -57,14 +58,22 @@ public:
 		Domain
 	> id_type;
 
-	base_type *
+	typedef
+	fcppt::optional<
+		base_type &
+	>
+	optional_base_ref;
+
+	optional_base_ref
 	get(
 		id_type
 	);
 
-	typedef typename sge::opengl::context::base_unique_ptr<
+	typedef
+	sge::opengl::context::base_unique_ptr<
 		Domain
-	>::type base_unique_ptr;
+	>
+	base_unique_ptr;
 
 	base_type &
 	insert(

@@ -88,9 +88,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/object_fwd.hpp>
 #include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
@@ -352,7 +350,7 @@ private:
 	sge::renderer::caps::device const &caps_;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::opengl::platform::device_state
 	>
 	platform_device_state_unique_ptr;

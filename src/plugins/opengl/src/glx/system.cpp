@@ -34,7 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
 
@@ -75,8 +76,10 @@ sge::opengl::glx::system::create_context(
 )
 {
 	return
-		sge::opengl::backend::context_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::opengl::backend::context
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::opengl::glx::context
 			>(
 				fcppt::cast::static_downcast<

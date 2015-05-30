@@ -54,13 +54,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/format.hpp>
 #include <fcppt/from_optional.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/optional_to_exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/container/find_opt.hpp>
@@ -111,7 +112,8 @@ sge::opengl::fbo::target::~target()
 		fbo_
 	);
 
-	depth_stencil_attachment_.reset();
+	depth_stencil_attachment_ =
+		optional_attachment_unique_ptr();
 
 	color_attachments_.clear();
 }
@@ -231,7 +233,8 @@ sge::opengl::fbo::target::depth_stencil_surface(
 		fbo_
 	);
 
-	depth_stencil_attachment_.reset();
+	depth_stencil_attachment_ =
+		optional_attachment_unique_ptr();
 
 	fcppt::maybe_void(
 		_opt_surface,
@@ -268,9 +271,11 @@ sge::opengl::fbo::target::depth_stencil_surface(
 			)
 			{
 				depth_stencil_attachment_ =
-					this->create_buffer_binding(
-						ptr->render_buffer(),
-						attachment
+					optional_attachment_unique_ptr(
+						this->create_buffer_binding(
+							ptr->render_buffer(),
+							attachment
+						)
 					);
 
 				return;
@@ -286,9 +291,11 @@ sge::opengl::fbo::target::depth_stencil_surface(
 			)
 			{
 				depth_stencil_attachment_ =
-					this->create_texture_binding(
-						*ptr,
-						attachment
+					optional_attachment_unique_ptr(
+						this->create_texture_binding(
+							*ptr,
+							attachment
+						)
 					);
 
 				return;
@@ -323,13 +330,17 @@ sge::opengl::fbo::target::create_texture_binding(
 	sge::opengl::fbo::attachment_type const _attachment
 )
 {
-	attachment_unique_ptr ret(
-		fcppt::make_unique_ptr<
-			sge::opengl::fbo::texture_binding
+	sge::opengl::fbo::attachment_unique_ptr ret(
+		fcppt::unique_ptr_to_base<
+			sge::opengl::fbo::attachment
 		>(
-			context_,
-			_surface,
-			_attachment
+			fcppt::make_unique_ptr_fcppt<
+				sge::opengl::fbo::texture_binding
+			>(
+				context_,
+				_surface,
+				_attachment
+			)
 		)
 	);
 
@@ -345,13 +356,17 @@ sge::opengl::fbo::target::create_buffer_binding(
 	sge::opengl::fbo::attachment_type const _attachment
 )
 {
-	attachment_unique_ptr ret(
-		fcppt::make_unique_ptr<
-			sge::opengl::fbo::render_buffer_binding
+	sge::opengl::fbo::attachment_unique_ptr ret(
+		fcppt::unique_ptr_to_base<
+			sge::opengl::fbo::attachment
 		>(
-			context_,
-			_buffer,
-			_attachment
+			fcppt::make_unique_ptr_fcppt<
+				sge::opengl::fbo::render_buffer_binding
+			>(
+				context_,
+				_buffer,
+				_attachment
+			)
 		)
 	);
 

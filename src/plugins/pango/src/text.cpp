@@ -96,7 +96,7 @@ sge::pango::text::render(
 
 	::pango_ft2_render_layout(
 		&bitmap,
-		layout_.get(),
+		layout_.get_pointer(),
 		fcppt::cast::size<
 			int
 		>(
@@ -134,7 +134,7 @@ sge::pango::text::cursor_rect(
 		weak_pos;
 
 	::pango_layout_get_cursor_pos(
-		layout_.get(),
+		layout_.get_pointer(),
 		fcppt::cast::size<
 			int
 		>(
@@ -163,7 +163,7 @@ sge::pango::text::pos_to_index(
 
 	return
 		::pango_layout_xy_to_index(
-			layout_.get(),
+			layout_.get_pointer(),
 			sge::pango::convert::to_unit(
 				_pos.x()
 			),

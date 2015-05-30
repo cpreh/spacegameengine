@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/base_fwd.hpp>
 #include <sge/opengl/context/make_object.hpp>
 #include <sge/opengl/context/object_decl.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 
 
 namespace sge
@@ -46,41 +48,47 @@ use_impl(
 	Parameter &&_parameter
 )
 {
-	typedef sge::opengl::context::base<
-		Domain
-	> base_type;
-
-	base_type *ptr(
-		_object.get(
-			Type::static_id
-		)
-	);
-
 	return
-		ptr
-		!=
-		nullptr
-		?
-			static_cast<
-				Type &
-			>(
-				*ptr
-			)
-		:
-			static_cast<
-				Type &
-			>(
-				_object.insert(
-					Type::static_id,
-					sge::opengl::context::make_object<
-						Type,
-						Domain
+		fcppt::maybe(
+			_object.get(
+				Type::static_id
+			),
+			[
+				&_object,
+				&_parameter
+			]()
+			-> Type &
+			{
+				return
+					fcppt::cast::static_downcast<
+						Type &
 					>(
-						_parameter
-					)
-				)
+						_object.insert(
+							Type::static_id,
+							sge::opengl::context::make_object<
+								Type,
+								Domain
+							>(
+								_parameter
+							)
+						)
+					);
+			},
+			[](
+				sge::opengl::context::base<
+					Domain
+				> &_ref
 			)
-		;
+			-> Type &
+			{
+				return
+					fcppt::cast::static_downcast<
+						Type &
+					>(
+						_ref
+					);
+			}
+		);
 }
 
 }

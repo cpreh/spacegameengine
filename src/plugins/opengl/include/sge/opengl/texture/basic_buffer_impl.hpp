@@ -52,8 +52,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/format.hpp>
 #include <fcppt/from_optional.hpp>
 #include <fcppt/maybe.hpp>
+#include <fcppt/optional_assign.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/math/box/comparison.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/box/output.hpp>
@@ -142,7 +145,8 @@ sge::opengl::texture::basic_buffer<
 	Types
 >::is_render_target() const
 {
-	return is_render_target_;
+	return
+		is_render_target_;
 }
 
 template<
@@ -155,7 +159,8 @@ sge::opengl::texture::basic_buffer<
 	Types
 >::size() const
 {
-	return size_;
+	return
+		size_;
 }
 
 template<
@@ -168,7 +173,8 @@ sge::opengl::texture::basic_buffer<
 	Types
 >::format() const
 {
-	return format_;
+	return
+		format_;
 }
 
 template<
@@ -191,7 +197,8 @@ sge::opengl::texture::basic_buffer<
 		)
 	);
 
-	return this->lock_view();
+	return
+		this->lock_view();
 }
 
 template<
@@ -223,13 +230,17 @@ sge::opengl::texture::basic_buffer<
 	Types
 >::unlock() const
 {
-	this->check_locked();
+	lock_unique_ptr const &lock(
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			lock_
+		)
+	);
 
-	lock_->pre_unlock();
+	lock->pre_unlock();
 
 	if(
 		sge::renderer::lock_flags::write(
-			lock_->method()
+			lock->method()
 		)
 	)
 	{
@@ -239,7 +250,7 @@ sge::opengl::texture::basic_buffer<
 		// to the destination buffer.
 		if(
 			sge::renderer::lock_flags::read(
-				lock_->method()
+				lock->method()
 			)
 		)
 		{
@@ -251,7 +262,7 @@ sge::opengl::texture::basic_buffer<
 				sge::image::view::make<
 					image_tag
 				>(
-					lock_->write_view_pointer(),
+					lock->write_view_pointer(),
 					this->lock_dim(),
 					format_,
 					basic_buffer::pitch::null()
@@ -260,10 +271,10 @@ sge::opengl::texture::basic_buffer<
 				sge::image::algorithm::uninitialized::yes
 			);
 
-			lock_->post_copy();
+			lock->post_copy();
 		}
 
-		lock_->unlock();
+		lock->unlock();
 
 		sge::opengl::texture::scoped_work_binding const binding(
 			system_context_,
@@ -299,11 +310,12 @@ sge::opengl::texture::basic_buffer<
 						);
 				}
 			),
-			lock_->write_pointer()
+			lock->write_pointer()
 		);
 	}
 
-	lock_.reset();
+	lock_ =
+		optional_lock_unique_ptr();
 }
 
 template<
@@ -333,15 +345,19 @@ sge::opengl::texture::basic_buffer<
 			).str()
 		);
 
-	lock_ =
-		sge::opengl::texture::create_lock(
-			system_context_,
-			_method,
-			this->content(),
-			_lock_area.content(),
-			stride_,
-			resource_flags_
-		);
+	lock_unique_ptr const &lock(
+		fcppt::optional_assign(
+			lock_,
+			sge::opengl::texture::create_lock(
+				system_context_,
+				_method,
+				this->content(),
+				_lock_area.content(),
+				stride_,
+				resource_flags_
+			)
+		)
+	);
 
 	if(
 		sge::renderer::lock_flags::read(
@@ -361,12 +377,12 @@ sge::opengl::texture::basic_buffer<
 			this->buffer_type(),
 			color_format_,
 			color_format_type_,
-			lock_->read_pointer(),
+			lock->read_pointer(),
 			this->level()
 		);
 	}
 
-	lock_->lock();
+	lock->lock();
 
 	lock_area_ =
 		_lock_area
@@ -391,13 +407,19 @@ sge::opengl::texture::basic_buffer<
 	Types
 >::lock_view()
 {
+	lock_unique_ptr const &lock(
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			lock_
+		)
+	);
+
 	// If we are currently reading a texture, we have mapped the whole
 	// texture and have to take a sub view. Also, opengl reads the image
 	// flipped, so we have to flip it too.
 
 	bool const reading(
 		sge::renderer::lock_flags::read(
-			lock_->method()
+			lock->method()
 		)
 	);
 
@@ -407,9 +429,9 @@ sge::opengl::texture::basic_buffer<
 		>(
 			reading
 			?
-				lock_->read_view_pointer()
+				lock->read_view_pointer()
 			:
-				lock_->write_view_pointer(),
+				lock->write_view_pointer(),
 			reading
 			?
 				this->size()
@@ -502,38 +524,6 @@ sge::opengl::texture::basic_buffer<
 				return
 					_area.size();
 			}
-		);
-}
-
-template<
-	typename Types
->
-void
-sge::opengl::texture::basic_buffer<
-	Types
->::check_locked() const
-{
-	if(
-		!lock_
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("opengl::texture::basic_buffer not locked!")
-		);
-}
-
-template<
-	typename Types
->
-void
-sge::opengl::texture::basic_buffer<
-	Types
->::check_not_locked() const
-{
-	if(
-		lock_
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("opengl::texture::basic_buffer already locked!")
 		);
 }
 

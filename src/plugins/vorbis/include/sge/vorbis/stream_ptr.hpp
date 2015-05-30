@@ -21,19 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VORBIS_STREAM_PTR_HPP_INCLUDED
 #define SGE_VORBIS_STREAM_PTR_HPP_INCLUDED
 
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 // iosfwd here?
 #include <istream>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge
 {
 namespace vorbis
 {
+
 typedef
-std::unique_ptr<std::istream>
+fcppt::unique_ptr<std::istream>
 stream_ptr;
+
 }
 }
 

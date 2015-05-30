@@ -55,17 +55,31 @@ template<
 >
 typename sge::opengl::context::object<
 	Domain
->::base_type *
+>::optional_base_ref
 sge::opengl::context::object<
 	Domain
 >::get(
 	id_type const _id
 )
 {
-	return
+	base_type *const ret(
 		elements_.get(
 			_id.get()
-		);
+		)
+	);
+
+	// TODO: Improve this
+	return
+		ret
+		==
+		nullptr
+		?
+			optional_base_ref()
+		:
+			optional_base_ref(
+				*ret
+			)
+		;
 }
 
 template<

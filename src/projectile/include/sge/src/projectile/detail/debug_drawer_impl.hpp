@@ -27,11 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
 #include <LinearMath/btIDebugDraw.h>
 #include <LinearMath/btVector3.h>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -72,7 +73,20 @@ private:
 	btCollisionWorld &world_;
 	int debug_mode_;
 	sge::line_drawer::object line_drawer_;
-	std::unique_ptr<sge::line_drawer::scoped_lock> scoped_lock_;
+
+	typedef
+	fcppt::unique_ptr<
+		sge::line_drawer::scoped_lock
+	>
+	scoped_lock_unique_ptr;
+
+	typedef
+	fcppt::optional<
+		scoped_lock_unique_ptr
+	>
+	optional_scoped_lock_unique_ptr;
+
+	optional_scoped_lock_unique_ptr scoped_lock_;
 
 	void
 	drawLine(

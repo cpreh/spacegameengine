@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <memory>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -73,7 +73,7 @@ private:
 
 	// Parts could be movable but lack a proper default state
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::opengl::vf::part
 	>
 	part_unique_ptr;

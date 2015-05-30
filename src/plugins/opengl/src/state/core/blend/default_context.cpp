@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/blend/object.hpp>
 #include <sge/renderer/state/core/blend/default.hpp>
 #include <sge/renderer/state/core/blend/parameters.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 
 
 sge::opengl::state::core::blend::default_context::default_context(
@@ -36,7 +36,7 @@ sge::opengl::state::core::blend::default_context::default_context(
 :
 	sge::opengl::context::system::base(),
 	default_state_(
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			sge::opengl::state::core::blend::object
 		>(
 			sge::opengl::state::core::blend::make_actors(

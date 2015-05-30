@@ -111,7 +111,7 @@ sge::opengl::context::container<
 		return 0;
 
 	pointer const nptr(
-		_ptr.release()
+		_ptr.release_ownership()
 	);
 
 	elements_[_index] = nptr;
@@ -128,7 +128,9 @@ sge::opengl::context::container<
 >::destroy()
 {
 	for(
-		auto elem : elements_
+		auto elem
+		:
+		elements_
 	)
 	{
 		try

@@ -42,12 +42,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/cursor/object_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -174,9 +173,19 @@ private:
 
 	sge::input::cursor::scroll_signal scroll_signal_;
 
-	std::unique_ptr<
+	typedef
+	fcppt::unique_ptr<
 		sge::x11input::cursor::grab
-	> cursor_grab_;
+	>
+	cursor_grab_unique_ptr;
+
+	typedef
+	fcppt::optional<
+		cursor_grab_unique_ptr
+	>
+	optional_cursor_grab_unique_ptr;
+
+	optional_cursor_grab_unique_ptr cursor_grab_;
 };
 
 }

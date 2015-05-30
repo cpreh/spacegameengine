@@ -141,7 +141,13 @@ private:
 
 	attachment_map color_attachments_;
 
-	attachment_unique_ptr depth_stencil_attachment_;
+	typedef
+	fcppt::optional<
+		sge::opengl::fbo::attachment_unique_ptr
+	>
+	optional_attachment_unique_ptr;
+
+	optional_attachment_unique_ptr depth_stencil_attachment_;
 };
 
 }

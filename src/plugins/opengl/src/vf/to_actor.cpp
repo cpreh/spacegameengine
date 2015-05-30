@@ -22,11 +22,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/actor.hpp>
 #include <sge/opengl/vf/actor_parameters.hpp>
 #include <sge/opengl/vf/actor_unique_ptr.hpp>
+#include <sge/opengl/vf/attribute_actor.hpp>
+#include <sge/opengl/vf/color_actor.hpp>
+#include <sge/opengl/vf/normal_actor.hpp>
+#include <sge/opengl/vf/pos_actor.hpp>
+#include <sge/opengl/vf/texpos_actor.hpp>
 #include <sge/opengl/vf/to_actor.hpp>
-#include <sge/opengl/vf/to_actor_visitor.hpp>
+#include <sge/renderer/vf/dynamic/color_fwd.hpp>
+#include <sge/renderer/vf/dynamic/extra_fwd.hpp>
+#include <sge/renderer/vf/dynamic/normal_fwd.hpp>
+#include <sge/renderer/vf/dynamic/pos_fwd.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/variant/match.hpp>
 
 
 sge::opengl::vf::actor_unique_ptr
@@ -36,15 +47,104 @@ sge::opengl::vf::to_actor(
 	sge::opengl::context::system::object &_system_context
 )
 {
+	sge::opengl::vf::actor_parameters const parameters(
+		_stride,
+		_element.offset(),
+		_system_context
+	);
+
 	return
-		fcppt::variant::apply_unary(
-			sge::opengl::vf::to_actor_visitor(
-				sge::opengl::vf::actor_parameters(
-					_stride,
-					_element.offset(),
-					_system_context
-				)
-			),
-			_element.element().info()
+		fcppt::variant::match(
+			_element.element().info(),
+			[
+				&parameters
+			](
+				sge::renderer::vf::dynamic::pos const &_pos
+			)
+			{
+				return
+					fcppt::unique_ptr_to_base<
+						sge::opengl::vf::actor
+					>(
+						fcppt::make_unique_ptr_fcppt<
+							sge::opengl::vf::pos_actor
+						>(
+							parameters,
+							_pos
+						)
+					);
+			},
+			[
+				&parameters
+			](
+				sge::renderer::vf::dynamic::normal const &_normal
+			)
+			{
+				return
+					fcppt::unique_ptr_to_base<
+						sge::opengl::vf::actor
+					>(
+						fcppt::make_unique_ptr_fcppt<
+							sge::opengl::vf::normal_actor
+						>(
+							parameters,
+							_normal
+						)
+					);
+			},
+			[
+				&parameters
+			](
+				sge::renderer::vf::dynamic::color const &_color
+			)
+			{
+				return
+					fcppt::unique_ptr_to_base<
+						sge::opengl::vf::actor
+					>(
+						fcppt::make_unique_ptr_fcppt<
+							sge::opengl::vf::color_actor
+						>(
+							parameters,
+							_color
+						)
+					);
+			},
+			[
+				&parameters
+			](
+				sge::renderer::vf::dynamic::texpos const &_texpos
+			)
+			{
+				return
+					fcppt::unique_ptr_to_base<
+						sge::opengl::vf::actor
+					>(
+						fcppt::make_unique_ptr_fcppt<
+							sge::opengl::vf::texpos_actor
+						>(
+							parameters,
+							_texpos
+						)
+					);
+			},
+			[
+				&parameters
+			](
+				sge::renderer::vf::dynamic::extra const &_extra
+			)
+			{
+				return
+					fcppt::unique_ptr_to_base<
+						sge::opengl::vf::actor
+					>(
+						fcppt::make_unique_ptr_fcppt<
+							sge::opengl::vf::attribute_actor
+						>(
+							parameters,
+							_extra
+						)
+					);
+			}
 		);
 }
