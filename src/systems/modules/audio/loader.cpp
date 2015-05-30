@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/option_container.hpp>
 #include <sge/src/systems/modules/audio/loader.hpp>
 #include <sge/systems/audio_loader.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 
 
 sge::systems::modules::audio::loader::loader(
@@ -35,7 +35,7 @@ sge::systems::modules::audio::loader::loader(
 )
 :
 	audio_multi_loader_(
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			sge::audio::multi_loader
 		>(
 			sge::audio::multi_loader_parameters(

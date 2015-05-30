@@ -29,9 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/window_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/optional_decl.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 
 
 namespace sge
@@ -68,12 +67,18 @@ private:
 	bool const show_on_post_;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::systems::modules::window::quit
 	>
 	quit_unique_ptr;
 
-	quit_unique_ptr const quit_;
+	typedef
+	fcppt::optional<
+		quit_unique_ptr
+	>
+	optional_quit_unique_ptr;
+
+	optional_quit_unique_ptr const quit_;
 };
 
 }

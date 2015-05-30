@@ -64,7 +64,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <awl/main/scoped_output.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -111,7 +111,7 @@ sge::systems::detail::instance_impl::init_window_system(
 {
 	window_system_ =
 		optional_window_system(
-			fcppt::make_unique_ptr<
+			fcppt::make_unique_ptr_fcppt<
 				sge::systems::modules::window::system
 			>(
 				_parameters
@@ -128,7 +128,7 @@ sge::systems::detail::instance_impl::init_renderer_system(
 {
 	renderer_system_ =
 		optional_renderer_system(
-			fcppt::make_unique_ptr<
+			fcppt::make_unique_ptr_fcppt<
 				sge::systems::modules::renderer::system
 			>(
 				plugin_manager_.collection<
@@ -151,7 +151,7 @@ sge::systems::detail::instance_impl::init_window_object(
 {
 	window_object_ =
 		optional_window_object(
-			fcppt::make_unique_ptr<
+			fcppt::make_unique_ptr_fcppt<
 				sge::systems::modules::window::object
 			>(
 				_parameters,
@@ -180,7 +180,7 @@ sge::systems::detail::instance_impl::init_renderer(
 {
 	renderer_device_ =
 		optional_renderer_device(
-			fcppt::make_unique_ptr<
+			fcppt::make_unique_ptr_fcppt<
 				sge::systems::modules::renderer::device
 			>(
 				_param,
@@ -202,7 +202,7 @@ sge::systems::detail::instance_impl::init_input(
 {
 	input_ =
 		optional_input(
-			fcppt::make_unique_ptr<
+			fcppt::make_unique_ptr_fcppt<
 				sge::systems::modules::input::object
 			>(
 				plugin_manager_.collection<
@@ -228,7 +228,7 @@ sge::systems::detail::instance_impl::init_image2d(
 {
 	image2d_ =
 		optional_image2d(
-			fcppt::make_unique_ptr<
+			fcppt::make_unique_ptr_fcppt<
 				sge::systems::modules::image2d::object
 			>(
 				plugin_manager_.collection<
@@ -248,7 +248,7 @@ sge::systems::detail::instance_impl::init_audio_loader(
 {
 	audio_loader_ =
 		optional_audio_loader(
-			fcppt::make_unique_ptr<
+			fcppt::make_unique_ptr_fcppt<
 				sge::systems::modules::audio::loader
 			>(
 				plugin_manager_.collection<
@@ -268,7 +268,7 @@ sge::systems::detail::instance_impl::init_audio_player(
 {
 	audio_player_ =
 		optional_audio_player(
-			fcppt::make_unique_ptr<
+			fcppt::make_unique_ptr_fcppt<
 				sge::systems::modules::audio::player
 			>(
 				plugin_manager_.collection<
@@ -288,7 +288,7 @@ sge::systems::detail::instance_impl::init_font(
 {
 	font_ =
 		optional_font(
-			fcppt::make_unique_ptr<
+			fcppt::make_unique_ptr_fcppt<
 				sge::systems::modules::font::object
 			>(
 				plugin_manager_.collection<

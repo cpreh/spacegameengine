@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/option_container.hpp>
 #include <sge/src/systems/modules/image2d/object.hpp>
 #include <sge/systems/image2d.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 
 
 sge::systems::modules::image2d::object::object(
@@ -35,7 +35,7 @@ sge::systems::modules::image2d::object::object(
 )
 :
 	image_multi_system_(
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			sge::image2d::multi_system
 		>(
 			sge::image2d::multi_system_parameters(

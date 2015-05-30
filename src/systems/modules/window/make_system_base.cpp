@@ -20,13 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/src/systems/modules/window/make_system_base.hpp>
 #include <sge/src/systems/modules/window/original_system.hpp>
+#include <sge/src/systems/modules/window/system_base.hpp>
 #include <sge/src/systems/modules/window/system_base_unique_ptr.hpp>
 #include <sge/src/systems/modules/window/wrapped_system.hpp>
 #include <sge/systems/original_window_fwd.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/systems/wrapped_window_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/variant/match.hpp>
 
 
 sge::systems::modules::window::system_base_unique_ptr
@@ -34,40 +36,36 @@ sge::systems::modules::window::make_system_base(
 	sge::systems::window const &_parameters
 )
 {
-	struct visitor
-	{
-		typedef
-		sge::systems::modules::window::system_base_unique_ptr
-		result_type;
-
-		result_type
-		operator()(
-			sge::systems::original_window const &
-		) const
-		{
-			return
-				fcppt::make_unique_ptr<
-					sge::systems::modules::window::original_system
-				>();
-		}
-
-		result_type
-		operator()(
-			sge::systems::wrapped_window const &_wrapped
-		) const
-		{
-			return
-				fcppt::make_unique_ptr<
-					sge::systems::modules::window::wrapped_system
-				>(
-					_wrapped
-				);
-		}
-	};
-
 	return
-		fcppt::variant::apply_unary(
-			visitor(),
-			_parameters.parameter()
+		fcppt::variant::match(
+			_parameters.parameter(),
+			[](
+				sge::systems::original_window const &
+			)
+			{
+				return
+					fcppt::unique_ptr_to_base<
+						sge::systems::modules::window::system_base
+					>(
+						fcppt::make_unique_ptr_fcppt<
+							sge::systems::modules::window::original_system
+						>()
+					);
+			},
+			[](
+				sge::systems::wrapped_window const &_wrapped
+			)
+			{
+				return
+					fcppt::unique_ptr_to_base<
+						sge::systems::modules::window::system_base
+					>(
+						fcppt::make_unique_ptr_fcppt<
+							sge::systems::modules::window::wrapped_system
+						>(
+							_wrapped
+						)
+					);
+			}
 		);
 }
