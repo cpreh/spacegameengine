@@ -18,35 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/algorithm/uninitialized.hpp>
-#include <sge/image2d/dim.hpp>
-#include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/image2d/view/size.hpp>
-#include <sge/texture/consume_and_set_fragment.hpp>
-#include <sge/texture/fragmented.hpp>
-#include <sge/texture/part.hpp>
+#ifndef SGE_TEXTURE_OPTIONAL_PART_UNIQUE_PTR_FWD_HPP_INCLUDED
+#define SGE_TEXTURE_OPTIONAL_PART_UNIQUE_PTR_FWD_HPP_INCLUDED
+
 #include <sge/texture/part_unique_ptr.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
-sge::texture::part_unique_ptr
-sge::texture::consume_and_set_fragment(
-	sge::texture::fragmented &_fragment,
-	sge::image2d::view::const_object const &_view
-)
+namespace sge
 {
-	sge::texture::part_unique_ptr ret(
-		_fragment.consume_fragment(
-			sge::image2d::view::size(
-				_view
-			)
-		)
-	);
+namespace texture
+{
 
-	ret->data(
-		_view,
-		sge::image::algorithm::uninitialized::yes
-	);
+typedef
+fcppt::optional<
+	sge::texture::part_unique_ptr
+>
+optional_part_unique_ptr;
 
-	return
-		ret;
 }
+}
+
+#endif

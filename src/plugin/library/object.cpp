@@ -32,11 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <exception>
-#include <memory>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
@@ -90,7 +89,7 @@ private:
 };
 
 typedef
-std::unique_ptr<
+fcppt::unique_ptr<
 	context
 >
 context_unique_ptr;
@@ -135,7 +134,7 @@ sge::plugin::library::object::object(
 		)
 	),
 	destroyer_(
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			destroyer
 		>()
 	)
@@ -179,7 +178,7 @@ sge::plugin::library::object::~object()
 		std::uncaught_exception()
 	)
 		libraries.push_back(
-			fcppt::make_unique_ptr<
+			fcppt::make_unique_ptr_fcppt<
 				context
 			>(
 				handle_
@@ -199,7 +198,8 @@ sge::plugin::library::object::~object()
 boost::filesystem::path const &
 sge::plugin::library::object::name() const
 {
-	return name_;
+	return
+		name_;
 }
 
 sge::plugin::library::loaded_symbol
@@ -227,7 +227,8 @@ sge::plugin::library::object::load(
 			)
 		);
 
-	return ret;
+	return
+		ret;
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 	::dlerror(); // clear last error
 
@@ -251,6 +252,7 @@ sge::plugin::library::object::load(
 			)
 		);
 
-	return ret;
+	return
+		ret;
 #endif
 }

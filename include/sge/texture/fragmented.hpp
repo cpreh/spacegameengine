@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/texture/fragmented_fwd.hpp>
+#include <sge/texture/optional_part_unique_ptr_fwd.hpp>
 #include <sge/texture/part_fwd.hpp>
-#include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -50,7 +50,7 @@ public:
 	~fragmented() = 0;
 
 	virtual
-	sge::texture::part_unique_ptr
+	sge::texture::optional_part_unique_ptr
 	consume_fragment(
 		sge::renderer::dim2 const &
 	) = 0;

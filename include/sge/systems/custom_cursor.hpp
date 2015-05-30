@@ -30,9 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/detail/symbol.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -78,7 +76,7 @@ public:
 	sge::systems::cursor_hotspot const
 	hotspot() const;
 private:
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::systems::detail::custom_cursor
 	> impl_;
 };

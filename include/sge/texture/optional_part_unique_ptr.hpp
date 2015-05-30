@@ -18,28 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_TEXTURE_CONSUME_AND_SET_FRAGMENT_HPP_INCLUDED
-#define SGE_TEXTURE_CONSUME_AND_SET_FRAGMENT_HPP_INCLUDED
+#ifndef SGE_TEXTURE_OPTIONAL_PART_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_TEXTURE_OPTIONAL_PART_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/texture/fragmented_fwd.hpp>
-#include <sge/texture/part_unique_ptr.hpp>
-#include <sge/texture/detail/symbol.hpp>
+#include <sge/texture/optional_part_unique_ptr_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace texture
-{
-
-SGE_TEXTURE_DETAIL_SYMBOL
-sge::texture::part_unique_ptr
-consume_and_set_fragment(
-	sge::texture::fragmented &,
-	sge::image2d::view::const_object const &
-);
-
-}
-}
 
 #endif

@@ -38,8 +38,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/cg/light/point.hpp>
 #include <sge/shader/context.hpp>
 #include <fcppt/insert_to_std_string.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/algorithm/array_fold.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <cstddef>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::scenic::render_context::cg::manager::manager(
@@ -166,8 +171,50 @@ sge::scenic::render_context::cg::manager::manager(
 		sge::shader::parameter::name(
 			"fog_information.color"),
 		sge::renderer::vector4::null()),
-	point_lights_(),
-	directional_lights_(),
+	point_lights_(
+		fcppt::algorithm::array_fold<
+			point_light_array
+		>(
+			[
+				this
+			](
+				std::size_t const _index
+			)
+			{
+				return
+					fcppt::make_unique_ptr_fcppt<
+						sge::scenic::render_context::cg::light::point
+					>(
+						shader_.pixel_program(),
+						sge::scenic::render_context::cg::light::index(
+							_index
+						)
+					);
+			}
+		)
+	),
+	directional_lights_(
+		fcppt::algorithm::array_fold<
+			directional_light_array
+		>(
+			[
+				this
+			](
+				std::size_t const _index
+			)
+			{
+				return
+					fcppt::make_unique_ptr_fcppt<
+						sge::scenic::render_context::cg::light::directional
+					>(
+						shader_.pixel_program(),
+						sge::scenic::render_context::cg::light::index(
+							_index
+						)
+					);
+			}
+		)
+	),
 	depth_stencil_state_(
 		_shader_context.renderer().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
@@ -195,23 +242,6 @@ sge::scenic::render_context::cg::manager::manager(
 				sge::renderer::state::core::sampler::address::default_(),
 				sge::renderer::state::core::sampler::filter::mipmap())))
 {
-	for(point_light_array::size_type i = 0; i < point_lights_.size(); ++i)
-		point_lights_[
-			i
-		] =
-			fcppt::make_unique_ptr<sge::scenic::render_context::cg::light::point>(
-				shader_.pixel_program(),
-				sge::scenic::render_context::cg::light::index(
-					i));
-
-	for(directional_light_array::size_type i = 0; i < directional_lights_.size(); ++i)
-		directional_lights_[
-			i
-		] =
-			fcppt::make_unique_ptr<sge::scenic::render_context::cg::light::directional>(
-				shader_.pixel_program(),
-				sge::scenic::render_context::cg::light::index(
-					i));
 }
 
 sge::scenic::render_context::base_unique_ptr
@@ -219,8 +249,10 @@ sge::scenic::render_context::cg::manager::create_context(
 	sge::renderer::context::core &_context)
 {
 	return
-		sge::scenic::render_context::base_unique_ptr(
-			fcppt::make_unique_ptr<sge::scenic::render_context::cg::object>(
+		fcppt::unique_ptr_to_base<
+			sge::scenic::render_context::base
+		>(
+			fcppt::make_unique_ptr_fcppt<sge::scenic::render_context::cg::object>(
 				*this,
 				_context));
 }

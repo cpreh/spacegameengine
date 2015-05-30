@@ -85,6 +85,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
 #include <sge/texture/const_part_unique_ptr.hpp>
+#include <sge/texture/part.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/window/system.hpp>
@@ -92,7 +93,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/unique_ptr_to_const.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -177,19 +180,25 @@ try
 	);
 
 	sge::texture::const_part_unique_ptr const tex(
-		fcppt::make_unique_ptr<
-			sge::texture::part_raw_ptr
-		>(
-			sge::renderer::texture::create_planar_from_path(
-				sge::config::media_path()
-				/ FCPPT_TEXT("images")
-				/ FCPPT_TEXT("tux.png"),
-				sys.renderer_device_ffp(),
-				sys.image_system(),
-				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags_field::null(),
-				sge::renderer::texture::emulate_srgb_from_caps(
-					sys.renderer_device_ffp().caps()
+		fcppt::unique_ptr_to_const(
+			fcppt::unique_ptr_to_base<
+				sge::texture::part
+			>(
+				fcppt::make_unique_ptr_fcppt<
+					sge::texture::part_raw_ptr
+				>(
+					sge::renderer::texture::create_planar_from_path(
+						sge::config::media_path()
+						/ FCPPT_TEXT("images")
+						/ FCPPT_TEXT("tux.png"),
+						sys.renderer_device_ffp(),
+						sys.image_system(),
+						sge::renderer::texture::mipmap::off(),
+						sge::renderer::resource_flags_field::null(),
+						sge::renderer::texture::emulate_srgb_from_caps(
+							sys.renderer_device_ffp().caps()
+						)
+					)
 				)
 			)
 		)

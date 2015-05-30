@@ -43,9 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -143,7 +141,7 @@ public:
 	viewport_manager() const;
 private:
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::systems::detail::instance_impl
 	>
 	impl_ptr;

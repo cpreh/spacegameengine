@@ -89,8 +89,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/unique_ptr_to_const.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
@@ -239,10 +241,16 @@ try
 	);
 
 	sge::texture::const_part_unique_ptr const image_texture_part(
-		fcppt::make_unique_ptr<
-			sge::texture::part_raw_ref
-		>(
-			*image_texture
+		fcppt::unique_ptr_to_const(
+			fcppt::unique_ptr_to_base<
+				sge::texture::part
+			>(
+				fcppt::make_unique_ptr_fcppt<
+					sge::texture::part_raw_ref
+				>(
+					*image_texture
+				)
+			)
 		)
 	);
 

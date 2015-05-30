@@ -25,10 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/texture/next_power_of_2.hpp>
+#include <sge/texture/part.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/wrap_npot.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::texture::part_unique_ptr
@@ -38,8 +40,10 @@ sge::texture::wrap_npot(
 )
 {
 	return
-		sge::texture::part_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::texture::part
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::texture::part_raw_ptr
 			>(
 				_device.create_planar_texture(

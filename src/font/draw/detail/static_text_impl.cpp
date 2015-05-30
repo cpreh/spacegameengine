@@ -154,11 +154,6 @@ sge::font::draw::detail::static_text_impl::draw(
 	sge::font::draw::set_states const &_set_states
 )
 {
-	if(
-		!texture_part_
-	)
-		return;
-
 	typedef
 	fcppt::optional<
 		sge::renderer::state::ffp::sampler::scoped_unique_ptr

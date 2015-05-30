@@ -76,7 +76,7 @@ private:
 
 	struct destroyer;
 
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		destroyer
 	> const destroyer_;
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)

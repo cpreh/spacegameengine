@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/scene/entity.hpp>
 #include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/scenic/scene/prototype.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
@@ -451,7 +451,7 @@ sge::scenic::scene::from_blender_file(
 	// The prototype is created with the world properties in the
 	// ctor. Entities and lights are added below.
 	sge::scenic::scene::prototype_unique_ptr result(
-		fcppt::make_unique_ptr<sge::scenic::scene::prototype>(
+		fcppt::make_unique_ptr_fcppt<sge::scenic::scene::prototype>(
 			parse_camera_properties(
 				sge::parse::json::find_and_convert_member<sge::parse::json::object>(
 					json_file,

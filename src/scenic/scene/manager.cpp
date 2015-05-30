@@ -24,12 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/scenic/render_context/base.hpp>
+#include <sge/scenic/render_context/manager_base.hpp>
 #include <sge/scenic/render_context/manager_base_unique_ptr.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
 #include <sge/scenic/render_context/ffp/manager.hpp>
 #include <sge/scenic/scene/manager.hpp>
 #include <sge/scenic/vf/format.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::scenic::scene::manager::manager(
@@ -51,13 +53,17 @@ sge::scenic::scene::manager::manager(
 	render_context_manager_(
 		_prefer_cg_context.get()
 		?
-			sge::scenic::render_context::manager_base_unique_ptr(
-				fcppt::make_unique_ptr<sge::scenic::render_context::cg::manager>(
+			fcppt::unique_ptr_to_base<
+				sge::scenic::render_context::manager_base
+			>(
+				fcppt::make_unique_ptr_fcppt<sge::scenic::render_context::cg::manager>(
 					shader_context_,
 					*mesh_vertex_declaration_))
 		:
-			sge::scenic::render_context::manager_base_unique_ptr(
-				fcppt::make_unique_ptr<sge::scenic::render_context::ffp::manager>(
+			fcppt::unique_ptr_to_base<
+				sge::scenic::render_context::manager_base
+			>(
+				fcppt::make_unique_ptr_fcppt<sge::scenic::render_context::ffp::manager>(
 					dynamic_cast<sge::renderer::device::ffp &>(
 						_renderer),
 					*mesh_vertex_declaration_)))

@@ -26,15 +26,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
+#include <sge/texture/optional_part_unique_ptr.hpp>
+#include <sge/texture/part.hpp>
 #include <sge/texture/part_fragmented.hpp>
-#include <sge/texture/part_fwd.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/rect_fragmented.hpp>
 #include <sge/texture/atlasing/outer_rect.hpp>
 #include <sge/texture/atlasing/size.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -75,7 +78,7 @@ sge::texture::rect_fragmented::~rect_fragmented()
 {
 }
 
-sge::texture::part_unique_ptr
+sge::texture::optional_part_unique_ptr
 sge::texture::rect_fragmented::consume_fragment(
 	sge::renderer::dim2 const &_size
 )
@@ -88,50 +91,73 @@ sge::texture::rect_fragmented::consume_fragment(
 
 	// if there is no space left for the requested height
 	if(
-		cur_y_ + _size.h() >= texture_->size().h()
+		cur_y_ + _size.h()
+		>=
+		texture_->size().h()
 	)
-		return sge::texture::part_unique_ptr();
+		return
+			sge::texture::optional_part_unique_ptr();
 
 	// if the current line is full advance to the next
 	if(
-		cur_x_ + _size.w() >= texture_->size().w()
+		cur_x_ + _size.w()
+		>=
+		texture_->size().w()
 	)
 	{
 		cur_x_ = 0;
+
 		cur_y_ += cur_height_;
+
 		cur_height_ = 0;
 	}
 
 	if(
-		cur_y_ + _size.h() >= texture_->size().h()
+		cur_y_ + _size.h()
+		>=
+		texture_->size().h()
 	)
-		return sge::texture::part_unique_ptr();
+		return
+			sge::texture::optional_part_unique_ptr();
 
 	sge::texture::part_unique_ptr ret(
-		fcppt::make_unique_ptr<
-			sge::texture::part_fragmented
+		fcppt::unique_ptr_to_base<
+			sge::texture::part
 		>(
-			*this,
-			sge::texture::atlasing::outer_rect(
-				sge::renderer::lock_rect(
-					sge::renderer::lock_rect::vector(
-						cur_x_,
-						cur_y_
-					),
-					atlased_dim
+			fcppt::make_unique_ptr_fcppt<
+				sge::texture::part_fragmented
+			>(
+				*this,
+				sge::texture::atlasing::outer_rect(
+					sge::renderer::lock_rect(
+						sge::renderer::lock_rect::vector(
+							cur_x_,
+							cur_y_
+						),
+						atlased_dim
+					)
 				)
 			)
 		)
 	);
 
-	cur_x_ += _size.w() + 1;
+	cur_x_ +=
+		_size.w() + 1;
 
-	cur_height_ = std::max(cur_height_, _size.h());
+	cur_height_ =
+		std::max(
+			cur_height_,
+			_size.h()
+		);
 
 	++texture_count_;
 
 	return
-		ret;
+		sge::texture::optional_part_unique_ptr(
+			std::move(
+				ret
+			)
+		);
 }
 
 void
@@ -167,5 +193,7 @@ bool
 sge::texture::rect_fragmented::empty() const
 {
 	return
-		texture_count_ == 0u;
+		texture_count_
+		==
+		0u;
 }

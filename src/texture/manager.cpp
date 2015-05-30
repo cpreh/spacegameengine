@@ -25,12 +25,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/size.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/texture/fragmented.hpp>
+#include <sge/texture/fragmented_unique_ptr.hpp>
 #include <sge/texture/image_too_big.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/on_alloc_callback.hpp>
+#include <sge/texture/optional_part_unique_ptr.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
+#include <fcppt/from_optional.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/find_by_opt.hpp>
+#include <fcppt/algorithm/map_iteration_second.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range_core.hpp>
 #include <utility>
@@ -69,9 +76,9 @@ sge::texture::manager::add(
 		](
 			sge::texture::fragmented &_tex
 		)
-		-> sge::texture::part_unique_ptr
+		-> sge::texture::optional_part_unique_ptr
 		{
-			sge::texture::part_unique_ptr part(
+			sge::texture::optional_part_unique_ptr part(
 				_tex.consume_fragment(
 					sge::image2d::view::size(
 						_src
@@ -79,65 +86,78 @@ sge::texture::manager::add(
 				)
 			);
 
-			if(
-				part
-			)
-				part->data(
-					_src,
-					sge::image::algorithm::uninitialized::yes
-				);
+			fcppt::maybe_void(
+				part,
+				[
+					&_src
+				](
+					sge::texture::part_unique_ptr const &_part
+				)
+				{
+					_part->data(
+						_src,
+						sge::image::algorithm::uninitialized::yes
+					);
+				}
+			);
 
 			return
 				part;
 		}
 	);
 
-	for(
-		auto const &element
-		:
-		boost::make_iterator_range(
-			textures_.equal_range(
-				color_format
-			)
-		)
-	)
-		if(
-			sge::texture::part_unique_ptr current_part =
-				init_texture(
-					*element.second
-				)
-		)
-			return
-				current_part;
-
-	sge::texture::fragmented &new_tex(
-		*textures_.insert(
-			std::make_pair(
-				color_format,
-				on_alloc_(
-					color_format
-				)
-			)
-		)->second
-	);
-
-	sge::texture::part_unique_ptr new_part(
-		init_texture(
-			new_tex
-		)
-	);
-
-	if(
-		!new_part
-	)
-		throw sge::texture::image_too_big(
-			sge::image2d::view::size(
-				_src
-			)
-		);
 
 	return
-		new_part;
+		fcppt::from_optional(
+			fcppt::algorithm::find_by_opt(
+				boost::make_iterator_range(
+					textures_.equal_range(
+						color_format
+					)
+				),
+				[
+					init_texture
+				](
+					fragmented_map::value_type const &_element
+				)
+				{
+					return
+						init_texture(
+							*_element.second
+						);
+				}
+			),
+			[
+				&_src,
+				color_format,
+				init_texture,
+				this
+			]{
+				return
+					fcppt::optional_to_exception(
+						init_texture(
+							*textures_.insert(
+								std::make_pair(
+									color_format,
+									on_alloc_(
+										color_format
+									)
+								)
+							)->second
+						),
+						[
+							&_src
+						]{
+							return
+								sge::texture::image_too_big(
+									sge::image2d::view::size(
+										_src
+									)
+								);
+						}
+					);
+			}
+		);
 }
 
 void
@@ -152,25 +172,14 @@ sge::texture::manager::on_alloc(
 void
 sge::texture::manager::free_empty_textures()
 {
-	// TODO: Use map_iteration
-	for(
-		sge::texture::manager::fragmented_map::iterator it(
-			textures_.begin()
-		),
-		next(
-			it
-		);
-		it != textures_.end();
-		it = next
-	)
-	{
-		++next;
-
-		if(
-			it->second->empty()
+	fcppt::algorithm::map_iteration_second(
+		textures_,
+		[](
+			sge::texture::fragmented_unique_ptr const &_texture
 		)
-			textures_.erase(
-				it
-			);
-	}
+		{
+			return
+				_texture->empty();
+		}
+	);
 }

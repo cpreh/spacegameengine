@@ -19,9 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/context/ffp.hpp>
+#include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_context/ffp/manager.hpp>
 #include <sge/scenic/render_context/ffp/object.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::scenic::render_context::ffp::manager::manager(
@@ -40,8 +42,10 @@ sge::scenic::render_context::ffp::manager::create_context(
 	sge::renderer::context::core &_context)
 {
 	return
-		sge::scenic::render_context::base_unique_ptr(
-			fcppt::make_unique_ptr<sge::scenic::render_context::ffp::object>(
+		fcppt::unique_ptr_to_base<
+			sge::scenic::render_context::base
+		>(
+			fcppt::make_unique_ptr_fcppt<sge::scenic::render_context::ffp::object>(
 				*this,
 				dynamic_cast<sge::renderer::context::ffp &>(
 					_context)));

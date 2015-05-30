@@ -3497,7 +3497,6 @@ set(
 	include/sge/texture/const_optional_part_ref_fwd.hpp
 	include/sge/texture/const_part_shared_ptr.hpp
 	include/sge/texture/const_part_unique_ptr.hpp
-	include/sge/texture/consume_and_set_fragment.hpp
 	include/sge/texture/detail/ref_store_type.hpp
 	include/sge/texture/exception.hpp
 	include/sge/texture/fragmented.hpp
@@ -3510,6 +3509,8 @@ set(
 	include/sge/texture/next_power_of_2.hpp
 	include/sge/texture/on_alloc_callback.hpp
 	include/sge/texture/on_alloc_function.hpp
+	include/sge/texture/optional_part_unique_ptr.hpp
+	include/sge/texture/optional_part_unique_ptr_fwd.hpp
 	include/sge/texture/part.hpp
 	include/sge/texture/part_fragmented.hpp
 	include/sge/texture/part_fwd.hpp
