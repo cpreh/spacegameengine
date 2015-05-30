@@ -18,10 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_COLOR_IS_CONVERTIBLE_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_IS_CONVERTIBLE_HPP_INCLUDED
+#ifndef SGE_IMAGE_COLOR_DETAIL_IS_CONVERTIBLE_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_DETAIL_IS_CONVERTIBLE_HPP_INCLUDED
 
-#include <sge/image/color/detail/is_convertible.hpp>
+#include <sge/image/mizuiro_color.hpp>
+#include <mizuiro/color/convert_static.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -30,22 +34,41 @@ namespace image
 {
 namespace color
 {
+namespace detail
+{
 
 template<
 	typename SourceFormat,
 	typename DestFormat
 >
-using is_convertible
-=
+auto
+is_convertible(
+	int
+)
+->
 decltype(
-	sge::image::color::detail::is_convertible<
-		SourceFormat,
+	mizuiro::color::convert_static::convert<
 		DestFormat
 	>(
-		0
-	)
+		std::declval<
+			sge::image::mizuiro_color<
+				SourceFormat
+			>
+		>()
+	),
+	std::true_type{}
 );
 
+template<
+	typename SourceFormat,
+	typename DestFormat
+>
+std::false_type
+is_convertible(
+	long
+);
+
+}
 }
 }
 }

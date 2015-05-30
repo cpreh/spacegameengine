@@ -84,6 +84,14 @@ add_sge_test(
 )
 
 add_sge_test(
+	image/color/convert
+	SGE_DEPS
+		sgeimagecolor
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+)
+
+add_sge_test(
 	image2d/copy_and_convert
 	SGE_DEPS
 		sgeimage2d
