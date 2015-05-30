@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/convert/resource_flags_to_pool.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/index/buffer.hpp>
@@ -36,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/dynamic/format_stride.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
+#include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/text.hpp>
 

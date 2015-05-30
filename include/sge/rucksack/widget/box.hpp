@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/axis_policy2_fwd.hpp>
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/padding.hpp>
-#include <sge/rucksack/detail/symbol.hpp>
 #include <sge/rucksack/vector.hpp>
+#include <sge/rucksack/detail/symbol.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/reference.hpp>
 #include <sge/rucksack/widget/reference_alignment_container.hpp>

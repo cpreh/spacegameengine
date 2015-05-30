@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_CONFIG_POS_HPP_INCLUDED
 
 #include <sge/sprite/config/pos_choice.hpp>
-#include <sge/sprite/config/pos_option.hpp>
 #include <sge/sprite/config/pos_fwd.hpp>
+#include <sge/sprite/config/pos_option.hpp>
 #include <sge/sprite/detail/primitives/pos.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

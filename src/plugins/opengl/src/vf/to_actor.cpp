@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/color_fwd.hpp>
 #include <sge/renderer/vf/dynamic/extra_fwd.hpp>
 #include <sge/renderer/vf/dynamic/normal_fwd.hpp>
-#include <sge/renderer/vf/dynamic/pos_fwd.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
+#include <sge/renderer/vf/dynamic/pos_fwd.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>

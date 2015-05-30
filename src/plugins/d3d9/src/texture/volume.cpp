@@ -19,18 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/texture/volume.hpp>
 #include <sge/d3d9/texture/basic_buffer.hpp>
 #include <sge/d3d9/texture/basic_impl.hpp>
+#include <sge/d3d9/texture/volume.hpp>
 #include <sge/d3d9/texture/volume_basic.hpp>
 #include <sge/d3d9/texture/volume_buffer.hpp>
 #include <sge/d3d9/texture/volume_types.hpp>
 #include <sge/d3d9/texturefuncs/get_volume_level.hpp>
 #include <sge/d3d9/volume/d3d_unique_ptr.hpp>
+#include <sge/renderer/dim3.hpp>
 #include <sge/renderer/color_buffer/volume.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
-#include <sge/renderer/dim3.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
 #include <fcppt/make_unique_ptr.hpp>

@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/size_type.hpp>
 #include <sge/image/color/format_fwd.hpp>
-#include <sge/image/color/detail/symbol.hpp>
 #include <sge/image/color/tag.hpp>
+#include <sge/image/color/detail/symbol.hpp>
 #include <sge/image/traits/format_stride.hpp>
 
 

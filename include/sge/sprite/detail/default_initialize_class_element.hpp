@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_DEFAULT_INITIALIZE_CLASS_ELEMENT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_DEFAULT_INITIALIZE_CLASS_ELEMENT_HPP_INCLUDED
 
+#include <mizuiro/default_init.hpp>
+#include <mizuiro/color/object_fwd.hpp>
 #include <fcppt/homogenous_pair_fwd.hpp>
 #include <fcppt/is_strong_typedef.hpp>
 #include <fcppt/math/dim/is_dim.hpp>
-#include <mizuiro/default_init.hpp>
-#include <mizuiro/color/object_fwd.hpp>
 #include <fcppt/math/vector/is_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/or.hpp>
