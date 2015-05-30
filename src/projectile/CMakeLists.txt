@@ -63,6 +63,8 @@ set(
 	include/sge/projectile/shape/base.hpp
 	include/sge/projectile/shape/base_fwd.hpp
 	include/sge/projectile/shape/circle.hpp
+	include/sge/projectile/shape/detail/index_container.hpp
+	include/sge/projectile/shape/detail/scalar_container.hpp
 	include/sge/projectile/shape/shared_base_ptr.hpp
 	include/sge/projectile/shape/triangle_mesh.hpp
 	include/sge/projectile/shape/triangle_sequence.hpp
@@ -111,6 +113,8 @@ set(
 	src/projectile/include/sge/src/projectile/ghost/detail/pair_callback.hpp
 	src/projectile/include/sge/src/projectile/logger.hpp
 	src/projectile/include/sge/src/projectile/object_extrusion_depth.hpp
+	src/projectile/include/sge/src/projectile/shape/triangle_indices.hpp
+	src/projectile/include/sge/src/projectile/shape/triangle_scalars.hpp
 	src/projectile/include/sge/src/projectile/structure_cast.hpp
 	src/projectile/include/sge/src/projectile/vector2_to_bullet.hpp
 	src/projectile/log_location.cpp
@@ -118,7 +122,9 @@ set(
 	src/projectile/object_extrusion_depth.cpp
 	src/projectile/shape/base.cpp
 	src/projectile/shape/circle.cpp
+	src/projectile/shape/triangle_indices.cpp
 	src/projectile/shape/triangle_mesh.cpp
+	src/projectile/shape/triangle_scalars.cpp
 	src/projectile/vector2_to_bullet.cpp
 	src/projectile/world.cpp
 )

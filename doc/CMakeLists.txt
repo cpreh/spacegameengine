@@ -1835,6 +1835,8 @@ set(
 	include/sge/projectile/shape/base.hpp
 	include/sge/projectile/shape/base_fwd.hpp
 	include/sge/projectile/shape/circle.hpp
+	include/sge/projectile/shape/detail/index_container.hpp
+	include/sge/projectile/shape/detail/scalar_container.hpp
 	include/sge/projectile/shape/shared_base_ptr.hpp
 	include/sge/projectile/shape/triangle_mesh.hpp
 	include/sge/projectile/shape/triangle_sequence.hpp

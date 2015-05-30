@@ -25,11 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/shape/base.hpp>
 #include <sge/projectile/shape/triangle_sequence.hpp>
+#include <sge/projectile/shape/detail/index_container.hpp>
+#include <sge/projectile/shape/detail/scalar_container.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/raw_vector_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 class btCollisionShape;
@@ -42,16 +41,20 @@ namespace projectile
 {
 namespace shape
 {
+
 class triangle_mesh
 :
 	public sge::projectile::shape::base
 {
-FCPPT_NONCOPYABLE(
-	triangle_mesh);
+	FCPPT_NONCOPYABLE(
+		triangle_mesh
+	);
 public:
-	SGE_PROJECTILE_DETAIL_SYMBOL explicit
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	explicit
 	triangle_mesh(
-		shape::triangle_sequence const &);
+		sge::projectile::shape::triangle_sequence const &
+	);
 
 	// No symbol needed here
 	btCollisionShape &
@@ -66,19 +69,19 @@ public:
 	~triangle_mesh()
 	override;
 private:
-	typedef
-	fcppt::container::raw_vector<int>
-	index_vector;
+	sge::projectile::shape::detail::scalar_container scalars_;
 
-	typedef
-	fcppt::container::raw_vector<scalar>
-	scalar_vector;
+	sge::projectile::shape::detail::index_container indices_;
 
-	scalar_vector scalars_;
-	index_vector indices_;
-	std::unique_ptr<btTriangleIndexVertexArray> mesh_;
-	std::unique_ptr<btBvhTriangleMeshShape> bullet_shape_;
+	fcppt::unique_ptr<
+		btTriangleIndexVertexArray
+	> const mesh_;
+
+	fcppt::unique_ptr<
+		btBvhTriangleMeshShape
+	> const bullet_shape_;
 };
+
 }
 }
 }
