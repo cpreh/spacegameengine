@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/scoped.hpp>
 #include <sge/renderer/state/ffp/lighting/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/material/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
@@ -43,6 +44,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/ffp/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -160,6 +164,14 @@ private:
 	optional_material_unique_ptr;
 
 	optional_material_unique_ptr current_material_;
+
+	typedef
+	std::vector<
+		sge::renderer::state::ffp::lighting::light::object_unique_ptr
+	>
+	light_ptr_vector;
+
+	light_ptr_vector lights_;
 
 	sge::renderer::state::core::sampler::object_unique_ptr const diffuse_texture_sampler_;
 

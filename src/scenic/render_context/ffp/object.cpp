@@ -39,7 +39,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/lighting/enabled.hpp>
 #include <sge/renderer/state/ffp/lighting/object.hpp>
 #include <sge/renderer/state/ffp/lighting/parameters.hpp>
+#include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/lighting/light/object.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/light/parameters.hpp>
 #include <sge/renderer/state/ffp/lighting/material/object.hpp>
 #include <sge/renderer/state/ffp/lighting/material/object_unique_ptr.hpp>
@@ -60,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/optional_assign.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assign/make_map.hpp>
 #include <fcppt/variant/apply_unary.hpp>
@@ -302,35 +305,48 @@ void
 sge::scenic::render_context::ffp::object::lights(
 	sge::scenic::render_context::light::sequence const &_lights)
 {
-	// FIXME: How did this work?
-/*
 	FCPPT_ASSERT_PRE(
 		_lights.size() < manager_.renderer_.caps().light_indices().get());
 
-	typedef
-	boost::ptr_vector<sge::renderer::state::ffp::lighting::light::object>
-	ffp_light_sequence;
+	context_.lights_state(
+		sge::renderer::state::ffp::lighting::light::const_object_ref_vector());
 
-	ffp_light_sequence ffp_lights;
-	sge::renderer::state::ffp::lighting::light::const_object_ref_vector ffp_light_refs;
-
-	for(
-		sge::scenic::render_context::light::sequence::const_iterator current_light = _lights.begin();
-		current_light != _lights.end();
-		++current_light)
-	{
-		fcppt::container::ptr::push_back_unique_ptr(
-			ffp_lights,
-			manager_.renderer_.create_light_state(
-				transform_light(
-					*current_light)));
-		ffp_light_refs.push_back(
-			fcppt::make_cref(
-				ffp_lights.back()));
-	}
+	lights_ =
+		fcppt::algorithm::map<
+			light_ptr_vector
+		>(
+			_lights,
+			[
+				this
+			](
+				sge::scenic::render_context::light::object const &_light
+			)
+			{
+				return
+					manager_.renderer_.create_light_state(
+						transform_light(
+							_light
+						)
+					);
+			}
+		);
 
 	context_.lights_state(
-		ffp_light_refs);*/
+		fcppt::algorithm::map<
+			sge::renderer::state::ffp::lighting::light::const_object_ref_vector
+		>(
+			lights_,
+			[](
+				sge::renderer::state::ffp::lighting::light::object_unique_ptr const &_light
+			)
+			{
+				return
+					fcppt::make_cref(
+						*_light
+					);
+			}
+		)
+	);
 }
 
 void
