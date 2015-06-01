@@ -90,7 +90,7 @@ sge::shader::parameter::planar_texture::set(
 					sge::renderer::texture::planar &_texture
 				)
 				{
-					sge::renderer::cg::loaded_texture_unique_ptr const &loaded_texture(
+					sge::renderer::cg::loaded_texture_unique_ptr const &cur_loaded_texture(
 						fcppt::optional_assign(
 							loaded_texture_,
 							renderer_.load_cg_texture(
@@ -106,7 +106,7 @@ sge::shader::parameter::planar_texture::set(
 								sge::renderer::cg::scoped_texture
 							>(
 								_render_context,
-								*loaded_texture
+								*cur_loaded_texture
 							)
 						);
 				}

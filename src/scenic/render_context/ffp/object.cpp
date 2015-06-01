@@ -215,7 +215,7 @@ sge::scenic::render_context::ffp::object::transform(
 	{
 	case sge::scenic::render_context::transform_matrix_type::projection:
 		{
-			sge::renderer::state::ffp::transform::object_unique_ptr const &transform(
+			sge::renderer::state::ffp::transform::object_unique_ptr const &cur_transform(
 				fcppt::optional_assign(
 					projection_transform_,
 					manager_.renderer_.create_transform_state(
@@ -229,7 +229,7 @@ sge::scenic::render_context::ffp::object::transform(
 			context_.transform(
 				sge::renderer::state::ffp::transform::mode::projection,
 				sge::renderer::state::ffp::transform::const_optional_object_ref(
-					*transform
+					*cur_transform
 				)
 			);
 
@@ -237,7 +237,7 @@ sge::scenic::render_context::ffp::object::transform(
 		}
 	case sge::scenic::render_context::transform_matrix_type::world:
 		{
-			sge::renderer::state::ffp::transform::object_unique_ptr const &transform(
+			sge::renderer::state::ffp::transform::object_unique_ptr const &cur_transform(
 				fcppt::optional_assign(
 					world_transform_,
 					manager_.renderer_.create_transform_state(
@@ -251,7 +251,7 @@ sge::scenic::render_context::ffp::object::transform(
 			context_.transform(
 				sge::renderer::state::ffp::transform::mode::world,
 				sge::renderer::state::ffp::transform::const_optional_object_ref(
-					*transform
+					*cur_transform
 				)
 			);
 

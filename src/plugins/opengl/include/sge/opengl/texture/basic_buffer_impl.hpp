@@ -230,17 +230,17 @@ sge::opengl::texture::basic_buffer<
 	Types
 >::unlock() const
 {
-	lock_unique_ptr const &lock(
+	lock_unique_ptr const &cur_lock(
 		FCPPT_ASSERT_OPTIONAL_ERROR(
 			lock_
 		)
 	);
 
-	lock->pre_unlock();
+	cur_lock->pre_unlock();
 
 	if(
 		sge::renderer::lock_flags::write(
-			lock->method()
+			cur_lock->method()
 		)
 	)
 	{
@@ -250,7 +250,7 @@ sge::opengl::texture::basic_buffer<
 		// to the destination buffer.
 		if(
 			sge::renderer::lock_flags::read(
-				lock->method()
+				cur_lock->method()
 			)
 		)
 		{
@@ -262,7 +262,7 @@ sge::opengl::texture::basic_buffer<
 				sge::image::view::make<
 					image_tag
 				>(
-					lock->write_view_pointer(),
+					cur_lock->write_view_pointer(),
 					this->lock_dim(),
 					format_,
 					basic_buffer::pitch::null()
@@ -271,10 +271,10 @@ sge::opengl::texture::basic_buffer<
 				sge::image::algorithm::uninitialized::yes
 			);
 
-			lock->post_copy();
+			cur_lock->post_copy();
 		}
 
-		lock->unlock();
+		cur_lock->unlock();
 
 		sge::opengl::texture::scoped_work_binding const binding(
 			system_context_,
@@ -310,7 +310,7 @@ sge::opengl::texture::basic_buffer<
 						);
 				}
 			),
-			lock->write_pointer()
+			cur_lock->write_pointer()
 		);
 	}
 
@@ -345,7 +345,7 @@ sge::opengl::texture::basic_buffer<
 			).str()
 		);
 
-	lock_unique_ptr const &lock(
+	lock_unique_ptr const &cur_lock(
 		fcppt::optional_assign(
 			lock_,
 			sge::opengl::texture::create_lock(
@@ -377,12 +377,12 @@ sge::opengl::texture::basic_buffer<
 			this->buffer_type(),
 			color_format_,
 			color_format_type_,
-			lock->read_pointer(),
+			cur_lock->read_pointer(),
 			this->level()
 		);
 	}
 
-	lock->lock();
+	cur_lock->lock();
 
 	lock_area_ =
 		_lock_area
@@ -407,7 +407,7 @@ sge::opengl::texture::basic_buffer<
 	Types
 >::lock_view()
 {
-	lock_unique_ptr const &lock(
+	lock_unique_ptr const &cur_lock(
 		FCPPT_ASSERT_OPTIONAL_ERROR(
 			lock_
 		)
@@ -419,7 +419,7 @@ sge::opengl::texture::basic_buffer<
 
 	bool const reading(
 		sge::renderer::lock_flags::read(
-			lock->method()
+			cur_lock->method()
 		)
 	);
 
@@ -429,9 +429,9 @@ sge::opengl::texture::basic_buffer<
 		>(
 			reading
 			?
-				lock->read_view_pointer()
+				cur_lock->read_view_pointer()
 			:
-				lock->write_view_pointer(),
+				cur_lock->write_view_pointer(),
 			reading
 			?
 				this->size()
