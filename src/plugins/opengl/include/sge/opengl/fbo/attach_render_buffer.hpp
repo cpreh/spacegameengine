@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
-#include <sge/opengl/fbo/context_fwd.hpp>
+#include <sge/opengl/fbo/config_fwd.hpp>
 
 
 namespace sge
@@ -35,7 +35,7 @@ namespace fbo
 
 void
 attach_render_buffer(
-	sge::opengl::fbo::context const &,
+	sge::opengl::fbo::config const &,
 	sge::opengl::fbo::attachment_type,
 	GLuint
 );

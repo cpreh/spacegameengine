@@ -18,48 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_FBO_CONTEXT_HPP_INCLUDED
-
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/fbo/context_fwd.hpp>
-#include <sge/opengl/fbo/optional_config.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/opengl/fbo/config_fwd.hpp>
+#include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/fbo/get_config.hpp>
+#include <sge/renderer/unsupported.hpp>
+#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/text.hpp>
 
 
-namespace sge
+sge::opengl::fbo::config const &
+sge::opengl::fbo::get_config(
+	sge::opengl::fbo::context const &_context
+)
 {
-namespace opengl
-{
-namespace fbo
-{
-
-class context
-:
-	public sge::opengl::context::system::base
-{
-	FCPPT_NONCOPYABLE(
-		context
-	);
-public:
-	context();
-
-	~context()
-	override;
-
-	sge::opengl::fbo::optional_config const &
-	config() const;
-
-	typedef void parameter;
-
-	static sge::opengl::context::system::id const static_id;
-private:
-	sge::opengl::fbo::optional_config config_;
-};
-
+	return
+		fcppt::optional_to_exception(
+			_context.config(),
+			[]{
+				return
+					sge::renderer::unsupported(
+						FCPPT_TEXT("glGenFrameBuffers"),
+						FCPPT_TEXT("Opengl-3.0"),
+						FCPPT_TEXT("frame_buffer_ext")
+					);
+			}
+		);
 }
-}
-}
-
-#endif

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/internal_color_format.hpp>
-#include <sge/opengl/fbo/context_fwd.hpp>
+#include <sge/opengl/fbo/config_fwd.hpp>
 #include <sge/opengl/fbo/render_buffer_fwd.hpp>
 #include <sge/opengl/fbo/render_buffer_holder.hpp>
 #include <sge/renderer/dim2_fwd.hpp>
@@ -44,7 +44,7 @@ class render_buffer
 	);
 public:
 	render_buffer(
-		sge::opengl::fbo::context const &,
+		sge::opengl::fbo::config const &,
 		sge::opengl::internal_color_format,
 		sge::renderer::dim2 const &
 	);
@@ -57,7 +57,7 @@ private:
 	void
 	bind() const;
 
-	sge::opengl::fbo::context const &context_;
+	sge::opengl::fbo::config const &context_;
 
 	sge::opengl::fbo::render_buffer_holder const holder_;
 };

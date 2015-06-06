@@ -20,24 +20,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
-#include <sge/opengl/fbo/context_config.hpp>
+#include <sge/opengl/fbo/config.hpp>
 #include <sge/opengl/fbo/error_string_map.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_map.hpp>
 
 
-sge::opengl::fbo::context_config::context_config(
-	gl_gen_framebuffers const _gen_framebuffers,
-	gl_delete_framebuffers const _delete_framebuffers,
-	gl_bind_framebuffer const _bind_framebuffer,
-	gl_framebuffer_texture_2d const _framebuffer_texture_2d,
-	gl_check_framebuffer_status const _check_framebuffer_status,
-	gl_gen_renderbuffers const _gen_renderbuffers,
-	gl_delete_renderbuffers const _delete_renderbuffers,
-	gl_bind_renderbuffer const _bind_renderbuffer,
-	gl_renderbuffer_storage const _renderbuffer_storage,
-	gl_framebuffer_renderbuffer const _framebuffer_renderbuffer,
+sge::opengl::fbo::config::config(
+	gl_gen_framebuffers _gen_framebuffers,
+	gl_delete_framebuffers _delete_framebuffers,
+	gl_bind_framebuffer _bind_framebuffer,
+	gl_framebuffer_texture_2d _framebuffer_texture_2d,
+	gl_check_framebuffer_status _check_framebuffer_status,
+	gl_gen_renderbuffers _gen_renderbuffers,
+	gl_delete_renderbuffers _delete_renderbuffers,
+	gl_bind_renderbuffer _bind_renderbuffer,
+	gl_renderbuffer_storage _renderbuffer_storage,
+	gl_framebuffer_renderbuffer _framebuffer_renderbuffer,
 	GLenum const _framebuffer_target,
 	GLenum const _color_attachment,
 	GLenum const _fbo_complete,
@@ -90,7 +90,7 @@ sge::opengl::fbo::context_config::context_config(
 	color_attachment_(
 		_color_attachment
 	),
-	fbo_complete_(
+	framebuffer_complete_(
 		_fbo_complete
 	),
 	error_strings_(
@@ -132,4 +132,123 @@ sge::opengl::fbo::context_config::context_config(
 		_depth_stencil_attachment
 	)
 {
+}
+
+sge::opengl::fbo::config::gl_gen_framebuffers
+sge::opengl::fbo::config::gen_framebuffers() const
+{
+	return
+		gen_framebuffers_;
+}
+
+sge::opengl::fbo::config::gl_delete_framebuffers
+sge::opengl::fbo::config::delete_framebuffers() const
+{
+	return
+		delete_framebuffers_;
+}
+
+sge::opengl::fbo::config::gl_bind_framebuffer
+sge::opengl::fbo::config::bind_framebuffer() const
+{
+	return
+		bind_framebuffer_;
+}
+
+sge::opengl::fbo::config::gl_framebuffer_texture_2d
+sge::opengl::fbo::config::framebuffer_texture_2d() const
+{
+	return
+		framebuffer_texture_2d_;
+}
+
+sge::opengl::fbo::config::gl_check_framebuffer_status
+sge::opengl::fbo::config::check_framebuffer_status() const
+{
+	return
+		check_framebuffer_status_;
+}
+
+sge::opengl::fbo::config::gl_gen_renderbuffers
+sge::opengl::fbo::config::gen_renderbuffers() const
+{
+	return
+		gen_renderbuffers_;
+}
+
+sge::opengl::fbo::config::gl_delete_renderbuffers
+sge::opengl::fbo::config::delete_renderbuffers() const
+{
+	return
+		delete_renderbuffers_;
+}
+
+sge::opengl::fbo::config::gl_bind_renderbuffer
+sge::opengl::fbo::config::bind_renderbuffer() const
+{
+	return
+		bind_renderbuffer_;
+}
+
+sge::opengl::fbo::config::gl_renderbuffer_storage
+sge::opengl::fbo::config::renderbuffer_storage() const
+{
+	return
+		renderbuffer_storage_;
+}
+
+sge::opengl::fbo::config::gl_framebuffer_renderbuffer
+sge::opengl::fbo::config::framebuffer_renderbuffer() const
+{
+	return
+		framebuffer_renderbuffer_;
+}
+
+GLenum
+sge::opengl::fbo::config::framebuffer_target() const
+{
+	return
+		framebuffer_target_;
+}
+
+sge::opengl::fbo::attachment_type const
+sge::opengl::fbo::config::color_attachment() const
+{
+	return
+		color_attachment_;
+}
+
+GLenum
+sge::opengl::fbo::config::framebuffer_complete() const
+{
+	return
+		framebuffer_complete_;
+}
+
+sge::opengl::fbo::error_string_map const &
+sge::opengl::fbo::config::error_strings() const
+{
+	return
+		error_strings_;
+}
+
+GLenum
+sge::opengl::fbo::config::renderbuffer_target() const
+{
+	return
+		renderbuffer_target_;
+}
+
+sge::opengl::fbo::attachment_type const
+sge::opengl::fbo::config::depth_attachment() const
+{
+	return
+		depth_attachment_;
+}
+
+sge::opengl::fbo::optional_attachment_type const
+sge::opengl::fbo::config::depth_stencil_attachment() const
+{
+	return
+		depth_stencil_attachment_;
 }

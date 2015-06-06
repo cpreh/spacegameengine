@@ -42,7 +42,8 @@ sge::opengl::fbo::last_context::~last_context()
 sge::opengl::fbo::id const
 sge::opengl::fbo::last_context::last_buffer() const
 {
-	return last_buffer_;
+	return
+		last_buffer_;
 }
 
 void
@@ -50,7 +51,8 @@ sge::opengl::fbo::last_context::last_buffer(
 	sge::opengl::fbo::id const _last_buffer
 )
 {
-	last_buffer_ = _last_buffer;
+	last_buffer_ =
+		_last_buffer;
 }
 
 sge::opengl::context::device::id const

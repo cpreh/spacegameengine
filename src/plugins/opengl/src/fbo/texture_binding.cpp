@@ -20,13 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/fbo/attach_texture_2d.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
-#include <sge/opengl/fbo/context_fwd.hpp>
+#include <sge/opengl/fbo/config_fwd.hpp>
 #include <sge/opengl/fbo/texture_binding.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
+#include <sge/opengl/texture/id.hpp>
 
 
 sge::opengl::fbo::texture_binding::texture_binding(
-	sge::opengl::fbo::context const &_context,
+	sge::opengl::fbo::config const &_context,
 	sge::opengl::texture::buffer_base &_buffer,
 	sge::opengl::fbo::attachment_type const _attachment
 )

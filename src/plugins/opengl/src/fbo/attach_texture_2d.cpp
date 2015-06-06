@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/fbo/attach_texture_2d.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
-#include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/fbo/config.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/renderer/exception.hpp>
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::fbo::attach_texture_2d(
-	sge::opengl::fbo::context const &_context,
+	sge::opengl::fbo::config const &_context,
 	sge::opengl::fbo::attachment_type const _attachment,
 	sge::opengl::texture::buffer_type const _texture_type,
 	sge::opengl::texture::id const _texture_id,

@@ -20,13 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/fbo/attach_render_buffer.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
-#include <sge/opengl/fbo/context_fwd.hpp>
+#include <sge/opengl/fbo/config_fwd.hpp>
 #include <sge/opengl/fbo/render_buffer.hpp>
 #include <sge/opengl/fbo/render_buffer_binding.hpp>
 
 
 sge::opengl::fbo::render_buffer_binding::render_buffer_binding(
-	sge::opengl::fbo::context const &_context,
+	sge::opengl::fbo::config const &_context,
 	sge::opengl::fbo::render_buffer const &_render_buffer,
 	sge::opengl::fbo::attachment_type const _what
 )

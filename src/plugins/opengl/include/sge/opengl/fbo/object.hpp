@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_FBO_OBJECT_HPP_INCLUDED
 
-#include <sge/opengl/fbo/context_fwd.hpp>
+#include <sge/opengl/fbo/config_fwd.hpp>
 #include <sge/opengl/fbo/id.hpp>
 #include <sge/opengl/fbo/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -42,7 +42,7 @@ class object
 public:
 	explicit
 	object(
-		sge::opengl::fbo::context const &
+		sge::opengl::fbo::config const &
 	);
 
 	~object();
@@ -53,7 +53,7 @@ public:
 	sge::opengl::fbo::id const
 	id() const;
 private:
-	sge::opengl::fbo::context const &context_;
+	sge::opengl::fbo::config const &context_;
 
 	sge::opengl::fbo::id const id_;
 };

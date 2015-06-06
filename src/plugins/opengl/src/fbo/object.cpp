@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/fbo/bind.hpp>
-#include <sge/opengl/fbo/context_fwd.hpp>
+#include <sge/opengl/fbo/config_fwd.hpp>
 #include <sge/opengl/fbo/create_id.hpp>
 #include <sge/opengl/fbo/delete_id.hpp>
 #include <sge/opengl/fbo/id.hpp>
@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::fbo::object::object(
-	sge::opengl::fbo::context const &_context
+	sge::opengl::fbo::config const &_context
 )
 :
 	context_(
@@ -61,5 +61,6 @@ sge::opengl::fbo::object::bind() const
 sge::opengl::fbo::id const
 sge::opengl::fbo::object::id() const
 {
-	return id_;
+	return
+		id_;
 }

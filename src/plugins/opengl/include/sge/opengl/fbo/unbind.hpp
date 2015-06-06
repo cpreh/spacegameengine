@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_FBO_UNBIND_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/fbo/context_fwd.hpp>
+#include <sge/opengl/fbo/config_fwd.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace fbo
 
 void
 unbind(
-	sge::opengl::fbo::context const &
+	sge::opengl::fbo::config const &
 );
 
 }

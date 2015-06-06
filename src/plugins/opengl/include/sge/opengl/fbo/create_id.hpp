@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_CREATE_ID_HPP_INCLUDED
 #define SGE_OPENGL_FBO_CREATE_ID_HPP_INCLUDED
 
-#include <sge/opengl/fbo/context_fwd.hpp>
+#include <sge/opengl/fbo/config_fwd.hpp>
 #include <sge/opengl/fbo/id.hpp>
 
 
@@ -34,7 +34,7 @@ namespace fbo
 
 sge::opengl::fbo::id const
 create_id(
-	sge::opengl::fbo::context const &
+	sge::opengl::fbo::config const &
 );
 
 }

@@ -20,29 +20,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/fbo/config.hpp>
 #include <sge/opengl/fbo/create_id.hpp>
 #include <sge/opengl/fbo/id.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/unsupported.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::opengl::fbo::id const
 sge::opengl::fbo::create_id(
-	sge::opengl::fbo::context const &_context
+	sge::opengl::fbo::config const &_context
 )
 {
 	GLuint id;
-
-	if(
-		!_context.is_supported()
-	)
-		throw sge::renderer::unsupported(
-			FCPPT_TEXT("glGenFrameBuffers"),
-			FCPPT_TEXT("Opengl-3.0"),
-			FCPPT_TEXT("frame_buffer_ext")
-		);
 
 	_context.gen_framebuffers()(
 		1,

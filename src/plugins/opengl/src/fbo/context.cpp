@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/deref_fun_ptr.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
@@ -27,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/error_string_map.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/opengl/fbo/optional_config.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -46,18 +47,38 @@ sge::opengl::fbo::context::context()
 			GLEW_VERSION_3_0
 		)
 		?
-			sge::opengl::fbo::context::optional_context_config(
-				sge::opengl::fbo::context_config(
-					glGenFramebuffers,
-					glDeleteFramebuffers,
-					glBindFramebuffer,
-					glFramebufferTexture2D,
-					glCheckFramebufferStatus,
-					glGenRenderbuffers,
-					glDeleteRenderbuffers,
-					glBindRenderbuffer,
-					glRenderbufferStorage,
-					glFramebufferRenderbuffer,
+			sge::opengl::fbo::optional_config(
+				sge::opengl::fbo::config(
+					sge::opengl::deref_fun_ptr(
+						glGenFramebuffers
+					),
+					sge::opengl::deref_fun_ptr(
+						glDeleteFramebuffers
+					),
+					sge::opengl::deref_fun_ptr(
+						glBindFramebuffer
+					),
+					sge::opengl::deref_fun_ptr(
+						glFramebufferTexture2D
+					),
+					sge::opengl::deref_fun_ptr(
+						glCheckFramebufferStatus
+					),
+					sge::opengl::deref_fun_ptr(
+						glGenRenderbuffers
+					),
+					sge::opengl::deref_fun_ptr(
+						glDeleteRenderbuffers
+					),
+					sge::opengl::deref_fun_ptr(
+						glBindRenderbuffer
+					),
+					sge::opengl::deref_fun_ptr(
+						glRenderbufferStorage
+					),
+					sge::opengl::deref_fun_ptr(
+						glFramebufferRenderbuffer
+					),
 					static_cast<
 						GLenum
 					>(
@@ -139,18 +160,38 @@ sge::opengl::fbo::context::context()
 				GLEW_EXT_framebuffer_object
 			)
 			?
-				sge::opengl::fbo::context::optional_context_config(
-					sge::opengl::fbo::context_config(
-						glGenFramebuffersEXT,
-						glDeleteFramebuffersEXT,
-						glBindFramebufferEXT,
-						glFramebufferTexture2DEXT,
-						glCheckFramebufferStatusEXT,
-						glGenRenderbuffersEXT,
-						glDeleteRenderbuffersEXT,
-						glBindRenderbufferEXT,
-						glRenderbufferStorageEXT,
-						glFramebufferRenderbufferEXT,
+				sge::opengl::fbo::optional_config(
+					sge::opengl::fbo::config(
+						sge::opengl::deref_fun_ptr(
+							glGenFramebuffersEXT
+						),
+						sge::opengl::deref_fun_ptr(
+							glDeleteFramebuffersEXT
+						),
+						sge::opengl::deref_fun_ptr(
+							glBindFramebufferEXT
+						),
+						sge::opengl::deref_fun_ptr(
+							glFramebufferTexture2DEXT
+						),
+						sge::opengl::deref_fun_ptr(
+							glCheckFramebufferStatusEXT
+						),
+						sge::opengl::deref_fun_ptr(
+							glGenRenderbuffersEXT
+						),
+						sge::opengl::deref_fun_ptr(
+							glDeleteRenderbuffersEXT
+						),
+						sge::opengl::deref_fun_ptr(
+							glBindRenderbufferEXT
+						),
+						sge::opengl::deref_fun_ptr(
+							glRenderbufferStorageEXT
+						),
+						sge::opengl::deref_fun_ptr(
+							glFramebufferRenderbufferEXT
+						),
 						static_cast<
 							GLenum
 						>(
@@ -221,7 +262,7 @@ sge::opengl::fbo::context::context()
 					)
 				)
 			:
-				sge::opengl::fbo::context::optional_context_config()
+				sge::opengl::fbo::optional_config()
 	)
 {
 }
@@ -232,113 +273,11 @@ sge::opengl::fbo::context::~context()
 {
 }
 
-bool
-sge::opengl::fbo::context::is_supported() const
+sge::opengl::fbo::optional_config const &
+sge::opengl::fbo::context::config() const
 {
 	return
-		config_.has_value();
-}
-
-sge::opengl::fbo::context::gl_gen_framebuffers
-sge::opengl::fbo::context::gen_framebuffers() const
-{
-	return config_.get_unsafe().gen_framebuffers_;
-}
-
-sge::opengl::fbo::context::gl_delete_framebuffers
-sge::opengl::fbo::context::delete_framebuffers() const
-{
-	return config_.get_unsafe().delete_framebuffers_;
-}
-
-sge::opengl::fbo::context::gl_bind_framebuffer
-sge::opengl::fbo::context::bind_framebuffer() const
-{
-	return config_.get_unsafe().bind_framebuffer_;
-}
-
-sge::opengl::fbo::context::gl_framebuffer_texture_2d
-sge::opengl::fbo::context::framebuffer_texture_2d() const
-{
-	return config_.get_unsafe().framebuffer_texture_2d_;
-}
-
-sge::opengl::fbo::context::gl_check_framebuffer_status
-sge::opengl::fbo::context::check_framebuffer_status() const
-{
-	return config_.get_unsafe().check_framebuffer_status_;
-}
-
-sge::opengl::fbo::context::gl_gen_renderbuffers
-sge::opengl::fbo::context::gen_renderbuffers() const
-{
-	return config_.get_unsafe().gen_renderbuffers_;
-}
-
-sge::opengl::fbo::context::gl_delete_renderbuffers
-sge::opengl::fbo::context::delete_renderbuffers() const
-{
-	return config_.get_unsafe().delete_renderbuffers_;
-}
-
-sge::opengl::fbo::context::gl_bind_renderbuffer
-sge::opengl::fbo::context::bind_renderbuffer() const
-{
-	return config_.get_unsafe().bind_renderbuffer_;
-}
-
-sge::opengl::fbo::context::gl_renderbuffer_storage
-sge::opengl::fbo::context::renderbuffer_storage() const
-{
-	return config_.get_unsafe().renderbuffer_storage_;
-}
-
-sge::opengl::fbo::context::gl_framebuffer_renderbuffer
-sge::opengl::fbo::context::framebuffer_renderbuffer() const
-{
-	return config_.get_unsafe().framebuffer_renderbuffer_;
-}
-
-GLenum
-sge::opengl::fbo::context::framebuffer_target() const
-{
-	return config_.get_unsafe().framebuffer_target_;
-}
-
-sge::opengl::fbo::attachment_type const
-sge::opengl::fbo::context::color_attachment() const
-{
-	return config_.get_unsafe().color_attachment_;
-}
-
-GLenum
-sge::opengl::fbo::context::framebuffer_complete() const
-{
-	return config_.get_unsafe().fbo_complete_;
-}
-
-sge::opengl::fbo::error_string_map const &
-sge::opengl::fbo::context::error_strings() const
-{
-	return config_.get_unsafe().error_strings_;
-}
-
-GLenum
-sge::opengl::fbo::context::renderbuffer_target() const
-{
-	return config_.get_unsafe().renderbuffer_target_;
-}
-
-sge::opengl::fbo::attachment_type const
-sge::opengl::fbo::context::depth_attachment() const
-{
-	return config_.get_unsafe().depth_attachment_;
-}
-
-sge::opengl::fbo::optional_attachment_type const
-sge::opengl::fbo::context::depth_stencil_attachment() const
-{
-	return config_.get_unsafe().depth_stencil_attachment_;
+		config_;
 }
 
 sge::opengl::context::system::id const

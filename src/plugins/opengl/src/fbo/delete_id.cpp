@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/fbo/config.hpp>
 #include <sge/opengl/fbo/delete_id.hpp>
 #include <sge/opengl/fbo/id.hpp>
 #include <sge/renderer/exception.hpp>
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::fbo::delete_id(
-	sge::opengl::fbo::context const &_context,
+	sge::opengl::fbo::config const &_context,
 	sge::opengl::fbo::id const _id
 )
 {

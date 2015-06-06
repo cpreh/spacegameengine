@@ -32,9 +32,11 @@ namespace opengl
 namespace fbo
 {
 
-typedef fcppt::optional<
+typedef
+fcppt::optional<
 	sge::opengl::fbo::attachment_type
-> optional_attachment_type;
+>
+optional_attachment_type;
 
 }
 }

@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/depth_stencil_format_to_attachment.hpp>
 #include <sge/opengl/fbo/depth_stencil_surface.hpp>
+#include <sge/opengl/fbo/get_config.hpp>
 #include <sge/opengl/fbo/last_context.hpp>
 #include <sge/opengl/fbo/no_buffer.hpp>
 #include <sge/opengl/fbo/render_buffer_binding.hpp>
@@ -88,6 +89,11 @@ sge::opengl::fbo::target::target(
 			_system_context
 		)
 	),
+	config_(
+		sge::opengl::fbo::get_config(
+			context_
+		)
+	),
 	last_context_(
 		sge::opengl::context::use<
 			sge::opengl::fbo::last_context
@@ -96,7 +102,7 @@ sge::opengl::fbo::target::target(
 		)
 	),
 	fbo_(
-		context_
+		config_
 	),
 	height_(),
 	color_attachments_(),
@@ -107,7 +113,7 @@ sge::opengl::fbo::target::target(
 sge::opengl::fbo::target::~target()
 {
 	opengl::fbo::temporary_bind const scoped_exit(
-		context_,
+		config_,
 		last_context_,
 		fbo_
 	);
@@ -132,7 +138,7 @@ void
 sge::opengl::fbo::target::on_unbind()
 {
 	sge::opengl::fbo::unbind(
-		context_
+		config_
 	);
 
 	last_context_.last_buffer(
@@ -152,7 +158,7 @@ sge::opengl::fbo::target::color_surface(
 )
 {
 	sge::opengl::fbo::temporary_bind const scoped_exit(
-		context_,
+		config_,
 		last_context_,
 		fbo_
 	);
@@ -211,7 +217,7 @@ sge::opengl::fbo::target::color_surface(
 					this->create_texture_binding(
 						texture_surface,
 						sge::opengl::fbo::attachment_type(
-							context_.color_attachment().get()
+							config_.color_attachment().get()
 							+
 							_index.get()
 						)
@@ -228,7 +234,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 )
 {
 	sge::opengl::fbo::temporary_bind const scoped_exit(
-		context_,
+		config_,
 		last_context_,
 		fbo_
 	);
@@ -247,7 +253,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 			sge::opengl::fbo::attachment_type const attachment(
 				fcppt::optional_to_exception(
 					sge::opengl::fbo::depth_stencil_format_to_attachment(
-						context_,
+						config_,
 						_surface.format()
 					),
 					[]{
@@ -337,7 +343,7 @@ sge::opengl::fbo::target::create_texture_binding(
 			fcppt::make_unique_ptr_fcppt<
 				sge::opengl::fbo::texture_binding
 			>(
-				context_,
+				config_,
 				_surface,
 				_attachment
 			)
@@ -363,7 +369,7 @@ sge::opengl::fbo::target::create_buffer_binding(
 			fcppt::make_unique_ptr_fcppt<
 				sge::opengl::fbo::render_buffer_binding
 			>(
-				context_,
+				config_,
 				_buffer,
 				_attachment
 			)
@@ -380,8 +386,8 @@ void
 sge::opengl::fbo::target::check()
 {
 	GLenum const status(
-		context_.check_framebuffer_status()(
-			context_.framebuffer_target()
+		config_.check_framebuffer_status()(
+			config_.framebuffer_target()
 		)
 	);
 
@@ -393,14 +399,14 @@ sge::opengl::fbo::target::check()
 	if(
 		status
 		!=
-		context_.framebuffer_complete()
+		config_.framebuffer_complete()
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("FBO is incomplete! ")
 			+
 			fcppt::from_optional(
 				fcppt::container::find_opt(
-					context_.error_strings(),
+					config_.error_strings(),
 					status
 				),
 				[]{
@@ -413,7 +419,8 @@ sge::opengl::fbo::target::check()
 		);
 }
 
-template class
+template
+class
 sge::opengl::basic_target<
 	sge::renderer::target::offscreen
 >;

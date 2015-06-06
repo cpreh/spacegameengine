@@ -45,7 +45,7 @@ class texture_binding
 	);
 public:
 	texture_binding(
-		sge::opengl::fbo::context const &,
+		sge::opengl::fbo::config const &,
 		sge::opengl::texture::buffer_base &,
 		sge::opengl::fbo::attachment_type
 	);
@@ -53,7 +53,7 @@ public:
 	~texture_binding()
 	override;
 private:
-	sge::opengl::fbo::context const &context_;
+	sge::opengl::fbo::config const &context_;
 
 	sge::opengl::texture::buffer_base &buffer_;
 

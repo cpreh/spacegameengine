@@ -19,14 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/fbo/bind.hpp>
-#include <sge/opengl/fbo/context_fwd.hpp>
+#include <sge/opengl/fbo/config_fwd.hpp>
 #include <sge/opengl/fbo/no_buffer.hpp>
 #include <sge/opengl/fbo/unbind.hpp>
 
 
 void
 sge::opengl::fbo::unbind(
-	sge::opengl::fbo::context const &_context
+	sge::opengl::fbo::config const &_context
 )
 {
 	sge::opengl::fbo::bind(

@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/attachment_fwd.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/attachment_unique_ptr.hpp>
+#include <sge/opengl/fbo/config_fwd.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
 #include <sge/opengl/fbo/last_context_fwd.hpp>
 #include <sge/opengl/fbo/object.hpp>
@@ -121,6 +122,8 @@ private:
 	check();
 
 	sge::opengl::fbo::context &context_;
+
+	sge::opengl::fbo::config const &config_;
 
 	sge::opengl::fbo::last_context &last_context_;
 

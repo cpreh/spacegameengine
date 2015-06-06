@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_TEMPORARY_BIND_HPP_INCLUDED
 #define SGE_OPENGL_FBO_TEMPORARY_BIND_HPP_INCLUDED
 
-#include <sge/opengl/fbo/context_fwd.hpp>
+#include <sge/opengl/fbo/config_fwd.hpp>
 #include <sge/opengl/fbo/id.hpp>
 #include <sge/opengl/fbo/last_context_fwd.hpp>
 #include <sge/opengl/fbo/object_fwd.hpp>
@@ -42,14 +42,14 @@ class temporary_bind
 	);
 public:
 	temporary_bind(
-		sge::opengl::fbo::context &,
+		sge::opengl::fbo::config const &,
 		sge::opengl::fbo::last_context &,
 		sge::opengl::fbo::object const &
 	);
 
 	~temporary_bind();
 private:
-	sge::opengl::fbo::context &context_;
+	sge::opengl::fbo::config const &context_;
 
 	sge::opengl::fbo::last_context &last_context_;
 

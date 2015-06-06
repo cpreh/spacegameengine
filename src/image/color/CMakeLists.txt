@@ -29,6 +29,7 @@ set(
 	include/sge/image/color/bgrx8_format.hpp
 	include/sge/image/color/bgrx8_fwd.hpp
 	include/sge/image/color/convert.hpp
+	include/sge/image/color/detail/is_convertible.hpp
 	include/sge/image/color/element_count.hpp
 	include/sge/image/color/elements.hpp
 	include/sge/image/color/format.hpp

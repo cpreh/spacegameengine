@@ -34,23 +34,32 @@ sge::opengl::state::convert::source_blend_func(
 	)
 	{
 	case sge::renderer::state::core::blend::source::zero:
-		return GL_ZERO;
+		return
+			GL_ZERO;
 	case sge::renderer::state::core::blend::source::one:
-		return GL_ONE;
+		return
+			GL_ONE;
 	case sge::renderer::state::core::blend::source::dest_color:
-		return GL_DST_COLOR;
+		return
+			GL_DST_COLOR;
 	case sge::renderer::state::core::blend::source::inv_dest_color:
-		return GL_ONE_MINUS_DST_COLOR;
+		return
+			GL_ONE_MINUS_DST_COLOR;
 	case sge::renderer::state::core::blend::source::src_alpha:
-		return GL_SRC_ALPHA;
+		return
+			GL_SRC_ALPHA;
 	case sge::renderer::state::core::blend::source::inv_src_alpha:
-		return GL_ONE_MINUS_SRC_ALPHA;
+		return
+			GL_ONE_MINUS_SRC_ALPHA;
 	case sge::renderer::state::core::blend::source::dest_alpha:
-		return GL_DST_ALPHA;
+		return
+			GL_DST_ALPHA;
 	case sge::renderer::state::core::blend::source::inv_dest_alpha:
-		return GL_ONE_MINUS_DST_ALPHA;
+		return
+			GL_ONE_MINUS_DST_ALPHA;
 	case sge::renderer::state::core::blend::source::src_alpha_sat:
-		return GL_SRC_ALPHA_SATURATE;
+		return
+			GL_SRC_ALPHA_SATURATE;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

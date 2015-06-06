@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/internal_color_format.hpp>
-#include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/fbo/config.hpp>
 #include <sge/opengl/fbo/render_buffer.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/exception.hpp>
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::fbo::render_buffer::render_buffer(
-	sge::opengl::fbo::context const &_context,
+	sge::opengl::fbo::config const &_context,
 	sge::opengl::internal_color_format const _internal_format,
 	sge::renderer::dim2 const &_dim
 )
@@ -76,7 +76,8 @@ sge::opengl::fbo::render_buffer::~render_buffer()
 GLuint
 sge::opengl::fbo::render_buffer::id() const
 {
-	return holder_.id();
+	return
+		holder_.id();
 }
 
 void

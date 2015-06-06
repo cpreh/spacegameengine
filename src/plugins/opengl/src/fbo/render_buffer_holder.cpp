@@ -20,23 +20,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/fbo/config.hpp>
 #include <sge/opengl/fbo/render_buffer_holder.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::opengl::fbo::render_buffer_holder::render_buffer_holder(
-	fbo::context const &_context
+	sge::opengl::fbo::config const &_context
 )
 :
-	context_(_context),
+	context_(
+		_context
+	),
 	id_()
 {
 	context_.gen_renderbuffers()(
 		1,
 		&id_
 	);
+
 	SGE_OPENGL_CHECK_STATE(
 		FCPPT_TEXT("Generating a render buffer failed."),
 		sge::renderer::exception
@@ -59,5 +62,6 @@ sge::opengl::fbo::render_buffer_holder::~render_buffer_holder()
 GLuint
 sge::opengl::fbo::render_buffer_holder::id() const
 {
-	return id_;
+	return
+		id_;
 }

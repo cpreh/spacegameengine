@@ -18,14 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_FBO_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_FBO_GET_CONFIG_HPP_INCLUDED
+#define SGE_OPENGL_FBO_GET_CONFIG_HPP_INCLUDED
 
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/fbo/config_fwd.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
-#include <sge/opengl/fbo/optional_config.hpp>
-#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -35,28 +32,10 @@ namespace opengl
 namespace fbo
 {
 
-class context
-:
-	public sge::opengl::context::system::base
-{
-	FCPPT_NONCOPYABLE(
-		context
-	);
-public:
-	context();
-
-	~context()
-	override;
-
-	sge::opengl::fbo::optional_config const &
-	config() const;
-
-	typedef void parameter;
-
-	static sge::opengl::context::system::id const static_id;
-private:
-	sge::opengl::fbo::optional_config config_;
-};
+sge::opengl::fbo::config const &
+get_config(
+	sge::opengl::fbo::context const &
+);
 
 }
 }

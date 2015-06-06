@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/fbo/attach_render_buffer.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
-#include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/fbo/config.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::opengl::fbo::attach_render_buffer(
-	sge::opengl::fbo::context const &_context,
+	sge::opengl::fbo::config const &_context,
 	sge::opengl::fbo::attachment_type const _what,
 	GLuint const _buffer
 )

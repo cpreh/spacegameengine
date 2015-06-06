@@ -18,20 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_CONTEXT_CONFIG_FWD_HPP_INCLUDED
-#define SGE_OPENGL_FBO_CONTEXT_CONFIG_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_FUN_REF_HPP_INCLUDED
+#define SGE_OPENGL_FUN_REF_HPP_INCLUDED
+
+#include <sge/opengl/fun_ref_impl.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace fbo
-{
 
-class context_config;
+template<
+	typename Type
+>
+using
+fun_ref
+=
+typename
+sge::opengl::fun_ref_impl<
+	Type
+>::type;
 
-}
 }
 }
 

@@ -45,7 +45,7 @@ class render_buffer_binding
 	);
 public:
 	render_buffer_binding(
-		sge::opengl::fbo::context const &,
+		sge::opengl::fbo::config const &,
 		sge::opengl::fbo::render_buffer const &,
 		sge::opengl::fbo::attachment_type
 	);
@@ -53,7 +53,7 @@ public:
 	~render_buffer_binding()
 	override;
 private:
-	sge::opengl::fbo::context const &context_;
+	sge::opengl::fbo::config const &context_;
 
 	sge::opengl::fbo::attachment_type const what_;
 };

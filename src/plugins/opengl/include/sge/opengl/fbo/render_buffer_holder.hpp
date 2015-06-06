@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_FBO_RENDER_BUFFER_HOLDER_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/fbo/context_fwd.hpp>
+#include <sge/opengl/fbo/config_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -39,8 +39,9 @@ class render_buffer_holder
 		render_buffer_holder
 	);
 public:
-	explicit render_buffer_holder(
-		fbo::context const &
+	explicit
+	render_buffer_holder(
+		sge::opengl::fbo::config const &
 	);
 
 	~render_buffer_holder();
@@ -48,7 +49,7 @@ public:
 	GLuint
 	id() const;
 private:
-	fbo::context const &context_;
+	sge::opengl::fbo::config const &context_;
 
 	GLuint id_;
 };

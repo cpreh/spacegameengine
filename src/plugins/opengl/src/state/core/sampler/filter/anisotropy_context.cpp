@@ -79,13 +79,15 @@ sge::opengl::state::core::sampler::filter::anisotropy_context::~anisotropy_conte
 sge::opengl::optional_enum const
 sge::opengl::state::core::sampler::filter::anisotropy_context::anisotropy_flag() const
 {
-	return anisotropy_flag_;
+	return
+		anisotropy_flag_;
 }
 
 sge::opengl::optional_enum const
 sge::opengl::state::core::sampler::filter::anisotropy_context::max_anisotropy_flag() const
 {
-	return max_anisotropy_flag_;
+	return
+		max_anisotropy_flag_;
 }
 
 sge::opengl::context::system::id const

@@ -97,10 +97,10 @@ sge::opengl::get_device_caps(
 
 	sge::renderer::caps::render_target_supported const render_target_supported(
 		sge::opengl::context::use<
-			fbo::context
+			sge::opengl::fbo::context
 		>(
 			_context
-		).is_supported()
+		).config().has_value()
 	);
 
 	return
