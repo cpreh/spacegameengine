@@ -19,11 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/deref_fun_ptr.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/convert/from_gl_bool.hpp>
+#include <sge/opengl/vf/attribute_config.hpp>
 #include <sge/opengl/vf/attribute_context.hpp>
+#include <sge/opengl/vf/optional_attribute_config.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -35,48 +38,44 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 sge::opengl::vf::attribute_context::attribute_context()
 :
 	sge::opengl::context::system::base(),
-	is_native_(
+	config_(
 		sge::opengl::convert::from_gl_bool(
 			GLEW_VERSION_2_0
 		)
-	),
-	is_arb_(
-		sge::opengl::convert::from_gl_bool(
-			GLEW_ARB_vertex_shader
-		)
-	),
-	vertex_attrib_pointer_(
-		is_native_
 		?
-			glVertexAttribPointer
+			sge::opengl::vf::optional_attribute_config(
+				sge::opengl::vf::attribute_config(
+					sge::opengl::deref_fun_ptr(
+						glVertexAttribPointer
+					),
+					sge::opengl::deref_fun_ptr(
+						glEnableVertexAttribArray
+					),
+					sge::opengl::deref_fun_ptr(
+						glDisableVertexAttribArray
+					)
+				)
+			)
 		:
-			is_arb_
+			sge::opengl::convert::from_gl_bool(
+				GLEW_ARB_vertex_shader
+			)
 			?
-				glVertexAttribPointerARB
+				sge::opengl::vf::optional_attribute_config(
+					sge::opengl::vf::attribute_config(
+						sge::opengl::deref_fun_ptr(
+							glVertexAttribPointerARB
+						),
+						sge::opengl::deref_fun_ptr(
+							glEnableVertexAttribArrayARB
+						),
+						sge::opengl::deref_fun_ptr(
+							glDisableVertexAttribArrayARB
+						)
+					)
+				)
 			:
-				nullptr
-	),
-	enable_vertex_attrib_array_(
-		is_native_
-		?
-			glEnableVertexAttribArray
-		:
-			is_arb_
-			?
-				glEnableVertexAttribArrayARB
-			:
-				nullptr
-	),
-	disable_vertex_attrib_array_(
-		is_native_
-		?
-			glDisableVertexAttribArray
-		:
-			is_arb_
-			?
-				glDisableVertexAttribArrayARB
-			:
-				nullptr
+				sge::opengl::vf::optional_attribute_config()
 	)
 {
 }
@@ -87,30 +86,11 @@ sge::opengl::vf::attribute_context::~attribute_context()
 {
 }
 
-bool
-sge::opengl::vf::attribute_context::is_supported() const
+sge::opengl::vf::optional_attribute_config const &
+sge::opengl::vf::attribute_context::config() const
 {
 	return
-		is_native_
-		|| is_arb_;
-}
-
-sge::opengl::vf::attribute_context::gl_vertex_attrib_pointer
-sge::opengl::vf::attribute_context::vertex_attrib_pointer() const
-{
-	return vertex_attrib_pointer_;
-}
-
-sge::opengl::vf::attribute_context::gl_enable_vertex_attrib_array
-sge::opengl::vf::attribute_context::enable_vertex_attrib_array() const
-{
-	return enable_vertex_attrib_array_;
-}
-
-sge::opengl::vf::attribute_context::gl_disable_vertex_attrib_array
-sge::opengl::vf::attribute_context::disable_vertex_attrib_array() const
-{
-	return disable_vertex_attrib_array_;
+		config_;
 }
 
 sge::opengl::context::system::id const

@@ -22,16 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/vf/actor_parameters.hpp>
 #include <sge/opengl/vf/attribute_actor.hpp>
+#include <sge/opengl/vf/attribute_config.hpp>
 #include <sge/opengl/vf/attribute_context.hpp>
 #include <sge/opengl/vf/client_state_combiner.hpp>
 #include <sge/opengl/vf/extra_elements.hpp>
 #include <sge/opengl/vf/extra_format.hpp>
 #include <sge/opengl/vf/extra_index.hpp>
+#include <sge/opengl/vf/get_attribute_config.hpp>
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/pointer_actor.hpp>
-#include <sge/renderer/unsupported.hpp>
+#include <sge/opengl/vf/vertex_attrib_pointer.hpp>
 #include <sge/renderer/vf/dynamic/extra.hpp>
-#include <sge/renderer/vf/dynamic/ordered_element.hpp>
 
 
 sge::opengl::vf::attribute_actor::attribute_actor(
@@ -42,11 +43,13 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 	sge::opengl::vf::pointer_actor(
 		_param
 	),
-	attribute_context_(
-		sge::opengl::context::use<
-			sge::opengl::vf::attribute_context
-		>(
-			_param.system_context()
+	attribute_config_(
+		sge::opengl::vf::get_attribute_config(
+			sge::opengl::context::use<
+				sge::opengl::vf::attribute_context
+			>(
+				_param.system_context()
+			)
 		)
 	),
 	elements_(
@@ -69,14 +72,6 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 		)
 	)
 {
-	if(
-		!attribute_context_.is_supported()
-	)
-		throw sge::renderer::unsupported(
-			FCPPT_TEXT("glVertexAttribPointer"),
-			FCPPT_TEXT("GL_VERSION_2_0"),
-			FCPPT_TEXT("GL_ARB_vertex_shader")
-		);
 }
 
 sge::opengl::vf::attribute_actor::~attribute_actor()
@@ -93,7 +88,8 @@ sge::opengl::vf::attribute_actor::operator()(
 		location_
 	);
 
-	attribute_context_.vertex_attrib_pointer()(
+	sge::opengl::vf::vertex_attrib_pointer(
+		attribute_config_,
 		location_,
 		elements_,
 		format_,

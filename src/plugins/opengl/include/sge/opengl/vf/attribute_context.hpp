@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/vf/attribute_context_fwd.hpp>
+#include <sge/opengl/vf/optional_attribute_config.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -48,37 +49,14 @@ public:
 	~attribute_context()
 	override;
 
-	bool
-	is_supported() const;
-
-	typedef PFNGLVERTEXATTRIBPOINTERPROC gl_vertex_attrib_pointer;
-
-	typedef PFNGLENABLEVERTEXATTRIBARRAYPROC gl_enable_vertex_attrib_array;
-
-	typedef PFNGLDISABLEVERTEXATTRIBARRAYPROC gl_disable_vertex_attrib_array;
-
-	gl_vertex_attrib_pointer
-	vertex_attrib_pointer() const;
-
-	gl_enable_vertex_attrib_array
-	enable_vertex_attrib_array() const;
-
-	gl_disable_vertex_attrib_array
-	disable_vertex_attrib_array() const;
+	sge::opengl::vf::optional_attribute_config const &
+	config() const;
 
 	typedef void parameter;
 
 	static sge::opengl::context::system::id const static_id;
 private:
-	bool const
-		is_native_,
-		is_arb_;
-
-	gl_vertex_attrib_pointer const vertex_attrib_pointer_;
-
-	gl_enable_vertex_attrib_array const enable_vertex_attrib_array_;
-
-	gl_disable_vertex_attrib_array const disable_vertex_attrib_array_;
+	sge::opengl::vf::optional_attribute_config const config_;
 };
 
 }

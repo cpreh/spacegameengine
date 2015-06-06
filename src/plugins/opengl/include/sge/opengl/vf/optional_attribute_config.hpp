@@ -18,30 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
+#ifndef SGE_OPENGL_VF_OPTIONAL_ATTRIBUTE_CONFIG_HPP_INCLUDED
+#define SGE_OPENGL_VF_OPTIONAL_ATTRIBUTE_CONFIG_HPP_INCLUDED
+
 #include <sge/opengl/vf/attribute_config.hpp>
-#include <sge/opengl/vf/attribute_context_fwd.hpp>
-#include <sge/opengl/vf/enable_vertex_attrib_array.hpp>
-#include <sge/opengl/vf/get_attribute_config.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#include <sge/opengl/vf/optional_attribute_config_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
-void
-sge::opengl::vf::enable_vertex_attrib_array(
-	sge::opengl::vf::attribute_context const &_context,
-	GLuint const _index
-)
-{
-	sge::opengl::vf::get_attribute_config(
-		_context
-	).enable_vertex_attrib_array()(
-		_index
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Enabling a vertex attrib array failed"),
-		sge::renderer::exception
-	)
-}
+#endif

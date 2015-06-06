@@ -19,8 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/vf/attribute_context.hpp>
+#include <sge/opengl/vf/attribute_config.hpp>
+#include <sge/opengl/vf/attribute_context_fwd.hpp>
 #include <sge/opengl/vf/disable_vertex_attrib_array.hpp>
+#include <sge/opengl/vf/get_attribute_config.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
@@ -31,7 +33,9 @@ sge::opengl::vf::disable_vertex_attrib_array(
 	GLuint const _index
 )
 {
-	_context.disable_vertex_attrib_array()(
+	sge::opengl::vf::get_attribute_config(
+		_context
+	).disable_vertex_attrib_array()(
 		_index
 	);
 

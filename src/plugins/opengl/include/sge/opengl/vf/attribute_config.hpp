@@ -18,18 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VF_ATTRIBUTE_ACTOR_HPP_INCLUDED
-#define SGE_OPENGL_VF_ATTRIBUTE_ACTOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_VF_ATTRIBUTE_CONFIG_HPP_INCLUDED
+#define SGE_OPENGL_VF_ATTRIBUTE_CONFIG_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/vf/actor_parameters_fwd.hpp>
+#include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/vf/attribute_config_fwd.hpp>
-#include <sge/opengl/vf/client_state_combiner_fwd.hpp>
-#include <sge/opengl/vf/pointer.hpp>
-#include <sge/opengl/vf/pointer_actor.hpp>
-#include <sge/renderer/vf/dynamic/extra_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -39,42 +34,50 @@ namespace opengl
 namespace vf
 {
 
-class attribute_actor
-:
-	public sge::opengl::vf::pointer_actor
+class attribute_config
 {
-	FCPPT_NONCOPYABLE(
-		attribute_actor
+	FCPPT_NONASSIGNABLE(
+		attribute_config
 	);
 public:
-	attribute_actor(
-		sge::opengl::vf::actor_parameters const &,
-		sge::renderer::vf::dynamic::extra const &
+	typedef
+	sge::opengl::fun_ref<
+		PFNGLVERTEXATTRIBPOINTERPROC
+	>
+	gl_vertex_attrib_pointer;
+
+	typedef
+	sge::opengl::fun_ref<
+		PFNGLENABLEVERTEXATTRIBARRAYPROC
+	>
+	gl_enable_vertex_attrib_array;
+
+	typedef
+	sge::opengl::fun_ref<
+		PFNGLDISABLEVERTEXATTRIBARRAYPROC
+	>
+	gl_disable_vertex_attrib_array;
+
+	attribute_config(
+		gl_vertex_attrib_pointer,
+		gl_enable_vertex_attrib_array,
+		gl_disable_vertex_attrib_array
 	);
 
-	~attribute_actor()
-	override;
+	gl_vertex_attrib_pointer
+	vertex_attrib_pointer() const;
+
+	gl_enable_vertex_attrib_array
+	enable_vertex_attrib_array() const;
+
+	gl_disable_vertex_attrib_array
+	disable_vertex_attrib_array() const;
 private:
-	void
-	operator()(
-		sge::opengl::vf::client_state_combiner &,
-		sge::opengl::vf::pointer
-	) const
-	override;
+	gl_vertex_attrib_pointer vertex_attrib_pointer_;
 
-	void
-	unuse(
-		sge::opengl::vf::client_state_combiner &
-	) const
-	override;
+	gl_enable_vertex_attrib_array enable_vertex_attrib_array_;
 
-	sge::opengl::vf::attribute_config const &attribute_config_;
-
-	GLint const elements_;
-
-	GLenum const format_;
-
-	GLuint const location_;
+	gl_disable_vertex_attrib_array disable_vertex_attrib_array_;
 };
 
 }

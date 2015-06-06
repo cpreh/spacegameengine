@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_VERTEX_ATTRIB_POINTER_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/vf/attribute_context_fwd.hpp>
+#include <sge/opengl/vf/attribute_config_fwd.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace vf
 
 void
 vertex_attrib_pointer(
-	sge::opengl::vf::attribute_context const &,
+	sge::opengl::vf::attribute_config const &,
 	GLuint index,
 	GLint size,
 	GLenum type,

@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/enable_texcoords.hpp>
 #include <sge/opengl/vf/enable_vertex_attrib_array.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/algorithm/set_difference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <functional>
@@ -67,14 +68,14 @@ sge::opengl::vf::client_state_combiner::client_state_combiner(
 	),
 	vf_context_(
 		opengl::context::use<
-			vf::context
+			sge::opengl::vf::context
 		>(
 			_device_context
 		)
 	),
 	attribute_context_(
-		opengl::context::use<
-			vf::attribute_context
+		sge::opengl::context::use<
+			sge::opengl::vf::attribute_context
 		>(
 			_system_context
 		)
@@ -153,8 +154,8 @@ sge::opengl::vf::client_state_combiner::~client_state_combiner()
 	apply_difference(
 		old_states_.normal_states(),
 		new_states_.normal_states(),
-		opengl::enable_client_state,
-		opengl::disable_client_state
+		sge::opengl::enable_client_state,
+		sge::opengl::disable_client_state
 	);
 
 	apply_difference(
@@ -216,45 +217,25 @@ apply_difference(
 	DisableFun _disable // nonconst because of VC++12
 )
 {
-	Set diff;
-
-	std::set_difference(
-		_old_states.begin(),
-		_old_states.end(),
-		_new_states.begin(),
-		_new_states.end(),
-		std::inserter(
-			diff,
-			diff.begin()
-		)
-	);
-
 	for(
 		auto const &element
 		:
-		diff
+		fcppt::algorithm::set_difference(
+			_old_states,
+			_new_states
+		)
 	)
 		_disable(
 			element
 		);
 
-	diff.clear();
-
-	std::set_difference(
-		_new_states.begin(),
-		_new_states.end(),
-		_old_states.begin(),
-		_old_states.end(),
-		std::inserter(
-			diff,
-			diff.begin()
-		)
-	);
-
 	for(
 		auto const &element
 		:
-		diff
+		fcppt::algorithm::set_difference(
+			_new_states,
+			_old_states
+		)
 	)
 		_enable(
 			element

@@ -566,6 +566,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/vf/actor_parameters_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/vf/actor_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/vf/attribute_actor.hpp
+	src/plugins/opengl/include/sge/opengl/vf/attribute_config.hpp
+	src/plugins/opengl/include/sge/opengl/vf/attribute_config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/vf/attribute_context.hpp
 	src/plugins/opengl/include/sge/opengl/vf/attribute_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/vf/client_state.hpp
@@ -585,7 +587,10 @@ set(
 	src/plugins/opengl/include/sge/opengl/vf/extra_format_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/extra_index.hpp
 	src/plugins/opengl/include/sge/opengl/vf/fp_actor.hpp
+	src/plugins/opengl/include/sge/opengl/vf/get_attribute_config.hpp
 	src/plugins/opengl/include/sge/opengl/vf/normal_actor.hpp
+	src/plugins/opengl/include/sge/opengl/vf/optional_attribute_config.hpp
+	src/plugins/opengl/include/sge/opengl/vf/optional_attribute_config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/vf/part.hpp
 	src/plugins/opengl/include/sge/opengl/vf/part_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/vf/pointer.hpp
@@ -958,6 +963,7 @@ set(
 	src/plugins/opengl/src/vf/actor.cpp
 	src/plugins/opengl/src/vf/actor_parameters.cpp
 	src/plugins/opengl/src/vf/attribute_actor.cpp
+	src/plugins/opengl/src/vf/attribute_config.cpp
 	src/plugins/opengl/src/vf/attribute_context.cpp
 	src/plugins/opengl/src/vf/client_state.cpp
 	src/plugins/opengl/src/vf/client_state_combiner.cpp
@@ -974,6 +980,7 @@ set(
 	src/plugins/opengl/src/vf/extra_format_visitor.cpp
 	src/plugins/opengl/src/vf/extra_index.cpp
 	src/plugins/opengl/src/vf/fp_actor.cpp
+	src/plugins/opengl/src/vf/get_attribute_config.cpp
 	src/plugins/opengl/src/vf/normal_actor.cpp
 	src/plugins/opengl/src/vf/part.cpp
 	src/plugins/opengl/src/vf/pointer_actor.cpp
