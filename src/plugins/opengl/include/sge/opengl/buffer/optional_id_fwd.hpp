@@ -32,9 +32,11 @@ namespace opengl
 namespace buffer
 {
 
-typedef fcppt::optional<
+typedef
+fcppt::optional<
 	sge::opengl::buffer::id
-> optional_id;
+>
+optional_id;
 
 }
 }

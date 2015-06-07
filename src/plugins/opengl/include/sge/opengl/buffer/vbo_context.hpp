@@ -22,11 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BUFFER_VBO_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/buffer/base_fwd.hpp>
-#include <sge/opengl/buffer/type.hpp>
+#include <sge/opengl/buffer/base_unique_ptr.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <array>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -44,31 +47,34 @@ class vbo_context
 		vbo_context
 	);
 public:
-	vbo_context();
+	typedef
+	sge::opengl::context::system::object &
+	parameter;
+
+	explicit
+	vbo_context(
+		parameter
+	);
 
 	~vbo_context()
 	override;
 
 	sge::opengl::buffer::base &
-	impl();
+	index_buffer() const;
 
-	sge::opengl::buffer::type const
-	index_buffer_type() const;
-
-	sge::opengl::buffer::type const
-	vertex_buffer_type() const;
-
-	typedef void parameter;
+	sge::opengl::buffer::base &
+	vertex_buffer() const;
 
 	static sge::opengl::context::system::id const static_id;
 private:
-	fcppt::unique_ptr<
-		sge::opengl::buffer::base
-	> const impl_;
+	typedef
+	std::array<
+		sge::opengl::buffer::base_unique_ptr,
+		2u
+	>
+	buffer_array;
 
-	sge::opengl::buffer::type const
-		index_buffer_type_,
-		vertex_buffer_type_;
+	buffer_array const buffers_;
 };
 
 }

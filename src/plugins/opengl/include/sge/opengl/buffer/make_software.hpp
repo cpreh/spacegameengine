@@ -18,10 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_BUFFER_HW_SUPPORTED_HPP_INCLUDED
-#define SGE_OPENGL_BUFFER_HW_SUPPORTED_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_MAKE_SOFTWARE_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_MAKE_SOFTWARE_HPP_INCLUDED
 
-#include <fcppt/strong_typedef.hpp>
+#include <sge/opengl/buffer/base.hpp>
+#include <sge/opengl/buffer/software.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/algorithm/array_init_move.hpp>
 
 
 namespace sge
@@ -31,10 +35,28 @@ namespace opengl
 namespace buffer
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	bool,
-	hw_supported
-);
+template<
+	typename Array
+>
+Array
+make_software()
+{
+	return
+		fcppt::algorithm::array_init_move<
+			Array
+		>(
+			[]{
+				return
+					fcppt::unique_ptr_to_base<
+						sge::opengl::buffer::base
+					>(
+						fcppt::make_unique_ptr_fcppt<
+							sge::opengl::buffer::software
+						>()
+					);
+			}
+		);
+}
 
 }
 }

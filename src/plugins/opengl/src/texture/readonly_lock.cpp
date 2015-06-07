@@ -37,13 +37,9 @@ sge::opengl::texture::readonly_lock::readonly_lock(
 		sge::opengl::context::use<
 			sge::opengl::buffer::pbo_context
 		>(
+			_system_context,
 			_system_context
-		).impl(),
-		sge::opengl::context::use<
-			sge::opengl::buffer::pbo_context
-		>(
-			_system_context
-		).pixel_pack_buffer_type(),
+		).pack_buffer(),
 		_whole_size,
 		_stride,
 		_flags,

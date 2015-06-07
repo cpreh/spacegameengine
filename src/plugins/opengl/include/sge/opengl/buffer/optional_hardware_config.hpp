@@ -18,31 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/buffer/normal_lock_method.hpp>
-#include <sge/renderer/lock_flags/method.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#ifndef SGE_OPENGL_BUFFER_OPTIONAL_HARDWARE_CONFIG_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_OPTIONAL_HARDWARE_CONFIG_HPP_INCLUDED
+
+#include <sge/opengl/buffer/hardware_config.hpp>
+#include <sge/opengl/buffer/optional_hardware_config_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
-GLenum
-sge::opengl::buffer::normal_lock_method(
-	sge::renderer::lock_flags::method const _method
-)
-{
-	switch(
-		_method
-	)
-	{
-	case sge::renderer::lock_flags::method::read:
-		return
-			GL_READ_ONLY;
-	case sge::renderer::lock_flags::method::write:
-		return
-			GL_WRITE_ONLY;
-	case sge::renderer::lock_flags::method::readwrite:
-		return
-			GL_READ_WRITE;
-	}
-
-	FCPPT_ASSERT_UNREACHABLE;
-}
+#endif

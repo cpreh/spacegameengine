@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/object_fwd.hpp>
 #include <sge/opengl/buffer/optional_id_fwd.hpp>
-#include <sge/opengl/buffer/type.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -59,7 +58,6 @@ public:
 
 	object(
 		sge::opengl::buffer::base &,
-		sge::opengl::buffer::type,
 		size_type size,
 		size_type stride,
 		sge::renderer::resource_flags_field const &,
@@ -131,8 +129,6 @@ private:
 	) const;
 
 	sge::opengl::buffer::base &base_;
-
-	sge::opengl::buffer::type const type_;
 
 	size_type const
 		size_,

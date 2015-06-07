@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/optional_id.hpp>
-#include <sge/opengl/buffer/type.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -66,21 +65,18 @@ private:
 
 	void
 	bind_buffer(
-		sge::opengl::buffer::type,
 		sge::opengl::buffer::optional_id const &
 	)
 	override;
 
 	GLvoid *
 	map_buffer(
-		sge::opengl::buffer::type,
 		GLenum flags
 	)
 	override;
 
 	GLvoid *
 	map_buffer_range(
-		sge::opengl::buffer::type,
 		GLenum flags,
 		GLsizei first,
 		GLsizei size
@@ -92,14 +88,11 @@ private:
 	override;
 
 	void
-	unmap_buffer(
-		sge::opengl::buffer::type
-	)
+	unmap_buffer()
 	override;
 
 	void
 	buffer_data(
-		sge::opengl::buffer::type,
 		GLsizei size,
 		GLvoid const *data,
 		GLenum flags
@@ -108,7 +101,6 @@ private:
 
 	void
 	buffer_sub_data(
-		sge::opengl::buffer::type,
 		GLsizei first,
 		GLsizei size,
 		GLvoid const *data
@@ -117,24 +109,23 @@ private:
 
 	void *
 	buffer_offset(
-		sge::opengl::buffer::type,
 		GLsizei offset
 	) const
 	override;
 
 	bool
-	hardware_supported() const
+	native() const
 	override;
 
-	typedef std::unordered_map<
+	sge::opengl::buffer::id const
+	bound_buffer() const;
+
+	typedef
+	std::unordered_map<
 		sge::opengl::buffer::id,
 		sge::renderer::raw_pointer
-	> buffer_map;
-
-	sge::opengl::buffer::id const
-	bound_buffer(
-		sge::opengl::buffer::type
-	) const;
+	>
+	buffer_map;
 
 	sge::renderer::raw_pointer &
 	buffer_object(
@@ -146,12 +137,7 @@ private:
 		sge::opengl::buffer::id
 	) const;
 
-	typedef std::unordered_map<
-		sge::opengl::buffer::type,
-		sge::opengl::buffer::optional_id
-	> bound_buffer_map;
-
-	bound_buffer_map bound_buffers_;
+	sge::opengl::buffer::optional_id bound_buffer_;
 
 	sge::opengl::buffer::id nextid_;
 

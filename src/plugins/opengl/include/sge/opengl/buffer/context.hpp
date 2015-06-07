@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_BUFFER_CREATE_HPP_INCLUDED
-#define SGE_OPENGL_BUFFER_CREATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/buffer/base_unique_ptr.hpp>
-#include <sge/opengl/buffer/hw_supported.hpp>
+#include <sge/opengl/buffer/optional_hardware_config.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -32,10 +34,28 @@ namespace opengl
 namespace buffer
 {
 
-sge::opengl::buffer::base_unique_ptr
-create(
-	sge::opengl::buffer::hw_supported
-);
+class context
+:
+	public sge::opengl::context::system::base
+{
+	FCPPT_NONCOPYABLE(
+		context
+	);
+public:
+	context();
+
+	~context()
+	override;
+
+	sge::opengl::buffer::optional_hardware_config const &
+	hardware_config() const;
+
+	typedef void parameter;
+
+	static sge::opengl::context::system::id const static_id;
+private:
+	sge::opengl::buffer::optional_hardware_config const hardware_config_;
+};
 
 }
 }

@@ -60,21 +60,18 @@ public:
 	virtual
 	void
 	bind_buffer(
-		sge::opengl::buffer::type,
 		sge::opengl::buffer::optional_id const &
 	) = 0;
 
 	virtual
 	GLvoid *
 	map_buffer(
-		sge::opengl::buffer::type,
 		GLenum flags
 	) = 0;
 
 	virtual
 	GLvoid *
 	map_buffer_range(
-		sge::opengl::buffer::type,
 		GLenum flags,
 		GLsizei first,
 		GLsizei size
@@ -86,14 +83,11 @@ public:
 
 	virtual
 	void
-	unmap_buffer(
-		sge::opengl::buffer::type
-	) = 0;
+	unmap_buffer() = 0;
 
 	virtual
 	void
 	buffer_data(
-		sge::opengl::buffer::type,
 		GLsizei size,
 		GLvoid const *data,
 		GLenum flags
@@ -102,7 +96,6 @@ public:
 	virtual
 	void
 	buffer_sub_data(
-		sge::opengl::buffer::type,
 		GLsizei first,
 		GLsizei size,
 		GLvoid const *data
@@ -111,13 +104,12 @@ public:
 	virtual
 	GLvoid *
 	buffer_offset(
-		sge::opengl::buffer::type,
 		GLsizei offset
 	) const = 0;
 
 	virtual
 	bool
-	hardware_supported() const = 0;
+	native() const = 0;
 };
 
 }

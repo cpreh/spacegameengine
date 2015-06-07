@@ -17,15 +17,20 @@ set(
 	src/plugins/opengl/include/sge/opengl/buffer/base.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/base_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/base_unique_ptr.hpp
-	src/plugins/opengl/include/sge/opengl/buffer/create.hpp
+	src/plugins/opengl/include/sge/opengl/buffer/context.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/hardware.hpp
+	src/plugins/opengl/include/sge/opengl/buffer/hardware_config.hpp
+	src/plugins/opengl/include/sge/opengl/buffer/hardware_config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/holder.hpp
-	src/plugins/opengl/include/sge/opengl/buffer/hw_supported.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/id.hpp
-	src/plugins/opengl/include/sge/opengl/buffer/make_type.hpp
+	src/plugins/opengl/include/sge/opengl/buffer/is_native.hpp
+	src/plugins/opengl/include/sge/opengl/buffer/make_hardware.hpp
+	src/plugins/opengl/include/sge/opengl/buffer/make_software.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/normal_lock_method.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/object.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/buffer/optional_hardware_config.hpp
+	src/plugins/opengl/include/sge/opengl/buffer/optional_hardware_config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/optional_id.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/optional_id_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/pbo_context.hpp
@@ -606,8 +611,9 @@ set(
 	src/plugins/opengl/src/backend/scoped_current.cpp
 	src/plugins/opengl/src/backend/system.cpp
 	src/plugins/opengl/src/buffer/base.cpp
-	src/plugins/opengl/src/buffer/create.cpp
+	src/plugins/opengl/src/buffer/context.cpp
 	src/plugins/opengl/src/buffer/hardware.cpp
+	src/plugins/opengl/src/buffer/hardware_config.cpp
 	src/plugins/opengl/src/buffer/holder.cpp
 	src/plugins/opengl/src/buffer/normal_lock_method.cpp
 	src/plugins/opengl/src/buffer/object.cpp

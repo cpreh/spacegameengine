@@ -54,13 +54,9 @@ sge::opengl::index_buffer::index_buffer(
 		sge::opengl::context::use<
 			sge::opengl::buffer::vbo_context
 		>(
+			_system_context,
 			_system_context
-		).impl(),
-		sge::opengl::context::use<
-			sge::opengl::buffer::vbo_context
-		>(
-			_system_context
-		).index_buffer_type(),
+		).index_buffer(),
 		_parameters.count().get(),
 		sge::renderer::index::dynamic::format_stride(
 			format_

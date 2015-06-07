@@ -37,13 +37,9 @@ sge::opengl::texture::writeonly_lock::writeonly_lock(
 		sge::opengl::context::use<
 			sge::opengl::buffer::pbo_context
 		>(
+			_system_context,
 			_system_context
-		).impl(),
-		sge::opengl::context::use<
-			sge::opengl::buffer::pbo_context
-		>(
-			_system_context
-		).pixel_unpack_buffer_type(),
+		).unpack_buffer(),
 		_lock_size,
 		_stride,
 		_flags,

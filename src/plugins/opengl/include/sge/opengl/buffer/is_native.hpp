@@ -18,31 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/buffer/normal_lock_method.hpp>
-#include <sge/renderer/lock_flags/method.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#ifndef SGE_OPENGL_BUFFER_IS_NATIVE_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_IS_NATIVE_HPP_INCLUDED
+
+#include <fcppt/strong_typedef.hpp>
 
 
-GLenum
-sge::opengl::buffer::normal_lock_method(
-	sge::renderer::lock_flags::method const _method
-)
+namespace sge
 {
-	switch(
-		_method
-	)
-	{
-	case sge::renderer::lock_flags::method::read:
-		return
-			GL_READ_ONLY;
-	case sge::renderer::lock_flags::method::write:
-		return
-			GL_WRITE_ONLY;
-	case sge::renderer::lock_flags::method::readwrite:
-		return
-			GL_READ_WRITE;
-	}
+namespace opengl
+{
+namespace buffer
+{
 
-	FCPPT_ASSERT_UNREACHABLE;
+FCPPT_MAKE_STRONG_TYPEDEF(
+	bool,
+	is_native
+);
+
 }
+}
+}
+
+#endif

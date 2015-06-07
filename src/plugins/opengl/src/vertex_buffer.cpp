@@ -65,13 +65,9 @@ sge::opengl::vertex_buffer::vertex_buffer(
 		sge::opengl::context::use<
 			sge::opengl::buffer::vbo_context
 		>(
+			_system_context,
 			_system_context
-		).impl(),
-		sge::opengl::context::use<
-			sge::opengl::buffer::vbo_context
-		>(
-			_system_context
-		).vertex_buffer_type(),
+		).vertex_buffer(),
 		_size.get(),
 		_format_part.stride().get(),
 		_flags,

@@ -23,13 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/base.hpp>
+#include <sge/opengl/buffer/hardware_config_fwd.hpp>
 #include <sge/opengl/buffer/id.hpp>
-#include <sge/opengl/buffer/optional_id_fwd.hpp>
+#include <sge/opengl/buffer/optional_id.hpp>
 #include <sge/opengl/buffer/type.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <map>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -47,7 +45,10 @@ class hardware
 		hardware
 	);
 public:
-	hardware();
+	hardware(
+		sge::opengl::buffer::type,
+		sge::opengl::buffer::hardware_config const &
+	);
 
 	~hardware()
 	override;
@@ -64,21 +65,18 @@ private:
 
 	void
 	bind_buffer(
-		sge::opengl::buffer::type,
 		sge::opengl::buffer::optional_id const &
 	)
 	override;
 
 	GLvoid *
 	map_buffer(
-		sge::opengl::buffer::type,
 		GLenum flags
 	)
 	override;
 
 	GLvoid *
 	map_buffer_range(
-		sge::opengl::buffer::type,
 		GLenum flags,
 		GLsizei first,
 		GLsizei size
@@ -90,14 +88,11 @@ private:
 	override;
 
 	void
-	unmap_buffer(
-		sge::opengl::buffer::type
-	)
+	unmap_buffer()
 	override;
 
 	void
 	buffer_data(
-		sge::opengl::buffer::type,
 		GLsizei size,
 		GLvoid const *data,
 		GLenum flags
@@ -106,7 +101,6 @@ private:
 
 	void
 	buffer_sub_data(
-		sge::opengl::buffer::type,
 		GLsizei first,
 		GLsizei size,
 		GLvoid const *data
@@ -115,41 +109,19 @@ private:
 
 	void *
 	buffer_offset(
-		sge::opengl::buffer::type,
 		GLsizei offset
 	) const
 	override;
 
 	bool
-	hardware_supported() const
+	native() const
 	override;
 
-	bool const
-		have_version_1_5_,
-		have_arb_;
+	sge::opengl::buffer::type const type_;
 
-	PFNGLGENBUFFERSPROC const gl_gen_buffers_;
+	sge::opengl::buffer::hardware_config const &config_;
 
-	PFNGLDELETEBUFFERSPROC const gl_delete_buffers_;
-
-	PFNGLBINDBUFFERPROC const gl_bind_buffer_;
-
-	PFNGLMAPBUFFERPROC const gl_map_buffer_;
-
-	PFNGLUNMAPBUFFERPROC const gl_unmap_buffer_;
-
-	PFNGLBUFFERDATAPROC const gl_buffer_data_;
-
-	PFNGLBUFFERSUBDATAPROC const gl_buffer_sub_data_;
-
-	PFNGLMAPBUFFERRANGEPROC const gl_map_buffer_range_;
-
-	typedef std::map<
-		sge::opengl::buffer::type,
-		sge::opengl::buffer::id
-	> bound_buffer_map;
-
-	bound_buffer_map bound_buffers_;
+	sge::opengl::buffer::optional_id bound_buffer_;
 };
 
 }

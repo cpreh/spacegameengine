@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/optional_id.hpp>
 #include <sge/opengl/buffer/range_lock_method.hpp>
-#include <sge/opengl/buffer/type.hpp>
 #include <sge/opengl/convert/resource_flags.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -35,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::buffer::object::object(
 	sge::opengl::buffer::base &_base,
-	sge::opengl::buffer::type const _type,
 	size_type const _size,
 	size_type const _stride,
 	sge::renderer::resource_flags_field const &_flags,
@@ -44,9 +42,6 @@ sge::opengl::buffer::object::object(
 :
 	base_(
 		_base
-	),
-	type_(
-		_type
 	),
 	size_(
 		_size
@@ -86,7 +81,6 @@ sge::opengl::buffer::object::object(
 	this->bind();
 
 	base_.buffer_data(
-		type_,
 		static_cast<
 			GLsizei
 		>(
@@ -161,7 +155,8 @@ sge::opengl::buffer::object::lock(
 
 	if(
 		_count < this->size()
-		&& base_.map_buffer_range_supported()
+		&&
+		base_.map_buffer_range_supported()
 	)
 	{
 		dest_ =
@@ -169,7 +164,6 @@ sge::opengl::buffer::object::lock(
 				pointer
 			>(
 				base_.map_buffer_range(
-					type_,
 					sge::opengl::buffer::range_lock_method(
 						_lockflags
 					),
@@ -195,7 +189,6 @@ sge::opengl::buffer::object::lock(
 				pointer
 			>(
 				base_.map_buffer(
-					type_,
 					sge::opengl::buffer::normal_lock_method(
 						_lockflags
 					)
@@ -222,9 +215,7 @@ sge::opengl::buffer::object::unlock()
 
 	this->bind();
 
-	base_.unmap_buffer(
-		type_
-	);
+	base_.unmap_buffer();
 
 	dest_ = nullptr;
 
@@ -257,7 +248,6 @@ sge::opengl::buffer::object::sub_data(
 	this->bind();
 
 	base_.buffer_sub_data(
-		type_,
 		static_cast<
 			GLsizei
 		>(
@@ -353,7 +343,7 @@ sge::opengl::buffer::object::buffer_offset(
 	if(
 		dest_
 	)
-		throw renderer::exception(
+		throw sge::renderer::exception(
 			FCPPT_TEXT("ogl_buffer::buffer_offset used but the buffer has been locked!")
 		);
 
@@ -364,7 +354,6 @@ sge::opengl::buffer::object::buffer_offset(
 			pointer
 		>(
 			base_.buffer_offset(
-				type_,
 				static_cast<
 					GLsizei
 				>(
@@ -386,13 +375,15 @@ sge::opengl::buffer::object::raw_buffer() const
 sge::opengl::buffer::id const
 sge::opengl::buffer::object::id() const
 {
-	return holder_.id();
+	return
+		holder_.id();
 }
 
 bool
 sge::opengl::buffer::object::native() const
 {
-	return base_.hardware_supported();
+	return
+		base_.native();
 }
 
 void
@@ -401,7 +392,6 @@ sge::opengl::buffer::object::bind_id(
 ) const
 {
 	base_.bind_buffer(
-		type_,
 		_id
 	);
 }

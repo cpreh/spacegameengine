@@ -54,15 +54,19 @@ sge::opengl::texture::funcs::set_box(
 	sge::renderer::const_raw_pointer const _src
 )
 {
-	if(!
-		_src &&
+	if(
+		_src
+		==
+		nullptr
+		&&
 		!sge::opengl::context::use<
 			sge::opengl::buffer::pbo_context
 		>(
+			_system_context,
 			_system_context
 		)
-		.impl()
-		.hardware_supported()
+		.unpack_buffer()
+		.native()
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("OpenGL: Texture source is 0 although no PBO is bound!")
@@ -141,5 +145,4 @@ sge::opengl::texture::funcs::set_box(
 		).str(),
 		sge::renderer::exception
 	)
-
 }

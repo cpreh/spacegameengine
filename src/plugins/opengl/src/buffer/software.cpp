@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/optional_id.hpp>
 #include <sge/opengl/buffer/software.hpp>
-#include <sge/opengl/buffer/type.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/raw_pointer.hpp>
@@ -42,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::buffer::software::software()
 :
 	sge::opengl::buffer::base(),
-	bound_buffers_(),
+	bound_buffer_(),
 	nextid_(
 		0u
 	),
@@ -97,33 +96,26 @@ sge::opengl::buffer::software::delete_buffer(
 
 void
 sge::opengl::buffer::software::bind_buffer(
-	sge::opengl::buffer::type const _type,
 	sge::opengl::buffer::optional_id const &_id
 )
 {
-	bound_buffers_[
-		_type
-	] =
+	bound_buffer_ =
 		_id;
 }
 
 GLvoid *
 sge::opengl::buffer::software::map_buffer(
-	sge::opengl::buffer::type const _type,
 	GLenum
 )
 {
 	return
 		this->buffer_object(
-			this->bound_buffer(
-				_type
-			)
+			this->bound_buffer()
 		);
 }
 
 GLvoid *
 sge::opengl::buffer::software::map_buffer_range(
-	sge::opengl::buffer::type const _type,
 	GLenum const,
 	GLsizei const _first,
 	GLsizei const
@@ -131,9 +123,7 @@ sge::opengl::buffer::software::map_buffer_range(
 {
 	return
 		this->buffer_object(
-			this->bound_buffer(
-				_type
-			)
+			this->bound_buffer()
 		)
 		+ _first;
 }
@@ -146,19 +136,14 @@ sge::opengl::buffer::software::map_buffer_range_supported() const
 }
 
 void
-sge::opengl::buffer::software::unmap_buffer(
-	sge::opengl::buffer::type const _type
-)
+sge::opengl::buffer::software::unmap_buffer()
 {
 	// For error checking only
-	this->bound_buffer(
-		_type
-	);
+	this->bound_buffer();
 }
 
 void
 sge::opengl::buffer::software::buffer_data(
-	sge::opengl::buffer::type const _type,
 	GLsizei const _size,
 	void const *const _data,
 	GLenum
@@ -166,9 +151,7 @@ sge::opengl::buffer::software::buffer_data(
 {
 	sge::renderer::raw_pointer &buffer(
 		this->buffer_object(
-			this->bound_buffer(
-				_type
-			)
+			this->bound_buffer()
 		)
 	);
 
@@ -185,7 +168,6 @@ sge::opengl::buffer::software::buffer_data(
 		_data
 	)
 		this->buffer_sub_data(
-			_type,
 			0,
 			_size,
 			_data
@@ -194,7 +176,6 @@ sge::opengl::buffer::software::buffer_data(
 
 void
 sge::opengl::buffer::software::buffer_sub_data(
-	sge::opengl::buffer::type const _type,
 	GLsizei const _first,
 	GLsizei const _size,
 	void const *const _data
@@ -217,16 +198,13 @@ sge::opengl::buffer::software::buffer_sub_data(
 		_first,
 		_size,
 		this->buffer_object(
-			this->bound_buffer(
-				_type
-			)
+			this->bound_buffer()
 		)
 	);
 }
 
 void *
 sge::opengl::buffer::software::buffer_offset(
-	sge::opengl::buffer::type const _type,
 	GLsizei const _offset
 ) const
 {
@@ -236,9 +214,7 @@ sge::opengl::buffer::software::buffer_offset(
 			sge::renderer::raw_pointer
 		>(
 			this->buffer_object(
-				this->bound_buffer(
-					_type
-				)
+				this->bound_buffer()
 			)
 			+
 			_offset
@@ -246,32 +222,18 @@ sge::opengl::buffer::software::buffer_offset(
 }
 
 bool
-sge::opengl::buffer::software::hardware_supported() const
+sge::opengl::buffer::software::native() const
 {
 	return
 		false;
 }
 
 sge::opengl::buffer::id const
-sge::opengl::buffer::software::bound_buffer(
-	sge::opengl::buffer::type const _type
-) const
+sge::opengl::buffer::software::bound_buffer() const
 {
 	return
 		fcppt::optional_to_exception(
-			fcppt::optional_to_exception(
-				fcppt::container::find_opt(
-					bound_buffers_,
-					_type
-				),
-				[]{
-					return
-						sge::renderer::exception{
-							FCPPT_TEXT("bound_buffer(): Buffer not found!")
-						};
-				}
-
-			),
+			bound_buffer_,
 			[]{
 				return
 					sge::renderer::exception{
