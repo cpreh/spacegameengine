@@ -271,6 +271,8 @@ set(
 	include/sge/sprite/object_impl.hpp
 	include/sge/sprite/optional_matrix.hpp
 	include/sge/sprite/optional_matrix_fwd.hpp
+	include/sge/sprite/optional_projection_dim.hpp
+	include/sge/sprite/optional_projection_dim_fwd.hpp
 	include/sge/sprite/process/all.hpp
 	include/sge/sprite/process/default_geometry_options.hpp
 	include/sge/sprite/process/default_options.hpp
@@ -282,7 +284,10 @@ set(
 	include/sge/sprite/process/options.hpp
 	include/sge/sprite/process/options_fwd.hpp
 	include/sge/sprite/process/with_options.hpp
+	include/sge/sprite/projection_dim.hpp
+	include/sge/sprite/projection_dim_fwd.hpp
 	include/sge/sprite/projection_matrix.hpp
+	include/sge/sprite/projection_matrix_fixed.hpp
 	include/sge/sprite/render/optional_texture_ref.hpp
 	include/sge/sprite/render/optional_texture_ref_fwd.hpp
 	include/sge/sprite/render/parameters.hpp
@@ -320,15 +325,16 @@ set(
 	include/sge/sprite/state/choices_fwd.hpp
 	include/sge/sprite/state/default_options.hpp
 	include/sge/sprite/state/detail/choose_ffp.hpp
+	include/sge/sprite/state/detail/init_one_option.hpp
+	include/sge/sprite/state/detail/init_options.hpp
 	include/sge/sprite/state/detail/make_objects.hpp
 	include/sge/sprite/state/detail/make_one_object.hpp
 	include/sge/sprite/state/detail/needs_ffp.hpp
 	include/sge/sprite/state/detail/object_class.hpp
 	include/sge/sprite/state/detail/object_class_impl.hpp
-	include/sge/sprite/state/detail/one_option_to_true.hpp
 	include/sge/sprite/state/detail/options_class.hpp
 	include/sge/sprite/state/detail/options_class_element.hpp
-	include/sge/sprite/state/detail/options_to_true.hpp
+	include/sge/sprite/state/detail/options_class_impl.hpp
 	include/sge/sprite/state/detail/parameters_class.hpp
 	include/sge/sprite/state/detail/parameters_class_impl.hpp
 	include/sge/sprite/state/detail/set_one.hpp
@@ -352,6 +358,7 @@ set(
 	include/sge/sprite/state/roles/blend.hpp
 	include/sge/sprite/state/roles/blend_write_mask.hpp
 	include/sge/sprite/state/roles/enable_scissor_test.hpp
+	include/sge/sprite/state/roles/projection_dim.hpp
 	include/sge/sprite/state/roles/rasterizer.hpp
 	include/sge/sprite/state/roles/transform.hpp
 	include/sge/sprite/state/scoped.hpp
@@ -423,6 +430,7 @@ set(
 	src/sprite/buffers/option_to_resource_flags.cpp
 	src/sprite/buffers/parameters.cpp
 	src/sprite/projection_matrix.cpp
+	src/sprite/projection_matrix_fixed.cpp
 	src/sprite/state/with_blend.cpp
 	src/sprite/state/with_rasterizer.cpp
 	src/sprite/state/with_transform.cpp

@@ -18,11 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_STATE_DETAIL_ONE_OPTION_TO_TRUE_HPP_INCLUDED
-#define SGE_SPRITE_STATE_DETAIL_ONE_OPTION_TO_TRUE_HPP_INCLUDED
+#ifndef SGE_SPRITE_STATE_ROLES_PROJECTION_DIM_HPP_INCLUDED
+#define SGE_SPRITE_STATE_ROLES_PROJECTION_DIM_HPP_INCLUDED
 
-#include <sge/sprite/state/detail/options_class.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <majutsu/make_role_tag.hpp>
 
 
 namespace sge
@@ -31,52 +30,12 @@ namespace sprite
 {
 namespace state
 {
-namespace detail
+namespace roles
 {
 
-template<
-	typename StateChoices
->
-class one_option_to_true
-{
-	FCPPT_NONASSIGNABLE(
-		one_option_to_true
-	);
-public:
-	typedef
-	sge::sprite::state::detail::options_class<
-		StateChoices
-	>
-	options_class;
-
-	explicit
-	one_option_to_true(
-		options_class &_result
-	)
-	:
-		result_(
-			_result
-		)
-	{
-	}
-
-	typedef void result_type;
-
-	template<
-		typename Type
-	>
-	result_type
-	operator()() const
-	{
-		result_. template set<
-			typename Type::role
-		>(
-			true
-		);
-	}
-private:
-	options_class &result_;
-};
+MAJUTSU_MAKE_ROLE_TAG(
+	projection_dim
+);
 
 }
 }

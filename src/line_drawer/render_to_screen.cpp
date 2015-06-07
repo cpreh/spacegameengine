@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/optional_matrix4.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal_viewport.hpp>
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
@@ -47,7 +49,13 @@ sge::line_drawer::render_to_screen(
 			sge::renderer::state::ffp::transform::parameters(
 				FCPPT_ASSERT_OPTIONAL_ERROR(
 					sge::renderer::projection::orthogonal_viewport(
-						_render_context.target().viewport()
+						_render_context.target().viewport(),
+						sge::renderer::projection::near(
+							0.f
+						),
+						sge::renderer::projection::far(
+							1.f
+						)
 					)
 				)
 			)

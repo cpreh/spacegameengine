@@ -18,46 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/optional_matrix4.hpp>
+#include <sge/renderer/projection/dim.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
-#include <sge/renderer/projection/orthogonal.hpp>
-#include <sge/renderer/projection/orthogonal_viewport.hpp>
-#include <sge/renderer/projection/rect.hpp>
-#include <sge/renderer/target/viewport.hpp>
-#include <sge/renderer/target/viewport_is_null.hpp>
+#include <sge/renderer/projection/orthogonal_wh.hpp>
+#include <sge/sprite/optional_matrix.hpp>
+#include <sge/sprite/projection_dim.hpp>
+#include <sge/sprite/projection_matrix_fixed.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
-sge::renderer::optional_matrix4 const
-sge::renderer::projection::orthogonal_viewport(
-	sge::renderer::target::viewport const &_viewport,
-	sge::renderer::projection::near const _near,
-	sge::renderer::projection::far const _far
+sge::sprite::optional_matrix const
+sge::sprite::projection_matrix_fixed(
+	sge::sprite::projection_dim const _size
 )
 {
 	return
-		sge::renderer::target::viewport_is_null(
-			_viewport
-		)
+		_size.get().content()
+		!=
+		0u
 		?
-			sge::renderer::optional_matrix4()
-		:
-			sge::renderer::optional_matrix4(
-				sge::renderer::projection::orthogonal(
-					sge::renderer::projection::rect(
-						sge::renderer::projection::rect::vector::null(),
-						fcppt::math::dim::structure_cast<
-							sge::renderer::projection::rect::dim,
-							fcppt::cast::int_to_float_fun
-						>(
-							_viewport.get().size()
-						)
+			sge::sprite::optional_matrix(
+				sge::renderer::projection::orthogonal_wh(
+					fcppt::math::dim::structure_cast<
+						sge::renderer::projection::dim,
+						fcppt::cast::int_to_float_fun
+					>(
+						_size.get()
 					),
-					_near,
-					_far
+					// TODO
+					sge::renderer::projection::near{
+						0.f
+					},
+					sge::renderer::projection::far{
+						10.f
+					}
 				)
 			)
+		:
+			sge::sprite::optional_matrix()
 		;
 }

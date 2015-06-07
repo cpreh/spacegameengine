@@ -28,21 +28,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/sprite/matrix.hpp>
+#include <sge/sprite/optional_projection_dim.hpp>
+#include <sge/sprite/projection_dim.hpp>
 #include <sge/sprite/projection_matrix.hpp>
+#include <sge/sprite/projection_matrix_fixed.hpp>
 #include <sge/sprite/state/with_transform.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/optional_bind_construct.hpp>
 
 
 sge::renderer::state::ffp::transform::optional_object_unique_ptr
 sge::sprite::state::with_transform::make(
 	sge::renderer::device::ffp &_device,
-	sge::renderer::context::ffp &_context
+	sge::renderer::context::ffp &_context,
+	sge::sprite::state::with_transform::optional_extra_option const &_projection_dim
 )
 {
 	return
 		fcppt::optional_bind_construct(
-			sge::sprite::projection_matrix(
-				_context.target().viewport()
+			fcppt::maybe(
+				_projection_dim,
+				[
+					&_context
+				]{
+					return
+						sge::sprite::projection_matrix(
+							_context.target().viewport()
+						);
+				},
+				[](
+					sge::sprite::projection_dim const _dim
+				)
+				{
+					return
+						sge::sprite::projection_matrix_fixed(
+							_dim
+						);
+				}
 			),
 			[
 				&_device

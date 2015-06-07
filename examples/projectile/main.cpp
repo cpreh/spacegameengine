@@ -69,6 +69,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal_viewport.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
@@ -590,7 +592,13 @@ try
 
 		fcppt::maybe_void(
 			sge::renderer::projection::orthogonal_viewport(
-				scoped_block.get().target().viewport()
+				scoped_block.get().target().viewport(),
+				sge::renderer::projection::near(
+					0.f
+				),
+				sge::renderer::projection::far(
+					10.f
+				)
 			),
 			[
 				&scoped_block,

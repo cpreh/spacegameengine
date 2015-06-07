@@ -18,34 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_STATE_DETAIL_OPTIONS_CLASS_HPP_INCLUDED
-#define SGE_SPRITE_STATE_DETAIL_OPTIONS_CLASS_HPP_INCLUDED
+#ifndef SGE_SPRITE_OPTIONAL_PROJECTION_DIM_HPP_INCLUDED
+#define SGE_SPRITE_OPTIONAL_PROJECTION_DIM_HPP_INCLUDED
 
-#include <sge/sprite/state/detail/options_class_impl.hpp>
+#include <sge/sprite/projection_dim.hpp>
+#include <sge/sprite/optional_projection_dim_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace sprite
-{
-namespace state
-{
-namespace detail
-{
-
-template<
-	typename StateChoices
->
-using options_class
-=
-typename
-sge::sprite::state::detail::options_class_impl<
-	StateChoices
->::type;
-
-}
-}
-}
-}
 
 #endif

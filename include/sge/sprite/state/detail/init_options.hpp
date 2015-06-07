@@ -18,10 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_STATE_DETAIL_OPTIONS_CLASS_HPP_INCLUDED
-#define SGE_SPRITE_STATE_DETAIL_OPTIONS_CLASS_HPP_INCLUDED
+#ifndef SGE_SPRITE_STATE_DETAIL_INIT_OPTIONS_HPP_INCLUDED
+#define SGE_SPRITE_STATE_DETAIL_INIT_OPTIONS_HPP_INCLUDED
 
-#include <sge/sprite/state/detail/options_class_impl.hpp>
+#include <sge/sprite/state/detail/options_class.hpp>
+#include <sge/sprite/state/detail/init_one_option.hpp>
+#include <fcppt/no_init.hpp>
+#include <fcppt/mpl/for_each.hpp>
 
 
 namespace sge
@@ -36,12 +39,31 @@ namespace detail
 template<
 	typename StateChoices
 >
-using options_class
-=
-typename
-sge::sprite::state::detail::options_class_impl<
+sge::sprite::state::detail::options_class<
 	StateChoices
->::type;
+>
+init_options()
+{
+	sge::sprite::state::detail::options_class<
+		StateChoices
+	> result{
+		fcppt::no_init()
+	};
+
+	fcppt::mpl::for_each<
+		typename
+		StateChoices::optional_elements
+	>(
+		sge::sprite::state::detail::init_one_option<
+			StateChoices
+		>(
+			result
+		)
+	);
+
+	return
+		result;
+}
 
 }
 }

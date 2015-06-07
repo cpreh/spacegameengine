@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/roles/blend_write_mask.hpp>
 #include <sge/sprite/state/roles/enable_scissor_test.hpp>
 #include <majutsu/role_return_type.hpp>
+#include <majutsu/set.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/optional_impl.hpp>
 
@@ -107,9 +108,10 @@ sge::sprite::state::parameters<
 )
 {
 	return
-		elements_. template set<
+		majutsu::set<
 			Role
 		>(
+			elements_,
 			fcppt::optional<
 				typename majutsu::role_return_type<
 					flattened_types,
@@ -132,7 +134,8 @@ sge::sprite::state::parameters<
 	StateChoices
 >::elements() const
 {
-	return elements_;
+	return
+		elements_;
 }
 
 #endif

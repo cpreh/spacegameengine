@@ -18,20 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_STATE_DETAIL_PARAMETERS_CLASS_IMPL_HPP_INCLUDED
-#define SGE_SPRITE_STATE_DETAIL_PARAMETERS_CLASS_IMPL_HPP_INCLUDED
+#ifndef SGE_SPRITE_STATE_DETAIL_OPTIONS_CLASS_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_STATE_DETAIL_OPTIONS_CLASS_IMPL_HPP_INCLUDED
 
+#include <sge/sprite/state/detail/options_class_element.hpp>
 #include <majutsu/class.hpp>
 #include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/simple.hpp>
 #include <majutsu/memory/fusion.hpp>
+#include <fcppt/mpl/append.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/copy_if.hpp>
+#include <boost/mpl/not.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/transform.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -49,7 +52,7 @@ namespace detail
 template<
 	typename StateChoices
 >
-struct parameters_class_impl
+struct options_class_impl
 {
 private:
 	FCPPT_PP_PUSH_WARNING
@@ -58,11 +61,13 @@ private:
 	template<
 		typename Type
 	>
-	struct has_parameter
+	struct has_option
 	:
 	boost::mpl::and_<
-		typename
-		Type::persistent,
+		boost::mpl::not_<
+			typename
+			Type::persistent
+		>,
 		typename
 		Type::has_parameter
 	>
@@ -74,28 +79,37 @@ private:
 	template<
 		typename Type
 	>
-	struct parameter_class_element
+	struct option_class_element
 	{
 		typedef majutsu::role<
 			majutsu::simple<
-				typename Type::optional_extra_parameters
+				typename Type::optional_extra_option
 			>,
-			typename Type::parameter_role
+			typename Type::option_role
 		> type;
 	};
 public:
 	typedef majutsu::class_<
 		majutsu::composite<
-			typename boost::mpl::transform<
-				typename boost::mpl::copy_if<
-					typename StateChoices::optional_elements,
-					has_parameter<
+			typename
+			fcppt::mpl::append<
+				typename boost::mpl::transform<
+					typename boost::mpl::copy_if<
+						typename StateChoices::optional_elements,
+						has_option<
+							boost::mpl::_1
+						>
+					>::type,
+					option_class_element<
 						boost::mpl::_1
 					>
 				>::type,
-				parameter_class_element<
-					boost::mpl::_1
-				>
+				typename boost::mpl::transform<
+					typename StateChoices::optional_elements,
+					sge::sprite::state::detail::options_class_element<
+						boost::mpl::_1
+					>
+				>::type
 			>::type
 		>,
 		majutsu::memory::fusion

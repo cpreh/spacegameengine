@@ -18,54 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_STATE_DETAIL_OPTIONS_TO_TRUE_HPP_INCLUDED
-#define SGE_SPRITE_STATE_DETAIL_OPTIONS_TO_TRUE_HPP_INCLUDED
+#ifndef SGE_SPRITE_OPTIONAL_PROJECTION_DIM_FWD_HPP_INCLUDED
+#define SGE_SPRITE_OPTIONAL_PROJECTION_DIM_FWD_HPP_INCLUDED
 
-#include <sge/sprite/state/detail/one_option_to_true.hpp>
-#include <sge/sprite/state/detail/options_class.hpp>
-#include <fcppt/no_init.hpp>
-#include <fcppt/mpl/for_each.hpp>
+#include <sge/sprite/projection_dim_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
 {
 namespace sprite
 {
-namespace state
-{
-namespace detail
-{
 
-template<
-	typename StateChoices
+typedef
+fcppt::optional<
+	sge::sprite::projection_dim
 >
-sge::sprite::state::detail::options_class<
-	StateChoices
->
-options_to_true()
-{
-	sge::sprite::state::detail::options_class<
-		StateChoices
-	> result{
-		fcppt::no_init()
-	};
+optional_projection_dim;
 
-	fcppt::mpl::for_each<
-		typename
-		StateChoices::optional_elements
-	>(
-		sge::sprite::state::detail::one_option_to_true<
-			StateChoices
-		>(
-			result
-		)
-	);
-
-	return result;
-}
-
-}
-}
 }
 }
 

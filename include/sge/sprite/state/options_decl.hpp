@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_OPTIONS_DECL_HPP_INCLUDED
 #define SGE_SPRITE_STATE_OPTIONS_DECL_HPP_INCLUDED
 
+#include <sge/sprite/projection_dim_fwd.hpp>
 #include <sge/sprite/state/options_fwd.hpp>
 #include <sge/sprite/state/vertex_options.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
@@ -62,6 +63,11 @@ public:
 
 	options &
 	no_transform_state();
+
+	options &
+	fixed_projection(
+		sge::sprite::projection_dim
+	);
 
 	sge::sprite::state::vertex_options
 	vertex_options() const;

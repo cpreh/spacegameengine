@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/optional_matrix4_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
 
 
@@ -36,7 +38,9 @@ namespace projection
 SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::optional_matrix4 const
 orthogonal_viewport(
-	sge::renderer::target::viewport const &
+	sge::renderer::target::viewport const &,
+	sge::renderer::projection::near,
+	sge::renderer::projection::far
 );
 
 }

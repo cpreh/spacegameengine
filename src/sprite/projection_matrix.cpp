@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal_viewport.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
 #include <sge/sprite/optional_matrix.hpp>
@@ -31,6 +33,13 @@ sge::sprite::projection_matrix(
 {
 	return
 		sge::renderer::projection::orthogonal_viewport(
-			_viewport
+			_viewport,
+			// TODO
+			sge::renderer::projection::near{
+				0.f
+			},
+			sge::renderer::projection::far{
+				10.f
+			}
 		);
 }

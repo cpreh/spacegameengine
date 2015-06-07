@@ -21,12 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_OPTIONS_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_STATE_OPTIONS_IMPL_HPP_INCLUDED
 
+#include <sge/sprite/optional_projection_dim.hpp>
+#include <sge/sprite/projection_dim.hpp>
 #include <sge/sprite/state/options_decl.hpp>
 #include <sge/sprite/state/vertex_options.hpp>
-#include <sge/sprite/state/detail/options_to_true.hpp>
+#include <sge/sprite/state/detail/init_options.hpp>
 #include <sge/sprite/state/roles/blend.hpp>
+#include <sge/sprite/state/roles/projection_dim.hpp>
 #include <sge/sprite/state/roles/rasterizer.hpp>
 #include <sge/sprite/state/roles/transform.hpp>
+#include <majutsu/set.hpp>
 
 
 template<
@@ -42,7 +46,7 @@ sge::sprite::state::options<
 		_vertex_options
 	),
 	elements_(
-		sge::sprite::state::detail::options_to_true<
+		sge::sprite::state::detail::init_options<
 			StateChoices
 		>()
 	)
@@ -106,12 +110,35 @@ sge::sprite::state::options<
 template<
 	typename StateChoices
 >
+sge::sprite::state::options<
+	StateChoices
+> &
+sge::sprite::state::options<
+	StateChoices
+>::fixed_projection(
+	sge::sprite::projection_dim const _projection
+)
+{
+	return
+		this->set<
+			sge::sprite::state::roles::projection_dim
+		>(
+			sge::sprite::optional_projection_dim(
+				_projection
+			)
+		);
+}
+
+template<
+	typename StateChoices
+>
 sge::sprite::state::vertex_options
 sge::sprite::state::options<
 	StateChoices
 >::vertex_options() const
 {
-	return vertex_options_;
+	return
+		vertex_options_;
 }
 
 template<
@@ -132,13 +159,15 @@ sge::sprite::state::options<
 	>::type const &_state
 )
 {
-	elements_. template set<
+	majutsu::set<
 		Role
 	>(
+		elements_,
 		_state
 	);
 
-	return *this;
+	return
+		*this;
 }
 
 template<
@@ -152,7 +181,8 @@ sge::sprite::state::options<
 	StateChoices
 >::elements() const
 {
-	return elements_;
+	return
+		elements_;
 }
 
 #endif

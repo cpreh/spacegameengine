@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/render_device.hpp>
 #include <sge/sprite/state/detail/object_class.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
+#include <majutsu/get.hpp>
+#include <majutsu/set.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -110,17 +112,21 @@ public:
 	operator()() const
 	{
 		if(
-			!options_. template get<
+			!majutsu::get<
 				typename Type::role
-			>()
+			>(
+				options_
+			)
 		)
 			return;
 
 		Type::set(
 			render_context_,
-			*objects_. template get<
+			*majutsu::get<
 				typename Type::role
-			>()
+			>(
+				objects_
+			)
 		);
 	}
 
@@ -134,9 +140,11 @@ public:
 	operator()() const
 	{
 		if(
-			!options_. template get<
+			!majutsu::get<
 				typename Type::role
-			>()
+			>(
+				options_
+			)
 		)
 			return;
 
@@ -149,9 +157,15 @@ public:
 		// This should be more generic, but it will do for transform
 		// for now
 		fcppt::maybe_void(
+			// TODO: Check if the state has options or not
 			Type::make(
 				render_device_,
-				render_context_
+				render_context_,
+				majutsu::get<
+					typename Type::option_role
+				>(
+					options_
+				)
 			),
 			[
 				this
@@ -172,9 +186,10 @@ public:
 					)
 				);
 
-				objects_. template set<
+				majutsu::set<
 					typename Type::role
 				>(
+					objects_,
 					shared_state
 				);
 
