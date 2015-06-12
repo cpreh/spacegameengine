@@ -43,7 +43,9 @@ sge::opengl::state::ffp::transform::set_matrix_and_mode(
 
 	sge::opengl::state::ffp::transform::set_matrix(
 		_context,
-		_mode == sge::renderer::state::ffp::transform::mode::projection
+		_mode
+		==
+		sge::renderer::state::ffp::transform::mode::projection
 		?
 			sge::opengl::convert::projection(
 				_matrix

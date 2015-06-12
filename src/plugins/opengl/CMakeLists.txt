@@ -171,7 +171,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/internal_color_format.hpp
 	src/plugins/opengl/include/sge/opengl/logger.hpp
 	src/plugins/opengl/include/sge/opengl/logger_context.hpp
-	src/plugins/opengl/include/sge/opengl/matrix_context.hpp
 	src/plugins/opengl/include/sge/opengl/multi_sample_context.hpp
 	src/plugins/opengl/include/sge/opengl/multi_sample_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/occlusion_query/begin.hpp
@@ -378,6 +377,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/set_defaults.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/actor.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/actor_vector.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/transform/context.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/default_context.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/transform/make_actors.hpp
@@ -704,7 +704,6 @@ set(
 	src/plugins/opengl/src/init_srgb.cpp
 	src/plugins/opengl/src/logger.cpp
 	src/plugins/opengl/src/logger_context.cpp
-	src/plugins/opengl/src/matrix_context.cpp
 	src/plugins/opengl/src/multi_sample_context.cpp
 	src/plugins/opengl/src/occlusion_query/begin.cpp
 	src/plugins/opengl/src/occlusion_query/context.cpp
@@ -867,6 +866,7 @@ set(
 	src/plugins/opengl/src/state/ffp/sampler/set_defaults.cpp
 	src/plugins/opengl/src/state/ffp/sampler/set_one.cpp
 	src/plugins/opengl/src/state/ffp/set_defaults.cpp
+	src/plugins/opengl/src/state/ffp/transform/context.cpp
 	src/plugins/opengl/src/state/ffp/transform/create.cpp
 	src/plugins/opengl/src/state/ffp/transform/default_context.cpp
 	src/plugins/opengl/src/state/ffp/transform/make_actors.cpp

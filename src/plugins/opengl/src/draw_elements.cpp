@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/first.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
@@ -120,47 +121,61 @@ sge::opengl::draw_elements(
 		)
 	);
 
-	if(
-		context.draw_range_elements_supported()
-	)
-	{
-		context.draw_range_elements()(
+	fcppt::maybe(
+		context.draw_range_elements(),
+		[
 			primitive_type,
-			static_cast<
-				GLuint
-			>(
-				_first_vertex.get()
-			),
-			static_cast<
-				GLuint
-			>(
-				_first_vertex.get()
-				+
-				_num_vertices.get()
-				- 1u
-			),
 			element_count,
 			format,
 			offset
-		);
+		]{
+			::glDrawElements(
+				primitive_type,
+				element_count,
+				format,
+				offset
+			);
 
-		SGE_OPENGL_CHECK_STATE(
-			FCPPT_TEXT("glDrawRangeElements failed"),
-			sge::renderer::exception
+			SGE_OPENGL_CHECK_STATE(
+				FCPPT_TEXT("glDrawElements failed"),
+				sge::renderer::exception
+			)
+		},
+		[
+			primitive_type,
+			element_count,
+			format,
+			offset,
+			_first_vertex,
+			_num_vertices
+		](
+			sge::opengl::draw_context::gl_draw_range_elements _draw_elements
 		)
+		{
+			_draw_elements(
+				primitive_type,
+				static_cast<
+					GLuint
+				>(
+					_first_vertex.get()
+				),
+				static_cast<
+					GLuint
+				>(
+					_first_vertex.get()
+					+
+					_num_vertices.get()
+					- 1u
+				),
+				element_count,
+				format,
+				offset
+			);
 
-		return;
-	}
-
-	::glDrawElements(
-		primitive_type,
-		element_count,
-		format,
-		offset
+			SGE_OPENGL_CHECK_STATE(
+				FCPPT_TEXT("glDrawRangeElements failed"),
+				sge::renderer::exception
+			)
+		}
 	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glDrawElements failed"),
-		sge::renderer::exception
-	)
 }

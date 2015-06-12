@@ -18,44 +18,70 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_OPENGL_STATE_FFP_TRANSFORM_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_TRANSFORM_CONTEXT_HPP_INCLUDED
+
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/matrix_context.hpp>
+#include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/convert/from_gl_bool.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
+namespace sge
+{
+namespace opengl
+{
+namespace state
+{
+namespace ffp
+{
+namespace transform
+{
 
-sge::opengl::matrix_context::matrix_context()
+class context
 :
-	sge::opengl::context::system::base(),
-	have_transpose_(
-		sge::opengl::convert::from_gl_bool(
-			GLEW_VERSION_1_3
-		)
-	)
+	public sge::opengl::context::system::base
 {
+	FCPPT_NONCOPYABLE(
+		context
+	);
+public:
+	context();
+
+	~context()
+	override;
+
+	typedef
+	sge::opengl::fun_ref<
+		PFNGLLOADTRANSPOSEMATRIXFPROC
+	>
+	gl_load_transpose_matrix_f;
+
+	typedef
+	fcppt::optional<
+		gl_load_transpose_matrix_f
+	>
+	optional_load_transpose_matrix_f;
+
+	optional_load_transpose_matrix_f const
+	load_transpose_matrix_f() const;
+
+	bool
+	have_transpose() const;
+
+	typedef void parameter;
+
+	static sge::opengl::context::system::id const static_id;
+private:
+	optional_load_transpose_matrix_f const load_transpose_matrix_f_;
+};
+
+}
+}
+}
+}
 }
 
-FCPPT_PP_POP_WARNING
-
-sge::opengl::matrix_context::~matrix_context()
-{
-}
-
-bool
-sge::opengl::matrix_context::have_transpose() const
-{
-	return have_transpose_;
-}
-
-sge::opengl::context::system::id const
-sge::opengl::matrix_context::static_id(
-	sge::opengl::context::system::make_id()
-);
+#endif

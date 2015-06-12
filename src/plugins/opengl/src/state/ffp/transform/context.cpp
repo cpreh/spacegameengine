@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/draw_context.hpp>
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/deref_fun_ptr.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/convert/from_gl_bool.hpp>
+#include <sge/opengl/state/ffp/transform/context.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -33,49 +34,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
-sge::opengl::draw_context::draw_context()
+sge::opengl::state::ffp::transform::context::context()
 :
 	sge::opengl::context::system::base(),
-	draw_range_elements_(
+	load_transpose_matrix_f_(
 		sge::opengl::convert::from_gl_bool(
-			GLEW_VERSION_1_2
+			GLEW_VERSION_1_3
 		)
 		?
-			optional_draw_range_elements(
+			optional_load_transpose_matrix_f(
 				sge::opengl::deref_fun_ptr(
-					glDrawRangeElements
+					glLoadTransposeMatrixf
 				)
 			)
 		:
-			glDrawRangeElementsEXT
-			!=
-			nullptr
-			?
-				optional_draw_range_elements(
-					sge::opengl::deref_fun_ptr(
-						glDrawRangeElementsEXT
-					)
-				)
-			:
-				optional_draw_range_elements()
+			optional_load_transpose_matrix_f()
 	)
 {
 }
 
 FCPPT_PP_POP_WARNING
 
-sge::opengl::draw_context::~draw_context()
+sge::opengl::state::ffp::transform::context::~context()
 {
 }
 
-sge::opengl::draw_context::optional_draw_range_elements const
-sge::opengl::draw_context::draw_range_elements() const
+sge::opengl::state::ffp::transform::context::optional_load_transpose_matrix_f const
+sge::opengl::state::ffp::transform::context::load_transpose_matrix_f() const
 {
 	return
-		draw_range_elements_;
+		load_transpose_matrix_f_;
+}
+
+bool
+sge::opengl::state::ffp::transform::context::have_transpose() const
+{
+	return
+		load_transpose_matrix_f_.has_value();
 }
 
 sge::opengl::context::system::id const
-sge::opengl::draw_context::static_id(
+sge::opengl::state::ffp::transform::context::static_id(
 	sge::opengl::context::system::make_id()
 );

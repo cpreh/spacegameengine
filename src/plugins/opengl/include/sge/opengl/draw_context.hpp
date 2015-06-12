@@ -22,9 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_DRAW_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 
 
 namespace sge
@@ -45,23 +47,26 @@ public:
 	~draw_context()
 	override;
 
-	bool
-	draw_range_elements_supported() const;
+	typedef
+	sge::opengl::fun_ref<
+		PFNGLDRAWRANGEELEMENTSPROC
+	>
+	gl_draw_range_elements;
 
-	typedef PFNGLDRAWRANGEELEMENTSPROC gl_draw_range_elements;
+	typedef
+	fcppt::optional<
+		gl_draw_range_elements
+	>
+	optional_draw_range_elements;
 
-	gl_draw_range_elements
+	optional_draw_range_elements const
 	draw_range_elements() const;
 
 	typedef void parameter;
 
 	static sge::opengl::context::system::id const static_id;
 private:
-	bool const
-		draw_range_elements_supported_,
-		draw_range_elements_ext_supported_;
-
-	gl_draw_range_elements const draw_range_elements_;
+	optional_draw_range_elements const draw_range_elements_;
 };
 
 }

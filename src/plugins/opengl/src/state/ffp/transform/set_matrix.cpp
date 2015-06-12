@@ -20,12 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/matrix_context.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/state/ffp/transform/context.hpp>
 #include <sge/opengl/state/ffp/transform/set_matrix.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -35,23 +36,38 @@ sge::opengl::state::ffp::transform::set_matrix(
 	sge::renderer::matrix4 const &_matrix
 )
 {
-	if(
+	fcppt::maybe(
 		sge::opengl::context::use<
-			sge::opengl::matrix_context
+			sge::opengl::state::ffp::transform::context
 		>(
 			_context
-		).have_transpose()
-	)
-		::glLoadTransposeMatrixf(
-			_matrix.data()
-		);
-	else
-		::glLoadMatrixf(
-			_matrix.data()
-		);
+		).load_transpose_matrix_f(),
+		[
+			&_matrix
+		]{
+			::glLoadMatrixf(
+				_matrix.data()
+			);
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glLoad(Transpose)Matrixf failed"),
-		sge::renderer::exception
-	)
+			SGE_OPENGL_CHECK_STATE(
+				FCPPT_TEXT("glLoadMatrixf failed"),
+				sge::renderer::exception
+			)
+		},
+		[
+			&_matrix
+		](
+			sge::opengl::state::ffp::transform::context::gl_load_transpose_matrix_f _load_matrix
+		)
+		{
+			_load_matrix(
+				_matrix.data()
+			);
+
+			SGE_OPENGL_CHECK_STATE(
+				FCPPT_TEXT("glLoadTransposeMatrixf failed"),
+				sge::renderer::exception
+			)
+		}
+	);
 }

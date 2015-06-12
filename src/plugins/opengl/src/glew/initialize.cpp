@@ -33,13 +33,16 @@ sge::opengl::glew::initialize()
 	);
 
 	if(
-		result != GLEW_OK
+		result
+		!=
+		GLEW_OK
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("glewInit() failed with ")
-			+
-			sge::opengl::glew::error_to_string(
-				result
-			)
-		);
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("glewInit() failed with ")
+				+
+				sge::opengl::glew::error_to_string(
+					result
+				)
+			};
 }
