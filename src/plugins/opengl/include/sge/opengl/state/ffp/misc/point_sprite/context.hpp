@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_POINT_SPRITE_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_POINT_SPRITE_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_MISC_POINT_SPRITE_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_MISC_POINT_SPRITE_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/optional_enum.hpp>
-#include <sge/opengl/point_sprite_context_fwd.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/state/ffp/misc/point_sprite/optional_config.hpp>
+#include <sge/opengl/state/ffp/misc/point_sprite/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -32,31 +32,30 @@ namespace sge
 {
 namespace opengl
 {
+namespace state
+{
+namespace ffp
+{
+namespace misc
+{
+namespace point_sprite
+{
 
-class point_sprite_context
+class context
 :
 	public sge::opengl::context::system::base
 {
 	FCPPT_NONCOPYABLE(
-		point_sprite_context
+		context
 	);
 public:
-	point_sprite_context();
+	context();
 
-	~point_sprite_context()
+	~context()
 	override;
 
-	bool
-	is_supported() const;
-
-	sge::opengl::optional_enum const
-	point_sprite_flag() const;
-
-	sge::opengl::optional_enum const
-	vertex_shader_size_flag() const;
-
-	sge::opengl::optional_enum const
-	coord_replace_flag() const;
+	sge::opengl::state::ffp::misc::point_sprite::optional_config const &
+	config() const;
 
 	typedef void parameter;
 
@@ -64,16 +63,13 @@ public:
 	sge::opengl::context::system::id const
 	static_id;
 private:
-	bool const
-		is_native_,
-		is_arb_;
-
-	sge::opengl::optional_enum const
-		point_sprite_flag_,
-		vertex_shader_size_flag_,
-		coord_replace_flag_;
+	sge::opengl::state::ffp::misc::point_sprite::optional_config const config_;
 };
 
+}
+}
+}
+}
 }
 }
 

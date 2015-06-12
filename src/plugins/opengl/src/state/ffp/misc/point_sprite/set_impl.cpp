@@ -18,61 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/enable_bool.hpp>
-#include <sge/opengl/point_sprite_context.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
-#include <sge/opengl/state/ffp/misc/point_sprite.hpp>
-#include <sge/opengl/state/ffp/misc/point_sprite_texture.hpp>
+#include <sge/opengl/state/ffp/misc/point_sprite/config.hpp>
+#include <sge/opengl/state/ffp/misc/point_sprite/set_impl.hpp>
+#include <sge/opengl/state/ffp/misc/point_sprite/set_texture.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
-#include <sge/renderer/unsupported.hpp>
-#include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/algorithm/join.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor_vector
-sge::opengl::state::ffp::misc::point_sprite(
+sge::opengl::state::ffp::misc::point_sprite::set_impl(
 	sge::opengl::context::system::object &_system_context,
+	sge::opengl::state::ffp::misc::point_sprite::config const &_config,
 	sge::renderer::state::ffp::misc::enable_point_sprites const _enable
 )
 {
-	sge::opengl::point_sprite_context &point_sprite_context(
-		sge::opengl::context::use<
-			sge::opengl::point_sprite_context
-		>(
-			_system_context
-		)
-	);
-
-	if(
-		!point_sprite_context.is_supported()
-	)
-	{
-		if(
-			!_enable.get()
-		)
-			return
-				sge::opengl::state::actor_vector();
-
-		throw sge::renderer::unsupported(
-			FCPPT_TEXT("GL_POINT_SPRITE"),
-			FCPPT_TEXT("opengl-2.0"),
-			FCPPT_TEXT("ARB_point_sprite")
-		);
-	}
-
 	sge::opengl::texture::multi_context const &multi_context(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
@@ -86,16 +58,12 @@ sge::opengl::state::ffp::misc::point_sprite(
 			sge::opengl::state::actor_vector{
 				std::bind(
 					sge::opengl::enable_bool,
-					FCPPT_ASSERT_OPTIONAL_ERROR(
-						point_sprite_context.point_sprite_flag()
-					),
+					_config.point_sprite_flag().get(),
 					_enable.get()
 				),
 				std::bind(
 					sge::opengl::enable_bool,
-					FCPPT_ASSERT_OPTIONAL_ERROR(
-						point_sprite_context.vertex_shader_size_flag()
-					),
+					_config.vertex_shader_size_flag().get(),
 					_enable.get()
 				)
 			},
@@ -110,7 +78,7 @@ sge::opengl::state::ffp::misc::point_sprite(
 				[
 					_enable,
 					&_system_context,
-					&point_sprite_context
+					&_config
 				](
 					sge::renderer::texture::stage const _stage
 				)
@@ -118,12 +86,12 @@ sge::opengl::state::ffp::misc::point_sprite(
 					return
 						sge::opengl::state::actor{
 							std::bind(
-								sge::opengl::state::ffp::misc::point_sprite_texture,
+								sge::opengl::state::ffp::misc::point_sprite::set_texture,
 								std::ref(
 									_system_context
 								),
 								std::cref(
-									point_sprite_context
+									_config
 								),
 								_stage,
 								_enable

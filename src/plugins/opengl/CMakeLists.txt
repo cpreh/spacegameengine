@@ -100,6 +100,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/convert/projection.hpp
 	src/plugins/opengl/include/sge/opengl/convert/resource_flags.hpp
 	src/plugins/opengl/include/sge/opengl/convert/to_gl_bool.hpp
+	src/plugins/opengl/include/sge/opengl/convert/to_gl_enum.hpp
 	src/plugins/opengl/include/sge/opengl/core.hpp
 	src/plugins/opengl/include/sge/opengl/create_index_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/create_onscreen_target.hpp
@@ -204,8 +205,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/platform/system.hpp
 	src/plugins/opengl/include/sge/opengl/platform/system_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/platform/system_unique_ptr.hpp
-	src/plugins/opengl/include/sge/opengl/point_sprite_context.hpp
-	src/plugins/opengl/include/sge/opengl/point_sprite_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/range_check.hpp
 	src/plugins/opengl/include/sge/opengl/read_pixels.hpp
 	src/plugins/opengl/include/sge/opengl/render_context/create.hpp
@@ -355,8 +354,15 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/misc/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/misc/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/misc/object_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite.hpp
-	src/plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite_texture.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite/config.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite/config_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite/context.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite/context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite/optional_config.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite/optional_config_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite/set.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite/set_impl.hpp
+	src/plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite/set_texture.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/misc/set.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/actor.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/actor_vector.hpp
@@ -722,7 +728,6 @@ set(
 	src/plugins/opengl/src/platform/create_system.cpp
 	src/plugins/opengl/src/platform/device_state.cpp
 	src/plugins/opengl/src/platform/system.cpp
-	src/plugins/opengl/src/point_sprite_context.cpp
 	src/plugins/opengl/src/read_pixels.cpp
 	src/plugins/opengl/src/render_context/create.cpp
 	src/plugins/opengl/src/render_context/end.cpp
@@ -852,8 +857,11 @@ set(
 	src/plugins/opengl/src/state/ffp/misc/default_context.cpp
 	src/plugins/opengl/src/state/ffp/misc/make_actors.cpp
 	src/plugins/opengl/src/state/ffp/misc/object.cpp
-	src/plugins/opengl/src/state/ffp/misc/point_sprite.cpp
-	src/plugins/opengl/src/state/ffp/misc/point_sprite_texture.cpp
+	src/plugins/opengl/src/state/ffp/misc/point_sprite/config.cpp
+	src/plugins/opengl/src/state/ffp/misc/point_sprite/context.cpp
+	src/plugins/opengl/src/state/ffp/misc/point_sprite/set.cpp
+	src/plugins/opengl/src/state/ffp/misc/point_sprite/set_impl.cpp
+	src/plugins/opengl/src/state/ffp/misc/point_sprite/set_texture.cpp
 	src/plugins/opengl/src/state/ffp/misc/set.cpp
 	src/plugins/opengl/src/state/ffp/sampler/context.cpp
 	src/plugins/opengl/src/state/ffp/sampler/create.cpp

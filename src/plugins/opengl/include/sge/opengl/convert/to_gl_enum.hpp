@@ -18,24 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_OPTIONAL_ENUM_FWD_HPP_INCLUDED
-#define SGE_OPENGL_OPTIONAL_ENUM_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONVERT_TO_GL_ENUM_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_TO_GL_ENUM_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
+namespace convert
+{
 
-typedef
-fcppt::optional<
-	GLenum
+template<
+	int Enum
 >
-optional_enum;
+inline
+GLenum
+to_gl_enum()
+{
+	return
+		fcppt::cast::to_unsigned(
+			Enum
+		);
+}
 
+}
 }
 }
 

@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/point_sprite_context.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/convert/to_gl_bool.hpp>
-#include <sge/opengl/state/ffp/misc/point_sprite_texture.hpp>
+#include <sge/opengl/state/ffp/misc/point_sprite/config.hpp>
+#include <sge/opengl/state/ffp/misc/point_sprite/set_texture.hpp>
 #include <sge/opengl/texture/active_level.hpp>
 #include <sge/opengl/texture/funcs/env_arg.hpp>
 #include <sge/opengl/texture/funcs/env_int.hpp>
@@ -30,14 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
 
 
 void
-sge::opengl::state::ffp::misc::point_sprite_texture(
+sge::opengl::state::ffp::misc::point_sprite::set_texture(
 	sge::opengl::context::system::object &_system_context,
-	sge::opengl::point_sprite_context const &_point_sprite_context,
+	sge::opengl::state::ffp::misc::point_sprite::config const &_point_sprite_config,
 	sge::renderer::texture::stage const _stage,
 	sge::renderer::state::ffp::misc::enable_point_sprites const _enable
 )
@@ -50,14 +49,10 @@ sge::opengl::state::ffp::misc::point_sprite_texture(
 	sge::opengl::texture::funcs::env_int(
 		active_level,
 		sge::opengl::texture::funcs::env_target{
-			FCPPT_ASSERT_OPTIONAL_ERROR(
-				_point_sprite_context.point_sprite_flag()
-			)
+			_point_sprite_config.point_sprite_flag().get()
 		},
 		sge::opengl::texture::funcs::env_arg{
-			FCPPT_ASSERT_OPTIONAL_ERROR(
-				_point_sprite_context.coord_replace_flag()
-			)
+			_point_sprite_config.coord_replace_flag().get()
 		},
 		fcppt::strong_typedef_construct_cast<
 			sge::opengl::texture::funcs::env_int_value,

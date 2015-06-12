@@ -18,25 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_OPTIONAL_ENUM_FWD_HPP_INCLUDED
-#define SGE_OPENGL_OPTIONAL_ENUM_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_FFP_MISC_POINT_SPRITE_OPTIONAL_CONFIG_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_MISC_POINT_SPRITE_OPTIONAL_CONFIG_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <sge/opengl/state/ffp/misc/point_sprite/config.hpp>
+#include <sge/opengl/state/ffp/misc/point_sprite/optional_config_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace opengl
-{
-
-typedef
-fcppt::optional<
-	GLenum
->
-optional_enum;
-
-}
-}
 
 #endif
