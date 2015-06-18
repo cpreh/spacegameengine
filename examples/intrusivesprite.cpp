@@ -335,12 +335,6 @@ try
 		-0.5f
 	);
 
-	test2.transfer(
-		ordered_collection.connection(
-			1u
-		)
-	);
-
 	test2.texture(
 		sprite_object::texture_type(
 			*tex2

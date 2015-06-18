@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_STATE_DETAIL_OPTIONS_CLASS_ELEMENT_HPP_INCLUDED
 
 #include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
 
 
 namespace sge
@@ -39,12 +38,13 @@ template<
 >
 struct options_class_element
 {
-	typedef majutsu::role<
-		majutsu::simple<
-			bool
-		>,
-		typename Type::role
-	> type;
+	typedef
+	majutsu::role<
+		bool,
+		typename
+		Type::role
+	>
+	type;
 };
 
 }

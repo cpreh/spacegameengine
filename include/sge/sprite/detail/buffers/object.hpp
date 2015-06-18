@@ -26,11 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/roles/index_buffer.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
-#include <majutsu/class.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
-#include <majutsu/memory/fusion.hpp>
+#include <majutsu/fusion/record.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -54,36 +51,31 @@ struct object
 private:
 	// TODO: Don't use shared_ptrs here!
 	typedef majutsu::role<
-		majutsu::simple<
-			sge::renderer::vertex::buffer_shared_ptr
-		>,
+		sge::renderer::vertex::buffer_shared_ptr,
 		sge::sprite::buffers::roles::vertex_buffer
 	> vertex_buffer_role;
 
 	typedef majutsu::role<
-		majutsu::simple<
-			sge::renderer::index::buffer_shared_ptr
-		>,
+		sge::renderer::index::buffer_shared_ptr,
 		sge::sprite::buffers::roles::index_buffer
 	> index_buffer_role;
 public:
-	typedef majutsu::class_<
-		majutsu::composite<
-			typename boost::mpl::if_<
-				sge::sprite::detail::config::needs_index_buffer<
-					Choices
-				>,
-				boost::mpl::vector2<
-					vertex_buffer_role,
-					index_buffer_role
-				>,
-				boost::mpl::vector1<
-					vertex_buffer_role
-				>
-			>::type
-		>,
-		majutsu::memory::fusion
-	> type;
+	typedef
+	majutsu::fusion::record<
+		typename boost::mpl::if_<
+			sge::sprite::detail::config::needs_index_buffer<
+				Choices
+			>,
+			boost::mpl::vector2<
+				vertex_buffer_role,
+				index_buffer_role
+			>,
+			boost::mpl::vector1<
+				vertex_buffer_role
+			>
+		>::type
+	>
+	type;
 };
 
 }

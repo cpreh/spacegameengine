@@ -24,9 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/intrusive_fwd.hpp>
 #include <sge/sprite/intrusive/connection_ref.hpp>
 #include <sge/sprite/roles/connection.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -46,18 +44,16 @@ struct intrusive
 	>
 	struct apply
 	{
-		typedef majutsu::composite<
-			boost::mpl::vector1<
-				majutsu::role<
-					majutsu::simple<
-						sge::sprite::intrusive::connection_ref<
-							Choices
-						>
-					>,
-					sge::sprite::roles::connection
-				>
+		typedef
+		boost::mpl::vector1<
+			majutsu::role<
+				sge::sprite::intrusive::connection_ref<
+					Choices
+				>,
+				sge::sprite::roles::connection
 			>
-		> type;
+		>
+		type;
 	};
 };
 

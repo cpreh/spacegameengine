@@ -106,7 +106,7 @@ default_initialize_class_impl(
 			role::tag{} =
 				sge::sprite::detail::default_initialize_class_element<
 					typename
-					role::wrapped::type
+					role::wrapped
 				>::execute()
 		);
 }

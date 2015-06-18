@@ -26,9 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/size_choice.hpp>
 #include <sge/sprite/roles/point_size.hpp>
 #include <sge/sprite/types/point_size.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -69,19 +67,17 @@ public:
 	>
 	struct apply
 	{
-		typedef majutsu::composite<
-			boost::mpl::vector1<
-				majutsu::role<
-					majutsu::simple<
-						sge::sprite::types::point_size<
-							typename
-							Choices::type_choices
-						>
-					>,
-					sge::sprite::roles::point_size
-				>
+		typedef
+		boost::mpl::vector1<
+			majutsu::role<
+				sge::sprite::types::point_size<
+					typename
+					Choices::type_choices
+				>,
+				sge::sprite::roles::point_size
 			>
-		> type;
+		>
+		type;
 	};
 };
 

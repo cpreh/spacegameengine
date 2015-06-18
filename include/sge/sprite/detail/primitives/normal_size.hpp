@@ -26,9 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/size_or_texture_size.hpp>
 #include <sge/sprite/types/dim_fwd.hpp>
 #include <sge/sprite/types/size_or_texture_size_fwd.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -59,17 +57,13 @@ struct normal_size<
 >
 {
 	typedef
-	majutsu::composite<
-		boost::mpl::vector1<
-			majutsu::role<
-				majutsu::simple<
-					sge::sprite::types::dim<
-						typename
-						Choices::type_choices
-					>
-				>,
-				sge::sprite::roles::size
-			>
+	boost::mpl::vector1<
+		majutsu::role<
+			sge::sprite::types::dim<
+				typename
+				Choices::type_choices
+			>,
+			sge::sprite::roles::size
 		>
 	>
 	type;
@@ -84,9 +78,7 @@ struct normal_size<
 >
 {
 	typedef
-	majutsu::composite<
-		boost::mpl::vector0<>
-	>
+	boost::mpl::vector0<>
 	type;
 };
 
@@ -99,17 +91,13 @@ struct normal_size<
 >
 {
 	typedef
-	majutsu::composite<
-		boost::mpl::vector1<
-			majutsu::role<
-				majutsu::simple<
-					sge::sprite::types::size_or_texture_size<
-						typename
-						Choices::type_choices
-					>
-				>,
-				sge::sprite::roles::size_or_texture_size
-			>
+	boost::mpl::vector1<
+		majutsu::role<
+			sge::sprite::types::size_or_texture_size<
+				typename
+				Choices::type_choices
+			>,
+			sge::sprite::roles::size_or_texture_size
 		>
 	>
 	type;

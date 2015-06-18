@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/texture_point_size.hpp>
 #include <sge/sprite/types/texture_point_size.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/placeholders.hpp>
@@ -62,7 +61,9 @@ struct texture_point_size<
 	sge::sprite::config::no_texture_point_size
 >
 {
-	typedef boost::mpl::vector0<> type;
+	typedef
+	boost::mpl::vector0<>
+	type;
 };
 
 template<
@@ -84,16 +85,18 @@ private:
 	>
 	struct make_role
 	{
-		typedef majutsu::role<
-			majutsu::simple<
-				typename sge::sprite::types::texture_point_size<
-					typename Choices::type_choices
-				>::type
-			>,
+		typedef
+		majutsu::role<
+			typename
+			sge::sprite::types::texture_point_size<
+				typename
+				Choices::type_choices
+			>::type,
 			sge::sprite::roles::texture_point_size<
 				Level::value
 			>
-		> type;
+		>
+		type;
 	};
 
 	static_assert(

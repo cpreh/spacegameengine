@@ -35,11 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
 #include <sge/sprite/render/optional_texture_ref.hpp>
-#include <majutsu/class.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
-#include <majutsu/memory/fusion.hpp>
+#include <majutsu/fusion/record.hpp>
 #include <fcppt/mpl/append.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -68,30 +65,22 @@ struct range_part_object
 {
 private:
 	typedef majutsu::role<
-		majutsu::simple<
-			sge::renderer::vertex::first
-		>,
+		sge::renderer::vertex::first,
 		sge::sprite::buffers::roles::first_vertex
 	> first_vertex_role;
 
 	typedef majutsu::role<
-		majutsu::simple<
-			sge::renderer::index::first
-		>,
+		sge::renderer::index::first,
 		sge::sprite::buffers::roles::first_index
 	> first_index_role;
 
 	typedef majutsu::role<
-		majutsu::simple<
-			sge::renderer::vertex::count
-		>,
+		sge::renderer::vertex::count,
 		sge::sprite::detail::roles::vertex_count
 	> vertex_count_role;
 
 	typedef majutsu::role<
-		majutsu::simple<
-			sge::renderer::index::count
-		>,
+		sge::renderer::index::count,
 		sge::sprite::detail::roles::index_count
 	> index_count_role;
 
@@ -122,9 +111,7 @@ private:
 	struct make_texture_role
 	{
 		typedef majutsu::role<
-			majutsu::simple<
-				sge::sprite::render::optional_texture_ref
-			>,
+			sge::sprite::render::optional_texture_ref,
 			sge::sprite::detail::roles::texture<
 				Level::value
 			>
@@ -158,22 +145,22 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 FCPPT_PP_POP_WARNING
 
 public:
-	typedef majutsu::class_<
-		majutsu::composite<
-			typename boost::mpl::eval_if<
-				sge::sprite::detail::config::has_texture_levels<
-					Choices
-				>,
-				make_textures<
-					geometry_types
-				>,
-				boost::mpl::identity<
-					geometry_types
-				>
-			>::type
-		>,
-		majutsu::memory::fusion
-	> type;
+	typedef
+	majutsu::fusion::record<
+		typename
+		boost::mpl::eval_if<
+			sge::sprite::detail::config::has_texture_levels<
+				Choices
+			>,
+			make_textures<
+				geometry_types
+			>,
+			boost::mpl::identity<
+				geometry_types
+			>
+		>::type
+	>
+	type;
 };
 
 }

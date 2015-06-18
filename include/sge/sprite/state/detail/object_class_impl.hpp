@@ -21,11 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_DETAIL_OBJECT_CLASS_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_STATE_DETAIL_OBJECT_CLASS_IMPL_HPP_INCLUDED
 
-#include <majutsu/class.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
-#include <majutsu/memory/fusion.hpp>
+#include <majutsu/fusion/record.hpp>
 #include <fcppt/shared_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/placeholders.hpp>
@@ -54,26 +51,24 @@ private:
 	struct object_class_element
 	{
 		typedef majutsu::role<
-			majutsu::simple<
-				fcppt::shared_ptr<
-					typename Type::state_type
-				>
+			// TODO: No shared_ptrs
+			fcppt::shared_ptr<
+				typename Type::state_type
 			>,
 			typename Type::role
 		> type;
 	};
 public:
-	typedef majutsu::class_<
-		majutsu::composite<
-			typename boost::mpl::transform<
-				typename StateChoices::optional_elements,
-				object_class_element<
-					boost::mpl::_1
-				>
-			>::type
-		>,
-		majutsu::memory::fusion
-	> type;
+	typedef
+	majutsu::fusion::record<
+		typename boost::mpl::transform<
+			typename StateChoices::optional_elements,
+			object_class_element<
+				boost::mpl::_1
+			>
+		>::type
+	>
+	type;
 };
 
 }

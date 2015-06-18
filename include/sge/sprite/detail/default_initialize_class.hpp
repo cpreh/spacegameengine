@@ -42,7 +42,7 @@ default_initialize_class()
 		sge::sprite::detail::default_initialize_class_impl<
 			Class,
 			typename
-			Class::memory_type::types
+			Class::all_types
 		>();
 }
 

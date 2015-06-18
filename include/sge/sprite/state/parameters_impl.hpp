@@ -28,6 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/set.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -52,10 +55,7 @@ sge::sprite::state::parameters<
 sge::sprite::state::parameters<
 	StateChoices
 >::blend_write_mask(
-	typename majutsu::role_return_type<
-		flattened_types,
-		sge::sprite::state::roles::blend_write_mask
-	>::type const &_blend_write_mask
+	bool const _blend_write_mask
 )
 {
 	return
@@ -75,10 +75,7 @@ sge::sprite::state::parameters<
 sge::sprite::state::parameters<
 	StateChoices
 >::enable_scissor_test(
-	typename majutsu::role_return_type<
-		flattened_types,
-		sge::sprite::state::roles::enable_scissor_test
-	>::type const &_enable_scissor_test
+	bool const _enable_scissor_test
 )
 {
 	return
@@ -101,10 +98,10 @@ sge::sprite::state::parameters<
 sge::sprite::state::parameters<
 	StateChoices
 >::set(
-	typename majutsu::role_return_type<
-		flattened_types,
+	majutsu::role_return_type<
+		elements_type,
 		Role
-	>::type const &_value
+	> _value
 )
 {
 	return
@@ -113,9 +110,12 @@ sge::sprite::state::parameters<
 		>(
 			elements_,
 			fcppt::optional<
-				typename majutsu::role_return_type<
-					flattened_types,
-					Role
+				typename
+				std::decay<
+					majutsu::role_return_type<
+						elements_type,
+						Role
+					>
 				>::type
 			>(
 				_value

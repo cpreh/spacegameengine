@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/repetition.hpp>
 #include <sge/sprite/types/repetition.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -44,16 +43,16 @@ template<
 >
 struct texture_repetition
 {
-	typedef boost::mpl::vector1<
+	typedef
+	boost::mpl::vector1<
 		majutsu::role<
-			majutsu::simple<
-				sge::sprite::types::repetition<
-					typename Choices::type_choices
-				>
+			sge::sprite::types::repetition<
+				typename Choices::type_choices
 			>,
 			sge::sprite::roles::repetition
 		>
-	> type;
+	>
+	type;
 };
 
 }

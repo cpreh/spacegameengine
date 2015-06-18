@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/primitives/texture_coordinates.hpp>
 #include <sge/sprite/detail/primitives/texture_ptr.hpp>
 #include <sge/sprite/detail/primitives/texture_repetition.hpp>
-#include <majutsu/composite.hpp>
 #include <fcppt/mpl/append.hpp>
 
 
@@ -59,19 +58,20 @@ struct texture<
 	Ownership
 >
 {
-	typedef majutsu::composite<
-		typename fcppt::mpl::append<
-			typename sge::sprite::detail::primitives::texture_ptr<
-				Choices,
-				TextureLevels,
-				Ownership
-			>::type,
-			typename sge::sprite::detail::primitives::texture_coordinates<
-				Choices,
-				TextureLevels
-			>::type
+	typedef
+	typename
+	fcppt::mpl::append<
+		typename sge::sprite::detail::primitives::texture_ptr<
+			Choices,
+			TextureLevels,
+			Ownership
+		>::type,
+		typename sge::sprite::detail::primitives::texture_coordinates<
+			Choices,
+			TextureLevels
 		>::type
-	> type;
+	>::type
+	type;
 };
 
 template<
@@ -86,18 +86,19 @@ struct texture<
 	Ownership
 >
 {
-	typedef majutsu::composite<
-		typename fcppt::mpl::append<
-			typename sge::sprite::detail::primitives::texture_ptr<
-				Choices,
-				TextureLevels,
-				Ownership
-			>::type,
-			typename sge::sprite::detail::primitives::texture_repetition<
-				Choices
-			>::type
+	typedef
+	typename
+	fcppt::mpl::append<
+		typename sge::sprite::detail::primitives::texture_ptr<
+			Choices,
+			TextureLevels,
+			Ownership
+		>::type,
+		typename sge::sprite::detail::primitives::texture_repetition<
+			Choices
 		>::type
-	> type;
+	>::type
+	type;
 };
 
 template<
@@ -112,13 +113,14 @@ struct texture<
 	Ownership
 >
 {
-	typedef majutsu::composite<
-		typename sge::sprite::detail::primitives::texture_ptr<
-			Choices,
-			TextureLevels,
-			Ownership
-		>::type
-	> type;
+	typedef
+	typename
+	sge::sprite::detail::primitives::texture_ptr<
+		Choices,
+		TextureLevels,
+		Ownership
+	>::type
+	type;
 };
 
 }

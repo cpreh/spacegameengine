@@ -51,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/basic/homogenous_pair_impl.hpp>
 #include <sge/sprite/types/basic/vector_impl.hpp>
 #include <majutsu/get.hpp>
+#include <majutsu/role_return_type.hpp>
 #include <majutsu/set.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
@@ -947,6 +948,7 @@ sge::sprite::object<
 	);
 }
 
+/*
 template<
 	typename Choices
 >
@@ -954,10 +956,10 @@ void
 sge::sprite::object<
 	Choices
 >::transfer(
-	typename majutsu::role_return_type<
-		flattened_types,
+	majutsu::role_return_type<
+		element_type,
 		sge::sprite::roles::connection
-	>::type const &_connection_ref
+	> _connection_ref
 )
 {
 	sge::sprite::detail::unlink(
@@ -973,7 +975,7 @@ sge::sprite::object<
 	_connection_ref.get().add(
 		*this
 	);
-}
+}*/
 
 template<
 	typename Choices
@@ -982,12 +984,13 @@ template<
 	typename Role
 >
 inline
-typename majutsu::role_return_type<
-	typename sge::sprite::object<
+majutsu::role_return_type<
+	typename
+	sge::sprite::object<
 		Choices
-	>::flattened_types,
+	>::element_type,
 	Role
->::type
+>
 sge::sprite::object<
 	Choices
 >::get() const
@@ -1011,10 +1014,10 @@ void
 sge::sprite::object<
 	Choices
 >::set(
-	typename majutsu::role_return_type<
-		flattened_types,
+	majutsu::role_return_type<
+		element_type,
 		Role
-	>::type const &_value
+	> _value
 )
 {
 	majutsu::set<

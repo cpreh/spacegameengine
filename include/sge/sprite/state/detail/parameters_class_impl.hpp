@@ -21,11 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_DETAIL_PARAMETERS_CLASS_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_STATE_DETAIL_PARAMETERS_CLASS_IMPL_HPP_INCLUDED
 
-#include <majutsu/class.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
-#include <majutsu/memory/fusion.hpp>
+#include <majutsu/fusion/record.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -76,30 +73,31 @@ private:
 	>
 	struct parameter_class_element
 	{
-		typedef majutsu::role<
-			majutsu::simple<
-				typename Type::optional_extra_parameters
-			>,
-			typename Type::parameter_role
-		> type;
+		typedef
+		majutsu::role<
+			typename
+			Type::optional_extra_parameters,
+			typename
+			Type::parameter_role
+		>
+		type;
 	};
 public:
-	typedef majutsu::class_<
-		majutsu::composite<
-			typename boost::mpl::transform<
-				typename boost::mpl::copy_if<
-					typename StateChoices::optional_elements,
-					has_parameter<
-						boost::mpl::_1
-					>
-				>::type,
-				parameter_class_element<
+	typedef
+	majutsu::fusion::record<
+		typename boost::mpl::transform<
+			typename boost::mpl::copy_if<
+				typename StateChoices::optional_elements,
+				has_parameter<
 					boost::mpl::_1
 				>
-			>::type
-		>,
-		majutsu::memory::fusion
-	> type;
+			>::type,
+			parameter_class_element<
+				boost::mpl::_1
+			>
+		>::type
+	>
+	type;
 };
 
 }

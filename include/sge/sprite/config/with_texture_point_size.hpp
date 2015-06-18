@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/primitives/texture_point_pos.hpp>
 #include <sge/sprite/detail/primitives/texture_point_size.hpp>
 #include <sge/sprite/detail/primitives/texture_ptr.hpp>
-#include <majutsu/composite.hpp>
 #include <fcppt/mpl/append.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
@@ -91,32 +90,31 @@ struct with_texture_point_size<
 	struct apply
 	{
 		typedef
-		majutsu::composite<
+		typename
+		fcppt::mpl::append<
+			typename
+			sge::sprite::detail::primitives::texture_ptr<
+				Choices,
+				texture_levels,
+				ownership::value
+			>::type,
 			typename
 			fcppt::mpl::append<
 				typename
-				sge::sprite::detail::primitives::texture_ptr<
+				sge::sprite::detail::primitives::texture_point_pos<
 					Choices,
 					texture_levels,
-					ownership::value
+					point_pos
 				>::type,
 				typename
-				fcppt::mpl::append<
-					typename
-					sge::sprite::detail::primitives::texture_point_pos<
-						Choices,
-						texture_levels,
-						point_pos
-					>::type,
-					typename
-					sge::sprite::detail::primitives::texture_point_size<
-						Choices,
-						texture_levels,
-						point_size
-					>::type
+				sge::sprite::detail::primitives::texture_point_size<
+					Choices,
+					texture_levels,
+					point_size
 				>::type
 			>::type
-		> type;
+		>::type
+		type;
 	};
 };
 

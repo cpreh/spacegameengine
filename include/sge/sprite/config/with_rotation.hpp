@@ -24,9 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/with_rotation_fwd.hpp>
 #include <sge/sprite/roles/rotation.hpp>
 #include <sge/sprite/types/rotation.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -49,17 +47,13 @@ struct with_rotation
 	struct apply
 	{
 		typedef
-		majutsu::composite<
-			boost::mpl::vector1<
-				majutsu::role<
-					majutsu::simple<
-						sge::sprite::types::rotation<
-							typename
-							Choices::type_choices
-						>
-					>,
-					sge::sprite::roles::rotation
-				>
+		boost::mpl::vector1<
+			majutsu::role<
+				sge::sprite::types::rotation<
+					typename
+					Choices::type_choices
+				>,
+				sge::sprite::roles::rotation
 			>
 		>
 		type;

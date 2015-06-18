@@ -23,8 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/state/parameters_fwd.hpp>
 #include <sge/sprite/state/detail/parameters_class.hpp>
-#include <sge/sprite/state/roles/blend_write_mask.hpp>
-#include <sge/sprite/state/roles/enable_scissor_test.hpp>
 #include <majutsu/role_return_type.hpp>
 
 
@@ -48,24 +46,16 @@ class parameters
 public:
 	typedef StateChoices state_choices;
 
-	typedef typename elements_type::memory_type::types flattened_types;
-
 	parameters();
 
 	parameters &
 	blend_write_mask(
-		typename majutsu::role_return_type<
-			flattened_types,
-			sge::sprite::state::roles::blend_write_mask
-		>::type const &
+		bool
 	);
 
 	parameters &
 	enable_scissor_test(
-		typename majutsu::role_return_type<
-			flattened_types,
-			sge::sprite::state::roles::enable_scissor_test
-		>::type const &
+		bool
 	);
 
 	template<
@@ -73,10 +63,10 @@ public:
 	>
 	parameters &
 	set(
-		typename majutsu::role_return_type<
-			flattened_types,
+		majutsu::role_return_type<
+			elements_type,
 			Role
-		>::type const &
+		>
 	);
 
 	elements_type const &

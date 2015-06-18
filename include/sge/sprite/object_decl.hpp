@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/make_class.hpp>
 #include <sge/sprite/detail/object_base.hpp>
 #include <sge/sprite/intrusive/connection_fwd.hpp>
-#include <sge/sprite/roles/connection.hpp>
 #include <sge/sprite/types/center_fwd.hpp>
 #include <sge/sprite/types/depth.hpp>
 #include <sge/sprite/types/dim_fwd.hpp>
@@ -77,11 +76,6 @@ public:
 		Choices
 	>
 	element_type;
-
-	typedef
-	typename
-	element_type::memory_type::types
-	flattened_types;
 
 	typedef
 	Choices
@@ -420,21 +414,13 @@ public:
 		color_type const &
 	);
 
-	void
-	transfer(
-		typename majutsu::role_return_type<
-			flattened_types,
-			sge::sprite::roles::connection
-		>::type const &
-	);
-
 	template<
 		typename Role
 	>
-	typename majutsu::role_return_type<
-		flattened_types,
+	majutsu::role_return_type<
+		element_type,
 		Role
-	>::type
+	>
 	get() const;
 
 	template<
@@ -442,10 +428,10 @@ public:
 	>
 	void
 	set(
-		typename majutsu::role_return_type<
-			flattened_types,
+		majutsu::role_return_type<
+			element_type,
 			Role
-		>::type const &
+		>
 	);
 private:
 	element_type elements_;

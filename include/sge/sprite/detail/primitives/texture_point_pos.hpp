@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/texture_point_pos.hpp>
 #include <sge/sprite/types/texture_point_pos.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -60,7 +59,9 @@ struct texture_point_pos<
 	>
 >
 {
-	typedef boost::mpl::vector0<> type;
+	typedef
+	boost::mpl::vector0<>
+	type;
 };
 
 template<
@@ -81,16 +82,18 @@ private:
 	>
 	struct make_role
 	{
-		typedef majutsu::role<
-			majutsu::simple<
-				typename sge::sprite::types::texture_point_pos<
-					typename Choices::type_choices
-				>::type
-			>,
+		typedef
+		majutsu::role<
+			typename
+			sge::sprite::types::texture_point_pos<
+				typename
+				Choices::type_choices
+			>::type,
 			sge::sprite::roles::texture_point_pos<
 				Level::value
 			>
-		> type;
+		>
+		type;
 	};
 public:
 	typedef typename sge::sprite::detail::transform_texture_levels_static<

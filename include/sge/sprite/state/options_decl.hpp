@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/options_fwd.hpp>
 #include <sge/sprite/state/vertex_options.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
+#include <majutsu/role_return_type.hpp>
 
 
 namespace sge
@@ -45,11 +46,6 @@ class options
 	>
 	elements_type;
 public:
-	typedef
-	typename
-	elements_type::memory_type::types
-	flattened_types;
-
 	explicit
 	options(
 		sge::sprite::state::vertex_options
@@ -77,10 +73,10 @@ public:
 	>
 	options &
 	set(
-		typename majutsu::role_return_type<
-			flattened_types,
+		majutsu::role_return_type<
+			elements_type,
 			Role
-		>::type const &
+		>
 	);
 
 	elements_type const &

@@ -23,9 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/roles/depth.hpp>
 #include <sge/sprite/types/depth.hpp>
-#include <majutsu/composite.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/simple.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -45,18 +43,18 @@ struct with_depth
 	>
 	struct apply
 	{
-		typedef majutsu::composite<
-			boost::mpl::vector1<
-				majutsu::role<
-					majutsu::simple<
-						typename sge::sprite::types::depth<
-							typename Choices::type_choices
-						>::type
-					>,
-					sge::sprite::roles::depth
-				>
+		typedef
+		boost::mpl::vector1<
+			majutsu::role<
+				typename
+				sge::sprite::types::depth<
+					typename
+					Choices::type_choices
+				>::type,
+				sge::sprite::roles::depth
 			>
-		> type;
+		>
+		type;
 	};
 };
 
