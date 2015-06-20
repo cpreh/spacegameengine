@@ -22,11 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_STATE_PARAMETERS_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/state/parameters_decl.hpp>
+#include <sge/sprite/state/detail/parameters_init.hpp>
 #include <sge/sprite/state/roles/blend_write_mask.hpp>
 #include <sge/sprite/state/roles/enable_scissor_test.hpp>
+#include <majutsu/init.hpp>
 #include <majutsu/role_return_type.hpp>
 #include <majutsu/set.hpp>
-#include <fcppt/no_init.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
@@ -41,7 +42,11 @@ sge::sprite::state::parameters<
 >::parameters()
 :
 	elements_(
-		fcppt::no_init()
+		majutsu::init<
+			elements_type
+		>(
+			sge::sprite::state::detail::parameters_init{}
+		)
 	)
 {
 }

@@ -337,6 +337,7 @@ set(
 	include/sge/sprite/state/detail/options_class_impl.hpp
 	include/sge/sprite/state/detail/parameters_class.hpp
 	include/sge/sprite/state/detail/parameters_class_impl.hpp
+	include/sge/sprite/state/detail/parameters_init.hpp
 	include/sge/sprite/state/detail/set_one.hpp
 	include/sge/sprite/state/detail/unset_one.hpp
 	include/sge/sprite/state/is_with_transform.hpp

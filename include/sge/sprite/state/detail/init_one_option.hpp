@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_DETAIL_INIT_ONE_OPTION_HPP_INCLUDED
 #define SGE_SPRITE_STATE_DETAIL_INIT_ONE_OPTION_HPP_INCLUDED
 
-#include <sge/sprite/state/detail/options_class.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <majutsu/role.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
 namespace sge
@@ -37,45 +37,44 @@ namespace detail
 template<
 	typename StateChoices
 >
-class init_one_option
+struct init_one_option
 {
-	FCPPT_NONASSIGNABLE(
-		init_one_option
-	);
-public:
-	typedef
-	sge::sprite::state::detail::options_class<
-		StateChoices
+	template<
+		typename Tag
 	>
-	options_class;
-
-	explicit
-	init_one_option(
-		options_class &_result
-	)
-	:
-		result_(
-			_result
-		)
+	bool
+	operator()(
+		majutsu::role<
+			bool,
+			Tag
+		>
+	) const
 	{
+		return
+			true;
 	}
-
-	typedef void result_type;
 
 	template<
-		typename Type
+		typename Type,
+		typename Tag
 	>
-	result_type
-	operator()() const
+	fcppt::optional<
+		Type
+	>
+	operator()(
+		majutsu::role<
+			fcppt::optional<
+				Type
+			>,
+			Tag
+		>
+	) const
 	{
-		result_. template set<
-			typename Type::role
-		>(
-			true
-		);
+		return
+			fcppt::optional<
+				Type
+			>();
 	}
-private:
-	options_class &result_;
 };
 
 }
