@@ -24,12 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/buffers/slice_fwd.hpp>
-#include <sge/sprite/detail/default_initialize_class.hpp>
-#include <sge/sprite/detail/geometry/render_part_common.hpp>
-#include <sge/sprite/detail/geometry/render_part_index.hpp>
-#include <sge/sprite/detail/geometry/render_part_textures.hpp>
+#include <sge/sprite/detail/geometry/render_part_element.hpp>
 #include <sge/sprite/detail/render/range_part_object.hpp>
 #include <sge/sprite/render/range_part_impl.hpp>
+#include <majutsu/init.hpp>
 
 
 namespace sge
@@ -46,7 +44,7 @@ template<
 >
 sge::sprite::render::range_part<
 	Choices
-> const
+>
 make_render_part(
 	sge::sprite::buffers::slice<
 		Choices
@@ -58,41 +56,25 @@ make_render_part(
 	> const &_current
 )
 {
-	typedef typename sge::sprite::detail::render::range_part_object<
-		Choices
-	>::type range_part_object;
-
-	range_part_object object(
-		// TODO: Replace this!
-		sge::sprite::detail::default_initialize_class<
-			range_part_object
-		>()
-	);
-
-	sge::sprite::detail::geometry::render_part_common(
-		object,
-		_slice,
-		_offset,
-		_count
-	);
-
-	sge::sprite::detail::geometry::render_part_textures(
-		object,
-		_current
-	);
-
-	sge::sprite::detail::geometry::render_part_index(
-		object,
-		_slice,
-		_offset,
-		_count
-	);
-
 	return
 		sge::sprite::render::range_part<
 			Choices
 		>(
-			object
+			majutsu::init<
+				typename
+				sge::sprite::detail::render::range_part_object<
+					Choices
+				>::type
+			>(
+				sge::sprite::detail::geometry::render_part_element<
+					Choices
+				>(
+					_slice,
+					_offset,
+					_count,
+					_current
+				)
+			)
 		);
 }
 

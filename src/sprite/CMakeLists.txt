@@ -127,9 +127,6 @@ set(
 	include/sge/sprite/detail/config/needs_use_texture_size.hpp
 	include/sge/sprite/detail/config/texture_levels.hpp
 	include/sge/sprite/detail/config/texture_ref.hpp
-	include/sge/sprite/detail/default_initialize_class.hpp
-	include/sge/sprite/detail/default_initialize_class_element.hpp
-	include/sge/sprite/detail/default_initialize_class_impl.hpp
 	include/sge/sprite/detail/destroy.hpp
 	include/sge/sprite/detail/geometry/convert_texture_rect.hpp
 	include/sge/sprite/detail/geometry/count.hpp
@@ -161,10 +158,7 @@ set(
 	include/sge/sprite/detail/geometry/make_position.hpp
 	include/sge/sprite/detail/geometry/make_render_part.hpp
 	include/sge/sprite/detail/geometry/pos_packed_type.hpp
-	include/sge/sprite/detail/geometry/render_part_common.hpp
-	include/sge/sprite/detail/geometry/render_part_index.hpp
-	include/sge/sprite/detail/geometry/render_part_texture_level.hpp
-	include/sge/sprite/detail/geometry/render_part_textures.hpp
+	include/sge/sprite/detail/geometry/render_part_element.hpp
 	include/sge/sprite/detail/geometry/vertices_per_sprite.hpp
 	include/sge/sprite/detail/get_center.hpp
 	include/sge/sprite/detail/get_pos.hpp

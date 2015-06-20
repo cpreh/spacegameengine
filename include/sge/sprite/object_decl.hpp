@@ -77,6 +77,19 @@ public:
 	>
 	element_type;
 
+	template<
+		typename Role
+	>
+	struct role_return_type
+	{
+		typedef
+		majutsu::role_return_type<
+			element_type,
+			Role
+		>
+		type;
+	};
+
 	typedef
 	Choices
 	choices;
