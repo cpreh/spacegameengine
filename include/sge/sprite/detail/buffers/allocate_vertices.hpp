@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
-#include <sge/renderer/vertex/buffer_shared_ptr.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
@@ -45,7 +45,7 @@ namespace buffers
 template<
 	typename Choices
 >
-sge::renderer::vertex::buffer_shared_ptr
+sge::renderer::vertex::buffer_unique_ptr
 allocate_vertices(
 	sge::sprite::buffers::parameters const &_parameters,
 	sge::sprite::count const _num_sprites,
@@ -53,18 +53,16 @@ allocate_vertices(
 )
 {
 	return
-		sge::renderer::vertex::buffer_shared_ptr(
-			_parameters.device().create_vertex_buffer(
-				sge::renderer::vertex::buffer_parameters(
-					_parameters.vertex_declaration(),
-					sge::sprite::detail::vf::part_index(),
-					sge::sprite::buffers::vertex_count<
-						Choices
-					>(
-						_num_sprites
-					),
-					_resource_flags
-				)
+		_parameters.device().create_vertex_buffer(
+			sge::renderer::vertex::buffer_parameters(
+				_parameters.vertex_declaration(),
+				sge::sprite::detail::vf::part_index(),
+				sge::sprite::buffers::vertex_count<
+					Choices
+				>(
+					_num_sprites
+				),
+				_resource_flags
 			)
 		);
 }

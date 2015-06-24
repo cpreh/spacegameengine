@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/sprite/detail/render/inner.hpp>
+#include <sge/sprite/detail/render/range_object.hpp>
 #include <sge/sprite/detail/render/set_textures.hpp>
 #include <sge/sprite/detail/render/unset_textures.hpp>
-#include <sge/sprite/render/range_impl.hpp>
+#include <sge/sprite/render/range_part_vector.hpp>
 
 
 namespace sge
@@ -43,15 +44,18 @@ template<
 void
 range(
 	sge::renderer::context::core &_render_context,
-	sge::sprite::render::range<
+	sge::sprite::detail::render::range_object<
 		Choices
-	> const &_range
+	> const &_range_object,
+	sge::sprite::render::range_part_vector<
+		Choices
+	> const &_range_parts
 )
 {
 	for(
 		auto const &element
 		:
-		_range
+		_range_parts
 	)
 	{
 		sge::sprite::detail::render::set_textures(
@@ -61,7 +65,7 @@ range(
 
 		sge::sprite::detail::render::inner(
 			_render_context,
-			_range,
+			_range_object,
 			element
 		);
 	}

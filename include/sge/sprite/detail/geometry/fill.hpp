@@ -44,6 +44,7 @@ template<
 	typename Compare,
 	typename Choices
 >
+inline
 typename boost::enable_if<
 	sge::sprite::detail::config::needs_index_buffer<
 		Choices
@@ -51,13 +52,13 @@ typename boost::enable_if<
 	sge::sprite::render::range<
 		Choices
 	>
->::type const
+>::type
 fill(
 	Range const &_range,
 	Compare const &_compare,
 	sge::sprite::buffers::slice<
 		Choices
-	> &_slice
+	> const &_slice
 )
 {
 	sge::sprite::detail::geometry::fill_indices<
@@ -80,6 +81,7 @@ template<
 	typename Compare,
 	typename Choices
 >
+inline
 typename boost::disable_if<
 	sge::sprite::detail::config::needs_index_buffer<
 		Choices
@@ -87,7 +89,7 @@ typename boost::disable_if<
 	sge::sprite::render::range<
 		Choices
 	>
->::type const
+>::type
 fill(
 	Range const &_range,
 	Compare const &_compare,

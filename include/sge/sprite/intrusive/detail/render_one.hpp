@@ -21,10 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_DETAIL_RENDER_ONE_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_DETAIL_RENDER_ONE_HPP_INCLUDED
 
+#include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/sprite/detail/process/geometry.hpp>
 #include <sge/sprite/detail/render/range.hpp>
+#include <sge/sprite/detail/render/range_object.hpp>
 #include <sge/sprite/render/range_impl.hpp>
+#include <majutsu/get.hpp>
+#include <fcppt/maybe_void.hpp>
 
 
 namespace sge
@@ -51,19 +55,21 @@ render_one(
 	Range const &_range
 )
 {
-	if(
-		_range.empty()
-	)
-		return;
+	typedef
+	typename
+	Buffers::choices
+	choices;
 
-	typedef sge::sprite::render::range<
-		typename Buffers::choices
-	> range_type;
+	typedef
+	sge::sprite::render::range<
+		choices
+	>
+	range_type;
 
 	range_type const range(
 		sge::sprite::detail::process::geometry<
 			Options::geometry_options::value,
-			typename Buffers::choices
+			choices
 		>(
 			_range,
 			_buffers,
@@ -71,14 +77,33 @@ render_one(
 		)
 	);
 
-	sge::renderer::vertex::scoped_buffer const scoped_buffer(
-		_render_context,
-		range.vertex_buffer()
-	);
+	// TODO: Simplify this
+	fcppt::maybe_void(
+		range.object(),
+		[
+			&_render_context,
+			&range
+		](
+			sge::sprite::detail::render::range_object<
+				choices
+			> const &_range_object
+		)
+		{
+			sge::renderer::vertex::scoped_buffer const scoped_buffer(
+				_render_context,
+				*majutsu::get<
+					sge::sprite::buffers::roles::vertex_buffer
+				>(
+					_range_object
+				)
+			);
 
-	sge::sprite::detail::render::range(
-		_render_context,
-		range
+			sge::sprite::detail::render::range(
+				_render_context,
+				_range_object,
+				range.parts()
+			);
+		}
 	);
 }
 

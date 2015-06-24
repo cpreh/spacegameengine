@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_GEOMETRY_UPDATE_HPP_INCLUDED
 #define SGE_SPRITE_GEOMETRY_UPDATE_HPP_INCLUDED
 
-#include <sge/sprite/buffers/slice_fwd.hpp>
 #include <sge/sprite/geometry/fill.hpp>
 #include <sge/sprite/render/range_impl.hpp>
 
@@ -54,41 +53,33 @@ template<
 	typename Compare,
 	typename Buffers
 >
+inline
 sge::sprite::render::range<
-	typename Buffers::choices
-> const
+	typename
+	Buffers::choices
+>
 update(
 	Range const &_range,
 	Compare const &_compare,
 	Buffers &_buffers
 )
 {
-	typedef sge::sprite::render::range<
-		typename Buffers::choices
-	> render_range_type;
-
-	if(
-		_range.empty()
-	)
-		return
-			render_range_type();
-
-	typedef sge::sprite::buffers::slice<
-		typename Buffers::choices
-	> slice_type;
-
-	slice_type &slice(
-		_buffers.allocate(
-			_range.size()
-		)
-	);
-
 	return
-		sge::sprite::geometry::fill(
-			_range,
-			_compare,
-			slice
-		);
+		_range.empty()
+		?
+			sge::sprite::render::range<
+				typename
+				Buffers::choices
+			>()
+		:
+			sge::sprite::geometry::fill(
+				_range,
+				_compare,
+				_buffers.allocate(
+					_range.size()
+				)
+			)
+		;
 }
 
 }

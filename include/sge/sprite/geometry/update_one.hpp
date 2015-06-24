@@ -39,9 +39,10 @@ template<
 	typename Choices,
 	typename Buffers
 >
+inline
 sge::sprite::render::range<
 	Choices
-> const
+>
 update_one(
 	sge::sprite::object<
 		Choices

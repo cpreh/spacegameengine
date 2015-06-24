@@ -38,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/vf/format_part_from_object.hpp>
 #include <sge/sprite/render/range_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <exception>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
@@ -65,15 +64,19 @@ fill_vertices(
 	Compare const &_compare,
 	sge::sprite::buffers::slice<
 		Choices
-	> &_slice
+	> const &_slice
 )
 {
-	if(
-		_range.empty()
-	)
-		std::terminate();
+	typedef
+	sge::sprite::render::range<
+		Choices
+	>
+	result_type;
 
-	typedef typename Range::iterator iterator;
+	typedef
+	typename
+	Range::iterator
+	iterator;
 
 	iterator const
 		begin(
@@ -83,11 +86,17 @@ fill_vertices(
 			_range.end()
 		);
 
-	typedef typename std::iterator_traits<
+	typedef
+	typename
+	std::iterator_traits<
 		iterator
-	>::value_type object_type;
+	>::value_type
+	object_type;
 
-	typedef typename object_type::choices choices;
+	typedef
+	typename
+	object_type::choices
+	choices;
 
 	sge::renderer::vertex::scoped_lock const vblock(
 		_slice.vertex_buffer(),
@@ -114,14 +123,12 @@ fill_vertices(
 		vertices.begin()
 	);
 
-	typedef sge::sprite::render::range<
-		Choices
-	> result_type;
+	typedef
+	typename
+	result_type::range_part_vector
+	range_part_vector;
 
-	result_type result(
-		_slice.part_vector(),
-		_slice.buffer_object()
-	);
+	range_part_vector result;
 
 	sge::sprite::count offset(
 		0u
@@ -131,6 +138,7 @@ fill_vertices(
 		0u
 	);
 
+	// TODO: Simplify this!
 	for(
 		iterator cur(
 			begin
@@ -167,7 +175,7 @@ fill_vertices(
 			)
 		)
 		{
-			result.add(
+			result.push_back(
 				sge::sprite::detail::geometry::make_render_part(
 					_slice,
 					offset,
@@ -210,7 +218,13 @@ fill_vertices(
 			>::value;
 	}
 
-	return result;
+	return
+		result_type(
+			_slice.buffer_object(),
+			std::move(
+				result
+			)
+		);
 }
 
 }

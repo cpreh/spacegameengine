@@ -47,6 +47,7 @@ template<
 	typename Buffers,
 	typename Compare
 >
+inline
 typename boost::enable_if<
 	sge::sprite::detail::process::is_same_geometry_options<
 		Options,
@@ -55,7 +56,7 @@ typename boost::enable_if<
 	sge::sprite::render::range<
 		Choices
 	>
->::type const
+>::type
 geometry(
 	Range const &_range,
 	Buffers &_buffers,
@@ -77,6 +78,7 @@ template<
 	typename Buffers,
 	typename Compare
 >
+inline
 typename boost::enable_if<
 	sge::sprite::detail::process::is_same_geometry_options<
 		Options,
@@ -85,7 +87,7 @@ typename boost::enable_if<
 	sge::sprite::render::range<
 		Choices
 	>
->::type const
+>::type
 geometry(
 	Range const &_range,
 	Buffers &_buffers,

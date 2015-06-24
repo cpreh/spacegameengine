@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 
 
 template<
@@ -49,7 +49,7 @@ sge::sprite::buffers::multi<
 	buffers_option_(
 		_buffers_option
 	),
-	slices_()
+	buffers_()
 {
 }
 
@@ -65,19 +65,19 @@ sge::sprite::buffers::multi<
 template<
 	typename Choices
 >
-typename sge::sprite::buffers::multi<
+typename
+sge::sprite::buffers::multi<
 	Choices
->::slice_type &
+>::slice_type
 sge::sprite::buffers::multi<
 	Choices
 >::allocate(
 	sge::sprite::count const _num_sprites
 )
 {
-	slices_.push_back(
-		// Make sure that slice addresses always stay the same
+	buffers_.push_back(
 		fcppt::make_unique_ptr_fcppt<
-			slice_type
+			buffers_object
 		>(
 			sge::sprite::buffers::allocate<
 				Choices
@@ -92,7 +92,9 @@ sge::sprite::buffers::multi<
 	);
 
 	return
-		*slices_.back();
+		slice_type(
+			*buffers_.back()
+		);
 }
 
 template<

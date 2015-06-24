@@ -47,6 +47,7 @@ template<
 	typename Compare,
 	typename StateChoices
 >
+inline
 typename boost::enable_if<
 	sge::sprite::process::is_options<
 		Options

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_parameters.hpp>
-#include <sge/renderer/index/buffer_shared_ptr.hpp>
+#include <sge/renderer/index/buffer_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/index_count.hpp>
@@ -43,7 +43,7 @@ namespace buffers
 template<
 	typename Choices
 >
-sge::renderer::index::buffer_shared_ptr
+sge::renderer::index::buffer_unique_ptr
 allocate_indices(
 	sge::renderer::device::core &_renderer,
 	sge::sprite::count const _num_sprites,
@@ -51,17 +51,15 @@ allocate_indices(
 )
 {
 	return
-		sge::renderer::index::buffer_shared_ptr(
-			_renderer.create_index_buffer(
-				sge::renderer::index::buffer_parameters(
-					sge::renderer::index::dynamic::format::i16,
-					sge::sprite::buffers::index_count<
-						Choices
-					>(
-						_num_sprites
-					),
-					_resource_flags
-				)
+		_renderer.create_index_buffer(
+			sge::renderer::index::buffer_parameters(
+				sge::renderer::index::dynamic::format::i16,
+				sge::sprite::buffers::index_count<
+					Choices
+				>(
+					_num_sprites
+				),
+				_resource_flags
 			)
 		);
 }

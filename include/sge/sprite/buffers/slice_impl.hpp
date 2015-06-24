@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/slice_decl.hpp>
 #include <sge/sprite/buffers/roles/index_buffer.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
-#include <sge/sprite/render/range_part_impl.hpp>
 #include <majutsu/get.hpp>
 
 
@@ -43,38 +42,7 @@ sge::sprite::buffers::slice<
 :
 	object_(
 		_object
-	),
-	part_vector_()
-{
-}
-
-template<
-	typename Choices
->
-sge::sprite::buffers::slice<
-	Choices
->::slice(
-	slice &&
-) = default;
-
-template<
-	typename Choices
->
-sge::sprite::buffers::slice<
-	Choices
-> &
-sge::sprite::buffers::slice<
-	Choices
->::operator=(
-	slice &&
-) = default;
-
-template<
-	typename Choices
->
-sge::sprite::buffers::slice<
-	Choices
->::~slice()
+	)
 {
 }
 
@@ -90,7 +58,7 @@ sge::sprite::buffers::slice<
 		*majutsu::get<
 			sge::sprite::buffers::roles::vertex_buffer
 		>(
-			object_
+			this->buffer_object()
 		);
 }
 
@@ -106,7 +74,7 @@ sge::sprite::buffers::slice<
 		*majutsu::get<
 			sge::sprite::buffers::roles::index_buffer
 		>(
-			object_
+			this->buffer_object()
 		);
 }
 
@@ -145,27 +113,13 @@ template<
 >
 typename sge::sprite::buffers::slice<
 	Choices
->::range_part_vector &
-sge::sprite::buffers::slice<
-	Choices
->::part_vector()
-{
-	return
-		part_vector_;
-}
-
-template<
-	typename Choices
->
-typename sge::sprite::buffers::slice<
-	Choices
 >::object const &
 sge::sprite::buffers::slice<
 	Choices
 >::buffer_object() const
 {
 	return
-		object_;
+		object_.get();
 }
 
 #endif

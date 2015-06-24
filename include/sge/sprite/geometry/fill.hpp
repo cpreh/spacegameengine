@@ -38,15 +38,16 @@ template<
 	typename Compare,
 	typename Choices
 >
+inline
 sge::sprite::render::range<
 	Choices
-> const
+>
 fill(
 	Range const &_range,
 	Compare const &_compare,
 	sge::sprite::buffers::slice<
 		Choices
-	> &_slice
+	> const &_slice
 )
 {
 	return

@@ -43,6 +43,7 @@ template<
 	typename StateChoices,
 	typename Buffers
 >
+inline
 void
 one(
 	RenderContext &_render_context,

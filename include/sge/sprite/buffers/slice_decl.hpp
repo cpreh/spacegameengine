@@ -27,9 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/sprite/buffers/object.hpp>
 #include <sge/sprite/buffers/slice_fwd.hpp>
-#include <sge/sprite/render/range_part_fwd.hpp>
-#include <sge/sprite/render/range_part_vector.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 
 
 namespace sge
@@ -44,9 +42,6 @@ template<
 >
 class slice
 {
-	FCPPT_NONCOPYABLE(
-		slice
-	);
 public:
 	typedef
 	sge::sprite::buffers::object<
@@ -54,27 +49,10 @@ public:
 	>
 	object;
 
-	typedef
-	sge::sprite::render::range_part_vector<
-		Choices
-	>
-	range_part_vector;
-
 	explicit
 	slice(
 		object const &
 	);
-
-	slice(
-		slice &&
-	);
-
-	slice &
-	operator=(
-		slice &&
-	);
-
-	~slice();
 
 	sge::renderer::vertex::buffer &
 	vertex_buffer() const;
@@ -88,15 +66,12 @@ public:
 	sge::renderer::index::first const
 	first_index() const;
 
-	range_part_vector &
-	part_vector();
-
 	object const &
 	buffer_object() const;
 private:
-	object object_;
-
-	range_part_vector part_vector_;
+	fcppt::reference_wrapper<
+		object const
+	> object_;
 };
 
 }

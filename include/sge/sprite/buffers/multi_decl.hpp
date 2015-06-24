@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/multi_fwd.hpp>
+#include <sge/sprite/buffers/object.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/slice_fwd.hpp>
@@ -64,7 +65,7 @@ public:
 	>
 	slice_type;
 
-	slice_type &
+	slice_type
 	allocate(
 		sge::sprite::count
 	);
@@ -77,18 +78,21 @@ private:
 	sge::sprite::buffers::option const buffers_option_;
 
 	typedef
-	fcppt::unique_ptr<
-		slice_type
+	sge::sprite::buffers::object<
+		Choices
 	>
-	slice_unique_ptr;
+	buffers_object;
 
 	typedef
 	std::vector<
-		slice_unique_ptr
+		// TODO: range objects should hold the buffers by reference
+		fcppt::unique_ptr<
+			buffers_object
+		>
 	>
-	slice_vector;
+	buffer_vector;
 
-	slice_vector slices_;
+	buffer_vector buffers_;
 };
 
 }

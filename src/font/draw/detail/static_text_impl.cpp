@@ -281,7 +281,7 @@ sge::font::draw::detail::static_text_impl::rebuild_sprite_range()
 		this->make_sprite_range();
 }
 
-sge::font::draw::detail::static_text_impl::sprite_range const
+sge::font::draw::detail::static_text_impl::sprite_range
 sge::font::draw::detail::static_text_impl::make_sprite_range()
 {
 	return

@@ -45,7 +45,8 @@ sge::sprite::buffers::with_declaration<
 		_device.create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::sprite::make_vertex_format<
-					typename Buffers::choices
+					typename
+					Buffers::choices
 				>()
 			)
 		)
@@ -74,7 +75,7 @@ template<
 >
 typename sge::sprite::buffers::with_declaration<
 	Buffers
->::slice_type &
+>::slice_type
 sge::sprite::buffers::with_declaration<
 	Buffers
 >::allocate(
@@ -95,7 +96,8 @@ sge::sprite::buffers::with_declaration<
 	Buffers
 >::parameters() const
 {
-	return buffers_.parameters();
+	return
+		buffers_.parameters();
 }
 
 template<
@@ -108,7 +110,8 @@ sge::sprite::buffers::with_declaration<
 	Buffers
 >::impl()
 {
-	return buffers_;
+	return
+		buffers_;
 }
 
 template<
@@ -121,7 +124,8 @@ sge::sprite::buffers::with_declaration<
 	Buffers
 >::impl() const
 {
-	return buffers_;
+	return
+		buffers_;
 }
 
 #endif

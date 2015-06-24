@@ -53,13 +53,21 @@ public:
 
 	~with_declaration();
 
-	typedef Buffers buffers_type;
+	typedef
+	Buffers
+	buffers_type;
 
-	typedef typename buffers_type::choices choices;
+	typedef
+	typename
+	buffers_type::choices
+	choices;
 
-	typedef typename Buffers::slice_type slice_type;
+	typedef
+	typename
+	buffers_type::slice_type
+	slice_type;
 
-	slice_type &
+	slice_type
 	allocate(
 		sge::sprite::count
 	);

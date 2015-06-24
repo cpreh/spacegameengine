@@ -209,7 +209,7 @@ private:
 	>
 	sprite_range;
 
-	sge::font::draw::detail::static_text_impl::sprite_range const
+	sge::font::draw::detail::static_text_impl::sprite_range
 	make_sprite_range();
 
 	typedef

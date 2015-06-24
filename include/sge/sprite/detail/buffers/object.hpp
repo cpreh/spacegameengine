@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_BUFFERS_OBJECT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_BUFFERS_OBJECT_HPP_INCLUDED
 
-#include <sge/renderer/index/buffer_shared_ptr.hpp>
-#include <sge/renderer/vertex/buffer_shared_ptr.hpp>
+#include <sge/renderer/index/buffer_unique_ptr.hpp>
+#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/sprite/buffers/roles/index_buffer.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
@@ -49,20 +49,24 @@ template<
 struct object
 {
 private:
-	// TODO: Don't use shared_ptrs here!
-	typedef majutsu::role<
-		sge::renderer::vertex::buffer_shared_ptr,
+	typedef
+	majutsu::role<
+		sge::renderer::vertex::buffer_unique_ptr,
 		sge::sprite::buffers::roles::vertex_buffer
-	> vertex_buffer_role;
+	>
+	vertex_buffer_role;
 
-	typedef majutsu::role<
-		sge::renderer::index::buffer_shared_ptr,
+	typedef
+	majutsu::role<
+		sge::renderer::index::buffer_unique_ptr,
 		sge::sprite::buffers::roles::index_buffer
-	> index_buffer_role;
+	>
+	index_buffer_role;
 public:
 	typedef
 	majutsu::fusion::record<
-		typename boost::mpl::if_<
+		typename
+		boost::mpl::if_<
 			sge::sprite::detail::config::needs_index_buffer<
 				Choices
 			>,

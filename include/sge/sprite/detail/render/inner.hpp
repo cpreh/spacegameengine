@@ -23,9 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/context/core.hpp>
+#include <sge/sprite/buffers/roles/index_buffer.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
-#include <sge/sprite/render/range_impl.hpp>
+#include <sge/sprite/detail/render/range_object.hpp>
 #include <sge/sprite/render/range_part_impl.hpp>
+#include <majutsu/get.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -43,6 +45,7 @@ namespace render
 template<
 	typename Choices
 >
+inline
 typename boost::enable_if<
 	sge::sprite::detail::config::needs_index_buffer<
 		Choices
@@ -51,7 +54,7 @@ typename boost::enable_if<
 >::type
 inner(
 	sge::renderer::context::core &_render_context,
-	sge::sprite::render::range<
+	sge::sprite::detail::render::range_object<
 		Choices
 	> const &_range,
 	sge::sprite::render::range_part<
@@ -60,7 +63,11 @@ inner(
 )
 {
 	_render_context.render_indexed(
-		_range.index_buffer(),
+		*majutsu::get<
+			sge::sprite::buffers::roles::index_buffer
+		>(
+			_range
+		),
 		_range_part.first_vertex(),
 		_range_part.vertex_count(),
 		sge::renderer::primitive_type::triangle_list,
@@ -72,6 +79,7 @@ inner(
 template<
 	typename Choices
 >
+inline
 typename boost::disable_if<
 	sge::sprite::detail::config::needs_index_buffer<
 		Choices
@@ -80,7 +88,7 @@ typename boost::disable_if<
 >::type
 inner(
 	sge::renderer::context::core &_render_context,
-	sge::sprite::render::range<
+	sge::sprite::detail::render::range_object<
 		Choices
 	> const &,
 	sge::sprite::render::range_part<

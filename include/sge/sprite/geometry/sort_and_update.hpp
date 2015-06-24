@@ -38,9 +38,10 @@ template<
 	typename Buffers,
 	typename Compare
 >
+inline
 sge::sprite::render::range<
 	typename Buffers::choices
-> const
+>
 sort_and_update(
 	Range const &_range,
 	Compare const &_compare,

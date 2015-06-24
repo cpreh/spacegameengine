@@ -64,7 +64,7 @@ public:
 	>
 	slice_type;
 
-	slice_type &
+	slice_type
 	allocate(
 		sge::sprite::count
 	);
@@ -89,14 +89,6 @@ private:
 	sge::sprite::buffers::option const buffers_option_;
 
 	optional_buffers_object buffers_object_;
-
-	typedef
-	fcppt::optional<
-		slice_type
-	>
-	optional_slice;
-
-	optional_slice slice_;
 };
 
 }

@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_RENDER_RANGE_DECL_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_RANGE_DECL_HPP_INCLUDED
 
-#include <sge/renderer/index/buffer_fwd.hpp>
-#include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/sprite/detail/render/range_object.hpp>
 #include <sge/sprite/render/range_fwd.hpp>
 #include <sge/sprite/render/range_part_decl.hpp>
 #include <sge/sprite/render/range_part_vector.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 
 
 namespace sge
@@ -41,6 +41,9 @@ template<
 >
 class range
 {
+	FCPPT_NONCOPYABLE(
+		range
+	);
 public:
 	typedef
 	sge::sprite::detail::render::range_object<
@@ -48,9 +51,11 @@ public:
 	>
 	range_object;
 
-	typedef sge::sprite::render::range_part<
+	typedef
+	sge::sprite::render::range_part<
 		Choices
-	> range_part_type;
+	>
+	range_part_type;
 
 	typedef
 	sge::sprite::render::range_part_vector<
@@ -58,49 +63,39 @@ public:
 	>
 	range_part_vector;
 
-	typedef typename range_part_vector::const_iterator const_iterator;
-
 	range();
 
 	range(
-		range_part_vector &,
-		range_object const &
+		range_object const &,
+		range_part_vector &&
 	);
 
 	range(
-		range const &
+		range &&
 	);
 
 	range &
 	operator=(
-		range const &
+		range &&
 	);
 
 	~range();
 
-	void
-	add(
-		range_part_type const &
-	);
+	typedef
+	fcppt::optional<
+		range_object const &
+	>
+	optional_object;
 
-	const_iterator
-	begin() const;
+	optional_object const &
+	object() const;
 
-	const_iterator
-	end() const;
-
-	sge::renderer::vertex::buffer const &
-	vertex_buffer() const;
-
-	sge::renderer::index::buffer const &
-	index_buffer() const;
-
-	bool
-	empty() const;
+	range_part_vector const &
+	parts() const;
 private:
-	range_part_vector *range_parts_;
+	optional_object object_;
 
-	range_object object_;
+	range_part_vector range_parts_;
 };
 
 }

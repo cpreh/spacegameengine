@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <majutsu/get.hpp>
 #include <fcppt/maybe.hpp>
+#include <fcppt/optional_assign.hpp>
 #include <fcppt/optional_impl.hpp>
 
 
@@ -53,8 +54,7 @@ sge::sprite::buffers::single<
 	buffers_option_(
 		_buffers_option
 	),
-	buffers_object_{},
-	slice_()
+	buffers_object_{}
 {
 }
 
@@ -70,79 +70,78 @@ sge::sprite::buffers::single<
 template<
 	typename Choices
 >
-typename sge::sprite::buffers::single<
+typename
+sge::sprite::buffers::single<
 	Choices
->::slice_type &
+>::slice_type
 sge::sprite::buffers::single<
 	Choices
 >::allocate(
 	sge::sprite::count const _num_sprites
 )
 {
-	fcppt::maybe(
-		buffers_object_,
-		[
-			this,
-			_num_sprites
-		]{
-			buffers_object_ =
-				optional_buffers_object(
-					sge::sprite::buffers::allocate<
-						Choices
-					>(
-						parameters_,
-						_num_sprites,
-						sge::sprite::buffers::option_to_resource_flags(
-							buffers_option_
+	return
+		slice_type(
+			fcppt::maybe(
+				buffers_object_,
+				[
+					this,
+					_num_sprites
+				]()
+				-> buffers_object &
+				{
+					return
+						fcppt::optional_assign(
+							buffers_object_,
+							sge::sprite::buffers::allocate<
+								Choices
+							>(
+								parameters_,
+								_num_sprites,
+								sge::sprite::buffers::option_to_resource_flags(
+									buffers_option_
+								)
+							)
+						);
+
+				},
+				[
+					this,
+					_num_sprites
+				](
+					buffers_object &_buffers
+				)
+				-> buffers_object &
+				{
+					if(
+						majutsu::get<
+							sge::sprite::buffers::roles::vertex_buffer
+						>(
+							_buffers
+						)->size()
+						<
+						sge::sprite::buffers::vertex_count<
+							Choices
+						>(
+							_num_sprites
 						)
 					)
-				);
+						_buffers =
+							sge::sprite::buffers::allocate<
+								Choices
+							>(
+								parameters_,
+								_num_sprites,
+								sge::sprite::buffers::option_to_resource_flags(
+									buffers_option_
+								)
+							);
 
-		},
-		[
-			this,
-			_num_sprites
-		](
-			buffers_object &_buffers
-		)
-		{
-			if(
-				majutsu::get<
-					sge::sprite::buffers::roles::vertex_buffer
-				>(
-					_buffers
-				)->size()
-				<
-				sge::sprite::buffers::vertex_count<
-					Choices
-				>(
-					_num_sprites
-				)
-			)
-				_buffers =
-					sge::sprite::buffers::allocate<
-						Choices
-					>(
-						parameters_,
-						_num_sprites,
-						sge::sprite::buffers::option_to_resource_flags(
-							buffers_option_
-						)
-					);
-		}
-	);
-
-	slice_ =
-		optional_slice(
-			slice_type(
-				// TODO
-				buffers_object_.get_unsafe()
+					return
+						_buffers;
+				}
 			)
 		);
-
-	// TODO!
-	return
-		slice_.get_unsafe();
 }
 
 template<
