@@ -15,6 +15,7 @@ set(
 	src/plugins/x11input/include/sge/x11input/cursor/object.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/object_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/object_unique_ptr.hpp
+	src/plugins/x11input/include/sge/x11input/cursor/position.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/query_pointer.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/scroll_code.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/scroll_valuator.hpp

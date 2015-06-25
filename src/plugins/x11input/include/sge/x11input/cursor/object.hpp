@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/cursor/object_fwd.hpp>
 #include <sge/x11input/cursor/scroll_valuator_map.hpp>
 #include <sge/x11input/device/enter_event_fwd.hpp>
+#include <sge/x11input/device/event_fwd.hpp>
 #include <sge/x11input/device/leave_event_fwd.hpp>
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/parameters_fwd.hpp>
@@ -128,7 +129,9 @@ private:
 	>
 	void
 	update_position(
-		Event const &
+		sge::x11input::device::event<
+			Event
+		> const &
 	);
 
 	void

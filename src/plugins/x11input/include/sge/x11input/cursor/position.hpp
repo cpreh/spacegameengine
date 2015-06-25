@@ -18,50 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_CURSOR_BUTTON_EVENT_HPP_INCLUDED
-#define SGE_INPUT_CURSOR_BUTTON_EVENT_HPP_INCLUDED
+#ifndef SGE_X11INPUT_CURSOR_POSITION_HPP_INCLUDED
+#define SGE_X11INPUT_CURSOR_POSITION_HPP_INCLUDED
 
-#include <sge/input/cursor/button_code.hpp>
-#include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/position.hpp>
-#include <sge/input/detail/symbol.hpp>
+#include <sge/input/cursor/position_unit.hpp>
+#include <sge/x11input/device/event.hpp>
+#include <fcppt/cast/float_to_int.hpp>
 
 
 namespace sge
 {
-namespace input
+namespace x11input
 {
 namespace cursor
 {
 
-class button_event
+template<
+	typename Event
+>
+sge::input::cursor::position const
+position(
+	sge::x11input::device::event<
+		Event
+	> const &_event
+)
 {
-public:
-	SGE_INPUT_DETAIL_SYMBOL
-	button_event(
-		sge::input::cursor::button_code,
-		sge::input::cursor::position,
-		bool pressed
-	);
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::cursor::button_code
-	button_code() const;
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::cursor::position const
-	position() const;
-
-	SGE_INPUT_DETAIL_SYMBOL
-	bool
-	pressed() const;
-private:
-	sge::input::cursor::button_code button_code_;
-
-	sge::input::cursor::position position_;
-
-	bool pressed_;
-};
+	return
+		sge::input::cursor::position(
+			fcppt::cast::float_to_int<
+				sge::input::cursor::position_unit
+			>(
+				_event.get().event_x
+			),
+			fcppt::cast::float_to_int<
+				sge::input::cursor::position_unit
+			>(
+				_event.get().event_y
+			)
+		);
+}
 
 }
 }

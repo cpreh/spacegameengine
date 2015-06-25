@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/optional_position.hpp>
-#include <sge/input/cursor/position.hpp>
-#include <sge/input/cursor/position_unit.hpp>
 #include <sge/input/cursor/scroll_event.hpp>
 #include <sge/x11input/logger.hpp>
 #include <sge/x11input/cursor/button_code.hpp>
@@ -31,9 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/cursor/grab.hpp>
 #include <sge/x11input/cursor/make_scroll_valuators.hpp>
 #include <sge/x11input/cursor/object.hpp>
+#include <sge/x11input/cursor/position.hpp>
 #include <sge/x11input/cursor/query_pointer.hpp>
 #include <sge/x11input/cursor/scroll_valuator.hpp>
 #include <sge/x11input/device/enter_event.hpp>
+#include <sge/x11input/device/event.hpp>
 #include <sge/x11input/device/leave_event_fwd.hpp>
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
@@ -49,7 +49,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/cast/float_to_int.hpp>
 #include <fcppt/container/find_opt.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
@@ -333,22 +332,15 @@ template<
 >
 void
 sge::x11input::cursor::object::update_position(
-	Event const &_event
+	sge::x11input::device::event<
+		Event
+	> const &_event
 )
 {
 	position_ =
 		sge::input::cursor::optional_position{
-			sge::input::cursor::position(
-				fcppt::cast::float_to_int<
-					sge::input::cursor::position_unit
-				>(
-					_event.get().event_x
-				),
-				fcppt::cast::float_to_int<
-					sge::input::cursor::position_unit
-				>(
-					_event.get().event_y
-				)
+			sge::x11input::cursor::position(
+				_event
 			)
 		};
 
@@ -394,6 +386,9 @@ sge::x11input::cursor::object::button_event(
 		sge::input::cursor::button_event(
 			sge::x11input::cursor::button_code(
 				_event.get().detail
+			),
+			sge::x11input::cursor::position(
+				_event
 			),
 			_pressed
 		)

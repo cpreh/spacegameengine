@@ -729,6 +729,8 @@ cursor_button(
 		<< sge::input::cursor::button_code_to_string(
 			_event.button_code()
 		)
+		<< FCPPT_TEXT("\n\tposition: ")
+		<< _event.position()
 		<< FCPPT_TEXT("\n\tpressed: ")
 		<< _event.pressed()
 		<< FCPPT_TEXT('\n');
