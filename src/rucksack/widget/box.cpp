@@ -48,8 +48,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/variant/apply_binary.hpp>
-#include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/holds_type.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/map.hpp>
@@ -585,122 +585,64 @@ sge::rucksack::widget::box::relayout()
 		children_
 	)
 	{
-		class major_size_visitor
-		{
-			FCPPT_NONASSIGNABLE(
-				major_size_visitor
-			);
-		public:
-			explicit
-			major_size_visitor(
-				sge::rucksack::scalar const _extra_size
-			)
-			:
-				extra_size_{
-					_extra_size
-				}
-			{
-			}
-
-			typedef
-			sge::rucksack::scalar
-			result_type;
-
-			result_type
-			operator()(
-				sge::rucksack::minimum_size const _min
-			) const
-			{
-				return
-					_min.get()
-					+
-					extra_size_;
-			}
-
-			result_type
-			operator()(
-				sge::rucksack::preferred_size const _pref
-			) const
-			{
-				return
-					_pref.get();
-			}
-		private:
-			sge::rucksack::scalar const extra_size_;
-		};
-
-		class minor_size_visitor
-		{
-			FCPPT_NONASSIGNABLE(
-				minor_size_visitor
-			);
-		public:
-			explicit
-			minor_size_visitor(
-				sge::rucksack::scalar const _minor_size
-			)
-			:
-				minor_size_{
-					_minor_size
-				}
-			{
-			}
-
-			typedef
-			sge::rucksack::scalar
-			result_type;
-
-			result_type
-			operator()(
-				sge::rucksack::minimum_size const _min
-			) const
-			{
-				return
-					std::max(
-						_min.get(),
-						minor_size_
-					);
-			}
-
-			result_type
-			operator()(
-				sge::rucksack::preferred_size const _pref
-			) const
-			{
-				return
-					_pref.get();
-			}
-		private:
-			sge::rucksack::scalar const minor_size_;
-		};
-
 		sge::rucksack::widget::base &widget(
 			widget_pair.first.get()
 		);
 
 		widget.size(
 			this->major_axis(),
-			fcppt::variant::apply_unary(
-				major_size_visitor(
-					extra_size
-				),
+			fcppt::variant::match(
 				widget.axis_policy()[
 					this->major_axis()
-				]
+				],
+				[
+					extra_size
+				](
+					sge::rucksack::minimum_size const _min
+				)
+				{
+					return
+						_min.get()
+						+
+						extra_size;
+				},
+				[](
+					sge::rucksack::preferred_size const _pref
+				)
+				{
+					return
+						_pref.get();
+				}
 			)
 		);
 
 		widget.size(
 			this->minor_axis(),
-			fcppt::variant::apply_unary(
-				minor_size_visitor{
-					this->size(
-						this->minor_axis()
-					)
-				},
+			fcppt::variant::match(
 				widget.axis_policy()[
 					this->minor_axis()
-				]
+				],
+				[
+					this
+				](
+					sge::rucksack::minimum_size const _min
+				)
+				{
+					return
+						std::max(
+							_min.get(),
+							this->size(
+								this->minor_axis()
+							)
+						);
+				},
+				[](
+					sge::rucksack::preferred_size const _pref
+				)
+				{
+					return
+						_pref.get();
+				}
 			)
 		);
 
