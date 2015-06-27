@@ -32,13 +32,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/widget/frame.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/fill.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/vector/fill.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/match.hpp>
 
 
 sge::rucksack::widget::frame::frame(
@@ -113,68 +112,49 @@ sge::rucksack::widget::frame::axis_policy() const
 			sge::rucksack::axis const _axis
 		)
 		{
-			class visitor
-			{
-				FCPPT_NONASSIGNABLE(
-					visitor
-				);
-			public:
-				explicit
-				visitor(
-					sge::rucksack::scalar const _extra
-				)
-				:
-					extra_{
-						_extra
-					}
-				{
-				}
-
-				typedef
-				sge::rucksack::axis_policy
-				result_type;
-
-				result_type
-				operator()(
-					sge::rucksack::minimum_size const _sz
-				) const
-				{
-					return
-						sge::rucksack::minimum_size{
-							_sz.get()
-							+
-							extra_
-						};
-				}
-
-				result_type
-				operator()(
-					sge::rucksack::preferred_size const _sz
-				) const
-				{
-					return
-						sge::rucksack::preferred_size{
-							_sz.get()
-							+
-							extra_
-						};
-				}
-			private:
-				sge::rucksack::scalar const extra_;
-			};
+			sge::rucksack::scalar const extra(
+				this->extra_size()[
+					sge::rucksack::axis_to_index(
+						_axis
+					)
+				]
+			);
 
 			return
-				fcppt::variant::apply_unary(
-					visitor{
-						this->extra_size()[
-							sge::rucksack::axis_to_index(
-								_axis
-							)
-						]
-					},
+				fcppt::variant::match(
 					child_.axis_policy()[
 						_axis
-					]
+					],
+					[
+						extra
+					](
+						sge::rucksack::minimum_size const _sz
+					)
+					{
+						return
+							sge::rucksack::axis_policy{
+								sge::rucksack::minimum_size{
+									_sz.get()
+									+
+									extra
+								}
+							};
+					},
+					[
+						extra
+					](
+						sge::rucksack::preferred_size const _sz
+					)
+					{
+						return
+							sge::rucksack::axis_policy{
+								sge::rucksack::preferred_size{
+									_sz.get()
+									+
+									extra
+								}
+							};
+					}
 				);
 		}
 	);

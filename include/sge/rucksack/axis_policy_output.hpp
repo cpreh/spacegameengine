@@ -24,8 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/minimum_size.hpp>
 #include <sge/rucksack/preferred_size.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
@@ -52,66 +51,32 @@ operator<<(
 	sge::rucksack::axis_policy const &_policy
 )
 {
-	typedef
-	std::basic_ostream<
-		Ch,
-		Traits
-	>
-	stream_type;
-
-	class visitor
-	{
-		FCPPT_NONASSIGNABLE(
-			visitor
-		);
-	public:
-		typedef
-		stream_type &
-		result_type;
-
-		explicit
-		visitor(
-			stream_type &_nstream
-		)
-		:
-			stream_(
-				_nstream
-			)
-		{
-		}
-
-		result_type
-		operator()(
+	fcppt::variant::match(
+		_policy,
+		[
+			&_stream
+		](
 			sge::rucksack::minimum_size const _min
-		) const
+		)
 		{
-			return
-				stream_
-					<< stream_.widen('m')
-					<< _min;
-		}
-
-		result_type
-		operator()(
+			_stream
+				<< _stream.widen('m')
+				<< _min;
+		},
+		[
+			&_stream
+		](
 			sge::rucksack::preferred_size const _pref
-		) const
+		)
 		{
-			return
-				stream_
-					<< stream_.widen('p')
-					<< _pref;
+			_stream
+				<< _stream.widen('p')
+				<< _pref;
 		}
-	private:
-		stream_type &stream_;
-	};
+	);
 
 	return
-		fcppt::variant::apply_unary(
-			visitor(
-				_stream
-			),
-			_policy
-		);
+		_stream;
 }
 
 }

@@ -374,7 +374,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/make_one_op.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/object_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/op_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/set.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/set_defaults.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/sampler/set_one.hpp
@@ -527,7 +526,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/levels.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/parameters.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/parameters_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/texture/mipmap/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/texture/multi_context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/multi_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/no_id.hpp
@@ -593,9 +591,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/vf/enable_texcoords.hpp
 	src/plugins/opengl/include/sge/opengl/vf/enable_vertex_attrib_array.hpp
 	src/plugins/opengl/include/sge/opengl/vf/extra_elements.hpp
-	src/plugins/opengl/include/sge/opengl/vf/extra_elements_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/extra_format.hpp
-	src/plugins/opengl/include/sge/opengl/vf/extra_format_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/extra_index.hpp
 	src/plugins/opengl/include/sge/opengl/vf/fp_actor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/get_attribute_config.hpp
@@ -869,7 +865,6 @@ set(
 	src/plugins/opengl/src/state/ffp/sampler/make_actors.cpp
 	src/plugins/opengl/src/state/ffp/sampler/make_one_op.cpp
 	src/plugins/opengl/src/state/ffp/sampler/object.cpp
-	src/plugins/opengl/src/state/ffp/sampler/op_visitor.cpp
 	src/plugins/opengl/src/state/ffp/sampler/set.cpp
 	src/plugins/opengl/src/state/ffp/sampler/set_defaults.cpp
 	src/plugins/opengl/src/state/ffp/sampler/set_one.cpp
@@ -953,7 +948,6 @@ set(
 	src/plugins/opengl/src/texture/mipmap/get_levels.cpp
 	src/plugins/opengl/src/texture/mipmap/levels.cpp
 	src/plugins/opengl/src/texture/mipmap/parameters.cpp
-	src/plugins/opengl/src/texture/mipmap/visitor.cpp
 	src/plugins/opengl/src/texture/multi_context.cpp
 	src/plugins/opengl/src/texture/no_id.cpp
 	src/plugins/opengl/src/texture/npot_context.cpp
@@ -989,9 +983,7 @@ set(
 	src/plugins/opengl/src/vf/enable_texcoords.cpp
 	src/plugins/opengl/src/vf/enable_vertex_attrib_array.cpp
 	src/plugins/opengl/src/vf/extra_elements.cpp
-	src/plugins/opengl/src/vf/extra_elements_visitor.cpp
 	src/plugins/opengl/src/vf/extra_format.cpp
-	src/plugins/opengl/src/vf/extra_format_visitor.cpp
 	src/plugins/opengl/src/vf/extra_index.cpp
 	src/plugins/opengl/src/vf/fp_actor.cpp
 	src/plugins/opengl/src/vf/get_attribute_config.cpp

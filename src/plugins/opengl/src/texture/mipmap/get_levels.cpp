@@ -27,59 +27,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/object.hpp>
 #include <sge/renderer/texture/mipmap/off_rep_fwd.hpp>
 #include <sge/renderer/texture/mipmap/variant.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/log2.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/algorithm/max_element.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-
-template<
-	fcppt::math::size_type Size
->
-class visitor
-{
-	FCPPT_NONASSIGNABLE(
-		visitor
-	);
-public:
-	typedef sge::renderer::basic_dim<
-		Size
-	> dim_type;
-
-	explicit
-	visitor(
-		dim_type const &
-	);
-
-	typedef sge::renderer::texture::mipmap::level_count result_type;
-
-	result_type
-	operator()(
-		sge::renderer::texture::mipmap::off_rep const &
-	) const;
-
-	result_type
-	operator()(
-		sge::renderer::texture::mipmap::levels_rep const &_levels
-	) const;
-
-	result_type
-	operator()(
-		sge::renderer::texture::mipmap::all_levels_rep const &
-	) const;
-private:
-	dim_type const dim_;
-};
-
-}
 
 template<
 	fcppt::math::size_type Size
@@ -93,95 +49,45 @@ sge::opengl::texture::mipmap::get_levels(
 )
 {
 	return
-		fcppt::variant::apply_unary(
-			::visitor<
-				Size
-			>(
-				_dim
-			),
-			_mipmap.variant()
-		);
-}
-
-namespace
-{
-
-template<
-	fcppt::math::size_type Size
->
-visitor<
-	Size
->::visitor(
-	dim_type const &_dim
-)
-:
-	dim_(
-		_dim
-	)
-{
-}
-
-template<
-	fcppt::math::size_type Size
->
-typename visitor<
-	Size
->::result_type
-visitor<
-	Size
->::operator()(
-	sge::renderer::texture::mipmap::off_rep const &
-) const
-{
-	return
-		sge::renderer::texture::mipmap::level_count(
-			1u
-		);
-}
-
-template<
-	fcppt::math::size_type Size
->
-typename visitor<
-	Size
->::result_type
-visitor<
-	Size
->::operator()(
-	sge::renderer::texture::mipmap::levels_rep const &_levels
-) const
-{
-	return
-		_levels.value();
-}
-
-template<
-	fcppt::math::size_type Size
->
-typename visitor<
-	Size
->::result_type
-visitor<
-	Size
->::operator()(
-	sge::renderer::texture::mipmap::all_levels_rep const &
-) const
-{
-	return
-		fcppt::strong_typedef_construct_cast<
-			sge::renderer::texture::mipmap::level_count,
-			fcppt::cast::size_fun
-		>(
-			1u
-			+
-			fcppt::math::log2(
-				*boost::range::max_element(
-					dim_
-				)
+		fcppt::variant::match(
+			_mipmap.variant(),
+			[](
+				sge::renderer::texture::mipmap::off_rep const &
 			)
+			{
+				return
+					sge::renderer::texture::mipmap::level_count(
+						1u
+					);
+			},
+			[
+				&_dim
+			](
+				sge::renderer::texture::mipmap::all_levels_rep const &
+			)
+			{
+				return
+					fcppt::strong_typedef_construct_cast<
+						sge::renderer::texture::mipmap::level_count,
+						fcppt::cast::size_fun
+					>(
+						1u
+						+
+						fcppt::math::log2(
+							*boost::range::max_element(
+								_dim
+							)
+						)
+					);
+			},
+			[](
+				sge::renderer::texture::mipmap::levels_rep const &_levels
+			)
+			{
+				return
+					_levels.value();
+			}
 		);
-}
-
 }
 
 #define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_GET_LEVELS(\
@@ -196,8 +102,8 @@ sge::opengl::texture::mipmap::get_levels<\
 	sge::renderer::basic_dim<\
 		dimension\
 	> const &\
-);
+)
 
 SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(
 	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_GET_LEVELS
-)
+);

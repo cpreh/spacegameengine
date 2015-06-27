@@ -20,8 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/core/sampler/filter/need_mipmap.hpp>
 #include <sge/renderer/state/core/sampler/filter/parameters.hpp>
-#include <sge/src/renderer/state/core/sampler/filter/need_mipmap_visitor.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <sge/renderer/state/core/sampler/filter/anisotropic/mip.hpp>
+#include <sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp>
+#include <sge/renderer/state/core/sampler/filter/normal/mip.hpp>
+#include <sge/renderer/state/core/sampler/filter/normal/parameters.hpp>
+#include <fcppt/variant/match.hpp>
 
 
 bool
@@ -30,8 +33,25 @@ sge::renderer::state::core::sampler::filter::need_mipmap(
 )
 {
 	return
-		fcppt::variant::apply_unary(
-			sge::renderer::state::core::sampler::filter::need_mipmap_visitor(),
-			_filter.variant()
+		fcppt::variant::match(
+			_filter.variant(),
+			[](
+				sge::renderer::state::core::sampler::filter::anisotropic::parameters const &_parameters
+			)
+			{
+				return
+					_parameters.mip()
+					!=
+					sge::renderer::state::core::sampler::filter::anisotropic::mip::off;
+			},
+			[](
+				sge::renderer::state::core::sampler::filter::normal::parameters const &_parameters
+			)
+			{
+				return
+					_parameters.mip()
+					!=
+					sge::renderer::state::core::sampler::filter::normal::mip::off;
+			}
 		);
 }

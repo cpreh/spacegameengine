@@ -28,8 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/dim.hpp>
 #include <sge/sprite/types/texture_size.hpp>
 #include <majutsu/get.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -115,68 +114,39 @@ std::enable_if<
 	>
 >::type
 get_size(
-	Elements const &_elements_param
+	Elements const &_elements
 )
 {
-	class visitor
-	{
-		FCPPT_NONASSIGNABLE(
-			visitor
-		);
-	public:
-		explicit
-		visitor(
-			Elements const &_elements
-		)
-		:
-			elements_(
-				_elements
-			)
-		{
-		}
-
-		typedef
-		sge::sprite::types::dim<
-			typename
-			Choices::type_choices
-		>
-		result_type;
-
-		result_type
-		operator()(
-			result_type const _dim
-		) const
-		{
-			return
-				_dim;
-		}
-
-		result_type
-		operator()(
-			sge::sprite::types::texture_size
-		) const
-		{
-			return
-				sge::sprite::detail::size_from_texture<
-					Choices
-				>(
-					elements_
-				);
-		}
-	private:
-		Elements const &elements_;
-	};
-
 	return
-		fcppt::variant::apply_unary(
-			visitor(
-				_elements_param
-			),
+		fcppt::variant::match(
 			majutsu::get<
 				sge::sprite::roles::size_or_texture_size
 			>(
-				_elements_param
+				_elements
+			),
+			[](
+				sge::sprite::types::dim<
+					typename
+					Choices::type_choices
+				> const _dim
 			)
+			{
+				return
+					_dim;
+			},
+			[
+				&_elements
+			](
+				sge::sprite::types::texture_size
+			)
+			{
+				return
+					sge::sprite::detail::size_from_texture<
+						Choices
+					>(
+						_elements
+					);
+			}
 		);
 }
 

@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/color/element_count.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/vf/extra_elements.hpp>
-#include <sge/opengl/vf/extra_elements_visitor.hpp>
+#include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/vf/dynamic/extra_any.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/renderer/vf/dynamic/vector.hpp>
+#include <fcppt/variant/match.hpp>
 
 
 GLint
@@ -32,8 +33,31 @@ sge::opengl::vf::extra_elements(
 )
 {
 	return
-		fcppt::variant::apply_unary(
-			sge::opengl::vf::extra_elements_visitor(),
-			_any
+		fcppt::variant::match(
+			_any,
+			[](
+				sge::renderer::vf::dynamic::vector const &_vector
+			)
+			{
+				return
+					static_cast<
+						GLint
+					>(
+						_vector.element_count().get()
+					);
+			},
+			[](
+				sge::renderer::vf::dynamic::color const &_color
+			)
+			{
+				return
+					static_cast<
+						GLint
+					>(
+						sge::image::color::element_count(
+							_color.color_format()
+						)
+					);
+			}
 		);
 }

@@ -904,7 +904,6 @@ set(
 	src/renderer/include/sge/src/renderer/logger.hpp
 	src/renderer/include/sge/src/renderer/projection/check_near.hpp
 	src/renderer/include/sge/src/renderer/projection/check_near_far.hpp
-	src/renderer/include/sge/src/renderer/state/core/sampler/filter/need_mipmap_visitor.hpp
 	src/renderer/include/sge/src/renderer/state/core/sampler/null_states.hpp
 	src/renderer/include/sge/src/renderer/state/core/sampler/scoped_states.hpp
 	src/renderer/include/sge/src/renderer/texture/basic_parameters_impl.hpp
@@ -998,7 +997,6 @@ set(
 	src/renderer/state/core/sampler/filter/linear.cpp
 	src/renderer/state/core/sampler/filter/mipmap.cpp
 	src/renderer/state/core/sampler/filter/need_mipmap.cpp
-	src/renderer/state/core/sampler/filter/need_mipmap_visitor.cpp
 	src/renderer/state/core/sampler/filter/normal/parameters.cpp
 	src/renderer/state/core/sampler/filter/parameters.cpp
 	src/renderer/state/core/sampler/filter/point.cpp

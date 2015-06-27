@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/align_h/optional_max_width.hpp>
 #include <sge/font/align_h/right.hpp>
 #include <sge/font/align_h/variant.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/match.hpp>
 
 
 sge::font::align_h::optional_max_width const
@@ -32,47 +32,33 @@ sge::font::align_h::extract_max_width(
 	sge::font::align_h::variant const &_variant
 )
 {
-	struct visitor
-	{
-		typedef
-		sge::font::align_h::optional_max_width
-		result_type;
-
-		result_type
-		operator()(
-			sge::font::align_h::left const &_left
-		) const
-		{
-			return
-				_left.max_width();
-		}
-
-		result_type
-		operator()(
-			sge::font::align_h::center const &_center
-		) const
-		{
-			return
-				sge::font::align_h::optional_max_width(
-					_center.max_width()
-				);
-		}
-
-		result_type
-		operator()(
-			sge::font::align_h::right const &_right
-		) const
-		{
-			return
-				sge::font::align_h::optional_max_width(
-					_right.max_width()
-				);
-		}
-	};
-
 	return
-		fcppt::variant::apply_unary(
-			visitor(),
-			_variant
+		fcppt::variant::match(
+			_variant,
+			[](
+				sge::font::align_h::left const &_left
+			)
+			{
+				return
+					_left.max_width();
+			},
+			[](
+				sge::font::align_h::center const &_center
+			)
+			{
+				return
+					sge::font::align_h::optional_max_width(
+						_center.max_width()
+					);
+			},
+			[](
+				sge::font::align_h::right const &_right
+			)
+			{
+				return
+					sge::font::align_h::optional_max_width(
+						_right.max_width()
+					);
+			}
 		);
 }

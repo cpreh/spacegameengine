@@ -19,11 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/texture/instantiate_dim.hpp>
+#include <sge/opengl/texture/mipmap/all_levels.hpp>
 #include <sge/opengl/texture/mipmap/create.hpp>
-#include <sge/opengl/texture/mipmap/visitor.hpp>
+#include <sge/opengl/texture/mipmap/levels.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/match.hpp>
 
 
 template<
@@ -37,13 +37,35 @@ sge::opengl::texture::mipmap::create(
 	sge::renderer::texture::mipmap::object const &_mipmap
 )
 {
-	fcppt::variant::apply_unary(
-		sge::opengl::texture::mipmap::visitor<
-			Dim
-		>(
-			_parameters
-		),
-		_mipmap.variant()
+	fcppt::variant::match(
+		_mipmap.variant(),
+		[](
+			sge::renderer::texture::mipmap::off_rep const &
+		)
+		{
+		},
+		[
+			&_parameters
+		](
+			sge::renderer::texture::mipmap::all_levels_rep const &_all_levels
+		)
+		{
+			sge::opengl::texture::mipmap::all_levels(
+				_parameters,
+				_all_levels
+			);
+		},
+		[
+			&_parameters
+		](
+			sge::renderer::texture::mipmap::levels_rep const &_levels
+		)
+		{
+			sge::opengl::texture::mipmap::levels(
+				_parameters,
+				_levels
+			);
+		}
 	);
 #if 0
 		opengl::texture::funcs::auto_generate_mipmap(
@@ -93,8 +115,8 @@ sge::opengl::texture::mipmap::create<\
 		dimension \
 	> const &, \
 	sge::renderer::texture::mipmap::object const &\
-);
+)
 
 SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(
 	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_CREATE
-)
+);

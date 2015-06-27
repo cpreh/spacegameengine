@@ -19,10 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/convert/color_to_format_type.hpp>
+#include <sge/opengl/vf/convert_element_type.hpp>
 #include <sge/opengl/vf/extra_format.hpp>
-#include <sge/opengl/vf/extra_format_visitor.hpp>
+#include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/vf/dynamic/extra_any.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <sge/renderer/vf/dynamic/vector.hpp>
+#include <fcppt/variant/match.hpp>
 
 
 GLenum
@@ -31,8 +34,25 @@ sge::opengl::vf::extra_format(
 )
 {
 	return
-		fcppt::variant::apply_unary(
-			sge::opengl::vf::extra_format_visitor(),
-			_any
+		fcppt::variant::match(
+			_any,
+			[](
+				sge::renderer::vf::dynamic::vector const &_vector
+			)
+			{
+				return
+					sge::opengl::vf::convert_element_type(
+						_vector.element_type()
+					);
+			},
+			[](
+				sge::renderer::vf::dynamic::color const &_color
+			)
+			{
+				return
+					sge::opengl::convert::color_to_format_type(
+						_color.color_format()
+					).get();
+			}
 		);
 }

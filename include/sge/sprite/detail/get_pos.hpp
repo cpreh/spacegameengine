@@ -30,8 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/pos.hpp>
 #include <sge/sprite/types/vector.hpp>
 #include <majutsu/get.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -127,75 +126,43 @@ std::enable_if<
 	>
 >::type
 get_pos(
-	Elements const &_elements_param
+	Elements const &_elements
 )
 {
-	class visitor
-	{
-		FCPPT_NONASSIGNABLE(
-			visitor
-		);
-	public:
-		explicit
-		visitor(
-			Elements const &_elements
-		)
-		:
-			elements_(
-				_elements
-			)
-		{
-		}
-
-		typedef
-		sge::sprite::types::vector<
-			typename
-			Choices::type_choices
-		>
-		result_type;
-
-		result_type
-		operator()(
-			sge::sprite::types::pos<
-				typename
-				Choices::type_choices
-			> const _pos
-		) const
-		{
-			return
-				_pos.get();
-		}
-
-		result_type
-		operator()(
-			sge::sprite::types::center<
-				typename
-				Choices::type_choices
-			> const _center
-		) const
-		{
-			return
-				sge::sprite::detail::pos_from_center<
-					Choices
-				>(
-					elements_,
-					_center
-				);
-		}
-	private:
-		Elements const &elements_;
-	};
-
 	return
-		fcppt::variant::apply_unary(
-			visitor(
-				_elements_param
-			),
+		fcppt::variant::match(
 			majutsu::get<
 				sge::sprite::roles::pos_or_center
 			>(
-				_elements_param
+				_elements
+			),
+			[](
+				sge::sprite::types::pos<
+					typename
+					Choices::type_choices
+				> const _pos
 			)
+			{
+				return
+					_pos.get();
+			},
+			[
+				&_elements
+			](
+				sge::sprite::types::center<
+					typename
+					Choices::type_choices
+				> const _center
+			)
+			{
+				return
+					sge::sprite::detail::pos_from_center<
+						Choices
+					>(
+						_elements,
+						_center
+					);
+			}
 		);
 }
 

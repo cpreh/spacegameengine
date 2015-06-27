@@ -27,8 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/valuator/relative.hpp>
 #include <sge/x11input/device/valuator/update_accu.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -51,110 +50,80 @@ std::pair<
 	sge::x11input::device::valuator::any
 >
 update(
-	sge::x11input::device::valuator::any _any,
+	sge::x11input::device::valuator::any const &_any,
 	sge::x11input::device::valuator::value const _value
 )
 {
-	class visitor
-	{
-		FCPPT_NONASSIGNABLE(
-			visitor
-		);
-	public:
-		explicit
-		visitor(
-			sge::x11input::device::valuator::value const _pvalue
-		)
-		:
-			value_{
-				_pvalue
-			}
-		{
-		}
-
-		typedef
-		std::pair<
-			Result,
-			sge::x11input::device::valuator::any
-		>
-		result_type;
-
-		result_type
-		operator()(
-			sge::x11input::device::valuator::relative const _relative
-		) const
-		{
-			std::pair<
-				Result,
-				sge::x11input::device::valuator::accu
-			> const result{
-				sge::x11input::device::valuator::update_accu<
-					Result
-				>(
-					_relative.accu(),
-					value_
-				)
-			};
-
-			return
-				std::make_pair(
-					result.first,
-					sge::x11input::device::valuator::any{
-						sge::x11input::device::valuator::relative{
-							result.second
-						}
-					}
-				);
-		}
-
-		result_type
-		operator()(
-			sge::x11input::device::valuator::absolute const _absolute
-		) const
-		{
-
-			std::pair<
-				Result,
-				sge::x11input::device::valuator::accu
-			> const result{
-				sge::x11input::device::valuator::update_accu<
-					Result
-				>(
-					sge::x11input::device::valuator::accu{
-						0.
-					},
-					value_
-					-
-					_absolute.previous()
-				)
-			};
-
-			return
-				std::make_pair(
-					result.first,
-					sge::x11input::device::valuator::any{
-						sge::x11input::device::valuator::absolute{
-							result.first
-							!=
-							0
-							?
-								value_
-							:
-								_absolute.previous()
-						}
-					}
-				);
-		}
-	private:
-		sge::x11input::device::valuator::value const value_;
-	};
-
 	return
-		fcppt::variant::apply_unary(
-			visitor{
+		fcppt::variant::match(
+			_any,
+			[
 				_value
+			](
+				sge::x11input::device::valuator::absolute const _absolute
+			)
+			{
+
+				std::pair<
+					Result,
+					sge::x11input::device::valuator::accu
+				> const result{
+					sge::x11input::device::valuator::update_accu<
+						Result
+					>(
+						sge::x11input::device::valuator::accu{
+							0.
+						},
+						_value
+						-
+						_absolute.previous()
+					)
+				};
+
+				return
+					std::make_pair(
+						result.first,
+						sge::x11input::device::valuator::any{
+							sge::x11input::device::valuator::absolute{
+								result.first
+								!=
+								0
+								?
+									_value
+								:
+									_absolute.previous()
+							}
+						}
+					);
 			},
-			_any
+			[
+				_value
+			](
+				sge::x11input::device::valuator::relative const _relative
+			)
+			{
+				std::pair<
+					Result,
+					sge::x11input::device::valuator::accu
+				> const result{
+					sge::x11input::device::valuator::update_accu<
+						Result
+					>(
+						_relative.accu(),
+						_value
+					)
+				};
+
+				return
+					std::make_pair(
+						result.first,
+						sge::x11input::device::valuator::any{
+							sge::x11input::device::valuator::relative{
+								result.second
+							}
+						}
+					);
+			}
 		);
 }
 

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/align_h/right_fwd.hpp>
 #include <sge/font/align_h/variant.hpp>
 #include <sge/pango/convert/alignment.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
 #include <fcppt/config/external_end.hpp>
@@ -34,43 +34,29 @@ sge::pango::convert::alignment(
 	sge::font::align_h::variant const &_alignment
 )
 {
-	struct visitor
-	{
-		typedef
-		PangoAlignment
-		result_type;
-
-		result_type
-		operator()(
-			sge::font::align_h::left const &
-		) const
-		{
-			return
-				PANGO_ALIGN_LEFT;
-		}
-
-		result_type
-		operator()(
-			sge::font::align_h::center const &
-		) const
-		{
-			return
-				PANGO_ALIGN_CENTER;
-		}
-
-		result_type
-		operator()(
-			sge::font::align_h::right const &
-		) const
-		{
-			return
-				PANGO_ALIGN_RIGHT;
-		}
-	};
-
 	return
-		fcppt::variant::apply_unary(
-			visitor(),
-			_alignment
+		fcppt::variant::match(
+			_alignment,
+			[](
+				sge::font::align_h::left const &
+			)
+			{
+				return
+					PANGO_ALIGN_LEFT;
+			},
+			[](
+				sge::font::align_h::center const &
+			)
+			{
+				return
+					PANGO_ALIGN_CENTER;
+			},
+			[](
+				sge::font::align_h::right const &
+			)
+			{
+				return
+					PANGO_ALIGN_RIGHT;
+			}
 		);
 }
