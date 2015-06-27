@@ -153,8 +153,8 @@ sge::opengl::texture::get_level_size<\
 	sge::opengl::texture::binding const &,\
 	sge::opengl::texture::buffer_type,\
 	sge::renderer::texture::mipmap::level\
-);
+)
 
 SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(
 	SGE_OPENGL_TEXTURE_INSTANTIATE_GET_LEVEL_SIZE
-)
+);

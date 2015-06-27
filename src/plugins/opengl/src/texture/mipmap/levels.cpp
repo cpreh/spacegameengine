@@ -81,8 +81,8 @@ sge::opengl::texture::mipmap::levels<\
 		dimension\
 	> const &,\
 	sge::renderer::texture::mipmap::levels_rep const &\
-);
+)
 
 SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(
 	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_LEVELS
-)
+);

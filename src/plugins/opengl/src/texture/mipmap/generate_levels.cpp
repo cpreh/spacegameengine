@@ -162,8 +162,8 @@ sge::opengl::texture::mipmap::generate_levels<\
 		dimension\
 	> const &,\
 	sge::renderer::texture::mipmap::level_count\
-);
+)
 
 SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(
 	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_GENERATE_LEVELS
-)
+);

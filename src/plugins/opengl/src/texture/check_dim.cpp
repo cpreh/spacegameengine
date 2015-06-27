@@ -65,8 +65,8 @@ sge::opengl::texture::check_dim<\
 	> const &, \
 	sge::renderer::size_type, \
 	fcppt::string const & \
-);
+)
 
 SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(
 	SGE_OPENGL_TEXTURE_INSTANTIATE_CHECK_DIM
-)
+);

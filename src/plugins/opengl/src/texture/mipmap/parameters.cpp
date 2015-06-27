@@ -166,11 +166,12 @@ sge::opengl::texture::mipmap::parameters<
 #define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_PARAMETERS(\
 	dimension\
 )\
-template class \
+template \
+class \
 sge::opengl::texture::mipmap::parameters<\
 	dimension\
->;
+>
 
 SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(
 	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_PARAMETERS
-)
+);
