@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/caps/device_output.hpp>
+#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/math/dim/output.hpp>

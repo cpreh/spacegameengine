@@ -94,7 +94,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_signed_fun.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/container/grid/in_range.hpp>
-#include <fcppt/container/grid/make_pos_range.hpp>
+#include <fcppt/container/grid/make_pos_ref_range.hpp>
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/container/grid/pos.hpp>
 #include <fcppt/container/grid/resize_preserve_init.hpp>
@@ -295,7 +295,7 @@ try
 			for(
 				auto item
 				:
-				fcppt::container::grid::make_pos_range(
+				fcppt::container::grid::make_pos_ref_range(
 					_sprites
 				)
 			)
