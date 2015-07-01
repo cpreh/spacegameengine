@@ -335,6 +335,12 @@ add_sge_lib(
 	ON
 )
 
+add_sge_lib(
+	gui
+	"Build the gui library"
+	ON
+)
+
 ##################################################
 # Libraries with Cg dependencies
 ##################################################

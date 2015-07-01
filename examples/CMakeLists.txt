@@ -968,10 +968,15 @@ add_subdirectory(
 )
 
 add_subdirectory(
-	gui
+	cegui
 )
+
 add_subdirectory(
 	cg
+)
+
+add_subdirectory(
+	gui
 )
 
 add_subdirectory(

@@ -1,16 +1,19 @@
 add_sge_example(
-	gui_text_demo
+	gui_main
 	SGE_DEPS
-		sgecegui
 		sgeconfig
+		sgefont
+		sgegui
 		sgeimagecolor
-		sgeinput
-		sgelog
+		sgeimage2d
 		sgerenderer
+		sgerucksack
 		sgesystems
+		sgetexture
+		sgetimer
 		sgeviewport
 		sgewindow
 	ADDITIONAL_DEPS
+		${Boost_FILESYSTEM_LIBRARY}
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
 )

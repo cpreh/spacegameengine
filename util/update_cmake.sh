@@ -117,6 +117,8 @@ update_sublibrary font/bitmap
 
 update_sublibrary font/draw
 
+update_sublibrary gui
+
 update_sublibrary graph
 
 update_sublibrary image \
