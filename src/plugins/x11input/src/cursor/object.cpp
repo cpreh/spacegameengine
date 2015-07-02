@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/cursor/button_event.hpp>
+#include <sge/input/cursor/button_pressed.hpp>
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/optional_position.hpp>
@@ -354,7 +355,9 @@ sge::x11input::cursor::object::on_button_down(
 {
 	this->button_event(
 		_event,
-		true
+		sge::input::cursor::button_pressed{
+			true
+		}
 	);
 }
 
@@ -365,14 +368,16 @@ sge::x11input::cursor::object::on_button_up(
 {
 	this->button_event(
 		_event,
-		false
+		sge::input::cursor::button_pressed{
+			false
+		}
 	);
 }
 
 void
 sge::x11input::cursor::object::button_event(
 	sge::x11input::device::window_event const &_event,
-	bool const _pressed
+	sge::input::cursor::button_pressed const _pressed
 )
 {
 	if(

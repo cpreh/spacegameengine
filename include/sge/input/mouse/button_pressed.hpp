@@ -18,43 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/mouse/button.hpp>
-#include <sge/input/mouse/button_code.hpp>
-#include <sge/input/mouse/button_event.hpp>
-#include <sge/input/mouse/button_pressed.hpp>
+#ifndef SGE_INPUT_MOUSE_BUTTON_PRESSED_HPP_INCLUDED
+#define SGE_INPUT_MOUSE_BUTTON_PRESSED_HPP_INCLUDED
+
+#include <fcppt/strong_typedef.hpp>
 
 
-sge::input::mouse::button_event::button_event(
-	sge::input::mouse::button const &_button,
-	sge::input::mouse::button_pressed const _pressed
-)
-:
-	button_(
-		_button
-	),
-	pressed_(
-		_pressed
-	)
+namespace sge
 {
+namespace input
+{
+namespace mouse
+{
+
+FCPPT_MAKE_STRONG_TYPEDEF(
+	bool,
+	button_pressed
+);
+
+}
+}
 }
 
-sge::input::mouse::button_code
-sge::input::mouse::button_event::button_code() const
-{
-	return
-		button_.code();
-}
-
-sge::input::mouse::button const &
-sge::input::mouse::button_event::button() const
-{
-	return
-		button_;
-}
-
-bool
-sge::input::mouse::button_event::pressed() const
-{
-	return
-		pressed_.get();
-}
+#endif

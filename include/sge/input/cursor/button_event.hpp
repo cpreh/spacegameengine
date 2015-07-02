@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
+#include <sge/input/cursor/button_pressed.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/detail/symbol.hpp>
 
@@ -41,7 +42,7 @@ public:
 	button_event(
 		sge::input::cursor::button_code,
 		sge::input::cursor::position,
-		bool pressed
+		sge::input::cursor::button_pressed
 	);
 
 	SGE_INPUT_DETAIL_SYMBOL
@@ -60,7 +61,7 @@ private:
 
 	sge::input::cursor::position position_;
 
-	bool pressed_;
+	sge::input::cursor::button_pressed pressed_;
 };
 
 }

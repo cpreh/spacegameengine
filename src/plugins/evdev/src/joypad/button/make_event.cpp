@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/button_event.hpp>
 #include <sge/input/joypad/button_id.hpp>
 #include <sge/input/joypad/button_info_container_fwd.hpp>
+#include <sge/input/joypad/button_pressed.hpp>
 
 
 sge::input::joypad::button_event const
@@ -35,6 +36,8 @@ sge::evdev::joypad::button::make_event(
 	return
 		sge::input::joypad::button_event(
 			_id,
-			_event.get().value != 0u
+			sge::input::joypad::button_pressed{
+				_event.get().value != 0u
+			}
 		);
 }

@@ -19,9 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/keyboard/char_event.hpp>
+#include <sge/input/keyboard/char_repeated.hpp>
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key_pressed.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/input/keyboard/mod_state.hpp>
 #include <sge/input/keyboard/modifier.hpp>
@@ -171,12 +173,18 @@ sge::x11input::keyboard::device::on_key_press(
 		)
 	);
 
-	bool const is_repeated(
-		_event.get().flags & XIKeyRepeat
+	sge::input::keyboard::char_repeated const is_repeated(
+		(
+			_event.get().flags
+			&
+			XIKeyRepeat
+		)
+		!=
+		0
 	);
 
 	if(
-		is_repeated
+		is_repeated.get()
 	)
 		key_repeat_signal_(
 			sge::input::keyboard::key_repeat_event(
@@ -185,15 +193,19 @@ sge::x11input::keyboard::device::on_key_press(
 		);
 	else
 	{
+		sge::input::keyboard::key_pressed const pressed{
+			true
+		};
+
 		this->update_modifiers(
 			lookup.key_code(),
-			true
+			pressed
 		);
 
 		key_signal_(
 			sge::input::keyboard::key_event(
 				key,
-				true
+				pressed
 			)
 		);
 	}
@@ -234,9 +246,13 @@ sge::x11input::keyboard::device::on_key_release(
 		)
 	);
 
+	sge::input::keyboard::key_pressed const pressed{
+		false
+	};
+
 	this->update_modifiers(
 		key_code,
-		false
+		pressed
 	);
 
 	key_signal_(
@@ -247,7 +263,7 @@ sge::x11input::keyboard::device::on_key_release(
 					_event
 				)
 			},
-			false
+			pressed
 		)
 	);
 }
@@ -255,7 +271,7 @@ sge::x11input::keyboard::device::on_key_release(
 void
 sge::x11input::keyboard::device::update_modifiers(
 	sge::input::keyboard::key_code const _key_code,
-	bool const _pressed
+	sge::input::keyboard::key_pressed const _pressed
 )
 {
 	fcppt::maybe_void(
@@ -271,7 +287,8 @@ sge::x11input::keyboard::device::update_modifiers(
 		{
 			modifiers_[
 				_mod
-			] = _pressed;
+			] =
+				_pressed.get();
 		}
 	);
 }

@@ -20,13 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
+#include <sge/input/cursor/button_pressed.hpp>
 #include <sge/input/cursor/position.hpp>
 
 
 sge::input::cursor::button_event::button_event(
 	sge::input::cursor::button_code const _button_code,
 	sge::input::cursor::position const _position,
-	bool const _pressed
+	sge::input::cursor::button_pressed const _pressed
 )
 :
 	button_code_(
@@ -59,5 +60,5 @@ bool
 sge::input::cursor::button_event::pressed() const
 {
 	return
-		pressed_;
+		pressed_.get();
 }

@@ -15,6 +15,7 @@ set(
 	include/sge/input/cursor/button_event.hpp
 	include/sge/input/cursor/button_event_fwd.hpp
 	include/sge/input/cursor/button_function.hpp
+	include/sge/input/cursor/button_pressed.hpp
 	include/sge/input/cursor/button_signal.hpp
 	include/sge/input/cursor/choose_callback.hpp
 	include/sge/input/cursor/choose_function.hpp
@@ -105,6 +106,7 @@ set(
 	include/sge/input/joypad/button_info_container.hpp
 	include/sge/input/joypad/button_info_container_fwd.hpp
 	include/sge/input/joypad/button_info_fwd.hpp
+	include/sge/input/joypad/button_pressed.hpp
 	include/sge/input/joypad/button_signal.hpp
 	include/sge/input/joypad/collector_fwd.hpp
 	include/sge/input/joypad/device.hpp
@@ -139,6 +141,7 @@ set(
 	include/sge/input/keyboard/char_event.hpp
 	include/sge/input/keyboard/char_event_fwd.hpp
 	include/sge/input/keyboard/char_function.hpp
+	include/sge/input/keyboard/char_repeated.hpp
 	include/sge/input/keyboard/char_signal.hpp
 	include/sge/input/keyboard/char_type.hpp
 	include/sge/input/keyboard/collector.hpp
@@ -166,6 +169,7 @@ set(
 	include/sge/input/keyboard/key_function.hpp
 	include/sge/input/keyboard/key_fwd.hpp
 	include/sge/input/keyboard/key_id.hpp
+	include/sge/input/keyboard/key_pressed.hpp
 	include/sge/input/keyboard/key_repeat_callback.hpp
 	include/sge/input/keyboard/key_repeat_event.hpp
 	include/sge/input/keyboard/key_repeat_event_fwd.hpp
@@ -220,6 +224,7 @@ set(
 	include/sge/input/mouse/button_info_container.hpp
 	include/sge/input/mouse/button_info_container_fwd.hpp
 	include/sge/input/mouse/button_info_fwd.hpp
+	include/sge/input/mouse/button_pressed.hpp
 	include/sge/input/mouse/button_signal.hpp
 	include/sge/input/mouse/collector.hpp
 	include/sge/input/mouse/collector_fwd.hpp

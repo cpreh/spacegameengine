@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/detail/symbol.hpp>
 #include <sge/input/keyboard/char_event_fwd.hpp>
+#include <sge/input/keyboard/char_repeated.hpp>
 #include <sge/input/keyboard/char_type.hpp>
 
 
@@ -39,7 +40,7 @@ public:
 	SGE_INPUT_DETAIL_SYMBOL
 	char_event(
 		sge::input::keyboard::char_type,
-		bool repeated
+		sge::input::keyboard::char_repeated
 	);
 
 	SGE_INPUT_DETAIL_SYMBOL
@@ -52,7 +53,7 @@ public:
 private:
 	sge::input::keyboard::char_type character_;
 
-	bool repeated_;
+	sge::input::keyboard::char_repeated repeated_;
 };
 
 }

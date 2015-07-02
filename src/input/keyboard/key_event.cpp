@@ -20,11 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key_pressed.hpp>
 
 
 sge::input::keyboard::key_event::key_event(
 	sge::input::keyboard::key const &_key,
-	bool const _pressed
+	sge::input::keyboard::key_pressed const _pressed
 )
 :
 	key_(
@@ -47,5 +48,5 @@ bool
 sge::input::keyboard::key_event::pressed() const
 {
 	return
-		pressed_;
+		pressed_.get();
 }

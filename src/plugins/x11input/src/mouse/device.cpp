@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/button.hpp>
 #include <sge/input/mouse/button_event.hpp>
+#include <sge/input/mouse/button_pressed.hpp>
 #include <sge/input/mouse/info.hpp>
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/raw_demuxer.hpp>
@@ -215,7 +216,9 @@ sge::x11input::mouse::device::on_button_down(
 {
 	this->button_event(
 		_event,
-		true
+		sge::input::mouse::button_pressed{
+			true
+		}
 	);
 }
 
@@ -226,14 +229,16 @@ sge::x11input::mouse::device::on_button_up(
 {
 	this->button_event(
 		_event,
-		false
+		sge::input::mouse::button_pressed{
+			false
+		}
 	);
 }
 
 void
 sge::x11input::mouse::device::button_event(
 	sge::x11input::device::window_event const &_event,
-	bool const _pressed
+	sge::input::mouse::button_pressed const _pressed
 )
 {
 	if(

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_signal.hpp>
 #include <sge/input/mouse/button_callback.hpp>
+#include <sge/input/mouse/button_pressed.hpp>
 #include <sge/input/mouse/button_signal.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/info.hpp>
@@ -105,7 +106,7 @@ private:
 	void
 	button_event(
 		sge::x11input::device::window_event const &,
-		bool pressed
+		sge::input::mouse::button_pressed
 	);
 
 	sge::x11input::device::valuator::accu_map accus_;

@@ -19,12 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/keyboard/char_event.hpp>
+#include <sge/input/keyboard/char_repeated.hpp>
 #include <sge/input/keyboard/char_type.hpp>
 
 
 sge::input::keyboard::char_event::char_event(
 	sge::input::keyboard::char_type const _character,
-	bool const _repeated
+	sge::input::keyboard::char_repeated const _repeated
 )
 :
 	character_(
@@ -39,11 +40,13 @@ sge::input::keyboard::char_event::char_event(
 sge::input::keyboard::char_type
 sge::input::keyboard::char_event::character() const
 {
-	return character_;
+	return
+		character_;
 }
 
 bool
 sge::input::keyboard::char_event::repeated() const
 {
-	return repeated_;
+	return
+		repeated_.get();
 }

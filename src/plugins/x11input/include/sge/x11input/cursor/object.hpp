@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_CURSOR_OBJECT_HPP_INCLUDED
 
 #include <sge/input/cursor/button_callback.hpp>
+#include <sge/input/cursor/button_pressed.hpp>
 #include <sge/input/cursor/button_signal.hpp>
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/move_callback.hpp>
@@ -147,7 +148,7 @@ private:
 	void
 	button_event(
 		sge::x11input::device::window_event const &,
-		bool pressed
+		sge::input::cursor::button_pressed
 	);
 
 	void
