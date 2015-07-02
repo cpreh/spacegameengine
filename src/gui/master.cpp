@@ -143,7 +143,7 @@ sge::gui::master::key_event(
 		_event.pressed()
 	)
 		this->handle_key(
-			_event.key_code()
+			_event.key().code()
 		);
 }
 
@@ -153,7 +153,7 @@ sge::gui::master::key_repeat_event(
 )
 {
 	this->handle_key(
-		_event.key_code()
+		_event.key().code()
 	);
 }
 

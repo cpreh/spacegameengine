@@ -665,7 +665,7 @@ try
 
 				fcppt::maybe_void(
 					sge::input::keyboard::key_code_to_digit(
-						_event.key_code()
+						_event.key().code()
 					),
 					[
 						&filters,

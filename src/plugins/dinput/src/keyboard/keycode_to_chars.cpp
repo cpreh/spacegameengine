@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/raw_vector_impl.hpp>
 
 
-sge::dinput::keyboard::char_vector const
+sge::dinput::keyboard::char_vector
 sge::dinput::keyboard::keycode_to_chars(
 	UINT const _virtual_code,
 	UINT const _di_code,
@@ -34,7 +34,7 @@ sge::dinput::keyboard::keycode_to_chars(
 )
 {
 	// FIXME: How do we determine how big this buffer should be?
-	dinput::keyboard::char_vector result(
+	sge::dinput::keyboard::char_vector result(
 		32
 	);
 
@@ -64,15 +64,17 @@ sge::dinput::keyboard::keycode_to_chars(
 	if(
 		ret == -1
 	)
-		return dinput::keyboard::char_vector();
+		return
+			sge::dinput::keyboard::char_vector();
 
 	result.resize(
 		static_cast<
-			dinput::keyboard::char_vector::size_type
+			sge::dinput::keyboard::char_vector::size_type
 		>(
 			ret
 		)
 	);
 
-	return result;
+	return
+		result;
 }

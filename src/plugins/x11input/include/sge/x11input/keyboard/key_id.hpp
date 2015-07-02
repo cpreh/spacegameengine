@@ -18,31 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/di.hpp>
-#include <sge/dinput/keyboard/map_virtual_key.hpp>
-#include <fcppt/optional_impl.hpp>
+#ifndef SGE_X11INPUT_KEYBOARD_KEY_ID_HPP_INCLUDED
+#define SGE_X11INPUT_KEYBOARD_KEY_ID_HPP_INCLUDED
+
+#include <sge/input/keyboard/key_id.hpp>
+#include <sge/x11input/device/window_event_fwd.hpp>
 
 
-sge::dinput::keyboard::optional_uint const
-sge::dinput::keyboard::map_virtual_key(
-	UINT const _dik,
-	HKL const _hkl
-)
+namespace sge
 {
-	UINT const ret(
-		::MapVirtualKeyEx(
-			_dik,
-			MAPVK_VSC_TO_VK,
-			_hkl
-		)
-	);
+namespace x11input
+{
+namespace keyboard
+{
 
-	return
-		ret != 0
-		?
-			sge::dinput::keyboard::optional_uint(
-				ret
-			)
-		:
-			sge::dinput::keyboard::optional_uint();
+sge::input::keyboard::key_id const
+key_id(
+	sge::x11input::device::window_event const &
+);
+
 }
+}
+}
+
+#endif

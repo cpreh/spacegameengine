@@ -356,7 +356,7 @@ sge::console::gfx::object::key_callback(
 	)
 		this->key_action(
 			sge::input::keyboard::key_repeat_event(
-				_key.key_code()
+				_key.key()
 			)
 		);
 }
@@ -403,7 +403,7 @@ sge::console::gfx::object::key_action(
 		!input_active_
 	)
 		switch(
-			_event.key_code()
+			_event.key().code()
 		)
 		{
 		case sge::input::keyboard::key_code::pageup:
@@ -414,7 +414,7 @@ sge::console::gfx::object::key_action(
 		}
 
 	switch(
-		_event.key_code()
+		_event.key().code()
 	)
 	{
 		case sge::input::keyboard::key_code::w:

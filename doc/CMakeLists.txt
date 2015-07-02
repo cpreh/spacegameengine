@@ -1348,6 +1348,7 @@ set(
 	include/sge/input/keyboard/is_alt.hpp
 	include/sge/input/keyboard/is_control.hpp
 	include/sge/input/keyboard/is_shift.hpp
+	include/sge/input/keyboard/key.hpp
 	include/sge/input/keyboard/key_callback.hpp
 	include/sge/input/keyboard/key_code.hpp
 	include/sge/input/keyboard/key_code_fwd.hpp
@@ -1356,6 +1357,8 @@ set(
 	include/sge/input/keyboard/key_event.hpp
 	include/sge/input/keyboard/key_event_fwd.hpp
 	include/sge/input/keyboard/key_function.hpp
+	include/sge/input/keyboard/key_fwd.hpp
+	include/sge/input/keyboard/key_id.hpp
 	include/sge/input/keyboard/key_repeat_callback.hpp
 	include/sge/input/keyboard/key_repeat_event.hpp
 	include/sge/input/keyboard/key_repeat_event_fwd.hpp

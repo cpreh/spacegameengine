@@ -33,11 +33,11 @@ namespace dinput
 namespace keyboard
 {
 
-sge::dinput::keyboard::char_vector const
+sge::dinput::keyboard::char_vector
 keycode_to_chars(
 	UINT virtual_code,
 	UINT di_code,
-	dinput::state_array const &,
+	sge::dinput::state_array const &,
 	HKL
 );
 

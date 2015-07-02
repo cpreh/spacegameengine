@@ -42,7 +42,10 @@ sge::input::keyboard::action(
 			{
 				if(
 					_event.pressed()
-					&& _event.key_code() == _code
+					&&
+					_event.key().code()
+					==
+					_code
 				)
 					_action();
 			}

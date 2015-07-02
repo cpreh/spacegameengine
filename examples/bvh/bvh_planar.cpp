@@ -347,7 +347,7 @@ private:
 
 		bvh_tree_traits::tree_representation::const_optional_ref new_tree;
 
-		switch(_event.key_code())
+		switch(_event.key().code())
 		{
 			case sge::input::keyboard::key_code::left:
 				new_tree =

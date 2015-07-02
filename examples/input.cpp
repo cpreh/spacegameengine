@@ -997,9 +997,11 @@ keyboard_key(
 	fcppt::io::cout()
 		<< FCPPT_TEXT("keyboard_key: ")
 		<< &_device
-		<< FCPPT_TEXT("\n\tkey: ")
+		<< FCPPT_TEXT("\n\tid: ")
+		<< _event.key().id()
+		<< FCPPT_TEXT("\n\tkey_code: ")
 		<< sge::input::keyboard::key_code_to_string(
-			_event.key_code()
+			_event.key().code()
 		)
 		<< FCPPT_TEXT("\n\tpressed: ")
 		<< _event.pressed()
@@ -1015,9 +1017,11 @@ keyboard_key_repeat(
 	fcppt::io::cout()
 		<< FCPPT_TEXT("keyboard_key_repeat: ")
 		<< &_device
-		<< FCPPT_TEXT("\n\tkey: ")
+		<< FCPPT_TEXT("\n\tid: ")
+		<< _event.key().id()
+		<< FCPPT_TEXT("\n\tkey_code: ")
 		<< sge::input::keyboard::key_code_to_string(
-			_event.key_code()
+			_event.key().code()
 		)
 		<< FCPPT_TEXT('\n');
 }

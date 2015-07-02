@@ -246,7 +246,7 @@ sge::dinput::keyboard::device::on_dispatch(
 			)
 				return;
 
-			sge::dinput::keyboard::char_vector const &chars(
+			sge::dinput::keyboard::char_vector const chars(
 				sge::dinput::keyboard::keycode_to_chars(
 					_virtual_code,
 					offset,

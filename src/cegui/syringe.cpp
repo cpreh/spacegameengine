@@ -88,9 +88,9 @@ sge::cegui::syringe::inject(
 {
 	fcppt::maybe_void(
 		::process_key_code(
-			_event.key_code(),
+			_event.key().code(),
 			sge::cegui::convert_key(
-				_event.key_code()
+				_event.key().code()
 			)
 		),
 		[
@@ -121,9 +121,9 @@ sge::cegui::syringe::inject(
 {
 	fcppt::maybe_void(
 		::process_key_code(
-			_event.key_code(),
+			_event.key().code(),
 			sge::cegui::convert_key(
-				_event.key_code()
+				_event.key().code()
 			)
 		),
 		[

@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/keyboard/char_event.hpp>
+#include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
@@ -31,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/keyboard/device.hpp>
 #include <sge/x11input/keyboard/fake_core_event.hpp>
 #include <sge/x11input/keyboard/key_code_to_key_sym.hpp>
+#include <sge/x11input/keyboard/key_id.hpp>
 #include <sge/x11input/keyboard/looked_up_string.hpp>
 #include <sge/x11input/keyboard/lookup_string.hpp>
 #include <sge/x11input/keyboard/translate_key_code.hpp>
@@ -141,7 +143,8 @@ sge::x11input::keyboard::device::char_callback(
 sge::input::keyboard::mod_state const
 sge::x11input::keyboard::device::mod_state() const
 {
-	return modifiers_;
+	return
+		modifiers_;
 }
 
 void
@@ -161,6 +164,13 @@ sge::x11input::keyboard::device::on_key_press(
 		)
 	);
 
+	sge::input::keyboard::key const key(
+		lookup.key_code(),
+		sge::x11input::keyboard::key_id(
+			_event
+		)
+	);
+
 	bool const is_repeated(
 		_event.get().flags & XIKeyRepeat
 	);
@@ -170,7 +180,7 @@ sge::x11input::keyboard::device::on_key_press(
 	)
 		key_repeat_signal_(
 			sge::input::keyboard::key_repeat_event(
-				lookup.key_code()
+				key
 			)
 		);
 	else
@@ -182,7 +192,7 @@ sge::x11input::keyboard::device::on_key_press(
 
 		key_signal_(
 			sge::input::keyboard::key_event(
-				lookup.key_code(),
+				key,
 				true
 			)
 		);
@@ -193,7 +203,9 @@ sge::x11input::keyboard::device::on_key_press(
 	);
 
 	for(
-		auto const &element : char_codes
+		auto const &element
+		:
+		char_codes
 	)
 		char_signal_(
 			sge::input::keyboard::char_event(
@@ -229,7 +241,12 @@ sge::x11input::keyboard::device::on_key_release(
 
 	key_signal_(
 		sge::input::keyboard::key_event(
-			key_code,
+			sge::input::keyboard::key{
+				key_code,
+				sge::x11input::keyboard::key_id(
+					_event
+				)
+			},
 			false
 		)
 	);

@@ -104,6 +104,7 @@ set(
 	src/plugins/x11input/include/sge/x11input/keyboard/device_unique_ptr.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/fake_core_event.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/key_code_to_key_sym.hpp
+	src/plugins/x11input/include/sge/x11input/keyboard/key_id.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/looked_up_string.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/looked_up_string_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/lookup_string.hpp
@@ -179,6 +180,7 @@ set(
 	src/plugins/x11input/src/keyboard/device.cpp
 	src/plugins/x11input/src/keyboard/fake_core_event.cpp
 	src/plugins/x11input/src/keyboard/key_code_to_key_sym.cpp
+	src/plugins/x11input/src/keyboard/key_id.cpp
 	src/plugins/x11input/src/keyboard/looked_up_string.cpp
 	src/plugins/x11input/src/keyboard/lookup_string.cpp
 	src/plugins/x11input/src/keyboard/to_base_event.cpp

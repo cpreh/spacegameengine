@@ -310,7 +310,7 @@ private:
 		sge::projectile::vector2 result =
 			sge::projectile::vector2::null();
 
-		switch (e.key_code())
+		switch (e.key().code())
 		{
 			case sge::input::keyboard::key_code::left:
 				result = sge::projectile::vector2(-1,0);

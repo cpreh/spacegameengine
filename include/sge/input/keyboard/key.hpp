@@ -18,31 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/di.hpp>
-#include <sge/dinput/keyboard/map_virtual_key.hpp>
-#include <fcppt/optional_impl.hpp>
+#ifndef SGE_INPUT_KEYBOARD_KEY_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_KEY_HPP_INCLUDED
+
+#include <sge/input/detail/symbol.hpp>
+#include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/key_fwd.hpp>
+#include <sge/input/keyboard/key_id.hpp>
 
 
-sge::dinput::keyboard::optional_uint const
-sge::dinput::keyboard::map_virtual_key(
-	UINT const _dik,
-	HKL const _hkl
-)
+namespace sge
 {
-	UINT const ret(
-		::MapVirtualKeyEx(
-			_dik,
-			MAPVK_VSC_TO_VK,
-			_hkl
-		)
+namespace input
+{
+namespace keyboard
+{
+
+class key
+{
+public:
+	SGE_INPUT_DETAIL_SYMBOL
+	key(
+		sge::input::keyboard::key_code,
+		sge::input::keyboard::key_id
 	);
 
-	return
-		ret != 0
-		?
-			sge::dinput::keyboard::optional_uint(
-				ret
-			)
-		:
-			sge::dinput::keyboard::optional_uint();
+	SGE_INPUT_DETAIL_SYMBOL
+	sge::input::keyboard::key_code
+	code() const;
+
+	SGE_INPUT_DETAIL_SYMBOL
+	sge::input::keyboard::key_id const
+	id() const;
+private:
+	sge::input::keyboard::key_code code_;
+
+	sge::input::keyboard::key_id id_;
+};
+
 }
+}
+}
+
+#endif

@@ -83,7 +83,7 @@ sge::camera::tracking::json::key_press_exporter::key_callback(
 	if(!_key_event.pressed())
 		return;
 
-	if(_key_event.key_code() == keyframe_keypress_.get())
+	if(_key_event.key().code() == keyframe_keypress_.get())
 	{
 		FCPPT_LOG_INFO(
 			sge::camera::logger(),
@@ -99,7 +99,7 @@ sge::camera::tracking::json::key_press_exporter::key_callback(
 			fcppt::log::_
 				<< FCPPT_TEXT("Done!"));
 	}
-	else if(_key_event.key_code() == export_keypress_.get())
+	else if(_key_event.key().code() == export_keypress_.get())
 	{
 		FCPPT_LOG_INFO(
 			sge::camera::logger(),

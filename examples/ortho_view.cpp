@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/demuxer.hpp>
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
@@ -130,30 +131,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <functional>
 #include <iostream>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-void
-g_key_callback(
-	sge::input::keyboard::key_event const &e,
-	sge::input::cursor::object &c)
-{
-	if(e.key_code() == sge::input::keyboard::key_code::g)
-	{
-		c.mode(
-			e.pressed()
-			?
-				sge::input::cursor::mode::exclusive
-			:
-				sge::input::cursor::mode::normal);
-	}
-}
-}
 
 awl::main::exit_code const
 example_main(
@@ -381,11 +362,27 @@ try
 
 	fcppt::signal::scoped_connection const grab_connection(
 		sys.keyboard_collector().key_callback(
-			std::bind(
-				&g_key_callback,
-				std::placeholders::_1,
-				std::ref(
-					sys.cursor_demuxer()))));
+			[
+				&sys
+			](
+				sge::input::keyboard::key_event const &_event
+			)
+			{
+				if(
+					_event.key().code()
+					==
+					sge::input::keyboard::key_code::g
+				)
+					sys.cursor_demuxer().mode(
+						_event.pressed()
+						?
+							sge::input::cursor::mode::exclusive
+						:
+							sge::input::cursor::mode::normal
+					);
+			}
+		)
+	);
 
 	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
