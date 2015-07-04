@@ -22,17 +22,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_STORE_INSTANTIATE_OBJECT_HPP_INCLUDED
 
 #include <sge/src/core/export_class_instantiation.hpp>
+#include <sge/src/image/store/instantiate_object_ctor.hpp>
 #include <sge/src/image/store/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/tuple/elem.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 #define SGE_SRC_IMAGE_STORE_INSTANTIATE_OBJECT(\
-	wrapper\
+	args,\
+	instantiate_format\
 )\
 template \
 class \
 SGE_CORE_EXPORT_CLASS_INSTANTIATION \
 sge::image::store::object<\
-	wrapper\
->
+	BOOST_PP_TUPLE_ELEM(0, args)\
+>;\
+instantiate_format(\
+	SGE_SRC_IMAGE_STORE_INSTANTIATE_OBJECT_CTOR,\
+	args\
+)
 
 #endif

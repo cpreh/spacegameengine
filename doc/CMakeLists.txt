@@ -888,6 +888,7 @@ set(
 	include/sge/image/view/flipped.hpp
 	include/sge/image/view/format.hpp
 	include/sge/image/view/get.hpp
+	include/sge/image/view/has_element.hpp
 	include/sge/image/view/make.hpp
 	include/sge/image/view/make_const.hpp
 	include/sge/image/view/make_mizuiro_type.hpp

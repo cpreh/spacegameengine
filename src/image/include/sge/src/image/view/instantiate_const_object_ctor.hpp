@@ -18,26 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image2d/traits/const_view_fwd.hpp>
-#include <sge/image2d/traits/view_fwd.hpp>
-#include <sge/image2d/view/const_element.hpp>
-#include <sge/image2d/view/const_elements_wrapper.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/elements_wrapper_fwd.hpp>
-#include <sge/src/image/color/instantiate_format.hpp>
-#include <sge/src/image/view/instantiate_const_object.hpp>
+#ifndef SGE_SRC_IMAGE_VIEW_INSTANTIATE_CONST_OBJECT_CTOR_HPP_INCLUDED
+#define SGE_SRC_IMAGE_VIEW_INSTANTIATE_CONST_OBJECT_CTOR_HPP_INCLUDED
+
+#include <sge/src/core/export_function_instantiation.hpp>
+#include <sge/src/image/view/const_object_impl.hpp>
+#include <sge/src/image/view/format_macro.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/tuple/elem.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
-#define SGE_IMAGE2D_VIEW_CONST_OBJECT_INSTANTIATE_ARGS ( \
-	sge::image2d::view::const_elements_wrapper, \
-	sge::image2d::view::const_element, \
-	sge::image::color, \
-	sge::image2d::view::elements_wrapper \
+#define SGE_SRC_IMAGE_VIEW_INSTANTIATE_CONST_OBJECT_CTOR(\
+	format_arg,\
+	args\
+) \
+template \
+SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
+sge::image::view::const_object< \
+	BOOST_PP_TUPLE_ELEM(0, args), \
+	BOOST_PP_TUPLE_ELEM(3, args) \
+>::const_object( \
+	BOOST_PP_TUPLE_ELEM(1, args)< \
+		SGE_SRC_IMAGE_VIEW_FORMAT_MACRO(BOOST_PP_TUPLE_ELEM(2, args), format_arg) \
+	> ::type const & \
 )
 
-SGE_SRC_IMAGE_VIEW_INSTANTIATE_CONST_OBJECT(
-	SGE_IMAGE2D_VIEW_CONST_OBJECT_INSTANTIATE_ARGS,
-	SGE_SRC_IMAGE_COLOR_INSTANTIATE_FORMAT
-);
-
-#undef SGE_IMAGE2D_VIEW_CONST_OBJECT_INSTANTIATE_ARGS
+#endif

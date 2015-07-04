@@ -18,40 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/mizuiro_color.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/src/core/export_function_instantiation.hpp>
+#include <sge/src/image/color/instantiate_format.hpp>
 
 
+template<
+	typename Element,
+	typename
+>
 sge::image::color::any::object::object(
-	sge::image::color::any::object::variant const &_variant
+	Element const &_element
 )
 :
 	variant_(
-		_variant
+		_element
 	)
 {
 }
 
 sge::image::color::any::object::object(
-	sge::image::color::any::object const &_other
+	sge::image::color::any::object const &
 )
-:
-	variant_(
-		_other.variant_
-	)
-{
-}
+=
+default;
 
 sge::image::color::any::object &
 sge::image::color::any::object::operator=(
-	sge::image::color::any::object const &_other
+	sge::image::color::any::object const &
 )
-{
-	variant_ =
-		_other.variant_;
-
-	return
-		*this;
-}
+=
+default;
 
 sge::image::color::any::object::~object()
 {
@@ -63,3 +61,22 @@ sge::image::color::any::object::get() const
 	return
 		variant_;
 }
+
+#define SGE_IMAGE_COLOR_ANY_OBJECT_INSTANTIATE_CTOR(\
+	format_arg, \
+	_\
+)\
+template \
+SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
+sge::image::color::any::object::object( \
+	sge::image::mizuiro_color<\
+		sge::image::color:: format_arg ## _format \
+	> const & \
+)
+
+SGE_SRC_IMAGE_COLOR_INSTANTIATE_FORMAT(
+	SGE_IMAGE_COLOR_ANY_OBJECT_INSTANTIATE_CTOR,
+	_
+);
+
+#undef SGE_IMAGE_COLOR_ANY_OBJECT_INSTANTIATE_CTOR

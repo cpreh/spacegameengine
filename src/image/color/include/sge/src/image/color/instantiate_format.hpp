@@ -18,26 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image2d/traits/const_view_fwd.hpp>
-#include <sge/image2d/traits/view_fwd.hpp>
-#include <sge/image2d/view/const_element.hpp>
-#include <sge/image2d/view/const_elements_wrapper.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/elements_wrapper_fwd.hpp>
-#include <sge/src/image/color/instantiate_format.hpp>
-#include <sge/src/image/view/instantiate_const_object.hpp>
+#ifndef SGE_SRC_IMAGE_COLOR_INSTANTIATE_FORMAT_HPP_INCLUDED
+#define SGE_SRC_IMAGE_COLOR_INSTANTIATE_FORMAT_HPP_INCLUDED
 
 
-#define SGE_IMAGE2D_VIEW_CONST_OBJECT_INSTANTIATE_ARGS ( \
-	sge::image2d::view::const_elements_wrapper, \
-	sge::image2d::view::const_element, \
-	sge::image::color, \
-	sge::image2d::view::elements_wrapper \
-)
+#define SGE_SRC_IMAGE_COLOR_INSTANTIATE_FORMAT(\
+	macro,\
+	param\
+)\
+macro(a8, param); \
+macro(l8, param); \
+macro(r32f, param); \
+macro(la8, param); \
+macro(rgb8, param); \
+macro(bgr8, param); \
+macro(rgba8, param); \
+macro(rgbx8, param); \
+macro(bgra8, param); \
+macro(bgrx8, param); \
+macro(rgb32f, param); \
+macro(bgr32f, param); \
+macro(rgba32f, param); \
+macro(bgra32f, param); \
+macro(srgb8, param); \
+macro(srgba8, param); \
+macro(sbgr8, param); \
+macro(sbgra8, param)
 
-SGE_SRC_IMAGE_VIEW_INSTANTIATE_CONST_OBJECT(
-	SGE_IMAGE2D_VIEW_CONST_OBJECT_INSTANTIATE_ARGS,
-	SGE_SRC_IMAGE_COLOR_INSTANTIATE_FORMAT
-);
 
-#undef SGE_IMAGE2D_VIEW_CONST_OBJECT_INSTANTIATE_ARGS
+#endif

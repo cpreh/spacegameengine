@@ -26,6 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/image/color/detail/symbol.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/contains.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -40,14 +44,27 @@ namespace any
 class object
 {
 public:
-	typedef fcppt::variant::object<
+	typedef
+	fcppt::variant::object<
 		sge::image::color::any::elements
-	> variant;
+	>
+	variant;
 
+	template<
+		typename Element,
+		typename =
+			typename
+			boost::enable_if<
+				boost::mpl::contains<
+					sge::image::color::any::elements,
+					Element
+				>
+			>::type
+	>
 	SGE_IMAGE_COLOR_DETAIL_SYMBOL
 	explicit
 	object(
-		variant const &
+		Element const &
 	);
 
 	SGE_IMAGE_COLOR_DETAIL_SYMBOL

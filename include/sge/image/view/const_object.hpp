@@ -23,8 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/detail/instantiate/symbol.hpp>
 #include <sge/image/view/const_object_fwd.hpp>
+#include <sge/image/view/has_element.hpp>
 #include <sge/image/view/object_fwd.hpp>
 #include <fcppt/variant/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -41,18 +45,33 @@ template<
 class const_object
 {
 public:
-	typedef sge::image::view::object<
+	typedef
+	sge::image::view::object<
 		NonConstElementsWrapper
-	> nonconst_object;
+	>
+	nonconst_object;
 
-	typedef fcppt::variant::object<
-		typename ElementsWrapper::type
-	> variant;
+	typedef
+	fcppt::variant::object<
+		typename
+		ElementsWrapper::type
+	>
+	variant;
 
+	template<
+		typename Element,
+		typename =
+			typename boost::enable_if<
+				sge::image::view::has_element<
+					ElementsWrapper,
+					Element
+				>
+			>::type
+	>
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	explicit
 	const_object(
-		variant const &
+		Element const &
 	);
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL

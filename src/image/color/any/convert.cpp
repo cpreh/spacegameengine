@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
+#include <sge/src/image/color/instantiate_format.hpp>
 #include <sge/src/image/color/any/convert_visitor.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/variant/object_impl.hpp>
@@ -63,36 +64,23 @@ sge::image::color::any::convert(
 }
 
 #define SGE_INSTANTIATE_COLOR_CONVERT(\
-	format\
+	format_arg,\
+	_\
 )\
 template \
 SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::mizuiro_color<\
-	sge::image::color::format\
+	sge::image::color::format_arg ## _format\
 > const \
 sge::image::color::any::convert<\
-	sge::image::color::format\
+	sge::image::color::format_arg ## _format\
 >(\
 	sge::image::color::any::object const &\
-);
+)
 
-SGE_INSTANTIATE_COLOR_CONVERT(a8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(l8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(r32f_format)
-SGE_INSTANTIATE_COLOR_CONVERT(la8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(rgb8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(bgr8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(rgba8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(rgbx8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(bgra8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(bgrx8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(rgb32f_format)
-SGE_INSTANTIATE_COLOR_CONVERT(bgr32f_format)
-SGE_INSTANTIATE_COLOR_CONVERT(rgba32f_format)
-SGE_INSTANTIATE_COLOR_CONVERT(bgra32f_format)
-SGE_INSTANTIATE_COLOR_CONVERT(srgb8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(srgba8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(sbgr8_format)
-SGE_INSTANTIATE_COLOR_CONVERT(sbgra8_format)
+SGE_SRC_IMAGE_COLOR_INSTANTIATE_FORMAT(
+	SGE_INSTANTIATE_COLOR_CONVERT,
+	_
+);
 
 #undef SGE_INSTANTIATE_COLOR_CONVERT

@@ -30,15 +30,19 @@ template<
 	typename ElementsWrapper,
 	typename NonConstElementsWrapper
 >
+template<
+	typename Element,
+	typename
+>
 sge::image::view::const_object<
 	ElementsWrapper,
 	NonConstElementsWrapper
 >::const_object(
-	variant const &_variant
+	Element const &_element
 )
 :
 	variant_(
-		_variant
+		_element
 	)
 {
 }
@@ -56,7 +60,8 @@ sge::image::view::const_object<
 :
 	variant_(
 		sge::image::view::to_const<
-			typename ElementsWrapper::tag
+			typename
+			ElementsWrapper::tag
 		>(
 			_other
 		).get()

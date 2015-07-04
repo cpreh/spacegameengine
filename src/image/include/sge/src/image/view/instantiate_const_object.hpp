@@ -22,19 +22,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_CONST_OBJECT_HPP_INCLUDED
 
 #include <sge/src/core/export_class_instantiation.hpp>
+#include <sge/src/image/view/instantiate_const_object_ctor.hpp>
 #include <sge/src/image/view/const_object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/tuple/elem.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_CONST_OBJECT(\
-	wrapper,\
-	nonconstwrapper\
+	args,\
+	instantiate_format\
 )\
 template \
 class \
 SGE_CORE_EXPORT_CLASS_INSTANTIATION \
-sge::image::view::const_object<\
-	wrapper,\
-	nonconstwrapper\
->
+sge::image::view::const_object< \
+	BOOST_PP_TUPLE_ELEM(0, args),\
+	BOOST_PP_TUPLE_ELEM(3, args)\
+>; \
+instantiate_format(\
+	SGE_SRC_IMAGE_VIEW_INSTANTIATE_CONST_OBJECT_CTOR,\
+	args\
+)
 
 #endif

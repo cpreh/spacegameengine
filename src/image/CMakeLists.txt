@@ -62,6 +62,7 @@ set(
 	include/sge/image/view/flipped.hpp
 	include/sge/image/view/format.hpp
 	include/sge/image/view/get.hpp
+	include/sge/image/view/has_element.hpp
 	include/sge/image/view/make.hpp
 	include/sge/image/view/make_const.hpp
 	include/sge/image/view/make_mizuiro_type.hpp
@@ -111,6 +112,7 @@ set(
 	src/image/include/sge/src/image/store/basic_impl.hpp
 	src/image/include/sge/src/image/store/instantiate_basic.hpp
 	src/image/include/sge/src/image/store/instantiate_object.hpp
+	src/image/include/sge/src/image/store/instantiate_object_ctor.hpp
 	src/image/include/sge/src/image/store/instantiate_view.hpp
 	src/image/include/sge/src/image/store/object_impl.hpp
 	src/image/include/sge/src/image/store/view_any.hpp
@@ -131,6 +133,7 @@ set(
 	src/image/include/sge/src/image/view/flipped_visitor.hpp
 	src/image/include/sge/src/image/view/format_any.hpp
 	src/image/include/sge/src/image/view/format_impl.hpp
+	src/image/include/sge/src/image/view/format_macro.hpp
 	src/image/include/sge/src/image/view/format_visitor.hpp
 	src/image/include/sge/src/image/view/get_any.hpp
 	src/image/include/sge/src/image/view/get_impl.hpp
@@ -138,6 +141,7 @@ set(
 	src/image/include/sge/src/image/view/instantiate_checked_sub.hpp
 	src/image/include/sge/src/image/view/instantiate_const_nonconst.hpp
 	src/image/include/sge/src/image/view/instantiate_const_object.hpp
+	src/image/include/sge/src/image/view/instantiate_const_object_ctor.hpp
 	src/image/include/sge/src/image/view/instantiate_data.hpp
 	src/image/include/sge/src/image/view/instantiate_flipped.hpp
 	src/image/include/sge/src/image/view/instantiate_format.hpp
@@ -145,6 +149,7 @@ set(
 	src/image/include/sge/src/image/view/instantiate_make.hpp
 	src/image/include/sge/src/image/view/instantiate_make_const.hpp
 	src/image/include/sge/src/image/view/instantiate_object.hpp
+	src/image/include/sge/src/image/view/instantiate_object_ctor.hpp
 	src/image/include/sge/src/image/view/instantiate_pitch.hpp
 	src/image/include/sge/src/image/view/instantiate_size.hpp
 	src/image/include/sge/src/image/view/instantiate_sub.hpp

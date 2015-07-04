@@ -31,29 +31,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::index::any::view const
 sge::renderer::index::any::make_view(
-	renderer::index::dynamic::view const &_view
+	sge::renderer::index::dynamic::view const &_view
 )
 {
+	// TODO: Simplify this
 	switch(
 		_view.format()
 	)
 	{
-	case index::dynamic::format::i16:
+	case sge::renderer::index::dynamic::format::i16:
 		return
-			index::view<
-				index::format_16
-			>(
-				_view.data(),
-				_view.size()
-			);
-	case index::dynamic::format::i32:
+			sge::renderer::index::any::view{
+				sge::renderer::index::view<
+					sge::renderer::index::format_16
+				>(
+					_view.data(),
+					_view.size()
+				)
+			};
+	case sge::renderer::index::dynamic::format::i32:
 		return
-			index::view<
-				index::format_32
-			>(
-				_view.data(),
-				_view.size()
-			);
+			sge::renderer::index::any::view{
+				sge::renderer::index::view<
+					sge::renderer::index::format_32
+				>(
+					_view.data(),
+					_view.size()
+				)
+			};
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

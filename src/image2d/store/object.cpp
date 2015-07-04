@@ -18,11 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image2d/store/element.hpp>
 #include <sge/image2d/store/elements_wrapper.hpp>
 #include <sge/image2d/store/object.hpp>
+#include <sge/src/image/color/instantiate_format.hpp>
 #include <sge/src/image/store/instantiate_object.hpp>
 
 
+#define SGE_IMAGE2D_STORE_OBJECT_INSTANTIATE_ARGS ( \
+	sge::image2d::store::elements_wrapper, \
+	sge::image2d::store::element, \
+	sge::image::color \
+)
+
 SGE_SRC_IMAGE_STORE_INSTANTIATE_OBJECT(
-	sge::image2d::store::elements_wrapper
+	SGE_IMAGE2D_STORE_OBJECT_INSTANTIATE_ARGS,
+	SGE_SRC_IMAGE_COLOR_INSTANTIATE_FORMAT
 );
+
+#undef SGE_IMAGE2D_STORE_OBJECT_INSTANTIATE_ARGS

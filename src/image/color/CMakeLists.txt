@@ -199,6 +199,7 @@ set(
 	src/image/color/include/sge/src/image/color/dynamic/view/from_static.hpp
 	src/image/color/include/sge/src/image/color/dynamic/view/from_static_visitor.hpp
 	src/image/color/include/sge/src/image/color/dynamic/view/image_format.hpp
+	src/image/color/include/sge/src/image/color/instantiate_format.hpp
 	src/image/color/include/sge/src/image/color/traits/dynamic_copy_and_convert.hpp
 	src/image/color/include/sge/src/image/color/traits/static_converter.hpp
 	src/image/color/invalid_convert.cpp

@@ -35,6 +35,7 @@ set(
 	include/sge/image/ds/view/d32_format.hpp
 	src/image/ds/format_stride.cpp
 	src/image/ds/format_to_string.cpp
+	src/image/ds/include/sge/src/image/ds/instantiate_format.hpp
 	src/image/ds/invalid_convert.cpp
 	src/image/ds/invalid_copy.cpp
 	src/image/ds/traits/format_stride.cpp

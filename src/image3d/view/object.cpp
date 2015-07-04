@@ -18,11 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image3d/view/element.hpp>
 #include <sge/image3d/view/elements_wrapper.hpp>
 #include <sge/image3d/view/object.hpp>
+#include <sge/src/image/color/instantiate_format.hpp>
 #include <sge/src/image/view/instantiate_object.hpp>
 
 
+#define SGE_IMAGE2D_VIEW_OBJECT_INSTANTIATE_ARGS ( \
+	sge::image3d::view::elements_wrapper, \
+	sge::image3d::view::element, \
+	sge::image::color \
+)
+
 SGE_SRC_IMAGE_VIEW_INSTANTIATE_OBJECT(
-	sge::image3d::view::elements_wrapper
+	SGE_IMAGE2D_VIEW_OBJECT_INSTANTIATE_ARGS,
+	SGE_SRC_IMAGE_COLOR_INSTANTIATE_FORMAT
 );
+
+#undef SGE_IMAGE2D_VIEW_OBJECT_INSTANTIATE_ARGS

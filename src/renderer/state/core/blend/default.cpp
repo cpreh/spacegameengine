@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/state/core/blend/alpha_off.hpp>
+#include <sge/renderer/state/core/blend/alpha_variant.hpp>
 #include <sge/renderer/state/core/blend/default.hpp>
 #include <sge/renderer/state/core/blend/parameters.hpp>
 #include <sge/renderer/state/core/blend/write_mask_all.hpp>
@@ -29,7 +30,9 @@ sge::renderer::state::core::blend::default_()
 {
 	return
 		sge::renderer::state::core::blend::parameters(
-			sge::renderer::state::core::blend::alpha_off(),
+			sge::renderer::state::core::blend::alpha_variant{
+				sge::renderer::state::core::blend::alpha_off()
+			},
 			sge::renderer::state::core::blend::write_mask_all()
 		);
 }

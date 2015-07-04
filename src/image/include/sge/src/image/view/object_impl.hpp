@@ -28,14 +28,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename ElementsWrapper
 >
+template<
+	typename Element,
+	typename
+>
 sge::image::view::object<
 	ElementsWrapper
 >::object(
-	variant const &_variant
+	Element const &_element
 )
 :
 	variant_(
-		_variant
+		_element
 	)
 {
 }

@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_ANY_DETAIL_MAKE_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_ANY_DETAIL_MAKE_OBJECT_HPP_INCLUDED
 
-#include <mizuiro/color/object_impl.hpp>
+#include <sge/image/mizuiro_color.hpp>
+
 
 namespace sge
 {
@@ -39,9 +40,11 @@ template<
 >
 struct make_object
 {
-	typedef mizuiro::color::object<
+	typedef
+	sge::image::mizuiro_color<
 		Format
-	> type;
+	>
+	type;
 };
 
 }

@@ -69,6 +69,7 @@ add_sge_base_library(
 		sgeimageds
 	INCLUDE_DIRS
 		"${FCPPT_UTILS_PROJECT_BINARY_DIR}/src/image/include"
+		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/image/ds/include"
 		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 		"${fcppt_INCLUDE_DIRS}"
 	TRANSITIVE_INCLUDE_DIRS

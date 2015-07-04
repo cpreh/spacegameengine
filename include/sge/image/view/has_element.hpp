@@ -18,26 +18,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image2d/traits/const_view_fwd.hpp>
-#include <sge/image2d/traits/view_fwd.hpp>
-#include <sge/image2d/view/const_element.hpp>
-#include <sge/image2d/view/const_elements_wrapper.hpp>
-#include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/elements_wrapper_fwd.hpp>
-#include <sge/src/image/color/instantiate_format.hpp>
-#include <sge/src/image/view/instantiate_const_object.hpp>
+#ifndef SGE_IMAGE_VIEW_HAS_ELEMENT_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_HAS_ELEMENT_HPP_INCLUDED
+
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/contains.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
-#define SGE_IMAGE2D_VIEW_CONST_OBJECT_INSTANTIATE_ARGS ( \
-	sge::image2d::view::const_elements_wrapper, \
-	sge::image2d::view::const_element, \
-	sge::image::color, \
-	sge::image2d::view::elements_wrapper \
-)
+namespace sge
+{
+namespace image
+{
+namespace view
+{
 
-SGE_SRC_IMAGE_VIEW_INSTANTIATE_CONST_OBJECT(
-	SGE_IMAGE2D_VIEW_CONST_OBJECT_INSTANTIATE_ARGS,
-	SGE_SRC_IMAGE_COLOR_INSTANTIATE_FORMAT
-);
+template<
+	typename ElementsWrapper,
+	typename Element
+>
+using
+has_element
+=
+typename
+boost::mpl::contains<
+	typename
+	ElementsWrapper::type,
+	Element
+>::type;
 
-#undef SGE_IMAGE2D_VIEW_CONST_OBJECT_INSTANTIATE_ARGS
+}
+}
+}
+
+#endif

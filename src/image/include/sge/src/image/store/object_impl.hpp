@@ -23,19 +23,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/store/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
 	typename ElementsWrapper
 >
+template<
+	typename Element,
+	typename
+>
 sge::image::store::object<
 	ElementsWrapper
 >::object(
-	variant const &_variant
+	Element &&_element
 )
 :
 	variant_(
-		_variant
+		std::move(
+			_element
+		)
 	)
 {
 }
@@ -94,7 +103,8 @@ sge::image::store::object<
 template<
 	typename ElementsWrapper
 >
-typename sge::image::store::object<
+typename
+sge::image::store::object<
 	ElementsWrapper
 >::variant &
 sge::image::store::object<
@@ -108,7 +118,8 @@ sge::image::store::object<
 template<
 	typename ElementsWrapper
 >
-typename sge::image::store::object<
+typename
+sge::image::store::object<
 	ElementsWrapper
 >::variant const &
 sge::image::store::object<
