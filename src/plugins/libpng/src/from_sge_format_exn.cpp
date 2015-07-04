@@ -50,24 +50,20 @@ sge::libpng::from_sge_format_exn(
 		SGE_LIBPNG_CONVERT_FORMAT(
 			la8
 		);
-		SGE_LIBPNG_CONVERT_FORMAT(
-			rgb8
-		);
-		SGE_LIBPNG_CONVERT_FORMAT(
-			bgr8
-		);
-		SGE_LIBPNG_CONVERT_FORMAT(
-			rgba8
-		);
-		SGE_LIBPNG_CONVERT_FORMAT(
-			rgbx8
-		);
-		SGE_LIBPNG_CONVERT_FORMAT(
-			bgra8
-		);
-		SGE_LIBPNG_CONVERT_FORMAT(
-			bgrx8
-		);
+		case sge::image::color::format::rgb8:
+			return
+				sge::libpng::format::srgb8;
+		case sge::image::color::format::bgr8:
+			return
+				sge::libpng::format::sbgr8;
+		case sge::image::color::format::rgba8:
+		case sge::image::color::format::rgbx8:
+			return
+				sge::libpng::format::srgba8;
+		case sge::image::color::format::bgra8:
+		case sge::image::color::format::bgrx8:
+			return
+				sge::libpng::format::sbgra8;
 		SGE_LIBPNG_CONVERT_FORMAT(
 			srgb8
 		);

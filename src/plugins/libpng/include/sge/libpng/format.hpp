@@ -33,15 +33,9 @@ enum class format
 {
 	l8,
 	la8,
-	rgb8,
-	rgbx8,
 	srgb8,
-	bgr8,
-	bgrx8,
 	sbgr8,
-	rgba8,
 	srgba8,
-	bgra8,
 	sbgra8
 };
 

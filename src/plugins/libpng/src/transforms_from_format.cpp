@@ -35,26 +35,16 @@ sge::libpng::transforms_from_format(
 	{
 	case sge::libpng::format::l8:
 	case sge::libpng::format::la8:
-	case sge::libpng::format::rgba8:
-	case sge::libpng::format::rgb8:
 	case sge::libpng::format::srgb8:
 	case sge::libpng::format::srgba8:
 		return
 			PNG_TRANSFORM_IDENTITY;
-	case sge::libpng::format::bgr8:
-	case sge::libpng::format::bgra8:
 	case sge::libpng::format::sbgr8:
 	case sge::libpng::format::sbgra8:
 		return
 			PNG_TRANSFORM_BGR;
-	case sge::libpng::format::rgbx8:
-		return
-			PNG_TRANSFORM_STRIP_FILLER_AFTER;
-	case sge::libpng::format::bgrx8:
-		return
-			PNG_TRANSFORM_STRIP_FILLER_AFTER
-			|
-			PNG_TRANSFORM_BGR;
+	// TODO: Do we want srgbx/bgrx?
+	//	PNG_TRANSFORM_STRIP_FILLER_AFTER;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

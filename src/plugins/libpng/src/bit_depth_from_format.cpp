@@ -34,16 +34,10 @@ sge::libpng::bit_depth_from_format(
 	{
 	case sge::libpng::format::l8:
 	case sge::libpng::format::la8:
-	case sge::libpng::format::rgb8:
 	case sge::libpng::format::srgb8:
-	case sge::libpng::format::bgr8:
 	case sge::libpng::format::sbgr8:
-	case sge::libpng::format::rgba8:
 	case sge::libpng::format::srgba8:
-	case sge::libpng::format::rgbx8:
-	case sge::libpng::format::bgra8:
 	case sge::libpng::format::sbgra8:
-	case sge::libpng::format::bgrx8:
 		return
 			8;
 	}

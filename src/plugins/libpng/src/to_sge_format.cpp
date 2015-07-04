@@ -47,31 +47,13 @@ sge::libpng::to_sge_format(
 			la8
 		);
 		SGE_LIBPNG_CONVERT_CASE(
-			rgb8
-		);
-		SGE_LIBPNG_CONVERT_CASE(
-			rgbx8
-		);
-		SGE_LIBPNG_CONVERT_CASE(
 			srgb8
-		);
-		SGE_LIBPNG_CONVERT_CASE(
-			bgr8
-		);
-		SGE_LIBPNG_CONVERT_CASE(
-			bgrx8
 		);
 		SGE_LIBPNG_CONVERT_CASE(
 			sbgr8
 		);
 		SGE_LIBPNG_CONVERT_CASE(
-			rgba8
-		);
-		SGE_LIBPNG_CONVERT_CASE(
 			srgba8
-		);
-		SGE_LIBPNG_CONVERT_CASE(
-			bgra8
 		);
 		SGE_LIBPNG_CONVERT_CASE(
 			sbgra8
