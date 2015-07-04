@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/convert/choose_fundamental.hpp>
 #include <fcppt/algorithm/map.hpp>
 
@@ -56,14 +57,16 @@ from_container(
 				)
 				{
 					return
-						static_cast<
-							typename
-							sge::parse::json::convert::choose_fundamental<
+						sge::parse::json::value(
+							static_cast<
 								typename
-								Container::value_type
-							>::type
-						>(
-							_element
+								sge::parse::json::convert::choose_fundamental<
+									typename
+									Container::value_type
+								>::type
+							>(
+								_element
+							)
 						);
 				}
 			)

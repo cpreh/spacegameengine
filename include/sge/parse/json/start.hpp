@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/array_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/start_fwd.hpp>
-#include <sge/parse/json/start_variant.hpp>
+#include <sge/parse/json/array_or_object.hpp>
 #include <sge/parse/json/detail/symbol.hpp>
 
 
@@ -43,13 +43,13 @@ struct start
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	explicit
 	start(
-		sge::parse::json::start_variant const &
+		sge::parse::json::array_or_object const &
 	);
 
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	explicit
 	start(
-		sge::parse::json::start_variant &&
+		sge::parse::json::array_or_object &&
 	);
 
 	SGE_PARSE_JSON_DETAIL_SYMBOL
@@ -68,7 +68,7 @@ struct start
 	sge::parse::json::object const &
 	object() const;
 
-	sge::parse::json::start_variant variant;
+	sge::parse::json::array_or_object variant;
 };
 
 }

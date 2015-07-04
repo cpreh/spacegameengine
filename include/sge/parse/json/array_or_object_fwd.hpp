@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_START_VARIANT_FWD_HPP_INCLUDED
-#define SGE_PARSE_JSON_START_VARIANT_FWD_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_ARRAY_OR_OBJECT_FWD_HPP_INCLUDED
+#define SGE_PARSE_JSON_ARRAY_OR_OBJECT_FWD_HPP_INCLUDED
 
 #include <sge/parse/json/array_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
@@ -36,12 +36,14 @@ namespace parse
 namespace json
 {
 
-typedef fcppt::variant::object<
+typedef
+fcppt::variant::object<
 	boost::mpl::vector2<
 		sge::parse::json::array,
 		sge::parse::json::object
 	>
-> start_variant;
+>
+array_or_object;
 
 }
 }

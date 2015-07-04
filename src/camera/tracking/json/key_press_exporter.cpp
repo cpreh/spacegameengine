@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/core/exception.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
+#include <sge/parse/json/array_or_object.hpp>
 #include <sge/parse/json/start.hpp>
 #include <sge/parse/json/output/to_file.hpp>
 #include <sge/src/camera/logger.hpp>
@@ -111,7 +112,7 @@ sge::camera::tracking::json::key_press_exporter::key_callback(
 			!sge::parse::json::output::to_file(
 				target_path_,
 				sge::parse::json::start(
-					sge::parse::json::start_variant(
+					sge::parse::json::array_or_object(
 						sge::camera::tracking::json::keyframes_to_json(
 							keyframes_)))))
 			// TODO: camera exception

@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_START_VARIANT_HPP_INCLUDED
-#define SGE_PARSE_JSON_START_VARIANT_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_ARRAY_OR_OBJECT_HPP_INCLUDED
+#define SGE_PARSE_JSON_ARRAY_OR_OBJECT_HPP_INCLUDED
 
 #include <sge/parse/json/array.hpp>
+#include <sge/parse/json/array_or_object_fwd.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/parse/json/start_variant_fwd.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 

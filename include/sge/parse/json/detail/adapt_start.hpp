@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_DETAIL_ADAPT_START_HPP_INCLUDED
 #define SGE_PARSE_JSON_DETAIL_ADAPT_START_HPP_INCLUDED
 
+#include <sge/parse/json/array_or_object.hpp>
 #include <sge/parse/json/start.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -35,7 +36,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 BOOST_FUSION_ADAPT_STRUCT(
 	sge::parse::json::start,
-	(sge::parse::json::start_variant, variant)
+	(sge::parse::json::array_or_object, variant)
 )
 
 FCPPT_PP_POP_WARNING

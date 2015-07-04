@@ -2,6 +2,8 @@ set(
 	SGE_PARSEJSON_FILES
 	include/sge/parse/json/array.hpp
 	include/sge/parse/json/array_fwd.hpp
+	include/sge/parse/json/array_or_object.hpp
+	include/sge/parse/json/array_or_object_fwd.hpp
 	include/sge/parse/json/config/command_line_parameters.hpp
 	include/sge/parse/json/config/create_command_line_parameters.hpp
 	include/sge/parse/json/config/help_needed_exception.hpp
@@ -87,8 +89,6 @@ set(
 	include/sge/parse/json/result_with_value_fwd.hpp
 	include/sge/parse/json/start.hpp
 	include/sge/parse/json/start_fwd.hpp
-	include/sge/parse/json/start_variant.hpp
-	include/sge/parse/json/start_variant_fwd.hpp
 	include/sge/parse/json/string.hpp
 	include/sge/parse/json/string_to_path.hpp
 	include/sge/parse/json/string_to_value.hpp
