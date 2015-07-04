@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/default.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/off.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/variant.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/variant.hpp>
 
 
 sge::renderer::state::core::depth_stencil::parameters const
@@ -29,7 +31,11 @@ sge::renderer::state::core::depth_stencil::default_()
 {
 	return
 		sge::renderer::state::core::depth_stencil::parameters(
-			sge::renderer::state::core::depth_stencil::depth::off(),
-			sge::renderer::state::core::depth_stencil::stencil::off()
+			sge::renderer::state::core::depth_stencil::depth::variant{
+				sge::renderer::state::core::depth_stencil::depth::off()
+			},
+			sge::renderer::state::core::depth_stencil::stencil::variant{
+				sge::renderer::state::core::depth_stencil::stencil::off()
+			}
 		);
 }

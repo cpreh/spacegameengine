@@ -68,6 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/state/core/blend/alpha_off.hpp>
+#include <sge/renderer/state/core/blend/alpha_variant.hpp>
 #include <sge/renderer/state/core/blend/object.hpp>
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/parameters.hpp>
@@ -82,7 +83,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/func.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/variant.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/write_enable.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/variant.hpp>
 #include <sge/renderer/state/core/rasterizer/cull_mode.hpp>
 #include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
 #include <sge/renderer/state/core/rasterizer/fill_mode.hpp>
@@ -132,6 +136,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/window_source.hpp>
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
@@ -832,9 +837,11 @@ try
 		sge::systems::make_list
 		(
 			sge::systems::window(
-				sge::systems::original_window(
-					sge::window::title(
-						FCPPT_TEXT("sge test for anaglyph 3D")
+				sge::systems::window_source(
+					sge::systems::original_window(
+						sge::window::title(
+							FCPPT_TEXT("sge test for anaglyph 3D")
+						)
 					)
 				)
 			)
@@ -941,11 +948,20 @@ try
 	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_stencil_state(
 		sys.renderer_device_core().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
-				sge::renderer::state::core::depth_stencil::depth::enabled(
-					sge::renderer::state::core::depth_stencil::depth::func::less,
-					sge::renderer::state::core::depth_stencil::depth::write_enable(
-						true)),
-				sge::renderer::state::core::depth_stencil::stencil::off())));
+				sge::renderer::state::core::depth_stencil::depth::variant(
+					sge::renderer::state::core::depth_stencil::depth::enabled(
+						sge::renderer::state::core::depth_stencil::depth::func::less,
+						sge::renderer::state::core::depth_stencil::depth::write_enable(
+							true
+						)
+					)
+				),
+				sge::renderer::state::core::depth_stencil::stencil::variant(
+					sge::renderer::state::core::depth_stencil::stencil::off()
+				)
+			)
+		)
+	);
 
 	sge::renderer::state::core::rasterizer::object_unique_ptr const rasterizer_state(
 		sys.renderer_device_core().create_rasterizer_state(
@@ -953,35 +969,59 @@ try
 				sge::renderer::state::core::rasterizer::cull_mode::counter_clockwise,
 				sge::renderer::state::core::rasterizer::fill_mode::solid,
 				sge::renderer::state::core::rasterizer::enable_scissor_test(
-					false))));
+					false
+				)
+			)
+		)
+	);
 
 	sge::renderer::state::core::blend::object_unique_ptr const blend_red_state(
 		sys.renderer_device_core().create_blend_state(
 			sge::renderer::state::core::blend::parameters(
-				sge::renderer::state::core::blend::alpha_off(),
+				sge::renderer::state::core::blend::alpha_variant(
+					sge::renderer::state::core::blend::alpha_off()
+				),
 				sge::renderer::state::core::blend::write_mask(
 					sge::renderer::state::core::blend::write_red(
-						true),
+						true
+					),
 					sge::renderer::state::core::blend::write_blue(
-						false),
+						false
+					),
 					sge::renderer::state::core::blend::write_green(
-						false),
+						false
+					),
 					sge::renderer::state::core::blend::write_alpha(
-						true)))));
+						true
+					)
+				)
+			)
+		)
+	);
 
 	sge::renderer::state::core::blend::object_unique_ptr const blend_cyan_state(
 		sys.renderer_device_core().create_blend_state(
 			sge::renderer::state::core::blend::parameters(
-				sge::renderer::state::core::blend::alpha_off(),
+				sge::renderer::state::core::blend::alpha_variant(
+					sge::renderer::state::core::blend::alpha_off()
+				),
 				sge::renderer::state::core::blend::write_mask(
 					sge::renderer::state::core::blend::write_red(
-						false),
+						false
+					),
 					sge::renderer::state::core::blend::write_blue(
-						true),
+						true
+					),
 					sge::renderer::state::core::blend::write_green(
-						true),
+						true
+					),
 					sge::renderer::state::core::blend::write_alpha(
-						true)))));
+						true
+					)
+				)
+			)
+		)
+	);
 
 	while(
 		sys.window_system().poll()

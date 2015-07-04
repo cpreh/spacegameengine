@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/context/parameters.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/event/object.hpp>
+#include <sge/opencl/kernel/numeric_type.hpp>
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/memory_object/base_ref_sequence.hpp>
 #include <sge/opencl/memory_object/buffer.hpp>
@@ -80,6 +81,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/window_source.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
 #include <sge/viewport/center_on_resize.hpp>
@@ -331,12 +333,16 @@ try
 		sge::systems::make_list
 		(
 			sge::systems::window(
-				sge::systems::original_window(
-					sge::window::title(
-						FCPPT_TEXT("Simple OpenCL example")
+				sge::systems::window_source(
+					sge::systems::original_window(
+						sge::window::title(
+							FCPPT_TEXT("Simple OpenCL example")
+						)
 					)
 				)
-			).dont_show())
+			)
+			.dont_show()
+		)
 		(sge::systems::renderer(
 				sge::renderer::pixel_format::object(
 					sge::renderer::pixel_format::color::depth32,
@@ -496,8 +502,12 @@ try
 	main_kernel.argument(
 		sge::opencl::kernel::argument_index(
 			0u),
-		static_cast<cl_float>(
-			2.0));
+		sge::opencl::kernel::numeric_type(
+			static_cast<cl_float>(
+				2.0
+			)
+		)
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Done, now creating a command queue\n");

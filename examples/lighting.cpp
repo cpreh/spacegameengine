@@ -51,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/lighting/parameters.hpp>
 #include <sge/renderer/state/ffp/lighting/scoped.hpp>
 #include <sge/renderer/state/ffp/lighting/specular_color.hpp>
+#include <sge/renderer/state/ffp/lighting/variant.hpp>
 #include <sge/renderer/state/ffp/lighting/light/attenuation.hpp>
 #include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/lighting/light/constant_attenuation.hpp>
@@ -62,6 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/lighting/light/position.hpp>
 #include <sge/renderer/state/ffp/lighting/light/quadratic_attenuation.hpp>
 #include <sge/renderer/state/ffp/lighting/light/scoped.hpp>
+#include <sge/renderer/state/ffp/lighting/light/variant.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
@@ -102,6 +104,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/window_source.hpp>
 #include <sge/systems/with_image2d.hpp>
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
@@ -154,9 +157,11 @@ try
 		sge::systems::make_list
 		(
 			sge::systems::window(
-				sge::systems::original_window(
-					sge::window::title(
-						FCPPT_TEXT("sge lighting example")
+				sge::systems::window_source(
+					sge::systems::original_window(
+						sge::window::title(
+							FCPPT_TEXT("sge lighting example")
+						)
 					)
 				)
 			)
@@ -305,12 +310,14 @@ try
 	sge::renderer::state::ffp::lighting::object_unique_ptr const light_state{
 		sys.renderer_device_ffp().create_lighting_state(
 			sge::renderer::state::ffp::lighting::parameters{
-				sge::renderer::state::ffp::lighting::enabled{
-					sge::renderer::state::ffp::lighting::ambient_color{
-						sge::image::color::predef::black()
-					},
-					sge::renderer::state::ffp::lighting::diffuse_from_vertex{
-						false
+				sge::renderer::state::ffp::lighting::variant{
+					sge::renderer::state::ffp::lighting::enabled{
+						sge::renderer::state::ffp::lighting::ambient_color{
+							sge::image::color::predef::black()
+						},
+						sge::renderer::state::ffp::lighting::diffuse_from_vertex{
+							false
+						}
 					}
 				}
 			}
@@ -329,27 +336,29 @@ try
 				sge::renderer::state::ffp::lighting::ambient_color{
 					sge::image::color::predef::yellow()
 				},
-				sge::renderer::state::ffp::lighting::light::point{
-					sge::renderer::state::ffp::lighting::light::position{
-						fcppt::math::vector::construct(
-							fcppt::math::vector::structure_cast<
-								sge::renderer::vector2,
-								fcppt::cast::int_to_float_fun
-							>(
-								my_object.center()
-							),
-							-1.f
-						)
-					},
-					sge::renderer::state::ffp::lighting::light::attenuation{
-						sge::renderer::state::ffp::lighting::light::constant_attenuation{
-							1.f
+				sge::renderer::state::ffp::lighting::light::variant{
+					sge::renderer::state::ffp::lighting::light::point{
+						sge::renderer::state::ffp::lighting::light::position{
+							fcppt::math::vector::construct(
+								fcppt::math::vector::structure_cast<
+									sge::renderer::vector2,
+									fcppt::cast::int_to_float_fun
+								>(
+									my_object.center()
+								),
+								-1.f
+							)
 						},
-						sge::renderer::state::ffp::lighting::light::linear_attenuation{
-							0.f
-						},
-						sge::renderer::state::ffp::lighting::light::quadratic_attenuation{
-							0.f
+						sge::renderer::state::ffp::lighting::light::attenuation{
+							sge::renderer::state::ffp::lighting::light::constant_attenuation{
+								1.f
+							},
+							sge::renderer::state::ffp::lighting::light::linear_attenuation{
+								0.f
+							},
+							sge::renderer::state::ffp::lighting::light::quadratic_attenuation{
+								0.f
+							}
 						}
 					}
 				}

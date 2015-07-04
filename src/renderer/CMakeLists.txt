@@ -282,8 +282,6 @@ set(
 	include/sge/renderer/state/core/blend/alpha_dest.hpp
 	include/sge/renderer/state/core/blend/alpha_enabled.hpp
 	include/sge/renderer/state/core/blend/alpha_enabled_fwd.hpp
-	include/sge/renderer/state/core/blend/alpha_enabled_variant.hpp
-	include/sge/renderer/state/core/blend/alpha_enabled_variant_fwd.hpp
 	include/sge/renderer/state/core/blend/alpha_off.hpp
 	include/sge/renderer/state/core/blend/alpha_off_fwd.hpp
 	include/sge/renderer/state/core/blend/alpha_source.hpp
@@ -577,8 +575,6 @@ set(
 	include/sge/renderer/state/ffp/sampler/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/sampler/op.hpp
 	include/sge/renderer/state/ffp/sampler/op_fwd.hpp
-	include/sge/renderer/state/ffp/sampler/op_variant.hpp
-	include/sge/renderer/state/ffp/sampler/op_variant_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/parameters.hpp
 	include/sge/renderer/state/ffp/sampler/parameters_both.hpp
 	include/sge/renderer/state/ffp/sampler/parameters_fwd.hpp
@@ -962,7 +958,6 @@ set(
 	src/renderer/projection/perspective_af.cpp
 	src/renderer/projection/perspective_wh.cpp
 	src/renderer/screenshot.cpp
-	src/renderer/state/core/blend/alpha_enabled.cpp
 	src/renderer/state/core/blend/combined.cpp
 	src/renderer/state/core/blend/default.cpp
 	src/renderer/state/core/blend/object.cpp
@@ -1045,7 +1040,6 @@ set(
 	src/renderer/state/ffp/sampler/default.cpp
 	src/renderer/state/ffp/sampler/default_op.cpp
 	src/renderer/state/ffp/sampler/object.cpp
-	src/renderer/state/ffp/sampler/op.cpp
 	src/renderer/state/ffp/sampler/parameters.cpp
 	src/renderer/state/ffp/sampler/parameters_both.cpp
 	src/renderer/state/ffp/sampler/scoped.cpp

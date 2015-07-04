@@ -18,6 +18,7 @@
 #include <sge/font/v_center.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/font/align_h/left.hpp>
+#include <sge/font/align_h/variant.hpp>
 #include <sge/font/draw/static_text.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
@@ -215,7 +216,9 @@ sge::gui::widget::button::make_static_text(
 			font_,
 			_text,
 			sge::font::text_parameters(
-				sge::font::align_h::left()
+				sge::font::align_h::variant{
+					sge::font::align_h::left()
+				}
 			)
 			.flags(
 				sge::font::flags_field{

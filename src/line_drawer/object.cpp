@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/state/core/blend/alpha_enabled.hpp>
+#include <sge/renderer/state/core/blend/alpha_variant.hpp>
 #include <sge/renderer/state/core/blend/combined.hpp>
 #include <sge/renderer/state/core/blend/dest.hpp>
 #include <sge/renderer/state/core/blend/object.hpp>
@@ -81,12 +82,14 @@ sge::line_drawer::object::object(
 	blend_state_(
 		renderer_.create_blend_state(
 			sge::renderer::state::core::blend::parameters(
-				sge::renderer::state::core::blend::alpha_enabled(
-					sge::renderer::state::core::blend::combined(
-						sge::renderer::state::core::blend::source::src_alpha,
-						sge::renderer::state::core::blend::dest::inv_src_alpha
+				sge::renderer::state::core::blend::alpha_variant{
+					sge::renderer::state::core::blend::alpha_enabled(
+						sge::renderer::state::core::blend::combined(
+							sge::renderer::state::core::blend::source::src_alpha,
+							sge::renderer::state::core::blend::dest::inv_src_alpha
+						)
 					)
-				),
+				},
 				sge::renderer::state::core::blend::write_mask_all()
 			)
 		)

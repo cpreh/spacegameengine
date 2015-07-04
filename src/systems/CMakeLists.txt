@@ -98,6 +98,8 @@ set(
 	include/sge/systems/renderer_fwd.hpp
 	include/sge/systems/window.hpp
 	include/sge/systems/window_fwd.hpp
+	include/sge/systems/window_source.hpp
+	include/sge/systems/window_source_fwd.hpp
 	include/sge/systems/with_audio_loader.hpp
 	include/sge/systems/with_audio_loader_fwd.hpp
 	include/sge/systems/with_audio_player.hpp

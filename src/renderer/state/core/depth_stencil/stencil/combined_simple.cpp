@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/depth_fail_op.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/desc.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/enabled.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/enabled_variant.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/fail_op.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/func.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/op.hpp>
@@ -68,14 +69,16 @@ sge::renderer::state::core::depth_stencil::stencil::combined_simple::to_enabled(
 {
 	return
 		sge::renderer::state::core::depth_stencil::stencil::enabled(
-			sge::renderer::state::core::depth_stencil::stencil::combined(
-				sge::renderer::state::core::depth_stencil::stencil::desc(
-					fail_op_,
-					depth_fail_op_,
-					pass_op_,
-					func_
+			sge::renderer::state::core::depth_stencil::stencil::enabled_variant{
+				sge::renderer::state::core::depth_stencil::stencil::combined(
+					sge::renderer::state::core::depth_stencil::stencil::desc(
+						fail_op_,
+						depth_fail_op_,
+						pass_op_,
+						func_
+					)
 				)
-			),
+			},
 			ref_,
 			read_mask_,
 			write_mask_
@@ -92,7 +95,8 @@ sge::renderer::state::core::depth_stencil::stencil::combined_simple::ref(
 			_value
 		);
 
-	return *this;
+	return
+		*this;
 }
 
 sge::renderer::state::core::depth_stencil::stencil::combined_simple &
@@ -105,7 +109,8 @@ sge::renderer::state::core::depth_stencil::stencil::combined_simple::read_mask(
 			_value
 		);
 
-	return *this;
+	return
+		*this;
 }
 
 sge::renderer::state::core::depth_stencil::stencil::combined_simple &
@@ -118,7 +123,8 @@ sge::renderer::state::core::depth_stencil::stencil::combined_simple::write_mask(
 			_value
 		);
 
-	return *this;
+	return
+		*this;
 }
 
 sge::renderer::state::core::depth_stencil::stencil::combined_simple &
@@ -131,7 +137,8 @@ sge::renderer::state::core::depth_stencil::stencil::combined_simple::fail_op(
 			_op
 		);
 
-	return *this;
+	return
+		*this;
 }
 
 sge::renderer::state::core::depth_stencil::stencil::combined_simple &
@@ -144,7 +151,8 @@ sge::renderer::state::core::depth_stencil::stencil::combined_simple::depth_fail_
 			_op
 		);
 
-	return *this;
+	return
+		*this;
 }
 
 sge::renderer::state::core::depth_stencil::stencil::combined_simple &
@@ -157,5 +165,6 @@ sge::renderer::state::core::depth_stencil::stencil::combined_simple::pass_op(
 			_op
 		);
 
-	return *this;
+	return
+		*this;
 }

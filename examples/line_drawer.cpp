@@ -56,6 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/align_h/left.hpp>
 #include <sge/font/align_h/max_width.hpp>
 #include <sge/font/align_h/right.hpp>
+#include <sge/font/align_h/variant.hpp>
 #include <sge/font/draw/simple.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -95,6 +96,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/window_source.hpp>
 #include <sge/systems/with_font.hpp>
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
@@ -319,9 +321,11 @@ try
 		sge::systems::make_list
 		(
 			sge::systems::window(
-				sge::systems::original_window(
-					sge::window::title(
-						FCPPT_TEXT("sge line drawer example")
+				sge::systems::window_source(
+					sge::systems::original_window(
+						sge::window::title(
+							FCPPT_TEXT("sge line drawer example")
+						)
 					)
 				)
 			)
@@ -411,8 +415,10 @@ try
 			*font,
 			SGE_FONT_LIT("Press the left mouse button to set a point"),
 			sge::font::text_parameters(
-				sge::font::align_h::left(
-					font_width
+				sge::font::align_h::variant(
+					sge::font::align_h::left(
+						font_width
+					)
 				)
 			),
 			font_pos,
@@ -424,11 +430,15 @@ try
 			scoped_block.get(),
 			*font,
 			sge::font::from_fcppt_string(
-				frames_counter.frames_str())
-			+ SGE_FONT_LIT(" fps"),
+				frames_counter.frames_str()
+			)
+			+
+			SGE_FONT_LIT(" fps"),
 			sge::font::text_parameters(
-				sge::font::align_h::right(
-					font_width
+				sge::font::align_h::variant(
+					sge::font::align_h::right(
+						font_width
+					)
 				)
 			),
 			font_pos,

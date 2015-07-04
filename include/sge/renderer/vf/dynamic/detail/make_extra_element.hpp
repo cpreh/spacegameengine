@@ -43,6 +43,7 @@ template<
 	typename Format,
 	sge::renderer::vf::element_count_type NumSubElements
 >
+inline
 sge::renderer::vf::dynamic::vector const
 make_extra_element(
 	sge::renderer::vf::vector<
@@ -62,6 +63,7 @@ template<
 	typename ColorChannel,
 	typename ColorLayout
 >
+inline
 sge::renderer::vf::dynamic::color const
 make_extra_element(
 	mizuiro::color::format::homogenous_static<

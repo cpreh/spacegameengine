@@ -222,25 +222,45 @@ sge::scenic::render_context::cg::manager::manager(
 					sge::renderer::state::core::depth_stencil::depth::enabled(
 						sge::renderer::state::core::depth_stencil::depth::func::less,
 						sge::renderer::state::core::depth_stencil::depth::write_enable(
-							true))),
-				sge::renderer::state::core::depth_stencil::stencil::off()))),
+							true
+						)
+					)
+				),
+				sge::renderer::state::core::depth_stencil::stencil::variant(
+					sge::renderer::state::core::depth_stencil::stencil::off()
+				)
+			)
+		)
+	),
 	blend_state_(
 		_shader_context.renderer().create_blend_state(
 			sge::renderer::state::core::blend::parameters(
-				sge::renderer::state::core::blend::alpha_off(),
-				sge::renderer::state::core::blend::write_mask_all()))),
+				sge::renderer::state::core::blend::alpha_variant(
+					sge::renderer::state::core::blend::alpha_off()
+				),
+				sge::renderer::state::core::blend::write_mask_all()
+			)
+		)
+	),
 	rasterizer_state_(
 		_shader_context.renderer().create_rasterizer_state(
 			sge::renderer::state::core::rasterizer::parameters(
 				sge::renderer::state::core::rasterizer::cull_mode::counter_clockwise,
 				sge::renderer::state::core::rasterizer::fill_mode::solid,
 				sge::renderer::state::core::rasterizer::enable_scissor_test(
-					false)))),
+					false
+				)
+			)
+		)
+	),
 	mipmap_sampler_state_(
 		_shader_context.renderer().create_sampler_state(
 			sge::renderer::state::core::sampler::parameters(
 				sge::renderer::state::core::sampler::address::default_(),
-				sge::renderer::state::core::sampler::filter::mipmap())))
+				sge::renderer::state::core::sampler::filter::mipmap()
+			)
+		)
+	)
 {
 }
 

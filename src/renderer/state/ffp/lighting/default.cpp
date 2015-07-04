@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/lighting/default.hpp>
 #include <sge/renderer/state/ffp/lighting/off.hpp>
 #include <sge/renderer/state/ffp/lighting/parameters.hpp>
+#include <sge/renderer/state/ffp/lighting/variant.hpp>
 
 
 sge::renderer::state::ffp::lighting::parameters const
@@ -28,6 +29,8 @@ sge::renderer::state::ffp::lighting::default_()
 {
 	return
 		sge::renderer::state::ffp::lighting::parameters(
-			sge::renderer::state::ffp::lighting::off()
+			sge::renderer::state::ffp::lighting::variant{
+				sge::renderer::state::ffp::lighting::off()
+			}
 		);
 }

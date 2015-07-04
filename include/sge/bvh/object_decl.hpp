@@ -32,6 +32,7 @@ namespace sge
 {
 namespace bvh
 {
+
 template<typename Traits>
 class object
 {
@@ -64,8 +65,10 @@ public:
 	~object();
 private:
 	leaf_sequence leaves_;
+
 	tree_representation representation_;
 };
+
 }
 }
 

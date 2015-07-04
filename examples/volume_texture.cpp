@@ -60,7 +60,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/func.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/write_enable.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/variant.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/variant.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/object.hpp>
 #include <sge/renderer/state/core/sampler/object_unique_ptr.hpp>
@@ -118,6 +120,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/window_source.hpp>
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
@@ -526,9 +529,11 @@ try
 		sge::systems::make_list
 		(
 			sge::systems::window(
-				sge::systems::original_window(
-					sge::window::title(
-						FCPPT_TEXT("sge volume texture example")
+				sge::systems::window_source(
+					sge::systems::original_window(
+						sge::window::title(
+							FCPPT_TEXT("sge volume texture example")
+						)
 					)
 				)
 			)
@@ -649,13 +654,17 @@ try
 	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_stencil_state(
 		sys.renderer_device_core().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
-				sge::renderer::state::core::depth_stencil::depth::enabled(
-					sge::renderer::state::core::depth_stencil::depth::func::less,
-					sge::renderer::state::core::depth_stencil::depth::write_enable(
-						true
+				sge::renderer::state::core::depth_stencil::depth::variant(
+					sge::renderer::state::core::depth_stencil::depth::enabled(
+						sge::renderer::state::core::depth_stencil::depth::func::less,
+						sge::renderer::state::core::depth_stencil::depth::write_enable(
+							true
+						)
 					)
 				),
-				sge::renderer::state::core::depth_stencil::stencil::off()
+				sge::renderer::state::core::depth_stencil::stencil::variant(
+					sge::renderer::state::core::depth_stencil::stencil::off()
+				)
 			)
 		)
 	);

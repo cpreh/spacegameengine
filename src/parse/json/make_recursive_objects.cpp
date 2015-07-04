@@ -80,7 +80,9 @@ create_or_navigate_path(
 					_old.get().members.insert(
 						sge::parse::json::member(
 							_new_member,
-							sge::parse::json::object()
+							sge::parse::json::value(
+								sge::parse::json::object()
+							)
 						)
 					)
 				);

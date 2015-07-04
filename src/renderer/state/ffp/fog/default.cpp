@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/fog/default.hpp>
 #include <sge/renderer/state/ffp/fog/off.hpp>
 #include <sge/renderer/state/ffp/fog/parameters.hpp>
+#include <sge/renderer/state/ffp/fog/variant.hpp>
 
 
 sge::renderer::state::ffp::fog::parameters const
@@ -28,6 +29,8 @@ sge::renderer::state::ffp::fog::default_()
 {
 	return
 		sge::renderer::state::ffp::fog::parameters(
-			sge::renderer::state::ffp::fog::off()
+			sge::renderer::state::ffp::fog::variant{
+				sge::renderer::state::ffp::fog::off()
+			}
 		);
 }

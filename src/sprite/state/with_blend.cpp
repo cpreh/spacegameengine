@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/state/core/blend/alpha_enabled.hpp>
+#include <sge/renderer/state/core/blend/alpha_variant.hpp>
 #include <sge/renderer/state/core/blend/combined.hpp>
 #include <sge/renderer/state/core/blend/const_optional_object_ref.hpp>
 #include <sge/renderer/state/core/blend/dest.hpp>
@@ -42,12 +43,14 @@ sge::sprite::state::with_blend::make(
 	return
 		_device.create_blend_state(
 			sge::renderer::state::core::blend::parameters(
-				sge::renderer::state::core::blend::alpha_enabled(
-					sge::renderer::state::core::blend::combined(
-						sge::renderer::state::core::blend::source::src_alpha,
-						sge::renderer::state::core::blend::dest::inv_src_alpha
-					)
-				),
+				sge::renderer::state::core::blend::alpha_variant{
+					sge::renderer::state::core::blend::alpha_enabled{
+						sge::renderer::state::core::blend::combined(
+							sge::renderer::state::core::blend::source::src_alpha,
+							sge::renderer::state::core::blend::dest::inv_src_alpha
+						)
+					}
+				},
 				fcppt::from_optional(
 					_write_mask,
 					[]{

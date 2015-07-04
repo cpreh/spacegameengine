@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/align_h/left.hpp>
 #include <sge/font/align_h/max_width.hpp>
 #include <sge/font/align_h/right.hpp>
+#include <sge/font/align_h/variant.hpp>
 #include <sge/font/draw/simple.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
@@ -86,6 +87,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/filter/parameters.hpp>
 #include <sge/renderer/state/core/sampler/filter/point.hpp>
 #include <sge/renderer/state/core/sampler/filter/trilinear.hpp>
+#include <sge/renderer/state/core/sampler/filter/variant.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/level.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/mip.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp>
@@ -143,6 +145,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/window_source.hpp>
 #include <sge/systems/with_font.hpp>
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
@@ -216,10 +219,12 @@ make_anisotropic_sampler_parameters(
 	return
 		make_sampler_parameters(
 			sge::renderer::state::core::sampler::filter::parameters(
-				sge::renderer::state::core::sampler::filter::anisotropic::parameters(
-					_mip,
-					_level
-				)
+				sge::renderer::state::core::sampler::filter::variant{
+					sge::renderer::state::core::sampler::filter::anisotropic::parameters(
+						_mip,
+						_level
+					)
+				}
 			)
 		);
 }
@@ -250,9 +255,11 @@ try
 		sge::systems::make_list
 		(
 			sge::systems::window(
-				sge::systems::original_window(
-					sge::window::title(
-						FCPPT_TEXT("sge texture filter example")
+				sge::systems::window_source(
+					sge::systems::original_window(
+						sge::window::title(
+							FCPPT_TEXT("sge texture filter example")
+						)
 					)
 				)
 			)
@@ -856,8 +863,10 @@ try
 			+
 			text_appendix,
 			sge::font::text_parameters(
-				sge::font::align_h::left(
-					font_width
+				sge::font::align_h::variant(
+					sge::font::align_h::left(
+						font_width
+					)
 				)
 			),
 			font_pos,
@@ -872,10 +881,13 @@ try
 			sge::font::from_fcppt_string(
 				frames_counter.frames_str()
 			)
-			+ SGE_FONT_LIT(" fps"),
+			+
+			SGE_FONT_LIT(" fps"),
 			sge::font::text_parameters(
-				sge::font::align_h::right(
-					font_width
+				sge::font::align_h::variant(
+					sge::font::align_h::right(
+						font_width
+					)
 				)
 			),
 			font_pos,
@@ -895,7 +907,8 @@ catch(
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
@@ -905,5 +918,6 @@ catch(
 		<< _error.what()
 		<< '\n';
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }

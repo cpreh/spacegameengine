@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/object.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/texture/mipmap/off_rep.hpp>
+#include <sge/renderer/texture/mipmap/variant.hpp>
 
 
 sge::renderer::texture::mipmap::object const
@@ -28,6 +29,8 @@ sge::renderer::texture::mipmap::off()
 {
 	return
 		sge::renderer::texture::mipmap::object(
-			sge::renderer::texture::mipmap::off_rep()
+			sge::renderer::texture::mipmap::variant{
+				sge::renderer::texture::mipmap::off_rep()
+			}
 		);
 }

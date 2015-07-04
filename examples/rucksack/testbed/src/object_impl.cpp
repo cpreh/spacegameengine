@@ -60,6 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/window_source.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
@@ -83,8 +84,10 @@ sge::rucksack::testbed::object_impl::object_impl(
 		sge::systems::make_list
 		(
 			sge::systems::window(
-				sge::systems::original_window(
-					_window_title
+				sge::systems::window_source(
+					sge::systems::original_window(
+						_window_title
+					)
 				)
 			)
 		)

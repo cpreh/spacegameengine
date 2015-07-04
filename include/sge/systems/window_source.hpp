@@ -18,22 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/state/ffp/sampler/op.hpp>
-#include <sge/renderer/state/ffp/sampler/op_variant.hpp>
+#ifndef SGE_SYSTEMS_WINDOW_SOURCE_HPP_INCLUDED
+#define SGE_SYSTEMS_WINDOW_SOURCE_HPP_INCLUDED
+
+#include <sge/systems/original_window.hpp>
+#include <sge/systems/window_source_fwd.hpp>
+#include <sge/systems/wrapped_window.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
-sge::renderer::state::ffp::sampler::op::op(
-	sge::renderer::state::ffp::sampler::op_variant const &_variant
-)
-:
-	variant_(
-		_variant
-	)
-{
-}
-
-sge::renderer::state::ffp::sampler::op_variant const &
-sge::renderer::state::ffp::sampler::op::variant() const
-{
-	return variant_;
-}
+#endif

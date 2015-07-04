@@ -21,6 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_BLEND_ALPHA_ENABLED_FWD_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_BLEND_ALPHA_ENABLED_FWD_HPP_INCLUDED
 
+#include <sge/renderer/state/core/blend/combined_fwd.hpp>
+#include <sge/renderer/state/core/blend/separate_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -33,7 +40,14 @@ namespace core
 namespace blend
 {
 
-class alpha_enabled;
+typedef
+fcppt::variant::object<
+	boost::mpl::vector2<
+		sge::renderer::state::core::blend::combined,
+		sge::renderer::state::core::blend::separate
+	>
+>
+alpha_enabled;
 
 }
 }

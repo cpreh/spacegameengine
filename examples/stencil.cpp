@@ -59,9 +59,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
 #include <sge/renderer/state/core/depth_stencil/scoped.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/off.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/variant.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/combined_simple.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/func.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/op.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/variant.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
@@ -102,6 +104,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/window_source.hpp>
 #include <sge/systems/with_image2d.hpp>
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
@@ -156,11 +159,12 @@ try
 	> const sys(
 		sge::systems::make_list
 		(
-			// Request a window with the desired title and size.
 			sge::systems::window(
-				sge::systems::original_window(
-					sge::window::title(
-						FCPPT_TEXT("sge stencil example")
+				sge::systems::window_source(
+					sge::systems::original_window(
+						sge::window::title(
+							FCPPT_TEXT("sge stencil example")
+						)
 					)
 				)
 			)
@@ -362,14 +366,18 @@ try
 	sge::renderer::state::core::depth_stencil::object_unique_ptr const inc_state(
 		sys.renderer_device_ffp().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
-				sge::renderer::state::core::depth_stencil::depth::off(),
-				sge::renderer::state::core::depth_stencil::stencil::combined_simple(
-					sge::renderer::state::core::depth_stencil::stencil::func::always
+				sge::renderer::state::core::depth_stencil::depth::variant(
+					sge::renderer::state::core::depth_stencil::depth::off()
+				),
+				sge::renderer::state::core::depth_stencil::stencil::variant(
+					sge::renderer::state::core::depth_stencil::stencil::combined_simple(
+						sge::renderer::state::core::depth_stencil::stencil::func::always
+					)
+					.pass_op(
+						sge::renderer::state::core::depth_stencil::stencil::op::inc_sat
+					)
+					.to_enabled()
 				)
-				.pass_op(
-					sge::renderer::state::core::depth_stencil::stencil::op::inc_sat
-				)
-				.to_enabled()
 			)
 		)
 	);
@@ -379,11 +387,15 @@ try
 	sge::renderer::state::core::depth_stencil::object_unique_ptr const compare_state(
 		sys.renderer_device_ffp().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
-				sge::renderer::state::core::depth_stencil::depth::off(),
-				sge::renderer::state::core::depth_stencil::stencil::combined_simple(
-					sge::renderer::state::core::depth_stencil::stencil::func::equal
+				sge::renderer::state::core::depth_stencil::depth::variant(
+					sge::renderer::state::core::depth_stencil::depth::off()
+				),
+				sge::renderer::state::core::depth_stencil::stencil::variant(
+					sge::renderer::state::core::depth_stencil::stencil::combined_simple(
+						sge::renderer::state::core::depth_stencil::stencil::func::equal
+					)
+					.to_enabled()
 				)
-				.to_enabled()
 			)
 		)
 	);

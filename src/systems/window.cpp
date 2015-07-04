@@ -19,14 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/systems/window.hpp>
+#include <sge/systems/window_source.hpp>
 
 
 sge::systems::window::window(
-	sge::systems::window::parameter_variant const &_parameter
+	sge::systems::window_source const &_source
 )
 :
-	parameter_(
-		_parameter
+	source_(
+		_source
 	),
 	show_(
 		true
@@ -57,11 +58,11 @@ sge::systems::window::dont_quit()
 		*this;
 }
 
-sge::systems::window::parameter_variant const &
-sge::systems::window::parameter() const
+sge::systems::window_source const &
+sge::systems::window::source() const
 {
 	return
-		parameter_;
+		source_;
 }
 
 bool

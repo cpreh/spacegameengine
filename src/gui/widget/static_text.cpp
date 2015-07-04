@@ -11,6 +11,7 @@
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/font/align_h/left.hpp>
+#include <sge/font/align_h/variant.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
@@ -41,7 +42,9 @@ sge::gui::widget::static_text::static_text(
 		_font,
 		_value,
 		sge::font::text_parameters(
-			sge::font::align_h::left()
+			sge::font::align_h::variant{
+				sge::font::align_h::left()
+			}
 		)
 		.flags(
 			sge::font::flags_field{

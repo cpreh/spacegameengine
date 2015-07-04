@@ -38,7 +38,7 @@ sge::systems::modules::window::make_system_base(
 {
 	return
 		fcppt::variant::match(
-			_parameters.parameter(),
+			_parameters.source(),
 			[](
 				sge::systems::original_window const &
 			)

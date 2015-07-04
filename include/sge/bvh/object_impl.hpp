@@ -23,13 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/bvh/construct_median_cut.hpp>
 #include <sge/bvh/object_decl.hpp>
+#include <fcppt/algorithm/map.hpp>
+
 
 template<typename Traits>
 sge::bvh::object<Traits>::object()
 :
 	leaves_(),
 	representation_(
-		sge::bvh::empty_node())
+		typename
+		traits::node_or_leaf_variant(
+			sge::bvh::empty_node()
+		)
+	)
 {
 }
 
@@ -43,21 +49,30 @@ sge::bvh::object<Traits>::insert(
 		_leaves.begin(),
 		_leaves.end());
 
-	typename traits::leaf_wrapper_sequence leaf_wrappers;
-	for(
-		typename leaf_sequence::iterator it =
-			leaves_.begin();
-		it != leaves_.end();
-		++it)
-		leaf_wrappers.push_back(
-			typename traits::leaf_wrapper(
-				*it));
-
 	representation_.clear();
 
-	sge::bvh::construct_median_cut<traits>(
-		leaf_wrappers,
-		representation_);
+	sge::bvh::construct_median_cut<
+		traits
+	>(
+		fcppt::algorithm::map<
+			typename
+			traits::leaf_wrapper_sequence
+		>(
+			leaves_,
+			[](
+				typename
+				leaf_sequence::value_type &_leaf
+			)
+			{
+				return
+					typename
+					traits::leaf_wrapper(
+						_leaf
+					);
+			}
+		),
+		representation_
+	);
 }
 
 template<typename Traits>

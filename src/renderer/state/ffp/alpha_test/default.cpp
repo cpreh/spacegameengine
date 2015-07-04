@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/alpha_test/default.hpp>
 #include <sge/renderer/state/ffp/alpha_test/off.hpp>
 #include <sge/renderer/state/ffp/alpha_test/parameters.hpp>
+#include <sge/renderer/state/ffp/alpha_test/variant.hpp>
 
 
 sge::renderer::state::ffp::alpha_test::parameters const
@@ -28,6 +29,8 @@ sge::renderer::state::ffp::alpha_test::default_()
 {
 	return
 		sge::renderer::state::ffp::alpha_test::parameters(
-			sge::renderer::state::ffp::alpha_test::off()
+			sge::renderer::state::ffp::alpha_test::variant{
+				sge::renderer::state::ffp::alpha_test::off()
+			}
 		);
 }

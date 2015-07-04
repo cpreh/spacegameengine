@@ -21,42 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_SAMPLER_OP_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_SAMPLER_OP_HPP_INCLUDED
 
-#include <sge/renderer/detail/symbol.hpp>
+#include <sge/renderer/state/ffp/sampler/binary_op.hpp>
 #include <sge/renderer/state/ffp/sampler/op_fwd.hpp>
-#include <sge/renderer/state/ffp/sampler/op_variant.hpp>
+#include <sge/renderer/state/ffp/sampler/ternary_op.hpp>
+#include <sge/renderer/state/ffp/sampler/unary_op.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
-{
-
-class op
-{
-public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	explicit
-	op(
-		sge::renderer::state::ffp::sampler::op_variant const &
-	);
-
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::sampler::op_variant const &
-	variant() const;
-private:
-	sge::renderer::state::ffp::sampler::op_variant variant_;
-};
-
-}
-}
-}
-}
-}
 
 #endif

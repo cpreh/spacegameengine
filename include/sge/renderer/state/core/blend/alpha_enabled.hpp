@@ -21,42 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_CORE_BLEND_ALPHA_ENABLED_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_BLEND_ALPHA_ENABLED_HPP_INCLUDED
 
-#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/blend/alpha_enabled_fwd.hpp>
-#include <sge/renderer/state/core/blend/alpha_enabled_variant.hpp>
+#include <sge/renderer/state/core/blend/combined.hpp>
+#include <sge/renderer/state/core/blend/separate.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
-{
-
-class alpha_enabled
-{
-public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	explicit
-	alpha_enabled(
-		sge::renderer::state::core::blend::alpha_enabled_variant const &
-	);
-
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::blend::alpha_enabled_variant const &
-	variant() const;
-private:
-	sge::renderer::state::core::blend::alpha_enabled_variant variant_;
-};
-
-}
-}
-}
-}
-}
 
 #endif

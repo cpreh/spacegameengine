@@ -43,7 +43,7 @@ sge::systems::modules::window::make_base(
 {
 	return
 		fcppt::variant::match(
-			_parameters.parameter(),
+			_parameters.source(),
 			[
 				&_system,
 				&_renderer_system

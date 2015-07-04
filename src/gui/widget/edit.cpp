@@ -27,6 +27,7 @@
 #include <sge/font/vector.hpp>
 #include <sge/font/align_h/left.hpp>
 #include <sge/font/align_h/max_width.hpp>
+#include <sge/font/align_h/variant.hpp>
 #include <sge/font/draw/static_text.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
@@ -399,20 +400,22 @@ sge::gui::widget::edit::make_static_text()
 			font_,
 			text_,
 			sge::font::text_parameters(
-				sge::font::align_h::left(
-					sge::font::align_h::max_width(
-						std::max(
-							layout_.size().w()
-							-
-							style_.edit_spacing().w(),
-							fcppt::literal<
-								sge::font::unit
-							>(
-								0
+				sge::font::align_h::variant{
+					sge::font::align_h::left(
+						sge::font::align_h::max_width(
+							std::max(
+								layout_.size().w()
+								-
+								style_.edit_spacing().w(),
+								fcppt::literal<
+									sge::font::unit
+								>(
+									0
+								)
 							)
 						)
 					)
-				)
+				}
 			)
 			.flags(
 				sge::font::flags_field{

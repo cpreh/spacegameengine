@@ -41,7 +41,7 @@ sge::opengl::state::ffp::sampler::make_one_op(
 {
 	return
 		fcppt::variant::match(
-			_op.get().variant(),
+			_op.get(),
 			[](
 				sge::renderer::state::ffp::sampler::unary_op const &_unary_op
 			)

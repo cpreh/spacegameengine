@@ -21,15 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_WINDOW_HPP_INCLUDED
 #define SGE_SYSTEMS_WINDOW_HPP_INCLUDED
 
-#include <sge/systems/original_window.hpp>
 #include <sge/systems/window_fwd.hpp>
-#include <sge/systems/wrapped_window.hpp>
+#include <sge/systems/window_source.hpp>
 #include <sge/systems/detail/symbol.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -43,19 +38,10 @@ class window
 		window
 	);
 public:
-	typedef
-	fcppt::variant::object<
-		boost::mpl::vector2<
-			sge::systems::original_window,
-			sge::systems::wrapped_window
-		>
-	>
-	parameter_variant;
-
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	explicit
 	window(
-		parameter_variant const &
+		sge::systems::window_source const &
 	);
 
 	SGE_SYSTEMS_DETAIL_SYMBOL
@@ -70,8 +56,8 @@ public:
 	sge::systems::window &
 	hide_cursor();
 
-	parameter_variant const &
-	parameter() const;
+	sge::systems::window_source const &
+	source() const;
 
 	bool
 	show() const;
@@ -79,7 +65,7 @@ public:
 	bool
 	quit() const;
 private:
-	parameter_variant const parameter_;
+	sge::systems::window_source const source_;
 
 	bool show_;
 

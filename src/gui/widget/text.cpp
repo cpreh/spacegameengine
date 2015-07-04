@@ -17,6 +17,7 @@
 #include <sge/font/align_h/center.hpp>
 #include <sge/font/align_h/left.hpp>
 #include <sge/font/align_h/max_width.hpp>
+#include <sge/font/align_h/variant.hpp>
 #include <sge/font/draw/static_text.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
@@ -133,11 +134,13 @@ sge::gui::widget::text::on_draw(
 		font_,
 		value_,
 		sge::font::text_parameters(
-			sge::font::align_h::center(
-				sge::font::align_h::max_width(
-					layout_.size().w()
+			sge::font::align_h::variant{
+				sge::font::align_h::center(
+					sge::font::align_h::max_width(
+						layout_.size().w()
+					)
 				)
-			)
+			}
 		)
 		.flags(
 			sge::font::flags_field{
@@ -183,7 +186,9 @@ sge::gui::widget::text::horizontal_policy() const
 							font_.create_text(
 								value_,
 								sge::font::text_parameters(
-									sge::font::align_h::left()
+									sge::font::align_h::variant{
+										sge::font::align_h::left()
+									}
 								)
 							)->logical_size().w();
 					},

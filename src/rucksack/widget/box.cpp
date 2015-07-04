@@ -129,19 +129,21 @@ public:
 	) const
 	{
 		return
-			typename
-			boost::mpl::at<
-				policy_map,
-				boost::mpl::pair<
-					P1,
-					P2
-				>
-			>::type{
-				_p1.get()
-				+
-				_p2.get()
-				+
-				padding_.get()
+			sge::rucksack::axis_policy{
+				typename
+				boost::mpl::at<
+					policy_map,
+					boost::mpl::pair<
+						P1,
+						P2
+					>
+				>::type{
+					_p1.get()
+					+
+					_p2.get()
+					+
+					padding_.get()
+				}
 			};
 	}
 private:
@@ -165,18 +167,20 @@ struct minor_combiner
 	) const
 	{
 		return
-			typename
-			boost::mpl::at<
-				policy_map,
-				boost::mpl::pair<
-					P1,
-					P2
-				>
-			>::type{
-				std::max(
-					_p1.get(),
-					_p2.get()
-				)
+			sge::rucksack::axis_policy{
+				typename
+				boost::mpl::at<
+					policy_map,
+					boost::mpl::pair<
+						P1,
+						P2
+					>
+				>::type{
+					std::max(
+						_p1.get(),
+						_p2.get()
+					)
+				}
 			};
 	}
 };

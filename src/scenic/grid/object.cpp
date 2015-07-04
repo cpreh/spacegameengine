@@ -162,11 +162,21 @@ sge::scenic::grid::object::render(
 						sge::renderer::state::core::depth_stencil::depth::enabled(
 							sge::renderer::state::core::depth_stencil::depth::func::less,
 							sge::renderer::state::core::depth_stencil::depth::write_enable(
-								true)))
+								true
+							)
+						)
+					)
 				:
 					sge::renderer::state::core::depth_stencil::depth::variant(
-						sge::renderer::state::core::depth_stencil::depth::off()),
-				sge::renderer::state::core::depth_stencil::stencil::off())));
+						sge::renderer::state::core::depth_stencil::depth::off()
+					)
+				,
+				sge::renderer::state::core::depth_stencil::stencil::variant(
+					sge::renderer::state::core::depth_stencil::stencil::off()
+				)
+			)
+		)
+	);
 
 	sge::renderer::state::core::depth_stencil::scoped const depth_transform(
 		_context,

@@ -369,9 +369,15 @@ load_light(
 				diffuse_color,
 				specular_color,
 				ambient_color,
-				sge::scenic::render_context::light::directional(
-					parse_light_direction(
-						_json_light))));
+				sge::scenic::render_context::light::variant{
+					sge::scenic::render_context::light::directional(
+						parse_light_direction(
+							_json_light
+						)
+					)
+				}
+			)
+		);
 	}
 	else if(light_type == FCPPT_TEXT("point"))
 	{
@@ -380,11 +386,18 @@ load_light(
 				diffuse_color,
 				specular_color,
 				ambient_color,
-				sge::scenic::render_context::light::point(
-					parse_light_position(
-						_json_light),
-					parse_light_attenuation(
-						_json_light))));
+				sge::scenic::render_context::light::variant{
+					sge::scenic::render_context::light::point(
+						parse_light_position(
+							_json_light
+						),
+						parse_light_attenuation(
+							_json_light
+						)
+					)
+				}
+			)
+		);
 	}
 	else if(light_type == FCPPT_TEXT("spot"))
 	{

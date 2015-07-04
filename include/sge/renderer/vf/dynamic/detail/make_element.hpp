@@ -28,8 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/normal_fwd.hpp>
 #include <sge/renderer/vf/pos_fwd.hpp>
 #include <sge/renderer/vf/texpos_fwd.hpp>
+#include <sge/renderer/vf/dynamic/any.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>
 #include <sge/renderer/vf/dynamic/extra.hpp>
+#include <sge/renderer/vf/dynamic/extra_any.hpp>
 #include <sge/renderer/vf/dynamic/index.hpp>
 #include <sge/renderer/vf/dynamic/normal.hpp>
 #include <sge/renderer/vf/dynamic/pos.hpp>
@@ -55,6 +57,7 @@ template<
 	typename Format,
 	sge::renderer::vf::element_count_type NumSubElements
 >
+inline
 sge::renderer::vf::dynamic::element const
 make_element(
 	sge::renderer::vf::pos<
@@ -65,18 +68,21 @@ make_element(
 {
 	return
 		sge::renderer::vf::dynamic::element(
-			sge::renderer::vf::dynamic::pos(
-				sge::renderer::vf::dynamic::detail::make_vector<
-					Format,
-					NumSubElements
-				>()
-			)
+			sge::renderer::vf::dynamic::any{
+				sge::renderer::vf::dynamic::pos(
+					sge::renderer::vf::dynamic::detail::make_vector<
+						Format,
+						NumSubElements
+					>()
+				)
+			}
 		);
 }
 
 template<
 	typename Format
 >
+inline
 sge::renderer::vf::dynamic::element const
 make_element(
 	sge::renderer::vf::normal<
@@ -86,17 +92,20 @@ make_element(
 {
 	return
 		sge::renderer::vf::dynamic::element(
-			sge::renderer::vf::dynamic::normal(
-				sge::renderer::vf::dynamic::detail::format_to_element<
-					Format
-				>::value
-			)
+			sge::renderer::vf::dynamic::any{
+				sge::renderer::vf::dynamic::normal(
+					sge::renderer::vf::dynamic::detail::format_to_element<
+						Format
+					>::value
+				)
+			}
 		);
 }
 
 template<
 	typename Format
 >
+inline
 sge::renderer::vf::dynamic::element const
 make_element(
 	sge::renderer::vf::color<
@@ -106,9 +115,11 @@ make_element(
 {
 	return
 		sge::renderer::vf::dynamic::element(
-			sge::renderer::vf::dynamic::detail::make_color<
-				Format
-			>()
+			sge::renderer::vf::dynamic::any{
+				sge::renderer::vf::dynamic::detail::make_color<
+					Format
+				>()
+			}
 		);
 }
 
@@ -117,6 +128,7 @@ template<
 	sge::renderer::vf::element_count_type NumSubElements,
 	typename Index
 >
+inline
 sge::renderer::vf::dynamic::element const
 make_element(
 	sge::renderer::vf::texpos<
@@ -128,15 +140,17 @@ make_element(
 {
 	return
 		sge::renderer::vf::dynamic::element(
-			sge::renderer::vf::dynamic::texpos(
-				sge::renderer::vf::dynamic::detail::make_vector<
-					Format,
-					NumSubElements
-				>(),
-				sge::renderer::vf::dynamic::index(
-					Index::value
+			sge::renderer::vf::dynamic::any{
+				sge::renderer::vf::dynamic::texpos(
+					sge::renderer::vf::dynamic::detail::make_vector<
+						Format,
+						NumSubElements
+					>(),
+					sge::renderer::vf::dynamic::index(
+						Index::value
+					)
 				)
-			)
+			}
 		);
 }
 
@@ -144,6 +158,7 @@ template<
 	typename Format,
 	typename Index
 >
+inline
 sge::renderer::vf::dynamic::element const
 make_element(
 	sge::renderer::vf::extra<
@@ -154,14 +169,18 @@ make_element(
 {
 	return
 		sge::renderer::vf::dynamic::element(
-			sge::renderer::vf::dynamic::extra(
-				sge::renderer::vf::dynamic::detail::make_extra_element(
-					Format()
-				),
-				sge::renderer::vf::dynamic::index(
-					Index::value
+			sge::renderer::vf::dynamic::any{
+				sge::renderer::vf::dynamic::extra(
+					sge::renderer::vf::dynamic::extra_any(
+						sge::renderer::vf::dynamic::detail::make_extra_element(
+							Format()
+						)
+					),
+					sge::renderer::vf::dynamic::index(
+						Index::value
+					)
 				)
-			)
+			}
 		);
 }
 

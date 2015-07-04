@@ -67,11 +67,12 @@ sge::opengl::state::core::blend::alpha_visitor::operator()(
 				sge::opengl::enable,
 				GL_BLEND
 			),
+			// TODO: match
 			fcppt::variant::apply_unary(
 				sge::opengl::state::core::blend::alpha_enabled_visitor(
 					system_context_
 				),
-				_enabled.variant()
+				_enabled
 			)
 		};
 }

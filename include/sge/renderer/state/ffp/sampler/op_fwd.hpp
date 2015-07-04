@@ -21,6 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_SAMPLER_OP_FWD_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_SAMPLER_OP_FWD_HPP_INCLUDED
 
+#include <sge/renderer/state/ffp/sampler/binary_op_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/ternary_op_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/unary_op_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -33,7 +41,15 @@ namespace ffp
 namespace sampler
 {
 
-class op;
+typedef
+fcppt::variant::object<
+	boost::mpl::vector3<
+		sge::renderer::state::ffp::sampler::unary_op,
+		sge::renderer::state::ffp::sampler::binary_op,
+		sge::renderer::state::ffp::sampler::ternary_op
+	>
+>
+op;
 
 }
 }

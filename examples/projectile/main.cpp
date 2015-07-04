@@ -91,6 +91,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/window_source.hpp>
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
@@ -106,6 +107,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/maybe_void.hpp>
@@ -444,9 +446,11 @@ try
 		sge::systems::make_list
 		(
 			sge::systems::window(
-				sge::systems::original_window(
-					sge::window::title(
-						FCPPT_TEXT("projectile")
+				sge::systems::window_source(
+					sge::systems::original_window(
+						sge::window::title(
+							FCPPT_TEXT("projectile")
+						)
 					)
 				)
 			)
@@ -510,18 +514,37 @@ try
 	body first_body(
 		world,
 		first_group,
-		fcppt::make_shared_ptr<sge::projectile::shape::circle>(
-			static_cast<sge::projectile::scalar>(
-				5)),
-		sge::projectile::body::solidity::solid(
-			sge::projectile::body::mass(
-				static_cast<sge::projectile::scalar>(
-					1))),
+		fcppt::make_shared_ptr<
+			sge::projectile::shape::circle
+		>(
+			fcppt::literal<
+				sge::projectile::scalar
+			>(
+				5
+			)
+		),
+		sge::projectile::body::solidity::variant{
+			sge::projectile::body::solidity::solid(
+				sge::projectile::body::mass(
+					fcppt::literal<
+						sge::projectile::scalar
+					>(
+						1
+					)
+				)
+			)
+		},
 		sge::projectile::rect(
 			sge::projectile::vector2(
-				10,10),
+				10,
+				10
+			),
 			sge::projectile::dim2(
-				10,10)));
+				10,
+				10
+			)
+		)
+	);
 
 	std::istringstream polygon_stream(
 		"((42,296),(253,162),(12,23),(420,22),(420,310))");
@@ -529,21 +552,41 @@ try
 	body second_body(
 		world,
 		second_group,
-		fcppt::make_shared_ptr<sge::projectile::shape::triangle_mesh>(
+		fcppt::make_shared_ptr<
+			sge::projectile::shape::triangle_mesh
+		>(
 			sge::projectile::triangulation::triangulate<
 				sge::projectile::triangulation::default_tag,
 				sge::projectile::shape::triangle_sequence
 			>(
-				container_from_stream< std::vector< sge::projectile::vector2 > >(
-					polygon_stream),
-				static_cast<sge::projectile::scalar>(
-					0.00001))),
-		sge::projectile::body::solidity::static_(),
+				container_from_stream<
+					std::vector<
+						sge::projectile::vector2
+					>
+				>(
+					polygon_stream
+				),
+				fcppt::literal<
+					sge::projectile::scalar
+				>(
+					0.00001
+				)
+			)
+		),
+		sge::projectile::body::solidity::variant{
+			sge::projectile::body::solidity::static_()
+		},
 		sge::projectile::rect(
 			sge::projectile::vector2(
-				100,100),
+				100,
+				100
+			),
 			sge::projectile::dim2(
-				20,20)));
+				20,
+				20
+			)
+		)
+	);
 
 	body_following_ghost first_ghost(
 		world,

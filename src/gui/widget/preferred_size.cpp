@@ -1,6 +1,7 @@
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/dummy.hpp>
 #include <sge/gui/widget/preferred_size.hpp>
+#include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/preferred_size.hpp>
@@ -14,11 +15,15 @@ sge::gui::widget::preferred_size::preferred_size(
 	sge::gui::widget::dummy(),
 	layout_{
 		sge::rucksack::axis_policy2{
-			sge::rucksack::preferred_size{
-				_area.w()
+			sge::rucksack::axis_policy{
+				sge::rucksack::preferred_size{
+					_area.w()
+				}
 			},
-			sge::rucksack::preferred_size{
-				_area.h()
+			sge::rucksack::axis_policy{
+				sge::rucksack::preferred_size{
+					_area.h()
+				}
 			}
 		}
 	}

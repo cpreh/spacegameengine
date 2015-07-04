@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/core/sampler/filter/mipmap.hpp>
 #include <sge/renderer/state/core/sampler/filter/parameters.hpp>
+#include <sge/renderer/state/core/sampler/filter/variant.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/mag.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/min.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/mip.hpp>
@@ -31,10 +32,12 @@ sge::renderer::state::core::sampler::filter::mipmap()
 {
 	return
 		sge::renderer::state::core::sampler::filter::parameters(
-			sge::renderer::state::core::sampler::filter::normal::parameters(
-				sge::renderer::state::core::sampler::filter::normal::mag::linear,
-				sge::renderer::state::core::sampler::filter::normal::min::linear,
-				sge::renderer::state::core::sampler::filter::normal::mip::point
-			)
+			sge::renderer::state::core::sampler::filter::variant{
+				sge::renderer::state::core::sampler::filter::normal::parameters(
+					sge::renderer::state::core::sampler::filter::normal::mag::linear,
+					sge::renderer::state::core::sampler::filter::normal::min::linear,
+					sge::renderer::state::core::sampler::filter::normal::mip::point
+				)
+			}
 		);
 }

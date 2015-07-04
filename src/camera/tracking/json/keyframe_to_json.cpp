@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/tracking/json/keyframe_to_json.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/parse/json/value.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <fcppt/text.hpp>
 
@@ -46,6 +47,7 @@ sge::camera::tracking::json::keyframe_to_json(
 
 	sge::parse::json::array result_matrix;
 
+	// TODO: map?
 	for(sge::renderer::matrix4::size_type i = 0; i < matrix.rows(); ++i)
 	{
 		sge::parse::json::array result_matrix_row;
@@ -62,8 +64,13 @@ sge::camera::tracking::json::keyframe_to_json(
 	result.members.insert(
 		sge::parse::json::member_map::value_type(
 			fcppt::string(
-				FCPPT_TEXT("matrix")),
-			result_matrix));
+				FCPPT_TEXT("matrix")
+			),
+			sge::parse::json::value{
+				result_matrix
+			}
+		)
+	);
 
 	return
 		result;

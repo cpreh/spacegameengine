@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/unit.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/font/align_h/left.hpp>
+#include <sge/font/align_h/variant.hpp>
 #include <sge/font/draw/static_text.hpp>
 #include <sge/graph/axis_constraint.hpp>
 #include <sge/graph/background_color.hpp>
@@ -67,6 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/window_source.hpp>
 #include <sge/systems/with_font.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
@@ -429,21 +431,23 @@ try
 		sge::systems::make_list
 		(
 			sge::systems::window(
-				sge::systems::original_window(
-					sge::window::title(
-						FCPPT_TEXT("linux stats example")
-					)
-				).size_hints(
-					sge::window::size_hints{}
-					.minimum_size_hint(
-						sge::window::dim{
-							graph_dim.w(),
-							static_cast<
-								sge::window::dim::value_type
-							>(
-								2u + network_device_count
-							) * graph_dim.h()
-						}
+				sge::systems::window_source(
+					sge::systems::original_window(
+						sge::window::title(
+							FCPPT_TEXT("linux stats example")
+						)
+					).size_hints(
+						sge::window::size_hints{}
+						.minimum_size_hint(
+							sge::window::dim{
+								graph_dim.w(),
+								static_cast<
+									sge::window::dim::value_type
+								>(
+									2u + network_device_count
+								) * graph_dim.h()
+							}
+						)
 					)
 				)
 			)
@@ -494,7 +498,9 @@ try
 			"cpu"
 		),
 		sge::font::text_parameters(
-			sge::font::align_h::left()
+			sge::font::align_h::variant(
+				sge::font::align_h::left()
+			)
 		),
 		sge::font::vector(
 			0,
@@ -511,7 +517,9 @@ try
 			"mem"
 		),
 		sge::font::text_parameters(
-			sge::font::align_h::left()
+			sge::font::align_h::variant(
+				sge::font::align_h::left()
+			)
 		),
 		sge::font::vector(
 			0,
@@ -655,7 +663,9 @@ try
 							)
 						),
 						sge::font::text_parameters(
-							sge::font::align_h::left()
+							sge::font::align_h::variant(
+								sge::font::align_h::left()
+							)
 						),
 						sge::font::vector(
 							0,

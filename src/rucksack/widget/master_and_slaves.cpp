@@ -105,11 +105,15 @@ sge::rucksack::widget::master_and_slaves::axis_policy() const
 			[]{
 				return
 					sge::rucksack::axis_policy2{
-						sge::rucksack::minimum_size{
-							0
+						sge::rucksack::axis_policy{
+							sge::rucksack::minimum_size{
+								0
+							}
 						},
-						sge::rucksack::minimum_size{
-							0
+						sge::rucksack::axis_policy{
+							sge::rucksack::minimum_size{
+								0
+							}
 						}
 					};
 			},

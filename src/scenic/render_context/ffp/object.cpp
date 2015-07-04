@@ -81,16 +81,24 @@ struct light_visitor
 		sge::scenic::render_context::light::point const &p) const
 	{
 		return
-			sge::renderer::state::ffp::lighting::light::point(
-				sge::renderer::state::ffp::lighting::light::position(
-					p.position().get()),
-				sge::renderer::state::ffp::lighting::light::attenuation(
-					sge::renderer::state::ffp::lighting::light::constant_attenuation(
-						p.attenuation().constant_attenuation().get()),
-					sge::renderer::state::ffp::lighting::light::linear_attenuation(
-						p.attenuation().linear_attenuation().get()),
-					sge::renderer::state::ffp::lighting::light::quadratic_attenuation(
-						p.attenuation().quadratic_attenuation().get())));
+			sge::renderer::state::ffp::lighting::light::variant{
+				sge::renderer::state::ffp::lighting::light::point(
+					sge::renderer::state::ffp::lighting::light::position(
+						p.position().get()
+					),
+					sge::renderer::state::ffp::lighting::light::attenuation(
+						sge::renderer::state::ffp::lighting::light::constant_attenuation(
+							p.attenuation().constant_attenuation().get()
+						),
+						sge::renderer::state::ffp::lighting::light::linear_attenuation(
+							p.attenuation().linear_attenuation().get()
+						),
+						sge::renderer::state::ffp::lighting::light::quadratic_attenuation(
+							p.attenuation().quadratic_attenuation().get()
+						)
+					)
+				)
+			};
 	}
 
 	result_type
@@ -98,9 +106,13 @@ struct light_visitor
 		sge::scenic::render_context::light::directional const &p) const
 	{
 		return
-			sge::renderer::state::ffp::lighting::light::directional(
-				sge::renderer::state::ffp::lighting::light::direction(
-					p.direction().get()));
+			sge::renderer::state::ffp::lighting::light::variant{
+				sge::renderer::state::ffp::lighting::light::directional(
+					sge::renderer::state::ffp::lighting::light::direction(
+						p.direction().get()
+					)
+				)
+			};
 	}
 };
 
@@ -157,12 +169,14 @@ sge::scenic::render_context::ffp::object::object(
 	current_lighting_(
 		manager_.renderer_.create_lighting_state(
 			sge::renderer::state::ffp::lighting::parameters(
-				sge::renderer::state::ffp::lighting::enabled(
-					sge::renderer::state::ffp::lighting::ambient_color(
-						sge::image::color::predef::black()
-					),
-					sge::renderer::state::ffp::lighting::diffuse_from_vertex(
-						false
+				sge::renderer::state::ffp::lighting::variant(
+					sge::renderer::state::ffp::lighting::enabled(
+						sge::renderer::state::ffp::lighting::ambient_color(
+							sge::image::color::predef::black()
+						),
+						sge::renderer::state::ffp::lighting::diffuse_from_vertex(
+							false
+						)
 					)
 				)
 			)
@@ -175,20 +189,37 @@ sge::scenic::render_context::ffp::object::object(
 					sge::renderer::state::core::depth_stencil::depth::enabled(
 						sge::renderer::state::core::depth_stencil::depth::func::less,
 						sge::renderer::state::core::depth_stencil::depth::write_enable(
-							true))),
-				sge::renderer::state::core::depth_stencil::stencil::off()))),
+							true
+						)
+					)
+				),
+				sge::renderer::state::core::depth_stencil::stencil::variant(
+					sge::renderer::state::core::depth_stencil::stencil::off()
+				)
+			)
+		)
+	),
 	blend_state_(
 		manager_.renderer_.create_blend_state(
 			sge::renderer::state::core::blend::parameters(
-				sge::renderer::state::core::blend::alpha_off(),
-				sge::renderer::state::core::blend::write_mask_all()))),
+				sge::renderer::state::core::blend::alpha_variant(
+					sge::renderer::state::core::blend::alpha_off()
+				),
+				sge::renderer::state::core::blend::write_mask_all()
+			)
+		)
+	),
 	rasterizer_state_(
 		manager_.renderer_.create_rasterizer_state(
 			sge::renderer::state::core::rasterizer::parameters(
 				sge::renderer::state::core::rasterizer::cull_mode::counter_clockwise,
 				sge::renderer::state::core::rasterizer::fill_mode::solid,
 				sge::renderer::state::core::rasterizer::enable_scissor_test(
-					false)))),
+					false
+				)
+			)
+		)
+	),
 	scoped_depth_stencil_state_(
 		_context,
 		*depth_stencil_state_),

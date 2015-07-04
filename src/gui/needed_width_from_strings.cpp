@@ -9,6 +9,7 @@
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/align_h/left.hpp>
+#include <sge/font/align_h/variant.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
@@ -41,7 +42,9 @@ sge::gui::needed_width_from_strings(
 							_font.create_text(
 								_text,
 								sge::font::text_parameters(
-									sge::font::align_h::left()
+									sge::font::align_h::variant{
+										sge::font::align_h::left()
+									}
 								).flags(
 									sge::font::flags_field{
 										sge::font::flags::no_multi_line

@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/align_h/left.hpp>
 #include <sge/font/align_h/max_width.hpp>
 #include <sge/font/align_h/right.hpp>
+#include <sge/font/align_h/variant.hpp>
 #include <sge/font/bitmap/create.hpp>
 #include <sge/font/draw/static_text.hpp>
 #include <sge/image/color/predef.hpp>
@@ -61,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
+#include <sge/systems/window_source.hpp>
 #include <sge/systems/with_image2d.hpp>
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
@@ -122,9 +124,11 @@ try
 		sge::systems::make_list
 		(
 			sge::systems::window(
-				sge::systems::original_window(
-					sge::window::title(
-						FCPPT_TEXT("sge animtest")
+				sge::systems::window_source(
+					sge::systems::original_window(
+						sge::window::title(
+							FCPPT_TEXT("sge animtest")
+						)
 					)
 				)
 			)
@@ -200,9 +204,11 @@ try
 		*font_object,
 		string,
 		sge::font::text_parameters(
-			sge::font::align_h::left(
-				sge::font::align_h::max_width(
-					300
+			sge::font::align_h::variant(
+				sge::font::align_h::left(
+					sge::font::align_h::max_width(
+						300
+					)
 				)
 			)
 		),
@@ -219,9 +225,11 @@ try
 		*font_object,
 		string,
 		sge::font::text_parameters(
-			sge::font::align_h::center(
-				sge::font::align_h::max_width(
-					300
+			sge::font::align_h::variant(
+				sge::font::align_h::center(
+					sge::font::align_h::max_width(
+						300
+					)
 				)
 			)
 		),
@@ -238,9 +246,11 @@ try
 		*font_object,
 		string,
 		sge::font::text_parameters(
-			sge::font::align_h::right(
-				sge::font::align_h::max_width(
-					300
+			sge::font::align_h::variant(
+				sge::font::align_h::right(
+					sge::font::align_h::max_width(
+						300
+					)
 				)
 			)
 		),

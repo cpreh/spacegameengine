@@ -55,10 +55,12 @@ struct visitor
 	) const
 	{
 		return
-			sge::parse::json::config::merge_trees(
-				_original,
-				_update
-			);
+			sge::parse::json::value{
+				sge::parse::json::config::merge_trees(
+					_original,
+					_update
+				)
+			};
 	}
 
 	template<
@@ -72,7 +74,9 @@ struct visitor
 	) const
 	{
 		return
-			_update;
+			sge::parse::json::value{
+				_update
+			};
 	}
 };
 

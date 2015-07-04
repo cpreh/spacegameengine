@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/core/sampler/filter/parameters.hpp>
 #include <sge/renderer/state/core/sampler/filter/point.hpp>
+#include <sge/renderer/state/core/sampler/filter/variant.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/mag.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/min.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/mip.hpp>
@@ -31,10 +32,12 @@ sge::renderer::state::core::sampler::filter::point()
 {
 	return
 		sge::renderer::state::core::sampler::filter::parameters(
-			sge::renderer::state::core::sampler::filter::normal::parameters(
-				sge::renderer::state::core::sampler::filter::normal::mag::point,
-				sge::renderer::state::core::sampler::filter::normal::min::point,
-				sge::renderer::state::core::sampler::filter::normal::mip::off
-			)
+			sge::renderer::state::core::sampler::filter::variant{
+				sge::renderer::state::core::sampler::filter::normal::parameters(
+					sge::renderer::state::core::sampler::filter::normal::mag::point,
+					sge::renderer::state::core::sampler::filter::normal::min::point,
+					sge::renderer::state::core::sampler::filter::normal::mip::off
+				)
+			}
 		);
 }
