@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/type_traits/is_iterable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
@@ -62,7 +63,9 @@ convert_to(
 	T const &t)
 {
 	return
-		t;
+		sge::parse::json::value(
+			t
+		);
 }
 
 template<typename T>
@@ -83,8 +86,9 @@ convert_to(
 	T const &t)
 {
 	return
-		static_cast<sge::parse::json::int_type>(
-			t);
+		sge::parse::json::value(
+			static_cast<sge::parse::json::int_type>(
+				t));
 }
 
 template<typename T>
@@ -98,8 +102,9 @@ convert_to(
 	T const &t)
 {
 	return
-		static_cast<sge::parse::json::float_type>(
-			t);
+		sge::parse::json::value(
+			static_cast<sge::parse::json::float_type>(
+				t));
 }
 
 // TODO: We could make a convert_to which converts from a tuple to a
@@ -121,13 +126,26 @@ boost::enable_if
 convert_to(
 	T const &t)
 {
-	sge::parse::json::array result;
-	for(typename T::const_iterator i = t.begin(); i != t.end(); ++i)
-		result.elements.push_back(
-			json::convert_to(
-				*i));
-	return result;
+	return
+		sge::parse::json::value(
+			fcppt::algorithm::map<
+				sge::parse::json::array
+			>(
+				t,
+				[](
+					typename
+					T::value_type const &_arg
+				)
+				{
+					return
+						sge::parse::json::convert_to(
+							_arg
+						);
+				}
+			)
+		);
 }
+
 }
 }
 }

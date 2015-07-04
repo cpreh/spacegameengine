@@ -33,9 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 template<typename T>
 sge::parse::json::config::user_config_variable<T>::user_config_variable(
-	json::object const &_global_config,
-	json::object &_user_config,
-	json::path const &_path)
+	sge::parse::json::object const &_global_config,
+	sge::parse::json::object &_user_config,
+	sge::parse::json::path const &_path)
 :
 	global_config_(
 		_global_config),
@@ -44,7 +44,7 @@ sge::parse::json::config::user_config_variable<T>::user_config_variable(
 	path_(
 		_path),
 	value_(
-		json::find_and_convert_member<T>(
+		sge::parse::json::find_and_convert_member<T>(
 			global_config_,
 			path_)),
 	callback_()
@@ -82,11 +82,11 @@ sge::parse::json::config::user_config_variable<T>::change_callback(
 template<typename T>
 sge::parse::json::config::user_config_variable<T>::~user_config_variable()
 {
-	config::modify_user_value(
+	sge::parse::json::config::modify_user_value(
 		global_config_,
 		user_config_,
 		path_,
-		json::convert_to(
+		sge::parse::json::convert_to(
 			value_));
 }
 
