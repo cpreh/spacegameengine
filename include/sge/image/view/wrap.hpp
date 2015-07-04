@@ -34,7 +34,6 @@ namespace view
 template<
 	typename View
 >
-
 typename sge::image::view::wrapped_type<
 	View
 >::type const

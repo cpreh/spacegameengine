@@ -19,29 +19,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/plugin_path.hpp>
+#include <sge/image/algorithm/may_overlap.hpp>
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/init/alpha.hpp>
 #include <sge/image/color/init/blue.hpp>
 #include <sge/image/color/init/green.hpp>
 #include <sge/image/color/init/red.hpp>
+#include <sge/image/view/wrap.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/system_unique_ptr.hpp>
 #include <sge/image2d/algorithm/compare.hpp>
+#include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/algorithm/print.hpp>
 #include <sge/image2d/plugin/object.hpp>
 #include <sge/image2d/store/rgba8.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/format.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
+#include <sge/plugin/info.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
+#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
+#include <fcppt/io/cout.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -83,13 +93,23 @@ FCPPT_PP_POP_WARNING
 	);
 
 	for(
-		auto const &element
+		sge::plugin::context<
+			sge::image2d::system
+		> const &element
 		:
 		plugins.collection<
 			sge::image2d::system
 		>()
 	)
 	{
+		fcppt::io::cout()
+			<<
+			FCPPT_TEXT("Testing plugin ")
+			<<
+			element.info().name()
+			<<
+			FCPPT_TEXT('\n');
+
 		sge::image2d::plugin::object const plugin(
 			element.load()
 		);
@@ -142,20 +162,61 @@ FCPPT_PP_POP_WARNING
 			)
 		);
 
-		BOOST_CHECK(
-			sge::image2d::view::format(
-				source_view
+		store_type const store_back{
+			store.size(),
+			[
+				&dest_view
+			](
+				store_type::view_type const &_dest
 			)
-			==
-			sge::image2d::view::format(
-				dest_view
+			{
+				sge::image2d::algorithm::copy_and_convert(
+					dest_view,
+					sge::image2d::view::object(
+						sge::image::view::wrap(
+							_dest
+						)
+					),
+					sge::image::algorithm::may_overlap::no,
+					sge::image::algorithm::uninitialized::yes
+				);
+			}
+		};
+
+		sge::image2d::view::const_object const store_back_view(
+			sge::image2d::view::const_object(
+				store_back.const_wrapped_view()
 			)
 		);
+
+		fcppt::io::cout()
+			<<
+			FCPPT_TEXT("Old store is :");
+
+		sge::image2d::algorithm::print(
+			fcppt::io::cout(),
+			source_view
+		);
+
+		fcppt::io::cout()
+			<< FCPPT_TEXT('\n');
+
+		fcppt::io::cout()
+			<<
+			FCPPT_TEXT("New store is :");
+
+		sge::image2d::algorithm::print(
+			fcppt::io::cout(),
+			store_back_view
+		);
+
+		fcppt::io::cout()
+			<< FCPPT_TEXT('\n');
 
 		BOOST_CHECK(
 			sge::image2d::algorithm::compare(
 				source_view,
-				dest_view
+				store_back_view
 			)
 		);
 	}
