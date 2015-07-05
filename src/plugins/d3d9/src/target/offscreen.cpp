@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/dynamic_optional_cast.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/make_int_range.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -125,9 +126,17 @@ sge::d3d9::target::offscreen::change_surfaces(
 		fcppt::make_int_range(
 			_activate
 			?
-				0u
+				fcppt::literal<
+					sge::d3d9::target::offscreen::color_surface_map::size_type
+				>(
+					0u
+				)
 			:
-				1u
+				fcppt::literal<
+					sge::d3d9::target::offscreen::color_surface_map::size_type
+				>(
+					1u
+				)
 			,
 			color_surfaces_.size()
 		)

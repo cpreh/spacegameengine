@@ -89,17 +89,23 @@ private:
 		bool
 	);
 
-	typedef fcppt::optional<
+	typedef
+	fcppt::optional<
 		sge::d3d9::surface::color &
-	> optional_color_surface_ref;
+	>
+	optional_color_surface_ref;
 
-	typedef fcppt::optional<
+	typedef
+	fcppt::optional<
 		sge::d3d9::surface::depth_stencil &
-	> optional_depth_stencil_surface_ref;
+	>
+	optional_depth_stencil_surface_ref;
 
-	typedef fcppt::container::index_map<
+	typedef
+	fcppt::container::index_map<
 		sge::d3d9::target::offscreen::optional_color_surface_ref
-	> color_surface_map;
+	>
+	color_surface_map;
 
 	color_surface_map color_surfaces_;
 

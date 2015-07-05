@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <memory>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -77,7 +77,7 @@ private:
 
 	typedef
 	std::vector<
-		std::unique_ptr<
+		fcppt::unique_ptr<
 			sge::renderer::texture::planar::color_buffer
 		>
 	>

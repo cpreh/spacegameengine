@@ -86,10 +86,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <awl/window/event/resize_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
@@ -342,11 +340,11 @@ private:
 	template<
 		typename Ptr
 	>
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		Ptr
 	>
 	add_resource(
-		std::unique_ptr<
+		fcppt::unique_ptr<
 			Ptr
 		> &&
 	);
@@ -378,7 +376,7 @@ private:
 	sge::d3d9::swapchain::d3d_unique_ptr const swap_chain_;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::d3d9::target::onscreen
 	>
 	onscreen_target_unique_ptr;
@@ -386,7 +384,7 @@ private:
 	onscreen_target_unique_ptr const onscreen_target_;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::d3d9::state::core::defaults
 	>
 	core_defaults_unique_ptr;
@@ -394,7 +392,7 @@ private:
 	core_defaults_unique_ptr const core_defaults_;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::d3d9::state::ffp::defaults
 	>
 	ffp_defaults_unique_ptr;

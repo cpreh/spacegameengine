@@ -28,7 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/visual.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/caps/device_count.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/core_unique_ptr.hpp>
+#include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/device/ffp_unique_ptr.hpp>
 #include <sge/renderer/device/index.hpp>
 #include <sge/renderer/device/parameters.hpp>
@@ -40,8 +42,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/int_range_impl.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/log/_.hpp>
@@ -106,6 +110,7 @@ sge::d3d9::system::system()
 		return;
 
 
+	// TODO: Indexed range
 	sge::renderer::device::index index(
 		0u
 	);
@@ -146,7 +151,9 @@ sge::d3d9::system::create_core_renderer(
 )
 {
 	return
-		sge::renderer::device::core_unique_ptr(
+		fcppt::unique_ptr_to_base<
+			sge::renderer::device::core
+		>(
 			this->create_ffp_renderer(
 				_parameters
 			)
@@ -159,8 +166,10 @@ sge::d3d9::system::create_ffp_renderer(
 )
 {
 	return
-		sge::renderer::device::ffp_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::renderer::device::ffp
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::d3d9::device
 			>(
 				*system_,
@@ -178,10 +187,14 @@ sge::d3d9::system::create_visual(
 )
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::d3d9::visual
+		fcppt::unique_ptr_to_base<
+			awl::visual::object
 		>(
-			_pixel_format
+			fcppt::make_unique_ptr_fcppt<
+				sge::d3d9::visual
+			>(
+				_pixel_format
+			)
 		);
 }
 

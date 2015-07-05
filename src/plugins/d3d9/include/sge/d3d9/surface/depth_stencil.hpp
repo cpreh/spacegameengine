@@ -24,17 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/needs_reset_fwd.hpp>
 #include <sge/d3d9/resource.hpp>
-#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <sge/d3d9/surface/depth_stencil_create_fwd.hpp>
 #include <sge/d3d9/surface/depth_stencil_create_unique_ptr.hpp>
 #include <sge/d3d9/surface/depth_stencil_fwd.hpp>
+#include <sge/d3d9/surface/optional_d3d_unique_ptr.hpp>
 #include <sge/image/ds/format_fwd.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -95,13 +92,9 @@ private:
 	void
 	on_reset();
 
-	typedef std::unique_ptr<
-		sge::d3d9::surface::depth_stencil_create
-	> depth_stencil_create_unique_ptr;
+	sge::d3d9::surface::depth_stencil_create_unique_ptr const create_;
 
-	depth_stencil_create_unique_ptr const create_;
-
-	sge::d3d9::surface::d3d_unique_ptr surface_;
+	sge::d3d9::surface::optional_d3d_unique_ptr surface_;
 };
 
 }

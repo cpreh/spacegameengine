@@ -30,9 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
-#include <memory>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -54,18 +54,28 @@ class basic_buffer
 		basic_buffer
 	);
 
-	typedef typename Types::buffer_base base;
+	typedef
+	typename
+	Types::buffer_base
+	base;
 public:
-	typedef typename Types::d3d_buffer d3d_buffer;
+	typedef
+	typename
+	Types::d3d_buffer
+	d3d_buffer;
 
-	typedef std::unique_ptr<
+	typedef
+	fcppt::unique_ptr<
 		d3d_buffer,
 		fcppt::com_deleter
-	> d3d_buffer_unique_ptr;
+	>
+	d3d_buffer_unique_ptr;
 
-	typedef std::function<
+	typedef
+	std::function<
 		d3d_buffer_unique_ptr ()
-	> d3d_buffer_create_function;
+	>
+	d3d_buffer_create_function;
 
 	basic_buffer(
 		d3d_buffer_create_function const &,
@@ -130,9 +140,18 @@ private:
 
 	dim const size_;
 
+	typedef
+	fcppt::optional<
+		d3d_buffer_unique_ptr
+	>
+	optional_d3d_buffer_unique_ptr;
+
 	mutable d3d_buffer_unique_ptr buffer_;
 
-	typedef typename Types::locked_dest locked_dest;
+	typedef
+	typename
+	Types::locked_dest
+	locked_dest;
 
 	mutable locked_dest locked_dest_;
 };

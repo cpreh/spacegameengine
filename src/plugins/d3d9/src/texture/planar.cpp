@@ -33,7 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -65,7 +66,7 @@ sge::d3d9::texture::planar::planar(
 			)
 			{
 				return
-					fcppt::make_unique_ptr<
+					fcppt::make_unique_ptr_fcppt<
 						sge::d3d9::texture::planar_buffer
 					>(
 						sge::d3d9::texture::planar_buffer::d3d_buffer_create_function(
@@ -129,7 +130,8 @@ sge::d3d9::texture::planar::get_level(
 		);
 }
 
-template class
+template
+class
 sge::d3d9::texture::basic<
 	sge::d3d9::texture::planar_types
 >;

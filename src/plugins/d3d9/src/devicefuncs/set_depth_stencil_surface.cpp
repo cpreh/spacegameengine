@@ -20,19 +20,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/set_depth_stencil_surface.hpp>
+#include <sge/d3d9/surface/optional_d3d_ref.hpp>
 #include <sge/renderer/exception.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::d3d9::devicefuncs::set_depth_stencil_surface(
 	IDirect3DDevice9 &_device,
-	IDirect3DSurface9 *const _surface
+	sge::d3d9::surface::optional_d3d_ref const &_surface
 )
 {
 	if(
 		_device.SetDepthStencilSurface(
-			_surface
+			fcppt::maybe(
+				_surface,
+				[]()
+				-> IDirect3DSurface9 *
+				{
+					return
+						nullptr;
+				},
+				[](
+					IDirect3DSurface9 &_surface
+				)
+				{
+					return
+						&_surface;
+				}
+			)
 		)
 		!= D3D_OK
 	)

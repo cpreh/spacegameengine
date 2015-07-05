@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/depth_stencil.hpp>
 #include <sge/d3d9/surface/depth_stencil_create.hpp>
 #include <sge/d3d9/surface/depth_stencil_create_unique_ptr.hpp>
+#include <sge/d3d9/surface/optional_d3d_unique_ptr.hpp>
 #include <sge/d3d9/surfacefuncs/depth_stencil_format.hpp>
 #include <sge/d3d9/surfacefuncs/dim.hpp>
 #include <sge/image/ds/format.hpp>
@@ -31,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
@@ -64,7 +66,7 @@ sge::d3d9::surface::depth_stencil::size() const
 {
 	return
 		sge::d3d9::surfacefuncs::dim(
-			*surface_
+			this->surface()
 		);
 }
 
@@ -73,14 +75,17 @@ sge::d3d9::surface::depth_stencil::format() const
 {
 	return
 		sge::d3d9::surfacefuncs::depth_stencil_format(
-			*surface_
+			this->surface()
 		);
 }
 
 IDirect3DSurface9 &
 sge::d3d9::surface::depth_stencil::surface() const
 {
-	return *surface_;
+	return
+		*FCPPT_ASSERT_OPTIONAL_ERROR(
+			surface_
+		);
 }
 
 sge::d3d9::surface::depth_stencil::const_view const
@@ -118,13 +123,16 @@ void
 sge::d3d9::surface::depth_stencil::init()
 {
 	surface_ =
-		create_->create();
+		sge::d3d9::surface::optional_d3d_unique_ptr(
+			create_->create()
+		);
 }
 
 void
 sge::d3d9::surface::depth_stencil::on_loss()
 {
-	surface_.reset();
+	surface_ =
+		sge::d3d9::surface::optional_d3d_unique_ptr();
 }
 
 void

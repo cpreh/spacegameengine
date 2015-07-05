@@ -40,7 +40,7 @@ sge::d3d9::state::ffp::sampler::make_op(
 			sge::d3d9::state::ffp::sampler::op_visitor<
 				OpType
 			>(),
-			_op.get().variant()
+			_op.get()
 		);
 }
 

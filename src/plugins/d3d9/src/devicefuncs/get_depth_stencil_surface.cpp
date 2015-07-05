@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/get_depth_stencil_surface.hpp>
 #include <sge/d3d9/surface/d3d_unique_ptr.hpp>
+#include <sge/d3d9/surface/optional_d3d_unique_ptr.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
 
-sge::d3d9::surface::d3d_unique_ptr
+sge::d3d9::surface::optional_d3d_unique_ptr
 sge::d3d9::devicefuncs::get_depth_stencil_surface(
 	IDirect3DDevice9 &_device
 )
@@ -40,14 +41,18 @@ sge::d3d9::devicefuncs::get_depth_stencil_surface(
 	{
 	case D3D_OK:
 		return
-			sge::d3d9::surface::d3d_unique_ptr(
-				ret
+			sge::d3d9::surface::optional_d3d_unique_ptr(
+				sge::d3d9::surface::d3d_unique_ptr(
+					ret
+				)
 			);
 	case D3DERR_NOTFOUND:
-		return sge::d3d9::surface::d3d_unique_ptr();
+		return
+			sge::d3d9::surface::optional_d3d_unique_ptr();
 	}
 
-	throw sge::renderer::exception(
-		FCPPT_TEXT("GetDepthStencilSurface() failed!")
-	);
+	throw
+		sge::renderer::exception{
+			FCPPT_TEXT("GetDepthStencilSurface() failed!")
+		};
 }

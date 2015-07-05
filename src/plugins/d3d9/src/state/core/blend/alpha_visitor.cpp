@@ -58,7 +58,7 @@ sge::d3d9::state::core::blend::alpha_visitor::operator()(
 			},
 			fcppt::variant::apply_unary(
 				sge::d3d9::state::core::blend::alpha_enabled_visitor(),
-				_enabled.variant()
+				_enabled
 			)
 		);
 }

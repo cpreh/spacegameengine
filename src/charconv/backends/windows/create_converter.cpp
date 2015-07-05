@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/converter.hpp>
 #include <sge/charconv/converter_unique_ptr.hpp>
 #include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/source_encoding.hpp>
@@ -28,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/charconv/backends/windows/utf32_to_utf16.hpp>
 #include <sge/src/charconv/backends/windows/utf8_to_wchar.hpp>
 #include <sge/src/charconv/backends/windows/wchar_to_utf8.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::charconv::converter_unique_ptr
@@ -47,9 +49,13 @@ sge::charconv::backends::windows::create_converter(
 		sge::charconv::encoding::utf32
 	)
 		return
-			fcppt::make_unique_ptr<
-				sge::charconv::backends::windows::utf16_to_utf32
-			>();
+			fcppt::unique_ptr_to_base<
+				sge::charconv::converter
+			>(
+				fcppt::make_unique_ptr_fcppt<
+					sge::charconv::backends::windows::utf16_to_utf32
+				>()
+			);
 
 	if(
 		sge::charconv::backends::windows::is_utf16(
@@ -61,9 +67,13 @@ sge::charconv::backends::windows::create_converter(
 		sge::charconv::encoding::utf8
 	)
 		return
-			fcppt::make_unique_ptr<
-				sge::charconv::backends::windows::wchar_to_utf8
-			>();
+			fcppt::unique_ptr_to_base<
+				sge::charconv::converter
+			>(
+				fcppt::make_unique_ptr_fcppt<
+					sge::charconv::backends::windows::wchar_to_utf8
+				>()
+			);
 
 	if(
 		sge::charconv::backends::windows::is_utf16(
@@ -75,9 +85,13 @@ sge::charconv::backends::windows::create_converter(
 		sge::charconv::encoding::utf32
 	)
 		return
-			fcppt::make_unique_ptr<
-				sge::charconv::backends::windows::utf32_to_utf16
-			>();
+			fcppt::unique_ptr_to_base<
+				sge::charconv::converter
+			>(
+				fcppt::make_unique_ptr_fcppt<
+					sge::charconv::backends::windows::utf32_to_utf16
+				>()
+			);
 
 	if(
 		_source.get()
@@ -89,9 +103,13 @@ sge::charconv::backends::windows::create_converter(
 		)
 	)
 		return
-			fcppt::make_unique_ptr<
-				sge::charconv::backends::windows::utf8_to_wchar
-			>();
+			fcppt::unique_ptr_to_base<
+				sge::charconv::converter
+			>(
+				fcppt::make_unique_ptr_fcppt<
+					sge::charconv::backends::windows::utf8_to_wchar
+				>()
+			);
 
 	throw
 		sge::charconv::unsupported_conversion(

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/filter/normal/parameters.hpp>
 
 
-sge::d3d9::state::core::sampler::filter::visitor::result_type const
+sge::d3d9::state::core::sampler::filter::visitor::result_type
 sge::d3d9::state::core::sampler::filter::visitor::operator()(
 	sge::renderer::state::core::sampler::filter::anisotropic::parameters const &_anisotropic
 ) const
@@ -58,7 +58,7 @@ sge::d3d9::state::core::sampler::filter::visitor::operator()(
 		};
 }
 
-sge::d3d9::state::core::sampler::filter::visitor::result_type const
+sge::d3d9::state::core::sampler::filter::visitor::result_type
 sge::d3d9::state::core::sampler::filter::visitor::operator()(
 	sge::renderer::state::core::sampler::filter::normal::parameters const &_normal
 ) const

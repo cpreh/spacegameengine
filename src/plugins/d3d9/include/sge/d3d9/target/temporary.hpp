@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_TARGET_TEMPORARY_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
+#include <sge/d3d9/surface/optional_d3d_unique_ptr.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -53,11 +53,11 @@ public:
 private:
 	IDirect3DDevice9 &device_;
 
-	sge::d3d9::surface::d3d_unique_ptr const depth_stencil_surface_;
+	sge::d3d9::surface::optional_d3d_unique_ptr const depth_stencil_surface_;
 
 	typedef
 	std::vector<
-		sge::d3d9::surface::d3d_unique_ptr
+		sge::d3d9::surface::optional_d3d_unique_ptr
 	>
 	scoped_surface_vector;
 

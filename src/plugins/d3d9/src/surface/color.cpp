@@ -43,8 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/math/box/comparison.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -119,7 +118,9 @@ sge::d3d9::surface::color::lock(
 	D3DLOCKED_RECT const locked_rect(
 		sge::d3d9::surfacefuncs::lock_rect(
 			this->lock_surface(),
-			this->area() == _rect
+			this->area()
+			==
+			_rect
 			?
 				sge::d3d9::optional_lock_rect()
 			:

@@ -38,7 +38,7 @@ namespace sampler
 namespace address
 {
 
-sge::d3d9::state::core::sampler::state_vector const
+sge::d3d9::state::core::sampler::state_vector
 make_states(
 	sge::renderer::state::core::sampler::address::parameters const &
 );
