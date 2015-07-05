@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/algorithm/fill.hpp>
-#include <sge/image2d/store/rgba8.hpp>
+#include <sge/image2d/store/srgba8.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/sub.hpp>
@@ -229,7 +229,7 @@ try
 		)
 	);
 
-	typedef sge::image2d::store::rgba8 image_type;
+	typedef sge::image2d::store::srgba8 image_type;
 
 	image_type dest{
 		fcppt::math::dim::fill<
