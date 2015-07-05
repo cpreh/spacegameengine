@@ -151,7 +151,9 @@ set(
 	src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/copy.hpp
 	src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/function.hpp
 	src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/permutate_compare.hpp
+	src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/rgb_to_srgb.hpp
 	src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/source.hpp
+	src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/srgb_to_rgb.hpp
 	src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/visitor.hpp
 	src/image/color/include/sge/src/image/color/dynamic/algorithm/copy_and_convert.hpp
 	src/image/color/include/sge/src/image/color/dynamic/format/a8.hpp

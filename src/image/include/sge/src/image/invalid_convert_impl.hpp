@@ -54,8 +54,7 @@ sge::image::invalid_convert<
 			_dest
 		)
 		+
-		// FIXME
-		FCPPT_TEXT(". The two formats should only differ in alpha or channel order!")
+		FCPPT_TEXT('!')
 	)
 {
 }

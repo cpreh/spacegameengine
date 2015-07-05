@@ -51,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -68,6 +69,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 BOOST_AUTO_TEST_CASE(
 	rgba
 )
+try
 {
 FCPPT_PP_POP_WARNING
 	typedef
@@ -220,4 +222,16 @@ FCPPT_PP_POP_WARNING
 			)
 		);
 	}
+}
+catch(
+	fcppt::exception const &_error
+)
+{
+	fcppt::io::cerr()
+		<< _error.string()
+		<< FCPPT_TEXT('\n');
+
+	BOOST_CHECK(
+		false
+	);
 }
