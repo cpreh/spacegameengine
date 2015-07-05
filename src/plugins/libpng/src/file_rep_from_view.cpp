@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/file_rep_from_view.hpp>
 #include <sge/libpng/format.hpp>
 #include <sge/libpng/from_sge_format_exn.hpp>
+#include <sge/libpng/to_sge_format.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -51,15 +52,17 @@ sge::libpng::file_rep_from_view(
 		)
 	);
 
-	sge::image::color::format const sge_format(
-		sge::image2d::view::format(
-			_view
+	sge::libpng::format const png_dest_format(
+		sge::libpng::from_sge_format_exn(
+			sge::image2d::view::format(
+				_view
+			)
 		)
 	);
 
-	sge::libpng::format const png_format(
-		sge::libpng::from_sge_format_exn(
-			sge_format
+	sge::image::color::format const dest_format(
+		sge::libpng::to_sge_format(
+			png_dest_format
 		)
 	);
 
@@ -67,7 +70,7 @@ sge::libpng::file_rep_from_view(
 		size.content()
 		*
 		sge::image::color::format_stride(
-			sge_format
+			dest_format
 		)
 	);
 
@@ -76,7 +79,7 @@ sge::libpng::file_rep_from_view(
 		sge::image2d::view::make(
 			bytes.data(),
 			size,
-			sge_format,
+			dest_format,
 			sge::image2d::pitch::null()
 		),
 		sge::image::algorithm::may_overlap::no,
@@ -86,7 +89,7 @@ sge::libpng::file_rep_from_view(
 	return
 		sge::libpng::file_rep(
 			size,
-			png_format,
+			png_dest_format,
 			std::move(
 				bytes
 			)
