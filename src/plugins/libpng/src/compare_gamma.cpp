@@ -18,34 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/libpng/compare_gamma.hpp>
 #include <sge/libpng/gamma.hpp>
-#include <sge/libpng/get_gamma.hpp>
-#include <sge/libpng/info.hpp>
-#include <sge/libpng/read_ptr.hpp>
-#include <sge/libpng/srgb_gamma.hpp>
+#include <fcppt/literal.hpp>
+#include <fcppt/math/diff.hpp>
 
 
-sge::libpng::gamma const
-sge::libpng::get_gamma(
-	sge::libpng::read_ptr const &_read_ptr,
-	sge::libpng::info const &_info
+bool
+sge::libpng::compare_gamma(
+	sge::libpng::gamma const _left,
+	sge::libpng::gamma const _right
 )
 {
-	sge::libpng::gamma::value_type gamma_raw;
-
 	return
-		::png_get_gAMA(
-			_read_ptr.ptr(),
-			_info.get(),
-			&gamma_raw
+		fcppt::math::diff(
+			_left.get(),
+			_right.get()
 		)
-		==
-		0
-		?
-			sge::libpng::srgb_gamma()
-		:
-			sge::libpng::gamma(
-				gamma_raw
-			)
-		;
+		<
+		fcppt::literal<
+			sge::libpng::gamma::value_type
+		>(
+			0.01
+		);
 }

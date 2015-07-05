@@ -18,15 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/libpng/expected_gamma.hpp>
+#include <sge/libpng/compare_gamma.hpp>
 #include <sge/libpng/format.hpp>
 #include <sge/libpng/gamma.hpp>
+#include <sge/libpng/logger.hpp>
 #include <sge/libpng/make_format.hpp>
 #include <sge/libpng/optional_format.hpp>
 #include <sge/libpng/png.hpp>
-#include <fcppt/literal.hpp>
-#include <fcppt/assert/pre.hpp>
-#include <fcppt/math/diff.hpp>
+#include <sge/libpng/srgb_gamma.hpp>
+#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/_.hpp>
+#include <fcppt/log/error.hpp>
 
 
 sge::libpng::optional_format
@@ -41,18 +44,26 @@ sge::libpng::make_format(
 	// sRGB, we return the corresponding format. The gamma value,
 	// however, could be off, in which case we have to look further
 	// into it and maybe return a different color format.
-	FCPPT_ASSERT_PRE(
-		fcppt::math::diff(
-			_gamma.get(),
-			sge::libpng::expected_gamma().get()
+	if(
+		!sge::libpng::compare_gamma(
+			sge::libpng::srgb_gamma(),
+			_gamma
 		)
-		<
-		fcppt::literal<
-			sge::libpng::gamma::value_type
-		>(
-			0.01
-		)
-	);
+	)
+	{
+		FCPPT_LOG_ERROR(
+			sge::libpng::logger(),
+			fcppt::log::_
+				<< FCPPT_TEXT("PNG file has gAMA ")
+				<< _gamma
+				<< FCPPT_TEXT(" which is not the expected sRGB gAMA of ")
+				<< sge::libpng::srgb_gamma()
+				<< FCPPT_TEXT('!')
+		);
+
+		return
+			sge::libpng::optional_format();
+	}
 
 	if(
 		_bit_depth

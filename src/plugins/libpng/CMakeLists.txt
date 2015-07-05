@@ -6,10 +6,10 @@ set(
 	src/plugins/libpng/include/sge/libpng/bytes_per_pixel.hpp
 	src/plugins/libpng/include/sge/libpng/check_extension.hpp
 	src/plugins/libpng/include/sge/libpng/color_type_from_format.hpp
+	src/plugins/libpng/include/sge/libpng/compare_gamma.hpp
 	src/plugins/libpng/include/sge/libpng/create_struct.hpp
 	src/plugins/libpng/include/sge/libpng/error_context.hpp
 	src/plugins/libpng/include/sge/libpng/error_context_fwd.hpp
-	src/plugins/libpng/include/sge/libpng/expected_gamma.hpp
 	src/plugins/libpng/include/sge/libpng/extension.hpp
 	src/plugins/libpng/include/sge/libpng/file.hpp
 	src/plugins/libpng/include/sge/libpng/file_rep.hpp
@@ -36,6 +36,7 @@ set(
 	src/plugins/libpng/include/sge/libpng/read_ptr.hpp
 	src/plugins/libpng/include/sge/libpng/read_ptr_fwd.hpp
 	src/plugins/libpng/include/sge/libpng/row_vector.hpp
+	src/plugins/libpng/include/sge/libpng/srgb_gamma.hpp
 	src/plugins/libpng/include/sge/libpng/system.hpp
 	src/plugins/libpng/include/sge/libpng/to_sge_format.hpp
 	src/plugins/libpng/include/sge/libpng/transforms_from_format.hpp
@@ -46,8 +47,8 @@ set(
 	src/plugins/libpng/src/bit_depth_from_format.cpp
 	src/plugins/libpng/src/check_extension.cpp
 	src/plugins/libpng/src/color_type_from_format.cpp
+	src/plugins/libpng/src/compare_gamma.cpp
 	src/plugins/libpng/src/error_context.cpp
-	src/plugins/libpng/src/expected_gamma.cpp
 	src/plugins/libpng/src/exports.cpp
 	src/plugins/libpng/src/extension.cpp
 	src/plugins/libpng/src/file.cpp
@@ -64,6 +65,7 @@ set(
 	src/plugins/libpng/src/make_format.cpp
 	src/plugins/libpng/src/make_row_vector.cpp
 	src/plugins/libpng/src/read_ptr.cpp
+	src/plugins/libpng/src/srgb_gamma.cpp
 	src/plugins/libpng/src/system.cpp
 	src/plugins/libpng/src/to_sge_format.cpp
 	src/plugins/libpng/src/transforms_from_format.cpp

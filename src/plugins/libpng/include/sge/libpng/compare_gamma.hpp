@@ -18,20 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/libpng/expected_gamma.hpp>
+#ifndef SGE_LIBPNG_COMPARE_GAMMA_HPP_INCLUDED
+#define SGE_LIBPNG_COMPARE_GAMMA_HPP_INCLUDED
+
 #include <sge/libpng/gamma.hpp>
-#include <fcppt/literal.hpp>
 
 
-sge::libpng::gamma const
-sge::libpng::expected_gamma()
+namespace sge
 {
-	return
-		sge::libpng::gamma(
-			fcppt::literal<
-				sge::libpng::gamma::value_type
-			>(
-				0.45455
-			)
-		);
+namespace libpng
+{
+
+bool
+compare_gamma(
+	sge::libpng::gamma,
+	sge::libpng::gamma
+);
+
 }
+}
+
+#endif
