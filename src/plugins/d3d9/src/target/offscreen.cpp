@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/set_render_target.hpp>
 #include <sge/d3d9/surface/color.hpp>
 #include <sge/d3d9/surface/depth_stencil.hpp>
+#include <sge/d3d9/surface/optional_d3d_ref.hpp>
 #include <sge/d3d9/target/basic_impl.hpp>
 #include <sge/d3d9/target/offscreen.hpp>
 #include <sge/renderer/pixel_rect.hpp>
@@ -163,9 +164,11 @@ sge::d3d9::target::offscreen::change_surfaces(
 					),
 					_activate
 					?
-						&_surface.surface()
+						sge::d3d9::surface::optional_d3d_ref(
+							_surface.surface()
+						)
 					:
-						nullptr
+						sge::d3d9::surface::optional_d3d_ref()
 				);
 			}
 		);
@@ -183,9 +186,11 @@ sge::d3d9::target::offscreen::change_surfaces(
 				this->device(),
 				_activate
 				?
-					&_surface.surface()
+					sge::d3d9::surface::optional_d3d_ref(
+						_surface.surface()
+					)
 				:
-					nullptr
+					sge::d3d9::surface::optional_d3d_ref()
 			);
 		}
 	);

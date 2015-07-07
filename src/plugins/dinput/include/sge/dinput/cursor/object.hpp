@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/cursor/object_fwd.hpp>
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code_fwd.hpp>
+#include <sge/input/cursor/button_pressed.hpp>
 #include <sge/input/cursor/button_signal.hpp>
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/move_callback.hpp>
@@ -40,12 +41,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -114,7 +114,7 @@ private:
 	on_button(
 		awl::backends::windows::window::event::object const &,
 		sge::input::cursor::button_code,
-		bool down
+		sge::input::cursor::button_pressed
 	);
 
 	awl::backends::windows::window::event::return_type
@@ -146,15 +146,23 @@ private:
 
 	sge::input::cursor::scroll_signal scroll_signal_;
 
-	typedef std::unique_ptr<
+	typedef
+	fcppt::unique_ptr<
 		sge::dinput::cursor::exclusive_mode
-	> exclusive_mode_unique_ptr;
+	>
+	exclusive_mode_unique_ptr;
+
+	typedef
+	fcppt::optional<
+		exclusive_mode_unique_ptr
+	>
+	optional_exclusive_mode_unique_ptr;
 
 	sge::input::cursor::mode mode_;
 
 	bool has_focus_;
 
-	exclusive_mode_unique_ptr exclusive_mode_;
+	optional_exclusive_mode_unique_ptr exclusive_mode_;
 
 	fcppt::signal::auto_connection_container const connections_;
 };

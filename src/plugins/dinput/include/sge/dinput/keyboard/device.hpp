@@ -33,16 +33,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/char_type.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_code_fwd.hpp>
 #include <sge/input/keyboard/key_function.hpp>
 #include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_repeat_function.hpp>
 #include <sge/input/keyboard/mod_state.hpp>
-#include <sge/input/keyboard/optional_key_code.hpp>
 #include <sge/timer/basic_decl.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -108,17 +109,23 @@ private:
 
 	HKL kblayout_;
 
-	typedef fcppt::signal::object<
+	typedef
+	fcppt::signal::object<
 		sge::input::keyboard::key_function
-	> key_signal;
+	>
+	key_signal;
 
-	typedef fcppt::signal::object<
+	typedef
+	fcppt::signal::object<
 		sge::input::keyboard::key_repeat_function
-	> key_repeat_signal;
+	>
+	key_repeat_signal;
 
-	typedef fcppt::signal::object<
+	typedef
+	fcppt::signal::object<
 		sge::input::keyboard::char_function
-	> char_signal;
+	>
+	char_signal;
 
 	key_signal key_signal_;
 
@@ -126,13 +133,21 @@ private:
 
 	char_signal char_signal_;
 
-	typedef sge::timer::basic<
+	typedef
+	sge::timer::basic<
 		sge::timer::clocks::standard
-	> repeat_timer;
+	>
+	repeat_timer;
 
 	repeat_timer repeat_time_;
 
-	sge::input::keyboard::optional_key_code old_key_code_;
+	typedef
+	fcppt::optional<
+		sge::input::keyboard::key
+	>
+	optional_key;
+
+	optional_key old_key_;
 
 	sge::dinput::keyboard::info const info_;
 

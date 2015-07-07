@@ -18,28 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/di.hpp>
-#include <sge/dinput/device/funcs/set_cooperative_level.hpp>
-#include <sge/input/exception.hpp>
-#include <awl/backends/windows/window/object.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_D3D9_SURFACE_OPTIONAL_D3D_REF_HPP_INCLUDED
+#define SGE_D3D9_SURFACE_OPTIONAL_D3D_REF_HPP_INCLUDED
+
+#include <sge/d3d9/surface/optional_d3d_ref_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
-void
-sge::dinput::device::funcs::set_cooperative_level(
-	IDirectInputDevice8 &_device,
-	awl::backends::windows::window::object &_window,
-	DWORD const _flags
-)
-{
-	if(
-		_device.SetCooperativeLevel(
-			_window.hwnd(),
-			_flags
-		)
-		!= DI_OK
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("SetCooperativeLevel() failed!")
-		);
-}
+#endif

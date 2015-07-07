@@ -50,3 +50,33 @@ sge::input::keyboard::key::id() const
 	return
 		id_;
 }
+
+bool
+sge::input::keyboard::operator==(
+	sge::input::keyboard::key const &_left,
+	sge::input::keyboard::key const &_right
+)
+{
+	return
+		_left.code()
+		==
+		_right.code()
+		&&
+		_left.id()
+		==
+		_right.id();
+}
+
+bool
+sge::input::keyboard::operator!=(
+	sge::input::keyboard::key const &_left,
+	sge::input::keyboard::key const &_right
+)
+{
+	return
+		!(
+			_left
+			==
+			_right
+		);
+}

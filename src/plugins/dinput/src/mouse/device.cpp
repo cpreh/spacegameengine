@@ -31,13 +31,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/info/name.hpp>
 #include <sge/input/mouse/axis.hpp>
 #include <sge/input/mouse/axis_callback.hpp>
+#include <sge/input/mouse/axis_id.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/axis_value.hpp>
 #include <sge/input/mouse/button.hpp>
 #include <sge/input/mouse/button_callback.hpp>
+#include <sge/input/mouse/button_id.hpp>
 #include <sge/input/mouse/button_event.hpp>
+#include <sge/input/mouse/button_pressed.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/info_fwd.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/container/find_opt.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -118,24 +123,25 @@ sge::dinput::mouse::device::on_dispatch(
 	DIDEVICEOBJECTDATA const &_data
 )
 {
-	{
-		sge::dinput::mouse::axis_map::const_iterator const it(
-			info_.axis_map().find(
-				_data.dwOfs
-			)
-		);
-
-		if(
-			it != info_.axis_map().end()
+	fcppt::maybe_void(
+		fcppt::container::find_opt(
+			info_.axis_map(),
+			_data.dwOfs
+		),
+		[
+			this,
+			&_data
+		](
+			sge::input::mouse::axis_id const _id
 		)
 		{
 			axis_signal_(
 				sge::input::mouse::axis_event(
 					sge::input::mouse::axis(
 						info_.input_info().axes()[
-							it->second
+							_id
 						].code(),
-						it->second
+						_id
 					),
 					static_cast<
 						sge::input::mouse::axis_value
@@ -144,37 +150,36 @@ sge::dinput::mouse::device::on_dispatch(
 					)
 				)
 			);
-
-			return;
 		}
-	}
+	);
 
-	{
-		sge::dinput::mouse::button_map::const_iterator const it(
-			info_.button_map().find(
-				_data.dwOfs
-			)
-		);
-
-		if(
-			it != info_.button_map().end()
+	fcppt::maybe_void(
+		fcppt::container::find_opt(
+			info_.button_map(),
+			_data.dwOfs
+		),
+		[
+			this,
+			&_data
+		](
+			sge::input::mouse::button_id const _id
 		)
 		{
 			button_signal_(
 				sge::input::mouse::button_event(
 					sge::input::mouse::button(
 						info_.input_info().buttons()[
-							it->second
+							_id
 						].code(),
-						it->second
+						_id
 					),
-					sge::dinput::is_down(
-						_data.dwData
-					)
+					sge::input::mouse::button_pressed{
+						sge::dinput::is_down(
+							_data.dwData
+						)
+					}
 				)
 			);
-
-			return;
 		}
-	}
+	);
 }

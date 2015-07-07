@@ -50,12 +50,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/focus_out_callback.hpp>
 #include <awl/window/event/focus_out_fwd.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/append.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
@@ -108,7 +111,7 @@ sge::dinput::processor::processor(
 	),
 	devices_(),
 	cursor_(
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			sge::dinput::cursor::object
 		>(
 			event_processor_,
@@ -184,7 +187,6 @@ sge::dinput::processor::processor(
 				)
 			)
 		)
-		.move_container()
 	)
 {
 	awl::backends::windows::event::post_message(
@@ -477,8 +479,12 @@ sge::dinput::processor::add_device(
 	);
 
 	devices_.push_back(
-		std::move(
-			_ptr
+		fcppt::unique_ptr_to_base<
+			sge::dinput::device::object
+		>(
+			std::move(
+				_ptr
+			)
 		)
 	);
 
@@ -495,8 +501,8 @@ sge::dinput::processor::enum_devices_callback(
 )
 {
 	sge::dinput::processor &instance(
-		*static_cast<
-			dinput::processor *
+		*fcppt::cast::from_void_ptr<
+			sge::dinput::processor *
 		>(
 			_state
 		)
@@ -526,7 +532,7 @@ sge::dinput::processor::enum_devices_callback(
 	case DI8DEVTYPE_KEYBOARD:
 		instance.add_device(
 			instance.keyboard_discover_,
-			fcppt::make_unique_ptr<
+			fcppt::make_unique_ptr_fcppt<
 				sge::dinput::keyboard::device
 			>(
 				parameters
@@ -536,7 +542,7 @@ sge::dinput::processor::enum_devices_callback(
 	case DI8DEVTYPE_MOUSE:
 		instance.add_device(
 			instance.mouse_discover_,
-			fcppt::make_unique_ptr<
+			fcppt::make_unique_ptr_fcppt<
 				sge::dinput::mouse::device
 			>(
 				parameters
@@ -546,7 +552,7 @@ sge::dinput::processor::enum_devices_callback(
 	case DI8DEVTYPE_JOYSTICK:
 		instance.add_device(
 			instance.joypad_discover_,
-			fcppt::make_unique_ptr<
+			fcppt::make_unique_ptr_fcppt<
 				sge::dinput::joypad::device
 			>(
 				parameters
@@ -555,5 +561,6 @@ sge::dinput::processor::enum_devices_callback(
 		break;
 	}
 
-	return DIENUM_CONTINUE;
+	return
+		DIENUM_CONTINUE;
 }

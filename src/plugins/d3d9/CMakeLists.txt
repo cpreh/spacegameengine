@@ -302,6 +302,8 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil_native.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil_onscreen_target.hpp
+	src/plugins/d3d9/include/sge/d3d9/surface/optional_d3d_ref.hpp
+	src/plugins/d3d9/include/sge/d3d9/surface/optional_d3d_ref_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/optional_d3d_unique_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/optional_d3d_unique_ptr_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/surfacefuncs/depth_stencil_format.hpp

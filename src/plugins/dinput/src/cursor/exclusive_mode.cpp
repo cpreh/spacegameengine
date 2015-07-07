@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
 #include <fcppt/optional_comparison.hpp>
-#include <fcppt/algorithm/join_move.hpp>
+#include <fcppt/algorithm/join.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -56,7 +56,7 @@ sge::dinput::cursor::exclusive_mode::exclusive_mode(
 		_window
 	),
 	connections_(
-		fcppt::algorithm::join_move(
+		fcppt::algorithm::join(
 			this->make_connection_pair(
 				_event_processor,
 				WM_ENTERSIZEMOVE,

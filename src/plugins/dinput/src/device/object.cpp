@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/exception.hpp>
 #include <awl/backends/windows/system/event/handle.hpp>
 #include <awl/backends/windows/window/object.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -116,11 +117,11 @@ sge::dinput::device::object::dispatch()
 		)
 		{
 			for(
-				DWORD index(
-					0u
-				);
-				index < elements;
-				++index
+				DWORD const index
+				:
+				fcppt::make_int_range_count(
+					elements
+				)
 			)
 				this->on_dispatch(
 					buffer[
@@ -175,7 +176,7 @@ void
 sge::dinput::device::object::unacquire()
 {
 	sge::dinput::device::funcs::unacquire(
-		device_.get()
+		this->get()
 	);
 }
 
@@ -192,7 +193,7 @@ sge::dinput::device::object::object(
 	)
 {
 	sge::dinput::device::funcs::set_cooperative_level(
-		device_.get(),
+		this->get(),
 		_param.window(),
 		coop_level
 	);
@@ -226,7 +227,7 @@ sge::dinput::device::object::acquire_impl()
 {
 	return
 		sge::dinput::device::funcs::acquire(
-			device_.get()
+			this->get()
 		);
 }
 
@@ -236,8 +237,8 @@ sge::dinput::device::object::set_data_format(
 )
 {
 	sge::dinput::device::funcs::set_data_format(
-		device_.get(),
-		&_format
+		this->get(),
+		_format
 	);
 }
 

@@ -23,12 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/dinput_unique_ptr.hpp>
 
+
 namespace sge
 {
 namespace dinput
 {
 
-dinput::dinput_unique_ptr
+sge::dinput::dinput_unique_ptr
 create_dinput();
 
 }

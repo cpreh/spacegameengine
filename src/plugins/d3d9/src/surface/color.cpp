@@ -22,12 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/make_pitch_2d.hpp>
 #include <sge/d3d9/needs_reset.hpp>
 #include <sge/d3d9/optional_lock_rect.hpp>
+#include <sge/d3d9/resource.hpp>
 #include <sge/d3d9/devicefuncs/create_offscreen_plain_surface.hpp>
 #include <sge/d3d9/devicefuncs/get_render_target_data.hpp>
 #include <sge/d3d9/surface/color.hpp>
 #include <sge/d3d9/surface/color_create.hpp>
 #include <sge/d3d9/surface/color_create_unique_ptr.hpp>
 #include <sge/d3d9/surface/color_holder.hpp>
+#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
+#include <sge/d3d9/surface/optional_d3d_unique_ptr.hpp>
 #include <sge/d3d9/surfacefuncs/lock_rect.hpp>
 #include <sge/d3d9/surfacefuncs/unlock_rect.hpp>
 #include <sge/image/color/format.hpp>
@@ -37,10 +40,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/optional_assign.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/math/box/comparison.hpp>
@@ -55,7 +61,7 @@ sge::d3d9::surface::color::color(
 	sge::d3d9::surface::color_create_unique_ptr &&_create
 )
 :
-	resource(
+	sge::d3d9::resource(
 		sge::d3d9::needs_reset::yes
 	),
 	device_(
@@ -79,7 +85,6 @@ sge::d3d9::surface::color::~color()
 {
 }
 
-
 sge::d3d9::surface::color::view const
 sge::d3d9::surface::color::lock(
 	lock_area const &,
@@ -96,22 +101,34 @@ sge::d3d9::surface::color::lock(
 	lock_area const &_rect
 ) const
 {
+	sge::d3d9::surface::color_holder const &holder(
+		*FCPPT_ASSERT_OPTIONAL_ERROR(
+			color_holder_
+		)
+	);
+
 	if(
-		color_holder_->is_render_target()
+		holder.is_render_target()
 	)
 	{
-		temp_surface_ =
-			sge::d3d9::devicefuncs::create_offscreen_plain_surface(
-				device_,
-				color_holder_->size(),
-				format_,
-				D3DPOOL_SYSTEMMEM
-			);
+		sge::d3d9::surface::d3d_unique_ptr const &temp_surface(
+			fcppt::optional_assign(
+				temp_surface_,
+				sge::d3d9::devicefuncs::create_offscreen_plain_surface(
+					device_,
+					holder.size(),
+					format_,
+					D3DPOOL_SYSTEMMEM
+				)
+			)
+		);
 
 		sge::d3d9::devicefuncs::get_render_target_data(
 			device_,
 			this->surface(),
-			*temp_surface_
+			*FCPPT_ASSERT_OPTIONAL_ERROR(
+				temp_surface
+			)
 		);
 	}
 
@@ -164,16 +181,21 @@ sge::d3d9::surface::color::unlock() const
 	);
 
 	if(
-		color_holder_->is_render_target()
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			color_holder_
+		)->is_render_target()
 	)
-		temp_surface_.reset();
+		temp_surface_ =
+			optional_color_holder_unique_ptr();
 }
 
 sge::d3d9::surface::color::dim const
 sge::d3d9::surface::color::size() const
 {
 	return
-		color_holder_->size();
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			color_holder_
+		)->size();
 }
 
 sge::d3d9::surface::color::color_format
@@ -187,16 +209,22 @@ IDirect3DSurface9 &
 sge::d3d9::surface::color::surface() const
 {
 	return
-		color_holder_->get();
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			color_holder_
+		)->get();
 }
 
 IDirect3DSurface9 &
 sge::d3d9::surface::color::lock_surface() const
 {
 	return
-		color_holder_->is_render_target()
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			color_holder_
+		)->is_render_target()
 		?
-			*temp_surface_
+			*FCPPT_ASSERT_OPTIONAL_ERROR(
+				temp_surface_
+			)
 		:
 			this->surface()
 		;
@@ -206,19 +234,23 @@ void
 sge::d3d9::surface::color::init()
 {
 	color_holder_ =
-		fcppt::make_unique_ptr<
-			sge::d3d9::surface::color_holder
-		>(
-			create_->create()
+		optional_color_holder_unique_ptr(
+			fcppt::make_unique_ptr_fcppt<
+				sge::d3d9::surface::color_holder
+			>(
+				create_->create()
+			)
 		);
 }
 
 void
 sge::d3d9::surface::color::on_loss()
 {
-	temp_surface_.reset();
+	temp_surface_ =
+		sge::d3d9::surface::optional_d3d_unique_ptr();
 
-	color_holder_.reset();
+	color_holder_ =
+		optional_color_holder_unique_ptr();
 }
 
 void

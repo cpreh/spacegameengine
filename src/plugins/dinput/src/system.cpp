@@ -22,10 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/system.hpp>
 #include <sge/input/capabilities.hpp>
 #include <sge/input/capabilities_field.hpp>
+#include <sge/input/processor.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::dinput::system::system()
@@ -43,8 +45,10 @@ sge::dinput::system::create_processor(
 )
 {
 	return
-		sge::input::processor_unique_ptr(
-			fcppt::make_unique_ptr<
+		fcppt::unique_ptr_to_base<
+			sge::input::processor
+		>(
+			fcppt::make_unique_ptr_fcppt<
 				sge::dinput::processor
 			>(
 				_window,

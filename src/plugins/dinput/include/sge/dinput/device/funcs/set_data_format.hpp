@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/di.hpp>
 
+
 namespace sge
 {
 namespace dinput
@@ -34,8 +35,8 @@ namespace funcs
 
 void
 set_data_format(
-	IDirectInputDevice8 *,
-	LPCDIDATAFORMAT
+	IDirectInputDevice8 &,
+	DIDATAFORMAT const &
 );
 
 }

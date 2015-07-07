@@ -32,15 +32,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/info/name.hpp>
 #include <sge/input/joypad/absolute_axis.hpp>
 #include <sge/input/joypad/absolute_axis_callback.hpp>
+#include <sge/input/joypad/absolute_axis_id.hpp>
 #include <sge/input/joypad/absolute_axis_event.hpp>
 #include <sge/input/joypad/axis_value.hpp>
 #include <sge/input/joypad/button_callback.hpp>
+#include <sge/input/joypad/button_id.hpp>
 #include <sge/input/joypad/button_event.hpp>
+#include <sge/input/joypad/button_pressed.hpp>
 #include <sge/input/joypad/device.hpp>
 #include <sge/input/joypad/info_fwd.hpp>
 #include <sge/input/joypad/relative_axis.hpp>
 #include <sge/input/joypad/relative_axis_callback.hpp>
+#include <sge/input/joypad/relative_axis_id.hpp>
 #include <sge/input/joypad/relative_axis_event.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/container/find_opt.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -134,24 +140,25 @@ sge::dinput::joypad::device::on_dispatch(
 	DIDEVICEOBJECTDATA const &_data
 )
 {
-	{
-		sge::dinput::joypad::absolute_axis_map::const_iterator const it(
-			info_.absolute_axis_map().find(
-				_data.dwOfs
-			)
-		);
-
-		if(
-			it != info_.absolute_axis_map().end()
+	fcppt::maybe_void(
+		fcppt::container::find_opt(
+			info_.absolute_axis_map(),
+			_data.dwOfs
+		),
+		[
+			this,
+			&_data
+		](
+			sge::input::joypad::absolute_axis_id const _id
 		)
 		{
 			absolute_axis_signal_(
 				sge::input::joypad::absolute_axis_event(
 					sge::input::joypad::absolute_axis(
 						info_.input_info().absolute_axes()[
-							it->second
+							_id
 						].code(),
-						it->second
+						_id
 					),
 					static_cast<
 						sge::input::joypad::axis_value
@@ -160,53 +167,53 @@ sge::dinput::joypad::device::on_dispatch(
 					)
 				)
 			);
-
-			return;
 		}
-	}
+	);
 
-	{
-		sge::dinput::joypad::button_map::const_iterator const it(
-			info_.button_map().find(
-				_data.dwOfs
-			)
-		);
-
-		if(
-			it != info_.button_map().end()
+	fcppt::maybe_void(
+		fcppt::container::find_opt(
+			info_.button_map(),
+			_data.dwOfs
+		),
+		[
+			this,
+			&_data
+		](
+			sge::input::joypad::button_id const _id
 		)
 		{
 			button_signal_(
 				sge::input::joypad::button_event(
-					it->second,
-					sge::dinput::is_down(
-						_data.dwData
-					)
+					_id,
+					sge::input::joypad::button_pressed{
+						sge::dinput::is_down(
+							_data.dwData
+						)
+					}
 				)
 			);
-
-			return;
 		}
-	}
+	);
 
-	{
-		sge::dinput::joypad::relative_axis_map::const_iterator const it(
-			info_.relative_axis_map().find(
-				_data.dwOfs
-			)
-		);
-
-		if(
-			it != info_.relative_axis_map().end()
+	fcppt::maybe_void(
+		fcppt::container::find_opt(
+			info_.relative_axis_map(),
+			_data.dwOfs
+		),
+		[
+			this,
+			&_data
+		](
+			sge::input::joypad::relative_axis_id const _id
 		)
 		{
 			relative_axis_signal_(
 				sge::input::joypad::relative_axis_event(
 					sge::input::joypad::relative_axis(
 						info_.input_info().relative_axes()[
-							it->second
+							_id
 						].code(),
-						it->second
+						_id
 					),
 					static_cast<
 						sge::input::joypad::axis_value
@@ -215,8 +222,6 @@ sge::dinput::joypad::device::on_dispatch(
 					)
 				)
 			);
-
-			return;
 		}
-	}
+	);
 }

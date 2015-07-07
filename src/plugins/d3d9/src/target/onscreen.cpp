@@ -24,10 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/set_depth_stencil_surface.hpp>
 #include <sge/d3d9/devicefuncs/set_render_target.hpp>
 #include <sge/d3d9/surface/color.hpp>
+#include <sge/d3d9/surface/color_create.hpp>
 #include <sge/d3d9/surface/color_onscreen_target.hpp>
 #include <sge/d3d9/surface/depth_stencil.hpp>
 #include <sge/d3d9/surface/depth_stencil_create.hpp>
 #include <sge/d3d9/surface/depth_stencil_onscreen_target.hpp>
+#include <sge/d3d9/surface/optional_d3d_ref.hpp>
 #include <sge/d3d9/target/basic_impl.hpp>
 #include <sge/d3d9/target/onscreen.hpp>
 #include <sge/image/color/format.hpp>
@@ -59,27 +61,31 @@ sge::d3d9::target::onscreen::onscreen(
 		>(
 			_device,
 			_color_format,
-			fcppt::make_unique_ptr<
-				sge::d3d9::surface::color_onscreen_target
+			fcppt::unique_ptr_to_base<
+				sge::d3d9::surface::color_create
 			>(
-				_device
+				fcppt::make_unique_ptr_fcppt<
+					sge::d3d9::surface::color_onscreen_target
+				>(
+					_device
+				)
 			)
 		)
 	),
 	depth_stencil_surface_(
-		fcppt::unqiue_ptr_to_base<
-			sge::d3d9::surface::depth_stencil_create
+		fcppt::make_unique_ptr_fcppt<
+			sge::d3d9::surface::depth_stencil
 		>(
-			fcppt::make_unique_ptr_fcppt<
-				sge::d3d9::surface::depth_stencil
+			fcppt::unique_ptr_to_base<
+				sge::d3d9::surface::depth_stencil_create
 			>(
 				fcppt::make_unique_ptr_fcppt<
 					sge::d3d9::surface::depth_stencil_onscreen_target
 				>(
 					_device
-				),
-				sge::d3d9::needs_reset::yes
-			)
+				)
+			),
+			sge::d3d9::needs_reset::yes
 		)
 	)
 {
@@ -118,12 +124,16 @@ sge::d3d9::target::onscreen::on_activate()
 		sge::renderer::target::surface_index(
 			0u
 		),
-		&color_surface_->surface()
+		sge::d3d9::surface::optional_d3d_ref(
+			color_surface_->surface()
+		)
 	);
 
 	sge::d3d9::devicefuncs::set_depth_stencil_surface(
 		this->device(),
-		&depth_stencil_surface_->surface()
+		sge::d3d9::surface::optional_d3d_ref(
+			depth_stencil_surface_->surface()
+		)
 	);
 }
 
@@ -134,7 +144,7 @@ sge::d3d9::target::onscreen::on_deactivate()
 
 	sge::d3d9::devicefuncs::set_depth_stencil_surface(
 		this->device(),
-		nullptr
+		sge::d3d9::surface::optional_d3d_ref()
 	);
 }
 

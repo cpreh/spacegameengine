@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/di.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
 
+
 namespace sge
 {
 namespace dinput
@@ -35,7 +36,7 @@ namespace funcs
 
 void
 set_cooperative_level(
-	IDirectInputDevice8 *,
+	IDirectInputDevice8 &,
 	awl::backends::windows::window::object &,
 	DWORD flags
 );

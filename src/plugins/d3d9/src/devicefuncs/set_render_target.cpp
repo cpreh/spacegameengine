@@ -20,26 +20,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/set_render_target.hpp>
+#include <sge/d3d9/surface/optional_d3d_ref.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
 
 
 void
 sge::d3d9::devicefuncs::set_render_target(
 	IDirect3DDevice9 &_device,
 	sge::renderer::target::surface_index const _index,
-	IDirect3DSurface9 *const _surface
+	sge::d3d9::surface::optional_d3d_ref const &_surface
 )
 {
 	if(
 		_device.SetRenderTarget(
-			static_cast<
+			fcppt::cast::size<
 				DWORD
 			>(
 				_index.get()
 			),
-			_surface
+			_surface.data()
 		)
 		!= D3D_OK
 	)

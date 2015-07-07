@@ -55,20 +55,20 @@ sge::d3d9::target::temporary::temporary(
 				sge::renderer::target::surface_index(
 					_surfaces.get()
 				)
+			),
+			[
+				&_device
+			](
+				sge::renderer::target::surface_index const _index
 			)
-		),
-		[
-			&_device
-		](
-			sge::renderer::target::surface_index const _index
+			{
+				return
+					sge::d3d9::devicefuncs::get_render_target(
+						_device,
+						_index
+					);
+			}
 		)
-		{
-			return
-				sge::d3d9::devicefuncs::get_render_target(
-					_device,
-					_index
-				);
-		}
 	);
 }
 

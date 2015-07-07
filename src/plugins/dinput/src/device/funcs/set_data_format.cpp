@@ -26,13 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::dinput::device::funcs::set_data_format(
-	IDirectInputDevice8 *const _device,
-	LPCDIDATAFORMAT const _format
+	IDirectInputDevice8 &_device,
+	DIDATAFORMAT const &_format
 )
 {
 	if(
-		_device->SetDataFormat(
-			_format
+		_device.SetDataFormat(
+			&_format
 		)
 		!= DI_OK
 	)

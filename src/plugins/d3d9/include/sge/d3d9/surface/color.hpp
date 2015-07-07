@@ -23,18 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/resource.hpp>
-#include <sge/d3d9/surface/color_create_fwd.hpp>
 #include <sge/d3d9/surface/color_create_unique_ptr.hpp>
 #include <sge/d3d9/surface/color_fwd.hpp>
 #include <sge/d3d9/surface/color_holder_fwd.hpp>
-#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
+#include <sge/d3d9/surface/optional_d3d_unique_ptr.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/color_buffer/surface.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/optional_decl.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 
 
 namespace sge
@@ -106,21 +104,25 @@ private:
 
 	IDirect3DDevice9 &device_;
 
-	typedef std::unique_ptr<
-		sge::d3d9::surface::color_create
-	> color_create_unique_ptr;
-
-	color_create_unique_ptr const create_;
+	sge::d3d9::surface::color_create_unique_ptr const create_;
 
 	sge::image::color::format const format_;
 
-	typedef std::unique_ptr<
+	typedef
+	std::unique_ptr<
 		sge::d3d9::surface::color_holder
-	> color_holder_unique_ptr;
+	>
+	color_holder_unique_ptr;
 
-	color_holder_unique_ptr color_holder_;
+	typedef
+	fcppt::optional<
+		color_holder_unique_ptr
+	>
+	optional_color_holder_unique_ptr;
 
-	mutable sge::d3d9::surface::d3d_unique_ptr temp_surface_;
+	optional_color_holder_unique_ptr color_holder_;
+
+	mutable sge::d3d9::surface::optional_d3d_unique_ptr temp_surface_;
 };
 
 }

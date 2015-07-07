@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_DEVICE_FUNCS_ACQUIRE_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
+#include <fcppt/preprocessor/warn_unused_result.hpp>
 
 
 namespace sge
@@ -35,8 +36,9 @@ namespace funcs
 
 bool
 acquire(
-	IDirectInputDevice8 *
-);
+	IDirectInputDevice8 &
+)
+FCPPT_PP_WARN_UNUSED_RESULT;
 
 }
 }

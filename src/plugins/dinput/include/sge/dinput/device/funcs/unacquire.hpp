@@ -35,7 +35,7 @@ namespace funcs
 
 bool
 unacquire(
-	IDirectInputDevice8 *
+	IDirectInputDevice8 &
 );
 
 }

@@ -25,17 +25,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 bool
 sge::dinput::device::funcs::unacquire(
-	IDirectInputDevice8 *const _device
+	IDirectInputDevice8 &_device
 )
 {
 	switch(
-		_device->Unacquire()
+		_device.Unacquire()
 	)
 	{
 	case DI_OK:
-		return true;
+		return
+			true;
 	case DI_NOEFFECT:
-		return false;
+		return
+			false;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

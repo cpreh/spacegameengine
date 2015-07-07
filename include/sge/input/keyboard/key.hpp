@@ -56,6 +56,20 @@ private:
 	sge::input::keyboard::key_id id_;
 };
 
+SGE_INPUT_DETAIL_SYMBOL
+bool
+operator==(
+	sge::input::keyboard::key const &,
+	sge::input::keyboard::key const &
+);
+
+SGE_INPUT_DETAIL_SYMBOL
+bool
+operator!=(
+	sge::input::keyboard::key const &,
+	sge::input::keyboard::key const &
+);
+
 }
 }
 }

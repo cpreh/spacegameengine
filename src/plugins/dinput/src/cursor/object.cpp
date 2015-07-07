@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
+#include <sge/input/cursor/button_pressed.hpp>
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_event.hpp>
@@ -41,11 +42,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/optional_bind.hpp>
 #include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/algorithm/join_move.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/algorithm/join.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>
@@ -85,7 +88,7 @@ sge::dinput::cursor::object::object(
 	),
 	exclusive_mode_(),
 	connections_(
-		fcppt::algorithm::join_move(
+		fcppt::algorithm::join(
 			fcppt::assign::make_container<
 				fcppt::signal::auto_connection_container
 			>(
@@ -231,7 +234,8 @@ sge::dinput::cursor::object::mode(
 		==
 		sge::input::cursor::mode::normal
 	)
-		exclusive_mode_.reset();
+		exclusive_mode_ =
+			optional_exclusive_mode_unique_ptr();
 	else if(
 		has_focus_
 	)
@@ -245,7 +249,9 @@ sge::dinput::cursor::object::acquire()
 		true;
 
 	if(
-		mode_ == sge::input::cursor::mode::exclusive
+		mode_
+		==
+		sge::input::cursor::mode::exclusive
 	)
 		this->make_grab();
 }
@@ -253,9 +259,11 @@ sge::dinput::cursor::object::acquire()
 void
 sge::dinput::cursor::object::unacquire()
 {
-	has_focus_ = false;
+	has_focus_ =
+		false;
 
-	exclusive_mode_.reset();
+	exclusive_mode_ =
+		optional_exclusive_mode_unique_ptr();
 }
 
 bool
@@ -269,16 +277,18 @@ void
 sge::dinput::cursor::object::make_grab()
 {
 	if(
-		exclusive_mode_
+		exclusive_mode_.has_value()
 	)
 		return;
 
 	exclusive_mode_ =
-		fcppt::make_unique_ptr<
-			sge::dinput::cursor::exclusive_mode
-		>(
-			event_processor_,
-			window_
+		optional_exclusive_mode_unique_ptr(
+			fcppt::make_unique_ptr_fcppt<
+				sge::dinput::cursor::exclusive_mode
+			>(
+				event_processor_,
+				window_
+			)
 		);
 }
 
@@ -302,24 +312,34 @@ sge::dinput::cursor::object::on_move(
 		)
 	);
 
-	return awl::backends::windows::window::event::return_type();
+	return
+		awl::backends::windows::window::event::return_type();
 }
 
 awl::backends::windows::window::event::return_type
 sge::dinput::cursor::object::on_button(
-	awl::backends::windows::window::event::object const &,
+	awl::backends::windows::window::event::object const &_event,
 	sge::input::cursor::button_code const _code,
-	bool const _down
+	sge::input::cursor::button_pressed const _down
 )
 {
 	button_signal_(
 		sge::input::cursor::button_event(
 			_code,
+			sge::input::cursor::position(
+				LOWORD(
+					_event.lparam().get()
+				),
+				HIWORD(
+					_event.lparam().get()
+				)
+			),
 			_down
 		)
 	);
 
-	return awl::backends::windows::window::event::return_type();
+	return
+		awl::backends::windows::window::event::return_type();
 }
 
 awl::backends::windows::window::event::return_type
@@ -339,7 +359,8 @@ sge::dinput::cursor::object::on_scroll(
 		)
 	);
 
-	return awl::backends::windows::window::event::return_type();
+	return
+		awl::backends::windows::window::event::return_type();
 }
 
 fcppt::signal::auto_connection_container
@@ -362,7 +383,9 @@ sge::dinput::cursor::object::make_button_connections(
 					this,
 					std::placeholders::_1,
 					_code,
-					true
+					sge::input::cursor::button_pressed{
+						true
+					}
 				)
 			)
 		)(
@@ -375,10 +398,12 @@ sge::dinput::cursor::object::make_button_connections(
 					this,
 					std::placeholders::_1,
 					_code,
-					false
+					sge::input::cursor::button_pressed{
+						false
+					}
 				)
 			)
-		).move_container();
+		);
 }
 
 fcppt::signal::auto_connection
