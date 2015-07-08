@@ -35,9 +35,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
+#include <fcppt/optional_assign.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
+#include <fcppt/math/box/comparison.hpp>
 
 
 template<
@@ -139,10 +142,13 @@ sge::d3d9::texture::basic_buffer<
 >::unlock() const
 {
 	Types::unlock(
-		*buffer_
+		*FCPPT_ASSERT_OPTIONAL_ERROR(
+			buffer_
+		)
 	);
 
-	buffer_.reset();
+	buffer_ =
+		optional_d3d_buffer_unique_ptr();
 
 	locked_dest_ =
 		locked_dest();
@@ -190,8 +196,12 @@ sge::d3d9::texture::basic_buffer<
 	sge::renderer::lock_flags::method const _method
 ) const
 {
-	buffer_ =
-		buffer_create_();
+	d3d_buffer_unique_ptr const &buffer(
+		fcppt::optional_assign(
+			buffer_,
+			buffer_create_()
+		)
+	);
 
 	typedef
 	typename
@@ -220,7 +230,7 @@ sge::d3d9::texture::basic_buffer<
 	typename
 	locked_dest::value_type const dest(
 		Types::lock(
-			*buffer_,
+			*buffer,
 			dest_rect,
 			lock_method
 		)

@@ -37,7 +37,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/cast/from_void_ptr.hpp>
+#include <fcppt/cast/size.hpp>
 
 
 sge::d3d9::index_buffer::index_buffer(
@@ -89,7 +94,7 @@ sge::d3d9::index_buffer::lock(
 {
 	return
 		this->do_lock<
-			index_buffer::view_type
+			sge::d3d9::index_buffer::view_type
 		>(
 			_first,
 			_count,
@@ -107,7 +112,7 @@ sge::d3d9::index_buffer::lock(
 {
 	return
 		this->do_lock<
-			index_buffer::const_view_type
+			sge::d3d9::index_buffer::const_view_type
 		>(
 			_first,
 			_count,
@@ -119,50 +124,63 @@ void
 sge::d3d9::index_buffer::unlock() const
 {
 	if(
-		lock_dest_ == nullptr
+		lock_dest_
+		==
+		nullptr
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("d3d::index_buffer::unlock() you have to lock first!")
 		);
 
+
+	// TODO: Move this to another function
 	if(
-		buffer_->Unlock()
-		!= D3D_OK
+		this->get().Unlock()
+		!=
+		D3D_OK
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("Cannot unlock index buffer!")
 		);
 
-	lock_dest_ = nullptr;
+	lock_dest_ =
+		nullptr;
 }
 
 sge::d3d9::index_buffer::count_type const
 sge::d3d9::index_buffer::size() const
 {
-	return size_;
+	return
+		size_;
 }
 
 sge::renderer::resource_flags_field const
 sge::d3d9::index_buffer::resource_flags() const
 {
-	return resource_flags_;
+	return
+		resource_flags_;
 }
 
 sge::renderer::index::dynamic::format
 sge::d3d9::index_buffer::format() const
 {
-	return format_;
+	return
+		format_;
 }
 
-IDirect3DIndexBuffer9 *
+IDirect3DIndexBuffer9 &
 sge::d3d9::index_buffer::get() const
 {
-	return buffer_.get();
+	return
+		*FCPPT_ASSERT_OPTIONAL_ERROR(
+			buffer_
+		);
 }
 
 void
 sge::d3d9::index_buffer::init()
 {
+	// TODO: Move this to another function
 	IDirect3DIndexBuffer9 *ret;
 
 	if(
@@ -190,15 +208,19 @@ sge::d3d9::index_buffer::init()
 			FCPPT_TEXT("CreateIndexBuffer() failed!")
 		);
 
-	buffer_.reset(
-		ret
-	);
+	buffer_ =
+		sge::d3d9::index_buffer::optional_d3d_index_buffer_unique_ptr(
+			sge::d3d9::index_buffer::d3d_index_buffer_unique_ptr(
+				ret
+			)
+		);
 }
 
 void
 sge::d3d9::index_buffer::on_loss()
 {
-	buffer_.reset();
+	buffer_ =
+		sge::d3d9::index_buffer::optional_d3d_index_buffer_unique_ptr();
 }
 
 void
@@ -219,29 +241,34 @@ sge::d3d9::index_buffer::do_lock(
 {
 	if(
 		lock_dest_
+		!=
+		nullptr
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("d3d::index_buffer::lock() you have to unlock first!")
 		);
 
+	// TODO: Move this to another function
 	void *dest(
 		nullptr
 	);
 
 	if(
-		buffer_->Lock(
-			static_cast<
+		this->get().Lock(
+			fcppt::cast::size<
 				UINT
 			>(
 				_first.get()
 				*
 				stride_
 			),
-			static_cast<
+			fcppt::cast::size<
 				UINT
 			>(
 				(
-					_count == index_buffer::npos
+					_count
+					==
+					sge::d3d9::index_buffer::npos
 					?
 						this->size()
 					:
@@ -263,7 +290,7 @@ sge::d3d9::index_buffer::do_lock(
 		);
 
 	lock_dest_ =
-		static_cast<
+		fcppt::cast::from_void_ptr<
 			sge::renderer::raw_pointer
 		>(
 			dest

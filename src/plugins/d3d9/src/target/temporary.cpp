@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -69,52 +70,51 @@ sge::d3d9::target::temporary::temporary(
 					);
 			}
 		)
-	);
+	)
+{
 }
 
 sge::d3d9::target::temporary::~temporary()
 {
+	auto const surface_to_ref(
+		[](
+			sge::d3d9::surface::d3d_unique_ptr const &_surface
+		)
+		-> IDirect3DSurface9 &
+		{
+			return
+				*_surface;
+		}
+	);
+
 	sge::d3d9::devicefuncs::set_depth_stencil_surface(
+		device_,
 		fcppt::optional_bind_construct(
 			depth_stencil_surface_,
-			[](
-				sge::d3d9::surface::d3d_unique_ptr const &_surface
-			)
-			{
-				return
-					sge::d3d9::surface::optional_d3d_ref(
-						*_surface
-					);
-			}
+			surface_to_ref
 		)
 	);
 
 	for(
-		scoped_surface_vector::size_type index(
-			0u
-		);
-		index < color_surfaces_.size();
-		++index
-	)
-	{
-		sge::d3d9::surface::d3d_unique_ptr const &surface(
-			color_surfaces_[
-				index
-			]
-		);
-
-		if(
-			surface
+		auto const index
+		:
+		fcppt::make_int_range_count(
+			color_surfaces_.size()
 		)
-			sge::d3d9::devicefuncs::set_render_target(
-				device_,
-				fcppt::strong_typedef_construct_cast<
-					sge::renderer::target::surface_index,
-					fcppt::cast::size_fun
-				>(
+	)
+		sge::d3d9::devicefuncs::set_render_target(
+			device_,
+			fcppt::strong_typedef_construct_cast<
+				sge::renderer::target::surface_index,
+				fcppt::cast::size_fun
+			>(
+				index
+			),
+			fcppt::optional_bind_construct(
+				color_surfaces_[
 					index
-				),
-				surface.get()
-			);
-	}
+				],
+				surface_to_ref
+			)
+		);
 }

@@ -109,7 +109,7 @@ private:
 	sge::image::color::format const format_;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		sge::d3d9::surface::color_holder
 	>
 	color_holder_unique_ptr;

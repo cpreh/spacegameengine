@@ -33,7 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -65,18 +67,22 @@ sge::d3d9::texture::volume::volume(
 			)
 			{
 				return
-					fcppt::make_unique_ptr<
-						sge::d3d9::texture::volume_buffer
+					fcppt::unique_ptr_to_base<
+						sge::renderer::texture::volume::color_buffer
 					>(
-						sge::d3d9::texture::volume_buffer::d3d_buffer_create_function(
-							std::bind(
-								&sge::d3d9::texture::volume::get_level,
-								this,
-								_index
-							)
-						),
-						this->color_format(),
-						this->resource_flags()
+						fcppt::make_unique_ptr_fcppt<
+							sge::d3d9::texture::volume_buffer
+						>(
+							sge::d3d9::texture::volume_buffer::d3d_buffer_create_function(
+								std::bind(
+									&sge::d3d9::texture::volume::get_level,
+									this,
+									_index
+								)
+							),
+							this->color_format(),
+							this->resource_flags()
+						)
 					);
 			}
 		)

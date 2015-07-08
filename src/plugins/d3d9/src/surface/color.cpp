@@ -126,9 +126,7 @@ sge::d3d9::surface::color::lock(
 		sge::d3d9::devicefuncs::get_render_target_data(
 			device_,
 			this->surface(),
-			*FCPPT_ASSERT_OPTIONAL_ERROR(
-				temp_surface
-			)
+			*temp_surface
 		);
 	}
 
@@ -186,7 +184,7 @@ sge::d3d9::surface::color::unlock() const
 		)->is_render_target()
 	)
 		temp_surface_ =
-			optional_color_holder_unique_ptr();
+			sge::d3d9::surface::optional_d3d_unique_ptr();
 }
 
 sge::d3d9::surface::color::dim const

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 
 
 void
@@ -34,13 +35,14 @@ sge::d3d9::devicefuncs::set_index_buffer(
 {
 	if(
 		_device.SetIndices(
-			dynamic_cast<
+			&fcppt::cast::static_downcast<
 				sge::d3d9::index_buffer const &
 			>(
 				_index_buffer
 			).get()
 		)
-		!= D3D_OK
+		!=
+		D3D_OK
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("set_index_buffer() failed")

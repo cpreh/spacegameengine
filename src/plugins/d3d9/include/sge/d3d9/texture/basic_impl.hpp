@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/translate_srgb_emulation.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/assert/optional_error.hpp>
 
 
 template<
@@ -103,7 +105,8 @@ sge::d3d9::texture::basic<
 	Types
 >::resource_flags() const
 {
-	return this->parameters().resource_flags();
+	return
+		this->parameters().resource_flags();
 }
 
 template<
@@ -114,7 +117,8 @@ sge::d3d9::texture::basic<
 	Types
 >::capabilities() const
 {
-	return this->parameters().capabilities();
+	return
+		this->parameters().capabilities();
 }
 
 template<
@@ -125,7 +129,8 @@ sge::d3d9::texture::basic<
 	Types
 >::mipmap() const
 {
-	return this->parameters().mipmap();
+	return
+		this->parameters().mipmap();
 }
 
 template<
@@ -149,7 +154,7 @@ sge::d3d9::texture::basic<
 {
 	return
 		sge::d3d9::texturefuncs::get_level_count(
-			*texture_
+			this->get()
 		);
 }
 
@@ -163,7 +168,10 @@ sge::d3d9::texture::basic<
 	Types
 >::get() const
 {
-	return *texture_;
+	return
+		*FCPPT_ASSERT_OPTIONAL_ERROR(
+			texture_
+		);
 }
 
 template<
@@ -174,7 +182,8 @@ sge::d3d9::texture::basic<
 	Types
 >::color_format() const
 {
-	return color_format_;
+	return
+		color_format_;
 }
 
 template<
@@ -187,7 +196,8 @@ sge::d3d9::texture::basic<
 	Types
 >::parameters() const
 {
-	return parameters_;
+	return
+		parameters_;
 }
 
 template<
@@ -222,9 +232,11 @@ sge::d3d9::texture::basic<
 >::init()
 {
 	texture_ =
-		this->create(
-			this->pool(),
-			usage_
+		optional_d3d_unique_ptr(
+			this->create(
+				this->pool(),
+				usage_
+			)
 		);
 }
 
@@ -236,7 +248,8 @@ sge::d3d9::texture::basic<
 	Types
 >::on_reset()
 {
-	texture_.reset();
+	texture_ =
+		optional_d3d_unique_ptr();
 }
 
 template<

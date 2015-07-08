@@ -23,9 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <fcppt/com_deleter.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -35,10 +33,12 @@ namespace d3d9
 namespace texture
 {
 
-typedef std::unique_ptr<
+typedef
+fcppt::unique_ptr<
 	IDirect3DTexture9,
 	fcppt::com_deleter
-> d3d_texture_unique_ptr;
+>
+d3d_texture_unique_ptr;
 
 }
 }

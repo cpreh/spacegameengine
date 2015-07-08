@@ -23,29 +23,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3d_unique_ptr.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::d3d9::d3d_unique_ptr
 sge::d3d9::create()
 {
-	sge::d3d9::d3d_unique_ptr ret(
+	IDirect3D9 *const result(
 		::Direct3DCreate9(
 			D3D_SDK_VERSION
 		)
 	);
 
 	if(
-		!ret
+		!result
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("Initialization of d3d failed!")
 		);
 
 	return
-		std::move(
-			ret
+		sge::d3d9::d3d_unique_ptr(
+			result
 		);
 }

@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 
 
 namespace sge
@@ -57,15 +58,26 @@ class basic
 		basic
 	);
 public:
-	typedef typename Types::base base;
+	typedef
+	typename
+	Types::base
+	base;
 
-	typedef typename Types::parameters parameters_type;
+	typedef
+	typename
+	Types::parameters
+	parameters_type;
 
-	typedef typename Types::d3d_type d3d_type;
+	typedef
+	typename
+	Types::d3d_type
+	d3d_type;
 
-	typedef sge::d3d9::texture::basic_buffer<
+	typedef
+	sge::d3d9::texture::basic_buffer<
 		Types
-	> buffer_type;
+	>
+	buffer_type;
 
 	basic(
 		IDirect3DDevice9 &,
@@ -98,7 +110,10 @@ protected:
 	parameters_type const &
 	parameters() const;
 private:
-	typedef typename Types::unique_ptr d3d_unique_ptr;
+	typedef
+	typename
+	Types::unique_ptr
+	d3d_unique_ptr;
 
 	d3d_unique_ptr
 	create(
@@ -125,7 +140,13 @@ private:
 
 	sge::d3d9::usage const usage_;
 
-	d3d_unique_ptr texture_;
+	typedef
+	fcppt::optional<
+		d3d_unique_ptr
+	>
+	optional_d3d_unique_ptr;
+
+	optional_d3d_unique_ptr texture_;
 };
 
 }

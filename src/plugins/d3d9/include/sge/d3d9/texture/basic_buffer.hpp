@@ -146,7 +146,7 @@ private:
 	>
 	optional_d3d_buffer_unique_ptr;
 
-	mutable d3d_buffer_unique_ptr buffer_;
+	mutable optional_d3d_buffer_unique_ptr buffer_;
 
 	typedef
 	typename

@@ -31,9 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/optional_decl.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 
 
 namespace sge
@@ -82,7 +81,7 @@ public:
 	sge::renderer::index::dynamic::format
 	format() const;
 
-	IDirect3DIndexBuffer9 *
+	IDirect3DIndexBuffer9 &
 	get() const;
 private:
 	void
@@ -107,13 +106,19 @@ private:
 	IDirect3DDevice9 &device_;
 
 	typedef
-	std::unique_ptr<
+	fcppt::unique_ptr<
 		IDirect3DIndexBuffer9,
 		fcppt::com_deleter
 	>
 	d3d_index_buffer_unique_ptr;
 
-	d3d_index_buffer_unique_ptr buffer_;
+	typedef
+	fcppt::optional<
+		d3d_index_buffer_unique_ptr
+	>
+	optional_d3d_index_buffer_unique_ptr;
+
+	optional_d3d_index_buffer_unique_ptr buffer_;
 
 	sge::renderer::resource_flags_field const resource_flags_;
 
