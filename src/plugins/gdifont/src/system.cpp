@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/added.hpp>
 #include <sge/font/added_unique_ptr.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/object_unique_ptr.hpp>
@@ -26,7 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/added.hpp>
 #include <sge/gdifont/object.hpp>
 #include <sge/gdifont/system.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -49,11 +51,15 @@ sge::gdifont::system::create_font(
 )
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::gdifont::object
+		fcppt::unique_ptr_to_base<
+			sge::font::object
 		>(
-			device_context_,
-			_parameters
+			fcppt::make_unique_ptr_fcppt<
+				sge::gdifont::object
+			>(
+				device_context_,
+				_parameters
+			)
 		);
 }
 
@@ -63,9 +69,13 @@ sge::gdifont::system::add_font(
 )
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::gdifont::added
+		fcppt::unique_ptr_to_base<
+			sge::font::added
 		>(
-			_path
+			fcppt::make_unique_ptr_fcppt<
+				sge::gdifont::added
+			>(
+				_path
+			)
 		);
 }
