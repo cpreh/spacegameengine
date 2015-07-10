@@ -9,9 +9,9 @@ find_path(
 	DINPUT_INCLUDE_DIR
 	dinput.h
 	HINTS
-	"$ENV{DXSDK_DIR}/Include"
-	PATHS
 	"${DINPUT_INCLUDEDIR}"
+	PATHS
+	"$ENV{DXSDK_DIR}/Include"
 )
 
 if(
@@ -34,18 +34,18 @@ find_library(
 	DINPUT_LIBRARY
 	NAMES dinput8
 	HINTS
-	"${DINPUT_LIBRARY_ENV_DIR}"
+	"${DINPUT_LIBRARYDIR}"
 	PATHS
-	"${DINPUT_LIBRARY_DIR}"
+	"${DINPUT_LIBRARY_ENV_DIR}"
 )
 
 find_library(
 	DXGUID_LIBRARY
 	NAMES dxguid
 	HINTS
-	"${DINPUT_LIBRARY_ENV_DIR}"
+	"${DINPUT_LIBRARYDIR}"
 	PATHS
-	"${DINPUT_LIBRARY_DIR}"
+	"${DINPUT_LIBRARY_ENV_DIR}"
 )
 
 include(

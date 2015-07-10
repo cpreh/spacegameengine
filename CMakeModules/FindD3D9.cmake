@@ -9,9 +9,9 @@ find_path(
 	D3D9_INCLUDE_DIR
 	d3d9.h
 	HINTS
-	"$ENV{DXSDK_DIR}/Include"
-	PATHS
 	"${D3D9_INCLUDEDIR}"
+	PATHS
+	"$ENV{DXSDK_DIR}/Include"
 )
 
 if(
@@ -34,9 +34,9 @@ find_library(
 	D3D9_LIBRARY
 	NAMES d3d9
 	HINTS
-	"${D3D9_ENV_LIBRARYDIR}"
-	PATHS
 	"${D3D9_LIBRARYDIR}"
+	PATHS
+	"${D3D9_ENV_LIBRARYDIR}"
 )
 
 include(
