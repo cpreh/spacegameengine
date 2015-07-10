@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_STATE_CORE_RASTERIZER_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/d3d9/state/core/rasterizer/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -38,9 +36,11 @@ namespace core
 namespace rasterizer
 {
 
-typedef std::unique_ptr<
+typedef
+fcppt::unique_ptr<
 	sge::d3d9::state::core::rasterizer::object
-> object_unique_ptr;
+>
+object_unique_ptr;
 
 }
 }

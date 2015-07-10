@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GDIFONT_HBITMAP_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_GDIFONT_HBITMAP_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/gdifont/delete_object_deleter_fwd.hpp>
+#include <sge/gdifont/delete_object_deleter.hpp>
 #include <sge/gdifont/include_windows.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <memory>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -34,12 +34,14 @@ namespace sge
 namespace gdifont
 {
 
-typedef std::unique_ptr<
+typedef
+fcppt::unique_ptr<
 	std::remove_pointer<
 		HBITMAP
 	>::type,
 	sge::gdifont::delete_object_deleter
-> hbitmap_unique_ptr;
+>
+hbitmap_unique_ptr;
 
 }
 }

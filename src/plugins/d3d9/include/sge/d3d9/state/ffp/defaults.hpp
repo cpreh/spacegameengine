@@ -24,16 +24,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/ffp/defaults_fwd.hpp>
 #include <sge/d3d9/state/ffp/alpha_test/object_fwd.hpp>
+#include <sge/d3d9/state/ffp/alpha_test/object_unique_ptr.hpp>
 #include <sge/d3d9/state/ffp/fog/object_fwd.hpp>
+#include <sge/d3d9/state/ffp/fog/object_unique_ptr.hpp>
 #include <sge/d3d9/state/ffp/lighting/object_fwd.hpp>
+#include <sge/d3d9/state/ffp/lighting/object_unique_ptr.hpp>
 #include <sge/d3d9/state/ffp/lighting/material/object_fwd.hpp>
+#include <sge/d3d9/state/ffp/lighting/material/object_unique_ptr.hpp>
 #include <sge/d3d9/state/ffp/misc/object_fwd.hpp>
+#include <sge/d3d9/state/ffp/misc/object_unique_ptr.hpp>
 #include <sge/d3d9/state/ffp/sampler/object_fwd.hpp>
+#include <sge/d3d9/state/ffp/sampler/object_unique_ptr.hpp>
 #include <sge/d3d9/state/ffp/transform/object_fwd.hpp>
+#include <sge/d3d9/state/ffp/transform/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -79,47 +83,19 @@ public:
 	sge::d3d9::state::ffp::transform::object const &
 	transform() const;
 private:
-	typedef std::unique_ptr<
-		sge::d3d9::state::ffp::alpha_test::object
-	> alpha_test_unique_ptr;
+	sge::d3d9::state::ffp::alpha_test::object_unique_ptr const alpha_test_;
 
-	typedef std::unique_ptr<
-		sge::d3d9::state::ffp::fog::object
-	> fog_unique_ptr;
+	sge::d3d9::state::ffp::fog::object_unique_ptr const fog_;
 
-	typedef std::unique_ptr<
-		sge::d3d9::state::ffp::lighting::object
-	> lighting_unique_ptr;
+	sge::d3d9::state::ffp::lighting::object_unique_ptr const lighting_;
 
-	typedef std::unique_ptr<
-		sge::d3d9::state::ffp::lighting::material::object
-	> material_unique_ptr;
+	sge::d3d9::state::ffp::lighting::material::object_unique_ptr const material_;
 
-	typedef std::unique_ptr<
-		sge::d3d9::state::ffp::misc::object
-	> misc_unique_ptr;
+	sge::d3d9::state::ffp::misc::object_unique_ptr const misc_;
 
-	typedef std::unique_ptr<
-		sge::d3d9::state::ffp::sampler::object
-	> sampler_unique_ptr;
+	sge::d3d9::state::ffp::sampler::object_unique_ptr const sampler_;
 
-	typedef std::unique_ptr<
-		sge::d3d9::state::ffp::transform::object
-	> transform_unique_ptr;
-
-	alpha_test_unique_ptr const alpha_test_;
-
-	fog_unique_ptr const fog_;
-
-	lighting_unique_ptr const lighting_;
-
-	material_unique_ptr const material_;
-
-	misc_unique_ptr const misc_;
-
-	sampler_unique_ptr const sampler_;
-
-	transform_unique_ptr const transform_;
+	sge::d3d9::state::ffp::transform::object_unique_ptr const transform_;
 };
 
 }

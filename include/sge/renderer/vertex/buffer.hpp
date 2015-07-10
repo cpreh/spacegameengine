@@ -190,7 +190,7 @@ public:
 	holds
 	*/
 	virtual
-	sge::renderer::vf::dynamic::part const
+	sge::renderer::vf::dynamic::part const &
 	format_part() const = 0;
 
 	/**

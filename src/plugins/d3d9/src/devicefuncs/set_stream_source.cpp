@@ -19,11 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/vertex_buffer.hpp>
 #include <sge/d3d9/devicefuncs/set_stream_source.hpp>
+#include <sge/d3d9/vertex/buffer.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 
 
 void
@@ -33,9 +34,9 @@ sge::d3d9::devicefuncs::set_stream_source(
 	bool const _set
 )
 {
-	sge::d3d9::vertex_buffer const &d3d_buffer(
-		dynamic_cast<
-			sge::d3d9::vertex_buffer const &
+	sge::d3d9::vertex::buffer const &d3d_buffer(
+		fcppt::cast::static_downcast<
+			sge::d3d9::vertex::buffer const &
 		>(
 			_vertex_buffer
 		)
@@ -46,7 +47,7 @@ sge::d3d9::devicefuncs::set_stream_source(
 			_vertex_buffer.format_part_index().get(),
 			_set
 			?
-				d3d_buffer.get()
+				&d3d_buffer.get()
 			:
 				nullptr
 			,

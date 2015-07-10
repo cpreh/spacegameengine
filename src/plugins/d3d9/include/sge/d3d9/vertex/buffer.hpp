@@ -35,32 +35,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/optional_decl.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 
 
 namespace sge
 {
 namespace d3d9
 {
+namespace vertex
+{
 
-class vertex_buffer
+class buffer
 :
 	public sge::renderer::vertex::buffer,
 	public sge::d3d9::resource
 {
 	FCPPT_NONCOPYABLE(
-		vertex_buffer
+		buffer
 	);
 public:
-	vertex_buffer(
+	buffer(
 		IDirect3DDevice9 &,
 		sge::renderer::vf::dynamic::part const &,
 		sge::renderer::vertex::buffer_parameters const &
 	);
 
-	~vertex_buffer();
+	~buffer();
 
 	view_type const
 	lock(
@@ -84,7 +85,7 @@ public:
 	sge::renderer::resource_flags_field const
 	resource_flags() const;
 
-	sge::renderer::vf::dynamic::part const
+	sge::renderer::vf::dynamic::part const &
 	format_part() const;
 
 	sge::renderer::vf::dynamic::part_index const
@@ -93,7 +94,7 @@ public:
 	sge::renderer::vf::dynamic::stride const
 	stride() const;
 
-	IDirect3DVertexBuffer9 *
+	IDirect3DVertexBuffer9 &
 	get() const;
 private:
 	void
@@ -127,16 +128,25 @@ private:
 
 	mutable sge::renderer::vf::dynamic::converter converter_;
 
-	typedef std::unique_ptr<
+	typedef
+	fcppt::unique_ptr<
 		IDirect3DVertexBuffer9,
 		fcppt::com_deleter
-	> d3d_vertex_buffer_unique_ptr;
+	>
+	d3d_vertex_buffer_unique_ptr;
 
-	d3d_vertex_buffer_unique_ptr buffer_;
+	typedef
+	fcppt::optional<
+		d3d_vertex_buffer_unique_ptr
+	>
+	optional_d3d_vertex_buffer_unique_ptr;
+
+	optional_d3d_vertex_buffer_unique_ptr buffer_;
 
 	mutable sge::renderer::raw_pointer lock_dest_;
 };
 
+}
 }
 }
 

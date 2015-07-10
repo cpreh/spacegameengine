@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/backend/context.hpp>
 #include <sge/opengl/backend/context_unique_ptr.hpp>
 #include <sge/opengl/backend/scoped_current_fwd.hpp>
 #include <sge/opengl/backend/system.hpp>
@@ -32,7 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 
 
 sge::opengl::wgl::system::system(
@@ -70,13 +73,17 @@ sge::opengl::wgl::system::create_context(
 )
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::opengl::wgl::context
+		fcppt::unique_ptr_to_base<
+			sge::opengl::backend::context
 		>(
-			dynamic_cast<
-				awl::backends::windows::window::object &
+			fcppt::make_unique_ptr<
+				sge::opengl::wgl::context
 			>(
-				_window
+				fcppt::cast::static_downcast<
+					awl::backends::windows::window::object &
+				>(
+					_window
+				)
 			)
 		);
 }

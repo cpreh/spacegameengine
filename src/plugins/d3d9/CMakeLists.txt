@@ -38,6 +38,8 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/create_offscreen_plain_surface.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/create_query.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/create_texture.hpp
+	src/plugins/d3d9/include/sge/d3d9/devicefuncs/create_vertex_buffer.hpp
+	src/plugins/d3d9/include/sge/d3d9/devicefuncs/create_vertex_declaration.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/create_volume_texture.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/draw_indexed_primitive.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/draw_primitive.hpp
@@ -375,8 +377,10 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/texturefuncs/get_surface_level.hpp
 	src/plugins/d3d9/include/sge/d3d9/texturefuncs/get_volume_level.hpp
 	src/plugins/d3d9/include/sge/d3d9/usage.hpp
-	src/plugins/d3d9/include/sge/d3d9/vertex_buffer.hpp
-	src/plugins/d3d9/include/sge/d3d9/vertex_declaration.hpp
+	src/plugins/d3d9/include/sge/d3d9/vertex/buffer.hpp
+	src/plugins/d3d9/include/sge/d3d9/vertex/d3d_buffer_unique_ptr.hpp
+	src/plugins/d3d9/include/sge/d3d9/vertex/d3d_declaration_unique_ptr.hpp
+	src/plugins/d3d9/include/sge/d3d9/vertex/declaration.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/convert/color_type.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/convert/extra_index.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/convert/extra_type.hpp
@@ -390,6 +394,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/vf/convert/vector_type.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/create.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/element_vector.hpp
+	src/plugins/d3d9/include/sge/d3d9/vf/element_vector_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/texture_coordinate_count.hpp
 	src/plugins/d3d9/include/sge/d3d9/vf/texture_coordinates.hpp
 	src/plugins/d3d9/include/sge/d3d9/visual.hpp
@@ -432,6 +437,8 @@ SET(
 	src/plugins/d3d9/src/devicefuncs/create_offscreen_plain_surface.cpp
 	src/plugins/d3d9/src/devicefuncs/create_query.cpp
 	src/plugins/d3d9/src/devicefuncs/create_texture.cpp
+	src/plugins/d3d9/src/devicefuncs/create_vertex_buffer.cpp
+	src/plugins/d3d9/src/devicefuncs/create_vertex_declaration.cpp
 	src/plugins/d3d9/src/devicefuncs/create_volume_texture.cpp
 	src/plugins/d3d9/src/devicefuncs/draw_indexed_primitive.cpp
 	src/plugins/d3d9/src/devicefuncs/draw_primitive.cpp
@@ -668,8 +675,8 @@ SET(
 	src/plugins/d3d9/src/texturefuncs/get_level_count.cpp
 	src/plugins/d3d9/src/texturefuncs/get_surface_level.cpp
 	src/plugins/d3d9/src/texturefuncs/get_volume_level.cpp
-	src/plugins/d3d9/src/vertex_buffer.cpp
-	src/plugins/d3d9/src/vertex_declaration.cpp
+	src/plugins/d3d9/src/vertex/buffer.cpp
+	src/plugins/d3d9/src/vertex/declaration.cpp
 	src/plugins/d3d9/src/vf/convert/color_type.cpp
 	src/plugins/d3d9/src/vf/convert/extra_index.cpp
 	src/plugins/d3d9/src/vf/convert/extra_type.cpp

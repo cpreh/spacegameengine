@@ -108,7 +108,7 @@ private:
 	resource_flags() const
 	override;
 
-	sge::renderer::vf::dynamic::part const
+	sge::renderer::vf::dynamic::part const &
 	format_part() const
 	override;
 

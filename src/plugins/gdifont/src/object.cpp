@@ -52,7 +52,7 @@ sge::gdifont::object::object(
 	metrics_(
 		sge::gdifont::make_metrics(
 			device_context_,
-			font_.get()
+			font_.get_pointer()
 		)
 	)
 {
@@ -76,7 +76,7 @@ sge::gdifont::object::create_text(
 				sge::gdifont::text
 			>(
 				device_context_,
-				font_.get(),
+				font_.get_pointer(),
 				_string,
 				_text_parameters
 			)

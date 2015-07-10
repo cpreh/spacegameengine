@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::d3d9::usage const
 sge::d3d9::convert::resource_flags(
-	renderer::resource_flags_field const &_flags
+	sge::renderer::resource_flags_field const &_flags
 )
 {
 	DWORD ret(
@@ -35,17 +35,23 @@ sge::d3d9::convert::resource_flags(
 	);
 
 	if(
-		_flags & renderer::resource_flags::dynamic
+		_flags
+		&
+		sge::renderer::resource_flags::dynamic
 	)
 		ret |= D3DUSAGE_DYNAMIC;
 
 	if(
-		!(_flags & renderer::resource_flags::readable)
+		!(
+			_flags
+			&
+			sge::renderer::resource_flags::readable
+		)
 	)
 		ret |= D3DUSAGE_WRITEONLY;
 
 	return
-		d3d9::usage(
+		sge::d3d9::usage(
 			ret
 		);
 }

@@ -18,32 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CORE_BLEND_OBJECT_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_D3D9_STATE_CORE_BLEND_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#ifndef SGE_D3D9_DEVICEFUNCS_CREATE_VERTEX_BUFFER_HPP_INCLUDED
+#define SGE_D3D9_DEVICEFUNCS_CREATE_VERTEX_BUFFER_HPP_INCLUDED
 
-#include <sge/d3d9/state/core/blend/object_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/usage.hpp>
+#include <sge/d3d9/vertex/d3d_buffer_unique_ptr.hpp>
+#include <sge/renderer/size_type.hpp>
 
 
 namespace sge
 {
 namespace d3d9
 {
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace devicefuncs
 {
 
-typedef
-fcppt::unique_ptr<
-	sge::d3d9::state::core::blend::object
->
-object_unique_ptr;
+sge::d3d9::vertex::d3d_buffer_unique_ptr
+create_vertex_buffer(
+	IDirect3DDevice9 &,
+	sge::renderer::size_type,
+	D3DPOOL,
+	sge::d3d9::usage
+);
 
-}
-}
 }
 }
 }

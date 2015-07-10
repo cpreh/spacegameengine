@@ -24,13 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/core/defaults_fwd.hpp>
 #include <sge/d3d9/state/core/blend/object_fwd.hpp>
+#include <sge/d3d9/state/core/blend/object_unique_ptr.hpp>
 #include <sge/d3d9/state/core/depth_stencil/object_fwd.hpp>
+#include <sge/d3d9/state/core/depth_stencil/object_unique_ptr.hpp>
 #include <sge/d3d9/state/core/rasterizer/object_fwd.hpp>
+#include <sge/d3d9/state/core/rasterizer/object_unique_ptr.hpp>
 #include <sge/d3d9/state/core/sampler/object_fwd.hpp>
+#include <sge/d3d9/state/core/sampler/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -67,29 +68,13 @@ public:
 	sge::d3d9::state::core::sampler::object const &
 	sampler() const;
 private:
-	typedef std::unique_ptr<
-		sge::d3d9::state::core::blend::object
-	> blend_unique_ptr;
+	sge::d3d9::state::core::blend::object_unique_ptr const blend_;
 
-	typedef std::unique_ptr<
-		sge::d3d9::state::core::depth_stencil::object
-	> depth_stencil_unique_ptr;
+	sge::d3d9::state::core::depth_stencil::object_unique_ptr const depth_stencil_;
 
-	typedef std::unique_ptr<
-		sge::d3d9::state::core::rasterizer::object
-	> rasterizer_unique_ptr;
+	sge::d3d9::state::core::rasterizer::object_unique_ptr const rasterizer_;
 
-	typedef std::unique_ptr<
-		sge::d3d9::state::core::sampler::object
-	> sampler_unique_ptr;
-
-	blend_unique_ptr const blend_;
-
-	depth_stencil_unique_ptr const depth_stencil_;
-
-	rasterizer_unique_ptr const rasterizer_;
-
-	sampler_unique_ptr const sampler_;
+	sge::d3d9::state::core::sampler::object_unique_ptr const sampler_;
 };
 
 }

@@ -33,7 +33,7 @@ namespace d3d9
 namespace vf
 {
 
-sge::d3d9::vf::element_vector const
+sge::d3d9::vf::element_vector
 create(
 	sge::renderer::vf::dynamic::format const &,
 	sge::d3d9::vf::texture_coordinate_count

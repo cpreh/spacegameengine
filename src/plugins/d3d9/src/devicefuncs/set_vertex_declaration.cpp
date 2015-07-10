@@ -19,10 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/vertex_declaration.hpp>
 #include <sge/d3d9/devicefuncs/set_vertex_declaration.hpp>
+#include <sge/d3d9/vertex/declaration.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -34,15 +35,16 @@ sge::d3d9::devicefuncs::set_vertex_declaration(
 {
 	if(
 		_device.SetVertexDeclaration(
-			dynamic_cast<
-				sge::d3d9::vertex_declaration const &
+			&fcppt::cast::static_downcast<
+				sge::d3d9::vertex::declaration const &
 			>(
 				_vertex_declaration
 			).get()
 		)
 		!= D3D_OK
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("SetVertexDeclaration() failed!")
-		);
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("SetVertexDeclaration() failed!")
+			};
 }

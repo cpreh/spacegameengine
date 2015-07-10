@@ -18,34 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CORE_BLEND_OBJECT_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_D3D9_STATE_CORE_BLEND_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/devicefuncs/create_vertex_declaration.hpp>
+#include <sge/d3d9/vertex/d3d_declaration_unique_ptr.hpp>
+#include <sge/d3d9/vf/element_vector.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/d3d9/state/core/blend/object_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 
-
-namespace sge
+sge::d3d9::vertex::d3d_declaration_unique_ptr
+sge::d3d9::devicefuncs::create_vertex_declaration(
+	IDirect3DDevice9 &_device,
+	sge::d3d9::vf::element_vector const &_elements
+)
 {
-namespace d3d9
-{
-namespace state
-{
-namespace core
-{
-namespace blend
-{
+	IDirect3DVertexDeclaration9 *decl;
 
-typedef
-fcppt::unique_ptr<
-	sge::d3d9::state::core::blend::object
->
-object_unique_ptr;
+	if(
+		_device.CreateVertexDeclaration(
+			_elements.data(),
+			&decl
+		)
+		!= D3D_OK
+	)
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("CreateVertexDeclaration() failed!")
+			};
 
+	return
+		sge::d3d9::vertex::d3d_declaration_unique_ptr(
+			decl
+		);
 }
-}
-}
-}
-}
-
-#endif

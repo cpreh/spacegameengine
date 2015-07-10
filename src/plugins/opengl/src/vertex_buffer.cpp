@@ -198,23 +198,27 @@ sge::opengl::vertex_buffer::size() const
 sge::renderer::resource_flags_field const
 sge::opengl::vertex_buffer::resource_flags() const
 {
-	return buffer_.flags();
+	return
+		buffer_.flags();
 }
 
-sge::renderer::vf::dynamic::part const
+sge::renderer::vf::dynamic::part const &
 sge::opengl::vertex_buffer::format_part() const
 {
-	return format_part_;
+	return
+		format_part_;
 }
 
 sge::renderer::vf::dynamic::part_index const
 sge::opengl::vertex_buffer::format_part_index() const
 {
-	return part_index_;
+	return
+		part_index_;
 }
 
 sge::opengl::buffer::object const &
 sge::opengl::vertex_buffer::buffer() const
 {
-	return buffer_;
+	return
+		buffer_;
 }

@@ -18,32 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_STATE_CORE_BLEND_OBJECT_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_D3D9_STATE_CORE_BLEND_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#ifndef SGE_D3D9_VF_ELEMENT_VECTOR_FWD_HPP_INCLUDED
+#define SGE_D3D9_VF_ELEMENT_VECTOR_FWD_HPP_INCLUDED
 
-#include <sge/d3d9/state/core/blend/object_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
+#include <fcppt/container/raw_vector_fwd.hpp>
 
 
 namespace sge
 {
 namespace d3d9
 {
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace vf
 {
 
 typedef
-fcppt::unique_ptr<
-	sge::d3d9::state::core::blend::object
+fcppt::container::raw_vector<
+	D3DVERTEXELEMENT9
 >
-object_unique_ptr;
+element_vector;
 
-}
-}
 }
 }
 }

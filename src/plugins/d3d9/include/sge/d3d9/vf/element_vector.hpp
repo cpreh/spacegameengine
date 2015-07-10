@@ -21,23 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_VF_ELEMENT_VECTOR_HPP_INCLUDED
 #define SGE_D3D9_VF_ELEMENT_VECTOR_HPP_INCLUDED
 
-#include <sge/d3d9/d3dinclude.hpp>
-#include <fcppt/container/raw_vector_fwd.hpp>
+#include <sge/d3d9/vf/element_vector_fwd.hpp>
+#include <fcppt/container/raw_vector_impl.hpp>
 
-
-namespace sge
-{
-namespace d3d9
-{
-namespace vf
-{
-
-typedef fcppt::container::raw_vector<
-	D3DVERTEXELEMENT9
-> element_vector;
-
-}
-}
-}
 
 #endif

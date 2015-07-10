@@ -19,22 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/vertex_declaration.hpp>
+#include <sge/d3d9/devicefuncs/create_vertex_declaration.hpp>
+#include <sge/d3d9/vertex/declaration.hpp>
 #include <sge/d3d9/vf/create.hpp>
 #include <sge/d3d9/vf/element_vector.hpp>
 #include <sge/d3d9/vf/texture_coordinate_count.hpp>
 #include <sge/d3d9/vf/texture_coordinates.hpp>
-#include <sge/renderer/exception.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
 
 
-sge::d3d9::vertex_declaration::vertex_declaration(
+sge::d3d9::vertex::declaration::declaration(
 	IDirect3DDevice9 &_device,
 	sge::renderer::vertex::declaration_parameters const &_parameters
 )
@@ -48,56 +46,38 @@ sge::d3d9::vertex_declaration::vertex_declaration(
 			format_
 		)
 	),
-	declaration_()
-{
-
-	sge::d3d9::vf::element_vector const vertex_elements(
-		sge::d3d9::vf::create(
-			format_,
-			texture_coordinates_
+	declaration_(
+		sge::d3d9::devicefuncs::create_vertex_declaration(
+			_device,
+			sge::d3d9::vf::create(
+				format_,
+				texture_coordinates_
+			)
 		)
-	);
-
-	// TODO: make a function for this!
-
-	IDirect3DVertexDeclaration9 *decl;
-
-	if(
-		_device.CreateVertexDeclaration(
-			vertex_elements.data(),
-			&decl
-		)
-		!= D3D_OK
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("CreateVertexDeclaration() failed!")
-		);
-
-	declaration_.reset(
-		decl
-	);
-}
-
-sge::d3d9::vertex_declaration::~vertex_declaration()
 {
 }
 
-IDirect3DVertexDeclaration9 *
-sge::d3d9::vertex_declaration::get() const
+sge::d3d9::vertex::declaration::~declaration()
+{
+}
+
+IDirect3DVertexDeclaration9 &
+sge::d3d9::vertex::declaration::get() const
 {
 	return
-		declaration_.get();
+		*declaration_;
 }
 
 sge::renderer::vf::dynamic::format const &
-sge::d3d9::vertex_declaration::format() const
+sge::d3d9::vertex::declaration::format() const
 {
 	return
 		format_;
 }
 
 sge::renderer::vf::dynamic::stride const
-sge::d3d9::vertex_declaration::stride(
+sge::d3d9::vertex::declaration::stride(
 	sge::renderer::vf::dynamic::part_index const _part
 ) const
 {
@@ -108,7 +88,7 @@ sge::d3d9::vertex_declaration::stride(
 }
 
 sge::d3d9::vf::texture_coordinate_count const
-sge::d3d9::vertex_declaration::texture_coordinates() const
+sge::d3d9::vertex::declaration::texture_coordinates() const
 {
 	return
 		texture_coordinates_;

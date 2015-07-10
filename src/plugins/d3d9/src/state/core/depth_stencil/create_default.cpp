@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/core/depth_stencil/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/depth_stencil/default.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 
 
 sge::d3d9::state::core::depth_stencil::object_unique_ptr
@@ -34,7 +34,7 @@ sge::d3d9::state::core::depth_stencil::create_default(
 )
 {
 	return
-		fcppt::make_unique_ptr<
+		fcppt::make_unique_ptr_fcppt<
 			sge::d3d9::state::core::depth_stencil::object
 		>(
 			_device,

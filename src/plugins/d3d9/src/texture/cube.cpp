@@ -27,12 +27,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/cube_types.hpp>
 #include <sge/d3d9/texturefuncs/get_cube_map_surface.hpp>
 #include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/enum_array_fold.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/container/enum_array_impl.hpp>
@@ -77,19 +80,23 @@ sge::d3d9::texture::cube::cube(
 						)
 						{
 							return
-								fcppt::make_unique_ptr<
-									sge::d3d9::texture::cube_buffer
+								fcppt::unique_ptr_to_base<
+									sge::renderer::texture::cube::color_buffer
 								>(
-									sge::d3d9::texture::cube_buffer::d3d_buffer_create_function(
-										std::bind(
-											&sge::d3d9::texture::cube::get_level,
-											this,
-											_side,
-											_index
-										)
-									),
-									this->color_format(),
-									this->resource_flags()
+									fcppt::make_unique_ptr_fcppt<
+										sge::d3d9::texture::cube_buffer
+									>(
+										sge::d3d9::texture::cube_buffer::d3d_buffer_create_function(
+											std::bind(
+												&sge::d3d9::texture::cube::get_level,
+												this,
+												_side,
+												_index
+											)
+										),
+										this->color_format(),
+										this->resource_flags()
+									)
 								);
 						}
 					);
@@ -153,7 +160,8 @@ sge::d3d9::texture::cube::get_level(
 		);
 }
 
-template class
+template
+class
 sge::d3d9::texture::basic<
 	sge::d3d9::texture::cube_types
 >;

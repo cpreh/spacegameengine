@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/platform/device_state.hpp>
 #include <sge/opengl/platform/device_state_unique_ptr.hpp>
 #include <sge/opengl/platform/system.hpp>
 #include <sge/opengl/windows/device_state.hpp>
@@ -28,7 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <awl/window/event/processor_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::opengl::windows::system::system()
@@ -69,9 +71,13 @@ sge::opengl::windows::system::create_device_state(
 )
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::opengl::windows::device_state
+		fcppt::unique_ptr_to_base<
+			sge::opengl::platform::device_state
 		>(
-			_display_mode
+			fcppt::make_unique_ptr_fcppt<
+				sge::opengl::windows::device_state
+			>(
+				_display_mode
+			)
 		);
 }

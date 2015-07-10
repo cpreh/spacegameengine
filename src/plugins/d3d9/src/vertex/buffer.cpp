@@ -19,10 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/vertex_buffer.hpp>
 #include <sge/d3d9/convert/lock_flags.hpp>
 #include <sge/d3d9/convert/resource_flags.hpp>
 #include <sge/d3d9/convert/resource_flags_to_pool.hpp>
+#include <sge/d3d9/devicefuncs/create_vertex_buffer.hpp>
+#include <sge/d3d9/vertex/buffer.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/lock_mode.hpp>
@@ -37,10 +38,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/cast/from_void_ptr.hpp>
+#include <fcppt/cast/size.hpp>
 
 
-sge::d3d9::vertex_buffer::vertex_buffer(
+sge::d3d9::vertex::buffer::buffer(
 	IDirect3DDevice9 &_device,
 	sge::renderer::vf::dynamic::part const &_format_part,
 	sge::renderer::vertex::buffer_parameters const &_parameters
@@ -81,12 +86,12 @@ sge::d3d9::vertex_buffer::vertex_buffer(
 	this->init();
 }
 
-sge::d3d9::vertex_buffer::~vertex_buffer()
+sge::d3d9::vertex::buffer::~buffer()
 {
 }
 
-sge::d3d9::vertex_buffer::view_type const
-sge::d3d9::vertex_buffer::lock(
+sge::d3d9::vertex::buffer::view_type const
+sge::d3d9::vertex::buffer::lock(
 	sge::renderer::lock_mode const _lock_mode,
 	first_type const _first,
 	count_type const _count
@@ -104,8 +109,8 @@ sge::d3d9::vertex_buffer::lock(
 		);
 }
 
-sge::d3d9::vertex_buffer::const_view_type const
-sge::d3d9::vertex_buffer::lock(
+sge::d3d9::vertex::buffer::const_view_type const
+sge::d3d9::vertex::buffer::lock(
 	first_type const _first,
 	count_type const _count
 ) const
@@ -121,106 +126,105 @@ sge::d3d9::vertex_buffer::lock(
 }
 
 void
-sge::d3d9::vertex_buffer::unlock() const
+sge::d3d9::vertex::buffer::unlock() const
 {
 	if(
-		lock_dest_ == nullptr
+		lock_dest_
+		==
+		nullptr
 	)
 		throw sge::renderer::exception(
-			FCPPT_TEXT("d3d9::vertex_buffer::unlock() you have to lock first!")
+			FCPPT_TEXT("d3d9::vertex::buffer::unlock() you have to lock first!")
 		);
 
 	converter_.unlock();
 
 	if(
-		buffer_->Unlock()
-		!= D3D_OK
+		this->get().Unlock()
+		!=
+		D3D_OK
 	)
 		throw sge::renderer::exception(
 			FCPPT_TEXT("Cannot unlock d3d vertex buffer!")
 		);
 
-	lock_dest_ = nullptr;
+	lock_dest_ =
+		nullptr;
 }
 
-sge::d3d9::vertex_buffer::count_type const
-sge::d3d9::vertex_buffer::size() const
+sge::d3d9::vertex::buffer::count_type const
+sge::d3d9::vertex::buffer::size() const
 {
-	return size_;
+	return
+		size_;
 }
 
 sge::renderer::resource_flags_field const
-sge::d3d9::vertex_buffer::resource_flags() const
+sge::d3d9::vertex::buffer::resource_flags() const
 {
-	return resource_flags_;
+	return
+		resource_flags_;
 }
 
-sge::renderer::vf::dynamic::part const
-sge::d3d9::vertex_buffer::format_part() const
+sge::renderer::vf::dynamic::part const &
+sge::d3d9::vertex::buffer::format_part() const
 {
-	return format_part_;
+	return
+		format_part_;
 }
 
 sge::renderer::vf::dynamic::part_index const
-sge::d3d9::vertex_buffer::format_part_index() const
+sge::d3d9::vertex::buffer::format_part_index() const
 {
-	return format_part_index_;
+	return
+		format_part_index_;
 }
 
 sge::renderer::vf::dynamic::stride const
-sge::d3d9::vertex_buffer::stride() const
+sge::d3d9::vertex::buffer::stride() const
 {
-	return format_part_.stride();
+	return
+		format_part_.stride();
 }
 
-IDirect3DVertexBuffer9 *
-sge::d3d9::vertex_buffer::get() const
+IDirect3DVertexBuffer9 &
+sge::d3d9::vertex::buffer::get() const
 {
-	return buffer_.get();
-}
-
-void
-sge::d3d9::vertex_buffer::init()
-{
-	IDirect3DVertexBuffer9 *ret;
-
-	if(
-		device_.CreateVertexBuffer(
-			static_cast<
-				UINT
-			>(
-				this->stride().get()
-				* this->size().get()
-			),
-			convert::resource_flags(
-				this->resource_flags()
-			).get(),
-			0, // no FVF
-			this->pool(),
-			&ret,
-			nullptr
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Cannot create vertex buffer!")
+	return
+		*FCPPT_ASSERT_OPTIONAL_ERROR(
+			buffer_
 		);
-
-	buffer_.reset(
-		ret
-	);
 }
 
 void
-sge::d3d9::vertex_buffer::on_loss()
+sge::d3d9::vertex::buffer::init()
+{
+	buffer_ =
+		optional_d3d_vertex_buffer_unique_ptr(
+			sge::d3d9::devicefuncs::create_vertex_buffer(
+				device_,
+				this->stride().get()
+				*
+				this->size().get(),
+				this->pool(),
+				sge::d3d9::convert::resource_flags(
+					this->resource_flags()
+				)
+			)
+		);
+}
+
+void
+sge::d3d9::vertex::buffer::on_loss()
 {
 	converter_.reset();
 
-	buffer_.reset();
+	buffer_ =
+		optional_d3d_vertex_buffer_unique_ptr();
 }
 
 void
-sge::d3d9::vertex_buffer::on_reset()
+sge::d3d9::vertex::buffer::on_reset()
 {
 	this->init();
 }
@@ -229,7 +233,7 @@ template<
 	typename View
 >
 View const
-sge::d3d9::vertex_buffer::do_lock(
+sge::d3d9::vertex::buffer::do_lock(
 	first_type const _first,
 	count_type const _count,
 	sge::renderer::lock_flags::method const _method
@@ -239,7 +243,7 @@ sge::d3d9::vertex_buffer::do_lock(
 		lock_dest_
 	)
 		throw sge::renderer::exception(
-			FCPPT_TEXT("d3d::vertex_buffer::lock() you have to unlock first!")
+			FCPPT_TEXT("d3d::vertex::buffer::lock() you have to unlock first!")
 		);
 
 	void *data(
@@ -255,18 +259,20 @@ sge::d3d9::vertex_buffer::do_lock(
 	);
 
 	if(
-		buffer_->Lock(
-			static_cast<
+		this->get().Lock(
+			fcppt::cast::size<
 				UINT
 			>(
 				_first.get()
-				* this->stride().get()
+				*
+				this->stride().get()
 			),
-			static_cast<
+			fcppt::cast::size<
 				UINT
 			>(
 				lock_count.get()
-				* this->stride().get()
+				*
+				this->stride().get()
 			),
 			&data,
 			sge::d3d9::convert::lock_flags(
@@ -281,8 +287,8 @@ sge::d3d9::vertex_buffer::do_lock(
 		);
 
 	lock_dest_ =
-		static_cast<
-			renderer::raw_pointer
+		fcppt::cast::from_void_ptr<
+			sge::renderer::raw_pointer
 		>(
 			data
 		);

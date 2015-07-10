@@ -26,8 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/multi_sample_quality.hpp>
 #include <sge/d3d9/needs_reset.hpp>
 #include <sge/d3d9/resource_manager.hpp>
-#include <sge/d3d9/vertex_buffer.hpp>
-#include <sge/d3d9/vertex_declaration.hpp>
 #include <sge/d3d9/devicefuncs/begin_scene.hpp>
 #include <sge/d3d9/devicefuncs/end_scene.hpp>
 #include <sge/d3d9/devicefuncs/get_swap_chain.hpp>
@@ -63,6 +61,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/cube.hpp>
 #include <sge/d3d9/texture/planar.hpp>
 #include <sge/d3d9/texture/volume.hpp>
+#include <sge/d3d9/vertex/buffer.hpp>
+#include <sge/d3d9/vertex/declaration.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/caps/device.hpp>
@@ -444,7 +444,7 @@ sge::d3d9::device::create_vertex_declaration(
 			sge::renderer::vertex::declaration
 		>(
 			fcppt::make_unique_ptr_fcppt<
-				sge::d3d9::vertex_declaration
+				sge::d3d9::vertex::declaration
 			>(
 				*device_,
 				_parameters
@@ -463,11 +463,11 @@ sge::d3d9::device::create_vertex_buffer(
 		>(
 			this->add_resource(
 				fcppt::make_unique_ptr_fcppt<
-					sge::d3d9::vertex_buffer
+					sge::d3d9::vertex::buffer
 				>(
 					*device_,
 					fcppt::cast::static_downcast<
-						sge::d3d9::vertex_declaration const &
+						sge::d3d9::vertex::declaration const &
 					>(
 						_parameters.declaration()
 					).format().parts().at(

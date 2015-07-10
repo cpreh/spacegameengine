@@ -27,12 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/vf/convert/type.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
-#include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
-#include <sge/renderer/vf/dynamic/part_list.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
+#include <sge/renderer/vf/dynamic/part.hpp>
+#include <fcppt/cast/size.hpp>
 
 
-sge::d3d9::vf::element_vector const
+sge::d3d9::vf::element_vector
 sge::d3d9::vf::create(
 	sge::renderer::vf::dynamic::format const &_format,
 	sge::d3d9::vf::texture_coordinate_count const _texture_coordinates
@@ -44,34 +43,19 @@ sge::d3d9::vf::create(
 		0
 	);
 
-	sge::renderer::vf::dynamic::part_list const &parts(
-		_format.parts()
-	);
-
+	// TODO: map_concat with counted range
 	for(
-		sge::renderer::vf::dynamic::part_list::const_iterator part_it(
-			parts.begin()
-		);
-		part_it != parts.end();
-		++part_it
+		sge::renderer::vf::dynamic::part const &part
+		:
+		_format.parts()
 	)
 	{
-		sge::renderer::vf::dynamic::ordered_element_list const &elements(
-			part_it->elements()
-		);
-
 		for(
-			sge::renderer::vf::dynamic::ordered_element_list::const_iterator element_it(
-				elements.begin()
-			);
-			element_it != elements.end();
-			++element_it
+			sge::renderer::vf::dynamic::ordered_element const &ordered_element
+			:
+			part.elements()
 		)
 		{
-			sge::renderer::vf::dynamic::ordered_element const &ordered_element(
-				*element_it
-			);
-
 			D3DDECLUSAGE const usage(
 				sge::d3d9::vf::convert::role(
 					ordered_element.element()
@@ -80,21 +64,21 @@ sge::d3d9::vf::create(
 
 			D3DVERTEXELEMENT9 const new_elem =
 			{
-				stream, // Stream
-				static_cast<
+				stream,
+				fcppt::cast::size<
 					WORD
 				>(
 					ordered_element.offset().get()
-				), // Offset
-				static_cast<
+				),
+				fcppt::cast::size<
 					BYTE
 				>(
 					sge::d3d9::vf::convert::type(
 						ordered_element.element()
 					)
-				), // Type
+				),
 				D3DDECLMETHOD_DEFAULT,
-				static_cast<
+				fcppt::cast::size<
 					BYTE
 				>(
 					usage

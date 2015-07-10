@@ -50,7 +50,7 @@ sge::gdifont::dib_section::dib_section(
 	),
 	bitmap_(
 		sge::gdifont::get_bitmap(
-			hbitmap_.get()
+			hbitmap_.get_pointer()
 		)
 	)
 {
@@ -105,5 +105,6 @@ sge::gdifont::dib_section::const_view() const
 HBITMAP
 sge::gdifont::dib_section::handle()
 {
-	return hbitmap_.get();
+	return
+		hbitmap_.get_pointer();
 }

@@ -22,40 +22,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_VERTEX_DECLARATION_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/vertex/d3d_declaration_unique_ptr.hpp>
 #include <sge/d3d9/vf/texture_coordinate_count.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
-#include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <memory>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace d3d9
 {
+namespace vertex
+{
 
-class vertex_declaration
+class declaration
 :
 	public sge::renderer::vertex::declaration
 {
 	FCPPT_NONCOPYABLE(
-		vertex_declaration
+		declaration
 	);
 public:
-	vertex_declaration(
+	declaration(
 		IDirect3DDevice9 &,
 		sge::renderer::vertex::declaration_parameters const &
 	);
 
-	~vertex_declaration();
+	~declaration();
 
-	IDirect3DVertexDeclaration9 *
+	IDirect3DVertexDeclaration9 &
 	get() const;
 
 	sge::renderer::vf::dynamic::format const &
@@ -73,14 +72,10 @@ private:
 
 	sge::d3d9::vf::texture_coordinate_count const texture_coordinates_;
 
-	typedef std::unique_ptr<
-		IDirect3DVertexDeclaration9,
-		fcppt::com_deleter
-	> d3d_vertex_declaration_unique_ptr;
-
-	d3d_vertex_declaration_unique_ptr declaration_;
+	sge::d3d9::vertex::d3d_declaration_unique_ptr const declaration_;
 };
 
+}
 }
 }
 

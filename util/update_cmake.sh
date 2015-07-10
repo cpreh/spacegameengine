@@ -337,6 +337,7 @@ update_cmake \
 	$(d3d9_inc_src target) \
 	$(d3d9_inc_src texture) \
 	$(d3d9_inc_src texturefuncs) \
+	$(d3d9_inc_src vertex) \
 	$(d3d9_inc_src vf) \
 	$(d3d9_inc_src volumefuncs)
 
