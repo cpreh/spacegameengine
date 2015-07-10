@@ -48,7 +48,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
-#include <fcppt/cast/to_unsigned_fun.hpp>
+#include <fcppt/cast/size_fun.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/math/box/comparison.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
@@ -145,9 +146,11 @@ sge::d3d9::surface::color::lock(
 			,
 			fcppt::strong_typedef_construct_cast<
 				sge::d3d9::lock_flags,
-				fcppt::cast::to_unsigned_fun
+				fcppt::cast::size_fun
 			>(
-				D3DLOCK_READONLY
+				fcppt::cast::to_unsigned(
+					D3DLOCK_READONLY
+				)
 			)
 		)
 	);
