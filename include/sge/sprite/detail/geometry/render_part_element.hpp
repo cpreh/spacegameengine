@@ -33,8 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/vertex_count.hpp>
 #include <sge/sprite/buffers/roles/first_index.hpp>
 #include <sge/sprite/buffers/roles/first_vertex.hpp>
-#include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/index_count.hpp>
+#include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
 #include <sge/sprite/roles/texture.hpp>
 #include <majutsu/get.hpp>

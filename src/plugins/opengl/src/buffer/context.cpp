@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/context.hpp>
 #include <sge/opengl/buffer/hardware_config.hpp>
 #include <sge/opengl/buffer/optional_hardware_config.hpp>
-#include <sge/opengl/convert/from_gl_bool.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
+#include <sge/opengl/convert/from_gl_bool.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

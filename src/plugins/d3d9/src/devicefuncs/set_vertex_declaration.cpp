@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/vertex/declaration.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
-#include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 
 
 void

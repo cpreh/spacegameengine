@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/misc/point_sprite/set_impl.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/set_texture.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
-#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
 #include <fcppt/algorithm/join.hpp>

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_DETAIL_RENDER_ONE_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_DETAIL_RENDER_ONE_HPP_INCLUDED
 
-#include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <sge/renderer/vertex/scoped_buffer.hpp>
+#include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <sge/sprite/detail/process/geometry.hpp>
 #include <sge/sprite/detail/render/range.hpp>
 #include <sge/sprite/detail/render/range_object.hpp>

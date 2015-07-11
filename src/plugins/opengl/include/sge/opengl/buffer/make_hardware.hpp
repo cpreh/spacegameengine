@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/hardware_config_fwd.hpp>
 #include <sge/opengl/buffer/type.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>
-#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <array>
