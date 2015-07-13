@@ -57,7 +57,7 @@ is asked to return a resource (designated by a path, of course), it...
 	</li>
 	<li>
 		If it's not equal, check if the element contains the path using
-		sge::resource_tree::element::contains. If it doesn't
+		sge::resource_tree::element::contains. If it doesn't,
 		proceed to the next element. If it does contain the path,
 		return the resource attached to it using
 		sge::resource_tree::element::get.
