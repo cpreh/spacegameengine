@@ -29,8 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/plugin/load_info.hpp>
 #include <sge/src/plugin/library/load_function.hpp>
 #include <sge/src/plugin/library/object.hpp>
+#include <fcppt/from_optional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/maybe_void.hpp>
+#include <fcppt/weak_ptr_impl.hpp>
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -79,59 +81,57 @@ sge::plugin::context_base::info() const
 sge::plugin::library::object_shared_ptr
 sge::plugin::context_base::load()
 {
-	{
-		sge::plugin::library::object_shared_ptr const ptr(
-			library_ptr_.lock()
-		);
-
-		if(
-			ptr
-		)
-			return ptr;
-	}
-
-	sge::plugin::library::object_shared_ptr const ret(
-		fcppt::make_shared_ptr<
-			sge::plugin::library::object
-		>(
-			path_
-		)
-	);
-
-	library_ptr_ = ret;
-
-	if(
-		this->info().flags()
-		&
-		sge::plugin::flags::delayed_unload
-	)
-		fcppt::maybe_void(
-			cache_,
+	return
+		fcppt::from_optional(
+			library_ptr_.lock(),
 			[
-				ret
-			](
-				sge::plugin::cache &_cache
-			)
-			{
-				_cache.add(
-					ret
+				this
+			]{
+				sge::plugin::library::object_shared_ptr const ret(
+					fcppt::make_shared_ptr<
+						sge::plugin::library::object
+					>(
+						path_
+					)
 				);
+
+				library_ptr_ =
+					ret;
+
+				if(
+					this->info().flags()
+					&
+					sge::plugin::flags::delayed_unload
+				)
+					fcppt::maybe_void(
+						cache_,
+						[
+							ret
+						](
+							sge::plugin::cache &_cache
+						)
+						{
+							_cache.add(
+								ret
+							);
+						}
+					);
+
+				sge::plugin::library::load_function<
+					void (*)(
+						fcppt::io::ostream &,
+						fcppt::log::context &
+					)
+				>(
+					*ret,
+					sge::plugin::library::detail::log_context_function_name
+				)(
+					sge::log::stream(),
+					sge::log::global_context()
+				);
+
+				return
+					ret;
 			}
 		);
-
-	sge::plugin::library::load_function<
-		void (*)(
-			fcppt::io::ostream &,
-			fcppt::log::context &
-		)
-	>(
-		*ret,
-		sge::plugin::library::detail::log_context_function_name
-	)(
-		sge::log::stream(),
-		sge::log::global_context()
-	);
-
-	return
-		ret;
 }

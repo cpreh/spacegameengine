@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/render_device.hpp>
 #include <sge/sprite/state/detail/object_class.hpp>
 #include <sge/sprite/state/detail/parameters_class.hpp>
+#include <majutsu/get.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/shared_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -96,17 +98,27 @@ public:
 	>::type
 	operator()() const
 	{
+		typedef
+		fcppt::shared_ptr<
+			typename Type::state_type
+		>
+		shared_ptr;
+
 		result_. template set<
 			typename Type::role
 		>(
-			fcppt::shared_ptr<
-				typename Type::state_type
+			fcppt::optional<
+				shared_ptr
 			>(
-				Type::make(
-					render_device_,
-					parameters_. template get<
-						typename Type::parameter_role
-					>()
+				shared_ptr(
+					Type::make(
+						render_device_,
+						majutsu::get<
+							typename Type::parameter_role
+						>(
+							parameters_
+						)
+					)
 				)
 			)
 		);
@@ -124,8 +136,10 @@ public:
 		result_. template set<
 			typename Type::role
 		>(
-			fcppt::shared_ptr<
-				typename Type::state_type
+			fcppt::optional<
+				fcppt::shared_ptr<
+					typename Type::state_type
+				>
 			>()
 		);
 	}

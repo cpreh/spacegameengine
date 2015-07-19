@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <majutsu/role.hpp>
 #include <majutsu/fusion/record.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/shared_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/placeholders.hpp>
@@ -51,9 +52,11 @@ private:
 	struct object_class_element
 	{
 		typedef majutsu::role<
+			fcppt::optional<
 			// TODO: No shared_ptrs
-			fcppt::shared_ptr<
-				typename Type::state_type
+				fcppt::shared_ptr<
+					typename Type::state_type
+				>
 			>,
 			typename Type::role
 		> type;

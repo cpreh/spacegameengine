@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/set.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -113,20 +114,34 @@ public:
 	{
 		if(
 			!majutsu::get<
-				typename Type::role
+				typename
+				Type::role
 			>(
 				options_
 			)
 		)
 			return;
 
-		Type::set(
-			render_context_,
-			*majutsu::get<
+		fcppt::maybe_void(
+			majutsu::get<
 				typename Type::role
 			>(
 				objects_
+			),
+			[
+				this
+			](
+				fcppt::shared_ptr<
+					typename
+					Type::state_type
+				> const &_state
 			)
+			{
+				Type::set(
+					render_context_,
+					*_state
+				);
+			}
 		);
 	}
 
@@ -190,7 +205,11 @@ public:
 					typename Type::role
 				>(
 					objects_,
-					shared_state
+					fcppt::optional<
+						state_shared_ptr
+					>(
+						shared_state
+					)
 				);
 
 				Type::set(

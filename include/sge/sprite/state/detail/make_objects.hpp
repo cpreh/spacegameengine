@@ -53,6 +53,7 @@ make_objects(
 	> const &_parameters
 )
 {
+	// TODO: Initialize this properly!
 	sge::sprite::state::detail::object_class<
 		StateChoices
 	> result{
