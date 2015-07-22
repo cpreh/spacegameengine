@@ -22,13 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_STATE_DETAIL_MAKE_ONE_OBJECT_HPP_INCLUDED
 
 #include <sge/sprite/state/render_device.hpp>
-#include <sge/sprite/state/detail/object_class.hpp>
 #include <sge/sprite/state/detail/parameters_class.hpp>
 #include <majutsu/get.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/deref.hpp>
+#include <boost/mpl/find_if.hpp>
+#include <boost/mpl/placeholders.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -52,12 +56,6 @@ class make_one_object
 	);
 public:
 	typedef
-	sge::sprite::state::detail::object_class<
-		StateChoices
-	>
-	object_class;
-
-	typedef
 	sge::sprite::state::render_device<
 		StateChoices
 	>
@@ -70,14 +68,10 @@ public:
 	parameters_class;
 
 	make_one_object(
-		object_class &_result,
 		render_device &_render_device,
 		parameters_class const &_parameters
 	)
 	:
-		result_(
-			_result
-		),
 		render_device_(
 			_render_device
 		),
@@ -86,66 +80,116 @@ public:
 		)
 	{
 	}
-
-	typedef void result_type;
+private:
+	FCPPT_PP_PUSH_WARNING
+	FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 	template<
-		typename Type
+		typename State,
+		typename Role
 	>
-	typename boost::enable_if<
-		typename Type::persistent,
-		result_type
-	>::type
-	operator()() const
+	struct state_has_role
+	:
+	std::is_same<
+		typename
+		State::role,
+		Role
+	>
 	{
-		typedef
-		fcppt::shared_ptr<
-			typename Type::state_type
-		>
-		shared_ptr;
+	};
 
-		result_. template set<
-			typename Type::role
-		>(
-			fcppt::optional<
-				shared_ptr
-			>(
-				shared_ptr(
-					Type::make(
-						render_device_,
-						majutsu::get<
-							typename Type::parameter_role
-						>(
-							parameters_
-						)
-					)
+	FCPPT_PP_POP_WARNING
+
+	template<
+		typename Role
+	>
+	using
+	state_for_role
+	=
+	typename
+	boost::mpl::deref<
+		typename
+		boost::mpl::find_if<
+			typename
+			StateChoices::optional_elements,
+			state_has_role<
+				boost::mpl::_1,
+				Role
+			>
+		>::type
+	>::type;
+public:
+	template<
+		typename Type,
+		typename Role
+	>
+	typename
+	boost::enable_if<
+		typename
+		state_for_role<
+			Role
+		>::persistent,
+		typename
+		state_for_role<
+			Role
+		>::state_type
+	>::type
+	operator()(
+		majutsu::role<
+			Type,
+			Role
+		>
+	) const
+	{
+		return
+			state_for_role<
+				Role
+			>::make(
+				render_device_,
+				majutsu::get<
+					typename
+					state_for_role<
+						Role
+					>::parameter_role
+				>(
+					parameters_
 				)
-			)
-		);
+			);
 	}
 
 	template<
-		typename Type
+		typename Type,
+		typename Role
 	>
-	typename boost::disable_if<
-		typename Type::persistent,
-		result_type
+	typename
+	boost::disable_if<
+		typename
+		state_for_role<
+			Role
+		>::persistent,
+		fcppt::optional<
+			typename
+			state_for_role<
+				Role
+			>::state_type
+		>
 	>::type
-	operator()() const
+	operator()(
+		majutsu::role<
+			Type,
+			Role
+		>
+	) const
 	{
-		result_. template set<
-			typename Type::role
-		>(
+		return
 			fcppt::optional<
-				fcppt::shared_ptr<
-					typename Type::state_type
-				>
-			>()
-		);
+				typename
+				state_for_role<
+					Role
+				>::state_type
+			>();
 	}
 private:
-	object_class &result_;
-
 	render_device &render_device_;
 
 	parameters_class const &parameters_;

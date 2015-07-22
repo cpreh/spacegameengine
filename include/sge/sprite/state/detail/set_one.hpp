@@ -29,8 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/set.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <utility>
@@ -101,12 +99,45 @@ public:
 	{
 	}
 
-	typedef void result_type;
+	typedef
+	void
+	result_type;
 
 	template<
 		typename Type
 	>
 	typename boost::enable_if<
+		typename Type::persistent,
+		result_type
+	>::type
+	operator()() const
+	{
+		// TODO: Move this somewhere else
+		if(
+			!majutsu::get<
+				typename
+				Type::role
+			>(
+				options_
+			)
+		)
+			return;
+
+		Type::set(
+			render_context_,
+			*majutsu::get<
+				typename
+				Type::role
+			>(
+				objects_
+			)
+		);
+	}
+
+	template<
+		typename Type
+	>
+	typename boost::disable_if<
 		typename Type::persistent,
 		result_type
 	>::type
@@ -122,99 +153,43 @@ public:
 		)
 			return;
 
+		// This should be more generic, but it will do for transform
+		// for now
+		// TODO: Check if the state has options or not
+		majutsu::set<
+			typename
+			Type::role
+		>(
+			objects_,
+			Type::make(
+				render_device_,
+				render_context_,
+				majutsu::get<
+					typename
+					Type::option_role
+				>(
+					options_
+				)
+			)
+		);
+
 		fcppt::maybe_void(
 			majutsu::get<
-				typename Type::role
+				typename
+				Type::role
 			>(
 				objects_
 			),
 			[
 				this
 			](
-				fcppt::shared_ptr<
-					typename
-					Type::state_type
-				> const &_state
+				typename
+				Type::state_type const &_state
 			)
 			{
 				Type::set(
 					render_context_,
 					*_state
-				);
-			}
-		);
-	}
-
-	template<
-		typename Type
-	>
-	typename boost::disable_if<
-		typename Type::persistent,
-		result_type
-	>::type
-	operator()() const
-	{
-		if(
-			!majutsu::get<
-				typename Type::role
-			>(
-				options_
-			)
-		)
-			return;
-
-		typedef
-		fcppt::unique_ptr<
-			typename Type::state_type
-		>
-		state_unique_ptr;
-
-		// This should be more generic, but it will do for transform
-		// for now
-		fcppt::maybe_void(
-			// TODO: Check if the state has options or not
-			Type::make(
-				render_device_,
-				render_context_,
-				majutsu::get<
-					typename Type::option_role
-				>(
-					options_
-				)
-			),
-			[
-				this
-			](
-				state_unique_ptr &&_state
-			)
-			{
-				// TODO: Make this movable
-				typedef
-				fcppt::shared_ptr<
-					typename Type::state_type
-				>
-				state_shared_ptr;
-
-				state_shared_ptr const shared_state(
-					std::move(
-						_state
-					)
-				);
-
-				majutsu::set<
-					typename Type::role
-				>(
-					objects_,
-					fcppt::optional<
-						state_shared_ptr
-					>(
-						shared_state
-					)
-				);
-
-				Type::set(
-					render_context_,
-					*shared_state
 				);
 			}
 		);

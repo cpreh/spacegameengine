@@ -85,7 +85,7 @@ sge::sprite::state::with_transform::make(
 void
 sge::sprite::state::with_transform::set(
 	sge::renderer::context::ffp &_context,
-	sge::sprite::state::with_transform::state_type const &_state
+	sge::renderer::state::ffp::transform::object const &_state
 )
 {
 	_context.transform(

@@ -65,7 +65,7 @@ sge::sprite::state::with_blend::make(
 void
 sge::sprite::state::with_blend::set(
 	sge::renderer::context::core &_context,
-	sge::sprite::state::with_blend::state_type const &_state
+	sge::renderer::state::core::blend::object const &_state
 )
 {
 	_context.blend_state(

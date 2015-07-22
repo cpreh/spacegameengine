@@ -25,8 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/detail/make_one_object.hpp>
 #include <sge/sprite/state/detail/object_class.hpp>
 #include <sge/sprite/state/detail/parameters_class.hpp>
-#include <fcppt/no_init.hpp>
-#include <fcppt/mpl/for_each.hpp>
+#include <majutsu/init.hpp>
 
 
 namespace sge
@@ -41,6 +40,7 @@ namespace detail
 template<
 	typename StateChoices
 >
+inline
 sge::sprite::state::detail::object_class<
 	StateChoices
 >
@@ -53,28 +53,19 @@ make_objects(
 	> const &_parameters
 )
 {
-	// TODO: Initialize this properly!
-	sge::sprite::state::detail::object_class<
-		StateChoices
-	> result{
-		fcppt::no_init()
-	};
-
-	fcppt::mpl::for_each<
-		typename
-		StateChoices::optional_elements
-	>(
-		sge::sprite::state::detail::make_one_object<
-			StateChoices
-		>(
-			result,
-			_device,
-			_parameters
-		)
-	);
-
 	return
-		result;
+		majutsu::init<
+			sge::sprite::state::detail::object_class<
+				StateChoices
+			>
+		>(
+			sge::sprite::state::detail::make_one_object<
+				StateChoices
+			>(
+				_device,
+				_parameters
+			)
+		);
 }
 
 }

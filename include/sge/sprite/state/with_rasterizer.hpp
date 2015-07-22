@@ -55,11 +55,13 @@ struct with_rasterizer
 
 	typedef boost::mpl::true_ has_parameter;
 
-	typedef sge::renderer::state::core::rasterizer::object state_type;
+	typedef sge::renderer::state::core::rasterizer::object_unique_ptr state_type;
 
-	typedef fcppt::optional<
+	typedef
+	fcppt::optional<
 		sge::renderer::state::core::rasterizer::enable_scissor_test
-	> optional_extra_parameters;
+	>
+	optional_extra_parameters;
 
 	SGE_SPRITE_DETAIL_SYMBOL
 	static
@@ -74,7 +76,7 @@ struct with_rasterizer
 	void
 	set(
 		sge::renderer::context::core &,
-		sge::sprite::state::with_rasterizer::state_type const &
+		sge::renderer::state::core::rasterizer::object const &
 	);
 
 	SGE_SPRITE_DETAIL_SYMBOL

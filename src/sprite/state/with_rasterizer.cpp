@@ -58,7 +58,7 @@ sge::sprite::state::with_rasterizer::make(
 void
 sge::sprite::state::with_rasterizer::set(
 	sge::renderer::context::core &_context,
-	sge::sprite::state::with_rasterizer::state_type const &_state
+	sge::renderer::state::core::rasterizer::object const &_state
 )
 {
 	_context.rasterizer_state(

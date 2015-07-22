@@ -54,7 +54,7 @@ struct with_transform
 
 	typedef boost::mpl::true_ has_parameter;
 
-	typedef sge::renderer::state::ffp::transform::object state_type;
+	typedef sge::renderer::state::ffp::transform::object_unique_ptr state_type;
 
 	typedef
 	sge::sprite::optional_projection_dim
@@ -74,7 +74,7 @@ struct with_transform
 	void
 	set(
 		sge::renderer::context::ffp &,
-		sge::sprite::state::with_transform::state_type const &
+		sge::renderer::state::ffp::transform::object const &
 	);
 
 	SGE_SPRITE_DETAIL_SYMBOL

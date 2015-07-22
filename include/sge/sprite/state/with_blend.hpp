@@ -55,11 +55,13 @@ struct with_blend
 
 	typedef boost::mpl::true_ has_parameter;
 
-	typedef sge::renderer::state::core::blend::object state_type;
+	typedef sge::renderer::state::core::blend::object_unique_ptr state_type;
 
-	typedef fcppt::optional<
+	typedef
+	fcppt::optional<
 		sge::renderer::state::core::blend::write_mask
-	> optional_extra_parameters;
+	>
+	optional_extra_parameters;
 
 	SGE_SPRITE_DETAIL_SYMBOL
 	static
@@ -74,7 +76,7 @@ struct with_blend
 	void
 	set(
 		sge::renderer::context::core &,
-		sge::sprite::state::with_blend::state_type const &
+		sge::renderer::state::core::blend::object const &
 	);
 
 	SGE_SPRITE_DETAIL_SYMBOL
