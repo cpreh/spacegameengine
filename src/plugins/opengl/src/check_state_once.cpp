@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/check_state_once.hpp>
 #if !defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
 #include <sge/renderer/exception.hpp>
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/error_string.hpp>
 #include <fcppt/string.hpp>
@@ -41,7 +42,11 @@ sge::opengl::check_state_once()
 
 	while(
 		(
-			ret = ::glGetError()
+			ret
+			=
+			sge::opengl::call(
+				::glGetError
+			)
 		)
 		!= GL_NO_ERROR
 	)

@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/stride_to_unpack_alignment.hpp>
 #include <sge/opengl/unpack_alignment.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
 sge::opengl::unpack_alignment const
@@ -39,10 +41,12 @@ sge::opengl::stride_to_unpack_alignment(
 
 		if(
 			(
-				static_cast<
+				fcppt::cast::size<
 					GLint
 				>(
-					_stride
+					fcppt::cast::to_signed(
+						_stride
+					)
 				)
 				%
 				divisor

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
+#include <sge/opengl/convert/to_gl_enum.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -39,21 +40,17 @@ sge::opengl::multi_sample_context::multi_sample_context()
 		GLEW_VERSION_1_3
 		?
 			sge::opengl::optional_enum(
-				static_cast<
-					GLenum
-				>(
+				sge::opengl::convert::to_gl_enum<
 					GL_MULTISAMPLE
-				)
+				>()
 			)
 		:
 			GLEW_ARB_multisample
 			?
 				sge::opengl::optional_enum(
-					static_cast<
-						GLenum
-					>(
+					sge::opengl::convert::to_gl_enum<
 						GL_MULTISAMPLE_ARB
-					)
+					>()
 				)
 			:
 				sge::opengl::optional_enum()

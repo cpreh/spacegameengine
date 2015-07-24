@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/screen_unit.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
 void
@@ -34,28 +36,28 @@ sge::opengl::set_flipped_area(
 )
 {
 	_function(
-		static_cast<
+		fcppt::cast::size<
 			GLint
 		>(
 			_area.pos().x()
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLint
 		>(
-			static_cast<
-				sge::renderer::pixel_unit
-			>(
+			fcppt::cast::to_signed(
 				_height
 			)
-			- _area.size().h()
-			- _area.pos().y()
+			-
+			_area.size().h()
+			-
+			_area.pos().y()
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
 			_area.size().w()
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
 			_area.size().h()

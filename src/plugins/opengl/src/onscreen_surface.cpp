@@ -34,12 +34,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/pixel_unit.hpp>
+#include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/color_buffer/surface.hpp>
 #include <awl/window/object.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
@@ -71,28 +74,42 @@ sge::opengl::onscreen_surface::lock(
 	if(
 		!buffer_.empty()
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("renderer::target()::lock(): already locked!")
-		);
+		throw
+			sge::renderer::exception(
+				FCPPT_TEXT("renderer::target()::lock(): already locked!")
+			);
 
 	buffer_.resize_uninitialized(
 		_dest.size().content()
-		* stride_
+		*
+		stride_
 	);
 
 	sge::opengl::read_pixels(
-		static_cast<
-			renderer::pixel_unit
+		fcppt::cast::size<
+			sge::renderer::pixel_unit
 		>(
-			_dest.left()
+			fcppt::cast::to_signed(
+				_dest.left()
+			)
 		),
-		static_cast<
-			renderer::pixel_unit
+		fcppt::cast::size<
+			sge::renderer::pixel_unit
 		>(
-			_dest.top()
+			fcppt::cast::to_signed(
+				_dest.top()
+			)
 		),
-		_dest.size().w(),
-		_dest.size().h(),
+		fcppt::cast::size<
+			sge::renderer::screen_unit
+		>(
+			_dest.size().w()
+		),
+		fcppt::cast::size<
+			sge::renderer::screen_unit
+		>(
+			_dest.size().h()
+		),
 		this->color_format(),
 		this->color_format_type(),
 		buffer_.data()

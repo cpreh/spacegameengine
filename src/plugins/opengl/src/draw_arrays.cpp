@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/draw_arrays.hpp>
@@ -28,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
 
@@ -40,7 +43,9 @@ sge::opengl::draw_arrays(
 )
 {
 	if(
-		_num_vertices.get() == 0u
+		_num_vertices.get()
+		==
+		0u
 	)
 	{
 		FCPPT_LOG_WARNING(
@@ -53,19 +58,24 @@ sge::opengl::draw_arrays(
 		return;
 	}
 
-	::glDrawArrays(
+	sge::opengl::call(
+		::glDrawArrays,
 		sge::opengl::convert::primitive_type(
 			_primitive_type
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_first_vertex.get()
+			fcppt::cast::to_signed(
+				_first_vertex.get()
+			)
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLint
 		>(
-			_num_vertices.get()
+			fcppt::cast::to_signed(
+				_num_vertices.get()
+			)
 		)
 	);
 

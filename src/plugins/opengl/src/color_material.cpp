@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/color_material.hpp>
 #include <sge/opengl/common.hpp>
@@ -31,7 +32,8 @@ sge::opengl::color_material(
 	GLenum const _value
 )
 {
-	::glColorMaterial(
+	sge::opengl::call(
+		::glColorMaterial,
 		_face,
 		_value
 	);

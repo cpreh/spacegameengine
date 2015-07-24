@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/draw_context.hpp>
@@ -37,6 +38,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/first.hpp>
 #include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/static_downcast.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
 
@@ -66,7 +70,9 @@ sge::opengl::draw_elements(
 	}
 
 	if(
-		_num_vertices.get() == 0u
+		_num_vertices.get()
+		==
+		0u
 	)
 	{
 		FCPPT_LOG_WARNING(
@@ -88,7 +94,7 @@ sge::opengl::draw_elements(
 	);
 
 	sge::opengl::index_buffer const &gl_index_buffer(
-		dynamic_cast<
+		fcppt::cast::static_downcast<
 			sge::opengl::index_buffer const &
 		>(
 			_index_buffer
@@ -104,10 +110,12 @@ sge::opengl::draw_elements(
 	);
 
 	GLsizei const element_count(
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_num_indices.get()
+			fcppt::cast::to_signed(
+				_num_indices.get()
+			)
 		)
 	);
 
@@ -115,7 +123,7 @@ sge::opengl::draw_elements(
 		gl_index_buffer.gl_format()
 	);
 
-	GLvoid *const offset(
+	GLvoid const *const offset(
 		gl_index_buffer.buffer_offset(
 			_first_index
 		)
@@ -129,7 +137,8 @@ sge::opengl::draw_elements(
 			format,
 			offset
 		]{
-			::glDrawElements(
+			sge::opengl::call(
+				::glDrawElements,
 				primitive_type,
 				element_count,
 				format,
@@ -154,12 +163,12 @@ sge::opengl::draw_elements(
 		{
 			_draw_elements(
 				primitive_type,
-				static_cast<
+				fcppt::cast::size<
 					GLuint
 				>(
 					_first_vertex.get()
 				),
-				static_cast<
+				fcppt::cast::size<
 					GLuint
 				>(
 					_first_vertex.get()

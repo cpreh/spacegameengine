@@ -33,7 +33,7 @@ sge::opengl::enable(
 )
 {
 	sge::opengl::call(
-		glEnable,
+		::glEnable,
 		_what
 	);
 

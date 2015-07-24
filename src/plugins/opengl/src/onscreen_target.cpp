@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/cast/size.hpp>
 
 
 sge::opengl::onscreen_target::onscreen_target(
@@ -93,14 +94,15 @@ sge::renderer::screen_unit
 sge::opengl::onscreen_target::height() const
 {
 	return
-		static_cast<
+		fcppt::cast::size<
 			sge::renderer::screen_unit
 		>(
 			main_surface_->size().h()
 		);
 }
 
-template class
+template
+class
 sge::opengl::basic_target<
 	sge::renderer::target::onscreen
 >;

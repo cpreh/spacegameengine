@@ -18,47 +18,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/color_format.hpp>
+#include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/read_pixels.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/pixel_unit.hpp>
+#include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/screen_unit.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
+#include <fcppt/cast/to_void_ptr.hpp>
 
 
 void
 sge::opengl::read_pixels(
-	renderer::pixel_unit const _pos_x,
-	renderer::pixel_unit const _pos_y,
-	renderer::size_type const _width,
-	renderer::size_type const _height,
-	opengl::color_format const _format,
-	opengl::color_format_type const _format_type,
-	renderer::raw_pointer const _dest
+	sge::renderer::pixel_unit const _pos_x,
+	sge::renderer::pixel_unit const _pos_y,
+	sge::renderer::screen_unit const _width,
+	sge::renderer::screen_unit const _height,
+	sge::opengl::color_format const _format,
+	sge::opengl::color_format_type const _format_type,
+	sge::renderer::raw_pointer const _dest
 )
 {
-	::glReadPixels(
-		static_cast<
+	sge::opengl::call(
+		::glReadPixels,
+		fcppt::cast::size<
 			GLint
 		>(
 			_pos_x
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLint
 		>(
 			_pos_y
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_width
+			fcppt::cast::to_signed(
+				_width
+			)
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_height
+			fcppt::cast::to_signed(
+				_height
+			)
 		),
 		_format.get(),
 		_format_type.get(),
-		_dest
+		fcppt::cast::to_void_ptr(
+			_dest
+		)
 	);
 
 	SGE_OPENGL_CHECK_STATE(

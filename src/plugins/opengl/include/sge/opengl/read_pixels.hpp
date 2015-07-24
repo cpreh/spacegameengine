@@ -25,7 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/screen_unit.hpp>
+
 
 namespace sge
 {
@@ -34,13 +35,13 @@ namespace opengl
 
 void
 read_pixels(
-	renderer::pixel_unit x,
-	renderer::pixel_unit y,
-	renderer::size_type width,
-	renderer::size_type height,
-	opengl::color_format,
-	opengl::color_format_type,
-	renderer::raw_pointer dest
+	sge::renderer::pixel_unit x,
+	sge::renderer::pixel_unit y,
+	sge::renderer::screen_unit width,
+	sge::renderer::screen_unit height,
+	sge::opengl::color_format,
+	sge::opengl::color_format_type,
+	sge::renderer::raw_pointer
 );
 
 }

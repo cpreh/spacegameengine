@@ -72,11 +72,12 @@ sge::opengl::init_srgb(
 				);
 			}
 			else
-				throw sge::renderer::unsupported(
-					FCPPT_TEXT("srgb sampling"),
-					FCPPT_TEXT("GL_VERSION_3_0"),
-					FCPPT_TEXT("EXT_framebuffer_sRGB")
-				);
+				throw
+					sge::renderer::unsupported(
+						FCPPT_TEXT("srgb sampling"),
+						FCPPT_TEXT("GL_VERSION_3_0"),
+						FCPPT_TEXT("EXT_framebuffer_sRGB")
+					);
 		},
 		[](
 			GLenum const _srgb_flag

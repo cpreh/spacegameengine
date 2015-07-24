@@ -74,7 +74,8 @@ sge::opengl::index_buffer::~index_buffer()
 GLenum
 sge::opengl::index_buffer::gl_format() const
 {
-	return gl_format_;
+	return
+		gl_format_;
 }
 
 GLvoid *
@@ -175,17 +176,20 @@ sge::opengl::index_buffer::size() const
 sge::renderer::resource_flags_field const
 sge::opengl::index_buffer::resource_flags() const
 {
-	return buffer_.flags();
+	return
+		buffer_.flags();
 }
 
 sge::renderer::index::dynamic::format
 sge::opengl::index_buffer::format() const
 {
-	return format_;
+	return
+		format_;
 }
 
 sge::opengl::buffer::object const &
 sge::opengl::index_buffer::buffer() const
 {
-	return buffer_;
+	return
+		buffer_;
 }

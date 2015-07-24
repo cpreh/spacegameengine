@@ -18,12 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/get_string.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
 
 fcppt::string
@@ -32,24 +37,30 @@ sge::opengl::get_string(
 )
 {
 	GLubyte const *const ret(
-		::glGetString(
+		sge::opengl::call(
+			::glGetString,
 			_what
 		)
 	);
 
 	if(
-		!ret
+		ret
+		==
+		nullptr
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("glGetString() failed!")
-		);
+		throw
+			sge::renderer::exception(
+				FCPPT_TEXT("glGetString() failed!")
+			);
 
 	return
 		fcppt::from_std_string(
-			reinterpret_cast<
-				char const *
-			>(
-				ret
+			std::string(
+				fcppt::cast::to_char_ptr<
+					char const *
+				>(
+					ret
+				)
 			)
 		);
 }

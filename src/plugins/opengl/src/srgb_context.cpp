@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
+#include <sge/opengl/convert/to_gl_enum.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -39,13 +40,17 @@ sge::opengl::srgb_context::srgb_context()
 		GLEW_VERSION_3_0
 		?
 			sge::opengl::optional_enum(
-				GL_FRAMEBUFFER_SRGB
+				sge::opengl::convert::to_gl_enum<
+					GL_FRAMEBUFFER_SRGB
+				>()
 			)
 		:
 			GLEW_EXT_framebuffer_sRGB
 			?
 				sge::opengl::optional_enum(
-					GL_FRAMEBUFFER_SRGB_EXT
+					sge::opengl::convert::to_gl_enum<
+						GL_FRAMEBUFFER_SRGB_EXT
+					>()
 				)
 			:
 				sge::opengl::optional_enum()
@@ -62,7 +67,8 @@ sge::opengl::srgb_context::~srgb_context()
 sge::opengl::optional_enum const
 sge::opengl::srgb_context::flag() const
 {
-	return flag_;
+	return
+		flag_;
 }
 
 sge::opengl::context::system::id const
