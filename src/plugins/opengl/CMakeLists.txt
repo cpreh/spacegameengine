@@ -39,6 +39,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/buffer/type.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/vbo_context.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/wrapper.hpp
+	src/plugins/opengl/include/sge/opengl/call.hpp
 	src/plugins/opengl/include/sge/opengl/check_state.hpp
 	src/plugins/opengl/include/sge/opengl/check_state_always.hpp
 	src/plugins/opengl/include/sge/opengl/check_state_once.hpp
