@@ -162,6 +162,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/fun_ref.hpp
 	src/plugins/opengl/include/sge/opengl/fun_ref_impl.hpp
 	src/plugins/opengl/include/sge/opengl/get_device_caps.hpp
+	src/plugins/opengl/include/sge/opengl/get_fun_ref.hpp
 	src/plugins/opengl/include/sge/opengl/get_int.hpp
 	src/plugins/opengl/include/sge/opengl/get_ints.hpp
 	src/plugins/opengl/include/sge/opengl/get_string.hpp
@@ -176,6 +177,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/multi_sample_context.hpp
 	src/plugins/opengl/include/sge/opengl/multi_sample_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/occlusion_query/begin.hpp
+	src/plugins/opengl/include/sge/opengl/occlusion_query/config.hpp
+	src/plugins/opengl/include/sge/opengl/occlusion_query/config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/occlusion_query/context.hpp
 	src/plugins/opengl/include/sge/opengl/occlusion_query/context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/occlusion_query/create.hpp
@@ -187,6 +190,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/occlusion_query/holder.hpp
 	src/plugins/opengl/include/sge/opengl/occlusion_query/id.hpp
 	src/plugins/opengl/include/sge/opengl/occlusion_query/object.hpp
+	src/plugins/opengl/include/sge/opengl/occlusion_query/optional_config.hpp
+	src/plugins/opengl/include/sge/opengl/occlusion_query/optional_config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/onscreen_surface.hpp
 	src/plugins/opengl/include/sge/opengl/onscreen_target.hpp
 	src/plugins/opengl/include/sge/opengl/onscreen_target_fwd.hpp
@@ -250,11 +255,17 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/convert/stencil_op.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/alpha_enabled_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/alpha_visitor.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/blend/config.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/blend/config_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/blend/context.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/blend/context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/default_context.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/blend/optional_config.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/blend/optional_config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/blend/set.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/default_context.hpp
@@ -709,6 +720,7 @@ set(
 	src/plugins/opengl/src/logger_context.cpp
 	src/plugins/opengl/src/multi_sample_context.cpp
 	src/plugins/opengl/src/occlusion_query/begin.cpp
+	src/plugins/opengl/src/occlusion_query/config.cpp
 	src/plugins/opengl/src/occlusion_query/context.cpp
 	src/plugins/opengl/src/occlusion_query/create.cpp
 	src/plugins/opengl/src/occlusion_query/create_id.cpp
@@ -764,6 +776,8 @@ set(
 	src/plugins/opengl/src/state/convert/stencil_op.cpp
 	src/plugins/opengl/src/state/core/blend/alpha_enabled_visitor.cpp
 	src/plugins/opengl/src/state/core/blend/alpha_visitor.cpp
+	src/plugins/opengl/src/state/core/blend/config.cpp
+	src/plugins/opengl/src/state/core/blend/context.cpp
 	src/plugins/opengl/src/state/core/blend/create.cpp
 	src/plugins/opengl/src/state/core/blend/default_context.cpp
 	src/plugins/opengl/src/state/core/blend/make_actors.cpp

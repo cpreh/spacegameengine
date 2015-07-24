@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_WRAP_ERROR_HANDLER_HPP_INCLUDED
-#define SGE_OPENGL_STATE_WRAP_ERROR_HANDLER_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CORE_BLEND_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_BLEND_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/state/error_handler.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/state/core/blend/context_fwd.hpp>
+#include <sge/opengl/state/core/blend/optional_config.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -34,31 +34,36 @@ namespace opengl
 {
 namespace state
 {
-
-template<
-	typename Result,
-	typename Actor
->
-Result
-wrap_error_handler(
-	Actor const &_actor,
-	// TODO: Pass a function returning a string here
-	fcppt::string &&_name
-)
+namespace core
 {
-	return
-		Result{
-			sge::opengl::state::error_handler<
-				Actor
-			>(
-				_actor,
-				std::move(
-					_name
-				)
-			)
-		};
-}
+namespace blend
+{
 
+class context
+:
+	public sge::opengl::context::system::base
+{
+	FCPPT_NONCOPYABLE(
+		context
+	);
+public:
+	context();
+
+	~context()
+	override;
+
+	sge::opengl::state::core::blend::optional_config const &
+	config() const;
+
+	typedef void parameter;
+
+	static sge::opengl::context::system::id const static_id;
+private:
+	sge::opengl::state::core::blend::optional_config config_;
+};
+
+}
+}
 }
 }
 }

@@ -18,14 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_WRAP_ERROR_HANDLER_HPP_INCLUDED
-#define SGE_OPENGL_STATE_WRAP_ERROR_HANDLER_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CORE_BLEND_CONFIG_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_BLEND_CONFIG_HPP_INCLUDED
 
-#include <sge/opengl/state/error_handler.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/fun_ref.hpp>
+#include <sge/opengl/state/core/blend/config_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -34,31 +33,36 @@ namespace opengl
 {
 namespace state
 {
-
-template<
-	typename Result,
-	typename Actor
->
-Result
-wrap_error_handler(
-	Actor const &_actor,
-	// TODO: Pass a function returning a string here
-	fcppt::string &&_name
-)
+namespace core
 {
-	return
-		Result{
-			sge::opengl::state::error_handler<
-				Actor
-			>(
-				_actor,
-				std::move(
-					_name
-				)
-			)
-		};
-}
+namespace blend
+{
 
+class config
+{
+	FCPPT_NONASSIGNABLE(
+		config
+	);
+public:
+	typedef
+	sge::opengl::fun_ref<
+		PFNGLBLENDFUNCSEPARATEPROC
+	>
+	gl_blend_func_separate;
+
+	explicit
+	config(
+		gl_blend_func_separate
+	);
+
+	gl_blend_func_separate
+	blend_func_separate() const;
+private:
+	gl_blend_func_separate blend_func_separate_;
+};
+
+}
+}
 }
 }
 }

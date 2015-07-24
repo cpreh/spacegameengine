@@ -18,49 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_WRAP_ERROR_HANDLER_HPP_INCLUDED
-#define SGE_OPENGL_STATE_WRAP_ERROR_HANDLER_HPP_INCLUDED
-
-#include <sge/opengl/state/error_handler.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#include <sge/opengl/state/core/blend/config.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-
-template<
-	typename Result,
-	typename Actor
->
-Result
-wrap_error_handler(
-	Actor const &_actor,
-	// TODO: Pass a function returning a string here
-	fcppt::string &&_name
+sge::opengl::state::core::blend::config::config(
+	gl_blend_func_separate _blend_func_separate
 )
+:
+	blend_func_separate_(
+		_blend_func_separate
+	)
+{
+}
+
+sge::opengl::state::core::blend::config::gl_blend_func_separate
+sge::opengl::state::core::blend::config::blend_func_separate() const
 {
 	return
-		Result{
-			sge::opengl::state::error_handler<
-				Actor
-			>(
-				_actor,
-				std::move(
-					_name
-				)
-			)
-		};
+		blend_func_separate_;
 }
-
-}
-}
-}
-
-#endif

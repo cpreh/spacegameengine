@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/render_context/end.hpp>
 #include <sge/opengl/render_context/object.hpp>
 #include <sge/renderer/context/core.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 
 
 void
@@ -31,7 +32,7 @@ sge::opengl::render_context::end(
 {
 	sge::opengl::check_state_once();
 
-	dynamic_cast<
+	fcppt::cast::static_downcast<
 		sge::opengl::render_context::object &
 	>(
 		_context

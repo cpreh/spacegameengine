@@ -49,7 +49,9 @@ check_error(
 {
 #if defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
 	SGE_OPENGL_CHECK_STATE(
-		_what + FCPPT_TEXT(" failed!"),
+		_what
+		+
+		FCPPT_TEXT(" failed!"),
 		sge::renderer::exception
 	)
 #endif

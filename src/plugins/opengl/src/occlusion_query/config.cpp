@@ -35,7 +35,7 @@ sge::opengl::occlusion_query::config::config(
 )
 :
 	gen_queries_(
-		_gl_gen_queries
+		_gen_queries
 	),
 	delete_queries_(
 		_delete_queries
@@ -50,7 +50,7 @@ sge::opengl::occlusion_query::config::config(
 		_get_query_object_iv
 	),
 	get_query_object_uiv_(
-		_query_object_uiv
+		_get_query_object_uiv
 	),
 	samples_target_(
 		_samples_target
