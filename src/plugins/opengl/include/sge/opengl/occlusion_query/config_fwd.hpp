@@ -18,25 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FBO_OPTIONAL_CONFIG_FWD_HPP_INCLUDED
-#define SGE_OPENGL_FBO_OPTIONAL_CONFIG_FWD_HPP_INCLUDED
-
-#include <sge/opengl/fbo/config_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#ifndef SGE_OPENGL_OCCLUSION_QUERY_CONFIG_FWD_HPP_INCLUDED
+#define SGE_OPENGL_OCCLUSION_QUERY_CONFIG_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace fbo
+namespace occlusion_query
 {
 
-typedef
-fcppt::optional<
-	sge::opengl::fbo::config
->
-optional_config;
+class config;
 
 }
 }

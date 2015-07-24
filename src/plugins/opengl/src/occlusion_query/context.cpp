@@ -19,12 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/optional_enum.hpp>
+#include <sge/opengl/deref_fun_ptr.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/convert/from_gl_bool.hpp>
+#include <sge/opengl/convert/to_gl_enum.hpp>
+#include <sge/opengl/occlusion_query/config.hpp>
 #include <sge/opengl/occlusion_query/context.hpp>
+#include <sge/opengl/occlusion_query/optional_config.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -38,91 +41,44 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 sge::opengl::occlusion_query::context::context()
 :
 	sge::opengl::context::system::base(),
-	has_native_(
+	config_(
 		sge::opengl::convert::from_gl_bool(
 			GLEW_VERSION_1_5
 		)
-	),
-	gen_queries_(
-		has_native_
 		?
-			glGenQueries
+			sge::opengl::occlusion_query::optional_config{
+				sge::opengl::occlusion_query::config{
+					sge::opengl::deref_fun_ptr(
+						glGenQueries
+					),
+					sge::opengl::deref_fun_ptr(
+						glDeleteQueries
+					),
+					sge::opengl::deref_fun_ptr(
+						glBeginQuery
+					),
+					sge::opengl::deref_fun_ptr(
+						glEndQuery
+					),
+					sge::opengl::deref_fun_ptr(
+						glGetQueryObjectiv
+					),
+					sge::opengl::deref_fun_ptr(
+						glGetQueryObjectuiv
+					),
+					sge::opengl::convert::to_gl_enum<
+						GL_SAMPLES_PASSED
+					>(),
+					sge::opengl::convert::to_gl_enum<
+						GL_QUERY_RESULT_AVAILABLE
+					>(),
+					sge::opengl::convert::to_gl_enum<
+						GL_QUERY_RESULT
+					>()
+				}
+			}
 		:
-			nullptr
-	),
-	delete_queries_(
-		has_native_
-		?
-			glDeleteQueries
-		:
-			nullptr
-	),
-	begin_query_(
-		has_native_
-		?
-			glBeginQuery
-		:
-			nullptr
-	),
-	end_query_(
-		has_native_
-		?
-			glEndQuery
-		:
-			nullptr
-	),
-	get_query_object_iv_(
-		has_native_
-		?
-			glGetQueryObjectiv
-		:
-			nullptr
-	),
-	get_query_object_uiv_(
-		has_native_
-		?
-			glGetQueryObjectuiv
-		:
-			nullptr
-	),
-	samples_target_(
-		has_native_
-		?
-			sge::opengl::optional_enum(
-				static_cast<
-					GLenum
-				>(
-					GL_SAMPLES_PASSED
-				)
-			)
-		:
-			sge::opengl::optional_enum()
-	),
-	query_result_available_(
-		has_native_
-		?
-			sge::opengl::optional_enum(
-				static_cast<
-					GLenum
-				>(
-					GL_QUERY_RESULT_AVAILABLE
-				)
-			)
-		:
-			sge::opengl::optional_enum()
-	),
-	query_result_(
-		has_native_
-		?
-			sge::opengl::optional_enum(
-				static_cast<
-					GLenum
-				>(
-					GL_QUERY_RESULT
-				)
-			)
-		:
-			sge::opengl::optional_enum()
+			sge::opengl::occlusion_query::optional_config{}
 	)
 {
 }
@@ -133,74 +89,11 @@ sge::opengl::occlusion_query::context::~context()
 {
 }
 
-bool
-sge::opengl::occlusion_query::context::is_supported() const
+sge::opengl::occlusion_query::optional_config const &
+sge::opengl::occlusion_query::context::config() const
 {
 	return
-		has_native_;
-}
-
-sge::opengl::occlusion_query::context::gl_gen_queries
-sge::opengl::occlusion_query::context::gen_queries() const
-{
-	return
-		gen_queries_;
-}
-
-sge::opengl::occlusion_query::context::gl_delete_queries
-sge::opengl::occlusion_query::context::delete_queries() const
-{
-	return
-		delete_queries_;
-}
-
-sge::opengl::occlusion_query::context::gl_begin_query
-sge::opengl::occlusion_query::context::begin_query() const
-{
-	return
-		begin_query_;
-}
-
-sge::opengl::occlusion_query::context::gl_end_query
-sge::opengl::occlusion_query::context::end_query() const
-{
-	return
-		end_query_;
-}
-
-sge::opengl::occlusion_query::context::gl_get_query_object_iv
-sge::opengl::occlusion_query::context::get_query_object_iv() const
-{
-	return
-		get_query_object_iv_;
-}
-
-sge::opengl::occlusion_query::context::gl_get_query_object_uiv
-sge::opengl::occlusion_query::context::get_query_object_uiv() const
-{
-	return
-		get_query_object_uiv_;
-}
-
-sge::opengl::optional_enum const
-sge::opengl::occlusion_query::context::samples_target() const
-{
-	return
-		samples_target_;
-}
-
-sge::opengl::optional_enum const
-sge::opengl::occlusion_query::context::query_result_available() const
-{
-	return
-		query_result_available_;
-}
-
-sge::opengl::optional_enum const
-sge::opengl::occlusion_query::context::query_result() const
-{
-	return
-		query_result_;
+		config_;
 }
 
 sge::opengl::context::system::id const

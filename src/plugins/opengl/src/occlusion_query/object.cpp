@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/occlusion_query/begin.hpp>
-#include <sge/opengl/occlusion_query/context.hpp>
+#include <sge/opengl/occlusion_query/config.hpp>
 #include <sge/opengl/occlusion_query/end.hpp>
 #include <sge/opengl/occlusion_query/get_object_int.hpp>
 #include <sge/opengl/occlusion_query/get_object_uint.hpp>
@@ -29,19 +29,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/optional_pixel_count.hpp>
 #include <sge/renderer/occlusion_query/pixel_count.hpp>
-#include <fcppt/assert/optional_error.hpp>
 
 
 sge::opengl::occlusion_query::object::object(
-	sge::opengl::occlusion_query::context const &_context
+	sge::opengl::occlusion_query::config const &_config
 )
 :
 	sge::renderer::occlusion_query::object(),
-	context_(
-		_context
+	config_(
+		_config
 	),
 	holder_(
-		context_
+		config_
 	)
 {
 }
@@ -54,7 +53,7 @@ void
 sge::opengl::occlusion_query::object::begin()
 {
 	sge::opengl::occlusion_query::begin(
-		context_,
+		config_,
 		holder_.id()
 	);
 }
@@ -63,7 +62,7 @@ void
 sge::opengl::occlusion_query::object::end()
 {
 	sge::opengl::occlusion_query::end(
-		context_
+		config_
 	);
 }
 
@@ -75,11 +74,9 @@ sge::opengl::occlusion_query::object::result(
 	return
 		(
 			sge::opengl::occlusion_query::get_object_int(
-				context_,
+				config_,
 				holder_.id(),
-				FCPPT_ASSERT_OPTIONAL_ERROR(
-					context_.query_result_available()
-				)
+				config_.query_result_available()
 			)
 			== GL_FALSE
 			&&
@@ -91,11 +88,9 @@ sge::opengl::occlusion_query::object::result(
 			sge::renderer::occlusion_query::optional_pixel_count(
 				sge::renderer::occlusion_query::pixel_count(
 					sge::opengl::occlusion_query::get_object_uint(
-						context_,
+						config_,
 						holder_.id(),
-						FCPPT_ASSERT_OPTIONAL_ERROR(
-							context_.query_result()
-						)
+						config_.query_result()
 					)
 				)
 			)

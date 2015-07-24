@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/occlusion_query/context.hpp>
+#include <sge/opengl/occlusion_query/config.hpp>
 #include <sge/opengl/occlusion_query/create_id.hpp>
 #include <sge/opengl/occlusion_query/id.hpp>
 #include <sge/renderer/exception.hpp>
@@ -29,12 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::occlusion_query::id const
 sge::opengl::occlusion_query::create_id(
-	sge::opengl::occlusion_query::context const &_context
+	sge::opengl::occlusion_query::config const &_config
 )
 {
 	GLuint id;
 
-	_context.gen_queries()(
+	_config.gen_queries()(
 		1,
 		&id
 	);

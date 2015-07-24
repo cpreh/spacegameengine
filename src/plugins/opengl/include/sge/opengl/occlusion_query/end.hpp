@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_OCCLUSION_QUERY_END_HPP_INCLUDED
 #define SGE_OPENGL_OCCLUSION_QUERY_END_HPP_INCLUDED
 
-#include <sge/opengl/occlusion_query/context_fwd.hpp>
+#include <sge/opengl/occlusion_query/config_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace occlusion_query
 
 void
 end(
-	sge::opengl::occlusion_query::context const &
+	sge::opengl::occlusion_query::config const &
 );
 
 }

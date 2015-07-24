@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_OCCLUSION_QUERY_HOLDER_HPP_INCLUDED
 #define SGE_OPENGL_OCCLUSION_QUERY_HOLDER_HPP_INCLUDED
 
-#include <sge/opengl/occlusion_query/context_fwd.hpp>
+#include <sge/opengl/occlusion_query/config_fwd.hpp>
 #include <sge/opengl/occlusion_query/id.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -41,7 +41,7 @@ class holder
 public:
 	explicit
 	holder(
-		sge::opengl::occlusion_query::context const &
+		sge::opengl::occlusion_query::config const &
 	);
 
 	~holder();
@@ -49,7 +49,7 @@ public:
 	sge::opengl::occlusion_query::id const
 	id() const;
 private:
-	sge::opengl::occlusion_query::context const &context_;
+	sge::opengl::occlusion_query::config const &config_;
 
 	sge::opengl::occlusion_query::id const id_;
 };

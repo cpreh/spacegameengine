@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/occlusion_query/context_fwd.hpp>
+#include <sge/opengl/occlusion_query/config_fwd.hpp>
 #include <sge/opengl/occlusion_query/create_id.hpp>
 #include <sge/opengl/occlusion_query/delete_id.hpp>
 #include <sge/opengl/occlusion_query/holder.hpp>
@@ -26,15 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::occlusion_query::holder::holder(
-	sge::opengl::occlusion_query::context const &_context
+	sge::opengl::occlusion_query::config const &_config
 )
 :
-	context_(
-		_context
+	config_(
+		_config
 	),
 	id_(
 		sge::opengl::occlusion_query::create_id(
-			context_
+			config_
 		)
 	)
 {
@@ -43,7 +43,7 @@ sge::opengl::occlusion_query::holder::holder(
 sge::opengl::occlusion_query::holder::~holder()
 {
 	sge::opengl::occlusion_query::delete_id(
-		context_,
+		config_,
 		id_
 	);
 }

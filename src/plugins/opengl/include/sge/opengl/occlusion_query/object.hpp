@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_OCCLUSION_QUERY_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_OCCLUSION_QUERY_OBJECT_HPP_INCLUDED
 
-#include <sge/opengl/occlusion_query/context_fwd.hpp>
+#include <sge/opengl/occlusion_query/config_fwd.hpp>
 #include <sge/opengl/occlusion_query/holder.hpp>
 #include <sge/renderer/occlusion_query/blocking_wait.hpp>
 #include <sge/renderer/occlusion_query/object.hpp>
@@ -46,7 +46,7 @@ class object
 public:
 	explicit
 	object(
-		sge::opengl::occlusion_query::context const &
+		sge::opengl::occlusion_query::config const &
 	);
 
 	~object()
@@ -66,7 +66,7 @@ private:
 	) const
 	override;
 
-	sge::opengl::occlusion_query::context const &context_;
+	sge::opengl::occlusion_query::config const &config_;
 
 	sge::opengl::occlusion_query::holder const holder_;
 };
