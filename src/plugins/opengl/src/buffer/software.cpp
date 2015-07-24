@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/raw_value.hpp>
 #include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/container/find_opt.hpp>
 #include <fcppt/container/find_opt_iterator.hpp>
@@ -189,8 +190,8 @@ sge::opengl::buffer::software::buffer_sub_data(
 		);
 
 	std::copy_n(
-		static_cast<
-			renderer::const_raw_pointer
+		fcppt::cast::to_char_ptr<
+			sge::renderer::const_raw_pointer
 		>(
 			_data
 		)

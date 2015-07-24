@@ -26,6 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 
 
 sge::opengl::fbo::render_buffer::render_buffer(
@@ -45,20 +48,22 @@ sge::opengl::fbo::render_buffer::render_buffer(
 
 	context_.renderbuffer_storage()(
 		context_.renderbuffer_target(),
-		static_cast<
-			GLenum
-		>(
+		fcppt::cast::to_unsigned(
 			_internal_format.get()
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_dim.w()
+			fcppt::cast::to_signed(
+				_dim.w()
+			)
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_dim.h()
+			fcppt::cast::to_signed(
+				_dim.h()
+			)
 		)
 	);
 

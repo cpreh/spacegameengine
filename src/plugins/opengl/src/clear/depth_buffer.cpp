@@ -18,12 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/clear/depth_buffer.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/clear/depth_buffer_value.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
 
 
 void
@@ -31,8 +33,9 @@ sge::opengl::clear::depth_buffer(
 	sge::renderer::clear::depth_buffer_value const &_value
 )
 {
-	::glClearDepth(
-		static_cast<
+	sge::opengl::call(
+		::glClearDepth,
+		fcppt::cast::size<
 			GLdouble
 		>(
 			_value

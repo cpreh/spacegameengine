@@ -30,6 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/read.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/from_void_ptr.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
 sge::opengl::buffer::object::object(
@@ -81,10 +84,12 @@ sge::opengl::buffer::object::object(
 	this->bind();
 
 	base_.buffer_data(
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			new_size
+			fcppt::cast::to_signed(
+				new_size
+			)
 		),
 		_src,
 		sge::opengl::convert::resource_flags(
@@ -160,22 +165,30 @@ sge::opengl::buffer::object::lock(
 	)
 	{
 		dest_ =
-			static_cast<
+			fcppt::cast::from_void_ptr<
 				pointer
 			>(
 				base_.map_buffer_range(
 					sge::opengl::buffer::range_lock_method(
 						_lockflags
 					),
-					static_cast<
+					fcppt::cast::size<
 						GLsizei
 					>(
-						_first * this->stride()
+						fcppt::cast::to_signed(
+							_first
+							*
+							this->stride()
+						)
 					),
-					static_cast<
+					fcppt::cast::size<
 						GLsizei
 					>(
-						_count * this->stride()
+						fcppt::cast::to_signed(
+							_count
+							*
+							this->stride()
+						)
 					)
 				)
 			);
@@ -185,7 +198,7 @@ sge::opengl::buffer::object::lock(
 	else
 	{
 		dest_ =
-			static_cast<
+			fcppt::cast::from_void_ptr<
 				pointer
 			>(
 				base_.map_buffer(
@@ -248,15 +261,23 @@ sge::opengl::buffer::object::sub_data(
 	this->bind();
 
 	base_.buffer_sub_data(
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_first * stride()
+			fcppt::cast::to_signed(
+				_first
+				*
+				this->stride()
+			)
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_count * stride()
+			fcppt::cast::to_signed(
+				_count
+				*
+				this->stride()
+			)
 		),
 		_data
 	);
@@ -265,19 +286,22 @@ sge::opengl::buffer::object::sub_data(
 sge::opengl::buffer::object::size_type
 sge::opengl::buffer::object::size() const
 {
-	return size_;
+	return
+		size_;
 }
 
 sge::opengl::buffer::object::size_type
 sge::opengl::buffer::object::stride() const
 {
-	return stride_;
+	return
+		stride_;
 }
 
 sge::renderer::resource_flags_field const &
 sge::opengl::buffer::object::flags() const
 {
-	return flags_;
+	return
+		flags_;
 }
 
 sge::opengl::buffer::object::pointer
@@ -304,7 +328,7 @@ sge::opengl::buffer::object::data() const
 			const_pointer
 		>(
 			const_cast<
-				buffer::object &
+				sge::opengl::buffer::object &
 			>(
 				*this
 			).data()
@@ -314,7 +338,8 @@ sge::opengl::buffer::object::data() const
 sge::opengl::buffer::object::size_type
 sge::opengl::buffer::object::lock_size() const
 {
-	return lock_size_;
+	return
+		lock_size_;
 }
 
 void
@@ -350,14 +375,18 @@ sge::opengl::buffer::object::buffer_offset(
 	this->bind();
 
 	return
-		static_cast<
+		fcppt::cast::from_void_ptr<
 			pointer
 		>(
 			base_.buffer_offset(
-				static_cast<
+				fcppt::cast::size<
 					GLsizei
 				>(
-					_sz * this->stride()
+					fcppt::cast::to_signed(
+						_sz
+						*
+						this->stride()
+					)
 				)
 			)
 		);

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/clear/back_buffer.hpp>
@@ -40,14 +41,15 @@ sge::opengl::clear::back_buffer(
 )
 {
 	sge::image::color::rgba32f const fcolor(
-		image::color::any::convert<
+		sge::image::color::any::convert<
 			sge::image::color::rgba32f_format
 		>(
 			_value
 		)
 	);
 
-	::glClearColor(
+	sge::opengl::call(
+		::glClearColor,
 		fcolor.get(
 			mizuiro::color::channel::red()
 		),

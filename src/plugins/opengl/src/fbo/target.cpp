@@ -168,7 +168,9 @@ sge::opengl::fbo::target::color_surface(
 	);
 
 	if(
-		_index.get() == 0u
+		_index.get()
+		==
+		0u
 	)
 		height_ =
 			fcppt::optional_bind_construct(

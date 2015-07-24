@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_comparison.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
+#include <fcppt/cast/to_void_ptr.hpp>
 
 
 sge::opengl::buffer::hardware::hardware(
@@ -134,9 +135,7 @@ sge::opengl::buffer::hardware::map_buffer(
 )
 {
 	GLvoid *const ret(
-		static_cast<
-			GLvoid *
-		>(
+		fcppt::cast::to_void_ptr(
 			config_.map_buffer()(
 				type_.get(),
 				_flags

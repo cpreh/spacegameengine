@@ -24,13 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/convert/from_gl_bool.hpp>
+#include <sge/opengl/convert/to_gl_enum.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/error_string_map.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
 #include <sge/opengl/fbo/optional_config.hpp>
-#include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -79,80 +78,54 @@ sge::opengl::fbo::context::context()
 					sge::opengl::deref_fun_ptr(
 						glFramebufferRenderbuffer
 					),
-					static_cast<
-						GLenum
-					>(
+					sge::opengl::convert::to_gl_enum<
 						GL_FRAMEBUFFER
-					),
-					static_cast<
-						GLenum
-					>(
+					>(),
+					sge::opengl::convert::to_gl_enum<
 						GL_COLOR_ATTACHMENT0
-					),
-					static_cast<
-						GLenum
-					>(
+					>(),
+					sge::opengl::convert::to_gl_enum<
 						GL_FRAMEBUFFER_COMPLETE
-					),
-					static_cast<
-						GLenum
-					>(
+					>(),
+					sge::opengl::convert::to_gl_enum<
 						GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT
-					),
-					static_cast<
-						GLenum
-					>(
+					>(),
+					sge::opengl::convert::to_gl_enum<
 						GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT
-					),
-					static_cast<
-						GLenum
-					>(
+					>(),
+					sge::opengl::convert::to_gl_enum<
 						GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER
-					),
-					static_cast<
-						GLenum
-					>(
+					>(),
+					sge::opengl::convert::to_gl_enum<
 						GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER
-					),
-					static_cast<
-						GLenum
-					>(
+					>(),
+					sge::opengl::convert::to_gl_enum<
 						GL_FRAMEBUFFER_UNSUPPORTED
-					),
-					static_cast<
-						GLenum
-					>(
+					>(),
+					sge::opengl::convert::to_gl_enum<
 						GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE
-					),
-					static_cast<
-						GLenum
-					>(
+					>(),
+					sge::opengl::convert::to_gl_enum<
 						GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE
-					),
-					static_cast<
-						GLenum
-					>(
+					>(),
+					sge::opengl::convert::to_gl_enum<
 						GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS
-					),
-					static_cast<
-						GLenum
-					>(
+					>(),
+					sge::opengl::convert::to_gl_enum<
 						GL_RENDERBUFFER
-					),
-					fcppt::strong_typedef_construct_cast<
-						sge::opengl::fbo::attachment_type,
-						fcppt::cast::static_cast_fun
-					>(
-						GL_DEPTH_ATTACHMENT
-					),
-					sge::opengl::fbo::optional_attachment_type(
-						fcppt::strong_typedef_construct_cast<
-							sge::opengl::fbo::attachment_type,
-							fcppt::cast::static_cast_fun
-						>(
-							GL_DEPTH_STENCIL_ATTACHMENT
-						)
-					)
+					>(),
+					sge::opengl::fbo::attachment_type{
+						sge::opengl::convert::to_gl_enum<
+							GL_DEPTH_ATTACHMENT
+						>()
+					},
+					sge::opengl::fbo::optional_attachment_type{
+						sge::opengl::fbo::attachment_type{
+							sge::opengl::convert::to_gl_enum<
+								GL_DEPTH_STENCIL_ATTACHMENT
+							>()
+						}
+					}
 				)
 			)
 		:
@@ -192,77 +165,52 @@ sge::opengl::fbo::context::context()
 						sge::opengl::deref_fun_ptr(
 							glFramebufferRenderbufferEXT
 						),
-						static_cast<
-							GLenum
-						>(
+						sge::opengl::convert::to_gl_enum<
 							GL_FRAMEBUFFER_EXT
-						),
-						static_cast<
-							GLenum
-						>(
+						>(),
+						sge::opengl::convert::to_gl_enum<
 							GL_COLOR_ATTACHMENT0_EXT
-						),
-						static_cast<
-							GLenum
-						>(
+						>(),
+						sge::opengl::convert::to_gl_enum<
 							GL_FRAMEBUFFER_COMPLETE_EXT
-						),
-						static_cast<
-							GLenum
-						>(
+						>(),
+						sge::opengl::convert::to_gl_enum<
 							GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT
-						),
-						static_cast<
-							GLenum
-						>(
+						>(),
+						sge::opengl::convert::to_gl_enum<
 							GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT
-						),
-						static_cast<
-							GLenum
-						>(
+						>(),
+						sge::opengl::convert::to_gl_enum<
 							GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT
-						),
-						static_cast<
-							GLenum
-						>(
+						>(),
+						sge::opengl::convert::to_gl_enum<
 							GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT
-						),
-						static_cast<
-							GLenum
-						>(
+						>(),
+						sge::opengl::convert::to_gl_enum<
 							GL_FRAMEBUFFER_UNSUPPORTED_EXT
-						),
-						static_cast<
-							GLenum
-						>(
+						>(),
+						sge::opengl::convert::to_gl_enum<
 							GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT
-						),
-						static_cast<
-							GLenum
-						>(
+						>(),
+						sge::opengl::convert::to_gl_enum<
 							GL_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE_EXT
-						),
-						static_cast<
-							GLenum
-						>(
+						>(),
+						sge::opengl::convert::to_gl_enum<
 							GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS_EXT
-						),
-						static_cast<
-							GLenum
-						>(
+						>(),
+						sge::opengl::convert::to_gl_enum<
 							GL_RENDERBUFFER_EXT
-						),
-						fcppt::strong_typedef_construct_cast<
-							sge::opengl::fbo::attachment_type,
-							fcppt::cast::static_cast_fun
-						>(
-							GL_DEPTH_ATTACHMENT_EXT
-						),
-						sge::opengl::fbo::optional_attachment_type()
+						>(),
+						sge::opengl::fbo::attachment_type{
+							sge::opengl::convert::to_gl_enum<
+								GL_DEPTH_ATTACHMENT_EXT
+							>()
+						},
+						sge::opengl::fbo::optional_attachment_type{}
 					)
 				)
 			:
-				sge::opengl::fbo::optional_config()
+				sge::opengl::fbo::optional_config{}
 	)
 {
 }

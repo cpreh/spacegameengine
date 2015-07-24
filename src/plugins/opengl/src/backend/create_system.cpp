@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #elif defined(SGE_OPENGL_HAVE_X11)
 #include <sge/opengl/glx/system.hpp>
 #include <awl/backends/x11/system/object.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/opengl/wgl/system.hpp>
 #else
@@ -60,7 +61,7 @@ sge::opengl::backend::create_system(
 				sge::opengl::glx::system
 			>(
 				_system_context,
-				dynamic_cast<
+				fcppt::cast::static_downcast<
 					awl::backends::x11::system::object &
 				>(
 					_awl_system
