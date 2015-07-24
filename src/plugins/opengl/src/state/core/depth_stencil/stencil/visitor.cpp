@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/core/depth_stencil/stencil/enabled_visitor.hpp>
 #include <sge/opengl/state/core/depth_stencil/stencil/visitor.hpp>
@@ -34,6 +35,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
+
+sge::opengl::state::core::depth_stencil::stencil::visitor::visitor(
+	sge::opengl::context::system::object &_system_context
+)
+:
+	system_context_(
+		_system_context
+	)
+{
+}
 
 sge::opengl::state::core::depth_stencil::stencil::visitor::result_type
 sge::opengl::state::core::depth_stencil::stencil::visitor::operator()(
@@ -67,6 +78,7 @@ sge::opengl::state::core::depth_stencil::stencil::visitor::operator()(
 			},
 			fcppt::variant::apply_unary(
 				sge::opengl::state::core::depth_stencil::stencil::enabled_visitor(
+					system_context_,
 					_enabled.ref(),
 					_enabled.read_mask(),
 					_enabled.write_mask()

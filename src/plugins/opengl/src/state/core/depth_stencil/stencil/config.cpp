@@ -18,36 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/get_fun_ref.hpp>
-#include <sge/opengl/state/actor.hpp>
-#include <sge/opengl/state/wrap_error_handler.hpp>
-#include <sge/opengl/state/convert/fill_mode.hpp>
-#include <sge/opengl/state/core/rasterizer/fill_mode.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <sge/opengl/state/core/depth_stencil/stencil/config.hpp>
 
 
-sge::opengl::state::actor
-sge::opengl::state::core::rasterizer::fill_mode(
-	sge::renderer::state::core::rasterizer::fill_mode const _mode
+sge::opengl::state::core::depth_stencil::stencil::config::config(
+	gl_stencil_func_separate _stencil_func_separate,
+	gl_stencil_op_separate _stencil_op_separate
 )
+:
+	stencil_func_separate_(
+		_stencil_func_separate
+	),
+	stencil_op_separate_(
+		_stencil_op_separate
+	)
+{
+}
+
+sge::opengl::state::core::depth_stencil::stencil::config::gl_stencil_func_separate
+sge::opengl::state::core::depth_stencil::stencil::config::stencil_func_separate() const
 {
 	return
-		sge::opengl::state::wrap_error_handler<
-			sge::opengl::state::actor
-		>(
-			std::bind(
-				sge::opengl::get_fun_ref(
-					::glPolygonMode
-				),
-				GL_FRONT_AND_BACK,
-				sge::opengl::state::convert::fill_mode(
-					_mode
-				)
-			),
-			FCPPT_TEXT("glPolygonMode")
-		);
+		stencil_func_separate_;
+}
+
+sge::opengl::state::core::depth_stencil::stencil::config::gl_stencil_op_separate
+sge::opengl::state::core::depth_stencil::stencil::config::stencil_op_separate() const
+{
+	return
+		stencil_op_separate_;
 }

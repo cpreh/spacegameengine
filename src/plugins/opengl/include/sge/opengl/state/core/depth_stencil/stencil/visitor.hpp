@@ -21,9 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_VISITOR_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_VISITOR_HPP_INCLUDED
 
+#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/enabled_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/off_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -41,7 +43,15 @@ namespace stencil
 
 class visitor
 {
+	FCPPT_NONASSIGNABLE(
+		visitor
+	);
 public:
+	explicit
+	visitor(
+		sge::opengl::context::system::object &
+	);
+
 	typedef sge::opengl::state::actor_vector result_type;
 
 	result_type
@@ -53,6 +63,8 @@ public:
 	operator()(
 		sge::renderer::state::core::depth_stencil::stencil::enabled const &
 	) const;
+private:
+	sge::opengl::context::system::object &system_context_;
 };
 
 }

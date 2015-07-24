@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/get_fun_ref.hpp>
 #include <sge/opengl/convert/to_gl_bool.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
@@ -40,7 +41,9 @@ sge::opengl::state::core::depth_stencil::depth::write_enable(
 			sge::opengl::state::actor
 		>(
 			std::bind(
-				::glDepthMask,
+				sge::opengl::get_fun_ref(
+					::glDepthMask
+				),
 				sge::opengl::convert::to_gl_bool(
 					_write_enable.get()
 				)

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/actor.hpp>
+#include <sge/opengl/state/core/depth_stencil/stencil/config_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/depth_fail_op.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/fail_op.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/pass_op.hpp>
@@ -43,6 +44,7 @@ namespace stencil
 
 sge::opengl::state::actor
 op_separate(
+	sge::opengl::state::core::depth_stencil::stencil::config const &,
 	GLenum side,
 	sge::renderer::state::core::depth_stencil::stencil::fail_op,
 	sge::renderer::state::core::depth_stencil::stencil::depth_fail_op,

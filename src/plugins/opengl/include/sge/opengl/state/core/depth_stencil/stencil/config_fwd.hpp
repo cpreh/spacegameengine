@@ -18,15 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_FUNC_SEPARATE_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_FUNC_SEPARATE_HPP_INCLUDED
-
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/state/actor.hpp>
-#include <sge/opengl/state/core/depth_stencil/stencil/config_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/func_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/read_mask.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
+#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_CONFIG_FWD_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_CONFIG_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -42,14 +35,7 @@ namespace depth_stencil
 namespace stencil
 {
 
-sge::opengl::state::actor
-func_separate(
-	sge::opengl::state::core::depth_stencil::stencil::config const &,
-	GLenum side,
-	sge::renderer::state::core::depth_stencil::stencil::func,
-	sge::renderer::state::core::depth_stencil::stencil::ref,
-	sge::renderer::state::core::depth_stencil::stencil::read_mask
-);
+class config;
 
 }
 }

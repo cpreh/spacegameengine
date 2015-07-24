@@ -18,36 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/get_fun_ref.hpp>
-#include <sge/opengl/state/actor.hpp>
-#include <sge/opengl/state/wrap_error_handler.hpp>
-#include <sge/opengl/state/convert/fill_mode.hpp>
-#include <sge/opengl/state/core/rasterizer/fill_mode.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_OPTIONAL_CONFIG_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_OPTIONAL_CONFIG_HPP_INCLUDED
+
+#include <sge/opengl/state/core/depth_stencil/stencil/config.hpp>
+#include <sge/opengl/state/core/depth_stencil/stencil/optional_config_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
-sge::opengl::state::actor
-sge::opengl::state::core::rasterizer::fill_mode(
-	sge::renderer::state::core::rasterizer::fill_mode const _mode
-)
-{
-	return
-		sge::opengl::state::wrap_error_handler<
-			sge::opengl::state::actor
-		>(
-			std::bind(
-				sge::opengl::get_fun_ref(
-					::glPolygonMode
-				),
-				GL_FRONT_AND_BACK,
-				sge::opengl::state::convert::fill_mode(
-					_mode
-				)
-			),
-			FCPPT_TEXT("glPolygonMode")
-		);
-}
+#endif

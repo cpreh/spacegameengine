@@ -41,7 +41,9 @@ sge::opengl::state::core::depth_stencil::make_actors(
 				_parameters.depth_variant()
 			),
 			fcppt::variant::apply_unary(
-				sge::opengl::state::core::depth_stencil::stencil::visitor(),
+				sge::opengl::state::core::depth_stencil::stencil::visitor(
+					_system_context
+				),
 				_parameters.stencil_variant()
 			)
 		);

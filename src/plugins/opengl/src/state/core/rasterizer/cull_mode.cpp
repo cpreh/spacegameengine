@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
+#include <sge/opengl/get_fun_ref.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
@@ -59,7 +60,9 @@ sge::opengl::state::core::rasterizer::cull_mode(
 					sge::opengl::state::actor
 				>(
 					std::bind(
-						::glCullFace,
+						sge::opengl::get_fun_ref(
+							::glCullFace
+						),
 						sge::opengl::state::convert::cull_mode(
 							_mode
 						)

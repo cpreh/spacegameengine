@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/convert/stencil_func.hpp>
+#include <sge/opengl/state/core/depth_stencil/stencil/config.hpp>
 #include <sge/opengl/state/core/depth_stencil/stencil/func_separate.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/func.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/read_mask.hpp>
@@ -34,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::state::actor
 sge::opengl::state::core::depth_stencil::stencil::func_separate(
+	sge::opengl::state::core::depth_stencil::stencil::config const &_config,
 	GLenum const _side,
 	sge::renderer::state::core::depth_stencil::stencil::func const _func,
 	sge::renderer::state::core::depth_stencil::stencil::ref const _ref,
@@ -45,16 +47,12 @@ sge::opengl::state::core::depth_stencil::stencil::func_separate(
 			sge::opengl::state::actor
 		>(
 			std::bind(
-				::glStencilFuncSeparate,
+				_config.stencil_func_separate(),
 				_side,
 				sge::opengl::state::convert::stencil_func(
 					_func
 				),
-				static_cast<
-					GLint
-				>(
-					_ref.get()
-				),
+				_ref.get(),
 				_read_mask.get()
 			),
 			FCPPT_TEXT("glStencilFuncSeparate")

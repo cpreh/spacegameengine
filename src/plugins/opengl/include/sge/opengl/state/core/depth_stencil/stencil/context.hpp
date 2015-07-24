@@ -18,15 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_FUNC_SEPARATE_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_FUNC_SEPARATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/state/actor.hpp>
-#include <sge/opengl/state/core/depth_stencil/stencil/config_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/func_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/read_mask.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
+#include <sge/opengl/context/system/base.hpp>
+#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/state/core/depth_stencil/stencil/context_fwd.hpp>
+#include <sge/opengl/state/core/depth_stencil/stencil/optional_config.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -42,14 +41,29 @@ namespace depth_stencil
 namespace stencil
 {
 
-sge::opengl::state::actor
-func_separate(
-	sge::opengl::state::core::depth_stencil::stencil::config const &,
-	GLenum side,
-	sge::renderer::state::core::depth_stencil::stencil::func,
-	sge::renderer::state::core::depth_stencil::stencil::ref,
-	sge::renderer::state::core::depth_stencil::stencil::read_mask
-);
+class context
+:
+	public sge::opengl::context::system::base
+{
+	FCPPT_NONCOPYABLE(
+		context
+	);
+public:
+	context();
+
+	~context()
+	override;
+
+	sge::opengl::state::core::depth_stencil::stencil::optional_config const &
+	config() const;
+
+	typedef void parameter;
+
+	static sge::opengl::context::system::id const static_id;
+private:
+	sge::opengl::state::core::depth_stencil::stencil::optional_config config_;
+};
+
 
 }
 }

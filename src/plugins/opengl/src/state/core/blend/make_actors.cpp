@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/get_fun_ref.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
@@ -53,7 +54,9 @@ sge::opengl::state::core::blend::make_actors(
 					sge::opengl::state::actor
 				>(
 					std::bind(
-						::glColorMask,
+						sge::opengl::get_fun_ref(
+							::glColorMask
+						),
 						_parameters.write_mask().write_red().get(),
 						_parameters.write_mask().write_green().get(),
 						_parameters.write_mask().write_blue().get(),

@@ -275,9 +275,15 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/set.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/config.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/config_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/context.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/enabled_visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/func_separate.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/op_separate.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/optional_config.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/optional_config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/write_mask.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/rasterizer/create.hpp
@@ -790,6 +796,8 @@ set(
 	src/plugins/opengl/src/state/core/depth_stencil/make_actors.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/object.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/set.cpp
+	src/plugins/opengl/src/state/core/depth_stencil/stencil/config.cpp
+	src/plugins/opengl/src/state/core/depth_stencil/stencil/context.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/stencil/enabled_visitor.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/stencil/func_separate.cpp
 	src/plugins/opengl/src/state/core/depth_stencil/stencil/op_separate.cpp
