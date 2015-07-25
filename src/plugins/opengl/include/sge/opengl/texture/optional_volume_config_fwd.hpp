@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_CONVERT_CUBE_SIDE_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_CONVERT_CUBE_SIDE_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_OPTIONAL_VOLUME_CONFIG_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_OPTIONAL_VOLUME_CONFIG_FWD_HPP_INCLUDED
 
-#include <sge/opengl/texture/cube_side_array.hpp>
-#include <sge/opengl/texture/type.hpp>
-#include <sge/renderer/texture/cube_side_fwd.hpp>
+#include <sge/opengl/texture/volume_config_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
@@ -32,16 +31,13 @@ namespace opengl
 {
 namespace texture
 {
-namespace convert
-{
 
-sge::opengl::texture::buffer_type const
-cube_side(
-	sge::opengl::texture::cube_side_array const &,
-	sge::renderer::texture::cube_side
-);
+typedef
+fcppt::optional<
+	sge::opengl::texture::volume_config
+>
+optional_volume_config;
 
-}
 }
 }
 }

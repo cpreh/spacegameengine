@@ -43,17 +43,21 @@ struct buffer_volume_types
 
 	static fcppt::math::size_type const num_dims = 3;
 
-	typedef sge::opengl::texture::init_function<
+	typedef
+	sge::opengl::texture::init_function<
 		num_dims
-	>::type init_function_type;
+	>
+	init_function_type;
 
 	static
 	init_function_type
 	init_function();
 
-	typedef sge::opengl::texture::sub_function<
+	typedef
+	sge::opengl::texture::sub_function<
 		num_dims
-	>::type sub_function_type;
+	>
+	sub_function_type;
 
 	static
 	sub_function_type

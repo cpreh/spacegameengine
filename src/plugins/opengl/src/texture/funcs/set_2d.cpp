@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
@@ -32,6 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/creation_failed.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
+#include <fcppt/cast/to_void_ptr.hpp>
 #include <fcppt/math/dim/output.hpp>
 
 
@@ -48,28 +52,33 @@ sge::opengl::texture::funcs::set_2d(
 	sge::renderer::const_raw_pointer const _src
 )
 {
-	::glTexImage2D(
+	sge::opengl::call(
+		::glTexImage2D,
 		_buffer_type.get(),
-		static_cast<
-			GLint
-		>(
+		fcppt::cast::to_signed(
 			_level.get()
 		),
 		_internal_format.get(),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_dim.w()
+			fcppt::cast::to_signed(
+				_dim.w()
+			)
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_dim.h()
+			fcppt::cast::to_signed(
+				_dim.h()
+			)
 		),
 		0,
 		_format.get(),
 		_format_type.get(),
-		_src
+		fcppt::cast::to_void_ptr(
+			_src
+		)
 	);
 
 	SGE_OPENGL_CHECK_STATE(

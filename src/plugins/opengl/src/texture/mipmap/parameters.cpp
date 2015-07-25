@@ -41,7 +41,7 @@ sge::opengl::texture::mipmap::parameters<
 	sge::opengl::color_format_type const _format_type,
 	sge::opengl::internal_color_format const _internal_format,
 	dim const &_size,
-	init_function_type const &_init_function
+	init_function_type _init_function
 )
 :
 	binding_(
@@ -79,7 +79,8 @@ sge::opengl::texture::mipmap::parameters<
 	Dim
 >::binding() const
 {
-	return binding_;
+	return
+		binding_;
 }
 
 template<
@@ -90,7 +91,8 @@ sge::opengl::texture::mipmap::parameters<
 	Dim
 >::system_context() const
 {
-	return system_context_;
+	return
+		system_context_;
 }
 
 template<
@@ -101,7 +103,8 @@ sge::opengl::texture::mipmap::parameters<
 	Dim
 >::buffer_type() const
 {
-	return buffer_type_;
+	return
+		buffer_type_;
 }
 
 template<
@@ -112,7 +115,8 @@ sge::opengl::texture::mipmap::parameters<
 	Dim
 >::format() const
 {
-	return format_;
+	return
+		format_;
 }
 
 template<
@@ -123,7 +127,8 @@ sge::opengl::texture::mipmap::parameters<
 	Dim
 >::format_type() const
 {
-	return format_type_;
+	return
+		format_type_;
 }
 
 template<
@@ -134,7 +139,8 @@ sge::opengl::texture::mipmap::parameters<
 	Dim
 >::internal_format() const
 {
-	return internal_format_;
+	return
+		internal_format_;
 }
 
 template<
@@ -147,7 +153,8 @@ sge::opengl::texture::mipmap::parameters<
 	Dim
 >::size() const
 {
-	return size_;
+	return
+		size_;
 }
 
 template<
@@ -155,12 +162,13 @@ template<
 >
 typename sge::opengl::texture::mipmap::parameters<
 	Dim
->::init_function_type const &
+>::init_function_type
 sge::opengl::texture::mipmap::parameters<
 	Dim
 >::init_function() const
 {
-	return init_function_;
+	return
+		init_function_;
 }
 
 #define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_PARAMETERS(\

@@ -34,6 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/creation_failed.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/math/dim/output.hpp>
 
 
@@ -50,32 +53,39 @@ sge::opengl::texture::funcs::set_3d(
 	sge::renderer::const_raw_pointer const _src
 )
 {
-	sge::opengl::context::use<
-		sge::opengl::texture::volume_context
-	>(
-		_system_context
+	// TODO: Pass the config into this function
+	FCPPT_ASSERT_OPTIONAL_ERROR(
+		sge::opengl::context::use<
+			sge::opengl::texture::volume_context
+		>(
+			_system_context
+		).config()
 	).tex_image_3d()(
 		_buffer_type.get(),
-		static_cast<
-			GLint
-		>(
+		fcppt::cast::to_signed(
 			_level.get()
 		),
 		_internal_format.get(),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_dim.w()
+			fcppt::cast::to_signed(
+				_dim.w()
+			)
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_dim.h()
+			fcppt::cast::to_signed(
+				_dim.h()
+			)
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_dim.d()
+			fcppt::cast::to_signed(
+				_dim.d()
+			)
 		),
 		0,
 		_format.get(),

@@ -37,6 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 
@@ -89,46 +92,59 @@ sge::opengl::texture::funcs::set_box(
 			.str()
 		);
 
-	sge::opengl::context::use<
-		sge::opengl::texture::volume_context
-	>(
-		_system_context
+	// TODO: Pass the config into this function
+	FCPPT_ASSERT_OPTIONAL_ERROR(
+		sge::opengl::context::use<
+			sge::opengl::texture::volume_context
+		>(
+			_system_context
+		).config()
 	).tex_sub_image_3d()(
 		_buffer_type.get(),
-		static_cast<
-			GLint
-		>(
+		fcppt::cast::to_signed(
 			_level.get()
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLint
 		>(
-			_lock_box.left()
+			fcppt::cast::to_signed(
+				_lock_box.left()
+			)
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLint
 		>(
-			_lock_box.top()
+			fcppt::cast::to_signed(
+				_lock_box.top()
+			)
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLint
 		>(
-			_lock_box.front()
+			fcppt::cast::to_signed(
+				_lock_box.front()
+			)
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_lock_box.w()
+			fcppt::cast::to_signed(
+				_lock_box.w()
+			)
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_lock_box.h()
+			fcppt::cast::to_signed(
+				_lock_box.h()
+			)
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_lock_box.d()
+			fcppt::cast::to_signed(
+				_lock_box.d()
+			)
 		),
 		_format.get(),
 		_format_type.get(),

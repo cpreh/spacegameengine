@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/basic_dim.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
-#include <fcppt/no_init.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/math/dim/init.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
@@ -116,35 +116,43 @@ reduce_dim(
 	> const &_size
 )
 {
-	typedef sge::renderer::basic_dim<
+	typedef
+	sge::renderer::basic_dim<
 		Size
-	> dim;
+	>
+	dim;
 
-	dim ret{
-		fcppt::no_init()
-	};
-
-	for(
-		typename dim::size_type index(
-			0u
+	return
+		fcppt::math::dim::init<
+			dim
+		>(
+			[
+				&_size
+			](
+				typename dim::size_type const _index
+			)
+			{
+				return
+					std::max(
+						_size[
+							_index
+						]
+						/
+						fcppt::literal<
+							typename
+							dim::value_type
+						>(
+							2
+						),
+						fcppt::literal<
+							typename
+							dim::value_type
+						>(
+							1u
+						)
+					);
+			}
 		);
-		index < _size.size();
-		++index
-	)
-		ret[
-			index
-		]
-			=
-			std::max(
-				_size[index] / 2,
-				static_cast<
-					typename dim::value_type
-				>(
-					1u
-				)
-			);
-
-	return ret;
 }
 
 }

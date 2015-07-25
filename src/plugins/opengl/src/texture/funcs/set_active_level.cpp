@@ -55,7 +55,9 @@ sge::opengl::texture::funcs::set_active_level(
 	)
 	{
 		if(
-			_stage.get() == 0
+			_stage.get()
+			==
+			0u
 		)
 			return;
 

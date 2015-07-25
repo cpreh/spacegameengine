@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 GLenum
 sge::opengl::texture::convert::level(
-	renderer::texture::stage const _stage
+	sge::renderer::texture::stage const _stage
 )
 {
 	return

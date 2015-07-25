@@ -19,10 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/deref_fun_ptr.hpp>
 #include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
+#include <sge/opengl/convert/to_gl_enum.hpp>
 #include <sge/opengl/texture/mipmap/context.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -39,11 +41,9 @@ sge::opengl::texture::mipmap::context::context()
 		GLEW_VERSION_1_4
 		?
 			sge::opengl::optional_enum(
-				static_cast<
-					GLenum
-				>(
+				sge::opengl::convert::to_gl_enum<
 					GL_GENERATE_MIPMAP
-				)
+				>()
 			)
 		:
 			sge::opengl::optional_enum()
@@ -51,9 +51,23 @@ sge::opengl::texture::mipmap::context::context()
 	generate_mipmap_(
 		GLEW_VERSION_3_0
 		?
-			glGenerateMipmap
+			optional_gl_generate_mipmap(
+				sge::opengl::deref_fun_ptr(
+					glGenerateMipmap
+				)
+			)
 		:
 			glGenerateMipmapEXT
+			!=
+			nullptr
+			?
+				optional_gl_generate_mipmap(
+					sge::opengl::deref_fun_ptr(
+						glGenerateMipmapEXT
+					)
+				)
+			:
+				optional_gl_generate_mipmap()
 	)
 {
 }
@@ -67,13 +81,15 @@ sge::opengl::texture::mipmap::context::~context()
 sge::opengl::optional_enum const
 sge::opengl::texture::mipmap::context::generate_mipmap_flag() const
 {
-	return generate_mipmap_flag_;
+	return
+		generate_mipmap_flag_;
 }
 
-sge::opengl::texture::mipmap::context::gl_generate_mipmap
+sge::opengl::texture::mipmap::context::optional_gl_generate_mipmap const &
 sge::opengl::texture::mipmap::context::generate_mipmap() const
 {
-	return generate_mipmap_;
+	return
+		generate_mipmap_;
 }
 
 sge::opengl::context::system::id const

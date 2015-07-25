@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_MIPMAP_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_MIPMAP_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_VOLUME_CONFIG_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_VOLUME_CONFIG_HPP_INCLUDED
 
+#include <sge/opengl/common.hpp>
 #include <sge/opengl/fun_ref.hpp>
-#include <sge/opengl/optional_enum.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/volume_config_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -34,52 +34,53 @@ namespace opengl
 {
 namespace texture
 {
-namespace mipmap
-{
 
-class context
-:
-	public sge::opengl::context::system::base
+class volume_config
 {
-	FCPPT_NONCOPYABLE(
-		context
+	FCPPT_NONASSIGNABLE(
+		volume_config
 	);
 public:
-	context();
-
-	~context()
-	override;
-
-	sge::opengl::optional_enum const
-	generate_mipmap_flag() const;
+	typedef
+	sge::opengl::fun_ref<
+		PFNGLTEXIMAGE3DPROC
+	>
+	gl_tex_image_3d;
 
 	typedef
 	sge::opengl::fun_ref<
-		PFNGLGENERATEMIPMAPPROC
+		PFNGLTEXSUBIMAGE3DPROC
 	>
-	gl_generate_mipmap;
+	gl_tex_sub_image_3d;
 
-	typedef
-	fcppt::optional<
-		gl_generate_mipmap
-	>
-	optional_gl_generate_mipmap;
+	volume_config(
+		sge::opengl::texture::type,
+		gl_tex_image_3d,
+		gl_tex_sub_image_3d,
+		GLenum max_extent_flag
+	);
 
-	optional_gl_generate_mipmap const &
-	generate_mipmap() const;
+	sge::opengl::texture::type const
+	volume_texture_type() const;
 
-	typedef void parameter;
+	gl_tex_image_3d
+	tex_image_3d() const;
 
-	static
-	sge::opengl::context::system::id const
-	static_id;
+	gl_tex_sub_image_3d
+	tex_sub_image_3d() const;
+
+	GLenum
+	max_extent_flag() const;
 private:
-	sge::opengl::optional_enum const generate_mipmap_flag_;
+	sge::opengl::texture::type const volume_texture_type_;
 
-	optional_gl_generate_mipmap const generate_mipmap_;
+	gl_tex_image_3d tex_image_3d_;
+
+	gl_tex_sub_image_3d tex_sub_image_3d_;
+
+	GLenum const max_extent_flag_;
 };
 
-}
 }
 }
 }

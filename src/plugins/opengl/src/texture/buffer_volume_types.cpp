@@ -35,12 +35,12 @@ sge::opengl::texture::buffer_volume_types::init_function_type
 sge::opengl::texture::buffer_volume_types::init_function()
 {
 	return
-		&sge::opengl::texture::funcs::set_3d;
+		sge::opengl::texture::funcs::set_3d;
 }
 
 sge::opengl::texture::buffer_volume_types::sub_function_type
 sge::opengl::texture::buffer_volume_types::sub_function()
 {
 	return
-		&sge::opengl::texture::funcs::set_box;
+		sge::opengl::texture::funcs::set_box;
 }

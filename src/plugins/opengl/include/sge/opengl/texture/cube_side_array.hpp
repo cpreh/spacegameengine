@@ -21,35 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_CUBE_SIDE_ARRAY_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_CUBE_SIDE_ARRAY_HPP_INCLUDED
 
-#include <sge/opengl/texture/buffer_type.hpp>
-#include <sge/renderer/texture/cube_side.hpp>
-#include <fcppt/enum_size.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <array>
-#include <cstddef>
-#include <fcppt/config/external_end.hpp>
+#include <sge/opengl/texture/cube_side_array_fwd.hpp>
+#include <fcppt/container/enum_array_impl.hpp>
 
-
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-
-typedef std::array<
-	sge::opengl::texture::buffer_type,
-	static_cast<
-		std::size_t
-	>(
-		fcppt::enum_size<
-			sge::renderer::texture::cube_side
-		>::value
-	)
-> cube_side_array;
-
-}
-}
-}
 
 #endif

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/mipmap/context.hpp>
 #include <sge/opengl/texture/mipmap/generate.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -35,26 +36,21 @@ sge::opengl::texture::mipmap::generate(
 	sge::opengl::texture::type const _type
 )
 {
-	sge::opengl::texture::mipmap::context::gl_generate_mipmap const function(
+	fcppt::optional_to_exception(
 		sge::opengl::context::use<
 			sge::opengl::texture::mipmap::context
 		>(
 			_system_context
-		).generate_mipmap()
-	);
-
-	if(
-		function
-		==
-		nullptr
-	)
-		throw sge::renderer::unsupported(
-			FCPPT_TEXT("GenerateMipmaps"),
-			FCPPT_TEXT("GL_VERSION_3_0"),
-			FCPPT_TEXT("glGenerateMipmapsEXT")
-		);
-
-	function(
+		).generate_mipmap(),
+		[]{
+			return
+				sge::renderer::unsupported(
+					FCPPT_TEXT("GenerateMipmaps"),
+					FCPPT_TEXT("GL_VERSION_3_0"),
+					FCPPT_TEXT("glGenerateMipmapsEXT")
+				);
+		}
+	)(
 		_type.get()
 	);
 }

@@ -21,11 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_VOLUME_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_VOLUME_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/texture/optional_type.hpp>
+#include <sge/opengl/texture/optional_volume_config.hpp>
 #include <sge/opengl/texture/volume_context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -50,38 +48,14 @@ public:
 	~volume_context()
 	override;
 
-	bool
-	have_volume_texture() const;
-
-	typedef PFNGLTEXIMAGE3DPROC gl_tex_image_3d;
-
-	typedef PFNGLTEXSUBIMAGE3DPROC gl_tex_sub_image_3d;
-
-	sge::opengl::texture::optional_type const
-	volume_texture_type() const;
-
-	gl_tex_image_3d
-	tex_image_3d() const;
-
-	gl_tex_sub_image_3d
-	tex_sub_image_3d() const;
-
-	sge::opengl::optional_enum const
-	max_extent_flag() const;
+	sge::opengl::texture::optional_volume_config const &
+	config() const;
 
 	typedef void parameter;
 
 	static sge::opengl::context::system::id const static_id;
 private:
-	bool const volume_texture_normal_;
-
-	sge::opengl::texture::optional_type const volume_texture_type_;
-
-	gl_tex_image_3d const tex_image_3d_;
-
-	gl_tex_sub_image_3d const tex_sub_image_3d_;
-
-	sge::opengl::optional_enum const max_extent_flag_;
+	sge::opengl::texture::optional_volume_config const config_;
 };
 
 }

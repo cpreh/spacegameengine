@@ -18,28 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/basic_parameters_fwd.hpp>
-#include <sge/opengl/texture/volume.hpp>
+#ifndef SGE_OPENGL_TEXTURE_OPTIONAL_VOLUME_CONFIG_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_OPTIONAL_VOLUME_CONFIG_HPP_INCLUDED
+
+#include <sge/opengl/texture/optional_volume_config_fwd.hpp>
 #include <sge/opengl/texture/volume_config.hpp>
-#include <sge/opengl/texture/volume_types.hpp>
-#include <sge/renderer/texture/volume.hpp>
-#include <sge/renderer/texture/volume_parameters_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
-sge::opengl::texture::volume::volume(
-	sge::opengl::texture::volume_config const &_config,
-	sge::opengl::texture::basic_parameters const &_basic_parameters,
-	sge::renderer::texture::volume_parameters const &_parameters
-)
-:
-	sge::opengl::texture::volume_basic(
-		_basic_parameters,
-		_config.volume_texture_type(),
-		_parameters
-	)
-{
-}
-
-sge::opengl::texture::volume::~volume()
-{
-}
+#endif

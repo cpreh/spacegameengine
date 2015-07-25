@@ -53,9 +53,11 @@ public:
 		Dim
 	> dim;
 
-	typedef typename sge::opengl::texture::init_function<
+	typedef
+	sge::opengl::texture::init_function<
 		Dim
-	>::type init_function_type;
+	>
+	init_function_type;
 
 	parameters(
 		sge::opengl::texture::binding const &,
@@ -65,7 +67,7 @@ public:
 		sge::opengl::color_format_type,
 		sge::opengl::internal_color_format,
 		dim const &,
-		init_function_type const &
+		init_function_type
 	);
 
 	sge::opengl::texture::binding const &
@@ -89,7 +91,7 @@ public:
 	dim const &
 	size() const;
 
-	init_function_type const &
+	init_function_type
 	init_function() const;
 private:
 	sge::opengl::texture::binding const &binding_;
@@ -106,7 +108,7 @@ private:
 
 	dim const size_;
 
-	init_function_type const init_function_;
+	init_function_type init_function_;
 };
 
 }

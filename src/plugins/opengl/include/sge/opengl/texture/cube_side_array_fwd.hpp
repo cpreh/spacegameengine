@@ -18,33 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_OPENGL_TEXTURE_CUBE_SIDE_ARRAY_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_CUBE_SIDE_ARRAY_FWD_HPP_INCLUDED
+
 #include <sge/opengl/texture/buffer_type.hpp>
-#include <sge/opengl/texture/cube_side_array.hpp>
-#include <sge/opengl/texture/convert/cube_side.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/container/enum_array_fwd.hpp>
 
 
-sge::opengl::texture::buffer_type const
-sge::opengl::texture::convert::cube_side(
-	sge::opengl::texture::cube_side_array const &_cube_sides,
-	sge::renderer::texture::cube_side const _side
-)
+namespace sge
 {
-	sge::opengl::texture::cube_side_array::size_type const pos(
-		static_cast<
-			sge::opengl::texture::cube_side_array::size_type
-		>(
-			_side
-		)
-	);
+namespace opengl
+{
+namespace texture
+{
 
-	FCPPT_ASSERT_PRE(
-		pos < _cube_sides.size()
-	);
+typedef
+fcppt::container::enum_array<
+	sge::renderer::texture::cube_side,
+	sge::opengl::texture::buffer_type
+>
+cube_side_array;
 
-	return
-		_cube_sides[
-			pos
-		];
 }
+}
+}
+
+#endif

@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/texture/id.hpp>
@@ -31,7 +32,8 @@ sge::opengl::texture::funcs::gen()
 {
 	GLuint ret;
 
-	::glGenTextures(
+	sge::opengl::call(
+		::glGenTextures,
 		1,
 		&ret
 	);
@@ -42,7 +44,7 @@ sge::opengl::texture::funcs::gen()
 	)
 
 	return
-		texture::id(
+		sge::opengl::texture::id(
 			ret
 		);
 }

@@ -43,27 +43,25 @@ namespace texture
 template<
 	fcppt::math::size_type Size
 >
-struct sub_function
-{
-	typedef
-	void
-	(*type)
-	(
-		sge::opengl::texture::binding const &,
-		sge::opengl::context::system::object &,
-		sge::opengl::texture::buffer_type,
-		sge::opengl::color_format,
-		sge::opengl::color_format_type,
-		sge::renderer::texture::mipmap::level,
-		sge::renderer::basic_dim<
-			Size
-		> const &,
-		sge::renderer::basic_lock_box<
-			Size
-		> const &,
-		sge::renderer::const_raw_pointer
-	);
-};
+using sub_function
+=
+void
+(&)
+(
+	sge::opengl::texture::binding const &,
+	sge::opengl::context::system::object &,
+	sge::opengl::texture::buffer_type,
+	sge::opengl::color_format,
+	sge::opengl::color_format_type,
+	sge::renderer::texture::mipmap::level,
+	sge::renderer::basic_dim<
+		Size
+	> const &,
+	sge::renderer::basic_lock_box<
+		Size
+	> const &,
+	sge::renderer::const_raw_pointer
+);
 
 }
 }

@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
@@ -29,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/to_signed.hpp>
+#include <fcppt/cast/to_void_ptr.hpp>
 
 
 void
@@ -41,16 +44,17 @@ sge::opengl::texture::funcs::get_image(
 	sge::renderer::texture::mipmap::level const _level
 )
 {
-	::glGetTexImage(
+	sge::opengl::call(
+		::glGetTexImage,
 		_buffer_type.get(),
-		static_cast<
-			GLint
-		>(
+		fcppt::cast::to_signed(
 			_level.get()
 		),
 		_format.get(),
 		_format_type.get(),
-		_dest
+		fcppt::cast::to_void_ptr(
+			_dest
+		)
 	);
 
 	SGE_OPENGL_CHECK_STATE(

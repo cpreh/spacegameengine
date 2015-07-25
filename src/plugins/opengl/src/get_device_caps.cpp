@@ -33,6 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/sampler/filter/optional_anisotropy_config.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/opengl/texture/npot_context.hpp>
+#include <sge/opengl/texture/optional_volume_config.hpp>
+#include <sge/opengl/texture/volume_config.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -89,12 +91,12 @@ sge::opengl::get_device_caps(
 		)
 	);
 
-	sge::opengl::texture::volume_context const &volume_texture_context(
+	sge::opengl::texture::optional_volume_config const &volume_texture_config(
 		sge::opengl::context::use<
 			sge::opengl::texture::volume_context
 		>(
 			_context
-		)
+		).config()
 	);
 
 	sge::renderer::caps::render_target_supported const render_target_supported(
@@ -116,8 +118,10 @@ sge::opengl::get_device_caps(
 				sge::opengl::get_string(
 					GL_RENDERER
 				)
-				+ FCPPT_TEXT(' ')
-				+ sge::opengl::get_string(
+				+
+				FCPPT_TEXT(' ')
+				+
+				sge::opengl::get_string(
 					GL_VERSION
 				)
 			),
@@ -142,17 +146,17 @@ sge::opengl::get_device_caps(
 			sge::renderer::caps::max_volume_texture_extent(
 				fcppt::cast::to_unsigned(
 					fcppt::maybe(
-						volume_texture_context.max_extent_flag(),
+						volume_texture_config,
 						fcppt::const_(
 							0
 						),
 						[](
-							GLenum const _flag
+							sge::opengl::texture::volume_config const &_config
 						)
 						{
 							return
 								sge::opengl::get_int(
-									_flag
+									_config.max_extent_flag()
 								);
 						}
 					)

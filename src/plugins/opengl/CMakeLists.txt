@@ -473,7 +473,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/color_volume_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/const_optional_base_ref.hpp
 	src/plugins/opengl/include/sge/opengl/texture/const_optional_base_ref_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/texture/convert/cube_side.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/level.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/make_buffer_type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/convert/make_type.hpp
@@ -492,6 +491,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/cube_context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube_side_array.hpp
+	src/plugins/opengl/include/sge/opengl/texture/cube_side_array_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube_types.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube_types_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/depth_stencil.hpp
@@ -557,6 +557,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/optional_id_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_type_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/texture/optional_volume_config.hpp
+	src/plugins/opengl/include/sge/opengl/texture/optional_volume_config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/planar.hpp
 	src/plugins/opengl/include/sge/opengl/texture/planar_basic.hpp
 	src/plugins/opengl/include/sge/opengl/texture/planar_fwd.hpp
@@ -573,6 +575,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/volume.hpp
 	src/plugins/opengl/include/sge/opengl/texture/volume_basic.hpp
+	src/plugins/opengl/include/sge/opengl/texture/volume_config.hpp
+	src/plugins/opengl/include/sge/opengl/texture/volume_config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/volume_context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/volume_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/volume_types.hpp
@@ -923,7 +927,6 @@ set(
 	src/plugins/opengl/src/texture/color_format_types.cpp
 	src/plugins/opengl/src/texture/color_surface.cpp
 	src/plugins/opengl/src/texture/color_volume.cpp
-	src/plugins/opengl/src/texture/convert/cube_side.cpp
 	src/plugins/opengl/src/texture/convert/level.cpp
 	src/plugins/opengl/src/texture/convert/make_buffer_type.cpp
 	src/plugins/opengl/src/texture/convert/make_type.cpp
@@ -985,6 +988,7 @@ set(
 	src/plugins/opengl/src/texture/set_samplers.cpp
 	src/plugins/opengl/src/texture/volume.cpp
 	src/plugins/opengl/src/texture/volume_basic.cpp
+	src/plugins/opengl/src/texture/volume_config.cpp
 	src/plugins/opengl/src/texture/volume_context.cpp
 	src/plugins/opengl/src/texture/volume_types.cpp
 	src/plugins/opengl/src/texture/writeonly_lock.cpp

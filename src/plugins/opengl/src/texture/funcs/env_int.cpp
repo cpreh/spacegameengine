@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/texture/active_level_fwd.hpp>
@@ -37,7 +38,8 @@ sge::opengl::texture::funcs::env_int(
 	sge::opengl::texture::funcs::env_int_value const _value
 )
 {
-	::glTexEnvi(
+	sge::opengl::call(
+		::glTexEnvi,
 		_target.get(),
 		_arg.get(),
 		_value.get()

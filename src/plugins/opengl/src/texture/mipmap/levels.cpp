@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/mipmap/parameters.hpp>
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
 #include <sge/renderer/texture/mipmap/levels_rep.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/math/size_type.hpp>
 
 
@@ -50,9 +51,7 @@ sge::opengl::texture::mipmap::levels(
 		sge::opengl::texture::funcs::parameter_int(
 			_parameters.binding(),
 			GL_TEXTURE_MAX_LEVEL,
-			static_cast<
-				GLint
-			>(
+			fcppt::cast::to_signed(
 				_rep.value().get()
 			)
 		);

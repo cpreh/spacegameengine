@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/cube_types.hpp>
 #include <sge/opengl/texture/init.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
-#include <sge/opengl/texture/convert/cube_side.hpp>
 #include <sge/renderer/color_buffer/surface.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
@@ -85,10 +84,9 @@ sge::opengl::texture::cube::cube(
 			_basic_parameters,
 			_parameters,
 			_config.cube_texture_type(),
-			sge::opengl::texture::convert::cube_side(
-				_config.cube_sides(),
+			_config.cube_sides()[
 				index
-			),
+			],
 			this->id()
 		);
 }

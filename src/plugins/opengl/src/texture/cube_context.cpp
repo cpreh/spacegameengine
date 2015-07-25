@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::opengl::texture::cube_side_array const normal_sides{{
+sge::opengl::texture::cube_side_array const normal_sides{{{
 	sge::opengl::texture::convert::make_buffer_type(
 		GL_TEXTURE_CUBE_MAP_POSITIVE_Z
 	),
@@ -56,9 +56,9 @@ sge::opengl::texture::cube_side_array const normal_sides{{
 	sge::opengl::texture::convert::make_buffer_type(
 		GL_TEXTURE_CUBE_MAP_NEGATIVE_Y
 	)
-}};
+}}};
 
-sge::opengl::texture::cube_side_array const arb_sides{{
+sge::opengl::texture::cube_side_array const arb_sides{{{
 	sge::opengl::texture::convert::make_buffer_type(
 		GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB
 	),
@@ -77,7 +77,7 @@ sge::opengl::texture::cube_side_array const arb_sides{{
 	sge::opengl::texture::convert::make_buffer_type(
 		GL_TEXTURE_CUBE_MAP_NEGATIVE_Y_ARB
 	)
-}};
+}}};
 
 }
 

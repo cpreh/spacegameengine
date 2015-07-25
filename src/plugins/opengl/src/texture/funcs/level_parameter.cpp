@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
@@ -26,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
 GLint
@@ -38,11 +40,10 @@ sge::opengl::texture::funcs::level_parameter(
 {
 	GLint ret;
 
-	::glGetTexLevelParameteriv(
+	sge::opengl::call(
+		::glGetTexLevelParameteriv,
 		_type.get(),
-		static_cast<
-			GLint
-		>(
+		fcppt::cast::to_signed(
 			_level.get()
 		),
 		_what,
@@ -54,5 +55,6 @@ sge::opengl::texture::funcs::level_parameter(
 		sge::renderer::exception
 	);
 
-	return ret;
+	return
+		ret;
 }

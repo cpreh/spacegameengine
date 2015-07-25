@@ -35,12 +35,12 @@ sge::opengl::texture::buffer_surface_types::init_function_type
 sge::opengl::texture::buffer_surface_types::init_function()
 {
 	return
-		&sge::opengl::texture::funcs::set_2d;
+		sge::opengl::texture::funcs::set_2d;
 }
 
 sge::opengl::texture::buffer_surface_types::sub_function_type
 sge::opengl::texture::buffer_surface_types::sub_function()
 {
 	return
-		&sge::opengl::texture::funcs::set_rect;
+		sge::opengl::texture::funcs::set_rect;
 }

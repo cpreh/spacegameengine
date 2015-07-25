@@ -37,6 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 
@@ -91,30 +93,36 @@ sge::opengl::texture::funcs::set_rect(
 
 	::glTexSubImage2D(
 		_buffer_type.get(),
-		static_cast<
-			GLint
-		>(
+		fcppt::cast::to_signed(
 			_level.get()
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLint
 		>(
-			_lock_rect.left()
+			fcppt::cast::to_signed(
+				_lock_rect.left()
+			)
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLint
 		>(
-			_lock_rect.top()
+			fcppt::cast::to_signed(
+				_lock_rect.top()
+			)
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_lock_rect.w()
+			fcppt::cast::to_signed(
+				_lock_rect.w()
+			)
 		),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			_lock_rect.h()
+			fcppt::cast::to_signed(
+				_lock_rect.h()
+			)
 		),
 		_format.get(),
 		_format_type.get(),
