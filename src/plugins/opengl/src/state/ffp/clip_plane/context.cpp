@@ -41,7 +41,8 @@ sge::opengl::state::ffp::clip_plane::context::~context()
 sge::renderer::state::index_count
 sge::opengl::state::ffp::clip_plane::context::indices() const
 {
-	return indices_;
+	return
+		indices_;
 }
 
 void
@@ -49,7 +50,8 @@ sge::opengl::state::ffp::clip_plane::context::indices(
 	sge::renderer::state::index_count const _indices
 )
 {
-	indices_ = _indices;
+	indices_ =
+		_indices;
 }
 
 sge::opengl::context::device::id const

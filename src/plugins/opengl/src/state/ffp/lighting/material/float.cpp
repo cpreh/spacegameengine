@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/get_fun_ref.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/ffp/lighting/material/float.hpp>
@@ -40,7 +41,9 @@ sge::opengl::state::ffp::lighting::material::float_(
 			sge::opengl::state::actor
 		>(
 			std::bind(
-				::glMaterialf,
+				sge::opengl::get_fun_ref(
+					::glMaterialf
+				),
 				_face,
 				_what,
 				_value

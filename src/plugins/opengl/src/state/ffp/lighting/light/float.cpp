@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/index_actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
@@ -42,7 +43,8 @@ sge::opengl::state::ffp::lighting::light::float_(
 				GLenum const _index
 			)
 			{
-				::glLightf(
+				sge::opengl::call(
+					::glLightf,
 					_index,
 					_name,
 					_value

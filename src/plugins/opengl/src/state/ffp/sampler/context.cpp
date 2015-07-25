@@ -41,7 +41,8 @@ sge::opengl::state::ffp::sampler::context::~context()
 sge::renderer::texture::stage const
 sge::opengl::state::ffp::sampler::context::stages() const
 {
-	return stages_;
+	return
+		stages_;
 }
 
 void
@@ -49,7 +50,8 @@ sge::opengl::state::ffp::sampler::context::stages(
 	sge::renderer::texture::stage const _stages
 )
 {
-	stages_ = _stages;
+	stages_ =
+		_stages;
 }
 
 sge::opengl::context::device::id const

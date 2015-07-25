@@ -21,11 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/index_actor_vector.hpp>
 #include <sge/opengl/state/ffp/lighting/light/color.hpp>
+#include <sge/opengl/state/ffp/lighting/light/directional.hpp>
 #include <sge/opengl/state/ffp/lighting/light/make_actors.hpp>
-#include <sge/opengl/state/ffp/lighting/light/visitor.hpp>
+#include <sge/opengl/state/ffp/lighting/light/point.hpp>
+#include <sge/opengl/state/ffp/lighting/light/spot.hpp>
 #include <sge/renderer/state/ffp/lighting/light/parameters.hpp>
 #include <fcppt/algorithm/join.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/match.hpp>
 
 
 sge::opengl::state::index_actor_vector
@@ -49,9 +51,11 @@ sge::opengl::state::ffp::lighting::light::make_actors(
 					_parameters.specular().get()
 				)
 			},
-			fcppt::variant::apply_unary(
-				sge::opengl::state::ffp::lighting::light::visitor(),
-				_parameters.variant()
+			fcppt::variant::match(
+				_parameters.variant(),
+				&sge::opengl::state::ffp::lighting::light::directional,
+				&sge::opengl::state::ffp::lighting::light::point,
+				&sge::opengl::state::ffp::lighting::light::spot
 			)
 		);
 }

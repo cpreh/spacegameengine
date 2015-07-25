@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/lighting/material/float.hpp>
 #include <sge/opengl/state/ffp/lighting/material/make_actors.hpp>
 #include <sge/renderer/state/ffp/lighting/material/parameters.hpp>
+#include <fcppt/cast/size.hpp>
 
 
 sge::opengl::state::actor_vector
@@ -60,7 +61,7 @@ sge::opengl::state::ffp::lighting::material::make_actors(
 			sge::opengl::state::ffp::lighting::material::float_(
 				face,
 				GL_SHININESS,
-				static_cast<
+				fcppt::cast::size<
 					GLfloat
 				>(
 					_parameters.shininess().get()

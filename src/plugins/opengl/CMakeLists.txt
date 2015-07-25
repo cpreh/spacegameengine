@@ -322,7 +322,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/set.hpp
-	src/plugins/opengl/include/sge/opengl/state/ffp/alpha_test/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/clip_plane/context.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/clip_plane/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/clip_plane/make_actors.hpp
@@ -337,7 +336,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/fog/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/fog/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/fog/set.hpp
-	src/plugins/opengl/include/sge/opengl/state/ffp/fog/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/default_context.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/attenuation.hpp
@@ -357,7 +355,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/position_impl.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/set.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/spot.hpp
-	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/light/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/material/color.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/material/create.hpp
@@ -370,7 +367,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/set.hpp
-	src/plugins/opengl/include/sge/opengl/state/ffp/lighting/visitor.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/misc/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/misc/default_context.hpp
 	src/plugins/opengl/include/sge/opengl/state/ffp/misc/make_actors.hpp
@@ -833,7 +829,6 @@ set(
 	src/plugins/opengl/src/state/ffp/alpha_test/make_actors.cpp
 	src/plugins/opengl/src/state/ffp/alpha_test/object.cpp
 	src/plugins/opengl/src/state/ffp/alpha_test/set.cpp
-	src/plugins/opengl/src/state/ffp/alpha_test/visitor.cpp
 	src/plugins/opengl/src/state/ffp/clip_plane/context.cpp
 	src/plugins/opengl/src/state/ffp/clip_plane/create.cpp
 	src/plugins/opengl/src/state/ffp/clip_plane/make_actors.cpp
@@ -846,7 +841,6 @@ set(
 	src/plugins/opengl/src/state/ffp/fog/make_actors.cpp
 	src/plugins/opengl/src/state/ffp/fog/object.cpp
 	src/plugins/opengl/src/state/ffp/fog/set.cpp
-	src/plugins/opengl/src/state/ffp/fog/visitor.cpp
 	src/plugins/opengl/src/state/ffp/lighting/create.cpp
 	src/plugins/opengl/src/state/ffp/lighting/default_context.cpp
 	src/plugins/opengl/src/state/ffp/lighting/light/attenuation.cpp
@@ -864,7 +858,6 @@ set(
 	src/plugins/opengl/src/state/ffp/lighting/light/position_impl.cpp
 	src/plugins/opengl/src/state/ffp/lighting/light/set.cpp
 	src/plugins/opengl/src/state/ffp/lighting/light/spot.cpp
-	src/plugins/opengl/src/state/ffp/lighting/light/visitor.cpp
 	src/plugins/opengl/src/state/ffp/lighting/make_actors.cpp
 	src/plugins/opengl/src/state/ffp/lighting/material/color.cpp
 	src/plugins/opengl/src/state/ffp/lighting/material/create.cpp
@@ -875,7 +868,6 @@ set(
 	src/plugins/opengl/src/state/ffp/lighting/material/set.cpp
 	src/plugins/opengl/src/state/ffp/lighting/object.cpp
 	src/plugins/opengl/src/state/ffp/lighting/set.cpp
-	src/plugins/opengl/src/state/ffp/lighting/visitor.cpp
 	src/plugins/opengl/src/state/ffp/misc/create.cpp
 	src/plugins/opengl/src/state/ffp/misc/default_context.cpp
 	src/plugins/opengl/src/state/ffp/misc/make_actors.cpp

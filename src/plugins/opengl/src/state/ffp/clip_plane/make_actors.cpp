@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/check_error.hpp>
 #include <sge/opengl/state/index_actor.hpp>
@@ -36,10 +37,12 @@ sge::opengl::state::ffp::clip_plane::make_actors(
 	sge::renderer::state::ffp::clip_plane::parameters const &_parameters
 )
 {
-	typedef fcppt::math::vector::static_<
+	typedef
+	fcppt::math::vector::static_<
 		GLdouble,
 		4
-	> vector4d;
+	>
+	vector4d;
 
 	sge::renderer::state::ffp::clip_plane::area const area(
 		_parameters.area()
@@ -54,14 +57,19 @@ sge::opengl::state::ffp::clip_plane::make_actors(
 					GLenum const _index
 				)
 				{
-					::glClipPlane(
-						_index,
+					auto const gl_vec(
 						fcppt::math::vector::structure_cast<
 							vector4d,
 							fcppt::cast::size_fun
 						>(
 							area.get()
-						).data()
+						)
+					);
+
+					sge::opengl::call(
+						::glClipPlane,
+						_index,
+						gl_vec.data()
 					);
 
 					sge::opengl::state::check_error(

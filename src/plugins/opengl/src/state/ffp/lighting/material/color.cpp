@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
@@ -54,7 +55,8 @@ sge::opengl::state::ffp::lighting::material::color(
 				converted
 			]
 			{
-				::glMaterialfv(
+				sge::opengl::call(
+					::glMaterialfv,
 					_face,
 					_what,
 					converted.data()

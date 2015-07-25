@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/sampler/set_defaults.hpp>
 #include <sge/opengl/texture/active_level.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
+#include <fcppt/make_int_range_count.hpp>
+#include <fcppt/make_literal_strong_typedef.hpp>
 
 
 void
@@ -70,11 +72,13 @@ sge::opengl::state::ffp::sampler::set_defaults(
 	);
 
 	for(
-		sge::renderer::texture::stage stage(
-			0u
-		);
-		stage.get() < multi_context.max_level().get();
-		++stage
+		sge::renderer::texture::stage const stage
+		:
+		fcppt::make_int_range_count(
+			sge::renderer::texture::stage{
+				multi_context.max_level().get()
+			}
+		)
 	)
 	{
 		sge::opengl::texture::active_level const active_level(

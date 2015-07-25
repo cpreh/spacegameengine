@@ -19,14 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/convert/to_gl_enum.hpp>
 #include <sge/opengl/state/ffp/sampler/actor_vector.hpp>
 #include <sge/opengl/state/ffp/sampler/make_actors.hpp>
 #include <sge/opengl/state/ffp/sampler/make_one_op.hpp>
 #include <sge/opengl/state/ffp/sampler/set_one.hpp>
 #include <sge/renderer/state/ffp/sampler/parameters.hpp>
-#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/algorithm/join.hpp>
-#include <fcppt/cast/static_cast_fun.hpp>
 
 
 sge::opengl::state::ffp::sampler::actor_vector
@@ -38,18 +37,14 @@ sge::opengl::state::ffp::sampler::make_actors(
 		fcppt::algorithm::join(
 			sge::opengl::state::ffp::sampler::actor_vector{
 				sge::opengl::state::ffp::sampler::set_one(
-					fcppt::strong_typedef_construct_cast<
-						sge::opengl::texture::funcs::env_arg,
-						fcppt::cast::static_cast_fun
-					>(
-						GL_TEXTURE_ENV_MODE
-					),
-					fcppt::strong_typedef_construct_cast<
-						sge::opengl::texture::funcs::env_int_value,
-						fcppt::cast::static_cast_fun
-					>(
+					sge::opengl::texture::funcs::env_arg{
+						sge::opengl::convert::to_gl_enum<
+							GL_TEXTURE_ENV_MODE
+						>()
+					},
+					sge::opengl::texture::funcs::env_int_value{
 						GL_COMBINE
-					)
+					}
 				)
 			},
 			fcppt::algorithm::join(

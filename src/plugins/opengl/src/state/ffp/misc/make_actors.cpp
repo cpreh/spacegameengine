@@ -20,7 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/enable_bool.hpp>
+#include <sge/opengl/get_fun_ref.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/convert/to_gl_enum.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
@@ -45,15 +47,21 @@ sge::opengl::state::ffp::misc::make_actors(
 			sge::opengl::state::actor_vector{
 				std::bind(
 					sge::opengl::enable_bool,
-					GL_NORMALIZE,
+					sge::opengl::convert::to_gl_enum<
+						GL_NORMALIZE
+					>(),
 					_parameters.normalize_normals().get()
 				),
 				sge::opengl::state::wrap_error_handler<
 					sge::opengl::state::actor
 				>(
 					std::bind(
-						::glLightModeli,
-						GL_LIGHT_MODEL_LOCAL_VIEWER,
+						sge::opengl::get_fun_ref(
+							::glLightModeli
+						),
+						sge::opengl::convert::to_gl_enum<
+							GL_LIGHT_MODEL_LOCAL_VIEWER
+						>(),
 						_parameters.local_viewer().get()
 						?
 							1

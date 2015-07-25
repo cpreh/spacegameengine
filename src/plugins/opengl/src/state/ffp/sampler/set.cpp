@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_literal_strong_typedef.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size_fun.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 
 
 void
@@ -64,7 +65,7 @@ sge::opengl::state::ffp::sampler::set(
 			stage
 		);
 
-		static_cast<
+		fcppt::cast::static_downcast<
 			sge::opengl::state::ffp::sampler::object const &
 		>(
 			_samplers[
