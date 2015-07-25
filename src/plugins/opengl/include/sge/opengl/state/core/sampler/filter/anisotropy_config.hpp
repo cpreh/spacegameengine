@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_ANISOTROPY_CONFIG_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_ANISOTROPY_CONFIG_HPP_INCLUDED
 
-#include <sge/opengl/state/core/sampler/filter/anisotropy_config_fwd.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/state/core/sampler/filter/anisotropy_config_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 
 

@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/convert/from_gl_bool.hpp>
 #include <sge/opengl/convert/to_gl_enum.hpp>
-#include <sge/opengl/state/core/sampler/filter/anisotropy_context.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_config.hpp>
+#include <sge/opengl/state/core/sampler/filter/anisotropy_context.hpp>
 #include <sge/opengl/state/core/sampler/filter/optional_anisotropy_config.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/path.hpp>
 #include <sge/resource_tree/detail/element_decl.hpp>
 #include <sge/resource_tree/detail/path_with_resource_impl.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/throw.hpp>

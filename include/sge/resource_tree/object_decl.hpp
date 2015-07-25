@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/detail/base_path.hpp>
 #include <sge/resource_tree/detail/element_fwd.hpp>
 #include <sge/resource_tree/detail/sub_path.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <vector>
