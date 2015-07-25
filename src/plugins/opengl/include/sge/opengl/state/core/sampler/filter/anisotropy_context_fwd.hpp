@@ -18,14 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_VISITOR_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_VISITOR_HPP_INCLUDED
-
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/state/core/sampler/actor_vector.hpp>
-#include <sge/renderer/state/core/sampler/filter/anisotropic/parameters_fwd.hpp>
-#include <sge/renderer/state/core/sampler/filter/normal/parameters_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#ifndef SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_ANISOTROPY_CONTEXT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_ANISOTROPY_CONTEXT_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -41,31 +35,7 @@ namespace sampler
 namespace filter
 {
 
-class visitor
-{
-	FCPPT_NONASSIGNABLE(
-		visitor
-	);
-public:
-	explicit
-	visitor(
-		sge::opengl::context::system::object &
-	);
-
-	typedef sge::opengl::state::core::sampler::actor_vector result_type;
-
-	result_type
-	operator()(
-		sge::renderer::state::core::sampler::filter::anisotropic::parameters const &
-	) const;
-
-	result_type
-	operator()(
-		sge::renderer::state::core::sampler::filter::normal::parameters const &
-	) const;
-private:
-	sge::opengl::context::system::object &system_context_;
-};
+class anisotropy_context;
 
 }
 }

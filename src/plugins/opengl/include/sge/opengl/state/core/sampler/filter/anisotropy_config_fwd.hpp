@@ -18,14 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_ANISOTROPY_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_ANISOTROPY_CONTEXT_HPP_INCLUDED
-
-#include <sge/opengl/state/core/sampler/filter/anisotropy_context_fwd.hpp>
-#include <sge/opengl/state/core/sampler/filter/optional_anisotropy_config.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_ANISOTROPY_CONFIG_FWD_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_ANISOTROPY_CONFIG_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -41,30 +35,7 @@ namespace sampler
 namespace filter
 {
 
-class anisotropy_context
-:
-	public sge::opengl::context::system::base
-{
-	FCPPT_NONCOPYABLE(
-		anisotropy_context
-	);
-public:
-	anisotropy_context();
-
-	~anisotropy_context()
-	override;
-
-	sge::opengl::state::core::sampler::filter::optional_anisotropy_config const &
-	config() const;
-
-	typedef void parameter;
-
-	static
-	sge::opengl::context::system::id const
-	static_id;
-private:
-	sge::opengl::state::core::sampler::filter::optional_anisotropy_config const config_;
-};
+class anisotropy_config;
 
 }
 }

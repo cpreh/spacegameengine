@@ -301,10 +301,14 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/context.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/create.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/filter/anisotropic.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/filter/anisotropy_config.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/filter/anisotropy_config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/filter/anisotropy_context.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/filter/anisotropy_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/filter/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/filter/normal.hpp
-	src/plugins/opengl/include/sge/opengl/state/core/sampler/filter/visitor.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/filter/optional_anisotropy_config.hpp
+	src/plugins/opengl/include/sge/opengl/state/core/sampler/filter/optional_anisotropy_config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/make_actors.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/object.hpp
 	src/plugins/opengl/include/sge/opengl/state/core/sampler/object_fwd.hpp
@@ -815,10 +819,10 @@ set(
 	src/plugins/opengl/src/state/core/sampler/context.cpp
 	src/plugins/opengl/src/state/core/sampler/create.cpp
 	src/plugins/opengl/src/state/core/sampler/filter/anisotropic.cpp
+	src/plugins/opengl/src/state/core/sampler/filter/anisotropy_config.cpp
 	src/plugins/opengl/src/state/core/sampler/filter/anisotropy_context.cpp
 	src/plugins/opengl/src/state/core/sampler/filter/make_actors.cpp
 	src/plugins/opengl/src/state/core/sampler/filter/normal.cpp
-	src/plugins/opengl/src/state/core/sampler/filter/visitor.cpp
 	src/plugins/opengl/src/state/core/sampler/make_actors.cpp
 	src/plugins/opengl/src/state/core/sampler/object.cpp
 	src/plugins/opengl/src/state/core/sampler/set.cpp

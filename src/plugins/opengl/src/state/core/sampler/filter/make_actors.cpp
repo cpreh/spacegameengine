@@ -20,10 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/state/core/sampler/actor_vector.hpp>
+#include <sge/opengl/state/core/sampler/filter/anisotropic.hpp>
 #include <sge/opengl/state/core/sampler/filter/make_actors.hpp>
-#include <sge/opengl/state/core/sampler/filter/visitor.hpp>
+#include <sge/opengl/state/core/sampler/filter/normal.hpp>
 #include <sge/renderer/state/core/sampler/filter/parameters.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <sge/renderer/state/core/sampler/filter/anisotropic/parameters_fwd.hpp>
+#include <sge/renderer/state/core/sampler/filter/normal/parameters_fwd.hpp>
+#include <fcppt/variant/match.hpp>
 
 
 sge::opengl::state::core::sampler::actor_vector
@@ -33,10 +36,31 @@ sge::opengl::state::core::sampler::filter::make_actors(
 )
 {
 	return
-		fcppt::variant::apply_unary(
-			sge::opengl::state::core::sampler::filter::visitor(
-				_system_context
-			),
-			_parameters.variant()
+		fcppt::variant::match(
+			_parameters.variant(),
+			[
+				&_system_context
+			](
+				sge::renderer::state::core::sampler::filter::anisotropic::parameters const &_filter
+			)
+			{
+				return
+					sge::opengl::state::core::sampler::filter::anisotropic(
+						_system_context,
+						_filter
+					);
+			},
+			[
+				&_system_context
+			](
+				sge::renderer::state::core::sampler::filter::normal::parameters const &_filter
+			)
+			{
+				return
+					sge::opengl::state::core::sampler::filter::normal(
+						_system_context,
+						_filter
+					);
+			}
 		);
 }

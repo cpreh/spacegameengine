@@ -24,11 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/convert/mag_filter.hpp>
 #include <sge/opengl/state/convert/min_filter.hpp>
 #include <sge/opengl/state/core/sampler/actor_vector.hpp>
+#include <sge/opengl/state/core/sampler/filter/anisotropy_config.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_context.hpp>
 #include <sge/opengl/state/core/sampler/filter/normal.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/parameters.hpp>
 #include <fcppt/maybe_void.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -46,9 +48,7 @@ sge::opengl::state::core::sampler::filter::normal(
 				sge::opengl::texture::funcs::parameter_int,
 				std::placeholders::_1,
 				GL_TEXTURE_MAG_FILTER,
-				static_cast<
-					GLint
-				>(
+				fcppt::cast::to_signed(
 					sge::opengl::state::convert::mag_filter(
 						_filter.mag()
 					)
@@ -58,9 +58,7 @@ sge::opengl::state::core::sampler::filter::normal(
 				sge::opengl::texture::funcs::parameter_int,
 				std::placeholders::_1,
 				GL_TEXTURE_MIN_FILTER,
-				static_cast<
-					GLint
-				>(
+				fcppt::cast::to_signed(
 					sge::opengl::state::convert::min_filter(
 						_filter.min(),
 						_filter.mip()
@@ -75,18 +73,18 @@ sge::opengl::state::core::sampler::filter::normal(
 			sge::opengl::state::core::sampler::filter::anisotropy_context
 		>(
 			_system_context
-		).anisotropy_flag(),
+		).config(),
 		[
 			&result
 		](
-			GLenum const _flag
+			sge::opengl::state::core::sampler::filter::anisotropy_config const &_config
 		)
 		{
 			result.push_back(
 				std::bind(
 					sge::opengl::texture::funcs::parameter_int,
 					std::placeholders::_1,
-					_flag,
+					_config.anisotropy_flag(),
 					1
 				)
 			);

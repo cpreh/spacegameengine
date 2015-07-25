@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp>
 #include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -53,9 +54,7 @@ sge::opengl::state::core::sampler::filter::anisotropic(
 				sge::opengl::texture::funcs::parameter_int,
 				std::placeholders::_1,
 				GL_TEXTURE_MIN_FILTER,
-				static_cast<
-					GLint
-				>(
+				fcppt::cast::to_signed(
 					sge::opengl::state::convert::anisotropic_mip_filter(
 						_filter.mip()
 					)
@@ -69,7 +68,7 @@ sge::opengl::state::core::sampler::filter::anisotropic(
 						sge::opengl::state::core::sampler::filter::anisotropy_context
 					>(
 						_system_context
-					).anisotropy_flag(),
+					).config(),
 					[]{
 						return
 							sge::renderer::unsupported{
@@ -78,10 +77,8 @@ sge::opengl::state::core::sampler::filter::anisotropic(
 								FCPPT_TEXT("GL_EXT_texture_filter_anisotropic")
 							};
 					}
-				),
-				static_cast<
-					GLint
-				>(
+				).anisotropy_flag(),
+				fcppt::cast::to_signed(
 					_filter.level().get()
 				)
 			)

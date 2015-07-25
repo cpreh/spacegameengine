@@ -28,7 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/state/core/sampler/filter/anisotropy_config.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_context.hpp>
+#include <sge/opengl/state/core/sampler/filter/optional_anisotropy_config.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/opengl/texture/npot_context.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
@@ -71,12 +73,12 @@ sge::opengl::get_device_caps(
 		_device_system
 	);
 
-	sge::opengl::state::core::sampler::filter::anisotropy_context const &anisotropy_context(
+	sge::opengl::state::core::sampler::filter::optional_anisotropy_config const &anisotropy_config(
 		sge::opengl::context::use<
 			sge::opengl::state::core::sampler::filter::anisotropy_context
 		>(
 			_context
-		)
+		).config()
 	);
 
 	sge::opengl::texture::multi_context const &texture_multi_context(
@@ -168,17 +170,17 @@ sge::opengl::get_device_caps(
 				fcppt::cast::static_cast_fun
 			>(
 				fcppt::maybe(
-					anisotropy_context.max_anisotropy_flag(),
+					anisotropy_config,
 					fcppt::const_(
 						0
 					),
 					[](
-						GLenum const _flag
+						sge::opengl::state::core::sampler::filter::anisotropy_config const &_config
 					)
 					{
 						return
 							sge::opengl::get_int(
-								_flag
+								_config.max_anisotropy_flag()
 							);
 					}
 				)

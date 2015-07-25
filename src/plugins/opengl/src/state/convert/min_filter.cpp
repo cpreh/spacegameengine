@@ -41,11 +41,14 @@ sge::opengl::state::convert::min_filter(
 		)
 		{
 		case sge::renderer::state::core::sampler::filter::normal::mip::off:
-			return GL_NEAREST;
+			return
+				GL_NEAREST;
 		case sge::renderer::state::core::sampler::filter::normal::mip::point:
-			return GL_NEAREST_MIPMAP_NEAREST;
+			return
+				GL_NEAREST_MIPMAP_NEAREST;
 		case sge::renderer::state::core::sampler::filter::normal::mip::linear:
-			return GL_NEAREST_MIPMAP_LINEAR;
+			return
+				GL_NEAREST_MIPMAP_LINEAR;
 		}
 
 		FCPPT_ASSERT_UNREACHABLE;
@@ -55,11 +58,14 @@ sge::opengl::state::convert::min_filter(
 		)
 		{
 		case sge::renderer::state::core::sampler::filter::normal::mip::off:
-			return GL_LINEAR;
+			return
+				GL_LINEAR;
 		case sge::renderer::state::core::sampler::filter::normal::mip::point:
-			return GL_LINEAR_MIPMAP_NEAREST;
+			return
+				GL_LINEAR_MIPMAP_NEAREST;
 		case sge::renderer::state::core::sampler::filter::normal::mip::linear:
-			return GL_LINEAR_MIPMAP_LINEAR;
+			return
+				GL_LINEAR_MIPMAP_LINEAR;
 		}
 
 		FCPPT_ASSERT_UNREACHABLE;
