@@ -44,11 +44,13 @@ sge::opengl::vf::pointer_actor::pointer_actor(
 sge::renderer::vf::dynamic::offset const
 sge::opengl::vf::pointer_actor::offset() const
 {
-	return offset_;
+	return
+		offset_;
 }
 
 sge::renderer::vf::dynamic::stride const
 sge::opengl::vf::pointer_actor::stride() const
 {
-	return stride_;
+	return
+		stride_;
 }

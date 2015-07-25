@@ -67,7 +67,7 @@ sge::opengl::vf::client_state_combiner::client_state_combiner(
 		_system_context
 	),
 	vf_context_(
-		opengl::context::use<
+		sge::opengl::context::use<
 			sge::opengl::vf::context
 		>(
 			_device_context
@@ -213,8 +213,8 @@ void
 apply_difference(
 	Set const &_old_states,
 	Set const &_new_states,
-	EnableFun _enable, // nonconst because of VC++12
-	DisableFun _disable // nonconst because of VC++12
+	EnableFun const _enable,
+	DisableFun const _disable
 )
 {
 	for(

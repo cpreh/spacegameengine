@@ -45,17 +45,20 @@ sge::opengl::vf::actor_parameters::actor_parameters(
 sge::renderer::vf::dynamic::stride const
 sge::opengl::vf::actor_parameters::stride() const
 {
-	return stride_;
+	return
+		stride_;
 }
 
 sge::renderer::vf::dynamic::offset const
 sge::opengl::vf::actor_parameters::offset() const
 {
-	return offset_;
+	return
+		offset_;
 }
 
 sge::opengl::context::system::object &
 sge::opengl::vf::actor_parameters::system_context() const
 {
-	return system_context_;
+	return
+		system_context_;
 }

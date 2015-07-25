@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/cast/from_void_ptr.hpp>
 
 
 sge::opengl::vf::part::part(
@@ -98,7 +99,7 @@ sge::opengl::vf::part::use_me(
 	)
 		(*actor)(
 			states,
-			static_cast<
+			fcppt::cast::from_void_ptr<
 				unsigned char const *
 			>(
 				_src

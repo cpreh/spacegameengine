@@ -131,19 +131,22 @@ sge::opengl::vf::client_state::disable_attribute(
 sge::opengl::vf::client_state::normal_state_set const &
 sge::opengl::vf::client_state::normal_states() const
 {
-	return normal_states_;
+	return
+		normal_states_;
 }
 
 sge::opengl::vf::client_state::texture_state_set const &
 sge::opengl::vf::client_state::texture_states() const
 {
-	return texture_states_;
+	return
+		texture_states_;
 }
 
 sge::opengl::vf::client_state::index_state_set const &
 sge::opengl::vf::client_state::attribute_states() const
 {
-	return attribute_states_;
+	return
+		attribute_states_;
 }
 
 namespace

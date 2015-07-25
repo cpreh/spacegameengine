@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/element_count.hpp>
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/color_to_format_type.hpp>
@@ -29,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
 sge::opengl::vf::color_actor::color_actor(
@@ -41,11 +44,13 @@ sge::opengl::vf::color_actor::color_actor(
 		GL_COLOR_ARRAY
 	),
 	elements_(
-		static_cast<
+		fcppt::cast::size<
 			GLint
 		>(
-			sge::image::color::element_count(
-				_color.color_format()
+			fcppt::cast::to_signed(
+				sge::image::color::element_count(
+					_color.color_format()
+				)
 			)
 		)
 	),
@@ -66,13 +71,16 @@ sge::opengl::vf::color_actor::on_use(
 	sge::opengl::vf::pointer const _src
 ) const
 {
-	::glColorPointer(
+	sge::opengl::call(
+		::glColorPointer,
 		elements_,
 		format_.get(),
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			this->stride().get()
+			fcppt::cast::to_signed(
+				this->stride().get()
+			)
 		),
 		_src
 	);

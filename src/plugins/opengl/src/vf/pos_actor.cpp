@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
@@ -29,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/pos.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
 sge::opengl::vf::pos_actor::pos_actor(
@@ -46,10 +49,12 @@ sge::opengl::vf::pos_actor::pos_actor(
 		)
 	),
 	elements_(
-		static_cast<
+		fcppt::cast::size<
 			GLint
 		>(
-			_pos.type().element_count().get()
+			fcppt::cast::to_signed(
+				_pos.type().element_count().get()
+			)
 		)
 	)
 {
@@ -64,13 +69,16 @@ sge::opengl::vf::pos_actor::on_use(
 	sge::opengl::vf::pointer const _src
 ) const
 {
-	::glVertexPointer(
+	sge::opengl::call(
+		::glVertexPointer,
 		elements_,
 		format_,
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			this->stride().get()
+			fcppt::cast::to_signed(
+				this->stride().get()
+			)
 		),
 		_src
 	);

@@ -33,6 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/pointer_actor.hpp>
 #include <sge/opengl/vf/vertex_attrib_pointer.hpp>
 #include <sge/renderer/vf/dynamic/extra.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
 sge::opengl::vf::attribute_actor::attribute_actor(
@@ -63,7 +65,7 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 		)
 	),
 	location_(
-		static_cast<
+		fcppt::cast::size<
 			GLuint
 		>(
 			sge::opengl::vf::extra_index(
@@ -94,10 +96,12 @@ sge::opengl::vf::attribute_actor::operator()(
 		elements_,
 		format_,
 		GL_TRUE, // normalized
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			this->stride().get()
+			fcppt::cast::to_signed(
+				this->stride().get()
+			)
 		),
 		_src
 	);

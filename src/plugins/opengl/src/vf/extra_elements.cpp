@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/vf/dynamic/extra_any.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/variant/match.hpp>
 
 
@@ -40,10 +42,12 @@ sge::opengl::vf::extra_elements(
 			)
 			{
 				return
-					static_cast<
+					fcppt::cast::size<
 						GLint
 					>(
-						_vector.element_count().get()
+						fcppt::cast::to_signed(
+							_vector.element_count().get()
+						)
 					);
 			},
 			[](
@@ -51,11 +55,13 @@ sge::opengl::vf::extra_elements(
 			)
 			{
 				return
-					static_cast<
+					fcppt::cast::size<
 						GLint
 					>(
-						sge::image::color::element_count(
-							_color.color_format()
+						fcppt::cast::to_signed(
+							sge::image::color::element_count(
+								_color.color_format()
+							)
 						)
 					);
 			}
