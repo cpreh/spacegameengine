@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_MULTI_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_MULTI_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_MULTI_CONFIG_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_MULTI_CONFIG_HPP_INCLUDED
 
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/texture/multi_context_fwd.hpp>
-#include <sge/opengl/texture/optional_multi_config.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/fun_ref.hpp>
+#include <sge/opengl/texture/multi_config_fwd.hpp>
+#include <sge/renderer/caps/texture_stages.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -35,27 +35,44 @@ namespace opengl
 namespace texture
 {
 
-class multi_context
-:
-	public sge::opengl::context::system::base
+class multi_config
 {
-	FCPPT_NONCOPYABLE(
-		multi_context
+	FCPPT_NONASSIGNABLE(
+		multi_config
 	);
 public:
-	multi_context();
+	typedef
+	sge::opengl::fun_ref<
+		PFNGLACTIVETEXTUREPROC
+	>
+	gl_active_texture;
 
-	~multi_context()
-	override;
+	typedef
+	sge::opengl::fun_ref<
+		PFNGLCLIENTACTIVETEXTUREPROC
+	>
+	gl_client_active_texture;
 
-	sge::opengl::texture::optional_multi_config const &
-	config() const;
+	multi_config(
+		gl_active_texture,
+		gl_client_active_texture,
+		sge::renderer::caps::texture_stages
+	);
 
-	typedef void parameter;
+	gl_active_texture
+	active_texture() const;
 
-	static sge::opengl::context::system::id const static_id;
+	gl_client_active_texture
+	client_active_texture() const;
+
+	sge::renderer::caps::texture_stages const
+	max_level() const;
 private:
-	sge::opengl::texture::optional_multi_config const config_;
+	gl_active_texture active_texture_;
+
+	gl_client_active_texture client_active_texture_;
+
+	sge::renderer::caps::texture_stages const max_level_;
 };
 
 }

@@ -19,12 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/deref_fun_ptr.hpp>
 #include <sge/opengl/get_int.hpp>
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/convert/from_gl_bool.hpp>
+#include <sge/opengl/texture/multi_config.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
+#include <sge/opengl/texture/optional_multi_config.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
@@ -42,67 +45,64 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 sge::opengl::texture::multi_context::multi_context()
 :
 	sge::opengl::context::system::base(),
-	is_native_(
+	config_(
 		sge::opengl::convert::from_gl_bool(
 			GLEW_VERSION_1_3
 		)
-	),
-	is_arb_(
-		sge::opengl::convert::from_gl_bool(
-			GLEW_ARB_multitexture
-		)
-	),
-	active_texture_(
-		is_native_
 		?
-			glActiveTexture
-		:
-			is_arb_
-			?
-				glActiveTextureARB
-			:
-				nullptr
-	),
-	client_active_texture_(
-		is_native_
-		?
-			glClientActiveTexture
-		:
-			is_arb_
-			?
-				glClientActiveTextureARB
-			:
-				nullptr
-	),
-	max_level_(
-		fcppt::strong_typedef_construct_cast<
-			sge::renderer::caps::texture_stages,
-			fcppt::cast::static_cast_fun
-		>(
-			is_native_
-			?
-				std::min(
-					sge::opengl::get_int(
-						GL_MAX_TEXTURE_COORDS
+			sge::opengl::texture::optional_multi_config(
+				sge::opengl::texture::multi_config(
+					sge::opengl::deref_fun_ptr(
+						glActiveTexture
 					),
-					sge::opengl::get_int(
-						GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS
+					sge::opengl::deref_fun_ptr(
+						glClientActiveTexture
+					),
+					fcppt::strong_typedef_construct_cast<
+						sge::renderer::caps::texture_stages,
+						fcppt::cast::static_cast_fun
+					>(
+						std::min(
+							sge::opengl::get_int(
+								GL_MAX_TEXTURE_COORDS
+							),
+							sge::opengl::get_int(
+								GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS
+							)
+						)
+					)
+				)
+			)
+		:
+			sge::opengl::convert::from_gl_bool(
+				GLEW_ARB_multitexture
+			)
+			?
+				sge::opengl::texture::optional_multi_config(
+					sge::opengl::texture::multi_config(
+						sge::opengl::deref_fun_ptr(
+							glActiveTextureARB
+						),
+						sge::opengl::deref_fun_ptr(
+							glClientActiveTextureARB
+						),
+						fcppt::strong_typedef_construct_cast<
+							sge::renderer::caps::texture_stages,
+							fcppt::cast::static_cast_fun
+						>(
+							std::min(
+								sge::opengl::get_int(
+									GL_MAX_TEXTURE_COORDS_ARB
+								),
+								sge::opengl::get_int(
+									GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS_ARB
+								)
+							)
+						)
 					)
 				)
 			:
-				is_arb_
-				?
-					std::min(
-						sge::opengl::get_int(
-							GL_MAX_TEXTURE_COORDS_ARB
-						),
-						sge::opengl::get_int(
-							GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS_ARB
-						)
-					)
-				:
-					1
-		)
+				sge::opengl::texture::optional_multi_config()
 	)
 {
 }
@@ -113,34 +113,11 @@ sge::opengl::texture::multi_context::~multi_context()
 {
 }
 
-bool
-sge::opengl::texture::multi_context::is_supported() const
+sge::opengl::texture::optional_multi_config const &
+sge::opengl::texture::multi_context::config() const
 {
 	return
-		is_native_
-		||
-		is_arb_;
-}
-
-sge::opengl::texture::multi_context::gl_active_texture
-sge::opengl::texture::multi_context::active_texture() const
-{
-	return
-		active_texture_;
-}
-
-sge::opengl::texture::multi_context::gl_client_active_texture
-sge::opengl::texture::multi_context::client_active_texture() const
-{
-	return
-		client_active_texture_;
-}
-
-sge::renderer::caps::texture_stages const
-sge::opengl::texture::multi_context::max_level() const
-{
-	return
-		max_level_;
+		config_;
 }
 
 sge::opengl::context::system::id const

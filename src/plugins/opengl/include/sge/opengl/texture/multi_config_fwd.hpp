@@ -18,14 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_MULTI_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_MULTI_CONTEXT_HPP_INCLUDED
-
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/texture/multi_context_fwd.hpp>
-#include <sge/opengl/texture/optional_multi_config.hpp>
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_OPENGL_TEXTURE_MULTI_CONFIG_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_MULTI_CONFIG_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -35,28 +29,7 @@ namespace opengl
 namespace texture
 {
 
-class multi_context
-:
-	public sge::opengl::context::system::base
-{
-	FCPPT_NONCOPYABLE(
-		multi_context
-	);
-public:
-	multi_context();
-
-	~multi_context()
-	override;
-
-	sge::opengl::texture::optional_multi_config const &
-	config() const;
-
-	typedef void parameter;
-
-	static sge::opengl::context::system::id const static_id;
-private:
-	sge::opengl::texture::optional_multi_config const config_;
-};
+class multi_config;
 
 }
 }

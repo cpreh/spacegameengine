@@ -546,6 +546,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/levels.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/parameters.hpp
 	src/plugins/opengl/include/sge/opengl/texture/mipmap/parameters_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/texture/multi_config.hpp
+	src/plugins/opengl/include/sge/opengl/texture/multi_config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/multi_context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/multi_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/no_id.hpp
@@ -555,6 +557,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/optional_cube_config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_id.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_id_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/texture/optional_multi_config.hpp
+	src/plugins/opengl/include/sge/opengl/texture/optional_multi_config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_type.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_type_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_volume_config.hpp
@@ -975,6 +979,7 @@ set(
 	src/plugins/opengl/src/texture/mipmap/get_levels.cpp
 	src/plugins/opengl/src/texture/mipmap/levels.cpp
 	src/plugins/opengl/src/texture/mipmap/parameters.cpp
+	src/plugins/opengl/src/texture/multi_config.cpp
 	src/plugins/opengl/src/texture/multi_context.cpp
 	src/plugins/opengl/src/texture/no_id.cpp
 	src/plugins/opengl/src/texture/npot_context.cpp

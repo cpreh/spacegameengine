@@ -26,11 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/misc/point_sprite/config.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/set_impl.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/set_texture.hpp>
+#include <sge/opengl/texture/multi_config.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/const.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/algorithm/join.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/type_iso/strong_typedef.hpp>
@@ -46,14 +49,6 @@ sge::opengl::state::ffp::misc::point_sprite::set_impl(
 	sge::renderer::state::ffp::misc::enable_point_sprites const _enable
 )
 {
-	sge::opengl::texture::multi_context const &multi_context(
-		sge::opengl::context::use<
-			sge::opengl::texture::multi_context
-		>(
-			_system_context
-		)
-	);
-
 	return
 		fcppt::algorithm::join(
 			sge::opengl::state::actor_vector{
@@ -72,8 +67,26 @@ sge::opengl::state::ffp::misc::point_sprite::set_impl(
 				sge::opengl::state::actor_vector
 			>(
 				fcppt::make_int_range_count(
-					sge::renderer::texture::stage(
-						multi_context.max_level().get()
+					fcppt::maybe(
+						sge::opengl::context::use<
+							sge::opengl::texture::multi_context
+						>(
+							_system_context
+						).config(),
+						fcppt::const_(
+							sge::renderer::texture::stage(
+								1u
+							)
+						),
+						[](
+							sge::opengl::texture::multi_config const &_multi_config
+						)
+						{
+							return
+								sge::renderer::texture::stage(
+									_multi_config.max_level().get()
+								);
+						}
 					)
 				),
 				[

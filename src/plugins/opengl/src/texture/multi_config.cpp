@@ -18,48 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_MULTI_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_MULTI_CONTEXT_HPP_INCLUDED
-
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/texture/multi_context_fwd.hpp>
-#include <sge/opengl/texture/optional_multi_config.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/opengl/texture/multi_config.hpp>
+#include <sge/renderer/caps/texture_stages.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-
-class multi_context
+sge::opengl::texture::multi_config::multi_config(
+	gl_active_texture _active_texture,
+	gl_client_active_texture _client_active_texture,
+	sge::renderer::caps::texture_stages const _max_level
+)
 :
-	public sge::opengl::context::system::base
+	active_texture_(
+		_active_texture
+	),
+	client_active_texture_(
+		_client_active_texture
+	),
+	max_level_(
+		_max_level
+	)
 {
-	FCPPT_NONCOPYABLE(
-		multi_context
-	);
-public:
-	multi_context();
-
-	~multi_context()
-	override;
-
-	sge::opengl::texture::optional_multi_config const &
-	config() const;
-
-	typedef void parameter;
-
-	static sge::opengl::context::system::id const static_id;
-private:
-	sge::opengl::texture::optional_multi_config const config_;
-};
-
-}
-}
 }
 
-#endif
+sge::opengl::texture::multi_config::gl_active_texture
+sge::opengl::texture::multi_config::active_texture() const
+{
+	return
+		active_texture_;
+}
+
+sge::opengl::texture::multi_config::gl_client_active_texture
+sge::opengl::texture::multi_config::client_active_texture() const
+{
+	return
+		client_active_texture_;
+}
+
+sge::renderer::caps::texture_stages const
+sge::opengl::texture::multi_config::max_level() const
+{
+	return
+		max_level_;
+}

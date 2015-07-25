@@ -23,12 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/logger.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/texture/multi_config.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/opengl/texture/convert/level.hpp>
 #include <sge/opengl/texture/funcs/set_client_level.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/format.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
@@ -41,47 +43,53 @@ sge::opengl::texture::funcs::set_client_level(
 	sge::renderer::texture::stage const _stage
 )
 {
-	sge::opengl::texture::multi_context &multi_context(
+	// TODO: Should we require multi_config as an argument here?
+
+	fcppt::maybe(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
 		>(
 			_system_context
-		)
-	);
-
-	if(
-		!multi_context.is_supported()
-	)
-	{
-		if(
-			_stage.get() == 0u
-		)
-			return;
-
-		FCPPT_LOG_ERROR(
-			sge::opengl::logger(),
-			fcppt::log::_
-				<< FCPPT_TEXT("Tried to set texture coordinates for stage ")
-				<< _stage
-				<< FCPPT_TEXT(" but opengl does not support it.")
-		);
-
-		return;
-	}
-
-	multi_context.client_active_texture()(
-		sge::opengl::texture::convert::level(
+		).config(),
+		[
 			_stage
-		)
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		(
-			fcppt::format(
-				FCPPT_TEXT("glClientActiveTexture failed for stage %1%")
+		]{
+			if(
+				_stage.get()
+				==
+				0u
 			)
-			% _stage
-		).str(),
-		sge::renderer::exception
-	)
+				return;
+
+			FCPPT_LOG_ERROR(
+				sge::opengl::logger(),
+				fcppt::log::_
+					<< FCPPT_TEXT("Tried to set texture coordinates for stage ")
+					<< _stage
+					<< FCPPT_TEXT(" but opengl does not support it.")
+			);
+		},
+		[
+			_stage
+		](
+			sge::opengl::texture::multi_config const &_config
+		)
+		{
+			_config.client_active_texture()(
+				sge::opengl::texture::convert::level(
+					_stage
+				)
+			);
+
+			SGE_OPENGL_CHECK_STATE(
+				(
+					fcppt::format(
+						FCPPT_TEXT("glClientActiveTexture failed for stage %1%")
+					)
+					% _stage
+				).str(),
+				sge::renderer::exception
+			)
+		}
+	);
 }

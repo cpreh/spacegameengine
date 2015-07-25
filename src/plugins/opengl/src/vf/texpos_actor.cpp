@@ -18,9 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/texture/multi_config.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/opengl/texture/funcs/set_client_level.hpp>
 #include <sge/opengl/vf/actor_parameters.hpp>
@@ -33,8 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 #include <fcppt/format.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
 sge::opengl::vf::texpos_actor::texpos_actor(
@@ -49,14 +54,16 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 		_param.system_context()
 	),
 	elements_(
-		static_cast<
+		fcppt::cast::size<
 			GLint
 		>(
-			_element.type().element_count().get()
+			fcppt::cast::to_signed(
+				_element.type().element_count().get()
+			)
 		)
 	),
 	format_(
-		vf::convert_element_type(
+		sge::opengl::vf::convert_element_type(
 			_element.type().element_type()
 		)
 	),
@@ -64,34 +71,48 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 		_element.index().get()
 	)
 {
-	sge::opengl::texture::multi_context &texture_context(
+	fcppt::maybe(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
 		>(
 			system_context_
+		).config(),
+		[
+			this
+		]{
+			if(
+				index_.get()
+				!=
+				0u
+			)
+				throw
+					sge::renderer::exception{
+						FCPPT_TEXT("multiple texture coordinates are not supported!")
+					};
+		},
+		[
+			this
+		](
+			sge::opengl::texture::multi_config const &_config
 		)
+		{
+			if(
+				index_.get()
+				>=
+				_config.max_level().get()
+			)
+				throw
+					sge::renderer::exception{
+						(
+							fcppt::format(
+								FCPPT_TEXT("opengl texture coordinates exceeded: Allowed are %1%.")
+							)
+							%
+							_config.max_level()
+						).str()
+					};
+		}
 	);
-
-	if(
-		!texture_context.is_supported()
-		&& index_.get() != 0
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("multiple texture coordinates are not supported!")
-		);
-	else if(
-		index_.get()
-		>=
-		texture_context.max_level().get()
-	)
-		throw sge::renderer::exception(
-			(
-				fcppt::format(
-					FCPPT_TEXT("opengl texture coordinates exceeded: Allowed are %1%.")
-				)
-				% texture_context.max_level()
-			).str()
-		);
 }
 
 sge::opengl::vf::texpos_actor::~texpos_actor()
@@ -113,13 +134,16 @@ sge::opengl::vf::texpos_actor::operator()(
 		index_
 	);
 
-	::glTexCoordPointer(
+	sge::opengl::call(
+		::glTexCoordPointer,
 		elements_,
 		format_,
-		static_cast<
+		fcppt::cast::size<
 			GLsizei
 		>(
-			this->stride().get()
+			fcppt::cast::to_signed(
+				this->stride().get()
+			)
 		),
 		_src
 	);

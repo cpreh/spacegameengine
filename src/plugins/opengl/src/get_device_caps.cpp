@@ -31,8 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/sampler/filter/anisotropy_config.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_context.hpp>
 #include <sge/opengl/state/core/sampler/filter/optional_anisotropy_config.hpp>
+#include <sge/opengl/texture/multi_config.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/opengl/texture/npot_context.hpp>
+#include <sge/opengl/texture/optional_multi_config.hpp>
 #include <sge/opengl/texture/optional_volume_config.hpp>
 #include <sge/opengl/texture/volume_config.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
@@ -83,12 +85,12 @@ sge::opengl::get_device_caps(
 		).config()
 	);
 
-	sge::opengl::texture::multi_context const &texture_multi_context(
+	sge::opengl::texture::optional_multi_config const &texture_multi_config(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
 		>(
 			_context
-		)
+		).config()
 	);
 
 	sge::opengl::texture::optional_volume_config const &volume_texture_config(
@@ -209,7 +211,20 @@ sge::opengl::get_device_caps(
 					GL_MAX_LIGHTS
 				)
 			),
-			texture_multi_context.max_level(),
+			fcppt::maybe(
+				texture_multi_config,
+				fcppt::const_(
+					sge::renderer::caps::texture_stages{
+						1u
+					}
+				),
+				[](
+					sge::opengl::texture::multi_config const &_config
+				){
+					return
+						_config.max_level();
+				}
+			),
 			fcppt::strong_typedef_construct_cast<
 				sge::renderer::caps::target_surface_indices,
 				fcppt::cast::static_cast_fun
