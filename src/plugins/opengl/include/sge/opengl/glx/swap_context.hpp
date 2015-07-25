@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/glx/proc_context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <X11/Xlib.h>
@@ -56,36 +57,45 @@ public:
 	~swap_context()
 	override;
 
-	bool
-	swap_interval_supported() const;
-
 	typedef
 	int(
-		*glx_swap_interval_sgi
+		&glx_swap_interval_sgi
 	)(
 		int
 	);
 
 	typedef
+	fcppt::optional<
+		glx_swap_interval_sgi
+	>
+	optional_glx_swap_interval_sgi;
+
+	typedef
 	void(
-		*glx_swap_interval_ext
+		&glx_swap_interval_ext
 	)(
 		Display *,
 		GLXDrawable,
 		int
 	);
 
-	glx_swap_interval_sgi
+	typedef
+	fcppt::optional<
+		glx_swap_interval_ext
+	>
+	optional_glx_swap_interval_ext;
+
+	optional_glx_swap_interval_sgi const
 	swap_interval_sgi() const;
 
-	glx_swap_interval_ext
+	optional_glx_swap_interval_ext const
 	swap_interval_ext() const;
 
 	static sge::opengl::context::system::id const static_id;
 private:
-	glx_swap_interval_sgi swap_interval_sgi_;
+	optional_glx_swap_interval_sgi swap_interval_sgi_;
 
-	glx_swap_interval_ext swap_interval_ext_;
+	optional_glx_swap_interval_ext swap_interval_ext_;
 };
 
 }

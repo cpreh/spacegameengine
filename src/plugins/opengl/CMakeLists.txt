@@ -1102,6 +1102,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/glx/context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/current_drawable.hpp
 	src/plugins/opengl/include/sge/opengl/glx/make_current.hpp
+	src/plugins/opengl/include/sge/opengl/glx/optional_raw_function.hpp
+	src/plugins/opengl/include/sge/opengl/glx/optional_raw_function_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/proc_address.hpp
 	src/plugins/opengl/include/sge/opengl/glx/proc_context.hpp
 	src/plugins/opengl/include/sge/opengl/glx/proc_context_fwd.hpp

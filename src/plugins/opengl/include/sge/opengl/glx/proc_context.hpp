@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/glx/proc_context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/type_traits/function_pointer_to_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <fcppt/config/external_end.hpp>
@@ -50,30 +52,26 @@ public:
 	~proc_context()
 	override;
 
-	bool
-	get_proc_address_supported() const;
+	typedef
+	fcppt::type_traits::function_pointer_to_reference<
+		PFNGLXGETPROCADDRESSPROC
+	>
+	proc_address_function;
 
-	// TODO: The GLX 1.4 typedef could be used with static configuration
-	typedef void
-	(
-		*proc_address_result
-	)();
+	typedef
+	fcppt::optional<
+		proc_address_function
+	>
+	optional_proc_address_function;
 
-	typedef proc_address_result
-	(
-		*proc_address_pointer
-	)(
-		GLubyte const *
-	);
-
-	proc_address_pointer
+	optional_proc_address_function const
 	get_proc_address() const;
 
 	typedef void parameter;
 
 	static sge::opengl::context::system::id const static_id;
 private:
-	proc_address_pointer const get_proc_address_;
+	optional_proc_address_function const get_proc_address_;
 };
 
 }

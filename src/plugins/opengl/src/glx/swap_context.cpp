@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/glx/proc_address.hpp>
+#include <sge/opengl/glx/raw_function.hpp>
 #include <sge/opengl/glx/swap_context.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 
 
 sge::opengl::glx::swap_context::swap_context(
@@ -31,26 +33,45 @@ sge::opengl::glx::swap_context::swap_context(
 :
 	sge::opengl::context::system::base(),
 	swap_interval_sgi_(
-		reinterpret_cast<
-			glx_swap_interval_sgi
-		>(
+		fcppt::optional_bind_construct(
 			sge::opengl::glx::proc_address(
 				_proc_context,
 				"glXSwapIntervalSGI"
+			),
+			[](
+				sge::opengl::glx::raw_function &_func
 			)
+			-> glx_swap_interval_sgi
+			{
+				return
+					reinterpret_cast<
+						glx_swap_interval_sgi
+					>(
+						_func
+					);
+			}
 		)
 	),
 	swap_interval_ext_(
-		reinterpret_cast<
-			glx_swap_interval_ext
-		>(
+		fcppt::optional_bind_construct(
 			sge::opengl::glx::proc_address(
 				_proc_context,
 				"glXSwapIntervalEXT"
+			),
+			[](
+				sge::opengl::glx::raw_function &_func
 			)
+			-> glx_swap_interval_ext
+			{
+				return
+					reinterpret_cast<
+						glx_swap_interval_ext
+					>(
+						_func
+					);
+			}
 		)
 	)
-
 {
 }
 
@@ -58,30 +79,18 @@ sge::opengl::glx::swap_context::~swap_context()
 {
 }
 
-bool
-sge::opengl::glx::swap_context::swap_interval_supported() const
-{
-	return
-		swap_interval_sgi_
-		!=
-		nullptr
-		||
-		swap_interval_ext_
-		!=
-		nullptr
-		;
-}
-
-sge::opengl::glx::swap_context::glx_swap_interval_sgi
+sge::opengl::glx::swap_context::optional_glx_swap_interval_sgi const
 sge::opengl::glx::swap_context::swap_interval_sgi() const
 {
-	return swap_interval_sgi_;
+	return
+		swap_interval_sgi_;
 }
 
-sge::opengl::glx::swap_context::glx_swap_interval_ext
+sge::opengl::glx::swap_context::optional_glx_swap_interval_ext const
 sge::opengl::glx::swap_context::swap_interval_ext() const
 {
-	return swap_interval_ext_;
+	return
+		swap_interval_ext_;
 }
 
 sge::opengl::context::system::id const

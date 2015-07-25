@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/glx/proc_context.hpp>
+#include <fcppt/optional_alternative.hpp>
+#include <fcppt/optional_from_pointer.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <fcppt/config/external_end.hpp>
@@ -31,13 +33,14 @@ sge::opengl::glx::proc_context::proc_context()
 :
 	sge::opengl::context::system::base(),
 	get_proc_address_(
-#if defined(GLX_VERSION_1_4)
-		::glXGetProcAddress
-#elif defined(GLX_ARB_get_proc_address)
-		::glXGetProcAddressARB
-#else
-		nullptr
-#endif
+		fcppt::optional_alternative(
+			fcppt::optional_from_pointer(
+				::glXGetProcAddress
+			),
+			fcppt::optional_from_pointer(
+				::glXGetProcAddressARB
+			)
+		)
 	)
 {
 }
@@ -46,17 +49,7 @@ sge::opengl::glx::proc_context::~proc_context()
 {
 }
 
-bool
-sge::opengl::glx::proc_context::get_proc_address_supported() const
-{
-	return
-		get_proc_address_
-		!=
-		nullptr
-		;
-}
-
-sge::opengl::glx::proc_context::proc_address_pointer
+sge::opengl::glx::proc_context::optional_proc_address_function const
 sge::opengl::glx::proc_context::get_proc_address() const
 {
 	return

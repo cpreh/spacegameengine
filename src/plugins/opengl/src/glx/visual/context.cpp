@@ -69,7 +69,8 @@ sge::opengl::glx::visual::context::~context()
 sge::opengl::optional_int const
 sge::opengl::glx::visual::context::srgb_flag() const
 {
-	return srgb_flag_;
+	return
+		srgb_flag_;
 }
 
 sge::opengl::context::system::id const

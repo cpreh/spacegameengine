@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glx/vsync.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
@@ -52,52 +54,76 @@ sge::opengl::glx::vsync(
 		)
 	);
 
-	if(
-		!context.swap_interval_supported()
-	)
-	{
-		FCPPT_LOG_ERROR(
-			sge::opengl::logger(),
-			fcppt::log::_
-				<< FCPPT_TEXT("Setting vsync is not supported.")
-		)
-
-		return;
-	}
-
 	// prefer swap_interval_ext
 	if(
-		context.swap_interval_ext()
+		fcppt::maybe(
+			context.swap_interval_ext(),
+			fcppt::const_(
+				false
+			),
+			[
+				&_display
+			](
+				sge::opengl::glx::swap_context::glx_swap_interval_ext _swap
+			)
+			{
+				FCPPT_LOG_INFO(
+					sge::opengl::logger(),
+					fcppt::log::_
+						<< FCPPT_TEXT("Using glXSwapIntervalExt")
+				);
+
+				_swap(
+					_display.get(),
+					sge::opengl::glx::current_drawable(),
+					1
+				);
+
+				return
+					true;
+			}
+		)
 	)
-	{
-		FCPPT_LOG_INFO(
-			sge::opengl::logger(),
-			fcppt::log::_
-				<< FCPPT_TEXT("Using glXSwapIntervalExt")
-		);
-
-		context.swap_interval_ext()(
-			_display.get(),
-			sge::opengl::glx::current_drawable(),
-			1
-		);
-
 		return;
-	}
-
-	FCPPT_LOG_INFO(
-		sge::opengl::logger(),
-		fcppt::log::_
-			<< FCPPT_TEXT("Using glXSwapIntervalSGI")
-	);
 
 	if(
-		context.swap_interval_sgi()(
-			1
+		fcppt::maybe(
+			context.swap_interval_sgi(),
+			fcppt::const_(
+				false
+			),
+			[](
+				sge::opengl::glx::swap_context::glx_swap_interval_sgi _swap
+			)
+			{
+				FCPPT_LOG_INFO(
+					sge::opengl::logger(),
+					fcppt::log::_
+						<< FCPPT_TEXT("Using glXSwapIntervalSGI")
+				);
+
+				if(
+					_swap(
+						1
+					)
+					!= 0
+				)
+					throw
+						sge::renderer::exception{
+							FCPPT_TEXT("Setting the swap interval via SGI returned an error!")
+						};
+
+				return
+					true;
+			}
 		)
-		!= 0
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Setting the swap interval via SGI returned an error!")
-		);
+		return;
+
+
+	FCPPT_LOG_ERROR(
+		sge::opengl::logger(),
+		fcppt::log::_
+			<< FCPPT_TEXT("Setting vsync is not supported.")
+	)
 }
