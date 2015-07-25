@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/convert/from_gl_bool.hpp>
+#include <sge/opengl/texture/cube_config.hpp>
 #include <sge/opengl/texture/cube_context.hpp>
 #include <sge/opengl/texture/cube_side_array.hpp>
-#include <sge/opengl/texture/optional_type.hpp>
+#include <sge/opengl/texture/optional_cube_config.hpp>
 #include <sge/opengl/texture/convert/make_buffer_type.hpp>
 #include <sge/opengl/texture/convert/make_type.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -36,8 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::opengl::texture::cube_side_array const normal_sides =
-{{
+sge::opengl::texture::cube_side_array const normal_sides{{
 	sge::opengl::texture::convert::make_buffer_type(
 		GL_TEXTURE_CUBE_MAP_POSITIVE_Z
 	),
@@ -58,8 +58,7 @@ sge::opengl::texture::cube_side_array const normal_sides =
 	)
 }};
 
-sge::opengl::texture::cube_side_array const arb_sides =
-{{
+sge::opengl::texture::cube_side_array const arb_sides{{
 	sge::opengl::texture::convert::make_buffer_type(
 		GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB
 	),
@@ -88,49 +87,34 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 sge::opengl::texture::cube_context::cube_context()
 :
 	sge::opengl::context::system::base(),
-	cube_texture_normal_(
+	config_(
 		sge::opengl::convert::from_gl_bool(
 			GLEW_VERSION_1_3
 		)
-	),
-	cube_texture_arb_(
-		sge::opengl::convert::from_gl_bool(
-			GLEW_ARB_texture_cube_map
-		)
-	),
-	cube_texture_type_(
-		cube_texture_normal_
 		?
-			sge::opengl::texture::optional_type(
-				sge::opengl::texture::convert::make_type(
-					GL_TEXTURE_CUBE_MAP
+			sge::opengl::texture::optional_cube_config(
+				sge::opengl::texture::cube_config(
+					sge::opengl::texture::convert::make_type(
+						GL_TEXTURE_CUBE_MAP
+					),
+					::normal_sides
 				)
 			)
 		:
-			cube_texture_arb_
+			sge::opengl::convert::from_gl_bool(
+				GLEW_ARB_texture_cube_map
+			)
 			?
-				sge::opengl::texture::optional_type(
-					sge::opengl::texture::convert::make_type(
-						GL_TEXTURE_CUBE_MAP_ARB
+				sge::opengl::texture::optional_cube_config(
+					sge::opengl::texture::cube_config(
+						sge::opengl::texture::convert::make_type(
+							GL_TEXTURE_CUBE_MAP_ARB
+						),
+						::arb_sides
 					)
 				)
 			:
-				sge::opengl::texture::optional_type()
-	),
-	cube_sides_(
-		cube_texture_normal_
-		?
-			sge::opengl::texture::cube_context::optional_cube_side_array(
-				::normal_sides
-			)
-		:
-			cube_texture_arb_
-			?
-				sge::opengl::texture::cube_context::optional_cube_side_array(
-					::arb_sides
-				)
-			:
-				sge::opengl::texture::cube_context::optional_cube_side_array()
+				sge::opengl::texture::optional_cube_config()
 	)
 {
 }
@@ -141,24 +125,11 @@ sge::opengl::texture::cube_context::~cube_context()
 {
 }
 
-bool
-sge::opengl::texture::cube_context::have_cube_texture() const
+sge::opengl::texture::optional_cube_config const &
+sge::opengl::texture::cube_context::config() const
 {
 	return
-		cube_texture_normal_
-		|| cube_texture_arb_;
-}
-
-sge::opengl::texture::optional_type const
-sge::opengl::texture::cube_context::cube_texture_type() const
-{
-	return cube_texture_type_;
-}
-
-sge::opengl::texture::cube_context::optional_cube_side_array const &
-sge::opengl::texture::cube_context::cube_sides() const
-{
-	return cube_sides_;
+		config_;
 }
 
 sge::opengl::context::system::id const

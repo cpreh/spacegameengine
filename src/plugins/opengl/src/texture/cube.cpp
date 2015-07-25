@@ -19,14 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image2d/traits/pitch_fwd.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/buffer_surface_types.hpp>
 #include <sge/opengl/texture/color_format_types.hpp>
 #include <sge/opengl/texture/color_surface.hpp>
 #include <sge/opengl/texture/cube.hpp>
 #include <sge/opengl/texture/cube_basic.hpp>
-#include <sge/opengl/texture/cube_context.hpp>
+#include <sge/opengl/texture/cube_config.hpp>
 #include <sge/opengl/texture/cube_types.hpp>
 #include <sge/opengl/texture/init.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
@@ -42,25 +41,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_enum_range.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/enum_array_impl.hpp>
 
 
 sge::opengl::texture::cube::cube(
+	sge::opengl::texture::cube_config const &_config,
 	sge::opengl::texture::basic_parameters const &_basic_parameters,
 	sge::renderer::texture::cube_parameters const &_parameters
 )
 :
 	sge::opengl::texture::cube_basic(
 		_basic_parameters,
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			sge::opengl::context::use<
-				sge::opengl::texture::cube_context
-			>(
-				_basic_parameters.system_context()
-			).cube_texture_type()
-		),
+		_config.cube_texture_type(),
 		_parameters
 	),
 	size_(
@@ -68,14 +61,6 @@ sge::opengl::texture::cube::cube(
 	),
 	sides_()
 {
-	sge::opengl::texture::cube_context &context(
-		sge::opengl::context::use<
-			sge::opengl::texture::cube_context
-		>(
-			_basic_parameters.system_context()
-		)
-	);
-
 	sge::opengl::texture::scoped_work_binding const binding(
 		_basic_parameters.system_context(),
 		_basic_parameters.device_context(),
@@ -99,13 +84,9 @@ sge::opengl::texture::cube::cube(
 			],
 			_basic_parameters,
 			_parameters,
-			FCPPT_ASSERT_OPTIONAL_ERROR(
-				context.cube_texture_type()
-			),
+			_config.cube_texture_type(),
 			sge::opengl::texture::convert::cube_side(
-				FCPPT_ASSERT_OPTIONAL_ERROR(
-					context.cube_sides()
-				),
+				_config.cube_sides(),
 				index
 			),
 			this->id()

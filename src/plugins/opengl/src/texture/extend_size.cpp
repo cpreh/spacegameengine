@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/extend_size.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <fcppt/math/dim/fill.hpp>
 
 
 sge::renderer::dim2 const
@@ -29,8 +30,9 @@ sge::opengl::texture::extend_size(
 )
 {
 	return
-		sge::renderer::dim2(
-			_border_size,
+		fcppt::math::dim::fill<
+			sge::renderer::dim2
+		>(
 			_border_size
 		);
 }

@@ -42,5 +42,6 @@ sge::opengl::texture::holder::~holder()
 sge::opengl::texture::id const
 sge::opengl::texture::holder::id() const
 {
-	return id_;
+	return
+		id_;
 }

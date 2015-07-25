@@ -24,11 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/texture/cube_context_fwd.hpp>
-#include <sge/opengl/texture/cube_side_array.hpp>
-#include <sge/opengl/texture/optional_type.hpp>
-#include <sge/opengl/texture/type.hpp>
+#include <sge/opengl/texture/optional_cube_config.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_impl.hpp>
 
 
 namespace sge
@@ -51,30 +48,14 @@ public:
 	~cube_context()
 	override;
 
-	bool
-	have_cube_texture() const;
-
-	sge::opengl::texture::optional_type const
-	cube_texture_type() const;
-
-	typedef fcppt::optional<
-		sge::opengl::texture::cube_side_array
-	> optional_cube_side_array;
-
-	sge::opengl::texture::cube_context::optional_cube_side_array const &
-	cube_sides() const;
+	sge::opengl::texture::optional_cube_config const &
+	config() const;
 
 	typedef void parameter;
 
 	static sge::opengl::context::system::id const static_id;
 private:
-	bool const
-		cube_texture_normal_,
-		cube_texture_arb_;
-
-	sge::opengl::texture::optional_type const cube_texture_type_;
-
-	sge::opengl::texture::cube_context::optional_cube_side_array const cube_sides_;
+	sge::opengl::texture::optional_cube_config const config_;
 };
 
 }

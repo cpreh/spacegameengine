@@ -26,5 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 fcppt::string
 sge::opengl::texture::planar_types::name()
 {
-	return FCPPT_TEXT("planar texture");
+	return
+		FCPPT_TEXT("planar texture");
 }

@@ -33,12 +33,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/depth_stencil_parameters.hpp>
 
 
-template class
+template
+class
 sge::opengl::texture::basic<
 	sge::opengl::texture::depth_stencil_types
 >;
 
-template class
+template
+class
 sge::opengl::texture::basic_box<
 	sge::opengl::texture::depth_stencil_types
 >;

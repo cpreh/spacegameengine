@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim3.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/construct.hpp>
 
@@ -56,9 +58,7 @@ struct get_level_size_impl<
 	{
 		return
 			sge::renderer::dim2(
-				static_cast<
-					sge::renderer::size_type
-				>(
+				fcppt::cast::to_unsigned(
 					sge::opengl::texture::funcs::level_parameter(
 						_binding,
 						_buffer_type,
@@ -66,9 +66,7 @@ struct get_level_size_impl<
 						GL_TEXTURE_WIDTH
 					)
 				),
-				static_cast<
-					sge::renderer::size_type
-				>(
+				fcppt::cast::to_unsigned(
 					sge::opengl::texture::funcs::level_parameter(
 						_binding,
 						_buffer_type,
@@ -102,14 +100,16 @@ struct get_level_size_impl<
 					_buffer_type,
 					_level
 				),
-				static_cast<
+				fcppt::cast::size<
 					sge::renderer::size_type
 				>(
-					sge::opengl::texture::funcs::level_parameter(
-						_binding,
-						_buffer_type,
-						_level,
-						GL_TEXTURE_DEPTH
+					fcppt::cast::to_unsigned(
+						sge::opengl::texture::funcs::level_parameter(
+							_binding,
+							_buffer_type,
+							_level,
+							GL_TEXTURE_DEPTH
+						)
 					)
 				)
 			);

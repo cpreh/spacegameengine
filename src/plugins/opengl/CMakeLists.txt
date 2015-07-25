@@ -487,6 +487,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/create_volume.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube_basic.hpp
+	src/plugins/opengl/include/sge/opengl/texture/cube_config.hpp
+	src/plugins/opengl/include/sge/opengl/texture/cube_config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube_context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/cube_side_array.hpp
@@ -549,6 +551,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/no_id.hpp
 	src/plugins/opengl/include/sge/opengl/texture/npot_context.hpp
 	src/plugins/opengl/include/sge/opengl/texture/npot_context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/texture/optional_cube_config.hpp
+	src/plugins/opengl/include/sge/opengl/texture/optional_cube_config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_id.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_id_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/texture/optional_type.hpp
@@ -930,6 +934,7 @@ set(
 	src/plugins/opengl/src/texture/create_volume.cpp
 	src/plugins/opengl/src/texture/cube.cpp
 	src/plugins/opengl/src/texture/cube_basic.cpp
+	src/plugins/opengl/src/texture/cube_config.cpp
 	src/plugins/opengl/src/texture/cube_context.cpp
 	src/plugins/opengl/src/texture/cube_types.cpp
 	src/plugins/opengl/src/texture/depth_stencil.cpp

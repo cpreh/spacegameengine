@@ -18,34 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/texture/active_level.hpp>
-#include <sge/opengl/texture/funcs/set_active_level.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#ifndef SGE_OPENGL_TEXTURE_OPTIONAL_CUBE_CONFIG_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_OPTIONAL_CUBE_CONFIG_FWD_HPP_INCLUDED
+
+#include <sge/opengl/texture/cube_config_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
-sge::opengl::texture::active_level::active_level(
-	sge::opengl::context::system::object &_system_context,
-	sge::renderer::texture::stage const _stage
-)
-:
-	stage_(
-		_stage
-	)
+namespace sge
 {
-	sge::opengl::texture::funcs::set_active_level(
-		_system_context,
-		_stage
-	);
+namespace opengl
+{
+namespace texture
+{
+
+typedef
+fcppt::optional<
+	sge::opengl::texture::cube_config
+>
+optional_cube_config;
+
+}
+}
 }
 
-sge::opengl::texture::active_level::~active_level()
-{
-}
-
-sge::renderer::texture::stage const
-sge::opengl::texture::active_level::stage() const
-{
-	return
-		stage_;
-}
+#endif

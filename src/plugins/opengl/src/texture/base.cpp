@@ -26,13 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::texture::type const
 sge::opengl::texture::base::type() const
 {
-	return type_;
+	return
+		type_;
 }
 
 sge::opengl::texture::id const
 sge::opengl::texture::base::id() const
 {
-	return holder_.id();
+	return
+		holder_.id();
 }
 
 sge::opengl::texture::base::~base()

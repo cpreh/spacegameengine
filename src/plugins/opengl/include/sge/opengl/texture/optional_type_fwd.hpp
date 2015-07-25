@@ -32,9 +32,11 @@ namespace opengl
 namespace texture
 {
 
-typedef fcppt::optional<
+typedef
+fcppt::optional<
 	sge::opengl::texture::type
-> optional_type;
+>
+optional_type;
 
 }
 }

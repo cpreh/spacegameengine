@@ -18,34 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/opengl/texture/active_level.hpp>
-#include <sge/opengl/texture/funcs/set_active_level.hpp>
-#include <sge/renderer/texture/stage.hpp>
+#ifndef SGE_OPENGL_TEXTURE_CUBE_CONFIG_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_CUBE_CONFIG_HPP_INCLUDED
+
+#include <sge/opengl/texture/cube_config_fwd.hpp>
+#include <sge/opengl/texture/cube_side_array.hpp>
+#include <sge/opengl/texture/type.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
-sge::opengl::texture::active_level::active_level(
-	sge::opengl::context::system::object &_system_context,
-	sge::renderer::texture::stage const _stage
-)
-:
-	stage_(
-		_stage
-	)
+namespace sge
 {
-	sge::opengl::texture::funcs::set_active_level(
-		_system_context,
-		_stage
+namespace opengl
+{
+namespace texture
+{
+
+class cube_config
+{
+	FCPPT_NONASSIGNABLE(
+		cube_config
 	);
+public:
+	cube_config(
+		sge::opengl::texture::type,
+		sge::opengl::texture::cube_side_array const &
+	);
+
+	sge::opengl::texture::type const
+	cube_texture_type() const;
+
+	sge::opengl::texture::cube_side_array const &
+	cube_sides() const;
+private:
+	sge::opengl::texture::type const cube_texture_type_;
+
+	sge::opengl::texture::cube_side_array const cube_sides_;
+};
+
+}
+}
 }
 
-sge::opengl::texture::active_level::~active_level()
-{
-}
-
-sge::renderer::texture::stage const
-sge::opengl::texture::active_level::stage() const
-{
-	return
-		stage_;
-}
+#endif

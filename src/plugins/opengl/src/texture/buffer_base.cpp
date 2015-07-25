@@ -49,17 +49,20 @@ sge::opengl::texture::buffer_base::~buffer_base()
 sge::opengl::texture::buffer_type const
 sge::opengl::texture::buffer_base::buffer_type() const
 {
-	return buffer_type_;
+	return
+		buffer_type_;
 }
 
 sge::opengl::texture::id const
 sge::opengl::texture::buffer_base::id() const
 {
-	return id_;
+	return
+		id_;
 }
 
 sge::renderer::texture::mipmap::level const
 sge::opengl::texture::buffer_base::level() const
 {
-	return level_;
+	return
+		level_;
 }

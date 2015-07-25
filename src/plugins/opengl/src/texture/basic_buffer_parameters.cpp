@@ -91,71 +91,83 @@ sge::opengl::texture::basic_buffer_parameters::basic_buffer_parameters(
 sge::opengl::texture::binding const &
 sge::opengl::texture::basic_buffer_parameters::binding() const
 {
-	return binding_;
+	return
+		binding_;
 }
 
 sge::opengl::context::system::object &
 sge::opengl::texture::basic_buffer_parameters::system_context() const
 {
-	return system_context_;
+	return
+		system_context_;
 }
 
 sge::opengl::context::device::object &
 sge::opengl::texture::basic_buffer_parameters::device_context() const
 {
-	return device_context_;
+	return
+		device_context_;
 }
 
 sge::renderer::texture::mipmap::level const
 sge::opengl::texture::basic_buffer_parameters::level() const
 {
-	return level_;
+	return
+		level_;
 }
 
 sge::opengl::texture::type const
 sge::opengl::texture::basic_buffer_parameters::type() const
 {
-	return type_;
+	return
+		type_;
 }
 
 sge::opengl::texture::buffer_type const
 sge::opengl::texture::basic_buffer_parameters::buffer_type() const
 {
-	return buffer_type_;
+	return
+		buffer_type_;
 }
 
 sge::opengl::texture::id const
 sge::opengl::texture::basic_buffer_parameters::id() const
 {
-	return id_;
+	return
+		id_;
 }
 
 sge::renderer::resource_flags_field const &
 sge::opengl::texture::basic_buffer_parameters::resource_flags() const
 {
-	return resource_flags_;
+	return
+		resource_flags_;
 }
 
 sge::opengl::color_format const
 sge::opengl::texture::basic_buffer_parameters::color_format() const
 {
-	return color_format_;
+	return
+		color_format_;
 }
 
 sge::opengl::color_format_type const
 sge::opengl::texture::basic_buffer_parameters::color_format_type() const
 {
-	return color_format_type_;
+	return
+		color_format_type_;
 }
 
 sge::opengl::internal_color_format const
 sge::opengl::texture::basic_buffer_parameters::internal_color_format() const
 {
-	return internal_color_format_;
+	return
+		internal_color_format_;
 }
 
 sge::opengl::texture::is_render_target const
 sge::opengl::texture::basic_buffer_parameters::is_render_target() const
 {
-	return is_render_target_;
+	return
+		is_render_target_;
 }

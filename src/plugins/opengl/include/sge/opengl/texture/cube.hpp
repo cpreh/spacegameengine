@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/basic.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
 #include <sge/opengl/texture/cube_basic.hpp>
+#include <sge/opengl/texture/cube_config_fwd.hpp>
 #include <sge/opengl/texture/cube_types.hpp>
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
@@ -54,6 +55,7 @@ class cube
 	);
 public:
 	cube(
+		sge::opengl::texture::cube_config const &,
 		sge::opengl::texture::basic_parameters const &,
 		sge::renderer::texture::cube_parameters const &
 	);
