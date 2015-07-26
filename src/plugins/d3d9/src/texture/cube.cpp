@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/enum_array_fold.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/container/enum_array_impl.hpp>
+#include <fcppt/type_iso/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>

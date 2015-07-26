@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/size_fun.hpp>
+#include <fcppt/type_iso/strong_typedef.hpp>
 
 
 sge::d3d9::target::temporary::temporary(
