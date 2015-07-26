@@ -32,13 +32,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/make.hpp>
 #include <sge/src/image/view/make_visitor.hpp>
 #include <mizuiro/image/is_raw_view.hpp>
+#include <fcppt/absurd.hpp>
+#include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/mpl/invoke_on.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bind.hpp>
 #include <boost/mpl/filter_view.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/quote.hpp>
-#include <exception>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -77,7 +78,7 @@ sge::image::view::make(
 				>
 			>
 		>(
-			static_cast<
+			fcppt::cast::enum_to_int<
 				sge::image::size_type
 			>(
 				_format
@@ -97,14 +98,11 @@ sge::image::view::make(
 				_dim,
 				_pitch
 			),
-			[]()
-			->
-			typename sge::image::traits::view<
-				Tag
-			>::type const
-			{
-				std::terminate();
-			}
+			fcppt::absurd<
+				typename sge::image::traits::view<
+					Tag
+				>::type
+			>
 		);
 }
 

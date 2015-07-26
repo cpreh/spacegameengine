@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/maybe.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/tag.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
@@ -78,7 +79,11 @@ public:
 		typename Index
 	>
 	void
-	operator()() const
+	operator()(
+		fcppt::tag<
+			Index
+		>
+	) const
 	{
 		typedef
 		typename

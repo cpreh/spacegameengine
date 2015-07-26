@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/state/render_context.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
+#include <majutsu/get.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/tag.hpp>
 
 
 namespace sge
@@ -76,12 +78,18 @@ public:
 		typename Type
 	>
 	result_type
-	operator()() const
+	operator()(
+		fcppt::tag<
+			Type
+		>
+	) const
 	{
 		if(
-			options_. template get<
+			majutsu::get<
 				typename Type::role
-			>()
+			>(
+				options_
+			)
 		)
 			Type::unset(
 				render_context_

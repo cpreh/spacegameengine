@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/raw_pointer.hpp>
 #include <sge/src/image/to_mizuiro_dim.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/tag.hpp>
 
 
 namespace sge
@@ -67,20 +68,9 @@ public:
 	}
 
 	make_visitor(
-		make_visitor const &_other
+		make_visitor const &
 	)
-	:
-		data_(
-			_other.data
-		),
-		dim_(
-			_other.dim
-		),
-		pitch_(
-			_other.pitch
-		)
-	{
-	}
+	= default;
 
 	~make_visitor()
 	{
@@ -90,7 +80,11 @@ public:
 		typename View
 	>
 	result_type const
-	operator()() const
+	operator()(
+		fcppt::tag<
+			View
+		>
+	) const
 	{
 		return
 			result_type(

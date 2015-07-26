@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/set.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/tag.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <utility>
@@ -110,7 +111,11 @@ public:
 		typename Type::persistent,
 		result_type
 	>::type
-	operator()() const
+	operator()(
+		fcppt::tag<
+			Type
+		>
+	) const
 	{
 		// TODO: Move this somewhere else
 		if(
@@ -141,7 +146,11 @@ public:
 		typename Type::persistent,
 		result_type
 	>::type
-	operator()() const
+	operator()(
+		fcppt::tag<
+			Type
+		>
+	) const
 	{
 		if(
 			!majutsu::get<

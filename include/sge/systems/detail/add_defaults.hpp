@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/detail/extract_parameter_type.hpp>
 #include <sge/systems/detail/list.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/tag.hpp>
 
 
 namespace sge
@@ -57,11 +58,16 @@ public:
 		typename Type
 	>
 	result_type
-	operator()() const
+	operator()(
+		fcppt::tag<
+			Type
+		>
+	) const
 	{
 		result_.insert(
 			sge::systems::detail::any(
-				typename sge::systems::detail::extract_parameter_type<
+				typename
+				sge::systems::detail::extract_parameter_type<
 					Type
 				>::type()
 			)
