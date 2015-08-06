@@ -43,7 +43,7 @@ sge::opengl::windows::visual::choose_and_set_format(
 	);
 
 	bool const needs_wgl(
-		_pixel_format.multi_samples()
+		_pixel_format.multi_samples().has_value()
 		||
 		_pixel_format.srgb()
 		==

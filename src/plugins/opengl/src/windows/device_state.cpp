@@ -23,20 +23,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/windows/current_display_mode.hpp>
 #include <sge/opengl/windows/device_state.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
+#include <fcppt/maybe_void.hpp>
 
 
 sge::opengl::windows::device_state::device_state(
-	sge::renderer::display_mode::optional_object const &_display_mode
+	sge::renderer::display_mode::optional_object const &_opt_display_mode
 )
 :
 	sge::opengl::platform::device_state()
 {
-	if(
-		_display_mode
-	)
-		sge::opengl::windows::change_display_settings(
-			*_display_mode
-		);
+	fcppt::maybe_void(
+		_opt_display_mode,
+		[](
+			sge::renderer::display_mode::object const &_display_mode
+		)
+		{
+			sge::opengl::windows::change_display_settings(
+				_display_mode
+			);
+		}
+	);
 }
 
 sge::opengl::windows::device_state::~device_state()

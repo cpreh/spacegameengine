@@ -76,7 +76,7 @@ sge::opengl::wgl::system::create_context(
 		fcppt::unique_ptr_to_base<
 			sge::opengl::backend::context
 		>(
-			fcppt::make_unique_ptr<
+			fcppt::make_unique_ptr_fcppt<
 				sge::opengl::wgl::context
 			>(
 				fcppt::cast::static_downcast<

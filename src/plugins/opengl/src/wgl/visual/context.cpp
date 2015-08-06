@@ -26,10 +26,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/wgl/visual/context.hpp>
 #include <sge/opengl/wgl/visual/optional_pixel_format_types.hpp>
 #include <sge/opengl/wgl/visual/pixel_format_types.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/wglew.h>
 #include <fcppt/config/external_end.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::wgl::visual::context::context()
 :
@@ -150,6 +156,8 @@ sge::opengl::wgl::visual::context::context()
 {
 }
 
+FCPPT_PP_POP_WARNING
+
 sge::opengl::wgl::visual::context::~context()
 {
 }
@@ -157,19 +165,22 @@ sge::opengl::wgl::visual::context::~context()
 sge::opengl::wgl::visual::optional_pixel_format_types const
 sge::opengl::wgl::visual::context::pixel_format_types() const
 {
-	return pixel_format_types_;
+	return
+		pixel_format_types_;
 }
 
 sge::opengl::optional_int const
 sge::opengl::wgl::visual::context::multi_sample_flag() const
 {
-	return multi_sample_flag_;
+	return
+		multi_sample_flag_;
 }
 
 sge::opengl::optional_int const
 sge::opengl::wgl::visual::context::srgb_flag() const
 {
-	return srgb_flag_;
+	return
+		srgb_flag_;
 }
 
 sge::opengl::context::system::id const

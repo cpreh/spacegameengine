@@ -43,9 +43,10 @@ sge::opengl::windows::gdi_device::gdi_device(
 		==
 		nullptr
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("GetDC() failed!")
-		);
+		throw
+			sge::renderer::exception(
+				FCPPT_TEXT("GetDC() failed!")
+			);
 }
 
 sge::opengl::windows::gdi_device::~gdi_device()
@@ -59,5 +60,6 @@ sge::opengl::windows::gdi_device::~gdi_device()
 HDC
 sge::opengl::windows::gdi_device::hdc() const
 {
-	return dc_;
+	return
+		dc_;
 }

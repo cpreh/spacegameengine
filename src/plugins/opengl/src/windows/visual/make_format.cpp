@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/windows/visual/make_format.hpp>
+#include <sge/renderer/pixel_format/bit_count.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/color_bits.hpp>
 #include <sge/renderer/pixel_format/depth_bits.hpp>
@@ -26,17 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/optional_bit_count.hpp>
 #include <sge/renderer/pixel_format/stencil_bits.hpp>
 #include <awl/backends/windows/windows.hpp>
+#include <fcppt/const.hpp>
+#include <fcppt/from_optional.hpp>
+#include <fcppt/cast/size.hpp>
 
 
-namespace
-{
-
-BYTE
-convert_optional_bit_count(
-	sge::renderer::pixel_format::optional_bit_count
-);
-
-}
 
 PIXELFORMATDESCRIPTOR const
 sge::opengl::windows::visual::make_format(
@@ -44,6 +39,29 @@ sge::opengl::windows::visual::make_format(
 	sge::renderer::pixel_format::depth_stencil const _depth_stencil
 )
 {
+	auto const convert_optional_bit_count(
+		[](
+			sge::renderer::pixel_format::optional_bit_count const _bit_count
+		)
+		-> BYTE
+		{
+			return
+				fcppt::cast::size<
+					BYTE
+				>(
+					fcppt::from_optional(
+						_bit_count,
+						fcppt::const_(
+							sge::renderer::pixel_format::bit_count{
+								0u
+							}
+						)
+					).get()
+				);
+		}
+	);
+
+
 	PIXELFORMATDESCRIPTOR const ret = {
 		sizeof(
 			PIXELFORMATDESCRIPTOR
@@ -53,7 +71,7 @@ sge::opengl::windows::visual::make_format(
 		| PFD_SUPPORT_OPENGL
 		| PFD_DOUBLEBUFFER,
 		PFD_TYPE_RGBA,
-		static_cast<
+		fcppt::cast::size<
 			BYTE
 		>(
 			sge::renderer::pixel_format::color_bits(
@@ -65,12 +83,12 @@ sge::opengl::windows::visual::make_format(
 		0,                      // Shift Bit Ignored
 		0,                      // No Accumulation Buffer
 		0, 0, 0, 0,             // Accumulation Bits Ignored
-		::convert_optional_bit_count(
+		convert_optional_bit_count(
 			sge::renderer::pixel_format::depth_bits(
 				_depth_stencil
 			)
 		),
-		::convert_optional_bit_count(
+		convert_optional_bit_count(
 			sge::renderer::pixel_format::stencil_bits(
 				_depth_stencil
 			)
@@ -81,27 +99,6 @@ sge::opengl::windows::visual::make_format(
 		0, 0, 0                 // Layer Masks Ignored
 	};
 
-	return ret;
-}
-
-namespace
-{
-
-BYTE
-convert_optional_bit_count(
-	sge::renderer::pixel_format::optional_bit_count const _bit_count
-)
-{
 	return
-		static_cast<
-			BYTE
-		>(
-			_bit_count
-			?
-				_bit_count->get()
-			:
-				0U
-		);
-}
-
+		ret;
 }

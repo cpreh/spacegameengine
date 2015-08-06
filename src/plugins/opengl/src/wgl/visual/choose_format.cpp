@@ -24,13 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/wgl/visual/choose_format.hpp>
 #include <sge/opengl/wgl/visual/context.hpp>
 #include <sge/opengl/wgl/visual/make_attributes.hpp>
-#include <sge/opengl/wgl/visual/optional_pixel_format_types.hpp>
+#include <sge/opengl/wgl/visual/pixel_format_types.hpp>
 #include <sge/opengl/windows/gdi_device.hpp>
 #include <sge/opengl/windows/visual/format.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/backends/windows/windows.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -56,25 +57,26 @@ sge::opengl::wgl::visual::choose_format(
 		)
 	);
 
-	sge::opengl::wgl::visual::optional_pixel_format_types const pixel_format_types(
-		context.pixel_format_types()
+	sge::opengl::wgl::visual::pixel_format_types const pixel_format_types(
+		fcppt::optional_to_exception(
+			context.pixel_format_types(),
+			[]{
+				return
+					sge::renderer::unsupported(
+						FCPPT_TEXT("WGL pixel formats"),
+						FCPPT_TEXT(""),
+						FCPPT_TEXT("WGLEW_EXT_pixel_format, WGLEW_ARB_pixel_format")
+					);
+			}
+		)
 	);
-
-	if(
-		!pixel_format_types
-	)
-		throw sge::renderer::unsupported(
-			FCPPT_TEXT("WGL pixel formats"),
-			FCPPT_TEXT(""),
-			FCPPT_TEXT("WGLEW_EXT_pixel_format, WGLEW_ARB_pixel_format")
-		);
 
 	int result;
 
 	UINT num_results;
 
 	if(
-		pixel_format_types->choose_pixel_format()(
+		pixel_format_types.choose_pixel_format()(
 			_device.hdc(),
 			attributes.data(),
 			nullptr,
@@ -82,11 +84,13 @@ sge::opengl::wgl::visual::choose_format(
 			&result,
 			&num_results
 		)
-		== FALSE
+		==
+		FALSE
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("wglChoosePixelFormat failed!")
-		);
+		throw
+			sge::renderer::exception(
+				FCPPT_TEXT("wglChoosePixelFormat failed!")
+			);
 
 	return
 		sge::opengl::windows::visual::format(

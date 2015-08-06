@@ -24,15 +24,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/wgl/visual/attribute_container.hpp>
 #include <sge/opengl/wgl/visual/context.hpp>
 #include <sge/opengl/wgl/visual/make_attributes.hpp>
-#include <sge/opengl/wgl/visual/optional_pixel_format_types.hpp>
+#include <sge/opengl/wgl/visual/pixel_format_types.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <sge/renderer/pixel_format/bit_count.hpp>
 #include <sge/renderer/pixel_format/color_bits.hpp>
 #include <sge/renderer/pixel_format/depth_bits.hpp>
+#include <sge/renderer/pixel_format/multi_samples.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
-#include <sge/renderer/pixel_format/optional_bit_count.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/pixel_format/stencil_bits.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/wglew.h>
 #include <fcppt/config/external_end.hpp>
@@ -52,165 +56,157 @@ sge::opengl::wgl::visual::make_attributes(
 		)
 	);
 
-	sge::opengl::wgl::visual::optional_pixel_format_types const pixel_format_types(
-		context.pixel_format_types()
+	sge::opengl::wgl::visual::pixel_format_types const pixel_format_types(
+		fcppt::optional_to_exception(
+			context.pixel_format_types(),
+			[]{
+				return
+					sge::renderer::unsupported(
+						FCPPT_TEXT("WGL pixel formats"),
+						FCPPT_TEXT(""),
+						FCPPT_TEXT("WGLEW_EXT_pixel_format, WGLEW_ARB_pixel_format")
+					);
+			}
+		)
 	);
 
-	if(
-		!pixel_format_types
-	)
-		throw sge::renderer::unsupported(
-			FCPPT_TEXT("WGL pixel formats"),
-			FCPPT_TEXT(""),
-			FCPPT_TEXT("WGLEW_EXT_pixel_format, WGLEW_ARB_pixel_format")
-		);
-
 	sge::opengl::wgl::visual::attribute_container ret{
-		pixel_format_types->draw_to_window().get(),
+		pixel_format_types.draw_to_window().get(),
 		GL_TRUE,
-		pixel_format_types->support_opengl().get(),
+		pixel_format_types.support_opengl().get(),
 		GL_TRUE,
-		pixel_format_types->double_buffer().get(),
+		pixel_format_types.double_buffer().get(),
 		GL_TRUE,
-		pixel_format_types->pixel_type().get(),
-		pixel_format_types->pixel_type_rgba().get()<
-		pixel_format_types->color_bits().get(),
-		static_cast<
-			int
-		>(
+		pixel_format_types.pixel_type().get(),
+		pixel_format_types.pixel_type_rgba().get(),
+		pixel_format_types.color_bits().get(),
+		fcppt::cast::to_signed(
 			sge::renderer::pixel_format::color_bits(
 				_format.color()
 			).get()
 		)
 	};
 
-	{
-		sge::renderer::pixel_format::optional_bit_count const depth_bits(
-			sge::renderer::pixel_format::depth_bits(
-				_format.depth_stencil()
-			)
-		);
-
-		if(
-			depth_bits
+	fcppt::maybe_void(
+		sge::renderer::pixel_format::depth_bits(
+			_format.depth_stencil()
+		),
+		[
+			&pixel_format_types,
+			&ret
+		](
+			sge::renderer::pixel_format::bit_count const _depth_bits
 		)
 		{
 			ret.push_back(
-				pixel_format_types->depth_bits().get()
+				pixel_format_types.depth_bits().get()
 			);
 
 			ret.push_back(
-				static_cast<
-					int
-				>(
-					depth_bits->get()
+				fcppt::cast::to_signed(
+					_depth_bits.get()
 				)
 			);
 		}
-	}
+	);
 
-	{
-		sge::renderer::pixel_format::optional_bit_count const stencil_bits(
-			sge::renderer::pixel_format::stencil_bits(
-				_format.depth_stencil()
-			)
-		);
-
-		if(
-			stencil_bits
+	fcppt::maybe_void(
+		sge::renderer::pixel_format::stencil_bits(
+			_format.depth_stencil()
+		),
+		[
+			&pixel_format_types,
+			&ret
+		](
+			sge::renderer::pixel_format::bit_count const _stencil_bits
 		)
 		{
 			ret.push_back(
-				pixel_format_types->stencil_bits().get()
+				pixel_format_types.stencil_bits().get()
 			);
 
 			ret.push_back(
-				static_cast<
-					int
-				>(
-					stencil_bits->get()
+				fcppt::cast::to_signed(
+					_stencil_bits.get()
 				)
 			);
 		}
-	}
+	);
 
-	{
-		sge::renderer::pixel_format::optional_multi_samples const multi_samples(
-			_format.multi_samples()
-		);
-
-		if(
-			multi_samples
+	fcppt::maybe_void(
+		_format.multi_samples(),
+		[
+			&context,
+			&ret
+		](
+			sge::renderer::pixel_format::multi_samples const _multi_samples
 		)
 		{
-			sge::opengl::optional_int const multi_sample_flag(
-				context.multi_sample_flag()
-			);
-
-			if(
-				!multi_sample_flag
-			)
-				throw sge::renderer::unsupported(
-					FCPPT_TEXT("Multi sampling"),
-					FCPPT_TEXT(""),
-					FCPPT_TEXT("WGLEW_EXT_multisample, WGLEW_ARB_multisample")
-				);
-
 			ret.push_back(
-				*multi_sample_flag
+				fcppt::optional_to_exception(
+					context.multi_sample_flag(),
+					[]{
+						return
+							sge::renderer::unsupported(
+								FCPPT_TEXT("Multi sampling"),
+								FCPPT_TEXT(""),
+								FCPPT_TEXT("WGLEW_EXT_multisample, WGLEW_ARB_multisample")
+							);
+					}
+				)
 			);
 
 			ret.push_back(
-				static_cast<
-					int
-				>(
-					multi_samples->get()
+				fcppt::cast::to_signed(
+					_multi_samples.get()
 				)
 			);
 		}
-	}
+	);
 
 	if(
 		_format.srgb()
 		!=
 		sge::renderer::pixel_format::srgb::no
 	)
-	{
-		sge::opengl::optional_int const srgb_flag(
-			context.srgb_flag()
-		);
-
-		if(
-			!srgb_flag
-		)
-		{
-			if(
-				_format.srgb()
-				==
-				sge::renderer::pixel_format::srgb::yes
+		fcppt::maybe(
+			context.srgb_flag(),
+			[
+				&_format
+			]{
+				if(
+					_format.srgb()
+					==
+					sge::renderer::pixel_format::srgb::yes
+				)
+					throw
+						sge::renderer::unsupported(
+							FCPPT_TEXT("SRGB framebuffer"),
+							FCPPT_TEXT(""),
+							FCPPT_TEXT("WGLEW_EXT_framebuffer_sRGB, WGLEW_ARB_framebuffer_sRGB")
+						);
+			},
+			[
+				&ret
+			](
+				int const _srgb_flag
 			)
-				throw sge::renderer::unsupported(
-					FCPPT_TEXT("SRGB framebuffer"),
-					FCPPT_TEXT(""),
-					FCPPT_TEXT("WGLEW_EXT_framebuffer_sRGB, WGLEW_ARB_framebuffer_sRGB")
+			{
+				ret.push_back(
+					_srgb_flag
 				);
-		}
-		else
-		{
-			ret.push_back(
-				*srgb_flag
-			);
 
-			ret.push_back(
-				GL_TRUE
-			);
-		}
-	}
+				ret.push_back(
+					GL_TRUE
+				);
+			}
+		);
 
 	// End
 	ret.push_back(
 		0
 	);
 
-	return ret;
+	return
+		ret;
 }
