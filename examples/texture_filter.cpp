@@ -150,7 +150,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
-#include <sge/texture/const_part_shared_ptr.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
@@ -168,11 +167,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/unique_ptr_to_const.hpp>
 #include <fcppt/assign/make_map.hpp>
+#include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -194,42 +196,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-
-sge::renderer::state::core::sampler::parameters const
-make_sampler_parameters(
-	sge::renderer::state::core::sampler::filter::parameters const &_filter
-)
-{
-	return
-		sge::renderer::state::core::sampler::parameters(
-			sge::renderer::state::core::sampler::address::default_(),
-			_filter
-		);
-}
-
-sge::renderer::state::core::sampler::parameters const
-make_anisotropic_sampler_parameters(
-	sge::renderer::state::core::sampler::filter::anisotropic::mip const _mip,
-	sge::renderer::state::core::sampler::filter::anisotropic::level const _level
-)
-{
-	return
-		make_sampler_parameters(
-			sge::renderer::state::core::sampler::filter::parameters(
-				sge::renderer::state::core::sampler::filter::variant{
-					sge::renderer::state::core::sampler::filter::anisotropic::parameters(
-						_mip,
-						_level
-					)
-				}
-			)
-		);
-}
-
-}
 
 awl::main::exit_code const
 example_main(
@@ -404,6 +370,43 @@ try
 		SGE_FONT_LIT('x')
 	);
 
+	auto const make_sampler_parameters(
+		[](
+			sge::renderer::state::core::sampler::filter::parameters const &_filter
+		)
+		-> sge::renderer::state::core::sampler::parameters const
+		{
+			return
+				sge::renderer::state::core::sampler::parameters(
+					sge::renderer::state::core::sampler::address::default_(),
+					_filter
+				);
+		}
+	);
+
+	auto const make_anisotropic_sampler_parameters(
+		[
+			make_sampler_parameters
+		](
+			sge::renderer::state::core::sampler::filter::anisotropic::mip const _mip,
+			sge::renderer::state::core::sampler::filter::anisotropic::level const _level
+		)
+		-> sge::renderer::state::core::sampler::parameters const
+		{
+			return
+				make_sampler_parameters(
+					sge::renderer::state::core::sampler::filter::parameters(
+						sge::renderer::state::core::sampler::filter::variant{
+							sge::renderer::state::core::sampler::filter::anisotropic::parameters(
+								_mip,
+								_level
+							)
+						}
+					)
+				);
+		}
+	);
+
 	sge::renderer::state::core::sampler::object_unique_ptr const
 		point_sampler(
 			sys.renderer_device_core().create_sampler_state(
@@ -468,8 +471,7 @@ try
 		7u
 	> filter_array;
 
-	filter_array const filters =
-	{{
+	filter_array const filters{{
 		std::make_pair(
 			SGE_FONT_LIT("point"),
 			fcppt::make_cref(
@@ -545,7 +547,7 @@ try
 					1u
 				>,
 				sge::sprite::config::texture_coordinates::repetition,
-				sge::sprite::config::texture_ownership::shared
+				sge::sprite::config::texture_ownership::unique
 			>
 		>
 	> sprite_choices;
@@ -587,7 +589,7 @@ try
 	);
 
 	sprite_object::repetition_type::value_type const repetition(
-		static_cast<
+		fcppt::cast::int_to_float<
 			sprite_object::repetition_type::value_type
 		>(
 			sprite_size / 5
@@ -615,20 +617,24 @@ try
 			),
 		sge::sprite::roles::texture0{} =
 			sprite_object::texture_type{
-				sge::texture::const_part_shared_ptr(
-					fcppt::make_shared_ptr<
-						sge::texture::part_raw_ptr
+				fcppt::unique_ptr_to_const(
+					fcppt::unique_ptr_to_base<
+						sge::texture::part
 					>(
-						sge::renderer::texture::create_planar_from_view(
-							sys.renderer_device_core(),
-							sge::image2d::view::const_object(
-								whole_store.const_wrapped_view()
-							),
-							sge::renderer::texture::mipmap::all_levels(
-								sge::renderer::texture::mipmap::auto_generate::yes
-							),
-							sge::renderer::resource_flags_field::null(),
-							sge::renderer::texture::emulate_srgb::no
+						fcppt::make_unique_ptr_fcppt<
+							sge::texture::part_raw_ptr
+						>(
+							sge::renderer::texture::create_planar_from_view(
+								sys.renderer_device_core(),
+								sge::image2d::view::const_object(
+									whole_store.const_wrapped_view()
+								),
+								sge::renderer::texture::mipmap::all_levels(
+									sge::renderer::texture::mipmap::auto_generate::yes
+								),
+								sge::renderer::resource_flags_field::null(),
+								sge::renderer::texture::emulate_srgb::no
+							)
 						)
 					)
 				)

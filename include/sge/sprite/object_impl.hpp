@@ -564,7 +564,7 @@ template<
 >
 typename sge::sprite::object<
 	Choices
->::texture_type const
+>::texture_type const &
 sge::sprite::object<
 	Choices
 >::texture_level() const
@@ -947,35 +947,6 @@ sge::sprite::object<
 		_color
 	);
 }
-
-/*
-template<
-	typename Choices
->
-void
-sge::sprite::object<
-	Choices
->::transfer(
-	majutsu::role_return_type<
-		element_type,
-		sge::sprite::roles::connection
-	> _connection_ref
-)
-{
-	sge::sprite::detail::unlink(
-		*this
-	);
-
-	this->set<
-		sge::sprite::roles::connection
-	>(
-		_connection_ref
-	);
-
-	_connection_ref.get().add(
-		*this
-	);
-}*/
 
 template<
 	typename Choices

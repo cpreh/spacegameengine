@@ -34,6 +34,7 @@ namespace config
 enum class texture_ownership
 {
 	reference,
+	unique,
 	shared
 };
 

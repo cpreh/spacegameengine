@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DEREF_TEXTURE_HPP_INCLUDED
 
 #include <fcppt/shared_ptr_fwd.hpp>
+#include <fcppt/unique_ptr_fwd.hpp>
 
 
 namespace sge
@@ -44,6 +45,23 @@ deref_texture(
 		*_value;
 
 }
+
+template<
+	typename Type
+>
+inline
+Type const &
+deref_texture(
+	fcppt::unique_ptr<
+		Type
+	> const &_value
+)
+{
+	return
+		*_value;
+
+}
+
 template<
 	typename Type
 >

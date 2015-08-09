@@ -312,7 +312,7 @@ public:
 	template<
 		sge::sprite::texture_level
 	>
-	texture_type const
+	texture_type const &
 	texture_level() const;
 
 	void
