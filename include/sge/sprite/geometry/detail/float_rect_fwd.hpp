@@ -18,39 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
-#define SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
+#ifndef SGE_SPRITE_GEOMETRY_DETAIL_FLOAT_RECT_FWD_HPP_INCLUDED
+#define SGE_SPRITE_GEOMETRY_DETAIL_FLOAT_RECT_FWD_HPP_INCLUDED
 
-#include <sge/renderer/vertex/count.hpp>
-#include <sge/sprite/count.hpp>
-#include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
+#include <sge/sprite/types/basic/rect_fwd.hpp>
 
 
 namespace sge
 {
 namespace sprite
 {
-namespace buffers
+namespace geometry
+{
+namespace detail
 {
 
 template<
-	typename Choices
+	typename TypeChoices
 >
-sge::renderer::vertex::count const
-vertex_count(
-	sge::sprite::count const _sprites
-)
-{
-	return
-		sge::renderer::vertex::count(
-			_sprites.get()
-			*
-			sge::sprite::geometry::detail::vertices_per_sprite<
-				Choices
-			>::value
-		);
-}
+using float_rect
+=
+sge::sprite::types::basic::rect<
+	typename TypeChoices::float_type
+>;
 
+}
 }
 }
 }

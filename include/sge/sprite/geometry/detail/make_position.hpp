@@ -18,39 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
-#define SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
+#ifndef SGE_SPRITE_GEOMETRY_DETAIL_MAKE_POSITION_HPP_INCLUDED
+#define SGE_SPRITE_GEOMETRY_DETAIL_MAKE_POSITION_HPP_INCLUDED
 
-#include <sge/renderer/vertex/count.hpp>
-#include <sge/sprite/count.hpp>
-#include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
+#include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/geometry/detail/depth.hpp>
+#include <sge/sprite/geometry/detail/pos_packed_type.hpp>
+#include <fcppt/math/vector/construct.hpp>
 
 
 namespace sge
 {
 namespace sprite
 {
-namespace buffers
+namespace geometry
+{
+namespace detail
 {
 
 template<
-	typename Choices
+	typename Choices,
+	typename Point
 >
-sge::renderer::vertex::count const
-vertex_count(
-	sge::sprite::count const _sprites
+inline
+sge::sprite::geometry::detail::pos_packed_type<
+	Choices
+>
+const
+make_position(
+	Point const &_point,
+	sge::sprite::object<
+		Choices
+	> const &_sprite
 )
 {
 	return
-		sge::renderer::vertex::count(
-			_sprites.get()
-			*
-			sge::sprite::geometry::detail::vertices_per_sprite<
-				Choices
-			>::value
+		fcppt::math::vector::construct(
+			_point,
+			sge::sprite::geometry::detail::depth(
+				_sprite
+			)
 		);
 }
 
+}
 }
 }
 }

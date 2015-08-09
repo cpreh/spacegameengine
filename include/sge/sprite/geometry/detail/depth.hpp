@@ -18,39 +18,69 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
-#define SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
+#ifndef SGE_SPRITE_GEOMETRY_DETAIL_DEPTH_HPP_INCLUDED
+#define SGE_SPRITE_GEOMETRY_DETAIL_DEPTH_HPP_INCLUDED
 
-#include <sge/renderer/vertex/count.hpp>
-#include <sge/sprite/count.hpp>
-#include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
+#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/detail/config/has_depth.hpp>
+#include <fcppt/literal.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace sprite
 {
-namespace buffers
+namespace geometry
+{
+namespace detail
 {
 
 template<
 	typename Choices
 >
-sge::renderer::vertex::count const
-vertex_count(
-	sge::sprite::count const _sprites
+typename boost::enable_if<
+	sge::sprite::detail::config::has_depth<
+		Choices
+	>,
+	typename Choices::type_choices::float_type
+>::type
+depth(
+	sge::sprite::object<
+		Choices
+	> const &_sprite
 )
 {
 	return
-		sge::renderer::vertex::count(
-			_sprites.get()
-			*
-			sge::sprite::geometry::detail::vertices_per_sprite<
-				Choices
-			>::value
+		_sprite.z();
+}
+
+template<
+	typename Choices
+>
+typename boost::disable_if<
+	sge::sprite::detail::config::has_depth<
+		Choices
+	>,
+	typename Choices::type_choices::float_type
+>::type
+depth(
+	sge::sprite::object<
+		Choices
+	> const &
+)
+{
+	return
+		fcppt::literal<
+			typename Choices::type_choices::float_type
+		>(
+			0
 		);
 }
 
+}
 }
 }
 }

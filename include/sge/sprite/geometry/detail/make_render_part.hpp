@@ -18,40 +18,68 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_BUFFERS_INDEX_COUNT_HPP_INCLUDED
-#define SGE_SPRITE_BUFFERS_INDEX_COUNT_HPP_INCLUDED
+#ifndef SGE_SPRITE_GEOMETRY_DETAIL_MAKE_RENDER_PART_HPP_INCLUDED
+#define SGE_SPRITE_GEOMETRY_DETAIL_MAKE_RENDER_PART_HPP_INCLUDED
 
-#include <sge/renderer/index/count.hpp>
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/geometry/detail/indices_per_sprite.hpp>
+#include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/buffers/slice_fwd.hpp>
+#include <sge/sprite/geometry/detail/render_part_element.hpp>
+#include <sge/sprite/detail/render/range_part_object.hpp>
+#include <sge/sprite/render/range_part_impl.hpp>
+#include <majutsu/init.hpp>
 
 
 namespace sge
 {
 namespace sprite
 {
-namespace buffers
+namespace geometry
+{
+namespace detail
 {
 
 template<
 	typename Choices
 >
 inline
-sge::renderer::index::count const
-index_count(
-	sge::sprite::count const _sprites
+sge::sprite::render::range_part<
+	Choices
+>
+make_render_part(
+	sge::sprite::buffers::slice<
+		Choices
+	> const &_slice,
+	sge::sprite::count const _offset,
+	sge::sprite::count const _count,
+	sge::sprite::object<
+		Choices
+	> const &_current
 )
 {
 	return
-		sge::renderer::index::count(
-			_sprites.get()
-			*
-			sge::sprite::geometry::detail::indices_per_sprite<
-				Choices
-			>::value
+		sge::sprite::render::range_part<
+			Choices
+		>(
+			majutsu::init<
+				typename
+				sge::sprite::detail::render::range_part_object<
+					Choices
+				>::type
+			>(
+				sge::sprite::geometry::detail::render_part_element<
+					Choices
+				>(
+					_slice,
+					_offset,
+					_count,
+					_current
+				)
+			)
 		);
 }
 
+}
 }
 }
 }

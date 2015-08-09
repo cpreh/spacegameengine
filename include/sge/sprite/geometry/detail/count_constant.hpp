@@ -18,39 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
-#define SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
+#ifndef SGE_SPRITE_GEOMETRY_DETAIL_COUNT_CONSTANT_HPP_INCLUDED
+#define SGE_SPRITE_GEOMETRY_DETAIL_COUNT_CONSTANT_HPP_INCLUDED
 
-#include <sge/renderer/vertex/count.hpp>
-#include <sge/sprite/count.hpp>
-#include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
+#include <sge/sprite/geometry/detail/count.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/integral_c.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace sprite
 {
-namespace buffers
+namespace geometry
+{
+namespace detail
 {
 
 template<
-	typename Choices
+	sge::sprite::geometry::detail::count Count
 >
-sge::renderer::vertex::count const
-vertex_count(
-	sge::sprite::count const _sprites
-)
-{
-	return
-		sge::renderer::vertex::count(
-			_sprites.get()
-			*
-			sge::sprite::geometry::detail::vertices_per_sprite<
-				Choices
-			>::value
-		);
-}
+using count_constant
+=
+boost::mpl::integral_c<
+	sge::sprite::geometry::detail::count,
+	Count
+>;
 
+}
 }
 }
 }

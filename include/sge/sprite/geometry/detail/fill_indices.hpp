@@ -18,12 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_GEOMETRY_FILL_HPP_INCLUDED
-#define SGE_SPRITE_GEOMETRY_FILL_HPP_INCLUDED
+#ifndef SGE_SPRITE_GEOMETRY_DETAIL_FILL_INDICES_HPP_INCLUDED
+#define SGE_SPRITE_GEOMETRY_DETAIL_FILL_INDICES_HPP_INCLUDED
 
-#include <sge/sprite/buffers/slice_fwd.hpp>
-#include <sge/sprite/geometry/detail/fill.hpp>
-#include <sge/sprite/render/range_impl.hpp>
+#include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/index/scoped_lock.hpp>
+#include <sge/renderer/index/any/generate.hpp>
+#include <sge/renderer/index/any/make_view.hpp>
+#include <sge/sprite/count.hpp>
+#include <sge/sprite/buffers/index_count.hpp>
+#include <sge/sprite/buffers/slice_impl.hpp>
+#include <sge/sprite/geometry/detail/index_generator.hpp>
 
 
 namespace sge
@@ -32,32 +37,42 @@ namespace sprite
 {
 namespace geometry
 {
+namespace detail
+{
 
 template<
-	typename Range,
-	typename Compare,
 	typename Choices
 >
-inline
-sge::sprite::render::range<
-	Choices
->
-fill(
-	Range const &_range,
-	Compare const &_compare,
+void
+fill_indices(
+	sge::sprite::count const _sprite_count,
 	sge::sprite::buffers::slice<
 		Choices
 	> const &_slice
 )
 {
-	return
-		sge::sprite::geometry::detail::fill(
-			_range,
-			_compare,
-			_slice
-		);
+	sge::renderer::index::scoped_lock const lock(
+		_slice.index_buffer(),
+		sge::renderer::lock_mode::writeonly,
+		_slice.first_index(),
+		sge::sprite::buffers::index_count<
+			Choices
+		>(
+			_sprite_count
+		)
+	);
+
+	sge::renderer::index::any::generate(
+		sge::renderer::index::any::make_view(
+			lock.value()
+		),
+		sge::sprite::geometry::detail::index_generator<
+			Choices
+		>()
+	);
 }
 
+}
 }
 }
 }

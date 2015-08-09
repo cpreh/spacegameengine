@@ -18,39 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
-#define SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
+#ifndef SGE_SPRITE_GEOMETRY_DETAIL_CONVERT_TEXTURE_RECT_HPP_INCLUDED
+#define SGE_SPRITE_GEOMETRY_DETAIL_CONVERT_TEXTURE_RECT_HPP_INCLUDED
 
-#include <sge/renderer/vertex/count.hpp>
-#include <sge/sprite/count.hpp>
-#include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
+#include <sge/sprite/types/texture_coordinates.hpp>
 
 
 namespace sge
 {
 namespace sprite
 {
-namespace buffers
+namespace geometry
+{
+namespace detail
 {
 
 template<
-	typename Choices
+	typename Choices,
+	typename Rect
 >
-sge::renderer::vertex::count const
-vertex_count(
-	sge::sprite::count const _sprites
+sge::sprite::types::texture_coordinates<
+	typename Choices::type_choices
+> const
+convert_texture_rect(
+	Rect const &_rect
 )
 {
+	typedef
+	sge::sprite::types::texture_coordinates<
+		typename Choices::type_choices
+	>
+	return_type;
+
+	typedef typename return_type::first_type element_type;
+
 	return
-		sge::renderer::vertex::count(
-			_sprites.get()
-			*
-			sge::sprite::geometry::detail::vertices_per_sprite<
-				Choices
-			>::value
+		return_type(
+			element_type(
+				_rect.left(),
+				_rect.top()
+			),
+			element_type(
+				_rect.right(),
+				_rect.bottom()
+			)
 		);
 }
 
+}
 }
 }
 }

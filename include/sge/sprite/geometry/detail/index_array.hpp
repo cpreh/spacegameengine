@@ -18,41 +18,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
-#define SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
+#ifndef SGE_SPRITE_GEOMETRY_DETAIL_INDEX_ARRAY_HPP_INCLUDED
+#define SGE_SPRITE_GEOMETRY_DETAIL_INDEX_ARRAY_HPP_INCLUDED
 
-#include <sge/renderer/vertex/count.hpp>
-#include <sge/sprite/count.hpp>
-#include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
+#include <sge/sprite/detail/symbol.hpp>
+#include <sge/sprite/geometry/detail/index_array_type.hpp>
 
 
 namespace sge
 {
 namespace sprite
 {
-namespace buffers
+namespace geometry
+{
+namespace detail
 {
 
 template<
 	typename Choices
 >
-sge::renderer::vertex::count const
-vertex_count(
-	sge::sprite::count const _sprites
-)
+struct index_array
 {
-	return
-		sge::renderer::vertex::count(
-			_sprites.get()
-			*
-			sge::sprite::geometry::detail::vertices_per_sprite<
-				Choices
-			>::value
-		);
-}
+	typedef
+	sge::sprite::geometry::detail::index_array_type<
+		Choices
+	>
+	array;
+
+	static array const value;
+};
 
 }
 }
 }
+}
+
+template<
+	typename Choices
+>
+typename
+sge::sprite::geometry::detail::index_array<
+	Choices
+>::array const
+sge::sprite::geometry::detail::index_array<
+	Choices
+>::value =
+{
+{
+	0,
+	1,
+	2,
+	0,
+	2,
+	3
+}
+};
 
 #endif

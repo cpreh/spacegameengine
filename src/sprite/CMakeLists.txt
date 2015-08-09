@@ -128,38 +128,6 @@ set(
 	include/sge/sprite/detail/config/texture_levels.hpp
 	include/sge/sprite/detail/config/texture_ref.hpp
 	include/sge/sprite/detail/destroy.hpp
-	include/sge/sprite/detail/geometry/convert_texture_rect.hpp
-	include/sge/sprite/detail/geometry/count.hpp
-	include/sge/sprite/detail/geometry/count_constant.hpp
-	include/sge/sprite/detail/geometry/depth.hpp
-	include/sge/sprite/detail/geometry/fill.hpp
-	include/sge/sprite/detail/geometry/fill_color.hpp
-	include/sge/sprite/detail/geometry/fill_indices.hpp
-	include/sge/sprite/detail/geometry/fill_point_size.hpp
-	include/sge/sprite/detail/geometry/fill_position.hpp
-	include/sge/sprite/detail/geometry/fill_position_points.hpp
-	include/sge/sprite/detail/geometry/fill_position_rotated.hpp
-	include/sge/sprite/detail/geometry/fill_position_unrotated.hpp
-	include/sge/sprite/detail/geometry/fill_texture_coordinates.hpp
-	include/sge/sprite/detail/geometry/fill_texture_coordinates_rect.hpp
-	include/sge/sprite/detail/geometry/fill_texture_level.hpp
-	include/sge/sprite/detail/geometry/fill_texture_level_impl.hpp
-	include/sge/sprite/detail/geometry/fill_texture_levels.hpp
-	include/sge/sprite/detail/geometry/fill_texture_point.hpp
-	include/sge/sprite/detail/geometry/fill_texture_point_pos.hpp
-	include/sge/sprite/detail/geometry/fill_texture_point_size.hpp
-	include/sge/sprite/detail/geometry/fill_vertices.hpp
-	include/sge/sprite/detail/geometry/float_rect.hpp
-	include/sge/sprite/detail/geometry/float_rect_fwd.hpp
-	include/sge/sprite/detail/geometry/index_array.hpp
-	include/sge/sprite/detail/geometry/index_array_type.hpp
-	include/sge/sprite/detail/geometry/index_generator.hpp
-	include/sge/sprite/detail/geometry/indices_per_sprite.hpp
-	include/sge/sprite/detail/geometry/make_position.hpp
-	include/sge/sprite/detail/geometry/make_render_part.hpp
-	include/sge/sprite/detail/geometry/pos_packed_type.hpp
-	include/sge/sprite/detail/geometry/render_part_element.hpp
-	include/sge/sprite/detail/geometry/vertices_per_sprite.hpp
 	include/sge/sprite/detail/get_center.hpp
 	include/sge/sprite/detail/get_pos.hpp
 	include/sge/sprite/detail/get_size.hpp
@@ -209,6 +177,38 @@ set(
 	include/sge/sprite/detail/vf/texture_point.hpp
 	include/sge/sprite/detail/vf/texture_point_pos.hpp
 	include/sge/sprite/detail/vf/texture_point_size.hpp
+	include/sge/sprite/geometry/detail/convert_texture_rect.hpp
+	include/sge/sprite/geometry/detail/count.hpp
+	include/sge/sprite/geometry/detail/count_constant.hpp
+	include/sge/sprite/geometry/detail/depth.hpp
+	include/sge/sprite/geometry/detail/fill.hpp
+	include/sge/sprite/geometry/detail/fill_color.hpp
+	include/sge/sprite/geometry/detail/fill_indices.hpp
+	include/sge/sprite/geometry/detail/fill_point_size.hpp
+	include/sge/sprite/geometry/detail/fill_position.hpp
+	include/sge/sprite/geometry/detail/fill_position_points.hpp
+	include/sge/sprite/geometry/detail/fill_position_rotated.hpp
+	include/sge/sprite/geometry/detail/fill_position_unrotated.hpp
+	include/sge/sprite/geometry/detail/fill_texture_coordinates.hpp
+	include/sge/sprite/geometry/detail/fill_texture_coordinates_rect.hpp
+	include/sge/sprite/geometry/detail/fill_texture_level.hpp
+	include/sge/sprite/geometry/detail/fill_texture_level_impl.hpp
+	include/sge/sprite/geometry/detail/fill_texture_levels.hpp
+	include/sge/sprite/geometry/detail/fill_texture_point.hpp
+	include/sge/sprite/geometry/detail/fill_texture_point_pos.hpp
+	include/sge/sprite/geometry/detail/fill_texture_point_size.hpp
+	include/sge/sprite/geometry/detail/fill_vertices.hpp
+	include/sge/sprite/geometry/detail/float_rect.hpp
+	include/sge/sprite/geometry/detail/float_rect_fwd.hpp
+	include/sge/sprite/geometry/detail/index_array.hpp
+	include/sge/sprite/geometry/detail/index_array_type.hpp
+	include/sge/sprite/geometry/detail/index_generator.hpp
+	include/sge/sprite/geometry/detail/indices_per_sprite.hpp
+	include/sge/sprite/geometry/detail/make_position.hpp
+	include/sge/sprite/geometry/detail/make_render_part.hpp
+	include/sge/sprite/geometry/detail/pos_packed_type.hpp
+	include/sge/sprite/geometry/detail/render_part_element.hpp
+	include/sge/sprite/geometry/detail/vertices_per_sprite.hpp
 	include/sge/sprite/geometry/fill.hpp
 	include/sge/sprite/geometry/is_random_access_range.hpp
 	include/sge/sprite/geometry/make_random_access_range.hpp

@@ -18,39 +18,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
-#define SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
+#ifndef SGE_SPRITE_GEOMETRY_DETAIL_INDICES_PER_SPRITE_HPP_INCLUDED
+#define SGE_SPRITE_GEOMETRY_DETAIL_INDICES_PER_SPRITE_HPP_INCLUDED
 
-#include <sge/renderer/vertex/count.hpp>
-#include <sge/sprite/count.hpp>
-#include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
+#include <sge/sprite/detail/config/needs_index_buffer.hpp>
+#include <sge/sprite/geometry/detail/count_constant.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace sprite
 {
-namespace buffers
+namespace geometry
 {
+namespace detail
+{
+
+template<
+	typename Choices,
+	typename Enable = void
+>
+struct indices_per_sprite;
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Choices
 >
-sge::renderer::vertex::count const
-vertex_count(
-	sge::sprite::count const _sprites
-)
+struct indices_per_sprite<
+	Choices,
+	typename boost::enable_if<
+		sge::sprite::detail::config::needs_index_buffer<
+			Choices
+		>
+	>::type
+>
+:
+sge::sprite::geometry::detail::count_constant<
+	6U
+>
 {
-	return
-		sge::renderer::vertex::count(
-			_sprites.get()
-			*
-			sge::sprite::geometry::detail::vertices_per_sprite<
-				Choices
-			>::value
-		);
-}
+};
 
+FCPPT_PP_POP_WARNING
+
+}
 }
 }
 }
