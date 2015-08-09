@@ -18,27 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_GFX_SPRITE_OBJECT_FWD_HPP_INCLUDED
-#define SGE_CONSOLE_GFX_SPRITE_OBJECT_FWD_HPP_INCLUDED
+#ifndef SGE_TEXTURE_CONST_PART_REF_FWD_HPP_INCLUDED
+#define SGE_TEXTURE_CONST_PART_REF_FWD_HPP_INCLUDED
 
-#include <sge/console/gfx/sprite_choices_fwd.hpp>
-#include <sge/sprite/object_fwd.hpp>
+#include <sge/texture/part_fwd.hpp>
+#include <fcppt/reference_wrapper_fwd.hpp>
 
 
 namespace sge
 {
-namespace console
-{
-namespace gfx
+namespace texture
 {
 
 typedef
-sge::sprite::object<
-	sge::console::gfx::sprite_choices
+fcppt::reference_wrapper<
+	sge::texture::part const
 >
-sprite_object;
+const_part_ref;
 
-}
 }
 }
 

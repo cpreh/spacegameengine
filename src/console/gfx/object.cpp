@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/gfx/font_color.hpp>
 #include <sge/console/gfx/object.hpp>
 #include <sge/console/gfx/output_line_limit.hpp>
-#include <sge/console/gfx/sprite_object.hpp>
 #include <sge/console/gfx/detail/pointed_history.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object_fwd.hpp>
@@ -43,17 +42,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <sge/sprite/buffers/option.hpp>
-#include <sge/sprite/buffers/single_impl.hpp>
-#include <sge/sprite/buffers/with_declaration_impl.hpp>
-#include <sge/sprite/process/one.hpp>
-#include <sge/sprite/state/object_impl.hpp>
-#include <sge/sprite/state/parameters_impl.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/range/iterator_range_core.hpp>
 #include <functional>
 #include <locale>
 #include <fcppt/config/external_end.hpp>
@@ -68,7 +64,7 @@ sge::console::gfx::object::object(
 	sge::console::gfx::font_color const &_font_color,
 	sge::font::object &_font_object,
 	sge::input::keyboard::device &_keyboard,
-	sge::console::gfx::sprite_object const &_background,
+	sge::font::rect const &_area,
 	sge::console::gfx::output_line_limit const _line_limit
 )
 :
@@ -132,16 +128,8 @@ sge::console::gfx::object::object(
 			)
 		)
 	),
-	sprite_buffers_(
-		_renderer,
-		sge::sprite::buffers::option::dynamic
-	),
-	sprite_state_(
-		_renderer,
-		sprite_state_parameters()
-	),
-	background_(
-		_background
+	area_(
+		_area
 	),
 	active_(
 		false
@@ -155,7 +143,7 @@ sge::console::gfx::object::object(
 		input_history_.begin()
 	),
 	output_lines_(
-		static_cast<
+		fcppt::cast::size<
 			sge::console::gfx::detail::pointed_history::size_type
 		>(
 			_line_limit.get()
@@ -175,18 +163,8 @@ sge::console::gfx::object::render(
 	sge::renderer::context::ffp &_render_context
 )
 {
-	if(
-		background_.texture().has_value()
-	)
-		sge::sprite::process::one(
-			_render_context,
-			background_,
-			sprite_buffers_,
-			sprite_state_
-		);
-
 	sge::font::unit current_y(
-		background_.h()
+		area_.h()
 	);
 
 	if(
@@ -205,21 +183,18 @@ sge::console::gfx::object::render(
 			);
 
 	for(
-		sge::console::gfx::detail::pointed_history::const_iterator
-			iter(
-				output_lines_.point()
-			),
-			end(
-				output_lines_.end()
-			);
-		iter != end;
-		++iter
+		auto const &element
+		:
+		boost::make_iterator_range(
+			output_lines_.point(),
+			output_lines_.end()
+		)
 	)
 	{
 		current_y =
 			this->render_line(
 				_render_context,
-				*iter,
+				element,
 				current_y
 			);
 
@@ -286,18 +261,13 @@ sge::console::gfx::object::console_object() const
 		object_;
 }
 
-sge::console::gfx::sprite_object &
-sge::console::gfx::object::background_sprite()
+void
+sge::console::gfx::object::area(
+	sge::font::rect const &_area
+)
 {
-	return
-		background_;
-}
-
-sge::console::gfx::sprite_object const &
-sge::console::gfx::object::background_sprite() const
-{
-	return
-		background_;
+	area_ =
+		_area;
 }
 
 sge::font::unit
@@ -315,7 +285,7 @@ sge::console::gfx::object::render_line(
 			sge::font::align_h::variant{
 				sge::font::align_h::left(
 					sge::font::align_h::max_width(
-						background_.w()
+						area_.w()
 					)
 				)
 			}
@@ -326,6 +296,7 @@ sge::console::gfx::object::render_line(
 		sge::renderer::texture::emulate_srgb::yes
 	);
 
+	// TODO: Make this easier
 	sge::font::vector const pos(
 		0,
 		_current_y
@@ -336,7 +307,7 @@ sge::console::gfx::object::render_line(
 	static_text.pos(
 		pos
 		+
-		background_.pos()
+		area_.pos()
 	);
 
 	static_text.draw(

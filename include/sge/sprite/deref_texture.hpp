@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DEREF_TEXTURE_HPP_INCLUDED
 #define SGE_SPRITE_DEREF_TEXTURE_HPP_INCLUDED
 
+#include <fcppt/reference_wrapper_fwd.hpp>
 #include <fcppt/shared_ptr_fwd.hpp>
 #include <fcppt/unique_ptr_fwd.hpp>
 
@@ -68,11 +69,13 @@ template<
 inline
 Type const &
 deref_texture(
-	Type const &_value
+	fcppt::reference_wrapper<
+		Type
+	> const &_value
 )
 {
 	return
-		_value;
+		_value.get();
 }
 
 }

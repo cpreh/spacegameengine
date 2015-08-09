@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/roles/texture0.hpp>
 #include <sge/sprite/types/repetition.hpp>
-#include <sge/texture/const_optional_part_ref.hpp>
+#include <sge/texture/const_part_ref.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/dim/to_vector.hpp>
@@ -67,7 +67,7 @@ sge::gui::impl::draw_image_repeat(
 			sge::sprite::roles::pos{} =
 				_rect.pos(),
 			sge::sprite::roles::texture0{} =
-				sge::texture::const_optional_part_ref(
+				sge::texture::const_part_ref(
 					_texture
 				),
 			sge::sprite::roles::repetition{} =

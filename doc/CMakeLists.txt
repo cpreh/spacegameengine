@@ -422,14 +422,6 @@ set(
 	include/sge/console/gfx/object_fwd.hpp
 	include/sge/console/gfx/output_line_limit.hpp
 	include/sge/console/gfx/output_line_limit_fwd.hpp
-	include/sge/console/gfx/sprite_choices.hpp
-	include/sge/console/gfx/sprite_choices_fwd.hpp
-	include/sge/console/gfx/sprite_elements.hpp
-	include/sge/console/gfx/sprite_elements_fwd.hpp
-	include/sge/console/gfx/sprite_object.hpp
-	include/sge/console/gfx/sprite_object_fwd.hpp
-	include/sge/console/gfx/sprite_type_choices.hpp
-	include/sge/console/gfx/sprite_type_choices_fwd.hpp
 	include/sge/console/long_description.hpp
 	include/sge/console/long_description_fwd.hpp
 	include/sge/console/message_callback.hpp
@@ -3095,7 +3087,7 @@ set(
 	include/sge/sprite/color.hpp
 	include/sge/sprite/color_fwd.hpp
 	include/sge/sprite/compare/default.hpp
-	include/sge/sprite/compare/detail/texture_level_functor.hpp
+	include/sge/sprite/compare/detail/texture_level_function.hpp
 	include/sge/sprite/compare/detail/textures.hpp
 	include/sge/sprite/compare/nothing.hpp
 	include/sge/sprite/compare/texture_level_equal.hpp
@@ -3345,8 +3337,6 @@ set(
 	include/sge/sprite/projection_dim_fwd.hpp
 	include/sge/sprite/projection_matrix.hpp
 	include/sge/sprite/projection_matrix_fixed.hpp
-	include/sge/sprite/render/optional_texture_ref.hpp
-	include/sge/sprite/render/optional_texture_ref_fwd.hpp
 	include/sge/sprite/render/parameters.hpp
 	include/sge/sprite/render/parameters_decl.hpp
 	include/sge/sprite/render/parameters_fwd.hpp
@@ -3360,6 +3350,8 @@ set(
 	include/sge/sprite/render/range_part_impl.hpp
 	include/sge/sprite/render/range_part_vector.hpp
 	include/sge/sprite/render/range_with_options.hpp
+	include/sge/sprite/render/texture_ref.hpp
+	include/sge/sprite/render/texture_ref_fwd.hpp
 	include/sge/sprite/roles/center.hpp
 	include/sge/sprite/roles/color.hpp
 	include/sge/sprite/roles/connection.hpp
@@ -3616,6 +3608,8 @@ set(
 	include/sge/texture/basic_part_raw_fwd.hpp
 	include/sge/texture/const_optional_part_ref.hpp
 	include/sge/texture/const_optional_part_ref_fwd.hpp
+	include/sge/texture/const_part_ref.hpp
+	include/sge/texture/const_part_ref_fwd.hpp
 	include/sge/texture/const_part_shared_ptr.hpp
 	include/sge/texture/const_part_unique_ptr.hpp
 	include/sge/texture/detail/ref_store_type.hpp

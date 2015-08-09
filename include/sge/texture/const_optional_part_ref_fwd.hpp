@@ -30,9 +30,11 @@ namespace sge
 namespace texture
 {
 
-typedef fcppt::optional<
+typedef
+fcppt::optional<
 	sge::texture::part const &
-> const_optional_part_ref;
+>
+const_optional_part_ref;
 
 }
 }

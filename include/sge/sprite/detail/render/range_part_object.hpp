@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/roles/index_count.hpp>
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
-#include <sge/sprite/render/optional_texture_ref.hpp>
+#include <sge/sprite/render/texture_ref.hpp>
 #include <majutsu/role.hpp>
 #include <majutsu/fusion/record.hpp>
 #include <fcppt/mpl/append.hpp>
@@ -111,7 +111,7 @@ private:
 	struct make_texture_role
 	{
 		typedef majutsu::role<
-			sge::sprite::render::optional_texture_ref,
+			sge::sprite::render::texture_ref,
 			sge::sprite::detail::roles::texture<
 				Level::value
 			>

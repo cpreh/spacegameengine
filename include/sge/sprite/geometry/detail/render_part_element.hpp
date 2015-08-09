@@ -39,8 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/texture.hpp>
 #include <majutsu/get.hpp>
 #include <majutsu/role.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/optional_bind_construct.hpp>
 
 
 namespace sge
@@ -194,26 +194,16 @@ public:
 	) const
 	{
 		return
-			fcppt::optional_bind_construct(
-				majutsu::get<
-					sge::sprite::roles::texture<
-						Level
-					>
-				>(
-					object_
-				),
-				[](
-					typename
-					object_type::texture_type::value_type const &_texture
-				)
-				->
-				sge::renderer::texture::planar const &
-				{
-					return
-						sge::sprite::deref_texture(
-							_texture
-						).texture();
-				}
+			fcppt::make_cref(
+				sge::sprite::deref_texture(
+					majutsu::get<
+						sge::sprite::roles::texture<
+							Level
+						>
+					>(
+						object_
+					)
+				).texture()
 			);
 	}
 private:

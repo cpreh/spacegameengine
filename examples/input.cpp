@@ -25,11 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/gfx/font_color.hpp>
 #include <sge/console/gfx/object.hpp>
 #include <sge/console/gfx/output_line_limit.hpp>
-#include <sge/console/gfx/sprite_object.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/parameters.hpp>
+#include <sge/font/rect.hpp>
 #include <sge/font/system.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/input/log_location.hpp>
@@ -104,9 +104,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/sprite/roles/pos_or_center.hpp>
-#include <sge/sprite/roles/size_or_texture_size.hpp>
-#include <sge/sprite/roles/texture0.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
@@ -156,7 +153,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <functional>
 #include <ostream>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -306,19 +302,13 @@ struct dummy_event_handler
 };
 
 template<
-	typename Functor,
+	typename Result,
 	typename Function
 >
-Functor const
+Result const
 wrap_silent(
 	Function const &,
 	bool silent
-);
-
-void
-manage_console_size(
-	sge::console::gfx::sprite_object &,
-	sge::renderer::target::viewport const &
 );
 
 }
@@ -451,20 +441,7 @@ try
 		),
 		*font,
 		sys.keyboard_collector(),
-		sge::console::gfx::sprite_object(
-			sge::sprite::roles::pos_or_center{} =
-				sge::console::gfx::sprite_object::pos_or_center_type(
-					sge::console::gfx::sprite_object::pos_type(
-						sge::console::gfx::sprite_object::vector::null()
-					)
-				),
-			sge::sprite::roles::size_or_texture_size{} =
-				sge::console::gfx::sprite_object::size_or_texture_size_type(
-					sge::console::gfx::sprite_object::dim::null()
-				),
-			sge::sprite::roles::texture0{} =
-				sge::console::gfx::sprite_object::texture_type{}
-		),
+		sge::font::rect::null(),
 		sge::console::gfx::output_line_limit(
 			200u
 		)
@@ -480,13 +457,24 @@ try
 
 	fcppt::signal::scoped_connection const console_resize_con(
 		sys.viewport_manager().manage_callback(
-			std::bind(
-				manage_console_size,
-				std::ref(
-					console_gfx.background_sprite()
-				),
-				std::placeholders::_1
+			[
+				&console_gfx
+			](
+				sge::renderer::target::viewport const &_viewport
 			)
+			{
+				console_gfx.area(
+					sge::font::rect{
+						sge::font::rect::vector::null(),
+						fcppt::math::dim::structure_cast<
+							sge::font::rect::dim,
+							fcppt::cast::size_fun
+						>(
+							_viewport.get().size()
+						)
+					}
+				);
+			}
 		)
 	);
 
@@ -1178,10 +1166,10 @@ dummy_event_handler::operator()(
 }
 
 template<
-	typename Functor,
+	typename Result,
 	typename Function
 >
-Functor const
+Result const
 wrap_silent(
 	Function const &_function,
 	bool const _silent
@@ -1190,30 +1178,14 @@ wrap_silent(
 	return
 		_silent
 		?
-			Functor(
+			Result(
 				dummy_event_handler()
 			)
 		:
-			Functor(
+			Result(
 				_function
 			)
 		;
-}
-
-void
-manage_console_size(
-	sge::console::gfx::sprite_object &_sprite,
-	sge::renderer::target::viewport const &_viewport
-)
-{
-	_sprite.size(
-		fcppt::math::dim::structure_cast<
-			sge::console::gfx::sprite_object::dim,
-			fcppt::cast::size_fun
-		>(
-			_viewport.get().size()
-		)
-	);
 }
 
 }

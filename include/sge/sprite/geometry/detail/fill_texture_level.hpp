@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/deref_texture.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/geometry/detail/fill_texture_level_impl.hpp>
-#include <fcppt/maybe_void.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -73,27 +72,16 @@ public:
 		Level const &
 	) const
 	{
-		fcppt::maybe_void(
-			object_. template texture_level<
-				Level::value
-			>(),
-			[
-				this
-			](
-				typename
-				object::texture_type::value_type const &_texture
+		sge::sprite::geometry::detail::fill_texture_level_impl<
+			Level
+		>(
+			iterator_,
+			object_,
+			sge::sprite::deref_texture(
+				object_. template texture_level<
+					Level::value
+				>()
 			)
-			{
-				sge::sprite::geometry::detail::fill_texture_level_impl<
-					Level
-				>(
-					iterator_,
-					object_,
-					sge::sprite::deref_texture(
-						_texture
-					)
-				);
-			}
 		);
 	}
 private:

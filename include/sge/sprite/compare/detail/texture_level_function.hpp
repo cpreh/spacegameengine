@@ -18,14 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_COMPARE_DETAIL_TEXTURE_LEVEL_FUNCTOR_HPP_INCLUDED
-#define SGE_SPRITE_COMPARE_DETAIL_TEXTURE_LEVEL_FUNCTOR_HPP_INCLUDED
+#ifndef SGE_SPRITE_COMPARE_DETAIL_TEXTURE_LEVEL_FUNCTION_HPP_INCLUDED
+#define SGE_SPRITE_COMPARE_DETAIL_TEXTURE_LEVEL_FUNCTION_HPP_INCLUDED
 
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/sprite/deref_texture.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/texture/part.hpp>
-#include <fcppt/maybe.hpp>
 
 
 namespace sge
@@ -43,7 +42,7 @@ template<
 	> class Function,
 	typename Level
 >
-struct texture_level_functor
+struct texture_level_function
 {
 	typedef bool result_type;
 
@@ -61,80 +60,21 @@ struct texture_level_functor
 		> const &_right
 	)
 	{
-		typedef
-		typename
-		sge::sprite::object<
-			Choices
-		>::texture_type
-		texture_type;
-
-		typedef
-		typename
-		texture_type::value_type element_type;
-
-		texture_type const
-			left_tex(
-				_left. template texture_level<
-					Level::value
-				>()
-			),
-			right_tex(
-				_right. template texture_level<
-					Level::value
-				>()
-			);
-
-		auto const default_compare(
-			[
-				&left_tex,
-				&right_tex
-			]{
-				return
-					Function<
-						bool
-					>()(
-						left_tex.has_value(),
-						right_tex.has_value()
-					);
-			}
-		);
-
 		return
-			fcppt::maybe(
-				left_tex,
-				default_compare,
-				[
-					&right_tex,
-					&default_compare
-				](
-					element_type const &_left_tex
-				)
-				{
-					return
-						fcppt::maybe(
-							right_tex,
-							default_compare,
-							[
-								&_left_tex
-							](
-								element_type const &_right_tex
-							)
-							{
-								return
-									Function<
-										// TODO: Why is this a pointer?
-										sge::renderer::texture::planar const *
-									>()(
-										&sge::sprite::deref_texture(
-											_left_tex
-										).texture(),
-										&sge::sprite::deref_texture(
-											_right_tex
-										).texture()
-									);
-							}
-						);
-				}
+			Function<
+				// TODO: Why is this a pointer?
+				sge::renderer::texture::planar const *
+			>()(
+				&sge::sprite::deref_texture(
+					_left. template texture_level<
+						Level::value
+					>()
+				).texture(),
+				&sge::sprite::deref_texture(
+					_right. template texture_level<
+						Level::value
+					>()
+				).texture()
 			);
 	}
 };

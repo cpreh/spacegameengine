@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/texture_size_option.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/texture0.hpp>
-#include <sge/texture/const_optional_part_ref.hpp>
+#include <sge/texture/const_part_ref.hpp>
 #include <sge/texture/part_fwd.hpp>
 
 
@@ -53,7 +53,7 @@ sge::gui::impl::draw_image(
 			sge::sprite::roles::pos{} =
 				_pos,
 			sge::sprite::roles::texture0{} =
-				sge::texture::const_optional_part_ref(
+				sge::texture::const_part_ref(
 					_texture
 				)
 		)

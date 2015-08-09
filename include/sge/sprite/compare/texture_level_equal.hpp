@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_COMPARE_TEXTURE_LEVEL_EQUAL_HPP_INCLUDED
 
 #include <sge/sprite/object_fwd.hpp>
-#include <sge/sprite/compare/detail/texture_level_functor.hpp>
+#include <sge/sprite/compare/detail/texture_level_function.hpp>
 #include <sge/sprite/detail/config/has_texture.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -41,6 +41,7 @@ template<
 	typename Level,
 	typename Choices
 >
+inline
 typename boost::enable_if<
 	sge::sprite::detail::config::has_texture<
 		Choices
@@ -57,7 +58,7 @@ texture_level_equal(
 )
 {
 	return
-		sge::sprite::compare::detail::texture_level_functor<
+		sge::sprite::compare::detail::texture_level_function<
 			std::equal_to,
 			Level
 		>::execute(

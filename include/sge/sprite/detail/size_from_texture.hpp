@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/dim.hpp>
 #include <sge/texture/part.hpp>
 #include <majutsu/get.hpp>
-#include <fcppt/maybe.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
@@ -52,41 +51,21 @@ size_from_texture(
 	Elements const &_elements
 )
 {
-	typedef
-	sge::sprite::types::dim<
-		typename
-		Choices::type_choices
-	>
-	result_type;
-
 	return
-		fcppt::maybe(
-			majutsu::get<
-				sge::sprite::roles::texture0
-			>(
-				_elements
-			),
-			[]{
-				return
-					result_type::null();
-			},
-			[](
+		fcppt::math::dim::structure_cast<
+			sge::sprite::types::dim<
 				typename
-				sge::sprite::texture<
-					Choices
-				>::element_type const &_texture
-			)
-			{
-				return
-					fcppt::math::dim::structure_cast<
-						result_type,
-						fcppt::cast::static_cast_fun
-					>(
-						sge::sprite::deref_texture(
-							_texture
-						).size()
-					);
-			}
+				Choices::type_choices
+			>,
+			fcppt::cast::static_cast_fun
+		>(
+			sge::sprite::deref_texture(
+				majutsu::get<
+					sge::sprite::roles::texture0
+				>(
+					_elements
+				)
+			).size()
 		);
 }
 

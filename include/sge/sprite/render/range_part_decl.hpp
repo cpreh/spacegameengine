@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/detail/render/range_part_object.hpp>
-#include <sge/sprite/render/optional_texture_ref_fwd.hpp>
 #include <sge/sprite/render/range_part_fwd.hpp>
+#include <sge/sprite/render/texture_ref_fwd.hpp>
 
 
 namespace sge
@@ -71,7 +71,7 @@ public:
 	template<
 		sge::sprite::texture_level Level
 	>
-	sge::sprite::render::optional_texture_ref const
+	sge::sprite::render::texture_ref const
 	texture_level() const;
 private:
 	range_part_object object_;

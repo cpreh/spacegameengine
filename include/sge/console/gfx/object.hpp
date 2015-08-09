@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/gfx/cursor.hpp>
 #include <sge/console/gfx/font_color.hpp>
 #include <sge/console/gfx/output_line_limit_fwd.hpp>
-#include <sge/console/gfx/sprite_object.hpp>
 #include <sge/console/gfx/detail/pointed_history.hpp>
 #include <sge/console/gfx/detail/symbol.hpp>
 #include <sge/font/object_fwd.hpp>
+#include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/input/keyboard/char_event_fwd.hpp>
@@ -37,12 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/sprite/object_decl.hpp>
-#include <sge/sprite/buffers/single_decl.hpp>
-#include <sge/sprite/buffers/with_declaration_decl.hpp>
-#include <sge/sprite/state/all_choices.hpp>
-#include <sge/sprite/state/object_decl.hpp>
-#include <sge/sprite/state/parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -70,7 +64,7 @@ public:
 		sge::console::gfx::font_color const &,
 		sge::font::object &,
 		sge::input::keyboard::device &,
-		sge::console::gfx::sprite_object const &,
+		sge::font::rect const &,
 		sge::console::gfx::output_line_limit
 	);
 
@@ -109,20 +103,18 @@ public:
 	);
 
 	SGE_CONSOLE_GFX_DETAIL_SYMBOL
+	void
+	area(
+		sge::font::rect const &
+	);
+
+	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	sge::console::object &
 	console_object();
 
 	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	sge::console::object const &
 	console_object() const;
-
-	SGE_CONSOLE_GFX_DETAIL_SYMBOL
-	sge::console::gfx::sprite_object &
-	background_sprite();
-
-	SGE_CONSOLE_GFX_DETAIL_SYMBOL
-	sge::console::gfx::sprite_object const &
-	background_sprite() const;
 private:
 	typedef
 	std::list<
@@ -147,27 +139,7 @@ private:
 		error_conn_,
 		message_conn_;
 
-	typedef sge::sprite::buffers::with_declaration<
-		sge::sprite::buffers::single<
-			sprite_choices
-		>
-	> sprite_buffers;
-
-	sprite_buffers sprite_buffers_;
-
-	typedef sge::sprite::state::all_choices sprite_state_choices;
-
-	typedef sge::sprite::state::object<
-		sprite_state_choices
-	> sprite_state;
-
-	typedef sge::sprite::state::parameters<
-		sprite_state_choices
-	> sprite_state_parameters;
-
-	sprite_state sprite_state_;
-
-	sge::console::gfx::sprite_object background_;
+	sge::font::rect area_;
 
 	bool active_;
 

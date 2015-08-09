@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_GFX_SPRITE_ELEMENTS_HPP_INCLUDED
-#define SGE_CONSOLE_GFX_SPRITE_ELEMENTS_HPP_INCLUDED
+#ifndef SGE_SPRITE_RENDER_TEXTURE_REF_HPP_INCLUDED
+#define SGE_SPRITE_RENDER_TEXTURE_REF_HPP_INCLUDED
 
-#include <sge/console/gfx/sprite_elements_fwd.hpp>
-#include <sge/sprite/config/texture_level_count.hpp>
-#include <sge/sprite/config/with_texture.hpp>
+#include <sge/sprite/render/texture_ref_fwd.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 
 
 #endif

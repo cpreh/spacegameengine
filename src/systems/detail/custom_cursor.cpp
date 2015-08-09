@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/parameters_impl.hpp>
 #include <sge/src/systems/detail/custom_cursor.hpp>
 #include <sge/systems/cursor_hotspot.hpp>
-#include <sge/texture/const_optional_part_ref.hpp>
+#include <sge/texture/const_part_ref.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_bind_construct.hpp>
@@ -155,7 +155,7 @@ sge::systems::detail::custom_cursor::make_sprite(
 								)
 							),
 						sge::sprite::roles::texture0{} =
-							sge::texture::const_optional_part_ref{
+							sge::texture::const_part_ref{
 								texture_
 							}
 					};

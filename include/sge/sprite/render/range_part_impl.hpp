@@ -31,8 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/roles/index_count.hpp>
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
-#include <sge/sprite/render/optional_texture_ref.hpp>
 #include <sge/sprite/render/range_part_decl.hpp>
+#include <sge/sprite/render/texture_ref.hpp>
+#include <majutsu/get.hpp>
 
 
 template<
@@ -59,9 +60,11 @@ sge::sprite::render::range_part<
 >::first_index() const
 {
 	return
-		object_. template get<
+		majutsu::get<
 			sge::sprite::buffers::roles::first_index
-		>();
+		>(
+			object_
+		);
 }
 
 template<
@@ -73,9 +76,11 @@ sge::sprite::render::range_part<
 >::first_vertex() const
 {
 	return
-		object_. template get<
+		majutsu::get<
 			sge::sprite::buffers::roles::first_vertex
-		>();
+		>(
+			object_
+		);
 }
 
 template<
@@ -87,9 +92,11 @@ sge::sprite::render::range_part<
 >::vertex_count() const
 {
 	return
-		object_. template get<
+		majutsu::get<
 			sge::sprite::detail::roles::vertex_count
-		>();
+		>(
+			object_
+		);
 }
 
 template<
@@ -101,9 +108,11 @@ sge::sprite::render::range_part<
 >::index_count() const
 {
 	return
-		object_. template get<
+		majutsu::get<
 			sge::sprite::detail::roles::index_count
-		>();
+		>(
+			object_
+		);
 }
 
 template<
@@ -112,17 +121,19 @@ template<
 template<
 	sge::sprite::texture_level Level
 >
-sge::sprite::render::optional_texture_ref const
+sge::sprite::render::texture_ref const
 sge::sprite::render::range_part<
 	Choices
 >::texture_level() const
 {
 	return
-		object_. template get<
+		majutsu::get<
 			sge::sprite::detail::roles::texture<
 				Level
 			>
-		>();
+		>(
+			object_
+		);
 }
 
 #endif

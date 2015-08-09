@@ -35,6 +35,7 @@ namespace sprite
 template<
 	typename Choices
 >
+inline
 sge::renderer::vf::dynamic::format const
 make_vertex_format()
 {
