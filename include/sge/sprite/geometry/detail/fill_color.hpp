@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/detail/config/has_color.hpp>
+#include <sge/sprite/detail/vf/color.hpp>
 #include <sge/sprite/geometry/detail/count.hpp>
 #include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
-#include <sge/sprite/detail/vf/color.hpp>
 #include <fcppt/algorithm/repeat.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>

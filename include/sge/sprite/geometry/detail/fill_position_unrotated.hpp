@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_GEOMETRY_DETAIL_FILL_POSITION_UNROTATED_HPP_INCLUDED
 
 #include <sge/sprite/bounding_rect.hpp>
+#include <sge/sprite/detail/vf/pos.hpp>
 #include <sge/sprite/geometry/detail/float_rect.hpp>
 #include <sge/sprite/geometry/detail/make_position.hpp>
-#include <sge/sprite/detail/vf/pos.hpp>
 #include <sge/sprite/types/basic/float_vector.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/math/box/structure_cast.hpp>

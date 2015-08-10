@@ -29,13 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
 #include <sge/sprite/buffers/vertex_count.hpp>
+#include <sge/sprite/detail/vf/format_part_from_object.hpp>
 #include <sge/sprite/geometry/detail/fill_color.hpp>
 #include <sge/sprite/geometry/detail/fill_point_size.hpp>
 #include <sge/sprite/geometry/detail/fill_position.hpp>
 #include <sge/sprite/geometry/detail/fill_texture_levels.hpp>
 #include <sge/sprite/geometry/detail/make_render_part.hpp>
 #include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
-#include <sge/sprite/detail/vf/format_part_from_object.hpp>
 #include <sge/sprite/render/range_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
