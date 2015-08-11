@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_FONT_DRAW_OPTIONAL_SAMPLER_UNIQUE_PTR_FWD_HPP_INCLUDED
-#define SGE_SRC_FONT_DRAW_OPTIONAL_SAMPLER_UNIQUE_PTR_FWD_HPP_INCLUDED
+#ifndef SGE_FONT_DRAW_COLOR_FORMAT_HPP_INCLUDED
+#define SGE_FONT_DRAW_COLOR_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <sge/font/draw/detail/symbol.hpp>
+#include <sge/image/color/format_fwd.hpp>
+#include <sge/image/color/optional_format_fwd.hpp>
 
 
 namespace sge
@@ -32,11 +33,11 @@ namespace font
 namespace draw
 {
 
-typedef
-fcppt::optional<
-	sge::renderer::state::ffp::sampler::object_unique_ptr
->
-optional_sampler_unique_ptr;
+SGE_FONT_DRAW_DETAIL_SYMBOL
+sge::image::color::format
+color_format(
+	sge::image::color::optional_format const &
+);
 
 }
 }

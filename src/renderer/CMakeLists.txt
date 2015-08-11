@@ -575,6 +575,8 @@ set(
 	include/sge/renderer/state/ffp/sampler/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/sampler/op.hpp
 	include/sge/renderer/state/ffp/sampler/op_fwd.hpp
+	include/sge/renderer/state/ffp/sampler/optional_object_unique_ptr.hpp
+	include/sge/renderer/state/ffp/sampler/optional_object_unique_ptr_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/parameters.hpp
 	include/sge/renderer/state/ffp/sampler/parameters_both.hpp
 	include/sge/renderer/state/ffp/sampler/parameters_fwd.hpp

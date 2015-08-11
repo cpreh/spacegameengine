@@ -18,29 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_FONT_DRAW_CREATE_FFP_SAMPLER_HPP_INCLUDED
-#define SGE_SRC_FONT_DRAW_CREATE_FFP_SAMPLER_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_FFP_SAMPLER_OPTIONAL_OBJECT_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_SAMPLER_OPTIONAL_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/image/color/format_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/src/font/draw/optional_sampler_unique_ptr.hpp>
+#include <sge/renderer/state/ffp/sampler/optional_object_unique_ptr_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace font
-{
-namespace draw
-{
-
-sge::font::draw::optional_sampler_unique_ptr
-create_ffp_sampler(
-	sge::renderer::device::ffp &,
-	sge::image::color::format
-);
-
-}
-}
-}
 
 #endif

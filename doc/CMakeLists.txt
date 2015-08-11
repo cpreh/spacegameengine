@@ -468,6 +468,9 @@ set(
 	include/sge/font/dpi.hpp
 	include/sge/font/dpi_fwd.hpp
 	include/sge/font/dpi_unit.hpp
+	include/sge/font/draw/color_format.hpp
+	include/sge/font/draw/create_ffp_sampler.hpp
+	include/sge/font/draw/create_texture.hpp
 	include/sge/font/draw/detail/static_text_impl_fwd.hpp
 	include/sge/font/draw/set_matrices.hpp
 	include/sge/font/draw/set_matrices_fwd.hpp
@@ -2563,6 +2566,8 @@ set(
 	include/sge/renderer/state/ffp/sampler/object_unique_ptr.hpp
 	include/sge/renderer/state/ffp/sampler/op.hpp
 	include/sge/renderer/state/ffp/sampler/op_fwd.hpp
+	include/sge/renderer/state/ffp/sampler/optional_object_unique_ptr.hpp
+	include/sge/renderer/state/ffp/sampler/optional_object_unique_ptr_fwd.hpp
 	include/sge/renderer/state/ffp/sampler/parameters.hpp
 	include/sge/renderer/state/ffp/sampler/parameters_both.hpp
 	include/sge/renderer/state/ffp/sampler/parameters_fwd.hpp

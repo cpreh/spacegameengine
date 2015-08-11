@@ -1,5 +1,8 @@
 set(
 	SGE_FONTDRAW_FILES
+	include/sge/font/draw/color_format.hpp
+	include/sge/font/draw/create_ffp_sampler.hpp
+	include/sge/font/draw/create_texture.hpp
 	include/sge/font/draw/detail/static_text_impl_fwd.hpp
 	include/sge/font/draw/set_matrices.hpp
 	include/sge/font/draw/set_matrices_fwd.hpp
@@ -12,12 +15,7 @@ set(
 	src/font/draw/create_ffp_sampler.cpp
 	src/font/draw/create_texture.cpp
 	src/font/draw/detail/static_text_impl.cpp
-	src/font/draw/include/sge/src/font/draw/color_format.hpp
-	src/font/draw/include/sge/src/font/draw/create_ffp_sampler.hpp
-	src/font/draw/include/sge/src/font/draw/create_texture.hpp
 	src/font/draw/include/sge/src/font/draw/detail/static_text_impl.hpp
-	src/font/draw/include/sge/src/font/draw/optional_sampler_unique_ptr.hpp
-	src/font/draw/include/sge/src/font/draw/optional_sampler_unique_ptr_fwd.hpp
 	src/font/draw/simple.cpp
 	src/font/draw/static_text.cpp
 )
