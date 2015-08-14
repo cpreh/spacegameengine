@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_CLICK_CALLBACK_HPP_INCLUDED
 
 #include <sge/gui/click_function.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace sge
@@ -33,7 +31,7 @@ namespace gui
 {
 
 typedef
-std::function<
+fcppt::function<
 	sge::gui::click_function
 >
 click_callback;

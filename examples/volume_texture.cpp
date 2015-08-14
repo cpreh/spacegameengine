@@ -128,7 +128,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/elapsed_and_reset.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
-#include <sge/viewport/manager.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -429,66 +429,68 @@ create_noise_texture(
 			128,
 			128
 		),
-		[
-			&noise_generator
-		](
-			view_type const &_view
-		)
-		{
-			mizuiro::image::algorithm::fill_indexed(
-				_view,
-				[
-					&noise_generator
-				](
-					view_type::dim const _current_position
-				)
-				{
-					return
-						sge::image::color::l8(
-							sge::image::color::init::luminance()
-							=
-							static_cast<sge::image::channel8>(
-								256.0f *
-								(0.5f + 0.5f *
-								sge::noise::sample(
-									noise_generator,
-									param_type(
-										// TODO: Simplify this conversion
-										param_type::position_type(
-											noise_type::vector_type(
-												fcppt::cast::int_to_float<
-													noise_type::value_type
-												>(
-													_current_position.at_c<0>()
-												),
-												fcppt::cast::int_to_float<
-													noise_type::value_type
-												>(
-													_current_position.at_c<1>()
-												),
-												fcppt::cast::int_to_float<
-													noise_type::value_type
-												>(
-													_current_position.at_c<2>()
+		store_type::init_function{
+			[
+				&noise_generator
+			](
+				view_type const &_view
+			)
+			{
+				mizuiro::image::algorithm::fill_indexed(
+					_view,
+					[
+						&noise_generator
+					](
+						view_type::dim const _current_position
+					)
+					{
+						return
+							sge::image::color::l8(
+								sge::image::color::init::luminance()
+								=
+								static_cast<sge::image::channel8>(
+									256.0f *
+									(0.5f + 0.5f *
+									sge::noise::sample(
+										noise_generator,
+										param_type(
+											// TODO: Simplify this conversion
+											param_type::position_type(
+												noise_type::vector_type(
+													fcppt::cast::int_to_float<
+														noise_type::value_type
+													>(
+														_current_position.at_c<0>()
+													),
+													fcppt::cast::int_to_float<
+														noise_type::value_type
+													>(
+														_current_position.at_c<1>()
+													),
+													fcppt::cast::int_to_float<
+														noise_type::value_type
+													>(
+														_current_position.at_c<2>()
+													)
 												)
+											),
+											param_type::amplitude_type(
+												0.8f
+											),
+											param_type::frequency_type(
+												.005f
+											),
+											param_type::octaves_type(
+												6u
 											)
-										),
-										param_type::amplitude_type(
-											0.8f
-										),
-										param_type::frequency_type(
-											.005f
-										),
-										param_type::octaves_type(
-											6u
 										)
-									)
-								))
-							)
-						);
-				},
-				mizuiro::image::algorithm::uninitialized::yes
-			);
+									))
+								)
+							);
+					},
+					mizuiro::image::algorithm::uninitialized::yes
+				);
+			}
 		}
 	};
 
@@ -550,7 +552,9 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::fill_on_resize()
+				sge::viewport::optional_resize_callback{
+					sge::viewport::fill_on_resize()
+				}
 			)
 		)
 		(

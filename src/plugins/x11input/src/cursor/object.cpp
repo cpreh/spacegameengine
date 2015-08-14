@@ -33,16 +33,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/cursor/position.hpp>
 #include <sge/x11input/cursor/query_pointer.hpp>
 #include <sge/x11input/cursor/scroll_valuator.hpp>
+#include <sge/x11input/device/enter_demuxer.hpp>
 #include <sge/x11input/device/enter_event.hpp>
 #include <sge/x11input/device/event.hpp>
+#include <sge/x11input/device/leave_demuxer.hpp>
 #include <sge/x11input/device/leave_event_fwd.hpp>
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/window_event.hpp>
+#include <sge/x11input/device/valuator/callback.hpp>
 #include <sge/x11input/device/valuator/foreach.hpp>
 #include <sge/x11input/device/valuator/index.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
 #include <awl/backends/x11/cursor/object_fwd.hpp>
+#include <awl/backends/x11/system/event/type.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -87,11 +91,13 @@ sge::x11input::cursor::object::object(
 					XI_Motion
 				),
 				_param.id(),
-				std::bind(
-					&sge::x11input::cursor::object::on_motion,
-					this,
-					std::placeholders::_1
-				)
+				sge::x11input::device::window_demuxer::callback{
+					std::bind(
+						&sge::x11input::cursor::object::on_motion,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
@@ -100,11 +106,13 @@ sge::x11input::cursor::object::object(
 					XI_ButtonPress
 				),
 				_param.id(),
-				std::bind(
-					&sge::x11input::cursor::object::on_button_down,
-					this,
-					std::placeholders::_1
-				)
+				sge::x11input::device::window_demuxer::callback{
+					std::bind(
+						&sge::x11input::cursor::object::on_button_down,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
@@ -113,11 +121,13 @@ sge::x11input::cursor::object::object(
 					XI_Enter
 				),
 				_param.id(),
-				std::bind(
-					&sge::x11input::cursor::object::on_enter,
-					this,
-					std::placeholders::_1
-				)
+				sge::x11input::device::enter_demuxer::callback{
+					std::bind(
+						&sge::x11input::cursor::object::on_enter,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
@@ -126,11 +136,13 @@ sge::x11input::cursor::object::object(
 					XI_Leave
 				),
 				_param.id(),
-				std::bind(
-					&sge::x11input::cursor::object::on_leave,
-					this,
-					std::placeholders::_1
-				)
+				sge::x11input::device::leave_demuxer::callback{
+					std::bind(
+						&sge::x11input::cursor::object::on_leave,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
@@ -139,11 +151,13 @@ sge::x11input::cursor::object::object(
 					XI_ButtonRelease
 				),
 				_param.id(),
-				std::bind(
-					&sge::x11input::cursor::object::on_button_up,
-					this,
-					std::placeholders::_1
-				)
+				sge::x11input::device::window_demuxer::callback{
+					std::bind(
+						&sge::x11input::cursor::object::on_button_up,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 	),
@@ -255,35 +269,37 @@ sge::x11input::cursor::object::on_motion(
 {
 	sge::x11input::device::valuator::foreach(
 		_event.get().valuators,
-		[
-			this
-		](
-			sge::x11input::device::valuator::index const _index,
-			sge::x11input::device::valuator::value const _value
-		)
-		{
-			fcppt::maybe_void(
-				fcppt::container::find_opt(
-					scroll_valuators_,
-					_index
-				),
-				[
-					_value,
-					this
-				](
-					sge::x11input::cursor::scroll_valuator &_valuator
-				)
-				{
-					scroll_signal_(
-						sge::input::cursor::scroll_event(
-							_valuator.code(),
-							_valuator.update(
-								_value
+		sge::x11input::device::valuator::callback{
+			[
+				this
+			](
+				sge::x11input::device::valuator::index const _index,
+				sge::x11input::device::valuator::value const _value
+			)
+			{
+				fcppt::maybe_void(
+					fcppt::container::find_opt(
+						scroll_valuators_,
+						_index
+					),
+					[
+						_value,
+						this
+					](
+						sge::x11input::cursor::scroll_valuator &_valuator
+					)
+					{
+						scroll_signal_(
+							sge::input::cursor::scroll_event(
+								_valuator.code(),
+								_valuator.update(
+									_value
+								)
 							)
-						)
-					);
-				}
-			);
+						);
+					}
+				);
+			}
 		}
 	);
 

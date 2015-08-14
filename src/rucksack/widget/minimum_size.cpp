@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_policy.hpp>
+#include <sge/rucksack/axis_policy_function.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/make_axis_policy.hpp>
@@ -82,22 +83,24 @@ sge::rucksack::widget::minimum_size::axis_policy() const
 {
 	return
 		sge::rucksack::make_axis_policy(
-			[
-				this
-			](
-				sge::rucksack::axis const _axis
-			)
-			{
-				return
-					sge::rucksack::axis_policy{
-						sge::rucksack::preferred_size{
-							sge::rucksack::extract_size(
-								child_.axis_policy()[
-									_axis
-								]
-							)
-						}
-					};
+			sge::rucksack::axis_policy_function{
+				[
+					this
+				](
+					sge::rucksack::axis const _axis
+				)
+				{
+					return
+						sge::rucksack::axis_policy{
+							sge::rucksack::preferred_size{
+								sge::rucksack::extract_size(
+									child_.axis_policy()[
+										_axis
+									]
+								)
+							}
+						};
+				}
 			}
 		);
 }

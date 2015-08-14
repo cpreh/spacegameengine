@@ -68,9 +68,11 @@ private:
 		sge::input::cursor::move_event const &
 	);
 
-	typedef fcppt::signal::object<
+	typedef
+	fcppt::signal::object<
 		sge::input::cursor::relative_move_function
-	> relative_move_signal;
+	>
+	relative_move_signal;
 
 	sge::input::cursor::object &cursor_;
 

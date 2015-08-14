@@ -32,9 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/scroll_event_fwd.hpp>
 #include <sge/input/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/function_impl.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <functional>
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
@@ -52,26 +52,32 @@ class manager
 		manager
 	);
 public:
-	typedef std::function<
+	typedef
+	fcppt::function<
 		void (
 			sge::input::cursor::object &,
 			sge::input::cursor::button_event const &
 		)
-	> button_callback;
+	>
+	button_callback;
 
-	typedef std::function<
+	typedef
+	fcppt::function<
 		void (
 			sge::input::cursor::object &,
 			sge::input::cursor::move_event const &
 		)
-	> move_callback;
+	>
+	move_callback;
 
-	typedef std::function<
+	typedef
+	fcppt::function<
 		void (
 			sge::input::cursor::object &,
 			sge::input::cursor::scroll_event const &
 		)
-	> scroll_callback;
+	>
+	scroll_callback;
 
 	SGE_INPUT_DETAIL_SYMBOL
 	manager(
@@ -86,10 +92,12 @@ public:
 	SGE_INPUT_DETAIL_SYMBOL
 	~manager();
 
-	typedef std::unordered_map<
+	typedef
+	std::unordered_map<
 		sge::input::cursor::object *,
 		fcppt::signal::auto_connection_container
-	> object_map;
+	>
+	object_map;
 
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::cursor::manager::object_map const &

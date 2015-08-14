@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/window_event.hpp>
 #include <sge/x11input/device/valuator/accu.hpp>
+#include <sge/x11input/device/valuator/callback.hpp>
 #include <sge/x11input/device/valuator/foreach.hpp>
 #include <sge/x11input/device/valuator/index.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
@@ -72,11 +73,13 @@ sge::x11input::mouse::device::device(
 					XI_RawMotion
 				),
 				_param.id(),
-				std::bind(
-					&sge::x11input::mouse::device::on_motion,
-					this,
-					std::placeholders::_1
-				)
+				sge::x11input::device::raw_demuxer::callback{
+					std::bind(
+						&sge::x11input::mouse::device::on_motion,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
@@ -85,11 +88,13 @@ sge::x11input::mouse::device::device(
 					XI_ButtonPress
 				),
 				_param.id(),
-				std::bind(
-					&sge::x11input::mouse::device::on_button_down,
-					this,
-					std::placeholders::_1
-				)
+				sge::x11input::device::window_demuxer::callback{
+					std::bind(
+						&sge::x11input::mouse::device::on_button_down,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
@@ -98,11 +103,13 @@ sge::x11input::mouse::device::device(
 					XI_ButtonRelease
 				),
 				_param.id(),
-				std::bind(
-					&sge::x11input::mouse::device::on_button_up,
-					this,
-					std::placeholders::_1
-				)
+				sge::x11input::device::window_demuxer::callback{
+					std::bind(
+						&sge::x11input::mouse::device::on_button_up,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		.move_container()
@@ -158,12 +165,14 @@ sge::x11input::mouse::device::on_motion(
 {
 	sge::x11input::device::valuator::foreach(
 		_event.get().valuators,
-		std::bind(
-			&sge::x11input::mouse::device::process_valuator,
-			this,
-			std::placeholders::_1,
-			std::placeholders::_2
-		)
+		sge::x11input::device::valuator::callback{
+			std::bind(
+				&sge::x11input::mouse::device::process_valuator,
+				this,
+				std::placeholders::_1,
+				std::placeholders::_2
+			)
+		}
 	);
 }
 

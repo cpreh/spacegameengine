@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/nullary_function.hpp>
 #include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/action_callback.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::input::keyboard::key_callback
 sge::input::keyboard::action(
 	sge::input::keyboard::key_code const _code,
-	sge::input::nullary_function const &_action
+	sge::input::keyboard::action_callback const &_action
 )
 {
 	return

@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_PROGRAM_NOTIFICATION_CALLBACK_HPP_INCLUDED
 
 #include <sge/opencl/program/notification_callback_type.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace sge
@@ -33,9 +31,13 @@ namespace opencl
 {
 namespace program
 {
+
 typedef
-std::function<program::notification_callback_type>
+fcppt::function<
+	sge::opencl::program::notification_callback_type
+>
 notification_callback;
+
 }
 }
 }

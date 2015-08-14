@@ -27,14 +27,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/event_deviceid.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/select_events.hpp>
+#include <awl/backends/x11/system/event/callback.hpp>
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
+#include <fcppt/container/get_or_insert_result.hpp>
+#include <fcppt/container/get_or_insert_with_result.hpp>
+#include <fcppt/container/find_opt_iterator.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/unregister/base_impl.hpp>
+#include <fcppt/signal/unregister/function.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <functional>
@@ -101,10 +107,11 @@ sge::x11input::device::event_demuxer<
 )
 {
 	if(
-		connections_.find(
+		connections_.count(
 			_type
 		)
-		== connections_.end()
+		==
+		0u
 	)
 		connections_.insert(
 			std::make_pair(
@@ -112,55 +119,58 @@ sge::x11input::device::event_demuxer<
 				system_processor_.register_callback(
 					opcode_,
 					_type,
-					std::bind(
-						&event_demuxer::on_event,
-						this,
-						std::placeholders::_1
-					)
+					awl::backends::x11::system::event::callback{
+						std::bind(
+							&event_demuxer::on_event,
+							this,
+							std::placeholders::_1
+						)
+					}
 				)
 			)
 		);
 
-	event_pair const pair(
-		_type,
-		_id
-	);
-
-	typename signal_map::iterator it(
-		signals_.find(
-			pair
+	fcppt::container::get_or_insert_result<
+		typename
+		signal_map::mapped_type &
+	> const inserted{
+		fcppt::container::get_or_insert_with_result(
+			signals_,
+			event_pair{
+				_type,
+				_id
+			},
+			[](
+				event_pair const &
+			)
+			{
+				return
+					signal();
+			}
 		)
-	);
+	};
 
 	if(
-		it == signals_.end()
+		inserted.inserted()
 	)
-	{
-		it =
-			signals_.insert(
-				std::make_pair(
-					pair,
-					signal()
-				)
-			).first;
-
 		sge::x11input::device::select_events(
 			window_,
 			_id,
 			_type,
 			true
 		);
-	}
 
 	return
-		it->second.connect(
+		inserted.element().connect(
 			_callback,
-			std::bind(
-				&event_demuxer::unregister,
-				this,
-				_id,
-				_type
-			)
+			fcppt::signal::unregister::function{
+				std::bind(
+					&event_demuxer::unregister,
+					this,
+					_id,
+					_type
+				)
+			}
 		);
 }
 
@@ -237,17 +247,15 @@ sge::x11input::device::event_demuxer<
 )
 {
 	typename signal_map::iterator const it(
-		signals_.find(
-			event_pair(
-				_type,
-				_id
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			fcppt::container::find_opt_iterator(
+				signals_,
+				event_pair(
+					_type,
+					_id
+				)
 			)
 		)
-	);
-
-	FCPPT_ASSERT_ERROR(
-		it
-		!= signals_.end()
 	);
 
 	if(
@@ -274,7 +282,8 @@ sge::x11input::device::event_demuxer<
 				connections_.erase(
 					_type
 				)
-				== 1u
+				==
+				1u
 			);
 	}
 }
@@ -300,7 +309,8 @@ sge::x11input::device::event_demuxer<
 				)
 			)
 		)
-		!= signals_.upper_bound(
+		!=
+		signals_.upper_bound(
 			event_pair(
 				_type,
 				sge::x11input::device::id(

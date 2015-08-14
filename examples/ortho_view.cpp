@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/demuxer.hpp>
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/log/location.hpp>
@@ -113,6 +114,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
@@ -183,7 +185,9 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::fill_on_resize()
+				sge::viewport::optional_resize_callback{
+					sge::viewport::fill_on_resize()
+				}
 			)
 		)
 		(
@@ -365,24 +369,26 @@ try
 
 	fcppt::signal::scoped_connection const grab_connection(
 		sys.keyboard_collector().key_callback(
-			[
-				&sys
-			](
-				sge::input::keyboard::key_event const &_event
-			)
-			{
-				if(
-					_event.key().code()
-					==
-					sge::input::keyboard::key_code::g
+			sge::input::keyboard::key_callback{
+				[
+					&sys
+				](
+					sge::input::keyboard::key_event const &_event
 				)
-					sys.cursor_demuxer().mode(
-						_event.pressed()
-						?
-							sge::input::cursor::mode::exclusive
-						:
-							sge::input::cursor::mode::normal
-					);
+				{
+					if(
+						_event.key().code()
+						==
+						sge::input::keyboard::key_code::g
+					)
+						sys.cursor_demuxer().mode(
+							_event.pressed()
+							?
+								sge::input::cursor::mode::exclusive
+							:
+								sge::input::cursor::mode::normal
+						);
+				}
 			}
 		)
 	);

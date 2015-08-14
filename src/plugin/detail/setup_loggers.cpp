@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/new_sink.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/tree_function.hpp>
 
 
 void
@@ -33,16 +34,18 @@ sge::plugin::detail::setup_loggers(
 )
 {
 	_old_context.apply_all(
-		[
-			&_stream
-		](
-			fcppt::log::object &_logger
-		)
-		{
-			fcppt::log::new_sink(
-				_logger,
-				_stream
-			);
+		fcppt::log::tree_function{
+			[
+				&_stream
+			](
+				fcppt::log::object &_logger
+			)
+			{
+				fcppt::log::new_sink(
+					_logger,
+					_stream
+				);
+			}
 		}
 	);
 

@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/processor.hpp>
 #include <sge/x11input/send_init_event.hpp>
 #include <sge/x11input/cursor/object.hpp>
+#include <sge/x11input/device/hierarchy_demuxer.hpp>
 #include <sge/x11input/device/hierarchy_event.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/object.hpp>
@@ -43,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/use.hpp>
 #include <sge/x11input/device/info/multi.hpp>
 #include <sge/x11input/device/manager/config_map.hpp>
+#include <sge/x11input/device/manager/create_function.hpp>
 #include <sge/x11input/device/manager/make_config.hpp>
 #include <sge/x11input/keyboard/device.hpp>
 #include <sge/x11input/mouse/device.hpp>
@@ -54,6 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <awl/backends/x11/window/root.hpp>
+#include <awl/backends/x11/window/event/callback.hpp>
 #include <awl/backends/x11/window/event/object.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <awl/backends/x11/window/event/type.hpp>
@@ -194,47 +197,59 @@ sge::x11input::processor::processor(
 				>(
 					keyboard_discover_,
 					keyboard_remove_,
-					std::bind(
-						&x11input::processor::create_keyboard,
-						this,
-						std::placeholders::_1
-					)
+					sge::x11input::device::manager::create_function<
+						sge::x11input::keyboard::device
+					>{
+						std::bind(
+							&x11input::processor::create_keyboard,
+							this,
+							std::placeholders::_1
+						)
+					}
 				)
 			)
 		)
 		(
 			std::make_pair(
-				x11input::device::use(
+				sge::x11input::device::use(
 					XIMasterPointer
 				),
-				device::manager::make_config<
+				sge::x11input::device::manager::make_config<
 					sge::x11input::cursor::object
 				>(
 					cursor_discover_,
 					cursor_remove_,
-					std::bind(
-						&x11input::processor::create_cursor,
-						this,
-						std::placeholders::_1
-					)
+					sge::x11input::device::manager::create_function<
+						sge::x11input::cursor::object
+					>{
+						std::bind(
+							&x11input::processor::create_cursor,
+							this,
+							std::placeholders::_1
+						)
+					}
 				)
 			)
 		)
 		(
 			std::make_pair(
-				x11input::device::use(
+				sge::x11input::device::use(
 					XISlavePointer
 				),
-				device::manager::make_config<
+				sge::x11input::device::manager::make_config<
 					sge::x11input::mouse::device
 				>(
 					mouse_discover_,
 					mouse_remove_,
-					std::bind(
-						&x11input::processor::create_mouse,
-						this,
-						std::placeholders::_1
-					)
+					sge::x11input::device::manager::create_function<
+						sge::x11input::mouse::device
+					>{
+						std::bind(
+							&x11input::processor::create_mouse,
+							this,
+							std::placeholders::_1
+						)
+					}
 				)
 			)
 		)
@@ -258,11 +273,13 @@ sge::x11input::processor::processor(
 				sge::x11input::device::id(
 					XIAllDevices
 				),
-				std::bind(
-					&sge::x11input::processor::on_hierarchy_changed,
-					this,
-					std::placeholders::_1
-				)
+				sge::x11input::device::hierarchy_demuxer::callback{
+					std::bind(
+						&sge::x11input::processor::on_hierarchy_changed,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
@@ -270,11 +287,13 @@ sge::x11input::processor::processor(
 				awl::backends::x11::window::event::type(
 					FocusIn
 				),
-				std::bind(
-					&sge::x11input::processor::on_focus_in,
-					this,
-					std::placeholders::_1
-				)
+				awl::backends::x11::window::event::callback{
+					std::bind(
+						&sge::x11input::processor::on_focus_in,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
@@ -282,11 +301,13 @@ sge::x11input::processor::processor(
 				awl::backends::x11::window::event::type(
 					FocusOut
 				),
-				std::bind(
-					&sge::x11input::processor::on_focus_out,
-					this,
-					std::placeholders::_1
-				)
+				awl::backends::x11::window::event::callback{
+					std::bind(
+						&sge::x11input::processor::on_focus_out,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
@@ -294,29 +315,35 @@ sge::x11input::processor::processor(
 				awl::backends::x11::window::event::type(
 					ClientMessage
 				),
-				std::bind(
-					&sge::x11input::processor::on_client_message,
-					this,
-					std::placeholders::_1
-				)
+				awl::backends::x11::window::event::callback{
+					std::bind(
+						&sge::x11input::processor::on_client_message,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
 			cursor_discover_.connect(
-				std::bind(
-					&sge::x11input::cursor::manager::discover,
-					&cursor_manager_,
-					std::placeholders::_1
-				)
+				sge::input::cursor::discover_callback{
+					std::bind(
+						&sge::x11input::cursor::manager::discover,
+						&cursor_manager_,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
 			cursor_remove_.connect(
-				std::bind(
-					&sge::x11input::cursor::manager::remove,
-					&cursor_manager_,
-					std::placeholders::_1
-				)
+				sge::input::cursor::remove_callback{
+					std::bind(
+						&sge::x11input::cursor::manager::remove,
+						&cursor_manager_,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		.move_container()

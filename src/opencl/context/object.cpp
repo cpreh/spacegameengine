@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opencl/context/error_callback.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/context/parameters.hpp>
 #include <sge/opencl/platform/object.hpp>
@@ -25,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/config.hpp>
 #include <sge/src/opencl/handle_error.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #if defined(SGE_OPENCL_HAVE_GLX)
 #include <fcppt/config/external_begin.hpp>
@@ -226,22 +229,45 @@ sge::opencl::context::object::~object()
 
 void
 sge::opencl::context::object::error_callback(
-	char const *error_info_string,
-	void const *bindata,
-	size_t const size_of_bindata,
-	void *user_data)
+	char const *const _error_info_string,
+	void const *const _bindata,
+	size_t const _size_of_bindata,
+	void *const _user_data
+)
 {
-	opencl::context::object &ctx =
-		*static_cast<opencl::context::object *>(
-			user_data);
-	if(ctx.error_callback_)
-		ctx.error_callback_(
-			opencl::error_information_string(
-				error_info_string),
-			opencl::binary_error_data(
-				static_cast<unsigned char const *>(
-					bindata),
-				static_cast<unsigned char const *>(
-					bindata) +
-				size_of_bindata));
+	fcppt::maybe_void(
+		fcppt::cast::from_void_ptr<
+			sge::opencl::context::object *
+		>(
+			_user_data
+		)->error_callback_,
+		[
+			_error_info_string,
+			_bindata,
+			_size_of_bindata
+		](
+			sge::opencl::context::error_callback const &_error_callback
+		)
+		{
+			_error_callback(
+				sge::opencl::error_information_string(
+					_error_info_string
+				),
+				sge::opencl::binary_error_data(
+					fcppt::cast::from_void_ptr<
+						unsigned char const *
+					>(
+						_bindata
+					),
+					fcppt::cast::from_void_ptr<
+						unsigned char const *
+					>(
+						_bindata
+					)
+					+
+					_size_of_bindata
+				)
+			);
+		}
+	);
 }

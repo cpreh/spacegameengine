@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_BODY_COLLISION_HPP_INCLUDED
 
 #include <sge/projectile/body/collision_fn.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace sge
@@ -33,9 +31,13 @@ namespace projectile
 {
 namespace body
 {
+
 typedef
-std::function<collision_fn>
+fcppt::function<
+	sge::projectile::body::collision_fn
+>
 collision;
+
 }
 }
 }

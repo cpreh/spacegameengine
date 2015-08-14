@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/texture_parameters.hpp>
 #include <sge/src/cegui/to_cegui_rect.hpp>
 #include <sge/src/cegui/detail/system_impl.hpp>
+#include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/from_optional.hpp>
 #include <fcppt/maybe_void.hpp>
@@ -105,11 +106,13 @@ sge::cegui::detail::system_impl::system_impl(
 	),
 	viewport_change_connection_(
 		_viewport_manager.manage_callback(
-			std::bind(
-				&sge::cegui::detail::system_impl::viewport_change,
-				this,
-				std::placeholders::_1
-			)
+			sge::viewport::manage_callback{
+				std::bind(
+					&sge::cegui::detail::system_impl::viewport_change,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	),
 	old_viewport_(

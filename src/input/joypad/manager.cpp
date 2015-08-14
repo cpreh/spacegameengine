@@ -19,10 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/processor.hpp>
+#include <sge/input/joypad/absolute_axis_callback.hpp>
+#include <sge/input/joypad/button_callback.hpp>
 #include <sge/input/joypad/device.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/discover_event.hpp>
 #include <sge/input/joypad/manager.hpp>
+#include <sge/input/joypad/relative_axis_callback.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
 #include <sge/input/joypad/remove_event.hpp>
 #include <fcppt/assert/error.hpp>
@@ -70,20 +73,24 @@ sge::input::joypad::manager::manager(
 			fcppt::signal::auto_connection_container
 		>(
 			_processor.joypad_discover_callback(
-				std::bind(
-					&sge::input::joypad::manager::discover,
-					this,
-					std::placeholders::_1
-				)
+				sge::input::joypad::discover_callback{
+					std::bind(
+						&sge::input::joypad::manager::discover,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
 			_processor.joypad_remove_callback(
-				std::bind(
-					&sge::input::joypad::manager::remove,
-					this,
-					std::placeholders::_1
-				)
+				sge::input::joypad::remove_callback{
+					std::bind(
+						&sge::input::joypad::manager::remove,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		.move_container()
@@ -109,35 +116,41 @@ sge::input::joypad::manager::discover(
 					fcppt::signal::auto_connection_container
 				>(
 					_event.get().absolute_axis_callback(
-						std::bind(
-							absolute_axis_callback_,
-							std::ref(
-								_event.get()
-							),
-							std::placeholders::_1
-						)
+						sge::input::joypad::absolute_axis_callback{
+							std::bind(
+								absolute_axis_callback_,
+								std::ref(
+									_event.get()
+								),
+								std::placeholders::_1
+							)
+						}
 					)
 				)
 				(
 					_event.get().button_callback(
-						std::bind(
-							button_callback_,
-							std::ref(
-								_event.get()
-							),
-							std::placeholders::_1
-						)
+						sge::input::joypad::button_callback{
+							std::bind(
+								button_callback_,
+								std::ref(
+									_event.get()
+								),
+								std::placeholders::_1
+							)
+						}
 					)
 				)
 				(
 					_event.get().relative_axis_callback(
-						std::bind(
-							relative_axis_callback_,
-							std::ref(
-								_event.get()
-							),
-							std::placeholders::_1
-						)
+						sge::input::joypad::relative_axis_callback{
+							std::bind(
+								relative_axis_callback_,
+								std::ref(
+									_event.get()
+								),
+								std::placeholders::_1
+							)
+						}
 					)
 				)
 				.move_container()
@@ -146,12 +159,9 @@ sge::input::joypad::manager::discover(
 		== true
 	);
 
-	if(
-		discover_callback_
-	)
-		discover_callback_(
-			_event
-		);
+	discover_callback_(
+		_event
+	);
 }
 
 void
@@ -166,10 +176,7 @@ sge::input::joypad::manager::remove(
 		== 1u
 	);
 
-	if(
-		remove_callback_
-	)
-		remove_callback_(
-			_event
-		);
+	remove_callback_(
+		_event
+	);
 }

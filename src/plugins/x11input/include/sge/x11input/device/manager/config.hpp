@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/create_parameters_fwd.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/manager/config_base.hpp>
+#include <sge/x11input/device/manager/create_function.hpp>
+#include <fcppt/function_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_fwd.hpp>
 #include <fcppt/strong_typedef_std_hash.hpp>
@@ -31,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
-#include <functional>
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
@@ -58,23 +59,33 @@ class config
 		config
 	);
 public:
-	typedef fcppt::signal::object<
-		void (DiscoverEvent const &)
-	> discover_signal;
-
-	typedef fcppt::signal::object<
-		void (RemoveEvent const &)
-	> remove_signal;
-
-	typedef fcppt::unique_ptr<
-		X11Object
-	> object_unique_ptr;
-
-	typedef std::function<
-		object_unique_ptr (
-			sge::x11input::create_parameters const &
+	typedef
+	fcppt::signal::object<
+		void (
+			DiscoverEvent const &
 		)
-	> create_function;
+	>
+	discover_signal;
+
+	typedef
+	fcppt::signal::object<
+		void (
+			RemoveEvent const &
+		)
+	>
+	remove_signal;
+
+	typedef
+	fcppt::unique_ptr<
+		X11Object
+	>
+	object_unique_ptr;
+
+	typedef
+	sge::x11input::device::manager::create_function<
+		X11Object
+	>
+	create_function;
 
 	config(
 		discover_signal &,

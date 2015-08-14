@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/action_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/media/extension.hpp>
@@ -89,6 +90,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -161,7 +163,9 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::fill_on_resize()
+				sge::viewport::optional_resize_callback{
+					sge::viewport::fill_on_resize()
+				}
 			)
 		)
 		(
@@ -282,18 +286,20 @@ try
 		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::f12,
-				std::bind(
-					sge::renderer::screenshot,
-					std::ref(
-						sys.renderer_device_ffp()
-					),
-					std::ref(
-						sys.image_system()
-					),
-					boost::filesystem::path(
-						FCPPT_TEXT("output.png")
+				sge::input::keyboard::action_callback{
+					std::bind(
+						sge::renderer::screenshot,
+						std::ref(
+							sys.renderer_device_ffp()
+						),
+						std::ref(
+							sys.image_system()
+						),
+						boost::filesystem::path(
+							FCPPT_TEXT("output.png")
+						)
 					)
-				)
+				}
 			)
 		)
 	);

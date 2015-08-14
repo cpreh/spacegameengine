@@ -62,7 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/window_source.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
-#include <sge/viewport/dont_manage.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/title.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/strong_typedef_output.hpp>
@@ -114,7 +114,7 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::dont_manage()
+				sge::viewport::optional_resize_callback{}
 			)
 			.caps(
 				sge::renderer::caps::system_field{

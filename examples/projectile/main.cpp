@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/predef.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/log/option.hpp>
@@ -34,16 +35,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/vector2.hpp>
 #include <sge/projectile/world.hpp>
 #include <sge/projectile/body/angular_velocity.hpp>
+#include <sge/projectile/body/collision.hpp>
 #include <sge/projectile/body/linear_velocity.hpp>
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/body/parameters.hpp>
 #include <sge/projectile/body/position.hpp>
+#include <sge/projectile/body/position_change.hpp>
 #include <sge/projectile/body/rotation.hpp>
 #include <sge/projectile/body/scoped.hpp>
 #include <sge/projectile/body/user_data.hpp>
 #include <sge/projectile/body/solidity/solid.hpp>
 #include <sge/projectile/body/solidity/static.hpp>
 #include <sge/projectile/body/solidity/variant.hpp>
+#include <sge/projectile/ghost/body_enter.hpp>
+#include <sge/projectile/ghost/body_exit.hpp>
 #include <sge/projectile/ghost/object.hpp>
 #include <sge/projectile/ghost/parameters.hpp>
 #include <sge/projectile/ghost/position.hpp>
@@ -100,6 +105,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/center_on_resize.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
@@ -251,19 +257,30 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			_body),
 		body_collision_connection_(
 			_world.body_collision(
-				std::bind(
-					&body_keyboard_mover::body_collision,
-					this,
-					std::placeholders::_1,
-					std::placeholders::_2))),
+				sge::projectile::body::collision{
+					std::bind(
+						&body_keyboard_mover::body_collision,
+						this,
+						std::placeholders::_1,
+						std::placeholders::_2
+					)
+				}
+			)
+		),
 		key_callback_connection_(
 			_keyboard.key_callback(
-				std::bind(
-					&body_keyboard_mover::key_callback,
-					this,
-					std::placeholders::_1))),
+				sge::input::keyboard::key_callback{
+					std::bind(
+						&body_keyboard_mover::key_callback,
+						this,
+						std::placeholders::_1
+					)
+				}
+			)
+		),
 		velocity_(
-			sge::projectile::vector2::null())
+			sge::projectile::vector2::null()
+		)
 	{
 	}
 FCPPT_PP_POP_WARNING
@@ -369,22 +386,37 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			_groups),
 		body_position_change_connection_(
 			_body.position_change(
-				std::bind(
-					&body_following_ghost::body_position_change,
-					this,
-					std::placeholders::_1))),
+				sge::projectile::body::position_change{
+					std::bind(
+						&body_following_ghost::body_position_change,
+						this,
+						std::placeholders::_1
+					)
+				}
+			)
+		),
 		body_enter_connection_(
 			ghost_.body_enter(
-				std::bind(
-					&body_following_ghost::body_enter,
-					this,
-					std::placeholders::_1))),
+				sge::projectile::ghost::body_enter{
+					std::bind(
+						&body_following_ghost::body_enter,
+						this,
+						std::placeholders::_1
+					)
+				}
+			)
+		),
 		body_exit_connection_(
 			ghost_.body_exit(
-				std::bind(
-					&body_following_ghost::body_exit,
-					this,
-					std::placeholders::_1)))
+				sge::projectile::ghost::body_exit{
+					std::bind(
+						&body_following_ghost::body_exit,
+						this,
+						std::placeholders::_1
+					)
+				}
+			)
+		)
 	{
 	}
 FCPPT_PP_POP_WARNING
@@ -467,8 +499,15 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::center_on_resize(
-					sge::window::dim(1024,768)))
+				sge::viewport::optional_resize_callback{
+					sge::viewport::center_on_resize(
+						sge::window::dim{
+							1024,
+							768
+						}
+					)
+				}
+			)
 		)
 		(
 			sge::systems::input(
@@ -494,7 +533,11 @@ try
 
 	fcppt::signal::scoped_connection const body_collision_world(
 		world.body_collision(
-			&body_collision));
+			sge::projectile::body::collision{
+				&body_collision
+			}
+		)
+	);
 
 	sge::projectile::debug_drawer debug_drawer(
 		world,

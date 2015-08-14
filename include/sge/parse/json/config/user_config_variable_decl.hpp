@@ -25,11 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/config/user_config_variable_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/function_impl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -40,46 +38,62 @@ namespace json
 {
 namespace config
 {
-template<typename T>
+
+template<
+	typename T
+>
 class user_config_variable
 {
-FCPPT_NONCOPYABLE(
-	user_config_variable);
+	FCPPT_NONCOPYABLE(
+		user_config_variable
+	);
 public:
 	typedef
 	void
 	callback_fn(
-		T const &);
+		T const &
+	);
 
 	typedef
-	std::function<callback_fn>
+	fcppt::function<
+		callback_fn
+	>
 	callback;
 
-	explicit
 	user_config_variable(
-		json::object const &,
-		json::object &,
-		json::path const &);
+		sge::parse::json::object const &,
+		sge::parse::json::object &,
+		sge::parse::json::path const &
+	);
 
 	void
 	value(
-		T const &);
+		T const &
+	);
 
 	T const &
 	value() const;
 
 	fcppt::signal::auto_connection
 	change_callback(
-		callback const &);
+		callback const &
+	);
 
 	~user_config_variable();
 private:
-	json::object const &global_config_;
-	json::object &user_config_;
-	json::path const path_;
+	sge::parse::json::object const &global_config_;
+
+	sge::parse::json::object &user_config_;
+
+	sge::parse::json::path const path_;
+
 	T value_;
-	fcppt::signal::object<callback_fn> callback_;
+
+	fcppt::signal::object<
+		callback_fn
+	> callback_;
 };
+
 }
 }
 }

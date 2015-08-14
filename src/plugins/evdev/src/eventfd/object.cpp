@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/eventfd/callback.hpp>
 #include <sge/evdev/eventfd/object.hpp>
+#include <awl/backends/linux/fd/callback.hpp>
 #include <awl/backends/linux/fd/processor.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -50,9 +51,11 @@ sge::evdev::eventfd::object::object(
 	fd_connection_(
 		_processor.register_fd_callback(
 			fd_.get(),
-			std::bind(
-				_callback
-			)
+			awl::backends::linux::fd::callback{
+				std::bind(
+					_callback
+				)
+			}
 		)
 	)
 {

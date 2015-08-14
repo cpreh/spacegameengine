@@ -26,12 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/detail/muxer_fwd.hpp>
 #include <sge/plugin/object_fwd.hpp>
+#include <fcppt/function_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_fwd.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <functional>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -82,7 +82,7 @@ public:
 	optional_file_unique_ptr;
 
 	typedef
-	std::function<
+	fcppt::function<
 		optional_file_unique_ptr (
 			system &
 		)

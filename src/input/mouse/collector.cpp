@@ -29,8 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/collector.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
+#include <sge/input/mouse/discover_event_fwd.hpp>
 #include <sge/input/mouse/info.hpp>
+#include <sge/input/mouse/manager.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
+#include <sge/input/mouse/remove_event_fwd.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -50,20 +53,32 @@ sge::input::mouse::collector::collector(
 :
 	manager_(
 		_processor,
-		sge::input::mouse::discover_callback(),
-		sge::input::mouse::remove_callback(),
-		std::bind(
-			&sge::input::mouse::collector::axis_callback_internal,
-			this,
-			std::placeholders::_1,
-			std::placeholders::_2
-		),
-		std::bind(
-			&sge::input::mouse::collector::button_callback_internal,
-			this,
-			std::placeholders::_1,
-			std::placeholders::_2
-		)
+		sge::input::mouse::discover_callback{
+			[](
+				sge::input::mouse::discover_event const &
+			){}
+		},
+		sge::input::mouse::remove_callback{
+			[](
+				sge::input::mouse::remove_event const &
+			){}
+		},
+		sge::input::mouse::manager::axis_callback{
+			std::bind(
+				&sge::input::mouse::collector::axis_callback_internal,
+				this,
+				std::placeholders::_1,
+				std::placeholders::_2
+			)
+		},
+		sge::input::mouse::manager::button_callback{
+			std::bind(
+				&sge::input::mouse::collector::button_callback_internal,
+				this,
+				std::placeholders::_1,
+				std::placeholders::_2
+			)
+		}
 	),
 	info_(
 		sge::input::mouse::axis_info_container(

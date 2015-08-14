@@ -157,7 +157,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
-#include <sge/viewport/manager.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -177,6 +177,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/container/at_optional.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
@@ -242,7 +243,9 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::fill_on_resize()
+				sge::viewport::optional_resize_callback{
+					sge::viewport::fill_on_resize()
+				}
 			)
 		)
 		(
@@ -290,67 +293,69 @@ try
 		block_size
 		*
 		num_blocks,
-		[
-			block_size
-		](
-			store_type::view_type const &_view
-		)
-		{
-			store_type const white_store(
-				block_size,
-				sge::image::color::l8(
-					sge::image::color::init::luminance() %= 1.
-				)
-			);
-
-			store_type const black_store(
-				block_size,
-				sge::image::color::l8(
-					sge::image::color::init::luminance() %= 0.
-				)
-			);
-
-			for(
-				sge::image::size_type const y
-				:
-				fcppt::make_int_range_count(
-					num_blocks
-				)
+		store_type::init_function{
+			[
+				block_size
+			](
+				store_type::view_type const &_view
 			)
+			{
+				store_type const white_store(
+					block_size,
+					sge::image::color::l8(
+						sge::image::color::init::luminance() %= 1.
+					)
+				);
+
+				store_type const black_store(
+					block_size,
+					sge::image::color::l8(
+						sge::image::color::init::luminance() %= 0.
+					)
+				);
+
 				for(
-					sge::image::size_type const x
+					sge::image::size_type const y
 					:
 					fcppt::make_int_range_count(
 						num_blocks
 					)
 				)
-					sge::image2d::algorithm::copy(
-						sge::image2d::view::const_object(
-							(((x + y) % 2u) == 0u)
-							?
-								white_store.wrapped_view()
-							:
-								black_store.wrapped_view()
-						),
-						sge::image2d::view::sub(
-							sge::image2d::view::object(
-								sge::image::view::wrap(
-									_view
+					for(
+						sge::image::size_type const x
+						:
+						fcppt::make_int_range_count(
+							num_blocks
+						)
+					)
+						sge::image2d::algorithm::copy(
+							sge::image2d::view::const_object(
+								(((x + y) % 2u) == 0u)
+								?
+									white_store.wrapped_view()
+								:
+									black_store.wrapped_view()
+							),
+							sge::image2d::view::sub(
+								sge::image2d::view::object(
+									sge::image::view::wrap(
+										_view
+									)
+								),
+								sge::image2d::rect(
+									sge::image2d::rect::vector(
+										x,
+										y
+									)
+									*
+									block_size,
+									block_size
 								)
 							),
-							sge::image2d::rect(
-								sge::image2d::rect::vector(
-									x,
-									y
-								)
-								*
-								block_size,
-								block_size
-							)
-						),
-						sge::image::algorithm::may_overlap::no,
-						sge::image::algorithm::uninitialized::yes
-					);
+							sge::image::algorithm::may_overlap::no,
+							sge::image::algorithm::uninitialized::yes
+						);
+			}
 		}
 	};
 
@@ -664,46 +669,52 @@ try
 
 	fcppt::signal::scoped_connection const texture_connection(
 		sys.keyboard_collector().key_callback(
-			[
-				&filters,
-				&current_filter
-			](
-				sge::input::keyboard::key_event const &_event
-			)
-			{
-				if(
-					!_event.pressed()
+			sge::input::keyboard::key_callback{
+				[
+					&filters,
+					&current_filter
+				](
+					sge::input::keyboard::key_event const &_event
 				)
-					return;
-
-				fcppt::maybe_void(
-					sge::input::keyboard::key_code_to_digit(
-						_event.key().code()
-					),
-					[
-						&filters,
-						&current_filter
-					](
-						sge::input::keyboard::digit const _digit
+				{
+					if(
+						!_event.pressed()
 					)
-					{
-						filter_array::size_type const index(
-							_digit.get() - 1u
-						);
+						return;
 
-						if(
-							index
-							>=
-							filters.size()
+					fcppt::maybe_void(
+						sge::input::keyboard::key_code_to_digit(
+							_event.key().code()
+						),
+						[
+							&filters,
+							&current_filter
+						](
+							sge::input::keyboard::digit const _digit
 						)
-							return;
-
-						current_filter =
-							&filters[
-								index
-							];
-					}
-				);
+						{
+							fcppt::maybe_void(
+								fcppt::container::at_optional(
+									filters,
+									filter_array::size_type{
+										_digit.get()
+										-
+										1u
+									}
+								),
+								[
+									&current_filter
+								](
+									filter_array::const_reference _filter
+								)
+								{
+									current_filter =
+										&_filter;
+								}
+							);
+						}
+					);
+				}
 			}
 		)
 	);

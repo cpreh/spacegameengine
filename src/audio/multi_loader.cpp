@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/src/media/muxer_impl.hpp>
+#include <fcppt/function_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <functional>
@@ -53,11 +54,13 @@ sge::audio::multi_loader::load(
 	return
 		muxer_.mux_path(
 			_path,
-			std::bind(
-				&sge::audio::loader::load,
-				std::placeholders::_1,
-				_path
-			)
+			muxer::load_function{
+				std::bind(
+					&sge::audio::loader::load,
+					std::placeholders::_1,
+					_path
+				)
+			}
 		);
 }
 
@@ -70,12 +73,14 @@ sge::audio::multi_loader::load_raw(
 	return
 		muxer_.mux_extension(
 			_extension,
-			std::bind(
-				&sge::audio::loader::load_raw,
-				std::placeholders::_1,
-				_range,
-				_extension
-			)
+			muxer::load_function{
+				std::bind(
+					&sge::audio::loader::load_raw,
+					std::placeholders::_1,
+					_range,
+					_extension
+				)
+			}
 		);
 }
 
@@ -88,14 +93,16 @@ sge::audio::multi_loader::load_stream(
 	return
 		muxer_.mux_extension(
 			_extension,
-			std::bind(
-				&sge::audio::loader::load_stream,
-				std::placeholders::_1,
-				std::ref(
-					_stream
-				),
-				_extension
-			)
+			muxer::load_function{
+				std::bind(
+					&sge::audio::loader::load_stream,
+					std::placeholders::_1,
+					std::ref(
+						_stream
+					),
+					_extension
+				)
+			}
 		);
 }
 

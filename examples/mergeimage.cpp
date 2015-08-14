@@ -237,19 +237,21 @@ try
 		>(
 			border_sz
 		),
-		[](
-			image_type::view_type const &_view
-		)
-		{
-			sge::image2d::algorithm::fill(
-				sge::image2d::view::object(
-					sge::image::view::wrap(
-						_view
-					)
-				),
-				sge::image::color::predef::transparent(),
-				sge::image::algorithm::uninitialized::yes
-			);
+		image_type::init_function{
+			[](
+				image_type::view_type const &_view
+			)
+			{
+				sge::image2d::algorithm::fill(
+					sge::image2d::view::object(
+						sge::image::view::wrap(
+							_view
+						)
+					),
+					sge::image::color::predef::transparent(),
+					sge::image::algorithm::uninitialized::yes
+				);
+			}
 		}
 	};
 

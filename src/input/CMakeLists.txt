@@ -137,6 +137,7 @@ set(
 	include/sge/input/joypad/remove_function.hpp
 	include/sge/input/joypad/remove_signal.hpp
 	include/sge/input/keyboard/action.hpp
+	include/sge/input/keyboard/action_callback.hpp
 	include/sge/input/keyboard/char_callback.hpp
 	include/sge/input/keyboard/char_event.hpp
 	include/sge/input/keyboard/char_event_fwd.hpp
@@ -244,7 +245,6 @@ set(
 	include/sge/input/mouse/remove_event_fwd.hpp
 	include/sge/input/mouse/remove_function.hpp
 	include/sge/input/mouse/remove_signal.hpp
-	include/sge/input/nullary_function.hpp
 	include/sge/input/plugin/collection_fwd.hpp
 	include/sge/input/plugin/context_fwd.hpp
 	include/sge/input/plugin/object.hpp

@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_KEYBOARD_KEY_REPEAT_CALLBACK_HPP_INCLUDED
 
 #include <sge/input/keyboard/key_repeat_function.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace sge
@@ -34,9 +32,11 @@ namespace input
 namespace keyboard
 {
 
-typedef std::function<
+typedef
+fcppt::function<
 	sge::input::keyboard::key_repeat_function
-> key_repeat_callback;
+>
+key_repeat_callback;
 
 }
 }

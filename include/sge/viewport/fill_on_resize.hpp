@@ -31,7 +31,7 @@ namespace viewport
 {
 
 SGE_VIEWPORT_DETAIL_SYMBOL
-sge::viewport::resize_callback const
+sge::viewport::resize_callback
 fill_on_resize();
 
 }

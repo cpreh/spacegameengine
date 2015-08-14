@@ -68,6 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
 #include <sge/viewport/center_on_resize.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
@@ -145,12 +146,14 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::center_on_resize(
-					sge::window::dim{
-						1024,
-						768
-					}
-				)
+				sge::viewport::optional_resize_callback{
+					sge::viewport::center_on_resize(
+						sge::window::dim{
+							1024,
+							768
+						}
+					)
+				}
 			)
 		)
 		(

@@ -73,20 +73,24 @@ sge::input::keyboard::manager::manager(
 			fcppt::signal::auto_connection_container
 		>(
 			_processor.keyboard_discover_callback(
-				std::bind(
-					&sge::input::keyboard::manager::discover,
-					this,
-					std::placeholders::_1
-				)
+				sge::input::keyboard::discover_callback{
+					std::bind(
+						&sge::input::keyboard::manager::discover,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
 			_processor.keyboard_remove_callback(
-				std::bind(
-					&sge::input::keyboard::manager::remove,
-					this,
-					std::placeholders::_1
-				)
+				sge::input::keyboard::remove_callback{
+					std::bind(
+						&sge::input::keyboard::manager::remove,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		.move_container()
@@ -118,35 +122,41 @@ sge::input::keyboard::manager::discover(
 					fcppt::signal::auto_connection_container
 				>(
 					_event.get().char_callback(
-						std::bind(
-							char_callback_,
-							std::ref(
-								_event.get()
-							),
-							std::placeholders::_1
-						)
+						sge::input::keyboard::char_callback{
+							std::bind(
+								char_callback_,
+								std::ref(
+									_event.get()
+								),
+								std::placeholders::_1
+							)
+						}
 					)
 				)
 				(
 					_event.get().key_callback(
-						std::bind(
-							key_callback_,
-							std::ref(
-								_event.get()
-							),
-							std::placeholders::_1
-						)
+						sge::input::keyboard::key_callback{
+							std::bind(
+								key_callback_,
+								std::ref(
+									_event.get()
+								),
+								std::placeholders::_1
+							)
+						}
 					)
 				)
 				(
 					_event.get().key_repeat_callback(
-						std::bind(
-							key_repeat_callback_,
-							std::ref(
-								_event.get()
-							),
-							std::placeholders::_1
-						)
+						sge::input::keyboard::key_repeat_callback{
+							std::bind(
+								key_repeat_callback_,
+								std::ref(
+									_event.get()
+								),
+								std::placeholders::_1
+							)
+						}
 					)
 				)
 				.move_container()
@@ -155,12 +165,9 @@ sge::input::keyboard::manager::discover(
 		== true
 	);
 
-	if(
-		discover_callback_
-	)
-		discover_callback_(
-			_event
-		);
+	discover_callback_(
+		_event
+	);
 }
 
 void
@@ -175,10 +182,7 @@ sge::input::keyboard::manager::remove(
 		== 1u
 	);
 
-	if(
-		remove_callback_
-	)
-		remove_callback_(
-			_event
-		);
+	remove_callback_(
+		_event
+	);
 }

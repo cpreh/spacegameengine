@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
@@ -51,10 +52,12 @@ sge::input::cursor::relative_movement::relative_movement(
 	relative_move_signal_(),
 	connection_(
 		cursor_.move_callback(
-			std::bind(
-				&sge::input::cursor::relative_movement::move_callback_internal,
-				this,
-				std::placeholders::_1
+			sge::input::cursor::move_callback(
+				std::bind(
+					&sge::input::cursor::relative_movement::move_callback_internal,
+					this,
+					std::placeholders::_1
+				)
 			)
 		)
 	)

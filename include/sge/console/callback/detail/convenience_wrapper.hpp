@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/fusion/functional/invocation/invoke.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/mpl/range_c.hpp>
+#include <cstddef>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
@@ -47,7 +48,10 @@ namespace callback
 {
 namespace detail
 {
-template<typename FunctionType>
+
+template<
+	typename FunctionType
+>
 class convenience_wrapper
 {
 public:
@@ -55,29 +59,36 @@ public:
 	FunctionType
 	function_type;
 
-	template<typename Functor>
-	explicit
+	template<
+		typename Function
+	>
 	convenience_wrapper(
-		Functor const &_functor,
-		sge::font::string const &_short_description)
+		Function const &_function,
+		sge::font::string const &_short_description
+	)
 	:
-		functor_(
-			_functor),
+		function_(
+			_function
+		),
 		short_description_(
-			_short_description)
+			_short_description
+		)
 	{
 	}
 
 	void
 	operator()(
-		console::arg_list const &_args,
-		console::object &_console) const
+		sge::console::arg_list const &_args,
+		sge::console::object &_console
+	) const
 	{
-		unsigned const arity =
-			static_cast<unsigned>(
-				boost::function_types::function_arity<function_type>::value);
+		std::size_t const arity{
+			boost::function_types::function_arity<
+				function_type
+			>::value
+		};
 
-		if(static_cast<unsigned>(_args.size() - 1) != arity)
+		if(_args.size() - 1u != arity)
 		{
 			_console.emit_error(
 				SGE_FONT_LIT("Given too few or too many arguments!"));
@@ -86,38 +97,53 @@ public:
 			return;
 		}
 
+		// TODO: Fix this
 		typedef
-		boost::function_types::parameter_types<function_type>
+		boost::function_types::parameter_types<
+			function_type
+		>
 		arguments;
 
-		typedef typename
-		boost::fusion::result_of::as_vector<arguments>::type
+		typedef
+		typename
+		boost::fusion::result_of::as_vector<
+			arguments
+		>::type
 		argument_tuple;
 
 		argument_tuple parameter_tuple;
 
-		fcppt::mpl::for_each
-		<
-			boost::mpl::range_c
-			<
+		fcppt::mpl::for_each<
+			boost::mpl::range_c<
 				console::arg_list::size_type,
 				0,
-				boost::function_types::function_arity<function_type>::value
+				boost::function_types::function_arity<
+					function_type
+				>::value
 			>
 		>(
-			detail::conversion_visitor<argument_tuple>(
+			sge::console::callback::detail::conversion_visitor<
+				argument_tuple
+			>(
 				_console,
 				parameter_tuple,
-				_args));
+				_args
+			)
+		);
 
 		boost::fusion::invoke(
-			functor_,
-			parameter_tuple);
+			function_,
+			parameter_tuple
+		);
 	}
 private:
-	std::function<function_type> functor_;
+	std::function<
+		function_type
+	> function_;
+
 	sge::font::string short_description_;
 };
+
 }
 }
 }

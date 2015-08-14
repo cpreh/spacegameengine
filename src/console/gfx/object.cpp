@@ -18,7 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/console/error_callback.hpp>
 #include <sge/console/exception.hpp>
+#include <sge/console/message_callback.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/gfx/font_color.hpp>
 #include <sge/console/gfx/object.hpp>
@@ -35,9 +37,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/align_h/max_width.hpp>
 #include <sge/font/align_h/variant.hpp>
 #include <sge/font/draw/static_text.hpp>
+#include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
@@ -85,47 +90,57 @@ sge::console::gfx::object::object(
 	),
 	key_connection_(
 		keyboard_.key_callback(
-			std::bind(
-				&sge::console::gfx::object::key_callback,
-				this,
-				std::placeholders::_1
-			)
+			sge::input::keyboard::key_callback{
+				std::bind(
+					&sge::console::gfx::object::key_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	),
 	key_repeat_connection_(
 		keyboard_.key_repeat_callback(
-			std::bind(
-				&sge::console::gfx::object::key_action,
-				this,
-				std::placeholders::_1
-			)
+			sge::input::keyboard::key_repeat_callback{
+				std::bind(
+					&sge::console::gfx::object::key_action,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	),
 	char_connection_(
 		_keyboard.char_callback(
-			std::bind(
-				&sge::console::gfx::object::char_callback,
-				this,
-				std::placeholders::_1
-			)
+			sge::input::keyboard::char_callback{
+				std::bind(
+					&sge::console::gfx::object::char_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	),
 	error_conn_(
 		object_.register_error_callback(
-			std::bind(
-				&sge::console::gfx::object::error,
-				this,
-				std::placeholders::_1
-			)
+			sge::console::error_callback{
+				std::bind(
+					&sge::console::gfx::object::error,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	),
 	message_conn_(
 		object_.register_message_callback(
-			std::bind(
-				&sge::console::gfx::object::print,
-				this,
-				std::placeholders::_1
-			)
+			sge::console::message_callback{
+				std::bind(
+					&sge::console::gfx::object::print,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	),
 	area_(

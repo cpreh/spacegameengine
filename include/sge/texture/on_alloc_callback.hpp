@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_ON_ALLOC_CALLBACK_HPP_INCLUDED
 
 #include <sge/texture/on_alloc_function.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace sge
@@ -32,9 +30,11 @@ namespace sge
 namespace texture
 {
 
-typedef std::function<
+typedef
+fcppt::function<
 	sge::texture::on_alloc_function
-> on_alloc_callback;
+>
+on_alloc_callback;
 
 }
 }

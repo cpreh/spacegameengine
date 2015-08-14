@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/viewport/detail/manager_impl.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
-#include <sge/viewport/resize_callback.hpp>
+#include <sge/viewport/optional_resize_callback_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::viewport::manager::manager(
 	sge::renderer::device::core &_device,
 	sge::window::object &_window,
-	sge::viewport::resize_callback const &_resize_callback
+	sge::viewport::optional_resize_callback const &_resize_callback
 )
 :
 	impl_(
@@ -64,7 +64,7 @@ sge::viewport::manager::manage_callback(
 
 void
 sge::viewport::manager::resize_callback(
-	sge::viewport::resize_callback const &_resize_callback
+	sge::viewport::optional_resize_callback const &_resize_callback
 )
 {
 	impl_->resize_callback(

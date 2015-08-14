@@ -20,8 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/syringe.hpp>
+#include <sge/input/cursor/button_callback.hpp>
+#include <sge/input/cursor/button_event_fwd.hpp>
+#include <sge/input/cursor/move_callback.hpp>
+#include <sge/input/cursor/move_event_fwd.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
+#include <sge/input/cursor/scroll_callback.hpp>
+#include <sge/input/cursor/scroll_event_fwd.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -34,30 +40,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
+
 sge::cegui::default_cursor::default_cursor(
 	sge::cegui::syringe &_syringe,
-	sge::input::cursor::object &_cursor)
+	sge::input::cursor::object &_cursor
+)
 :
 	syringe_(
-		_syringe),
+		_syringe
+	),
 	button_connection_(
 		_cursor.button_callback(
-			std::bind(
-				&default_cursor::button_callback,
-				this,
-				std::placeholders::_1))),
+			sge::input::cursor::button_callback{
+				std::bind(
+					&default_cursor::button_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	move_connection_(
 		_cursor.move_callback(
-			std::bind(
-				&default_cursor::move_callback,
-				this,
-				std::placeholders::_1))),
+			sge::input::cursor::move_callback{
+				std::bind(
+					&default_cursor::move_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	scroll_connection_(
 		_cursor.scroll_callback(
-			std::bind(
-				&default_cursor::scroll_callback,
-				this,
-				std::placeholders::_1)))
+			sge::input::cursor::scroll_callback{
+				std::bind(
+					&default_cursor::scroll_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	)
 {
 	fcppt::maybe_void(
 		_cursor.position(),
@@ -73,6 +97,7 @@ sge::cegui::default_cursor::default_cursor(
 		}
 	);
 }
+
 FCPPT_PP_POP_WARNING
 
 sge::cegui::default_cursor::~default_cursor()
@@ -81,24 +106,30 @@ sge::cegui::default_cursor::~default_cursor()
 
 void
 sge::cegui::default_cursor::button_callback(
-	sge::input::cursor::button_event const &e)
+	sge::input::cursor::button_event const &_event
+)
 {
 	syringe_.inject(
-		e);
+		_event
+	);
 }
 
 void
 sge::cegui::default_cursor::move_callback(
-	sge::input::cursor::move_event const &e)
+	sge::input::cursor::move_event const &_event
+)
 {
 	syringe_.inject(
-		e);
+		_event
+	);
 }
 
 void
 sge::cegui::default_cursor::scroll_callback(
-	sge::input::cursor::scroll_event const &e)
+	sge::input::cursor::scroll_event const &_event
+)
 {
 	syringe_.inject(
-		e);
+		_event
+	);
 }

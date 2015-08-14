@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/detail/renderer.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 
 
 sge::systems::modules::renderer::device::device(
@@ -63,7 +64,7 @@ sge::renderer::device::ffp &
 sge::systems::modules::renderer::device::get_ffp() const
 {
 	return
-		static_cast<
+		fcppt::cast::static_downcast<
 			sge::renderer::device::ffp &
 		>(
 			this->get_core()

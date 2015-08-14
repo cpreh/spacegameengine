@@ -163,10 +163,10 @@ public:
 	/**
 	\brief A typedef for the <code>path_to_resource</code> function.
 	*/
-	typedef typename
-	resource_tree::path_to_resource_function<
+	typedef
+	sge::resource_tree::path_to_resource_function<
 		value_type
-	>::type
+	>
 	path_to_resource_function;
 
 	/**

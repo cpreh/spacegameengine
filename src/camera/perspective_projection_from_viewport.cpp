@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/perspective_af.hpp>
 #include <sge/renderer/target/aspect_from_viewport.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -60,11 +61,13 @@ sge::camera::perspective_projection_from_viewport::perspective_projection_from_v
 	),
 	viewport_callback_connection_(
 		_viewport_manager.manage_callback(
-			std::bind(
-				&sge::camera::perspective_projection_from_viewport::viewport_callback,
-				this,
-				std::placeholders::_1
-			)
+			sge::viewport::manage_callback{
+				std::bind(
+					&sge::camera::perspective_projection_from_viewport::viewport_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	)
 {

@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/processor.hpp>
+#include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/object.hpp>
@@ -46,11 +47,13 @@ sge::systems::modules::input::cursor_modifier::cursor_modifier(
 	),
 	connection_(
 		_processor.cursor_discover_callback(
-			std::bind(
-				&sge::systems::modules::input::cursor_modifier::cursor_discover,
-				this,
-				std::placeholders::_1
-			)
+			sge::input::cursor::discover_callback{
+				std::bind(
+					&sge::systems::modules::input::cursor_modifier::cursor_discover,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	)
 {

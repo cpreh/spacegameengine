@@ -37,10 +37,12 @@ namespace device
 namespace manager
 {
 
-typedef std::multimap<
+typedef
+std::multimap<
 	sge::x11input::device::use,
 	sge::x11input::device::manager::config_base_unique_ptr
-> config_map;
+>
+config_map;
 
 }
 }

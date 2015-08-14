@@ -395,9 +395,9 @@ set(
 	include/sge/config/plugin_path.hpp
 	include/sge/config/user_name.hpp
 	include/sge/console/arg_list.hpp
+	include/sge/console/callback/convenience.hpp
 	include/sge/console/callback/detail/convenience_wrapper.hpp
 	include/sge/console/callback/detail/conversion_visitor.hpp
-	include/sge/console/callback/from_functor.hpp
 	include/sge/console/callback/function.hpp
 	include/sge/console/callback/function_type.hpp
 	include/sge/console/callback/name.hpp
@@ -1326,6 +1326,7 @@ set(
 	include/sge/input/joypad/remove_function.hpp
 	include/sge/input/joypad/remove_signal.hpp
 	include/sge/input/keyboard/action.hpp
+	include/sge/input/keyboard/action_callback.hpp
 	include/sge/input/keyboard/char_callback.hpp
 	include/sge/input/keyboard/char_event.hpp
 	include/sge/input/keyboard/char_event_fwd.hpp
@@ -1433,7 +1434,6 @@ set(
 	include/sge/input/mouse/remove_event_fwd.hpp
 	include/sge/input/mouse/remove_function.hpp
 	include/sge/input/mouse/remove_signal.hpp
-	include/sge/input/nullary_function.hpp
 	include/sge/input/plugin/collection_fwd.hpp
 	include/sge/input/plugin/context_fwd.hpp
 	include/sge/input/plugin/object.hpp
@@ -1657,6 +1657,7 @@ set(
 	include/sge/opencl/program/object.hpp
 	include/sge/opencl/program/object_fwd.hpp
 	include/sge/opencl/program/optional_build_parameters.hpp
+	include/sge/opencl/program/optional_notification_callback.hpp
 	include/sge/opencl/program/source_string.hpp
 	include/sge/opencl/program/source_string_sequence.hpp
 	include/sge/opencl/single_device_system/object.hpp
@@ -3687,7 +3688,6 @@ set(
 	include/sge/timer/scoped_frame_limiter_fwd.hpp
 	include/sge/viewport/center_on_resize.hpp
 	include/sge/viewport/detail/manager_impl_fwd.hpp
-	include/sge/viewport/dont_manage.hpp
 	include/sge/viewport/fill_on_resize.hpp
 	include/sge/viewport/fractional_aspect.hpp
 	include/sge/viewport/fractional_aspect_fwd.hpp
@@ -3696,6 +3696,8 @@ set(
 	include/sge/viewport/manage_function.hpp
 	include/sge/viewport/manager.hpp
 	include/sge/viewport/manager_fwd.hpp
+	include/sge/viewport/optional_resize_callback.hpp
+	include/sge/viewport/optional_resize_callback_fwd.hpp
 	include/sge/viewport/resize_callback.hpp
 	include/sge/viewport/resize_function.hpp
 	include/sge/window/convert_size_hints.hpp

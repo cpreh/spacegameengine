@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/alignment.hpp>
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_policy.hpp>
+#include <sge/rucksack/axis_policy_function.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/make_axis_policy.hpp>
@@ -278,22 +279,24 @@ sge::rucksack::widget::box::axis_policy() const
 		fcppt::algorithm::fold(
 			children_,
 			sge::rucksack::make_axis_policy(
-				[
-					this
-				](
-					sge::rucksack::axis
-				)
-				{
-					return
-						sge::rucksack::axis_policy{
-							sge::rucksack::preferred_size{
-								fcppt::literal<
-									sge::rucksack::scalar
-								>(
-									0
-								)
-							}
-						};
+				sge::rucksack::axis_policy_function{
+					[
+						this
+					](
+						sge::rucksack::axis
+					)
+					{
+						return
+							sge::rucksack::axis_policy{
+								sge::rucksack::preferred_size{
+									fcppt::literal<
+										sge::rucksack::scalar
+									>(
+										0
+									)
+								}
+							};
+					}
 				}
 			),
 			[
@@ -331,23 +334,25 @@ sge::rucksack::widget::box::axis_policy() const
 
 				return
 					sge::rucksack::make_axis_policy(
-						[
-							major,
-							minor,
-							this
-						](
-							sge::rucksack::axis const _axis
-						)
-						{
-							return
-								_axis
-								==
-								axis_
-								?
-									major
-								:
-									minor
-								;
+						sge::rucksack::axis_policy_function{
+							[
+								major,
+								minor,
+								this
+							](
+								sge::rucksack::axis const _axis
+							)
+							{
+								return
+									_axis
+									==
+									axis_
+									?
+										major
+									:
+										minor
+									;
+							}
 						}
 					);
 			}

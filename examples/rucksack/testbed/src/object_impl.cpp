@@ -62,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/window.hpp>
 #include <sge/systems/window_source.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -103,7 +104,9 @@ sge::rucksack::testbed::object_impl::object_impl(
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::fill_on_resize()
+				sge::viewport::optional_resize_callback{
+					sge::viewport::fill_on_resize()
+				}
 			)
 		)
 		(

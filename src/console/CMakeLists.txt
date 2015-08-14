@@ -1,9 +1,9 @@
 set(
 	SGE_CONSOLE_FILES
 	include/sge/console/arg_list.hpp
+	include/sge/console/callback/convenience.hpp
 	include/sge/console/callback/detail/convenience_wrapper.hpp
 	include/sge/console/callback/detail/conversion_visitor.hpp
-	include/sge/console/callback/from_functor.hpp
 	include/sge/console/callback/function.hpp
 	include/sge/console/callback/function_type.hpp
 	include/sge/console/callback/name.hpp

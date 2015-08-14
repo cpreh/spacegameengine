@@ -92,6 +92,7 @@ set(
 	include/sge/opencl/program/object.hpp
 	include/sge/opencl/program/object_fwd.hpp
 	include/sge/opencl/program/optional_build_parameters.hpp
+	include/sge/opencl/program/optional_notification_callback.hpp
 	include/sge/opencl/program/source_string.hpp
 	include/sge/opencl/program/source_string_sequence.hpp
 	include/sge/opencl/single_device_system/object.hpp

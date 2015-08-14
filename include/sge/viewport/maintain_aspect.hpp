@@ -32,7 +32,7 @@ namespace viewport
 {
 
 SGE_VIEWPORT_DETAIL_SYMBOL
-sge::viewport::resize_callback const
+sge::viewport::resize_callback
 maintain_aspect(
 	sge::viewport::fractional_aspect const &
 );

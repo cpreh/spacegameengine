@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_policy.hpp>
+#include <sge/rucksack/axis_policy_function.hpp>
 #include <sge/rucksack/axis_to_index.hpp>
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/make_axis_policy.hpp>
@@ -58,34 +59,36 @@ sge::gui::widget::image::image(
 	),
 	layout_{
 		sge::rucksack::make_axis_policy(
-			[
-				this
-			](
-				sge::rucksack::axis const _axis
-			)
-			{
-				return
-					sge::rucksack::axis_policy{
-						sge::rucksack::preferred_size{
-							fcppt::cast::size<
-								sge::rucksack::scalar
-							>(
-								fcppt::cast::to_signed(
-									texture_.size()[
-										sge::rucksack::axis_to_index(
-											_axis
-										)
-									]
+			sge::rucksack::axis_policy_function{
+				[
+					this
+				](
+					sge::rucksack::axis const _axis
+				)
+				{
+					return
+						sge::rucksack::axis_policy{
+							sge::rucksack::preferred_size{
+								fcppt::cast::size<
+									sge::rucksack::scalar
+								>(
+									fcppt::cast::to_signed(
+										texture_.size()[
+											sge::rucksack::axis_to_index(
+												_axis
+											)
+										]
+									)
 								)
-							)
-							+
-							style_.image_spacing()[
-								sge::rucksack::axis_to_index(
-									_axis
-								)
-							]
-						}
-					};
+								+
+								style_.image_spacing()[
+									sge::rucksack::axis_to_index(
+										_axis
+									)
+								]
+							}
+						};
+				}
 			}
 		)
 	}

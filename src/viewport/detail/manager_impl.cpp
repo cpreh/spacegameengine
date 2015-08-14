@@ -23,10 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/src/viewport/detail/manager_impl.hpp>
 #include <sge/viewport/manage_callback.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/viewport/resize_callback.hpp>
 #include <sge/window/object.hpp>
 #include <awl/window/event/processor.hpp>
+#include <awl/window/event/resize_callback.hpp>
 #include <awl/window/event/resize_fwd.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -41,7 +44,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::viewport::detail::manager_impl::manager_impl(
 	sge::renderer::device::core &_device,
 	sge::window::object &_window,
-	sge::viewport::resize_callback const &_resize_callback
+	sge::viewport::optional_resize_callback const &_resize_callback
 )
 :
 	target_(
@@ -52,11 +55,13 @@ sge::viewport::detail::manager_impl::manager_impl(
 	),
 	resize_connection_(
 		_window.awl_window_event_processor().resize_callback(
-			std::bind(
-				&sge::viewport::detail::manager_impl::on_resize,
-				this,
-				std::placeholders::_1
-			)
+			awl::window::event::resize_callback{
+				std::bind(
+					&sge::viewport::detail::manager_impl::on_resize,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	),
 	manage_signal_()
@@ -81,10 +86,11 @@ sge::viewport::detail::manager_impl::manage_callback(
 
 void
 sge::viewport::detail::manager_impl::resize_callback(
-	sge::viewport::resize_callback const &_resize_callback
+	sge::viewport::optional_resize_callback const &_resize_callback
 )
 {
-	resize_callback_ = _resize_callback;
+	resize_callback_ =
+		_resize_callback;
 }
 
 sge::renderer::target::viewport const
@@ -99,14 +105,22 @@ sge::viewport::detail::manager_impl::on_resize(
 	awl::window::event::resize const &_resize
 )
 {
-	if(
-		resize_callback_
-	)
-		target_.viewport(
-			resize_callback_(
-				_resize
-			)
-		);
+	fcppt::maybe_void(
+		resize_callback_,
+		[
+			&_resize,
+			this
+		](
+			sge::viewport::resize_callback const &_callback
+		)
+		{
+			target_.viewport(
+				_callback(
+					_resize
+				)
+			);
+		}
+	);
 
 	manage_signal_(
 		this->viewport()

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/ortho_freelook/object.hpp>
 #include <sge/camera/ortho_freelook/projection_rectangle_from_viewport.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
@@ -44,10 +45,15 @@ sge::camera::ortho_freelook::projection_rectangle_from_viewport::projection_rect
 		_camera),
 	viewport_callback_connection_(
 		_viewport_manager.manage_callback(
-			std::bind(
-				&projection_rectangle_from_viewport::viewport_callback,
-				this,
-				std::placeholders::_1)))
+			sge::viewport::manage_callback{
+				std::bind(
+					&projection_rectangle_from_viewport::viewport_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	)
 {
 }
 

@@ -28,9 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/mizuiro_access.hpp>
 #include <sge/image/view/wrapped_type.hpp>
 #include <mizuiro/image/store_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace sge
@@ -105,7 +103,7 @@ public:
 	};
 
 	typedef
-	std::function<
+	fcppt::function<
 		void (
 			view_type const &
 		)

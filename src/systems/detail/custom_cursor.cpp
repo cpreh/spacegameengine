@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
@@ -76,16 +77,18 @@ sge::systems::detail::custom_cursor::custom_cursor(
 	},
 	move_connection_{
 		_cursor.move_callback(
-			[
-				this
-			](
-				sge::input::cursor::move_event const &_event
-			)
-			{
-				sprite_ =
-					this->make_sprite(
-						_event.position()
-					);
+			sge::input::cursor::move_callback{
+				[
+					this
+				](
+					sge::input::cursor::move_event const &_event
+				)
+				{
+					sprite_ =
+						this->make_sprite(
+							_event.position()
+						);
+				}
 			}
 		)
 	}

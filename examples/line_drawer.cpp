@@ -60,7 +60,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/draw/simple.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_event.hpp>
+#include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
@@ -104,6 +106,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/frames_counter.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -138,7 +141,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 // The line drawer currently only accepts three-dimensional points for
-// it's lines since it can be used to draw lines in "world space",
+// its lines since it can be used to draw lines in "world space",
 // too. In this example, we're just going to show the two-dimensional
 // capabilities, so here's a function converting a 2D cursor position
 // to a 3D position by just appending a 0 at the end.
@@ -165,7 +168,6 @@ class follows_cursor
 FCPPT_NONCOPYABLE(
 	follows_cursor);
 public:
-	explicit
 	follows_cursor(
 		sge::line_drawer::object &_line_drawer,
 		sge::input::cursor::object &_cursor)
@@ -178,18 +180,27 @@ public:
 		// button callback
 		move_connection_(
 			_cursor.move_callback(
-				std::bind(
-					&follows_cursor::move_callback,
-					this,
-					std::placeholders::_1))),
+				sge::input::cursor::move_callback{
+					std::bind(
+						&follows_cursor::move_callback,
+						this,
+						std::placeholders::_1
+					)
+				}
+			)
+		),
 		click_connection_(
 			_cursor.button_callback(
-				std::bind(
-					&follows_cursor::click_callback,
-					this,
-					std::placeholders::_1)))
+				sge::input::cursor::button_callback{
+					std::bind(
+						&follows_cursor::click_callback,
+						this,
+						std::placeholders::_1
+					)
+				}
+			)
+		)
 	{
-
 	}
 FCPPT_PP_POP_WARNING
 
@@ -341,7 +352,9 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::fill_on_resize()
+				sge::viewport::optional_resize_callback{
+					sge::viewport::fill_on_resize()
+				}
 			)
 		)(
 			sge::systems::input(

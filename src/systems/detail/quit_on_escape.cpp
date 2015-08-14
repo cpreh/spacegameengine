@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/action_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/systems/detail/quit_on_escape.hpp>
@@ -40,11 +41,13 @@ sge::systems::detail::quit_on_escape(
 		_keyboard.key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::escape,
-				std::bind(
-					&sge::window::system::quit,
-					&_window_system,
-					awl::main::exit_success()
-				)
+				sge::input::keyboard::action_callback{
+					std::bind(
+						&sge::window::system::quit,
+						&_window_system,
+						awl::main::exit_success()
+					)
+				}
 			)
 		);
 }

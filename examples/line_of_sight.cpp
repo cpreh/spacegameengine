@@ -21,12 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/any/convert.hpp>
+#include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/keyboard/action.hpp>
+#include <sge/input/keyboard/action_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
 #include <sge/renderer/clear/parameters.hpp>
@@ -80,7 +82,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
+#include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
@@ -159,7 +163,9 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::fill_on_resize()
+				sge::viewport::optional_resize_callback{
+					sge::viewport::fill_on_resize()
+				}
 			)
 		)
 		(
@@ -334,41 +340,43 @@ try
 
 	fcppt::signal::scoped_connection const manage_connection(
 		sys.viewport_manager().manage_callback(
-			[
-				&sprites,
-				update_positions,
-				make_sprite,
-				cell_size
-			](
-				sge::renderer::target::viewport const &_viewport
-			)
-			{
-				fcppt::container::grid::resize_preserve_init(
-					sprites,
-					fcppt::math::dim::structure_cast<
-						sprite_grid::dim,
-						fcppt::cast::size_fun
-					>(
+			sge::viewport::manage_callback{
+				[
+					&sprites,
+					update_positions,
+					make_sprite,
+					cell_size
+				](
+					sge::renderer::target::viewport const &_viewport
+				)
+				{
+					fcppt::container::grid::resize_preserve_init(
+						sprites,
 						fcppt::math::dim::structure_cast<
-							sge::renderer::screen_size,
-							fcppt::cast::to_unsigned_fun
+							sprite_grid::dim,
+							fcppt::cast::size_fun
 						>(
-							_viewport.get().size()
+							fcppt::math::dim::structure_cast<
+								sge::renderer::screen_size,
+								fcppt::cast::to_unsigned_fun
+							>(
+								_viewport.get().size()
+							)
 						)
-					)
-					/
-					fcppt::math::dim::structure_cast<
-						sprite_grid::dim,
-						fcppt::cast::size_fun
-					>(
-						cell_size
-					),
-					make_sprite()
-				);
+						/
+						fcppt::math::dim::structure_cast<
+							sprite_grid::dim,
+							fcppt::cast::size_fun
+						>(
+							cell_size
+						),
+						make_sprite()
+					);
 
-				update_positions(
-					sprites
-				);
+					update_positions(
+						sprites
+					);
+				}
 			}
 		)
 	);
@@ -383,143 +391,145 @@ try
 
 	fcppt::signal::scoped_connection const click_connection(
 		sys.cursor_demuxer().button_callback(
-			[
-				&sprites,
-				&last_position,
-				&sys,
-				cell_size
-			](
-				sge::input::cursor::button_event const &_event
-			)
-			{
-				if(
-					!_event.pressed()
-					||
-					_event.button_code()
-					!=
-					sge::input::cursor::button_code::left
+			sge::input::cursor::button_callback{
+				[
+					&sprites,
+					&last_position,
+					&sys,
+					cell_size
+				](
+					sge::input::cursor::button_event const &_event
 				)
-					return;
-
-				fcppt::maybe_void(
-					sys.cursor_demuxer().position(),
-					[
-						&sprites,
-						&last_position,
-						cell_size
-					](
-						sge::input::cursor::position const _cur_position
+				{
+					if(
+						!_event.pressed()
+						||
+						_event.button_code()
+						!=
+						sge::input::cursor::button_code::left
 					)
-					{
-						sprite_grid::dim const cell_size_dim(
-							fcppt::math::dim::structure_cast<
-								sprite_grid::dim,
-								fcppt::cast::size_fun
-							>(
-								cell_size
-							)
-						);
+						return;
 
-						sprite_grid::pos const cur_grid_position(
-							fcppt::math::vector::structure_cast<
-								sprite_grid::pos,
-								fcppt::cast::size_fun
-							>(
-								_cur_position
-							)
-							/
-							cell_size_dim
-						);
-
-						if(
-							!fcppt::container::grid::in_range(
-								sprites,
-								cur_grid_position
-							)
+					fcppt::maybe_void(
+						sys.cursor_demuxer().position(),
+						[
+							&sprites,
+							&last_position,
+							cell_size
+						](
+							sge::input::cursor::position const _cur_position
 						)
-							return;
+						{
+							sprite_grid::dim const cell_size_dim(
+								fcppt::math::dim::structure_cast<
+									sprite_grid::dim,
+									fcppt::cast::size_fun
+								>(
+									cell_size
+								)
+							);
 
-						fcppt::maybe(
-							last_position,
-							[
-								&last_position,
-								_cur_position
-							]{
-								last_position =
-									sge::input::cursor::optional_position{
-										_cur_position
-									};
-							},
-							[
-								&last_position,
-								&sprites,
-								cell_size_dim,
-								cur_grid_position
-							](
-								sge::input::cursor::position const _last_position
+							sprite_grid::pos const cur_grid_position(
+								fcppt::math::vector::structure_cast<
+									sprite_grid::pos,
+									fcppt::cast::size_fun
+								>(
+									_cur_position
+								)
+								/
+								cell_size_dim
+							);
+
+							if(
+								!fcppt::container::grid::in_range(
+									sprites,
+									cur_grid_position
+								)
 							)
-							{
-								sprite_grid::pos const last_grid_position(
-									fcppt::math::vector::structure_cast<
-										sprite_grid::pos,
-										fcppt::cast::to_unsigned_fun
-									>(
+								return;
+
+							fcppt::maybe(
+								last_position,
+								[
+									&last_position,
+									_cur_position
+								]{
+									last_position =
+										sge::input::cursor::optional_position{
+											_cur_position
+										};
+								},
+								[
+									&last_position,
+									&sprites,
+									cell_size_dim,
+									cur_grid_position
+								](
+									sge::input::cursor::position const _last_position
+								)
+								{
+									sprite_grid::pos const last_grid_position(
+										fcppt::math::vector::structure_cast<
+											sprite_grid::pos,
+											fcppt::cast::to_unsigned_fun
+										>(
+											fcppt::math::vector::structure_cast<
+												signed_pos,
+												fcppt::cast::size_fun
+											>(
+												_last_position
+											)
+										)
+										/
+										cell_size_dim
+									);
+
+									fcppt::math::bresenham(
 										fcppt::math::vector::structure_cast<
 											signed_pos,
-											fcppt::cast::size_fun
+											fcppt::cast::to_signed_fun
 										>(
-											_last_position
+											cur_grid_position
+										),
+										fcppt::math::vector::structure_cast<
+											signed_pos,
+											fcppt::cast::to_signed_fun
+										>(
+											last_grid_position
+										),
+										[
+											&sprites
+										](
+											signed_pos const _pos
 										)
-									)
-									/
-									cell_size_dim
-								);
+										{
+											sprites[
+												fcppt::math::vector::structure_cast<
+													sprite_grid::pos,
+													fcppt::cast::to_unsigned_fun
+												>(
+													_pos
+												)
+											].color(
+												sge::image::color::any::convert<
+													color_format
+												>(
+													sge::image::color::predef::red()
+												)
+											);
 
-								fcppt::math::bresenham(
-									fcppt::math::vector::structure_cast<
-										signed_pos,
-										fcppt::cast::to_signed_fun
-									>(
-										cur_grid_position
-									),
-									fcppt::math::vector::structure_cast<
-										signed_pos,
-										fcppt::cast::to_signed_fun
-									>(
-										last_grid_position
-									),
-									[
-										&sprites
-									](
-										signed_pos const _pos
-									)
-									{
-										sprites[
-											fcppt::math::vector::structure_cast<
-												sprite_grid::pos,
-												fcppt::cast::to_unsigned_fun
-											>(
-												_pos
-											)
-										].color(
-											sge::image::color::any::convert<
-												color_format
-											>(
-												sge::image::color::predef::red()
-											)
-										);
+											return
+												true;
+										}
+									);
 
-										return
-											true;
-									}
-								);
-
-								last_position =
-									sge::input::cursor::optional_position{};
-							}
-						);
-					}
-				);
+									last_position =
+										sge::input::cursor::optional_position{};
+								}
+							);
+						}
+					);
+				}
 			}
 		)
 	);
@@ -528,22 +538,24 @@ try
 		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::keyboard::key_code::c,
-				[
-					&sprites
-				]()
-				{
-					for(
-						auto &element
-						:
-						sprites
-					)
-						element.color(
-							sge::image::color::any::convert<
-								color_format
-							>(
-								sge::image::color::predef::white()
-							)
-						);
+				sge::input::keyboard::action_callback{
+					[
+						&sprites
+					]()
+					{
+						for(
+							auto &element
+							:
+							sprites
+						)
+							element.color(
+								sge::image::color::any::convert<
+									color_format
+								>(
+									sge::image::color::predef::white()
+								)
+							);
+					}
 				}
 			)
 		)

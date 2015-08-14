@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/tracking/json/keyframes_to_json.hpp>
 #include <sge/core/exception.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/parse/json/array_or_object.hpp>
 #include <sge/parse/json/start.hpp>
@@ -63,10 +64,15 @@ sge::camera::tracking::json::key_press_exporter::key_press_exporter(
 		_export_keypress),
 	key_press_connection_(
 		_keyboard.key_callback(
-			std::bind(
-				&key_press_exporter::key_callback,
-				this,
-				std::placeholders::_1))),
+			sge::input::keyboard::key_callback{
+				std::bind(
+					&key_press_exporter::key_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	keyframes_()
 {
 }

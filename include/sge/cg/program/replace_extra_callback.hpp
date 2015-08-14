@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CG_PROGRAM_REPLACE_EXTRA_CALLBACK_HPP_INCLUDED
 
 #include <sge/cg/program/replace_extra_function.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace sge
@@ -34,9 +32,11 @@ namespace cg
 namespace program
 {
 
-typedef std::function<
+typedef
+fcppt::function<
 	sge::cg::program::replace_extra_function
-> replace_extra_callback;
+>
+replace_extra_callback;
 
 }
 }

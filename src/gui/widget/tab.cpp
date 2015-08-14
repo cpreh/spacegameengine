@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/object_fwd.hpp>
 #include <sge/font/string.hpp>
+#include <sge/gui/click_callback.hpp>
 #include <sge/gui/context_fwd.hpp>
 #include <sge/gui/optional_needed_width.hpp>
 #include <sge/gui/impl/relayout_ancestor.hpp>
@@ -99,23 +100,25 @@ sge::gui::widget::tab::tab(
 						),
 						click_connection_(
 							this->click(
-								[
-									_widget,
-									&_self
-								]
-								()
-								{
-									_self.replace(
-										1u,
-										sge::gui::widget::reference_alignment_pair(
-											_widget,
-											sge::rucksack::alignment::left_or_top
-										)
-									);
+								sge::gui::click_callback{
+									[
+										_widget,
+										&_self
+									]
+									()
+									{
+										_self.replace(
+											1u,
+											sge::gui::widget::reference_alignment_pair(
+												_widget,
+												sge::rucksack::alignment::left_or_top
+											)
+										);
 
-									sge::gui::impl::relayout_ancestor(
-										_self
-									);
+										sge::gui::impl::relayout_ancestor(
+											_self
+										);
+									}
 								}
 							)
 						)

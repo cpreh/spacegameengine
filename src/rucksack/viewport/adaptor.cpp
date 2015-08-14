@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/viewport/adaptor.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
+#include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_ref_compare.hpp>
@@ -63,10 +64,12 @@ sge::rucksack::viewport::adaptor::adaptor(
 	child_(),
 	viewport_connection_(
 		_viewport.manage_callback(
-			std::bind(
-				&sge::rucksack::viewport::adaptor::manage_callback,
-				this
-			)
+			sge::viewport::manage_callback{
+				std::bind(
+					&sge::rucksack::viewport::adaptor::manage_callback,
+					this
+				)
+			}
 		)
 	)
 {

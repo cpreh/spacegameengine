@@ -59,6 +59,7 @@ set(
 	src/plugins/x11input/include/sge/x11input/device/manager/config_base_unique_ptr.hpp
 	src/plugins/x11input/include/sge/x11input/device/manager/config_impl.hpp
 	src/plugins/x11input/include/sge/x11input/device/manager/config_map.hpp
+	src/plugins/x11input/include/sge/x11input/device/manager/create_function.hpp
 	src/plugins/x11input/include/sge/x11input/device/manager/make_config.hpp
 	src/plugins/x11input/include/sge/x11input/device/manager/object.hpp
 	src/plugins/x11input/include/sge/x11input/device/object.hpp

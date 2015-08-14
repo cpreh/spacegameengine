@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_CONTEXT_PARAMETERS_HPP_INCLUDED
 
 #include <sge/opencl/context/error_callback.hpp>
+#include <sge/opencl/context/optional_error_callback.hpp>
 #include <sge/opencl/context/parameters_fwd.hpp>
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
@@ -69,7 +70,8 @@ public:
 	SGE_OPENCL_DETAIL_SYMBOL opencl::device::object_ref_sequence const &
 	device_refs() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL context::error_callback const &
+	SGE_OPENCL_DETAIL_SYMBOL
+	context::optional_error_callback const &
 	error_callback() const;
 
 	SGE_OPENCL_DETAIL_SYMBOL optional_renderer const &
@@ -80,7 +82,7 @@ public:
 private:
 	platform::object &platform_;
 	device::object_ref_sequence device_refs_;
-	context::error_callback error_callback_;
+	context::optional_error_callback error_callback_;
 	optional_renderer shared_renderer_;
 };
 }

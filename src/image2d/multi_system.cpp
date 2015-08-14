@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/src/media/muxer_impl.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/function_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <functional>
@@ -60,11 +60,13 @@ sge::image2d::multi_system::load(
 	return
 		muxer_.mux_path(
 			_path,
-			std::bind(
-				&sge::image2d::system::load,
-				std::placeholders::_1,
-				_path
-			)
+			muxer::load_function{
+				std::bind(
+					&sge::image2d::system::load,
+					std::placeholders::_1,
+					_path
+				)
+			}
 		);
 }
 
@@ -77,12 +79,14 @@ sge::image2d::multi_system::load_raw(
 	return
 		muxer_.mux_extension(
 			_extension,
-			std::bind(
-				&sge::image2d::system::load_raw,
-				std::placeholders::_1,
-				_range,
-				_extension
-			)
+			muxer::load_function{
+				std::bind(
+					&sge::image2d::system::load_raw,
+					std::placeholders::_1,
+					_range,
+					_extension
+				)
+			}
 		);
 }
 
@@ -95,14 +99,16 @@ sge::image2d::multi_system::load_stream(
 	return
 		muxer_.mux_extension(
 			_extension,
-			std::bind(
-				&sge::image2d::system::load_stream,
-				std::placeholders::_1,
-				std::ref(
-					_stream
-				),
-				_extension
-			)
+			muxer::load_function{
+				std::bind(
+					&sge::image2d::system::load_stream,
+					std::placeholders::_1,
+					std::ref(
+						_stream
+					),
+					_extension
+				)
+			}
 		);
 }
 
@@ -115,14 +121,16 @@ sge::image2d::multi_system::create(
 	return
 		muxer_.mux_extension(
 			_extension,
-			std::bind(
-				&sge::image2d::system::create,
-				std::placeholders::_1,
-				std::cref(
-					_object
-				),
-				_extension
-			)
+			muxer::load_function{
+				std::bind(
+					&sge::image2d::system::create,
+					std::placeholders::_1,
+					std::cref(
+						_object
+					),
+					_extension
+				)
+			}
 		);
 }
 

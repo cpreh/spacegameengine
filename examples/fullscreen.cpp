@@ -54,7 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/basic.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
-#include <sge/viewport/dont_manage.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -124,7 +124,7 @@ try
 						)
 					)
 				),
-				sge::viewport::dont_manage()
+				sge::viewport::optional_resize_callback{}
 			)
 		)
 		(

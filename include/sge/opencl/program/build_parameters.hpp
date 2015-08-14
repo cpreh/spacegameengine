@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/program/build_options.hpp>
 #include <sge/opencl/program/notification_callback.hpp>
+#include <sge/opencl/program/optional_notification_callback.hpp>
 #include <fcppt/optional_impl.hpp>
 
 
@@ -74,14 +75,14 @@ public:
 	build_options() const;
 
 	SGE_OPENCL_DETAIL_SYMBOL
-	sge::opencl::program::notification_callback const &
+	sge::opencl::program::optional_notification_callback const &
 	notification_callback() const;
 private:
 	optional_object_ref_sequence devices_;
 
 	sge::opencl::program::build_options build_options_;
 
-	sge::opencl::program::notification_callback notification_callback_;
+	sge::opencl::program::optional_notification_callback notification_callback_;
 };
 
 }

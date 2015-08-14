@@ -111,6 +111,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_window.hpp>
 #include <sge/texture/part_raw_ref.hpp>
 #include <sge/viewport/center_on_resize.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -187,12 +188,14 @@ try
 				),
 				// Put the viewport in the center of the window
 				// when the window is bigger than the desired size.
-				sge::viewport::center_on_resize(
-					sge::window::dim{
-						1024,
-						768
-					}
-				)
+				sge::viewport::optional_resize_callback{
+					sge::viewport::center_on_resize(
+						sge::window::dim{
+							1024,
+							768
+						}
+					)
+				}
 			)
 		)
 		(

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/default_parameters_lib.hpp>
 #include <fcppt/log/define_object.hpp>
 #include <fcppt/log/location.hpp>
-#include <fcppt/log/parameters/object.hpp>
 
 
 #define SGE_LOG_DEFINE_LIB(\

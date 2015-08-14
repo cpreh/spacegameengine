@@ -18,37 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_CALLBACK_FROM_FUNCTOR_HPP_INCLUDED
-#define SGE_CONSOLE_CALLBACK_FROM_FUNCTOR_HPP_INCLUDED
+#ifndef SGE_INPUT_KEYBOARD_ACTION_CALLBACK_HPP_INCLUDED
+#define SGE_INPUT_KEYBOARD_ACTION_CALLBACK_HPP_INCLUDED
 
-#include <sge/console/callback/name.hpp>
-#include <sge/console/callback/parameters.hpp>
-#include <sge/console/callback/short_description.hpp>
-#include <sge/console/callback/detail/convenience_wrapper.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace sge
 {
-namespace console
+namespace input
 {
-namespace callback
+namespace keyboard
 {
-template<typename FunctionType,typename Functor>
-sge::console::callback::parameters
-from_functor(
-	Functor const &_functor,
-	sge::console::callback::name const &_name,
-	sge::console::callback::short_description const &_short_description)
-{
-	return
-		sge::console::callback::parameters(
-			sge::console::callback::detail::convenience_wrapper<FunctionType>(
-				_functor,
-				_short_description.get()),
-			_name)
-			.short_description(
-				_short_description.get());
-}
+
+typedef
+fcppt::function<
+	void ()
+>
+action_callback;
+
 }
 }
 }

@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/relative_move_callback.hpp>
 #include <sge/input/cursor/relative_move_event.hpp>
 #include <sge/input/cursor/relative_movement.hpp>
 #include <sge/log/location.hpp>
@@ -117,6 +118,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -214,10 +216,15 @@ cursor_speed_tracker::cursor_speed_tracker(
 		_cursor),
 	relative_movement_connection_(
 		relative_cursor_movement_.relative_move_callback(
-			std::bind(
-				&cursor_speed_tracker::move_callback,
-				this,
-				std::placeholders::_1))),
+			sge::input::cursor::relative_move_callback{
+				std::bind(
+					&cursor_speed_tracker::move_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	speed_values_(
 		static_cast<speed_ring_buffer::capacity_type>(
 			10u)),
@@ -355,7 +362,9 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::fill_on_resize()
+				sge::viewport::optional_resize_callback{
+					sge::viewport::fill_on_resize()
+				}
 			)
 		)
 		(

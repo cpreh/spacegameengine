@@ -19,24 +19,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/src/viewport/center_on_resize_function.hpp>
+#include <sge/src/viewport/center.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/viewport/resize_callback.hpp>
 #include <sge/window/dim.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <awl/window/event/resize.hpp>
+#include <fcppt/cast/size_fun.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 
 
-sge::viewport::resize_callback const
+sge::viewport::resize_callback
 sge::viewport::center_on_resize(
-	sge::window::dim const &_dim
+	sge::window::dim const _dim
 )
 {
 	return
-		std::bind(
-			&sge::viewport::center_on_resize_function,
-			_dim,
-			std::placeholders::_1
-		);
+		sge::viewport::resize_callback{
+			[
+				_dim
+			](
+				awl::window::event::resize const &_resize
+			)
+			{
+				return
+					sge::viewport::center(
+						_dim,
+						fcppt::math::dim::structure_cast<
+							sge::window::dim,
+							fcppt::cast::size_fun
+						>(
+							_resize.dim()
+						)
+					);
+			}
+		};
 }

@@ -59,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <sge/shader/scoped_pair.hpp>
+#include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/optional_assign.hpp>
@@ -118,9 +119,14 @@ sge::postprocessing::context::context(
 		sge::shader::parameter::planar_texture::optional_value()),
 	viewport_connection_(
 		_viewport_manager.manage_callback(
-			std::bind(
-				&sge::postprocessing::context::viewport_callback,
-				this))),
+			sge::viewport::manage_callback{
+				std::bind(
+					&sge::postprocessing::context::viewport_callback,
+					this
+				)
+			}
+		)
+	),
 	rendering_result_texture_(),
 	offscreen_target_(),
 	depth_stencil_surface_()/*,

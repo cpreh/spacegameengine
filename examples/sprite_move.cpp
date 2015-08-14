@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/load_exn.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/const_object.hpp>
+#include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_code.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
@@ -93,6 +94,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_window.hpp>
 #include <sge/texture/part_raw_ref.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -158,7 +160,9 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::fill_on_resize()
+				sge::viewport::optional_resize_callback{
+					sge::viewport::fill_on_resize()
+				}
 			)
 		)
 		(
@@ -289,40 +293,42 @@ try
 
 	fcppt::signal::scoped_connection const conn_other{
 		sys.mouse_collector().axis_callback(
-			[
-				&my_object
-			](
-				sge::input::mouse::axis_event const &_event
-			)
-			{
-				switch(
-					_event.code()
+			sge::input::mouse::axis_callback{
+				[
+					&my_object
+				](
+					sge::input::mouse::axis_event const &_event
 				)
 				{
-				case sge::input::mouse::axis_code::x:
-					my_object.x(
-						static_cast<
-							sprite_object::unit
-						>(
-							my_object.x()
-							+
-							_event.value()
-						)
-					);
-					break;
-				case sge::input::mouse::axis_code::y:
-					my_object.y(
-						static_cast<
-							sprite_object::unit
-						>(
-							my_object.y()
-							+
-							_event.value()
-						)
-					);
-					break;
-				default:
-					break;
+					switch(
+						_event.code()
+					)
+					{
+					case sge::input::mouse::axis_code::x:
+						my_object.x(
+							static_cast<
+								sprite_object::unit
+							>(
+								my_object.x()
+								+
+								_event.value()
+							)
+						);
+						break;
+					case sge::input::mouse::axis_code::y:
+						my_object.y(
+							static_cast<
+								sprite_object::unit
+							>(
+								my_object.y()
+								+
+								_event.value()
+							)
+						);
+						break;
+					default:
+						break;
+					}
 				}
 			}
 		)

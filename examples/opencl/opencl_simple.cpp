@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/command_queue/profiling_mode.hpp>
 #include <sge/opencl/command_queue/scoped.hpp>
+#include <sge/opencl/context/error_callback.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/context/parameters.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
@@ -42,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/platform/object.hpp>
 #include <sge/opencl/platform/profile_type.hpp>
 #include <sge/opencl/program/build_parameters.hpp>
+#include <sge/opencl/program/notification_callback.hpp>
 #include <sge/opencl/program/object.hpp>
 #include <sge/opencl/program/source_string_sequence.hpp>
 #include <sge/renderer/lock_mode.hpp>
@@ -85,6 +87,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
 #include <sge/viewport/center_on_resize.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/dim.hpp>
 #include <sge/window/title.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
@@ -354,8 +357,14 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::center_on_resize(
-					window_dim))));
+				sge::viewport::optional_resize_callback{
+					sge::viewport::center_on_resize(
+						window_dim
+					)
+				}
+			)
+		)
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Done. Creating a context with all devices on this platform...\n");
@@ -372,11 +381,16 @@ try
 	sge::opencl::context::object main_context(
 		sge::opencl::context::parameters(
 			chosen_platform,
-			device_refs)
-			.share_with(
-				sys.renderer_device_core())
-			.error_callback(
-				&opencl_error_callback));
+			device_refs
+		)
+		.share_with(
+			sys.renderer_device_core())
+		.error_callback(
+			sge::opencl::context::error_callback{
+				&opencl_error_callback
+			}
+		)
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Context created, listing available planar image formats (read/write)\n");
@@ -447,11 +461,17 @@ try
 
 	main_program.build(
 		sge::opencl::program::build_parameters()
-			.notification_callback(
+		.notification_callback(
+			sge::opencl::program::notification_callback{
 				std::bind(
 					&program_build_finished,
 					std::ref(
-						build_finished))));
+						build_finished
+					)
+				)
+			}
+		)
+	);
 
 	std::cout << "Waiting for build completion\n";
 	while(!build_finished)

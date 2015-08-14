@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/window_source.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
-#include <sge/viewport/dont_manage.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/exit_success.hpp>
 #include <awl/main/function_context_fwd.hpp>
+#include <awl/window/event/show_callback.hpp>
 #include <awl/window/event/processor.hpp>
 #include <awl/window/event/show_fwd.hpp>
 #include <fcppt/exception.hpp>
@@ -106,7 +107,7 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::dont_manage()
+				sge::viewport::optional_resize_callback{}
 			)
 		)
 	);
@@ -132,43 +133,45 @@ try
 
 	fcppt::signal::scoped_connection const con(
 		sys.window().awl_window_event_processor().show_callback(
-			[
-				&sys
-			](
-				awl::window::event::show const &
-			)
-			{
-				fcppt::maybe(
-					sys.renderer_device_core().display_mode(),
-					[]{
-						fcppt::io::cout()
-							<<
-							FCPPT_TEXT("No display mode set.\n");
-					},
-					[](
-						sge::renderer::display_mode::object const &_mode
-					){
-						fcppt::io::cout()
-							<<
-							FCPPT_TEXT("Current display mode:\n\t")
-							<<
-							_mode
-							<<
-							FCPPT_TEXT("\nDPI:\n\t")
-							<<
-							sge::renderer::display_mode::to_dpi(
-								sge::renderer::display_mode::optional_object(
-									_mode
+			awl::window::event::show_callback{
+				[
+					&sys
+				](
+					awl::window::event::show const &
+				)
+				{
+					fcppt::maybe(
+						sys.renderer_device_core().display_mode(),
+						[]{
+							fcppt::io::cout()
+								<<
+								FCPPT_TEXT("No display mode set.\n");
+						},
+						[](
+							sge::renderer::display_mode::object const &_mode
+						){
+							fcppt::io::cout()
+								<<
+								FCPPT_TEXT("Current display mode:\n\t")
+								<<
+								_mode
+								<<
+								FCPPT_TEXT("\nDPI:\n\t")
+								<<
+								sge::renderer::display_mode::to_dpi(
+									sge::renderer::display_mode::optional_object(
+										_mode
+									)
 								)
-							)
-							<<
-							FCPPT_TEXT('\n');
-					}
-				);
+								<<
+								FCPPT_TEXT('\n');
+						}
+					);
 
-				sys.window_system().quit(
-					awl::main::exit_success()
-				);
+					sys.window_system().quit(
+						awl::main::exit_success()
+					);
+				}
 			}
 		)
 	);

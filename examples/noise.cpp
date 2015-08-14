@@ -85,6 +85,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/const_part_shared_ptr.hpp>
 #include <sge/texture/part_raw_ref.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -238,7 +239,9 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::fill_on_resize()
+				sge::viewport::optional_resize_callback{
+					sge::viewport::fill_on_resize()
+				}
 			)
 		)
 		(
@@ -311,13 +314,19 @@ try
 		sprite_state_parameters()
 	);
 
-	sge::image2d::store::l8 const store{
+	typedef
+	sge::image2d::store::l8
+	store_type;
+
+	store_type const store{
 		fcppt::math::dim::fill<
 			sge::image2d::dim
 		>(
 			1024
 		),
-		&fill_texture
+		store_type::init_function{
+			&fill_texture
+		}
 	};
 
 	sge::renderer::texture::planar_unique_ptr const noise_texture(

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
-#include <sge/opencl/context/error_callback.hpp>
+#include <sge/opencl/context/optional_error_callback.hpp>
 #include <sge/opencl/context/parameters_fwd.hpp>
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/memory_object/image/format_sequence.hpp>
@@ -69,7 +69,7 @@ private:
 	friend class opencl::program::object;
 
 	cl_context context_;
-	context::error_callback const error_callback_;
+	context::optional_error_callback const error_callback_;
 
 
 	static void

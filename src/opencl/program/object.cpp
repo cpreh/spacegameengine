@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/post.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/container/raw_vector.hpp>
@@ -268,19 +269,20 @@ sge::opencl::program::object::build(
 			devices.data(),
 			params.build_options().empty()
 			?
-				0
+				nullptr
 			:
 				params.build_options().c_str(),
-			params.notification_callback()
+			params.notification_callback().has_value()
 			?
 				&object::notification_callback
 			:
-				0,
-			params.notification_callback()
+				nullptr,
+			params.notification_callback().has_value()
 			?
 				this
 			:
-				0);
+				nullptr
+		);
 
 	// One of the rare cases where we explicitly handle the error
 //	if(error_code3 == CL_SUCCESS)
@@ -436,7 +438,7 @@ sge::opencl::program::object::check_program_return_values()
 
 		// This will only be sent if we specify a callback
 		FCPPT_ASSERT_ERROR(
-			notification_callback_ ||
+			notification_callback_.has_value() ||
 			return_status != CL_BUILD_IN_PROGRESS);
 
 		if(return_status == CL_BUILD_SUCCESS)
@@ -503,5 +505,8 @@ sge::opencl::program::object::notification_callback(
 			user_data);
 
 	program->check_program_return_values();
-	program->notification_callback_();
+
+	FCPPT_ASSERT_OPTIONAL_ERROR(
+		program->notification_callback_
+	)();
 }

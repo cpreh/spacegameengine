@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <mizuiro/color/compare.hpp>
 #include <mizuiro/image/view.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -54,7 +55,7 @@ channel8(
 )
 {
 	return
-		static_cast<
+		fcppt::cast::size<
 			sge::image::channel8
 		>(
 			_value
@@ -95,25 +96,28 @@ test_conversion(
 
 	dest_store const dest{
 		source.size(),
-		[
-			&source
-		](
-			typename
-			dest_store::view_type const &_dest_view
-		)
-		{
-			sge::image2d::algorithm::copy_and_convert(
-				sge::image2d::view::const_object(
-					source.const_wrapped_view()
-				),
-				sge::image2d::view::object(
-					sge::image::view::wrap(
-						_dest_view
-					)
-				),
-				sge::image::algorithm::may_overlap::no,
-				sge::image::algorithm::uninitialized::yes
-			);
+		typename
+		dest_store::init_function{
+			[
+				&source
+			](
+				typename
+				dest_store::view_type const &_dest_view
+			)
+			{
+				sge::image2d::algorithm::copy_and_convert(
+					sge::image2d::view::const_object(
+						source.const_wrapped_view()
+					),
+					sge::image2d::view::object(
+						sge::image::view::wrap(
+							_dest_view
+						)
+					),
+					sge::image::algorithm::may_overlap::no,
+					sge::image::algorithm::uninitialized::yes
+				);
+			}
 		}
 	};
 

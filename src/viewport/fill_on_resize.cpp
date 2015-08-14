@@ -18,22 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/src/viewport/fill_on_resize_function.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/resize_callback.hpp>
 #include <sge/window/dim.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <awl/window/event/resize.hpp>
+#include <fcppt/cast/size_fun.hpp>
+#include <fcppt/cast/to_signed_fun.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
 
 
-sge::viewport::resize_callback const
+sge::viewport::resize_callback
 sge::viewport::fill_on_resize()
 {
 	return
-		std::bind(
-			&viewport::fill_on_resize_function,
-			std::placeholders::_1
-		);
+		sge::viewport::resize_callback{
+			[](
+				awl::window::event::resize const &_resize
+			)
+			{
+				return
+					sge::renderer::target::viewport(
+						sge::renderer::pixel_rect(
+							sge::renderer::pixel_rect::vector::null(),
+							fcppt::math::dim::structure_cast<
+								sge::renderer::pixel_rect::dim,
+								fcppt::cast::to_signed_fun
+							>(
+								fcppt::math::dim::structure_cast<
+									sge::renderer::screen_size,
+									fcppt::cast::size_fun
+								>(
+									_resize.dim()
+								)
+							)
+						)
+					);
+			}
+		};
 }

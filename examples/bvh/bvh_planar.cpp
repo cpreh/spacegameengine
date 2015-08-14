@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8_from_hex_string.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_callback.hpp>
+#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
@@ -81,6 +83,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_window.hpp>
 #include <sge/texture/part_raw_ref.hpp>
 #include <sge/viewport/center_on_resize.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -222,10 +225,15 @@ public:
 			tree_),
 		keyboard_connection_(
 			_keyboard.key_callback(
-				std::bind(
-					&bvh_traverser::keyboard_callback,
-					this,
-					std::placeholders::_1)))
+				sge::input::keyboard::key_callback{
+					std::bind(
+						&bvh_traverser::keyboard_callback,
+						this,
+						std::placeholders::_1
+					)
+				}
+			)
+		)
 	{
 	}
 
@@ -510,9 +518,11 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::center_on_resize(
-					window_dim
-				)
+				sge::viewport::optional_resize_callback{
+					sge::viewport::center_on_resize(
+						window_dim
+					)
+				}
 			)
 		)
 		(

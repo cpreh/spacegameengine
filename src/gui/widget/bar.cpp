@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_policy.hpp>
+#include <sge/rucksack/axis_policy_function.hpp>
 #include <sge/rucksack/axis_to_index.hpp>
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/make_axis_policy.hpp>
@@ -60,38 +61,40 @@ sge::gui::widget::bar::bar(
 	),
 	layout_{
 		sge::rucksack::make_axis_policy(
-			[
-				_axis,
-				_dim
-			](
-				sge::rucksack::axis const _cur_axis
-			)
-			{
-				sge::rucksack::scalar const ret{
-					_dim[
-						sge::rucksack::axis_to_index(
-							_cur_axis
-						)
-					]
-				};
+			sge::rucksack::axis_policy_function{
+				[
+					_axis,
+					_dim
+				](
+					sge::rucksack::axis const _cur_axis
+				)
+				{
+					sge::rucksack::scalar const ret{
+						_dim[
+							sge::rucksack::axis_to_index(
+								_cur_axis
+							)
+						]
+					};
 
-				return
-					_axis
-					==
-					_cur_axis
-					?
-						sge::rucksack::axis_policy{
-							sge::rucksack::minimum_size{
-								ret
+					return
+						_axis
+						==
+						_cur_axis
+						?
+							sge::rucksack::axis_policy{
+								sge::rucksack::minimum_size{
+									ret
+								}
 							}
-						}
-					:
-						sge::rucksack::axis_policy{
-							sge::rucksack::preferred_size{
-								ret
+						:
+							sge::rucksack::axis_policy{
+								sge::rucksack::preferred_size{
+									ret
+								}
 							}
-						}
-					;
+						;
+				}
 			}
 		)
 	}

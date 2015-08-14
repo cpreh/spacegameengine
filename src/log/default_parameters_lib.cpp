@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/default_parameters_lib.hpp>
 #include <sge/log/global_context.hpp>
 #include <fcppt/log/location_fwd.hpp>
-#include <fcppt/log/parameters/object.hpp>
+#include <fcppt/log/parameters.hpp>
 
 
-fcppt::log::parameters::object
+fcppt::log::parameters
 sge::log::default_parameters_lib(
 	fcppt::log::location const &_location
 )

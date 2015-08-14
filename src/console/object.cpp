@@ -28,20 +28,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/object.hpp>
 #include <sge/console/prefix.hpp>
 #include <sge/console/signal.hpp>
+#include <sge/console/callback/function.hpp>
 #include <sge/console/callback/parameters.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
 #include <sge/src/console/eval_grammar.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/maybe_void.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/container/at_optional.hpp>
+#include <fcppt/container/get_or_insert.hpp>
+#include <fcppt/container/find_exn.hpp>
+#include <fcppt/container/find_opt.hpp>
+#include <fcppt/container/find_opt_iterator.hpp>
+#include <fcppt/container/maybe_front.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
+#include <fcppt/signal/unregister/function.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/qi_parse.hpp>
 #include <functional>
@@ -66,11 +75,13 @@ sge::console::object::object(
 	help_connection_(
 		this->insert(
 			sge::console::callback::parameters(
-				std::bind(
-					&sge::console::object::help_callback,
-					this,
-					std::placeholders::_1
-				),
+				sge::console::callback::function{
+					std::bind(
+						&sge::console::object::help_callback,
+						this,
+						std::placeholders::_1
+					)
+				},
 				sge::console::callback::name(
 					SGE_FONT_LIT("help")
 				)
@@ -83,11 +94,13 @@ sge::console::object::object(
 	man_connection_(
 		this->insert(
 			sge::console::callback::parameters(
-				std::bind(
-					&sge::console::object::man_callback,
-					this,
-					std::placeholders::_1
-				),
+				sge::console::callback::function{
+					std::bind(
+						&sge::console::object::man_callback,
+						this,
+						std::placeholders::_1
+					)
+				},
 				sge::console::callback::name(
 					SGE_FONT_LIT("man")
 				)
@@ -110,49 +123,31 @@ sge::console::object::insert(
 	sge::console::callback::parameters const &_params
 )
 {
-	sge::console::function_map::iterator it(
-		funcs_.find(
-			_params.name()
-		)
-	);
-
-	if(
-		it
-		==
-		funcs_.end()
-	)
-	{
-		typedef std::pair<
-			sge::console::function_map::iterator,
-			bool
-		> ret_type;
-
-		ret_type const ret(
-			funcs_.insert(
-				std::make_pair(
-					_params.name(),
+	return
+		fcppt::container::get_or_insert(
+			funcs_,
+			_params.name(),
+			[
+				&_params
+			](
+				sge::font::string const &
+			)
+			{
+				return
 					sge::console::function(
 						_params.short_description(),
 						_params.long_description()
-					)
-				)
-			)
-		);
-
-		it = ret.first;
-
-		FCPPT_ASSERT_ERROR(
-			ret.second
-		);
-	}
-	return
-		it->second.signal().connect(
+					);
+			}
+		).signal().connect(
 			_params.function(),
-			std::bind(
-				&sge::console::object::remove_function,
-				this,
-				_params.name()
-			)
+			fcppt::signal::unregister::function{
+				std::bind(
+					&sge::console::object::remove_function,
+					this,
+					_params.name()
+				)
+			}
 		);
 }
 
@@ -191,84 +186,122 @@ sge::console::object::register_message_callback(
 
 void
 sge::console::object::eval(
-	sge::font::string const &sp
+	sge::font::string const &_sp
 )
 {
-	if (sp.empty())
-		return;
+	fcppt::maybe_void(
+		fcppt::container::maybe_front(
+			_sp
+		),
+		[
+			this,
+			&_sp
+		](
+			sge::font::char_type const _prefix
+		)
+		{
+			if(
+				_prefix
+				!=
+				prefix_
+			)
+			{
+				fallback_(
+					_sp
+				);
 
-	if (sp[0] != prefix_)
-	{
-		fallback_(sp);
-		return;
-	}
+				return;
+			}
 
-	sge::font::string const s = sp.substr(1);
+			sge::font::string const rest(
+				_sp.substr(1)
+			);
 
-	sge::console::arg_list args;
+			sge::console::arg_list args;
 
-	sge::console::eval_grammar<
-		sge::font::string::const_iterator
-	> grammar;
+			sge::console::eval_grammar<
+				sge::font::string::const_iterator
+			> grammar;
 
-	sge::font::string::const_iterator beg = s.begin();
+			sge::font::string::const_iterator beg(
+				rest.begin()
+			);
 
-	boost::spirit::qi::parse(
-		beg,
-		s.end(),
-		grammar,
-		args
-	);
-
-	this->eval(
-		args
+			if(
+				boost::spirit::qi::parse(
+					beg,
+					rest.end(),
+					grammar,
+					args
+				)
+			)
+				this->eval(
+					args
+				);
+			else
+				this->emit_error(
+					SGE_FONT_LIT("Failed to parse command \"")
+					+
+					rest
+					+
+					SGE_FONT_LIT('"')
+				);
+		}
 	);
 }
 
 void
 sge::console::object::eval(
-	sge::console::arg_list const &args
+	sge::console::arg_list const &_args
 )
 {
 	// just typing the prefix is not an error
-	if(
-		args.empty()
-	)
-		return;
-
-	function_map::iterator const it(
-		funcs_.find(
-			args[0]
+	fcppt::maybe_void(
+		fcppt::container::maybe_front(
+			_args
+		),
+		[
+			&_args,
+			this
+		](
+			sge::font::string const &_command
 		)
-	);
-
-	if(
-		it == funcs_.end()
-	)
-		throw sge::console::exception(
-			SGE_FONT_LIT("couldn't find command \"")
-			+
-			args[0]
-			+
-			SGE_FONT_LIT('"')
-		);
-
-	it->second.signal()(
-		args,
-		*this
+		{
+			fcppt::container::find_exn(
+				funcs_,
+				_command,
+				[
+					&_command
+				]{
+					return
+						sge::console::exception{
+							SGE_FONT_LIT("couldn't find command \"")
+							+
+							_command
+							+
+							SGE_FONT_LIT('"')
+						};
+				}
+			).signal()(
+				_args,
+				*this
+			);
+		}
 	);
 }
 
 sge::console::function_map const &
 sge::console::object::functions() const
 {
-	return funcs_;
+	return
+		funcs_;
 }
 
 sge::font::char_type
 sge::console::object::prefix() const
 {
-	return prefix_;
+	return
+		prefix_;
 }
 
 void
@@ -322,43 +355,61 @@ sge::console::object::help_callback(
 
 void
 sge::console::object::man_callback(
-	sge::console::arg_list const &v)
+	sge::console::arg_list const &_args
+)
 {
-	if (v.size() < 2)
-	{
-		this->emit_error(
-			SGE_FONT_LIT("no function given"));
-		return;
-	}
-
-	function_map const &fns =
-		funcs_;
-
-	function_map::const_iterator i =
-		funcs_.find(
-			v[1]);
-
-	if (i == fns.end())
-	{
-		this->emit_error(
-			SGE_FONT_LIT("function \"")
-			+ v[1]
-			+ SGE_FONT_LIT("\" not found")
-		);
-
-		return;
-	}
-
-	if(
-		i->second.long_description().get().empty()
-	)
-		this->emit_message(
-			SGE_FONT_LIT("No manpage available")
-		);
-	else
-		this->emit_message(
-			i->second.long_description().get()
-		);
+	fcppt::maybe(
+		fcppt::container::at_optional(
+			_args,
+			1u
+		),
+		[
+			this
+		]{
+			this->emit_error(
+				SGE_FONT_LIT("no function given")
+			);
+		},
+		[
+			this
+		](
+			sge::font::string const &_command
+		)
+		{
+			fcppt::maybe(
+				fcppt::container::find_opt(
+					funcs_,
+					_command
+				),
+				[
+					&_command,
+					this
+				]{
+					this->emit_error(
+						SGE_FONT_LIT("function \"")
+						+
+						_command
+						+
+						SGE_FONT_LIT("\" not found")
+					);
+				},
+				[
+					this
+				](
+					sge::console::function const &_function
+				)
+				{
+					this->emit_message(
+						_function.long_description().get().empty()
+						?
+							SGE_FONT_LIT("No manpage available")
+						:
+							_function.long_description().get()
+					);
+				}
+			);
+		}
+	);
 }
 
 void
@@ -367,13 +418,12 @@ sge::console::object::remove_function(
 )
 {
 	function_map::iterator const it(
-		funcs_.find(
-			_name
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			fcppt::container::find_opt_iterator(
+				funcs_,
+				_name
+			)
 		)
-	);
-
-	FCPPT_ASSERT_PRE(
-		it != funcs_.end()
 	);
 
 	if(

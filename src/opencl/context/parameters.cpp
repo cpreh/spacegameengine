@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opencl/context/error_callback.hpp>
+#include <sge/opencl/context/optional_error_callback.hpp>
 #include <sge/opencl/context/parameters.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/platform/object_fwd.hpp>
@@ -61,7 +62,9 @@ sge::opencl::context::parameters::error_callback(
 	opencl::context::error_callback const &_error_callback)
 {
 	error_callback_ =
-		_error_callback;
+		sge::opencl::context::optional_error_callback(
+			_error_callback
+		);
 	return *this;
 }
 
@@ -81,7 +84,7 @@ sge::opencl::context::parameters::device_refs() const
 	return device_refs_;
 }
 
-sge::opencl::context::error_callback const &
+sge::opencl::context::optional_error_callback const &
 sge::opencl::context::parameters::error_callback() const
 {
 	return error_callback_;

@@ -31,9 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/function_impl.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <functional>
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
@@ -51,19 +51,23 @@ class manager
 		manager
 	);
 public:
-	typedef std::function<
+	typedef
+	fcppt::function<
 		void (
 			sge::input::mouse::device &,
 			sge::input::mouse::axis_event const &
 		)
-	> axis_callback;
+	>
+	axis_callback;
 
-	typedef std::function<
+	typedef
+	fcppt::function<
 		void (
 			sge::input::mouse::device &,
 			sge::input::mouse::button_event const &
 		)
-	> button_callback;
+	>
+	button_callback;
 
 	SGE_INPUT_DETAIL_SYMBOL
 	manager(
@@ -87,10 +91,12 @@ private:
 		sge::input::mouse::remove_event const &
 	);
 
-	typedef std::unordered_map<
+	typedef
+	std::unordered_map<
 		sge::input::mouse::device *,
 		fcppt::signal::auto_connection_container
-	> mouse_map;
+	>
+	mouse_map;
 
 	mouse_map devices_;
 

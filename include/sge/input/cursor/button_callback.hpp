@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_CURSOR_BUTTON_CALLBACK_HPP_INCLUDED
 
 #include <sge/input/cursor/button_function.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace sge
@@ -34,9 +32,11 @@ namespace input
 namespace cursor
 {
 
-typedef std::function<
+typedef
+fcppt::function<
 	sge::input::cursor::button_function
-> button_callback;
+>
+button_callback;
 
 }
 }

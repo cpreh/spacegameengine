@@ -124,7 +124,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_window.hpp>
 #include <sge/timer/scoped_frame_limiter.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
+#include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/show_error.hpp>
@@ -383,7 +385,9 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::fill_on_resize()
+				sge::viewport::optional_resize_callback{
+					sge::viewport::fill_on_resize()
+				}
 			)
 		)
 		(
@@ -457,23 +461,25 @@ try
 
 	fcppt::signal::scoped_connection const console_resize_con(
 		sys.viewport_manager().manage_callback(
-			[
-				&console_gfx
-			](
-				sge::renderer::target::viewport const &_viewport
-			)
-			{
-				console_gfx.area(
-					sge::font::rect{
-						sge::font::rect::vector::null(),
-						fcppt::math::dim::structure_cast<
-							sge::font::rect::dim,
-							fcppt::cast::size_fun
-						>(
-							_viewport.get().size()
-						)
-					}
-				);
+			sge::viewport::manage_callback{
+				[
+					&console_gfx
+				](
+					sge::renderer::target::viewport const &_viewport
+				)
+				{
+					console_gfx.area(
+						sge::font::rect{
+							sge::font::rect::vector::null(),
+							fcppt::math::dim::structure_cast<
+								sge::font::rect::dim,
+								fcppt::cast::size_fun
+							>(
+								_viewport.get().size()
+							)
+						}
+					);
+				}
 			}
 		)
 	);

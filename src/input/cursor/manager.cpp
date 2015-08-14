@@ -19,12 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/processor.hpp>
+#include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/manager.hpp>
+#include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event.hpp>
+#include <sge/input/cursor/scroll_callback.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -71,23 +74,26 @@ sge::input::cursor::manager::manager(
 			fcppt::signal::auto_connection_container
 		>(
 			_processor.cursor_discover_callback(
-				std::bind(
-					&sge::input::cursor::manager::discover,
-					this,
-					std::placeholders::_1
-				)
+				sge::input::cursor::discover_callback{
+					std::bind(
+						&sge::input::cursor::manager::discover,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
 			_processor.cursor_remove_callback(
-				std::bind(
-					&sge::input::cursor::manager::remove,
-					this,
-					std::placeholders::_1
-				)
+				sge::input::cursor::remove_callback{
+					std::bind(
+						&sge::input::cursor::manager::remove,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
-		.move_container()
 	)
 {
 }
@@ -101,12 +107,13 @@ sge::input::cursor::manager::~manager()
 sge::input::cursor::manager::object_map const &
 sge::input::cursor::manager::devices() const
 {
-	return objects_;
+	return
+		objects_;
 }
 
 void
 sge::input::cursor::manager::discover(
-	input::cursor::discover_event const &_event
+	sge::input::cursor::discover_event const &_event
 )
 {
 	FCPPT_ASSERT_ERROR(
@@ -117,35 +124,41 @@ sge::input::cursor::manager::discover(
 					fcppt::signal::auto_connection_container
 				>(
 					_event.get().button_callback(
-						std::bind(
-							button_callback_,
-							std::ref(
-								_event.get()
-							),
-							std::placeholders::_1
-						)
+						sge::input::cursor::button_callback{
+							std::bind(
+								button_callback_,
+								std::ref(
+									_event.get()
+								),
+								std::placeholders::_1
+							)
+						}
 					)
 				)
 				(
 					_event.get().move_callback(
-						std::bind(
-							move_callback_,
-							std::ref(
-								_event.get()
-							),
-							std::placeholders::_1
-						)
+						sge::input::cursor::move_callback{
+							std::bind(
+								move_callback_,
+								std::ref(
+									_event.get()
+								),
+								std::placeholders::_1
+							)
+						}
 					)
 				)
 				(
 					_event.get().scroll_callback(
-						std::bind(
-							scroll_callback_,
-							std::ref(
-								_event.get()
-							),
-							std::placeholders::_1
-						)
+						sge::input::cursor::scroll_callback{
+							std::bind(
+								scroll_callback_,
+								std::ref(
+									_event.get()
+								),
+								std::placeholders::_1
+							)
+						}
 					)
 				)
 				.move_container()
@@ -154,12 +167,9 @@ sge::input::cursor::manager::discover(
 		== true
 	);
 
-	if(
-		discover_callback_
-	)
-		discover_callback_(
-			_event
-		);
+	discover_callback_(
+		_event
+	);
 }
 
 void
@@ -174,10 +184,7 @@ sge::input::cursor::manager::remove(
 		== 1u
 	);
 
-	if(
-		remove_callback_
-	)
-		remove_callback_(
-			_event
-		);
+	remove_callback_(
+		_event
+	);
 }

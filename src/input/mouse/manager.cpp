@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/processor.hpp>
+#include <sge/input/mouse/axis_callback.hpp>
+#include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/discover_event.hpp>
@@ -66,20 +68,24 @@ sge::input::mouse::manager::manager(
 			fcppt::signal::auto_connection_container
 		>(
 			_processor.mouse_discover_callback(
-				std::bind(
-					&sge::input::mouse::manager::discover,
-					this,
-					std::placeholders::_1
-				)
+				sge::input::mouse::discover_callback{
+					std::bind(
+						&sge::input::mouse::manager::discover,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
 			_processor.mouse_remove_callback(
-				std::bind(
-					&sge::input::mouse::manager::remove,
-					this,
-					std::placeholders::_1
-				)
+				sge::input::mouse::remove_callback{
+					std::bind(
+						&sge::input::mouse::manager::remove,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		.move_container()
@@ -105,24 +111,28 @@ sge::input::mouse::manager::discover(
 					fcppt::signal::auto_connection_container
 				>(
 					_event.get().axis_callback(
-						std::bind(
-							axis_callback_,
-							std::ref(
-								_event.get()
-							),
-							std::placeholders::_1
-						)
+						sge::input::mouse::axis_callback{
+							std::bind(
+								axis_callback_,
+								std::ref(
+									_event.get()
+								),
+								std::placeholders::_1
+							)
+						}
 					)
 				)
 				(
 					_event.get().button_callback(
-						std::bind(
-							button_callback_,
-							std::ref(
-								_event.get()
-							),
-							std::placeholders::_1
-						)
+						sge::input::mouse::button_callback{
+							std::bind(
+								button_callback_,
+								std::ref(
+									_event.get()
+								),
+								std::placeholders::_1
+							)
+						}
 					)
 				)
 				.move_container()
@@ -131,12 +141,9 @@ sge::input::mouse::manager::discover(
 		== true
 	);
 
-	if(
-		discover_callback_
-	)
-		discover_callback_(
-			_event
-		);
+	discover_callback_(
+		_event
+	);
 }
 
 void
@@ -151,10 +158,7 @@ sge::input::mouse::manager::remove(
 		== 1u
 	);
 
-	if(
-		remove_callback_
-	)
-		remove_callback_(
-			_event
-		);
+	remove_callback_(
+		_event
+	);
 }

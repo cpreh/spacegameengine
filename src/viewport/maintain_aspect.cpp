@@ -28,15 +28,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::viewport::resize_callback const
+sge::viewport::resize_callback
 sge::viewport::maintain_aspect(
 	sge::viewport::fractional_aspect const &_aspect
 )
 {
 	return
-		std::bind(
-			&viewport::maintain_aspect_function,
-			std::placeholders::_1,
-			_aspect
-		);
+		sge::viewport::resize_callback{
+			std::bind(
+				&viewport::maintain_aspect_function,
+				std::placeholders::_1,
+				_aspect
+			)
+		};
 }

@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/kernel/object_fwd.hpp>
 #include <sge/opencl/program/build_parameters_fwd.hpp>
 #include <sge/opencl/program/device_blob_map.hpp>
-#include <sge/opencl/program/notification_callback.hpp>
 #include <sge/opencl/program/optional_build_parameters.hpp>
+#include <sge/opencl/program/optional_notification_callback.hpp>
 #include <sge/opencl/program/source_string_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
@@ -77,7 +77,7 @@ private:
 	device_id_vector;
 
 	cl_program program_;
-	sge::opencl::program::notification_callback notification_callback_;
+	sge::opencl::program::optional_notification_callback notification_callback_;
 
 	device_id_vector const
 	program_devices() const;

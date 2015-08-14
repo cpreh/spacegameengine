@@ -23,9 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/rucksack/axis_fwd.hpp>
 #include <sge/rucksack/axis_policy_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace sge
@@ -34,7 +32,7 @@ namespace rucksack
 {
 
 typedef
-std::function<
+fcppt::function<
 	sge::rucksack::axis_policy (
 		sge::rucksack::axis
 	)

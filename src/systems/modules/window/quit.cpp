@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system.hpp>
 #include <awl/main/exit_success.hpp>
 #include <awl/system/event/processor.hpp>
+#include <awl/window/event/destroy_callback.hpp>
 #include <awl/window/event/destroy_fwd.hpp>
 #include <awl/window/event/processor.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -46,11 +47,13 @@ sge::systems::modules::window::quit::quit(
 	),
 	destroy_connection_(
 		_window.awl_window_event_processor().destroy_callback(
-			std::bind(
-				&sge::systems::modules::window::quit::on_destroy,
-				this,
-				std::placeholders::_1
-			)
+			awl::window::event::destroy_callback{
+				std::bind(
+					&sge::systems::modules::window::quit::on_destroy,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	)
 {

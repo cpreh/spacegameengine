@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONSOLE_CALLBACK_FUNCTION_HPP_INCLUDED
-#define SGE_CONSOLE_CALLBACK_FUNCTION_HPP_INCLUDED
+#ifndef SGE_CONSOLE_CALLBACK_CONVENIENCE_HPP_INCLUDED
+#define SGE_CONSOLE_CALLBACK_CONVENIENCE_HPP_INCLUDED
 
-#include <sge/console/callback/function_type.hpp>
-#include <fcppt/function_impl.hpp>
+#include <sge/console/callback/function.hpp>
+#include <sge/console/callback/name.hpp>
+#include <sge/console/callback/parameters.hpp>
+#include <sge/console/callback/short_description.hpp>
+#include <sge/console/callback/detail/convenience_wrapper.hpp>
 
 
 namespace sge
@@ -32,11 +35,34 @@ namespace console
 namespace callback
 {
 
-typedef
-fcppt::function<
-	sge::console::callback::function_type
+template<
+	typename FunctionType,
+	typename Function
 >
-function;
+inline
+sge::console::callback::parameters
+convenience(
+	Function const &_function,
+	sge::console::callback::name const &_name,
+	sge::console::callback::short_description const &_short_description
+)
+{
+	return
+		sge::console::callback::parameters(
+			sge::console::callback::function{
+				sge::console::callback::detail::convenience_wrapper<
+					FunctionType
+				>{
+					_function,
+					_short_description.get()
+				}
+			},
+			_name
+		)
+		.short_description(
+			_short_description.get()
+		);
+}
 
 }
 }

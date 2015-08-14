@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/detail/symbol.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/location_fwd.hpp>
-#include <fcppt/log/parameters/object_fwd.hpp>
+#include <fcppt/log/parameters.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace log
 {
 
 SGE_LOG_DETAIL_SYMBOL
-fcppt::log::parameters::object
+fcppt::log::parameters
 default_parameters(
 	fcppt::log::context &,
 	fcppt::log::location const &

@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_CALLBACK_HPP_INCLUDED
 
 #include <sge/input/joypad/absolute_axis_function.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace sge
@@ -34,9 +32,11 @@ namespace input
 namespace joypad
 {
 
-typedef std::function<
+typedef
+fcppt::function<
 	sge::input::joypad::absolute_axis_function
-> absolute_axis_callback;
+>
+absolute_axis_callback;
 
 }
 }

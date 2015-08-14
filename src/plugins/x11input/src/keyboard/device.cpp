@@ -71,14 +71,16 @@ sge::x11input::keyboard::device::device(
 		>(
 			_param.window_demuxer().register_callback(
 				awl::backends::x11::system::event::type(
-				XI_KeyPress
+					XI_KeyPress
 				),
 				_param.id(),
-				std::bind(
-					&sge::x11input::keyboard::device::on_key_press,
-					this,
-					std::placeholders::_1
-				)
+				sge::x11input::device::window_demuxer::callback{
+					std::bind(
+						&sge::x11input::keyboard::device::on_key_press,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
@@ -87,11 +89,13 @@ sge::x11input::keyboard::device::device(
 					XI_KeyRelease
 				),
 				_param.id(),
-				std::bind(
-					&sge::x11input::keyboard::device::on_key_release,
-					this,
-					std::placeholders::_1
-				)
+				sge::x11input::device::window_demuxer::callback{
+					std::bind(
+						&sge::x11input::keyboard::device::on_key_release,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		.move_container()

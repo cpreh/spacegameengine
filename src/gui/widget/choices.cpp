@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/lit.hpp>
 #include <sge/font/object_fwd.hpp>
 #include <sge/font/string.hpp>
+#include <sge/gui/click_callback.hpp>
 #include <sge/gui/context_fwd.hpp>
 #include <sge/gui/index.hpp>
 #include <sge/gui/index_callback.hpp>
@@ -114,18 +115,22 @@ sge::gui::widget::choices::choices(
 	},
 	left_connection_{
 		left_button_.click(
-			std::bind(
-				&sge::gui::widget::choices::left_clicked,
-				this
-			)
+			sge::gui::click_callback{
+				std::bind(
+					&sge::gui::widget::choices::left_clicked,
+					this
+				)
+			}
 		)
 	},
 	right_connection_{
 		right_button_.click(
-			std::bind(
-				&sge::gui::widget::choices::right_clicked,
-				this
-			)
+			sge::gui::click_callback{
+				std::bind(
+					&sge::gui::widget::choices::right_clicked,
+					this
+				)
+			}
 		)
 	},
 	index_changed_()

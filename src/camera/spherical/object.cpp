@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/spherical/coordinate_system/null.hpp>
 #include <sge/camera/spherical/coordinate_system/to_camera_coordinate_system.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
@@ -57,10 +58,15 @@ sge::camera::spherical::object::object(
 :
 	keyboard_connection_(
 		_params.keyboard().key_callback(
-			std::bind(
-				&object::key_callback,
-				this,
-				std::placeholders::_1))),
+			sge::input::keyboard::key_callback{
+				std::bind(
+					&object::key_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	action_mapping_(
 		_params.action_mapping()),
 	movement_speed_(

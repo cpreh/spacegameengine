@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/choose_callback.hpp>
 #include <sge/input/cursor/demuxer.hpp>
+#include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_event.hpp>
@@ -30,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_object_ref.hpp>
 #include <sge/input/cursor/optional_position.hpp>
+#include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event.hpp>
 #include <sge/input/cursor/scroll_callback.hpp>
 #include <sge/input/cursor/scroll_event_fwd.hpp>
@@ -65,20 +67,24 @@ sge::input::cursor::demuxer::demuxer(
 			fcppt::signal::auto_connection_container
 		>(
 			_processor.cursor_discover_callback(
-				std::bind(
-					&sge::input::cursor::demuxer::discover_callback,
-					this,
-					std::placeholders::_1
-				)
+				sge::input::cursor::discover_callback{
+					std::bind(
+						&sge::input::cursor::demuxer::discover_callback,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
 			_processor.cursor_remove_callback(
-				std::bind(
-					&sge::input::cursor::demuxer::remove_callback,
-					this,
-					std::placeholders::_1
-				)
+				sge::input::cursor::remove_callback{
+					std::bind(
+						&sge::input::cursor::demuxer::remove_callback,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		.move_container()
@@ -251,29 +257,35 @@ sge::input::cursor::demuxer::assign_cursor()
 					fcppt::signal::auto_connection_container
 				>(
 					_cursor.button_callback(
-						std::bind(
-							&sge::input::cursor::demuxer::button_callback_internal,
-							this,
-							std::placeholders::_1
-						)
+						sge::input::cursor::button_callback{
+							std::bind(
+								&sge::input::cursor::demuxer::button_callback_internal,
+								this,
+								std::placeholders::_1
+							)
+						}
 					)
 				)
 				(
 					_cursor.move_callback(
-						std::bind(
-							&sge::input::cursor::demuxer::move_callback_internal,
-							this,
-							std::placeholders::_1
-						)
+						sge::input::cursor::move_callback{
+							std::bind(
+								&sge::input::cursor::demuxer::move_callback_internal,
+								this,
+								std::placeholders::_1
+							)
+						}
 					)
 				)
 				(
 					_cursor.scroll_callback(
-						std::bind(
-							&sge::input::cursor::demuxer::scroll_callback_internal,
-							this,
-							std::placeholders::_1
-						)
+						sge::input::cursor::scroll_callback{
+							std::bind(
+								&sge::input::cursor::demuxer::scroll_callback_internal,
+								this,
+								std::placeholders::_1
+							)
+						}
 					)
 				);
 

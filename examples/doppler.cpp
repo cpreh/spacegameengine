@@ -37,8 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/predef.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
+#include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/relative_move_callback.hpp>
 #include <sge/input/cursor/relative_move_event.hpp>
 #include <sge/input/cursor/relative_movement.hpp>
 #include <sge/log/location.hpp>
@@ -116,7 +118,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
+#include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -197,7 +201,9 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::fill_on_resize()
+				sge::viewport::optional_resize_callback{
+					sge::viewport::fill_on_resize()
+				}
 			)
 		)
 		(
@@ -412,49 +418,51 @@ try
 
 	fcppt::signal::scoped_connection const viewport_connection{
 		sys.viewport_manager().manage_callback(
-			[
-				&sys,
-				&tux,
-				&background
-			](
-				sge::renderer::target::viewport const &_viewport
-			)
-			{
-				auto const center(
-					fcppt::math::dim::to_vector(
-						fcppt::math::dim::structure_cast<
-							sprite_object::dim,
-							fcppt::cast::size_fun
-						>(
-							_viewport.get().size()
-							/
-							fcppt::literal<
-								sge::renderer::pixel_unit
+			sge::viewport::manage_callback{
+				[
+					&sys,
+					&tux,
+					&background
+				](
+					sge::renderer::target::viewport const &_viewport
+				)
+				{
+					auto const center(
+						fcppt::math::dim::to_vector(
+							fcppt::math::dim::structure_cast<
+								sprite_object::dim,
+								fcppt::cast::size_fun
 							>(
-								2
+								_viewport.get().size()
+								/
+								fcppt::literal<
+									sge::renderer::pixel_unit
+								>(
+									2
+								)
 							)
 						)
-					)
-				);
+					);
 
-				sys.audio_player().listener().position(
-					sge::audio::vector2_to_vector(
-						fcppt::math::vector::structure_cast<
-							sge::audio::vector2,
-							fcppt::cast::int_to_float_fun
-						>(
-							center
+					sys.audio_player().listener().position(
+						sge::audio::vector2_to_vector(
+							fcppt::math::vector::structure_cast<
+								sge::audio::vector2,
+								fcppt::cast::int_to_float_fun
+							>(
+								center
+							)
 						)
-					)
-				);
+					);
 
-				tux.center(
-					center
-				);
+					tux.center(
+						center
+					);
 
-				background.center(
-					center
-				);
+					background.center(
+						center
+					);
+				}
 			}
 		)
 	};
@@ -479,32 +487,34 @@ try
 
 	fcppt::signal::scoped_connection const normal_connection{
 		cursor.move_callback(
-			[
-				&sound_siren
-			](
-				sge::input::cursor::move_event const &_event
-			)
-			{
-				fcppt::maybe_void(
-					_event.position(),
-					[
-						&sound_siren
-					](
-						sge::input::cursor::position const _pos
-					)
-					{
-						sound_siren->position(
-							sge::audio::vector2_to_vector(
-								fcppt::math::vector::structure_cast<
-									sge::audio::vector2,
-									fcppt::cast::int_to_float_fun
-								>(
-									_pos
+			sge::input::cursor::move_callback{
+				[
+					&sound_siren
+				](
+					sge::input::cursor::move_event const &_event
+				)
+				{
+					fcppt::maybe_void(
+						_event.position(),
+						[
+							&sound_siren
+						](
+							sge::input::cursor::position const _pos
+						)
+						{
+							sound_siren->position(
+								sge::audio::vector2_to_vector(
+									fcppt::math::vector::structure_cast<
+										sge::audio::vector2,
+										fcppt::cast::int_to_float_fun
+									>(
+										_pos
+									)
 								)
-							)
-						);
-					}
-				);
+							);
+						}
+					);
+				}
 			}
 		)
 	};
@@ -515,22 +525,24 @@ try
 
 	fcppt::signal::scoped_connection const relative_connection{
 		rel_movement.relative_move_callback(
-			[
-				&sound_siren
-			](
-				sge::input::cursor::relative_move_event const &_event
-			)
-			{
-				sound_siren->linear_velocity(
-					sge::audio::vector2_to_vector(
-						fcppt::math::vector::structure_cast<
-							sge::audio::vector2,
-							fcppt::cast::int_to_float_fun
-						>(
-							_event.position()
+			sge::input::cursor::relative_move_callback{
+				[
+					&sound_siren
+				](
+					sge::input::cursor::relative_move_event const &_event
+				)
+				{
+					sound_siren->linear_velocity(
+						sge::audio::vector2_to_vector(
+							fcppt::math::vector::structure_cast<
+								sge::audio::vector2,
+								fcppt::cast::int_to_float_fun
+							>(
+								_event.position()
+							)
 						)
-					)
-				);
+					);
+				}
 			}
 		)
 	};

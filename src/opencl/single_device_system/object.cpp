@@ -128,12 +128,18 @@ sge::opencl::single_device_system::object::object(
 			::construct_context_parameters(
 				*platform_,
 				*device_,
-				std::bind(
-					&object::error_callback,
-					this,
-					std::placeholders::_1,
-					std::placeholders::_2),
-				_params.renderer()))),
+				sge::opencl::context::error_callback{
+					std::bind(
+						&object::error_callback,
+						this,
+						std::placeholders::_1,
+						std::placeholders::_2
+					)
+				},
+				_params.renderer()
+			)
+		)
+	),
 	queue_(
 		fcppt::make_unique_ptr_fcppt<command_queue::object>(
 			*device_,

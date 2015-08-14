@@ -31,10 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/keyboard/remove_event_fwd.hpp>
+#include <fcppt/function_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <functional>
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
@@ -52,26 +52,32 @@ class manager
 		manager
 	);
 public:
-	typedef std::function<
+	typedef
+	fcppt::function<
 		void (
 			sge::input::keyboard::device &,
 			sge::input::keyboard::char_event const &
 		)
-	> char_callback;
+	>
+	char_callback;
 
-	typedef std::function<
+	typedef
+	fcppt::function<
 		void (
 			sge::input::keyboard::device &,
 			sge::input::keyboard::key_event const &
 		)
-	> key_callback;
+	>
+	key_callback;
 
-	typedef std::function<
+	typedef
+	fcppt::function<
 		void (
 			sge::input::keyboard::device &,
 			sge::input::keyboard::key_repeat_event const &
 		)
-	> key_repeat_callback;
+	>
+	key_repeat_callback;
 
 	SGE_INPUT_DETAIL_SYMBOL
 	manager(
@@ -86,10 +92,12 @@ public:
 	SGE_INPUT_DETAIL_SYMBOL
 	~manager();
 
-	typedef std::unordered_map<
+	typedef
+	std::unordered_map<
 		sge::input::keyboard::device *,
 		fcppt::signal::auto_connection_container
-	> keyboard_map;
+	>
+	keyboard_map;
 
 	SGE_INPUT_DETAIL_SYMBOL
 	keyboard_map const &

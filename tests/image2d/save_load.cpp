@@ -166,22 +166,24 @@ FCPPT_PP_POP_WARNING
 
 		store_type const store_back{
 			store.size(),
-			[
-				&dest_view
-			](
-				store_type::view_type const &_dest
-			)
-			{
-				sge::image2d::algorithm::copy_and_convert(
-					dest_view,
-					sge::image2d::view::object(
-						sge::image::view::wrap(
-							_dest
-						)
-					),
-					sge::image::algorithm::may_overlap::no,
-					sge::image::algorithm::uninitialized::yes
-				);
+			store_type::init_function{
+				[
+					&dest_view
+				](
+					store_type::view_type const &_dest
+				)
+				{
+					sge::image2d::algorithm::copy_and_convert(
+						dest_view,
+						sge::image2d::view::object(
+							sge::image::view::wrap(
+								_dest
+							)
+						),
+						sge::image::algorithm::may_overlap::no,
+						sge::image::algorithm::uninitialized::yes
+					);
+				}
 			}
 		};
 

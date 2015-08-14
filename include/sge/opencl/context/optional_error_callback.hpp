@@ -31,9 +31,13 @@ namespace opencl
 {
 namespace context
 {
+
 typedef
-fcppt::optional<context::error_callback>
+fcppt::optional<
+	sge::opencl::context::error_callback
+>
 optional_error_callback;
+
 }
 }
 }

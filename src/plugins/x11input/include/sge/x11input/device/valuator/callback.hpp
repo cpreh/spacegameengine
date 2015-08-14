@@ -23,9 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/x11input/device/valuator/index.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace sge
@@ -38,7 +36,7 @@ namespace valuator
 {
 
 typedef
-std::function<
+fcppt::function<
 	void (
 		sge::x11input::device::valuator::index,
 		sge::x11input::device::valuator::value

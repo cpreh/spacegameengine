@@ -26,13 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/systems/optional_name.hpp>
 #include <sge/systems/renderer.hpp>
-#include <sge/viewport/resize_callback.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 
 
 sge::systems::renderer::renderer(
 	sge::renderer::pixel_format::object const &_pixel_format,
 	sge::renderer::display_mode::parameters const &_display_mode,
-	sge::viewport::resize_callback const &_resize_callback
+	sge::viewport::optional_resize_callback const &_resize_callback
 )
 :
 	pixel_format_(
@@ -94,7 +94,7 @@ sge::systems::renderer::display_mode() const
 		display_mode_;
 }
 
-sge::viewport::resize_callback const &
+sge::viewport::optional_resize_callback const &
 sge::systems::renderer::resize_callback() const
 {
 	return

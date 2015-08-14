@@ -20,10 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/media_path.hpp>
 #include <sge/console/arg_list.hpp>
+#include <sge/console/fallback.hpp>
 #include <sge/console/muxing_narrow_streambuf.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/prefix.hpp>
-#include <sge/console/callback/from_functor.hpp>
+#include <sge/console/callback/convenience.hpp>
 #include <sge/console/gfx/font_color.hpp>
 #include <sge/console/gfx/object.hpp>
 #include <sge/font/lit.hpp>
@@ -75,6 +76,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_window.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/viewport/center_on_resize.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -91,51 +93,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <functional>
 #include <iostream>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-void
-fallback(
-	sge::font::string const &_arg
-)
-{
-	fcppt::io::cout()
-		<< FCPPT_TEXT("fallback called with argument:")
-		<< sge::font::to_fcppt_string(
-			_arg
-		)
-		<< FCPPT_TEXT('\n');
-}
-
-void
-quit(
-	sge::window::system &_window_system
-)
-{
-	_window_system.quit(
-		awl::main::exit_success()
-	);
-}
-
-void
-increment(
-	sge::console::object &_console,
-	float const f)
-{
-	_console.emit_message(
-		SGE_FONT_LIT("New value is ")+
-		fcppt::insert_to_string<
-			sge::font::string
-		>(
-			f+1.0f));
-}
-
-}
 
 awl::main::exit_code const
 example_main(
@@ -182,12 +143,14 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object()
 				),
-				sge::viewport::center_on_resize(
-					sge::window::dim{
-						1024,
-						768
-					}
-				)
+				sge::viewport::optional_resize_callback{
+					sge::viewport::center_on_resize(
+						sge::window::dim{
+							1024,
+							768
+						}
+					)
+				}
 			)
 		)
 		(
@@ -222,36 +185,79 @@ try
 
 	fcppt::signal::scoped_connection const c0(
 		object.insert(
-			sge::console::callback::from_functor<void()>(
-				std::bind(
-					&quit,
-					std::ref(
-						sys.window_system())),
+			sge::console::callback::convenience<
+				void()
+			>(
+				[
+					&sys
+				]{
+					sys.window_system().quit(
+						awl::main::exit_success()
+					);
+				},
 				sge::console::callback::name(
-					SGE_FONT_LIT("quit")),
+					SGE_FONT_LIT("quit")
+				),
 				sge::console::callback::short_description(
-					SGE_FONT_LIT("Usage: /quit")))));
+					SGE_FONT_LIT("Usage: /quit")
+				)
+			)
+		)
+	);
 
 	fcppt::signal::scoped_connection const c1(
 		object.register_fallback(
-			&fallback
+			sge::console::fallback{
+				[](
+					sge::font::string const &_arg
+				)
+				{
+					fcppt::io::cout()
+						<< FCPPT_TEXT("fallback called with argument:")
+						<< sge::font::to_fcppt_string(
+							_arg
+						)
+						<< FCPPT_TEXT('\n');
+				}
+			}
 		)
 	);
 
 	fcppt::signal::scoped_connection const c2(
 		object.insert(
-			sge::console::callback::from_functor<void(float)>(
-				std::bind(
-					&increment,
-					std::ref(
-						object),
-					std::placeholders::_1),
+			sge::console::callback::convenience<
+				void(float)
+			>(
+				[
+					&object
+				](
+					float const _value
+				)
+				{
+					object.emit_message(
+						SGE_FONT_LIT("New value is ")
+						+
+						fcppt::insert_to_string<
+							sge::font::string
+						>(
+							_value
+							+
+							1.f
+						)
+					);
+				},
 				sge::console::callback::name(
-					SGE_FONT_LIT("increment")),
+					SGE_FONT_LIT("increment")
+				),
 				sge::console::callback::short_description(
-					SGE_FONT_LIT("Usage: /increment <float-value>")))
-				.long_description(
-					SGE_FONT_LIT("Increments the float value (extremely useful!)"))));
+					SGE_FONT_LIT("Usage: /increment <float-value>")
+				)
+			)
+			.long_description(
+				SGE_FONT_LIT("Increments the float value (extremely useful!)")
+			)
+		)
+	);
 
 	sge::texture::part_raw_ptr const tex_bg(
 		sge::renderer::texture::create_planar_from_path(

@@ -28,14 +28,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/optional_focus.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
+#include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
+#include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/char_event.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
@@ -68,38 +72,46 @@ sge::gui::master::master(
 	),
 	key_connection_(
 		_keyboard.key_callback(
-			std::bind(
-				&sge::gui::master::key_event,
-				this,
-				std::placeholders::_1
-			)
+			sge::input::keyboard::key_callback{
+				std::bind(
+					&sge::gui::master::key_event,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	),
 	key_repeat_connection_(
 		_keyboard.key_repeat_callback(
-			std::bind(
-				&sge::gui::master::key_repeat_event,
-				this,
-				std::placeholders::_1
-			)
+			sge::input::keyboard::key_repeat_callback{
+				std::bind(
+					&sge::gui::master::key_repeat_event,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	),
 	char_connection_(
 		_keyboard.char_callback(
-			std::bind(
-				&sge::gui::master::char_event,
-				this,
-				std::placeholders::_1
-			)
+			sge::input::keyboard::char_callback{
+				std::bind(
+					&sge::gui::master::char_event,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	),
 	button_connection_(
 		_cursor.button_callback(
-			std::bind(
-				&sge::gui::master::button_event,
-				this,
-				std::placeholders::_1
-			)
+			sge::input::cursor::button_callback{
+				std::bind(
+					&sge::gui::master::button_event,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	)
 {

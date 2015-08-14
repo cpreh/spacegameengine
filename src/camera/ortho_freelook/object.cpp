@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/ortho_freelook/object.hpp>
 #include <sge/camera/ortho_freelook/parameters.hpp>
 #include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
+#include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/renderer/vector2.hpp>
@@ -53,16 +55,26 @@ sge::camera::ortho_freelook::object::object(
 :
 	mouse_axis_connection_(
 		_params.mouse().axis_callback(
-			std::bind(
-				&object::mouse_axis_callback,
-				this,
-				std::placeholders::_1))),
+			sge::input::mouse::axis_callback{
+				std::bind(
+					&object::mouse_axis_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	keyboard_key_connection_(
 		_params.keyboard().key_callback(
-			std::bind(
-				&object::key_callback,
-				this,
-				std::placeholders::_1))),
+			sge::input::keyboard::key_callback{
+				std::bind(
+					&object::key_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	),
 	action_mapping_(
 		_params.action_mapping()),
 	current_projection_rectangle_(),

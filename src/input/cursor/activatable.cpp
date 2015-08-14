@@ -51,29 +51,35 @@ sge::input::cursor::activatable::activatable(
 	scroll_signal_(),
 	button_connection_(
 		cursor_.button_callback(
-			std::bind(
-				&sge::input::cursor::activatable::on_button,
-				this,
-				std::placeholders::_1
-			)
+			sge::input::cursor::button_callback{
+				std::bind(
+					&sge::input::cursor::activatable::on_button,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	),
 	move_connection_(
 		cursor_.move_callback(
-			std::bind(
-				&sge::input::cursor::activatable::on_move,
-				this,
-				std::placeholders::_1
-			)
+			sge::input::cursor::move_callback{
+				std::bind(
+					&sge::input::cursor::activatable::on_move,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	),
 	scroll_connection_(
 		cursor_.scroll_callback(
-			std::bind(
-				&sge::input::cursor::activatable::on_scroll,
-				this,
-				std::placeholders::_1
-			)
+			sge::input::cursor::scroll_callback{
+				std::bind(
+					&sge::input::cursor::activatable::on_scroll,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	)
 {
