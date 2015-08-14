@@ -125,6 +125,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/function.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -169,7 +170,7 @@ public:
 	scalar;
 
 	typedef
-	std::function<scalar(scalar)>
+	fcppt::function<scalar(scalar)>
 	modifier;
 
 	cursor_speed_tracker(
@@ -590,7 +591,9 @@ try
 
 	cursor_speed_tracker cursor_speed(
 		cursor,
-		&cursor_speed_modifier
+		cursor_speed_tracker::modifier{
+			&cursor_speed_modifier
+		}
 	);
 
 	sound_siren->pitch(

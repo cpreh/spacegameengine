@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/enable_bool.hpp>
+#include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/core/rasterizer/cull_mode.hpp>
 #include <sge/opengl/state/core/rasterizer/fill_mode.hpp>
@@ -45,11 +46,13 @@ sge::opengl::state::core::rasterizer::make_actors(
 				sge::opengl::state::core::rasterizer::fill_mode(
 					_parameters.fill_mode()
 				),
-				std::bind(
-					sge::opengl::enable_bool,
-					GL_SCISSOR_TEST,
-					_parameters.enable_scissor_test().get()
-				)
+				sge::opengl::state::actor{
+					std::bind(
+						sge::opengl::enable_bool,
+						GL_SCISSOR_TEST,
+						_parameters.enable_scissor_test().get()
+					)
+				}
 			}
 		);
 }

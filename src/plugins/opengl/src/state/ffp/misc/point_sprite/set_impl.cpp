@@ -52,16 +52,20 @@ sge::opengl::state::ffp::misc::point_sprite::set_impl(
 	return
 		fcppt::algorithm::join(
 			sge::opengl::state::actor_vector{
-				std::bind(
-					sge::opengl::enable_bool,
-					_config.point_sprite_flag().get(),
-					_enable.get()
-				),
-				std::bind(
-					sge::opengl::enable_bool,
-					_config.vertex_shader_size_flag().get(),
-					_enable.get()
-				)
+				sge::opengl::state::actor{
+					std::bind(
+						sge::opengl::enable_bool,
+						_config.point_sprite_flag().get(),
+						_enable.get()
+					)
+				},
+				sge::opengl::state::actor{
+					std::bind(
+						sge::opengl::enable_bool,
+						_config.vertex_shader_size_flag().get(),
+						_enable.get()
+					)
+				}
 			},
 			fcppt::algorithm::map<
 				sge::opengl::state::actor_vector

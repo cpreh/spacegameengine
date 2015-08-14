@@ -45,13 +45,15 @@ sge::opengl::state::ffp::misc::make_actors(
 	return
 		fcppt::algorithm::join(
 			sge::opengl::state::actor_vector{
-				std::bind(
-					sge::opengl::enable_bool,
-					sge::opengl::convert::to_gl_enum<
-						GL_NORMALIZE
-					>(),
-					_parameters.normalize_normals().get()
-				),
+				sge::opengl::state::actor{
+					std::bind(
+						sge::opengl::enable_bool,
+						sge::opengl::convert::to_gl_enum<
+							GL_NORMALIZE
+						>(),
+						_parameters.normalize_normals().get()
+					)
+				},
 				sge::opengl::state::wrap_error_handler<
 					sge::opengl::state::actor
 				>(

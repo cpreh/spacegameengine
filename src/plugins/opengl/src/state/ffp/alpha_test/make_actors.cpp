@@ -51,10 +51,12 @@ sge::opengl::state::ffp::alpha_test::make_actors(
 			{
 				return
 					sge::opengl::state::actor_vector{
-						std::bind(
-							sge::opengl::disable,
-							GL_ALPHA_TEST
-						)
+						sge::opengl::state::actor{
+							std::bind(
+								sge::opengl::disable,
+								GL_ALPHA_TEST
+							)
+						}
 					};
 			},
 			[](
@@ -63,10 +65,12 @@ sge::opengl::state::ffp::alpha_test::make_actors(
 			{
 				return
 					sge::opengl::state::actor_vector{
-						std::bind(
-							sge::opengl::enable,
-							GL_ALPHA_TEST
-						),
+						sge::opengl::state::actor{
+							std::bind(
+								sge::opengl::enable,
+								GL_ALPHA_TEST
+							)
+						},
 						sge::opengl::state::wrap_error_handler<
 							sge::opengl::state::actor
 						>(

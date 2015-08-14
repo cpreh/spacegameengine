@@ -38,15 +38,17 @@ sge::opengl::state::ffp::sampler::set_one(
 )
 {
 	return
-		std::bind(
-			sge::opengl::texture::funcs::env_int,
-			std::placeholders::_1,
-			sge::opengl::texture::funcs::env_target{
-				sge::opengl::convert::to_gl_enum<
-					GL_TEXTURE_ENV
-				>()
-			},
-			_arg,
-			_value
-		);
+		sge::opengl::state::ffp::sampler::actor{
+			std::bind(
+				sge::opengl::texture::funcs::env_int,
+				std::placeholders::_1,
+				sge::opengl::texture::funcs::env_target{
+					sge::opengl::convert::to_gl_enum<
+						GL_TEXTURE_ENV
+					>()
+				},
+				_arg,
+				_value
+			)
+		};
 }

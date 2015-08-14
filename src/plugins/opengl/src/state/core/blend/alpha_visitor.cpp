@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/core/blend/alpha_enabled_visitor.hpp>
 #include <sge/opengl/state/core/blend/alpha_visitor.hpp>
 #include <sge/renderer/state/core/blend/alpha_enabled.hpp>
@@ -49,10 +50,12 @@ sge::opengl::state::core::blend::alpha_visitor::operator()(
 {
 	return
 		sge::opengl::state::core::blend::alpha_visitor::result_type{
-			std::bind(
-				sge::opengl::disable,
-				GL_BLEND
-			)
+			sge::opengl::state::actor{
+				std::bind(
+					sge::opengl::disable,
+					GL_BLEND
+				)
+			}
 		};
 }
 
@@ -63,10 +66,12 @@ sge::opengl::state::core::blend::alpha_visitor::operator()(
 {
 	return
 		sge::opengl::state::core::blend::alpha_visitor::result_type{
-			std::bind(
-				sge::opengl::enable,
-				GL_BLEND
-			),
+			sge::opengl::state::actor{
+				std::bind(
+					sge::opengl::enable,
+					GL_BLEND
+				)
+			},
 			fcppt::variant::apply_unary(
 				sge::opengl::state::core::blend::alpha_enabled_visitor(
 					system_context_

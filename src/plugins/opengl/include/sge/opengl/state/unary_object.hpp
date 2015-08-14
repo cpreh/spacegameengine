@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/state/unary_object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/function_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <functional>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -48,11 +48,13 @@ class unary_object
 		unary_object
 	);
 public:
-	typedef std::function<
+	typedef
+	fcppt::function<
 		void (
 			Parameter const &
 		)
-	> actor;
+	>
+	actor;
 
 	typedef std::vector<
 		actor
@@ -60,7 +62,7 @@ public:
 
 	explicit
 	unary_object(
-		actor_vector const &
+		actor_vector &&
 	);
 
 	~unary_object()

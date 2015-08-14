@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_EVDEV_INOTIFY_CALLBACK_HPP_INCLUDED
 
 #include <sge/evdev/inotify/event_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace sge
@@ -34,11 +32,13 @@ namespace evdev
 namespace inotify
 {
 
-typedef std::function<
+typedef
+fcppt::function<
 	void(
 		sge::evdev::inotify::event const &
 	)
-> callback;
+>
+callback;
 
 }
 }

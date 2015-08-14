@@ -55,13 +55,15 @@ sge::opengl::state::ffp::lighting::make_actors(
 			{
 				return
 					sge::opengl::state::actor_vector{
-						[]{
-							return
-								sge::opengl::disable(
-									sge::opengl::convert::to_gl_enum<
-										GL_LIGHTING
-									>()
-								);
+						sge::opengl::state::actor{
+							[]{
+								return
+									sge::opengl::disable(
+										sge::opengl::convert::to_gl_enum<
+											GL_LIGHTING
+										>()
+									);
+							}
 						}
 					};
 			},
@@ -79,13 +81,15 @@ sge::opengl::state::ffp::lighting::make_actors(
 
 				return
 					sge::opengl::state::actor_vector{
-						[]{
-							return
-								sge::opengl::enable(
-									sge::opengl::convert::to_gl_enum<
-										GL_LIGHTING
-									>()
-								);
+						sge::opengl::state::actor{
+							[]{
+								return
+									sge::opengl::enable(
+										sge::opengl::convert::to_gl_enum<
+											GL_LIGHTING
+										>()
+									);
+							}
 						},
 						sge::opengl::state::wrap_error_handler<
 							sge::opengl::state::actor
@@ -104,13 +108,15 @@ sge::opengl::state::ffp::lighting::make_actors(
 							},
 							FCPPT_TEXT("glLightModelfv")
 						),
-						std::bind(
-							sge::opengl::enable_bool,
-							sge::opengl::convert::to_gl_enum<
-								GL_COLOR_MATERIAL
-							>(),
-							_enabled.diffuse_from_vertex().get()
-						)
+						sge::opengl::state::actor{
+							std::bind(
+								sge::opengl::enable_bool,
+								sge::opengl::convert::to_gl_enum<
+									GL_COLOR_MATERIAL
+								>(),
+								_enabled.diffuse_from_vertex().get()
+							)
+						}
 					};
 			}
 		);

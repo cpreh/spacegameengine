@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/state/ffp/transform/actor.hpp>
 #include <sge/opengl/state/ffp/transform/actor_vector.hpp>
 #include <sge/opengl/state/ffp/transform/context.hpp>
 #include <sge/opengl/state/ffp/transform/make_actors.hpp>
@@ -40,23 +41,25 @@ sge::opengl::state::ffp::transform::make_actors(
 {
 	return
 		sge::opengl::state::ffp::transform::actor_vector{
-			std::bind(
-				&sge::opengl::state::ffp::transform::set_matrix_and_mode,
-				std::ref(
-					_system_context
-				),
-				std::placeholders::_1,
-				sge::opengl::context::use<
-					sge::opengl::state::ffp::transform::context
-				>(
-					_system_context
-				).have_transpose()
-				?
-					_parameters.matrix()
-				:
-					fcppt::math::matrix::transpose(
+			sge::opengl::state::ffp::transform::actor{
+				std::bind(
+					&sge::opengl::state::ffp::transform::set_matrix_and_mode,
+					std::ref(
+						_system_context
+					),
+					std::placeholders::_1,
+					sge::opengl::context::use<
+						sge::opengl::state::ffp::transform::context
+					>(
+						_system_context
+					).have_transpose()
+					?
 						_parameters.matrix()
-					)
-			)
+					:
+						fcppt::math::matrix::transpose(
+							_parameters.matrix()
+						)
+				)
+			}
 		};
 }

@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_INDEX_ACTOR_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace sge
@@ -34,11 +32,13 @@ namespace opengl
 namespace state
 {
 
-typedef std::function<
+typedef
+fcppt::function<
 	void (
 		GLenum const &
 	)
-> index_actor;
+>
+index_actor;
 
 }
 }

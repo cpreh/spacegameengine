@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_FFP_SAMPLER_ACTOR_HPP_INCLUDED
 
 #include <sge/opengl/texture/active_level_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace sge
@@ -38,11 +36,13 @@ namespace ffp
 namespace sampler
 {
 
-typedef std::function<
+typedef
+fcppt::function<
 	void(
 		sge::opengl::texture::active_level const &
 	)
-> actor;
+>
+actor;
 
 }
 }

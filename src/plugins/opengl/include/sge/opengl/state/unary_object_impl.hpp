@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_UNARY_OBJECT_IMPL_HPP_INCLUDED
 
 #include <sge/opengl/state/unary_object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -32,11 +35,13 @@ sge::opengl::state::unary_object<
 	Base,
 	Parameter
 >::unary_object(
-	actor_vector const &_actors
+	actor_vector &&_actors
 )
 :
 	actors_(
-		_actors
+		std::move(
+			_actors
+		)
 	)
 {
 }
@@ -65,13 +70,11 @@ sge::opengl::state::unary_object<
 ) const
 {
 	for(
-		typename actor_vector::const_iterator it(
-			actors_.begin()
-		);
-		it != actors_.end();
-		++it
+		auto const &actor
+		:
+		actors_
 	)
-		(*it)(
+		actor(
 			_parameter
 		);
 }

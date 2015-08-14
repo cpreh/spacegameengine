@@ -45,17 +45,21 @@ sge::opengl::state::core::rasterizer::cull_mode(
 		sge::renderer::state::core::rasterizer::cull_mode::off
 		?
 			sge::opengl::state::actor_vector{
-				std::bind(
-					sge::opengl::disable,
-					GL_CULL_FACE
-				)
+				sge::opengl::state::actor{
+					std::bind(
+						sge::opengl::disable,
+						GL_CULL_FACE
+					)
+				}
 			}
 		:
 			sge::opengl::state::actor_vector{
-				std::bind(
-					sge::opengl::enable,
-					GL_CULL_FACE
-				),
+				sge::opengl::state::actor{
+					std::bind(
+						sge::opengl::enable,
+						GL_CULL_FACE
+					)
+				},
 				sge::opengl::state::wrap_error_handler<
 					sge::opengl::state::actor
 				>(

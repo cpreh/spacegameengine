@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/state/convert/anisotropic_mip_filter.hpp>
+#include <sge/opengl/state/core/sampler/actor.hpp>
 #include <sge/opengl/state/core/sampler/actor_vector.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropic.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_context.hpp>
@@ -44,43 +45,49 @@ sge::opengl::state::core::sampler::filter::anisotropic(
 {
 	return
 		sge::opengl::state::core::sampler::actor_vector{
-			std::bind(
-				sge::opengl::texture::funcs::parameter_int,
-				std::placeholders::_1,
-				GL_TEXTURE_MAG_FILTER,
-				GL_NEAREST
-			),
-			std::bind(
-				sge::opengl::texture::funcs::parameter_int,
-				std::placeholders::_1,
-				GL_TEXTURE_MIN_FILTER,
-				fcppt::cast::to_signed(
-					sge::opengl::state::convert::anisotropic_mip_filter(
-						_filter.mip()
+			sge::opengl::state::core::sampler::actor{
+				std::bind(
+					sge::opengl::texture::funcs::parameter_int,
+					std::placeholders::_1,
+					GL_TEXTURE_MAG_FILTER,
+					GL_NEAREST
+				)
+			},
+			sge::opengl::state::core::sampler::actor{
+				std::bind(
+					sge::opengl::texture::funcs::parameter_int,
+					std::placeholders::_1,
+					GL_TEXTURE_MIN_FILTER,
+					fcppt::cast::to_signed(
+						sge::opengl::state::convert::anisotropic_mip_filter(
+							_filter.mip()
+						)
 					)
 				)
-			),
-			std::bind(
-				sge::opengl::texture::funcs::parameter_int,
-				std::placeholders::_1,
-				fcppt::optional_to_exception(
-					sge::opengl::context::use<
-						sge::opengl::state::core::sampler::filter::anisotropy_context
-					>(
-						_system_context
-					).config(),
-					[]{
-						return
-							sge::renderer::unsupported{
-								FCPPT_TEXT("anisotropic filtering"),
-								FCPPT_TEXT(""),
-								FCPPT_TEXT("GL_EXT_texture_filter_anisotropic")
-							};
-					}
-				).anisotropy_flag(),
-				fcppt::cast::to_signed(
-					_filter.level().get()
+			},
+			sge::opengl::state::core::sampler::actor{
+				std::bind(
+					sge::opengl::texture::funcs::parameter_int,
+					std::placeholders::_1,
+					fcppt::optional_to_exception(
+						sge::opengl::context::use<
+							sge::opengl::state::core::sampler::filter::anisotropy_context
+						>(
+							_system_context
+						).config(),
+						[]{
+							return
+								sge::renderer::unsupported{
+									FCPPT_TEXT("anisotropic filtering"),
+									FCPPT_TEXT(""),
+									FCPPT_TEXT("GL_EXT_texture_filter_anisotropic")
+								};
+						}
+					).anisotropy_flag(),
+					fcppt::cast::to_signed(
+						_filter.level().get()
+					)
 				)
-			)
+			}
 		};
 }

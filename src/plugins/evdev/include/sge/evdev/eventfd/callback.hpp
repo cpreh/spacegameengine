@@ -21,9 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_EVENTFD_CALLBACK_HPP_INCLUDED
 #define SGE_EVDEV_EVENTFD_CALLBACK_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace sge
@@ -33,9 +31,11 @@ namespace evdev
 namespace eventfd
 {
 
-typedef std::function<
+typedef
+fcppt::function<
 	void()
-> callback;
+>
+callback;
 
 }
 }

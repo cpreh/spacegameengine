@@ -44,10 +44,12 @@ sge::opengl::state::core::depth_stencil::depth::visitor::operator()(
 {
 	return
 		sge::opengl::state::core::depth_stencil::depth::visitor::result_type{
-			std::bind(
-				sge::opengl::disable,
-				GL_DEPTH_TEST
-			),
+			sge::opengl::state::actor{
+				std::bind(
+					sge::opengl::disable,
+					GL_DEPTH_TEST
+				)
+			},
 			sge::opengl::state::core::depth_stencil::depth::write_enable(
 				sge::renderer::state::core::depth_stencil::depth::write_enable(
 					true
@@ -63,10 +65,12 @@ sge::opengl::state::core::depth_stencil::depth::visitor::operator()(
 {
 	return
 		sge::opengl::state::core::depth_stencil::depth::visitor::result_type{
-			std::bind(
-				sge::opengl::enable,
-				GL_DEPTH_TEST
-			),
+			sge::opengl::state::actor{
+				std::bind(
+					sge::opengl::enable,
+					GL_DEPTH_TEST
+				)
+			},
 			sge::opengl::state::wrap_error_handler<
 				sge::opengl::state::actor
 			>(

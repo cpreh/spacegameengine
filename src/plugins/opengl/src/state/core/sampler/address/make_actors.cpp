@@ -73,16 +73,18 @@ set_one(
 )
 {
 	return
-		std::bind(
-			sge::opengl::texture::funcs::parameter_int,
-			std::placeholders::_1,
-			sge::opengl::state::convert::address_mode_type<
-				Mode
-			>::get(),
-			sge::opengl::state::convert::address_mode(
-				_mode.get()
+		sge::opengl::state::core::sampler::actor{
+			std::bind(
+				sge::opengl::texture::funcs::parameter_int,
+				std::placeholders::_1,
+				sge::opengl::state::convert::address_mode_type<
+					Mode
+				>::get(),
+				sge::opengl::state::convert::address_mode(
+					_mode.get()
+				)
 			)
-		);
+		};
 }
 
 }
