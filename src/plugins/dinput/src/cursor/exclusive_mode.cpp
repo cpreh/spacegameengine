@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
+#include <awl/backends/windows/window/event/callback.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
@@ -153,22 +154,26 @@ sge::dinput::cursor::exclusive_mode::make_connection_pair(
 				awl::backends::windows::event::type{
 					_enter_event
 				},
-				std::bind(
-					&sge::dinput::cursor::exclusive_mode::on_temp_unacquire,
-					this,
-					exit_event,
-					std::placeholders::_1
-				)
+				awl::backends::windows::window::event::callback{
+					std::bind(
+						&sge::dinput::cursor::exclusive_mode::on_temp_unacquire,
+						this,
+						exit_event,
+						std::placeholders::_1
+					)
+				}
 			)
 		)(
 			_event_processor.register_callback(
 				exit_event,
-				std::bind(
-					&sge::dinput::cursor::exclusive_mode::on_temp_acquire,
-					this,
-					exit_event,
-					std::placeholders::_1
-				)
+				awl::backends::windows::window::event::callback{
+					std::bind(
+						&sge::dinput::cursor::exclusive_mode::on_temp_acquire,
+						this,
+						exit_event,
+						std::placeholders::_1
+					)
+				}
 			)
 		).move_container();
 }

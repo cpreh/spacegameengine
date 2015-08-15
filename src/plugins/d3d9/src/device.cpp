@@ -144,6 +144,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <awl/window/object.hpp>
 #include <awl/window/event/processor.hpp>
+#include <awl/window/event/resize_callback.hpp>
 #include <awl/window/event/resize.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
@@ -262,11 +263,13 @@ sge::d3d9::device::device(
 	),
 	resize_connection_(
 		_parameters.window_processor().resize_callback(
-			std::bind(
-				&sge::d3d9::device::on_resize,
-				this,
-				std::placeholders::_1
-			)
+			awl::window::event::resize_callback{
+				std::bind(
+					&sge::d3d9::device::on_resize,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	)
 {

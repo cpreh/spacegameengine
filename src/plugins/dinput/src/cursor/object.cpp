@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/backends/windows/window/screen_to_client.hpp>
+#include <awl/backends/windows/window/event/callback.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
@@ -99,11 +100,13 @@ sge::dinput::cursor::object::object(
 					>(
 						WM_MOUSEMOVE
 					),
-					std::bind(
-						&sge::dinput::cursor::object::on_move,
-						this,
-						std::placeholders::_1
-					)
+					awl::backends::windows::window::event::callback{
+						std::bind(
+							&sge::dinput::cursor::object::on_move,
+							this,
+							std::placeholders::_1
+						)
+					}
 				)
 			).move_container(),
 			this->make_button_connections(
@@ -378,30 +381,34 @@ sge::dinput::cursor::object::make_button_connections(
 				awl::backends::windows::event::type{
 					_down_event
 				},
-				std::bind(
-					&sge::dinput::cursor::object::on_button,
-					this,
-					std::placeholders::_1,
-					_code,
-					sge::input::cursor::button_pressed{
-						true
-					}
-				)
+				awl::backends::windows::window::event::callback{
+					std::bind(
+						&sge::dinput::cursor::object::on_button,
+						this,
+						std::placeholders::_1,
+						_code,
+						sge::input::cursor::button_pressed{
+							true
+						}
+					)
+				}
 			)
 		)(
 			event_processor_.register_callback(
 				awl::backends::windows::event::type{
 					_up_event
 				},
-				std::bind(
-					&sge::dinput::cursor::object::on_button,
-					this,
-					std::placeholders::_1,
-					_code,
-					sge::input::cursor::button_pressed{
-						false
-					}
-				)
+				awl::backends::windows::window::event::callback{
+					std::bind(
+						&sge::dinput::cursor::object::on_button,
+						this,
+						std::placeholders::_1,
+						_code,
+						sge::input::cursor::button_pressed{
+							false
+						}
+					)
+				}
 			)
 		);
 }
@@ -417,11 +424,13 @@ sge::dinput::cursor::object::make_scroll_connection(
 			awl::backends::windows::event::type{
 				_event
 			},
-			std::bind(
-				&sge::dinput::cursor::object::on_scroll,
-				this,
-				std::placeholders::_1,
-				_code
-			)
+			awl::backends::windows::window::event::callback{
+				std::bind(
+					&sge::dinput::cursor::object::on_scroll,
+					this,
+					std::placeholders::_1,
+					_code
+				)
+			}
 		);
 }

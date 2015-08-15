@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/keyboard/device.hpp>
 #include <sge/dinput/mouse/device.hpp>
 #include <sge/input/exception.hpp>
+#include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/discover_event.hpp>
@@ -40,8 +41,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/event/wparam.hpp>
 #include <awl/backends/windows/system/event/handle.hpp>
+#include <awl/backends/windows/system/event/handle_callback.hpp>
 #include <awl/backends/windows/system/event/processor.hpp>
 #include <awl/backends/windows/window/object.hpp>
+#include <awl/backends/windows/window/event/callback.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/window/has_focus.hpp>
@@ -163,28 +166,34 @@ sge::dinput::processor::processor(
 		(
 			event_processor_.register_callback(
 				init_message_.type(),
-				std::bind(
-					&sge::dinput::processor::on_init,
-					this,
-					std::placeholders::_1
-				)
+				awl::backends::windows::window::event::callback{
+					std::bind(
+						&sge::dinput::processor::on_init,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 		(
 			system_processor_.register_handle_callback(
-				std::bind(
-					&sge::dinput::processor::on_handle_ready,
-					this
-				)
+				awl::backends::windows::system::event::handle_callback{
+					std::bind(
+						&sge::dinput::processor::on_handle_ready,
+						this
+					)
+				}
 			)
 		)
 		(
 			cursor_->button_callback(
-				std::bind(
-					&sge::dinput::processor::on_cursor_button,
-					this,
-					std::placeholders::_1
-				)
+				sge::input::cursor::button_callback{
+					std::bind(
+						&sge::dinput::processor::on_cursor_button,
+						this,
+						std::placeholders::_1
+					)
+				}
 			)
 		)
 	)

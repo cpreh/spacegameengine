@@ -30,9 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/depth_stencil_fwd.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/function_impl.hpp>
 
 
 namespace sge
@@ -56,7 +54,7 @@ struct depth_stencil_types
 
 	typedef sge::d3d9::texture::d3d_texture_unique_ptr unique_ptr;
 
-	typedef std::function<
+	typedef fcppt::function<
 		D3DLOCKED_RECT(
 			d3d_type *,
 			sge::renderer::texture::stage,
@@ -65,14 +63,14 @@ struct depth_stencil_types
 		)
 	> lock_function;
 
-	typedef std::function<
+	typedef fcppt::function<
 		void (
 			d3d_type *,
 			sge::renderer::texture::stage
 		)
 	> unlock_function;
 
-	typedef std::function<
+	typedef fcppt::function<
 		unique_ptr(
 			IDirect3DDevice9 *,
 			parameters const &,

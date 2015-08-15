@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/cursor/define.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/event/type.hpp>
+#include <awl/backends/windows/window/event/callback.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
@@ -55,11 +56,13 @@ sge::dinput::cursor::define::define(
 			>(
 				WM_SETCURSOR
 			),
-			std::bind(
-				&dinput::cursor::define::on_cursor,
-				this,
-				std::placeholders::_1
-			)
+			awl::backends::windows::window::event::callback{
+				std::bind(
+					&dinput::cursor::define::on_cursor,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	)
 {

@@ -28,12 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
+#include <fcppt/function_impl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -72,7 +70,7 @@ public:
 	d3d_buffer_unique_ptr;
 
 	typedef
-	std::function<
+	fcppt::function<
 		d3d_buffer_unique_ptr ()
 	>
 	d3d_buffer_create_function;
