@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/remove_event_fwd.hpp>
 #include <sge/input/cursor/scroll_event_fwd.hpp>
 #include <sge/input/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <fcppt/function_impl.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <unordered_map>
