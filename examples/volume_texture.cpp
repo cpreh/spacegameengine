@@ -213,123 +213,123 @@ fill_geometry(
 	pos_array const positions{{
 		// bottom 1
 		pos_vector(
-			-1,-1,-1
+			-1.f,-1.f,-1.f
 		),
 		pos_vector(
-			-1,-1,1
+			-1.f,-1.f,1.f
 		),
 		pos_vector(
-			1,-1,1
+			1.f,-1.f,1.f
 		),
 		// bottom 2
 		pos_vector(
-			1,-1,1
+			1.f,-1.f,1.f
 		),
 		pos_vector(
-			1,-1,-1
+			1.f,-1.f,-1.f
 		),
 		pos_vector(
-			-1,-1,-1
+			-1.f,-1.f,-1.f
 		),
 		// top 1
 		pos_vector(
-			-1,1,-1
+			-1.f,1.f,-1.f
 		),
 		pos_vector(
-			1,1,-1
+			1.f,1.f,-1.f
 		),
 		pos_vector(
-			1,1,1
+			1.f,1.f,1.f
 		),
 		// top 2
 		pos_vector(
-			1,1,1
+			1.f,1.f,1.f
 		),
 		pos_vector(
-			-1,1,1
+			-1.f,1.f,1.f
 		),
 		pos_vector(
-			-1,1,-1
+			-1.f,1.f,-1.f
 		),
 		// left 1
 		pos_vector(
-			-1,-1,-1
+			-1.f,-1.f,-1.f
 		),
 		pos_vector(
-			-1,1,-1
+			-1.f,1.f,-1.f
 		),
 		pos_vector(
-			-1,1,1
+			-1.f,1.f,1.f
 		),
 		// left 2
 		pos_vector(
-			-1,1,1
+			-1.f,1.f,1.f
 		),
 		pos_vector(
-			-1,-1,1
+			-1.f,-1.f,1.f
 		),
 		pos_vector(
-			-1,-1,-1
+			-1.f,-1.f,-1.f
 		),
 		// right 1
 		pos_vector(
-			1,-1,-1
+			1.f,-1.f,-1.f
 		),
 		pos_vector(
-			1,-1,1
+			1.f,-1.f,1.f
 		),
 		pos_vector(
-			1,1,1
+			1.f,1.f,1.f
 		),
 		// right 2
 		pos_vector(
-			1,1,1
+			1.f,1.f,1.f
 		),
 		pos_vector(
-			1,1,-1
+			1.f,1.f,-1.f
 		),
 		pos_vector(
-			1,-1,-1
+			1.f,-1.f,-1.f
 		),
 		// front 1
 		pos_vector(
-			-1,-1,1
+			-1.f,-1.f,1.f
 		),
 		pos_vector(
-			-1,1,1
+			-1.f,1.f,1.f
 		),
 		pos_vector(
-			1,1,1
+			1.f,1.f,1.f
 		),
 		// front 2
 		pos_vector(
-			1,1,1
+			1.f,1.f,1.f
 		),
 		pos_vector(
-			1,-1,1
+			1.f,-1.f,1.f
 		),
 		pos_vector(
-			-1,-1,1
+			-1.f,-1.f,1.f
 		),
 		// back 1
 		pos_vector(
-			-1,-1,-1
+			-1.f,-1.f,-1.f
 		),
 		pos_vector(
-			1,-1,-1
+			1.f,-1.f,-1.f
 		),
 		pos_vector(
-			1,1,-1
+			1.f,1.f,-1.f
 		),
 		// back 2
 		pos_vector(
-			1,1,-1
+			1.f,1.f,-1.f
 		),
 		pos_vector(
-			-1,1,-1
+			-1.f,1.f,-1.f
 		),
 		pos_vector(
-			-1,-1,-1
+			-1.f,-1.f,-1.f
 		)
 	}};
 
@@ -425,9 +425,9 @@ create_noise_texture(
 
 	store_type const store{
 		store_type::dim(
-			128,
-			128,
-			128
+			128u,
+			128u,
+			128u
 		),
 		store_type::init_function{
 			[

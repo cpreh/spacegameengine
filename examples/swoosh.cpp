@@ -416,8 +416,10 @@ try
 	sge::graph::object graph(
 		sge::graph::position(
 			sge::renderer::vector2(
-				5,
-				5)),
+				5.f,
+				5.f
+			)
+		),
 		sge::image2d::dim(
 			512u,
 			128u

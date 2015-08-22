@@ -128,8 +128,8 @@ try
 		sys.renderer_device_core().create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				sge::renderer::dim2(
-					256,
-					256
+					256u,
+					256u
 				),
 				sge::renderer::texture::color_format(
 					sge::image::color::format::rgba8,

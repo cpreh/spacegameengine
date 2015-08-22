@@ -191,8 +191,8 @@ try
 				sge::viewport::optional_resize_callback{
 					sge::viewport::center_on_resize(
 						sge::window::dim{
-							1024,
-							768
+							1024u,
+							768u
 						}
 					)
 				}

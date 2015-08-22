@@ -332,16 +332,16 @@ private:
 		switch (e.key().code())
 		{
 			case sge::input::keyboard::key_code::left:
-				result = sge::projectile::vector2(-1,0);
+				result = sge::projectile::vector2(-1.f,0.f);
 				break;
 			case sge::input::keyboard::key_code::right:
-				result = sge::projectile::vector2(1,0);
+				result = sge::projectile::vector2(1.f,0.f);
 				break;
 			case sge::input::keyboard::key_code::up:
-				result = sge::projectile::vector2(0,-1);
+				result = sge::projectile::vector2(0.f,-1.f);
 				break;
 			case sge::input::keyboard::key_code::down:
-				result = sge::projectile::vector2(0,1);
+				result = sge::projectile::vector2(0.f,1.f);
 				break;
 			default:
 				break;
@@ -502,8 +502,8 @@ try
 				sge::viewport::optional_resize_callback{
 					sge::viewport::center_on_resize(
 						sge::window::dim{
-							1024,
-							768
+							1024u,
+							768u
 						}
 					)
 				}
@@ -579,12 +579,12 @@ try
 		},
 		sge::projectile::rect(
 			sge::projectile::vector2(
-				10,
-				10
+				10.f,
+				10.f
 			),
 			sge::projectile::dim2(
-				10,
-				10
+				10.f,
+				10.f
 			)
 		)
 	);
@@ -621,12 +621,12 @@ try
 		},
 		sge::projectile::rect(
 			sge::projectile::vector2(
-				100,
-				100
+				100.f,
+				100.f
 			),
 			sge::projectile::dim2(
-				20,
-				20
+				20.f,
+				20.f
 			)
 		)
 	);
@@ -636,8 +636,10 @@ try
 		first_body.get(),
 		sge::projectile::ghost::size(
 			sge::projectile::dim2(
-				100,
-				100)),
+				100.f,
+				100.f
+			)
+		),
 		sge::projectile::group::sequence{
 			fcppt::make_ref(
 				first_group

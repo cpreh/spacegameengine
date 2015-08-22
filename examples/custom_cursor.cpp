@@ -206,8 +206,8 @@ try
 		*texture_part,
 		sge::systems::cursor_hotspot(
 			sge::systems::cursor_hotspot::value_type(
-				10,
-				10
+				10u,
+				10u
 			)
 		)
 	};

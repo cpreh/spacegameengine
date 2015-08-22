@@ -141,8 +141,10 @@ try
 	sge::graph::object graph(
 		sge::graph::position(
 			sge::renderer::vector2(
-				100,
-				100)),
+				100.f,
+				100.f
+			)
+		),
 		sge::image2d::dim(
 			512u,
 			128u

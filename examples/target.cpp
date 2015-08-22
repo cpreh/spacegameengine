@@ -269,8 +269,8 @@ try
 		sys.renderer_device_ffp().create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				sge::renderer::dim2(
-					640,
-					480
+					640u,
+					480u
 				),
 				sge::renderer::texture::color_format(
 					sge::image::color::format::rgba8,

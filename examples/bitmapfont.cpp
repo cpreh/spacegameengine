@@ -105,7 +105,8 @@ try
 			<< FCPPT_TEXT("Pass exactly one argument to show a given text")
 			FCPPT_TEXT(" or pass nothing to see the default text.\n");
 
-		return awl::main::exit_failure();
+		return
+			awl::main::exit_failure();
 	}
 
 	sge::systems::instance<
@@ -149,8 +150,8 @@ try
 				sge::viewport::optional_resize_callback{
 					sge::viewport::center_on_resize(
 						sge::window::dim{
-							1024,
-							768
+							1024u,
+							768u
 						}
 					)
 				}

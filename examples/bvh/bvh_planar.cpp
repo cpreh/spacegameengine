@@ -477,8 +477,8 @@ try
 
 	// TODO: Remove this
 	sge::window::dim const window_dim(
-		1024,
-		1024
+		1024u,
+		1024u
 	);
 
 	sge::systems::instance<

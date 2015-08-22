@@ -323,7 +323,7 @@ try
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Creating sge::systems object...\n");
 
-	sge::window::dim const window_dim(1024,768);
+	sge::window::dim const window_dim(1024u,768u);
 
 	sge::systems::instance<
 		boost::mpl::vector2<

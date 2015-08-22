@@ -185,8 +185,9 @@ try
 			scene_name_narrow));
 
 	sge::window::dim const window_dim(
-		1024,
-		768);
+		1024u,
+		768u
+	);
 
 	sge::systems::instance<
 		boost::mpl::vector4<

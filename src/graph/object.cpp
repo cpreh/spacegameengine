@@ -412,11 +412,11 @@ sge::graph::object::clear(
 			_view,
 			sge::image2d::vector(
 				x,
-				0
+				0u
 			),
 			sge::image2d::vector(
 				x,
-				dim_.h() - 1
+				dim_.h() - 1u
 			),
 			color_scheme_.background_color(),
 			color_scheme_.background_alt_color()
@@ -426,12 +426,12 @@ sge::graph::object::clear(
 	draw_rectangle(
 		_view,
 		sge::image2d::vector(
-			0,
-			0
+			0u,
+			0u
 		),
 		sge::image2d::vector(
-			dim_.w() - 1,
-			dim_.h() - 1
+			dim_.w() - 1u,
+			dim_.h() - 1u
 		),
 		color_scheme_.foreground_alt_color()
 	);
@@ -539,11 +539,11 @@ sge::graph::object::draw_data(
 	adapted_bresenham(
 		_view,
 		sge::image2d::vector(
-			0,
+			0u,
 			zero
 		),
 		sge::image2d::vector(
-			dim_.w() - 1,
+			dim_.w() - 1u,
 			zero
 		),
 		color_scheme_.foreground_alt_color(),
@@ -554,11 +554,11 @@ sge::graph::object::draw_data(
 	adapted_bresenham(
 		_view,
 		sge::image2d::vector(
-			0,
+			0u,
 			baseline
 		),
 		sge::image2d::vector(
-			dim_.w() - 1,
+			dim_.w() - 1u,
 			baseline
 		),
 		color_scheme_.baseline_color(),

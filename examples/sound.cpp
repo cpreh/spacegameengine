@@ -290,9 +290,11 @@ try
 
 	positional_sound->position(
 		sge::audio::vector(
-			-2,
-			0,
-			0));
+			-2.f,
+			0.f,
+			0.f
+		)
+	);
 
 	positional_sound->play(
 		sge::audio::sound::repeat::once);
@@ -400,9 +402,13 @@ try
 					sge::audio::vector::null())
 				.position(
 					sge::audio::vector(
-						-2000,
-						0,
-						0))));
+						-2000.f,
+						0.f,
+						0.f
+					)
+				)
+		)
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Streaming sound created.\nWe'll now play it for 10 seconds.\n");
@@ -414,9 +420,11 @@ try
 
 	streaming_positional_sound->position(
 		sge::audio::vector(
-			-2000,
-			0,
-			0));
+			-2000.f,
+			0.f,
+			0.f
+		)
+	);
 
 	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(

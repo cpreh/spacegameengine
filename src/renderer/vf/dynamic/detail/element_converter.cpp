@@ -102,7 +102,7 @@ sge::renderer::vf::dynamic::detail::element_converter::convert(
 	);
 
 	sge::image2d::dim const dim(
-		1,
+		1u,
 		_interval.upper()
 		-
 		_interval.lower()
