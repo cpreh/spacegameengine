@@ -37,13 +37,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/maybe.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/insert_to_string.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/container/at_optional.hpp>
 #include <fcppt/container/get_or_insert.hpp>
-#include <fcppt/container/find_exn.hpp>
-#include <fcppt/container/find_opt.hpp>
 #include <fcppt/container/find_opt_iterator.hpp>
+#include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/container/maybe_front.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -267,9 +267,11 @@ sge::console::object::eval(
 			sge::font::string const &_command
 		)
 		{
-			fcppt::container::find_exn(
-				funcs_,
-				_command,
+			fcppt::optional_to_exception(
+				fcppt::container::find_opt_mapped(
+					funcs_,
+					_command
+				),
 				[
 					&_command
 				]{
@@ -377,7 +379,7 @@ sge::console::object::man_callback(
 		)
 		{
 			fcppt::maybe(
-				fcppt::container::find_opt(
+				fcppt::container::find_opt_mapped(
 					funcs_,
 					_command
 				),

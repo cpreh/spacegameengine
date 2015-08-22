@@ -46,8 +46,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/remove_if.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/error_message.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unreachable_message.hpp>
+#include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -469,18 +471,6 @@ sge::cegui::renderer::getTexture(
 	CEGUI::String const &_name
 ) const
 {
-	// TODO: find_opt
-	sge::cegui::renderer::texture_map::const_iterator const it(
-		textures_.find(
-			_name
-		)
-	);
-
-	FCPPT_ASSERT_ERROR_MESSAGE(
-		it != textures_.end(),
-		FCPPT_TEXT("Tried to get a texture by name which was not registered")
-	);
-
 	return
 		*const_cast<
 			CEGUI::Texture *
@@ -488,7 +478,12 @@ sge::cegui::renderer::getTexture(
 			static_cast<
 				CEGUI::Texture const *
 			>(
-				it->second.get_pointer()
+				FCPPT_ASSERT_OPTIONAL_ERROR(
+					fcppt::container::find_opt_mapped(
+						textures_,
+						_name
+					)
+				).get_pointer()
 			)
 		);
 }

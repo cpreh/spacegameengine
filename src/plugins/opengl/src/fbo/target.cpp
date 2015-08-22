@@ -65,7 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/static_downcast.hpp>
-#include <fcppt/container/find_opt.hpp>
+#include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -407,7 +407,7 @@ sge::opengl::fbo::target::check()
 			FCPPT_TEXT("FBO is incomplete! ")
 			+
 			fcppt::from_optional(
-				fcppt::container::find_opt(
+				fcppt::container::find_opt_mapped(
 					config_.error_strings(),
 					status
 				),

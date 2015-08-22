@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_map.hpp>
 #include <fcppt/maybe.hpp>
-#include <fcppt/container/find_opt.hpp>
+#include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/variant/get_exn.hpp>
 
 
@@ -35,7 +35,7 @@ sge::systems::extract_config(
 {
 	return
 		fcppt::maybe(
-			fcppt::container::find_opt(
+			fcppt::container::find_opt_mapped(
 				_map,
 				sge::systems::detail::any_key::config
 			),

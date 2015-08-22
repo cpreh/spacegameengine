@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
-#include <fcppt/container/find_opt.hpp>
 #include <fcppt/container/find_opt_iterator.hpp>
+#include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <utility>
@@ -251,7 +251,7 @@ sge::opengl::buffer::software::buffer_object(
 {
 	return
 		fcppt::optional_to_exception(
-			fcppt::container::find_opt(
+			fcppt::container::find_opt_mapped(
 				buffers_,
 				_id
 			),

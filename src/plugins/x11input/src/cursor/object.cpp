@@ -54,7 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/container/find_opt.hpp>
+#include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
@@ -278,7 +278,7 @@ sge::x11input::cursor::object::on_motion(
 			)
 			{
 				fcppt::maybe_void(
-					fcppt::container::find_opt(
+					fcppt::container::find_opt_mapped(
 						scroll_valuators_,
 						_index
 					),

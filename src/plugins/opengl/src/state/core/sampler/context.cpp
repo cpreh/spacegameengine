@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_bind.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/static_optional_cast.hpp>
-#include <fcppt/container/find_opt.hpp>
+#include <fcppt/container/find_opt_mapped.hpp>
 
 
 sge::opengl::state::core::sampler::context::context(
@@ -91,7 +91,7 @@ sge::opengl::state::core::sampler::context::get(
 	return
 		fcppt::from_optional(
 			fcppt::optional_bind(
-				fcppt::container::find_opt(
+				fcppt::container::find_opt_mapped(
 					objects_,
 					_stage
 				),
