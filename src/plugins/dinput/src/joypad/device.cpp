@@ -141,7 +141,7 @@ sge::dinput::joypad::device::on_dispatch(
 )
 {
 	fcppt::maybe_void(
-		fcppt::container::find_opt_ampped(
+		fcppt::container::find_opt_mapped(
 			info_.absolute_axis_map(),
 			_data.dwOfs
 		),
