@@ -48,7 +48,7 @@ sge::openal::listener::linear_velocity(
 		AL_VELOCITY,
 		sge::openal::to_vector3(
 			_vector
-		).data()
+		).storage().data()
 	);
 }
 
@@ -61,7 +61,7 @@ sge::openal::listener::position(
 		AL_POSITION,
 		sge::openal::to_vector3(
 			_vector
-		).data()
+		).storage().data()
 	);
 }
 

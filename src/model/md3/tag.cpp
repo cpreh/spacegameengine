@@ -24,8 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/model/md3/read_vec3.hpp>
 #include <sge/src/model/md3/tag.hpp>
 #include <sge/src/model/md3/vec3.hpp>
-#include <fcppt/algorithm/array_init.hpp>
+#include <fcppt/algorithm/array_fold.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <cstddef>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
@@ -47,19 +48,21 @@ sge::model::md3::tag::tag(
 		)
 	),
 	axis_(
-		fcppt::algorithm::array_init<
+		fcppt::algorithm::array_fold<
 			sge::model::md3::axis_array
 		>(
-			sge::model::md3::vec3::null()
+			[
+				&_stream
+			](
+				std::size_t
+			)
+			{
+				return
+					sge::model::md3::read_vec3(
+						_stream
+					);
+			}
 		)
 	)
 {
-	// FIXME: Initialize the array directly!
-	for(
-		auto &elem : axis_
-	)
-		elem =
-			sge::model::md3::read_vec3(
-				_stream
-			);
 }

@@ -149,9 +149,9 @@ construct_median_cut(
 	sge::bvh::detail::construct_median_cut_comparator comparator(
 		static_cast<fcppt::math::size_type>(
 			std::distance(
-				bounding_box_size.begin(),
+				bounding_box_size.storage().begin(),
 				boost::range::max_element(
-					bounding_box_size))));
+					bounding_box_size.storage()))));
 
 	std::nth_element(
 		_leaves.begin(),

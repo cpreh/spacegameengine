@@ -103,6 +103,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/interpolation/perlin_fifth_degree_functor.hpp>
 #include <fcppt/math/interpolation/trigonometric_functor.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -343,7 +344,9 @@ try
 
 	sprite_object const spr(
 		sge::sprite::roles::pos{} =
-			sprite_object::vector::null(),
+			fcppt::math::vector::null<
+				sprite_object::vector
+			>(),
 		sge::sprite::roles::texture0{} =
 			sprite_object::texture_type{
 				fcppt::make_shared_ptr<

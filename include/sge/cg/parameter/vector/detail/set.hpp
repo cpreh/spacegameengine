@@ -59,8 +59,8 @@ set(\
 {\
 	sge::cg::parameter::vector::detail::set_ ## type(\
 		_parameter,\
-		_vector.data(),\
-		_vector.size()\
+		_vector.storage().data(),\
+		N::value\
 	);\
 }
 

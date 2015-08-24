@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -305,7 +306,9 @@ sge::console::gfx::object::render_line(
 				)
 			}
 		),
-		sge::font::vector::null(),
+		fcppt::math::vector::null<
+			sge::font::vector
+		>(),
 		font_color_.get(),
 		// FIXME
 		sge::renderer::texture::emulate_srgb::yes

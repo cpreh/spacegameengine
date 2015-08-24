@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <limits>
 #include <fcppt/config/external_end.hpp>
@@ -65,7 +66,10 @@ sge::camera::spherical::parameters::parameters(
 	action_mapping_(
 		_action_mapping),
 	origin_(
-		sge::renderer::vector3::null()),
+		fcppt::math::vector::null<
+			sge::renderer::vector3
+		>()
+	),
 	minimum_radius_(
 		0.0f),
 	maximum_radius_(

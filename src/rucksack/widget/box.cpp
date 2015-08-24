@@ -48,6 +48,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/math/dim/null.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/match.hpp>
@@ -202,10 +204,14 @@ sge::rucksack::widget::box::box(
 		_padding
 	},
 	position_(
-		sge::rucksack::vector::null()
+		fcppt::math::vector::null<
+			sge::rucksack::vector
+		>()
 	),
 	size_(
-		sge::rucksack::dim::null()
+		fcppt::math::dim::null<
+			sge::rucksack::dim
+		>()
 	)
 {
 }

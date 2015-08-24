@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/funcs/speed_of_sound.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/math/vector/null.hpp>
 
 
 sge::openal::player::player()
@@ -62,11 +63,15 @@ sge::openal::player::player()
 	);
 
 	this->listener().position(
-		sge::audio::vector::null()
+		fcppt::math::vector::null<
+			sge::audio::vector
+		>()
 	);
 
 	this->listener().linear_velocity(
-		sge::audio::vector::null()
+		fcppt::math::vector::null<
+			sge::audio::vector
+		>()
 	);
 
 	this->listener().direction(

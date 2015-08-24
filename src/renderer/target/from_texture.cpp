@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/to_signed_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/null.hpp>
 
 
 sge::renderer::target::offscreen_unique_ptr
@@ -50,10 +51,11 @@ sge::renderer::target::from_texture(
 			sge::renderer::texture::capabilities::render_target
 		)
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("renderer::target_from_texture() called with a texture ")
-			FCPPT_TEXT("that is not a render target!")
-		);
+		throw
+			sge::renderer::exception(
+				FCPPT_TEXT("renderer::target_from_texture() called with a texture ")
+				FCPPT_TEXT("that is not a render target!")
+			);
 
 	sge::renderer::target::offscreen_unique_ptr target(
 		_device.create_target()
@@ -75,7 +77,9 @@ sge::renderer::target::from_texture(
 	target->viewport(
 		sge::renderer::target::viewport(
 			sge::renderer::pixel_rect(
-				sge::renderer::pixel_rect::vector::null(),
+				fcppt::math::vector::null<
+					sge::renderer::pixel_rect::vector
+				>(),
 				fcppt::math::dim::structure_cast<
 					sge::renderer::pixel_rect::dim,
 					fcppt::cast::to_signed_fun

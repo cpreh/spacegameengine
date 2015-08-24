@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/sub_data.hpp>
 #include <sge/texture/atlasing/border_w.hpp>
 #include <sge/texture/atlasing/inner_rect.hpp>
+#include <fcppt/math/vector/null.hpp>
 
 
 void
@@ -50,7 +51,9 @@ sge::texture::atlasing::border_w(
 		sge::image2d::view::sub(
 			_source,
 			sge::renderer::lock_rect(
-				sge::renderer::lock_rect::vector::null(),
+				fcppt::math::vector::null<
+					sge::renderer::lock_rect::vector
+				>(),
 				sge::renderer::lock_rect::dim(
 					1u,
 					dim.h()

@@ -44,6 +44,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/math/dim/contents.hpp>
+#include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
@@ -80,7 +82,9 @@ sge::opengl::onscreen_surface::lock(
 			);
 
 	buffer_.resize_uninitialized(
-		_dest.size().content()
+		fcppt::math::dim::contents(
+			_dest.size()
+		)
 		*
 		stride_
 	);
@@ -121,7 +125,9 @@ sge::opengl::onscreen_surface::lock(
 				buffer_.data(),
 				_dest.size(),
 				this->format(),
-				sge::image2d::pitch::null()
+				fcppt::math::dim::null<
+					sge::image2d::pitch
+				>()
 			)
 		);
 }

@@ -107,6 +107,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/bresenham.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/dim.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -263,7 +264,9 @@ try
 			return
 				sprite_object(
 					sge::sprite::roles::pos{} =
-						sprite_object::vector::null(),
+						fcppt::math::vector::null<
+							sprite_object::vector
+						>(),
 					sge::sprite::roles::size{} =
 						cell_size,
 					sge::sprite::roles::color{} =

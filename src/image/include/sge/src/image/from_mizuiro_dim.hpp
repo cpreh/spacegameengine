@@ -23,9 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <mizuiro/size_type.hpp>
 #include <mizuiro/image/dimension.hpp>
-#include <fcppt/no_init.hpp>
+#include <fcppt/math/dim/init.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <algorithm>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -40,7 +39,7 @@ template<
 	typename T,
 	mizuiro::size_type N
 >
-Dest const
+Dest
 from_mizuiro_dim(
 	mizuiro::image::dimension<
 		N,
@@ -63,17 +62,23 @@ from_mizuiro_dim(
 		"The dimensions must be the same"
 	);
 
-	Dest dest{
-		fcppt::no_init()
-	};
-
-	std::copy(
-		_src.begin(),
-		_src.end(),
-		dest.begin()
-	);
-
-	return dest;
+	return
+		fcppt::math::dim::init<
+			Dest
+		>(
+			[
+				&_src
+			](
+				typename
+				Dest::size_type const _index
+			)
+			{
+				return
+					_src[
+						_index
+					];
+			}
+		);
 }
 
 }

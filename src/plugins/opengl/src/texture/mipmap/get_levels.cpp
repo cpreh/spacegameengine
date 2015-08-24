@@ -75,7 +75,7 @@ sge::opengl::texture::mipmap::get_levels(
 						+
 						fcppt::math::log2(
 							*boost::range::max_element(
-								_dim
+								_dim.storage()
 							)
 						)
 					);

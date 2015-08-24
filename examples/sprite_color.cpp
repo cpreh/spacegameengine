@@ -87,6 +87,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/math/dim/fill.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -222,7 +223,9 @@ try
 
 	sprite_object const spr(
 		sge::sprite::roles::pos{} =
-			sprite_object::vector::null(),
+			fcppt::math::vector::null<
+				sprite_object::vector
+			>(),
 		sge::sprite::roles::size{} =
 			fcppt::math::dim::fill<
 				sprite_object::dim

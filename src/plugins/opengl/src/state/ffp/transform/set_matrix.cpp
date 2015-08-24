@@ -48,7 +48,7 @@ sge::opengl::state::ffp::transform::set_matrix(
 		]{
 			sge::opengl::call(
 				::glLoadMatrixf,
-				_matrix.data()
+				_matrix.storage().data()
 			);
 
 			SGE_OPENGL_CHECK_STATE(
@@ -63,7 +63,7 @@ sge::opengl::state::ffp::transform::set_matrix(
 		)
 		{
 			_load_matrix(
-				_matrix.data()
+				_matrix.storage().data()
 			);
 
 			SGE_OPENGL_CHECK_STATE(

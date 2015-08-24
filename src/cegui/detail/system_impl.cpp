@@ -46,7 +46,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/math/box/comparison.hpp>
+#include <fcppt/math/box/null.hpp>
 #include <fcppt/math/box/output.hpp>
+#include <fcppt/math/dim/fill.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -116,7 +119,9 @@ sge::cegui::detail::system_impl::system_impl(
 		)
 	),
 	old_viewport_(
-		sge::renderer::pixel_rect::null()
+		fcppt::math::box::null<
+			sge::renderer::pixel_rect
+		>()
 	)
 {
 	CEGUI::WidgetLookManager::setDefaultResourceGroup(
@@ -274,10 +279,16 @@ sge::cegui::detail::system_impl::viewport_change(
 		_viewport =
 			sge::renderer::target::viewport(
 				sge::renderer::pixel_rect(
-					sge::renderer::pixel_rect::vector::null(),
-					sge::renderer::pixel_rect::dim(
-						10,
-						10)));
+					fcppt::math::vector::null<
+						sge::renderer::pixel_rect::vector
+					>(),
+					fcppt::math::dim::fill<
+						sge::renderer::pixel_rect::dim
+					>(
+						10u
+					)
+				)
+			);
 	}
 
 	// Calling notifyDisplaySizeChanged with a null rect causes a strange problem
@@ -312,5 +323,6 @@ sge::cegui::detail::system_impl::viewport_change(
 		&new_area_cegui
 	);
 
-	old_viewport_ = _viewport;
+	old_viewport_ =
+		_viewport;
 }

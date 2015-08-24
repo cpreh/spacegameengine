@@ -185,6 +185,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/vector/fill.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -857,7 +858,9 @@ try
 		}
 
 		sge::font::vector const font_pos(
-			sge::font::vector::null()
+			fcppt::math::vector::null<
+				sge::font::vector
+			>()
 		);
 
 		sge::font::align_h::max_width const font_width(

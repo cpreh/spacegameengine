@@ -96,6 +96,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/unique_ptr_to_const.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -269,7 +270,9 @@ try
 	sprite_array_2 sprites{{
 		sprite_object(
 			sge::sprite::roles::pos{} =
-				sprite_object::vector::null(),
+				fcppt::math::vector::null<
+					sprite_object::vector
+				>(),
 			sge::sprite::roles::texture0{} =
 				sprite_object::texture_type(
 					*image_texture_part

@@ -125,6 +125,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/location.hpp>
 #include <fcppt/math/box/center.hpp>
 #include <fcppt/math/vector/input.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -203,7 +204,10 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 					fcppt::math::box::center(
 						r)),
 				sge::projectile::body::linear_velocity(
-					sge::projectile::vector2::null()),
+					fcppt::math::vector::null<
+						sge::projectile::vector2
+					>()
+				),
 				sge::projectile::body::angular_velocity(
 					static_cast<sge::projectile::scalar>(
 						0)),
@@ -279,7 +283,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			)
 		),
 		velocity_(
-			sge::projectile::vector2::null()
+			fcppt::math::vector::null<
+				sge::projectile::vector2
+			>()
 		)
 	{
 	}
@@ -326,8 +332,11 @@ private:
 	key_event_to_vector(
 		sge::input::keyboard::key_event const &e)
 	{
-		sge::projectile::vector2 result =
-			sge::projectile::vector2::null();
+		sge::projectile::vector2 result(
+			fcppt::math::vector::null<
+				sge::projectile::vector2
+			>()
+		);
 
 		switch (e.key().code())
 		{

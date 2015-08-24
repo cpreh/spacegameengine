@@ -63,7 +63,7 @@ warn_min(
 	for(
 		auto const element
 		:
-		_dim
+		_dim.storage()
 	)
 		if(
 			element < _min

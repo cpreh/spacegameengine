@@ -56,7 +56,7 @@ warn_pow2(
 	for(
 		auto const element
 		:
-		_dim
+		_dim.storage()
 	)
 		if(
 			!fcppt::math::is_power_of_2(

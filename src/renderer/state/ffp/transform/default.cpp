@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/state/ffp/transform/default.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
+#include <fcppt/math/matrix/identity.hpp>
 
 
 sge::renderer::state::ffp::transform::parameters const
@@ -28,6 +29,8 @@ sge::renderer::state::ffp::transform::default_()
 {
 	return
 		sge::renderer::state::ffp::transform::parameters(
-			sge::renderer::matrix4::identity()
+			fcppt::math::matrix::identity<
+				sge::renderer::matrix4
+			>()
 		);
 }

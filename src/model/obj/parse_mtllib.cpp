@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -287,13 +288,17 @@ public:
 			case 0u:
 				ambient_ =
 					optional_color(
-						sge::renderer::vector3::null()
+						fcppt::math::vector::null<
+							sge::renderer::vector3
+						>()
 					);
 				break;
 			case 1u:
 				specular_ =
 					optional_color(
-						sge::renderer::vector3::null()
+						fcppt::math::vector::null<
+							sge::renderer::vector3
+						>()
 					);
 				break;
 			case 2u:

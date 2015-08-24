@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/scene/mesh/object.hpp>
 #include <sge/scenic/vf/format.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/scaling.hpp>
 #include <fcppt/math/matrix/translation.hpp>
@@ -86,8 +86,14 @@ sge::scenic::scene::object::render(
 	sge::scenic::render_context::base &_context)
 {
 	if(
-		!sge::renderer::target::viewport_size(
-			_context.target()).content())
+		fcppt::math::dim::contents(
+			sge::renderer::target::viewport_size(
+				_context.target()
+			)
+		)
+		==
+		0u
+	)
 		return;
 
 	state_changes_ =

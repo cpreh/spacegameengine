@@ -19,17 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/any/object.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <sge/scenic/render_context/cg/light/directional.hpp>
 #include <sge/src/scenic/render_context/cg/any_color_to_vector4.hpp>
 #include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/math/vector/normalize.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/math/vector/null.hpp>
 
 
 namespace
 {
-sge::shader::parameter::name const
+sge::shader::parameter::name
 param_name(
 	sge::scenic::render_context::cg::light::index const &_index,
 	std::string const &_suffix)
@@ -52,26 +53,42 @@ sge::scenic::render_context::cg::light::directional::directional(
 		_program,
 		param_name(
 			_index,
-			"diffuse_color"),
-		sge::renderer::vector4::null()),
+			"diffuse_color"
+		),
+		fcppt::math::vector::null<
+			sge::renderer::vector4
+		>()
+	),
 	specular_color_(
 		_program,
 		param_name(
 			_index,
-			"specular_color"),
-		sge::renderer::vector4::null()),
+			"specular_color"
+		),
+		fcppt::math::vector::null<
+			sge::renderer::vector4
+		>()
+	),
 	ambient_color_(
 		_program,
 		param_name(
 			_index,
-			"ambient_color"),
-		sge::renderer::vector4::null()),
+			"ambient_color"
+		),
+		fcppt::math::vector::null<
+			sge::renderer::vector4
+		>()
+	),
 	camera_space_direction_(
 		_program,
 		param_name(
 			_index,
-			"camera_space_direction"),
-		sge::renderer::vector3::null())
+			"camera_space_direction"
+		),
+		fcppt::math::vector::null<
+			sge::renderer::vector3
+		>()
+	)
 {
 }
 

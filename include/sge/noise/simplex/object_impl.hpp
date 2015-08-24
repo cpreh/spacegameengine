@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/dot.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/unit.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/algorithm/random_shuffle.hpp>
@@ -56,7 +57,9 @@ sge::noise::simplex::object<
 		fcppt::algorithm::array_init<
 			gradient_array
 		>(
-			vector_type::null()
+			fcppt::math::vector::null<
+				vector_type
+			>()
 		)
 	)
 {
@@ -75,7 +78,11 @@ sge::noise::simplex::object<
 
 	for (typename vector_type::size_type i = 0u; i < N; i++)
 	{
-		vector_type tmp = vector_type::null();
+		vector_type tmp(
+			fcppt::math::vector::null<
+				vector_type
+			>()
+		);
 		tmp[i] = static_cast<Float>(1);
 		gradients_[2u*i] = tmp;
 		tmp[i] = static_cast<Float>(-1);
@@ -90,9 +97,13 @@ sge::noise::simplex::object<Float,N>::sample(
 {
 	Float res = static_cast<Float>(0);
 	vector_type tmp = stretch_m() * in;
-	for(typename vector_type::iterator it = tmp.begin(); it != tmp.end(); ++it)
+	for(
+		auto &elem
+		:
+		tmp.storage()
+	)
 	{
-		*it = std::floor(*it);
+		elem = std::floor(elem);
 	}
 	vector_type floored(tmp);
 	tmp = inv_m() * tmp;
@@ -118,9 +129,13 @@ sge::noise::simplex::object<Float,N>::index(
 	vector_type const &vec)
 {
 	std::size_t res = static_cast<std::size_t>(0);
-	for (typename vector_type::const_iterator it = vec.begin(); it != vec.end(); ++it)
+	for (
+		auto const elem
+		:
+		vec.storage()
+	)
 	{
-		long t = static_cast<long>(*it);
+		long t = static_cast<long>(elem);
 		res = perm_[sge::noise::simplex::detail::mod(
 			static_cast<long>(res) +
 				static_cast<long>(t),
@@ -139,11 +154,18 @@ sge::noise::simplex::object<Float,N>::corners(
 		fcppt::algorithm::array_init<
 			corner_array
 		>(
-			vector_type::null()
+			fcppt::math::vector::null<
+				vector_type
+			>()
 		)
 	);
 
-	vector_type cur = vector_type::null();
+	vector_type cur(
+		fcppt::math::vector::null<
+			vector_type
+		>()
+	);
+
 	Float max = static_cast<Float>(-1);
 	typename vector_type::size_type max_i = 0;
 

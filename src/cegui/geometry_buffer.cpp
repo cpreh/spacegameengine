@@ -87,11 +87,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/math/box/null.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/translation.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
@@ -125,10 +127,14 @@ sge::cegui::geometry_buffer::geometry_buffer(
 		nullptr
 	),
 	translation_(
-		sge::renderer::vector3::null()
+		fcppt::math::vector::null<
+			sge::renderer::vector3
+		>()
 	),
 	pivot_(
-		sge::renderer::vector3::null()
+		fcppt::math::vector::null<
+			sge::renderer::vector3
+		>()
 	),
 	rotation_(
 		1.0f,
@@ -137,7 +143,9 @@ sge::cegui::geometry_buffer::geometry_buffer(
 		0.0f
 	),
 	scissor_area_(
-		sge::renderer::pixel_rect::null()
+		fcppt::math::box::null<
+			sge::renderer::pixel_rect
+		>()
 	),
 	render_context_(
 		_render_context

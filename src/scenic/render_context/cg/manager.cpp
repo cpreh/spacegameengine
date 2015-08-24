@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/media_path.hpp>
-#include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <sge/renderer/state/core/blend/object.hpp>
 #include <sge/renderer/state/core/blend/parameters.hpp>
@@ -42,6 +41,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/array_fold.hpp>
+#include <fcppt/math/matrix/identity.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
@@ -75,7 +76,10 @@ sge::scenic::render_context::cg::manager::manager(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			false),
-		sge::renderer::matrix4::identity()),
+		fcppt::math::matrix::identity<
+			sge::renderer::matrix4
+		>()
+	),
 	world_projection_matrix_(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(
@@ -83,7 +87,10 @@ sge::scenic::render_context::cg::manager::manager(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			true),
-		sge::renderer::matrix4::identity()),
+		fcppt::math::matrix::identity<
+			sge::renderer::matrix4
+		>()
+	),
 	world_inverse_transpose_matrix_(
 		shader_.vertex_program(),
 		sge::shader::parameter::name(
@@ -91,27 +98,42 @@ sge::scenic::render_context::cg::manager::manager(
 		_shader_context.renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			false),
-		sge::renderer::matrix4::identity()),
+		fcppt::math::matrix::identity<
+			sge::renderer::matrix4
+		>()
+	),
 	material_diffuse_color_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			"current_material.diffuse_color"),
-		sge::renderer::vector4::null()),
+		fcppt::math::vector::null<
+			sge::renderer::vector4
+		>()
+	),
 	material_specular_color_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			"current_material.specular_color"),
-		sge::renderer::vector4::null()),
+		fcppt::math::vector::null<
+			sge::renderer::vector4
+		>()
+	),
 	material_ambient_color_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			"current_material.ambient_color"),
-		sge::renderer::vector4::null()),
+		fcppt::math::vector::null<
+			sge::renderer::vector4
+		>()
+	),
 	material_emissive_color_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			"current_material.emissive_color"),
-		sge::renderer::vector4::null()),
+		fcppt::math::vector::null<
+			sge::renderer::vector4
+		>()
+	),
 	material_shininess_(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
@@ -170,7 +192,10 @@ sge::scenic::render_context::cg::manager::manager(
 		shader_.pixel_program(),
 		sge::shader::parameter::name(
 			"fog_information.color"),
-		sge::renderer::vector4::null()),
+		fcppt::math::vector::null<
+			sge::renderer::vector4
+		>()
+	),
 	point_lights_(
 		fcppt::algorithm::array_fold<
 			point_light_array

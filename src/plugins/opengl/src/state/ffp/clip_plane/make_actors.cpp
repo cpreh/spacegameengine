@@ -69,7 +69,7 @@ sge::opengl::state::ffp::clip_plane::make_actors(
 					sge::opengl::call(
 						::glClipPlane,
 						_index,
-						gl_vec.data()
+						gl_vec.storage().data()
 					);
 
 					sge::opengl::state::check_error(

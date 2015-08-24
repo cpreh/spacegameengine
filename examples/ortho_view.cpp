@@ -129,6 +129,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -348,7 +349,9 @@ try
 				*tex_bg
 			),
 		sge::sprite::roles::pos{} =
-			sprite_object::vector::null()
+			fcppt::math::vector::null<
+				sprite_object::vector
+			>()
 	);
 
 	sprite_object const tux(

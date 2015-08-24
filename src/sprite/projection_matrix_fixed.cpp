@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/projection_dim.hpp>
 #include <sge/sprite/projection_matrix_fixed.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
+#include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
@@ -35,7 +36,9 @@ sge::sprite::projection_matrix_fixed(
 )
 {
 	return
-		_size.get().content()
+		fcppt::math::dim::contents(
+			_size.get()
+		)
 		!=
 		0u
 		?

@@ -33,6 +33,6 @@ sge::opengl::state::ffp::lighting::light::position_impl(
 	return
 		sge::opengl::state::ffp::lighting::light::float_ptr(
 			GL_POSITION,
-			_pos4
+			_pos4.storage().data()
 		);
 }

@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/grid/object.hpp>
 #include <sge/scenic/grid/orientation.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/math/dim/contents.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
@@ -149,8 +150,14 @@ sge::scenic::grid::object::render(
 	sge::scenic::grid::depth_test const &_depth_test)
 {
 	if(
-		!sge::renderer::target::viewport_size(
-			_context.target()).content())
+		fcppt::math::dim::contents(
+			sge::renderer::target::viewport_size(
+				_context.target()
+			)
+		)
+		==
+		0u
+	)
 		return;
 
 	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_state(

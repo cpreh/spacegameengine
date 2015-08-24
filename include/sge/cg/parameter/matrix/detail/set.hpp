@@ -61,7 +61,7 @@ set(\
 {\
 	sge::cg::parameter::matrix::detail::set_ ## type(\
 		_parameter,\
-		_matrix.data()\
+		_matrix.storage().data()\
 	);\
 }
 

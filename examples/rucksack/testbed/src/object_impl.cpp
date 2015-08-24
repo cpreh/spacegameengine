@@ -68,6 +68,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_code.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/math/dim/null.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -151,9 +153,13 @@ sge::rucksack::testbed::object_impl::add_widget(
 			&_widget,
 			sprite_object(
 				sge::sprite::roles::pos{} =
-					sprite_object::vector::null(),
+					fcppt::math::vector::null<
+						sprite_object::vector
+					>(),
 				sge::sprite::roles::size{} =
-					sprite_object::dim::null(),
+					fcppt::math::dim::null<
+						sprite_object::dim
+					>(),
 				sge::sprite::roles::color{} =
 					sge::image::color::any::convert<
 						color_format

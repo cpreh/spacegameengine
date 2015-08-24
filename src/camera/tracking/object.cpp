@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/matrix/output.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/structure_cast.hpp>
@@ -210,7 +211,9 @@ sge::camera::tracking::object::update(
 			lerp_double(
 				current_time_point_.count() /
 				current_keyframe_->duration().count(),
-				sge::renderer::matrix4::identity(),
+				fcppt::math::matrix::identity<
+					sge::renderer::matrix4
+				>(),
 				right *
 				fcppt::math::matrix::inverse(
 					left)) *

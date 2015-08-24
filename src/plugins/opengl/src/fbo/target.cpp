@@ -66,6 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
+#include <fcppt/math/box/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -79,7 +80,9 @@ sge::opengl::fbo::target::target(
 	base(
 		_device_context,
 		sge::renderer::target::viewport(
-			sge::renderer::pixel_rect::null()
+			fcppt::math::box::null<
+				sge::renderer::pixel_rect
+			>()
 		)
 	),
 	context_(

@@ -63,7 +63,7 @@ set(
 {
 	sge::cg::parameter::vector::detail::check_size(
 		_parameter,
-		_vector.size()
+		N::value
 	);
 
 	sge::cg::parameter::detail::check_base_type<

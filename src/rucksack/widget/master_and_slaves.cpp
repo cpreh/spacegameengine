@@ -32,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/widget/optional_ref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/maybe.hpp>
+#include <fcppt/math/dim/null.hpp>
+#include <fcppt/math/vector/null.hpp>
 
 
 // TODO: Initialize position and size in the ctor?
@@ -52,10 +54,14 @@ sge::rucksack::widget::master_and_slaves::master_and_slaves(
 		_padding
 	},
 	position_{
-		sge::rucksack::vector::null()
+		fcppt::math::vector::null<
+			sge::rucksack::vector
+		>()
 	},
 	size_{
-		sge::rucksack::dim::null()
+		fcppt::math::dim::null<
+			sge::rucksack::dim
+		>()
 	}
 {
 	surrounding_box_.push_back_child(

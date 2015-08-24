@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/math/box/null.hpp>
 
 
 sge::opengl::onscreen_target::onscreen_target(
@@ -43,7 +44,9 @@ sge::opengl::onscreen_target::onscreen_target(
 	base(
 		_device_context,
 		sge::renderer::target::viewport(
-			sge::renderer::pixel_rect::null()
+			fcppt::math::box::null<
+				sge::renderer::pixel_rect
+			>()
 		)
 	),
 	context_(

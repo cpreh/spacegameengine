@@ -43,6 +43,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/error.hpp>
 #include <fcppt/math/box/intersects.hpp>
 #include <fcppt/math/dim/comparison.hpp>
+#include <fcppt/math/dim/contents.hpp>
+#include <fcppt/math/dim/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
@@ -87,7 +89,9 @@ sge::opengl::xrandr::display_mode(
 			crtc_info.pixel_size()
 			==
 			sge::renderer::display_mode::pixel_size(
-				sge::renderer::screen_size::null()
+				fcppt::math::dim::null<
+					sge::renderer::screen_size
+				>()
 			)
 		)
 			continue;
@@ -121,7 +125,9 @@ sge::opengl::xrandr::display_mode(
 			);
 
 			if(
-				output_info.dimensions().get().content()
+				fcppt::math::dim::contents(
+					output_info.dimensions().get()
+				)
 				==
 				0u
 			)
@@ -166,7 +172,9 @@ sge::opengl::xrandr::display_mode(
 		)
 		{
 			FCPPT_ASSERT_ERROR(
-				_dim.get().content()
+				fcppt::math::dim::contents(
+					_dim.get()
+				)
 				!=
 				0u
 			);

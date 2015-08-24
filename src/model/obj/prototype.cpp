@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/prototype.hpp>
 #include <sge/src/model/obj/logger.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -30,10 +31,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/math/box/extend_bounding_box.hpp>
+#include <fcppt/math/box/null.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <algorithm>
 #include <array>
+#include <cstddef>
 #include <map>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -127,7 +131,10 @@ sge::model::obj::prototype::prototype(
 	parts_(),
 	material_files_(),
 	bounding_box_(
-		sge::model::obj::box::null())
+		fcppt::math::box::null<
+			sge::model::obj::box
+		>()
+	)
 {
 	boost::filesystem::ifstream stream(
 		_filename);
@@ -356,7 +363,10 @@ sge::model::obj::prototype::prototype(
 	if(texture_coordinates_.empty())
 	{
 		texture_coordinates_.push_back(
-			sge::renderer::vector2::null());
+			fcppt::math::vector::null<
+				sge::renderer::vector2
+			>()
+		);
 	}
 }
 

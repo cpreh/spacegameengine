@@ -55,6 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/fill.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
@@ -261,7 +262,9 @@ try
 	);
 
 	sge::image2d::rect::vector pos(
-		sge::image2d::rect::vector::null()
+		fcppt::math::vector::null<
+			sge::image2d::rect::vector
+		>()
 	);
 
 	path_vector const paths(

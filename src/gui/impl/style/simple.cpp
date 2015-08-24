@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/fill.hpp>
+#include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 
 
@@ -309,7 +310,9 @@ sge::rucksack::dim const
 sge::gui::impl::style::simple::image_spacing() const
 {
 	return
-		sge::rucksack::dim::null();
+		fcppt::math::dim::null<
+			sge::rucksack::dim
+		>();
 }
 
 void
@@ -325,7 +328,9 @@ sge::rucksack::dim const
 sge::gui::impl::style::simple::text_spacing() const
 {
 	return
-		sge::rucksack::dim::null();
+		fcppt::math::dim::null<
+			sge::rucksack::dim
+		>();
 }
 
 void

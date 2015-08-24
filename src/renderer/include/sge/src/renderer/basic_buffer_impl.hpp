@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/basic_dim.hpp>
 #include <sge/renderer/basic_lock_box.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <fcppt/math/dim/contents.hpp>
+#include <fcppt/math/vector/null.hpp>
 
 
 template<
@@ -94,7 +96,10 @@ sge::renderer::basic_buffer<
 {
 	return
 		lock_area(
-			lock_area::vector::null(),
+			fcppt::math::vector::null<
+				typename
+				lock_area::vector
+			>(),
 			this->size()
 		);
 }
@@ -110,7 +115,9 @@ sge::renderer::basic_buffer<
 >::content() const
 {
 	return
-		this->size().content();
+		fcppt::math::dim::contents(
+			this->size()
+		);
 }
 
 #endif

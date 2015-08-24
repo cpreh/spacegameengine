@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_DETAIL_RAW_DATA_HPP_INCLUDED
 
 #include <sge/renderer/vf/detail/raw_data_type.hpp>
+#include <mizuiro/color/is_color.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
+#include <fcppt/math/vector/is_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <type_traits>
@@ -41,9 +43,14 @@ namespace detail
 template<
 	typename T
 >
-typename boost::disable_if<
-	std::is_fundamental<
-		T
+inline
+typename
+boost::enable_if<
+	fcppt::math::vector::is_vector<
+		typename
+		std::remove_const<
+			T
+		>::type
 	>,
 	sge::renderer::vf::detail::raw_data_type<
 		T
@@ -59,14 +66,16 @@ raw_data(
 				T
 			>
 		>(
-			_value.data()
+			_value.storage().data()
 		);
 }
 
 template<
 	typename T
 >
-typename boost::enable_if<
+inline
+typename
+boost::enable_if<
 	std::is_fundamental<
 		T
 	>,
@@ -85,6 +94,36 @@ raw_data(
 			>
 		>(
 			&_value
+		);
+}
+
+template<
+	typename T
+>
+inline
+typename
+boost::enable_if<
+	mizuiro::color::is_color<
+		typename
+		std::remove_const<
+			T
+		>::type
+	>,
+	sge::renderer::vf::detail::raw_data_type<
+		T
+	>
+>::type
+raw_data(
+	T &_value
+)
+{
+	return
+		fcppt::cast::to_char_ptr<
+			sge::renderer::vf::detail::raw_data_type<
+				T
+			>
+		>(
+			_value.data()
 		);
 }
 

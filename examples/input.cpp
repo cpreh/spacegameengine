@@ -148,7 +148,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
+#include <fcppt/math/box/null.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -445,7 +447,9 @@ try
 		),
 		*font,
 		sys.keyboard_collector(),
-		sge::font::rect::null(),
+		fcppt::math::box::null<
+			sge::font::rect
+		>(),
 		sge::console::gfx::output_line_limit(
 			200u
 		)
@@ -470,7 +474,9 @@ try
 				{
 					console_gfx.area(
 						sge::font::rect{
-							sge::font::rect::vector::null(),
+							fcppt::math::vector::null<
+								sge::font::rect::vector
+							>(),
 							fcppt::math::dim::structure_cast<
 								sge::font::rect::dim,
 								fcppt::cast::size_fun

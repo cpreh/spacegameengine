@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/widget/dummy.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 
 
@@ -71,7 +72,9 @@ sge::gui::widget::static_text::static_text(
 				sge::font::flags::no_multi_line
 			}
 		),
-		sge::font::vector::null(),
+		fcppt::math::vector::null<
+			sge::font::vector
+		>(),
 		_text_color.get(),
 		sge::renderer::texture::emulate_srgb::no
 	),

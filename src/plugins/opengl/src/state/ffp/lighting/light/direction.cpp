@@ -33,6 +33,6 @@ sge::opengl::state::ffp::lighting::light::direction(
 	return
 		sge::opengl::state::ffp::lighting::light::float_ptr(
 			GL_SPOT_DIRECTION,
-			_direction.get()
+			_direction.get().storage().data()
 		);
 }

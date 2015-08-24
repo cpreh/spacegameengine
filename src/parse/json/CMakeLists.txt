@@ -23,14 +23,15 @@ set(
 	include/sge/parse/json/convert/to_int.hpp
 	include/sge/parse/json/convert/to_static_container.hpp
 	include/sge/parse/json/convert_from.hpp
+	include/sge/parse/json/convert_from_fwd.hpp
+	include/sge/parse/json/convert_from_impl.hpp
 	include/sge/parse/json/convert_to.hpp
 	include/sge/parse/json/detail/adapt_array.hpp
 	include/sge/parse/json/detail/adapt_object.hpp
 	include/sge/parse/json/detail/adapt_start.hpp
 	include/sge/parse/json/detail/get_return_type.hpp
-	include/sge/parse/json/detail/init_result.hpp
 	include/sge/parse/json/detail/insert_member.hpp
-	include/sge/parse/json/detail/is_array.hpp
+	include/sge/parse/json/detail/is_math_type.hpp
 	include/sge/parse/json/detail/member_wrapper.hpp
 	include/sge/parse/json/detail/value_wrapper.hpp
 	include/sge/parse/json/detail/value_wrapper_fwd.hpp

@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_optional.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/math/rad_to_deg.hpp>
+#include <fcppt/math/vector/null.hpp>
 
 
 sge::openal::source::source(
@@ -190,7 +191,7 @@ sge::openal::source::position(
 		AL_POSITION,
 		sge::openal::to_vector3(
 			_vector
-		).data()
+		).storage().data()
 	);
 }
 
@@ -204,7 +205,7 @@ sge::openal::source::linear_velocity(
 		AL_VELOCITY,
 		sge::openal::to_vector3(
 			_vector
-		).data()
+		).storage().data()
 	);
 }
 
@@ -300,10 +301,12 @@ sge::openal::source::direction(
 			fcppt::from_optional(
 				_opt_dir,
 				fcppt::const_(
-					sge::audio::vector::null()
+					fcppt::math::vector::null<
+						sge::audio::vector
+					>()
 				)
 			)
-		).data()
+		).storage().data()
 	);
 }
 
@@ -378,13 +381,15 @@ sge::openal::source::do_play()
 sge::openal::source_id const
 sge::openal::source::source_id() const
 {
-	return source_.get();
+	return
+		source_.get();
 }
 
 sge::audio::sound::repeat
 sge::openal::source::repeat() const
 {
-	return repeat_;
+	return
+		repeat_;
 }
 
 sge::openal::source::source()

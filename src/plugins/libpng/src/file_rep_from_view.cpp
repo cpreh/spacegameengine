@@ -36,6 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/format.hpp>
 #include <sge/libpng/from_sge_format_exn.hpp>
 #include <sge/libpng/to_sge_format.hpp>
+#include <fcppt/math/dim/contents.hpp>
+#include <fcppt/math/dim/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -67,7 +69,9 @@ sge::libpng::file_rep_from_view(
 	);
 
 	sge::libpng::byte_vector bytes(
-		size.content()
+		fcppt::math::dim::contents(
+			size
+		)
 		*
 		sge::image::color::format_stride(
 			dest_format
@@ -80,7 +84,9 @@ sge::libpng::file_rep_from_view(
 			bytes.data(),
 			size,
 			dest_format,
-			sge::image2d::pitch::null()
+			fcppt::math::dim::null<
+				sge::image2d::pitch
+			>()
 		),
 		sge::image::algorithm::may_overlap::no,
 		sge::image::algorithm::uninitialized::yes

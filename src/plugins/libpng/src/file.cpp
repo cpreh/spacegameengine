@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_path.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
+#include <fcppt/math/dim/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
@@ -84,7 +85,9 @@ sge::libpng::file::view() const
 			sge::libpng::to_sge_format(
 				rep_.format()
 			),
-			sge::image2d::pitch::null()
+			fcppt::math::dim::null<
+				sge::image2d::pitch
+			>()
 		);
 }
 

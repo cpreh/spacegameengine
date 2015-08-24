@@ -31,7 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/rucksack/extract_size.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_wrapper_comparison.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/algorithm/find_opt.hpp>
+#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/math/dim/null.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
@@ -47,17 +50,22 @@ sge::rucksack::widget::enumeration::enumeration(
 	},
 	children_(),
 	position_{
-		sge::rucksack::vector::null()
+		fcppt::math::vector::null<
+			sge::rucksack::vector
+		>()
 	},
 	size_{
-		sge::rucksack::dim::null()
+		fcppt::math::dim::null<
+			sge::rucksack::dim
+		>()
 	}
 {
 }
 
 void
 sge::rucksack::widget::enumeration::size(
-	sge::rucksack::dim const &_size)
+	sge::rucksack::dim const &_size
+)
 {
 	size_ =
 		_size;
@@ -65,7 +73,8 @@ sge::rucksack::widget::enumeration::size(
 
 void
 sge::rucksack::widget::enumeration::position(
-	sge::rucksack::vector const &_position)
+	sge::rucksack::vector const &_position
+)
 {
 	position_ =
 		_position;
@@ -211,23 +220,17 @@ sge::rucksack::widget::enumeration::~enumeration()
 
 void
 sge::rucksack::widget::enumeration::child_destroyed(
-	sge::rucksack::widget::base &_child)
+	sge::rucksack::widget::base &_child
+)
 {
-	child_information::iterator const it(
-		std::find(
-			children_.begin(),
-			children_.end(),
-			fcppt::make_ref(
-				_child
+	children_.erase(
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			fcppt::algorithm::find_opt(
+				children_,
+				fcppt::make_ref(
+					_child
+				)
 			)
 		)
-	);
-
-	FCPPT_ASSERT_PRE(
-		it != children_.end()
-	);
-
-	children_.erase(
-		it
 	);
 }

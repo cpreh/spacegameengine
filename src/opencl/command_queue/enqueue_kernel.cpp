@@ -199,21 +199,37 @@ enqueue_kernel_templatized(
 	LocalDim const &_local_dim,
 	sge::opencl::event::sequence const &_events)
 {
+	// TODO: Use map here
 	size_vector global_dim(
-		_global_dim.get().size());
+		GlobalDim::value_type::dim_wrapper::value
+	);
 
-	std::copy(
-		_global_dim.get().begin(),
-		_global_dim.get().end(),
-		global_dim.begin());
+	{
+		auto const &global_storage(
+			_global_dim.get().storage()
+		);
+
+		std::copy(
+			global_storage.begin(),
+			global_storage.end(),
+			global_dim.begin());
+	}
 
 	size_vector local_dim(
-		_local_dim.get().size());
+		LocalDim::value_type::dim_wrapper::value
+	);
 
-	std::copy(
-		_local_dim.get().begin(),
-		_local_dim.get().end(),
-		local_dim.begin());
+	{
+		auto const &local_storage(
+			_local_dim.get().storage()
+		);
+
+
+		std::copy(
+			local_storage.begin(),
+			local_storage.end(),
+			local_dim.begin());
+	}
 
 	return
 		enqueue_kernel_internal(
@@ -233,12 +249,18 @@ enqueue_kernel_templatized(
 	GlobalDim const &_global_dim,
 	sge::opencl::event::sequence const &_events)
 {
+	// TODO: Use map here
 	size_vector global_dim(
-		_global_dim.get().size());
+		GlobalDim::value_type::dim_wrapper::value
+	);
+
+	auto const &storage(
+		_global_dim.get().storage()
+	);
 
 	std::copy(
-		_global_dim.get().begin(),
-		_global_dim.get().end(),
+		storage.begin(),
+		storage.end(),
 		global_dim.begin());
 
 	return

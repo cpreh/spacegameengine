@@ -122,6 +122,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/construct.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -408,7 +409,10 @@ try
 			line_drawer);
 
 		sge::font::vector const font_pos(
-			sge::font::vector::null());
+			fcppt::math::vector::null<
+				sge::font::vector
+			>()
+		);
 
 		sge::font::align_h::max_width const font_width(
 			fcppt::cast::size<

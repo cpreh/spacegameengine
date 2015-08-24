@@ -47,7 +47,7 @@ sge::parse::json::config::modify_user_value(
 		!input_path.empty());
 
 	sge::parse::json::value const &old_value =
-		sge::parse::json::find_and_convert_member<sge::parse::json::value const>(
+		sge::parse::json::find_and_convert_member<sge::parse::json::value>(
 			structure_json,
 			input_path);
 

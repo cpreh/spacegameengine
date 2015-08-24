@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assign/make_map.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/transform_point.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
@@ -92,9 +93,15 @@ sge::scenic::render_context::cg::object::object(
 				sge::renderer::state::core::sampler::const_object_ref(
 					*manager_.mipmap_sampler_state_))),
 	current_world_(
-		sge::renderer::matrix4::identity()),
+		fcppt::math::matrix::identity<
+			sge::renderer::matrix4
+		>()
+	),
 	current_projection_(
-		sge::renderer::matrix4::identity()),
+		fcppt::math::matrix::identity<
+			sge::renderer::matrix4
+		>()
+	),
 	current_vertex_buffer_()
 {
 }

@@ -39,9 +39,9 @@ sge::cegui::matrix_from_quaternion(
 
 	return
 		sge::renderer::matrix4(
-			1-2*(y*y + z*z), 2*x*y-2*s*z, 2*s*y + 2*x*z, 0,
-			2*x*y+2*s*z, 1-2*(x*x + z*z),-2*s*x+2*y*z,0,
-			-2*s*y + 2*x*z,2*s*x+2*y*z,1-2*(x*x+y*y),0,
-			0,0,0,1
+			1-2*(y*y + z*z), 2*x*y-2*s*z, 2*s*y + 2*x*z, 0.f,
+			2*x*y+2*s*z, 1-2*(x*x + z*z),-2*s*x+2*y*z,0.f,
+			-2*s*y + 2*x*z,2*s*x+2*y*z,1-2*(x*x+y*y),0.f,
+			0.f,0.f,0.f,1.f
 		);
 }

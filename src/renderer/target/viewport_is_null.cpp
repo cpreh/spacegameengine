@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/target/viewport_is_null.hpp>
+#include <fcppt/math/dim/contents.hpp>
 
 
 bool
@@ -28,7 +29,9 @@ sge::renderer::target::viewport_is_null(
 )
 {
 	return
-		_viewport.get().size().content()
+		fcppt::math::dim::contents(
+			_viewport.get().size()
+		)
 		==
 		0u
 		;

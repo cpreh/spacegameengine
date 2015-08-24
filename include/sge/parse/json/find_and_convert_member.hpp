@@ -52,6 +52,7 @@ template<typename T>
 typename
 boost::mpl::if_
 <
+	// TODO: This check is broken
 	boost::mpl::or_
 	<
 		std::is_same

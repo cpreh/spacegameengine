@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/narrow_cast.hpp>
 #include <fcppt/math/vector/normalize.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -84,7 +85,10 @@ sge::camera::first_person::object::object(
 	is_active_(
 		_params.is_active()),
 	directions_(
-		sge::renderer::vector3::null()),
+		fcppt::math::vector::null<
+			sge::renderer::vector3
+		>()
+	),
 	coordinate_system_(
 		_params.coordinate_system()),
 	projection_matrix_(

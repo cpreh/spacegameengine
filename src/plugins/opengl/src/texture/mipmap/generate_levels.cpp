@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/init.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
@@ -76,8 +77,12 @@ sge::opengl::texture::mipmap::generate_levels(
 			)
 		)
 		;
-		size.content() != 1
-		&& level.get() <= _levels.get()
+		fcppt::math::dim::contents(
+			size
+		)
+		!= 1u
+		&&
+		level.get() <= _levels.get()
 		;
 		size =
 			::reduce_dim<

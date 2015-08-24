@@ -60,9 +60,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
+#include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/math/dim/comparison.hpp>
+#include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Size.h>
@@ -343,7 +345,7 @@ sge::cegui::texture::loadFromMemory(
 
 	sge::image2d::algorithm::copy_and_convert(
 		sge::image2d::view::make_const(
-			static_cast<
+			fcppt::cast::from_void_ptr<
 				sge::image::const_raw_pointer
 			>(
 				_buffer
@@ -356,7 +358,9 @@ sge::cegui::texture::loadFromMemory(
 			FCPPT_ASSERT_OPTIONAL_ERROR(
 				format
 			),
-			sge::image2d::pitch::null()
+			fcppt::math::dim::null<
+				sge::image2d::pitch
+			>()
 		),
 		lock.value(),
 		sge::image::algorithm::may_overlap::no,

@@ -51,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -175,9 +176,13 @@ try
 		image,
 		sge::opencl::command_queue::map_flags::read,
 		sge::opencl::memory_object::rect(
-			sge::opencl::memory_object::rect::vector::null(),
-			image.size()),
-		events);
+			fcppt::math::vector::null<
+				sge::opencl::memory_object::rect::vector
+			>(),
+			image.size()
+		),
+		events
+	);
 
 	sge::image2d::save_from_view(
 		sys.image_system(),

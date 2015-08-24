@@ -88,6 +88,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/signal/scoped_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -289,7 +290,9 @@ try
 		*font_object,
 		sys.keyboard_collector(),
 		sge::font::rect{
-			sge::font::rect::vector::null(),
+			fcppt::math::vector::null<
+				sge::font::rect::vector
+			>(),
 			sge::font::rect::dim{
 				400,
 				300

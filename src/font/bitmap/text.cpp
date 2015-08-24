@@ -56,7 +56,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/logger.hpp>
 #include <sge/src/font/bitmap/text.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
@@ -64,9 +63,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/math/box/null.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_unsigned.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/math/vector/null.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <iterator>
@@ -83,7 +84,9 @@ sge::font::bitmap::text::text(
 :
 	lines_(),
 	rect_(
-		sge::font::rect::null()
+		fcppt::math::box::null<
+			sge::font::rect
+		>()
 	),
 	line_height_(
 		_line_height
@@ -303,62 +306,33 @@ sge::font::bitmap::text::text(
 		)
 	);
 
-	class align_visitor
-	{
-		FCPPT_NONASSIGNABLE(
-			align_visitor
-		);
-	public:
-		explicit
-		align_visitor(
-			sge::font::rect &_rect
-		)
-		:
-			rect_(
-				_rect
-			)
-		{
-		}
-
-		typedef
-		void
-		result_type;
-
-		result_type
-		operator()(
+	fcppt::variant::match(
+		align_h_,
+		[](
 			sge::font::align_h::left const &
-		) const
+		)
 		{
-		}
-
-		result_type
-		operator()(
+		},
+		[
+			this
+		](
 			sge::font::align_h::center const &_center
-		) const
+		)
 		{
 			rect_.left(
 				(_center.max_width().get() - rect_.w()) / 2
 			);
-		}
-
-		result_type
-		operator()(
+		},
+		[
+			this
+		](
 			sge::font::align_h::right const &_right
-		) const
+		)
 		{
 			rect_.left(
 				_right.max_width().get() - rect_.w()
 			);
 		}
-	private:
-		sge::font::rect &rect_;
-	};
-
-	fcppt::variant::apply_unary(
-		align_visitor(
-			rect_
-		),
-		align_h_
 	);
 }
 
@@ -375,7 +349,9 @@ sge::font::bitmap::text::render(
 		sge::image2d::view::sub(
 			_view,
 			sge::image2d::rect(
-				sge::image2d::rect::vector::null(),
+				fcppt::math::vector::null<
+					sge::image2d::rect::vector
+				>(),
 				fcppt::math::dim::structure_cast<
 					sge::image2d::rect::dim,
 					fcppt::cast::size_fun
@@ -404,69 +380,36 @@ sge::font::bitmap::text::render(
 		lines_
 	)
 	{
-		class align_visitor
-		{
-			FCPPT_NONASSIGNABLE(
-				align_visitor
-			);
-		public:
-			align_visitor(
-				sge::font::rect const &_rect,
-				sge::font::bitmap::line const &_line
-			)
-			:
-				rect_(
-					_rect
-				),
-				line_(
-					_line
-				)
-			{
-			}
-
-			typedef
-			sge::font::unit
-			result_type;
-
-			result_type
-			operator()(
-				sge::font::align_h::left const &
-			) const
-			{
-				return
-					0;
-			}
-
-			result_type
-			operator()(
-				sge::font::align_h::center const &
-			) const
-			{
-				return
-					(rect_.w() - line_.width()) / 2;
-			}
-
-			result_type
-			operator()(
-				sge::font::align_h::right const &
-			) const
-			{
-				return
-					rect_.w() - line_.width();
-			}
-		private:
-			sge::font::rect const rect_;
-
-			sge::font::bitmap::line const &line_;
-		};
-
 		sge::font::unit left(
-			fcppt::variant::apply_unary(
-				align_visitor(
-					rect_,
-					line
-				),
-				align_h_
+			fcppt::variant::match(
+				align_h_,
+				[](
+					sge::font::align_h::left const &
+				)
+				{
+					return
+						0;
+				},
+				[
+					&line,
+					this
+				](
+					sge::font::align_h::center const &
+				)
+				{
+					return
+						(rect_.w() - line.width()) / 2;
+				},
+				[
+					&line,
+					this
+				](
+					sge::font::align_h::right const &
+				)
+				{
+					return
+						rect_.w() - line.width();
+				}
 			)
 		);
 
@@ -546,10 +489,9 @@ sge::font::bitmap::text::cursor_rect(
 {
 	// FIXME
 	return
-		sge::font::rect(
-			sge::font::rect::vector::null(),
-			sge::font::rect::dim::null()
-		);
+		fcppt::math::box::null<
+			sge::font::rect
+		>();
 }
 
 sge::font::optional_index const

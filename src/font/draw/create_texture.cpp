@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/wrap_npot.hpp>
 #include <fcppt/cast/size_fun.hpp>
+#include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_unsigned.hpp>
 
@@ -72,7 +73,9 @@ sge::font::draw::create_texture(
 	);
 
 	if(
-		result->size().content()
+		fcppt::math::dim::contents(
+			result->size()
+		)
 		!=
 		0u
 	)

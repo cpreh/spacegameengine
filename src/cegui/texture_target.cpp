@@ -58,9 +58,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/debug.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/comparison.hpp>
+#include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_signed.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/GeometryBuffer.h>
 #include <CEGUI/RenderQueue.h>
@@ -352,7 +354,9 @@ sge::cegui::texture_target::clear()
 	// Make sure we clear everything
 
 	sge::renderer::pixel_rect const rect(
-		sge::renderer::pixel_rect::vector::null(),
+		fcppt::math::vector::null<
+			sge::renderer::pixel_rect::vector
+		>(),
 		fcppt::math::dim::structure_cast<
 			sge::renderer::pixel_rect::dim,
 			fcppt::cast::size_fun
@@ -433,7 +437,9 @@ sge::cegui::texture_target::declareRenderSize(
 				_size
 			)
 			==
-			sge::renderer::dim2::null()
+			fcppt::math::dim::null<
+				sge::renderer::dim2
+			>()
 			?
 				fcppt::make_unique_ptr_fcppt<
 					sge::cegui::texture

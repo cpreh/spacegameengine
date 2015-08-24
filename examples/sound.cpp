@@ -68,6 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/math/pi.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
@@ -268,9 +269,17 @@ try
 		buf->create_positional(
 			sge::audio::sound::positional_parameters()
 				.linear_velocity(
-					sge::audio::vector::null())
+					fcppt::math::vector::null<
+						sge::audio::vector
+					>()
+				)
 				.position(
-					sge::audio::vector::null())));
+					fcppt::math::vector::null<
+						sge::audio::vector
+					>()
+				)
+		)
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Sound created at the origin, now we play it\n");
@@ -399,7 +408,10 @@ try
 			*streaming_file,
 			sge::audio::sound::positional_parameters()
 				.linear_velocity(
-					sge::audio::vector::null())
+					fcppt::math::vector::null<
+						sge::audio::vector
+					>()
+				)
 				.position(
 					sge::audio::vector(
 						-2000.f,

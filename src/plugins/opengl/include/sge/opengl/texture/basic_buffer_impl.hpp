@@ -60,8 +60,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/comparison.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/box/output.hpp>
+#include <fcppt/math/dim/contents.hpp>
+#include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/vector/null.hpp>
 
 
 template<
@@ -265,7 +268,9 @@ sge::opengl::texture::basic_buffer<
 					cur_lock->write_view_pointer(),
 					this->lock_dim(),
 					format_,
-					basic_buffer::pitch::null()
+					fcppt::math::dim::null<
+						pitch
+					>()
 				),
 				sge::image::algorithm::may_overlap::no,
 				sge::image::algorithm::uninitialized::yes
@@ -305,7 +310,10 @@ sge::opengl::texture::basic_buffer<
 				]{
 					return
 						lock_area(
-							lock_area::vector::null(),
+							fcppt::math::vector::null<
+								typename
+								lock_area::vector
+							>(),
 							this->size()
 						);
 				}
@@ -352,7 +360,9 @@ sge::opengl::texture::basic_buffer<
 				system_context_,
 				_method,
 				this->content(),
-				_lock_area.content(),
+				fcppt::math::dim::contents(
+					_lock_area.size()
+				),
 				stride_,
 				resource_flags_
 			)
@@ -438,7 +448,9 @@ sge::opengl::texture::basic_buffer<
 			:
 				this->lock_dim(),
 			format_,
-			basic_buffer::pitch::null()
+			fcppt::math::dim::null<
+				pitch
+			>()
 		)
 	);
 

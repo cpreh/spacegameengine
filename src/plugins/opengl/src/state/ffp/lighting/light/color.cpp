@@ -41,6 +41,6 @@ sge::opengl::state::ffp::lighting::light::color(
 				sge::image::color::rgba32f_format
 			>(
 				_color
-			)
+			).data()
 		);
 }

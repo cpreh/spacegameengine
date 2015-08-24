@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/wrap_npot.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/math/vector/null.hpp>
 
 
 sge::texture::part_unique_ptr
@@ -63,7 +64,9 @@ sge::texture::wrap_npot(
 					)
 				),
 				sge::renderer::lock_rect(
-					sge::renderer::lock_rect::vector::null(),
+					fcppt::math::vector::null<
+						sge::renderer::lock_rect::vector
+					>(),
 					_parameters.size()
 				)
 			)

@@ -863,6 +863,7 @@ set(
 	src/plugins/opengl/src/state/ffp/lighting/light/direction.cpp
 	src/plugins/opengl/src/state/ffp/lighting/light/directional.cpp
 	src/plugins/opengl/src/state/ffp/lighting/light/float.cpp
+	src/plugins/opengl/src/state/ffp/lighting/light/float_ptr.cpp
 	src/plugins/opengl/src/state/ffp/lighting/light/make_actors.cpp
 	src/plugins/opengl/src/state/ffp/lighting/light/object.cpp
 	src/plugins/opengl/src/state/ffp/lighting/light/point.cpp

@@ -18,41 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/lock_rect.hpp>
-#include <sge/renderer/texture/cube.hpp>
-#include <fcppt/math/dim/fill.hpp>
-#include <fcppt/math/vector/null.hpp>
+#include <sge/opengl/call.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/state/index_actor.hpp>
+#include <sge/opengl/state/wrap_error_handler.hpp>
+#include <sge/opengl/state/ffp/lighting/light/float_ptr.hpp>
+#include <fcppt/text.hpp>
 
 
-sge::renderer::texture::cube::cube()
-{
-}
-
-sge::renderer::texture::cube::~cube()
-{
-}
-
-sge::renderer::texture::cube::size_type
-sge::renderer::texture::cube::content() const
+sge::opengl::state::index_actor
+sge::opengl::state::ffp::lighting::light::float_ptr(
+	GLenum const _name,
+	GLfloat const *const _value
+)
 {
 	return
-		this->border_size()
-		*
-		this->border_size();
-}
-
-sge::renderer::texture::cube::rect const
-sge::renderer::texture::cube::area() const
-{
-	return
-		sge::renderer::texture::cube::rect(
-			fcppt::math::vector::null<
-				sge::renderer::texture::cube::rect::vector
-			>(),
-			fcppt::math::dim::fill<
-				sge::renderer::texture::cube::rect::dim
-			>(
-				this->border_size()
+		sge::opengl::state::wrap_error_handler<
+			sge::opengl::state::index_actor
+		>(
+			[
+				_name,
+				_value
+			](
+				GLenum const _index
 			)
+			{
+				sge::opengl::call(
+					::glLightfv,
+					_index,
+					_name,
+					_value
+				);
+			},
+			FCPPT_TEXT("glLightfv")
 		);
 }

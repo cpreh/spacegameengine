@@ -36,7 +36,7 @@ template<
 	typename Dest,
 	typename Source
 >
-Dest const
+Dest
 to_mizuiro_dim(
 	Source const &_src
 )
@@ -56,11 +56,12 @@ to_mizuiro_dim(
 		"The dimensions must be the same"
 	);
 
+	// TODO: Use proper initialization here
 	Dest dest;
 
 	std::copy(
-		_src.begin(),
-		_src.end(),
+		_src.storage().begin(),
+		_src.storage().end(),
 		dest.begin()
 	);
 

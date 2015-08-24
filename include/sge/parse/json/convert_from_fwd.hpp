@@ -18,66 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_VIEW_CHECKED_SUB_CONDITION_HPP_INCLUDED
-#define SGE_SRC_IMAGE_VIEW_CHECKED_SUB_CONDITION_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_CONVERT_FROM_FWD_HPP_INCLUDED
+#define SGE_PARSE_JSON_CONVERT_FROM_FWD_HPP_INCLUDED
 
-#include <sge/image/box.hpp>
-#include <sge/image/traits/box_fwd.hpp>
-#include <sge/image/traits/sub_out_of_range.hpp>
-#include <sge/image/view/size.hpp>
-#include <fcppt/math/box/contains.hpp>
-#include <fcppt/math/vector/null.hpp>
+#include <sge/parse/json/value_fwd.hpp>
 
 
 namespace sge
 {
-namespace image
+namespace parse
 {
-namespace view
+namespace json
 {
 
 template<
-	typename Tag,
-	typename View
+	typename Result
 >
-void
-checked_sub_condition(
-	View const &_src,
-	typename sge::image::traits::box<
-		Tag
-	>::type const &_box
+decltype(
+	auto
 )
-{
-	typedef typename sge::image::traits::box<
-		Tag
-	>::type box;
-
-	box const outer(
-		fcppt::math::vector::null<
-			typename
-			box::vector
-		>(),
-		sge::image::view::size<
-			Tag
-		>(
-			_src
-		)
-	);
-
-	if(
-		!fcppt::math::box::contains(
-			outer,
-			_box
-		)
-	)
-		throw
-			typename sge::image::traits::sub_out_of_range<
-				Tag
-			>::type(
-				outer,
-				_box
-			);
-}
+convert_from(
+	sge::parse::json::value const &
+);
 
 }
 }

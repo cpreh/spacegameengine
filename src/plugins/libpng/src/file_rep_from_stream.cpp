@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <climits>
@@ -189,7 +190,9 @@ sge::libpng::file_rep_from_stream(
 	);
 
 	sge::libpng::byte_vector bytes(
-		size.content()
+		fcppt::math::dim::contents(
+			size
+		)
 		*
 		bytes_per_pixel.get()
 	);

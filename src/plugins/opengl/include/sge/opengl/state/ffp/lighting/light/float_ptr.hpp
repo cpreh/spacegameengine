@@ -21,11 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_FLOAT_PTR_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_FLOAT_PTR_HPP_INCLUDED
 
-#include <sge/opengl/call.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/index_actor.hpp>
-#include <sge/opengl/state/wrap_error_handler.hpp>
-#include <fcppt/text.hpp>
 
 
 namespace sge
@@ -41,36 +38,11 @@ namespace lighting
 namespace light
 {
 
-template<
-	typename Vector
->
 sge::opengl::state::index_actor
 float_ptr(
-	GLenum const _name,
-	Vector const &_vector
-)
-{
-	return
-		sge::opengl::state::wrap_error_handler<
-			sge::opengl::state::index_actor
-		>(
-			[
-				_name,
-				_vector
-			](
-				GLenum const _index
-			)
-			{
-				sge::opengl::call(
-					::glLightfv,
-					_index,
-					_name,
-					_vector.data()
-				);
-			},
-			FCPPT_TEXT("glLightfv")
-		);
-}
+	GLenum,
+	GLfloat const *
+);
 
 }
 }
