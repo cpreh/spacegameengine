@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/projection/rect.hpp>
 #include <sge/src/renderer/projection/check_near_far.hpp>
+#include <fcppt/math/matrix/row.hpp>
 
 
 sge::renderer::matrix4 const
@@ -67,9 +68,17 @@ sge::renderer::projection::orthogonal(
 
 	return
 		sge::renderer::matrix4(
-			2.f / (right - left), zero, zero, (left + right) / (left - right),
-			zero, 2.f / (top - bottom), zero, (top + bottom) / (bottom - top),
-			zero, zero, 1.f / (far - near), near / (near - far),
-			zero, zero, zero, one
+			fcppt::math::matrix::row(
+				2.f / (right - left), zero, zero, (left + right) / (left - right)
+			),
+			fcppt::math::matrix::row(
+				zero, 2.f / (top - bottom), zero, (top + bottom) / (bottom - top)
+			),
+			fcppt::math::matrix::row(
+				zero, zero, 1.f / (far - near), near / (near - far)
+			),
+			fcppt::math::matrix::row(
+				zero, zero, zero, one
+			)
 		);
 }

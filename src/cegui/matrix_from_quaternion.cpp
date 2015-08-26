@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/matrix_from_quaternion.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <fcppt/math/matrix/row.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Quaternion.h>
 #include <fcppt/config/external_end.hpp>
@@ -39,9 +40,17 @@ sge::cegui::matrix_from_quaternion(
 
 	return
 		sge::renderer::matrix4(
-			1-2*(y*y + z*z), 2*x*y-2*s*z, 2*s*y + 2*x*z, 0.f,
-			2*x*y+2*s*z, 1-2*(x*x + z*z),-2*s*x+2*y*z,0.f,
-			-2*s*y + 2*x*z,2*s*x+2*y*z,1-2*(x*x+y*y),0.f,
-			0.f,0.f,0.f,1.f
+			fcppt::math::matrix::row(
+				1-2*(y*y + z*z), 2*x*y-2*s*z, 2*s*y + 2*x*z, 0.f
+			),
+			fcppt::math::matrix::row(
+				2*x*y+2*s*z, 1-2*(x*x + z*z),-2*s*x+2*y*z,0.f
+			),
+			fcppt::math::matrix::row(
+				-2*s*y + 2*x*z,2*s*x+2*y*z,1-2*(x*x+y*y),0.f
+			),
+			fcppt::math::matrix::row(
+				0.f,0.f,0.f,1.f
+			)
 		);
 }

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/projection/orthogonal_xy.hpp>
+#include <fcppt/math/matrix/row.hpp>
 
 
 sge::renderer::matrix4 const
@@ -36,9 +37,17 @@ sge::renderer::projection::orthogonal_xy()
 
 	return
 		sge::renderer::matrix4(
-			one, zero, zero, zero,
-			zero, one, zero, zero,
-			zero, zero, zero, zero,
-			zero, zero, zero, one
+			fcppt::math::matrix::row(
+				one, zero, zero, zero
+			),
+			fcppt::math::matrix::row(
+				zero, one, zero, zero
+			),
+			fcppt::math::matrix::row(
+				zero, zero, zero, zero
+			),
+			fcppt::math::matrix::row(
+				zero, zero, zero, one
+			)
 		);
 }

@@ -22,24 +22,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/matrix_conversion/rotation.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
+#include <fcppt/math/matrix/row.hpp>
 
 
 sge::renderer::matrix4 const
 sge::camera::matrix_conversion::rotation(
-	camera::coordinate_system::object const &_coordinate_system)
+	sge::camera::coordinate_system::object const &_coordinate_system
+)
 {
 	sge::renderer::vector3 const
 		r(
-			_coordinate_system.right().get()),
+			_coordinate_system.right().get()
+		),
 		u(
-			_coordinate_system.up().get()),
+			_coordinate_system.up().get()
+		),
 		f(
-			_coordinate_system.forward().get());
+			_coordinate_system.forward().get()
+		);
 
 	return
 		sge::renderer::matrix4(
-			r[0],r[1],r[2],0.0f,
-			u[0],u[1],u[2],0.0f,
-			f[0],f[1],f[2],0.0f,
-			0.0f,0.0f,0.0f,1.0f);
+			fcppt::math::matrix::row(
+				r[0],r[1],r[2],0.0f
+			),
+			fcppt::math::matrix::row(
+				u[0],u[1],u[2],0.0f
+			),
+			fcppt::math::matrix::row(
+				f[0],f[1],f[2],0.0f
+			),
+			fcppt::math::matrix::row(
+				0.0f,0.0f,0.0f,1.0f
+			)
+		);
 }

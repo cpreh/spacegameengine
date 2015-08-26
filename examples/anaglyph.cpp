@@ -173,6 +173,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/rotation_x.hpp>
 #include <fcppt/math/matrix/rotation_y.hpp>
 #include <fcppt/math/matrix/rotation_z.hpp>
+#include <fcppt/math/matrix/row.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/translation.hpp>
 #include <fcppt/math/matrix/vector.hpp>
@@ -722,9 +723,16 @@ move_eye_position(
 	matrix3;
 
 	matrix3 const rotation_matrix(
-		cosx + x*x*cosxc,   x*y*cosxc - z*sinx, x*z*cosxc + y*sinx,
-		x*y*cosxc + z*sinx, cosx + y*y*cosxc,   y*z*cosxc - x*sinx,
-		x*z*cosxc - y*sinx, y*z*cosxc + x*sinx, cosx + z*z*cosxc);
+		fcppt::math::matrix::row(
+			cosx + x*x*cosxc,   x*y*cosxc - z*sinx, x*z*cosxc + y*sinx
+		),
+		fcppt::math::matrix::row(
+			x*y*cosxc + z*sinx, cosx + y*y*cosxc,   y*z*cosxc - x*sinx
+		),
+		fcppt::math::matrix::row(
+			x*z*cosxc - y*sinx, y*z*cosxc + x*sinx, cosx + z*z*cosxc
+		)
+	);
 
 	result.right(
 		sge::camera::coordinate_system::right(

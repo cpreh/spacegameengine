@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/perspective_wh.hpp>
 #include <sge/src/renderer/projection/check_near.hpp>
 #include <sge/src/renderer/projection/check_near_far.hpp>
+#include <fcppt/math/matrix/row.hpp>
 
 
 sge::renderer::matrix4 const
@@ -66,9 +67,17 @@ sge::renderer::projection::perspective_wh(
 
 	return
 		sge::renderer::matrix4(
-			2 * near / w, zero, zero, zero,
-			zero, 2 * near / h, zero, zero,
-			zero, zero, far / (far - near), near * far / (near - far),
-			zero, zero, one, zero
+			fcppt::math::matrix::row(
+				2 * near / w, zero, zero, zero
+			),
+			fcppt::math::matrix::row(
+				zero, 2 * near / h, zero, zero
+			),
+			fcppt::math::matrix::row(
+				zero, zero, far / (far - near), near * far / (near - far)
+			),
+			fcppt::math::matrix::row(
+				zero, zero, one, zero
+			)
 		);
 }

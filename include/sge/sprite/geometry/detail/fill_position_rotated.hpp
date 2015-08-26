@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/basic/float_vector.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
+#include <fcppt/math/matrix/row.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -149,8 +150,12 @@ fill_position_rotated(
 	> matrix2x2;
 
 	matrix2x2 const mat_rot(
-		cosx, -sinx,
-		sinx,  cosx
+		fcppt::math::matrix::row(
+			cosx, -sinx
+		),
+		fcppt::math::matrix::row(
+			sinx,  cosx
+		)
 	);
 
 	typedef typename sge::sprite::detail::vf::pos<
