@@ -264,7 +264,7 @@ struct convert_from_impl<
 					sge::parse::json::array
 				>(
 					_value
-				),
+				).elements,
 				[](
 					sge::parse::json::value const &_inner
 				)
