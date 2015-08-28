@@ -21,9 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_TRACKING_ALEXA_LERP_HPP_INCLUDED
 #define SGE_CAMERA_TRACKING_ALEXA_LERP_HPP_INCLUDED
 
+#include <fcppt/literal.hpp>
 #include <sge/camera/tracking/alexa/add.hpp>
 #include <sge/camera/tracking/alexa/multiply.hpp>
-#include <fcppt/math/matrix/object_fwd.hpp>
+#include <fcppt/math/size_type.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/matrix/static.hpp>
+
 
 namespace sge
 {
@@ -33,27 +37,53 @@ namespace tracking
 {
 namespace alexa
 {
-template
-<
+
+template<
 	typename T,
-	typename DN,
-	typename S
+	fcppt::math::size_type N,
+	typename S1,
+	typename S2
 >
-fcppt::math::matrix::object<T,DN,DN,S> const
+fcppt::math::matrix::static_<
+	T,
+	N,
+	N
+>
 lerp(
-	T const t,
-	fcppt::math::matrix::object<T,DN,DN,S> const &A,
-	fcppt::math::matrix::object<T,DN,DN,S> const &B)
+	T const _value,
+	fcppt::math::matrix::object<
+		T,
+		N,
+		N,
+		S1
+	> const &_a,
+	fcppt::math::matrix::object<
+		T,
+		N,
+		N,
+		S2
+	> const &_b
+)
 {
 	return
 		sge::camera::tracking::alexa::add(
 			sge::camera::tracking::alexa::multiply(
-				static_cast<T>(1)-t,
-				A),
+				fcppt::literal<
+					T
+				>(
+					1
+				)
+				-
+				_value,
+				_a
+			),
 			sge::camera::tracking::alexa::multiply(
-				t,
-				B));
+				_value,
+				_b
+			)
+		);
 }
+
 }
 }
 }

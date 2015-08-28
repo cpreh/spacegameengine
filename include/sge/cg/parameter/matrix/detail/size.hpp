@@ -18,64 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_RANGE_CHECK_HPP_INCLUDED
-#define SGE_OPENGL_RANGE_CHECK_HPP_INCLUDED
+#ifndef SGE_CG_PARAMETER_MATRIX_DETAIL_SIZE_HPP_INCLUDED
+#define SGE_CG_PARAMETER_MATRIX_DETAIL_SIZE_HPP_INCLUDED
 
-#include <fcppt/make_int_range_count.hpp>
-#include <fcppt/algorithm/all_of.hpp>
-#include <fcppt/math/size_type.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <sge/cg/parameter/matrix/detail/size_fwd.hpp>
+#include <fcppt/math/dim/static.hpp>
 
-
-namespace sge
-{
-namespace opengl
-{
-
-template<
-	typename T,
-	fcppt::math::size_type N,
-	typename S
->
-bool
-range_check(
-	fcppt::math::dim::object<
-		T,
-		N,
-		S
-	> const &_dim,
-	fcppt::math::box::object<
-		T,
-		N
-	> const &_box
-)
-{
-	return
-		fcppt::algorithm::all_of(
-			fcppt::make_int_range_count(
-				N
-			),
-			[
-				&_dim,
-				&_box
-			](
-				fcppt::math::size_type const _index
-			)
-			{
-				return
-					_box.max()[
-						_index
-					]
-					<=
-					_dim[
-						_index
-					];
-			}
-		);
-}
-
-}
-}
 
 #endif

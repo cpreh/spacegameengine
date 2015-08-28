@@ -92,6 +92,7 @@ set(
 	include/sge/camera/spherical/parameters_fwd.hpp
 	include/sge/camera/tracking/alexa/add.hpp
 	include/sge/camera/tracking/alexa/lerp.hpp
+	include/sge/camera/tracking/alexa/logarithm.hpp
 	include/sge/camera/tracking/alexa/multiply.hpp
 	include/sge/camera/tracking/is_looping.hpp
 	include/sge/camera/tracking/json/interval_exporter.hpp

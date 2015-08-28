@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/parameter/detail/check_base_type.hpp>
 #include <sge/cg/parameter/vector/detail/check_size.hpp>
 #include <sge/cg/parameter/vector/detail/set.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -43,7 +44,7 @@ namespace vector
 
 template<
 	typename T,
-	typename N,
+	fcppt::math::size_type N,
 	typename S
 >
 typename boost::enable_if<
@@ -63,7 +64,7 @@ set(
 {
 	sge::cg::parameter::vector::detail::check_size(
 		_parameter,
-		N::value
+		N
 	);
 
 	sge::cg::parameter::detail::check_base_type<

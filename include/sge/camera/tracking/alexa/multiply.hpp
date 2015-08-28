@@ -21,9 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_TRACKING_ALEXA_MULTIPLY_HPP_INCLUDED
 #define SGE_CAMERA_TRACKING_ALEXA_MULTIPLY_HPP_INCLUDED
 
+#include <sge/camera/tracking/alexa/logarithm.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/exponential_pade.hpp>
-#include <fcppt/math/matrix/logarithm.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/matrix/static.hpp>
 
 
 namespace sge
@@ -34,29 +37,37 @@ namespace tracking
 {
 namespace alexa
 {
-template
-<
+
+template<
 	typename T,
-	typename DN,
+	fcppt::math::size_type N,
 	typename S
 >
-fcppt::math::matrix::object<T,DN,DN,S> const
+fcppt::math::matrix::static_<
+	T,
+	N,
+	N
+>
 multiply(
 	T const _s,
-	fcppt::math::matrix::object<T,DN,DN,S> const &_matrix)
+	fcppt::math::matrix::object<
+		T,
+		N,
+		N,
+		S
+	> const &_matrix
+)
 {
 	return
 		fcppt::math::matrix::exponential_pade(
-			_s *
-			fcppt::math::matrix::logarithm(
-				_matrix,
-				static_cast<T>(
-					1.0e-4),
-				static_cast<T>(
-					1.0e-9),
-				static_cast<T>(
-					1.0e-6)));
+			_s
+			*
+			sge::camera::tracking::alexa::logarithm(
+				_matrix
+			)
+		);
 }
+
 }
 }
 }

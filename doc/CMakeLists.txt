@@ -247,6 +247,7 @@ set(
 	include/sge/camera/spherical/parameters_fwd.hpp
 	include/sge/camera/tracking/alexa/add.hpp
 	include/sge/camera/tracking/alexa/lerp.hpp
+	include/sge/camera/tracking/alexa/logarithm.hpp
 	include/sge/camera/tracking/alexa/multiply.hpp
 	include/sge/camera/tracking/is_looping.hpp
 	include/sge/camera/tracking/json/interval_exporter.hpp
@@ -307,6 +308,8 @@ set(
 	include/sge/cg/parameter/matrix/detail/set_double.hpp
 	include/sge/cg/parameter/matrix/detail/set_float.hpp
 	include/sge/cg/parameter/matrix/detail/set_int.hpp
+	include/sge/cg/parameter/matrix/detail/size.hpp
+	include/sge/cg/parameter/matrix/detail/size_fwd.hpp
 	include/sge/cg/parameter/matrix/set.hpp
 	include/sge/cg/parameter/named.hpp
 	include/sge/cg/parameter/named_fwd.hpp

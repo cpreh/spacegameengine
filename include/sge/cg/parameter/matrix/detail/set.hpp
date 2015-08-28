@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/parameter/matrix/detail/set_double.hpp>
 #include <sge/cg/parameter/matrix/detail/set_float.hpp>
 #include <sge/cg/parameter/matrix/detail/set_int.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 
 
@@ -44,8 +45,8 @@ namespace detail
 	type\
 )\
 template<\
-	typename N,\
-	typename M,\
+	fcppt::math::size_type R,\
+	fcppt::math::size_type C,\
 	typename S\
 >\
 void \
@@ -53,8 +54,8 @@ set(\
 	sge::cg::parameter::object const &_parameter,\
 	fcppt::math::matrix::object<\
 		type,\
-		N,\
-		M,\
+		R,\
+		C,\
 		S\
 	> const &_matrix\
 )\

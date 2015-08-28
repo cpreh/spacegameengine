@@ -21,6 +21,8 @@ set(
 	include/sge/cg/parameter/matrix/detail/set_double.hpp
 	include/sge/cg/parameter/matrix/detail/set_float.hpp
 	include/sge/cg/parameter/matrix/detail/set_int.hpp
+	include/sge/cg/parameter/matrix/detail/size.hpp
+	include/sge/cg/parameter/matrix/detail/size_fwd.hpp
 	include/sge/cg/parameter/matrix/set.hpp
 	include/sge/cg/parameter/named.hpp
 	include/sge/cg/parameter/named_fwd.hpp

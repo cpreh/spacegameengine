@@ -22,11 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/exception.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/parameter/matrix/detail/check_size.hpp>
+#include <sge/cg/parameter/matrix/detail/size.hpp>
 #include <sge/src/cg/parameter/get_type.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/error_message.hpp>
-#include <fcppt/math/matrix/dim.hpp>
+#include <fcppt/cast/size_fun.hpp>
+#include <fcppt/math/dim/comparison.hpp>
+#include <fcppt/math/dim/contents.hpp>
+#include <fcppt/math/dim/static.hpp>
+#include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
@@ -35,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::cg::parameter::matrix::detail::check_size(
 	sge::cg::parameter::object const &_parameter,
-	fcppt::math::matrix::dim const &_dim
+	sge::cg::parameter::matrix::detail::size const _dim
 )
 {
 	int
@@ -55,32 +61,37 @@ sge::cg::parameter::matrix::detail::check_size(
 		sge::cg::exception
 	)
 
-	FCPPT_ASSERT_ERROR_MESSAGE(
-		rows
-		!=
-		0
-		&&
+	fcppt::math::dim::static_<
+		int,
+		2
+	> const result(
+		rows,
 		columns
+	);
+
+	FCPPT_ASSERT_ERROR_MESSAGE(
+		fcppt::math::dim::contents(
+			result
+		)
 		!=
 		0,
 		FCPPT_TEXT("Parameter is not a matrix")
 	);
 
+	auto const unsigned_result(
+		fcppt::math::dim::structure_cast<
+			sge::cg::parameter::matrix::detail::size,
+			fcppt::cast::size_fun
+		>(
+			fcppt::math::dim::to_unsigned(
+				result
+			)
+		)
+	);
+
 	FCPPT_ASSERT_ERROR(
-		static_cast<
-			fcppt::math::matrix::dim::value_type
-		>(
-			rows
-		)
+		_dim
 		==
-		_dim.w()
-		&&
-		static_cast<
-			fcppt::math::matrix::dim::value_type
-		>(
-			columns
-		)
-		==
-		_dim.h()
+		unsigned_result
 	);
 }

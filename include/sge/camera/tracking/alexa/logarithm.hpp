@@ -18,19 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_RANGE_CHECK_HPP_INCLUDED
-#define SGE_OPENGL_RANGE_CHECK_HPP_INCLUDED
+#ifndef SGE_CAMERA_TRACKING_ALEXA_LOGARITHM_HPP_INCLUDED
+#define SGE_CAMERA_TRACKING_ALEXA_LOGARITHM_HPP_INCLUDED
 
-#include <fcppt/make_int_range_count.hpp>
-#include <fcppt/algorithm/all_of.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/math/matrix/logarithm.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/matrix/static.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace camera
+{
+namespace tracking
+{
+namespace alexa
 {
 
 template<
@@ -38,43 +42,43 @@ template<
 	fcppt::math::size_type N,
 	typename S
 >
-bool
-range_check(
-	fcppt::math::dim::object<
+fcppt::math::matrix::static_<
+	T,
+	N,
+	N
+>
+logarithm(
+	fcppt::math::matrix::object<
 		T,
 		N,
+		N,
 		S
-	> const &_dim,
-	fcppt::math::box::object<
-		T,
-		N
-	> const &_box
+	> const &_matrix
 )
 {
 	return
-		fcppt::algorithm::all_of(
-			fcppt::make_int_range_count(
-				N
+		fcppt::math::matrix::logarithm(
+			_matrix,
+			fcppt::literal<
+				T
+			>(
+				1.0e-4
 			),
-			[
-				&_dim,
-				&_box
-			](
-				fcppt::math::size_type const _index
+			fcppt::literal<
+				T
+			>(
+				1.0e-9
+			),
+			fcppt::literal<
+				T
+			>(
+				1.0e-6
 			)
-			{
-				return
-					_box.max()[
-						_index
-					]
-					<=
-					_dim[
-						_index
-					];
-			}
 		);
 }
 
+}
+}
 }
 }
 

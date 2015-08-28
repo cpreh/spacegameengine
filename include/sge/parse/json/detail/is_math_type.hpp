@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_DETAIL_IS_MATH_TYPE_HPP_INCLUDED
 #define SGE_PARSE_JSON_DETAIL_IS_MATH_TYPE_HPP_INCLUDED
 
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/object_fwd.hpp>
 #include <fcppt/math/vector/object_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -54,7 +55,7 @@ std::false_type
 
 template<
 	typename T,
-	typename N,
+	fcppt::math::size_type N,
 	typename S
 >
 struct is_math_type<
@@ -71,7 +72,7 @@ std::true_type
 
 template<
 	typename T,
-	typename N,
+	fcppt::math::size_type N,
 	typename S
 >
 struct is_math_type<

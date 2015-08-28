@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/detail/symbol.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
-#include <fcppt/math/matrix/dim_fwd.hpp>
+#include <sge/cg/parameter/matrix/detail/size_fwd.hpp>
 
 
 namespace sge
@@ -41,7 +41,7 @@ SGE_CG_DETAIL_SYMBOL
 void
 check_size(
 	sge::cg::parameter::object const &,
-	fcppt::math::matrix::dim const &
+	sge::cg::parameter::matrix::detail::size
 );
 
 }

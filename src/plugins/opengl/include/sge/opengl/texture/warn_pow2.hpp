@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/is_power_of_2.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -40,7 +41,7 @@ namespace texture
 
 template<
 	typename T,
-	typename N,
+	fcppt::math::size_type N,
 	typename S
 >
 void

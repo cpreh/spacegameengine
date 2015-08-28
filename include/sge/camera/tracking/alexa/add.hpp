@@ -21,9 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_TRACKING_ALEXA_ADD_HPP_INCLUDED
 #define SGE_CAMERA_TRACKING_ALEXA_ADD_HPP_INCLUDED
 
+#include <sge/camera/tracking/alexa/logarithm.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/exponential_pade.hpp>
-#include <fcppt/math/matrix/logarithm.hpp>
+#include <fcppt/math/matrix/object_impl.hpp>
+#include <fcppt/math/matrix/static.hpp>
 
 
 namespace sge
@@ -34,41 +37,45 @@ namespace tracking
 {
 namespace alexa
 {
-template
-<
-	typename T,
-	typename DN,
-	typename S
->
-fcppt::math::matrix::object<T,DN,DN,S> const
-add(
-	fcppt::math::matrix::object<T,DN,DN,S> const &A,
-	fcppt::math::matrix::object<T,DN,DN,S> const &B)
-{
-	T const
-		e1 =
-			static_cast<T>(
-				1.0e-4),
-		e2 =
-			static_cast<T>(
-				1.0e-9),
-		e3 =
-			static_cast<T>(
-				1.0e-6);
 
+template<
+	typename T,
+	fcppt::math::size_type N,
+	typename S1,
+	typename S2
+>
+fcppt::math::matrix::static_<
+	T,
+	N,
+	N
+>
+add(
+	fcppt::math::matrix::object<
+		T,
+		N,
+		N,
+		S1
+	> const &_a,
+	fcppt::math::matrix::object<
+		T,
+		N,
+		N,
+		S2
+	> const &_b
+)
+{
 	return
 		fcppt::math::matrix::exponential_pade(
-			fcppt::math::matrix::logarithm(
-				A,
-				e1,
-				e2,
-				e3) +
-			fcppt::math::matrix::logarithm(
-				B,
-				e1,
-				e2,
-				e3));
+			sge::camera::tracking::alexa::logarithm(
+				_a
+			)
+			+
+			sge::camera::tracking::alexa::logarithm(
+				_b
+			)
+		);
 }
+
 }
 }
 }

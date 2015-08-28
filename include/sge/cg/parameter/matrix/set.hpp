@@ -26,8 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/parameter/detail/check_base_type.hpp>
 #include <sge/cg/parameter/matrix/detail/check_size.hpp>
 #include <sge/cg/parameter/matrix/detail/set.hpp>
+#include <sge/cg/parameter/matrix/detail/size.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
-#include <fcppt/math/matrix/size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -44,11 +45,12 @@ namespace matrix
 
 template<
 	typename T,
-	typename N,
-	typename M,
+	fcppt::math::size_type R,
+	fcppt::math::size_type C,
 	typename S
 >
-typename boost::enable_if<
+typename
+boost::enable_if<
 	sge::cg::parameter::is_int_float_double<
 		T
 	>,
@@ -58,16 +60,17 @@ set(
 	sge::cg::parameter::object const &_parameter,
 	fcppt::math::matrix::object<
 		T,
-		N,
-		M,
+		R,
+		C,
 		S
 	> const &_matrix
 )
 {
 	sge::cg::parameter::matrix::detail::check_size(
 		_parameter,
-		fcppt::math::matrix::size(
-			_matrix
+		sge::cg::parameter::matrix::detail::size(
+			R,
+			C
 		)
 	);
 
