@@ -36,7 +36,7 @@ sge::d3d9::devicefuncs::set_clip_plane(
 	if(
 		_device.SetClipPlane(
 			_index,
-			_value.get().data()
+			_value.get().storage().data()
 		)
 		!= D3D_OK
 	)

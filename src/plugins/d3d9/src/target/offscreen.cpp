@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/index_map_impl.hpp>
+#include <fcppt/math/box/null.hpp>
 
 
 sge::d3d9::target::offscreen::offscreen(
@@ -50,7 +51,9 @@ sge::d3d9::target::offscreen::offscreen(
 	base(
 		_device,
 		sge::renderer::target::viewport(
-			sge::renderer::pixel_rect::null()
+			fcppt::math::box::null<
+				sge::renderer::pixel_rect
+			>()
 		),
 		_max_surfaces
 	),

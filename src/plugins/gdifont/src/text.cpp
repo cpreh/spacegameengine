@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/math/box/null.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
@@ -175,10 +176,9 @@ sge::gdifont::text::cursor_rect(
 {
 	// FIXME
 	return
-		sge::font::rect(
-			sge::font::rect::vector::null(),
-			sge::font::rect::dim::null()
-		);
+		fcppt::math::box::null<
+			sge::font::rect
+		>();
 }
 
 sge::font::optional_index const

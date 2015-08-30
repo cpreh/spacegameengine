@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/matrix.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstring>
 #include <fcppt/config/external_end.hpp>
@@ -36,10 +35,14 @@ sge::d3d9::convert::matrix(
 
 	std::memcpy(
 		ret.m[0],
-		_matrix.data(),
-		sizeof(renderer::matrix4::value_type)
-		* _matrix.size()
+		_matrix.storage().data(),
+		sizeof(
+			sge::renderer::matrix4::value_type
+		)
+		*
+		_matrix.storage().size()
 	);
 
-	return ret;
+	return
+		ret;
 }

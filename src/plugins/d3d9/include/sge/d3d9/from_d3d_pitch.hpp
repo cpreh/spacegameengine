@@ -26,6 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/size_type.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/format_stride.hpp>
+#include <fcppt/cast/to_signed.hpp>
+#include <fcppt/math/at_c.hpp>
+#include <fcppt/math/dim/contents.hpp>
+#include <fcppt/math/dim/init.hpp>
 #include <fcppt/math/dim/narrow_cast.hpp>
 
 
@@ -39,7 +43,7 @@ template<
 >
 sge::image::pitch<
 	Dim
-> const
+>
 from_d3d_pitch(
 	sge::image::pitch<
 		Dim
@@ -50,40 +54,46 @@ from_d3d_pitch(
 	sge::image::color::format const _format
 )
 {
-	typedef
-	sge::image::pitch<
-		Dim
-	>
-	dest_type;
-
-	dest_type dest;
-
-	for(
-		typename dest_type::size_type index = 0;
-		index < dest_type::dim_wrapper::value;
-		++index
-	)
-		dest[index] =
-			_pitches[index]
-			-
-			static_cast<
-				typename dest_type::value_type
-			>(
-				fcppt::math::dim::narrow_cast<
-					sge::image::dim<
-						Dim - 1
-					>
-				>(
-					_dim
-				).content()
-				*
-				sge::image::color::format_stride(
-					_format
-				)
-			);
-
 	return
-		dest;
+		fcppt::math::dim::init<
+			sge::image::pitch<
+				Dim
+			>
+		>(
+			[
+				&_pitches,
+				&_dim,
+				_format
+			](
+				auto const _index
+			)
+			{
+				return
+					fcppt::math::at_c<
+						_index
+					>(
+						_pitches
+					)
+					-
+					fcppt::cast::to_signed(
+						fcppt::math::dim::contents(
+							fcppt::math::dim::narrow_cast<
+								sge::image::dim<
+									Dim
+									-
+									1
+								>
+							>(
+								_dim
+							)
+						)
+						*
+						sge::image::color::format_stride(
+							_format
+						)
+					);
+			}
+		);
 }
 
 }
