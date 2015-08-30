@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -47,16 +48,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 awl::main::exit_code const
 example_main(
-	awl::main::function_context const &)
+	awl::main::function_context const &
+)
 try
 {
 	sge::rucksack::testbed::object testbed(
 		sge::window::title(
-			FCPPT_TEXT("rucksack enumeration test")));
+			FCPPT_TEXT("rucksack enumeration test")
+		)
+	);
 
 	sge::rucksack::viewport::adaptor viewport_box(
 		testbed.systems().viewport_manager(),
-		testbed.systems().renderer_device_core());
+		testbed.systems().renderer_device_core()
+	);
 
 	sge::rucksack::widget::enumeration enumeration_box(
 		sge::rucksack::padding(
@@ -65,40 +70,58 @@ try
 	);
 
 	viewport_box.child(
-		enumeration_box);
+		enumeration_box
+	);
 
-	typedef fcppt::random::generator::minstd_rand default_generator;
+	typedef
+	fcppt::random::generator::minstd_rand
+	default_generator;
 
 	default_generator def_gen(
 		fcppt::random::generator::seed_from_chrono<
 			default_generator::seed
-		>());
+		>()
+	);
 
-	typedef fcppt::random::distribution::basic<
+	typedef
+	fcppt::random::distribution::basic<
 		fcppt::random::distribution::parameters::uniform_int<
 			sge::rucksack::scalar
 		>
-	> scalar_distribution;
+	>
+	scalar_distribution;
 
-	fcppt::random::variate<default_generator, scalar_distribution>
+	fcppt::random::variate<
+		default_generator,
+		scalar_distribution
+	>
 		size_rng_w(
 			def_gen,
 			scalar_distribution(
 				scalar_distribution::param_type::min(
-					10),
+					10
+				),
 				scalar_distribution::param_type::max(
-					300))),
+					300
+				)
+			)
+		),
 		size_rng_h(
 			def_gen,
 			scalar_distribution(
 				scalar_distribution::param_type::min(
-					10),
+					10
+				),
 				scalar_distribution::param_type::max(
-					300)));
+					300
+				)
+			)
+		);
 
 	testbed.add_widget(
 		viewport_box,
-		sge::image::color::predef::blue());
+		sge::image::color::predef::blue()
+	);
 
 	typedef
 	fcppt::unique_ptr<
@@ -159,14 +182,17 @@ try
 		);
 	}
 
-	return testbed.run();
+	return
+		testbed.run();
 }
 catch(
-	fcppt::exception const &error)
+	fcppt::exception const &_error
+)
 {
 	fcppt::io::cerr()
-		<< error.string()
+		<< _error.string()
 		<< FCPPT_TEXT('\n');
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
