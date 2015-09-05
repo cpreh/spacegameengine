@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/optional_bind.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/algorithm/find_by_exn.hpp>
+#include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -39,52 +40,54 @@ sge::x11input::cursor::find_scroll_valuator(
 )
 {
 	return
-		fcppt::algorithm::find_by_exn(
-			fcppt::make_int_range_count(
-				_info.num_classes
-			),
-			[
-				_number,
-				&_info
-			](
-				int const _index
-			)
-			{
-				return
-					fcppt::optional_bind(
-						sge::x11input::device::info::class_maybe<
-							XIValuatorClassInfo
-						>(
-							*_info.classes[
-								_index
-							]
-						),
-						[
-							_number
-						](
-							XIValuatorClassInfo const &_valuator_class
-						)
-						{
-							typedef
-							fcppt::optional<
-								XIValuatorClassInfo const &
-							>
-							result_type;
+		fcppt::optional_to_exception(
+			fcppt::algorithm::find_by_opt(
+				fcppt::make_int_range_count(
+					_info.num_classes
+				),
+				[
+					_number,
+					&_info
+				](
+					int const _index
+				)
+				{
+					return
+						fcppt::optional_bind(
+							sge::x11input::device::info::class_maybe<
+								XIValuatorClassInfo
+							>(
+								*_info.classes[
+									_index
+								]
+							),
+							[
+								_number
+							](
+								XIValuatorClassInfo const &_valuator_class
+							)
+							{
+								typedef
+								fcppt::optional<
+									XIValuatorClassInfo const &
+								>
+								result_type;
 
-							return
-								_valuator_class.number
-								==
-								_number.get()
-								?
-									result_type(
-										_valuator_class
-									)
-								:
-									result_type()
-								;
-						}
-					);
-			},
+								return
+									_valuator_class.number
+									==
+									_number.get()
+									?
+										result_type(
+											_valuator_class
+										)
+									:
+										result_type()
+									;
+							}
+						);
+				}
+			),
 			[]{
 				return
 					sge::input::exception{
