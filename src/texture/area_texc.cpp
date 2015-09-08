@@ -88,11 +88,13 @@ sge::texture::area_texc(
 				<< FCPPT_TEXT('!')
 		);
 
-	typedef fcppt::math::box::rect<
+	typedef
+	fcppt::math::box::rect<
 		T
-	> ret_type;
+	>
+	ret_type;
 
-	ret_type ret(
+	ret_type const coords(
 		sge::renderer::lock_rect_to_coords<
 			T
 		>(
@@ -101,16 +103,15 @@ sge::texture::area_texc(
 		)
 	);
 
-	ret.size(
-		fcppt::math::vector::to_dim(
-			_repeat
-			*
-			ret.size()
-		)
-	);
-
 	return
-		ret;
+		ret_type(
+			coords.pos(),
+			fcppt::math::vector::to_dim(
+				_repeat
+				*
+				coords.size()
+			)
+		);
 }
 
 #define SGE_TEXTURE_INSTANTIATE_AREA_TEXC(\

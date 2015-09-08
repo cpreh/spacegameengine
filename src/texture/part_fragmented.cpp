@@ -92,11 +92,13 @@ sge::texture::part_fragmented::area() const
 sge::renderer::texture::planar &
 sge::texture::part_fragmented::texture() const
 {
-	return fragment_.texture();
+	return
+		fragment_.texture();
 }
 
 bool
 sge::texture::part_fragmented::repeatable() const
 {
-	return false;
+	return
+		false;
 }

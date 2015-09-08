@@ -180,7 +180,7 @@ sge::console::gfx::object::render(
 )
 {
 	sge::font::unit current_y(
-		area_.h()
+		area_.size().h()
 	);
 
 	if(
@@ -301,7 +301,7 @@ sge::console::gfx::object::render_line(
 			sge::font::align_h::variant{
 				sge::font::align_h::left(
 					sge::font::align_h::max_width(
-						area_.w()
+						area_.size().w()
 					)
 				)
 			}

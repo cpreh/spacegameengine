@@ -12,11 +12,16 @@ set(
 	src/font/bitmap/include/sge/src/font/bitmap/const_view.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/line.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/line_fwd.hpp
+	src/font/bitmap/include/sge/src/font/bitmap/line_height.hpp
+	src/font/bitmap/include/sge/src/font/bitmap/line_vector.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/load_offset.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/load_one_file.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/load_rect.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/logger.hpp
+	src/font/bitmap/include/sge/src/font/bitmap/make_rep.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/object.hpp
+	src/font/bitmap/include/sge/src/font/bitmap/rep.hpp
+	src/font/bitmap/include/sge/src/font/bitmap/rep_fwd.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/text.hpp
 	src/font/bitmap/line.cpp
 	src/font/bitmap/load_offset.cpp
@@ -24,7 +29,9 @@ set(
 	src/font/bitmap/load_rect.cpp
 	src/font/bitmap/log_location.cpp
 	src/font/bitmap/logger.cpp
+	src/font/bitmap/make_rep.cpp
 	src/font/bitmap/object.cpp
+	src/font/bitmap/rep.cpp
 	src/font/bitmap/text.cpp
 )
 

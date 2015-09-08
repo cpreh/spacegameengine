@@ -213,7 +213,7 @@ sge::font::bitmap::object::metrics() const
 	return
 		sge::font::metrics(
 			sge::font::height(
-				line_height_
+				line_height_.get()
 			)
 		);
 }

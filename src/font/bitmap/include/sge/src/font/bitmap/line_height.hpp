@@ -18,28 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/lock_rect.hpp>
-#include <sge/texture/atlasing/inner_rect.hpp>
-#include <sge/texture/atlasing/make_inner_rect.hpp>
-#include <sge/texture/atlasing/outer_rect.hpp>
-#include <fcppt/math/box/shrink.hpp>
-#include <fcppt/math/vector/fill.hpp>
+#ifndef SGE_SRC_FONT_BITMAP_LINE_HEIGHT_HPP_INCLUDED
+#define SGE_SRC_FONT_BITMAP_LINE_HEIGHT_HPP_INCLUDED
+
+#include <sge/font/unit.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
-sge::texture::atlasing::inner_rect const
-sge::texture::atlasing::make_inner_rect(
-	sge::texture::atlasing::outer_rect const &_outer
-)
+namespace sge
 {
-	return
-		sge::texture::atlasing::inner_rect(
-			fcppt::math::box::shrink(
-				_outer.get(),
-				fcppt::math::vector::fill<
-					sge::renderer::lock_rect::vector
-				>(
-					1u
-				)
-			)
-		);
+namespace font
+{
+namespace bitmap
+{
+
+FCPPT_MAKE_STRONG_TYPEDEF(
+	sge::font::unit,
+	line_height
+);
+
 }
+}
+}
+
+#endif

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/rect.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/config/choices.hpp>
@@ -50,12 +51,18 @@ sge::gui::impl::fill_rect(
 	sge::image::color::any::object const &_color
 )
 {
-	if(
-		_rect.w() <= 0
-		||
-		_rect.h() <= 0
-	)
-		return;
+	{
+		sge::rucksack::dim const size(
+			_rect.size()
+		);
+
+		if(
+			size.w() <= -0
+			||
+			size.h() <= 0
+		)
+			return;
+	}
 
 	typedef
 	sge::image::color::rgba8_format

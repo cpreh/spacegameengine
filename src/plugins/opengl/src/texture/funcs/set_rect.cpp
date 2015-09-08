@@ -91,6 +91,10 @@ sge::opengl::texture::funcs::set_rect(
 			.str()
 		);
 
+	sge::renderer::lock_rect::dim const lock_size(
+		_lock_rect.size()
+	);
+
 	::glTexSubImage2D(
 		_buffer_type.get(),
 		fcppt::cast::to_signed(
@@ -114,14 +118,14 @@ sge::opengl::texture::funcs::set_rect(
 			GLsizei
 		>(
 			fcppt::cast::to_signed(
-				_lock_rect.w()
+				lock_size.w()
 			)
 		),
 		fcppt::cast::size<
 			GLsizei
 		>(
 			fcppt::cast::to_signed(
-				_lock_rect.h()
+				lock_size.h()
 			)
 		),
 		_format.get(),

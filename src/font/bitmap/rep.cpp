@@ -18,28 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/lock_rect.hpp>
-#include <sge/texture/atlasing/inner_rect.hpp>
-#include <sge/texture/atlasing/make_inner_rect.hpp>
-#include <sge/texture/atlasing/outer_rect.hpp>
-#include <fcppt/math/box/shrink.hpp>
-#include <fcppt/math/vector/fill.hpp>
+#include <sge/font/rect.hpp>
+#include <sge/src/font/bitmap/line_vector.hpp>
+#include <sge/src/font/bitmap/rep.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::texture::atlasing::inner_rect const
-sge::texture::atlasing::make_inner_rect(
-	sge::texture::atlasing::outer_rect const &_outer
+sge::font::bitmap::rep::rep(
+	sge::font::bitmap::line_vector &&_lines,
+	sge::font::rect const &_rect
 )
+:
+	lines_(
+		std::move(
+			_lines
+		)
+	),
+	rect_(
+		_rect
+	)
+{
+}
+
+sge::font::bitmap::line_vector const &
+sge::font::bitmap::rep::lines() const
 {
 	return
-		sge::texture::atlasing::inner_rect(
-			fcppt::math::box::shrink(
-				_outer.get(),
-				fcppt::math::vector::fill<
-					sge::renderer::lock_rect::vector
-				>(
-					1u
-				)
-			)
-		);
+		lines_;
+}
+
+sge::font::rect const
+sge::font::bitmap::rep::rect() const
+{
+	return
+		rect_;
 }

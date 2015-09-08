@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/warning.hpp>
 #include <fcppt/math/box/extend_bounding_box.hpp>
 #include <fcppt/math/box/null.hpp>
+#include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -228,8 +229,13 @@ sge::model::obj::prototype::prototype(
 			coordinate[2] = -coordinate[2];
 
 			if(vertex_coordinates_.empty())
-				bounding_box_.pos(
-					coordinate);
+				bounding_box_ =
+					sge::model::obj::box(
+						coordinate,
+						fcppt::math::dim::null<
+							sge::model::obj::box::dim
+						>()
+					);
 			else
 				bounding_box_ =
 					fcppt::math::box::extend_bounding_box(

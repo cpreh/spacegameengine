@@ -121,7 +121,7 @@ sge::opencl::command_queue::scoped_planar_mapping::view()
 			image2d::pitch(
 				static_cast<image2d::pitch::value_type>(
 					pitch_ -
-					rect_.w() *
+					rect_.size().w() *
 					sge::image::color::format_stride(
 						sge_image_format_))));
 }

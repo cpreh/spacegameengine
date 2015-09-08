@@ -19,22 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/dim.hpp>
-#include <sge/font/flags.hpp>
-#include <sge/font/flags_field.hpp>
 #include <sge/font/index.hpp>
 #include <sge/font/optional_index.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
-#include <sge/font/to_fcppt_string.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/font/view.hpp>
 #include <sge/font/align_h/center.hpp>
-#include <sge/font/align_h/extract_max_width.hpp>
 #include <sge/font/align_h/left.hpp>
-#include <sge/font/align_h/optional_max_width.hpp>
 #include <sge/font/align_h/right.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
@@ -49,291 +44,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/sub.hpp>
 #include <sge/src/font/bitmap/char_map.hpp>
 #include <sge/src/font/bitmap/char_metric.hpp>
-#include <sge/src/font/bitmap/char_metric_ref.hpp>
 #include <sge/src/font/bitmap/char_metric_ref_vector.hpp>
 #include <sge/src/font/bitmap/const_view.hpp>
 #include <sge/src/font/bitmap/line.hpp>
-#include <sge/src/font/bitmap/logger.hpp>
+#include <sge/src/font/bitmap/line_height.hpp>
+#include <sge/src/font/bitmap/make_rep.hpp>
 #include <sge/src/font/bitmap/text.hpp>
-#include <fcppt/const.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
-#include <fcppt/log/_.hpp>
-#include <fcppt/log/error.hpp>
 #include <fcppt/math/box/null.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_unsigned.hpp>
-#include <fcppt/math/vector/null.hpp>
 #include <fcppt/variant/match.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <algorithm>
-#include <iterator>
-#include <locale>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::font::bitmap::text::text(
 	sge::font::bitmap::char_map const &_char_map,
 	sge::font::string const &_string,
 	sge::font::text_parameters const &_text_parameters,
-	sge::font::unit const _line_height
+	sge::font::bitmap::line_height const _line_height
 )
 :
-	lines_(),
-	rect_(
-		fcppt::math::box::null<
-			sge::font::rect
-		>()
-	),
 	line_height_(
 		_line_height
 	),
 	align_h_(
 		_text_parameters.align_h()
+	),
+	rep_(
+		sge::font::bitmap::make_rep(
+			_char_map,
+			_line_height,
+			_string,
+			_text_parameters
+		)
 	)
 {
-	sge::font::unit current_x(
-		0
-	);
-
-	sge::font::unit last_space_width(
-		0
-	);
-
-	sge::font::flags_field const flags(
-		_text_parameters.flags()
-	);
-
-	sge::font::align_h::optional_max_width const max_width(
-		sge::font::align_h::extract_max_width(
-			align_h_
-		)
-	);
-
-	sge::font::bitmap::char_metric_ref_vector current_line;
-
-	for(
-		sge::font::string::const_iterator
-			it(
-				_string.begin()
-			),
-			last_space(
-				_string.end()
-			);
-		it != _string.end();
-		++it
-	)
-	{
-		sge::font::bitmap::char_map::const_iterator const char_it(
-			_char_map.find(
-				*it
-			)
-		);
-
-		if(
-			char_it
-			==
-			_char_map.end()
-		)
-		{
-			FCPPT_LOG_ERROR(
-				sge::font::bitmap::logger(),
-				fcppt::log::_
-					<<
-					FCPPT_TEXT("Bitmapfont character '")
-					<<
-					sge::font::to_fcppt_string(
-						sge::font::string(
-							1u,
-							*it
-						)
-					)
-					<<
-					FCPPT_TEXT("' not available!")
-			);
-
-			continue;
-		}
-
-		sge::font::bitmap::char_metric const &metric(
-			char_it->second
-		);
-
-		current_line.push_back(
-			sge::font::bitmap::char_metric_ref(
-				metric
-			)
-		);
-
-		current_x += metric.x_advance();
-
-		bool const space_exceeded(
-			fcppt::maybe(
-				max_width,
-				fcppt::const_(
-					false
-				),
-				[
-					current_x
-				](
-					sge::font::align_h::max_width const _max_width
-				)
-				{
-					return
-						current_x
-						>
-						_max_width.get();
-				}
-			)
-		);
-
-		bool const new_line(
-			space_exceeded
-			||
-			std::next(
-				it
-			)
-			==
-			_string.end()
-		);
-
-		sge::font::unit current_width(
-			current_x
-		);
-
-		if(
-			space_exceeded
-		)
-		{
-			if(
-				current_line.empty()
-			)
-				break;
-
-			if(
-				!(
-					flags
-					&
-					sge::font::flags::no_word_wrap
-				)
-				&&
-				last_space
-				!=
-				_string.end()
-			)
-			{
-				current_line.erase(
-					current_line.end()
-					-
-					std::distance(
-						last_space,
-						it
-					),
-					current_line.end()
-				);
-
-				it = last_space;
-
-				current_width = last_space_width;
-			}
-			else
-			{
-				current_line.pop_back();
-
-				current_width -= metric.x_advance();
-
-				--it;
-			}
-		}
-
-		if(
-			new_line
-		)
-		{
-			lines_.push_back(
-				sge::font::bitmap::line{
-					current_line,
-					current_width
-				}
-			);
-
-			rect_.w(
-				std::max(
-					rect_.w(),
-					current_width
-				)
-			);
-
-			if(
-				flags
-				&
-				sge::font::flags::no_multi_line
-			)
-				break;
-
-			current_line.clear();
-
-			current_x = 0;
-
-			last_space = _string.end();
-		}
-		else
-		{
-			if(
-				std::isspace(
-					*it,
-					std::locale()
-				)
-			)
-			{
-				last_space_width = current_x;
-
-				last_space = it;
-			}
-		}
-	}
-
-	rect_.h(
-		line_height_
-		*
-		static_cast<
-			sge::font::unit
-		>(
-			lines_.size()
-		)
-	);
-
-	fcppt::variant::match(
-		align_h_,
-		[](
-			sge::font::align_h::left const &
-		)
-		{
-		},
-		[
-			this
-		](
-			sge::font::align_h::center const &_center
-		)
-		{
-			rect_.left(
-				(_center.max_width().get() - rect_.w()) / 2
-			);
-		},
-		[
-			this
-		](
-			sge::font::align_h::right const &_right
-		)
-		{
-			rect_.left(
-				_right.max_width().get() - rect_.w()
-			);
-		}
-	);
 }
 
 sge::font::bitmap::text::~text()
@@ -357,7 +104,7 @@ sge::font::bitmap::text::render(
 					fcppt::cast::size_fun
 				>(
 					fcppt::math::dim::to_unsigned(
-						rect_.size()
+						rep_.rect().size()
 					)
 				)
 			)
@@ -377,7 +124,7 @@ sge::font::bitmap::text::render(
 	for(
 		sge::font::bitmap::line const &line
 		:
-		lines_
+		rep_.lines()
 	)
 	{
 		sge::font::unit left(
@@ -398,7 +145,13 @@ sge::font::bitmap::text::render(
 				)
 				{
 					return
-						(rect_.w() - line.width()) / 2;
+						(
+							this->logical_size().w()
+							-
+							line.width()
+						)
+						/
+						2;
 				},
 				[
 					&line,
@@ -408,7 +161,9 @@ sge::font::bitmap::text::render(
 				)
 				{
 					return
-						rect_.w() - line.width();
+						this->logical_size().w()
+						-
+						line.width();
 				}
 			)
 		);
@@ -461,10 +216,12 @@ sge::font::bitmap::text::render(
 				sge::image::algorithm::uninitialized::no
 			);
 
-			left += char_metric.x_advance();
+			left +=
+				char_metric.x_advance();
 		}
 
-		top += line_height_;
+		top +=
+			line_height_.get();
 	}
 }
 
@@ -472,14 +229,14 @@ sge::font::rect const
 sge::font::bitmap::text::rect() const
 {
 	return
-		rect_;
+		rep_.rect();
 }
 
 sge::font::dim const
 sge::font::bitmap::text::logical_size() const
 {
 	return
-		rect_.size();
+		this->rect().size();
 }
 
 sge::font::rect const

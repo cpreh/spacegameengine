@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <fcppt/math/box/shrink.hpp>
+#include <fcppt/math/vector/fill.hpp>
 
 
 sge::rucksack::rect const
@@ -34,8 +35,9 @@ sge::gui::impl::shrink_rect(
 	return
 		fcppt::math::box::shrink(
 			_rect,
-			sge::rucksack::vector(
-				_scalar,
+			fcppt::math::vector::fill<
+				sge::rucksack::vector
+			>(
 				_scalar
 			)
 		);

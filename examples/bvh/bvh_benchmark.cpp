@@ -72,13 +72,10 @@ try
 	>
 	bvh_tree_traits;
 
-	bvh_box const total_bounding_box(
-		bvh_box::vector(
-			0.0f,
-			0.0f),
-		bvh_box::dim(
-			1024.0f,
-			1024.0f));
+	bvh_box::dim const total_bounding_box(
+		1024.0f,
+		1024.0f
+	);
 
 	typedef
 	fcppt::random::generator::minstd_rand

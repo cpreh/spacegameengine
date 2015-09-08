@@ -220,7 +220,7 @@ sge::camera::ortho_freelook::object::mouse_axis_callback(
 		](
 			sge::renderer::projection::rect &_current_projection_rectangle
 		){
-			renderer::vector2 const
+			sge::renderer::vector2 const
 				pan_axis(
 					_axis.code() == input::mouse::axis_code::x
 					?
@@ -240,9 +240,13 @@ sge::camera::ortho_freelook::object::mouse_axis_callback(
 					_current_projection_rectangle.size()
 				);
 
-			_current_projection_rectangle.pos(
-				_current_projection_rectangle.pos() +
-				panning_speed);
+			_current_projection_rectangle =
+				sge::renderer::projection::rect(
+					_current_projection_rectangle.pos()
+					+
+					panning_speed,
+					_current_projection_rectangle.size()
+				);
 		}
 	);
 }

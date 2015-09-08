@@ -151,10 +151,8 @@ sge::gui::impl::style::simple::draw_bar(
 			sge::rucksack::axis::y
 			?
 				sge::rucksack::vector(
-					inner_rect.pos().x(),
-					inner_rect.pos().y()
-					+
-					inner_rect.h()
+					inner_rect.left(),
+					inner_rect.bottom()
 					-
 					fill_size
 				)
@@ -168,7 +166,7 @@ sge::gui::impl::style::simple::draw_bar(
 				?
 					fill_size
 				:
-					inner_rect.w()
+					inner_rect.size().w()
 				,
 				_axis
 				==
@@ -176,7 +174,7 @@ sge::gui::impl::style::simple::draw_bar(
 				?
 					fill_size
 				:
-					inner_rect.h()
+					inner_rect.size().h()
 			)
 		),
 		_fill_color.get()
@@ -207,12 +205,16 @@ sge::gui::impl::style::simple::draw_frame(
 		2
 	);
 
+	sge::rucksack::dim const size(
+		_area.size()
+	);
+
 	_renderer.fill_rect(
 		_context,
 		sge::rucksack::rect(
 			_area.pos(),
 			sge::rucksack::dim(
-				_area.w(),
+				size.w(),
 				border_size
 			)
 		),
@@ -225,7 +227,7 @@ sge::gui::impl::style::simple::draw_frame(
 			_area.pos(),
 			sge::rucksack::dim(
 				border_size,
-				_area.h()
+				size.h()
 			)
 		),
 		sge::gui::impl::style::border_color()
@@ -237,14 +239,14 @@ sge::gui::impl::style::simple::draw_frame(
 			_area.pos()
 			+
 			sge::rucksack::dim(
-				_area.w()
+				size.w()
 				-
 				border_size,
 				0
 			),
 			sge::rucksack::dim(
 				border_size,
-				_area.h()
+				size.h()
 			)
 		),
 		sge::gui::impl::style::border_color()
@@ -257,12 +259,12 @@ sge::gui::impl::style::simple::draw_frame(
 			+
 			sge::rucksack::dim(
 				0,
-				_area.h()
+				size.h()
 				-
 				border_size
 			),
 			sge::rucksack::dim(
-				_area.w(),
+				size.w(),
 				border_size
 			)
 		),

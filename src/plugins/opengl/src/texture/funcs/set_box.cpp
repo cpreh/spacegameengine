@@ -92,6 +92,10 @@ sge::opengl::texture::funcs::set_box(
 			.str()
 		);
 
+	sge::renderer::lock_box::dim const lock_size(
+		_lock_box.size()
+	);
+
 	// TODO: Pass the config into this function
 	FCPPT_ASSERT_OPTIONAL_ERROR(
 		sge::opengl::context::use<
@@ -129,21 +133,21 @@ sge::opengl::texture::funcs::set_box(
 			GLsizei
 		>(
 			fcppt::cast::to_signed(
-				_lock_box.w()
+				lock_size.w()
 			)
 		),
 		fcppt::cast::size<
 			GLsizei
 		>(
 			fcppt::cast::to_signed(
-				_lock_box.h()
+				lock_size.h()
 			)
 		),
 		fcppt::cast::size<
 			GLsizei
 		>(
 			fcppt::cast::to_signed(
-				_lock_box.d()
+				lock_size.d()
 			)
 		),
 		_format.get(),

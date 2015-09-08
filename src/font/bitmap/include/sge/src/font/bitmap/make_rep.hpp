@@ -18,28 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/lock_rect.hpp>
-#include <sge/texture/atlasing/inner_rect.hpp>
-#include <sge/texture/atlasing/make_inner_rect.hpp>
-#include <sge/texture/atlasing/outer_rect.hpp>
-#include <fcppt/math/box/shrink.hpp>
-#include <fcppt/math/vector/fill.hpp>
+#ifndef SGE_SRC_FONT_BITMAP_MAKE_REP_HPP_INCLUDED
+#define SGE_SRC_FONT_BITMAP_MAKE_REP_HPP_INCLUDED
+
+#include <sge/font/string.hpp>
+#include <sge/font/text_parameters_fwd.hpp>
+#include <sge/src/font/bitmap/char_map.hpp>
+#include <sge/src/font/bitmap/line_height.hpp>
+#include <sge/src/font/bitmap/rep.hpp>
 
 
-sge::texture::atlasing::inner_rect const
-sge::texture::atlasing::make_inner_rect(
-	sge::texture::atlasing::outer_rect const &_outer
-)
+namespace sge
 {
-	return
-		sge::texture::atlasing::inner_rect(
-			fcppt::math::box::shrink(
-				_outer.get(),
-				fcppt::math::vector::fill<
-					sge::renderer::lock_rect::vector
-				>(
-					1u
-				)
-			)
-		);
+namespace font
+{
+namespace bitmap
+{
+
+sge::font::bitmap::rep
+make_rep(
+	sge::font::bitmap::char_map const &,
+	sge::font::bitmap::line_height,
+	sge::font::string const &,
+	sge::font::text_parameters const &
+);
+
 }
+}
+}
+
+#endif

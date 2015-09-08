@@ -235,7 +235,7 @@ sge::gui::widget::edit::on_draw(
 			sge::font::dim(
 				// TODO: How do we specify the width?
 				2,
-				cursor_rect.h()
+				cursor_rect.size().h()
 			)
 		),
 		style_.text_color().get()
@@ -265,7 +265,7 @@ sge::gui::widget::edit::on_click(
 			if(
 				_pos.x()
 				>=
-				static_text_.rect().w()
+				static_text_.rect().size().w()
 				+
 				static_text_.pos().x()
 			)
