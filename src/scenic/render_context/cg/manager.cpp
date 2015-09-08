@@ -40,12 +40,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/algorithm/array_fold.hpp>
+#include <fcppt/algorithm/array_fold_static.hpp>
 #include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/vector/null.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <cstddef>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::scenic::render_context::cg::manager::manager(
@@ -197,13 +194,13 @@ sge::scenic::render_context::cg::manager::manager(
 		>()
 	),
 	point_lights_(
-		fcppt::algorithm::array_fold<
+		fcppt::algorithm::array_fold_static<
 			point_light_array
 		>(
 			[
 				this
 			](
-				std::size_t const _index
+				auto const _index
 			)
 			{
 				return
@@ -219,13 +216,13 @@ sge::scenic::render_context::cg::manager::manager(
 		)
 	),
 	directional_lights_(
-		fcppt::algorithm::array_fold<
+		fcppt::algorithm::array_fold_static<
 			directional_light_array
 		>(
 			[
 				this
 			](
-				std::size_t const _index
+				auto const _index
 			)
 			{
 				return

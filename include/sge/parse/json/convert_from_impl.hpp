@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/algorithm/array_fold.hpp>
+#include <fcppt/algorithm/array_fold_static.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/container/array_size.hpp>
@@ -333,13 +333,13 @@ struct convert_from_impl<
 				);
 
 		return
-			fcppt::algorithm::array_fold<
+			fcppt::algorithm::array_fold_static<
 				Result
 			>(
 				[
 					&array
 				](
-					std::size_t const _index
+					auto const _index
 				)
 				{
 					return
@@ -348,7 +348,7 @@ struct convert_from_impl<
 							Result::value_type
 						>(
 							array.elements[
-								_index
+								_index()
 							]
 						);
 				}
