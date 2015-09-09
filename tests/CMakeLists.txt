@@ -121,6 +121,14 @@ add_sge_test(
 )
 
 add_sge_test(
+	parse/json/convert_from
+	SGE_DEPS
+		sgeparsejson
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+)
+
+add_sge_test(
 	parse/ini
 	SGE_DEPS
 		sgeparse

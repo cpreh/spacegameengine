@@ -33,12 +33,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/is_math_type.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
-#include <fcppt/no_init.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/reference_wrapper.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/array_fold_static.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/container/array_size.hpp>
+#include <fcppt/math/matrix/init.hpp>
 #include <fcppt/math/matrix/is_matrix.hpp>
 #include <fcppt/type_traits/is_iterable.hpp>
 #include <fcppt/type_traits/is_std_array.hpp>
@@ -175,46 +177,106 @@ struct convert_from_impl<
 		sge::parse::json::value const &_value
 	)
 	{
-		// TODO: Initialize this directly!
-		sge::parse::json::element_vector const
-			outer_array =
-				sge::parse::json::get_exn<sge::parse::json::array>(
-					_value
-				).elements,
-			first_outer_vector =
-				sge::parse::json::get_exn<sge::parse::json::array>(
-					outer_array.front()).elements;
+		sge::parse::json::element_vector const &outer_array(
+			sge::parse::json::get_exn<
+				sge::parse::json::array
+			>(
+				_value
+			).elements
+		);
 
-		Result result{
-			fcppt::no_init()
-		};
+		typedef
+		typename
+		Result::static_rows
+		outer_size;
 
-		for(
-			sge::parse::json::element_vector::size_type i = 0;
-			i != outer_array.size();
-			++i)
-		{
-			sge::parse::json::element_vector const current_inner_array =
-				sge::parse::json::get_exn<sge::parse::json::array>(
-					outer_array[i]).elements;
+		typedef
+		typename
+		Result::static_columns
+		inner_size;
 
-			if(current_inner_array.size() != first_outer_vector.size())
-				throw
-					sge::parse::exception(
-						FCPPT_TEXT("You tried to input a matrix, but the inner dimensions don't match!"));
+		if(
+			outer_array.size()
+			!=
+			outer_size::value
+		)
+			throw
+				sge::parse::exception(
+					FCPPT_TEXT("Matrix row count does not match")
+				);
 
-			for(
-				sge::parse::json::element_vector::size_type j = 0;
-				j != current_inner_array.size();
-				++j)
-			{
-				result[static_cast<typename Result::size_type>(i)][static_cast<typename Result::size_type>(j)] =
-					json::convert_from<typename Result::value_type>(
-						current_inner_array[j]);
-			}
-		}
+		typedef
+		std::array<
+			fcppt::reference_wrapper<
+				sge::parse::json::element_vector const
+			>,
+			outer_size::value
+		>
+		inner_array;
 
-		return result;
+		inner_array const inner(
+			fcppt::algorithm::array_fold_static<
+				inner_array
+			>(
+				[
+					&outer_array
+				](
+					auto const _index
+				)
+				{
+					sge::parse::json::element_vector const &result(
+						sge::parse::json::get_exn<
+							sge::parse::json::array
+						>(
+							outer_array[
+								_index
+							]
+						).elements
+					);
+
+					if(
+						result.size()
+						!=
+						inner_size::value
+					)
+						throw
+							sge::parse::exception(
+								FCPPT_TEXT("Matrix column count does not match")
+							);
+
+					return
+						fcppt::make_cref(
+							result
+						);
+				}
+			)
+		);
+
+		return
+			fcppt::math::matrix::init<
+				Result
+			>(
+				[
+					&inner
+				](
+					auto const _index
+				)
+				{
+					return
+						sge::parse::json::convert_from<
+							typename
+							Result::value_type
+						>(
+							std::get<
+								_index.row()
+							>(
+								inner
+							).get()[
+								_index.column()
+							]
+						);
+				}
+			);
 	}
 };
 
