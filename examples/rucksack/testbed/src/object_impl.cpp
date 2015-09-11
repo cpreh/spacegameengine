@@ -68,10 +68,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_code.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/math/dim/null.hpp>
-#include <fcppt/math/vector/null.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
+#include <fcppt/math/dim/null.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>

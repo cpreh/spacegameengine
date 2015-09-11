@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_TRACKING_ALEXA_LERP_HPP_INCLUDED
 #define SGE_CAMERA_TRACKING_ALEXA_LERP_HPP_INCLUDED
 
-#include <fcppt/literal.hpp>
 #include <sge/camera/tracking/alexa/add.hpp>
 #include <sge/camera/tracking/alexa/multiply.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/static.hpp>
