@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr_fcppt.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/algorithm/enum_array_fold.hpp>
+#include <fcppt/algorithm/enum_array_fold_static.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/container/enum_array_impl.hpp>
 #include <fcppt/type_iso/strong_typedef.hpp>
@@ -55,7 +55,7 @@ sge::d3d9::texture::cube::cube(
 		_params
 	),
 	sides_(
-		fcppt::algorithm::enum_array_fold<
+		fcppt::algorithm::enum_array_fold_static<
 			side_array
 		>(
 			[
