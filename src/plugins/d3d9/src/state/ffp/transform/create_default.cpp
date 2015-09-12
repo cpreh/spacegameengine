@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/default.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
 
 sge::d3d9::state::ffp::transform::object_unique_ptr
@@ -34,7 +34,7 @@ sge::d3d9::state::ffp::transform::create_default(
 )
 {
 	return
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			sge::d3d9::state::ffp::transform::object
 		>(
 			_device,

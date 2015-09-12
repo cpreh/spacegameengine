@@ -60,7 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/ffp/object.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_assign.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -389,7 +389,7 @@ sge::scenic::render_context::ffp::object::vertex_buffer(
 
 	current_vertex_buffer_ =
 		optional_scoped_vertex_buffer_unique_ptr(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::renderer::vertex::scoped_buffer
 			>(
 				context_,

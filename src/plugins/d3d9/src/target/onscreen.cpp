@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color_buffer/surface_fwd.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
@@ -56,7 +56,7 @@ sge::d3d9::target::onscreen::onscreen(
 		_max_surfaces
 	),
 	color_surface_(
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			sge::d3d9::surface::color
 		>(
 			_device,
@@ -64,7 +64,7 @@ sge::d3d9::target::onscreen::onscreen(
 			fcppt::unique_ptr_to_base<
 				sge::d3d9::surface::color_create
 			>(
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::d3d9::surface::color_onscreen_target
 				>(
 					_device
@@ -73,13 +73,13 @@ sge::d3d9::target::onscreen::onscreen(
 		)
 	),
 	depth_stencil_surface_(
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			sge::d3d9::surface::depth_stencil
 		>(
 			fcppt::unique_ptr_to_base<
 				sge::d3d9::surface::depth_stencil_create
 			>(
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::d3d9::surface::depth_stencil_onscreen_target
 				>(
 					_device

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -135,7 +135,7 @@ sge::plugin::library::object::object(
 		)
 	),
 	destroyer_(
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			destroyer
 		>()
 	)
@@ -179,7 +179,7 @@ sge::plugin::library::object::~object()
 		std::uncaught_exception()
 	)
 		libraries.push_back(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				context
 			>(
 				handle_

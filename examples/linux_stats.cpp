@@ -83,7 +83,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/extract_from_string_exn.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/error.hpp>
@@ -630,7 +630,7 @@ try
 			std::make_pair(
 				device,
 				graph_with_label(
-					fcppt::make_unique_ptr_fcppt<
+					fcppt::make_unique_ptr<
 						sge::graph::object
 					>(
 						sge::graph::position(
@@ -655,7 +655,7 @@ try
 						sge::graph::optional_axis_constraint(),
 						sge::graph::color_schemes::bright()
 					),
-					fcppt::make_unique_ptr_fcppt<
+					fcppt::make_unique_ptr<
 						sge::font::draw::static_text
 					>(
 						sys.renderer_device_ffp(),

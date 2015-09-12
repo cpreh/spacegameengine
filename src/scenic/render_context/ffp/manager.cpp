@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_context/ffp/manager.hpp>
 #include <sge/scenic/render_context/ffp/object.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
@@ -45,7 +45,7 @@ sge::scenic::render_context::ffp::manager::create_context(
 		fcppt::unique_ptr_to_base<
 			sge::scenic::render_context::base
 		>(
-			fcppt::make_unique_ptr_fcppt<sge::scenic::render_context::ffp::object>(
+			fcppt::make_unique_ptr<sge::scenic::render_context::ffp::object>(
 				*this,
 				dynamic_cast<sge::renderer::context::ffp &>(
 					_context)));

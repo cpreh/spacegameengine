@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/detail/strip_file_extension.hpp>
 #include <sge/resource_tree/detail/strip_path_prefix.hpp>
 #include <sge/resource_tree/detail/sub_path.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/throw_message.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -175,7 +175,7 @@ sge::resource_tree::object<
 
 	// Second, create the element structure containing the files
 	elements_.push_back(
-		fcppt::make_unique_ptr_fcppt<element_type>(
+		fcppt::make_unique_ptr<element_type>(
 			sge::resource_tree::detail::strip_path_prefix(
 				_base_path,
 				_sub_path),

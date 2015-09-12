@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/input/multi_processor.hpp>
 #include <sge/src/input/multi_system.hpp>
 #include <sge/src/input/system_ptr_vector.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/map.hpp>
@@ -111,7 +111,7 @@ sge::input::multi_system::create_processor(
 		fcppt::unique_ptr_to_base<
 			sge::input::processor
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::input::multi_processor
 			>(
 				_window,

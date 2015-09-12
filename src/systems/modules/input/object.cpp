@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/object.hpp>
 #include <sge/src/systems/modules/window/system.hpp>
 #include <sge/systems/detail/input.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -75,7 +75,7 @@ sge::systems::modules::input::object::object(
 				fcppt::unique_ptr_to_base<
 					sge::input::cursor::object
 				>(
-					fcppt::make_unique_ptr_fcppt<
+					fcppt::make_unique_ptr<
 						sge::input::cursor::demuxer
 					>(
 						*input_processor_
@@ -92,7 +92,7 @@ sge::systems::modules::input::object::object(
 				fcppt::unique_ptr_to_base<
 					sge::input::keyboard::device
 				>(
-					fcppt::make_unique_ptr_fcppt<
+					fcppt::make_unique_ptr<
 						sge::input::keyboard::collector
 					>(
 						*input_processor_
@@ -109,7 +109,7 @@ sge::systems::modules::input::object::object(
 				fcppt::unique_ptr_to_base<
 					sge::input::mouse::device
 				>(
-					fcppt::make_unique_ptr_fcppt<
+					fcppt::make_unique_ptr<
 						sge::input::mouse::collector
 					>(
 						*input_processor_
@@ -123,7 +123,7 @@ sge::systems::modules::input::object::object(
 		_parameters.parameters().cursor_options()
 		?
 			optional_cursor_modifier_unique_ptr(
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::systems::modules::input::cursor_modifier
 				>(
 					*input_processor_,

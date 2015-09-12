@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/to_cegui_vector2.hpp>
 #include <sge/src/cegui/vf/format.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/remove_if.hpp>
 #include <fcppt/assert/error.hpp>
@@ -154,7 +154,7 @@ sge::cegui::renderer::createGeometryBuffer()
 	);
 
 	geometry_buffers_.push_back(
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			sge::cegui::geometry_buffer
 		>(
 			renderer_,
@@ -227,7 +227,7 @@ sge::cegui::renderer::createTextureTarget()
 	);
 
 	texture_targets_.push_back(
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			sge::cegui::texture_target
 		>(
 			texture_parameters_,
@@ -309,7 +309,7 @@ sge::cegui::renderer::createTexture(
 	return
 		this->insert_texture(
 			_name,
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::cegui::texture
 			>(
 				texture_parameters_,
@@ -342,7 +342,7 @@ sge::cegui::renderer::createTexture(
 	CEGUI::Texture &result(
 		this->insert_texture(
 			_name,
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::cegui::texture
 			>(
 				texture_parameters_,
@@ -381,7 +381,7 @@ sge::cegui::renderer::createTexture(
 	return
 		this->insert_texture(
 			_name,
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::cegui::texture
 			>(
 				texture_parameters_,

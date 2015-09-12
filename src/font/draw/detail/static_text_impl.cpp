@@ -66,7 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part.hpp>
 #include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -170,7 +170,7 @@ sge::font::draw::detail::static_text_impl::draw(
 			)
 			{
 				return
-					fcppt::make_unique_ptr_fcppt<
+					fcppt::make_unique_ptr<
 						sge::renderer::state::ffp::sampler::scoped
 					>(
 						_context,

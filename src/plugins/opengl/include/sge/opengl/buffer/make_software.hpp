@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/software.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/array_init_move.hpp>
 
@@ -50,7 +50,7 @@ make_software()
 					fcppt::unique_ptr_to_base<
 						sge::opengl::buffer::base
 					>(
-						fcppt::make_unique_ptr_fcppt<
+						fcppt::make_unique_ptr<
 							sge::opengl::buffer::software
 						>()
 					);

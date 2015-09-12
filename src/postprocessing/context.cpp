@@ -61,7 +61,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/scoped_pair.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_assign.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/assign/make_map.hpp>
@@ -149,7 +149,7 @@ sge::postprocessing::context::create_render_context()
 	);
 
 	return
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			sge::renderer::context::scoped_core
 		>(
 			renderer_,
@@ -451,7 +451,7 @@ sge::renderer::context::scoped_core_unique_ptr
 sge::postprocessing::context::finalize()
 {
 	sge::renderer::context::scoped_core_unique_ptr result(
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			sge::renderer::context::scoped_core
 		>(
 			renderer_,

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/impl/style/simple.hpp>
 #include <sge/gui/style/base_unique_ptr.hpp>
 #include <sge/gui/style/create.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
@@ -32,7 +32,7 @@ sge::gui::style::create()
 		fcppt::unique_ptr_to_base<
 			sge::gui::style::base
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::gui::impl::style::simple
 			>()
 		);

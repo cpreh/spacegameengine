@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(SGE_OPENGL_HAVE_X11)
 #include <sge/opengl/egl/x11/visual.hpp>
 #include <awl/backends/x11/system/object.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #else
@@ -51,7 +51,7 @@ sge::opengl::egl::visual::create(
 		fcppt::unique_ptr_to_base<
 			awl::visual::object
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::opengl::egl::x11::visual
 			>(
 				fcppt::cast::static_downcast<

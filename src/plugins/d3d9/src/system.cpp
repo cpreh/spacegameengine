@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/int_range_impl.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
@@ -169,7 +169,7 @@ sge::d3d9::system::create_ffp_renderer(
 		fcppt::unique_ptr_to_base<
 			sge::renderer::device::ffp
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::d3d9::device
 			>(
 				*system_,
@@ -190,7 +190,7 @@ sge::d3d9::system::create_visual(
 		fcppt::unique_ptr_to_base<
 			awl::visual::object
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::d3d9::visual
 			>(
 				_pixel_format

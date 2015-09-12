@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_assign.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -236,7 +236,7 @@ sge::d3d9::surface::color::init()
 {
 	color_holder_ =
 		optional_color_holder_unique_ptr(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::d3d9::surface::color_holder
 			>(
 				create_->create()

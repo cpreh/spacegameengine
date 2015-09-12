@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/alpha_test/object.hpp>
 #include <sge/renderer/state/ffp/alpha_test/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
@@ -37,7 +37,7 @@ sge::opengl::state::ffp::alpha_test::create(
 		fcppt::unique_ptr_to_base<
 			sge::renderer::state::ffp::alpha_test::object
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::opengl::state::ffp::alpha_test::object
 			>(
 				sge::opengl::state::ffp::alpha_test::make_actors(

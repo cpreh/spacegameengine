@@ -90,7 +90,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
@@ -263,7 +263,7 @@ try
 			fcppt::unique_ptr_to_base<
 				sge::camera::base
 			>(
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::camera::tracking::object
 				>(
 					sge::camera::optional_projection_matrix(),
@@ -286,7 +286,7 @@ try
 			fcppt::unique_ptr_to_base<
 				sge::camera::base
 			>(
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::camera::first_person::object
 				>(
 					sge::camera::first_person::parameters(
@@ -320,7 +320,7 @@ try
 		compiled_options.count("record-to-file")
 		?
 			optional_exporter_unique_ptr(
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::camera::tracking::json::interval_exporter
 				>(
 					*camera,

@@ -47,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/valuator/value.hpp>
 #include <awl/backends/x11/cursor/object_fwd.hpp>
 #include <awl/backends/x11/system/event/type.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
@@ -441,7 +441,7 @@ sge::x11input::cursor::object::check_grab()
 		)
 			cursor_grab_ =
 				optional_cursor_grab_unique_ptr(
-					fcppt::make_unique_ptr_fcppt<
+					fcppt::make_unique_ptr<
 						sge::x11input::cursor::grab
 					>(
 						window_,

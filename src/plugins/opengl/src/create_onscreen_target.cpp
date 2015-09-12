@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/onscreen_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
@@ -40,7 +40,7 @@ sge::opengl::create_onscreen_target(
 		fcppt::unique_ptr_to_base<
 			sge::renderer::target::onscreen
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::opengl::onscreen_target
 			>(
 				_device_context,

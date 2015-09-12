@@ -157,7 +157,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/extract_from_string.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -600,7 +600,7 @@ random_model_collection::random_model_collection(
 		// we're doing here. tl;dr: This is for exception safety and
 		// against memory leaks.
 		models_.push_back(
-			fcppt::make_unique_ptr_fcppt<model_instance>(
+			fcppt::make_unique_ptr<model_instance>(
 				backend_,
 				// Concatenate translation and rotation. Slightly expensive,
 				// but we only need to do it once, so...

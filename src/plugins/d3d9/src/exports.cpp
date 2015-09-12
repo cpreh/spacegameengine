@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/make_interface.hpp>
 #include <sge/renderer/core.hpp>
 #include <sge/renderer/core_unique_ptr.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
@@ -62,7 +62,7 @@ create_renderer_core()
 		fcppt::unique_ptr_to_base<
 			sge::renderer::core
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::d3d9::core
 			>()
 		);

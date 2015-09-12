@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/vorbis/file.hpp>
 #include <sge/vorbis/loader.hpp>
 #include <sge/vorbis/stream_ptr.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/container/raw_vector.hpp>
@@ -82,7 +82,7 @@ sge::vorbis::loader::load(
 		fcppt::unique_ptr_to_base<
 			std::istream
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				boost::filesystem::ifstream
 			>(
 				filename,
@@ -104,7 +104,7 @@ sge::vorbis::loader::load(
 				fcppt::unique_ptr_to_base<
 					sge::audio::file
 				>(
-					fcppt::make_unique_ptr_fcppt<
+					fcppt::make_unique_ptr<
 						sge::vorbis::file
 					>(
 						std::move(
@@ -154,7 +154,7 @@ sge::vorbis::loader::load_raw(
 		fcppt::unique_ptr_to_base<
 			std::istream
 		>(
-			fcppt::make_unique_ptr_fcppt<stream_type>(
+			fcppt::make_unique_ptr<stream_type>(
 				reinterpret_cast<boost::iostreams::array_source::char_type const *>(
 					_range.begin()),
 				reinterpret_cast<boost::iostreams::array_source::char_type const *>(
@@ -171,7 +171,7 @@ sge::vorbis::loader::load_raw(
 				fcppt::unique_ptr_to_base<
 					sge::audio::file
 				>(
-					fcppt::make_unique_ptr_fcppt<
+					fcppt::make_unique_ptr<
 						sge::vorbis::file
 					>(
 						std::move(
@@ -212,14 +212,14 @@ sge::vorbis::loader::load_stream(
 				fcppt::unique_ptr_to_base<
 					sge::audio::file
 				>(
-					fcppt::make_unique_ptr_fcppt<
+					fcppt::make_unique_ptr<
 						sge::vorbis::file
 					>(
 						// This is supposed to create a new istream which
 						// replaces the old one. I'm not sure if rdbuf(0)
 						// is allowed and if this is the best way to
 						// achieve the goal.
-						fcppt::make_unique_ptr_fcppt<
+						fcppt::make_unique_ptr<
 							std::istream
 						>(
 							_stream.rdbuf(

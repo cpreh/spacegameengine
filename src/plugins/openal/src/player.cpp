@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/funcs/doppler_factor.hpp>
 #include <sge/openal/funcs/listener_float.hpp>
 #include <sge/openal/funcs/speed_of_sound.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/math/vector/null.hpp>
 
@@ -156,7 +156,7 @@ sge::openal::player::create_buffer(
 		fcppt::unique_ptr_to_base<
 			sge::audio::buffer
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::openal::buffer
 			>(
 				_file
@@ -174,7 +174,7 @@ sge::openal::player::create_positional_stream(
 		fcppt::unique_ptr_to_base<
 			sge::audio::sound::positional
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::openal::stream_sound
 			>(
 				_parameters,
@@ -193,7 +193,7 @@ sge::openal::player::create_nonpositional_stream(
 		fcppt::unique_ptr_to_base<
 			sge::audio::sound::base
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::openal::stream_sound
 			>(
 				_parameters,

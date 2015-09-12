@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/pos_fwd.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/variant/match.hpp>
 
@@ -66,7 +66,7 @@ sge::opengl::vf::to_actor(
 					fcppt::unique_ptr_to_base<
 						sge::opengl::vf::actor
 					>(
-						fcppt::make_unique_ptr_fcppt<
+						fcppt::make_unique_ptr<
 							sge::opengl::vf::pos_actor
 						>(
 							parameters,
@@ -84,7 +84,7 @@ sge::opengl::vf::to_actor(
 					fcppt::unique_ptr_to_base<
 						sge::opengl::vf::actor
 					>(
-						fcppt::make_unique_ptr_fcppt<
+						fcppt::make_unique_ptr<
 							sge::opengl::vf::normal_actor
 						>(
 							parameters,
@@ -102,7 +102,7 @@ sge::opengl::vf::to_actor(
 					fcppt::unique_ptr_to_base<
 						sge::opengl::vf::actor
 					>(
-						fcppt::make_unique_ptr_fcppt<
+						fcppt::make_unique_ptr<
 							sge::opengl::vf::color_actor
 						>(
 							parameters,
@@ -120,7 +120,7 @@ sge::opengl::vf::to_actor(
 					fcppt::unique_ptr_to_base<
 						sge::opengl::vf::actor
 					>(
-						fcppt::make_unique_ptr_fcppt<
+						fcppt::make_unique_ptr<
 							sge::opengl::vf::texpos_actor
 						>(
 							parameters,
@@ -138,7 +138,7 @@ sge::opengl::vf::to_actor(
 					fcppt::unique_ptr_to_base<
 						sge::opengl::vf::actor
 					>(
-						fcppt::make_unique_ptr_fcppt<
+						fcppt::make_unique_ptr<
 							sge::opengl::vf::attribute_actor
 						>(
 							parameters,

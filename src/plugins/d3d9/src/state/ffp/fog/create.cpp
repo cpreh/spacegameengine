@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/fog/object.hpp>
 #include <sge/renderer/state/ffp/fog/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/fog/parameters_fwd.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
@@ -39,7 +39,7 @@ sge::d3d9::state::ffp::fog::create(
 		fcppt::unique_ptr_to_base<
 			sge::renderer::state::ffp::fog::object
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::d3d9::state::ffp::fog::object
 			>(
 				_device,

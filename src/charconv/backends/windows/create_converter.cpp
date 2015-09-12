@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/charconv/backends/windows/utf32_to_utf16.hpp>
 #include <sge/src/charconv/backends/windows/utf8_to_wchar.hpp>
 #include <sge/src/charconv/backends/windows/wchar_to_utf8.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
@@ -52,7 +52,7 @@ sge::charconv::backends::windows::create_converter(
 			fcppt::unique_ptr_to_base<
 				sge::charconv::converter
 			>(
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::charconv::backends::windows::utf16_to_utf32
 				>()
 			);
@@ -70,7 +70,7 @@ sge::charconv::backends::windows::create_converter(
 			fcppt::unique_ptr_to_base<
 				sge::charconv::converter
 			>(
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::charconv::backends::windows::wchar_to_utf8
 				>()
 			);
@@ -88,7 +88,7 @@ sge::charconv::backends::windows::create_converter(
 			fcppt::unique_ptr_to_base<
 				sge::charconv::converter
 			>(
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::charconv::backends::windows::utf32_to_utf16
 				>()
 			);
@@ -106,7 +106,7 @@ sge::charconv::backends::windows::create_converter(
 			fcppt::unique_ptr_to_base<
 				sge::charconv::converter
 			>(
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::charconv::backends::windows::utf8_to_wchar
 				>()
 			);

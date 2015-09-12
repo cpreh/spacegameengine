@@ -53,7 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/focus_out_callback.hpp>
 #include <awl/window/event/focus_out_fwd.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
@@ -114,7 +114,7 @@ sge::dinput::processor::processor(
 	),
 	devices_(),
 	cursor_(
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			sge::dinput::cursor::object
 		>(
 			event_processor_,
@@ -541,7 +541,7 @@ sge::dinput::processor::enum_devices_callback(
 	case DI8DEVTYPE_KEYBOARD:
 		instance.add_device(
 			instance.keyboard_discover_,
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::dinput::keyboard::device
 			>(
 				parameters
@@ -551,7 +551,7 @@ sge::dinput::processor::enum_devices_callback(
 	case DI8DEVTYPE_MOUSE:
 		instance.add_device(
 			instance.mouse_discover_,
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::dinput::mouse::device
 			>(
 				parameters
@@ -561,7 +561,7 @@ sge::dinput::processor::enum_devices_callback(
 	case DI8DEVTYPE_JOYSTICK:
 		instance.add_device(
 			instance.joypad_discover_,
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::dinput::joypad::device
 			>(
 				parameters

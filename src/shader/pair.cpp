@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/exception.hpp>
 #include <sge/shader/load_edited_string.hpp>
 #include <sge/shader/pair.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -53,7 +53,7 @@ open_istream_exn(
 	boost_filesystem_ifstream_unique_ptr;
 
 	boost_filesystem_ifstream_unique_ptr result(
-		fcppt::make_unique_ptr_fcppt<boost::filesystem::ifstream>(
+		fcppt::make_unique_ptr<boost::filesystem::ifstream>(
 			_path));
 
 	if(!result->is_open())

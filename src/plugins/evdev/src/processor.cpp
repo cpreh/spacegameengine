@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system.hpp>
 #include <awl/backends/linux/fd/processor.hpp>
 #include <awl/system/event/processor.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -84,7 +84,7 @@ sge::evdev::processor::processor(
 		)
 	),
 	eventfd_(
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			sge::evdev::eventfd::object
 		>(
 			processor_,
@@ -200,7 +200,7 @@ sge::evdev::processor::dev_init()
 
 	dev_reader_ =
 		optional_inotify_reader_unique_ptr(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::evdev::inotify::reader
 			>(
 				path_,

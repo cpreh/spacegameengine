@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/renderer/vertex/scoped_declaration_and_buffers.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/algorithm/map.hpp>
 
 
@@ -50,7 +50,7 @@ sge::renderer::vertex::scoped_declaration_and_buffers::scoped_declaration_and_bu
 			)
 			{
 				return
-					fcppt::make_unique_ptr_fcppt<
+					fcppt::make_unique_ptr<
 						sge::renderer::vertex::scoped_buffer
 					>(
 						_context,

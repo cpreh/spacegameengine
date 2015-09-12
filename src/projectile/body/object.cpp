@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/projectile/body/detail/motion_state.hpp>
 #include <sge/src/projectile/body/solidity/extract_mass.hpp>
 #include <sge/src/projectile/body/solidity/is_solid.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
@@ -103,20 +103,20 @@ sge::projectile::body::object::object(
 	parameters const &p)
 :
 	transformation_(
-		fcppt::make_unique_ptr_fcppt<btTransform>(
+		fcppt::make_unique_ptr<btTransform>(
 			create_rotation_matrix(
 				p.rotation().get()),
 			vector2_to_bullet(
 				p.position().get()))),
 	motion_state_(
-		fcppt::make_unique_ptr_fcppt<detail::motion_state>(
+		fcppt::make_unique_ptr<detail::motion_state>(
 			*this)),
 	position_change_(),
 	rotation_change_(),
 	shape_(
 		p.shape()),
 	body_(
-		fcppt::make_unique_ptr_fcppt<btRigidBody>(
+		fcppt::make_unique_ptr<btRigidBody>(
 			btRigidBody::btRigidBodyConstructionInfo(
 				// mass
 				solidity::extract_mass(

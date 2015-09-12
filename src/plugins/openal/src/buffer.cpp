@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/logger.hpp>
 #include <sge/openal/source.hpp>
 #include <sge/openal/funcs/buffer_data.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/log/_.hpp>
@@ -107,7 +107,7 @@ sge::openal::buffer::create_positional(
 		fcppt::unique_ptr_to_base<
 			sge::audio::sound::positional
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::openal::source
 			>(
 				_param,
@@ -125,7 +125,7 @@ sge::openal::buffer::create_nonpositional(
 		fcppt::unique_ptr_to_base<
 			sge::audio::sound::base
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::openal::source
 			>(
 				_param,

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/projectile/collision_tester.hpp>
 #include <sge/src/projectile/declare_local_logger.hpp>
 #include <sge/src/projectile/ghost/detail/pair_callback.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -107,19 +107,19 @@ sge::projectile::world::world()
 		fcppt::unique_ptr_to_base<
 			btCollisionConfiguration
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				btDefaultCollisionConfiguration
 			>()
 		)
 	),
 	dispatcher_(
-		fcppt::make_unique_ptr_fcppt<btCollisionDispatcher>(
+		fcppt::make_unique_ptr<btCollisionDispatcher>(
 			configuration_.get_pointer())),
 	broadphase_(
 		fcppt::unique_ptr_to_base<
 			btBroadphaseInterface
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				btDbvtBroadphase
 			>()
 		)
@@ -128,19 +128,19 @@ sge::projectile::world::world()
 		fcppt::unique_ptr_to_base<
 			btConstraintSolver
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				btSequentialImpulseConstraintSolver
 			>()
 		)
 	),
 	world_(
-		fcppt::make_unique_ptr_fcppt<btDiscreteDynamicsWorld>(
+		fcppt::make_unique_ptr<btDiscreteDynamicsWorld>(
 			dispatcher_.get_pointer(),
 			broadphase_.get_pointer(),
 			solver_.get_pointer(),
 			configuration_.get_pointer())),
 	ghost_pair_callback_(
-		fcppt::make_unique_ptr_fcppt<ghost::detail::pair_callback>()),
+		fcppt::make_unique_ptr<ghost::detail::pair_callback>()),
 	next_group_id_(
 		static_cast<group::id>(
 			1))

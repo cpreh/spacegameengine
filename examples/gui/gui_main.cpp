@@ -117,7 +117,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_success.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -280,7 +280,7 @@ try
 					fcppt::unique_ptr_to_base<
 						sge::gui::widget::base
 					>(
-						fcppt::make_unique_ptr_fcppt<
+						fcppt::make_unique_ptr<
 							sge::gui::widget::text
 						>(
 							*style,
@@ -300,7 +300,7 @@ try
 							fcppt::unique_ptr_to_base<
 								sge::gui::widget::base
 							>(
-								fcppt::make_unique_ptr_fcppt<
+								fcppt::make_unique_ptr<
 									sge::gui::widget::button
 								>(
 									*style,
@@ -316,7 +316,7 @@ try
 							fcppt::unique_ptr_to_base<
 								sge::gui::widget::base
 							>(
-								fcppt::make_unique_ptr_fcppt<
+								fcppt::make_unique_ptr<
 									sge::gui::widget::button
 								>(
 									*style,
@@ -341,7 +341,7 @@ try
 		)
 		{
 			return
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::gui::widget::tree
 				>(
 					context,

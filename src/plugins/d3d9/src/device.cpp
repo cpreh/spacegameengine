@@ -146,7 +146,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/processor.hpp>
 #include <awl/window/event/resize_callback.hpp>
 #include <awl/window/event/resize.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -225,7 +225,7 @@ sge::d3d9::device::device(
 		)
 	),
 	onscreen_target_(
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			sge::d3d9::target::onscreen
 		>(
 			*device_,
@@ -251,14 +251,14 @@ sge::d3d9::device::device(
 		)
 	),
 	core_defaults_(
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			sge::d3d9::state::core::defaults
 		>(
 			*device_
 		)
 	),
 	ffp_defaults_(
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			sge::d3d9::state::ffp::defaults
 		>(
 			*device_
@@ -327,7 +327,7 @@ sge::d3d9::device::create_target()
 		fcppt::unique_ptr_to_base<
 			sge::renderer::target::offscreen
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::d3d9::target::offscreen
 			>(
 				*device_,
@@ -346,7 +346,7 @@ sge::d3d9::device::create_planar_texture(
 			sge::renderer::texture::planar
 		>(
 			this->add_resource(
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::d3d9::texture::planar
 				>(
 					*device_,
@@ -377,13 +377,13 @@ sge::d3d9::device::create_depth_stencil_surface(
 			sge::renderer::depth_stencil_buffer::surface
 		>(
 			this->add_resource(
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::d3d9::surface::depth_stencil
 				>(
 					fcppt::unique_ptr_to_base<
 						sge::d3d9::surface::depth_stencil_create
 					>(
-						fcppt::make_unique_ptr_fcppt<
+						fcppt::make_unique_ptr<
 							sge::d3d9::surface::depth_stencil_native
 						>(
 							*device_,
@@ -410,7 +410,7 @@ sge::d3d9::device::create_volume_texture(
 			sge::renderer::texture::volume
 		>(
 			this->add_resource(
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::d3d9::texture::volume
 				>(
 					*device_,
@@ -430,7 +430,7 @@ sge::d3d9::device::create_cube_texture(
 			sge::renderer::texture::cube
 		>(
 			this->add_resource(
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::d3d9::texture::cube
 				>(
 					*device_,
@@ -449,7 +449,7 @@ sge::d3d9::device::create_vertex_declaration(
 		fcppt::unique_ptr_to_base<
 			sge::renderer::vertex::declaration
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::d3d9::vertex::declaration
 			>(
 				*device_,
@@ -468,7 +468,7 @@ sge::d3d9::device::create_vertex_buffer(
 			sge::renderer::vertex::buffer
 		>(
 			this->add_resource(
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::d3d9::vertex::buffer
 				>(
 					*device_,
@@ -495,7 +495,7 @@ sge::d3d9::device::create_index_buffer(
 			sge::renderer::index::buffer
 		>(
 			this->add_resource(
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::d3d9::index_buffer
 				>(
 					*device_,

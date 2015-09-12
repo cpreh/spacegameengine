@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/make_info.hpp>
 #include <sge/evdev/joypad/object.hpp>
 #include <sge/input/joypad/discover_event.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/signal/object_impl.hpp>
@@ -82,7 +82,7 @@ sge::evdev::joypad::add(
 					insert_return const ret(
 						_parameters.map().emplace(
 							_path,
-							fcppt::make_unique_ptr_fcppt<
+							fcppt::make_unique_ptr<
 								sge::evdev::joypad::object
 							>(
 								_parameters.focus_manager(),

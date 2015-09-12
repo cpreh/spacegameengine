@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/cg/light/point.hpp>
 #include <sge/shader/context.hpp>
 #include <fcppt/insert_to_std_string.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/array_fold_static.hpp>
@@ -204,7 +204,7 @@ sge::scenic::render_context::cg::manager::manager(
 			)
 			{
 				return
-					fcppt::make_unique_ptr_fcppt<
+					fcppt::make_unique_ptr<
 						sge::scenic::render_context::cg::light::point
 					>(
 						shader_.pixel_program(),
@@ -226,7 +226,7 @@ sge::scenic::render_context::cg::manager::manager(
 			)
 			{
 				return
-					fcppt::make_unique_ptr_fcppt<
+					fcppt::make_unique_ptr<
 						sge::scenic::render_context::cg::light::directional
 					>(
 						shader_.pixel_program(),
@@ -294,7 +294,7 @@ sge::scenic::render_context::cg::manager::create_context(
 		fcppt::unique_ptr_to_base<
 			sge::scenic::render_context::base
 		>(
-			fcppt::make_unique_ptr_fcppt<sge::scenic::render_context::cg::object>(
+			fcppt::make_unique_ptr<sge::scenic::render_context::cg::object>(
 				*this,
 				_context));
 }

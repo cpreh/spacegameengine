@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/optional_path.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
@@ -159,7 +159,7 @@ sge::libpng::system::create(
 				fcppt::unique_ptr_to_base<
 					sge::image2d::file
 				>(
-					fcppt::make_unique_ptr_fcppt<
+					fcppt::make_unique_ptr<
 						file
 					>(
 						_view
@@ -196,7 +196,7 @@ sge::libpng::system::load_impl(
 				fcppt::unique_ptr_to_base<
 					sge::image2d::file
 				>(
-					fcppt::make_unique_ptr_fcppt<
+					fcppt::make_unique_ptr<
 						sge::libpng::file
 					>(
 						_stream,

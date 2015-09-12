@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/manager/config_base.hpp>
 #include <sge/x11input/device/manager/config_base_unique_ptr.hpp>
 #include <sge/x11input/device/manager/create_function.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/signal/object_fwd.hpp>
 
@@ -74,7 +74,7 @@ make_config(
 		fcppt::unique_ptr_to_base<
 			sge::x11input::device::manager::config_base
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				result_type
 			>(
 				_discover,

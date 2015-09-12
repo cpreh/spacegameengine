@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/source_encoding.hpp>
 #include <sge/src/charconv/backends/iconv/converter.hpp>
 #include <sge/src/charconv/backends/iconv/create_converter.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
@@ -38,7 +38,7 @@ sge::charconv::backends::iconv::create_converter(
 		fcppt::unique_ptr_to_base<
 			sge::charconv::converter
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::charconv::backends::iconv::converter
 			>(
 				_source,

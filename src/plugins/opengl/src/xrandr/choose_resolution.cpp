@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/comparison.hpp>
@@ -92,7 +92,7 @@ sge::opengl::xrandr::choose_resolution(
 			_mode.pixel_size().get()
 		)
 			return
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::opengl::xrandr::resolution
 				>(
 					_window,

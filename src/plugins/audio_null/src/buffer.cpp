@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/positional_unique_ptr.hpp>
 #include <sge/audio_null/buffer.hpp>
 #include <sge/audio_null/positional.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
@@ -47,7 +47,7 @@ sge::audio_null::buffer::create_positional(
 		fcppt::unique_ptr_to_base<
 			sge::audio::sound::positional
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::audio_null::positional
 			>()
 		);
@@ -62,7 +62,7 @@ sge::audio_null::buffer::create_nonpositional(
 		fcppt::unique_ptr_to_base<
 			sge::audio::sound::base
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::audio_null::positional
 			>()
 		);

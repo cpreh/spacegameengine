@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/rect_fragmented.hpp>
 #include <sge/texture/atlasing/outer_rect.hpp>
 #include <sge/texture/atlasing/size.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
@@ -124,7 +124,7 @@ sge::texture::rect_fragmented::consume_fragment(
 		fcppt::unique_ptr_to_base<
 			sge::texture::part
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::texture::part_fragmented
 			>(
 				*this,

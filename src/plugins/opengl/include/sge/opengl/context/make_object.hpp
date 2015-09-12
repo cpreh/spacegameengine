@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/base_unique_ptr.hpp>
 #include <sge/opengl/context/dummy_parameter_fwd.hpp>
 #include <sge/opengl/context/has_parameter.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -64,7 +64,7 @@ make_object(
 				Domain
 			>
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				Type
 			>(
 				std::forward<
@@ -99,7 +99,7 @@ make_object(
 				Domain
 			>
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				Type
 			>()
 		);

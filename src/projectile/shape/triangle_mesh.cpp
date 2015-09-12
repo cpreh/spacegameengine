@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/shape/triangle_mesh.hpp>
 #include <sge/src/projectile/shape/triangle_indices.hpp>
 #include <sge/src/projectile/shape/triangle_scalars.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>
 #include <BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h>
@@ -43,7 +43,7 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 		)
 	),
 	mesh_(
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			btTriangleIndexVertexArray
 		>(
 			// number of triangles
@@ -71,7 +71,7 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 		)
 	),
 	bullet_shape_(
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			btBvhTriangleMeshShape
 		>(
 			mesh_.get_pointer(),

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/projectile/structure_cast.hpp>
 #include <sge/src/projectile/detail/debug_drawer_impl.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_assign.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -73,7 +73,7 @@ sge::projectile::detail::debug_drawer_impl::update()
 		scoped_lock_unique_ptr const &lock(
 			fcppt::optional_assign(
 				scoped_lock_,
-				fcppt::make_unique_ptr_fcppt<
+				fcppt::make_unique_ptr<
 					sge::line_drawer::scoped_lock
 				>(
 					line_drawer_

@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/map.hpp>
@@ -146,7 +146,7 @@ sge::gui::widget::tree::tree(
 								fcppt::unique_ptr_to_base<
 									sge::gui::widget::base
 								>(
-									fcppt::make_unique_ptr_fcppt<
+									fcppt::make_unique_ptr<
 										indented_widget
 									>(
 										fcppt::cast::size<

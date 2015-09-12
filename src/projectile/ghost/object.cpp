@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/projectile/declare_local_logger.hpp>
 #include <sge/src/projectile/object_extrusion_depth.hpp>
 #include <sge/src/projectile/vector2_to_bullet.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/log/_.hpp>
@@ -52,13 +52,13 @@ sge::projectile::ghost::object::object(
 			btCollisionShape
 		>(
 			// The box shape gets _HALF EXTENTS_
-			fcppt::make_unique_ptr_fcppt<btBoxShape>(
+			fcppt::make_unique_ptr<btBoxShape>(
 				btVector3(
 					p.size().get().w()/2,
 					p.size().get().h()/2,
 					object_extrusion_depth())))),
 	ghost_object_(
-		fcppt::make_unique_ptr_fcppt<btPairCachingGhostObject>())
+		fcppt::make_unique_ptr<btPairCachingGhostObject>())
 {
 	FCPPT_LOG_DEBUG(
 		local_log,

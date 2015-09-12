@@ -55,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/format.hpp>
 #include <fcppt/from_optional.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -345,7 +345,7 @@ sge::opengl::fbo::target::create_texture_binding(
 		fcppt::unique_ptr_to_base<
 			sge::opengl::fbo::attachment
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::opengl::fbo::texture_binding
 			>(
 				config_,
@@ -371,7 +371,7 @@ sge::opengl::fbo::target::create_buffer_binding(
 		fcppt::unique_ptr_to_base<
 			sge::opengl::fbo::attachment
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::opengl::fbo::render_buffer_binding
 			>(
 				config_,

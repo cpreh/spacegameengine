@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/loader.hpp>
 #include <sge/model/md3/loader_unique_ptr.hpp>
 #include <sge/src/model/md3/loader_impl.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
@@ -33,7 +33,7 @@ sge::model::md3::create()
 		fcppt::unique_ptr_to_base<
 			sge::model::md3::loader
 		>(
-			fcppt::make_unique_ptr_fcppt<
+			fcppt::make_unique_ptr<
 				sge::model::md3::loader_impl
 			>()
 		);

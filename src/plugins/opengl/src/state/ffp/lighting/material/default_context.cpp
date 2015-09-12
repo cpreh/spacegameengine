@@ -26,14 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/lighting/material/object.hpp>
 #include <sge/renderer/state/ffp/lighting/material/default.hpp>
 #include <sge/renderer/state/ffp/lighting/material/parameters.hpp>
-#include <fcppt/make_unique_ptr_fcppt.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 
 
 sge::opengl::state::ffp::lighting::material::default_context::default_context()
 :
 	sge::opengl::context::system::base(),
 	default_state_(
-		fcppt::make_unique_ptr_fcppt<
+		fcppt::make_unique_ptr<
 			sge::opengl::state::ffp::lighting::material::object
 		>(
 			sge::opengl::state::ffp::lighting::material::make_actors(
