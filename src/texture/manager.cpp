@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/algorithm/map_iteration_second.hpp>
+#include <fcppt/algorithm/update_action.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range_core.hpp>
 #include <utility>
@@ -179,7 +180,12 @@ sge::texture::manager::free_empty_textures()
 		)
 		{
 			return
-				_texture->empty();
+				_texture->empty()
+				?
+					fcppt::algorithm::update_action::remove
+				:
+					fcppt::algorithm::update_action::keep
+				;
 		}
 	);
 }
