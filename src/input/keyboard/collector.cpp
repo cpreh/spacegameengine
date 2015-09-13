@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/keyboard/remove_event_fwd.hpp>
 #include <fcppt/algorithm/fold.hpp>
+#include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

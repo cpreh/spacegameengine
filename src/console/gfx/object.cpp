@@ -48,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>

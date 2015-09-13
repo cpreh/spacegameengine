@@ -22,19 +22,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/convert/resource_flags.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/container/bitfield/operators.hpp>
 
 
 GLuint
 sge::opengl::convert::resource_flags(
-	renderer::resource_flags_field const &_flags
+	sge::renderer::resource_flags_field const &_flags
 )
 {
 	return
 		static_cast<
 			GLuint
 		>(
-			(_flags & renderer::resource_flags::dynamic)
+			(_flags & sge::renderer::resource_flags::dynamic)
 			?
 				GL_DYNAMIC_DRAW
 			:

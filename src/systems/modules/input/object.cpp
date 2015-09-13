@@ -45,6 +45,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assert/optional_error.hpp>
+#include <fcppt/container/bitfield/comparison.hpp>
+#include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
 

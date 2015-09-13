@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/src/opencl/memory_object/to_opencl_mem_flags.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/container/bitfield/operators.hpp>
 
 
 cl_mem_flags

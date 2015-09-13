@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/optional_name_fwd.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <fcppt/container/bitfield/is_subset_eq.hpp>
-
+#include <fcppt/container/bitfield/operators.hpp>
 
 
 sge::systems::modules::renderer::plugin_core_pair
