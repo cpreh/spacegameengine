@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/input/object.hpp>
 #include <sge/src/systems/modules/window/object.hpp>
 #include <sge/src/systems/modules/window/system.hpp>
+#include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/detail/input.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -121,6 +122,8 @@ sge::systems::modules::input::object::object(
 	),
 	cursor_modifier_(
 		_parameters.parameters().cursor_options()
+		!=
+		sge::systems::cursor_option_field::null()
 		?
 			optional_cursor_modifier_unique_ptr(
 				fcppt::make_unique_ptr<

@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/device/fd.hpp>
 #include <sge/evdev/device/read_bits_result.hpp>
 #include <sge/input/exception.hpp>
-#include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
@@ -46,7 +46,7 @@ template<
 >
 sge::evdev::device::read_bits_result<
 	Count
-> const
+>
 read_bits(
 	sge::evdev::device::fd const &_fd,
 	unsigned const _type
@@ -58,19 +58,22 @@ read_bits(
 	>
 	result_type;
 
-	result_type result{
-		fcppt::no_init()
-	};
+	typedef
+	typename
+	result_type::array_type
+	array_type;
+
+	array_type result;
 
 	if(
 		::ioctl(
 			_fd.get().get(),
 			EVIOCGBIT(
 				_type,
-				static_cast<
+				fcppt::cast::size<
 					unsigned
 				>(
-					result.size()
+					Count
 				)
 			),
 			result.data()
@@ -83,7 +86,9 @@ read_bits(
 		};
 
 	return
-		result;
+		result_type(
+			result
+		);
 }
 
 }
