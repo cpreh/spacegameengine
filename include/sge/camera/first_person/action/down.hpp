@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_FIRST_PERSON_ACTION_DOWN_HPP_INCLUDED
 #define SGE_CAMERA_FIRST_PERSON_ACTION_DOWN_HPP_INCLUDED
 
-#include <sge/input/keyboard/optional_key_code.hpp>
+#include <sge/input/key/optional_code.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 namespace sge
@@ -37,7 +37,7 @@ namespace action
 \ingroup sgecamera
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::input::keyboard::optional_key_code,
+	sge::input::key::optional_code,
 	down);
 }
 }

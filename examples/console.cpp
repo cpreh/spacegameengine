@@ -57,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
+#include <sge/systems/focus_collector.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
@@ -112,7 +113,8 @@ try
 			>,
 			sge::systems::with_window,
 			sge::systems::with_input<
-				boost::mpl::vector1<
+				boost::mpl::vector2<
+					sge::systems::focus_collector,
 					sge::systems::keyboard_collector
 				>
 			>,
@@ -288,7 +290,7 @@ try
 			sge::image::color::predef::white()
 		),
 		*font_object,
-		sys.keyboard_collector(),
+		sys.focus_collector(),
 		sge::font::rect{
 			fcppt::math::vector::null<
 				sge::font::rect::vector

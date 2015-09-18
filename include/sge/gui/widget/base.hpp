@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widget/optional_focus_fwd.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
 #include <sge/font/char_type.hpp>
-#include <sge/input/keyboard/key_code_fwd.hpp>
+#include <sge/input/key/code_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/rucksack/vector_fwd.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
@@ -78,7 +78,7 @@ public:
 	virtual
 	void
 	on_key(
-		sge::input::keyboard::key_code
+		sge::input::key::code
 	);
 
 	virtual

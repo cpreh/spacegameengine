@@ -158,6 +158,7 @@ sge::x11input::system::capabilities() const
 	return
 		sge::input::capabilities_field{
 			sge::input::capabilities::cursor,
+			sge::input::capabilities::focus,
 			sge::input::capabilities::keyboard,
 			sge::input::capabilities::mouse
 		};

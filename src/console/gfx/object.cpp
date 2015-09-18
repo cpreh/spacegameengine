@@ -37,13 +37,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/align_h/max_width.hpp>
 #include <sge/font/align_h/variant.hpp>
 #include <sge/font/draw/static_text.hpp>
-#include <sge/input/keyboard/char_callback.hpp>
-#include <sge/input/keyboard/char_event.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_event.hpp>
-#include <sge/input/keyboard/key_repeat_callback.hpp>
-#include <sge/input/keyboard/key_repeat_event.hpp>
+#include <sge/input/focus/char_callback.hpp>
+#include <sge/input/focus/char_event.hpp>
+#include <sge/input/focus/key_callback.hpp>
+#include <sge/input/focus/key_event.hpp>
+#include <sge/input/focus/key_repeat_callback.hpp>
+#include <sge/input/focus/key_repeat_event.hpp>
+#include <sge/input/focus/object.hpp>
+#include <sge/input/key/code.hpp>
+#include <sge/input/key/modifier.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
@@ -70,7 +72,7 @@ sge::console::gfx::object::object(
 	sge::renderer::device::ffp &_renderer,
 	sge::console::gfx::font_color const &_font_color,
 	sge::font::object &_font_object,
-	sge::input::keyboard::device &_keyboard,
+	sge::input::focus::object &_focus,
 	sge::font::rect const &_area,
 	sge::console::gfx::output_line_limit const _line_limit
 )
@@ -87,12 +89,15 @@ sge::console::gfx::object::object(
 	font_object_(
 		_font_object
 	),
-	keyboard_(
-		_keyboard
+	focus_(
+		_focus
+	),
+	mod_state_tracker_(
+		_focus
 	),
 	key_connection_(
-		keyboard_.key_callback(
-			sge::input::keyboard::key_callback{
+		focus_.key_callback(
+			sge::input::focus::key_callback{
 				std::bind(
 					&sge::console::gfx::object::key_callback,
 					this,
@@ -102,8 +107,8 @@ sge::console::gfx::object::object(
 		)
 	),
 	key_repeat_connection_(
-		keyboard_.key_repeat_callback(
-			sge::input::keyboard::key_repeat_callback{
+		focus_.key_repeat_callback(
+			sge::input::focus::key_repeat_callback{
 				std::bind(
 					&sge::console::gfx::object::key_action,
 					this,
@@ -113,8 +118,8 @@ sge::console::gfx::object::object(
 		)
 	),
 	char_connection_(
-		_keyboard.char_callback(
-			sge::input::keyboard::char_callback{
+		_focus.char_callback(
+			sge::input::focus::char_callback{
 				std::bind(
 					&sge::console::gfx::object::char_callback,
 					this,
@@ -339,7 +344,7 @@ sge::console::gfx::object::render_line(
 
 void
 sge::console::gfx::object::key_callback(
-	sge::input::keyboard::key_event const &_key
+	sge::input::focus::key_event const &_key
 )
 {
 	if(
@@ -348,7 +353,7 @@ sge::console::gfx::object::key_callback(
 		_key.pressed()
 	)
 		this->key_action(
-			sge::input::keyboard::key_repeat_event(
+			sge::input::focus::key_repeat_event(
 				_key.key()
 			)
 		);
@@ -356,7 +361,7 @@ sge::console::gfx::object::key_callback(
 
 void
 sge::console::gfx::object::char_callback(
-	sge::input::keyboard::char_event const &_event
+	sge::input::focus::char_event const &_event
 )
 {
 	if(
@@ -384,7 +389,7 @@ sge::console::gfx::object::char_callback(
 
 void
 sge::console::gfx::object::key_action(
-	sge::input::keyboard::key_repeat_event const &_event
+	sge::input::focus::key_repeat_event const &_event
 )
 {
 	if(
@@ -399,8 +404,8 @@ sge::console::gfx::object::key_action(
 			_event.key().code()
 		)
 		{
-		case sge::input::keyboard::key_code::pageup:
-		case sge::input::keyboard::key_code::pagedown:
+		case sge::input::key::code::pageup:
+		case sge::input::key::code::pagedown:
 			break;
 		default:
 			return;
@@ -410,47 +415,47 @@ sge::console::gfx::object::key_action(
 		_event.key().code()
 	)
 	{
-		case sge::input::keyboard::key_code::w:
+		case sge::input::key::code::w:
 			if(
-				keyboard_.mod_state()
+				mod_state_tracker_.mod_state()
 				&
-				sge::input::keyboard::modifier::control
+				sge::input::key::modifier::control
 			)
 				input_line_.erase_word();
 		break;
-		case sge::input::keyboard::key_code::delete_:
+		case sge::input::key::code::delete_:
 			input_line_.erase_char();
 		break;
-		case sge::input::keyboard::key_code::backspace:
+		case sge::input::key::code::backspace:
 			if (input_line_.at_start())
 				return;
 			input_line_.left();
 			input_line_.erase_char();
 		break;
-		case sge::input::keyboard::key_code::tab:
+		case sge::input::key::code::tab:
 			input_line_.complete_word(object_.functions());
 		break;
-		case sge::input::keyboard::key_code::pageup:
+		case sge::input::key::code::pageup:
 			if(
-				keyboard_.mod_state()
+				mod_state_tracker_.mod_state()
 				&
-				sge::input::keyboard::modifier::shift
+				sge::input::key::modifier::shift
 			)
 				output_lines_.to_end();
 			else
 				output_lines_.up();
 		break;
-		case sge::input::keyboard::key_code::pagedown:
+		case sge::input::key::code::pagedown:
 			if(
-				keyboard_.mod_state()
+				mod_state_tracker_.mod_state()
 				&
-				sge::input::keyboard::modifier::shift
+				sge::input::key::modifier::shift
 			)
 				output_lines_.to_begin();
 			else
 				output_lines_.down();
 		break;
-		case sge::input::keyboard::key_code::up:
+		case sge::input::key::code::up:
 			if (input_history_.empty())
 				return;
 			input_line_.string(
@@ -458,7 +463,7 @@ sge::console::gfx::object::key_action(
 			if (current_input_ != --input_history_.end())
 				++current_input_;
 		break;
-		case sge::input::keyboard::key_code::down:
+		case sge::input::key::code::down:
 			if (current_input_ != input_history_.begin())
 			{
 				--current_input_;
@@ -466,19 +471,19 @@ sge::console::gfx::object::key_action(
 					*current_input_);
 			}
 		break;
-		case sge::input::keyboard::key_code::left:
+		case sge::input::key::code::left:
 			input_line_.left();
 		break;
-		case sge::input::keyboard::key_code::right:
+		case sge::input::key::code::right:
 			input_line_.right();
 		break;
-		case sge::input::keyboard::key_code::home:
+		case sge::input::key::code::home:
 			input_line_.to_start();
 		break;
-		case sge::input::keyboard::key_code::end:
+		case sge::input::key::code::end:
 			input_line_.to_end();
 		break;
-		case sge::input::keyboard::key_code::return_:
+		case sge::input::key::code::return_:
 			if (input_line_.empty())
 				return;
 

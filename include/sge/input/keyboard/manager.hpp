@@ -23,12 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/detail/symbol.hpp>
-#include <sge/input/keyboard/char_event_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
 #include <sge/input/keyboard/discover_event_fwd.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
-#include <sge/input/keyboard/key_repeat_event_fwd.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/keyboard/remove_event_fwd.hpp>
 #include <fcppt/function_impl.hpp>
@@ -56,37 +54,17 @@ public:
 	fcppt::function<
 		void (
 			sge::input::keyboard::device &,
-			sge::input::keyboard::char_event const &
-		)
-	>
-	char_callback;
-
-	typedef
-	fcppt::function<
-		void (
-			sge::input::keyboard::device &,
 			sge::input::keyboard::key_event const &
 		)
 	>
 	key_callback;
-
-	typedef
-	fcppt::function<
-		void (
-			sge::input::keyboard::device &,
-			sge::input::keyboard::key_repeat_event const &
-		)
-	>
-	key_repeat_callback;
 
 	SGE_INPUT_DETAIL_SYMBOL
 	manager(
 		sge::input::processor &,
 		sge::input::keyboard::discover_callback const &,
 		sge::input::keyboard::remove_callback const &,
-		char_callback const &,
-		key_callback const &,
-		key_repeat_callback const &
+		key_callback const &
 	);
 
 	SGE_INPUT_DETAIL_SYMBOL
@@ -119,11 +97,7 @@ private:
 
 	sge::input::keyboard::remove_callback const remove_callback_;
 
-	char_callback const char_callback_;
-
 	key_callback const key_callback_;
-
-	key_repeat_callback const key_repeat_callback_;
 
 	fcppt::signal::auto_connection_container const connections_;
 };

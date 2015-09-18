@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
+#include <sge/input/focus/discover_callback.hpp>
+#include <sge/input/focus/remove_callback.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
@@ -64,6 +66,8 @@ sge::evdev::processor::processor(
 	keyboard_remove_(),
 	mouse_discover_(),
 	mouse_remove_(),
+	focus_discover_(),
+	focus_remove_(),
 	cursor_discover_(),
 	cursor_remove_(),
 	joypad_discover_(),
@@ -145,6 +149,28 @@ sge::evdev::processor::mouse_remove_callback(
 {
 	return
 		mouse_remove_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
+sge::evdev::processor::focus_discover_callback(
+	sge::input::focus::discover_callback const &_callback
+)
+{
+	return
+		focus_discover_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
+sge::evdev::processor::focus_remove_callback(
+	sge::input::focus::remove_callback const &_callback
+)
+{
+	return
+		focus_remove_.connect(
 			_callback
 		);
 }

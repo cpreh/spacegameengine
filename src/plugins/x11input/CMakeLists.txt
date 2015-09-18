@@ -94,24 +94,27 @@ set(
 	src/plugins/x11input/include/sge/x11input/device/window_demuxer_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/device/window_event.hpp
 	src/plugins/x11input/include/sge/x11input/device/window_event_fwd.hpp
+	src/plugins/x11input/include/sge/x11input/focus/char_vector.hpp
+	src/plugins/x11input/include/sge/x11input/focus/char_vector_fwd.hpp
+	src/plugins/x11input/include/sge/x11input/focus/fake_core_event.hpp
+	src/plugins/x11input/include/sge/x11input/focus/looked_up_string.hpp
+	src/plugins/x11input/include/sge/x11input/focus/looked_up_string_fwd.hpp
+	src/plugins/x11input/include/sge/x11input/focus/lookup_string.hpp
+	src/plugins/x11input/include/sge/x11input/focus/object.hpp
+	src/plugins/x11input/include/sge/x11input/focus/object_fwd.hpp
+	src/plugins/x11input/include/sge/x11input/focus/object_unique_ptr.hpp
+	src/plugins/x11input/include/sge/x11input/focus/to_base_event.hpp
+	src/plugins/x11input/include/sge/x11input/focus/translate_event.hpp
 	src/plugins/x11input/include/sge/x11input/input_context.hpp
 	src/plugins/x11input/include/sge/x11input/input_context_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/input_method.hpp
 	src/plugins/x11input/include/sge/x11input/input_method_fwd.hpp
-	src/plugins/x11input/include/sge/x11input/keyboard/char_vector.hpp
-	src/plugins/x11input/include/sge/x11input/keyboard/char_vector_fwd.hpp
+	src/plugins/x11input/include/sge/x11input/key/code_to_sym.hpp
+	src/plugins/x11input/include/sge/x11input/key/translate_code.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/device.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/device_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/device_unique_ptr.hpp
-	src/plugins/x11input/include/sge/x11input/keyboard/fake_core_event.hpp
-	src/plugins/x11input/include/sge/x11input/keyboard/key_code_to_key_sym.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/key_id.hpp
-	src/plugins/x11input/include/sge/x11input/keyboard/looked_up_string.hpp
-	src/plugins/x11input/include/sge/x11input/keyboard/looked_up_string_fwd.hpp
-	src/plugins/x11input/include/sge/x11input/keyboard/lookup_string.hpp
-	src/plugins/x11input/include/sge/x11input/keyboard/to_base_event.hpp
-	src/plugins/x11input/include/sge/x11input/keyboard/translate_event.hpp
-	src/plugins/x11input/include/sge/x11input/keyboard/translate_key_code.hpp
 	src/plugins/x11input/include/sge/x11input/lc_ctype.hpp
 	src/plugins/x11input/include/sge/x11input/logger.hpp
 	src/plugins/x11input/include/sge/x11input/logger_context.hpp
@@ -175,18 +178,20 @@ set(
 	src/plugins/x11input/src/device/valuator/relative.cpp
 	src/plugins/x11input/src/device/window_demuxer.cpp
 	src/plugins/x11input/src/exports.cpp
+	src/plugins/x11input/src/focus/config.cpp
+	src/plugins/x11input/src/focus/fake_core_event.cpp
+	src/plugins/x11input/src/focus/looked_up_string.cpp
+	src/plugins/x11input/src/focus/lookup_string.cpp
+	src/plugins/x11input/src/focus/object.cpp
+	src/plugins/x11input/src/focus/to_base_event.cpp
+	src/plugins/x11input/src/focus/translate_event.cpp
 	src/plugins/x11input/src/input_context.cpp
 	src/plugins/x11input/src/input_method.cpp
+	src/plugins/x11input/src/key/code_to_sym.cpp
+	src/plugins/x11input/src/key/translate_code.cpp
 	src/plugins/x11input/src/keyboard/config.cpp
 	src/plugins/x11input/src/keyboard/device.cpp
-	src/plugins/x11input/src/keyboard/fake_core_event.cpp
-	src/plugins/x11input/src/keyboard/key_code_to_key_sym.cpp
 	src/plugins/x11input/src/keyboard/key_id.cpp
-	src/plugins/x11input/src/keyboard/looked_up_string.cpp
-	src/plugins/x11input/src/keyboard/lookup_string.cpp
-	src/plugins/x11input/src/keyboard/to_base_event.cpp
-	src/plugins/x11input/src/keyboard/translate_event.cpp
-	src/plugins/x11input/src/keyboard/translate_key_code.cpp
 	src/plugins/x11input/src/lc_ctype.cpp
 	src/plugins/x11input/src/logger.cpp
 	src/plugins/x11input/src/logger_context.cpp

@@ -27,10 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/position.hpp>
+#include <sge/input/key/action_callback.hpp>
+#include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/action_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
@@ -540,8 +540,8 @@ try
 	fcppt::signal::scoped_connection const clear_connection(
 		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::c,
-				sge::input::keyboard::action_callback{
+				sge::input::key::code::c,
+				sge::input::key::action_callback{
 					[
 						&sprites
 					]()

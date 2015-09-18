@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
+#include <sge/input/focus/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/plugin/manager_fwd.hpp>
@@ -37,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/device/index.hpp>
 #include <sge/systems/cursor_demuxer_fwd.hpp>
+#include <sge/systems/focus_collector_fwd.hpp>
 #include <sge/systems/instance_decl.hpp>
 #include <sge/systems/keyboard_collector_fwd.hpp>
 #include <sge/systems/list_fwd.hpp>
@@ -242,6 +244,33 @@ sge::systems::instance<
 
 	return
 		instance_.input_processor();
+}
+
+template<
+	typename Choices
+>
+sge::input::focus::object &
+sge::systems::instance<
+	Choices
+>::focus_collector() const
+{
+	static_assert(
+		sge::systems::detail::has_with_input<
+			Choices
+		>::value,
+		"configuration has no input"
+	);
+
+	static_assert(
+		sge::systems::detail::has_input_option<
+			Choices,
+			sge::systems::focus_collector
+		>::value,
+		"configuration has no focus collector"
+	);
+
+	return
+		instance_.focus_collector();
 }
 
 template<

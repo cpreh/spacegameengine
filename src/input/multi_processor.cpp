@@ -26,6 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/discover_event_fwd.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event_fwd.hpp>
+#include <sge/input/focus/discover_callback.hpp>
+#include <sge/input/focus/discover_event_fwd.hpp>
+#include <sge/input/focus/remove_callback.hpp>
+#include <sge/input/focus/remove_event_fwd.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/discover_event_fwd.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
@@ -83,6 +87,8 @@ sge::input::multi_processor::multi_processor(
 	keyboard_remove_(),
 	mouse_discover_(),
 	mouse_remove_(),
+	focus_discover_(),
+	focus_remove_(),
 	cursor_discover_(),
 	cursor_remove_(),
 	joypad_discover_(),
@@ -136,6 +142,26 @@ sge::input::multi_processor::multi_processor(
 							sge::input::mouse::remove_callback{
 								std::bind(
 									&sge::input::multi_processor::on_mouse_remove,
+									this,
+									std::placeholders::_1
+								)
+							}
+						)
+					)(
+						_processor->focus_discover_callback(
+							sge::input::focus::discover_callback{
+								std::bind(
+									&sge::input::multi_processor::on_focus_discover,
+									this,
+									std::placeholders::_1
+								)
+							}
+						)
+					)(
+						_processor->focus_remove_callback(
+							sge::input::focus::remove_callback{
+								std::bind(
+									&sge::input::multi_processor::on_focus_remove,
 									this,
 									std::placeholders::_1
 								)
@@ -238,6 +264,28 @@ sge::input::multi_processor::mouse_remove_callback(
 }
 
 fcppt::signal::auto_connection
+sge::input::multi_processor::focus_discover_callback(
+	sge::input::focus::discover_callback const &_callback
+)
+{
+	return
+		focus_discover_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
+sge::input::multi_processor::focus_remove_callback(
+	sge::input::focus::remove_callback const &_callback
+)
+{
+	return
+		focus_remove_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
 sge::input::multi_processor::cursor_discover_callback(
 	sge::input::cursor::discover_callback const &_callback
 )
@@ -317,6 +365,26 @@ sge::input::multi_processor::on_mouse_remove(
 )
 {
 	mouse_remove_(
+		_event
+	);
+}
+
+void
+sge::input::multi_processor::on_focus_discover(
+	sge::input::focus::discover_event const &_event
+)
+{
+	focus_discover_(
+		_event
+	);
+}
+
+void
+sge::input::multi_processor::on_focus_remove(
+	sge::input::focus::remove_event const &_event
+)
+{
+	focus_remove_(
 		_event
 	);
 }

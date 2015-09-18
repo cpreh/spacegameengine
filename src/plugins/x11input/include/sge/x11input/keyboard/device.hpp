@@ -21,23 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_KEYBOARD_DEVICE_HPP_INCLUDED
 #define SGE_X11INPUT_KEYBOARD_DEVICE_HPP_INCLUDED
 
-#include <sge/input/keyboard/char_callback.hpp>
-#include <sge/input/keyboard/char_function.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_code_fwd.hpp>
-#include <sge/input/keyboard/key_function.hpp>
-#include <sge/input/keyboard/key_pressed.hpp>
-#include <sge/input/keyboard/key_repeat_callback.hpp>
-#include <sge/input/keyboard/key_repeat_function.hpp>
-#include <sge/x11input/input_context_fwd.hpp>
+#include <sge/input/keyboard/key_signal.hpp>
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/parameters_fwd.hpp>
 #include <sge/x11input/device/window_event_fwd.hpp>
 #include <sge/x11input/keyboard/device_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/bitfield/object_decl.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object.hpp>
@@ -59,9 +51,9 @@ class device
 		device
 	);
 public:
+	explicit
 	device(
-		sge::x11input::device::parameters const &,
-		sge::x11input::input_context const &
+		sge::x11input::device::parameters const &
 	);
 
 	~device()
@@ -71,22 +63,6 @@ private:
 	key_callback(
 		sge::input::keyboard::key_callback const &
 	)
-	override;
-
-	fcppt::signal::auto_connection
-	key_repeat_callback(
-		sge::input::keyboard::key_repeat_callback const &
-	)
-	override;
-
-	fcppt::signal::auto_connection
-	char_callback(
-		sge::input::keyboard::char_callback const &
-	)
-	override;
-
-	sge::input::keyboard::mod_state const
-	mod_state() const
 	override;
 
 	void
@@ -99,31 +75,11 @@ private:
 		sge::x11input::device::window_event const &
 	);
 
-	void
-	update_modifiers(
-		sge::input::keyboard::key_code,
-		sge::input::keyboard::key_pressed
-	);
+	sge::input::keyboard::key_signal key_signal_;
 
 	awl::backends::x11::window::object const &window_;
 
-	sge::x11input::input_context const &input_context_;
-
 	fcppt::signal::auto_connection_container const connections_;
-
-	fcppt::signal::object<
-		sge::input::keyboard::key_function
-	> key_signal_;
-
-	fcppt::signal::object<
-		sge::input::keyboard::key_repeat_function
-	> key_repeat_signal_;
-
-	fcppt::signal::object<
-		sge::input::keyboard::char_function
-	> char_signal_;
-
-	sge::input::keyboard::mod_state modifiers_;
 };
 
 }

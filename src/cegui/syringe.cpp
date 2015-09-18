@@ -29,11 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/scroll_event.hpp>
-#include <sge/input/keyboard/char_event.hpp>
-#include <sge/input/keyboard/key_code.hpp>
-#include <sge/input/keyboard/key_code_to_string.hpp>
-#include <sge/input/keyboard/key_event.hpp>
-#include <sge/input/keyboard/key_repeat_event.hpp>
+#include <sge/input/focus/char_event.hpp>
+#include <sge/input/focus/key_event.hpp>
+#include <sge/input/focus/key_repeat_event.hpp>
+#include <sge/input/key/code.hpp>
+#include <sge/input/key/code_to_string.hpp>
 #include <sge/src/cegui/convert_cursor_button.hpp>
 #include <sge/src/cegui/convert_key.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
@@ -57,7 +57,7 @@ namespace
 
 sge::cegui::optional_key_scan const
 process_key_code(
-	sge::input::keyboard::key_code,
+	sge::input::key::code,
 	sge::cegui::optional_key_scan const &
 );
 
@@ -83,7 +83,7 @@ sge::cegui::syringe::~syringe()
 
 void
 sge::cegui::syringe::inject(
-	sge::input::keyboard::key_event const &_event
+	sge::input::focus::key_event const &_event
 )
 {
 	fcppt::maybe_void(
@@ -116,7 +116,7 @@ sge::cegui::syringe::inject(
 
 void
 sge::cegui::syringe::inject(
-	sge::input::keyboard::key_repeat_event const &_event
+	sge::input::focus::key_repeat_event const &_event
 )
 {
 	fcppt::maybe_void(
@@ -142,7 +142,7 @@ sge::cegui::syringe::inject(
 
 void
 sge::cegui::syringe::inject(
-	sge::input::keyboard::char_event const &_event
+	sge::input::focus::char_event const &_event
 )
 {
 	typedef
@@ -158,7 +158,7 @@ sge::cegui::syringe::inject(
 			sge::charconv::encoding::wchar
 		>(
 			std::basic_string<
-				sge::input::keyboard::char_type
+				sge::input::focus::char_type
 			>(
 				1u,
 				_event.character()
@@ -292,7 +292,7 @@ namespace
 
 sge::cegui::optional_key_scan const
 process_key_code(
-	sge::input::keyboard::key_code const _orig_code,
+	sge::input::key::code const _orig_code,
 	sge::cegui::optional_key_scan const &_code
 )
 {
@@ -306,7 +306,7 @@ process_key_code(
 					local_log,
 					fcppt::log::_
 						<< FCPPT_TEXT("Got a key which I couldn't process. Its code is: ")
-						<< sge::input::keyboard::key_code_to_string(
+						<< sge::input::key::code_to_string(
 							_orig_code
 						)
 						<< FCPPT_TEXT("; Doing nothing."));

@@ -3,8 +3,8 @@ set(
 	include/sge/cegui/cursor_visibility.hpp
 	include/sge/cegui/cursor_visibility_fwd.hpp
 	include/sge/cegui/default_cursor.hpp
+	include/sge/cegui/default_focus.hpp
 	include/sge/cegui/default_font.hpp
-	include/sge/cegui/default_keyboard.hpp
 	include/sge/cegui/detail/system_impl_fwd.hpp
 	include/sge/cegui/duration.hpp
 	include/sge/cegui/exception.hpp
@@ -29,8 +29,8 @@ set(
 	src/cegui/convert_key.cpp
 	src/cegui/convert_pixel_format.cpp
 	src/cegui/default_cursor.cpp
+	src/cegui/default_focus.cpp
 	src/cegui/default_font.cpp
-	src/cegui/default_keyboard.cpp
 	src/cegui/default_target.cpp
 	src/cegui/detail/system_impl.cpp
 	src/cegui/exception.cpp

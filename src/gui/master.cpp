@@ -33,14 +33,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
-#include <sge/input/keyboard/char_callback.hpp>
-#include <sge/input/keyboard/char_event.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_code.hpp>
-#include <sge/input/keyboard/key_event.hpp>
-#include <sge/input/keyboard/key_repeat_callback.hpp>
-#include <sge/input/keyboard/key_repeat_event.hpp>
+#include <sge/input/focus/char_callback.hpp>
+#include <sge/input/focus/char_event.hpp>
+#include <sge/input/focus/key_callback.hpp>
+#include <sge/input/focus/key_event.hpp>
+#include <sge/input/focus/key_repeat_callback.hpp>
+#include <sge/input/focus/key_repeat_event.hpp>
+#include <sge/input/focus/object.hpp>
+#include <sge/input/key/code.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/rucksack/vector.hpp>
@@ -55,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::gui::master::master(
-	sge::input::keyboard::device &_keyboard,
+	sge::input::focus::object &_focus,
 	sge::input::cursor::object &_cursor,
 	sge::gui::context &_context,
 	sge::gui::main_area::base &_main_area
@@ -71,8 +71,8 @@ sge::gui::master::master(
 		_main_area
 	),
 	key_connection_(
-		_keyboard.key_callback(
-			sge::input::keyboard::key_callback{
+		_focus.key_callback(
+			sge::input::focus::key_callback{
 				std::bind(
 					&sge::gui::master::key_event,
 					this,
@@ -82,8 +82,8 @@ sge::gui::master::master(
 		)
 	),
 	key_repeat_connection_(
-		_keyboard.key_repeat_callback(
-			sge::input::keyboard::key_repeat_callback{
+		_focus.key_repeat_callback(
+			sge::input::focus::key_repeat_callback{
 				std::bind(
 					&sge::gui::master::key_repeat_event,
 					this,
@@ -93,8 +93,8 @@ sge::gui::master::master(
 		)
 	),
 	char_connection_(
-		_keyboard.char_callback(
-			sge::input::keyboard::char_callback{
+		_focus.char_callback(
+			sge::input::focus::char_callback{
 				std::bind(
 					&sge::gui::master::char_event,
 					this,
@@ -168,7 +168,7 @@ sge::gui::master::update(
 
 void
 sge::gui::master::key_event(
-	sge::input::keyboard::key_event const &_event
+	sge::input::focus::key_event const &_event
 )
 {
 	if(
@@ -181,7 +181,7 @@ sge::gui::master::key_event(
 
 void
 sge::gui::master::key_repeat_event(
-	sge::input::keyboard::key_repeat_event const &_event
+	sge::input::focus::key_repeat_event const &_event
 )
 {
 	this->handle_key(
@@ -191,7 +191,7 @@ sge::gui::master::key_repeat_event(
 
 void
 sge::gui::master::char_event(
-	sge::input::keyboard::char_event const &_event
+	sge::input::focus::char_event const &_event
 )
 {
 	fcppt::maybe_void(
@@ -244,13 +244,13 @@ sge::gui::master::button_event(
 
 void
 sge::gui::master::handle_key(
-	sge::input::keyboard::key_code const _key_code
+	sge::input::key::code const _key_code
 )
 {
 	if(
 		_key_code
 		==
-		sge::input::keyboard::key_code::tab
+		sge::input::key::code::tab
 	)
 	{
 		// If no focus was found, try one more time using no focus

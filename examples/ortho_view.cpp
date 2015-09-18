@@ -29,9 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system.hpp>
 #include <sge/input/cursor/demuxer.hpp>
 #include <sge/input/cursor/mode.hpp>
+#include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
@@ -382,7 +382,7 @@ try
 					if(
 						_event.key().code()
 						==
-						sge::input::keyboard::key_code::g
+						sge::input::key::code::g
 					)
 						sys.cursor_demuxer().mode(
 							_event.pressed()

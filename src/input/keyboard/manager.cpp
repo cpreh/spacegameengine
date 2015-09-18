@@ -19,12 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/processor.hpp>
-#include <sge/input/keyboard/char_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
 #include <sge/input/keyboard/discover_event.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_repeat_callback.hpp>
 #include <sge/input/keyboard/manager.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/keyboard/remove_event.hpp>
@@ -47,9 +45,7 @@ sge::input::keyboard::manager::manager(
 	sge::input::processor &_processor,
 	sge::input::keyboard::discover_callback const &_discover_callback,
 	sge::input::keyboard::remove_callback const &_remove_callback,
-	char_callback const &_char_callback,
-	key_callback const &_key_callback,
-	key_repeat_callback const &_key_repeat_callback
+	key_callback const &_key_callback
 )
 :
 	devices_(),
@@ -59,14 +55,8 @@ sge::input::keyboard::manager::manager(
 	remove_callback_(
 		_remove_callback
 	),
-	char_callback_(
-		_char_callback
-	),
 	key_callback_(
 		_key_callback
-	),
-	key_repeat_callback_(
-		_key_repeat_callback
 	),
 	connections_(
 		fcppt::assign::make_container<
@@ -106,7 +96,8 @@ sge::input::keyboard::manager::~manager()
 sge::input::keyboard::manager::keyboard_map const &
 sge::input::keyboard::manager::devices() const
 {
-	return devices_;
+	return
+		devices_;
 }
 
 void
@@ -121,19 +112,6 @@ sge::input::keyboard::manager::discover(
 				fcppt::assign::make_container<
 					fcppt::signal::auto_connection_container
 				>(
-					_event.get().char_callback(
-						sge::input::keyboard::char_callback{
-							std::bind(
-								char_callback_,
-								std::ref(
-									_event.get()
-								),
-								std::placeholders::_1
-							)
-						}
-					)
-				)
-				(
 					_event.get().key_callback(
 						sge::input::keyboard::key_callback{
 							std::bind(
@@ -146,23 +124,9 @@ sge::input::keyboard::manager::discover(
 						}
 					)
 				)
-				(
-					_event.get().key_repeat_callback(
-						sge::input::keyboard::key_repeat_callback{
-							std::bind(
-								key_repeat_callback_,
-								std::ref(
-									_event.get()
-								),
-								std::placeholders::_1
-							)
-						}
-					)
-				)
 				.move_container()
 			)
 		).second
-		== true
 	);
 
 	discover_callback_(

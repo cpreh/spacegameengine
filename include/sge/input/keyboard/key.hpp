@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_KEYBOARD_KEY_HPP_INCLUDED
 
 #include <sge/input/detail/symbol.hpp>
-#include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/key_fwd.hpp>
 #include <sge/input/keyboard/key_id.hpp>
 
@@ -39,19 +39,19 @@ class key
 public:
 	SGE_INPUT_DETAIL_SYMBOL
 	key(
-		sge::input::keyboard::key_code,
+		sge::input::key::code,
 		sge::input::keyboard::key_id
 	);
 
 	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::keyboard::key_code
+	sge::input::key::code
 	code() const;
 
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::keyboard::key_id const
 	id() const;
 private:
-	sge::input::keyboard::key_code code_;
+	sge::input::key::code code_;
 
 	sge::input::keyboard::key_id id_;
 };

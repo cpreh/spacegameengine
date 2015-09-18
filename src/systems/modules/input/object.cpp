@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system.hpp>
 #include <sge/input/cursor/demuxer.hpp>
 #include <sge/input/cursor/object.hpp>
+#include <sge/input/focus/collector.hpp>
+#include <sge/input/focus/object.hpp>
 #include <sge/input/keyboard/collector.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/mouse/collector.hpp>
@@ -70,6 +72,23 @@ sge::systems::modules::input::object::object(
 			_window_object.get(),
 			_window_system.get()
 		)
+	),
+	focus_collector_(
+		_parameters.get_focus_collector().get()
+		?
+			optional_focus_unique_ptr(
+				fcppt::unique_ptr_to_base<
+					sge::input::focus::object
+				>(
+					fcppt::make_unique_ptr<
+						sge::input::focus::collector
+					>(
+						*input_processor_
+					)
+				)
+			)
+		:
+			optional_focus_unique_ptr()
 	),
 	cursor_demuxer_(
 		_parameters.get_cursor_demuxer().get()
@@ -185,6 +204,15 @@ sge::systems::modules::input::object::processor() const
 {
 	return
 		*input_processor_;
+}
+
+sge::input::focus::object &
+sge::systems::modules::input::object::focus_collector() const
+{
+	return
+		*FCPPT_ASSERT_OPTIONAL_ERROR(
+			focus_collector_
+		);
 }
 
 sge::input::cursor::object &

@@ -43,6 +43,11 @@ class input
 public:
 	FCPPT_MAKE_STRONG_TYPEDEF(
 		bool,
+		focus_collector
+	);
+
+	FCPPT_MAKE_STRONG_TYPEDEF(
+		bool,
 		cursor_demuxer
 	);
 
@@ -59,6 +64,7 @@ public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	input(
 		sge::systems::input const &,
+		sge::systems::detail::input::focus_collector,
 		sge::systems::detail::input::cursor_demuxer,
 		sge::systems::detail::input::keyboard_collector,
 		sge::systems::detail::input::mouse_collector
@@ -66,6 +72,9 @@ public:
 
 	sge::systems::input const &
 	parameters() const;
+
+	sge::systems::detail::input::focus_collector const
+	get_focus_collector() const;
 
 	sge::systems::detail::input::cursor_demuxer const
 	get_cursor_demuxer() const;
@@ -77,6 +86,8 @@ public:
 	get_mouse_collector() const;
 private:
 	sge::systems::input const parameters_;
+
+	sge::systems::detail::input::focus_collector const focus_collector_;
 
 	sge::systems::detail::input::cursor_demuxer const cursor_demuxer_;
 

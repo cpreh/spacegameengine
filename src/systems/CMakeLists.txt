@@ -56,6 +56,8 @@ set(
 	include/sge/systems/empty_list.hpp
 	include/sge/systems/empty_list_fwd.hpp
 	include/sge/systems/exception.hpp
+	include/sge/systems/focus_collector.hpp
+	include/sge/systems/focus_collector_fwd.hpp
 	include/sge/systems/font.hpp
 	include/sge/systems/font_fwd.hpp
 	include/sge/systems/image2d.hpp

@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
+#include <sge/input/focus/discover_callback.hpp>
+#include <sge/input/focus/remove_callback.hpp>
 #include <sge/input/detail/symbol.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
@@ -50,15 +52,19 @@ protected:
 	SGE_INPUT_DETAIL_SYMBOL
 	processor();
 public:
+	// TODO: Use optional auto connections?
+
 	//
 	// keyboards
 	//
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	keyboard_discover_callback(
 		sge::input::keyboard::discover_callback const &
 	) = 0;
 
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	keyboard_remove_callback(
 		sge::input::keyboard::remove_callback const &
 	) = 0;
@@ -66,25 +72,44 @@ public:
 	//
 	// mice
 	//
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	mouse_discover_callback(
 		sge::input::mouse::discover_callback const &
 	) = 0;
 
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	mouse_remove_callback(
 		sge::input::mouse::remove_callback const &
 	) = 0;
 
 	//
+	// foci
+	//
+	virtual
+	fcppt::signal::auto_connection
+	focus_discover_callback(
+		sge::input::focus::discover_callback const &
+	) = 0;
+
+	virtual
+	fcppt::signal::auto_connection
+	focus_remove_callback(
+		sge::input::focus::remove_callback const &
+	) = 0;
+
+	//
 	// cursors
 	//
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	cursor_discover_callback(
 		sge::input::cursor::discover_callback const &
 	) = 0;
 
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	cursor_remove_callback(
 		sge::input::cursor::remove_callback const &
 	) = 0;
@@ -92,18 +117,21 @@ public:
 	//
 	// joypads
 	//
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	joypad_discover_callback(
 		sge::input::joypad::discover_callback const &
 	) = 0;
 
-	virtual fcppt::signal::auto_connection
+	virtual
+	fcppt::signal::auto_connection
 	joypad_remove_callback(
 		sge::input::joypad::remove_callback const &
 	) = 0;
 
 	SGE_INPUT_DETAIL_SYMBOL
-	virtual ~processor() = 0;
+	virtual
+	~processor() = 0;
 };
 
 }

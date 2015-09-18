@@ -49,7 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widget/edit.hpp>
 #include <sge/gui/widget/optional_focus.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
-#include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/key/code.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
@@ -297,28 +297,28 @@ sge::gui::widget::edit::on_click(
 
 void
 sge::gui::widget::edit::on_key(
-	sge::input::keyboard::key_code const _code
+	sge::input::key::code const _code
 )
 {
 	switch(
 		_code
 	)
 	{
-	case sge::input::keyboard::key_code::left:
+	case sge::input::key::code::left:
 		if(
 			position_ != 0u
 		)
 			--position_;
 
 		break;
-	case sge::input::keyboard::key_code::right:
+	case sge::input::key::code::right:
 		if(
 			position_ < text_.size()
 		)
 			++position_;
 
 		break;
-	case sge::input::keyboard::key_code::delete_:
+	case sge::input::key::code::delete_:
 		if(
 			position_ != text_.size()
 		)
@@ -332,7 +332,7 @@ sge::gui::widget::edit::on_key(
 		}
 
 		break;
-	case sge::input::keyboard::key_code::backspace:
+	case sge::input::key::code::backspace:
 		if(
 			position_ - 1u
 			<

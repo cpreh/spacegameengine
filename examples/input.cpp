@@ -33,23 +33,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/input/log_location.hpp>
+#include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code_to_string.hpp>
 #include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/manager.hpp>
+#include <sge/input/cursor/move_callback.hpp>
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event.hpp>
+#include <sge/input/cursor/scroll_callback.hpp>
 #include <sge/input/cursor/scroll_code_to_string.hpp>
 #include <sge/input/cursor/scroll_event.hpp>
+#include <sge/input/focus/char_callback.hpp>
+#include <sge/input/focus/char_event.hpp>
+#include <sge/input/focus/discover_callback.hpp>
+#include <sge/input/focus/discover_event.hpp>
+#include <sge/input/focus/in_callback.hpp>
+#include <sge/input/focus/in_event_fwd.hpp>
+#include <sge/input/focus/key_callback.hpp>
+#include <sge/input/focus/key_event.hpp>
+#include <sge/input/focus/key_repeat_callback.hpp>
+#include <sge/input/focus/key_repeat_event.hpp>
+#include <sge/input/focus/manager.hpp>
+#include <sge/input/focus/object.hpp>
+#include <sge/input/focus/out_callback.hpp>
+#include <sge/input/focus/out_event_fwd.hpp>
+#include <sge/input/focus/remove_callback.hpp>
+#include <sge/input/focus/remove_event.hpp>
+#include <sge/input/joypad/absolute_axis_callback.hpp>
 #include <sge/input/joypad/absolute_axis_event.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
 #include <sge/input/joypad/absolute_axis_info_container.hpp>
 #include <sge/input/joypad/axis_code_to_string.hpp>
+#include <sge/input/joypad/button_callback.hpp>
 #include <sge/input/joypad/button_event.hpp>
 #include <sge/input/joypad/button_info.hpp>
 #include <sge/input/joypad/button_info_container.hpp>
@@ -58,25 +79,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/discover_event.hpp>
 #include <sge/input/joypad/info.hpp>
 #include <sge/input/joypad/manager.hpp>
+#include <sge/input/joypad/relative_axis_callback.hpp>
 #include <sge/input/joypad/relative_axis_event.hpp>
 #include <sge/input/joypad/relative_axis_info.hpp>
 #include <sge/input/joypad/relative_axis_info_container.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
 #include <sge/input/joypad/remove_event.hpp>
-#include <sge/input/keyboard/char_event.hpp>
+#include <sge/input/key/code_to_string.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
 #include <sge/input/keyboard/discover_event.hpp>
-#include <sge/input/keyboard/key_code_to_string.hpp>
+#include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_event.hpp>
-#include <sge/input/keyboard/key_repeat_event.hpp>
 #include <sge/input/keyboard/manager.hpp>
 #include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/keyboard/remove_event.hpp>
+#include <sge/input/mouse/axis_callback.hpp>
 #include <sge/input/mouse/axis_code_to_string.hpp>
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/axis_info.hpp>
 #include <sge/input/mouse/axis_info_container.hpp>
+#include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/button_code_to_string.hpp>
 #include <sge/input/mouse/button_event.hpp>
 #include <sge/input/mouse/button_info.hpp>
@@ -107,9 +130,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
+#include <sge/systems/focus_collector.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
@@ -204,6 +227,46 @@ cursor_scroll(
 );
 
 void
+focus_discover(
+	sge::input::focus::discover_event const &
+);
+
+void
+focus_remove(
+	sge::input::focus::remove_event const &
+);
+
+void
+focus_char(
+	sge::input::focus::object &,
+	sge::input::focus::char_event const &
+);
+
+void
+focus_key(
+	sge::input::focus::object &,
+	sge::input::focus::key_event const &
+);
+
+void
+focus_key_repeat(
+	sge::input::focus::object &,
+	sge::input::focus::key_repeat_event const &
+);
+
+void
+focus_in(
+	sge::input::focus::object &,
+	sge::input::focus::in_event const &
+);
+
+void
+focus_out(
+	sge::input::focus::object &,
+	sge::input::focus::out_event const &
+);
+
+void
 joypad_discover(
 	sge::input::joypad::discover_event const &
 );
@@ -242,21 +305,9 @@ keyboard_remove(
 );
 
 void
-keyboard_char(
-	sge::input::keyboard::device &,
-	sge::input::keyboard::char_event const &
-);
-
-void
 keyboard_key(
 	sge::input::keyboard::device &,
 	sge::input::keyboard::key_event const &
-);
-
-void
-keyboard_key_repeat(
-	sge::input::keyboard::device &,
-	sge::input::keyboard::key_repeat_event const &
 );
 
 void
@@ -309,7 +360,7 @@ template<
 	typename Result,
 	typename Function
 >
-Result const
+Result
 wrap_silent(
 	Function const &,
 	bool silent
@@ -357,7 +408,7 @@ try
 			>,
 			sge::systems::with_input<
 				boost::mpl::vector1<
-					sge::systems::keyboard_collector
+					sge::systems::focus_collector
 				>
 			>,
 			sge::systems::with_font
@@ -446,7 +497,7 @@ try
 			sge::image::color::predef::white()
 		),
 		*font,
-		sys.keyboard_collector(),
+		sys.focus_collector(),
 		fcppt::math::box::null<
 			sge::font::rect
 		>(),
@@ -521,6 +572,46 @@ try
 		)
 	);
 
+	sge::input::focus::manager const focus_manager(
+		sys.input_processor(),
+		sge::input::focus::discover_callback(
+			::focus_discover
+		),
+		sge::input::focus::remove_callback(
+			::focus_remove
+		),
+		wrap_silent<
+			sge::input::focus::manager::char_callback
+		>(
+			::focus_char,
+			silent
+		),
+		wrap_silent<
+			sge::input::focus::manager::key_callback
+		>(
+			::focus_key,
+			silent
+		),
+		wrap_silent<
+			sge::input::focus::manager::key_repeat_callback
+		>(
+			::focus_key_repeat,
+			silent
+		),
+		wrap_silent<
+			sge::input::focus::manager::in_callback
+		>(
+			::focus_in,
+			silent
+		),
+		wrap_silent<
+			sge::input::focus::manager::out_callback
+		>(
+			::focus_out,
+			silent
+		)
+	);
+
 	sge::input::joypad::manager const joypad_manager(
 		sys.input_processor(),
 		sge::input::joypad::discover_callback(
@@ -558,21 +649,9 @@ try
 			::keyboard_remove
 		),
 		wrap_silent<
-			sge::input::keyboard::manager::char_callback
-		>(
-			::keyboard_char,
-			silent
-		),
-		wrap_silent<
 			sge::input::keyboard::manager::key_callback
 		>(
 			::keyboard_key,
-			silent
-		),
-		wrap_silent<
-			sge::input::keyboard::manager::key_repeat_callback
-		>(
-			::keyboard_key_repeat,
 			silent
 		)
 	);
@@ -775,6 +854,111 @@ cursor_scroll(
 }
 
 void
+focus_discover(
+	sge::input::focus::discover_event const &_event
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("focus_discover: ")
+		<< &_event.get()
+		<< FCPPT_TEXT('\n');
+}
+
+void
+focus_remove(
+	sge::input::focus::remove_event const &_event
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("focus_remove: ")
+		<< &_event.get()
+		<< FCPPT_TEXT('\n');
+}
+
+void
+focus_char(
+	sge::input::focus::object &_object,
+	sge::input::focus::char_event const &_event
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("focus_char: ")
+		<< &_object
+		<< FCPPT_TEXT("\n\tcharacter_value: ")
+		<< static_cast<
+			unsigned long
+		>(
+			_event.character()
+		)
+		<< FCPPT_TEXT("\n\tchar: ")
+		<< fcppt::from_std_wstring(
+			std::wstring(
+				1u,
+				_event.character()
+			)
+		)
+		<< FCPPT_TEXT('\n');
+}
+
+void
+focus_key(
+	sge::input::focus::object &_object,
+	sge::input::focus::key_event const &_event
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("focus_key: ")
+		<< &_object
+		<< FCPPT_TEXT("\n\tkey_code: ")
+		<< sge::input::key::code_to_string(
+			_event.key().code()
+		)
+		<< FCPPT_TEXT("\n\tpressed: ")
+		<< _event.pressed()
+		<< FCPPT_TEXT('\n');
+}
+
+void
+focus_key_repeat(
+	sge::input::focus::object &_object,
+	sge::input::focus::key_repeat_event const &_event
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("focus_key_repeat: ")
+		<< &_object
+		<< FCPPT_TEXT("\n\tkey_code: ")
+		<< sge::input::key::code_to_string(
+			_event.key().code()
+		)
+		<< FCPPT_TEXT('\n');
+}
+
+void
+focus_in(
+	sge::input::focus::object &_object,
+	sge::input::focus::in_event const &
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("focus_in: ")
+		<< &_object
+		<< FCPPT_TEXT('\n');
+}
+
+void
+focus_out(
+	sge::input::focus::object &_object,
+	sge::input::focus::out_event const &
+)
+{
+	fcppt::io::cout()
+		<< FCPPT_TEXT("focus_out: ")
+		<< &_object
+		<< FCPPT_TEXT('\n');
+}
+
+void
 joypad_discover(
 	sge::input::joypad::discover_event const &_event
 )
@@ -965,33 +1149,6 @@ keyboard_remove(
 }
 
 void
-keyboard_char(
-	sge::input::keyboard::device &_device,
-	sge::input::keyboard::char_event const &_event
-)
-{
-	fcppt::io::cout()
-		<< FCPPT_TEXT("keyboard_char: ")
-		<< &_device
-		<< FCPPT_TEXT("\n\tcharacter_value: ")
-		<< static_cast<
-			unsigned long
-		>(
-			_event.character()
-		)
-		<< FCPPT_TEXT("\n\tchar: ")
-		<< fcppt::from_std_wstring(
-			std::wstring(
-				1u,
-				_event.character()
-			)
-		)
-		<< FCPPT_TEXT("\n\trepeated: ")
-		<< _event.repeated()
-		<< FCPPT_TEXT('\n');
-}
-
-void
 keyboard_key(
 	sge::input::keyboard::device &_device,
 	sge::input::keyboard::key_event const &_event
@@ -1003,29 +1160,11 @@ keyboard_key(
 		<< FCPPT_TEXT("\n\tid: ")
 		<< _event.key().id()
 		<< FCPPT_TEXT("\n\tkey_code: ")
-		<< sge::input::keyboard::key_code_to_string(
+		<< sge::input::key::code_to_string(
 			_event.key().code()
 		)
 		<< FCPPT_TEXT("\n\tpressed: ")
 		<< _event.pressed()
-		<< FCPPT_TEXT('\n');
-}
-
-void
-keyboard_key_repeat(
-	sge::input::keyboard::device &_device,
-	sge::input::keyboard::key_repeat_event const &_event
-)
-{
-	fcppt::io::cout()
-		<< FCPPT_TEXT("keyboard_key_repeat: ")
-		<< &_device
-		<< FCPPT_TEXT("\n\tid: ")
-		<< _event.key().id()
-		<< FCPPT_TEXT("\n\tkey_code: ")
-		<< sge::input::keyboard::key_code_to_string(
-			_event.key().code()
-		)
 		<< FCPPT_TEXT('\n');
 }
 
@@ -1181,7 +1320,7 @@ template<
 	typename Result,
 	typename Function
 >
-Result const
+Result
 wrap_silent(
 	Function const &_function,
 	bool const _silent

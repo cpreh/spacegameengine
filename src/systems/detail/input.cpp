@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::systems::detail::input::input(
 	sge::systems::input const &_parameters,
+	sge::systems::detail::input::focus_collector const _focus_collector,
 	sge::systems::detail::input::cursor_demuxer const _cursor_demuxer,
 	sge::systems::detail::input::keyboard_collector const _keyboard_collector,
 	sge::systems::detail::input::mouse_collector const _mouse_collector
@@ -31,6 +32,9 @@ sge::systems::detail::input::input(
 :
 	parameters_(
 		_parameters
+	),
+	focus_collector_(
+		_focus_collector
 	),
 	cursor_demuxer_(
 		_cursor_demuxer
@@ -47,23 +51,34 @@ sge::systems::detail::input::input(
 sge::systems::input const &
 sge::systems::detail::input::parameters() const
 {
-	return parameters_;
+	return
+		parameters_;
+}
+
+sge::systems::detail::input::focus_collector const
+sge::systems::detail::input::get_focus_collector() const
+{
+	return
+		focus_collector_;
 }
 
 sge::systems::detail::input::cursor_demuxer const
 sge::systems::detail::input::get_cursor_demuxer() const
 {
-	return cursor_demuxer_;
+	return
+		cursor_demuxer_;
 }
 
 sge::systems::detail::input::keyboard_collector const
 sge::systems::detail::input::get_keyboard_collector() const
 {
-	return keyboard_collector_;
+	return
+		keyboard_collector_;
 }
 
 sge::systems::detail::input::mouse_collector const
 sge::systems::detail::input::get_mouse_collector() const
 {
-	return mouse_collector_;
+	return
+		mouse_collector_;
 }

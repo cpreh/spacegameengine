@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/predef.hpp>
+#include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
@@ -340,16 +340,16 @@ private:
 
 		switch (e.key().code())
 		{
-			case sge::input::keyboard::key_code::left:
+			case sge::input::key::code::left:
 				result = sge::projectile::vector2(-1.f,0.f);
 				break;
-			case sge::input::keyboard::key_code::right:
+			case sge::input::key::code::right:
 				result = sge::projectile::vector2(1.f,0.f);
 				break;
-			case sge::input::keyboard::key_code::up:
+			case sge::input::key::code::up:
 				result = sge::projectile::vector2(0.f,-1.f);
 				break;
-			case sge::input::keyboard::key_code::down:
+			case sge::input::key::code::down:
 				result = sge::projectile::vector2(0.f,1.f);
 				break;
 			default:

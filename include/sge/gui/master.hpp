@@ -33,11 +33,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widget/optional_ref_fwd.hpp>
 #include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/keyboard/char_event_fwd.hpp>
-#include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/keyboard/key_code_fwd.hpp>
-#include <sge/input/keyboard/key_event_fwd.hpp>
-#include <sge/input/keyboard/key_repeat_event_fwd.hpp>
+#include <sge/input/focus/char_event_fwd.hpp>
+#include <sge/input/focus/key_event_fwd.hpp>
+#include <sge/input/focus/key_repeat_event_fwd.hpp>
+#include <sge/input/focus/object_fwd.hpp>
+#include <sge/input/key/code_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -57,7 +57,7 @@ class master
 public:
 	SGE_GUI_DETAIL_SYMBOL
 	master(
-		sge::input::keyboard::device &,
+		sge::input::focus::object &,
 		sge::input::cursor::object &,
 		sge::gui::context &,
 		sge::gui::main_area::base &
@@ -90,17 +90,17 @@ public:
 private:
 	void
 	key_event(
-		sge::input::keyboard::key_event const &
+		sge::input::focus::key_event const &
 	);
 
 	void
 	key_repeat_event(
-		sge::input::keyboard::key_repeat_event const &
+		sge::input::focus::key_repeat_event const &
 	);
 
 	void
 	char_event(
-		sge::input::keyboard::char_event const &
+		sge::input::focus::char_event const &
 	);
 
 	void
@@ -110,7 +110,7 @@ private:
 
 	void
 	handle_key(
-		sge::input::keyboard::key_code
+		sge::input::key::code
 	);
 
 	sge::gui::widget::optional_ref const

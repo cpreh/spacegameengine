@@ -28,9 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_event_fwd.hpp>
 #include <sge/input/cursor/position_fwd.hpp>
 #include <sge/input/cursor/scroll_event_fwd.hpp>
-#include <sge/input/keyboard/char_event_fwd.hpp>
-#include <sge/input/keyboard/key_event_fwd.hpp>
-#include <sge/input/keyboard/key_repeat_event_fwd.hpp>
+#include <sge/input/focus/char_event_fwd.hpp>
+#include <sge/input/focus/key_event_fwd.hpp>
+#include <sge/input/focus/key_repeat_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -63,19 +63,19 @@ public:
 	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	inject(
-		sge::input::keyboard::key_event const &
+		sge::input::focus::key_event const &
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	inject(
-		sge::input::keyboard::key_repeat_event const &
+		sge::input::focus::key_repeat_event const &
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	inject(
-		sge::input::keyboard::char_event const &
+		sge::input::focus::char_event const &
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL

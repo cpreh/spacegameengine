@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
+#include <sge/input/focus/discover_callback.hpp>
+#include <sge/input/focus/remove_callback.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
@@ -36,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/processor.hpp>
 #include <sge/x11input/send_init_event.hpp>
 #include <sge/x11input/cursor/object.hpp>
+#include <sge/x11input/cursor/object_unique_ptr.hpp>
 #include <sge/x11input/device/hierarchy_demuxer.hpp>
 #include <sge/x11input/device/hierarchy_event.hpp>
 #include <sge/x11input/device/id.hpp>
@@ -46,8 +49,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/manager/config_map.hpp>
 #include <sge/x11input/device/manager/create_function.hpp>
 #include <sge/x11input/device/manager/make_config.hpp>
+#include <sge/x11input/focus/object.hpp>
+#include <sge/x11input/focus/object_unique_ptr.hpp>
 #include <sge/x11input/keyboard/device.hpp>
+#include <sge/x11input/keyboard/device_unique_ptr.hpp>
 #include <sge/x11input/mouse/device.hpp>
+#include <sge/x11input/mouse/device_unique_ptr.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/intern_atom.hpp>
 #include <awl/backends/x11/cursor/create_invisible.hpp>
@@ -179,6 +186,8 @@ sge::x11input::processor::processor(
 	keyboard_remove_(),
 	mouse_discover_(),
 	mouse_remove_(),
+	focus_discover_(),
+	focus_remove_(),
 	cursor_discover_(),
 	cursor_remove_(),
 	joypad_discover_(),
@@ -193,6 +202,28 @@ sge::x11input::processor::processor(
 					XIMasterKeyboard
 				),
 				sge::x11input::device::manager::make_config<
+					sge::x11input::focus::object
+				>(
+					focus_discover_,
+					focus_remove_,
+					sge::x11input::device::manager::create_function<
+						sge::x11input::focus::object
+					>{
+						std::bind(
+							&sge::x11input::processor::create_focus,
+							this,
+							std::placeholders::_1
+						)
+					}
+				)
+			)
+		)
+		(
+			std::make_pair(
+				sge::x11input::device::use(
+					XISlaveKeyboard
+				),
+				sge::x11input::device::manager::make_config<
 					sge::x11input::keyboard::device
 				>(
 					keyboard_discover_,
@@ -201,7 +232,7 @@ sge::x11input::processor::processor(
 						sge::x11input::keyboard::device
 					>{
 						std::bind(
-							&x11input::processor::create_keyboard,
+							&sge::x11input::processor::create_keyboard,
 							this,
 							std::placeholders::_1
 						)
@@ -223,7 +254,7 @@ sge::x11input::processor::processor(
 						sge::x11input::cursor::object
 					>{
 						std::bind(
-							&x11input::processor::create_cursor,
+							&sge::x11input::processor::create_cursor,
 							this,
 							std::placeholders::_1
 						)
@@ -245,7 +276,7 @@ sge::x11input::processor::processor(
 						sge::x11input::mouse::device
 					>{
 						std::bind(
-							&x11input::processor::create_mouse,
+							&sge::x11input::processor::create_mouse,
 							this,
 							std::placeholders::_1
 						)
@@ -421,6 +452,28 @@ sge::x11input::processor::mouse_remove_callback(
 }
 
 fcppt::signal::auto_connection
+sge::x11input::processor::focus_discover_callback(
+	sge::input::focus::discover_callback const &_callback
+)
+{
+	return
+		focus_discover_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
+sge::x11input::processor::focus_remove_callback(
+	sge::input::focus::remove_callback const &_callback
+)
+{
+	return
+		focus_remove_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
 sge::x11input::processor::cursor_discover_callback(
 	sge::input::cursor::discover_callback const &_callback
 )
@@ -492,8 +545,7 @@ sge::x11input::processor::create_keyboard(
 		>(
 			this->device_parameters(
 				_param
-			),
-			*input_context_
+			)
 		);
 }
 
@@ -509,6 +561,22 @@ sge::x11input::processor::create_mouse(
 			this->device_parameters(
 				_param
 			)
+		);
+}
+
+sge::x11input::focus::object_unique_ptr
+sge::x11input::processor::create_focus(
+	sge::x11input::create_parameters const &_param
+)
+{
+	return
+		fcppt::make_unique_ptr<
+			sge::x11input::focus::object
+		>(
+			this->device_parameters(
+				_param
+			),
+			*input_context_
 		);
 }
 
@@ -556,13 +624,14 @@ sge::x11input::processor::on_focus_in(
 	FCPPT_LOG_DEBUG(
 		sge::x11input::logger(),
 		fcppt::log::_
-			<< FCPPT_TEXT("x11input: FocusIn")
+			<< FCPPT_TEXT("FocusIn")
 	);
 
 	raw_demuxer_.active(
 		true
 	);
 
+	// FIXME: We need to manage the cursors that belong to this focus
 	cursor_manager_.focus_in();
 }
 
@@ -574,13 +643,14 @@ sge::x11input::processor::on_focus_out(
 	FCPPT_LOG_DEBUG(
 		sge::x11input::logger(),
 		fcppt::log::_
-			<< FCPPT_TEXT("x11input: FocusOut")
+			<< FCPPT_TEXT("FocusOut")
 	);
 
 	raw_demuxer_.active(
 		false
 	);
 
+	// FIXME: We need to manage the cursors that belong to this focus
 	cursor_manager_.focus_out();
 }
 
@@ -592,7 +662,7 @@ sge::x11input::processor::on_client_message(
 	FCPPT_LOG_DEBUG(
 		sge::x11input::logger(),
 		fcppt::log::_
-			<< FCPPT_TEXT("x11input: ClientMessage")
+			<< FCPPT_TEXT("ClientMessage")
 	);
 
 	if(

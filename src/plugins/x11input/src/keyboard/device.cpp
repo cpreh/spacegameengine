@@ -18,30 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard/char_event.hpp>
-#include <sge/input/keyboard/char_repeated.hpp>
+#include <sge/input/key/code.hpp>
+#include <sge/input/key/pressed.hpp>
 #include <sge/input/keyboard/key.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
-#include <sge/input/keyboard/key_pressed.hpp>
-#include <sge/input/keyboard/key_repeat_event.hpp>
-#include <sge/input/keyboard/mod_state.hpp>
-#include <sge/input/keyboard/modifier.hpp>
-#include <sge/input/keyboard/to_modifier.hpp>
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/window_event.hpp>
+#include <sge/x11input/key/code_to_sym.hpp>
+#include <sge/x11input/key/translate_code.hpp>
 #include <sge/x11input/keyboard/device.hpp>
-#include <sge/x11input/keyboard/fake_core_event.hpp>
-#include <sge/x11input/keyboard/key_code_to_key_sym.hpp>
 #include <sge/x11input/keyboard/key_id.hpp>
-#include <sge/x11input/keyboard/looked_up_string.hpp>
-#include <sge/x11input/keyboard/lookup_string.hpp>
-#include <sge/x11input/keyboard/translate_key_code.hpp>
 #include <awl/backends/x11/system/event/object.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <fcppt/maybe_void.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
@@ -52,18 +42,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::x11input::keyboard::device::device(
-	sge::x11input::device::parameters const &_param,
-	sge::x11input::input_context const &_input_context
+	sge::x11input::device::parameters const &_param
 )
 :
 	sge::input::keyboard::device(),
 	sge::x11input::device::object(
 		_param.id()
 	),
+	key_signal_(),
 	window_(
 		_param.window()
 	),
-	input_context_(_input_context),
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::auto_connection_container
@@ -98,12 +87,6 @@ sge::x11input::keyboard::device::device(
 			)
 		)
 		.move_container()
-	),
-	key_signal_(),
-	key_repeat_signal_(),
-	char_signal_(),
-	modifiers_(
-		sge::input::keyboard::mod_state::null()
 	)
 {
 }
@@ -123,111 +106,32 @@ sge::x11input::keyboard::device::key_callback(
 		);
 }
 
-fcppt::signal::auto_connection
-sge::x11input::keyboard::device::key_repeat_callback(
-	sge::input::keyboard::key_repeat_callback const &_callback
-)
-{
-	return
-		key_repeat_signal_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::x11input::keyboard::device::char_callback(
-	sge::input::keyboard::char_callback const &_callback
-)
-{
-	return
-		char_signal_.connect(
-			_callback
-		);
-}
-
-sge::input::keyboard::mod_state const
-sge::x11input::keyboard::device::mod_state() const
-{
-	return
-		modifiers_;
-}
-
 void
 sge::x11input::keyboard::device::on_key_press(
 	sge::x11input::device::window_event const &_event
 )
 {
-	sge::x11input::keyboard::fake_core_event(
-		window_,
-		_event
-	);
-
-	sge::x11input::keyboard::looked_up_string const lookup(
-		sge::x11input::keyboard::lookup_string(
-			input_context_,
-			_event.get()
-		)
-	);
-
+	// TODO: Simplify this
 	sge::input::keyboard::key const key(
-		lookup.key_code(),
+		sge::x11input::key::translate_code(
+			sge::x11input::key::code_to_sym(
+				window_.display(),
+				_event.get().detail
+			)
+		),
 		sge::x11input::keyboard::key_id(
 			_event
 		)
 	);
 
-	sge::input::keyboard::char_repeated const is_repeated(
-		(
-			_event.get().flags
-			&
-			XIKeyRepeat
+	key_signal_(
+		sge::input::keyboard::key_event(
+			key,
+			sge::input::key::pressed{
+				true
+			}
 		)
-		!=
-		0
 	);
-
-	if(
-		is_repeated.get()
-	)
-		key_repeat_signal_(
-			sge::input::keyboard::key_repeat_event(
-				key
-			)
-		);
-	else
-	{
-		sge::input::keyboard::key_pressed const pressed{
-			true
-		};
-
-		this->update_modifiers(
-			lookup.key_code(),
-			pressed
-		);
-
-		key_signal_(
-			sge::input::keyboard::key_event(
-				key,
-				pressed
-			)
-		);
-	}
-
-	sge::x11input::keyboard::char_vector const &char_codes(
-		lookup.char_codes()
-	);
-
-	for(
-		auto const &element
-		:
-		char_codes
-	)
-		char_signal_(
-			sge::input::keyboard::char_event(
-				element,
-				is_repeated
-			)
-		);
 }
 
 void
@@ -235,27 +139,14 @@ sge::x11input::keyboard::device::on_key_release(
 	sge::x11input::device::window_event const &_event
 )
 {
-	sge::x11input::keyboard::fake_core_event(
-		window_,
-		_event
-	);
-
-	sge::input::keyboard::key_code const key_code(
-		sge::x11input::keyboard::translate_key_code(
-			sge::x11input::keyboard::key_code_to_key_sym(
+	// TODO: Simplify this
+	sge::input::key::code const key_code(
+		sge::x11input::key::translate_code(
+			sge::x11input::key::code_to_sym(
 				window_.display(),
 				_event.get().detail
 			)
 		)
-	);
-
-	sge::input::keyboard::key_pressed const pressed{
-		false
-	};
-
-	this->update_modifiers(
-		key_code,
-		pressed
 	);
 
 	key_signal_(
@@ -266,32 +157,9 @@ sge::x11input::keyboard::device::on_key_release(
 					_event
 				)
 			},
-			pressed
+			sge::input::key::pressed{
+				false
+			}
 		)
-	);
-}
-
-void
-sge::x11input::keyboard::device::update_modifiers(
-	sge::input::keyboard::key_code const _key_code,
-	sge::input::keyboard::key_pressed const _pressed
-)
-{
-	fcppt::maybe_void(
-		sge::input::keyboard::to_modifier(
-			_key_code
-		),
-		[
-			this,
-			_pressed
-		](
-			sge::input::keyboard::modifier const &_mod
-		)
-		{
-			modifiers_[
-				_mod
-			] =
-				_pressed.get();
-		}
 	);
 }

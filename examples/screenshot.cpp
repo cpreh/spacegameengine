@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/predef.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
+#include <sge/input/key/action_callback.hpp>
+#include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/action_callback.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -289,8 +289,8 @@ try
 	fcppt::signal::scoped_connection const screenshot_connection(
 		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
-				sge::input::keyboard::key_code::f12,
-				sge::input::keyboard::action_callback{
+				sge::input::key::code::f12,
+				sge::input::key::action_callback{
 					std::bind(
 						sge::renderer::screenshot,
 						std::ref(

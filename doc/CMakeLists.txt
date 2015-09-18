@@ -267,8 +267,8 @@ set(
 	include/sge/cegui/cursor_visibility.hpp
 	include/sge/cegui/cursor_visibility_fwd.hpp
 	include/sge/cegui/default_cursor.hpp
+	include/sge/cegui/default_focus.hpp
 	include/sge/cegui/default_font.hpp
-	include/sge/cegui/default_keyboard.hpp
 	include/sge/cegui/detail/system_impl_fwd.hpp
 	include/sge/cegui/duration.hpp
 	include/sge/cegui/exception.hpp
@@ -1266,6 +1266,53 @@ set(
 	include/sge/input/event/remove.hpp
 	include/sge/input/event/remove_fwd.hpp
 	include/sge/input/exception.hpp
+	include/sge/input/focus/char_callback.hpp
+	include/sge/input/focus/char_event.hpp
+	include/sge/input/focus/char_event_fwd.hpp
+	include/sge/input/focus/char_function.hpp
+	include/sge/input/focus/char_signal.hpp
+	include/sge/input/focus/char_type.hpp
+	include/sge/input/focus/collector.hpp
+	include/sge/input/focus/collector_fwd.hpp
+	include/sge/input/focus/count.hpp
+	include/sge/input/focus/discover_callback.hpp
+	include/sge/input/focus/discover_event.hpp
+	include/sge/input/focus/discover_event_fwd.hpp
+	include/sge/input/focus/discover_function.hpp
+	include/sge/input/focus/discover_signal.hpp
+	include/sge/input/focus/in_callback.hpp
+	include/sge/input/focus/in_event.hpp
+	include/sge/input/focus/in_event_fwd.hpp
+	include/sge/input/focus/in_function.hpp
+	include/sge/input/focus/in_signal.hpp
+	include/sge/input/focus/key.hpp
+	include/sge/input/focus/key_callback.hpp
+	include/sge/input/focus/key_event.hpp
+	include/sge/input/focus/key_event_fwd.hpp
+	include/sge/input/focus/key_function.hpp
+	include/sge/input/focus/key_fwd.hpp
+	include/sge/input/focus/key_repeat_callback.hpp
+	include/sge/input/focus/key_repeat_event.hpp
+	include/sge/input/focus/key_repeat_event_fwd.hpp
+	include/sge/input/focus/key_repeat_function.hpp
+	include/sge/input/focus/key_repeat_signal.hpp
+	include/sge/input/focus/key_signal.hpp
+	include/sge/input/focus/manager.hpp
+	include/sge/input/focus/mod_state_tracker.hpp
+	include/sge/input/focus/mod_state_tracker_fwd.hpp
+	include/sge/input/focus/object.hpp
+	include/sge/input/focus/object_fwd.hpp
+	include/sge/input/focus/object_unique_ptr.hpp
+	include/sge/input/focus/out_callback.hpp
+	include/sge/input/focus/out_event.hpp
+	include/sge/input/focus/out_event_fwd.hpp
+	include/sge/input/focus/out_function.hpp
+	include/sge/input/focus/out_signal.hpp
+	include/sge/input/focus/remove_callback.hpp
+	include/sge/input/focus/remove_event.hpp
+	include/sge/input/focus/remove_event_fwd.hpp
+	include/sge/input/focus/remove_function.hpp
+	include/sge/input/focus/remove_signal.hpp
 	include/sge/input/info/container.hpp
 	include/sge/input/info/container_fwd.hpp
 	include/sge/input/info/id.hpp
@@ -1328,64 +1375,56 @@ set(
 	include/sge/input/joypad/remove_event_fwd.hpp
 	include/sge/input/joypad/remove_function.hpp
 	include/sge/input/joypad/remove_signal.hpp
+	include/sge/input/key/action.hpp
+	include/sge/input/key/action_callback.hpp
+	include/sge/input/key/callback.hpp
+	include/sge/input/key/code.hpp
+	include/sge/input/key/code_fwd.hpp
+	include/sge/input/key/code_to_digit.hpp
+	include/sge/input/key/code_to_string.hpp
+	include/sge/input/key/digit.hpp
+	include/sge/input/key/function.hpp
+	include/sge/input/key/is_alt.hpp
+	include/sge/input/key/is_control.hpp
+	include/sge/input/key/is_shift.hpp
+	include/sge/input/key/mod_state.hpp
+	include/sge/input/key/mod_state_fwd.hpp
+	include/sge/input/key/modifier.hpp
+	include/sge/input/key/modifier_fwd.hpp
+	include/sge/input/key/optional_code.hpp
+	include/sge/input/key/optional_code_fwd.hpp
+	include/sge/input/key/optional_digit.hpp
+	include/sge/input/key/optional_digit_fwd.hpp
+	include/sge/input/key/optional_modifier.hpp
+	include/sge/input/key/optional_modifier_fwd.hpp
+	include/sge/input/key/pressed.hpp
+	include/sge/input/key/to_modifier.hpp
 	include/sge/input/keyboard/action.hpp
-	include/sge/input/keyboard/action_callback.hpp
-	include/sge/input/keyboard/char_callback.hpp
-	include/sge/input/keyboard/char_event.hpp
-	include/sge/input/keyboard/char_event_fwd.hpp
-	include/sge/input/keyboard/char_function.hpp
-	include/sge/input/keyboard/char_repeated.hpp
-	include/sge/input/keyboard/char_signal.hpp
-	include/sge/input/keyboard/char_type.hpp
 	include/sge/input/keyboard/collector.hpp
 	include/sge/input/keyboard/collector_fwd.hpp
+	include/sge/input/keyboard/convert_key_callback.hpp
 	include/sge/input/keyboard/device.hpp
 	include/sge/input/keyboard/device_fwd.hpp
 	include/sge/input/keyboard/device_unique_ptr.hpp
-	include/sge/input/keyboard/digit.hpp
 	include/sge/input/keyboard/discover_callback.hpp
 	include/sge/input/keyboard/discover_event.hpp
 	include/sge/input/keyboard/discover_event_fwd.hpp
 	include/sge/input/keyboard/discover_function.hpp
 	include/sge/input/keyboard/discover_signal.hpp
-	include/sge/input/keyboard/is_alt.hpp
-	include/sge/input/keyboard/is_control.hpp
-	include/sge/input/keyboard/is_shift.hpp
 	include/sge/input/keyboard/key.hpp
 	include/sge/input/keyboard/key_callback.hpp
-	include/sge/input/keyboard/key_code.hpp
-	include/sge/input/keyboard/key_code_fwd.hpp
-	include/sge/input/keyboard/key_code_to_digit.hpp
-	include/sge/input/keyboard/key_code_to_string.hpp
 	include/sge/input/keyboard/key_event.hpp
 	include/sge/input/keyboard/key_event_fwd.hpp
 	include/sge/input/keyboard/key_function.hpp
 	include/sge/input/keyboard/key_fwd.hpp
 	include/sge/input/keyboard/key_id.hpp
-	include/sge/input/keyboard/key_pressed.hpp
-	include/sge/input/keyboard/key_repeat_callback.hpp
-	include/sge/input/keyboard/key_repeat_event.hpp
-	include/sge/input/keyboard/key_repeat_event_fwd.hpp
-	include/sge/input/keyboard/key_repeat_function.hpp
-	include/sge/input/keyboard/key_repeat_signal.hpp
 	include/sge/input/keyboard/key_signal.hpp
 	include/sge/input/keyboard/manager.hpp
-	include/sge/input/keyboard/mod_state.hpp
-	include/sge/input/keyboard/mod_state_fwd.hpp
-	include/sge/input/keyboard/modifier.hpp
-	include/sge/input/keyboard/modifier_fwd.hpp
-	include/sge/input/keyboard/optional_digit.hpp
-	include/sge/input/keyboard/optional_digit_fwd.hpp
-	include/sge/input/keyboard/optional_key_code.hpp
-	include/sge/input/keyboard/optional_key_code_fwd.hpp
-	include/sge/input/keyboard/optional_modifier.hpp
-	include/sge/input/keyboard/optional_modifier_fwd.hpp
 	include/sge/input/keyboard/remove_callback.hpp
 	include/sge/input/keyboard/remove_event.hpp
 	include/sge/input/keyboard/remove_event_fwd.hpp
 	include/sge/input/keyboard/remove_function.hpp
 	include/sge/input/keyboard/remove_signal.hpp
-	include/sge/input/keyboard/to_modifier.hpp
 	include/sge/input/log_location.hpp
 	include/sge/input/mouse/axis.hpp
 	include/sge/input/mouse/axis_callback.hpp
@@ -3543,6 +3582,8 @@ set(
 	include/sge/systems/empty_list.hpp
 	include/sge/systems/empty_list_fwd.hpp
 	include/sge/systems/exception.hpp
+	include/sge/systems/focus_collector.hpp
+	include/sge/systems/focus_collector_fwd.hpp
 	include/sge/systems/font.hpp
 	include/sge/systems/font_fwd.hpp
 	include/sge/systems/image2d.hpp

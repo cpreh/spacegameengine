@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system_unique_ptr.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/object_unique_ptr.hpp>
+#include <sge/input/focus/object_fwd.hpp>
+#include <sge/input/focus/object_unique_ptr.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/keyboard/device_unique_ptr.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
@@ -74,6 +76,9 @@ public:
 	sge::input::processor &
 	processor() const;
 
+	sge::input::focus::object &
+	focus_collector() const;
+
 	sge::input::cursor::object &
 	cursor_demuxer() const;
 
@@ -86,6 +91,14 @@ private:
 	sge::input::system_unique_ptr const input_system_;
 
 	sge::input::processor_unique_ptr const input_processor_;
+
+	typedef
+	fcppt::optional<
+		sge::input::focus::object_unique_ptr
+	>
+	optional_focus_unique_ptr;
+
+	optional_focus_unique_ptr const focus_collector_;
 
 	typedef
 	fcppt::optional<

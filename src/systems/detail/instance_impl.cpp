@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
+#include <sge/input/focus/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/log/option_container.hpp>
@@ -382,6 +383,15 @@ sge::systems::detail::instance_impl::input_processor() const
 		FCPPT_ASSERT_OPTIONAL_ERROR(
 			input_
 		)->processor();
+}
+
+sge::input::focus::object &
+sge::systems::detail::instance_impl::focus_collector() const
+{
+	return
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			input_
+		)->focus_collector();
 }
 
 sge::input::cursor::object &

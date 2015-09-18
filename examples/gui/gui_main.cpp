@@ -86,10 +86,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/axis.hpp>
 #include <sge/systems/cursor_demuxer.hpp>
 #include <sge/systems/cursor_option_field.hpp>
+#include <sge/systems/focus_collector.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/renderer.hpp>
@@ -146,7 +146,7 @@ try
 			sge::systems::with_window,
 			sge::systems::with_input<
 				boost::mpl::vector2<
-					sge::systems::keyboard_collector,
+					sge::systems::focus_collector,
 					sge::systems::cursor_demuxer
 				>
 			>,
@@ -485,7 +485,7 @@ try
 	);
 
 	sge::gui::master master(
-		sys.keyboard_collector(),
+		sys.focus_collector(),
 		sys.cursor_demuxer(),
 		context,
 		main_area

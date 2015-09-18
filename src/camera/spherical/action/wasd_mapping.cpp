@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/spherical/action/mapping.hpp>
 #include <sge/camera/spherical/action/wasd_mapping.hpp>
-#include <sge/input/keyboard/key_code.hpp>
-#include <sge/input/keyboard/optional_key_code.hpp>
+#include <sge/input/key/code.hpp>
+#include <sge/input/key/optional_code.hpp>
 
 
 sge::camera::spherical::action::mapping const
@@ -30,21 +30,21 @@ sge::camera::spherical::action::wasd_mapping()
 	return
 		spherical::action::mapping(
 			spherical::action::increase_azimuth(
-				sge::input::keyboard::optional_key_code(
-					input::keyboard::key_code::d)),
+				sge::input::key::optional_code(
+					input::key::code::d)),
 			spherical::action::decrease_azimuth(
-				sge::input::keyboard::optional_key_code(
-					input::keyboard::key_code::a)),
+				sge::input::key::optional_code(
+					input::key::code::a)),
 			spherical::action::increase_inclination(
-				sge::input::keyboard::optional_key_code(
-					input::keyboard::key_code::w)),
+				sge::input::key::optional_code(
+					input::key::code::w)),
 			spherical::action::decrease_inclination(
-				sge::input::keyboard::optional_key_code(
-					input::keyboard::key_code::s)),
+				sge::input::key::optional_code(
+					input::key::code::s)),
 			spherical::action::increase_radius(
-				sge::input::keyboard::optional_key_code(
-					input::keyboard::key_code::left_control)),
+				sge::input::key::optional_code(
+					input::key::code::left_control)),
 			spherical::action::decrease_radius(
-				sge::input::keyboard::optional_key_code(
-					input::keyboard::key_code::space)));
+				sge::input::key::optional_code(
+					input::key::code::space)));
 }

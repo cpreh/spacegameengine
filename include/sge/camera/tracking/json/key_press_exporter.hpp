@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/update_duration.hpp>
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/tracking/keyframe_sequence.hpp>
+#include <sge/input/key/code_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/keyboard/key_code_fwd.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/strong_typedef.hpp>
@@ -51,11 +51,11 @@ FCPPT_NONCOPYABLE(
 	key_press_exporter);
 public:
 	FCPPT_MAKE_STRONG_TYPEDEF(
-		sge::input::keyboard::key_code,
+		sge::input::key::code,
 		keyframe_keypress);
 
 	FCPPT_MAKE_STRONG_TYPEDEF(
-		sge::input::keyboard::key_code,
+		sge::input::key::code,
 		export_keypress);
 
 	SGE_CAMERA_DETAIL_SYMBOL

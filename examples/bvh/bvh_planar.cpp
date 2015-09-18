@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8_from_hex_string.hpp>
+#include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
@@ -358,27 +358,27 @@ private:
 
 		switch(_event.key().code())
 		{
-			case sge::input::keyboard::key_code::left:
+			case sge::input::key::code::left:
 				new_tree =
 					bvh_tree_traits::tree_representation::const_optional_ref(
 						tree.front());
 				break;
-			case sge::input::keyboard::key_code::right:
+			case sge::input::key::code::right:
 				new_tree =
 					bvh_tree_traits::tree_representation::const_optional_ref(
 						 tree.back());
 				break;
-			case sge::input::keyboard::key_code::up:
+			case sge::input::key::code::up:
 				new_tree =
 					bvh_tree_traits::tree_representation::const_optional_ref(
 						tree.front());
 				break;
-			case sge::input::keyboard::key_code::down:
+			case sge::input::key::code::down:
 				new_tree =
 					bvh_tree_traits::tree_representation::const_optional_ref(
 						tree.back());
 				break;
-			case sge::input::keyboard::key_code::p:
+			case sge::input::key::code::p:
 				fcppt::maybe_void(
 					tree.parent(),
 					[

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/config_fwd.hpp>
 #include <sge/systems/cursor_demuxer_fwd.hpp>
+#include <sge/systems/focus_collector_fwd.hpp>
 #include <sge/systems/keyboard_collector_fwd.hpp>
 #include <sge/systems/mouse_collector_fwd.hpp>
 #include <sge/systems/renderer_fwd.hpp>
@@ -185,6 +186,12 @@ private:
 			sge::systems::detail::any(
 				sge::systems::detail::input(
 					_input,
+					sge::systems::detail::input::focus_collector(
+						sge::systems::detail::has_input_option<
+							Choices,
+							sge::systems::focus_collector
+						>::value
+					),
 					sge::systems::detail::input::cursor_demuxer(
 						sge::systems::detail::has_input_option<
 							Choices,

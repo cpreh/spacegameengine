@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/cursor_visibility.hpp>
 #include <sge/cegui/default_cursor.hpp>
-#include <sge/cegui/default_keyboard.hpp>
+#include <sge/cegui/default_focus.hpp>
 #include <sge/cegui/duration.hpp>
 #include <sge/cegui/load_context.hpp>
 #include <sge/cegui/log_location.hpp>
@@ -54,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/config.hpp>
 #include <sge/systems/cursor_demuxer.hpp>
 #include <sge/systems/cursor_option_field.hpp>
+#include <sge/systems/focus_collector.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
@@ -129,7 +130,8 @@ try
 			>,
 			sge::systems::with_window,
 			sge::systems::with_input<
-				boost::mpl::vector2<
+				boost::mpl::vector3<
+					sge::systems::focus_collector,
 					sge::systems::keyboard_collector,
 					sge::systems::cursor_demuxer
 				>
@@ -218,9 +220,9 @@ try
 		gui_syringe,
 		sys.cursor_demuxer());
 
-	sge::cegui::default_keyboard gui_keyboard(
+	sge::cegui::default_focus gui_keyboard(
 		gui_syringe,
-		sys.keyboard_collector());
+		sys.focus_collector());
 
 	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(

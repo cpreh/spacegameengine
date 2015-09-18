@@ -31,10 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/unit.hpp>
-#include <sge/input/keyboard/char_event_fwd.hpp>
-#include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/keyboard/key_event_fwd.hpp>
-#include <sge/input/keyboard/key_repeat_event_fwd.hpp>
+#include <sge/input/focus/char_event_fwd.hpp>
+#include <sge/input/focus/key_event_fwd.hpp>
+#include <sge/input/focus/key_repeat_event_fwd.hpp>
+#include <sge/input/focus/mod_state_tracker.hpp>
+#include <sge/input/focus/object_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -63,7 +64,7 @@ public:
 		sge::renderer::device::ffp &,
 		sge::console::gfx::font_color const &,
 		sge::font::object &,
-		sge::input::keyboard::device &,
+		sge::input::focus::object &,
 		sge::font::rect const &,
 		sge::console::gfx::output_line_limit
 	);
@@ -130,7 +131,9 @@ private:
 
 	sge::font::object &font_object_;
 
-	sge::input::keyboard::device &keyboard_;
+	sge::input::focus::object &focus_;
+
+	sge::input::focus::mod_state_tracker mod_state_tracker_;
 
 	fcppt::signal::scoped_connection const
 		key_connection_,
@@ -162,17 +165,17 @@ private:
 
 	void
 	key_callback(
-		sge::input::keyboard::key_event const &
+		sge::input::focus::key_event const &
 	);
 
 	void
 	char_callback(
-		sge::input::keyboard::char_event const &
+		sge::input::focus::char_event const &
 	);
 
 	void
 	key_action(
-		sge::input::keyboard::key_repeat_event const &
+		sge::input::focus::key_repeat_event const &
 	);
 
 	void

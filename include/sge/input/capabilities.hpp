@@ -32,6 +32,7 @@ namespace input
 enum class capabilities
 {
 	cursor,
+	focus,
 	joypad,
 	keyboard,
 	mouse,

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widget/frame.hpp>
 #include <sge/gui/widget/optional_focus.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
-#include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/key/code.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/rucksack/padding.hpp>
 #include <sge/rucksack/rect.hpp>
@@ -101,7 +101,7 @@ sge::gui::widget::frame::on_click(
 
 void
 sge::gui::widget::frame::on_key(
-	sge::input::keyboard::key_code const _key
+	sge::input::key::code const _key
 )
 {
 	return

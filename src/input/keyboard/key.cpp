@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/key.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_id.hpp>
 
 
 sge::input::keyboard::key::key(
-	sge::input::keyboard::key_code const _code,
+	sge::input::key::code const _code,
 	sge::input::keyboard::key_id const _id
 )
 :
@@ -37,7 +37,7 @@ sge::input::keyboard::key::key(
 {
 }
 
-sge::input::keyboard::key_code
+sge::input::key::code
 sge::input::keyboard::key::code() const
 {
 	return

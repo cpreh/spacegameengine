@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/key/code.hpp>
+#include <sge/input/key/optional_code.hpp>
 #include <sge/input/keyboard/key_event.hpp>
-#include <sge/input/keyboard/optional_key_code.hpp>
 #include <sge/src/camera/set_pressed_if_appropriate.hpp>
 #include <fcppt/maybe_void.hpp>
 
@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::camera::set_pressed_if_appropriate(
 	bool &_result,
-	sge::input::keyboard::optional_key_code const &_optional_key,
+	sge::input::key::optional_code const &_optional_key,
 	sge::input::keyboard::key_event const &_key_event
 )
 {
@@ -38,7 +38,7 @@ sge::camera::set_pressed_if_appropriate(
 			&_key_event,
 			&_result
 		](
-			sge::input::keyboard::key_code const _code
+			sge::input::key::code const _code
 		)
 		{
 			if(

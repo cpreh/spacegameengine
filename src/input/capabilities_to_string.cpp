@@ -45,6 +45,9 @@ sge::input::capabilities_to_string(
 			cursor
 		);
 		SGE_INPUT_CAPABILITIES_TO_STRING_CASE(
+			focus
+		);
+		SGE_INPUT_CAPABILITIES_TO_STRING_CASE(
 			keyboard
 		);
 		SGE_INPUT_CAPABILITIES_TO_STRING_CASE(

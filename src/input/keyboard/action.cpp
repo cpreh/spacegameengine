@@ -18,36 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/key/action.hpp>
+#include <sge/input/key/action_callback.hpp>
+#include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/action_callback.hpp>
+#include <sge/input/keyboard/convert_key_callback.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_code.hpp>
-#include <sge/input/keyboard/key_event.hpp>
 
 
 sge::input::keyboard::key_callback
 sge::input::keyboard::action(
-	sge::input::keyboard::key_code const _code,
-	sge::input::keyboard::action_callback const &_action
+	sge::input::key::code const _code,
+	sge::input::key::action_callback const &_action
 )
 {
 	return
-		sge::input::keyboard::key_callback(
-			[
+		sge::input::keyboard::convert_key_callback(
+			sge::input::key::action(
 				_code,
 				_action
-			](
-				sge::input::keyboard::key_event const &_event
 			)
-			{
-				if(
-					_event.pressed()
-					&&
-					_event.key().code()
-					==
-					_code
-				)
-					_action();
-			}
 		);
 }

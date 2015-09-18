@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/cursor/object_fwd.hpp>
+#include <sge/input/focus/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/log/apply_options.hpp>
@@ -285,6 +286,13 @@ sge::systems::detail::instance::input_processor() const
 {
 	return
 		impl_->input_processor();
+}
+
+sge::input::focus::object &
+sge::systems::detail::instance::focus_collector() const
+{
+	return
+		impl_->focus_collector();
 }
 
 sge::input::cursor::object &

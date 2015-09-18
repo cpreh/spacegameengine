@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_KEYBOARD_KEY_EVENT_HPP_INCLUDED
 
 #include <sge/input/detail/symbol.hpp>
+#include <sge/input/key/pressed.hpp>
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
-#include <sge/input/keyboard/key_pressed.hpp>
 
 
 namespace sge
@@ -40,7 +40,7 @@ public:
 	SGE_INPUT_DETAIL_SYMBOL
 	key_event(
 		sge::input::keyboard::key const &,
-		sge::input::keyboard::key_pressed
+		sge::input::key::pressed
 	);
 
 	SGE_INPUT_DETAIL_SYMBOL
@@ -53,7 +53,7 @@ public:
 private:
 	sge::input::keyboard::key key_;
 
-	sge::input::keyboard::key_pressed const pressed_;
+	sge::input::key::pressed const pressed_;
 };
 
 }
