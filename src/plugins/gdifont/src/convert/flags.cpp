@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/flags_field.hpp>
 #include <sge/gdifont/include_windows.hpp>
 #include <sge/gdifont/convert/flags.hpp>
+#include <fcppt/container/bitfield/operators.hpp>
 
 
 UINT

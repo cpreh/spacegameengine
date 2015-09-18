@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/container/bitfield/operators.hpp>
 
 
 sge::d3d9::lock_flags const

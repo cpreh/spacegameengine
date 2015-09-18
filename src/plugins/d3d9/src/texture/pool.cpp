@@ -24,24 +24,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/container/bitfield/operators.hpp>
 
 
 D3DPOOL
 sge::d3d9::texture::pool(
-	renderer::resource_flags_field const &_flags,
-	renderer::texture::capabilities_field const &_caps
+	sge::renderer::resource_flags_field const &_flags,
+	sge::renderer::texture::capabilities_field const &_caps
 )
 {
 	return
 		(
 			_caps
-			& sge::renderer::texture::capabilities::render_target
+			&
+			sge::renderer::texture::capabilities::render_target
 		)
 		?
 			D3DPOOL_DEFAULT
 		:
-			d3d9::convert::resource_flags_to_pool(
+			sge::d3d9::convert::resource_flags_to_pool(
 				_flags
 			);
 }

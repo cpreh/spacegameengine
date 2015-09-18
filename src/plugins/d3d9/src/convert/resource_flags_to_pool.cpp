@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/convert/resource_flags_to_pool.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <fcppt/container/bitfield/operators.hpp>
 
 
 D3DPOOL
@@ -30,7 +31,9 @@ sge::d3d9::convert::resource_flags_to_pool(
 )
 {
 	return
-		_flags & renderer::resource_flags::dynamic
+		_flags
+		&
+		sge::renderer::resource_flags::dynamic
 		?
 			D3DPOOL_DEFAULT
 		:
