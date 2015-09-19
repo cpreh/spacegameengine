@@ -23,13 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/focus/char_callback.hpp>
 #include <sge/input/focus/char_signal.hpp>
-#include <sge/input/focus/object.hpp>
 #include <sge/input/focus/in_callback.hpp>
 #include <sge/input/focus/in_signal.hpp>
 #include <sge/input/focus/key_callback.hpp>
 #include <sge/input/focus/key_repeat_callback.hpp>
 #include <sge/input/focus/key_repeat_signal.hpp>
 #include <sge/input/focus/key_signal.hpp>
+#include <sge/input/focus/object.hpp>
 #include <sge/input/focus/out_callback.hpp>
 #include <sge/input/focus/out_signal.hpp>
 #include <sge/x11input/input_context_fwd.hpp>

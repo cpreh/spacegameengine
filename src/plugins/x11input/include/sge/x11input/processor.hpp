@@ -47,7 +47,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/input_method_fwd.hpp>
 #include <sge/x11input/cursor/manager.hpp>
 #include <sge/x11input/cursor/object_unique_ptr.hpp>
-#include <sge/x11input/focus/object_unique_ptr.hpp>
 #include <sge/x11input/device/enter_demuxer.hpp>
 #include <sge/x11input/device/hierarchy_demuxer.hpp>
 #include <sge/x11input/device/hierarchy_event_fwd.hpp>
@@ -56,6 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/raw_demuxer.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/manager/object.hpp>
+#include <sge/x11input/focus/object_unique_ptr.hpp>
 #include <sge/x11input/keyboard/device_unique_ptr.hpp>
 #include <sge/x11input/mouse/device_unique_ptr.hpp>
 #include <awl/backends/x11/atom.hpp>
@@ -70,8 +70,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
-#include <fcppt/signal/optional_auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
+#include <fcppt/signal/optional_auto_connection_fwd.hpp>
 
 
 namespace sge

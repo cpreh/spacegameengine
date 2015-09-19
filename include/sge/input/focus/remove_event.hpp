@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_FOCUS_REMOVE_EVENT_HPP_INCLUDED
 #define SGE_INPUT_FOCUS_REMOVE_EVENT_HPP_INCLUDED
 
-#include <sge/input/focus/remove_event_fwd.hpp>
 #include <sge/input/event/remove.hpp>
+#include <sge/input/focus/remove_event_fwd.hpp>
 
 
 #endif

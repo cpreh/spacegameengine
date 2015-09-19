@@ -75,8 +75,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
-#include <fcppt/signal/optional_auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
+#include <fcppt/signal/optional_auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <functional>

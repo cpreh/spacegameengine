@@ -24,13 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/detail/symbol.hpp>
 #include <sge/input/focus/char_event_fwd.hpp>
-#include <sge/input/focus/object_fwd.hpp>
 #include <sge/input/focus/discover_callback.hpp>
 #include <sge/input/focus/discover_event_fwd.hpp>
 #include <sge/input/focus/in_callback.hpp>
 #include <sge/input/focus/in_event_fwd.hpp>
 #include <sge/input/focus/key_event_fwd.hpp>
 #include <sge/input/focus/key_repeat_event_fwd.hpp>
+#include <sge/input/focus/object_fwd.hpp>
 #include <sge/input/focus/out_callback.hpp>
 #include <sge/input/focus/out_event_fwd.hpp>
 #include <sge/input/focus/remove_callback.hpp>

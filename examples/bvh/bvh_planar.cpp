@@ -112,7 +112,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/variant/get_exn.hpp>
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>

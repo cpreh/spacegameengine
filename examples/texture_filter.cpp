@@ -52,8 +52,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/sub.hpp>
-#include <sge/input/key/digit.hpp>
 #include <sge/input/key/code_to_digit.hpp>
+#include <sge/input/key/digit.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/renderer/aspect.hpp>

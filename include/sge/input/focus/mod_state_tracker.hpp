@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/count.hpp>
 #include <sge/input/focus/mod_state_tracker_fwd.hpp>
 #include <sge/input/focus/object_fwd.hpp>
-#include <sge/input/key/modifier.hpp>
 #include <sge/input/key/mod_state_fwd.hpp>
+#include <sge/input/key/modifier.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/enum_array_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
