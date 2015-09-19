@@ -46,6 +46,8 @@ OPTION (ENABLE_PNG "Build the libpng plugin" ${PNG_FOUND})
 
 OPTION (ENABLE_VORBIS "Build the vorbis loader plugin" ${VORBIS_FOUND})
 
+OPTION (ENABLE_WININPUT "Build the WinAPI input plugin" ${WIN32})
+
 OPTION (ENABLE_X11INPUT "Build the x11 input plugin" ${X11_Xinput_FOUND})
 
 IF(ENABLE_AUDIO_NULL)
@@ -90,6 +92,10 @@ ENDIF ()
 
 IF (ENABLE_WAVE)
 	ADD_SUBDIRECTORY (wave)
+ENDIF ()
+
+IF (ENABLE_WININPUT)
+	ADD_SUBDIRECTORY (wininput)
 ENDIF ()
 
 IF (ENABLE_X11INPUT)

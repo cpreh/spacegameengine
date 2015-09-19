@@ -18,8 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/logger_context.hpp>
-#include <sge/dinput/system.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/system_unique_ptr.hpp>
 #include <sge/plugin/capabilities.hpp>
@@ -32,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/name.hpp>
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/library/make_interface.hpp>
+#include <sge/wininput/logger_context.hpp>
+#include <sge/wininput/system.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -42,10 +42,10 @@ namespace
 
 sge::plugin::info const info(
 	sge::plugin::name(
-		FCPPT_TEXT("dinput")
+		FCPPT_TEXT("wininput")
 	),
 	sge::plugin::description(
-		FCPPT_TEXT("Implements keyboards, mice and joypads via DirectInpu8.")
+		FCPPT_TEXT("Implements focus and cursor using the WinAPI.")
 	),
 	sge::plugin::version(0x1u),
 	sge::plugin::min_core_version(0x1u),
@@ -63,7 +63,7 @@ create_input_system()
 			sge::input::system
 		>(
 			fcppt::make_unique_ptr<
-				sge::dinput::system
+				sge::wininput::system
 			>()
 		);
 }
@@ -72,6 +72,6 @@ create_input_system()
 
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
 	info,
-	sge::dinput::logger_context(),
+	sge::wininput::logger_context(),
 	(create_input_system)
 )

@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cursor/show.hpp>
+#include <sge/wininput/cursor/show.hpp>
 #include <awl/backends/windows/windows.hpp>
 
 
 void
-sge::dinput::cursor::show(
+sge::wininput::cursor::show(
 	bool const _visible
 )
 {

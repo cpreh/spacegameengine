@@ -18,10 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/di.hpp>
-#include <sge/dinput/cursor/exclusive_mode.hpp>
-#include <sge/dinput/cursor/get_pos.hpp>
-#include <sge/dinput/cursor/object.hpp>
+#include <sge/wininput/cursor/exclusive_mode.hpp>
+#include <sge/wininput/cursor/get_pos.hpp>
+#include <sge/wininput/cursor/object.hpp>
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
@@ -67,7 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
-sge::dinput::cursor::object::object(
+sge::wininput::cursor::object::object(
 	awl::backends::windows::window::event::processor &_event_processor,
 	awl::backends::windows::window::object &_window
 )
@@ -102,7 +101,7 @@ sge::dinput::cursor::object::object(
 					),
 					awl::backends::windows::window::event::callback{
 						std::bind(
-							&sge::dinput::cursor::object::on_move,
+							&sge::wininput::cursor::object::on_move,
 							this,
 							std::placeholders::_1
 						)
@@ -146,12 +145,12 @@ sge::dinput::cursor::object::object(
 
 FCPPT_PP_POP_WARNING
 
-sge::dinput::cursor::object::~object()
+sge::wininput::cursor::object::~object()
 {
 }
 
 fcppt::signal::auto_connection
-sge::dinput::cursor::object::button_callback(
+sge::wininput::cursor::object::button_callback(
 	sge::input::cursor::button_callback const &_callback
 )
 {
@@ -162,7 +161,7 @@ sge::dinput::cursor::object::button_callback(
 }
 
 fcppt::signal::auto_connection
-sge::dinput::cursor::object::move_callback(
+sge::wininput::cursor::object::move_callback(
 	sge::input::cursor::move_callback const &_callback
 )
 {
@@ -173,7 +172,7 @@ sge::dinput::cursor::object::move_callback(
 }
 
 fcppt::signal::auto_connection
-sge::dinput::cursor::object::scroll_callback(
+sge::wininput::cursor::object::scroll_callback(
 	sge::input::cursor::scroll_callback const &_callback
 )
 {
@@ -184,12 +183,12 @@ sge::dinput::cursor::object::scroll_callback(
 }
 
 sge::input::cursor::optional_position const
-sge::dinput::cursor::object::position() const
+sge::wininput::cursor::object::position() const
 {
 	return
 		fcppt::optional_bind_construct(
 			fcppt::optional_bind(
-				sge::dinput::cursor::get_pos(),
+				sge::wininput::cursor::get_pos(),
 				[
 					this
 				](
@@ -225,7 +224,7 @@ sge::dinput::cursor::object::position() const
 }
 
 void
-sge::dinput::cursor::object::mode(
+sge::wininput::cursor::object::mode(
 	sge::input::cursor::mode const _mode
 )
 {
@@ -246,7 +245,7 @@ sge::dinput::cursor::object::mode(
 }
 
 void
-sge::dinput::cursor::object::acquire()
+sge::wininput::cursor::object::acquire()
 {
 	has_focus_ =
 		true;
@@ -260,7 +259,7 @@ sge::dinput::cursor::object::acquire()
 }
 
 void
-sge::dinput::cursor::object::unacquire()
+sge::wininput::cursor::object::unacquire()
 {
 	has_focus_ =
 		false;
@@ -270,14 +269,14 @@ sge::dinput::cursor::object::unacquire()
 }
 
 bool
-sge::dinput::cursor::object::acquired() const
+sge::wininput::cursor::object::acquired() const
 {
 	return
 		has_focus_;
 }
 
 void
-sge::dinput::cursor::object::make_grab()
+sge::wininput::cursor::object::make_grab()
 {
 	if(
 		exclusive_mode_.has_value()
@@ -287,7 +286,7 @@ sge::dinput::cursor::object::make_grab()
 	exclusive_mode_ =
 		optional_exclusive_mode_unique_ptr(
 			fcppt::make_unique_ptr<
-				sge::dinput::cursor::exclusive_mode
+				sge::wininput::cursor::exclusive_mode
 			>(
 				event_processor_,
 				window_
@@ -296,7 +295,7 @@ sge::dinput::cursor::object::make_grab()
 }
 
 awl::backends::windows::window::event::return_type
-sge::dinput::cursor::object::on_move(
+sge::wininput::cursor::object::on_move(
 	awl::backends::windows::window::event::object const &_event
 )
 {
@@ -320,7 +319,7 @@ sge::dinput::cursor::object::on_move(
 }
 
 awl::backends::windows::window::event::return_type
-sge::dinput::cursor::object::on_button(
+sge::wininput::cursor::object::on_button(
 	awl::backends::windows::window::event::object const &_event,
 	sge::input::cursor::button_code const _code,
 	sge::input::cursor::button_pressed const _down
@@ -346,7 +345,7 @@ sge::dinput::cursor::object::on_button(
 }
 
 awl::backends::windows::window::event::return_type
-sge::dinput::cursor::object::on_scroll(
+sge::wininput::cursor::object::on_scroll(
 	awl::backends::windows::window::event::object const &_event,
 	sge::input::cursor::scroll_code const _code
 )
@@ -367,7 +366,7 @@ sge::dinput::cursor::object::on_scroll(
 }
 
 fcppt::signal::auto_connection_container
-sge::dinput::cursor::object::make_button_connections(
+sge::wininput::cursor::object::make_button_connections(
 	awl::backends::windows::event::type::value_type const _down_event,
 	awl::backends::windows::event::type::value_type const _up_event,
 	sge::input::cursor::button_code const _code
@@ -383,7 +382,7 @@ sge::dinput::cursor::object::make_button_connections(
 				},
 				awl::backends::windows::window::event::callback{
 					std::bind(
-						&sge::dinput::cursor::object::on_button,
+						&sge::wininput::cursor::object::on_button,
 						this,
 						std::placeholders::_1,
 						_code,
@@ -400,7 +399,7 @@ sge::dinput::cursor::object::make_button_connections(
 				},
 				awl::backends::windows::window::event::callback{
 					std::bind(
-						&sge::dinput::cursor::object::on_button,
+						&sge::wininput::cursor::object::on_button,
 						this,
 						std::placeholders::_1,
 						_code,
@@ -414,7 +413,7 @@ sge::dinput::cursor::object::make_button_connections(
 }
 
 fcppt::signal::auto_connection
-sge::dinput::cursor::object::make_scroll_connection(
+sge::wininput::cursor::object::make_scroll_connection(
 	awl::backends::windows::event::type::value_type const _event,
 	sge::input::cursor::scroll_code const _code
 )
@@ -426,7 +425,7 @@ sge::dinput::cursor::object::make_scroll_connection(
 			},
 			awl::backends::windows::window::event::callback{
 				std::bind(
-					&sge::dinput::cursor::object::on_scroll,
+					&sge::wininput::cursor::object::on_scroll,
 					this,
 					std::placeholders::_1,
 					_code

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cursor/define.hpp>
+#include <sge/wininput/cursor/define.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/window/event/callback.hpp>
@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
-sge::dinput::cursor::define::define(
+sge::wininput::cursor::define::define(
 	awl::backends::windows::window::event::processor &_processor
 )
 :
@@ -58,7 +58,7 @@ sge::dinput::cursor::define::define(
 			),
 			awl::backends::windows::window::event::callback{
 				std::bind(
-					&dinput::cursor::define::on_cursor,
+					&wininput::cursor::define::on_cursor,
 					this,
 					std::placeholders::_1
 				)
@@ -70,7 +70,7 @@ sge::dinput::cursor::define::define(
 
 FCPPT_PP_POP_WARNING
 
-sge::dinput::cursor::define::~define()
+sge::wininput::cursor::define::~define()
 {
 	fcppt::maybe_void(
 		previous_cursor_,
@@ -86,7 +86,7 @@ sge::dinput::cursor::define::~define()
 }
 
 awl::backends::windows::window::event::return_type
-sge::dinput::cursor::define::on_cursor(
+sge::wininput::cursor::define::on_cursor(
 	awl::backends::windows::window::event::object const &
 )
 {

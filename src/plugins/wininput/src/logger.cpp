@@ -18,26 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/wininput/cursor/get_pos.hpp>
-#include <awl/backends/windows/optional_point.hpp>
-#include <awl/backends/windows/windows.hpp>
+#include <sge/input/log_location.hpp>
+#include <sge/log/define_plugin.hpp>
+#include <sge/wininput/logger.hpp>
+#include <sge/wininput/logger_context.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/location.hpp>
 
 
-awl::backends::windows::optional_point const
-sge::wininput::cursor::get_pos()
-{
-	POINT ret;
-
-	return
-		::GetCursorPos(
-			&ret
-		)
-		== 0
-		?
-			awl::backends::windows::optional_point()
-		:
-			awl::backends::windows::optional_point(
-				ret
-			)
-		;
-}
+SGE_LOG_DEFINE_PLUGIN(
+	sge::wininput::logger,
+	sge::wininput::logger_context(),
+	sge::input::log_location()
+	/
+	FCPPT_TEXT("wininput")
+)

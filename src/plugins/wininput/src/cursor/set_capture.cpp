@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cursor/set_capture.hpp>
+#include <sge/wininput/cursor/set_capture.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/window/object.hpp>
 
 
 void
-sge::dinput::cursor::set_capture(
+sge::wininput::cursor::set_capture(
 	awl::backends::windows::window::object &_window
 )
 {

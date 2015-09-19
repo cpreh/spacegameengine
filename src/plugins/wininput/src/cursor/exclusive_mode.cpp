@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cursor/exclusive_mode.hpp>
-#include <sge/dinput/cursor/grab.hpp>
-#include <sge/dinput/cursor/ungrab.hpp>
+#include <sge/wininput/cursor/exclusive_mode.hpp>
+#include <sge/wininput/cursor/grab.hpp>
+#include <sge/wininput/cursor/ungrab.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
@@ -47,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
-sge::dinput::cursor::exclusive_mode::exclusive_mode(
+sge::wininput::cursor::exclusive_mode::exclusive_mode(
 	awl::backends::windows::window::event::processor &_event_processor,
 	awl::backends::windows::window::object &_window
 )
@@ -72,7 +72,7 @@ sge::dinput::cursor::exclusive_mode::exclusive_mode(
 	)
 {
 	while(
-		!sge::dinput::cursor::grab(
+		!sge::wininput::cursor::grab(
 			window_
 		)
 	)
@@ -85,13 +85,13 @@ sge::dinput::cursor::exclusive_mode::exclusive_mode(
 
 FCPPT_PP_POP_WARNING
 
-sge::dinput::cursor::exclusive_mode::~exclusive_mode()
+sge::wininput::cursor::exclusive_mode::~exclusive_mode()
 {
-	sge::dinput::cursor::ungrab();
+	sge::wininput::cursor::ungrab();
 }
 
 awl::backends::windows::window::event::return_type
-sge::dinput::cursor::exclusive_mode::on_temp_unacquire(
+sge::wininput::cursor::exclusive_mode::on_temp_unacquire(
 	awl::backends::windows::event::type const _event_type,
 	awl::backends::windows::window::event::object const &
 )
@@ -101,7 +101,7 @@ sge::dinput::cursor::exclusive_mode::on_temp_unacquire(
 			_event_type
 		);
 
-	sge::dinput::cursor::ungrab();
+	sge::wininput::cursor::ungrab();
 
 	return
 		awl::backends::windows::window::event::return_type(
@@ -110,7 +110,7 @@ sge::dinput::cursor::exclusive_mode::on_temp_unacquire(
 }
 
 awl::backends::windows::window::event::return_type
-sge::dinput::cursor::exclusive_mode::on_temp_acquire(
+sge::wininput::cursor::exclusive_mode::on_temp_acquire(
 	awl::backends::windows::event::type const _event_type,
 	awl::backends::windows::window::event::object const &
 )
@@ -122,7 +122,7 @@ sge::dinput::cursor::exclusive_mode::on_temp_acquire(
 			_event_type
 		)
 	)
-		sge::dinput::cursor::grab(
+		sge::wininput::cursor::grab(
 			window_
 		);
 
@@ -136,7 +136,7 @@ sge::dinput::cursor::exclusive_mode::on_temp_acquire(
 }
 
 fcppt::signal::auto_connection_container
-sge::dinput::cursor::exclusive_mode::make_connection_pair(
+sge::wininput::cursor::exclusive_mode::make_connection_pair(
 	awl::backends::windows::window::event::processor &_event_processor,
 	awl::backends::windows::event::type::value_type const _enter_event,
 	awl::backends::windows::event::type::value_type const _exit_event
@@ -156,7 +156,7 @@ sge::dinput::cursor::exclusive_mode::make_connection_pair(
 				},
 				awl::backends::windows::window::event::callback{
 					std::bind(
-						&sge::dinput::cursor::exclusive_mode::on_temp_unacquire,
+						&sge::wininput::cursor::exclusive_mode::on_temp_unacquire,
 						this,
 						exit_event,
 						std::placeholders::_1
@@ -168,7 +168,7 @@ sge::dinput::cursor::exclusive_mode::make_connection_pair(
 				exit_event,
 				awl::backends::windows::window::event::callback{
 					std::bind(
-						&sge::dinput::cursor::exclusive_mode::on_temp_acquire,
+						&sge::wininput::cursor::exclusive_mode::on_temp_acquire,
 						this,
 						exit_event,
 						std::placeholders::_1

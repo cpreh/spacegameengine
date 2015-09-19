@@ -18,21 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cursor/clip.hpp>
-#include <sge/dinput/cursor/grab.hpp>
-#include <sge/dinput/cursor/set_capture.hpp>
-#include <sge/dinput/cursor/show.hpp>
+#include <sge/wininput/cursor/clip.hpp>
+#include <sge/wininput/cursor/grab.hpp>
+#include <sge/wininput/cursor/set_capture.hpp>
+#include <sge/wininput/cursor/show.hpp>
 #include <awl/backends/windows/optional_rect.hpp>
 #include <awl/backends/windows/window/get_rect.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
 
 
 bool
-sge::dinput::cursor::grab(
+sge::wininput::cursor::grab(
 	awl::backends::windows::window::object &_window
 )
 {
-	sge::dinput::cursor::show(
+	sge::wininput::cursor::show(
 		false
 	);
 
@@ -51,7 +51,7 @@ sge::dinput::cursor::grab(
 				false;
 
 		if(
-			!sge::dinput::cursor::clip(
+			!sge::wininput::cursor::clip(
 				window_rect
 			)
 		)
@@ -59,9 +59,10 @@ sge::dinput::cursor::grab(
 				false;
 	}
 
-	sge::dinput::cursor::set_capture(
+	sge::wininput::cursor::set_capture(
 		_window
 	);
 
-	return true;
+	return
+		true;
 }

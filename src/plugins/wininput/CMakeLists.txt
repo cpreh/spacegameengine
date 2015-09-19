@@ -1,0 +1,47 @@
+set(
+	SGE_WININPUT_FILES
+	src/plugins/wininput/include/sge/wininput/cursor/clip.hpp
+	src/plugins/wininput/include/sge/wininput/cursor/define.hpp
+	src/plugins/wininput/include/sge/wininput/cursor/define_fwd.hpp
+	src/plugins/wininput/include/sge/wininput/cursor/exclusive_mode.hpp
+	src/plugins/wininput/include/sge/wininput/cursor/exclusive_mode_fwd.hpp
+	src/plugins/wininput/include/sge/wininput/cursor/get_pos.hpp
+	src/plugins/wininput/include/sge/wininput/cursor/grab.hpp
+	src/plugins/wininput/include/sge/wininput/cursor/object.hpp
+	src/plugins/wininput/include/sge/wininput/cursor/object_fwd.hpp
+	src/plugins/wininput/include/sge/wininput/cursor/pixmap.hpp
+	src/plugins/wininput/include/sge/wininput/cursor/release_capture.hpp
+	src/plugins/wininput/include/sge/wininput/cursor/set_capture.hpp
+	src/plugins/wininput/include/sge/wininput/cursor/show.hpp
+	src/plugins/wininput/include/sge/wininput/cursor/ungrab.hpp
+	src/plugins/wininput/src/cursor/clip.cpp
+	src/plugins/wininput/src/cursor/define.cpp
+	src/plugins/wininput/src/cursor/exclusive_mode.cpp
+	src/plugins/wininput/src/cursor/get_pos.cpp
+	src/plugins/wininput/src/cursor/grab.cpp
+	src/plugins/wininput/src/cursor/object.cpp
+	src/plugins/wininput/src/cursor/pixmap.cpp
+	src/plugins/wininput/src/cursor/release_capture.cpp
+	src/plugins/wininput/src/cursor/set_capture.cpp
+	src/plugins/wininput/src/cursor/show.cpp
+	src/plugins/wininput/src/cursor/ungrab.cpp
+)
+
+find_package(
+	awl
+	REQUIRED
+)
+
+# TODO: Change this
+# Link to AWL so we get the unicode definitions
+
+add_sge_plugin(
+	wininput
+	SGE_DEPS
+		sgeinput
+		sgelog
+		sgeplugin
+	ADDITIONAL_DEPS
+		${awl_TARGET}
+		${fcppt_log_TARGET}
+)

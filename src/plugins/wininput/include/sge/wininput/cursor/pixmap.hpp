@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_CURSOR_PIXMAP_HPP_INCLUDED
-#define SGE_DINPUT_CURSOR_PIXMAP_HPP_INCLUDED
+#ifndef SGE_WININPUT_CURSOR_PIXMAP_HPP_INCLUDED
+#define SGE_WININPUT_CURSOR_PIXMAP_HPP_INCLUDED
 
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace dinput
+namespace wininput
 {
 namespace cursor
 {

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cursor/clip.hpp>
+#include <sge/wininput/cursor/clip.hpp>
 #include <awl/backends/windows/optional_rect.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/const.hpp>
@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 bool
-sge::dinput::cursor::clip(
+sge::wininput::cursor::clip(
 	awl::backends::windows::optional_rect const &_area
 )
 {

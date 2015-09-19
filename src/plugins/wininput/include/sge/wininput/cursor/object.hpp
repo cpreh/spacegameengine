@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_CURSOR_OBJECT_HPP_INCLUDED
-#define SGE_DINPUT_CURSOR_OBJECT_HPP_INCLUDED
+#ifndef SGE_WININPUT_CURSOR_OBJECT_HPP_INCLUDED
+#define SGE_WININPUT_CURSOR_OBJECT_HPP_INCLUDED
 
-#include <sge/dinput/cursor/exclusive_mode_fwd.hpp>
-#include <sge/dinput/cursor/object_fwd.hpp>
+#include <sge/wininput/cursor/exclusive_mode_fwd.hpp>
+#include <sge/wininput/cursor/object_fwd.hpp>
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code_fwd.hpp>
 #include <sge/input/cursor/button_pressed.hpp>
@@ -50,7 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace sge
 {
-namespace dinput
+namespace wininput
 {
 namespace cursor
 {
@@ -148,7 +148,7 @@ private:
 
 	typedef
 	fcppt::unique_ptr<
-		sge::dinput::cursor::exclusive_mode
+		sge::wininput::cursor::exclusive_mode
 	>
 	exclusive_mode_unique_ptr;
 

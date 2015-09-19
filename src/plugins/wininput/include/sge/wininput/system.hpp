@@ -18,59 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WININPUT_CURSOR_DEFINE_HPP_INCLUDED
-#define SGE_WININPUT_CURSOR_DEFINE_HPP_INCLUDED
+#ifndef SGE_WININPUT_SYSTEM_HPP_INCLUDED
+#define SGE_WININPUT_SYSTEM_HPP_INCLUDED
 
-#include <sge/wininput/cursor/define_fwd.hpp>
-#include <sge/wininput/cursor/pixmap.hpp>
-#include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/window/event/object_fwd.hpp>
-#include <awl/backends/windows/window/event/processor_fwd.hpp>
-#include <awl/backends/windows/window/event/return_type_fwd.hpp>
+#include <sge/input/capabilities_field_fwd.hpp>
+#include <sge/input/processor_unique_ptr.hpp>
+#include <sge/input/system.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
 
 
 namespace sge
 {
 namespace wininput
 {
-namespace cursor
-{
 
-class define
+class system
+:
+	public sge::input::system
 {
 	FCPPT_NONCOPYABLE(
-		define
+		system
 	);
 public:
-	explicit
-	define(
-		awl::backends::windows::window::event::processor &
-	);
+	system();
 
-	~define();
+	~system()
+	override;
 private:
-	awl::backends::windows::window::event::return_type
-	on_cursor(
-		awl::backends::windows::window::event::object const &
-	);
+	sge::input::processor_unique_ptr
+	create_processor(
+		sge::window::object const &,
+		sge::window::system const &
+	)
+	override;
 
-	typedef
-	fcppt::optional<
-		HCURSOR
-	>
-	optional_hcursor;
-
-	optional_hcursor previous_cursor_;
-
-	sge::wininput::cursor::pixmap const pixmap_;
-
-	fcppt::signal::scoped_connection const connection_;
+	sge::input::capabilities_field const
+	capabilities() const
+	override;
 };
 
-}
 }
 }
 

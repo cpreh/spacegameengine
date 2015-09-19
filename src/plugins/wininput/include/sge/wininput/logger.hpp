@@ -18,26 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/wininput/cursor/get_pos.hpp>
-#include <awl/backends/windows/optional_point.hpp>
-#include <awl/backends/windows/windows.hpp>
+#ifndef SGE_WININPUT_LOGGER_HPP_INCLUDED
+#define SGE_WININPUT_LOGGER_HPP_INCLUDED
+
+#include <fcppt/log/object_fwd.hpp>
 
 
-awl::backends::windows::optional_point const
-sge::wininput::cursor::get_pos()
+namespace sge
 {
-	POINT ret;
+namespace wininput
+{
 
-	return
-		::GetCursorPos(
-			&ret
-		)
-		== 0
-		?
-			awl::backends::windows::optional_point()
-		:
-			awl::backends::windows::optional_point(
-				ret
-			)
-		;
+fcppt::log::object &
+logger();
+
 }
+}
+
+#endif

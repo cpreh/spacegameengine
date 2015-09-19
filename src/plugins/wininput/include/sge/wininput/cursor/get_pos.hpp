@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_CURSOR_GET_POS_HPP_INCLUDED
-#define SGE_DINPUT_CURSOR_GET_POS_HPP_INCLUDED
+#ifndef SGE_WININPUT_CURSOR_GET_POS_HPP_INCLUDED
+#define SGE_WININPUT_CURSOR_GET_POS_HPP_INCLUDED
 
 #include <awl/backends/windows/optional_point_fwd.hpp>
 
 
 namespace sge
 {
-namespace dinput
+namespace wininput
 {
 namespace cursor
 {

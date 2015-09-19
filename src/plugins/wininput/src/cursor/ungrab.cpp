@@ -18,23 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cursor/clip.hpp>
-#include <sge/dinput/cursor/release_capture.hpp>
-#include <sge/dinput/cursor/show.hpp>
-#include <sge/dinput/cursor/ungrab.hpp>
+#include <sge/wininput/cursor/clip.hpp>
+#include <sge/wininput/cursor/release_capture.hpp>
+#include <sge/wininput/cursor/show.hpp>
+#include <sge/wininput/cursor/ungrab.hpp>
 #include <awl/backends/windows/optional_rect.hpp>
 
 
 void
-sge::dinput::cursor::ungrab()
+sge::wininput::cursor::ungrab()
 {
-	sge::dinput::cursor::release_capture();
+	sge::wininput::cursor::release_capture();
 
-	sge::dinput::cursor::clip(
+	sge::wininput::cursor::clip(
 		awl::backends::windows::optional_rect()
 	);
 
-	sge::dinput::cursor::show(
+	sge::wininput::cursor::show(
 		true
 	);
 }
