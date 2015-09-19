@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/manager.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_event.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -63,32 +64,27 @@ sge::input::mouse::manager::manager(
 	button_callback_(
 		_button_callback
 	),
-	connections_(
-		fcppt::assign::make_container<
-			fcppt::signal::auto_connection_container
-		>(
-			_processor.mouse_discover_callback(
-				sge::input::mouse::discover_callback{
-					std::bind(
-						&sge::input::mouse::manager::discover,
-						this,
-						std::placeholders::_1
-					)
-				}
-			)
+	discover_connection_(
+		_processor.mouse_discover_callback(
+			sge::input::mouse::discover_callback{
+				std::bind(
+					&sge::input::mouse::manager::discover,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
-		(
-			_processor.mouse_remove_callback(
-				sge::input::mouse::remove_callback{
-					std::bind(
-						&sge::input::mouse::manager::remove,
-						this,
-						std::placeholders::_1
-					)
-				}
-			)
+	),
+	remove_connection_(
+		_processor.mouse_remove_callback(
+			sge::input::mouse::remove_callback{
+				std::bind(
+					&sge::input::mouse::manager::remove,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
-		.move_container()
 	)
 {
 }
@@ -106,7 +102,9 @@ sge::input::mouse::manager::discover(
 	FCPPT_ASSERT_ERROR(
 		devices_.insert(
 			std::make_pair(
-				&_event.get(),
+				fcppt::make_ref(
+					_event.get()
+				),
 				fcppt::assign::make_container<
 					fcppt::signal::auto_connection_container
 				>(
@@ -153,7 +151,9 @@ sge::input::mouse::manager::remove(
 {
 	FCPPT_ASSERT_ERROR(
 		devices_.erase(
-			&_event.get()
+			fcppt::make_ref(
+				_event.get()
+			)
 		)
 		== 1u
 	);

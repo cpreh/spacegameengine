@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_decl.hpp>
+#include <fcppt/signal/optional_auto_connection.hpp>
 
 
 namespace sge
@@ -142,7 +143,9 @@ private:
 
 	sge::input::cursor::choose_callback const choose_;
 
-	fcppt::signal::auto_connection_container const processor_connections_;
+	fcppt::signal::optional_auto_connection const discover_connection_;
+
+	fcppt::signal::optional_auto_connection const remove_connection_;
 
 	sge::input::cursor::button_signal button_signal_;
 

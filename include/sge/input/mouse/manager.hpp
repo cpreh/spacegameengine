@@ -32,7 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_event_fwd.hpp>
 #include <fcppt/function_impl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/reference_wrapper.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
+#include <fcppt/signal/optional_auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
@@ -93,7 +95,9 @@ private:
 
 	typedef
 	std::unordered_map<
-		sge::input::mouse::device *,
+		fcppt::reference_wrapper<
+			sge::input::mouse::device
+		>,
 		fcppt::signal::auto_connection_container
 	>
 	mouse_map;
@@ -108,7 +112,9 @@ private:
 
 	button_callback const button_callback_;
 
-	fcppt::signal::auto_connection_container const connections_;
+	fcppt::signal::optional_auto_connection const discover_connection_;
+
+	fcppt::signal::optional_auto_connection const remove_connection_;
 };
 
 }

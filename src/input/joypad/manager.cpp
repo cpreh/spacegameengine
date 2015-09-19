@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/relative_axis_callback.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
 #include <sge/input/joypad/remove_event.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -68,32 +69,27 @@ sge::input::joypad::manager::manager(
 	relative_axis_callback_(
 		_relative_axis_callback
 	),
-	connections_(
-		fcppt::assign::make_container<
-			fcppt::signal::auto_connection_container
-		>(
-			_processor.joypad_discover_callback(
-				sge::input::joypad::discover_callback{
-					std::bind(
-						&sge::input::joypad::manager::discover,
-						this,
-						std::placeholders::_1
-					)
-				}
-			)
+	discover_connection_(
+		_processor.joypad_discover_callback(
+			sge::input::joypad::discover_callback{
+				std::bind(
+					&sge::input::joypad::manager::discover,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
-		(
-			_processor.joypad_remove_callback(
-				sge::input::joypad::remove_callback{
-					std::bind(
-						&sge::input::joypad::manager::remove,
-						this,
-						std::placeholders::_1
-					)
-				}
-			)
+	),
+	remove_connection_(
+		_processor.joypad_remove_callback(
+			sge::input::joypad::remove_callback{
+				std::bind(
+					&sge::input::joypad::manager::remove,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
-		.move_container()
 	)
 {
 }
@@ -111,7 +107,9 @@ sge::input::joypad::manager::discover(
 	FCPPT_ASSERT_ERROR(
 		devices_.insert(
 			std::make_pair(
-				&_event.get(),
+				fcppt::make_ref(
+					_event.get()
+				),
 				fcppt::assign::make_container<
 					fcppt::signal::auto_connection_container
 				>(
@@ -171,7 +169,9 @@ sge::input::joypad::manager::remove(
 {
 	FCPPT_ASSERT_ERROR(
 		devices_.erase(
-			&_event.get()
+			fcppt::make_ref(
+				_event.get()
+			)
 		)
 		== 1u
 	);

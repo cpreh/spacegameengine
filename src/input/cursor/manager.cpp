@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_event.hpp>
 #include <sge/input/cursor/scroll_callback.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -35,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
+#include <fcppt/signal/optional_auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <utility>
@@ -69,30 +71,26 @@ sge::input::cursor::manager::manager(
 	scroll_callback_(
 		_scroll_callback
 	),
-	connections_(
-		fcppt::assign::make_container<
-			fcppt::signal::auto_connection_container
-		>(
-			_processor.cursor_discover_callback(
-				sge::input::cursor::discover_callback{
-					std::bind(
-						&sge::input::cursor::manager::discover,
-						this,
-						std::placeholders::_1
-					)
-				}
-			)
+	discover_connection_(
+		_processor.cursor_discover_callback(
+			sge::input::cursor::discover_callback{
+				std::bind(
+					&sge::input::cursor::manager::discover,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
-		(
-			_processor.cursor_remove_callback(
-				sge::input::cursor::remove_callback{
-					std::bind(
-						&sge::input::cursor::manager::remove,
-						this,
-						std::placeholders::_1
-					)
-				}
-			)
+	),
+	remove_connection_(
+		_processor.cursor_remove_callback(
+			sge::input::cursor::remove_callback{
+				std::bind(
+					&sge::input::cursor::manager::remove,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
 	)
 {
@@ -119,7 +117,9 @@ sge::input::cursor::manager::discover(
 	FCPPT_ASSERT_ERROR(
 		objects_.insert(
 			std::make_pair(
-				&_event.get(),
+				fcppt::make_ref(
+					_event.get()
+				),
 				fcppt::assign::make_container<
 					fcppt::signal::auto_connection_container
 				>(
@@ -179,7 +179,9 @@ sge::input::cursor::manager::remove(
 {
 	FCPPT_ASSERT_ERROR(
 		objects_.erase(
-			&_event.get()
+			fcppt::make_ref(
+				_event.get()
+			)
 		)
 		== 1u
 	);

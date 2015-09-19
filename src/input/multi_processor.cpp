@@ -50,7 +50,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/map_concat.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_impl.hpp>
+#include <fcppt/signal/optional_auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -95,7 +97,7 @@ sge::input::multi_processor::multi_processor(
 	joypad_remove_(),
 	connections_(
 		fcppt::algorithm::map_concat<
-			sge::input::multi_processor::connection_vector
+			sge::input::multi_processor::connection_container
 		>(
 			processors_,
 			[
@@ -106,7 +108,7 @@ sge::input::multi_processor::multi_processor(
 			{
 				return
 					fcppt::assign::make_container<
-						sge::input::multi_processor::connection_vector
+						sge::input::multi_processor::connection_container
 					>(
 						_processor->keyboard_discover_callback(
 							sge::input::keyboard::discover_callback{
@@ -219,114 +221,134 @@ sge::input::multi_processor::~multi_processor()
 {
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::input::multi_processor::keyboard_discover_callback(
 	sge::input::keyboard::discover_callback const &_callback
 )
 {
 	return
-		keyboard_discover_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{
+			keyboard_discover_.connect(
+				_callback
+			)
+		};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::input::multi_processor::keyboard_remove_callback(
 	sge::input::keyboard::remove_callback const &_callback
 )
 {
 	return
-		keyboard_remove_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{
+			keyboard_remove_.connect(
+				_callback
+			)
+		};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::input::multi_processor::mouse_discover_callback(
 	sge::input::mouse::discover_callback const &_callback
 )
 {
 	return
-		mouse_discover_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{
+			mouse_discover_.connect(
+				_callback
+			)
+		};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::input::multi_processor::mouse_remove_callback(
 	sge::input::mouse::remove_callback const &_callback
 )
 {
 	return
-		mouse_remove_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{
+			mouse_remove_.connect(
+				_callback
+			)
+		};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::input::multi_processor::focus_discover_callback(
 	sge::input::focus::discover_callback const &_callback
 )
 {
 	return
-		focus_discover_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{
+			focus_discover_.connect(
+				_callback
+			)
+		};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::input::multi_processor::focus_remove_callback(
 	sge::input::focus::remove_callback const &_callback
 )
 {
 	return
-		focus_remove_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{
+			focus_remove_.connect(
+				_callback
+			)
+		};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::input::multi_processor::cursor_discover_callback(
 	sge::input::cursor::discover_callback const &_callback
 )
 {
 	return
-		cursor_discover_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{
+			cursor_discover_.connect(
+				_callback
+			)
+		};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::input::multi_processor::cursor_remove_callback(
 	sge::input::cursor::remove_callback const &_callback
 )
 {
 	return
-		cursor_remove_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{
+			cursor_remove_.connect(
+				_callback
+			)
+		};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::input::multi_processor::joypad_discover_callback(
 	sge::input::joypad::discover_callback const &_callback
 )
 {
 	return
-		joypad_discover_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{
+			joypad_discover_.connect(
+				_callback
+			)
+		};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::input::multi_processor::joypad_remove_callback(
 	sge::input::joypad::remove_callback const &_callback
 )
 {
 	return
-		joypad_remove_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{
+			joypad_remove_.connect(
+				_callback
+			)
+		};
 }
 
 void

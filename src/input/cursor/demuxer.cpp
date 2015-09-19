@@ -62,32 +62,27 @@ sge::input::cursor::demuxer::demuxer(
 	choose_(
 		_choose
 	),
-	processor_connections_(
-		fcppt::assign::make_container<
-			fcppt::signal::auto_connection_container
-		>(
-			_processor.cursor_discover_callback(
-				sge::input::cursor::discover_callback{
-					std::bind(
-						&sge::input::cursor::demuxer::discover_callback,
-						this,
-						std::placeholders::_1
-					)
-				}
-			)
+	discover_connection_(
+		_processor.cursor_discover_callback(
+			sge::input::cursor::discover_callback{
+				std::bind(
+					&sge::input::cursor::demuxer::discover_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
-		(
-			_processor.cursor_remove_callback(
-				sge::input::cursor::remove_callback{
-					std::bind(
-						&sge::input::cursor::demuxer::remove_callback,
-						this,
-						std::placeholders::_1
-					)
-				}
-			)
+	),
+	remove_connection_(
+		_processor.cursor_remove_callback(
+			sge::input::cursor::remove_callback{
+				std::bind(
+					&sge::input::cursor::demuxer::remove_callback,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
-		.move_container()
 	),
 	button_signal_(),
 	move_signal_(),

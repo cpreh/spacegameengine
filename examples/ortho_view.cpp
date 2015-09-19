@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/predef.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
-#include <sge/input/cursor/demuxer.hpp>
 #include <sge/input/cursor/mode.hpp>
+#include <sge/input/cursor/object.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_callback.hpp>

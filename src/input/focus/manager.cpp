@@ -76,32 +76,27 @@ sge::input::focus::manager::manager(
 	out_callback_(
 		_out_callback
 	),
-	connections_(
-		fcppt::assign::make_container<
-			fcppt::signal::auto_connection_container
-		>(
-			_processor.focus_discover_callback(
-				sge::input::focus::discover_callback{
-					std::bind(
-						&sge::input::focus::manager::discover,
-						this,
-						std::placeholders::_1
-					)
-				}
-			)
+	discover_connection_(
+		_processor.focus_discover_callback(
+			sge::input::focus::discover_callback{
+				std::bind(
+					&sge::input::focus::manager::discover,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
-		(
-			_processor.focus_remove_callback(
-				sge::input::focus::remove_callback{
-					std::bind(
-						&sge::input::focus::manager::remove,
-						this,
-						std::placeholders::_1
-					)
-				}
-			)
+	),
+	remove_connection_(
+		_processor.focus_remove_callback(
+			sge::input::focus::remove_callback{
+				std::bind(
+					&sge::input::focus::manager::remove,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
-		.move_container()
 	)
 {
 }
