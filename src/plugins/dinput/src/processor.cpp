@@ -20,20 +20,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/create_dinput.hpp>
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/has_cursor.hpp>
 #include <sge/dinput/logger.hpp>
 #include <sge/dinput/processor.hpp>
-#include <sge/dinput/cursor/object.hpp>
 #include <sge/dinput/device/object.hpp>
 #include <sge/dinput/device/parameters.hpp>
 #include <sge/dinput/joypad/device.hpp>
 #include <sge/dinput/keyboard/device.hpp>
 #include <sge/dinput/mouse/device.hpp>
 #include <sge/input/exception.hpp>
-#include <sge/input/cursor/button_callback.hpp>
-#include <sge/input/cursor/button_code.hpp>
-#include <sge/input/cursor/button_event.hpp>
-#include <sge/input/cursor/discover_event.hpp>
+#include <sge/input/cursor/discover_callback.hpp>
+#include <sge/input/cursor/remove_callback.hpp>
+#include <sge/input/focus/discover_callback.hpp>
+#include <sge/input/focus/remove_callback.hpp>
+#include <sge/input/joypad/discover_callback.hpp>
+#include <sge/input/joypad/discover_event.hpp>
+#include <sge/input/joypad/remove_callback.hpp>
+#include <sge/input/joypad/remove_event.hpp>
+#include <sge/input/keyboard/discover_callback.hpp>
+#include <sge/input/keyboard/discover_event.hpp>
+#include <sge/input/keyboard/remove_callback.hpp>
+#include <sge/input/keyboard/remove_event.hpp>
+#include <sge/input/mouse/discover_callback.hpp>
+#include <sge/input/mouse/discover_event.hpp>
+#include <sge/input/mouse/remove_callback.hpp>
+#include <sge/input/mouse/remove_event.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
 #include <awl/backends/windows/event/lparam.hpp>
@@ -113,14 +123,6 @@ sge::dinput::processor::processor(
 		)
 	),
 	devices_(),
-	cursor_(
-		fcppt::make_unique_ptr<
-			sge::dinput::cursor::object
-		>(
-			event_processor_,
-			windows_window_
-		)
-	),
 	event_handle_(
 		system_processor_.create_event_handle()
 	),
@@ -129,6 +131,8 @@ sge::dinput::processor::processor(
 	),
 	cursor_discover_(),
 	cursor_remove_(),
+	focus_discover_(),
+	focus_remove_(),
 	keyboard_discover_(),
 	keyboard_remove_(),
 	mouse_discover_(),
@@ -181,17 +185,6 @@ sge::dinput::processor::processor(
 					std::bind(
 						&sge::dinput::processor::on_handle_ready,
 						this
-					)
-				}
-			)
-		)
-		(
-			cursor_->button_callback(
-				sge::input::cursor::button_callback{
-					std::bind(
-						&sge::dinput::processor::on_cursor_button,
-						this,
-						std::placeholders::_1
 					)
 				}
 			)
@@ -282,6 +275,28 @@ sge::dinput::processor::cursor_remove_callback(
 }
 
 fcppt::signal::auto_connection
+sge::dinput::processor::focus_discover_callback(
+	sge::input::focus::discover_callback const &_callback
+)
+{
+	return
+		focus_discover_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
+sge::dinput::processor::focus_remove_callback(
+	sge::input::focus::remove_callback const &_callback
+)
+{
+	return
+		focus_remove_.connect(
+			_callback
+		);
+}
+
+fcppt::signal::auto_connection
 sge::dinput::processor::joypad_discover_callback(
 	sge::input::joypad::discover_callback const &_callback
 )
@@ -322,9 +337,7 @@ sge::dinput::processor::on_focus_in(
 	this->for_each_device(
 		std::bind(
 			&sge::dinput::device::object::acquire,
-			std::placeholders::_1,
-			has_focus_,
-			this->cursor_active()
+			std::placeholders::_1
 		)
 	);
 }
@@ -351,8 +364,6 @@ sge::dinput::processor::on_focus_out(
 			std::placeholders::_1
 		)
 	);
-
-	cursor_->unacquire();
 }
 
 void
@@ -377,14 +388,10 @@ sge::dinput::processor::on_init(
 			windows_window_
 		)
 	)
-	{
 		has_focus_ =
 			sge::dinput::has_focus(
 				true
 			);
-
-		cursor_->acquire();
-	}
 
 	if(
 		dinput_->EnumDevices(
@@ -399,56 +406,9 @@ sge::dinput::processor::on_init(
 			FCPPT_TEXT("DirectInput Enumeration failed!")
 		);
 
-	cursor_discover_(
-		sge::input::cursor::discover_event(
-			*cursor_
-		)
-	);
-
 	return
 		awl::backends::windows::window::event::return_type(
 			0u
-		);
-}
-
-void
-sge::dinput::processor::on_cursor_button(
-	sge::input::cursor::button_event const &_event
-)
-{
-	if(
-		_event.button_code() != sge::input::cursor::button_code::left
-		||
-		!_event.pressed()
-		||
-		this->cursor_active().get()
-	)
-		return;
-
-	FCPPT_LOG_DEBUG(
-		sge::dinput::logger(),
-		fcppt::log::_
-			<< FCPPT_TEXT("DirectInput: cursor grab")
-	);
-
-	cursor_->acquire();
-
-	this->for_each_device(
-		std::bind(
-			&sge::dinput::device::object::acquire,
-			std::placeholders::_1,
-			has_focus_,
-			this->cursor_active()
-		)
-	);
-}
-
-sge::dinput::has_cursor const
-sge::dinput::processor::cursor_active() const
-{
-	return
-		sge::dinput::has_cursor(
-			cursor_->acquired()
 		);
 }
 
@@ -497,10 +457,7 @@ sge::dinput::processor::add_device(
 		)
 	);
 
-	devices_.back()->acquire(
-		has_focus_,
-		this->cursor_active()
-	);
+	devices_.back()->acquire();
 }
 
 BOOL

@@ -22,28 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_KEYBOARD_DEVICE_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/has_cursor.hpp>
-#include <sge/dinput/has_focus.hpp>
-#include <sge/dinput/state_array.hpp>
 #include <sge/dinput/device/object.hpp>
 #include <sge/dinput/device/parameters_fwd.hpp>
 #include <sge/dinput/keyboard/device_fwd.hpp>
 #include <sge/dinput/keyboard/info.hpp>
-#include <sge/dinput/keyboard/repeat_duration.hpp>
-#include <sge/input/keyboard/char_callback.hpp>
-#include <sge/input/keyboard/char_type.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_code_fwd.hpp>
-#include <sge/input/keyboard/key_function.hpp>
-#include <sge/input/keyboard/key_repeat_callback.hpp>
-#include <sge/input/keyboard/key_repeat_function.hpp>
-#include <sge/input/keyboard/mod_state.hpp>
-#include <sge/timer/basic_decl.hpp>
-#include <sge/timer/clocks/standard.hpp>
+#include <sge/input/keyboard/key_signal.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -60,7 +46,7 @@ namespace keyboard
 class device
 :
 	public sge::input::keyboard::device,
-	public dinput::device::object
+	public sge::dinput::device::object
 {
 	FCPPT_NONCOPYABLE(
 		device
@@ -68,90 +54,27 @@ class device
 public:
 	explicit
 	device(
-		dinput::device::parameters const &
+		sge::dinput::device::parameters const &
 	);
 
-	~device();
+	~device()
+	override;
 private:
 	fcppt::signal::auto_connection
 	key_callback(
 		sge::input::keyboard::key_callback const &
-	);
-
-	fcppt::signal::auto_connection
-	key_repeat_callback(
-		sge::input::keyboard::key_repeat_callback const &
-	);
-
-	fcppt::signal::auto_connection
-	char_callback(
-		sge::input::keyboard::char_callback const &
-	);
-
-	sge::input::keyboard::mod_state const
-	mod_state() const;
-
-	bool
-	needs_acquire(
-		sge::dinput::has_focus,
-		sge::dinput::has_cursor
-	) const;
+	)
+	override;
 
 	void
 	on_dispatch(
 		DIDEVICEOBJECTDATA const &
-	);
+	)
+	override;
 
-	sge::input::keyboard::char_type
-	keycode_to_char(
-		sge::input::keyboard::key_code
-	) const;
-
-	HKL kblayout_;
-
-	typedef
-	fcppt::signal::object<
-		sge::input::keyboard::key_function
-	>
-	key_signal;
-
-	typedef
-	fcppt::signal::object<
-		sge::input::keyboard::key_repeat_function
-	>
-	key_repeat_signal;
-
-	typedef
-	fcppt::signal::object<
-		sge::input::keyboard::char_function
-	>
-	char_signal;
-
-	key_signal key_signal_;
-
-	key_repeat_signal key_repeat_signal_;
-
-	char_signal char_signal_;
-
-	typedef
-	sge::timer::basic<
-		sge::timer::clocks::standard
-	>
-	repeat_timer;
-
-	repeat_timer repeat_time_;
-
-	typedef
-	fcppt::optional<
-		sge::input::keyboard::key
-	>
-	optional_key;
-
-	optional_key old_key_;
+	sge::input::keyboard::key_signal key_signal_;
 
 	sge::dinput::keyboard::info const info_;
-
-	sge::dinput::state_array states_;
 };
 
 }

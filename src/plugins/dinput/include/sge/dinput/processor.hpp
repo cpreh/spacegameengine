@@ -22,16 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_PROCESSOR_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/has_cursor.hpp>
 #include <sge/dinput/has_focus.hpp>
-#include <sge/dinput/cursor/object_fwd.hpp>
 #include <sge/dinput/device/object_fwd.hpp>
 #include <sge/input/processor.hpp>
-#include <sge/input/cursor/button_event_fwd.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_signal.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/cursor/remove_signal.hpp>
+#include <sge/input/focus/discover_callback.hpp>
+#include <sge/input/focus/discover_signal.hpp>
+#include <sge/input/focus/remove_callback.hpp>
+#include <sge/input/focus/remove_signal.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/discover_signal.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
@@ -84,47 +85,68 @@ public:
 		sge::window::system const &
 	);
 
-	~processor();
+	~processor()
+	override;
 
 	fcppt::signal::auto_connection
 	keyboard_discover_callback(
 		sge::input::keyboard::discover_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	keyboard_remove_callback(
 		sge::input::keyboard::remove_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	mouse_discover_callback(
 		sge::input::mouse::discover_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	mouse_remove_callback(
 		sge::input::mouse::remove_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	cursor_discover_callback(
 		sge::input::cursor::discover_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	cursor_remove_callback(
 		sge::input::cursor::remove_callback const &
-	);
+	)
+	override;
+
+	fcppt::signal::auto_connection
+	focus_discover_callback(
+		sge::input::focus::discover_callback const &
+	)
+	override;
+
+	fcppt::signal::auto_connection
+	focus_remove_callback(
+		sge::input::focus::remove_callback const &
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	joypad_discover_callback(
 		sge::input::joypad::discover_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	joypad_remove_callback(
 		sge::input::joypad::remove_callback const &
-	);
+	)
+	override;
 private:
 	void
 	on_focus_in(
@@ -143,14 +165,6 @@ private:
 	on_init(
 		awl::backends::windows::window::event::object const &
 	);
-
-	void
-	on_cursor_button(
-		sge::input::cursor::button_event const &
-	);
-
-	sge::dinput::has_cursor const
-	cursor_active() const;
 
 	template<
 		typename Function
@@ -213,14 +227,6 @@ private:
 
 	typedef
 	fcppt::unique_ptr<
-		sge::dinput::cursor::object
-	>
-	cursor_unique_ptr;
-
-	cursor_unique_ptr const cursor_;
-
-	typedef
-	fcppt::unique_ptr<
 		awl::backends::windows::system::event::handle
 	>
 	event_handle_unique_ptr;
@@ -232,6 +238,10 @@ private:
 	sge::input::cursor::discover_signal cursor_discover_;
 
 	sge::input::cursor::remove_signal cursor_remove_;
+
+	sge::input::focus::discover_signal focus_discover_;
+
+	sge::input::focus::remove_signal focus_remove_;
 
 	sge::input::keyboard::discover_signal keyboard_discover_;
 

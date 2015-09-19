@@ -3,20 +3,6 @@ SET(
 	src/plugins/dinput/include/sge/dinput/cast_key.hpp
 	src/plugins/dinput/include/sge/dinput/create_device.hpp
 	src/plugins/dinput/include/sge/dinput/create_dinput.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/clip.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/define.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/define_fwd.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/exclusive_mode.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/exclusive_mode_fwd.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/get_pos.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/grab.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/object.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/object_fwd.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/pixmap.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/release_capture.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/set_capture.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/show.hpp
-	src/plugins/dinput/include/sge/dinput/cursor/ungrab.hpp
 	src/plugins/dinput/include/sge/dinput/device/add_element.hpp
 	src/plugins/dinput/include/sge/dinput/device/element_name.hpp
 	src/plugins/dinput/include/sge/dinput/device/enumerate_objects.hpp
@@ -39,7 +25,6 @@ SET(
 	src/plugins/dinput/include/sge/dinput/dinput_device_unique_ptr.hpp
 	src/plugins/dinput/include/sge/dinput/dinput_unique_ptr.hpp
 	src/plugins/dinput/include/sge/dinput/guid_to_string.hpp
-	src/plugins/dinput/include/sge/dinput/has_cursor.hpp
 	src/plugins/dinput/include/sge/dinput/has_focus.hpp
 	src/plugins/dinput/include/sge/dinput/is_down.hpp
 	src/plugins/dinput/include/sge/dinput/joypad/absolute_axis_map.hpp
@@ -56,19 +41,13 @@ SET(
 	src/plugins/dinput/include/sge/dinput/joypad/make_info.hpp
 	src/plugins/dinput/include/sge/dinput/joypad/make_relative_axis_info.hpp
 	src/plugins/dinput/include/sge/dinput/joypad/relative_axis_map.hpp
-	src/plugins/dinput/include/sge/dinput/keyboard/char_vector.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/device.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/device_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/enumerator.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/info.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/info_fwd.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/key_map.hpp
-	src/plugins/dinput/include/sge/dinput/keyboard/keycode_to_chars.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/make_info.hpp
-	src/plugins/dinput/include/sge/dinput/keyboard/map_virtual_key.hpp
-	src/plugins/dinput/include/sge/dinput/keyboard/optional_uint.hpp
-	src/plugins/dinput/include/sge/dinput/keyboard/repeat.hpp
-	src/plugins/dinput/include/sge/dinput/keyboard/repeat_duration.hpp
 	src/plugins/dinput/include/sge/dinput/keyboard/translate_key_code.hpp
 	src/plugins/dinput/include/sge/dinput/logger.hpp
 	src/plugins/dinput/include/sge/dinput/logger_context.hpp
@@ -86,22 +65,10 @@ SET(
 	src/plugins/dinput/include/sge/dinput/mouse/make_button_info.hpp
 	src/plugins/dinput/include/sge/dinput/mouse/make_info.hpp
 	src/plugins/dinput/include/sge/dinput/processor.hpp
-	src/plugins/dinput/include/sge/dinput/state_array.hpp
 	src/plugins/dinput/include/sge/dinput/system.hpp
 	src/plugins/dinput/src/cast_key.cpp
 	src/plugins/dinput/src/create_device.cpp
 	src/plugins/dinput/src/create_dinput.cpp
-	src/plugins/dinput/src/cursor/clip.cpp
-	src/plugins/dinput/src/cursor/define.cpp
-	src/plugins/dinput/src/cursor/exclusive_mode.cpp
-	src/plugins/dinput/src/cursor/get_pos.cpp
-	src/plugins/dinput/src/cursor/grab.cpp
-	src/plugins/dinput/src/cursor/object.cpp
-	src/plugins/dinput/src/cursor/pixmap.cpp
-	src/plugins/dinput/src/cursor/release_capture.cpp
-	src/plugins/dinput/src/cursor/set_capture.cpp
-	src/plugins/dinput/src/cursor/show.cpp
-	src/plugins/dinput/src/cursor/ungrab.cpp
 	src/plugins/dinput/src/device/element_name.cpp
 	src/plugins/dinput/src/device/enumerate_objects.cpp
 	src/plugins/dinput/src/device/enumerator.cpp
@@ -130,10 +97,7 @@ SET(
 	src/plugins/dinput/src/keyboard/device.cpp
 	src/plugins/dinput/src/keyboard/enumerator.cpp
 	src/plugins/dinput/src/keyboard/info.cpp
-	src/plugins/dinput/src/keyboard/keycode_to_chars.cpp
 	src/plugins/dinput/src/keyboard/make_info.cpp
-	src/plugins/dinput/src/keyboard/map_virtual_key.cpp
-	src/plugins/dinput/src/keyboard/repeat.cpp
 	src/plugins/dinput/src/keyboard/translate_key_code.cpp
 	src/plugins/dinput/src/logger.cpp
 	src/plugins/dinput/src/logger_context.cpp

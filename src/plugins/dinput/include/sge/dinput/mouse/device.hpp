@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_DINPUT_MOUSE_DEVICE_HPP_INCLUDED
 #define SGE_DINPUT_MOUSE_DEVICE_HPP_INCLUDED
 
-#include <sge/dinput/has_cursor.hpp>
-#include <sge/dinput/has_focus.hpp>
 #include <sge/dinput/device/object.hpp>
 #include <sge/dinput/device/parameters_fwd.hpp>
 #include <sge/dinput/mouse/device_fwd.hpp>
@@ -62,31 +60,30 @@ public:
 		sge::dinput::device::parameters const &
 	);
 
-	~device();
+	~device()
+	override;
 private:
 	fcppt::signal::auto_connection
 	axis_callback(
 		sge::input::mouse::axis_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	button_callback(
 		sge::input::mouse::button_callback const &
-	);
+	)
+	override;
 
 	sge::input::mouse::info const &
-	info() const;
-
-	bool
-	needs_acquire(
-		sge::dinput::has_focus,
-		sge::dinput::has_cursor
-	) const;
+	info() const
+	override;
 
 	void
 	on_dispatch(
 		DIDEVICEOBJECTDATA const &
-	);
+	)
+	override;
 
 	sge::dinput::mouse::info const info_;
 

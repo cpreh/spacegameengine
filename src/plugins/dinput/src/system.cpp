@@ -62,7 +62,6 @@ sge::dinput::system::capabilities() const
 {
 	return
 		sge::input::capabilities_field{
-			sge::input::capabilities::cursor,
 			sge::input::capabilities::keyboard,
 			sge::input::capabilities::mouse,
 			sge::input::capabilities::joypad

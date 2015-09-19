@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_DINPUT_KEYBOARD_KEY_MAP_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-#include <sge/input/keyboard/key_code.hpp>
+#include <sge/input/key/code.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
@@ -35,10 +35,12 @@ namespace dinput
 namespace keyboard
 {
 
-typedef std::unordered_map<
+typedef
+std::unordered_map<
 	DWORD,
-	sge::input::keyboard::key_code
-> key_map;
+	sge::input::key::code
+>
+key_map;
 
 }
 }

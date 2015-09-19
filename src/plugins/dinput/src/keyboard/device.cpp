@@ -18,45 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/has_cursor.hpp>
-#include <sge/dinput/has_focus.hpp>
 #include <sge/dinput/is_down.hpp>
 #include <sge/dinput/keyboard/device.hpp>
 #include <sge/dinput/keyboard/key_map.hpp>
-#include <sge/dinput/keyboard/keycode_to_chars.hpp>
 #include <sge/dinput/keyboard/make_info.hpp>
-#include <sge/dinput/keyboard/map_virtual_key.hpp>
-#include <sge/dinput/keyboard/repeat.hpp>
-#include <sge/input/exception.hpp>
-#include <sge/input/keyboard/char_event.hpp>
-#include <sge/input/keyboard/char_repeated.hpp>
+#include <sge/input/key/code.hpp>
+#include <sge/input/key/pressed.hpp>
 #include <sge/input/keyboard/key.hpp>
-#include <sge/input/keyboard/key_code.hpp>
 #include <sge/input/keyboard/key_id.hpp>
 #include <sge/input/keyboard/key_event.hpp>
-#include <sge/input/keyboard/key_repeat_event.hpp>
-#include <sge/input/keyboard/modifier.hpp>
-#include <sge/timer/basic_impl.hpp>
-#include <sge/timer/reset_when_expired.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/from_optional.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_comparison.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/object_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <algorithm>
-#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -71,32 +50,13 @@ sge::dinput::keyboard::device::device(
 		_parameters,
 		c_dfDIKeyboard
 	),
-	kblayout_(
-		::GetKeyboardLayout(
-			0
-		)
-	),
 	key_signal_(),
-	key_repeat_signal_(),
-	char_signal_(),
-	repeat_time_(
-		repeat_timer::parameters(
-			sge::dinput::keyboard::repeat()
-		)
-	),
-	old_key_(),
 	info_(
 		sge::dinput::keyboard::make_info(
 			this->get()
 		)
-	),
-	states_()
+	)
 {
-	std::fill(
-		states_.begin(),
-		states_.end(),
-		0
-	);
 }
 
 FCPPT_PP_POP_WARNING
@@ -116,75 +76,6 @@ sge::dinput::keyboard::device::key_callback(
 		);
 }
 
-fcppt::signal::auto_connection
-sge::dinput::keyboard::device::key_repeat_callback(
-	sge::input::keyboard::key_repeat_callback const &_callback
-)
-{
-	return
-		key_repeat_signal_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::dinput::keyboard::device::char_callback(
-	sge::input::keyboard::char_callback const &_callback
-)
-{
-	return
-		char_signal_.connect(
-			_callback
-		);
-}
-
-sge::input::keyboard::mod_state const
-sge::dinput::keyboard::device::mod_state() const
-{
-	sge::input::keyboard::mod_state ret(
-		sge::input::keyboard::mod_state::null()
-	);
-
-	if(
-		sge::dinput::is_down(
-			states_[
-				VK_CONTROL
-			]
-		)
-	)
-		ret |= sge::input::keyboard::modifier::control;
-
-	if(
-		sge::dinput::is_down(
-			states_[
-				VK_MENU
-			]
-		)
-	)
-		ret |= sge::input::keyboard::modifier::alt;
-
-	if(
-		sge::dinput::is_down(
-			states_[
-				VK_SHIFT
-			]
-		)
-	)
-		ret |= sge::input::keyboard::modifier::shift;
-
-	return ret;
-}
-
-bool
-sge::dinput::keyboard::device::needs_acquire(
-	sge::dinput::has_focus const _has_focus,
-	sge::dinput::has_cursor
-) const
-{
-	return
-		_has_focus.get();
-}
-
 void
 sge::dinput::keyboard::device::on_dispatch(
 	DIDEVICEOBJECTDATA const &_data
@@ -194,7 +85,7 @@ sge::dinput::keyboard::device::on_dispatch(
 		_data.dwOfs
 	);
 
-	sge::input::keyboard::key_pressed const key_value{
+	sge::input::key::pressed const key_value{
 		sge::dinput::is_down(
 			_data.dwData
 		)
@@ -207,7 +98,7 @@ sge::dinput::keyboard::device::on_dispatch(
 				offset
 			),
 			fcppt::const_(
-				sge::input::keyboard::key_code::unknown
+				sge::input::key::code::unknown
 			)
 		),
 		fcppt::strong_typedef_construct_cast<
@@ -223,109 +114,5 @@ sge::dinput::keyboard::device::on_dispatch(
 			key,
 			key_value
 		)
-	);
-
-	fcppt::maybe_void(
-		sge::dinput::keyboard::map_virtual_key(
-			offset,
-			kblayout_
-		),
-		[
-			&_data,
-			offset,
-			key_value,
-			this
-		](
-			UINT const _virtual_code
-		)
-		{
-			if(
-				_virtual_code
-				<
-				states_.size()
-			)
-				states_[
-					_virtual_code
-				] =
-					static_cast<
-						BYTE
-					>(
-						_data.dwOfs
-					);
-
-			if(
-				!key_value.get()
-			)
-				return;
-
-			sge::dinput::keyboard::char_vector const chars(
-				sge::dinput::keyboard::keycode_to_chars(
-					_virtual_code,
-					offset,
-					states_,
-					kblayout_
-				)
-			);
-
-			for(
-				auto const elem
-				:
-				chars
-			)
-				char_signal_(
-					sge::input::keyboard::char_event(
-						elem,
-						sge::input::keyboard::char_repeated{
-							false
-						}
-					)
-				);
-		}
-	);
-
-	if(
-		!key_value.get()
-	)
-	{
-		old_key_ =
-			optional_key();
-
-		repeat_time_.reset();
-	}
-	else if(
-		old_key_
-		!=
-		optional_key(
-			key
-		)
-	)
-	{
-		repeat_time_.reset();
-
-		old_key_ =
-			optional_key(
-				key
-			);
-	}
-
-	fcppt::maybe_void(
-		old_key_,
-		[
-			this
-		](
-			sge::input::keyboard::key const &_old_key
-		)
-		{
-			if(
-				sge::timer::reset_when_expired(
-					repeat_time_
-				)
-			)
-				key_repeat_signal_(
-					sge::input::keyboard::key_repeat_event(
-						_old_key
-					)
-				);
-		}
 	);
 }

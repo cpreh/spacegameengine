@@ -20,8 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/create_device.hpp>
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/has_cursor.hpp>
-#include <sge/dinput/has_focus.hpp>
 #include <sge/dinput/device/object.hpp>
 #include <sge/dinput/device/parameters.hpp>
 #include <sge/dinput/device/funcs/acquire.hpp>
@@ -158,18 +156,9 @@ sge::dinput::device::object::dispatch()
 }
 
 void
-sge::dinput::device::object::acquire(
-	sge::dinput::has_focus const _has_focus,
-	sge::dinput::has_cursor const _has_cursor
-)
+sge::dinput::device::object::acquire()
 {
-	if(
-		this->needs_acquire(
-			_has_focus,
-			_has_cursor
-		)
-	)
-		this->acquire_impl();
+	this->acquire_impl();
 }
 
 void
