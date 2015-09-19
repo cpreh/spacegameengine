@@ -78,9 +78,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_impl.hpp>
+#include <fcppt/signal/optional_auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <functional>
@@ -129,10 +129,6 @@ sge::dinput::processor::processor(
 	has_focus_(
 		false
 	),
-	cursor_discover_(),
-	cursor_remove_(),
-	focus_discover_(),
-	focus_remove_(),
 	keyboard_discover_(),
 	keyboard_remove_(),
 	mouse_discover_(),
@@ -208,114 +204,118 @@ sge::dinput::processor::~processor()
 {
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::dinput::processor::keyboard_discover_callback(
 	sge::input::keyboard::discover_callback const &_callback
 )
 {
 	return
-		keyboard_discover_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{
+			keyboard_discover_.connect(
+				_callback
+			)
+		};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::dinput::processor::keyboard_remove_callback(
 	sge::input::keyboard::remove_callback const &_callback
 )
 {
 	return
-		keyboard_remove_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{
+			keyboard_remove_.connect(
+				_callback
+			)
+		};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::dinput::processor::mouse_discover_callback(
 	sge::input::mouse::discover_callback const &_callback
 )
 {
 	return
-		mouse_discover_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{
+			mouse_discover_.connect(
+				_callback
+			)
+		};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::dinput::processor::mouse_remove_callback(
 	sge::input::mouse::remove_callback const &_callback
 )
 {
 	return
-		mouse_remove_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{
+			mouse_remove_.connect(
+				_callback
+			)
+		};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::dinput::processor::cursor_discover_callback(
-	sge::input::cursor::discover_callback const &_callback
+	sge::input::cursor::discover_callback const &
 )
 {
 	return
-		cursor_discover_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::dinput::processor::cursor_remove_callback(
-	sge::input::cursor::remove_callback const &_callback
+	sge::input::cursor::remove_callback const &
 )
 {
 	return
-		cursor_remove_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::dinput::processor::focus_discover_callback(
-	sge::input::focus::discover_callback const &_callback
+	sge::input::focus::discover_callback const &
 )
 {
 	return
-		focus_discover_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::dinput::processor::focus_remove_callback(
-	sge::input::focus::remove_callback const &_callback
+	sge::input::focus::remove_callback const &
 )
 {
 	return
-		focus_remove_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::dinput::processor::joypad_discover_callback(
 	sge::input::joypad::discover_callback const &_callback
 )
 {
 	return
-		joypad_discover_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{
+			joypad_discover_.connect(
+				_callback
+			)
+		};
 }
 
-fcppt::signal::auto_connection
+fcppt::signal::optional_auto_connection
 sge::dinput::processor::joypad_remove_callback(
 	sge::input::joypad::remove_callback const &_callback
 )
 {
 	return
-		joypad_remove_.connect(
-			_callback
-		);
+		fcppt::signal::optional_auto_connection{
+			joypad_remove_.connect(
+				_callback
+			)
+		};
 }
 
 void
