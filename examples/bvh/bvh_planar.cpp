@@ -112,7 +112,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/variant/get_exn.hpp>
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -339,7 +339,7 @@ public:
 private:
 	bvh_tree_traits::tree_representation const &tree_;
 	bvh_tree_traits::tree_representation::const_optional_ref current_tree_;
-	fcppt::signal::scoped_connection keyboard_connection_;
+	fcppt::signal::auto_connection keyboard_connection_;
 
 	void
 	keyboard_callback(
@@ -683,7 +683,7 @@ try
 		sys.keyboard_collector());
 
 	// Set running to false when escape is pressed.
-	fcppt::signal::scoped_connection const escape_connection(
+	fcppt::signal::auto_connection const escape_connection(
 		sge::systems::quit_on_escape(
 			sys
 		)

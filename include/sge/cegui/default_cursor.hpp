@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object_fwd.hpp>
 #include <sge/input/cursor/scroll_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -52,7 +52,7 @@ public:
 	~default_cursor();
 private:
 	sge::cegui::syringe &syringe_;
-	fcppt::signal::scoped_connection const
+	fcppt::signal::auto_connection const
 		button_connection_,
 		move_connection_,
 		scroll_connection_;

@@ -143,7 +143,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/to_vector.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
@@ -420,7 +420,7 @@ try
 		)
 	);
 
-	fcppt::signal::scoped_connection const viewport_connection{
+	fcppt::signal::auto_connection const viewport_connection{
 		sys.viewport_manager().manage_callback(
 			sge::viewport::manage_callback{
 				[
@@ -483,13 +483,13 @@ try
 		sge::audio::sound::repeat::loop
 	);
 
-	fcppt::signal::scoped_connection const escape_connection(
+	fcppt::signal::auto_connection const escape_connection(
 		sge::systems::quit_on_escape(
 			sys
 		)
 	);
 
-	fcppt::signal::scoped_connection const normal_connection{
+	fcppt::signal::auto_connection const normal_connection{
 		cursor.move_callback(
 			sge::input::cursor::move_callback{
 				[
@@ -527,7 +527,7 @@ try
 		cursor
 	);
 
-	fcppt::signal::scoped_connection const relative_connection{
+	fcppt::signal::auto_connection const relative_connection{
 		rel_movement.relative_move_callback(
 			sge::input::cursor::relative_move_callback{
 				[

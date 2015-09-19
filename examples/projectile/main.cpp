@@ -129,7 +129,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
@@ -296,8 +296,8 @@ FCPPT_PP_POP_WARNING
 	}
 private:
 	sge::projectile::body::object &body_;
-	fcppt::signal::scoped_connection const body_collision_connection_;
-	fcppt::signal::scoped_connection const key_callback_connection_;
+	fcppt::signal::auto_connection const body_collision_connection_;
+	fcppt::signal::auto_connection const key_callback_connection_;
 	sge::projectile::vector2 velocity_;
 
 	void
@@ -436,7 +436,7 @@ FCPPT_PP_POP_WARNING
 private:
 	sge::projectile::ghost::object ghost_;
 	sge::projectile::ghost::scoped ghost_scope_;
-	fcppt::signal::scoped_connection const
+	fcppt::signal::auto_connection const
 		body_position_change_connection_,
 		body_enter_connection_,
 		body_exit_connection_;
@@ -540,7 +540,7 @@ try
 
 	sge::projectile::world world;
 
-	fcppt::signal::scoped_connection const body_collision_world(
+	fcppt::signal::auto_connection const body_collision_world(
 		world.body_collision(
 			sge::projectile::body::collision{
 				&body_collision
@@ -661,7 +661,7 @@ try
 		first_body.get(),
 		sys.keyboard_collector());
 
-	fcppt::signal::scoped_connection const escape_connection(
+	fcppt::signal::auto_connection const escape_connection(
 		sge::systems::quit_on_escape(
 			sys));
 

@@ -144,7 +144,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -190,7 +190,7 @@ private:
 
 	modifier const modifier_;
 	sge::input::cursor::relative_movement relative_cursor_movement_;
-	fcppt::signal::scoped_connection relative_movement_connection_;
+	fcppt::signal::auto_connection relative_movement_connection_;
 	speed_ring_buffer speed_values_;
 	scalar current_speed_;
 	bool speed_updated_;
@@ -588,7 +588,7 @@ try
 		sge::audio::sound::repeat::loop
 	);
 
-	fcppt::signal::scoped_connection const escape_connection(
+	fcppt::signal::auto_connection const escape_connection(
 		sge::systems::quit_on_escape(
 			sys
 		)

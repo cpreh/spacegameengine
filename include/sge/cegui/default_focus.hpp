@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/key_repeat_event_fwd.hpp>
 #include <sge/input/focus/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -53,7 +53,7 @@ public:
 private:
 	sge::cegui::syringe &syringe_;
 
-	fcppt::signal::scoped_connection const
+	fcppt::signal::auto_connection const
 		key_callback_,
 		key_repeat_callback_,
 		char_callback_;

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/event/quit_fwd.hpp>
 #include <awl/window/event/destroy_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -64,7 +64,7 @@ private:
 
 	sge::window::system &system_;
 
-	fcppt::signal::scoped_connection const destroy_connection_;
+	fcppt::signal::auto_connection const destroy_connection_;
 };
 
 }

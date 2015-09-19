@@ -104,7 +104,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
@@ -373,7 +373,7 @@ try
 	);
 // ![load_texture]
 
-	fcppt::signal::scoped_connection const scoped_esc_connection(
+	fcppt::signal::auto_connection const scoped_esc_connection(
 		sge::systems::quit_on_escape(
 			sys
 		)

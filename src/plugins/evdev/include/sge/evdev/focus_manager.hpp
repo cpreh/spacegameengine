@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/focus_in_fwd.hpp>
 #include <awl/window/event/focus_out_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -63,7 +63,7 @@ private:
 
 	bool focus_;
 
-	fcppt::signal::scoped_connection const
+	fcppt::signal::auto_connection const
 		focus_in_connection_,
 		focus_out_connection_;
 };

@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -78,7 +78,7 @@ private:
 
 	sge::viewport::optional_resize_callback resize_callback_;
 
-	fcppt::signal::scoped_connection const resize_connection_;
+	fcppt::signal::auto_connection const resize_connection_;
 
 	typedef
 	fcppt::signal::object<

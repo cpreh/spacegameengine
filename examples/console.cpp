@@ -90,7 +90,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/vector/null.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
@@ -174,7 +174,7 @@ try
 		)
 	);
 
-	fcppt::signal::scoped_connection const escape_connection(
+	fcppt::signal::auto_connection const escape_connection(
 		sge::systems::quit_on_escape(
 			sys
 		)
@@ -186,7 +186,7 @@ try
 		)
 	);
 
-	fcppt::signal::scoped_connection const c0(
+	fcppt::signal::auto_connection const c0(
 		object.insert(
 			sge::console::callback::convenience<
 				void()
@@ -208,7 +208,7 @@ try
 		)
 	);
 
-	fcppt::signal::scoped_connection const c1(
+	fcppt::signal::auto_connection const c1(
 		object.register_fallback(
 			sge::console::fallback{
 				[](
@@ -226,7 +226,7 @@ try
 		)
 	);
 
-	fcppt::signal::scoped_connection const c2(
+	fcppt::signal::auto_connection const c2(
 		object.insert(
 			sge::console::callback::convenience<
 				void(float)

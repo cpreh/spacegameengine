@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -85,7 +85,7 @@ private:
 	sge::shader::pair finalize_shader_;
 	sge::shader::parameter::planar_texture finalize_input_texture_parameter_;
 		//sge::shader::parameter::planar_texture finalize_blurred_texture_parameter_;
-	fcppt::signal::scoped_connection const viewport_connection_;
+	fcppt::signal::auto_connection const viewport_connection_;
 
 	typedef
 	fcppt::optional<

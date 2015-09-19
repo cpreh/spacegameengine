@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <list>
 #include <fcppt/config/external_end.hpp>
@@ -135,7 +135,7 @@ private:
 
 	sge::input::focus::mod_state_tracker mod_state_tracker_;
 
-	fcppt::signal::scoped_connection const
+	fcppt::signal::auto_connection const
 		key_connection_,
 		key_repeat_connection_,
 		char_connection_,

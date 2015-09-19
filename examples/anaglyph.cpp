@@ -185,7 +185,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cmath>
@@ -894,7 +894,7 @@ try
 		)
 	);
 
-	fcppt::signal::scoped_connection const escape_callback(
+	fcppt::signal::auto_connection const escape_callback(
 		sge::systems::quit_on_escape(
 			sys));
 

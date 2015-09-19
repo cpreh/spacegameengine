@@ -87,7 +87,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/resize_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
@@ -399,7 +399,7 @@ private:
 
 	ffp_defaults_unique_ptr const ffp_defaults_;
 
-	fcppt::signal::scoped_connection const resize_connection_;
+	fcppt::signal::auto_connection const resize_connection_;
 };
 
 }

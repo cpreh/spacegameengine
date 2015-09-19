@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/widget/optional_ref.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -119,7 +119,7 @@ private:
 
 	sge::rucksack::widget::optional_ref child_;
 
-	fcppt::signal::scoped_connection const viewport_connection_;
+	fcppt::signal::auto_connection const viewport_connection_;
 
 	void
 	manage_callback();

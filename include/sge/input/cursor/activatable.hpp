@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -135,7 +135,7 @@ private:
 
 	sge::input::cursor::scroll_signal scroll_signal_;
 
-	fcppt::signal::scoped_connection const
+	fcppt::signal::auto_connection const
 		button_connection_,
 		move_connection_,
 		scroll_connection_;

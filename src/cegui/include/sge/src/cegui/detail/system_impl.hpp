@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/scoped_system.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/GUIContext.h>
 #include <fcppt/config/external_end.hpp>
@@ -100,7 +100,7 @@ private:
 
 	CEGUI::GUIContext gui_context_;
 
-	fcppt::signal::scoped_connection const viewport_change_connection_;
+	fcppt::signal::auto_connection const viewport_change_connection_;
 
 	// We have to memorize the old viewport so we don't call
 	// notifyDisplaySizeChanged if old == new (costs performance)

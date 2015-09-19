@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/inotify/watch.hpp>
 #include <awl/backends/linux/fd/event_fwd.hpp>
 #include <awl/backends/linux/fd/processor_fwd.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -63,7 +63,7 @@ private:
 
 	sge::evdev::inotify::watch const watch_;
 
-	fcppt::signal::scoped_connection const fd_connection_;
+	fcppt::signal::auto_connection const fd_connection_;
 
 	sge::evdev::inotify::callback const callback_;
 };

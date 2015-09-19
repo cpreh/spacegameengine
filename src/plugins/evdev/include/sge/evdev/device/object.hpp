@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/linux/fd/event_fwd.hpp>
 #include <awl/backends/linux/fd/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -68,7 +68,7 @@ private:
 
 	sge::evdev::device::fd_unique_ptr const fd_;
 
-	fcppt::signal::scoped_connection const scoped_connection_;
+	fcppt::signal::auto_connection const auto_connection_;
 };
 
 }

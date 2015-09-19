@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 sge::gui::widget::tab::tab(
@@ -129,7 +129,7 @@ sge::gui::widget::tab::tab(
 					{
 					}
 				private:
-					fcppt::signal::scoped_connection const click_connection_;
+					fcppt::signal::auto_connection const click_connection_;
 				};
 
 				return

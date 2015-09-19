@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/object_decl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -80,7 +80,7 @@ private:
 
 	relative_move_signal relative_move_signal_;
 
-	fcppt::signal::scoped_connection const connection_;
+	fcppt::signal::auto_connection const connection_;
 };
 
 }

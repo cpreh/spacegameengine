@@ -51,7 +51,7 @@ sge::evdev::device::object::object(
 			_fd
 		)
 	),
-	scoped_connection_(
+	auto_connection_(
 		_processor.register_fd_callback(
 			fd_->get(),
 			awl::backends::linux::fd::callback(

@@ -59,7 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
@@ -131,7 +131,7 @@ try
 	fcppt::io::cout()
 		<< FCPPT_TEXT('\n');
 
-	fcppt::signal::scoped_connection const con(
+	fcppt::signal::auto_connection const con(
 		sys.window().awl_window_event_processor().show_callback(
 			awl::window::event::show_callback{
 				[

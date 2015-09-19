@@ -175,7 +175,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/output.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
@@ -514,7 +514,7 @@ try
 		false
 	);
 
-	fcppt::signal::scoped_connection const console_resize_con(
+	fcppt::signal::auto_connection const console_resize_con(
 		sys.viewport_manager().manage_callback(
 			sge::viewport::manage_callback{
 				[

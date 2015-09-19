@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -131,7 +131,7 @@ private:
 
 	sge::console::fallback_signal fallback_;
 
-	fcppt::signal::scoped_connection const
+	fcppt::signal::auto_connection const
 		help_connection_,
 		man_connection_;
 

@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -117,9 +117,9 @@ public:
 	~object()
 	override;
 private:
-	fcppt::signal::scoped_connection const keyboard_connection_;
+	fcppt::signal::auto_connection const keyboard_connection_;
 
-	fcppt::signal::scoped_connection const mouse_axis_connection_;
+	fcppt::signal::auto_connection const mouse_axis_connection_;
 
 	sge::camera::first_person::action::mapping action_mapping_;
 

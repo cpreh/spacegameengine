@@ -109,7 +109,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
@@ -341,7 +341,7 @@ try
 	>
 	signed_pos;
 
-	fcppt::signal::scoped_connection const manage_connection(
+	fcppt::signal::auto_connection const manage_connection(
 		sys.viewport_manager().manage_callback(
 			sge::viewport::manage_callback{
 				[
@@ -384,7 +384,7 @@ try
 		)
 	);
 
-	fcppt::signal::scoped_connection const escape_connection(
+	fcppt::signal::auto_connection const escape_connection(
 		sge::systems::quit_on_escape(
 			sys
 		)
@@ -392,7 +392,7 @@ try
 
 	sge::input::cursor::optional_position last_position;
 
-	fcppt::signal::scoped_connection const click_connection(
+	fcppt::signal::auto_connection const click_connection(
 		sys.cursor_demuxer().button_callback(
 			sge::input::cursor::button_callback{
 				[
@@ -537,7 +537,7 @@ try
 		)
 	);
 
-	fcppt::signal::scoped_connection const clear_connection(
+	fcppt::signal::auto_connection const clear_connection(
 		sys.keyboard_collector().key_callback(
 			sge::input::keyboard::action(
 				sge::input::key::code::c,

@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_code.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <utility>
@@ -161,7 +161,7 @@ private:
 	sprite_buffers buffers_;
 	sprite_state_object sprite_states_;
 	sprite_list sprites_;
-	fcppt::signal::scoped_connection const quit_connection_;
+	fcppt::signal::auto_connection const quit_connection_;
 };
 }
 }

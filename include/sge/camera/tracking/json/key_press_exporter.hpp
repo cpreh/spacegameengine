@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/signal/connection.hpp>
-#include <fcppt/signal/scoped_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -75,7 +75,7 @@ private:
 	sge::camera::update_duration const duration_;
 	keyframe_keypress const keyframe_keypress_;
 	export_keypress const export_keypress_;
-	fcppt::signal::scoped_connection const key_press_connection_;
+	fcppt::signal::auto_connection const key_press_connection_;
 	sge::camera::tracking::keyframe_sequence keyframes_;
 
 	void
