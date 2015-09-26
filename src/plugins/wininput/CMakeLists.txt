@@ -14,6 +14,9 @@ set(
 	src/plugins/wininput/include/sge/wininput/cursor/set_capture.hpp
 	src/plugins/wininput/include/sge/wininput/cursor/show.hpp
 	src/plugins/wininput/include/sge/wininput/cursor/ungrab.hpp
+	src/plugins/wininput/include/sge/wininput/focus/object.hpp
+	src/plugins/wininput/include/sge/wininput/focus/object_fwd.hpp
+	src/plugins/wininput/include/sge/wininput/focus/translate_key_code.hpp
 	src/plugins/wininput/include/sge/wininput/has_focus.hpp
 	src/plugins/wininput/include/sge/wininput/logger.hpp
 	src/plugins/wininput/include/sge/wininput/logger_context.hpp
@@ -31,6 +34,8 @@ set(
 	src/plugins/wininput/src/cursor/show.cpp
 	src/plugins/wininput/src/cursor/ungrab.cpp
 	src/plugins/wininput/src/exports.cpp
+	src/plugins/wininput/src/focus/object.cpp
+	src/plugins/wininput/src/focus/translate_key_code.cpp
 	src/plugins/wininput/src/logger.cpp
 	src/plugins/wininput/src/logger_context.cpp
 	src/plugins/wininput/src/processor.cpp

@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WININPUT_PROCESSOR_HPP_INCLUDED
 #define SGE_WININPUT_PROCESSOR_HPP_INCLUDED
 
-#include <sge/wininput/cursor/object.hpp>
+#include <sge/wininput/cursor/object_fwd.hpp>
+#include <sge/wininput/focus/object_fwd.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_signal.hpp>
@@ -175,6 +176,20 @@ private:
 	optional_cursor_unique_ptr;
 
 	optional_cursor_unique_ptr cursor_;
+
+	typedef
+	fcppt::unique_ptr<
+		sge::wininput::focus::object
+	>
+	focus_unique_ptr;
+
+	typedef
+	fcppt::optional<
+		focus_unique_ptr
+	>
+	optional_focus_unique_ptr;
+
+	optional_focus_unique_ptr focus_;
 };
 
 }

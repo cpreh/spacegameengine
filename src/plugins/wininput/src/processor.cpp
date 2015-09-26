@@ -22,10 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wininput/logger.hpp>
 #include <sge/wininput/processor.hpp>
 #include <sge/wininput/cursor/object.hpp>
+#include <sge/wininput/focus/object.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/focus/discover_callback.hpp>
+#include <sge/input/focus/discover_event.hpp>
 #include <sge/input/focus/remove_callback.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/discover_event.hpp>
@@ -131,7 +133,8 @@ sge::wininput::processor::processor(
 			)
 		)
 	),
-	cursor_()
+	cursor_(),
+	focus_()
 {
 	awl::backends::windows::event::post_message(
 		windows_window_.hwnd(),
@@ -305,6 +308,23 @@ sge::wininput::processor::on_init(
 		sge::input::cursor::discover_event{
 			*cursor
 		}
+	);
+
+	focus_unique_ptr const &focus(
+		fcppt::optional_assign(
+			focus_,
+			fcppt::make_unique_ptr<
+				sge::wininput::focus::object
+			>(
+				event_processor_
+			)
+		)
+	);
+
+	focus_discover_(
+		sge::input::focus::discover_event(
+			*focus
+		)
 	);
 
 	return
