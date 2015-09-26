@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/set_depth_stencil_surface.hpp>
 #include <sge/d3d9/devicefuncs/set_render_target.hpp>
 #include <sge/d3d9/surface/color.hpp>
-#include <sge/d3d9/surface/depth_stencil.hpp>
+#include <sge/d3d9/surface/depth_stencil_offscreen.hpp>
 #include <sge/d3d9/surface/optional_d3d_ref.hpp>
 #include <sge/d3d9/target/basic_impl.hpp>
 #include <sge/d3d9/target/offscreen.hpp>
@@ -89,7 +89,7 @@ sge::d3d9::target::offscreen::depth_stencil_surface(
 {
 	depth_stencil_surface_ =
 		fcppt::dynamic_optional_cast<
-			sge::d3d9::surface::depth_stencil &
+			sge::d3d9::surface::depth_stencil_offscreen &
 		>(
 			_surface
 		);
@@ -182,7 +182,7 @@ sge::d3d9::target::offscreen::change_surfaces(
 			_activate,
 			this
 		](
-			sge::d3d9::surface::depth_stencil &_surface
+			sge::d3d9::surface::depth_stencil_offscreen &_surface
 		)
 		{
 			sge::d3d9::devicefuncs::set_depth_stencil_surface(

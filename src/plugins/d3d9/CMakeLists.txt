@@ -297,13 +297,10 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/surface/color_holder_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/color_onscreen_target.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/d3d_unique_ptr.hpp
-	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil.hpp
-	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil_create.hpp
-	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil_create_fwd.hpp
-	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil_create_unique_ptr.hpp
-	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil_fwd.hpp
-	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil_native.hpp
-	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil_onscreen_target.hpp
+	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil_offscreen.hpp
+	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil_offscreen_fwd.hpp
+	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil_onscreen.hpp
+	src/plugins/d3d9/include/sge/d3d9/surface/depth_stencil_onscreen_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/optional_d3d_ref.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/optional_d3d_ref_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/optional_d3d_unique_ptr.hpp
@@ -631,10 +628,8 @@ SET(
 	src/plugins/d3d9/src/surface/color_create.cpp
 	src/plugins/d3d9/src/surface/color_holder.cpp
 	src/plugins/d3d9/src/surface/color_onscreen_target.cpp
-	src/plugins/d3d9/src/surface/depth_stencil.cpp
-	src/plugins/d3d9/src/surface/depth_stencil_create.cpp
-	src/plugins/d3d9/src/surface/depth_stencil_native.cpp
-	src/plugins/d3d9/src/surface/depth_stencil_onscreen_target.cpp
+	src/plugins/d3d9/src/surface/depth_stencil_offscreen.cpp
+	src/plugins/d3d9/src/surface/depth_stencil_onscreen.cpp
 	src/plugins/d3d9/src/surfacefuncs/depth_stencil_format.cpp
 	src/plugins/d3d9/src/surfacefuncs/dim.cpp
 	src/plugins/d3d9/src/surfacefuncs/get_desc.cpp

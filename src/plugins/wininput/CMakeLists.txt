@@ -14,6 +14,11 @@ set(
 	src/plugins/wininput/include/sge/wininput/cursor/set_capture.hpp
 	src/plugins/wininput/include/sge/wininput/cursor/show.hpp
 	src/plugins/wininput/include/sge/wininput/cursor/ungrab.hpp
+	src/plugins/wininput/include/sge/wininput/has_focus.hpp
+	src/plugins/wininput/include/sge/wininput/logger.hpp
+	src/plugins/wininput/include/sge/wininput/logger_context.hpp
+	src/plugins/wininput/include/sge/wininput/processor.hpp
+	src/plugins/wininput/include/sge/wininput/system.hpp
 	src/plugins/wininput/src/cursor/clip.cpp
 	src/plugins/wininput/src/cursor/define.cpp
 	src/plugins/wininput/src/cursor/exclusive_mode.cpp
@@ -25,6 +30,11 @@ set(
 	src/plugins/wininput/src/cursor/set_capture.cpp
 	src/plugins/wininput/src/cursor/show.cpp
 	src/plugins/wininput/src/cursor/ungrab.cpp
+	src/plugins/wininput/src/exports.cpp
+	src/plugins/wininput/src/logger.cpp
+	src/plugins/wininput/src/logger_context.cpp
+	src/plugins/wininput/src/processor.cpp
+	src/plugins/wininput/src/system.cpp
 )
 
 find_package(
@@ -41,6 +51,7 @@ add_sge_plugin(
 		sgeinput
 		sgelog
 		sgeplugin
+		sgewindow
 	ADDITIONAL_DEPS
 		${awl_TARGET}
 		${fcppt_log_TARGET}

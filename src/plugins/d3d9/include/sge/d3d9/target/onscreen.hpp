@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/resource_manager_fwd.hpp>
 #include <sge/d3d9/surface/color_fwd.hpp>
-#include <sge/d3d9/surface/depth_stencil_fwd.hpp>
+#include <sge/d3d9/surface/depth_stencil_onscreen_fwd.hpp>
 #include <sge/d3d9/target/basic.hpp>
 #include <sge/d3d9/target/onscreen_fwd.hpp>
 #include <sge/image/color/format_fwd.hpp>
@@ -54,9 +54,11 @@ class onscreen
 		onscreen
 	);
 
-	typedef sge::d3d9::target::basic<
+	typedef
+	sge::d3d9::target::basic<
 		sge::renderer::target::onscreen
-	> base;
+	>
+	base;
 public:
 	onscreen(
 		IDirect3DDevice9 &,
@@ -66,19 +68,23 @@ public:
 		sge::renderer::caps::target_surface_indices
 	);
 
-	~onscreen();
+	~onscreen()
+	override;
 
 	sge::renderer::color_buffer::surface const &
 	surface() const;
 private:
 	bool
-	needs_present() const;
+	needs_present() const
+	override;
 
 	void
-	on_activate();
+	on_activate()
+	override;
 
 	void
-	on_deactivate();
+	on_deactivate()
+	override;
 
 	typedef
 	fcppt::unique_ptr<
@@ -90,7 +96,7 @@ private:
 
 	typedef
 	fcppt::unique_ptr<
-		sge::d3d9::surface::depth_stencil
+		sge::d3d9::surface::depth_stencil_onscreen
 	>
 	depth_stencil_surface_unique_ptr;
 

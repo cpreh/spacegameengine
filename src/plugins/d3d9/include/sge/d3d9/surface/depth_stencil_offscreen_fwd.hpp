@@ -18,11 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_D3D9_SURFACE_DEPTH_STENCIL_CREATE_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_D3D9_SURFACE_DEPTH_STENCIL_CREATE_UNIQUE_PTR_HPP_INCLUDED
-
-#include <sge/d3d9/surface/depth_stencil_create_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#ifndef SGE_D3D9_SURFACE_DEPTH_STENCIL_OFFSCREEN_FWD_HPP_INCLUDED
+#define SGE_D3D9_SURFACE_DEPTH_STENCIL_OFFSCREEN_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -32,11 +29,7 @@ namespace d3d9
 namespace surface
 {
 
-typedef
-fcppt::unique_ptr<
-	sge::d3d9::surface::depth_stencil_create
->
-depth_stencil_create_unique_ptr;
+class depth_stencil_offscreen;
 
 }
 }

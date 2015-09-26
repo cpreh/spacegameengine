@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/index_buffer.hpp>
 #include <sge/d3d9/multi_sample_quality.hpp>
-#include <sge/d3d9/needs_reset.hpp>
 #include <sge/d3d9/resource_manager.hpp>
 #include <sge/d3d9/devicefuncs/begin_scene.hpp>
 #include <sge/d3d9/devicefuncs/end_scene.hpp>
@@ -37,9 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/render_context/create.hpp>
 #include <sge/d3d9/render_context/needs_present.hpp>
 #include <sge/d3d9/render_context/parameters.hpp>
-#include <sge/d3d9/surface/depth_stencil.hpp>
-#include <sge/d3d9/surface/depth_stencil_create.hpp>
-#include <sge/d3d9/surface/depth_stencil_native.hpp>
+#include <sge/d3d9/surface/depth_stencil_offscreen.hpp>
 #include <sge/d3d9/swapchainfuncs/present.hpp>
 #include <sge/d3d9/state/core/defaults.hpp>
 #include <sge/d3d9/state/core/blend/create.hpp>
@@ -153,6 +150,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/static_downcast.hpp>
+#include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_signed.hpp>
 #include <fcppt/math/vector/null.hpp>
@@ -378,23 +376,14 @@ sge::d3d9::device::create_depth_stencil_surface(
 		>(
 			this->add_resource(
 				fcppt::make_unique_ptr<
-					sge::d3d9::surface::depth_stencil
+					sge::d3d9::surface::depth_stencil_offscreen
 				>(
-					fcppt::unique_ptr_to_base<
-						sge::d3d9::surface::depth_stencil_create
-					>(
-						fcppt::make_unique_ptr<
-							sge::d3d9::surface::depth_stencil_native
-						>(
-							*device_,
-							_parameters,
-							present_parameters_.MultiSampleType,
-							sge::d3d9::multi_sample_quality(
-								present_parameters_.MultiSampleQuality
-							)
-						)
-					),
-					sge::d3d9::needs_reset::yes
+					*device_,
+					_parameters,
+					present_parameters_.MultiSampleType,
+					sge::d3d9::multi_sample_quality(
+						present_parameters_.MultiSampleQuality
+					)
 				)
 			)
 		);
@@ -868,6 +857,15 @@ sge::d3d9::device::on_resize(
 		present_parameters_.Windowed
 		==
 		FALSE
+	)
+		return;
+
+	if(
+		fcppt::math::dim::contents(
+			_resize.dim()
+		)
+		==
+		0u
 	)
 		return;
 

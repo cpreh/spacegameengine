@@ -271,7 +271,7 @@ sge::wininput::processor::on_focus_in(
 	FCPPT_LOG_DEBUG(
 		sge::wininput::logger(),
 		fcppt::log::_
-			<< FCPPT_TEXT("DirectInput: focus in")
+			<< FCPPT_TEXT("focus in")
 	);
 
 	has_focus_ =
@@ -288,7 +288,7 @@ sge::wininput::processor::on_focus_out(
 	FCPPT_LOG_DEBUG(
 		sge::wininput::logger(),
 		fcppt::log::_
-			<< FCPPT_TEXT("DirectInput: focus out")
+			<< FCPPT_TEXT("focus out")
 	);
 
 	has_focus_ =

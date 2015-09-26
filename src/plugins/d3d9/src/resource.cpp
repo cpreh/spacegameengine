@@ -38,7 +38,9 @@ sge::d3d9::resource::resource(
 )
 :
 	pool_(
-		_needs_reset == sge::d3d9::needs_reset::yes
+		_needs_reset
+		==
+		sge::d3d9::needs_reset::yes
 		?
 			D3DPOOL_DEFAULT
 		:
@@ -72,7 +74,8 @@ sge::d3d9::resource::reset()
 D3DPOOL
 sge::d3d9::resource::pool() const
 {
-	return pool_;
+	return
+		pool_;
 }
 
 bool
@@ -80,5 +83,6 @@ sge::d3d9::resource::needs_reset() const
 {
 	return
 		this->pool()
-		!= D3DPOOL_MANAGED;
+		!=
+		D3DPOOL_MANAGED;
 }
