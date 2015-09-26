@@ -118,6 +118,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/dim.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
@@ -125,7 +127,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/unique_ptr_to_const.hpp>
-#include <fcppt/io/cerr.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -135,8 +137,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <iostream>
-#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -496,20 +496,24 @@ try
 		sys.window_system().exit_code();
 }
 catch(
-	fcppt::exception const &_error)
+	fcppt::exception const &_error
+)
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_error.string()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
-	std::exception const &_error)
+	std::exception const &_error
+)
 {
-	std::cerr
-		<< _error.what()
-		<< '\n';
+	awl::show_error_narrow(
+		_error.what()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
