@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WININPUT_PROCESSOR_HPP_INCLUDED
 #define SGE_WININPUT_PROCESSOR_HPP_INCLUDED
 
-#include <sge/wininput/has_focus.hpp>
 #include <sge/wininput/cursor/object.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
@@ -46,8 +45,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/return_type_fwd.hpp>
 #include <awl/backends/windows/window/event/scoped_user_message.hpp>
 #include <awl/system/object_fwd.hpp>
-#include <awl/window/event/focus_in_fwd.hpp>
 #include <awl/window/event/focus_out_fwd.hpp>
+#include <fcppt/optional_decl.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/signal/optional_auto_connection_fwd.hpp>
@@ -135,11 +135,6 @@ public:
 	override;
 private:
 	void
-	on_focus_in(
-		awl::window::event::focus_in const &
-	);
-
-	void
 	on_focus_out(
 		awl::window::event::focus_out const &
 	);
@@ -155,8 +150,6 @@ private:
 
 	awl::backends::windows::window::event::processor &event_processor_;
 
-	sge::wininput::has_focus has_focus_;
-
 	sge::input::focus::discover_signal focus_discover_;
 
 	sge::input::focus::remove_signal focus_remove_;
@@ -168,6 +161,20 @@ private:
 	awl::backends::windows::window::event::scoped_user_message const init_message_;
 
 	fcppt::signal::auto_connection_container const connections_;
+
+	typedef
+	fcppt::unique_ptr<
+		sge::wininput::cursor::object
+	>
+	cursor_unique_ptr;
+
+	typedef
+	fcppt::optional<
+		cursor_unique_ptr
+	>
+	optional_cursor_unique_ptr;
+
+	optional_cursor_unique_ptr cursor_;
 };
 
 }

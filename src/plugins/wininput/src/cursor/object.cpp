@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/wininput/has_focus.hpp>
 #include <sge/wininput/cursor/exclusive_mode.hpp>
 #include <sge/wininput/cursor/get_pos.hpp>
 #include <sge/wininput/cursor/object.hpp>
@@ -68,7 +69,8 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::wininput::cursor::object::object(
 	awl::backends::windows::window::event::processor &_event_processor,
-	awl::backends::windows::window::object &_window
+	awl::backends::windows::window::object &_window,
+	sge::wininput::has_focus const _has_focus
 )
 :
 	event_processor_(
@@ -84,7 +86,7 @@ sge::wininput::cursor::object::object(
 		sge::input::cursor::mode::normal
 	),
 	has_focus_(
-		false
+		_has_focus
 	),
 	exclusive_mode_(),
 	connections_(
@@ -239,16 +241,30 @@ sge::wininput::cursor::object::mode(
 		exclusive_mode_ =
 			optional_exclusive_mode_unique_ptr();
 	else if(
-		has_focus_
+		has_focus_.get()
 	)
 		this->make_grab();
 }
 
 void
-sge::wininput::cursor::object::acquire()
+sge::wininput::cursor::object::focus_out()
 {
 	has_focus_ =
-		true;
+		sge::wininput::has_focus{
+			false
+		};
+
+	exclusive_mode_ =
+		optional_exclusive_mode_unique_ptr();
+}
+
+void
+sge::wininput::cursor::object::focus_in()
+{
+	has_focus_ =
+		sge::wininput::has_focus{
+			true
+		};
 
 	if(
 		mode_
@@ -256,23 +272,6 @@ sge::wininput::cursor::object::acquire()
 		sge::input::cursor::mode::exclusive
 	)
 		this->make_grab();
-}
-
-void
-sge::wininput::cursor::object::unacquire()
-{
-	has_focus_ =
-		false;
-
-	exclusive_mode_ =
-		optional_exclusive_mode_unique_ptr();
-}
-
-bool
-sge::wininput::cursor::object::acquired() const
-{
-	return
-		has_focus_;
 }
 
 void
@@ -325,6 +324,15 @@ sge::wininput::cursor::object::on_button(
 	sge::input::cursor::button_pressed const _down
 )
 {
+	if(
+		_code
+		==
+		sge::input::cursor::button_code::left
+		&&
+		_down.get()
+	)
+		this->focus_in();
+
 	button_signal_(
 		sge::input::cursor::button_event(
 			_code,

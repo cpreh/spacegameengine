@@ -3,6 +3,11 @@ function(
 	PATHNAME
 )
 	set(
+		OPTION_ARGS
+		NO_CODE
+	)
+
+	set(
 		MULTI_ARGS
 		SGE_DEPS
 		ADDITIONAL_DEPS
@@ -11,7 +16,7 @@ function(
 
 	cmake_parse_arguments(
 		""
-		""
+		"${OPTION_ARGS}"
 		""
 		"${MULTI_ARGS}"
 		${ARGN}
@@ -27,8 +32,18 @@ function(
 		SGE_LIBRARIES_RESULT
 	)
 
+	if(
+		_NO_CODE
+	)
+		set(
+			NO_CODE
+			"NO_CODE"
+		)
+	endif()
+
 	fcppt_utils_add_test(
 		"${PATHNAME}"
+		${NO_CODE}
 		LINK_LIBS
 			${SGE_LIBRARIES_RESULT}
 			${_ADDITIONAL_DEPS}
@@ -85,6 +100,7 @@ add_sge_test(
 
 add_sge_test(
 	image/color/convert
+	NO_CODE
 	SGE_DEPS
 		sgeimagecolor
 	ADDITIONAL_DEPS

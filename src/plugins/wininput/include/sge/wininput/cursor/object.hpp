@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WININPUT_CURSOR_OBJECT_HPP_INCLUDED
 #define SGE_WININPUT_CURSOR_OBJECT_HPP_INCLUDED
 
+#include <sge/wininput/has_focus.hpp>
 #include <sge/wininput/cursor/exclusive_mode_fwd.hpp>
 #include <sge/wininput/cursor/object_fwd.hpp>
 #include <sge/input/cursor/button_callback.hpp>
@@ -65,43 +66,47 @@ class object
 public:
 	object(
 		awl::backends::windows::window::event::processor &,
-		awl::backends::windows::window::object &
+		awl::backends::windows::window::object &,
+		sge::wininput::has_focus
 	);
 
-	~object();
+	~object()
+	override;
 
 	fcppt::signal::auto_connection
 	button_callback(
 		sge::input::cursor::button_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	move_callback(
 		sge::input::cursor::move_callback const &
-	);
+	)
+	override;
 
 	fcppt::signal::auto_connection
 	scroll_callback(
 		sge::input::cursor::scroll_callback const &
-	);
+	)
+	override;
 
 	sge::input::cursor::optional_position const
-	position() const;
+	position() const
+	override;
 
 	void
 	mode(
 		sge::input::cursor::mode
-	);
+	)
+	override;
 
 	void
-	acquire();
-
-	void
-	unacquire();
-
-	bool
-	acquired() const;
+	focus_out();
 private:
+	void
+	focus_in();
+
 	void
 	make_grab();
 
@@ -160,7 +165,7 @@ private:
 
 	sge::input::cursor::mode mode_;
 
-	bool has_focus_;
+	sge::wininput::has_focus has_focus_;
 
 	optional_exclusive_mode_unique_ptr exclusive_mode_;
 

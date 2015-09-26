@@ -18,9 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/wininput/has_focus.hpp>
 #include <sge/wininput/logger.hpp>
 #include <sge/wininput/processor.hpp>
+#include <sge/wininput/cursor/object.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
+#include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/focus/discover_callback.hpp>
 #include <sge/input/focus/remove_callback.hpp>
@@ -47,11 +50,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/window/has_focus.hpp>
-#include <awl/window/event/focus_in_callback.hpp>
-#include <awl/window/event/focus_in_fwd.hpp>
 #include <awl/window/event/focus_out_callback.hpp>
 #include <awl/window/event/focus_out_fwd.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional_assign.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/log/_.hpp>
@@ -91,9 +97,6 @@ sge::wininput::processor::processor(
 			_window.awl_window_event_processor()
 		)
 	),
-	has_focus_(
-		false
-	),
 	focus_discover_(),
 	focus_remove_(),
 	cursor_discover_(),
@@ -105,17 +108,6 @@ sge::wininput::processor::processor(
 		fcppt::assign::make_container<
 			fcppt::signal::auto_connection_container
 		>(
-			event_processor_.focus_in_callback(
-				awl::window::event::focus_in_callback(
-					std::bind(
-						&sge::wininput::processor::on_focus_in,
-						this,
-						std::placeholders::_1
-					)
-				)
-			)
-		)
-		(
 			event_processor_.focus_out_callback(
 				awl::window::event::focus_out_callback(
 					std::bind(
@@ -138,7 +130,8 @@ sge::wininput::processor::processor(
 				}
 			)
 		)
-	)
+	),
+	cursor_()
 {
 	awl::backends::windows::event::post_message(
 		windows_window_.hwnd(),
@@ -264,23 +257,6 @@ sge::wininput::processor::joypad_remove_callback(
 }
 
 void
-sge::wininput::processor::on_focus_in(
-	awl::window::event::focus_in const &
-)
-{
-	FCPPT_LOG_DEBUG(
-		sge::wininput::logger(),
-		fcppt::log::_
-			<< FCPPT_TEXT("focus in")
-	);
-
-	has_focus_ =
-		sge::wininput::has_focus(
-			true
-		);
-}
-
-void
 sge::wininput::processor::on_focus_out(
 	awl::window::event::focus_out const &
 )
@@ -291,10 +267,15 @@ sge::wininput::processor::on_focus_out(
 			<< FCPPT_TEXT("focus out")
 	);
 
-	has_focus_ =
-		sge::wininput::has_focus(
-			false
-		);
+	fcppt::maybe_void(
+		cursor_,
+		[](
+			cursor_unique_ptr const &_cursor
+		)
+		{
+			_cursor->focus_out();
+		}
+	);
 }
 
 awl::backends::windows::window::event::return_type
@@ -302,16 +283,29 @@ sge::wininput::processor::on_init(
 	awl::backends::windows::window::event::object const &
 )
 {
-	if(
-		awl::window::has_focus(
-			awl_system_,
-			windows_window_
+	cursor_unique_ptr const &cursor(
+		fcppt::optional_assign(
+			cursor_,
+			fcppt::make_unique_ptr<
+				sge::wininput::cursor::object
+			>(
+				event_processor_,
+				windows_window_,
+				sge::wininput::has_focus{
+					awl::window::has_focus(
+						awl_system_,
+						windows_window_
+					)
+				}
+			)
 		)
-	)
-		has_focus_ =
-			sge::wininput::has_focus(
-				true
-			);
+	);
+
+	cursor_discover_(
+		sge::input::cursor::discover_event{
+			*cursor
+		}
+	);
 
 	return
 		awl::backends::windows::window::event::return_type(
