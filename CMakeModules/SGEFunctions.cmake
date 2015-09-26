@@ -605,7 +605,7 @@ function(
 
 	add_library(
 		${SGE_PLUGIN_NAME}
-		SHARED
+		MODULE
 		${SGE_${UPPER_PLUGIN_NAME}_FILES_ABS}
 	)
 
