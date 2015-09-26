@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/global_context.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/log/activate_levels_recursive.hpp>
+#include <fcppt/log/no_such_location.hpp>
 
 
 void
@@ -35,9 +38,21 @@ sge::log::apply_options(
 		:
 		_options
 	)
-		fcppt::log::activate_levels_recursive(
-			sge::log::global_context(),
-			option.location(),
-			option.level()
-		);
+		try
+		{
+			fcppt::log::activate_levels_recursive(
+				sge::log::global_context(),
+				option.location(),
+				option.level()
+			);
+		}
+		catch(
+			fcppt::log::no_such_location const &_error
+		)
+		{
+			fcppt::io::cerr()
+				<< FCPPT_TEXT("Failed to set log level: ")
+				<< _error.string()
+				<< FCPPT_TEXT('\n');
+		}
 }
