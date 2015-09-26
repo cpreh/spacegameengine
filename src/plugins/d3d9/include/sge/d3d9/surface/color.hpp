@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/resource.hpp>
-#include <sge/d3d9/surface/color_create_unique_ptr.hpp>
+#include <sge/d3d9/surface/color_create_function.hpp>
 #include <sge/d3d9/surface/color_fwd.hpp>
 #include <sge/d3d9/surface/color_holder_fwd.hpp>
 #include <sge/d3d9/surface/optional_d3d_unique_ptr.hpp>
@@ -54,7 +54,7 @@ public:
 	color(
 		IDirect3DDevice9 &,
 		sge::image::color::format,
-		sge::d3d9::surface::color_create_unique_ptr &&
+		sge::d3d9::surface::color_create_function const &
 	);
 
 	~color()
@@ -104,7 +104,7 @@ private:
 
 	IDirect3DDevice9 &device_;
 
-	sge::d3d9::surface::color_create_unique_ptr const create_;
+	sge::d3d9::surface::color_create_function const create_;
 
 	sge::image::color::format const format_;
 

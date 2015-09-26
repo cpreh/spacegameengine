@@ -20,44 +20,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/get_render_target.hpp>
+#include <sge/d3d9/surface/color_create_function.hpp>
 #include <sge/d3d9/surface/color_onscreen_target.hpp>
-#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 
 
-sge::d3d9::surface::color_onscreen_target::color_onscreen_target(
+sge::d3d9::surface::color_create_function
+sge::d3d9::surface::color_onscreen_target(
 	IDirect3DDevice9 &_device
 )
-:
-	device_(
-		_device
-	)
-{
-}
-
-sge::d3d9::surface::color_onscreen_target::~color_onscreen_target()
-{
-}
-
-sge::d3d9::surface::d3d_unique_ptr
-sge::d3d9::surface::color_onscreen_target::create() const
 {
 	return
-		fcppt::optional_to_exception(
-			sge::d3d9::devicefuncs::get_render_target(
-				device_,
-				sge::renderer::target::surface_index(
-					0u
-				)
-			),
-			[]{
+		sge::d3d9::surface::color_create_function{
+			[
+				&_device
+			]{
 				return
-					sge::renderer::exception{
-						FCPPT_TEXT("Unable to get render target.")
-					};
+					fcppt::optional_to_exception(
+						sge::d3d9::devicefuncs::get_render_target(
+							_device,
+							sge::renderer::target::surface_index(
+								0u
+							)
+						),
+						[]{
+							return
+								sge::renderer::exception{
+									FCPPT_TEXT("Unable to get render target.")
+								};
+						}
+					);
 			}
-		);
+		};
 }

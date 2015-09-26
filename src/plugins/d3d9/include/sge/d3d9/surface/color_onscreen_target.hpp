@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_SURFACE_COLOR_ONSCREEN_TARGET_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/surface/color_create.hpp>
-#include <sge/d3d9/surface/d3d_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/d3d9/surface/color_create_function.hpp>
 
 
 namespace sge
@@ -34,26 +32,10 @@ namespace d3d9
 namespace surface
 {
 
-class color_onscreen_target
-:
-	public sge::d3d9::surface::color_create
-{
-	FCPPT_NONCOPYABLE(
-		color_onscreen_target
-	);
-public:
-	explicit
-	color_onscreen_target(
-		IDirect3DDevice9 &
-	);
-
-	~color_onscreen_target();
-
-	sge::d3d9::surface::d3d_unique_ptr
-	create() const;
-private:
-	IDirect3DDevice9 &device_;
-};
+sge::d3d9::surface::color_create_function
+color_onscreen_target(
+	IDirect3DDevice9 &
+);
 
 }
 }

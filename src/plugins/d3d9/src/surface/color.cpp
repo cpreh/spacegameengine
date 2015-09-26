@@ -26,8 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/create_offscreen_plain_surface.hpp>
 #include <sge/d3d9/devicefuncs/get_render_target_data.hpp>
 #include <sge/d3d9/surface/color.hpp>
-#include <sge/d3d9/surface/color_create.hpp>
-#include <sge/d3d9/surface/color_create_unique_ptr.hpp>
+#include <sge/d3d9/surface/color_create_function.hpp>
 #include <sge/d3d9/surface/color_holder.hpp>
 #include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <sge/d3d9/surface/optional_d3d_unique_ptr.hpp>
@@ -51,15 +50,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/math/box/comparison.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::d3d9::surface::color::color(
 	IDirect3DDevice9 &_device,
 	sge::image::color::format const _format,
-	sge::d3d9::surface::color_create_unique_ptr &&_create
+	sge::d3d9::surface::color_create_function const &_create
 )
 :
 	sge::d3d9::resource(
@@ -69,9 +65,7 @@ sge::d3d9::surface::color::color(
 		_device
 	),
 	create_(
-		std::move(
-			_create
-		)
+		_create
 	),
 	format_(
 		_format
@@ -239,7 +233,7 @@ sge::d3d9::surface::color::init()
 			fcppt::make_unique_ptr<
 				sge::d3d9::surface::color_holder
 			>(
-				create_->create()
+				create_()
 			)
 		);
 }

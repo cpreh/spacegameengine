@@ -289,9 +289,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/state/set_defaults.hpp
 	src/plugins/d3d9/include/sge/d3d9/state/set_or_default.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/color.hpp
-	src/plugins/d3d9/include/sge/d3d9/surface/color_create.hpp
-	src/plugins/d3d9/include/sge/d3d9/surface/color_create_fwd.hpp
-	src/plugins/d3d9/include/sge/d3d9/surface/color_create_unique_ptr.hpp
+	src/plugins/d3d9/include/sge/d3d9/surface/color_create_function.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/color_fwd.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/color_holder.hpp
 	src/plugins/d3d9/include/sge/d3d9/surface/color_holder_fwd.hpp
@@ -625,7 +623,6 @@ SET(
 	src/plugins/d3d9/src/state/render.cpp
 	src/plugins/d3d9/src/state/set_defaults.cpp
 	src/plugins/d3d9/src/surface/color.cpp
-	src/plugins/d3d9/src/surface/color_create.cpp
 	src/plugins/d3d9/src/surface/color_holder.cpp
 	src/plugins/d3d9/src/surface/color_onscreen_target.cpp
 	src/plugins/d3d9/src/surface/depth_stencil_offscreen.cpp
