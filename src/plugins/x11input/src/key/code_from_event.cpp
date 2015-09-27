@@ -19,39 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11input/key/code.hpp>
-#include <sge/x11input/key/code_to_sym.hpp>
-#include <awl/backends/x11/display.hpp>
+#include <sge/x11input/key/code_from_event.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/X.h>
-#include <X11/XKBlib.h>
+#include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
 
-KeySym
-sge::x11input::key::code_to_sym(
-	awl::backends::x11::display const &_display,
-	sge::x11input::key::code const _key_code
+sge::x11input::key::code
+sge::x11input::key::code_from_event(
+	XIDeviceEvent const &_event
 )
 {
-	// The XI2 event passes the key code as an int, but XKB requires a
-	// KeyCode (which is unsigned char) or an unsigned int.
 	return
-		::XkbKeycodeToKeysym(
-			_display.get(),
-#if NeedWidePrototypes
-			static_cast<
-				unsigned
-			>(
-				_key_code.get()
-			),
-#else
-			static_cast<
-				KeyCode
-			>(
-				_key_code.get()
-			),
-#endif
-			0,
-			0
+		sge::x11input::key::code(
+			_event.detail
 		);
 }

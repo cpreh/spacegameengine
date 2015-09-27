@@ -109,11 +109,16 @@ set(
 	src/plugins/x11input/include/sge/x11input/input_context_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/input_method.hpp
 	src/plugins/x11input/include/sge/x11input/input_method_fwd.hpp
+	src/plugins/x11input/include/sge/x11input/key/code.hpp
+	src/plugins/x11input/include/sge/x11input/key/code_from_event.hpp
 	src/plugins/x11input/include/sge/x11input/key/code_to_sym.hpp
+	src/plugins/x11input/include/sge/x11input/key/event_to_sge_code.hpp
+	src/plugins/x11input/include/sge/x11input/key/repeated.hpp
 	src/plugins/x11input/include/sge/x11input/key/translate_code.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/device.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/device_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/device_unique_ptr.hpp
+	src/plugins/x11input/include/sge/x11input/keyboard/key_from_event.hpp
 	src/plugins/x11input/include/sge/x11input/keyboard/key_id.hpp
 	src/plugins/x11input/include/sge/x11input/lc_ctype.hpp
 	src/plugins/x11input/include/sge/x11input/logger.hpp
@@ -187,10 +192,14 @@ set(
 	src/plugins/x11input/src/focus/translate_event.cpp
 	src/plugins/x11input/src/input_context.cpp
 	src/plugins/x11input/src/input_method.cpp
+	src/plugins/x11input/src/key/code_from_event.cpp
 	src/plugins/x11input/src/key/code_to_sym.cpp
+	src/plugins/x11input/src/key/event_to_sge_code.cpp
+	src/plugins/x11input/src/key/repeated.cpp
 	src/plugins/x11input/src/key/translate_code.cpp
 	src/plugins/x11input/src/keyboard/config.cpp
 	src/plugins/x11input/src/keyboard/device.cpp
+	src/plugins/x11input/src/keyboard/key_from_event.cpp
 	src/plugins/x11input/src/keyboard/key_id.cpp
 	src/plugins/x11input/src/lc_ctype.cpp
 	src/plugins/x11input/src/logger.cpp

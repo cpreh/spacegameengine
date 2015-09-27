@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/key_repeat_event.hpp>
 #include <sge/input/focus/out_callback.hpp>
 #include <sge/input/focus/out_event.hpp>
-#include <sge/input/key/code.hpp>
 #include <sge/input/key/pressed.hpp>
 #include <sge/x11input/input_context_fwd.hpp>
 #include <sge/x11input/device/parameters.hpp>
@@ -39,8 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/focus/looked_up_string.hpp>
 #include <sge/x11input/focus/lookup_string.hpp>
 #include <sge/x11input/focus/object.hpp>
-#include <sge/x11input/key/code_to_sym.hpp>
-#include <sge/x11input/key/translate_code.hpp>
+#include <sge/x11input/key/event_to_sge_code.hpp>
+#include <sge/x11input/key/repeated.hpp>
 #include <awl/backends/x11/system/event/object.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/object.hpp>
@@ -234,13 +233,9 @@ sge::x11input::focus::object::on_key_press(
 	);
 
 	if(
-		(
-			_event.get().flags
-			&
-			XIKeyRepeat
+		sge::x11input::key::repeated(
+			_event.get()
 		)
-		!=
-		0
 	)
 		key_repeat_signal_(
 			sge::input::focus::key_repeat_event(
@@ -279,20 +274,13 @@ sge::x11input::focus::object::on_key_release(
 		_event
 	);
 
-	// TODO: Can we simplify this?
-	sge::input::key::code const key_code(
-		sge::x11input::key::translate_code(
-			sge::x11input::key::code_to_sym(
-				window_.display(),
-				_event.get().detail
-			)
-		)
-	);
-
 	key_signal_(
 		sge::input::focus::key_event(
 			sge::input::focus::key{
-				key_code
+				sge::x11input::key::event_to_sge_code(
+					window_.display(),
+					_event.get()
+				)
 			},
 			sge::input::key::pressed{
 				false

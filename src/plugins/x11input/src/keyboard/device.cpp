@@ -18,17 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/key/code.hpp>
 #include <sge/input/key/pressed.hpp>
-#include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/window_event.hpp>
-#include <sge/x11input/key/code_to_sym.hpp>
-#include <sge/x11input/key/translate_code.hpp>
+#include <sge/x11input/key/repeated.hpp>
 #include <sge/x11input/keyboard/device.hpp>
-#include <sge/x11input/keyboard/key_id.hpp>
+#include <sge/x11input/keyboard/key_from_event.hpp>
 #include <awl/backends/x11/system/event/object.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/object.hpp>
@@ -112,31 +109,17 @@ sge::x11input::keyboard::device::on_key_press(
 	sge::x11input::device::window_event const &_event
 )
 {
-	// TODO: Simplify this
-	sge::input::keyboard::key const key(
-		sge::x11input::key::translate_code(
-			sge::x11input::key::code_to_sym(
-				window_.display(),
-				_event.get().detail
-			)
-		),
-		sge::x11input::keyboard::key_id(
-			_event
-		)
-	);
-
 	if(
-		(
-			_event.get().flags
-			&
-			XIKeyRepeat
+		!sge::x11input::key::repeated(
+			_event.get()
 		)
-		==
-		0
 	)
 		key_signal_(
 			sge::input::keyboard::key_event(
-				key,
+				sge::x11input::keyboard::key_from_event(
+					window_.display(),
+					_event.get()
+				),
 				sge::input::key::pressed{
 					true
 				}
@@ -149,24 +132,12 @@ sge::x11input::keyboard::device::on_key_release(
 	sge::x11input::device::window_event const &_event
 )
 {
-	// TODO: Simplify this
-	sge::input::key::code const key_code(
-		sge::x11input::key::translate_code(
-			sge::x11input::key::code_to_sym(
-				window_.display(),
-				_event.get().detail
-			)
-		)
-	);
-
 	key_signal_(
 		sge::input::keyboard::key_event(
-			sge::input::keyboard::key{
-				key_code,
-				sge::x11input::keyboard::key_id(
-					_event
-				)
-			},
+			sge::x11input::keyboard::key_from_event(
+				window_.display(),
+				_event.get()
+			),
 			sge::input::key::pressed{
 				false
 			}

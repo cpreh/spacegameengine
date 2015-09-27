@@ -19,20 +19,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/keyboard/key_id.hpp>
-#include <sge/x11input/device/window_event.hpp>
+#include <sge/x11input/key/code_from_event.hpp>
 #include <sge/x11input/keyboard/key_id.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::keyboard::key_id const
 sge::x11input::keyboard::key_id(
-	sge::x11input::device::window_event const &_event
+	XIDeviceEvent const &_event
 )
 {
 	return
 		sge::input::keyboard::key_id{
 			fcppt::cast::to_unsigned(
-				_event.get().detail
+				sge::x11input::key::code_from_event(
+					_event
+				).get()
 			)
 		};
 }
