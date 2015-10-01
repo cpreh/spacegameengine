@@ -21,18 +21,7 @@ set(
 	src/charconv/exception.cpp
 	src/charconv/fcppt_string_to_utf8.cpp
 	src/charconv/fcppt_string_to_utf8_file.cpp
-	src/charconv/include/sge/src/charconv/backends/iconv/converter.hpp
-	src/charconv/include/sge/src/charconv/backends/iconv/create_converter.hpp
-	src/charconv/include/sge/src/charconv/backends/iconv/encoding_string.hpp
-	src/charconv/include/sge/src/charconv/backends/iconv/encoding_to_string.hpp
-	src/charconv/include/sge/src/charconv/backends/windows/create_converter.hpp
-	src/charconv/include/sge/src/charconv/backends/windows/is_utf16.hpp
-	src/charconv/include/sge/src/charconv/backends/windows/utf16_to_utf32.hpp
-	src/charconv/include/sge/src/charconv/backends/windows/utf16_to_wchar.hpp
-	src/charconv/include/sge/src/charconv/backends/windows/utf32_to_utf16.hpp
-	src/charconv/include/sge/src/charconv/backends/windows/utf8_to_wchar.hpp
-	src/charconv/include/sge/src/charconv/backends/windows/wchar_to_utf8.hpp
-	src/charconv/include/sge/src/charconv/fcppt_is_utf8.hpp
+	src/charconv/include/sge/charconv/impl/fcppt_is_utf8.hpp
 	src/charconv/utf8_file_to_fcppt_string.cpp
 	src/charconv/utf8_file_to_fcppt_string_exn.cpp
 	src/charconv/utf8_string_to_fcppt.cpp

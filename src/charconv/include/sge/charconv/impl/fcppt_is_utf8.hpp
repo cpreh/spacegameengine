@@ -18,32 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CHARCONV_BACKENDS_WINDOWS_CREATE_CONVERTER_HPP_INCLUDED
-#define SGE_SRC_CHARCONV_BACKENDS_WINDOWS_CREATE_CONVERTER_HPP_INCLUDED
+#ifndef SGE_CHARCONV_IMPL_FCPPT_IS_UTF8_HPP_INCLUDED
+#define SGE_CHARCONV_IMPL_FCPPT_IS_UTF8_HPP_INCLUDED
 
-#include <sge/charconv/converter_unique_ptr.hpp>
-#include <sge/charconv/dest_encoding.hpp>
-#include <sge/charconv/source_encoding.hpp>
+#include <fcppt/public_config.hpp>
+#include <fcppt/config/platform.hpp>
 
 
-namespace sge
-{
-namespace charconv
-{
-namespace backends
-{
-namespace windows
-{
-
-sge::charconv::converter_unique_ptr
-create_converter(
-	sge::charconv::source_encoding,
-	sge::charconv::dest_encoding
-);
-
-}
-}
-}
-}
+#if defined(FCPPT_CONFIG_POSIX_PLATFORM) && defined(FCPPT_NARROW_STRING)
+#define SGE_CHARCONV_IMPL_FCPPT_IS_UTF8
+#endif
 
 #endif
