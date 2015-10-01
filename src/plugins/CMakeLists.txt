@@ -98,7 +98,7 @@ add_sge_lib(
 add_sge_lib(
 	pango
 	"Build the pango font plugin"
-	${PANGO_FOUND}
+	"${PANGO_FOUND}"
 )
 
 add_sge_lib(
@@ -128,5 +128,5 @@ add_sge_lib(
 add_sge_lib(
 	x11input
 	"Build the x11 input plugin"
-	${X11_Xinput_FOUND}
+	"${X11_Xinput_FOUND}"
 )
