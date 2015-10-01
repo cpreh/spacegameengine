@@ -350,17 +350,8 @@ set(
 	include/sge/cg/string.hpp
 	include/sge/cg/to_fcppt_string.hpp
 	include/sge/charconv/char_type.hpp
-	include/sge/charconv/const_raw_pointer.hpp
 	include/sge/charconv/conversion_failed.hpp
-	include/sge/charconv/conversion_status.hpp
-	include/sge/charconv/conversion_status_fwd.hpp
 	include/sge/charconv/convert.hpp
-	include/sge/charconv/convert_raw.hpp
-	include/sge/charconv/converter.hpp
-	include/sge/charconv/converter_fwd.hpp
-	include/sge/charconv/converter_unique_ptr.hpp
-	include/sge/charconv/create_converter.hpp
-	include/sge/charconv/dest_encoding.hpp
 	include/sge/charconv/detail/char_type.hpp
 	include/sge/charconv/encoding.hpp
 	include/sge/charconv/encoding_fwd.hpp
@@ -368,15 +359,7 @@ set(
 	include/sge/charconv/exception.hpp
 	include/sge/charconv/fcppt_string_to_utf8.hpp
 	include/sge/charconv/fcppt_string_to_utf8_file.hpp
-	include/sge/charconv/input_range.hpp
-	include/sge/charconv/output_range.hpp
-	include/sge/charconv/raw_pointer.hpp
-	include/sge/charconv/raw_value.hpp
-	include/sge/charconv/raw_vector.hpp
-	include/sge/charconv/raw_vector_fwd.hpp
-	include/sge/charconv/source_encoding.hpp
 	include/sge/charconv/string_type.hpp
-	include/sge/charconv/unsupported_conversion.hpp
 	include/sge/charconv/utf8_file_to_fcppt_string.hpp
 	include/sge/charconv/utf8_file_to_fcppt_string_exn.hpp
 	include/sge/charconv/utf8_string.hpp

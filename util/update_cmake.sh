@@ -68,28 +68,9 @@ update_sublibrary camera
 
 update_sublibrary cegui
 
+update_sublibrary charconv
+
 update_sublibrary core
-
-# charconv
-update_cmake \
-	src/charconv/CMakeLists.txt \
-	SGE_CHARCONV_BASE_FILES \
-	include/sge/charconv \
-	-n \
-	src/charconv \
-	src/charconv/include/sge/src/charconv
-
-update_cmake \
-	src/charconv/CMakeLists.txt \
-	SGE_CHARCONV_ICONV_FILES \
-	src/charconv/include/sge/src/charconv/backends/iconv \
-	src/charconv/backends/iconv
-
-update_cmake \
-	src/charconv/CMakeLists.txt \
-	SGE_CHARCONV_WINDOWS_FILES \
-	src/charconv/include/sge/src/charconv/backends/windows \
-	src/charconv/backends/windows
 
 update_sublibrary bvh
 

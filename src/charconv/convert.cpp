@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/char_type.hpp>
 #include <sge/charconv/convert.hpp>
+#include <sge/charconv/conversion_failed.hpp>
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
@@ -28,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/preprocessor/seq/for_each_product.hpp>
 #include <codecvt>
 #include <locale>
+#include <stdexcept>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -212,6 +214,7 @@ sge::charconv::convert(
 		SourceEncoding
 	> const &_source
 )
+try
 {
 	return
 		convert_or_id<
@@ -220,73 +223,13 @@ sge::charconv::convert(
 		>(
 			_source
 		);
-/*
-	typedef
-	sge::charconv::string_type<
-		DestEncoding
-	>
-	dest_type;
-
-	if(
-		_source.empty()
-	)
-		return
-			dest_type();
-
-	sge::charconv::raw_vector const raw_result(
-		sge::charconv::convert_raw(
-			sge::charconv::source_encoding(
-				SourceEncoding
-			),
-			sge::charconv::dest_encoding(
-				DestEncoding
-			),
-			// A string must be contiguous in C++11 and most
-			// implementations do it that anyway
-			sge::charconv::input_range(
-				reinterpret_cast<
-					sge::charconv::const_raw_pointer
-				>(
-					_source.data()
-				),
-				reinterpret_cast<
-					sge::charconv::const_raw_pointer
-				>(
-					fcppt::container::data_end(
-						_source
-					)
-				)
-			)
-		)
-	);
-
-	// Copy the result over to avoid strict-aliasing problems
-	dest_type dest;
-
-	FCPPT_ASSERT_ERROR(
-		raw_result.size()
-		%
-		sizeof(typename dest_type::value_type)
-		==
-		0u
-	);
-
-	dest.resize(
-		raw_result.size()
-		/
-		sizeof(typename dest_type::value_type)
-	);
-
-	std::memcpy(
-		fcppt::container::data(
-			dest
-		),
-		raw_result.data(),
-		raw_result.size()
-	);
-
-	return
-		dest;*/
+}
+catch(
+	std::range_error const &
+)
+{
+	throw
+		sge::charconv::conversion_failed{};
 }
 
 #define SGE_CHARCONV_INSTANTIATE_ENCODING(\

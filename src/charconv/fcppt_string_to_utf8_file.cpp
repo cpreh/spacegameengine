@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/fcppt_string_to_utf8_file.hpp>
 #include <sge/charconv/utf8_string.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
@@ -42,7 +45,8 @@ sge::charconv::fcppt_string_to_utf8_file(
 	if(
 		!file.is_open()
 	)
-		return false;
+		return
+			false;
 
 	sge::charconv::utf8_string const result(
 		sge::charconv::fcppt_string_to_utf8(
@@ -52,15 +56,17 @@ sge::charconv::fcppt_string_to_utf8_file(
 
 	return
 		!file.write(
-			reinterpret_cast<
+			fcppt::cast::to_char_ptr<
 				char const *
 			>(
 				result.c_str()
 			),
-			static_cast<
+			fcppt::cast::size<
 				std::streamsize
 			>(
-				result.size()
+				fcppt::cast::to_signed(
+					result.size()
+				)
 			)
 		).fail();
 }
