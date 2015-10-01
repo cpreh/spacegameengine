@@ -361,6 +361,7 @@ set(
 	include/sge/charconv/converter_unique_ptr.hpp
 	include/sge/charconv/create_converter.hpp
 	include/sge/charconv/dest_encoding.hpp
+	include/sge/charconv/detail/char_type.hpp
 	include/sge/charconv/encoding.hpp
 	include/sge/charconv/encoding_fwd.hpp
 	include/sge/charconv/encoding_to_string.hpp

@@ -18,25 +18,187 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/const_raw_pointer.hpp>
+#include <sge/charconv/char_type.hpp>
 #include <sge/charconv/convert.hpp>
-#include <sge/charconv/convert_raw.hpp>
-#include <sge/charconv/dest_encoding.hpp>
 #include <sge/charconv/encoding.hpp>
-#include <sge/charconv/input_range.hpp>
-#include <sge/charconv/raw_vector.hpp>
-#include <sge/charconv/source_encoding.hpp>
 #include <sge/charconv/string_type.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/container/data.hpp>
-#include <fcppt/container/data_end.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
-#include <cstring>
+#include <codecvt>
+#include <locale>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
+
+namespace
+{
+
+template<
+	sge::charconv::encoding Encoding
+>
+using
+converter_impl
+=
+std::wstring_convert<
+	std::codecvt_utf8<
+		sge::charconv::char_type<
+			Encoding
+		>
+	>,
+	sge::charconv::char_type<
+		Encoding
+	>
+>;
+
+template<
+	sge::charconv::encoding DestEncoding,
+	sge::charconv::encoding SourceEncoding
+>
+struct do_convert
+{
+	static
+	sge::charconv::string_type<
+		DestEncoding
+	>
+	execute(
+		sge::charconv::string_type<
+			SourceEncoding
+		> const &_source
+	)
+	{
+		converter_impl<
+			SourceEncoding
+		>
+		source_to_utf8;
+
+		converter_impl<
+			DestEncoding
+		>
+		utf8_to_dest;
+
+		return
+			utf8_to_dest.from_bytes(
+				source_to_utf8.to_bytes(
+					_source
+				)
+			);
+	}
+};
+
+template<
+	sge::charconv::encoding DestEncoding
+>
+struct do_convert<
+	DestEncoding,
+	sge::charconv::encoding::utf8
+>
+{
+	static
+	sge::charconv::string_type<
+		DestEncoding
+	>
+	execute(
+		sge::charconv::string_type<
+			sge::charconv::encoding::utf8
+		> const &_source
+	)
+	{
+		converter_impl<
+			DestEncoding
+		>
+		utf8_to_dest;
+
+		return
+			utf8_to_dest.from_bytes(
+				_source
+			);
+	}
+};
+
+template<
+	sge::charconv::encoding SourceEncoding
+>
+struct do_convert<
+	sge::charconv::encoding::utf8,
+	SourceEncoding
+>
+{
+	static
+	sge::charconv::string_type<
+		sge::charconv::encoding::utf8
+	>
+	execute(
+		sge::charconv::string_type<
+			SourceEncoding
+		> const &_source
+	)
+	{
+		converter_impl<
+			SourceEncoding
+		>
+		source_to_utf8;
+
+		return
+			source_to_utf8.to_bytes(
+				_source
+			);
+	}
+};
+
+template<
+	sge::charconv::encoding DestEncoding,
+	sge::charconv::encoding SourceEncoding
+>
+typename
+std::enable_if<
+	DestEncoding
+	==
+	SourceEncoding,
+	sge::charconv::string_type<
+		DestEncoding
+	>
+>::type
+convert_or_id(
+	sge::charconv::string_type<
+		SourceEncoding
+	> const &_source
+)
+{
+	return
+		_source;
+}
+
+template<
+	sge::charconv::encoding DestEncoding,
+	sge::charconv::encoding SourceEncoding
+>
+typename
+std::enable_if<
+	DestEncoding
+	!=
+	SourceEncoding,
+	sge::charconv::string_type<
+		DestEncoding
+	>
+>::type
+convert_or_id(
+	sge::charconv::string_type<
+		SourceEncoding
+	> const &_source
+)
+{
+	return
+		do_convert<
+			DestEncoding,
+			SourceEncoding
+		>::execute(
+			_source
+		);
+}
+
+}
 
 template<
 	sge::charconv::encoding DestEncoding,
@@ -51,12 +213,19 @@ sge::charconv::convert(
 	> const &_source
 )
 {
+	return
+		convert_or_id<
+			DestEncoding,
+			SourceEncoding
+		>(
+			_source
+		);
+/*
 	typedef
 	sge::charconv::string_type<
 		DestEncoding
 	>
 	dest_type;
-
 
 	if(
 		_source.empty()
@@ -117,7 +286,7 @@ sge::charconv::convert(
 	);
 
 	return
-		dest;
+		dest;*/
 }
 
 #define SGE_CHARCONV_INSTANTIATE_ENCODING(\

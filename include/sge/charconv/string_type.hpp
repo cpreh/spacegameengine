@@ -40,10 +40,9 @@ using
 string_type
 =
 std::basic_string<
-	typename
 	sge::charconv::char_type<
 		Encoding
-	>::type
+	>
 >;
 
 }

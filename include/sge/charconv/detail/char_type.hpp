@@ -18,29 +18,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CHARCONV_CHAR_TYPE_HPP_INCLUDED
-#define SGE_CHARCONV_CHAR_TYPE_HPP_INCLUDED
+#ifndef SGE_CHARCONV_DETAIL_CHAR_TYPE_HPP_INCLUDED
+#define SGE_CHARCONV_DETAIL_CHAR_TYPE_HPP_INCLUDED
 
-#include <sge/charconv/encoding_fwd.hpp>
-#include <sge/charconv/detail/char_type.hpp>
+#include <sge/charconv/encoding.hpp>
 
 
 namespace sge
 {
 namespace charconv
 {
+namespace detail
+{
 
 template<
-	sge::charconv::encoding Encoding
+	sge::charconv::encoding
 >
-using
-char_type
-=
-typename
-sge::charconv::detail::char_type<
-	Encoding
->::type;
+struct char_type;
 
+template<>
+struct char_type<
+	sge::charconv::encoding::utf8
+>
+{
+	typedef char type;
+};
+
+template<>
+struct char_type<
+	sge::charconv::encoding::utf16
+>
+{
+	typedef char16_t type;
+};
+
+template<>
+struct char_type<
+	sge::charconv::encoding::utf32
+>
+{
+	typedef char32_t type;
+};
+
+template<>
+struct char_type<
+	sge::charconv::encoding::wchar
+>
+{
+	typedef wchar_t type;
+};
+
+}
 }
 }
 
