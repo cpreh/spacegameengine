@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_INPUT_MULTI_SYSTEM_HPP_INCLUDED
-#define SGE_SRC_INPUT_MULTI_SYSTEM_HPP_INCLUDED
+#ifndef SGE_INPUT_IMPL_MULTI_SYSTEM_HPP_INCLUDED
+#define SGE_INPUT_IMPL_MULTI_SYSTEM_HPP_INCLUDED
 
 #include <sge/input/capabilities_field.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/system.hpp>
+#include <sge/input/impl/system_ptr_vector.hpp>
 #include <sge/input/plugin/collection_fwd.hpp>
 #include <sge/input/plugin/object.hpp>
 #include <sge/log/option_container.hpp>
 #include <sge/plugin/manager_fwd.hpp>
-#include <sge/src/input/system_ptr_vector.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -40,6 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 namespace input
+{
+namespace impl
 {
 
 class multi_system
@@ -77,11 +79,12 @@ private:
 
 	plugin_vector plugins_;
 
-	sge::input::system_ptr_vector systems_;
+	sge::input::impl::system_ptr_vector systems_;
 
 	sge::input::capabilities_field capabilities_;
 };
 
+}
 }
 }
 

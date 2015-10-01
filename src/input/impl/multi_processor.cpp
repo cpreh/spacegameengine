@@ -42,8 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/discover_event_fwd.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_event_fwd.hpp>
-#include <sge/src/input/multi_processor.hpp>
-#include <sge/src/input/system_ptr_vector.hpp>
+#include <sge/input/impl/multi_processor.hpp>
+#include <sge/input/impl/system_ptr_vector.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/algorithm/map.hpp>
@@ -58,16 +58,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::input::multi_processor::multi_processor(
+sge::input::impl::multi_processor::multi_processor(
 	sge::window::object const &_window,
 	sge::window::system const &_window_system,
-	sge::input::system_ptr_vector const &_systems
+	sge::input::impl::system_ptr_vector const &_systems
 )
 :
 	sge::input::processor(),
 	processors_(
 		fcppt::algorithm::map<
-			sge::input::multi_processor::processor_vector
+			sge::input::impl::multi_processor::processor_vector
 		>(
 			_systems,
 			[
@@ -97,7 +97,7 @@ sge::input::multi_processor::multi_processor(
 	joypad_remove_(),
 	connections_(
 		fcppt::algorithm::map_concat<
-			sge::input::multi_processor::connection_container
+			sge::input::impl::multi_processor::connection_container
 		>(
 			processors_,
 			[
@@ -108,12 +108,12 @@ sge::input::multi_processor::multi_processor(
 			{
 				return
 					fcppt::assign::make_container<
-						sge::input::multi_processor::connection_container
+						sge::input::impl::multi_processor::connection_container
 					>(
 						_processor->keyboard_discover_callback(
 							sge::input::keyboard::discover_callback{
 								std::bind(
-									&sge::input::multi_processor::on_keyboard_discover,
+									&sge::input::impl::multi_processor::on_keyboard_discover,
 									this,
 									std::placeholders::_1
 								)
@@ -123,7 +123,7 @@ sge::input::multi_processor::multi_processor(
 						_processor->keyboard_remove_callback(
 							sge::input::keyboard::remove_callback{
 								std::bind(
-									&sge::input::multi_processor::on_keyboard_remove,
+									&sge::input::impl::multi_processor::on_keyboard_remove,
 									this,
 									std::placeholders::_1
 								)
@@ -133,7 +133,7 @@ sge::input::multi_processor::multi_processor(
 						_processor->mouse_discover_callback(
 							sge::input::mouse::discover_callback{
 								std::bind(
-									&sge::input::multi_processor::on_mouse_discover,
+									&sge::input::impl::multi_processor::on_mouse_discover,
 									this,
 									std::placeholders::_1
 								)
@@ -143,7 +143,7 @@ sge::input::multi_processor::multi_processor(
 						_processor->mouse_remove_callback(
 							sge::input::mouse::remove_callback{
 								std::bind(
-									&sge::input::multi_processor::on_mouse_remove,
+									&sge::input::impl::multi_processor::on_mouse_remove,
 									this,
 									std::placeholders::_1
 								)
@@ -153,7 +153,7 @@ sge::input::multi_processor::multi_processor(
 						_processor->focus_discover_callback(
 							sge::input::focus::discover_callback{
 								std::bind(
-									&sge::input::multi_processor::on_focus_discover,
+									&sge::input::impl::multi_processor::on_focus_discover,
 									this,
 									std::placeholders::_1
 								)
@@ -163,7 +163,7 @@ sge::input::multi_processor::multi_processor(
 						_processor->focus_remove_callback(
 							sge::input::focus::remove_callback{
 								std::bind(
-									&sge::input::multi_processor::on_focus_remove,
+									&sge::input::impl::multi_processor::on_focus_remove,
 									this,
 									std::placeholders::_1
 								)
@@ -173,7 +173,7 @@ sge::input::multi_processor::multi_processor(
 						_processor->cursor_discover_callback(
 							sge::input::cursor::discover_callback{
 								std::bind(
-									&sge::input::multi_processor::on_cursor_discover,
+									&sge::input::impl::multi_processor::on_cursor_discover,
 									this,
 									std::placeholders::_1
 								)
@@ -183,7 +183,7 @@ sge::input::multi_processor::multi_processor(
 						_processor->cursor_remove_callback(
 							sge::input::cursor::remove_callback{
 								std::bind(
-									&sge::input::multi_processor::on_cursor_remove,
+									&sge::input::impl::multi_processor::on_cursor_remove,
 									this,
 									std::placeholders::_1
 								)
@@ -193,7 +193,7 @@ sge::input::multi_processor::multi_processor(
 						_processor->joypad_discover_callback(
 							sge::input::joypad::discover_callback{
 								std::bind(
-									&sge::input::multi_processor::on_joypad_discover,
+									&sge::input::impl::multi_processor::on_joypad_discover,
 									this,
 									std::placeholders::_1
 								)
@@ -203,7 +203,7 @@ sge::input::multi_processor::multi_processor(
 						_processor->joypad_remove_callback(
 							sge::input::joypad::remove_callback{
 								std::bind(
-									&sge::input::multi_processor::on_joypad_remove,
+									&sge::input::impl::multi_processor::on_joypad_remove,
 									this,
 									std::placeholders::_1
 								)
@@ -217,12 +217,12 @@ sge::input::multi_processor::multi_processor(
 {
 }
 
-sge::input::multi_processor::~multi_processor()
+sge::input::impl::multi_processor::~multi_processor()
 {
 }
 
 fcppt::signal::optional_auto_connection
-sge::input::multi_processor::keyboard_discover_callback(
+sge::input::impl::multi_processor::keyboard_discover_callback(
 	sge::input::keyboard::discover_callback const &_callback
 )
 {
@@ -235,7 +235,7 @@ sge::input::multi_processor::keyboard_discover_callback(
 }
 
 fcppt::signal::optional_auto_connection
-sge::input::multi_processor::keyboard_remove_callback(
+sge::input::impl::multi_processor::keyboard_remove_callback(
 	sge::input::keyboard::remove_callback const &_callback
 )
 {
@@ -248,7 +248,7 @@ sge::input::multi_processor::keyboard_remove_callback(
 }
 
 fcppt::signal::optional_auto_connection
-sge::input::multi_processor::mouse_discover_callback(
+sge::input::impl::multi_processor::mouse_discover_callback(
 	sge::input::mouse::discover_callback const &_callback
 )
 {
@@ -261,7 +261,7 @@ sge::input::multi_processor::mouse_discover_callback(
 }
 
 fcppt::signal::optional_auto_connection
-sge::input::multi_processor::mouse_remove_callback(
+sge::input::impl::multi_processor::mouse_remove_callback(
 	sge::input::mouse::remove_callback const &_callback
 )
 {
@@ -274,7 +274,7 @@ sge::input::multi_processor::mouse_remove_callback(
 }
 
 fcppt::signal::optional_auto_connection
-sge::input::multi_processor::focus_discover_callback(
+sge::input::impl::multi_processor::focus_discover_callback(
 	sge::input::focus::discover_callback const &_callback
 )
 {
@@ -287,7 +287,7 @@ sge::input::multi_processor::focus_discover_callback(
 }
 
 fcppt::signal::optional_auto_connection
-sge::input::multi_processor::focus_remove_callback(
+sge::input::impl::multi_processor::focus_remove_callback(
 	sge::input::focus::remove_callback const &_callback
 )
 {
@@ -300,7 +300,7 @@ sge::input::multi_processor::focus_remove_callback(
 }
 
 fcppt::signal::optional_auto_connection
-sge::input::multi_processor::cursor_discover_callback(
+sge::input::impl::multi_processor::cursor_discover_callback(
 	sge::input::cursor::discover_callback const &_callback
 )
 {
@@ -313,7 +313,7 @@ sge::input::multi_processor::cursor_discover_callback(
 }
 
 fcppt::signal::optional_auto_connection
-sge::input::multi_processor::cursor_remove_callback(
+sge::input::impl::multi_processor::cursor_remove_callback(
 	sge::input::cursor::remove_callback const &_callback
 )
 {
@@ -326,7 +326,7 @@ sge::input::multi_processor::cursor_remove_callback(
 }
 
 fcppt::signal::optional_auto_connection
-sge::input::multi_processor::joypad_discover_callback(
+sge::input::impl::multi_processor::joypad_discover_callback(
 	sge::input::joypad::discover_callback const &_callback
 )
 {
@@ -339,7 +339,7 @@ sge::input::multi_processor::joypad_discover_callback(
 }
 
 fcppt::signal::optional_auto_connection
-sge::input::multi_processor::joypad_remove_callback(
+sge::input::impl::multi_processor::joypad_remove_callback(
 	sge::input::joypad::remove_callback const &_callback
 )
 {
@@ -352,7 +352,7 @@ sge::input::multi_processor::joypad_remove_callback(
 }
 
 void
-sge::input::multi_processor::on_keyboard_discover(
+sge::input::impl::multi_processor::on_keyboard_discover(
 	sge::input::keyboard::discover_event const &_event
 )
 {
@@ -362,7 +362,7 @@ sge::input::multi_processor::on_keyboard_discover(
 }
 
 void
-sge::input::multi_processor::on_keyboard_remove(
+sge::input::impl::multi_processor::on_keyboard_remove(
 	sge::input::keyboard::remove_event const &_event
 )
 {
@@ -372,7 +372,7 @@ sge::input::multi_processor::on_keyboard_remove(
 }
 
 void
-sge::input::multi_processor::on_mouse_discover(
+sge::input::impl::multi_processor::on_mouse_discover(
 	sge::input::mouse::discover_event const &_event
 )
 {
@@ -382,7 +382,7 @@ sge::input::multi_processor::on_mouse_discover(
 }
 
 void
-sge::input::multi_processor::on_mouse_remove(
+sge::input::impl::multi_processor::on_mouse_remove(
 	sge::input::mouse::remove_event const &_event
 )
 {
@@ -392,7 +392,7 @@ sge::input::multi_processor::on_mouse_remove(
 }
 
 void
-sge::input::multi_processor::on_focus_discover(
+sge::input::impl::multi_processor::on_focus_discover(
 	sge::input::focus::discover_event const &_event
 )
 {
@@ -402,7 +402,7 @@ sge::input::multi_processor::on_focus_discover(
 }
 
 void
-sge::input::multi_processor::on_focus_remove(
+sge::input::impl::multi_processor::on_focus_remove(
 	sge::input::focus::remove_event const &_event
 )
 {
@@ -412,7 +412,7 @@ sge::input::multi_processor::on_focus_remove(
 }
 
 void
-sge::input::multi_processor::on_cursor_discover(
+sge::input::impl::multi_processor::on_cursor_discover(
 	sge::input::cursor::discover_event const &_event
 )
 {
@@ -422,7 +422,7 @@ sge::input::multi_processor::on_cursor_discover(
 }
 
 void
-sge::input::multi_processor::on_cursor_remove(
+sge::input::impl::multi_processor::on_cursor_remove(
 	sge::input::cursor::remove_event const &_event
 )
 {
@@ -432,7 +432,7 @@ sge::input::multi_processor::on_cursor_remove(
 }
 
 void
-sge::input::multi_processor::on_joypad_discover(
+sge::input::impl::multi_processor::on_joypad_discover(
 	sge::input::joypad::discover_event const &_event
 )
 {
@@ -442,7 +442,7 @@ sge::input::multi_processor::on_joypad_discover(
 }
 
 void
-sge::input::multi_processor::on_joypad_remove(
+sge::input::impl::multi_processor::on_joypad_remove(
 	sge::input::joypad::remove_event const &_event
 )
 {

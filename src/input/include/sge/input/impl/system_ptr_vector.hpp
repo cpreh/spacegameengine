@@ -18,23 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_INPUT_INFO_INSTANTIATE_CONTAINER_HPP_INCLUDED
-#define SGE_SRC_INPUT_INFO_INSTANTIATE_CONTAINER_HPP_INCLUDED
+#ifndef SGE_INPUT_IMPL_SYSTEM_PTR_VECTOR_HPP_INCLUDED
+#define SGE_INPUT_IMPL_SYSTEM_PTR_VECTOR_HPP_INCLUDED
 
-#include <sge/src/core/export_class_instantiation.hpp>
-#include <sge/src/input/info/container_impl.hpp>
+#include <sge/input/system_unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
-#define SGE_INPUT_INFO_INSTANTIATE_CONTAINER(\
-	id_type,\
-	info_type\
-) \
-template \
-class \
-SGE_CORE_EXPORT_CLASS_INSTANTIATION \
-sge::input::info::container<\
-	id_type,\
-	info_type\
+namespace sge
+{
+namespace input
+{
+namespace impl
+{
+
+typedef
+std::vector<
+	sge::input::system_unique_ptr
 >
+system_ptr_vector;
+
+}
+}
+}
 
 #endif

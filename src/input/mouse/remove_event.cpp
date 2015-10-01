@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/impl/event/instantiate_remove.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/input/mouse/remove_event.hpp>
-#include <sge/src/input/event/instantiate_remove.hpp>
 
 
-SGE_INPUT_EVENT_INSTANTIATE_REMOVE(
+SGE_INPUT_IMPL_EVENT_INSTANTIATE_REMOVE(
 	sge::input::mouse::device
 );

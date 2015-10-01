@@ -18,27 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_INPUT_SYSTEM_PTR_VECTOR_HPP_INCLUDED
-#define SGE_SRC_INPUT_SYSTEM_PTR_VECTOR_HPP_INCLUDED
-
-#include <sge/input/system_unique_ptr.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
+#include <sge/input/log_location.hpp>
+#include <sge/input/impl/logger.hpp>
+#include <sge/log/define_lib.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-
-typedef
-std::vector<
-	sge::input::system_unique_ptr
->
-system_ptr_vector;
-
-}
-}
-
-#endif
+SGE_LOG_DEFINE_LIB(
+	sge::input::impl::logger,
+	sge::input::log_location()
+)

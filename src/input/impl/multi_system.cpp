@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/system_unique_ptr.hpp>
+#include <sge/input/impl/multi_processor.hpp>
+#include <sge/input/impl/multi_system.hpp>
+#include <sge/input/impl/system_ptr_vector.hpp>
 #include <sge/input/plugin/context_fwd.hpp>
 #include <sge/input/plugin/object.hpp>
 #include <sge/input/plugin/traits.hpp>
@@ -30,9 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/load_with_log_options.hpp>
-#include <sge/src/input/multi_processor.hpp>
-#include <sge/src/input/multi_system.hpp>
-#include <sge/src/input/system_ptr_vector.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/fold.hpp>
@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/bitfield/operators.hpp>
 
 
-sge::input::multi_system::multi_system(
+sge::input::impl::multi_system::multi_system(
 	sge::input::plugin::collection const &_collection,
 	sge::log::option_container const &_log_options
 )
@@ -48,7 +48,7 @@ sge::input::multi_system::multi_system(
 	sge::input::system(),
 	plugins_(
 		fcppt::algorithm::map<
-			sge::input::multi_system::plugin_vector
+			sge::input::impl::multi_system::plugin_vector
 		>(
 			_collection,
 			[
@@ -67,7 +67,7 @@ sge::input::multi_system::multi_system(
 	),
 	systems_(
 		fcppt::algorithm::map<
-			sge::input::system_ptr_vector
+			sge::input::impl::system_ptr_vector
 		>(
 			plugins_,
 			[](
@@ -98,12 +98,12 @@ sge::input::multi_system::multi_system(
 {
 }
 
-sge::input::multi_system::~multi_system()
+sge::input::impl::multi_system::~multi_system()
 {
 }
 
 sge::input::processor_unique_ptr
-sge::input::multi_system::create_processor(
+sge::input::impl::multi_system::create_processor(
 	sge::window::object const &_window,
 	sge::window::system const &_window_system
 )
@@ -113,7 +113,7 @@ sge::input::multi_system::create_processor(
 			sge::input::processor
 		>(
 			fcppt::make_unique_ptr<
-				sge::input::multi_processor
+				sge::input::impl::multi_processor
 			>(
 				_window,
 				_window_system,
@@ -123,7 +123,7 @@ sge::input::multi_system::create_processor(
 }
 
 sge::input::capabilities_field const
-sge::input::multi_system::capabilities() const
+sge::input::impl::multi_system::capabilities() const
 {
 	return
 		capabilities_;

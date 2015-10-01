@@ -18,12 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/log_location.hpp>
-#include <sge/log/define_lib.hpp>
-#include <sge/src/input/logger.hpp>
+#ifndef SGE_INPUT_IMPL_LOGGER_HPP_INCLUDED
+#define SGE_INPUT_IMPL_LOGGER_HPP_INCLUDED
+
+#include <fcppt/log/object_fwd.hpp>
 
 
-SGE_LOG_DEFINE_LIB(
-	sge::input::logger,
-	sge::input::log_location()
-)
+namespace sge
+{
+namespace input
+{
+namespace impl
+{
+
+fcppt::log::object &
+logger();
+
+}
+}
+}
+
+#endif

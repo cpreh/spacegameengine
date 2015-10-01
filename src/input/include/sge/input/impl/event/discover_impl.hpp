@@ -18,21 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_INPUT_EVENT_INSTANTIATE_REMOVE_HPP_INCLUDED
-#define SGE_SRC_INPUT_EVENT_INSTANTIATE_REMOVE_HPP_INCLUDED
+#ifndef SGE_INPUT_IMPL_EVENT_DISCOVER_IMPL_HPP_INCLUDED
+#define SGE_INPUT_IMPL_EVENT_DISCOVER_IMPL_HPP_INCLUDED
 
-#include <sge/src/core/export_class_instantiation.hpp>
-#include <sge/src/input/event/remove_impl.hpp>
+#include <sge/input/event/discover.hpp>
 
 
-#define SGE_INPUT_EVENT_INSTANTIATE_REMOVE(\
-	type\
-)\
-template \
-class \
-SGE_CORE_EXPORT_CLASS_INSTANTIATION \
-sge::input::event::remove<\
-	type\
+template<
+	typename Object
 >
+sge::input::event::discover<
+	Object
+>::discover(
+	Object &_object
+)
+:
+	object_(
+		_object
+	)
+{
+}
+
+template<
+	typename Object
+>
+Object &
+sge::input::event::discover<
+	Object
+>::get() const
+{
+	return object_;
+}
 
 #endif

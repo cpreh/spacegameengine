@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/impl/info/instantiate_container.hpp>
 #include <sge/input/mouse/axis_id.hpp>
 #include <sge/input/mouse/axis_info.hpp>
 #include <sge/input/mouse/axis_info_container.hpp>
-#include <sge/src/input/info/instantiate_container.hpp>
 
 
-SGE_INPUT_INFO_INSTANTIATE_CONTAINER(
+SGE_INPUT_IMPL_INFO_INSTANTIATE_CONTAINER(
 	sge::input::mouse::axis_id,
 	sge::input::mouse::axis_info
 );

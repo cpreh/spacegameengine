@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_INPUT_EVENT_INSTANTIATE_DISCOVER_HPP_INCLUDED
-#define SGE_SRC_INPUT_EVENT_INSTANTIATE_DISCOVER_HPP_INCLUDED
+#ifndef SGE_INPUT_IMPL_EVENT_INSTANTIATE_DISCOVER_HPP_INCLUDED
+#define SGE_INPUT_IMPL_EVENT_INSTANTIATE_DISCOVER_HPP_INCLUDED
 
 #include <sge/src/core/export_class_instantiation.hpp>
-#include <sge/src/input/event/discover_impl.hpp>
+#include <sge/input/impl/event/discover_impl.hpp>
 
 
-#define SGE_INPUT_EVENT_INSTANTIATE_DISCOVER(\
+#define SGE_INPUT_IMPL_EVENT_INSTANTIATE_DISCOVER(\
 	type\
 )\
 template \

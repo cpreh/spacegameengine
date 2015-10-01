@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_INPUT_MULTI_PROCESSOR_HPP_INCLUDED
-#define SGE_SRC_INPUT_MULTI_PROCESSOR_HPP_INCLUDED
+#ifndef SGE_INPUT_IMPL_MULTI_PROCESSOR_HPP_INCLUDED
+#define SGE_INPUT_IMPL_MULTI_PROCESSOR_HPP_INCLUDED
 
 #include <sge/input/processor.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/remove_callback.hpp>
 #include <sge/input/focus/remove_event_fwd.hpp>
 #include <sge/input/focus/remove_signal.hpp>
+#include <sge/input/impl/system_ptr_vector.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/discover_event_fwd.hpp>
 #include <sge/input/joypad/discover_signal.hpp>
@@ -53,7 +54,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_event_fwd.hpp>
 #include <sge/input/mouse/remove_signal.hpp>
-#include <sge/src/input/system_ptr_vector.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -68,6 +68,8 @@ namespace sge
 {
 namespace input
 {
+namespace impl
+{
 
 class multi_processor
 :
@@ -80,7 +82,7 @@ public:
 	multi_processor(
 		sge::window::object const &,
 		sge::window::system const &,
-		sge::input::system_ptr_vector const &
+		sge::input::impl::system_ptr_vector const &
 	);
 
 	~multi_processor()
@@ -233,6 +235,7 @@ private:
 	connection_container const connections_;
 };
 
+}
 }
 }
 

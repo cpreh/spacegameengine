@@ -324,16 +324,19 @@ set(
 	src/input/focus/mod_state_tracker.cpp
 	src/input/focus/object.cpp
 	src/input/focus/remove_event.cpp
-	src/input/include/sge/src/input/event/discover_impl.hpp
-	src/input/include/sge/src/input/event/instantiate_discover.hpp
-	src/input/include/sge/src/input/event/instantiate_remove.hpp
-	src/input/include/sge/src/input/event/remove_impl.hpp
-	src/input/include/sge/src/input/info/container_impl.hpp
-	src/input/include/sge/src/input/info/instantiate_container.hpp
-	src/input/include/sge/src/input/logger.hpp
-	src/input/include/sge/src/input/multi_processor.hpp
-	src/input/include/sge/src/input/multi_system.hpp
-	src/input/include/sge/src/input/system_ptr_vector.hpp
+	src/input/impl/logger.cpp
+	src/input/impl/multi_processor.cpp
+	src/input/impl/multi_system.cpp
+	src/input/include/sge/input/impl/event/discover_impl.hpp
+	src/input/include/sge/input/impl/event/instantiate_discover.hpp
+	src/input/include/sge/input/impl/event/instantiate_remove.hpp
+	src/input/include/sge/input/impl/event/remove_impl.hpp
+	src/input/include/sge/input/impl/info/container_impl.hpp
+	src/input/include/sge/input/impl/info/instantiate_container.hpp
+	src/input/include/sge/input/impl/logger.hpp
+	src/input/include/sge/input/impl/multi_processor.hpp
+	src/input/include/sge/input/impl/multi_system.hpp
+	src/input/include/sge/input/impl/system_ptr_vector.hpp
 	src/input/joypad/absolute_axis.cpp
 	src/input/joypad/absolute_axis_event.cpp
 	src/input/joypad/absolute_axis_info.cpp
@@ -368,7 +371,6 @@ set(
 	src/input/keyboard/manager.cpp
 	src/input/keyboard/remove_event.cpp
 	src/input/log_location.cpp
-	src/input/logger.cpp
 	src/input/mouse/axis.cpp
 	src/input/mouse/axis_code_to_string.cpp
 	src/input/mouse/axis_event.cpp
@@ -385,8 +387,6 @@ set(
 	src/input/mouse/info.cpp
 	src/input/mouse/manager.cpp
 	src/input/mouse/remove_event.cpp
-	src/input/multi_processor.cpp
-	src/input/multi_system.cpp
 	src/input/plugin/collection.cpp
 	src/input/plugin/context.cpp
 	src/input/plugin/iterator.cpp

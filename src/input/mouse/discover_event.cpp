@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/impl/event/instantiate_discover.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/input/mouse/discover_event.hpp>
-#include <sge/src/input/event/instantiate_discover.hpp>
 
 
-SGE_INPUT_EVENT_INSTANTIATE_DISCOVER(
+SGE_INPUT_IMPL_EVENT_INSTANTIATE_DISCOVER(
 	sge::input::mouse::device
 );

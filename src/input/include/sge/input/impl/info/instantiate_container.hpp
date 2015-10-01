@@ -18,21 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_INPUT_LOGGER_HPP_INCLUDED
-#define SGE_SRC_INPUT_LOGGER_HPP_INCLUDED
+#ifndef SGE_INPUT_IMPL_INFO_INSTANTIATE_CONTAINER_HPP_INCLUDED
+#define SGE_INPUT_IMPL_INFO_INSTANTIATE_CONTAINER_HPP_INCLUDED
 
-#include <fcppt/log/object_fwd.hpp>
+#include <sge/input/impl/info/container_impl.hpp>
+#include <sge/src/core/export_class_instantiation.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-
-fcppt::log::object &
-logger();
-
-}
-}
+#define SGE_INPUT_IMPL_INFO_INSTANTIATE_CONTAINER(\
+	id_type,\
+	info_type\
+) \
+template \
+class \
+SGE_CORE_EXPORT_CLASS_INSTANTIATION \
+sge::input::info::container<\
+	id_type,\
+	info_type\
+>
 
 #endif
