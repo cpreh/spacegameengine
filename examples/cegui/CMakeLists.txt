@@ -1,5 +1,5 @@
 add_sge_example(
-	gui_text_demo
+	cegui_text_demo
 	SGE_DEPS
 		sgecegui
 		sgeconfig
