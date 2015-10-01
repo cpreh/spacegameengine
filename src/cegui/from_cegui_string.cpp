@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
 #include <CEGUI/String.h>
-#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -37,31 +36,30 @@ sge::cegui::from_cegui_string(
 )
 {
 	typedef
-	sge::charconv::string_type
-	<
+	sge::charconv::string_type<
 		sge::charconv::encoding::utf32
 	>
 	source_string;
 
 	static_assert(
-		std::is_same
-		<
-			source_string::value_type,
+		sizeof(
+			source_string::value_type
+		)
+		==
+		sizeof(
 			CEGUI::utf32
-		>::value,
+		),
 		"CEGUI's string must use utf32"
 	);
 
 	typedef
-	sge::charconv::string_type
-	<
+	sge::charconv::string_type<
 		sge::charconv::encoding::wchar
 	>
 	dest_string;
 
 	dest_string const dest(
-		sge::charconv::convert
-		<
+		sge::charconv::convert<
 			sge::charconv::encoding::wchar,
 			sge::charconv::encoding::utf32
 		>(

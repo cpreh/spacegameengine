@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/keyboard/key.hpp>
 #include <sge/x11input/key/event_to_sge_code.hpp>
-#include <sge/x11input/keyboard/key_id.hpp>
 #include <sge/x11input/keyboard/key_from_event.hpp>
+#include <sge/x11input/keyboard/key_id.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>

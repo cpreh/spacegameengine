@@ -43,8 +43,7 @@ sge::cegui::to_cegui_string(
 
 	return
 		CEGUI::String(
-			sge::charconv::convert
-			<
+			sge::charconv::convert<
 				sge::charconv::encoding::utf8,
 				sge::charconv::encoding::wchar
 			>(

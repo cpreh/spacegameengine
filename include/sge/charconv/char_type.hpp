@@ -22,9 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CHARCONV_CHAR_TYPE_HPP_INCLUDED
 
 #include <sge/charconv/encoding.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <cstdint>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -42,8 +39,6 @@ struct char_type<
 	sge::charconv::encoding::utf8
 >
 {
-	// TODO: char?
-	//typedef std::uint8_t type;
 	typedef char type;
 };
 
@@ -52,8 +47,7 @@ struct char_type<
 	sge::charconv::encoding::utf16
 >
 {
-	// TODO: char16_t?
-	typedef std::uint16_t type;
+	typedef char16_t type;
 };
 
 template<>
@@ -61,8 +55,7 @@ struct char_type<
 	sge::charconv::encoding::utf32
 >
 {
-	// TODO: char32_t?
-	typedef std::uint32_t type;
+	typedef char32_t type;
 };
 
 template<>
