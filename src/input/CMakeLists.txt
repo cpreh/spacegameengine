@@ -399,6 +399,8 @@ set(
 
 sge_implement_from_lib(
 	plugin
+	PLUGIN_DEFINITIONS
+	PLUGIN_INCLUDES
 )
 
 add_sge_base_library(
@@ -413,4 +415,7 @@ add_sge_base_library(
 		sgecore
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/include"
+		${PLUGIN_INCLUDES}
+	COMPILE_DEFINITIONS
+		${PLUGIN_DEFINITIONS}
 )

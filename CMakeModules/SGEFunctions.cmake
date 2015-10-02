@@ -525,10 +525,11 @@ function(
 	)
 endfunction()
 
-# TODO: Replace this!
-macro(
+function(
 	sge_implement_from_lib
 	LIB_NAME
+	DEFINITIONS
+	INCLUDES
 )
 	string(
 		TOUPPER
@@ -536,14 +537,18 @@ macro(
 		UPPER_LIB_NAME
 	)
 
-	add_definitions(
+	set(
+		${DEFINITIONS}
 		"-D SGE_${UPPER_LIB_NAME}_DETAIL_INSTANTIATE_EXPORTS"
+		PARENT_SCOPE
 	)
 
-	include_directories(
+	set(
+		${INCLUDES}
 		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/${LIB_NAME}/include
+		PARENT_SCOPE
 	)
-endmacro()
+endfunction()
 
 # add_sge_plugin
 #

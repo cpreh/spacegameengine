@@ -159,6 +159,8 @@ find_package(
 
 sge_implement_from_lib(
 	image
+	IMAGE_DEFINITIONS
+	IMAGE_INCLUDES
 )
 
 add_sge_base_library(
@@ -170,7 +172,10 @@ add_sge_base_library(
 		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/image/color/include"
 		"${FCPPT_UTILS_PROJECT_BINARY_DIR}/src/image/include"
 		"${fcppt_INCLUDE_DIRS}"
+		${IMAGE_INCLUDES}
 	TRANSITIVE_INCLUDE_DIRS
 		"${mizuiro_INCLUDE_DIRS}"
 		"${fcppt_INCLUDE_DIRS}"
+	COMPILE_DEFINITIONS
+		${IMAGE_DEFINITIONS}
 )

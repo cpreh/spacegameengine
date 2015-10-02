@@ -49,6 +49,8 @@ find_package(
 
 sge_implement_from_lib(
 	image
+	IMAGE_DEFINITIONS
+	IMAGE_INCLUDES
 )
 
 add_sge_base_library(
@@ -59,6 +61,9 @@ add_sge_base_library(
 		${fcppt_core_TARGET}
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/include"
+		${IMAGE_INCLUDES}
 	TRANSITIVE_INCLUDE_DIRS
 		"${mizuiro_INCLUDE_DIRS}"
+	COMPILE_DEFINITIONS
+		${IMAGE_DEFINITIONS}
 )

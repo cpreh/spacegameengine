@@ -128,6 +128,8 @@ find_package(
 
 sge_implement_from_lib(
 	plugin
+	PLUGIN_DEFINITIONS
+	PLUGIN_INCLUDES
 )
 
 add_sge_base_library(
@@ -142,6 +144,9 @@ add_sge_base_library(
 		${fcppt_log_TARGET}
 	INCLUDE_DIRS
 		${mizuiro_INCLUDE_DIRS}
+		${PLUGIN_INCLUDES}
 	TRANSITIVE_INCLUDE_DIRS
 		${mizuiro_INCLUDE_DIRS}
+	COMPILE_DEFINITIONS
+		${PLUGIN_DEFINITIONS}
 )
