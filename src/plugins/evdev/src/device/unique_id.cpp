@@ -36,10 +36,12 @@ sge::evdev::device::unique_id(
 	sge::evdev::device::fd const &_fd
 )
 {
-	typedef std::array<
+	typedef
+	std::array<
 		char,
 		1024
-	> buffer_type;
+	>
+	buffer_type;
 
 	buffer_type buffer;
 
@@ -52,17 +54,15 @@ sge::evdev::device::unique_id(
 			,
 			buffer.data()
 		)
-		==
+		!=
 		-1
-	)
-		throw sge::input::exception{
-			FCPPT_TEXT("ioctl EVIOCGUNIQ failed")
-		};
-
-	// For whatever reason, Linux seems to return empty strings as unique
-	// ids.
-	if(
-		buffer[0] != '\0'
+		&&
+		// For whatever reason, Linux used to return empty strings as
+		// unique ids. Starting with Linux-4.2, instead of empty
+		// strings, an error is returned.
+		buffer[0]
+		!=
+		'\0'
 	)
 		return
 			sge::input::info::unique_id(
@@ -71,7 +71,7 @@ sge::evdev::device::unique_id(
 				)
 			);
 
-	// If that happens, we try to get the physical id instead.
+	// If there is no unique id, we try to get the physical id instead.
 	if(
 		::ioctl(
 			_fd.get().get(),
@@ -84,9 +84,10 @@ sge::evdev::device::unique_id(
 		==
 		-1
 	)
-		throw sge::input::exception{
-			FCPPT_TEXT("ioctl EVIOCGPHYS failed")
-		};
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("ioctl EVIOCGPHYS failed")
+			};
 
 	return
 		sge::input::info::unique_id(
