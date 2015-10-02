@@ -18,32 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/logger.hpp>
 #include <sge/evdev/device/fd_fwd.hpp>
 #include <sge/evdev/device/name.hpp>
 #include <sge/evdev/device/unique_id.hpp>
 #include <sge/evdev/joypad/event_map.hpp>
 #include <sge/evdev/joypad/info.hpp>
 #include <sge/evdev/joypad/make_info.hpp>
-#include <sge/evdev/joypad/optional_info.hpp>
 #include <sge/evdev/joypad/absolute_axis/info_container.hpp>
 #include <sge/evdev/joypad/absolute_axis/make_info_container.hpp>
 #include <sge/evdev/joypad/button/info_container.hpp>
 #include <sge/evdev/joypad/button/make_info_container.hpp>
 #include <sge/evdev/joypad/relative_axis/info_container.hpp>
 #include <sge/evdev/joypad/relative_axis/make_info_container.hpp>
-#include <sge/input/exception.hpp>
 #include <sge/input/joypad/info.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
-#include <fcppt/log/error.hpp>
 
 
-sge::evdev::joypad::optional_info
+sge::evdev::joypad::info
 sge::evdev::joypad::make_info(
 	sge::evdev::device::fd const &_fd
 )
-try
 {
 	sge::evdev::joypad::absolute_axis::info_container const absolute_axis(
 		sge::evdev::joypad::absolute_axis::make_info_container(
@@ -64,37 +57,22 @@ try
 	);
 
 	return
-		sge::evdev::joypad::optional_info(
-			sge::evdev::joypad::info(
-				sge::input::joypad::info(
-					absolute_axis.infos(),
-					buttons.infos(),
-					relative_axis.infos(),
-					sge::evdev::device::name(
-						_fd
-					),
-					sge::evdev::device::unique_id(
-						_fd
-					)
+		sge::evdev::joypad::info(
+			sge::input::joypad::info(
+				absolute_axis.infos(),
+				buttons.infos(),
+				relative_axis.infos(),
+				sge::evdev::device::name(
+					_fd
 				),
-				sge::evdev::joypad::event_map(
-					absolute_axis.event_map(),
-					buttons.event_map(),
-					relative_axis.event_map()
+				sge::evdev::device::unique_id(
+					_fd
 				)
+			),
+			sge::evdev::joypad::event_map(
+				absolute_axis.event_map(),
+				buttons.event_map(),
+				relative_axis.event_map()
 			)
 		);
-}
-catch(
-	sge::input::exception const &_exception
-)
-{
-	FCPPT_LOG_ERROR(
-		sge::evdev::logger(),
-		fcppt::log::_
-			<< _exception.string()
-	);
-
-	return
-		sge::evdev::joypad::optional_info();
 }
