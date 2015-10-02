@@ -18,51 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/media/file_exception_string.hpp>
-#include <sge/media/optional_path.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_MEDIA_OPTIONAL_NAME_FWD_HPP_INCLUDED
+#define SGE_MEDIA_OPTIONAL_NAME_FWD_HPP_INCLUDED
+
+#include <sge/media/name_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
-fcppt::string
-sge::media::file_exception_string(
-	sge::media::optional_path const &_opt_path,
-	fcppt::string const &_message
-)
+namespace sge
 {
-	return
-		fcppt::maybe(
-			_opt_path,
-			[
-				&_message
-			]
-			{
-				return
-					FCPPT_TEXT("stream: ")
-					+
-					_message;
-			},
-			[
-				&_message
-			](
-				boost::filesystem::path const &_path
-			)
-			{
-				return
-					FCPPT_TEXT("\"")
-					+
-					fcppt::filesystem::path_to_string(
-						_path
-					)
-					+
-					FCPPT_TEXT("\": ")
-					+
-					_message;
-			}
-		);
+namespace media
+{
+
+typedef
+fcppt::optional<
+	sge::media::name
+>
+optional_name;
+
 }
+}
+
+#endif

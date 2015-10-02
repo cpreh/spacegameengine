@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MEDIA_LOAD_EXN_HPP_INCLUDED
 #define SGE_SRC_MEDIA_LOAD_EXN_HPP_INCLUDED
 
+#include <sge/src/media/load.hpp>
 #include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -47,7 +48,11 @@ load_exn(
 {
 	return
 		fcppt::optional_to_exception(
-			_system.load(
+			sge::media::load<
+				Result,
+				Exception
+			>(
+				_system,
 				_path
 			),
 			[

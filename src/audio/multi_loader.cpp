@@ -22,17 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/loader.hpp>
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/multi_loader_parameters_fwd.hpp>
-#include <sge/audio/optional_file_unique_ptr.hpp>
+#include <sge/audio/load_stream_result.hpp>
 #include <sge/audio/loader_plugin/traits.hpp>
-#include <sge/media/const_raw_range.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
+#include <sge/media/optional_name_fwd.hpp>
+#include <sge/media/stream_unique_ptr.hpp>
 #include <sge/src/media/muxer_impl.hpp>
-#include <fcppt/function_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <functional>
-#include <iosfwd>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -40,69 +38,27 @@ sge::audio::multi_loader::multi_loader(
 	sge::audio::multi_loader_parameters const &_param
 )
 :
+	sge::audio::loader(),
 	muxer_(
 		_param
 	)
 {
 }
 
-sge::audio::optional_file_unique_ptr
-sge::audio::multi_loader::load(
-	boost::filesystem::path const &_path
-)
-{
-	return
-		muxer_.mux_path(
-			_path,
-			muxer::load_function{
-				std::bind(
-					&sge::audio::loader::load,
-					std::placeholders::_1,
-					_path
-				)
-			}
-		);
-}
-
-sge::audio::optional_file_unique_ptr
-sge::audio::multi_loader::load_raw(
-	sge::media::const_raw_range const &_range,
-	sge::media::optional_extension const &_extension
-)
-{
-	return
-		muxer_.mux_extension(
-			_extension,
-			muxer::load_function{
-				std::bind(
-					&sge::audio::loader::load_raw,
-					std::placeholders::_1,
-					_range,
-					_extension
-				)
-			}
-		);
-}
-
-sge::audio::optional_file_unique_ptr
+sge::audio::load_stream_result
 sge::audio::multi_loader::load_stream(
-	std::istream &_stream,
-	sge::media::optional_extension const &_extension
+	sge::media::stream_unique_ptr &&_stream,
+	sge::media::optional_extension const &_extension,
+	sge::media::optional_name const &_name
 )
 {
 	return
-		muxer_.mux_extension(
+		muxer_.mux_stream(
+			std::move(
+				_stream
+			),
 			_extension,
-			muxer::load_function{
-				std::bind(
-					&sge::audio::loader::load_stream,
-					std::placeholders::_1,
-					std::ref(
-						_stream
-					),
-					_extension
-				)
-			}
+			_name
 		);
 }
 

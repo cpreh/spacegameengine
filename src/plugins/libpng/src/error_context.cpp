@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/error_context.hpp>
 #include <sge/libpng/logger.hpp>
 #include <sge/libpng/png.hpp>
-#include <sge/media/file_exception_string.hpp>
-#include <sge/media/optional_path.hpp>
+#include <sge/media/error_string.hpp>
+#include <sge/media/optional_name.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
@@ -32,11 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::libpng::error_context::error_context(
-	sge::media::optional_path const &_path
+	sge::media::optional_name const &_name
 )
 :
-	path_(
-		_path
+	name_(
+		_name
 	)
 {
 }
@@ -79,8 +79,8 @@ sge::libpng::error_context::handle_warning_impl(
 	FCPPT_LOG_WARNING(
 		sge::libpng::logger(),
 		fcppt::log::_ <<
-			sge::media::file_exception_string(
-				path_,
+			sge::media::error_string(
+				name_,
 				fcppt::from_std_string(
 					_message
 				)
@@ -95,7 +95,7 @@ sge::libpng::error_context::handle_error_impl(
 {
 	throw
 		sge::image2d::file_exception(
-			path_,
+			name_,
 			fcppt::from_std_string(
 				_message
 			)

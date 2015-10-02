@@ -18,12 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/exception.hpp>
 #include <sge/image2d/create_exn.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/save_from_view.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/media/path_to_extension.hpp>
+#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -40,8 +44,22 @@ sge::image2d::save_from_view(
 	sge::image2d::create_exn(
 		_system,
 		_view,
-		sge::media::path_to_extension(
-			_path
+		fcppt::optional_to_exception(
+			sge::media::path_to_extension(
+				_path
+			),
+			[
+				&_path
+			]{
+				return
+					sge::image::exception{
+						FCPPT_TEXT("Path has no extension ")
+						+
+						fcppt::filesystem::path_to_string(
+							_path
+						)
+					};
+			}
 		)
 	)->save(
 		_path

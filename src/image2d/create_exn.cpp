@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/media/optional_extension_fwd.hpp>
+#include <sge/media/extension_fwd.hpp>
 #include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 
@@ -33,7 +33,7 @@ sge::image2d::file_unique_ptr
 sge::image2d::create_exn(
 	sge::image2d::system &_system,
 	sge::image2d::view::const_object const &_view,
-	sge::media::optional_extension const &_extension
+	sge::media::extension const &_extension
 )
 {
 	return

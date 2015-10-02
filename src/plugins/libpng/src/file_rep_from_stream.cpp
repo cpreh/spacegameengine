@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/make_row_vector.hpp>
 #include <sge/libpng/read_ptr.hpp>
 #include <sge/libpng/row_vector.hpp>
-#include <sge/media/optional_path_fwd.hpp>
+#include <sge/media/optional_name_fwd.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
@@ -55,11 +55,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::libpng::file_rep
 sge::libpng::file_rep_from_stream(
 	std::istream &_stream,
-	sge::media::optional_path const &_path
+	sge::media::optional_name const &_name
 )
 {
 	sge::libpng::error_context error_context(
-		_path
+		_name
 	);
 
 	sge::libpng::read_ptr const read_ptr(
@@ -77,7 +77,7 @@ sge::libpng::file_rep_from_stream(
 
 	sge::libpng::load_context load_context(
 		_stream,
-		_path,
+		_name,
 		read_ptr
 	);
 
@@ -123,7 +123,7 @@ sge::libpng::file_rep_from_stream(
 	)
 		throw
 			sge::image2d::file_exception(
-				_path,
+				_name,
 				FCPPT_TEXT("A png file has a bit depth that's not a multiple of a byte's size!")
 			);
 
@@ -149,7 +149,7 @@ sge::libpng::file_rep_from_stream(
 		case PNG_COLOR_TYPE_PALETTE:
 			throw
 				sge::image2d::unsupported_format(
-					_path,
+					_name,
 					FCPPT_TEXT("Palette images are not supported.")
 				);
 		case PNG_COLOR_TYPE_GRAY:
@@ -223,12 +223,12 @@ sge::libpng::file_rep_from_stream(
 					)
 				),
 				[
-					&_path,
+					&_name,
 					bpp
 				]{
 					return
 						sge::image2d::unsupported_format(
-							_path,
+							_name,
 							fcppt::insert_to_fcppt_string(
 								fcppt::cast::promote(
 									bpp

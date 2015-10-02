@@ -18,11 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MEDIA_OPTIONAL_PATH_HPP_INCLUDED
-#define SGE_MEDIA_OPTIONAL_PATH_HPP_INCLUDED
+#include <sge/media/error_string.hpp>
+#include <sge/media/name.hpp>
+#include <sge/media/optional_name.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 
-#include <sge/media/optional_path_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
 
-
-#endif
+fcppt::string
+sge::media::error_string(
+	sge::media::optional_name const &_opt_name,
+	fcppt::string const &_message
+)
+{
+	return
+		fcppt::maybe(
+			_opt_name,
+			[
+				&_message
+			]
+			{
+				return
+					FCPPT_TEXT("stream: ")
+					+
+					_message;
+			},
+			[
+				&_message
+			](
+				sge::media::name const &_name
+			)
+			{
+				return
+					FCPPT_TEXT("\"")
+					+
+					_name.get()
+					+
+					FCPPT_TEXT("\": ")
+					+
+					_message;
+			}
+		);
+}

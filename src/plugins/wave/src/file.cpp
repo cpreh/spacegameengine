@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file_exception.hpp>
 #include <sge/audio/unsupported_format.hpp>
+#include <sge/media/optional_name.hpp>
+#include <sge/media/stream_unique_ptr.hpp>
 #include <sge/wave/file.hpp>
 #include <sge/wave/logger.hpp>
 #include <fcppt/format.hpp>
@@ -45,16 +47,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::wave::file::file(
-	stream_ptr _file,
-	media::optional_path const &_filename)
+	sge::media::stream_unique_ptr &&_file,
+	sge::media::optional_name const &_filename
+)
 :
 	filename_(
-		_filename),
+		_filename
+	),
 	swap_(
-		boost::logic::indeterminate),
+		boost::logic::indeterminate
+	),
 	file_(
 		std::move(
-			_file)),
+			_file
+		)
+	),
 	data_segment_(),
 	samples_(),
 	samples_read_(),
@@ -69,25 +76,29 @@ sge::wave::file::file(
 sge::audio::sample_count
 sge::wave::file::bits_per_sample() const
 {
-	return bits_per_sample_;
+	return
+		bits_per_sample_;
 }
 
 sge::audio::sample_count
 sge::wave::file::sample_rate() const
 {
-	return sample_rate_;
+	return
+		sample_rate_;
 }
 
 sge::audio::channel_type
 sge::wave::file::channels() const
 {
-	return channels_;
+	return
+		channels_;
 }
 
 sge::audio::sample_count
 sge::wave::file::expected_package_size() const
 {
-	return 0;
+	return
+		0;
 }
 
 void sge::wave::file::reset()
@@ -247,7 +258,10 @@ void sge::wave::file::ignore_chunks_until(std::string const &desc)
 	}
 }
 
-std::string const sge::wave::file::extract_header(fcppt::string const &_desc)
+std::string
+sge::wave::file::extract_header(
+	fcppt::string const &_desc
+)
 {
 	typedef fcppt::container::raw_vector<char> char_vector;
 

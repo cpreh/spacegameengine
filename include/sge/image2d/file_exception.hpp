@@ -21,31 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_FILE_EXCEPTION_HPP_INCLUDED
 #define SGE_IMAGE2D_FILE_EXCEPTION_HPP_INCLUDED
 
-#include <sge/core/detail/class_symbol.hpp>
 #include <sge/image/exception.hpp>
-#include <sge/image2d/detail/symbol.hpp>
-#include <sge/media/optional_path_fwd.hpp>
-#include <fcppt/string.hpp>
+#include <sge/image2d/file_exception_fwd.hpp>
+#include <sge/media/file_exception.hpp>
 
-
-namespace sge
-{
-namespace image2d
-{
-
-class SGE_CORE_DETAIL_CLASS_SYMBOL file_exception
-:
-	public sge::image::exception
-{
-public:
-	SGE_IMAGE2D_DETAIL_SYMBOL
-	file_exception(
-		sge::media::optional_path const &,
-		fcppt::string const &
-	);
-};
-
-}
-}
 
 #endif

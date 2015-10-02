@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_VORBIS_FILE_HPP_INCLUDED
 
 #include <sge/audio/file.hpp>
-#include <sge/media/optional_path.hpp>
-#include <sge/vorbis/stream_ptr.hpp>
+#include <sge/media/optional_name.hpp>
+#include <sge/media/stream_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -50,7 +50,7 @@ public:
 	sample_count;
 
 	typedef
-	audio::channel_type
+	sge::audio::channel_type
 	channel_type;
 
 	typedef
@@ -58,8 +58,8 @@ public:
 	sample_container;
 
 	file(
-		stream_ptr,
-		sge::media::optional_path const &
+		sge::media::stream_unique_ptr &&,
+		sge::media::optional_name const &
 	);
 
 	sample_count
@@ -98,10 +98,14 @@ public:
 	~file()
 	override;
 private:
-	sge::media::optional_path file_name_;
-	stream_ptr stdstream_;
+	sge::media::optional_name const file_name_;
+
+	sge::media::stream_unique_ptr const stdstream_;
+
 	OggVorbis_File ogg_file_;
+
 	channel_type channels_;
+
 	sample_count sample_rate_;
 
 	// ogg callbacks

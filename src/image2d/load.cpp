@@ -18,27 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WAVE_STREAM_PTR_HPP_INCLUDED
-#define SGE_WAVE_STREAM_PTR_HPP_INCLUDED
-
-#include <fcppt/unique_ptr_impl.hpp>
+#include <sge/image/exception.hpp>
+#include <sge/image2d/file.hpp>
+#include <sge/image2d/file_unique_ptr.hpp>
+#include <sge/image2d/load.hpp>
+#include <sge/image2d/optional_file_unique_ptr.hpp>
+#include <sge/image2d/system.hpp>
+#include <sge/src/media/load.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <istream>
+#include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::image2d::optional_file_unique_ptr
+sge::image2d::load(
+	sge::image2d::system &_system,
+	boost::filesystem::path const &_path
+)
 {
-namespace wave
-{
-
-typedef
-fcppt::unique_ptr<
-	std::istream
->
-stream_ptr;
-
+	return
+		sge::media::load<
+			sge::image2d::file_unique_ptr,
+			sge::image::exception
+		>(
+			_system,
+			_path
+		);
 }
-}
-
-#endif

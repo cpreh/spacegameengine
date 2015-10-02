@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file_exception.hpp>
 #include <sge/audio/unsupported_format.hpp>
-#include <sge/media/file_exception_string.hpp>
-#include <sge/media/optional_path.hpp>
+#include <sge/media/error_string.hpp>
+#include <sge/media/optional_name.hpp>
+#include <sge/media/stream_unique_ptr.hpp>
 #include <sge/vorbis/file.hpp>
 #include <sge/vorbis/logger.hpp>
 #include <fcppt/string.hpp>
@@ -69,14 +70,18 @@ ogg_error(
 }
 
 sge::vorbis::file::file(
-	stream_ptr _stdstream,
-	sge::media::optional_path const &_file_name)
+	sge::media::stream_unique_ptr &&_stdstream,
+	sge::media::optional_name const &_file_name
+)
 :
 	file_name_(
-		_file_name),
+		_file_name
+	),
 	stdstream_(
 		std::move(
-			_stdstream)),
+			_stdstream
+		)
+	),
 	ogg_file_(),
 	channels_(),
 	sample_rate_()
@@ -183,7 +188,7 @@ sge::vorbis::file::read(
 				FCPPT_LOG_WARNING(
 					sge::vorbis::logger(),
 					fcppt::log::_ <<
-						sge::media::file_exception_string(
+						sge::media::error_string(
 							file_name_,
 							FCPPT_TEXT("Encountered corrupt vorbis data.")
 						)

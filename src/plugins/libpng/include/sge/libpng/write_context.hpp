@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/write_ptr_fwd.hpp>
-#include <sge/media/optional_path.hpp>
+#include <sge/media/optional_name.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
@@ -42,14 +42,14 @@ class write_context
 	);
 public:
 	write_context(
-		sge::media::optional_path const &,
+		sge::media::optional_name const &,
 		std::ostream &,
 		sge::libpng::write_ptr const &
 	);
 
 	~write_context();
 private:
-	sge::media::optional_path const path_;
+	sge::media::optional_name const name_;
 
 	std::ostream &stream_;
 

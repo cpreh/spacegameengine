@@ -41,7 +41,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/format.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/size.hpp>
+#include <sge/media/extension.hpp>
 #include <sge/media/optional_extension.hpp>
+#include <sge/media/optional_name.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/info.hpp>
@@ -49,17 +51,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/dim/comparison.hpp>
+#include <fcppt/math/dim/output.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/test/unit_test.hpp>
+#include <istream>
 #include <sstream>
 #include <fcppt/config/external_end.hpp>
 
@@ -121,7 +128,11 @@ FCPPT_PP_POP_WARNING
 			plugin.get()()
 		);
 
-		std::stringstream stream;
+		auto stream(
+			fcppt::make_unique_ptr<
+				std::stringstream
+			>()
+		);
 
 		sge::image2d::view::const_object const source_view(
 			sge::image2d::view::const_object(
@@ -133,20 +144,34 @@ FCPPT_PP_POP_WARNING
 			FCPPT_ASSERT_OPTIONAL_ERROR(
 				system->create(
 					source_view,
-					sge::media::optional_extension()
+					// FIXME: Iterate over all supported formats
+					sge::media::extension{
+						FCPPT_TEXT("png")
+					}
 				)
 			)
 		);
 
 		created->save_stream(
-			stream
+			*stream
 		);
 
 		sge::image2d::file_unique_ptr const file(
 			FCPPT_ASSERT_OPTIONAL_ERROR(
-				system->load_stream(
-					stream,
-					sge::media::optional_extension()
+				fcppt::variant::to_optional<
+					sge::image2d::file_unique_ptr
+				>(
+					system->load_stream(
+						fcppt::unique_ptr_to_base<
+							std::istream
+						>(
+							std::move(
+								stream
+							)
+						),
+						sge::media::optional_extension(),
+						sge::media::optional_name()
+					)
 				)
 			)
 		);
@@ -155,11 +180,10 @@ FCPPT_PP_POP_WARNING
 			file->view()
 		);
 
-		BOOST_REQUIRE(
+		BOOST_REQUIRE_EQUAL(
 			sge::image2d::view::size(
 				source_view
-			)
-			==
+			),
 			sge::image2d::view::size(
 				dest_view
 			)

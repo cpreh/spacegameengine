@@ -18,9 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/exception.hpp>
 #include <sge/image2d/file.hpp>
+#include <sge/image2d/load_stream_result.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
+#include <sge/image2d/system.hpp>
 #include <sge/libpng/check_extension.hpp>
 #include <sge/libpng/extension.hpp>
 #include <sge/libpng/file.hpp>
@@ -29,23 +30,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
-#include <sge/media/optional_extension.hpp>
-#include <sge/media/optional_path.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
+#include <sge/media/optional_name_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/cast/to_char_ptr.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/path.hpp>
-#include <boost/iostreams/stream.hpp>
-#include <boost/iostreams/device/array.hpp>
-#include <ios>
+#include <istream>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::libpng::system::system()
+:
+	sge::image2d::system()
 {
 }
 
@@ -53,107 +50,53 @@ sge::libpng::system::~system()
 {
 }
 
-sge::image2d::optional_file_unique_ptr
-sge::libpng::system::load(
-	boost::filesystem::path const &_path
-)
-{
-	boost::filesystem::ifstream file_stream(
-		_path,
-		std::ios_base::binary
-	);
-
-	if(
-		!file_stream.is_open()
-	)
-		throw
-			sge::image::exception{
-				FCPPT_TEXT("Couldn't open ")
-				+
-				fcppt::filesystem::path_to_string(
-					_path
-				)
-			};
-
-	return
-		this->load_impl(
-			file_stream,
-			sge::media::optional_path(
-				_path
-			)
-		);
-}
-
-sge::image2d::optional_file_unique_ptr
-sge::libpng::system::load_raw(
-	sge::media::const_raw_range const &_range,
-	sge::media::optional_extension const &_extension
-)
-{
-	if(
-		!sge::libpng::check_extension(
-			_extension
-		)
-	)
-		return
-			sge::image2d::optional_file_unique_ptr();
-
-	typedef
-	boost::iostreams::stream<
-		boost::iostreams::array_source
-	>
-	stream_type;
-
-	stream_type raw_stream(
-		fcppt::cast::to_char_ptr<
-			boost::iostreams::array_source::char_type const *
-		>(
-			_range.begin()
-		),
-		fcppt::cast::to_char_ptr<
-			boost::iostreams::array_source::char_type const *
-		>(
-			_range.end()
-		)
-	);
-
-	return
-		this->load_impl(
-			raw_stream,
-			sge::media::optional_path()
-		);
-}
-
-sge::image2d::optional_file_unique_ptr
+sge::image2d::load_stream_result
 sge::libpng::system::load_stream(
-	std::istream &_stream,
-	sge::media::optional_extension const &_extension
+	sge::media::stream_unique_ptr &&_stream,
+	sge::media::optional_extension const &_extension,
+	sge::media::optional_name const &_name
 )
 {
 	return
 		sge::libpng::check_extension(
 			_extension
 		)
+		&&
+		sge::libpng::is_png(
+			*_stream
+		)
 		?
-			this->load_impl(
-				_stream,
-				sge::media::optional_path()
-			)
+			sge::image2d::load_stream_result{
+				fcppt::unique_ptr_to_base<
+					sge::image2d::file
+				>(
+					fcppt::make_unique_ptr<
+						sge::libpng::file
+					>(
+						*_stream,
+						_name
+					)
+				)
+			}
 		:
-			sge::image2d::optional_file_unique_ptr()
+			sge::image2d::load_stream_result{
+				std::move(
+					_stream
+				)
+			}
 		;
 }
 
 sge::image2d::optional_file_unique_ptr
 sge::libpng::system::create(
 	sge::image2d::view::const_object const &_view,
-	sge::media::optional_extension const &_extension
+	sge::media::extension const &_extension
 )
 {
 	return
-		sge::libpng::check_extension(
-			_extension
-		)
+		_extension
+		==
+		sge::libpng::extension()
 		?
 			sge::image2d::optional_file_unique_ptr(
 				fcppt::unique_ptr_to_base<
@@ -178,33 +121,4 @@ sge::libpng::system::extensions() const
 		sge::media::extension_set{
 			sge::libpng::extension()
 		};
-}
-
-sge::image2d::optional_file_unique_ptr
-sge::libpng::system::load_impl(
-	std::istream &_stream,
-	sge::media::optional_path const &_path
-)
-{
-	// Handle the most common "error" without exceptions
-	return
-		sge::libpng::is_png(
-			_stream
-		)
-		?
-			sge::image2d::optional_file_unique_ptr(
-				fcppt::unique_ptr_to_base<
-					sge::image2d::file
-				>(
-					fcppt::make_unique_ptr<
-						sge::libpng::file
-					>(
-						_stream,
-						_path
-					)
-				)
-			)
-		:
-			sge::image2d::optional_file_unique_ptr()
-		;
 }

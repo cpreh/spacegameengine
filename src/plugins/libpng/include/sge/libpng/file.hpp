@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/libpng/file_rep.hpp>
-#include <sge/media/optional_path_fwd.hpp>
+#include <sge/media/optional_name_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -48,7 +48,7 @@ class file
 public:
 	file(
 		std::istream &,
-		sge::media::optional_path const &
+		sge::media::optional_name const &
 	);
 
 	explicit

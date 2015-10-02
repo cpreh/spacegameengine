@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/write.hpp>
 #include <sge/libpng/write_context.hpp>
 #include <sge/libpng/write_ptr.hpp>
-#include <sge/media/optional_path_fwd.hpp>
+#include <sge/media/optional_name_fwd.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -45,12 +45,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::libpng::write(
 	std::ostream &_stream,
-	sge::media::optional_path const &_path,
+	sge::media::optional_name const &_name,
 	sge::libpng::file_rep const &_rep
 )
 {
 	sge::libpng::error_context error_context{
-		_path
+		_name
 	};
 
 	sge::libpng::write_ptr const write_ptr(
@@ -62,7 +62,7 @@ sge::libpng::write(
 	);
 
 	sge::libpng::write_context context(
-		_path,
+		_name,
 		_stream,
 		write_ptr
 	);

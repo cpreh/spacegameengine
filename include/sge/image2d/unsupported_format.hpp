@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/image2d/file_exception.hpp>
 #include <sge/image2d/detail/symbol.hpp>
-#include <sge/media/optional_path_fwd.hpp>
+#include <sge/media/optional_name_fwd.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -40,7 +40,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL unsupported_format
 public:
 	SGE_IMAGE_DETAIL_SYMBOL
 	unsupported_format(
-		sge::media::optional_path const &,
+		sge::media::optional_name const &,
 		fcppt::string const &
 	);
 };

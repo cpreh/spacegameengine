@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/read_ptr_fwd.hpp>
-#include <sge/media/optional_path.hpp>
+#include <sge/media/optional_name.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
@@ -43,7 +43,7 @@ class load_context
 public:
 	load_context(
 		std::istream &,
-		sge::media::optional_path const &,
+		sge::media::optional_name const &,
 		sge::libpng::read_ptr const &
 	);
 
@@ -51,7 +51,7 @@ public:
 private:
 	std::istream &stream_;
 
-	sge::media::optional_path const path_;
+	sge::media::optional_name const name_;
 
 	static
 	void

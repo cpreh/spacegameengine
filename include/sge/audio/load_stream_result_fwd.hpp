@@ -18,25 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MEDIA_FILE_EXCEPTION_STRING_HPP_INCLUDED
-#define SGE_MEDIA_FILE_EXCEPTION_STRING_HPP_INCLUDED
+#ifndef SGE_AUDIO_LOAD_STREAM_RESULT_FWD_HPP_INCLUDED
+#define SGE_AUDIO_LOAD_STREAM_RESULT_FWD_HPP_INCLUDED
 
-#include <sge/media/optional_path_fwd.hpp>
-#include <sge/media/detail/symbol.hpp>
-#include <fcppt/string.hpp>
+#include <sge/audio/file_fwd.hpp>
+#include <sge/media/load_stream_result_fwd.hpp>
 
 
 namespace sge
 {
-namespace media
+namespace audio
 {
 
-SGE_MEDIA_DETAIL_SYMBOL
-fcppt::string
-file_exception_string(
-	sge::media::optional_path const &,
-	fcppt::string const &
-);
+typedef
+sge::media::load_stream_result<
+	sge::audio::file
+>
+load_stream_result;
 
 }
 }

@@ -21,16 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MEDIA_MUXER_IMPL_HPP_INCLUDED
 #define SGE_SRC_MEDIA_MUXER_IMPL_HPP_INCLUDED
 
+#include <sge/media/extension_fwd.hpp>
 #include <sge/media/extension_set.hpp>
+#include <sge/media/load_stream_result.hpp>
 #include <sge/media/muxer.hpp>
-#include <sge/media/optional_extension.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
+#include <sge/media/optional_name_fwd.hpp>
+#include <sge/media/stream_unique_ptr.hpp>
 #include <sge/src/media/detail/muxer_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -73,19 +74,23 @@ typename
 sge::media::muxer<
 	System,
 	File
->::optional_file_unique_ptr
+>::load_stream_result
 sge::media::muxer<
 	System,
 	File
->::mux_path(
-	boost::filesystem::path const &_file,
-	load_function const &_function
+>::mux_stream(
+	sge::media::stream_unique_ptr &&_stream,
+	sge::media::optional_extension const &_extension,
+	sge::media::optional_name const &_name
 ) const
 {
 	return
-		impl_->mux_path(
-			_file,
-			_function
+		impl_->mux_stream(
+			std::move(
+				_stream
+			),
+			_extension,
+			_name
 		);
 }
 
@@ -97,19 +102,17 @@ typename
 sge::media::muxer<
 	System,
 	File
->::optional_file_unique_ptr
+>::optional_system_ref
 sge::media::muxer<
 	System,
 	File
 >::mux_extension(
-	sge::media::optional_extension const &_extension,
-	load_function const &_function
+	sge::media::extension const &_extension
 ) const
 {
 	return
 		impl_->mux_extension(
-			_extension,
-			_function
+			_extension
 		);
 }
 

@@ -87,12 +87,16 @@ set(
 	include/sge/audio/exception_fwd.hpp
 	include/sge/audio/file.hpp
 	include/sge/audio/file_exception.hpp
+	include/sge/audio/file_exception_fwd.hpp
 	include/sge/audio/file_fwd.hpp
 	include/sge/audio/file_unique_ptr.hpp
 	include/sge/audio/listener.hpp
 	include/sge/audio/listener_fwd.hpp
+	include/sge/audio/load.hpp
 	include/sge/audio/load_exn.hpp
 	include/sge/audio/load_raw_exn.hpp
+	include/sge/audio/load_stream_result.hpp
+	include/sge/audio/load_stream_result_fwd.hpp
 	include/sge/audio/loader.hpp
 	include/sge/audio/loader_fwd.hpp
 	include/sge/audio/loader_plugin/collection_fwd.hpp
@@ -904,12 +908,16 @@ set(
 	include/sge/image2d/dim_fwd.hpp
 	include/sge/image2d/file.hpp
 	include/sge/image2d/file_exception.hpp
+	include/sge/image2d/file_exception_fwd.hpp
 	include/sge/image2d/file_fwd.hpp
 	include/sge/image2d/file_unique_ptr.hpp
 	include/sge/image2d/l8_format.hpp
 	include/sge/image2d/la8_format.hpp
+	include/sge/image2d/load.hpp
 	include/sge/image2d/load_exn.hpp
 	include/sge/image2d/load_raw_exn.hpp
+	include/sge/image2d/load_stream_result.hpp
+	include/sge/image2d/load_stream_result_fwd.hpp
 	include/sge/image2d/log_location.hpp
 	include/sge/image2d/multi_system.hpp
 	include/sge/image2d/multi_system_fwd.hpp
@@ -1497,23 +1505,31 @@ set(
 	include/sge/media/const_raw_pointer.hpp
 	include/sge/media/const_raw_range.hpp
 	include/sge/media/detail/muxer_fwd.hpp
+	include/sge/media/error_string.hpp
 	include/sge/media/extension.hpp
 	include/sge/media/extension_fwd.hpp
 	include/sge/media/extension_set.hpp
-	include/sge/media/file_exception_string.hpp
+	include/sge/media/file_exception.hpp
+	include/sge/media/file_exception_fwd.hpp
+	include/sge/media/load_stream_result.hpp
+	include/sge/media/load_stream_result_fwd.hpp
 	include/sge/media/log_location.hpp
 	include/sge/media/muxer.hpp
 	include/sge/media/muxer_fwd.hpp
 	include/sge/media/muxer_parameters.hpp
 	include/sge/media/muxer_parameters_fwd.hpp
+	include/sge/media/name.hpp
+	include/sge/media/name_fwd.hpp
 	include/sge/media/optional_extension.hpp
 	include/sge/media/optional_extension_fwd.hpp
 	include/sge/media/optional_extension_set.hpp
 	include/sge/media/optional_extension_set_fwd.hpp
-	include/sge/media/optional_path.hpp
-	include/sge/media/optional_path_fwd.hpp
+	include/sge/media/optional_name.hpp
+	include/sge/media/optional_name_fwd.hpp
 	include/sge/media/path_to_extension.hpp
 	include/sge/media/raw_value.hpp
+	include/sge/media/stream_unique_ptr.hpp
+	include/sge/media/stream_unique_ptr_fwd.hpp
 	include/sge/model/md3/create.hpp
 	include/sge/model/md3/exception.hpp
 	include/sge/model/md3/index.hpp

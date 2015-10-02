@@ -18,12 +18,16 @@ set(
 	include/sge/image2d/dim_fwd.hpp
 	include/sge/image2d/file.hpp
 	include/sge/image2d/file_exception.hpp
+	include/sge/image2d/file_exception_fwd.hpp
 	include/sge/image2d/file_fwd.hpp
 	include/sge/image2d/file_unique_ptr.hpp
 	include/sge/image2d/l8_format.hpp
 	include/sge/image2d/la8_format.hpp
+	include/sge/image2d/load.hpp
 	include/sge/image2d/load_exn.hpp
 	include/sge/image2d/load_raw_exn.hpp
+	include/sge/image2d/load_stream_result.hpp
+	include/sge/image2d/load_stream_result_fwd.hpp
 	include/sge/image2d/log_location.hpp
 	include/sge/image2d/multi_system.hpp
 	include/sge/image2d/multi_system_fwd.hpp
@@ -145,6 +149,7 @@ set(
 	src/image2d/file.cpp
 	src/image2d/file_exception.cpp
 	src/image2d/include/sge/src/image2d/logger.hpp
+	src/image2d/load.cpp
 	src/image2d/load_exn.cpp
 	src/image2d/load_raw_exn.cpp
 	src/image2d/log_location.cpp

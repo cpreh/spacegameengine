@@ -21,10 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MEDIA_DETAIL_MUXER_IMPL_HPP_INCLUDED
 #define SGE_SRC_MEDIA_DETAIL_MUXER_IMPL_HPP_INCLUDED
 
+#include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
+#include <sge/media/load_stream_result.hpp>
 #include <sge/media/muxer_parameters.hpp>
 #include <sge/media/optional_extension.hpp>
-#include <sge/media/path_to_extension.hpp>
+#include <sge/media/optional_name.hpp>
+#include <sge/media/stream_unique_ptr.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/iterator.hpp>
@@ -34,21 +37,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/media/detail/muxer.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/maybe.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/contains.hpp>
 #include <fcppt/algorithm/fold.hpp>
+#include <fcppt/algorithm/find_if_opt.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/algorithm/set_intersection.hpp>
 #include <fcppt/algorithm/set_union.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <memory>
+#include <ios>
 #include <typeinfo>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -193,21 +198,76 @@ typename
 sge::media::detail::muxer<
 	System,
 	File
->::optional_file_unique_ptr
+>::load_stream_result
 sge::media::detail::muxer<
 	System,
 	File
->::mux_path(
-	boost::filesystem::path const &_file,
-	load_function const &_function
+>::mux_stream(
+	sge::media::stream_unique_ptr &&_stream,
+	sge::media::optional_extension const &_opt_extension,
+	sge::media::optional_name const &_name
 ) const
 {
 	return
-		this->mux_extension(
-			sge::media::path_to_extension(
-				_file
-			),
-			_function
+		fcppt::maybe(
+			_opt_extension,
+			[
+				this,
+				&_stream,
+				&_name
+			]{
+				return
+					this->mux_stream_try_all(
+						std::move(
+							_stream
+						),
+						_name
+					);
+			},
+			[
+				this,
+				&_stream,
+				&_name
+			](
+				sge::media::extension const &_extension
+			)
+			{
+				return
+					fcppt::maybe(
+						this->mux_extension(
+							_extension
+						),
+						[
+							&_stream
+						]{
+							return
+								load_stream_result(
+									std::move(
+										_stream
+									)
+								);
+						},
+						[
+							&_extension,
+							&_stream,
+							&_name
+						](
+							System &_system
+						)
+						{
+							return
+								_system.load_stream(
+									std::move(
+										_stream
+									),
+									sge::media::optional_extension(
+										_extension
+									),
+									_name
+								);
+						}
+					);
+			}
 		);
 }
 
@@ -219,62 +279,41 @@ typename
 sge::media::detail::muxer<
 	System,
 	File
->::optional_file_unique_ptr
+>::optional_system_ref
 sge::media::detail::muxer<
 	System,
 	File
 >::mux_extension(
-	sge::media::optional_extension const &_opt_extension,
-	load_function const &_function
+	sge::media::extension const &_extension
 ) const
 {
-	for(
-		auto &cur_plugin
-		:
-		plugins_
-	)
-	{
-		auto &cur_system(
-			cur_plugin.second
-		);
-
-		if(
-			fcppt::maybe(
-				_opt_extension,
-				fcppt::const_(
-					false
-				),
+	return
+		fcppt::optional_bind_construct(
+			fcppt::algorithm::find_if_opt(
+				plugins_,
 				[
-					&cur_system
+					&_extension
 				](
-					sge::media::extension const &_extension
+					plugin_system_pair const &_plugin
 				)
 				{
 					return
-						!fcppt::algorithm::contains(
-							cur_system->extensions(),
+						fcppt::algorithm::contains(
+							_plugin.second->extensions(),
 							_extension
 						);
 				}
+			),
+			[](
+				auto const _iterator
 			)
-		)
-			continue;
-
-		optional_file_unique_ptr result(
-			_function(
-				*cur_system
-			)
+			->
+			System &
+			{
+				return
+					*_iterator->second;
+			}
 		);
-
-		if(
-			result.has_value()
-		)
-			return
-				result;
-	}
-
-	return
-		optional_file_unique_ptr();
 }
 
 template<
@@ -289,6 +328,83 @@ sge::media::detail::muxer<
 {
 	return
 		extensions_;
+}
+
+
+template<
+	typename System,
+	typename File
+>
+typename
+sge::media::detail::muxer<
+	System,
+	File
+>::load_stream_result
+sge::media::detail::muxer<
+	System,
+	File
+>::mux_stream_try_all(
+	sge::media::stream_unique_ptr &&_stream,
+	sge::media::optional_name const &_name
+) const
+{
+	return
+		// TODO: Make it possible to break out early
+		fcppt::algorithm::fold(
+			plugins_,
+			load_stream_result{
+				std::move(
+					_stream
+				)
+			},
+			[
+				&_name
+			](
+				plugin_system_pair const &_plugin,
+				load_stream_result &&_cur
+			)
+			{
+				return
+					fcppt::variant::match(
+						std::move(
+							_cur
+						),
+						[
+							&_name,
+							&_plugin
+						](
+							sge::media::stream_unique_ptr &&_cur_stream
+						)
+						{
+							// TODO: This doesn't need to be done in the first iteration
+							_cur_stream->seekg(
+								0,
+								std::ios_base::beg
+							);
+
+							return
+								_plugin.second->load_stream(
+									std::move(
+										_cur_stream
+									),
+									sge::media::optional_extension(),
+									_name
+								);
+						},
+						[](
+							file_unique_ptr &&_file
+						)
+						{
+							return
+								load_stream_result{
+									std::move(
+										_file
+									)
+								};
+						}
+					);
+			}
+		);
 }
 
 #endif

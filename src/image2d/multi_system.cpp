@@ -19,29 +19,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image2d/file.hpp>
+#include <sge/image2d/load_stream_result.hpp>
 #include <sge/image2d/multi_system.hpp>
 #include <sge/image2d/multi_system_parameters_fwd.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/plugin/traits.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/media/const_raw_range.hpp>
+#include <sge/media/extension_fwd.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
+#include <sge/media/optional_name_fwd.hpp>
+#include <sge/media/stream_unique_ptr.hpp>
 #include <sge/src/media/muxer_impl.hpp>
-#include <fcppt/function_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <functional>
-#include <iosfwd>
-#include <fcppt/config/external_end.hpp>
-
+#include <fcppt/optional_bind.hpp>
 
 
 sge::image2d::multi_system::multi_system(
 	sge::image2d::multi_system_parameters const &_params
 )
 :
+	sge::image2d::system(),
 	muxer_(
 		_params
 	)
@@ -52,84 +50,46 @@ sge::image2d::multi_system::~multi_system()
 {
 }
 
-sge::image2d::optional_file_unique_ptr
-sge::image2d::multi_system::load(
-	boost::filesystem::path const &_path
-)
-{
-	return
-		muxer_.mux_path(
-			_path,
-			muxer::load_function{
-				std::bind(
-					&sge::image2d::system::load,
-					std::placeholders::_1,
-					_path
-				)
-			}
-		);
-}
-
-sge::image2d::optional_file_unique_ptr
-sge::image2d::multi_system::load_raw(
-	sge::media::const_raw_range const &_range,
-	sge::media::optional_extension const &_extension
-)
-{
-	return
-		muxer_.mux_extension(
-			_extension,
-			muxer::load_function{
-				std::bind(
-					&sge::image2d::system::load_raw,
-					std::placeholders::_1,
-					_range,
-					_extension
-				)
-			}
-		);
-}
-
-sge::image2d::optional_file_unique_ptr
+sge::image2d::load_stream_result
 sge::image2d::multi_system::load_stream(
-	std::istream &_stream,
-	sge::media::optional_extension const &_extension
+	sge::media::stream_unique_ptr &&_stream,
+	sge::media::optional_extension const &_extension,
+	sge::media::optional_name const &_name
 )
 {
 	return
-		muxer_.mux_extension(
+		muxer_.mux_stream(
+			std::move(
+				_stream
+			),
 			_extension,
-			muxer::load_function{
-				std::bind(
-					&sge::image2d::system::load_stream,
-					std::placeholders::_1,
-					std::ref(
-						_stream
-					),
-					_extension
-				)
-			}
+			_name
 		);
 }
 
 sge::image2d::optional_file_unique_ptr
 sge::image2d::multi_system::create(
-	sge::image2d::view::const_object const &_object,
-	sge::media::optional_extension const &_extension
+	sge::image2d::view::const_object const &_view,
+	sge::media::extension const &_extension
 )
 {
 	return
-		muxer_.mux_extension(
-			_extension,
-			muxer::load_function{
-				std::bind(
-					&sge::image2d::system::create,
-					std::placeholders::_1,
-					std::cref(
-						_object
-					),
-					_extension
-				)
+		fcppt::optional_bind(
+			muxer_.mux_extension(
+				_extension
+			),
+			[
+				&_view,
+				&_extension
+			](
+				sge::image2d::system &_system
+			)
+			{
+				return
+					_system.create(
+						_view,
+						_extension
+					);
 			}
 		);
 }

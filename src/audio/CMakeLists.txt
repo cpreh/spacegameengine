@@ -14,12 +14,16 @@ set(
 	include/sge/audio/exception_fwd.hpp
 	include/sge/audio/file.hpp
 	include/sge/audio/file_exception.hpp
+	include/sge/audio/file_exception_fwd.hpp
 	include/sge/audio/file_fwd.hpp
 	include/sge/audio/file_unique_ptr.hpp
 	include/sge/audio/listener.hpp
 	include/sge/audio/listener_fwd.hpp
+	include/sge/audio/load.hpp
 	include/sge/audio/load_exn.hpp
 	include/sge/audio/load_raw_exn.hpp
+	include/sge/audio/load_stream_result.hpp
+	include/sge/audio/load_stream_result_fwd.hpp
 	include/sge/audio/loader.hpp
 	include/sge/audio/loader_fwd.hpp
 	include/sge/audio/loader_plugin/collection_fwd.hpp
@@ -80,6 +84,7 @@ set(
 	src/audio/file_exception.cpp
 	src/audio/include/sge/src/audio/logger.hpp
 	src/audio/listener.cpp
+	src/audio/load.cpp
 	src/audio/load_exn.cpp
 	src/audio/load_raw_exn.cpp
 	src/audio/loader.cpp

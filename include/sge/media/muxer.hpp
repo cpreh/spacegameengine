@@ -21,18 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MEDIA_MUXER_HPP_INCLUDED
 #define SGE_MEDIA_MUXER_HPP_INCLUDED
 
+#include <sge/media/extension_fwd.hpp>
 #include <sge/media/extension_set.hpp>
+#include <sge/media/load_stream_result_fwd.hpp>
 #include <sge/media/muxer_fwd.hpp>
 #include <sge/media/muxer_parameters_fwd.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
+#include <sge/media/optional_name_fwd.hpp>
+#include <sge/media/stream_unique_ptr_fwd.hpp>
 #include <sge/media/detail/muxer_fwd.hpp>
-#include <fcppt/function_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 
 
 namespace sge
@@ -65,24 +65,16 @@ public:
 	parameters;
 
 	typedef
-	fcppt::unique_ptr<
-		file
-	>
-	file_unique_ptr;
-
-	typedef
 	fcppt::optional<
-		file_unique_ptr
+		System &
 	>
-	optional_file_unique_ptr;
+	optional_system_ref;
 
 	typedef
-	fcppt::function<
-		optional_file_unique_ptr (
-			system &
-		)
+	sge::media::load_stream_result<
+		File
 	>
-	load_function;
+	load_stream_result;
 
 	explicit
 	muxer(
@@ -91,16 +83,16 @@ public:
 
 	~muxer();
 
-	optional_file_unique_ptr
-	mux_path(
-		boost::filesystem::path const &,
-		load_function const &
+	load_stream_result
+	mux_stream(
+		sge::media::stream_unique_ptr &&,
+		sge::media::optional_extension const &,
+		sge::media::optional_name const &
 	) const;
 
-	optional_file_unique_ptr
+	optional_system_ref
 	mux_extension(
-		media::optional_extension const &,
-		load_function const &
+		sge::media::extension const &
 	) const;
 
 	sge::media::extension_set

@@ -18,25 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_MEDIA_OPTIONAL_PATH_FWD_HPP_INCLUDED
-#define SGE_MEDIA_OPTIONAL_PATH_FWD_HPP_INCLUDED
+#ifndef SGE_AUDIO_FILE_EXCEPTION_FWD_HPP_INCLUDED
+#define SGE_AUDIO_FILE_EXCEPTION_FWD_HPP_INCLUDED
 
-#include <fcppt/optional_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/audio/exception_fwd.hpp>
+#include <sge/media/file_exception_fwd.hpp>
 
 
 namespace sge
 {
-namespace media
+namespace audio
 {
 
 typedef
-fcppt::optional<
-	boost::filesystem::path
+sge::media::file_exception<
+	sge::audio::exception
 >
-optional_path;
+file_exception;
 
 }
 }

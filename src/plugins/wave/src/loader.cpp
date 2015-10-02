@@ -19,29 +19,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/file.hpp>
-#include <sge/audio/file_exception.hpp>
-#include <sge/audio/optional_file_unique_ptr.hpp>
-#include <sge/audio/unsupported_format.hpp>
+#include <sge/audio/load_stream_result.hpp>
+#include <sge/audio/loader.hpp>
 #include <sge/media/check_extension.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
-#include <sge/media/optional_extension.hpp>
-#include <sge/media/optional_path.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
+#include <sge/media/optional_name_fwd.hpp>
+#include <sge/media/stream_unique_ptr.hpp>
 #include <sge/wave/file.hpp>
 #include <sge/wave/loader.hpp>
-#include <sge/wave/stream_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/container/raw_vector.hpp>
-#include <fcppt/io/raw_container_source.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/path.hpp>
-#include <boost/iostreams/stream.hpp>
-#include <fstream>
-#include <ios>
+#include <istream>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -53,21 +45,11 @@ sge::media::extension const extension(
 	FCPPT_TEXT("wav")
 );
 
-bool
-check_extension(
-	sge::media::optional_extension const &_extension
-)
-{
-	return
-		sge::media::check_extension(
-			extension,
-			_extension
-		);
-}
-
 }
 
 sge::wave::loader::loader()
+:
+	sge::audio::loader()
 {
 }
 
@@ -75,171 +57,41 @@ sge::wave::loader::~loader()
 {
 }
 
-sge::audio::optional_file_unique_ptr
-sge::wave::loader::load(
-	boost::filesystem::path const &filename
-)
-{
-	stream_ptr file_stream(
-		fcppt::unique_ptr_to_base<
-			std::istream
-		>(
-			fcppt::make_unique_ptr<
-				boost::filesystem::ifstream
-			>(
-				filename,
-				std::ios::binary
-			)
-		)
-	);
-
-	// TODO: Remove the static_cast
-	if(!static_cast<boost::filesystem::ifstream &>(*file_stream).is_open())
-		throw audio::file_exception(
-			sge::media::optional_path(
-				filename),
-			FCPPT_TEXT("couldn't open file"));
-	try
-	{
-		return
-			sge::audio::optional_file_unique_ptr(
-				fcppt::unique_ptr_to_base<
-					sge::audio::file
-				>(
-					fcppt::make_unique_ptr<
-						sge::wave::file
-					>(
-						std::move(
-							file_stream
-						),
-						sge::media::optional_path(
-							filename
-						)
-					)
-				)
-			);
-	}
-	catch(
-		sge::audio::unsupported_format const &
-	)
-	{
-		return
-			sge::audio::optional_file_unique_ptr();
-	}
-}
-
-sge::audio::optional_file_unique_ptr
-sge::wave::loader::load_raw(
-	sge::media::const_raw_range const &_range,
-	sge::media::optional_extension const &_extension
-)
-{
-	if(
-		!check_extension(
-			_extension
-		)
-	)
-		return
-			sge::audio::optional_file_unique_ptr();
-
-	typedef
-	boost::iostreams::stream
-	<
-		fcppt::io::raw_container_source
-		<
-			fcppt::container::raw_vector<char>
-		>
-	>
-	stream_type;
-
-	stream_ptr raw_stream(
-		fcppt::unique_ptr_to_base<
-			std::istream
-		>(
-			fcppt::make_unique_ptr<stream_type>(
-				reinterpret_cast<boost::iostreams::array_source::char_type const *>(
-					_range.begin()),
-				reinterpret_cast<boost::iostreams::array_source::char_type const *>(
-					_range.end()
-				)
-			)
-		)
-	);
-
-	try
-	{
-		return
-			sge::audio::optional_file_unique_ptr(
-				fcppt::unique_ptr_to_base<
-					sge::audio::file
-				>(
-					fcppt::make_unique_ptr<
-						sge::wave::file
-					>(
-						std::move(
-							raw_stream
-						),
-						sge::media::optional_path()
-					)
-				)
-			);
-	}
-	catch(
-		sge::audio::unsupported_format const &
-	)
-	{
-		return
-			sge::audio::optional_file_unique_ptr();
-	}
-}
-
-sge::audio::optional_file_unique_ptr
+sge::audio::load_stream_result
 sge::wave::loader::load_stream(
-	std::istream &_stream,
-	sge::media::optional_extension const &_extension
+	sge::media::stream_unique_ptr &&_stream,
+	sge::media::optional_extension const &_extension,
+	sge::media::optional_name const &_name
 )
 {
-	if(
-		!check_extension(
+	return
+		sge::media::check_extension(
+			extension,
 			_extension
 		)
-	)
-		return
-			sge::audio::optional_file_unique_ptr();
-
-	try
-	{
-		return
-			sge::audio::optional_file_unique_ptr(
+		?
+			// FIXME: Don't use exceptions here!
+			sge::audio::load_stream_result{
 				fcppt::unique_ptr_to_base<
 					sge::audio::file
 				>(
 					fcppt::make_unique_ptr<
 						sge::wave::file
 					>(
-						// This is supposed to create a new istream which
-						// replaces the old one. I'm not sure if rdbuf(0)
-						// is allowed and if this is the best way to
-						// achieve the goal.
-						fcppt::make_unique_ptr<
-							std::istream
-						>(
-							_stream.rdbuf(
-								nullptr
-							)
+						std::move(
+							_stream
 						),
-						sge::media::optional_path()
+						_name
 					)
 				)
-			);
-	}
-	catch(
-		sge::audio::unsupported_format const &
-	)
-	{
-		return
-			sge::audio::optional_file_unique_ptr();
-	}
+			}
+		:
+			sge::audio::load_stream_result{
+				std::move(
+					_stream
+				)
+			}
+		;
 }
 
 sge::media::extension_set

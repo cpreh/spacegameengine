@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/libpng/error_context_fwd.hpp>
 #include <sge/libpng/png.hpp>
-#include <sge/media/optional_path.hpp>
+#include <sge/media/optional_name.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional.hpp>
 
@@ -41,7 +41,7 @@ class error_context
 public:
 	explicit
 	error_context(
-		sge::media::optional_path const &
+		sge::media::optional_name const &
 	);
 
 	~error_context();
@@ -60,7 +60,7 @@ public:
 		png_const_charp
 	);
 private:
-	sge::media::optional_path const path_;
+	sge::media::optional_name const name_;
 
 	void
 	handle_warning_impl(
