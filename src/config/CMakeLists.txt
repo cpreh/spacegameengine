@@ -22,6 +22,7 @@ sge_config_add_custom_path(
 	media
 	${SGE_MEDIA_BUILD_PATH}
 	${SGE_MEDIA_INSTALL_PATH}
+	MEDIA_INCLUDES
 )
 
 sge_config_add_custom_path(
@@ -29,6 +30,7 @@ sge_config_add_custom_path(
 	plugin
 	${SGE_PLUGIN_BUILD_PATH}
 	${SGE_PLUGIN_INSTALL_PATH}
+	PLUGIN_INCLUDES
 )
 
 set(
@@ -99,4 +101,6 @@ add_sge_base_library(
 		${Boost_SYSTEM_LIBRARIES}
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/include"
+		${MEDIA_INCLUDES}
+		${PLUGIN_INCLUDES}
 )
