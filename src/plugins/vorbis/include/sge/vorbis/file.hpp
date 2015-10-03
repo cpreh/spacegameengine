@@ -122,10 +122,6 @@ private:
 		ogg_int64_t offset,
 		int whence);
 
-	static int
-	ogg_close_static(
-		void *datasource);
-
 	static long
 	ogg_tell_static(
 		void *datasource);
@@ -140,9 +136,6 @@ private:
 	ogg_seek(
 		ogg_int64_t offset,
 		int whence);
-
-	int
-	ogg_close();
 
 	long
 	ogg_tell();

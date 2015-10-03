@@ -4,7 +4,6 @@ set(
 	src/plugins/libpng/include/sge/libpng/byte_vector.hpp
 	src/plugins/libpng/include/sge/libpng/byte_vector_fwd.hpp
 	src/plugins/libpng/include/sge/libpng/bytes_per_pixel.hpp
-	src/plugins/libpng/include/sge/libpng/check_extension.hpp
 	src/plugins/libpng/include/sge/libpng/color_type_from_format.hpp
 	src/plugins/libpng/include/sge/libpng/compare_gamma.hpp
 	src/plugins/libpng/include/sge/libpng/create_struct.hpp
@@ -45,7 +44,6 @@ set(
 	src/plugins/libpng/include/sge/libpng/write_ptr.hpp
 	src/plugins/libpng/include/sge/libpng/write_ptr_fwd.hpp
 	src/plugins/libpng/src/bit_depth_from_format.cpp
-	src/plugins/libpng/src/check_extension.cpp
 	src/plugins/libpng/src/color_type_from_format.cpp
 	src/plugins/libpng/src/compare_gamma.cpp
 	src/plugins/libpng/src/error_context.cpp

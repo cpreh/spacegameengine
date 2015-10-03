@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
 #include <algorithm>
 #include <iterator>
 #include <utility>
@@ -90,7 +89,7 @@ sge::vorbis::file::file(
 
 	callbacks.read_func = &file::ogg_read_static;
 	callbacks.seek_func = &file::ogg_seek_static;
-	callbacks.close_func = &file::ogg_close_static;
+	callbacks.close_func = nullptr;
 	callbacks.tell_func = &file::ogg_tell_static;
 
 	// This might fail with ENOTVORBIS, so we send an unsupported_format
@@ -309,14 +308,6 @@ sge::vorbis::file::ogg_seek_static(
 			whence);
 }
 
-int
-sge::vorbis::file::ogg_close_static(void *datasource)
-{
-	return
-		static_cast<sge::vorbis::file*>(
-			datasource)->ogg_close();
-}
-
 long
 sge::vorbis::file::ogg_tell_static(void *datasource)
 {
@@ -394,17 +385,6 @@ sge::vorbis::file::ogg_seek(
 				file_name_,
 				FCPPT_TEXT("vorbis: invalid seek parameter"));
 	}
-	return 0;
-}
-
-int
-sge::vorbis::file::ogg_close()
-{
-	// Kind of a hack here, sorry.
-	if (file_name_.has_value())
-		static_cast<boost::filesystem::ifstream &>(
-			*stdstream_).close();
-	// the return code is not checked, but zero indicates success in the orr library
 	return 0;
 }
 

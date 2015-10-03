@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/load_stream_result.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
-#include <sge/libpng/check_extension.hpp>
 #include <sge/libpng/extension.hpp>
 #include <sge/libpng/file.hpp>
 #include <sge/libpng/is_png.hpp>
 #include <sge/libpng/system.hpp>
+#include <sge/media/check_extension.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
@@ -58,7 +58,8 @@ sge::libpng::system::load_stream(
 )
 {
 	return
-		sge::libpng::check_extension(
+		sge::media::check_extension(
+			sge::libpng::extension(),
 			_extension
 		)
 		&&
