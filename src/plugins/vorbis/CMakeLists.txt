@@ -1,14 +1,30 @@
 set(
 	SGE_VORBIS_FILES
+	src/plugins/vorbis/include/sge/vorbis/error_string.hpp
 	src/plugins/vorbis/include/sge/vorbis/file.hpp
+	src/plugins/vorbis/include/sge/vorbis/info.hpp
 	src/plugins/vorbis/include/sge/vorbis/loader.hpp
 	src/plugins/vorbis/include/sge/vorbis/logger.hpp
 	src/plugins/vorbis/include/sge/vorbis/logger_context.hpp
+	src/plugins/vorbis/include/sge/vorbis/open.hpp
+	src/plugins/vorbis/include/sge/vorbis/optional_stream_unique_ptr.hpp
+	src/plugins/vorbis/include/sge/vorbis/optional_stream_unique_ptr_fwd.hpp
+	src/plugins/vorbis/include/sge/vorbis/read.hpp
+	src/plugins/vorbis/include/sge/vorbis/seek.hpp
+	src/plugins/vorbis/include/sge/vorbis/stream.hpp
+	src/plugins/vorbis/include/sge/vorbis/stream_fwd.hpp
+	src/plugins/vorbis/include/sge/vorbis/stream_unique_ptr.hpp
+	src/plugins/vorbis/src/error_string.cpp
 	src/plugins/vorbis/src/exports.cpp
 	src/plugins/vorbis/src/file.cpp
+	src/plugins/vorbis/src/info.cpp
 	src/plugins/vorbis/src/loader.cpp
 	src/plugins/vorbis/src/logger.cpp
 	src/plugins/vorbis/src/logger_context.cpp
+	src/plugins/vorbis/src/open.cpp
+	src/plugins/vorbis/src/read.cpp
+	src/plugins/vorbis/src/seek.cpp
+	src/plugins/vorbis/src/stream.cpp
 )
 
 add_sge_plugin(

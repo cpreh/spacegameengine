@@ -28,7 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/vorbis/file.hpp>
 #include <sge/vorbis/loader.hpp>
+#include <sge/vorbis/open.hpp>
+#include <sge/vorbis/stream.hpp>
+#include <sge/vorbis/stream_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -68,23 +72,48 @@ sge::vorbis::loader::load_stream(
 			extension,
 			_extension
 		)
-		// FIXME: Refactor this so it doesn't use exceptions
-		// The stream is "used up" otherwise
 		?
-			sge::audio::load_stream_result{
-				fcppt::unique_ptr_to_base<
-					sge::audio::file
-				>(
-					fcppt::make_unique_ptr<
-						sge::vorbis::file
-					>(
-						std::move(
-							_stream
-						),
-						_name
-					)
+			fcppt::maybe(
+				sge::vorbis::open(
+					*_stream
+				),
+				[
+					&_stream
+				]{
+					return
+						sge::audio::load_stream_result(
+							std::move(
+								_stream
+							)
+						);
+				},
+				[
+					&_stream,
+					&_name
+				](
+					sge::vorbis::stream_unique_ptr &&_vorbis_stream
 				)
-			}
+				{
+					return
+						sge::audio::load_stream_result{
+							fcppt::unique_ptr_to_base<
+								sge::audio::file
+							>(
+								fcppt::make_unique_ptr<
+									sge::vorbis::file
+								>(
+									std::move(
+										_stream
+									),
+									std::move(
+										_vorbis_stream
+									),
+									_name
+								)
+							)
+						};
+				}
+			)
 		:
 			sge::audio::load_stream_result(
 				std::move(

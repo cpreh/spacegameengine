@@ -18,26 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_SAMPLE_CONTAINER_FWD_HPP_INCLUDED
-#define SGE_AUDIO_SAMPLE_CONTAINER_FWD_HPP_INCLUDED
+#include <sge/audio/file_exception.hpp>
+#include <sge/media/optional_name_fwd.hpp>
+#include <sge/vorbis/info.hpp>
+#include <sge/vorbis/stream.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vorbis/codec.h>
+#include <vorbis/vorbisfile.h>
+#include <fcppt/config/external_end.hpp>
 
-#include <sge/audio/raw_data.hpp>
-#include <fcppt/container/raw_vector_fwd.hpp>
 
-
-namespace sge
+vorbis_info
+sge::vorbis::info(
+	sge::vorbis::stream &_stream,
+	sge::media::optional_name const &_name
+)
 {
-namespace audio
-{
+	vorbis_info *const info(
+		::ov_info(
+			_stream.get(),
+			-1
+		)
+	);
 
-/// A container holding raw bytes that represent samples
-typedef
-fcppt::container::raw_vector<
-	sge::audio::raw_data
->
-sample_container;
+	if(
+		info
+		==
+		nullptr
+	)
+		throw
+			sge::audio::file_exception(
+				_name,
+				FCPPT_TEXT("couldn't read file info from ogg vorbis file")
+			);
 
+	return
+		*info;
 }
-}
-
-#endif

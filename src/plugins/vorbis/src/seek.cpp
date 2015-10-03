@@ -18,26 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_SAMPLE_CONTAINER_FWD_HPP_INCLUDED
-#define SGE_AUDIO_SAMPLE_CONTAINER_FWD_HPP_INCLUDED
+#include <sge/audio/file_exception.hpp>
+#include <sge/media/optional_name_fwd.hpp>
+#include <sge/vorbis/error_string.hpp>
+#include <sge/vorbis/seek.hpp>
+#include <sge/vorbis/stream.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vorbis/codec.h>
+#include <vorbis/vorbisfile.h>
+#include <fcppt/config/external_end.hpp>
 
-#include <sge/audio/raw_data.hpp>
-#include <fcppt/container/raw_vector_fwd.hpp>
 
-
-namespace sge
+void
+sge::vorbis::seek(
+	sge::vorbis::stream &_stream,
+	sge::media::optional_name const &_name,
+	ogg_int64_t const _pos
+)
 {
-namespace audio
-{
+	int const error{
+		::ov_pcm_seek(
+			_stream.get(),
+			_pos
+		)
+	};
 
-/// A container holding raw bytes that represent samples
-typedef
-fcppt::container::raw_vector<
-	sge::audio::raw_data
->
-sample_container;
-
+	if(
+		error
+		!=
+		0
+	)
+		throw
+			sge::audio::file_exception{
+				_name,
+				FCPPT_TEXT("vorbis: couldn't reset file: ")
+				+
+				sge::vorbis::error_string(
+					error
+				)
+			};
 }
-}
-
-#endif

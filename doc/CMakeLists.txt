@@ -117,6 +117,8 @@ set(
 	include/sge/audio/player_plugin/traits.hpp
 	include/sge/audio/player_shared_ptr.hpp
 	include/sge/audio/player_unique_ptr.hpp
+	include/sge/audio/raw_data.hpp
+	include/sge/audio/raw_pointer.hpp
 	include/sge/audio/sample_container.hpp
 	include/sge/audio/sample_container_fwd.hpp
 	include/sge/audio/sample_count.hpp

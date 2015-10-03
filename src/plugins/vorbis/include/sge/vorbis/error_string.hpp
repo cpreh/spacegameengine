@@ -18,24 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_SAMPLE_CONTAINER_FWD_HPP_INCLUDED
-#define SGE_AUDIO_SAMPLE_CONTAINER_FWD_HPP_INCLUDED
+#ifndef SGE_VORBIS_ERROR_STRING_HPP_INCLUDED
+#define SGE_VORBIS_ERROR_STRING_HPP_INCLUDED
 
-#include <sge/audio/raw_data.hpp>
-#include <fcppt/container/raw_vector_fwd.hpp>
+#include <fcppt/string.hpp>
 
 
 namespace sge
 {
-namespace audio
+namespace vorbis
 {
 
-/// A container holding raw bytes that represent samples
-typedef
-fcppt::container::raw_vector<
-	sge::audio::raw_data
->
-sample_container;
+fcppt::string
+error_string(
+	int
+);
 
 }
 }

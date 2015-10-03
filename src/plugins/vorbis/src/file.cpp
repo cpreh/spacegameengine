@@ -18,382 +18,188 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/exception.hpp>
-#include <sge/audio/file_exception.hpp>
-#include <sge/audio/unsupported_format.hpp>
-#include <sge/media/error_string.hpp>
+#include <sge/audio/channel_type.hpp>
+#include <sge/audio/file.hpp>
+#include <sge/audio/sample_container.hpp>
+#include <sge/audio/sample_count.hpp>
 #include <sge/media/optional_name.hpp>
 #include <sge/media/stream_unique_ptr.hpp>
 #include <sge/vorbis/file.hpp>
-#include <sge/vorbis/logger.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
+#include <sge/vorbis/info.hpp>
+#include <sge/vorbis/read.hpp>
+#include <sge/vorbis/seek.hpp>
+#include <sge/vorbis/stream.hpp>
+#include <sge/vorbis/stream_unique_ptr.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/cast/safe_numeric.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
-#include <fcppt/endianness/is_little_endian.hpp>
-#include <fcppt/log/_.hpp>
-#include <fcppt/log/debug.hpp>
-#include <fcppt/log/warning.hpp>
+#include <fcppt/cast/to_signed.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <algorithm>
-#include <iterator>
+#include <cstddef>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace
-{
-fcppt::string
-ogg_error(
-	int const code)
-{
-	switch(code)
-	{
-		case OV_EREAD:
-			return FCPPT_TEXT("a read from a media has returned an error");
-		case OV_ENOTVORBIS:
-			return FCPPT_TEXT("bitstream does not contain any vorbis data");
-		case OV_EVERSION:
-			return FCPPT_TEXT("vorbis version mismatch");
-		case OV_EBADHEADER:
-			return FCPPT_TEXT("invalid vorbis bitstream header");
-		case OV_EFAULT:
-			return FCPPT_TEXT("Internal logic fault (bug or heap/stack corruption)");
-		case OV_ENOSEEK:
-			return FCPPT_TEXT("bitstream is not seekable.");
-		default:
-			return FCPPT_TEXT("unknown ogg error");
-	}
-}
-}
-
 sge::vorbis::file::file(
 	sge::media::stream_unique_ptr &&_stdstream,
-	sge::media::optional_name const &_file_name
+	sge::vorbis::stream_unique_ptr &&_stream,
+	sge::media::optional_name const &_name
 )
 :
-	file_name_(
-		_file_name
+	sge::audio::file(),
+	name_(
+		_name
 	),
 	stdstream_(
 		std::move(
 			_stdstream
 		)
 	),
-	ogg_file_(),
-	channels_(),
-	sample_rate_()
-{
-	ov_callbacks callbacks;
-
-	callbacks.read_func = &file::ogg_read_static;
-	callbacks.seek_func = &file::ogg_seek_static;
-	callbacks.close_func = nullptr;
-	callbacks.tell_func = &file::ogg_tell_static;
-
-	// This might fail with ENOTVORBIS, so we send an unsupported_format
-	// here (but technically, it could be a different error. FIXME: Do
-	// better error reporting here.
-	if(
-		int error =
-			ov_open_callbacks(
-				this,
-				&ogg_file_,
-				nullptr,
-				0l,
-				callbacks
-			)
+	stream_(
+		std::move(
+			_stream
+		)
+	),
+	info_(
+		sge::vorbis::info(
+			*stream_,
+			name_
+		)
 	)
-
-		throw audio::unsupported_format(
-			file_name_,
-			ogg_error(
-				error));
-
-	vorbis_info * const info =
-		ov_info(
-			&ogg_file_,
-			-1);
-
-	if (!info)
-		throw audio::file_exception(
-			file_name_,
-			FCPPT_TEXT("couldn't read file info from ogg vorbis file"));
-
-	channels_ =
-		static_cast<channel_type>(
-			info->channels);
-	sample_rate_ =
-		static_cast<sample_count>(
-			info->rate);
+{
 }
-
 
 sge::audio::sample_count
 sge::vorbis::file::read(
-	sample_count const samples,
-	sample_container &data)
+	sge::audio::sample_count const _samples,
+	sge::audio::sample_container &_data
+)
 {
-	// The EOF test is stupid because the ogg library could have already
-	// read all the file's bytes while determining the sample rate (and
-	// stuff), so we don't have to test this. But I leave it here in
-	// case any problems arise.
-	/*
-	if (stdstream_->eof())
-	{
-		return 0;
-	}
-	*/
+	sge::audio::sample_count const bytes_to_read{
+		_samples
+		*
+		this->channels()
+		*
+		this->bytes_per_sample()
+	};
 
-	sample_count const bytes_to_read =
-		samples*
-		channels()*
-		bytes_per_sample();
+	std::size_t const old_size(
+		_data.size()
+	);
 
-	sample_container newdata(
-		fcppt::cast::safe_numeric<sample_container::size_type>(
-			bytes_to_read));
+	_data.resize_uninitialized(
+		_data.size()
+		+
+		bytes_to_read
+	);
 
-	sample_count bytes_read =
-		0;
-
-	// When reading from the file, you might encounter a bad fragment
-	// which is indicated by OV_HOLE. According to a mailing list post,
-	// we can just ignore holes.
-	bool hit_a_hole =
-		true;
-	while(hit_a_hole)
-	{
-		int bitstream;
-
-		long result =
-			ov_read(
-				&ogg_file_,
-				reinterpret_cast<char *>(
-					&newdata[bytes_read]),
-				static_cast<int>(
-					bytes_to_read - bytes_read),
-				static_cast<int>(
-					!fcppt::endianness::is_little_endian()),
-				2, // 8 or 16 bit samples
-				1, // 0 is unsigned data, 1 is signed
-				&bitstream);
-
-		switch (result)
-		{
-			case OV_HOLE:
-				hit_a_hole = true;
-				FCPPT_LOG_WARNING(
-					sge::vorbis::logger(),
-					fcppt::log::_ <<
-						sge::media::error_string(
-							file_name_,
-							FCPPT_TEXT("Encountered corrupt vorbis data.")
-						)
-				);
-				break;
-			case OV_EBADLINK:
-				throw audio::file_exception(
-					file_name_,
-					FCPPT_TEXT("an invalid stream section was supplied to libvorbisfile, or the requested link is corrupt"));
-			case OV_EINVAL:
-				throw audio::file_exception(
-					file_name_,
-					FCPPT_TEXT("the initial file headers couldn't be read or are corrupt, or the initial open call for vf failed"));
-		}
-
-		hit_a_hole = false;
-
-		if(result == 0)
-		{
-			FCPPT_LOG_DEBUG(
-				sge::vorbis::logger(),
-				fcppt::log::_ << FCPPT_TEXT("vorbis: read until the end"));
-		}
-
-		bytes_read =
-			static_cast<sample_count>(
-				bytes_read + static_cast<unsigned long>(result));
-	}
-
-	std::copy(
-		newdata.begin(),
-		newdata.begin() + bytes_read,
-		std::back_inserter(
-			data));
+	std::size_t const bytes_read(
+		sge::vorbis::read(
+			*stream_,
+			name_,
+			_data.data()
+			+
+			old_size,
+			bytes_to_read
+		)
+	);
 
 	FCPPT_ASSERT_ERROR(
-		bytes_read % bytes_per_sample() == 0);
+		bytes_read
+		%
+		this->bytes_per_sample()
+		==
+		0u
+	);
 
-	return bytes_read/bytes_per_sample();
+	_data.resize_uninitialized(
+		old_size
+		+
+		bytes_read
+	);
+
+	return
+		bytes_read
+		/
+		this->bytes_per_sample();
 }
 
 sge::audio::sample_count
 sge::vorbis::file::read_all(
-	sample_container &data)
+	sge::audio::sample_container &_data
+)
 {
-	while (read(fcppt::cast::safe_numeric<sample_count>(16u*4096u),data))
+	// TODO: Is this correct?
+	_data.clear();
+
+	while(
+		this->read(
+			sge::audio::sample_count{
+				16u
+				*
+				4096u
+			},
+			_data
+		)
+		!=
+		sge::audio::sample_count{
+			0u
+		}
+	)
 		;
-	return data.size()/bytes_per_sample();
+
+	return
+		_data.size()
+		/
+		this->bytes_per_sample();
 }
 
-sge::vorbis::file::channel_type
+sge::audio::channel_type
 sge::vorbis::file::channels() const
 {
-	return channels_;
+	return
+		fcppt::cast::to_unsigned(
+			info_.channels
+		);
 }
 
-sge::vorbis::file::sample_count
+sge::audio::sample_count
 sge::vorbis::file::sample_rate() const
 {
-	return sample_rate_;
+	return
+		fcppt::cast::to_unsigned(
+			info_.rate
+		);
 }
 
-sge::vorbis::file::sample_count
+sge::audio::sample_count
 sge::vorbis::file::bits_per_sample() const
 {
-	return static_cast<sample_count>(16);
+	return
+		sge::audio::sample_count{
+			16u
+		};
 }
 
 sge::audio::sample_count
 sge::vorbis::file::expected_package_size() const
 {
 	// FIXME: How do we determine the correct size? :(
-	return 2048;
+	return
+		sge::audio::sample_count{
+			2048
+		};
 }
 
-void sge::vorbis::file::reset()
+void
+sge::vorbis::file::reset()
 {
-	if (int error = ov_pcm_seek(&ogg_file_,0))
-		throw audio::file_exception(
-			file_name_,
-			FCPPT_TEXT("vorbis: couldn't reset file: ")+
-			ogg_error(
-				error));
+	sge::vorbis::seek(
+		*stream_,
+		name_,
+		0
+	);
 }
 
 sge::vorbis::file::~file()
 {
-	int result =
-		ov_clear(
-			&ogg_file_);
-	FCPPT_ASSERT_ERROR(
-		!result);
-}
-
-std::size_t
-sge::vorbis::file::ogg_read_static(
-	void * const ptr,
-	std::size_t const size,
-	std::size_t const nmemb,
-	void * const datasource)
-{
-	return
-		static_cast<sge::vorbis::file*>(datasource)->ogg_read(
-			ptr,
-			size,
-			nmemb);
-}
-
-int
-sge::vorbis::file::ogg_seek_static(
-	void * const datasource,
-	ogg_int64_t const offset,
-	int const whence)
-{
-	return
-		static_cast<sge::vorbis::file*>(datasource)->ogg_seek(
-			offset,
-			whence);
-}
-
-long
-sge::vorbis::file::ogg_tell_static(void *datasource)
-{
-	return
-		static_cast<sge::vorbis::file*>(datasource)->ogg_tell();
-}
-
-std::size_t
-sge::vorbis::file::ogg_read(
-	void * const ptr,
-	std::size_t const size,  // size of a "package"
-	std::size_t const nmemb) // how many packages to read
-{
-	if(stdstream_->eof())
-		return 0;
-	stdstream_->read(
-		static_cast<char *>(
-			ptr),
-		static_cast<std::streamsize>(
-			size*nmemb));
-	if(stdstream_->bad())
-		throw audio::file_exception(
-			file_name_,
-			FCPPT_TEXT("vorbis: stream error"));
-	return
-		static_cast<std::size_t>(
-			static_cast<std::size_t>(
-				stdstream_->gcount())/
-			size);
-}
-
-int
-sge::vorbis::file::ogg_seek(
-	ogg_int64_t const offset,
-	int whence)
-{
-	if(stdstream_->eof())
-		stdstream_->clear();
-
-	switch (whence)
-	{
-		case SEEK_SET:
-			stdstream_->seekg(
-				fcppt::cast::safe_numeric<std::streamoff>(
-					offset),
-				std::ios_base::beg);
-
-			if (stdstream_->bad())
-				throw audio::file_exception(
-					file_name_,
-					FCPPT_TEXT("vorbis: stream error"));
-			break;
-		case SEEK_CUR:
-			stdstream_->seekg(
-				fcppt::cast::safe_numeric<std::streamoff>(
-					offset),
-				std::ios_base::cur);
-			if (stdstream_->bad())
-				throw audio::file_exception(
-					file_name_,
-					FCPPT_TEXT("vorbis: stream error"));
-			break;
-		case SEEK_END:
-			stdstream_->seekg(
-				fcppt::cast::safe_numeric<std::streamoff>(
-					offset),
-				std::ios_base::end);
-			if (stdstream_->bad())
-				throw audio::file_exception(
-					file_name_,
-					FCPPT_TEXT("vorbis: stream error"));
-			break;
-		default:
-			throw audio::file_exception(
-				file_name_,
-				FCPPT_TEXT("vorbis: invalid seek parameter"));
-	}
-	return 0;
-}
-
-long
-sge::vorbis::file::ogg_tell()
-{
-	return
-		// Doesn't work (investigate?)
-		//fcppt::cast::safe_numeric<long>(
-		static_cast<long>(
-			stdstream_->tellg());
 }

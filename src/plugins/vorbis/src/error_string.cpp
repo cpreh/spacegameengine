@@ -18,26 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_AUDIO_SAMPLE_CONTAINER_FWD_HPP_INCLUDED
-#define SGE_AUDIO_SAMPLE_CONTAINER_FWD_HPP_INCLUDED
+#include <sge/vorbis/error_string.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vorbis/codec.h>
+#include <fcppt/config/external_end.hpp>
 
-#include <sge/audio/raw_data.hpp>
-#include <fcppt/container/raw_vector_fwd.hpp>
 
-
-namespace sge
+fcppt::string
+sge::vorbis::error_string(
+	int const _code
+)
 {
-namespace audio
-{
-
-/// A container holding raw bytes that represent samples
-typedef
-fcppt::container::raw_vector<
-	sge::audio::raw_data
->
-sample_container;
-
+	switch(
+		_code
+	)
+	{
+	case OV_EREAD:
+		return
+			FCPPT_TEXT("a read from a media has returned an error");
+	case OV_ENOTVORBIS:
+		return
+			FCPPT_TEXT("bitstream does not contain any vorbis data");
+	case OV_EVERSION:
+		return
+			FCPPT_TEXT("vorbis version mismatch");
+	case OV_EBADHEADER:
+		return
+			FCPPT_TEXT("invalid vorbis bitstream header");
+	case OV_EFAULT:
+		return
+			FCPPT_TEXT("Internal logic fault (bug or heap/stack corruption)");
+	case OV_ENOSEEK:
+		return
+			FCPPT_TEXT("bitstream is not seekable.");
+	default:
+		return
+			FCPPT_TEXT("unknown ogg error");
+	}
 }
-}
-
-#endif
