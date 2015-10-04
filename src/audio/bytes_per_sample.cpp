@@ -18,46 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/openal/alc.hpp>
-#include <sge/openal/context.hpp>
-#include <sge/openal/device.hpp>
-#include <sge/openal/funcs/alc_create_context.hpp>
-#include <sge/openal/funcs/alc_destroy_context.hpp>
+#include <sge/audio/bits_per_sample.hpp>
+#include <sge/audio/bytes_per_sample.hpp>
+#include <sge/audio/raw_data.hpp>
+#include <sge/audio/sample_count.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <limits>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::openal::context::context(
-	sge::openal::device &_device
+sge::audio::sample_count
+sge::audio::bytes_per_sample(
+	sge::audio::bits_per_sample const _bits
 )
-:
-	device_(
-		_device
-	),
-	context_(
-		sge::openal::funcs::alc_create_context(
-			device_.aldevice()
-		)
-	)
-{
-}
-
-ALCcontext &
-sge::openal::context::alcontext()
 {
 	return
-		*context_;
-}
-
-ALCdevice &
-sge::openal::context::aldevice()
-{
-	return
-		device_.aldevice();
-}
-
-sge::openal::context::~context()
-{
-	sge::openal::funcs::alc_destroy_context(
-		this->aldevice(),
-		this->alcontext()
-	);
+		_bits.get()
+		/
+		fcppt::cast::size<
+			sge::audio::sample_count
+		>(
+			fcppt::cast::to_unsigned(
+				std::numeric_limits<
+					sge::audio::raw_data
+				>::digits
+			)
+		);
 }

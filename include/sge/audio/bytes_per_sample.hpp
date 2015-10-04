@@ -18,46 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/openal/alc.hpp>
-#include <sge/openal/context.hpp>
-#include <sge/openal/device.hpp>
-#include <sge/openal/funcs/alc_create_context.hpp>
-#include <sge/openal/funcs/alc_destroy_context.hpp>
+#ifndef SGE_AUDIO_BYTES_PER_SAMPLE_HPP_INCLUDED
+#define SGE_AUDIO_BYTES_PER_SAMPLE_HPP_INCLUDED
+
+#include <sge/audio/bits_per_sample.hpp>
+#include <sge/audio/sample_count.hpp>
+#include <sge/audio/detail/symbol.hpp>
 
 
-sge::openal::context::context(
-	sge::openal::device &_device
-)
-:
-	device_(
-		_device
-	),
-	context_(
-		sge::openal::funcs::alc_create_context(
-			device_.aldevice()
-		)
-	)
+namespace sge
 {
+namespace audio
+{
+
+SGE_AUDIO_DETAIL_SYMBOL
+sge::audio::sample_count
+bytes_per_sample(
+	sge::audio::bits_per_sample
+);
+
+}
 }
 
-ALCcontext &
-sge::openal::context::alcontext()
-{
-	return
-		*context_;
-}
-
-ALCdevice &
-sge::openal::context::aldevice()
-{
-	return
-		device_.aldevice();
-}
-
-sge::openal::context::~context()
-{
-	sge::openal::funcs::alc_destroy_context(
-		this->aldevice(),
-		this->alcontext()
-	);
-}
+#endif

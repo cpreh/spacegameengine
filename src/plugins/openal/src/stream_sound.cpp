@@ -39,8 +39,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/funcs/source_queue_buffers.hpp>
 #include <sge/openal/funcs/source_unqueue_buffer.hpp>
 #include <sge/openal/funcs/source_unqueue_buffers.hpp>
+#include <fcppt/literal.hpp>
+#include <fcppt/loop.hpp>
+#include <fcppt/make_int_range_count.hpp>
+#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/loop_break.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 
@@ -76,9 +83,7 @@ sge::openal::stream_sound::~stream_sound()
 	this->stop();
 
 	sge::openal::buffer_id_container buffers(
-		static_cast<
-			sge::openal::buffer_id_container::size_type
-		>(
+		fcppt::cast::to_unsigned(
 			sge::openal::funcs::get_source_int(
 				this->source_id(),
 				AL_BUFFERS_QUEUED
@@ -89,10 +94,12 @@ sge::openal::stream_sound::~stream_sound()
 	sge::openal::funcs::source_unqueue_buffers(
 		this->source_id(),
 		buffers.data(),
-		static_cast<
+		fcppt::cast::size<
 			ALsizei
 		>(
-			buffers.size()
+			fcppt::cast::to_signed(
+				buffers.size()
+			)
 		)
 	);
 }
@@ -114,7 +121,9 @@ sge::openal::stream_sound::update()
 	);
 
 	if(
-		processed == 0
+		processed
+		==
+		0
 	)
 	{
 		// If no buffers were processed, we can exit right now and don't
@@ -141,44 +150,60 @@ sge::openal::stream_sound::update()
 	//
 	// See the comments below to see how we hack around this.
 
-	// First, we create a new variable which stores if we've really
-	// filled any more buffers. If we haven't, then the sound stopped
-	// because it's the stream's end.
-	bool new_data = false;
+	// First, we create a new variable which stores if we've really filled
+	// any more buffers. If we haven't, then the sound is stopped because
+	// it's the stream's end.
+	bool new_data{
+		false
+	};
 
-	for(
-		ALint i = 0;
-		i < processed;
-		++i
-	)
-	{
-		// throw away one buffer from the top (the processed one)
-		sge::openal::buffer_id const buffer(
-			sge::openal::funcs::source_unqueue_buffer(
-				this->source_id()
-			)
-		);
-
-		if(
-			!this->fill_buffer(
-				buffer
-			)
+	fcppt::algorithm::loop_break(
+		fcppt::make_int_range_count(
+			processed
+		),
+		[
+			&new_data,
+			this
+		](
+			ALint
 		)
-			break;
+		{
+			// throw away one buffer from the top (the processed one)
+			sge::openal::buffer_id const buffer(
+				sge::openal::funcs::source_unqueue_buffer(
+					this->source_id()
+				)
+			);
 
-		// ...and put the newly filled back in
-		sge::openal::funcs::source_queue_buffer(
-			this->source_id(),
-			buffer
-		);
+			if(
+				!this->fill_buffer(
+					buffer
+				)
+			)
+				return
+					fcppt::loop::break_;
 
-		new_data = true;
-	}
+			// ...and put the newly filled back in
+			sge::openal::funcs::source_queue_buffer(
+				this->source_id(),
+				buffer
+			);
+
+			new_data =
+				true;
+
+			return
+				fcppt::loop::continue_;
+		}
+	);
 
 	// Then we check if the source has really stopped (possible underrun)
 	if(
-		current_play_status != sge::audio::sound::play_status::playing
-		&& new_data
+		current_play_status
+		!=
+		sge::audio::sound::play_status::playing
+		&&
+		new_data
 	)
 		// And if an underrun occured, play (again)
 		sge::openal::funcs::source_play(
@@ -194,14 +219,18 @@ sge::openal::stream_sound::do_play()
 {
 	// reset file and fill buffers
 	if(
-		this->status() == sge::audio::sound::play_status::playing
+		this->status()
+		==
+		sge::audio::sound::play_status::playing
 	)
 		return;
 
 	audio_file_.reset();
 
 	for(
-		ALuint id : buffers_.container()
+		ALuint const id
+		:
+		buffers_.container()
 	)
 		this->fill_buffer(
 			sge::openal::buffer_id(
@@ -212,10 +241,12 @@ sge::openal::stream_sound::do_play()
 	sge::openal::funcs::source_queue_buffers(
 		this->source_id(),
 		buffers_.container().data(),
-		static_cast<
+		fcppt::cast::size<
 			ALsizei
 		>(
-			buffers_.container().size()
+			fcppt::cast::to_signed(
+				buffers_.container().size()
+			)
 		)
 	);
 
@@ -251,7 +282,9 @@ sge::openal::stream_sound::fill_buffer(
 	);
 
 	if(
-		samples_read == 0u
+		samples_read
+		==
+		0u
 	)
 	{
 		FCPPT_LOG_DEBUG(
@@ -263,9 +296,12 @@ sge::openal::stream_sound::fill_buffer(
 		// there's nothing more to load, but the sound should be looped? then reset
 		// and start from the beginning
 		if(
-			this->repeat() != sge::audio::sound::repeat::loop
+			this->repeat()
+			!=
+			sge::audio::sound::repeat::loop
 		)
-			return false;
+			return
+				false;
 
 		audio_file_.reset();
 
@@ -284,19 +320,24 @@ sge::openal::stream_sound::fill_buffer(
 		_buffer,
 		format_,
 		data.data(),
-		static_cast<
+		fcppt::cast::size<
 			ALsizei
 		>(
-			data.size()
+			fcppt::cast::to_signed(
+				data.size()
+			)
 		),
-		static_cast<
+		fcppt::cast::size<
 			ALsizei
 		>(
-			audio_file_.sample_rate()
+			fcppt::cast::to_signed(
+				audio_file_.sample_rate().get()
+			)
 		)
 	);
 
-	return true;
+	return
+		true;
 }
 
 template<
@@ -315,11 +356,7 @@ sge::openal::stream_sound::stream_sound(
 		_audio_file
 	),
 	buffer_samples_(
-		static_cast<
-			sge::audio::sample_count
-		>(
-			audio_file_.sample_rate()
-		)
+		audio_file_.sample_rate().get()
 	),
 	format_(
 		sge::openal::file_format(
@@ -329,15 +366,15 @@ sge::openal::stream_sound::stream_sound(
 	buffers_(
 		audio_file_.expected_package_size()
 		?
-			static_cast<
+			fcppt::cast::size<
 				sge::openal::multi_buffer_holder::size_type
 			>(
-				audio_file_.sample_rate()
+				audio_file_.sample_rate().get()
 				/
 				audio_file_.expected_package_size()
 			)
 		:
-			static_cast<
+			fcppt::literal<
 				sge::openal::multi_buffer_holder::size_type
 			>(
 				2

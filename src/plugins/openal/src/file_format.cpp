@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/al.hpp>
 #include <sge/openal/file_format.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -33,43 +34,52 @@ sge::openal::file_format(
 	sge::audio::file const &_file
 )
 {
-	if(
-		_file.bits_per_sample() == static_cast<sge::audio::sample_count>(8)
-		&&
-		_file.channels() == static_cast<sge::audio::channel_type>(1)
+	switch(
+		_file.bits_per_sample().get()
 	)
-		return AL_FORMAT_MONO8;
-
-	if(
-		_file.bits_per_sample() == static_cast<sge::audio::sample_count>(8)
-		&&
-		_file.channels() == static_cast<sge::audio::channel_type>(2)
-	)
-		return AL_FORMAT_STEREO8;
-
-	if(
-		_file.bits_per_sample() == static_cast<sge::audio::sample_count>(16)
-		&&
-		_file.channels() == static_cast<sge::audio::channel_type>(1)
-	)
-		return AL_FORMAT_MONO16;
-
-	if(
-		_file.bits_per_sample() == static_cast<sge::audio::sample_count>(16)
-		&&
-		_file.channels() == static_cast<sge::audio::channel_type>(2)
-	)
-		return AL_FORMAT_STEREO16;
-
-	throw sge::audio::exception(
-		FCPPT_TEXT("OpenAL error: Format not supported: ")
-		+ fcppt::insert_to_fcppt_string(
-			_file.bits_per_sample()
+	{
+	case 8u:
+		switch(
+			_file.channels().get()
 		)
-		+ FCPPT_TEXT(" bps, ")
-		+ fcppt::insert_to_fcppt_string(
-			_file.channels()
+		{
+		case 1u:
+			return
+				AL_FORMAT_MONO8;
+		case 2u:
+			return
+				AL_FORMAT_STEREO8;
+		}
+		break;
+	case 16u:
+		switch(
+			_file.channels().get()
 		)
-		+ FCPPT_TEXT(" channels")
-	);
+		{
+		case 1u:
+			return
+				AL_FORMAT_MONO16;
+		case 2u:
+			return
+				AL_FORMAT_STEREO16;
+		}
+		break;
+	}
+
+	throw
+		sge::audio::exception(
+			FCPPT_TEXT("OpenAL error: Format not supported: ")
+			+
+			fcppt::insert_to_fcppt_string(
+				_file.bits_per_sample()
+			)
+			+
+			FCPPT_TEXT(" bps, ")
+			+
+			fcppt::insert_to_fcppt_string(
+				_file.channels()
+			)
+			+
+			FCPPT_TEXT(" channels")
+		);
 }

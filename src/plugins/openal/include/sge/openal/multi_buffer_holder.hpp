@@ -36,7 +36,9 @@ class multi_buffer_holder
 		multi_buffer_holder
 	);
 public:
-	typedef sge::openal::buffer_id_container::size_type size_type;
+	typedef
+	sge::openal::buffer_id_container::size_type
+	size_type;
 
 	explicit
 	multi_buffer_holder(

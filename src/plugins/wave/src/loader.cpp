@@ -28,8 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/media/stream_unique_ptr.hpp>
 #include <sge/wave/file.hpp>
+#include <sge/wave/info_fwd.hpp>
 #include <sge/wave/loader.hpp>
+#include <sge/wave/read_info.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -70,21 +73,46 @@ sge::wave::loader::load_stream(
 			_extension
 		)
 		?
-			// FIXME: Don't use exceptions here!
-			sge::audio::load_stream_result{
-				fcppt::unique_ptr_to_base<
-					sge::audio::file
-				>(
-					fcppt::make_unique_ptr<
-						sge::wave::file
-					>(
-						std::move(
-							_stream
-						),
-						_name
-					)
+			fcppt::maybe(
+				sge::wave::read_info(
+					*_stream,
+					_name
+				),
+				[
+					&_stream
+				]{
+					return
+						sge::audio::load_stream_result{
+							std::move(
+								_stream
+							)
+						};
+				},
+				[
+					&_stream,
+					&_name
+				](
+					sge::wave::info const &_info
 				)
-			}
+				{
+					return
+						sge::audio::load_stream_result{
+							fcppt::unique_ptr_to_base<
+								sge::audio::file
+							>(
+								fcppt::make_unique_ptr<
+									sge::wave::file
+								>(
+									std::move(
+										_stream
+									),
+									_info,
+									_name
+								)
+							)
+						};
+				}
+			)
 		:
 			sge::audio::load_stream_result{
 				std::move(

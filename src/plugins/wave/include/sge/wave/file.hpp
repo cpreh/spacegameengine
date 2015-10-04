@@ -21,15 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WAVE_FILE_HPP_INCLUDED
 #define SGE_WAVE_FILE_HPP_INCLUDED
 
+#include <sge/audio/bits_per_sample.hpp>
+#include <sge/audio/channel_count.hpp>
 #include <sge/audio/file.hpp>
+#include <sge/audio/sample_container_fwd.hpp>
+#include <sge/audio/sample_count.hpp>
+#include <sge/audio/sample_rate.hpp>
 #include <sge/media/optional_name.hpp>
 #include <sge/media/stream_unique_ptr.hpp>
+#include <sge/wave/info.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/logic/tribool.hpp>
-#include <streambuf>
-#include <string>
+#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -48,18 +51,19 @@ class file
 public:
 	file(
 		sge::media::stream_unique_ptr &&,
+		sge::wave::info const &,
 		sge::media::optional_name const &
 	);
 
-	sge::audio::sample_count
+	sge::audio::bits_per_sample
 	bits_per_sample() const
 	override;
 
-	sge::audio::sample_count
+	sge::audio::sample_rate
 	sample_rate() const
 	override;
 
-	sge::audio::channel_type
+	sge::audio::channel_count
 	channels() const
 	override;
 
@@ -84,47 +88,15 @@ public:
 	)
 	override;
 private:
-	sge::media::optional_name const filename_;
+	sge::media::optional_name const name_;
 
-	boost::logic::tribool swap_;
+	sge::wave::info const info_;
 
 	sge::media::stream_unique_ptr const file_;
 
 	std::streampos data_segment_;
 
-	sge::audio::sample_count
-		samples_,
-		samples_read_;
-
-	sge::audio::channel_type channels_;
-
-	sge::audio::sample_count sample_rate_;
-
-	sge::audio::sample_count bits_per_sample_;
-
-	void
-	read_riff();
-
-	void
-	read_wave();
-
-	void
-	ignore_chunks_until(
-		std::string const &
-	);
-
-	std::string
-	extract_header(
-		fcppt::string const &
-	);
-
-	template<
-		typename T
-	>
-	T
-	extract_primitive(
-		fcppt::string const &
-	);
+	sge::audio::sample_count samples_read_;
 };
 
 }

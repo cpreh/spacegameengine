@@ -19,33 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/file.hpp>
-#include <sge/audio/sample_count.hpp>
-#include <fcppt/cast/size.hpp>
-#include <fcppt/cast/to_unsigned.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <limits>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::audio::file::file()
 {
-}
-
-sge::audio::sample_count
-sge::audio::file::bytes_per_sample() const
-{
-	return
-		this->bits_per_sample()
-		/
-		fcppt::cast::size<
-			sge::audio::sample_count
-		>(
-			fcppt::cast::to_unsigned(
-				std::numeric_limits<
-					unsigned char
-				>::digits
-			)
-		);
 }
 
 sge::audio::file::~file()

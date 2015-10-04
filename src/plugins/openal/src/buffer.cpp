@@ -36,7 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/funcs/buffer_data.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 
@@ -62,22 +65,29 @@ sge::openal::buffer::buffer(
 	FCPPT_LOG_DEBUG(
 		sge::openal::logger(),
 		fcppt::log::_
-			<< FCPPT_TEXT("creating buffer of size ")
-			<< data.size()
-			<< FCPPT_TEXT(" and format ")
-			<< sge::openal::file_format(
+			<<
+			FCPPT_TEXT("creating buffer of size ")
+			<<
+			data.size()
+			<<
+			FCPPT_TEXT(" and format ")
+			<<
+			sge::openal::file_format(
 				_file
 			)
-			<< FCPPT_TEXT(" and sample rate ")
-			<< _file.sample_rate()
+			<<
+			FCPPT_TEXT(" and sample rate ")
+			<<
+			_file.sample_rate()
 	);
 
 	if(
 		data.empty()
 	)
-		throw sge::audio::exception(
-			FCPPT_TEXT("tried to create empty nonstreaming sound, that's not possible!")
-		);
+		throw
+			sge::audio::exception{
+				FCPPT_TEXT("tried to create empty nonstreaming sound, that's not possible!")
+			};
 
 	sge::openal::funcs::buffer_data(
 		holder_.get(),
@@ -85,15 +95,19 @@ sge::openal::buffer::buffer(
 			_file
 		),
 		data.data(),
-		static_cast<
+		fcppt::cast::size<
 			ALsizei
 		>(
-			data.size()
+			fcppt::cast::to_signed(
+				data.size()
+			)
 		),
-		static_cast<
+		fcppt::cast::size<
 			ALsizei
 		>(
-			_file.sample_rate()
+			fcppt::cast::to_signed(
+				_file.sample_rate().get()
+			)
 		)
 	);
 }

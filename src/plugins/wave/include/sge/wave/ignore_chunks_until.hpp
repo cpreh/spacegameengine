@@ -18,46 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/openal/alc.hpp>
-#include <sge/openal/context.hpp>
-#include <sge/openal/device.hpp>
-#include <sge/openal/funcs/alc_create_context.hpp>
-#include <sge/openal/funcs/alc_destroy_context.hpp>
+#ifndef SGE_WAVE_IGNORE_CHUNKS_UNTIL_HPP_INCLUDED
+#define SGE_WAVE_IGNORE_CHUNKS_UNTIL_HPP_INCLUDED
+
+#include <sge/wave/header.hpp>
+#include <fcppt/endianness/format_fwd.hpp>
+#include <fcppt/preprocessor/warn_unused_result.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <iosfwd>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::openal::context::context(
-	sge::openal::device &_device
+namespace sge
+{
+namespace wave
+{
+
+bool
+ignore_chunks_until(
+	std::istream &,
+	sge::wave::header const &,
+	fcppt::endianness::format
 )
-:
-	device_(
-		_device
-	),
-	context_(
-		sge::openal::funcs::alc_create_context(
-			device_.aldevice()
-		)
-	)
-{
+FCPPT_PP_WARN_UNUSED_RESULT;
+
+}
 }
 
-ALCcontext &
-sge::openal::context::alcontext()
-{
-	return
-		*context_;
-}
-
-ALCdevice &
-sge::openal::context::aldevice()
-{
-	return
-		device_.aldevice();
-}
-
-sge::openal::context::~context()
-{
-	sge::openal::funcs::alc_destroy_context(
-		this->aldevice(),
-		this->alcontext()
-	);
-}
+#endif

@@ -1,10 +1,13 @@
 set(
 	SGE_AUDIO_FILES
 	include/sge/audio/bad_sound_alloc.hpp
+	include/sge/audio/bits_per_sample.hpp
 	include/sge/audio/buffer.hpp
 	include/sge/audio/buffer_fwd.hpp
 	include/sge/audio/buffer_shared_ptr.hpp
 	include/sge/audio/buffer_unique_ptr.hpp
+	include/sge/audio/bytes_per_sample.hpp
+	include/sge/audio/channel_count.hpp
 	include/sge/audio/channel_type.hpp
 	include/sge/audio/direction/forward.hpp
 	include/sge/audio/direction/object.hpp
@@ -49,6 +52,7 @@ set(
 	include/sge/audio/sample_container.hpp
 	include/sge/audio/sample_container_fwd.hpp
 	include/sge/audio/sample_count.hpp
+	include/sge/audio/sample_rate.hpp
 	include/sge/audio/scalar.hpp
 	include/sge/audio/sound/base.hpp
 	include/sge/audio/sound/base_fwd.hpp
@@ -80,6 +84,7 @@ set(
 	include/sge/audio/vector_fwd.hpp
 	src/audio/bad_sound_alloc.cpp
 	src/audio/buffer.cpp
+	src/audio/bytes_per_sample.cpp
 	src/audio/direction/object.cpp
 	src/audio/exception.cpp
 	src/audio/file.cpp

@@ -18,10 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/channel_type.hpp>
+#include <sge/audio/bits_per_sample.hpp>
+#include <sge/audio/bytes_per_sample.hpp>
+#include <sge/audio/channel_count.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/sample_container.hpp>
 #include <sge/audio/sample_count.hpp>
+#include <sge/audio/sample_rate.hpp>
 #include <sge/media/optional_name.hpp>
 #include <sge/media/stream_unique_ptr.hpp>
 #include <sge/vorbis/file.hpp>
@@ -74,12 +77,18 @@ sge::vorbis::file::read(
 	sge::audio::sample_container &_data
 )
 {
+	sge::audio::sample_count const bytes_per_sample(
+		sge::audio::bytes_per_sample(
+			this->bits_per_sample()
+		)
+	);
+
 	sge::audio::sample_count const bytes_to_read{
 		_samples
 		*
-		this->channels()
+		this->channels().get()
 		*
-		this->bytes_per_sample()
+		bytes_per_sample
 	};
 
 	std::size_t const old_size(
@@ -106,7 +115,7 @@ sge::vorbis::file::read(
 	FCPPT_ASSERT_ERROR(
 		bytes_read
 		%
-		this->bytes_per_sample()
+		bytes_per_sample
 		==
 		0u
 	);
@@ -120,7 +129,7 @@ sge::vorbis::file::read(
 	return
 		bytes_read
 		/
-		this->bytes_per_sample();
+		bytes_per_sample;
 }
 
 sge::audio::sample_count
@@ -150,32 +159,38 @@ sge::vorbis::file::read_all(
 	return
 		_data.size()
 		/
-		this->bytes_per_sample();
+		sge::audio::bytes_per_sample(
+			this->bits_per_sample()
+		);
 }
 
-sge::audio::channel_type
+sge::audio::channel_count
 sge::vorbis::file::channels() const
 {
 	return
-		fcppt::cast::to_unsigned(
-			info_.channels
-		);
+		sge::audio::channel_count{
+			fcppt::cast::to_unsigned(
+				info_.channels
+			)
+		};
 }
 
-sge::audio::sample_count
+sge::audio::sample_rate
 sge::vorbis::file::sample_rate() const
 {
 	return
-		fcppt::cast::to_unsigned(
-			info_.rate
-		);
+		sge::audio::sample_rate{
+			fcppt::cast::to_unsigned(
+				info_.rate
+			)
+		};
 }
 
-sge::audio::sample_count
+sge::audio::bits_per_sample
 sge::vorbis::file::bits_per_sample() const
 {
 	return
-		sge::audio::sample_count{
+		sge::audio::bits_per_sample{
 			16u
 		};
 }

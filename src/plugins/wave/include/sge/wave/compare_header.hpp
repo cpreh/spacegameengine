@@ -18,46 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/openal/alc.hpp>
-#include <sge/openal/context.hpp>
-#include <sge/openal/device.hpp>
-#include <sge/openal/funcs/alc_create_context.hpp>
-#include <sge/openal/funcs/alc_destroy_context.hpp>
+#ifndef SGE_WAVE_COMPARE_HEADER_HPP_INCLUDED
+#define SGE_WAVE_COMPARE_HEADER_HPP_INCLUDED
+
+#include <sge/wave/header.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::openal::context::context(
-	sge::openal::device &_device
-)
-:
-	device_(
-		_device
-	),
-	context_(
-		sge::openal::funcs::alc_create_context(
-			device_.aldevice()
-		)
-	)
+namespace sge
 {
+namespace wave
+{
+
+bool
+compare_header(
+	sge::wave::header const &,
+	fcppt::string const &
+);
+
+}
 }
 
-ALCcontext &
-sge::openal::context::alcontext()
-{
-	return
-		*context_;
-}
-
-ALCdevice &
-sge::openal::context::aldevice()
-{
-	return
-		device_.aldevice();
-}
-
-sge::openal::context::~context()
-{
-	sge::openal::funcs::alc_destroy_context(
-		this->aldevice(),
-		this->alcontext()
-	);
-}
+#endif

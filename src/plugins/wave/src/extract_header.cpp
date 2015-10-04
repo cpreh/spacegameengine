@@ -18,46 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/openal/alc.hpp>
-#include <sge/openal/context.hpp>
-#include <sge/openal/device.hpp>
-#include <sge/openal/funcs/alc_create_context.hpp>
-#include <sge/openal/funcs/alc_destroy_context.hpp>
+#include <sge/wave/extract_header.hpp>
+#include <sge/wave/header.hpp>
+#include <sge/wave/optional_header.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <istream>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::openal::context::context(
-	sge::openal::device &_device
+sge::wave::optional_header
+sge::wave::extract_header(
+	std::istream &_stream
 )
-:
-	device_(
-		_device
-	),
-	context_(
-		sge::openal::funcs::alc_create_context(
-			device_.aldevice()
-		)
-	)
 {
-}
+	sge::wave::header result;
 
-ALCcontext &
-sge::openal::context::alcontext()
-{
-	return
-		*context_;
-}
-
-ALCdevice &
-sge::openal::context::aldevice()
-{
-	return
-		device_.aldevice();
-}
-
-sge::openal::context::~context()
-{
-	sge::openal::funcs::alc_destroy_context(
-		this->aldevice(),
-		this->alcontext()
+	_stream.read(
+		result.data(),
+		result.size()
 	);
+
+	return
+		_stream.fail()
+		?
+			sge::wave::optional_header()
+		:
+			sge::wave::optional_header(
+				result
+			)
+		;
 }

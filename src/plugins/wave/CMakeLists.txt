@@ -1,14 +1,29 @@
 set(
 	SGE_WAVE_FILES
+	src/plugins/wave/include/sge/wave/compare_header.hpp
+	src/plugins/wave/include/sge/wave/extract_header.hpp
 	src/plugins/wave/include/sge/wave/file.hpp
+	src/plugins/wave/include/sge/wave/header.hpp
+	src/plugins/wave/include/sge/wave/ignore_chunks_until.hpp
+	src/plugins/wave/include/sge/wave/info.hpp
+	src/plugins/wave/include/sge/wave/info_fwd.hpp
 	src/plugins/wave/include/sge/wave/loader.hpp
 	src/plugins/wave/include/sge/wave/logger.hpp
 	src/plugins/wave/include/sge/wave/logger_context.hpp
+	src/plugins/wave/include/sge/wave/optional_header.hpp
+	src/plugins/wave/include/sge/wave/optional_header_fwd.hpp
+	src/plugins/wave/include/sge/wave/optional_info.hpp
+	src/plugins/wave/include/sge/wave/optional_info_fwd.hpp
+	src/plugins/wave/include/sge/wave/read_info.hpp
 	src/plugins/wave/src/exports.cpp
+	src/plugins/wave/src/extract_header.cpp
 	src/plugins/wave/src/file.cpp
+	src/plugins/wave/src/ignore_chunks_until.cpp
+	src/plugins/wave/src/info.cpp
 	src/plugins/wave/src/loader.cpp
 	src/plugins/wave/src/logger.cpp
 	src/plugins/wave/src/logger_context.cpp
+	src/plugins/wave/src/read_info.cpp
 )
 
 add_sge_plugin(

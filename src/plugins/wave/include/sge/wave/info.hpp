@@ -18,86 +18,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VORBIS_FILE_HPP_INCLUDED
-#define SGE_VORBIS_FILE_HPP_INCLUDED
+#ifndef SGE_WAVE_INFO_HPP_INCLUDED
+#define SGE_WAVE_INFO_HPP_INCLUDED
 
 #include <sge/audio/bits_per_sample.hpp>
 #include <sge/audio/channel_count.hpp>
-#include <sge/audio/file.hpp>
-#include <sge/audio/sample_container_fwd.hpp>
 #include <sge/audio/sample_count.hpp>
 #include <sge/audio/sample_rate.hpp>
-#include <sge/media/optional_name.hpp>
-#include <sge/media/stream_unique_ptr.hpp>
-#include <sge/vorbis/stream_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <vorbis/codec.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/wave/info_fwd.hpp>
+#include <fcppt/endianness/format.hpp>
 
 
 namespace sge
 {
-namespace vorbis
+namespace wave
 {
 
-class file
-:
-	public sge::audio::file
+class info
 {
-	FCPPT_NONCOPYABLE(
-		file
-	);
 public:
-	file(
-		sge::media::stream_unique_ptr &&,
-		sge::vorbis::stream_unique_ptr &&,
-		sge::media::optional_name const &
+	info(
+		fcppt::endianness::format,
+		sge::audio::channel_count,
+		sge::audio::sample_rate,
+		sge::audio::bits_per_sample,
+		sge::audio::sample_count
 	);
 
-	sge::audio::sample_count
-	read(
-		sge::audio::sample_count,
-		sge::audio::sample_container &
-	)
-	override;
-
-	sge::audio::sample_count
-	read_all(
-		sge::audio::sample_container &
-	)
-	override;
+	fcppt::endianness::format
+	endianness() const;
 
 	sge::audio::channel_count
-	channels() const
-	override;
+	channels() const;
 
 	sge::audio::sample_rate
-	sample_rate() const
-	override;
+	sample_rate() const;
 
 	sge::audio::bits_per_sample
-	bits_per_sample() const
-	override;
+	bits_per_sample() const;
 
 	sge::audio::sample_count
-	expected_package_size() const
-	override;
-
-	void
-	reset()
-	override;
-
-	~file()
-	override;
+	samples() const;
 private:
-	sge::media::optional_name const name_;
+	fcppt::endianness::format endianness_;
 
-	sge::media::stream_unique_ptr const stdstream_;
+	sge::audio::channel_count channels_;
 
-	sge::vorbis::stream_unique_ptr const stream_;
+	sge::audio::sample_rate sample_rate_;
 
-	vorbis_info const info_;
+	sge::audio::bits_per_sample bits_per_sample_;
+
+	sge::audio::sample_count samples_;
 };
 
 }

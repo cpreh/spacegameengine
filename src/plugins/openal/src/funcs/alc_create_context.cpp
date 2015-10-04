@@ -59,5 +59,6 @@ sge::openal::funcs::alc_create_context(
 		sge::audio::exception
 	);
 
-	return result;
+	return
+		result;
 }
