@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wave/ignore_chunks_until.hpp>
 #include <sge/wave/logger.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
@@ -74,9 +75,11 @@ sge::wave::ignore_chunks_until(
 							<<
 							FCPPT_TEXT("detected unknown subchunk ")
 							<<
-							std::string(
-								_cur.begin(),
-								_cur.end()
+							fcppt::from_std_string(
+								std::string(
+									_cur.begin(),
+									_cur.end()
+								)
 							)
 					);
 
