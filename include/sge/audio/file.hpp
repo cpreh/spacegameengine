@@ -71,19 +71,11 @@ public:
 	= 0;
 
 	/**
-	\brief Read ALL the samples from the file, storing them in \a _destination.
-
-	\param _destination The container to store the samples in. Samples will be \em appended to the container.
-
-	\return The number of samples read.
+	\brief Read ALL the samples from the file.
 	*/
 	virtual
-	sge::audio::sample_count
-	read_all(
-		sge::audio::sample_container &_destination
-	)
-	FCPPT_PP_WARN_UNUSED_RESULT
-	= 0;
+	sge::audio::sample_container
+	read_all() = 0;
 
 	/**
 	\brief How many samples will sge::audio::file::read probably return?

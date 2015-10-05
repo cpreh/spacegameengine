@@ -62,10 +62,8 @@ public:
 	)
 	override;
 
-	sge::audio::sample_count
-	read_all(
-		sge::audio::sample_container &
-	)
+	sge::audio::sample_container
+	read_all()
 	override;
 
 	sge::audio::channel_count

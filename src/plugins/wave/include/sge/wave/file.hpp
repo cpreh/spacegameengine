@@ -82,10 +82,8 @@ public:
 	)
 	override;
 
-	sge::audio::sample_count
-	read_all(
-		sge::audio::sample_container &
-	)
+	sge::audio::sample_container
+	read_all()
 	override;
 private:
 	sge::media::optional_name const name_;

@@ -132,13 +132,10 @@ sge::vorbis::file::read(
 		bytes_per_sample;
 }
 
-sge::audio::sample_count
-sge::vorbis::file::read_all(
-	sge::audio::sample_container &_data
-)
+sge::audio::sample_container
+sge::vorbis::file::read_all()
 {
-	// TODO: Is this correct?
-	_data.clear();
+	sge::audio::sample_container result;
 
 	while(
 		this->read(
@@ -147,7 +144,7 @@ sge::vorbis::file::read_all(
 				*
 				4096u
 			},
-			_data
+			result
 		)
 		!=
 		sge::audio::sample_count{
@@ -157,11 +154,7 @@ sge::vorbis::file::read_all(
 		;
 
 	return
-		_data.size()
-		/
-		sge::audio::bytes_per_sample(
-			this->bits_per_sample()
-		);
+		result;
 }
 
 sge::audio::channel_count

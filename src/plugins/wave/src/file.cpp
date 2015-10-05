@@ -237,16 +237,18 @@ sge::wave::file::read(
 		samples_to_read;
 }
 
-sge::audio::sample_count
-sge::wave::file::read_all(
-	sge::audio::sample_container &_array
-)
+sge::audio::sample_container
+sge::wave::file::read_all()
 {
+	sge::audio::sample_container result;
+
+	this->read(
+		info_.samples()
+		-
+		samples_read_,
+		result
+	);
+
 	return
-		this->read(
-			info_.samples()
-			-
-			samples_read_,
-			_array
-		);
+		result;
 }
