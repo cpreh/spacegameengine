@@ -18,47 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/vorbis/callbacks.hpp>
-#include <sge/vorbis/open.hpp>
-#include <sge/vorbis/optional_stream_unique_ptr.hpp>
-#include <sge/vorbis/stream.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#ifndef SGE_VORBIS_CALLBACKS_HPP_INCLUDED
+#define SGE_VORBIS_CALLBACKS_HPP_INCLUDED
+
 #include <fcppt/config/external_begin.hpp>
 #include <vorbis/vorbisfile.h>
-#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::vorbis::optional_stream_unique_ptr
-sge::vorbis::open(
-	std::istream &_stream
-)
+namespace sge
 {
-	OggVorbis_File ogg_file;
+namespace vorbis
+{
 
-	int const result(
-		::ov_open_callbacks(
-			&_stream,
-			&ogg_file,
-			nullptr,
-			0l,
-			sge::vorbis::callbacks()
-		)
-	);
+ov_callbacks
+callbacks();
 
-	return
-		result
-		==
-		0
-		?
-			sge::vorbis::optional_stream_unique_ptr(
-				fcppt::make_unique_ptr<
-					sge::vorbis::stream
-				>(
-					ogg_file
-				)
-			)
-		:
-			sge::vorbis::optional_stream_unique_ptr()
-		;
 }
+}
+
+#endif

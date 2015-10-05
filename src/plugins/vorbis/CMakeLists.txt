@@ -1,5 +1,6 @@
 set(
 	SGE_VORBIS_FILES
+	src/plugins/vorbis/include/sge/vorbis/callbacks.hpp
 	src/plugins/vorbis/include/sge/vorbis/error_string.hpp
 	src/plugins/vorbis/include/sge/vorbis/file.hpp
 	src/plugins/vorbis/include/sge/vorbis/info.hpp
@@ -14,6 +15,7 @@ set(
 	src/plugins/vorbis/include/sge/vorbis/stream.hpp
 	src/plugins/vorbis/include/sge/vorbis/stream_fwd.hpp
 	src/plugins/vorbis/include/sge/vorbis/stream_unique_ptr.hpp
+	src/plugins/vorbis/src/callbacks.cpp
 	src/plugins/vorbis/src/error_string.cpp
 	src/plugins/vorbis/src/exports.cpp
 	src/plugins/vorbis/src/file.cpp
