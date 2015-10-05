@@ -23,26 +23,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/channel_count.hpp>
 #include <sge/audio/sample_count.hpp>
 #include <sge/audio/sample_rate.hpp>
-#include <sge/audio/unsupported_format.hpp>
+#include <sge/media/error_string.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/wave/compare_header.hpp>
 #include <sge/wave/extract_header.hpp>
 #include <sge/wave/header.hpp>
 #include <sge/wave/ignore_chunks_until.hpp>
 #include <sge/wave/info.hpp>
+#include <sge/wave/logger.hpp>
 #include <sge/wave/optional_info.hpp>
 #include <sge/wave/optional_header.hpp>
 #include <sge/wave/read_info.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/format.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/maybe.hpp>
 #include <fcppt/maybe_multi.hpp>
-#include <fcppt/maybe_void.hpp>
 #include <fcppt/optional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/io/read.hpp>
+#include <fcppt/log/_.hpp>
+#include <fcppt/log/info.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <iosfwd>
@@ -163,41 +164,57 @@ sge::wave::read_info(
 		endianness
 	);
 
-	fcppt::maybe_void(
-		fcppt::io::read<
-			std::uint16_t
-		>(
-			_stream,
-			endianness
-		),
-		[
-			&_name
-		](
-			std::uint16_t const _format
-		)
-		{
-			if(
-				_format
-				!=
-				fcppt::literal<
-					std::uint16_t
-				>(
-					1
-				)
+	if(
+		fcppt::maybe(
+			fcppt::io::read<
+				std::uint16_t
+			>(
+				_stream,
+				endianness
+			),
+			fcppt::const_(
+				true
+			),
+			[
+				&_name
+			](
+				std::uint16_t const _format
 			)
-				throw
-					sge::audio::unsupported_format{
-						_name,
-						(
-							fcppt::format(
-								FCPPT_TEXT("wave file is not pcm encoded (format code is %2%)")
+			{
+				bool const unsupported{
+					_format
+					!=
+					fcppt::literal<
+						std::uint16_t
+					>(
+						1
+					)
+				};
+
+				if(
+					unsupported
+				)
+					FCPPT_LOG_INFO(
+						sge::wave::logger(),
+						fcppt::log::_
+							<<
+							sge::media::error_string(
+								_name,
+								FCPPT_TEXT("wave file is not pcm encoded!")
 							)
-							%
+							<<
+							FCPPT_TEXT(" Format is ")
+							<<
 							_format
-						).str()
-					};
-		}
-	);
+					);
+
+				return
+					unsupported;
+			}
+		)
+	)
+		return
+			sge::wave::optional_info();
 
 	fcppt::optional<
 		std::uint16_t

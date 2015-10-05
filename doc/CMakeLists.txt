@@ -149,7 +149,6 @@ set(
 	include/sge/audio/sound/repeat.hpp
 	include/sge/audio/sound/repeat_fwd.hpp
 	include/sge/audio/sound/resume.hpp
-	include/sge/audio/unsupported_format.hpp
 	include/sge/audio/vector.hpp
 	include/sge/audio/vector2.hpp
 	include/sge/audio/vector2_fwd.hpp
