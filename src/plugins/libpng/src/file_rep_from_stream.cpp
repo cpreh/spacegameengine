@@ -20,12 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file_exception.hpp>
-#include <sge/image2d/unsupported_format.hpp>
 #include <sge/libpng/byte_vector.hpp>
 #include <sge/libpng/bytes_per_pixel.hpp>
 #include <sge/libpng/error_context.hpp>
 #include <sge/libpng/file_rep.hpp>
 #include <sge/libpng/file_rep_from_stream.hpp>
+#include <sge/libpng/format.hpp>
 #include <sge/libpng/get_gamma.hpp>
 #include <sge/libpng/header_bytes.hpp>
 #include <sge/libpng/info.hpp>
@@ -33,16 +33,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/logger.hpp>
 #include <sge/libpng/make_format.hpp>
 #include <sge/libpng/make_row_vector.hpp>
+#include <sge/libpng/optional_file_rep.hpp>
 #include <sge/libpng/read_ptr.hpp>
 #include <sge/libpng/row_vector.hpp>
+#include <sge/media/error_string.hpp>
 #include <sge/media/optional_name_fwd.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/promote.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/info.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -52,7 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::libpng::file_rep
+sge::libpng::optional_file_rep
 sge::libpng::file_rep_from_stream(
 	std::istream &_stream,
 	sge::media::optional_name const &_name
@@ -130,14 +132,20 @@ sge::libpng::file_rep_from_stream(
 	FCPPT_LOG_DEBUG(
 		sge::libpng::logger(),
 		fcppt::log::_
-			<< FCPPT_TEXT("png: dimensions: ")
-			<< size
-			<< FCPPT_TEXT(", bit depth: ")
-			<< fcppt::cast::promote(
+			<<
+			FCPPT_TEXT("png: dimensions: ")
+			<<
+			size
+			<<
+			FCPPT_TEXT(", bit depth: ")
+			<<
+			fcppt::cast::promote(
 				bpp
 			)
-			<< FCPPT_TEXT(", channels: ")
-			<< fcppt::cast::promote(
+			<<
+			FCPPT_TEXT(", channels: ")
+			<<
+			fcppt::cast::promote(
 				channels
 			)
 	);
@@ -147,11 +155,18 @@ sge::libpng::file_rep_from_stream(
 	)
 	{
 		case PNG_COLOR_TYPE_PALETTE:
-			throw
-				sge::image2d::unsupported_format(
-					_name,
-					FCPPT_TEXT("Palette images are not supported.")
-				);
+			FCPPT_LOG_INFO(
+				sge::libpng::logger(),
+				fcppt::log::_
+					<<
+					sge::media::error_string(
+						_name,
+						FCPPT_TEXT("Palette images are not supported.")
+					)
+			);
+
+			return
+				sge::libpng::optional_file_rep();
 		case PNG_COLOR_TYPE_GRAY:
 			if(
 				bpp < 8
@@ -211,36 +226,55 @@ sge::libpng::file_rep_from_stream(
 	);
 
 	return
-		sge::libpng::file_rep(
-			size,
-			fcppt::optional_to_exception(
-				sge::libpng::make_format(
-					color_type,
-					bpp,
-					sge::libpng::get_gamma(
-						read_ptr,
-						info
-					)
-				),
-				[
-					&_name,
-					bpp
-				]{
-					return
-						sge::image2d::unsupported_format(
-							_name,
-							fcppt::insert_to_fcppt_string(
-								fcppt::cast::promote(
-									bpp
-								)
-							)
-							+
-							FCPPT_TEXT(" bits per pixel")
-						);
-				}
+		fcppt::maybe(
+			sge::libpng::make_format(
+				color_type,
+				bpp,
+				sge::libpng::get_gamma(
+					read_ptr,
+					info
+				)
 			),
-			std::move(
-				bytes
+			[
+				&_name,
+				bpp
+			]{
+				FCPPT_LOG_INFO(
+					sge::libpng::logger(),
+					fcppt::log::_
+						<<
+						sge::media::error_string(
+							_name,
+							FCPPT_TEXT("Unsupported bits per pixel.")
+						)
+						<<
+						FCPPT_TEXT(" Depth is ")
+						<<
+						fcppt::cast::promote(
+							bpp
+						)
+				);
+
+				return
+					sge::libpng::optional_file_rep();
+			},
+			[
+				size,
+				&bytes
+			](
+				sge::libpng::format const _format
 			)
+			{
+				return
+					sge::libpng::optional_file_rep{
+						sge::libpng::file_rep{
+							size,
+							_format,
+							std::move(
+								bytes
+							)
+						}
+					};
+			}
 		);
 }

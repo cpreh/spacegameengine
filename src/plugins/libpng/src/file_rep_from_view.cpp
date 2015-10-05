@@ -34,8 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/file_rep.hpp>
 #include <sge/libpng/file_rep_from_view.hpp>
 #include <sge/libpng/format.hpp>
-#include <sge/libpng/from_sge_format_exn.hpp>
+#include <sge/libpng/from_sge_format.hpp>
+#include <sge/libpng/optional_file_rep.hpp>
 #include <sge/libpng/to_sge_format.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -43,61 +45,69 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::libpng::file_rep
+sge::libpng::optional_file_rep
 sge::libpng::file_rep_from_view(
 	sge::image2d::view::const_object const &_view
 )
 {
-	sge::image2d::dim const size(
-		sge::image2d::view::size(
-			_view
-		)
-	);
-
-	sge::libpng::format const png_dest_format(
-		sge::libpng::from_sge_format_exn(
-			sge::image2d::view::format(
-				_view
-			)
-		)
-	);
-
-	sge::image::color::format const dest_format(
-		sge::libpng::to_sge_format(
-			png_dest_format
-		)
-	);
-
-	sge::libpng::byte_vector bytes(
-		fcppt::math::dim::contents(
-			size
-		)
-		*
-		sge::image::color::format_stride(
-			dest_format
-		)
-	);
-
-	sge::image2d::algorithm::copy_and_convert(
-		_view,
-		sge::image2d::view::make(
-			bytes.data(),
-			size,
-			dest_format,
-			fcppt::math::dim::null<
-				sge::image2d::pitch
-			>()
-		),
-		sge::image::algorithm::may_overlap::no,
-		sge::image::algorithm::uninitialized::yes
-	);
-
 	return
-		sge::libpng::file_rep(
-			size,
-			png_dest_format,
-			std::move(
-				bytes
+		fcppt::optional_bind_construct(
+			sge::libpng::from_sge_format(
+				sge::image2d::view::format(
+					_view
+				)
+			),
+			[
+				&_view
+			](
+				sge::libpng::format const _png_dest_format
 			)
+			{
+				sge::image2d::dim const size(
+					sge::image2d::view::size(
+						_view
+					)
+				);
+
+
+				sge::image::color::format const dest_format(
+					sge::libpng::to_sge_format(
+						_png_dest_format
+					)
+				);
+
+				sge::libpng::byte_vector bytes(
+					fcppt::math::dim::contents(
+						size
+					)
+					*
+					sge::image::color::format_stride(
+						dest_format
+					)
+				);
+
+				sge::image2d::algorithm::copy_and_convert(
+					_view,
+					sge::image2d::view::make(
+						bytes.data(),
+						size,
+						dest_format,
+						fcppt::math::dim::null<
+							sge::image2d::pitch
+						>()
+					),
+					sge::image::algorithm::may_overlap::no,
+					sge::image::algorithm::uninitialized::yes
+				);
+
+				return
+					sge::libpng::file_rep(
+						size,
+						_png_dest_format,
+						std::move(
+							bytes
+						)
+					);
+			}
 		);
 }

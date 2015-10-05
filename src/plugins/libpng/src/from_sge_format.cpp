@@ -19,17 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/format.hpp>
-#include <sge/image/color/format_to_string.hpp>
-#include <sge/image2d/unsupported_format.hpp>
 #include <sge/libpng/format.hpp>
-#include <sge/libpng/from_sge_format_exn.hpp>
-#include <sge/media/optional_name.hpp>
-#include <fcppt/text.hpp>
+#include <sge/libpng/from_sge_format.hpp>
+#include <sge/libpng/optional_format.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
-sge::libpng::format
-sge::libpng::from_sge_format_exn(
+sge::libpng::optional_format
+sge::libpng::from_sge_format(
 	sge::image::color::format const _format
 )
 {
@@ -38,7 +35,9 @@ sge::libpng::from_sge_format_exn(
 )\
 	case sge::image::color::format::cur_format: \
 		return \
-			sge::libpng::format::cur_format
+			sge::libpng::optional_format{ \
+				sge::libpng::format::cur_format \
+			}
 
 	switch(
 		_format
@@ -52,18 +51,26 @@ sge::libpng::from_sge_format_exn(
 		);
 		case sge::image::color::format::rgb8:
 			return
-				sge::libpng::format::srgb8;
+				sge::libpng::optional_format{
+					sge::libpng::format::srgb8
+				};
 		case sge::image::color::format::bgr8:
 			return
-				sge::libpng::format::sbgr8;
+				sge::libpng::optional_format{
+					sge::libpng::format::sbgr8
+				};
 		case sge::image::color::format::rgba8:
 		case sge::image::color::format::rgbx8:
 			return
-				sge::libpng::format::srgba8;
+				sge::libpng::optional_format{
+					sge::libpng::format::srgba8
+				};
 		case sge::image::color::format::bgra8:
 		case sge::image::color::format::bgrx8:
 			return
-				sge::libpng::format::sbgra8;
+				sge::libpng::optional_format{
+					sge::libpng::format::sbgra8
+				};
 		SGE_LIBPNG_CONVERT_FORMAT(
 			srgb8
 		);
@@ -82,15 +89,8 @@ sge::libpng::from_sge_format_exn(
 		case sge::image::color::format::bgr32f:
 		case sge::image::color::format::rgba32f:
 		case sge::image::color::format::bgra32f:
-			throw
-				sge::image2d::unsupported_format(
-					sge::media::optional_name(),
-					FCPPT_TEXT("libpng doesn't support ")
-					+
-					sge::image::color::format_to_string(
-						_format
-					)
-				);
+			return
+				sge::libpng::optional_format{};
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

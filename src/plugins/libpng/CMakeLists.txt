@@ -17,7 +17,7 @@ set(
 	src/plugins/libpng/include/sge/libpng/file_rep_fwd.hpp
 	src/plugins/libpng/include/sge/libpng/format.hpp
 	src/plugins/libpng/include/sge/libpng/format_fwd.hpp
-	src/plugins/libpng/include/sge/libpng/from_sge_format_exn.hpp
+	src/plugins/libpng/include/sge/libpng/from_sge_format.hpp
 	src/plugins/libpng/include/sge/libpng/gamma.hpp
 	src/plugins/libpng/include/sge/libpng/get_gamma.hpp
 	src/plugins/libpng/include/sge/libpng/header_bytes.hpp
@@ -29,6 +29,8 @@ set(
 	src/plugins/libpng/include/sge/libpng/logger_context.hpp
 	src/plugins/libpng/include/sge/libpng/make_format.hpp
 	src/plugins/libpng/include/sge/libpng/make_row_vector.hpp
+	src/plugins/libpng/include/sge/libpng/optional_file_rep.hpp
+	src/plugins/libpng/include/sge/libpng/optional_file_rep_fwd.hpp
 	src/plugins/libpng/include/sge/libpng/optional_format.hpp
 	src/plugins/libpng/include/sge/libpng/optional_format_fwd.hpp
 	src/plugins/libpng/include/sge/libpng/png.hpp
@@ -53,7 +55,7 @@ set(
 	src/plugins/libpng/src/file_rep.cpp
 	src/plugins/libpng/src/file_rep_from_stream.cpp
 	src/plugins/libpng/src/file_rep_from_view.cpp
-	src/plugins/libpng/src/from_sge_format_exn.cpp
+	src/plugins/libpng/src/from_sge_format.cpp
 	src/plugins/libpng/src/get_gamma.cpp
 	src/plugins/libpng/src/info.cpp
 	src/plugins/libpng/src/is_png.cpp

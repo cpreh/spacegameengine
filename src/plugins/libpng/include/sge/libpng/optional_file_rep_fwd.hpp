@@ -18,32 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_UNSUPPORTED_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE2D_UNSUPPORTED_FORMAT_HPP_INCLUDED
+#ifndef SGE_LIBPNG_OPTIONAL_FILE_REP_FWD_HPP_INCLUDED
+#define SGE_LIBPNG_OPTIONAL_FILE_REP_FWD_HPP_INCLUDED
 
-#include <sge/core/detail/class_symbol.hpp>
-#include <sge/image2d/file_exception.hpp>
-#include <sge/image2d/detail/symbol.hpp>
-#include <sge/media/optional_name_fwd.hpp>
-#include <fcppt/string.hpp>
+#include <sge/libpng/file_rep_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
 {
-namespace image2d
+namespace libpng
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL unsupported_format
-:
-	public sge::image2d::file_exception
-{
-public:
-	SGE_IMAGE_DETAIL_SYMBOL
-	unsupported_format(
-		sge::media::optional_name const &,
-		fcppt::string const &
-	);
-};
+typedef
+fcppt::optional<
+	sge::libpng::file_rep
+>
+optional_file_rep;
 
 }
 }

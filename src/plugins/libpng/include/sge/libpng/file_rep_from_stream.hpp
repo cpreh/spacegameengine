@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LIBPNG_FILE_REP_FROM_STREAM_HPP_INCLUDED
 #define SGE_LIBPNG_FILE_REP_FROM_STREAM_HPP_INCLUDED
 
-#include <sge/libpng/file_rep.hpp>
+#include <sge/libpng/optional_file_rep.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
@@ -33,7 +33,7 @@ namespace sge
 namespace libpng
 {
 
-sge::libpng::file_rep
+sge::libpng::optional_file_rep
 file_rep_from_stream(
 	std::istream &,
 	sge::media::optional_name const &

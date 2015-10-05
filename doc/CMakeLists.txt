@@ -1006,7 +1006,6 @@ set(
 	include/sge/image2d/traits/view_elements.hpp
 	include/sge/image2d/traits/view_fwd.hpp
 	include/sge/image2d/transform_elements.hpp
-	include/sge/image2d/unsupported_format.hpp
 	include/sge/image2d/vector.hpp
 	include/sge/image2d/vector_fwd.hpp
 	include/sge/image2d/view/checked_sub.hpp

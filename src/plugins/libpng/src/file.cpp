@@ -25,8 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/libpng/file.hpp>
-#include <sge/libpng/file_rep_from_stream.hpp>
-#include <sge/libpng/file_rep_from_view.hpp>
 #include <sge/libpng/to_sge_format.hpp>
 #include <sge/libpng/write.hpp>
 #include <sge/media/name.hpp>
@@ -40,30 +38,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/filesystem/path.hpp>
 #include <ios>
 #include <iosfwd>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::libpng::file::file(
-	std::istream &_stream,
-	sge::media::optional_name const &_name
+	sge::libpng::file_rep &&_rep
 )
 :
 	rep_(
-		sge::libpng::file_rep_from_stream(
-			_stream,
-			_name
-		)
-	)
-{
-}
-
-sge::libpng::file::file(
-	sge::image2d::view::const_object const &_view
-)
-:
-	rep_(
-		sge::libpng::file_rep_from_view(
-			_view
+		std::move(
+			_rep
 		)
 	)
 {

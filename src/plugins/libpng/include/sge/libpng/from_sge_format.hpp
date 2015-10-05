@@ -18,24 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image2d/file_exception.hpp>
-#include <sge/image2d/unsupported_format.hpp>
-#include <sge/media/optional_name_fwd.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_LIBPNG_FROM_SGE_FORMAT_HPP_INCLUDED
+#define SGE_LIBPNG_FROM_SGE_FORMAT_HPP_INCLUDED
+
+#include <sge/image/color/format_fwd.hpp>
+#include <sge/libpng/optional_format.hpp>
 
 
-sge::image2d::unsupported_format::unsupported_format(
-	sge::media::optional_name const &_name,
-	fcppt::string const &_string
-)
-:
-	sge::image2d::file_exception(
-		_name,
-		// TODO: Move this to media
-		FCPPT_TEXT("file has unsupported format: ")
-		+
-		_string
-	)
+namespace sge
 {
+namespace libpng
+{
+
+sge::libpng::optional_format
+from_sge_format(
+	sge::image::color::format
+);
+
 }
+}
+
+#endif

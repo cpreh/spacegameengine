@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system.hpp>
 #include <sge/libpng/extension.hpp>
 #include <sge/libpng/file.hpp>
+#include <sge/libpng/file_rep.hpp>
+#include <sge/libpng/file_rep_from_stream.hpp>
+#include <sge/libpng/file_rep_from_view.hpp>
 #include <sge/libpng/is_png.hpp>
 #include <sge/libpng/system.hpp>
 #include <sge/media/check_extension.hpp>
@@ -33,6 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <istream>
@@ -67,18 +72,41 @@ sge::libpng::system::load_stream(
 			*_stream
 		)
 		?
-			sge::image2d::load_stream_result{
-				fcppt::unique_ptr_to_base<
-					sge::image2d::file
-				>(
-					fcppt::make_unique_ptr<
-						sge::libpng::file
-					>(
-						*_stream,
-						_name
-					)
+			fcppt::maybe(
+				sge::libpng::file_rep_from_stream(
+					*_stream,
+					_name
+				),
+				[
+					&_stream
+				]{
+					return
+						sge::image2d::load_stream_result{
+							std::move(
+								_stream
+							)
+						};
+				},
+				[](
+					sge::libpng::file_rep &&_rep
 				)
-			}
+				{
+					return
+						sge::image2d::load_stream_result{
+							fcppt::unique_ptr_to_base<
+								sge::image2d::file
+							>(
+								fcppt::make_unique_ptr<
+									sge::libpng::file
+								>(
+									std::move(
+										_rep
+									)
+								)
+							)
+						};
+				}
+			)
 		:
 			sge::image2d::load_stream_result{
 				std::move(
@@ -99,16 +127,27 @@ sge::libpng::system::create(
 		==
 		sge::libpng::extension()
 		?
-			sge::image2d::optional_file_unique_ptr(
-				fcppt::unique_ptr_to_base<
-					sge::image2d::file
-				>(
-					fcppt::make_unique_ptr<
-						file
-					>(
-						_view
-					)
+			fcppt::optional_bind_construct(
+				sge::libpng::file_rep_from_view(
+					_view
+				),
+				[](
+					sge::libpng::file_rep &&_rep
 				)
+				{
+					return
+						fcppt::unique_ptr_to_base<
+							sge::image2d::file
+						>(
+							fcppt::make_unique_ptr<
+								file
+							>(
+								std::move(
+									_rep
+								)
+							)
+						);
+				}
 			)
 		:
 			sge::image2d::optional_file_unique_ptr()
