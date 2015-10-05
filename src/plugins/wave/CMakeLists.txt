@@ -1,6 +1,5 @@
 set(
 	SGE_WAVE_FILES
-	src/plugins/wave/include/sge/wave/compare_header.hpp
 	src/plugins/wave/include/sge/wave/extract_header.hpp
 	src/plugins/wave/include/sge/wave/file.hpp
 	src/plugins/wave/include/sge/wave/header.hpp

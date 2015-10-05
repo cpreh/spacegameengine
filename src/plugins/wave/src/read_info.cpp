@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sample_rate.hpp>
 #include <sge/media/error_string.hpp>
 #include <sge/media/optional_name_fwd.hpp>
-#include <sge/wave/compare_header.hpp>
 #include <sge/wave/extract_header.hpp>
 #include <sge/wave/header.hpp>
 #include <sge/wave/ignore_chunks_until.hpp>
