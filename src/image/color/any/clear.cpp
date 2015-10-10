@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unreachable.hpp>
 
 
-sge::image::color::any::object const
+sge::image::color::any::object
 sge::image::color::any::clear(
 	sge::image::color::format const _format
 )

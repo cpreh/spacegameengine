@@ -58,11 +58,11 @@ public:
 	description() const;
 
 	SGE_PLUGIN_DETAIL_SYMBOL
-	sge::plugin::version const
+	sge::plugin::version
 	version() const;
 
 	SGE_PLUGIN_DETAIL_SYMBOL
-	sge::plugin::min_core_version const
+	sge::plugin::min_core_version
 	min_core_version() const;
 
 	SGE_PLUGIN_DETAIL_SYMBOL

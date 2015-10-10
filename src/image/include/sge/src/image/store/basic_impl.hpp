@@ -198,7 +198,7 @@ template<
 >
 typename sge::image::store::basic<
 	Format
->::view_type const
+>::view_type
 sge::image::store::basic<
 	Format
 >::view()
@@ -212,7 +212,7 @@ template<
 >
 typename sge::image::store::basic<
 	Format
->::const_view_type const
+>::const_view_type
 sge::image::store::basic<
 	Format
 >::view() const
@@ -226,7 +226,7 @@ template<
 >
 typename sge::image::store::basic<
 	Format
->::wrapped_view_type const
+>::wrapped_view_type
 sge::image::store::basic<
 	Format
 >::wrapped_view()
@@ -242,7 +242,7 @@ template<
 >
 typename sge::image::store::basic<
 	Format
->::const_wrapped_view_type const
+>::const_wrapped_view_type
 sge::image::store::basic<
 	Format
 >::wrapped_view() const
@@ -258,7 +258,7 @@ template<
 >
 typename sge::image::store::basic<
 	Format
->::const_wrapped_view_type const
+>::const_wrapped_view_type
 sge::image::store::basic<
 	Format
 >::const_wrapped_view() const
@@ -272,7 +272,7 @@ template<
 >
 typename sge::image::store::basic<
 	Format
->::dim const
+>::dim
 sge::image::store::basic<
 	Format
 >::size() const

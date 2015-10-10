@@ -37,7 +37,7 @@ template<
 	typename View,
 	typename Box
 >
-View const
+View
 sub_any(
 	View const &_view,
 	Box const &_box

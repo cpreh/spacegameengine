@@ -41,7 +41,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/color/instantiate_format.hpp>
 #include <sge/src/image/color/any/convert_visitor.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 template<
@@ -49,7 +48,7 @@ template<
 >
 sge::image::mizuiro_color<
 	Dest
-> const
+>
 sge::image::color::any::convert(
 	sge::image::color::any::object const &_color
 )
@@ -71,7 +70,7 @@ template \
 SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::mizuiro_color<\
 	sge::image::color::format_arg ## _format\
-> const \
+> \
 sge::image::color::any::convert<\
 	sge::image::color::format_arg ## _format\
 >(\

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #define SGE_DEFINE_COLOR_A(name, r, g, b, a)\
-sge::image::color::any::object const \
+sge::image::color::any::object \
 sge::image::color::predef::name()\
 {\
 	typedef sge::image::color::rgba8 color_type;\

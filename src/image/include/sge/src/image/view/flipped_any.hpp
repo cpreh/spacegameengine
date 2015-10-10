@@ -36,7 +36,7 @@ namespace view
 template<
 	typename View
 >
-View const
+View
 flipped_any(
 	View const &_view
 )

@@ -49,7 +49,7 @@ public:
 	template<
 		typename Source
 	>
-	result_type const
+	result_type
 	operator()(
 		Source const &_source
 	) const

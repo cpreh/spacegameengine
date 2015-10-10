@@ -33,7 +33,7 @@ template<
 >
 typename sge::image::traits::view<
 	Tag
->::type const
+>::type
 sge::image::view::sub(
 	typename sge::image::traits::view<
 		Tag
@@ -55,7 +55,7 @@ template<
 >
 typename sge::image::traits::const_view<
 	Tag
->::type const
+>::type
 sge::image::view::sub(
 	typename sge::image::traits::const_view<
 		Tag

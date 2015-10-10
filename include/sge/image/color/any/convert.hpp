@@ -41,7 +41,7 @@ template<
 SGE_IMAGE_COLOR_DETAIL_SYMBOL
 sge::image::mizuiro_color<
 	Dest
-> const
+>
 convert(
 	sge::image::color::any::object const &
 );

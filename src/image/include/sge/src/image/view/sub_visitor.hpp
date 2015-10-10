@@ -62,7 +62,7 @@ public:
 	template<
 		typename View
 	>
-	result_type const
+	result_type
 	operator()(
 		View const &_view
 	) const

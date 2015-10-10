@@ -168,27 +168,27 @@ public:
 	data() const;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	view_type const
+	view_type
 	view();
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	const_view_type const
+	const_view_type
 	view() const;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	wrapped_view_type const
+	wrapped_view_type
 	wrapped_view();
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	const_wrapped_view_type const
+	const_wrapped_view_type
 	wrapped_view() const;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	const_wrapped_view_type const
+	const_wrapped_view_type
 	const_wrapped_view() const;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	dim const
+	dim
 	size() const;
 private:
 	internal_type internal_;

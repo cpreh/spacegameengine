@@ -35,14 +35,14 @@ namespace view
 {
 
 SGE_IMAGEDS2D_DETAIL_SYMBOL
-sge::imageds2d::view::object const
+sge::imageds2d::view::object
 sub(
 	sge::imageds2d::view::object const &,
 	sge::imageds2d::rect const &
 );
 
 SGE_IMAGEDS2D_DETAIL_SYMBOL
-sge::imageds2d::view::const_object const
+sge::imageds2d::view::const_object
 sub(
 	sge::imageds2d::view::const_object const &,
 	sge::imageds2d::rect const &

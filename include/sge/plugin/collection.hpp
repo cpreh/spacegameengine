@@ -78,15 +78,15 @@ public:
 	~collection();
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	iterator const
+	iterator
 	begin() const;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	iterator const
+	iterator
 	end() const;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	context const
+	context
 	get(
 		size_type index
 	) const;

@@ -78,7 +78,7 @@ template<
 typename
 sge::plugin::collection<
 	Type
->::iterator const
+>::iterator
 sge::plugin::collection<
 	Type
 >::begin() const
@@ -95,7 +95,7 @@ template<
 typename
 sge::plugin::collection<
 	Type
->::iterator const
+>::iterator
 sge::plugin::collection<
 	Type
 >::end() const
@@ -112,7 +112,7 @@ template<
 typename
 sge::plugin::collection<
 	Type
->::context const
+>::context
 sge::plugin::collection<
 	Type
 >::get(

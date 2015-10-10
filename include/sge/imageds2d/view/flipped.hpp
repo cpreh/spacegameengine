@@ -34,13 +34,13 @@ namespace view
 {
 
 SGE_IMAGEDS2D_DETAIL_SYMBOL
-sge::imageds2d::view::object const
+sge::imageds2d::view::object
 flipped(
 	sge::imageds2d::view::object const &
 );
 
 SGE_IMAGEDS2D_DETAIL_SYMBOL
-sge::imageds2d::view::const_object const
+sge::imageds2d::view::const_object
 flipped(
 	sge::imageds2d::view::const_object const &
 );

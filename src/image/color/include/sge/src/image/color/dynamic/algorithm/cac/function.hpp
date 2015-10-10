@@ -47,7 +47,7 @@ using function
 mizuiro::color::object<
 	typename
 	DestFormat::color_format
-> const
+>
 (*)(
 	sge::image::color::dynamic::algorithm::cac::source<
 		SourceFormat

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/flags_field.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/min_core_version.hpp>
+#include <sge/plugin/name.hpp>
 #include <sge/plugin/version.hpp>
 
 
@@ -70,14 +71,14 @@ sge::plugin::info::description() const
 		description_;
 }
 
-sge::plugin::version const
+sge::plugin::version
 sge::plugin::info::version() const
 {
 	return
 		version_;
 }
 
-sge::plugin::min_core_version const
+sge::plugin::min_core_version
 sge::plugin::info::min_core_version() const
 {
 	return

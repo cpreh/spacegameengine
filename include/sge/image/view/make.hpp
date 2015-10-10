@@ -43,9 +43,9 @@ template<
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 typename sge::image::traits::view<
 	Tag
->::type const
+>::type
 make(
-	sge::image::raw_pointer const, // this const is here because VC++ screws the type of the function up!
+	sge::image::raw_pointer,
 	typename sge::image::traits::dim<
 		Tag
 	>::type const &,

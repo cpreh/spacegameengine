@@ -39,7 +39,7 @@ template<
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 typename sge::image::traits::const_view<
 	Tag
->::type const
+>::type
 to_const(
 	typename sge::image::traits::view<
 		Tag

@@ -55,7 +55,7 @@ struct converter
 		sge::image::mizuiro_color<
 			DestFormat
 		>
-	>::type const
+	>::type
 	execute(
 		Source const &_source,
 		typename mizuiro::color::object<
@@ -87,7 +87,7 @@ struct converter
 		sge::image::mizuiro_color<
 			DestFormat
 		>
-	>::type const
+	>::type
 	execute(
 		Source const &,
 		typename mizuiro::color::object<

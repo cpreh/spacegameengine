@@ -36,7 +36,7 @@ template<
 >
 typename sge::image::view::wrapped_type<
 	View
->::type const
+>::type
 wrap(
 	View const &_view
 )

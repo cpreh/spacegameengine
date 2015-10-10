@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 template<typename Char,typename CharTraits>
-sge::image::color::any::object const
+sge::image::color::any::object
 rgb8_from_hex_string(
 	std::basic_string<Char,CharTraits> _string)
 {
@@ -146,7 +146,7 @@ widen_if_necessary(
 }
 
 template<typename Char,typename CharTraits>
-sge::image::color::any::object const
+sge::image::color::any::object
 rgb32f_from_string(
 	std::basic_string<Char,CharTraits> _string)
 {
@@ -256,7 +256,7 @@ rgb32f_from_string(
 namespace
 {
 template<typename Char,typename CharTraits>
-sge::image::color::any::object const
+sge::image::color::any::object
 from_string_impl(
 	std::basic_string<Char,CharTraits> const &_string)
 {
@@ -283,7 +283,7 @@ from_string_impl(
 }
 }
 
-sge::image::color::any::object const
+sge::image::color::any::object
 sge::image::color::any::from_string(
 	std::string const &_string)
 {
@@ -292,7 +292,7 @@ sge::image::color::any::from_string(
 			_string);
 }
 
-sge::image::color::any::object const
+sge::image::color::any::object
 sge::image::color::any::from_string(
 	std::wstring const &_string)
 {

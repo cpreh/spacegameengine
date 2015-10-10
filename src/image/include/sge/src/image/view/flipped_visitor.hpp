@@ -38,7 +38,7 @@ template<
 >
 struct flipped_visitor
 {
-	typedef View const result_type;
+	typedef View result_type;
 
 	template<
 		typename T

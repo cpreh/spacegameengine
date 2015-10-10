@@ -36,7 +36,7 @@ namespace any
 {
 
 SGE_IMAGE_COLOR_DETAIL_SYMBOL
-sge::image::color::any::object const
+sge::image::color::any::object
 clear(
 	sge::image::color::format
 );

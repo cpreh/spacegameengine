@@ -41,7 +41,7 @@ struct to_const_visitor
 	template<
 		typename T
 	>
-	result_type const
+	result_type
 	operator()(
 		T const &_view
 	) const
