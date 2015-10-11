@@ -33,7 +33,7 @@ template<
 >
 typename sge::image::traits::pitch<
 	Tag
->::type const
+>::type
 sge::image::view::pitch(
 	typename sge::image::traits::view<
 		Tag
@@ -53,7 +53,7 @@ template<
 >
 typename sge::image::traits::pitch<
 	Tag
->::type const
+>::type
 sge::image::view::pitch(
 	typename sge::image::traits::const_view<
 		Tag

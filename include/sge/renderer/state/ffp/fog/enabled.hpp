@@ -58,19 +58,19 @@ public:
 	mode() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::fog::start const
+	sge::renderer::state::ffp::fog::start
 	start() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::fog::end const
+	sge::renderer::state::ffp::fog::end
 	end() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::fog::density const
+	sge::renderer::state::ffp::fog::density
 	density() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::fog::color const
+	sge::renderer::state::ffp::fog::color
 	color() const;
 private:
 	sge::renderer::state::ffp::fog::mode mode_;

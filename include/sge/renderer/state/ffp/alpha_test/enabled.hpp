@@ -52,7 +52,7 @@ public:
 	func() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::alpha_test::ref const
+	sge::renderer::state::ffp::alpha_test::ref
 	ref() const;
 private:
 	sge::renderer::state::ffp::alpha_test::func func_;

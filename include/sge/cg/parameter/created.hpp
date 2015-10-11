@@ -56,7 +56,7 @@ public:
 	~created();
 
 	SGE_CG_DETAIL_SYMBOL
-	sge::cg::parameter::object const
+	sge::cg::parameter::object
 	object() const;
 
 	SGE_CG_DETAIL_SYMBOL

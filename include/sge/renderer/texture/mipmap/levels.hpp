@@ -37,7 +37,7 @@ namespace mipmap
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::texture::mipmap::object const
+sge::renderer::texture::mipmap::object
 levels(
 	sge::renderer::texture::mipmap::level_count,
 	sge::renderer::texture::mipmap::auto_generate

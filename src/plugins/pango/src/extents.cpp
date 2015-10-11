@@ -37,14 +37,14 @@ sge::pango::extents::extents(
 {
 }
 
-sge::pango::ink_rect const
+sge::pango::ink_rect
 sge::pango::extents::ink_rect() const
 {
 	return
 		ink_rect_;
 }
 
-sge::pango::logical_rect const
+sge::pango::logical_rect
 sge::pango::extents::logical_rect() const
 {
 	return

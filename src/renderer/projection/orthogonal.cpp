@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/row.hpp>
 
 
-sge::renderer::matrix4 const
+sge::renderer::matrix4
 sge::renderer::projection::orthogonal(
 	sge::renderer::projection::rect const &_rect,
 	sge::renderer::projection::near const _near,

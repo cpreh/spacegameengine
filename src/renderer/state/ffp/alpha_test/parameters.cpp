@@ -35,5 +35,6 @@ sge::renderer::state::ffp::alpha_test::parameters::parameters(
 sge::renderer::state::ffp::alpha_test::variant const &
 sge::renderer::state::ffp::alpha_test::parameters::variant() const
 {
-	return variant_;
+	return
+		variant_;
 }

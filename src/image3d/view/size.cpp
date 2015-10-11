@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/view/size_impl.hpp>
 
 
-sge::image3d::dim const
+sge::image3d::dim
 sge::image3d::view::size(
 	sge::image3d::view::object const &_view
 )
@@ -43,7 +43,7 @@ sge::image3d::view::size(
 		);
 }
 
-sge::image3d::dim const
+sge::image3d::dim
 sge::image3d::view::size(
 	sge::image3d::view::const_object const &_view
 )

@@ -498,7 +498,7 @@ private:
 
 }
 
-sge::model::obj::material_map const
+sge::model::obj::material_map
 sge::model::obj::parse_mtllib(
 	boost::filesystem::path const &_filename
 )

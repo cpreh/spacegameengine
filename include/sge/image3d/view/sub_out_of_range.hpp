@@ -32,9 +32,11 @@ namespace image3d
 namespace view
 {
 
-typedef sge::image::view::sub_out_of_range<
+typedef
+sge::image::view::sub_out_of_range<
 	sge::image3d::box
-> sub_out_of_range;
+>
+sub_out_of_range;
 
 }
 }

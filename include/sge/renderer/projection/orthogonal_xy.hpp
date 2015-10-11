@@ -33,7 +33,7 @@ namespace projection
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::matrix4 const
+sge::renderer::matrix4
 orthogonal_xy();
 
 }

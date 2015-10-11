@@ -39,13 +39,15 @@ namespace texture
 namespace mipmap
 {
 
-typedef fcppt::variant::object<
+typedef
+fcppt::variant::object<
 	boost::mpl::vector3<
 		sge::renderer::texture::mipmap::off_rep,
 		sge::renderer::texture::mipmap::all_levels_rep,
 		sge::renderer::texture::mipmap::levels_rep
 	>
-> variant;
+>
+variant;
 
 }
 }

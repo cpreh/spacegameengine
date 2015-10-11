@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::renderer::matrix4 const
+sge::renderer::matrix4
 sge::renderer::projection::perspective_af(
 	sge::renderer::projection::aspect const _aspect,
 	sge::renderer::projection::fov const _fov,

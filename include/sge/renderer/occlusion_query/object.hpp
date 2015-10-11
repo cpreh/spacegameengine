@@ -85,7 +85,7 @@ public:
 	optional if the result could not be obtained
 	*/
 	virtual
-	sge::renderer::occlusion_query::optional_pixel_count const
+	sge::renderer::occlusion_query::optional_pixel_count
 	result(
 		sge::renderer::occlusion_query::blocking_wait block
 	) const = 0;

@@ -35,14 +35,14 @@ namespace view
 {
 
 SGE_IMAGE3D_DETAIL_SYMBOL
-sge::image3d::view::object const
+sge::image3d::view::object
 sub(
 	sge::image3d::view::object const &,
 	sge::image3d::box const &
 );
 
 SGE_IMAGE3D_DETAIL_SYMBOL
-sge::image3d::view::const_object const
+sge::image3d::view::const_object
 sub(
 	sge::image3d::view::const_object const &,
 	sge::image3d::box const &

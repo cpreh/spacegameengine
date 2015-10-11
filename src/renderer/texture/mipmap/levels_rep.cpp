@@ -40,11 +40,13 @@ sge::renderer::texture::mipmap::levels_rep::levels_rep(
 sge::renderer::texture::mipmap::level_count
 sge::renderer::texture::mipmap::levels_rep::value() const
 {
-	return value_;
+	return
+		value_;
 }
 
 sge::renderer::texture::mipmap::auto_generate
 sge::renderer::texture::mipmap::levels_rep::auto_generate() const
 {
-	return auto_generate_;
+	return
+		auto_generate_;
 }

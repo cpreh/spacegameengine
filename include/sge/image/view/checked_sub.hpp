@@ -40,7 +40,7 @@ template<
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 typename sge::image::traits::view<
 	Tag
->::type const
+>::type
 checked_sub(
 	typename sge::image::traits::view<
 		Tag
@@ -56,7 +56,7 @@ template<
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 typename sge::image::traits::const_view<
 	Tag
->::type const
+>::type
 checked_sub(
 	typename sge::image::traits::const_view<
 		Tag

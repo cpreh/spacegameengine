@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unreachable.hpp>
 
 
-sge::renderer::pixel_format::optional_bit_count const
+sge::renderer::pixel_format::optional_bit_count
 sge::renderer::pixel_format::stencil_bits(
 	sge::renderer::pixel_format::depth_stencil const _type
 )

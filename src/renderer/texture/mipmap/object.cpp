@@ -35,5 +35,6 @@ sge::renderer::texture::mipmap::object::object(
 sge::renderer::texture::mipmap::variant const &
 sge::renderer::texture::mipmap::object::variant() const
 {
-	return variant_;
+	return
+		variant_;
 }

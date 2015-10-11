@@ -43,7 +43,7 @@ template<
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 typename sge::image::traits::const_view<
 	Tag
->::type const
+>::type
 make_const(
 	sge::image::const_raw_pointer const, // Workaround for VC++ bug
 	typename sge::image::traits::dim<

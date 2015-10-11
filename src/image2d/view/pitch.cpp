@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/view/pitch_impl.hpp>
 
 
-sge::image2d::pitch const
+sge::image2d::pitch
 sge::image2d::view::pitch(
 	sge::image2d::view::object const &_view
 )
@@ -43,7 +43,7 @@ sge::image2d::view::pitch(
 		);
 }
 
-sge::image2d::pitch const
+sge::image2d::pitch
 sge::image2d::view::pitch(
 	sge::image2d::view::const_object const &_view
 )

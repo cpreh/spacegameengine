@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/view/instantiate_flipped.hpp>
 
 
-sge::image2d::view::object const
+sge::image2d::view::object
 sge::image2d::view::flipped(
 	sge::image2d::view::object const &_view
 )
@@ -41,7 +41,7 @@ sge::image2d::view::flipped(
 		);
 }
 
-sge::image2d::view::const_object const
+sge::image2d::view::const_object
 sge::image2d::view::flipped(
 	sge::image2d::view::const_object const &_view
 )

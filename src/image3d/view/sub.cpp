@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/view/sub_impl.hpp>
 
 
-sge::image3d::view::object const
+sge::image3d::view::object
 sge::image3d::view::sub(
 	sge::image3d::view::object const &_src,
 	sge::image3d::box const &_box
@@ -45,7 +45,7 @@ sge::image3d::view::sub(
 		);
 }
 
-sge::image3d::view::const_object const
+sge::image3d::view::const_object
 sge::image3d::view::sub(
 	sge::image3d::view::const_object const &_src,
 	sge::image3d::box const &_box

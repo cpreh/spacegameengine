@@ -59,7 +59,7 @@ sge::cg::parameter::created::~created()
 	);
 }
 
-sge::cg::parameter::object const
+sge::cg::parameter::object
 sge::cg::parameter::created::object() const
 {
 	return

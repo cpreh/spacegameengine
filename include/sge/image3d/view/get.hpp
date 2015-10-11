@@ -36,14 +36,14 @@ namespace view
 {
 
 SGE_IMAGE3D_DETAIL_SYMBOL
-sge::image::color::any::object const
+sge::image::color::any::object
 get(
 	sge::image3d::view::object const &,
 	sge::image3d::dim const &
 );
 
 SGE_IMAGE3D_DETAIL_SYMBOL
-sge::image::color::any::object const
+sge::image::color::any::object
 get(
 	sge::image3d::view::const_object const &,
 	sge::image3d::dim const &

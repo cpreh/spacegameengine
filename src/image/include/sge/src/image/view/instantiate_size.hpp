@@ -35,7 +35,7 @@ template \
 SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::traits::dim<\
 	tag\
->::type const \
+>::type \
 sge::image::view::size<\
 	tag\
 >(\

@@ -37,7 +37,7 @@ namespace alpha_test
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::state::ffp::alpha_test::parameters const
+sge::renderer::state::ffp::alpha_test::parameters
 default_();
 
 }

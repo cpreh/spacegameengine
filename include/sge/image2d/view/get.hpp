@@ -36,14 +36,14 @@ namespace view
 {
 
 SGE_IMAGE2D_DETAIL_SYMBOL
-sge::image::color::any::object const
+sge::image::color::any::object
 get(
 	sge::image2d::view::object const &,
 	sge::image2d::dim const &
 );
 
 SGE_IMAGE2D_DETAIL_SYMBOL
-sge::image::color::any::object const
+sge::image::color::any::object
 get(
 	sge::image2d::view::const_object const &,
 	sge::image2d::dim const &

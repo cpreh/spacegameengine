@@ -35,5 +35,6 @@ sge::renderer::state::ffp::transform::parameters::parameters(
 sge::renderer::matrix4 const &
 sge::renderer::state::ffp::transform::parameters::matrix() const
 {
-	return matrix_;
+	return
+		matrix_;
 }

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key/to_modifier.hpp>
 
 
-sge::input::key::optional_modifier const
+sge::input::key::optional_modifier
 sge::input::key::to_modifier(
 	sge::input::key::code const _code
 )

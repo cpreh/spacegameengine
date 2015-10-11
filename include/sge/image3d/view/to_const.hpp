@@ -34,9 +34,9 @@ namespace view
 {
 
 SGE_IMAGE3D_DETAIL_SYMBOL
-const_object const
+sge::image3d::view::const_object
 to_const(
-	object const &
+	sge::image3d::view::object const &
 );
 
 }

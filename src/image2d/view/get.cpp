@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/view/instantiate_get.hpp>
 
 
-sge::image::color::any::object const
+sge::image::color::any::object
 sge::image2d::view::get(
 	sge::image2d::view::object const &_view,
 	sge::image2d::dim const &_index
@@ -48,7 +48,7 @@ sge::image2d::view::get(
 		);
 }
 
-sge::image::color::any::object const
+sge::image::color::any::object
 sge::image2d::view::get(
 	sge::image2d::view::const_object const &_view,
 	sge::image2d::dim const &_index

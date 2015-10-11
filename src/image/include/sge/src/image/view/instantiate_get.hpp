@@ -40,7 +40,7 @@ sge::image::traits::any_object<\
 	sge::image::traits::color_tag<\
 		tag\
 	>::type\
->::type const \
+>::type \
 sge::image::view::get<\
 	tag\
 >(\

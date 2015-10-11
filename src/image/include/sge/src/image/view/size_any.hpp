@@ -37,9 +37,10 @@ template<
 	typename Tag,
 	typename View
 >
-typename sge::image::traits::dim<
+typename
+sge::image::traits::dim<
 	Tag
->::type const
+>::type
 size_any(
 	View const &_view
 )

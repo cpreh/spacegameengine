@@ -38,10 +38,11 @@ sge::audio::direction::object::object(
 {
 }
 
-sge::audio::vector const &
+sge::audio::vector
 sge::audio::direction::object::forward() const
 {
-	return forward_;
+	return
+		forward_;
 }
 
 void
@@ -49,13 +50,15 @@ sge::audio::direction::object::forward(
 	sge::audio::vector const &_forward
 )
 {
-	forward_ = _forward;
+	forward_ =
+		_forward;
 }
 
-sge::audio::vector const
+sge::audio::vector
 sge::audio::direction::object::up() const
 {
-	return up_;
+	return
+		up_;
 }
 
 void
@@ -63,5 +66,6 @@ sge::audio::direction::object::up(
 	sge::audio::vector const &_up
 )
 {
-	up_ = _up;
+	up_ =
+		_up;
 }

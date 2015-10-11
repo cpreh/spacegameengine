@@ -41,7 +41,7 @@ Calculates how many bits are needed for a pixel from \a color
 \param color The color format to calculate the size from
 */
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::pixel_format::bit_count const
+sge::renderer::pixel_format::bit_count
 color_bits(
 	sge::renderer::pixel_format::color color
 );

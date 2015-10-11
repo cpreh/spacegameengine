@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unreachable.hpp>
 
 
-sge::renderer::primitive_count const
+sge::renderer::primitive_count
 sge::renderer::vertex::to_primitive_count(
 	sge::renderer::vertex::count const _vertex_count,
 	sge::renderer::primitive_type const _primitive_type

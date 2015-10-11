@@ -141,21 +141,21 @@ public:
 	{
 	}
 
-	total_type const
+	total_type
 	total() const
 	{
 		return
 			total_;
 	}
 
-	work_type const
+	work_type
 	work() const
 	{
 		return
 			work_;
 	}
 
-	jiffies const
+	jiffies
 	operator-(
 		jiffies const &_other) const
 	{

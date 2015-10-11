@@ -40,7 +40,7 @@ template<
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 typename sge::image::traits::dim<
 	Tag
->::type const
+>::type
 size(
 	typename sge::image::traits::view<
 		Tag
@@ -53,7 +53,7 @@ template<
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 typename sge::image::traits::dim<
 	Tag
->::type const
+>::type
 size(
 	typename sge::image::traits::const_view<
 		Tag

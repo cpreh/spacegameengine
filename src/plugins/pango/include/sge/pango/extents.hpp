@@ -39,10 +39,10 @@ public:
 		sge::pango::logical_rect
 	);
 
-	sge::pango::ink_rect const
+	sge::pango::ink_rect
 	ink_rect() const;
 
-	sge::pango::logical_rect const
+	sge::pango::logical_rect
 	logical_rect() const;
 private:
 	sge::pango::ink_rect ink_rect_;

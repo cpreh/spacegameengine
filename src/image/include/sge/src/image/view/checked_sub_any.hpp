@@ -37,7 +37,7 @@ template<
 	typename Tag,
 	typename View
 >
-View const
+View
 checked_sub_any(
 	View const &_view,
 	typename sge::image::traits::box<

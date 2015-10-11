@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/identity.hpp>
 
 
-sge::renderer::state::ffp::transform::parameters const
+sge::renderer::state::ffp::transform::parameters
 sge::renderer::state::ffp::transform::default_()
 {
 	return

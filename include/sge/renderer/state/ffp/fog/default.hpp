@@ -37,7 +37,7 @@ namespace fog
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::state::ffp::fog::parameters const
+sge::renderer::state::ffp::fog::parameters
 default_();
 
 }

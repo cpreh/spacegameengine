@@ -27,22 +27,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 
-sge::camera::tracking::keyframe const
+sge::camera::tracking::keyframe
 sge::camera::tracking::json::keyframe_from_json(
-	sge::parse::json::object const &_object)
+	sge::parse::json::object const &_object
+)
 {
 	return
 		sge::camera::tracking::keyframe(
 			sge::camera::update_duration(
-				sge::parse::json::find_and_convert_member<sge::camera::update_duration::rep>(
+				sge::parse::json::find_and_convert_member<
+					sge::camera::update_duration::rep
+				>(
 					_object,
 					sge::parse::json::path(
 						fcppt::string(
-							FCPPT_TEXT("duration"))))),
+							FCPPT_TEXT("duration")
+						)
+					)
+				)
+			),
 			sge::camera::matrix_conversion::world_matrix_to_coordinate_system(
-				sge::parse::json::find_and_convert_member<sge::renderer::matrix4>(
+				sge::parse::json::find_and_convert_member<
+					sge::renderer::matrix4
+				>(
 					_object,
 					sge::parse::json::path(
 						fcppt::string(
-							FCPPT_TEXT("matrix"))))));
+							FCPPT_TEXT("matrix")
+						)
+					)
+				)
+			)
+		);
 }

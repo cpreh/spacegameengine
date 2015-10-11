@@ -35,13 +35,13 @@ namespace view
 {
 
 SGE_IMAGE2D_DETAIL_SYMBOL
-sge::image2d::dim const
+sge::image2d::dim
 size(
 	sge::image2d::view::object const &
 );
 
 SGE_IMAGE2D_DETAIL_SYMBOL
-sge::image2d::dim const
+sge::image2d::dim
 size(
 	sge::image2d::view::const_object const &
 );

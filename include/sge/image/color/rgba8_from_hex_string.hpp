@@ -38,23 +38,31 @@ namespace image
 {
 namespace color
 {
-template<typename String>
-sge::image::color::rgba8 const
+
+template<
+	typename String
+>
+sge::image::color::rgba8
 rgba8_from_hex_string(
 	String const &_string,
-	sge::image::color::rgba8::format::channel_type const alpha)
+	sge::image::color::rgba8::format::channel_type const _alpha
+)
 {
 	sge::image::color::rgb8 const rgb(
 		sge::image::color::rgb8_from_hex_string(
-			_string));
+			_string
+		)
+	);
 
 	return
 		sge::image::color::rgba8(
 			(sge::image::color::init::red() = rgb.get(mizuiro::color::channel::red()))
 			(sge::image::color::init::green() = rgb.get(mizuiro::color::channel::green()))
 			(sge::image::color::init::blue() = rgb.get(mizuiro::color::channel::blue()))
-			(sge::image::color::init::alpha() = alpha));
+			(sge::image::color::init::alpha() = _alpha)
+		);
 }
+
 }
 }
 }

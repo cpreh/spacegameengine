@@ -35,13 +35,13 @@ namespace view
 {
 
 SGE_IMAGE2D_DETAIL_SYMBOL
-sge::image2d::pitch const
+sge::image2d::pitch
 pitch(
 	sge::image2d::view::object const &
 );
 
 SGE_IMAGE2D_DETAIL_SYMBOL
-sge::image2d::pitch const
+sge::image2d::pitch
 pitch(
 	sge::image2d::view::const_object const &
 );

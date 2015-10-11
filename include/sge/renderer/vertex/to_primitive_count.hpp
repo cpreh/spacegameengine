@@ -48,7 +48,7 @@ vertices)
 \param type The primitive type
 */
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::primitive_count const
+sge::renderer::primitive_count
 to_primitive_count(
 	sge::renderer::vertex::count vertices,
 	sge::renderer::primitive_type type

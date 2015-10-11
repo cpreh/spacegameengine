@@ -35,15 +35,15 @@ namespace view
 {
 
 SGE_IMAGE3D_DETAIL_SYMBOL
-image::color::format
+sge::image::color::format
 format(
-	view::object const &
+	sge::image3d::view::object const &
 );
 
 SGE_IMAGE3D_DETAIL_SYMBOL
-image::color::format
+sge::image::color::format
 format(
-	view::const_object const &
+	sge::image3d::view::const_object const &
 );
 
 }

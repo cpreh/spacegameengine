@@ -40,12 +40,14 @@ namespace ffp
 namespace alpha_test
 {
 
-typedef fcppt::variant::object<
+typedef
+fcppt::variant::object<
 	boost::mpl::vector2<
 		sge::renderer::state::ffp::alpha_test::off,
 		sge::renderer::state::ffp::alpha_test::enabled
 	>
-> variant;
+>
+variant;
 
 }
 }

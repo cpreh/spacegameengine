@@ -36,9 +36,11 @@ namespace ffp
 namespace fog
 {
 
-typedef fcppt::optional<
+typedef
+fcppt::optional<
 	sge::renderer::state::ffp::fog::object const &
-> const_optional_object_ref;
+>
+const_optional_object_ref;
 
 }
 }

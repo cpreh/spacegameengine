@@ -23,13 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/dynamic/view.hpp>
 
 
-sge::renderer::index::dynamic::const_view const
+sge::renderer::index::dynamic::const_view
 sge::renderer::index::dynamic::make_const_view(
-	view const &_view
+	sge::renderer::index::dynamic::view const &_view
 )
 {
 	return
-		dynamic::const_view(
+		sge::renderer::index::dynamic::const_view(
 			_view.data(),
 			_view.size(),
 			_view.format()

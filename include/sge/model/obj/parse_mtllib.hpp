@@ -36,7 +36,7 @@ namespace obj
 {
 
 SGE_MODEL_OBJ_DETAIL_SYMBOL
-sge::model::obj::material_map const
+sge::model::obj::material_map
 parse_mtllib(
 	boost::filesystem::path const &
 );

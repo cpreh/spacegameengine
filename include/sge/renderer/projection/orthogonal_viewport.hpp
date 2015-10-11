@@ -36,7 +36,7 @@ namespace projection
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::optional_matrix4 const
+sge::renderer::optional_matrix4
 orthogonal_viewport(
 	sge::renderer::target::viewport const &,
 	sge::renderer::projection::near,

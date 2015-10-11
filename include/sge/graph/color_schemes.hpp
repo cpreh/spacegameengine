@@ -32,19 +32,19 @@ namespace color_schemes
 {
 
 SGE_GRAPH_DETAIL_SYMBOL
-sge::graph::color_scheme const
+sge::graph::color_scheme
 default_();
 
 SGE_GRAPH_DETAIL_SYMBOL
-sge::graph::color_scheme const
+sge::graph::color_scheme
 bright();
 
 SGE_GRAPH_DETAIL_SYMBOL
-sge::graph::color_scheme const
+sge::graph::color_scheme
 night();
 
 SGE_GRAPH_DETAIL_SYMBOL
-sge::graph::color_scheme const
+sge::graph::color_scheme
 minimal();
 
 }

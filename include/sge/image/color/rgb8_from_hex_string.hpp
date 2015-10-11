@@ -49,7 +49,7 @@ namespace color
 //   is not std::string or std::wstring (like a utf8 string), so I
 //   kept this a template instead of two overloaded functions.
 template<typename String>
-sge::image::color::rgb8 const
+sge::image::color::rgb8
 rgb8_from_hex_string(
 	String const &_string)
 {

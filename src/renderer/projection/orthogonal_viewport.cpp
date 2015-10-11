@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/null.hpp>
 
 
-sge::renderer::optional_matrix4 const
+sge::renderer::optional_matrix4
 sge::renderer::projection::orthogonal_viewport(
 	sge::renderer::target::viewport const &_viewport,
 	sge::renderer::projection::near const _near,

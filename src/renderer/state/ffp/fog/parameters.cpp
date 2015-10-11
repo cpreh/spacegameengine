@@ -35,5 +35,6 @@ sge::renderer::state::ffp::fog::parameters::parameters(
 sge::renderer::state::ffp::fog::variant const &
 sge::renderer::state::ffp::fog::parameters::variant() const
 {
-	return variant_;
+	return
+		variant_;
 }

@@ -40,11 +40,13 @@ sge::renderer::state::ffp::alpha_test::enabled::enabled(
 sge::renderer::state::ffp::alpha_test::func
 sge::renderer::state::ffp::alpha_test::enabled::func() const
 {
-	return func_;
+	return
+		func_;
 }
 
-sge::renderer::state::ffp::alpha_test::ref const
+sge::renderer::state::ffp::alpha_test::ref
 sge::renderer::state::ffp::alpha_test::enabled::ref() const
 {
-	return ref_;
+	return
+		ref_;
 }

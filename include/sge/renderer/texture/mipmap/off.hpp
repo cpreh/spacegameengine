@@ -35,7 +35,7 @@ namespace mipmap
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::texture::mipmap::object const
+sge::renderer::texture::mipmap::object
 off();
 
 }

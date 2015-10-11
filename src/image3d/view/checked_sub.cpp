@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/view/instantiate_checked_sub.hpp>
 
 
-sge::image3d::view::object const
+sge::image3d::view::object
 sge::image3d::view::checked_sub(
 	sge::image3d::view::object const &_view,
 	sge::image3d::box const &_box
@@ -47,7 +47,7 @@ sge::image3d::view::checked_sub(
 		);
 }
 
-sge::image3d::view::const_object const
+sge::image3d::view::const_object
 sge::image3d::view::checked_sub(
 	sge::image3d::view::const_object const &_view,
 	sge::image3d::box const &_box

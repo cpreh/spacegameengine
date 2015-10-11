@@ -32,9 +32,11 @@ namespace image3d
 namespace view
 {
 
-typedef sge::image::view::object<
+typedef
+sge::image::view::object<
 	image3d::view::elements_wrapper
-> object;
+>
+object;
 
 }
 }

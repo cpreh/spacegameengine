@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object.hpp>
 
 
-sge::graph::color_scheme const
+sge::graph::color_scheme
 sge::graph::color_schemes::default_()
 {
 	return
@@ -49,7 +49,7 @@ sge::graph::color_schemes::default_()
 	);
 }
 
-sge::graph::color_scheme const
+sge::graph::color_scheme
 sge::graph::color_schemes::bright()
 {
 	return
@@ -87,7 +87,7 @@ sge::graph::color_schemes::bright()
 	);
 }
 
-sge::graph::color_scheme const
+sge::graph::color_scheme
 sge::graph::color_schemes::night()
 {
 	return
@@ -125,7 +125,7 @@ sge::graph::color_schemes::night()
 	);
 }
 
-sge::graph::color_scheme const
+sge::graph::color_scheme
 sge::graph::color_schemes::minimal()
 {
 	return

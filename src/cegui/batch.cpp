@@ -86,7 +86,7 @@ sge::cegui::batch::vertex_buffer() const
 		*vertex_buffer_;
 }
 
-sge::cegui::clip const
+sge::cegui::clip
 sge::cegui::batch::clip() const
 {
 	return

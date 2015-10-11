@@ -36,7 +36,7 @@ namespace core
 namespace sampler
 {
 
-sge::renderer::state::core::sampler::const_optional_object_ref_map const
+sge::renderer::state::core::sampler::const_optional_object_ref_map
 scoped_states(
 	sge::renderer::state::core::sampler::const_object_ref_map const &
 );

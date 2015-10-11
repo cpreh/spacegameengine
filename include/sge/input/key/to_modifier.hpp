@@ -34,7 +34,7 @@ namespace key
 {
 
 SGE_INPUT_DETAIL_SYMBOL
-sge::input::key::optional_modifier const
+sge::input::key::optional_modifier
 to_modifier(
 	sge::input::key::code
 );

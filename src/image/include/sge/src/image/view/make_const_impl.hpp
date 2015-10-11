@@ -38,7 +38,7 @@ template<
 >
 typename sge::image::traits::const_view<
 	Tag
->::type const
+>::type
 sge::image::view::make_const(
 	sge::image::const_raw_pointer const _data,
 	typename sge::image::traits::dim<

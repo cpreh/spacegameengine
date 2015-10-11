@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key/optional_digit.hpp>
 
 
-sge::input::key::optional_digit const
+sge::input::key::optional_digit
 sge::input::key::code_to_digit(
 	sge::input::key::code const _code
 )

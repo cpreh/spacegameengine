@@ -64,7 +64,7 @@ typename boost::enable_if<
 	fcppt::math::box::rect<
 		Ret
 	>
->::type const
+>::type
 lock_rect_to_coords(
 	sge::renderer::lock_rect const &area,
 	sge::renderer::dim2 const &size

@@ -35,13 +35,13 @@ namespace view
 {
 
 SGE_IMAGE3D_DETAIL_SYMBOL
-sge::image3d::dim const
+sge::image3d::dim
 size(
 	sge::image3d::view::object const &
 );
 
 SGE_IMAGE3D_DETAIL_SYMBOL
-sge::image3d::dim const
+sge::image3d::dim
 size(
 	sge::image3d::view::const_object const &
 );

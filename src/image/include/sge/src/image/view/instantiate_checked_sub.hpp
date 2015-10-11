@@ -35,7 +35,7 @@ template \
 SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::traits::view_type<\
 	tag\
->::type const \
+>::type \
 sge::image::view::checked_sub<\
 	tag\
 >(\

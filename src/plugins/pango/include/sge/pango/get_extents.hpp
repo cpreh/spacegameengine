@@ -32,7 +32,7 @@ namespace sge
 namespace pango
 {
 
-sge::pango::extents const
+sge::pango::extents
 get_extents(
 	PangoLayout &
 );

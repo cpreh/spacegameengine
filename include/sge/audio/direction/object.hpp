@@ -44,7 +44,7 @@ public:
 	);
 
 	SGE_AUDIO_DETAIL_SYMBOL
-	sge::audio::vector const &
+	sge::audio::vector
 	forward() const;
 
 	SGE_AUDIO_DETAIL_SYMBOL
@@ -54,7 +54,7 @@ public:
 	);
 
 	SGE_AUDIO_DETAIL_SYMBOL
-	sge::audio::vector const
+	sge::audio::vector
 	up() const;
 
 	SGE_AUDIO_DETAIL_SYMBOL

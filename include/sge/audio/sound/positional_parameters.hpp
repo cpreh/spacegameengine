@@ -48,7 +48,7 @@ public:
 	/// Get the position
 	/** \see sge::audio::sound::positional::position */
 	SGE_AUDIO_DETAIL_SYMBOL
-	sge::audio::vector const
+	sge::audio::vector
 	position() const;
 
 	/// Set the position
@@ -62,7 +62,7 @@ public:
 	/// Get the linear velocity
 	/** \see sge::audio::sound::positional::linear_velocity */
 	SGE_AUDIO_DETAIL_SYMBOL
-	sge::audio::vector const
+	sge::audio::vector
 	linear_velocity() const;
 
 	/// Set the linear velocity

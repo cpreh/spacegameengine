@@ -60,7 +60,7 @@ private:
 	end()
 	override;
 
-	sge::renderer::occlusion_query::optional_pixel_count const
+	sge::renderer::occlusion_query::optional_pixel_count
 	result(
 		sge::renderer::occlusion_query::blocking_wait block
 	) const

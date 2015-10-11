@@ -34,7 +34,7 @@ template<
 >
 typename sge::image::traits::dim<
 	Tag
->::type const
+>::type
 sge::image::view::size(
 	typename sge::image::traits::view<
 		Tag
@@ -54,7 +54,7 @@ template<
 >
 typename sge::image::traits::dim<
 	Tag
->::type const
+>::type
 sge::image::view::size(
 	typename sge::image::traits::const_view<
 		Tag

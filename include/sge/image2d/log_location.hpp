@@ -31,7 +31,7 @@ namespace image2d
 {
 
 SGE_IMAGE2D_DETAIL_SYMBOL
-fcppt::log::location const
+fcppt::log::location
 log_location();
 
 }

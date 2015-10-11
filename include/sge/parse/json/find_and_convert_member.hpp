@@ -78,7 +78,7 @@ boost::mpl::if_
 		>
 	>,
 	T const &,
-	T const
+	T
 >::type
 find_and_convert_member(
 	sge::parse::json::object const &o,

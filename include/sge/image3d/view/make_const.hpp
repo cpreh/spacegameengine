@@ -37,7 +37,7 @@ namespace view
 {
 
 SGE_IMAGE3D_DETAIL_SYMBOL
-sge::image3d::view::const_object const
+sge::image3d::view::const_object
 make_const(
 	sge::image::const_raw_pointer,
 	sge::image3d::dim const &,

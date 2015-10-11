@@ -33,10 +33,12 @@ namespace image3d
 namespace view
 {
 
-typedef sge::image::view::const_object<
+typedef
+sge::image::view::const_object<
 	image3d::view::const_elements_wrapper,
 	image3d::view::elements_wrapper
-> const_object;
+>
+const_object;
 
 }
 }

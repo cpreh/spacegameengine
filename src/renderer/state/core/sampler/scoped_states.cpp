@@ -22,33 +22,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/const_optional_object_ref.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/src/renderer/state/core/sampler/scoped_states.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::renderer::state::core::sampler::const_optional_object_ref_map const
+sge::renderer::state::core::sampler::const_optional_object_ref_map
 sge::renderer::state::core::sampler::scoped_states(
 	sge::renderer::state::core::sampler::const_object_ref_map const &_map
 )
 {
-	sge::renderer::state::core::sampler::const_optional_object_ref_map result;
-
-	for(
-		sge::renderer::state::core::sampler::const_object_ref_map::const_iterator it(
-			_map.begin()
-		);
-		it != _map.end();
-		++it
-	)
-		result.insert(
-			std::make_pair(
-				it->first,
-				sge::renderer::state::core::sampler::const_optional_object_ref(
-					it->second.get()
-				)
+	return
+		fcppt::algorithm::map<
+			sge::renderer::state::core::sampler::const_optional_object_ref_map
+		>(
+			_map,
+			[](
+				sge::renderer::state::core::sampler::const_object_ref_map::value_type const &_element
 			)
+			{
+				return
+					std::make_pair(
+						_element.first,
+						sge::renderer::state::core::sampler::const_optional_object_ref(
+							_element.second.get()
+						)
+					);
+			}
 		);
-
-	return result;
 }

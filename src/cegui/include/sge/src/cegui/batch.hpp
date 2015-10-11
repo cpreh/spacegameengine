@@ -68,7 +68,7 @@ public:
 	sge::renderer::vertex::buffer &
 	vertex_buffer() const;
 
-	sge::cegui::clip const
+	sge::cegui::clip
 	clip() const;
 private:
 	typedef

@@ -36,15 +36,15 @@ namespace view
 {
 
 SGE_IMAGE3D_DETAIL_SYMBOL
-image::raw_pointer
+sge::image::raw_pointer
 data(
-	view::object const &
+	sge::image3d::view::object const &
 );
 
 SGE_IMAGE3D_DETAIL_SYMBOL
-image::const_raw_pointer
+sge::image::const_raw_pointer
 data(
-	view::const_object const &
+	sge::image3d::view::const_object const &
 );
 
 }

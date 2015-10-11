@@ -34,7 +34,7 @@ namespace pixel_format
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::pixel_format::optional_bit_count const
+sge::renderer::pixel_format::optional_bit_count
 stencil_bits(
 	sge::renderer::pixel_format::depth_stencil
 );

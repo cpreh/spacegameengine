@@ -35,5 +35,6 @@ sge::renderer::texture::mipmap::all_levels_rep::all_levels_rep(
 sge::renderer::texture::mipmap::auto_generate
 sge::renderer::texture::mipmap::all_levels_rep::auto_generate() const
 {
-	return auto_generate_;
+	return
+		auto_generate_;
 }

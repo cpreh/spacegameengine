@@ -36,7 +36,8 @@ namespace view
 template<
 	typename View
 >
-typename View::format const
+typename
+View::format
 image_format(
 	View const &_view
 )

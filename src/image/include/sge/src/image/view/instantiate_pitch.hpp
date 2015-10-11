@@ -35,7 +35,7 @@ template \
 SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::traits::pitch<\
 	tag\
->::type const \
+>::type \
 sge::image::view::pitch<\
 	tag\
 >(\

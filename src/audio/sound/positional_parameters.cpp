@@ -98,7 +98,7 @@ sge::audio::sound::positional_parameters::positional_parameters()
 {
 }
 
-sge::audio::vector const
+sge::audio::vector
 sge::audio::sound::positional_parameters::position() const
 {
 	return
@@ -117,7 +117,7 @@ sge::audio::sound::positional_parameters::position(
 		*this;
 }
 
-sge::audio::vector const
+sge::audio::vector
 sge::audio::sound::positional_parameters::linear_velocity() const
 {
 	return

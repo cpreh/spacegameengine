@@ -44,7 +44,7 @@ typename sge::image::traits::any_object<
 	typename sge::image::traits::color_tag<
 		Tag
 	>::type
->::type const
+>::type
 get(
 	typename sge::image::traits::view<
 		Tag
@@ -62,7 +62,7 @@ typename sge::image::traits::any_object<
 	typename sge::image::traits::color_tag<
 		Tag
 	>::type
->::type const
+>::type
 get(
 	typename sge::image::traits::const_view<
 		Tag

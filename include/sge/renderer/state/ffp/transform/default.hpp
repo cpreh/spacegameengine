@@ -37,7 +37,7 @@ namespace transform
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::state::ffp::transform::parameters const
+sge::renderer::state::ffp::transform::parameters
 default_();
 
 }

@@ -36,9 +36,9 @@ namespace dynamic
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-dynamic::const_view const
+sge::renderer::index::dynamic::const_view
 make_const_view(
-	dynamic::view const &
+	sge::renderer::index::dynamic::view const &
 );
 
 }

@@ -32,9 +32,11 @@ namespace imageds2d
 namespace view
 {
 
-typedef sge::image::view::object<
+typedef
+sge::image::view::object<
 	sge::imageds2d::view::elements_wrapper
-> object;
+>
+object;
 
 }
 }

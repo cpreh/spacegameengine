@@ -40,12 +40,14 @@ namespace ffp
 namespace fog
 {
 
-typedef fcppt::variant::object<
+typedef
+fcppt::variant::object<
 	boost::mpl::vector2<
 		sge::renderer::state::ffp::fog::off,
 		sge::renderer::state::ffp::fog::enabled
 	>
-> variant;
+>
+variant;
 
 }
 }
