@@ -36,7 +36,8 @@ namespace buffers
 template<
 	typename Choices
 >
-sge::renderer::vertex::count const
+inline
+sge::renderer::vertex::count
 vertex_count(
 	sge::sprite::count const _sprites
 )

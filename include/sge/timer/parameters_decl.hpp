@@ -91,7 +91,7 @@ public:
 		bool
 	);
 
-	duration const
+	duration
 	interval() const;
 
 	state_base const &

@@ -37,7 +37,7 @@ sge::gui::widget::reference_name_pair::reference_name_pair(
 {
 }
 
-sge::gui::widget::reference const
+sge::gui::widget::reference
 sge::gui::widget::reference_name_pair::reference() const
 {
 	return

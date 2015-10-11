@@ -46,20 +46,23 @@ sge::font::bitmap::char_metric::~char_metric()
 {
 }
 
-sge::font::bitmap::const_view const
+sge::font::bitmap::const_view
 sge::font::bitmap::char_metric::view() const
 {
-	return view_;
+	return
+		view_;
 }
 
-sge::font::vector const
+sge::font::vector
 sge::font::bitmap::char_metric::offset() const
 {
-	return offset_;
+	return
+		offset_;
 }
 
 sge::font::unit
 sge::font::bitmap::char_metric::x_advance() const
 {
-	return x_advance_;
+	return
+		x_advance_;
 }

@@ -39,7 +39,7 @@ namespace stencil
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::state::core::depth_stencil::stencil::read_mask const
+sge::renderer::state::core::depth_stencil::stencil::read_mask
 read_mask_all();
 
 }

@@ -72,15 +72,15 @@ public:
 	declaration() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::vf::dynamic::part_index const
+	sge::renderer::vf::dynamic::part_index
 	part() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::vertex::count const
+	sge::renderer::vertex::count
 	count() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::resource_flags_field const &
+	sge::renderer::resource_flags_field
 	flags() const;
 private:
 	sge::renderer::vertex::declaration const &declaration_;

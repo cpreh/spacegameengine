@@ -37,7 +37,7 @@ namespace blend
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::state::core::blend::write_mask const
+sge::renderer::state::core::blend::write_mask
 write_mask_all();
 
 }

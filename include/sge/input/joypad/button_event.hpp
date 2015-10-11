@@ -44,7 +44,7 @@ public:
 	);
 
 	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::button_id const
+	sge::input::joypad::button_id
 	button_id() const;
 
 	SGE_INPUT_DETAIL_SYMBOL

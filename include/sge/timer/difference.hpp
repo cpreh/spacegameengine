@@ -36,7 +36,7 @@ template<
 	typename Duration,
 	typename Timer
 >
-Duration const
+Duration
 difference(
 	Timer const &_timer
 )

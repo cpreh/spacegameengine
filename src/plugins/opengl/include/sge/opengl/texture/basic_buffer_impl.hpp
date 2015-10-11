@@ -143,7 +143,7 @@ sge::opengl::texture::basic_buffer<
 template<
 	typename Types
 >
-sge::opengl::texture::is_render_target const
+sge::opengl::texture::is_render_target
 sge::opengl::texture::basic_buffer<
 	Types
 >::is_render_target() const
@@ -157,7 +157,7 @@ template<
 >
 typename sge::opengl::texture::basic_buffer<
 	Types
->::dim const
+>::dim
 sge::opengl::texture::basic_buffer<
 	Types
 >::size() const
@@ -185,7 +185,7 @@ template<
 >
 typename sge::opengl::texture::basic_buffer<
 	Types
->::view const
+>::view
 sge::opengl::texture::basic_buffer<
 	Types
 >::lock(
@@ -209,7 +209,7 @@ template<
 >
 typename sge::opengl::texture::basic_buffer<
 	Types
->::const_view const
+>::const_view
 sge::opengl::texture::basic_buffer<
 	Types
 >::lock(
@@ -412,7 +412,7 @@ template<
 >
 typename sge::opengl::texture::basic_buffer<
 	Types
->::view const
+>::view
 sge::opengl::texture::basic_buffer<
 	Types
 >::lock_view()
@@ -491,7 +491,7 @@ template<
 >
 typename sge::opengl::texture::basic_buffer<
 	Types
->::const_view const
+>::const_view
 sge::opengl::texture::basic_buffer<
 	Types
 >::lock_view() const
@@ -515,7 +515,7 @@ template<
 >
 typename sge::opengl::texture::basic_buffer<
 	Types
->::dim const
+>::dim
 sge::opengl::texture::basic_buffer<
 	Types
 >::lock_dim() const

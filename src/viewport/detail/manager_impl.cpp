@@ -93,7 +93,7 @@ sge::viewport::detail::manager_impl::resize_callback(
 		_resize_callback;
 }
 
-sge::renderer::target::viewport const
+sge::renderer::target::viewport
 sge::viewport::detail::manager_impl::viewport() const
 {
 	return

@@ -53,7 +53,7 @@ sge::evdev::eventfd::fd::~fd()
 	);
 }
 
-awl::backends::linux::fd::object const
+awl::backends::linux::fd::object
 sge::evdev::eventfd::fd::get() const
 {
 	return

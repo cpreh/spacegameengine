@@ -74,21 +74,21 @@ sge::rucksack::widget::dummy::axis_policy(
 		_axis_policy;
 }
 
-sge::rucksack::dim const
+sge::rucksack::dim
 sge::rucksack::widget::dummy::size() const
 {
 	return
 		size_;
 }
 
-sge::rucksack::vector const
+sge::rucksack::vector
 sge::rucksack::widget::dummy::position() const
 {
 	return
 		position_;
 }
 
-sge::rucksack::axis_policy2 const
+sge::rucksack::axis_policy2
 sge::rucksack::widget::dummy::axis_policy() const
 {
 	return

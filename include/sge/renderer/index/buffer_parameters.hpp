@@ -57,7 +57,7 @@ public:
 	format() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::index::count const
+	sge::renderer::index::count
 	count() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL

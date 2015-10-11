@@ -64,21 +64,21 @@ sge::rucksack::widget::minimum_size::position(
 	);
 }
 
-sge::rucksack::dim const
+sge::rucksack::dim
 sge::rucksack::widget::minimum_size::size() const
 {
 	return
 		child_.size();
 }
 
-sge::rucksack::vector const
+sge::rucksack::vector
 sge::rucksack::widget::minimum_size::position() const
 {
 	return
 		child_.position();
 }
 
-sge::rucksack::axis_policy2 const
+sge::rucksack::axis_policy2
 sge::rucksack::widget::minimum_size::axis_policy() const
 {
 	return

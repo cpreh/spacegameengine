@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/read_mask_all.hpp>
 
 
-sge::renderer::state::core::depth_stencil::stencil::read_mask const
+sge::renderer::state::core::depth_stencil::stencil::read_mask
 sge::renderer::state::core::depth_stencil::stencil::read_mask_all()
 {
 	return

@@ -107,14 +107,14 @@ sge::camera::ortho_freelook::object::zoom_speed(
 		_zoom_speed;
 }
 
-sge::camera::coordinate_system::object const
+sge::camera::coordinate_system::object
 sge::camera::ortho_freelook::object::coordinate_system() const
 {
 	return
 		sge::camera::coordinate_system::identity();
 }
 
-sge::camera::projection_matrix const
+sge::camera::projection_matrix
 sge::camera::ortho_freelook::object::projection_matrix() const
 {
 	return
@@ -129,7 +129,7 @@ sge::camera::ortho_freelook::object::projection_matrix() const
 		);
 }
 
-sge::camera::is_active const
+sge::camera::is_active
 sge::camera::ortho_freelook::object::is_active() const
 {
 	return

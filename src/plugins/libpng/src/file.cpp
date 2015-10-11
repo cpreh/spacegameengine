@@ -58,7 +58,7 @@ sge::libpng::file::~file()
 {
 }
 
-sge::image2d::view::const_object const
+sge::image2d::view::const_object
 sge::libpng::file::view() const
 {
 	return
@@ -78,7 +78,7 @@ sge::libpng::file::view() const
 		);
 }
 
-sge::image2d::dim const
+sge::image2d::dim
 sge::libpng::file::size() const
 {
 	return

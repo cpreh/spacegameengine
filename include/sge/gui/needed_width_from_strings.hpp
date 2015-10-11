@@ -33,7 +33,7 @@ namespace gui
 {
 
 SGE_GUI_DETAIL_SYMBOL
-sge::gui::needed_width const
+sge::gui::needed_width
 needed_width_from_strings(
 	sge::font::object &,
 	sge::gui::string_container const &

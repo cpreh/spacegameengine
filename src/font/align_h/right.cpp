@@ -32,7 +32,7 @@ sge::font::align_h::right::right(
 {
 }
 
-sge::font::align_h::max_width const
+sge::font::align_h::max_width
 sge::font::align_h::right::max_width() const
 {
 	return

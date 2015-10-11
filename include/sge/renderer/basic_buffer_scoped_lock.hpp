@@ -99,7 +99,7 @@ public:
 	\return The view of the locked region
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	view const
+	view
 	value() const;
 
 	/**

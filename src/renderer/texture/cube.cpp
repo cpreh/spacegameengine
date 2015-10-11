@@ -41,7 +41,7 @@ sge::renderer::texture::cube::content() const
 		this->border_size();
 }
 
-sge::renderer::texture::cube::rect const
+sge::renderer::texture::cube::rect
 sge::renderer::texture::cube::area() const
 {
 	return

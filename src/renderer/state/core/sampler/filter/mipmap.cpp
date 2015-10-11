@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/filter/normal/parameters.hpp>
 
 
-sge::renderer::state::core::sampler::filter::parameters const
+sge::renderer::state::core::sampler::filter::parameters
 sge::renderer::state::core::sampler::filter::mipmap()
 {
 	return

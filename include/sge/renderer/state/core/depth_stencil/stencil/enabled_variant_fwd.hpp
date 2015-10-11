@@ -42,12 +42,14 @@ namespace depth_stencil
 namespace stencil
 {
 
-typedef fcppt::variant::object<
+typedef
+fcppt::variant::object<
 	boost::mpl::vector2<
 		sge::renderer::state::core::depth_stencil::stencil::combined,
 		sge::renderer::state::core::depth_stencil::stencil::separate
 	>
-> enabled_variant;
+>
+enabled_variant;
 
 }
 }

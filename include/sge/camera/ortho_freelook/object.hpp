@@ -77,17 +77,17 @@ public:
 	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::coordinate_system::object const
+	sge::camera::coordinate_system::object
 	coordinate_system() const
 	override;
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::projection_matrix const
+	sge::camera::projection_matrix
 	projection_matrix() const
 	override;
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::is_active const
+	sge::camera::is_active
 	is_active() const
 	override;
 

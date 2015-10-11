@@ -80,7 +80,7 @@ typename
 sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order
->::connection_ref const
+>::connection_ref
 sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order
@@ -100,7 +100,7 @@ template<
 typename sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order
->::range_type const
+>::range_type
 sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order
@@ -119,7 +119,7 @@ template<
 typename sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order
->::const_range_type const
+>::const_range_type
 sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order

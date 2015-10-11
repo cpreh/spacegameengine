@@ -42,11 +42,11 @@ protected:
 	base();
 public:
 	virtual
-	sge::camera::coordinate_system::object const
+	sge::camera::coordinate_system::object
 	coordinate_system() const = 0;
 
 	virtual
-	sge::camera::projection_matrix const
+	sge::camera::projection_matrix
 	projection_matrix() const = 0;
 
 	SGE_CAMERA_DETAIL_SYMBOL

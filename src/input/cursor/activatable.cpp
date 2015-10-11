@@ -122,7 +122,7 @@ sge::input::cursor::activatable::scroll_callback(
 		);
 }
 
-sge::input::cursor::optional_position const
+sge::input::cursor::optional_position
 sge::input::cursor::activatable::position() const
 {
 	return

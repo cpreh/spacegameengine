@@ -90,7 +90,7 @@ public:
 	renderer_device_core() const;
 
 	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::renderer::device::index const
+	sge::renderer::device::index
 	renderer_device_index() const;
 
 	SGE_SYSTEMS_DETAIL_SYMBOL

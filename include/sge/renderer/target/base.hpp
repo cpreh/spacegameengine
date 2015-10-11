@@ -78,7 +78,7 @@ public:
 	 * \brief Returns the current viewport
 	*/
 	virtual
-	sge::renderer::target::viewport const
+	sge::renderer::target::viewport
 	viewport() const = 0;
 
 	/**
@@ -98,7 +98,7 @@ public:
 	 * \brief Returns the current scissor area
 	*/
 	virtual
-	sge::renderer::target::scissor_area const
+	sge::renderer::target::scissor_area
 	scissor_area() const = 0;
 
 	virtual

@@ -67,7 +67,7 @@ public:
 	void
 	bind() const;
 private:
-	sge::renderer::index::buffer::view_type const
+	sge::renderer::index::buffer::view_type
 	lock(
 		sge::renderer::lock_mode,
 		sge::renderer::index::buffer::first_type,
@@ -75,7 +75,7 @@ private:
 	)
 	override;
 
-	sge::renderer::index::buffer::const_view_type const
+	sge::renderer::index::buffer::const_view_type
 	lock(
 		sge::renderer::index::buffer::first_type,
 		sge::renderer::index::buffer::count_type
@@ -85,7 +85,7 @@ private:
 	template<
 		typename View
 	>
-	View const
+	View
 	do_lock(
 		sge::renderer::lock_flags::method,
 		sge::renderer::index::buffer::first_type,
@@ -96,11 +96,11 @@ private:
 	unlock() const
 	override;
 
-	sge::renderer::index::buffer::count_type const
+	sge::renderer::index::buffer::count_type
 	size() const
 	override;
 
-	sge::renderer::resource_flags_field const
+	sge::renderer::resource_flags_field
 	resource_flags() const
 	override;
 

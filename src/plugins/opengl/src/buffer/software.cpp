@@ -54,7 +54,7 @@ sge::opengl::buffer::software::~software()
 {
 }
 
-sge::opengl::buffer::id const
+sge::opengl::buffer::id
 sge::opengl::buffer::software::gen_buffer()
 {
 	buffers_.insert(

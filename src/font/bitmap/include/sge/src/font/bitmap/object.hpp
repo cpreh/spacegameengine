@@ -75,11 +75,11 @@ private:
 	)
 	override;
 
-	sge::image::color::optional_format const
+	sge::image::color::optional_format
 	color_format() const
 	override;
 
-	sge::font::metrics const
+	sge::font::metrics
 	metrics() const
 	override;
 

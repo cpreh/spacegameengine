@@ -68,21 +68,21 @@ private:
 	)
 	override;
 
-	sge::font::rect const
+	sge::font::rect
 	rect() const
 	override;
 
-	sge::font::dim const
+	sge::font::dim
 	logical_size() const
 	override;
 
-	sge::font::rect const
+	sge::font::rect
 	cursor_rect(
 		sge::font::index
 	) const
 	override;
 
-	sge::font::optional_index const
+	sge::font::optional_index
 	pos_to_index(
 		sge::font::vector
 	) const

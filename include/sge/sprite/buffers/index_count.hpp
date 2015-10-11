@@ -37,7 +37,7 @@ template<
 	typename Choices
 >
 inline
-sge::renderer::index::count const
+sge::renderer::index::count
 index_count(
 	sge::sprite::count const _sprites
 )

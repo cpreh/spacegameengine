@@ -39,7 +39,7 @@ namespace detail
 template<
 	typename Format
 >
-sge::renderer::vf::dynamic::color const
+sge::renderer::vf::dynamic::color
 make_color()
 {
 	return

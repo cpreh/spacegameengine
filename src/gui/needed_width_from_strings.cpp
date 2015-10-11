@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::gui::needed_width const
+sge::gui::needed_width
 sge::gui::needed_width_from_strings(
 	sge::font::object &_font,
 	sge::gui::string_container const &_strings

@@ -97,11 +97,10 @@ public:
 
 	typedef typename base_type::const_view const_view;
 
-	sge::opengl::texture::is_render_target const
+	sge::opengl::texture::is_render_target
 	is_render_target() const;
 private:
-	// implementation for base class
-	dim const
+	dim
 	size() const
 	override;
 
@@ -109,14 +108,14 @@ private:
 	format() const
 	override;
 
-	view const
+	view
 	lock(
 		lock_area const &,
 		sge::renderer::lock_mode
 	)
 	override;
 
-	const_view const
+	const_view
 	lock(
 		lock_area const &
 	) const
@@ -126,20 +125,19 @@ private:
 	unlock() const
 	override;
 
-	// helper functions
 	void
 	lock_me(
 		lock_area const &,
 		sge::renderer::lock_flags::method
 	) const;
 
-	view const
+	view
 	lock_view();
 
-	const_view const
+	const_view
 	lock_view() const;
 
-	dim const
+	dim
 	lock_dim() const;
 
 	sge::opengl::context::system::object &system_context_;

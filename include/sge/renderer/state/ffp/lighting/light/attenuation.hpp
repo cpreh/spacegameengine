@@ -52,15 +52,15 @@ public:
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::lighting::light::constant_attenuation const
+	sge::renderer::state::ffp::lighting::light::constant_attenuation
 	constant() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::lighting::light::linear_attenuation const
+	sge::renderer::state::ffp::lighting::light::linear_attenuation
 	linear() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::lighting::light::quadratic_attenuation const
+	sge::renderer::state::ffp::lighting::light::quadratic_attenuation
 	quadratic() const;
 private:
 	sge::renderer::state::ffp::lighting::light::constant_attenuation constant_;

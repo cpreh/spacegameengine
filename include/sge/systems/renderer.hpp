@@ -85,7 +85,7 @@ public:
 	sge::systems::optional_name const &
 	name() const;
 
-	sge::renderer::device::index const
+	sge::renderer::device::index
 	device_index() const;
 private:
 	sge::renderer::pixel_format::object const pixel_format_;

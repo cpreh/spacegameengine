@@ -68,13 +68,13 @@ public:
 	profile() const;
 
 	SGE_CG_DETAIL_SYMBOL
-	sge::cg::parameter::named const
+	sge::cg::parameter::named
 	parameter(
 		sge::cg::string const &
 	) const;
 
 	SGE_CG_DETAIL_SYMBOL
-	sge::cg::parameter::optional_named const
+	sge::cg::parameter::optional_named
 	parameter_opt(
 		sge::cg::string const &
 	) const;

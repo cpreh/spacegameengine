@@ -62,7 +62,7 @@ public:
 	typedef sge::renderer::color_buffer::volume color_buffer;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	dim const
+	dim
 	size() const;
 
 	virtual
@@ -78,11 +78,11 @@ public:
 	) const = 0;
 
 	virtual
-	sge::renderer::texture::mipmap::level_count const
+	sge::renderer::texture::mipmap::level_count
 	levels() const = 0;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	rect const
+	rect
 	area() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL

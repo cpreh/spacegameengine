@@ -52,11 +52,11 @@ public:
 	~file()
 	override;
 private:
-	sge::image2d::view::const_object const
+	sge::image2d::view::const_object
 	view() const
 	override;
 
-	sge::image2d::dim const
+	sge::image2d::dim
 	size() const
 	override;
 

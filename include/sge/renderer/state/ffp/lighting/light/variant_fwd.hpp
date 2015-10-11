@@ -43,13 +43,15 @@ namespace lighting
 namespace light
 {
 
-typedef fcppt::variant::object<
+typedef
+fcppt::variant::object<
 	boost::mpl::vector3<
 		sge::renderer::state::ffp::lighting::light::directional,
 		sge::renderer::state::ffp::lighting::light::point,
 		sge::renderer::state::ffp::lighting::light::spot
 	>
-> variant;
+>
+variant;
 
 }
 }

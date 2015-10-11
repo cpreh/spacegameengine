@@ -286,7 +286,7 @@ sge::gui::master::handle_key(
 	);
 }
 
-sge::gui::widget::optional_ref const
+sge::gui::widget::optional_ref
 sge::gui::master::try_focus(
 	sge::gui::widget::optional_focus _focus
 )

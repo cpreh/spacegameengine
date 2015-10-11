@@ -92,7 +92,7 @@ public:
 	);
 
 	SGE_WINDOW_DETAIL_SYMBOL
-	awl::main::exit_code const
+	awl::main::exit_code
 	exit_code() const;
 private:
 	awl::system::object &awl_system_;

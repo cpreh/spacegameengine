@@ -50,7 +50,7 @@ public:
 	type() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::vf::dynamic::index const
+	sge::renderer::vf::dynamic::index
 	index() const;
 private:
 	sge::renderer::vf::dynamic::extra_any type_;

@@ -69,7 +69,7 @@ public:
 	);
 
 	SGE_VIEWPORT_DETAIL_SYMBOL
-	sge::renderer::target::viewport const
+	sge::renderer::target::viewport
 	viewport() const;
 private:
 	typedef

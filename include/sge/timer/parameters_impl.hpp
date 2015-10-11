@@ -130,7 +130,7 @@ template<
 typename
 sge::timer::parameters<
 	Clock
->::duration const
+>::duration
 sge::timer::parameters<
 	Clock
 >::interval() const

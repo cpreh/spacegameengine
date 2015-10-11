@@ -58,7 +58,7 @@ template<
 	sge::renderer::vf::element_count_type NumSubElements
 >
 inline
-sge::renderer::vf::dynamic::element const
+sge::renderer::vf::dynamic::element
 make_element(
 	sge::renderer::vf::pos<
 		Format,
@@ -83,7 +83,7 @@ template<
 	typename Format
 >
 inline
-sge::renderer::vf::dynamic::element const
+sge::renderer::vf::dynamic::element
 make_element(
 	sge::renderer::vf::normal<
 		Format
@@ -106,7 +106,7 @@ template<
 	typename Format
 >
 inline
-sge::renderer::vf::dynamic::element const
+sge::renderer::vf::dynamic::element
 make_element(
 	sge::renderer::vf::color<
 		Format
@@ -129,7 +129,7 @@ template<
 	typename Index
 >
 inline
-sge::renderer::vf::dynamic::element const
+sge::renderer::vf::dynamic::element
 make_element(
 	sge::renderer::vf::texpos<
 		Format,
@@ -159,7 +159,7 @@ template<
 	typename Index
 >
 inline
-sge::renderer::vf::dynamic::element const
+sge::renderer::vf::dynamic::element
 make_element(
 	sge::renderer::vf::extra<
 		Format,

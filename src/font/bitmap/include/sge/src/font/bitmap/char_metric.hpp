@@ -45,10 +45,10 @@ public:
 
 	~char_metric();
 
-	sge::font::bitmap::const_view const
+	sge::font::bitmap::const_view
 	view() const;
 
-	sge::font::vector const
+	sge::font::vector
 	offset() const;
 
 	sge::font::unit

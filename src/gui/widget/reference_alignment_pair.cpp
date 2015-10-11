@@ -37,7 +37,7 @@ sge::gui::widget::reference_alignment_pair::reference_alignment_pair(
 {
 }
 
-sge::gui::widget::reference const
+sge::gui::widget::reference
 sge::gui::widget::reference_alignment_pair::reference() const
 {
 	return

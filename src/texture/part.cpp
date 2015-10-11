@@ -31,7 +31,7 @@ sge::texture::part::~part()
 {
 }
 
-sge::renderer::dim2 const
+sge::renderer::dim2
 sge::texture::part::size() const
 {
 	return

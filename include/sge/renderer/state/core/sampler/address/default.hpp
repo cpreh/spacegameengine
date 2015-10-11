@@ -39,7 +39,7 @@ namespace address
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::state::core::sampler::address::parameters const
+sge::renderer::state::core::sampler::address::parameters
 default_();
 
 }

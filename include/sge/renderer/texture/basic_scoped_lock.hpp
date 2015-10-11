@@ -64,7 +64,7 @@ public:
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	view const
+	view
 	value() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL

@@ -81,7 +81,7 @@ sge::sprite::buffers::slice<
 template<
 	typename Choices
 >
-sge::renderer::vertex::first const
+sge::renderer::vertex::first
 sge::sprite::buffers::slice<
 	Choices
 >::first_vertex() const
@@ -96,7 +96,7 @@ sge::sprite::buffers::slice<
 template<
 	typename Choices
 >
-sge::renderer::index::first const
+sge::renderer::index::first
 sge::sprite::buffers::slice<
 	Choices
 >::first_index() const

@@ -65,11 +65,11 @@ public:
 	is. Otherwise, the function returns an empty optional.
 	*/
 	virtual
-	sge::image::color::optional_format const
+	sge::image::color::optional_format
 	color_format() const = 0;
 
 	virtual
-	sge::font::metrics const
+	sge::font::metrics
 	metrics() const = 0;
 };
 

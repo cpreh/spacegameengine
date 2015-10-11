@@ -39,7 +39,7 @@ namespace material
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::state::ffp::lighting::material::parameters const
+sge::renderer::state::ffp::lighting::material::parameters
 default_();
 
 }

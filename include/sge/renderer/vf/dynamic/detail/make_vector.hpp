@@ -42,7 +42,7 @@ template<
 	typename Format,
 	sge::renderer::vf::element_count_type NumSubElements
 >
-sge::renderer::vf::dynamic::vector const
+sge::renderer::vf::dynamic::vector
 make_vector()
 {
 	return

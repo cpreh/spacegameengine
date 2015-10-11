@@ -37,7 +37,7 @@ sge::input::joypad::button_event::button_event(
 {
 }
 
-sge::input::joypad::button_id const
+sge::input::joypad::button_id
 sge::input::joypad::button_event::button_id() const
 {
 	return

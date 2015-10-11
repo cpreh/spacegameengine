@@ -53,7 +53,7 @@ public:
 	~hardware()
 	override;
 private:
-	sge::opengl::buffer::id const
+	sge::opengl::buffer::id
 	gen_buffer()
 	override;
 

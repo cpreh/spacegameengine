@@ -37,7 +37,7 @@ namespace sampler
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::state::core::sampler::parameters const
+sge::renderer::state::core::sampler::parameters
 default_();
 
 }

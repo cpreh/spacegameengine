@@ -48,11 +48,11 @@ protected:
 	base();
 public:
 	virtual
-	sge::renderer::opengl::texture::id const
+	sge::renderer::opengl::texture::id
 	id() const = 0;
 
 	virtual
-	sge::renderer::opengl::texture::type const
+	sge::renderer::opengl::texture::type
 	type() const = 0;
 
 	SGE_RENDERER_OPENGL_DETAIL_SYMBOL

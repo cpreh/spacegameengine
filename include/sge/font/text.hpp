@@ -58,21 +58,21 @@ public:
 	) = 0;
 
 	virtual
-	sge::font::rect const
+	sge::font::rect
 	rect() const = 0;
 
 	virtual
-	sge::font::dim const
+	sge::font::dim
 	logical_size() const = 0;
 
 	virtual
-	sge::font::rect const
+	sge::font::rect
 	cursor_rect(
 		sge::font::index
 	) const = 0;
 
 	virtual
-	sge::font::optional_index const
+	sge::font::optional_index
 	pos_to_index(
 		sge::font::vector
 	) const = 0;

@@ -39,7 +39,7 @@ sge::font::align_h::left::left(
 {
 }
 
-sge::font::align_h::optional_max_width const
+sge::font::align_h::optional_max_width
 sge::font::align_h::left::max_width() const
 {
 	return

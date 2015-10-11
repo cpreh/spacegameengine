@@ -39,7 +39,7 @@ template<
 >
 sge::sprite::types::texture_coordinates<
 	typename Choices::type_choices
-> const
+>
 convert_texture_rect(
 	Rect const &_rect
 )

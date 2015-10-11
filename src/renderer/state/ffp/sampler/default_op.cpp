@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/sampler/op.hpp>
 
 
-sge::renderer::state::ffp::sampler::op const
+sge::renderer::state::ffp::sampler::op
 sge::renderer::state::ffp::sampler::default_op()
 {
 	return

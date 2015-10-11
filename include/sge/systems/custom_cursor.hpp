@@ -73,7 +73,7 @@ public:
 	);
 
 	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::cursor_hotspot const
+	sge::systems::cursor_hotspot
 	hotspot() const;
 private:
 	fcppt::unique_ptr<

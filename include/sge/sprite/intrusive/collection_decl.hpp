@@ -61,7 +61,7 @@ public:
 
 	~collection();
 
-	connection_ref const
+	connection_ref
 	connection();
 
 	typedef sge::sprite::intrusive::range<
@@ -74,10 +74,10 @@ public:
 		true
 	> const_range_type;
 
-	range_type const
+	range_type
 	range();
 
-	const_range_type const
+	const_range_type
 	range() const;
 private:
 	typedef

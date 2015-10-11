@@ -38,9 +38,11 @@ namespace lighting
 namespace light
 {
 
-typedef fcppt::reference_wrapper<
+typedef
+fcppt::reference_wrapper<
 	sge::renderer::state::ffp::lighting::light::object const
-> const_object_ref;
+>
+const_object_ref;
 
 }
 }

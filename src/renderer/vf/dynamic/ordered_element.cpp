@@ -40,11 +40,13 @@ sge::renderer::vf::dynamic::ordered_element::ordered_element(
 sge::renderer::vf::dynamic::element const &
 sge::renderer::vf::dynamic::ordered_element::element() const
 {
-	return element_;
+	return
+		element_;
 }
 
-sge::renderer::vf::dynamic::offset const
+sge::renderer::vf::dynamic::offset
 sge::renderer::vf::dynamic::ordered_element::offset() const
 {
-	return offset_;
+	return
+		offset_;
 }

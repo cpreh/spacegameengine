@@ -131,7 +131,7 @@ sge::input::cursor::demuxer::scroll_callback(
 		);
 }
 
-sge::input::cursor::optional_position const
+sge::input::cursor::optional_position
 sge::input::cursor::demuxer::position() const
 {
 	return
@@ -163,7 +163,7 @@ sge::input::cursor::demuxer::mode(
 	);
 }
 
-sge::input::cursor::optional_object_ref const
+sge::input::cursor::optional_object_ref
 sge::input::cursor::demuxer::current_cursor() const
 {
 	return

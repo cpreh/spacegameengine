@@ -48,7 +48,7 @@ public:
 	code() const;
 
 	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::absolute_axis_id const
+	sge::input::joypad::absolute_axis_id
 	id() const;
 private:
 	sge::input::joypad::axis_code code_;

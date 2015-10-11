@@ -63,7 +63,7 @@ template<
 typename
 sge::sprite::intrusive::collection<
 	Choices
->::connection_ref const
+>::connection_ref
 sge::sprite::intrusive::collection<
 	Choices
 >::connection()
@@ -87,7 +87,7 @@ template<
 >
 typename sge::sprite::intrusive::collection<
 	Choices
->::range_type const
+>::range_type
 sge::sprite::intrusive::collection<
 	Choices
 >::range()
@@ -104,7 +104,7 @@ template<
 >
 typename sge::sprite::intrusive::collection<
 	Choices
->::const_range_type const
+>::const_range_type
 sge::sprite::intrusive::collection<
 	Choices
 >::range() const

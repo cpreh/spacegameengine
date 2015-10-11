@@ -79,34 +79,37 @@ sge::opengl::texture::basic<
 template<
 	typename Types
 >
-sge::renderer::resource_flags_field const
+sge::renderer::resource_flags_field
 sge::opengl::texture::basic<
 	Types
 >::resource_flags() const
 {
-	return resource_flags_;
+	return
+		resource_flags_;
 }
 
 template<
 	typename Types
 >
-sge::renderer::texture::capabilities_field const
+sge::renderer::texture::capabilities_field
 sge::opengl::texture::basic<
 	Types
 >::capabilities() const
 {
-	return capabilities_;
+	return
+		capabilities_;
 }
 
 template<
 	typename Types
 >
-sge::renderer::texture::mipmap::object const
+sge::renderer::texture::mipmap::object
 sge::opengl::texture::basic<
 	Types
 >::mipmap() const
 {
-	return mipmap_;
+	return
+		mipmap_;
 }
 
 template<
@@ -117,7 +120,8 @@ sge::opengl::texture::basic<
 	Types
 >::system_context() const
 {
-	return system_context_;
+	return
+		system_context_;
 }
 
 template<
@@ -128,7 +132,8 @@ sge::opengl::texture::basic<
 	Types
 >::device_context() const
 {
-	return device_context_;
+	return
+		device_context_;
 }
 
 template<

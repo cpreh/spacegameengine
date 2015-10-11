@@ -64,7 +64,7 @@ sge::renderer::state::core::depth_stencil::stencil::combined_simple::combined_si
 {
 }
 
-sge::renderer::state::core::depth_stencil::stencil::enabled const
+sge::renderer::state::core::depth_stencil::stencil::enabled
 sge::renderer::state::core::depth_stencil::stencil::combined_simple::to_enabled() const
 {
 	return

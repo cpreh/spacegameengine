@@ -115,7 +115,7 @@ sge::systems::renderer::name() const
 		name_;
 }
 
-sge::renderer::device::index const
+sge::renderer::device::index
 sge::systems::renderer::device_index() const
 {
 	return

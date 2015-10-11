@@ -52,7 +52,7 @@ public:
 	ambient_color() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::lighting::diffuse_from_vertex const
+	sge::renderer::state::ffp::lighting::diffuse_from_vertex
 	diffuse_from_vertex() const;
 private:
 	sge::renderer::state::ffp::lighting::ambient_color ambient_color_;

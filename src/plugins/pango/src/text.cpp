@@ -110,21 +110,21 @@ sge::pango::text::render(
 	);
 }
 
-sge::font::rect const
+sge::font::rect
 sge::pango::text::rect() const
 {
 	return
 		extents_.ink_rect().get();
 }
 
-sge::font::dim const
+sge::font::dim
 sge::pango::text::logical_size() const
 {
 	return
 		extents_.logical_rect().get().size();
 }
 
-sge::font::rect const
+sge::font::rect
 sge::pango::text::cursor_rect(
 	sge::font::index const _index
 ) const
@@ -152,7 +152,7 @@ sge::pango::text::cursor_rect(
 		);
 }
 
-sge::font::optional_index const
+sge::font::optional_index
 sge::pango::text::pos_to_index(
 	sge::font::vector const _pos
 ) const

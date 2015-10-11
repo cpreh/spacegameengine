@@ -81,7 +81,7 @@ sge::sprite::geometry::random_access_range<
 template<
 	typename Iterator
 >
-sge::sprite::count const
+sge::sprite::count
 sge::sprite::geometry::random_access_range<
 	Iterator
 >::size() const

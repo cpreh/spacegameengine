@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/match.hpp>
 
 
-sge::font::align_h::optional_max_width const
+sge::font::align_h::optional_max_width
 sge::font::align_h::extract_max_width(
 	sge::font::align_h::variant const &_variant
 )

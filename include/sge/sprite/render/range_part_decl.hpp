@@ -56,22 +56,22 @@ public:
 		range_part_object const &
 	);
 
-	sge::renderer::index::first const
+	sge::renderer::index::first
 	first_index() const;
 
-	sge::renderer::vertex::first const
+	sge::renderer::vertex::first
 	first_vertex() const;
 
-	sge::renderer::vertex::count const
+	sge::renderer::vertex::count
 	vertex_count() const;
 
-	sge::renderer::index::count const
+	sge::renderer::index::count
 	index_count() const;
 
 	template<
 		sge::sprite::texture_level Level
 	>
-	sge::sprite::render::texture_ref const
+	sge::sprite::render::texture_ref
 	texture_level() const;
 private:
 	range_part_object object_;

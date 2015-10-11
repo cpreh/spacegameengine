@@ -64,6 +64,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>

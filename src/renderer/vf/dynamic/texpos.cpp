@@ -40,11 +40,13 @@ sge::renderer::vf::dynamic::texpos::texpos(
 sge::renderer::vf::dynamic::vector const &
 sge::renderer::vf::dynamic::texpos::type() const
 {
-	return type_;
+	return
+		type_;
 }
 
-sge::renderer::vf::dynamic::index const
+sge::renderer::vf::dynamic::index
 sge::renderer::vf::dynamic::texpos::index() const
 {
-	return index_;
+	return
+		index_;
 }

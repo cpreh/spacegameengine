@@ -55,28 +55,28 @@ sge::systems::detail::input::parameters() const
 		parameters_;
 }
 
-sge::systems::detail::input::focus_collector const
+sge::systems::detail::input::focus_collector
 sge::systems::detail::input::get_focus_collector() const
 {
 	return
 		focus_collector_;
 }
 
-sge::systems::detail::input::cursor_demuxer const
+sge::systems::detail::input::cursor_demuxer
 sge::systems::detail::input::get_cursor_demuxer() const
 {
 	return
 		cursor_demuxer_;
 }
 
-sge::systems::detail::input::keyboard_collector const
+sge::systems::detail::input::keyboard_collector
 sge::systems::detail::input::get_keyboard_collector() const
 {
 	return
 		keyboard_collector_;
 }
 
-sge::systems::detail::input::mouse_collector const
+sge::systems::detail::input::mouse_collector
 sge::systems::detail::input::get_mouse_collector() const
 {
 	return

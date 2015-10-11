@@ -52,19 +52,19 @@ public:
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::blend::write_red const
+	sge::renderer::state::core::blend::write_red
 	write_red() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::blend::write_blue const
+	sge::renderer::state::core::blend::write_blue
 	write_blue() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::blend::write_green const
+	sge::renderer::state::core::blend::write_green
 	write_green() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::blend::write_alpha const
+	sge::renderer::state::core::blend::write_alpha
 	write_alpha() const;
 private:
 	sge::renderer::state::core::blend::write_red write_red_;

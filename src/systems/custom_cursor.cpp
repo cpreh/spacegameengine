@@ -71,7 +71,7 @@ sge::systems::custom_cursor::draw(
 	);
 }
 
-sge::systems::cursor_hotspot const
+sge::systems::cursor_hotspot
 sge::systems::custom_cursor::hotspot() const
 {
 	return

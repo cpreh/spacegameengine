@@ -72,7 +72,7 @@ public:
 	);
 
 	SGE_GUI_DETAIL_SYMBOL
-	sge::gui::optional_index const
+	sge::gui::optional_index
 	index() const;
 private:
 	void

@@ -152,7 +152,7 @@ sge::x11input::system::create_processor(
 		);
 }
 
-sge::input::capabilities_field const
+sge::input::capabilities_field
 sge::x11input::system::capabilities() const
 {
 	return

@@ -42,12 +42,14 @@ namespace sampler
 namespace filter
 {
 
-typedef fcppt::variant::object<
+typedef
+fcppt::variant::object<
 	boost::mpl::vector2<
 		sge::renderer::state::core::sampler::filter::anisotropic::parameters,
 		sge::renderer::state::core::sampler::filter::normal::parameters
 	>
-> variant;
+>
+variant;
 
 }
 }

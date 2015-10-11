@@ -51,15 +51,15 @@ public:
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::sampler::address::mode_s const
+	sge::renderer::state::core::sampler::address::mode_s
 	mode_s() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::sampler::address::mode_t const
+	sge::renderer::state::core::sampler::address::mode_t
 	mode_t() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::sampler::address::mode_u const
+	sge::renderer::state::core::sampler::address::mode_u
 	mode_u() const;
 private:
 	sge::renderer::state::core::sampler::address::mode_s mode_s_;

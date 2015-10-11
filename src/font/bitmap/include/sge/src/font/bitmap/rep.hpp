@@ -44,7 +44,7 @@ public:
 	sge::font::bitmap::line_vector const &
 	lines() const;
 
-	sge::font::rect const
+	sge::font::rect
 	rect() const;
 private:
 	sge::font::bitmap::line_vector lines_;

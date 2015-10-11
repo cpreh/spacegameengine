@@ -53,13 +53,14 @@ template<
 typename sge::sprite::intrusive::range<
 	Choices,
 	IsConst
->::iterator const
+>::iterator
 sge::sprite::intrusive::range<
 	Choices,
 	IsConst
 >::begin() const
 {
-	return list_.begin();
+	return
+		list_.begin();
 }
 
 template<
@@ -69,26 +70,28 @@ template<
 typename sge::sprite::intrusive::range<
 	Choices,
 	IsConst
->::iterator const
+>::iterator
 sge::sprite::intrusive::range<
 	Choices,
 	IsConst
 >::end() const
 {
-	return list_.end();
+	return
+		list_.end();
 }
 
 template<
 	typename Choices,
 	bool IsConst
 >
-sge::sprite::count const
+sge::sprite::count
 sge::sprite::intrusive::range<
 	Choices,
 	IsConst
 >::size() const
 {
-	return size_;
+	return
+		size_;
 }
 
 template<
@@ -101,7 +104,8 @@ sge::sprite::intrusive::range<
 	IsConst
 >::empty() const
 {
-	return list_.empty();
+	return
+		list_.empty();
 }
 
 template<

@@ -31,7 +31,7 @@ sge::opengl::buffer::wrapper::~wrapper()
 {
 }
 
-sge::renderer::opengl::buffer::id const
+sge::renderer::opengl::buffer::id
 sge::opengl::buffer::wrapper::id() const
 {
 	return

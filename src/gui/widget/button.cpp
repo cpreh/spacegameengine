@@ -205,7 +205,7 @@ sge::gui::widget::button::on_draw(
 	);
 }
 
-sge::gui::get_focus const
+sge::gui::get_focus
 sge::gui::widget::button::on_click(
 	sge::rucksack::vector
 )

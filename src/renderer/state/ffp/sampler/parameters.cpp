@@ -37,14 +37,16 @@ sge::renderer::state::ffp::sampler::parameters::parameters(
 {
 }
 
-sge::renderer::state::ffp::sampler::color_op const
+sge::renderer::state::ffp::sampler::color_op
 sge::renderer::state::ffp::sampler::parameters::color_op() const
 {
-	return color_op_;
+	return
+		color_op_;
 }
 
-sge::renderer::state::ffp::sampler::alpha_op const
+sge::renderer::state::ffp::sampler::alpha_op
 sge::renderer::state::ffp::sampler::parameters::alpha_op() const
 {
-	return alpha_op_;
+	return
+		alpha_op_;
 }

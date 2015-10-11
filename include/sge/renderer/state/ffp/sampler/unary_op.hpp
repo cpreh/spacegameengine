@@ -52,7 +52,7 @@ public:
 	type() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::sampler::arg1 const
+	sge::renderer::state::ffp::sampler::arg1
 	arg1() const;
 private:
 	sge::renderer::state::ffp::sampler::unary_op_type type_;

@@ -40,11 +40,13 @@ sge::renderer::state::core::depth_stencil::stencil::separate::separate(
 sge::renderer::state::core::depth_stencil::stencil::front const &
 sge::renderer::state::core::depth_stencil::stencil::separate::front() const
 {
-	return front_;
+	return
+		front_;
 }
 
 sge::renderer::state::core::depth_stencil::stencil::back const &
 sge::renderer::state::core::depth_stencil::stencil::separate::back() const
 {
-	return back_;
+	return
+		back_;
 }

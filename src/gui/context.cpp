@@ -91,7 +91,7 @@ sge::gui::context::destroy(
 	);
 }
 
-sge::gui::widget::optional_ref const
+sge::gui::widget::optional_ref
 sge::gui::context::focus() const
 {
 	return

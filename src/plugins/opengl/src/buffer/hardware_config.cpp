@@ -64,7 +64,7 @@ sge::opengl::buffer::hardware_config::hardware_config(
 {
 }
 
-sge::opengl::buffer::is_native const
+sge::opengl::buffer::is_native
 sge::opengl::buffer::hardware_config::is_native() const
 {
 	return

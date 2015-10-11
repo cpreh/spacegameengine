@@ -54,11 +54,11 @@ public:
 	data() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::vertex::first const
+	sge::renderer::vertex::first
 	pos() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::vertex::count const
+	sge::renderer::vertex::count
 	count() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL

@@ -101,7 +101,7 @@ sge::camera::spherical::parameters::keyboard() const
 		keyboard_;
 }
 
-sge::camera::is_active const
+sge::camera::is_active
 sge::camera::spherical::parameters::is_active() const
 {
 	return
@@ -166,7 +166,7 @@ sge::camera::spherical::parameters::minimum_radius(
 		*this;
 }
 
-sge::camera::spherical::minimum_radius const
+sge::camera::spherical::minimum_radius
 sge::camera::spherical::parameters::minimum_radius() const
 {
 	return
@@ -183,7 +183,7 @@ sge::camera::spherical::parameters::maximum_radius(
 		*this;
 }
 
-sge::camera::spherical::maximum_radius const
+sge::camera::spherical::maximum_radius
 sge::camera::spherical::parameters::maximum_radius() const
 {
 	return

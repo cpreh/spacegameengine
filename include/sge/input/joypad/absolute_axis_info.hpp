@@ -56,11 +56,11 @@ public:
 	name() const;
 
 	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::axis_min const
+	sge::input::joypad::axis_min
 	min() const;
 
 	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::axis_max const
+	sge::input::joypad::axis_max
 	max() const;
 private:
 	sge::input::joypad::axis_code code_;

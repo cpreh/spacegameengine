@@ -56,7 +56,7 @@ public:
 	~base() = 0;
 
 	virtual
-	sge::rucksack::dim const
+	sge::rucksack::dim
 	button_spacing() const = 0;
 
 	virtual
@@ -79,7 +79,7 @@ public:
 	) const = 0;
 
 	virtual
-	sge::rucksack::padding const
+	sge::rucksack::padding
 	frame_padding() const = 0;
 
 	virtual
@@ -92,7 +92,7 @@ public:
 	) const = 0;
 
 	virtual
-	sge::rucksack::dim const
+	sge::rucksack::dim
 	edit_spacing() const = 0;
 
 	virtual
@@ -104,7 +104,7 @@ public:
 	) const = 0;
 
 	virtual
-	sge::rucksack::dim const
+	sge::rucksack::dim
 	image_spacing() const = 0;
 
 	virtual
@@ -116,7 +116,7 @@ public:
 	) const = 0;
 
 	virtual
-	sge::rucksack::dim const
+	sge::rucksack::dim
 	text_spacing() const = 0;
 
 	virtual

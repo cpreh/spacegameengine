@@ -73,13 +73,13 @@ public:
 		ordered_map_reference
 	);
 
-	iterator const
+	iterator
 	begin() const;
 
-	iterator const
+	iterator
 	end() const;
 
-	sge::sprite::count const
+	sge::sprite::count
 	size() const;
 
 	bool

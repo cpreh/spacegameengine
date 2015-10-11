@@ -36,9 +36,11 @@ namespace core
 namespace depth_stencil
 {
 
-typedef fcppt::optional<
+typedef
+fcppt::optional<
 	sge::renderer::state::core::depth_stencil::object const &
-> const_optional_object_ref;
+>
+const_optional_object_ref;
 
 }
 }

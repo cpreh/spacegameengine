@@ -98,7 +98,7 @@ public:
 	override;
 
 	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::cursor::optional_position const
+	sge::input::cursor::optional_position
 	position() const
 	override;
 
@@ -110,7 +110,7 @@ public:
 	override;
 
 	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::cursor::optional_object_ref const
+	sge::input::cursor::optional_object_ref
 	current_cursor() const;
 private:
 	void

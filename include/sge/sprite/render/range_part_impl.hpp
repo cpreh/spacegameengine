@@ -54,7 +54,7 @@ sge::sprite::render::range_part<
 template<
 	typename Choices
 >
-sge::renderer::index::first const
+sge::renderer::index::first
 sge::sprite::render::range_part<
 	Choices
 >::first_index() const
@@ -70,7 +70,7 @@ sge::sprite::render::range_part<
 template<
 	typename Choices
 >
-sge::renderer::vertex::first const
+sge::renderer::vertex::first
 sge::sprite::render::range_part<
 	Choices
 >::first_vertex() const
@@ -86,7 +86,7 @@ sge::sprite::render::range_part<
 template<
 	typename Choices
 >
-sge::renderer::vertex::count const
+sge::renderer::vertex::count
 sge::sprite::render::range_part<
 	Choices
 >::vertex_count() const
@@ -102,7 +102,7 @@ sge::sprite::render::range_part<
 template<
 	typename Choices
 >
-sge::renderer::index::count const
+sge::renderer::index::count
 sge::sprite::render::range_part<
 	Choices
 >::index_count() const
@@ -121,7 +121,7 @@ template<
 template<
 	sge::sprite::texture_level Level
 >
-sge::sprite::render::texture_ref const
+sge::sprite::render::texture_ref
 sge::sprite::render::range_part<
 	Choices
 >::texture_level() const

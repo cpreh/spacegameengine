@@ -243,7 +243,7 @@ private:
 	)
 	override;
 
-	sge::renderer::texture::stage const
+	sge::renderer::texture::stage
 	set_cg_texture(
 		sge::renderer::cg::loaded_texture const &
 	)

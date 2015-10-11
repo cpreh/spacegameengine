@@ -37,7 +37,7 @@ sge::rucksack::widget::reference_alignment::reference_alignment(
 {
 }
 
-sge::rucksack::widget::reference const
+sge::rucksack::widget::reference
 sge::rucksack::widget::reference_alignment::reference() const
 {
 	return

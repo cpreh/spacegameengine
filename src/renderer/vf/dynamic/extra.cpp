@@ -40,11 +40,13 @@ sge::renderer::vf::dynamic::extra::extra(
 sge::renderer::vf::dynamic::extra_any const &
 sge::renderer::vf::dynamic::extra::type() const
 {
-	return type_;
+	return
+		type_;
 }
 
-sge::renderer::vf::dynamic::index const
+sge::renderer::vf::dynamic::index
 sge::renderer::vf::dynamic::extra::index() const
 {
-	return index_;
+	return
+		index_;
 }

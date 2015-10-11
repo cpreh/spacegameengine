@@ -40,11 +40,13 @@ sge::input::mouse::button::button(
 sge::input::mouse::button_code
 sge::input::mouse::button::code() const
 {
-	return code_;
+	return
+		code_;
 }
 
-sge::input::mouse::button_id const
+sge::input::mouse::button_id
 sge::input::mouse::button::id() const
 {
-	return id_;
+	return
+		id_;
 }

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/blend/write_mask_all.hpp>
 
 
-sge::renderer::state::core::blend::parameters const
+sge::renderer::state::core::blend::parameters
 sge::renderer::state::core::blend::default_()
 {
 	return

@@ -55,7 +55,7 @@ sge::opengl::buffer::hardware::~hardware()
 {
 }
 
-sge::opengl::buffer::id const
+sge::opengl::buffer::id
 sge::opengl::buffer::hardware::gen_buffer()
 {
 	GLuint new_id;

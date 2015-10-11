@@ -114,7 +114,7 @@ public:
 	\return The view of the locked region
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	view_type const
+	view_type
 	value() const;
 
 	/**

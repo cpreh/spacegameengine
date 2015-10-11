@@ -128,7 +128,7 @@ sge::opengl::system::create_visual(
 		);
 }
 
-sge::renderer::caps::device_count const
+sge::renderer::caps::device_count
 sge::opengl::system::device_count() const
 {
 	return

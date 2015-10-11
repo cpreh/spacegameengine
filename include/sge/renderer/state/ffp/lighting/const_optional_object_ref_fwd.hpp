@@ -36,9 +36,11 @@ namespace ffp
 namespace lighting
 {
 
-typedef fcppt::optional<
+typedef
+fcppt::optional<
 	sge::renderer::state::ffp::lighting::object const &
-> const_optional_object_ref;
+>
+const_optional_object_ref;
 
 }
 }

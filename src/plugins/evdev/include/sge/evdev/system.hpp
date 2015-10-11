@@ -54,7 +54,7 @@ private:
 	)
 	override;
 
-	sge::input::capabilities_field const
+	sge::input::capabilities_field
 	capabilities() const
 	override;
 };

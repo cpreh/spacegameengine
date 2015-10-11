@@ -48,7 +48,7 @@ public:
 	~base() = 0;
 
 	virtual
-	sge::opengl::buffer::id const
+	sge::opengl::buffer::id
 	gen_buffer() = 0;
 
 	virtual

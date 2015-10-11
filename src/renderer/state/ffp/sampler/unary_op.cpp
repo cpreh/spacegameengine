@@ -40,11 +40,13 @@ sge::renderer::state::ffp::sampler::unary_op::unary_op(
 sge::renderer::state::ffp::sampler::unary_op_type
 sge::renderer::state::ffp::sampler::unary_op::type() const
 {
-	return type_;
+	return
+		type_;
 }
 
-sge::renderer::state::ffp::sampler::arg1 const
+sge::renderer::state::ffp::sampler::arg1
 sge::renderer::state::ffp::sampler::unary_op::arg1() const
 {
-	return arg1_;
+	return
+		arg1_;
 }

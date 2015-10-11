@@ -58,15 +58,15 @@ public:
 	content() const = 0;
 
 	virtual
-	sge::renderer::resource_flags_field const
+	sge::renderer::resource_flags_field
 	resource_flags() const = 0;
 
 	virtual
-	sge::renderer::texture::capabilities_field const
+	sge::renderer::texture::capabilities_field
 	capabilities() const = 0;
 
 	virtual
-	sge::renderer::texture::mipmap::object const
+	sge::renderer::texture::mipmap::object
 	mipmap() const = 0;
 
 	// TODO: Add levels() function here!

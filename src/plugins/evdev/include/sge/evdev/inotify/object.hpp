@@ -43,7 +43,7 @@ public:
 
 	~object();
 
-	awl::backends::linux::fd::object const
+	awl::backends::linux::fd::object
 	fd() const;
 private:
 	awl::backends::linux::fd::object const fd_;

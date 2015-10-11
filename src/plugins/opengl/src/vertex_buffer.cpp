@@ -102,7 +102,7 @@ sge::opengl::vertex_buffer::unuse(
 	_format_part.unuse_me();
 }
 
-sge::opengl::vertex_buffer::view_type const
+sge::opengl::vertex_buffer::view_type
 sge::opengl::vertex_buffer::lock(
 	sge::renderer::lock_mode const _flags,
 	first_type const _offset,
@@ -121,7 +121,7 @@ sge::opengl::vertex_buffer::lock(
 		);
 }
 
-sge::opengl::vertex_buffer::const_view_type const
+sge::opengl::vertex_buffer::const_view_type
 sge::opengl::vertex_buffer::lock(
 	first_type const _offset,
 	count_type const _range
@@ -140,7 +140,7 @@ sge::opengl::vertex_buffer::lock(
 template<
 	typename View
 >
-View const
+View
 sge::opengl::vertex_buffer::do_lock(
 	sge::renderer::lock_flags::method const _method,
 	first_type const _offset,
@@ -186,7 +186,7 @@ sge::opengl::vertex_buffer::unlock() const
 	buffer_.unlock();
 }
 
-sge::opengl::vertex_buffer::count_type const
+sge::opengl::vertex_buffer::count_type
 sge::opengl::vertex_buffer::size() const
 {
 	return
@@ -195,7 +195,7 @@ sge::opengl::vertex_buffer::size() const
 		);
 }
 
-sge::renderer::resource_flags_field const
+sge::renderer::resource_flags_field
 sge::opengl::vertex_buffer::resource_flags() const
 {
 	return
@@ -209,7 +209,7 @@ sge::opengl::vertex_buffer::format_part() const
 		format_part_;
 }
 
-sge::renderer::vf::dynamic::part_index const
+sge::renderer::vf::dynamic::part_index
 sge::opengl::vertex_buffer::format_part_index() const
 {
 	return

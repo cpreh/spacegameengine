@@ -51,7 +51,7 @@ sge::evdev::inotify::object::~object()
 	);
 }
 
-awl::backends::linux::fd::object const
+awl::backends::linux::fd::object
 sge::evdev::inotify::object::fd() const
 {
 	return

@@ -35,7 +35,7 @@ sge::renderer::texture::planar::~planar()
 {
 }
 
-sge::renderer::texture::planar::dim const
+sge::renderer::texture::planar::dim
 sge::renderer::texture::planar::size() const
 {
 	return
@@ -46,7 +46,7 @@ sge::renderer::texture::planar::size() const
 		).size();
 }
 
-sge::renderer::texture::planar::rect const
+sge::renderer::texture::planar::rect
 sge::renderer::texture::planar::area() const
 {
 	return

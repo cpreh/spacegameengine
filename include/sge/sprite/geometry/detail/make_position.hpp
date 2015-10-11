@@ -44,7 +44,6 @@ inline
 sge::sprite::geometry::detail::pos_packed_type<
 	Choices
 >
-const
 make_position(
 	Point const &_point,
 	sge::sprite::object<

@@ -60,6 +60,7 @@ sge::timer::basic<
 	}
 {
 }
+
 FCPPT_PP_POP_WARNING
 
 template<
@@ -183,7 +184,7 @@ template<
 template<
 	typename NewDuration
 >
-NewDuration const
+NewDuration
 sge::timer::basic<
 	Clock
 >::interval() const
@@ -225,7 +226,7 @@ template<
 typename
 sge::timer::basic<
 	Clock
->::time_point const
+>::time_point
 sge::timer::basic<
 	Clock
 >::now() const
@@ -240,7 +241,7 @@ template<
 typename
 sge::timer::basic<
 	Clock
->::time_point const
+>::time_point
 sge::timer::basic<
 	Clock
 >::last_time() const
@@ -260,7 +261,8 @@ sge::timer::basic<
 	last_time_ =
 		this->now();
 
-	expired_ = false;
+	expired_ =
+		false;
 }
 
 #endif

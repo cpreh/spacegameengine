@@ -244,7 +244,7 @@ sge::font::draw::detail::static_text_impl::color(
 	this->rebuild_sprite_range();
 }
 
-sge::font::vector const
+sge::font::vector
 sge::font::draw::detail::static_text_impl::pos() const
 {
 	return
@@ -253,14 +253,14 @@ sge::font::draw::detail::static_text_impl::pos() const
 		text_->rect().pos();
 }
 
-sge::font::rect const
+sge::font::rect
 sge::font::draw::detail::static_text_impl::rect() const
 {
 	return
 		text_->rect();
 }
 
-sge::font::dim const
+sge::font::dim
 sge::font::draw::detail::static_text_impl::logical_size() const
 {
 	return
@@ -291,7 +291,7 @@ sge::font::draw::detail::static_text_impl::make_sprite_range()
 		);
 }
 
-sge::font::draw::detail::static_text_impl::sprite_pos_type const
+sge::font::draw::detail::static_text_impl::sprite_pos_type
 sge::font::draw::detail::static_text_impl::sprite_pos(
 	sge::font::vector const &_pos
 ) const

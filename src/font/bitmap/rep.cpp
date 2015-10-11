@@ -49,7 +49,7 @@ sge::font::bitmap::rep::lines() const
 		lines_;
 }
 
-sge::font::rect const
+sge::font::rect
 sge::font::bitmap::rep::rect() const
 {
 	return

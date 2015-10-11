@@ -40,11 +40,13 @@ sge::input::joypad::absolute_axis::absolute_axis(
 sge::input::joypad::axis_code
 sge::input::joypad::absolute_axis::code() const
 {
-	return code_;
+	return
+		code_;
 }
 
-sge::input::joypad::absolute_axis_id const
+sge::input::joypad::absolute_axis_id
 sge::input::joypad::absolute_axis::id() const
 {
-	return id_;
+	return
+		id_;
 }

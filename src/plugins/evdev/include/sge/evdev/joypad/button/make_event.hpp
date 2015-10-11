@@ -36,7 +36,7 @@ namespace joypad
 namespace button
 {
 
-sge::input::joypad::button_event const
+sge::input::joypad::button_event
 make_event(
 	sge::input::joypad::button_id,
 	sge::input::joypad::button_info_container const &,

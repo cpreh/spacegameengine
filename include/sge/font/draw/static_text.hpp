@@ -106,15 +106,15 @@ public:
 	);
 
 	SGE_FONT_DRAW_DETAIL_SYMBOL
-	sge::font::vector const
+	sge::font::vector
 	pos() const;
 
 	SGE_FONT_DRAW_DETAIL_SYMBOL
-	sge::font::rect const
+	sge::font::rect
 	rect() const;
 
 	SGE_FONT_DRAW_DETAIL_SYMBOL
-	sge::font::dim const
+	sge::font::dim
 	logical_size() const;
 
 	SGE_FONT_DRAW_DETAIL_SYMBOL

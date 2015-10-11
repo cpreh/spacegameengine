@@ -50,7 +50,7 @@ public:
 	element() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::vf::dynamic::offset const
+	sge::renderer::vf::dynamic::offset
 	offset() const;
 private:
 	sge::renderer::vf::dynamic::element element_;

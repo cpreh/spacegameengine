@@ -69,7 +69,7 @@ public:
 	\brief Returns the plugin's capabilities
 	*/
 	virtual
-	sge::renderer::caps::system_field const
+	sge::renderer::caps::system_field
 	caps() const = 0;
 };
 

@@ -40,11 +40,13 @@ sge::renderer::state::ffp::lighting::enabled::enabled(
 sge::renderer::state::ffp::lighting::ambient_color const &
 sge::renderer::state::ffp::lighting::enabled::ambient_color() const
 {
-	return ambient_color_;
+	return
+		ambient_color_;
 }
 
-sge::renderer::state::ffp::lighting::diffuse_from_vertex const
+sge::renderer::state::ffp::lighting::diffuse_from_vertex
 sge::renderer::state::ffp::lighting::enabled::diffuse_from_vertex() const
 {
-	return diffuse_from_vertex_;
+	return
+		diffuse_from_vertex_;
 }

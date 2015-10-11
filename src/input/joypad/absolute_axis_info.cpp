@@ -50,23 +50,27 @@ sge::input::joypad::absolute_axis_info::absolute_axis_info(
 sge::input::joypad::axis_code
 sge::input::joypad::absolute_axis_info::code() const
 {
-	return code_;
+	return
+		code_;
 }
 
 fcppt::optional_string const &
 sge::input::joypad::absolute_axis_info::name() const
 {
-	return name_;
+	return
+		name_;
 }
 
-sge::input::joypad::axis_min const
+sge::input::joypad::axis_min
 sge::input::joypad::absolute_axis_info::min() const
 {
-	return min_;
+	return
+		min_;
 }
 
-sge::input::joypad::axis_max const
+sge::input::joypad::axis_max
 sge::input::joypad::absolute_axis_info::max() const
 {
-	return max_;
+	return
+		max_;
 }

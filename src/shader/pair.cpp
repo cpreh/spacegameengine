@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/algorithm/join.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -98,8 +99,13 @@ sge::shader::pair::pair(
 			sge::cg::program::main_function(
 				"vertex_main"),
 			sge::cg::program::compile_options(
-				_context.vertex_compile_options().value(),
-				_optional_cflags.value()))),
+				fcppt::algorithm::join(
+					_context.vertex_compile_options().value(),
+					_optional_cflags.value()
+				)
+			)
+		)
+	),
 	pixel_program_(
 		sge::cg::program::from_string_parameters(
 			_context.cg_context(),
@@ -113,8 +119,13 @@ sge::shader::pair::pair(
 			sge::cg::program::main_function(
 				"pixel_main"),
 			sge::cg::program::compile_options(
-				_context.pixel_compile_options().value(),
-				_optional_cflags.value()))),
+				fcppt::algorithm::join(
+					_context.pixel_compile_options().value(),
+					_optional_cflags.value()
+				)
+			)
+		)
+	),
 	loaded_vertex_program_(
 		context_.renderer().load_cg_program(
 			vertex_program_)),
@@ -147,8 +158,13 @@ sge::shader::pair::pair(
 			sge::cg::program::main_function(
 				"vertex_main"),
 			sge::cg::program::compile_options(
-				_context.vertex_compile_options().value(),
-				_optional_cflags.value()))),
+				fcppt::algorithm::join(
+					_context.vertex_compile_options().value(),
+					_optional_cflags.value()
+				)
+			)
+		)
+	),
 	pixel_program_(
 		sge::cg::program::from_string_parameters(
 			_context.cg_context(),
@@ -161,8 +177,13 @@ sge::shader::pair::pair(
 			sge::cg::program::main_function(
 				"pixel_main"),
 			sge::cg::program::compile_options(
-				_context.pixel_compile_options().value(),
-				_optional_cflags.value()))),
+				fcppt::algorithm::join(
+					_context.pixel_compile_options().value(),
+					_optional_cflags.value()
+				)
+			)
+		)
+	),
 	loaded_vertex_program_(
 		context_.renderer().load_cg_program(
 			vertex_program_)),

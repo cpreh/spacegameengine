@@ -58,11 +58,11 @@ public:
 	) = 0;
 
 	virtual
-	sge::renderer::lock_rect const
+	sge::renderer::lock_rect
 	area() const = 0;
 
 	SGE_TEXTURE_DETAIL_SYMBOL
-	sge::renderer::dim2 const
+	sge::renderer::dim2
 	size() const;
 
 	virtual

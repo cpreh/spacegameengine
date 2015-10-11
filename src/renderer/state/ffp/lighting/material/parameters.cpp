@@ -55,29 +55,34 @@ sge::renderer::state::ffp::lighting::material::parameters::parameters(
 sge::renderer::state::ffp::lighting::diffuse_color const &
 sge::renderer::state::ffp::lighting::material::parameters::diffuse() const
 {
-	return diffuse_;
+	return
+		diffuse_;
 }
 
 sge::renderer::state::ffp::lighting::ambient_color const &
 sge::renderer::state::ffp::lighting::material::parameters::ambient() const
 {
-	return ambient_;
+	return
+		ambient_;
 }
 
 sge::renderer::state::ffp::lighting::specular_color const &
 sge::renderer::state::ffp::lighting::material::parameters::specular() const
 {
-	return specular_;
+	return
+		specular_;
 }
 
 sge::renderer::state::ffp::lighting::material::emissive_color const &
 sge::renderer::state::ffp::lighting::material::parameters::emissive() const
 {
-	return emissive_;
+	return
+		emissive_;
 }
 
-sge::renderer::state::ffp::lighting::material::shininess const
+sge::renderer::state::ffp::lighting::material::shininess
 sge::renderer::state::ffp::lighting::material::parameters::shininess() const
 {
-	return shininess_;
+	return
+		shininess_;
 }

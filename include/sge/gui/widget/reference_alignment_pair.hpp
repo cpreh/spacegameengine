@@ -43,7 +43,7 @@ public:
 		sge::rucksack::alignment
 	);
 
-	sge::gui::widget::reference const
+	sge::gui::widget::reference
 	reference() const;
 
 	sge::rucksack::alignment

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/misc/parameters.hpp>
 
 
-sge::renderer::state::ffp::misc::parameters const
+sge::renderer::state::ffp::misc::parameters
 sge::renderer::state::ffp::misc::default_()
 {
 	return

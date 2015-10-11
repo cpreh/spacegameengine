@@ -118,7 +118,7 @@ sge::texture::basic_part_raw<
 template<
 	typename Ref
 >
-sge::renderer::lock_rect const
+sge::renderer::lock_rect
 sge::texture::basic_part_raw<
 	Ref
 >::area() const

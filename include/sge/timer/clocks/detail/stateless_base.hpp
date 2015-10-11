@@ -44,7 +44,7 @@ public:
 	{
 	}
 
-	Clock const
+	Clock
 	clock_base() const
 	{
 		return

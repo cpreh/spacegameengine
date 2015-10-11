@@ -86,7 +86,8 @@ sge::opengl::basic_target<
 	Base
 >::bind()
 {
-	active_ = true;
+	active_ =
+		true;
 
 	this->on_bind();
 
@@ -109,7 +110,8 @@ sge::opengl::basic_target<
 	Base
 >::unbind()
 {
-	active_ = false;
+	active_ =
+		false;
 
 	this->on_unbind();
 
@@ -128,7 +130,8 @@ sge::opengl::basic_target<
 	sge::renderer::target::viewport const &_viewport
 )
 {
-	viewport_ = _viewport;
+	viewport_ =
+		_viewport;
 
 	if(
 		active_
@@ -139,12 +142,13 @@ sge::opengl::basic_target<
 template<
 	typename Base
 >
-sge::renderer::target::viewport const
+sge::renderer::target::viewport
 sge::opengl::basic_target<
 	Base
 >::viewport() const
 {
-	return viewport_;
+	return
+		viewport_;
 }
 
 template<
@@ -157,7 +161,8 @@ sge::opengl::basic_target<
 	sge::renderer::target::scissor_area const &_scissor_area
 )
 {
-	scissor_area_ = _scissor_area;
+	scissor_area_ =
+		_scissor_area;
 
 	if(
 		active_
@@ -168,12 +173,13 @@ sge::opengl::basic_target<
 template<
 	typename Base
 >
-sge::renderer::target::scissor_area const
+sge::renderer::target::scissor_area
 sge::opengl::basic_target<
 	Base
 >::scissor_area() const
 {
-	return scissor_area_;
+	return
+		scissor_area_;
 }
 
 template<

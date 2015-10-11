@@ -52,19 +52,19 @@ public:
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::blend::color_source const
+	sge::renderer::state::core::blend::color_source
 	color_source() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::blend::color_dest const
+	sge::renderer::state::core::blend::color_dest
 	color_dest() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::blend::alpha_source const
+	sge::renderer::state::core::blend::alpha_source
 	alpha_source() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::blend::alpha_dest const
+	sge::renderer::state::core::blend::alpha_dest
 	alpha_dest() const;
 private:
 	sge::renderer::state::core::blend::color_source color_source_;

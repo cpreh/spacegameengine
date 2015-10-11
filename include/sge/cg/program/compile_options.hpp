@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/char_type.hpp>
 #include <sge/cg/string.hpp>
 #include <sge/cg/detail/symbol.hpp>
-#include <fcppt/container/raw_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -41,11 +40,15 @@ class compile_options
 {
 public:
 	typedef
-	std::vector<sge::cg::string>
+	std::vector<
+		sge::cg::string
+	>
 	string_sequence;
 
 	typedef
-	fcppt::container::raw_vector<sge::cg::char_type const *>
+	std::vector<
+		sge::cg::char_type const *
+	>
 	pointer_sequence;
 
 	SGE_CG_DETAIL_SYMBOL
@@ -54,17 +57,14 @@ public:
 	SGE_CG_DETAIL_SYMBOL
 	explicit
 	compile_options(
-		sge::cg::char_type const **);
+		sge::cg::char_type const **
+	);
 
 	SGE_CG_DETAIL_SYMBOL
 	explicit
 	compile_options(
-		string_sequence const &);
-
-	SGE_CG_DETAIL_SYMBOL
-	compile_options(
-		string_sequence const &,
-		string_sequence const &);
+		string_sequence const &
+	);
 
 	SGE_CG_DETAIL_SYMBOL
 	pointer_sequence
@@ -74,7 +74,7 @@ public:
 	string_sequence const &
 	value() const;
 private:
-	mutable string_sequence value_;
+	string_sequence value_;
 };
 
 }

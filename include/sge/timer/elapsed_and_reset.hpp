@@ -34,7 +34,7 @@ template<
 	typename Duration,
 	typename Clock
 >
-Duration const
+Duration
 elapsed_and_reset(
 	sge::timer::basic<
 		Clock

@@ -50,7 +50,7 @@ public:
 	element_type() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::vf::dynamic::element_count const
+	sge::renderer::vf::dynamic::element_count
 	element_count() const;
 private:
 	sge::renderer::vf::dynamic::element_type element_type_;

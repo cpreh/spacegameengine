@@ -33,7 +33,7 @@ namespace cursor
 {
 
 typedef
-sge::input::cursor::optional_object_ref const
+sge::input::cursor::optional_object_ref
 choose_function(
 	sge::input::cursor::object_set const &
 );

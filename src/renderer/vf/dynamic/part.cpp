@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/ordered_element_list.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/map.hpp>
 
 
 sge::renderer::vf::dynamic::part::part(
@@ -33,58 +35,68 @@ sge::renderer::vf::dynamic::part::part(
 	sge::renderer::vf::dynamic::offset_list const &_offsets
 )
 :
-	elements_(),
-	// TODO: initialize this directly somehow
-	stride_(
-		0u
-	)
-{
-	if(
-		_elements.size() + 1u != _offsets.size()
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("dynamic::format: Invalid sizes of vectors!")
-		);
-
-	if(
-		_elements.empty() || _offsets.empty()
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("dynamic::format: Format cannot be empty!")
-		);
-
-	for(
-		sge::renderer::vf::dynamic::element_list::size_type index(
-			0
-		);
-		index < _elements.size();
-		++index
-	)
-		elements_.push_back(
-			sge::renderer::vf::dynamic::ordered_element(
-				_elements[
-					index
-				],
-				_offsets[
-					index
-				]
+	elements_(
+		[
+			&_elements,
+			&_offsets
+		]{
+			if(
+				_elements.size()
+				+
+				1u
+				!=
+				_offsets.size()
 			)
-		);
+				throw
+					sge::renderer::exception{
+						FCPPT_TEXT("dynamic::format: Invalid sizes of vectors!")
+					};
 
-	stride_ =
+			return
+				fcppt::algorithm::map<
+					sge::renderer::vf::dynamic::ordered_element_list
+				>(
+					fcppt::make_int_range_count(
+						_elements.size()
+					),
+					[
+						&_elements,
+						&_offsets
+					](
+						sge::renderer::vf::dynamic::element_list::size_type const _index
+					)
+					{
+						return
+							sge::renderer::vf::dynamic::ordered_element(
+								_elements[
+									_index
+								],
+								_offsets[
+									_index
+								]
+							);
+					}
+				);
+		}()
+	),
+	stride_(
 		sge::renderer::vf::dynamic::stride(
 			_offsets.back().get()
-		);
+		)
+	)
+{
 }
 
 sge::renderer::vf::dynamic::ordered_element_list const &
 sge::renderer::vf::dynamic::part::elements() const
 {
-	return elements_;
+	return
+		elements_;
 }
 
-sge::renderer::vf::dynamic::stride const
+sge::renderer::vf::dynamic::stride
 sge::renderer::vf::dynamic::part::stride() const
 {
-	return stride_;
+	return
+		stride_;
 }

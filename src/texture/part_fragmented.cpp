@@ -82,7 +82,7 @@ sge::texture::part_fragmented::data(
 	);
 }
 
-sge::renderer::lock_rect const
+sge::renderer::lock_rect
 sge::texture::part_fragmented::area() const
 {
 	return

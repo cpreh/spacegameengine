@@ -63,7 +63,7 @@ public:
 	keyboard() const;
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::is_active const
+	sge::camera::is_active
 	is_active() const;
 
 	SGE_CAMERA_DETAIL_SYMBOL
@@ -101,7 +101,7 @@ public:
 	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::spherical::minimum_radius const
+	sge::camera::spherical::minimum_radius
 	minimum_radius() const;
 
 	SGE_CAMERA_DETAIL_SYMBOL
@@ -111,7 +111,7 @@ public:
 	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::spherical::maximum_radius const
+	sge::camera::spherical::maximum_radius
 	maximum_radius() const;
 
 	SGE_CAMERA_DETAIL_SYMBOL

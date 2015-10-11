@@ -101,7 +101,7 @@ sge::console::gfx::detail::pointed_history::to_end()
 		container_.size() - 1u;
 }
 
-sge::console::gfx::detail::pointed_history::const_iterator const
+sge::console::gfx::detail::pointed_history::const_iterator
 sge::console::gfx::detail::pointed_history::point() const
 {
 	return
@@ -117,7 +117,7 @@ sge::console::gfx::detail::pointed_history::point() const
 		);
 }
 
-sge::console::gfx::detail::pointed_history::const_iterator const
+sge::console::gfx::detail::pointed_history::const_iterator
 sge::console::gfx::detail::pointed_history::end() const
 {
 	return

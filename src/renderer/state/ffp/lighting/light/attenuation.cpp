@@ -42,20 +42,23 @@ sge::renderer::state::ffp::lighting::light::attenuation::attenuation(
 {
 }
 
-sge::renderer::state::ffp::lighting::light::constant_attenuation const
+sge::renderer::state::ffp::lighting::light::constant_attenuation
 sge::renderer::state::ffp::lighting::light::attenuation::constant() const
 {
-	return constant_;
+	return
+		constant_;
 }
 
-sge::renderer::state::ffp::lighting::light::linear_attenuation const
+sge::renderer::state::ffp::lighting::light::linear_attenuation
 sge::renderer::state::ffp::lighting::light::attenuation::linear() const
 {
-	return linear_;
+	return
+		linear_;
 }
 
-sge::renderer::state::ffp::lighting::light::quadratic_attenuation const
+sge::renderer::state::ffp::lighting::light::quadratic_attenuation
 sge::renderer::state::ffp::lighting::light::attenuation::quadratic() const
 {
-	return quadratic_;
+	return
+		quadratic_;
 }

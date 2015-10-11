@@ -46,7 +46,7 @@ protected:
 	has_activation();
 public:
 	virtual
-	sge::camera::is_active const
+	sge::camera::is_active
 	is_active() const = 0;
 
 	virtual

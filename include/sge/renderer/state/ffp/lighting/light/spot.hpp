@@ -62,7 +62,7 @@ public:
 	direction() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::lighting::light::cutoff_angle const
+	sge::renderer::state::ffp::lighting::light::cutoff_angle
 	cutoff_angle() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL

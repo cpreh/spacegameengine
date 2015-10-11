@@ -108,7 +108,7 @@ public:
 		optional_gl_map_buffer_range
 	);
 
-	sge::opengl::buffer::is_native const
+	sge::opengl::buffer::is_native
 	is_native() const;
 
 	gl_gen_buffers

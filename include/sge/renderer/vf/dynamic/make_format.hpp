@@ -42,7 +42,7 @@ namespace dynamic
 template<
 	typename Format
 >
-sge::renderer::vf::dynamic::format const
+sge::renderer::vf::dynamic::format
 make_format()
 {
 	sge::renderer::vf::dynamic::part_list parts;

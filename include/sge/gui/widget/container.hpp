@@ -118,13 +118,13 @@ private:
 	)
 	override;
 
-	sge::gui::get_focus const
+	sge::gui::get_focus
 	on_click(
 		sge::rucksack::vector
 	)
 	override;
 
-	sge::gui::widget::optional_ref const
+	sge::gui::widget::optional_ref
 	on_tab(
 		sge::gui::widget::optional_focus &
 	)

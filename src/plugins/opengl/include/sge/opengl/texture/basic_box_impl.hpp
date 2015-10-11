@@ -120,7 +120,7 @@ sge::opengl::texture::basic_box<
 template<
 	typename Types
 >
-sge::renderer::texture::mipmap::level_count const
+sge::renderer::texture::mipmap::level_count
 sge::opengl::texture::basic_box<
 	Types
 >::levels() const

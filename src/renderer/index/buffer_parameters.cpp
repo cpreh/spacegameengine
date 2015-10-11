@@ -45,17 +45,20 @@ sge::renderer::index::buffer_parameters::buffer_parameters(
 sge::renderer::index::dynamic::format
 sge::renderer::index::buffer_parameters::format() const
 {
-	return format_;
+	return
+		format_;
 }
 
-sge::renderer::index::count const
+sge::renderer::index::count
 sge::renderer::index::buffer_parameters::count() const
 {
-	return count_;
+	return
+		count_;
 }
 
 sge::renderer::resource_flags_field const &
 sge::renderer::index::buffer_parameters::flags() const
 {
-	return flags_;
+	return
+		flags_;
 }

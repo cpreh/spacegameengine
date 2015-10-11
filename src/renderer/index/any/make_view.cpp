@@ -26,10 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
-sge::renderer::index::any::view const
+sge::renderer::index::any::view
 sge::renderer::index::any::make_view(
 	sge::renderer::index::dynamic::view const &_view
 )

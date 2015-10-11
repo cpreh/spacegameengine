@@ -41,7 +41,7 @@ public:
 	);
 
 	SGE_FONT_DETAIL_SYMBOL
-	sge::font::height const
+	sge::font::height
 	height() const;
 private:
 	sge::font::height height_;

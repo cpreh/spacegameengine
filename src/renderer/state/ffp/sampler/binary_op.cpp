@@ -45,17 +45,20 @@ sge::renderer::state::ffp::sampler::binary_op::binary_op(
 sge::renderer::state::ffp::sampler::binary_op_type
 sge::renderer::state::ffp::sampler::binary_op::type() const
 {
-	return type_;
+	return
+		type_;
 }
 
-sge::renderer::state::ffp::sampler::arg1 const
+sge::renderer::state::ffp::sampler::arg1
 sge::renderer::state::ffp::sampler::binary_op::arg1() const
 {
-	return arg1_;
+	return
+		arg1_;
 }
 
-sge::renderer::state::ffp::sampler::arg2 const
+sge::renderer::state::ffp::sampler::arg2
 sge::renderer::state::ffp::sampler::binary_op::arg2() const
 {
-	return arg2_;
+	return
+		arg2_;
 }

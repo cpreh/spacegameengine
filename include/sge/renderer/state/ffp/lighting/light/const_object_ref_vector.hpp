@@ -40,9 +40,11 @@ namespace lighting
 namespace light
 {
 
-typedef std::vector<
+typedef
+std::vector<
 	sge::renderer::state::ffp::lighting::light::const_object_ref
-> const_object_ref_vector;
+>
+const_object_ref_vector;
 
 }
 }

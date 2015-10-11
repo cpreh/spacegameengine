@@ -36,7 +36,7 @@ template<
 	typename Choices
 >
 inline
-sge::renderer::vf::dynamic::format const
+sge::renderer::vf::dynamic::format
 make_vertex_format()
 {
 	static_assert(

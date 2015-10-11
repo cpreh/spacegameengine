@@ -50,7 +50,7 @@ public:
 	button_code() const;
 
 	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::cursor::position const
+	sge::input::cursor::position
 	position() const;
 
 	SGE_INPUT_DETAIL_SYMBOL

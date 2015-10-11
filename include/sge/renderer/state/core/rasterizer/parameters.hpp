@@ -58,7 +58,7 @@ public:
 	fill_mode() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::rasterizer::enable_scissor_test const
+	sge::renderer::state::core::rasterizer::enable_scissor_test
 	enable_scissor_test() const;
 private:
 	sge::renderer::state::core::rasterizer::cull_mode cull_mode_;

@@ -108,7 +108,7 @@ public:
 	 * \brief Returns the shininess
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::lighting::material::shininess const
+	sge::renderer::state::ffp::lighting::material::shininess
 	shininess() const;
 private:
 	sge::renderer::state::ffp::lighting::diffuse_color diffuse_;

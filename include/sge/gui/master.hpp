@@ -113,7 +113,7 @@ private:
 		sge::input::key::code
 	);
 
-	sge::gui::widget::optional_ref const
+	sge::gui::widget::optional_ref
 	try_focus(
 		sge::gui::widget::optional_focus
 	);

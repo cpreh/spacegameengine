@@ -402,7 +402,7 @@ sge::opengl::buffer::object::raw_buffer() const
 		);
 }
 
-sge::opengl::buffer::id const
+sge::opengl::buffer::id
 sge::opengl::buffer::object::id() const
 {
 	return

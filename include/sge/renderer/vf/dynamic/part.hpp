@@ -52,7 +52,7 @@ public:
 	elements() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::vf::dynamic::stride const
+	sge::renderer::vf::dynamic::stride
 	stride() const;
 private:
 	sge::renderer::vf::dynamic::ordered_element_list elements_;

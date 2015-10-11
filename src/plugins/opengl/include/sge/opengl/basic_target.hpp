@@ -71,7 +71,7 @@ private:
 	)
 	override;
 
-	sge::renderer::target::viewport const
+	sge::renderer::target::viewport
 	viewport() const
 	override;
 
@@ -81,7 +81,7 @@ private:
 	)
 	override;
 
-	sge::renderer::target::scissor_area const
+	sge::renderer::target::scissor_area
 	scissor_area() const
 	override;
 

@@ -58,15 +58,15 @@ public:
 	enabled_variant() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::depth_stencil::stencil::ref const
+	sge::renderer::state::core::depth_stencil::stencil::ref
 	ref() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::depth_stencil::stencil::read_mask const
+	sge::renderer::state::core::depth_stencil::stencil::read_mask
 	read_mask() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::depth_stencil::stencil::write_mask const
+	sge::renderer::state::core::depth_stencil::stencil::write_mask
 	write_mask() const;
 private:
 	sge::renderer::state::core::depth_stencil::stencil::enabled_variant enabled_variant_;

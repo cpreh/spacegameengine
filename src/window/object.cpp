@@ -50,7 +50,7 @@ sge::window::object::~object()
 {
 }
 
-sge::window::dim const
+sge::window::dim
 sge::window::object::size() const
 {
 	return

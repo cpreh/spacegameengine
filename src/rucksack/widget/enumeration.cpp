@@ -80,21 +80,21 @@ sge::rucksack::widget::enumeration::position(
 		_position;
 }
 
-sge::rucksack::dim const
+sge::rucksack::dim
 sge::rucksack::widget::enumeration::size() const
 {
 	return
 		size_;
 }
 
-sge::rucksack::vector const
+sge::rucksack::vector
 sge::rucksack::widget::enumeration::position() const
 {
 	return
 		position_;
 }
 
-sge::rucksack::axis_policy2 const
+sge::rucksack::axis_policy2
 sge::rucksack::widget::enumeration::axis_policy() const
 {
 	return

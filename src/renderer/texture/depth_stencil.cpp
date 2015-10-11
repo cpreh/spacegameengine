@@ -35,7 +35,7 @@ sge::renderer::texture::depth_stencil::~depth_stencil()
 {
 }
 
-sge::renderer::texture::depth_stencil::dim const
+sge::renderer::texture::depth_stencil::dim
 sge::renderer::texture::depth_stencil::size() const
 {
 	return
@@ -46,7 +46,7 @@ sge::renderer::texture::depth_stencil::size() const
 		).size();
 }
 
-sge::renderer::texture::depth_stencil::rect const
+sge::renderer::texture::depth_stencil::rect
 sge::renderer::texture::depth_stencil::area() const
 {
 	return

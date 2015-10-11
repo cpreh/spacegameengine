@@ -37,7 +37,7 @@ template<
 >
 sge::sprite::types::rect<
 	typename Choices::type_choices
-> const
+>
 bounding_rect(
 	sge::sprite::object<
 		Choices

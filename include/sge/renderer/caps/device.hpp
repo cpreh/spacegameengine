@@ -116,7 +116,7 @@ public:
 	Y values are in [-1,1].
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::caps::normalized_cvv const &
+	sge::renderer::caps::normalized_cvv
 	normalized_cvv() const;
 
 	/**
@@ -139,7 +139,7 @@ public:
 	anything bigger than that is not supported.
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::caps::max_volume_texture_extent const
+	sge::renderer::caps::max_volume_texture_extent
 	max_volume_texture_extent() const;
 
 	/**
@@ -150,7 +150,7 @@ public:
 	power of 2 textures.
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::caps::non_power_of_2_textures const
+	sge::renderer::caps::non_power_of_2_textures
 	non_power_of_2_textures() const;
 
 	/**
@@ -160,7 +160,7 @@ public:
 	filters. If this is 0, no anisotropic filtering is supported.
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::caps::max_anisotropy const
+	sge::renderer::caps::max_anisotropy
 	max_anisotropy() const;
 
 	/**
@@ -170,7 +170,7 @@ public:
 	sge::renderer::device::create_target.
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::caps::render_target_supported const
+	sge::renderer::caps::render_target_supported
 	render_target_supported() const;
 
 	/**
@@ -181,7 +181,7 @@ public:
 	meaning.
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::caps::render_target_inverted const
+	sge::renderer::caps::render_target_inverted
 	render_target_inverted() const;
 
 	/**
@@ -191,7 +191,7 @@ public:
 	this value is 0, no clip planes are supported.
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::caps::clip_plane_indices const
+	sge::renderer::caps::clip_plane_indices
 	clip_plane_indices() const;
 
 	/**
@@ -201,7 +201,7 @@ public:
 	value is 0, no lights are supported.
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::caps::light_indices const
+	sge::renderer::caps::light_indices
 	light_indices() const;
 
 	/**
@@ -211,7 +211,7 @@ public:
 	texture stage is always supported.
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::caps::texture_stages const
+	sge::renderer::caps::texture_stages
 	texture_stages() const;
 
 	/**
@@ -221,7 +221,7 @@ public:
 	The 0th index is always supported.
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::caps::target_surface_indices const
+	sge::renderer::caps::target_surface_indices
 	target_surfaces() const;
 
 	/**
@@ -230,7 +230,7 @@ public:
 	This is required for creating a pixel format with srgb support.
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::caps::srgb_framebuffer const
+	sge::renderer::caps::srgb_framebuffer
 	srgb_framebuffer() const;
 private:
 	sge::renderer::caps::driver_name driver_name_;

@@ -60,11 +60,13 @@ public:
 	Clock
 	clock_type;
 
-	typedef typename
+	typedef
+	typename
 	clock_type::time_point
 	time_point;
 
-	typedef typename
+	typedef
+	typename
 	clock_type::duration
 	duration;
 
@@ -75,10 +77,10 @@ public:
 		Clock const &
 	);
 
-	time_point const
+	time_point
 	now() const;
 
-	time_point const
+	time_point
 	last_time() const;
 
 	void

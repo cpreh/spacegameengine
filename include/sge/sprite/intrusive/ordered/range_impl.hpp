@@ -63,7 +63,7 @@ typename sge::sprite::intrusive::ordered::range<
 	Choices,
 	Order,
 	IsConst
->::iterator const
+>::iterator
 sge::sprite::intrusive::ordered::range<
 	Choices,
 	Order,
@@ -86,7 +86,7 @@ typename sge::sprite::intrusive::ordered::range<
 	Choices,
 	Order,
 	IsConst
->::iterator const
+>::iterator
 sge::sprite::intrusive::ordered::range<
 	Choices,
 	Order,
@@ -105,7 +105,7 @@ template<
 	typename Order,
 	bool IsConst
 >
-sge::sprite::count const
+sge::sprite::count
 sge::sprite::intrusive::ordered::range<
 	Choices,
 	Order,
@@ -129,7 +129,9 @@ sge::sprite::intrusive::ordered::range<
 >::empty() const
 {
 	return
-		size_.get() == 0u;
+		size_.get()
+		==
+		0u;
 }
 
 template<

@@ -104,7 +104,8 @@ sge::renderer::index::view<
 	Format
 >::data() const
 {
-	return data_;
+	return
+		data_;
 }
 
 template<
@@ -115,7 +116,8 @@ sge::renderer::index::view<
 	Format
 >::size() const
 {
-	return size_;
+	return
+		size_;
 }
 
 template<

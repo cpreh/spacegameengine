@@ -40,7 +40,7 @@ template<
 	typename Format,
 	typename Part
 >
-sge::renderer::vf::dynamic::part_index const
+sge::renderer::vf::dynamic::part_index
 make_part_index()
 {
 	return

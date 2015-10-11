@@ -71,7 +71,7 @@ public:
 	);
 
 	virtual
-	sge::rucksack::dim const
+	sge::rucksack::dim
 	size() const = 0;
 
 	sge::rucksack::scalar
@@ -80,11 +80,11 @@ public:
 	) const;
 
 	SGE_RUCKSACK_DETAIL_SYMBOL
-	sge::rucksack::rect const
+	sge::rucksack::rect
 	area() const;
 
 	virtual
-	sge::rucksack::vector const
+	sge::rucksack::vector
 	position() const = 0;
 
 	sge::rucksack::scalar
@@ -93,7 +93,7 @@ public:
 	) const;
 
 	virtual
-	sge::rucksack::axis_policy2 const
+	sge::rucksack::axis_policy2
 	axis_policy() const = 0;
 
 	virtual
@@ -107,7 +107,7 @@ public:
 	);
 
 	SGE_RUCKSACK_DETAIL_SYMBOL
-	sge::rucksack::widget::optional_ref const
+	sge::rucksack::widget::optional_ref
 	parent() const;
 
 	SGE_RUCKSACK_DETAIL_SYMBOL

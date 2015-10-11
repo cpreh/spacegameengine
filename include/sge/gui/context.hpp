@@ -56,7 +56,7 @@ public:
 		sge::gui::widget::base const &
 	);
 
-	sge::gui::widget::optional_ref const
+	sge::gui::widget::optional_ref
 	focus() const;
 private:
 	sge::gui::widget::optional_ref focus_;

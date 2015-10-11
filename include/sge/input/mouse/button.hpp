@@ -48,7 +48,7 @@ public:
 	code() const;
 
 	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::mouse::button_id const
+	sge::input::mouse::button_id
 	id() const;
 private:
 	sge::input::mouse::button_code code_;

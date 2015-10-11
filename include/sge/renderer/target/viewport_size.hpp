@@ -34,7 +34,7 @@ namespace target
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::screen_size const
+sge::renderer::screen_size
 viewport_size(
 	sge::renderer::target::base const &
 );

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/renderer/vf/dynamic/detail/locked_part_interval.hpp>
 
 
-sge::renderer::vf::dynamic::detail::lock_interval const
+sge::renderer::vf::dynamic::detail::lock_interval
 sge::renderer::vf::dynamic::detail::locked_part_interval(
 	sge::renderer::vf::dynamic::locked_part const &_locked_part
 )

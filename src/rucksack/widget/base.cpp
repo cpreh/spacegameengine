@@ -136,7 +136,7 @@ sge::rucksack::widget::base::base()
 {
 }
 
-sge::rucksack::rect const
+sge::rucksack::rect
 sge::rucksack::widget::base::area() const
 {
 	return
@@ -155,7 +155,7 @@ sge::rucksack::widget::base::parent(
 		_parent;
 }
 
-sge::rucksack::widget::optional_ref const
+sge::rucksack::widget::optional_ref
 sge::rucksack::widget::base::parent() const
 {
 	return

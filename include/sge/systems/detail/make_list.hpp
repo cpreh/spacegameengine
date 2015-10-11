@@ -51,7 +51,7 @@ template<
 	typename Choices,
 	typename Inits
 >
-sge::systems::detail::list const
+sge::systems::detail::list
 make_list(
 	sge::systems::list<
 		Inits

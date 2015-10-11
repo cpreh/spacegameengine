@@ -35,5 +35,6 @@ sge::renderer::state::core::depth_stencil::stencil::combined::combined(
 sge::renderer::state::core::depth_stencil::stencil::desc const &
 sge::renderer::state::core::depth_stencil::stencil::combined::desc() const
 {
-	return desc_;
+	return
+		desc_;
 }

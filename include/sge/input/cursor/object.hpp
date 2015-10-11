@@ -72,7 +72,7 @@ public:
 	) = 0;
 
 	virtual
-	sge::input::cursor::optional_position const
+	sge::input::cursor::optional_position
 	position() const = 0;
 
 	virtual

@@ -31,6 +31,7 @@ sge::cg::program::compile_options::compile_options(
 :
 	value_()
 {
+	// TODO: Refactor this
 	for(;*_pointers;++_pointers)
 		value_.push_back(
 			sge::cg::string(
@@ -45,22 +46,10 @@ sge::cg::program::compile_options::compile_options(
 {
 }
 
-sge::cg::program::compile_options::compile_options(
-	string_sequence const &_value1,
-	string_sequence const &_value2)
-:
-	value_(
-		_value1)
-{
-	value_.insert(
-		value_.end(),
-		_value2.begin(),
-		_value2.end());
-}
-
 sge::cg::program::compile_options::pointer_sequence
 sge::cg::program::compile_options::pointers() const
 {
+	// TODO: Refactor this
 	sge::cg::program::compile_options::pointer_sequence result;
 
 	for(

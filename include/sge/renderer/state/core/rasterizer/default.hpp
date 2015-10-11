@@ -37,7 +37,7 @@ namespace rasterizer
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::state::core::rasterizer::parameters const
+sge::renderer::state::core::rasterizer::parameters
 default_();
 
 }

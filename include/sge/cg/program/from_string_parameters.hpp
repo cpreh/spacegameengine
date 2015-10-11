@@ -67,10 +67,10 @@ public:
 	sge::cg::program::source const &
 	source() const;
 
-	sge::cg::program::main_function const
+	sge::cg::program::main_function const &
 	main_function() const;
 
-	sge::cg::program::compile_options const
+	sge::cg::program::compile_options const &
 	compile_options() const;
 private:
 	sge::cg::context::object const &context_;

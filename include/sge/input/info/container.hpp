@@ -63,7 +63,7 @@ public:
 	) const;
 
 	SGE_INPUT_DETAIL_SYMBOL
-	Id const
+	Id
 	size() const;
 
 	SGE_INPUT_DETAIL_SYMBOL

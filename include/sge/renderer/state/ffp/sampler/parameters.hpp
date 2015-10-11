@@ -48,11 +48,11 @@ public:
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::sampler::color_op const
+	sge::renderer::state::ffp::sampler::color_op
 	color_op() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::sampler::alpha_op const
+	sge::renderer::state::ffp::sampler::alpha_op
 	alpha_op() const;
 private:
 	sge::renderer::state::ffp::sampler::color_op color_op_;

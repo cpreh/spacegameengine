@@ -82,7 +82,7 @@ public:
 		sge::renderer::context::ffp &
 	);
 
-	sge::systems::cursor_hotspot const
+	sge::systems::cursor_hotspot
 	hotspot() const;
 private:
 	sge::texture::part const &texture_;

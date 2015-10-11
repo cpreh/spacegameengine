@@ -111,13 +111,13 @@ public:
 		sge::image::color::any::object const &
 	);
 
-	sge::font::vector const
+	sge::font::vector
 	pos() const;
 
-	sge::font::rect const
+	sge::font::rect
 	rect() const;
 
-	sge::font::dim const
+	sge::font::dim
 	logical_size() const;
 
 	sge::font::text const &
@@ -218,7 +218,7 @@ private:
 	>
 	sprite_pos_type;
 
-	sge::font::draw::detail::static_text_impl::sprite_pos_type const
+	sge::font::draw::detail::static_text_impl::sprite_pos_type
 	sprite_pos(
 		sge::font::vector const &
 	) const;

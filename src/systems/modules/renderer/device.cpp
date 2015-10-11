@@ -78,7 +78,7 @@ sge::systems::modules::renderer::device::get_core() const
 		*renderer_device_;
 }
 
-sge::renderer::device::index const
+sge::renderer::device::index
 sge::systems::modules::renderer::device::index() const
 {
 	return

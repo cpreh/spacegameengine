@@ -42,20 +42,23 @@ sge::renderer::state::ffp::misc::parameters::parameters(
 {
 }
 
-sge::renderer::state::ffp::misc::enable_point_sprites const
+sge::renderer::state::ffp::misc::enable_point_sprites
 sge::renderer::state::ffp::misc::parameters::enable_point_sprites() const
 {
-	return enable_point_sprites_;
+	return
+		enable_point_sprites_;
 }
 
-sge::renderer::state::ffp::misc::local_viewer const
+sge::renderer::state::ffp::misc::local_viewer
 sge::renderer::state::ffp::misc::parameters::local_viewer() const
 {
-	return local_viewer_;
+	return
+		local_viewer_;
 }
 
-sge::renderer::state::ffp::misc::normalize_normals const
+sge::renderer::state::ffp::misc::normalize_normals
 sge::renderer::state::ffp::misc::parameters::normalize_normals() const
 {
-	return normalize_normals_;
+	return
+		normalize_normals_;
 }

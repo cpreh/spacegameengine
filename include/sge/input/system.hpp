@@ -57,7 +57,7 @@ public:
 	) = 0;
 
 	virtual
-	sge::input::capabilities_field const
+	sge::input::capabilities_field
 	capabilities() const = 0;
 };
 

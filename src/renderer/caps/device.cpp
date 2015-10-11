@@ -100,83 +100,97 @@ sge::renderer::caps::device::device(
 sge::renderer::caps::driver_name const &
 sge::renderer::caps::device::driver_name() const
 {
-	return driver_name_;
+	return
+		driver_name_;
 }
 
 sge::renderer::caps::description const &
 sge::renderer::caps::device::description() const
 {
-	return description_;
+	return
+		description_;
 }
 
-sge::renderer::caps::normalized_cvv const &
+sge::renderer::caps::normalized_cvv
 sge::renderer::caps::device::normalized_cvv() const
 {
-	return normalized_cvv_;
+	return
+		normalized_cvv_;
 }
 
 sge::renderer::caps::max_texture_size const &
 sge::renderer::caps::device::max_texture_size() const
 {
-	return max_texture_size_;
+	return
+		max_texture_size_;
 }
 
-sge::renderer::caps::max_volume_texture_extent const
+sge::renderer::caps::max_volume_texture_extent
 sge::renderer::caps::device::max_volume_texture_extent() const
 {
-	return max_volume_texture_extent_;
+	return
+		max_volume_texture_extent_;
 }
 
-sge::renderer::caps::non_power_of_2_textures const
+sge::renderer::caps::non_power_of_2_textures
 sge::renderer::caps::device::non_power_of_2_textures() const
 {
-	return non_power_of_2_textures_;
+	return
+		non_power_of_2_textures_;
 }
 
-sge::renderer::caps::max_anisotropy const
+sge::renderer::caps::max_anisotropy
 sge::renderer::caps::device::max_anisotropy() const
 {
-	return max_anisotropy_;
+	return
+		max_anisotropy_;
 }
 
-sge::renderer::caps::render_target_supported const
+sge::renderer::caps::render_target_supported
 sge::renderer::caps::device::render_target_supported() const
 {
-	return render_target_supported_;
+	return
+		render_target_supported_;
 }
 
-sge::renderer::caps::render_target_inverted const
+sge::renderer::caps::render_target_inverted
 sge::renderer::caps::device::render_target_inverted() const
 {
-	return render_target_inverted_;
+	return
+		render_target_inverted_;
 }
 
-sge::renderer::caps::clip_plane_indices const
+sge::renderer::caps::clip_plane_indices
 sge::renderer::caps::device::clip_plane_indices() const
 {
-	return clip_plane_indices_;
+	return
+		clip_plane_indices_;
 }
 
-sge::renderer::caps::light_indices const
+sge::renderer::caps::light_indices
 sge::renderer::caps::device::light_indices() const
 {
-	return light_indices_;
+	return
+		light_indices_;
 }
 
-sge::renderer::caps::texture_stages const
+sge::renderer::caps::texture_stages
 sge::renderer::caps::device::texture_stages() const
 {
-	return texture_stages_;
+	return
+		texture_stages_;
 }
 
-sge::renderer::caps::target_surface_indices const
+sge::renderer::caps::target_surface_indices
 sge::renderer::caps::device::target_surfaces() const
 {
-	return target_surfaces_;
+	return
+		target_surfaces_;
 }
 
-sge::renderer::caps::srgb_framebuffer const
+sge::renderer::caps::srgb_framebuffer
 sge::renderer::caps::device::srgb_framebuffer() const
 {
-	return srgb_framebuffer_;
+	return
+		srgb_framebuffer_;
 }

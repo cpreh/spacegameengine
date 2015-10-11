@@ -36,7 +36,7 @@ namespace joypad
 namespace absolute_axis
 {
 
-sge::input::joypad::absolute_axis_event const
+sge::input::joypad::absolute_axis_event
 make_event(
 	sge::input::joypad::absolute_axis_id,
 	sge::input::joypad::absolute_axis_info_container const &,

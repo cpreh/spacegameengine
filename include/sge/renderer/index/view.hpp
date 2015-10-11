@@ -55,17 +55,29 @@ public:
 		"sge::renderer::index::view only accepts index formats"
 	);
 
-	typedef Format format_type;
+	typedef
+	Format
+	format_type;
 
-	typedef typename format_type::index_type value_type;
+	typedef
+	typename
+	format_type::index_type
+	value_type;
 
-	typedef typename format_type::pointer pointer;
+	typedef
+	typename
+	format_type::pointer
+	pointer;
 
-	typedef renderer::index::size_type size_type;
+	typedef
+	sge::renderer::index::size_type
+	size_type;
 
-	typedef sge::renderer::index::iterator<
+	typedef
+	sge::renderer::index::iterator<
 		Format
-	> iterator;
+	>
+	iterator;
 
 	typedef
 	sge::renderer::index::view<
@@ -75,12 +87,15 @@ public:
 	>
 	nonconst_type;
 
-	typedef sge::renderer::index::dynamic::basic_view<
+	typedef
+	sge::renderer::index::dynamic::basic_view<
 		std::is_same<
-			typename Format::constness,
+			typename
+			Format::constness,
 			sge::renderer::index::const_tag
 		>::value
-	> dynamic_view_type;
+	>
+	dynamic_view_type;
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	view(
@@ -89,6 +104,7 @@ public:
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
+	explicit
 	view(
 		nonconst_type const &
 	);

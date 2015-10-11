@@ -47,7 +47,7 @@ sge::renderer::device::parameters::parameters(
 {
 }
 
-sge::renderer::device::index const
+sge::renderer::device::index
 sge::renderer::device::parameters::index() const
 {
 	return

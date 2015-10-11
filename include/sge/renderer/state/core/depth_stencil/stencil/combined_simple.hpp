@@ -84,7 +84,7 @@ public:
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::depth_stencil::stencil::enabled const
+	sge::renderer::state::core::depth_stencil::stencil::enabled
 	to_enabled() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL

@@ -66,14 +66,14 @@ sge::opengl::fbo::depth_stencil_surface::render_buffer() const
 		render_buffer_;
 }
 
-sge::opengl::fbo::depth_stencil_surface::dim const
+sge::opengl::fbo::depth_stencil_surface::dim
 sge::opengl::fbo::depth_stencil_surface::size() const
 {
 	return
 		dim_;
 }
 
-sge::opengl::fbo::depth_stencil_surface::const_view const
+sge::opengl::fbo::depth_stencil_surface::const_view
 sge::opengl::fbo::depth_stencil_surface::lock(
 	lock_area const &_area
 ) const
@@ -83,7 +83,7 @@ sge::opengl::fbo::depth_stencil_surface::lock(
 	);
 }
 
-sge::opengl::fbo::depth_stencil_surface::view const
+sge::opengl::fbo::depth_stencil_surface::view
 sge::opengl::fbo::depth_stencil_surface::lock(
 	lock_area const &_area,
 	sge::renderer::lock_mode const _mode

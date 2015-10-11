@@ -75,7 +75,7 @@ public:
 	override;
 
 	SGE_TEXTURE_DETAIL_SYMBOL
-	sge::renderer::lock_rect const
+	sge::renderer::lock_rect
 	area() const
 	override;
 

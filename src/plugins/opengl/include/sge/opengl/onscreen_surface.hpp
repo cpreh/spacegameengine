@@ -54,13 +54,13 @@ public:
 	~onscreen_surface()
 	override;
 private:
-	sge::renderer::color_buffer::surface::const_view const
+	sge::renderer::color_buffer::surface::const_view
 	lock(
 		sge::renderer::color_buffer::surface::lock_area const &
 	) const
 	override;
 
-	sge::renderer::color_buffer::surface::view const
+	sge::renderer::color_buffer::surface::view
 	lock(
 		sge::renderer::color_buffer::surface::lock_area const &,
 		sge::renderer::lock_mode
@@ -71,7 +71,7 @@ private:
 	unlock() const
 	override;
 
-	dim const
+	dim
 	size() const
 	override;
 
@@ -79,10 +79,10 @@ private:
 	format() const
 	override;
 
-	sge::opengl::color_format const
+	sge::opengl::color_format
 	color_format() const;
 
-	sge::opengl::color_format_type const
+	sge::opengl::color_format_type
 	color_format_type() const;
 
 	typedef fcppt::container::raw_vector<

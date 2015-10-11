@@ -50,23 +50,27 @@ sge::renderer::vertex::buffer_parameters::buffer_parameters(
 sge::renderer::vertex::declaration const &
 sge::renderer::vertex::buffer_parameters::declaration() const
 {
-	return declaration_;
+	return
+		declaration_;
 }
 
-sge::renderer::vf::dynamic::part_index const
+sge::renderer::vf::dynamic::part_index
 sge::renderer::vertex::buffer_parameters::part() const
 {
-	return part_;
+	return
+		part_;
 }
 
-sge::renderer::vertex::count const
+sge::renderer::vertex::count
 sge::renderer::vertex::buffer_parameters::count() const
 {
-	return count_;
+	return
+		count_;
 }
 
-sge::renderer::resource_flags_field const &
+sge::renderer::resource_flags_field
 sge::renderer::vertex::buffer_parameters::flags() const
 {
-	return flags_;
+	return
+		flags_;
 }

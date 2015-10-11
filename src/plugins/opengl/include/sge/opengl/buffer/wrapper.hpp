@@ -52,7 +52,7 @@ protected:
 	sge::opengl::buffer::object const &
 	buffer() const = 0;
 private:
-	sge::renderer::opengl::buffer::id const
+	sge::renderer::opengl::buffer::id
 	id() const
 	override;
 

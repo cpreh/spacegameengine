@@ -157,7 +157,7 @@ public:
 	sge::renderer::device::core &
 	renderer_device_core() const;
 
-	sge::renderer::device::index const
+	sge::renderer::device::index
 	renderer_device_index() const;
 
 	sge::input::system &

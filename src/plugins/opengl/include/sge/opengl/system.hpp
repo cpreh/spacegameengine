@@ -78,7 +78,7 @@ private:
 	)
 	override;
 
-	sge::renderer::caps::device_count const
+	sge::renderer::caps::device_count
 	device_count() const
 	override;
 

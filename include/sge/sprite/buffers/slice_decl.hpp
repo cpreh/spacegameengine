@@ -60,10 +60,10 @@ public:
 	sge::renderer::index::buffer &
 	index_buffer() const;
 
-	sge::renderer::vertex::first const
+	sge::renderer::vertex::first
 	first_vertex() const;
 
-	sge::renderer::index::first const
+	sge::renderer::index::first
 	first_index() const;
 
 	object const &

@@ -65,7 +65,7 @@ public:
 	override;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	rect const
+	rect
 	area() const;
 
 	virtual
@@ -87,7 +87,7 @@ public:
 	) const = 0;
 
 	virtual
-	sge::renderer::texture::mipmap::level_count const
+	sge::renderer::texture::mipmap::level_count
 	levels() const = 0;
 };
 

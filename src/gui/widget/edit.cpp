@@ -242,7 +242,7 @@ sge::gui::widget::edit::on_draw(
 	);
 }
 
-sge::gui::get_focus const
+sge::gui::get_focus
 sge::gui::widget::edit::on_click(
 	sge::rucksack::vector const _pos
 )
@@ -400,7 +400,7 @@ sge::gui::widget::edit::on_focus_changed(
 	}
 }
 
-sge::gui::widget::optional_ref const
+sge::gui::widget::optional_ref
 sge::gui::widget::edit::on_tab(
 	sge::gui::widget::optional_focus &
 )

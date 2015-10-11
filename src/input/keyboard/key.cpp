@@ -44,7 +44,7 @@ sge::input::keyboard::key::code() const
 		code_;
 }
 
-sge::input::keyboard::key_id const
+sge::input::keyboard::key_id
 sge::input::keyboard::key::id() const
 {
 	return

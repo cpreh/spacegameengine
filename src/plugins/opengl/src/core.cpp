@@ -57,7 +57,7 @@ sge::opengl::core::create_system(
 		);
 }
 
-sge::renderer::caps::system_field const
+sge::renderer::caps::system_field
 sge::opengl::core::caps() const
 {
 	return

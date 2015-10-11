@@ -118,7 +118,7 @@ sge::rucksack::viewport::adaptor::position(
 	);
 }
 
-sge::rucksack::dim const
+sge::rucksack::dim
 sge::rucksack::viewport::adaptor::size() const
 {
 	return
@@ -130,7 +130,7 @@ sge::rucksack::viewport::adaptor::size() const
 		);
 }
 
-sge::rucksack::vector const
+sge::rucksack::vector
 sge::rucksack::viewport::adaptor::position() const
 {
 	return
@@ -142,7 +142,7 @@ sge::rucksack::viewport::adaptor::position() const
 		);
 }
 
-sge::rucksack::axis_policy2 const
+sge::rucksack::axis_policy2
 sge::rucksack::viewport::adaptor::axis_policy() const
 {
 	// A dummy for now, until there's a use case

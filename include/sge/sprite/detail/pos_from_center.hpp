@@ -44,7 +44,7 @@ inline
 sge::sprite::types::vector<
 	typename
 	Choices::type_choices
-> const
+>
 pos_from_center(
 	Elements const &_elements,
 	sge::sprite::types::center<

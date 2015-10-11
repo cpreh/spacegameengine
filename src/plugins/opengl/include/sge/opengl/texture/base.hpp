@@ -44,11 +44,11 @@ class base
 		base
 	);
 public:
-	sge::opengl::texture::type const
+	sge::opengl::texture::type
 	type() const
 	override;
 
-	sge::opengl::texture::id const
+	sge::opengl::texture::id
 	id() const
 	override;
 

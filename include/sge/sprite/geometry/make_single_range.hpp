@@ -39,7 +39,7 @@ sge::sprite::geometry::random_access_range<
 	sge::sprite::object<
 		Choices
 	> *
-> const
+>
 make_single_range(
 	sge::sprite::object<
 		Choices
@@ -64,7 +64,7 @@ sge::sprite::geometry::random_access_range<
 	sge::sprite::object<
 		Choices
 	> const *
-> const
+>
 make_single_range(
 	sge::sprite::object<
 		Choices

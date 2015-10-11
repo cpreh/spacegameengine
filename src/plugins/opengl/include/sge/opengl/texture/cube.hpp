@@ -81,7 +81,7 @@ private:
 	) const
 	override;
 
-	sge::renderer::texture::mipmap::level_count const
+	sge::renderer::texture::mipmap::level_count
 	levels() const
 	override;
 

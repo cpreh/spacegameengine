@@ -123,7 +123,7 @@ sge::systems::detail::custom_cursor::draw(
 	);
 }
 
-sge::systems::cursor_hotspot const
+sge::systems::cursor_hotspot
 sge::systems::detail::custom_cursor::hotspot() const
 {
 	return

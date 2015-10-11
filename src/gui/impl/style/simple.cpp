@@ -57,7 +57,7 @@ sge::gui::impl::style::simple::~simple()
 {
 }
 
-sge::rucksack::dim const
+sge::rucksack::dim
 sge::gui::impl::style::simple::button_spacing() const
 {
 	return
@@ -182,7 +182,7 @@ sge::gui::impl::style::simple::draw_bar(
 
 }
 
-sge::rucksack::padding const
+sge::rucksack::padding
 sge::gui::impl::style::simple::frame_padding() const
 {
 	return
@@ -272,7 +272,7 @@ sge::gui::impl::style::simple::draw_frame(
 	);
 }
 
-sge::rucksack::dim const
+sge::rucksack::dim
 sge::gui::impl::style::simple::edit_spacing() const
 {
 	return
@@ -308,7 +308,7 @@ sge::gui::impl::style::simple::draw_edit(
 	);
 }
 
-sge::rucksack::dim const
+sge::rucksack::dim
 sge::gui::impl::style::simple::image_spacing() const
 {
 	return
@@ -326,7 +326,7 @@ sge::gui::impl::style::simple::draw_image(
 {
 }
 
-sge::rucksack::dim const
+sge::rucksack::dim
 sge::gui::impl::style::simple::text_spacing() const
 {
 	return
@@ -353,7 +353,7 @@ sge::gui::impl::style::simple::text_color() const
 		);
 }
 
-sge::rucksack::dim const
+sge::rucksack::dim
 sge::gui::impl::style::simple::spacing() const
 {
 	return

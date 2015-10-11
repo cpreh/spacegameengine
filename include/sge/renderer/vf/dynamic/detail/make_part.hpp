@@ -46,7 +46,7 @@ namespace detail
 template<
 	typename Part
 >
-sge::renderer::vf::dynamic::part const
+sge::renderer::vf::dynamic::part
 make_part()
 {
 	typedef typename Part::elements elements;

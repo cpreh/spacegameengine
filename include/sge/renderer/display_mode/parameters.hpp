@@ -66,7 +66,7 @@ public:
 	\brief Returns the optional display mode
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::display_mode::optional_object const
+	sge::renderer::display_mode::optional_object
 	display_mode() const;
 private:
 	sge::renderer::display_mode::vsync vsync_;

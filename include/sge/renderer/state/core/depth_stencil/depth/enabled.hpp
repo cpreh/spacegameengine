@@ -54,7 +54,7 @@ public:
 	func() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::depth_stencil::depth::write_enable const
+	sge::renderer::state::core::depth_stencil::depth::write_enable
 	write_enable() const;
 private:
 	sge::renderer::state::core::depth_stencil::depth::func func_;

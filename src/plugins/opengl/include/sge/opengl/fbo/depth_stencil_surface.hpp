@@ -59,17 +59,17 @@ public:
 	sge::opengl::fbo::render_buffer const &
 	render_buffer() const;
 private:
-	dim const
+	dim
 	size() const
 	override;
 
-	const_view const
+	const_view
 	lock(
 		lock_area const &area
 	) const
 	override;
 
-	view const
+	view
 	lock(
 		lock_area const &area,
 		sge::renderer::lock_mode mode

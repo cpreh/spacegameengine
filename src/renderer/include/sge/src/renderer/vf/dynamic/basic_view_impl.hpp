@@ -63,7 +63,8 @@ sge::renderer::vf::dynamic::basic_view<
 	Pointer
 >::data() const
 {
-	return data_;
+	return
+		data_;
 }
 
 template<
@@ -76,7 +77,8 @@ sge::renderer::vf::dynamic::basic_view<
 	Pointer
 >::size() const
 {
-	return size_;
+	return
+		size_;
 }
 
 template<
@@ -87,18 +89,20 @@ sge::renderer::vf::dynamic::basic_view<
 	Pointer
 >::part() const
 {
-	return part_;
+	return
+		part_;
 }
 
 template<
 	typename Pointer
 >
-sge::renderer::vf::dynamic::part_index const
+sge::renderer::vf::dynamic::part_index
 sge::renderer::vf::dynamic::basic_view<
 	Pointer
 >::part_index() const
 {
-	return part_index_;
+	return
+		part_index_;
 }
 
 #endif

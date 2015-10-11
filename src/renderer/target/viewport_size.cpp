@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
-sge::renderer::screen_size const
+sge::renderer::screen_size
 sge::renderer::target::viewport_size(
 	sge::renderer::target::base const &_target
 )

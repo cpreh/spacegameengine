@@ -48,7 +48,7 @@ public:
 	code() const;
 
 	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::keyboard::key_id const
+	sge::input::keyboard::key_id
 	id() const;
 private:
 	sge::input::key::code code_;

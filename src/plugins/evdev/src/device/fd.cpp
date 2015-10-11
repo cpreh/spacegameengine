@@ -53,7 +53,7 @@ sge::evdev::device::fd::~fd()
 		);
 }
 
-awl::backends::linux::fd::object const
+awl::backends::linux::fd::object
 sge::evdev::device::fd::get() const
 {
 	FCPPT_ASSERT_PRE(

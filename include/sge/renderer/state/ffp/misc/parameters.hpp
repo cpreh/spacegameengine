@@ -50,15 +50,15 @@ public:
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::misc::enable_point_sprites const
+	sge::renderer::state::ffp::misc::enable_point_sprites
 	enable_point_sprites() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::misc::local_viewer const
+	sge::renderer::state::ffp::misc::local_viewer
 	local_viewer() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::misc::normalize_normals const
+	sge::renderer::state::ffp::misc::normalize_normals
 	normalize_normals() const;
 private:
 	sge::renderer::state::ffp::misc::enable_point_sprites enable_point_sprites_;

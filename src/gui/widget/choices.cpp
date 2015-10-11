@@ -178,7 +178,7 @@ sge::gui::widget::choices::change(
 		);
 }
 
-sge::gui::optional_index const
+sge::gui::optional_index
 sge::gui::widget::choices::index() const
 {
 	return

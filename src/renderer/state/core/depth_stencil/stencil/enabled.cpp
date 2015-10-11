@@ -50,23 +50,27 @@ sge::renderer::state::core::depth_stencil::stencil::enabled::enabled(
 sge::renderer::state::core::depth_stencil::stencil::enabled_variant const &
 sge::renderer::state::core::depth_stencil::stencil::enabled::enabled_variant() const
 {
-	return enabled_variant_;
+	return
+		enabled_variant_;
 }
 
-sge::renderer::state::core::depth_stencil::stencil::ref const
+sge::renderer::state::core::depth_stencil::stencil::ref
 sge::renderer::state::core::depth_stencil::stencil::enabled::ref() const
 {
-	return ref_;
+	return
+		ref_;
 }
 
-sge::renderer::state::core::depth_stencil::stencil::read_mask const
+sge::renderer::state::core::depth_stencil::stencil::read_mask
 sge::renderer::state::core::depth_stencil::stencil::enabled::read_mask() const
 {
-	return read_mask_;
+	return
+		read_mask_;
 }
 
-sge::renderer::state::core::depth_stencil::stencil::write_mask const
+sge::renderer::state::core::depth_stencil::stencil::write_mask
 sge::renderer::state::core::depth_stencil::stencil::enabled::write_mask() const
 {
-	return write_mask_;
+	return
+		write_mask_;
 }

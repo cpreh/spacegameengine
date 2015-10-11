@@ -48,11 +48,11 @@ protected:
 	file();
 public:
 	virtual
-	sge::image2d::view::const_object const
+	sge::image2d::view::const_object
 	view() const = 0;
 
 	virtual
-	sge::image2d::dim const
+	sge::image2d::dim
 	size() const = 0;
 
 	virtual

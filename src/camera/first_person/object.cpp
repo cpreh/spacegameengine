@@ -110,7 +110,7 @@ sge::camera::first_person::object::object(
 
 FCPPT_PP_POP_WARNING
 
-sge::camera::coordinate_system::object const
+sge::camera::coordinate_system::object
 sge::camera::first_person::object::coordinate_system() const
 {
 	return
@@ -125,7 +125,7 @@ sge::camera::first_person::object::update_coordinate_system(
 		_coordinate_system;
 }
 
-sge::camera::projection_matrix const
+sge::camera::projection_matrix
 sge::camera::first_person::object::projection_matrix() const
 {
 	return
@@ -144,7 +144,7 @@ sge::camera::first_person::object::update_projection_matrix(
 		);
 }
 
-sge::camera::is_active const
+sge::camera::is_active
 sge::camera::first_person::object::is_active() const
 {
 	return

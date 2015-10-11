@@ -100,7 +100,7 @@ private:
 	)
 	override;
 
-	sge::input::cursor::optional_position const
+	sge::input::cursor::optional_position
 	position() const
 	override;
 

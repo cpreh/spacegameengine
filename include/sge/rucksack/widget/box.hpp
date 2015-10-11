@@ -113,13 +113,13 @@ public:
 
 	// Nothing fancy, just return the stored size
 	SGE_RUCKSACK_DETAIL_SYMBOL
-	sge::rucksack::dim const
+	sge::rucksack::dim
 	size() const
 	override;
 
 	// Nothing fancy, just return the stored position
 	SGE_RUCKSACK_DETAIL_SYMBOL
-	sge::rucksack::vector const
+	sge::rucksack::vector
 	position() const
 	override;
 
@@ -146,7 +146,7 @@ public:
 	// Also note that currently, box widgets always have a preferred size (which
 	// might be equal to the minimum size).
 	SGE_RUCKSACK_DETAIL_SYMBOL
-	sge::rucksack::axis_policy2 const
+	sge::rucksack::axis_policy2
 	axis_policy() const
 	override;
 

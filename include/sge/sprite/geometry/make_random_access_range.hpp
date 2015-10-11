@@ -36,7 +36,7 @@ template<
 >
 sge::sprite::geometry::random_access_range<
 	Iterator
-> const
+>
 make_random_access_range(
 	Iterator const _begin,
 	Iterator const _end
@@ -56,7 +56,7 @@ template<
 >
 sge::sprite::geometry::random_access_range<
 	typename Container::iterator
-> const
+>
 make_random_access_range(
 	Container &_container
 )
@@ -73,7 +73,7 @@ template<
 >
 sge::sprite::geometry::random_access_range<
 	typename Container::const_iterator
-> const
+>
 make_random_access_range(
 	Container const &_container
 )

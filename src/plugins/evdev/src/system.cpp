@@ -60,7 +60,7 @@ sge::evdev::system::create_processor(
 		);
 }
 
-sge::input::capabilities_field const
+sge::input::capabilities_field
 sge::evdev::system::capabilities() const
 {
 	return

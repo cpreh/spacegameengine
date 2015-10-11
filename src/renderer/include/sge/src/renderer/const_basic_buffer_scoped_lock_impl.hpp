@@ -69,12 +69,13 @@ template<
 >
 typename sge::renderer::const_basic_buffer_scoped_lock<
 	Buffer
->::const_view const
+>::const_view
 sge::renderer::const_basic_buffer_scoped_lock<
 	Buffer
 >::value() const
 {
-	return view_;
+	return
+		view_;
 }
 
 template<

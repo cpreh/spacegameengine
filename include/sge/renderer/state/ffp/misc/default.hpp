@@ -37,7 +37,7 @@ namespace misc
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::state::ffp::misc::parameters const
+sge::renderer::state::ffp::misc::parameters
 default_();
 
 }

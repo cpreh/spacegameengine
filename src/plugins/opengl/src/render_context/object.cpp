@@ -446,7 +446,7 @@ sge::opengl::render_context::object::unset_cg_program(
 	);
 }
 
-sge::renderer::texture::stage const
+sge::renderer::texture::stage
 sge::opengl::render_context::object::set_cg_texture(
 	sge::renderer::cg::loaded_texture const &_texture
 )

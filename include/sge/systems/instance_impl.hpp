@@ -192,7 +192,7 @@ sge::systems::instance<
 template<
 	typename Choices
 >
-sge::renderer::device::index const
+sge::renderer::device::index
 sge::systems::instance<
 	Choices
 >::renderer_device_index() const

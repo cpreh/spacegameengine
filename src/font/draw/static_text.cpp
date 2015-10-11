@@ -125,21 +125,21 @@ sge::font::draw::static_text::color(
 }
 
 
-sge::font::vector const
+sge::font::vector
 sge::font::draw::static_text::pos() const
 {
 	return
 		impl_->pos();
 }
 
-sge::font::rect const
+sge::font::rect
 sge::font::draw::static_text::rect() const
 {
 	return
 		impl_->rect();
 }
 
-sge::font::dim const
+sge::font::dim
 sge::font::draw::static_text::logical_size() const
 {
 	return

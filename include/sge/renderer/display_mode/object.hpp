@@ -80,7 +80,7 @@ public:
 	\brief Returns the refresh rate
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::display_mode::optional_refresh_rate const
+	sge::renderer::display_mode::optional_refresh_rate
 	refresh_rate() const;
 private:
 	sge::renderer::display_mode::pixel_size pixel_size_;

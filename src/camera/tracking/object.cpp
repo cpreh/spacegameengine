@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-sge::renderer::matrix4 const
+sge::renderer::matrix4
 lerp_double(
 	sge::renderer::scalar const _t,
 	sge::renderer::matrix4 const &_a,
@@ -114,14 +114,14 @@ sge::camera::tracking::object::object(
 		!keyframes_.empty());
 }
 
-sge::camera::coordinate_system::object const
+sge::camera::coordinate_system::object
 sge::camera::tracking::object::coordinate_system() const
 {
 	return
 		coordinate_system_;
 }
 
-sge::camera::projection_matrix const
+sge::camera::projection_matrix
 sge::camera::tracking::object::projection_matrix() const
 {
 	return
@@ -139,7 +139,7 @@ sge::camera::tracking::object::update_projection_matrix(
 			_projection_matrix);
 }
 
-sge::camera::is_active const
+sge::camera::is_active
 sge::camera::tracking::object::is_active() const
 {
 	return

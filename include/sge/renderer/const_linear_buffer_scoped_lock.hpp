@@ -94,7 +94,8 @@ public:
 	 * created with resource_flags::readable
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	explicit const_linear_buffer_scoped_lock(
+	explicit
+	const_linear_buffer_scoped_lock(
 		Buffer const &buffer,
 		first_type first =
 			first_type(0u),
@@ -110,7 +111,7 @@ public:
 	 * \return The view of the locked region
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	view_type const
+	view_type
 	value() const;
 
 	/**

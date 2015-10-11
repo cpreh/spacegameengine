@@ -52,7 +52,7 @@ private:
 	)
 	override;
 
-	sge::renderer::caps::system_field const
+	sge::renderer::caps::system_field
 	caps() const
 	override;
 };

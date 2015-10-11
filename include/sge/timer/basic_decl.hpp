@@ -67,11 +67,13 @@ public:
 	>
 	parameters;
 
-	typedef typename
+	typedef
+	typename
 	clock_type::time_point
 	time_point;
 
-	typedef typename
+	typedef
+	typename
 	clock_type::duration
 	duration;
 
@@ -110,7 +112,7 @@ public:
 	template<
 		typename NewDuration
 	>
-	NewDuration const
+	NewDuration
 	interval() const;
 
 	template<
@@ -121,10 +123,10 @@ public:
 		NewDuration const &
 	);
 
-	time_point const
+	time_point
 	now() const;
 
-	time_point const
+	time_point
 	last_time() const;
 
 	void

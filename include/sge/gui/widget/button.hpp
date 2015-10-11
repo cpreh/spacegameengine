@@ -99,7 +99,7 @@ private:
 	)
 	override;
 
-	sge::gui::get_focus const
+	sge::gui::get_focus
 	on_click(
 		sge::rucksack::vector
 	)

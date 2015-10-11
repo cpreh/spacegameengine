@@ -40,11 +40,13 @@ sge::renderer::state::core::depth_stencil::depth::enabled::enabled(
 sge::renderer::state::core::depth_stencil::depth::func
 sge::renderer::state::core::depth_stencil::depth::enabled::func() const
 {
-	return func_;
+	return
+		func_;
 }
 
-sge::renderer::state::core::depth_stencil::depth::write_enable const
+sge::renderer::state::core::depth_stencil::depth::write_enable
 sge::renderer::state::core::depth_stencil::depth::enabled::write_enable() const
 {
-	return write_enable_;
+	return
+		write_enable_;
 }

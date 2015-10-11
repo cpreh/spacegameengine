@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/relative_axis_info_container.hpp>
 
 
-sge::input::joypad::relative_axis_event const
+sge::input::joypad::relative_axis_event
 sge::evdev::joypad::relative_axis::make_event(
 	sge::input::joypad::relative_axis_id const _id,
 	sge::input::joypad::relative_axis_info_container const &_info,

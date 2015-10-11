@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/type.hpp>
 
 
-sge::opengl::texture::type const
+sge::opengl::texture::type
 sge::opengl::texture::base::type() const
 {
 	return
 		type_;
 }
 
-sge::opengl::texture::id const
+sge::opengl::texture::id
 sge::opengl::texture::base::id() const
 {
 	return

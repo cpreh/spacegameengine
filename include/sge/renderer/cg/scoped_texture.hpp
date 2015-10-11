@@ -52,7 +52,7 @@ public:
 	~scoped_texture();
 
 	SGE_RENDERER_CG_DETAIL_SYMBOL
-	sge::renderer::texture::stage const
+	sge::renderer::texture::stage
 	stage() const;
 private:
 	sge::renderer::context::core &context_;

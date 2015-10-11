@@ -43,7 +43,7 @@ public:
 		sge::font::string const &
 	);
 
-	sge::gui::widget::reference const
+	sge::gui::widget::reference
 	reference() const;
 
 	sge::font::string const &

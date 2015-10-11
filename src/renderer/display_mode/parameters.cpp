@@ -40,11 +40,13 @@ sge::renderer::display_mode::parameters::parameters(
 sge::renderer::display_mode::vsync
 sge::renderer::display_mode::parameters::vsync() const
 {
-	return vsync_;
+	return
+		vsync_;
 }
 
-sge::renderer::display_mode::optional_object const
+sge::renderer::display_mode::optional_object
 sge::renderer::display_mode::parameters::display_mode() const
 {
-	return display_mode_;
+	return
+		display_mode_;
 }

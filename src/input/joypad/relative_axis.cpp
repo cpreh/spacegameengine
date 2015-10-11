@@ -40,11 +40,13 @@ sge::input::joypad::relative_axis::relative_axis(
 sge::input::joypad::axis_code
 sge::input::joypad::relative_axis::code() const
 {
-	return code_;
+	return
+		code_;
 }
 
-sge::input::joypad::relative_axis_id const
+sge::input::joypad::relative_axis_id
 sge::input::joypad::relative_axis::id() const
 {
-	return id_;
+	return
+		id_;
 }

@@ -39,7 +39,7 @@ namespace filter
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::state::core::sampler::filter::parameters const
+sge::renderer::state::core::sampler::filter::parameters
 mipmap();
 
 }

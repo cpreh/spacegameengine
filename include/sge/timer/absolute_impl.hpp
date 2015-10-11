@@ -68,7 +68,7 @@ template<
 typename
 sge::timer::absolute<
 	Clock
->::time_point const
+>::time_point
 sge::timer::absolute<
 	Clock
 >::now() const
@@ -83,7 +83,7 @@ template<
 typename
 sge::timer::absolute<
 	Clock
->::time_point const
+>::time_point
 sge::timer::absolute<
 	Clock
 >::last_time() const

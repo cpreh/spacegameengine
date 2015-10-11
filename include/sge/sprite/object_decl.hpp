@@ -249,10 +249,10 @@ public:
 	unit
 	y() const;
 
-	vector const
+	vector
 	pos() const;
 
-	vector const
+	vector
 	center() const;
 
 	unit
@@ -261,7 +261,7 @@ public:
 	unit
 	h() const;
 
-	dim const
+	dim
 	size() const;
 
 	point_size_type
@@ -294,19 +294,19 @@ public:
 	repetition_type
 	repetition() const;
 
-	texture_coordinates_type const
+	texture_coordinates_type
 	texture_coordinates() const;
 
 	template<
 		sge::sprite::texture_level
 	>
-	texture_coordinates_type const
+	texture_coordinates_type
 	texture_coordinates_level() const;
 
-	color_type const
+	color_type
 	color() const;
 
-	texture_type const
+	texture_type
 	texture() const;
 
 	template<

@@ -72,7 +72,7 @@ public:
 	part() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::vf::dynamic::part_index const
+	sge::renderer::vf::dynamic::part_index
 	part_index() const;
 private:
 	pointer const data_;

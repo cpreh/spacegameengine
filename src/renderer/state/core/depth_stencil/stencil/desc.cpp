@@ -47,26 +47,30 @@ sge::renderer::state::core::depth_stencil::stencil::desc::desc(
 {
 }
 
-sge::renderer::state::core::depth_stencil::stencil::fail_op const
+sge::renderer::state::core::depth_stencil::stencil::fail_op
 sge::renderer::state::core::depth_stencil::stencil::desc::fail_op() const
 {
-	return fail_op_;
+	return
+		fail_op_;
 }
 
-sge::renderer::state::core::depth_stencil::stencil::depth_fail_op const
+sge::renderer::state::core::depth_stencil::stencil::depth_fail_op
 sge::renderer::state::core::depth_stencil::stencil::desc::depth_fail_op() const
 {
-	return depth_fail_op_;
+	return
+		depth_fail_op_;
 }
 
-sge::renderer::state::core::depth_stencil::stencil::pass_op const
+sge::renderer::state::core::depth_stencil::stencil::pass_op
 sge::renderer::state::core::depth_stencil::stencil::desc::pass_op() const
 {
-	return pass_op_;
+	return
+		pass_op_;
 }
 
 sge::renderer::state::core::depth_stencil::stencil::func
 sge::renderer::state::core::depth_stencil::stencil::desc::func() const
 {
-	return func_;
+	return
+		func_;
 }

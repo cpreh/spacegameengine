@@ -63,7 +63,7 @@ public:
 	depth_stencil() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::pixel_format::optional_multi_samples const
+	sge::renderer::pixel_format::optional_multi_samples
 	multi_samples() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL

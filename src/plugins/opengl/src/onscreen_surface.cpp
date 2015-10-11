@@ -68,7 +68,7 @@ sge::opengl::onscreen_surface::~onscreen_surface()
 {
 }
 
-sge::renderer::color_buffer::surface::const_view const
+sge::renderer::color_buffer::surface::const_view
 sge::opengl::onscreen_surface::lock(
 	sge::renderer::color_buffer::surface::lock_area const &_dest
 ) const
@@ -132,7 +132,7 @@ sge::opengl::onscreen_surface::lock(
 		);
 }
 
-sge::renderer::color_buffer::surface::view const
+sge::renderer::color_buffer::surface::view
 sge::opengl::onscreen_surface::lock(
 	sge::renderer::color_buffer::surface::lock_area const &,
 	sge::renderer::lock_mode
@@ -149,7 +149,7 @@ sge::opengl::onscreen_surface::unlock() const
 	buffer_.free_memory();
 }
 
-sge::opengl::onscreen_surface::dim const
+sge::opengl::onscreen_surface::dim
 sge::opengl::onscreen_surface::size() const
 {
 	return
@@ -171,7 +171,7 @@ sge::opengl::onscreen_surface::format() const
 		sge::image::color::format::rgba8;
 }
 
-sge::opengl::color_format const
+sge::opengl::color_format
 sge::opengl::onscreen_surface::color_format() const
 {
 	return
@@ -180,7 +180,7 @@ sge::opengl::onscreen_surface::color_format() const
 		);
 }
 
-sge::opengl::color_format_type const
+sge::opengl::color_format_type
 sge::opengl::onscreen_surface::color_format_type() const
 {
 	return

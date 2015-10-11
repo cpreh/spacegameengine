@@ -65,7 +65,7 @@ sge::gui::widget::base::on_update(
 {
 }
 
-sge::gui::get_focus const
+sge::gui::get_focus
 sge::gui::widget::base::on_click(
 	sge::rucksack::vector
 )
@@ -97,7 +97,7 @@ sge::gui::widget::base::on_focus_changed(
 {
 }
 
-sge::gui::widget::optional_ref const
+sge::gui::widget::optional_ref
 sge::gui::widget::base::on_tab(
 	sge::gui::widget::optional_focus &
 )

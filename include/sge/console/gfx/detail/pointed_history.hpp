@@ -86,10 +86,10 @@ public:
 	void
 	to_end();
 
-	const_iterator const
+	const_iterator
 	point() const;
 
-	const_iterator const
+	const_iterator
 	end() const;
 private:
 	container container_;

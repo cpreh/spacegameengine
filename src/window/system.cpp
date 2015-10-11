@@ -124,7 +124,7 @@ sge::window::system::quit(
 	);
 }
 
-awl::main::exit_code const
+awl::main::exit_code
 sge::window::system::exit_code() const
 {
 	return

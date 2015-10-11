@@ -28,23 +28,25 @@ sge::input::mouse::axis::axis(
 	sge::input::mouse::axis_id const _id
 )
 :
-	code_(
+	code_{
 		_code
-	),
-	id_(
+	},
+	id_{
 		_id
-	)
+	}
 {
 }
 
 sge::input::mouse::axis_code
 sge::input::mouse::axis::code() const
 {
-	return code_;
+	return
+		code_;
 }
 
-sge::input::mouse::axis_id const
+sge::input::mouse::axis_id
 sge::input::mouse::axis::id() const
 {
-	return id_;
+	return
+		id_;
 }

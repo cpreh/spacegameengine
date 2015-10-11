@@ -48,7 +48,7 @@ public:
 	code() const;
 
 	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::mouse::axis_id const
+	sge::input::mouse::axis_id
 	id() const;
 private:
 	sge::input::mouse::axis_code code_;

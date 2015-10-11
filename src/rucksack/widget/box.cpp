@@ -256,21 +256,21 @@ sge::rucksack::widget::box::position(
 		_position;
 }
 
-sge::rucksack::dim const
+sge::rucksack::dim
 sge::rucksack::widget::box::size() const
 {
 	return
 		size_;
 }
 
-sge::rucksack::vector const
+sge::rucksack::vector
 sge::rucksack::widget::box::position() const
 {
 	return
 		position_;
 }
 
-sge::rucksack::axis_policy2 const
+sge::rucksack::axis_policy2
 sge::rucksack::widget::box::axis_policy() const
 {
 	// major (Min x, Min y) -> Min x + y

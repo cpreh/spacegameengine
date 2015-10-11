@@ -35,7 +35,7 @@ sge::renderer::texture::volume::~volume()
 {
 }
 
-sge::renderer::texture::volume::dim const
+sge::renderer::texture::volume::dim
 sge::renderer::texture::volume::size() const
 {
 	return
@@ -46,7 +46,7 @@ sge::renderer::texture::volume::size() const
 		).size();
 }
 
-sge::renderer::texture::volume::rect const
+sge::renderer::texture::volume::rect
 sge::renderer::texture::volume::area() const
 {
 	return

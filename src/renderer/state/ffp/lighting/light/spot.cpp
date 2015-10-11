@@ -50,23 +50,27 @@ sge::renderer::state::ffp::lighting::light::spot::spot(
 sge::renderer::state::ffp::lighting::light::position const &
 sge::renderer::state::ffp::lighting::light::spot::position() const
 {
-	return position_;
+	return
+		position_;
 }
 
 sge::renderer::state::ffp::lighting::light::direction const &
 sge::renderer::state::ffp::lighting::light::spot::direction() const
 {
-	return direction_;
+	return
+		direction_;
 }
 
-sge::renderer::state::ffp::lighting::light::cutoff_angle const
+sge::renderer::state::ffp::lighting::light::cutoff_angle
 sge::renderer::state::ffp::lighting::light::spot::cutoff_angle() const
 {
-	return cutoff_angle_;
+	return
+		cutoff_angle_;
 }
 
 sge::renderer::state::ffp::lighting::light::attenuation const &
 sge::renderer::state::ffp::lighting::light::spot::attenuation() const
 {
-	return attenuation_;
+	return
+		attenuation_;
 }

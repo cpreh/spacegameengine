@@ -129,7 +129,7 @@ sge::opengl::texture::cube::level(
 		];
 }
 
-sge::renderer::texture::mipmap::level_count const
+sge::renderer::texture::mipmap::level_count
 sge::opengl::texture::cube::levels() const
 {
 	return

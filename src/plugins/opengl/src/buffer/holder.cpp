@@ -43,7 +43,7 @@ sge::opengl::buffer::holder::~holder()
 	);
 }
 
-sge::opengl::buffer::id const
+sge::opengl::buffer::id
 sge::opengl::buffer::holder::id() const
 {
 	return

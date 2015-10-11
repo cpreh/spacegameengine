@@ -64,7 +64,7 @@ template<
 	typename Id,
 	typename Obj
 >
-Id const
+Id
 sge::input::info::container<
 	Id,
 	Obj

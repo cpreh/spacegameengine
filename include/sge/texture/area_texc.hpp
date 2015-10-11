@@ -47,7 +47,7 @@ typename boost::enable_if<
 	fcppt::math::box::rect<
 		T
 	>
->::type const
+>::type
 area_texc(
 	sge::texture::part const &,
 	fcppt::math::vector::static_<

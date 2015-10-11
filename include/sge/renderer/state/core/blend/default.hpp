@@ -37,7 +37,7 @@ namespace blend
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::state::core::blend::parameters const
+sge::renderer::state::core::blend::parameters
 default_();
 
 }

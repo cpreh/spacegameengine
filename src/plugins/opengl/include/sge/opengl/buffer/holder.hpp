@@ -45,7 +45,7 @@ public:
 
 	~holder();
 
-	sge::opengl::buffer::id const
+	sge::opengl::buffer::id
 	id() const;
 private:
 	sge::opengl::buffer::base &base_;

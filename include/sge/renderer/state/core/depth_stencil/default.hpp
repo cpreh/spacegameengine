@@ -37,7 +37,7 @@ namespace depth_stencil
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::state::core::depth_stencil::parameters const
+sge::renderer::state::core::depth_stencil::parameters
 default_();
 
 }

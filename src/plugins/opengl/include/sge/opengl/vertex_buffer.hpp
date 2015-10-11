@@ -71,7 +71,7 @@ public:
 		sge::opengl::vf::part const &
 	) const;
 private:
-	view_type const
+	view_type
 	lock(
 		sge::renderer::lock_mode,
 		first_type,
@@ -79,7 +79,7 @@ private:
 	)
 	override;
 
-	const_view_type const
+	const_view_type
 	lock(
 		first_type,
 		count_type
@@ -89,7 +89,7 @@ private:
 	template<
 		typename View
 	>
-	View const
+	View
 	do_lock(
 		sge::renderer::lock_flags::method,
 		first_type,
@@ -100,11 +100,11 @@ private:
 	unlock() const
 	override;
 
-	count_type const
+	count_type
 	size() const
 	override;
 
-	sge::renderer::resource_flags_field const
+	sge::renderer::resource_flags_field
 	resource_flags() const
 	override;
 
@@ -112,7 +112,7 @@ private:
 	format_part() const
 	override;
 
-	sge::renderer::vf::dynamic::part_index const
+	sge::renderer::vf::dynamic::part_index
 	format_part_index() const
 	override;
 

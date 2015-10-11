@@ -40,13 +40,15 @@ sge::renderer::state::core::sampler::filter::anisotropic::parameters::parameters
 sge::renderer::state::core::sampler::filter::anisotropic::mip
 sge::renderer::state::core::sampler::filter::anisotropic::parameters::mip() const
 {
-	return mip_;
+	return
+		mip_;
 }
 
-sge::renderer::state::core::sampler::filter::anisotropic::level const
+sge::renderer::state::core::sampler::filter::anisotropic::level
 sge::renderer::state::core::sampler::filter::anisotropic::parameters::level() const
 {
-	return level_;
+	return
+		level_;
 }
 
 bool
@@ -57,5 +59,6 @@ sge::renderer::state::core::sampler::filter::anisotropic::operator==(
 {
 	return
 		_left.mip() == _right.mip()
-		&& _left.level() == _right.level();
+		&&
+		_left.level() == _right.level();
 }

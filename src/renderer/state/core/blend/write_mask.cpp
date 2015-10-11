@@ -47,27 +47,31 @@ sge::renderer::state::core::blend::write_mask::write_mask(
 {
 }
 
-sge::renderer::state::core::blend::write_red const
+sge::renderer::state::core::blend::write_red
 sge::renderer::state::core::blend::write_mask::write_red() const
 {
-	return write_red_;
+	return
+		write_red_;
 }
 
-sge::renderer::state::core::blend::write_blue const
+sge::renderer::state::core::blend::write_blue
 sge::renderer::state::core::blend::write_mask::write_blue() const
 {
-	return write_blue_;
+	return
+		write_blue_;
 }
 
-sge::renderer::state::core::blend::write_green const
+sge::renderer::state::core::blend::write_green
 sge::renderer::state::core::blend::write_mask::write_green() const
 {
-	return write_green_;
+	return
+		write_green_;
 }
 
-sge::renderer::state::core::blend::write_alpha const
+sge::renderer::state::core::blend::write_alpha
 sge::renderer::state::core::blend::write_mask::write_alpha() const
 {
-	return write_alpha_;
+	return
+		write_alpha_;
 }
 

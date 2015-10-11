@@ -154,7 +154,7 @@ public:
 	\warning The behavior is undefined if the buffer is already locked
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	const_view const
+	const_view
 	lock() const;
 
 	/**
@@ -171,7 +171,7 @@ public:
 	\warning The behavior is undefined if \a area is out of range
 	*/
 	virtual
-	const_view const
+	const_view
 	lock(
 		lock_area const &area
 	) const = 0;
@@ -188,7 +188,7 @@ public:
 	\warning The behavior is undefined if the buffer is already locked
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	view const
+	view
 	lock(
 		sge::renderer::lock_mode mode
 	);
@@ -208,7 +208,7 @@ public:
 	\warning The behavior is undefined if the buffer is already locked
 	*/
 	virtual
-	view const
+	view
 	lock(
 		lock_area const &area,
 		sge::renderer::lock_mode mode
@@ -231,7 +231,7 @@ public:
 	\return The size of the buffer as a two dimensional size of pixels
 	*/
 	virtual
-	dim const
+	dim
 	size() const = 0;
 
 	/**
@@ -250,7 +250,7 @@ public:
 	\return <code> lock_area(lock_area::vector::null(), this->dim()) </code>
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	lock_area const
+	lock_area
 	area() const;
 
 	/**

@@ -38,7 +38,7 @@ namespace sampler
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::state::ffp::sampler::parameters const
+sge::renderer::state::ffp::sampler::parameters
 parameters_both(
 	sge::renderer::state::ffp::sampler::op const &
 );

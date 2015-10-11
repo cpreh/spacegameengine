@@ -84,7 +84,7 @@ sge::rucksack::widget::frame::position(
 	);
 }
 
-sge::rucksack::dim const
+sge::rucksack::dim
 sge::rucksack::widget::frame::size() const
 {
 	return
@@ -93,7 +93,7 @@ sge::rucksack::widget::frame::size() const
 		this->extra_size();
 }
 
-sge::rucksack::vector const
+sge::rucksack::vector
 sge::rucksack::widget::frame::position() const
 {
 	return
@@ -102,7 +102,7 @@ sge::rucksack::widget::frame::position() const
 		this->shifted_position();
 }
 
-sge::rucksack::axis_policy2 const
+sge::rucksack::axis_policy2
 sge::rucksack::widget::frame::axis_policy() const
 {
 	auto const make_policy(
@@ -180,7 +180,7 @@ sge::rucksack::widget::frame::~frame()
 {
 }
 
-sge::rucksack::vector const
+sge::rucksack::vector
 sge::rucksack::widget::frame::shifted_position() const
 {
 	return
@@ -191,7 +191,7 @@ sge::rucksack::widget::frame::shifted_position() const
 		);
 }
 
-sge::rucksack::dim const
+sge::rucksack::dim
 sge::rucksack::widget::frame::extra_size() const
 {
 	return
@@ -208,7 +208,7 @@ sge::rucksack::widget::frame::extra_size() const
 		);
 }
 
-sge::rucksack::padding const
+sge::rucksack::padding
 sge::rucksack::widget::frame::padding() const
 {
 	return

@@ -50,7 +50,7 @@ sge::renderer::cg::scoped_texture::~scoped_texture()
 	);
 }
 
-sge::renderer::texture::stage const
+sge::renderer::texture::stage
 sge::renderer::cg::scoped_texture::stage() const
 {
 	return

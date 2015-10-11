@@ -267,7 +267,7 @@ sge::systems::detail::instance::renderer_device_core() const
 		impl_->renderer_device_core();
 }
 
-sge::renderer::device::index const
+sge::renderer::device::index
 sge::systems::detail::instance::renderer_device_index() const
 {
 	return

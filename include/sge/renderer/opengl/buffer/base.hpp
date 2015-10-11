@@ -50,7 +50,7 @@ public:
 	~base() = 0;
 
 	virtual
-	sge::renderer::opengl::buffer::id const
+	sge::renderer::opengl::buffer::id
 	id() const = 0;
 
 	virtual

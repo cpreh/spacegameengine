@@ -42,22 +42,25 @@ sge::renderer::state::core::sampler::address::parameters::parameters(
 {
 }
 
-sge::renderer::state::core::sampler::address::mode_s const
+sge::renderer::state::core::sampler::address::mode_s
 sge::renderer::state::core::sampler::address::parameters::mode_s() const
 {
-	return mode_s_;
+	return
+		mode_s_;
 }
 
-sge::renderer::state::core::sampler::address::mode_t const
+sge::renderer::state::core::sampler::address::mode_t
 sge::renderer::state::core::sampler::address::parameters::mode_t() const
 {
-	return mode_t_;
+	return
+		mode_t_;
 }
 
-sge::renderer::state::core::sampler::address::mode_u const
+sge::renderer::state::core::sampler::address::mode_u
 sge::renderer::state::core::sampler::address::parameters::mode_u() const
 {
-	return mode_u_;
+	return
+		mode_u_;
 }
 
 bool

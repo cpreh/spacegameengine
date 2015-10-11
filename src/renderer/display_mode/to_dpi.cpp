@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
-sge::renderer::display_mode::dpi const
+sge::renderer::display_mode::dpi
 sge::renderer::display_mode::to_dpi(
 	sge::renderer::display_mode::optional_object const &_opt_mode
 )

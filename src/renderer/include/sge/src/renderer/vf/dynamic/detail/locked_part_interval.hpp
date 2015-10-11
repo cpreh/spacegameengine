@@ -36,9 +36,9 @@ namespace dynamic
 namespace detail
 {
 
-detail::lock_interval const
+sge::renderer::vf::dynamic::detail::lock_interval
 locked_part_interval(
-	dynamic::locked_part const &
+	sge::renderer::vf::dynamic::locked_part const &
 );
 
 }

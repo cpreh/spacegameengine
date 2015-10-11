@@ -49,7 +49,7 @@ sge::input::cursor::button_event::button_code() const
 		button_code_;
 }
 
-sge::input::cursor::position const
+sge::input::cursor::position
 sge::input::cursor::button_event::position() const
 {
 	return

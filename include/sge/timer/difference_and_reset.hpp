@@ -34,7 +34,7 @@ template<
 	typename Duration,
 	typename Clock
 >
-Duration const
+Duration
 difference_and_reset(
 	sge::timer::absolute<
 		Clock

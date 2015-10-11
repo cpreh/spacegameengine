@@ -225,21 +225,21 @@ sge::font::bitmap::text::render(
 	}
 }
 
-sge::font::rect const
+sge::font::rect
 sge::font::bitmap::text::rect() const
 {
 	return
 		rep_.rect();
 }
 
-sge::font::dim const
+sge::font::dim
 sge::font::bitmap::text::logical_size() const
 {
 	return
 		this->rect().size();
 }
 
-sge::font::rect const
+sge::font::rect
 sge::font::bitmap::text::cursor_rect(
 	sge::font::index const _index
 ) const
@@ -251,7 +251,7 @@ sge::font::bitmap::text::cursor_rect(
 		>();
 }
 
-sge::font::optional_index const
+sge::font::optional_index
 sge::font::bitmap::text::pos_to_index(
 	sge::font::vector const _pos
 ) const

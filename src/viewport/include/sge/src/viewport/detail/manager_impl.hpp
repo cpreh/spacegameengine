@@ -66,7 +66,7 @@ public:
 		sge::viewport::optional_resize_callback const &
 	);
 
-	sge::renderer::target::viewport const
+	sge::renderer::target::viewport
 	viewport() const;
 private:
 	void

@@ -49,7 +49,7 @@ public:
 
 	~fd();
 
-	awl::backends::linux::fd::object const
+	awl::backends::linux::fd::object
 	get() const;
 
 	bool

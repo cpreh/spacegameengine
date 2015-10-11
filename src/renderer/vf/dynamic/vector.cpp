@@ -40,11 +40,13 @@ sge::renderer::vf::dynamic::vector::vector(
 sge::renderer::vf::dynamic::element_type
 sge::renderer::vf::dynamic::vector::element_type() const
 {
-	return element_type_;
+	return
+		element_type_;
 }
 
-sge::renderer::vf::dynamic::element_count const
+sge::renderer::vf::dynamic::element_count
 sge::renderer::vf::dynamic::vector::element_count() const
 {
-	return element_count_;
+	return
+		element_count_;
 }

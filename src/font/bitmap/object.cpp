@@ -200,14 +200,14 @@ sge::font::bitmap::object::create_text(
 		);
 }
 
-sge::image::color::optional_format const
+sge::image::color::optional_format
 sge::font::bitmap::object::color_format() const
 {
 	return
 		color_format_;
 }
 
-sge::font::metrics const
+sge::font::metrics
 sge::font::bitmap::object::metrics() const
 {
 	return

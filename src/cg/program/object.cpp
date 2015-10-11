@@ -121,7 +121,7 @@ sge::cg::program::object::profile() const
 		profile_;
 }
 
-sge::cg::parameter::named const
+sge::cg::parameter::named
 sge::cg::program::object::parameter(
 	sge::cg::string const &_name
 ) const
@@ -148,7 +148,7 @@ sge::cg::program::object::parameter(
 		);
 }
 
-sge::cg::parameter::optional_named const
+sge::cg::parameter::optional_named
 sge::cg::program::object::parameter_opt(
 	sge::cg::string const &_name
 ) const

@@ -73,7 +73,7 @@ template<
 >
 typename sge::renderer::texture::const_basic_scoped_lock<
 	Texture
->::const_view const
+>::const_view
 sge::renderer::texture::const_basic_scoped_lock<
 	Texture
 >::value() const

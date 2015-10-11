@@ -53,7 +53,7 @@ public:
 	~object();
 
 	SGE_WINDOW_DETAIL_SYMBOL
-	sge::window::dim const
+	sge::window::dim
 	size() const;
 
 	SGE_WINDOW_DETAIL_SYMBOL

@@ -32,7 +32,7 @@ sge::font::metrics::metrics(
 {
 }
 
-sge::font::height const
+sge::font::height
 sge::font::metrics::height() const
 {
 	return

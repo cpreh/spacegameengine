@@ -52,7 +52,7 @@ public:
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::device::index const
+	sge::renderer::device::index
 	index() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
@@ -67,7 +67,7 @@ public:
 	awl::window::event::processor &
 	window_processor() const;
 private:
-	sge::renderer::device::index index_;
+	sge::renderer::device::index const index_;
 
 	sge::renderer::display_mode::parameters const display_mode_;
 

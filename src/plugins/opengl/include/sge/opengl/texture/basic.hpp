@@ -52,7 +52,10 @@ class basic
 		basic
 	);
 protected:
-	typedef typename Types::parameters parameters_type;
+	typedef
+	typename
+	Types::parameters
+	parameters_type;
 
 	basic(
 		sge::opengl::texture::basic_parameters const &,
@@ -63,17 +66,20 @@ protected:
 	~basic()
 	override;
 
-	typedef typename Types::base base_type;
+	typedef
+	typename
+	Types::base
+	base_type;
 
-	sge::renderer::resource_flags_field const
+	sge::renderer::resource_flags_field
 	resource_flags() const
 	override;
 
-	sge::renderer::texture::capabilities_field const
+	sge::renderer::texture::capabilities_field
 	capabilities() const
 	override;
 
-	sge::renderer::texture::mipmap::object const
+	sge::renderer::texture::mipmap::object
 	mipmap() const
 	override;
 

@@ -104,7 +104,7 @@ sge::camera::ortho_freelook::parameters::zoom_speed(
 		*this;
 }
 
-sge::camera::ortho_freelook::zoom_speed const
+sge::camera::ortho_freelook::zoom_speed
 sge::camera::ortho_freelook::parameters::zoom_speed() const
 {
 	return
@@ -142,7 +142,7 @@ sge::camera::ortho_freelook::parameters::pan_speed(
 		*this;
 }
 
-sge::camera::ortho_freelook::pan_speed const
+sge::camera::ortho_freelook::pan_speed
 sge::camera::ortho_freelook::parameters::pan_speed() const
 {
 	return
@@ -170,21 +170,21 @@ sge::camera::ortho_freelook::parameters::projection_rectangle() const
 		projection_rectangle_;
 }
 
-sge::renderer::projection::near const
+sge::renderer::projection::near
 sge::camera::ortho_freelook::parameters::near() const
 {
 	return
 		near_;
 }
 
-sge::renderer::projection::far const
+sge::renderer::projection::far
 sge::camera::ortho_freelook::parameters::far() const
 {
 	return
 		far_;
 }
 
-sge::camera::is_active const
+sge::camera::is_active
 sge::camera::ortho_freelook::parameters::is_active() const
 {
 	return

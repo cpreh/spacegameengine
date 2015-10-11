@@ -70,7 +70,8 @@ public:
 
 	friend class boost::iterator_core_access;
 
-	explicit iterator(
+	explicit
+	iterator(
 		pointer
 	);
 

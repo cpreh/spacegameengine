@@ -34,7 +34,7 @@ namespace display_mode
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::display_mode::dpi const
+sge::renderer::display_mode::dpi
 to_dpi(
 	sge::renderer::display_mode::optional_object const &
 );

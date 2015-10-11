@@ -47,26 +47,30 @@ sge::renderer::state::core::blend::separate::separate(
 {
 }
 
-sge::renderer::state::core::blend::color_source const
+sge::renderer::state::core::blend::color_source
 sge::renderer::state::core::blend::separate::color_source() const
 {
-	return color_source_;
+	return
+		color_source_;
 }
 
-sge::renderer::state::core::blend::color_dest const
+sge::renderer::state::core::blend::color_dest
 sge::renderer::state::core::blend::separate::color_dest() const
 {
-	return color_dest_;
+	return
+		color_dest_;
 }
 
-sge::renderer::state::core::blend::alpha_source const
+sge::renderer::state::core::blend::alpha_source
 sge::renderer::state::core::blend::separate::alpha_source() const
 {
-	return alpha_source_;
+	return
+		alpha_source_;
 }
 
-sge::renderer::state::core::blend::alpha_dest const
+sge::renderer::state::core::blend::alpha_dest
 sge::renderer::state::core::blend::separate::alpha_dest() const
 {
-	return alpha_dest_;
+	return
+		alpha_dest_;
 }

@@ -34,7 +34,7 @@ namespace align_h
 {
 
 SGE_FONT_DETAIL_SYMBOL
-sge::font::align_h::optional_max_width const
+sge::font::align_h::optional_max_width
 extract_max_width(
 	sge::font::align_h::variant const &
 );

@@ -87,14 +87,14 @@ sge::cg::program::from_file_parameters::path() const
 		path_;
 }
 
-sge::cg::program::main_function const
+sge::cg::program::main_function const &
 sge::cg::program::from_file_parameters::main_function() const
 {
 	return
 		main_function_;
 }
 
-sge::cg::program::compile_options const
+sge::cg::program::compile_options const &
 sge::cg::program::from_file_parameters::compile_options() const
 {
 	return

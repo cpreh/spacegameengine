@@ -62,7 +62,7 @@ public:
 	sge::renderer::device::core &
 	get_core() const;
 
-	sge::renderer::device::index const
+	sge::renderer::device::index
 	index() const;
 
 	sge::viewport::manager &

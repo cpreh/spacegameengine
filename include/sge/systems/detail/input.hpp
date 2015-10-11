@@ -73,16 +73,16 @@ public:
 	sge::systems::input const &
 	parameters() const;
 
-	sge::systems::detail::input::focus_collector const
+	sge::systems::detail::input::focus_collector
 	get_focus_collector() const;
 
-	sge::systems::detail::input::cursor_demuxer const
+	sge::systems::detail::input::cursor_demuxer
 	get_cursor_demuxer() const;
 
-	sge::systems::detail::input::keyboard_collector const
+	sge::systems::detail::input::keyboard_collector
 	get_keyboard_collector() const;
 
-	sge::systems::detail::input::mouse_collector const
+	sge::systems::detail::input::mouse_collector
 	get_mouse_collector() const;
 private:
 	sge::systems::input const parameters_;

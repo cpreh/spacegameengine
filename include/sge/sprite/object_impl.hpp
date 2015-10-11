@@ -260,7 +260,7 @@ template<
 >
 typename sge::sprite::object<
 	Choices
->::vector const
+>::vector
 sge::sprite::object<
 	Choices
 >::pos() const
@@ -278,7 +278,7 @@ template<
 >
 typename sge::sprite::object<
 	Choices
->::vector const
+>::vector
 sge::sprite::object<
 	Choices
 >::center() const
@@ -324,7 +324,7 @@ template<
 >
 typename sge::sprite::object<
 	Choices
->::dim const
+>::dim
 sge::sprite::object<
 	Choices
 >::size() const
@@ -492,7 +492,7 @@ template<
 >
 typename sge::sprite::object<
 	Choices
->::texture_coordinates_type const
+>::texture_coordinates_type
 sge::sprite::object<
 	Choices
 >::texture_coordinates() const
@@ -511,7 +511,7 @@ template<
 >
 typename sge::sprite::object<
 	Choices
->::texture_coordinates_type const
+>::texture_coordinates_type
 sge::sprite::object<
 	Choices
 >::texture_coordinates_level() const
@@ -529,7 +529,7 @@ template<
 >
 typename sge::sprite::object<
 	Choices
->::color_type  const
+>::color_type
 sge::sprite::object<
 	Choices
 >::color() const
@@ -545,7 +545,7 @@ template<
 >
 typename sge::sprite::object<
 	Choices
->::texture_type const
+>::texture_type
 sge::sprite::object<
 	Choices
 >::texture() const

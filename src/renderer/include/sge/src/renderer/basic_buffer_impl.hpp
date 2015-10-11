@@ -54,7 +54,7 @@ template<
 >
 typename sge::renderer::basic_buffer<
 	Tag
->::const_view const
+>::const_view
 sge::renderer::basic_buffer<
 	Tag
 >::lock() const
@@ -70,7 +70,7 @@ template<
 >
 typename sge::renderer::basic_buffer<
 	Tag
->::view const
+>::view
 sge::renderer::basic_buffer<
 	Tag
 >::lock(
@@ -89,7 +89,7 @@ template<
 >
 typename sge::renderer::basic_buffer<
 	Tag
->::lock_area const
+>::lock_area
 sge::renderer::basic_buffer<
 	Tag
 >::area() const

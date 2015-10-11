@@ -117,7 +117,7 @@ public:
 	pointer
 	raw_buffer() const;
 
-	sge::opengl::buffer::id const
+	sge::opengl::buffer::id
 	id() const;
 
 	bool

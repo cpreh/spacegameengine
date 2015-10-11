@@ -123,7 +123,7 @@ public:
 	buffer hasn't been created with resource_flags::readable
 	*/
 	virtual
-	view_type const
+	view_type
 	lock(
 		sge::renderer::lock_mode method,
 		first_type first =
@@ -152,7 +152,7 @@ public:
 	buffer hasn't been created with resource_flags::readable
 	*/
 	virtual
-	const_view_type const
+	const_view_type
 	lock(
 		first_type first
 			= first_type(0u),
@@ -175,14 +175,14 @@ public:
 	\brief Returns the number of vertex parts the buffer can hold
 	*/
 	virtual
-	count_type const
+	count_type
 	size() const = 0;
 
 	/**
 	\brief Returns the resource flags the buffer has been created with
 	*/
 	virtual
-	sge::renderer::resource_flags_field const
+	sge::renderer::resource_flags_field
 	resource_flags() const = 0;
 
 	/**
@@ -198,7 +198,7 @@ public:
 	represents
 	*/
 	virtual
-	sge::renderer::vf::dynamic::part_index const
+	sge::renderer::vf::dynamic::part_index
 	format_part_index() const = 0;
 
 	SGE_RENDERER_DETAIL_SYMBOL
