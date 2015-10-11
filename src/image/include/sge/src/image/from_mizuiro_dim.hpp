@@ -23,10 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <mizuiro/size_type.hpp>
 #include <mizuiro/image/dimension.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/init.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/math/dim/static.hpp>
 
 
 namespace sge
@@ -35,11 +34,13 @@ namespace image
 {
 
 template<
-	typename Dest,
 	typename T,
 	mizuiro::size_type N
 >
-Dest
+fcppt::math::dim::static_<
+	T,
+	N
+>
 from_mizuiro_dim(
 	mizuiro::image::dimension<
 		N,
@@ -47,30 +48,17 @@ from_mizuiro_dim(
 	> const &_src
 )
 {
-	static_assert(
-		std::is_same<
-			typename Dest::value_type,
-			T
-		>::value,
-		"The value types must be the same"
-	);
-
-	static_assert(
-		Dest::dim_wrapper::value
-		==
-		N,
-		"The dimensions must be the same"
-	);
-
 	return
 		fcppt::math::dim::init<
-			Dest
+			fcppt::math::dim::static_<
+				T,
+				N
+			>
 		>(
 			[
 				&_src
 			](
-				typename
-				Dest::size_type const _index
+				fcppt::math::size_type const _index
 			)
 			{
 				return

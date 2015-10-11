@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_MAKE_IMPL_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_MAKE_IMPL_HPP_INCLUDED
 
+#include <sge/image/dim.hpp>
+#include <sge/image/pitch.hpp>
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/traits/color_tag.hpp>
@@ -30,9 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/traits/view_elements.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/image/view/make.hpp>
-#include <sge/src/image/view/make_visitor.hpp>
+#include <sge/src/image/to_mizuiro_dim.hpp>
 #include <mizuiro/image/is_raw_view.hpp>
 #include <fcppt/absurd.hpp>
+#include <fcppt/decltype_sink.hpp>
+#include <fcppt/tag_type.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/mpl/invoke_on.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -83,23 +87,37 @@ sge::image::view::make(
 			>(
 				_format
 			),
-			sge::image::view::make_visitor<
-				typename sge::image::traits::view<
-					Tag
-				>::type,
-				typename sge::image::traits::dim<
-					Tag
-				>::type,
-				typename sge::image::traits::pitch<
-					Tag
-				>::type
-			>(
+			[
 				_data,
 				_dim,
 				_pitch
-			),
+			](
+				auto const &_view_type
+			)
+			{
+				return
+					typename
+					sge::image::traits::view<
+						Tag
+					>::type{
+						fcppt::tag_type<
+							FCPPT_DECLTYPE_SINK(
+								_view_type
+							)
+						>(
+							sge::image::to_mizuiro_dim(
+								_dim
+							),
+							_data,
+							sge::image::to_mizuiro_dim(
+								_pitch
+							)
+						)
+					};
+			},
 			fcppt::absurd<
-				typename sge::image::traits::view<
+				typename
+				sge::image::traits::view<
 					Tag
 				>::type
 			>

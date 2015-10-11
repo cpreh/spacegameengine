@@ -18,8 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
-#define SGE_SRC_IMAGE_VIEW_DATA_VISITOR_HPP_INCLUDED
+#ifndef SGE_SRC_IMAGE_VIEW_FORMAT_TYPE_HPP_INCLUDED
+#define SGE_SRC_IMAGE_VIEW_FORMAT_TYPE_HPP_INCLUDED
+
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -30,23 +34,15 @@ namespace view
 {
 
 template<
-	typename Dst
+	typename View
 >
-struct data_visitor
-{
-	typedef Dst result_type;
-
-	template<
-		typename Src
-	>
-	result_type
-	operator()(
-		Src const &_src
-	) const
-	{
-		return _src.data();
-	}
-};
+using
+format_type
+=
+typename
+std::decay<
+	View
+>::type::format;
 
 }
 }

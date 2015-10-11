@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_FLIPPED_ANY_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_FLIPPED_ANY_HPP_INCLUDED
 
-#include <sge/src/image/view/flipped_visitor.hpp>
+#include <sge/image/mizuiro_color.hpp>
+#include <sge/image/view/wrap.hpp>
+#include <mizuiro/image/flipped_view.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 namespace sge
@@ -43,9 +44,19 @@ flipped_any(
 {
 	return
 		fcppt::variant::apply_unary(
-			sge::image::view::flipped_visitor<
-				View
-			>(),
+			[](
+				auto const &_src
+			)
+			{
+				return
+					View(
+						sge::image::view::wrap(
+							mizuiro::image::flipped_view(
+								_src
+							)
+						)
+					);
+			},
 			_view.get()
 		);
 }

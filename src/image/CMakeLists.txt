@@ -82,7 +82,6 @@ set(
 	src/image/algorithm/convert_uninitialized.cpp
 	src/image/exception.cpp
 	src/image/include/sge/src/image/algorithm/clone_impl.hpp
-	src/image/include/sge/src/image/algorithm/clone_visitor.hpp
 	src/image/include/sge/src/image/algorithm/compare_element.hpp
 	src/image/include/sge/src/image/algorithm/compare_impl.hpp
 	src/image/include/sge/src/image/algorithm/compare_visitor.hpp
@@ -91,11 +90,8 @@ set(
 	src/image/include/sge/src/image/algorithm/copy_and_convert_dynamic.hpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_impl.hpp
 	src/image/include/sge/src/image/algorithm/copy_and_convert_static.hpp
-	src/image/include/sge/src/image/algorithm/copy_and_convert_visitor.hpp
 	src/image/include/sge/src/image/algorithm/copy_impl.hpp
-	src/image/include/sge/src/image/algorithm/copy_visitor.hpp
 	src/image/include/sge/src/image/algorithm/fill_impl.hpp
-	src/image/include/sge/src/image/algorithm/fill_visitor.hpp
 	src/image/include/sge/src/image/algorithm/instantiate_clone.hpp
 	src/image/include/sge/src/image/algorithm/instantiate_compare.hpp
 	src/image/include/sge/src/image/algorithm/instantiate_copy.hpp
@@ -105,7 +101,6 @@ set(
 	src/image/include/sge/src/image/algorithm/instantiate_print.hpp
 	src/image/include/sge/src/image/algorithm/invalid_copy_impl.hpp
 	src/image/include/sge/src/image/algorithm/print_impl.hpp
-	src/image/include/sge/src/image/algorithm/print_visitor.hpp
 	src/image/include/sge/src/image/from_mizuiro_dim.hpp
 	src/image/include/sge/src/image/instantiate_invalid_convert.hpp
 	src/image/include/sge/src/image/invalid_convert_impl.hpp
@@ -117,7 +112,6 @@ set(
 	src/image/include/sge/src/image/store/object_impl.hpp
 	src/image/include/sge/src/image/store/view_any.hpp
 	src/image/include/sge/src/image/store/view_impl.hpp
-	src/image/include/sge/src/image/store/view_visitor.hpp
 	src/image/include/sge/src/image/to_mizuiro_dim.hpp
 	src/image/include/sge/src/image/traits/dynamic_copy_and_convert.hpp
 	src/image/include/sge/src/image/traits/static_converter.hpp
@@ -127,17 +121,14 @@ set(
 	src/image/include/sge/src/image/view/const_object_impl.hpp
 	src/image/include/sge/src/image/view/data_any.hpp
 	src/image/include/sge/src/image/view/data_impl.hpp
-	src/image/include/sge/src/image/view/data_visitor.hpp
 	src/image/include/sge/src/image/view/flipped_any.hpp
 	src/image/include/sge/src/image/view/flipped_impl.hpp
-	src/image/include/sge/src/image/view/flipped_visitor.hpp
 	src/image/include/sge/src/image/view/format_any.hpp
 	src/image/include/sge/src/image/view/format_impl.hpp
 	src/image/include/sge/src/image/view/format_macro.hpp
-	src/image/include/sge/src/image/view/format_visitor.hpp
+	src/image/include/sge/src/image/view/format_type.hpp
 	src/image/include/sge/src/image/view/get_any.hpp
 	src/image/include/sge/src/image/view/get_impl.hpp
-	src/image/include/sge/src/image/view/get_visitor.hpp
 	src/image/include/sge/src/image/view/instantiate_checked_sub.hpp
 	src/image/include/sge/src/image/view/instantiate_const_nonconst.hpp
 	src/image/include/sge/src/image/view/instantiate_const_object.hpp
@@ -157,20 +148,15 @@ set(
 	src/image/include/sge/src/image/view/instantiate_to_const.hpp
 	src/image/include/sge/src/image/view/make_const_impl.hpp
 	src/image/include/sge/src/image/view/make_impl.hpp
-	src/image/include/sge/src/image/view/make_visitor.hpp
 	src/image/include/sge/src/image/view/object_impl.hpp
 	src/image/include/sge/src/image/view/pitch_any.hpp
 	src/image/include/sge/src/image/view/pitch_impl.hpp
-	src/image/include/sge/src/image/view/pitch_visitor.hpp
 	src/image/include/sge/src/image/view/size_any.hpp
 	src/image/include/sge/src/image/view/size_impl.hpp
-	src/image/include/sge/src/image/view/size_visitor.hpp
 	src/image/include/sge/src/image/view/sub_any.hpp
 	src/image/include/sge/src/image/view/sub_impl.hpp
 	src/image/include/sge/src/image/view/sub_out_of_range_impl.hpp
-	src/image/include/sge/src/image/view/sub_visitor.hpp
 	src/image/include/sge/src/image/view/to_const_impl.hpp
-	src/image/include/sge/src/image/view/to_const_visitor.hpp
 )
 
 find_package(

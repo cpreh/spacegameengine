@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_VIEW_DATA_ANY_HPP_INCLUDED
 
 #include <sge/image/mizuiro_color_traits.hpp>
-#include <sge/src/image/view/data_visitor.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 namespace sge
@@ -45,9 +43,13 @@ data_any(
 {
 	return
 		fcppt::variant::apply_unary(
-			sge::image::view::data_visitor<
-				Dest
-			>(),
+			[](
+				auto const &_src
+			)
+			{
+				return
+					_src.data();
+			},
 			_view.get()
 		);
 }

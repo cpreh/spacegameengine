@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_GET_ANY_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_GET_ANY_HPP_INCLUDED
 
-#include <sge/src/image/view/get_visitor.hpp>
+#include <sge/image/mizuiro_color.hpp>
+#include <sge/src/image/to_mizuiro_dim.hpp>
+#include <sge/src/image/view/format_type.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 namespace sge
@@ -38,7 +39,7 @@ template<
 	typename View,
 	typename Dim
 >
-Result const
+Result
 get_any(
 	View const &_view,
 	Dim const &_index
@@ -46,12 +47,30 @@ get_any(
 {
 	return
 		fcppt::variant::apply_unary(
-			sge::image::view::get_visitor<
-				Result,
-				Dim
-			>(
-				_index
-			),
+			[
+				&_index
+			](
+				auto const &_src
+			)
+			{
+				return
+					Result(
+						sge::image::mizuiro_color<
+							typename
+							sge::image::view::format_type<
+								decltype(
+									_src
+								)
+							>::color_format
+						>(
+							_src[
+								sge::image::to_mizuiro_dim(
+									_index
+								)
+							]
+						)
+					);
+			},
 			_view.get()
 		);
 }

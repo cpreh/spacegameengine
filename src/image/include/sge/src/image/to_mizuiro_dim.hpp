@@ -21,9 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_TO_MIZUIRO_DIM_HPP_INCLUDED
 #define SGE_SRC_IMAGE_TO_MIZUIRO_DIM_HPP_INCLUDED
 
+#include <mizuiro/image/dimension.hpp>
+#include <fcppt/math/size_type.hpp>
+#include <fcppt/math/dim/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
-#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -33,31 +35,27 @@ namespace image
 {
 
 template<
-	typename Dest,
-	typename Source
+	typename T,
+	fcppt::math::size_type N,
+	typename S
 >
-Dest
+mizuiro::image::dimension<
+	N,
+	T
+>
 to_mizuiro_dim(
-	Source const &_src
+	fcppt::math::dim::object<
+		T,
+		N,
+		S
+	> const &_src
 )
 {
-	static_assert(
-		std::is_same<
-			typename Dest::value_type,
-			typename Source::value_type
-		>::value,
-		"The value types must be the same"
-	);
-
-	static_assert(
-		Dest::static_size
-		==
-		Source::dim_wrapper::value,
-		"The dimensions must be the same"
-	);
-
 	// TODO: Use proper initialization here
-	Dest dest;
+	mizuiro::image::dimension<
+		N,
+		T
+	> dest;
 
 	std::copy(
 		_src.storage().begin(),
@@ -65,7 +63,8 @@ to_mizuiro_dim(
 		dest.begin()
 	);
 
-	return dest;
+	return
+		dest;
 }
 
 }

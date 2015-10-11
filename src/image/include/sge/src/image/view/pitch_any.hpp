@@ -22,9 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_VIEW_PITCH_ANY_HPP_INCLUDED
 
 #include <sge/image/traits/pitch_fwd.hpp>
-#include <sge/src/image/view/pitch_visitor.hpp>
+#include <sge/src/image/from_mizuiro_dim.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 namespace sge
@@ -38,20 +37,25 @@ template<
 	typename Tag,
 	typename View
 >
-typename sge::image::traits::pitch<
+typename
+sge::image::traits::pitch<
 	Tag
->::type const
+>::type
 pitch_any(
 	View const &_view
 )
 {
 	return
 		fcppt::variant::apply_unary(
-			sge::image::view::pitch_visitor<
-				typename sge::image::traits::pitch<
-					Tag
-				>::type
-			>(),
+			[](
+				auto const &_src
+			)
+			{
+				return
+					sge::image::from_mizuiro_dim(
+						_src.pitch()
+					);
+			},
 			_view.get()
 		);
 }

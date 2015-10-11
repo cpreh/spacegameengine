@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_ALGORITHM_COPY_AND_CONVERT_STATIC_HPP_INCLUDED
 #define SGE_SRC_IMAGE_ALGORITHM_COPY_AND_CONVERT_STATIC_HPP_INCLUDED
 
+#include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/traits/color_tag.hpp>
@@ -28,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/src/image/algorithm/convert_may_overlap.hpp>
 #include <sge/src/image/algorithm/convert_uninitialized.hpp>
-#include <sge/src/image/algorithm/copy_and_convert_visitor.hpp>
 #include <sge/src/image/traits/static_converter.hpp>
+#include <mizuiro/image/algorithm/copy_and_convert.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
@@ -46,10 +47,12 @@ template<
 >
 void
 copy_and_convert_static(
-	typename sge::image::traits::const_view<
+	typename
+	sge::image::traits::const_view<
 		Tag
 	>::type const &_src,
-	typename sge::image::traits::view<
+	typename
+	sge::image::traits::view<
 		Tag
 	>::type const &_dest,
 	sge::image::algorithm::may_overlap const _overlap,
@@ -57,20 +60,34 @@ copy_and_convert_static(
 )
 {
 	fcppt::variant::apply_binary(
-		sge::image::algorithm::copy_and_convert_visitor<
-			typename sge::image::traits::static_converter<
-				typename sge::image::traits::color_tag<
-					Tag
-				>::type
-			>::type
-		>(
-			sge::image::algorithm::convert_may_overlap(
-				_overlap
-			),
-			sge::image::algorithm::convert_uninitialized(
-				_uninitialized
-			)
-		),
+		[
+			_overlap,
+			_uninitialized
+		](
+			auto const &_src_inner,
+			auto const &_dest_inner
+		)
+		{
+			return
+				mizuiro::image::algorithm::copy_and_convert<
+					typename
+					sge::image::traits::static_converter<
+						typename
+						sge::image::traits::color_tag<
+							Tag
+						>::type
+					>::type
+				>(
+					_src_inner,
+					_dest_inner,
+					sge::image::algorithm::convert_may_overlap(
+						_overlap
+					),
+					sge::image::algorithm::convert_uninitialized(
+						_uninitialized
+					)
+				);
+		},
 		_src.get(),
 		_dest.get()
 	);

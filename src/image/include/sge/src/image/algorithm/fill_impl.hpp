@@ -21,15 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_ALGORITHM_FILL_IMPL_HPP_INCLUDED
 #define SGE_SRC_IMAGE_ALGORITHM_FILL_IMPL_HPP_INCLUDED
 
+#include <sge/image/mizuiro_color.hpp>
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
+#include <sge/image/color/any/convert.hpp>
 #include <sge/image/traits/any_object_fwd.hpp>
 #include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/src/image/algorithm/convert_uninitialized.hpp>
-#include <sge/src/image/algorithm/fill_visitor.hpp>
+#include <sge/src/image/view/format_type.hpp>
+#include <mizuiro/image/algorithm/fill_c.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 template<
@@ -49,18 +51,30 @@ sge::image::algorithm::fill(
 )
 {
 	fcppt::variant::apply_unary(
-		sge::image::algorithm::fill_visitor<
-			typename sge::image::traits::any_object<
-				typename sge::image::traits::color_tag<
-					Tag
-				>::type
-			>::type
-		>(
-			_value,
-			sge::image::algorithm::convert_uninitialized(
-				_uninitialized
-			)
-		),
+		[
+			&_value,
+			_uninitialized
+		](
+			auto const &_view_inner
+		)
+		{
+			mizuiro::image::algorithm::fill_c(
+				_view_inner,
+				sge::image::color::any::convert<
+					typename
+					sge::image::view::format_type<
+						decltype(
+							_view_inner
+						)
+					>::color_format
+				>(
+					_value
+				),
+				sge::image::algorithm::convert_uninitialized(
+					_uninitialized
+				)
+			);
+		},
 		_view.get()
 	);
 }

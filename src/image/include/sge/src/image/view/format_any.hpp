@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_VIEW_FORMAT_ANY_HPP_INCLUDED
 
 #include <sge/image/traits/format_fwd.hpp>
-#include <sge/src/image/view/format_visitor.hpp>
+#include <sge/image/traits/format_static.hpp>
+#include <sge/src/image/view/format_type.hpp>
+#include <fcppt/decltype_sink.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 namespace sge
@@ -38,7 +39,8 @@ template<
 	typename ColorTag,
 	typename View
 >
-typename sge::image::traits::format<
+typename
+sge::image::traits::format<
 	ColorTag
 >::type
 format_any(
@@ -47,9 +49,22 @@ format_any(
 {
 	return
 		fcppt::variant::apply_unary(
-			sge::image::view::format_visitor<
-				ColorTag
-			>(),
+			[](
+				auto const &_src
+			)
+			{
+				return
+					sge::image::traits::format_static<
+						ColorTag
+					>:: template apply<
+						typename
+						sge::image::view::format_type<
+							FCPPT_DECLTYPE_SINK(
+								_src
+							)
+						>::color_format
+					>::value;
+			},
 			_view.get()
 		);
 }

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_ALGORITHM_COPY_IMPL_HPP_INCLUDED
 #define SGE_SRC_IMAGE_ALGORITHM_COPY_IMPL_HPP_INCLUDED
 
+#include <sge/image/mizuiro_color.hpp>
 #include <sge/image/algorithm/copy.hpp>
 #include <sge/image/algorithm/invalid_copy.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
@@ -29,12 +30,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/image/view/format.hpp>
+#include <sge/image/view/mizuiro_type.hpp>
+#include <sge/image/view/object.hpp>
 #include <sge/src/image/algorithm/convert_may_overlap.hpp>
 #include <sge/src/image/algorithm/convert_uninitialized.hpp>
-#include <sge/src/image/algorithm/copy_visitor.hpp>
+#include <sge/src/image/view/format_type.hpp>
+#include <mizuiro/nonconst_tag.hpp>
+#include <mizuiro/image/algorithm/copy.hpp>
 #include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/variant/get_exn.hpp>
 #include <fcppt/variant/invalid_get.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 template<
@@ -42,10 +47,12 @@ template<
 >
 void
 sge::image::algorithm::copy(
-	typename sge::image::traits::const_view<
+	typename
+	sge::image::traits::const_view<
 		Tag
 	>::type const &_src,
-	typename sge::image::traits::view<
+	typename
+	sge::image::traits::view<
 		Tag
 	>::type const &_dest,
 	sge::image::algorithm::may_overlap const _overlap,
@@ -54,17 +61,38 @@ sge::image::algorithm::copy(
 try
 {
 	fcppt::variant::apply_unary(
-		sge::image::algorithm::copy_visitor<
-			Tag
-		>(
-			_dest,
-			sge::image::algorithm::convert_may_overlap(
-				_overlap
-			),
-			sge::image::algorithm::convert_uninitialized(
-				_uninitialized
-			)
-		),
+		[
+			&_dest,
+			_overlap,
+			_uninitialized
+		](
+			auto const &_src_inner
+		)
+		{
+			return
+				mizuiro::image::algorithm::copy(
+					_src_inner,
+					fcppt::variant::get_exn<
+						typename
+						sge::image::view::mizuiro_type<
+							sge::image::view::format_type<
+								decltype(
+									_src_inner
+								)
+							>,
+							mizuiro::nonconst_tag
+						>::type
+					>(
+						_dest.get()
+					),
+					sge::image::algorithm::convert_may_overlap(
+						_overlap
+					),
+					sge::image::algorithm::convert_uninitialized(
+						_uninitialized
+					)
+				);
+		},
 		_src.get()
 	);
 }
@@ -72,22 +100,24 @@ catch(
 	fcppt::variant::invalid_get const &
 )
 {
-	throw sge::image::algorithm::invalid_copy<
-		typename sge::image::traits::color_tag<
-			Tag
-		>::type
-	>(
-		sge::image::view::format<
-			Tag
-		>(
-			_src
-		),
-		sge::image::view::format<
-			Tag
-		>(
-			_dest
-		)
-	);
+	throw
+		sge::image::algorithm::invalid_copy<
+			typename
+			sge::image::traits::color_tag<
+				Tag
+			>::type
+		>{
+			sge::image::view::format<
+				Tag
+			>(
+				_src
+			),
+			sge::image::view::format<
+				Tag
+			>(
+				_dest
+			)
+		};
 }
 
 #endif

@@ -21,9 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_VIEW_SUB_ANY_HPP_INCLUDED
 #define SGE_SRC_IMAGE_VIEW_SUB_ANY_HPP_INCLUDED
 
-#include <sge/src/image/view/sub_visitor.hpp>
+#include <sge/image/box.hpp>
+#include <sge/image/mizuiro_color.hpp>
+#include <sge/image/view/wrap.hpp>
+#include <sge/src/image/to_mizuiro_dim.hpp>
+#include <mizuiro/image/sub_view.hpp>
+#include <fcppt/math/vector/to_dim.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -45,12 +52,41 @@ sub_any(
 {
 	return
 		fcppt::variant::apply_unary(
-			sge::image::view::sub_visitor<
-				View,
-				Box
-			>(
-				_box
-			),
+			[
+				&_box
+			](
+				auto const &_src
+			)
+			{
+				typedef
+				typename
+				std::decay<
+					decltype(
+						_src
+					)
+				>::type
+				source_type;
+
+				return
+					View(
+						sge::image::view::wrap(
+							mizuiro::image::sub_view(
+								_src,
+								typename
+								source_type::bound_type{
+									sge::image::to_mizuiro_dim(
+										fcppt::math::vector::to_dim(
+											_box.pos()
+										)
+									),
+									sge::image::to_mizuiro_dim(
+										_box.size()
+									)
+								}
+							)
+						)
+					);
+			},
 			_view.get()
 		);
 }

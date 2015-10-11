@@ -63,9 +63,7 @@ sge::image::store::basic<
 )
 :
 	internal_(
-		sge::image::to_mizuiro_dim<
-			typename internal_type::dim
-		>(
+		sge::image::to_mizuiro_dim(
 			_size
 		),
 		mizuiro::no_init{}
@@ -84,9 +82,7 @@ sge::image::store::basic<
 )
 :
 	internal_{
-		sge::image::to_mizuiro_dim<
-			typename internal_type::dim
-		>(
+		sge::image::to_mizuiro_dim(
 			_size
 		),
 		_init
@@ -278,9 +274,7 @@ sge::image::store::basic<
 >::size() const
 {
 	return
-		sge::image::from_mizuiro_dim<
-			dim
-		>(
+		sge::image::from_mizuiro_dim(
 			internal_.size()
 		);
 }

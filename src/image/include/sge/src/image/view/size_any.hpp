@@ -22,9 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_VIEW_SIZE_ANY_HPP_INCLUDED
 
 #include <sge/image/traits/dim_fwd.hpp>
-#include <sge/src/image/view/size_visitor.hpp>
+#include <sge/src/image/from_mizuiro_dim.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 namespace sge
@@ -47,11 +46,15 @@ size_any(
 {
 	return
 		fcppt::variant::apply_unary(
-			sge::image::view::size_visitor<
-				typename sge::image::traits::dim<
-					Tag
-				>::type
-			>(),
+			[](
+				auto const &_src
+			)
+			{
+				return
+					sge::image::from_mizuiro_dim(
+						_src.size()
+					);
+			},
 			_view.get()
 		);
 }

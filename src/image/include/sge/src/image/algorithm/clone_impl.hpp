@@ -22,9 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_ALGORITHM_CLONE_IMPL_HPP_INCLUDED
 
 #include <sge/image/algorithm/clone.hpp>
+#include <sge/image/store/basic.hpp>
 #include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/traits/store_fwd.hpp>
-#include <sge/src/image/algorithm/clone_visitor.hpp>
+#include <sge/src/image/view/format_type.hpp>
+#include <mizuiro/image/algorithm/clone.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 
@@ -44,9 +46,28 @@ sge::image::algorithm::clone(
 {
 	return
 		fcppt::variant::apply_unary(
-			sge::image::algorithm::clone_visitor<
-				Tag
-			>(),
+			[](
+				auto const &_inner_view
+			)
+			{
+				return
+					typename
+					sge::image::traits::store<
+						Tag
+					>::type{
+						sge::image::store::basic<
+							sge::image::view::format_type<
+								decltype(
+									_inner_view
+								)
+							>
+						>(
+							mizuiro::image::algorithm::clone(
+								_inner_view
+							)
+						)
+					};
+			},
 			_view.get()
 		);
 }

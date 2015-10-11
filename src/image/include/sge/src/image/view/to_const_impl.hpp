@@ -24,30 +24,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/image/view/to_const.hpp>
-#include <sge/src/image/view/to_const_visitor.hpp>
+#include <mizuiro/image/make_const_view.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 template<
 	typename Tag
 >
-typename sge::image::traits::const_view<
+typename
+sge::image::traits::const_view<
 	Tag
 >::type
 sge::image::view::to_const(
-	typename sge::image::traits::view<
+	typename
+	sge::image::traits::view<
 		Tag
 	>::type const &_src
 )
 {
 	return
 		fcppt::variant::apply_unary(
-			sge::image::view::to_const_visitor<
-				typename sge::image::traits::const_view<
-					Tag
-				>::type
-			>(),
+			[](
+				auto const &_src_inner
+			)
+			{
+				return
+					typename
+					sge::image::traits::const_view<
+						Tag
+					>::type(
+						mizuiro::image::make_const_view(
+							_src_inner
+						)
+					);
+			},
 			_src.get()
 		);
 }
