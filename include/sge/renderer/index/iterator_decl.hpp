@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_ITERATOR_DECL_HPP_INCLUDED
 
 #include <sge/renderer/index/iterator_fwd.hpp>
-#include <sge/renderer/index/to_nonconst_format.hpp>
 #include <sge/renderer/index/detail/iterator_base.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -73,18 +72,6 @@ public:
 	explicit
 	iterator(
 		pointer
-	);
-
-	typedef
-	sge::renderer::index::iterator<
-		sge::renderer::index::to_nonconst_format<
-			Format
-		>
-	>
-	nonconst_iterator;
-
-	iterator(
-		nonconst_iterator const &
 	);
 
 	pointer

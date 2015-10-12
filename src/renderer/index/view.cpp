@@ -147,12 +147,10 @@ sge::renderer::index::view<
 >::end() const
 {
 	return
-		iterator(
-			this->begin()
-			+
-			fcppt::cast::to_signed(
-				this->size()
-			)
+		this->begin()
+		+
+		fcppt::cast::to_signed(
+			this->size()
 		);
 }
 

@@ -36,21 +36,8 @@ sge::renderer::index::iterator<
 	pointer const _data
 )
 :
-	data_(_data)
-{
-}
-
-template<
-	typename Format
->
-sge::renderer::index::iterator<
-	Format
->::iterator(
-	nonconst_iterator const &_other
-)
-:
 	data_(
-		_other.data()
+		_data
 	)
 {
 }
@@ -147,11 +134,14 @@ sge::renderer::index::iterator<
 	return
 		(
 			_other.data_
-			- data_
+			-
+			data_
 		)
 		/
 		fcppt::cast::to_signed(
-			sizeof(value_type)
+			sizeof(
+				value_type
+			)
 		);
 }
 
