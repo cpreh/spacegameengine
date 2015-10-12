@@ -30,10 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/parameters.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/from_optional.hpp>
-#include <fcppt/identity.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_bind.hpp>
 #include <fcppt/optional_impl.hpp>
+#include <fcppt/optional_join.hpp>
 #include <fcppt/static_optional_cast.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 
@@ -90,12 +89,11 @@ sge::opengl::state::core::sampler::context::get(
 {
 	return
 		fcppt::from_optional(
-			fcppt::optional_bind(
+			fcppt::optional_join(
 				fcppt::container::find_opt_mapped(
 					objects_,
 					_stage
-				),
-				fcppt::identity{}
+				)
 			),
 			[
 				this
