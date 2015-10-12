@@ -39,7 +39,7 @@ sge::opengl::texture::bind_context::~bind_context()
 {
 }
 
-sge::opengl::texture::const_optional_base_ref const
+sge::opengl::texture::const_optional_base_ref
 sge::opengl::texture::bind_context::stage(
 	sge::renderer::texture::stage const _stage
 ) const

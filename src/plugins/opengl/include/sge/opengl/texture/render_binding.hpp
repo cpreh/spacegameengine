@@ -52,11 +52,11 @@ public:
 	~render_binding()
 	override;
 
-	sge::renderer::texture::stage const
+	sge::renderer::texture::stage
 	stage() const
 	override;
 
-	sge::opengl::texture::type const
+	sge::opengl::texture::type
 	type() const
 	override;
 private:

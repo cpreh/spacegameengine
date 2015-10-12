@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::glx::visual::attribute_container const
+sge::opengl::glx::visual::attribute_container
 sge::opengl::glx::visual::make_attributes(
 	sge::opengl::context::system::object &_system_context,
 	sge::renderer::pixel_format::object const &_format

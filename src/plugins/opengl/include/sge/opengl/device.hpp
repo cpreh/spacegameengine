@@ -340,7 +340,7 @@ private:
 		sge::renderer::display_mode::optional_object const &
 	) override;
 
-	sge::opengl::texture::basic_parameters const
+	sge::opengl::texture::basic_parameters
 	texture_parameters();
 
 	sge::opengl::context::system::object &system_context_;

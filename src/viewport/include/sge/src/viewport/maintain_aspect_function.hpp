@@ -31,7 +31,7 @@ namespace sge
 namespace viewport
 {
 
-sge::renderer::target::viewport const
+sge::renderer::target::viewport
 maintain_aspect_function(
 	awl::window::event::resize const &,
 	sge::viewport::fractional_aspect

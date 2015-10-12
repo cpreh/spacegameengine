@@ -34,7 +34,7 @@ namespace cg
 namespace texture
 {
 
-sge::renderer::texture::stage const
+sge::renderer::texture::stage
 assigned_stage(
 	sge::cg::parameter::object const &
 );

@@ -50,7 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::renderer::display_mode::optional_object const
+sge::renderer::display_mode::optional_object
 sge::opengl::xrandr::display_mode(
 	awl::backends::x11::display &_display,
 	awl::backends::x11::window::object &_window

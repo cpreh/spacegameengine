@@ -31,7 +31,7 @@ namespace opengl
 namespace convert
 {
 
-sge::opengl::color_format const
+sge::opengl::color_format
 make_color_format(
 	int format
 );

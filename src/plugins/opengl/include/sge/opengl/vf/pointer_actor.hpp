@@ -51,11 +51,11 @@ protected:
 		sge::opengl::vf::actor_parameters const &
 	);
 
-	sge::renderer::vf::dynamic::offset const
+	sge::renderer::vf::dynamic::offset
 	offset() const
 	override;
 
-	sge::renderer::vf::dynamic::stride const
+	sge::renderer::vf::dynamic::stride
 	stride() const;
 private:
 	sge::renderer::vf::dynamic::offset const offset_;

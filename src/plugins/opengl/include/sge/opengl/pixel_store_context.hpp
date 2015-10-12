@@ -51,7 +51,7 @@ public:
 		sge::opengl::unpack_alignment
 	);
 
-	sge::opengl::unpack_alignment const
+	sge::opengl::unpack_alignment
 	unpack_alignment() const;
 
 	typedef void parameter;

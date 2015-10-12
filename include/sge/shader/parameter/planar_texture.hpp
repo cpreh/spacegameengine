@@ -83,7 +83,7 @@ public:
 	loaded_texture();
 
 	SGE_SHADER_DETAIL_SYMBOL
-	sge::renderer::texture::stage const
+	sge::renderer::texture::stage
 	stage() const;
 
 	SGE_SHADER_DETAIL_SYMBOL

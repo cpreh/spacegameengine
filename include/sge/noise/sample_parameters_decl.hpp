@@ -58,18 +58,17 @@ public:
 		frequency_type const &,
 		octaves_type const &);
 
-	position_type const
+	position_type
 	position() const;
 
-	frequency_type const
+	frequency_type
 	frequency() const;
 
-	amplitude_type const
+	amplitude_type
 	amplitude() const;
 
-	octaves_type const
+	octaves_type
 	octaves() const;
-
 private:
 	position_type const &position_;
 	amplitude_type const &amplitude_;

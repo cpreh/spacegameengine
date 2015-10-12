@@ -37,7 +37,7 @@ template<
 >
 sge::parse::result_with_value<
 	Result
-> const
+>
 parse_file_opt(
 	boost::filesystem::path const &_path
 )

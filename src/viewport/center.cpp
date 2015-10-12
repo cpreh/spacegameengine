@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/null.hpp>
 
 
-sge::renderer::target::viewport const
+sge::renderer::target::viewport
 sge::viewport::center(
 	sge::window::dim const &_ref_dim,
 	sge::window::dim const &_window_dim

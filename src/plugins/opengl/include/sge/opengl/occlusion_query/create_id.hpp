@@ -32,7 +32,7 @@ namespace opengl
 namespace occlusion_query
 {
 
-sge::opengl::occlusion_query::id const
+sge::opengl::occlusion_query::id
 create_id(
 	sge::opengl::occlusion_query::config const &
 );

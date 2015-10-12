@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key/optional_code.hpp>
 
 
-sge::camera::first_person::action::mapping const
+sge::camera::first_person::action::mapping
 sge::camera::first_person::action::wasd_mapping()
 {
 	return

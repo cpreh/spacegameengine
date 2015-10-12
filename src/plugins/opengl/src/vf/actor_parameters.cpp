@@ -42,14 +42,14 @@ sge::opengl::vf::actor_parameters::actor_parameters(
 {
 }
 
-sge::renderer::vf::dynamic::stride const
+sge::renderer::vf::dynamic::stride
 sge::opengl::vf::actor_parameters::stride() const
 {
 	return
 		stride_;
 }
 
-sge::renderer::vf::dynamic::offset const
+sge::renderer::vf::dynamic::offset
 sge::opengl::vf::actor_parameters::offset() const
 {
 	return

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/next_power_of_2.hpp>
 
 
-sge::renderer::dim2 const
+sge::renderer::dim2
 sge::texture::next_power_of_2(
 	sge::renderer::dim2 const &_size
 )

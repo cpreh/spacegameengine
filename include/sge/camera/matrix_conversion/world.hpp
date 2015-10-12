@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/coordinate_system/object_fwd.hpp>
 #include <sge/camera/detail/symbol.hpp>
-#include <sge/renderer/matrix4_fwd.hpp>
+#include <sge/renderer/matrix4.hpp>
 
 
 namespace sge
@@ -32,13 +32,15 @@ namespace camera
 {
 namespace matrix_conversion
 {
+
 SGE_CAMERA_DETAIL_SYMBOL
-renderer::matrix4 const
+sge::renderer::matrix4
 world(
-	camera::coordinate_system::object const &);
+	sge::camera::coordinate_system::object const &
+);
+
 }
 }
 }
 
 #endif
-

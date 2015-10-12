@@ -36,14 +36,14 @@ namespace json
 {
 
 SGE_PARSE_JSON_DETAIL_SYMBOL
-sge::parse::json::optional_object_ref const
+sge::parse::json::optional_object_ref
 find_object(
 	sge::parse::json::object &,
 	sge::parse::json::path const &
 );
 
 SGE_PARSE_JSON_DETAIL_SYMBOL
-sge::parse::json::const_optional_object_ref const
+sge::parse::json::const_optional_object_ref
 find_object(
 	sge::parse::json::object const &,
 	sge::parse::json::path const &

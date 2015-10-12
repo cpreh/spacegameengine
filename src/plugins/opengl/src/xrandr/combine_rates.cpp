@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::renderer::display_mode::optional_refresh_rate const
+sge::renderer::display_mode::optional_refresh_rate
 sge::opengl::xrandr::combine_rates(
 	sge::renderer::display_mode::optional_refresh_rate const _opt_rate_a,
 	sge::renderer::display_mode::optional_refresh_rate const _opt_rate_b

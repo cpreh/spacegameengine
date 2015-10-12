@@ -30,7 +30,7 @@ namespace sge
 namespace opengl
 {
 
-sge::opengl::unpack_alignment const
+sge::opengl::unpack_alignment
 stride_to_unpack_alignment(
 	sge::image::size_type stride
 );

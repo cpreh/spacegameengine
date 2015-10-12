@@ -68,7 +68,7 @@ sge::opengl::draw_context::~draw_context()
 {
 }
 
-sge::opengl::draw_context::optional_draw_range_elements const
+sge::opengl::draw_context::optional_draw_range_elements
 sge::opengl::draw_context::draw_range_elements() const
 {
 	return

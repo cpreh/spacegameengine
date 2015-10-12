@@ -50,13 +50,13 @@ public:
 	virtual
 	~buffer_base();
 
-	sge::opengl::texture::buffer_type const
+	sge::opengl::texture::buffer_type
 	buffer_type() const;
 
-	sge::opengl::texture::id const
+	sge::opengl::texture::id
 	id() const;
 
-	sge::renderer::texture::mipmap::level const
+	sge::renderer::texture::mipmap::level
 	level() const;
 private:
 	sge::opengl::texture::buffer_type const buffer_type_;

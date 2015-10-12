@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_SPHERICAL_ACTION_WASD_MAPPING_HPP_INCLUDED
 
 #include <sge/camera/detail/symbol.hpp>
-#include <sge/camera/spherical/action/mapping_fwd.hpp>
+#include <sge/camera/spherical/action/mapping.hpp>
 
 
 namespace sge
@@ -33,13 +33,14 @@ namespace spherical
 {
 namespace action
 {
+
 SGE_CAMERA_DETAIL_SYMBOL
-action::mapping const
+sge::camera::spherical::action::mapping
 wasd_mapping();
+
 }
 }
 }
 }
 
 #endif
-

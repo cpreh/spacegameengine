@@ -34,7 +34,7 @@ namespace atlasing
 {
 
 SGE_TEXTURE_DETAIL_SYMBOL
-sge::texture::atlasing::inner_rect const
+sge::texture::atlasing::inner_rect
 make_inner_rect(
 	sge::texture::atlasing::outer_rect const &
 );

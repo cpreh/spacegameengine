@@ -56,7 +56,7 @@ truncate_rational(
 
 }
 
-sge::renderer::target::viewport const
+sge::renderer::target::viewport
 sge::viewport::maintain_aspect_function(
 	awl::window::event::resize const &_event,
 	sge::viewport::fractional_aspect const _aspect

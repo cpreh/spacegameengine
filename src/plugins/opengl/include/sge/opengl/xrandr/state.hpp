@@ -56,7 +56,7 @@ public:
 
 	~state();
 
-	sge::renderer::display_mode::optional_object const
+	sge::renderer::display_mode::optional_object
 	display_mode() const;
 
 	sge::opengl::xrandr::resolution_unique_ptr

@@ -33,7 +33,7 @@ namespace opengl
 namespace xrandr
 {
 
-sge::renderer::display_mode::optional_object const
+sge::renderer::display_mode::optional_object
 display_mode(
 	awl::backends::x11::display &,
 	awl::backends::x11::window::object &

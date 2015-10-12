@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage.hpp>
 
 
-sge::renderer::texture::stage const
+sge::renderer::texture::stage
 sge::opengl::cg::texture::enable(
 	sge::renderer::cg::loaded_texture const &_texture
 )

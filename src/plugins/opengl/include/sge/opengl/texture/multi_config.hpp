@@ -65,7 +65,7 @@ public:
 	gl_client_active_texture
 	client_active_texture() const;
 
-	sge::renderer::caps::texture_stages const
+	sge::renderer::caps::texture_stages
 	max_level() const;
 private:
 	gl_active_texture active_texture_;

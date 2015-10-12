@@ -76,7 +76,7 @@ sge::shader::context::pixel_profile() const
 		pixel_profile_;
 }
 
-sge::cg::program::compile_options const
+sge::cg::program::compile_options
 sge::shader::context::vertex_compile_options() const
 {
 	return
@@ -85,7 +85,7 @@ sge::shader::context::vertex_compile_options() const
 			vertex_profile_);
 }
 
-sge::cg::program::compile_options const
+sge::cg::program::compile_options
 sge::shader::context::pixel_compile_options() const
 {
 	return

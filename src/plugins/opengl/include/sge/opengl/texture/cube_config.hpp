@@ -45,7 +45,7 @@ public:
 		sge::opengl::texture::cube_side_array const &
 	);
 
-	sge::opengl::texture::type const
+	sge::opengl::texture::type
 	cube_texture_type() const;
 
 	sge::opengl::texture::cube_side_array const &

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
-sge::sprite::optional_matrix const
+sge::sprite::optional_matrix
 sge::sprite::projection_matrix_fixed(
 	sge::sprite::projection_dim const _size
 )

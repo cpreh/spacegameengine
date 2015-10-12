@@ -52,7 +52,7 @@ sge::opengl::vertex_context::vertex_buffer(
 		_buffer;
 }
 
-sge::opengl::vertex_context::optional_vertex_buffer const
+sge::opengl::vertex_context::optional_vertex_buffer
 sge::opengl::vertex_context::vertex_buffer(
 	sge::renderer::vf::dynamic::part_index const _index
 ) const
@@ -72,7 +72,7 @@ sge::opengl::vertex_context::vertex_declaration(
 		_declaration;
 }
 
-sge::opengl::vertex_context::optional_vertex_declaration const
+sge::opengl::vertex_context::optional_vertex_declaration
 sge::opengl::vertex_context::vertex_declaration() const
 {
 	return

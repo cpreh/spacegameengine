@@ -61,7 +61,7 @@ sge::opengl::xrandr::output_info::~output_info()
 	);
 }
 
-sge::renderer::display_mode::dimensions const
+sge::renderer::display_mode::dimensions
 sge::opengl::xrandr::output_info::dimensions() const
 {
 	return

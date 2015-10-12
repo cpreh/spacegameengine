@@ -61,7 +61,7 @@ public:
 		optional_vertex_buffer
 	);
 
-	optional_vertex_buffer const
+	optional_vertex_buffer
 	vertex_buffer(
 		sge::renderer::vf::dynamic::part_index
 	) const;
@@ -77,7 +77,7 @@ public:
 		optional_vertex_declaration
 	);
 
-	optional_vertex_declaration const
+	optional_vertex_declaration
 	vertex_declaration() const;
 
 	typedef void parameter;

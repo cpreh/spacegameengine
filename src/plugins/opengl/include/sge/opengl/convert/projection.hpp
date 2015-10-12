@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CONVERT_PROJECTION_HPP_INCLUDED
 #define SGE_OPENGL_CONVERT_PROJECTION_HPP_INCLUDED
 
-#include <sge/renderer/matrix4_fwd.hpp>
+#include <sge/renderer/matrix4.hpp>
+
 
 namespace sge
 {
@@ -30,9 +31,9 @@ namespace opengl
 namespace convert
 {
 
-renderer::matrix4 const
+sge::renderer::matrix4
 projection(
-	renderer::matrix4 const &
+	sge::renderer::matrix4 const &
 );
 
 }

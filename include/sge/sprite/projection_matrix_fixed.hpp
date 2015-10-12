@@ -32,7 +32,7 @@ namespace sprite
 {
 
 SGE_SPRITE_DETAIL_SYMBOL
-sge::sprite::optional_matrix const
+sge::sprite::optional_matrix
 projection_matrix_fixed(
 	sge::sprite::projection_dim
 );

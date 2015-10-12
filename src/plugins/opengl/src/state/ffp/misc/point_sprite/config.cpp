@@ -39,21 +39,21 @@ sge::opengl::state::ffp::misc::point_sprite::config::config(
 {
 }
 
-sge::opengl::state::ffp::misc::point_sprite::config::point_sprite_flag_type const
+sge::opengl::state::ffp::misc::point_sprite::config::point_sprite_flag_type
 sge::opengl::state::ffp::misc::point_sprite::config::point_sprite_flag() const
 {
 	return
 		point_sprite_flag_;
 }
 
-sge::opengl::state::ffp::misc::point_sprite::config::vertex_shader_size_flag_type const
+sge::opengl::state::ffp::misc::point_sprite::config::vertex_shader_size_flag_type
 sge::opengl::state::ffp::misc::point_sprite::config::vertex_shader_size_flag() const
 {
 	return
 		vertex_shader_size_flag_;
 }
 
-sge::opengl::state::ffp::misc::point_sprite::config::coord_replace_flag_type const
+sge::opengl::state::ffp::misc::point_sprite::config::coord_replace_flag_type
 sge::opengl::state::ffp::misc::point_sprite::config::coord_replace_flag() const
 {
 	return

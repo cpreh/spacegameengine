@@ -33,7 +33,7 @@ namespace context
 namespace system
 {
 
-sge::opengl::context::system::id const
+sge::opengl::context::system::id
 make_id();
 
 }

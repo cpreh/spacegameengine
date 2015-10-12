@@ -37,7 +37,7 @@ namespace parse
 template<
 	typename Result
 >
-sge::parse::result const
+sge::parse::result
 parse_stream(
 	fcppt::io::istream &_ifs,
 	Result &_result

@@ -90,7 +90,7 @@ sge::opengl::cg::texture::loaded_object::~loaded_object()
 	);
 }
 
-sge::renderer::texture::stage const
+sge::renderer::texture::stage
 sge::opengl::cg::texture::loaded_object::enable() const
 {
 	sge::opengl::cg::texture::enable_parameter(

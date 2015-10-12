@@ -78,7 +78,7 @@ sge::opengl::x11::device_state::~device_state()
 {
 }
 
-sge::renderer::display_mode::optional_object const
+sge::renderer::display_mode::optional_object
 sge::opengl::x11::device_state::display_mode() const
 {
 	return

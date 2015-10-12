@@ -64,7 +64,7 @@ public:
 	>
 	optional_proc_address_function;
 
-	optional_proc_address_function const
+	optional_proc_address_function
 	get_proc_address() const;
 
 	typedef void parameter;

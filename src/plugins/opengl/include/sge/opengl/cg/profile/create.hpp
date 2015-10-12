@@ -34,7 +34,7 @@ namespace cg
 namespace profile
 {
 
-sge::cg::profile::object const
+sge::cg::profile::object
 create(
 	sge::cg::profile::shader_type
 );

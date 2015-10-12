@@ -45,7 +45,7 @@ public:
 	~device_state() = 0;
 
 	virtual
-	sge::renderer::display_mode::optional_object const
+	sge::renderer::display_mode::optional_object
 	display_mode() const = 0;
 
 	virtual

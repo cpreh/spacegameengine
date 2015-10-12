@@ -48,7 +48,7 @@ sge::opengl::occlusion_query::holder::~holder()
 	);
 }
 
-sge::opengl::occlusion_query::id const
+sge::opengl::occlusion_query::id
 sge::opengl::occlusion_query::holder::id() const
 {
 	return

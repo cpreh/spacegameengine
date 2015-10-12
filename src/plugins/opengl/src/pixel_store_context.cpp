@@ -47,7 +47,7 @@ sge::opengl::pixel_store_context::unpack_alignment(
 		_unpack_alignment;
 }
 
-sge::opengl::unpack_alignment const
+sge::opengl::unpack_alignment
 sge::opengl::pixel_store_context::unpack_alignment() const
 {
 	return

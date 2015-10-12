@@ -42,7 +42,7 @@ public:
 
 	~holder();
 
-	sge::opengl::texture::id const
+	sge::opengl::texture::id
 	id() const;
 private:
 	sge::opengl::texture::id const id_;

@@ -23,10 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/array.hpp>
 
 
-sge::parse::json::array const
+sge::parse::json::array
 sge::camera::tracking::json::keyframes_to_json(
 	sge::camera::tracking::keyframe_sequence const &_keyframes)
 {
+	// TODO: map
 	sge::parse::json::array result;
 
 	for(

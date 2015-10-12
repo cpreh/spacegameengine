@@ -59,7 +59,7 @@ sge::opengl::state::ffp::transform::context::~context()
 {
 }
 
-sge::opengl::state::ffp::transform::context::optional_load_transpose_matrix_f const
+sge::opengl::state::ffp::transform::context::optional_load_transpose_matrix_f
 sge::opengl::state::ffp::transform::context::load_transpose_matrix_f() const
 {
 	return

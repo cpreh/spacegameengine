@@ -33,7 +33,7 @@ namespace context
 namespace device
 {
 
-sge::opengl::context::device::id const
+sge::opengl::context::device::id
 make_id();
 
 }

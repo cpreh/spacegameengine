@@ -60,7 +60,7 @@ public:
 	~loaded_object()
 	override;
 
-	sge::renderer::texture::stage const
+	sge::renderer::texture::stage
 	enable() const;
 
 	void

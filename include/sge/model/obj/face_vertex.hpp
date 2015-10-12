@@ -48,15 +48,15 @@ public:
 		sge::model::obj::normal_index const &);
 
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
-	sge::model::obj::vertex_coordinate_index const
+	sge::model::obj::vertex_coordinate_index
 	vertex_coordinate_index() const;
 
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
-	sge::model::obj::texture_coordinate_index const
+	sge::model::obj::texture_coordinate_index
 	texture_coordinate_index() const;
 
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
-	sge::model::obj::normal_index const
+	sge::model::obj::normal_index
 	normal_index() const;
 
 	bool

@@ -64,7 +64,7 @@ sge::opengl::srgb_context::~srgb_context()
 {
 }
 
-sge::opengl::optional_enum const
+sge::opengl::optional_enum
 sge::opengl::srgb_context::flag() const
 {
 	return

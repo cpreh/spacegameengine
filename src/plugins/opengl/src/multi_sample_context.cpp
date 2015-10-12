@@ -64,7 +64,7 @@ sge::opengl::multi_sample_context::~multi_sample_context()
 {
 }
 
-sge::opengl::optional_enum const
+sge::opengl::optional_enum
 sge::opengl::multi_sample_context::flag() const
 {
 	return

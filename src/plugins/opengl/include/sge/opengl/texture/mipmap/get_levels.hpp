@@ -39,7 +39,7 @@ namespace mipmap
 template<
 	fcppt::math::size_type Size
 >
-sge::renderer::texture::mipmap::level_count const
+sge::renderer::texture::mipmap::level_count
 get_levels(
 	sge::renderer::texture::mipmap::object const &,
 	sge::renderer::basic_dim<

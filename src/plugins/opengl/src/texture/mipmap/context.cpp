@@ -78,7 +78,7 @@ sge::opengl::texture::mipmap::context::~context()
 {
 }
 
-sge::opengl::optional_enum const
+sge::opengl::optional_enum
 sge::opengl::texture::mipmap::context::generate_mipmap_flag() const
 {
 	return

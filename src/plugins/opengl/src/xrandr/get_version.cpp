@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::xrandr::version const
+sge::opengl::xrandr::version
 sge::opengl::xrandr::get_version(
 	sge::opengl::xrandr::extension const &,
 	awl::backends::x11::display &_display

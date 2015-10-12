@@ -46,11 +46,11 @@ protected:
 	~binding() = 0;
 public:
 	virtual
-	sge::renderer::texture::stage const
+	sge::renderer::texture::stage
 	stage() const = 0;
 
 	virtual
-	sge::opengl::texture::type const
+	sge::opengl::texture::type
 	type() const = 0;
 };
 

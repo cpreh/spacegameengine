@@ -50,7 +50,7 @@ public:
 	void
 	bind() const;
 
-	sge::opengl::fbo::id const
+	sge::opengl::fbo::id
 	id() const;
 private:
 	sge::opengl::fbo::config const &context_;

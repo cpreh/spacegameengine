@@ -37,7 +37,7 @@ sge::model::obj::face_vertex::face_vertex(
 {
 }
 
-sge::model::obj::vertex_coordinate_index const
+sge::model::obj::vertex_coordinate_index
 sge::model::obj::face_vertex::vertex_coordinate_index() const
 {
 	return
@@ -45,7 +45,7 @@ sge::model::obj::face_vertex::vertex_coordinate_index() const
 			indices_[0u]);
 }
 
-sge::model::obj::texture_coordinate_index const
+sge::model::obj::texture_coordinate_index
 sge::model::obj::face_vertex::texture_coordinate_index() const
 {
 	return
@@ -53,7 +53,7 @@ sge::model::obj::face_vertex::texture_coordinate_index() const
 			indices_[1u]);
 }
 
-sge::model::obj::normal_index const
+sge::model::obj::normal_index
 sge::model::obj::face_vertex::normal_index() const
 {
 	return

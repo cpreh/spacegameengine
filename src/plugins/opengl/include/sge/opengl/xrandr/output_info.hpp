@@ -51,7 +51,7 @@ public:
 
 	~output_info();
 
-	sge::renderer::display_mode::dimensions const
+	sge::renderer::display_mode::dimensions
 	dimensions() const;
 private:
 	XRROutputInfo *const info_;

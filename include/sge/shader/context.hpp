@@ -64,11 +64,11 @@ public:
 	pixel_profile() const;
 
 	SGE_SHADER_DETAIL_SYMBOL
-	sge::cg::program::compile_options const
+	sge::cg::program::compile_options
 	vertex_compile_options() const;
 
 	SGE_SHADER_DETAIL_SYMBOL
-	sge::cg::program::compile_options const
+	sge::cg::program::compile_options
 	pixel_compile_options() const;
 
 	SGE_SHADER_DETAIL_SYMBOL

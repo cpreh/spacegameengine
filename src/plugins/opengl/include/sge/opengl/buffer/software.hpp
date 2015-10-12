@@ -117,7 +117,7 @@ private:
 	native() const
 	override;
 
-	sge::opengl::buffer::id const
+	sge::opengl::buffer::id
 	bound_buffer() const;
 
 	typedef

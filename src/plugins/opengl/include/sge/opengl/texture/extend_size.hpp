@@ -35,7 +35,8 @@ namespace texture
 template<
 	typename Size
 >
-Size const
+inline
+Size
 extend_size(
 	Size const &_size
 )
@@ -44,7 +45,7 @@ extend_size(
 		_size;
 }
 
-sge::renderer::dim2 const
+sge::renderer::dim2
 extend_size(
 	sge::renderer::size_type
 );

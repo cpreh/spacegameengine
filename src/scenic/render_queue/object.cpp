@@ -147,7 +147,7 @@ sge::scenic::render_queue::object::add_mesh(
 			_index_buffer_range));
 }
 
-sge::scenic::render_queue::state_change_count const
+sge::scenic::render_queue::state_change_count
 sge::scenic::render_queue::object::render(
 	sge::scenic::render_context::base &_context)
 {

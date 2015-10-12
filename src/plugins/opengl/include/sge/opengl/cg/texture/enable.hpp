@@ -34,7 +34,7 @@ namespace cg
 namespace texture
 {
 
-sge::renderer::texture::stage const
+sge::renderer::texture::stage
 enable(
 	sge::renderer::cg::loaded_texture const &
 );

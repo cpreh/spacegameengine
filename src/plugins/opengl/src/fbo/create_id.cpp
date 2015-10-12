@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 
-sge::opengl::fbo::id const
+sge::opengl::fbo::id
 sge::opengl::fbo::create_id(
 	sge::opengl::fbo::config const &_context
 )

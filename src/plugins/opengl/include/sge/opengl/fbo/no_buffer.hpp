@@ -31,7 +31,7 @@ namespace opengl
 namespace fbo
 {
 
-sge::opengl::fbo::id const
+sge::opengl::fbo::id
 no_buffer();
 
 }

@@ -76,16 +76,16 @@ public:
 	sge::opengl::context::system::object &
 	system_context() const;
 
-	sge::opengl::texture::buffer_type const
+	sge::opengl::texture::buffer_type
 	buffer_type() const;
 
-	sge::opengl::color_format const
+	sge::opengl::color_format
 	format() const;
 
-	sge::opengl::color_format_type const
+	sge::opengl::color_format_type
 	format_type() const;
 
-	sge::opengl::internal_color_format const
+	sge::opengl::internal_color_format
 	internal_format() const;
 
 	dim const &

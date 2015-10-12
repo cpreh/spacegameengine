@@ -90,7 +90,7 @@ sge::opengl::texture::scoped_work_binding::~scoped_work_binding()
 	);
 }
 
-sge::renderer::texture::stage const
+sge::renderer::texture::stage
 sge::opengl::texture::scoped_work_binding::stage() const
 {
 	return
@@ -99,7 +99,7 @@ sge::opengl::texture::scoped_work_binding::stage() const
 		);
 }
 
-sge::opengl::texture::type const
+sge::opengl::texture::type
 sge::opengl::texture::scoped_work_binding::type() const
 {
 	return

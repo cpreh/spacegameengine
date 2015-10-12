@@ -98,7 +98,7 @@ sge::opengl::texture::mipmap::parameters<
 template<
 	fcppt::math::size_type Dim
 >
-sge::opengl::texture::buffer_type const
+sge::opengl::texture::buffer_type
 sge::opengl::texture::mipmap::parameters<
 	Dim
 >::buffer_type() const
@@ -110,7 +110,7 @@ sge::opengl::texture::mipmap::parameters<
 template<
 	fcppt::math::size_type Dim
 >
-sge::opengl::color_format const
+sge::opengl::color_format
 sge::opengl::texture::mipmap::parameters<
 	Dim
 >::format() const
@@ -122,7 +122,7 @@ sge::opengl::texture::mipmap::parameters<
 template<
 	fcppt::math::size_type Dim
 >
-sge::opengl::color_format_type const
+sge::opengl::color_format_type
 sge::opengl::texture::mipmap::parameters<
 	Dim
 >::format_type() const
@@ -134,7 +134,7 @@ sge::opengl::texture::mipmap::parameters<
 template<
 	fcppt::math::size_type Dim
 >
-sge::opengl::internal_color_format const
+sge::opengl::internal_color_format
 sge::opengl::texture::mipmap::parameters<
 	Dim
 >::internal_format() const

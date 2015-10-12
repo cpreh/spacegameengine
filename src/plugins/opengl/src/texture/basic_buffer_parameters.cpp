@@ -109,28 +109,28 @@ sge::opengl::texture::basic_buffer_parameters::device_context() const
 		device_context_;
 }
 
-sge::renderer::texture::mipmap::level const
+sge::renderer::texture::mipmap::level
 sge::opengl::texture::basic_buffer_parameters::level() const
 {
 	return
 		level_;
 }
 
-sge::opengl::texture::type const
+sge::opengl::texture::type
 sge::opengl::texture::basic_buffer_parameters::type() const
 {
 	return
 		type_;
 }
 
-sge::opengl::texture::buffer_type const
+sge::opengl::texture::buffer_type
 sge::opengl::texture::basic_buffer_parameters::buffer_type() const
 {
 	return
 		buffer_type_;
 }
 
-sge::opengl::texture::id const
+sge::opengl::texture::id
 sge::opengl::texture::basic_buffer_parameters::id() const
 {
 	return
@@ -144,28 +144,28 @@ sge::opengl::texture::basic_buffer_parameters::resource_flags() const
 		resource_flags_;
 }
 
-sge::opengl::color_format const
+sge::opengl::color_format
 sge::opengl::texture::basic_buffer_parameters::color_format() const
 {
 	return
 		color_format_;
 }
 
-sge::opengl::color_format_type const
+sge::opengl::color_format_type
 sge::opengl::texture::basic_buffer_parameters::color_format_type() const
 {
 	return
 		color_format_type_;
 }
 
-sge::opengl::internal_color_format const
+sge::opengl::internal_color_format
 sge::opengl::texture::basic_buffer_parameters::internal_color_format() const
 {
 	return
 		internal_color_format_;
 }
 
-sge::opengl::texture::is_render_target const
+sge::opengl::texture::is_render_target
 sge::opengl::texture::basic_buffer_parameters::is_render_target() const
 {
 	return

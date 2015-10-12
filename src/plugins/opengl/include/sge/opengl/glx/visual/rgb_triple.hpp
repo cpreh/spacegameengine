@@ -62,13 +62,13 @@ public:
 		sge::opengl::glx::visual::rgb_triple::blue_bits
 	);
 
-	sge::opengl::glx::visual::rgb_triple::red_bits const
+	sge::opengl::glx::visual::rgb_triple::red_bits
 	red() const;
 
-	sge::opengl::glx::visual::rgb_triple::green_bits const
+	sge::opengl::glx::visual::rgb_triple::green_bits
 	green() const;
 
-	sge::opengl::glx::visual::rgb_triple::blue_bits const
+	sge::opengl::glx::visual::rgb_triple::blue_bits
 	blue() const;
 private:
 	sge::opengl::glx::visual::rgb_triple::red_bits const red_;

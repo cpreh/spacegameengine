@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/ortho_freelook/action/mapping.hpp>
 
+
 namespace sge
 {
 namespace camera
@@ -32,17 +33,18 @@ namespace ortho_freelook
 {
 namespace action
 {
+
 /**
 \brief Creates mapping where 'w' and 's' zoom in/out and 'g' activates the panning.
 \ingroup sgecamera
 */
 SGE_CAMERA_DETAIL_SYMBOL
-action::mapping const
+sge::camera::ortho_freelook::action::mapping
 wsg_mapping();
+
 }
 }
 }
 }
 
 #endif
-

@@ -40,7 +40,7 @@ template<
 >
 sge::renderer::basic_dim<
 	Size
-> const
+>
 get_level_size(
 	sge::opengl::texture::binding const &,
 	sge::opengl::texture::buffer_type,

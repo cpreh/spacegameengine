@@ -49,7 +49,7 @@ struct get_level_size_impl<
 >
 {
 	static
-	sge::renderer::dim2 const
+	sge::renderer::dim2
 	execute(
 		sge::opengl::texture::binding const &_binding,
 		sge::opengl::texture::buffer_type const _buffer_type,
@@ -84,7 +84,7 @@ struct get_level_size_impl<
 >
 {
 	static
-	sge::renderer::dim3 const
+	sge::renderer::dim3
 	execute(
 		sge::opengl::texture::binding const &_binding,
 		sge::opengl::texture::buffer_type const _buffer_type,
@@ -123,7 +123,7 @@ template<
 >
 sge::renderer::basic_dim<
 	Size
-> const
+>
 sge::opengl::texture::get_level_size(
 	sge::opengl::texture::binding const &_binding,
 	sge::opengl::texture::buffer_type const _buffer_type,
@@ -146,7 +146,7 @@ sge::opengl::texture::get_level_size(
 template \
 sge::renderer::basic_dim<\
 	dimension\
-> const \
+> \
 sge::opengl::texture::get_level_size<\
 	dimension\
 >(\

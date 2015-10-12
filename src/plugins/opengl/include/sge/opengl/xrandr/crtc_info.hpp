@@ -52,10 +52,10 @@ public:
 
 	~crtc_info();
 
-	awl::window::rect const
+	awl::window::rect
 	rect() const;
 
-	sge::renderer::display_mode::pixel_size const
+	sge::renderer::display_mode::pixel_size
 	pixel_size() const;
 
 	RRMode

@@ -31,7 +31,7 @@ namespace opengl
 namespace xrandr
 {
 
-sge::renderer::display_mode::optional_refresh_rate const
+sge::renderer::display_mode::optional_refresh_rate
 combine_rates(
 	sge::renderer::display_mode::optional_refresh_rate,
 	sge::renderer::display_mode::optional_refresh_rate

@@ -229,7 +229,7 @@ sge::opengl::buffer::software::native() const
 		false;
 }
 
-sge::opengl::buffer::id const
+sge::opengl::buffer::id
 sge::opengl::buffer::software::bound_buffer() const
 {
 	return

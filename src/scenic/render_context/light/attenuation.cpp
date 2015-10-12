@@ -34,21 +34,21 @@ sge::scenic::render_context::light::attenuation::attenuation(
 {
 }
 
-sge::scenic::render_context::light::constant_attenuation const
+sge::scenic::render_context::light::constant_attenuation
 sge::scenic::render_context::light::attenuation::constant_attenuation() const
 {
 	return
 		constant_attenuation_;
 }
 
-sge::scenic::render_context::light::linear_attenuation const
+sge::scenic::render_context::light::linear_attenuation
 sge::scenic::render_context::light::attenuation::linear_attenuation() const
 {
 	return
 		linear_attenuation_;
 }
 
-sge::scenic::render_context::light::quadratic_attenuation const
+sge::scenic::render_context::light::quadratic_attenuation
 sge::scenic::render_context::light::attenuation::quadratic_attenuation() const
 {
 	return

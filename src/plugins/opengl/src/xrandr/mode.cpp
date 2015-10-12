@@ -46,17 +46,20 @@ sge::opengl::xrandr::mode::mode(
 int
 sge::opengl::xrandr::mode::index() const
 {
-	return index_;
+	return
+		index_;
 }
 
 Rotation
 sge::opengl::xrandr::mode::rotation() const
 {
-	return rotation_;
+	return
+		rotation_;
 }
 
-sge::renderer::display_mode::optional_refresh_rate const
+sge::renderer::display_mode::optional_refresh_rate
 sge::opengl::xrandr::mode::rate() const
 {
-	return rate_;
+	return
+		rate_;
 }

@@ -50,7 +50,7 @@ public:
 	~context()
 	override;
 
-	sge::opengl::optional_int const
+	sge::opengl::optional_int
 	srgb_flag() const;
 
 	typedef void parameter;

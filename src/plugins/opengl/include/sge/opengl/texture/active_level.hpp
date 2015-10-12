@@ -47,7 +47,7 @@ public:
 
 	~active_level();
 
-	sge::renderer::texture::stage const
+	sge::renderer::texture::stage
 	stage() const;
 private:
 	sge::renderer::texture::stage const stage_;

@@ -168,7 +168,7 @@ sge::shader::parameter::planar_texture::loaded_texture()
 		);
 }
 
-sge::renderer::texture::stage const
+sge::renderer::texture::stage
 sge::shader::parameter::planar_texture::stage() const
 {
 	return

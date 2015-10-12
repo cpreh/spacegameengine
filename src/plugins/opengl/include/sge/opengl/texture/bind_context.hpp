@@ -51,7 +51,7 @@ public:
 	~bind_context()
 	override;
 
-	sge::opengl::texture::const_optional_base_ref const
+	sge::opengl::texture::const_optional_base_ref
 	stage(
 		sge::renderer::texture::stage
 	) const;

@@ -136,7 +136,7 @@ find_object_impl(
 
 }
 
-sge::parse::json::optional_object_ref const
+sge::parse::json::optional_object_ref
 sge::parse::json::find_object(
 	sge::parse::json::object &_input_object,
 	sge::parse::json::path const &_path
@@ -149,7 +149,7 @@ sge::parse::json::find_object(
 		);
 }
 
-sge::parse::json::const_optional_object_ref const
+sge::parse::json::const_optional_object_ref
 sge::parse::json::find_object(
 	sge::parse::json::object const &_input_object,
 	sge::parse::json::path const &_path

@@ -51,7 +51,7 @@ template<
 typename
 sge::noise::sample_parameters<
 	Noise
->::position_type const
+>::position_type
 sge::noise::sample_parameters<
 	Noise
 >::position() const
@@ -65,7 +65,7 @@ template<
 typename
 sge::noise::sample_parameters<
 	Noise
->::frequency_type const
+>::frequency_type
 sge::noise::sample_parameters<
 	Noise
 >::frequency() const
@@ -79,7 +79,7 @@ template<
 typename
 sge::noise::sample_parameters<
 	Noise
->::amplitude_type const
+>::amplitude_type
 sge::noise::sample_parameters<
 	Noise
 >::amplitude() const
@@ -93,7 +93,7 @@ template<
 typename
 sge::noise::sample_parameters<
 	Noise
->::octaves_type const
+>::octaves_type
 sge::noise::sample_parameters<
 	Noise
 >::octaves() const

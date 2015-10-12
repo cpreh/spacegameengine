@@ -35,7 +35,7 @@ namespace glx
 namespace visual
 {
 
-sge::opengl::glx::visual::attribute_container const
+sge::opengl::glx::visual::attribute_container
 make_attributes(
 	sge::opengl::context::system::object &,
 	sge::renderer::pixel_format::object const &

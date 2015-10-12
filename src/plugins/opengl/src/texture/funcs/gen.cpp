@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 
-sge::opengl::texture::id const
+sge::opengl::texture::id
 sge::opengl::texture::funcs::gen()
 {
 	GLuint ret;

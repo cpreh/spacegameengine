@@ -51,7 +51,7 @@ public:
 	) const = 0;
 
 	virtual
-	sge::renderer::vf::dynamic::offset const
+	sge::renderer::vf::dynamic::offset
 	offset() const = 0;
 
 	virtual

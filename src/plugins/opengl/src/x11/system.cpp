@@ -57,7 +57,7 @@ sge::opengl::x11::system::~system()
 {
 }
 
-sge::renderer::caps::device_count const
+sge::renderer::caps::device_count
 sge::opengl::x11::system::device_count() const
 {
 	// TODO:

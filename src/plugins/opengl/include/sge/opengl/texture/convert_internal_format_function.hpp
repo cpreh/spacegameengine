@@ -34,15 +34,13 @@ namespace texture
 template<
 	typename Format
 >
-struct convert_internal_format_function
-{
-	typedef
-	sge::opengl::internal_color_format const
-	(*type)
-	(
-		Format
-	);
-};
+using convert_internal_format_function
+=
+sge::opengl::internal_color_format
+(*)
+(
+	Format
+);
 
 }
 }

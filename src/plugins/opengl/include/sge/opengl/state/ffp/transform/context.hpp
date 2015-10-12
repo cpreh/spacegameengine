@@ -65,7 +65,7 @@ public:
 	>
 	optional_load_transpose_matrix_f;
 
-	optional_load_transpose_matrix_f const
+	optional_load_transpose_matrix_f
 	load_transpose_matrix_f() const;
 
 	bool

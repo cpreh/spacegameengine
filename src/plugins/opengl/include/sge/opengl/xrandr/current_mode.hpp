@@ -32,7 +32,7 @@ namespace opengl
 namespace xrandr
 {
 
-sge::opengl::xrandr::mode const
+sge::opengl::xrandr::mode
 current_mode(
 	sge::opengl::xrandr::configuration const &
 );

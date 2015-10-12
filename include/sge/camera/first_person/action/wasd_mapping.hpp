@@ -33,6 +33,7 @@ namespace first_person
 {
 namespace action
 {
+
 /**
 \brief Creates a typical 'w','a','s','d' ego-shooter key mapping
 \ingroup sgecamera
@@ -40,12 +41,12 @@ namespace action
 Up and down are mapped to space and left ctrl, respectively.
 */
 SGE_CAMERA_DETAIL_SYMBOL
-action::mapping const
+sge::camera::first_person::action::mapping
 wasd_mapping();
+
 }
 }
 }
 }
 
 #endif
-

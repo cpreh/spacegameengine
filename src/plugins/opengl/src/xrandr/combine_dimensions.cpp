@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_dimensions.hpp>
 
 
-sge::renderer::display_mode::optional_dimensions const
+sge::renderer::display_mode::optional_dimensions
 sge::opengl::xrandr::combine_dimensions(
 	sge::renderer::display_mode::optional_dimensions const _previous,
 	sge::renderer::display_mode::dimensions const _next

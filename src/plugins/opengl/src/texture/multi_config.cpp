@@ -54,7 +54,7 @@ sge::opengl::texture::multi_config::client_active_texture() const
 		client_active_texture_;
 }
 
-sge::renderer::caps::texture_stages const
+sge::renderer::caps::texture_stages
 sge::opengl::texture::multi_config::max_level() const
 {
 	return

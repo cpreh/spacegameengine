@@ -31,7 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-sge::renderer::vector3 const
+
+sge::renderer::vector3
 spherical_coordinates(
 	sge::camera::spherical::coordinate_system::object const &_coordinate_system)
 {
@@ -49,7 +50,7 @@ spherical_coordinates(
 }
 }
 
-sge::camera::coordinate_system::object const
+sge::camera::coordinate_system::object
 sge::camera::spherical::coordinate_system::to_camera_coordinate_system(
 	spherical::coordinate_system::object const &_coordinate_system,
 	spherical::origin const &_origin)

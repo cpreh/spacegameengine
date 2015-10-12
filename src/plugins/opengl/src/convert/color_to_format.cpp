@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unreachable.hpp>
 
 
-sge::opengl::color_format const
+sge::opengl::color_format
 sge::opengl::convert::color_to_format(
 	sge::image::color::format const _format
 )

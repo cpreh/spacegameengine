@@ -31,7 +31,7 @@ namespace texture
 {
 
 SGE_TEXTURE_DETAIL_SYMBOL
-sge::renderer::dim2 const
+sge::renderer::dim2
 next_power_of_2(
 	sge::renderer::dim2 const &
 );

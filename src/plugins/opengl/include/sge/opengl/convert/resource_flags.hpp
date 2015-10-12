@@ -1,4 +1,4 @@
-/*
+	/*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2015 Carl Philipp Reh (carlphilippreh <at> gmail.com)
 
@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 
+
 namespace sge
 {
 namespace opengl
@@ -33,7 +34,7 @@ namespace convert
 
 GLuint
 resource_flags(
-	renderer::resource_flags_field const &
+	sge::renderer::resource_flags_field const &
 );
 
 }

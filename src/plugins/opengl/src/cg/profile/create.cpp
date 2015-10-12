@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/cg/profile/get_latest.hpp>
 
 
-sge::cg::profile::object const
+sge::cg::profile::object
 sge::opengl::cg::profile::create(
 	sge::cg::profile::shader_type const _shader_type
 )

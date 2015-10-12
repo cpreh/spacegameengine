@@ -79,14 +79,14 @@ sge::opengl::glx::swap_context::~swap_context()
 {
 }
 
-sge::opengl::glx::swap_context::optional_glx_swap_interval_sgi const
+sge::opengl::glx::swap_context::optional_glx_swap_interval_sgi
 sge::opengl::glx::swap_context::swap_interval_sgi() const
 {
 	return
 		swap_interval_sgi_;
 }
 
-sge::opengl::glx::swap_context::optional_glx_swap_interval_ext const
+sge::opengl::glx::swap_context::optional_glx_swap_interval_ext
 sge::opengl::glx::swap_context::swap_interval_ext() const
 {
 	return

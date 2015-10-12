@@ -34,7 +34,7 @@ namespace buffers
 {
 
 SGE_SPRITE_DETAIL_SYMBOL
-sge::renderer::resource_flags_field const
+sge::renderer::resource_flags_field
 option_to_resource_flags(
 	sge::sprite::buffers::option
 );

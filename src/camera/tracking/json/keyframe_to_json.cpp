@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 
-sge::parse::json::object const
+sge::parse::json::object
 sge::camera::tracking::json::keyframe_to_json(
 	sge::camera::tracking::keyframe const &_keyframe)
 {

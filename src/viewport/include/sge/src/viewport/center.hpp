@@ -30,7 +30,7 @@ namespace sge
 namespace viewport
 {
 
-sge::renderer::target::viewport const
+sge::renderer::target::viewport
 center(
 	sge::window::dim const &ref_dim,
 	sge::window::dim const &window_dim

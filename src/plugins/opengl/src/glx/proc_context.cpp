@@ -49,7 +49,7 @@ sge::opengl::glx::proc_context::~proc_context()
 {
 }
 
-sge::opengl::glx::proc_context::optional_proc_address_function const
+sge::opengl::glx::proc_context::optional_proc_address_function
 sge::opengl::glx::proc_context::get_proc_address() const
 {
 	return

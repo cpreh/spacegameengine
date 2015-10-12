@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/no_buffer.hpp>
 
 
-sge::opengl::fbo::id const
+sge::opengl::fbo::id
 sge::opengl::fbo::no_buffer()
 {
 	return

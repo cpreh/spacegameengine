@@ -36,7 +36,7 @@ template<
 >
 sge::opengl::context::id<
 	Domain
-> const
+>
 make_id()
 {
 	typedef

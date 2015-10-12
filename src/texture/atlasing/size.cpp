@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/atlasing/size.hpp>
 
 
-sge::renderer::dim2 const
+sge::renderer::dim2
 sge::texture::atlasing::size(
 	sge::renderer::dim2 const &_dim
 )

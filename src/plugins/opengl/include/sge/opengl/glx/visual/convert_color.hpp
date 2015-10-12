@@ -34,7 +34,7 @@ namespace glx
 namespace visual
 {
 
-sge::opengl::glx::visual::rgb_triple const
+sge::opengl::glx::visual::rgb_triple
 convert_color(
 	sge::renderer::pixel_format::color
 );

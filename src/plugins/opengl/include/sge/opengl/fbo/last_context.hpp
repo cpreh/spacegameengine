@@ -47,7 +47,7 @@ public:
 	~last_context()
 	override;
 
-	sge::opengl::fbo::id const
+	sge::opengl::fbo::id
 	last_buffer() const;
 
 	void

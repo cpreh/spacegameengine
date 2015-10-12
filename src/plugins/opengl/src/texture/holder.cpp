@@ -39,7 +39,7 @@ sge::opengl::texture::holder::~holder()
 	);
 }
 
-sge::opengl::texture::id const
+sge::opengl::texture::id
 sge::opengl::texture::holder::id() const
 {
 	return

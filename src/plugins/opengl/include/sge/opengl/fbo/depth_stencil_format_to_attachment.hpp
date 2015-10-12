@@ -33,7 +33,7 @@ namespace opengl
 namespace fbo
 {
 
-sge::opengl::fbo::optional_attachment_type const
+sge::opengl::fbo::optional_attachment_type
 depth_stencil_format_to_attachment(
 	sge::opengl::fbo::config const &,
 	sge::image::ds::format

@@ -211,7 +211,7 @@ sge::opengl::fbo::config::framebuffer_target() const
 		framebuffer_target_;
 }
 
-sge::opengl::fbo::attachment_type const
+sge::opengl::fbo::attachment_type
 sge::opengl::fbo::config::color_attachment() const
 {
 	return
@@ -239,14 +239,14 @@ sge::opengl::fbo::config::renderbuffer_target() const
 		renderbuffer_target_;
 }
 
-sge::opengl::fbo::attachment_type const
+sge::opengl::fbo::attachment_type
 sge::opengl::fbo::config::depth_attachment() const
 {
 	return
 		depth_attachment_;
 }
 
-sge::opengl::fbo::optional_attachment_type const
+sge::opengl::fbo::optional_attachment_type
 sge::opengl::fbo::config::depth_stencil_attachment() const
 {
 	return

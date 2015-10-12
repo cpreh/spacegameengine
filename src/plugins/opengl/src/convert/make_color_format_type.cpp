@@ -24,11 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/static_cast_fun.hpp>
 
 
-sge::opengl::color_format_type const
+sge::opengl::color_format_type
 sge::opengl::convert::make_color_format_type(
 	int const _format
 )
 {
+	// TODO: Make this a template that accepts constants only
 	return
 		fcppt::strong_typedef_construct_cast<
 			sge::opengl::color_format_type,

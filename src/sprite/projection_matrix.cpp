@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/projection_matrix.hpp>
 
 
-sge::sprite::optional_matrix const
+sge::sprite::optional_matrix
 sge::sprite::projection_matrix(
 	sge::renderer::target::viewport const &_viewport
 )

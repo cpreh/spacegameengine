@@ -85,10 +85,10 @@ public:
 	>
 	optional_glx_swap_interval_ext;
 
-	optional_glx_swap_interval_sgi const
+	optional_glx_swap_interval_sgi
 	swap_interval_sgi() const;
 
-	optional_glx_swap_interval_ext const
+	optional_glx_swap_interval_ext
 	swap_interval_ext() const;
 
 	static sge::opengl::context::system::id const static_id;

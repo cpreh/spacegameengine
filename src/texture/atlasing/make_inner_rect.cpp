@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/fill.hpp>
 
 
-sge::texture::atlasing::inner_rect const
+sge::texture::atlasing::inner_rect
 sge::texture::atlasing::make_inner_rect(
 	sge::texture::atlasing::outer_rect const &_outer
 )

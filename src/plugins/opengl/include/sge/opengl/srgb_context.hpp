@@ -46,7 +46,7 @@ public:
 	~srgb_context()
 	override;
 
-	sge::opengl::optional_enum const
+	sge::opengl::optional_enum
 	flag() const;
 
 	typedef void parameter;

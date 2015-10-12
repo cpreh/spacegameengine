@@ -38,14 +38,15 @@ template<
 	typename Order,
 	typename Choices
 >
-sge::sprite::count const
+sge::sprite::count
 ordered_range_size(
 	typename sge::sprite::intrusive::detail::ordered_map<
 		Order,
 		Choices
-	>::type &_ordered_map
+	>::type const &_ordered_map
 )
 {
+	// TODO: fold
 	sge::sprite::count ret(
 		0u
 	);

@@ -46,7 +46,7 @@ public:
 
 	~holder();
 
-	sge::opengl::occlusion_query::id const
+	sge::opengl::occlusion_query::id
 	id() const;
 private:
 	sge::opengl::occlusion_query::config const &config_;

@@ -53,7 +53,7 @@ public:
 	~context()
 	override;
 
-	sge::renderer::texture::stage const
+	sge::renderer::texture::stage
 	stages() const;
 
 	void

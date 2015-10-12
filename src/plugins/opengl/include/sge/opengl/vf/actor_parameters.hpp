@@ -47,10 +47,10 @@ public:
 		sge::opengl::context::system::object &
 	);
 
-	sge::renderer::vf::dynamic::stride const
+	sge::renderer::vf::dynamic::stride
 	stride() const;
 
-	sge::renderer::vf::dynamic::offset const
+	sge::renderer::vf::dynamic::offset
 	offset() const;
 
 	sge::opengl::context::system::object &

@@ -44,14 +44,14 @@ sge::opengl::texture::render_binding::~render_binding()
 {
 }
 
-sge::renderer::texture::stage const
+sge::renderer::texture::stage
 sge::opengl::texture::render_binding::stage() const
 {
 	return
 		stage_;
 }
 
-sge::opengl::texture::type const
+sge::opengl::texture::type
 sge::opengl::texture::render_binding::type() const
 {
 	return

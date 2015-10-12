@@ -74,31 +74,31 @@ public:
 	sge::opengl::context::device::object &
 	device_context() const;
 
-	sge::renderer::texture::mipmap::level const
+	sge::renderer::texture::mipmap::level
 	level() const;
 
-	sge::opengl::texture::type const
+	sge::opengl::texture::type
 	type() const;
 
-	sge::opengl::texture::buffer_type const
+	sge::opengl::texture::buffer_type
 	buffer_type() const;
 
-	sge::opengl::texture::id const
+	sge::opengl::texture::id
 	id() const;
 
 	sge::renderer::resource_flags_field const &
 	resource_flags() const;
 
-	sge::opengl::color_format const
+	sge::opengl::color_format
 	color_format() const;
 
-	sge::opengl::color_format_type const
+	sge::opengl::color_format_type
 	color_format_type() const;
 
-	sge::opengl::internal_color_format const
+	sge::opengl::internal_color_format
 	internal_color_format() const;
 
-	sge::opengl::texture::is_render_target const
+	sge::opengl::texture::is_render_target
 	is_render_target() const;
 private:
 	sge::opengl::texture::binding const &binding_;

@@ -39,7 +39,7 @@ sge::opengl::fbo::last_context::~last_context()
 {
 }
 
-sge::opengl::fbo::id const
+sge::opengl::fbo::id
 sge::opengl::fbo::last_context::last_buffer() const
 {
 	return

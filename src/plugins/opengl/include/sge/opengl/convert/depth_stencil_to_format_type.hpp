@@ -32,7 +32,7 @@ namespace opengl
 namespace convert
 {
 
-sge::opengl::color_format_type const
+sge::opengl::color_format_type
 depth_stencil_to_format_type(
 	sge::image::ds::format
 );

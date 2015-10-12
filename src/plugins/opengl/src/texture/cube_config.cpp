@@ -37,7 +37,7 @@ sge::opengl::texture::cube_config::cube_config(
 {
 }
 
-sge::opengl::texture::type const
+sge::opengl::texture::type
 sge::opengl::texture::cube_config::cube_texture_type() const
 {
 	return

@@ -59,7 +59,7 @@ public:
 	>
 	optional_draw_range_elements;
 
-	optional_draw_range_elements const
+	optional_draw_range_elements
 	draw_range_elements() const;
 
 	typedef void parameter;

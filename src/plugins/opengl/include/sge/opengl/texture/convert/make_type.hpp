@@ -33,7 +33,7 @@ namespace texture
 namespace convert
 {
 
-sge::opengl::texture::type const
+sge::opengl::texture::type
 make_type(
 	int type
 );

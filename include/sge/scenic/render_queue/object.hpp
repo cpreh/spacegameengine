@@ -48,6 +48,7 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
+	explicit
 	object(
 		sge::scenic::texture_manager &);
 
@@ -65,7 +66,7 @@ public:
 		sge::renderer::index::buffer &,
 		sge::scenic::index_buffer_range const &);
 
-	sge::scenic::render_queue::state_change_count const
+	sge::scenic::render_queue::state_change_count
 	render(
 		sge::scenic::render_context::base &);
 

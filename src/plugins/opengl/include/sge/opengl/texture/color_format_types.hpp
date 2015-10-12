@@ -46,25 +46,31 @@ struct color_format_types
 		sge::renderer::texture::color_format const &
 	);
 
-	typedef sge::opengl::texture::convert_format_function<
+	typedef
+	sge::opengl::texture::convert_format_function<
 		format
-	>::type convert_format_function_type;
+	>
+	convert_format_function_type;
 
 	static
 	convert_format_function_type
 	convert_format();
 
-	typedef sge::opengl::texture::convert_format_type_function<
+	typedef
+	sge::opengl::texture::convert_format_type_function<
 		format
-	>::type convert_format_type_function;
+	>
+	convert_format_type_function;
 
 	static
 	convert_format_type_function
 	convert_format_type();
 
-	typedef sge::opengl::texture::convert_internal_format_function<
+	typedef
+	sge::opengl::texture::convert_internal_format_function<
 		format
-	>::type convert_internal_format_function;
+	>
+	convert_internal_format_function;
 
 	static
 	convert_internal_format_function

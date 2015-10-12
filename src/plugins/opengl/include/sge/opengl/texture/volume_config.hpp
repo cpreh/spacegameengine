@@ -60,7 +60,7 @@ public:
 		GLenum max_extent_flag
 	);
 
-	sge::opengl::texture::type const
+	sge::opengl::texture::type
 	volume_texture_type() const;
 
 	gl_tex_image_3d

@@ -45,7 +45,7 @@ sge::opengl::texture::volume_config::volume_config(
 {
 }
 
-sge::opengl::texture::type const
+sge::opengl::texture::type
 sge::opengl::texture::volume_config::volume_texture_type() const
 {
 	return

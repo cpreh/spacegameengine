@@ -39,21 +39,21 @@ sge::opengl::glx::visual::rgb_triple::rgb_triple(
 {
 }
 
-sge::opengl::glx::visual::rgb_triple::red_bits const
+sge::opengl::glx::visual::rgb_triple::red_bits
 sge::opengl::glx::visual::rgb_triple::red() const
 {
 	return
 		red_;
 }
 
-sge::opengl::glx::visual::rgb_triple::green_bits const
+sge::opengl::glx::visual::rgb_triple::green_bits
 sge::opengl::glx::visual::rgb_triple::green() const
 {
 	return
 		green_;
 }
 
-sge::opengl::glx::visual::rgb_triple::blue_bits const
+sge::opengl::glx::visual::rgb_triple::blue_bits
 sge::opengl::glx::visual::rgb_triple::blue() const
 {
 	return

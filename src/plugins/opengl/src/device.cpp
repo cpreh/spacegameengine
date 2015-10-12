@@ -647,7 +647,7 @@ sge::opengl::device::display_mode(
 	);
 }
 
-sge::opengl::texture::basic_parameters const
+sge::opengl::texture::basic_parameters
 sge::opengl::device::texture_parameters()
 {
 	return

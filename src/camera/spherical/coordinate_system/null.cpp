@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/spherical/coordinate_system/null.hpp>
 #include <sge/camera/spherical/coordinate_system/object.hpp>
 
-sge::camera::spherical::coordinate_system::object const
+sge::camera::spherical::coordinate_system::object
 sge::camera::spherical::coordinate_system::null()
 {
 	return

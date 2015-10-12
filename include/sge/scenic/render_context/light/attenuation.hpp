@@ -46,15 +46,15 @@ public:
 		sge::scenic::render_context::light::quadratic_attenuation const &);
 
 	SGE_SCENIC_DETAIL_SYMBOL
-	sge::scenic::render_context::light::constant_attenuation const
+	sge::scenic::render_context::light::constant_attenuation
 	constant_attenuation() const;
 
 	SGE_SCENIC_DETAIL_SYMBOL
-	sge::scenic::render_context::light::linear_attenuation const
+	sge::scenic::render_context::light::linear_attenuation
 	linear_attenuation() const;
 
 	SGE_SCENIC_DETAIL_SYMBOL
-	sge::scenic::render_context::light::quadratic_attenuation const
+	sge::scenic::render_context::light::quadratic_attenuation
 	quadratic_attenuation() const;
 private:
 	sge::scenic::render_context::light::constant_attenuation constant_attenuation_;

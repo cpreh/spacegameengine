@@ -32,7 +32,7 @@ namespace opengl
 namespace convert
 {
 
-sge::opengl::color_format_type const
+sge::opengl::color_format_type
 color_to_format_type(
 	sge::image::color::format
 );

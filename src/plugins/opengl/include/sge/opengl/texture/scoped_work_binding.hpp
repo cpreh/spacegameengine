@@ -59,11 +59,11 @@ public:
 	~scoped_work_binding()
 	override;
 private:
-	sge::renderer::texture::stage const
+	sge::renderer::texture::stage
 	stage() const
 	override;
 
-	sge::opengl::texture::type const
+	sge::opengl::texture::type
 	type() const
 	override;
 

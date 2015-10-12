@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/device/make_id.hpp>
 
 
-sge::opengl::context::device::id const
+sge::opengl::context::device::id
 sge::opengl::context::device::make_id()
 {
 	return

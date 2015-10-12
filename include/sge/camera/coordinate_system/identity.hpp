@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_COORDINATE_SYSTEM_IDENTITY_HPP_INCLUDED
 #define SGE_CAMERA_COORDINATE_SYSTEM_IDENTITY_HPP_INCLUDED
 
-#include <sge/camera/coordinate_system/object_fwd.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/detail/symbol.hpp>
 
 
@@ -31,6 +31,7 @@ namespace camera
 {
 namespace coordinate_system
 {
+
 /**
 \brief Returns the canonical coordinate system
 \ingroup sgecamera
@@ -40,8 +41,9 @@ the origin. Classes like sge::camera::first_person::parameters use this
 coordinate system as a sensible default.
 */
 SGE_CAMERA_DETAIL_SYMBOL
-coordinate_system::object const
+sge::camera::coordinate_system::object
 identity();
+
 }
 }
 }

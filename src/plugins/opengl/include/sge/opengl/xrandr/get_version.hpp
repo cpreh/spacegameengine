@@ -33,7 +33,7 @@ namespace opengl
 namespace xrandr
 {
 
-sge::opengl::xrandr::version const
+sge::opengl::xrandr::version
 get_version(
 	sge::opengl::xrandr::extension const &,
 	awl::backends::x11::display &

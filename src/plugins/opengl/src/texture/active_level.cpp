@@ -43,7 +43,7 @@ sge::opengl::texture::active_level::~active_level()
 {
 }
 
-sge::renderer::texture::stage const
+sge::renderer::texture::stage
 sge::opengl::texture::active_level::stage() const
 {
 	return

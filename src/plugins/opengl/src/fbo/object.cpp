@@ -58,7 +58,7 @@ sge::opengl::fbo::object::bind() const
 	);
 }
 
-sge::opengl::fbo::id const
+sge::opengl::fbo::id
 sge::opengl::fbo::object::id() const
 {
 	return

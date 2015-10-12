@@ -40,7 +40,7 @@ template<
 >
 sge::renderer::basic_dim<
 	Size
-> const
+>
 reduce_dim(
 	sge::renderer::basic_dim<
 		Size
@@ -114,7 +114,7 @@ template<
 >
 sge::renderer::basic_dim<
 	Size
-> const
+>
 reduce_dim(
 	sge::renderer::basic_dim<
 		Size

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key/optional_code.hpp>
 
 
-sge::camera::ortho_freelook::action::mapping const
+sge::camera::ortho_freelook::action::mapping
 sge::camera::ortho_freelook::action::wsg_mapping()
 {
 	return

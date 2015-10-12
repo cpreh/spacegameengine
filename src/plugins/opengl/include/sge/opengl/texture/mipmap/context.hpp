@@ -50,7 +50,7 @@ public:
 	~context()
 	override;
 
-	sge::opengl::optional_enum const
+	sge::opengl::optional_enum
 	generate_mipmap_flag() const;
 
 	typedef

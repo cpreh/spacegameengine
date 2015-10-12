@@ -163,7 +163,7 @@ public:
 	GLenum
 	framebuffer_target() const;
 
-	sge::opengl::fbo::attachment_type const
+	sge::opengl::fbo::attachment_type
 	color_attachment() const;
 
 	GLenum
@@ -175,10 +175,10 @@ public:
 	GLenum
 	renderbuffer_target() const;
 
-	sge::opengl::fbo::attachment_type const
+	sge::opengl::fbo::attachment_type
 	depth_attachment() const;
 
-	sge::opengl::fbo::optional_attachment_type const
+	sge::opengl::fbo::optional_attachment_type
 	depth_stencil_attachment() const;
 private:
 	gl_gen_framebuffers gen_framebuffers_;

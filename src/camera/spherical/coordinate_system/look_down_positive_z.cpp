@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/spherical/coordinate_system/object.hpp>
 #include <fcppt/math/pi.hpp>
 
-sge::camera::spherical::coordinate_system::object const
+sge::camera::spherical::coordinate_system::object
 sge::camera::spherical::coordinate_system::look_down_positive_z(
 	spherical::coordinate_system::radius const &_radius)
 {

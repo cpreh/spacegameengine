@@ -38,7 +38,7 @@ sge::opengl::state::ffp::sampler::context::~context()
 {
 }
 
-sge::renderer::texture::stage const
+sge::renderer::texture::stage
 sge::opengl::state::ffp::sampler::context::stages() const
 {
 	return

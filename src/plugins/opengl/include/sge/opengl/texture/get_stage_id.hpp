@@ -33,7 +33,7 @@ namespace opengl
 namespace texture
 {
 
-sge::opengl::texture::optional_id const
+sge::opengl::texture::optional_id
 get_stage_id(
 	sge::opengl::context::device::object &,
 	sge::renderer::texture::stage

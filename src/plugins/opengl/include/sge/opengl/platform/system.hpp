@@ -51,7 +51,7 @@ public:
 	~system() = 0;
 
 	virtual
-	sge::renderer::caps::device_count const
+	sge::renderer::caps::device_count
 	device_count() const = 0;
 
 	virtual

@@ -67,13 +67,13 @@ public:
 		coord_replace_flag_type
 	);
 
-	point_sprite_flag_type const
+	point_sprite_flag_type
 	point_sprite_flag() const;
 
-	vertex_shader_size_flag_type const
+	vertex_shader_size_flag_type
 	vertex_shader_size_flag() const;
 
-	coord_replace_flag_type const
+	coord_replace_flag_type
 	coord_replace_flag() const;
 private:
 	point_sprite_flag_type const point_sprite_flag_;

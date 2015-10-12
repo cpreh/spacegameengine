@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/fill.hpp>
 
 
-sge::renderer::dim2 const
+sge::renderer::dim2
 sge::opengl::texture::extend_size(
 	sge::renderer::size_type const _border_size
 )

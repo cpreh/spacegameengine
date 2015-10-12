@@ -32,7 +32,7 @@ namespace opengl
 namespace fbo
 {
 
-sge::opengl::fbo::id const
+sge::opengl::fbo::id
 create_id(
 	sge::opengl::fbo::config const &
 );

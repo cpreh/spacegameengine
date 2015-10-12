@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unreachable.hpp>
 
 
-sge::renderer::resource_flags_field const
+sge::renderer::resource_flags_field
 sge::sprite::buffers::option_to_resource_flags(
 	sge::sprite::buffers::option const _options
 )
