@@ -32,7 +32,7 @@ namespace sge
 namespace cegui
 {
 
-sge::image::color::optional_format const
+sge::image::color::optional_format
 convert_pixel_format(
 	CEGUI::Texture::PixelFormat
 );

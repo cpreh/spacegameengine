@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::font::rect const
+sge::font::rect
 sge::pango::convert::from_rect(
 	PangoRectangle const &_rect
 )

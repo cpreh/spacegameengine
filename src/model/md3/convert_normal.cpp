@@ -28,40 +28,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::model::md3::vec3 const
+sge::model::md3::vec3
 sge::model::md3::convert_normal(
-	md3::s16 const _normal
+	sge::model::md3::s16 const _normal
 )
 {
-	md3::scalar const
+	sge::model::md3::scalar const
 		lat(
 			static_cast<
-				md3::scalar
+				sge::model::md3::scalar
 			>(
 				(_normal >> 8)
 				& 255
 			)
 			*
 			fcppt::math::twopi<
-				md3::scalar
+				sge::model::md3::scalar
 			>()
 			/ 255
 		),
 		lng(
 			static_cast<
-				md3::scalar
+				sge::model::md3::scalar
 			>(
 				_normal & 255
 			)
 			*
 			fcppt::math::twopi<
-				md3::scalar
+				sge::model::md3::scalar
 			>()
 			/ 255
 		);
 
 	return
-		md3::vec3(
+		sge::model::md3::vec3(
 			std::cos(lat) * std::sin(lng),
 			std::sin(lat) * std::sin(lng),
 			std::cos(lng)

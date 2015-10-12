@@ -32,7 +32,7 @@ namespace sge
 namespace projectile
 {
 
-sge::projectile::vector2 const
+sge::projectile::vector2
 bullet_to_vector2(
 	btVector3 const &
 );

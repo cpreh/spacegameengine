@@ -47,7 +47,7 @@ public:
 	virtual
 	~object() = 0;
 
-	sge::x11input::device::id const
+	sge::x11input::device::id
 	id() const;
 private:
 	sge::x11input::device::id const id_;

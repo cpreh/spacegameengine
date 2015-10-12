@@ -39,14 +39,16 @@ sge::x11input::create_parameters::create_parameters(
 {
 }
 
-sge::x11input::device::id const
+sge::x11input::device::id
 sge::x11input::create_parameters::id() const
 {
-	return id_;
+	return
+		id_;
 }
 
 XIDeviceInfo const &
 sge::x11input::create_parameters::info() const
 {
-	return info_;
+	return
+		info_;
 }

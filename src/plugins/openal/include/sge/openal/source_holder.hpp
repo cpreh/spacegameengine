@@ -40,7 +40,7 @@ public:
 
 	~source_holder();
 
-	sge::openal::source_id const
+	sge::openal::source_id
 	get() const;
 private:
 	sge::openal::source_id const value_;

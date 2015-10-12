@@ -54,7 +54,7 @@ SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
 
 namespace
 {
-btVector3 const
+btVector3
 inertia_for_shape(
 	btCollisionShape &shape,
 	sge::projectile::body::solidity::variant const &solidity)
@@ -84,7 +84,7 @@ inertia_for_shape(
 	return inertia;
 }
 
-btMatrix3x3 const
+btMatrix3x3
 create_rotation_matrix(
 	btScalar const angle)
 {
@@ -194,7 +194,7 @@ sge::projectile::body::object::object(
 }
 FCPPT_PP_POP_WARNING
 
-sge::projectile::vector2 const
+sge::projectile::vector2
 sge::projectile::body::object::position() const
 {
 	return
@@ -233,7 +233,7 @@ sge::projectile::body::object::position(
 			p));
 }
 
-sge::projectile::vector2 const
+sge::projectile::vector2
 sge::projectile::body::object::linear_velocity() const
 {
 	return
@@ -289,7 +289,7 @@ sge::projectile::body::object::angular_velocity(
 		ACTIVE_TAG);
 }
 
-sge::projectile::shape::shared_base_ptr const
+sge::projectile::shape::shared_base_ptr
 sge::projectile::body::object::shape() const
 {
 	return shape_;

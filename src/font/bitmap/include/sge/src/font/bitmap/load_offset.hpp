@@ -32,7 +32,7 @@ namespace font
 namespace bitmap
 {
 
-sge::font::vector const
+sge::font::vector
 load_offset(
 	sge::parse::json::member_map const &
 );

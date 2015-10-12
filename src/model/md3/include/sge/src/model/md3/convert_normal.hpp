@@ -32,9 +32,9 @@ namespace model
 namespace md3
 {
 
-md3::vec3 const
+sge::model::md3::vec3
 convert_normal(
-	md3::s16
+	sge::model::md3::s16
 );
 
 }

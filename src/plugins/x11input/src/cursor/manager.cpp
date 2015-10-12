@@ -118,7 +118,7 @@ sge::x11input::cursor::manager::focus_out()
 	);
 }
 
-sge::x11input::cursor::entered const
+sge::x11input::cursor::entered
 sge::x11input::cursor::manager::entered() const
 {
 	return

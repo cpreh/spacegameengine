@@ -34,7 +34,7 @@ namespace sge
 namespace cegui
 {
 
-sge::renderer::matrix4 const
+sge::renderer::matrix4
 matrix_from_quaternion(
 	CEGUI::Quaternion
 );

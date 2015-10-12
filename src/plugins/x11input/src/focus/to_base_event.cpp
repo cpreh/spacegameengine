@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-XEvent const
+XEvent
 sge::x11input::focus::to_base_event(
 	XKeyEvent const &_ev
 )

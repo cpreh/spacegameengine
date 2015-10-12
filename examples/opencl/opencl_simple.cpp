@@ -118,7 +118,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 template<typename T,typename Char,typename Traits>
-T const
+T
 query_value_from_user(
 	std::basic_istream<Char,Traits> &stream)
 {

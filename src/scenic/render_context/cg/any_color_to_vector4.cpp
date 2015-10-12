@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/object_impl.hpp>
 
 
-sge::renderer::vector4 const
+sge::renderer::vector4
 sge::scenic::render_context::cg::any_color_to_vector4(
 	sge::image::color::any::object const &_any_color)
 {

@@ -52,7 +52,7 @@ sge::rucksack::testbed::object::add_widget(
 		);
 }
 
-awl::main::exit_code const
+awl::main::exit_code
 sge::rucksack::testbed::object::run()
 {
 	return

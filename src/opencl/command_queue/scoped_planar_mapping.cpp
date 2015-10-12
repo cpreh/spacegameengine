@@ -104,7 +104,7 @@ sge::opencl::command_queue::scoped_planar_mapping::pitch() const
 	return pitch_;
 }
 
-sge::image2d::view::object const
+sge::image2d::view::object
 sge::opencl::command_queue::scoped_planar_mapping::view()
 {
 	return

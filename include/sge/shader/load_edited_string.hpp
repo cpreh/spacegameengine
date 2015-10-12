@@ -35,7 +35,7 @@ namespace sge
 namespace shader
 {
 SGE_SHADER_DETAIL_SYMBOL
-sge::cg::program::source const
+sge::cg::program::source
 load_edited_string(
 	sge::renderer::device::core &,
 	sge::renderer::vertex::declaration const &,

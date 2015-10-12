@@ -171,7 +171,7 @@ sge::rucksack::testbed::object_impl::add_widget(
 	);
 }
 
-awl::main::exit_code const
+awl::main::exit_code
 sge::rucksack::testbed::object_impl::run()
 {
 	while(

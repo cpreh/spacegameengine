@@ -156,7 +156,7 @@ private:
 	)
 	override;
 
-	sge::x11input::device::parameters const
+	sge::x11input::device::parameters
 	device_parameters(
 		sge::x11input::create_parameters const &
 	);

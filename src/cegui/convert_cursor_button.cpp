@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::cegui::optional_mouse_button const
+sge::cegui::optional_mouse_button
 sge::cegui::convert_cursor_button(
 	sge::input::cursor::button_code const _code
 )

@@ -190,7 +190,7 @@ typedef
 std::vector<sprite_object>
 sprite_sequence;
 
-sprite_object const
+sprite_object
 create_sprite(
 	bvh_box const &_rect,
 	sge::image::color::rgba8 const &_color)
@@ -238,7 +238,7 @@ public:
 
 	FCPPT_PP_POP_WARNING
 
-	sprite_sequence const
+	sprite_sequence
 	sprites() const
 	{
 		bvh_tree_traits::tree_representation const &tree(

@@ -57,14 +57,14 @@ public:
 	object(
 		parameters const &);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL vector2 const
+	SGE_PROJECTILE_DETAIL_SYMBOL vector2
 	position() const;
 
 	SGE_PROJECTILE_DETAIL_SYMBOL void
 	position(
 		vector2 const &);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL vector2 const
+	SGE_PROJECTILE_DETAIL_SYMBOL vector2
 	linear_velocity() const;
 
 	SGE_PROJECTILE_DETAIL_SYMBOL void
@@ -78,7 +78,7 @@ public:
 	angular_velocity(
 		scalar);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::shape::shared_base_ptr const
+	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::shape::shared_base_ptr
 	shape() const;
 
 	SGE_PROJECTILE_DETAIL_SYMBOL scalar

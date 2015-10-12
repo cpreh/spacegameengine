@@ -37,7 +37,7 @@ namespace sge
 namespace cegui
 {
 
-boost::filesystem::path const
+boost::filesystem::path
 to_absolute_path(
 	sge::cegui::prefix const &,
 	CEGUI::String const &filename

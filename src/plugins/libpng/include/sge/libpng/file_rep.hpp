@@ -56,7 +56,7 @@ public:
 
 	~file_rep();
 
-	sge::image2d::dim const
+	sge::image2d::dim
 	size() const;
 
 	sge::libpng::format

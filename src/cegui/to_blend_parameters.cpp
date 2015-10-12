@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::renderer::state::core::blend::alpha_enabled const
+sge::renderer::state::core::blend::alpha_enabled
 sge::cegui::to_blend_parameters(
 	CEGUI::BlendMode const _mode
 )

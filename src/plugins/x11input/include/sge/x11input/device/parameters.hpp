@@ -59,13 +59,13 @@ public:
 		sge::x11input::device::leave_demuxer &
 	);
 
-	sge::x11input::device::id const
+	sge::x11input::device::id
 	id() const;
 
 	XIDeviceInfo const &
 	info() const;
 
-	awl::backends::x11::system::event::opcode const
+	awl::backends::x11::system::event::opcode
 	opcode() const;
 
 	awl::backends::x11::window::object const &

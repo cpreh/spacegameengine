@@ -56,7 +56,7 @@ public:
 	object(
 		parameters const &);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::vector2 const
+	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::vector2
 	position() const;
 
 	SGE_PROJECTILE_DETAIL_SYMBOL void

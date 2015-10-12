@@ -31,7 +31,7 @@ namespace opencl
 {
 
 SGE_OPENCL_DETAIL_SYMBOL
-fcppt::log::location const
+fcppt::log::location
 log_location();
 
 }

@@ -65,7 +65,7 @@ public:
 	build(
 		sge::opencl::program::build_parameters const &);
 
-	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::program::device_blob_map const
+	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::program::device_blob_map
 	binaries() const;
 
 	SGE_OPENCL_DETAIL_SYMBOL ~object();
@@ -79,7 +79,7 @@ private:
 	cl_program program_;
 	sge::opencl::program::optional_notification_callback notification_callback_;
 
-	device_id_vector const
+	device_id_vector
 	program_devices() const;
 
 	void

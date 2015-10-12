@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 
-sge::openal::source_id const
+sge::openal::source_id
 sge::openal::funcs::gen_source()
 {
 	ALuint result;

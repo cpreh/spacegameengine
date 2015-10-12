@@ -33,7 +33,7 @@ namespace x11input
 namespace focus
 {
 
-XEvent const
+XEvent
 to_base_event(
 	XKeyEvent const &
 );

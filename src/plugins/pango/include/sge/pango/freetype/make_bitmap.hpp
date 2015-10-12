@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-
 namespace sge
 {
 namespace pango
@@ -36,7 +35,7 @@ namespace pango
 namespace freetype
 {
 
-FT_Bitmap const
+FT_Bitmap
 make_bitmap(
 	sge::font::view const &
 );

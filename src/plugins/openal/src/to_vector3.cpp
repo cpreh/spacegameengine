@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/structure_cast.hpp>
 
 
-sge::openal::vector3 const
+sge::openal::vector3
 sge::openal::to_vector3(
 	sge::audio::vector const &_vec
 )

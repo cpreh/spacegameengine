@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::input::cursor::optional_position const
+sge::input::cursor::optional_position
 sge::x11input::cursor::query_pointer(
 	awl::backends::x11::window::object const &_window,
 	sge::x11input::device::id const &_id

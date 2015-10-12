@@ -527,7 +527,7 @@ sge::x11input::processor::joypad_remove_callback(
 		fcppt::signal::optional_auto_connection{};
 }
 
-sge::x11input::device::parameters const
+sge::x11input::device::parameters
 sge::x11input::processor::device_parameters(
 	sge::x11input::create_parameters const &_param
 )

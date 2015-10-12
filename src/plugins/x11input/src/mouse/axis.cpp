@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/size_fun.hpp>
 
 
-sge::input::mouse::axis const
+sge::input::mouse::axis
 sge::x11input::mouse::axis(
 	sge::x11input::device::valuator::index const _index,
 	sge::input::mouse::axis_info_container const &_info

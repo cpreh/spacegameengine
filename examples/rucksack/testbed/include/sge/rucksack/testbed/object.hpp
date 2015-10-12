@@ -39,24 +39,28 @@ namespace rucksack
 {
 namespace testbed
 {
+
 class object
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONCOPYABLE(
+		object
+	);
 public:
 	SGE_RUCKSACK_TESTBED_DETAIL_SYMBOL
 	explicit
 	object(
-		sge::window::title const &);
+		sge::window::title const &
+	);
 
 	SGE_RUCKSACK_TESTBED_DETAIL_SYMBOL
 	void
 	add_widget(
 		sge::rucksack::widget::base &,
-		sge::image::color::any::object const &);
+		sge::image::color::any::object const &
+	);
 
 	SGE_RUCKSACK_TESTBED_DETAIL_SYMBOL
-	awl::main::exit_code const
+	awl::main::exit_code
 	run();
 
 	SGE_RUCKSACK_TESTBED_DETAIL_SYMBOL
@@ -70,6 +74,7 @@ private:
 		sge::rucksack::testbed::object_impl
 	> const impl_;
 };
+
 }
 }
 }

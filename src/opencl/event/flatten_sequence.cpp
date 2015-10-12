@@ -23,16 +23,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/event/object_unique_ptr.hpp>
 #include <sge/src/opencl/event/flatten_sequence.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
-fcppt::container::raw_vector<cl_event> const
+std::vector<cl_event>
 sge::opencl::event::flatten_sequence(
 	sge::opencl::event::sequence const &_event_sequence)
 {
 	return
 		fcppt::algorithm::map<
-			fcppt::container::raw_vector<cl_event>
+			std::vector<cl_event>
 		>(
 			_event_sequence,
 			[](

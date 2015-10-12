@@ -42,7 +42,7 @@ public:
 		sge::x11input::device::valuator::value
 	);
 
-	sge::x11input::device::valuator::value const
+	sge::x11input::device::valuator::value
 	previous() const;
 private:
 	sge::x11input::device::valuator::value previous_;

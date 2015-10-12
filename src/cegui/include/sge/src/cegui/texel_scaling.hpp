@@ -30,7 +30,7 @@ namespace sge
 namespace cegui
 {
 
-CEGUI::Vector2f const
+CEGUI::Vector2f
 texel_scaling(
 	CEGUI::Sizef const &
 );

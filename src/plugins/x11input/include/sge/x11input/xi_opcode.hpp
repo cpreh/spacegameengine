@@ -30,7 +30,7 @@ namespace sge
 namespace x11input
 {
 
-sge::x11input::optional_opcode const
+sge::x11input::optional_opcode
 xi_opcode(
 	awl::backends::x11::display &
 );

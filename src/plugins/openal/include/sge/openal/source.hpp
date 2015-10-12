@@ -163,7 +163,7 @@ protected:
 	void
 	do_play();
 
-	sge::openal::source_id const
+	sge::openal::source_id
 	source_id() const;
 
 	sge::audio::sound::repeat
@@ -171,8 +171,7 @@ protected:
 private:
 	source();
 
-	// TODO: Put explicit back when VC++ is less buggy
-	//explicit
+	explicit
 	source(
 		sge::openal::buffer_id
 	);

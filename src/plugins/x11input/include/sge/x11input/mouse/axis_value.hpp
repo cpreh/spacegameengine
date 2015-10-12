@@ -33,7 +33,7 @@ namespace x11input
 namespace mouse
 {
 
-sge::x11input::mouse::axis_value_accu_pair const
+sge::x11input::mouse::axis_value_accu_pair
 axis_value(
 	sge::x11input::device::valuator::accu,
 	sge::x11input::device::valuator::value

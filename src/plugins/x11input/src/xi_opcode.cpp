@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::x11input::optional_opcode const
+sge::x11input::optional_opcode
 sge::x11input::xi_opcode(
 	awl::backends::x11::display &_display
 )

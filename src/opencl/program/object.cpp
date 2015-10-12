@@ -291,7 +291,7 @@ sge::opencl::program::object::build(
 	this->check_program_return_values();
 }
 
-sge::opencl::program::device_blob_map const
+sge::opencl::program::device_blob_map
 sge::opencl::program::object::binaries() const
 {
 	// Problem with this function: We have to
@@ -362,7 +362,7 @@ sge::opencl::program::object::~object()
 		FCPPT_TEXT("clReleaseProgram"));
 }
 
-sge::opencl::program::object::device_id_vector const
+sge::opencl::program::object::device_id_vector
 sge::opencl::program::object::program_devices() const
 {
 	device_id_vector devices;

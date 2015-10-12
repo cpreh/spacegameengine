@@ -69,7 +69,7 @@ sge::x11input::device::parameters::parameters(
 {
 }
 
-sge::x11input::device::id const
+sge::x11input::device::id
 sge::x11input::device::parameters::id() const
 {
 	return
@@ -83,7 +83,7 @@ sge::x11input::device::parameters::info() const
 		info_;
 }
 
-awl::backends::x11::system::event::opcode const
+awl::backends::x11::system::event::opcode
 sge::x11input::device::parameters::opcode() const
 {
 	return

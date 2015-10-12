@@ -53,11 +53,11 @@ public:
 	SGE_OPENCL_DETAIL_SYMBOL cl_context
 	impl() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL opencl::memory_object::image::format_sequence const
+	SGE_OPENCL_DETAIL_SYMBOL opencl::memory_object::image::format_sequence
 	supported_planar_image_formats(
 		cl_mem_flags) const;
 
-	SGE_OPENCL_DETAIL_SYMBOL opencl::memory_object::image::format_sequence const
+	SGE_OPENCL_DETAIL_SYMBOL opencl::memory_object::image::format_sequence
 	supported_volume_image_formats(
 		cl_mem_flags) const;
 

@@ -54,13 +54,13 @@ sge::resource_tree::path::operator/(
 	return result;
 }
 
-sge::resource_tree::path::const_iterator const
+sge::resource_tree::path::const_iterator
 sge::resource_tree::path::begin() const
 {
 	return elements_.begin();
 }
 
-sge::resource_tree::path::const_iterator const
+sge::resource_tree::path::const_iterator
 sge::resource_tree::path::end() const
 {
 	return elements_.end();
@@ -81,12 +81,14 @@ sge::resource_tree::path::operator==(
 fcppt::string
 sge::resource_tree::path::back() const
 {
+	// TODO: Remove this
 	return elements_.back();
 }
 
 fcppt::string
 sge::resource_tree::path::string() const
 {
+	// TODO: Algorithm
 	fcppt::string result;
 
 	for(

@@ -37,7 +37,7 @@ namespace cursor
 template<
 	typename Event
 >
-sge::input::cursor::position const
+sge::input::cursor::position
 position(
 	sge::x11input::device::event<
 		Event

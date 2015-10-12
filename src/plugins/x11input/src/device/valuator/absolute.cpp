@@ -32,7 +32,7 @@ sge::x11input::device::valuator::absolute::absolute(
 {
 }
 
-sge::x11input::device::valuator::value const
+sge::x11input::device::valuator::value
 sge::x11input::device::valuator::absolute::previous() const
 {
 	return

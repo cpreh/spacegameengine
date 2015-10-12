@@ -30,7 +30,7 @@ namespace sge
 namespace openal
 {
 
-sge::openal::vector3 const
+sge::openal::vector3
 to_vector3(
 	sge::audio::vector const &
 );

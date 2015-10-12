@@ -33,7 +33,7 @@ namespace render_context
 {
 namespace cg
 {
-sge::renderer::vector4 const
+sge::renderer::vector4
 any_color_to_vector4(
 	sge::image::color::any::object const &);
 }

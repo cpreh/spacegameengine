@@ -31,7 +31,7 @@ namespace openal
 namespace funcs
 {
 
-sge::openal::buffer_id const
+sge::openal::buffer_id
 gen_buffer();
 
 }

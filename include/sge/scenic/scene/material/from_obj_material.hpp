@@ -35,7 +35,7 @@ namespace scene
 namespace material
 {
 SGE_SCENIC_DETAIL_SYMBOL
-sge::scenic::scene::material::object const
+sge::scenic::scene::material::object
 from_obj_material(
 	sge::model::obj::material::object const &);
 }

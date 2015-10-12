@@ -30,7 +30,7 @@ namespace sge
 namespace cegui
 {
 
-sge::renderer::state::core::rasterizer::parameters const
+sge::renderer::state::core::rasterizer::parameters
 make_rasterizer_parameters(
 	sge::renderer::state::core::rasterizer::enable_scissor_test
 );

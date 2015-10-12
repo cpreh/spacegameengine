@@ -32,7 +32,7 @@ namespace gui
 namespace impl
 {
 
-sge::rucksack::rect const
+sge::rucksack::rect
 shrink_rect(
 	sge::rucksack::rect,
 	sge::rucksack::scalar

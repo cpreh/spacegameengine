@@ -62,7 +62,7 @@ public:
 	SGE_OPENCL_DETAIL_SYMBOL std::size_t
 	pitch() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL sge::image2d::view::object const
+	SGE_OPENCL_DETAIL_SYMBOL sge::image2d::view::object
 	view();
 
 	SGE_OPENCL_DETAIL_SYMBOL ~scoped_planar_mapping();

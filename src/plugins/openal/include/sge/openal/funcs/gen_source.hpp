@@ -31,7 +31,7 @@ namespace openal
 namespace funcs
 {
 
-sge::openal::source_id const
+sge::openal::source_id
 gen_source();
 
 }

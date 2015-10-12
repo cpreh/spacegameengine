@@ -29,7 +29,7 @@ namespace sge
 namespace libpng
 {
 
-sge::libpng::gamma const
+sge::libpng::gamma
 srgb_gamma();
 
 }

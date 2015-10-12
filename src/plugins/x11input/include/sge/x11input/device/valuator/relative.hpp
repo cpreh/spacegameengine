@@ -44,7 +44,7 @@ public:
 		sge::x11input::device::valuator::accu
 	);
 
-	sge::x11input::device::valuator::accu const
+	sge::x11input::device::valuator::accu
 	accu() const;
 private:
 	sge::x11input::device::valuator::accu accu_;

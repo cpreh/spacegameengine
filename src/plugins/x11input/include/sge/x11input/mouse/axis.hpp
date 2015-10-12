@@ -33,7 +33,7 @@ namespace x11input
 namespace mouse
 {
 
-sge::input::mouse::axis const
+sge::input::mouse::axis
 axis(
 	sge::x11input::device::valuator::index,
 	sge::input::mouse::axis_info_container const &

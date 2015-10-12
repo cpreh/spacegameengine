@@ -60,7 +60,7 @@ sge::libpng::file_rep::~file_rep()
 {
 }
 
-sge::image2d::dim const
+sge::image2d::dim
 sge::libpng::file_rep::size() const
 {
 	return

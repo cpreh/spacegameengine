@@ -30,7 +30,7 @@ namespace sge
 namespace cegui
 {
 
-sge::cegui::optional_mouse_button const
+sge::cegui::optional_mouse_button
 convert_cursor_button(
 	sge::input::cursor::button_code
 );

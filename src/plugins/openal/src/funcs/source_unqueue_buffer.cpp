@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/funcs/source_unqueue_buffers.hpp>
 
 
-sge::openal::buffer_id const
+sge::openal::buffer_id
 sge::openal::funcs::source_unqueue_buffer(
 	sge::openal::source_id const _source
 )

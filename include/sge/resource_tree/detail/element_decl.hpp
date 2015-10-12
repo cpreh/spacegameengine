@@ -105,7 +105,7 @@ private:
 		T const &
 	> optional_type;
 
-	optional_type const
+	optional_type
 	get_opt(
 		sge::resource_tree::path const &
 	) const;

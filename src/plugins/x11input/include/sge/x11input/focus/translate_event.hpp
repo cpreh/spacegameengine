@@ -34,7 +34,7 @@ namespace x11input
 namespace focus
 {
 
-XKeyEvent const
+XKeyEvent
 translate_event(
 	XIDeviceEvent const &
 );

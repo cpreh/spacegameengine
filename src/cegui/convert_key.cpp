@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::cegui::optional_key_scan const
+sge::cegui::optional_key_scan
 sge::cegui::convert_key(
 	sge::input::key::code const _code
 )

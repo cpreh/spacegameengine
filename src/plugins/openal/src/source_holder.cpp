@@ -49,8 +49,9 @@ sge::openal::source_holder::~source_holder()
 	);
 }
 
-sge::openal::source_id const
+sge::openal::source_id
 sge::openal::source_holder::get() const
 {
-	return value_;
+	return
+		value_;
 }

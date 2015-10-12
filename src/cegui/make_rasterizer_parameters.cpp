@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/make_rasterizer_parameters.hpp>
 
 
-sge::renderer::state::core::rasterizer::parameters const
+sge::renderer::state::core::rasterizer::parameters
 sge::cegui::make_rasterizer_parameters(
 	sge::renderer::state::core::rasterizer::enable_scissor_test const _enable_scissor_test
 )

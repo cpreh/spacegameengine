@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/literal.hpp>
 
 
-sge::libpng::gamma const
+sge::libpng::gamma
 sge::libpng::srgb_gamma()
 {
 	return

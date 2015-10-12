@@ -61,7 +61,7 @@ public:
 	impl()
 	override;
 
-	SGE_OPENCL_DETAIL_SYMBOL memory_object::byte_size const
+	SGE_OPENCL_DETAIL_SYMBOL memory_object::byte_size
 	byte_size() const;
 
 	SGE_OPENCL_DETAIL_SYMBOL ~buffer()

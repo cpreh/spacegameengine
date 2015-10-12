@@ -32,7 +32,7 @@ namespace sge
 namespace pango
 {
 
-sge::font::metrics const
+sge::font::metrics
 make_metrics(
 	PangoLayout &
 );

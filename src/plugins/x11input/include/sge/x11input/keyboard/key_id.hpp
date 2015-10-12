@@ -34,7 +34,7 @@ namespace x11input
 namespace keyboard
 {
 
-sge::input::keyboard::key_id const
+sge::input::keyboard::key_id
 key_id(
 	XIDeviceEvent const &
 );

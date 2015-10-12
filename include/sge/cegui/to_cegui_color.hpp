@@ -36,7 +36,7 @@ namespace cegui
 {
 
 SGE_CEGUI_DETAIL_SYMBOL
-CEGUI::Colour const
+CEGUI::Colour
 to_cegui_color(
 	sge::image::color::any::object const &
 );

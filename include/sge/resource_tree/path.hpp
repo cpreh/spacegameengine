@@ -33,6 +33,7 @@ namespace sge
 {
 namespace resource_tree
 {
+
 /**
 \brief A glorified vector of strings used to locate a resource or group in the tree
 
@@ -48,7 +49,9 @@ class path
 {
 private:
 	typedef
-	std::vector<fcppt::string>
+	std::vector<
+		fcppt::string
+	>
 	element_sequence;
 public:
 	typedef
@@ -65,25 +68,28 @@ public:
 	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	path &
 	operator/=(
-		fcppt::string const &);
+		fcppt::string const &
+	);
 
 	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	path
 	operator/(
-		fcppt::string const &) const;
+		fcppt::string const &
+	) const;
 
 	SGE_RESOURCE_TREE_DETAIL_SYMBOL
-	const_iterator const
+	const_iterator
 	begin() const;
 
 	SGE_RESOURCE_TREE_DETAIL_SYMBOL
-	const_iterator const
+	const_iterator
 	end() const;
 
 	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	bool
 	operator==(
-		path const &) const;
+		path const &
+	) const;
 
 	/**
 	\brief Return the last element of the path
@@ -101,6 +107,7 @@ public:
 private:
 	element_sequence elements_;
 };
+
 }
 }
 

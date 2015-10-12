@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::input::keyboard::key_id const
+sge::input::keyboard::key_id
 sge::x11input::keyboard::key_id(
 	XIDeviceEvent const &_event
 )

@@ -40,7 +40,7 @@ public:
 
 	~buffer_holder();
 
-	sge::openal::buffer_id const
+	sge::openal::buffer_id
 	get() const;
 private:
 	sge::openal::buffer_id const buffer_;

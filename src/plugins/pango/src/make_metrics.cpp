@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::font::metrics const
+sge::font::metrics
 sge::pango::make_metrics(
 	PangoLayout &_layout
 )

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/projectile/bullet_to_vector2.hpp>
 
 
-sge::projectile::vector2 const
+sge::projectile::vector2
 sge::projectile::bullet_to_vector2(
 	btVector3 const &v)
 {

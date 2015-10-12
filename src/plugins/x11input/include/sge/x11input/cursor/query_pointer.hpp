@@ -33,7 +33,7 @@ namespace x11input
 namespace cursor
 {
 
-sge::input::cursor::optional_position const
+sge::input::cursor::optional_position
 query_pointer(
 	awl::backends::x11::window::object const &,
 	device::id const &

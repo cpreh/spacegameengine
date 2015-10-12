@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::image::color::optional_format const
+sge::image::color::optional_format
 sge::cegui::convert_pixel_format(
 	CEGUI::Texture::PixelFormat const _format
 )

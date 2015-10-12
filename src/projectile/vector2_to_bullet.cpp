@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-btVector3 const
+btVector3
 sge::projectile::vector2_to_bullet(
 	vector2 const &v)
 {

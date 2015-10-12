@@ -34,7 +34,7 @@ namespace model
 namespace md3
 {
 
-md3::vec3 const
+sge::model::md3::vec3
 read_vec3(
 	std::istream &
 );

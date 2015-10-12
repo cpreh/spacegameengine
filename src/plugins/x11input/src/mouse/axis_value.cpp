@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/todo.hpp>
 
 
-sge::x11input::mouse::axis_value_accu_pair const
+sge::x11input::mouse::axis_value_accu_pair
 sge::x11input::mouse::axis_value(
 	sge::x11input::device::valuator::accu const _accu,
 	sge::x11input::device::valuator::value const _value

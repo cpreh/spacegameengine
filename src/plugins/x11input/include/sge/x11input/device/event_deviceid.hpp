@@ -44,7 +44,7 @@ typename boost::disable_if<
 		T
 	>,
 	sge::x11input::device::id
->::type const
+>::type
 event_deviceid(
 	T const &
 )
@@ -63,7 +63,7 @@ typename boost::enable_if<
 		T
 	>,
 	sge::x11input::device::id
->::type const
+>::type
 event_deviceid(
 	T const &_event
 )

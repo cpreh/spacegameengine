@@ -378,7 +378,7 @@ sge::openal::source::do_play()
 	);
 }
 
-sge::openal::source_id const
+sge::openal::source_id
 sge::openal::source::source_id() const
 {
 	return

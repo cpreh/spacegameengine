@@ -34,7 +34,7 @@ namespace memory_object
 {
 namespace image
 {
-SGE_OPENCL_DETAIL_SYMBOL cl_image_format const
+SGE_OPENCL_DETAIL_SYMBOL cl_image_format
 sge_color_format_to_opencl(
 	sge::image::color::format);
 }

@@ -86,7 +86,7 @@ sge::opencl::memory_object::buffer::impl()
 	return impl_;
 }
 
-sge::opencl::memory_object::byte_size const
+sge::opencl::memory_object::byte_size
 sge::opencl::memory_object::buffer::byte_size() const
 {
 	return byte_size_;

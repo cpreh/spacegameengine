@@ -192,7 +192,7 @@ typename
 sge::resource_tree::detail::element<
 	T,
 	Rng
->::optional_type const
+>::optional_type
 sge::resource_tree::detail::element<
 	T,
 	Rng
@@ -200,6 +200,7 @@ sge::resource_tree::detail::element<
 	sge::resource_tree::path const &_path
 ) const
 {
+	// TODO: find_by
 	for(
 		auto const &cur
 		:

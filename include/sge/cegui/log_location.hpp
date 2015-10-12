@@ -31,7 +31,7 @@ namespace cegui
 {
 
 SGE_CEGUI_DETAIL_SYMBOL
-fcppt::log::location const
+fcppt::log::location
 log_location();
 
 }

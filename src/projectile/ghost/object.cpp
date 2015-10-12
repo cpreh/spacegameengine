@@ -83,7 +83,7 @@ sge::projectile::ghost::object::object(
 		p.position().get());
 }
 
-sge::projectile::vector2 const
+sge::projectile::vector2
 sge::projectile::ghost::object::position() const
 {
 	return

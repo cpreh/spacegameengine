@@ -30,7 +30,7 @@ namespace sge
 namespace cegui
 {
 
-sge::cegui::optional_key_scan const
+sge::cegui::optional_key_scan
 convert_key(
 	sge::input::key::code
 );

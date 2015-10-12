@@ -72,7 +72,7 @@ public:
 		sge::rucksack::widget::base &,
 		sge::image::color::any::object const &);
 
-	awl::main::exit_code const
+	awl::main::exit_code
 	run();
 
 	void

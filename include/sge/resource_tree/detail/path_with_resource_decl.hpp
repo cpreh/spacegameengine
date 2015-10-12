@@ -46,7 +46,7 @@ public:
 	sge::resource_tree::path const &
 	path() const;
 
-	T const
+	T const &
 	resource() const;
 private:
 	sge::resource_tree::path path_;

@@ -49,8 +49,9 @@ sge::openal::buffer_holder::~buffer_holder()
 	);
 }
 
-sge::openal::buffer_id const
+sge::openal::buffer_id
 sge::openal::buffer_holder::get() const
 {
-	return buffer_;
+	return
+		buffer_;
 }

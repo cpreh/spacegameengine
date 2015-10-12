@@ -44,7 +44,7 @@ sge::model::md3::texpos::texpos(
 {
 }
 
-sge::model::md3::texcoord const
+sge::model::md3::texcoord
 sge::model::md3::texpos::texcoord() const
 {
 	return

@@ -34,7 +34,7 @@ namespace pango
 namespace convert
 {
 
-sge::font::rect const
+sge::font::rect
 from_rect(
 	PangoRectangle const &
 );

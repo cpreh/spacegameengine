@@ -134,7 +134,7 @@ sge::opencl::context::object::impl() const
 	return context_;
 }
 
-sge::opencl::memory_object::image::format_sequence const
+sge::opencl::memory_object::image::format_sequence
 sge::opencl::context::object::supported_planar_image_formats(
 	cl_mem_flags const mem_flags) const
 {
@@ -173,9 +173,9 @@ sge::opencl::context::object::supported_planar_image_formats(
 	return result;
 }
 
-sge::opencl::memory_object::image::format_sequence const
+sge::opencl::memory_object::image::format_sequence
 sge::opencl::context::object::supported_volume_image_formats(
-		cl_mem_flags const mem_flags) const
+	cl_mem_flags const mem_flags) const
 {
 	cl_uint num_entries;
 

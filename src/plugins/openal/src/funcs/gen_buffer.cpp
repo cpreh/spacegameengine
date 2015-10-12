@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/funcs/gen_buffers.hpp>
 
 
-sge::openal::buffer_id const
+sge::openal::buffer_id
 sge::openal::funcs::gen_buffer()
 {
 	ALuint result;

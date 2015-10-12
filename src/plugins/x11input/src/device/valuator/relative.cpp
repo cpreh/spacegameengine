@@ -40,7 +40,7 @@ sge::x11input::device::valuator::relative::relative(
 {
 }
 
-sge::x11input::device::valuator::accu const
+sge::x11input::device::valuator::accu
 sge::x11input::device::valuator::relative::accu() const
 {
 	return

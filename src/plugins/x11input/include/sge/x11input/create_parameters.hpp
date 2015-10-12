@@ -45,7 +45,7 @@ public:
 		XIDeviceInfo const &
 	);
 
-	sge::x11input::device::id const
+	sge::x11input::device::id
 	id() const;
 
 	XIDeviceInfo const &

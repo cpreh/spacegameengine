@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-FT_Bitmap const
+FT_Bitmap
 sge::pango::freetype::make_bitmap(
 	sge::font::view const &_view
 )

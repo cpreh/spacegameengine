@@ -45,7 +45,7 @@ template
 	typename ResultContainer,
 	typename ContourContainer
 >
-ResultContainer const
+ResultContainer
 triangulate(
 	ContourContainer const &_contour,
 	typename sge::projectile::triangulation::traits::scalar<

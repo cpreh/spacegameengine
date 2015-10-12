@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 
-sge::font::vector const
+sge::font::vector
 sge::font::bitmap::load_offset(
 	sge::parse::json::member_map const &_members
 )

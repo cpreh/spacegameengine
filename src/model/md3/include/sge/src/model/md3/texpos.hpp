@@ -43,7 +43,7 @@ public:
 		std::istream &
 	);
 
-	sge::model::md3::texcoord const
+	sge::model::md3::texcoord
 	texcoord() const;
 private:
 	sge::model::md3::scalar x_, y_;

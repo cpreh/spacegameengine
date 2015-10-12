@@ -46,7 +46,7 @@ struct box
 	fcppt::math::box::object<T,N>
 	type;
 
-	static type const
+	static type
 	extract_box(
 		type const &b)
 	{

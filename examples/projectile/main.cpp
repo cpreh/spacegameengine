@@ -147,7 +147,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 template<typename Container,typename Ch,typename Traits>
-Container const
+Container
 container_from_stream(
 	std::basic_istream<Ch,Traits> &s)
 {
@@ -328,7 +328,7 @@ private:
 			velocity_);
 	}
 
-	sge::projectile::vector2 const
+	sge::projectile::vector2
 	key_event_to_vector(
 		sge::input::keyboard::key_event const &e)
 	{

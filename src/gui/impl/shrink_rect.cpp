@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/fill.hpp>
 
 
-sge::rucksack::rect const
+sge::rucksack::rect
 sge::gui::impl::shrink_rect(
 	sge::rucksack::rect const _rect,
 	sge::rucksack::scalar const _scalar

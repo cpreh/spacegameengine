@@ -26,12 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::model::md3::vec3 const
+sge::model::md3::vec3
 sge::model::md3::read_vec3(
 	std::istream &_stream
 )
 {
 	return
+		// FIXME: This is broken
 		sge::model::md3::vec3(
 			sge::model::md3::read_scalar(
 				_stream

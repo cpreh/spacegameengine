@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/event/sequence.hpp>
-#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,7 +34,7 @@ namespace opencl
 {
 namespace event
 {
-fcppt::container::raw_vector<cl_event> const
+std::vector<cl_event>
 flatten_sequence(
 	sge::opencl::event::sequence const &);
 }

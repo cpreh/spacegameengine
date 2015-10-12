@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/scenic/scene/material/from_obj_material.hpp>
 
-sge::scenic::scene::material::object const
+sge::scenic::scene::material::object
 sge::scenic::scene::material::from_obj_material(
 	sge::model::obj::material::object const &_material)
 {

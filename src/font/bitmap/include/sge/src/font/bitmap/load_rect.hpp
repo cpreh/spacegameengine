@@ -32,7 +32,7 @@ namespace font
 namespace bitmap
 {
 
-sge::image2d::rect const
+sge::image2d::rect
 load_rect(
 	sge::parse::json::member_map const &
 );

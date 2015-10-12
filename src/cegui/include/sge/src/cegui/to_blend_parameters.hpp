@@ -32,7 +32,7 @@ namespace sge
 namespace cegui
 {
 
-sge::renderer::state::core::blend::alpha_enabled const
+sge::renderer::state::core::blend::alpha_enabled
 to_blend_parameters(
 	CEGUI::BlendMode
 );

@@ -31,7 +31,7 @@ namespace sge
 namespace libpng
 {
 
-sge::libpng::gamma const
+sge::libpng::gamma
 get_gamma(
 	sge::libpng::read_ptr const &,
 	sge::libpng::info const &

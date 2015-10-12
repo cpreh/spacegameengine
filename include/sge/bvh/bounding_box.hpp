@@ -34,13 +34,14 @@ namespace sge
 namespace bvh
 {
 template<typename Traits>
-typename Traits::box const
+typename Traits::box
 bounding_box(
 	typename Traits::leaf_wrapper_sequence const &_leaves)
 {
 	FCPPT_ASSERT_PRE(
 		!_leaves.empty());
 
+	// TODO: fold
 	typename Traits::box result =
 		sge::bvh::traits::box<typename Traits::leaf>::extract_box(
 			_leaves.front().value());
