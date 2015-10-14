@@ -35,7 +35,7 @@ template<
 	typename Duration,
 	typename Clock
 >
-Duration const
+Duration
 remaining(
 	sge::timer::basic<
 		Clock
