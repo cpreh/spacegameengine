@@ -49,18 +49,22 @@ public:
 		IDirect3DDevice9 &
 	);
 
-	~object();
+	~object()
+	override;
 private:
 	void
-	begin();
+	begin()
+	override;
 
 	void
-	end();
+	end()
+	override;
 
-	sge::renderer::occlusion_query::optional_pixel_count const
+	sge::renderer::occlusion_query::optional_pixel_count
 	result(
 		sge::renderer::occlusion_query::blocking_wait
-	) const;
+	) const
+	override;
 
 	sge::d3d9::query::d3d_unique_ptr const query_;
 };

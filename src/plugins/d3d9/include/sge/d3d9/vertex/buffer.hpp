@@ -61,37 +61,45 @@ public:
 		sge::renderer::vertex::buffer_parameters const &
 	);
 
-	~buffer();
+	~buffer()
+	override;
 
-	view_type const
+	view_type
 	lock(
 		sge::renderer::lock_mode,
 		first_type,
 		count_type
-	);
+	)
+	override;
 
-	const_view_type const
+	const_view_type
 	lock(
 		first_type,
 		count_type
-	) const;
+	) const
+	override;
 
 	void
-	unlock() const;
+	unlock() const
+	override;
 
-	count_type const
-	size() const;
+	count_type
+	size() const
+	override;
 
-	sge::renderer::resource_flags_field const
-	resource_flags() const;
+	sge::renderer::resource_flags_field
+	resource_flags() const
+	override;
 
 	sge::renderer::vf::dynamic::part const &
-	format_part() const;
+	format_part() const
+	override;
 
-	sge::renderer::vf::dynamic::part_index const
-	format_part_index() const;
+	sge::renderer::vf::dynamic::part_index
+	format_part_index() const
+	override;
 
-	sge::renderer::vf::dynamic::stride const
+	sge::renderer::vf::dynamic::stride
 	stride() const;
 
 	IDirect3DVertexBuffer9 &
@@ -101,15 +109,17 @@ private:
 	init();
 
 	void
-	on_loss();
+	on_loss()
+	override;
 
 	void
-	on_reset();
+	on_reset()
+	override;
 
 	template<
 		typename View
 	>
-	View const
+	View
 	do_lock(
 		first_type,
 		count_type,

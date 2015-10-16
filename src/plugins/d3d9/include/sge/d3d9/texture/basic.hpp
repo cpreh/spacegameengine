@@ -84,22 +84,27 @@ public:
 		parameters_type const &
 	);
 
-	~basic();
+	~basic()
+	override;
 protected:
-	sge::renderer::resource_flags_field const
-	resource_flags() const;
+	sge::renderer::resource_flags_field
+	resource_flags() const
+	override;
 private:
-	sge::renderer::texture::capabilities_field const
-	capabilities() const;
+	sge::renderer::texture::capabilities_field
+	capabilities() const
+	override;
 
-	sge::renderer::texture::mipmap::object const
-	mipmap() const;
+	sge::renderer::texture::mipmap::object
+	mipmap() const
+	override;
 
 	void
 	generate_mipmaps();
 protected:
-	sge::renderer::texture::mipmap::level_count const
-	levels() const;
+	sge::renderer::texture::mipmap::level_count
+	levels() const
+	override;
 public:
 	d3d_type &
 	get() const;
@@ -125,10 +130,12 @@ private:
 	init();
 
 	void
-	on_reset();
+	on_reset()
+	override;
 
 	void
-	on_loss();
+	on_loss()
+	override;
 
 	IDirect3DDevice9 &device_;
 

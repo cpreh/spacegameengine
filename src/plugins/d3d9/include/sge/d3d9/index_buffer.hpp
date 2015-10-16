@@ -54,32 +54,39 @@ public:
 		sge::renderer::index::buffer_parameters const &
 	);
 
-	~index_buffer();
+	~index_buffer()
+	override;
 
-	view_type const
+	view_type
 	lock(
 		sge::renderer::lock_mode,
 		first_type,
 		count_type
-	);
+	)
+	override;
 
-	const_view_type const
+	const_view_type
 	lock(
 		first_type,
 		count_type
-	) const;
+	) const
+	override;
 
 	void
-	unlock() const;
+	unlock() const
+	override;
 
-	count_type const
-	size() const;
+	count_type
+	size() const
+	override;
 
-	sge::renderer::resource_flags_field const
-	resource_flags() const;
+	sge::renderer::resource_flags_field
+	resource_flags() const
+	override;
 
 	sge::renderer::index::dynamic::format
-	format() const;
+	format() const
+	override;
 
 	IDirect3DIndexBuffer9 &
 	get() const;
@@ -88,15 +95,17 @@ private:
 	init();
 
 	void
-	on_loss();
+	on_loss()
+	override;
 
 	void
-	on_reset();
+	on_reset()
+	override;
 
 	template<
 		typename View
 	>
-	View const
+	View
 	do_lock(
 		first_type,
 		count_type,

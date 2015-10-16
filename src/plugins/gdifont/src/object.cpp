@@ -83,7 +83,7 @@ sge::gdifont::object::create_text(
 		);
 }
 
-sge::image::color::optional_format const
+sge::image::color::optional_format
 sge::gdifont::object::color_format() const
 {
 	// TODO: Support all formats
@@ -93,7 +93,7 @@ sge::gdifont::object::color_format() const
 		);
 }
 
-sge::font::metrics const
+sge::font::metrics
 sge::gdifont::object::metrics() const
 {
 	return

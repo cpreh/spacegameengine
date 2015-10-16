@@ -66,7 +66,7 @@ sge::d3d9::occlusion_query::object::end()
 	);
 }
 
-sge::renderer::occlusion_query::optional_pixel_count const
+sge::renderer::occlusion_query::optional_pixel_count
 sge::d3d9::occlusion_query::object::result(
 	sge::renderer::occlusion_query::blocking_wait const _block
 ) const

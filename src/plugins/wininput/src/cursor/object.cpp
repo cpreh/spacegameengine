@@ -184,7 +184,7 @@ sge::wininput::cursor::object::scroll_callback(
 		);
 }
 
-sge::input::cursor::optional_position const
+sge::input::cursor::optional_position
 sge::wininput::cursor::object::position() const
 {
 	return

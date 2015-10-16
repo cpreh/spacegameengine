@@ -57,7 +57,7 @@ sge::dinput::system::create_processor(
 		);
 }
 
-sge::input::capabilities_field const
+sge::input::capabilities_field
 sge::dinput::system::capabilities() const
 {
 	return

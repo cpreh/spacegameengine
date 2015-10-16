@@ -55,7 +55,7 @@ sge::d3d9::core::create_system(
 		);
 }
 
-sge::renderer::caps::system_field const
+sge::renderer::caps::system_field
 sge::d3d9::core::caps() const
 {
 	return

@@ -70,7 +70,7 @@ sge::d3d9::surface::depth_stencil_offscreen::~depth_stencil_offscreen()
 {
 }
 
-sge::d3d9::surface::depth_stencil_offscreen::dim const
+sge::d3d9::surface::depth_stencil_offscreen::dim
 sge::d3d9::surface::depth_stencil_offscreen::size() const
 {
 	return
@@ -97,7 +97,7 @@ sge::d3d9::surface::depth_stencil_offscreen::surface() const
 		);
 }
 
-sge::d3d9::surface::depth_stencil_offscreen::const_view const
+sge::d3d9::surface::depth_stencil_offscreen::const_view
 sge::d3d9::surface::depth_stencil_offscreen::lock(
 	lock_area const &
 ) const
@@ -109,7 +109,7 @@ sge::d3d9::surface::depth_stencil_offscreen::lock(
 		);
 }
 
-sge::d3d9::surface::depth_stencil_offscreen::view const
+sge::d3d9::surface::depth_stencil_offscreen::view
 sge::d3d9::surface::depth_stencil_offscreen::lock(
 	lock_area const &,
 	sge::renderer::lock_mode

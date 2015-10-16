@@ -80,7 +80,7 @@ sge::d3d9::surface::color::~color()
 {
 }
 
-sge::d3d9::surface::color::view const
+sge::d3d9::surface::color::view
 sge::d3d9::surface::color::lock(
 	lock_area const &,
 	sge::renderer::lock_mode
@@ -91,7 +91,7 @@ sge::d3d9::surface::color::lock(
 	);
 }
 
-sge::d3d9::surface::color::const_view const
+sge::d3d9::surface::color::const_view
 sge::d3d9::surface::color::lock(
 	lock_area const &_rect
 ) const
@@ -184,7 +184,7 @@ sge::d3d9::surface::color::unlock() const
 			sge::d3d9::surface::optional_d3d_unique_ptr();
 }
 
-sge::d3d9::surface::color::dim const
+sge::d3d9::surface::color::dim
 sge::d3d9::surface::color::size() const
 {
 	return

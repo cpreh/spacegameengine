@@ -60,14 +60,14 @@ public:
 	~color()
 	override;
 
-	sge::renderer::color_buffer::surface::view const
+	sge::renderer::color_buffer::surface::view
 	lock(
 		sge::renderer::color_buffer::surface::lock_area const &,
 		sge::renderer::lock_mode
 	)
 	override;
 
-	sge::renderer::color_buffer::surface::const_view const
+	sge::renderer::color_buffer::surface::const_view
 	lock(
 		sge::renderer::color_buffer::surface::lock_area const &
 	) const
@@ -77,7 +77,7 @@ public:
 	unlock() const
 	override;
 
-	dim const
+	dim
 	size() const
 	override;
 

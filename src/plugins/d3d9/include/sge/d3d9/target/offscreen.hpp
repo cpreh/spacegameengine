@@ -62,27 +62,33 @@ public:
 		sge::renderer::caps::target_surface_indices
 	);
 
-	~offscreen();
+	~offscreen()
+	override;
 private:
 	void
 	color_surface(
 		sge::renderer::color_buffer::optional_surface_ref const &,
 		sge::renderer::target::surface_index
-	);
+	)
+	override;
 
 	void
 	depth_stencil_surface(
 		sge::renderer::depth_stencil_buffer::optional_surface_ref const &
-	);
+	)
+	override;
 
 	bool
-	needs_present() const;
+	needs_present() const
+	override;
 
 	void
-	on_activate();
+	on_activate()
+	override;
 
 	void
-	on_deactivate();
+	on_deactivate()
+	override;
 
 	void
 	change_surfaces(

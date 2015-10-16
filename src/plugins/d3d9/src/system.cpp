@@ -198,7 +198,7 @@ sge::d3d9::system::create_visual(
 		);
 }
 
-sge::renderer::caps::device_count const
+sge::renderer::caps::device_count
 sge::d3d9::system::device_count() const
 {
 	return
@@ -232,7 +232,7 @@ sge::d3d9::system::display_modes(
 		];
 }
 
-sge::d3d9::system::device_index_range const
+sge::d3d9::system::device_index_range
 sge::d3d9::system::adapter_range() const
 {
 	return

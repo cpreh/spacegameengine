@@ -55,34 +55,39 @@ protected:
 		sge::renderer::caps::target_surface_indices
 	);
 public:
-	virtual
-	~basic();
+	~basic()
+	override;
 private:
 	void
 	viewport(
 		sge::renderer::target::viewport const &
 	);
 
-	sge::renderer::target::viewport const
-	viewport() const;
+	sge::renderer::target::viewport
+	viewport() const
+	override;
 
 	void
 	scissor_area(
 		sge::renderer::target::scissor_area const &
-	);
+	)
+	override;
 
-	sge::renderer::target::scissor_area const
-	scissor_area() const;
+	sge::renderer::target::scissor_area
+	scissor_area() const
+	override;
 
 	void
 	clear(
 		sge::renderer::clear::parameters const &
-	);
+	)
+	override;
 
 	void
 	active(
 		bool
-	);
+	)
+	override;
 protected:
 	IDirect3DDevice9 &
 	device() const;

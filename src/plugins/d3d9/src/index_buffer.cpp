@@ -85,7 +85,7 @@ sge::d3d9::index_buffer::~index_buffer()
 {
 }
 
-sge::d3d9::index_buffer::view_type const
+sge::d3d9::index_buffer::view_type
 sge::d3d9::index_buffer::lock(
 	sge::renderer::lock_mode const _mode,
 	first_type const _first,
@@ -104,7 +104,7 @@ sge::d3d9::index_buffer::lock(
 		);
 }
 
-sge::d3d9::index_buffer::const_view_type const
+sge::d3d9::index_buffer::const_view_type
 sge::d3d9::index_buffer::lock(
 	first_type const _first,
 	count_type const _count
@@ -147,14 +147,14 @@ sge::d3d9::index_buffer::unlock() const
 		nullptr;
 }
 
-sge::d3d9::index_buffer::count_type const
+sge::d3d9::index_buffer::count_type
 sge::d3d9::index_buffer::size() const
 {
 	return
 		size_;
 }
 
-sge::renderer::resource_flags_field const
+sge::renderer::resource_flags_field
 sge::d3d9::index_buffer::resource_flags() const
 {
 	return
@@ -232,7 +232,7 @@ sge::d3d9::index_buffer::on_reset()
 template<
 	typename View
 >
-View const
+View
 sge::d3d9::index_buffer::do_lock(
 	first_type const _first,
 	count_type const _count,

@@ -87,7 +87,7 @@ template<
 >
 typename sge::d3d9::texture::basic_buffer<
 	Types
->::view const
+>::view
 sge::d3d9::texture::basic_buffer<
 	Types
 >::lock(
@@ -114,7 +114,7 @@ template<
 >
 typename sge::d3d9::texture::basic_buffer<
 	Types
->::const_view const
+>::const_view
 sge::d3d9::texture::basic_buffer<
 	Types
 >::lock(
@@ -159,7 +159,7 @@ template<
 >
 typename sge::d3d9::texture::basic_buffer<
 	Types
->::dim const
+>::dim
 sge::d3d9::texture::basic_buffer<
 	Types
 >::size() const
@@ -187,7 +187,7 @@ template<
 	typename View,
 	typename MakeView
 >
-View const
+View
 sge::d3d9::texture::basic_buffer<
 	Types
 >::lock_impl(

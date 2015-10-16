@@ -155,21 +155,21 @@ sge::gdifont::text::render(
 	);
 }
 
-sge::font::rect const
+sge::font::rect
 sge::gdifont::text::rect() const
 {
 	return
 		rect_;
 }
 
-sge::font::dim const
+sge::font::dim
 sge::gdifont::text::logical_size() const
 {
 	return
 		rect_.size();
 }
 
-sge::font::rect const
+sge::font::rect
 sge::gdifont::text::cursor_rect(
 	sge::font::index const _index
 ) const
@@ -181,7 +181,7 @@ sge::gdifont::text::cursor_rect(
 		>();
 }
 
-sge::font::optional_index const
+sge::font::optional_index
 sge::gdifont::text::pos_to_index(
 	sge::font::vector const _pos
 ) const

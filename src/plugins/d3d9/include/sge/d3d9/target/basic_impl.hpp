@@ -94,7 +94,7 @@ sge::d3d9::target::basic<
 template<
 	typename Base
 >
-sge::renderer::target::viewport const
+sge::renderer::target::viewport
 sge::d3d9::target::basic<
 	Base
 >::viewport() const
@@ -120,7 +120,7 @@ sge::d3d9::target::basic<
 template<
 	typename Base
 >
-sge::renderer::target::scissor_area const
+sge::renderer::target::scissor_area
 sge::d3d9::target::basic<
 	Base
 >::scissor_area() const

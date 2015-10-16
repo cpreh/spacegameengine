@@ -59,7 +59,7 @@ public:
 	~depth_stencil_offscreen()
 	override;
 
-	dim const
+	dim
 	size() const
 	override;
 
@@ -70,13 +70,13 @@ public:
 	IDirect3DSurface9 &
 	surface() const;
 
-	const_view const
+	const_view
 	lock(
 		lock_area const &
 	) const
 	override;
 
-	view const
+	view
 	lock(
 		lock_area const &,
 		sge::renderer::lock_mode

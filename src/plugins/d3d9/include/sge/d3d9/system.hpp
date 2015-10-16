@@ -55,17 +55,20 @@ class system
 public:
 	system();
 
-	~system();
+	~system()
+	override;
 private:
 	sge::renderer::device::core_unique_ptr
 	create_core_renderer(
 		sge::renderer::device::parameters const &
-	);
+	)
+	override;
 
 	sge::renderer::device::ffp_unique_ptr
 	create_ffp_renderer(
 		sge::renderer::device::parameters const &
-	);
+	)
+	override;
 
 	awl::visual::object_unique_ptr
 	create_visual(
@@ -73,7 +76,7 @@ private:
 	)
 	override;
 
-	sge::renderer::caps::device_count const
+	sge::renderer::caps::device_count
 	device_count() const
 	override;
 
@@ -95,7 +98,7 @@ private:
 	>
 	device_index_range;
 
-	device_index_range const
+	device_index_range
 	adapter_range() const;
 
 	sge::d3d9::d3d_unique_ptr const system_;

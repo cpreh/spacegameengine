@@ -90,7 +90,7 @@ sge::d3d9::vertex::buffer::~buffer()
 {
 }
 
-sge::d3d9::vertex::buffer::view_type const
+sge::d3d9::vertex::buffer::view_type
 sge::d3d9::vertex::buffer::lock(
 	sge::renderer::lock_mode const _lock_mode,
 	first_type const _first,
@@ -109,7 +109,7 @@ sge::d3d9::vertex::buffer::lock(
 		);
 }
 
-sge::d3d9::vertex::buffer::const_view_type const
+sge::d3d9::vertex::buffer::const_view_type
 sge::d3d9::vertex::buffer::lock(
 	first_type const _first,
 	count_type const _count
@@ -152,14 +152,14 @@ sge::d3d9::vertex::buffer::unlock() const
 		nullptr;
 }
 
-sge::d3d9::vertex::buffer::count_type const
+sge::d3d9::vertex::buffer::count_type
 sge::d3d9::vertex::buffer::size() const
 {
 	return
 		size_;
 }
 
-sge::renderer::resource_flags_field const
+sge::renderer::resource_flags_field
 sge::d3d9::vertex::buffer::resource_flags() const
 {
 	return
@@ -173,14 +173,14 @@ sge::d3d9::vertex::buffer::format_part() const
 		format_part_;
 }
 
-sge::renderer::vf::dynamic::part_index const
+sge::renderer::vf::dynamic::part_index
 sge::d3d9::vertex::buffer::format_part_index() const
 {
 	return
 		format_part_index_;
 }
 
-sge::renderer::vf::dynamic::stride const
+sge::renderer::vf::dynamic::stride
 sge::d3d9::vertex::buffer::stride() const
 {
 	return
@@ -232,7 +232,7 @@ sge::d3d9::vertex::buffer::on_reset()
 template<
 	typename View
 >
-View const
+View
 sge::d3d9::vertex::buffer::do_lock(
 	first_type const _first,
 	count_type const _count,

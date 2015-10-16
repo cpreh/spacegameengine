@@ -100,7 +100,7 @@ sge::d3d9::texture::basic<
 template<
 	typename Types
 >
-sge::renderer::resource_flags_field const
+sge::renderer::resource_flags_field
 sge::d3d9::texture::basic<
 	Types
 >::resource_flags() const
@@ -112,7 +112,7 @@ sge::d3d9::texture::basic<
 template<
 	typename Types
 >
-sge::renderer::texture::capabilities_field const
+sge::renderer::texture::capabilities_field
 sge::d3d9::texture::basic<
 	Types
 >::capabilities() const
@@ -124,7 +124,7 @@ sge::d3d9::texture::basic<
 template<
 	typename Types
 >
-sge::renderer::texture::mipmap::object const
+sge::renderer::texture::mipmap::object
 sge::d3d9::texture::basic<
 	Types
 >::mipmap() const
@@ -147,7 +147,7 @@ sge::d3d9::texture::basic<
 template<
 	typename Types
 >
-sge::renderer::texture::mipmap::level_count const
+sge::renderer::texture::mipmap::level_count
 sge::d3d9::texture::basic<
 	Types
 >::levels() const

@@ -94,13 +94,13 @@ private:
 
 	typedef typename base::dim dim;
 
-	const_view const
+	const_view
 	lock(
 		lock_area const &
 	) const
 	override;
 
-	view const
+	view
 	lock(
 		lock_area const &,
 		sge::renderer::lock_mode
@@ -111,7 +111,7 @@ private:
 	unlock() const
 	override;
 
-	dim const
+	dim
 	size() const
 	override;
 
@@ -123,7 +123,7 @@ private:
 		typename View,
 		typename MakeView
 	>
-	View const
+	View
 	lock_impl(
 		MakeView const &,
 		lock_area const &,
