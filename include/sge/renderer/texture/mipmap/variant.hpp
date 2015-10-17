@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_MIPMAP_VARIANT_HPP_INCLUDED
 
 #include <sge/renderer/texture/mipmap/variant_fwd.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/variadic.hpp>
 
 
 #endif

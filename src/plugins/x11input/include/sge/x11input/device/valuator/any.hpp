@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/valuator/absolute.hpp>
 #include <sge/x11input/device/valuator/any_fwd.hpp>
 #include <sge/x11input/device/valuator/relative.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/variadic.hpp>
 
 
 #endif

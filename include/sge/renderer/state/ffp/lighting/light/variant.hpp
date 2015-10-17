@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/lighting/light/point.hpp>
 #include <sge/renderer/state/ffp/lighting/light/spot.hpp>
 #include <sge/renderer/state/ffp/lighting/light/variant_fwd.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/variadic.hpp>
 
 
 #endif

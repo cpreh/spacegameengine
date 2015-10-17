@@ -3553,8 +3553,6 @@ set(
 	include/sge/systems/detail/any_key.hpp
 	include/sge/systems/detail/any_key_fwd.hpp
 	include/sge/systems/detail/any_map.hpp
-	include/sge/systems/detail/any_types.hpp
-	include/sge/systems/detail/any_types_fwd.hpp
 	include/sge/systems/detail/assert_dependencies.hpp
 	include/sge/systems/detail/assert_dependencies_one.hpp
 	include/sge/systems/detail/custom_cursor_fwd.hpp

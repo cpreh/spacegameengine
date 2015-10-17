@@ -23,10 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/scenic/render_context/light/directional.hpp>
 #include <sge/scenic/render_context/light/point.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/variant/variadic.hpp>
 
 
 namespace sge
@@ -37,16 +34,14 @@ namespace render_context
 {
 namespace light
 {
+
 typedef
-fcppt::variant::object
-<
-	boost::mpl::vector2
-	<
-		sge::scenic::render_context::light::directional,
-		sge::scenic::render_context::light::point
-	>
+fcppt::variant::variadic<
+	sge::scenic::render_context::light::directional,
+	sge::scenic::render_context::light::point
 >
 variant;
+
 }
 }
 }

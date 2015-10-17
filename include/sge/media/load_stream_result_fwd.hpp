@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/media/stream_unique_ptr_fwd.hpp>
 #include <fcppt/unique_ptr_fwd.hpp>
-#include <fcppt/variant/object_fwd.hpp>
+#include <fcppt/variant/variadic_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -40,12 +40,10 @@ template<
 using
 load_stream_result
 =
-fcppt::variant::object<
-	boost::mpl::vector2<
-		sge::media::stream_unique_ptr,
-		fcppt::unique_ptr<
-			File
-		>
+fcppt::variant::variadic<
+	sge::media::stream_unique_ptr,
+	fcppt::unique_ptr<
+		File
 	>
 >;
 

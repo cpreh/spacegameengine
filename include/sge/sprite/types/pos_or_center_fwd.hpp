@@ -23,10 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/types/center_fwd.hpp>
 #include <sge/sprite/types/pos_fwd.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/variant/variadic_fwd.hpp>
 
 
 namespace sge
@@ -42,14 +39,12 @@ template<
 using
 pos_or_center
 =
-fcppt::variant::object<
-	boost::mpl::vector2<
-		sge::sprite::types::pos<
-			TypeChoices
-		>,
-		sge::sprite::types::center<
-			TypeChoices
-		>
+fcppt::variant::variadic<
+	sge::sprite::types::pos<
+		TypeChoices
+	>,
+	sge::sprite::types::center<
+		TypeChoices
 	>
 >;
 

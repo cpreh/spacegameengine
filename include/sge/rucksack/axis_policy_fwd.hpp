@@ -23,10 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/rucksack/minimum_size_fwd.hpp>
 #include <sge/rucksack/preferred_size_fwd.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/variant/variadic_fwd.hpp>
 
 
 namespace sge
@@ -35,11 +32,9 @@ namespace rucksack
 {
 
 typedef
-fcppt::variant::object<
-	boost::mpl::vector2<
-		sge::rucksack::minimum_size,
-		sge::rucksack::preferred_size
-	>
+fcppt::variant::variadic<
+	sge::rucksack::minimum_size,
+	sge::rucksack::preferred_size
 >
 axis_policy;
 

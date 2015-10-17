@@ -23,10 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/ffp/fog/enabled_fwd.hpp>
 #include <sge/renderer/state/ffp/fog/off_fwd.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/variant/variadic_fwd.hpp>
 
 
 namespace sge
@@ -41,11 +38,9 @@ namespace fog
 {
 
 typedef
-fcppt::variant::object<
-	boost::mpl::vector2<
-		sge::renderer::state::ffp::fog::off,
-		sge::renderer::state::ffp::fog::enabled
-	>
+fcppt::variant::variadic<
+	sge::renderer::state::ffp::fog::off,
+	sge::renderer::state::ffp::fog::enabled
 >
 variant;
 

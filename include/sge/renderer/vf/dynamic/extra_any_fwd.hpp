@@ -23,10 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/dynamic/color_fwd.hpp>
 #include <sge/renderer/vf/dynamic/vector_fwd.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/variant/variadic_fwd.hpp>
 
 
 namespace sge
@@ -38,12 +35,12 @@ namespace vf
 namespace dynamic
 {
 
-typedef fcppt::variant::object<
-	boost::mpl::vector2<
-		sge::renderer::vf::dynamic::vector,
-		sge::renderer::vf::dynamic::color
-	>
-> extra_any;
+typedef
+fcppt::variant::variadic<
+	sge::renderer::vf::dynamic::vector,
+	sge::renderer::vf::dynamic::color
+>
+extra_any;
 
 }
 }

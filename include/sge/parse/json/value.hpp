@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value_fwd.hpp>
-#include <fcppt/variant/object.hpp>
+#include <fcppt/variant/variadic.hpp>
 
 
 #endif

@@ -23,10 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters_fwd.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/parameters_fwd.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/variant/variadic_fwd.hpp>
 
 
 namespace sge
@@ -43,11 +40,9 @@ namespace filter
 {
 
 typedef
-fcppt::variant::object<
-	boost::mpl::vector2<
-		sge::renderer::state::core::sampler::filter::anisotropic::parameters,
-		sge::renderer::state::core::sampler::filter::normal::parameters
-	>
+fcppt::variant::variadic<
+	sge::renderer::state::core::sampler::filter::anisotropic::parameters,
+	sge::renderer::state::core::sampler::filter::normal::parameters
 >
 variant;
 

@@ -21,9 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_DETAIL_ANY_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_ANY_HPP_INCLUDED
 
+#include <sge/systems/audio_loader.hpp>
+#include <sge/systems/audio_player.hpp>
+#include <sge/systems/config.hpp>
+#include <sge/systems/font.hpp>
+#include <sge/systems/image2d.hpp>
+#include <sge/systems/window.hpp>
 #include <sge/systems/detail/any_fwd.hpp>
-#include <sge/systems/detail/any_types.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/systems/detail/input.hpp>
+#include <sge/systems/detail/renderer.hpp>
+#include <fcppt/variant/variadic.hpp>
 
 
 #endif

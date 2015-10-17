@@ -25,9 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/bvh/leaf_wrapper.hpp>
 #include <sge/bvh/node_wrapper.hpp>
 #include <fcppt/container/tree/object.hpp>
-#include <fcppt/variant/object.hpp>
+#include <fcppt/variant/variadic.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -36,8 +35,8 @@ namespace sge
 {
 namespace bvh
 {
-template
-<
+
+template<
 	typename Node,
 	typename Leaf,
 	typename Box
@@ -57,38 +56,45 @@ struct tree_traits
 	box;
 
 	typedef
-	sge::bvh::leaf_wrapper<leaf>
+	sge::bvh::leaf_wrapper<
+		leaf
+	>
 	leaf_wrapper;
 
 	typedef
-	sge::bvh::node_wrapper<node,box>
+	sge::bvh::node_wrapper<
+		node,
+		box
+	>
 	node_wrapper;
 
 	typedef
-	std::vector<leaf>
+	std::vector<
+		leaf
+	>
 	leaf_sequence;
 
 	typedef
-	std::vector<leaf_wrapper>
+	std::vector<
+		leaf_wrapper
+	>
 	leaf_wrapper_sequence;
 
 	typedef
-	boost::mpl::vector3
-	<
+	fcppt::variant::variadic<
 		node_wrapper,
 		leaf_wrapper_sequence,
 		sge::bvh::empty_node
 	>
-	node_or_leaf_vector;
-
-	typedef
-	fcppt::variant::object<node_or_leaf_vector>
 	node_or_leaf_variant;
 
 	typedef
-	fcppt::container::tree::object<node_or_leaf_variant>
+	fcppt::container::tree::object<
+		node_or_leaf_variant
+	>
 	tree_representation;
 };
+
 }
 }
 

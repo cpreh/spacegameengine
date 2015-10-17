@@ -23,10 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/array_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/variant/variadic_fwd.hpp>
 
 
 namespace sge
@@ -37,11 +34,9 @@ namespace json
 {
 
 typedef
-fcppt::variant::object<
-	boost::mpl::vector2<
-		sge::parse::json::array,
-		sge::parse::json::object
-	>
+fcppt::variant::variadic<
+	sge::parse::json::array,
+	sge::parse::json::object
 >
 array_or_object;
 

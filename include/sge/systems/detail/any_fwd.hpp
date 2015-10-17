@@ -21,8 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_DETAIL_ANY_FWD_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_ANY_FWD_HPP_INCLUDED
 
-#include <sge/systems/detail/any_types_fwd.hpp>
-#include <fcppt/variant/object_fwd.hpp>
+#include <sge/systems/audio_loader_fwd.hpp>
+#include <sge/systems/audio_player_fwd.hpp>
+#include <sge/systems/config_fwd.hpp>
+#include <sge/systems/font_fwd.hpp>
+#include <sge/systems/image2d_fwd.hpp>
+#include <sge/systems/window.hpp>
+#include <sge/systems/detail/input_fwd.hpp>
+#include <sge/systems/detail/renderer_fwd.hpp>
+#include <fcppt/variant/variadic_fwd.hpp>
 
 
 namespace sge
@@ -32,9 +39,18 @@ namespace systems
 namespace detail
 {
 
-typedef fcppt::variant::object<
-	sge::systems::detail::any_types
-> any;
+typedef
+fcppt::variant::variadic<
+	sge::systems::config,
+	sge::systems::window,
+	sge::systems::detail::renderer,
+	sge::systems::image2d,
+	sge::systems::audio_loader,
+	sge::systems::audio_player,
+	sge::systems::detail::input,
+	sge::systems::font
+>
+any;
 
 }
 }

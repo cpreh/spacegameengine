@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/sampler/op_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/ternary_op.hpp>
 #include <sge/renderer/state/ffp/sampler/unary_op.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/variadic.hpp>
 
 
 #endif

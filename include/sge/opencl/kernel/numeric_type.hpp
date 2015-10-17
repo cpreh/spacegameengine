@@ -21,12 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_KERNEL_NUMERIC_TYPE_HPP_INCLUDED
 #define SGE_OPENCL_KERNEL_NUMERIC_TYPE_HPP_INCLUDED
 
-// Only _fwd needed here, but that leads to unexpected error messages for the user
 #include <sge/opencl/clinclude.hpp>
-#include <fcppt/variant/object.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector20.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/variant/variadic.hpp>
 
 
 namespace sge
@@ -35,25 +31,23 @@ namespace opencl
 {
 namespace kernel
 {
+
 typedef
-fcppt::variant::object
-<
-	boost::mpl::vector11
-	<
-		cl_char,
-		cl_uchar,
-		cl_short,
-		cl_ushort,
-		cl_int,
-		cl_uint,
-		cl_long,
-		cl_ulong,
-		cl_half,
-		cl_float,
-		cl_double
-	>
+fcppt::variant::variadic<
+	cl_char,
+	cl_uchar,
+	cl_short,
+	cl_ushort,
+	cl_int,
+	cl_uint,
+	cl_long,
+	cl_ulong,
+	cl_half,
+	cl_float,
+	cl_double
 >
 numeric_type;
+
 }
 }
 }

@@ -24,10 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/align_h/center_fwd.hpp>
 #include <sge/font/align_h/left_fwd.hpp>
 #include <sge/font/align_h/right_fwd.hpp>
-#include <fcppt/variant/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/variant/variadic_fwd.hpp>
 
 
 namespace sge
@@ -38,12 +35,10 @@ namespace align_h
 {
 
 typedef
-fcppt::variant::object<
-	boost::mpl::vector3<
-		sge::font::align_h::left,
-		sge::font::align_h::center,
-		sge::font::align_h::right
-	>
+fcppt::variant::variadic<
+	sge::font::align_h::left,
+	sge::font::align_h::center,
+	sge::font::align_h::right
 >
 variant;
 

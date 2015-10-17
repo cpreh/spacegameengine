@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/combined.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/enabled_variant_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/separate.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/variadic.hpp>
 
 
 #endif
