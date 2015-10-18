@@ -154,7 +154,6 @@ enum class code
 	sleep,
 	stop,
 	sysrq,
-	print = sysrq,
 	unlabeled,
 	yen,
 	unknown
