@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
 #include <sge/renderer/texture/capabilities_field_fwd.hpp>
+#include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -69,7 +70,9 @@ public:
 	sge::renderer::texture::mipmap::object
 	mipmap() const = 0;
 
-	// TODO: Add levels() function here!
+	virtual
+	sge::renderer::texture::mipmap::level_count
+	levels() const = 0;
 
 	virtual
 	void

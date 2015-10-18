@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/cube_fwd.hpp>
 #include <sge/renderer/texture/cube_side_fwd.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
-#include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -85,10 +84,6 @@ public:
 		sge::renderer::texture::cube_side,
 		sge::renderer::texture::mipmap::level
 	) const = 0;
-
-	virtual
-	sge::renderer::texture::mipmap::level_count
-	levels() const = 0;
 };
 
 }
