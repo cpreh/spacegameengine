@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_bind_construct.hpp>
 
 
-sge::opengl::texture::optional_type const
+sge::opengl::texture::optional_type
 sge::opengl::texture::get_stage_type(
 	sge::opengl::context::device::object &_device_context,
 	sge::renderer::texture::stage const _stage

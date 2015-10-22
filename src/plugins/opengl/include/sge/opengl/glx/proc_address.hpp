@@ -35,7 +35,7 @@ namespace opengl
 namespace glx
 {
 
-sge::opengl::glx::optional_raw_function const
+sge::opengl::glx::optional_raw_function
 proc_address(
 	sge::opengl::glx::proc_context const &,
 	std::string const &

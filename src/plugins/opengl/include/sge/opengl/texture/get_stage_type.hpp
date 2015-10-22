@@ -33,7 +33,7 @@ namespace opengl
 namespace texture
 {
 
-sge::opengl::texture::optional_type const
+sge::opengl::texture::optional_type
 get_stage_type(
 	sge::opengl::context::device::object &,
 	sge::renderer::texture::stage

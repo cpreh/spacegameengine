@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::glx::optional_raw_function const
+sge::opengl::glx::optional_raw_function
 sge::opengl::glx::proc_address(
 	sge::opengl::glx::proc_context const &_context,
 	std::string const &_name
