@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-
 void
 sge::renderer::screenshot(
 	sge::renderer::device::core const &_renderer,
