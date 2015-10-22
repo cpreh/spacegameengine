@@ -160,6 +160,7 @@ update_cmake \
 	src/renderer \
 	-r \
 	src/renderer/include \
+	include/sge/renderer/buffer \
 	$(renderer_inc_src caps) \
 	$(renderer_inc_src clear) \
 	$(renderer_inc_src color_buffer) \

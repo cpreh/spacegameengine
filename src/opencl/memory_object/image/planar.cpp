@@ -136,7 +136,7 @@ sge::opencl::memory_object::image::planar::planar(
 			sge::opencl::dim2,
 			fcppt::cast::size_fun
 		>(
-			_renderer_texture.area().size()
+			_renderer_texture.size()
 		)
 	)
 {

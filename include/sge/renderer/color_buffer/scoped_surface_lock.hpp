@@ -21,10 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_COLOR_BUFFER_SCOPED_SURFACE_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_COLOR_BUFFER_SCOPED_SURFACE_LOCK_HPP_INCLUDED
 
-#include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
-#include <sge/renderer/basic_buffer_scoped_lock.hpp>
-#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/buffer/scoped_lock.hpp>
+#include <sge/renderer/color_buffer/writable_surface.hpp>
 
 
 namespace sge
@@ -40,8 +39,8 @@ namespace color_buffer
 \ingroup sge_renderer
 */
 typedef
-sge::renderer::basic_buffer_scoped_lock<
-	sge::renderer::color_buffer::surface
+sge::renderer::buffer::scoped_lock<
+	sge::renderer::color_buffer::writable_surface
 >
 scoped_surface_lock;
 

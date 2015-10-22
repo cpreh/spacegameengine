@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
 #include <sge/opengl/texture/basic_buffer_impl.hpp>
+#include <sge/opengl/texture/basic_lockable_buffer_impl.hpp>
 #include <sge/opengl/texture/buffer_volume_types.hpp>
 #include <sge/opengl/texture/color_volume.hpp>
 #include <sge/opengl/texture/color_volume_types.hpp>
@@ -36,5 +37,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template
 class
 sge::opengl::texture::basic_buffer<
+	sge::opengl::texture::color_volume_types
+>;
+
+template
+class
+sge::opengl::texture::basic_lockable_buffer<
 	sge::opengl::texture::color_volume_types
 >;

@@ -44,7 +44,7 @@ sge::opencl::memory_object::image::volume::volume(
 			sge::opencl::dim3,
 			fcppt::cast::size_fun
 		>(
-			_renderer_texture.area().size()
+			_renderer_texture.size()
 		)
 	)
 {

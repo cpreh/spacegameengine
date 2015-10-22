@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/detail/ref_store_type.hpp>
 #include <sge/texture/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 
 
 namespace sge
@@ -48,7 +49,9 @@ class basic_part_raw
 		basic_part_raw
 	);
 public:
-	typedef Ref ref_type;
+	typedef
+	Ref
+	ref_type;
 
 	SGE_TEXTURE_DETAIL_SYMBOL
 	explicit
@@ -89,13 +92,22 @@ public:
 	repeatable() const
 	override;
 private:
-	typedef typename sge::texture::detail::ref_store_type<
+	typedef
+	typename
+	sge::texture::detail::ref_store_type<
 		Ref
-	>::type store_type;
+	>::type
+	store_type;
 
 	store_type texture_;
 
-	sge::renderer::lock_rect const area_;
+	typedef
+	fcppt::optional<
+		sge::renderer::lock_rect
+	>
+	optional_rect;
+
+	optional_rect const area_;
 };
 
 }

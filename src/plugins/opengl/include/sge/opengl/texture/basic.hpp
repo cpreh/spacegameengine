@@ -45,8 +45,10 @@ template<
 >
 class basic
 :
-	public Types::base,
-	public sge::opengl::texture::base
+	public
+		Types::base,
+	public
+		sge::opengl::texture::base
 {
 	FCPPT_NONCOPYABLE(
 		basic

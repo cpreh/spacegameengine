@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DEPTH_STENCIL_BUFFER_SURFACE_FWD_HPP_INCLUDED
 
 #include <sge/imageds2d/tag.hpp>
-#include <sge/renderer/basic_buffer_fwd.hpp>
+#include <sge/renderer/buffer/base_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace depth_stencil_buffer
 {
 
 typedef
-sge::renderer::basic_buffer<
+sge::renderer::buffer::base<
 	sge::imageds2d::tag
 >
 surface;

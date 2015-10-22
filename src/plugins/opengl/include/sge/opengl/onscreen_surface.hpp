@@ -24,10 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
-#include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/color_buffer/readable_surface.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/raw_vector_decl.hpp>
@@ -40,7 +39,7 @@ namespace opengl
 
 class onscreen_surface
 :
-	public sge::renderer::color_buffer::surface
+	public sge::renderer::color_buffer::readable_surface
 {
 	FCPPT_NONCOPYABLE(
 		onscreen_surface
@@ -54,17 +53,10 @@ public:
 	~onscreen_surface()
 	override;
 private:
-	sge::renderer::color_buffer::surface::const_view
-	lock(
-		sge::renderer::color_buffer::surface::lock_area const &
+	sge::renderer::color_buffer::readable_surface::const_view
+	lock_c(
+		sge::renderer::color_buffer::readable_surface::lock_area const &
 	) const
-	override;
-
-	sge::renderer::color_buffer::surface::view
-	lock(
-		sge::renderer::color_buffer::surface::lock_area const &,
-		sge::renderer::lock_mode
-	)
 	override;
 
 	void
@@ -85,9 +77,11 @@ private:
 	sge::opengl::color_format_type
 	color_format_type() const;
 
-	typedef fcppt::container::raw_vector<
+	typedef
+	fcppt::container::raw_vector<
 		sge::renderer::raw_value
-	> buffer_type;
+	>
+	buffer_type;
 
 	awl::window::object &window_;
 

@@ -54,6 +54,7 @@ class const_linear_buffer_scoped_lock
 		const_linear_buffer_scoped_lock
 	);
 public:
+	// TODO: Try to unitfy this with renderer::buffer
 	/**
 	 * \brief The offset type
 	 *

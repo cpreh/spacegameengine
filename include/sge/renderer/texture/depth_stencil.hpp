@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/dim2_fwd.hpp>
-#include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/texture/base.hpp>
@@ -54,36 +53,33 @@ public:
 	~depth_stencil()
 	override = 0;
 
-	typedef sge::renderer::dim2 dim;
+	typedef
+	sge::renderer::dim2
+	dim;
 
-	typedef sge::renderer::lock_rect rect;
+	typedef
+	sge::renderer::depth_stencil_buffer::surface
+	const_buffer;
 
-	typedef sge::renderer::depth_stencil_buffer::surface color_buffer;
+	typedef
+	sge::renderer::depth_stencil_buffer::surface
+	nonconst_buffer;
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	dim
 	size() const;
 
 	virtual
-	color_buffer &
+	nonconst_buffer &
 	level(
 		sge::renderer::texture::mipmap::level
 	) = 0;
 
 	virtual
-	color_buffer const &
+	const_buffer const &
 	level(
 		sge::renderer::texture::mipmap::level
 	) const = 0;
-
-	SGE_RENDERER_DETAIL_SYMBOL
-	rect
-	area() const;
-
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::texture::base::size_type
-	content() const
-	override;
 };
 
 }

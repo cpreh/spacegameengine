@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_DEPTH_STENCIL_SURFACE_TYPES_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_DEPTH_STENCIL_SURFACE_TYPES_HPP_INCLUDED
 
+#include <sge/opengl/texture/basic_buffer_fwd.hpp>
 #include <sge/opengl/texture/buffer_surface_types_fwd.hpp>
 #include <sge/opengl/texture/depth_stencil_format_types_fwd.hpp>
 #include <sge/opengl/texture/depth_stencil_surface_types_fwd.hpp>
@@ -36,11 +37,23 @@ namespace texture
 
 struct depth_stencil_surface_types
 {
-	typedef sge::renderer::depth_stencil_buffer::surface base;
+	typedef
+	sge::renderer::depth_stencil_buffer::surface
+	base;
 
-	typedef sge::opengl::texture::buffer_surface_types dim_types;
+	typedef
+	sge::opengl::texture::basic_buffer<
+		sge::opengl::texture::depth_stencil_surface_types
+	>
+	gl_buffer;
 
-	typedef sge::opengl::texture::depth_stencil_format_types format_types;
+	typedef
+	sge::opengl::texture::buffer_surface_types
+	dim_types;
+
+	typedef
+	sge::opengl::texture::depth_stencil_format_types
+	format_types;
 };
 
 }

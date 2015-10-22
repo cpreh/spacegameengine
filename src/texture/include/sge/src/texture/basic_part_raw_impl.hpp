@@ -27,8 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/src/texture/dereference_basic_part.hpp>
 #include <sge/texture/basic_part_raw.hpp>
+#include <sge/texture/part.hpp>
 #include <sge/texture/sub_data.hpp>
+#include <fcppt/from_optional.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/math/box/comparison.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -49,6 +53,7 @@ sge::texture::basic_part_raw<
 	ref_type _texture
 )
 :
+	sge::texture::part(),
 	texture_(
 		std::forward<
 			ref_type
@@ -56,9 +61,7 @@ sge::texture::basic_part_raw<
 			_texture
 		)
 	),
-	area_(
-		this->texture().area()
-	)
+	area_()
 {
 }
 
@@ -124,7 +127,20 @@ sge::texture::basic_part_raw<
 >::area() const
 {
 	return
-		area_;
+		fcppt::from_optional(
+			area_,
+			[
+				this
+			]{
+				return
+					sge::renderer::lock_rect{
+						fcppt::math::vector::null<
+							sge::renderer::lock_rect::vector
+						>(),
+						this->texture().size()
+					};
+			}
+		);
 }
 
 template<
@@ -149,10 +165,9 @@ sge::texture::basic_part_raw<
 	Ref
 >::repeatable() const
 {
+	// FIXME: Test if the areas are the same as well
 	return
-		this->texture().area()
-		==
-		this->area();
+		!area_.has_value();
 }
 
 #endif

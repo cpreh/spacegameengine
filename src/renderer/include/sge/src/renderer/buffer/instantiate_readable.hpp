@@ -18,21 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RENDERER_INSTANTIATE_BASIC_BUFFER_SCOPED_LOCK_HPP_INCLUDED
-#define SGE_SRC_RENDERER_INSTANTIATE_BASIC_BUFFER_SCOPED_LOCK_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_BUFFER_INSTANTIATE_READABLE_HPP_INCLUDED
+#define SGE_SRC_RENDERER_BUFFER_INSTANTIATE_READABLE_HPP_INCLUDED
 
 #include <sge/src/core/export_class_instantiation.hpp>
-#include <sge/src/renderer/basic_buffer_scoped_lock_impl.hpp>
+#include <sge/src/renderer/buffer/readable_impl.hpp>
 
 
-#define SGE_RENDERER_INSTANTIATE_BASIC_BUFFER_SCOPED_LOCK(\
-	buffer\
+#define SGE_RENDERER_BUFFER_INSTANTIATE_READABLE(\
+	tag\
 )\
 template \
 class \
 SGE_CORE_EXPORT_CLASS_INSTANTIATION \
-sge::renderer::basic_buffer_scoped_lock<\
-	buffer\
+sge::renderer::buffer::readable<\
+	tag\
 >
 
 #endif

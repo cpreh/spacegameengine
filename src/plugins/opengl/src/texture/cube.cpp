@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image2d/traits/pitch_fwd.hpp>
+#include <sge/opengl/texture/basic_lockable_buffer.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/buffer_surface_types.hpp>
 #include <sge/opengl/texture/color_format_types.hpp>
@@ -29,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/cube_types.hpp>
 #include <sge/opengl/texture/init.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/color_buffer/surface.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
@@ -37,8 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/cube_side.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
-#include <fcppt/make_enum_range.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/algorithm/enum_array_fold_static.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/enum_array_impl.hpp>
 
@@ -57,51 +59,66 @@ sge::opengl::texture::cube::cube(
 	size_(
 		_parameters.size()
 	),
-	sides_()
-{
-	sge::opengl::texture::scoped_work_binding const binding(
-		_basic_parameters.system_context(),
-		_basic_parameters.device_context(),
-		this->type(),
-		this->id()
-	);
+	sides_(
+		[
+			&_config,
+			&_basic_parameters,
+			&_parameters,
+			this
+		]{
+			sge::opengl::texture::scoped_work_binding const binding(
+				_basic_parameters.system_context(),
+				_basic_parameters.device_context(),
+				this->type(),
+				this->id()
+			);
 
-	for(
-		auto const index
-		:
-		fcppt::make_enum_range<
-			sge::renderer::texture::cube_side
-		>()
+			return
+				fcppt::algorithm::enum_array_fold_static<
+					side_array
+				>(
+					[
+						&binding,
+						&_config,
+						&_basic_parameters,
+						&_parameters,
+						this
+					](
+						sge::renderer::texture::cube_side const _side
+					)
+					{
+						return
+							sge::opengl::texture::init<
+								sge::opengl::texture::cube_types
+							>(
+								binding,
+								_basic_parameters,
+								_parameters,
+								_config.cube_texture_type(),
+								_config.cube_sides()[
+									_side
+								],
+								this->id()
+							);
+					}
+				);
+		}()
 	)
-		sge::opengl::texture::init<
-			sge::opengl::texture::cube_types
-		>(
-			binding,
-			sides_[
-				index
-			],
-			_basic_parameters,
-			_parameters,
-			_config.cube_texture_type(),
-			_config.cube_sides()[
-				index
-			],
-			this->id()
-		);
+{
 }
 
 sge::opengl::texture::cube::~cube()
 {
 }
 
-sge::opengl::texture::cube::size_type
+sge::renderer::size_type
 sge::opengl::texture::cube::border_size() const
 {
 	return
 		size_;
 }
 
-sge::renderer::texture::cube::color_buffer &
+sge::renderer::texture::cube::nonconst_buffer &
 sge::opengl::texture::cube::level(
 	sge::renderer::texture::cube_side const _side,
 	sge::renderer::texture::mipmap::level const _level
@@ -115,7 +132,7 @@ sge::opengl::texture::cube::level(
 		];
 }
 
-sge::renderer::texture::cube::color_buffer const &
+sge::renderer::texture::cube::const_buffer const &
 sge::opengl::texture::cube::level(
 	sge::renderer::texture::cube_side const _side,
 	sge::renderer::texture::mipmap::level const _level

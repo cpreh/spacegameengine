@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/depth_stencil_surface_fwd.hpp>
 #include <sge/opengl/fbo/render_buffer.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -61,23 +60,6 @@ public:
 private:
 	dim
 	size() const
-	override;
-
-	const_view
-	lock(
-		lock_area const &area
-	) const
-	override;
-
-	view
-	lock(
-		lock_area const &area,
-		sge::renderer::lock_mode mode
-	)
-	override;
-
-	void
-	unlock() const
 	override;
 
 	sge::image::ds::format

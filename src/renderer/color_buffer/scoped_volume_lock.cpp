@@ -19,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/color_buffer/scoped_volume_lock.hpp>
-#include <sge/renderer/color_buffer/volume.hpp>
-#include <sge/src/renderer/instantiate_basic_buffer_scoped_lock.hpp>
+#include <sge/renderer/color_buffer/writable_volume.hpp>
+#include <sge/src/renderer/buffer/instantiate_scoped_lock.hpp>
 
 
-SGE_RENDERER_INSTANTIATE_BASIC_BUFFER_SCOPED_LOCK(
-	sge::renderer::color_buffer::volume
+SGE_RENDERER_BUFFER_INSTANTIATE_SCOPED_LOCK(
+	sge::renderer::color_buffer::writable_volume
 );

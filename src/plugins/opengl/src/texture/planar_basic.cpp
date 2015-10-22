@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <sge/opengl/texture/basic_box_impl.hpp>
 #include <sge/opengl/texture/basic_impl.hpp>
+#include <sge/opengl/texture/basic_lockable_buffer.hpp>
 #include <sge/opengl/texture/buffer_surface_types.hpp>
 #include <sge/opengl/texture/color_format_types.hpp>
 #include <sge/opengl/texture/color_surface.hpp>

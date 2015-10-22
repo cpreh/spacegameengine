@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TARGET_ONSCREEN_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/renderer/color_buffer/surface_fwd.hpp>
+#include <sge/renderer/color_buffer/readable_surface_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
@@ -37,14 +37,13 @@ namespace target
 {
 
 /**
- * \brief The target used to render on screen
- *
- * Every renderer::device will have an onscreen target by default. It is used
- * to render anything on screen (instead of rendering to, for example, a
- * texture).
- *
- * \see renderer::target_base
- * \see renderer::device::onscreen_target
+\brief The target used to render on screen
+
+Every device will have an onscreen target by default. It is used to render
+anything on screen (instead of rendering to, for example, a texture).
+
+\see sge::renderer::target_base
+\see sge::renderer::device::onscreen_target
 */
 class SGE_CORE_DETAIL_CLASS_SYMBOL onscreen
 :
@@ -58,10 +57,10 @@ protected:
 	onscreen();
 public:
 	/**
-	 * \brief Returns the associated color surface
+	\brief Returns the associated color surface
 	*/
 	virtual
-	sge::renderer::color_buffer::surface const &
+	sge::renderer::color_buffer::readable_surface const &
 	surface() const = 0;
 
 	SGE_RENDERER_DETAIL_SYMBOL

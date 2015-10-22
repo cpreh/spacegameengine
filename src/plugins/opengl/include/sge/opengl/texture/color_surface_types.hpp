@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_COLOR_SURFACE_TYPES_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_COLOR_SURFACE_TYPES_HPP_INCLUDED
 
+#include <sge/opengl/texture/basic_lockable_buffer_fwd.hpp>
 #include <sge/opengl/texture/buffer_surface_types_fwd.hpp>
 #include <sge/opengl/texture/color_format_types_fwd.hpp>
 #include <sge/opengl/texture/color_surface_types_fwd.hpp>
-#include <sge/renderer/color_buffer/surface_fwd.hpp>
+#include <sge/renderer/color_buffer/writable_surface_fwd.hpp>
 
 
 namespace sge
@@ -36,11 +37,24 @@ namespace texture
 
 struct color_surface_types
 {
-	typedef sge::renderer::color_buffer::surface base;
+	typedef
+	sge::renderer::color_buffer::writable_surface
+	base;
 
-	typedef sge::opengl::texture::buffer_surface_types dim_types;
+	// TODO: Factor this out!
+	typedef
+	sge::opengl::texture::basic_lockable_buffer<
+		sge::opengl::texture::color_surface_types
+	>
+	gl_buffer;
 
-	typedef sge::opengl::texture::color_format_types format_types;
+	typedef
+	sge::opengl::texture::buffer_surface_types
+	dim_types;
+
+	typedef
+	sge::opengl::texture::color_format_types
+	format_types;
 };
 
 }

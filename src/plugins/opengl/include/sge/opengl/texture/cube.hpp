@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/cube_basic.hpp>
 #include <sge/opengl/texture/cube_config_fwd.hpp>
 #include <sge/opengl/texture/cube_types.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
@@ -63,18 +64,18 @@ public:
 	~cube()
 	override;
 private:
-	sge::opengl::texture::cube::size_type
+	sge::renderer::size_type
 	border_size() const
 	override;
 
-	sge::renderer::texture::cube::color_buffer &
+	sge::renderer::texture::cube::nonconst_buffer &
 	level(
 		sge::renderer::texture::cube_side,
 		sge::renderer::texture::mipmap::level
 	)
 	override;
 
-	sge::renderer::texture::cube::color_buffer const &
+	sge::renderer::texture::cube::const_buffer const &
 	level(
 		sge::renderer::texture::cube_side,
 		sge::renderer::texture::mipmap::level
@@ -85,17 +86,17 @@ private:
 	levels() const
 	override;
 
-	sge::renderer::texture::cube::size_type const size_;
+	sge::renderer::size_type const size_;
 
 	typedef
 	fcppt::unique_ptr<
-		sge::renderer::texture::cube::color_buffer
+		sge::renderer::texture::cube::nonconst_buffer
 	>
-	color_buffer_unique_ptr;
+	buffer_unique_ptr;
 
 	typedef
 	std::vector<
-		color_buffer_unique_ptr
+		buffer_unique_ptr
 	>
 	buffer_vector;
 
@@ -104,9 +105,9 @@ private:
 		sge::renderer::texture::cube_side,
 		buffer_vector
 	>
-	side_vector;
+	side_array;
 
-	side_vector sides_;
+	side_array const sides_;
 };
 
 }

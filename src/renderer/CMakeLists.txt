@@ -1,16 +1,22 @@
 set(
 	SGE_RENDERER_FILES
 	include/sge/renderer/aspect.hpp
-	include/sge/renderer/basic_buffer.hpp
-	include/sge/renderer/basic_buffer_fwd.hpp
-	include/sge/renderer/basic_buffer_scoped_lock.hpp
-	include/sge/renderer/basic_buffer_scoped_lock_fwd.hpp
 	include/sge/renderer/basic_dim.hpp
 	include/sge/renderer/basic_dim_fwd.hpp
 	include/sge/renderer/basic_lock_box.hpp
 	include/sge/renderer/basic_lock_box_fwd.hpp
 	include/sge/renderer/basic_vector.hpp
 	include/sge/renderer/basic_vector_fwd.hpp
+	include/sge/renderer/buffer/base.hpp
+	include/sge/renderer/buffer/base_fwd.hpp
+	include/sge/renderer/buffer/const_scoped_lock.hpp
+	include/sge/renderer/buffer/const_scoped_lock_fwd.hpp
+	include/sge/renderer/buffer/readable.hpp
+	include/sge/renderer/buffer/readable_fwd.hpp
+	include/sge/renderer/buffer/scoped_lock.hpp
+	include/sge/renderer/buffer/scoped_lock_fwd.hpp
+	include/sge/renderer/buffer/writable.hpp
+	include/sge/renderer/buffer/writable_fwd.hpp
 	include/sge/renderer/caps/clip_plane_indices.hpp
 	include/sge/renderer/caps/description.hpp
 	include/sge/renderer/caps/device.hpp
@@ -45,21 +51,26 @@ set(
 	include/sge/renderer/clear/parameters.hpp
 	include/sge/renderer/clear/parameters_fwd.hpp
 	include/sge/renderer/clear/stencil_buffer_value.hpp
-	include/sge/renderer/color_buffer/basic.hpp
-	include/sge/renderer/color_buffer/basic_fwd.hpp
 	include/sge/renderer/color_buffer/const_scoped_surface_lock.hpp
 	include/sge/renderer/color_buffer/const_scoped_volume_lock.hpp
 	include/sge/renderer/color_buffer/optional_surface_ref.hpp
 	include/sge/renderer/color_buffer/optional_surface_ref_fwd.hpp
+	include/sge/renderer/color_buffer/readable_surface.hpp
+	include/sge/renderer/color_buffer/readable_surface_fwd.hpp
+	include/sge/renderer/color_buffer/readable_volume.hpp
+	include/sge/renderer/color_buffer/readable_volume_fwd.hpp
 	include/sge/renderer/color_buffer/scoped_surface_lock.hpp
 	include/sge/renderer/color_buffer/scoped_volume_lock.hpp
 	include/sge/renderer/color_buffer/surface.hpp
 	include/sge/renderer/color_buffer/surface_fwd.hpp
 	include/sge/renderer/color_buffer/tag_from_dimension.hpp
+	include/sge/renderer/color_buffer/tag_from_dimension_tpl.hpp
 	include/sge/renderer/color_buffer/volume.hpp
 	include/sge/renderer/color_buffer/volume_fwd.hpp
-	include/sge/renderer/const_basic_buffer_scoped_lock.hpp
-	include/sge/renderer/const_basic_buffer_scoped_lock_fwd.hpp
+	include/sge/renderer/color_buffer/writable_surface.hpp
+	include/sge/renderer/color_buffer/writable_surface_fwd.hpp
+	include/sge/renderer/color_buffer/writable_volume.hpp
+	include/sge/renderer/color_buffer/writable_volume_fwd.hpp
 	include/sge/renderer/const_linear_buffer_scoped_lock.hpp
 	include/sge/renderer/const_raw_pointer.hpp
 	include/sge/renderer/context/core.hpp
@@ -79,10 +90,8 @@ set(
 	include/sge/renderer/core.hpp
 	include/sge/renderer/core_fwd.hpp
 	include/sge/renderer/core_unique_ptr.hpp
-	include/sge/renderer/depth_stencil_buffer/const_scoped_surface_lock.hpp
 	include/sge/renderer/depth_stencil_buffer/optional_surface_ref.hpp
 	include/sge/renderer/depth_stencil_buffer/optional_surface_ref_fwd.hpp
-	include/sge/renderer/depth_stencil_buffer/scoped_surface_lock.hpp
 	include/sge/renderer/depth_stencil_buffer/surface.hpp
 	include/sge/renderer/depth_stencil_buffer/surface_fwd.hpp
 	include/sge/renderer/depth_stencil_buffer/surface_parameters.hpp
@@ -857,18 +866,20 @@ set(
 	src/renderer/clear/parameters.cpp
 	src/renderer/color_buffer/const_scoped_surface_lock.cpp
 	src/renderer/color_buffer/const_scoped_volume_lock.cpp
+	src/renderer/color_buffer/readable_surface.cpp
+	src/renderer/color_buffer/readable_volume.cpp
 	src/renderer/color_buffer/scoped_surface_lock.cpp
 	src/renderer/color_buffer/scoped_volume_lock.cpp
 	src/renderer/color_buffer/surface.cpp
 	src/renderer/color_buffer/volume.cpp
+	src/renderer/color_buffer/writable_surface.cpp
+	src/renderer/color_buffer/writable_volume.cpp
 	src/renderer/context/core.cpp
 	src/renderer/context/ffp.cpp
 	src/renderer/context/scoped_core.cpp
 	src/renderer/context/scoped_ffp.cpp
 	src/renderer/context/scoped_offscreen_target.cpp
 	src/renderer/core.cpp
-	src/renderer/depth_stencil_buffer/const_scoped_surface_lock.cpp
-	src/renderer/depth_stencil_buffer/scoped_surface_lock.cpp
 	src/renderer/depth_stencil_buffer/surface.cpp
 	src/renderer/depth_stencil_buffer/surface_parameters.cpp
 	src/renderer/device/core.cpp
@@ -881,19 +892,22 @@ set(
 	src/renderer/display_mode/parameters.cpp
 	src/renderer/display_mode/to_dpi.cpp
 	src/renderer/exception.cpp
-	src/renderer/include/sge/src/renderer/basic_buffer_impl.hpp
-	src/renderer/include/sge/src/renderer/basic_buffer_scoped_lock_impl.hpp
-	src/renderer/include/sge/src/renderer/color_buffer/instantiate_basic.hpp
-	src/renderer/include/sge/src/renderer/const_basic_buffer_scoped_lock_impl.hpp
+	src/renderer/include/sge/src/renderer/buffer/base_impl.hpp
+	src/renderer/include/sge/src/renderer/buffer/const_scoped_lock_impl.hpp
+	src/renderer/include/sge/src/renderer/buffer/instantiate_base.hpp
+	src/renderer/include/sge/src/renderer/buffer/instantiate_const_scoped_lock.hpp
+	src/renderer/include/sge/src/renderer/buffer/instantiate_readable.hpp
+	src/renderer/include/sge/src/renderer/buffer/instantiate_scoped_lock.hpp
+	src/renderer/include/sge/src/renderer/buffer/instantiate_writable.hpp
+	src/renderer/include/sge/src/renderer/buffer/readable_impl.hpp
+	src/renderer/include/sge/src/renderer/buffer/scoped_lock_impl.hpp
+	src/renderer/include/sge/src/renderer/buffer/writable_impl.hpp
 	src/renderer/include/sge/src/renderer/const_linear_buffer_scoped_lock_impl.hpp
 	src/renderer/include/sge/src/renderer/epsilon.hpp
 	src/renderer/include/sge/src/renderer/index/dynamic/basic_view_impl.hpp
 	src/renderer/include/sge/src/renderer/index/dynamic/format_enum_static.hpp
 	src/renderer/include/sge/src/renderer/index/dynamic/instantiate_basic_view.hpp
 	src/renderer/include/sge/src/renderer/index/instantiate_all.hpp
-	src/renderer/include/sge/src/renderer/instantiate_basic_buffer.hpp
-	src/renderer/include/sge/src/renderer/instantiate_basic_buffer_scoped_lock.hpp
-	src/renderer/include/sge/src/renderer/instantiate_const_basic_buffer_scoped_lock.hpp
 	src/renderer/include/sge/src/renderer/instantiate_const_linear_buffer_scoped_lock.hpp
 	src/renderer/include/sge/src/renderer/instantiate_float.hpp
 	src/renderer/include/sge/src/renderer/instantiate_linear_buffer_scoped_lock.hpp

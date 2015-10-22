@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
 #include <sge/renderer/texture/capabilities_field_fwd.hpp>
@@ -48,15 +47,9 @@ protected:
 	SGE_RENDERER_DETAIL_SYMBOL
 	base();
 public:
-	typedef sge::renderer::size_type size_type;
-
 	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
 	~base() = 0;
-
-	virtual
-	size_type
-	content() const = 0;
 
 	virtual
 	sge::renderer::resource_flags_field

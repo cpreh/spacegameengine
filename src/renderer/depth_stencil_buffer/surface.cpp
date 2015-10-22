@@ -19,12 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/imageds2d/tag.hpp>
-#include <sge/imageds2d/view/const_object.hpp>
-#include <sge/imageds2d/view/object.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
-#include <sge/src/renderer/instantiate_basic_buffer.hpp>
+#include <sge/src/renderer/buffer/instantiate_base.hpp>
 
 
-SGE_RENDERER_INSTANTIATE_BASIC_BUFFER(
+SGE_RENDERER_BUFFER_INSTANTIATE_BASE(
 	sge::imageds2d::tag
 );

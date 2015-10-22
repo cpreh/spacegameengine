@@ -18,21 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RENDERER_INSTANTIATE_BASIC_BUFFER_HPP_INCLUDED
-#define SGE_SRC_RENDERER_INSTANTIATE_BASIC_BUFFER_HPP_INCLUDED
-
-#include <sge/src/core/export_class_instantiation.hpp>
-#include <sge/src/renderer/basic_buffer_impl.hpp>
+#ifndef SGE_OPENGL_TEXTURE_BASIC_LOCKABLE_BUFFER_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_BASIC_LOCKABLE_BUFFER_FWD_HPP_INCLUDED
 
 
-#define SGE_RENDERER_INSTANTIATE_BASIC_BUFFER(\
-	tag\
-)\
-template \
-class \
-SGE_CORE_EXPORT_CLASS_INSTANTIATION \
-sge::renderer::basic_buffer<\
-	tag\
+namespace sge
+{
+namespace opengl
+{
+namespace texture
+{
+
+template<
+	typename Types
 >
+class basic_lockable_buffer;
+
+}
+}
+}
 
 #endif

@@ -18,30 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DEPTH_STENCIL_BUFFER_SCOPED_SURFACE_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_DEPTH_STENCIL_BUFFER_SCOPED_SURFACE_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_COLOR_BUFFER_READABLE_VOLUME_HPP_INCLUDED
+#define SGE_RENDERER_COLOR_BUFFER_READABLE_VOLUME_HPP_INCLUDED
 
-#include <sge/imageds2d/view/const_object.hpp>
-#include <sge/imageds2d/view/object.hpp>
-#include <sge/renderer/basic_buffer_scoped_lock.hpp>
-#include <sge/renderer/depth_stencil_buffer/surface.hpp>
+#include <sge/image/color/traits/format_fwd.hpp>
+#include <sge/image3d/traits/box_fwd.hpp>
+#include <sge/image3d/traits/color_tag.hpp>
+#include <sge/image3d/traits/const_view_fwd.hpp>
+#include <sge/image3d/traits/dim_fwd.hpp>
+#include <sge/renderer/buffer/readable.hpp>
+#include <sge/renderer/color_buffer/readable_volume_fwd.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace depth_stencil_buffer
-{
-
-typedef
-sge::renderer::basic_buffer_scoped_lock<
-	sge::renderer::depth_stencil_buffer::surface
->
-scoped_surface_lock;
-
-}
-}
-}
 
 #endif

@@ -46,19 +46,25 @@ template<
 >
 class basic_box
 :
-	public sge::opengl::texture::basic<
+	public
+		sge::opengl::texture::basic<
+			Types
+		>
+{
+	typedef
+	sge::opengl::texture::basic<
 		Types
 	>
-{
-	typedef sge::opengl::texture::basic<
-		Types
-	> base_type;
+	base_type;
 
 	FCPPT_NONCOPYABLE(
 		basic_box
 	);
 public:
-	typedef typename Types::parameters parameters_type;
+	typedef
+	typename
+	Types::parameters
+	parameters_type;
 
 	basic_box(
 		sge::opengl::texture::basic_parameters const &,
@@ -69,19 +75,28 @@ public:
 	~basic_box()
 	override;
 private:
-	typedef typename base_type::color_buffer color_buffer;
+	typedef
+	typename
+	base_type::nonconst_buffer
+	nonconst_buffer;
 
-	typedef typename base_type::dim dim;
+	typedef
+	typename
+	base_type::const_buffer
+	const_buffer;
 
-	// implementation for base class
+	typedef
+	typename
+	base_type::dim
+	dim;
 
-	color_buffer &
+	nonconst_buffer &
 	level(
 		sge::renderer::texture::mipmap::level
 	)
 	override;
 
-	color_buffer const &
+	const_buffer const &
 	level(
 		sge::renderer::texture::mipmap::level
 	) const
@@ -93,7 +108,7 @@ private:
 
 	typedef
 	fcppt::unique_ptr<
-		color_buffer
+		nonconst_buffer
 	>
 	color_buffer_unique_ptr;
 
@@ -103,7 +118,7 @@ private:
 	>
 	buffer_vector;
 
-	buffer_vector levels_;
+	buffer_vector const levels_;
 };
 
 }

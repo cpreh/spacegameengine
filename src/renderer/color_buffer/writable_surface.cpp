@@ -18,12 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_COLOR_BUFFER_BASIC_HPP_INCLUDED
-#define SGE_RENDERER_COLOR_BUFFER_BASIC_HPP_INCLUDED
-
-#include <sge/image/color/traits/format_fwd.hpp>
-#include <sge/renderer/basic_buffer.hpp>
-#include <sge/renderer/color_buffer/basic_fwd.hpp>
+#include <sge/image2d/view/object.hpp>
+#include <sge/renderer/color_buffer/writable_surface.hpp>
+#include <sge/renderer/color_buffer/tag_from_dimension.hpp>
+#include <sge/src/renderer/buffer/instantiate_writable.hpp>
 
 
-#endif
+SGE_RENDERER_BUFFER_INSTANTIATE_WRITABLE(
+	sge::renderer::color_buffer::tag_from_dimension<
+		2u
+	>
+);

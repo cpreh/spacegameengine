@@ -18,19 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RENDERER_CONST_BASIC_BUFFER_SCOPED_LOCK_IMPL_HPP_INCLUDED
-#define SGE_SRC_RENDERER_CONST_BASIC_BUFFER_SCOPED_LOCK_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_BUFFER_CONST_SCOPED_LOCK_IMPL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_BUFFER_CONST_SCOPED_LOCK_IMPL_HPP_INCLUDED
 
 #include <sge/image/view/const_object.hpp>
-#include <sge/renderer/const_basic_buffer_scoped_lock.hpp>
+#include <sge/renderer/buffer/const_scoped_lock.hpp>
 
 
 template<
 	typename Buffer
 >
-sge::renderer::const_basic_buffer_scoped_lock<
+sge::renderer::buffer::const_scoped_lock<
 	Buffer
->::const_basic_buffer_scoped_lock(
+>::const_scoped_lock(
 	buffer_type const &_buffer
 )
 :
@@ -38,7 +38,7 @@ sge::renderer::const_basic_buffer_scoped_lock<
 		_buffer
 	),
 	view_(
-		buffer_.lock()
+		buffer_.lock_c()
 	)
 {
 }
@@ -46,9 +46,9 @@ sge::renderer::const_basic_buffer_scoped_lock<
 template<
 	typename Buffer
 >
-sge::renderer::const_basic_buffer_scoped_lock<
+sge::renderer::buffer::const_scoped_lock<
 	Buffer
->::const_basic_buffer_scoped_lock(
+>::const_scoped_lock(
 	buffer_type const &_buffer,
 	lock_area const &_area
 )
@@ -57,7 +57,7 @@ sge::renderer::const_basic_buffer_scoped_lock<
 		_buffer
 	),
 	view_(
-		buffer_.lock(
+		buffer_.lock_c(
 			_area
 		)
 	)
@@ -67,10 +67,11 @@ sge::renderer::const_basic_buffer_scoped_lock<
 template<
 	typename Buffer
 >
-typename sge::renderer::const_basic_buffer_scoped_lock<
+typename
+sge::renderer::buffer::const_scoped_lock<
 	Buffer
 >::const_view
-sge::renderer::const_basic_buffer_scoped_lock<
+sge::renderer::buffer::const_scoped_lock<
 	Buffer
 >::value() const
 {
@@ -81,9 +82,9 @@ sge::renderer::const_basic_buffer_scoped_lock<
 template<
 	typename Buffer
 >
-sge::renderer::const_basic_buffer_scoped_lock<
+sge::renderer::buffer::const_scoped_lock<
 	Buffer
->::~const_basic_buffer_scoped_lock()
+>::~const_scoped_lock()
 {
 	buffer_.unlock();
 }

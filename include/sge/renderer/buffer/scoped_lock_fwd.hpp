@@ -18,11 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/depth_stencil_buffer/scoped_surface_lock.hpp>
-#include <sge/renderer/depth_stencil_buffer/surface.hpp>
-#include <sge/src/renderer/instantiate_basic_buffer_scoped_lock.hpp>
+#ifndef SGE_RENDERER_BUFFER_SCOPED_LOCK_FWD_HPP_INCLUDED
+#define SGE_RENDERER_BUFFER_SCOPED_LOCK_FWD_HPP_INCLUDED
 
 
-SGE_RENDERER_INSTANTIATE_BASIC_BUFFER_SCOPED_LOCK(
-	sge::renderer::depth_stencil_buffer::surface
-);
+namespace sge
+{
+namespace renderer
+{
+namespace buffer
+{
+
+template<
+	typename Buffer
+>
+class scoped_lock;
+
+}
+}
+}
+
+#endif

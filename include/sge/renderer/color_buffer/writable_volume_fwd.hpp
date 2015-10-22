@@ -18,21 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RENDERER_INSTANTIATE_CONST_BASIC_BUFFER_SCOPED_LOCK_HPP_INCLUDED
-#define SGE_SRC_RENDERER_INSTANTIATE_CONST_BASIC_BUFFER_SCOPED_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_COLOR_BUFFER_WRITABLE_VOLUME_FWD_HPP_INCLUDED
+#define SGE_RENDERER_COLOR_BUFFER_WRITABLE_VOLUME_FWD_HPP_INCLUDED
 
-#include <sge/src/core/export_class_instantiation.hpp>
-#include <sge/src/renderer/const_basic_buffer_scoped_lock_impl.hpp>
+#include <sge/renderer/buffer/writable_fwd.hpp>
+#include <sge/renderer/color_buffer/tag_from_dimension.hpp>
 
 
-#define SGE_RENDERER_INSTANTIATE_CONST_BASIC_BUFFER_SCOPED_LOCK(\
-	buffer\
-)\
-template \
-class \
-SGE_CORE_EXPORT_CLASS_INSTANTIATION \
-sge::renderer::const_basic_buffer_scoped_lock<\
-	buffer\
+namespace sge
+{
+namespace renderer
+{
+namespace color_buffer
+{
+
+/**
+\brief A three-dimensional color buffer that can be written
+
+\ingroup sge_renderer
+*/
+typedef
+sge::renderer::buffer::writable<
+	sge::renderer::color_buffer::tag_from_dimension<
+		3u
+	>
 >
+writable_volume;
+
+}
+}
+}
 
 #endif

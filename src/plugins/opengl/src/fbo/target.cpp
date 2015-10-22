@@ -200,6 +200,7 @@ sge::opengl::fbo::target::color_surface(
 			sge::renderer::color_buffer::surface &_surface
 		)
 		{
+			// FIXME: Use buffer base and don't static_cast
 			sge::opengl::texture::color_surface &texture_surface(
 				fcppt::cast::static_downcast<
 					sge::opengl::texture::color_surface &
@@ -272,6 +273,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 				)
 			);
 
+			// TODO: This is ugly
 			if(
 				sge::opengl::fbo::depth_stencil_surface *ptr =
 					dynamic_cast<

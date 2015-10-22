@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/basic_buffer.hpp>
 #include <sge/opengl/texture/color_surface_fwd.hpp>
 #include <sge/opengl/texture/color_surface_types.hpp>
-#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/color_buffer/writable_surface.hpp>
 
 
 #endif

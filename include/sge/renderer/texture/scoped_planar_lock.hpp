@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_SCOPED_PLANAR_LOCK_HPP_INCLUDED
 
 #include <sge/image2d/view/object.hpp>
-#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/color_buffer/writable_surface.hpp>
 #include <sge/renderer/texture/basic_scoped_lock.hpp>
 #include <sge/renderer/texture/planar.hpp>
 
@@ -34,9 +34,11 @@ namespace renderer
 namespace texture
 {
 
-typedef sge::renderer::texture::basic_scoped_lock<
+typedef
+sge::renderer::texture::basic_scoped_lock<
 	sge::renderer::texture::planar
-> scoped_planar_lock;
+>
+scoped_planar_lock;
 
 }
 }

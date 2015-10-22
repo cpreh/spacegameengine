@@ -18,27 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_DEPTH_STENCIL_BUFFER_CONST_SCOPED_SURFACE_LOCK_HPP_INCLUDED
-#define SGE_RENDERER_DEPTH_STENCIL_BUFFER_CONST_SCOPED_SURFACE_LOCK_HPP_INCLUDED
+#ifndef SGE_RENDERER_COLOR_BUFFER_READABLE_VOLUME_FWD_HPP_INCLUDED
+#define SGE_RENDERER_COLOR_BUFFER_READABLE_VOLUME_FWD_HPP_INCLUDED
 
-#include <sge/imageds2d/view/const_object.hpp>
-#include <sge/imageds2d/view/object.hpp>
-#include <sge/renderer/const_basic_buffer_scoped_lock.hpp>
-#include <sge/renderer/depth_stencil_buffer/surface.hpp>
+#include <sge/renderer/buffer/readable_fwd.hpp>
+#include <sge/renderer/color_buffer/tag_from_dimension.hpp>
 
 
 namespace sge
 {
 namespace renderer
 {
-namespace depth_stencil_buffer
+namespace color_buffer
 {
 
+/**
+\brief A three-dimensional color buffer that can be read
+
+\ingroup sge_renderer
+*/
 typedef
-sge::renderer::const_basic_buffer_scoped_lock<
-	sge::renderer::depth_stencil_buffer::surface
+sge::renderer::buffer::readable<
+	sge::renderer::color_buffer::tag_from_dimension<
+		3u
+	>
 >
-const_scoped_surface_lock;
+readable_volume;
 
 }
 }

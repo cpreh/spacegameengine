@@ -19,12 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/dim3.hpp>
-#include <sge/renderer/lock_box.hpp>
-#include <sge/renderer/color_buffer/volume.hpp>
+#include <sge/renderer/color_buffer/readable_volume.hpp>
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
-#include <fcppt/math/dim/contents.hpp>
-#include <fcppt/math/vector/null.hpp>
 
 
 sge::renderer::texture::volume::volume()
@@ -44,25 +41,4 @@ sge::renderer::texture::volume::size() const
 				0u
 			)
 		).size();
-}
-
-sge::renderer::texture::volume::rect
-sge::renderer::texture::volume::area() const
-{
-	return
-		sge::renderer::texture::volume::rect(
-			fcppt::math::vector::null<
-				sge::renderer::texture::volume::rect::vector
-			>(),
-			this->size()
-		);
-}
-
-sge::renderer::texture::volume::size_type
-sge::renderer::texture::volume::content() const
-{
-	return
-		fcppt::math::dim::contents(
-			this->size()
-		);
 }

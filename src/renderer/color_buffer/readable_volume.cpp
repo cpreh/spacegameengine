@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/depth_stencil_buffer/const_scoped_surface_lock.hpp>
-#include <sge/renderer/depth_stencil_buffer/surface.hpp>
-#include <sge/src/renderer/instantiate_const_basic_buffer_scoped_lock.hpp>
+#include <sge/image3d/view/const_object.hpp>
+#include <sge/renderer/color_buffer/readable_volume.hpp>
+#include <sge/renderer/color_buffer/tag_from_dimension.hpp>
+#include <sge/src/renderer/buffer/instantiate_readable.hpp>
 
 
-SGE_RENDERER_INSTANTIATE_CONST_BASIC_BUFFER_SCOPED_LOCK(
-	sge::renderer::depth_stencil_buffer::surface
+SGE_RENDERER_BUFFER_INSTANTIATE_READABLE(
+	sge::renderer::color_buffer::tag_from_dimension<
+		3u
+	>
 );

@@ -18,41 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/cube.hpp>
-#include <fcppt/math/dim/fill.hpp>
-#include <fcppt/math/vector/null.hpp>
 
 
 sge::renderer::texture::cube::cube()
+:
+	sge::renderer::texture::base()
 {
 }
 
 sge::renderer::texture::cube::~cube()
 {
-}
-
-sge::renderer::texture::cube::size_type
-sge::renderer::texture::cube::content() const
-{
-	return
-		this->border_size()
-		*
-		this->border_size();
-}
-
-sge::renderer::texture::cube::rect
-sge::renderer::texture::cube::area() const
-{
-	return
-		sge::renderer::texture::cube::rect(
-			fcppt::math::vector::null<
-				sge::renderer::texture::cube::rect::vector
-			>(),
-			fcppt::math::dim::fill<
-				sge::renderer::texture::cube::rect::dim
-			>(
-				this->border_size()
-			)
-		);
 }

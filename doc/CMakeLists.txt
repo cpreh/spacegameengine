@@ -2022,16 +2022,22 @@ set(
 	include/sge/projectile/world.hpp
 	include/sge/projectile/world_fwd.hpp
 	include/sge/renderer/aspect.hpp
-	include/sge/renderer/basic_buffer.hpp
-	include/sge/renderer/basic_buffer_fwd.hpp
-	include/sge/renderer/basic_buffer_scoped_lock.hpp
-	include/sge/renderer/basic_buffer_scoped_lock_fwd.hpp
 	include/sge/renderer/basic_dim.hpp
 	include/sge/renderer/basic_dim_fwd.hpp
 	include/sge/renderer/basic_lock_box.hpp
 	include/sge/renderer/basic_lock_box_fwd.hpp
 	include/sge/renderer/basic_vector.hpp
 	include/sge/renderer/basic_vector_fwd.hpp
+	include/sge/renderer/buffer/base.hpp
+	include/sge/renderer/buffer/base_fwd.hpp
+	include/sge/renderer/buffer/const_scoped_lock.hpp
+	include/sge/renderer/buffer/const_scoped_lock_fwd.hpp
+	include/sge/renderer/buffer/readable.hpp
+	include/sge/renderer/buffer/readable_fwd.hpp
+	include/sge/renderer/buffer/scoped_lock.hpp
+	include/sge/renderer/buffer/scoped_lock_fwd.hpp
+	include/sge/renderer/buffer/writable.hpp
+	include/sge/renderer/buffer/writable_fwd.hpp
 	include/sge/renderer/caps/clip_plane_indices.hpp
 	include/sge/renderer/caps/description.hpp
 	include/sge/renderer/caps/device.hpp
@@ -2076,21 +2082,26 @@ set(
 	include/sge/renderer/clear/parameters.hpp
 	include/sge/renderer/clear/parameters_fwd.hpp
 	include/sge/renderer/clear/stencil_buffer_value.hpp
-	include/sge/renderer/color_buffer/basic.hpp
-	include/sge/renderer/color_buffer/basic_fwd.hpp
 	include/sge/renderer/color_buffer/const_scoped_surface_lock.hpp
 	include/sge/renderer/color_buffer/const_scoped_volume_lock.hpp
 	include/sge/renderer/color_buffer/optional_surface_ref.hpp
 	include/sge/renderer/color_buffer/optional_surface_ref_fwd.hpp
+	include/sge/renderer/color_buffer/readable_surface.hpp
+	include/sge/renderer/color_buffer/readable_surface_fwd.hpp
+	include/sge/renderer/color_buffer/readable_volume.hpp
+	include/sge/renderer/color_buffer/readable_volume_fwd.hpp
 	include/sge/renderer/color_buffer/scoped_surface_lock.hpp
 	include/sge/renderer/color_buffer/scoped_volume_lock.hpp
 	include/sge/renderer/color_buffer/surface.hpp
 	include/sge/renderer/color_buffer/surface_fwd.hpp
 	include/sge/renderer/color_buffer/tag_from_dimension.hpp
+	include/sge/renderer/color_buffer/tag_from_dimension_tpl.hpp
 	include/sge/renderer/color_buffer/volume.hpp
 	include/sge/renderer/color_buffer/volume_fwd.hpp
-	include/sge/renderer/const_basic_buffer_scoped_lock.hpp
-	include/sge/renderer/const_basic_buffer_scoped_lock_fwd.hpp
+	include/sge/renderer/color_buffer/writable_surface.hpp
+	include/sge/renderer/color_buffer/writable_surface_fwd.hpp
+	include/sge/renderer/color_buffer/writable_volume.hpp
+	include/sge/renderer/color_buffer/writable_volume_fwd.hpp
 	include/sge/renderer/const_linear_buffer_scoped_lock.hpp
 	include/sge/renderer/const_raw_pointer.hpp
 	include/sge/renderer/context/core.hpp
@@ -2110,10 +2121,8 @@ set(
 	include/sge/renderer/core.hpp
 	include/sge/renderer/core_fwd.hpp
 	include/sge/renderer/core_unique_ptr.hpp
-	include/sge/renderer/depth_stencil_buffer/const_scoped_surface_lock.hpp
 	include/sge/renderer/depth_stencil_buffer/optional_surface_ref.hpp
 	include/sge/renderer/depth_stencil_buffer/optional_surface_ref_fwd.hpp
-	include/sge/renderer/depth_stencil_buffer/scoped_surface_lock.hpp
 	include/sge/renderer/depth_stencil_buffer/surface.hpp
 	include/sge/renderer/depth_stencil_buffer/surface_fwd.hpp
 	include/sge/renderer/depth_stencil_buffer/surface_parameters.hpp

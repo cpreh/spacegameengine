@@ -18,20 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RENDERER_BASIC_BUFFER_SCOPED_LOCK_IMPL_HPP_INCLUDED
-#define SGE_SRC_RENDERER_BASIC_BUFFER_SCOPED_LOCK_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_BUFFER_SCOPED_LOCK_IMPL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_BUFFER_SCOPED_LOCK_IMPL_HPP_INCLUDED
 
 #include <sge/image/view/object.hpp>
-#include <sge/renderer/basic_buffer_scoped_lock.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/buffer/scoped_lock.hpp>
 
 
 template<
 	typename Buffer
 >
-sge::renderer::basic_buffer_scoped_lock<
+sge::renderer::buffer::scoped_lock<
 	Buffer
->::basic_buffer_scoped_lock(
+>::scoped_lock(
 	buffer_type &_buffer,
 	sge::renderer::lock_mode const _mode
 )
@@ -50,9 +50,9 @@ sge::renderer::basic_buffer_scoped_lock<
 template<
 	typename Buffer
 >
-sge::renderer::basic_buffer_scoped_lock<
+sge::renderer::buffer::scoped_lock<
 	Buffer
->::basic_buffer_scoped_lock(
+>::scoped_lock(
 	buffer_type &_buffer,
 	lock_area const &_area,
 	sge::renderer::lock_mode const _mode
@@ -73,10 +73,11 @@ sge::renderer::basic_buffer_scoped_lock<
 template<
 	typename Buffer
 >
-typename sge::renderer::basic_buffer_scoped_lock<
+typename
+sge::renderer::buffer::scoped_lock<
 	Buffer
 >::view
-sge::renderer::basic_buffer_scoped_lock<
+sge::renderer::buffer::scoped_lock<
 	Buffer
 >::value() const
 {
@@ -87,9 +88,9 @@ sge::renderer::basic_buffer_scoped_lock<
 template<
 	typename Buffer
 >
-sge::renderer::basic_buffer_scoped_lock<
+sge::renderer::buffer::scoped_lock<
 	Buffer
->::~basic_buffer_scoped_lock()
+>::~scoped_lock()
 {
 	buffer_.unlock();
 }

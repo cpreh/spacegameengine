@@ -18,60 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RENDERER_BASIC_BUFFER_IMPL_HPP_INCLUDED
-#define SGE_SRC_RENDERER_BASIC_BUFFER_IMPL_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_BUFFER_WRITABLE_IMPL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_BUFFER_WRITABLE_IMPL_HPP_INCLUDED
 
-#include <sge/image/view/const_object.hpp>
 #include <sge/image/view/object.hpp>
-#include <sge/renderer/basic_buffer.hpp>
 #include <sge/renderer/basic_dim.hpp>
 #include <sge/renderer/basic_lock_box.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <fcppt/math/dim/contents.hpp>
+#include <sge/renderer/buffer/writable.hpp>
 #include <fcppt/math/vector/null.hpp>
 
 
 template<
 	typename Tag
 >
-sge::renderer::basic_buffer<
+sge::renderer::buffer::writable<
 	Tag
->::basic_buffer()
+>::writable()
+:
+	base()
 {
 }
 
 template<
 	typename Tag
 >
-sge::renderer::basic_buffer<
+sge::renderer::buffer::writable<
 	Tag
->::~basic_buffer()
+>::~writable()
 {
 }
 
 template<
 	typename Tag
 >
-typename sge::renderer::basic_buffer<
-	Tag
->::const_view
-sge::renderer::basic_buffer<
-	Tag
->::lock() const
-{
-	return
-		this->lock(
-			this->area()
-		);
-}
-
-template<
-	typename Tag
->
-typename sge::renderer::basic_buffer<
+typename
+sge::renderer::buffer::writable<
 	Tag
 >::view
-sge::renderer::basic_buffer<
+sge::renderer::buffer::writable<
 	Tag
 >::lock(
 	sge::renderer::lock_mode const _mode
@@ -79,44 +64,14 @@ sge::renderer::basic_buffer<
 {
 	return
 		this->lock(
-			this->area(),
+			lock_area{
+				fcppt::math::vector::null<
+					typename
+					lock_area::vector
+				>(),
+				this->size()
+			},
 			_mode
-		);
-}
-
-template<
-	typename Tag
->
-typename sge::renderer::basic_buffer<
-	Tag
->::lock_area
-sge::renderer::basic_buffer<
-	Tag
->::area() const
-{
-	return
-		lock_area(
-			fcppt::math::vector::null<
-				typename
-				lock_area::vector
-			>(),
-			this->size()
-		);
-}
-
-template<
-	typename Tag
->
-typename sge::renderer::basic_buffer<
-	Tag
->::size_type
-sge::renderer::basic_buffer<
-	Tag
->::content() const
-{
-	return
-		fcppt::math::dim::contents(
-			this->size()
 		);
 }
 

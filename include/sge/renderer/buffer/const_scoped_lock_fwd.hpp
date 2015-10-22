@@ -18,42 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_COLOR_BUFFER_BASIC_FWD_HPP_INCLUDED
-#define SGE_RENDERER_COLOR_BUFFER_BASIC_FWD_HPP_INCLUDED
-
-#include <sge/renderer/basic_buffer_fwd.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/color_buffer/tag_from_dimension.hpp>
+#ifndef SGE_RENDERER_BUFFER_CONST_SCOPED_LOCK_FWD_HPP_INCLUDED
+#define SGE_RENDERER_BUFFER_CONST_SCOPED_LOCK_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace renderer
 {
-namespace color_buffer
+namespace buffer
 {
 
-/**
-\brief A color buffer for a given dimension
-
-\ingroup sge_renderer
-
-A color buffer for dimension \a Dim. Color buffers are used as render targets
-and texture surfaces.
-*/
 template<
-	sge::renderer::size_type Dim
+	typename Buffer
 >
-using
-basic
-=
-sge::renderer::basic_buffer<
-	typename
-	sge::renderer::color_buffer::tag_from_dimension<
-		Dim
-	>::type
->;
-
+class const_scoped_lock;
 
 }
 }

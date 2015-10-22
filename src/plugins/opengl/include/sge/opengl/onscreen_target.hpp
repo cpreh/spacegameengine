@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/context_fwd.hpp>
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/renderer/screen_unit.hpp>
-#include <sge/renderer/color_buffer/surface_fwd.hpp>
+#include <sge/renderer/color_buffer/readable_surface_fwd.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -40,17 +40,20 @@ namespace opengl
 
 class onscreen_target
 :
-	public sge::opengl::basic_target<
-		sge::renderer::target::onscreen
-	>
+	public
+		sge::opengl::basic_target<
+			sge::renderer::target::onscreen
+		>
 {
 	FCPPT_NONCOPYABLE(
 		onscreen_target
 	);
 public:
-	typedef sge::opengl::basic_target<
+	typedef
+	sge::opengl::basic_target<
 		sge::renderer::target::onscreen
-	> base;
+	>
+	base;
 
 	onscreen_target(
 		sge::opengl::context::device::object &,
@@ -73,7 +76,7 @@ private:
 	end_rendering()
 	override;
 
-	sge::renderer::color_buffer::surface const &
+	sge::renderer::color_buffer::readable_surface const &
 	surface() const
 	override;
 
@@ -83,7 +86,7 @@ private:
 
 	typedef
 	fcppt::unique_ptr<
-		sge::renderer::color_buffer::surface
+		sge::renderer::color_buffer::readable_surface
 	>
 	color_surface_unique_ptr;
 

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
-#include <sge/renderer/const_basic_buffer_scoped_lock.hpp>
+#include <sge/renderer/buffer/const_scoped_lock.hpp>
 #include <sge/renderer/color_buffer/volume.hpp>
 
 
@@ -40,7 +40,7 @@ namespace color_buffer
 \ingroup sge_renderer
 */
 typedef
-sge::renderer::const_basic_buffer_scoped_lock<
+sge::renderer::buffer::const_scoped_lock<
 	sge::renderer::color_buffer::volume
 >
 const_scoped_volume_lock;

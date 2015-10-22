@@ -19,12 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/lock_rect.hpp>
-#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/color_buffer/readable_surface.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
-#include <fcppt/math/dim/contents.hpp>
-#include <fcppt/math/vector/null.hpp>
 
 
 sge::renderer::texture::planar::planar()
@@ -44,25 +41,4 @@ sge::renderer::texture::planar::size() const
 				0u
 			)
 		).size();
-}
-
-sge::renderer::texture::planar::rect
-sge::renderer::texture::planar::area() const
-{
-	return
-		sge::renderer::texture::planar::rect(
-			fcppt::math::vector::null<
-				sge::renderer::texture::planar::rect::vector
-			>(),
-			this->size()
-		);
-}
-
-sge::renderer::texture::planar::size_type
-sge::renderer::texture::planar::content() const
-{
-	return
-		fcppt::math::dim::contents(
-			this->size()
-		);
 }

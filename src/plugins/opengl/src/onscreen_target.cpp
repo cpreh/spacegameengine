@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/device/object_fwd.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/screen_unit.hpp>
-#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/color_buffer/readable_surface.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <awl/window/object_fwd.hpp>
@@ -54,7 +54,7 @@ sge::opengl::onscreen_target::onscreen_target(
 	),
 	main_surface_(
 		fcppt::unique_ptr_to_base<
-			sge::renderer::color_buffer::surface
+			sge::renderer::color_buffer::readable_surface
 		>(
 			fcppt::make_unique_ptr<
 				sge::opengl::onscreen_surface
@@ -86,7 +86,7 @@ sge::opengl::onscreen_target::end_rendering()
 	context_.end_rendering();
 }
 
-sge::renderer::color_buffer::surface const &
+sge::renderer::color_buffer::readable_surface const &
 sge::opengl::onscreen_target::surface() const
 {
 	return

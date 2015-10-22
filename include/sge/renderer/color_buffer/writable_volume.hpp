@@ -18,21 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_CONST_BASIC_BUFFER_SCOPED_LOCK_FWD_HPP_INCLUDED
-#define SGE_RENDERER_CONST_BASIC_BUFFER_SCOPED_LOCK_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_COLOR_BUFFER_WRITABLE_VOLUME_HPP_INCLUDED
+#define SGE_RENDERER_COLOR_BUFFER_WRITABLE_VOLUME_HPP_INCLUDED
 
+#include <sge/image/color/traits/format_fwd.hpp>
+#include <sge/image3d/traits/box_fwd.hpp>
+#include <sge/image3d/traits/color_tag.hpp>
+#include <sge/image3d/traits/const_view_fwd.hpp>
+#include <sge/image3d/traits/dim_fwd.hpp>
+#include <sge/image3d/traits/view_fwd.hpp>
+#include <sge/renderer/buffer/writable.hpp>
+#include <sge/renderer/color_buffer/writable_volume_fwd.hpp>
 
-namespace sge
-{
-namespace renderer
-{
-
-template<
-	typename Buffer
->
-class const_basic_buffer_scoped_lock;
-
-}
-}
 
 #endif

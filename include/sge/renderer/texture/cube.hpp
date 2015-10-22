@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_CUBE_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/renderer/lock_rect_fwd.hpp>
-#include <sge/renderer/color_buffer/surface_fwd.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/color_buffer/readable_surface_fwd.hpp>
+#include <sge/renderer/color_buffer/writable_surface_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/cube_fwd.hpp>
@@ -54,32 +55,27 @@ public:
 	~cube()
 	override;
 
-	typedef sge::renderer::lock_rect rect;
+	typedef
+	sge::renderer::color_buffer::readable_surface
+	const_buffer;
 
-	typedef sge::renderer::color_buffer::surface color_buffer;
-
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::texture::base::size_type
-	content() const
-	override;
-
-	SGE_RENDERER_DETAIL_SYMBOL
-	rect
-	area() const;
+	typedef
+	sge::renderer::color_buffer::writable_surface
+	nonconst_buffer;
 
 	virtual
-	sge::renderer::texture::base::size_type
+	sge::renderer::size_type
 	border_size() const = 0;
 
 	virtual
-	color_buffer &
+	nonconst_buffer &
 	level(
 		sge::renderer::texture::cube_side,
 		sge::renderer::texture::mipmap::level
 	) = 0;
 
 	virtual
-	color_buffer const &
+	const_buffer const &
 	level(
 		sge::renderer::texture::cube_side,
 		sge::renderer::texture::mipmap::level

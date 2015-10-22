@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_BASIC_SCOPED_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_BASIC_SCOPED_LOCK_HPP_INCLUDED
 
-#include <sge/renderer/basic_buffer.hpp>
-#include <sge/renderer/basic_buffer_scoped_lock.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
+#include <sge/renderer/buffer/scoped_lock.hpp>
+#include <sge/renderer/buffer/writable.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -44,11 +44,20 @@ class basic_scoped_lock
 		basic_scoped_lock
 	);
 public:
-	typedef typename Texture::rect lock_area;
+	typedef
+	typename
+	Texture::nonconst_buffer
+	buffer;
 
-	typedef typename Texture::color_buffer buffer;
+	typedef
+	typename
+	buffer::lock_area
+	lock_area;
 
-	typedef typename buffer::view view;
+	typedef
+	typename
+	buffer::view
+	view;
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	basic_scoped_lock(
@@ -71,7 +80,7 @@ public:
 	~basic_scoped_lock();
 private:
 	typedef
-	sge::renderer::basic_buffer_scoped_lock<
+	sge::renderer::buffer::scoped_lock<
 		buffer
 	>
 	buffer_lock;

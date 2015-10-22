@@ -19,18 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/ds/format.hpp>
-#include <sge/imageds2d/view/const_object.hpp>
-#include <sge/imageds2d/view/object.hpp>
 #include <sge/opengl/convert/depth_stencil_to_internal_format.hpp>
 #include <sge/opengl/fbo/config_fwd.hpp>
 #include <sge/opengl/fbo/depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/render_buffer.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_parameters.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/assert/unimplemented_message.hpp>
 
 
 sge::opengl::fbo::depth_stencil_surface::depth_stencil_surface(
@@ -71,35 +66,6 @@ sge::opengl::fbo::depth_stencil_surface::size() const
 {
 	return
 		dim_;
-}
-
-sge::opengl::fbo::depth_stencil_surface::const_view
-sge::opengl::fbo::depth_stencil_surface::lock(
-	lock_area const &_area
-) const
-{
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("Non texture opengl depth stencil surface currently can't be locked")
-	);
-}
-
-sge::opengl::fbo::depth_stencil_surface::view
-sge::opengl::fbo::depth_stencil_surface::lock(
-	lock_area const &_area,
-	sge::renderer::lock_mode const _mode
-)
-{
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("Non texture opengl depth stencil surface currently can't be locked")
-	);
-}
-
-void
-sge::opengl::fbo::depth_stencil_surface::unlock() const
-{
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("Non texture opengl depth stencil surface currently can't be unlocked")
-	);
 }
 
 sge::image::ds::format

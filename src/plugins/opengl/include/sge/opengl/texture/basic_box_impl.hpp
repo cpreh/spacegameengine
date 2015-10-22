@@ -48,28 +48,36 @@ sge::opengl::texture::basic_box<
 		_type,
 		_parameters
 	),
-	levels_()
-{
-	sge::opengl::texture::scoped_work_binding const binding(
-		_basic_parameters.system_context(),
-		_basic_parameters.device_context(),
-		this->type(),
-		this->id()
-	);
+	levels_(
+		[
+			&_basic_parameters,
+			_type,
+			&_parameters,
+			this
+		]{
+			sge::opengl::texture::scoped_work_binding const binding(
+				_basic_parameters.system_context(),
+				_basic_parameters.device_context(),
+				this->type(),
+				this->id()
+			);
 
-	sge::opengl::texture::init<
-		Types
-	>(
-		binding,
-		levels_,
-		_basic_parameters,
-		_parameters,
-		_type,
-		sge::opengl::texture::buffer_type(
-			_type.get()
-		),
-		this->id()
-	);
+			return
+				sge::opengl::texture::init<
+					Types
+				>(
+					binding,
+					_basic_parameters,
+					_parameters,
+					_type,
+					sge::opengl::texture::buffer_type(
+						_type.get()
+					),
+					this->id()
+				);
+		}()
+	)
+{
 }
 
 template<
@@ -84,9 +92,10 @@ sge::opengl::texture::basic_box<
 template<
 	typename Types
 >
-typename sge::opengl::texture::basic_box<
+typename
+sge::opengl::texture::basic_box<
 	Types
->::color_buffer &
+>::nonconst_buffer &
 sge::opengl::texture::basic_box<
 	Types
 >::level(
@@ -102,9 +111,10 @@ sge::opengl::texture::basic_box<
 template<
 	typename Types
 >
-typename sge::opengl::texture::basic_box<
+typename
+sge::opengl::texture::basic_box<
 	Types
->::color_buffer const &
+>::const_buffer const &
 sge::opengl::texture::basic_box<
 	Types
 >::level(

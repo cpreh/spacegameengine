@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/internal_color_format.hpp>
-#include <sge/opengl/texture/basic_buffer.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
@@ -65,14 +64,14 @@ namespace texture
 template<
 	typename Types
 >
-void
+std::vector<
+	fcppt::unique_ptr<
+		typename
+		Types::buffer_types::base
+	>
+>
 init(
 	sge::opengl::texture::binding const &_binding,
-	std::vector<
-		fcppt::unique_ptr<
-			typename Types::buffer_types::base
-		>
-	> &_levels,
 	sge::opengl::texture::basic_parameters const &_basic_parameters,
 	typename Types::parameters const &_parameters,
 	sge::opengl::texture::type const _type,
@@ -80,11 +79,16 @@ init(
 	sge::opengl::texture::id const _id
 )
 {
-	typedef sge::renderer::basic_dim<
+	typedef
+	sge::renderer::basic_dim<
 		Types::buffer_types::dim_types::num_dims
-	> extended_dim;
+	>
+	extended_dim;
 
-	typedef typename extended_dim::dim_wrapper dim_wrapper;
+	typedef
+	typename
+	extended_dim::dim_wrapper
+	dim_wrapper;
 
 	extended_dim const size(
 		sge::opengl::texture::extend_size(
@@ -100,7 +104,10 @@ init(
 		Types::name()
 	);
 
-	typedef typename Types::buffer_types::format_types::format format_type;
+	typedef
+	typename
+	Types::buffer_types::format_types::format
+	format_type;
 
 	format_type const format(
 		Types::buffer_types::format_types::best_format(
@@ -180,19 +187,21 @@ init(
 		sge::renderer::texture::capabilities::render_target
 	);
 
-	typedef sge::opengl::texture::basic_buffer<
-		typename Types::buffer_types
-	> gl_buffer;
+	typedef
+	typename
+	Types::buffer_types::gl_buffer
+	gl_buffer;
 
 	typedef
 	std::vector<
 		fcppt::unique_ptr<
-			typename Types::buffer_types::base
+			typename
+			Types::buffer_types::base
 		>
 	>
 	level_container;
 
-	_levels =
+	return
 		fcppt::algorithm::map<
 			level_container
 		>(
@@ -219,7 +228,8 @@ init(
 			{
 				return
 					fcppt::unique_ptr_to_base<
-						typename Types::buffer_types::base
+						typename
+						Types::buffer_types::base
 					>(
 						fcppt::make_unique_ptr<
 							gl_buffer

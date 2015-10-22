@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/flipped.hpp>
 #include <sge/image2d/view/make_const.hpp>
-#include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/pitch.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
@@ -32,14 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/convert/color_to_format.hpp>
 #include <sge/opengl/convert/color_to_format_type.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/screen_unit.hpp>
-#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/color_buffer/readable_surface.hpp>
 #include <awl/window/object.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -53,7 +50,7 @@ sge::opengl::onscreen_surface::onscreen_surface(
 	awl::window::object &_window
 )
 :
-	sge::renderer::color_buffer::surface(),
+	sge::renderer::color_buffer::readable_surface(),
 	window_(
 		_window
 	),
@@ -68,9 +65,9 @@ sge::opengl::onscreen_surface::~onscreen_surface()
 {
 }
 
-sge::renderer::color_buffer::surface::const_view
-sge::opengl::onscreen_surface::lock(
-	sge::renderer::color_buffer::surface::lock_area const &_dest
+sge::renderer::color_buffer::readable_surface::const_view
+sge::opengl::onscreen_surface::lock_c(
+	sge::renderer::color_buffer::readable_surface::lock_area const &_dest
 ) const
 {
 	if(
@@ -130,17 +127,6 @@ sge::opengl::onscreen_surface::lock(
 				>()
 			)
 		);
-}
-
-sge::renderer::color_buffer::surface::view
-sge::opengl::onscreen_surface::lock(
-	sge::renderer::color_buffer::surface::lock_area const &,
-	sge::renderer::lock_mode
-)
-{
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("Locking onscreen surfaces for writing is not implemented")
-	);
 }
 
 void

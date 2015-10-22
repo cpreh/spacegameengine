@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_COLOR_BUFFER_TAG_FROM_DIMENSION_HPP_INCLUDED
 
 #include <sge/image/size_type.hpp>
-#include <sge/image2d/tag.hpp>
-#include <sge/image3d/tag.hpp>
+#include <sge/renderer/color_buffer/tag_from_dimension_tpl.hpp>
 
 
 namespace sge
@@ -34,25 +33,15 @@ namespace color_buffer
 {
 
 template<
-	sge::image::size_type
+	sge::image::size_type Dim
 >
-struct tag_from_dimension;
-
-template<>
-struct tag_from_dimension<
-	2u
->
-{
-	typedef sge::image2d::tag type;
-};
-
-template<>
-struct tag_from_dimension<
-	3u
->
-{
-	typedef sge::image3d::tag type;
-};
+using
+tag_from_dimension
+=
+typename
+sge::renderer::color_buffer::tag_from_dimension_tpl<
+	Dim
+>::type;
 
 }
 }

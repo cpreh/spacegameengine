@@ -37,7 +37,9 @@ namespace texture
 
 struct depth_stencil_format_types
 {
-	typedef sge::image::ds::format format;
+	typedef
+	sge::image::ds::format
+	format;
 
 	static
 	format

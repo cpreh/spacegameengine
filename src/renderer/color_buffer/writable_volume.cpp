@@ -18,21 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_BASIC_BUFFER_FWD_HPP_INCLUDED
-#define SGE_RENDERER_BASIC_BUFFER_FWD_HPP_INCLUDED
+#include <sge/image3d/view/object.hpp>
+#include <sge/renderer/color_buffer/writable_volume.hpp>
+#include <sge/renderer/color_buffer/tag_from_dimension.hpp>
+#include <sge/src/renderer/buffer/instantiate_writable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-
-template<
-	typename ImageTag
->
-class basic_buffer;
-
-}
-}
-
-#endif
+SGE_RENDERER_BUFFER_INSTANTIATE_WRITABLE(
+	sge::renderer::color_buffer::tag_from_dimension<
+		3u
+	>
+);
