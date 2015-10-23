@@ -46,7 +46,7 @@ sge::d3d9::texture::planar_types::create(
 		);
 }
 
-D3DLOCKED_RECT const
+D3DLOCKED_RECT
 sge::d3d9::texture::planar_types::lock(
 	d3d_buffer &_buffer,
 	lock_dest const &_lock_dest,

@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/depth_stencil_offscreen_fwd.hpp>
 #include <sge/d3d9/surface/optional_d3d_unique_ptr.hpp>
 #include <sge/image/ds/format_fwd.hpp>
-#include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_parameters.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -69,23 +68,6 @@ public:
 
 	IDirect3DSurface9 &
 	surface() const;
-
-	const_view
-	lock(
-		lock_area const &
-	) const
-	override;
-
-	view
-	lock(
-		lock_area const &,
-		sge::renderer::lock_mode
-	)
-	override;
-
-	void
-	unlock() const
-	override;
 private:
 	void
 	init();

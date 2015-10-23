@@ -30,10 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/traits/view_fwd.hpp>
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
-#include <sge/renderer/color_buffer/volume.hpp>
+#include <sge/renderer/color_buffer/writable_volume.hpp>
 
 
-template class
+template
+class
 sge::d3d9::texture::basic_buffer<
 	sge::d3d9::texture::volume_types
 >;

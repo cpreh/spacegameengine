@@ -95,7 +95,7 @@ private:
 	typedef typename base::dim dim;
 
 	const_view
-	lock(
+	lock_c(
 		lock_area const &
 	) const
 	override;

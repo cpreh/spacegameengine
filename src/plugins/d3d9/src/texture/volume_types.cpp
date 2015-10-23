@@ -46,7 +46,7 @@ sge::d3d9::texture::volume_types::create(
 		);
 }
 
-D3DLOCKED_BOX const
+D3DLOCKED_BOX
 sge::d3d9::texture::volume_types::lock(
 	d3d_buffer &_buffer,
 	lock_dest const &_lock_dest,

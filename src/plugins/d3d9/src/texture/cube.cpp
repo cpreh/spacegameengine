@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/cube_buffer.hpp>
 #include <sge/d3d9/texture/cube_types.hpp>
 #include <sge/d3d9/texturefuncs/get_cube_map_surface.hpp>
-#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/color_buffer/writable_surface.hpp>
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
@@ -82,7 +83,7 @@ sge::d3d9::texture::cube::cube(
 						{
 							return
 								fcppt::unique_ptr_to_base<
-									sge::renderer::texture::cube::color_buffer
+									sge::renderer::texture::cube::nonconst_buffer
 								>(
 									fcppt::make_unique_ptr<
 										sge::d3d9::texture::cube_buffer
@@ -111,14 +112,14 @@ sge::d3d9::texture::cube::~cube()
 {
 }
 
-sge::d3d9::texture::cube::size_type
+sge::renderer::size_type
 sge::d3d9::texture::cube::border_size() const
 {
 	return
 		this->parameters().size();
 }
 
-sge::renderer::texture::cube::color_buffer &
+sge::renderer::texture::cube::nonconst_buffer &
 sge::d3d9::texture::cube::level(
 	sge::renderer::texture::cube_side const _side,
 	sge::renderer::texture::mipmap::level const _level
@@ -133,7 +134,7 @@ sge::d3d9::texture::cube::level(
 
 }
 
-sge::renderer::texture::cube::color_buffer const &
+sge::renderer::texture::cube::const_buffer const &
 sge::d3d9::texture::cube::level(
 	sge::renderer::texture::cube_side const _side,
 	sge::renderer::texture::mipmap::level const _level

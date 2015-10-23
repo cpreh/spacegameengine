@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texturefuncs/get_volume_level.hpp>
 #include <sge/d3d9/volume/d3d_unique_ptr.hpp>
 #include <sge/renderer/dim3.hpp>
-#include <sge/renderer/color_buffer/volume.hpp>
+#include <sge/renderer/color_buffer/writable_volume.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/make_int_range_count.hpp>
@@ -69,7 +69,7 @@ sge::d3d9::texture::volume::volume(
 			{
 				return
 					fcppt::unique_ptr_to_base<
-						sge::renderer::texture::volume::color_buffer
+						sge::renderer::texture::volume::nonconst_buffer
 					>(
 						fcppt::make_unique_ptr<
 							sge::d3d9::texture::volume_buffer
@@ -95,14 +95,7 @@ sge::d3d9::texture::volume::~volume()
 {
 }
 
-sge::d3d9::texture::volume::dim const
-sge::d3d9::texture::volume::size() const
-{
-	return
-		this->parameters().size();
-}
-
-sge::renderer::texture::volume::color_buffer &
+sge::renderer::texture::volume::nonconst_buffer &
 sge::d3d9::texture::volume::level(
 	sge::renderer::texture::mipmap::level const _level
 )
@@ -113,7 +106,7 @@ sge::d3d9::texture::volume::level(
 		];
 }
 
-sge::renderer::texture::volume::color_buffer const &
+sge::renderer::texture::volume::const_buffer const &
 sge::d3d9::texture::volume::level(
 	sge::renderer::texture::mipmap::level const _level
 ) const

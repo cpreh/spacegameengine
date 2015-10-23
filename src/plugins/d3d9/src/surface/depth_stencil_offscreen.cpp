@@ -27,15 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surfacefuncs/depth_stencil_format.hpp>
 #include <sge/d3d9/surfacefuncs/dim.hpp>
 #include <sge/image/ds/format.hpp>
-#include <sge/imageds2d/view/const_object.hpp>
-#include <sge/imageds2d/view/object.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/exception.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_parameters.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
-#include <fcppt/assert/unimplemented_message.hpp>
 
 
 sge::d3d9::surface::depth_stencil_offscreen::depth_stencil_offscreen(
@@ -95,38 +90,6 @@ sge::d3d9::surface::depth_stencil_offscreen::surface() const
 		*FCPPT_ASSERT_OPTIONAL_ERROR(
 			surface_
 		);
-}
-
-sge::d3d9::surface::depth_stencil_offscreen::const_view
-sge::d3d9::surface::depth_stencil_offscreen::lock(
-	lock_area const &
-) const
-{
-	// TODO: Why?
-	throw
-		sge::renderer::exception(
-			FCPPT_TEXT("depth stencil surfaces can't be locked")
-		);
-}
-
-sge::d3d9::surface::depth_stencil_offscreen::view
-sge::d3d9::surface::depth_stencil_offscreen::lock(
-	lock_area const &,
-	sge::renderer::lock_mode
-)
-{
-	throw
-		sge::renderer::exception(
-			FCPPT_TEXT("depth stencil surfaces can't be locked")
-		);
-}
-
-void
-sge::d3d9::surface::depth_stencil_offscreen::unlock() const
-{
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("depth stencil surfaces can't be unlocked")
-	);
 }
 
 void

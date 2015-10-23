@@ -28,8 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/color_holder_fwd.hpp>
 #include <sge/d3d9/surface/optional_d3d_unique_ptr.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/renderer/lock_mode_fwd.hpp>
-#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/color_buffer/readable_surface.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
@@ -44,7 +43,7 @@ namespace surface
 
 class color
 :
-	public sge::renderer::color_buffer::surface,
+	public sge::renderer::color_buffer::readable_surface,
 	public sge::d3d9::resource
 {
 	FCPPT_NONCOPYABLE(
@@ -60,16 +59,9 @@ public:
 	~color()
 	override;
 
-	sge::renderer::color_buffer::surface::view
-	lock(
-		sge::renderer::color_buffer::surface::lock_area const &,
-		sge::renderer::lock_mode
-	)
-	override;
-
-	sge::renderer::color_buffer::surface::const_view
-	lock(
-		sge::renderer::color_buffer::surface::lock_area const &
+	sge::renderer::color_buffer::readable_surface::const_view
+	lock_c(
+		sge::renderer::color_buffer::readable_surface::lock_area const &
 	) const
 	override;
 

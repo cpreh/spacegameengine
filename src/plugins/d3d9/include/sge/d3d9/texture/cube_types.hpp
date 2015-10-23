@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/cube_types_fwd.hpp>
 #include <sge/d3d9/texture/d3d_cube_texture_unique_ptr.hpp>
 #include <sge/d3d9/texture/optional_locked_rect_fwd.hpp>
-#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/color_buffer/writable_surface_fwd.hpp>
 #include <sge/renderer/texture/cube_fwd.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 
@@ -42,21 +42,37 @@ namespace texture
 
 struct cube_types
 {
-	typedef sge::renderer::texture::cube base;
+	typedef
+	sge::renderer::texture::cube
+	base;
 
-	typedef sge::renderer::color_buffer::surface buffer_base;
+	typedef
+	sge::renderer::color_buffer::writable_surface
+	buffer_base;
 
-	typedef sge::renderer::texture::cube_parameters parameters;
+	typedef
+	sge::renderer::texture::cube_parameters
+	parameters;
 
-	typedef IDirect3DCubeTexture9 d3d_type;
+	typedef
+	IDirect3DCubeTexture9
+	d3d_type;
 
-	typedef IDirect3DSurface9 d3d_buffer;
+	typedef
+	IDirect3DSurface9
+	d3d_buffer;
 
-	typedef sge::d3d9::optional_lock_rect lock_dest;
+	typedef
+	sge::d3d9::optional_lock_rect
+	lock_dest;
 
-	typedef sge::d3d9::texture::optional_locked_rect locked_dest;
+	typedef
+	sge::d3d9::texture::optional_locked_rect
+	locked_dest;
 
-	typedef sge::d3d9::texture::d3d_cube_texture_unique_ptr unique_ptr;
+	typedef
+	sge::d3d9::texture::d3d_cube_texture_unique_ptr
+	unique_ptr;
 
 	static
 	unique_ptr
@@ -69,7 +85,7 @@ struct cube_types
 	);
 
 	static
-	D3DLOCKED_RECT const
+	D3DLOCKED_RECT
 	lock(
 		d3d_buffer &,
 		lock_dest const &,

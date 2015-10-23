@@ -32,9 +32,11 @@ namespace d3d9
 namespace texture
 {
 
-typedef sge::d3d9::texture::basic<
+typedef
+sge::d3d9::texture::basic<
 	sge::d3d9::texture::planar_types
-> planar_basic;
+>
+planar_basic;
 
 }
 }

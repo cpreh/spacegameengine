@@ -55,20 +55,20 @@ public:
 		sge::renderer::texture::volume_parameters const &
 	);
 
-	~volume();
+	~volume()
+	override;
 private:
-	sge::renderer::texture::volume::dim const
-	size() const;
-
-	sge::renderer::texture::volume::color_buffer &
+	sge::renderer::texture::volume::nonconst_buffer &
 	level(
 		sge::renderer::texture::mipmap::level
-	);
+	)
+	override;
 
-	sge::renderer::texture::volume::color_buffer const &
+	sge::renderer::texture::volume::const_buffer const &
 	level(
 		sge::renderer::texture::mipmap::level
-	) const;
+	) const
+	override;
 
 	sge::d3d9::volume::d3d_unique_ptr
 	get_level(
@@ -78,7 +78,7 @@ private:
 	typedef
 	std::vector<
 		fcppt::unique_ptr<
-			sge::renderer::texture::volume::color_buffer
+			sge::renderer::texture::volume::nonconst_buffer
 		>
 	>
 	level_vector;

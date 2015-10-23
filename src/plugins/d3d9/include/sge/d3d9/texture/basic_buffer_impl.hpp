@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
-#include <fcppt/math/box/comparison.hpp>
+#include <fcppt/math/dim/comparison.hpp>
 
 
 template<
@@ -117,7 +117,7 @@ typename sge::d3d9::texture::basic_buffer<
 >::const_view
 sge::d3d9::texture::basic_buffer<
 	Types
->::lock(
+>::lock_c(
 	lock_area const &_area
 ) const
 {
@@ -209,9 +209,10 @@ sge::d3d9::texture::basic_buffer<
 	lock_dest;
 
 	lock_dest const dest_rect(
-		_area
+		// TODO
+		_area.size()
 		==
-		this->area()
+		this->size()
 		?
 			lock_dest()
 		:

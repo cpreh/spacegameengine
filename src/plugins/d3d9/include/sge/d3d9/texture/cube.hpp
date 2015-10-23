@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/d3d_unique_ptr.hpp>
 #include <sge/d3d9/texture/basic.hpp>
 #include <sge/d3d9/texture/cube_basic.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
@@ -57,22 +58,26 @@ public:
 		sge::renderer::texture::cube_parameters const &
 	);
 
-	~cube();
+	~cube()
+	override;
 private:
-	sge::renderer::texture::cube::size_type
-	border_size() const;
+	sge::renderer::size_type
+	border_size() const
+	override;
 
-	sge::renderer::texture::cube::color_buffer &
+	sge::renderer::texture::cube::nonconst_buffer &
 	level(
 		sge::renderer::texture::cube_side,
 		sge::renderer::texture::mipmap::level
-	);
+	)
+	override;
 
-	sge::renderer::texture::cube::color_buffer const &
+	sge::renderer::texture::cube::const_buffer const &
 	level(
 		sge::renderer::texture::cube_side,
 		sge::renderer::texture::mipmap::level
-	) const;
+	) const
+	override;
 
 	sge::d3d9::surface::d3d_unique_ptr
 	get_level(
@@ -83,7 +88,7 @@ private:
 	typedef
 	std::vector<
 		fcppt::unique_ptr<
-			sge::renderer::texture::cube::color_buffer
+			sge::renderer::texture::cube::nonconst_buffer
 		>
 	>
 	level_vector;

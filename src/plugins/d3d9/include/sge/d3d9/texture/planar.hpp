@@ -55,20 +55,20 @@ public:
 		sge::renderer::texture::planar_parameters const &
 	);
 
-	~planar();
+	~planar()
+	override;
 private:
-	sge::renderer::texture::planar::dim const
-	size() const;
-
-	sge::renderer::texture::planar::color_buffer &
+	sge::renderer::texture::planar::nonconst_buffer &
 	level(
 		sge::renderer::texture::mipmap::level
-	);
+	)
+	override;
 
-	sge::renderer::texture::planar::color_buffer const &
+	sge::renderer::texture::planar::const_buffer const &
 	level(
 		sge::renderer::texture::mipmap::level
-	) const;
+	) const
+	override;
 
 	sge::d3d9::surface::d3d_unique_ptr
 	get_level(
@@ -78,7 +78,7 @@ private:
 	typedef
 	std::vector<
 		fcppt::unique_ptr<
-			sge::renderer::texture::planar::color_buffer
+			sge::renderer::texture::planar::nonconst_buffer
 		>
 	>
 	level_vector;

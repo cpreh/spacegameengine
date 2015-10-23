@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_TARGET_ONSCREEN_HPP_INCLUDED
 #define SGE_D3D9_TARGET_ONSCREEN_HPP_INCLUDED
 
-
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/resource_manager_fwd.hpp>
 #include <sge/d3d9/surface/color_fwd.hpp>
@@ -30,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/target/onscreen_fwd.hpp>
 #include <sge/image/color/format_fwd.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
-#include <sge/renderer/color_buffer/surface_fwd.hpp>
+#include <sge/renderer/color_buffer/readable_surface_fwd.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -71,8 +70,9 @@ public:
 	~onscreen()
 	override;
 
-	sge::renderer::color_buffer::surface const &
-	surface() const;
+	sge::renderer::color_buffer::readable_surface const &
+	surface() const
+	override;
 private:
 	bool
 	needs_present() const
