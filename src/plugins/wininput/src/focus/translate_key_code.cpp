@@ -28,6 +28,7 @@ sge::wininput::focus::translate_key_code(
 	awl::backends::windows::event::wparam const _code
 )
 {
+	// FIXME: Add A-Z and 0-9
 	switch(
 		_code.get()
 	)
@@ -109,7 +110,7 @@ sge::wininput::focus::translate_key_code(
 	//case VK_SELECT:
 	case VK_PRINT:
 		return
-			sge::input::key::code::print;
+			sge::input::key::code::sysrq;
 	//case VK_EXECUTE:
 	//case VK_SNAPSHOT:
 	case VK_INSERT:
