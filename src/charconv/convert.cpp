@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/charconv/char_type.hpp>
-#include <sge/charconv/convert.hpp>
 #include <sge/charconv/conversion_failed.hpp>
+#include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>

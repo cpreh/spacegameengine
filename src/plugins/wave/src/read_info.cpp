@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wave/ignore_chunks_until.hpp>
 #include <sge/wave/info.hpp>
 #include <sge/wave/logger.hpp>
-#include <sge/wave/optional_info.hpp>
 #include <sge/wave/optional_header.hpp>
+#include <sge/wave/optional_info.hpp>
 #include <sge/wave/read_info.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/literal.hpp>

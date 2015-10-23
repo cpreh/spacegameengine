@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/format_fwd.hpp>
-#include <sge/opengl/texture/basic_buffer_parameters_fwd.hpp>
 #include <sge/opengl/texture/basic_buffer_fwd.hpp>
+#include <sge/opengl/texture/basic_buffer_parameters_fwd.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/dim/object_decl.hpp>

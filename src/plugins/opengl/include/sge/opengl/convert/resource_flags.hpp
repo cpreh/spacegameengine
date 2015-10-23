@@ -1,4 +1,4 @@
-	/*
+/*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2015 Carl Philipp Reh (carlphilippreh <at> gmail.com)
 
