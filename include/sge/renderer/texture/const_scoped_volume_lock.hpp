@@ -21,27 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_CONST_SCOPED_VOLUME_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CONST_SCOPED_VOLUME_LOCK_HPP_INCLUDED
 
-#include <sge/image3d/view/const_object.hpp>
-#include <sge/renderer/color_buffer/readable_volume.hpp>
+#include <sge/renderer/color_buffer/const_scoped_volume_lock.hpp>
 #include <sge/renderer/texture/const_basic_scoped_lock.hpp>
-#include <sge/renderer/texture/volume.hpp>
+#include <sge/renderer/texture/const_scoped_volume_lock_fwd.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace texture
-{
-
-typedef
-sge::renderer::texture::const_basic_scoped_lock<
-	sge::renderer::texture::volume
->
-const_scoped_volume_lock;
-
-}
-}
-}
 
 #endif

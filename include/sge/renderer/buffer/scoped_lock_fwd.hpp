@@ -30,7 +30,7 @@ namespace buffer
 {
 
 template<
-	typename Buffer
+	typename Tag
 >
 class scoped_lock;
 

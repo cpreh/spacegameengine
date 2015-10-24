@@ -22,28 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VERTEX_SCOPED_LOCK_HPP_INCLUDED
 
 #include <sge/renderer/buffer/scoped_lock.hpp>
-#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/scoped_lock_fwd.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
-{
-
-/**
-\brief A scoped lock that locks a sge::renderer::vertex::buffer
-*/
-typedef
-sge::renderer::buffer::scoped_lock<
-	sge::renderer::vertex::buffer
->
-scoped_lock;
-
-}
-}
-}
 
 #endif

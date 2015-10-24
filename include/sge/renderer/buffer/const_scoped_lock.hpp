@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_BUFFER_CONST_SCOPED_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_BUFFER_CONST_SCOPED_LOCK_HPP_INCLUDED
 
-#include <sge/image/view/const_object.hpp>
+#include <sge/image/traits/box_fwd.hpp>
+#include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/renderer/buffer/const_scoped_lock_fwd.hpp>
+#include <sge/renderer/buffer/readable_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -44,7 +46,7 @@ Used for locking of buffers readonly. It locks the buffer in the constructor
 and unlocks it in the destructor.
 */
 template<
-	typename Buffer
+	typename Tag
 >
 class const_scoped_lock
 {
@@ -53,18 +55,23 @@ class const_scoped_lock
 	);
 public:
 	typedef
-	Buffer
+	sge::renderer::buffer::readable<
+		Tag
+	>
 	buffer_type;
 
-	// TODO: Use traits here
 	typedef
 	typename
-	buffer_type::lock_area
+	sge::image::traits::box<
+		Tag
+	>::type
 	lock_area;
 
 	typedef
 	typename
-	buffer_type::const_view
+	sge::image::traits::const_view<
+		Tag
+	>::type
 	const_view;
 
 	/**

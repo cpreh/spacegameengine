@@ -18,21 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_BUFFER_CONST_SCOPED_LOCK_FWD_HPP_INCLUDED
-#define SGE_RENDERER_BUFFER_CONST_SCOPED_LOCK_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_VERTEX_SCOPED_LOCK_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VERTEX_SCOPED_LOCK_FWD_HPP_INCLUDED
+
+#include <sge/renderer/buffer/scoped_lock_fwd.hpp>
+#include <sge/renderer/vertex/tag.hpp>
 
 
 namespace sge
 {
 namespace renderer
 {
-namespace buffer
+namespace vertex
 {
 
-template<
-	typename Tag
+/**
+\brief A scoped lock that locks a sge::renderer::vertex::buffer
+*/
+typedef
+sge::renderer::buffer::scoped_lock<
+	sge::renderer::vertex::tag
 >
-class const_scoped_lock;
+scoped_lock;
 
 }
 }

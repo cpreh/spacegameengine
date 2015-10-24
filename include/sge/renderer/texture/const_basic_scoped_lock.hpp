@@ -21,8 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_CONST_BASIC_SCOPED_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CONST_BASIC_SCOPED_LOCK_HPP_INCLUDED
 
+#include <sge/image/traits/box_fwd.hpp>
+#include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/renderer/buffer/const_scoped_lock.hpp>
-#include <sge/renderer/buffer/readable.hpp>
+#include <sge/renderer/buffer/readable_fwd.hpp>
+#include <sge/renderer/texture/const_basic_scoped_lock_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -35,7 +38,8 @@ namespace texture
 {
 
 template<
-	typename Texture
+	typename Texture,
+	typename Tag
 >
 class const_basic_scoped_lock
 {
@@ -43,19 +47,26 @@ class const_basic_scoped_lock
 		const_basic_scoped_lock
 	);
 public:
+	// TODO: Create a texture template so that
+	// passing Texture is not necessary
 	typedef
-	typename
-	Texture::const_buffer
+	sge::renderer::buffer::readable<
+		Tag
+	>
 	buffer;
 
 	typedef
 	typename
-	buffer::lock_area
+	sge::image::traits::box<
+		Tag
+	>::type
 	lock_area;
 
 	typedef
 	typename
-	buffer::const_view
+	sge::image::traits::const_view<
+		Tag
+	>::type
 	const_view;
 
 	SGE_RENDERER_DETAIL_SYMBOL
@@ -79,7 +90,7 @@ public:
 private:
 	typedef
 	sge::renderer::buffer::const_scoped_lock<
-		buffer
+		Tag
 	>
 	buffer_lock;
 

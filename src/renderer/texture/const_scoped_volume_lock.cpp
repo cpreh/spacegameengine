@@ -18,12 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/color_buffer/readable_volume.hpp>
+#include <sge/image3d/tag.hpp>
 #include <sge/renderer/texture/const_scoped_volume_lock.hpp>
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/src/renderer/texture/instantiate_const_basic_scoped_lock.hpp>
 
 
 SGE_RENDERER_TEXTURE_INSTANTIATE_CONST_BASIC_SCOPED_LOCK(
-	sge::renderer::texture::volume
+	sge::renderer::texture::volume,
+	sge::image3d::tag
 );

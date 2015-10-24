@@ -18,21 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_BUFFER_CONST_SCOPED_LOCK_FWD_HPP_INCLUDED
-#define SGE_RENDERER_BUFFER_CONST_SCOPED_LOCK_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_TEXTURE_CONST_SCOPED_VOLUME_LOCK_FWD_HPP_INCLUDED
+#define SGE_RENDERER_TEXTURE_CONST_SCOPED_VOLUME_LOCK_FWD_HPP_INCLUDED
+
+#include <sge/image3d/tag.hpp>
+#include <sge/renderer/texture/const_basic_scoped_lock_fwd.hpp>
+#include <sge/renderer/texture/volume_fwd.hpp>
 
 
 namespace sge
 {
 namespace renderer
 {
-namespace buffer
+namespace texture
 {
 
-template<
-	typename Tag
+typedef
+sge::renderer::texture::const_basic_scoped_lock<
+	sge::renderer::texture::volume,
+	sge::image3d::tag
 >
-class const_scoped_lock;
+const_scoped_volume_lock;
 
 }
 }

@@ -52,7 +52,9 @@ set(
 	include/sge/renderer/clear/parameters_fwd.hpp
 	include/sge/renderer/clear/stencil_buffer_value.hpp
 	include/sge/renderer/color_buffer/const_scoped_surface_lock.hpp
+	include/sge/renderer/color_buffer/const_scoped_surface_lock_fwd.hpp
 	include/sge/renderer/color_buffer/const_scoped_volume_lock.hpp
+	include/sge/renderer/color_buffer/const_scoped_volume_lock_fwd.hpp
 	include/sge/renderer/color_buffer/optional_surface_ref.hpp
 	include/sge/renderer/color_buffer/optional_surface_ref_fwd.hpp
 	include/sge/renderer/color_buffer/readable_surface.hpp
@@ -60,7 +62,9 @@ set(
 	include/sge/renderer/color_buffer/readable_volume.hpp
 	include/sge/renderer/color_buffer/readable_volume_fwd.hpp
 	include/sge/renderer/color_buffer/scoped_surface_lock.hpp
+	include/sge/renderer/color_buffer/scoped_surface_lock_fwd.hpp
 	include/sge/renderer/color_buffer/scoped_volume_lock.hpp
+	include/sge/renderer/color_buffer/scoped_volume_lock_fwd.hpp
 	include/sge/renderer/color_buffer/surface.hpp
 	include/sge/renderer/color_buffer/surface_fwd.hpp
 	include/sge/renderer/color_buffer/tag_from_dimension.hpp
@@ -164,6 +168,7 @@ set(
 	include/sge/renderer/index/const_proxy_fwd.hpp
 	include/sge/renderer/index/const_proxy_impl.hpp
 	include/sge/renderer/index/const_scoped_lock.hpp
+	include/sge/renderer/index/const_scoped_lock_fwd.hpp
 	include/sge/renderer/index/const_tag.hpp
 	include/sge/renderer/index/count.hpp
 	include/sge/renderer/index/create_buffer_from_view.hpp
@@ -200,6 +205,7 @@ set(
 	include/sge/renderer/index/proxy_fwd.hpp
 	include/sge/renderer/index/proxy_impl.hpp
 	include/sge/renderer/index/scoped_lock.hpp
+	include/sge/renderer/index/scoped_lock_fwd.hpp
 	include/sge/renderer/index/tag.hpp
 	include/sge/renderer/index/to_const_format.hpp
 	include/sge/renderer/index/to_nonconst_format.hpp
@@ -653,6 +659,7 @@ set(
 	include/sge/renderer/texture/basic_parameters.hpp
 	include/sge/renderer/texture/basic_parameters_fwd.hpp
 	include/sge/renderer/texture/basic_scoped_lock.hpp
+	include/sge/renderer/texture/basic_scoped_lock_fwd.hpp
 	include/sge/renderer/texture/capabilities.hpp
 	include/sge/renderer/texture/capabilities_field.hpp
 	include/sge/renderer/texture/capabilities_field_fwd.hpp
@@ -660,6 +667,7 @@ set(
 	include/sge/renderer/texture/color_format.hpp
 	include/sge/renderer/texture/color_format_fwd.hpp
 	include/sge/renderer/texture/const_basic_scoped_lock.hpp
+	include/sge/renderer/texture/const_basic_scoped_lock_fwd.hpp
 	include/sge/renderer/texture/const_optional_base_ref.hpp
 	include/sge/renderer/texture/const_optional_base_ref_fwd.hpp
 	include/sge/renderer/texture/const_scoped_planar_lock.hpp
@@ -711,7 +719,9 @@ set(
 	include/sge/renderer/texture/planar_unique_ptr.hpp
 	include/sge/renderer/texture/scoped.hpp
 	include/sge/renderer/texture/scoped_planar_lock.hpp
+	include/sge/renderer/texture/scoped_planar_lock_fwd.hpp
 	include/sge/renderer/texture/scoped_volume_lock.hpp
+	include/sge/renderer/texture/scoped_volume_lock_fwd.hpp
 	include/sge/renderer/texture/stage.hpp
 	include/sge/renderer/texture/stage_value.hpp
 	include/sge/renderer/texture/translate_srgb_emulation.hpp
@@ -739,6 +749,7 @@ set(
 	include/sge/renderer/vertex/const_optional_declaration_ref.hpp
 	include/sge/renderer/vertex/const_optional_declaration_ref_fwd.hpp
 	include/sge/renderer/vertex/const_scoped_lock.hpp
+	include/sge/renderer/vertex/const_scoped_lock_fwd.hpp
 	include/sge/renderer/vertex/count.hpp
 	include/sge/renderer/vertex/create_buffer_from_view.hpp
 	include/sge/renderer/vertex/declaration.hpp
@@ -753,6 +764,7 @@ set(
 	include/sge/renderer/vertex/scoped_declaration.hpp
 	include/sge/renderer/vertex/scoped_declaration_and_buffers.hpp
 	include/sge/renderer/vertex/scoped_lock.hpp
+	include/sge/renderer/vertex/scoped_lock_fwd.hpp
 	include/sge/renderer/vertex/tag.hpp
 	include/sge/renderer/vertex/to_primitive_count.hpp
 	include/sge/renderer/vertex/traits/box_fwd.hpp

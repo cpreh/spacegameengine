@@ -22,30 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VERTEX_CONST_SCOPED_LOCK_HPP_INCLUDED
 
 #include <sge/renderer/buffer/const_scoped_lock.hpp>
-#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/const_scoped_lock_fwd.hpp>
+#include <sge/renderer/vertex/traits/box_fwd.hpp>
+#include <sge/renderer/vertex/traits/const_view_fwd.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
-{
-
-/**
-\brief A scoped lock that locks an sge::renderer::vertex::buffer readonly
-
-\see sge::renderer::const_linear_buffer_scoped_lock
-*/
-typedef
-sge::renderer::buffer::const_scoped_lock<
-	sge::renderer::vertex::buffer
->
-const_scoped_lock;
-
-}
-}
-}
 
 #endif

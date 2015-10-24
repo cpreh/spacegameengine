@@ -21,27 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_SCOPED_PLANAR_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_SCOPED_PLANAR_LOCK_HPP_INCLUDED
 
-#include <sge/image2d/view/object.hpp>
-#include <sge/renderer/color_buffer/writable_surface.hpp>
+#include <sge/renderer/color_buffer/scoped_surface_lock.hpp>
 #include <sge/renderer/texture/basic_scoped_lock.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/scoped_planar_lock_fwd.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace texture
-{
-
-typedef
-sge::renderer::texture::basic_scoped_lock<
-	sge::renderer::texture::planar
->
-scoped_planar_lock;
-
-}
-}
-}
 
 #endif

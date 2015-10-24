@@ -29,10 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 template<
-	typename Texture
+	typename Texture,
+	typename Tag
 >
 sge::renderer::texture::const_basic_scoped_lock<
-	Texture
+	Texture,
+	Tag
 >::const_basic_scoped_lock(
 	Texture const &_texture
 )
@@ -48,10 +50,12 @@ sge::renderer::texture::const_basic_scoped_lock<
 }
 
 template<
-	typename Texture
+	typename Texture,
+	typename Tag
 >
 sge::renderer::texture::const_basic_scoped_lock<
-	Texture
+	Texture,
+	Tag
 >::const_basic_scoped_lock(
 	Texture const &_texture,
 	lock_area const &_area
@@ -69,13 +73,17 @@ sge::renderer::texture::const_basic_scoped_lock<
 }
 
 template<
-	typename Texture
+	typename Texture,
+	typename Tag
 >
-typename sge::renderer::texture::const_basic_scoped_lock<
-	Texture
+typename
+sge::renderer::texture::const_basic_scoped_lock<
+	Texture,
+	Tag
 >::const_view
 sge::renderer::texture::const_basic_scoped_lock<
-	Texture
+	Texture,
+	Tag
 >::value() const
 {
 	return
@@ -83,10 +91,12 @@ sge::renderer::texture::const_basic_scoped_lock<
 }
 
 template<
-	typename Texture
+	typename Texture,
+	typename Tag
 >
 sge::renderer::texture::const_basic_scoped_lock<
-	Texture
+	Texture,
+	Tag
 >::~const_basic_scoped_lock()
 {
 }

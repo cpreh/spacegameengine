@@ -22,28 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_SCOPED_LOCK_HPP_INCLUDED
 
 #include <sge/renderer/buffer/scoped_lock.hpp>
-#include <sge/renderer/index/buffer.hpp>
+#include <sge/renderer/index/scoped_lock_fwd.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
+#include <sge/renderer/index/traits/box_fwd.hpp>
+#include <sge/renderer/index/traits/view_fwd.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-
-/**
-\brief A scoped lock that locks an sge::renderer::index::buffer
-*/
-typedef
-sge::renderer::buffer::scoped_lock<
-	sge::renderer::index::buffer
->
-scoped_lock;
-
-}
-}
-}
 
 #endif

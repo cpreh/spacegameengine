@@ -21,32 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_COLOR_BUFFER_CONST_SCOPED_SURFACE_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_COLOR_BUFFER_CONST_SCOPED_SURFACE_LOCK_HPP_INCLUDED
 
+#include <sge/image2d/traits/box_fwd.hpp>
+#include <sge/image2d/traits/const_view_fwd.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/object.hpp>
 #include <sge/renderer/buffer/const_scoped_lock.hpp>
-#include <sge/renderer/color_buffer/readable_surface.hpp>
+#include <sge/renderer/color_buffer/const_scoped_surface_lock_fwd.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace color_buffer
-{
-
-/**
-\brief A const scoped lock for surfaces
-
-\ingroup sge_renderer
-*/
-typedef
-sge::renderer::buffer::const_scoped_lock<
-	sge::renderer::color_buffer::readable_surface
->
-const_scoped_surface_lock;
-
-}
-}
-}
 
 #endif

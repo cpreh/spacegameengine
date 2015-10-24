@@ -20,9 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/const_scoped_lock.hpp>
+#include <sge/renderer/vertex/tag.hpp>
 #include <sge/src/renderer/buffer/instantiate_const_scoped_lock.hpp>
 
 
 SGE_RENDERER_BUFFER_INSTANTIATE_CONST_SCOPED_LOCK(
-	sge::renderer::vertex::buffer
+	sge::renderer::vertex::tag
 );

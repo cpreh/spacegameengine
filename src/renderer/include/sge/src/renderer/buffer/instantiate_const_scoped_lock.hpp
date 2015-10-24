@@ -26,13 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #define SGE_RENDERER_BUFFER_INSTANTIATE_CONST_SCOPED_LOCK(\
-	type\
+	tag\
 )\
 template \
 class \
 SGE_CORE_EXPORT_CLASS_INSTANTIATION \
 sge::renderer::buffer::const_scoped_lock<\
-	type\
+	tag\
 >
 
 #endif

@@ -21,15 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_RENDERER_BUFFER_CONST_SCOPED_LOCK_IMPL_HPP_INCLUDED
 #define SGE_SRC_RENDERER_BUFFER_CONST_SCOPED_LOCK_IMPL_HPP_INCLUDED
 
-#include <sge/image/view/const_object.hpp>
 #include <sge/renderer/buffer/const_scoped_lock.hpp>
 
 
 template<
-	typename Buffer
+	typename Tag
 >
 sge::renderer::buffer::const_scoped_lock<
-	Buffer
+	Tag
 >::const_scoped_lock(
 	buffer_type const &_buffer
 )
@@ -44,10 +43,10 @@ sge::renderer::buffer::const_scoped_lock<
 }
 
 template<
-	typename Buffer
+	typename Tag
 >
 sge::renderer::buffer::const_scoped_lock<
-	Buffer
+	Tag
 >::const_scoped_lock(
 	buffer_type const &_buffer,
 	lock_area const &_area
@@ -65,14 +64,14 @@ sge::renderer::buffer::const_scoped_lock<
 }
 
 template<
-	typename Buffer
+	typename Tag
 >
 typename
 sge::renderer::buffer::const_scoped_lock<
-	Buffer
+	Tag
 >::const_view
 sge::renderer::buffer::const_scoped_lock<
-	Buffer
+	Tag
 >::value() const
 {
 	return
@@ -80,10 +79,10 @@ sge::renderer::buffer::const_scoped_lock<
 }
 
 template<
-	typename Buffer
+	typename Tag
 >
 sge::renderer::buffer::const_scoped_lock<
-	Buffer
+	Tag
 >::~const_scoped_lock()
 {
 	buffer_.unlock();

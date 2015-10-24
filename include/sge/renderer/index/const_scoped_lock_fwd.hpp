@@ -18,21 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_BUFFER_CONST_SCOPED_LOCK_FWD_HPP_INCLUDED
-#define SGE_RENDERER_BUFFER_CONST_SCOPED_LOCK_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_CONST_SCOPED_LOCK_FWD_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_CONST_SCOPED_LOCK_FWD_HPP_INCLUDED
+
+#include <sge/renderer/index/tag.hpp>
+#include <sge/renderer/buffer/const_scoped_lock_fwd.hpp>
 
 
 namespace sge
 {
 namespace renderer
 {
-namespace buffer
+namespace index
 {
 
-template<
-	typename Tag
+/**
+\brief A scoped lock that locks a renderer::index_buffer readonly
+
+\see sge::renderer::const_linear_buffer_scoped_lock
+*/
+typedef
+sge::renderer::buffer::const_scoped_lock<
+	sge::renderer::index::tag
 >
-class const_scoped_lock;
+const_scoped_lock;
 
 }
 }

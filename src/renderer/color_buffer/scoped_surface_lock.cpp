@@ -18,11 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image2d/tag.hpp>
 #include <sge/renderer/color_buffer/scoped_surface_lock.hpp>
 #include <sge/renderer/color_buffer/writable_surface.hpp>
 #include <sge/src/renderer/buffer/instantiate_scoped_lock.hpp>
 
 
 SGE_RENDERER_BUFFER_INSTANTIATE_SCOPED_LOCK(
-	sge::renderer::color_buffer::writable_surface
+	sge::image2d::tag
 );
