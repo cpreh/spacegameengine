@@ -671,7 +671,9 @@ set(
 	include/sge/renderer/texture/const_optional_base_ref.hpp
 	include/sge/renderer/texture/const_optional_base_ref_fwd.hpp
 	include/sge/renderer/texture/const_scoped_planar_lock.hpp
+	include/sge/renderer/texture/const_scoped_planar_lock_fwd.hpp
 	include/sge/renderer/texture/const_scoped_volume_lock.hpp
+	include/sge/renderer/texture/const_scoped_volume_lock_fwd.hpp
 	include/sge/renderer/texture/create_planar_from_file.hpp
 	include/sge/renderer/texture/create_planar_from_path.hpp
 	include/sge/renderer/texture/create_planar_from_view.hpp
