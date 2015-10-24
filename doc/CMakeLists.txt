@@ -859,6 +859,7 @@ set(
 	include/sge/image/traits/const_view_fwd.hpp
 	include/sge/image/traits/dim_fwd.hpp
 	include/sge/image/traits/format_fwd.hpp
+	include/sge/image/traits/format_is_ref.hpp
 	include/sge/image/traits/format_static.hpp
 	include/sge/image/traits/format_stride.hpp
 	include/sge/image/traits/format_to_string.hpp
@@ -2102,7 +2103,6 @@ set(
 	include/sge/renderer/color_buffer/writable_surface_fwd.hpp
 	include/sge/renderer/color_buffer/writable_volume.hpp
 	include/sge/renderer/color_buffer/writable_volume_fwd.hpp
-	include/sge/renderer/const_linear_buffer_scoped_lock.hpp
 	include/sge/renderer/const_raw_pointer.hpp
 	include/sge/renderer/context/core.hpp
 	include/sge/renderer/context/core_fwd.hpp
@@ -2139,6 +2139,8 @@ set(
 	include/sge/renderer/device/index_value.hpp
 	include/sge/renderer/device/parameters.hpp
 	include/sge/renderer/device/parameters_fwd.hpp
+	include/sge/renderer/dim1.hpp
+	include/sge/renderer/dim1_fwd.hpp
 	include/sge/renderer/dim2.hpp
 	include/sge/renderer/dim2_fwd.hpp
 	include/sge/renderer/dim3.hpp
@@ -2186,7 +2188,6 @@ set(
 	include/sge/renderer/index/buffer_parameters.hpp
 	include/sge/renderer/index/buffer_parameters_fwd.hpp
 	include/sge/renderer/index/buffer_shared_ptr.hpp
-	include/sge/renderer/index/buffer_types.hpp
 	include/sge/renderer/index/buffer_unique_ptr.hpp
 	include/sge/renderer/index/const_format_16.hpp
 	include/sge/renderer/index/const_format_32.hpp
@@ -2231,12 +2232,17 @@ set(
 	include/sge/renderer/index/proxy_fwd.hpp
 	include/sge/renderer/index/proxy_impl.hpp
 	include/sge/renderer/index/scoped_lock.hpp
-	include/sge/renderer/index/size_type.hpp
+	include/sge/renderer/index/tag.hpp
 	include/sge/renderer/index/to_const_format.hpp
 	include/sge/renderer/index/to_nonconst_format.hpp
+	include/sge/renderer/index/traits/box_fwd.hpp
+	include/sge/renderer/index/traits/color_tag.hpp
+	include/sge/renderer/index/traits/const_view_fwd.hpp
+	include/sge/renderer/index/traits/dim_fwd.hpp
+	include/sge/renderer/index/traits/format_fwd.hpp
+	include/sge/renderer/index/traits/view_fwd.hpp
 	include/sge/renderer/index/view.hpp
 	include/sge/renderer/index/view_fwd.hpp
-	include/sge/renderer/linear_buffer_scoped_lock.hpp
 	include/sge/renderer/lock_box.hpp
 	include/sge/renderer/lock_box_fwd.hpp
 	include/sge/renderer/lock_flags/from_mode.hpp
@@ -2249,10 +2255,11 @@ set(
 	include/sge/renderer/lock_rect.hpp
 	include/sge/renderer/lock_rect_fwd.hpp
 	include/sge/renderer/lock_rect_to_coords.hpp
+	include/sge/renderer/lock_segment.hpp
+	include/sge/renderer/lock_segment_fwd.hpp
 	include/sge/renderer/log_location.hpp
 	include/sge/renderer/matrix4.hpp
 	include/sge/renderer/matrix4_fwd.hpp
-	include/sge/renderer/npos.hpp
 	include/sge/renderer/occlusion_query/blocking_wait.hpp
 	include/sge/renderer/occlusion_query/object.hpp
 	include/sge/renderer/occlusion_query/object_fwd.hpp
@@ -2766,7 +2773,6 @@ set(
 	include/sge/renderer/vertex/buffer_parameters.hpp
 	include/sge/renderer/vertex/buffer_parameters_fwd.hpp
 	include/sge/renderer/vertex/buffer_shared_ptr.hpp
-	include/sge/renderer/vertex/buffer_types.hpp
 	include/sge/renderer/vertex/buffer_unique_ptr.hpp
 	include/sge/renderer/vertex/const_buffer_ref.hpp
 	include/sge/renderer/vertex/const_buffer_ref_container.hpp
@@ -2787,7 +2793,15 @@ set(
 	include/sge/renderer/vertex/scoped_declaration.hpp
 	include/sge/renderer/vertex/scoped_declaration_and_buffers.hpp
 	include/sge/renderer/vertex/scoped_lock.hpp
+	include/sge/renderer/vertex/tag.hpp
 	include/sge/renderer/vertex/to_primitive_count.hpp
+	include/sge/renderer/vertex/traits/box_fwd.hpp
+	include/sge/renderer/vertex/traits/color_tag.hpp
+	include/sge/renderer/vertex/traits/const_view_fwd.hpp
+	include/sge/renderer/vertex/traits/dim_fwd.hpp
+	include/sge/renderer/vertex/traits/format_fwd.hpp
+	include/sge/renderer/vertex/traits/format_is_ref.hpp
+	include/sge/renderer/vertex/traits/view_fwd.hpp
 	include/sge/renderer/vf/color.hpp
 	include/sge/renderer/vf/color_base.hpp
 	include/sge/renderer/vf/color_fwd.hpp

@@ -428,14 +428,19 @@ compiled_model::render(
 	_context.render_indexed(
 		*ib_,
 		sge::renderer::vertex::first(
-			0u),
+			0u
+		),
 		sge::renderer::vertex::count(
-			vb_->size()),
+			vb_->linear_size()
+		),
 		sge::renderer::primitive_type::triangle_list,
 		sge::renderer::index::first(
-			0u),
+			0u
+		),
 		sge::renderer::index::count(
-			ib_->size().get()));
+			ib_->linear_size()
+		)
+	);
 }
 
 compiled_model::~compiled_model()

@@ -47,13 +47,18 @@ template<
 class basic_view
 {
 public:
-	typedef typename boost::mpl::if_c<
+	typedef
+	typename
+	boost::mpl::if_c<
 		IsConst,
 		sge::renderer::const_raw_pointer,
 		sge::renderer::raw_pointer
-	>::type pointer;
+	>::type
+	pointer;
 
-	typedef renderer::size_type size_type;
+	typedef
+	sge::renderer::size_type
+	size_type;
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	basic_view(

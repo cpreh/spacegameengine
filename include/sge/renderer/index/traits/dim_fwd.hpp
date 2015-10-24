@@ -18,31 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_NPOS_HPP_INCLUDED
-#define SGE_RENDERER_NPOS_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_TRAITS_DIM_FWD_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_TRAITS_DIM_FWD_HPP_INCLUDED
 
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/detail/symbol.hpp>
+#include <sge/image/traits/dim_fwd.hpp>
+#include <sge/renderer/dim1_fwd.hpp>
+#include <sge/renderer/index/tag.hpp>
 
 
 namespace sge
 {
-namespace renderer
+namespace image
+{
+namespace traits
 {
 
-/**
-\brief A constant that describes the end of a buffer
+template<>
+struct dim<
+	sge::renderer::index::tag
+>
+{
+	typedef
+	sge::renderer::dim1
+	type;
+};
 
-\ingroup sge_renderer
-
-\see sge::renderer::index_buffer::npos
-
-\see sge::renderer::vertex_buffer::npos
-*/
-SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::size_type
-npos();
-
+}
 }
 }
 

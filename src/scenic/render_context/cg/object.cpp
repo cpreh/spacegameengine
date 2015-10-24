@@ -347,7 +347,7 @@ sge::scenic::render_context::cg::object::render(
 		sge::renderer::vertex::count(
 			FCPPT_ASSERT_OPTIONAL_ERROR(
 				current_vertex_buffer_
-			).size()),
+			).linear_size()),
 		sge::renderer::primitive_type::triangle_list,
 		_index_buffer_range.first_index(),
 		_index_buffer_range.index_count());

@@ -18,11 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vertex/buffer.hpp>
-#include <sge/renderer/vertex/const_scoped_lock.hpp>
-#include <sge/src/renderer/buffer/instantiate_const_scoped_lock.hpp>
+#ifndef SGE_RENDERER_INDEX_TRAITS_VIEW_FWD_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_TRAITS_VIEW_FWD_HPP_INCLUDED
+
+#include <sge/image/traits/view_fwd.hpp>
+#include <sge/renderer/index/tag.hpp>
+#include <sge/renderer/index/dynamic/view_fwd.hpp>
 
 
-SGE_RENDERER_BUFFER_INSTANTIATE_CONST_SCOPED_LOCK(
-	sge::renderer::vertex::buffer
-);
+namespace sge
+{
+namespace image
+{
+namespace traits
+{
+
+template<>
+struct view<
+	sge::renderer::index::tag
+>
+{
+	typedef
+	sge::renderer::index::dynamic::view
+	type;
+};
+
+}
+}
+}
+
+#endif

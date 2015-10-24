@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
 
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/index/const_tag.hpp>
 #include <sge/renderer/index/format_fwd.hpp>
 #include <sge/renderer/index/is_format.hpp>
 #include <sge/renderer/index/iterator_fwd.hpp>
-#include <sge/renderer/index/size_type.hpp>
 #include <sge/renderer/index/to_nonconst_format.hpp>
 #include <sge/renderer/index/view_fwd.hpp>
 #include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
@@ -70,7 +70,7 @@ public:
 	pointer;
 
 	typedef
-	sge::renderer::index::size_type
+	sge::renderer::size_type
 	size_type;
 
 	typedef

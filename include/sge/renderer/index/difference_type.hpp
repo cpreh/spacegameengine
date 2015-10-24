@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_DIFFERENCE_TYPE_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_DIFFERENCE_TYPE_HPP_INCLUDED
 
-#include <sge/renderer/index/size_type.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -34,9 +34,11 @@ namespace renderer
 namespace index
 {
 
-typedef std::make_signed<
-	sge::renderer::index::size_type
->::type difference_type;
+typedef
+std::make_signed<
+	sge::renderer::size_type
+>::type
+difference_type;
 
 }
 }

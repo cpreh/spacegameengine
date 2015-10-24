@@ -137,7 +137,7 @@ sge::line_drawer::object::render(
 					0u
 				),
 				sge::renderer::vertex::count(
-					_buffer->size()
+					_buffer->linear_size()
 				),
 				sge::renderer::primitive_type::line_list
 			);
@@ -185,7 +185,7 @@ sge::line_drawer::object::unlock()
 			)
 			{
 				return
-					_buffer->size().get()
+					_buffer->linear_size()
 					<
 					needed_size;
 			}

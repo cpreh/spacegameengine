@@ -505,7 +505,9 @@ try
 			sge::renderer::vertex::first(
 				0u
 			),
-			vertex_buffer->size(),
+			sge::renderer::vertex::count{
+				vertex_buffer->linear_size()
+			},
 			sge::renderer::primitive_type::point_list
 		);
 	}

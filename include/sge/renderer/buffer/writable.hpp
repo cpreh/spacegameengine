@@ -76,13 +76,13 @@ public:
 
 	typedef
 	typename
-	base::color_tag
-	color_tag;
+	base::format_tag
+	format_tag;
 
 	typedef
 	typename
-	base::color_format
-	color_format;
+	base::format_type
+	format_type;
 
 	typedef
 	typename

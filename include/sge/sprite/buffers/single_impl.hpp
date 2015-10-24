@@ -118,13 +118,13 @@ sge::sprite::buffers::single<
 							sge::sprite::buffers::roles::vertex_buffer
 						>(
 							_buffers
-						)->size()
+						)->linear_size()
 						<
 						sge::sprite::buffers::vertex_count<
 							Choices
 						>(
 							_num_sprites
-						)
+						).get()
 					)
 						_buffers =
 							sge::sprite::buffers::allocate<

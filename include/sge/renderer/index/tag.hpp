@@ -18,23 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RENDERER_INSTANTIATE_LINEAR_BUFFER_SCOPED_LOCK_HPP_INCLUDED
-#define SGE_SRC_RENDERER_INSTANTIATE_LINEAR_BUFFER_SCOPED_LOCK_HPP_INCLUDED
-
-#include <sge/src/core/export_class_instantiation.hpp>
-#include <sge/src/renderer/linear_buffer_scoped_lock_impl.hpp>
+#ifndef SGE_RENDERER_INDEX_TAG_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_TAG_HPP_INCLUDED
 
 
-#define SGE_RENDERER_INSTANTIATE_LINEAR_BUFFER_SCOPED_LOCK(\
-	buffer_type,\
-	types_struct\
-)\
-template \
-class \
-SGE_CORE_EXPORT_CLASS_INSTANTIATION \
-sge::renderer::linear_buffer_scoped_lock<\
-	buffer_type,\
-	types_struct\
->
+namespace sge
+{
+namespace renderer
+{
+namespace index
+{
+
+struct tag;
+
+}
+}
+}
 
 #endif

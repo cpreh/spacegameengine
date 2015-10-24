@@ -24,10 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/convert/index_format.hpp>
+#include <sge/renderer/dim1.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_segment.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_parameters.hpp>
+#include <sge/renderer/index/first.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/format_stride.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
@@ -80,7 +83,7 @@ sge::opengl::index_buffer::gl_format() const
 
 GLvoid *
 sge::opengl::index_buffer::buffer_offset(
-	first_type const _size
+	sge::renderer::index::first const _size
 ) const
 {
 	return
@@ -95,38 +98,34 @@ sge::opengl::index_buffer::bind() const
 	buffer_.bind();
 }
 
-sge::opengl::index_buffer::view_type
+sge::renderer::index::dynamic::view
 sge::opengl::index_buffer::lock(
-	sge::renderer::lock_mode const _flags,
-	first_type const _offset,
-	count_type const _range
+	sge::renderer::lock_segment const &_segment,
+	sge::renderer::lock_mode const _flags
 )
 {
 	return
 		this->do_lock<
-			view_type
+			sge::renderer::index::dynamic::view
 		>(
 			sge::renderer::lock_flags::from_mode(
 				_flags
 			),
-			_offset,
-			_range
+			_segment
 		);
 }
 
-sge::opengl::index_buffer::const_view_type
-sge::opengl::index_buffer::lock(
-	first_type const _offset,
-	count_type const _range
+sge::renderer::index::dynamic::const_view
+sge::opengl::index_buffer::lock_c(
+	sge::renderer::lock_segment const &_segment
 ) const
 {
 	return
 		this->do_lock<
-			const_view_type
+			sge::renderer::index::dynamic::const_view
 		>(
-			renderer::lock_flags::method::read,
-			_offset,
-			_range
+			sge::renderer::lock_flags::method::read,
+			_segment
 		);
 }
 
@@ -136,14 +135,13 @@ template<
 View
 sge::opengl::index_buffer::do_lock(
 	sge::renderer::lock_flags::method const _method,
-	first_type const _offset,
-	count_type const _range
+	sge::renderer::lock_segment const &_segment
 ) const
 {
 	buffer_.lock(
 		_method,
-		_offset.get(),
-		_range.get()
+		_segment.pos().x(),
+		_segment.size().w()
 	);
 
 	return
@@ -164,13 +162,13 @@ sge::opengl::index_buffer::unlock() const
 	buffer_.unlock();
 }
 
-sge::opengl::index_buffer::count_type
+sge::renderer::dim1
 sge::opengl::index_buffer::size() const
 {
 	return
-		count_type(
+		sge::renderer::dim1{
 			buffer_.size()
-		);
+		};
 }
 
 sge::renderer::resource_flags_field

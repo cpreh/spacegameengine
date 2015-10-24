@@ -554,11 +554,17 @@ try
 			main_kernel,
 			sge::opencl::command_queue::global_dim1(
 				sge::opencl::dim1(
-					vb->size().get() * 2u)),
+					vb->linear_size()
+					* 2u
+				)
+			),
 			sge::opencl::command_queue::local_dim1(
 				sge::opencl::dim1(
-					2u)),
-			sge::opencl::event::sequence());
+					2u
+				)
+			),
+			sge::opencl::event::sequence()
+		);
 	}
 
 	fcppt::io::cout()

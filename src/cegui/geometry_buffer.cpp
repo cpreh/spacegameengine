@@ -342,7 +342,7 @@ sge::cegui::geometry_buffer::draw() const
 					0u
 				),
 				sge::renderer::vertex::count(
-					batch.vertex_buffer().size()
+					batch.vertex_buffer().linear_size()
 				),
 				sge::renderer::primitive_type::triangle_list
 			);

@@ -30,7 +30,7 @@ namespace renderer
 {
 
 /**
-\brief A typedef for a two dimensional sge::renderer::size_type
+\brief A typedef for a two-dimensional sge::renderer::size_type
 
 \ingroup sge_renderer
 */

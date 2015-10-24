@@ -25,9 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/dim_fwd.hpp>
 #include <sge/image/traits/format_fwd.hpp>
+#include <sge/image/traits/format_is_ref.hpp>
 #include <sge/renderer/buffer/base_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/if.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -83,7 +87,7 @@ public:
 	sge::image::traits::color_tag<
 		ImageTag
 	>::type
-	color_tag;
+	format_tag;
 
 	/**
 	\brief The color format used by this buffer
@@ -91,9 +95,9 @@ public:
 	typedef
 	typename
 	sge::image::traits::format<
-		color_tag
+		format_tag
 	>::type
-	color_format;
+	format_type;
 
 	/**
 	\brief The size of the buffer
@@ -104,11 +108,22 @@ public:
 	dim
 	size() const = 0;
 
+	typedef
+	typename
+	boost::mpl::if_<
+		sge::image::traits::format_is_ref<
+			ImageTag
+		>,
+		format_type const &,
+		format_type
+	>::type
+	format_return_type;
+
 	/**
 	\brief The format used by this buffer
 	*/
 	virtual
-	color_format
+	format_return_type
 	format() const = 0;
 };
 

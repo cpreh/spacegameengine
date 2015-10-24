@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_GEOMETRY_DETAIL_FILL_VERTICES_HPP_INCLUDED
 
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_segment.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
@@ -100,20 +101,28 @@ fill_vertices(
 
 	sge::renderer::vertex::scoped_lock const vblock(
 		_slice.vertex_buffer(),
-		sge::renderer::lock_mode::writeonly,
-		_slice.first_vertex(),
-		sge::sprite::buffers::vertex_count<
-			Choices
-		>(
-			_range.size()
-		)
+		sge::renderer::lock_segment{
+			sge::renderer::lock_segment::vector{
+				_slice.first_vertex().get()
+			},
+			sge::renderer::lock_segment::dim{
+				sge::sprite::buffers::vertex_count<
+					Choices
+				>(
+					_range.size()
+				).get()
+			}
+		},
+		sge::renderer::lock_mode::writeonly
 	);
 
-	typedef sge::renderer::vf::view<
+	typedef
+	sge::renderer::vf::view<
 		sge::sprite::detail::vf::format_part_from_object<
 			object_type
 		>
-	> vertex_view;
+	>
+	vertex_view;
 
 	vertex_view const vertices(
 		vblock.value()

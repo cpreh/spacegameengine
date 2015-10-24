@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/lock_segment.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/vertex/count.hpp>
@@ -27,19 +28,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::vf::dynamic::locked_part::locked_part(
 	sge::renderer::raw_pointer const _data,
-	sge::renderer::vertex::first const _pos,
-	sge::renderer::vertex::count const _count,
+	sge::renderer::lock_segment const &_segment,
 	sge::renderer::lock_flags::method const _lock_flags
 )
 :
 	data_(
 		_data
 	),
-	pos_(
-		_pos
-	),
-	count_(
-		_count
+	segment_(
+		_segment
 	),
 	lock_flags_(
 		_lock_flags
@@ -58,14 +55,18 @@ sge::renderer::vertex::first
 sge::renderer::vf::dynamic::locked_part::pos() const
 {
 	return
-		pos_;
+		sge::renderer::vertex::first{
+			segment_.pos().x()
+		};
 }
 
 sge::renderer::vertex::count
 sge::renderer::vf::dynamic::locked_part::count() const
 {
 	return
-		count_;
+		sge::renderer::vertex::count{
+			segment_.size().w()
+		};
 }
 
 sge::renderer::lock_flags::method

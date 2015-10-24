@@ -19,12 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/index/buffer.hpp>
-#include <sge/renderer/index/buffer_types.hpp>
 #include <sge/renderer/index/const_scoped_lock.hpp>
-#include <sge/src/renderer/instantiate_const_linear_buffer_scoped_lock.hpp>
+#include <sge/src/renderer/buffer/instantiate_const_scoped_lock.hpp>
 
 
-SGE_RENDERER_INSTANTIATE_CONST_LINEAR_BUFFER_SCOPED_LOCK(
-	sge::renderer::index::buffer,
-	sge::renderer::index::buffer_types
+SGE_RENDERER_BUFFER_INSTANTIATE_CONST_SCOPED_LOCK(
+	sge::renderer::index::buffer
 );

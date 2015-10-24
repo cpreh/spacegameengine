@@ -552,14 +552,14 @@ try
 				0u
 			),
 			sge::renderer::vertex::count(
-				vertex_buffer->size()
+				vertex_buffer->linear_size()
 			),
 			sge::renderer::primitive_type::triangle_list,
 			sge::renderer::index::first(
 				0u
 			),
 			sge::renderer::index::count(
-				index_buffer->size()
+				index_buffer->linear_size()
 			)
 		);
 	}

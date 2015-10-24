@@ -42,6 +42,7 @@ set(
 	include/sge/image/traits/const_view_fwd.hpp
 	include/sge/image/traits/dim_fwd.hpp
 	include/sge/image/traits/format_fwd.hpp
+	include/sge/image/traits/format_is_ref.hpp
 	include/sge/image/traits/format_static.hpp
 	include/sge/image/traits/format_stride.hpp
 	include/sge/image/traits/format_to_string.hpp

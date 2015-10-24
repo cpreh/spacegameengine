@@ -18,21 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_SIZE_TYPE_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_SIZE_TYPE_HPP_INCLUDED
+#ifndef SGE_RENDERER_VERTEX_TRAITS_FORMAT_IS_REF_HPP_INCLUDED
+#define SGE_RENDERER_VERTEX_TRAITS_FORMAT_IS_REF_HPP_INCLUDED
 
+#include <sge/image/traits/format_is_ref.hpp>
+#include <sge/renderer/vertex/tag.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstddef>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
-namespace renderer
+namespace image
 {
-namespace index
+namespace traits
 {
 
-typedef std::size_t size_type;
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
+template<>
+struct format_is_ref<
+	sge::renderer::vertex::tag
+>
+:
+std::true_type
+{
+};
+
+FCPPT_PP_POP_WARNING
 
 }
 }

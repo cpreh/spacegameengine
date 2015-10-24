@@ -76,13 +76,13 @@ public:
 
 	typedef
 	typename
-	base_type::color_tag
-	color_tag;
+	base_type::format_tag
+	format_tag;
 
 	typedef
 	typename
-	base_type::color_format
-	color_format;
+	base_type::format_type
+	format_type;
 
 	/**
 	\brief The lock area type

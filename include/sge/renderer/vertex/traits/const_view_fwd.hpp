@@ -18,46 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/dim1.hpp>
-#include <sge/renderer/lock_segment.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/buffer/writable.hpp>
-#include <sge/renderer/vertex/buffer.hpp>
+#ifndef SGE_RENDERER_VERTEX_TRAITS_CONST_VIEW_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VERTEX_TRAITS_CONST_VIEW_FWD_HPP_INCLUDED
+
+#include <sge/image/traits/view_fwd.hpp>
 #include <sge/renderer/vertex/tag.hpp>
-#include <sge/renderer/vf/dynamic/const_view.hpp>
-#include <sge/renderer/vf/dynamic/view.hpp>
-#include <sge/src/renderer/buffer/instantiate_base.hpp>
-#include <sge/src/renderer/buffer/instantiate_readable.hpp>
-#include <sge/src/renderer/buffer/instantiate_writable.hpp>
+#include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
 
 
-sge::renderer::vertex::buffer::buffer()
-:
-	sge::renderer::buffer::writable<
-		sge::renderer::vertex::tag
-	>()
+namespace sge
 {
+namespace image
+{
+namespace traits
+{
+
+template<>
+struct const_view<
+	sge::renderer::vertex::tag
+>
+{
+	typedef
+	sge::renderer::vf::dynamic::const_view
+	type;
+};
+
+}
+}
 }
 
-sge::renderer::vertex::buffer::~buffer()
-{
-}
-
-sge::renderer::size_type
-sge::renderer::vertex::buffer::linear_size() const
-{
-	return
-		this->size().w();
-}
-
-SGE_RENDERER_BUFFER_INSTANTIATE_BASE(
-	sge::renderer::vertex::tag
-);
-
-SGE_RENDERER_BUFFER_INSTANTIATE_READABLE(
-	sge::renderer::vertex::tag
-);
-
-SGE_RENDERER_BUFFER_INSTANTIATE_WRITABLE(
-	sge::renderer::vertex::tag
-);
+#endif

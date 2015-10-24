@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
 
+
 namespace sge
 {
 namespace renderer
@@ -32,9 +33,11 @@ namespace index
 namespace dynamic
 {
 
-typedef index::dynamic::basic_view<
+typedef
+sge::renderer::index::dynamic::basic_view<
 	true
-> const_view;
+>
+const_view;
 
 }
 }

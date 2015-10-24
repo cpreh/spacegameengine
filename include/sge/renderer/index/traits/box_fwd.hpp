@@ -18,15 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/npos.hpp>
+#ifndef SGE_RENDERER_INDEX_TRAITS_BOX_FWD_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_TRAITS_BOX_FWD_HPP_INCLUDED
 
-sge::renderer::size_type
-sge::renderer::npos()
+#include <sge/image/traits/box_fwd.hpp>
+#include <sge/renderer/lock_segment_fwd.hpp>
+#include <sge/renderer/index/tag.hpp>
+
+
+namespace sge
 {
-	return
-		static_cast<
-			sge::renderer::size_type
-		>(
-			-1
-		);
+namespace image
+{
+namespace traits
+{
+
+template<>
+struct box<
+	sge::renderer::index::tag
+>
+{
+	typedef
+	sge::renderer::lock_segment
+	type;
+};
+
 }
+}
+}
+
+#endif

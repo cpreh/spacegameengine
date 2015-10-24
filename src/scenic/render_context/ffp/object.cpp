@@ -398,7 +398,7 @@ sge::scenic::render_context::ffp::object::vertex_buffer(
 		);
 
 	current_vertex_buffer_size_ =
-		_vertex_buffer.size();
+		_vertex_buffer.linear_size();
 }
 
 void

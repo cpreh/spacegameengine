@@ -56,6 +56,7 @@ public:
 	Buffer
 	buffer_type;
 
+	// TODO: Use traits here
 	typedef
 	typename
 	buffer_type::lock_area

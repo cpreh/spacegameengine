@@ -25,11 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/vf/part.hpp>
+#include <sge/renderer/dim1.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_segment.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
@@ -42,7 +45,7 @@ sge::opengl::vertex_buffer::vertex_buffer(
 	sge::opengl::context::system::object &_system_context,
 	sge::renderer::vf::dynamic::part_index const _part_index,
 	sge::renderer::vf::dynamic::part const &_format_part,
-	count_type const _size,
+	sge::renderer::vertex::count const _size,
 	sge::renderer::resource_flags_field const &_flags
 )
 :
@@ -102,38 +105,34 @@ sge::opengl::vertex_buffer::unuse(
 	_format_part.unuse_me();
 }
 
-sge::opengl::vertex_buffer::view_type
+sge::renderer::vf::dynamic::view
 sge::opengl::vertex_buffer::lock(
-	sge::renderer::lock_mode const _flags,
-	first_type const _offset,
-	count_type const _range
+	sge::renderer::lock_segment const &_segment,
+	sge::renderer::lock_mode const _flags
 )
 {
 	return
 		this->do_lock<
-			view_type
+			sge::renderer::vf::dynamic::view
 		>(
 			sge::renderer::lock_flags::from_mode(
 				_flags
 			),
-			_offset,
-			_range
+			_segment
 		);
 }
 
-sge::opengl::vertex_buffer::const_view_type
-sge::opengl::vertex_buffer::lock(
-	first_type const _offset,
-	count_type const _range
+sge::renderer::vf::dynamic::const_view
+sge::opengl::vertex_buffer::lock_c(
+	sge::renderer::lock_segment const &_segment
 ) const
 {
 	return
 		this->do_lock<
-			const_view_type
+			sge::renderer::vf::dynamic::const_view
 		>(
 			sge::renderer::lock_flags::method::read,
-			_offset,
-			_range
+			_segment
 		);
 }
 
@@ -143,26 +142,19 @@ template<
 View
 sge::opengl::vertex_buffer::do_lock(
 	sge::renderer::lock_flags::method const _method,
-	first_type const _offset,
-	count_type const _range
+	sge::renderer::lock_segment const &_segment
 ) const
 {
 	buffer_.lock(
 		_method,
-		_offset.get(),
-		_range.get()
+		_segment.pos().x(),
+		_segment.size().w()
 	);
 
 	converter_.lock(
 		sge::renderer::vf::dynamic::locked_part(
 			buffer_.data(),
-			_offset,
-			_range == npos
-			?
-				this->size()
-			:
-				_range
-			,
+			_segment,
 			_method
 		)
 	);
@@ -170,10 +162,10 @@ sge::opengl::vertex_buffer::do_lock(
 	return
 		View(
 			buffer_.data(),
-			count_type(
+			sge::renderer::vertex::count(
 				buffer_.lock_size()
 			),
-			this->format_part(),
+			this->format(),
 			part_index_
 		);
 }
@@ -186,13 +178,13 @@ sge::opengl::vertex_buffer::unlock() const
 	buffer_.unlock();
 }
 
-sge::opengl::vertex_buffer::count_type
+sge::renderer::dim1
 sge::opengl::vertex_buffer::size() const
 {
 	return
-		count_type(
+		sge::renderer::dim1{
 			buffer_.size()
-		);
+		};
 }
 
 sge::renderer::resource_flags_field
@@ -203,7 +195,7 @@ sge::opengl::vertex_buffer::resource_flags() const
 }
 
 sge::renderer::vf::dynamic::part const &
-sge::opengl::vertex_buffer::format_part() const
+sge::opengl::vertex_buffer::format() const
 {
 	return
 		format_part_;

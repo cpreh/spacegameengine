@@ -18,11 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vertex/buffer.hpp>
-#include <sge/renderer/vertex/const_scoped_lock.hpp>
-#include <sge/src/renderer/buffer/instantiate_const_scoped_lock.hpp>
+#ifndef SGE_IMAGE_TRAITS_FORMAT_IS_REF_HPP_INCLUDED
+#define SGE_IMAGE_TRAITS_FORMAT_IS_REF_HPP_INCLUDED
+
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
-SGE_RENDERER_BUFFER_INSTANTIATE_CONST_SCOPED_LOCK(
-	sge::renderer::vertex::buffer
-);
+namespace sge
+{
+namespace image
+{
+namespace traits
+{
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+
+template<
+	typename Tag
+>
+struct format_is_ref
+:
+std::false_type
+{
+};
+
+FCPPT_PP_POP_WARNING
+
+}
+}
+}
+
+#endif

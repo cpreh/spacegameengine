@@ -26,13 +26,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/wrapper.hpp>
 #include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/vf/part_fwd.hpp>
+#include <sge/renderer/dim1_fwd.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
+#include <sge/renderer/lock_segment_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
 #include <sge/renderer/vf/dynamic/converter.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vf/dynamic/view_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -54,7 +59,7 @@ public:
 		sge::opengl::context::system::object &,
 		sge::renderer::vf::dynamic::part_index,
 		sge::renderer::vf::dynamic::part const &,
-		count_type,
+		sge::renderer::vertex::count,
 		sge::renderer::resource_flags_field const &
 	);
 
@@ -71,18 +76,16 @@ public:
 		sge::opengl::vf::part const &
 	) const;
 private:
-	view_type
+	sge::renderer::vf::dynamic::view
 	lock(
-		sge::renderer::lock_mode,
-		first_type,
-		count_type
+		sge::renderer::lock_segment const &,
+		sge::renderer::lock_mode
 	)
 	override;
 
-	const_view_type
-	lock(
-		first_type,
-		count_type
+	sge::renderer::vf::dynamic::const_view
+	lock_c(
+		sge::renderer::lock_segment const &
 	) const
 	override;
 
@@ -92,15 +95,14 @@ private:
 	View
 	do_lock(
 		sge::renderer::lock_flags::method,
-		first_type,
-		count_type
+		sge::renderer::lock_segment const &
 	) const;
 
 	void
 	unlock() const
 	override;
 
-	count_type
+	sge::renderer::dim1
 	size() const
 	override;
 
@@ -109,7 +111,7 @@ private:
 	override;
 
 	sge::renderer::vf::dynamic::part const &
-	format_part() const
+	format() const
 	override;
 
 	sge::renderer::vf::dynamic::part_index
