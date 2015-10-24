@@ -180,7 +180,7 @@ sge::d3d9::surface::color::size() const
 		)->size();
 }
 
-sge::d3d9::surface::color::color_format
+sge::image::color::format
 sge::d3d9::surface::color::format() const
 {
 	return

@@ -25,13 +25,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/create_vertex_buffer.hpp>
 #include <sge/d3d9/vertex/buffer.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/renderer/dim1.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_segment.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
+#include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
@@ -90,37 +93,33 @@ sge::d3d9::vertex::buffer::~buffer()
 {
 }
 
-sge::d3d9::vertex::buffer::view_type
+sge::renderer::vf::dynamic::view
 sge::d3d9::vertex::buffer::lock(
-	sge::renderer::lock_mode const _lock_mode,
-	first_type const _first,
-	count_type const _count
+	sge::renderer::lock_segment const &_segment,
+	sge::renderer::lock_mode const _lock_mode
 )
 {
 	return
 		this->do_lock<
-			view_type
+			sge::renderer::vf::dynamic::view
 		>(
-			_first,
-			_count,
+			_segment,
 			sge::renderer::lock_flags::from_mode(
 				_lock_mode
 			)
 		);
 }
 
-sge::d3d9::vertex::buffer::const_view_type
-sge::d3d9::vertex::buffer::lock(
-	first_type const _first,
-	count_type const _count
+sge::renderer::vf::dynamic::const_view
+sge::d3d9::vertex::buffer::lock_c(
+	sge::renderer::lock_segment const &_segment
 ) const
 {
 	return
 		this->do_lock<
-			const_view_type
+			sge::renderer::vf::dynamic::const_view
 		>(
-			_first,
-			_count,
+			_segment,
 			sge::renderer::lock_flags::method::read
 		);
 }
@@ -128,6 +127,7 @@ sge::d3d9::vertex::buffer::lock(
 void
 sge::d3d9::vertex::buffer::unlock() const
 {
+	// TODO: Move this
 	if(
 		lock_dest_
 		==
@@ -152,11 +152,13 @@ sge::d3d9::vertex::buffer::unlock() const
 		nullptr;
 }
 
-sge::d3d9::vertex::buffer::count_type
+sge::renderer::dim1
 sge::d3d9::vertex::buffer::size() const
 {
 	return
-		size_;
+		sge::renderer::dim1{
+			size_.get()
+		};
 }
 
 sge::renderer::resource_flags_field
@@ -167,7 +169,7 @@ sge::d3d9::vertex::buffer::resource_flags() const
 }
 
 sge::renderer::vf::dynamic::part const &
-sge::d3d9::vertex::buffer::format_part() const
+sge::d3d9::vertex::buffer::format() const
 {
 	return
 		format_part_;
@@ -205,7 +207,7 @@ sge::d3d9::vertex::buffer::init()
 				device_,
 				this->stride().get()
 				*
-				this->size().get(),
+				size_.get(),
 				this->pool(),
 				sge::d3d9::convert::resource_flags(
 					this->resource_flags()
@@ -234,8 +236,7 @@ template<
 >
 View
 sge::d3d9::vertex::buffer::do_lock(
-	first_type const _first,
-	count_type const _count,
+	sge::renderer::lock_segment const &_segment,
 	sge::renderer::lock_flags::method const _method
 ) const
 {
@@ -246,16 +247,9 @@ sge::d3d9::vertex::buffer::do_lock(
 			FCPPT_TEXT("d3d::vertex::buffer::lock() you have to unlock first!")
 		);
 
+	// TODO: Put this in another function
 	void *data(
 		nullptr
-	);
-
-	count_type const lock_count(
-		_count == npos
-		?
-			this->size()
-		:
-			_count
 	);
 
 	if(
@@ -263,14 +257,14 @@ sge::d3d9::vertex::buffer::do_lock(
 			fcppt::cast::size<
 				UINT
 			>(
-				_first.get()
+				_segment.pos().x()
 				*
 				this->stride().get()
 			),
 			fcppt::cast::size<
 				UINT
 			>(
-				lock_count.get()
+				_segment.size().w()
 				*
 				this->stride().get()
 			),
@@ -296,8 +290,7 @@ sge::d3d9::vertex::buffer::do_lock(
 	converter_.lock(
 		sge::renderer::vf::dynamic::locked_part(
 			lock_dest_,
-			_first,
-			lock_count,
+			_segment,
 			_method
 		)
 	);
@@ -305,8 +298,10 @@ sge::d3d9::vertex::buffer::do_lock(
 	return
 		View(
 			lock_dest_,
-			_count,
-			this->format_part(),
+			sge::renderer::vertex::count{
+				_segment.size().w()
+			},
+			this->format(),
 			this->format_part_index()
 		);
 }

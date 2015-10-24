@@ -24,8 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/convert/lock_flags.hpp>
 #include <sge/d3d9/convert/resource_flags.hpp>
 #include <sge/d3d9/convert/resource_flags_to_pool.hpp>
+#include <sge/renderer/dim1.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/lock_segment.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/index/buffer.hpp>
@@ -85,37 +87,33 @@ sge::d3d9::index_buffer::~index_buffer()
 {
 }
 
-sge::d3d9::index_buffer::view_type
+sge::renderer::index::dynamic::view
 sge::d3d9::index_buffer::lock(
-	sge::renderer::lock_mode const _mode,
-	first_type const _first,
-	count_type const _count
+	sge::renderer::lock_segment const &_segment,
+	sge::renderer::lock_mode const _mode
 )
 {
 	return
 		this->do_lock<
-			sge::d3d9::index_buffer::view_type
+			sge::renderer::index::dynamic::view
 		>(
-			_first,
-			_count,
+			_segment,
 			sge::renderer::lock_flags::from_mode(
 				_mode
 			)
 		);
 }
 
-sge::d3d9::index_buffer::const_view_type
-sge::d3d9::index_buffer::lock(
-	first_type const _first,
-	count_type const _count
+sge::renderer::index::dynamic::const_view
+sge::d3d9::index_buffer::lock_c(
+	sge::renderer::lock_segment const &_segment
 ) const
 {
 	return
 		this->do_lock<
-			sge::d3d9::index_buffer::const_view_type
+			sge::renderer::index::dynamic::const_view
 		>(
-			_first,
-			_count,
+			_segment,
 			sge::renderer::lock_flags::method::read
 		);
 }
@@ -147,11 +145,13 @@ sge::d3d9::index_buffer::unlock() const
 		nullptr;
 }
 
-sge::d3d9::index_buffer::count_type
+sge::renderer::dim1
 sge::d3d9::index_buffer::size() const
 {
 	return
-		size_;
+		sge::renderer::dim1{
+			size_.get()
+		};
 }
 
 sge::renderer::resource_flags_field
@@ -234,8 +234,7 @@ template<
 >
 View
 sge::d3d9::index_buffer::do_lock(
-	first_type const _first,
-	count_type const _count,
+	sge::renderer::lock_segment const &_segment,
 	sge::renderer::lock_flags::method const _method
 ) const
 {
@@ -258,22 +257,14 @@ sge::d3d9::index_buffer::do_lock(
 			fcppt::cast::size<
 				UINT
 			>(
-				_first.get()
+				_segment.pos().x()
 				*
 				stride_
 			),
 			fcppt::cast::size<
 				UINT
 			>(
-				(
-					_count
-					==
-					sge::d3d9::index_buffer::npos
-					?
-						this->size()
-					:
-						_count
-				).get()
+				_segment.size().w()
 				*
 				stride_
 			),
@@ -299,7 +290,7 @@ sge::d3d9::index_buffer::do_lock(
 	return
 		View(
 			lock_dest_,
-			_count.get(),
+			_segment.size().w(),
 			format_
 		);
 }

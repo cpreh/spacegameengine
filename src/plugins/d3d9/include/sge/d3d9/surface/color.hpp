@@ -28,6 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/color_holder_fwd.hpp>
 #include <sge/d3d9/surface/optional_d3d_unique_ptr.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/image2d/view/const_object_fwd.hpp>
+#include <sge/renderer/dim2_fwd.hpp>
+#include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/color_buffer/readable_surface.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
@@ -59,9 +62,9 @@ public:
 	~color()
 	override;
 
-	sge::renderer::color_buffer::readable_surface::const_view
+	sge::image2d::view::const_object
 	lock_c(
-		sge::renderer::color_buffer::readable_surface::lock_area const &
+		sge::renderer::lock_rect const &
 	) const
 	override;
 
@@ -69,11 +72,11 @@ public:
 	unlock() const
 	override;
 
-	dim
+	sge::renderer::dim2
 	size() const
 	override;
 
-	color_format
+	sge::image::color::format
 	format() const
 	override;
 

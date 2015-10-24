@@ -23,12 +23,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/resource.hpp>
+#include <sge/renderer/dim1_fwd.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
+#include <sge/renderer/lock_segment_fwd.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_parameters_fwd.hpp>
+#include <sge/renderer/index/count.hpp>
+#include <sge/renderer/index/dynamic/const_view_fwd.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/index/dynamic/view_fwd.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/optional_decl.hpp>
@@ -57,18 +63,16 @@ public:
 	~index_buffer()
 	override;
 
-	view_type
+	sge::renderer::index::dynamic::view
 	lock(
-		sge::renderer::lock_mode,
-		first_type,
-		count_type
+		sge::renderer::lock_segment const &,
+		sge::renderer::lock_mode
 	)
 	override;
 
-	const_view_type
-	lock(
-		first_type,
-		count_type
+	sge::renderer::index::dynamic::const_view
+	lock_c(
+		sge::renderer::lock_segment const &
 	) const
 	override;
 
@@ -76,7 +80,7 @@ public:
 	unlock() const
 	override;
 
-	count_type
+	sge::renderer::dim1
 	size() const
 	override;
 
@@ -107,8 +111,7 @@ private:
 	>
 	View
 	do_lock(
-		first_type,
-		count_type,
+		sge::renderer::lock_segment const &,
 		sge::renderer::lock_flags::method
 	) const;
 
@@ -133,9 +136,9 @@ private:
 
 	sge::renderer::index::dynamic::format const format_;
 
-	count_type const size_;
+	sge::renderer::index::count const size_;
 
-	size_type const stride_;
+	sge::renderer::size_type const stride_;
 
 	mutable sge::renderer::raw_pointer lock_dest_;
 };

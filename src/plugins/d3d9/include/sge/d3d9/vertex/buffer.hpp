@@ -23,16 +23,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/resource.hpp>
+#include <sge/renderer/dim1_fwd.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
+#include <sge/renderer/lock_segment_fwd.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters_fwd.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
 #include <sge/renderer/vf/dynamic/converter.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
+#include <sge/renderer/vf/dynamic/view_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
@@ -64,18 +69,16 @@ public:
 	~buffer()
 	override;
 
-	view_type
+	sge::renderer::vf::dynamic::view
 	lock(
-		sge::renderer::lock_mode,
-		first_type,
-		count_type
+		sge::renderer::lock_segment const &,
+		sge::renderer::lock_mode
 	)
 	override;
 
-	const_view_type
-	lock(
-		first_type,
-		count_type
+	sge::renderer::vf::dynamic::const_view
+	lock_c(
+		sge::renderer::lock_segment const &
 	) const
 	override;
 
@@ -83,7 +86,7 @@ public:
 	unlock() const
 	override;
 
-	count_type
+	sge::renderer::dim1
 	size() const
 	override;
 
@@ -92,7 +95,7 @@ public:
 	override;
 
 	sge::renderer::vf::dynamic::part const &
-	format_part() const
+	format() const
 	override;
 
 	sge::renderer::vf::dynamic::part_index
@@ -121,8 +124,7 @@ private:
 	>
 	View
 	do_lock(
-		first_type,
-		count_type,
+		sge::renderer::lock_segment const &,
 		sge::renderer::lock_flags::method
 	) const;
 
@@ -132,7 +134,7 @@ private:
 
 	sge::renderer::vf::dynamic::part_index const format_part_index_;
 
-	count_type const size_;
+	sge::renderer::vertex::count const size_;
 
 	sge::renderer::resource_flags_field const resource_flags_;
 
