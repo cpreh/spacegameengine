@@ -21,13 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_ANY_DETAIL_VARIANT_TYPES_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_ANY_DETAIL_VARIANT_TYPES_HPP_INCLUDED
 
-#include <sge/renderer/index/i16.hpp>
-#include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/index/any/detail/make_view_element.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
+#include <fcppt/mpl/enum_range.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/transform.hpp>
-#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -49,9 +48,8 @@ using variant_types
 =
 typename
 boost::mpl::transform<
-	boost::mpl::vector2<
-		sge::renderer::index::i16,
-		sge::renderer::index::i32
+	fcppt::mpl::enum_range<
+		sge::renderer::index::dynamic::format
 	>,
 	sge::renderer::index::any::detail::make_view_element<
 		boost::mpl::_1,

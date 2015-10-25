@@ -18,14 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/index/format_16.hpp>
-#include <sge/renderer/index/format_32.hpp>
+#include <sge/renderer/index/nonconst_tag.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/any/make_view.hpp>
 #include <sge/renderer/index/any/view.hpp>
+#include <sge/renderer/index/any/detail/make_view_element.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/runtime_enum.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::index::any::view
@@ -33,32 +36,29 @@ sge::renderer::index::any::make_view(
 	sge::renderer::index::dynamic::view const &_view
 )
 {
-	// TODO: Simplify this
-	switch(
-		_view.format()
-	)
-	{
-	case sge::renderer::index::dynamic::format::i16:
-		return
-			sge::renderer::index::any::view{
-				sge::renderer::index::view<
-					sge::renderer::index::format_16
-				>(
-					_view.data(),
-					_view.size()
-				)
-			};
-	case sge::renderer::index::dynamic::format::i32:
-		return
-			sge::renderer::index::any::view{
-				sge::renderer::index::view<
-					sge::renderer::index::format_32
-				>(
-					_view.data(),
-					_view.size()
-				)
-			};
-	}
-
-	FCPPT_ASSERT_UNREACHABLE;
+	return
+		fcppt::runtime_enum(
+			_view.format(),
+			[
+				&_view
+			](
+				auto const _value
+			)
+			{
+				return
+					sge::renderer::index::any::view{
+						typename
+						sge::renderer::index::any::detail::make_view_element<
+							std::integral_constant<
+								sge::renderer::index::dynamic::format,
+								_value
+							>,
+							sge::renderer::index::nonconst_tag
+						>::type{
+							_view.data(),
+							_view.size()
+						}
+					};
+			}
+		);
 }

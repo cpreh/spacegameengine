@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_INDEX_ANY_DETAIL_MAKE_VIEW_ELEMENT_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_ANY_DETAIL_MAKE_VIEW_ELEMENT_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_DYNAMIC_FORMAT_ELEMENT_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_DYNAMIC_FORMAT_ELEMENT_HPP_INCLUDED
 
-#include <sge/renderer/index/format_fwd.hpp>
-#include <sge/renderer/index/view_fwd.hpp>
-#include <sge/renderer/index/dynamic/format_element.hpp>
+#include <sge/renderer/index/i16.hpp>
+#include <sge/renderer/index/i32.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
 
 
 namespace sge
@@ -32,31 +32,34 @@ namespace renderer
 {
 namespace index
 {
-namespace any
-{
-namespace detail
+namespace dynamic
 {
 
 template<
-	typename Element,
-	typename Constness
+	sge::renderer::index::dynamic::format
 >
-struct make_view_element
+struct format_element;
+
+template<>
+struct format_element<
+	sge::renderer::index::dynamic::format::i16
+>
 {
 	typedef
-	sge::renderer::index::view<
-		sge::renderer::index::format<
-			typename
-			sge::renderer::index::dynamic::format_element<
-				Element::value
-			>::type,
-			Constness
-		>
-	>
+	sge::renderer::index::i16
 	type;
 };
 
-}
+template<>
+struct format_element<
+	sge::renderer::index::dynamic::format::i32
+>
+{
+	typedef
+	sge::renderer::index::i32
+	type;
+};
+
 }
 }
 }

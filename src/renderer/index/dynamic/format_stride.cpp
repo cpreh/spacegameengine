@@ -19,11 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/index/i16.hpp>
-#include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/index/dynamic/format_element.hpp>
 #include <sge/renderer/index/dynamic/format_stride.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/runtime_enum.hpp>
 
 
 sge::renderer::size_type
@@ -31,21 +30,20 @@ sge::renderer::index::dynamic::format_stride(
 	sge::renderer::index::dynamic::format const _format
 )
 {
-	switch(
-		_format
-	)
-	{
-	case sge::renderer::index::dynamic::format::i16:
-		return
-			sizeof(
-				sge::renderer::index::i16
-			);
-	case sge::renderer::index::dynamic::format::i32:
-		return
-			sizeof(
-				sge::renderer::index::i32
-			);
-	}
-
-	FCPPT_ASSERT_UNREACHABLE;
+	return
+		fcppt::runtime_enum(
+			_format,
+			[](
+				auto const _value
+			)
+			{
+				return
+					sizeof(
+						typename
+						sge::renderer::index::dynamic::format_element<
+							_value
+						>::type
+					);
+			}
+		);
 }

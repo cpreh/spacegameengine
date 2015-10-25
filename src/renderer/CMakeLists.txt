@@ -180,6 +180,7 @@ set(
 	include/sge/renderer/index/dynamic/const_view.hpp
 	include/sge/renderer/index/dynamic/const_view_fwd.hpp
 	include/sge/renderer/index/dynamic/format.hpp
+	include/sge/renderer/index/dynamic/format_element.hpp
 	include/sge/renderer/index/dynamic/format_fwd.hpp
 	include/sge/renderer/index/dynamic/format_stride.hpp
 	include/sge/renderer/index/dynamic/make_const_view.hpp
