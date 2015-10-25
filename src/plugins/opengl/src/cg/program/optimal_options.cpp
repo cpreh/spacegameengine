@@ -38,19 +38,12 @@ sge::opengl::cg::program::optimal_options(
 	sge::cg::profile::object const &_profile
 )
 {
-	sge::cg::char_type const ** const ret =
-// 26.10.2012: cgGLGetContextOptimalOptions is broken. It causes a segfault on
-// Windows at program exit
-//#if CG_VERSION_NUM < 3100
-#if 1
-		::cgGLGetOptimalOptions(
-			_profile.get()
-#else
+	sge::cg::char_type const ** const ret{
 		::cgGLGetContextOptimalOptions(
 			_context.get(),
 			_profile.get()
-#endif
-		);
+		)
+	};
 
 	SGE_CG_CHECK_STATE(
 		FCPPT_TEXT("cgGLGetContextOptimalOptions failed"),
