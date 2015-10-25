@@ -24,17 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/buffer/writable.hpp>
 #include <sge/renderer/detail/symbol.hpp>
+#include <sge/renderer/vertex/buffer_base.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
-#include <sge/renderer/vertex/tag.hpp>
-#include <sge/renderer/vertex/traits/box_fwd.hpp>
-#include <sge/renderer/vertex/traits/color_tag.hpp>
-#include <sge/renderer/vertex/traits/const_view_fwd.hpp>
-#include <sge/renderer/vertex/traits/dim_fwd.hpp>
-#include <sge/renderer/vertex/traits/format_fwd.hpp>
-#include <sge/renderer/vertex/traits/format_is_ref.hpp>
-#include <sge/renderer/vertex/traits/view_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -60,9 +52,7 @@ namespace vertex
 class SGE_CORE_DETAIL_CLASS_SYMBOL buffer
 :
 	public
-		sge::renderer::buffer::writable<
-			sge::renderer::vertex::tag
-		>
+		sge::renderer::vertex::buffer_base
 {
 	FCPPT_NONCOPYABLE(
 		buffer

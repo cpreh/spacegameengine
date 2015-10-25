@@ -24,16 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/buffer/writable.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/index/buffer_fwd.hpp>
-#include <sge/renderer/index/tag.hpp>
-#include <sge/renderer/index/traits/box_fwd.hpp>
-#include <sge/renderer/index/traits/color_tag.hpp>
-#include <sge/renderer/index/traits/const_view_fwd.hpp>
-#include <sge/renderer/index/traits/dim_fwd.hpp>
-#include <sge/renderer/index/traits/format_fwd.hpp>
-#include <sge/renderer/index/traits/view_fwd.hpp>
+#include <sge/renderer/index/buffer_base.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -67,9 +59,7 @@ the data. Unlocking the buffer will make the update actually take place.
 class SGE_CORE_DETAIL_CLASS_SYMBOL buffer
 :
 	public
-		sge::renderer::buffer::writable<
-			sge::renderer::index::tag
-		>
+		sge::renderer::index::buffer_base
 {
 	FCPPT_NONCOPYABLE(
 		buffer

@@ -19,23 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/dim1.hpp>
-#include <sge/renderer/lock_segment.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/buffer/writable.hpp>
 #include <sge/renderer/index/buffer.hpp>
-#include <sge/renderer/index/tag.hpp>
-#include <sge/renderer/index/dynamic/const_view.hpp>
-#include <sge/renderer/index/dynamic/view.hpp>
-#include <sge/src/renderer/buffer/instantiate_base.hpp>
-#include <sge/src/renderer/buffer/instantiate_readable.hpp>
-#include <sge/src/renderer/buffer/instantiate_writable.hpp>
+#include <sge/renderer/index/buffer_base.hpp>
 
 
 sge::renderer::index::buffer::buffer()
 :
-	sge::renderer::buffer::writable<
-		sge::renderer::index::tag
-	>()
+	sge::renderer::index::buffer_base()
 {
 }
 
@@ -49,15 +40,3 @@ sge::renderer::index::buffer::linear_size() const
 	return
 		this->size().w();
 }
-
-SGE_RENDERER_BUFFER_INSTANTIATE_BASE(
-	sge::renderer::index::tag
-);
-
-SGE_RENDERER_BUFFER_INSTANTIATE_READABLE(
-	sge::renderer::index::tag
-);
-
-SGE_RENDERER_BUFFER_INSTANTIATE_WRITABLE(
-	sge::renderer::index::tag
-);

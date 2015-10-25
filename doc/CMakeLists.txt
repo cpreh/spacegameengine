@@ -2188,6 +2188,8 @@ set(
 	include/sge/renderer/index/any/view.hpp
 	include/sge/renderer/index/any/view_fwd.hpp
 	include/sge/renderer/index/buffer.hpp
+	include/sge/renderer/index/buffer_base.hpp
+	include/sge/renderer/index/buffer_base_fwd.hpp
 	include/sge/renderer/index/buffer_fwd.hpp
 	include/sge/renderer/index/buffer_parameters.hpp
 	include/sge/renderer/index/buffer_parameters_fwd.hpp
@@ -2781,6 +2783,8 @@ set(
 	include/sge/renderer/vector4.hpp
 	include/sge/renderer/vector4_fwd.hpp
 	include/sge/renderer/vertex/buffer.hpp
+	include/sge/renderer/vertex/buffer_base.hpp
+	include/sge/renderer/vertex/buffer_base_fwd.hpp
 	include/sge/renderer/vertex/buffer_fwd.hpp
 	include/sge/renderer/vertex/buffer_parameters.hpp
 	include/sge/renderer/vertex/buffer_parameters_fwd.hpp

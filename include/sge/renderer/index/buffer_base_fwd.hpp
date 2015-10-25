@@ -18,25 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/dim1.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/vertex/buffer.hpp>
-#include <sge/renderer/vertex/buffer_base.hpp>
+#ifndef SGE_RENDERER_INDEX_BUFFER_BASE_FWD_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_BUFFER_BASE_FWD_HPP_INCLUDED
+
+#include <sge/renderer/index/buffer_fwd.hpp>
+#include <sge/renderer/index/tag.hpp>
 
 
-sge::renderer::vertex::buffer::buffer()
-:
-	sge::renderer::vertex::buffer_base()
+namespace sge
 {
+namespace renderer
+{
+namespace index
+{
+
+typedef
+sge::renderer::buffer::writable<
+	sge::renderer::index::tag
+>
+buffer_base;
+
+}
+}
 }
 
-sge::renderer::vertex::buffer::~buffer()
-{
-}
-
-sge::renderer::size_type
-sge::renderer::vertex::buffer::linear_size() const
-{
-	return
-		this->size().w();
-}
+#endif
