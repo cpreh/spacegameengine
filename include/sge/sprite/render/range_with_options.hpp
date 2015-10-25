@@ -61,7 +61,6 @@ range_with_options(
 	> const &_options
 )
 {
-	// TODO: Simplify this
 	fcppt::maybe_void(
 		_range.object(),
 		[

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/intrusive/detail/ordered_map.hpp>
+#include <fcppt/algorithm/fold.hpp>
 
 
 namespace sge
@@ -38,6 +39,7 @@ template<
 	typename Order,
 	typename Choices
 >
+inline
 sge::sprite::count
 ordered_range_size(
 	typename sge::sprite::intrusive::detail::ordered_map<
@@ -46,20 +48,23 @@ ordered_range_size(
 	>::type const &_ordered_map
 )
 {
-	// TODO: fold
-	sge::sprite::count ret(
-		0u
-	);
-
-	for(
-		auto const &element
-		:
-		_ordered_map
-	)
-		ret +=
-			element.second->range().size();
-
-	return ret;
+	return
+		fcppt::algorithm::fold(
+			_ordered_map,
+			sge::sprite::count{
+				0u
+			},
+			[](
+				auto const &_element,
+				sge::sprite::count const _value
+			)
+			{
+				return
+					_value
+					+
+					_element.second->range().size();
+			}
+		);
 }
 
 }

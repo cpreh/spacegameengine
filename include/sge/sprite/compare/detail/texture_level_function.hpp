@@ -25,6 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/deref_texture.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/texture/part.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/reference_wrapper_comparison.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 
 
 namespace sge
@@ -44,13 +47,11 @@ template<
 >
 struct texture_level_function
 {
-	typedef bool result_type;
-
 	template<
 		typename Choices
 	>
 	static
-	result_type
+	bool
 	execute(
 		sge::sprite::object<
 			Choices
@@ -62,19 +63,24 @@ struct texture_level_function
 	{
 		return
 			Function<
-				// TODO: Why is this a pointer?
-				sge::renderer::texture::planar const *
+				fcppt::reference_wrapper<
+					sge::renderer::texture::planar const
+				>
 			>()(
-				&sge::sprite::deref_texture(
-					_left. template texture_level<
-						Level::value
-					>()
-				).texture(),
-				&sge::sprite::deref_texture(
-					_right. template texture_level<
-						Level::value
-					>()
-				).texture()
+				fcppt::make_cref(
+					sge::sprite::deref_texture(
+						_left. template texture_level<
+							Level::value
+						>()
+					).texture()
+				),
+				fcppt::make_cref(
+					sge::sprite::deref_texture(
+						_right. template texture_level<
+							Level::value
+						>()
+					).texture()
+				)
 			);
 	}
 };

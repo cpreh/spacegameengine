@@ -50,7 +50,9 @@ class multi
 		multi
 	);
 public:
-	typedef Choices choices;
+	typedef
+	Choices
+	choices;
 
 	multi(
 		sge::sprite::buffers::parameters const &,
@@ -85,7 +87,6 @@ private:
 
 	typedef
 	std::vector<
-		// TODO: range objects should hold the buffers by reference
 		fcppt::unique_ptr<
 			buffers_object
 		>

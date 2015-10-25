@@ -77,7 +77,6 @@ render_one(
 		)
 	);
 
-	// TODO: Simplify this
 	fcppt::maybe_void(
 		range.object(),
 		[

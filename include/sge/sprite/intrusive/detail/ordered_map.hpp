@@ -50,6 +50,7 @@ struct ordered_map
 		"Choices must be a sprite choices type"
 	);
 
+	// TODO: Do not use ptr_map!
 	typedef boost::ptr_map<
 		Order,
 		sge::sprite::intrusive::collection<
