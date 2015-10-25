@@ -50,8 +50,8 @@ using variant_types
 typename
 boost::mpl::transform<
 	boost::mpl::vector2<
-		index::i16,
-		index::i32
+		sge::renderer::index::i16,
+		sge::renderer::index::i32
 	>,
 	sge::renderer::index::any::detail::make_view_element<
 		boost::mpl::_1,

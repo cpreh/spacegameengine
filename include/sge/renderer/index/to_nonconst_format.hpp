@@ -38,7 +38,8 @@ template<
 using to_nonconst_format
 =
 sge::renderer::index::format<
-	typename Format::index_type,
+	typename
+	Format::index_type,
 	sge::renderer::index::nonconst_tag
 >;
 

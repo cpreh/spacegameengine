@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/geometry/detail/index_array_type.hpp>
 #include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/tag.hpp>
 #include <fcppt/cast/size.hpp>
 
 
@@ -72,7 +73,11 @@ public:
 		typename Type
 	>
 	Type
-	operator()() const
+	operator()(
+		fcppt::tag<
+			Type
+		>
+	) const
 	{
 		Type const ret(
 			fcppt::cast::size<

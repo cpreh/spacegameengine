@@ -44,18 +44,25 @@ template<
 >
 struct format
 {
-	typedef Index index_type;
+	typedef
+	Index
+	index_type;
 
-	typedef Constness constness;
+	typedef
+	Constness
+	constness;
 
-	typedef typename boost::mpl::if_<
+	typedef
+	typename
+	boost::mpl::if_<
 		std::is_same<
 			Constness,
 			sge::renderer::index::const_tag
 		>,
 		sge::renderer::const_raw_pointer,
 		sge::renderer::raw_pointer
-	>::type pointer;
+	>::type
+	pointer;
 };
 
 }

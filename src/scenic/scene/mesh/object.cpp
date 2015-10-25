@@ -25,8 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/buffer_parameters.hpp>
 #include <sge/renderer/index/count.hpp>
 #include <sge/renderer/index/first.hpp>
+#include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/scoped_lock.hpp>
+#include <sge/renderer/index/format_32.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>

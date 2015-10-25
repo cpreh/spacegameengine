@@ -148,7 +148,6 @@ set(
 	include/sge/renderer/exception.hpp
 	include/sge/renderer/index/any/basic_view.hpp
 	include/sge/renderer/index/any/basic_view_fwd.hpp
-	include/sge/renderer/index/any/detail/generate_visitor.hpp
 	include/sge/renderer/index/any/detail/make_view_element.hpp
 	include/sge/renderer/index/any/detail/variant_types.hpp
 	include/sge/renderer/index/any/generate.hpp

@@ -57,15 +57,30 @@ public:
 	>
 	base;
 
-	typedef typename base::value_type value_type;
+	typedef
+	typename
+	base::value_type
+	value_type;
 
-	typedef typename base::reference reference;
+	typedef
+	typename
+	base::reference
+	reference;
 
-	typedef typename Format::pointer pointer;
+	typedef
+	typename
+	Format::pointer
+	pointer;
 
-	typedef typename base::difference_type difference_type;
+	typedef
+	typename
+	base::difference_type
+	difference_type;
 
-	typedef typename base::iterator_category iterator_category;
+	typedef
+	typename
+	base::iterator_category
+	iterator_category;
 
 	friend class boost::iterator_core_access;
 

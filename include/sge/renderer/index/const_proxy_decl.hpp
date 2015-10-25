@@ -54,9 +54,15 @@ public:
 		"const_proxy can only use const formats"
 	);
 
-	typedef typename Format::index_type value_type;
+	typedef
+	typename
+	Format::index_type
+	value_type;
 
-	typedef typename Format::pointer pointer;
+	typedef
+	typename
+	Format::pointer
+	pointer;
 
 	explicit
 	const_proxy(

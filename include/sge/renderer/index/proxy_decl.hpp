@@ -54,9 +54,15 @@ public:
 		"proxy can only use nonconst formats"
 	);
 
-	typedef typename Format::index_type value_type;
+	typedef
+	typename
+	Format::index_type
+	value_type;
 
-	typedef typename Format::pointer pointer;
+	typedef
+	typename
+	Format::pointer
+	pointer;
 
 	explicit
 	proxy(

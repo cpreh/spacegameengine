@@ -35,9 +35,11 @@ namespace index
 /**
 \brief A shared pointer to an sge::renderer::index::buffer
 */
-typedef fcppt::shared_ptr<
+typedef
+fcppt::shared_ptr<
 	sge::renderer::index::buffer
-> buffer_shared_ptr;
+>
+buffer_shared_ptr;
 
 }
 }

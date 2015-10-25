@@ -33,10 +33,12 @@ namespace renderer
 namespace index
 {
 
-typedef index::format<
-	index::i32,
-	index::const_tag
-> const_format_32;
+typedef
+sge::renderer::index::format<
+	sge::renderer::index::i32,
+	sge::renderer::index::const_tag
+>
+const_format_32;
 
 }
 }

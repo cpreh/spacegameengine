@@ -35,13 +35,13 @@ namespace index
 template<
 	typename Format
 >
-struct to_const_format
-{
-	typedef index::format<
-		typename Format::index_type,
-		index::const_tag
-	> type;
-};
+using to_const_format
+=
+sge::renderer::index::format<
+	typename
+	Format::index_type,
+	sge::renderer::index::const_tag
+>;
 
 }
 }

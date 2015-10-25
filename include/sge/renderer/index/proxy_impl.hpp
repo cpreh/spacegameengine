@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_INDEX_PROXY_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/index/const_proxy_impl.hpp>
-#include <sge/renderer/index/format_16.hpp>
-#include <sge/renderer/index/format_32.hpp>
 #include <sge/renderer/index/proxy_decl.hpp>
 #include <sge/renderer/index/to_const_format.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -34,11 +32,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Format
 >
-sge::renderer::index::proxy<Format>::proxy(
+sge::renderer::index::proxy<
+	Format
+>::proxy(
 	pointer const _data
 )
 :
-	data_(_data)
+	data_(
+		_data
+	)
 {
 }
 
@@ -46,28 +48,37 @@ template<
 	typename Format
 >
 void
-sge::renderer::index::proxy<Format>::set(
+sge::renderer::index::proxy<
+	Format
+>::set(
 	value_type const _value
 )
 {
 	std::memcpy(
 		data_,
 		&_value,
-		sizeof(value_type)
+		sizeof(
+			value_type
+		)
 	);
 }
 
 template<
 	typename Format
 >
-typename sge::renderer::index::proxy<Format>::value_type
-sge::renderer::index::proxy<Format>::get() const
+typename
+sge::renderer::index::proxy<
+	Format
+>::value_type
+sge::renderer::index::proxy<
+	Format
+>::get() const
 {
 	return
-		index::const_proxy<
-			typename index::to_const_format<
+		sge::renderer::index::const_proxy<
+			sge::renderer::index::to_const_format<
 				Format
-			>::type
+			>
 		>(
 			data_
 		).get();

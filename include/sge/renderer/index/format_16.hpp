@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/nonconst_tag.hpp>
 
+
 namespace sge
 {
 namespace renderer
@@ -32,10 +33,12 @@ namespace renderer
 namespace index
 {
 
-typedef index::format<
-	index::i16,
-	index::nonconst_tag
-> format_16;
+typedef
+sge::renderer::index::format<
+	sge::renderer::index::i16,
+	sge::renderer::index::nonconst_tag
+>
+format_16;
 
 }
 }

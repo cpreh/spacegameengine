@@ -21,10 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_ANY_GENERATE_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_ANY_GENERATE_HPP_INCLUDED
 
+#include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/any/view.hpp>
-#include <sge/renderer/index/any/detail/generate_visitor.hpp>
+#include <fcppt/tag.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -46,11 +50,31 @@ generate(
 )
 {
 	fcppt::variant::apply_unary(
-		sge::renderer::index::any::detail::generate_visitor<
-			Gen
-		>(
-			_gen
-		),
+		[
+			&_view,
+			&_gen
+		](
+			auto const &_inner_view
+		)
+		{
+			for(
+				auto item
+				:
+				_inner_view
+			)
+				item.set(
+					_gen(
+						fcppt::tag<
+							typename
+							std::decay<
+								decltype(
+									_inner_view
+								)
+							>::type::value_type
+						>{}
+					)
+				);
+		},
 		_view
 	);
 }

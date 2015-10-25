@@ -36,7 +36,8 @@ namespace dynamic
 enum class format
 {
 	i16,
-	i32
+	i32,
+	fcppt_maximum = i32
 };
 
 }

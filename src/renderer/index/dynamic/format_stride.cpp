@@ -36,9 +36,15 @@ sge::renderer::index::dynamic::format_stride(
 	)
 	{
 	case sge::renderer::index::dynamic::format::i16:
-		return sizeof(sge::renderer::index::i16);
+		return
+			sizeof(
+				sge::renderer::index::i16
+			);
 	case sge::renderer::index::dynamic::format::i32:
-		return sizeof(sge::renderer::index::i32);
+		return
+			sizeof(
+				sge::renderer::index::i32
+			);
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;
