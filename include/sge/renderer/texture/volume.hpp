@@ -21,70 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_VOLUME_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_VOLUME_HPP_INCLUDED
 
-#include <sge/core/detail/class_symbol.hpp>
-#include <sge/renderer/dim3_fwd.hpp>
-#include <sge/renderer/color_buffer/readable_volume_fwd.hpp>
-#include <sge/renderer/color_buffer/writable_volume_fwd.hpp>
-#include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/texture/base.hpp>
+#include <sge/image3d/traits/dim_fwd.hpp>
+#include <sge/renderer/texture/basic_lockable_box.hpp>
 #include <sge/renderer/texture/volume_fwd.hpp>
-#include <sge/renderer/texture/mipmap/level.hpp>
-#include <fcppt/noncopyable.hpp>
 
-
-namespace sge
-{
-namespace renderer
-{
-namespace texture
-{
-
-class SGE_CORE_DETAIL_CLASS_SYMBOL volume
-:
-	public sge::renderer::texture::base
-{
-	FCPPT_NONCOPYABLE(
-		volume
-	);
-protected:
-	SGE_RENDERER_DETAIL_SYMBOL
-	volume();
-public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	~volume()
-	override = 0;
-
-	typedef
-	sge::renderer::dim3
-	dim;
-
-	typedef
-	sge::renderer::color_buffer::readable_volume
-	const_buffer;
-
-	typedef
-	sge::renderer::color_buffer::writable_volume
-	nonconst_buffer;
-
-	SGE_RENDERER_DETAIL_SYMBOL
-	dim
-	size() const;
-
-	virtual
-	nonconst_buffer &
-	level(
-		sge::renderer::texture::mipmap::level
-	) = 0;
-
-	virtual
-	const_buffer const &
-	level(
-		sge::renderer::texture::mipmap::level
-	) const = 0;
-};
-
-}
-}
-}
 
 #endif

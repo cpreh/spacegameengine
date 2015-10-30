@@ -658,6 +658,8 @@ set(
 	include/sge/renderer/texture/base_fwd.hpp
 	include/sge/renderer/texture/base_shared_ptr.hpp
 	include/sge/renderer/texture/base_unique_ptr.hpp
+	include/sge/renderer/texture/basic_lockable_box.hpp
+	include/sge/renderer/texture/basic_lockable_box_fwd.hpp
 	include/sge/renderer/texture/basic_parameters.hpp
 	include/sge/renderer/texture/basic_parameters_fwd.hpp
 	include/sge/renderer/texture/basic_scoped_lock.hpp
@@ -945,9 +947,11 @@ set(
 	src/renderer/include/sge/src/renderer/projection/check_near_far.hpp
 	src/renderer/include/sge/src/renderer/state/core/sampler/null_states.hpp
 	src/renderer/include/sge/src/renderer/state/core/sampler/scoped_states.hpp
+	src/renderer/include/sge/src/renderer/texture/basic_lockable_box_impl.hpp
 	src/renderer/include/sge/src/renderer/texture/basic_parameters_impl.hpp
 	src/renderer/include/sge/src/renderer/texture/basic_scoped_lock_impl.hpp
 	src/renderer/include/sge/src/renderer/texture/const_basic_scoped_lock_impl.hpp
+	src/renderer/include/sge/src/renderer/texture/instantiate_basic_lockable_box.hpp
 	src/renderer/include/sge/src/renderer/texture/instantiate_basic_parameters.hpp
 	src/renderer/include/sge/src/renderer/texture/instantiate_basic_scoped_lock.hpp
 	src/renderer/include/sge/src/renderer/texture/instantiate_const_basic_scoped_lock.hpp

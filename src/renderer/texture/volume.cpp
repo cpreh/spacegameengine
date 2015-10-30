@@ -18,27 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/dim3.hpp>
+#include <sge/image3d/tag.hpp>
 #include <sge/renderer/color_buffer/readable_volume.hpp>
 #include <sge/renderer/texture/volume.hpp>
-#include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/src/renderer/texture/instantiate_basic_lockable_box.hpp>
 
 
-sge::renderer::texture::volume::volume()
-{
-}
-
-sge::renderer::texture::volume::~volume()
-{
-}
-
-sge::renderer::texture::volume::dim
-sge::renderer::texture::volume::size() const
-{
-	return
-		this->level(
-			sge::renderer::texture::mipmap::level(
-				0u
-			)
-		).size();
-}
+SGE_RENDERER_TEXTURE_INSTANTIATE_BASIC_LOCKABLE_BOX(
+	sge::image3d::tag
+);

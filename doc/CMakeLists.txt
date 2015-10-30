@@ -2698,6 +2698,8 @@ set(
 	include/sge/renderer/texture/base_fwd.hpp
 	include/sge/renderer/texture/base_shared_ptr.hpp
 	include/sge/renderer/texture/base_unique_ptr.hpp
+	include/sge/renderer/texture/basic_lockable_box.hpp
+	include/sge/renderer/texture/basic_lockable_box_fwd.hpp
 	include/sge/renderer/texture/basic_parameters.hpp
 	include/sge/renderer/texture/basic_parameters_fwd.hpp
 	include/sge/renderer/texture/basic_scoped_lock.hpp

@@ -18,28 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_TEXTURE_PLANAR_FWD_HPP_INCLUDED
-#define SGE_RENDERER_TEXTURE_PLANAR_FWD_HPP_INCLUDED
+#ifndef SGE_SRC_RENDERER_TEXTURE_BASIC_LOCKABLE_BOX_IMPL_HPP_INCLUDED
+#define SGE_SRC_RENDERER_TEXTURE_BASIC_LOCKABLE_BOX_IMPL_HPP_INCLUDED
 
-#include <sge/image2d/tag.hpp>
-#include <sge/renderer/texture/basic_lockable_box_fwd.hpp>
+#include <sge/renderer/basic_dim.hpp>
+#include <sge/renderer/buffer/readable.hpp>
+#include <sge/renderer/texture/base.hpp>
+#include <sge/renderer/texture/basic_lockable_box.hpp>
+#include <sge/renderer/texture/mipmap/level.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
-{
-
-typedef
-sge::renderer::texture::basic_lockable_box<
-	sge::image2d::tag
+template<
+	typename Tag
 >
-planar;
+sge::renderer::texture::basic_lockable_box<
+	Tag
+>::basic_lockable_box()
+:
+	sge::renderer::texture::base()
+{
+}
 
+template<
+	typename Tag
+>
+sge::renderer::texture::basic_lockable_box<
+	Tag
+>::~basic_lockable_box()
+{
 }
-}
+
+template<
+	typename Tag
+>
+typename
+sge::renderer::texture::basic_lockable_box<
+	Tag
+>::dim
+sge::renderer::texture::basic_lockable_box<
+	Tag
+>::size() const
+{
+	return
+		this->level(
+			sge::renderer::texture::mipmap::level(
+				0u
+			)
+		).size();
 }
 
 #endif

@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_VOLUME_FWD_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_VOLUME_FWD_HPP_INCLUDED
 
+#include <sge/image3d/tag.hpp>
+#include <sge/renderer/texture/basic_lockable_box_fwd.hpp>
+
+
 namespace sge
 {
 namespace renderer
@@ -28,7 +32,11 @@ namespace renderer
 namespace texture
 {
 
-class volume;
+typedef
+sge::renderer::texture::basic_lockable_box<
+	sge::image3d::tag
+>
+volume;
 
 }
 }
