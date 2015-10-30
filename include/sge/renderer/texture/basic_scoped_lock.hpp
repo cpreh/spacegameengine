@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/buffer/scoped_lock.hpp>
 #include <sge/renderer/buffer/writable_fwd.hpp>
+#include <sge/renderer/texture/basic_lockable_box_fwd.hpp>
 #include <sge/renderer/texture/basic_scoped_lock_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -39,7 +40,6 @@ namespace texture
 {
 
 template<
-	typename Texture,
 	typename Tag
 >
 class basic_scoped_lock
@@ -48,8 +48,12 @@ class basic_scoped_lock
 		basic_scoped_lock
 	);
 public:
-	// TODO: Create a texture template so that
-	// passing Texture is not necessary
+	typedef
+	sge::renderer::texture::basic_lockable_box<
+		Tag
+	>
+	texture_type;
+
 	typedef
 	sge::renderer::buffer::writable<
 		Tag
@@ -72,13 +76,13 @@ public:
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	basic_scoped_lock(
-		Texture &,
+		texture_type &,
 		sge::renderer::lock_mode
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	basic_scoped_lock(
-		Texture &,
+		texture_type &,
 		lock_area const &,
 		sge::renderer::lock_mode
 	);

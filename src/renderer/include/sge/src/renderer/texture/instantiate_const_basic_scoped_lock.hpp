@@ -26,14 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #define SGE_RENDERER_TEXTURE_INSTANTIATE_CONST_BASIC_SCOPED_LOCK(\
-	texture_type,\
 	tag \
 )\
 template \
 class \
 SGE_CORE_EXPORT_CLASS_INSTANTIATION \
 sge::renderer::texture::const_basic_scoped_lock<\
-	texture_type,\
 	tag \
 >
 

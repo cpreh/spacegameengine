@@ -30,7 +30,6 @@ namespace texture
 {
 
 template<
-	typename Texture,
 	typename Tag
 >
 class const_basic_scoped_lock;

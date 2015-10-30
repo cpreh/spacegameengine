@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/tag.hpp>
 #include <sge/renderer/texture/basic_scoped_lock_fwd.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
 
 
 namespace sge
@@ -35,7 +34,6 @@ namespace texture
 
 typedef
 sge::renderer::texture::basic_scoped_lock<
-	sge::renderer::texture::planar,
 	sge::image2d::tag
 >
 scoped_planar_lock;

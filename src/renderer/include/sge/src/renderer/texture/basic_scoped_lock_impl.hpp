@@ -25,19 +25,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/basic_dim.hpp>
 #include <sge/renderer/basic_lock_box.hpp>
 #include <sge/renderer/lock_mode.hpp>
+#include <sge/renderer/texture/basic_lockable_box.hpp>
 #include <sge/renderer/texture/basic_scoped_lock.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 
 
 template<
-	typename Texture,
 	typename Tag
 >
 sge::renderer::texture::basic_scoped_lock<
-	Texture,
 	Tag
 >::basic_scoped_lock(
-	Texture &_texture,
+	texture_type &_texture,
 	sge::renderer::lock_mode const _mode
 )
 :
@@ -53,14 +52,12 @@ sge::renderer::texture::basic_scoped_lock<
 }
 
 template<
-	typename Texture,
 	typename Tag
 >
 sge::renderer::texture::basic_scoped_lock<
-	Texture,
 	Tag
 >::basic_scoped_lock(
-	Texture &_texture,
+	texture_type &_texture,
 	lock_area const &_area,
 	sge::renderer::lock_mode const _mode
 )
@@ -78,16 +75,13 @@ sge::renderer::texture::basic_scoped_lock<
 }
 
 template<
-	typename Texture,
 	typename Tag
 >
 typename
 sge::renderer::texture::basic_scoped_lock<
-	Texture,
 	Tag
 >::view
 sge::renderer::texture::basic_scoped_lock<
-	Texture,
 	Tag
 >::value() const
 {
@@ -96,11 +90,9 @@ sge::renderer::texture::basic_scoped_lock<
 }
 
 template<
-	typename Texture,
 	typename Tag
 >
 sge::renderer::texture::basic_scoped_lock<
-	Texture,
 	Tag
 >::~basic_scoped_lock()
 {
