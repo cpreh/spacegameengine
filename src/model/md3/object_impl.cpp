@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/model/md3/exception.hpp>
 #include <sge/model/md3/index_sequence.hpp>
-#include <sge/model/md3/load_flags.hpp>
+#include <sge/model/md3/load_flags_field.hpp>
 #include <sge/model/md3/normal_sequence.hpp>
 #include <sge/model/md3/optional_normal_sequence.hpp>
 #include <sge/model/md3/optional_texcoord_sequence.hpp>
@@ -55,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::model::md3::object_impl::object_impl(
 	std::istream &_stream,
-	sge::model::md3::load_flags const _flags
+	sge::model::md3::load_flags_field const _flags
 )
 :
 	vertices_{

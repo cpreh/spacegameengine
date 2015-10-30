@@ -33,8 +33,8 @@ namespace md3
 
 enum class load_flags
 {
-	none,
-	switch_yz
+	switch_yz,
+	fcppt_maximum = switch_yz
 };
 
 }

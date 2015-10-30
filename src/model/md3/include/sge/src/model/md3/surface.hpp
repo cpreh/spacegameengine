@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MODEL_MD3_SURFACE_HPP_INCLUDED
 #define SGE_SRC_MODEL_MD3_SURFACE_HPP_INCLUDED
 
-#include <sge/model/md3/load_flags_fwd.hpp>
+#include <sge/model/md3/load_flags_field_fwd.hpp>
 #include <sge/model/md3/string.hpp>
 #include <sge/src/model/md3/s32.hpp>
 #include <sge/src/model/md3/shader_vector.hpp>
@@ -45,7 +45,7 @@ class surface
 public:
 	surface(
 		std::istream &,
-		sge::model::md3::load_flags,
+		sge::model::md3::load_flags_field,
 		sge::model::md3::s32 num_frames
 	);
 

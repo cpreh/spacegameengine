@@ -19,18 +19,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/model/md3/load_flags.hpp>
+#include <sge/model/md3/load_flags_field.hpp>
 #include <sge/src/model/md3/read_s16.hpp>
+#include <sge/src/model/md3/s16.hpp>
 #include <sge/src/model/md3/vertex.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <algorithm>
 #include <iosfwd>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::model::md3::vertex::vertex(
 	std::istream &_stream,
-	md3::load_flags const _flags
+	sge::model::md3::load_flags_field const _flags
 )
 :
 	x_(
@@ -54,13 +58,12 @@ sge::model::md3::vertex::vertex(
 		)
 	)
 {
-	switch(
+	if(
 		_flags
+		&
+		sge::model::md3::load_flags::switch_yz
 	)
 	{
-	case md3::load_flags::none:
-		return;
-	case md3::load_flags::switch_yz:
 		// Motivation for this strange stuff:
 		//
 		// We assume our md3 is aligned with z as the "up" axis. To
@@ -83,8 +86,8 @@ sge::model::md3::vertex::vertex(
 		//
 		// (-x,z,y)
 		x_ =
-			static_cast<
-				md3::s16
+			fcppt::cast::size<
+				sge::model::md3::s16
 			>(
 				-x_
 			);
@@ -93,33 +96,33 @@ sge::model::md3::vertex::vertex(
 			y_,
 			z_
 		);
-
-		return;
 	}
-
-	FCPPT_ASSERT_UNREACHABLE;
 }
 
 sge::model::md3::s16
 sge::model::md3::vertex::x() const
 {
-	return x_;
+	return
+		x_;
 }
 
 sge::model::md3::s16
 sge::model::md3::vertex::y() const
 {
-	return y_;
+	return
+		y_;
 }
 
 sge::model::md3::s16
 sge::model::md3::vertex::z() const
 {
-	return z_;
+	return
+		z_;
 }
 
 sge::model::md3::s16
 sge::model::md3::vertex::normal() const
 {
-	return normal_;
+	return
+		normal_;
 }

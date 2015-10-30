@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MODEL_MD3_LOADER_IMPL_HPP_INCLUDED
 #define SGE_SRC_MODEL_MD3_LOADER_IMPL_HPP_INCLUDED
 
-#include <sge/model/md3/load_flags_fwd.hpp>
+#include <sge/model/md3/load_flags_field_fwd.hpp>
 #include <sge/model/md3/loader.hpp>
 #include <sge/model/md3/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -55,14 +55,14 @@ private:
 	sge::model::md3::object_unique_ptr
 	load(
 		boost::filesystem::path const &,
-		sge::model::md3::load_flags
+		sge::model::md3::load_flags_field
 	)
 	override;
 
 	sge::model::md3::object_unique_ptr
 	load_stream(
 		std::istream &,
-		sge::model::md3::load_flags
+		sge::model::md3::load_flags_field
 	)
 	override;
 };

@@ -34,9 +34,9 @@ sge::model::md3::read_scalar(
 {
 	return
 		fcppt::io::read_exn<
-			md3::scalar
+			sge::model::md3::scalar
 		>(
 			_stream,
-			md3::endian()
+			sge::model::md3::endian()
 		);
 }

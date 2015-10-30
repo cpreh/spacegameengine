@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/model/md3/exception.hpp>
-#include <sge/model/md3/load_flags.hpp>
+#include <sge/model/md3/load_flags_field.hpp>
 #include <sge/model/md3/string.hpp>
 #include <sge/src/model/md3/max_qpath.hpp>
 #include <sge/src/model/md3/read_and_check_id3p.hpp>
@@ -44,8 +44,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::model::md3::surface::surface(
 	std::istream &_stream,
-	md3::load_flags const _flags,
-	md3::s32 const _num_frames_head
+	sge::model::md3::load_flags_field const _flags,
+	sge::model::md3::s32 const _num_frames_head
 )
 :
 	name_(),

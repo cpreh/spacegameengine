@@ -18,42 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/model/md3/scalar.hpp>
-#include <sge/src/model/md3/read_scalar.hpp>
-#include <sge/src/model/md3/read_vec3.hpp>
-#include <sge/src/model/md3/vec3.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <iosfwd>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_MODEL_MD3_LOAD_FLAGS_FIELD_FWD_HPP_INCLUDED
+#define SGE_MODEL_MD3_LOAD_FLAGS_FIELD_FWD_HPP_INCLUDED
+
+#include <sge/model/md3/load_flags.hpp>
+#include <fcppt/container/bitfield/object_from_enum.hpp>
 
 
-sge::model::md3::vec3
-sge::model::md3::read_vec3(
-	std::istream &_stream
-)
+namespace sge
 {
-	sge::model::md3::scalar const x{
-		sge::model::md3::read_scalar(
-			_stream
-		)
-	};
+namespace model
+{
+namespace md3
+{
 
-	sge::model::md3::scalar const y{
-		sge::model::md3::read_scalar(
-			_stream
-		)
-	};
+typedef
+fcppt::container::bitfield::object_from_enum<
+	sge::model::md3::load_flags
+>
+load_flags_field;
 
-	sge::model::md3::scalar const z{
-		sge::model::md3::read_scalar(
-			_stream
-		)
-	};
-
-	return
-		sge::model::md3::vec3(
-			x,
-			y,
-			z
-		);
 }
+}
+}
+
+#endif

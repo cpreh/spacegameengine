@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/model/md3/load_flags.hpp>
+#include <sge/model/md3/load_flags_field.hpp>
 #include <sge/model/md3/object.hpp>
 #include <sge/model/md3/object_unique_ptr.hpp>
 #include <sge/src/model/md3/loader_impl.hpp>
@@ -43,7 +43,7 @@ sge::model::md3::loader_impl::~loader_impl()
 sge::model::md3::object_unique_ptr
 sge::model::md3::loader_impl::load(
 	boost::filesystem::path const &_path,
-	sge::model::md3::load_flags const _flags
+	sge::model::md3::load_flags_field const _flags
 )
 {
 	boost::filesystem::ifstream file(
@@ -72,7 +72,7 @@ sge::model::md3::loader_impl::load(
 sge::model::md3::object_unique_ptr
 sge::model::md3::loader_impl::load_stream(
 	std::istream &_stream,
-	sge::model::md3::load_flags const _flags
+	sge::model::md3::load_flags_field const _flags
 )
 {
 	return

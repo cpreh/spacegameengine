@@ -33,9 +33,8 @@ namespace md3
 {
 
 typedef
-fcppt::math::vector::static_
-<
-	scalar,
+fcppt::math::vector::static_<
+	sge::model::md3::scalar,
 	3
 >
 normal;

@@ -32,17 +32,17 @@ sge::model::md3::frame::frame(
 )
 :
 	min_bounds_(
-		md3::read_vec3(
+		sge::model::md3::read_vec3(
 			_stream
 		)
 	),
 	max_bounds_(
-		md3::read_vec3(
+		sge::model::md3::read_vec3(
 			_stream
 		)
 	),
 	local_origin_(
-		md3::read_vec3(
+		sge::model::md3::read_vec3(
 			_stream
 		)
 	),
@@ -52,7 +52,7 @@ sge::model::md3::frame::frame(
 		)
 	),
 	name_(
-		md3::read_string<
+		sge::model::md3::read_string<
 			16
 		>(
 			_stream

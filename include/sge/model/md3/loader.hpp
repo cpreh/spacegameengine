@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_MD3_LOADER_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/model/md3/load_flags_fwd.hpp>
+#include <sge/model/md3/load_flags_field_fwd.hpp>
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/model/md3/object_unique_ptr.hpp>
 #include <sge/model/md3/detail/symbol.hpp>
@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/filesystem/path.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
-
 
 
 namespace sge
@@ -53,14 +52,14 @@ public:
 	sge::model::md3::object_unique_ptr
 	load(
 		boost::filesystem::path const &,
-		sge::model::md3::load_flags
+		sge::model::md3::load_flags_field
 	) = 0;
 
 	virtual
 	sge::model::md3::object_unique_ptr
 	load_stream(
 		std::istream &,
-		sge::model::md3::load_flags
+		sge::model::md3::load_flags_field
 	) = 0;
 
 	SGE_MODEL_MD3_DETAIL_SYMBOL

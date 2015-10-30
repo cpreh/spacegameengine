@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_MODEL_MD3_OBJECT_IMPL_HPP_INCLUDED
 
 #include <sge/model/md3/index_sequence.hpp>
-#include <sge/model/md3/load_flags_fwd.hpp>
+#include <sge/model/md3/load_flags_field_fwd.hpp>
 #include <sge/model/md3/object.hpp>
 #include <sge/model/md3/optional_normal_sequence_fwd.hpp>
 #include <sge/model/md3/optional_texcoord_sequence_fwd.hpp>
@@ -56,7 +56,7 @@ class object_impl
 public:
 	object_impl(
 		std::istream &,
-		sge::model::md3::load_flags
+		sge::model::md3::load_flags_field
 	);
 
 	~object_impl()
