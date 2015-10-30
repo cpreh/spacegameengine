@@ -316,8 +316,7 @@ sge::console::gfx::object::render_line(
 			sge::font::vector
 		>(),
 		font_color_.get(),
-		// FIXME
-		sge::renderer::texture::emulate_srgb::yes
+		sge::renderer::texture::emulate_srgb::no
 	);
 
 	// TODO: Make this easier

@@ -556,7 +556,6 @@ try
 
 	sprite_object const tux(
 		sge::sprite::roles::pos{} =
-			// FIXME
 			fcppt::math::vector::fill<
 				sprite_object::vector
 			>(
