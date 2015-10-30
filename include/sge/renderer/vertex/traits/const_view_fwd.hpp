@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VERTEX_TRAITS_CONST_VIEW_FWD_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_TRAITS_CONST_VIEW_FWD_HPP_INCLUDED
 
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/renderer/vertex/tag.hpp>
 #include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
 

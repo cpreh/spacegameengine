@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_BUFFER_BASE_FWD_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_BUFFER_BASE_FWD_HPP_INCLUDED
 
-#include <sge/renderer/index/buffer_fwd.hpp>
+#include <sge/renderer/buffer/writable_fwd.hpp>
 #include <sge/renderer/index/tag.hpp>
 
 
