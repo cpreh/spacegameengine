@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_DETAIL_ORDERED_MAP_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_DETAIL_ORDERED_MAP_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_ORDERED_DETAIL_MAP_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_ORDERED_DETAIL_MAP_HPP_INCLUDED
 
-#include <sge/sprite/config/is_choices.hpp>
 #include <sge/sprite/intrusive/collection_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/ptr_container/ptr_map.hpp>
+#include <map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -34,6 +34,8 @@ namespace sprite
 {
 namespace intrusive
 {
+namespace ordered
+{
 namespace detail
 {
 
@@ -41,24 +43,19 @@ template<
 	typename Order,
 	typename Choices
 >
-struct ordered_map
-{
-	static_assert(
-		sge::sprite::config::is_choices<
-			Choices
-		>::value,
-		"Choices must be a sprite choices type"
-	);
-
-	// TODO: Do not use ptr_map!
-	typedef boost::ptr_map<
-		Order,
+using
+map
+=
+std::map<
+	Order,
+	fcppt::unique_ptr<
 		sge::sprite::intrusive::collection<
 			Choices
 		>
-	> type;
-};
+	>
+>;
 
+}
 }
 }
 }

@@ -22,12 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_INTRUSIVE_ORDERED_RANGE_DECL_HPP_INCLUDED
 
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/intrusive/detail/ordered_map.hpp>
 #include <sge/sprite/intrusive/ordered/iterator_fwd.hpp>
 #include <sge/sprite/intrusive/ordered/range_fwd.hpp>
+#include <sge/sprite/intrusive/ordered/detail/map.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -51,22 +52,31 @@ class range
 		range
 	);
 
-	typedef typename sge::sprite::intrusive::detail::ordered_map<
+	typedef
+	sge::sprite::intrusive::ordered::detail::map<
 		Order,
 		Choices
-	>::type ordered_map;
+	>
+	ordered_map;
 public:
-	typedef typename boost::mpl::if_c<
-		IsConst,
-		ordered_map const &,
-		ordered_map &
-	>::type ordered_map_reference;
+	typedef
+	fcppt::reference_wrapper<
+		typename
+		std::conditional<
+			IsConst,
+			ordered_map const,
+			ordered_map
+		>::type
+	>
+	ordered_map_reference;
 
-	typedef sge::sprite::intrusive::ordered::iterator<
+	typedef
+	sge::sprite::intrusive::ordered::iterator<
 		Choices,
 		Order,
 		IsConst
-	> iterator;
+	>
+	iterator;
 
 	explicit
 	range(
@@ -93,7 +103,7 @@ public:
 		Equal const &
 	) const;
 private:
-	ordered_map_reference ordered_map_;
+	ordered_map_reference const ordered_map_;
 
 	sge::sprite::count const size_;
 };

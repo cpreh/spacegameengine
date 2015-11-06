@@ -33,7 +33,7 @@ sge::sprite::intrusive::range<
 	Choices,
 	IsConst
 >::range(
-	reference _list,
+	reference const _list,
 	sge::sprite::count const _size
 )
 :
@@ -60,7 +60,7 @@ sge::sprite::intrusive::range<
 >::begin() const
 {
 	return
-		list_.begin();
+		list_.get().begin();
 }
 
 template<
@@ -77,7 +77,7 @@ sge::sprite::intrusive::range<
 >::end() const
 {
 	return
-		list_.end();
+		list_.get().end();
 }
 
 template<
@@ -105,7 +105,7 @@ sge::sprite::intrusive::range<
 >::empty() const
 {
 	return
-		list_.empty();
+		list_.get().empty();
 }
 
 template<
@@ -123,7 +123,7 @@ sge::sprite::intrusive::range<
 	Equal const &_equal
 ) const
 {
-	list_.sort(
+	list_.get().sort(
 		_equal
 	);
 }

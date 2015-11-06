@@ -35,11 +35,13 @@ namespace intrusive
 namespace detail
 {
 
-typedef boost::intrusive::list_base_hook<
+typedef
+boost::intrusive::list_base_hook<
 	boost::intrusive::link_mode<
 		boost::intrusive::auto_unlink
 	>
-> object_base_hook;
+>
+object_base_hook;
 
 }
 }

@@ -233,16 +233,18 @@ set(
 	include/sge/sprite/intrusive/detail/connection_impl.hpp
 	include/sge/sprite/intrusive/detail/list.hpp
 	include/sge/sprite/intrusive/detail/object_base_hook.hpp
-	include/sge/sprite/intrusive/detail/ordered_iterator_base.hpp
-	include/sge/sprite/intrusive/detail/ordered_iterator_empty.hpp
-	include/sge/sprite/intrusive/detail/ordered_map.hpp
-	include/sge/sprite/intrusive/detail/ordered_range_size.hpp
 	include/sge/sprite/intrusive/detail/render_one.hpp
-	include/sge/sprite/intrusive/is_range.hpp
 	include/sge/sprite/intrusive/ordered/collection.hpp
 	include/sge/sprite/intrusive/ordered/collection_decl.hpp
 	include/sge/sprite/intrusive/ordered/collection_fwd.hpp
 	include/sge/sprite/intrusive/ordered/collection_impl.hpp
+	include/sge/sprite/intrusive/ordered/detail/iterator_base.hpp
+	include/sge/sprite/intrusive/ordered/detail/iterator_base_impl.hpp
+	include/sge/sprite/intrusive/ordered/detail/iterator_empty.hpp
+	include/sge/sprite/intrusive/ordered/detail/map.hpp
+	include/sge/sprite/intrusive/ordered/detail/range_iterator.hpp
+	include/sge/sprite/intrusive/ordered/detail/range_iterator_impl.hpp
+	include/sge/sprite/intrusive/ordered/detail/range_size.hpp
 	include/sge/sprite/intrusive/ordered/iterator.hpp
 	include/sge/sprite/intrusive/ordered/iterator_decl.hpp
 	include/sge/sprite/intrusive/ordered/iterator_fwd.hpp

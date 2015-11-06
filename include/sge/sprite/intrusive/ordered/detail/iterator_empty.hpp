@@ -18,12 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_DETAIL_ORDERED_RANGE_SIZE_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_DETAIL_ORDERED_RANGE_SIZE_HPP_INCLUDED
-
-#include <sge/sprite/count.hpp>
-#include <sge/sprite/intrusive/detail/ordered_map.hpp>
-#include <fcppt/algorithm/fold.hpp>
+#ifndef SGE_SPRITE_INTRUSIVE_ORDERED_DETAIL_ITERATOR_EMPTY_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_ORDERED_DETAIL_ITERATOR_EMPTY_HPP_INCLUDED
 
 
 namespace sge
@@ -32,41 +28,27 @@ namespace sprite
 {
 namespace intrusive
 {
+namespace ordered
+{
 namespace detail
 {
 
-template<
-	typename Order,
-	typename Choices
->
-inline
-sge::sprite::count
-ordered_range_size(
-	typename sge::sprite::intrusive::detail::ordered_map<
-		Order,
-		Choices
-	>::type const &_ordered_map
-)
+struct iterator_empty
 {
-	return
-		fcppt::algorithm::fold(
-			_ordered_map,
-			sge::sprite::count{
-				0u
-			},
-			[](
-				auto const &_element,
-				sge::sprite::count const _value
-			)
-			{
-				return
-					_value
-					+
-					_element.second->range().size();
-			}
-		);
-}
+	template<
+		typename T
+	>
+	bool
+	operator()(
+		T const &_ref
+	) const
+	{
+		return
+			!_ref.second->range().empty();
+	}
+};
 
+}
 }
 }
 }

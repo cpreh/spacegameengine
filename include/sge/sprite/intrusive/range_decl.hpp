@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/range_fwd.hpp>
 #include <sge/sprite/intrusive/detail/list.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -53,17 +54,27 @@ class range
 	>
 	list;
 public:
-	typedef typename boost::mpl::if_c<
-		IsConst,
-		list const &,
-		list &
-	>::type reference;
+	typedef
+	fcppt::reference_wrapper<
+		typename
+		std::conditional<
+			IsConst,
+			list const,
+			list
+		>::type
+	>
+	reference;
 
-	typedef typename boost::mpl::if_c<
+	typedef
+	typename
+	std::conditional<
 		IsConst,
-		typename list::const_iterator,
-		typename list::iterator
-	>::type iterator;
+		typename
+		list::const_iterator,
+		typename
+		list::iterator
+	>::type
+	iterator;
 
 	range(
 		reference,
@@ -90,7 +101,7 @@ public:
 		Equal const &
 	) const;
 private:
-	reference list_;
+	reference const list_;
 
 	sge::sprite::count const size_;
 };

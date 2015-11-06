@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_INTRUSIVE_ORDERED_RANGE_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/intrusive/detail/ordered_range_size.hpp>
 #include <sge/sprite/intrusive/ordered/iterator_impl.hpp>
 #include <sge/sprite/intrusive/ordered/range_decl.hpp>
+#include <sge/sprite/intrusive/ordered/detail/range_size.hpp>
 
 
 template<
@@ -37,18 +37,18 @@ sge::sprite::intrusive::ordered::range<
 	Order,
 	IsConst
 >::range(
-	ordered_map_reference _ordered_map
+	ordered_map_reference const _ordered_map
 )
 :
 	ordered_map_(
 		_ordered_map
 	),
 	size_(
-		sge::sprite::intrusive::detail::ordered_range_size<
+		sge::sprite::intrusive::ordered::detail::range_size<
 			Order,
 			Choices
 		>(
-			_ordered_map
+			_ordered_map.get()
 		)
 	)
 {
@@ -72,8 +72,8 @@ sge::sprite::intrusive::ordered::range<
 {
 	return
 		iterator(
-			ordered_map_.begin(),
-			ordered_map_.end()
+			ordered_map_.get().begin(),
+			ordered_map_.get().end()
 		);
 }
 
@@ -95,8 +95,8 @@ sge::sprite::intrusive::ordered::range<
 {
 	return
 		iterator(
-			ordered_map_.end(),
-			ordered_map_.end()
+			ordered_map_.get().end(),
+			ordered_map_.get().end()
 		);
 }
 
@@ -154,7 +154,7 @@ sge::sprite::intrusive::ordered::range<
 	for(
 		auto const &element
 		:
-		ordered_map_
+		ordered_map_.get()
 	)
 		element.second->range().sort(
 			_func

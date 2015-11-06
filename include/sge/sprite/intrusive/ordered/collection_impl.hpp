@@ -25,6 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/connection_ref.hpp>
 #include <sge/sprite/intrusive/ordered/collection_decl.hpp>
 #include <sge/sprite/intrusive/ordered/range_impl.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/container/get_or_insert.hpp>
 
 
 template<
@@ -67,9 +70,21 @@ sge::sprite::intrusive::ordered::collection<
 )
 {
 	return
-		collections_[
-			_order
-		];
+		*fcppt::container::get_or_insert(
+			collections_,
+			_order,
+			[](
+				Order
+			)
+			{
+				return
+					fcppt::make_unique_ptr<
+						sge::sprite::intrusive::collection<
+							Choices
+						>
+					>();
+			}
+		);
 }
 
 template<
@@ -108,7 +123,9 @@ sge::sprite::intrusive::ordered::collection<
 {
 	return
 		range_type(
-			collections_
+			fcppt::make_ref(
+				collections_
+			)
 		);
 }
 
@@ -127,7 +144,9 @@ sge::sprite::intrusive::ordered::collection<
 {
 	return
 		const_range_type(
-			collections_
+			fcppt::make_ref(
+				collections_
+			)
 		);
 }
 

@@ -18,15 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_DETAIL_CONNECTION_DECL_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_DETAIL_CONNECTION_DECL_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_ORDERED_DETAIL_RANGE_SIZE_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_ORDERED_DETAIL_RANGE_SIZE_HPP_INCLUDED
 
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/object_fwd.hpp>
-#include <sge/sprite/intrusive/connection_decl.hpp>
-#include <sge/sprite/intrusive/detail/list.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/reference_wrapper_decl.hpp>
+#include <sge/sprite/intrusive/ordered/detail/map.hpp>
+#include <fcppt/algorithm/fold.hpp>
 
 
 namespace sge
@@ -35,74 +32,44 @@ namespace sprite
 {
 namespace intrusive
 {
+namespace ordered
+{
 namespace detail
 {
 
 template<
+	typename Order,
 	typename Choices
 >
-class connection
-:
-	public sge::sprite::intrusive::connection<
+inline
+sge::sprite::count
+range_size(
+	sge::sprite::intrusive::ordered::detail::map<
+		Order,
 		Choices
-	>
+	> const &_ordered_map
+)
 {
-	FCPPT_NONCOPYABLE(
-		connection
-	);
-public:
-	typedef
-	sge::sprite::intrusive::detail::list<
-		Choices
-	>
-	list;
+	return
+		fcppt::algorithm::fold(
+			_ordered_map,
+			sge::sprite::count{
+				0u
+			},
+			[](
+				auto const &_element,
+				sge::sprite::count const _value
+			)
+			{
+				return
+					_value
+					+
+					_element.second->range().size();
+			}
+		);
+}
 
-	typedef
-	fcppt::reference_wrapper<
-		list
-	>
-	list_ref;
-
-	typedef
-	fcppt::reference_wrapper<
-		sge::sprite::count
-	>
-	count_ref;
-
-	connection(
-		list_ref,
-		count_ref
-	);
-
-	~connection()
-	override;
-
-	typedef
-	sge::sprite::intrusive::connection<
-		Choices
-	>
-	base;
-
-	typedef
-	typename
-	base::object
-	object;
-
-	void
-	add(
-		object &
-	)
-	override;
-
-	void
-	remove()
-	override;
-private:
-	list_ref list_;
-
-	count_ref count_;
-};
-
+}
 }
 }
 }

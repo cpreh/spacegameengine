@@ -18,15 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_DETAIL_CONNECTION_DECL_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_DETAIL_CONNECTION_DECL_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_ORDERED_DETAIL_ITERATOR_BASE_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_ORDERED_DETAIL_ITERATOR_BASE_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/count.hpp>
-#include <sge/sprite/object_fwd.hpp>
-#include <sge/sprite/intrusive/connection_decl.hpp>
-#include <sge/sprite/intrusive/detail/list.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/reference_wrapper_decl.hpp>
+#include <sge/sprite/intrusive/ordered/iterator_fwd.hpp>
+#include <sge/sprite/intrusive/ordered/detail/range_iterator.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/iterator/iterator_facade.hpp>
+#include <iterator>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -35,74 +36,46 @@ namespace sprite
 {
 namespace intrusive
 {
+namespace ordered
+{
 namespace detail
 {
 
 template<
-	typename Choices
+	typename Choices,
+	typename Order,
+	bool IsConst
 >
-class connection
-:
-	public sge::sprite::intrusive::connection<
-		Choices
-	>
+struct iterator_base_impl
 {
-	FCPPT_NONCOPYABLE(
-		connection
-	);
-public:
 	typedef
-	sge::sprite::intrusive::detail::list<
-		Choices
+	std::iterator_traits<
+		sge::sprite::intrusive::ordered::detail::range_iterator<
+			Choices,
+			IsConst
+		>
 	>
-	list;
+	range_iterator_traits;
 
 	typedef
-	fcppt::reference_wrapper<
-		list
+	boost::iterator_facade<
+		sge::sprite::intrusive::ordered::iterator<
+			Choices,
+			Order,
+			IsConst
+		>,
+		typename
+		range_iterator_traits::value_type,
+		std::forward_iterator_tag,
+		typename
+		range_iterator_traits::reference,
+		typename
+		range_iterator_traits::difference_type
 	>
-	list_ref;
-
-	typedef
-	fcppt::reference_wrapper<
-		sge::sprite::count
-	>
-	count_ref;
-
-	connection(
-		list_ref,
-		count_ref
-	);
-
-	~connection()
-	override;
-
-	typedef
-	sge::sprite::intrusive::connection<
-		Choices
-	>
-	base;
-
-	typedef
-	typename
-	base::object
-	object;
-
-	void
-	add(
-		object &
-	)
-	override;
-
-	void
-	remove()
-	override;
-private:
-	list_ref list_;
-
-	count_ref count_;
+	type;
 };
 
+}
 }
 }
 }

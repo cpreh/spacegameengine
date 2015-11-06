@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_INTRUSIVE_DETAIL_ORDERED_ITERATOR_EMPTY_HPP_INCLUDED
-#define SGE_SPRITE_INTRUSIVE_DETAIL_ORDERED_ITERATOR_EMPTY_HPP_INCLUDED
+#ifndef SGE_SPRITE_INTRUSIVE_ORDERED_DETAIL_RANGE_ITERATOR_HPP_INCLUDED
+#define SGE_SPRITE_INTRUSIVE_ORDERED_DETAIL_RANGE_ITERATOR_HPP_INCLUDED
+
+#include <sge/sprite/intrusive/ordered/detail/range_iterator_impl.hpp>
+
 
 namespace sge
 {
@@ -27,24 +30,24 @@ namespace sprite
 {
 namespace intrusive
 {
+namespace ordered
+{
 namespace detail
 {
 
-struct ordered_iterator_empty
-{
-	template<
-		typename T
-	>
-	bool
-	operator()(
-		T const &_ref
-	) const
-	{
-		return
-			!_ref.second->range().empty();
-	}
-};
+template<
+	typename Choices,
+	bool IsConst
+>
+using range_iterator
+=
+typename
+sge::sprite::intrusive::ordered::detail::range_iterator_impl<
+	Choices,
+	IsConst
+>::type;
 
+}
 }
 }
 }

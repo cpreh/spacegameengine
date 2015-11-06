@@ -21,17 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_INTRUSIVE_ORDERED_ITERATOR_DECL_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_ORDERED_ITERATOR_DECL_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/detail/ordered_iterator_base.hpp>
-#include <sge/sprite/intrusive/detail/ordered_iterator_empty.hpp>
-#include <sge/sprite/intrusive/detail/ordered_map.hpp>
 #include <sge/sprite/intrusive/ordered/iterator_fwd.hpp>
+#include <sge/sprite/intrusive/ordered/detail/iterator_base.hpp>
+#include <sge/sprite/intrusive/ordered/detail/iterator_empty.hpp>
+#include <sge/sprite/intrusive/ordered/detail/map.hpp>
+#include <sge/sprite/intrusive/ordered/detail/range_iterator.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/iterator/filter_iterator.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/mpl/if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -54,43 +55,62 @@ template<
 >
 class iterator final
 :
-	public sge::sprite::intrusive::detail::ordered_iterator_base<
+	public sge::sprite::intrusive::ordered::detail::iterator_base<
 		Choices,
 		Order,
 		IsConst
-	>::type
+	>
 {
-	typedef sge::sprite::intrusive::detail::ordered_iterator_base<
+	typedef
+	sge::sprite::intrusive::ordered::detail::iterator_base<
 		Choices,
 		Order,
 		IsConst
-	> base_struct;
+	>
+	base;
 
-	typedef typename base_struct::type base;
+	typedef
+	sge::sprite::intrusive::ordered::detail::map<
+		Order,
+		Choices
+	>
+	ordered_map;
 
 	typedef
 	typename
-	sge::sprite::intrusive::detail::ordered_map<
-		Order,
-		Choices
-	>::type
-	ordered_map;
-
-	typedef typename boost::mpl::if_c<
+	std::conditional<
 		IsConst,
-		typename ordered_map::const_iterator,
-		typename ordered_map::iterator
-	>::type ordered_map_iterator;
+		typename
+		ordered_map::const_iterator,
+		typename
+		ordered_map::iterator
+	>::type
+	ordered_map_iterator;
 public:
-	typedef typename base::value_type value_type;
+	typedef
+	typename
+	base::value_type
+	value_type;
 
-	typedef typename base::reference reference;
+	typedef
+	typename
+	base::reference
+	reference;
 
-	typedef typename base::pointer pointer;
+	typedef
+	typename
+	base::pointer
+	pointer;
 
-	typedef typename base::difference_type difference_type;
+	typedef
+	typename
+	base::difference_type
+	difference_type;
 
-	typedef typename base::iterator_category iterator_category;
+	typedef
+	typename
+	base::iterator_category
+	iterator_category;
 
 	iterator(
 		ordered_map_iterator current,
@@ -113,14 +133,21 @@ private:
 	bool
 	is_end() const;
 
-	typedef boost::filter_iterator<
-		sge::sprite::intrusive::detail::ordered_iterator_empty,
+	typedef
+	boost::filter_iterator<
+		sge::sprite::intrusive::ordered::detail::iterator_empty,
 		ordered_map_iterator
-	> filtered_ordered_map_iterator;
+	>
+	filtered_ordered_map_iterator;
 
 	filtered_ordered_map_iterator outer_iterator_;
 
-	typedef typename base_struct::range_iterator range_iterator;
+	typedef
+	sge::sprite::intrusive::ordered::detail::range_iterator<
+		Choices,
+		IsConst
+	>
+	range_iterator;
 
 	range_iterator inner_iterator_;
 };

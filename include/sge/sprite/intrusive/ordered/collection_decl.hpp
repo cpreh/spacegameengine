@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/intrusive/collection_fwd.hpp>
 #include <sge/sprite/intrusive/connection_ref_fwd.hpp>
-#include <sge/sprite/intrusive/detail/ordered_map.hpp>
 #include <sge/sprite/intrusive/ordered/collection_fwd.hpp>
 #include <sge/sprite/intrusive/ordered/range_fwd.hpp>
+#include <sge/sprite/intrusive/ordered/detail/map.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -48,13 +48,19 @@ class collection
 		collection
 	);
 public:
-	typedef Order order;
+	typedef
+	Order
+	order;
 
-	typedef sge::sprite::intrusive::collection<
+	typedef
+	sge::sprite::intrusive::collection<
 		Choices
-	> collection_base;
+	>
+	collection_base;
 
-	typedef Choices choices;
+	typedef
+	Choices
+	choices;
 
 	typedef
 	sge::sprite::intrusive::connection_ref<
@@ -76,17 +82,21 @@ public:
 		order const &
 	);
 
-	typedef sge::sprite::intrusive::ordered::range<
+	typedef
+	sge::sprite::intrusive::ordered::range<
 		Choices,
 		order,
 		false
-	> range_type;
+	>
+	range_type;
 
-	typedef sge::sprite::intrusive::ordered::range<
+	typedef
+	sge::sprite::intrusive::ordered::range<
 		Choices,
 		order,
 		true
-	> const_range_type;
+	>
+	const_range_type;
 
 	range_type
 	range();
@@ -103,11 +113,10 @@ public:
 	);
 private:
 	typedef
-	typename
-	sge::sprite::intrusive::detail::ordered_map<
+	sge::sprite::intrusive::ordered::detail::map<
 		order,
 		Choices
-	>::type
+	>
 	order_map;
 
 	order_map collections_;

@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/connection_ref.hpp>
 #include <sge/sprite/intrusive/range_impl.hpp>
 #include <sge/sprite/intrusive/detail/connection_impl.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 
 
@@ -42,8 +43,12 @@ sge::sprite::intrusive::collection<
 		0u
 	),
 	connection_(
-		sprites_,
-		count_
+		fcppt::make_ref(
+			sprites_
+		),
+		fcppt::make_ref(
+			count_
+		)
 	)
 {
 }
@@ -94,7 +99,9 @@ sge::sprite::intrusive::collection<
 {
 	return
 		range_type(
-			sprites_,
+			fcppt::make_ref(
+				sprites_
+			),
 			count_
 		);
 }
@@ -111,7 +118,9 @@ sge::sprite::intrusive::collection<
 {
 	return
 		const_range_type(
-			sprites_,
+			fcppt::make_cref(
+				sprites_
+			),
 			count_
 		);
 }
