@@ -1,9 +1,12 @@
 set(
 	SGE_RESOURCE_TREE_FILES
+	include/sge/resource_tree/detail/add_directory.hpp
 	include/sge/resource_tree/detail/base_path.hpp
 	include/sge/resource_tree/detail/element_decl.hpp
 	include/sge/resource_tree/detail/element_fwd.hpp
 	include/sge/resource_tree/detail/element_impl.hpp
+	include/sge/resource_tree/detail/element_vector.hpp
+	include/sge/resource_tree/detail/init.hpp
 	include/sge/resource_tree/detail/path_with_resource_decl.hpp
 	include/sge/resource_tree/detail/path_with_resource_fwd.hpp
 	include/sge/resource_tree/detail/path_with_resource_impl.hpp

@@ -29,10 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/throw.hpp>
+#include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/random/make_variate.hpp>
 #include <fcppt/random/variate_impl.hpp>
 #include <fcppt/random/wrapper/make_uniform_container.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -43,16 +46,20 @@ sge::resource_tree::detail::element<
 	T,
 	Rng
 >::element(
-	resource_tree::path const &_base_path,
-	resource_container const &_resources,
+	resource_tree::path &&_base_path,
+	resource_container &&_resources,
 	Rng &_rng
 )
 :
 	base_path_(
-		_base_path
+		std::move(
+			_base_path
+		)
 	),
 	resources_(
-		_resources
+		std::move(
+			_resources
+		)
 	),
 	rng_(
 		fcppt::optional_bind_construct(
@@ -82,6 +89,45 @@ template<
 	typename T,
 	typename Rng
 >
+sge::resource_tree::detail::element<
+	T,
+	Rng
+>::element(
+	element &&
+)
+= default;
+
+template<
+	typename T,
+	typename Rng
+>
+sge::resource_tree::detail::element<
+	T,
+	Rng
+> &
+sge::resource_tree::detail::element<
+	T,
+	Rng
+>::operator=(
+	element &&
+)
+= default;
+
+template<
+	typename T,
+	typename Rng
+>
+sge::resource_tree::detail::element<
+	T,
+	Rng
+>::~element()
+{
+}
+
+template<
+	typename T,
+	typename Rng
+>
 sge::resource_tree::path const &
 sge::resource_tree::detail::element<
 	T,
@@ -96,67 +142,12 @@ template<
 	typename T,
 	typename Rng
 >
-bool
-sge::resource_tree::detail::element<
-	T,
-	Rng
->::contains(
-	sge::resource_tree::path const &_path
-) const
-{
-	return
-		this->get_opt(
-			_path
-		).has_value();
-}
-
-template<
-	typename T,
-	typename Rng
->
-T
-sge::resource_tree::detail::element<
-	T,
-	Rng
->::get(
-	sge::resource_tree::path const &_path
-) const
-{
-	return
-		fcppt::optional_to_exception(
-			this->get_opt(
-				_path
-			),
-			[
-				&_path
-			]{
-				return
-					sge::resource_tree::exception{
-						FCPPT_TEXT("Path ")
-						+
-						_path.string()
-						+
-						FCPPT_TEXT(" not found!")
-					};
-			}
-		);
-}
-
-template<
-	typename T,
-	typename Rng
->
 T
 sge::resource_tree::detail::element<
 	T,
 	Rng
 >::get_random() const
 {
-	FCPPT_ASSERT_THROW(
-		!resources_.empty(),
-		sge::resource_tree::exception
-	);
-
 	return
 		fcppt::optional_to_exception(
 			rng_,
@@ -177,17 +168,6 @@ template<
 	typename T,
 	typename Rng
 >
-sge::resource_tree::detail::element<
-	T,
-	Rng
->::~element()
-{
-}
-
-template<
-	typename T,
-	typename Rng
->
 typename
 sge::resource_tree::detail::element<
 	T,
@@ -200,27 +180,35 @@ sge::resource_tree::detail::element<
 	sge::resource_tree::path const &_path
 ) const
 {
-	// TODO: find_by
-	for(
-		auto const &cur
-		:
-		resources_
-	)
-		if(
-			(
-				base_path_
-				/
-				cur.path().string()
-			)
-			==
-			_path
-		)
-			return
-				optional_type(
-					cur.resource()
-				);
 	return
-		optional_type();
+		fcppt::algorithm::find_by_opt(
+			resources_,
+			[
+				&_path,
+				this
+			](
+				sge::resource_tree::detail::path_with_resource<
+					T
+				> const &_cur
+			)
+			{
+				return
+					(
+						base_path_
+						/
+						_cur.path().string()
+					)
+					==
+					_path
+					?
+						optional_type(
+							_cur.resource()
+						)
+					:
+						optional_type()
+					;
+			}
+		);
 }
 
 #endif

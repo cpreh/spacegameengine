@@ -35,13 +35,16 @@ namespace detail
 /**
 \brief Represents a pair of a path and a resource
 */
-template<typename T>
+template<
+	typename T
+>
 class path_with_resource
 {
 public:
 	path_with_resource(
-		sge::resource_tree::path const &,
-		T);
+		sge::resource_tree::path &&,
+		T
+	);
 
 	sge::resource_tree::path const &
 	path() const;
@@ -50,6 +53,7 @@ public:
 	resource() const;
 private:
 	sge::resource_tree::path path_;
+
 	T resource_;
 };
 

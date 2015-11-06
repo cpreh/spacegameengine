@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RESOURCE_TREE_DETAIL_STRIP_PATH_PREFIX_HPP_INCLUDED
-#define SGE_RESOURCE_TREE_DETAIL_STRIP_PATH_PREFIX_HPP_INCLUDED
+#ifndef SGE_RESOURCE_TREE_DETAIL_ELEMENT_VECTOR_HPP_INCLUDED
+#define SGE_RESOURCE_TREE_DETAIL_ELEMENT_VECTOR_HPP_INCLUDED
 
-#include <sge/resource_tree/path_fwd.hpp>
-#include <sge/resource_tree/detail/base_path.hpp>
-#include <sge/resource_tree/detail/sub_path.hpp>
-#include <sge/resource_tree/detail/symbol.hpp>
+#include <sge/resource_tree/detail/element_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -34,12 +34,19 @@ namespace resource_tree
 namespace detail
 {
 
-SGE_RESOURCE_TREE_DETAIL_SYMBOL
-sge::resource_tree::path
-strip_path_prefix(
-	sge::resource_tree::detail::base_path const &,
-	sge::resource_tree::detail::sub_path const &
-);
+template<
+	typename T,
+	typename Rng
+>
+using
+element_vector
+=
+std::vector<
+	sge::resource_tree::detail::element<
+		T,
+		Rng
+	>
+>;
 
 }
 }

@@ -23,32 +23,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/resource_tree/path.hpp>
 #include <sge/resource_tree/detail/path_with_resource_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
-template<typename T>
-sge::resource_tree::detail::path_with_resource<T>::path_with_resource(
-	resource_tree::path const &_path,
-	T const _resource)
+template<
+	typename T
+>
+sge::resource_tree::detail::path_with_resource<
+	T
+>::path_with_resource(
+	sge::resource_tree::path &&_path,
+	T const _resource
+)
 :
 	path_(
-		_path),
+		std::move(
+			_path
+		)
+	),
 	resource_(
-		_resource)
+		_resource
+	)
 {
 }
 
-template<typename T>
+template<
+	typename T
+>
 sge::resource_tree::path const &
-sge::resource_tree::detail::path_with_resource<T>::path() const
+sge::resource_tree::detail::path_with_resource<
+	T
+>::path() const
 {
-	return path_;
+	return
+		path_;
 }
 
-template<typename T>
+template<
+	typename T
+>
 T const &
-sge::resource_tree::detail::path_with_resource<T>::resource() const
+sge::resource_tree::detail::path_with_resource<
+	T
+>::resource() const
 {
-	return resource_;
+	return
+		resource_;
 }
 
 #endif

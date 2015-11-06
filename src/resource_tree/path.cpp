@@ -21,10 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/path.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <algorithm>
-#include <iterator>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/algorithm/join_strings.hpp>
 
 
 sge::resource_tree::path::path()
@@ -35,73 +32,70 @@ sge::resource_tree::path::path()
 
 sge::resource_tree::path &
 sge::resource_tree::path::operator/=(
-	fcppt::string const &s)
+	fcppt::string const &_path
+)
 {
 	elements_.push_back(
-		s);
-	return *this;
+		_path
+	);
+
+	return
+		*this;
 }
 
 sge::resource_tree::path
 sge::resource_tree::path::operator/(
-	fcppt::string const &s) const
+	fcppt::string const &_path
+) const
 {
 	path result(
-		*this);
+		*this
+	);
 
-	result /= s;
+	result /= _path;
 
-	return result;
+	return
+		result;
 }
 
 sge::resource_tree::path::const_iterator
 sge::resource_tree::path::begin() const
 {
-	return elements_.begin();
+	return
+		elements_.begin();
 }
 
 sge::resource_tree::path::const_iterator
 sge::resource_tree::path::end() const
 {
-	return elements_.end();
+	return
+		elements_.end();
 }
 
 bool
 sge::resource_tree::path::operator==(
-	sge::resource_tree::path const &_p) const
+	sge::resource_tree::path const &_other
+) const
 {
 	return
-		elements_.size() == _p.elements_.size() &&
-		std::equal(
-			elements_.begin(),
-			elements_.end(),
-			_p.elements_.begin());
+		_other.elements_
+		==
+		elements_;
 }
 
-fcppt::string
+fcppt::string const &
 sge::resource_tree::path::back() const
 {
-	// TODO: Remove this
-	return elements_.back();
+	return
+		elements_.back();
 }
 
 fcppt::string
 sge::resource_tree::path::string() const
 {
-	// TODO: Algorithm
-	fcppt::string result;
-
-	for(
-		element_sequence::const_iterator it =
-			elements_.begin();
-		it != elements_.end();
-		++it)
-	{
-		if(it != std::prev(elements_.end()))
-			result += (*it)+FCPPT_TEXT("/");
-		else
-			result += (*it);
-	}
-
-	return result;
+	return
+		fcppt::algorithm::join_strings(
+			elements_,
+			FCPPT_TEXT("/")
+		);
 }

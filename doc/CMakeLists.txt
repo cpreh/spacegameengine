@@ -2937,10 +2937,13 @@ set(
 	include/sge/renderer/vf/view_impl.hpp
 	include/sge/renderer/visual_base.hpp
 	include/sge/renderer/visual_base_fwd.hpp
+	include/sge/resource_tree/detail/add_directory.hpp
 	include/sge/resource_tree/detail/base_path.hpp
 	include/sge/resource_tree/detail/element_decl.hpp
 	include/sge/resource_tree/detail/element_fwd.hpp
 	include/sge/resource_tree/detail/element_impl.hpp
+	include/sge/resource_tree/detail/element_vector.hpp
+	include/sge/resource_tree/detail/init.hpp
 	include/sge/resource_tree/detail/path_with_resource_decl.hpp
 	include/sge/resource_tree/detail/path_with_resource_fwd.hpp
 	include/sge/resource_tree/detail/path_with_resource_impl.hpp

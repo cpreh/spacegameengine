@@ -23,11 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/resource_tree/path_fwd.hpp>
 #include <sge/resource_tree/path_to_resource_function.hpp>
-#include <sge/resource_tree/detail/base_path.hpp>
-#include <sge/resource_tree/detail/element_fwd.hpp>
-#include <sge/resource_tree/detail/sub_path.hpp>
+#include <sge/resource_tree/detail/element_decl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <vector>
@@ -143,8 +140,9 @@ template<
 >
 class object
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONCOPYABLE(
+		object
+	);
 public:
 	/**
 	\brief A typedef for the resource type
@@ -175,17 +173,19 @@ public:
 	object(
 		boost::filesystem::path const &,
 		path_to_resource_function const &,
-		rng_type &);
+		rng_type &
+	);
+
+	~object();
 
 	/**
 	\brief Retrieve a resource
-
 	*/
+	// TODO: reference?
 	value_type
 	get(
-		sge::resource_tree::path const &);
-
-	~object();
+		sge::resource_tree::path const &
+	);
 private:
 	typedef
 	sge::resource_tree::detail::element<
@@ -195,26 +195,14 @@ private:
 	element_type;
 
 	typedef
-	fcppt::unique_ptr<
-		element_type
-	>
-	element_unique_ptr;
-
-	typedef
 	std::vector<
-		element_unique_ptr
+		element_type
 	>
 	element_sequence;
 
-	element_sequence elements_;
-
-	void
-	add_directory(
-		sge::resource_tree::detail::base_path const &,
-		sge::resource_tree::detail::sub_path const &,
-		path_to_resource_function const &,
-		rng_type &);
+	element_sequence const elements_;
 };
+
 }
 }
 

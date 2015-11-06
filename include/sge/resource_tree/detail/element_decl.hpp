@@ -70,48 +70,53 @@ template<
 >
 class element
 {
-FCPPT_NONCOPYABLE(
-	element);
+	FCPPT_NONCOPYABLE(
+		element
+	);
 public:
 	typedef
-	std::vector
-	<
-		sge::resource_tree::detail::path_with_resource<T>
+	std::vector<
+		sge::resource_tree::detail::path_with_resource<
+			T
+		>
 	>
 	resource_container;
 
 	element(
-		sge::resource_tree::path const &,
-		resource_container const &,
-		Rng &);
+		sge::resource_tree::path &&,
+		resource_container &&,
+		Rng &
+	);
+
+	element(
+		element &&
+	);
+
+	element &
+	operator=(
+		element &&
+	);
+
+	~element();
 
 	sge::resource_tree::path const &
 	base_path() const;
 
-	bool
-	contains(
-		sge::resource_tree::path const &) const;
-
-	T
-	get(
-		sge::resource_tree::path const &) const;
-
 	T
 	get_random() const;
 
-	~element();
-private:
-	typedef fcppt::optional<
+	typedef
+	fcppt::optional<
 		T const &
-	> optional_type;
+	>
+	optional_type;
 
 	optional_type
 	get_opt(
 		sge::resource_tree::path const &
 	) const;
-
-	// boost::filesystem::path is not yet movable, so don't make this class movable
-	sge::resource_tree::path const base_path_;
+private:
+	sge::resource_tree::path base_path_;
 
 	resource_container resources_;
 

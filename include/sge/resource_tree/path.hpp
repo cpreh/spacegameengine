@@ -95,7 +95,7 @@ public:
 	\brief Return the last element of the path
 	*/
 	SGE_RESOURCE_TREE_DETAIL_SYMBOL
-	fcppt::string
+	fcppt::string const &
 	back() const;
 
 	/**
