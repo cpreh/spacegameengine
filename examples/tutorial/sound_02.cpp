@@ -23,6 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/load_exn.hpp>
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player.hpp>
+#include <sge/audio/position.hpp>
+#include <sge/audio/scalar.hpp>
+#include <sge/audio/vector.hpp>
+#include <sge/audio/vector2.hpp>
+#include <sge/audio/vector2_to_vector.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
@@ -43,9 +48,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/twopi.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <chrono>
@@ -57,7 +64,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-int main()
+int
+main()
 try
 {
 	sge::systems::instance<
@@ -95,7 +103,13 @@ try
 	sge::audio::sound::positional_unique_ptr const sound(
 		sys.audio_player().create_positional_stream(
 			*file,
-			sge::audio::sound::positional_parameters()
+			sge::audio::sound::positional_parameters{
+				sge::audio::position{
+					fcppt::math::vector::null<
+						sge::audio::vector
+					>()
+				}
+			}
 		)
 	);
 
@@ -103,32 +117,56 @@ try
 		sge::audio::sound::repeat::loop
 	);
 
-	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
-		sge::timer::parameters<sge::timer::clocks::standard>(
+	sge::timer::basic<
+		sge::timer::clocks::standard
+	> frame_timer(
+		sge::timer::parameters<
+			sge::timer::clocks::standard
+		>(
 			std::chrono::seconds(
-				1)));
+				1
+			)
+		)
+	);
 
 	sge::audio::scalar const rpm(
-		static_cast<sge::audio::scalar>(
-			1));
+		fcppt::literal<
+			sge::audio::scalar
+		>(
+			1
+		)
+	);
 
 	sge::audio::scalar const speed(
-		static_cast<sge::audio::scalar>(
-			fcppt::math::twopi<sge::audio::scalar>() * rpm));
+		fcppt::math::twopi<
+			sge::audio::scalar
+		>()
+		*
+		rpm
+	);
 
 	for(;;)
 	{
 		sge::audio::scalar const angle(
-			static_cast<sge::audio::scalar>(
-				sge::timer::elapsed_fractional<sge::audio::scalar>(
-					frame_timer) *
-				speed));
+			sge::timer::elapsed_fractional<
+				sge::audio::scalar
+			>(
+				frame_timer
+			)
+			*
+			speed
+		);
 
 		sound->position(
-			sge::audio::vector(
-				std::sin(angle),
-				static_cast<sge::audio::scalar>(0),
-				std::cos(angle)
+			sge::audio::vector2_to_vector(
+				sge::audio::vector2{
+					std::sin(
+						angle
+					),
+					std::cos(
+						angle
+					)
+				}
 			)
 		);
 
@@ -143,7 +181,8 @@ catch(
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
 
-	return EXIT_FAILURE;
+	return
+		EXIT_FAILURE;
 }
 catch(
 	std::exception const &_error
@@ -153,5 +192,6 @@ catch(
 		<< _error.what()
 		<< '\n';
 
-	return EXIT_FAILURE;
+	return
+		EXIT_FAILURE;
 }

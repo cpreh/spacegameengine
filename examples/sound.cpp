@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/load_raw_exn.hpp>
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player.hpp>
+#include <sge/audio/position.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters.hpp>
@@ -267,17 +268,18 @@ try
 
 	sge::audio::sound::positional_unique_ptr const positional_sound(
 		buf->create_positional(
-			sge::audio::sound::positional_parameters()
-				.linear_velocity(
+			sge::audio::sound::positional_parameters{
+				sge::audio::position{
 					fcppt::math::vector::null<
 						sge::audio::vector
 					>()
-				)
-				.position(
-					fcppt::math::vector::null<
-						sge::audio::vector
-					>()
-				)
+				}
+			}
+			.linear_velocity(
+				fcppt::math::vector::null<
+					sge::audio::vector
+				>()
+			)
 		)
 	);
 
@@ -406,19 +408,20 @@ try
 	sge::audio::sound::positional_unique_ptr const streaming_positional_sound(
 		sys.audio_player().create_positional_stream(
 			*streaming_file,
-			sge::audio::sound::positional_parameters()
-				.linear_velocity(
-					fcppt::math::vector::null<
-						sge::audio::vector
-					>()
-				)
-				.position(
-					sge::audio::vector(
+			sge::audio::sound::positional_parameters{
+				sge::audio::position{
+					sge::audio::vector{
 						-2000.f,
 						0.f,
 						0.f
-					)
-				)
+					}
+				}
+			}
+			.linear_velocity(
+				fcppt::math::vector::null<
+					sge::audio::vector
+				>()
+			)
 		)
 	);
 

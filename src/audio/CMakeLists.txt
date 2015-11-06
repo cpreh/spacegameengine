@@ -47,6 +47,8 @@ set(
 	include/sge/audio/player_plugin/traits.hpp
 	include/sge/audio/player_shared_ptr.hpp
 	include/sge/audio/player_unique_ptr.hpp
+	include/sge/audio/position.hpp
+	include/sge/audio/position_fwd.hpp
 	include/sge/audio/raw_data.hpp
 	include/sge/audio/raw_pointer.hpp
 	include/sge/audio/sample_container.hpp

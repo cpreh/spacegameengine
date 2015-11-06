@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/audio/position.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/vector.hpp>
 #include <sge/audio/sound/base.hpp>
@@ -41,6 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/const.hpp>
 #include <fcppt/from_optional.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/math/rad_to_deg.hpp>
 #include <fcppt/math/vector/null.hpp>
 
@@ -217,7 +220,7 @@ sge::openal::source::gain(
 	sge::openal::funcs::source_float(
 		this->source_id(),
 		AL_GAIN,
-		static_cast<
+		fcppt::cast::size<
 			ALfloat
 		>(
 			_value
@@ -233,7 +236,7 @@ sge::openal::source::pitch(
 	sge::openal::funcs::source_float(
 		this->source_id(),
 		AL_PITCH,
-		static_cast<
+		fcppt::cast::size<
 			ALfloat
 		>(
 			_value
@@ -249,7 +252,7 @@ sge::openal::source::rolloff_factor(
 	sge::openal::funcs::source_float(
 		this->source_id(),
 		AL_ROLLOFF_FACTOR,
-		static_cast<
+		fcppt::cast::size<
 			ALfloat
 		>(
 			_value
@@ -265,7 +268,7 @@ sge::openal::source::reference_distance(
 	sge::openal::funcs::source_float(
 		this->source_id(),
 		AL_REFERENCE_DISTANCE,
-		static_cast<
+		fcppt::cast::size<
 			ALfloat
 		>(
 			_value
@@ -281,7 +284,7 @@ sge::openal::source::max_distance(
 	sge::openal::funcs::source_float(
 		this->source_id(),
 		AL_MAX_DISTANCE,
-		static_cast<
+		fcppt::cast::size<
 			ALfloat
 		>(
 			_value
@@ -318,7 +321,7 @@ sge::openal::source::inner_cone_angle(
 	sge::openal::funcs::source_float(
 		this->source_id(),
 		AL_CONE_INNER_ANGLE,
-		static_cast<
+		fcppt::cast::size<
 			ALfloat
 		>(
 			fcppt::math::rad_to_deg(
@@ -336,7 +339,7 @@ sge::openal::source::outer_cone_angle(
 	sge::openal::funcs::source_float(
 		this->source_id(),
 		AL_CONE_OUTER_ANGLE,
-		static_cast<
+		fcppt::cast::size<
 			ALfloat
 		>(
 			fcppt::math::rad_to_deg(
@@ -354,7 +357,7 @@ sge::openal::source::outer_cone_gain(
 	sge::openal::funcs::source_float(
 		this->source_id(),
 		AL_CONE_OUTER_GAIN,
-		static_cast<
+		fcppt::cast::size<
 			ALfloat
 		>(
 			_value
@@ -410,9 +413,7 @@ sge::openal::source::source(
 	sge::openal::funcs::source_int(
 		this->source_id(),
 		AL_BUFFER,
-		static_cast<
-			ALint
-		>(
+		fcppt::cast::to_signed(
 			_buffer.get()
 		)
 	);
@@ -474,19 +475,26 @@ sge::openal::source::init(
 	sge::audio::sound::nonpositional_parameters const &_parameters
 )
 {
+	// TODO: Is this right?
 	this->init(
-		sge::audio::sound::positional_parameters()
-			.gain(
-				_parameters.gain()
-			)
-			.pitch(
-				_parameters.pitch()
-			)
-			// The special value 0 for the rolloff factor means
-			// that the source is nonpositional (as indicated
-			// directly by the OpenAL spec)
-			.rolloff_factor(
-				0.0f
-			)
+		sge::audio::sound::positional_parameters(
+			sge::audio::position{
+				fcppt::math::vector::null<
+					sge::audio::vector
+				>()
+			}
+		)
+		.gain(
+			_parameters.gain()
+		)
+		.pitch(
+			_parameters.pitch()
+		)
+		// The special value 0 for the rolloff factor means
+		// that the source is nonpositional (as indicated
+		// directly by the OpenAL spec)
+		.rolloff_factor(
+			0.f
+		)
 	);
 }

@@ -18,64 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/scalar.hpp>
-#include <sge/audio/sound/nonpositional_parameters.hpp>
-#include <fcppt/literal.hpp>
+#ifndef SGE_AUDIO_POSITION_FWD_HPP_INCLUDED
+#define SGE_AUDIO_POSITION_FWD_HPP_INCLUDED
+
+#include <sge/audio/vector_fwd.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 
 
-sge::audio::sound::nonpositional_parameters::nonpositional_parameters()
-:
-	gain_(
-		fcppt::literal<
-			sge::audio::scalar
-		>(
-			1
-		)
-	),
-	pitch_(
-		fcppt::literal<
-			sge::audio::scalar
-		>(
-			1
-		)
-	)
+namespace sge
 {
+namespace audio
+{
+
+FCPPT_MAKE_STRONG_TYPEDEF(
+	sge::audio::vector,
+	position
+);
+
+}
 }
 
-sge::audio::scalar
-sge::audio::sound::nonpositional_parameters::pitch() const
-{
-	return
-		pitch_;
-}
-
-sge::audio::sound::nonpositional_parameters &
-sge::audio::sound::nonpositional_parameters::pitch(
-	sge::audio::scalar const _pitch
-)
-{
-	pitch_ =
-		_pitch;
-
-	return
-		*this;
-}
-
-sge::audio::scalar
-sge::audio::sound::nonpositional_parameters::gain() const
-{
-	return
-		gain_;
-}
-
-sge::audio::sound::nonpositional_parameters &
-sge::audio::sound::nonpositional_parameters::gain(
-	sge::audio::scalar const _gain
-)
-{
-	gain_ =
-		_gain;
-
-	return
-		*this;
-}
+#endif

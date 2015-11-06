@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/audio/position.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/vector.hpp>
 #include <sge/audio/sound/optional_direction.hpp>
@@ -30,13 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::audio::sound::positional_parameters::positional_parameters()
+sge::audio::sound::positional_parameters::positional_parameters(
+	sge::audio::position const _position
+)
 :
-	// TODO: Don't default-initialize this
 	position_(
-		fcppt::math::vector::null<
-			sge::audio::vector
-		>()
+		_position.get()
 	),
 	linear_velocity_(
 		fcppt::math::vector::null<
@@ -103,18 +103,6 @@ sge::audio::sound::positional_parameters::position() const
 {
 	return
 		position_;
-}
-
-sge::audio::sound::positional_parameters &
-sge::audio::sound::positional_parameters::position(
-	sge::audio::vector const _position
-)
-{
-	position_ =
-		_position;
-
-	return
-		*this;
 }
 
 sge::audio::vector

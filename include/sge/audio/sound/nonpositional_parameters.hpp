@@ -31,6 +31,7 @@ namespace audio
 {
 namespace sound
 {
+
 /// Holds all the data necessary to construct a nonpositional sound
 class nonpositional_parameters
 {
@@ -41,7 +42,7 @@ public:
 	/// Get the gain
 	/** \see sge::audio::sound::base::gain */
 	SGE_AUDIO_DETAIL_SYMBOL
-	sge::audio::scalar const &
+	sge::audio::scalar
 	gain() const;
 
 	/// Set the gain
@@ -49,13 +50,13 @@ public:
 	SGE_AUDIO_DETAIL_SYMBOL
 	nonpositional_parameters &
 	gain(
-		sge::audio::scalar const &
+		sge::audio::scalar
 	);
 
 	/// Get the pitch
 	/** \see sge::audio::sound::base::pitch */
 	SGE_AUDIO_DETAIL_SYMBOL
-	sge::audio::scalar const &
+	sge::audio::scalar
 	pitch() const;
 
 	/// Set the pitch
@@ -63,7 +64,8 @@ public:
 	SGE_AUDIO_DETAIL_SYMBOL
 	nonpositional_parameters &
 	pitch(
-		sge::audio::scalar const &);
+		sge::audio::scalar
+	);
 private:
 	sge::audio::scalar gain_;
 

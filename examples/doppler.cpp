@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/load_exn.hpp>
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player.hpp>
+#include <sge/audio/position.hpp>
 #include <sge/audio/scalar.hpp>
+#include <sge/audio/vector.hpp>
 #include <sge/audio/vector2.hpp>
 #include <sge/audio/vector2_to_vector.hpp>
 #include <sge/audio/sound/base.hpp>
@@ -403,7 +405,14 @@ try
 	sge::audio::sound::positional_unique_ptr const sound_siren(
 		sys.audio_player().create_positional_stream(
 			*af_siren,
-			sge::audio::sound::positional_parameters()
+			sge::audio::sound::positional_parameters(
+				// TODO: Improve this
+				sge::audio::position{
+					fcppt::math::vector::null<
+						sge::audio::vector
+					>()
+				}
+			)
 			.rolloff_factor(
 				fcppt::literal<
 					sge::audio::scalar

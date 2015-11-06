@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_AUDIO_SOUND_POSITIONAL_PARAMETERS_HPP_INCLUDED
 #define SGE_AUDIO_SOUND_POSITIONAL_PARAMETERS_HPP_INCLUDED
 
+#include <sge/audio/position_fwd.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/vector.hpp>
 #include <sge/audio/detail/symbol.hpp>
@@ -34,30 +35,27 @@ namespace audio
 {
 namespace sound
 {
-/// Holds all the data necessary to construct a positional sound
+
 /**
- * The set of positional parameters is a superset of the set of nonpositional
- * parameters.
- */
+\brief Holds all the data necessary to construct a positional sound
+
+The set of positional parameters is a superset of the set of nonpositional
+parameters.
+*/
 class positional_parameters
 {
 public:
 	SGE_AUDIO_DETAIL_SYMBOL
-	positional_parameters();
+	explicit
+	positional_parameters(
+		sge::audio::position
+	);
 
 	/// Get the position
 	/** \see sge::audio::sound::positional::position */
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::vector
 	position() const;
-
-	/// Set the position
-	/** \see sge::audio::sound::positional::position */
-	SGE_AUDIO_DETAIL_SYMBOL
-	positional_parameters &
-	position(
-		sge::audio::vector
-	);
 
 	/// Get the linear velocity
 	/** \see sge::audio::sound::positional::linear_velocity */
