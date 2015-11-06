@@ -22,45 +22,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_BVH_BOUNDING_BOX_HPP_INCLUDED
 
 #include <sge/bvh/traits/box.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/algorithm/fold.hpp>
 #include <fcppt/math/box/extend_bounding_box.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <iterator>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/math/box/null.hpp>
 
 
 namespace sge
 {
 namespace bvh
 {
-template<typename Traits>
-typename Traits::box
+
+template<
+	typename Traits
+>
+typename
+Traits::box
 bounding_box(
-	typename Traits::leaf_wrapper_sequence const &_leaves)
+	typename Traits::leaf_wrapper_sequence const &_leaves
+)
 {
-	FCPPT_ASSERT_PRE(
-		!_leaves.empty());
-
-	// TODO: fold
-	typename Traits::box result =
-		sge::bvh::traits::box<typename Traits::leaf>::extract_box(
-			_leaves.front().value());
-
-	for(
-		typename Traits::leaf_wrapper_sequence::const_iterator it =
-			std::next(
-				_leaves.begin());
-		it != _leaves.end();
-		++it)
-		result =
-			fcppt::math::box::extend_bounding_box(
-				result,
-				sge::bvh::traits::box<typename Traits::leaf>::extract_box(
-					it->value()));
+	typedef
+	typename
+	Traits::box
+	box_type;
 
 	return
-		result;
+		fcppt::algorithm::fold(
+			_leaves,
+			fcppt::math::box::null<
+				box_type
+			>(),
+			[](
+				typename Traits::leaf_wrapper_sequence::value_type const &_cur,
+				box_type const &_box
+			)
+			{
+				return
+					fcppt::math::box::extend_bounding_box(
+						_box,
+						sge::bvh::traits::box<
+							typename
+							Traits::leaf
+						>::extract_box(
+							_cur.value()
+						)
+					);
+			}
+		);
 }
+
 }
 }
 

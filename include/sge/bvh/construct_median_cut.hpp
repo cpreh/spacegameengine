@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/bvh/empty_node.hpp>
 #include <sge/bvh/traits/box.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/box/center.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -41,6 +42,8 @@ namespace bvh
 {
 namespace detail
 {
+
+// TODO: This is a mess
 class construct_median_cut_comparator
 {
 public:
