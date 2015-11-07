@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/base.hpp>
+#include <sge/camera/exception.hpp>
 #include <sge/camera/tracking/json/key_press_exporter.hpp>
 #include <sge/camera/tracking/json/keyframes_to_json.hpp>
-#include <sge/core/exception.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_event.hpp>
@@ -120,14 +120,23 @@ sge::camera::tracking::json::key_press_exporter::key_callback(
 				sge::parse::json::start(
 					sge::parse::json::array_or_object(
 						sge::camera::tracking::json::keyframes_to_json(
-							keyframes_)))))
-			// TODO: camera exception
+							keyframes_
+						)
+					)
+				)
+			)
+		)
 			throw
-				sge::core::exception(
-					FCPPT_TEXT("Couldn't write to file \"")+
+				sge::camera::exception(
+					FCPPT_TEXT("Couldn't write to file \"")
+					+
 					fcppt::filesystem::path_to_string(
-						target_path_)+
-					FCPPT_TEXT("\""));
+						target_path_
+					)
+					+
+					FCPPT_TEXT('"')
+				);
+
 		FCPPT_LOG_INFO(
 			sge::camera::logger(),
 			fcppt::log::_

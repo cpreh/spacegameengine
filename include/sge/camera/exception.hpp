@@ -18,31 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_CAMERA_EXCEPTION_HPP_INCLUDED
+#define SGE_CAMERA_EXCEPTION_HPP_INCLUDED
+
 #include <sge/core/exception.hpp>
-#include <sge/renderer/exception.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/assert/information_fwd.hpp>
 
 
-sge::renderer::exception::exception(
-	fcppt::string const &_what
-)
-:
-	sge::core::exception(
-		FCPPT_TEXT("renderer: ")
-		+
-		_what
-	)
+namespace sge
 {
+namespace camera
+{
+
+/**
+\brief The base class for every camera exception
+
+\ingroup sge_camera
+*/
+class SGE_CORE_DETAIL_CLASS_SYMBOL exception
+:
+	public sge::core::exception
+{
+public:
+	/**
+	\brief Constructs the exception from a string
+
+	Constructs the exception from \a what
+	*/
+	SGE_CAMERA_DETAIL_SYMBOL
+	explicit
+	exception(
+		fcppt::string const &what
+	);
+};
+
+}
 }
 
-sge::renderer::exception::exception(
-	fcppt::assert_::information const &_information
-)
-:
-	sge::core::exception(
-		_information
-	)
-{
-}
+#endif

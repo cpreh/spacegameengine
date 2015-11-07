@@ -10,6 +10,7 @@ set(
 	include/sge/camera/coordinate_system/right.hpp
 	include/sge/camera/coordinate_system/scoped.hpp
 	include/sge/camera/coordinate_system/up.hpp
+	include/sge/camera/exception.hpp
 	include/sge/camera/first_person/action/backward.hpp
 	include/sge/camera/first_person/action/down.hpp
 	include/sge/camera/first_person/action/forward.hpp
@@ -113,6 +114,7 @@ set(
 	src/camera/coordinate_system/identity.cpp
 	src/camera/coordinate_system/object.cpp
 	src/camera/coordinate_system/scoped.cpp
+	src/camera/exception.cpp
 	src/camera/first_person/action/mapping.cpp
 	src/camera/first_person/action/wasd_mapping.cpp
 	src/camera/first_person/object.cpp

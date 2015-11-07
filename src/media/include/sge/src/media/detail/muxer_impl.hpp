@@ -330,7 +330,6 @@ sge::media::detail::muxer<
 		extensions_;
 }
 
-
 template<
 	typename System,
 	typename File

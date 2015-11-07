@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/base.hpp>
+#include <sge/camera/exception.hpp>
 #include <sge/camera/tracking/json/interval_exporter.hpp>
 #include <sge/camera/tracking/json/keyframes_to_json.hpp>
-#include <sge/core/exception.hpp>
 #include <sge/parse/json/array_or_object.hpp>
 #include <sge/parse/json/start.hpp>
 #include <sge/parse/json/output/to_file.hpp>
@@ -97,9 +97,8 @@ sge::camera::tracking::json::interval_exporter::~interval_exporter()
 			)
 		)
 	)
-		// TODO: camera exception
 		throw
-			sge::core::exception(
+			sge::camera::exception(
 				FCPPT_TEXT("Couldn't write to file \"")
 				+
 				fcppt::filesystem::path_to_string(

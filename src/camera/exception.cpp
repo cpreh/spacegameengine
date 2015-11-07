@@ -19,30 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/core/exception.hpp>
-#include <sge/renderer/exception.hpp>
+#include <sge/camera/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/information_fwd.hpp>
 
 
-sge::renderer::exception::exception(
+sge::camera::exception::exception(
 	fcppt::string const &_what
 )
 :
 	sge::core::exception(
-		FCPPT_TEXT("renderer: ")
+		FCPPT_TEXT("camera: ")
 		+
 		_what
-	)
-{
-}
-
-sge::renderer::exception::exception(
-	fcppt::assert_::information const &_information
-)
-:
-	sge::core::exception(
-		_information
 	)
 {
 }
