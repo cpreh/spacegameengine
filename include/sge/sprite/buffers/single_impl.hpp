@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/vertex_count.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <majutsu/get.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/maybe.hpp>
 #include <fcppt/optional_assign.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -88,18 +89,19 @@ sge::sprite::buffers::single<
 					this,
 					_num_sprites
 				]()
-				-> buffers_object &
 				{
 					return
-						fcppt::optional_assign(
-							buffers_object_,
-							sge::sprite::buffers::allocate<
-								Choices
-							>(
-								parameters_,
-								_num_sprites,
-								sge::sprite::buffers::option_to_resource_flags(
-									buffers_option_
+						fcppt::make_cref(
+							fcppt::optional_assign(
+								buffers_object_,
+								sge::sprite::buffers::allocate<
+									Choices
+								>(
+									parameters_,
+									_num_sprites,
+									sge::sprite::buffers::option_to_resource_flags(
+										buffers_option_
+									)
 								)
 							)
 						);
@@ -111,7 +113,6 @@ sge::sprite::buffers::single<
 				](
 					buffers_object &_buffers
 				)
-				-> buffers_object &
 				{
 					if(
 						majutsu::get<
@@ -138,7 +139,9 @@ sge::sprite::buffers::single<
 							);
 
 					return
-						_buffers;
+						fcppt::make_cref(
+							_buffers
+						);
 				}
 			)
 		);

@@ -37,7 +37,7 @@ template<
 sge::sprite::buffers::slice<
 	Choices
 >::slice(
-	object const &_object
+	object_ref const _object
 )
 :
 	object_(

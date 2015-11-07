@@ -49,9 +49,15 @@ public:
 	>
 	object;
 
+	typedef
+	fcppt::reference_wrapper<
+		object const
+	>
+	object_ref;
+
 	explicit
 	slice(
-		object const &
+		object_ref
 	);
 
 	sge::renderer::vertex::buffer &
@@ -69,9 +75,7 @@ public:
 	object const &
 	buffer_object() const;
 private:
-	fcppt::reference_wrapper<
-		object const
-	> object_;
+	object_ref object_;
 };
 
 }
