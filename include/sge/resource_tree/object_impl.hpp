@@ -77,13 +77,13 @@ typename
 sge::resource_tree::object<
 	T,
 	Rng
->::value_type
+>::value_type const &
 sge::resource_tree::object<
 	T,
 	Rng
 >::get(
 	sge::resource_tree::path const &_path
-)
+) const
 {
 	// Two choices: Either the specified path is a _file_ or a _directory_.
 	//

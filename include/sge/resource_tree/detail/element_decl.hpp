@@ -102,7 +102,7 @@ public:
 	sge::resource_tree::path const &
 	base_path() const;
 
-	T
+	T const &
 	get_random() const;
 
 	typedef

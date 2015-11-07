@@ -142,7 +142,7 @@ template<
 	typename T,
 	typename Rng
 >
-T
+T const &
 sge::resource_tree::detail::element<
 	T,
 	Rng

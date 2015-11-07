@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/detail/sub_path.hpp>
 #include <sge/resource_tree/detail/strip_file_extension.hpp>
 #include <sge/resource_tree/detail/strip_path_prefix.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
@@ -67,46 +69,68 @@ add_directory(
 	>
 	element_type;
 
+	typedef
 	typename
 	element_type::resource_container
-	resources;
+	resource_container;
 
-	// First, collect ALL the files inside the given directory
-	// TODO: map_opt
-	for(
-		boost::filesystem::path const &path
-		:
-		boost::make_iterator_range(
-			boost::filesystem::directory_iterator(
-				_sub_path.get()
-			),
-			boost::filesystem::directory_iterator()
-		)
-	)
-	{
-		if(!boost::filesystem::is_regular_file(path))
-			continue;
-
-		resources.push_back(
-			sge::resource_tree::detail::path_with_resource<
-				T
-			>(
-				sge::resource_tree::detail::strip_file_extension(
-					sge::resource_tree::detail::strip_path_prefix(
-						sge::resource_tree::detail::base_path(
-							_sub_path.get()
-						),
-						sge::resource_tree::detail::sub_path(
-							path
-						)
-					)
+	resource_container resources(
+		fcppt::algorithm::map_optional<
+			resource_container
+		>(
+			boost::make_iterator_range(
+				boost::filesystem::directory_iterator(
+					_sub_path.get()
 				),
-				_path_to_resource(
-					path
-				)
+				boost::filesystem::directory_iterator()
+			),
+			[
+				&_sub_path,
+				&_path_to_resource
+			](
+				boost::filesystem::path const &_path
 			)
-		);
-	}
+			{
+				typedef
+				sge::resource_tree::detail::path_with_resource<
+					T
+				>
+				path_type;
+
+				typedef
+				fcppt::optional<
+					path_type
+				>
+				result_type;
+
+				return
+					boost::filesystem::is_regular_file(
+						_path
+					)
+					?
+						result_type{
+							path_type{
+								sge::resource_tree::detail::strip_file_extension(
+									sge::resource_tree::detail::strip_path_prefix(
+										sge::resource_tree::detail::base_path(
+											_sub_path.get()
+										),
+										sge::resource_tree::detail::sub_path(
+											_path
+										)
+									)
+								),
+								_path_to_resource(
+									_path
+								)
+							}
+						}
+					:
+						result_type{}
+					;
+			}
+		)
+	);
 
 	return
 		// Second, create the element structure containing the files

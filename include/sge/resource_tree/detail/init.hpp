@@ -27,14 +27,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/detail/base_path.hpp>
 #include <sge/resource_tree/detail/element_vector.hpp>
 #include <sge/resource_tree/detail/sub_path.hpp>
+#include <fcppt/algorithm/join.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assert/throw_message.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
-#include <algorithm>
-#include <iterator>
+#include <boost/range/iterator_range_core.hpp>
+#include <boost/range/adaptor/filtered.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -92,30 +93,30 @@ init(
 	>
 	path_vector;
 
-	// TODO: join
-	path_vector directories{
-		_path
-	};
-
-	std::copy_if(
-		boost::filesystem::recursive_directory_iterator(
-			_path
-		),
-		boost::filesystem::recursive_directory_iterator(),
-		std::back_inserter<
-			path_vector
-		>(
-			directories
-		),
-		[](
-			boost::filesystem::path const &_cur_path
+	path_vector const directories(
+		fcppt::algorithm::join(
+			path_vector{
+				_path
+			},
+			boost::make_iterator_range(
+				boost::filesystem::recursive_directory_iterator(
+					_path
+				),
+				boost::filesystem::recursive_directory_iterator()
+			)
+			|
+			boost::adaptors::filtered(
+				[](
+					boost::filesystem::path const &_cur_path
+				)
+				{
+					return
+						boost::filesystem::is_directory(
+							_cur_path
+						);
+				}
+			)
 		)
-		{
-			return
-				boost::filesystem::is_directory(
-					_cur_path
-				);
-		}
 	);
 
 	return

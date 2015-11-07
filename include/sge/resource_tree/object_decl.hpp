@@ -181,11 +181,10 @@ public:
 	/**
 	\brief Retrieve a resource
 	*/
-	// TODO: reference?
-	value_type
+	value_type const &
 	get(
 		sge::resource_tree::path const &
-	);
+	) const;
 private:
 	typedef
 	sge::resource_tree::detail::element<
