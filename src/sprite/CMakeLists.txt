@@ -8,6 +8,7 @@ set(
 	include/sge/sprite/buffers/multi_fwd.hpp
 	include/sge/sprite/buffers/multi_impl.hpp
 	include/sge/sprite/buffers/object.hpp
+	include/sge/sprite/buffers/offset_object.hpp
 	include/sge/sprite/buffers/option.hpp
 	include/sge/sprite/buffers/option_fwd.hpp
 	include/sge/sprite/buffers/option_to_resource_flags.hpp
@@ -29,6 +30,7 @@ set(
 	include/sge/sprite/buffers/with_declaration_decl.hpp
 	include/sge/sprite/buffers/with_declaration_fwd.hpp
 	include/sge/sprite/buffers/with_declaration_impl.hpp
+	include/sge/sprite/buffers/zero_offset.hpp
 	include/sge/sprite/color.hpp
 	include/sge/sprite/color_fwd.hpp
 	include/sge/sprite/compare/default.hpp
@@ -102,6 +104,8 @@ set(
 	include/sge/sprite/detail/buffers/allocate_indices.hpp
 	include/sge/sprite/detail/buffers/allocate_vertices.hpp
 	include/sge/sprite/detail/buffers/object.hpp
+	include/sge/sprite/detail/buffers/offset_object.hpp
+	include/sge/sprite/detail/buffers/zero_offset.hpp
 	include/sge/sprite/detail/center_from_pos.hpp
 	include/sge/sprite/detail/config/color_format.hpp
 	include/sge/sprite/detail/config/contains_if.hpp

@@ -18,22 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_BUFFERS_SLICE_DECL_HPP_INCLUDED
-#define SGE_SPRITE_BUFFERS_SLICE_DECL_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_BUFFERS_OFFSET_OBJECT_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_BUFFERS_OFFSET_OBJECT_HPP_INCLUDED
 
-#include <sge/renderer/index/buffer_fwd.hpp>
 #include <sge/renderer/index/first.hpp>
-#include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/renderer/vertex/first.hpp>
-#include <sge/sprite/buffers/object.hpp>
-#include <sge/sprite/buffers/offset_object.hpp>
-#include <sge/sprite/buffers/slice_fwd.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <sge/sprite/buffers/roles/first_index.hpp>
+#include <sge/sprite/buffers/roles/first_vertex.hpp>
+#include <sge/sprite/detail/config/needs_index_buffer.hpp>
+#include <majutsu/role.hpp>
+#include <majutsu/fusion/record.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace sprite
+{
+namespace detail
 {
 namespace buffers
 {
@@ -41,52 +46,43 @@ namespace buffers
 template<
 	typename Choices
 >
-class slice
+struct offset_object
 {
+private:
+	typedef
+	majutsu::role<
+		sge::renderer::vertex::first,
+		sge::sprite::buffers::roles::first_vertex
+	>
+	vertex_buffer_role;
+
+	typedef
+	majutsu::role<
+		sge::renderer::index::first,
+		sge::sprite::buffers::roles::first_index
+	>
+	index_buffer_role;
 public:
 	typedef
-	sge::sprite::buffers::object<
-		Choices
+	majutsu::fusion::record<
+		typename
+		boost::mpl::if_<
+			sge::sprite::detail::config::needs_index_buffer<
+				Choices
+			>,
+			boost::mpl::vector2<
+				vertex_buffer_role,
+				index_buffer_role
+			>,
+			boost::mpl::vector1<
+				vertex_buffer_role
+			>
+		>::type
 	>
-	object;
-
-	typedef
-	fcppt::reference_wrapper<
-		object const
-	>
-	object_ref;
-
-	typedef
-	sge::sprite::buffers::offset_object<
-		Choices
-	>
-	offset_object;
-
-	slice(
-		object_ref,
-		offset_object
-	);
-
-	sge::renderer::vertex::buffer &
-	vertex_buffer() const;
-
-	sge::renderer::index::buffer &
-	index_buffer() const;
-
-	sge::renderer::vertex::first
-	first_vertex() const;
-
-	sge::renderer::index::first
-	first_index() const;
-
-	object const &
-	buffer_object() const;
-private:
-	object_ref object_;
-
-	offset_object offsets_;
+	type;
 };
 
+}
 }
 }
 }

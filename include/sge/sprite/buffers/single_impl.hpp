@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
 #include <sge/sprite/buffers/vertex_count.hpp>
+#include <sge/sprite/buffers/zero_offset.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <majutsu/get.hpp>
 #include <fcppt/make_cref.hpp>
@@ -143,7 +144,10 @@ sge::sprite::buffers::single<
 							_buffers
 						);
 				}
-			)
+			),
+			sge::sprite::buffers::zero_offset<
+				Choices
+			>()
 		);
 }
 

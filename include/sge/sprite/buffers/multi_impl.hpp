@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/option_to_resource_flags.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
+#include <sge/sprite/buffers/zero_offset.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -96,7 +97,10 @@ sge::sprite::buffers::multi<
 		slice_type(
 			fcppt::make_cref(
 				*buffers_.back()
-			)
+			),
+			sge::sprite::buffers::zero_offset<
+				Choices
+			>()
 		);
 }
 

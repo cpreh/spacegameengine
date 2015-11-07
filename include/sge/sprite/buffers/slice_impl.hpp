@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/sprite/buffers/slice_decl.hpp>
+#include <sge/sprite/buffers/roles/first_index.hpp>
+#include <sge/sprite/buffers/roles/first_vertex.hpp>
 #include <sge/sprite/buffers/roles/index_buffer.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <majutsu/get.hpp>
@@ -37,11 +39,15 @@ template<
 sge::sprite::buffers::slice<
 	Choices
 >::slice(
-	object_ref const _object
+	object_ref const _object,
+	offset_object const _offsets
 )
 :
 	object_(
 		_object
+	),
+	offsets_(
+		_offsets
 	)
 {
 }
@@ -86,11 +92,12 @@ sge::sprite::buffers::slice<
 	Choices
 >::first_vertex() const
 {
-	// TODO!
 	return
-		sge::renderer::vertex::first{
-			0u
-		};
+		majutsu::get<
+			sge::sprite::buffers::roles::first_vertex
+		>(
+			offsets_
+		);
 }
 
 template<
@@ -101,11 +108,12 @@ sge::sprite::buffers::slice<
 	Choices
 >::first_index() const
 {
-	// TODO!
 	return
-		sge::renderer::index::first{
-			0u
-		};
+		majutsu::get<
+			sge::sprite::buffers::roles::first_index
+		>(
+			offsets_
+		);
 }
 
 template<
