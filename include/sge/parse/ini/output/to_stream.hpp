@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/ini/start_fwd.hpp>
 #include <sge/parse/ini/detail/symbol.hpp>
+#include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/io/ostream.hpp>
 
 
@@ -40,7 +41,8 @@ bool
 to_stream(
 	fcppt::io::ostream &,
 	sge::parse::ini::start const &
-);
+)
+FCPPT_PP_WARN_UNUSED_RESULT;
 
 }
 }

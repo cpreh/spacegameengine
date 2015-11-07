@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/ini/start.hpp>
 #include <sge/parse/ini/output/grammar.hpp>
+#include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/karma_generate.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -36,6 +37,16 @@ namespace ini
 {
 namespace output
 {
+
+template<
+	typename Out
+>
+bool
+to_range(
+	Out &,
+	sge::parse::ini::start const &
+)
+FCPPT_PP_WARN_UNUSED_RESULT;
 
 template<
 	typename Out

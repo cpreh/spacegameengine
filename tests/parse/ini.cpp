@@ -63,9 +63,11 @@ check_failure(
 		sge::parse::result_code::ok
 	));
 
-	sge::parse::ini::output::to_stream(
-		fcppt::io::cout(),
-		result
+	BOOST_CHECK(
+		sge::parse::ini::output::to_stream(
+			fcppt::io::cout(),
+			result
+		)
 	);
 }
 
@@ -109,25 +111,30 @@ FCPPT_PP_POP_WARNING
 		sge::parse::result_code::ok
 	);
 
-	sge::parse::ini::output::to_stream(
-		fcppt::io::cout(),
-		result
+	BOOST_REQUIRE(
+		sge::parse::ini::output::to_stream(
+			fcppt::io::cout(),
+			result
+		)
 	);
 
 	BOOST_REQUIRE(
 		stream.eof()
 	);
 
-	BOOST_REQUIRE(
-		result.sections.size() == 2u
+	BOOST_REQUIRE_EQUAL(
+		result.sections.size(),
+		2u
 	);
 
-	BOOST_REQUIRE(
-		result.sections[0].entries.size() == 1u
+	BOOST_REQUIRE_EQUAL(
+		result.sections[0].entries.size(),
+		1u
 	);
 
-	BOOST_REQUIRE(
-		result.sections[1].entries.size() == 3u
+	BOOST_REQUIRE_EQUAL(
+		result.sections[1].entries.size(),
+		3u
 	);
 
 	BOOST_CHECK(
