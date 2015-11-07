@@ -18,19 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_MANAGER_HPP_INCLUDED
-#define SGE_PLUGIN_MANAGER_HPP_INCLUDED
+#ifndef SGE_SRC_PLUGIN_LOAD_PLUGINS_HPP_INCLUDED
+#define SGE_SRC_PLUGIN_LOAD_PLUGINS_HPP_INCLUDED
 
-#include <sge/plugin/capabilities.hpp>
-#include <sge/plugin/category_array.hpp>
-#include <sge/plugin/collection_fwd.hpp>
-#include <sge/plugin/manager_fwd.hpp>
 #include <sge/plugin/optional_cache_ref_fwd.hpp>
 #include <sge/plugin/detail/context_base_vector.hpp>
-#include <sge/plugin/detail/symbol.hpp>
-#include <sge/plugin/detail/instantiate/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/container/enum_array_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -41,41 +33,11 @@ namespace sge
 namespace plugin
 {
 
-class manager
-{
-	FCPPT_NONCOPYABLE(
-		manager
-	);
-public:
-	SGE_PLUGIN_DETAIL_SYMBOL
-	manager(
-		boost::filesystem::path const &,
-		sge::plugin::optional_cache_ref const &
-	);
-
-	SGE_PLUGIN_DETAIL_SYMBOL
-	~manager();
-
-	template<
-		typename Type
-	>
-	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	sge::plugin::collection<
-		Type
-	>
-	collection();
-private:
-	typedef
-	fcppt::container::enum_array<
-		sge::plugin::capabilities,
-		sge::plugin::category_array
-	>
-	plugin_map;
-
-	sge::plugin::detail::context_base_vector const plugins_;
-
-	plugin_map const categories_;
-};
+sge::plugin::detail::context_base_vector
+load_plugins(
+	boost::filesystem::path const &,
+	sge::plugin::optional_cache_ref const &
+);
 
 }
 }

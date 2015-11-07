@@ -1890,10 +1890,12 @@ set(
 	include/sge/plugin/collection_fwd.hpp
 	include/sge/plugin/context.hpp
 	include/sge/plugin/context_base_fwd.hpp
+	include/sge/plugin/context_base_ref.hpp
 	include/sge/plugin/context_base_unique_ptr.hpp
 	include/sge/plugin/context_fwd.hpp
 	include/sge/plugin/description.hpp
 	include/sge/plugin/detail/address_name.hpp
+	include/sge/plugin/detail/context_base_vector.hpp
 	include/sge/plugin/detail/iterator_base_type.hpp
 	include/sge/plugin/detail/setup_loggers.hpp
 	include/sge/plugin/detail/traits.hpp

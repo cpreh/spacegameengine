@@ -66,7 +66,7 @@ public:
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	explicit
 	collection(
-		sge::plugin::category_array &
+		sge::plugin::category_array const &
 	);
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
@@ -95,7 +95,7 @@ public:
 	size_type
 	size() const;
 private:
-	sge::plugin::category_array &plugins_;
+	sge::plugin::category_array const &plugins_;
 };
 
 }

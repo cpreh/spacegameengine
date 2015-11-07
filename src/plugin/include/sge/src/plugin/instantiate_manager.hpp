@@ -33,7 +33,7 @@ template \
 SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 sge::plugin::collection<\
 	plugin_type\
-> const \
+> \
 sge::plugin::manager::collection<\
 	plugin_type\
 >()

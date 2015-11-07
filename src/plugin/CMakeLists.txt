@@ -11,10 +11,12 @@ set(
 	include/sge/plugin/collection_fwd.hpp
 	include/sge/plugin/context.hpp
 	include/sge/plugin/context_base_fwd.hpp
+	include/sge/plugin/context_base_ref.hpp
 	include/sge/plugin/context_base_unique_ptr.hpp
 	include/sge/plugin/context_fwd.hpp
 	include/sge/plugin/description.hpp
 	include/sge/plugin/detail/address_name.hpp
+	include/sge/plugin/detail/context_base_vector.hpp
 	include/sge/plugin/detail/iterator_base_type.hpp
 	include/sge/plugin/detail/setup_loggers.hpp
 	include/sge/plugin/detail/traits.hpp
@@ -73,6 +75,7 @@ set(
 	src/plugin/include/sge/src/plugin/library/loaded_symbol.hpp
 	src/plugin/include/sge/src/plugin/library/object.hpp
 	src/plugin/include/sge/src/plugin/load_info.hpp
+	src/plugin/include/sge/src/plugin/load_plugins.hpp
 	src/plugin/include/sge/src/plugin/load_with_log_options_impl.hpp
 	src/plugin/include/sge/src/plugin/logger.hpp
 	src/plugin/include/sge/src/plugin/manager_impl.hpp
@@ -85,6 +88,7 @@ set(
 	src/plugin/library/object.cpp
 	src/plugin/library/symbol_not_found.cpp
 	src/plugin/load_info.cpp
+	src/plugin/load_plugins.cpp
 	src/plugin/log_location.cpp
 	src/plugin/logger.cpp
 	src/plugin/manager.cpp

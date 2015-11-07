@@ -18,33 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_PLUGIN_MANAGER_IMPL_HPP_INCLUDED
-#define SGE_SRC_PLUGIN_MANAGER_IMPL_HPP_INCLUDED
+#ifndef SGE_PLUGIN_CONTEXT_BASE_REF_HPP_INCLUDED
+#define SGE_PLUGIN_CONTEXT_BASE_REF_HPP_INCLUDED
 
-#include <sge/plugin/collection.hpp>
-#include <sge/plugin/manager.hpp>
-#include <sge/plugin/detail/traits.hpp>
-#include <fcppt/container/enum_array_impl.hpp>
+#include <sge/plugin/context_base_fwd.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 
 
-template<
-	typename Type
->
-sge::plugin::collection<
-	Type
->
-sge::plugin::manager::collection()
+namespace sge
 {
-	return
-		sge::plugin::collection<
-			Type
-		>(
-			categories_[
-				sge::plugin::detail::traits<
-					Type
-				>::plugin_type()
-			]
-		);
+namespace plugin
+{
+
+typedef
+fcppt::reference_wrapper<
+	sge::plugin::context_base
+>
+context_base_ref;
+
+}
 }
 
 #endif

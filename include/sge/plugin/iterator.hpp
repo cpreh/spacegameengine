@@ -55,20 +55,35 @@ public:
 	>
 	base_type;
 
-	typedef typename base_type::value_type value_type;
+	typedef
+	typename
+	base_type::value_type
+	value_type;
 
-	typedef typename base_type::reference reference;
+	typedef
+	typename
+	base_type::reference
+	reference;
 
-	typedef typename base_type::pointer pointer;
+	typedef
+	typename
+	base_type::pointer
+	pointer;
 
-	typedef typename base_type::difference_type difference_type;
+	typedef
+	typename
+	base_type::difference_type
+	difference_type;
 
-	typedef typename base_type::iterator_category iterator_category;
+	typedef
+	typename
+	base_type::iterator_category
+	iterator_category;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	explicit
 	iterator(
-		sge::plugin::category_array::iterator
+		sge::plugin::category_array::const_iterator
 	);
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
@@ -101,7 +116,7 @@ public:
 		iterator const &
 	) const;
 private:
-	sge::plugin::category_array::iterator it_;
+	sge::plugin::category_array::const_iterator it_;
 
 	friend class boost::iterator_core_access;
 };

@@ -18,28 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/core/exception.hpp>
-#include <sge/plugin/file_extension.hpp>
+#include <sge/plugin/capabilities.hpp>
+#include <sge/plugin/category_array.hpp>
+#include <sge/plugin/context_base_ref.hpp>
+#include <sge/plugin/context_base_unique_ptr.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref_fwd.hpp>
-#include <sge/plugin/library/symbol_not_found.hpp>
 #include <sge/src/plugin/context_base.hpp>
+#include <sge/src/plugin/load_plugins.hpp>
 #include <sge/src/plugin/logger.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/make_enum_range.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/enum_array_fold_static.hpp>
+#include <fcppt/algorithm/map_optional.hpp>
+#include <fcppt/container/enum_array_impl.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
-#include <fcppt/filesystem/extension_without_dot.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
-#include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
-#include <boost/range/iterator_range_core.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -48,124 +48,73 @@ sge::plugin::manager::manager(
 	sge::plugin::optional_cache_ref const &_cache
 )
 :
-	// TODO: Direct initialization
-	plugins_(),
-	categories_()
-{
-	FCPPT_LOG_DEBUG(
-		sge::plugin::logger(),
-		fcppt::log::_
-			<< FCPPT_TEXT("Scanning for plugins in ")
-			<< fcppt::filesystem::path_to_string(
-				_path
-			)
-	);
-
-	for(
-		boost::filesystem::path const &path
-		:
-		boost::make_iterator_range(
-			boost::filesystem::directory_iterator(
-				_path
-			),
-			boost::filesystem::directory_iterator()
-		)
-	)
-	{
-		if(
-			boost::filesystem::is_directory(
-				path
-			)
-			||
-			fcppt::filesystem::extension_without_dot(
-				path
-			)
-			!=
-			sge::plugin::file_extension()
-		)
-		{
-			FCPPT_LOG_WARNING(
+	plugins_(
+		[
+			&_path,
+			&_cache
+		]{
+			FCPPT_LOG_DEBUG(
 				sge::plugin::logger(),
 				fcppt::log::_
+					<< FCPPT_TEXT("Scanning for plugins in ")
 					<< fcppt::filesystem::path_to_string(
-						path
+						_path
 					)
-					<< FCPPT_TEXT(" does not have the extension ")
-					<< sge::plugin::file_extension()
-					<< FCPPT_TEXT(" and thus is ignored!")
 			);
 
-			continue;
-		}
-
-		try
-		{
-			plugins_.push_back(
-				fcppt::make_unique_ptr<
-					sge::plugin::context_base
-				>(
-					_cache,
-					path
-				)
-			);
-		}
-		catch(
-			sge::plugin::library::symbol_not_found const &_exception
-		)
-		{
-			FCPPT_LOG_WARNING(
-				sge::plugin::logger(),
-				fcppt::log::_
-					<< fcppt::filesystem::path_to_string(
-						path
-					)
-					<< FCPPT_TEXT(" doesn't seem to be a valid sge plugin")
-					<< FCPPT_TEXT(" because the symbol \"")
-					<< fcppt::from_std_string(
-						_exception.symbol()
-					)
-					<< FCPPT_TEXT("\" is missing!")
-			);
-		}
-		catch(
-			sge::core::exception const &_exception
-		)
-		{
-			FCPPT_LOG_WARNING(
-				sge::plugin::logger(),
-				fcppt::log::_
-					<< fcppt::filesystem::path_to_string(
-						path
-					)
-					<< FCPPT_TEXT(" failed to load: \"")
-					<< _exception.string()
-					<< FCPPT_TEXT("\"!")
-			);
-		}
-	}
-
-	for(
-		sge::plugin::context_base_unique_ptr const &context
-		:
-		plugins_
-	)
-		for(
-			auto index
-			:
-			fcppt::make_enum_range<
-				sge::plugin::capabilities
-			>()
-		)
-			if(
-				context->info().capabilities()
-				&
-				index
-			)
-				categories_[
-					index
-				].push_back(
-					context.get_pointer()
+			return
+				sge::plugin::load_plugins(
+					_path,
+					_cache
 				);
+		}()
+	),
+	categories_(
+		fcppt::algorithm::enum_array_fold_static<
+			sge::plugin::manager::plugin_map
+		>(
+			[
+				this
+			](
+				sge::plugin::capabilities const _capability
+			)
+			{
+				return
+					fcppt::algorithm::map_optional<
+						sge::plugin::category_array
+					>(
+						plugins_,
+						[
+							_capability
+						](
+							sge::plugin::context_base_unique_ptr const &_context
+						)
+						{
+							typedef
+							fcppt::optional<
+								sge::plugin::context_base_ref
+							>
+							optional_result;
+
+							return
+								_context->info().capabilities()
+								&
+								_capability
+								?
+									optional_result(
+										fcppt::make_ref(
+											*_context
+										)
+									)
+								:
+									optional_result()
+								;
+						}
+					);
+			}
+		)
+	)
+{
 }
 
 sge::plugin::manager::~manager()

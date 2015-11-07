@@ -32,7 +32,7 @@ template<
 sge::plugin::iterator<
 	Type
 >::iterator(
-	sge::plugin::category_array::iterator const _it
+	sge::plugin::category_array::const_iterator const _it
 )
 :
 	it_(
@@ -51,7 +51,8 @@ sge::plugin::iterator<
 	difference_type const _diff
 )
 {
-	it_ += _diff;
+	it_ +=
+		_diff;
 }
 
 template<
@@ -87,7 +88,9 @@ sge::plugin::iterator<
 ) const
 {
 	return
-		it_ == _other.it_;
+		it_
+		==
+		_other.it_;
 }
 
 template<
@@ -104,7 +107,7 @@ sge::plugin::iterator<
 		sge::plugin::context<
 			Type
 		>(
-			**it_
+			it_->get()
 		);
 }
 
@@ -121,7 +124,9 @@ sge::plugin::iterator<
 ) const
 {
 	return
-		_other.it_ - it_;
+		_other.it_
+		-
+		it_;
 }
 
 #endif

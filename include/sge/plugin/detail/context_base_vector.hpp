@@ -18,33 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_PLUGIN_MANAGER_IMPL_HPP_INCLUDED
-#define SGE_SRC_PLUGIN_MANAGER_IMPL_HPP_INCLUDED
+#ifndef SGE_PLUGIN_DETAIL_CONTEXT_BASE_VECTOR_HPP_INCLUDED
+#define SGE_PLUGIN_DETAIL_CONTEXT_BASE_VECTOR_HPP_INCLUDED
 
-#include <sge/plugin/collection.hpp>
-#include <sge/plugin/manager.hpp>
-#include <sge/plugin/detail/traits.hpp>
-#include <fcppt/container/enum_array_impl.hpp>
+#include <sge/plugin/context_base_unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
-template<
-	typename Type
->
-sge::plugin::collection<
-	Type
->
-sge::plugin::manager::collection()
+namespace sge
 {
-	return
-		sge::plugin::collection<
-			Type
-		>(
-			categories_[
-				sge::plugin::detail::traits<
-					Type
-				>::plugin_type()
-			]
-		);
+namespace plugin
+{
+namespace detail
+{
+
+typedef
+std::vector<
+	sge::plugin::context_base_unique_ptr
+>
+context_base_vector;
+
+}
+}
 }
 
 #endif

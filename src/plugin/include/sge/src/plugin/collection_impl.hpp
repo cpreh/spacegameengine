@@ -26,8 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/exception.hpp>
 #include <sge/plugin/iterator.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>
@@ -39,7 +42,7 @@ template<
 sge::plugin::collection<
 	Type
 >::collection(
-	sge::plugin::category_array &_plugins
+	sge::plugin::category_array const &_plugins
 )
 :
 	plugins_(
@@ -120,10 +123,18 @@ sge::plugin::collection<
 ) const
 {
 	if(
-		_index >= this->size()
+		_index
+		>=
+		this->size()
 	)
 		throw sge::plugin::exception(
-			FCPPT_TEXT("plugin(): No plugins found of type: \"")
+			FCPPT_TEXT("plugin::collection::get(): Index ")
+			+
+			fcppt::insert_to_fcppt_string(
+				_index
+			)
+			+
+			FCPPT_TEXT(" out of range for type: \"")
 			+
 			fcppt::type_name_from_info(
 				typeid(
@@ -138,10 +149,13 @@ sge::plugin::collection<
 		*(
 			this->begin()
 			+
-			static_cast<
-				typename iterator::difference_type
+			fcppt::cast::size<
+				typename
+				iterator::difference_type
 			>(
-				_index
+				fcppt::cast::to_signed(
+					_index
+				)
 			)
 		);
 }
