@@ -40,6 +40,7 @@ set(
 	include/sge/console/signal_fwd.hpp
 	src/console/callback/parameters.cpp
 	src/console/exception.cpp
+	src/console/from_string.cpp
 	src/console/function.cpp
 	src/console/muxing_narrow_streambuf.cpp
 	src/console/muxing_wide_streambuf.cpp

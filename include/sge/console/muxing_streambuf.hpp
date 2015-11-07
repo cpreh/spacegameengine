@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/object_fwd.hpp>
 #include <sge/console/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
@@ -81,7 +80,10 @@ public:
 
 	SGE_CONSOLE_DETAIL_SYMBOL
 	muxing_streambuf(
-		std::basic_ostream<Char,Traits> &,
+		std::basic_ostream<
+			Char,
+			Traits
+		> &,
 		sge::console::object &,
 		sge::console::muxing
 	);
@@ -94,34 +96,30 @@ private:
 
 	sge::console::object &object_;
 
-	std::basic_ostream<Char,Traits> &stream_;
+	std::basic_ostream<
+		Char,
+		Traits
+	> &stream_;
 
 	fcppt::unique_ptr<
-		std::basic_streambuf<Char,Traits>
+		std::basic_streambuf<
+			Char,
+			Traits
+		>
 	> old_streambuf_;
 
 	sge::console::muxing const does_muxing_;
 
-	std::basic_string<Char,Traits> buffer_;
+	std::basic_string<
+		Char,
+		Traits
+	> buffer_;
 
 	int_type
 	overflow(
 		int_type
 	)
 	override;
-
-	// TODO: This should be in src/
-	static
-	fcppt::string
-	from_string(
-		std::string const &
-	);
-
-	static
-	fcppt::string
-	from_string(
-		std::wstring const &
-	);
 };
 
 }
