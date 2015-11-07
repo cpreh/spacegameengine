@@ -255,8 +255,14 @@ try
 		sys.window_system().poll())
 	{
 		gui_sys.update(
-			sge::timer::elapsed<sge::cegui::duration>(
-				frame_timer));
+			std::chrono::duration_cast<
+				sge::cegui::duration
+			>(
+				sge::timer::elapsed(
+					frame_timer
+				)
+			)
+		);
 
 		frame_timer.reset();
 

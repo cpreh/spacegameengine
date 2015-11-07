@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed.hpp>
-#include <sge/timer/interval.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <chrono>
@@ -56,21 +55,24 @@ elapsed_fractional(
 	typedef
 	std::chrono::duration<
 		Float,
-		typename Clock::period
+		typename
+		Clock::period
 	>
 	float_duration;
 
 	return
-		sge::timer::elapsed<
+		std::chrono::duration_cast<
 			float_duration
 		>(
-			_timer
+			sge::timer::elapsed(
+				_timer
+			)
 		)
 		/
-		sge::timer::interval<
+		std::chrono::duration_cast<
 			float_duration
 		>(
-			_timer
+			_timer.interval()
 		);
 }
 

@@ -683,8 +683,15 @@ try
 	{
 		world.update_continuous(
 			sge::projectile::time_increment(
-				sge::timer::elapsed<sge::projectile::duration>(
-					frame_timer)));
+				std::chrono::duration_cast<
+					sge::projectile::duration
+				>(
+					sge::timer::elapsed(
+						frame_timer
+					)
+				)
+			)
+		);
 
 		frame_timer.reset();
 

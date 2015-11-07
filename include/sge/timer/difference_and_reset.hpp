@@ -31,20 +31,19 @@ namespace timer
 {
 
 template<
-	typename Duration,
 	typename Clock
 >
-Duration
+typename
+Clock::duration
 difference_and_reset(
 	sge::timer::absolute<
 		Clock
 	> &_timer
 )
 {
-	Duration const result{
-		sge::timer::difference<
-			Duration
-		>(
+	typename
+	Clock::duration const result{
+		sge::timer::difference(
 			_timer
 		)
 	};

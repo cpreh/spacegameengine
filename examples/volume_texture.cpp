@@ -709,10 +709,12 @@ try
 	)
 	{
 		camera.update(
-			sge::timer::elapsed_and_reset<
+			std::chrono::duration_cast<
 				sge::camera::update_duration
 			>(
-				frame_timer
+				sge::timer::elapsed_and_reset(
+					frame_timer
+				)
 			)
 		);
 

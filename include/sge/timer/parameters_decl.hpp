@@ -27,9 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <chrono>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -68,28 +65,14 @@ public:
 	clock_type::duration
 	duration;
 
-	template<
-		typename Rep,
-		typename Period
-	>
 	explicit
 	parameters(
-		std::chrono::duration<
-			Rep,
-			Period
-		>
+		duration
 	);
 
-	template<
-		typename Rep,
-		typename Period
-	>
 	parameters(
 		clock_type const &,
-		std::chrono::duration<
-			Rep,
-			Period
-		>
+		duration
 	);
 
 	parameters &

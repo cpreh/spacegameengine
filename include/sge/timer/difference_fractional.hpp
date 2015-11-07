@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIMER_DIFFERENCE_FRACTIONAL_HPP_INCLUDED
 #define SGE_TIMER_DIFFERENCE_FRACTIONAL_HPP_INCLUDED
 
-#include <sge/timer/basic_fwd.hpp>
+#include <sge/timer/basic.hpp>
 #include <sge/timer/difference.hpp>
-#include <sge/timer/interval.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <chrono>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -60,16 +60,18 @@ difference_fractional(
 	float_duration;
 
 	return
-		sge::timer::difference<
+		std::chrono::duration_cast<
 			float_duration
 		>(
-			_timer
+			sge::timer::difference(
+				_timer
+			)
 		)
 		/
-		sge::timer::interval<
+		std::chrono::duration_cast<
 			float_duration
 		>(
-			_timer
+			_timer.interval()
 		);
 }
 

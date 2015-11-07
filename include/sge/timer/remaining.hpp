@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed.hpp>
-#include <sge/timer/interval.hpp>
 
 
 namespace sge
@@ -32,10 +31,10 @@ namespace timer
 {
 
 template<
-	typename Duration,
 	typename Clock
 >
-Duration
+typename
+Clock::duration
 remaining(
 	sge::timer::basic<
 		Clock
@@ -43,15 +42,9 @@ remaining(
 )
 {
 	return
-		sge::timer::interval<
-			Duration
-		>(
-			_timer
-		)
+		_timer.interval()
 		-
-		sge::timer::elapsed<
-			Duration
-		>(
+		sge::timer::elapsed(
 			_timer
 		);
 }

@@ -23,25 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/timer/parameters_decl.hpp>
 #include <sge/timer/clocks/is_stateful.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <chrono>
-#include <fcppt/config/external_end.hpp>
 
 
 template<
 	typename Clock
 >
-template<
-	typename Rep,
-	typename Period
->
 sge::timer::parameters<
 	Clock
 >::parameters(
-	std::chrono::duration<
-		Rep,
-		Period
-	> const _interval
+	duration const _interval
 )
 :
 	parameters(
@@ -60,18 +50,11 @@ sge::timer::parameters<
 template<
 	typename Clock
 >
-template<
-	typename Rep,
-	typename Period
->
 sge::timer::parameters<
 	Clock
 >::parameters(
 	clock_type const &_clock,
-	std::chrono::duration<
-		Rep,
-		Period
-	> const _interval
+	duration const _interval
 )
 :
 	state_base(

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/difference_and_reset.hpp>
 #include <sge/timer/difference_fractional.hpp>
 #include <sge/timer/elapsed.hpp>
-#include <sge/timer/interval.hpp>
+#include <sge/timer/remaining.hpp>
 #include <sge/timer/clocks/delta.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -42,6 +42,7 @@ BOOST_AUTO_TEST_CASE(
 )
 {
 FCPPT_PP_POP_WARNING
+
 	typedef
 	sge::timer::clocks::delta<
 		std::chrono::milliseconds
@@ -66,11 +67,7 @@ FCPPT_PP_POP_WARNING
 	};
 
 	BOOST_CHECK(
-		sge::timer::interval<
-			std::chrono::seconds
-		>(
-			t1
-		)
+		t1.interval()
 		==
 		std::chrono::seconds(
 			0
@@ -93,6 +90,16 @@ FCPPT_PP_POP_WARNING
 		!t1.expired()
 	);
 
+	BOOST_CHECK(
+		sge::timer::remaining(
+			t1
+		)
+		==
+		std::chrono::seconds(
+			1
+		)
+	);
+
 	clk.update(
 		std::chrono::seconds(
 			2
@@ -100,9 +107,7 @@ FCPPT_PP_POP_WARNING
 	);
 
 	BOOST_CHECK(
-		sge::timer::elapsed<
-			std::chrono::seconds
-		>(
+		sge::timer::elapsed(
 			t1
 		)
 		==
@@ -150,9 +155,7 @@ FCPPT_PP_POP_WARNING
 	};
 
 	BOOST_CHECK(
-		sge::timer::difference<
-			std::chrono::seconds
-		>(
+		sge::timer::difference(
 			t1
 		)
 		==
@@ -168,9 +171,7 @@ FCPPT_PP_POP_WARNING
 	);
 
 	BOOST_CHECK(
-		sge::timer::difference_and_reset<
-			std::chrono::seconds
-		>(
+		sge::timer::difference_and_reset(
 			t1
 		)
 		==
@@ -180,9 +181,7 @@ FCPPT_PP_POP_WARNING
 	);
 
 	BOOST_CHECK(
-		sge::timer::difference<
-			std::chrono::seconds
-		>(
+		sge::timer::difference(
 			t1
 		)
 		==

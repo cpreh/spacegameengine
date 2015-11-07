@@ -418,8 +418,14 @@ try
 			continue;
 
 		camera.update(
-			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
-				camera_timer));
+			std::chrono::duration_cast<
+				sge::camera::update_duration
+			>(
+				sge::timer::elapsed_and_reset(
+					camera_timer
+				)
+			)
+		);
 
 		sge::renderer::context::scoped_ffp const scoped_block(
 			sys.renderer_device_ffp(),

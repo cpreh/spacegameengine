@@ -73,9 +73,11 @@ sge::camera::tracking::json::interval_exporter::update()
 
 	keyframes_.push_back(
 		sge::camera::tracking::keyframe(
-			update_timer_.interval<
+			std::chrono::duration_cast<
 				sge::camera::update_duration
-			>(),
+			>(
+				update_timer_.interval()
+			),
 			camera_.coordinate_system()
 		)
 	);

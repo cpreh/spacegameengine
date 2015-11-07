@@ -427,8 +427,14 @@ try
 		sys.window_system().poll())
 	{
 		sge::camera::update_duration const difference_since_last_frame(
-			sge::timer::elapsed_and_reset<sge::camera::update_duration>(
-				camera_timer));
+			std::chrono::duration_cast<
+				sge::camera::update_duration
+			>(
+				sge::timer::elapsed_and_reset(
+					camera_timer
+				)
+			)
+		);
 
 		dynamic_cast<sge::camera::is_dynamic &>(*camera).update(
 			difference_since_last_frame);

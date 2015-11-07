@@ -109,18 +109,12 @@ public:
 		bool
 	);
 
-	template<
-		typename NewDuration
-	>
-	NewDuration
+	duration
 	interval() const;
 
-	template<
-		typename NewDuration
-	>
 	void
 	interval(
-		NewDuration const &
+		duration
 	);
 
 	time_point

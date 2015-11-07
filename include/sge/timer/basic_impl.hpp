@@ -26,9 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <chrono>
-#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -181,41 +178,30 @@ sge::timer::basic<
 template<
 	typename Clock
 >
-template<
-	typename NewDuration
->
-NewDuration
+typename
+sge::timer::basic<
+	Clock
+>::duration
 sge::timer::basic<
 	Clock
 >::interval() const
 {
 	return
-		std::chrono::duration_cast<
-			NewDuration
-		>(
-			interval_
-		);
+		interval_;
 }
 
 template<
 	typename Clock
 >
-template<
-	typename NewDuration
->
 void
 sge::timer::basic<
 	Clock
 >::interval(
-	NewDuration const &_interval
+	duration const _interval
 )
 {
 	interval_ =
-		std::chrono::duration_cast<
-			duration
-		>(
-			_interval
-		);
+		_interval;
 
 	this->reset();
 }
