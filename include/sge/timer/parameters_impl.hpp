@@ -32,12 +32,16 @@ template<
 	typename Clock
 >
 template<
-	typename Duration
+	typename Rep,
+	typename Period
 >
 sge::timer::parameters<
 	Clock
 >::parameters(
-	Duration const &_interval
+	std::chrono::duration<
+		Rep,
+		Period
+	> const _interval
 )
 :
 	parameters(
@@ -57,25 +61,24 @@ template<
 	typename Clock
 >
 template<
-	typename Duration
+	typename Rep,
+	typename Period
 >
 sge::timer::parameters<
 	Clock
 >::parameters(
 	clock_type const &_clock,
-	Duration const &_interval
+	std::chrono::duration<
+		Rep,
+		Period
+	> const _interval
 )
 :
 	state_base(
 		_clock
 	),
 	interval_{
-		// TODO: Get rid of this?
-		std::chrono::duration_cast<
-			duration
-		>(
-			_interval
-		)
+		_interval
 	},
 	active_{
 		true

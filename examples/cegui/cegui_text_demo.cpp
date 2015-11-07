@@ -97,6 +97,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <chrono>
 #include <example_main.hpp>
 #include <exception>
 #include <functional>
@@ -224,11 +225,17 @@ try
 		gui_syringe,
 		sys.focus_collector());
 
-	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
-		sge::timer::parameters<sge::timer::clocks::standard>(
-			sge::cegui::duration(
-				static_cast<sge::cegui::unit>(
-					1))));
+	sge::timer::basic<
+		sge::timer::clocks::standard
+	> frame_timer(
+		sge::timer::parameters<
+			sge::timer::clocks::standard
+		>(
+			std::chrono::seconds(
+				1
+			)
+		)
+	);
 
 	sge::cegui::toolbox::scoped_layout scoped_layout(
 		gui_sys,

@@ -136,6 +136,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
+#include <chrono>
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 
@@ -396,10 +397,17 @@ try
 		)
 	);
 
-	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
-		sge::timer::parameters<sge::timer::clocks::standard>(
-			sge::camera::update_duration(
-				1.0f)));
+	sge::timer::basic<
+		sge::timer::clocks::standard
+	> camera_timer(
+		sge::timer::parameters<
+			sge::timer::clocks::standard
+		>(
+			std::chrono::seconds(
+				1
+			)
+		)
+	);
 
 	while(
 		sys.window_system().poll())

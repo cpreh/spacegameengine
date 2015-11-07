@@ -29,20 +29,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/reset_when_expired.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <chrono>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::camera::tracking::json::interval_exporter::interval_exporter(
 	sge::camera::base const &_camera,
 	sge::camera::update_duration const &_update_duration,
-	boost::filesystem::path const &_export_file_path)
+	boost::filesystem::path const &_export_file_path
+)
 :
 	camera_(
-		_camera),
+		_camera
+	),
 	update_timer_(
-		sge::timer::parameters<sge::timer::clocks::standard>(
-			_update_duration)),
+		sge::timer::parameters<
+			sge::timer::clocks::standard
+		>(
+			std::chrono::duration_cast<
+				sge::timer::clocks::standard::duration
+			>(
+				_update_duration
+			)
+		)
+	),
 	export_file_path_(
-		_export_file_path),
+		_export_file_path
+	),
 	keyframes_()
 {
 }
@@ -50,13 +64,21 @@ sge::camera::tracking::json::interval_exporter::interval_exporter(
 void
 sge::camera::tracking::json::interval_exporter::update()
 {
-	if(!sge::timer::reset_when_expired(update_timer_))
+	if(
+		!sge::timer::reset_when_expired(
+			update_timer_
+		)
+	)
 		return;
 
 	keyframes_.push_back(
 		sge::camera::tracking::keyframe(
-			update_timer_.interval<sge::camera::update_duration>(),
-			camera_.coordinate_system()));
+			update_timer_.interval<
+				sge::camera::update_duration
+			>(),
+			camera_.coordinate_system()
+		)
+	);
 }
 
 sge::camera::tracking::json::interval_exporter::~interval_exporter()
@@ -67,12 +89,21 @@ sge::camera::tracking::json::interval_exporter::~interval_exporter()
 			sge::parse::json::start(
 				sge::parse::json::array_or_object(
 					sge::camera::tracking::json::keyframes_to_json(
-						keyframes_)))))
+						keyframes_
+					)
+				)
+			)
+		)
+	)
 		// TODO: camera exception
 		throw
 			sge::core::exception(
-				FCPPT_TEXT("Couldn't write to file \"")+
+				FCPPT_TEXT("Couldn't write to file \"")
+				+
 				fcppt::filesystem::path_to_string(
-					export_file_path_)+
-				FCPPT_TEXT("\""));
+					export_file_path_
+				)
+				+
+				FCPPT_TEXT('"')
+			);
 }

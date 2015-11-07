@@ -191,6 +191,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <array>
+#include <chrono>
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
@@ -742,8 +743,8 @@ try
 		sge::timer::parameters<
 			sge::timer::clocks::standard
 		>(
-			sge::camera::update_duration(
-				1.0f
+			std::chrono::seconds(
+				1
 			)
 		)
 	);

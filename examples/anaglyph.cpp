@@ -189,6 +189,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <chrono>
 #include <cmath>
 #include <example_main.hpp>
 #include <exception>
@@ -959,10 +960,17 @@ try
 		sys.renderer_device_ffp(),
 		main_model);
 
-	sge::timer::basic<sge::timer::clocks::standard> camera_timer(
-		sge::timer::parameters<sge::timer::clocks::standard>(
-			sge::camera::update_duration(
-				1.0f)));
+	sge::timer::basic<
+		sge::timer::clocks::standard
+	> camera_timer(
+		sge::timer::parameters<
+			sge::timer::clocks::standard
+		>(
+			std::chrono::seconds(
+				1
+			)
+		)
+	);
 
 	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_stencil_state(
 		sys.renderer_device_core().create_depth_stencil_state(
