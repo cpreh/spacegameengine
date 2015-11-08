@@ -38,19 +38,18 @@ namespace context
 {
 
 template<
-	typename Type,
-	typename Domain
+	typename Type
 >
-typename boost::disable_if<
+inline
+typename
+boost::disable_if<
 	sge::opengl::context::has_parameter<
 		Type
 	>,
 	Type &
 >::type
 use(
-	sge::opengl::context::object<
-		Domain
-	> &_object
+	sge::opengl::context::object &_object
 )
 {
 	return
@@ -63,21 +62,20 @@ use(
 }
 
 template<
-	typename Type,
-	typename Domain,
-	typename Parameter
+	typename Type
 >
-typename boost::enable_if<
+inline
+typename
+boost::enable_if<
 	sge::opengl::context::has_parameter<
 		Type
 	>,
 	Type &
 >::type
 use(
-	sge::opengl::context::object<
-		Domain
-	> &_object,
-	Parameter &&_parameter
+	sge::opengl::context::object &_object,
+	typename
+	Type::parameter &_parameter
 )
 {
 	return

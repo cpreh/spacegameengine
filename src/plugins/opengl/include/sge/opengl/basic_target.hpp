@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/target_base.hpp>
 #include <sge/opengl/target_context_fwd.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
@@ -50,7 +50,7 @@ class basic_target
 	);
 protected:
 	basic_target(
-		sge::opengl::context::device::object &,
+		sge::opengl::context::object &,
 		sge::renderer::target::viewport const &
 	);
 public:

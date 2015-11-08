@@ -18,13 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/id_impl.hpp>
-#include <sge/opengl/context/device/domain_fwd.hpp>
-#include <sge/opengl/context/device/id.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/make_id.hpp>
 
 
-template
-class
-sge::opengl::context::id<
-	sge::opengl::context::device::domain
->;
+sge::opengl::context::id
+sge::opengl::context::make_id()
+{
+	static
+	sge::opengl::context::id::type counter{
+		0u
+	};
+
+	return
+		sge::opengl::context::id{
+			++counter
+		};
+}

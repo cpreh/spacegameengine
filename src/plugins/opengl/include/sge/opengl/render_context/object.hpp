@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_RENDER_CONTEXT_OBJECT_HPP_INCLUDED
 
 #include <sge/opengl/scoped_target.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/primitive_type_fwd.hpp>
@@ -80,8 +79,7 @@ class object
 	);
 public:
 	object(
-		sge::opengl::context::system::object &,
-		sge::opengl::context::device::object &,
+		sge::opengl::context::object &,
 		sge::renderer::target::base &
 	);
 
@@ -256,9 +254,7 @@ private:
 	override;
 #endif
 
-	sge::opengl::context::system::object &system_context_;
-
-	sge::opengl::context::device::object &device_context_;
+	sge::opengl::context::object &context_;
 
 	sge::renderer::target::base &target_;
 

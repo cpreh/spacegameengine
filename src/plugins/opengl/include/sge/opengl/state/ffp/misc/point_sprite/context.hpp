@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/info/context_fwd.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/context_fwd.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/optional_config.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -49,7 +50,10 @@ class context
 		context
 	);
 public:
-	context();
+	explicit
+	context(
+		sge::opengl::info::context const &
+	);
 
 	~context()
 	override;

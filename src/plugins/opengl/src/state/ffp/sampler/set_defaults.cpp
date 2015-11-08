@@ -19,8 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/ffp/sampler/context.hpp>
 #include <sge/opengl/state/ffp/sampler/default_context.hpp>
 #include <sge/opengl/state/ffp/sampler/object.hpp>
@@ -35,8 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::ffp::sampler::set_defaults(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context
+	sge::opengl::context::object &_context
 )
 {
 	// Samplers are always active in every stage and we must make sure that
@@ -46,11 +44,10 @@ sge::opengl::state::ffp::sampler::set_defaults(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
 		>(
-			_system_context
+			_context
 		).config(),
 		[
-			&_system_context,
-			&_device_context
+			&_context
 		](
 			sge::opengl::texture::multi_config const &_config
 		)
@@ -59,14 +56,14 @@ sge::opengl::state::ffp::sampler::set_defaults(
 				sge::opengl::context::use<
 					sge::opengl::state::ffp::sampler::default_context
 				>(
-					_system_context
+					_context
 				).default_state()
 			);
 
 			sge::opengl::context::use<
 				sge::opengl::state::ffp::sampler::context
 			>(
-				_device_context
+				_context
 			).stages(
 				sge::renderer::texture::stage(
 					0u
@@ -84,7 +81,7 @@ sge::opengl::state::ffp::sampler::set_defaults(
 			)
 			{
 				sge::opengl::texture::active_level const active_level(
-					_system_context,
+					_context,
 					stage
 				);
 

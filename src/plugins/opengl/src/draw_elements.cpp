@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/index_buffer.hpp>
 #include <sge/opengl/logger.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object.hpp>
 #include <sge/opengl/convert/primitive_type.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/primitive_count.hpp>
@@ -47,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::draw_elements(
-	sge::opengl::context::system::object &_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::index::buffer const &_index_buffer,
 	sge::renderer::vertex::first const _first_vertex,
 	sge::renderer::vertex::count const _num_vertices,
@@ -89,7 +89,8 @@ sge::opengl::draw_elements(
 		sge::opengl::context::use<
 			sge::opengl::draw_context
 		>(
-			_context
+			_context,
+			_context.info()
 		)
 	);
 

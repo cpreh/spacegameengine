@@ -18,16 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONTEXT_OBJECT_DECL_HPP_INCLUDED
-#define SGE_OPENGL_CONTEXT_OBJECT_DECL_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONTEXT_ID_HPP_INCLUDED
+#define SGE_OPENGL_CONTEXT_ID_HPP_INCLUDED
 
-#include <sge/opengl/context/base_fwd.hpp>
-#include <sge/opengl/context/base_unique_ptr.hpp>
-#include <sge/opengl/context/container_decl.hpp>
 #include <sge/opengl/context/id_fwd.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_impl.hpp>
 
 
 namespace sge
@@ -37,55 +31,22 @@ namespace opengl
 namespace context
 {
 
-template<
-	typename Domain
->
-class object
+class id
 {
-	FCPPT_NONCOPYABLE(
-		object
-	);
 public:
-	object();
-
-	~object();
-
-	typedef sge::opengl::context::base<
-		Domain
-	> base_type;
-
-	typedef sge::opengl::context::id<
-		Domain
-	> id_type;
-
 	typedef
-	fcppt::optional<
-		base_type &
-	>
-	optional_base_ref;
+	unsigned
+	type;
 
-	optional_base_ref
-	get(
-		id_type
+	explicit
+	id(
+		type
 	);
 
-	typedef
-	sge::opengl::context::base_unique_ptr<
-		Domain
-	>
-	base_unique_ptr;
-
-	base_type &
-	insert(
-		id_type,
-		base_unique_ptr
-	);
+	type
+	get() const;
 private:
-	typedef sge::opengl::context::container<
-		Domain
-	> container;
-
-	container elements_;
+	type value_;
 };
 
 }

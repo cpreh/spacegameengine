@@ -18,23 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONTEXT_CONTAINER_IMPL_HPP_INCLUDED
-#define SGE_OPENGL_CONTEXT_CONTAINER_IMPL_HPP_INCLUDED
-
 #include <sge/opengl/logger.hpp>
-#include <sge/opengl/context/base_decl.hpp>
-#include <sge/opengl/context/container_decl.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/container.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
 
 
-template<
-	typename Domain
->
-sge::opengl::context::container<
-	Domain
->::container()
+sge::opengl::context::container::container()
 :
 	elements_(
 		50u
@@ -42,47 +34,31 @@ sge::opengl::context::container<
 {
 }
 
-template<
-	typename Domain
->
-sge::opengl::context::container<
-	Domain
->::~container()
+sge::opengl::context::container::~container()
 {
 	this->destroy();
 }
 
-template<
-	typename Domain
->
-typename sge::opengl::context::container<
-	Domain
->::pointer
-sge::opengl::context::container<
-	Domain
->::get(
+sge::opengl::context::container::pointer
+sge::opengl::context::container::get(
 	size_type const _index
 ) const
 {
 	return
 		_index
-		< elements_.size()
+		<
+		elements_.size()
 		?
-			elements_[_index]
+			elements_[
+				_index
+			]
 		:
-			0
+			nullptr
 		;
 }
 
-template<
-	typename Domain
->
-typename sge::opengl::context::container<
-	Domain
->::pointer
-sge::opengl::context::container<
-	Domain
->::insert(
+sge::opengl::context::container::pointer
+sge::opengl::context::container::insert(
 	size_type const _index,
 	unique_ptr _ptr
 )
@@ -92,7 +68,8 @@ sge::opengl::context::container<
 		// might throw bad_alloc
 		if(
 			_index
-			>= elements_.size()
+			>=
+			elements_.size()
 		)
 			elements_.resize(
 				_index
@@ -100,32 +77,34 @@ sge::opengl::context::container<
 	}
 	catch(...)
 	{
-		destroy();
+		this->destroy();
 
 		throw;
 	}
 
 	if(
-		elements_[_index]
+		elements_[
+			_index
+		]
 	)
-		return 0;
+		return
+			nullptr;
 
 	pointer const nptr(
 		_ptr.release_ownership()
 	);
 
-	elements_[_index] = nptr;
+	elements_[
+		_index
+	] =
+		nptr;
 
-	return nptr;
+	return
+		nptr;
 }
 
-template<
-	typename Domain
->
 void
-sge::opengl::context::container<
-	Domain
->::destroy()
+sge::opengl::context::container::destroy()
 {
 	for(
 		auto elem
@@ -147,5 +126,3 @@ sge::opengl::context::container<
 		}
 	}
 }
-
-#endif

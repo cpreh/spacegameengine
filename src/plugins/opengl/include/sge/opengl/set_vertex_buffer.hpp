@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_SET_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_SET_VERTEX_BUFFER_HPP_INCLUDED
 
-#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 
 
@@ -32,7 +32,7 @@ namespace opengl
 
 void
 set_vertex_buffer(
-	sge::opengl::context::device::object &,
+	sge::opengl::context::object &,
 	sge::renderer::vertex::buffer const &
 );
 

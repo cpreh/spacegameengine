@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/basic_target.hpp>
 #include <sge/opengl/onscreen_target_fwd.hpp>
 #include <sge/opengl/backend/context_fwd.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/color_buffer/readable_surface_fwd.hpp>
 #include <sge/renderer/target/onscreen.hpp>
@@ -56,7 +56,7 @@ public:
 	base;
 
 	onscreen_target(
-		sge::opengl::context::device::object &,
+		sge::opengl::context::object &,
 		sge::opengl::backend::context &,
 		awl::window::object &
 	);

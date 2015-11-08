@@ -21,10 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/multi_sample_context.hpp>
 #include <sge/opengl/optional_enum.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/context/system/make_id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/convert/to_gl_enum.hpp>
+#include <sge/opengl/info/context.hpp>
+#include <sge/opengl/info/extension.hpp>
+#include <sge/opengl/info/extension_supported.hpp>
+#include <sge/opengl/info/major_version.hpp>
+#include <sge/opengl/info/minor_version.hpp>
+#include <sge/opengl/info/version_at_least.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -33,11 +39,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
-sge::opengl::multi_sample_context::multi_sample_context()
+sge::opengl::multi_sample_context::multi_sample_context(
+	sge::opengl::info::context const &_info
+)
 :
-	sge::opengl::context::system::base(),
+	sge::opengl::context::base(),
 	flag_(
-		GLEW_VERSION_1_3
+		sge::opengl::info::version_at_least(
+			_info.version(),
+			sge::opengl::info::major_version{
+				1u
+			},
+			sge::opengl::info::minor_version{
+				3u
+			}
+		)
 		?
 			sge::opengl::optional_enum(
 				sge::opengl::convert::to_gl_enum<
@@ -45,7 +61,12 @@ sge::opengl::multi_sample_context::multi_sample_context()
 				>()
 			)
 		:
-			GLEW_ARB_multisample
+			sge::opengl::info::extension_supported(
+				_info.extensions(),
+				sge::opengl::info::extension{
+					"GL_ARB_multisample"
+				}
+			)
 			?
 				sge::opengl::optional_enum(
 					sge::opengl::convert::to_gl_enum<
@@ -71,7 +92,7 @@ sge::opengl::multi_sample_context::flag() const
 		flag_;
 }
 
-sge::opengl::context::system::id const
+sge::opengl::context::id const
 sge::opengl::multi_sample_context::static_id(
-	sge::opengl::context::system::make_id()
+	sge::opengl::context::make_id()
 );

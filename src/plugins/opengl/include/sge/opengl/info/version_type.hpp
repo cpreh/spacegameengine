@@ -18,11 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONTEXT_DEVICE_ID_HPP_INCLUDED
-#define SGE_OPENGL_CONTEXT_DEVICE_ID_HPP_INCLUDED
+#ifndef SGE_OPENGL_INFO_VERSION_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_INFO_VERSION_TYPE_HPP_INCLUDED
 
-#include <sge/opengl/context/id_decl.hpp>
-#include <sge/opengl/context/device/id_fwd.hpp>
 
+namespace sge
+{
+namespace opengl
+{
+namespace info
+{
+
+typedef
+unsigned
+version_type;
+
+}
+}
+}
 
 #endif

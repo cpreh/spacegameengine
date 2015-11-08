@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/create_system.hpp>
 #include <sge/opengl/backend/system.hpp>
 #include <sge/opengl/backend/system_unique_ptr.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -42,7 +41,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::backend::system_unique_ptr
 sge::opengl::backend::create_system(
-	sge::opengl::context::system::object &_system_context,
 	awl::system::object &_awl_system
 )
 {
@@ -60,7 +58,6 @@ sge::opengl::backend::create_system(
 			fcppt::make_unique_ptr<
 				sge::opengl::glx::system
 			>(
-				_system_context,
 				fcppt::cast::static_downcast<
 					awl::backends::x11::system::object &
 				>(
@@ -71,7 +68,6 @@ sge::opengl::backend::create_system(
 			fcppt::make_unique_ptr<
 				sge::opengl::wgl::system
 			>(
-				_system_context,
 				_awl_system
 			)
 #else

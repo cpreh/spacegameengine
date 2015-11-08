@@ -18,16 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/device/base.hpp>
-#include <sge/opengl/context/device/id.hpp>
-#include <sge/opengl/context/device/make_id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/state/ffp/sampler/context.hpp>
 #include <sge/renderer/texture/stage.hpp>
 
 
 sge::opengl::state::ffp::sampler::context::context()
 :
-	sge::opengl::context::device::base(),
+	sge::opengl::context::base(),
 	stages_(
 		0u
 	)
@@ -54,7 +54,7 @@ sge::opengl::state::ffp::sampler::context::stages(
 		_stages;
 }
 
-sge::opengl::context::device::id const
+sge::opengl::context::id const
 sge::opengl::state::ffp::sampler::context::static_id(
-	sge::opengl::context::device::make_id()
+	sge::opengl::context::make_id()
 );

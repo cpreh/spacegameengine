@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/fbo/attachment.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/attachment_unique_ptr.hpp>
@@ -73,12 +72,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::fbo::target::target(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context
+	sge::opengl::context::object &_context
 )
 :
 	base(
-		_device_context,
+		_context,
 		sge::renderer::target::viewport(
 			fcppt::math::box::null<
 				sge::renderer::pixel_rect
@@ -86,10 +84,11 @@ sge::opengl::fbo::target::target(
 		)
 	),
 	context_(
-		opengl::context::use<
+		sge::opengl::context::use<
 			sge::opengl::fbo::context
 		>(
-			_system_context
+			_context,
+			_context.info()
 		)
 	),
 	config_(
@@ -101,7 +100,7 @@ sge::opengl::fbo::target::target(
 		sge::opengl::context::use<
 			sge::opengl::fbo::last_context
 		>(
-			_device_context
+			_context
 		)
 	),
 	fbo_(

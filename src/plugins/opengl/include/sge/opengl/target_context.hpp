@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TARGET_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/optional_target_base_ref.hpp>
-#include <sge/opengl/context/device/base.hpp>
-#include <sge/opengl/context/device/id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -34,7 +34,7 @@ namespace opengl
 
 class target_context
 :
-	public sge::opengl::context::device::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		target_context
@@ -55,7 +55,7 @@ public:
 
 	typedef void parameter;
 
-	static sge::opengl::context::device::id const static_id;
+	static sge::opengl::context::id const static_id;
 private:
 	sge::opengl::optional_target_base_ref last_target_;
 };

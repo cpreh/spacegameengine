@@ -24,12 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/set_unpack_alignment.hpp>
 #include <sge/opengl/unpack_alignment.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 
 
 void
 sge::opengl::set_unpack_alignment(
-	sge::opengl::context::device::object &_context,
+	sge::opengl::context::object &_context,
 	sge::opengl::unpack_alignment const _alignment
 )
 {

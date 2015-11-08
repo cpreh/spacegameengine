@@ -18,18 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONTEXT_ID_IMPL_HPP_INCLUDED
-#define SGE_OPENGL_CONTEXT_ID_IMPL_HPP_INCLUDED
-
-#include <sge/opengl/context/id_decl.hpp>
+#include <sge/opengl/context/id.hpp>
 
 
-template<
-	typename Domain
->
-sge::opengl::context::id<
-	Domain
->::id(
+sge::opengl::context::id::id(
 	type const _value
 )
 :
@@ -39,18 +31,9 @@ sge::opengl::context::id<
 {
 }
 
-template<
-	typename Domain
->
-typename sge::opengl::context::id<
-	Domain
->::type
-sge::opengl::context::id<
-	Domain
->::get() const
+sge::opengl::context::id::type
+sge::opengl::context::id::get() const
 {
 	return
 		value_;
 }
-
-#endif

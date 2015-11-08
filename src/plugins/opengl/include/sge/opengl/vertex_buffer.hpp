@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vertex_buffer_fwd.hpp>
 #include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/wrapper.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/vf/part_fwd.hpp>
 #include <sge/renderer/dim1_fwd.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
@@ -56,7 +56,7 @@ class vertex_buffer
 	);
 public:
 	vertex_buffer(
-		sge::opengl::context::system::object &,
+		sge::opengl::context::object &,
 		sge::renderer::vf::dynamic::part_index,
 		sge::renderer::vf::dynamic::part const &,
 		sge::renderer::vertex::count,

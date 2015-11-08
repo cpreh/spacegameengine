@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/context_unique_ptr.hpp>
 #include <sge/opengl/backend/scoped_current.hpp>
 #include <sge/opengl/backend/system_fwd.hpp>
-#include <sge/opengl/context/device/object.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object.hpp>
+#include <sge/opengl/info/context.hpp>
 #include <sge/opengl/platform/device_state_fwd.hpp>
 #include <sge/opengl/platform/system_fwd.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
@@ -124,7 +124,6 @@ public:
 		awl::window::event::processor &,
 		sge::opengl::platform::system &,
 		sge::opengl::backend::system &,
-		sge::opengl::context::system::object &,
 		sge::renderer::caps::device const &
 	);
 
@@ -343,9 +342,9 @@ private:
 	sge::opengl::texture::basic_parameters
 	texture_parameters();
 
-	sge::opengl::context::system::object &system_context_;
+	sge::opengl::info::context const info_;
 
-	sge::opengl::context::device::object device_context_;
+	sge::opengl::context::object context_;
 
 	sge::renderer::caps::device const &caps_;
 
@@ -357,7 +356,7 @@ private:
 
 	platform_device_state_unique_ptr const device_state_;
 
-	sge::opengl::backend::context_unique_ptr const context_;
+	sge::opengl::backend::context_unique_ptr const backend_context_;
 
 	sge::opengl::backend::scoped_current const scoped_current_;
 

@@ -18,13 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/id_impl.hpp>
-#include <sge/opengl/context/system/domain_fwd.hpp>
-#include <sge/opengl/context/system/id.hpp>
+#ifndef SGE_OPENGL_INFO_VERSION_HPP_INCLUDED
+#define SGE_OPENGL_INFO_VERSION_HPP_INCLUDED
+
+#include <sge/opengl/info/major_version.hpp>
+#include <sge/opengl/info/minor_version.hpp>
+#include <sge/opengl/info/version_fwd.hpp>
 
 
-template
-class
-sge::opengl::context::id<
-	sge::opengl::context::system::domain
->;
+namespace sge
+{
+namespace opengl
+{
+namespace info
+{
+
+class version
+{
+public:
+	version(
+		sge::opengl::info::major_version,
+		sge::opengl::info::minor_version
+	);
+
+	sge::opengl::info::major_version
+	major() const;
+
+	sge::opengl::info::minor_version
+	minor() const;
+private:
+	sge::opengl::info::major_version major_;
+
+	sge::opengl::info::minor_version minor_;
+};
+
+}
+}
+}
+
+#endif

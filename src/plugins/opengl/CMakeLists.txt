@@ -51,38 +51,20 @@ set(
 	src/plugins/opengl/include/sge/opengl/color_format_type.hpp
 	src/plugins/opengl/include/sge/opengl/color_material.hpp
 	src/plugins/opengl/include/sge/opengl/common.hpp
-	src/plugins/opengl/include/sge/opengl/context/base_decl.hpp
+	src/plugins/opengl/include/sge/opengl/context/base.hpp
 	src/plugins/opengl/include/sge/opengl/context/base_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/context/base_impl.hpp
 	src/plugins/opengl/include/sge/opengl/context/base_unique_ptr.hpp
-	src/plugins/opengl/include/sge/opengl/context/container_decl.hpp
+	src/plugins/opengl/include/sge/opengl/context/container.hpp
 	src/plugins/opengl/include/sge/opengl/context/container_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/context/container_impl.hpp
-	src/plugins/opengl/include/sge/opengl/context/device/base.hpp
-	src/plugins/opengl/include/sge/opengl/context/device/domain_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/context/device/id.hpp
-	src/plugins/opengl/include/sge/opengl/context/device/id_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/context/device/make_id.hpp
-	src/plugins/opengl/include/sge/opengl/context/device/object.hpp
-	src/plugins/opengl/include/sge/opengl/context/device/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/context/dummy_parameter.hpp
 	src/plugins/opengl/include/sge/opengl/context/dummy_parameter_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/context/has_parameter.hpp
-	src/plugins/opengl/include/sge/opengl/context/id_decl.hpp
+	src/plugins/opengl/include/sge/opengl/context/id.hpp
 	src/plugins/opengl/include/sge/opengl/context/id_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/context/id_impl.hpp
 	src/plugins/opengl/include/sge/opengl/context/make_id.hpp
 	src/plugins/opengl/include/sge/opengl/context/make_object.hpp
-	src/plugins/opengl/include/sge/opengl/context/object_decl.hpp
+	src/plugins/opengl/include/sge/opengl/context/object.hpp
 	src/plugins/opengl/include/sge/opengl/context/object_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/context/object_impl.hpp
-	src/plugins/opengl/include/sge/opengl/context/system/base.hpp
-	src/plugins/opengl/include/sge/opengl/context/system/domain_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/context/system/id.hpp
-	src/plugins/opengl/include/sge/opengl/context/system/id_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/context/system/make_id.hpp
-	src/plugins/opengl/include/sge/opengl/context/system/object.hpp
-	src/plugins/opengl/include/sge/opengl/context/system/object_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/context/use.hpp
 	src/plugins/opengl/include/sge/opengl/context/use_impl.hpp
 	src/plugins/opengl/include/sge/opengl/convert/color_to_format.hpp
@@ -166,8 +148,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/get_int.hpp
 	src/plugins/opengl/include/sge/opengl/get_ints.hpp
 	src/plugins/opengl/include/sge/opengl/get_string.hpp
-	src/plugins/opengl/include/sge/opengl/glew/error_to_string.hpp
-	src/plugins/opengl/include/sge/opengl/glew/initialize.hpp
 	src/plugins/opengl/include/sge/opengl/index_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/init_multi_sampling.hpp
 	src/plugins/opengl/include/sge/opengl/init_srgb.hpp
@@ -663,16 +643,11 @@ set(
 	src/plugins/opengl/src/clear/set.cpp
 	src/plugins/opengl/src/clear/stencil_buffer.cpp
 	src/plugins/opengl/src/color_material.cpp
-	src/plugins/opengl/src/context/device/base.cpp
-	src/plugins/opengl/src/context/device/container.cpp
-	src/plugins/opengl/src/context/device/id.cpp
-	src/plugins/opengl/src/context/device/make_id.cpp
-	src/plugins/opengl/src/context/device/object.cpp
-	src/plugins/opengl/src/context/system/base.cpp
-	src/plugins/opengl/src/context/system/container.cpp
-	src/plugins/opengl/src/context/system/id.cpp
-	src/plugins/opengl/src/context/system/make_id.cpp
-	src/plugins/opengl/src/context/system/object.cpp
+	src/plugins/opengl/src/context/base.cpp
+	src/plugins/opengl/src/context/container.cpp
+	src/plugins/opengl/src/context/id.cpp
+	src/plugins/opengl/src/context/make_id.cpp
+	src/plugins/opengl/src/context/object.cpp
 	src/plugins/opengl/src/convert/color_to_format.cpp
 	src/plugins/opengl/src/convert/color_to_format_type.cpp
 	src/plugins/opengl/src/convert/color_to_internal_format.cpp
@@ -732,8 +707,6 @@ set(
 	src/plugins/opengl/src/get_int.cpp
 	src/plugins/opengl/src/get_ints.cpp
 	src/plugins/opengl/src/get_string.cpp
-	src/plugins/opengl/src/glew/error_to_string.cpp
-	src/plugins/opengl/src/glew/initialize.cpp
 	src/plugins/opengl/src/index_buffer.cpp
 	src/plugins/opengl/src/init_multi_sampling.cpp
 	src/plugins/opengl/src/init_srgb.cpp
@@ -1367,7 +1340,6 @@ set(
 set(
 	SGE_OPENGL_ADDITIONAL_DEPS
 	${OPENGL_gl_LIBRARY}
-	${GLEW_LIBRARIES}
 	${awl_TARGET}
 	${fcppt_log_TARGET}
 )
@@ -1535,20 +1507,7 @@ list(
 list(
 	APPEND
 	SGE_OPENGL_INCLUDE_DIRS
-	"${GLEW_INCLUDE_DIRS}"
-)
-
-list(
-	APPEND
-	SGE_OPENGL_INCLUDE_DIRS
 	"${awl_INCLUDE_DIRS}"
-)
-
-list(
-	APPEND
-	SGE_OPENGL_DEFINITIONS
-	${GLEW_DEFINITIONS}
-	"-D GLEW_NO_GLU"
 )
 
 add_sge_plugin(

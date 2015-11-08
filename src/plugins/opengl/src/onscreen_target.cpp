@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/onscreen_surface.hpp>
 #include <sge/opengl/onscreen_target.hpp>
 #include <sge/opengl/backend/context.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/color_buffer/readable_surface.hpp>
@@ -36,13 +36,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::onscreen_target::onscreen_target(
-	sge::opengl::context::device::object &_device_context,
-	sge::opengl::backend::context &_context,
+	sge::opengl::context::object &_context,
+	sge::opengl::backend::context &_backend_context,
 	awl::window::object &_window
 )
 :
 	base(
-		_device_context,
+		_context,
 		sge::renderer::target::viewport(
 			fcppt::math::box::null<
 				sge::renderer::pixel_rect
@@ -50,7 +50,7 @@ sge::opengl::onscreen_target::onscreen_target(
 		)
 	),
 	context_(
-		_context
+		_backend_context
 	),
 	main_surface_(
 		fcppt::unique_ptr_to_base<

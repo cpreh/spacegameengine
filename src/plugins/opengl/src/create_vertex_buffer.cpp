@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/create_vertex_buffer.hpp>
 #include <sge/opengl/vertex_buffer.hpp>
 #include <sge/opengl/vertex_declaration.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::vertex::buffer_unique_ptr
 sge::opengl::create_vertex_buffer(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::vertex::buffer_parameters const &_parameters
 )
 {
@@ -43,7 +43,7 @@ sge::opengl::create_vertex_buffer(
 			fcppt::make_unique_ptr<
 				sge::opengl::vertex_buffer
 			>(
-				_system_context,
+				_context,
 				_parameters.part(),
 				fcppt::cast::static_downcast<
 					sge::opengl::vertex_declaration const &

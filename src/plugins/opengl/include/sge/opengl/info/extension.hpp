@@ -4,8 +4,8 @@ Copyright (C) 2006-2015 Carl Philipp Reh (carlphilippreh <at> gmail.com)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+as published by the Free Software Foundation; either extension_set 2
+of the License, or (at your option) any later extension_set.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -18,17 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/make_id.hpp>
-#include <sge/opengl/context/device/domain_fwd.hpp>
-#include <sge/opengl/context/device/id.hpp>
-#include <sge/opengl/context/device/make_id.hpp>
+#ifndef SGE_OPENGL_INFO_EXTENSION_HPP_INCLUDED
+#define SGE_OPENGL_INFO_EXTENSION_HPP_INCLUDED
+
+#include <fcppt/strong_typedef.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::context::device::id
-sge::opengl::context::device::make_id()
+namespace sge
 {
-	return
-		sge::opengl::context::make_id<
-			sge::opengl::context::device::domain
-		>();
+namespace opengl
+{
+namespace info
+{
+
+FCPPT_MAKE_STRONG_TYPEDEF(
+	std::string,
+	extension
+);
+
 }
+}
+}
+
+#endif

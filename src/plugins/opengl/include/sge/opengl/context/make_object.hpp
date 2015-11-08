@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CONTEXT_MAKE_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_CONTEXT_MAKE_OBJECT_HPP_INCLUDED
 
-#include <sge/opengl/context/base_impl.hpp>
+#include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/base_unique_ptr.hpp>
 #include <sge/opengl/context/dummy_parameter_fwd.hpp>
 #include <sge/opengl/context/has_parameter.hpp>
@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -41,53 +40,41 @@ namespace context
 {
 
 template<
-	typename Type,
-	typename Domain,
-	typename Parameter
+	typename Type
 >
 typename
 boost::enable_if<
 	sge::opengl::context::has_parameter<
 		Type
 	>,
-	sge::opengl::context::base_unique_ptr<
-		Domain
-	>
+	sge::opengl::context::base_unique_ptr
 >::type
 make_object(
-	Parameter &&_parameter
+	typename
+	Type::parameter &_parameter
 )
 {
 	return
 		fcppt::unique_ptr_to_base<
-			sge::opengl::context::base<
-				Domain
-			>
+			sge::opengl::context::base
 		>(
 			fcppt::make_unique_ptr<
 				Type
 			>(
-				std::forward<
-					typename Type::parameter
-				>(
-					_parameter
-				)
+				_parameter
 			)
 		);
 }
 
 template<
-	typename Type,
-	typename Domain
+	typename Type
 >
 typename
 boost::disable_if<
 	sge::opengl::context::has_parameter<
 		Type
 	>,
-	sge::opengl::context::base_unique_ptr<
-		Domain
-	>
+	sge::opengl::context::base_unique_ptr
 >::type
 make_object(
 	sge::opengl::context::dummy_parameter const &
@@ -95,13 +82,12 @@ make_object(
 {
 	return
 		fcppt::unique_ptr_to_base<
-			sge::opengl::context::base<
-				Domain
-			>
+			sge::opengl::context::base
 		>(
 			fcppt::make_unique_ptr<
 				Type
-			>()
+			>(
+			)
 		);
 }
 

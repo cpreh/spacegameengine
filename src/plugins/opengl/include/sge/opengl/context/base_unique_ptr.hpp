@@ -32,16 +32,11 @@ namespace opengl
 namespace context
 {
 
-template<
-	typename Domain
->
-using base_unique_ptr
-=
+typedef
 fcppt::unique_ptr<
-	sge::opengl::context::base<
-		Domain
-	>
->;
+	sge::opengl::context::base
+>
+base_unique_ptr;
 
 }
 }

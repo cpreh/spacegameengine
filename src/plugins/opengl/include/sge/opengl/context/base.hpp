@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONTEXT_SYSTEM_BASE_HPP_INCLUDED
-#define SGE_OPENGL_CONTEXT_SYSTEM_BASE_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONTEXT_BASE_HPP_INCLUDED
+#define SGE_OPENGL_CONTEXT_BASE_HPP_INCLUDED
 
-#include <sge/opengl/context/base_decl.hpp>
-#include <sge/opengl/context/system/domain_fwd.hpp>
+#include <sge/opengl/context/base_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -31,14 +31,19 @@ namespace opengl
 {
 namespace context
 {
-namespace system
+
+class base
 {
+	FCPPT_NONCOPYABLE(
+		base
+	);
+protected:
+	base();
+public:
+	virtual
+	~base() = 0;
+};
 
-typedef sge::opengl::context::base<
-	sge::opengl::context::system::domain
-> base;
-
-}
 }
 }
 }

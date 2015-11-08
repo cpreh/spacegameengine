@@ -4,8 +4,8 @@ Copyright (C) 2006-2015 Carl Philipp Reh (carlphilippreh <at> gmail.com)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+as published by the Free Software Foundation; either extension_supported 2
+of the License, or (at your option) any later extension_supported.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -18,17 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/make_id.hpp>
-#include <sge/opengl/context/system/domain_fwd.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/context/system/make_id.hpp>
+#ifndef SGE_OPENGL_INFO_EXTENSION_SUPPORTED_HPP_INCLUDED
+#define SGE_OPENGL_INFO_EXTENSION_SUPPORTED_HPP_INCLUDED
+
+#include <sge/opengl/info/extension.hpp>
+#include <sge/opengl/info/extension_set.hpp>
 
 
-sge::opengl::context::system::id
-sge::opengl::context::system::make_id()
+namespace sge
 {
-	return
-		sge::opengl::context::make_id<
-			sge::opengl::context::system::domain
-		>();
+namespace opengl
+{
+namespace info
+{
+
+bool
+extension_supported(
+	sge::opengl::info::extension_set const &,
+	sge::opengl::info::extension const &
+);
+
 }
+}
+}
+
+#endif

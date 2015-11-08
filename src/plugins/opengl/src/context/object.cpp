@@ -18,51 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONTEXT_OBJECT_IMPL_HPP_INCLUDED
-#define SGE_OPENGL_CONTEXT_OBJECT_IMPL_HPP_INCLUDED
-
-#include <sge/opengl/context/base_decl.hpp>
-#include <sge/opengl/context/id_decl.hpp>
-#include <sge/opengl/context/object_decl.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/base_unique_ptr.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/object.hpp>
+#include <sge/opengl/info/context_fwd.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
-template<
-	typename Domain
->
-sge::opengl::context::object<
-	Domain
->::object()
+sge::opengl::context::object::object(
+	sge::opengl::info::context const &_info
+)
 :
+	info_(
+		_info
+	),
 	elements_()
 {
 }
 
-template<
-	typename Domain
->
-sge::opengl::context::object<
-	Domain
->::~object()
+sge::opengl::context::object::~object()
 {
 }
 
-template<
-	typename Domain
->
-typename sge::opengl::context::object<
-	Domain
->::optional_base_ref
-sge::opengl::context::object<
-	Domain
->::get(
-	id_type const _id
+sge::opengl::context::object::optional_base_ref
+sge::opengl::context::object::get(
+	sge::opengl::context::id const _id
 )
 {
-	base_type *const ret(
+	sge::opengl::context::base *const ret(
 		elements_.get(
 			_id.get()
 		)
@@ -82,20 +69,13 @@ sge::opengl::context::object<
 		;
 }
 
-template<
-	typename Domain
->
-typename sge::opengl::context::object<
-	Domain
->::base_type &
-sge::opengl::context::object<
-	Domain
->::insert(
-	id_type const _id,
-	base_unique_ptr _ptr
+sge::opengl::context::base &
+sge::opengl::context::object::insert(
+	sge::opengl::context::id const _id,
+	sge::opengl::context::base_unique_ptr &&_ptr
 )
 {
-	base_type *const ret(
+	sge::opengl::context::base *const ret(
 		elements_.insert(
 			_id.get(),
 			std::move(
@@ -108,7 +88,6 @@ sge::opengl::context::object<
 		ret
 	);
 
-	return *ret;
+	return
+		*ret;
 }
-
-#endif

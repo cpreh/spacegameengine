@@ -18,13 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/object_impl.hpp>
-#include <sge/opengl/context/device/domain_fwd.hpp>
-#include <sge/opengl/context/device/object.hpp>
+#ifndef SGE_OPENGL_INFO_MAJOR_VERSION_HPP_INCLUDED
+#define SGE_OPENGL_INFO_MAJOR_VERSION_HPP_INCLUDED
+
+#include <sge/opengl/info/version_type.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
-template
-class
-sge::opengl::context::object<
-	sge::opengl::context::device::domain
->;
+namespace sge
+{
+namespace opengl
+{
+namespace info
+{
+
+FCPPT_MAKE_STRONG_TYPEDEF(
+	sge::opengl::info::version_type,
+	major_version
+);
+
+}
+}
+}
+
+#endif

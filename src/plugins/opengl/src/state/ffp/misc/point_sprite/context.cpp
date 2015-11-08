@@ -22,8 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/system/base.hpp>
 #include <sge/opengl/context/system/id.hpp>
 #include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/convert/from_gl_bool.hpp>
 #include <sge/opengl/convert/to_gl_enum.hpp>
+#include <sge/opengl/info/context.hpp>
+#include <sge/opengl/info/extension.hpp>
+#include <sge/opengl/info/extension_supported.hpp>
+#include <sge/opengl/info/major_version.hpp>
+#include <sge/opengl/info/minor_version.hpp>
+#include <sge/opengl/info/version_at_least.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/config.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/context.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/optional_config.hpp>
@@ -35,16 +40,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
-sge::opengl::state::ffp::misc::point_sprite::context::context()
+sge::opengl::state::ffp::misc::point_sprite::context::context(
+	sge::opengl::info::context const &_info
+)
 :
 	sge::opengl::context::system::base(),
 	config_(
-		sge::opengl::convert::from_gl_bool(
-			GLEW_VERSION_2_0
+		sge::opengl::info::version_at_least(
+			_info.version(),
+			sge::opengl::info::major_version{
+				2u
+			},
+			sge::opengl::info::minor_version{
+				0u
+			}
 		)
 		?
 			sge::opengl::state::ffp::misc::point_sprite::optional_config(
 				sge::opengl::state::ffp::misc::point_sprite::config(
+					// TODO: Move all strong typedefs out of the class
 					sge::opengl::state::ffp::misc::point_sprite::config::point_sprite_flag_type(
 						sge::opengl::convert::to_gl_enum<
 							GL_POINT_SPRITE
@@ -63,8 +77,11 @@ sge::opengl::state::ffp::misc::point_sprite::context::context()
 				)
 			)
 		:
-			sge::opengl::convert::from_gl_bool(
-				GLEW_ARB_point_sprite
+			sge::opengl::info::extension_supported(
+				_info.extensions(),
+				sge::opengl::info::extension{
+					"ARB_point_sprite"
+				}
 			)
 			?
 				sge::opengl::state::ffp::misc::point_sprite::optional_config(

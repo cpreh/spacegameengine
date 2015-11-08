@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_CORE_BLEND_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_BLEND_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/info/context_fwd.hpp>
 #include <sge/opengl/state/core/blend/context_fwd.hpp>
 #include <sge/opengl/state/core/blend/optional_config.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -41,13 +42,20 @@ namespace blend
 
 class context
 :
-	public sge::opengl::context::system::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		context
 	);
 public:
-	context();
+	typedef
+	sge::opengl::info::context const &
+	parameter;
+
+	explicit
+	context(
+		sge::opengl::info::context const &
+	);
 
 	~context()
 	override;
@@ -55,9 +63,7 @@ public:
 	sge::opengl::state::core::blend::optional_config const &
 	config() const;
 
-	typedef void parameter;
-
-	static sge::opengl::context::system::id const static_id;
+	static sge::opengl::context::id const static_id;
 private:
 	sge::opengl::state::core::blend::optional_config config_;
 };

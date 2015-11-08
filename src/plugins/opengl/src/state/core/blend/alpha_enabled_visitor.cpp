@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/get_fun_ref.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/convert/dest_blend_func.hpp>
@@ -39,11 +39,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::state::core::blend::alpha_enabled_visitor::alpha_enabled_visitor(
-	sge::opengl::context::system::object &_system_context
+	sge::opengl::context::object &_context
 )
 :
-	system_context_(
-		_system_context
+	context_(
+		_context
 	)
 {
 }
@@ -86,7 +86,8 @@ sge::opengl::state::core::blend::alpha_enabled_visitor::operator()(
 					sge::opengl::context::use<
 						sge::opengl::state::core::blend::context
 					>(
-						system_context_
+						context_,
+						context_.info()
 					).config(),
 					[]{
 						return

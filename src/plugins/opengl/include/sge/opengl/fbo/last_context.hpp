@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_LAST_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_FBO_LAST_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/context/device/base.hpp>
-#include <sge/opengl/context/device/id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
 #include <sge/opengl/fbo/id.hpp>
 #include <sge/opengl/fbo/last_context_fwd.hpp>
 
@@ -36,7 +36,7 @@ namespace fbo
 
 class last_context
 :
-	public sge::opengl::context::device::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		last_context
@@ -57,7 +57,7 @@ public:
 
 	typedef void parameter;
 
-	static sge::opengl::context::device::id const static_id;
+	static sge::opengl::context::id const static_id;
 private:
 	sge::opengl::fbo::id last_buffer_;
 };

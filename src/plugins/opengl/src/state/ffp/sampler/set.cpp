@@ -18,9 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/state/ffp/sampler/context.hpp>
 #include <sge/opengl/state/ffp/sampler/default_context.hpp>
 #include <sge/opengl/state/ffp/sampler/object.hpp>
@@ -38,8 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::ffp::sampler::set(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::state::ffp::sampler::const_object_ref_vector const &_samplers
 )
 {
@@ -61,7 +59,7 @@ sge::opengl::state::ffp::sampler::set(
 	)
 	{
 		sge::opengl::texture::active_level const active_level(
-			_system_context,
+			_context,
 			stage
 		);
 
@@ -80,7 +78,7 @@ sge::opengl::state::ffp::sampler::set(
 		sge::opengl::context::use<
 			sge::opengl::state::ffp::sampler::default_context
 		>(
-			_system_context
+			_context
 		).default_state()
 	);
 
@@ -88,7 +86,7 @@ sge::opengl::state::ffp::sampler::set(
 		sge::opengl::context::use<
 			sge::opengl::state::ffp::sampler::context
 		>(
-			_device_context
+			_context
 		)
 	);
 
@@ -102,7 +100,7 @@ sge::opengl::state::ffp::sampler::set(
 	)
 	{
 		sge::opengl::texture::active_level const active_level(
-			_system_context,
+			_context,
 			stage
 		);
 

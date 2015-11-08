@@ -26,8 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/target_base.hpp>
 #include <sge/opengl/unset_vertex_buffer.hpp>
 #include <sge/opengl/clear/set.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/render_context/object.hpp>
 #include <sge/opengl/state/set_defaults.hpp>
 #include <sge/opengl/state/core/blend/set.hpp>
@@ -92,17 +91,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::render_context::object::object(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::target::base &_target
 )
 :
 	sge::renderer::context::ffp(),
-	system_context_(
-		_system_context
-	),
-	device_context_(
-		_device_context
+	context_(
+		_context
 	),
 	target_(
 		_target
@@ -117,8 +112,7 @@ sge::opengl::render_context::object::object(
 	scoped_offscreen_target_()
 {
 	sge::opengl::state::set_defaults(
-		_system_context,
-		_device_context
+		_context
 	);
 }
 
@@ -207,7 +201,7 @@ sge::opengl::render_context::object::render_indexed(
 )
 {
 	sge::opengl::draw_elements(
-		system_context_,
+		context_,
 		_index_buffer,
 		_first_vertex,
 		_num_vertices,
@@ -237,7 +231,7 @@ sge::opengl::render_context::object::activate_vertex_buffer(
 )
 {
 	sge::opengl::set_vertex_buffer(
-		device_context_,
+		context_,
 		_vertex_buffer
 	);
 }
@@ -248,7 +242,7 @@ sge::opengl::render_context::object::deactivate_vertex_buffer(
 )
 {
 	sge::opengl::unset_vertex_buffer(
-		device_context_,
+		context_,
 		_vertex_buffer
 	);
 }
@@ -259,7 +253,7 @@ sge::opengl::render_context::object::vertex_declaration(
 )
 {
 	sge::opengl::set_vertex_declaration(
-		device_context_,
+		context_,
 		_vertex_declaration
 	);
 }
@@ -271,8 +265,7 @@ sge::opengl::render_context::object::texture(
 )
 {
 	sge::opengl::texture::activate(
-		system_context_,
-		device_context_,
+		context_,
 		_texture,
 		_stage
 	);
@@ -284,7 +277,7 @@ sge::opengl::render_context::object::blend_state(
 )
 {
 	sge::opengl::state::core::blend::set(
-		system_context_,
+		context_,
 		_state
 	);
 }
@@ -295,7 +288,7 @@ sge::opengl::render_context::object::depth_stencil_state(
 )
 {
 	sge::opengl::state::core::depth_stencil::set(
-		system_context_,
+		context_,
 		_state
 	);
 }
@@ -306,7 +299,7 @@ sge::opengl::render_context::object::rasterizer_state(
 )
 {
 	sge::opengl::state::core::rasterizer::set(
-		system_context_,
+		context_,
 		_state
 	);
 }
@@ -317,8 +310,7 @@ sge::opengl::render_context::object::sampler_state(
 )
 {
 	sge::opengl::state::core::sampler::set(
-		system_context_,
-		device_context_,
+		context_,
 		_samplers
 	);
 }
@@ -329,7 +321,7 @@ sge::opengl::render_context::object::alpha_test_state(
 )
 {
 	sge::opengl::state::ffp::alpha_test::set(
-		system_context_,
+		context_,
 		_state
 	);
 }
@@ -340,7 +332,7 @@ sge::opengl::render_context::object::clip_plane_state(
 )
 {
 	sge::opengl::state::ffp::clip_plane::set(
-		device_context_,
+		context_,
 		_planes
 	);
 }
@@ -351,7 +343,7 @@ sge::opengl::render_context::object::fog_state(
 )
 {
 	sge::opengl::state::ffp::fog::set(
-		system_context_,
+		context_,
 		_state
 	);
 }
@@ -362,7 +354,7 @@ sge::opengl::render_context::object::lighting_state(
 )
 {
 	sge::opengl::state::ffp::lighting::set(
-		system_context_,
+		context_,
 		_state
 	);
 }
@@ -373,7 +365,7 @@ sge::opengl::render_context::object::lights_state(
 )
 {
 	sge::opengl::state::ffp::lighting::light::set(
-		device_context_,
+		context_,
 		_lights
 	);
 }
@@ -384,7 +376,7 @@ sge::opengl::render_context::object::material_state(
 )
 {
 	sge::opengl::state::ffp::lighting::material::set(
-		system_context_,
+		context_,
 		_state
 	);
 }
@@ -395,7 +387,7 @@ sge::opengl::render_context::object::misc_state(
 )
 {
 	sge::opengl::state::ffp::misc::set(
-		system_context_,
+		context_,
 		_state
 	);
 }
@@ -406,8 +398,7 @@ sge::opengl::render_context::object::sampler_ffp_state(
 )
 {
 	sge::opengl::state::ffp::sampler::set(
-		system_context_,
-		device_context_,
+		context_,
 		_samplers
 	);
 }
@@ -419,7 +410,7 @@ sge::opengl::render_context::object::transform(
 )
 {
 	sge::opengl::state::ffp::transform::set(
-		system_context_,
+		context_,
 		_mode,
 		_state
 	);

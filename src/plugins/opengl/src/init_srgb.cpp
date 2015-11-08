@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/logger.hpp>
 #include <sge/opengl/srgb_context.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <fcppt/maybe.hpp>
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::init_srgb(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::pixel_format::srgb const _srgb
 )
 {
@@ -50,7 +50,8 @@ sge::opengl::init_srgb(
 		sge::opengl::context::use<
 			sge::opengl::srgb_context
 		>(
-			_system_context
+			_context,
+			_context.info()
 		)
 	);
 

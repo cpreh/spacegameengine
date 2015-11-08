@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/vertex_buffer_fwd.hpp>
 #include <sge/opengl/vertex_declaration_fwd.hpp>
-#include <sge/opengl/context/device/base.hpp>
-#include <sge/opengl/context/device/id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -38,7 +38,7 @@ namespace opengl
 
 class vertex_context
 :
-	public sge::opengl::context::device::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		vertex_context
@@ -82,7 +82,7 @@ public:
 
 	typedef void parameter;
 
-	static sge::opengl::context::device::id const static_id;
+	static sge::opengl::context::id const static_id;
 private:
 	typedef
 	fcppt::container::index_map<

@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/buffer/base_fwd.hpp>
 #include <sge/opengl/buffer/base_unique_ptr.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <array>
@@ -41,14 +41,14 @@ namespace buffer
 
 class vbo_context
 :
-	public sge::opengl::context::system::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		vbo_context
 	);
 public:
 	typedef
-	sge::opengl::context::system::object &
+	sge::opengl::context::object &
 	parameter;
 
 	explicit
@@ -65,7 +65,7 @@ public:
 	sge::opengl::buffer::base &
 	vertex_buffer() const;
 
-	static sge::opengl::context::system::id const static_id;
+	static sge::opengl::context::id const static_id;
 private:
 	typedef
 	std::array<

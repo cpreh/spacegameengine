@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GET_STRING_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -30,7 +32,7 @@ namespace sge
 namespace opengl
 {
 
-fcppt::string
+std::string
 get_string(
 	GLenum
 );

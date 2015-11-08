@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/init_multi_sampling.hpp>
 #include <sge/opengl/multi_sample_context.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <fcppt/optional_to_exception.hpp>
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::init_multi_sampling(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::pixel_format::optional_multi_samples const &_samples
 )
 {
@@ -44,7 +44,8 @@ sge::opengl::init_multi_sampling(
 		sge::opengl::context::use<
 			sge::opengl::multi_sample_context
 		>(
-			_system_context
+			_context,
+			_context.info()
 		)
 	);
 

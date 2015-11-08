@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/pixel_store_context_fwd.hpp>
 #include <sge/opengl/unpack_alignment.hpp>
-#include <sge/opengl/context/device/base.hpp>
-#include <sge/opengl/context/device/id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -35,7 +35,7 @@ namespace opengl
 
 class pixel_store_context
 :
-	public sge::opengl::context::device::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		pixel_store_context
@@ -56,7 +56,7 @@ public:
 
 	typedef void parameter;
 
-	static sge::opengl::context::device::id const static_id;
+	static sge::opengl::context::id const static_id;
 private:
 	sge::opengl::unpack_alignment unpack_alignment_;
 };

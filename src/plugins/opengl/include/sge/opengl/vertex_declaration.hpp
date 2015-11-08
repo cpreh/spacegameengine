@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VERTEX_DECLARATION_HPP_INCLUDED
 
 #include <sge/opengl/vertex_declaration_fwd.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/vf/part_fwd.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
@@ -51,8 +50,7 @@ class vertex_declaration
 	);
 public:
 	vertex_declaration(
-		sge::opengl::context::system::object &,
-		sge::opengl::context::device::object &,
+		sge::opengl::context::object &,
 		sge::renderer::vertex::declaration_parameters const &
 	);
 

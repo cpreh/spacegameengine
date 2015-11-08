@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/index_buffer.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/convert/index_format.hpp>
 #include <sge/renderer/dim1.hpp>
 #include <sge/renderer/lock_mode.hpp>
@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::index_buffer::index_buffer(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::index::buffer_parameters const &_parameters
 )
 :
@@ -57,8 +57,8 @@ sge::opengl::index_buffer::index_buffer(
 		sge::opengl::context::use<
 			sge::opengl::buffer::vbo_context
 		>(
-			_system_context,
-			_system_context
+			_context,
+			_context
 		).index_buffer(),
 		_parameters.count().get(),
 		sge::renderer::index::dynamic::format_stride(

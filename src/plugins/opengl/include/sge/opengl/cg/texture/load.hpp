@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CG_TEXTURE_LOAD_HPP_INCLUDED
 
 #include <sge/cg/parameter/object_fwd.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
 
@@ -39,8 +38,7 @@ namespace texture
 
 sge::renderer::cg::loaded_texture_unique_ptr
 load(
-	sge::opengl::context::system::object &,
-	sge::opengl::context::device::object &,
+	sge::opengl::context::object &,
 	sge::cg::parameter::object const &,
 	sge::renderer::texture::base &
 );

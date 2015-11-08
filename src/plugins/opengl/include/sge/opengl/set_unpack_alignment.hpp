@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_SET_UNPACK_ALIGNMENT_HPP_INCLUDED
 
 #include <sge/opengl/unpack_alignment.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace opengl
 
 void
 set_unpack_alignment(
-	sge::opengl::context::device::object &,
+	sge::opengl::context::object &,
 	sge::opengl::unpack_alignment
 );
 

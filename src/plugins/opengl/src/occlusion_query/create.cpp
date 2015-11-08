@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/occlusion_query/context.hpp>
 #include <sge/opengl/occlusion_query/create.hpp>
 #include <sge/opengl/occlusion_query/object.hpp>
@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::occlusion_query::object_unique_ptr
 sge::opengl::occlusion_query::create(
-	sge::opengl::context::system::object &_context
+	sge::opengl::context::object &_context
 )
 {
 	return
@@ -48,7 +48,8 @@ sge::opengl::occlusion_query::create(
 					sge::opengl::context::use<
 						sge::opengl::occlusion_query::context
 					>(
-						_context
+						_context,
+						_context.info()
 					).config(),
 					[]{
 						return

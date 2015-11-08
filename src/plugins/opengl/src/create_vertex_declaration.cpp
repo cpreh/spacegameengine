@@ -20,8 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/create_vertex_declaration.hpp>
 #include <sge/opengl/vertex_declaration.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
@@ -31,8 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::vertex::declaration_unique_ptr
 sge::opengl::create_vertex_declaration(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::vertex::declaration_parameters const &_parameters
 )
 {
@@ -43,8 +41,7 @@ sge::opengl::create_vertex_declaration(
 			fcppt::make_unique_ptr<
 				sge::opengl::vertex_declaration
 			>(
-				_system_context,
-				_device_context,
+				_context,
 				_parameters
 			)
 		);

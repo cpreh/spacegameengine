@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONTEXT_CONTAINER_DECL_HPP_INCLUDED
-#define SGE_OPENGL_CONTEXT_CONTAINER_DECL_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONTEXT_CONTAINER_HPP_INCLUDED
+#define SGE_OPENGL_CONTEXT_CONTAINER_HPP_INCLUDED
 
 #include <sge/opengl/context/base_fwd.hpp>
 #include <sge/opengl/context/container_fwd.hpp>
@@ -38,37 +38,42 @@ namespace opengl
 namespace context
 {
 
-/// Simple container that can hold null values
 /**
- * This is a simple replacement for boost::ptr_vector.
- * It has the ability to hold null pointers,
- * but will still delete them on its own.
- * Special care has to be taken because various operations can throw.
+\brief Simple container that can hold null values
+
+This is a simple replacement for boost::ptr_vector. It has the ability to hold
+null pointers, but will still delete them on its own.  Special care has to be
+taken because various operations can throw.
 */
-template<
-	typename Domain
->
 class container
 {
 	FCPPT_NONCOPYABLE(
 		container
 	);
 public:
-	typedef sge::opengl::context::base<
-		Domain
-	> value_type;
+	typedef
+	sge::opengl::context::base
+	value_type;
 
-	typedef value_type *pointer;
+	typedef
+	value_type
+	*pointer;
 
-	typedef fcppt::unique_ptr<
+	typedef
+	fcppt::unique_ptr<
 		value_type
-	> unique_ptr;
+	>
+	unique_ptr;
 
-	typedef std::size_t size_type;
+	typedef
+	std::size_t
+	size_type;
 
 	container();
 
 	~container();
+
+	// TODO: Use optionals here
 
 	/// Returns the element or null if it is not in the container
 	/**
@@ -93,9 +98,11 @@ private:
 	void
 	destroy();
 
-	typedef std::vector<
+	typedef
+	std::vector<
 		pointer
-	> inner_container;
+	>
+	inner_container;
 
 	inner_container elements_;
 };

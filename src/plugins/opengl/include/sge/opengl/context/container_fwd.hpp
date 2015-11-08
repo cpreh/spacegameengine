@@ -29,9 +29,6 @@ namespace opengl
 namespace context
 {
 
-template<
-	typename Domain
->
 class container;
 
 }

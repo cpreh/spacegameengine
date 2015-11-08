@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/get_string.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -31,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-fcppt::string
+std::string
 sge::opengl::get_string(
 	GLenum const _what
 )
@@ -54,13 +52,11 @@ sge::opengl::get_string(
 			);
 
 	return
-		fcppt::from_std_string(
-			std::string(
-				fcppt::cast::to_char_ptr<
-					char const *
-				>(
-					ret
-				)
+		std::string(
+			fcppt::cast::to_char_ptr<
+				char const *
+			>(
+				ret
 			)
 		);
 }

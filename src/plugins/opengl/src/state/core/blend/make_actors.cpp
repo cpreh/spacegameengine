@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/get_fun_ref.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::state::actor_vector
 sge::opengl::state::core::blend::make_actors(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::state::core::blend::parameters const &_parameters
 )
 {
@@ -45,7 +45,7 @@ sge::opengl::state::core::blend::make_actors(
 		fcppt::algorithm::join(
 			fcppt::variant::apply_unary(
 				sge::opengl::state::core::blend::alpha_visitor(
-					_system_context
+					_context
 				),
 				_parameters.alpha_variant()
 			),

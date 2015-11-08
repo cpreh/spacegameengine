@@ -11,10 +11,6 @@ find_package(
 )
 
 find_package(
-	GLEW
-)
-
-find_package(
 	OpenGL
 )
 
@@ -75,24 +71,10 @@ add_sge_lib(
 	${OPENAL_FOUND}
 )
 
-if(
-	OPENGL_FOUND AND GLEW_FOUND
-)
-	set(
-		OPENGL_AVAILABLE
-		TRUE
-	)
-else()
-	set(
-		OPENGL_AVAILABLE
-		FALSE
-	)
-endif()
-
 add_sge_lib(
 	opengl
 	"Build the opengl render plugin"
-	${OPENGL_AVAILABLE}
+	${OPENGL_FOUND}
 )
 
 add_sge_lib(

@@ -20,16 +20,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/deref_fun_ptr.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/convert/from_gl_bool.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/convert/to_gl_enum.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/error_string_map.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
 #include <sge/opengl/fbo/optional_config.hpp>
+#include <sge/opengl/info/cast_function.hpp>
+#include <sge/opengl/info/context.hpp>
+#include <sge/opengl/info/extension.hpp>
+#include <sge/opengl/info/extension_supported.hpp>
+#include <sge/opengl/info/major_version.hpp>
+#include <sge/opengl/info/minor_version.hpp>
+#include <sge/opengl/info/version_at_least.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -38,45 +44,113 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
-sge::opengl::fbo::context::context()
+sge::opengl::fbo::context::context(
+	sge::opengl::info::context const &_info
+)
 :
-	sge::opengl::context::system::base(),
+	sge::opengl::context::base(),
 	config_(
-		sge::opengl::convert::from_gl_bool(
-			GLEW_VERSION_3_0
+		sge::opengl::info::version_at_least(
+			_info.version(),
+			sge::opengl::info::major_version{
+				3u
+			},
+			sge::opengl::info::minor_version{
+				0u
+			}
 		)
 		?
 			sge::opengl::fbo::optional_config(
 				sge::opengl::fbo::config(
 					sge::opengl::deref_fun_ptr(
-						glGenFramebuffers
+						sge::opengl::info::cast_function<
+							PFNGLGENFRAMEBUFFERSPROC
+						>(
+							_info.load_function(
+								"glGenFramebuffers"
+							)
+						)
 					),
 					sge::opengl::deref_fun_ptr(
-						glDeleteFramebuffers
+						sge::opengl::info::cast_function<
+							PFNGLDELETEFRAMEBUFFERSPROC
+						>(
+							_info.load_function(
+								"glDeleteFramebuffers"
+							)
+						)
 					),
 					sge::opengl::deref_fun_ptr(
-						glBindFramebuffer
+						sge::opengl::info::cast_function<
+							PFNGLBINDFRAMEBUFFERPROC
+						>(
+							_info.load_function(
+								"glBindFramebuffer"
+							)
+						)
 					),
 					sge::opengl::deref_fun_ptr(
-						glFramebufferTexture2D
+						sge::opengl::info::cast_function<
+							PFNGLFRAMEBUFFERTEXTURE2DPROC
+						>(
+							_info.load_function(
+								"glFramebufferTexture2D"
+							)
+						)
 					),
 					sge::opengl::deref_fun_ptr(
-						glCheckFramebufferStatus
+						sge::opengl::info::cast_function<
+							PFNGLCHECKFRAMEBUFFERSTATUSPROC
+						>(
+							_info.load_function(
+								"glCheckFramebufferStatus"
+							)
+						)
 					),
 					sge::opengl::deref_fun_ptr(
-						glGenRenderbuffers
+						sge::opengl::info::cast_function<
+							PFNGLGENRENDERBUFFERSPROC
+						>(
+							_info.load_function(
+								"glGenRenderbuffers"
+							)
+						)
 					),
 					sge::opengl::deref_fun_ptr(
-						glDeleteRenderbuffers
+						sge::opengl::info::cast_function<
+							PFNGLDELETERENDERBUFFERSPROC
+						>(
+							_info.load_function(
+								"glDeleteRenderbuffers"
+							)
+						)
 					),
 					sge::opengl::deref_fun_ptr(
-						glBindRenderbuffer
+						sge::opengl::info::cast_function<
+							PFNGLBINDRENDERBUFFERPROC
+						>(
+							_info.load_function(
+								"glBindRenderbuffer"
+							)
+						)
 					),
 					sge::opengl::deref_fun_ptr(
-						glRenderbufferStorage
+						sge::opengl::info::cast_function<
+							PFNGLRENDERBUFFERSTORAGEPROC
+						>(
+							_info.load_function(
+								"glRenderbufferStorage"
+							)
+						)
 					),
 					sge::opengl::deref_fun_ptr(
-						glFramebufferRenderbuffer
+						sge::opengl::info::cast_function<
+							PFNGLFRAMEBUFFERRENDERBUFFERPROC
+						>(
+							_info.load_function(
+								"glFramebufferRenderbuffer"
+							)
+						)
 					),
 					sge::opengl::convert::to_gl_enum<
 						GL_FRAMEBUFFER
@@ -129,41 +203,104 @@ sge::opengl::fbo::context::context()
 				)
 			)
 		:
-			sge::opengl::convert::from_gl_bool(
-				GLEW_EXT_framebuffer_object
+			sge::opengl::info::extension_supported(
+				_info.extensions(),
+				sge::opengl::info::extension{
+					"GL_EXT_framebuffer_object"
+				}
 			)
 			?
 				sge::opengl::fbo::optional_config(
 					sge::opengl::fbo::config(
 						sge::opengl::deref_fun_ptr(
-							glGenFramebuffersEXT
+							sge::opengl::info::cast_function<
+								PFNGLGENFRAMEBUFFERSPROC
+							>(
+								_info.load_function(
+									"glGenFramebuffersEXT"
+								)
+							)
 						),
 						sge::opengl::deref_fun_ptr(
-							glDeleteFramebuffersEXT
+							sge::opengl::info::cast_function<
+								PFNGLDELETEFRAMEBUFFERSPROC
+							>(
+								_info.load_function(
+									"glDeleteFramebuffersEXT"
+								)
+							)
 						),
 						sge::opengl::deref_fun_ptr(
-							glBindFramebufferEXT
+							sge::opengl::info::cast_function<
+								PFNGLBINDFRAMEBUFFERPROC
+							>(
+								_info.load_function(
+									"glBindFramebufferEXT"
+								)
+							)
 						),
 						sge::opengl::deref_fun_ptr(
-							glFramebufferTexture2DEXT
+							sge::opengl::info::cast_function<
+								PFNGLFRAMEBUFFERTEXTURE2DPROC
+							>(
+								_info.load_function(
+									"glFramebufferTexture2DEXT"
+								)
+							)
 						),
 						sge::opengl::deref_fun_ptr(
-							glCheckFramebufferStatusEXT
+							sge::opengl::info::cast_function<
+								PFNGLCHECKFRAMEBUFFERSTATUSPROC
+							>(
+								_info.load_function(
+									"glCheckFramebufferStatusEXT"
+								)
+							)
 						),
 						sge::opengl::deref_fun_ptr(
-							glGenRenderbuffersEXT
+							sge::opengl::info::cast_function<
+								PFNGLGENRENDERBUFFERSPROC
+							>(
+								_info.load_function(
+									"glGenRenderbuffersEXT"
+								)
+							)
 						),
 						sge::opengl::deref_fun_ptr(
-							glDeleteRenderbuffersEXT
+							sge::opengl::info::cast_function<
+								PFNGLDELETERENDERBUFFERSPROC
+							>(
+								_info.load_function(
+									"glDeleteRenderbuffersEXT"
+								)
+							)
 						),
 						sge::opengl::deref_fun_ptr(
-							glBindRenderbufferEXT
+							sge::opengl::info::cast_function<
+								PFNGLBINDRENDERBUFFERPROC
+							>(
+								_info.load_function(
+									"glBindRenderbufferEXT"
+								)
+							)
 						),
 						sge::opengl::deref_fun_ptr(
-							glRenderbufferStorageEXT
+							sge::opengl::info::cast_function<
+								PFNGLRENDERBUFFERSTORAGEPROC
+							>(
+								_info.load_function(
+									"glRenderbufferStorageEXT"
+								)
+							)
 						),
 						sge::opengl::deref_fun_ptr(
-							glFramebufferRenderbufferEXT
+							sge::opengl::info::cast_function<
+								PFNGLFRAMEBUFFERRENDERBUFFERPROC
+							>(
+								_info.load_function(
+									"glFramebufferRenderbufferEXT"
+								)
+							)
 						),
 						sge::opengl::convert::to_gl_enum<
 							GL_FRAMEBUFFER_EXT
@@ -228,7 +365,7 @@ sge::opengl::fbo::context::config() const
 		config_;
 }
 
-sge::opengl::context::system::id const
+sge::opengl::context::id const
 sge::opengl::fbo::context::static_id(
-	sge::opengl::context::system::make_id()
+	sge::opengl::context::make_id()
 );

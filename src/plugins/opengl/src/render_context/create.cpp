@@ -18,8 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/render_context/create.hpp>
 #include <sge/opengl/render_context/object.hpp>
 #include <sge/renderer/context/ffp.hpp>
@@ -31,8 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::context::ffp_unique_ptr
 sge::opengl::render_context::create(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::target::base &_target
 )
 {
@@ -43,8 +41,7 @@ sge::opengl::render_context::create(
 			fcppt::make_unique_ptr<
 				sge::opengl::render_context::object
 			>(
-				_system_context,
-				_device_context,
+				_context,
 				_target
 			)
 		);

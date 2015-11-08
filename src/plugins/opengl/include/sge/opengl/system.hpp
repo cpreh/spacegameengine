@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_SYSTEM_HPP_INCLUDED
 
 #include <sge/opengl/backend/system_fwd.hpp>
-#include <sge/opengl/context/system/object.hpp>
 #include <sge/opengl/platform/system_fwd.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/caps/device.hpp>
@@ -93,8 +92,6 @@ private:
 		sge::renderer::device::index
 	) const
 	override;
-
-	sge::opengl::context::system::object system_context_;
 
 	typedef
 	fcppt::unique_ptr<

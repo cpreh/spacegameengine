@@ -49,7 +49,9 @@ public:
 
 	typedef
 	sge::opengl::fun_ref<
-		PFNGLCLIENTACTIVETEXTUREPROC
+		// FIXME
+		PFNGLACTIVETEXTUREPROC
+		//PFNGLCLIENTACTIVETEXTUREPROC
 	>
 	gl_client_active_texture;
 

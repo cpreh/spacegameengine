@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/srgb_context.hpp>
 #include <sge/opengl/backend/dummy.hpp>
 #include <sge/opengl/backend/system_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_config.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_context.hpp>
@@ -68,7 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::caps::device
 sge::opengl::get_device_caps(
 	awl::system::object &_awl_system,
-	sge::opengl::context::system::object &_context,
+	sge::opengl::context::object &_context,
 	sge::opengl::backend::system &_device_system
 )
 {
@@ -105,7 +105,8 @@ sge::opengl::get_device_caps(
 		sge::opengl::context::use<
 			sge::opengl::fbo::context
 		>(
-			_context
+			_context,
+			_context.info()
 		).config().has_value()
 	);
 
@@ -241,7 +242,8 @@ sge::opengl::get_device_caps(
 				sge::opengl::context::use<
 					sge::opengl::srgb_context
 				>(
-					_context
+					_context,
+					_context.info()
 				).flag().has_value()
 			)
 		);

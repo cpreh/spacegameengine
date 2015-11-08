@@ -18,24 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLEW_ERROR_TO_STRING_HPP_INCLUDED
-#define SGE_OPENGL_GLEW_ERROR_TO_STRING_HPP_INCLUDED
-
-#include <sge/opengl/common.hpp>
-#include <fcppt/string.hpp>
+#ifndef SGE_OPENGL_INFO_VERSION_FWD_HPP_INCLUDED
+#define SGE_OPENGL_INFO_VERSION_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace glew
+namespace info
 {
 
-fcppt::string
-error_to_string(
-	GLenum
-);
+class version;
 
 }
 }

@@ -25,30 +25,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/make_software.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/context/system/object.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/context/object.hpp>
 #include <fcppt/maybe.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <array>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::buffer::vbo_context::vbo_context(
-	sge::opengl::context::system::object &_system_context
+	sge::opengl::context::object &_context
 )
 :
-	sge::opengl::context::system::base(),
+	sge::opengl::context::base(),
 	buffers_(
 		fcppt::maybe(
 			sge::opengl::context::use<
 				sge::opengl::buffer::context
 			>(
-				_system_context
+				_context,
+				_context.info()
 			).hardware_config(),
 			[]{
 				return
@@ -91,21 +95,25 @@ sge::opengl::buffer::base &
 sge::opengl::buffer::vbo_context::index_buffer() const
 {
 	return
-		*buffers_[
+		*std::get<
 			0
-		];
+		>(
+			buffers_
+		);
 }
 
 sge::opengl::buffer::base &
 sge::opengl::buffer::vbo_context::vertex_buffer() const
 {
 	return
-		*buffers_[
+		*std::get<
 			1
-		];
+		>(
+			buffers_
+		);
 }
 
-sge::opengl::context::system::id const
+sge::opengl::context::id const
 sge::opengl::buffer::vbo_context::static_id(
-	sge::opengl::context::system::make_id()
+	sge::opengl::context::make_id()
 );

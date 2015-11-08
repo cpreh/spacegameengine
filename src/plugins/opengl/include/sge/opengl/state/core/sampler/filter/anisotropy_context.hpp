@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_ANISOTROPY_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_ANISOTROPY_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_context_fwd.hpp>
 #include <sge/opengl/state/core/sampler/filter/optional_anisotropy_config.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -43,7 +43,7 @@ namespace filter
 
 class anisotropy_context
 :
-	public sge::opengl::context::system::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		anisotropy_context
@@ -60,7 +60,7 @@ public:
 	typedef void parameter;
 
 	static
-	sge::opengl::context::system::id const
+	sge::opengl::context::id const
 	static_id;
 private:
 	sge::opengl::state::core::sampler::filter::optional_anisotropy_config const config_;

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/context.hpp>
 #include <sge/opengl/backend/dummy.hpp>
 #include <sge/opengl/backend/system.hpp>
-#include <sge/opengl/glew/initialize.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
@@ -40,8 +39,7 @@ sge::opengl::backend::dummy::dummy(
 )
 :
 	awl_visual_(
-		// TODO: This is a hack for querying device caps, but is it
-		// wise? What if this visual isn't supported?
+		// FIXME: Extension addresses depend on the visual, so this is wrong
 		_device_system.create_visual(
 			sge::renderer::pixel_format::object(
 				sge::renderer::pixel_format::color::depth32,
@@ -70,7 +68,6 @@ sge::opengl::backend::dummy::dummy(
 		*context_
 	)
 {
-	sge::opengl::glew::initialize();
 }
 
 sge::opengl::backend::dummy::~dummy()

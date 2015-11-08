@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BUFFER_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/buffer/optional_hardware_config.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/info/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -36,13 +37,19 @@ namespace buffer
 
 class context
 :
-	public sge::opengl::context::system::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		context
 	);
 public:
-	context();
+	typedef
+	sge::opengl::info::context const &parameter;
+
+	explicit
+	context(
+		parameter
+	);
 
 	~context()
 	override;
@@ -50,9 +57,7 @@ public:
 	sge::opengl::buffer::optional_hardware_config const &
 	hardware_config() const;
 
-	typedef void parameter;
-
-	static sge::opengl::context::system::id const static_id;
+	static sge::opengl::context::id const static_id;
 private:
 	sge::opengl::buffer::optional_hardware_config const hardware_config_;
 };

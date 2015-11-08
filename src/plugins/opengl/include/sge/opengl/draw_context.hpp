@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/fun_ref.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/info/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_decl.hpp>
 
@@ -36,13 +37,20 @@ namespace opengl
 
 class draw_context
 :
-	public sge::opengl::context::system::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		draw_context
 	);
 public:
-	draw_context();
+	typedef
+	sge::opengl::info::context const &
+	parameter;
+
+	explicit
+	draw_context(
+		sge::opengl::info::context const &
+	);
 
 	~draw_context()
 	override;
@@ -62,9 +70,7 @@ public:
 	optional_draw_range_elements
 	draw_range_elements() const;
 
-	typedef void parameter;
-
-	static sge::opengl::context::system::id const static_id;
+	static sge::opengl::context::id const static_id;
 private:
 	optional_draw_range_elements const draw_range_elements_;
 };

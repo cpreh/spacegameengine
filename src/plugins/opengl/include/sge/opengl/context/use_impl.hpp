@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/base_fwd.hpp>
 #include <sge/opengl/context/make_object.hpp>
-#include <sge/opengl/context/object_decl.hpp>
+#include <sge/opengl/context/object.hpp>
 #include <fcppt/maybe.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
@@ -37,14 +37,11 @@ namespace context
 
 template<
 	typename Type,
-	typename Domain,
 	typename Parameter
 >
 Type &
 use_impl(
-	sge::opengl::context::object<
-		Domain
-	> &_object,
+	sge::opengl::context::object &_object,
 	Parameter &&_parameter
 )
 {
@@ -66,8 +63,7 @@ use_impl(
 						_object.insert(
 							Type::static_id,
 							sge::opengl::context::make_object<
-								Type,
-								Domain
+								Type
 							>(
 								_parameter
 							)
@@ -75,9 +71,7 @@ use_impl(
 					);
 			},
 			[](
-				sge::opengl::context::base<
-					Domain
-				> &_ref
+				sge::opengl::context::base &_ref
 			)
 			-> Type &
 			{

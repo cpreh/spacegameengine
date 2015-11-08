@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/init_srgb.hpp>
 #include <sge/opengl/backend/context.hpp>
 #include <sge/opengl/backend/system.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/fbo/create_depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/create_target.hpp>
 #include <sge/opengl/occlusion_query/create.hpp>
@@ -166,14 +165,13 @@ sge::opengl::device::device(
 	awl::window::event::processor &_event_processor,
 	sge::opengl::platform::system &_platform_system,
 	sge::opengl::backend::system &_backend_system,
-	sge::opengl::context::system::object &_system_context,
 	sge::renderer::caps::device const &_caps
 )
 :
-	system_context_(
-		_system_context
+	info_(),
+	context_(
+		info_
 	),
-	device_context_(),
 	caps_(
 		_caps
 	),
@@ -184,18 +182,18 @@ sge::opengl::device::device(
 			_event_processor
 		)
 	),
-	context_(
+	backend_context_(
 		_backend_system.create_context(
 			_window
 		)
 	),
 	scoped_current_(
-		*context_
+		*backend_context_
 	),
 	onscreen_target_(
 		sge::opengl::create_onscreen_target(
-			device_context_,
-			*context_,
+			context_,
+			*backend_context_,
 			_window
 		)
 	)
@@ -219,12 +217,12 @@ sge::opengl::device::device(
 		)
 		{
 			sge::opengl::init_multi_sampling(
-				system_context_,
+				context_,
 				_visual.pixel_format().multi_samples()
 			);
 
 			sge::opengl::init_srgb(
-				system_context_,
+				context_,
 				_visual.pixel_format().srgb()
 			);
 		}
@@ -265,8 +263,7 @@ sge::opengl::device::create_target()
 {
 	return
 		sge::opengl::fbo::create_target(
-			system_context_,
-			device_context_
+			context_
 		);
 }
 
@@ -302,7 +299,7 @@ sge::opengl::device::create_depth_stencil_surface(
 	return
 		sge::renderer::depth_stencil_buffer::surface_unique_ptr(
 			sge::opengl::fbo::create_depth_stencil_surface(
-				system_context_,
+				context_,
 				_parameters
 			)
 		);
@@ -339,8 +336,7 @@ sge::opengl::device::create_vertex_declaration(
 {
 	return
 		sge::opengl::create_vertex_declaration(
-			system_context_,
-			device_context_,
+			context_,
 			_parameters
 		);
 }
@@ -352,7 +348,7 @@ sge::opengl::device::create_vertex_buffer(
 {
 	return
 		sge::opengl::create_vertex_buffer(
-			system_context_,
+			context_,
 			_parameters
 		);
 }
@@ -364,7 +360,7 @@ sge::opengl::device::create_index_buffer(
 {
 	return
 		sge::opengl::create_index_buffer(
-			system_context_,
+			context_,
 			_parameters
 		);
 }
@@ -374,7 +370,7 @@ sge::opengl::device::create_occlusion_query()
 {
 	return
 		sge::opengl::occlusion_query::create(
-			system_context_
+			context_
 		);
 }
 
@@ -385,7 +381,7 @@ sge::opengl::device::create_blend_state(
 {
 	return
 		sge::opengl::state::core::blend::create(
-			system_context_,
+			context_,
 			_parameters
 		);
 }
@@ -397,7 +393,7 @@ sge::opengl::device::create_depth_stencil_state(
 {
 	return
 		sge::opengl::state::core::depth_stencil::create(
-			system_context_,
+			context_,
 			_parameters
 		);
 }
@@ -420,7 +416,7 @@ sge::opengl::device::create_sampler_state(
 {
 	return
 		sge::opengl::state::core::sampler::create(
-			system_context_,
+			context_,
 			_parameters
 		);
 }
@@ -469,8 +465,7 @@ sge::opengl::device::load_cg_texture(
 {
 	return
 		sge::opengl::cg::texture::load(
-			system_context_,
-			device_context_,
+			context_,
 			_parameter,
 			_texture
 		);
@@ -509,12 +504,11 @@ sge::opengl::device::begin_rendering_ffp(
 	sge::renderer::target::base &_target
 )
 {
-	context_->begin_rendering();
+	backend_context_->begin_rendering();
 
 	return
 		sge::opengl::render_context::create(
-			system_context_,
-			device_context_,
+			context_,
 			_target
 		);
 }
@@ -602,7 +596,7 @@ sge::opengl::device::create_misc_state(
 {
 	return
 		sge::opengl::state::ffp::misc::create(
-			system_context_,
+			context_,
 			_parameters
 		);
 }
@@ -625,7 +619,7 @@ sge::opengl::device::create_transform_state(
 {
 	return
 		sge::opengl::state::ffp::transform::create(
-			system_context_,
+			context_,
 			_parameters
 		);
 }
@@ -652,7 +646,6 @@ sge::opengl::device::texture_parameters()
 {
 	return
 		sge::opengl::texture::basic_parameters(
-			system_context_,
-			device_context_
+			context_
 		);
 }

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_FFP_MISC_SET_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_MISC_SET_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/state/ffp/misc/const_optional_object_ref_fwd.hpp>
 
 
@@ -38,7 +38,7 @@ namespace misc
 
 void
 set(
-	sge::opengl::context::system::object &,
+	sge::opengl::context::object &,
 	sge::renderer::state::ffp::misc::const_optional_object_ref const &
 );
 

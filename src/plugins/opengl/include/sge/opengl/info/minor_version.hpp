@@ -18,22 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONTEXT_DEVICE_DOMAIN_FWD_HPP_INCLUDED
-#define SGE_OPENGL_CONTEXT_DEVICE_DOMAIN_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_INFO_MINOR_VERSION_HPP_INCLUDED
+#define SGE_OPENGL_INFO_MINOR_VERSION_HPP_INCLUDED
+
+#include <sge/opengl/info/version_type.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace context
-{
-namespace device
+namespace info
 {
 
-struct domain;
+FCPPT_MAKE_STRONG_TYPEDEF(
+	sge::opengl::info::version_type,
+	minor_version
+);
 
-}
 }
 }
 }

@@ -18,27 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONTEXT_SYSTEM_MAKE_ID_HPP_INCLUDED
-#define SGE_OPENGL_CONTEXT_SYSTEM_MAKE_ID_HPP_INCLUDED
-
-#include <sge/opengl/context/system/id_fwd.hpp>
+#include <sge/opengl/context/base.hpp>
 
 
-namespace sge
+sge::opengl::context::base::base()
 {
-namespace opengl
-{
-namespace context
-{
-namespace system
-{
-
-sge::opengl::context::system::id
-make_id();
-
-}
-}
-}
 }
 
-#endif
+sge::opengl::context::base::~base()
+{
+}
