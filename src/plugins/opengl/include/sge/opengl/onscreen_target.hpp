@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/basic_target.hpp>
 #include <sge/opengl/onscreen_target_fwd.hpp>
-#include <sge/opengl/backend/context_fwd.hpp>
+#include <sge/opengl/backend/current_fwd.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/color_buffer/readable_surface_fwd.hpp>
@@ -57,7 +57,7 @@ public:
 
 	onscreen_target(
 		sge::opengl::context::object &,
-		sge::opengl::backend::context &,
+		sge::opengl::backend::current &,
 		awl::window::object &
 	);
 
@@ -90,7 +90,7 @@ private:
 	>
 	color_surface_unique_ptr;
 
-	sge::opengl::backend::context &context_;
+	sge::opengl::backend::current &current_;
 
 	color_surface_unique_ptr const main_surface_;
 };

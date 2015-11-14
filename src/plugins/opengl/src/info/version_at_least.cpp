@@ -18,31 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_MAKE_CURRENT_HPP_INCLUDED
-#define SGE_OPENGL_GLX_MAKE_CURRENT_HPP_INCLUDED
-
+#include <sge/opengl/info/major_version.hpp>
+#include <sge/opengl/info/minor_version.hpp>
+#include <sge/opengl/info/version.hpp>
+#include <sge/opengl/info/version_at_least.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <GL/glx.h>
-#include <X11/Xlib.h>
+#include <tuple>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+bool
+sge::opengl::info::version_at_least(
+	sge::opengl::info::version const _version,
+	sge::opengl::info::major_version const _major,
+	sge::opengl::info::minor_version const _minor
+)
 {
-namespace opengl
-{
-namespace glx
-{
-
-void
-make_current(
-	Display *,
-	Window,
-	GLXContext
-);
-
+	return
+		std::make_tuple(
+			_version.major(),
+			_version.minor()
+		)
+		>=
+		std::make_tuple(
+			_major,
+			_minor
+		);
 }
-}
-}
-
-#endif

@@ -6,7 +6,11 @@ set(
 	src/plugins/opengl/include/sge/opengl/backend/context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/backend/context_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/backend/create_system.hpp
+	src/plugins/opengl/include/sge/opengl/backend/current.hpp
+	src/plugins/opengl/include/sge/opengl/backend/current_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/backend/current_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/backend/dummy.hpp
+	src/plugins/opengl/include/sge/opengl/backend/fun_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/backend/scoped_current.hpp
 	src/plugins/opengl/include/sge/opengl/backend/scoped_current_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/backend/system.hpp
@@ -100,6 +104,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/enable_client_state.hpp
 	src/plugins/opengl/include/sge/opengl/error_string.hpp
 	src/plugins/opengl/include/sge/opengl/extension_set.hpp
+	src/plugins/opengl/include/sge/opengl/extension_supported.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/attach_render_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/attach_texture_2d.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/attachment.hpp
@@ -149,6 +154,20 @@ set(
 	src/plugins/opengl/include/sge/opengl/get_ints.hpp
 	src/plugins/opengl/include/sge/opengl/get_string.hpp
 	src/plugins/opengl/include/sge/opengl/index_buffer.hpp
+	src/plugins/opengl/include/sge/opengl/info/cast_function.hpp
+	src/plugins/opengl/include/sge/opengl/info/context.hpp
+	src/plugins/opengl/include/sge/opengl/info/context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/info/extension.hpp
+	src/plugins/opengl/include/sge/opengl/info/extension_set.hpp
+	src/plugins/opengl/include/sge/opengl/info/extension_supported.hpp
+	src/plugins/opengl/include/sge/opengl/info/get_extensions.hpp
+	src/plugins/opengl/include/sge/opengl/info/get_version.hpp
+	src/plugins/opengl/include/sge/opengl/info/major_version.hpp
+	src/plugins/opengl/include/sge/opengl/info/minor_version.hpp
+	src/plugins/opengl/include/sge/opengl/info/version.hpp
+	src/plugins/opengl/include/sge/opengl/info/version_at_least.hpp
+	src/plugins/opengl/include/sge/opengl/info/version_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/info/version_type.hpp
 	src/plugins/opengl/include/sge/opengl/init_multi_sampling.hpp
 	src/plugins/opengl/include/sge/opengl/init_srgb.hpp
 	src/plugins/opengl/include/sge/opengl/internal_color_format.hpp
@@ -621,6 +640,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/viewport.hpp
 	src/plugins/opengl/src/backend/context.cpp
 	src/plugins/opengl/src/backend/create_system.cpp
+	src/plugins/opengl/src/backend/current.cpp
 	src/plugins/opengl/src/backend/dummy.cpp
 	src/plugins/opengl/src/backend/scoped_current.cpp
 	src/plugins/opengl/src/backend/system.cpp
@@ -706,6 +726,12 @@ set(
 	src/plugins/opengl/src/get_ints.cpp
 	src/plugins/opengl/src/get_string.cpp
 	src/plugins/opengl/src/index_buffer.cpp
+	src/plugins/opengl/src/info/context.cpp
+	src/plugins/opengl/src/info/extension_supported.cpp
+	src/plugins/opengl/src/info/get_extensions.cpp
+	src/plugins/opengl/src/info/get_version.cpp
+	src/plugins/opengl/src/info/version.cpp
+	src/plugins/opengl/src/info/version_at_least.cpp
 	src/plugins/opengl/src/init_multi_sampling.cpp
 	src/plugins/opengl/src/init_srgb.cpp
 	src/plugins/opengl/src/logger.cpp
@@ -1075,12 +1101,15 @@ set(
 	SGE_OPENGL_GLX_FILES
 	src/plugins/opengl/include/sge/opengl/glx/context.hpp
 	src/plugins/opengl/include/sge/opengl/glx/context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/glx/current.hpp
 	src/plugins/opengl/include/sge/opengl/glx/current_drawable.hpp
 	src/plugins/opengl/include/sge/opengl/glx/extension.hpp
 	src/plugins/opengl/include/sge/opengl/glx/extension_set.hpp
 	src/plugins/opengl/include/sge/opengl/glx/extension_supported.hpp
 	src/plugins/opengl/include/sge/opengl/glx/get_extensions.hpp
 	src/plugins/opengl/include/sge/opengl/glx/make_current.hpp
+	src/plugins/opengl/include/sge/opengl/glx/optional_proc_address_function.hpp
+	src/plugins/opengl/include/sge/opengl/glx/optional_proc_address_function_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/optional_raw_function.hpp
 	src/plugins/opengl/include/sge/opengl/glx/optional_raw_function_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/proc_address.hpp
@@ -1105,7 +1134,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/glx/visual/srgb_flag_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/vsync.hpp
 	src/plugins/opengl/src/glx/context.cpp
+	src/plugins/opengl/src/glx/current.cpp
 	src/plugins/opengl/src/glx/current_drawable.cpp
+	src/plugins/opengl/src/glx/extension_supported.cpp
 	src/plugins/opengl/src/glx/get_extensions.cpp
 	src/plugins/opengl/src/glx/make_current.cpp
 	src/plugins/opengl/src/glx/proc_address.cpp

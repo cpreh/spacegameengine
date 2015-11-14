@@ -18,60 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_INFO_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_INFO_CONTEXT_HPP_INCLUDED
-
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/get_string.hpp>
+#include <sge/opengl/parse_extensions.hpp>
 #include <sge/opengl/backend/current_fwd.hpp>
-#include <sge/opengl/backend/fun_ptr.hpp>
-#include <sge/opengl/info/context_fwd.hpp>
+#include <sge/opengl/info/extension.hpp>
 #include <sge/opengl/info/extension_set.hpp>
-#include <sge/opengl/info/version.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <string>
-#include <fcppt/config/external_end.hpp>
+#include <sge/opengl/info/get_extensions.hpp>
 
 
-namespace sge
+sge::opengl::info::extension_set
+sge::opengl::info::get_extensions(
+	sge::opengl::backend::current const &
+)
 {
-namespace opengl
-{
-namespace info
-{
-
-class context
-{
-	FCPPT_NONCOPYABLE(
-		context
-	);
-public:
-	explicit
-	context(
-		sge::opengl::backend::current const &
-	);
-
-	~context();
-
-	sge::opengl::info::version
-	version() const;
-
-	sge::opengl::info::extension_set const &
-	extensions() const;
-
-	sge::opengl::backend::fun_ptr
-	load_function(
-		std::string const &
-	) const;
-private:
-	sge::opengl::backend::current const &current_;
-
-	sge::opengl::info::version const version_;
-
-	sge::opengl::info::extension_set const extensions_;
-};
-
+	return
+		sge::opengl::parse_extensions<
+			sge::opengl::info::extension
+		>(
+			sge::opengl::get_string(
+				GL_EXTENSIONS
+			)
+		);
 }
-}
-}
-
-#endif

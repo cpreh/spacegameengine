@@ -18,60 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_INFO_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_INFO_CONTEXT_HPP_INCLUDED
-
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/get_string.hpp>
 #include <sge/opengl/backend/current_fwd.hpp>
-#include <sge/opengl/backend/fun_ptr.hpp>
-#include <sge/opengl/info/context_fwd.hpp>
-#include <sge/opengl/info/extension_set.hpp>
+#include <sge/opengl/info/get_version.hpp>
+#include <sge/opengl/info/major_version.hpp>
+#include <sge/opengl/info/minor_version.hpp>
 #include <sge/opengl/info/version.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/opengl/info/version_type.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/io/expect.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <string>
+#include <sstream>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::opengl::info::version
+sge::opengl::info::get_version(
+	sge::opengl::backend::current const &
+)
 {
-namespace opengl
-{
-namespace info
-{
-
-class context
-{
-	FCPPT_NONCOPYABLE(
-		context
-	);
-public:
-	explicit
-	context(
-		sge::opengl::backend::current const &
+	std::istringstream input(
+		sge::opengl::get_string(
+			GL_VERSION
+		)
 	);
 
-	~context();
+	sge::opengl::info::version_type major;
 
-	sge::opengl::info::version
-	version() const;
+	sge::opengl::info::version_type minor;
 
-	sge::opengl::info::extension_set const &
-	extensions() const;
+	input >> major;
 
-	sge::opengl::backend::fun_ptr
-	load_function(
-		std::string const &
-	) const;
-private:
-	sge::opengl::backend::current const &current_;
+	fcppt::io::expect(
+		input,
+		'.'
+	);
 
-	sge::opengl::info::version const version_;
+	input >> minor;
 
-	sge::opengl::info::extension_set const extensions_;
-};
+	if(
+		!input
+	)
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("Getting GL_VERSION failed")
+			};
 
+	return
+		sge::opengl::info::version{
+			sge::opengl::info::major_version{
+				major
+			},
+			sge::opengl::info::minor_version{
+				minor
+			}
+		};
 }
-}
-}
-
-#endif

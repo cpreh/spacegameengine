@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLX_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/backend/context.hpp>
+#include <sge/opengl/backend/current_unique_ptr.hpp>
 #include <sge/opengl/glx/context_fwd.hpp>
+#include <sge/opengl/glx/optional_proc_address_function.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -45,31 +47,27 @@ class context
 		context
 	);
 public:
-	explicit
 	context(
-		awl::backends::x11::window::object &
+		awl::backends::x11::window::object &,
+		sge::opengl::glx::optional_proc_address_function
 	);
 
 	~context()
 	override;
 private:
-	void
+	sge::opengl::backend::current_unique_ptr
 	activate()
 	override;
 
 	void
-	deactivate()
-	override;
-
-	void
-	begin_rendering()
-	override;
-
-	void
-	end_rendering()
+	deactivate(
+		sge::opengl::backend::current_unique_ptr &&
+	)
 	override;
 
 	awl::backends::x11::window::object &window_;
+
+	sge::opengl::glx::optional_proc_address_function const proc_address_;
 
 	GLXContext const context_;
 };

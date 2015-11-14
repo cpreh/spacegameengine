@@ -4,8 +4,8 @@ Copyright (C) 2006-2015 Carl Philipp Reh (carlphilippreh <at> gmail.com)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+as published by the Free Software Foundation; either extension_supported 2
+of the License, or (at your option) any later extension_supported.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -18,31 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_MAKE_CURRENT_HPP_INCLUDED
-#define SGE_OPENGL_GLX_MAKE_CURRENT_HPP_INCLUDED
-
-#include <fcppt/config/external_begin.hpp>
-#include <GL/glx.h>
-#include <X11/Xlib.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/opengl/extension_supported.hpp>
+#include <sge/opengl/info/extension.hpp>
+#include <sge/opengl/info/extension_set.hpp>
+#include <sge/opengl/info/extension_supported.hpp>
 
 
-namespace sge
+bool
+sge::opengl::info::extension_supported(
+	sge::opengl::info::extension_set const &_extensions,
+	sge::opengl::info::extension const &_extension
+)
 {
-namespace opengl
-{
-namespace glx
-{
-
-void
-make_current(
-	Display *,
-	Window,
-	GLXContext
-);
-
+	return
+		sge::opengl::extension_supported(
+			_extensions,
+			_extension
+		);
 }
-}
-}
-
-#endif

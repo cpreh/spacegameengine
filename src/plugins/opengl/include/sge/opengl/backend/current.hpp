@@ -4,8 +4,8 @@ Copyright (C) 2006-2015 Carl Philipp Reh (carlphilippreh <at> gmail.com)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
-as published by the Free Software Foundation; either context 2
-of the License, or (at your option) any later context.
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -18,14 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_INFO_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_INFO_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_BACKEND_CURRENT_HPP_INCLUDED
+#define SGE_OPENGL_BACKEND_CURRENT_HPP_INCLUDED
 
 #include <sge/opengl/backend/current_fwd.hpp>
 #include <sge/opengl/backend/fun_ptr.hpp>
-#include <sge/opengl/info/context_fwd.hpp>
-#include <sge/opengl/info/extension_set.hpp>
-#include <sge/opengl/info/version.hpp>
+#include <sge/renderer/display_mode/vsync_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
@@ -36,38 +34,39 @@ namespace sge
 {
 namespace opengl
 {
-namespace info
+namespace backend
 {
 
-class context
+class current
 {
 	FCPPT_NONCOPYABLE(
-		context
+		current
 	);
+protected:
+	current();
 public:
-	explicit
-	context(
-		sge::opengl::backend::current const &
-	);
+	virtual
+	~current() = 0;
 
-	~context();
-
-	sge::opengl::info::version
-	version() const;
-
-	sge::opengl::info::extension_set const &
-	extensions() const;
-
+	virtual
 	sge::opengl::backend::fun_ptr
 	load_function(
 		std::string const &
-	) const;
-private:
-	sge::opengl::backend::current const &current_;
+	) const = 0;
 
-	sge::opengl::info::version const version_;
+	virtual
+	void
+	begin_rendering() = 0;
 
-	sge::opengl::info::extension_set const extensions_;
+	virtual
+	void
+	end_rendering() = 0;
+
+	virtual
+	void
+	vsync(
+		sge::renderer::display_mode::vsync
+	) = 0;
 };
 
 }

@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/backend/context.hpp>
+#include <sge/opengl/backend/current_fwd.hpp>
 #include <sge/opengl/backend/dummy.hpp>
 #include <sge/opengl/backend/system.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
@@ -72,4 +73,11 @@ sge::opengl::backend::dummy::dummy(
 
 sge::opengl::backend::dummy::~dummy()
 {
+}
+
+sge::opengl::backend::current const &
+sge::opengl::backend::dummy::current() const
+{
+	return
+		scoped_current_.get();
 }

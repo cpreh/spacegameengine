@@ -72,16 +72,17 @@ sge::opengl::get_device_caps(
 	sge::opengl::backend::system &_device_system
 )
 {
-	// FIXME!
-	sge::opengl::info::context const info{};
-
-	sge::opengl::context::object context(
-		info
-	);
-
 	sge::opengl::backend::dummy dummy_state(
 		_awl_system,
 		_device_system
+	);
+
+	sge::opengl::info::context const info(
+		dummy_state.current()
+	);
+
+	sge::opengl::context::object context(
+		info
 	);
 
 	sge::opengl::state::core::sampler::filter::optional_anisotropy_config const &anisotropy_config(

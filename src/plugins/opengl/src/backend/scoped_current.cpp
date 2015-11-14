@@ -18,8 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/context.hpp>
 #include <sge/opengl/backend/scoped_current.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::backend::scoped_current::scoped_current(
@@ -28,12 +32,25 @@ sge::opengl::backend::scoped_current::scoped_current(
 :
 	context_(
 		_context
+	),
+	current_(
+		context_.activate()
 	)
 {
-	context_.activate();
 }
 
 sge::opengl::backend::scoped_current::~scoped_current()
 {
-	context_.deactivate();
+	context_.deactivate(
+		std::move(
+			current_
+		)
+	);
+}
+
+sge::opengl::backend::current &
+sge::opengl::backend::scoped_current::get() const
+{
+	return
+		*current_;
 }

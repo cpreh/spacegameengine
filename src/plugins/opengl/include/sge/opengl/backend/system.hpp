@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BACKEND_SYSTEM_HPP_INCLUDED
 
 #include <sge/opengl/backend/context_unique_ptr.hpp>
-#include <sge/opengl/backend/scoped_current_fwd.hpp>
 #include <sge/opengl/backend/system_fwd.hpp>
-#include <sge/renderer/display_mode/vsync_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
@@ -59,14 +57,6 @@ public:
 	sge::opengl::backend::context_unique_ptr
 	create_context(
 		awl::window::object &
-	) = 0;
-
-	virtual
-	void
-	vsync(
-		sge::opengl::backend::scoped_current const &,
-		awl::window::object &,
-		sge::renderer::display_mode::vsync
 	) = 0;
 };
 

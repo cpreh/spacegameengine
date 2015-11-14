@@ -244,6 +244,7 @@ update_cmake \
 	$(opengl_inc_src context) \
 	$(opengl_inc_src convert) \
 	$(opengl_inc_src fbo) \
+	$(opengl_inc_src info) \
 	$(opengl_inc_src occlusion_query) \
 	$(opengl_inc_src platform) \
 	$(opengl_inc_src render_context) \

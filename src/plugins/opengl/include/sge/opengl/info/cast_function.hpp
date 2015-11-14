@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_INFO_CAST_FUNCTION_HPP_INCLUDED
 #define SGE_OPENGL_INFO_CAST_FUNCTION_HPP_INCLUDED
 
-#include <sge/opengl/info/fun_ptr.hpp>
+#include <sge/opengl/backend/fun_ptr.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ template<
 >
 Ret
 cast_function(
-	sge::opengl::info::fun_ptr const _function
+	sge::opengl::backend::fun_ptr const _function
 )
 {
 	return

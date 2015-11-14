@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_INFO_FUN_PTR_HPP_INCLUDED
-#define SGE_OPENGL_INFO_FUN_PTR_HPP_INCLUDED
+#ifndef SGE_OPENGL_BACKEND_FUN_PTR_HPP_INCLUDED
+#define SGE_OPENGL_BACKEND_FUN_PTR_HPP_INCLUDED
 
 #include <sge/opengl/apientry.hpp>
 
@@ -28,7 +28,7 @@ namespace sge
 {
 namespace opengl
 {
-namespace info
+namespace backend
 {
 
 using

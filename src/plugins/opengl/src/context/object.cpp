@@ -91,3 +91,10 @@ sge::opengl::context::object::insert(
 	return
 		*ret;
 }
+
+sge::opengl::info::context const &
+sge::opengl::context::object::info() const
+{
+	return
+		info_;
+}

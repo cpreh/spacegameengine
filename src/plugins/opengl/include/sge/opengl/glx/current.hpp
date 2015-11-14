@@ -18,19 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_SYSTEM_HPP_INCLUDED
-#define SGE_OPENGL_GLX_SYSTEM_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_CURRENT_HPP_INCLUDED
+#define SGE_OPENGL_GLX_CURRENT_HPP_INCLUDED
 
-#include <sge/opengl/backend/context_unique_ptr.hpp>
-#include <sge/opengl/backend/system.hpp>
-#include <sge/opengl/glx/extension_set.hpp>
+#include <sge/opengl/backend/current.hpp>
+#include <sge/opengl/backend/fun_ptr.hpp>
 #include <sge/opengl/glx/optional_proc_address_function.hpp>
-#include <sge/opengl/glx/visual/optional_srgb_flag.hpp>
-#include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/backends/x11/system/object_fwd.hpp>
-#include <awl/visual/object_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <sge/opengl/glx/swap_functions.hpp>
+#include <sge/renderer/display_mode/vsync_fwd.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -40,41 +41,53 @@ namespace opengl
 namespace glx
 {
 
-class system
+class current
 :
-	public sge::opengl::backend::system
+	public sge::opengl::backend::current
 {
 	FCPPT_NONCOPYABLE(
-		system
+		current
 	);
 public:
-	explicit
-	system(
-		awl::backends::x11::system::object &
+	current(
+		awl::backends::x11::window::object &,
+		sge::opengl::glx::optional_proc_address_function const &
 	);
 
-	~system()
+	~current()
 	override;
 private:
-	awl::visual::object_unique_ptr
-	create_visual(
-		sge::renderer::pixel_format::object const &
+	sge::opengl::backend::fun_ptr
+	load_function(
+		std::string const &
+	) const
+	override;
+
+	void
+	begin_rendering()
+	override;
+
+	void
+	end_rendering()
+	override;
+
+	void
+	vsync(
+		sge::renderer::display_mode::vsync
 	)
 	override;
 
-	sge::opengl::backend::context_unique_ptr
-	create_context(
-		awl::window::object &
-	)
-	override;
+	awl::backends::x11::window::object &window_;
 
-	awl::backends::x11::system::object &awl_system_;
+	sge::opengl::glx::optional_proc_address_function const proc_address_;
 
-	sge::opengl::glx::optional_proc_address_function const get_proc_address_;
+	typedef
+	fcppt::optional<
+		sge::opengl::glx::swap_functions
+	>
+	optional_swap_functions;
 
-	sge::opengl::glx::extension_set const extensions_;
-
-	sge::opengl::glx::visual::optional_srgb_flag const srgb_flag_;
+	optional_swap_functions const swap_functions_;
 };
 
 }

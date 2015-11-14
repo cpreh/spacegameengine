@@ -342,12 +342,6 @@ private:
 	sge::opengl::texture::basic_parameters
 	texture_parameters();
 
-	sge::opengl::info::context const info_;
-
-	sge::opengl::context::object context_;
-
-	sge::renderer::caps::device const &caps_;
-
 	typedef
 	fcppt::unique_ptr<
 		sge::opengl::platform::device_state
@@ -359,6 +353,12 @@ private:
 	sge::opengl::backend::context_unique_ptr const backend_context_;
 
 	sge::opengl::backend::scoped_current const scoped_current_;
+
+	sge::opengl::info::context const info_;
+
+	sge::opengl::context::object context_;
+
+	sge::renderer::caps::device const &caps_;
 
 	sge::renderer::target::onscreen_unique_ptr const onscreen_target_;
 };

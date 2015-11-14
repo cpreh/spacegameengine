@@ -18,13 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/backend/context.hpp>
+#include <sge/opengl/backend/current.hpp>
+#include <sge/opengl/backend/current_unique_ptr.hpp>
 #include <sge/opengl/glx/context.hpp>
+#include <sge/opengl/glx/current.hpp>
 #include <sge/opengl/glx/make_current.hpp>
+#include <sge/opengl/glx/optional_proc_address_function.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/visual/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <X11/X.h>
@@ -33,11 +40,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::glx::context::context(
-	awl::backends::x11::window::object &_window
+	awl::backends::x11::window::object &_window,
+	sge::opengl::glx::optional_proc_address_function const _proc_address
 )
 :
+	sge::opengl::backend::context(),
 	window_(
 		_window
+	),
+	proc_address_(
+		_proc_address
 	),
 	context_(
 		::glXCreateContext(
@@ -70,7 +82,7 @@ sge::opengl::glx::context::~context()
 	);
 }
 
-void
+sge::opengl::backend::current_unique_ptr
 sge::opengl::glx::context::activate()
 {
 	sge::opengl::glx::make_current(
@@ -78,31 +90,28 @@ sge::opengl::glx::context::activate()
 		window_.get(),
 		context_
 	);
+
+	return
+		fcppt::unique_ptr_to_base<
+			sge::opengl::backend::current
+		>(
+			fcppt::make_unique_ptr<
+				sge::opengl::glx::current
+			>(
+				window_,
+				proc_address_
+			)
+		);
 }
 
 void
-sge::opengl::glx::context::deactivate()
+sge::opengl::glx::context::deactivate(
+	sge::opengl::backend::current_unique_ptr &&
+)
 {
 	sge::opengl::glx::make_current(
 		window_.display().get(),
 		None,
 		nullptr
 	);
-}
-
-void
-sge::opengl::glx::context::begin_rendering()
-{
-}
-
-void
-sge::opengl::glx::context::end_rendering()
-{
-	if(
-		!window_.destroyed()
-	)
-		::glXSwapBuffers(
-			window_.display().get(),
-			window_.get()
-		);
 }

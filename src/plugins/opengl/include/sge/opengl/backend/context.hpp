@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BACKEND_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/backend/context_fwd.hpp>
+#include <sge/opengl/backend/current_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -44,20 +45,14 @@ public:
 	~context() = 0;
 
 	virtual
-	void
+	sge::opengl::backend::current_unique_ptr
 	activate() = 0;
 
 	virtual
 	void
-	deactivate() = 0;
-
-	virtual
-	void
-	begin_rendering() = 0;
-
-	virtual
-	void
-	end_rendering() = 0;
+	deactivate(
+		sge::opengl::backend::current_unique_ptr &&
+	) = 0;
 };
 
 }

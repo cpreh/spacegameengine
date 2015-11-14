@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/create_onscreen_target.hpp>
 #include <sge/opengl/onscreen_target.hpp>
-#include <sge/opengl/backend/context_fwd.hpp>
+#include <sge/opengl/backend/current_fwd.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/onscreen_unique_ptr.hpp>
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::target::onscreen_unique_ptr
 sge::opengl::create_onscreen_target(
 	sge::opengl::context::object &_context,
-	sge::opengl::backend::context &_backend_context,
+	sge::opengl::backend::current &_current,
 	awl::window::object &_window
 )
 {
@@ -44,7 +44,7 @@ sge::opengl::create_onscreen_target(
 				sge::opengl::onscreen_target
 			>(
 				_context,
-				_backend_context,
+				_current,
 				_window
 			)
 		);

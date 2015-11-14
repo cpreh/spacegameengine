@@ -22,8 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_PARSE_EXTENSIONS_HPP_INCLUDED
 
 #include <sge/opengl/extension_set.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/range/iterator_range_core.hpp>
+#include <iterator>
+#include <sstream>
 #include <string>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,11 +47,40 @@ parse_extensions(
 	std::string const &_extensions
 )
 {
-	// FIXME
+	std::istringstream stream(
+		_extensions
+	);
+
+	typedef
+	std::istream_iterator<
+		std::string
+	>
+	iterator;
+
 	return
-		sge::opengl::extension_set<
-			Type
-		>();
+		fcppt::algorithm::map<
+			sge::opengl::extension_set<
+				Type
+			>
+		>(
+			boost::make_iterator_range(
+				iterator(
+					stream
+				),
+				iterator()
+			),
+			[](
+				std::string const &_element
+			)
+			{
+				return
+					Type(
+						std::move(
+							_element
+						)
+					);
+			}
+		);
 }
 
 }

@@ -18,28 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_MAKE_CURRENT_HPP_INCLUDED
-#define SGE_OPENGL_GLX_MAKE_CURRENT_HPP_INCLUDED
-
-#include <fcppt/config/external_begin.hpp>
-#include <GL/glx.h>
-#include <X11/Xlib.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_OPENGL_BACKEND_CURRENT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_BACKEND_CURRENT_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace glx
+namespace backend
 {
 
-void
-make_current(
-	Display *,
-	Window,
-	GLXContext
-);
+class current;
 
 }
 }

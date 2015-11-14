@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BACKEND_SCOPED_CURRENT_HPP_INCLUDED
 
 #include <sge/opengl/backend/context_fwd.hpp>
+#include <sge/opengl/backend/current_fwd.hpp>
+#include <sge/opengl/backend/current_unique_ptr.hpp>
 #include <sge/opengl/backend/scoped_current_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -45,8 +47,13 @@ public:
 	);
 
 	~scoped_current();
+
+	sge::opengl::backend::current &
+	get() const;
 private:
 	sge::opengl::backend::context &context_;
+
+	sge::opengl::backend::current_unique_ptr current_;
 };
 
 }

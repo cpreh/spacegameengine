@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/device.hpp>
 #include <sge/opengl/init_multi_sampling.hpp>
 #include <sge/opengl/init_srgb.hpp>
+#include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/context.hpp>
 #include <sge/opengl/backend/system.hpp>
 #include <sge/opengl/fbo/create_depth_stencil_surface.hpp>
@@ -168,13 +169,6 @@ sge::opengl::device::device(
 	sge::renderer::caps::device const &_caps
 )
 :
-	info_(),
-	context_(
-		info_
-	),
-	caps_(
-		_caps
-	),
 	device_state_(
 		_platform_system.create_device_state(
 			_display_mode.display_mode(),
@@ -190,17 +184,24 @@ sge::opengl::device::device(
 	scoped_current_(
 		*backend_context_
 	),
+	info_(
+		scoped_current_.get()
+	),
+	context_(
+		info_
+	),
+	caps_(
+		_caps
+	),
 	onscreen_target_(
 		sge::opengl::create_onscreen_target(
 			context_,
-			*backend_context_,
+			scoped_current_.get(),
 			_window
 		)
 	)
 {
-	_backend_system.vsync(
-		scoped_current_,
-		_window,
+	scoped_current_.get().vsync(
 		_display_mode.vsync()
 	);
 
@@ -504,7 +505,7 @@ sge::opengl::device::begin_rendering_ffp(
 	sge::renderer::target::base &_target
 )
 {
-	backend_context_->begin_rendering();
+	scoped_current_.get().begin_rendering();
 
 	return
 		sge::opengl::render_context::create(
