@@ -18,65 +18,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_EGL_CONTEXT_HPP_INCLUDED
-
-#include <sge/opengl/backend/context.hpp>
-#include <sge/opengl/backend/current_unique_ptr.hpp>
-#include <sge/opengl/egl/context_impl.hpp>
+#include <sge/opengl/backend/current.hpp>
+#include <sge/opengl/backend/fun_ptr.hpp>
+#include <sge/opengl/egl/current.hpp>
+#include <sge/opengl/egl/swap_buffers.hpp>
 #include <sge/opengl/egl/window_surface.hpp>
-#include <awl/visual/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
-{
-
-class context
+sge::opengl::egl::current::current(
+	EGLDisplay const _display,
+	sge::opengl::egl::window_surface const &_surface
+)
 :
-	public sge::opengl::backend::context
-{
-	FCPPT_NONCOPYABLE(
-		context
-	);
-public:
-	context(
-		EGLDisplay,
-		EGLNativeWindowType,
-		awl::visual::object const &
-	);
-
-	~context()
-	override;
-private:
-	sge::opengl::backend::current_unique_ptr
-	activate()
-	override;
-
-	void
-	deactivate(
-		sge::opengl::backend::current_unique_ptr &&
+	sge::opengl::backend::current(),
+	display_(
+		_display
+	),
+	surface_(
+		_surface
 	)
-	override;
-
-	EGLDisplay const display_;
-
-	EGLConfig const config_;
-
-	sge::opengl::egl::window_surface const surface_;
-
-	sge::opengl::egl::context_impl context_;
-};
-
-}
-}
+{
 }
 
-#endif
+sge::opengl::egl::current::~current()
+{
+}
+
+sge::opengl::backend::fun_ptr
+sge::opengl::egl::current::load_function(
+	std::string const &_name
+) const
+{
+	return
+		::eglGetProcAddress(
+			_name.c_str()
+		);
+}
+
+void
+sge::opengl::egl::current::begin_rendering()
+{
+}
+
+void
+sge::opengl::egl::current::end_rendering()
+{
+	sge::opengl::egl::swap_buffers(
+		display_,
+		surface_.get()
+	);
+}
+
+void
+sge::opengl::egl::current::vsync(
+	sge::renderer::display_mode::vsync const _vsync
+)
+{
+}

@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_EGL_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_EGL_CURRENT_HPP_INCLUDED
+#define SGE_OPENGL_EGL_CURRENT_HPP_INCLUDED
 
-#include <sge/opengl/backend/context.hpp>
-#include <sge/opengl/backend/current_unique_ptr.hpp>
-#include <sge/opengl/egl/context_impl.hpp>
-#include <sge/opengl/egl/window_surface.hpp>
-#include <awl/visual/object_fwd.hpp>
+#include <sge/opengl/backend/current.hpp>
+#include <sge/opengl/backend/fun_ptr.hpp>
+#include <sge/opengl/egl/window_surface_fwd.hpp>
+#include <sge/renderer/display_mode/vsync_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -39,40 +39,45 @@ namespace opengl
 namespace egl
 {
 
-class context
+class current
 :
-	public sge::opengl::backend::context
+	public sge::opengl::backend::current
 {
 	FCPPT_NONCOPYABLE(
-		context
+		current
 	);
 public:
-	context(
+	current(
 		EGLDisplay,
-		EGLNativeWindowType,
-		awl::visual::object const &
+		sge::opengl::egl::window_surface const &
 	);
 
-	~context()
+	~current()
 	override;
 private:
-	sge::opengl::backend::current_unique_ptr
-	activate()
+	sge::opengl::backend::fun_ptr
+	load_function(
+		std::string const &
+	) const
 	override;
 
 	void
-	deactivate(
-		sge::opengl::backend::current_unique_ptr &&
+	begin_rendering()
+	override;
+
+	void
+	end_rendering()
+	override;
+
+	void
+	vsync(
+		sge::renderer::display_mode::vsync
 	)
 	override;
 
 	EGLDisplay const display_;
 
-	EGLConfig const config_;
-
-	sge::opengl::egl::window_surface const surface_;
-
-	sge::opengl::egl::context_impl context_;
+	sge::opengl::egl::window_surface const &surface_;
 };
 
 }

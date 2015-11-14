@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/logger.hpp>
 #include <sge/opengl/backend/context.hpp>
 #include <sge/opengl/backend/context_unique_ptr.hpp>
-#include <sge/opengl/backend/scoped_current_fwd.hpp>
 #include <sge/opengl/backend/system.hpp>
 #include <sge/opengl/egl/bind_api.hpp>
 #include <sge/opengl/egl/context.hpp>
@@ -32,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/egl/system.hpp>
 #include <sge/opengl/egl/version_output.hpp>
 #include <sge/opengl/egl/visual/create.hpp>
-#include <sge/renderer/display_mode/vsync.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
@@ -116,14 +114,4 @@ sge::opengl::egl::system::create_context(
 				_window.visual()
 			)
 		);
-}
-
-void
-sge::opengl::egl::system::vsync(
-	sge::opengl::backend::scoped_current const &,
-	awl::window::object &,
-	sge::renderer::display_mode::vsync const _vsync
-)
-{
-	// TODO
 }

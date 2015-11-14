@@ -18,11 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/backend/context.hpp>
+#include <sge/opengl/backend/current.hpp>
+#include <sge/opengl/backend/current_unique_ptr.hpp>
 #include <sge/opengl/egl/context.hpp>
+#include <sge/opengl/egl/current.hpp>
 #include <sge/opengl/egl/get_display.hpp>
-#include <sge/opengl/egl/swap_buffers.hpp>
 #include <sge/opengl/egl/visual/to_config.hpp>
 #include <awl/visual/object_fwd.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -34,6 +39,7 @@ sge::opengl::egl::context::context(
 	awl::visual::object const &_visual
 )
 :
+	sge::opengl::backend::context(),
 	display_(
 		_display
 	),
@@ -59,30 +65,30 @@ sge::opengl::egl::context::~context()
 {
 }
 
-void
+sge::opengl::backend::current_unique_ptr
 sge::opengl::egl::context::activate()
 {
 	context_.activate(
 		surface_.get()
 	);
+
+	return
+		fcppt::unique_ptr_to_base<
+			sge::opengl::backend::current
+		>(
+			fcppt::make_unique_ptr<
+				sge::opengl::egl::current
+			>(
+				display_,
+				surface_
+			)
+		);
 }
 
 void
-sge::opengl::egl::context::deactivate()
+sge::opengl::egl::context::deactivate(
+	sge::opengl::backend::current_unique_ptr &&
+)
 {
 	context_.deactivate();
-}
-
-void
-sge::opengl::egl::context::begin_rendering()
-{
-}
-
-void
-sge::opengl::egl::context::end_rendering()
-{
-	sge::opengl::egl::swap_buffers(
-		display_,
-		surface_.get()
-	);
 }

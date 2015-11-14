@@ -18,14 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_WINDOW_SURFACE_HPP_INCLUDED
-#define SGE_OPENGL_EGL_WINDOW_SURFACE_HPP_INCLUDED
-
-#include <sge/opengl/egl/window_surface_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <EGL/egl.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_OPENGL_EGL_WINDOW_SURFACE_FWD_HPP_INCLUDED
+#define SGE_OPENGL_EGL_WINDOW_SURFACE_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -35,27 +29,7 @@ namespace opengl
 namespace egl
 {
 
-class window_surface
-{
-	FCPPT_NONCOPYABLE(
-		window_surface
-	);
-public:
-	window_surface(
-		EGLDisplay,
-		EGLConfig,
-		EGLNativeWindowType
-	);
-
-	~window_surface();
-
-	EGLSurface
-	get() const;
-private:
-	EGLDisplay const display_;
-
-	EGLSurface const surface_;
-};
+class window_surface;
 
 }
 }

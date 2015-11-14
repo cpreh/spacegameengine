@@ -1271,6 +1271,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/egl/context.hpp
 	src/plugins/opengl/include/sge/opengl/egl/context_impl.hpp
 	src/plugins/opengl/include/sge/opengl/egl/create_native_display.hpp
+	src/plugins/opengl/include/sge/opengl/egl/current.hpp
 	src/plugins/opengl/include/sge/opengl/egl/get_config_attrib.hpp
 	src/plugins/opengl/include/sge/opengl/egl/get_display.hpp
 	src/plugins/opengl/include/sge/opengl/egl/init.hpp
@@ -1298,10 +1299,12 @@ set(
 	src/plugins/opengl/include/sge/opengl/egl/visual/make_attributes.hpp
 	src/plugins/opengl/include/sge/opengl/egl/visual/to_config.hpp
 	src/plugins/opengl/include/sge/opengl/egl/window_surface.hpp
+	src/plugins/opengl/include/sge/opengl/egl/window_surface_fwd.hpp
 	src/plugins/opengl/src/egl/bind_api.cpp
 	src/plugins/opengl/src/egl/context.cpp
 	src/plugins/opengl/src/egl/context_impl.cpp
 	src/plugins/opengl/src/egl/create_native_display.cpp
+	src/plugins/opengl/src/egl/current.cpp
 	src/plugins/opengl/src/egl/get_config_attrib.cpp
 	src/plugins/opengl/src/egl/get_display.cpp
 	src/plugins/opengl/src/egl/init.cpp
