@@ -57,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/maybe.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
@@ -124,19 +125,25 @@ sge::opengl::get_device_caps(
 	return
 		sge::renderer::caps::device(
 			sge::renderer::caps::driver_name(
-				sge::opengl::get_string(
-					GL_VENDOR
+				fcppt::from_std_string(
+					sge::opengl::get_string(
+						GL_VENDOR
+					)
 				)
 			),
 			sge::renderer::caps::description(
-				sge::opengl::get_string(
-					GL_RENDERER
+				fcppt::from_std_string(
+					sge::opengl::get_string(
+						GL_RENDERER
+					)
 				)
 				+
 				FCPPT_TEXT(' ')
 				+
-				sge::opengl::get_string(
-					GL_VERSION
+				fcppt::from_std_string(
+					sge::opengl::get_string(
+						GL_VERSION
+					)
 				)
 			),
 			sge::renderer::caps::normalized_cvv(
