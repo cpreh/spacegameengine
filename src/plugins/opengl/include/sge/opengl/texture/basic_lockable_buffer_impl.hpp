@@ -79,11 +79,8 @@ sge::opengl::texture::basic_lockable_buffer<
 		_format,
 		_parameters
 	),
-	system_context_(
-		_parameters.system_context()
-	),
-	device_context_(
-		_parameters.device_context()
+	context_(
+		_parameters.context()
 	),
 	type_(
 		_parameters.type()
@@ -225,14 +222,13 @@ sge::opengl::texture::basic_lockable_buffer<
 		cur_lock->unlock();
 
 		sge::opengl::texture::scoped_work_binding const binding(
-			system_context_,
-			device_context_,
+			context_,
 			type_,
 			this->id()
 		);
 
 		sge::opengl::set_unpack_alignment(
-			device_context_,
+			context_,
 			sge::opengl::stride_to_unpack_alignment(
 				stride_
 			)
@@ -240,7 +236,7 @@ sge::opengl::texture::basic_lockable_buffer<
 
 		Types::dim_types::sub_function()(
 			binding,
-			system_context_,
+			context_,
 			this->buffer_type(),
 			color_format_,
 			color_format_type_,
@@ -300,7 +296,7 @@ sge::opengl::texture::basic_lockable_buffer<
 		fcppt::optional_assign(
 			lock_,
 			sge::opengl::texture::create_lock(
-				system_context_,
+				context_,
 				_method,
 				fcppt::math::dim::contents(
 					this->size()
@@ -321,8 +317,7 @@ sge::opengl::texture::basic_lockable_buffer<
 	)
 	{
 		sge::opengl::texture::scoped_work_binding const binding(
-			system_context_,
-			device_context_,
+			context_,
 			type_,
 			this->id()
 		);

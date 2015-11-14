@@ -34,11 +34,15 @@ sge::opengl::glx::current_drawable()
 	);
 
 	if(
-		ret == None
+		ret
+		==
+		None
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("glXGetCurrentDrawable(): No drawable set!")
-		);
+		throw
+			sge::renderer::exception(
+				FCPPT_TEXT("glXGetCurrentDrawable(): No drawable set!")
+			);
 
-	return ret;
+	return
+		ret;
 }

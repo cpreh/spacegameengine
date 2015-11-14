@@ -18,8 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/bind_level.hpp>
 #include <sge/opengl/texture/binding.hpp>
 #include <sge/opengl/texture/get_stage_id.hpp>
@@ -40,20 +39,19 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::opengl::texture::scoped_work_binding::scoped_work_binding(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context,
+	sge::opengl::context::object &_context,
 	sge::opengl::texture::type const _type,
 	sge::opengl::texture::id const _id
 )
 :
 	sge::opengl::texture::binding(),
 	active_level_(
-		_system_context,
+		_context,
 		this->stage()
 	),
 	previous_id_(
 		sge::opengl::texture::get_stage_id(
-			_device_context,
+			_context,
 			this->stage()
 		)
 	),
@@ -62,7 +60,7 @@ sge::opengl::texture::scoped_work_binding::scoped_work_binding(
 	),
 	previous_type_(
 		sge::opengl::texture::get_stage_type(
-			_device_context,
+			_context,
 			this->stage()
 		)
 	)

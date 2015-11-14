@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/device/base.hpp>
-#include <sge/opengl/context/device/id.hpp>
-#include <sge/opengl/context/device/make_id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/texture/base_fwd.hpp>
 #include <sge/opengl/texture/bind_context.hpp>
 #include <sge/opengl/texture/const_optional_base_ref.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::texture::bind_context::bind_context()
 :
-	sge::opengl::context::device::base(),
+	sge::opengl::context::base(),
 	map_()
 {
 }
@@ -62,7 +62,7 @@ sge::opengl::texture::bind_context::stage(
 		_texture;
 }
 
-sge::opengl::context::device::id const
+sge::opengl::context::id const
 sge::opengl::texture::bind_context::static_id(
-	sge::opengl::context::device::make_id()
+	sge::opengl::context::make_id()
 );

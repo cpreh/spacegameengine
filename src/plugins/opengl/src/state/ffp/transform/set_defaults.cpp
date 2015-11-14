@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/ffp/transform/set.hpp>
 #include <sge/opengl/state/ffp/transform/set_defaults.hpp>
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::ffp::transform::set_defaults(
-	sge::opengl::context::system::object &_system_context
+	sge::opengl::context::object &_context
 )
 {
 	for(
@@ -39,7 +39,7 @@ sge::opengl::state::ffp::transform::set_defaults(
 		>()
 	)
 		sge::opengl::state::ffp::transform::set(
-			_system_context,
+			_context,
 			mode,
 			sge::renderer::state::ffp::transform::const_optional_object_ref()
 		);

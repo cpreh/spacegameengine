@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BASIC_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASIC_HPP_INCLUDED
 
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/basic_fwd.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
@@ -85,19 +84,14 @@ protected:
 	mipmap() const
 	override;
 
-	sge::opengl::context::system::object &
-	system_context() const;
-
-	sge::opengl::context::device::object &
-	device_context() const;
+	sge::opengl::context::object &
+	context() const;
 private:
 	void
 	generate_mipmaps()
 	override;
 
-	sge::opengl::context::system::object &system_context_;
-
-	sge::opengl::context::device::object &device_context_;
+	sge::opengl::context::object &context_;
 
 	sge::renderer::resource_flags_field const resource_flags_;
 

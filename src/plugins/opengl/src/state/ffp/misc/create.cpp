@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/ffp/misc/create.hpp>
 #include <sge/opengl/state/ffp/misc/make_actors.hpp>
 #include <sge/opengl/state/ffp/misc/object.hpp>
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::state::ffp::misc::object_unique_ptr
 sge::opengl::state::ffp::misc::create(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::state::ffp::misc::parameters const &_parameters
 )
 {
@@ -43,7 +43,7 @@ sge::opengl::state::ffp::misc::create(
 				sge::opengl::state::ffp::misc::object
 			>(
 				sge::opengl::state::ffp::misc::make_actors(
-					_system_context,
+					_context,
 					_parameters
 				)
 			)

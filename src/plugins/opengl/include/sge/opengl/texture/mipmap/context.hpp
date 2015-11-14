@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/optional_enum.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/info/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -39,13 +40,20 @@ namespace mipmap
 
 class context
 :
-	public sge::opengl::context::system::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		context
 	);
 public:
-	context();
+	typedef
+	sge::opengl::info::context const &
+	parameter;
+
+	explicit
+	context(
+		sge::opengl::info::context const &
+	);
 
 	~context()
 	override;
@@ -68,10 +76,8 @@ public:
 	optional_gl_generate_mipmap const &
 	generate_mipmap() const;
 
-	typedef void parameter;
-
 	static
-	sge::opengl::context::system::id const
+	sge::opengl::context::id const
 	static_id;
 private:
 	sge::opengl::optional_enum const generate_mipmap_flag_;

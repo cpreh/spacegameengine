@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/set_or_default_single.hpp>
 #include <sge/opengl/state/ffp/lighting/material/default_context.hpp>
 #include <sge/opengl/state/ffp/lighting/material/object.hpp>
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::ffp::lighting::material::set(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::state::ffp::lighting::material::const_optional_object_ref const &_state
 )
 {
@@ -39,7 +39,7 @@ sge::opengl::state::ffp::lighting::material::set(
 		sge::opengl::context::use<
 			sge::opengl::state::ffp::lighting::material::default_context
 		>(
-			_system_context
+			_context
 		),
 		_state
 	);

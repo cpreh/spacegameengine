@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/internal_color_format.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/renderer/basic_dim_fwd.hpp>
@@ -50,7 +50,7 @@ void
 (&)
 (
 	sge::opengl::texture::binding const &,
-	sge::opengl::context::system::object &,
+	sge::opengl::context::object &,
 	sge::opengl::texture::buffer_type,
 	sge::opengl::color_format,
 	sge::opengl::color_format_type,

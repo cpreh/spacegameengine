@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/logger.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/multi_config.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/opengl/texture/convert/level.hpp>
@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::funcs::set_client_level(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::texture::stage const _stage
 )
 {
@@ -49,7 +49,8 @@ sge::opengl::texture::funcs::set_client_level(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
 		>(
-			_system_context
+			_context,
+			_context.info()
 		).config(),
 		[
 			_stage

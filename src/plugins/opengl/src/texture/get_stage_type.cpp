@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/bind_context.hpp>
 #include <sge/opengl/texture/get_stage_type.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::texture::optional_type
 sge::opengl::texture::get_stage_type(
-	sge::opengl::context::device::object &_device_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::texture::stage const _stage
 )
 {
@@ -38,7 +38,7 @@ sge::opengl::texture::get_stage_type(
 		sge::opengl::context::use<
 			sge::opengl::texture::bind_context
 		>(
-			_device_context
+			_context
 		)
 	);
 

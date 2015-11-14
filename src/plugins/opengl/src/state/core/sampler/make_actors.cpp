@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/core/sampler/actor_vector.hpp>
 #include <sge/opengl/state/core/sampler/make_actors.hpp>
 #include <sge/opengl/state/core/sampler/address/make_actors.hpp>
@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::state::core::sampler::actor_vector
 sge::opengl::state::core::sampler::make_actors(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::state::core::sampler::parameters const &_parameters
 )
 {
@@ -39,7 +39,7 @@ sge::opengl::state::core::sampler::make_actors(
 				_parameters.address()
 			),
 			sge::opengl::state::core::sampler::filter::make_actors(
-				_system_context,
+				_context,
 				_parameters.filter()
 			)
 		);

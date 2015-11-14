@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::texture::funcs::set_3d(
 	sge::opengl::texture::binding const &,
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::opengl::texture::buffer_type const _buffer_type,
 	sge::opengl::color_format const _format,
 	sge::opengl::color_format_type const _format_type,
@@ -58,7 +58,8 @@ sge::opengl::texture::funcs::set_3d(
 		sge::opengl::context::use<
 			sge::opengl::texture::volume_context
 		>(
-			_system_context
+			_context,
+			_context.info()
 		).config()
 	).tex_image_3d()(
 		_buffer_type.get(),

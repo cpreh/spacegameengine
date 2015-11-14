@@ -18,8 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/core/set_defaults.hpp>
 #include <sge/opengl/state/core/blend/set.hpp>
 #include <sge/opengl/state/core/depth_stencil/set.hpp>
@@ -32,27 +31,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::core::set_defaults(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context
+	sge::opengl::context::object &_context
 )
 {
 	sge::opengl::state::core::blend::set(
-		_system_context,
+		_context,
 		sge::renderer::state::core::blend::const_optional_object_ref()
 	);
 
 	sge::opengl::state::core::depth_stencil::set(
-		_system_context,
+		_context,
 		sge::renderer::state::core::depth_stencil::const_optional_object_ref()
 	);
 
 	sge::opengl::state::core::rasterizer::set(
-		_system_context,
+		_context,
 		sge::renderer::state::core::rasterizer::const_optional_object_ref()
 	);
 
 	sge::opengl::state::core::sampler::set_defaults(
-		_system_context,
-		_device_context
+		_context
 	);
 }

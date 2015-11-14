@@ -18,14 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_VISUAL_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_GLX_VISUAL_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_VISUAL_SRGB_FLAG_FWD_HPP_INCLUDED
+#define SGE_OPENGL_GLX_VISUAL_SRGB_FLAG_FWD_HPP_INCLUDED
 
-#include <sge/opengl/optional_int.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/glx/visual/context_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 
 
 namespace sge
@@ -37,30 +33,10 @@ namespace glx
 namespace visual
 {
 
-class context
-:
-	public sge::opengl::context::system::base
-{
-	FCPPT_NONCOPYABLE(
-		context
-	);
-public:
-	context();
-
-	~context()
-	override;
-
-	sge::opengl::optional_int
-	srgb_flag() const;
-
-	typedef void parameter;
-
-	static
-	sge::opengl::context::system::id const
-	static_id;
-private:
-	sge::opengl::optional_int const srgb_flag_;
-};
+FCPPT_MAKE_STRONG_TYPEDEF(
+	int,
+	srgb_flag
+);
 
 }
 }

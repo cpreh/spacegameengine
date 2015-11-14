@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/set_array.hpp>
 #include <sge/opengl/state/convert/light_index.hpp>
 #include <sge/opengl/state/ffp/lighting/light/context.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::ffp::lighting::light::set(
-	sge::opengl::context::device::object &_device_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &_lights
 )
 {
@@ -40,7 +40,7 @@ sge::opengl::state::ffp::lighting::light::set(
 		sge::opengl::context::use<
 			sge::opengl::state::ffp::lighting::light::context
 		>(
-			_device_context
+			_context
 		),
 		_lights,
 		sge::opengl::state::convert::light_index

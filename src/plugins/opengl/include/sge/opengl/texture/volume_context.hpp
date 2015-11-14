@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
+#include <sge/opengl/info/context_fwd.hpp>
 #include <sge/opengl/texture/optional_volume_config.hpp>
 #include <sge/opengl/texture/volume_context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -43,15 +44,20 @@ class volume_context
 		volume_context
 	);
 public:
-	volume_context();
+	typedef
+	sge::opengl::info::context const &
+	parameter;
+
+	explicit
+	volume_context(
+		sge::opengl::info::context const &
+	);
 
 	~volume_context()
 	override;
 
 	sge::opengl::texture::optional_volume_config const &
 	config() const;
-
-	typedef void parameter;
 
 	static sge::opengl::context::id const static_id;
 private:

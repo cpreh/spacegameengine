@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/pbo_context.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
@@ -47,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::texture::funcs::set_box(
 	sge::opengl::texture::binding const &,
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::opengl::texture::buffer_type const _buffer_type,
 	sge::opengl::color_format const _format,
 	sge::opengl::color_format_type const _format_type,
@@ -65,8 +65,8 @@ sge::opengl::texture::funcs::set_box(
 		!sge::opengl::context::use<
 			sge::opengl::buffer::pbo_context
 		>(
-			_system_context,
-			_system_context
+			_context,
+			_context
 		)
 		.unpack_buffer()
 		.native()
@@ -101,7 +101,8 @@ sge::opengl::texture::funcs::set_box(
 		sge::opengl::context::use<
 			sge::opengl::texture::volume_context
 		>(
-			_system_context
+			_context,
+			_context.info()
 		).config()
 	).tex_sub_image_3d()(
 		_buffer_type.get(),

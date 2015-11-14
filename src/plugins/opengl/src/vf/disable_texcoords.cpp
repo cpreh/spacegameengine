@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/disable_client_state.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/funcs/set_client_level.hpp>
 #include <sge/opengl/vf/disable_texcoords.hpp>
 #include <sge/renderer/texture/stage.hpp>
@@ -28,12 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::vf::disable_texcoords(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::texture::stage const _index
 )
 {
 	sge::opengl::texture::funcs::set_client_level(
-		_system_context,
+		_context,
 		_index
 	);
 

@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/config_fwd.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/context.hpp>
@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::state::actor_vector
 sge::opengl::state::ffp::misc::point_sprite::set(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::state::ffp::misc::enable_point_sprites const _enable
 )
 {
@@ -42,7 +42,8 @@ sge::opengl::state::ffp::misc::point_sprite::set(
 			sge::opengl::context::use<
 				sge::opengl::state::ffp::misc::point_sprite::context
 			>(
-				_system_context
+				_context,
+				_context.info()
 			).config(),
 			[
 				_enable
@@ -61,7 +62,7 @@ sge::opengl::state::ffp::misc::point_sprite::set(
 					};
 			},
 			[
-				&_system_context,
+				&_context,
 				_enable
 			](
 				sge::opengl::state::ffp::misc::point_sprite::config const &_config
@@ -69,7 +70,7 @@ sge::opengl::state::ffp::misc::point_sprite::set(
 			{
 				return
 					sge::opengl::state::ffp::misc::point_sprite::set_impl(
-						_system_context,
+						_context,
 						_config,
 						_enable
 					);

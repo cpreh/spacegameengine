@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/enable_bool.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/config.hpp>
@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::state::actor_vector
 sge::opengl::state::ffp::misc::point_sprite::set_impl(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::opengl::state::ffp::misc::point_sprite::config const &_config,
 	sge::renderer::state::ffp::misc::enable_point_sprites const _enable
 )
@@ -75,7 +75,8 @@ sge::opengl::state::ffp::misc::point_sprite::set_impl(
 						sge::opengl::context::use<
 							sge::opengl::texture::multi_context
 						>(
-							_system_context
+							_context,
+							_context.info()
 						).config(),
 						fcppt::const_(
 							sge::renderer::texture::stage(
@@ -95,7 +96,7 @@ sge::opengl::state::ffp::misc::point_sprite::set_impl(
 				),
 				[
 					_enable,
-					&_system_context,
+					&_context,
 					&_config
 				](
 					sge::renderer::texture::stage const _stage
@@ -106,7 +107,7 @@ sge::opengl::state::ffp::misc::point_sprite::set_impl(
 							std::bind(
 								sge::opengl::state::ffp::misc::point_sprite::set_texture,
 								std::ref(
-									_system_context
+									_context
 								),
 								std::cref(
 									_config

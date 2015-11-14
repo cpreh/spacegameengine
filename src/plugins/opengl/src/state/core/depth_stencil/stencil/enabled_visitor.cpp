@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/get_fun_ref.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object.hpp>
+#include <sge/opengl/context/object.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
@@ -48,14 +48,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::enabled_visitor(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::state::core::depth_stencil::stencil::ref const _ref,
 	sge::renderer::state::core::depth_stencil::stencil::read_mask const _read_mask,
 	sge::renderer::state::core::depth_stencil::stencil::write_mask const _write_mask
 )
 :
-	system_context_(
-		_system_context
+	context_(
+		_context
 	),
 	ref_(
 		_ref
@@ -128,7 +128,8 @@ sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::operator()(
 			sge::opengl::context::use<
 				sge::opengl::state::core::depth_stencil::stencil::context
 			>(
-				system_context_
+				context_,
+				context_.info()
 			).config(),
 			[]{
 				return

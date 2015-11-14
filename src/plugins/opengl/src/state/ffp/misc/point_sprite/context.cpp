@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/context/system/make_id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/convert/to_gl_enum.hpp>
 #include <sge/opengl/info/context.hpp>
 #include <sge/opengl/info/extension.hpp>
@@ -32,19 +32,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/misc/point_sprite/config.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/context.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/optional_config.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::state::ffp::misc::point_sprite::context::context(
 	sge::opengl::info::context const &_info
 )
 :
-	sge::opengl::context::system::base(),
+	sge::opengl::context::base(),
 	config_(
 		sge::opengl::info::version_at_least(
 			_info.version(),
@@ -109,8 +103,6 @@ sge::opengl::state::ffp::misc::point_sprite::context::context(
 {
 }
 
-FCPPT_PP_POP_WARNING
-
 sge::opengl::state::ffp::misc::point_sprite::context::~context()
 {
 }
@@ -122,7 +114,7 @@ sge::opengl::state::ffp::misc::point_sprite::context::config() const
 		config_;
 }
 
-sge::opengl::context::system::id const
+sge::opengl::context::id const
 sge::opengl::state::ffp::misc::point_sprite::context::static_id(
-	sge::opengl::context::system::make_id()
+	sge::opengl::context::make_id()
 );

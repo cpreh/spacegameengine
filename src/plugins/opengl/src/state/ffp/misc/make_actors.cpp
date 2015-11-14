@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/enable_bool.hpp>
 #include <sge/opengl/get_fun_ref.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/convert/to_gl_enum.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::state::actor_vector
 sge::opengl::state::ffp::misc::make_actors(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::state::ffp::misc::parameters const &_parameters
 )
 {
@@ -74,7 +74,7 @@ sge::opengl::state::ffp::misc::make_actors(
 				)
 			},
 			sge::opengl::state::ffp::misc::point_sprite::set(
-				_system_context,
+				_context,
 				_parameters.enable_point_sprites()
 			)
 		);

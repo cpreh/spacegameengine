@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/object.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/create_cube.hpp>
@@ -50,7 +51,8 @@ sge::opengl::texture::create_cube(
 					sge::opengl::context::use<
 						sge::opengl::texture::cube_context
 					>(
-						_basic_parameters.system_context()
+						_basic_parameters.context(),
+						_basic_parameters.context().info()
 					).config(),
 					[]{
 						return

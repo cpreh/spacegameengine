@@ -56,8 +56,7 @@ sge::opengl::texture::basic_box<
 			this
 		]{
 			sge::opengl::texture::scoped_work_binding const binding(
-				_basic_parameters.system_context(),
-				_basic_parameters.device_context(),
+				_basic_parameters.context(),
 				this->type(),
 				this->id()
 			);

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/vf/actor.hpp>
 #include <sge/opengl/vf/actor_parameters.hpp>
 #include <sge/opengl/vf/actor_unique_ptr.hpp>
@@ -44,13 +44,13 @@ sge::opengl::vf::actor_unique_ptr
 sge::opengl::vf::to_actor(
 	sge::renderer::vf::dynamic::ordered_element const &_element,
 	sge::renderer::vf::dynamic::stride const _stride,
-	sge::opengl::context::system::object &_system_context
+	sge::opengl::context::object &_context
 )
 {
 	sge::opengl::vf::actor_parameters const parameters(
 		_stride,
 		_element.offset(),
-		_system_context
+		_context
 	);
 
 	return

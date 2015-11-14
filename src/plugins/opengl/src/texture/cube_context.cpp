@@ -19,19 +19,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/convert/from_gl_bool.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/info/context.hpp>
+#include <sge/opengl/info/extension.hpp>
+#include <sge/opengl/info/extension_supported.hpp>
+#include <sge/opengl/info/major_version.hpp>
+#include <sge/opengl/info/minor_version.hpp>
+#include <sge/opengl/info/version_at_least.hpp>
 #include <sge/opengl/texture/cube_config.hpp>
 #include <sge/opengl/texture/cube_context.hpp>
 #include <sge/opengl/texture/cube_side_array.hpp>
 #include <sge/opengl/texture/optional_cube_config.hpp>
 #include <sge/opengl/texture/convert/make_buffer_type.hpp>
 #include <sge/opengl/texture/convert/make_type.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace
@@ -81,15 +83,20 @@ sge::opengl::texture::cube_side_array const arb_sides{{{
 
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
-
-sge::opengl::texture::cube_context::cube_context()
+sge::opengl::texture::cube_context::cube_context(
+	sge::opengl::info::context const  &_info
+)
 :
-	sge::opengl::context::system::base(),
+	sge::opengl::context::base(),
 	config_(
-		sge::opengl::convert::from_gl_bool(
-			GLEW_VERSION_1_3
+		sge::opengl::info::version_at_least(
+			_info.version(),
+			sge::opengl::info::major_version{
+				1u
+			},
+			sge::opengl::info::minor_version{
+				0u
+			}
 		)
 		?
 			sge::opengl::texture::optional_cube_config(
@@ -101,8 +108,11 @@ sge::opengl::texture::cube_context::cube_context()
 				)
 			)
 		:
-			sge::opengl::convert::from_gl_bool(
-				GLEW_ARB_texture_cube_map
+			sge::opengl::info::extension_supported(
+				_info.extensions(),
+				sge::opengl::info::extension{
+					"GL_ARB_texture_cube_map"
+				}
 			)
 			?
 				sge::opengl::texture::optional_cube_config(
@@ -119,8 +129,6 @@ sge::opengl::texture::cube_context::cube_context()
 {
 }
 
-FCPPT_PP_POP_WARNING
-
 sge::opengl::texture::cube_context::~cube_context()
 {
 }
@@ -132,7 +140,7 @@ sge::opengl::texture::cube_context::config() const
 		config_;
 }
 
-sge::opengl::context::system::id const
+sge::opengl::context::id const
 sge::opengl::texture::cube_context::static_id(
-	sge::opengl::context::system::make_id()
+	sge::opengl::context::make_id()
 );

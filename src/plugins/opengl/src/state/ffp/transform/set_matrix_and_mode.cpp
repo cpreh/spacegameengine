@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/convert/projection.hpp>
 #include <sge/opengl/state/convert/matrix_mode.hpp>
 #include <sge/opengl/state/ffp/transform/matrix_mode.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::ffp::transform::set_matrix_and_mode(
-	sge::opengl::context::system::object &_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::state::ffp::transform::mode const _mode,
 	sge::renderer::matrix4 const &_matrix
 )

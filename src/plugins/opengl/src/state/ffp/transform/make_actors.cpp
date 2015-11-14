@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/ffp/transform/actor.hpp>
 #include <sge/opengl/state/ffp/transform/actor_vector.hpp>
 #include <sge/opengl/state/ffp/transform/context.hpp>
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::state::ffp::transform::actor_vector
 sge::opengl::state::ffp::transform::make_actors(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::state::ffp::transform::parameters const &_parameters
 )
 {
@@ -45,13 +45,14 @@ sge::opengl::state::ffp::transform::make_actors(
 				std::bind(
 					&sge::opengl::state::ffp::transform::set_matrix_and_mode,
 					std::ref(
-						_system_context
+						_context
 					),
 					std::placeholders::_1,
 					sge::opengl::context::use<
 						sge::opengl::state::ffp::transform::context
 					>(
-						_system_context
+						_context,
+						_context.info()
 					).have_transpose()
 					?
 						_parameters.matrix()

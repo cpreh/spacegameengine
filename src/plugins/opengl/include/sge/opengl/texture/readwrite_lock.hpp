@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_READWRITE_LOCK_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_READWRITE_LOCK_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/lock_base.hpp>
 #include <sge/opengl/texture/readonly_lock.hpp>
 #include <sge/opengl/texture/writeonly_lock.hpp>
@@ -46,7 +46,7 @@ class readwrite_lock
 	);
 public:
 	readwrite_lock(
-		sge::opengl::context::system::object &,
+		sge::opengl::context::object &,
 		size_type read_size,
 		size_type write_size,
 		size_type stride,

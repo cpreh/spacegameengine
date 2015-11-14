@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/device/base.hpp>
-#include <sge/opengl/context/device/id.hpp>
-#include <sge/opengl/context/device/make_id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/state/core/sampler/context.hpp>
 #include <sge/opengl/state/core/sampler/make_actors.hpp>
 #include <sge/opengl/state/core/sampler/object.hpp>
@@ -38,16 +38,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::state::core::sampler::context::context(
-	sge::opengl::state::core::sampler::context::parameter _system_context
+	sge::opengl::state::core::sampler::context::parameter _context
 )
 :
-	sge::opengl::context::device::base(),
+	sge::opengl::context::base(),
 	defaults_(
 		fcppt::make_unique_ptr<
 			sge::opengl::state::core::sampler::object
 		>(
 			sge::opengl::state::core::sampler::make_actors(
-				_system_context,
+				_context,
 				sge::renderer::state::core::sampler::default_()
 			)
 		)
@@ -112,7 +112,7 @@ sge::opengl::state::core::sampler::context::reset()
 	objects_.clear();
 }
 
-sge::opengl::context::device::id const
+sge::opengl::context::id const
 sge::opengl::state::core::sampler::context::static_id(
-	sge::opengl::context::device::make_id()
+	sge::opengl::context::make_id()
 );

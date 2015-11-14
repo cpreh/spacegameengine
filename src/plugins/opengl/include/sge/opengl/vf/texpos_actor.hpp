@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_VF_TEXPOS_ACTOR_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/pointer_actor.hpp>
@@ -67,7 +67,7 @@ private:
 	) const
 	override;
 
-	sge::opengl::context::system::object &system_context_;
+	sge::opengl::context::object &context_;
 
 	GLint const elements_;
 

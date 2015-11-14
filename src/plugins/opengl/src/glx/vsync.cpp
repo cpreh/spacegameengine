@@ -19,11 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/logger.hpp>
-#include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/glx/current_drawable.hpp>
-#include <sge/opengl/glx/proc_context.hpp>
-#include <sge/opengl/glx/swap_context.hpp>
+#include <sge/opengl/glx/swap_functions.hpp>
 #include <sge/opengl/glx/vsync.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
@@ -37,34 +34,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::glx::vsync(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::glx::swap_functions const &_swap_functions,
 	awl::backends::x11::display &_display
 )
 {
-	sge::opengl::glx::swap_context &context(
-		sge::opengl::context::use<
-			sge::opengl::glx::swap_context
-		>(
-			_system_context,
-			sge::opengl::context::use<
-				sge::opengl::glx::proc_context
-			>(
-				_system_context
-			)
-		)
-	);
-
 	// prefer swap_interval_ext
 	if(
 		fcppt::maybe(
-			context.swap_interval_ext(),
+			_swap_functions.swap_interval_ext(),
 			fcppt::const_(
 				false
 			),
 			[
 				&_display
 			](
-				sge::opengl::glx::swap_context::glx_swap_interval_ext _swap
+				sge::opengl::glx::swap_functions::glx_swap_interval_ext _swap
 			)
 			{
 				FCPPT_LOG_INFO(
@@ -88,12 +72,12 @@ sge::opengl::glx::vsync(
 
 	if(
 		fcppt::maybe(
-			context.swap_interval_sgi(),
+			_swap_functions.swap_interval_sgi(),
 			fcppt::const_(
 				false
 			),
 			[](
-				sge::opengl::glx::swap_context::glx_swap_interval_sgi _swap
+				sge::opengl::glx::swap_functions::glx_swap_interval_sgi _swap
 			)
 			{
 				FCPPT_LOG_INFO(
@@ -119,7 +103,6 @@ sge::opengl::glx::vsync(
 		)
 	)
 		return;
-
 
 	FCPPT_LOG_ERROR(
 		sge::opengl::logger(),

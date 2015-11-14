@@ -21,10 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_INFO_EXTENSION_SET_HPP_INCLUDED
 #define SGE_OPENGL_INFO_EXTENSION_SET_HPP_INCLUDED
 
+#include <sge/opengl/extension_set.hpp>
 #include <sge/opengl/info/extension.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <unordered_set>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -35,7 +33,7 @@ namespace info
 {
 
 typedef
-std::unordered_set<
+sge::opengl::extension_set<
 	sge::opengl::info::extension
 >
 extension_set;

@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/mipmap/context.hpp>
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::texture::mipmap::generate(
 	sge::opengl::texture::binding const &,
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::opengl::texture::type const _type
 )
 {
@@ -40,7 +40,8 @@ sge::opengl::texture::mipmap::generate(
 		sge::opengl::context::use<
 			sge::opengl::texture::mipmap::context
 		>(
-			_system_context
+			_context,
+			_context.info()
 		).generate_mipmap(),
 		[]{
 			return

@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/glx/visual/attribute_container.hpp>
-#include <sge/opengl/glx/visual/context.hpp>
 #include <sge/opengl/glx/visual/convert_color.hpp>
 #include <sge/opengl/glx/visual/make_attributes.hpp>
+#include <sge/opengl/glx/visual/optional_srgb_flag.hpp>
 #include <sge/opengl/glx/visual/rgb_triple.hpp>
+#include <sge/opengl/glx/visual/srgb_flag.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/bit_count.hpp>
 #include <sge/renderer/pixel_format/depth_bits.hpp>
@@ -42,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::glx::visual::attribute_container
 sge::opengl::glx::visual::make_attributes(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::glx::visual::optional_srgb_flag const _srgb_flag,
 	sge::renderer::pixel_format::object const &_format
 )
 {
@@ -166,11 +165,7 @@ sge::opengl::glx::visual::make_attributes(
 		sge::renderer::pixel_format::srgb::no
 	)
 		fcppt::maybe(
-			sge::opengl::context::use<
-				sge::opengl::glx::visual::context
-			>(
-				_system_context
-			).srgb_flag(),
+			_srgb_flag,
 			[
 				&_format
 			]{
@@ -188,11 +183,11 @@ sge::opengl::glx::visual::make_attributes(
 			[
 				&ret
 			](
-				int const _srgb_flag
+				sge::opengl::glx::visual::srgb_flag const _flag
 			)
 			{
 				ret.push_back(
-					_srgb_flag
+					_flag.get()
 				);
 
 				ret.push_back(

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/vf/part.hpp>
 #include <sge/renderer/dim1.hpp>
 #include <sge/renderer/lock_mode.hpp>
@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::vertex_buffer::vertex_buffer(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::vf::dynamic::part_index const _part_index,
 	sge::renderer::vf::dynamic::part const &_format_part,
 	sge::renderer::vertex::count const _size,
@@ -68,8 +68,8 @@ sge::opengl::vertex_buffer::vertex_buffer(
 		sge::opengl::context::use<
 			sge::opengl::buffer::vbo_context
 		>(
-			_system_context,
-			_system_context
+			_context,
+			_context
 		).vertex_buffer(),
 		_size.get(),
 		_format_part.stride().get(),

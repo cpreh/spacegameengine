@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_FFP_TRANSFORM_SET_DEFAULTS_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_TRANSFORM_SET_DEFAULTS_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 
 
 namespace sge
@@ -37,7 +37,7 @@ namespace transform
 
 void
 set_defaults(
-	sge::opengl::context::system::object &
+	sge::opengl::context::object &
 );
 
 }

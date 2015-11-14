@@ -18,20 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_PROC_CONTEXT_FWD_HPP_INCLUDED
-#define SGE_OPENGL_GLX_PROC_CONTEXT_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_VISUAL_OPTIONAL_SRGB_FLAG_HPP_INCLUDED
+#define SGE_OPENGL_GLX_VISUAL_OPTIONAL_SRGB_FLAG_HPP_INCLUDED
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
-{
+#include <sge/opengl/glx/visual/optional_srgb_flag_fwd.hpp>
+#include <sge/opengl/glx/visual/srgb_flag.hpp>
+#include <fcppt/optional_impl.hpp>
 
-class proc_context;
-
-}
-}
-}
 
 #endif

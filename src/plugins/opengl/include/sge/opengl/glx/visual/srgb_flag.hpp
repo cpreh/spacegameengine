@@ -18,17 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/from_gl_bool.hpp>
+#ifndef SGE_OPENGL_GLX_VISUAL_SRGB_FLAG_HPP_INCLUDED
+#define SGE_OPENGL_GLX_VISUAL_SRGB_FLAG_HPP_INCLUDED
+
+#include <sge/opengl/glx/visual/srgb_flag_fwd.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
-bool
-sge::opengl::convert::from_gl_bool(
-	GLboolean const _value
-)
-{
-	return
-		_value
-		==
-		GL_TRUE;
-}
+#endif

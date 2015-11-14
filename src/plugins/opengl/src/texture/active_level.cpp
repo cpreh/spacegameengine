@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/active_level.hpp>
 #include <sge/opengl/texture/funcs/set_active_level.hpp>
 #include <sge/renderer/texture/stage.hpp>
 
 
 sge::opengl::texture::active_level::active_level(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::texture::stage const _stage
 )
 :
@@ -34,7 +34,7 @@ sge::opengl::texture::active_level::active_level(
 	)
 {
 	sge::opengl::texture::funcs::set_active_level(
-		_system_context,
+		_context,
 		_stage
 	);
 }

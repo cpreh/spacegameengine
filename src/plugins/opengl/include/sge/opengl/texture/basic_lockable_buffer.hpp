@@ -27,8 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/internal_color_format.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/basic_buffer.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters_fwd.hpp>
 #include <sge/opengl/texture/basic_fwd.hpp>
@@ -160,9 +159,7 @@ private:
 	dim
 	lock_dim() const;
 
-	sge::opengl::context::system::object &system_context_;
-
-	sge::opengl::context::device::object &device_context_;
+	sge::opengl::context::object &context_;
 
 	sge::opengl::texture::type const type_;
 

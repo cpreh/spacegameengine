@@ -142,7 +142,7 @@ init(
 
 	Types::buffer_types::dim_types::init_function()(
 		_binding,
-		_basic_parameters.system_context(),
+		_basic_parameters.context(),
 		_buffer_type,
 		color_format,
 		color_format_type,
@@ -161,7 +161,7 @@ init(
 			dim_wrapper::value
 		>(
 			_binding,
-			_basic_parameters.system_context(),
+			_basic_parameters.context(),
 			_buffer_type,
 			color_format,
 			color_format_type,
@@ -237,8 +237,7 @@ init(
 							format,
 							sge::opengl::texture::basic_buffer_parameters(
 								_binding,
-								_basic_parameters.system_context(),
-								_basic_parameters.device_context(),
+								_basic_parameters.context(),
 								_index,
 								_type,
 								_buffer_type,

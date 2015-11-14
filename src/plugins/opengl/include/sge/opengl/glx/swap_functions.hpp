@@ -18,17 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_PROC_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_GLX_PROC_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_SWAP_FUNCTIONS_HPP_INCLUDED
+#define SGE_OPENGL_GLX_SWAP_FUNCTIONS_HPP_INCLUDED
 
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/glx/proc_context_fwd.hpp>
+#include <sge/opengl/glx/proc_address_function.hpp>
+#include <sge/opengl/glx/swap_functions_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_impl.hpp>
-#include <fcppt/type_traits/function_pointer_to_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
+#include <X11/Xlib.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -39,39 +38,51 @@ namespace opengl
 namespace glx
 {
 
-class proc_context
-:
-	public sge::opengl::context::system::base
+class swap_functions
 {
-	FCPPT_NONCOPYABLE(
-		proc_context
-	);
 public:
-	proc_context();
-
-	~proc_context()
-	override;
+	explicit
+	swap_functions(
+		sge::opengl::glx::proc_address_function
+	);
 
 	typedef
-	fcppt::type_traits::function_pointer_to_reference<
-		PFNGLXGETPROCADDRESSPROC
-	>
-	proc_address_function;
+	int(
+		&glx_swap_interval_sgi
+	)(
+		int
+	);
 
 	typedef
 	fcppt::optional<
-		proc_address_function
+		glx_swap_interval_sgi
 	>
-	optional_proc_address_function;
+	optional_glx_swap_interval_sgi;
 
-	optional_proc_address_function
-	get_proc_address() const;
+	typedef
+	void(
+		&glx_swap_interval_ext
+	)(
+		Display *,
+		GLXDrawable,
+		int
+	);
 
-	typedef void parameter;
+	typedef
+	fcppt::optional<
+		glx_swap_interval_ext
+	>
+	optional_glx_swap_interval_ext;
 
-	static sge::opengl::context::system::id const static_id;
+	optional_glx_swap_interval_sgi
+	swap_interval_sgi() const;
+
+	optional_glx_swap_interval_ext
+	swap_interval_ext() const;
 private:
-	optional_proc_address_function const get_proc_address_;
+	optional_glx_swap_interval_sgi swap_interval_sgi_;
+
+	optional_glx_swap_interval_ext swap_interval_ext_;
 };
 
 }

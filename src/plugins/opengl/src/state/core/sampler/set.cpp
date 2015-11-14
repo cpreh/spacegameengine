@@ -19,8 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/core/sampler/context.hpp>
 #include <sge/opengl/state/core/sampler/object.hpp>
 #include <sge/opengl/state/core/sampler/set.hpp>
@@ -36,8 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::core::sampler::set(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::state::core::sampler::const_optional_object_ref_map const &_objects
 )
 {
@@ -45,8 +43,8 @@ sge::opengl::state::core::sampler::set(
 	sge::opengl::context::use<
 		sge::opengl::state::core::sampler::context
 	>(
-		_device_context,
-		_system_context
+		_context,
+		_context
 	).set(
 		_objects
 	);
@@ -64,19 +62,18 @@ sge::opengl::state::core::sampler::set(
 
 		fcppt::maybe_void(
 			sge::opengl::texture::get_stage_type(
-				_device_context,
+				_context,
 				stage
 			),
 			[
-				&_system_context,
-				&_device_context,
+				&_context,
 				stage
 			](
 				sge::opengl::texture::type const _bound_type
 			)
 			{
 				sge::opengl::texture::active_level const active_level(
-					_system_context,
+					_context,
 					stage
 				);
 
@@ -87,8 +84,7 @@ sge::opengl::state::core::sampler::set(
 
 				sge::opengl::texture::set_samplers(
 					render_binding,
-					_system_context,
-					_device_context
+					_context
 				);
 			}
 		);

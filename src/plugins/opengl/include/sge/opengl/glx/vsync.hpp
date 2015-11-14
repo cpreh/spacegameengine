@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLX_VSYNC_HPP_INCLUDED
 #define SGE_OPENGL_GLX_VSYNC_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/glx/swap_functions_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 
 
@@ -34,7 +34,7 @@ namespace glx
 
 void
 vsync(
-	sge::opengl::context::system::object &,
+	sge::opengl::glx::swap_functions const &,
 	awl::backends::x11::display &
 );
 

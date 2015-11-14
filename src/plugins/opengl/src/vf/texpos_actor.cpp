@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/context/object.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/multi_config.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
@@ -50,8 +51,8 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 	sge::opengl::vf::pointer_actor(
 		_param
 	),
-	system_context_(
-		_param.system_context()
+	context_(
+		_param.context()
 	),
 	elements_(
 		fcppt::cast::size<
@@ -75,7 +76,8 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
 		>(
-			system_context_
+			context_,
+			context_.info()
 		).config(),
 		[
 			this
@@ -130,7 +132,7 @@ sge::opengl::vf::texpos_actor::operator()(
 	);
 
 	sge::opengl::texture::funcs::set_client_level(
-		system_context_,
+		context_,
 		index_
 	);
 

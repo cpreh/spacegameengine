@@ -47,11 +47,15 @@ public:
 	>
 	gl_active_texture;
 
+	// FIXME: mesa headers are broken
+	//PFNGLCLIENTACTIVETEXTUREPROC
+	typedef
+	PFNGLACTIVETEXTUREPROC
+	gl_client_active_texture_proc;
+
 	typedef
 	sge::opengl::fun_ref<
-		// FIXME
-		PFNGLACTIVETEXTUREPROC
-		//PFNGLCLIENTACTIVETEXTUREPROC
+		gl_client_active_texture_proc
 	>
 	gl_client_active_texture;
 

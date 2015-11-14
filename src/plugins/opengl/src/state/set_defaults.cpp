@@ -18,8 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/set_defaults.hpp>
 #include <sge/opengl/state/core/set_defaults.hpp>
 #include <sge/opengl/state/ffp/set_defaults.hpp>
@@ -27,17 +26,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::set_defaults(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context
+	sge::opengl::context::object &_context
 )
 {
 	sge::opengl::state::core::set_defaults(
-		_system_context,
-		_device_context
+		_context
 	);
 
 	sge::opengl::state::ffp::set_defaults(
-		_system_context,
-		_device_context
+		_context
 	);
 }

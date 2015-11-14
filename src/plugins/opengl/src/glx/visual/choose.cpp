@@ -38,6 +38,7 @@ sge::opengl::glx::visual::choose(
 	sge::opengl::glx::visual::attribute_container const &_attributes
 )
 {
+	// TODO: Don't initialize a unique ptr to nullptr
 	awl::backends::x11::visual::info_unique_ptr info(
 		::glXChooseVisual(
 			_display.get(),

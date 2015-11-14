@@ -47,7 +47,6 @@ sge::opengl::system::system(
 	awl::system::object &_awl_system
 )
 :
-	system_context_(),
 	platform_system_(
 		sge::opengl::platform::create_system(
 			_awl_system
@@ -55,14 +54,12 @@ sge::opengl::system::system(
 	),
 	backend_system_(
 		sge::opengl::backend::create_system(
-			system_context_,
 			_awl_system
 		)
 	),
 	caps_(
 		sge::opengl::get_device_caps(
 			_awl_system,
-			system_context_,
 			*backend_system_
 		)
 	)
@@ -111,7 +108,6 @@ sge::opengl::system::create_ffp_renderer(
 				_parameters.window_processor(),
 				*platform_system_,
 				*backend_system_,
-				system_context_,
 				caps_
 			)
 		);

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_FFP_LIGHTING_MATERIAL_DEFAULT_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_LIGHTING_MATERIAL_DEFAULT_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
 #include <sge/opengl/state/ffp/lighting/material/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -43,7 +43,7 @@ namespace material
 
 class default_context
 :
-	public sge::opengl::context::system::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		default_context
@@ -60,7 +60,7 @@ public:
 	default_state() const;
 
 	static
-	sge::opengl::context::system::id const
+	sge::opengl::context::id const
 	static_id;
 private:
 	typedef

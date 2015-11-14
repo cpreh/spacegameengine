@@ -18,35 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 
 
 sge::opengl::texture::basic_parameters::basic_parameters(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context
+	sge::opengl::context::object &_context
 )
 :
-	system_context_(
-		_system_context
-	),
-	device_context_(
-		_device_context
+	context_(
+		_context
 	)
 {
 }
 
-sge::opengl::context::system::object &
-sge::opengl::texture::basic_parameters::system_context() const
+sge::opengl::context::object &
+sge::opengl::texture::basic_parameters::context() const
 {
 	return
-		system_context_;
-}
-
-sge::opengl::context::device::object &
-sge::opengl::texture::basic_parameters::device_context() const
-{
-	return
-		device_context_;
+		context_;
 }

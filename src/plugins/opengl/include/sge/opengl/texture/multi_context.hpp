@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
+#include <sge/opengl/info/context_fwd.hpp>
 #include <sge/opengl/texture/multi_context_fwd.hpp>
 #include <sge/opengl/texture/optional_multi_config.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -43,15 +44,20 @@ class multi_context
 		multi_context
 	);
 public:
-	multi_context();
+	typedef
+	sge::opengl::info::context const &
+	parameter;
+
+	explicit
+	multi_context(
+		sge::opengl::info::context const &
+	);
 
 	~multi_context()
 	override;
 
 	sge::opengl::texture::optional_multi_config const &
 	config() const;
-
-	typedef void parameter;
 
 	static sge::opengl::context::id const static_id;
 private:

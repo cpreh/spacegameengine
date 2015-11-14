@@ -18,8 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/ffp/set_defaults.hpp>
 #include <sge/opengl/state/ffp/alpha_test/set.hpp>
 #include <sge/opengl/state/ffp/clip_plane/set.hpp>
@@ -41,51 +40,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::ffp::set_defaults(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context
+	sge::opengl::context::object &_context
 )
 {
 	sge::opengl::state::ffp::alpha_test::set(
-		_system_context,
+		_context,
 		sge::renderer::state::ffp::alpha_test::const_optional_object_ref()
 	);
 
 	sge::opengl::state::ffp::clip_plane::set(
-		_device_context,
+		_context,
 		sge::renderer::state::ffp::clip_plane::const_object_ref_vector()
 	);
 
 	sge::opengl::state::ffp::fog::set(
-		_system_context,
+		_context,
 		sge::renderer::state::ffp::fog::const_optional_object_ref()
 	);
 
 	sge::opengl::state::ffp::lighting::set(
-		_system_context,
+		_context,
 		sge::renderer::state::ffp::lighting::const_optional_object_ref()
 	);
 
 	sge::opengl::state::ffp::lighting::light::set(
-		_device_context,
+		_context,
 		sge::renderer::state::ffp::lighting::light::const_object_ref_vector()
 	);
 
 	sge::opengl::state::ffp::lighting::material::set(
-		_system_context,
+		_context,
 		sge::renderer::state::ffp::lighting::material::const_optional_object_ref()
 	);
 
 	sge::opengl::state::ffp::misc::set(
-		_system_context,
+		_context,
 		sge::renderer::state::ffp::misc::const_optional_object_ref()
 	);
 
 	sge::opengl::state::ffp::sampler::set_defaults(
-		_system_context,
-		_device_context
+		_context
 	);
 
 	sge::opengl::state::ffp::transform::set_defaults(
-		_system_context
+		_context
 	);
 }

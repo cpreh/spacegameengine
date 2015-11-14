@@ -18,24 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/context/system/make_id.hpp>
 #include <sge/opengl/glx/proc_address.hpp>
+#include <sge/opengl/glx/proc_address_function.hpp>
 #include <sge/opengl/glx/raw_function.hpp>
-#include <sge/opengl/glx/swap_context.hpp>
+#include <sge/opengl/glx/swap_functions.hpp>
 #include <fcppt/optional_bind_construct.hpp>
 
 
-sge::opengl::glx::swap_context::swap_context(
-	sge::opengl::glx::swap_context::parameter _proc_context
+sge::opengl::glx::swap_functions::swap_functions(
+	sge::opengl::glx::proc_address_function _proc_address
 )
 :
-	sge::opengl::context::system::base(),
 	swap_interval_sgi_(
 		fcppt::optional_bind_construct(
 			sge::opengl::glx::proc_address(
-				_proc_context,
+				_proc_address,
 				"glXSwapIntervalSGI"
 			),
 			[](
@@ -55,7 +52,7 @@ sge::opengl::glx::swap_context::swap_context(
 	swap_interval_ext_(
 		fcppt::optional_bind_construct(
 			sge::opengl::glx::proc_address(
-				_proc_context,
+				_proc_address,
 				"glXSwapIntervalEXT"
 			),
 			[](
@@ -75,25 +72,16 @@ sge::opengl::glx::swap_context::swap_context(
 {
 }
 
-sge::opengl::glx::swap_context::~swap_context()
-{
-}
-
-sge::opengl::glx::swap_context::optional_glx_swap_interval_sgi
-sge::opengl::glx::swap_context::swap_interval_sgi() const
+sge::opengl::glx::swap_functions::optional_glx_swap_interval_sgi
+sge::opengl::glx::swap_functions::swap_interval_sgi() const
 {
 	return
 		swap_interval_sgi_;
 }
 
-sge::opengl::glx::swap_context::optional_glx_swap_interval_ext
-sge::opengl::glx::swap_context::swap_interval_ext() const
+sge::opengl::glx::swap_functions::optional_glx_swap_interval_ext
+sge::opengl::glx::swap_functions::swap_interval_ext() const
 {
 	return
 		swap_interval_ext_;
 }
-
-sge::opengl::context::system::id const
-sge::opengl::glx::swap_context::static_id(
-	sge::opengl::context::system::make_id()
-);

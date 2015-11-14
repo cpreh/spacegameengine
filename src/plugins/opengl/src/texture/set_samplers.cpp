@@ -19,8 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/core/sampler/context.hpp>
 #include <sge/opengl/state/core/sampler/object.hpp>
 #include <sge/opengl/texture/render_binding.hpp>
@@ -30,15 +29,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::texture::set_samplers(
 	sge::opengl::texture::render_binding const &_render_binding,
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context
+	sge::opengl::context::object &_context
 )
 {
 	sge::opengl::context::use<
 		sge::opengl::state::core::sampler::context
 	>(
-		_device_context,
-		_system_context
+		_context,
+		_context
 	).get(
 		_render_binding.stage()
 	).set(

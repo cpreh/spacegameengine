@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/disable_client_state.hpp>
 #include <sge/opengl/enable_client_state.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object.hpp>
 #include <sge/opengl/vf/attribute_context.hpp>
 #include <sge/opengl/vf/client_state_combiner.hpp>
 #include <sge/opengl/vf/context.hpp>
@@ -59,25 +58,25 @@ apply_difference(
 }
 
 sge::opengl::vf::client_state_combiner::client_state_combiner(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context
+	sge::opengl::context::object &_context
 )
 :
-	system_context_(
-		_system_context
+	context_(
+		_context
 	),
 	vf_context_(
 		sge::opengl::context::use<
 			sge::opengl::vf::context
 		>(
-			_device_context
+			_context
 		)
 	),
 	attribute_context_(
 		sge::opengl::context::use<
 			sge::opengl::vf::attribute_context
 		>(
-			_system_context
+			_context,
+			_context.info()
 		)
 	),
 	old_states_(
@@ -164,14 +163,14 @@ sge::opengl::vf::client_state_combiner::~client_state_combiner()
 		std::bind(
 			sge::opengl::vf::enable_texcoords,
 			std::ref(
-				system_context_
+				context_
 			),
 			std::placeholders::_1
 		),
 		std::bind(
 			sge::opengl::vf::disable_texcoords,
 			std::ref(
-				system_context_
+				context_
 			),
 			std::placeholders::_1
 		)

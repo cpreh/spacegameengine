@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BIND_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BIND_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/context/device/base.hpp>
-#include <sge/opengl/context/device/id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
 #include <sge/opengl/texture/base_fwd.hpp>
 #include <sge/opengl/texture/bind_context_fwd.hpp>
 #include <sge/opengl/texture/const_optional_base_ref.hpp>
@@ -40,7 +40,7 @@ namespace texture
 
 class bind_context
 :
-	public sge::opengl::context::device::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		bind_context
@@ -65,7 +65,7 @@ public:
 	typedef void parameter;
 
 	static
-	sge::opengl::context::device::id const
+	sge::opengl::context::id const
 	static_id;
 private:
 	typedef fcppt::container::index_map<

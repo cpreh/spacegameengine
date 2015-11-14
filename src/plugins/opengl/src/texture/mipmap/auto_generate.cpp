@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/logger.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/opengl/texture/mipmap/auto_generate.hpp>
@@ -35,14 +35,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::texture::mipmap::auto_generate(
 	sge::opengl::texture::binding const &_binding,
-	sge::opengl::context::system::object &_system_context
+	sge::opengl::context::object &_context
 )
 {
 	fcppt::maybe(
 		sge::opengl::context::use<
 			sge::opengl::texture::mipmap::context
 		>(
-			_system_context
+			_context,
+			_context.info()
 		).generate_mipmap_flag(),
 		[]{
 			FCPPT_LOG_ERROR(

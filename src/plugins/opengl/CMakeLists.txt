@@ -75,7 +75,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/convert/depth_stencil_to_internal_format.hpp
 	src/plugins/opengl/include/sge/opengl/convert/format_to_string.hpp
 	src/plugins/opengl/include/sge/opengl/convert/format_type_to_string.hpp
-	src/plugins/opengl/include/sge/opengl/convert/from_gl_bool.hpp
 	src/plugins/opengl/include/sge/opengl/convert/index_format.hpp
 	src/plugins/opengl/include/sge/opengl/convert/make_color_format.hpp
 	src/plugins/opengl/include/sge/opengl/convert/make_color_format_type.hpp
@@ -100,6 +99,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/enable_bool.hpp
 	src/plugins/opengl/include/sge/opengl/enable_client_state.hpp
 	src/plugins/opengl/include/sge/opengl/error_string.hpp
+	src/plugins/opengl/include/sge/opengl/extension_set.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/attach_render_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/attach_texture_2d.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/attachment.hpp
@@ -177,10 +177,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/onscreen_target_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/optional_enum.hpp
 	src/plugins/opengl/include/sge/opengl/optional_enum_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/optional_int.hpp
-	src/plugins/opengl/include/sge/opengl/optional_int_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/optional_target_base_ref.hpp
 	src/plugins/opengl/include/sge/opengl/optional_target_base_ref_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/parse_extensions.hpp
 	src/plugins/opengl/include/sge/opengl/pixel_store_context.hpp
 	src/plugins/opengl/include/sge/opengl/pixel_store_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/pixel_store_int.hpp
@@ -656,7 +655,6 @@ set(
 	src/plugins/opengl/src/convert/depth_stencil_to_internal_format.cpp
 	src/plugins/opengl/src/convert/format_to_string.cpp
 	src/plugins/opengl/src/convert/format_type_to_string.cpp
-	src/plugins/opengl/src/convert/from_gl_bool.cpp
 	src/plugins/opengl/src/convert/indexed_format.cpp
 	src/plugins/opengl/src/convert/make_color_format.cpp
 	src/plugins/opengl/src/convert/make_color_format_type.cpp
@@ -1078,38 +1076,45 @@ set(
 	src/plugins/opengl/include/sge/opengl/glx/context.hpp
 	src/plugins/opengl/include/sge/opengl/glx/context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/current_drawable.hpp
+	src/plugins/opengl/include/sge/opengl/glx/extension.hpp
+	src/plugins/opengl/include/sge/opengl/glx/extension_set.hpp
+	src/plugins/opengl/include/sge/opengl/glx/extension_supported.hpp
+	src/plugins/opengl/include/sge/opengl/glx/get_extensions.hpp
 	src/plugins/opengl/include/sge/opengl/glx/make_current.hpp
 	src/plugins/opengl/include/sge/opengl/glx/optional_raw_function.hpp
 	src/plugins/opengl/include/sge/opengl/glx/optional_raw_function_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/proc_address.hpp
-	src/plugins/opengl/include/sge/opengl/glx/proc_context.hpp
-	src/plugins/opengl/include/sge/opengl/glx/proc_context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/glx/proc_address_function.hpp
 	src/plugins/opengl/include/sge/opengl/glx/raw_function.hpp
-	src/plugins/opengl/include/sge/opengl/glx/swap_context.hpp
+	src/plugins/opengl/include/sge/opengl/glx/swap_functions.hpp
+	src/plugins/opengl/include/sge/opengl/glx/swap_functions_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/system.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/attribute_container.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/attribute_container_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/choose.hpp
-	src/plugins/opengl/include/sge/opengl/glx/visual/context.hpp
-	src/plugins/opengl/include/sge/opengl/glx/visual/context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/convert_color.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/create.hpp
+	src/plugins/opengl/include/sge/opengl/glx/visual/get_srgb_flag.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/make_attributes.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/object.hpp
+	src/plugins/opengl/include/sge/opengl/glx/visual/optional_srgb_flag.hpp
+	src/plugins/opengl/include/sge/opengl/glx/visual/optional_srgb_flag_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/rgb_triple.hpp
 	src/plugins/opengl/include/sge/opengl/glx/visual/rgb_triple_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/glx/visual/srgb_flag.hpp
+	src/plugins/opengl/include/sge/opengl/glx/visual/srgb_flag_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/glx/vsync.hpp
 	src/plugins/opengl/src/glx/context.cpp
 	src/plugins/opengl/src/glx/current_drawable.cpp
+	src/plugins/opengl/src/glx/get_extensions.cpp
 	src/plugins/opengl/src/glx/make_current.cpp
 	src/plugins/opengl/src/glx/proc_address.cpp
-	src/plugins/opengl/src/glx/proc_context.cpp
-	src/plugins/opengl/src/glx/swap_context.cpp
+	src/plugins/opengl/src/glx/swap_functions.cpp
 	src/plugins/opengl/src/glx/system.cpp
 	src/plugins/opengl/src/glx/visual/choose.cpp
-	src/plugins/opengl/src/glx/visual/context.cpp
 	src/plugins/opengl/src/glx/visual/convert_color.cpp
 	src/plugins/opengl/src/glx/visual/create.cpp
+	src/plugins/opengl/src/glx/visual/get_srgb_flag.cpp
 	src/plugins/opengl/src/glx/visual/make_attributes.cpp
 	src/plugins/opengl/src/glx/visual/object.cpp
 	src/plugins/opengl/src/glx/visual/rgb_triple.cpp

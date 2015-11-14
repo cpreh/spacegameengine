@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/ffp/transform/context.hpp>
 #include <sge/opengl/state/ffp/transform/set_matrix.hpp>
 #include <sge/renderer/exception.hpp>
@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::ffp::transform::set_matrix(
-	sge::opengl::context::system::object &_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::matrix4 const &_matrix
 )
 {
@@ -41,7 +41,8 @@ sge::opengl::state::ffp::transform::set_matrix(
 		sge::opengl::context::use<
 			sge::opengl::state::ffp::transform::context
 		>(
-			_context
+			_context,
+			_context.info()
 		).load_transpose_matrix_f(),
 		[
 			&_matrix

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VF_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_VF_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/context/device/base.hpp>
-#include <sge/opengl/context/device/id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
 #include <sge/opengl/vf/client_state.hpp>
 #include <sge/opengl/vf/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -37,7 +37,7 @@ namespace vf
 
 class context
 :
-	public sge::opengl::context::device::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		context
@@ -58,7 +58,7 @@ public:
 
 	typedef void parameter;
 
-	static sge::opengl::context::device::id const static_id;
+	static sge::opengl::context::id const static_id;
 private:
 	sge::opengl::vf::client_state state_;
 };

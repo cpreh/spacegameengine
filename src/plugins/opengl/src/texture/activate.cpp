@@ -19,8 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/activate.hpp>
 #include <sge/opengl/texture/active_level.hpp>
 #include <sge/opengl/texture/base.hpp>
@@ -41,14 +40,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::texture::activate(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::texture::const_optional_base_ref const &_opt_texture,
 	sge::renderer::texture::stage const _stage
 )
 {
 	sge::opengl::texture::active_level const active_level(
-		_system_context,
+		_context,
 		_stage
 	);
 
@@ -56,13 +54,13 @@ sge::opengl::texture::activate(
 		sge::opengl::context::use<
 			sge::opengl::texture::bind_context
 		>(
-			_device_context
+			_context
 		)
 	);
 
 	fcppt::maybe_void(
 		sge::opengl::texture::get_stage_type(
-			_device_context,
+			_context,
 			_stage
 		),
 		[
@@ -102,8 +100,7 @@ sge::opengl::texture::activate(
 		[
 			&active_level,
 			&bind_context,
-			&_device_context,
-			&_system_context,
+			&_context,
 			&_stage
 		](
 			sge::renderer::texture::base const &_texture
@@ -144,8 +141,7 @@ sge::opengl::texture::activate(
 
 			sge::opengl::texture::set_samplers(
 				binding,
-				_system_context,
-				_device_context
+				_context
 			);
 		}
 	);

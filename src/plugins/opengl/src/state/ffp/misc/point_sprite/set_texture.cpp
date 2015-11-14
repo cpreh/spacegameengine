@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/convert/to_gl_bool.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/config.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/set_texture.hpp>
@@ -35,14 +35,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::ffp::misc::point_sprite::set_texture(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::opengl::state::ffp::misc::point_sprite::config const &_point_sprite_config,
 	sge::renderer::texture::stage const _stage,
 	sge::renderer::state::ffp::misc::enable_point_sprites const _enable
 )
 {
 	sge::opengl::texture::active_level const active_level(
-		_system_context,
+		_context,
 		_stage
 	);
 

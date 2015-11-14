@@ -24,8 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/internal_color_format.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
@@ -52,8 +51,7 @@ class basic_buffer_parameters
 public:
 	basic_buffer_parameters(
 		sge::opengl::texture::binding const &,
-		sge::opengl::context::system::object &,
-		sge::opengl::context::device::object &,
+		sge::opengl::context::object &,
 		sge::renderer::texture::mipmap::level,
 		sge::opengl::texture::type,
 		sge::opengl::texture::buffer_type,
@@ -68,11 +66,8 @@ public:
 	sge::opengl::texture::binding const &
 	binding() const;
 
-	sge::opengl::context::system::object &
-	system_context() const;
-
-	sge::opengl::context::device::object &
-	device_context() const;
+	sge::opengl::context::object &
+	context() const;
 
 	sge::renderer::texture::mipmap::level
 	level() const;
@@ -103,9 +98,7 @@ public:
 private:
 	sge::opengl::texture::binding const &binding_;
 
-	sge::opengl::context::system::object &system_context_;
-
-	sge::opengl::context::device::object &device_context_;
+	sge::opengl::context::object &context_;
 
 	sge::renderer::texture::mipmap::level const level_;
 

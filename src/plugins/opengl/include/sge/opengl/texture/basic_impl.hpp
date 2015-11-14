@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BASIC_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASIC_IMPL_HPP_INCLUDED
 
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/basic.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
@@ -49,11 +48,8 @@ sge::opengl::texture::basic<
 	sge::opengl::texture::base(
 		_type
 	),
-	system_context_(
-		_basic_parameters.system_context()
-	),
-	device_context_(
-		_basic_parameters.device_context()
+	context_(
+		_basic_parameters.context()
 	),
 	resource_flags_(
 		_parameters.resource_flags()
@@ -115,25 +111,13 @@ sge::opengl::texture::basic<
 template<
 	typename Types
 >
-sge::opengl::context::system::object &
+sge::opengl::context::object &
 sge::opengl::texture::basic<
 	Types
->::system_context() const
+>::context() const
 {
 	return
-		system_context_;
-}
-
-template<
-	typename Types
->
-sge::opengl::context::device::object &
-sge::opengl::texture::basic<
-	Types
->::device_context() const
-{
-	return
-		device_context_;
+		context_;
 }
 
 template<
@@ -145,15 +129,14 @@ sge::opengl::texture::basic<
 >::generate_mipmaps()
 {
 	sge::opengl::texture::scoped_work_binding const binding(
-		system_context_,
-		device_context_,
+		context_,
 		this->type(),
 		this->id()
 	);
 
 	sge::opengl::texture::mipmap::generate(
 		binding,
-		system_context_,
+		context_,
 		this->type()
 	);
 }

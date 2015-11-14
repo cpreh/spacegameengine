@@ -19,22 +19,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/core/sampler/context.hpp>
 #include <sge/opengl/state/core/sampler/set_defaults.hpp>
 
 
 void
 sge::opengl::state::core::sampler::set_defaults(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context
+	sge::opengl::context::object &_context
 )
 {
 	sge::opengl::context::use<
 		sge::opengl::state::core::sampler::context
 	>(
-		_device_context,
-		_system_context
+		_context,
+		_context
 	).reset();
 }

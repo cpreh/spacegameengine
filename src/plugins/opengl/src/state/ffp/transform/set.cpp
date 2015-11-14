@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/ffp/transform/default_context.hpp>
 #include <sge/opengl/state/ffp/transform/object.hpp>
 #include <sge/opengl/state/ffp/transform/set.hpp>
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::state::ffp::transform::set(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::state::ffp::transform::mode const _mode,
 	sge::renderer::state::ffp::transform::const_optional_object_ref const &_object
 )
@@ -40,7 +40,7 @@ sge::opengl::state::ffp::transform::set(
 	fcppt::maybe(
 		_object,
 		[
-			&_system_context
+			&_context
 		]()
 		-> sge::opengl::state::ffp::transform::object const &
 		{
@@ -48,8 +48,8 @@ sge::opengl::state::ffp::transform::set(
 				sge::opengl::context::use<
 					sge::opengl::state::ffp::transform::default_context
 				>(
-					_system_context,
-					_system_context
+					_context,
+					_context
 				).default_state();
 		},
 		[](

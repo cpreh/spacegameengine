@@ -58,7 +58,7 @@ sge::opengl::texture::mipmap::levels(
 
 		sge::opengl::texture::mipmap::auto_generate(
 			_parameters.binding(),
-			_parameters.system_context()
+			_parameters.context()
 		);
 	}
 	else

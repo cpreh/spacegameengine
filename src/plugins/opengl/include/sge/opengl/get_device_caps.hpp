@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GET_DEVICE_CAPS_HPP_INCLUDED
 
 #include <sge/opengl/backend/system_fwd.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <awl/system/object_fwd.hpp>
 
@@ -35,7 +34,6 @@ namespace opengl
 sge::renderer::caps::device
 get_device_caps(
 	awl::system::object &,
-	sge::opengl::context::object &,
 	sge::opengl::backend::system &
 );
 

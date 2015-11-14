@@ -19,36 +19,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/convert/from_gl_bool.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/info/context.hpp>
+#include <sge/opengl/info/extension.hpp>
+#include <sge/opengl/info/extension_supported.hpp>
+#include <sge/opengl/info/major_version.hpp>
+#include <sge/opengl/info/minor_version.hpp>
+#include <sge/opengl/info/version_at_least.hpp>
 #include <sge/opengl/texture/npot_context.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
-
-sge::opengl::texture::npot_context::npot_context()
+sge::opengl::texture::npot_context::npot_context(
+	sge::opengl::info::context const &_info
+)
 :
-	sge::opengl::context::system::base(),
-	is_native_(
-		sge::opengl::convert::from_gl_bool(
-			GLEW_VERSION_2_0
+	sge::opengl::context::base(),
+	is_supported_(
+		sge::opengl::info::version_at_least(
+			_info.version(),
+			sge::opengl::info::major_version{
+				2u
+			},
+			sge::opengl::info::minor_version{
+				0u
+			}
 		)
-	),
-	is_arb_(
-		sge::opengl::convert::from_gl_bool(
-			GL_ARB_texture_non_power_of_two
+		||
+		sge::opengl::info::extension_supported(
+			_info.extensions(),
+			sge::opengl::info::extension{
+				"GL_ARB_texture_non_power_of_two"
+			}
 		)
 	)
 {
 }
-
-FCPPT_PP_POP_WARNING
 
 sge::opengl::texture::npot_context::~npot_context()
 {
@@ -58,12 +68,10 @@ bool
 sge::opengl::texture::npot_context::is_supported() const
 {
 	return
-		is_native_
-		||
-		is_arb_;
+		is_supported_;
 }
 
-sge::opengl::context::system::id const
+sge::opengl::context::id const
 sge::opengl::texture::npot_context::static_id(
-	sge::opengl::context::system::make_id()
+	sge::opengl::context::make_id()
 );

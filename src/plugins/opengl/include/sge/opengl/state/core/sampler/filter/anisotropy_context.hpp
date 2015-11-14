@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
+#include <sge/opengl/info/context_fwd.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_context_fwd.hpp>
 #include <sge/opengl/state/core/sampler/filter/optional_anisotropy_config.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -49,15 +50,20 @@ class anisotropy_context
 		anisotropy_context
 	);
 public:
-	anisotropy_context();
+	typedef
+	sge::opengl::info::context const &
+	parameter;
+
+	explicit
+	anisotropy_context(
+		sge::opengl::info::context const &
+	);
 
 	~anisotropy_context()
 	override;
 
 	sge::opengl::state::core::sampler::filter::optional_anisotropy_config const &
 	config() const;
-
-	typedef void parameter;
 
 	static
 	sge::opengl::context::id const

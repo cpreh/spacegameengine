@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_FFP_MISC_POINT_SPRITE_SET_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_MISC_POINT_SPRITE_SET_IMPL_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/config_fwd.hpp>
 #include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
@@ -42,7 +42,7 @@ namespace point_sprite
 
 sge::opengl::state::actor_vector
 set_impl(
-	sge::opengl::context::system::object &,
+	sge::opengl::context::object &,
 	sge::opengl::state::ffp::misc::point_sprite::config const &,
 	sge::renderer::state::ffp::misc::enable_point_sprites
 );

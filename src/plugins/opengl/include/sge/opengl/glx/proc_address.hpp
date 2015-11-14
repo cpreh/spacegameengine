@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLX_PROC_ADDRESS_HPP_INCLUDED
 
 #include <sge/opengl/glx/optional_raw_function.hpp>
-#include <sge/opengl/glx/proc_context_fwd.hpp>
+#include <sge/opengl/glx/proc_address_function.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -37,7 +37,7 @@ namespace glx
 
 sge::opengl::glx::optional_raw_function
 proc_address(
-	sge::opengl::glx::proc_context const &,
+	sge::opengl::glx::proc_address_function,
 	std::string const &
 );
 

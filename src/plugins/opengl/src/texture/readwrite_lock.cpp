@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/readwrite_lock.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 
 
 sge::opengl::texture::readwrite_lock::readwrite_lock(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	size_type const _read_size,
 	size_type const _write_size,
 	size_type const _stride,
@@ -33,13 +33,13 @@ sge::opengl::texture::readwrite_lock::readwrite_lock(
 )
 :
 	read_lock_(
-		_system_context,
+		_context,
 		_read_size,
 		_stride,
 		_flags
 	),
 	write_lock_(
-		_system_context,
+		_context,
 	  	_write_size,
 		_stride,
 		_flags

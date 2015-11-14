@@ -18,16 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/device/base.hpp>
-#include <sge/opengl/context/device/id.hpp>
-#include <sge/opengl/context/device/make_id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/state/ffp/lighting/light/context.hpp>
 #include <sge/renderer/state/index_count.hpp>
 
 
 sge::opengl::state::ffp::lighting::light::context::context()
 :
-	sge::opengl::context::device::base(),
+	sge::opengl::context::base(),
 	indices_(
 		0u
 	)
@@ -54,7 +54,7 @@ sge::opengl::state::ffp::lighting::light::context::indices(
 		_indices;
 }
 
-sge::opengl::context::device::id const
+sge::opengl::context::id const
 sge::opengl::state::ffp::lighting::light::context::static_id(
-	sge::opengl::context::device::make_id()
+	sge::opengl::context::make_id()
 );

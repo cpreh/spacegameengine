@@ -25,8 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/cg/texture/loaded_object.hpp>
 #include <sge/opengl/cg/texture/set_parameter.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/active_level.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/bind_context.hpp>
@@ -39,23 +38,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::cg::texture::loaded_object::loaded_object(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context,
+	sge::opengl::context::object &_context,
 	sge::cg::parameter::object const &_parameter,
 	sge::renderer::texture::base &_texture
 )
 :
-	system_context_(
-		_system_context
-	),
-	device_context_(
-		_device_context
+	context_(
+		_context
 	),
 	bind_context_(
 		sge::opengl::context::use<
 			sge::opengl::texture::bind_context
 		>(
-			_device_context
+			_context
 		)
 	),
 	parameter_(
@@ -105,7 +100,7 @@ sge::opengl::cg::texture::loaded_object::enable() const
 	);
 
 	sge::opengl::texture::active_level const active_level(
-		system_context_,
+		context_,
 		stage_
 	);
 
@@ -116,8 +111,7 @@ sge::opengl::cg::texture::loaded_object::enable() const
 
 	sge::opengl::texture::set_samplers(
 		binding,
-		system_context_,
-		device_context_
+		context_
 	);
 
 	return

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/create_lock.hpp>
 #include <sge/opengl/texture/lock_base.hpp>
 #include <sge/opengl/texture/lock_base_unique_ptr.hpp>
@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::texture::lock_base_unique_ptr
 sge::opengl::texture::create_lock(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::lock_flags::method const _method,
 	sge::opengl::texture::lock_base::size_type const _read_size,
 	sge::opengl::texture::lock_base::size_type const _write_size,
@@ -54,7 +54,7 @@ sge::opengl::texture::create_lock(
 				fcppt::make_unique_ptr<
 					sge::opengl::texture::readonly_lock
 				>(
-					_system_context,
+					_context,
 					_read_size,
 					_stride,
 					_flags
@@ -68,7 +68,7 @@ sge::opengl::texture::create_lock(
 				fcppt::make_unique_ptr<
 					sge::opengl::texture::writeonly_lock
 				>(
-					_system_context,
+					_context,
 					_write_size,
 					_stride,
 					_flags
@@ -82,7 +82,7 @@ sge::opengl::texture::create_lock(
 				fcppt::make_unique_ptr<
 					sge::opengl::texture::readwrite_lock
 				>(
-					_system_context,
+					_context,
 					_read_size,
 					_write_size,
 					_stride,

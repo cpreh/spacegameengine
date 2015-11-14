@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/context/system/make_id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/state/core/rasterizer/default_context.hpp>
 #include <sge/opengl/state/core/rasterizer/make_actors.hpp>
 #include <sge/opengl/state/core/rasterizer/object.hpp>
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::state::core::rasterizer::default_context::default_context()
 :
-	sge::opengl::context::system::base(),
+	sge::opengl::context::base(),
 	default_state_(
 		fcppt::make_unique_ptr<
 			sge::opengl::state::core::rasterizer::object
@@ -55,7 +55,7 @@ sge::opengl::state::core::rasterizer::default_context::default_state() const
 		*default_state_;
 }
 
-sge::opengl::context::system::id const
+sge::opengl::context::id const
 sge::opengl::state::core::rasterizer::default_context::static_id(
-	sge::opengl::context::system::make_id()
+	sge::opengl::context::make_id()
 );

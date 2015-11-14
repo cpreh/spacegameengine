@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
+#include <sge/opengl/info/context_fwd.hpp>
 #include <sge/opengl/texture/npot_context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -42,7 +43,14 @@ class npot_context
 		npot_context
 	);
 public:
-	npot_context();
+	typedef
+	sge::opengl::info::context const &
+	parameter;
+
+	explicit
+	npot_context(
+		sge::opengl::info::context const &
+	);
 
 	~npot_context()
 	override;
@@ -50,15 +58,11 @@ public:
 	bool
 	is_supported() const;
 
-	typedef void parameter;
-
 	static
 	sge::opengl::context::id const
 	static_id;
 private:
-	bool const
-		is_native_,
-		is_arb_;
+	bool const is_supported_;
 };
 
 }

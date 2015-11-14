@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/internal_color_format.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/instantiate_dim.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
@@ -35,7 +35,7 @@ sge::opengl::texture::mipmap::parameters<
 	Dim
 >::parameters(
 	sge::opengl::texture::binding const &_binding,
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::opengl::texture::buffer_type const _buffer_type,
 	sge::opengl::color_format const _format,
 	sge::opengl::color_format_type const _format_type,
@@ -47,8 +47,8 @@ sge::opengl::texture::mipmap::parameters<
 	binding_(
 		_binding
 	),
-	system_context_(
-		_system_context
+	context_(
+		_context
 	),
 	buffer_type_(
 		_buffer_type
@@ -86,13 +86,13 @@ sge::opengl::texture::mipmap::parameters<
 template<
 	fcppt::math::size_type Dim
 >
-sge::opengl::context::system::object &
+sge::opengl::context::object &
 sge::opengl::texture::mipmap::parameters<
 	Dim
->::system_context() const
+>::context() const
 {
 	return
-		system_context_;
+		context_;
 }
 
 template<

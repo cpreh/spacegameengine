@@ -21,8 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_CUBE_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_CUBE_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/info/context_fwd.hpp>
 #include <sge/opengl/texture/cube_context_fwd.hpp>
 #include <sge/opengl/texture/optional_cube_config.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -37,13 +38,20 @@ namespace texture
 
 class cube_context
 :
-	public sge::opengl::context::system::base
+	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
 		cube_context
 	);
 public:
-	cube_context();
+	typedef
+	sge::opengl::info::context const &
+	parameter;
+
+	explicit
+	cube_context(
+		sge::opengl::info::context const &
+	);
 
 	~cube_context()
 	override;
@@ -51,9 +59,7 @@ public:
 	sge::opengl::texture::optional_cube_config const &
 	config() const;
 
-	typedef void parameter;
-
-	static sge::opengl::context::system::id const static_id;
+	static sge::opengl::context::id const static_id;
 private:
 	sge::opengl::texture::optional_cube_config const config_;
 };

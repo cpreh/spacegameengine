@@ -19,8 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/vf/actor.hpp>
 #include <sge/opengl/vf/client_state_combiner.hpp>
 #include <sge/opengl/vf/part.hpp>
@@ -33,16 +32,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::vf::part::part(
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::vf::dynamic::part const &_part
 )
 :
-	system_context_(
-		_system_context
-	),
-	device_context_(
-		_device_context
+	context_(
+		_context
 	),
 	part_(
 		_part
@@ -54,7 +49,7 @@ sge::opengl::vf::part::part(
 			_part.elements(),
 			[
 				&_part,
-				&_system_context
+				&_context
 			](
 				sge::renderer::vf::dynamic::ordered_element const &_elem
 			)
@@ -63,7 +58,7 @@ sge::opengl::vf::part::part(
 					sge::opengl::vf::to_actor(
 						_elem,
 						_part.stride(),
-						_system_context
+						_context
 					);
 			}
 		)
@@ -88,8 +83,7 @@ sge::opengl::vf::part::use_me(
 ) const
 {
 	sge::opengl::vf::client_state_combiner states(
-		system_context_,
-		device_context_
+		context_
 	);
 
 	for(
@@ -113,8 +107,7 @@ void
 sge::opengl::vf::part::unuse_me() const
 {
 	sge::opengl::vf::client_state_combiner states(
-		system_context_,
-		device_context_
+		context_
 	);
 
 	for(

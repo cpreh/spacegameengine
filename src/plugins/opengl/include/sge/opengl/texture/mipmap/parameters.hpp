@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_MIPMAP_PARAMETERS_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_MIPMAP_PARAMETERS_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/init_function.hpp>
@@ -61,7 +61,7 @@ public:
 
 	parameters(
 		sge::opengl::texture::binding const &,
-		sge::opengl::context::system::object &,
+		sge::opengl::context::object &,
 		sge::opengl::texture::buffer_type,
 		sge::opengl::color_format,
 		sge::opengl::color_format_type,
@@ -73,8 +73,8 @@ public:
 	sge::opengl::texture::binding const &
 	binding() const;
 
-	sge::opengl::context::system::object &
-	system_context() const;
+	sge::opengl::context::object &
+	context() const;
 
 	sge::opengl::texture::buffer_type
 	buffer_type() const;
@@ -96,7 +96,7 @@ public:
 private:
 	sge::opengl::texture::binding const &binding_;
 
-	sge::opengl::context::system::object &system_context_;
+	sge::opengl::context::object &context_;
 
 	sge::opengl::texture::buffer_type const buffer_type_;
 

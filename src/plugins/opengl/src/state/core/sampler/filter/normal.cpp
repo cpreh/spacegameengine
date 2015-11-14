@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/convert/mag_filter.hpp>
 #include <sge/opengl/state/convert/min_filter.hpp>
 #include <sge/opengl/state/core/sampler/actor.hpp>
@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::state::core::sampler::actor_vector
 sge::opengl::state::core::sampler::filter::normal(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::state::core::sampler::filter::normal::parameters const &_filter
 )
 {
@@ -77,7 +77,8 @@ sge::opengl::state::core::sampler::filter::normal(
 		sge::opengl::context::use<
 			sge::opengl::state::core::sampler::filter::anisotropy_context
 		>(
-			_system_context
+			_context,
+			_context.info()
 		).config(),
 		[
 			&result

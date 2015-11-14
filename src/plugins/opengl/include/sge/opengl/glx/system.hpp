@@ -24,12 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/context_unique_ptr.hpp>
 #include <sge/opengl/backend/scoped_current_fwd.hpp>
 #include <sge/opengl/backend/system.hpp>
+#include <sge/opengl/glx/extension_set.hpp>
+#include <sge/opengl/glx/proc_address_function.hpp>
+#include <sge/opengl/glx/swap_functions.hpp>
+#include <sge/opengl/glx/visual/optional_srgb_flag.hpp>
 #include <sge/renderer/display_mode/vsync_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/backends/x11/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
 
 
 namespace sge
@@ -77,6 +82,25 @@ private:
 
 	awl::backends::x11::system::object &awl_system_;
 
+	typedef
+	fcppt::optional<
+		sge::opengl::glx::proc_address_function
+	>
+	optional_proc_address_function;
+
+	optional_proc_address_function const get_proc_address_;
+
+	typedef
+	fcppt::optional<
+		sge::opengl::glx::swap_functions
+	>
+	optional_swap_functions;
+
+	optional_swap_functions const swap_functions_;
+
+	sge::opengl::glx::extension_set const extensions_;
+
+	sge::opengl::glx::visual::optional_srgb_flag const srgb_flag_;
 };
 
 }

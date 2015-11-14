@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_CORE_SAMPLER_MAKE_ACTORS_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_SAMPLER_MAKE_ACTORS_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/core/sampler/actor_vector.hpp>
 #include <sge/renderer/state/core/sampler/parameters_fwd.hpp>
 
@@ -39,7 +39,7 @@ namespace sampler
 
 sge::opengl::state::core::sampler::actor_vector
 make_actors(
-	sge::opengl::context::system::object &,
+	sge::opengl::context::object &,
 	sge::renderer::state::core::sampler::parameters const &
 );
 

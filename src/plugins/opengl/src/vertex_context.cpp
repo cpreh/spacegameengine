@@ -21,16 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vertex_buffer_fwd.hpp>
 #include <sge/opengl/vertex_context.hpp>
 #include <sge/opengl/vertex_declaration_fwd.hpp>
-#include <sge/opengl/context/device/base.hpp>
-#include <sge/opengl/context/device/id.hpp>
-#include <sge/opengl/context/device/make_id.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/make_id.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/container/index_map_impl.hpp>
 
 
 sge::opengl::vertex_context::vertex_context()
 :
-	sge::opengl::context::device::base(),
+	sge::opengl::context::base(),
 	last_declaration_(),
 	last_buffers_()
 {
@@ -79,7 +79,7 @@ sge::opengl::vertex_context::vertex_declaration() const
 		last_declaration_;
 }
 
-sge::opengl::context::device::id const
+sge::opengl::context::id const
 sge::opengl::vertex_context::static_id(
-	sge::opengl::context::device::make_id()
+	sge::opengl::context::make_id()
 );

@@ -44,7 +44,8 @@ sge::opengl::state::ffp::sampler::set_defaults(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
 		>(
-			_context
+			_context,
+			_context.info()
 		).config(),
 		[
 			&_context

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/core/sampler/create.hpp>
 #include <sge/opengl/state/core/sampler/make_actors.hpp>
 #include <sge/opengl/state/core/sampler/object.hpp>
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::state::core::sampler::object_unique_ptr
 sge::opengl::state::core::sampler::create(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::state::core::sampler::parameters const &_parameters
 )
 {
@@ -43,7 +43,7 @@ sge::opengl::state::core::sampler::create(
 				sge::opengl::state::core::sampler::object
 			>(
 				sge::opengl::state::core::sampler::make_actors(
-					_system_context,
+					_context,
 					_parameters
 				)
 			)

@@ -20,10 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/deref_fun_ptr.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/convert/from_gl_bool.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/info/cast_function.hpp>
+#include <sge/opengl/info/context.hpp>
+#include <sge/opengl/info/major_version.hpp>
+#include <sge/opengl/info/minor_version.hpp>
+#include <sge/opengl/info/version_at_least.hpp>
 #include <sge/opengl/state/ffp/transform/context.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -34,17 +38,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
-sge::opengl::state::ffp::transform::context::context()
+sge::opengl::state::ffp::transform::context::context(
+	sge::opengl::info::context const &_info
+)
 :
-	sge::opengl::context::system::base(),
+	sge::opengl::context::base(),
 	load_transpose_matrix_f_(
-		sge::opengl::convert::from_gl_bool(
-			GLEW_VERSION_1_3
+		sge::opengl::info::version_at_least(
+			_info.version(),
+			sge::opengl::info::major_version{
+				1u
+			},
+			sge::opengl::info::minor_version{
+				0u
+			}
 		)
 		?
 			optional_load_transpose_matrix_f(
 				sge::opengl::deref_fun_ptr(
-					glLoadTransposeMatrixf
+					sge::opengl::info::cast_function<
+						gl_load_transpose_matrix_proc
+					>(
+						_info.load_function(
+							"glLoadTransposeMatrixf"
+						)
+					)
 				)
 			)
 		:
@@ -73,7 +91,7 @@ sge::opengl::state::ffp::transform::context::have_transpose() const
 		load_transpose_matrix_f_.has_value();
 }
 
-sge::opengl::context::system::id const
+sge::opengl::context::id const
 sge::opengl::state::ffp::transform::context::static_id(
-	sge::opengl::context::system::make_id()
+	sge::opengl::context::make_id()
 );

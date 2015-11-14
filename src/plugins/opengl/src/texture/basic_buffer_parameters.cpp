@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/internal_color_format.hpp>
-#include <sge/opengl/context/device/object_fwd.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
@@ -36,8 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::texture::basic_buffer_parameters::basic_buffer_parameters(
 	sge::opengl::texture::binding const &_binding,
-	sge::opengl::context::system::object &_system_context,
-	sge::opengl::context::device::object &_device_context,
+	sge::opengl::context::object &_context,
 	sge::renderer::texture::mipmap::level const _level,
 	sge::opengl::texture::type const _type,
 	sge::opengl::texture::buffer_type const _buffer_type,
@@ -52,11 +50,8 @@ sge::opengl::texture::basic_buffer_parameters::basic_buffer_parameters(
 	binding_(
 		_binding
 	),
-	system_context_(
-		_system_context
-	),
-	device_context_(
-		_device_context
+	context_(
+		_context
 	),
 	level_(
 		_level
@@ -95,18 +90,11 @@ sge::opengl::texture::basic_buffer_parameters::binding() const
 		binding_;
 }
 
-sge::opengl::context::system::object &
-sge::opengl::texture::basic_buffer_parameters::system_context() const
+sge::opengl::context::object &
+sge::opengl::texture::basic_buffer_parameters::context() const
 {
 	return
-		system_context_;
-}
-
-sge::opengl::context::device::object &
-sge::opengl::texture::basic_buffer_parameters::device_context() const
-{
-	return
-		device_context_;
+		context_;
 }
 
 sge::renderer::texture::mipmap::level
