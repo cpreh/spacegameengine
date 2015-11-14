@@ -1224,28 +1224,10 @@ find_package(
 	OpenGL
 )
 
-find_package(
-	GLEW
-)
-
-if(
-	OPENGL_FOUND AND GLEW_FOUND
-)
-	set(
-		OPENGL_AVAILABLE
-		TRUE
-	)
-else()
-	set(
-		OPENGL_AVAILABLE
-		FALSE
-	)
-endif()
-
 option(
 	ENABLE_RENDEREROPENGL
 	"Build the opengl renderer frontend"
-	${OPENGL_AVAILABLE}
+	${OPENGL_FOUND}
 )
 
 option(
