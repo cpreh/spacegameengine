@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/fun_ptr.hpp>
 #include <sge/opengl/glx/current.hpp>
+#include <sge/opengl/glx/optional_proc_address_function.hpp>
 #include <sge/opengl/glx/proc_address_function.hpp>
 #include <sge/opengl/glx/swap_functions.hpp>
-#include <sge/opengl/glx/optional_proc_address_function.hpp>
 #include <sge/opengl/glx/vsync.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
 #include <awl/backends/x11/display.hpp>

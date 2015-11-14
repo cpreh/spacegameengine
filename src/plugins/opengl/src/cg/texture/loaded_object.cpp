@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/cg/texture/enable_parameter.hpp>
 #include <sge/opengl/cg/texture/loaded_object.hpp>
 #include <sge/opengl/cg/texture/set_parameter.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/active_level.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/bind_context.hpp>

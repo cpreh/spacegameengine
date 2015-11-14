@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/context.hpp>
+#include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/scoped_current.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>

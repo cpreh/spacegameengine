@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/index_buffer.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/convert/index_format.hpp>
 #include <sge/renderer/dim1.hpp>
 #include <sge/renderer/lock_mode.hpp>

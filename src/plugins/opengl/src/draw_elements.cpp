@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/draw_elements.hpp>
 #include <sge/opengl/index_buffer.hpp>
 #include <sge/opengl/logger.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/object.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/convert/primitive_type.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/primitive_count.hpp>

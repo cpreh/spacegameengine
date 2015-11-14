@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vertex_buffer.hpp>
 #include <sge/opengl/vertex_context.hpp>
 #include <sge/opengl/vertex_declaration.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/assert/optional_error.hpp>

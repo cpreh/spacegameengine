@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/state/set_or_default_single.hpp>
 #include <sge/opengl/state/core/rasterizer/default_context.hpp>
 #include <sge/opengl/state/core/rasterizer/object.hpp>

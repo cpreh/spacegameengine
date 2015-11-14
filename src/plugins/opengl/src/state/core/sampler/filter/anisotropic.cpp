@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/state/convert/anisotropic_mip_filter.hpp>
 #include <sge/opengl/state/core/sampler/actor.hpp>
 #include <sge/opengl/state/core/sampler/actor_vector.hpp>

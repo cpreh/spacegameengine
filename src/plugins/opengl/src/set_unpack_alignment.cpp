@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/pixel_store_int.hpp>
 #include <sge/opengl/set_unpack_alignment.hpp>
 #include <sge/opengl/unpack_alignment.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/use.hpp>
 
 
 void

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/enable.hpp>
 #include <sge/opengl/init_multi_sampling.hpp>
 #include <sge/opengl/multi_sample_context.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <fcppt/optional_to_exception.hpp>

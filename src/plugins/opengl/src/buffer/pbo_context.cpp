@@ -24,11 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/make_hardware.hpp>
 #include <sge/opengl/buffer/make_software.hpp>
 #include <sge/opengl/buffer/pbo_context.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/context/object.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/info/context.hpp>
 #include <sge/opengl/info/extension.hpp>
 #include <sge/opengl/info/extension_supported.hpp>

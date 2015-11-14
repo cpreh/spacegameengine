@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/buffer/pbo_context.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/writeonly_lock.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/assert/unreachable.hpp>

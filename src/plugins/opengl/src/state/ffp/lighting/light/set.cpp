@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/state/set_array.hpp>
 #include <sge/opengl/state/convert/light_index.hpp>
 #include <sge/opengl/state/ffp/lighting/light/context.hpp>

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLX_VISUAL_MAKE_ATTRIBUTES_HPP_INCLUDED
 #define SGE_OPENGL_GLX_VISUAL_MAKE_ATTRIBUTES_HPP_INCLUDED
 
-#include <sge/opengl/glx/visual/optional_srgb_flag_fwd.hpp>
 #include <sge/opengl/glx/visual/attribute_container_fwd.hpp>
+#include <sge/opengl/glx/visual/optional_srgb_flag_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 
 

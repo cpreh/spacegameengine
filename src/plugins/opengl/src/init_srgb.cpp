@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/init_srgb.hpp>
 #include <sge/opengl/logger.hpp>
 #include <sge/opengl/srgb_context.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <fcppt/maybe.hpp>

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/disable_client_state.hpp>
 #include <sge/opengl/enable_client_state.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/context/object.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/vf/attribute_context.hpp>
 #include <sge/opengl/vf/client_state_combiner.hpp>
 #include <sge/opengl/vf/context.hpp>
