@@ -18,26 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CREATE_VERTEX_BUFFER_HPP_INCLUDED
-#define SGE_OPENGL_CREATE_VERTEX_BUFFER_HPP_INCLUDED
+#ifndef SGE_OPENGL_INDEX_CREATE_BUFFER_HPP_INCLUDED
+#define SGE_OPENGL_INDEX_CREATE_BUFFER_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/renderer/vertex/buffer_parameters_fwd.hpp>
-#include <sge/renderer/vertex/buffer_unique_ptr.hpp>
+#include <sge/renderer/index/buffer_parameters_fwd.hpp>
+#include <sge/renderer/index/buffer_unique_ptr.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
+namespace index
+{
 
-// TODO: Move to vertex::
-sge::renderer::vertex::buffer_unique_ptr
-create_vertex_buffer(
+sge::renderer::index::buffer_unique_ptr
+create_buffer(
 	sge::opengl::context::object &,
-	sge::renderer::vertex::buffer_parameters const &
+	sge::renderer::index::buffer_parameters const &
 );
 
+}
 }
 }
 

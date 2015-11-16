@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/draw_context.hpp>
 #include <sge/opengl/draw_elements.hpp>
-#include <sge/opengl/index_buffer.hpp>
 #include <sge/opengl/logger.hpp>
 #include <sge/opengl/context/object.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/convert/primitive_type.hpp>
+#include <sge/opengl/index/buffer.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/primitive_type.hpp>
@@ -94,9 +94,9 @@ sge::opengl::draw_elements(
 		)
 	);
 
-	sge::opengl::index_buffer const &gl_index_buffer(
+	sge::opengl::index::buffer const &gl_index_buffer(
 		fcppt::cast::static_downcast<
-			sge::opengl::index_buffer const &
+			sge::opengl::index::buffer const &
 		>(
 			_index_buffer
 		)

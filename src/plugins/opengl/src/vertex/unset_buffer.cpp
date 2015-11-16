@@ -18,29 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/set_vertex_buffer.hpp>
-#include <sge/opengl/unset_vertex_buffer.hpp>
-#include <sge/opengl/vertex_buffer.hpp>
-#include <sge/opengl/vertex_context.hpp>
-#include <sge/opengl/vertex_declaration.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/vertex/buffer.hpp>
+#include <sge/opengl/vertex/context.hpp>
+#include <sge/opengl/vertex/declaration.hpp>
+#include <sge/opengl/vertex/unset_buffer.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <fcppt/maybe_void.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
 
 void
-sge::opengl::set_vertex_buffer(
+sge::opengl::vertex::unset_buffer(
 	sge::opengl::context::object &_context,
 	sge::renderer::vertex::buffer const &_buffer
 )
 {
-	sge::opengl::vertex_context &context(
+	sge::opengl::vertex::context &context(
 		sge::opengl::context::use<
-			sge::opengl::vertex_context
+			sge::opengl::vertex::context
 		>(
 			_context
 		)
@@ -50,43 +48,20 @@ sge::opengl::set_vertex_buffer(
 		_buffer.format_part_index()
 	);
 
-	fcppt::maybe_void(
-		context.vertex_buffer(
-			index
-		),
-		[
-			&_context
-		](
-			sge::opengl::vertex_buffer const &_old_buffer
-		)
-		{
-			sge::opengl::unset_vertex_buffer(
-				_context,
-				_old_buffer
-			);
-		}
-	);
-
-	sge::opengl::vertex_buffer const &gl_buffer(
-		fcppt::cast::static_downcast<
-			sge::opengl::vertex_buffer const &
-		>(
-			_buffer
-		)
-	);
-
-	context.vertex_buffer(
-		index,
-		sge::opengl::vertex_context::optional_vertex_buffer(
-			gl_buffer
-		)
-	);
-
-	gl_buffer.use(
+	fcppt::cast::static_downcast<
+		sge::opengl::vertex::buffer const &
+	>(
+		_buffer
+	).unuse(
 		FCPPT_ASSERT_OPTIONAL_ERROR(
 			context.vertex_declaration()
 		).gl_format_part(
 			index
 		)
+	);
+
+	context.vertex_buffer(
+		index,
+		sge::opengl::vertex::context::optional_buffer()
 	);
 }

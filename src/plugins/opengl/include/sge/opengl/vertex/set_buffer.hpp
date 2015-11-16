@@ -18,24 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SET_VERTEX_DECLARATION_HPP_INCLUDED
-#define SGE_OPENGL_SET_VERTEX_DECLARATION_HPP_INCLUDED
+#ifndef SGE_OPENGL_VERTEX_SET_BUFFER_HPP_INCLUDED
+#define SGE_OPENGL_VERTEX_SET_BUFFER_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/renderer/vertex/const_optional_declaration_ref_fwd.hpp>
+#include <sge/renderer/vertex/buffer_fwd.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
+namespace vertex
+{
 
 void
-set_vertex_declaration(
+set_buffer(
 	sge::opengl::context::object &,
-	sge::renderer::vertex::const_optional_declaration_ref const &
+	sge::renderer::vertex::buffer const &
 );
 
+}
 }
 }
 

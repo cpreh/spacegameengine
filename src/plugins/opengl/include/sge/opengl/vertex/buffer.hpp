@@ -18,24 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
-#define SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
+#ifndef SGE_OPENGL_VERTEX_BUFFER_HPP_INCLUDED
+#define SGE_OPENGL_VERTEX_BUFFER_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/wrapper.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/vertex/buffer_fwd.hpp>
+#include <sge/opengl/vf/part_fwd.hpp>
 #include <sge/renderer/dim1_fwd.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/lock_segment_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/index/buffer.hpp>
-#include <sge/renderer/index/buffer_parameters_fwd.hpp>
-#include <sge/renderer/index/first.hpp>
-#include <sge/renderer/index/dynamic/const_view_fwd.hpp>
-#include <sge/renderer/index/dynamic/format.hpp>
-#include <sge/renderer/index/dynamic/view_fwd.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
+#include <sge/renderer/vf/dynamic/converter.hpp>
+#include <sge/renderer/vf/dynamic/part.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vf/dynamic/view_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -43,43 +45,47 @@ namespace sge
 {
 namespace opengl
 {
+namespace vertex
+{
 
-class index_buffer
+class buffer
 :
-	public sge::renderer::index::buffer,
+	public sge::renderer::vertex::buffer,
 	public sge::opengl::buffer::wrapper
 {
 	FCPPT_NONCOPYABLE(
-		index_buffer
+		buffer
 	);
 public:
-	index_buffer(
+	buffer(
 		sge::opengl::context::object &,
-		sge::renderer::index::buffer_parameters const &
+		sge::renderer::vf::dynamic::part_index,
+		sge::renderer::vf::dynamic::part const &,
+		sge::renderer::vertex::count,
+		sge::renderer::resource_flags_field const &
 	);
 
-	~index_buffer()
+	~buffer()
 	override;
 
-	GLenum
-	gl_format() const;
-
-	GLvoid *
-	buffer_offset(
-		sge::renderer::index::first
+	void
+	use(
+		sge::opengl::vf::part const &
 	) const;
 
 	void
-	bind() const;
+	unuse(
+		sge::opengl::vf::part const &
+	) const;
 private:
-	sge::renderer::index::dynamic::view
+	sge::renderer::vf::dynamic::view
 	lock(
 		sge::renderer::lock_segment const &,
 		sge::renderer::lock_mode
 	)
 	override;
 
-	sge::renderer::index::dynamic::const_view
+	sge::renderer::vf::dynamic::const_view
 	lock_c(
 		sge::renderer::lock_segment const &
 	) const
@@ -106,23 +112,29 @@ private:
 	resource_flags() const
 	override;
 
-	sge::renderer::index::dynamic::format
+	sge::renderer::vf::dynamic::part const &
 	format() const
 	override;
 
-	sge::opengl::buffer::object const &
-	buffer() const
+	sge::renderer::vf::dynamic::part_index
+	format_part_index() const
 	override;
 
-	sge::renderer::index::dynamic::format const format_;
+	sge::opengl::buffer::object const &
+	get() const
+	override;
 
-	GLenum const gl_format_;
+	sge::renderer::vf::dynamic::part_index const part_index_;
+
+	sge::renderer::vf::dynamic::part const format_part_;
+
+	mutable sge::renderer::vf::dynamic::converter converter_;
 
 	mutable sge::opengl::buffer::object buffer_;
 };
 
 }
 }
+}
 
 #endif
-

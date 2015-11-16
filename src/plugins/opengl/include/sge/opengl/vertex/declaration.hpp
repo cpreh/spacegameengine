@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VERTEX_DECLARATION_HPP_INCLUDED
 #define SGE_OPENGL_VERTEX_DECLARATION_HPP_INCLUDED
 
-#include <sge/opengl/vertex_declaration_fwd.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/vertex/declaration_fwd.hpp>
 #include <sge/opengl/vf/part_fwd.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
@@ -40,21 +40,23 @@ namespace sge
 {
 namespace opengl
 {
+namespace vertex
+{
 
-class vertex_declaration
+class declaration
 :
 	public sge::renderer::vertex::declaration
 {
 	FCPPT_NONCOPYABLE(
-		vertex_declaration
+		declaration
 	);
 public:
-	vertex_declaration(
+	declaration(
 		sge::opengl::context::object &,
 		sge::renderer::vertex::declaration_parameters const &
 	);
 
-	~vertex_declaration()
+	~declaration()
 	override;
 
 	sge::renderer::vf::dynamic::part const &
@@ -85,6 +87,7 @@ private:
 	part_container const parts_;
 };
 
+}
 }
 }
 

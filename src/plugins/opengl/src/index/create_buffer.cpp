@@ -18,42 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/set_vertex_declaration.hpp>
-#include <sge/opengl/vertex_context.hpp>
-#include <sge/opengl/vertex_declaration.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/context/use.hpp>
-#include <sge/renderer/vertex/const_optional_declaration_ref.hpp>
-#include <sge/renderer/vertex/declaration.hpp>
-#include <fcppt/optional_bind_construct.hpp>
-#include <fcppt/cast/static_downcast.hpp>
+#include <sge/opengl/index/buffer.hpp>
+#include <sge/opengl/index/create_buffer.hpp>
+#include <sge/renderer/index/buffer.hpp>
+#include <sge/renderer/index/buffer_parameters_fwd.hpp>
+#include <sge/renderer/index/buffer_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
-void
-sge::opengl::set_vertex_declaration(
+sge::renderer::index::buffer_unique_ptr
+sge::opengl::index::create_buffer(
 	sge::opengl::context::object &_context,
-	sge::renderer::vertex::const_optional_declaration_ref const &_opt_declaration
+	sge::renderer::index::buffer_parameters const &_parameters
 )
 {
-	sge::opengl::context::use<
-		sge::opengl::vertex_context
-	>(
-		_context
-	).vertex_declaration(
-		fcppt::optional_bind_construct(
-			_opt_declaration,
-			[](
-				sge::renderer::vertex::declaration const &_declaration
+	return
+		fcppt::unique_ptr_to_base<
+			sge::renderer::index::buffer
+		>(
+			fcppt::make_unique_ptr<
+				sge::opengl::index::buffer
+			>(
+				_context,
+				_parameters
 			)
-			-> sge::opengl::vertex_declaration const &
-			{
-				return
-					fcppt::cast::static_downcast<
-						sge::opengl::vertex_declaration const &
-					>(
-						_declaration
-					);
-			}
-		)
-	);
+		);
 }

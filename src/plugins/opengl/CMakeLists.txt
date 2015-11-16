@@ -88,10 +88,7 @@ set(
 	src/plugins/opengl/include/sge/opengl/convert/to_gl_bool.hpp
 	src/plugins/opengl/include/sge/opengl/convert/to_gl_enum.hpp
 	src/plugins/opengl/include/sge/opengl/core.hpp
-	src/plugins/opengl/include/sge/opengl/create_index_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/create_onscreen_target.hpp
-	src/plugins/opengl/include/sge/opengl/create_vertex_buffer.hpp
-	src/plugins/opengl/include/sge/opengl/create_vertex_declaration.hpp
 	src/plugins/opengl/include/sge/opengl/deref_fun_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/device.hpp
 	src/plugins/opengl/include/sge/opengl/disable.hpp
@@ -153,7 +150,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/get_int.hpp
 	src/plugins/opengl/include/sge/opengl/get_ints.hpp
 	src/plugins/opengl/include/sge/opengl/get_string.hpp
-	src/plugins/opengl/include/sge/opengl/index_buffer.hpp
+	src/plugins/opengl/include/sge/opengl/index/buffer.hpp
+	src/plugins/opengl/include/sge/opengl/index/create_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/info/cast_function.hpp
 	src/plugins/opengl/include/sge/opengl/info/context.hpp
 	src/plugins/opengl/include/sge/opengl/info/context_fwd.hpp
@@ -218,8 +216,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/set_flipped_area.hpp
 	src/plugins/opengl/include/sge/opengl/set_scissor_area.hpp
 	src/plugins/opengl/include/sge/opengl/set_unpack_alignment.hpp
-	src/plugins/opengl/include/sge/opengl/set_vertex_buffer.hpp
-	src/plugins/opengl/include/sge/opengl/set_vertex_declaration.hpp
 	src/plugins/opengl/include/sge/opengl/srgb_context.hpp
 	src/plugins/opengl/include/sge/opengl/srgb_context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/state/actor.hpp
@@ -590,16 +586,20 @@ set(
 	src/plugins/opengl/include/sge/opengl/texture/warn_pow2.hpp
 	src/plugins/opengl/include/sge/opengl/texture/writeonly_lock.hpp
 	src/plugins/opengl/include/sge/opengl/unpack_alignment.hpp
-	src/plugins/opengl/include/sge/opengl/unset_vertex_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/vector3f.hpp
 	src/plugins/opengl/include/sge/opengl/vector3f_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/vector4f.hpp
 	src/plugins/opengl/include/sge/opengl/vector4f_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/vertex_buffer.hpp
-	src/plugins/opengl/include/sge/opengl/vertex_buffer_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/vertex_context.hpp
-	src/plugins/opengl/include/sge/opengl/vertex_declaration.hpp
-	src/plugins/opengl/include/sge/opengl/vertex_declaration_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/vertex/buffer.hpp
+	src/plugins/opengl/include/sge/opengl/vertex/buffer_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/vertex/context.hpp
+	src/plugins/opengl/include/sge/opengl/vertex/create_buffer.hpp
+	src/plugins/opengl/include/sge/opengl/vertex/create_declaration.hpp
+	src/plugins/opengl/include/sge/opengl/vertex/declaration.hpp
+	src/plugins/opengl/include/sge/opengl/vertex/declaration_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/vertex/set_buffer.hpp
+	src/plugins/opengl/include/sge/opengl/vertex/set_declaration.hpp
+	src/plugins/opengl/include/sge/opengl/vertex/unset_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/vf/actor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/actor_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/vf/actor_parameters.hpp
@@ -683,10 +683,7 @@ set(
 	src/plugins/opengl/src/convert/resource_flags.cpp
 	src/plugins/opengl/src/convert/to_gl_bool.cpp
 	src/plugins/opengl/src/core.cpp
-	src/plugins/opengl/src/create_index_buffer.cpp
 	src/plugins/opengl/src/create_onscreen_target.cpp
-	src/plugins/opengl/src/create_vertex_buffer.cpp
-	src/plugins/opengl/src/create_vertex_declaration.cpp
 	src/plugins/opengl/src/device.cpp
 	src/plugins/opengl/src/disable.cpp
 	src/plugins/opengl/src/disable_client_state.cpp
@@ -725,7 +722,8 @@ set(
 	src/plugins/opengl/src/get_int.cpp
 	src/plugins/opengl/src/get_ints.cpp
 	src/plugins/opengl/src/get_string.cpp
-	src/plugins/opengl/src/index_buffer.cpp
+	src/plugins/opengl/src/index/buffer.cpp
+	src/plugins/opengl/src/index/create_buffer.cpp
 	src/plugins/opengl/src/info/context.cpp
 	src/plugins/opengl/src/info/extension_supported.cpp
 	src/plugins/opengl/src/info/get_extensions.cpp
@@ -763,8 +761,6 @@ set(
 	src/plugins/opengl/src/set_flipped_area.cpp
 	src/plugins/opengl/src/set_scissor_area.cpp
 	src/plugins/opengl/src/set_unpack_alignment.cpp
-	src/plugins/opengl/src/set_vertex_buffer.cpp
-	src/plugins/opengl/src/set_vertex_declaration.cpp
 	src/plugins/opengl/src/srgb_context.cpp
 	src/plugins/opengl/src/state/convert/address_mode.cpp
 	src/plugins/opengl/src/state/convert/address_mode_type.cpp
@@ -998,10 +994,14 @@ set(
 	src/plugins/opengl/src/texture/volume_context.cpp
 	src/plugins/opengl/src/texture/volume_types.cpp
 	src/plugins/opengl/src/texture/writeonly_lock.cpp
-	src/plugins/opengl/src/unset_vertex_buffer.cpp
-	src/plugins/opengl/src/vertex_buffer.cpp
-	src/plugins/opengl/src/vertex_context.cpp
-	src/plugins/opengl/src/vertex_declaration.cpp
+	src/plugins/opengl/src/vertex/buffer.cpp
+	src/plugins/opengl/src/vertex/context.cpp
+	src/plugins/opengl/src/vertex/create_buffer.cpp
+	src/plugins/opengl/src/vertex/create_declaration.cpp
+	src/plugins/opengl/src/vertex/declaration.cpp
+	src/plugins/opengl/src/vertex/set_buffer.cpp
+	src/plugins/opengl/src/vertex/set_declaration.cpp
+	src/plugins/opengl/src/vertex/unset_buffer.cpp
 	src/plugins/opengl/src/vf/actor.cpp
 	src/plugins/opengl/src/vf/actor_parameters.cpp
 	src/plugins/opengl/src/vf/attribute_actor.cpp

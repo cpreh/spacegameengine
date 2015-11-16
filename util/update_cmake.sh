@@ -244,12 +244,14 @@ update_cmake \
 	$(opengl_inc_src context) \
 	$(opengl_inc_src convert) \
 	$(opengl_inc_src fbo) \
+	$(opengl_inc_src index) \
 	$(opengl_inc_src info) \
 	$(opengl_inc_src occlusion_query) \
 	$(opengl_inc_src platform) \
 	$(opengl_inc_src render_context) \
 	$(opengl_inc_src state) \
 	$(opengl_inc_src texture) \
+	$(opengl_inc_src vertex) \
 	$(opengl_inc_src vf)
 
 update_opengl \

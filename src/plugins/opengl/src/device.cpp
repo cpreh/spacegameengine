@@ -18,10 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/create_index_buffer.hpp>
 #include <sge/opengl/create_onscreen_target.hpp>
-#include <sge/opengl/create_vertex_buffer.hpp>
-#include <sge/opengl/create_vertex_declaration.hpp>
 #include <sge/opengl/device.hpp>
 #include <sge/opengl/init_multi_sampling.hpp>
 #include <sge/opengl/init_srgb.hpp>
@@ -31,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/create_depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/create_target.hpp>
 #include <sge/opengl/occlusion_query/create.hpp>
+#include <sge/opengl/index/create_buffer.hpp>
 #include <sge/opengl/platform/device_state.hpp>
 #include <sge/opengl/platform/system.hpp>
 #include <sge/opengl/render_context/create.hpp>
@@ -53,6 +51,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/create_depth_stencil.hpp>
 #include <sge/opengl/texture/create_planar.hpp>
 #include <sge/opengl/texture/create_volume.hpp>
+#include <sge/opengl/vertex/create_buffer.hpp>
+#include <sge/opengl/vertex/create_declaration.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/visual_base.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
@@ -336,7 +336,7 @@ sge::opengl::device::create_vertex_declaration(
 )
 {
 	return
-		sge::opengl::create_vertex_declaration(
+		sge::opengl::vertex::create_declaration(
 			context_,
 			_parameters
 		);
@@ -348,7 +348,7 @@ sge::opengl::device::create_vertex_buffer(
 )
 {
 	return
-		sge::opengl::create_vertex_buffer(
+		sge::opengl::vertex::create_buffer(
 			context_,
 			_parameters
 		);
@@ -360,7 +360,7 @@ sge::opengl::device::create_index_buffer(
 )
 {
 	return
-		sge::opengl::create_index_buffer(
+		sge::opengl::index::create_buffer(
 			context_,
 			_parameters
 		);

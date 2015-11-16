@@ -18,40 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/index_buffer.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/convert/index_format.hpp>
+#include <sge/opengl/vertex/buffer.hpp>
+#include <sge/opengl/vf/part.hpp>
 #include <sge/renderer/dim1.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/lock_segment.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/index/buffer.hpp>
-#include <sge/renderer/index/buffer_parameters.hpp>
-#include <sge/renderer/index/first.hpp>
-#include <sge/renderer/index/dynamic/format.hpp>
-#include <sge/renderer/index/dynamic/format_stride.hpp>
-#include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vf/dynamic/color_format_vector.hpp>
+#include <sge/renderer/vf/dynamic/const_view.hpp>
+#include <sge/renderer/vf/dynamic/locked_part.hpp>
+#include <sge/renderer/vf/dynamic/part.hpp>
+#include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vf/dynamic/view.hpp>
 
 
-sge::opengl::index_buffer::index_buffer(
+sge::opengl::vertex::buffer::buffer(
 	sge::opengl::context::object &_context,
-	sge::renderer::index::buffer_parameters const &_parameters
+	sge::renderer::vf::dynamic::part_index const _part_index,
+	sge::renderer::vf::dynamic::part const &_format_part,
+	sge::renderer::vertex::count const _size,
+	sge::renderer::resource_flags_field const &_flags
 )
 :
-	sge::renderer::index::buffer(),
+	sge::renderer::vertex::buffer(),
 	sge::opengl::buffer::wrapper(),
-	format_(
-		_parameters.format()
+	part_index_(
+		_part_index
 	),
-	gl_format_(
-		sge::opengl::convert::index_format(
-			format_
-		)
+	format_part_(
+		_format_part
+	),
+	converter_(
+		format_part_,
+		sge::renderer::vf::dynamic::color_format_vector{
+			sge::image::color::format::rgba8,
+			sge::image::color::format::rgba32f
+		}
 	),
 	buffer_(
 		sge::opengl::context::use<
@@ -59,54 +70,50 @@ sge::opengl::index_buffer::index_buffer(
 		>(
 			_context,
 			_context
-		).index_buffer(),
-		_parameters.count().get(),
-		sge::renderer::index::dynamic::format_stride(
-			format_
-		),
-		_parameters.flags(),
+		).vertex_buffer(),
+		_size.get(),
+		_format_part.stride().get(),
+		_flags,
 		nullptr
 	)
 {
 }
 
-sge::opengl::index_buffer::~index_buffer()
+sge::opengl::vertex::buffer::~buffer()
 {
-}
-
-GLenum
-sge::opengl::index_buffer::gl_format() const
-{
-	return
-		gl_format_;
-}
-
-GLvoid *
-sge::opengl::index_buffer::buffer_offset(
-	sge::renderer::index::first const _size
-) const
-{
-	return
-		buffer_.buffer_offset(
-			_size.get()
-		);
 }
 
 void
-sge::opengl::index_buffer::bind() const
+sge::opengl::vertex::buffer::use(
+	sge::opengl::vf::part const &_format_part
+) const
 {
 	buffer_.bind();
+
+	_format_part.use_me(
+		buffer_.buffer_offset(
+			0
+		)
+	);
 }
 
-sge::renderer::index::dynamic::view
-sge::opengl::index_buffer::lock(
+void
+sge::opengl::vertex::buffer::unuse(
+	sge::opengl::vf::part const &_format_part
+) const
+{
+	_format_part.unuse_me();
+}
+
+sge::renderer::vf::dynamic::view
+sge::opengl::vertex::buffer::lock(
 	sge::renderer::lock_segment const &_segment,
 	sge::renderer::lock_mode const _flags
 )
 {
 	return
 		this->do_lock<
-			sge::renderer::index::dynamic::view
+			sge::renderer::vf::dynamic::view
 		>(
 			sge::renderer::lock_flags::from_mode(
 				_flags
@@ -115,14 +122,14 @@ sge::opengl::index_buffer::lock(
 		);
 }
 
-sge::renderer::index::dynamic::const_view
-sge::opengl::index_buffer::lock_c(
+sge::renderer::vf::dynamic::const_view
+sge::opengl::vertex::buffer::lock_c(
 	sge::renderer::lock_segment const &_segment
 ) const
 {
 	return
 		this->do_lock<
-			sge::renderer::index::dynamic::const_view
+			sge::renderer::vf::dynamic::const_view
 		>(
 			sge::renderer::lock_flags::method::read,
 			_segment
@@ -133,7 +140,7 @@ template<
 	typename View
 >
 View
-sge::opengl::index_buffer::do_lock(
+sge::opengl::vertex::buffer::do_lock(
 	sge::renderer::lock_flags::method const _method,
 	sge::renderer::lock_segment const &_segment
 ) const
@@ -144,26 +151,35 @@ sge::opengl::index_buffer::do_lock(
 		_segment.size().w()
 	);
 
+	converter_.lock(
+		sge::renderer::vf::dynamic::locked_part(
+			buffer_.data(),
+			_segment,
+			_method
+		)
+	);
+
 	return
 		View(
 			buffer_.data(),
-			buffer_.lock_size()
-			/
-			sge::renderer::index::dynamic::format_stride(
-				format_
+			sge::renderer::vertex::count(
+				buffer_.lock_size()
 			),
-			format_
+			this->format(),
+			part_index_
 		);
 }
 
 void
-sge::opengl::index_buffer::unlock() const
+sge::opengl::vertex::buffer::unlock() const
 {
+	converter_.unlock();
+
 	buffer_.unlock();
 }
 
 sge::renderer::dim1
-sge::opengl::index_buffer::size() const
+sge::opengl::vertex::buffer::size() const
 {
 	return
 		sge::renderer::dim1{
@@ -172,21 +188,28 @@ sge::opengl::index_buffer::size() const
 }
 
 sge::renderer::resource_flags_field
-sge::opengl::index_buffer::resource_flags() const
+sge::opengl::vertex::buffer::resource_flags() const
 {
 	return
 		buffer_.flags();
 }
 
-sge::renderer::index::dynamic::format
-sge::opengl::index_buffer::format() const
+sge::renderer::vf::dynamic::part const &
+sge::opengl::vertex::buffer::format() const
 {
 	return
-		format_;
+		format_part_;
+}
+
+sge::renderer::vf::dynamic::part_index
+sge::opengl::vertex::buffer::format_part_index() const
+{
+	return
+		part_index_;
 }
 
 sge::opengl::buffer::object const &
-sge::opengl::index_buffer::buffer() const
+sge::opengl::vertex::buffer::get() const
 {
 	return
 		buffer_;

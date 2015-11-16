@@ -35,12 +35,12 @@ sge::renderer::opengl::buffer::id
 sge::opengl::buffer::wrapper::id() const
 {
 	return
-		this->buffer().id();
+		this->get().id();
 }
 
 bool
 sge::opengl::buffer::wrapper::native() const
 {
 	return
-		this->buffer().native();
+		this->get().native();
 }

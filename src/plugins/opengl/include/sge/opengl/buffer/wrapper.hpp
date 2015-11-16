@@ -50,7 +50,7 @@ protected:
 
 	virtual
 	sge::opengl::buffer::object const &
-	buffer() const = 0;
+	get() const = 0;
 private:
 	sge::renderer::opengl::buffer::id
 	id() const

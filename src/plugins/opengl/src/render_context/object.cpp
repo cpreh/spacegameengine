@@ -21,10 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/draw_arrays.hpp>
 #include <sge/opengl/draw_elements.hpp>
 #include <sge/opengl/scoped_target.hpp>
-#include <sge/opengl/set_vertex_buffer.hpp>
-#include <sge/opengl/set_vertex_declaration.hpp>
 #include <sge/opengl/target_base.hpp>
-#include <sge/opengl/unset_vertex_buffer.hpp>
 #include <sge/opengl/clear/set.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/render_context/object.hpp>
@@ -43,6 +40,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/sampler/set.hpp>
 #include <sge/opengl/state/ffp/transform/set.hpp>
 #include <sge/opengl/texture/activate.hpp>
+#include <sge/opengl/vertex/set_buffer.hpp>
+#include <sge/opengl/vertex/set_declaration.hpp>
+#include <sge/opengl/vertex/unset_buffer.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/primitive_type.hpp>
@@ -230,7 +230,7 @@ sge::opengl::render_context::object::activate_vertex_buffer(
 	sge::renderer::vertex::buffer const &_vertex_buffer
 )
 {
-	sge::opengl::set_vertex_buffer(
+	sge::opengl::vertex::set_buffer(
 		context_,
 		_vertex_buffer
 	);
@@ -241,7 +241,7 @@ sge::opengl::render_context::object::deactivate_vertex_buffer(
 	sge::renderer::vertex::buffer const &_vertex_buffer
 )
 {
-	sge::opengl::unset_vertex_buffer(
+	sge::opengl::vertex::unset_buffer(
 		context_,
 		_vertex_buffer
 	);
@@ -252,7 +252,7 @@ sge::opengl::render_context::object::vertex_declaration(
 	sge::renderer::vertex::const_optional_declaration_ref const &_vertex_declaration
 )
 {
-	sge::opengl::set_vertex_declaration(
+	sge::opengl::vertex::set_declaration(
 		context_,
 		_vertex_declaration
 	);

@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_VERTEX_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_VERTEX_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/vertex_buffer_fwd.hpp>
-#include <sge/opengl/vertex_declaration_fwd.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
+#include <sge/opengl/vertex/buffer_fwd.hpp>
+#include <sge/opengl/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional_impl.hpp>
@@ -35,49 +35,51 @@ namespace sge
 {
 namespace opengl
 {
+namespace vertex
+{
 
-class vertex_context
+class context
 :
 	public sge::opengl::context::base
 {
 	FCPPT_NONCOPYABLE(
-		vertex_context
+		context
 	);
 public:
-	vertex_context();
+	context();
 
-	~vertex_context()
+	~context()
 	override;
 
 	typedef
 	fcppt::optional<
-		sge::opengl::vertex_buffer const &
+		sge::opengl::vertex::buffer const &
 	>
-	optional_vertex_buffer;
+	optional_buffer;
 
 	void
 	vertex_buffer(
 		sge::renderer::vf::dynamic::part_index,
-		optional_vertex_buffer
+		optional_buffer
 	);
 
-	optional_vertex_buffer
+	optional_buffer
 	vertex_buffer(
 		sge::renderer::vf::dynamic::part_index
 	) const;
 
 	typedef
 	fcppt::optional<
-		sge::opengl::vertex_declaration const &
+		sge::opengl::vertex::declaration const &
 	>
-	optional_vertex_declaration;
+	optional_declaration;
 
 	void
 	vertex_declaration(
-		optional_vertex_declaration
+		optional_declaration
 	);
 
-	optional_vertex_declaration
+	optional_declaration
 	vertex_declaration() const;
 
 	typedef void parameter;
@@ -86,15 +88,16 @@ public:
 private:
 	typedef
 	fcppt::container::index_map<
-		optional_vertex_buffer
+		optional_buffer
 	>
 	vertex_buffer_map;
 
-	optional_vertex_declaration last_declaration_;
+	optional_declaration last_declaration_;
 
 	mutable vertex_buffer_map last_buffers_;
 };
 
+}
 }
 }
 

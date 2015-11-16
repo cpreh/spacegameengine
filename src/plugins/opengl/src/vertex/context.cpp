@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/vertex_buffer_fwd.hpp>
-#include <sge/opengl/vertex_context.hpp>
-#include <sge/opengl/vertex_declaration_fwd.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/vertex/buffer_fwd.hpp>
+#include <sge/opengl/vertex/context.hpp>
+#include <sge/opengl/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/container/index_map_impl.hpp>
 
 
-sge::opengl::vertex_context::vertex_context()
+sge::opengl::vertex::context::context()
 :
 	sge::opengl::context::base(),
 	last_declaration_(),
@@ -36,14 +36,14 @@ sge::opengl::vertex_context::vertex_context()
 {
 }
 
-sge::opengl::vertex_context::~vertex_context()
+sge::opengl::vertex::context::~context()
 {
 }
 
 void
-sge::opengl::vertex_context::vertex_buffer(
+sge::opengl::vertex::context::vertex_buffer(
 	sge::renderer::vf::dynamic::part_index const _index,
-	optional_vertex_buffer const _buffer
+	optional_buffer const _buffer
 )
 {
 	last_buffers_[
@@ -52,8 +52,8 @@ sge::opengl::vertex_context::vertex_buffer(
 		_buffer;
 }
 
-sge::opengl::vertex_context::optional_vertex_buffer
-sge::opengl::vertex_context::vertex_buffer(
+sge::opengl::vertex::context::optional_buffer
+sge::opengl::vertex::context::vertex_buffer(
 	sge::renderer::vf::dynamic::part_index const _index
 ) const
 {
@@ -64,22 +64,22 @@ sge::opengl::vertex_context::vertex_buffer(
 }
 
 void
-sge::opengl::vertex_context::vertex_declaration(
-	optional_vertex_declaration const _declaration
+sge::opengl::vertex::context::vertex_declaration(
+	optional_declaration const _declaration
 )
 {
 	last_declaration_ =
 		_declaration;
 }
 
-sge::opengl::vertex_context::optional_vertex_declaration
-sge::opengl::vertex_context::vertex_declaration() const
+sge::opengl::vertex::context::optional_declaration
+sge::opengl::vertex::context::vertex_declaration() const
 {
 	return
 		last_declaration_;
 }
 
 sge::opengl::context::id const
-sge::opengl::vertex_context::static_id(
+sge::opengl::vertex::context::static_id(
 	sge::opengl::context::make_id()
 );

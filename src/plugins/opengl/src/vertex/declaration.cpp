@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/vertex_declaration.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/vertex/declaration.hpp>
 #include <sge/opengl/vf/part.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/map.hpp>
 
 
-sge::opengl::vertex_declaration::vertex_declaration(
+sge::opengl::vertex::declaration::declaration(
 	sge::opengl::context::object &_context,
 	sge::renderer::vertex::declaration_parameters const &_parameters
 )
@@ -64,12 +64,12 @@ sge::opengl::vertex_declaration::vertex_declaration(
 {
 }
 
-sge::opengl::vertex_declaration::~vertex_declaration()
+sge::opengl::vertex::declaration::~declaration()
 {
 }
 
 sge::renderer::vf::dynamic::part const &
-sge::opengl::vertex_declaration::format_part(
+sge::opengl::vertex::declaration::format_part(
 	sge::renderer::vf::dynamic::part_index const _part
 ) const
 {
@@ -80,7 +80,7 @@ sge::opengl::vertex_declaration::format_part(
 }
 
 sge::opengl::vf::part const &
-sge::opengl::vertex_declaration::gl_format_part(
+sge::opengl::vertex::declaration::gl_format_part(
 	sge::renderer::vf::dynamic::part_index const _part
 ) const
 {

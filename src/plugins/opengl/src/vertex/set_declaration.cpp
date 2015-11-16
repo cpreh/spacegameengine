@@ -18,50 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/unset_vertex_buffer.hpp>
-#include <sge/opengl/vertex_buffer.hpp>
-#include <sge/opengl/vertex_context.hpp>
-#include <sge/opengl/vertex_declaration.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/renderer/vertex/buffer.hpp>
-#include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <sge/opengl/vertex/context.hpp>
+#include <sge/opengl/vertex/declaration.hpp>
+#include <sge/opengl/vertex/set_declaration.hpp>
+#include <sge/renderer/vertex/const_optional_declaration_ref.hpp>
+#include <sge/renderer/vertex/declaration.hpp>
+#include <fcppt/optional_bind_construct.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
 
 void
-sge::opengl::unset_vertex_buffer(
+sge::opengl::vertex::set_declaration(
 	sge::opengl::context::object &_context,
-	sge::renderer::vertex::buffer const &_buffer
+	sge::renderer::vertex::const_optional_declaration_ref const &_opt_declaration
 )
 {
-	sge::opengl::vertex_context &context(
-		sge::opengl::context::use<
-			sge::opengl::vertex_context
-		>(
-			_context
-		)
-	);
-
-	sge::renderer::vf::dynamic::part_index const index(
-		_buffer.format_part_index()
-	);
-
-	fcppt::cast::static_downcast<
-		sge::opengl::vertex_buffer const &
+	sge::opengl::context::use<
+		sge::opengl::vertex::context
 	>(
-		_buffer
-	).unuse(
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			context.vertex_declaration()
-		).gl_format_part(
-			index
+		_context
+	).vertex_declaration(
+		fcppt::optional_bind_construct(
+			_opt_declaration,
+			[](
+				sge::renderer::vertex::declaration const &_declaration
+			)
+			-> sge::opengl::vertex::declaration const &
+			{
+				return
+					fcppt::cast::static_downcast<
+						sge::opengl::vertex::declaration const &
+					>(
+						_declaration
+					);
+			}
 		)
-	);
-
-	context.vertex_buffer(
-		index,
-		sge::opengl::vertex_context::optional_vertex_buffer()
 	);
 }
