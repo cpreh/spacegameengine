@@ -18,11 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_OPTIONAL_TARGET_BASE_REF_HPP_INCLUDED
-#define SGE_OPENGL_OPTIONAL_TARGET_BASE_REF_HPP_INCLUDED
+#ifndef SGE_OPENGL_TARGET_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_TARGET_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/optional_target_base_ref_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/target/context_fwd.hpp>
+#include <sge/opengl/target/optional_base_ref.hpp>
+#include <fcppt/noncopyable.hpp>
 
+
+namespace sge
+{
+namespace opengl
+{
+namespace target
+{
+
+class context
+:
+	public sge::opengl::context::base
+{
+	FCPPT_NONCOPYABLE(
+		context
+	);
+public:
+	context();
+
+	~context()
+	override;
+
+	sge::opengl::target::optional_base_ref const &
+	last_target();
+
+	void
+	last_target(
+		sge::opengl::target::optional_base_ref const &
+	);
+
+	typedef void parameter;
+
+	static sge::opengl::context::id const static_id;
+private:
+	sge::opengl::target::optional_base_ref last_target_;
+};
+
+}
+}
+}
 
 #endif

@@ -18,17 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TARGET_BASE_FWD_HPP_INCLUDED
-#define SGE_OPENGL_TARGET_BASE_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_TARGET_SCOPED_HPP_INCLUDED
+#define SGE_OPENGL_TARGET_SCOPED_HPP_INCLUDED
+
+#include <sge/opengl/target/base_fwd.hpp>
+#include <sge/opengl/target/scoped_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
+namespace target
+{
 
-class target_base;
+class scoped
+{
+	FCPPT_NONCOPYABLE(
+		scoped
+	);
+public:
+	explicit
+	scoped(
+		sge::opengl::target::base &
+	);
 
+	~scoped();
+
+	sge::opengl::target::base &
+	get() const;
+private:
+	sge::opengl::target::base &target_;
+};
+
+}
 }
 }
 

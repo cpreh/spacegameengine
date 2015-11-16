@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/basic_target_impl.hpp>
-#include <sge/opengl/onscreen_surface.hpp>
-#include <sge/opengl/onscreen_target.hpp>
 #include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/target/basic_impl.hpp>
+#include <sge/opengl/target/onscreen.hpp>
+#include <sge/opengl/target/onscreen_surface.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/color_buffer/readable_surface.hpp>
@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/null.hpp>
 
 
-sge::opengl::onscreen_target::onscreen_target(
+sge::opengl::target::onscreen::onscreen(
 	sge::opengl::context::object &_context,
 	sge::opengl::backend::current &_current,
 	awl::window::object &_window
@@ -57,7 +57,7 @@ sge::opengl::onscreen_target::onscreen_target(
 			sge::renderer::color_buffer::readable_surface
 		>(
 			fcppt::make_unique_ptr<
-				sge::opengl::onscreen_surface
+				sge::opengl::target::onscreen_surface
 			>(
 				_window
 			)
@@ -66,35 +66,35 @@ sge::opengl::onscreen_target::onscreen_target(
 {
 }
 
-sge::opengl::onscreen_target::~onscreen_target()
+sge::opengl::target::onscreen::~onscreen()
 {
 }
 
 void
-sge::opengl::onscreen_target::on_bind()
+sge::opengl::target::onscreen::on_bind()
 {
 }
 
 void
-sge::opengl::onscreen_target::on_unbind()
+sge::opengl::target::onscreen::on_unbind()
 {
 }
 
 void
-sge::opengl::onscreen_target::end_rendering()
+sge::opengl::target::onscreen::end_rendering()
 {
 	current_.end_rendering();
 }
 
 sge::renderer::color_buffer::readable_surface const &
-sge::opengl::onscreen_target::surface() const
+sge::opengl::target::onscreen::surface() const
 {
 	return
 		*main_surface_;
 }
 
 sge::renderer::screen_unit
-sge::opengl::onscreen_target::height() const
+sge::opengl::target::onscreen::height() const
 {
 	return
 		fcppt::cast::size<
@@ -106,6 +106,6 @@ sge::opengl::onscreen_target::height() const
 
 template
 class
-sge::opengl::basic_target<
+sge::opengl::target::basic<
 	sge::renderer::target::onscreen
 >;

@@ -18,25 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SET_SCISSOR_AREA_HPP_INCLUDED
-#define SGE_OPENGL_SET_SCISSOR_AREA_HPP_INCLUDED
+#ifndef SGE_OPENGL_TARGET_OPTIONAL_BASE_REF_HPP_INCLUDED
+#define SGE_OPENGL_TARGET_OPTIONAL_BASE_REF_HPP_INCLUDED
 
-#include <sge/renderer/screen_unit.hpp>
-#include <sge/renderer/target/scissor_area_fwd.hpp>
+#include <sge/opengl/target/optional_base_ref_fwd.hpp>
+#include <fcppt/optional_impl.hpp>
 
-
-namespace sge
-{
-namespace opengl
-{
-
-void
-set_scissor_area(
-	sge::renderer::target::scissor_area const &,
-	sge::renderer::screen_unit
-);
-
-}
-}
 
 #endif

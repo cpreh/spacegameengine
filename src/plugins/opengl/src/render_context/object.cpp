@@ -20,8 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/draw_arrays.hpp>
 #include <sge/opengl/draw_elements.hpp>
-#include <sge/opengl/scoped_target.hpp>
-#include <sge/opengl/target_base.hpp>
 #include <sge/opengl/clear/set.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/render_context/object.hpp>
@@ -39,6 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/misc/set.hpp>
 #include <sge/opengl/state/ffp/sampler/set.hpp>
 #include <sge/opengl/state/ffp/transform/set.hpp>
+#include <sge/opengl/target/base.hpp>
+#include <sge/opengl/target/scoped.hpp>
 #include <sge/opengl/texture/activate.hpp>
 #include <sge/opengl/vertex/set_buffer.hpp>
 #include <sge/opengl/vertex/set_declaration.hpp>
@@ -104,7 +104,7 @@ sge::opengl::render_context::object::object(
 	),
 	scoped_target_(
 		dynamic_cast<
-			sge::opengl::target_base &
+			sge::opengl::target::base &
 		>(
 			target_
 		)
@@ -123,7 +123,7 @@ sge::opengl::render_context::object::~object()
 void
 sge::opengl::render_context::object::end_rendering()
 {
-	scoped_target_.target().end_rendering();
+	scoped_target_.get().end_rendering();
 }
 
 sge::renderer::target::base &
@@ -160,7 +160,7 @@ sge::opengl::render_context::object::offscreen_target(
 			scoped_offscreen_target_ =
 				optional_scoped_offscreen_target_ptr();
 
-			scoped_target_.target().bind();
+			scoped_target_.get().bind();
 		},
 		[
 			this
@@ -172,15 +172,15 @@ sge::opengl::render_context::object::offscreen_target(
 				!scoped_offscreen_target_.has_value()
 			);
 
-			scoped_target_.target().unbind();
+			scoped_target_.get().unbind();
 
 			scoped_offscreen_target_ =
 				optional_scoped_offscreen_target_ptr(
 					fcppt::make_unique_ptr<
-						sge::opengl::scoped_target
+						sge::opengl::target::scoped
 					>(
 						dynamic_cast<
-							sge::opengl::target_base &
+							sge::opengl::target::base &
 						>(
 							_target
 						)

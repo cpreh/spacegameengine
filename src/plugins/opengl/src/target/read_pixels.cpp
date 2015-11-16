@@ -18,51 +18,68 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/area_function.hpp>
+#include <sge/opengl/call.hpp>
+#include <sge/opengl/check_state.hpp>
+#include <sge/opengl/color_format.hpp>
+#include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/set_flipped_area.hpp>
-#include <sge/renderer/pixel_rect.hpp>
+#include <sge/opengl/target/read_pixels.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_unit.hpp>
+#include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/screen_unit.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/cast/to_void_ptr.hpp>
 
 
 void
-sge::opengl::set_flipped_area(
-	sge::opengl::area_function const _function,
-	sge::renderer::pixel_rect const &_area,
-	sge::renderer::screen_unit const _height
+sge::opengl::target::read_pixels(
+	sge::renderer::pixel_unit const _pos_x,
+	sge::renderer::pixel_unit const _pos_y,
+	sge::renderer::screen_unit const _width,
+	sge::renderer::screen_unit const _height,
+	sge::opengl::color_format const _format,
+	sge::opengl::color_format_type const _format_type,
+	sge::renderer::raw_pointer const _dest
 )
 {
-	_function(
+	sge::opengl::call(
+		::glReadPixels,
 		fcppt::cast::size<
 			GLint
 		>(
-			_area.pos().x()
+			_pos_x
 		),
 		fcppt::cast::size<
 			GLint
+		>(
+			_pos_y
+		),
+		fcppt::cast::size<
+			GLsizei
+		>(
+			fcppt::cast::to_signed(
+				_width
+			)
+		),
+		fcppt::cast::size<
+			GLsizei
 		>(
 			fcppt::cast::to_signed(
 				_height
 			)
-			-
-			_area.size().h()
-			-
-			_area.pos().y()
 		),
-		fcppt::cast::size<
-			GLsizei
-		>(
-			_area.size().w()
-		),
-		fcppt::cast::size<
-			GLsizei
-		>(
-			_area.size().h()
+		_format.get(),
+		_format_type.get(),
+		fcppt::cast::to_void_ptr(
+			_dest
 		)
 	);
 
-	// checking is done in the calling function
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glReadPixels failed"),
+		sge::renderer::exception
+	)
 }

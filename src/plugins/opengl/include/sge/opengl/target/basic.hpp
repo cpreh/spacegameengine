@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_BASIC_TARGET_HPP_INCLUDED
-#define SGE_OPENGL_BASIC_TARGET_HPP_INCLUDED
+#ifndef SGE_OPENGL_TARGET_BASIC_HPP_INCLUDED
+#define SGE_OPENGL_TARGET_BASIC_HPP_INCLUDED
 
-#include <sge/opengl/target_base.hpp>
-#include <sge/opengl/target_context_fwd.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/target/base.hpp>
+#include <sge/opengl/target/context_fwd.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
@@ -36,25 +36,27 @@ namespace sge
 {
 namespace opengl
 {
+namespace target
+{
 
 template<
 	typename Base
 >
-class basic_target
+class basic
 :
 	public Base,
-	public sge::opengl::target_base
+	public sge::opengl::target::base
 {
 	FCPPT_NONCOPYABLE(
-		basic_target
+		basic
 	);
 protected:
-	basic_target(
+	basic(
 		sge::opengl::context::object &,
 		sge::renderer::target::viewport const &
 	);
 public:
-	~basic_target()
+	~basic()
 	override;
 private:
 	void
@@ -109,7 +111,7 @@ private:
 	void
 	on_unbind() = 0;
 
-	sge::opengl::target_context &context_;
+	sge::opengl::target::context &context_;
 
 	bool active_;
 
@@ -118,6 +120,7 @@ private:
 	sge::renderer::target::scissor_area scissor_area_;
 };
 
+}
 }
 }
 

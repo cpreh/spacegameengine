@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
 #define SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
 
-#include <sge/opengl/basic_target.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/fbo/attachment_fwd.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
@@ -32,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/object.hpp>
 #include <sge/opengl/fbo/render_buffer_fwd.hpp>
 #include <sge/opengl/fbo/target_fwd.hpp>
+#include <sge/opengl/target/basic.hpp>
 #include <sge/opengl/texture/buffer_base_fwd.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/color_buffer/optional_surface_ref_fwd.hpp>
@@ -56,7 +56,7 @@ namespace fbo
 
 class target
 :
-	public sge::opengl::basic_target<
+	public sge::opengl::target::basic<
 		sge::renderer::target::offscreen
 	>
 {
@@ -65,7 +65,7 @@ class target
 	);
 public:
 	typedef
-	sge::opengl::basic_target<
+	sge::opengl::target::basic<
 		sge::renderer::target::offscreen
 	>
 	base;

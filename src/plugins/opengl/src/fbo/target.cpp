@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/basic_target_impl.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
@@ -37,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/temporary_bind.hpp>
 #include <sge/opengl/fbo/texture_binding.hpp>
 #include <sge/opengl/fbo/unbind.hpp>
+#include <sge/opengl/target/basic_impl.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
 #include <sge/opengl/texture/color_surface.hpp>
 #include <sge/renderer/exception.hpp>
@@ -427,6 +427,6 @@ sge::opengl::fbo::target::check()
 
 template
 class
-sge::opengl::basic_target<
+sge::opengl::target::basic<
 	sge::renderer::target::offscreen
 >;

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/create_onscreen_target.hpp>
 #include <sge/opengl/device.hpp>
 #include <sge/opengl/init_multi_sampling.hpp>
 #include <sge/opengl/init_srgb.hpp>
@@ -46,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/misc/create.hpp>
 #include <sge/opengl/state/ffp/sampler/create.hpp>
 #include <sge/opengl/state/ffp/transform/create.hpp>
+#include <sge/opengl/target/create_onscreen.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/create_cube.hpp>
 #include <sge/opengl/texture/create_depth_stencil.hpp>
@@ -194,7 +194,7 @@ sge::opengl::device::device(
 		_caps
 	),
 	onscreen_target_(
-		sge::opengl::create_onscreen_target(
+		sge::opengl::target::create_onscreen(
 			context_,
 			scoped_current_.get(),
 			_window

@@ -18,41 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/optional_target_base_ref.hpp>
-#include <sge/opengl/target_context.hpp>
-#include <sge/opengl/context/base.hpp>
-#include <sge/opengl/context/id.hpp>
-#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/backend/current_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/target/create_onscreen.hpp>
+#include <sge/opengl/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen_unique_ptr.hpp>
+#include <awl/window/object_fwd.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
-sge::opengl::target_context::target_context()
-:
-	sge::opengl::context::base(),
-	last_target_()
-{
-}
-
-sge::opengl::target_context::~target_context()
-{
-}
-
-sge::opengl::optional_target_base_ref const &
-sge::opengl::target_context::last_target()
-{
-	return
-		last_target_;
-}
-
-void
-sge::opengl::target_context::last_target(
-	sge::opengl::optional_target_base_ref const &_target
+sge::renderer::target::onscreen_unique_ptr
+sge::opengl::target::create_onscreen(
+	sge::opengl::context::object &_context,
+	sge::opengl::backend::current &_current,
+	awl::window::object &_window
 )
 {
-	last_target_ =
-		_target;
+	return
+		fcppt::unique_ptr_to_base<
+			sge::renderer::target::onscreen
+		>(
+			fcppt::make_unique_ptr<
+				sge::opengl::target::onscreen
+			>(
+				_context,
+				_current,
+				_window
+			)
+		);
 }
-
-sge::opengl::context::id const
-sge::opengl::target_context::static_id(
-	sge::opengl::context::make_id()
-);

@@ -18,24 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_VIEWPORT_HPP_INCLUDED
-#define SGE_OPENGL_VIEWPORT_HPP_INCLUDED
+#ifndef SGE_OPENGL_TARGET_CREATE_ONSCREEN_HPP_INCLUDED
+#define SGE_OPENGL_TARGET_CREATE_ONSCREEN_HPP_INCLUDED
 
-#include <sge/renderer/screen_unit.hpp>
-#include <sge/renderer/target/viewport_fwd.hpp>
+#include <sge/opengl/backend/current_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/renderer/target/onscreen_unique_ptr.hpp>
+#include <awl/window/object_fwd.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
+namespace target
+{
 
-void
-viewport(
-	sge::renderer::target::viewport const &,
-	sge::renderer::screen_unit height
+sge::renderer::target::onscreen_unique_ptr
+create_onscreen(
+	sge::opengl::context::object &,
+	sge::opengl::backend::current &,
+	awl::window::object &
 );
 
+}
 }
 }
 

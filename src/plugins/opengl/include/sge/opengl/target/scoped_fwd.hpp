@@ -18,23 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_COLOR_MATERIAL_HPP_INCLUDED
-#define SGE_OPENGL_COLOR_MATERIAL_HPP_INCLUDED
-
-#include <sge/opengl/common.hpp>
+#ifndef SGE_OPENGL_TARGET_SCOPED_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TARGET_SCOPED_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace opengl
 {
+namespace target
+{
 
-void
-color_material(
-	GLenum face,
-	GLenum value
-);
+class scoped;
 
+}
 }
 }
 

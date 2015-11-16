@@ -18,78 +18,86 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_ONSCREEN_SURFACE_HPP_INCLUDED
-#define SGE_OPENGL_ONSCREEN_SURFACE_HPP_INCLUDED
+#ifndef SGE_OPENGL_TARGET_ONSCREEN_HPP_INCLUDED
+#define SGE_OPENGL_TARGET_ONSCREEN_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
-#include <sge/renderer/raw_value.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <sge/renderer/color_buffer/readable_surface.hpp>
+#include <sge/opengl/backend/current_fwd.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/target/basic.hpp>
+#include <sge/opengl/target/onscreen_fwd.hpp>
+#include <sge/renderer/screen_unit.hpp>
+#include <sge/renderer/color_buffer/readable_surface_fwd.hpp>
+#include <sge/renderer/target/onscreen.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/raw_vector_decl.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
+namespace target
+{
 
-class onscreen_surface
+class onscreen
 :
-	public sge::renderer::color_buffer::readable_surface
+	public
+		sge::opengl::target::basic<
+			sge::renderer::target::onscreen
+		>
 {
 	FCPPT_NONCOPYABLE(
-		onscreen_surface
+		onscreen
 	);
 public:
-	explicit
-	onscreen_surface(
+	typedef
+	sge::opengl::target::basic<
+		sge::renderer::target::onscreen
+	>
+	base;
+
+	onscreen(
+		sge::opengl::context::object &,
+		sge::opengl::backend::current &,
 		awl::window::object &
 	);
 
-	~onscreen_surface()
+	~onscreen()
 	override;
 private:
-	sge::renderer::color_buffer::readable_surface::const_view
-	lock_c(
-		sge::renderer::color_buffer::readable_surface::lock_area const &
-	) const
+	void
+	on_bind()
 	override;
 
 	void
-	unlock() const
+	on_unbind()
 	override;
 
-	dim
-	size() const
+	void
+	end_rendering()
 	override;
 
-	sge::image::color::format
-	format() const
+	sge::renderer::color_buffer::readable_surface const &
+	surface() const
 	override;
 
-	sge::opengl::color_format
-	color_format() const;
-
-	sge::opengl::color_format_type
-	color_format_type() const;
+	sge::renderer::screen_unit
+	height() const
+	override;
 
 	typedef
-	fcppt::container::raw_vector<
-		sge::renderer::raw_value
+	fcppt::unique_ptr<
+		sge::renderer::color_buffer::readable_surface
 	>
-	buffer_type;
+	color_surface_unique_ptr;
 
-	awl::window::object &window_;
+	sge::opengl::backend::current &current_;
 
-	mutable buffer_type buffer_;
-
-	sge::renderer::size_type const stride_;
+	color_surface_unique_ptr const main_surface_;
 };
 
+}
 }
 }
 

@@ -26,10 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/onscreen_surface.hpp>
-#include <sge/opengl/read_pixels.hpp>
 #include <sge/opengl/convert/color_to_format.hpp>
 #include <sge/opengl/convert/color_to_format_type.hpp>
+#include <sge/opengl/target/onscreen_surface.hpp>
+#include <sge/opengl/target/read_pixels.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/screen_unit.hpp>
@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
-sge::opengl::onscreen_surface::onscreen_surface(
+sge::opengl::target::onscreen_surface::onscreen_surface(
 	awl::window::object &_window
 )
 :
@@ -61,12 +61,12 @@ sge::opengl::onscreen_surface::onscreen_surface(
 {
 }
 
-sge::opengl::onscreen_surface::~onscreen_surface()
+sge::opengl::target::onscreen_surface::~onscreen_surface()
 {
 }
 
 sge::renderer::color_buffer::readable_surface::const_view
-sge::opengl::onscreen_surface::lock_c(
+sge::opengl::target::onscreen_surface::lock_c(
 	sge::renderer::color_buffer::readable_surface::lock_area const &_dest
 ) const
 {
@@ -86,7 +86,7 @@ sge::opengl::onscreen_surface::lock_c(
 		stride_
 	);
 
-	sge::opengl::read_pixels(
+	sge::opengl::target::read_pixels(
 		fcppt::cast::size<
 			sge::renderer::pixel_unit
 		>(
@@ -130,13 +130,13 @@ sge::opengl::onscreen_surface::lock_c(
 }
 
 void
-sge::opengl::onscreen_surface::unlock() const
+sge::opengl::target::onscreen_surface::unlock() const
 {
 	buffer_.free_memory();
 }
 
-sge::opengl::onscreen_surface::dim
-sge::opengl::onscreen_surface::size() const
+sge::opengl::target::onscreen_surface::dim
+sge::opengl::target::onscreen_surface::size() const
 {
 	return
 		fcppt::math::dim::structure_cast<
@@ -151,14 +151,14 @@ sge::opengl::onscreen_surface::size() const
 // read both.
 
 sge::image::color::format
-sge::opengl::onscreen_surface::format() const
+sge::opengl::target::onscreen_surface::format() const
 {
 	return
 		sge::image::color::format::rgba8;
 }
 
 sge::opengl::color_format
-sge::opengl::onscreen_surface::color_format() const
+sge::opengl::target::onscreen_surface::color_format() const
 {
 	return
 		sge::opengl::convert::color_to_format(
@@ -167,7 +167,7 @@ sge::opengl::onscreen_surface::color_format() const
 }
 
 sge::opengl::color_format_type
-sge::opengl::onscreen_surface::color_format_type() const
+sge::opengl::target::onscreen_surface::color_format_type() const
 {
 	return
 		sge::opengl::convert::color_to_format_type(

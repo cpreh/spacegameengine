@@ -18,28 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_AREA_FUNCTION_HPP_INCLUDED
-#define SGE_OPENGL_AREA_FUNCTION_HPP_INCLUDED
+#ifndef SGE_OPENGL_TARGET_OPTIONAL_BASE_REF_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TARGET_OPTIONAL_BASE_REF_FWD_HPP_INCLUDED
 
-#include <sge/opengl/apientry.hpp>
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/target/base_fwd.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
+namespace target
+{
 
 typedef
-void
-(SGE_OPENGL_APIENTRY *area_function)
-(
-	GLint,
-	GLint,
-	GLsizei,
-	GLsizei
-);
+fcppt::optional<
+	sge::opengl::target::base &
+>
+optional_base_ref;
 
+}
 }
 }
 

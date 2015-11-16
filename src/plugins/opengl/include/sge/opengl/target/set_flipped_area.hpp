@@ -18,32 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/get_fun_ref.hpp>
-#include <sge/opengl/set_flipped_area.hpp>
-#include <sge/opengl/viewport.hpp>
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/target/viewport.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_TARGET_SET_FLIPPED_AREA_HPP_INCLUDED
+#define SGE_OPENGL_TARGET_SET_FLIPPED_AREA_HPP_INCLUDED
 
+#include <sge/opengl/target/area_function.hpp>
+#include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/screen_unit.hpp>
+
+
+namespace sge
+{
+namespace opengl
+{
+namespace target
+{
 
 void
-sge::opengl::viewport(
-	sge::renderer::target::viewport const &_viewport,
-	sge::renderer::screen_unit const _height
-)
-{
-	sge::opengl::set_flipped_area(
-		sge::opengl::get_fun_ref(
-			::glViewport
-		),
-		_viewport.get(),
-		_height
-	);
+set_flipped_area(
+	sge::opengl::target::area_function,
+	sge::renderer::pixel_rect const &,
+	sge::renderer::screen_unit
+);
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glViewport failed"),
-		sge::renderer::exception
-	)
 }
+}
+}
+
+#endif

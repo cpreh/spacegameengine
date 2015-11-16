@@ -18,33 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/get_fun_ref.hpp>
-#include <sge/opengl/set_flipped_area.hpp>
-#include <sge/opengl/set_scissor_area.hpp>
-#include <sge/renderer/exception.hpp>
-#include <sge/renderer/screen_unit.hpp>
-#include <sge/renderer/target/scissor_area.hpp>
-#include <fcppt/text.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/context/make_id.hpp>
+#include <sge/opengl/target/context.hpp>
+#include <sge/opengl/target/optional_base_ref.hpp>
 
+
+sge::opengl::target::context::context()
+:
+	sge::opengl::context::base(),
+	last_target_()
+{
+}
+
+sge::opengl::target::context::~context()
+{
+}
+
+sge::opengl::target::optional_base_ref const &
+sge::opengl::target::context::last_target()
+{
+	return
+		last_target_;
+}
 
 void
-sge::opengl::set_scissor_area(
-	sge::renderer::target::scissor_area const &_area,
-	sge::renderer::screen_unit const _height
+sge::opengl::target::context::last_target(
+	sge::opengl::target::optional_base_ref const &_target
 )
 {
-	sge::opengl::set_flipped_area(
-		sge::opengl::get_fun_ref(
-			::glScissor
-		),
-		_area.get(),
-		_height
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glScissor failed"),
-		sge::renderer::exception
-	)
+	last_target_ =
+		_target;
 }
+
+sge::opengl::context::id const
+sge::opengl::target::context::static_id(
+	sge::opengl::context::make_id()
+);

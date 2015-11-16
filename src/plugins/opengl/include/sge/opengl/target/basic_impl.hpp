@@ -18,19 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_BASIC_TARGET_IMPL_HPP_INCLUDED
-#define SGE_OPENGL_BASIC_TARGET_IMPL_HPP_INCLUDED
+#ifndef SGE_OPENGL_TARGET_BASIC_IMPL_HPP_INCLUDED
+#define SGE_OPENGL_TARGET_BASIC_IMPL_HPP_INCLUDED
 
-#include <sge/opengl/basic_target.hpp>
-#include <sge/opengl/optional_target_base_ref.hpp>
-#include <sge/opengl/scoped_target.hpp>
-#include <sge/opengl/set_scissor_area.hpp>
-#include <sge/opengl/target_base.hpp>
-#include <sge/opengl/target_context.hpp>
-#include <sge/opengl/viewport.hpp>
 #include <sge/opengl/clear/set.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/target/context.hpp>
+#include <sge/opengl/target/base.hpp>
+#include <sge/opengl/target/basic.hpp>
+#include <sge/opengl/target/optional_base_ref.hpp>
+#include <sge/opengl/target/set_scissor_area.hpp>
+#include <sge/opengl/target/scoped.hpp>
+#include <sge/opengl/target/viewport.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/maybe_void.hpp>
@@ -39,18 +39,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Base
 >
-sge::opengl::basic_target<
+sge::opengl::target::basic<
 	Base
->::basic_target(
+>::basic(
 	sge::opengl::context::object &_context,
 	sge::renderer::target::viewport const &_viewport
 )
 :
 	Base(),
-	sge::opengl::target_base(),
+	sge::opengl::target::base(),
 	context_(
 		sge::opengl::context::use<
-			sge::opengl::target_context
+			sge::opengl::target::context
 		>(
 			_context
 		)
@@ -72,9 +72,9 @@ sge::opengl::basic_target<
 template<
 	typename Base
 >
-sge::opengl::basic_target<
+sge::opengl::target::basic<
 	Base
->::~basic_target()
+>::~basic()
 {
 }
 
@@ -82,7 +82,7 @@ template<
 	typename Base
 >
 void
-sge::opengl::basic_target<
+sge::opengl::target::basic<
 	Base
 >::bind()
 {
@@ -96,7 +96,7 @@ sge::opengl::basic_target<
 	this->set_scissor_area();
 
 	context_.last_target(
-		sge::opengl::optional_target_base_ref(
+		sge::opengl::target::optional_base_ref(
 			*this
 		)
 	);
@@ -106,7 +106,7 @@ template<
 	typename Base
 >
 void
-sge::opengl::basic_target<
+sge::opengl::target::basic<
 	Base
 >::unbind()
 {
@@ -116,7 +116,7 @@ sge::opengl::basic_target<
 	this->on_unbind();
 
 	context_.last_target(
-		sge::opengl::optional_target_base_ref()
+		sge::opengl::target::optional_base_ref()
 	);
 }
 
@@ -124,7 +124,7 @@ template<
 	typename Base
 >
 void
-sge::opengl::basic_target<
+sge::opengl::target::basic<
 	Base
 >::viewport(
 	sge::renderer::target::viewport const &_viewport
@@ -143,7 +143,7 @@ template<
 	typename Base
 >
 sge::renderer::target::viewport
-sge::opengl::basic_target<
+sge::opengl::target::basic<
 	Base
 >::viewport() const
 {
@@ -155,7 +155,7 @@ template<
 	typename Base
 >
 void
-sge::opengl::basic_target<
+sge::opengl::target::basic<
 	Base
 >::scissor_area(
 	sge::renderer::target::scissor_area const &_scissor_area
@@ -174,7 +174,7 @@ template<
 	typename Base
 >
 sge::renderer::target::scissor_area
-sge::opengl::basic_target<
+sge::opengl::target::basic<
 	Base
 >::scissor_area() const
 {
@@ -186,20 +186,20 @@ template<
 	typename Base
 >
 void
-sge::opengl::basic_target<
+sge::opengl::target::basic<
 	Base
 >::clear(
 	sge::renderer::clear::parameters const &_param
 )
 {
-	sge::opengl::optional_target_base_ref const last_target(
+	sge::opengl::target::optional_base_ref const last_target(
 		context_.last_target()
 	);
 
 	fcppt::maybe_void(
 		last_target,
 		[](
-			sge::opengl::target_base &_target
+			sge::opengl::target::base &_target
 		)
 		{
 			_target.unbind();
@@ -207,7 +207,7 @@ sge::opengl::basic_target<
 	);
 
 	{
-		sge::opengl::scoped_target const scoped(
+		sge::opengl::target::scoped const scoped(
 			*this
 		);
 
@@ -219,7 +219,7 @@ sge::opengl::basic_target<
 	fcppt::maybe_void(
 		last_target,
 		[](
-			sge::opengl::target_base &_target
+			sge::opengl::target::base &_target
 		)
 		{
 			_target.bind();
@@ -231,11 +231,11 @@ template<
 	typename Base
 >
 void
-sge::opengl::basic_target<
+sge::opengl::target::basic<
 	Base
 >::set_viewport()
 {
-	sge::opengl::viewport(
+	sge::opengl::target::viewport(
 		viewport_,
 		this->height()
 	);
@@ -245,11 +245,11 @@ template<
 	typename Base
 >
 void
-sge::opengl::basic_target<
+sge::opengl::target::basic<
 	Base
 >::set_scissor_area()
 {
-	sge::opengl::set_scissor_area(
+	sge::opengl::target::set_scissor_area(
 		scissor_area_,
 		this->height()
 	);

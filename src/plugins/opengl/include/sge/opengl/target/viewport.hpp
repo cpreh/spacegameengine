@@ -18,28 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/call.hpp>
-#include <sge/opengl/check_state.hpp>
-#include <sge/opengl/color_material.hpp>
-#include <sge/opengl/common.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_TARGET_VIEWPORT_HPP_INCLUDED
+#define SGE_OPENGL_TARGET_VIEWPORT_HPP_INCLUDED
 
+#include <sge/renderer/screen_unit.hpp>
+#include <sge/renderer/target/viewport_fwd.hpp>
+
+
+namespace sge
+{
+namespace opengl
+{
+namespace target
+{
 
 void
-sge::opengl::color_material(
-	GLenum const _face,
-	GLenum const _value
-)
-{
-	sge::opengl::call(
-		::glColorMaterial,
-		_face,
-		_value
-	);
+viewport(
+	sge::renderer::target::viewport const &,
+	sge::renderer::screen_unit height
+);
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glColorMaterial failed"),
-		sge::renderer::exception
-	)
 }
+}
+}
+
+#endif

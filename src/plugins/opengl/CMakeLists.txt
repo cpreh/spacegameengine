@@ -1,7 +1,6 @@
 set(
 	SGE_OPENGL_BASE_FILES
 	src/plugins/opengl/include/sge/opengl/apientry.hpp
-	src/plugins/opengl/include/sge/opengl/area_function.hpp
 	src/plugins/opengl/include/sge/opengl/backend/context.hpp
 	src/plugins/opengl/include/sge/opengl/backend/context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/backend/context_unique_ptr.hpp
@@ -16,8 +15,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/backend/system.hpp
 	src/plugins/opengl/include/sge/opengl/backend/system_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/backend/system_unique_ptr.hpp
-	src/plugins/opengl/include/sge/opengl/basic_target.hpp
-	src/plugins/opengl/include/sge/opengl/basic_target_impl.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/base.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/base_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/buffer/base_unique_ptr.hpp
@@ -53,7 +50,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/clear/stencil_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/color_format.hpp
 	src/plugins/opengl/include/sge/opengl/color_format_type.hpp
-	src/plugins/opengl/include/sge/opengl/color_material.hpp
 	src/plugins/opengl/include/sge/opengl/common.hpp
 	src/plugins/opengl/include/sge/opengl/context/base.hpp
 	src/plugins/opengl/include/sge/opengl/context/base_fwd.hpp
@@ -88,7 +84,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/convert/to_gl_bool.hpp
 	src/plugins/opengl/include/sge/opengl/convert/to_gl_enum.hpp
 	src/plugins/opengl/include/sge/opengl/core.hpp
-	src/plugins/opengl/include/sge/opengl/create_onscreen_target.hpp
 	src/plugins/opengl/include/sge/opengl/deref_fun_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/device.hpp
 	src/plugins/opengl/include/sge/opengl/disable.hpp
@@ -189,13 +184,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/occlusion_query/object.hpp
 	src/plugins/opengl/include/sge/opengl/occlusion_query/optional_config.hpp
 	src/plugins/opengl/include/sge/opengl/occlusion_query/optional_config_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/onscreen_surface.hpp
-	src/plugins/opengl/include/sge/opengl/onscreen_target.hpp
-	src/plugins/opengl/include/sge/opengl/onscreen_target_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/optional_enum.hpp
 	src/plugins/opengl/include/sge/opengl/optional_enum_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/optional_target_base_ref.hpp
-	src/plugins/opengl/include/sge/opengl/optional_target_base_ref_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/parse_extensions.hpp
 	src/plugins/opengl/include/sge/opengl/pixel_store_context.hpp
 	src/plugins/opengl/include/sge/opengl/pixel_store_context_fwd.hpp
@@ -208,13 +198,9 @@ set(
 	src/plugins/opengl/include/sge/opengl/platform/system_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/platform/system_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/range_check.hpp
-	src/plugins/opengl/include/sge/opengl/read_pixels.hpp
 	src/plugins/opengl/include/sge/opengl/render_context/create.hpp
 	src/plugins/opengl/include/sge/opengl/render_context/end.hpp
 	src/plugins/opengl/include/sge/opengl/render_context/object.hpp
-	src/plugins/opengl/include/sge/opengl/scoped_target.hpp
-	src/plugins/opengl/include/sge/opengl/set_flipped_area.hpp
-	src/plugins/opengl/include/sge/opengl/set_scissor_area.hpp
 	src/plugins/opengl/include/sge/opengl/set_unpack_alignment.hpp
 	src/plugins/opengl/include/sge/opengl/srgb_context.hpp
 	src/plugins/opengl/include/sge/opengl/srgb_context_fwd.hpp
@@ -419,10 +405,25 @@ set(
 	src/plugins/opengl/include/sge/opengl/state/wrap_error_handler.hpp
 	src/plugins/opengl/include/sge/opengl/stride_to_unpack_alignment.hpp
 	src/plugins/opengl/include/sge/opengl/system.hpp
-	src/plugins/opengl/include/sge/opengl/target_base.hpp
-	src/plugins/opengl/include/sge/opengl/target_base_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/target_context.hpp
-	src/plugins/opengl/include/sge/opengl/target_context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/target/area_function.hpp
+	src/plugins/opengl/include/sge/opengl/target/base.hpp
+	src/plugins/opengl/include/sge/opengl/target/base_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/target/basic.hpp
+	src/plugins/opengl/include/sge/opengl/target/basic_impl.hpp
+	src/plugins/opengl/include/sge/opengl/target/context.hpp
+	src/plugins/opengl/include/sge/opengl/target/context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/target/create_onscreen.hpp
+	src/plugins/opengl/include/sge/opengl/target/onscreen.hpp
+	src/plugins/opengl/include/sge/opengl/target/onscreen_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/target/onscreen_surface.hpp
+	src/plugins/opengl/include/sge/opengl/target/optional_base_ref.hpp
+	src/plugins/opengl/include/sge/opengl/target/optional_base_ref_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/target/read_pixels.hpp
+	src/plugins/opengl/include/sge/opengl/target/scoped.hpp
+	src/plugins/opengl/include/sge/opengl/target/scoped_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/target/set_flipped_area.hpp
+	src/plugins/opengl/include/sge/opengl/target/set_scissor_area.hpp
+	src/plugins/opengl/include/sge/opengl/target/viewport.hpp
 	src/plugins/opengl/include/sge/opengl/texture/activate.hpp
 	src/plugins/opengl/include/sge/opengl/texture/active_level.hpp
 	src/plugins/opengl/include/sge/opengl/texture/active_level_fwd.hpp
@@ -637,7 +638,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/vf/texpos_actor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/to_actor.hpp
 	src/plugins/opengl/include/sge/opengl/vf/vertex_attrib_pointer.hpp
-	src/plugins/opengl/include/sge/opengl/viewport.hpp
 	src/plugins/opengl/src/backend/context.cpp
 	src/plugins/opengl/src/backend/create_system.cpp
 	src/plugins/opengl/src/backend/current.cpp
@@ -661,7 +661,6 @@ set(
 	src/plugins/opengl/src/clear/depth_buffer.cpp
 	src/plugins/opengl/src/clear/set.cpp
 	src/plugins/opengl/src/clear/stencil_buffer.cpp
-	src/plugins/opengl/src/color_material.cpp
 	src/plugins/opengl/src/context/base.cpp
 	src/plugins/opengl/src/context/container.cpp
 	src/plugins/opengl/src/context/id.cpp
@@ -683,7 +682,6 @@ set(
 	src/plugins/opengl/src/convert/resource_flags.cpp
 	src/plugins/opengl/src/convert/to_gl_bool.cpp
 	src/plugins/opengl/src/core.cpp
-	src/plugins/opengl/src/create_onscreen_target.cpp
 	src/plugins/opengl/src/device.cpp
 	src/plugins/opengl/src/disable.cpp
 	src/plugins/opengl/src/disable_client_state.cpp
@@ -746,20 +744,14 @@ set(
 	src/plugins/opengl/src/occlusion_query/get_object_uint.cpp
 	src/plugins/opengl/src/occlusion_query/holder.cpp
 	src/plugins/opengl/src/occlusion_query/object.cpp
-	src/plugins/opengl/src/onscreen_surface.cpp
-	src/plugins/opengl/src/onscreen_target.cpp
 	src/plugins/opengl/src/pixel_store_context.cpp
 	src/plugins/opengl/src/pixel_store_int.cpp
 	src/plugins/opengl/src/platform/create_system.cpp
 	src/plugins/opengl/src/platform/device_state.cpp
 	src/plugins/opengl/src/platform/system.cpp
-	src/plugins/opengl/src/read_pixels.cpp
 	src/plugins/opengl/src/render_context/create.cpp
 	src/plugins/opengl/src/render_context/end.cpp
 	src/plugins/opengl/src/render_context/object.cpp
-	src/plugins/opengl/src/scoped_target.cpp
-	src/plugins/opengl/src/set_flipped_area.cpp
-	src/plugins/opengl/src/set_scissor_area.cpp
 	src/plugins/opengl/src/set_unpack_alignment.cpp
 	src/plugins/opengl/src/srgb_context.cpp
 	src/plugins/opengl/src/state/convert/address_mode.cpp
@@ -910,8 +902,16 @@ set(
 	src/plugins/opengl/src/state/set_defaults.cpp
 	src/plugins/opengl/src/stride_to_unpack_alignment.cpp
 	src/plugins/opengl/src/system.cpp
-	src/plugins/opengl/src/target_base.cpp
-	src/plugins/opengl/src/target_context.cpp
+	src/plugins/opengl/src/target/base.cpp
+	src/plugins/opengl/src/target/context.cpp
+	src/plugins/opengl/src/target/create_onscreen.cpp
+	src/plugins/opengl/src/target/onscreen.cpp
+	src/plugins/opengl/src/target/onscreen_surface.cpp
+	src/plugins/opengl/src/target/read_pixels.cpp
+	src/plugins/opengl/src/target/scoped.cpp
+	src/plugins/opengl/src/target/set_flipped_area.cpp
+	src/plugins/opengl/src/target/set_scissor_area.cpp
+	src/plugins/opengl/src/target/viewport.cpp
 	src/plugins/opengl/src/texture/activate.cpp
 	src/plugins/opengl/src/texture/active_level.cpp
 	src/plugins/opengl/src/texture/base.cpp
@@ -1028,7 +1028,6 @@ set(
 	src/plugins/opengl/src/vf/texpos_actor.cpp
 	src/plugins/opengl/src/vf/to_actor.cpp
 	src/plugins/opengl/src/vf/vertex_attrib_pointer.cpp
-	src/plugins/opengl/src/viewport.cpp
 )
 
 set(

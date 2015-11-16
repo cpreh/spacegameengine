@@ -18,29 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/scoped_target.hpp>
-#include <sge/opengl/target_base.hpp>
+#include <sge/opengl/check_state.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/get_fun_ref.hpp>
+#include <sge/opengl/target/set_flipped_area.hpp>
+#include <sge/opengl/target/set_scissor_area.hpp>
+#include <sge/renderer/exception.hpp>
+#include <sge/renderer/screen_unit.hpp>
+#include <sge/renderer/target/scissor_area.hpp>
+#include <fcppt/text.hpp>
 
 
-sge::opengl::scoped_target::scoped_target(
-	sge::opengl::target_base &_target
+void
+sge::opengl::target::set_scissor_area(
+	sge::renderer::target::scissor_area const &_area,
+	sge::renderer::screen_unit const _height
 )
-:
-	target_(
-		_target
+{
+	sge::opengl::target::set_flipped_area(
+		sge::opengl::get_fun_ref(
+			::glScissor
+		),
+		_area.get(),
+		_height
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("glScissor failed"),
+		sge::renderer::exception
 	)
-{
-	target_.bind();
-}
-
-sge::opengl::scoped_target::~scoped_target()
-{
-	target_.unbind();
-}
-
-sge::opengl::target_base &
-sge::opengl::scoped_target::target() const
-{
-	return
-		target_;
 }
