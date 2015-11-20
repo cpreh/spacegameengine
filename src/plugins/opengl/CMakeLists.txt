@@ -65,6 +65,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/context/make_object.hpp
 	src/plugins/opengl/include/sge/opengl/context/object.hpp
 	src/plugins/opengl/include/sge/opengl/context/object_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/context/optional_base_ref.hpp
+	src/plugins/opengl/include/sge/opengl/context/optional_base_ref_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/context/use.hpp
 	src/plugins/opengl/include/sge/opengl/context/use_impl.hpp
 	src/plugins/opengl/include/sge/opengl/convert/color_to_format.hpp

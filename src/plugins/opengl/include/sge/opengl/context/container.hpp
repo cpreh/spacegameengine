@@ -22,9 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CONTEXT_CONTAINER_HPP_INCLUDED
 
 #include <sge/opengl/context/base_fwd.hpp>
+#include <sge/opengl/context/base_unique_ptr.hpp>
 #include <sge/opengl/context/container_fwd.hpp>
+#include <sge/opengl/context/optional_base_ref_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/optional_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <vector>
@@ -38,33 +40,12 @@ namespace opengl
 namespace context
 {
 
-/**
-\brief Simple container that can hold null values
-
-This is a simple replacement for boost::ptr_vector. It has the ability to hold
-null pointers, but will still delete them on its own.  Special care has to be
-taken because various operations can throw.
-*/
 class container
 {
 	FCPPT_NONCOPYABLE(
 		container
 	);
 public:
-	typedef
-	sge::opengl::context::base
-	value_type;
-
-	typedef
-	value_type
-	*pointer;
-
-	typedef
-	fcppt::unique_ptr<
-		value_type
-	>
-	unique_ptr;
-
 	typedef
 	std::size_t
 	size_type;
@@ -73,34 +54,26 @@ public:
 
 	~container();
 
-	// TODO: Use optionals here
-
-	/// Returns the element or null if it is not in the container
-	/**
-	 * Returning 0 can mean that the element has been either initialized to zero,
-	 * or that it is not present because the container is not big enough.
-	*/
-	pointer
+	sge::opengl::context::optional_base_ref
 	get(
 		size_type
 	) const;
 
-	/// Inserts a new element at @a index.
-	/**
-	 * Returns the old pointer if the element was not present, 0 if a double insert occured.
-	*/
-	pointer
+	sge::opengl::context::optional_base_ref
 	insert(
 		size_type index,
-		unique_ptr
+		sge::opengl::context::base_unique_ptr &&
 	);
 private:
-	void
-	destroy();
+	typedef
+	fcppt::optional<
+		sge::opengl::context::base_unique_ptr
+	>
+	optional_unique_ptr;
 
 	typedef
 	std::vector<
-		pointer
+		optional_unique_ptr
 	>
 	inner_container;
 

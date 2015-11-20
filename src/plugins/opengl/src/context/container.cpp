@@ -20,15 +20,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/logger.hpp>
 #include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/base_unique_ptr.hpp>
 #include <sge/opengl/context/container.hpp>
+#include <sge/opengl/context/optional_base_ref.hpp>
+#include <fcppt/maybe.hpp>
+#include <fcppt/optional_assign.hpp>
+#include <fcppt/optional_bind.hpp>
+#include <fcppt/optional_deref.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/container/at_optional.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::context::container::container()
 :
 	elements_(
+		// TODO: Can we read the current count?
 		50u
 	)
 {
@@ -36,93 +49,81 @@ sge::opengl::context::container::container()
 
 sge::opengl::context::container::~container()
 {
-	this->destroy();
 }
 
-sge::opengl::context::container::pointer
+sge::opengl::context::optional_base_ref
 sge::opengl::context::container::get(
 	size_type const _index
 ) const
 {
 	return
-		_index
-		<
-		elements_.size()
-		?
-			elements_[
+		fcppt::optional_bind(
+			fcppt::container::at_optional(
+				elements_,
 				_index
-			]
-		:
-			nullptr
-		;
+			),
+			[](
+				optional_unique_ptr const &_element
+			)
+			{
+				return
+					fcppt::optional_deref(
+						_element
+					);
+			}
+		);
 }
 
-sge::opengl::context::container::pointer
+sge::opengl::context::optional_base_ref
 sge::opengl::context::container::insert(
 	size_type const _index,
-	unique_ptr _ptr
+	sge::opengl::context::base_unique_ptr &&_ptr
 )
 {
-	try
-	{
-		// might throw bad_alloc
-		if(
-			_index
-			>=
-			elements_.size()
-		)
-			elements_.resize(
-				_index
-			);
-	}
-	catch(...)
-	{
-		this->destroy();
-
-		throw;
-	}
-
+	// TODO: Can be improve this?
 	if(
-		elements_[
-			_index
-		]
+		_index
+		>=
+		elements_.size()
 	)
-		return
-			nullptr;
+		elements_.resize(
+			_index
+			+
+			1u
+		);
 
-	pointer const nptr(
-		_ptr.release_ownership()
+	optional_unique_ptr &element(
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			fcppt::container::at_optional(
+				elements_,
+				_index
+			)
+		)
 	);
 
-	elements_[
-		_index
-	] =
-		nptr;
-
 	return
-		nptr;
-}
-
-void
-sge::opengl::context::container::destroy()
-{
-	for(
-		auto elem
-		:
-		elements_
-	)
-	{
-		try
-		{
-			delete elem;
-		}
-		catch(...)
-		{
-			FCPPT_LOG_ERROR(
-				sge::opengl::logger(),
-				fcppt::log::_
-					<< FCPPT_TEXT("Destructor throwed in opengl::context::container")
-			);
-		}
-	}
+		fcppt::maybe(
+			element,
+			[
+				&element,
+				&_ptr
+			]{
+				return
+					sge::opengl::context::optional_base_ref(
+						*fcppt::optional_assign(
+							element,
+							std::move(
+								_ptr
+							)
+						)
+					);
+			},
+			[](
+				sge::opengl::context::base_unique_ptr const &
+			)
+			{
+				return
+					sge::opengl::context::optional_base_ref();
+			}
+		);
 }

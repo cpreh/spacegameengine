@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/base_fwd.hpp>
 #include <sge/opengl/context/make_object.hpp>
 #include <sge/opengl/context/object.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/from_optional.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
 
@@ -46,20 +46,20 @@ use_impl(
 )
 {
 	return
-		fcppt::maybe(
-			_object.get(
-				Type::static_id
-			),
-			[
-				&_object,
-				&_parameter
-			]()
-			-> Type &
-			{
-				return
-					fcppt::cast::static_downcast<
-						Type &
-					>(
+		fcppt::cast::static_downcast<
+			Type &
+		>(
+			fcppt::from_optional(
+				_object.get(
+					Type::static_id
+				),
+				[
+					&_object,
+					&_parameter
+				]()
+				-> sge::opengl::context::base &
+				{
+					return
 						_object.insert(
 							Type::static_id,
 							sge::opengl::context::make_object<
@@ -67,21 +67,9 @@ use_impl(
 							>(
 								_parameter
 							)
-						)
-					);
-			},
-			[](
-				sge::opengl::context::base &_ref
+						);
+				}
 			)
-			-> Type &
-			{
-				return
-					fcppt::cast::static_downcast<
-						Type &
-					>(
-						_ref
-					);
-			}
 		);
 }
 

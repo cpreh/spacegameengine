@@ -18,17 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONTEXT_OBJECT_HPP_INCLUDED
-#define SGE_OPENGL_CONTEXT_OBJECT_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONTEXT_OPTIONAL_BASE_REF_FWD_HPP_INCLUDED
+#define SGE_OPENGL_CONTEXT_OPTIONAL_BASE_REF_FWD_HPP_INCLUDED
 
 #include <sge/opengl/context/base_fwd.hpp>
-#include <sge/opengl/context/base_unique_ptr.hpp>
-#include <sge/opengl/context/container.hpp>
-#include <sge/opengl/context/id_fwd.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/context/optional_base_ref_fwd.hpp>
-#include <sge/opengl/info/context_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_fwd.hpp>
 
 
 namespace sge
@@ -38,37 +32,11 @@ namespace opengl
 namespace context
 {
 
-class object
-{
-	FCPPT_NONCOPYABLE(
-		object
-	);
-public:
-	explicit
-	object(
-		sge::opengl::info::context const &
-	);
-
-	~object();
-
-	sge::opengl::context::optional_base_ref
-	get(
-		sge::opengl::context::id
-	);
-
+typedef
+fcppt::optional<
 	sge::opengl::context::base &
-	insert(
-		sge::opengl::context::id,
-		sge::opengl::context::base_unique_ptr &&
-	);
-
-	sge::opengl::info::context const &
-	info() const;
-private:
-	sge::opengl::info::context const &info_;
-
-	sge::opengl::context::container elements_;
-};
+>
+optional_base_ref;
 
 }
 }

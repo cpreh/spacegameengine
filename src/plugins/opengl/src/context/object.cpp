@@ -22,8 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/base_unique_ptr.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/object.hpp>
+#include <sge/opengl/context/optional_base_ref.hpp>
 #include <sge/opengl/info/context_fwd.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -44,29 +45,15 @@ sge::opengl::context::object::~object()
 {
 }
 
-sge::opengl::context::object::optional_base_ref
+sge::opengl::context::optional_base_ref
 sge::opengl::context::object::get(
 	sge::opengl::context::id const _id
 )
 {
-	sge::opengl::context::base *const ret(
+	return
 		elements_.get(
 			_id.get()
-		)
-	);
-
-	// TODO: Improve this
-	return
-		ret
-		==
-		nullptr
-		?
-			optional_base_ref()
-		:
-			optional_base_ref(
-				*ret
-			)
-		;
+		);
 }
 
 sge::opengl::context::base &
@@ -75,21 +62,15 @@ sge::opengl::context::object::insert(
 	sge::opengl::context::base_unique_ptr &&_ptr
 )
 {
-	sge::opengl::context::base *const ret(
-		elements_.insert(
-			_id.get(),
-			std::move(
-				_ptr
-			)
-		)
-	);
-
-	FCPPT_ASSERT_ERROR(
-		ret
-	);
-
 	return
-		*ret;
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			elements_.insert(
+				_id.get(),
+				std::move(
+					_ptr
+				)
+			)
+		);
 }
 
 sge::opengl::info::context const &
