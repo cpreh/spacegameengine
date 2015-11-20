@@ -19,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/renderer/vertex/buffer.hpp>
 #include <sge/opengl/vertex/buffer.hpp>
 #include <sge/opengl/vertex/create_buffer.hpp>
 #include <sge/opengl/vertex/declaration.hpp>
+#include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>

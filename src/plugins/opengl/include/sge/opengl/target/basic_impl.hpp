@@ -24,12 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/clear/set.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/target/context.hpp>
 #include <sge/opengl/target/base.hpp>
 #include <sge/opengl/target/basic.hpp>
+#include <sge/opengl/target/context.hpp>
 #include <sge/opengl/target/optional_base_ref.hpp>
-#include <sge/opengl/target/set_scissor_area.hpp>
 #include <sge/opengl/target/scoped.hpp>
+#include <sge/opengl/target/set_scissor_area.hpp>
 #include <sge/opengl/target/viewport.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
 #include <sge/renderer/target/viewport.hpp>
