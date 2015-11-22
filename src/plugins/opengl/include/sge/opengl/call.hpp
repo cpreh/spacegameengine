@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CALL_HPP_INCLUDED
 #define SGE_OPENGL_CALL_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/apientry.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ template<
 inline
 Result
 call(
-	Result (GLAPIENTRY &_fun)(Args...),
+	Result (SGE_OPENGL_APIENTRY &_fun)(Args...),
 	Args... _args
 )
 {

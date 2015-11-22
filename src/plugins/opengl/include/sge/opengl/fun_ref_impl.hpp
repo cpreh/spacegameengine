@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FUN_REF_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_FUN_REF_IMPL_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/apientry.hpp>
 
 
 namespace sge
@@ -39,13 +39,13 @@ template<
 	typename ...Args
 >
 struct fun_ref_impl<
-	Ret (GLAPIENTRY *)(
+	Ret (SGE_OPENGL_APIENTRY *)(
 		Args...
 	)
 >
 {
 	typedef
-	Ret (GLAPIENTRY &type)(
+	Ret (SGE_OPENGL_APIENTRY &type)(
 		Args...
 	);
 };

@@ -1550,6 +1550,39 @@ list(
 	"${awl_INCLUDE_DIRS}"
 )
 
+include(
+	CheckIncludeFileCXX
+)
+
+set(
+	CMAKE_REQUIRED_INCLUDES
+	${SGE_OPENGL_INCLUDE_DIRS}
+)
+
+check_include_file_cxx(
+	"GL/glext.h"
+	HAVE_GLEXT
+)
+
+unset(
+	CMAKE_REQUIRED_INCLUDES
+)
+
+if(
+	NOT HAVE_GLEXT
+)
+	message(
+		STATUS
+		"glext.h not found, going to include our own"
+	)
+
+	list(
+		APPEND
+		SGE_OPENGL_INCLUDE_DIRS
+		${CMAKE_CURRENT_SOURCE_DIR}/ext/include
+	)
+endif()
+
 add_sge_plugin(
 	opengl
 	SGE_DEPS

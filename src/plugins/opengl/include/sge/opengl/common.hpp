@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_COMMON_HPP_INCLUDED
 
 #include <sge/renderer/opengl/glinclude.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <GL/glext.h>
+#include <fcppt/config/external_end.hpp>
 
 
 #endif
