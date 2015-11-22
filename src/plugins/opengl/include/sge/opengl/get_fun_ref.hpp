@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GET_FUN_REF_HPP_INCLUDED
 #define SGE_OPENGL_GET_FUN_REF_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/apientry.hpp>
 
 
 namespace sge
@@ -36,12 +36,12 @@ template<
 auto
 inline
 get_fun_ref(
-	Result (GLAPIENTRY &_fun)(
+	Result (SGE_OPENGL_APIENTRY &_fun)(
 		Args...
 	)
 )
 ->
-Result (GLAPIENTRY &)(
+Result (SGE_OPENGL_APIENTRY &)(
 	Args...
 )
 {
