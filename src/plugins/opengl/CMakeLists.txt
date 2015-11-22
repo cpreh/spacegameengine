@@ -1551,7 +1551,7 @@ list(
 )
 
 include(
-	CheckIncludeFileCXX
+	CheckCXXSourceCompiles
 )
 
 set(
@@ -1559,8 +1559,11 @@ set(
 	${SGE_OPENGL_INCLUDE_DIRS}
 )
 
-check_include_file_cxx(
-	"GL/glext.h"
+check_cxx_source_compiles(
+	"
+	#include <GL/gl.h>
+	#include <GL/glext.h>
+	int main() { return 0; }"
 	HAVE_GLEXT
 )
 
