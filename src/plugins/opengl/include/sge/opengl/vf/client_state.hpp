@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/container/index_map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <set>
 #include <fcppt/config/external_end.hpp>
@@ -39,17 +38,23 @@ namespace vf
 class client_state
 {
 public:
-	typedef std::set<
+	typedef
+	std::set<
 		GLenum
-	> normal_state_set;
+	>
+	normal_state_set;
 
-	typedef std::set<
+	typedef
+	std::set<
 		sge::renderer::texture::stage
-	> texture_state_set;
+	>
+	texture_state_set;
 
-	typedef std::set<
+	typedef
+	std::set<
 		GLuint
-	> index_state_set;
+	>
+	index_state_set;
 
 	client_state();
 

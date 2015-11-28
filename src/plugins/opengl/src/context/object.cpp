@@ -24,7 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/object.hpp>
 #include <sge/opengl/context/optional_base_ref.hpp>
 #include <sge/opengl/info/context_fwd.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/optional_deref.hpp>
+#include <fcppt/optional_impl.hpp>
+#include <fcppt/assert/pre.hpp>
+#include <fcppt/container/index_map_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -51,8 +54,10 @@ sge::opengl::context::object::get(
 )
 {
 	return
-		elements_.get(
-			_id.get()
+		fcppt::optional_deref(
+			elements_[
+				_id.get()
+			]
 		);
 }
 
@@ -62,15 +67,29 @@ sge::opengl::context::object::insert(
 	sge::opengl::context::base_unique_ptr &&_ptr
 )
 {
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			elements_.insert(
-				_id.get(),
-				std::move(
-					_ptr
-				)
+	optional_base_unique_ptr &dest(
+		elements_[
+			_id.get()
+		]
+	);
+
+	FCPPT_ASSERT_PRE(
+		!dest.has_value()
+	);
+
+	sge::opengl::context::base &result(
+		*_ptr
+	);
+
+	dest =
+		optional_base_unique_ptr(
+			std::move(
+				_ptr
 			)
 		);
+
+	return
+		result;
 }
 
 sge::opengl::info::context const &

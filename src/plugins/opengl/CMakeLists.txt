@@ -54,7 +54,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/context/base.hpp
 	src/plugins/opengl/include/sge/opengl/context/base_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/context/base_unique_ptr.hpp
-	src/plugins/opengl/include/sge/opengl/context/container.hpp
 	src/plugins/opengl/include/sge/opengl/context/container_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/context/dummy_parameter.hpp
 	src/plugins/opengl/include/sge/opengl/context/dummy_parameter_fwd.hpp
@@ -664,7 +663,6 @@ set(
 	src/plugins/opengl/src/clear/set.cpp
 	src/plugins/opengl/src/clear/stencil_buffer.cpp
 	src/plugins/opengl/src/context/base.cpp
-	src/plugins/opengl/src/context/container.cpp
 	src/plugins/opengl/src/context/id.cpp
 	src/plugins/opengl/src/context/make_id.cpp
 	src/plugins/opengl/src/context/object.cpp

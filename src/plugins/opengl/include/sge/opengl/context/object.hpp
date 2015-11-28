@@ -23,12 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/base_fwd.hpp>
 #include <sge/opengl/context/base_unique_ptr.hpp>
-#include <sge/opengl/context/container.hpp>
 #include <sge/opengl/context/id_fwd.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/optional_base_ref_fwd.hpp>
 #include <sge/opengl/info/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_decl.hpp>
+#include <fcppt/container/index_map_decl.hpp>
 
 
 namespace sge
@@ -67,7 +68,19 @@ public:
 private:
 	sge::opengl::info::context const &info_;
 
-	sge::opengl::context::container elements_;
+	typedef
+	fcppt::optional<
+		sge::opengl::context::base_unique_ptr
+	>
+	optional_base_unique_ptr;
+
+	typedef
+	fcppt::container::index_map<
+		optional_base_unique_ptr
+	>
+	container;
+
+	container elements_;
 };
 
 }
