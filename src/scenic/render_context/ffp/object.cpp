@@ -52,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/scenic/index_buffer_range.hpp>
@@ -398,7 +399,9 @@ sge::scenic::render_context::ffp::object::vertex_buffer(
 		);
 
 	current_vertex_buffer_size_ =
-		_vertex_buffer.linear_size();
+		sge::renderer::vertex::count{
+			_vertex_buffer.linear_size()
+		};
 }
 
 void

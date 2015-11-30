@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/base.hpp>
+#include <sge/renderer/target/scissor_area.hpp>
 #include <sge/renderer/target/scoped_scissor_area.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/scoped.hpp>
@@ -418,7 +419,9 @@ sge::cegui::geometry_buffer::setClippingRegion(
 	);
 
 	scissor_area_ =
-		converted;
+		sge::renderer::target::scissor_area{
+			converted
+		};
 }
 
 void
