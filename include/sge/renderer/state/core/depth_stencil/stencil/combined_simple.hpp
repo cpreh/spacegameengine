@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/value.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
+#include <fcppt/nonassignable.hpp>
 
 
 namespace sge

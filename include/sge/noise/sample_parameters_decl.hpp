@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_NOISE_SAMPLE_PARAMETERS_DECL_HPP_INCLUDED
 #define SGE_NOISE_SAMPLE_PARAMETERS_DECL_HPP_INCLUDED
 
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
 {

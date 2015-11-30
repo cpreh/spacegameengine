@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/program/replace_extra.hpp>
 #include <sge/cg/program/replace_extra_callback.hpp>
 #include <sge/cg/program/source.hpp>
+#include <fcppt/nonassignable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/xpressive/basic_regex.hpp>
 #include <boost/xpressive/regex_actions.hpp>
@@ -34,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
+// TODO: Why can't we use a lambda here?
 class replace_functor
 {
 	FCPPT_NONASSIGNABLE(
