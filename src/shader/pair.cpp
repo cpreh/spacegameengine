@@ -154,7 +154,7 @@ sge::shader::pair::pair(
 			sge::shader::load_edited_string(
 				_context.renderer(),
 				_vertex_declaration,
-				_vertex_program_stream.get()),
+				_vertex_program_stream.get().get()),
 			sge::cg::program::main_function(
 				"vertex_main"),
 			sge::cg::program::compile_options(
@@ -173,7 +173,7 @@ sge::shader::pair::pair(
 			sge::shader::load_edited_string(
 				_context.renderer(),
 				_vertex_declaration,
-				_pixel_program_stream.get()),
+				_pixel_program_stream.get().get()),
 			sge::cg::program::main_function(
 				"pixel_main"),
 			sge::cg::program::compile_options(

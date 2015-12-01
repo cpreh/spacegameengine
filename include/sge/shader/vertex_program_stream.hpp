@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SHADER_VERTEX_PROGRAM_STREAM_HPP_INCLUDED
 #define SGE_SHADER_VERTEX_PROGRAM_STREAM_HPP_INCLUDED
 
+#include <fcppt/reference_wrapper.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
@@ -32,7 +33,9 @@ namespace sge
 namespace shader
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
-	std::istream &,
+	fcppt::reference_wrapper<
+		std::istream
+	>,
 	vertex_program_stream);
 }
 }
