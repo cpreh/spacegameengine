@@ -4,6 +4,7 @@ set(
 	include/sge/shader/context_fwd.hpp
 	include/sge/shader/exception.hpp
 	include/sge/shader/exception_fwd.hpp
+	include/sge/shader/istream_ref.hpp
 	include/sge/shader/load_edited_string.hpp
 	include/sge/shader/optional_cflags.hpp
 	include/sge/shader/optional_context_ref.hpp

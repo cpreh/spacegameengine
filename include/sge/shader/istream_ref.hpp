@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SHADER_PIXEL_PROGRAM_STREAM_HPP_INCLUDED
-#define SGE_SHADER_PIXEL_PROGRAM_STREAM_HPP_INCLUDED
+#ifndef SGE_SHADER_ISTREAM_REF_HPP_INCLUDED
+#define SGE_SHADER_ISTREAM_REF_HPP_INCLUDED
 
-#include <sge/shader/istream_ref.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/reference_wrapper.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <iosfwd>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -30,10 +32,11 @@ namespace sge
 namespace shader
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::shader::istream_ref,
-	pixel_program_stream
-);
+typedef
+fcppt::reference_wrapper<
+	std::istream
+>
+istream_ref;
 
 }
 }
