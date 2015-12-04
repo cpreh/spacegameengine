@@ -18,58 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_WGL_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_WGL_CONTEXT_HPP_INCLUDED
-
-#include <sge/opengl/backend/context.hpp>
-#include <sge/opengl/backend/current_unique_ptr.hpp>
-#include <sge/opengl/wgl/context_fwd.hpp>
-#include <sge/opengl/wgl/context_holder.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/opengl/windows/gdi_device.hpp>
-#include <awl/backends/windows/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/opengl/wgl/context_holder.hpp>
+#include <awl/backends/windows/windows.hpp>
+#include <fcppt/text.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace wgl
-{
-
-class context
+sge::opengl::wgl::context_holder::context_holder(
+	sge::opengl::windows::gdi_device const &_gdi_device
+)
 :
-	public sge::opengl::backend::context
-{
-	FCPPT_NONCOPYABLE(
-		context
-	);
-public:
-	explicit
-	context(
-		awl::backends::windows::window::object &
-	);
-
-	~context()
-	override;
-private:
-	sge::opengl::backend::current_unique_ptr
-	activate()
-	override;
-
-	void
-	deactivate(
-		sge::opengl::backend::current_unique_ptr &&
+	glrc_(
+		::wglCreateContext(
+			_gdi_device.hdc()
+		)
 	)
-	override;
-
-	sge::opengl::windows::gdi_device const gdi_device_;
-
-	sge::opengl::wgl::context_holder const context_;
-};
-
+{
+	if(
+		glrc_
+		==
+		nullptr
+	)
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("wglCreateContext() failed!")
+			};
 }
-}
+
+sge::opengl::wgl::context_holder::~context_holder()
+{
+	::wglDeleteContext(
+		glrc_
+	);
 }
 
-#endif
+HGLRC
+sge::opengl::wgl::context_holder::get() const
+{
+	return
+		glrc_;
+}

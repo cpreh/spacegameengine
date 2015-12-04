@@ -1034,6 +1034,8 @@ set(
 	SGE_OPENGL_WIN32_FILES
 	src/plugins/opengl/include/sge/opengl/wgl/context.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/context_holder.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/current.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/make_current.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/system.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/visual/attribute_container.hpp
@@ -1061,6 +1063,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/windows/visual/object.hpp
 	src/plugins/opengl/include/sge/opengl/windows/visual/set_format.hpp
 	src/plugins/opengl/src/wgl/context.cpp
+	src/plugins/opengl/src/wgl/context_holder.cpp
+	src/plugins/opengl/src/wgl/current.cpp
 	src/plugins/opengl/src/wgl/make_current.cpp
 	src/plugins/opengl/src/wgl/system.cpp
 	src/plugins/opengl/src/wgl/visual/choose_format.cpp

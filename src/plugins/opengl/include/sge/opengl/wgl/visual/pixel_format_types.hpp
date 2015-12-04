@@ -86,7 +86,9 @@ public:
 	);
 
 	// Same signature for ARB and EXT
-	typedef PFNWGLCHOOSEPIXELFORMATARBPROC wgl_choose_pixel_format;
+	typedef
+	PFNWGLCHOOSEPIXELFORMATARBPROC
+	wgl_choose_pixel_format;
 
 	pixel_format_types(
 		sge::opengl::wgl::visual::pixel_format_types::draw_to_window_flag,
@@ -100,28 +102,28 @@ public:
 		sge::opengl::wgl::visual::pixel_format_types::wgl_choose_pixel_format
 	);
 
-	sge::opengl::wgl::visual::pixel_format_types::draw_to_window_flag const
+	sge::opengl::wgl::visual::pixel_format_types::draw_to_window_flag
 	draw_to_window() const;
 
-	sge::opengl::wgl::visual::pixel_format_types::support_opengl_flag const
+	sge::opengl::wgl::visual::pixel_format_types::support_opengl_flag
 	support_opengl() const;
 
-	sge::opengl::wgl::visual::pixel_format_types::double_buffer_flag const
+	sge::opengl::wgl::visual::pixel_format_types::double_buffer_flag
 	double_buffer() const;
 
-	sge::opengl::wgl::visual::pixel_format_types::pixel_type_flag const
+	sge::opengl::wgl::visual::pixel_format_types::pixel_type_flag
 	pixel_type() const;
 
-	sge::opengl::wgl::visual::pixel_format_types::pixel_type_rgba_flag const
+	sge::opengl::wgl::visual::pixel_format_types::pixel_type_rgba_flag
 	pixel_type_rgba() const;
 
-	sge::opengl::wgl::visual::pixel_format_types::color_bits_flag const
+	sge::opengl::wgl::visual::pixel_format_types::color_bits_flag
 	color_bits() const;
 
-	sge::opengl::wgl::visual::pixel_format_types::depth_bits_flag const
+	sge::opengl::wgl::visual::pixel_format_types::depth_bits_flag
 	depth_bits() const;
 
-	sge::opengl::wgl::visual::pixel_format_types::stencil_bits_flag const
+	sge::opengl::wgl::visual::pixel_format_types::stencil_bits_flag
 	stencil_bits() const;
 
 	sge::opengl::wgl::visual::pixel_format_types::wgl_choose_pixel_format

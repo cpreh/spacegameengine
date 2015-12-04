@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 
 
-sge::opengl::windows::visual::format const
+sge::opengl::windows::visual::format
 sge::opengl::wgl::visual::choose_format(
 	sge::opengl::windows::gdi_device const &_device,
 	sge::opengl::context::system::object &_system_context,

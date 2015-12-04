@@ -18,14 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_WGL_VISUAL_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_WGL_VISUAL_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_WGL_CONTEXT_HOLDER_HPP_INCLUDED
+#define SGE_OPENGL_WGL_CONTEXT_HOLDER_HPP_INCLUDED
 
-#include <sge/opengl/optional_int.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/wgl/visual/context_fwd.hpp>
-#include <sge/opengl/wgl/visual/optional_pixel_format_types.hpp>
+#include <sge/opengl/windows/gdi_device_fwd.hpp>
+#include <awl/backends/windows/windows.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -35,38 +32,26 @@ namespace opengl
 {
 namespace wgl
 {
-namespace visual
-{
 
-class context
-:
-	public sge::opengl::context::system::base
+class context_holder
 {
 	FCPPT_NONCOPYABLE(
-		context
+		context_holder
 	);
 public:
-	context();
+	explicit
+	context_holder(
+		sge::opengl::windows::gdi_device const &
+	);
 
-	~context();
+	~context_holder();
 
-	sge::opengl::wgl::visual::optional_pixel_format_types
-	pixel_format_types() const;
-
-	sge::opengl::optional_int
-	multi_sample_flag() const;
-
-	sge::opengl::optional_int
-	srgb_flag() const;
+	HGLRC
+	get() const;
 private:
-	sge::opengl::wgl::visual::optional_pixel_format_types const pixel_format_types_;
-
-	sge::opengl::optional_int const multi_sample_flag_;
-
-	sge::opengl::optional_int const srgb_flag_;
+	HGLRC const glrc_;
 };
 
-}
 }
 }
 }

@@ -19,13 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/backend/context.hpp>
+#include <sge/opengl/backend/current.hpp>
+#include <sge/opengl/backend/current_unique_ptr.hpp>
 #include <sge/opengl/wgl/context.hpp>
+#include <sge/opengl/wgl/current.hpp>
 #include <sge/opengl/wgl/make_current.hpp>
 #include <sge/opengl/windows/gdi_device.hpp>
-#include <sge/renderer/exception.hpp>
-#include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/window/object.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::opengl::wgl::context::context(
@@ -37,61 +39,43 @@ sge::opengl::wgl::context::context(
 		_window.hwnd(),
 		sge::opengl::windows::gdi_device::get_tag()
 	),
-	glrc_(
-		::wglCreateContext(
-			gdi_device_.hdc()
-		)
+	context_(
+		gdi_device_
 	)
 {
-	if(
-		glrc_ == nullptr
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("wglCreateContext() failed!")
-		);
 }
 
 sge::opengl::wgl::context::~context()
 {
-	::wglDeleteContext(
-		glrc_
-	);
 }
 
-void
+sge::opengl::backend::current_unique_ptr
 sge::opengl::wgl::context::activate()
 {
 	sge::opengl::wgl::make_current(
 		gdi_device_.hdc(),
-		glrc_
+		context_.get()
 	);
+
+	return
+		fcppt::unique_ptr_to_base<
+			sge::opengl::backend::current
+		>(
+			fcppt::make_unique_ptr<
+				sge::opengl::wgl::current
+			>(
+				gdi_device_
+			)
+		);
 }
 
 void
-sge::opengl::wgl::context::deactivate()
+sge::opengl::wgl::context::deactivate(
+	sge::opengl::backend::current_unique_ptr &&
+)
 {
 	sge::opengl::wgl::make_current(
 		nullptr,
 		nullptr
 	);
-}
-
-void
-sge::opengl::wgl::context::begin_rendering()
-{
-}
-
-void
-sge::opengl::wgl::context::end_rendering()
-{
-	if(
-		::wglSwapLayerBuffers(
-			gdi_device_.hdc(),
-			WGL_SWAP_MAIN_PLANE
-		)
-		== FALSE
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("wglSwapLayerBuffers() failed!")
-		);
 }

@@ -18,15 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_WGL_VISUAL_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_WGL_VISUAL_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_WGL_CURRENT_HPP_INCLUDED
+#define SGE_OPENGL_WGL_CURRENT_HPP_INCLUDED
 
-#include <sge/opengl/optional_int.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/wgl/visual/context_fwd.hpp>
-#include <sge/opengl/wgl/visual/optional_pixel_format_types.hpp>
+#include <sge/opengl/backend/current.hpp>
+#include <sge/opengl/backend/fun_ptr.hpp>
+#include <sge/opengl/windows/gdi_device.hpp>
+#include <sge/renderer/display_mode/vsync_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -35,38 +37,46 @@ namespace opengl
 {
 namespace wgl
 {
-namespace visual
-{
 
-class context
+class current
 :
-	public sge::opengl::context::system::base
+	public sge::opengl::backend::current
 {
 	FCPPT_NONCOPYABLE(
-		context
+		current
 	);
 public:
-	context();
+	explicit
+	current(
+		sge::opengl::windows::gdi_device const &
+	);
 
-	~context();
-
-	sge::opengl::wgl::visual::optional_pixel_format_types
-	pixel_format_types() const;
-
-	sge::opengl::optional_int
-	multi_sample_flag() const;
-
-	sge::opengl::optional_int
-	srgb_flag() const;
+	~current()
+	override;
 private:
-	sge::opengl::wgl::visual::optional_pixel_format_types const pixel_format_types_;
+	sge::opengl::backend::fun_ptr
+	load_function(
+		std::string const &
+	) const
+	override;
 
-	sge::opengl::optional_int const multi_sample_flag_;
+	void
+	begin_rendering()
+	override;
 
-	sge::opengl::optional_int const srgb_flag_;
+	void
+	end_rendering()
+	override;
+
+	void
+	vsync(
+		sge::renderer::display_mode::vsync
+	)
+	override;
+
+	sge::opengl::windows::gdi_device const &gdi_device_;
 };
 
-}
 }
 }
 }

@@ -22,10 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_WGL_SYSTEM_HPP_INCLUDED
 
 #include <sge/opengl/backend/context_unique_ptr.hpp>
-#include <sge/opengl/backend/scoped_current_fwd.hpp>
 #include <sge/opengl/backend/system.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
-#include <sge/renderer/display_mode/vsync_fwd.hpp>
+#include <sge/opengl/wgl/extension_set.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
@@ -48,8 +46,8 @@ class system
 		system
 	);
 public:
+	explicit
 	system(
-		sge::opengl::context::system::object &,
 		awl::system::object &
 	);
 
@@ -68,15 +66,7 @@ private:
 	)
 	override;
 
-	void
-	vsync(
-		sge::opengl::backend::scoped_current const &,
-		awl::window::object &,
-		sge::renderer::display_mode::vsync
-	)
-	override;
-
-	sge::opengl::context::system::object &system_context_;
+	sge::opengl::wgl::extension_set const extensions_;
 };
 
 }
