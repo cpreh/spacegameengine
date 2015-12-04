@@ -28,6 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vf/dynamic/locked_part_fwd.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -38,6 +41,9 @@ namespace vf
 {
 namespace dynamic
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 class locked_part
 {
@@ -71,6 +77,8 @@ private:
 
 	sge::renderer::lock_flags::method lock_flags_;
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }
