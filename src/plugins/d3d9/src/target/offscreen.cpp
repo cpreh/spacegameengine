@@ -142,7 +142,7 @@ sge::d3d9::target::offscreen::change_surfaces(
 					1u
 				)
 			,
-			color_surfaces_.size()
+			color_surfaces_.impl().size()
 		)
 	)
 		fcppt::maybe_void(
