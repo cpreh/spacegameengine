@@ -39,7 +39,7 @@ class device
 public:
 	explicit
 	device(
-		ALCchar const * = nullptr
+		ALCchar const *
 	);
 
 	ALCdevice &

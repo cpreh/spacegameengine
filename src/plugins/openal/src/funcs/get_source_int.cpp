@@ -45,5 +45,6 @@ sge::openal::funcs::get_source_int(
 		sge::audio::exception
 	)
 
-	return result;
+	return
+		result;
 }

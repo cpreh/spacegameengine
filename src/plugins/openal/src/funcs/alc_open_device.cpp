@@ -31,7 +31,6 @@ sge::openal::funcs::alc_open_device(
 	ALCchar const *const _specifier
 )
 {
-
 	ALCdevice *const result(
 		::alcOpenDevice(
 			_specifier
@@ -49,5 +48,6 @@ sge::openal::funcs::alc_open_device(
 		sge::audio::exception
 	);
 
-	return result;
+	return
+		result;
 }

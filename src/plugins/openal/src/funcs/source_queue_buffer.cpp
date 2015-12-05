@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/source_id.hpp>
 #include <sge/openal/funcs/source_queue_buffer.hpp>
 #include <sge/openal/funcs/source_queue_buffers.hpp>
+#include <fcppt/literal.hpp>
 
 
 void
@@ -34,7 +35,7 @@ sge::openal::funcs::source_queue_buffer(
 	sge::openal::funcs::source_queue_buffers(
 		_source,
 		&_buffer.get(),
-		static_cast<
+		fcppt::literal<
 			ALsizei
 		>(
 			1

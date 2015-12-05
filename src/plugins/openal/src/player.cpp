@@ -43,12 +43,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/funcs/speed_of_sound.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/math/vector/null.hpp>
 
 
 sge::openal::player::player()
 :
-	device_(),
+	device_(
+		nullptr
+	),
 	context_(
 		device_
 	),
@@ -101,7 +104,8 @@ sge::openal::player::~player()
 sge::audio::listener &
 sge::openal::player::listener()
 {
-	return listener_;
+	return
+		listener_;
 }
 
 void
@@ -110,7 +114,7 @@ sge::openal::player::speed_of_sound(
 )
 {
 	sge::openal::funcs::speed_of_sound(
-		static_cast<
+		fcppt::cast::size<
 			ALfloat
 		>(
 			_value
@@ -124,7 +128,7 @@ sge::openal::player::doppler_factor(
 )
 {
 	sge::openal::funcs::doppler_factor(
-		static_cast<
+		fcppt::cast::size<
 			ALfloat
 		>(
 			_value
@@ -139,7 +143,7 @@ sge::openal::player::gain(
 {
 	sge::openal::funcs::listener_float(
 		AL_GAIN,
-		static_cast<
+		fcppt::cast::size<
 			ALfloat
 		>(
 			_value

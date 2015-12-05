@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/source_id.hpp>
 #include <sge/openal/funcs/source_unqueue_buffer.hpp>
 #include <sge/openal/funcs/source_unqueue_buffers.hpp>
+#include <fcppt/literal.hpp>
 
 
 sge::openal::buffer_id
@@ -35,7 +36,7 @@ sge::openal::funcs::source_unqueue_buffer(
 	sge::openal::funcs::source_unqueue_buffers(
 		_source,
 		&result,
-		static_cast<
+		fcppt::literal<
 			ALsizei
 		>(
 			1

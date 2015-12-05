@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/buffer_id.hpp>
 #include <sge/openal/funcs/delete_buffer.hpp>
 #include <sge/openal/funcs/delete_buffers.hpp>
+#include <fcppt/literal.hpp>
 
 
 void
@@ -31,7 +32,7 @@ sge::openal::funcs::delete_buffer(
 {
 	sge::openal::funcs::delete_buffers(
 		&_buffer.get(),
-		static_cast<
+		fcppt::literal<
 			ALsizei
 		>(
 			1

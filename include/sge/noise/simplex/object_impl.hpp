@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/noise/simplex/object_decl.hpp>
 #include <sge/noise/simplex/detail/mod.hpp>
 #include <fcppt/no_init.hpp>
-#include <fcppt/algorithm/array_init.hpp>
+#include <fcppt/algorithm/array_init_const.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/vector.hpp>
@@ -54,7 +54,7 @@ sge::noise::simplex::object<
 		_width.get()),
 	// TODO: Initialize this directly!
 	gradients_(
-		fcppt::algorithm::array_init<
+		fcppt::algorithm::array_init_const<
 			gradient_array
 		>(
 			fcppt::math::vector::null<
@@ -151,7 +151,7 @@ sge::noise::simplex::object<Float,N>::corners(
 {
 	// TODO: Initialize this directly!
 	corner_array res(
-		fcppt::algorithm::array_init<
+		fcppt::algorithm::array_init_const<
 			corner_array
 		>(
 			fcppt::math::vector::null<

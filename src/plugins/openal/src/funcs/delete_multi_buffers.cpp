@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/buffer_id_container.hpp>
 #include <sge/openal/funcs/delete_buffers.hpp>
 #include <sge/openal/funcs/delete_multi_buffers.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
 void
@@ -31,10 +33,12 @@ sge::openal::funcs::delete_multi_buffers(
 {
 	sge::openal::funcs::delete_buffers(
 		_ids.data(),
-		static_cast<
+		fcppt::cast::size<
 			ALsizei
 		>(
-			_ids.size()
+			fcppt::cast::to_signed(
+				_ids.size()
+			)
 		)
 	);
 }

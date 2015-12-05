@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::openal::device::device(
-	ALCchar const * const _specifier
+	ALCchar const *const _specifier
 )
 :
 	device_(
@@ -44,7 +44,8 @@ sge::openal::device::device(
 ALCdevice &
 sge::openal::device::aldevice()
 {
-	return *device_;
+	return
+		*device_;
 }
 
 sge::openal::device::~device()

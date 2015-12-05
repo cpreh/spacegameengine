@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key/to_modifier.hpp>
 #include <fcppt/make_enum_range.hpp>
 #include <fcppt/maybe_void.hpp>
-#include <fcppt/algorithm/enum_array_fold_static.hpp>
+#include <fcppt/algorithm/enum_array_init.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/cast/to_void.hpp>
 #include <fcppt/container/enum_array_impl.hpp>
@@ -149,7 +149,7 @@ sge::input::focus::mod_state_tracker::count_array
 sge::input::focus::mod_state_tracker::null_array()
 {
 	return
-		fcppt::algorithm::enum_array_fold_static<
+		fcppt::algorithm::enum_array_init<
 			count_array
 		>(
 			[](
