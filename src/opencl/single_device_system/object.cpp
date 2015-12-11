@@ -53,7 +53,7 @@ SGE_OPENCL_DECLARE_LOCAL_LOGGER(
 
 namespace
 {
-sge::opencl::context::parameters const
+sge::opencl::context::parameters
 construct_context_parameters(
 	sge::opencl::platform::object &_platform,
 	sge::opencl::device::object &_device,

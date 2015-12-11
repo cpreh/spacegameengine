@@ -33,6 +33,6 @@ sge::renderer::target::viewport_is_null(
 			_viewport.get().size()
 		)
 		==
-		0u
+		0
 		;
 }
