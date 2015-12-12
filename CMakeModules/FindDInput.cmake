@@ -10,33 +10,13 @@ find_path(
 	dinput.h
 	HINTS
 	"${DINPUT_INCLUDEDIR}"
-	PATHS
-	"$ENV{DXSDK_DIR}/Include"
 )
-
-if(
-	CMAKE_SIZEOF_VOID_P EQUAL 8
-)
-	set(
-		DINPUT_LIBRARY_ENV_DIR
-		"$ENV{DXSDK_DIR}/Lib/x64"
-	)
-elseif(
-	CMAKE_SIZEOF_VOID_P EQUAL 4
-)
-	set(
-		DINPUT_LIBRARY_ENV_DIR
-		"$ENV{DXSDK_DIR}/Lib/x86"
-	)
-endif()
 
 find_library(
 	DINPUT_LIBRARY
 	NAMES dinput8
 	HINTS
 	"${DINPUT_LIBRARYDIR}"
-	PATHS
-	"${DINPUT_LIBRARY_ENV_DIR}"
 )
 
 find_library(
@@ -44,8 +24,6 @@ find_library(
 	NAMES dxguid
 	HINTS
 	"${DINPUT_LIBRARYDIR}"
-	PATHS
-	"${DINPUT_LIBRARY_ENV_DIR}"
 )
 
 include(

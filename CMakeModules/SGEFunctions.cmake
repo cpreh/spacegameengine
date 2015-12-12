@@ -566,6 +566,9 @@ endfunction()
 # INCLUDE_DIRS:
 #	A list of include directories the library needs to be built.
 #
+# SYSTEM_INCLUDE_DIRS:
+#	As above but included as SYSTEM.
+#
 # COMPILE_DEFINITIONS:
 #	A list of compile definitions to add.
 #
@@ -580,6 +583,7 @@ function(
 		SGE_DEPS
 		ADDITIONAL_DEPS
 		INCLUDE_DIRS
+		SYSTEM_INCLUDE_DIRS
 		COMPILE_DEFINITIONS
 		COMPILE_FLAGS
 	)
@@ -635,6 +639,13 @@ function(
 		PRIVATE
 		${CMAKE_CURRENT_SOURCE_DIR}/include
 		${_INCLUDE_DIRS}
+	)
+
+	target_include_directories(
+		${SGE_PLUGIN_NAME}
+		SYSTEM
+		PRIVATE
+		${_SYSTEM_INCLUDE_DIRS}
 	)
 
 	target_compile_definitions(
