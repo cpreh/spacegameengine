@@ -18,25 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/optional_int.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/context/system/make_id.hpp>
-#include <sge/opengl/convert/from_gl_bool.hpp>
-#include <sge/opengl/wgl/visual/context.hpp>
+#include <sge/opengl/wgl/ext.hpp>
+#include <sge/opengl/wgl/extension.hpp>
+#include <sge/opengl/wgl/extension_set.hpp>
+#include <sge/opengl/wgl/extension_supported.hpp>
+#include <sge/opengl/wgl/get_proc_address.hpp>
+#include <sge/opengl/wgl/scoped_current_fwd.hpp>
+#include <sge/opengl/wgl/visual/config.hpp>
 #include <sge/opengl/wgl/visual/optional_pixel_format_types.hpp>
 #include <sge/opengl/wgl/visual/pixel_format_types.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <GL/wglew.h>
-#include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::wgl::visual::context::context()
+sge::opengl::wgl::visual::config::config(
+	sge::opengl::wgl::extension_set const &_extensions,
+	sge::opengl::wgl::scoped_current const &
+)
 :
-	sge::opengl::context::system::base(),
 	pixel_format_types_(
-		sge::opengl::convert::from_gl_bool(
-			WGLEW_ARB_pixel_format
+		sge::opengl::wgl::extension_supported(
+			_extensions,
+			sge::opengl::wgl::extension(
+				"WGL_ARB_pixel_format"
+			)
 		)
 		?
 			sge::opengl::wgl::visual::optional_pixel_format_types(
@@ -66,13 +69,18 @@ sge::opengl::wgl::visual::context::context()
 						WGL_STENCIL_BITS_ARB
 					),
 					sge::opengl::wgl::visual::pixel_format_types::wgl_choose_pixel_format(
-						wglChoosePixelFormatARB
+						sge::opengl::wgl::get_proc_address(
+							"wglChoosePixelFormatARB"
+						)
 					)
 				)
 			)
 		:
-			sge::opengl::convert::from_gl_bool(
-				WGLEW_EXT_pixel_format
+			sge::opengl::wgl::extension_supported(
+				_extensions,
+				sge::opengl::wgl::extension(
+					"WGL_EXT_pixel_format"
+				)
 			)
 			?
 				sge::opengl::wgl::visual::optional_pixel_format_types(
@@ -102,7 +110,9 @@ sge::opengl::wgl::visual::context::context()
 							WGL_STENCIL_BITS_EXT
 						),
 						sge::opengl::wgl::visual::pixel_format_types::wgl_choose_pixel_format(
-							wglChoosePixelFormatEXT
+							sge::opengl::wgl::get_proc_address(
+								"wglChoosePixelFormatEXT"
+							)
 						)
 					)
 				)
@@ -110,66 +120,74 @@ sge::opengl::wgl::visual::context::context()
 				sge::opengl::wgl::visual::optional_pixel_format_types()
 	),
 	multi_sample_flag_(
-		sge::opengl::convert::from_gl_bool(
-			WGLEW_ARB_multisample
+		sge::opengl::wgl::extension_supported(
+			_extensions,
+			sge::opengl::wgl::extension(
+				"WGL_ARB_multisample"
+			)
 		)
 		?
-			sge::opengl::optional_int(
+			sge::opengl::wgl::visual::config::optional_int(
 				WGL_SAMPLE_BUFFERS_ARB
 			)
 		:
-			sge::opengl::convert::from_gl_bool(
-				WGLEW_EXT_multisample
+			sge::opengl::wgl::extension_supported(
+				_extensions,
+				sge::opengl::wgl::extension(
+					"WGL_EXT_multisample"
+				)
 			)
 			?
-				sge::opengl::optional_int(
+				sge::opengl::wgl::visual::config::optional_int(
 					WGL_SAMPLE_BUFFERS_EXT
 				)
 			:
-				sge::opengl::optional_int()
+				sge::opengl::wgl::visual::config::optional_int()
 	),
 	srgb_flag_(
-		sge::opengl::convert::from_gl_bool(
-			WGLEW_ARB_framebuffer_sRGB
+		sge::opengl::wgl::extension_supported(
+			_extensions,
+			sge::opengl::wgl::extension(
+				"WGL_ARB_framebuffer_sRGB"
+			)
 		)
 		?
-			sge::opengl::optional_int(
+			sge::opengl::wgl::visual::config::optional_int(
 				WGL_FRAMEBUFFER_SRGB_CAPABLE_ARB
 			)
 		:
-			sge::opengl::convert::from_gl_bool(
-				WGLEW_EXT_framebuffer_sRGB
+			sge::opengl::wgl::extension_supported(
+				_extensions,
+				sge::opengl::wgl::extension(
+					"WGL_EXT_framebuffer_sRGB"
+				)
 			)
 			?
-				sge::opengl::optional_int(
+				sge::opengl::wgl::visual::config::optional_int(
 					WGL_FRAMEBUFFER_SRGB_CAPABLE_EXT
 				)
 			:
-				sge::opengl::optional_int()
+				sge::opengl::wgl::visual::config::optional_int()
 	)
 {
 }
 
-sge::opengl::wgl::visual::context::~context()
-{
-}
-
 sge::opengl::wgl::visual::optional_pixel_format_types
-sge::opengl::wgl::visual::context::pixel_format_types() const
+sge::opengl::wgl::visual::config::pixel_format_types() const
 {
 	return
 		pixel_format_types_;
 }
 
-sge::opengl::optional_int
-sge::opengl::wgl::visual::context::multi_sample_flag() const
+sge::opengl::wgl::visual::config::optional_int
+sge::opengl::wgl::visual::config::multi_sample_flag() const
 {
 	return
 		multi_sample_flag_;
 }
 
-sge::opengl::optional_int
-sge::opengl::wgl::visual::context::srgb_flag() const
+sge::opengl::wgl::visual::config::optional_int
+sge::opengl::wgl::visual::config::srgb_flag() const
 {
 	return
 		srgb_flag_;

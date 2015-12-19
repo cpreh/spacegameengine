@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_WGL_VISUAL_MAKE_ATTRIBUTES_HPP_INCLUDED
 #define SGE_OPENGL_WGL_VISUAL_MAKE_ATTRIBUTES_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/wgl/visual/attribute_container_fwd.hpp>
+#include <sge/opengl/wgl/visual/config_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 
 
@@ -37,7 +37,7 @@ namespace visual
 
 sge::opengl::wgl::visual::attribute_container
 make_attributes(
-	sge::opengl::context::system::object &,
+	sge::opengl::wgl::visual::config const &,
 	sge::renderer::pixel_format::object const &
 );
 

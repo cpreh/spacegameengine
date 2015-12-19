@@ -18,41 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/wgl/visual/config_fwd.hpp>
-#include <sge/opengl/windows/visual/choose_and_set_format.hpp>
-#include <sge/opengl/windows/visual/object.hpp>
-#include <sge/renderer/pixel_format/object.hpp>
-#include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/visual/object.hpp>
+#include <sge/opengl/wgl/config.hpp>
+#include <sge/opengl/wgl/visual/config.hpp>
 
 
-sge::opengl::windows::visual::object::object(
-	sge::opengl::wgl::visual::config const &_config,
-	sge::renderer::pixel_format::object const &_format
+sge::opengl::wgl::config::config(
+	sge::opengl::wgl::visual::config const &_visual_config
 )
 :
-	awl::backends::windows::visual::object(),
-	config_(
-		_config
-	),
-	format_(
-		_format
+	visual_config_(
+		_visual_config
 	)
 {
 }
 
-sge::opengl::windows::visual::object::~object()
+sge::opengl::wgl::visual::config const &
+sge::opengl::wgl::config::visual_config() const
 {
-}
-
-void
-sge::opengl::windows::visual::object::apply(
-	HWND const _hwnd
-) const
-{
-	sge::opengl::windows::visual::choose_and_set_format(
-		config_,
-		_hwnd,
-		format_
-	);
+	return
+		visual_config_;
 }

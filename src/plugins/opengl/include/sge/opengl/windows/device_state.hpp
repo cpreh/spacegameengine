@@ -49,7 +49,7 @@ public:
 	~device_state()
 	override;
 private:
-	sge::renderer::display_mode::optional_object const
+	sge::renderer::display_mode::optional_object
 	display_mode() const
 	override;
 

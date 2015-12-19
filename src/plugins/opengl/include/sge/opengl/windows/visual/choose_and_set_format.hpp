@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_WINDOWS_VISUAL_CHOOSE_AND_SET_FORMAT_HPP_INCLUDED
 #define SGE_OPENGL_WINDOWS_VISUAL_CHOOSE_AND_SET_FORMAT_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/wgl/visual/config_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/backends/windows/windows.hpp>
 
@@ -37,7 +37,7 @@ namespace visual
 
 void
 choose_and_set_format(
-	sge::opengl::context::system::object &,
+	sge::opengl::wgl::visual::config const &,
 	HWND,
 	sge::renderer::pixel_format::object const &
 );

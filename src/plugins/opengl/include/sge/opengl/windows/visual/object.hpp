@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_WINDOWS_VISUAL_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_WINDOWS_VISUAL_OBJECT_HPP_INCLUDED
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/wgl/visual/config_fwd.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/visual/object.hpp>
@@ -46,7 +46,7 @@ class object
 	);
 public:
 	object(
-		sge::opengl::context::system::object &,
+		sge::opengl::wgl::visual::config const &,
 		sge::renderer::pixel_format::object const &
 	);
 
@@ -57,7 +57,7 @@ private:
 		HWND
 	) const;
 
-	sge::opengl::context::system::object &system_context_;
+	sge::opengl::wgl::visual::config const &config_;
 
 	sge::renderer::pixel_format::object const format_;
 };

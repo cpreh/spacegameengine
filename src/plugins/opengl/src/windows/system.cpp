@@ -43,7 +43,7 @@ sge::opengl::windows::system::~system()
 {
 }
 
-sge::renderer::caps::device_count const
+sge::renderer::caps::device_count
 sge::opengl::windows::system::device_count() const
 {
 	// TODO:

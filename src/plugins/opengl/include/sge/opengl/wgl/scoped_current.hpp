@@ -18,41 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/wgl/visual/config_fwd.hpp>
-#include <sge/opengl/windows/visual/choose_and_set_format.hpp>
-#include <sge/opengl/windows/visual/object.hpp>
-#include <sge/renderer/pixel_format/object.hpp>
-#include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/visual/object.hpp>
+#ifndef SGE_OPENGL_WGL_SCOPED_CURRENT_HPP_INCLUDED
+#define SGE_OPENGL_WGL_SCOPED_CURRENT_HPP_INCLUDED
+
+#include <sge/opengl/wgl/context_holder_fwd.hpp>
+#include <sge/opengl/wgl/scoped_current_fwd.hpp>
+#include <sge/opengl/windows/gdi_device_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
-sge::opengl::windows::visual::object::object(
-	sge::opengl::wgl::visual::config const &_config,
-	sge::renderer::pixel_format::object const &_format
-)
-:
-	awl::backends::windows::visual::object(),
-	config_(
-		_config
-	),
-	format_(
-		_format
-	)
+namespace sge
 {
-}
-
-sge::opengl::windows::visual::object::~object()
+namespace opengl
 {
-}
-
-void
-sge::opengl::windows::visual::object::apply(
-	HWND const _hwnd
-) const
+namespace wgl
 {
-	sge::opengl::windows::visual::choose_and_set_format(
-		config_,
-		_hwnd,
-		format_
+
+class scoped_current
+{
+	FCPPT_NONCOPYABLE(
+		scoped_current
 	);
+public:
+	scoped_current(
+		sge::opengl::wgl::context_holder const &,
+		sge::opengl::windows::gdi_device const &
+	);
+
+	~scoped_current();
+};
+
 }
+}
+}
+
+#endif

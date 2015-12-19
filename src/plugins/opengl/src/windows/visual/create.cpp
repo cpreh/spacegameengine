@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/system/object_fwd.hpp>
+#include <sge/opengl/wgl/visual/config_fwd.hpp>
 #include <sge/opengl/windows/visual/create.hpp>
 #include <sge/opengl/windows/visual/object.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 awl::visual::object_unique_ptr
 sge::opengl::windows::visual::create(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::wgl::visual::config const &_config,
 	sge::renderer::pixel_format::object const &_pixel_format
 )
 {
@@ -41,7 +41,7 @@ sge::opengl::windows::visual::create(
 			fcppt::make_unique_ptr<
 				sge::opengl::windows::visual::object
 			>(
-				_system_context,
+				_config,
 				_pixel_format
 			)
 		);

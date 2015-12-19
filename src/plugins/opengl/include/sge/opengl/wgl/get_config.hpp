@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_WGL_VISUAL_CONTEXT_FWD_HPP_INCLUDED
-#define SGE_OPENGL_WGL_VISUAL_CONTEXT_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_WGL_GET_CONFIG_HPP_INCLUDED
+#define SGE_OPENGL_WGL_GET_CONFIG_HPP_INCLUDED
+
+#include <sge/opengl/wgl/config.hpp>
+#include <awl/system/object_fwd.hpp>
 
 
 namespace sge
@@ -28,12 +31,12 @@ namespace opengl
 {
 namespace wgl
 {
-namespace visual
-{
 
-class context;
+sge::opengl::wgl::config
+get_config(
+	awl::system::object &
+);
 
-}
 }
 }
 }

@@ -18,41 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/wgl/visual/config_fwd.hpp>
-#include <sge/opengl/windows/visual/choose_and_set_format.hpp>
-#include <sge/opengl/windows/visual/object.hpp>
-#include <sge/renderer/pixel_format/object.hpp>
-#include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/visual/object.hpp>
+#ifndef SGE_OPENGL_WGL_EXTENSION_SUPPORTED_HPP_INCLUDED
+#define SGE_OPENGL_WGL_EXTENSION_SUPPORTED_HPP_INCLUDED
+
+#include <sge/opengl/wgl/extension.hpp>
+#include <sge/opengl/wgl/extension_set.hpp>
 
 
-sge::opengl::windows::visual::object::object(
-	sge::opengl::wgl::visual::config const &_config,
-	sge::renderer::pixel_format::object const &_format
-)
-:
-	awl::backends::windows::visual::object(),
-	config_(
-		_config
-	),
-	format_(
-		_format
-	)
+namespace sge
 {
+namespace opengl
+{
+namespace wgl
+{
+
+bool
+extension_supported(
+	sge::opengl::wgl::extension_set const &,
+	sge::opengl::wgl::extension const &
+);
+
+}
+}
 }
 
-sge::opengl::windows::visual::object::~object()
-{
-}
-
-void
-sge::opengl::windows::visual::object::apply(
-	HWND const _hwnd
-) const
-{
-	sge::opengl::windows::visual::choose_and_set_format(
-		config_,
-		_hwnd,
-		format_
-	);
-}
+#endif

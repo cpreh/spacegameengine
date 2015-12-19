@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/backend/context_unique_ptr.hpp>
 #include <sge/opengl/backend/system.hpp>
-#include <sge/opengl/wgl/extension_set.hpp>
+#include <sge/opengl/wgl/config.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
@@ -66,7 +66,7 @@ private:
 	)
 	override;
 
-	sge::opengl::wgl::extension_set const extensions_;
+	sge::opengl::wgl::config const config_;
 };
 
 }

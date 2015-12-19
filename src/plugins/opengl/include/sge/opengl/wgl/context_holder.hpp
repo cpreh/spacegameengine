@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_WGL_CONTEXT_HOLDER_HPP_INCLUDED
 #define SGE_OPENGL_WGL_CONTEXT_HOLDER_HPP_INCLUDED
 
+#include <sge/opengl/wgl/context_holder_fwd.hpp>
 #include <sge/opengl/windows/gdi_device_fwd.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/noncopyable.hpp>

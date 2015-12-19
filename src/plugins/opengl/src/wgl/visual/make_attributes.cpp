@@ -19,10 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/wgl/visual/attribute_container.hpp>
-#include <sge/opengl/wgl/visual/context.hpp>
+#include <sge/opengl/wgl/visual/config.hpp>
 #include <sge/opengl/wgl/visual/make_attributes.hpp>
 #include <sge/opengl/wgl/visual/pixel_format_types.hpp>
 #include <sge/renderer/unsupported.hpp>
@@ -37,28 +35,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional_to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <GL/wglew.h>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::wgl::visual::attribute_container
 sge::opengl::wgl::visual::make_attributes(
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::wgl::visual::config const &_config,
 	sge::renderer::pixel_format::object const &_format
 )
 {
-	sge::opengl::wgl::visual::context &context(
-		sge::opengl::context::use<
-			sge::opengl::wgl::visual::context
-		>(
-			_system_context
-		)
-	);
-
 	sge::opengl::wgl::visual::pixel_format_types const pixel_format_types(
 		fcppt::optional_to_exception(
-			context.pixel_format_types(),
+			_config.pixel_format_types(),
 			[]{
 				return
 					sge::renderer::unsupported(
@@ -136,7 +123,7 @@ sge::opengl::wgl::visual::make_attributes(
 	fcppt::maybe_void(
 		_format.multi_samples(),
 		[
-			&context,
+			&_config,
 			&ret
 		](
 			sge::renderer::pixel_format::multi_samples const _multi_samples
@@ -144,7 +131,7 @@ sge::opengl::wgl::visual::make_attributes(
 		{
 			ret.push_back(
 				fcppt::optional_to_exception(
-					context.multi_sample_flag(),
+					_config.multi_sample_flag(),
 					[]{
 						return
 							sge::renderer::unsupported(
@@ -170,7 +157,7 @@ sge::opengl::wgl::visual::make_attributes(
 		sge::renderer::pixel_format::srgb::no
 	)
 		fcppt::maybe(
-			context.srgb_flag(),
+			_config.srgb_flag(),
 			[
 				&_format
 			]{

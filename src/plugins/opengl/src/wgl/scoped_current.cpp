@@ -18,41 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/wgl/visual/config_fwd.hpp>
-#include <sge/opengl/windows/visual/choose_and_set_format.hpp>
-#include <sge/opengl/windows/visual/object.hpp>
-#include <sge/renderer/pixel_format/object.hpp>
-#include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/visual/object.hpp>
+#include <sge/opengl/wgl/context_holder.hpp>
+#include <sge/opengl/wgl/make_current.hpp>
+#include <sge/opengl/wgl/scoped_current.hpp>
+#include <sge/opengl/windows/gdi_device.hpp>
 
 
-sge::opengl::windows::visual::object::object(
-	sge::opengl::wgl::visual::config const &_config,
-	sge::renderer::pixel_format::object const &_format
+sge::opengl::wgl::scoped_current::scoped_current(
+	sge::opengl::wgl::context_holder const &_context,
+	sge::opengl::windows::gdi_device const &_gdi_device
 )
-:
-	awl::backends::windows::visual::object(),
-	config_(
-		_config
-	),
-	format_(
-		_format
-	)
 {
+	sge::opengl::wgl::make_current(
+		_gdi_device.hdc(),
+		_context.get()
+	);
 }
 
-sge::opengl::windows::visual::object::~object()
+sge::opengl::wgl::scoped_current::~scoped_current()
 {
-}
-
-void
-sge::opengl::windows::visual::object::apply(
-	HWND const _hwnd
-) const
-{
-	sge::opengl::windows::visual::choose_and_set_format(
-		config_,
-		_hwnd,
-		format_
+	// TODO: Function
+	sge::opengl::wgl::make_current(
+		nullptr,
+		nullptr
 	);
 }

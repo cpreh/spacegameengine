@@ -63,56 +63,65 @@ sge::opengl::wgl::visual::pixel_format_types::pixel_format_types(
 {
 }
 
-sge::opengl::wgl::visual::pixel_format_types::draw_to_window_flag const
+sge::opengl::wgl::visual::pixel_format_types::draw_to_window_flag
 sge::opengl::wgl::visual::pixel_format_types::draw_to_window() const
 {
-	return draw_to_window_;
+	return
+		draw_to_window_;
 }
 
-sge::opengl::wgl::visual::pixel_format_types::support_opengl_flag const
+sge::opengl::wgl::visual::pixel_format_types::support_opengl_flag
 sge::opengl::wgl::visual::pixel_format_types::support_opengl() const
 {
-	return support_opengl_;
+	return
+		support_opengl_;
 }
 
-sge::opengl::wgl::visual::pixel_format_types::double_buffer_flag const
+sge::opengl::wgl::visual::pixel_format_types::double_buffer_flag
 sge::opengl::wgl::visual::pixel_format_types::double_buffer() const
 {
-	return double_buffer_;
+	return
+		double_buffer_;
 }
 
-sge::opengl::wgl::visual::pixel_format_types::pixel_type_flag const
+sge::opengl::wgl::visual::pixel_format_types::pixel_type_flag
 sge::opengl::wgl::visual::pixel_format_types::pixel_type() const
 {
-	return pixel_type_;
+	return
+		pixel_type_;
 }
 
-sge::opengl::wgl::visual::pixel_format_types::pixel_type_rgba_flag const
+sge::opengl::wgl::visual::pixel_format_types::pixel_type_rgba_flag
 sge::opengl::wgl::visual::pixel_format_types::pixel_type_rgba() const
 {
-	return pixel_type_rgba_;
+	return
+		pixel_type_rgba_;
 }
 
-sge::opengl::wgl::visual::pixel_format_types::color_bits_flag const
+sge::opengl::wgl::visual::pixel_format_types::color_bits_flag
 sge::opengl::wgl::visual::pixel_format_types::color_bits() const
 {
-	return color_bits_;
+	return
+		color_bits_;
 }
 
-sge::opengl::wgl::visual::pixel_format_types::depth_bits_flag const
+sge::opengl::wgl::visual::pixel_format_types::depth_bits_flag
 sge::opengl::wgl::visual::pixel_format_types::depth_bits() const
 {
-	return depth_bits_;
+	return
+		depth_bits_;
 }
 
-sge::opengl::wgl::visual::pixel_format_types::stencil_bits_flag const
+sge::opengl::wgl::visual::pixel_format_types::stencil_bits_flag
 sge::opengl::wgl::visual::pixel_format_types::stencil_bits() const
 {
-	return stencil_bits_;
+	return
+		stencil_bits_;
 }
 
 sge::opengl::wgl::visual::pixel_format_types::wgl_choose_pixel_format
 sge::opengl::wgl::visual::pixel_format_types::choose_pixel_format() const
 {
-	return choose_pixel_format_;
+	return
+		choose_pixel_format_;
 }

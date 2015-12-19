@@ -21,13 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_WGL_VISUAL_PIXEL_FORMAT_TYPES_HPP_INCLUDED
 #define SGE_OPENGL_WGL_VISUAL_PIXEL_FORMAT_TYPES_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/wgl/ext.hpp>
 #include <sge/opengl/wgl/visual/pixel_format_types_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <awl/backends/windows/windows.hpp>
 #include <fcppt/strong_typedef.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <GL/wglew.h>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -41,9 +38,6 @@ namespace visual
 
 class pixel_format_types
 {
-	FCPPT_NONASSIGNABLE(
-		pixel_format_types
-	);
 public:
 	FCPPT_MAKE_STRONG_TYPEDEF(
 		int,
@@ -86,6 +80,7 @@ public:
 	);
 
 	// Same signature for ARB and EXT
+	// TODO: fun_ref
 	typedef
 	PFNWGLCHOOSEPIXELFORMATARBPROC
 	wgl_choose_pixel_format;
@@ -129,23 +124,23 @@ public:
 	sge::opengl::wgl::visual::pixel_format_types::wgl_choose_pixel_format
 	choose_pixel_format() const;
 private:
-	sge::opengl::wgl::visual::pixel_format_types::draw_to_window_flag const draw_to_window_;
+	sge::opengl::wgl::visual::pixel_format_types::draw_to_window_flag draw_to_window_;
 
-	sge::opengl::wgl::visual::pixel_format_types::support_opengl_flag const support_opengl_;
+	sge::opengl::wgl::visual::pixel_format_types::support_opengl_flag support_opengl_;
 
-	sge::opengl::wgl::visual::pixel_format_types::double_buffer_flag const double_buffer_;
+	sge::opengl::wgl::visual::pixel_format_types::double_buffer_flag double_buffer_;
 
-	sge::opengl::wgl::visual::pixel_format_types::pixel_type_flag const pixel_type_;
+	sge::opengl::wgl::visual::pixel_format_types::pixel_type_flag pixel_type_;
 
-	sge::opengl::wgl::visual::pixel_format_types::pixel_type_rgba_flag const pixel_type_rgba_;
+	sge::opengl::wgl::visual::pixel_format_types::pixel_type_rgba_flag pixel_type_rgba_;
 
-	sge::opengl::wgl::visual::pixel_format_types::color_bits_flag const color_bits_;
+	sge::opengl::wgl::visual::pixel_format_types::color_bits_flag color_bits_;
 
-	sge::opengl::wgl::visual::pixel_format_types::depth_bits_flag const depth_bits_;
+	sge::opengl::wgl::visual::pixel_format_types::depth_bits_flag depth_bits_;
 
-	sge::opengl::wgl::visual::pixel_format_types::stencil_bits_flag const stencil_bits_;
+	sge::opengl::wgl::visual::pixel_format_types::stencil_bits_flag stencil_bits_;
 
-	sge::opengl::wgl::visual::pixel_format_types::wgl_choose_pixel_format const choose_pixel_format_;
+	sge::opengl::wgl::visual::pixel_format_types::wgl_choose_pixel_format choose_pixel_format_;
 };
 
 }

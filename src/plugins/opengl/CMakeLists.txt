@@ -1032,17 +1032,29 @@ set(
 
 set(
 	SGE_OPENGL_WIN32_FILES
+	src/plugins/opengl/include/sge/opengl/wgl/config.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/context.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/context_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/context_holder.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/context_holder_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/current.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/ext.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/extension.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/extension_set.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/extension_supported.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/get_config.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/get_extensions.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/get_proc_address.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/make_current.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/scoped_current.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/scoped_current_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/system.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/visual/attribute_container.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/visual/attribute_container_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/visual/choose_format.hpp
-	src/plugins/opengl/include/sge/opengl/wgl/visual/context.hpp
-	src/plugins/opengl/include/sge/opengl/wgl/visual/context_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/visual/config.hpp
+	src/plugins/opengl/include/sge/opengl/wgl/visual/config_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/visual/make_attributes.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/visual/optional_pixel_format_types.hpp
 	src/plugins/opengl/include/sge/opengl/wgl/visual/optional_pixel_format_types_fwd.hpp
@@ -1062,13 +1074,19 @@ set(
 	src/plugins/opengl/include/sge/opengl/windows/visual/make_format.hpp
 	src/plugins/opengl/include/sge/opengl/windows/visual/object.hpp
 	src/plugins/opengl/include/sge/opengl/windows/visual/set_format.hpp
+	src/plugins/opengl/src/wgl/config.cpp
 	src/plugins/opengl/src/wgl/context.cpp
 	src/plugins/opengl/src/wgl/context_holder.cpp
 	src/plugins/opengl/src/wgl/current.cpp
+	src/plugins/opengl/src/wgl/extension_supported.cpp
+	src/plugins/opengl/src/wgl/get_config.cpp
+	src/plugins/opengl/src/wgl/get_extensions.cpp
+	src/plugins/opengl/src/wgl/get_proc_address.cpp
 	src/plugins/opengl/src/wgl/make_current.cpp
+	src/plugins/opengl/src/wgl/scoped_current.cpp
 	src/plugins/opengl/src/wgl/system.cpp
 	src/plugins/opengl/src/wgl/visual/choose_format.cpp
-	src/plugins/opengl/src/wgl/visual/context.cpp
+	src/plugins/opengl/src/wgl/visual/config.cpp
 	src/plugins/opengl/src/wgl/visual/make_attributes.cpp
 	src/plugins/opengl/src/wgl/visual/pixel_format_types.cpp
 	src/plugins/opengl/src/windows/change_display_settings.cpp
@@ -1585,6 +1603,16 @@ if(
 		APPEND
 		SGE_OPENGL_INCLUDE_DIRS
 		${CMAKE_CURRENT_SOURCE_DIR}/ext/include
+	)
+endif()
+
+if(
+	WIN32
+)
+	list(
+		APPEND
+		SGE_OPENGL_INCLUDE_DIRS
+		${CMAKE_CURRENT_SOURCE_DIR}/wglext/include
 	)
 endif()
 

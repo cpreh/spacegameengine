@@ -18,41 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/wgl/visual/config_fwd.hpp>
-#include <sge/opengl/windows/visual/choose_and_set_format.hpp>
-#include <sge/opengl/windows/visual/object.hpp>
-#include <sge/renderer/pixel_format/object.hpp>
-#include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/visual/object.hpp>
+#ifndef SGE_OPENGL_WGL_EXTENSION_HPP_INCLUDED
+#define SGE_OPENGL_WGL_EXTENSION_HPP_INCLUDED
+
+#include <fcppt/strong_typedef.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::windows::visual::object::object(
-	sge::opengl::wgl::visual::config const &_config,
-	sge::renderer::pixel_format::object const &_format
-)
-:
-	awl::backends::windows::visual::object(),
-	config_(
-		_config
-	),
-	format_(
-		_format
-	)
+namespace sge
 {
+namespace opengl
+{
+namespace wgl
+{
+
+FCPPT_MAKE_STRONG_TYPEDEF(
+	std::string,
+	extension
+);
+
+}
+}
 }
 
-sge::opengl::windows::visual::object::~object()
-{
-}
-
-void
-sge::opengl::windows::visual::object::apply(
-	HWND const _hwnd
-) const
-{
-	sge::opengl::windows::visual::choose_and_set_format(
-		config_,
-		_hwnd,
-		format_
-	);
-}
+#endif

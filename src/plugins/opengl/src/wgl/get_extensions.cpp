@@ -18,41 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/wgl/visual/config_fwd.hpp>
-#include <sge/opengl/windows/visual/choose_and_set_format.hpp>
-#include <sge/opengl/windows/visual/object.hpp>
-#include <sge/renderer/pixel_format/object.hpp>
-#include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/visual/object.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/get_string.hpp>
+#include <sge/opengl/parse_extensions.hpp>
+#include <sge/opengl/wgl/extension.hpp>
+#include <sge/opengl/wgl/extension_set.hpp>
+#include <sge/opengl/wgl/get_extensions.hpp>
+#include <sge/opengl/wgl/scoped_current_fwd.hpp>
 
 
-sge::opengl::windows::visual::object::object(
-	sge::opengl::wgl::visual::config const &_config,
-	sge::renderer::pixel_format::object const &_format
+sge::opengl::wgl::extension_set
+sge::opengl::wgl::get_extensions(
+	sge::opengl::wgl::scoped_current const &
 )
-:
-	awl::backends::windows::visual::object(),
-	config_(
-		_config
-	),
-	format_(
-		_format
-	)
 {
-}
-
-sge::opengl::windows::visual::object::~object()
-{
-}
-
-void
-sge::opengl::windows::visual::object::apply(
-	HWND const _hwnd
-) const
-{
-	sge::opengl::windows::visual::choose_and_set_format(
-		config_,
-		_hwnd,
-		format_
-	);
+	// TODO: Try wglGetExtensionsStringARB?
+	return
+		sge::opengl::parse_extensions<
+			sge::opengl::wgl::extension
+		>(
+			sge::opengl::get_string(
+				GL_EXTENSIONS
+			)
+		);
 }

@@ -20,13 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/backend/context.hpp>
 #include <sge/opengl/backend/context_unique_ptr.hpp>
-#include <sge/opengl/backend/scoped_current_fwd.hpp>
 #include <sge/opengl/backend/system.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/wgl/context.hpp>
+#include <sge/opengl/wgl/get_config.hpp>
 #include <sge/opengl/wgl/system.hpp>
 #include <sge/opengl/windows/visual/create.hpp>
-#include <sge/renderer/display_mode/vsync.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/backends/windows/window/object.hpp>
 #include <awl/system/object_fwd.hpp>
@@ -39,13 +37,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::wgl::system::system(
-	sge::opengl::context::system::object &_system_context,
-	awl::system::object &
+	awl::system::object &_awl_system
 )
 :
 	sge::opengl::backend::system(),
-	system_context_(
-		_system_context
+	config_(
+		sge::opengl::wgl::get_config(
+			_awl_system
+		)
 	)
 {
 }
@@ -59,10 +58,9 @@ sge::opengl::wgl::system::create_visual(
 	sge::renderer::pixel_format::object const &_pixel_format
 )
 {
-	// TODO:!
 	return
 		sge::opengl::windows::visual::create(
-			system_context_,
+			config_.visual_config(),
 			_pixel_format
 		);
 }
@@ -88,11 +86,4 @@ sge::opengl::wgl::system::create_context(
 		);
 }
 
-void
-sge::opengl::wgl::system::vsync(
-	sge::opengl::backend::scoped_current const &,
-	awl::window::object &_window,
-	sge::renderer::display_mode::vsync const _vsync
-)
-{
-}
+

@@ -49,7 +49,7 @@ sge::opengl::windows::device_state::~device_state()
 {
 }
 
-sge::renderer::display_mode::optional_object const
+sge::renderer::display_mode::optional_object
 sge::opengl::windows::device_state::display_mode() const
 {
 	return

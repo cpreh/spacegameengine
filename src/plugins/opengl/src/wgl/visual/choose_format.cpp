@@ -18,11 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/context/use.hpp>
-#include <sge/opengl/context/system/object_fwd.hpp>
 #include <sge/opengl/wgl/visual/attribute_container.hpp>
 #include <sge/opengl/wgl/visual/choose_format.hpp>
-#include <sge/opengl/wgl/visual/context.hpp>
+#include <sge/opengl/wgl/visual/config.hpp>
 #include <sge/opengl/wgl/visual/make_attributes.hpp>
 #include <sge/opengl/wgl/visual/pixel_format_types.hpp>
 #include <sge/opengl/windows/gdi_device.hpp>
@@ -38,28 +36,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::windows::visual::format
 sge::opengl::wgl::visual::choose_format(
 	sge::opengl::windows::gdi_device const &_device,
-	sge::opengl::context::system::object &_system_context,
+	sge::opengl::wgl::visual::config const &_config,
 	sge::renderer::pixel_format::object const &_format
 )
 {
 	sge::opengl::wgl::visual::attribute_container const attributes(
 		sge::opengl::wgl::visual::make_attributes(
-			_system_context,
+			_config,
 			_format
-		)
-	);
-
-	sge::opengl::wgl::visual::context &context(
-		sge::opengl::context::use<
-			sge::opengl::wgl::visual::context
-		>(
-			_system_context
 		)
 	);
 
 	sge::opengl::wgl::visual::pixel_format_types const pixel_format_types(
 		fcppt::optional_to_exception(
-			context.pixel_format_types(),
+			_config.pixel_format_types(),
 			[]{
 				return
 					sge::renderer::unsupported(

@@ -18,15 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_WGL_VISUAL_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_WGL_VISUAL_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_WGL_VISUAL_CONFIG_HPP_INCLUDED
+#define SGE_OPENGL_WGL_VISUAL_CONFIG_HPP_INCLUDED
 
-#include <sge/opengl/optional_int.hpp>
-#include <sge/opengl/context/system/base.hpp>
-#include <sge/opengl/context/system/id.hpp>
-#include <sge/opengl/wgl/visual/context_fwd.hpp>
+#include <sge/opengl/wgl/extension_set.hpp>
+#include <sge/opengl/wgl/scoped_current_fwd.hpp>
+#include <sge/opengl/wgl/visual/config_fwd.hpp>
 #include <sge/opengl/wgl/visual/optional_pixel_format_types.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/optional_impl.hpp>
 
 
 namespace sge
@@ -38,32 +37,34 @@ namespace wgl
 namespace visual
 {
 
-class context
-:
-	public sge::opengl::context::system::base
+class config
 {
-	FCPPT_NONCOPYABLE(
-		context
-	);
 public:
-	context();
-
-	~context();
+	config(
+		sge::opengl::wgl::extension_set const &,
+		sge::opengl::wgl::scoped_current const &
+	);
 
 	sge::opengl::wgl::visual::optional_pixel_format_types
 	pixel_format_types() const;
 
-	sge::opengl::optional_int
+	typedef
+	fcppt::optional<
+		GLint
+	>
+	optional_int;
+
+	optional_int
 	multi_sample_flag() const;
 
-	sge::opengl::optional_int
+	optional_int
 	srgb_flag() const;
 private:
-	sge::opengl::wgl::visual::optional_pixel_format_types const pixel_format_types_;
+	sge::opengl::wgl::visual::optional_pixel_format_types pixel_format_types_;
 
-	sge::opengl::optional_int const multi_sample_flag_;
+	optional_int multi_sample_flag_;
 
-	sge::opengl::optional_int const srgb_flag_;
+	optional_int srgb_flag_;
 };
 
 }
