@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_IMAGE_TO_MIZUIRO_DIM_HPP_INCLUDED
 #define SGE_SRC_IMAGE_TO_MIZUIRO_DIM_HPP_INCLUDED
 
+#include <mizuiro/no_init.hpp>
 #include <mizuiro/image/dimension.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/object.hpp>
@@ -55,7 +56,9 @@ to_mizuiro_dim(
 	mizuiro::image::dimension<
 		N,
 		T
-	> dest;
+	> dest{
+		mizuiro::no_init{}
+	};
 
 	std::copy(
 		_src.storage().begin(),
