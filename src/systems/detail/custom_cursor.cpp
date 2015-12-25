@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/const_part_ref.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/optional_map.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -136,7 +136,7 @@ sge::systems::detail::custom_cursor::make_sprite(
 ) const
 {
 	return
-		fcppt::optional_bind_construct(
+		fcppt::optional_map(
 			_opt_pos,
 			[
 				this

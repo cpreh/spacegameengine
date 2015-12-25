@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/maybe.hpp>
-#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/optional_map.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
@@ -56,7 +56,7 @@ sge::opengl::glx::current::current(
 		_opt_proc_address
 	),
 	swap_functions_(
-		fcppt::optional_bind_construct(
+		fcppt::optional_map(
 			_opt_proc_address,
 			[](
 				sge::opengl::glx::proc_address_function _proc_address

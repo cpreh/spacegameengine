@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/value.hpp>
-#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/optional_map.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -55,7 +55,7 @@ find_member(
 )
 {
 	return
-		fcppt::optional_bind_construct(
+		fcppt::optional_map(
 			sge::parse::json::find_member_value(
 				_members,
 				_name

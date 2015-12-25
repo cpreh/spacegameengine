@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/projection_matrix_fixed.hpp>
 #include <sge/sprite/state/with_transform.hpp>
 #include <fcppt/maybe.hpp>
-#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/optional_map.hpp>
 
 
 sge::renderer::state::ffp::transform::optional_object_unique_ptr
@@ -45,7 +45,7 @@ sge::sprite::state::with_transform::make(
 )
 {
 	return
-		fcppt::optional_bind_construct(
+		fcppt::optional_map(
 			fcppt::maybe(
 				_projection_dim,
 				[

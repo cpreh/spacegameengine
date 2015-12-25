@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glx/proc_address_function.hpp>
 #include <sge/opengl/glx/raw_function.hpp>
 #include <sge/opengl/glx/swap_functions.hpp>
-#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/optional_map.hpp>
 
 
 sge::opengl::glx::swap_functions::swap_functions(
@@ -30,7 +30,7 @@ sge::opengl::glx::swap_functions::swap_functions(
 )
 :
 	swap_interval_sgi_(
-		fcppt::optional_bind_construct(
+		fcppt::optional_map(
 			sge::opengl::glx::proc_address(
 				_proc_address,
 				"glXSwapIntervalSGI"
@@ -50,7 +50,7 @@ sge::opengl::glx::swap_functions::swap_functions(
 		)
 	),
 	swap_interval_ext_(
-		fcppt::optional_bind_construct(
+		fcppt::optional_map(
 			sge::opengl::glx::proc_address(
 				_proc_address,
 				"glXSwapIntervalEXT"

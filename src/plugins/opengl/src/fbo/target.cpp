@@ -56,7 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/optional_map.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/optional_to_exception.hpp>
 #include <fcppt/string.hpp>
@@ -175,7 +175,7 @@ sge::opengl::fbo::target::color_surface(
 		0u
 	)
 		height_ =
-			fcppt::optional_bind_construct(
+			fcppt::optional_map(
 				_opt_surface,
 				[](
 					sge::renderer::color_buffer::surface const &_surface

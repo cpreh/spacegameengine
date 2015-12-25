@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/maybe.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/optional.hpp>
-#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/optional_map.hpp>
 #include <fcppt/optional_combine.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
@@ -119,7 +119,7 @@ sge::parse::json::config::merge_trees(
 				)
 				{
 					return
-						fcppt::optional_bind_construct(
+						fcppt::optional_map(
 							fcppt::optional_combine(
 								sge::parse::json::find_member_value(
 									_original.members,

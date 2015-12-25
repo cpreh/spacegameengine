@@ -67,7 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/scoped_output.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/optional_map.hpp>
 #include <fcppt/optional_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 
@@ -159,7 +159,7 @@ sge::systems::detail::instance_impl::init_window_object(
 				*FCPPT_ASSERT_OPTIONAL_ERROR(
 					window_system_
 				),
-				fcppt::optional_bind_construct(
+				fcppt::optional_map(
 					renderer_system_,
 					[](
 						sge::systems::modules::renderer::system_unique_ptr const &_system

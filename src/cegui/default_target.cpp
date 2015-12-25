@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/to_cegui_rect.hpp>
 #include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/optional_map.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
@@ -126,7 +126,7 @@ sge::cegui::default_target::setArea(
 	viewport_ = _area;
 
 	transform_ =
-		fcppt::optional_bind_construct(
+		fcppt::optional_map(
 			sge::renderer::projection::orthogonal_viewport(
 				sge::renderer::target::viewport(
 					sge::cegui::from_cegui_rect<

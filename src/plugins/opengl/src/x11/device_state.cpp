@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/maybe.hpp>
 #include <fcppt/optional_bind.hpp>
-#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/optional_map.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
@@ -47,7 +47,7 @@ sge::opengl::x11::device_state::device_state(
 :
 	sge::opengl::platform::device_state(),
 	xrandr_state_(
-		fcppt::optional_bind_construct(
+		fcppt::optional_map(
 			_xrandr_system,
 			[
 				&_window,

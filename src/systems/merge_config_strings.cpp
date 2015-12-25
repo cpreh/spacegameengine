@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/merge_config_strings.hpp>
 #include <sge/systems/optional_name.hpp>
 #include <fcppt/optional_bind.hpp>
-#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/optional_map.hpp>
 
 
 sge::systems::optional_name
@@ -43,7 +43,7 @@ sge::systems::merge_config_strings(
 		?
 			_parameter_name
 		:
-			fcppt::optional_bind_construct(
+			fcppt::optional_map(
 				fcppt::optional_bind(
 					_ini_config,
 					[

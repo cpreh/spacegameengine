@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/maybe_void.hpp>
 #include <fcppt/optional_assign.hpp>
-#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/optional_map.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 
@@ -155,7 +155,7 @@ sge::shader::parameter::planar_texture::optional_loaded_texture
 sge::shader::parameter::planar_texture::loaded_texture()
 {
 	return
-		fcppt::optional_bind_construct(
+		fcppt::optional_map(
 			loaded_texture_,
 			[](
 				sge::renderer::cg::loaded_texture_unique_ptr const &_loaded_texture

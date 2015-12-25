@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_optional.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/optional_bind.hpp>
-#include <fcppt/optional_bind_construct.hpp>
+#include <fcppt/optional_map.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/fill.hpp>
@@ -49,7 +49,7 @@ sge::renderer::display_mode::to_dpi(
 				)
 				{
 					return
-						fcppt::optional_bind_construct(
+						fcppt::optional_map(
 							_mode.dimensions(),
 							[
 								&_mode
