@@ -47,9 +47,8 @@ is asked to return a resource (designated by a path, of course), it...
 
 <ul>
 	<li>
-		...iterates through its elements and checks if the current element's
-		\link sge::resource_tree::element::base_path base_path
-		\endlink is equal to the specified path or not.
+		...iterates through its elements and checks if the current
+		element's base path is equal to the specified path or not.
 	</li>
 	<li>
 		If it's equal, it calls sge::resource_tree::element::get_random to
