@@ -313,22 +313,9 @@ function(
 			"${CMAKE_CURRENT_BINARY_DIR}/dummy.cpp"
 		)
 
-		if(
-			NOT SGE_${UPPER_LIB_NAME}_DUMMY_GENERATED
-		)
-			file(
-				WRITE
-				"${SGE_DUMMY_SOURCE_FILE}"
-				""
-			)
-		endif()
-
-		set(
-			SGE_${UPPER_LIB_NAME}_DUMMY_GENERATED
-			TRUE
-			CACHE
-			INTERNAL
-			""
+		configure_file(
+			${FCPPT_UTILS_PROJECT_SOURCE_DIR}/dummy.cpp.in
+			${SGE_DUMMY_SOURCE_FILE}
 		)
 
 		list(
