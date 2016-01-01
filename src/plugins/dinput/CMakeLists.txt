@@ -130,6 +130,6 @@ add_sge_plugin(
 		${awl_TARGET}
 		${fcppt_log_TARGET}
 		${DINPUT_LIBRARIES}
-	INCLUDE_DIRS
+	SYSTEM_INCLUDE_DIRS
 		${DINPUT_INCLUDE_DIRS}
 )
