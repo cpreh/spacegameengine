@@ -32,9 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer/optional_surface_ref.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <fcppt/dynamic_optional_cast.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_int_range.hpp>
+#include <fcppt/optional/dynamic_cast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
@@ -75,7 +75,7 @@ sge::d3d9::target::offscreen::color_surface(
 	color_surfaces_[
 		_index.get()
 	] =
-		fcppt::dynamic_optional_cast<
+		fcppt::optional::dynamic_cast_<
 			sge::d3d9::surface::color &
 		>(
 			_surface
@@ -88,7 +88,7 @@ sge::d3d9::target::offscreen::depth_stencil_surface(
 )
 {
 	depth_stencil_surface_ =
-		fcppt::dynamic_optional_cast<
+		fcppt::optional::dynamic_cast_<
 			sge::d3d9::surface::depth_stencil_offscreen &
 		>(
 			_surface

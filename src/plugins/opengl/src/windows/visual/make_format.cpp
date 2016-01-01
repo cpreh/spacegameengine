@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/stencil_bits.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/from_optional.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/cast/size.hpp>
 
 
@@ -49,7 +49,7 @@ sge::opengl::windows::visual::make_format(
 				fcppt::cast::size<
 					BYTE
 				>(
-					fcppt::from_optional(
+					fcppt::optional::from(
 						_bit_count,
 						fcppt::const_(
 							sge::renderer::pixel_format::bit_count{

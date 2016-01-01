@@ -28,10 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_id.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/from_optional.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -92,7 +92,7 @@ sge::dinput::keyboard::device::on_dispatch(
 	};
 
 	sge::input::keyboard::key const key{
-		fcppt::from_optional(
+		fcppt::optional::from(
 			fcppt::container::find_opt_mapped(
 				info_.key_map(),
 				offset
