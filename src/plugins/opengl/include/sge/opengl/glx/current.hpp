@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/vsync_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -82,7 +82,7 @@ private:
 	sge::opengl::glx::optional_proc_address_function const proc_address_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::opengl::glx::swap_functions
 	>
 	optional_swap_functions;

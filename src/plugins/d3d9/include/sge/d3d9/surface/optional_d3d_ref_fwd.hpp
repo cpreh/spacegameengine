@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_SURFACE_OPTIONAL_D3D_REF_FWD_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace surface
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	IDirect3DSurface9 &
 >
 optional_d3d_ref;

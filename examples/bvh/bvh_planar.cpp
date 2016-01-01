@@ -95,8 +95,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/extract_from_string_exn.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/int_to_float.hpp>
@@ -262,7 +262,7 @@ public:
 						"2e2621"),
 					255)));
 
-		fcppt::maybe_void(
+		fcppt::optional::maybe_void(
 			fcppt::variant::to_optional<
 				bvh_tree_traits::node_wrapper
 			>(
@@ -288,7 +288,7 @@ public:
 			}
 		);
 
-		fcppt::maybe_void(
+		fcppt::optional::maybe_void(
 			fcppt::variant::to_optional<
 				bvh_tree_traits::node_wrapper
 			>(
@@ -378,7 +378,7 @@ private:
 						tree.back());
 				break;
 			case sge::input::key::code::p:
-				fcppt::maybe_void(
+				fcppt::optional::maybe_void(
 					tree.parent(),
 					[
 						&new_tree
@@ -398,7 +398,7 @@ private:
 		}
 
 		if(
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				new_tree,
 				fcppt::const_(
 					true

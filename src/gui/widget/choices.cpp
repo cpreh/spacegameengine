@@ -39,9 +39,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/rucksack/alignment.hpp>
 #include <sge/rucksack/axis.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_bind.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/bind.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -77,7 +77,7 @@ sge::gui::widget::choices::choices(
 		_style,
 		_renderer,
 		_font,
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			_opt_index,
 			[]{
 				return
@@ -252,12 +252,12 @@ sge::gui::widget::choices::update_index(
 )
 {
 	index_ =
-		fcppt::optional_bind(
+		fcppt::optional::bind(
 			index_,
 			_func
 		);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		index_,
 		[
 			this

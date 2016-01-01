@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/pango/font_description.hpp>
 #include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/pango_layout_unique_ptr.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
@@ -41,7 +41,7 @@ sge::pango::create_layout(
 {
 	sge::pango::font_description font_description;
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_parameters.ttf_size(),
 		[
 			&font_description
@@ -57,7 +57,7 @@ sge::pango::create_layout(
 		}
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_parameters.family(),
 		[
 			&font_description
@@ -71,7 +71,7 @@ sge::pango::create_layout(
 		}
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_parameters.weight(),
 		[
 			&font_description

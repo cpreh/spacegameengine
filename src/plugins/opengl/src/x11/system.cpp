@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/object.hpp>
 #include <awl/window/event/processor.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_map.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
@@ -91,7 +91,7 @@ sge::opengl::x11::system::create_device_state(
 			fcppt::make_unique_ptr<
 				sge::opengl::x11::device_state
 			>(
-				fcppt::optional_map(
+				fcppt::optional::map(
 					xrandr_system_,
 					[](
 						sge::opengl::xrandr::system_unique_ptr const &_system

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/wgl/visual/optional_pixel_format_types_fwd.hpp>
 #include <sge/opengl/wgl/visual/pixel_format_types.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 #endif

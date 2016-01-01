@@ -30,9 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/vsync.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/optional_map.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/log/_.hpp>
@@ -56,7 +56,7 @@ sge::opengl::glx::current::current(
 		_opt_proc_address
 	),
 	swap_functions_(
-		fcppt::optional_map(
+		fcppt::optional::map(
 			_opt_proc_address,
 			[](
 				sge::opengl::glx::proc_address_function _proc_address
@@ -89,7 +89,7 @@ sge::opengl::glx::current::load_function(
 {
 	// TODO: Use optionals
 	return
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			proc_address_,
 			[]{
 				return
@@ -136,7 +136,7 @@ sge::opengl::glx::current::vsync(
 		==
 		sge::renderer::display_mode::vsync::on
 	)
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			swap_functions_,
 			[]{
 				FCPPT_LOG_ERROR(

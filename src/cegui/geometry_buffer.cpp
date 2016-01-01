@@ -78,7 +78,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/vf/texcoord.hpp>
 #include <sge/src/cegui/vf/vertex_view.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/optional_ref_compare.hpp>
+#include <fcppt/optional/ref_compare.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/optional_error.hpp>
@@ -324,7 +324,7 @@ sge::cegui::geometry_buffer::draw() const
 				);
 
 				if(
-					!fcppt::optional_ref_compare(
+					!fcppt::optional::ref_compare(
 						new_state,
 						prev_rasterizer
 					)

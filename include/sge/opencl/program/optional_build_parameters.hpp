@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_PROGRAM_OPTIONAL_BUILD_PARAMETERS_HPP_INCLUDED
 
 #include <sge/opencl/program/build_parameters_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace opencl
 namespace program
 {
 typedef
-fcppt::optional<sge::opencl::program::build_parameters>
+fcppt::optional::object<sge::opencl::program::build_parameters>
 optional_build_parameters;
 }
 }

@@ -36,8 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/optional_map.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <istream>
@@ -72,7 +72,7 @@ sge::libpng::system::load_stream(
 			*_stream
 		)
 		?
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				sge::libpng::file_rep_from_stream(
 					*_stream,
 					_name
@@ -127,7 +127,7 @@ sge::libpng::system::create(
 		==
 		sge::libpng::extension()
 		?
-			fcppt::optional_map(
+			fcppt::optional::map(
 				sge::libpng::file_rep_from_view(
 					_view
 				),

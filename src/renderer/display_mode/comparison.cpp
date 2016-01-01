@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/display_mode/comparison.hpp>
 #include <sge/renderer/display_mode/object.hpp>
-#include <fcppt/optional_comparison.hpp>
+#include <fcppt/optional/comparison.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 
 

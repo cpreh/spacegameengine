@@ -75,8 +75,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/pre.hpp>
 
@@ -148,7 +148,7 @@ sge::opengl::render_context::object::offscreen_target(
 	sge::renderer::target::optional_offscreen_ref const &_new_target
 )
 {
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		_new_target,
 		[
 			this

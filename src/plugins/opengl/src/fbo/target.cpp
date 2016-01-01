@@ -52,13 +52,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/format.hpp>
-#include <fcppt/from_optional.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_map.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -175,7 +175,7 @@ sge::opengl::fbo::target::color_surface(
 		0u
 	)
 		height_ =
-			fcppt::optional_map(
+			fcppt::optional::map(
 				_opt_surface,
 				[](
 					sge::renderer::color_buffer::surface const &_surface
@@ -190,7 +190,7 @@ sge::opengl::fbo::target::color_surface(
 				}
 			);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_opt_surface,
 		[
 			this,
@@ -247,7 +247,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 	depth_stencil_attachment_ =
 		optional_attachment_unique_ptr();
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_opt_surface,
 		[
 			this
@@ -256,7 +256,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 		)
 		{
 			sge::opengl::fbo::attachment_type const attachment(
-				fcppt::optional_to_exception(
+				fcppt::optional::to_exception(
 					sge::opengl::fbo::depth_stencil_format_to_attachment(
 						config_,
 						_surface.format()
@@ -324,7 +324,7 @@ sge::renderer::screen_unit
 sge::opengl::fbo::target::height() const
 {
 	return
-		fcppt::from_optional(
+		fcppt::optional::from(
 			height_,
 			fcppt::const_(
 				fcppt::literal<
@@ -410,7 +410,7 @@ sge::opengl::fbo::target::check()
 		throw sge::renderer::exception(
 			FCPPT_TEXT("FBO is incomplete! ")
 			+
-			fcppt::from_optional(
+			fcppt::optional::from(
 				fcppt::container::find_opt_mapped(
 					config_.error_strings(),
 					status

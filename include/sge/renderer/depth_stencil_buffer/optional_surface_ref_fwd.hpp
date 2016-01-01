@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DEPTH_STENCIL_BUFFER_OPTIONAL_SURFACE_REF_FWD_HPP_INCLUDED
 
 #include <sge/renderer/depth_stencil_buffer/surface_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace renderer
 namespace depth_stencil_buffer
 {
 
-typedef fcppt::optional<
+typedef fcppt::optional::object<
 	sge::renderer::depth_stencil_buffer::surface &
 > optional_surface_ref;
 

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_WGL_VISUAL_OPTIONAL_PIXEL_FORMAT_TYPES_FWD_HPP_INCLUDED
 
 #include <sge/opengl/wgl/visual/pixel_format_types_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace wgl
 namespace visual
 {
 
-typedef fcppt::optional<
+typedef fcppt::optional::object<
 	sge::opengl::wgl::visual::pixel_format_types
 > optional_pixel_format_types;
 

@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/type.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/from_optional.hpp>
-#include <fcppt/optional_comparison.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/comparison.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/to_void_ptr.hpp>
@@ -108,7 +108,7 @@ sge::opengl::buffer::hardware::bind_buffer(
 		_id;
 
 	sge::opengl::buffer::id const id(
-		fcppt::from_optional(
+		fcppt::optional::from(
 			_id,
 			fcppt::const_(
 				sge::opengl::buffer::id(

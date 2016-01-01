@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/size_hints.hpp>
 #include <awl/window/dim.hpp>
 #include <awl/window/parameters.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
@@ -56,7 +56,7 @@ sge::window::convert_size_hints(
 		_parameters
 	};
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_opt_dim,
 		[
 			&ret,
@@ -73,7 +73,7 @@ sge::window::convert_size_hints(
 		}
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_size_hints.exact_size_hint(),
 		[
 			&ret,
@@ -90,7 +90,7 @@ sge::window::convert_size_hints(
 		}
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_size_hints.minimum_size_hint(),
 		[
 			&ret,
@@ -107,7 +107,7 @@ sge::window::convert_size_hints(
 		}
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_size_hints.maximum_size_hint(),
 		[
 			&ret,

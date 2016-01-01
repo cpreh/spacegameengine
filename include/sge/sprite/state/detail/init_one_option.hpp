@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_STATE_DETAIL_INIT_ONE_OPTION_HPP_INCLUDED
 
 #include <majutsu/role.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 namespace sge
@@ -58,12 +58,12 @@ struct init_one_option
 		typename Type,
 		typename Tag
 	>
-	fcppt::optional<
+	fcppt::optional::object<
 		Type
 	>
 	operator()(
 		majutsu::role<
-			fcppt::optional<
+			fcppt::optional::object<
 				Type
 			>,
 			Tag
@@ -71,7 +71,7 @@ struct init_one_option
 	) const
 	{
 		return
-			fcppt::optional<
+			fcppt::optional::object<
 				Type
 			>();
 	}

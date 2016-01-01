@@ -35,9 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wave/read_info.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/maybe_multi.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_multi.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/io/read.hpp>
@@ -68,7 +68,7 @@ sge::wave::read_info(
 		)
 		{
 			return
-				fcppt::maybe(
+				fcppt::optional::maybe(
 					_opt_header,
 					fcppt::const_(
 						false
@@ -164,7 +164,7 @@ sge::wave::read_info(
 	);
 
 	if(
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			fcppt::io::read<
 				std::uint16_t
 			>(
@@ -215,7 +215,7 @@ sge::wave::read_info(
 		return
 			sge::wave::optional_info();
 
-	fcppt::optional<
+	fcppt::optional::object<
 		std::uint16_t
 	> const channels(
 		fcppt::io::read<
@@ -226,7 +226,7 @@ sge::wave::read_info(
 		)
 	);
 
-	fcppt::optional<
+	fcppt::optional::object<
 		std::uint32_t
 	> const sample_rate(
 		fcppt::io::read<
@@ -253,7 +253,7 @@ sge::wave::read_info(
 		endianness
 	);
 
-	fcppt::optional<
+	fcppt::optional::object<
 		std::uint16_t
 	> const bits_per_sample(
 		fcppt::io::read<
@@ -276,7 +276,7 @@ sge::wave::read_info(
 		return
 			sge::wave::optional_info();
 
-	fcppt::optional<
+	fcppt::optional::object<
 		std::uint32_t
 	> const data_size(
 		fcppt::io::read<
@@ -288,7 +288,7 @@ sge::wave::read_info(
 	);
 
 	return
-		fcppt::maybe_multi(
+		fcppt::optional::maybe_multi(
 			[]{
 				return
 					sge::wave::optional_info();

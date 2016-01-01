@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_ORTHO_FREELOOK_OPTIONAL_PROJECTION_RECTANGLE_FWD_HPP_INCLUDED
 
 #include <sge/renderer/projection/rect_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace ortho_freelook
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	sge::renderer::projection::rect
 >
 optional_projection_rectangle;

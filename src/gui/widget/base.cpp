@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 
 sge::gui::widget::base::base()
@@ -43,7 +43,7 @@ sge::gui::widget::base::base()
 
 sge::gui::widget::base::~base()
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		parent_,
 		[
 			this
@@ -121,7 +121,7 @@ sge::gui::widget::base::parent(
 	parent_ =
 		_new_parent;
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_new_parent,
 		[
 			this

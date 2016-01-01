@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_OPTIONAL_LOCK_BOX_FWD_HPP_INCLUDED
 
 #include <sge/renderer/lock_box_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace sge
 namespace d3d9
 {
 
-typedef fcppt::optional<
+typedef fcppt::optional::object<
 	sge::renderer::lock_box
 > optional_lock_box;
 

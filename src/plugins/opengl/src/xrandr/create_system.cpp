@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/object.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
@@ -41,7 +41,7 @@ sge::opengl::xrandr::create_system(
 )
 {
 	return
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			sge::opengl::xrandr::get_extension(
 				_display
 			),

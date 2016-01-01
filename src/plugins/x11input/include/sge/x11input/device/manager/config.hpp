@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/manager/create_function.hpp>
 #include <fcppt/function_impl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 #include <fcppt/strong_typedef_std_hash.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/signal/object_fwd.hpp>
@@ -126,7 +126,7 @@ private:
 	object_map;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		X11Object &
 	>
 	optional_object_ref;

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CG_PARAMETER_OPTIONAL_NAMED_HPP_INCLUDED
 
 #include <sge/cg/parameter/optional_named_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 #endif

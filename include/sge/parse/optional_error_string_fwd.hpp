@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_OPTIONAL_ERROR_STRING_FWD_HPP_INCLUDED
 
 #include <sge/parse/error_string.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace sge
 namespace parse
 {
 
-typedef fcppt::optional<
+typedef fcppt::optional::object<
 	sge::parse::error_string
 > optional_error_string;
 

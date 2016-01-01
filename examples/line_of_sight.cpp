@@ -92,8 +92,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/to_signed_fun.hpp>
@@ -413,7 +413,7 @@ try
 					)
 						return;
 
-					fcppt::maybe_void(
+					fcppt::optional::maybe_void(
 						sys.cursor_demuxer().position(),
 						[
 							&sprites,
@@ -451,7 +451,7 @@ try
 							)
 								return;
 
-							fcppt::maybe(
+							fcppt::optional::maybe(
 								last_position,
 								[
 									&last_position,

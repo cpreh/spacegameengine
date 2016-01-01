@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/opencl/declare_local_logger.hpp>
 #include <sge/src/opencl/handle_error.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assert/error.hpp>
@@ -126,7 +126,7 @@ sge::opencl::program::object::object(
 		error_code,
 		FCPPT_TEXT("clCreateProgramWithBinary"));
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_opt_params,
 		[
 			this
@@ -202,7 +202,7 @@ sge::opencl::program::object::object(
 		program_,
 		sge::core::exception);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_opt_params,
 		[
 			this
@@ -228,7 +228,7 @@ sge::opencl::program::object::build(
 	program::build_parameters const &params)
 {
 	device_id_vector const devices(
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			params.devices(),
 			[
 				this

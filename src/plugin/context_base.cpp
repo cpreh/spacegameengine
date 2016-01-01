@@ -29,9 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/plugin/load_info.hpp>
 #include <sge/src/plugin/library/load_function.hpp>
 #include <sge/src/plugin/library/object.hpp>
-#include <fcppt/from_optional.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/weak_ptr_impl.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/io/ostream.hpp>
@@ -83,7 +83,7 @@ sge::plugin::library::object_shared_ptr
 sge::plugin::context_base::load()
 {
 	return
-		fcppt::from_optional(
+		fcppt::optional::from(
 			library_ptr_.lock(),
 			[
 				this
@@ -104,7 +104,7 @@ sge::plugin::context_base::load()
 					&
 					sge::plugin::flags::delayed_unload
 				)
-					fcppt::maybe_void(
+					fcppt::optional::maybe_void(
 						cache_,
 						[
 							ret

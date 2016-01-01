@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/action/right.hpp>
 #include <sge/camera/first_person/action/up.hpp>
 #include <sge/core/detail/class_symbol.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 namespace sge

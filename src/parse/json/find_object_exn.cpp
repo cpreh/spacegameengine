@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -42,7 +42,7 @@ find_object_exn_impl(
 )
 {
 	return
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			sge::parse::json::find_object(
 				_input_object,
 				_path

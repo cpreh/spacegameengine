@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/mouse/axis_code.hpp>
 #include <sge/x11input/mouse/axis_code.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -32,7 +32,7 @@ sge::x11input::mouse::axis_code(
 )
 {
 	return
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			_info,
 			[]
 			{

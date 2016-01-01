@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/color_onscreen_target.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/target/surface_index.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -39,7 +39,7 @@ sge::d3d9::surface::color_onscreen_target(
 				&_device
 			]{
 				return
-					fcppt::optional_to_exception(
+					fcppt::optional::to_exception(
 						sge::d3d9::devicefuncs::get_render_target(
 							_device,
 							sge::renderer::target::surface_index(

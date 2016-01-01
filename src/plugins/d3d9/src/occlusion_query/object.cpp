@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/optional_pixel_count.hpp>
 #include <sge/renderer/occlusion_query/pixel_count.hpp>
-#include <fcppt/optional_map.hpp>
+#include <fcppt/optional/map.hpp>
 
 
 sge::d3d9::occlusion_query::object::object(
@@ -72,7 +72,7 @@ sge::d3d9::occlusion_query::object::result(
 ) const
 {
 	return
-		fcppt::optional_map(
+		fcppt::optional::map(
 			sge::d3d9::queryfuncs::get_dword(
 				*query_,
 				_block.get()

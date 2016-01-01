@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -72,7 +72,7 @@ FCPPT_PP_POP_WARNING
 
 sge::wininput::cursor::define::~define()
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		previous_cursor_,
 		[](
 			HCURSOR const _cursor

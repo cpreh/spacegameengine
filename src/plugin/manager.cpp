@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/plugin/load_plugins.hpp>
 #include <sge/src/plugin/logger.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/enum_array_init.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
@@ -91,7 +91,7 @@ sge::plugin::manager::manager(
 						)
 						{
 							typedef
-							fcppt::optional<
+							fcppt::optional::object<
 								sge::plugin::context_base_ref
 							>
 							optional_result;

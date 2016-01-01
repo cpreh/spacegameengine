@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_FIND_MEMBER_RETURN_TYPE_HPP_INCLUDED
 #define SGE_PARSE_JSON_FIND_MEMBER_RETURN_TYPE_HPP_INCLUDED
 
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
 #include <type_traits>
@@ -41,7 +41,7 @@ template<
 >
 using find_member_return_type
 =
-fcppt::optional<
+fcppt::optional::object<
 	typename std::add_lvalue_reference<
 		typename boost::mpl::if_<
 			std::is_const<

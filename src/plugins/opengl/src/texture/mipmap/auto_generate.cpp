@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/opengl/texture/mipmap/auto_generate.hpp>
 #include <sge/opengl/texture/mipmap/context.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
@@ -38,7 +38,7 @@ sge::opengl::texture::mipmap::auto_generate(
 	sge::opengl::context::object &_context
 )
 {
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		sge::opengl::context::use<
 			sge::opengl::texture::mipmap::context
 		>(

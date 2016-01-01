@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/with_blend_fwd.hpp>
 #include <sge/sprite/state/roles/blend.hpp>
 #include <sge/sprite/state/roles/blend_write_mask.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -58,7 +58,7 @@ struct with_blend
 	typedef sge::renderer::state::core::blend::object_unique_ptr state_type;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::renderer::state::core::blend::write_mask
 	>
 	optional_extra_parameters;

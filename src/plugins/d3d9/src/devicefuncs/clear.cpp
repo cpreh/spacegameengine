@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/clear/stencil_buffer_value.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/from_optional.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -41,7 +41,7 @@ template<
 >
 DWORD
 make_flag(
-	fcppt::optional<
+	fcppt::optional::object<
 		T
 	>,
 	DWORD
@@ -73,7 +73,7 @@ sge::d3d9::devicefuncs::clear(
 				_parameters.stencil_buffer(),
 				D3DCLEAR_STENCIL
 			),
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				_parameters.back_buffer(),
 				fcppt::const_<
 					D3DCOLOR
@@ -97,7 +97,7 @@ sge::d3d9::devicefuncs::clear(
 				)
 			),
 			// TODO: why is the stencil clear value a DWORD?
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				_parameters.stencil_buffer(),
 				fcppt::const_<
 					DWORD
@@ -130,7 +130,7 @@ template<
 >
 DWORD
 make_flag(
-	fcppt::optional<
+	fcppt::optional::object<
 		T
 	> const _enabled,
 	DWORD const _flag

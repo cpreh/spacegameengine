@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/value_wrapper_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 
 
@@ -70,7 +70,7 @@ public:
 	}
 private:
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		json::value
 	>
 	optional_value;

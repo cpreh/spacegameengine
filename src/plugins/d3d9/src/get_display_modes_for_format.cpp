@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/index.hpp>
 #include <sge/renderer/display_mode/container.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/optional_map.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 
 
@@ -56,7 +56,7 @@ sge::d3d9::get_display_modes_for_format(
 			)
 			{
 				return
-					fcppt::optional_map(
+					fcppt::optional::map(
 						sge::d3d9::systemfuncs::enum_adapter_modes(
 							_d3d9,
 							_index,

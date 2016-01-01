@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_VORBIS_OPTIONAL_STREAM_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/vorbis/optional_stream_unique_ptr_fwd.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 #endif

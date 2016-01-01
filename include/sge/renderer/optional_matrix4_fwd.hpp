@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_OPTIONAL_MATRIX4_FWD_HPP_INCLUDED
 
 #include <sge/renderer/matrix4_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace renderer
 \ingroup sge_renderer
 */
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	sge::renderer::matrix4
 >
 optional_matrix4;

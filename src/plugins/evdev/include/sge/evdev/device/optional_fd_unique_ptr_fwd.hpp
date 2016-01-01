@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_EVDEV_DEVICE_OPTIONAL_FD_UNIQUE_PTR_FWD_HPP_INCLUDED
 
 #include <sge/evdev/device/fd_unique_ptr.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace device
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	sge::evdev::device::fd_unique_ptr
 >
 optional_fd_unique_ptr;

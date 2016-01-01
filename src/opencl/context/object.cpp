@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/config.hpp>
 #include <sge/src/opencl/handle_error.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #if defined(SGE_OPENCL_HAVE_GLX)
@@ -235,7 +235,7 @@ sge::opencl::context::object::error_callback(
 	void *const _user_data
 )
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		fcppt::cast::from_void_ptr<
 			sge::opencl::context::object *
 		>(

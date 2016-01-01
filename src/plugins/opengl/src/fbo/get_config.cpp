@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/get_config.hpp>
 #include <sge/renderer/unsupported.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -32,7 +32,7 @@ sge::opengl::fbo::get_config(
 )
 {
 	return
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			_context.config(),
 			[]{
 				return

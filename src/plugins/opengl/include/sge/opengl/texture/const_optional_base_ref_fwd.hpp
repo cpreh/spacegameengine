@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_CONST_OPTIONAL_BASE_REF_FWD_HPP_INCLUDED
 
 #include <sge/opengl/texture/base_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace opengl
 namespace texture
 {
 
-typedef fcppt::optional<
+typedef fcppt::optional::object<
 	sge::opengl::texture::base const &
 > const_optional_base_ref;
 

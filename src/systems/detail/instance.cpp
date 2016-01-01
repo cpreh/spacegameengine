@@ -61,9 +61,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_bind.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/bind.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
@@ -81,7 +81,7 @@ sge::systems::detail::instance::instance(
 			sge::systems::extract_plugin_path(
 				_list.get()
 			),
-			fcppt::optional_bind(
+			fcppt::optional::bind(
 				sge::systems::extract_config(
 					_list.get()
 				)
@@ -105,7 +105,7 @@ sge::systems::detail::instance::instance(
 	);
 
 	sge::log::option_container const &log_options(
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			log_settings,
 			[]{
 				return
@@ -146,7 +146,7 @@ sge::systems::detail::instance::instance(
 	{
 	case sge::parse::result_code::failure:
 	case sge::parse::result_code::partial:
-		fcppt::maybe_void(
+		fcppt::optional::maybe_void(
 			ini_result.error_string(),
 			[](
 				sge::parse::error_string const &_error

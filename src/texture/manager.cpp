@@ -32,9 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/optional_part_unique_ptr.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
-#include <fcppt/from_optional.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/algorithm/map_iteration_second.hpp>
@@ -87,7 +87,7 @@ sge::texture::manager::add(
 				)
 			);
 
-			fcppt::maybe_void(
+			fcppt::optional::maybe_void(
 				part,
 				[
 					&_src
@@ -109,7 +109,7 @@ sge::texture::manager::add(
 
 
 	return
-		fcppt::from_optional(
+		fcppt::optional::from(
 			fcppt::algorithm::find_by_opt(
 				boost::make_iterator_range(
 					textures_.equal_range(
@@ -135,7 +135,7 @@ sge::texture::manager::add(
 				this
 			]{
 				return
-					fcppt::optional_to_exception(
+					fcppt::optional::to_exception(
 						init_texture(
 							*textures_.insert(
 								std::make_pair(

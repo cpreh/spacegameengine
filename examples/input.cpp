@@ -158,10 +158,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/from_optional.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/from_std_wstring.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
@@ -740,7 +740,7 @@ output_optional_string(
 )
 {
 	return
-		fcppt::from_optional(
+		fcppt::optional::from(
 			_name,
 			[]{
 				return
@@ -757,7 +757,7 @@ output_optional_position(
 )
 {
 	return
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			_opt_position,
 			[]{
 				return

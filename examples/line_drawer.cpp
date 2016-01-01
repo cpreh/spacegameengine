@@ -113,7 +113,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
@@ -222,7 +222,7 @@ private:
 		sge::input::cursor::move_event const &_event
 	)
 	{
-		fcppt::maybe_void(
+		fcppt::optional::maybe_void(
 			_event.position(),
 			[
 				this
@@ -271,7 +271,7 @@ private:
 
 		if(lock.value().empty())
 		{
-			fcppt::maybe_void(
+			fcppt::optional::maybe_void(
 				cursor_.position(),
 				[
 					&lock

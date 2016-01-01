@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/info/class_cast.hpp>
 #include <sge/x11input/device/info/class_map.hpp>
 #include <sge/x11input/device/info/class_type.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <boost/mpl/at.hpp>
@@ -43,7 +43,7 @@ namespace info
 template<
 	typename Class
 >
-fcppt::optional<
+fcppt::optional::object<
 	Class const &
 >
 class_maybe(
@@ -51,7 +51,7 @@ class_maybe(
 )
 {
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		Class const &
 	>
 	result_type;

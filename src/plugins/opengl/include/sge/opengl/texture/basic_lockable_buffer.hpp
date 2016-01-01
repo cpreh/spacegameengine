@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/math/box/object_decl.hpp>
 
@@ -180,7 +180,7 @@ private:
 	lock_unique_ptr;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		lock_unique_ptr
 	>
 	optional_lock_unique_ptr;
@@ -188,7 +188,7 @@ private:
 	mutable optional_lock_unique_ptr lock_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		lock_area
 	>
 	optional_lock_area;

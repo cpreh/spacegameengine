@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_SET_OR_DEFAULT_SINGLE_HPP_INCLUDED
 #define SGE_OPENGL_STATE_SET_OR_DEFAULT_SINGLE_HPP_INCLUDED
 
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 
 
 namespace sge
@@ -42,7 +42,7 @@ set_or_default_single(
 	StateRef const &_state
 )
 {
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		_state,
 		[
 			&_context

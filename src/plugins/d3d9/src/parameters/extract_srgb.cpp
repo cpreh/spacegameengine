@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/parameters/extract_srgb.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <awl/visual/object.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/cast/try_dynamic.hpp>
 
 
@@ -32,7 +32,7 @@ sge::d3d9::parameters::extract_srgb(
 )
 {
 	return
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			fcppt::cast::try_dynamic<
 				sge::d3d9::visual const &
 			>(

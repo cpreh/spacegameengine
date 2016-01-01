@@ -40,11 +40,13 @@ sge::input::mouse::button_info::button_info(
 sge::input::mouse::button_code
 sge::input::mouse::button_info::code() const
 {
-	return code_;
+	return
+		code_;
 }
 
 fcppt::optional_string const &
 sge::input::mouse::button_info::name() const
 {
-	return name_;
+	return
+		name_;
 }

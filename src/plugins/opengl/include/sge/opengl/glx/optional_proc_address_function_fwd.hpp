@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLX_OPTIONAL_PROC_ADDRESS_FUNCTION_FWD_HPP_INCLUDED
 
 #include <sge/opengl/glx/proc_address_function.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace glx
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	sge::opengl::glx::proc_address_function
 >
 optional_proc_address_function;

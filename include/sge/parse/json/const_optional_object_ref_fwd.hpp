@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_CONST_OPTIONAL_OBJECT_REF_FWD_HPP_INCLUDED
 
 #include <sge/parse/json/object_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace parse
 namespace json
 {
 
-typedef fcppt::optional<
+typedef fcppt::optional::object<
 	sge::parse::json::object const &
 > const_optional_object_ref;
 

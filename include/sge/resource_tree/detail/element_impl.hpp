@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/path.hpp>
 #include <sge/resource_tree/detail/element_decl.hpp>
 #include <sge/resource_tree/detail/path_with_resource_impl.hpp>
-#include <fcppt/optional_map.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/random/make_variate.hpp>
@@ -62,7 +62,7 @@ sge::resource_tree::detail::element<
 		)
 	),
 	rng_(
-		fcppt::optional_map(
+		fcppt::optional::map(
 			fcppt::random::wrapper::make_uniform_container(
 				resources_
 			),
@@ -149,7 +149,7 @@ sge::resource_tree::detail::element<
 >::get_random() const
 {
 	return
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			rng_,
 			[
 				this

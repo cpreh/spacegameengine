@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/exception.hpp>
 #include <sge/systems/optional_name.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -77,7 +77,7 @@ find_plugin(
 	)
 	{
 		bool const name_is_same(
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				_opt_name,
 				fcppt::const_(
 					false
@@ -170,7 +170,7 @@ find_plugin(
 			)
 		)
 		+
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			_opt_name,
 			[]{
 				return

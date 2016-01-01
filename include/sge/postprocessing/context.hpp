@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/parameter/vector.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
@@ -88,7 +88,7 @@ private:
 	fcppt::signal::auto_connection const viewport_connection_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::renderer::texture::planar_unique_ptr
 	>
 	optional_planar_texture_ptr;
@@ -96,7 +96,7 @@ private:
 	optional_planar_texture_ptr rendering_result_texture_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::renderer::target::offscreen_unique_ptr
 	>
 	optional_offscreen_target_ptr;
@@ -104,7 +104,7 @@ private:
 	optional_offscreen_target_ptr offscreen_target_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::renderer::depth_stencil_buffer::surface_unique_ptr
 	>
 	optional_depth_stencil_surface_ptr;

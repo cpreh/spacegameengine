@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/light/sequence.hpp>
 #include <sge/scenic/scene/camera_properties.hpp>
 #include <sge/scenic/scene/entity_sequence.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 
 
 namespace sge

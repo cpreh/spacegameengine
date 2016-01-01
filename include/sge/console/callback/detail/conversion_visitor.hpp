@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/lit.hpp>
 #include <fcppt/extract_from_string.hpp>
 #include <fcppt/insert_to_string.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/tag.hpp>
 #include <fcppt/type_name_from_info.hpp>
@@ -96,7 +96,7 @@ public:
 		>::type
 		result_type;
 
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			fcppt::extract_from_string<
 				result_type
 			>(

@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/info/major_version.hpp>
 #include <sge/opengl/info/minor_version.hpp>
 #include <sge/opengl/info/version_at_least.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -53,7 +53,7 @@ sge::opengl::buffer::pbo_context::pbo_context(
 :
 	sge::opengl::context::base(),
 	buffers_(
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			sge::opengl::context::use<
 				sge::opengl::buffer::context
 			>(

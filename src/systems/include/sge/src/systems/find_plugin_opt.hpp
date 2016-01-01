@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/load_with_log_options.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/src/systems/plugin_pair_decl.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
@@ -46,7 +46,7 @@ template<
 	typename System,
 	typename TestFunction
 >
-fcppt::optional<
+fcppt::optional::object<
 	sge::systems::plugin_pair<
 		System
 	>
@@ -66,7 +66,7 @@ find_plugin_opt(
 	pair_type;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		pair_type
 	>
 	return_type;

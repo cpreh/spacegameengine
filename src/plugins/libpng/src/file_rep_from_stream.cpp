@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/row_vector.hpp>
 #include <sge/media/error_string.hpp>
 #include <sge/media/optional_name_fwd.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/promote.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
@@ -226,7 +226,7 @@ sge::libpng::file_rep_from_stream(
 	);
 
 	return
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			sge::libpng::make_format(
 				color_type,
 				bpp,

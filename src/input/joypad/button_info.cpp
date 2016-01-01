@@ -35,5 +35,6 @@ sge::input::joypad::button_info::button_info(
 fcppt::optional_string const &
 sge::input::joypad::button_info::name() const
 {
-	return name_;
+	return
+		name_;
 }

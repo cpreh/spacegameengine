@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/multi_context.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 
 void
@@ -40,7 +40,7 @@ sge::opengl::state::ffp::sampler::set_defaults(
 	// Samplers are always active in every stage and we must make sure that
 	// the defaults are restored everywhere.
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
 		>(

@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/path.hpp>
 #include <sge/resource_tree/detail/element_impl.hpp>
 #include <sge/resource_tree/detail/init.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -93,7 +93,7 @@ sge::resource_tree::object<
 	// If it's a _file_, it will be contained inside an element with the
 	// according prefix.
 	return
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			fcppt::algorithm::find_by_opt(
 				elements_,
 				[

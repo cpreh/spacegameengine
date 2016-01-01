@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 
 void
@@ -60,7 +60,7 @@ sge::opengl::state::core::sampler::set(
 			sampler.first
 		);
 
-		fcppt::maybe_void(
+		fcppt::optional::maybe_void(
 			sge::opengl::texture::get_stage_type(
 				_context,
 				stage

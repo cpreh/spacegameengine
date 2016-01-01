@@ -38,8 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_assign.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/assert/optional_error.hpp>
@@ -93,7 +93,7 @@ sge::d3d9::surface::color::lock_c(
 	)
 	{
 		sge::d3d9::surface::d3d_unique_ptr const &temp_surface(
-			fcppt::optional_assign(
+			fcppt::optional::assign(
 				temp_surface_,
 				sge::d3d9::devicefuncs::create_offscreen_plain_surface(
 					device_,

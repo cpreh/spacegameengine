@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/egl/visual/choose_config.hpp>
 #include <sge/opengl/egl/visual/to_config.hpp>
 #include <awl/visual/object.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/try_dynamic.hpp>
 #include <fcppt/log/_.hpp>
@@ -41,7 +41,7 @@ sge::opengl::egl::visual::to_config(
 )
 {
 	return
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			fcppt::cast::try_dynamic<
 				sge::opengl::egl::visual::base const &
 			>(

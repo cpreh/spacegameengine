@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/path_to_extension.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -50,7 +50,7 @@ template<
 	typename Exception,
 	typename System
 >
-fcppt::optional<
+fcppt::optional::object<
 	Result
 >
 load(

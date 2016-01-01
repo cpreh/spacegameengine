@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/base_fwd.hpp>
 #include <sge/opengl/context/make_object.hpp>
 #include <sge/opengl/context/object.hpp>
-#include <fcppt/from_optional.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
 
@@ -49,7 +49,7 @@ use_impl(
 		fcppt::cast::static_downcast<
 			Type &
 		>(
-			fcppt::from_optional(
+			fcppt::optional::from(
 				_object.get(
 					Type::static_id
 				),

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/info/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 
 
 namespace sge
@@ -74,7 +74,7 @@ public:
 	gl_load_transpose_matrix_f;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		gl_load_transpose_matrix_f
 	>
 	optional_load_transpose_matrix_f;

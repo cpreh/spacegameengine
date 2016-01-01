@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/detail/options_class.hpp>
 #include <majutsu/get.hpp>
 #include <majutsu/set.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/tag.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -182,7 +182,7 @@ public:
 			)
 		);
 
-		fcppt::maybe_void(
+		fcppt::optional::maybe_void(
 			majutsu::get<
 				typename
 				Type::role

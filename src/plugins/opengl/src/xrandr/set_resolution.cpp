@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -41,7 +41,7 @@ sge::opengl::xrandr::set_resolution(
 	sge::opengl::xrandr::mode const &_mode
 )
 {
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		_mode.rate(),
 		[
 			&_window,

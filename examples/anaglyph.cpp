@@ -786,7 +786,7 @@ try
 			return awl::main::exit_success();
 		}
 
-		typedef fcppt::optional<
+		typedef fcppt::optional::object<
 			sge::renderer::scalar
 		> optional_scalar;
 

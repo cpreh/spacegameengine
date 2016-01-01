@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/widget/master_and_slaves.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/vector/null.hpp>
 
@@ -106,7 +106,7 @@ sge::rucksack::axis_policy2
 sge::rucksack::widget::master_and_slaves::axis_policy() const
 {
 	return
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			master_pane_,
 			[]{
 				return

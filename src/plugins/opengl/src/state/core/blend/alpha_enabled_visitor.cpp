@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/state/core/blend/combined.hpp>
 #include <sge/renderer/state/core/blend/separate.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -82,7 +82,7 @@ sge::opengl::state::core::blend::alpha_enabled_visitor::operator()(
 			sge::opengl::state::core::blend::alpha_enabled_visitor::result_type
 		>(
 			std::bind(
-				fcppt::optional_to_exception(
+				fcppt::optional::to_exception(
 					sge::opengl::context::use<
 						sge::opengl::state::core::blend::context
 					>(

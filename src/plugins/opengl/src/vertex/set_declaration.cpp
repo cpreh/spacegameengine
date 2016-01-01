@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vertex/set_declaration.hpp>
 #include <sge/renderer/vertex/const_optional_declaration_ref.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
-#include <fcppt/optional_map.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
 
@@ -40,7 +40,7 @@ sge::opengl::vertex::set_declaration(
 	>(
 		_context
 	).vertex_declaration(
-		fcppt::optional_map(
+		fcppt::optional::map(
 			_opt_declaration,
 			[](
 				sge::renderer::vertex::declaration const &_declaration

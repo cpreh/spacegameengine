@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/combine_rates.hpp>
 #include <sge/renderer/display_mode/optional_refresh_rate.hpp>
 #include <sge/renderer/display_mode/refresh_rate.hpp>
-#include <fcppt/optional_combine.hpp>
+#include <fcppt/optional/combine.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
@@ -34,7 +34,7 @@ sge::opengl::xrandr::combine_rates(
 )
 {
 	return
-		fcppt::optional_combine(
+		fcppt::optional::combine(
 			_opt_rate_a,
 			_opt_rate_b,
 			[](

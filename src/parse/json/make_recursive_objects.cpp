@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
 #include <sge/parse/json/value.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/string.hpp>
@@ -62,7 +62,7 @@ create_or_navigate_path(
 )
 {
 	return
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			sge::parse::json::find_member_value(
 				_old.get().members,
 				_new_member

@@ -47,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/scoped_user_message.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/window/event/focus_out_fwd.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -170,7 +170,7 @@ private:
 	cursor_unique_ptr;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		cursor_unique_ptr
 	>
 	optional_cursor_unique_ptr;
@@ -184,7 +184,7 @@ private:
 	focus_unique_ptr;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		focus_unique_ptr
 	>
 	optional_focus_unique_ptr;

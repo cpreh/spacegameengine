@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
@@ -88,7 +88,7 @@ private:
 	>
 	object_unique_ptr;
 
-	typedef fcppt::optional<
+	typedef fcppt::optional::object<
 		sge::opengl::state::core::sampler::object const &
 	> optional_object_ref;
 

@@ -33,8 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/widget/optional_ref.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_ref_compare.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/ref_compare.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -164,7 +164,7 @@ sge::rucksack::viewport::adaptor::axis_policy() const
 void
 sge::rucksack::viewport::adaptor::relayout()
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		child_,
 		[
 			this
@@ -184,7 +184,7 @@ sge::rucksack::viewport::adaptor::child(
 	sge::rucksack::widget::base &_new_child
 )
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		child_,
 		[](
 			sge::rucksack::widget::base &_child
@@ -213,7 +213,7 @@ sge::rucksack::viewport::adaptor::child(
 
 sge::rucksack::viewport::adaptor::~adaptor()
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		child_,
 		[](
 			sge::rucksack::widget::base &_child
@@ -263,7 +263,7 @@ sge::rucksack::viewport::adaptor::child_destroyed(
 )
 {
 	FCPPT_ASSERT_PRE(
-		fcppt::optional_ref_compare(
+		fcppt::optional::ref_compare(
 			sge::rucksack::widget::optional_ref(
 				_child
 			),

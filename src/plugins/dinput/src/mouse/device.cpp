@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/button_pressed.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/info_fwd.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -111,7 +111,7 @@ sge::dinput::mouse::device::on_dispatch(
 	DIDEVICEOBJECTDATA const &_data
 )
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		fcppt::container::find_opt_mapped(
 			info_.axis_map(),
 			_data.dwOfs
@@ -141,7 +141,7 @@ sge::dinput::mouse::device::on_dispatch(
 		}
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		fcppt::container::find_opt_mapped(
 			info_.button_map(),
 			_data.dwOfs

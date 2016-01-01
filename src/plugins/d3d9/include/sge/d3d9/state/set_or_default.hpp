@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_STATE_SET_OR_DEFAULT_HPP_INCLUDED
 #define SGE_D3D9_STATE_SET_OR_DEFAULT_HPP_INCLUDED
 
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
 
@@ -42,7 +42,7 @@ set_or_default(
 	D3DState const &_default_state
 )
 {
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		_state_ref,
 		[
 			&_default_state

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/clear/depth_buffer_value.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/clear/stencil_buffer_value.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -43,7 +43,7 @@ sge::opengl::clear::set(
 		0
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_parameters.back_buffer(),
 		[
 			&flags
@@ -59,7 +59,7 @@ sge::opengl::clear::set(
 		}
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_parameters.depth_buffer(),
 		[
 			&flags
@@ -75,7 +75,7 @@ sge::opengl::clear::set(
 		}
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_parameters.stencil_buffer(),
 		[
 			&flags

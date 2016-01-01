@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DISPLAY_MODE_OPTIONAL_OBJECT_FWD_HPP_INCLUDED
 
 #include <sge/renderer/display_mode/object_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace renderer
 namespace display_mode
 {
 
-typedef fcppt::optional<
+typedef fcppt::optional::object<
 	sge::renderer::display_mode::object
 > optional_object;
 

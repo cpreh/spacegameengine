@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLX_VISUAL_OPTIONAL_SRGB_FLAG_FWD_HPP_INCLUDED
 
 #include <sge/opengl/glx/visual/srgb_flag_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -35,7 +35,7 @@ namespace visual
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	sge::opengl::glx::visual::srgb_flag
 >
 optional_srgb_flag;

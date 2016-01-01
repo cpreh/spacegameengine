@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SHADER_OPTIONAL_CONTEXT_REF_HPP_INCLUDED
 
 #include <sge/shader/context_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace sge
 namespace shader
 {
 typedef
-fcppt::optional<sge::shader::context &>
+fcppt::optional::object<sge::shader::context &>
 optional_context_ref;
 }
 }

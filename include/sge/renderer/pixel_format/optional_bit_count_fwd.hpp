@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_PIXEL_FORMAT_OPTIONAL_BIT_COUNT_FWD_HPP_INCLUDED
 
 #include <sge/renderer/pixel_format/bit_count.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace renderer
 namespace pixel_format
 {
 
-typedef fcppt::optional<
+typedef fcppt::optional::object<
 	sge::renderer::pixel_format::bit_count
 > optional_bit_count;
 

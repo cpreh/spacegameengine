@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/render/range_object.hpp>
 #include <sge/sprite/render/range_impl.hpp>
 #include <majutsu/get.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 
 namespace sge
@@ -77,7 +77,7 @@ render_one(
 		)
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		range.object(),
 		[
 			&_render_context,

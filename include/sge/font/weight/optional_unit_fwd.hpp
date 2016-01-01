@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_WEIGHT_OPTIONAL_UNIT_FWD_HPP_INCLUDED
 
 #include <sge/font/weight/unit.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace font
 namespace weight
 {
 
-typedef fcppt::optional<
+typedef fcppt::optional::object<
 	sge::font::weight::unit
 > optional_unit;
 

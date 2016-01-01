@@ -55,9 +55,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/focus_out_callback.hpp>
 #include <awl/window/event/focus_out_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_assign.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -270,7 +270,7 @@ sge::wininput::processor::on_focus_out(
 			<< FCPPT_TEXT("focus out")
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		cursor_,
 		[](
 			cursor_unique_ptr const &_cursor
@@ -287,7 +287,7 @@ sge::wininput::processor::on_init(
 )
 {
 	cursor_unique_ptr const &cursor(
-		fcppt::optional_assign(
+		fcppt::optional::assign(
 			cursor_,
 			fcppt::make_unique_ptr<
 				sge::wininput::cursor::object
@@ -311,7 +311,7 @@ sge::wininput::processor::on_init(
 	);
 
 	focus_unique_ptr const &focus(
-		fcppt::optional_assign(
+		fcppt::optional::assign(
 			focus_,
 			fcppt::make_unique_ptr<
 				sge::wininput::focus::object

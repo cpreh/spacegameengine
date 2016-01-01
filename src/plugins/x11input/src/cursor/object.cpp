@@ -48,8 +48,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/cursor/object_fwd.hpp>
 #include <awl/backends/x11/system/event/type.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/unreachable.hpp>
@@ -277,7 +277,7 @@ sge::x11input::cursor::object::on_motion(
 				sge::x11input::device::valuator::value const _value
 			)
 			{
-				fcppt::maybe_void(
+				fcppt::optional::maybe_void(
 					fcppt::container::find_opt_mapped(
 						scroll_valuators_,
 						_index

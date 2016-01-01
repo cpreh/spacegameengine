@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_CLEAR_OPTIONAL_BACK_BUFFER_FWD_HPP_INCLUDED
 
 #include <sge/renderer/clear/back_buffer_value_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -38,7 +38,7 @@ namespace clear
 \ingroup sge_renderer
 */
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	sge::renderer::clear::back_buffer_value
 >
 optional_back_buffer;

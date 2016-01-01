@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_BUFFER_OPTIONAL_HARDWARE_CONFIG_FWD_HPP_INCLUDED
 
 #include <sge/opengl/buffer/hardware_config_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace buffer
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	sge::opengl::buffer::hardware_config
 >
 optional_hardware_config;

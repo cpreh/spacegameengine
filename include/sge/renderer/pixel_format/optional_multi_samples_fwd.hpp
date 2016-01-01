@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_PIXEL_FORMAT_OPTIONAL_MULTI_SAMPLES_FWD_HPP_INCLUDED
 
 #include <sge/renderer/pixel_format/multi_samples.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace renderer
 namespace pixel_format
 {
 
-typedef fcppt::optional<
+typedef fcppt::optional::object<
 	sge::renderer::pixel_format::multi_samples
 > optional_multi_samples;
 

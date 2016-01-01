@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_CEGUI_OPTIONAL_RENDER_CONTEXT_REF_FWD_HPP_INCLUDED
 
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace sge
 namespace cegui
 {
 
-typedef fcppt::optional<
+typedef fcppt::optional::object<
 	sge::renderer::context::ffp &
 > optional_render_context_ref;
 

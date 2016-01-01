@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/output.hpp>
 #include <sge/renderer/display_mode/refresh_rate.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
@@ -49,7 +49,7 @@ sge::opengl::windows::change_display_settings(
 	settings.dmPelsHeight = _mode.pixel_size().get().h();
 	settings.dmFields = DM_PELSWIDTH | DM_PELSHEIGHT;
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_mode.refresh_rate(),
 		[
 			&settings

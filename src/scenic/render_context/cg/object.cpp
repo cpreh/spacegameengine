@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/light/object.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
 #include <sge/src/scenic/render_context/cg/any_color_to_vector4.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assign/make_map.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
@@ -198,7 +198,7 @@ sge::scenic::render_context::cg::object::lights(
 	)
 	{
 		// TODO: This should be done using a visitor!
-		fcppt::maybe_void(
+		fcppt::optional::maybe_void(
 			fcppt::variant::to_optional<
 				sge::scenic::render_context::light::point
 			>(
@@ -234,7 +234,7 @@ sge::scenic::render_context::cg::object::lights(
 			}
 		);
 
-		fcppt::maybe_void(
+		fcppt::optional::maybe_void(
 			fcppt::variant::to_optional<
 				sge::scenic::render_context::light::directional
 			>(
@@ -285,7 +285,7 @@ sge::scenic::render_context::cg::object::vertex_buffer(
 	sge::renderer::vertex::buffer const &_new_vertex_buffer
 )
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		current_vertex_buffer_,
 		[
 			this
@@ -316,7 +316,7 @@ sge::scenic::render_context::cg::object::fog(
 	manager_.use_fog_.set(
 		_opt_fog.has_value());
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_opt_fog,
 		[
 			this
@@ -362,7 +362,7 @@ sge::scenic::render_context::cg::object::target()
 
 sge::scenic::render_context::cg::object::~object()
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		current_vertex_buffer_,
 		[
 			this

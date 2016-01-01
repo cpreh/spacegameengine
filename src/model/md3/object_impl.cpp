@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/model/md3/tag.hpp>
 #include <sge/src/model/md3/transformed_vertex.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_if_opt.hpp>
 #include <fcppt/algorithm/map.hpp>
@@ -402,7 +402,7 @@ sge::model::md3::object_impl::surface_by_name(
 {
 	return
 		*
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			fcppt::algorithm::find_if_opt(
 				surfaces_,
 				[

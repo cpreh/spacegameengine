@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/include_windows.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/from_optional.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>
 
@@ -41,7 +41,7 @@ sge::gdifont::create_font(
 {
 	HFONT const result(
 		CreateFont(
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				_parameters.ttf_size(),
 				fcppt::const_(
 					0
@@ -59,7 +59,7 @@ sge::gdifont::create_font(
 			0, // width
 			0, // escapement
 			0, // orientation
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				_parameters.weight(),
 				fcppt::const_(
 					0

@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/separate.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -124,7 +124,7 @@ sge::opengl::state::core::depth_stencil::stencil::enabled_visitor::operator()(
 ) const
 {
 	sge::opengl::state::core::depth_stencil::stencil::config const &config(
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			sge::opengl::context::use<
 				sge::opengl::state::core::depth_stencil::stencil::context
 			>(

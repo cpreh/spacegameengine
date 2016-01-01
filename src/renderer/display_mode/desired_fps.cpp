@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/refresh_rate_value.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/optional_bind.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/bind.hpp>
 
 
 sge::renderer::display_mode::refresh_rate_value
@@ -33,8 +33,8 @@ sge::renderer::display_mode::desired_fps(
 )
 {
 	return
-		fcppt::maybe(
-			fcppt::optional_bind(
+		fcppt::optional::maybe(
+			fcppt::optional::bind(
 				_opt_display_mode,
 				[](
 					sge::renderer::display_mode::object const &_display_mode

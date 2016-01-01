@@ -56,7 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/operators.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/math/clamp.hpp>
@@ -447,7 +447,7 @@ sge::graph::object::draw_data(
 		_view);
 
 	sge::graph::axis_constraint const current_axis_constraint(
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			axis_constraint_,
 			fcppt::const_(
 				current_min_
@@ -460,7 +460,7 @@ sge::graph::object::draw_data(
 					_cur.min();
 			}
 		),
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			axis_constraint_,
 			fcppt::const_(
 				current_max_

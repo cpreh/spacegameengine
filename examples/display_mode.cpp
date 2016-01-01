@@ -53,7 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/show_callback.hpp>
 #include <awl/window/event/show_fwd.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
@@ -140,7 +140,7 @@ try
 					awl::window::event::show const &
 				)
 				{
-					fcppt::maybe(
+					fcppt::optional::maybe(
 						sys.renderer_device_core().display_mode(),
 						[]{
 							fcppt::io::cout()

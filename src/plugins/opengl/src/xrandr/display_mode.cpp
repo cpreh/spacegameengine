@@ -38,8 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <awl/window/rect.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_map.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/math/box/intersects.hpp>
 #include <fcppt/math/dim/comparison.hpp>
@@ -165,7 +165,7 @@ sge::opengl::xrandr::display_mode(
 		}
 	}
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		dimensions,
 		[](
 			sge::renderer::display_mode::dimensions const _dim
@@ -182,7 +182,7 @@ sge::opengl::xrandr::display_mode(
 	);
 
 	return
-		fcppt::optional_map(
+		fcppt::optional::map(
 			pixel_size,
 			[
 				dimensions,

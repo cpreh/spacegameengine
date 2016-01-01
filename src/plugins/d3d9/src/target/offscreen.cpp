@@ -35,8 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/dynamic_optional_cast.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_int_range.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/index_map_impl.hpp>
@@ -145,7 +145,7 @@ sge::d3d9::target::offscreen::change_surfaces(
 			color_surfaces_.impl().size()
 		)
 	)
-		fcppt::maybe_void(
+		fcppt::optional::maybe_void(
 			color_surfaces_[
 				index
 			],
@@ -176,7 +176,7 @@ sge::d3d9::target::offscreen::change_surfaces(
 			}
 		);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		depth_stencil_surface_,
 		[
 			_activate,

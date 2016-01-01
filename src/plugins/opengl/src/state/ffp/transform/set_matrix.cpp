@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/transform/set_matrix.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -37,7 +37,7 @@ sge::opengl::state::ffp::transform::set_matrix(
 	sge::renderer::matrix4 const &_matrix
 )
 {
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		sge::opengl::context::use<
 			sge::opengl::state::ffp::transform::context
 		>(

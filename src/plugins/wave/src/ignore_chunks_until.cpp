@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wave/logger.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -47,7 +47,7 @@ sge::wave::ignore_chunks_until(
 )
 {
 	while(
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			sge::wave::extract_header(
 				_stream
 			),
@@ -90,7 +90,7 @@ sge::wave::ignore_chunks_until(
 	)
 	{
 		if(
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				fcppt::io::read<
 					std::uint32_t
 				>(

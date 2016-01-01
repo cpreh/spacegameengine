@@ -168,7 +168,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -684,7 +684,7 @@ try
 					)
 						return;
 
-					fcppt::maybe_void(
+					fcppt::optional::maybe_void(
 						sge::input::key::code_to_digit(
 							_event.key().code()
 						),
@@ -695,7 +695,7 @@ try
 							sge::input::key::digit const _digit
 						)
 						{
-							fcppt::maybe_void(
+							fcppt::optional::maybe_void(
 								fcppt::container::at_optional(
 									filters,
 									filter_array::size_type{

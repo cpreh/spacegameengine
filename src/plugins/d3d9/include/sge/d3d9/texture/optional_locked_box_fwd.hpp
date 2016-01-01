@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_TEXTURE_OPTIONAL_LOCKED_BOX_FWD_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace d3d9
 namespace texture
 {
 
-typedef fcppt::optional<
+typedef fcppt::optional::object<
 	D3DLOCKED_BOX
 > optional_locked_box;
 

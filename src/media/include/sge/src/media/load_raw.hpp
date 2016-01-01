@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/container/raw_vector.hpp>
@@ -45,7 +45,7 @@ template<
 	typename Result,
 	typename System
 >
-fcppt::optional<
+fcppt::optional::object<
 	Result
 >
 load_raw(

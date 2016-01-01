@@ -39,8 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/detail/system_impl.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
-#include <fcppt/from_optional.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
@@ -127,7 +127,7 @@ sge::cegui::detail::system_impl::system_impl(
 	CEGUI::WidgetLookManager::setDefaultResourceGroup(
 		sge::cegui::to_cegui_string(
 			fcppt::filesystem::path_to_string(
-				fcppt::from_optional(
+				fcppt::optional::from(
 					_load_context.looknfeel_directory(),
 					[
 						this
@@ -143,7 +143,7 @@ sge::cegui::detail::system_impl::system_impl(
 	CEGUI::Font::setDefaultResourceGroup(
 		sge::cegui::to_cegui_string(
 			fcppt::filesystem::path_to_string(
-				fcppt::from_optional(
+				fcppt::optional::from(
 					_load_context.font_directory(),
 					[
 						this
@@ -159,7 +159,7 @@ sge::cegui::detail::system_impl::system_impl(
 	CEGUI::ImageManager::setImagesetDefaultResourceGroup(
 		sge::cegui::to_cegui_string(
 			fcppt::filesystem::path_to_string(
-				fcppt::from_optional(
+				fcppt::optional::from(
 					_load_context.imageset_directory(),
 					[
 						this
@@ -195,7 +195,7 @@ sge::cegui::detail::system_impl::system_impl(
 	)
 		gui_context_.getMouseCursor().hide();
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_load_context.default_font(),
 		[
 			this

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -69,7 +69,7 @@ sge::opengl::state::core::sampler::filter::anisotropic(
 				std::bind(
 					sge::opengl::texture::funcs::parameter_int,
 					std::placeholders::_1,
-					fcppt::optional_to_exception(
+					fcppt::optional::to_exception(
 						sge::opengl::context::use<
 							sge::opengl::state::core::sampler::filter::anisotropy_context
 						>(

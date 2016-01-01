@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/optional_rect.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 
 
 bool
@@ -32,7 +32,7 @@ sge::wininput::cursor::clip(
 {
 	return
 		::ClipCursor(
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				_area,
 				fcppt::const_<
 					RECT const *

@@ -62,7 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/material/object.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_assign.hpp>
+#include <fcppt/optional/assign.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assign/make_map.hpp>
@@ -248,7 +248,7 @@ sge::scenic::render_context::ffp::object::transform(
 	case sge::scenic::render_context::transform_matrix_type::projection:
 		{
 			sge::renderer::state::ffp::transform::object_unique_ptr const &cur_transform(
-				fcppt::optional_assign(
+				fcppt::optional::assign(
 					projection_transform_,
 					manager_.renderer_.create_transform_state(
 						sge::renderer::state::ffp::transform::parameters(
@@ -270,7 +270,7 @@ sge::scenic::render_context::ffp::object::transform(
 	case sge::scenic::render_context::transform_matrix_type::world:
 		{
 			sge::renderer::state::ffp::transform::object_unique_ptr const &cur_transform(
-				fcppt::optional_assign(
+				fcppt::optional::assign(
 					world_transform_,
 					manager_.renderer_.create_transform_state(
 						sge::renderer::state::ffp::transform::parameters(
@@ -297,7 +297,7 @@ sge::scenic::render_context::ffp::object::material(
 	sge::scenic::render_context::material::object const &_material)
 {
 	sge::renderer::state::ffp::lighting::material::object_unique_ptr const &current_material(
-		fcppt::optional_assign(
+		fcppt::optional::assign(
 			current_material_,
 			manager_.renderer_.create_material_state(
 				sge::renderer::state::ffp::lighting::material::parameters(

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
@@ -58,7 +58,7 @@ private:
 	);
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		HCURSOR
 	>
 	optional_hcursor;

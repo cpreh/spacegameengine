@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
@@ -55,7 +55,7 @@ sge::opengl::init_srgb(
 		)
 	);
 
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		srgb_context.flag(),
 		[
 			_srgb

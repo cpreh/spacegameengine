@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/extract_plugin_path.hpp>
 #include <sge/systems/plugin_path.hpp>
 #include <sge/systems/detail/any_map.hpp>
-#include <fcppt/from_optional.hpp>
+#include <fcppt/optional/from.hpp>
 
 
 sge::systems::plugin_path
@@ -32,7 +32,7 @@ sge::systems::extract_plugin_path(
 )
 {
 	return
-		fcppt::from_optional(
+		fcppt::optional::from(
 			sge::systems::extract_config(
 				_map
 			).plugin_path(),

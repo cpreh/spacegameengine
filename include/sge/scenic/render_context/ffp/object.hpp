@@ -132,7 +132,7 @@ private:
 	sge::renderer::vertex::scoped_declaration scoped_vertex_declaration_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::renderer::state::ffp::transform::object_unique_ptr
 	>
 	optional_transform_unique_ptr;
@@ -150,7 +150,7 @@ private:
 	scoped_vertex_buffer_unique_ptr;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		scoped_vertex_buffer_unique_ptr
 	>
 	optional_scoped_vertex_buffer_unique_ptr;
@@ -158,7 +158,7 @@ private:
 	optional_scoped_vertex_buffer_unique_ptr current_vertex_buffer_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::renderer::state::ffp::lighting::material::object_unique_ptr
 	>
 	optional_material_unique_ptr;

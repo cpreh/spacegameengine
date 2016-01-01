@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/vorbis/stream.hpp>
 #include <sge/vorbis/stream_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -73,7 +73,7 @@ sge::vorbis::loader::load_stream(
 			_extension
 		)
 		?
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				sge::vorbis::open(
 					*_stream
 				),

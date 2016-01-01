@@ -40,11 +40,13 @@ sge::input::joypad::relative_axis_info::relative_axis_info(
 sge::input::joypad::axis_code
 sge::input::joypad::relative_axis_info::code() const
 {
-	return code_;
+	return
+		code_;
 }
 
 fcppt::optional_string const &
 sge::input::joypad::relative_axis_info::name() const
 {
-	return name_;
+	return
+		name_;
 }

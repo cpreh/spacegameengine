@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CG_PARAMETER_OPTIONAL_NAMED_FWD_HPP_INCLUDED
 
 #include <sge/cg/parameter/named_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace cg
 namespace parameter
 {
 
-typedef fcppt::optional<
+typedef fcppt::optional::object<
 	sge::cg::parameter::named
 > optional_named;
 

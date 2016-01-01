@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glx/optional_raw_function.hpp>
 #include <sge/opengl/glx/proc_address.hpp>
 #include <sge/opengl/glx/proc_address_function.hpp>
-#include <fcppt/optional_from_pointer.hpp>
+#include <fcppt/optional/from_pointer.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
@@ -36,7 +36,7 @@ sge::opengl::glx::proc_address(
 )
 {
 	return
-		fcppt::optional_from_pointer(
+		fcppt::optional::from_pointer(
 			_proc_address(
 				fcppt::cast::to_char_ptr<
 					unsigned char const *

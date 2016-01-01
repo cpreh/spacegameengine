@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/make_rep.hpp>
 #include <sge/src/font/bitmap/rep.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -148,7 +148,7 @@ sge::font::bitmap::make_rep(
 		current_x += metric.x_advance();
 
 		bool const space_exceeded(
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				max_width,
 				fcppt::const_(
 					false

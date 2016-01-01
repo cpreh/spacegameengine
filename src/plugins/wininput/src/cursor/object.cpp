@@ -44,9 +44,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_bind.hpp>
-#include <fcppt/optional_map.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/bind.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/join.hpp>
@@ -188,8 +188,8 @@ sge::input::cursor::optional_position
 sge::wininput::cursor::object::position() const
 {
 	return
-		fcppt::optional_map(
-			fcppt::optional_bind(
+		fcppt::optional::map(
+			fcppt::optional::bind(
 				sge::wininput::cursor::get_pos(),
 				[
 					this

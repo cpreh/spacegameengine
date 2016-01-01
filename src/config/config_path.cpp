@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #include <sge/config/getenv.hpp>
 #include <sge/config/homedir.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
@@ -62,7 +62,7 @@ sge::config::config_path(
 	);
 
 	boost::filesystem::path const path(
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			xdg_config_path,
 			[]{
 				return

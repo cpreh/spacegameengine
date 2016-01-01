@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_OPTIONAL_PART_UNIQUE_PTR_FWD_HPP_INCLUDED
 
 #include <sge/texture/part_unique_ptr.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -31,7 +31,7 @@ namespace texture
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	sge::texture::part_unique_ptr
 >
 optional_part_unique_ptr;

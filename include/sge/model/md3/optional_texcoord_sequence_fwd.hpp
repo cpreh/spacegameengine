@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_MD3_OPTIONAL_TEXCOORD_SEQUENCE_FWD_HPP_INCLUDED
 
 #include <sge/model/md3/texcoord_sequence.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace md3
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	sge::model::md3::texcoord_sequence
 >
 optional_texcoord_sequence;

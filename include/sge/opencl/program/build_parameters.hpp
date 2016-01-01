@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/program/build_options.hpp>
 #include <sge/opencl/program/notification_callback.hpp>
 #include <sge/opencl/program/optional_notification_callback.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 namespace sge
@@ -61,7 +61,7 @@ public:
 	);
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::opencl::device::object_ref_sequence
 	>
 	optional_object_ref_sequence;

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/parse_range.hpp>
 #include <sge/parse/ini/start.hpp>
 #include <sge/parse/ini/output/to_stream.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
@@ -63,7 +63,7 @@ main()
 		sge::parse::result_code::ok
 	)
 	{
-		fcppt::maybe_void(
+		fcppt::optional::maybe_void(
 			ret.error_string(),
 			[](
 				sge::parse::error_string const &_error

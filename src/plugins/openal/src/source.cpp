@@ -40,12 +40,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/funcs/source_play.hpp>
 #include <sge/openal/funcs/source_stop.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/from_optional.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/math/rad_to_deg.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/optional/from.hpp>
 
 
 sge::openal::source::source(
@@ -301,7 +301,7 @@ sge::openal::source::direction(
 		this->source_id(),
 		AL_DIRECTION,
 		sge::openal::to_vector3(
-			fcppt::from_optional(
+			fcppt::optional::from(
 				_opt_dir,
 				fcppt::const_(
 					fcppt::math::vector::null<

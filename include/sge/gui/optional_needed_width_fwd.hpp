@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_OPTIONAL_NEEDED_WIDTH_FWD_HPP_INCLUDED
 
 #include <sge/gui/needed_width_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -31,7 +31,7 @@ namespace gui
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	sge::gui::needed_width
 >
 optional_needed_width;

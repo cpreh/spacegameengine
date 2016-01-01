@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/optional_scoped_output_unique_ptr.hpp>
 #include <awl/main/scoped_output.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_map.hpp>
+#include <fcppt/optional/map.hpp>
 
 
 awl::main::optional_scoped_output_unique_ptr
@@ -34,7 +34,7 @@ sge::systems::make_scoped_output(
 )
 {
 	return
-		fcppt::optional_map(
+		fcppt::optional::map(
 			_log_redirect_path,
 			[](
 				sge::systems::log_redirect_path const &_path

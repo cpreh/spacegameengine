@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 
 void
@@ -44,7 +44,7 @@ sge::d3d9::texture::set(
 		_opt_base
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_opt_base,
 		[
 			&_device,

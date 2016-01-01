@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_ALIGN_H_OPTIONAL_MAX_WIDTH_FWD_HPP_INCLUDED
 
 #include <sge/font/align_h/max_width_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace align_h
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	sge::font::align_h::max_width
 >
 optional_max_width;

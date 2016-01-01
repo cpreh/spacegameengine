@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/error_string.hpp>
 #include <sge/media/name.hpp>
 #include <sge/media/optional_name.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
@@ -33,7 +33,7 @@ sge::media::error_string(
 )
 {
 	return
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			_opt_name,
 			[
 				&_message

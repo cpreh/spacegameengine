@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/context/optional_error_callback.hpp>
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/single_device_system/optional_renderer.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 namespace sge

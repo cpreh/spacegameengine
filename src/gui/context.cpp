@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/focus_change.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/assert/error.hpp>
 
 
@@ -44,7 +44,7 @@ sge::gui::context::focus(
 	sge::gui::widget::base &_widget
 )
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		focus_,
 		[](
 			sge::gui::widget::base &_focus
@@ -71,7 +71,7 @@ sge::gui::context::destroy(
 	sge::gui::widget::base const &_widget
 )
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		focus_,
 		[
 			&_widget,

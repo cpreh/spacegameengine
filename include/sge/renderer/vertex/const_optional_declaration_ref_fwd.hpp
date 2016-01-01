@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VERTEX_CONST_OPTIONAL_DECLARATION_REF_FWD_HPP_INCLUDED
 
 #include <sge/renderer/vertex/declaration_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -37,7 +37,7 @@ namespace vertex
 
 \see sge::renderer::device::vertex_declaration
 */
-typedef fcppt::optional<
+typedef fcppt::optional::object<
 	sge::renderer::vertex::declaration const &
 > const_optional_declaration_ref;
 

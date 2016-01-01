@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/projection/rect.hpp>
 #include <sge/src/camera/set_pressed_if_appropriate.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/math/box/stretch_relative.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -151,7 +151,7 @@ sge::camera::ortho_freelook::object::update(
 	if(!is_active_.get() ||  zoom_in_pressed_ == zoom_out_pressed_)
 		return;
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		current_projection_rectangle_,
 		[
 			this,
@@ -212,7 +212,7 @@ sge::camera::ortho_freelook::object::mouse_axis_callback(
 	if(_axis.code() != input::mouse::axis_code::x && _axis.code() != input::mouse::axis_code::y)
 		return;
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		current_projection_rectangle_,
 		[
 			&_axis,

@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/mouse/make_button_infos.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/optional_map.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -42,7 +42,7 @@ sge::x11input::mouse::make_button_infos(
 {
 	return
 		sge::input::mouse::button_info_container(
-			fcppt::optional_to_exception(
+			fcppt::optional::to_exception(
 				fcppt::algorithm::find_by_opt(
 					fcppt::make_int_range_count(
 						_info.num_classes
@@ -55,7 +55,7 @@ sge::x11input::mouse::make_button_infos(
 					)
 					{
 						return
-							fcppt::optional_map(
+							fcppt::optional::map(
 								sge::x11input::device::info::class_maybe<
 									XIButtonClassInfo
 								>(

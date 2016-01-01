@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/const.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/algorithm/join.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/type_iso/strong_typedef.hpp>
@@ -71,7 +71,7 @@ sge::opengl::state::ffp::misc::point_sprite::set_impl(
 				sge::opengl::state::actor_vector
 			>(
 				fcppt::make_int_range_count(
-					fcppt::maybe(
+					fcppt::optional::maybe(
 						sge::opengl::context::use<
 							sge::opengl::texture::multi_context
 						>(

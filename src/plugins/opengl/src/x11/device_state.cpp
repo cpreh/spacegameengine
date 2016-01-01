@@ -30,9 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/optional_bind.hpp>
-#include <fcppt/optional_map.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/bind.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
@@ -47,7 +47,7 @@ sge::opengl::x11::device_state::device_state(
 :
 	sge::opengl::platform::device_state(),
 	xrandr_state_(
-		fcppt::optional_map(
+		fcppt::optional::map(
 			_xrandr_system,
 			[
 				&_window,
@@ -82,7 +82,7 @@ sge::renderer::display_mode::optional_object
 sge::opengl::x11::device_state::display_mode() const
 {
 	return
-		fcppt::optional_bind(
+		fcppt::optional::bind(
 			xrandr_state_,
 			[](
 				xrandr_state_unique_ptr const &_state
@@ -104,7 +104,7 @@ sge::opengl::x11::device_state::display_mode(
 		optional_resolution_unique_ptr();
 
 	resolution_ =
-		fcppt::optional_bind(
+		fcppt::optional::bind(
 			_opt_display_mode,
 			[
 				this
@@ -113,7 +113,7 @@ sge::opengl::x11::device_state::display_mode(
 			)
 			{
 				return
-					fcppt::maybe(
+					fcppt::optional::maybe(
 						xrandr_state_,
 						[]{
 							FCPPT_LOG_ERROR(

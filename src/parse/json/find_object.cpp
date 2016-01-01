@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/text.hpp>
 
@@ -41,7 +41,7 @@ namespace
 template<
 	typename Object
 >
-fcppt::optional<
+fcppt::optional::object<
 	Object &
 >
 find_object_impl(
@@ -55,7 +55,7 @@ find_object_impl(
 	object_ref;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		Object &
 	>
 	result_type;
@@ -79,7 +79,7 @@ find_object_impl(
 		value_reference;
 
 		if(
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				sge::parse::json::find_member_value(
 					current_object.get().members,
 					current_member

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/single_fwd.hpp>
 #include <sge/sprite/buffers/slice_decl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 
 
 namespace sge
@@ -79,7 +79,7 @@ private:
 	buffers_object;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		buffers_object
 	>
 	optional_buffers_object;

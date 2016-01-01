@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/mouse/make_axis_infos.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/optional_bind.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/bind.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
@@ -55,7 +55,7 @@ sge::x11input::mouse::make_axis_infos(
 				)
 				{
 					return
-						fcppt::optional_bind(
+						fcppt::optional::bind(
 							sge::x11input::device::info::class_maybe<
 								XIValuatorClassInfo
 							>(
@@ -70,7 +70,7 @@ sge::x11input::mouse::make_axis_infos(
 							)
 							{
 								typedef
-								fcppt::optional<
+								fcppt::optional::object<
 									sge::input::mouse::axis_info
 								>
 								result_type;

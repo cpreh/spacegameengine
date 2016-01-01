@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/rect.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
-#include <fcppt/optional_ref_compare.hpp>
+#include <fcppt/optional/ref_compare.hpp>
 #include <fcppt/algorithm/remove_if.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/math/box/contains_point.hpp>
@@ -346,7 +346,7 @@ sge::gui::widget::container::on_tab(
 				result;
 
 		if(
-			fcppt::optional_ref_compare(
+			fcppt::optional::ref_compare(
 				_focus.get(),
 				result
 			)

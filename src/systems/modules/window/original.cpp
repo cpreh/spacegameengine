@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/parameters.hpp>
 #include <awl/window/event/create_processor.hpp>
 #include <awl/window/event/processor.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 
 
 sge::systems::modules::window::original::original(
@@ -48,7 +48,7 @@ sge::systems::modules::window::original::original(
 :
 	sge::systems::modules::window::base(),
 	awl_visual_(
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			_opt_renderer_system,
 			[
 				&_system

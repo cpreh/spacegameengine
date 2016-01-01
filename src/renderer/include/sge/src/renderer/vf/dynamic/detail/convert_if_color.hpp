@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/renderer/vf/dynamic/detail/element_converter.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/element_converter_vector.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/matching_color_format.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/variant/to_optional.hpp>
 
 
@@ -56,7 +56,7 @@ convert_if_color(
 	sge::renderer::vf::dynamic::offset const _offset
 )
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		fcppt::variant::to_optional<
 			sge::renderer::vf::dynamic::color
 		>(

@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/system_fwd.hpp>
 #include <sge/systems/detail/input_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
 
@@ -93,7 +93,7 @@ private:
 	sge::input::processor_unique_ptr const input_processor_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::input::focus::object_unique_ptr
 	>
 	optional_focus_unique_ptr;
@@ -101,7 +101,7 @@ private:
 	optional_focus_unique_ptr const focus_collector_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::input::cursor::object_unique_ptr
 	>
 	optional_cursor_unique_ptr;
@@ -109,7 +109,7 @@ private:
 	optional_cursor_unique_ptr const cursor_demuxer_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::input::keyboard::device_unique_ptr
 	>
 	optional_keyboard_unique_ptr;
@@ -117,7 +117,7 @@ private:
 	optional_keyboard_unique_ptr const keyboard_collector_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::input::mouse::device_unique_ptr
 	>
 	optional_mouse_unique_ptr;
@@ -131,7 +131,7 @@ private:
 	cursor_modifier_unique_ptr;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		cursor_modifier_unique_ptr
 	>
 	optional_cursor_modifier_unique_ptr;

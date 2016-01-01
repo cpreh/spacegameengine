@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
@@ -40,7 +40,7 @@ sge::opengl::glx::vsync(
 {
 	// prefer swap_interval_ext
 	if(
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			_swap_functions.swap_interval_ext(),
 			fcppt::const_(
 				false
@@ -71,7 +71,7 @@ sge::opengl::glx::vsync(
 		return;
 
 	if(
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			_swap_functions.swap_interval_sgi(),
 			fcppt::const_(
 				false

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_OPTIONAL_PROJECTION_DIM_FWD_HPP_INCLUDED
 
 #include <sge/sprite/projection_dim_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -31,7 +31,7 @@ namespace sprite
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	sge::sprite::projection_dim
 >
 optional_projection_dim;

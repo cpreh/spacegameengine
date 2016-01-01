@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 
 
 namespace sge
@@ -148,7 +148,7 @@ private:
 	sge::d3d9::usage const usage_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		d3d_unique_ptr
 	>
 	optional_d3d_unique_ptr;

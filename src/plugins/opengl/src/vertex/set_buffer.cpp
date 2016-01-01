@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vertex/unset_buffer.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
@@ -50,7 +50,7 @@ sge::opengl::vertex::set_buffer(
 		_buffer.format_part_index()
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		context.vertex_buffer(
 			index
 		),

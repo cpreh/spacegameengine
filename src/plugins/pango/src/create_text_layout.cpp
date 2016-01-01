@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/pango/pango_layout_unique_ptr.hpp>
 #include <sge/pango/convert/alignment.hpp>
 #include <sge/pango/convert/to_unit.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -91,7 +91,7 @@ sge::pango::create_text_layout(
 		)
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		sge::font::align_h::extract_max_width(
 			_text_parameters.align_h()
 		),

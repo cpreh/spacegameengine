@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/rasterizer/parameters.hpp>
 #include <sge/sprite/state/with_rasterizer.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/from_optional.hpp>
+#include <fcppt/optional/from.hpp>
 
 
 sge::renderer::state::core::rasterizer::object_unique_ptr
@@ -43,7 +43,7 @@ sge::sprite::state::with_rasterizer::make(
 			sge::renderer::state::core::rasterizer::parameters(
 				sge::renderer::state::core::rasterizer::cull_mode::off,
 				sge::renderer::state::core::rasterizer::fill_mode::solid,
-				fcppt::from_optional(
+				fcppt::optional::from(
 					_enable_scissor_test,
 					fcppt::const_(
 						sge::renderer::state::core::rasterizer::enable_scissor_test{

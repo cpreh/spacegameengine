@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surfacefuncs/lock_rect.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/lock_rect_fwd.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -40,7 +40,7 @@ sge::d3d9::surfacefuncs::lock_rect(
 
 	RECT in_rect;
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_opt_rect,
 		[
 			&in_rect

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/hardware_config_fwd.hpp>
 #include <sge/opengl/buffer/is_native.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 namespace sge
@@ -91,7 +91,7 @@ public:
 	gl_map_buffer_range;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		gl_map_buffer_range
 	>
 	optional_gl_map_buffer_range;

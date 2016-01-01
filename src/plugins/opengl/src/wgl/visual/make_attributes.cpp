@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/pixel_format/stencil_bits.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>
 
@@ -44,7 +44,7 @@ sge::opengl::wgl::visual::make_attributes(
 )
 {
 	sge::opengl::wgl::visual::pixel_format_types const pixel_format_types(
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			_config.pixel_format_types(),
 			[]{
 				return
@@ -74,7 +74,7 @@ sge::opengl::wgl::visual::make_attributes(
 		)
 	};
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		sge::renderer::pixel_format::depth_bits(
 			_format.depth_stencil()
 		),
@@ -97,7 +97,7 @@ sge::opengl::wgl::visual::make_attributes(
 		}
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		sge::renderer::pixel_format::stencil_bits(
 			_format.depth_stencil()
 		),
@@ -120,7 +120,7 @@ sge::opengl::wgl::visual::make_attributes(
 		}
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_format.multi_samples(),
 		[
 			&_config,
@@ -130,7 +130,7 @@ sge::opengl::wgl::visual::make_attributes(
 		)
 		{
 			ret.push_back(
-				fcppt::optional_to_exception(
+				fcppt::optional::to_exception(
 					_config.multi_sample_flag(),
 					[]{
 						return
@@ -156,7 +156,7 @@ sge::opengl::wgl::visual::make_attributes(
 		!=
 		sge::renderer::pixel_format::srgb::no
 	)
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			_config.srgb_flag(),
 			[
 				&_format

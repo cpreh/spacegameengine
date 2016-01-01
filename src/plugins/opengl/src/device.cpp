@@ -134,7 +134,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object.hpp>
 #include <awl/window/object.hpp>
 #include <awl/window/event/processor_fwd.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/try_dynamic.hpp>
 
@@ -205,7 +205,7 @@ sge::opengl::device::device(
 		_display_mode.vsync()
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		fcppt::cast::try_dynamic<
 			sge::renderer::visual_base const &
 		>(

@@ -38,8 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/convert_key.hpp>
 #include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/optional_key_scan.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/int_to_float.hpp>
@@ -86,7 +86,7 @@ sge::cegui::syringe::inject(
 	sge::input::focus::key_event const &_event
 )
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		::process_key_code(
 			_event.key().code(),
 			sge::cegui::convert_key(
@@ -119,7 +119,7 @@ sge::cegui::syringe::inject(
 	sge::input::focus::key_repeat_event const &_event
 )
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		::process_key_code(
 			_event.key().code(),
 			sge::cegui::convert_key(
@@ -180,7 +180,7 @@ sge::cegui::syringe::inject(
 	sge::input::cursor::button_event const &_event
 )
 {
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		sge::cegui::convert_cursor_button(
 			_event.button_code()
 		),
@@ -230,7 +230,7 @@ sge::cegui::syringe::inject(
 	sge::input::cursor::move_event const &_event
 )
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_event.position(),
 		[
 			this
@@ -297,7 +297,7 @@ process_key_code(
 )
 {
 	return
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			_code,
 			[
 				_orig_code

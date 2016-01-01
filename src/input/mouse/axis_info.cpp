@@ -40,11 +40,13 @@ sge::input::mouse::axis_info::axis_info(
 sge::input::mouse::axis_code
 sge::input::mouse::axis_info::code() const
 {
-	return code_;
+	return
+		code_;
 }
 
 fcppt::optional_string const &
 sge::input::mouse::axis_info::name() const
 {
-	return name_;
+	return
+		name_;
 }

@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/info/class_maybe.hpp>
 #include <sge/x11input/device/valuator/index.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/optional_bind.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/bind.hpp>
+#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -40,7 +40,7 @@ sge::x11input::cursor::find_scroll_valuator(
 )
 {
 	return
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			fcppt::algorithm::find_by_opt(
 				fcppt::make_int_range_count(
 					_info.num_classes
@@ -53,7 +53,7 @@ sge::x11input::cursor::find_scroll_valuator(
 				)
 				{
 					return
-						fcppt::optional_bind(
+						fcppt::optional::bind(
 							sge::x11input::device::info::class_maybe<
 								XIValuatorClassInfo
 							>(
@@ -68,7 +68,7 @@ sge::x11input::cursor::find_scroll_valuator(
 							)
 							{
 								typedef
-								fcppt::optional<
+								fcppt::optional::object<
 									XIValuatorClassInfo const &
 								>
 								result_type;

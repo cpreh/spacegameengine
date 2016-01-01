@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CONTEXT_OPTIONAL_BASE_REF_FWD_HPP_INCLUDED
 
 #include <sge/opengl/context/base_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace context
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	sge::opengl::context::base &
 >
 optional_base_ref;

@@ -68,7 +68,7 @@ public:
 	gl_generate_mipmap;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		gl_generate_mipmap
 	>
 	optional_gl_generate_mipmap;

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -48,7 +48,7 @@ sge::opengl::wgl::visual::choose_format(
 	);
 
 	sge::opengl::wgl::visual::pixel_format_types const pixel_format_types(
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			_config.pixel_format_types(),
 			[]{
 				return

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_OCCLUSION_QUERY_OPTIONAL_CONFIG_FWD_HPP_INCLUDED
 
 #include <sge/opengl/occlusion_query/config_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace occlusion_query
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	sge::opengl::occlusion_query::config
 >
 optional_config;

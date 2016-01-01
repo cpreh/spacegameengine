@@ -28,12 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/parse_mtllib.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/src/model/obj/logger.hpp>
-#include <fcppt/from_optional.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/optional_impl.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -396,7 +396,7 @@ public:
 					current_material_,
 					sge::model::obj::material::diffuse_color(
 						make_color(
-							fcppt::optional_to_exception(
+							fcppt::optional::to_exception(
 								diffuse_,
 								make_exception
 							)
@@ -404,7 +404,7 @@ public:
 					),
 					sge::model::obj::material::ambient_color(
 						make_color(
-							fcppt::optional_to_exception(
+							fcppt::optional::to_exception(
 								ambient_,
 								make_exception
 							)
@@ -412,7 +412,7 @@ public:
 					),
 					sge::model::obj::material::specular_color(
 						make_color(
-							fcppt::optional_to_exception(
+							fcppt::optional::to_exception(
 								specular_,
 								make_exception
 							)
@@ -420,20 +420,20 @@ public:
 					),
 					sge::model::obj::material::emissive_color(
 						make_color(
-							fcppt::optional_to_exception(
+							fcppt::optional::to_exception(
 								emissive_,
 								make_exception
 							)
 						)
 					),
 					sge::model::obj::material::shininess(
-						fcppt::optional_to_exception(
+						fcppt::optional::to_exception(
 							shininess_,
 							make_exception
 						)
 					),
 					sge::model::obj::material::diffuse_texture_path(
-						fcppt::from_optional(
+						fcppt::optional::from(
 							diffuse_texture_,
 							[]{
 								return
@@ -442,7 +442,7 @@ public:
 						)
 					),
 					sge::model::obj::material::specular_texture_path(
-						fcppt::from_optional(
+						fcppt::optional::from(
 							specular_texture_,
 							[]{
 								return
@@ -464,7 +464,7 @@ private:
 	sge::model::obj::identifier current_material_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::renderer::scalar
 	>
 	optional_shininess;
@@ -472,7 +472,7 @@ private:
 	optional_shininess shininess_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::renderer::vector3
 	>
 	optional_color;
@@ -486,7 +486,7 @@ private:
 	optional_color emissive_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		boost::filesystem::path
 	>
 	optional_path;

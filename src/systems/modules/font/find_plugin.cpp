@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/font.hpp>
 #include <sge/systems/optional_name.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
@@ -56,7 +56,7 @@ sge::systems::modules::font::find_plugin(
 	)
 	{
 		if(
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				name,
 				fcppt::const_(
 					true
@@ -82,7 +82,7 @@ sge::systems::modules::font::find_plugin(
 	}
 
 	throw sge::systems::exception(
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			name,
 			[]{
 				return

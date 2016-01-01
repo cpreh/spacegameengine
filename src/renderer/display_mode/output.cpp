@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/output.hpp>
 #include <sge/renderer/display_mode/refresh_rate.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/ostream.hpp>
@@ -43,7 +43,7 @@ sge::renderer::display_mode::operator<<(
 		<< _mode.pixel_size().get()
 		<< FCPPT_TEXT("),(");
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_mode.dimensions(),
 		[
 			&_stream
@@ -59,7 +59,7 @@ sge::renderer::display_mode::operator<<(
 	_stream
 		<< FCPPT_TEXT(")@");
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_mode.refresh_rate(),
 		[
 			&_stream

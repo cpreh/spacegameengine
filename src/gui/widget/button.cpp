@@ -51,7 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -91,7 +91,7 @@ sge::gui::widget::button::button(
 		sge::rucksack::axis_policy2{
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					fcppt::maybe(
+					fcppt::optional::maybe(
 						_opt_needed_width,
 						[
 							this

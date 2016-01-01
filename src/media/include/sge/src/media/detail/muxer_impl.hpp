@@ -36,9 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/media/logger.hpp>
 #include <sge/src/media/detail/muxer.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/optional_map.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -95,13 +95,13 @@ sge::media::detail::muxer<
 				);
 
 				typedef
-				fcppt::optional<
+				fcppt::optional::object<
 					plugin_system_pair
 				>
 				optional_plugin_system_pair;
 
 				optional_plugin_system_pair result(
-					fcppt::maybe(
+					fcppt::optional::maybe(
 						_parameters.extensions(),
 						fcppt::const_(
 							true
@@ -209,7 +209,7 @@ sge::media::detail::muxer<
 ) const
 {
 	return
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			_opt_extension,
 			[
 				this,
@@ -233,7 +233,7 @@ sge::media::detail::muxer<
 			)
 			{
 				return
-					fcppt::maybe(
+					fcppt::optional::maybe(
 						this->mux_extension(
 							_extension
 						),
@@ -288,7 +288,7 @@ sge::media::detail::muxer<
 ) const
 {
 	return
-		fcppt::optional_map(
+		fcppt::optional::map(
 			fcppt::algorithm::find_if_opt(
 				plugins_,
 				[

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_CEGUI_OPTIONAL_MOUSE_BUTTON_FWD_HPP_INCLUDED
 #define SGE_SRC_CEGUI_OPTIONAL_MOUSE_BUTTON_FWD_HPP_INCLUDED
 
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/InputEvent.h>
 #include <fcppt/config/external_end.hpp>
@@ -32,7 +32,7 @@ namespace sge
 namespace cegui
 {
 
-typedef fcppt::optional<
+typedef fcppt::optional::object<
 	CEGUI::MouseButton
 > optional_mouse_button;
 

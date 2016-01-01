@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/render/range_part_decl.hpp>
 #include <sge/sprite/render/range_part_vector.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 
 
 namespace sge
@@ -82,7 +82,7 @@ public:
 	~range();
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		range_object const &
 	>
 	optional_object;

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/from_optional.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -79,7 +79,7 @@ sge::opengl::texture::scoped_work_binding::~scoped_work_binding()
 {
 	this->bind(
 		previous_id_,
-		fcppt::from_optional(
+		fcppt::optional::from(
 			previous_type_,
 			fcppt::const_(
 				type_

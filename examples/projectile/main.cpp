@@ -116,7 +116,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/literal.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
@@ -702,7 +702,7 @@ try
 			sys.renderer_device_ffp().onscreen_target()
 		);
 
-		fcppt::maybe_void(
+		fcppt::optional::maybe_void(
 			sge::renderer::projection::orthogonal_viewport(
 				scoped_block.get().target().viewport(),
 				sge::renderer::projection::near(

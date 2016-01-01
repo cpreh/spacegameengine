@@ -35,9 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/remove_event.hpp>
 #include <sge/input/cursor/scroll_callback.hpp>
 #include <sge/input/cursor/scroll_event_fwd.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/optional_bind.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/bind.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -135,7 +135,7 @@ sge::input::cursor::optional_position
 sge::input::cursor::demuxer::position() const
 {
 	return
-		fcppt::optional_bind(
+		fcppt::optional::bind(
 			this->current_cursor(),
 			[](
 				sge::input::cursor::object const &_cursor
@@ -152,7 +152,7 @@ sge::input::cursor::demuxer::mode(
 	sge::input::cursor::mode const _mode
 )
 {
-	fcppt::optional_to_exception(
+	fcppt::optional::to_exception(
 		this->current_cursor(),
 		[]{
 			return
@@ -234,7 +234,7 @@ sge::input::cursor::demuxer::assign_cursor()
 			cursors_
 		);
 
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		current_cursor_,
 		[
 			this

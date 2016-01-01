@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/detail/any.hpp>
 #include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_map.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/variant/get_exn.hpp>
 
@@ -45,7 +45,7 @@ unpack_if_present(
 	Function const _function
 )
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		fcppt::container::find_opt_mapped(
 			_map,
 			_key

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
 
@@ -34,7 +34,7 @@ sge::d3d9::state::ffp::transform::set(
 	sge::d3d9::state::ffp::transform::object const &_default
 )
 {
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		_opt_state,
 		[
 			&_default

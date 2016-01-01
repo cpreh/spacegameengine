@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_OPTIONAL_DISPLAY_MODE_FWD_HPP_INCLUDED
 #define SGE_D3D9_OPTIONAL_DISPLAY_MODE_FWD_HPP_INCLUDED
 
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace d3d9
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	D3DDISPLAYMODE
 >
 optional_display_mode;

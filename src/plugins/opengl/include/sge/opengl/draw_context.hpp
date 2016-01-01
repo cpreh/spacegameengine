@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/info/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 
 
 namespace sge
@@ -62,7 +62,7 @@ public:
 	gl_draw_range_elements;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		gl_draw_range_elements
 	>
 	optional_draw_range_elements;

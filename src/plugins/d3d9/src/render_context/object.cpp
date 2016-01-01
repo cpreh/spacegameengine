@@ -76,10 +76,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vertex/first.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 
@@ -159,7 +159,7 @@ sge::d3d9::render_context::object::offscreen_target(
 	sge::renderer::target::optional_offscreen_ref const &_new_target
 )
 {
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		_new_target,
 		[
 			this
@@ -287,7 +287,7 @@ sge::d3d9::render_context::object::vertex_declaration(
 )
 {
 	// TODO: How do we disable a vertex declaration?
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_opt_declaration,
 		[
 			this

@@ -65,7 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/reset_when_expired.hpp>
 #include <sge/timer/clocks/delta_impl.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/string_conv_locale.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -247,7 +247,7 @@ sge::gui::widget::edit::on_click(
 	sge::rucksack::vector const _pos
 )
 {
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		static_text_.text().pos_to_index(
 			fcppt::math::vector::structure_cast<
 				sge::font::vector,

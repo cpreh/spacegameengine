@@ -54,7 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/d3d9/cg/scoped_device.hpp>
@@ -231,7 +231,7 @@ private:
 
 	sge::d3d9::render_context::scoped_target const scoped_target_;
 
-	typedef fcppt::optional<
+	typedef fcppt::optional::object<
 		sge::d3d9::target::base &
 	> optional_target_base_ref;
 

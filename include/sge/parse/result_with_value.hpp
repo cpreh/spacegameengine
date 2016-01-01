@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_with_value_fwd.hpp>
 #include <sge/parse/detail/symbol.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 namespace sge
@@ -38,7 +38,7 @@ template<
 class result_with_value
 {
 public:
-	typedef fcppt::optional<
+	typedef fcppt::optional::object<
 		Start
 	> optional_start;
 

@@ -35,9 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <majutsu/get.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/optional_assign.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 template<
@@ -84,7 +84,7 @@ sge::sprite::buffers::single<
 {
 	return
 		slice_type(
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				buffers_object_,
 				[
 					this,
@@ -93,7 +93,7 @@ sge::sprite::buffers::single<
 				{
 					return
 						fcppt::make_cref(
-							fcppt::optional_assign(
+							fcppt::optional::assign(
 								buffers_object_,
 								sge::sprite::buffers::allocate<
 									Choices

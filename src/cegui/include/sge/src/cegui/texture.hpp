@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/fwds/rectf_fwd.hpp>
 #include <sge/src/cegui/fwds/sizef_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Size.h>
 #include <CEGUI/Texture.h>
@@ -148,21 +148,21 @@ private:
 
 	CEGUI::String const name_;
 
-	typedef fcppt::optional<
+	typedef fcppt::optional::object<
 		CEGUI::Sizef
 	> optional_sizef;
 
 	// We _have_ to cache this because getSize returns a reference
 	sge::cegui::texture::optional_sizef size_;
 
-	typedef fcppt::optional<
+	typedef fcppt::optional::object<
 		CEGUI::Vector2f
 	> optional_vector2f;
 
 	sge::cegui::texture::optional_vector2f texel_scaling_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::renderer::texture::planar_unique_ptr
 	>
 	optional_planar_unique_ptr;

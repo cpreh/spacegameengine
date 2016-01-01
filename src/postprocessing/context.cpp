@@ -62,8 +62,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_assign.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assign/make_map.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -221,7 +221,7 @@ sge::postprocessing::context::viewport_callback()
 	*/
 
 	sge::renderer::texture::planar_unique_ptr const &result_texture(
-		fcppt::optional_assign(
+		fcppt::optional::assign(
 			rendering_result_texture_,
 			renderer_.create_planar_texture(
 				sge::renderer::texture::planar_parameters(
@@ -251,7 +251,7 @@ sge::postprocessing::context::viewport_callback()
 		*/
 
 	sge::renderer::target::offscreen_unique_ptr const &offscreen_target(
-		fcppt::optional_assign(
+		fcppt::optional::assign(
 			offscreen_target_,
 			sge::renderer::target::from_texture(
 				renderer_,
@@ -268,7 +268,7 @@ sge::postprocessing::context::viewport_callback()
 			*/
 
 	sge::renderer::depth_stencil_buffer::surface_unique_ptr const &depth_stencil_surface(
-		fcppt::optional_assign(
+		fcppt::optional::assign(
 			depth_stencil_surface_,
 			renderer_.create_depth_stencil_surface(
 				sge::renderer::depth_stencil_buffer::surface_parameters(

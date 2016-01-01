@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/exception.hpp>
 #include <sge/input/joypad/discover_event.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -50,7 +50,7 @@ sge::evdev::joypad::add(
 	boost::filesystem::path const &_path
 )
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		sge::evdev::device::create_fd(
 			_path
 		),

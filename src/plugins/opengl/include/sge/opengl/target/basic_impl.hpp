@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/target/viewport.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 
 template<
@@ -196,7 +196,7 @@ sge::opengl::target::basic<
 		context_.last_target()
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		last_target,
 		[](
 			sge::opengl::target::base &_target
@@ -216,7 +216,7 @@ sge::opengl::target::basic<
 		);
 	}
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		last_target,
 		[](
 			sge::opengl::target::base &_target

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/widget/optional_ref.hpp>
 #include <sge/src/rucksack/flip_axis.hpp>
 #include <sge/src/rucksack/make_components.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 
 void
@@ -115,7 +115,7 @@ sge::rucksack::widget::base::position(
 
 sge::rucksack::widget::base::~base()
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		parent_,
 		[
 			this

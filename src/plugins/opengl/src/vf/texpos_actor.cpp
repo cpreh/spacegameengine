@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 #include <fcppt/format.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
@@ -72,7 +72,7 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 		_element.index().get()
 	)
 {
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
 		>(

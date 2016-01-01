@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_OPTIONAL_TTF_SIZE_FWD_HPP_INCLUDED
 
 #include <sge/font/ttf_size.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace sge
 namespace font
 {
 
-typedef fcppt::optional<
+typedef fcppt::optional::object<
 	sge::font::ttf_size
 > optional_ttf_size;
 

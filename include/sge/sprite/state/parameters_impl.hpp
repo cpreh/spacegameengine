@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <majutsu/init.hpp>
 #include <majutsu/role_return_type.hpp>
 #include <majutsu/set.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -114,7 +114,7 @@ sge::sprite::state::parameters<
 			Role
 		>(
 			elements_,
-			fcppt::optional<
+			fcppt::optional::object<
 				typename
 				std::decay<
 					majutsu::role_return_type<

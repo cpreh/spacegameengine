@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/platform/object_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 
 
 namespace sge
@@ -44,7 +44,7 @@ FCPPT_NONASSIGNABLE(
 	parameters);
 public:
 	typedef
-	fcppt::optional<renderer::device::core &>
+	fcppt::optional::object<renderer::device::core &>
 	optional_renderer;
 
 	SGE_OPENCL_DETAIL_SYMBOL

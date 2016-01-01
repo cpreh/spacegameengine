@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/error_string.hpp>
 #include <sge/parse/make_error_string.hpp>
 #include <sge/parse/result.hpp>
-#include <fcppt/from_optional.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
@@ -32,7 +32,7 @@ sge::parse::make_error_string(
 )
 {
 	return
-		fcppt::from_optional(
+		fcppt::optional::from(
 			_result.error_string(),
 			[]{
 				return

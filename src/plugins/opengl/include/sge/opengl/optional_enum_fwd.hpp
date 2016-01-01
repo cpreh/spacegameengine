@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_OPTIONAL_ENUM_FWD_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -31,7 +31,7 @@ namespace opengl
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	GLenum
 >
 optional_enum;

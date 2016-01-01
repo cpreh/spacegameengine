@@ -33,8 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional_alternative.hpp>
-#include <fcppt/optional_from_pointer.hpp>
+#include <fcppt/optional/alternative.hpp>
+#include <fcppt/optional/from_pointer.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -51,11 +51,11 @@ sge::opengl::glx::system::system(
 		_awl_system
 	),
 	get_proc_address_(
-		fcppt::optional_alternative(
-			fcppt::optional_from_pointer(
+		fcppt::optional::alternative(
+			fcppt::optional::from_pointer(
 				::glXGetProcAddress
 			),
-			fcppt::optional_from_pointer(
+			fcppt::optional::from_pointer(
 				::glXGetProcAddressARB
 			)
 		)

@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/first.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/static_downcast.hpp>
@@ -130,7 +130,7 @@ sge::opengl::draw_elements(
 		)
 	);
 
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		context.draw_range_elements(),
 		[
 			primitive_type,

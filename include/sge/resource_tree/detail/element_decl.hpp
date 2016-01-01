@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/detail/element_fwd.hpp>
 #include <sge/resource_tree/detail/path_with_resource_decl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/random/variate_decl.hpp>
 #include <fcppt/random/wrapper/uniform_container_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -105,7 +105,7 @@ public:
 	get_random() const;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		T const &
 	>
 	optional_type;
@@ -133,7 +133,7 @@ private:
 	variate;
 
 	mutable
-	fcppt::optional<
+	fcppt::optional::object<
 		variate
 	>
 	rng_;

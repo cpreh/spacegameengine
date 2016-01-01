@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
 
@@ -75,7 +75,7 @@ private:
 	xrandr_state_unique_ptr;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		xrandr_state_unique_ptr
 	>
 	optional_xrandr_state_unique_ptr;
@@ -87,7 +87,7 @@ private:
 	resolution_unique_ptr;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		resolution_unique_ptr
 	>
 	optional_resolution_unique_ptr;

@@ -29,9 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_assign.hpp>
-#include <fcppt/optional_map.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 
@@ -67,7 +67,7 @@ sge::shader::parameter::planar_texture::set(
 	value_ =
 		_value;
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		optional_render_context_,
 		[
 			this
@@ -81,7 +81,7 @@ sge::shader::parameter::planar_texture::set(
 			loaded_texture_ =
 				optional_loaded_texture_ptr();
 
-			fcppt::maybe_void(
+			fcppt::optional::maybe_void(
 				value_,
 				[
 					&_render_context,
@@ -91,7 +91,7 @@ sge::shader::parameter::planar_texture::set(
 				)
 				{
 					sge::renderer::cg::loaded_texture_unique_ptr const &cur_loaded_texture(
-						fcppt::optional_assign(
+						fcppt::optional::assign(
 							loaded_texture_,
 							renderer_.load_cg_texture(
 								parameter_.object(),
@@ -155,7 +155,7 @@ sge::shader::parameter::planar_texture::optional_loaded_texture
 sge::shader::parameter::planar_texture::loaded_texture()
 {
 	return
-		fcppt::optional_map(
+		fcppt::optional::map(
 			loaded_texture_,
 			[](
 				sge::renderer::cg::loaded_texture_unique_ptr const &_loaded_texture

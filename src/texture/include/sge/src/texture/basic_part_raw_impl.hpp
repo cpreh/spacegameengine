@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/basic_part_raw.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/texture/sub_data.hpp>
-#include <fcppt/from_optional.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/math/box/comparison.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -127,7 +127,7 @@ sge::texture::basic_part_raw<
 >::area() const
 {
 	return
-		fcppt::from_optional(
+		fcppt::optional::from(
 			area_,
 			[
 				this

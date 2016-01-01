@@ -34,10 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
 #include <sge/src/console/eval_grammar.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/insert_to_string.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/container/at_optional.hpp>
@@ -189,7 +189,7 @@ sge::console::object::eval(
 	sge::font::string const &_sp
 )
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		fcppt::container::maybe_front(
 			_sp
 		),
@@ -256,7 +256,7 @@ sge::console::object::eval(
 )
 {
 	// just typing the prefix is not an error
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		fcppt::container::maybe_front(
 			_args
 		),
@@ -267,7 +267,7 @@ sge::console::object::eval(
 			sge::font::string const &_command
 		)
 		{
-			fcppt::optional_to_exception(
+			fcppt::optional::to_exception(
 				fcppt::container::find_opt_mapped(
 					funcs_,
 					_command
@@ -360,7 +360,7 @@ sge::console::object::man_callback(
 	sge::console::arg_list const &_args
 )
 {
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		fcppt::container::at_optional(
 			_args,
 			1u
@@ -378,7 +378,7 @@ sge::console::object::man_callback(
 			sge::font::string const &_command
 		)
 		{
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				fcppt::container::find_opt_mapped(
 					funcs_,
 					_command

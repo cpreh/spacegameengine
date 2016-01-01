@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_OPTIONAL_NAME_FWD_HPP_INCLUDED
 
 #include <sge/plugin/name.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace sge
 namespace systems
 {
 
-typedef fcppt::optional<
+typedef fcppt::optional::object<
 	sge::plugin::name
 > optional_name;
 

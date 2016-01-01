@@ -28,9 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/container/raw_vector.hpp>
@@ -49,7 +49,7 @@ fcppt::container::raw_vector<std::size_t>
 size_vector;
 
 typedef
-fcppt::optional<size_vector>
+fcppt::optional::object<size_vector>
 optional_size_vector;
 
 fcppt::string
@@ -79,7 +79,7 @@ enqueue_kernel_internal(
 	optional_size_vector const &work_dim,
 	sge::opencl::event::sequence const &_events)
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		work_dim,
 		[
 			&global_dim
@@ -118,7 +118,7 @@ enqueue_kernel_internal(
 				global_dim.size()),
 			0, // global work offset (not implemented in 1.1)
 			global_dim.data(),
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				work_dim,
 				[]{
 					return
@@ -161,7 +161,7 @@ enqueue_kernel_internal(
 					global_dim
 				)
 				+
-				fcppt::maybe(
+				fcppt::optional::maybe(
 					work_dim,
 					[]{
 						return

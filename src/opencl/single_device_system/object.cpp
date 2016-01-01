@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/opencl/declare_local_logger.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
@@ -70,7 +70,7 @@ construct_context_parameters(
 	result.error_callback(
 		_error_callback);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_opt_renderer,
 		[
 			&result
@@ -166,7 +166,7 @@ sge::opencl::single_device_system::object::update()
 	if(!error_occured_)
 		return;
 
-	fcppt::optional_to_exception(
+	fcppt::optional::to_exception(
 		error_callback_,
 		[
 			this

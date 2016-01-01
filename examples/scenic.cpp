@@ -91,8 +91,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -312,7 +312,7 @@ try
 	exporter_unique_ptr;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		exporter_unique_ptr
 	>
 	optional_exporter_unique_ptr;
@@ -442,7 +442,7 @@ try
 		graph.push(
 			difference_since_last_frame.count());
 
-		fcppt::maybe_void(
+		fcppt::optional::maybe_void(
 			exporter,
 			[](
 				exporter_unique_ptr const &_exporter

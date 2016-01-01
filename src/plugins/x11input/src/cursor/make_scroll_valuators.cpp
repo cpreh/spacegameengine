@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/valuator/index.hpp>
 #include <sge/x11input/device/valuator/make_absolute.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/optional_map.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
@@ -54,7 +54,7 @@ sge::x11input::cursor::make_scroll_valuators(
 			)
 			{
 				return
-					fcppt::optional_map(
+					fcppt::optional::map(
 						sge::x11input::device::info::class_maybe<
 							XIScrollClassInfo
 						>(

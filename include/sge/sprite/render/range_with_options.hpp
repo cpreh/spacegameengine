@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/options_fwd.hpp>
 #include <sge/sprite/state/scoped_impl.hpp>
 #include <majutsu/get.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 
 namespace sge
@@ -61,7 +61,7 @@ range_with_options(
 	> const &_options
 )
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_range.object(),
 		[
 			&_parameters,

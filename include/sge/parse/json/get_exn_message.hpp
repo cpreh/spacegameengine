@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/invalid_get.hpp>
 #include <sge/parse/json/detail/get_return_type.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/variant/to_optional.hpp>
@@ -57,7 +57,7 @@ get_exn_message(
 )
 {
 	return
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			fcppt::variant::to_optional<
 				typename
 				std::remove_const<

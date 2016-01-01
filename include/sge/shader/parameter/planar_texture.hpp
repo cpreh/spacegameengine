@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/detail/symbol.hpp>
 #include <sge/shader/parameter/name.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
 
@@ -49,11 +49,11 @@ FCPPT_NONCOPYABLE(
 	planar_texture);
 public:
 	typedef
-	fcppt::optional<sge::renderer::texture::planar &>
+	fcppt::optional::object<sge::renderer::texture::planar &>
 	optional_value;
 
 	typedef
-	fcppt::optional<sge::renderer::cg::loaded_texture &>
+	fcppt::optional::object<sge::renderer::cg::loaded_texture &>
 	optional_loaded_texture;
 
 	SGE_SHADER_DETAIL_SYMBOL
@@ -90,7 +90,7 @@ public:
 	~planar_texture();
 private:
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::renderer::context::core &
 	>
 	optional_render_context;
@@ -102,7 +102,7 @@ private:
 	sge::cg::parameter::named const parameter_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::renderer::cg::loaded_texture_unique_ptr
 	>
 	optional_loaded_texture_ptr;
@@ -116,7 +116,7 @@ private:
 	scoped_texture_unique_ptr;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		scoped_texture_unique_ptr
 	>
 	optional_scoped_texture_ptr;

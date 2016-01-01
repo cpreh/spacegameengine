@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 
 
@@ -72,7 +72,7 @@ private:
 	);
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		awl::backends::windows::event::type
 	>
 	optional_event_type;

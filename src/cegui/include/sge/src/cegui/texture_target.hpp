@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/fwds/sizef_fwd.hpp>
 #include <sge/src/cegui/fwds/vector2f_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Rect.h>
@@ -136,7 +136,7 @@ private:
 	texture_unique_ptr;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		texture_unique_ptr
 	>
 	optional_texture_unique_ptr;

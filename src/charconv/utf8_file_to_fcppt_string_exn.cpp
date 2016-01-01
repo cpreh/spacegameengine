@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/exception.hpp>
 #include <sge/charconv/utf8_file_to_fcppt_string.hpp>
 #include <sge/charconv/utf8_file_to_fcppt_string_exn.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -36,7 +36,7 @@ sge::charconv::utf8_file_to_fcppt_string_exn(
 )
 {
 	return
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			sge::charconv::utf8_file_to_fcppt_string(
 				_path
 			),

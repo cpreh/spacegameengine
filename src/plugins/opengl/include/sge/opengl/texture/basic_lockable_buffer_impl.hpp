@@ -48,10 +48,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_flags/write.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/format.hpp>
-#include <fcppt/from_optional.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/optional_assign.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
@@ -242,7 +242,7 @@ sge::opengl::texture::basic_lockable_buffer<
 			color_format_type_,
 			this->level(),
 			this->size(),
-			fcppt::from_optional(
+			fcppt::optional::from(
 				lock_area_,
 				[
 					this
@@ -293,7 +293,7 @@ sge::opengl::texture::basic_lockable_buffer<
 		);
 
 	lock_unique_ptr const &cur_lock(
-		fcppt::optional_assign(
+		fcppt::optional::assign(
 			lock_,
 			sge::opengl::texture::create_lock(
 				context_,
@@ -399,7 +399,7 @@ sge::opengl::texture::basic_lockable_buffer<
 	return
 		reading
 		?
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				lock_area_,
 				fcppt::const_(
 					ret
@@ -463,7 +463,7 @@ sge::opengl::texture::basic_lockable_buffer<
 >::lock_dim() const
 {
 	return
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			lock_area_,
 			[
 				this

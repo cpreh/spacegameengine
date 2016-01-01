@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/strong_typedef_std_hash.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <memory>
@@ -130,7 +130,7 @@ private:
 
 	sge::opengl::fbo::object fbo_;
 
-	typedef fcppt::optional<
+	typedef fcppt::optional::object<
 		sge::renderer::screen_unit
 	> optional_screen_unit;
 
@@ -146,7 +146,7 @@ private:
 	attachment_map color_attachments_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::opengl::fbo::attachment_unique_ptr
 	>
 	optional_attachment_unique_ptr;

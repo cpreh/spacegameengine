@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key/mod_state.hpp>
 #include <sge/input/key/to_modifier.hpp>
 #include <fcppt/make_enum_range.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/algorithm/enum_array_init.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/cast/to_void.hpp>
@@ -68,7 +68,7 @@ sge::input::focus::mod_state_tracker::mod_state_tracker(
 					sge::input::focus::key_event const &_event
 				)
 				{
-					fcppt::maybe_void(
+					fcppt::optional::maybe_void(
 						sge::input::key::to_modifier(
 							_event.key().code()
 						),

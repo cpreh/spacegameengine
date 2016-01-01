@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_PROGRAM_OPTIONAL_NOTIFICATION_CALLBACK_HPP_INCLUDED
 
 #include <sge/opencl/program/notification_callback.hpp>
-#include <fcppt/optional.hpp>
+#include <fcppt/optional/object.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace program
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	sge::opencl::program::notification_callback
 >
 optional_notification_callback;

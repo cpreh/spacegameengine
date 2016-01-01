@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -50,7 +50,7 @@ sge::opengl::init_multi_sampling(
 	);
 
 	sge::opengl::enable(
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			multi_sample_context.flag(),
 			[]{
 				return

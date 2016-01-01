@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 
 
 namespace sge
@@ -68,7 +68,7 @@ private:
 	sge::renderer::state::core::blend::object_unique_ptr const blend_state_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::renderer::vertex::buffer_unique_ptr
 	>
 	optional_vertex_buffer_unique_ptr;

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/format.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
@@ -45,7 +45,7 @@ sge::opengl::texture::funcs::set_client_level(
 {
 	// TODO: Should we require multi_config as an argument here?
 
-	fcppt::maybe(
+	fcppt::optional::maybe(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
 		>(

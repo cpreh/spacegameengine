@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
@@ -81,7 +81,7 @@ private:
 	scoped_lock_unique_ptr;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		scoped_lock_unique_ptr
 	>
 	optional_scoped_lock_unique_ptr;

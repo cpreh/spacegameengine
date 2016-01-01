@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/audio/find_player_plugin.hpp>
 #include <sge/src/systems/modules/audio/player_pair.hpp>
 #include <sge/systems/audio_player.hpp>
-#include <fcppt/from_optional.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
@@ -60,7 +60,7 @@ sge::systems::modules::audio::find_player_plugin(
 				}
 			)
 		:
-			fcppt::from_optional(
+			fcppt::optional::from(
 				sge::systems::find_plugin_opt<
 					sge::audio::player
 				>(

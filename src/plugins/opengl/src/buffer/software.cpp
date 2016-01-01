@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/raw_value.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
@@ -74,7 +74,7 @@ sge::opengl::buffer::software::delete_buffer(
 )
 {
 	buffer_map::iterator const it(
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			fcppt::container::find_opt_iterator(
 				buffers_,
 				_id
@@ -233,7 +233,7 @@ sge::opengl::buffer::id
 sge::opengl::buffer::software::bound_buffer() const
 {
 	return
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			bound_buffer_,
 			[]{
 				return
@@ -250,7 +250,7 @@ sge::opengl::buffer::software::buffer_object(
 )
 {
 	return
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			fcppt::container::find_opt_mapped(
 				buffers_,
 				_id

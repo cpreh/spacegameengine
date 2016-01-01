@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/renderer/vf/dynamic/detail/converter_impl.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/element_converter.hpp>
 #include <sge/src/renderer/vf/dynamic/detail/lock_interval.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/variant/to_optional.hpp>
 
 
@@ -58,7 +58,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::converter_impl(
 			elem.offset()
 		);
 
-		fcppt::maybe_void(
+		fcppt::optional::maybe_void(
 			fcppt::variant::to_optional<
 				sge::renderer::vf::dynamic::extra
 			>(

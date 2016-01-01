@@ -56,9 +56,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/line_drawer/vf/position.hpp>
 #include <sge/src/line_drawer/vf/vertex_view.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/maybe_void.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>
 
@@ -104,7 +104,7 @@ sge::line_drawer::object::render(
 	sge::renderer::context::core &_render_context
 )
 {
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		vb_,
 		[
 			&_render_context,
@@ -173,7 +173,7 @@ sge::line_drawer::object::unlock()
 	);
 
 	if(
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			vb_,
 			fcppt::const_(
 				true

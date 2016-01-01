@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_OPTIONAL_ANISOTROPY_CONFIG_FWD_HPP_INCLUDED
 
 #include <sge/opengl/state/core/sampler/filter/anisotropy_config_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -39,7 +39,7 @@ namespace filter
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	sge::opengl::state::core::sampler::filter::anisotropy_config
 >
 optional_anisotropy_config;

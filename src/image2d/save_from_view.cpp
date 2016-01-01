@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/media/path_to_extension.hpp>
-#include <fcppt/optional_to_exception.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -44,7 +44,7 @@ sge::image2d::save_from_view(
 	sge::image2d::create_exn(
 		_system,
 		_view,
-		fcppt::optional_to_exception(
+		fcppt::optional::to_exception(
 			sge::media::path_to_extension(
 				_path
 			),

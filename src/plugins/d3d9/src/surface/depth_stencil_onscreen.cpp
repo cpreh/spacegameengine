@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/depth_stencil_onscreen.hpp>
 #include <sge/d3d9/surface/optional_d3d_ref.hpp>
 #include <sge/d3d9/surface/optional_d3d_unique_ptr.hpp>
-#include <fcppt/optional_deref.hpp>
+#include <fcppt/optional/deref.hpp>
 
 
 sge::d3d9::surface::depth_stencil_onscreen::depth_stencil_onscreen(
@@ -50,7 +50,7 @@ sge::d3d9::surface::optional_d3d_ref
 sge::d3d9::surface::depth_stencil_onscreen::surface() const
 {
 	return
-		fcppt::optional_deref(
+		fcppt::optional::deref(
 			surface_
 		);
 }

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/core/sampler/set.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/object.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
 
@@ -37,7 +37,7 @@ sge::d3d9::state::core::sampler::set(
 		:
 		_states
 	)
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			sampler.second,
 			[
 				&_default

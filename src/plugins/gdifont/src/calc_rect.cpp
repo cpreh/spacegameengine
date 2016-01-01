@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/include_windows.hpp>
 #include <sge/gdifont/scoped_select.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/variant/apply_unary.hpp>
@@ -65,7 +65,7 @@ sge::gdifont::calc_rect(
 	{
 		0,
 		0,
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			sge::font::align_h::extract_max_width(
 				_align_h
 			),

@@ -64,7 +64,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system_fwd.hpp>
 #include <awl/main/optional_scoped_output_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 
 
 namespace sge
@@ -208,7 +208,7 @@ private:
 	sge::plugin::manager plugin_manager_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::systems::modules::window::system_unique_ptr
 	>
 	optional_window_system;
@@ -216,7 +216,7 @@ private:
 	optional_window_system window_system_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::systems::modules::renderer::system_unique_ptr
 	>
 	optional_renderer_system;
@@ -224,7 +224,7 @@ private:
 	optional_renderer_system renderer_system_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::systems::modules::window::object_unique_ptr
 	>
 	optional_window_object;
@@ -232,7 +232,7 @@ private:
 	optional_window_object window_object_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::systems::modules::renderer::device_unique_ptr
 	>
 	optional_renderer_device;
@@ -240,7 +240,7 @@ private:
 	optional_renderer_device renderer_device_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::systems::modules::input::object_unique_ptr
 	>
 	optional_input;
@@ -248,7 +248,7 @@ private:
 	optional_input input_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::systems::modules::audio::loader_unique_ptr
 	>
 	optional_audio_loader;
@@ -256,7 +256,7 @@ private:
 	optional_audio_loader audio_loader_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::systems::modules::audio::player_unique_ptr
 	>
 	optional_audio_player;
@@ -264,7 +264,7 @@ private:
 	optional_audio_player audio_player_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::systems::modules::image2d::object_unique_ptr
 	>
 	optional_image2d;
@@ -272,7 +272,7 @@ private:
 	optional_image2d image2d_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		sge::systems::modules::font::object_unique_ptr
 	>
 	optional_font;

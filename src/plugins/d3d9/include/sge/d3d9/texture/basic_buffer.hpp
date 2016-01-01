@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/function_impl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 
 
@@ -139,7 +139,7 @@ private:
 	dim const size_;
 
 	typedef
-	fcppt::optional<
+	fcppt::optional::object<
 		d3d_buffer_unique_ptr
 	>
 	optional_d3d_buffer_unique_ptr;

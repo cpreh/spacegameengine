@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 
 void
@@ -58,7 +58,7 @@ sge::opengl::texture::activate(
 		)
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		sge::opengl::texture::get_stage_type(
 			_context,
 			_stage
@@ -95,7 +95,7 @@ sge::opengl::texture::activate(
 		}
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		_opt_texture,
 		[
 			&active_level,

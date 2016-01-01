@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/parameters_to_string.hpp>
 #include <sge/font/ttf_size.hpp>
 #include <sge/font/weight/unit.hpp>
-#include <fcppt/from_optional.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
@@ -47,7 +47,7 @@ sge::font::parameters_to_string(
 		FCPPT_TEXT("( ")
 		FCPPT_TEXT("ttf_size: ")
 		+
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			_parameters.ttf_size(),
 			default_function,
 			[](
@@ -64,7 +64,7 @@ sge::font::parameters_to_string(
 		FCPPT_TEXT(", ")
 		FCPPT_TEXT("family: ")
 		+
-		fcppt::from_optional(
+		fcppt::optional::from(
 			_parameters.family(),
 			default_function
 		)
@@ -72,7 +72,7 @@ sge::font::parameters_to_string(
 		FCPPT_TEXT(", ")
 		FCPPT_TEXT("weight: ")
 		+
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			_parameters.weight(),
 			default_function,
 			[](

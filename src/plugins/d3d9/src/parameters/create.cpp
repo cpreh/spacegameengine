@@ -34,8 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/object.hpp>
 #include <awl/window/object.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/maybe.hpp>
-#include <fcppt/optional_bind.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/bind.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
 
@@ -90,8 +90,8 @@ sge::d3d9::parameters::create(
 		:
 			0u, // Flags
 		// FullScreen_RefreshRateInHz
-		fcppt::maybe(
-			fcppt::optional_bind(
+		fcppt::optional::maybe(
+			fcppt::optional::bind(
 				_parameters.display_mode(),
 				[](
 					sge::renderer::display_mode::object const &_display_mode

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/detail/parameters_class.hpp>
 #include <majutsu/get.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -167,7 +167,7 @@ public:
 		state_for_role<
 			Role
 		>::persistent,
-		fcppt::optional<
+		fcppt::optional::object<
 			typename
 			state_for_role<
 				Role
@@ -182,7 +182,7 @@ public:
 	) const
 	{
 		return
-			fcppt::optional<
+			fcppt::optional::object<
 				typename
 				state_for_role<
 					Role

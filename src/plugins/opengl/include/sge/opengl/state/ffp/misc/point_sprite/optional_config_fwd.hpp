@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_FFP_MISC_POINT_SPRITE_OPTIONAL_CONFIG_FWD_HPP_INCLUDED
 
 #include <sge/opengl/state/ffp/misc/point_sprite/config_fwd.hpp>
-#include <fcppt/optional_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 
 namespace sge
@@ -39,7 +39,7 @@ namespace point_sprite
 {
 
 typedef
-fcppt::optional<
+fcppt::optional::object<
 	sge::opengl::state::ffp::misc::point_sprite::config
 >
 optional_config;

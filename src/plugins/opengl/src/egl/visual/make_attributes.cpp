@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/depth_bits.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/stencil_bits.hpp>
-#include <fcppt/maybe_void.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
@@ -70,7 +70,7 @@ sge::opengl::egl::visual::make_attributes(
 		}
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		sge::renderer::pixel_format::depth_bits(
 			_format.depth_stencil()
 		),
@@ -89,7 +89,7 @@ sge::opengl::egl::visual::make_attributes(
 		}
 	);
 
-	fcppt::maybe_void(
+	fcppt::optional::maybe_void(
 		sge::renderer::pixel_format::stencil_bits(
 			_format.depth_stencil()
 		),

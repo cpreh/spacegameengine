@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/object_fwd.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
@@ -166,7 +166,7 @@ sge::opengl::get_device_caps(
 			),
 			sge::renderer::caps::max_volume_texture_extent(
 				fcppt::cast::to_unsigned(
-					fcppt::maybe(
+					fcppt::optional::maybe(
 						volume_texture_config,
 						fcppt::const_(
 							0
@@ -195,7 +195,7 @@ sge::opengl::get_device_caps(
 				sge::renderer::caps::max_anisotropy,
 				fcppt::cast::static_cast_fun
 			>(
-				fcppt::maybe(
+				fcppt::optional::maybe(
 					anisotropy_config,
 					fcppt::const_(
 						0
@@ -231,7 +231,7 @@ sge::opengl::get_device_caps(
 					GL_MAX_LIGHTS
 				)
 			),
-			fcppt::maybe(
+			fcppt::optional::maybe(
 				texture_multi_config,
 				fcppt::const_(
 					sge::renderer::caps::texture_stages{

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/multi_samples.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/maybe.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -34,7 +34,7 @@ sge::d3d9::parameters::convert::multi_sample(
 )
 {
 	return
-		fcppt::maybe(
+		fcppt::optional::maybe(
 			_opt_samples,
 			fcppt::const_(
 				D3DMULTISAMPLE_NONE

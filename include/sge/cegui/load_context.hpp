@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/default_font.hpp>
 #include <sge/cegui/load_context_fwd.hpp>
 #include <sge/cegui/detail/symbol.hpp>
-#include <fcppt/optional_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -71,11 +71,11 @@ public:
 		sge::cegui::default_font const &
 	);
 
-	typedef fcppt::optional<
+	typedef fcppt::optional::object<
 		boost::filesystem::path
 	> optional_path;
 
-	typedef fcppt::optional<
+	typedef fcppt::optional::object<
 		sge::cegui::default_font
 	> optional_default_font;
 
