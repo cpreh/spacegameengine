@@ -29,9 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 
 sge::renderer::texture::volume_unique_ptr

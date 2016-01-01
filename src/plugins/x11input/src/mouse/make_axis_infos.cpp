@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/mouse/make_axis_infos.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/make_int_range_count.hpp>
+#include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/object_impl.hpp>
-#include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>

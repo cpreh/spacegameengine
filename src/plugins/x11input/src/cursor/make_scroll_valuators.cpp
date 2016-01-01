@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/valuator/index.hpp>
 #include <sge/x11input/device/valuator/make_absolute.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/optional/map.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <utility>

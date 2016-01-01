@@ -116,7 +116,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/literal.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/text.hpp>
@@ -126,6 +125,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/center.hpp>
 #include <fcppt/math/vector/input.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

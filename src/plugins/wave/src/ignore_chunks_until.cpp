@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wave/logger.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -32,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/read.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/info.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <iosfwd>

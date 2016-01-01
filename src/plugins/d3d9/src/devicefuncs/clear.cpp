@@ -27,10 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/clear/stencil_buffer_value.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/object_impl.hpp>
-#include <fcppt/text.hpp>
 
 
 namespace

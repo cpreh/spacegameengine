@@ -32,8 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/detail/symbol.hpp>
 #include <sge/shader/parameter/name.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 namespace sge

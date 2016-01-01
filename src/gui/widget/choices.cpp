@@ -39,9 +39,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/rucksack/alignment.hpp>
 #include <sge/rucksack/axis.hpp>
+#include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/bind.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>

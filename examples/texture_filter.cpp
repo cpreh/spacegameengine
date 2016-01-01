@@ -168,7 +168,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -186,6 +185,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/vector/fill.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>

@@ -41,11 +41,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 sge::d3d9::vertex::buffer::buffer(

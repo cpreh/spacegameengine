@@ -36,9 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/map.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <istream>
 #include <utility>

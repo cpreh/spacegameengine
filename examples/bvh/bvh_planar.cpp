@@ -95,14 +95,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/extract_from_string_exn.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/container/tree/depth.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/box/output.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
 #include <fcppt/config/external_end.hpp>

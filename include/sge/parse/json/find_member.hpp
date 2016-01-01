@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/value.hpp>
-#include <fcppt/optional/map.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/optional/map.hpp>
 
 
 namespace sge

@@ -65,12 +65,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/reset_when_expired.hpp>
 #include <sge/timer/clocks/delta_impl.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/string_conv_locale.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>

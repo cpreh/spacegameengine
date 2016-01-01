@@ -30,12 +30,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
-#include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/bind.hpp>
-#include <fcppt/optional/map.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/optional/bind.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/maybe.hpp>
 
 
 sge::opengl::x11::device_state::device_state(

@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/object.hpp>
 #include <sge/opengl/context/optional_base_ref.hpp>
 #include <sge/opengl/info/context_fwd.hpp>
-#include <fcppt/optional/deref.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/container/index_map_impl.hpp>
+#include <fcppt/optional/deref.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

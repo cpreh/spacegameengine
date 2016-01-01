@@ -35,14 +35,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wave/read_info.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/maybe_multi.hpp>
-#include <fcppt/optional/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/info.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_multi.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <iosfwd>

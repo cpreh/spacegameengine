@@ -24,12 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/parse_range.hpp>
 #include <sge/parse/ini/start.hpp>
 #include <sge/parse/ini/output/to_stream.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdlib>
 #include <fcppt/config/external_end.hpp>

@@ -39,8 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/strong_typedef_std_hash.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <memory>
 #include <unordered_map>

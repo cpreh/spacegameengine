@@ -28,11 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/type.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/optional/from.hpp>
-#include <fcppt/optional/comparison.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/to_void_ptr.hpp>
+#include <fcppt/optional/comparison.hpp>
+#include <fcppt/optional/from.hpp>
 
 
 sge::opengl::buffer::hardware::hardware(

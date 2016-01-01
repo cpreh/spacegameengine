@@ -31,10 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/pixel_format/stencil_bits.hpp>
-#include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 
 sge::opengl::wgl::visual::attribute_container

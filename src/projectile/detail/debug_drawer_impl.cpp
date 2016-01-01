@@ -34,12 +34,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/projectile/detail/debug_drawer_impl.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/assign.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/warning.hpp>
+#include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <fcppt/config/external_end.hpp>

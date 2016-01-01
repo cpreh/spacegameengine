@@ -32,10 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/program/from_string_parameters.hpp>
 #include <sge/cg/program/object.hpp>
 #include <sge/src/cg/program/convert_source_type.hpp>
-#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>

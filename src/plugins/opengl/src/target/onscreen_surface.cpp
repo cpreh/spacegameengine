@@ -35,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/color_buffer/readable_surface.hpp>
 #include <awl/window/object.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -44,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 sge::opengl::target::onscreen_surface::onscreen_surface(

@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/misc/point_sprite/set_impl.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/optional/maybe.hpp>
 
 
 sge::opengl::state::actor_vector

@@ -30,13 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/vsync.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/map.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <string>

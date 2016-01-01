@@ -29,13 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/plugin/logger.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>

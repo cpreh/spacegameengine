@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/sampler/filter/normal.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/parameters.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>

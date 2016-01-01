@@ -26,10 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/opengl/texture/mipmap/auto_generate.hpp>
 #include <sge/opengl/texture/mipmap/context.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/optional/maybe.hpp>
 
 
 void

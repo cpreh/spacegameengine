@@ -48,10 +48,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_flags/write.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/format.hpp>
-#include <fcppt/optional/from.hpp>
-#include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/assign.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
@@ -63,6 +59,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 template<

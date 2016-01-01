@@ -36,9 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/object.hpp>
 #include <awl/window/event/processor.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/map.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/static_downcast.hpp>
+#include <fcppt/optional/map.hpp>
 
 
 sge::opengl::x11::system::system(

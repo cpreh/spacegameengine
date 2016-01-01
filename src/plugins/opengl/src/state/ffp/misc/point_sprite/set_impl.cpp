@@ -33,9 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/const.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/algorithm/join.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/type_iso/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>

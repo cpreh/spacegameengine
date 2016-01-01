@@ -31,11 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/pango/pango_layout_unique_ptr.hpp>
 #include <sge/pango/convert/alignment.hpp>
 #include <sge/pango/convert/to_unit.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
 #include <fcppt/config/external_end.hpp>

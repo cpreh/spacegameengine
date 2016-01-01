@@ -27,12 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/raw_value.hpp>
-#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/container/find_opt_iterator.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <utility>

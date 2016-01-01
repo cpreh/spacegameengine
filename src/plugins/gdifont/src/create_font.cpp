@@ -28,10 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/hfont_unique_ptr.hpp>
 #include <sge/gdifont/include_windows.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/optional/from.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/maybe.hpp>
 
 
 sge::gdifont::hfont_unique_ptr

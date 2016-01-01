@@ -33,10 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/alternative.hpp>
-#include <fcppt/optional/from_pointer.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/static_downcast.hpp>
+#include <fcppt/optional/alternative.hpp>
+#include <fcppt/optional/from_pointer.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <fcppt/config/external_end.hpp>

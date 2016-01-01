@@ -32,11 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/rect.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
-#include <fcppt/optional/ref_compare.hpp>
 #include <fcppt/algorithm/remove_if.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/math/box/contains_point.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/optional/ref_compare.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>

@@ -30,12 +30,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/plugin/library/load_function.hpp>
 #include <sge/src/plugin/library/object.hpp>
 #include <fcppt/make_shared_ptr.hpp>
-#include <fcppt/optional/from.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/weak_ptr_impl.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/log/context_fwd.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>

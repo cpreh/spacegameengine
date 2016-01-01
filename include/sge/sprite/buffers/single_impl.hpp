@@ -35,8 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <majutsu/get.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/object_impl.hpp>
 
 

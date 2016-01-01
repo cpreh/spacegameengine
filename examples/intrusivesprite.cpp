@@ -102,12 +102,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/unique_ptr_to_const.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>

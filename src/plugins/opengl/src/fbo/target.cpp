@@ -54,11 +54,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/format.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/from.hpp>
-#include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/map.hpp>
-#include <fcppt/optional/object_impl.hpp>
-#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -66,6 +61,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/math/box/null.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

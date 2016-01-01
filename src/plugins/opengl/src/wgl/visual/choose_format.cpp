@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 
 sge::opengl::windows::visual::format

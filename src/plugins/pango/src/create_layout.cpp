@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/pango/font_description.hpp>
 #include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/pango_layout_unique_ptr.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
 #include <pango/pango-types.h>

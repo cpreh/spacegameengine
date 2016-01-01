@@ -29,12 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/object.hpp>
 #include <sge/renderer/state/core/sampler/parameters.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/optional/from.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/object_impl.hpp>
-#include <fcppt/optional/join.hpp>
-#include <fcppt/optional/static_cast.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/join.hpp>
+#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/static_cast.hpp>
 
 
 sge::opengl::state::core::sampler::context::context(

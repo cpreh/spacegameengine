@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/detail/converter_impl_fwd.hpp>
 #include <sge/renderer/vf/dynamic/detail/lock_interval_set.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 
 
 namespace sge

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/focus_change.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 
 sge::gui::context::context()

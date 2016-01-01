@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/state/core/blend/combined.hpp>
 #include <sge/renderer/state/core/blend/separate.hpp>
-#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>

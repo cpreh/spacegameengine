@@ -39,9 +39,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/separate.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
-#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>

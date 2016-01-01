@@ -34,8 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/translate_srgb_emulation.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 template<

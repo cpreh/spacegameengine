@@ -38,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/row_vector.hpp>
 #include <sge/media/error_string.hpp>
 #include <sge/media/optional_name_fwd.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/promote.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
@@ -47,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/info.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/output.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <climits>
 #include <iosfwd>

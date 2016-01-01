@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/manager/config.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/object_impl.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>

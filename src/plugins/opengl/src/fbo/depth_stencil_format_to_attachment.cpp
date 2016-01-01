@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/config.hpp>
 #include <sge/opengl/fbo/depth_stencil_format_to_attachment.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 sge::opengl::fbo::optional_attachment_type

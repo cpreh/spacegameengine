@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vertex/unset_buffer.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/static_downcast.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 
 void

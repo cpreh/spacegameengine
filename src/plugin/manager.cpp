@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/plugin/load_plugins.hpp>
 #include <sge/src/plugin/logger.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/enum_array_init.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
@@ -38,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
