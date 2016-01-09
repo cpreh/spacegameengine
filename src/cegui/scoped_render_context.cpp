@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/renderer.hpp>
 #include <sge/src/cegui/scoped_render_context.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 sge::cegui::scoped_render_context::scoped_render_context(
@@ -35,7 +36,9 @@ sge::cegui::scoped_render_context::scoped_render_context(
 {
 	renderer_.render_context(
 		sge::cegui::optional_render_context_ref(
-			_render_context
+			fcppt::make_ref(
+				_render_context
+			)
 		)
 	);
 }

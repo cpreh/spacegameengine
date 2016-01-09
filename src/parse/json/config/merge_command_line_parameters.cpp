@@ -183,7 +183,7 @@ process_option(
 					)
 				};
 		}
-	) =
+	).get() =
 		sge::parse::json::string_to_value(
 			boost::fusion::at_c<
 				1

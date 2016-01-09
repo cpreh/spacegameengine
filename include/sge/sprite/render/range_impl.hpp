@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/render/range_decl.hpp>
 #include <sge/sprite/render/range_part_impl.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -52,7 +52,9 @@ sge::sprite::render::range<
 )
 :
 	object_(
-		_object
+		fcppt::make_cref(
+			_object
+		)
 	),
 	range_parts_(
 		std::move(

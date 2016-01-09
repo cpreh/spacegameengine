@@ -48,7 +48,7 @@ sge::opengl::glx::vsync(
 			[
 				&_display
 			](
-				sge::opengl::glx::swap_functions::glx_swap_interval_ext _swap
+				sge::opengl::glx::swap_functions::glx_swap_interval_ext_ref const _swap
 			)
 			{
 				FCPPT_LOG_INFO(
@@ -57,7 +57,7 @@ sge::opengl::glx::vsync(
 						<< FCPPT_TEXT("Using glXSwapIntervalExt")
 				);
 
-				_swap(
+				_swap.get()(
 					_display.get(),
 					sge::opengl::glx::current_drawable(),
 					1
@@ -77,7 +77,7 @@ sge::opengl::glx::vsync(
 				false
 			),
 			[](
-				sge::opengl::glx::swap_functions::glx_swap_interval_sgi _swap
+				sge::opengl::glx::swap_functions::glx_swap_interval_sgi_ref const _swap
 			)
 			{
 				FCPPT_LOG_INFO(
@@ -87,7 +87,7 @@ sge::opengl::glx::vsync(
 				);
 
 				if(
-					_swap(
+					_swap.get()(
 						1
 					)
 					!= 0

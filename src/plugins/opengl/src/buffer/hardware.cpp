@@ -162,7 +162,7 @@ sge::opengl::buffer::hardware::map_buffer_range(
 	GLvoid *const ret(
 		FCPPT_ASSERT_OPTIONAL_ERROR(
 			config_.map_buffer_range()
-		)(
+		).get()(
 			type_.get(),
 			_first,
 			_size,

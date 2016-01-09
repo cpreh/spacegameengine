@@ -108,7 +108,7 @@ sge::font::bitmap::load_one_file(
 			)
 		);
 
-		// TODO:!
+		// TODO: maybe_front!
 		if(
 			name.size() != 1
 		)

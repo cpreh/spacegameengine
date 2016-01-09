@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opencl/single_device_system/parameters.hpp>
+#include <fcppt/make_ref.hpp>
+
 
 sge::opencl::single_device_system::parameters::parameters()
 :
@@ -39,7 +41,11 @@ sge::opencl::single_device_system::parameters::renderer(
 {
 	renderer_ =
 		sge::opencl::single_device_system::optional_renderer(
-			_renderer);
+			fcppt::make_ref(
+				_renderer
+			)
+		);
+
 	return *this;
 }
 

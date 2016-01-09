@@ -27,6 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/info/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional/reference.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -68,10 +72,17 @@ public:
 	gl_generate_mipmap;
 
 	typedef
-	fcppt::optional::object<
-		gl_generate_mipmap
+	fcppt::optional::reference<
+		typename
+		std::remove_reference<
+			gl_generate_mipmap
+		>::type
 	>
 	optional_gl_generate_mipmap;
+
+	typedef
+	optional_gl_generate_mipmap::value_type
+	gl_generate_mipmap_ref;
 
 	optional_gl_generate_mipmap const &
 	generate_mipmap() const;

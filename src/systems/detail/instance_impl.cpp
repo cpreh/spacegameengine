@@ -48,7 +48,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/renderer/device.hpp>
 #include <sge/src/systems/modules/renderer/optional_system_ref.hpp>
 #include <sge/src/systems/modules/renderer/system.hpp>
-#include <sge/src/systems/modules/renderer/system_unique_ptr.hpp>
 #include <sge/src/systems/modules/window/object.hpp>
 #include <sge/src/systems/modules/window/object_unique_ptr.hpp>
 #include <sge/src/systems/modules/window/system.hpp>
@@ -65,9 +64,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <awl/main/scoped_output.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional/deref.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/map.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 
@@ -86,7 +86,9 @@ sge::systems::detail::instance_impl::instance_impl(
 	plugin_manager_(
 		_plugin_path.get(),
 		sge::plugin::optional_cache_ref(
-			plugin_cache_
+			fcppt::make_ref(
+				plugin_cache_
+			)
 		)
 	),
 	window_system_(),
@@ -159,16 +161,8 @@ sge::systems::detail::instance_impl::init_window_object(
 				*FCPPT_ASSERT_OPTIONAL_ERROR(
 					window_system_
 				),
-				fcppt::optional::map(
-					renderer_system_,
-					[](
-						sge::systems::modules::renderer::system_unique_ptr const &_system
-					)
-					-> sge::systems::modules::renderer::system &
-					{
-						return
-							*_system;
-					}
+				fcppt::optional::deref(
+					renderer_system_
 				)
 			)
 		);

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_WIDGET_OPTIONAL_REF_FWD_HPP_INCLUDED
 
 #include <sge/gui/widget/base_fwd.hpp>
-#include <fcppt/optional/object_fwd.hpp>
+#include <fcppt/optional/reference_fwd.hpp>
 
 
 namespace sge
@@ -33,8 +33,8 @@ namespace widget
 {
 
 typedef
-fcppt::optional::object<
-	sge::gui::widget::base &
+fcppt::optional::reference<
+	sge::gui::widget::base
 >
 optional_ref;
 

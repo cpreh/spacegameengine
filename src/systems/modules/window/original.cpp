@@ -37,6 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/parameters.hpp>
 #include <awl/window/event/create_processor.hpp>
 #include <awl/window/event/processor.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/optional/maybe.hpp>
 
 
@@ -57,11 +59,13 @@ sge::systems::modules::window::original::original(
 					_system.awl_system().default_visual();
 			},
 			[](
-				sge::systems::modules::renderer::system &_renderer_system
+				fcppt::reference_wrapper<
+					sge::systems::modules::renderer::system
+				> const _renderer_system
 			)
 			{
 				return
-					_renderer_system.create_visual();
+					_renderer_system.get().create_visual();
 			}
 		)
 	),
@@ -82,7 +86,9 @@ sge::systems::modules::window::original::original(
 			sge::systems::modules::window::to_awl_parameters(
 				*awl_visual_,
 				awl::cursor::const_optional_object_ref(
-					*awl_cursor_
+					fcppt::make_cref(
+						*awl_cursor_
+					)
 				),
 				_parameters
 			)

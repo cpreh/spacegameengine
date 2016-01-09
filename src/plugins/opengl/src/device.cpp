@@ -134,8 +134,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object.hpp>
 #include <awl/window/object.hpp>
 #include <awl/window/event/processor_fwd.hpp>
-#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/cast/try_dynamic.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
@@ -207,24 +208,26 @@ sge::opengl::device::device(
 
 	fcppt::optional::maybe_void(
 		fcppt::cast::try_dynamic<
-			sge::renderer::visual_base const &
+			sge::renderer::visual_base const
 		>(
 			_window.visual()
 		),
 		[
 			this
 		](
-			sge::renderer::visual_base const &_visual
+			fcppt::reference_wrapper<
+				sge::renderer::visual_base const
+			> const _visual
 		)
 		{
 			sge::opengl::init_multi_sampling(
 				context_,
-				_visual.pixel_format().multi_samples()
+				_visual.get().pixel_format().multi_samples()
 			);
 
 			sge::opengl::init_srgb(
 				context_,
-				_visual.pixel_format().srgb()
+				_visual.get().pixel_format().srgb()
 			);
 		}
 	);

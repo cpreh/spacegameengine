@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/focus_change.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
@@ -47,10 +49,12 @@ sge::gui::context::focus(
 	fcppt::optional::maybe_void(
 		focus_,
 		[](
-			sge::gui::widget::base &_focus
+			fcppt::reference_wrapper<
+				sge::gui::widget::base
+			> const _focus
 		)
 		{
-			_focus.on_focus_changed(
+			_focus.get().on_focus_changed(
 				sge::gui::focus_change::lost
 			);
 		}
@@ -58,7 +62,9 @@ sge::gui::context::focus(
 
 	focus_ =
 		sge::gui::widget::optional_ref(
-			_widget
+			fcppt::make_ref(
+				_widget
+			)
 		);
 
 	_widget.on_focus_changed(
@@ -77,11 +83,13 @@ sge::gui::context::destroy(
 			&_widget,
 			this
 		](
-			sge::gui::widget::base const &_focus
+			fcppt::reference_wrapper<
+				sge::gui::widget::base
+			> const _focus
 		)
 		{
 			if(
-				&_focus
+				_focus.get_pointer()
 				==
 				&_widget
 			)

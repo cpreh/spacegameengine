@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
+#include <fcppt/make_cref.hpp>
 
 
 sge::renderer::state::ffp::transform::scoped::scoped(
@@ -41,7 +42,9 @@ sge::renderer::state::ffp::transform::scoped::scoped(
 	context_.transform(
 		mode_,
 		sge::renderer::state::ffp::transform::const_optional_object_ref(
-			_object
+			fcppt::make_cref(
+				_object
+			)
 		)
 	);
 }

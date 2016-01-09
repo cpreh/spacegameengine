@@ -111,7 +111,7 @@ struct convert_from_impl<
 	{
 		return
 			sge::parse::json::get_exn<
-				bool
+				bool const
 			>(
 				_value
 			);

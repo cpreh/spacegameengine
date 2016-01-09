@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/from_cegui_rect.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/to_cegui_rect.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/text.hpp>
@@ -198,10 +199,12 @@ sge::cegui::default_target::activate()
 		{
 			FCPPT_ASSERT_OPTIONAL_ERROR(
 				render_context_
-			).transform(
+			).get().transform(
 				sge::renderer::state::ffp::transform::mode::projection,
 				sge::renderer::state::ffp::transform::const_optional_object_ref(
-					*_transform
+					fcppt::make_cref(
+						*_transform
+					)
 				)
 			);
 		}
@@ -221,7 +224,7 @@ sge::cegui::default_target::deactivate()
 
 	FCPPT_ASSERT_OPTIONAL_ERROR(
 		render_context_
-	).transform(
+	).get().transform(
 		sge::renderer::state::ffp::transform::mode::projection,
 		sge::renderer::state::ffp::transform::const_optional_object_ref()
 	);

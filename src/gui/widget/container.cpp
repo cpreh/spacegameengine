@@ -32,11 +32,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/rect.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_wrapper_comparison.hpp>
+#include <fcppt/reference_wrapper_to_base.hpp>
 #include <fcppt/algorithm/remove_if.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/math/box/contains_point.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/optional/ref_compare.hpp>
+#include <fcppt/optional/comparison.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
@@ -68,7 +71,13 @@ sge::gui::widget::container::container(
 		{
 			_widget.parent(
 				sge::gui::widget::optional_ref(
-					*this
+					fcppt::reference_wrapper_to_base<
+						sge::gui::widget::base
+					>(
+						fcppt::make_ref(
+							*this
+						)
+					)
 				)
 			);
 
@@ -196,7 +205,13 @@ sge::gui::widget::container::insert_widget(
 
 	_widget.get().parent(
 		sge::gui::widget::optional_ref(
-			*this
+			fcppt::reference_wrapper_to_base<
+				sge::gui::widget::base
+			>(
+				fcppt::make_ref(
+					*this
+				)
+			)
 		)
 	);
 }
@@ -346,10 +361,9 @@ sge::gui::widget::container::on_tab(
 				result;
 
 		if(
-			fcppt::optional::ref_compare(
-				_focus.get(),
-				result
-			)
+			_focus.get()
+			==
+			result
 		)
 			_focus =
 				sge::gui::widget::optional_focus(

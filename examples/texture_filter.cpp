@@ -168,6 +168,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -707,11 +708,13 @@ try
 								[
 									&current_filter
 								](
-									filter_array::const_reference _filter
+									fcppt::reference_wrapper<
+										filter_array::value_type const
+									> const _filter
 								)
 								{
 									current_filter =
-										&_filter;
+										_filter.get_pointer();
 								}
 							);
 						}

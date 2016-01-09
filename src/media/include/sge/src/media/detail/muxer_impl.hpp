@@ -36,9 +36,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/media/logger.hpp>
 #include <sge/src/media/detail/muxer.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/map.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -51,6 +50,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/reference.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ios>
@@ -252,11 +254,13 @@ sge::media::detail::muxer<
 							&_stream,
 							&_name
 						](
-							System &_system
+							fcppt::reference_wrapper<
+								System
+							> const _system
 						)
 						{
 							return
-								_system.load_stream(
+								_system.get().load_stream(
 									std::move(
 										_stream
 									),
@@ -307,11 +311,11 @@ sge::media::detail::muxer<
 			[](
 				auto const _iterator
 			)
-			->
-			System &
 			{
 				return
-					*_iterator->second;
+					fcppt::make_ref(
+						*_iterator->second
+					);
 			}
 		);
 }

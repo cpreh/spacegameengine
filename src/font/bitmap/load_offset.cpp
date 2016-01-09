@@ -38,7 +38,7 @@ sge::font::bitmap::load_offset(
 {
 	sge::parse::json::element_vector const &elements(
 		sge::parse::json::find_member_exn<
-			sge::parse::json::array
+			sge::parse::json::array const
 		>(
 			_members,
 			FCPPT_TEXT("offset")

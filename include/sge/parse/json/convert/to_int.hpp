@@ -58,7 +58,7 @@ to_int(
 			IntType
 		>(
 			sge::parse::json::get_exn<
-				sge::parse::json::int_type
+				sge::parse::json::int_type const
 			>(
 				_value
 			)

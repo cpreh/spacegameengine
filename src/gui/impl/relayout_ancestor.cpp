@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widget/base.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 void
@@ -30,15 +31,17 @@ sge::gui::impl::relayout_ancestor(
 )
 {
 	sge::rucksack::widget::optional_ref layout(
-		_widget.layout()
+		fcppt::make_ref(
+			_widget.layout()
+		)
 	);
 
 	// TODO: Do this differently!
 	while(
-		layout.get_unsafe().parent().has_value()
+		layout.get_unsafe().get().parent().has_value()
 	)
 		layout =
-			layout.get_unsafe().parent();
+			layout.get_unsafe().get().parent();
 
-	layout.get_unsafe().relayout();
+	layout.get_unsafe().get().relayout();
 }

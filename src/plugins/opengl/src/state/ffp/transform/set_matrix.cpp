@@ -60,10 +60,10 @@ sge::opengl::state::ffp::transform::set_matrix(
 		[
 			&_matrix
 		](
-			sge::opengl::state::ffp::transform::context::gl_load_transpose_matrix_f _load_matrix
+			sge::opengl::state::ffp::transform::context::load_transpose_matrix_f_ref const _load_matrix
 		)
 		{
-			_load_matrix(
+			_load_matrix.get()(
 				_matrix.storage().data()
 			);
 

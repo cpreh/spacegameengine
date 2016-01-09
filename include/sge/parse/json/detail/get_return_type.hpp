@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_DETAIL_GET_RETURN_TYPE_HPP_INCLUDED
 #define SGE_PARSE_JSON_DETAIL_GET_RETURN_TYPE_HPP_INCLUDED
 
-#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/detail/get_return_type_impl.hpp>
 
 
 namespace sge
@@ -37,29 +37,13 @@ template<
 	typename T,
 	typename Arg
 >
-struct get_return_type;
-
-template<
-	typename T
->
-struct get_return_type<
+using get_return_type
+=
+typename
+sge::parse::json::detail::get_return_type_impl<
 	T,
-	sge::parse::json::value
->
-{
-	typedef T &type;
-};
-
-template<
-	typename T
->
-struct get_return_type<
-	T,
-	sge::parse::json::value const
->
-{
-	typedef T const &type;
-};
+	Arg
+>::type;
 
 }
 }

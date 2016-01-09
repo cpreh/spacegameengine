@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_FFP_ALPHA_TEST_CONST_OPTIONAL_OBJECT_REF_HPP_INCLUDED
 
 #include <sge/renderer/state/ffp/alpha_test/const_optional_object_ref_fwd.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/reference.hpp>
 
 
 #endif

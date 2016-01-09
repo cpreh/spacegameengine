@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
-#include <fcppt/optional/object.hpp>
+#include <fcppt/optional/reference.hpp>
 
 
 namespace sge
@@ -121,7 +121,9 @@ public:
 	override;
 private:
 	typedef
-	fcppt::optional::object<sge::renderer::vertex::buffer const &>
+	fcppt::optional::reference<
+		sge::renderer::vertex::buffer const
+	>
 	optional_vertex_buffer;
 
 	sge::scenic::render_context::cg::manager &manager_;

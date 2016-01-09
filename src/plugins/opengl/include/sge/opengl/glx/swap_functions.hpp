@@ -24,10 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glx/proc_address_function.hpp>
 #include <sge/opengl/glx/swap_functions_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <X11/Xlib.h>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -54,10 +55,16 @@ public:
 	);
 
 	typedef
-	fcppt::optional::object<
-		glx_swap_interval_sgi
+	fcppt::optional::reference<
+		std::remove_reference<
+			glx_swap_interval_sgi
+		>::type
 	>
 	optional_glx_swap_interval_sgi;
+
+	typedef
+	optional_glx_swap_interval_sgi::value_type
+	glx_swap_interval_sgi_ref;
 
 	typedef
 	void(
@@ -69,10 +76,16 @@ public:
 	);
 
 	typedef
-	fcppt::optional::object<
-		glx_swap_interval_ext
+	fcppt::optional::reference<
+		std::remove_reference<
+			glx_swap_interval_ext
+		>::type
 	>
 	optional_glx_swap_interval_ext;
+
+	typedef
+	optional_glx_swap_interval_ext::value_type
+	glx_swap_interval_ext_ref;
 
 	optional_glx_swap_interval_sgi
 	swap_interval_sgi() const;

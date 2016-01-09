@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/color_buffer/optional_surface_ref.hpp>
+#include <sge/renderer/color_buffer/surface.hpp>
 #include <sge/renderer/color_buffer/writable_surface.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/target/from_texture.hpp>
@@ -33,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_wrapper_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/to_signed_fun.hpp>
@@ -66,9 +69,15 @@ sge::renderer::target::from_texture(
 
 	target->color_surface(
 		sge::renderer::color_buffer::optional_surface_ref(
-			_texture.level(
-				sge::renderer::texture::mipmap::level(
-					0u
+			fcppt::reference_wrapper_to_base<
+				sge::renderer::color_buffer::surface
+			>(
+				fcppt::make_ref(
+					_texture.level(
+						sge::renderer::texture::mipmap::level(
+							0u
+						)
+					)
 				)
 			)
 		),

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/color_buffer/optional_surface_ref.hpp>
+#include <sge/renderer/color_buffer/surface.hpp>
 #include <sge/renderer/color_buffer/writable_surface.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
@@ -50,7 +51,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/texture.hpp>
 #include <sge/src/cegui/texture_target.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_wrapper_to_base.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
@@ -254,12 +258,14 @@ sge::cegui::texture_target::activate()
 	sge::renderer::context::ffp &render_context(
 		FCPPT_ASSERT_OPTIONAL_ERROR(
 			render_context_
-		)
+		).get()
 	);
 
 	render_context.offscreen_target(
 		sge::renderer::target::optional_offscreen_ref(
-			*target_
+			fcppt::make_ref(
+				*target_
+			)
 		)
 	);
 
@@ -276,8 +282,10 @@ sge::cegui::texture_target::activate()
 	render_context.transform(
 		sge::renderer::state::ffp::transform::mode::projection,
 		sge::renderer::state::ffp::transform::const_optional_object_ref(
-			*FCPPT_ASSERT_OPTIONAL_ERROR(
-				transform_state_
+			fcppt::make_cref(
+				*FCPPT_ASSERT_OPTIONAL_ERROR(
+					transform_state_
+				)
 			)
 		)
 	);
@@ -304,7 +312,7 @@ sge::cegui::texture_target::deactivate()
 	sge::renderer::context::ffp &render_context(
 		FCPPT_ASSERT_OPTIONAL_ERROR(
 			render_context_
-		)
+		).get()
 	);
 
 	render_context.transform(
@@ -469,9 +477,15 @@ sge::cegui::texture_target::declareRenderSize(
 
 	target_->color_surface(
 		sge::renderer::color_buffer::optional_surface_ref(
-			texture_.get_unsafe()->impl().level(
-				sge::renderer::texture::mipmap::level(
-					0u
+			fcppt::reference_wrapper_to_base<
+				sge::renderer::color_buffer::surface
+			>(
+				fcppt::make_ref(
+					texture_.get_unsafe()->impl().level(
+						sge::renderer::texture::mipmap::level(
+							0u
+						)
+					)
 				)
 			)
 		),

@@ -27,7 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/info/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional/object_decl.hpp>
+#include <fcppt/optional/reference.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -62,10 +65,17 @@ public:
 	gl_draw_range_elements;
 
 	typedef
-	fcppt::optional::object<
-		gl_draw_range_elements
+	fcppt::optional::reference<
+		typename
+		std::remove_reference<
+			gl_draw_range_elements
+		>::type
 	>
 	optional_draw_range_elements;
+
+	typedef
+	optional_draw_range_elements::value_type
+	draw_range_elements_ref;
 
 	optional_draw_range_elements
 	draw_range_elements() const;

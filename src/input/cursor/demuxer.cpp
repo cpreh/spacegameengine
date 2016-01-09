@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/remove_event.hpp>
 #include <sge/input/cursor/scroll_callback.hpp>
 #include <sge/input/cursor/scroll_event_fwd.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/to_exception.hpp>
@@ -138,11 +139,13 @@ sge::input::cursor::demuxer::position() const
 		fcppt::optional::bind(
 			this->current_cursor(),
 			[](
-				sge::input::cursor::object const &_cursor
+				fcppt::reference_wrapper<
+					sge::input::cursor::object
+				> const _cursor
 			)
 			{
 				return
-					_cursor.position();
+					_cursor.get().position();
 			}
 		);
 }
@@ -158,7 +161,7 @@ sge::input::cursor::demuxer::mode(
 			return
 				sge::input::cursor::no_object();
 		}
-	).mode(
+	).get().mode(
 		_mode
 	);
 }
@@ -244,14 +247,16 @@ sge::input::cursor::demuxer::assign_cursor()
 		[
 			this
 		](
-			sge::input::cursor::object &_cursor
+			fcppt::reference_wrapper<
+				sge::input::cursor::object
+			> const _cursor
 		)
 		{
 			cursor_connections_ =
 				fcppt::assign::make_container<
 					fcppt::signal::auto_connection_container
 				>(
-					_cursor.button_callback(
+					_cursor.get().button_callback(
 						sge::input::cursor::button_callback{
 							std::bind(
 								&sge::input::cursor::demuxer::button_callback_internal,
@@ -262,7 +267,7 @@ sge::input::cursor::demuxer::assign_cursor()
 					)
 				)
 				(
-					_cursor.move_callback(
+					_cursor.get().move_callback(
 						sge::input::cursor::move_callback{
 							std::bind(
 								&sge::input::cursor::demuxer::move_callback_internal,
@@ -273,7 +278,7 @@ sge::input::cursor::demuxer::assign_cursor()
 					)
 				)
 				(
-					_cursor.scroll_callback(
+					_cursor.get().scroll_callback(
 						sge::input::cursor::scroll_callback{
 							std::bind(
 								&sge::input::cursor::demuxer::scroll_callback_internal,

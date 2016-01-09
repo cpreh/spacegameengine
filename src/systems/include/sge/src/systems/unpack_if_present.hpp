@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/detail/any.hpp>
 #include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_map.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/variant/get_exn.hpp>
@@ -53,14 +54,16 @@ unpack_if_present(
 		[
 			_function
 		](
-			sge::systems::detail::any const &_element
+			fcppt::reference_wrapper<
+				sge::systems::detail::any const
+			> const _element
 		)
 		{
 			_function(
 				fcppt::variant::get_exn<
 					Parameter
 				>(
-					_element
+					_element.get()
 				)
 			);
 		}

@@ -37,6 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/light/object.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
 #include <sge/src/scenic/render_context/cg/any_color_to_vector4.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assign/make_map.hpp>
@@ -290,11 +292,13 @@ sge::scenic::render_context::cg::object::vertex_buffer(
 		[
 			this
 		](
-			sge::renderer::vertex::buffer const &_vertex_buffer
+			fcppt::reference_wrapper<
+				sge::renderer::vertex::buffer const
+			> const _vertex_buffer
 		)
 		{
 			context_.deactivate_vertex_buffer(
-				_vertex_buffer
+				_vertex_buffer.get()
 			);
 		}
 	);
@@ -302,7 +306,10 @@ sge::scenic::render_context::cg::object::vertex_buffer(
 
 	current_vertex_buffer_ =
 		optional_vertex_buffer(
-			_new_vertex_buffer);
+			fcppt::make_cref(
+				_new_vertex_buffer
+			)
+		);
 
 	context_.activate_vertex_buffer(
 		_new_vertex_buffer
@@ -343,14 +350,17 @@ sge::scenic::render_context::cg::object::render(
 	context_.render_indexed(
 		_index_buffer,
 		sge::renderer::vertex::first(
-			0u),
+			0u
+		),
 		sge::renderer::vertex::count(
 			FCPPT_ASSERT_OPTIONAL_ERROR(
 				current_vertex_buffer_
-			).linear_size()),
+			).get().linear_size()
+		),
 		sge::renderer::primitive_type::triangle_list,
 		_index_buffer_range.first_index(),
-		_index_buffer_range.index_count());
+		_index_buffer_range.index_count()
+	);
 }
 
 sge::renderer::target::base &
@@ -367,11 +377,13 @@ sge::scenic::render_context::cg::object::~object()
 		[
 			this
 		](
-			sge::renderer::vertex::buffer const &_vertex_buffer
+			fcppt::reference_wrapper<
+				sge::renderer::vertex::buffer const
+			> const _vertex_buffer
 		)
 		{
 			context_.deactivate_vertex_buffer(
-				_vertex_buffer
+				_vertex_buffer.get()
 			);
 		}
 	);

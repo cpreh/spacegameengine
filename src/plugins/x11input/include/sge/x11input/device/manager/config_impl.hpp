@@ -26,9 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/manager/config.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/reference.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
@@ -126,12 +128,14 @@ sge::x11input::device::manager::config<
 			[
 				this
 			](
-				X11Object &_object
+				fcppt::reference_wrapper<
+					X11Object
+				> const _object
 			)
 			{
 				discover_(
 					DiscoverEvent(
-						_object
+						_object.get()
 					)
 				);
 
@@ -259,7 +263,9 @@ sge::x11input::device::manager::config<
 
 	return
 		optional_object_ref(
-			*it.first->second
+			fcppt::make_ref(
+				*it.first->second
+			)
 		);
 }
 

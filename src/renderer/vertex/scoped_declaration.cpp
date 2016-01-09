@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/const_optional_declaration_ref.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
+#include <fcppt/make_cref.hpp>
 
 
 sge::renderer::vertex::scoped_declaration::scoped_declaration(
@@ -35,7 +36,9 @@ sge::renderer::vertex::scoped_declaration::scoped_declaration(
 {
 	context_.vertex_declaration(
 		sge::renderer::vertex::const_optional_declaration_ref(
-			_declaration
+			fcppt::make_cref(
+				_declaration
+			)
 		)
 	);
 }

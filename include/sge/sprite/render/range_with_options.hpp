@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/options_fwd.hpp>
 #include <sge/sprite/state/scoped_impl.hpp>
 #include <majutsu/get.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
 
@@ -69,9 +70,11 @@ range_with_options(
 			&_states,
 			&_options
 		](
-			sge::sprite::detail::render::range_object<
-				Choices
-			> const &_range_object
+			fcppt::reference_wrapper<
+				sge::sprite::detail::render::range_object<
+					Choices
+				> const
+			> const _range_object
 		)
 		{
 			sge::sprite::state::scoped<
@@ -88,14 +91,14 @@ range_with_options(
 				*majutsu::get<
 					sge::sprite::buffers::roles::vertex_buffer
 				>(
-					_range_object
+					_range_object.get()
 				),
 				_options.vertex_options()
 			);
 
 			sge::sprite::detail::render::range(
 				_parameters.render_context(),
-				_range_object,
+				_range_object.get(),
 				_range.parts()
 			);
 		}

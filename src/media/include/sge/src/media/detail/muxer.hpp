@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/detail/muxer_fwd.hpp>
 #include <sge/plugin/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional/object_fwd.hpp>
+#include <fcppt/optional/reference_fwd.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
@@ -83,8 +83,8 @@ public:
 	load_stream_result;
 
 	typedef
-	fcppt::optional::object<
-		System &
+	fcppt::optional::reference<
+		System
 	>
 	optional_system_ref;
 

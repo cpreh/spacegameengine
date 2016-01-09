@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/info/minor_version.hpp>
 #include <sge/opengl/info/version_at_least.hpp>
 #include <sge/opengl/texture/mipmap/context.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 sge::opengl::texture::mipmap::context::context(
@@ -69,12 +70,14 @@ sge::opengl::texture::mipmap::context::context(
 		)
 		?
 			optional_gl_generate_mipmap(
-				sge::opengl::deref_fun_ptr(
-					sge::opengl::info::cast_function<
-						PFNGLGENERATEMIPMAPPROC
-					>(
-						_info.load_function(
-							"glGenerateMipmap"
+				fcppt::make_ref(
+					sge::opengl::deref_fun_ptr(
+						sge::opengl::info::cast_function<
+							PFNGLGENERATEMIPMAPPROC
+						>(
+							_info.load_function(
+								"glGenerateMipmap"
+							)
 						)
 					)
 				)

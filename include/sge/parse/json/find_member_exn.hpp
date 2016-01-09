@@ -46,7 +46,8 @@ template<
 	typename T,
 	typename Arg
 >
-typename boost::mpl::if_<
+typename
+boost::mpl::if_<
 	std::is_const<
 		Arg
 	>,

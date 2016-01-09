@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/rasterizer/const_optional_object_ref.hpp>
 #include <sge/renderer/state/core/rasterizer/object_fwd.hpp>
 #include <sge/renderer/state/core/rasterizer/scoped.hpp>
+#include <fcppt/make_cref.hpp>
 
 
 sge::renderer::state::core::rasterizer::scoped::scoped(
@@ -35,7 +36,9 @@ sge::renderer::state::core::rasterizer::scoped::scoped(
 {
 	context_.rasterizer_state(
 		sge::renderer::state::core::rasterizer::const_optional_object_ref(
-			_object
+			fcppt::make_cref(
+				_object
+			)
 		)
 	);
 }

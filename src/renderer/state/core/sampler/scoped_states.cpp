@@ -46,7 +46,7 @@ sge::renderer::state::core::sampler::scoped_states(
 					std::make_pair(
 						_element.first,
 						sge::renderer::state::core::sampler::const_optional_object_ref(
-							_element.second.get()
+							_element.second
 						)
 					);
 			}

@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
 
@@ -103,14 +104,16 @@ sge::opengl::texture::activate(
 			&_context,
 			&_stage
 		](
-			sge::renderer::texture::base const &_texture
+			fcppt::reference_wrapper<
+				sge::renderer::texture::base const
+			> const _texture
 		)
 		{
 			sge::opengl::texture::base const &base(
 				dynamic_cast<
 					sge::opengl::texture::base const &
 				>(
-					_texture
+					_texture.get()
 				)
 			);
 
@@ -122,7 +125,9 @@ sge::opengl::texture::activate(
 			bind_context.stage(
 				_stage,
 				sge::opengl::texture::const_optional_base_ref(
-					base
+					fcppt::make_cref(
+						base
+					)
 				)
 			);
 

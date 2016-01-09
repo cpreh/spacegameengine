@@ -33,6 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/target/viewport.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_wrapper_to_base.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
 
@@ -97,7 +100,13 @@ sge::opengl::target::basic<
 
 	context_.last_target(
 		sge::opengl::target::optional_base_ref(
-			*this
+			fcppt::reference_wrapper_to_base<
+				sge::opengl::target::base
+			>(
+				fcppt::make_ref(
+					*this
+				)
+			)
 		)
 	);
 }
@@ -199,10 +208,12 @@ sge::opengl::target::basic<
 	fcppt::optional::maybe_void(
 		last_target,
 		[](
-			sge::opengl::target::base &_target
+			fcppt::reference_wrapper<
+				sge::opengl::target::base
+			> const _target
 		)
 		{
-			_target.unbind();
+			_target.get().unbind();
 		}
 	);
 
@@ -219,10 +230,12 @@ sge::opengl::target::basic<
 	fcppt::optional::maybe_void(
 		last_target,
 		[](
-			sge::opengl::target::base &_target
+			fcppt::reference_wrapper<
+				sge::opengl::target::base
+			> const _target
 		)
 		{
-			_target.bind();
+			_target.get().bind();
 		}
 	);
 }

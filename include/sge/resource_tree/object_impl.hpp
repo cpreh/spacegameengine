@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/path.hpp>
 #include <sge/resource_tree/detail/element_impl.hpp>
 #include <sge/resource_tree/detail/init.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -109,7 +110,9 @@ sge::resource_tree::object<
 						?
 							typename
 							element_type::optional_type{
-								_elem.get_random()
+								fcppt::make_cref(
+									_elem.get_random()
+								)
 							}
 						:
 							_elem.get_opt(
@@ -130,7 +133,7 @@ sge::resource_tree::object<
 						FCPPT_TEXT("\" which could not be found in the resource tree.")
 					);
 			}
-		);
+		).get();
 }
 
 #endif

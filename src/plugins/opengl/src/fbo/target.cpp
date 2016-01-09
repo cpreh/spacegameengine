@@ -54,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/format.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -61,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/math/box/null.hpp>
+#include <fcppt/optional/copy_value.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -178,14 +180,16 @@ sge::opengl::fbo::target::color_surface(
 			fcppt::optional::map(
 				_opt_surface,
 				[](
-					sge::renderer::color_buffer::surface const &_surface
+					fcppt::reference_wrapper<
+						sge::renderer::color_buffer::surface
+					> const _surface
 				)
 				{
 					return
 						fcppt::cast::size<
 							sge::renderer::screen_unit
 						>(
-							_surface.size().h()
+							_surface.get().size().h()
 						);
 				}
 			);
@@ -196,7 +200,9 @@ sge::opengl::fbo::target::color_surface(
 			this,
 			_index
 		](
-			sge::renderer::color_buffer::surface &_surface
+			fcppt::reference_wrapper<
+				sge::renderer::color_buffer::surface
+			> const _surface
 		)
 		{
 			// FIXME: Use buffer base and don't static_cast
@@ -204,7 +210,7 @@ sge::opengl::fbo::target::color_surface(
 				fcppt::cast::static_downcast<
 					sge::opengl::texture::color_surface &
 				>(
-					_surface
+					_surface.get()
 				)
 			);
 
@@ -252,14 +258,16 @@ sge::opengl::fbo::target::depth_stencil_surface(
 		[
 			this
 		](
-			sge::renderer::depth_stencil_buffer::surface &_surface
+			fcppt::reference_wrapper<
+				sge::renderer::depth_stencil_buffer::surface
+			> const _surface
 		)
 		{
 			sge::opengl::fbo::attachment_type const attachment(
 				fcppt::optional::to_exception(
 					sge::opengl::fbo::depth_stencil_format_to_attachment(
 						config_,
-						_surface.format()
+						_surface.get().format()
 					),
 					[]{
 						return
@@ -278,7 +286,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 					dynamic_cast<
 						sge::opengl::fbo::depth_stencil_surface *
 					>(
-						&_surface
+						_surface.get_pointer()
 					)
 			)
 			{
@@ -298,7 +306,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 					dynamic_cast<
 						sge::opengl::texture::buffer_base *
 					>(
-						&_surface
+						_surface.get_pointer()
 					)
 			)
 			{
@@ -411,9 +419,11 @@ sge::opengl::fbo::target::check()
 			FCPPT_TEXT("FBO is incomplete! ")
 			+
 			fcppt::optional::from(
-				fcppt::container::find_opt_mapped(
-					config_.error_strings(),
-					status
+				fcppt::optional::copy_value(
+					fcppt::container::find_opt_mapped(
+						config_.error_strings(),
+						status
+					)
 				),
 				[]{
 					return

@@ -94,7 +94,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/extract_from_string_exn.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/int_to_float.hpp>
@@ -221,7 +222,10 @@ public:
 		tree_(
 			_tree),
 		current_tree_(
-			tree_),
+			fcppt::make_cref(
+				tree_
+			)
+		),
 		keyboard_connection_(
 			_keyboard.key_callback(
 				sge::input::keyboard::key_callback{
@@ -244,7 +248,7 @@ public:
 		bvh_tree_traits::tree_representation const &tree(
 			FCPPT_ASSERT_OPTIONAL_ERROR(
 				current_tree_
-			)
+			).get()
 		);
 
 		sprite_sequence result;
@@ -347,7 +351,7 @@ private:
 		bvh_tree_traits::tree_representation const &tree(
 			FCPPT_ASSERT_OPTIONAL_ERROR(
 				current_tree_
-			)
+			).get()
 		);
 
 		if(!_event.pressed())
@@ -359,23 +363,36 @@ private:
 		{
 			case sge::input::key::code::left:
 				new_tree =
+					// TODO: maybe_front?
 					bvh_tree_traits::tree_representation::const_optional_ref(
-						tree.front());
+						fcppt::make_cref(
+							tree.front()
+						)
+					);
 				break;
 			case sge::input::key::code::right:
 				new_tree =
 					bvh_tree_traits::tree_representation::const_optional_ref(
-						 tree.back());
+						fcppt::make_cref(
+							tree.back()
+						)
+					);
 				break;
 			case sge::input::key::code::up:
 				new_tree =
 					bvh_tree_traits::tree_representation::const_optional_ref(
-						tree.front());
+						fcppt::make_cref(
+							tree.front()
+						)
+					);
 				break;
 			case sge::input::key::code::down:
 				new_tree =
 					bvh_tree_traits::tree_representation::const_optional_ref(
-						tree.back());
+						fcppt::make_cref(
+							tree.back()
+						)
+					);
 				break;
 			case sge::input::key::code::p:
 				fcppt::optional::maybe_void(
@@ -383,7 +400,9 @@ private:
 					[
 						&new_tree
 					](
-						bvh_tree_traits::tree_representation const &_parent
+						fcppt::reference_wrapper<
+							bvh_tree_traits::tree_representation const
+						> const _parent
 					)
 					{
 						new_tree =
@@ -404,11 +423,13 @@ private:
 					true
 				),
 				[](
-					bvh_tree_traits::tree_representation const &_new_tree
+					fcppt::reference_wrapper<
+						bvh_tree_traits::tree_representation const
+					> const _new_tree
 				)
 				{
 					return
-						_new_tree.empty();
+						_new_tree.get().empty();
 				}
 			)
 		)

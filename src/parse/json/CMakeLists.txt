@@ -30,6 +30,7 @@ set(
 	include/sge/parse/json/detail/adapt_object.hpp
 	include/sge/parse/json/detail/adapt_start.hpp
 	include/sge/parse/json/detail/get_return_type.hpp
+	include/sge/parse/json/detail/get_return_type_impl.hpp
 	include/sge/parse/json/detail/insert_member.hpp
 	include/sge/parse/json/detail/is_math_type.hpp
 	include/sge/parse/json/detail/member_wrapper.hpp

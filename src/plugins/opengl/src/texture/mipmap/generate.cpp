@@ -51,7 +51,7 @@ sge::opengl::texture::mipmap::generate(
 					FCPPT_TEXT("glGenerateMipmapsEXT")
 				);
 		}
-	)(
+	).get()(
 		_type.get()
 	);
 }

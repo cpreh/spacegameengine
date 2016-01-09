@@ -24,11 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/config/merge_trees.hpp>
+#include <fcppt/optional/combine.hpp>
+#include <fcppt/optional/copy_value.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object.hpp>
-#include <fcppt/optional/map.hpp>
-#include <fcppt/optional/combine.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/algorithm/key_set.hpp>
@@ -121,13 +122,17 @@ sge::parse::json::config::merge_trees(
 					return
 						fcppt::optional::map(
 							fcppt::optional::combine(
-								sge::parse::json::find_member_value(
-									_original.members,
-									_key
+								fcppt::optional::copy_value(
+									sge::parse::json::find_member_value(
+										_original.members,
+										_key
+									)
 								),
-								sge::parse::json::find_member_value(
-									_update.members,
-									_key
+								fcppt::optional::copy_value(
+									sge::parse::json::find_member_value(
+										_update.members,
+										_key
+									)
 								),
 								[](
 									sge::parse::json::value const &_original_value,

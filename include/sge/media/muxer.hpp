@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/detail/muxer_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
-#include <fcppt/optional/object_fwd.hpp>
+#include <fcppt/optional/reference_fwd.hpp>
 
 
 namespace sge
@@ -65,8 +65,8 @@ public:
 	parameters;
 
 	typedef
-	fcppt::optional::object<
-		System &
+	fcppt::optional::reference<
+		System
 	>
 	optional_system_ref;
 

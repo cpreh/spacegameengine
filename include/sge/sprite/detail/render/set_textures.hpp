@@ -21,12 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_RENDER_SET_TEXTURES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_SET_TEXTURES_HPP_INCLUDED
 
-#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/texture/base.hpp>
+#include <sge/renderer/texture/const_optional_base_ref.hpp>
+#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/sprite/detail/apply_texture_levels.hpp>
 #include <sge/sprite/detail/config/has_texture_levels.hpp>
 #include <sge/sprite/detail/config/texture_levels.hpp>
-#include <sge/sprite/detail/render/set_texture_level.hpp>
-#include <sge/sprite/render/range_part_fwd.hpp>
+#include <sge/sprite/render/range_part_impl.hpp>
+#include <fcppt/decltype_sink.hpp>
+#include <fcppt/reference_wrapper_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -62,12 +67,34 @@ set_textures(
 			Choices
 		>::type
 	>(
-		sge::sprite::detail::render::set_texture_level<
-			Choices
-		>(
-			_render_context,
-			_range
+		[
+			&_render_context,
+			&_range
+		](
+			auto const &_level
 		)
+		{
+			typedef
+			FCPPT_DECLTYPE_SINK(
+				_level
+			)
+			cur_level;
+
+			_render_context.texture(
+				sge::renderer::texture::const_optional_base_ref{
+					fcppt::reference_wrapper_to_base<
+						sge::renderer::texture::base const
+					>(
+						_range. template texture_level<
+							cur_level::value
+						>()
+					)
+				},
+				sge::renderer::texture::stage(
+					cur_level::value
+				)
+			);
+		}
 	);
 }
 

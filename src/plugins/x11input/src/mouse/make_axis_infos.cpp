@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/mouse/make_axis_infos.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/make_int_range_count.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -66,7 +67,9 @@ sge::x11input::mouse::make_axis_infos(
 							[
 								&_display
 							](
-								XIValuatorClassInfo const &_valuator_class
+								fcppt::reference_wrapper<
+									XIValuatorClassInfo const
+								> const _valuator_class
 							)
 							{
 								typedef
@@ -76,13 +79,13 @@ sge::x11input::mouse::make_axis_infos(
 								result_type;
 
 								return
-									_valuator_class.mode
+									_valuator_class.get().mode
 									==
 									XIModeRelative
 									?
 										result_type(
 											sge::x11input::mouse::axis_info(
-												_valuator_class,
+												_valuator_class.get(),
 												_display
 											)
 										)

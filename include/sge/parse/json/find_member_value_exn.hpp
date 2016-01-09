@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_FIND_MEMBER_VALUE_EXN_HPP_INCLUDED
 #define SGE_PARSE_JSON_FIND_MEMBER_VALUE_EXN_HPP_INCLUDED
 
-#include <sge/parse/json/find_member.hpp>
+#include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/member_not_found.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -42,7 +42,8 @@ namespace json
 template<
 	typename Arg
 >
-typename boost::mpl::if_<
+typename
+boost::mpl::if_<
 	std::is_const<
 		Arg
 	>,
@@ -72,7 +73,7 @@ find_member_value_exn(
 						FCPPT_TEXT("\" in a json object's member list!")
 					);
 			}
-		);
+		).get();
 }
 
 }

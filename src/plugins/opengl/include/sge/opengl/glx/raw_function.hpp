@@ -31,7 +31,7 @@ namespace glx
 
 typedef
 void(
-	&raw_function
+	raw_function
 )();
 
 }

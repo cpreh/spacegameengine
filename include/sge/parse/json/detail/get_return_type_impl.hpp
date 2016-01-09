@@ -18,11 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_FFP_FOG_CONST_OPTIONAL_OBJECT_REF_HPP_INCLUDED
-#define SGE_RENDERER_STATE_FFP_FOG_CONST_OPTIONAL_OBJECT_REF_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_DETAIL_GET_RETURN_TYPE_IMPL_HPP_INCLUDED
+#define SGE_PARSE_JSON_DETAIL_GET_RETURN_TYPE_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/state/ffp/fog/const_optional_object_ref_fwd.hpp>
-#include <fcppt/optional/reference.hpp>
+#include <sge/parse/json/value_fwd.hpp>
 
+
+namespace sge
+{
+namespace parse
+{
+namespace json
+{
+namespace detail
+{
+
+template<
+	typename T,
+	typename Arg
+>
+struct get_return_type_impl;
+
+template<
+	typename T
+>
+struct get_return_type_impl<
+	T,
+	sge::parse::json::value
+>
+{
+	typedef T &type;
+};
+
+template<
+	typename T
+>
+struct get_return_type_impl<
+	T,
+	sge::parse::json::value const
+>
+{
+	typedef T const &type;
+};
+
+}
+}
+}
+}
 
 #endif

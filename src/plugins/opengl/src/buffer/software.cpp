@@ -261,7 +261,7 @@ sge::opengl::buffer::software::buffer_object(
 						FCPPT_TEXT("buffer_object(): invalid id!")
 					};
 			}
-		);
+		).get();
 }
 
 sge::renderer::const_raw_pointer

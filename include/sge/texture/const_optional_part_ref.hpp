@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_CONST_OPTIONAL_PART_REF_HPP_INCLUDED
 
 #include <sge/texture/const_optional_part_ref_fwd.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/reference.hpp>
 
 
 #endif

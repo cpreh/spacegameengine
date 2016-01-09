@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/optional/maybe.hpp>
 
@@ -42,29 +44,33 @@ sge::opengl::state::ffp::transform::set(
 		[
 			&_context
 		]()
-		-> sge::opengl::state::ffp::transform::object const &
 		{
 			return
-				sge::opengl::context::use<
-					sge::opengl::state::ffp::transform::default_context
-				>(
-					_context,
-					_context
-				).default_state();
+				fcppt::make_cref(
+					sge::opengl::context::use<
+						sge::opengl::state::ffp::transform::default_context
+					>(
+						_context,
+						_context
+					).default_state()
+				);
 		},
 		[](
-			sge::renderer::state::ffp::transform::object const &_transform
+			fcppt::reference_wrapper<
+				sge::renderer::state::ffp::transform::object const
+			> const _transform
 		)
-		-> sge::opengl::state::ffp::transform::object const &
 		{
 			return
-				fcppt::cast::static_downcast<
-					sge::opengl::state::ffp::transform::object const &
-				>(
-					_transform
+				fcppt::make_cref(
+					fcppt::cast::static_downcast<
+						sge::opengl::state::ffp::transform::object const &
+					>(
+						_transform.get()
+					)
 				);
 		}
-	).set(
+	).get().set(
 		_mode
 	);
 }

@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/set_samplers.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/make_cref.hpp>
 
 
 sge::opengl::cg::texture::loaded_object::loaded_object(
@@ -95,7 +96,9 @@ sge::opengl::cg::texture::loaded_object::enable() const
 	bind_context_.stage(
 		stage_,
 		sge::opengl::texture::const_optional_base_ref(
-			texture_
+			fcppt::make_cref(
+				texture_
+			)
 		)
 	);
 

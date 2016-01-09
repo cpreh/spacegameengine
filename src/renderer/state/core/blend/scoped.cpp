@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/blend/const_optional_object_ref.hpp>
 #include <sge/renderer/state/core/blend/object_fwd.hpp>
 #include <sge/renderer/state/core/blend/scoped.hpp>
+#include <fcppt/make_cref.hpp>
 
 
 sge::renderer::state::core::blend::scoped::scoped(
@@ -35,7 +36,9 @@ sge::renderer::state::core::blend::scoped::scoped(
 {
 	context_.blend_state(
 		sge::renderer::state::core::blend::const_optional_object_ref(
-			_object
+			fcppt::make_cref(
+				_object
+			)
 		)
 	);
 }

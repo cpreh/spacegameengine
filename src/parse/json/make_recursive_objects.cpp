@@ -54,7 +54,7 @@ fcppt::reference_wrapper<
 >
 object_reference;
 
-object_reference const
+object_reference
 create_or_navigate_path(
 	sge::parse::json::path const &_input_path,
 	object_reference const _old,
@@ -104,7 +104,9 @@ create_or_navigate_path(
 				&_input_path,
 				&_new_member
 			](
-				sge::parse::json::value &_value
+				fcppt::reference_wrapper<
+					sge::parse::json::value
+				> const _value
 			)
 			{
 				return
@@ -112,7 +114,7 @@ create_or_navigate_path(
 						sge::parse::json::get_exn_message<
 							sge::parse::json::object
 						>(
-							_value,
+							_value.get(),
 							[
 								&_input_path,
 								&_new_member

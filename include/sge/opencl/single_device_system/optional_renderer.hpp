@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_SINGLE_DEVICE_SYSTEM_OPTIONAL_RENDERER_HPP_INCLUDED
 
 #include <sge/renderer/device/core_fwd.hpp>
-#include <fcppt/optional/object.hpp>
+#include <fcppt/optional/reference.hpp>
 
 
 namespace sge
@@ -31,9 +31,13 @@ namespace opencl
 {
 namespace single_device_system
 {
+
 typedef
-fcppt::optional::object<sge::renderer::device::core &>
+fcppt::optional::reference<
+	sge::renderer::device::core
+>
 optional_renderer;
+
 }
 }
 }

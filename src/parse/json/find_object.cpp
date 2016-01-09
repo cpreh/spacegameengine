@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/const_optional_object_ref.hpp>
-#include <sge/parse/json/find_member_return_type.hpp>
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/find_object.hpp>
 #include <sge/parse/json/get_exn_message.hpp>
@@ -29,10 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/reference.hpp>
 
 
 namespace
@@ -41,8 +40,8 @@ namespace
 template<
 	typename Object
 >
-fcppt::optional::object<
-	Object &
+fcppt::optional::reference<
+	Object
 >
 find_object_impl(
 	Object &_input_object,
@@ -55,8 +54,8 @@ find_object_impl(
 	object_ref;
 
 	typedef
-	fcppt::optional::object<
-		Object &
+	fcppt::optional::reference<
+		Object
 	>
 	result_type;
 
@@ -70,14 +69,6 @@ find_object_impl(
 		_path
 	)
 	{
-		typedef
-		typename
-		sge::parse::json::find_member_return_type<
-			sge::parse::json::value,
-			Object
-		>::element_type
-		value_reference;
-
 		if(
 			fcppt::optional::maybe(
 				sge::parse::json::find_member_value(
@@ -92,15 +83,15 @@ find_object_impl(
 					&current_member,
 					&_path
 				](
-					value_reference _val
+					auto const &_val
 				)
 				{
 					current_object =
 						object_ref(
 							sge::parse::json::get_exn_message<
-								sge::parse::json::object
+								Object
 							>(
-								_val,
+								_val.get(),
 								[
 									&_path,
 									&current_member
@@ -130,7 +121,7 @@ find_object_impl(
 
 	return
 		result_type(
-			current_object.get()
+			current_object
 		);
 }
 

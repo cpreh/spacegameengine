@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_FFP_LIGHTING_CONST_OPTIONAL_OBJECT_REF_FWD_HPP_INCLUDED
 
 #include <sge/renderer/state/ffp/lighting/object_fwd.hpp>
-#include <fcppt/optional/object_fwd.hpp>
+#include <fcppt/optional/reference_fwd.hpp>
 
 
 namespace sge
@@ -37,8 +37,8 @@ namespace lighting
 {
 
 typedef
-fcppt::optional::object<
-	sge::renderer::state::ffp::lighting::object const &
+fcppt::optional::reference<
+	sge::renderer::state::ffp::lighting::object const
 >
 const_optional_object_ref;
 

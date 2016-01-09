@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/fun_ptr.hpp>
 #include <sge/opengl/glx/current.hpp>
 #include <sge/opengl/glx/optional_proc_address_function.hpp>
-#include <sge/opengl/glx/proc_address_function.hpp>
+#include <sge/opengl/glx/proc_address_function_ref.hpp>
 #include <sge/opengl/glx/swap_functions.hpp>
 #include <sge/opengl/glx/vsync.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
@@ -59,12 +59,12 @@ sge::opengl::glx::current::current(
 		fcppt::optional::map(
 			_opt_proc_address,
 			[](
-				sge::opengl::glx::proc_address_function _proc_address
+				sge::opengl::glx::proc_address_function_ref const _proc_address
 			)
 			{
 				return
 					sge::opengl::glx::swap_functions(
-						_proc_address
+						_proc_address.get()
 					);
 			}
 		)
@@ -100,11 +100,11 @@ sge::opengl::glx::current::load_function(
 			[
 				&_name
 			](
-				sge::opengl::glx::proc_address_function _proc_address
+				sge::opengl::glx::proc_address_function_ref const _proc_address
 			)
 			{
 				return
-					_proc_address(
+					_proc_address.get()(
 						fcppt::cast::to_char_ptr<
 							GLubyte const *
 						>(

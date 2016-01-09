@@ -28,10 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/assign.hpp>
-#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/deref.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 
@@ -72,7 +74,9 @@ sge::shader::parameter::planar_texture::set(
 		[
 			this
 		](
-			sge::renderer::context::core &_render_context
+			fcppt::reference_wrapper<
+				sge::renderer::context::core
+			> const _render_context
 		)
 		{
 			scoped_texture_ =
@@ -84,10 +88,12 @@ sge::shader::parameter::planar_texture::set(
 			fcppt::optional::maybe_void(
 				value_,
 				[
-					&_render_context,
+					_render_context,
 					this
 				](
-					sge::renderer::texture::planar &_texture
+					fcppt::reference_wrapper<
+						sge::renderer::texture::planar
+					> const _texture
 				)
 				{
 					sge::renderer::cg::loaded_texture_unique_ptr const &cur_loaded_texture(
@@ -95,7 +101,7 @@ sge::shader::parameter::planar_texture::set(
 							loaded_texture_,
 							renderer_.load_cg_texture(
 								parameter_.object(),
-								_texture
+								_texture.get()
 							)
 						)
 					);
@@ -105,7 +111,7 @@ sge::shader::parameter::planar_texture::set(
 							fcppt::make_unique_ptr<
 								sge::renderer::cg::scoped_texture
 							>(
-								_render_context,
+								_render_context.get(),
 								*cur_loaded_texture
 							)
 						);
@@ -129,7 +135,10 @@ sge::shader::parameter::planar_texture::activate(
 
 	optional_render_context_ =
 		optional_render_context(
-			_render_context);
+			fcppt::make_ref(
+				_render_context
+			)
+		);
 
 	this->set(
 		value_);
@@ -155,16 +164,8 @@ sge::shader::parameter::planar_texture::optional_loaded_texture
 sge::shader::parameter::planar_texture::loaded_texture()
 {
 	return
-		fcppt::optional::map(
-			loaded_texture_,
-			[](
-				sge::renderer::cg::loaded_texture_unique_ptr const &_loaded_texture
-			)
-			-> sge::renderer::cg::loaded_texture &
-			{
-				return
-					*_loaded_texture;
-			}
+		fcppt::optional::deref(
+			loaded_texture_
 		);
 }
 

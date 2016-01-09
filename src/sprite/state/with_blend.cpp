@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/blend/source.hpp>
 #include <sge/renderer/state/core/blend/write_mask_all.hpp>
 #include <sge/sprite/state/with_blend.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/optional/from.hpp>
 
 
@@ -70,7 +71,9 @@ sge::sprite::state::with_blend::set(
 {
 	_context.blend_state(
 		sge::renderer::state::core::blend::const_optional_object_ref(
-			_state
+			fcppt::make_cref(
+				_state
+			)
 		)
 	);
 }

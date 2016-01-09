@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCENIC_RENDER_CONTEXT_OPTIONAL_PLANAR_TEXTURE_HPP_INCLUDED
 
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <fcppt/optional/object.hpp>
+#include <fcppt/optional/reference.hpp>
+
 
 namespace sge
 {
@@ -30,9 +31,13 @@ namespace scenic
 {
 namespace render_context
 {
+
 typedef
-fcppt::optional::object<sge::renderer::texture::planar &>
+fcppt::optional::reference<
+	sge::renderer::texture::planar
+>
 optional_planar_texture;
+
 }
 }
 }

@@ -39,11 +39,10 @@ template<
 	typename Arg
 >
 inline
-typename
 sge::parse::json::detail::get_return_type<
 	T,
 	Arg
->::type
+>
 get_exn(
 	Arg &_val
 )

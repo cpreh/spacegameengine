@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vertex/unset_buffer.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -57,12 +59,14 @@ sge::opengl::vertex::set_buffer(
 		[
 			&_context
 		](
-			sge::opengl::vertex::buffer const &_old_buffer
+			fcppt::reference_wrapper<
+				sge::opengl::vertex::buffer const
+			> const _old_buffer
 		)
 		{
 			sge::opengl::vertex::unset_buffer(
 				_context,
-				_old_buffer
+				_old_buffer.get()
 			);
 		}
 	);
@@ -78,14 +82,16 @@ sge::opengl::vertex::set_buffer(
 	context.vertex_buffer(
 		index,
 		sge::opengl::vertex::context::optional_buffer(
-			gl_buffer
+			fcppt::make_cref(
+				gl_buffer
+			)
 		)
 	);
 
 	gl_buffer.use(
 		FCPPT_ASSERT_OPTIONAL_ERROR(
 			context.vertex_declaration()
-		).gl_format_part(
+		).get().gl_format_part(
 			index
 		)
 	);

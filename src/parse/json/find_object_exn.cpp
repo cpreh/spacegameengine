@@ -61,7 +61,7 @@ find_object_exn_impl(
 						FCPPT_TEXT("\" because we couldn't find the object here!")
 					);
 			}
-		);
+		).get();
 }
 
 }

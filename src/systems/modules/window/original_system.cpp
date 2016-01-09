@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/event/create_processor.hpp>
 #include <awl/system/event/optional_processor_ref.hpp>
 #include <awl/system/event/processor.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 sge::systems::modules::window::original_system::original_system()
@@ -45,7 +46,9 @@ sge::systems::modules::window::original_system::original_system()
 		awl::event::create_processor(
 			*awl_system_,
 			awl::system::event::optional_processor_ref(
-				*awl_system_event_processor_
+				fcppt::make_ref(
+					*awl_system_event_processor_
+				)
 			)
 		)
 	),

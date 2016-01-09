@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TARGET_OPTIONAL_BASE_REF_HPP_INCLUDED
 
 #include <sge/opengl/target/optional_base_ref_fwd.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/reference.hpp>
 
 
 #endif

@@ -65,6 +65,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/reset_when_expired.hpp>
 #include <sge/timer/clocks/delta_impl.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_wrapper_to_base.hpp>
 #include <fcppt/string_conv_locale.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -407,7 +409,13 @@ sge::gui::widget::edit::on_tab(
 {
 	return
 		sge::gui::widget::optional_ref(
-			*this
+			fcppt::reference_wrapper_to_base<
+				sge::gui::widget::base
+			>(
+				fcppt::make_ref(
+					*this
+				)
+			)
 		);
 }
 

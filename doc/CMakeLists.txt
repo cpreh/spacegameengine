@@ -1803,6 +1803,7 @@ set(
 	include/sge/parse/json/detail/adapt_object.hpp
 	include/sge/parse/json/detail/adapt_start.hpp
 	include/sge/parse/json/detail/get_return_type.hpp
+	include/sge/parse/json/detail/get_return_type_impl.hpp
 	include/sge/parse/json/detail/insert_member.hpp
 	include/sge/parse/json/detail/is_math_type.hpp
 	include/sge/parse/json/detail/member_wrapper.hpp
@@ -3319,7 +3320,6 @@ set(
 	include/sge/sprite/detail/render/range_part_object.hpp
 	include/sge/sprite/detail/render/scoped_vertex.hpp
 	include/sge/sprite/detail/render/scoped_vertex_declaration.hpp
-	include/sge/sprite/detail/render/set_texture_level.hpp
 	include/sge/sprite/detail/render/set_textures.hpp
 	include/sge/sprite/detail/render/unset_texture_stage.hpp
 	include/sge/sprite/detail/render/unset_texture_stages.hpp

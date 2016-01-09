@@ -294,9 +294,13 @@ sge::scenic::render_context::cg::manager::create_context(
 		fcppt::unique_ptr_to_base<
 			sge::scenic::render_context::base
 		>(
-			fcppt::make_unique_ptr<sge::scenic::render_context::cg::object>(
+			fcppt::make_unique_ptr<
+				sge::scenic::render_context::cg::object
+			>(
 				*this,
-				_context));
+				_context
+			)
+		);
 }
 
 sge::scenic::render_context::cg::manager::~manager()

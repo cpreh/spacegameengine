@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/transform_matrix_type.hpp>
 #include <sge/scenic/render_queue/object.hpp>
 #include <sge/scenic/scene/material/object.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
@@ -106,15 +107,25 @@ sge::scenic::render_queue::object::current_material(
 			sge::scenic::render_context::material::diffuse_texture()
 		:
 			sge::scenic::render_context::material::diffuse_texture(
-				texture_manager_.texture_for_path(
-					_material.diffuse_texture().get())),
+				fcppt::make_ref(
+					texture_manager_.texture_for_path(
+						_material.diffuse_texture().get()
+					)
+				)
+			)
+		,
 		_material.specular_texture().get().empty()
 		?
 			sge::scenic::render_context::material::specular_texture()
 		:
 			sge::scenic::render_context::material::specular_texture(
-				texture_manager_.texture_for_path(
-					_material.specular_texture().get())));
+				fcppt::make_ref(
+					texture_manager_.texture_for_path(
+						_material.specular_texture().get()
+					)
+				)
+			)
+	);
 
 	change_context_state(
 		materials_,

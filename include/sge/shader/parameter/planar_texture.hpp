@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/reference.hpp>
 
 
 namespace sge
@@ -49,11 +50,15 @@ FCPPT_NONCOPYABLE(
 	planar_texture);
 public:
 	typedef
-	fcppt::optional::object<sge::renderer::texture::planar &>
+	fcppt::optional::reference<
+		sge::renderer::texture::planar
+	>
 	optional_value;
 
 	typedef
-	fcppt::optional::object<sge::renderer::cg::loaded_texture &>
+	fcppt::optional::reference<
+		sge::renderer::cg::loaded_texture
+	>
 	optional_loaded_texture;
 
 	SGE_SHADER_DETAIL_SYMBOL
@@ -90,8 +95,8 @@ public:
 	~planar_texture();
 private:
 	typedef
-	fcppt::optional::object<
-		sge::renderer::context::core &
+	fcppt::optional::reference<
+		sge::renderer::context::core
 	>
 	optional_render_context;
 

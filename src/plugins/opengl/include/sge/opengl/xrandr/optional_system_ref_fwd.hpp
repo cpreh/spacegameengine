@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_XRANDR_OPTIONAL_SYSTEM_REF_FWD_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/system_fwd.hpp>
-#include <fcppt/optional/object_fwd.hpp>
+#include <fcppt/optional/reference_fwd.hpp>
 
 
 namespace sge
@@ -33,8 +33,8 @@ namespace xrandr
 {
 
 typedef
-fcppt::optional::object<
-	sge::opengl::xrandr::system &
+fcppt::optional::reference<
+	sge::opengl::xrandr::system
 >
 optional_system_ref;
 

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/platform/object_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 sge::opencl::context::parameters::parameters(
@@ -74,7 +75,11 @@ sge::opencl::context::parameters::share_with(
 {
 	shared_renderer_ =
 		optional_renderer(
-			_shared_renderer);
+			fcppt::make_ref(
+				_shared_renderer
+			)
+		);
+
 	return *this;
 }
 

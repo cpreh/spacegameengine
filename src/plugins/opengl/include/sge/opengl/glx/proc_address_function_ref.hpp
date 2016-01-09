@@ -18,11 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_STATE_FFP_FOG_CONST_OPTIONAL_OBJECT_REF_HPP_INCLUDED
-#define SGE_RENDERER_STATE_FFP_FOG_CONST_OPTIONAL_OBJECT_REF_HPP_INCLUDED
+#ifndef SGE_OPENGL_GLX_PROC_ADDRESS_FUNCTION_REF_HPP_INCLUDED
+#define SGE_OPENGL_GLX_PROC_ADDRESS_FUNCTION_REF_HPP_INCLUDED
 
-#include <sge/renderer/state/ffp/fog/const_optional_object_ref_fwd.hpp>
-#include <fcppt/optional/reference.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
+#include <sge/opengl/glx/proc_address_function.hpp>
 
+
+namespace sge
+{
+namespace opengl
+{
+namespace glx
+{
+
+typedef
+fcppt::reference_wrapper<
+	sge::opengl::glx::proc_address_function
+>
+proc_address_function_ref;
+
+}
+}
+}
 
 #endif

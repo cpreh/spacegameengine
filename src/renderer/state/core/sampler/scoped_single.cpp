@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/scoped_single.hpp>
 #include <sge/renderer/state/core/sampler/single.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/make_cref.hpp>
 
 
 sge::renderer::state::core::sampler::scoped_single::scoped_single(
@@ -43,7 +44,9 @@ sge::renderer::state::core::sampler::scoped_single::scoped_single(
 		context_,
 		stage_,
 		sge::renderer::state::core::sampler::const_optional_object_ref(
-			_object
+			fcppt::make_cref(
+				_object
+			)
 		)
 	);
 }

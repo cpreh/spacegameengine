@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/x11/system.hpp>
 #include <sge/opengl/xrandr/create_system.hpp>
 #include <sge/opengl/xrandr/system.hpp>
-#include <sge/opengl/xrandr/system_unique_ptr.hpp>
 #include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/device/index.hpp>
 #include <sge/renderer/display_mode/container.hpp>
@@ -38,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/static_downcast.hpp>
-#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/deref.hpp>
 
 
 sge::opengl::x11::system::system(
@@ -91,16 +90,8 @@ sge::opengl::x11::system::create_device_state(
 			fcppt::make_unique_ptr<
 				sge::opengl::x11::device_state
 			>(
-				fcppt::optional::map(
-					xrandr_system_,
-					[](
-						sge::opengl::xrandr::system_unique_ptr const &_system
-					)
-					-> sge::opengl::xrandr::system &
-					{
-						return
-							*_system;
-					}
+				fcppt::optional::deref(
+					xrandr_system_
 				),
 				_display_mode,
 				fcppt::cast::static_downcast<

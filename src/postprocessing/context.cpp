@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/ds/format.hpp>
 #include <sge/postprocessing/context.hpp>
 #include <sge/renderer/color_buffer/optional_surface_ref.hpp>
+#include <sge/renderer/color_buffer/surface.hpp>
 #include <sge/renderer/color_buffer/writable_surface.hpp>
 #include <sge/renderer/depth_stencil_buffer/optional_surface_ref.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
@@ -61,7 +62,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/scoped_pair.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_wrapper_to_base.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assign/make_map.hpp>
@@ -241,7 +244,9 @@ sge::postprocessing::context::viewport_callback()
 
 	finalize_input_texture_parameter_.set(
 		sge::shader::parameter::planar_texture::optional_value(
-			*result_texture
+			fcppt::make_ref(
+				*result_texture
+			)
 		)
 	);
 
@@ -281,7 +286,9 @@ sge::postprocessing::context::viewport_callback()
 
 	offscreen_target->depth_stencil_surface(
 		sge::renderer::depth_stencil_buffer::optional_surface_ref(
-			*depth_stencil_surface
+			fcppt::make_ref(
+				*depth_stencil_surface
+			)
 		)
 	);
 }
@@ -316,11 +323,22 @@ sge::postprocessing::context::switch_target_texture(
 		offscreen_target_
 	)->color_surface(
 		sge::renderer::color_buffer::optional_surface_ref(
-			_new_texture.level(
-				sge::renderer::texture::mipmap::level(
-					0u))),
+			fcppt::reference_wrapper_to_base<
+				sge::renderer::color_buffer::surface
+			>(
+				fcppt::make_ref(
+					_new_texture.level(
+						sge::renderer::texture::mipmap::level(
+							0u
+						)
+					)
+				)
+			)
+		),
 		sge::renderer::target::surface_index(
-			0u));
+			0u
+		)
+	);
 
 	FCPPT_ASSERT_OPTIONAL_ERROR(
 		offscreen_target_

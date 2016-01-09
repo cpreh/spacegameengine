@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/value.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/optional/map.hpp>
 
@@ -36,10 +37,10 @@ namespace parse
 namespace json
 {
 
-/// Searches for a member with the name @a name
 /**
- * @return 0 if the member was not found
- * @throws invalid_get if the member has a different type than T
+\brief Searches for a member with the name @a name
+
+\throws invalid_get if the member has a different type than T
 */
 template<
 	typename T,
@@ -61,24 +62,16 @@ find_member(
 				_name
 			),
 			[](
-				typename
-				sge::parse::json::find_member_return_type<
-					sge::parse::json::value,
-					Arg
-				>::element_type _arg
+				auto const _arg
 			)
-			->
-			typename
-			sge::parse::json::find_member_return_type<
-				T,
-				Arg
-			>::element_type
 			{
 				return
-					sge::parse::json::get_exn<
-						T
-					>(
-						_arg
+					fcppt::make_ref(
+						sge::parse::json::get_exn<
+							T
+						>(
+							_arg.get()
+						)
 					);
 			}
 		);

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/rasterizer/parameters.hpp>
 #include <sge/sprite/state/with_rasterizer.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/optional/from.hpp>
 
 
@@ -63,7 +64,9 @@ sge::sprite::state::with_rasterizer::set(
 {
 	_context.rasterizer_state(
 		sge::renderer::state::core::rasterizer::const_optional_object_ref(
-			_state
+			fcppt::make_cref(
+				_state
+			)
 		)
 	);
 }

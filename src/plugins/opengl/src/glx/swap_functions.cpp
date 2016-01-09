@@ -20,8 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/glx/proc_address.hpp>
 #include <sge/opengl/glx/proc_address_function.hpp>
-#include <sge/opengl/glx/raw_function.hpp>
+#include <sge/opengl/glx/raw_function_ref.hpp>
 #include <sge/opengl/glx/swap_functions.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/optional/map.hpp>
 
 
@@ -36,15 +37,16 @@ sge::opengl::glx::swap_functions::swap_functions(
 				"glXSwapIntervalSGI"
 			),
 			[](
-				sge::opengl::glx::raw_function &_func
+				sge::opengl::glx::raw_function_ref const _func
 			)
-			-> glx_swap_interval_sgi
 			{
 				return
-					reinterpret_cast<
-						glx_swap_interval_sgi
-					>(
-						_func
+					fcppt::make_ref(
+						reinterpret_cast<
+							glx_swap_interval_sgi
+						>(
+							_func.get()
+						)
 					);
 			}
 		)
@@ -56,15 +58,16 @@ sge::opengl::glx::swap_functions::swap_functions(
 				"glXSwapIntervalEXT"
 			),
 			[](
-				sge::opengl::glx::raw_function &_func
+				sge::opengl::glx::raw_function_ref const _func
 			)
-			-> glx_swap_interval_ext
 			{
 				return
-					reinterpret_cast<
-						glx_swap_interval_ext
-					>(
-						_func
+					fcppt::make_ref(
+						reinterpret_cast<
+							glx_swap_interval_ext
+						>(
+							_func.get()
+						)
 					);
 			}
 		)

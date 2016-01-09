@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/info/major_version.hpp>
 #include <sge/opengl/info/minor_version.hpp>
 #include <sge/opengl/info/version_at_least.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -57,12 +57,14 @@ sge::opengl::draw_context::draw_context(
 		)
 		?
 			optional_draw_range_elements(
-				sge::opengl::deref_fun_ptr(
-					sge::opengl::info::cast_function<
-						PFNGLDRAWRANGEELEMENTSPROC
-					>(
-						_info.load_function(
-							"glDrawRangeElements"
+				fcppt::make_ref(
+					sge::opengl::deref_fun_ptr(
+						sge::opengl::info::cast_function<
+							PFNGLDRAWRANGEELEMENTSPROC
+						>(
+							_info.load_function(
+								"glDrawRangeElements"
+							)
 						)
 					)
 				)
@@ -76,12 +78,14 @@ sge::opengl::draw_context::draw_context(
 			)
 			?
 				optional_draw_range_elements(
-					sge::opengl::deref_fun_ptr(
-						sge::opengl::info::cast_function<
-							PFNGLDRAWRANGEELEMENTSPROC
-						>(
-							_info.load_function(
-								"glDrawRangeElementsEXT"
+					fcppt::make_ref(
+						sge::opengl::deref_fun_ptr(
+							sge::opengl::info::cast_function<
+								PFNGLDRAWRANGEELEMENTSPROC
+							>(
+								_info.load_function(
+									"glDrawRangeElementsEXT"
+								)
 							)
 						)
 					)

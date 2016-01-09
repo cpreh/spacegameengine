@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/scoped_offscreen_target.hpp>
 #include <sge/renderer/target/offscreen_fwd.hpp>
 #include <sge/renderer/target/optional_offscreen_ref.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 sge::renderer::context::scoped_offscreen_target::scoped_offscreen_target(
@@ -35,7 +36,9 @@ sge::renderer::context::scoped_offscreen_target::scoped_offscreen_target(
 {
 	context_.offscreen_target(
 		sge::renderer::target::optional_offscreen_ref(
-			_target
+			fcppt::make_ref(
+				_target
+			)
 		)
 	);
 }

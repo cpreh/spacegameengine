@@ -50,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/transform/object.hpp>
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
+#include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/count.hpp>
@@ -62,7 +63,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/material/object.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_wrapper_to_base.hpp>
 #include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assign/make_map.hpp>
@@ -233,7 +237,11 @@ sge::scenic::render_context::ffp::object::object(
 {
 	context_.lighting_state(
 		sge::renderer::state::ffp::lighting::const_optional_object_ref(
-			*current_lighting_));
+			fcppt::make_cref(
+				*current_lighting_
+			)
+		)
+	);
 }
 
 void
@@ -261,7 +269,9 @@ sge::scenic::render_context::ffp::object::transform(
 			context_.transform(
 				sge::renderer::state::ffp::transform::mode::projection,
 				sge::renderer::state::ffp::transform::const_optional_object_ref(
-					*cur_transform
+					fcppt::make_cref(
+						*cur_transform
+					)
 				)
 			);
 
@@ -283,7 +293,9 @@ sge::scenic::render_context::ffp::object::transform(
 			context_.transform(
 				sge::renderer::state::ffp::transform::mode::world,
 				sge::renderer::state::ffp::transform::const_optional_object_ref(
-					*cur_transform
+					fcppt::make_cref(
+						*cur_transform
+					)
 				)
 			);
 
@@ -319,13 +331,28 @@ sge::scenic::render_context::ffp::object::material(
 
 	context_.material_state(
 		sge::renderer::state::ffp::lighting::material::const_optional_object_ref(
-			*current_material
+			fcppt::make_cref(
+				*current_material
+			)
 		)
 	);
 
 	context_.texture(
-		sge::renderer::texture::const_optional_base_ref(
-			_material.diffuse_texture()
+		fcppt::optional::map(
+			_material.diffuse_texture(),
+			[](
+				fcppt::reference_wrapper<
+					sge::renderer::texture::planar
+				> const _texture
+			)
+			{
+				return
+					fcppt::reference_wrapper_to_base<
+						sge::renderer::texture::base const
+					>(
+						_texture
+					);
+			}
 		),
 		sge::renderer::texture::stage(
 			0u

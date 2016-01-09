@@ -26,9 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/optional/to_exception.hpp>
-#include <fcppt/variant/to_optional.hpp>
+#include <fcppt/variant/to_optional_ref.hpp>
 #include <fcppt/variant/type_info.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/if.hpp>
 #include <type_traits>
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>
@@ -46,11 +47,10 @@ template<
 	typename Arg,
 	typename MakeMessage
 >
-typename
 sge::parse::json::detail::get_return_type<
 	T,
 	Arg
->::type
+>
 get_exn_message(
 	Arg &_val,
 	MakeMessage const &_make_message
@@ -58,9 +58,13 @@ get_exn_message(
 {
 	return
 		fcppt::optional::to_exception(
-			fcppt::variant::to_optional<
+			fcppt::variant::to_optional_ref<
 				typename
-				std::remove_const<
+				boost::mpl::if_<
+					std::is_const<
+						Arg
+					>,
+					T const,
 					T
 				>::type
 			>(
@@ -91,7 +95,7 @@ get_exn_message(
 						_make_message()
 					);
 			}
-		);
+		).get();
 }
 
 }

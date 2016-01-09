@@ -75,6 +75,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -165,7 +166,9 @@ sge::opengl::render_context::object::offscreen_target(
 		[
 			this
 		](
-			sge::renderer::target::offscreen &_target
+			fcppt::reference_wrapper<
+				sge::renderer::target::offscreen
+			> const _target
 		)
 		{
 			FCPPT_ASSERT_PRE(
@@ -182,7 +185,7 @@ sge::opengl::render_context::object::offscreen_target(
 						dynamic_cast<
 							sge::opengl::target::base &
 						>(
-							_target
+							_target.get()
 						)
 					)
 				);

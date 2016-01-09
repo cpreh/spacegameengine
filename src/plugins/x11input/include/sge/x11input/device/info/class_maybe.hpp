@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/info/class_cast.hpp>
 #include <sge/x11input/device/info/class_map.hpp>
 #include <sge/x11input/device/info/class_type.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/optional/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <boost/mpl/at.hpp>
@@ -43,16 +44,16 @@ namespace info
 template<
 	typename Class
 >
-fcppt::optional::object<
-	Class const &
+fcppt::optional::reference<
+	Class const
 >
 class_maybe(
 	XIAnyClassInfo const &_info
 )
 {
 	typedef
-	fcppt::optional::object<
-		Class const &
+	fcppt::optional::reference<
+		Class const
 	>
 	result_type;
 
@@ -67,10 +68,12 @@ class_maybe(
 		>::type::value
 		?
 			result_type(
-				sge::x11input::device::info::class_cast<
-					Class const &
-				>(
-					_info
+				fcppt::make_cref(
+					sge::x11input::device::info::class_cast<
+						Class const &
+					>(
+						_info
+					)
 				)
 			)
 		:

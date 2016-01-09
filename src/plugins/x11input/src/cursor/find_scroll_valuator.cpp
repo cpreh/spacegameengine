@@ -23,10 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/info/class_maybe.hpp>
 #include <sge/x11input/device/valuator/index.hpp>
 #include <fcppt/make_int_range_count.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/optional/bind.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/reference.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
@@ -64,17 +65,19 @@ sge::x11input::cursor::find_scroll_valuator(
 							[
 								_number
 							](
-								XIValuatorClassInfo const &_valuator_class
+								fcppt::reference_wrapper<
+									XIValuatorClassInfo const
+								> const _valuator_class
 							)
 							{
 								typedef
-								fcppt::optional::object<
-									XIValuatorClassInfo const &
+								fcppt::optional::reference<
+									XIValuatorClassInfo const
 								>
 								result_type;
 
 								return
-									_valuator_class.number
+									_valuator_class.get().number
 									==
 									_number.get()
 									?
@@ -94,5 +97,5 @@ sge::x11input::cursor::find_scroll_valuator(
 						FCPPT_TEXT("Scroll valuator not present")
 					};
 			}
-		);
+		).get();
 }

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/make_cref.hpp>
 
 
 sge::renderer::texture::scoped::scoped(
@@ -40,7 +41,9 @@ sge::renderer::texture::scoped::scoped(
 {
 	context_.texture(
 		sge::renderer::texture::const_optional_base_ref(
-			_texture
+			fcppt::make_cref(
+				_texture
+			)
 		),
 		stage_
 	);

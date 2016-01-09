@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/index_map_decl.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/reference.hpp>
 
 
 namespace sge
@@ -52,8 +52,8 @@ public:
 	override;
 
 	typedef
-	fcppt::optional::object<
-		sge::opengl::vertex::buffer const &
+	fcppt::optional::reference<
+		sge::opengl::vertex::buffer const
 	>
 	optional_buffer;
 
@@ -69,8 +69,8 @@ public:
 	) const;
 
 	typedef
-	fcppt::optional::object<
-		sge::opengl::vertex::declaration const &
+	fcppt::optional::reference<
+		sge::opengl::vertex::declaration const
 	>
 	optional_declaration;
 

@@ -55,7 +55,7 @@ sge::opengl::vertex::unset_buffer(
 	).unuse(
 		FCPPT_ASSERT_OPTIONAL_ERROR(
 			context.vertex_declaration()
-		).gl_format_part(
+		).get().gl_format_part(
 			index
 		)
 	);

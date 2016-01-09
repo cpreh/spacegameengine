@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/get_stage_id.hpp>
 #include <sge/opengl/texture/optional_id.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/optional/map.hpp>
 
 
@@ -48,11 +49,13 @@ sge::opengl::texture::get_stage_id(
 				_stage
 			),
 			[](
-				sge::opengl::texture::base const &_texture
+				fcppt::reference_wrapper<
+					sge::opengl::texture::base const
+				> const _texture
 			)
 			{
 				return
-					_texture.id();
+					_texture.get().id();
 			}
 		);
 }

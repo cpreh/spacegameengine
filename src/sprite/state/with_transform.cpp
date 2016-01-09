@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/projection_matrix.hpp>
 #include <sge/sprite/projection_matrix_fixed.hpp>
 #include <sge/sprite/state/with_transform.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/map.hpp>
 
@@ -91,7 +92,9 @@ sge::sprite::state::with_transform::set(
 	_context.transform(
 		sge::renderer::state::ffp::transform::mode::projection,
 		sge::renderer::state::ffp::transform::const_optional_object_ref(
-			_state
+			fcppt::make_cref(
+				_state
+			)
 		)
 	);
 }

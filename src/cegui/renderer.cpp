@@ -483,7 +483,7 @@ sge::cegui::renderer::getTexture(
 						textures_,
 						_name
 					)
-				).get_pointer()
+				).get().get_pointer()
 			)
 		);
 }

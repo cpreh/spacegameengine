@@ -159,10 +159,10 @@ sge::opengl::draw_elements(
 			_first_vertex,
 			_num_vertices
 		](
-			sge::opengl::draw_context::gl_draw_range_elements _draw_elements
+			sge::opengl::draw_context::draw_range_elements_ref const _draw_elements
 		)
 		{
-			_draw_elements(
+			_draw_elements.get()(
 				primitive_type,
 				fcppt::cast::size<
 					GLuint

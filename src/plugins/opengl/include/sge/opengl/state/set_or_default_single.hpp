@@ -21,7 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_STATE_SET_OR_DEFAULT_SINGLE_HPP_INCLUDED
 #define SGE_OPENGL_STATE_SET_OR_DEFAULT_SINGLE_HPP_INCLUDED
 
+#include <fcppt/make_cref.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/reference.hpp>
 
 
 namespace sge
@@ -34,12 +38,14 @@ namespace state
 template<
 	typename GLState,
 	typename Context,
-	typename StateRef
+	typename State
 >
 void
 set_or_default_single(
 	Context const &_context,
-	StateRef const &_state
+	fcppt::optional::reference<
+		State const
+	> const _state
 )
 {
 	fcppt::optional::maybe(
@@ -47,24 +53,28 @@ set_or_default_single(
 		[
 			&_context
 		]()
-		-> GLState const &
 		{
 			return
-				_context.default_state();
+				fcppt::make_cref(
+					_context.default_state()
+				);
 		},
 		[](
-			typename StateRef::element_type _value
+			fcppt::reference_wrapper<
+				State const
+			> const _value
 		)
-		-> GLState const &
 		{
 			return
-				static_cast<
-					GLState const &
-				>(
-					_value
+				fcppt::make_cref(
+					fcppt::cast::static_downcast<
+						GLState const &
+					>(
+						_value.get()
+					)
 				);
 		}
-	).set();
+	).get().set();
 }
 
 }

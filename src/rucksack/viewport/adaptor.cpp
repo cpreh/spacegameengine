@@ -33,8 +33,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/widget/optional_ref.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_wrapper.hpp>
+#include <fcppt/reference_wrapper_to_base.hpp>
+#include <fcppt/optional/comparison.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/ref_compare.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -169,12 +172,14 @@ sge::rucksack::viewport::adaptor::relayout()
 		[
 			this
 		](
-			sge::rucksack::widget::base &_child
+			fcppt::reference_wrapper<
+				sge::rucksack::widget::base
+			> const _child
 		)
 		{
 			this->resize_child();
 
-			_child.relayout();
+			_child.get().relayout();
 		}
 	);
 }
@@ -187,10 +192,12 @@ sge::rucksack::viewport::adaptor::child(
 	fcppt::optional::maybe_void(
 		child_,
 		[](
-			sge::rucksack::widget::base &_child
+			fcppt::reference_wrapper<
+				sge::rucksack::widget::base
+			> const _child
 		)
 		{
-			_child.parent(
+			_child.get().parent(
 				sge::rucksack::widget::optional_ref()
 			);
 		}
@@ -198,12 +205,20 @@ sge::rucksack::viewport::adaptor::child(
 
 	child_ =
 		sge::rucksack::widget::optional_ref(
-			_new_child
+			fcppt::make_ref(
+				_new_child
+			)
 		);
 
 	_new_child.parent(
 		sge::rucksack::widget::optional_ref(
-			*this
+			fcppt::reference_wrapper_to_base<
+				sge::rucksack::widget::base
+			>(
+				fcppt::make_ref(
+					*this
+				)
+			)
 		)
 	);
 
@@ -216,10 +231,12 @@ sge::rucksack::viewport::adaptor::~adaptor()
 	fcppt::optional::maybe_void(
 		child_,
 		[](
-			sge::rucksack::widget::base &_child
+			fcppt::reference_wrapper<
+				sge::rucksack::widget::base
+			> const _child
 		)
 		{
-			_child.parent(
+			_child.get().parent(
 				sge::rucksack::widget::optional_ref()
 			);
 		}
@@ -241,7 +258,7 @@ sge::rucksack::viewport::adaptor::resize_child()
 	sge::rucksack::widget::base &cur_child(
 		FCPPT_ASSERT_OPTIONAL_ERROR(
 			child_
-		)
+		).get()
 	);
 
 	cur_child.position(
@@ -263,12 +280,13 @@ sge::rucksack::viewport::adaptor::child_destroyed(
 )
 {
 	FCPPT_ASSERT_PRE(
-		fcppt::optional::ref_compare(
-			sge::rucksack::widget::optional_ref(
+		sge::rucksack::widget::optional_ref(
+			fcppt::make_ref(
 				_child
-			),
-			child_
+			)
 		)
+		==
+		child_
 	);
 
 	child_ =

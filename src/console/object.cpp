@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
 #include <sge/src/console/eval_grammar.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/insert_to_string.hpp>
@@ -197,11 +198,13 @@ sge::console::object::eval(
 			this,
 			&_sp
 		](
-			sge::font::char_type const _prefix
+			fcppt::reference_wrapper<
+				sge::font::char_type const
+			> const _prefix
 		)
 		{
 			if(
-				_prefix
+				_prefix.get()
 				!=
 				prefix_
 			)
@@ -264,27 +267,29 @@ sge::console::object::eval(
 			&_args,
 			this
 		](
-			sge::font::string const &_command
+			fcppt::reference_wrapper<
+				sge::font::string const
+			> const _command
 		)
 		{
 			fcppt::optional::to_exception(
 				fcppt::container::find_opt_mapped(
 					funcs_,
-					_command
+					_command.get()
 				),
 				[
-					&_command
+					_command
 				]{
 					return
 						sge::console::exception{
 							SGE_FONT_LIT("couldn't find command \"")
 							+
-							_command
+							_command.get()
 							+
 							SGE_FONT_LIT('"')
 						};
 				}
-			).signal()(
+			).get().signal()(
 				_args,
 				*this
 			);
@@ -375,22 +380,24 @@ sge::console::object::man_callback(
 		[
 			this
 		](
-			sge::font::string const &_command
+			fcppt::reference_wrapper<
+				sge::font::string const
+			> const _command
 		)
 		{
 			fcppt::optional::maybe(
 				fcppt::container::find_opt_mapped(
 					funcs_,
-					_command
+					_command.get()
 				),
 				[
-					&_command,
+					_command,
 					this
 				]{
 					this->emit_error(
 						SGE_FONT_LIT("function \"")
 						+
-						_command
+						_command.get()
 						+
 						SGE_FONT_LIT("\" not found")
 					);
@@ -398,15 +405,17 @@ sge::console::object::man_callback(
 				[
 					this
 				](
-					sge::console::function const &_function
+					fcppt::reference_wrapper<
+						sge::console::function
+					> const _function
 				)
 				{
 					this->emit_message(
-						_function.long_description().get().empty()
+						_function.get().long_description().get().empty()
 						?
 							SGE_FONT_LIT("No manpage available")
 						:
-							_function.long_description().get()
+							_function.get().long_description().get()
 					);
 				}
 			);

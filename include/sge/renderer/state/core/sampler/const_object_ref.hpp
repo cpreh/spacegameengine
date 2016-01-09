@@ -36,9 +36,11 @@ namespace core
 namespace sampler
 {
 
-typedef fcppt::reference_wrapper<
+typedef
+fcppt::reference_wrapper<
 	sge::renderer::state::core::sampler::object const
-> const_object_ref;
+>
+const_object_ref;
 
 }
 }

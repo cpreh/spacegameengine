@@ -29,11 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/object.hpp>
 #include <sge/renderer/state/core/sampler/parameters.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
+#include <fcppt/optional/copy_value.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/join.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/static_cast.hpp>
 
 
@@ -90,20 +91,23 @@ sge::opengl::state::core::sampler::context::get(
 	return
 		fcppt::optional::from(
 			fcppt::optional::join(
-				fcppt::container::find_opt_mapped(
-					objects_,
-					_stage
+				fcppt::optional::copy_value(
+					fcppt::container::find_opt_mapped(
+						objects_,
+						_stage
+					)
 				)
 			),
 			[
 				this
 			]()
-			-> sge::opengl::state::core::sampler::object const &
 			{
 				return
-					*defaults_;
+					fcppt::make_cref(
+						*defaults_
+					);
 			}
-		);
+		).get();
 }
 
 void

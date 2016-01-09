@@ -77,8 +77,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/vf/position.hpp>
 #include <sge/src/cegui/vf/texcoord.hpp>
 #include <sge/src/cegui/vf/vertex_view.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/optional/ref_compare.hpp>
+#include <fcppt/reference_wrapper_comparison.hpp>
+#include <fcppt/optional/comparison.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/optional_error.hpp>
@@ -195,7 +197,7 @@ sge::cegui::geometry_buffer::draw() const
 	sge::renderer::context::ffp &render_context(
 		FCPPT_ASSERT_OPTIONAL_ERROR(
 			render_context_
-		)
+		).get()
 	);
 
 	FCPPT_LOG_DEBUG(
@@ -316,18 +318,19 @@ sge::cegui::geometry_buffer::draw() const
 
 			{
 				sge::renderer::state::core::rasterizer::const_optional_object_ref new_state(
-					batch.clip().get()
-					?
-						*rasterizer_scissor_on_
-					:
-						*rasterizer_scissor_off_
+					fcppt::make_cref(
+						batch.clip().get()
+						?
+							*rasterizer_scissor_on_
+						:
+							*rasterizer_scissor_off_
+					)
 				);
 
 				if(
-					!fcppt::optional::ref_compare(
-						new_state,
-						prev_rasterizer
-					)
+					new_state
+					!=
+					prev_rasterizer
 				)
 				{
 					prev_rasterizer = new_state;

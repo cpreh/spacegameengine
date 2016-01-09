@@ -39,10 +39,12 @@ namespace core
 namespace sampler
 {
 
-typedef std::map<
+typedef
+std::map<
 	sge::renderer::texture::stage,
 	sge::renderer::state::core::sampler::const_object_ref
-> const_object_ref_map;
+>
+const_object_ref_map;
 
 }
 }

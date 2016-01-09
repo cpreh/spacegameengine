@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/optional/object_decl.hpp>
+#include <fcppt/optional/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
 #include <fcppt/config/external_end.hpp>
@@ -88,14 +88,18 @@ private:
 	>
 	object_unique_ptr;
 
-	typedef fcppt::optional::object<
-		sge::opengl::state::core::sampler::object const &
-	> optional_object_ref;
+	typedef
+	fcppt::optional::reference<
+		sge::opengl::state::core::sampler::object const
+	>
+	optional_object_ref;
 
-	typedef std::map<
+	typedef
+	std::map<
 		sge::renderer::texture::stage,
 		optional_object_ref
-	> optional_object_ref_map;
+	>
+	optional_object_ref_map;
 
 	object_unique_ptr const defaults_;
 
