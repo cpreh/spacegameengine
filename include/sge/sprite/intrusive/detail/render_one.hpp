@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/render/range_object.hpp>
 #include <sge/sprite/render/range_impl.hpp>
 #include <majutsu/get.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
 
@@ -83,9 +84,11 @@ render_one(
 			&_render_context,
 			&range
 		](
-			sge::sprite::detail::render::range_object<
-				choices
-			> const &_range_object
+			fcppt::reference_wrapper<
+				sge::sprite::detail::render::range_object<
+					choices
+				> const
+			> const _range_object
 		)
 		{
 			sge::renderer::vertex::scoped_buffer const scoped_buffer(
@@ -93,13 +96,13 @@ render_one(
 				*majutsu::get<
 					sge::sprite::buffers::roles::vertex_buffer
 				>(
-					_range_object
+					_range_object.get()
 				)
 			);
 
 			sge::sprite::detail::render::range(
 				_render_context,
-				_range_object,
+				_range_object.get(),
 				range.parts()
 			);
 		}
