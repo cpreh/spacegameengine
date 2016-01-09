@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_GLX_PROC_ADDRESS_FUNCTION_REF_HPP_INCLUDED
 #define SGE_OPENGL_GLX_PROC_ADDRESS_FUNCTION_REF_HPP_INCLUDED
 
-#include <fcppt/reference_wrapper_impl.hpp>
 #include <sge/opengl/glx/proc_address_function.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 
 
 namespace sge
