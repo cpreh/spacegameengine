@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
-#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/deref.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -77,22 +77,10 @@ sge::d3d9::target::temporary::temporary(
 
 sge::d3d9::target::temporary::~temporary()
 {
-	auto const surface_to_ref(
-		[](
-			sge::d3d9::surface::d3d_unique_ptr const &_surface
-		)
-		-> IDirect3DSurface9 &
-		{
-			return
-				*_surface;
-		}
-	);
-
 	sge::d3d9::devicefuncs::set_depth_stencil_surface(
 		device_,
-		fcppt::optional::map(
-			depth_stencil_surface_,
-			surface_to_ref
+		fcppt::optional::deref(
+			depth_stencil_surface_
 		)
 	);
 
@@ -111,11 +99,10 @@ sge::d3d9::target::temporary::~temporary()
 			>(
 				index
 			),
-			fcppt::optional::map(
+			fcppt::optional::deref(
 				color_surfaces_[
 					index
-				],
-				surface_to_ref
+				]
 			)
 		);
 }

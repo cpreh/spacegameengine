@@ -23,8 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surface/optional_d3d_ref.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/target/surface_index.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/optional/maybe.hpp>
 
 
 void
@@ -41,7 +43,24 @@ sge::d3d9::devicefuncs::set_render_target(
 			>(
 				_index.get()
 			),
-			_surface.data()
+			fcppt::optional::maybe(
+				_surface,
+				[]()
+				-> IDirect3DSurface9 *
+				{
+					return
+						nullptr;
+				},
+				[](
+					fcppt::reference_wrapper<
+						IDirect3DSurface9
+					> const _surface_ref
+				)
+				{
+					return
+						_surface_ref.get_pointer();
+				}
+			)
 		)
 		!= D3D_OK
 	)

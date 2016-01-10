@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/index_map_decl.hpp>
-#include <fcppt/optional/object_decl.hpp>
+#include <fcppt/optional/reference.hpp>
 
 
 namespace sge
@@ -96,14 +96,14 @@ private:
 	);
 
 	typedef
-	fcppt::optional::object<
-		sge::d3d9::surface::color &
+	fcppt::optional::reference<
+		sge::d3d9::surface::color
 	>
 	optional_color_surface_ref;
 
 	typedef
-	fcppt::optional::object<
-		sge::d3d9::surface::depth_stencil_offscreen &
+	fcppt::optional::reference<
+		sge::d3d9::surface::depth_stencil_offscreen
 	>
 	optional_depth_stencil_surface_ref;
 

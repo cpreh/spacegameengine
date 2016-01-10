@@ -21,8 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_STATE_SET_OR_DEFAULT_HPP_INCLUDED
 #define SGE_D3D9_STATE_SET_OR_DEFAULT_HPP_INCLUDED
 
+#include <fcppt/make_cref.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/reference.hpp>
 
 
 namespace sge
@@ -33,12 +36,14 @@ namespace state
 {
 
 template<
-	typename StateRef,
+	typename State,
 	typename D3DState
 >
 void
 set_or_default(
-	StateRef const &_state_ref,
+	fcppt::optional::reference<
+		State const
+	> const _state_ref,
 	D3DState const &_default_state
 )
 {
@@ -47,26 +52,28 @@ set_or_default(
 		[
 			&_default_state
 		]()
-		-> D3DState const &
 		{
 			return
-				_default_state;
+				fcppt::make_cref(
+					_default_state
+				);
 		},
 		[](
-			typename
-			StateRef::value_type const &_ref
+			fcppt::reference_wrapper<
+				State const
+			> const _ref
 		)
-		->
-		D3DState const &
 		{
 			return
-				fcppt::cast::static_downcast<
-					D3DState const &
-				>(
-					_ref
+				fcppt::make_cref(
+					fcppt::cast::static_downcast<
+						D3DState const &
+					>(
+						_ref.get()
+					)
 				);
 		}
-	).set();
+	).get().set();
 }
 
 }

@@ -76,10 +76,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vertex/first.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 
@@ -168,7 +169,7 @@ sge::d3d9::render_context::object::offscreen_target(
 				sge::d3d9::target::base &cur_target(
 					FCPPT_ASSERT_OPTIONAL_ERROR(
 						offscreen_target_
-					)
+					).get()
 				);
 
 				cur_target.active(
@@ -186,7 +187,9 @@ sge::d3d9::render_context::object::offscreen_target(
 		[
 			this
 		](
-			sge::renderer::target::offscreen &_target
+			fcppt::reference_wrapper<
+				sge::renderer::target::offscreen
+			> const _target
 		)
 		{
 			FCPPT_ASSERT_PRE(
@@ -201,7 +204,7 @@ sge::d3d9::render_context::object::offscreen_target(
 				dynamic_cast<
 					sge::d3d9::target::base &
 				>(
-					_target
+					_target.get()
 				)
 			);
 
@@ -211,7 +214,9 @@ sge::d3d9::render_context::object::offscreen_target(
 
 			offscreen_target_ =
 				sge::d3d9::render_context::object::optional_target_base_ref(
-					new_target
+					fcppt::make_ref(
+						new_target
+					)
 				);
 		}
 	);
@@ -292,12 +297,14 @@ sge::d3d9::render_context::object::vertex_declaration(
 		[
 			this
 		](
-			sge::renderer::vertex::declaration const &_declaration
+			fcppt::reference_wrapper<
+				sge::renderer::vertex::declaration const
+			> const _declaration
 		)
 		{
 			sge::d3d9::devicefuncs::set_vertex_declaration(
 				parameters_.device(),
-				_declaration
+				_declaration.get()
 			);
 		}
 	);

@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
 
@@ -50,7 +51,9 @@ sge::d3d9::texture::set(
 			&_device,
 			_stage
 		](
-			sge::renderer::texture::base const &_base
+			fcppt::reference_wrapper<
+				sge::renderer::texture::base const
+			> const _base
 		)
 		{
 			sge::d3d9::devicefuncs::set_sampler_state(
@@ -65,7 +68,7 @@ sge::d3d9::texture::set(
 							dynamic_cast<
 								sge::d3d9::texture::base const &
 							>(
-								_base
+								_base.get()
 							).color_format()
 						)
 					)

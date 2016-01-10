@@ -34,9 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_int_range.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/optional/dynamic_cast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/index_map_impl.hpp>
@@ -76,7 +77,7 @@ sge::d3d9::target::offscreen::color_surface(
 		_index.get()
 	] =
 		fcppt::optional::dynamic_cast_<
-			sge::d3d9::surface::color &
+			sge::d3d9::surface::color
 		>(
 			_surface
 		);
@@ -89,7 +90,7 @@ sge::d3d9::target::offscreen::depth_stencil_surface(
 {
 	depth_stencil_surface_ =
 		fcppt::optional::dynamic_cast_<
-			sge::d3d9::surface::depth_stencil_offscreen &
+			sge::d3d9::surface::depth_stencil_offscreen
 		>(
 			_surface
 		);
@@ -154,7 +155,9 @@ sge::d3d9::target::offscreen::change_surfaces(
 				index,
 				this
 			](
-				sge::d3d9::surface::color &_surface
+				fcppt::reference_wrapper<
+					sge::d3d9::surface::color
+				> const _surface
 			)
 			{
 				sge::d3d9::devicefuncs::set_render_target(
@@ -168,7 +171,9 @@ sge::d3d9::target::offscreen::change_surfaces(
 					_activate
 					?
 						sge::d3d9::surface::optional_d3d_ref(
-							_surface.surface()
+							fcppt::make_ref(
+								_surface.get().surface()
+							)
 						)
 					:
 						sge::d3d9::surface::optional_d3d_ref()
@@ -182,7 +187,9 @@ sge::d3d9::target::offscreen::change_surfaces(
 			_activate,
 			this
 		](
-			sge::d3d9::surface::depth_stencil_offscreen &_surface
+			fcppt::reference_wrapper<
+				sge::d3d9::surface::depth_stencil_offscreen
+			> const _surface
 		)
 		{
 			sge::d3d9::devicefuncs::set_depth_stencil_surface(
@@ -190,7 +197,9 @@ sge::d3d9::target::offscreen::change_surfaces(
 				_activate
 				?
 					sge::d3d9::surface::optional_d3d_ref(
-						_surface.surface()
+						fcppt::make_ref(
+							_surface.get().surface()
+						)
 					)
 				:
 					sge::d3d9::surface::optional_d3d_ref()

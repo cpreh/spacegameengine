@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/relative_axis_callback.hpp>
 #include <sge/input/joypad/relative_axis_id.hpp>
 #include <sge/input/joypad/relative_axis_event.hpp>
+#include <fcppt/optional/copy_value.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -129,9 +130,11 @@ sge::dinput::joypad::device::on_dispatch(
 )
 {
 	fcppt::optional::maybe_void(
-		fcppt::container::find_opt_mapped(
-			info_.absolute_axis_map(),
-			_data.dwOfs
+		fcppt::optional::copy_value(
+			fcppt::container::find_opt_mapped(
+				info_.absolute_axis_map(),
+				_data.dwOfs
+			)
 		),
 		[
 			this,
@@ -159,9 +162,11 @@ sge::dinput::joypad::device::on_dispatch(
 	);
 
 	fcppt::optional::maybe_void(
-		fcppt::container::find_opt_mapped(
-			info_.button_map(),
-			_data.dwOfs
+		fcppt::optional::copy_value(
+			fcppt::container::find_opt_mapped(
+				info_.button_map(),
+				_data.dwOfs
+			)
 		),
 		[
 			this,
@@ -184,9 +189,11 @@ sge::dinput::joypad::device::on_dispatch(
 	);
 
 	fcppt::optional::maybe_void(
-		fcppt::container::find_opt_mapped(
-			info_.relative_axis_map(),
-			_data.dwOfs
+		fcppt::optional::copy_value(
+			fcppt::container::find_opt_mapped(
+				info_.relative_axis_map(),
+				_data.dwOfs
+			)
 		),
 		[
 			this,

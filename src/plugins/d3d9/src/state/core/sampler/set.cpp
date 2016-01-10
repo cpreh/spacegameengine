@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/core/sampler/set.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/object.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
@@ -42,24 +44,28 @@ sge::d3d9::state::core::sampler::set(
 			[
 				&_default
 			]()
-			-> sge::d3d9::state::core::sampler::object const &
 			{
 				return
-					_default;
+					fcppt::make_cref(
+						_default
+					);
 			},
 			[](
-				sge::renderer::state::core::sampler::object const &_ref
+				fcppt::reference_wrapper<
+					sge::renderer::state::core::sampler::object const
+				> const _ref
 			)
-			-> sge::d3d9::state::core::sampler::object const &
 			{
 				return
-					fcppt::cast::static_downcast<
-						sge::d3d9::state::core::sampler::object const &
-					>(
-						_ref
+					fcppt::make_cref(
+						fcppt::cast::static_downcast<
+							sge::d3d9::state::core::sampler::object const &
+						>(
+							_ref.get()
+						)
 					);
 			}
-		).set(
+		).get().set(
 			sampler.first
 		);
 }

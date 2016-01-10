@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/reference_wrapper_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional/maybe.hpp>
 
@@ -52,14 +53,16 @@ sge::d3d9::devicefuncs::set_texture(
 					nullptr
 				),
 				[](
-					sge::renderer::texture::base const &_texture
+					fcppt::reference_wrapper<
+						sge::renderer::texture::base const
+					> const _texture
 				)
 				{
 					return
 						&dynamic_cast<
 							sge::d3d9::texture::base const &
 						>(
-							_texture
+							_texture.get()
 						).get();
 				}
 			)

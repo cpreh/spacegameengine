@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color_buffer/readable_surface_fwd.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
@@ -105,7 +106,9 @@ sge::d3d9::target::onscreen::on_activate()
 			0u
 		),
 		sge::d3d9::surface::optional_d3d_ref(
-			color_surface_->surface()
+			fcppt::make_ref(
+				color_surface_->surface()
+			)
 		)
 	);
 
