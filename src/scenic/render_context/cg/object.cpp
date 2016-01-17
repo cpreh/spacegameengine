@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/material/object.hpp>
 #include <sge/src/scenic/render_context/cg/any_color_to_vector4.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assign/make_map.hpp>
@@ -292,7 +292,7 @@ sge::scenic::render_context::cg::object::vertex_buffer(
 		[
 			this
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::renderer::vertex::buffer const
 			> const _vertex_buffer
 		)
@@ -377,7 +377,7 @@ sge::scenic::render_context::cg::object::~object()
 		[
 			this
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::renderer::vertex::buffer const
 			> const _vertex_buffer
 		)

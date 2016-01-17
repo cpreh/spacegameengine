@@ -63,8 +63,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/material/object.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
-#include <fcppt/reference_wrapper_to_base.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/algorithm/map.hpp>
@@ -341,13 +341,13 @@ sge::scenic::render_context::ffp::object::material(
 		fcppt::optional::map(
 			_material.diffuse_texture(),
 			[](
-				fcppt::reference_wrapper<
+				fcppt::reference<
 					sge::renderer::texture::planar
 				> const _texture
 			)
 			{
 				return
-					fcppt::reference_wrapper_to_base<
+					fcppt::reference_to_base<
 						sge::renderer::texture::base const
 					>(
 						_texture

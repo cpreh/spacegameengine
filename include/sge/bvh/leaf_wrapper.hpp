@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_BVH_LEAF_WRAPPER_HPP_INCLUDED
 #define SGE_BVH_LEAF_WRAPPER_HPP_INCLUDED
 
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -52,7 +52,7 @@ public:
 			value_.get();
 	}
 private:
-	fcppt::reference_wrapper<
+	fcppt::reference<
 		leaf
 	> value_;
 };

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/optional/maybe.hpp>
 
@@ -56,7 +56,7 @@ sge::opengl::state::ffp::transform::set(
 				);
 		},
 		[](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::renderer::state::ffp::transform::object const
 			> const _transform
 		)

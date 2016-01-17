@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/options_fwd.hpp>
 #include <sge/sprite/state/scoped_impl.hpp>
 #include <majutsu/get.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
 
@@ -70,7 +70,7 @@ range_with_options(
 			&_states,
 			&_options
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::sprite::detail::render::range_object<
 					Choices
 				> const

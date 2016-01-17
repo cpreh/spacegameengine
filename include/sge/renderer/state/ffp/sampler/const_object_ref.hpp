@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_FFP_SAMPLER_CONST_OBJECT_REF_HPP_INCLUDED
 
 #include <sge/renderer/state/ffp/sampler/object_fwd.hpp>
-#include <fcppt/reference_wrapper.hpp>
+#include <fcppt/reference.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace ffp
 namespace sampler
 {
 
-typedef fcppt::reference_wrapper<
+typedef fcppt::reference<
 	sge::renderer::state::ffp::sampler::object const
 > const_object_ref;
 

@@ -77,7 +77,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -187,7 +187,7 @@ sge::d3d9::render_context::object::offscreen_target(
 		[
 			this
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::renderer::target::offscreen
 			> const _target
 		)
@@ -297,7 +297,7 @@ sge::d3d9::render_context::object::vertex_declaration(
 		[
 			this
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::renderer::vertex::declaration const
 			> const _declaration
 		)

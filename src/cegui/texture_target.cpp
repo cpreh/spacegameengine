@@ -54,7 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/reference_wrapper_to_base.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
@@ -477,7 +477,7 @@ sge::cegui::texture_target::declareRenderSize(
 
 	target_->color_surface(
 		sge::renderer::color_buffer::optional_surface_ref(
-			fcppt::reference_wrapper_to_base<
+			fcppt::reference_to_base<
 				sge::renderer::color_buffer::surface
 			>(
 				fcppt::make_ref(

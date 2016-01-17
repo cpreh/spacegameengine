@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/opencl/declare_local_logger.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
@@ -76,7 +76,7 @@ construct_context_parameters(
 		[
 			&result
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::renderer::device::core
 			> const _renderer
 		)

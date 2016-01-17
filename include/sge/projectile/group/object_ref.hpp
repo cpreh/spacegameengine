@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_GROUP_OBJECT_REF_HPP_INCLUDED
 
 #include <sge/projectile/group/object_fwd.hpp>
-#include <fcppt/reference_wrapper.hpp>
+#include <fcppt/reference.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace group
 {
 
 typedef
-fcppt::reference_wrapper<
+fcppt::reference<
 	sge::projectile::group::object
 >
 object_ref;

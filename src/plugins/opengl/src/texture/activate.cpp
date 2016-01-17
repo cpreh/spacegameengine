@@ -104,7 +104,7 @@ sge::opengl::texture::activate(
 			&_context,
 			&_stage
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::renderer::texture::base const
 			> const _texture
 		)

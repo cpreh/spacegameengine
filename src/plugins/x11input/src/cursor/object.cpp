@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/cursor/object_fwd.hpp>
 #include <awl/backends/x11/system/event/type.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/unreachable.hpp>
@@ -287,7 +287,7 @@ sge::x11input::cursor::object::on_motion(
 						_value,
 						this
 					](
-						fcppt::reference_wrapper<
+						fcppt::reference<
 							sge::x11input::cursor::scroll_valuator
 						> const _valuator
 					)

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GUI_WIDGET_REFERENCE_FWD_HPP_INCLUDED
 
 #include <sge/gui/widget/base_fwd.hpp>
-#include <fcppt/reference_wrapper_fwd.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace widget
 {
 
 typedef
-fcppt::reference_wrapper<
+fcppt::reference<
 	sge::gui::widget::base
 >
 reference;

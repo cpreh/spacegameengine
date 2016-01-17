@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_SET_OR_DEFAULT_SINGLE_HPP_INCLUDED
 
 #include <fcppt/make_cref.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/reference.hpp>
@@ -60,7 +60,7 @@ set_or_default_single(
 				);
 		},
 		[](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				State const
 			> const _value
 		)

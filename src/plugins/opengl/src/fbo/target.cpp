@@ -54,7 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/format.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -180,7 +180,7 @@ sge::opengl::fbo::target::color_surface(
 			fcppt::optional::map(
 				_opt_surface,
 				[](
-					fcppt::reference_wrapper<
+					fcppt::reference<
 						sge::renderer::color_buffer::surface
 					> const _surface
 				)
@@ -200,7 +200,7 @@ sge::opengl::fbo::target::color_surface(
 			this,
 			_index
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::renderer::color_buffer::surface
 			> const _surface
 		)
@@ -258,7 +258,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 		[
 			this
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::renderer::depth_stencil_buffer::surface
 			> const _surface
 		)

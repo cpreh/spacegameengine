@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
 
@@ -50,7 +50,7 @@ sge::gui::widget::base::~base()
 		[
 			this
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::gui::widget::base
 			> const _parent
 		)
@@ -130,7 +130,7 @@ sge::gui::widget::base::parent(
 		[
 			this
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::gui::widget::base
 			> const _parent
 		)

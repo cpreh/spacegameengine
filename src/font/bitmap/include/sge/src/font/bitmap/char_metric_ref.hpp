@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_FONT_BITMAP_CHAR_METRIC_REF_HPP_INCLUDED
 
 #include <sge/src/font/bitmap/char_metric_fwd.hpp>
-#include <fcppt/reference_wrapper.hpp>
+#include <fcppt/reference.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace font
 namespace bitmap
 {
 
-typedef fcppt::reference_wrapper<
+typedef fcppt::reference<
 	sge::font::bitmap::char_metric const
 > char_metric_ref;
 

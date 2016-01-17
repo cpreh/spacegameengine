@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -200,7 +200,7 @@ sge::gui::master::char_event(
 		[
 			&_event
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::gui::widget::base
 			> const _focus
 		)
@@ -279,7 +279,7 @@ sge::gui::master::handle_key(
 		[
 			_key_code
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::gui::widget::base
 			> const _focus
 		)
@@ -307,7 +307,7 @@ sge::gui::master::try_focus(
 		[
 			this
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::gui::widget::base
 			> const _focus_window
 		)

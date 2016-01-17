@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -59,7 +59,7 @@ sge::opengl::vertex::set_buffer(
 		[
 			&_context
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::opengl::vertex::buffer const
 			> const _old_buffer
 		)

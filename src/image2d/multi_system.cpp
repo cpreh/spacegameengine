@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/media/stream_unique_ptr.hpp>
 #include <sge/src/media/muxer_impl.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/bind.hpp>
 
 
@@ -83,7 +83,7 @@ sge::image2d::multi_system::create(
 				&_view,
 				&_extension
 			](
-				fcppt::reference_wrapper<
+				fcppt::reference<
 					sge::image2d::system
 				> const _system
 			)

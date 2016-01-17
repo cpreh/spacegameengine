@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TIMER_CLOCKS_DETAIL_STATEFUL_BASE_HPP_INCLUDED
 #define SGE_TIMER_CLOCKS_DETAIL_STATEFUL_BASE_HPP_INCLUDED
 
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -57,7 +57,7 @@ public:
 			clock_.get();
 	}
 private:
-	fcppt::reference_wrapper<
+	fcppt::reference<
 		Clock const
 	> clock_;
 };

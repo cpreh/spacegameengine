@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SHADER_ISTREAM_REF_HPP_INCLUDED
 #define SGE_SHADER_ISTREAM_REF_HPP_INCLUDED
 
-#include <fcppt/reference_wrapper.hpp>
+#include <fcppt/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -33,7 +33,7 @@ namespace shader
 {
 
 typedef
-fcppt::reference_wrapper<
+fcppt::reference<
 	std::istream
 >
 istream_ref;

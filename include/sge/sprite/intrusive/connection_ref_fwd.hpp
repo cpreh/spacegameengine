@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_INTRUSIVE_CONNECTION_REF_FWD_HPP_INCLUDED
 
 #include <sge/sprite/intrusive/connection_fwd.hpp>
-#include <fcppt/reference_wrapper_fwd.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -38,7 +38,7 @@ template<
 using
 connection_ref
 =
-fcppt::reference_wrapper<
+fcppt::reference<
 	sge::sprite::intrusive::connection<
 		Choices
 	>

@@ -79,7 +79,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/vf/vertex_view.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/reference_wrapper_comparison.hpp>
+#include <fcppt/reference_comparison.hpp>
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>

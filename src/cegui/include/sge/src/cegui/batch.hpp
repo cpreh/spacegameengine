@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/batch_fwd.hpp>
 #include <sge/src/cegui/clip.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/reference_wrapper.hpp>
+#include <fcppt/reference.hpp>
 
 
 namespace sge
@@ -72,7 +72,7 @@ public:
 	clip() const;
 private:
 	typedef
-	fcppt::reference_wrapper<
+	fcppt::reference<
 		sge::renderer::texture::planar
 	>
 	planar_texture_ref;

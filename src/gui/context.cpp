@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
@@ -49,7 +49,7 @@ sge::gui::context::focus(
 	fcppt::optional::maybe_void(
 		focus_,
 		[](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::gui::widget::base
 			> const _focus
 		)
@@ -83,7 +83,7 @@ sge::gui::context::destroy(
 			&_widget,
 			this
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::gui::widget::base
 			> const _focus
 		)

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/mouse/make_button_infos.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/optional/map.hpp>
@@ -67,7 +67,7 @@ sge::x11input::mouse::make_button_infos(
 								[
 									&_display
 								](
-									fcppt::reference_wrapper<
+									fcppt::reference<
 										XIButtonClassInfo const
 									> const _button_class
 								)

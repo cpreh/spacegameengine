@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/object.hpp>
 #include <sge/sprite/buffers/offset_object.hpp>
 #include <sge/sprite/buffers/slice_fwd.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -51,7 +51,7 @@ public:
 	object;
 
 	typedef
-	fcppt::reference_wrapper<
+	fcppt::reference<
 		object const
 	>
 	object_ref;

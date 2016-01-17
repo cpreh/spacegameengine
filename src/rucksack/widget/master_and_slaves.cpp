@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/widget/master_and_slaves.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/vector/null.hpp>
@@ -125,7 +125,7 @@ sge::rucksack::widget::master_and_slaves::axis_policy() const
 					};
 			},
 			[](
-				fcppt::reference_wrapper<
+				fcppt::reference<
 					sge::rucksack::widget::base
 				> const _master_pane
 			)

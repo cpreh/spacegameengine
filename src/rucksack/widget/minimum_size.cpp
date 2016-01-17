@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/widget/minimum_size.hpp>
 #include <sge/src/rucksack/extract_size.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/reference_wrapper_to_base.hpp>
+#include <fcppt/reference_to_base.hpp>
 
 
 sge::rucksack::widget::minimum_size::minimum_size(
@@ -44,7 +44,7 @@ sge::rucksack::widget::minimum_size::minimum_size(
 {
 	child_.parent(
 		sge::rucksack::widget::optional_ref(
-			fcppt::reference_wrapper_to_base<
+			fcppt::reference_to_base<
 				sge::rucksack::widget::base
 			>(
 				fcppt::make_ref(

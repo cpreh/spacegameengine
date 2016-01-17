@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object_impl.hpp>
 #include <sge/texture/part.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/reference_wrapper_comparison.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_comparison.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -63,7 +63,7 @@ struct texture_level_function
 	{
 		return
 			Function<
-				fcppt::reference_wrapper<
+				fcppt::reference<
 					sge::renderer::texture::planar const
 				>
 			>()(

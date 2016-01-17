@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/parameter/planar_texture.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/deref.hpp>
@@ -74,7 +74,7 @@ sge::shader::parameter::planar_texture::set(
 		[
 			this
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::renderer::context::core
 			> const _render_context
 		)
@@ -91,7 +91,7 @@ sge::shader::parameter::planar_texture::set(
 					_render_context,
 					this
 				](
-					fcppt::reference_wrapper<
+					fcppt::reference<
 						sge::renderer::texture::planar
 					> const _texture
 				)

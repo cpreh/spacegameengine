@@ -134,7 +134,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object.hpp>
 #include <awl/window/object.hpp>
 #include <awl/window/event/processor_fwd.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/cast/try_dynamic.hpp>
@@ -215,7 +215,7 @@ sge::opengl::device::device(
 		[
 			this
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::renderer::visual_base const
 			> const _visual
 		)

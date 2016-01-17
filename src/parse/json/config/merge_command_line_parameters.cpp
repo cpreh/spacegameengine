@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/config/merge_command_line_parameters.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/optional/to_exception.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/fold.hpp>
@@ -120,7 +120,7 @@ process_option(
 	first.pop_back();
 
 	typedef
-	fcppt::reference_wrapper<
+	fcppt::reference<
 		sge::parse::json::object
 	>
 	object_ref;

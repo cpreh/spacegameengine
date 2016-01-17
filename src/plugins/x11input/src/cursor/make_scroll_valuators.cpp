@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/valuator/index.hpp>
 #include <sge/x11input/device/valuator/make_absolute.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -66,7 +66,7 @@ sge::x11input::cursor::make_scroll_valuators(
 						[
 							&_info
 						](
-							fcppt::reference_wrapper<
+							fcppt::reference<
 								XIScrollClassInfo const
 							> const _scroll_class
 						)

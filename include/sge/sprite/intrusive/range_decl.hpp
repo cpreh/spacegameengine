@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/range_fwd.hpp>
 #include <sge/sprite/intrusive/detail/list.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -55,7 +55,7 @@ class range
 	list;
 public:
 	typedef
-	fcppt::reference_wrapper<
+	fcppt::reference<
 		typename
 		std::conditional<
 			IsConst,

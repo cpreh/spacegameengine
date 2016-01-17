@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VERTEX_CONST_BUFFER_REF_HPP_INCLUDED
 
 #include <sge/renderer/vertex/buffer_fwd.hpp>
-#include <fcppt/reference_wrapper.hpp>
+#include <fcppt/reference.hpp>
 
 
 namespace sge
@@ -35,7 +35,7 @@ namespace vertex
 /**
 \brief A reference wrapper to const vertex buffer references
 */
-typedef fcppt::reference_wrapper<
+typedef fcppt::reference<
 	sge::renderer::vertex::buffer const
 > const_buffer_ref;
 

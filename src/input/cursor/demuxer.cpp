@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/remove_event.hpp>
 #include <sge/input/cursor/scroll_callback.hpp>
 #include <sge/input/cursor/scroll_event_fwd.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/to_exception.hpp>
@@ -139,7 +139,7 @@ sge::input::cursor::demuxer::position() const
 		fcppt::optional::bind(
 			this->current_cursor(),
 			[](
-				fcppt::reference_wrapper<
+				fcppt::reference<
 					sge::input::cursor::object
 				> const _cursor
 			)
@@ -247,7 +247,7 @@ sge::input::cursor::demuxer::assign_cursor()
 		[
 			this
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::input::cursor::object
 			> const _cursor
 		)

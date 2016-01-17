@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/object.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
@@ -51,7 +51,7 @@ sge::d3d9::state::core::sampler::set(
 					);
 			},
 			[](
-				fcppt::reference_wrapper<
+				fcppt::reference<
 					sge::renderer::state::core::sampler::object const
 				> const _ref
 			)

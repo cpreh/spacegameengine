@@ -34,8 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/reference_wrapper.hpp>
-#include <fcppt/reference_wrapper_to_base.hpp>
+#include <fcppt/reference.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/assert/optional_error.hpp>
@@ -172,7 +172,7 @@ sge::rucksack::viewport::adaptor::relayout()
 		[
 			this
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::rucksack::widget::base
 			> const _child
 		)
@@ -192,7 +192,7 @@ sge::rucksack::viewport::adaptor::child(
 	fcppt::optional::maybe_void(
 		child_,
 		[](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::rucksack::widget::base
 			> const _child
 		)
@@ -212,7 +212,7 @@ sge::rucksack::viewport::adaptor::child(
 
 	_new_child.parent(
 		sge::rucksack::widget::optional_ref(
-			fcppt::reference_wrapper_to_base<
+			fcppt::reference_to_base<
 				sge::rucksack::widget::base
 			>(
 				fcppt::make_ref(
@@ -231,7 +231,7 @@ sge::rucksack::viewport::adaptor::~adaptor()
 	fcppt::optional::maybe_void(
 		child_,
 		[](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::rucksack::widget::base
 			> const _child
 		)

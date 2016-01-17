@@ -64,7 +64,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/reference_wrapper_to_base.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assign/make_map.hpp>
@@ -323,7 +323,7 @@ sge::postprocessing::context::switch_target_texture(
 		offscreen_target_
 	)->color_surface(
 		sge::renderer::color_buffer::optional_surface_ref(
-			fcppt::reference_wrapper_to_base<
+			fcppt::reference_to_base<
 				sge::renderer::color_buffer::surface
 			>(
 				fcppt::make_ref(

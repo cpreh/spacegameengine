@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/literal.hpp>
 #include <fcppt/make_int_range.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/dynamic_cast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
@@ -155,7 +155,7 @@ sge::d3d9::target::offscreen::change_surfaces(
 				index,
 				this
 			](
-				fcppt::reference_wrapper<
+				fcppt::reference<
 					sge::d3d9::surface::color
 				> const _surface
 			)
@@ -187,7 +187,7 @@ sge::d3d9::target::offscreen::change_surfaces(
 			_activate,
 			this
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::d3d9::surface::depth_stencil_offscreen
 			> const _surface
 		)

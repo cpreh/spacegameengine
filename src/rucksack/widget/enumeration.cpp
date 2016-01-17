@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/widget/reference.hpp>
 #include <sge/src/rucksack/extract_size.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/reference_wrapper_comparison.hpp>
-#include <fcppt/reference_wrapper_to_base.hpp>
+#include <fcppt/reference_comparison.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/algorithm/find_opt.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/math/dim/null.hpp>
@@ -203,7 +203,7 @@ sge::rucksack::widget::enumeration::push_back_child(
 
 	_child.parent(
 		sge::rucksack::widget::optional_ref{
-			fcppt::reference_wrapper_to_base<
+			fcppt::reference_to_base<
 				sge::rucksack::widget::base
 			>(
 				fcppt::make_ref(

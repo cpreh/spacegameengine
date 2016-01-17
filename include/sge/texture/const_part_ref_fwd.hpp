@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_TEXTURE_CONST_PART_REF_FWD_HPP_INCLUDED
 
 #include <sge/texture/part_fwd.hpp>
-#include <fcppt/reference_wrapper_fwd.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -31,7 +31,7 @@ namespace texture
 {
 
 typedef
-fcppt::reference_wrapper<
+fcppt::reference<
 	sge::texture::part const
 >
 const_part_ref;

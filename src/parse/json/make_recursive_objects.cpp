@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/value.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -49,7 +49,7 @@ namespace
 {
 
 typedef
-fcppt::reference_wrapper<
+fcppt::reference<
 	sge::parse::json::object
 >
 object_reference;
@@ -104,7 +104,7 @@ create_or_navigate_path(
 				&_input_path,
 				&_new_member
 			](
-				fcppt::reference_wrapper<
+				fcppt::reference<
 					sge::parse::json::value
 				> const _value
 			)

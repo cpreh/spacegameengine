@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/detail/is_math_type.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/reference_wrapper.hpp>
+#include <fcppt/reference.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/array_init.hpp>
 #include <fcppt/algorithm/map.hpp>
@@ -207,7 +207,7 @@ struct convert_from_impl<
 
 		typedef
 		std::array<
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::parse::json::element_vector const
 			>,
 			outer_size::value

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/material/object.hpp>
 #include <sge/scenic/render_context/material/shininess.hpp>
 #include <sge/scenic/render_context/material/specular_texture.hpp>
-#include <fcppt/reference_wrapper_comparison.hpp>
+#include <fcppt/reference_comparison.hpp>
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>

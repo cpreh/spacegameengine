@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_CONTEXT_BASE_REF_HPP_INCLUDED
 
 #include <sge/plugin/context_base_fwd.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -31,7 +31,7 @@ namespace plugin
 {
 
 typedef
-fcppt::reference_wrapper<
+fcppt::reference<
 	sge::plugin::context_base
 >
 context_base_ref;

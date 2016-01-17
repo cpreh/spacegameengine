@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/devicefuncs/set_depth_stencil_surface.hpp>
 #include <sge/d3d9/surface/optional_d3d_ref.hpp>
 #include <sge/renderer/exception.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional/maybe.hpp>
 
@@ -44,7 +44,7 @@ sge::d3d9::devicefuncs::set_depth_stencil_surface(
 						nullptr;
 				},
 				[](
-					fcppt::reference_wrapper<
+					fcppt::reference<
 						IDirect3DSurface9
 					> const _surface_ref
 				)

@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/create_processor.hpp>
 #include <awl/window/event/processor.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe.hpp>
 
 
@@ -59,7 +59,7 @@ sge::systems::modules::window::original::original(
 					_system.awl_system().default_visual();
 			},
 			[](
-				fcppt::reference_wrapper<
+				fcppt::reference<
 					sge::systems::modules::renderer::system
 				> const _renderer_system
 			)

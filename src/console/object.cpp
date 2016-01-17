@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
 #include <sge/src/console/eval_grammar.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/insert_to_string.hpp>
@@ -198,7 +198,7 @@ sge::console::object::eval(
 			this,
 			&_sp
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::font::char_type const
 			> const _prefix
 		)
@@ -267,7 +267,7 @@ sge::console::object::eval(
 			&_args,
 			this
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::font::string const
 			> const _command
 		)
@@ -380,7 +380,7 @@ sge::console::object::man_callback(
 		[
 			this
 		](
-			fcppt::reference_wrapper<
+			fcppt::reference<
 				sge::font::string const
 			> const _command
 		)
@@ -405,7 +405,7 @@ sge::console::object::man_callback(
 				[
 					this
 				](
-					fcppt::reference_wrapper<
+					fcppt::reference<
 						sge::console::function
 					> const _function
 				)

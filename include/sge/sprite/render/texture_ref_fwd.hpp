@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_RENDER_TEXTURE_REF_FWD_HPP_INCLUDED
 
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <fcppt/reference_wrapper_fwd.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace render
 {
 
 typedef
-fcppt::reference_wrapper<
+fcppt::reference<
 	sge::renderer::texture::planar const
 >
 texture_ref;

@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/remove_event_fwd.hpp>
 #include <fcppt/function_impl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/reference_wrapper.hpp>
+#include <fcppt/reference.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/optional_auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -106,7 +106,7 @@ private:
 
 	typedef
 	std::unordered_map<
-		fcppt::reference_wrapper<
+		fcppt::reference<
 			sge::input::joypad::device
 		>,
 		fcppt::signal::auto_connection_container

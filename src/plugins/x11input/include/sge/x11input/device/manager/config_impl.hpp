@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/manager/config.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/reference.hpp>
@@ -128,7 +128,7 @@ sge::x11input::device::manager::config<
 			[
 				this
 			](
-				fcppt::reference_wrapper<
+				fcppt::reference<
 					X11Object
 				> const _object
 			)

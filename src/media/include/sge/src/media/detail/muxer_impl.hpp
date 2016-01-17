@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/media/detail/muxer.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -254,7 +254,7 @@ sge::media::detail::muxer<
 							&_stream,
 							&_name
 						](
-							fcppt::reference_wrapper<
+							fcppt::reference<
 								System
 							> const _system
 						)

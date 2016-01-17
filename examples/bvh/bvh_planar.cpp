@@ -95,7 +95,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/extract_from_string_exn.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/reference_wrapper_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/int_to_float.hpp>
@@ -400,7 +400,7 @@ private:
 					[
 						&new_tree
 					](
-						fcppt::reference_wrapper<
+						fcppt::reference<
 							bvh_tree_traits::tree_representation const
 						> const _parent
 					)
@@ -423,7 +423,7 @@ private:
 					true
 				),
 				[](
-					fcppt::reference_wrapper<
+					fcppt::reference<
 						bvh_tree_traits::tree_representation const
 					> const _new_tree
 				)
