@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/detail/application.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/fusion/record.hpp>
+#include <majutsu/record.hpp>
+#include <fcppt/mpl/flatten.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/joint_view.hpp>
@@ -45,33 +46,35 @@ template<
 >
 using make_class
 =
-majutsu::fusion::record<
-	typename
-	boost::mpl::joint_view<
+majutsu::record<
+	fcppt::mpl::flatten<
 		typename
-		boost::mpl::transform<
+		boost::mpl::joint_view<
 			typename
-			Choices::optional_elements,
-			sge::sprite::detail::application<
-				boost::mpl::_1,
-				Choices
-			>
-		>::type,
-		boost::mpl::vector2<
-			typename
-			boost::mpl::apply<
+			boost::mpl::transform<
 				typename
-				Choices::pos_choice,
-				Choices
+				Choices::optional_elements,
+				sge::sprite::detail::application<
+					boost::mpl::_1,
+					Choices
+				>
 			>::type,
-			typename
-			boost::mpl::apply<
+			boost::mpl::vector2<
 				typename
-				Choices::size_choice,
-				Choices
-			>::type
-		>
-	>::type
+				boost::mpl::apply<
+					typename
+					Choices::pos_choice,
+					Choices
+				>::type,
+				typename
+				boost::mpl::apply<
+					typename
+					Choices::size_choice,
+					Choices
+				>::type
+			>
+		>::type
+	>
 >;
 
 }

@@ -36,8 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/roles/vertex_count.hpp>
 #include <sge/sprite/render/texture_ref.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/fusion/record.hpp>
+#include <majutsu/record.hpp>
 #include <fcppt/mpl/append.hpp>
+#include <fcppt/mpl/flatten.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -146,19 +147,21 @@ FCPPT_PP_POP_WARNING
 
 public:
 	typedef
-	majutsu::fusion::record<
-		typename
-		boost::mpl::eval_if<
-			sge::sprite::detail::config::has_texture_levels<
-				Choices
-			>,
-			make_textures<
-				geometry_types
-			>,
-			boost::mpl::identity<
-				geometry_types
-			>
-		>::type
+	majutsu::record<
+		fcppt::mpl::flatten<
+			typename
+			boost::mpl::eval_if<
+				sge::sprite::detail::config::has_texture_levels<
+					Choices
+				>,
+				make_textures<
+					geometry_types
+				>,
+				boost::mpl::identity<
+					geometry_types
+				>
+			>::type
+		>
 	>
 	type;
 };

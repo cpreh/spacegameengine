@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/roles/first_vertex.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/fusion/record.hpp>
+#include <majutsu/record.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -64,7 +64,7 @@ private:
 	index_buffer_role;
 public:
 	typedef
-	majutsu::fusion::record<
+	majutsu::record<
 		typename
 		boost::mpl::if_<
 			sge::sprite::detail::config::needs_index_buffer<

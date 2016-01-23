@@ -51,7 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/basic/homogenous_pair_impl.hpp>
 #include <sge/sprite/types/basic/vector_impl.hpp>
 #include <majutsu/get.hpp>
-#include <majutsu/role_return_type.hpp>
+#include <majutsu/role_value_type.hpp>
 #include <majutsu/set.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
@@ -955,13 +955,13 @@ template<
 	typename Role
 >
 inline
-majutsu::role_return_type<
+majutsu::role_value_type<
 	typename
 	sge::sprite::object<
 		Choices
 	>::element_type,
 	Role
->
+> const &
 sge::sprite::object<
 	Choices
 >::get() const
@@ -985,10 +985,10 @@ void
 sge::sprite::object<
 	Choices
 >::set(
-	majutsu::role_return_type<
+	majutsu::role_value_type<
 		element_type,
 		Role
-	> _value
+	> const &_value
 )
 {
 	majutsu::set<

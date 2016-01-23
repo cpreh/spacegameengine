@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/roles/blend_write_mask.hpp>
 #include <sge/sprite/state/roles/enable_scissor_test.hpp>
 #include <majutsu/init.hpp>
-#include <majutsu/role_return_type.hpp>
+#include <majutsu/role_value_type.hpp>
 #include <majutsu/set.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -103,7 +103,7 @@ sge::sprite::state::parameters<
 sge::sprite::state::parameters<
 	StateChoices
 >::set(
-	majutsu::role_return_type<
+	majutsu::role_value_type<
 		elements_type,
 		Role
 	> _value
@@ -117,7 +117,7 @@ sge::sprite::state::parameters<
 			fcppt::optional::object<
 				typename
 				std::decay<
-					majutsu::role_return_type<
+					majutsu::role_value_type<
 						elements_type,
 						Role
 					>

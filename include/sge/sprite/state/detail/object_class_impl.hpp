@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_STATE_DETAIL_OBJECT_CLASS_IMPL_HPP_INCLUDED
 
 #include <majutsu/role.hpp>
-#include <majutsu/fusion/record.hpp>
+#include <majutsu/record.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
@@ -70,7 +70,7 @@ private:
 	};
 public:
 	typedef
-	majutsu::fusion::record<
+	majutsu::record<
 		typename
 		boost::mpl::transform<
 			typename

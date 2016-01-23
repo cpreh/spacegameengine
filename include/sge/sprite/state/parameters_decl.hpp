@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/state/parameters_fwd.hpp>
 #include <sge/sprite/state/detail/parameters_class.hpp>
-#include <majutsu/role_return_type.hpp>
+#include <majutsu/role_value_type.hpp>
 
 
 namespace sge
@@ -63,7 +63,7 @@ public:
 	>
 	parameters &
 	set(
-		majutsu::role_return_type<
+		majutsu::role_value_type<
 			elements_type,
 			Role
 		>

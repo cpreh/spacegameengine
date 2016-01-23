@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/state/detail/options_class_element.hpp>
 #include <majutsu/role.hpp>
-#include <majutsu/fusion/record.hpp>
+#include <majutsu/record.hpp>
 #include <fcppt/mpl/append.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -89,7 +89,7 @@ private:
 	};
 public:
 	typedef
-	majutsu::fusion::record<
+	majutsu::record<
 		typename
 		fcppt::mpl::append<
 			typename boost::mpl::transform<

@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/basic/homogenous_pair_decl.hpp>
 #include <sge/sprite/types/basic/unit.hpp>
 #include <sge/sprite/types/basic/vector_decl.hpp>
-#include <majutsu/role_return_type.hpp>
+#include <majutsu/role_value_type.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -77,18 +77,10 @@ public:
 	>
 	element_type;
 
-	template<
-		typename Role
-	>
-	struct role_return_type
-	{
-		typedef
-		majutsu::role_return_type<
-			element_type,
-			Role
-		>
-		type;
-	};
+	typedef
+	typename
+	element_type::all_types
+	all_types;
 
 	typedef
 	Choices
@@ -430,10 +422,10 @@ public:
 	template<
 		typename Role
 	>
-	majutsu::role_return_type<
+	majutsu::role_value_type<
 		element_type,
 		Role
-	>
+	> const &
 	get() const;
 
 	template<
@@ -441,10 +433,10 @@ public:
 	>
 	void
 	set(
-		majutsu::role_return_type<
+		majutsu::role_value_type<
 			element_type,
 			Role
-		>
+		> const &
 	);
 private:
 	element_type elements_;
