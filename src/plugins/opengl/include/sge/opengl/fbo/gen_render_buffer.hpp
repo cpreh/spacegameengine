@@ -18,26 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/device/event.hpp>
-#include <sge/evdev/joypad/button/make_event.hpp>
-#include <sge/input/joypad/button_event.hpp>
-#include <sge/input/joypad/button_id.hpp>
-#include <sge/input/joypad/button_info_container_fwd.hpp>
-#include <sge/input/joypad/button_pressed.hpp>
+#ifndef SGE_OPENGL_FBO_GEN_RENDER_BUFFER_HPP_INCLUDED
+#define SGE_OPENGL_FBO_GEN_RENDER_BUFFER_HPP_INCLUDED
+
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/fbo/config_fwd.hpp>
 
 
-sge::input::joypad::button_event
-sge::evdev::joypad::button::make_event(
-	sge::input::joypad::button_id const _id,
-	sge::input::joypad::button_info_container const &,
-	sge::evdev::device::event const _event
-)
+namespace sge
 {
-	return
-		sge::input::joypad::button_event(
-			_id,
-			sge::input::joypad::button_pressed{
-				_event.get().value != 0
-			}
-		);
+namespace opengl
+{
+namespace fbo
+{
+
+GLuint
+gen_render_buffer(
+	sge::opengl::fbo::config const &
+);
+
 }
+}
+}
+
+#endif

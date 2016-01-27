@@ -57,7 +57,10 @@ public:
 	update();
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	~interval_exporter();
+	~interval_exporter()
+	noexcept(
+		false
+	);
 private:
 	sge::camera::base const &camera_;
 	sge::timer::basic<sge::timer::clocks::standard> update_timer_;

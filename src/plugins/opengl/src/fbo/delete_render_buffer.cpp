@@ -18,26 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/device/event.hpp>
-#include <sge/evdev/joypad/button/make_event.hpp>
-#include <sge/input/joypad/button_event.hpp>
-#include <sge/input/joypad/button_id.hpp>
-#include <sge/input/joypad/button_info_container_fwd.hpp>
-#include <sge/input/joypad/button_pressed.hpp>
+#include <sge/opengl/check_state.hpp>
+#include <sge/opengl/fbo/config.hpp>
+#include <sge/opengl/fbo/delete_render_buffer.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
 
-sge::input::joypad::button_event
-sge::evdev::joypad::button::make_event(
-	sge::input::joypad::button_id const _id,
-	sge::input::joypad::button_info_container const &,
-	sge::evdev::device::event const _event
+void
+sge::opengl::fbo::delete_render_buffer(
+	sge::opengl::fbo::config const &_config,
+	GLuint const _id
 )
 {
-	return
-		sge::input::joypad::button_event(
-			_id,
-			sge::input::joypad::button_pressed{
-				_event.get().value != 0
-			}
-		);
+	_config.delete_renderbuffers()(
+		1,
+		&_id
+	);
+
+	SGE_OPENGL_CHECK_STATE(
+		FCPPT_TEXT("Deleting a render buffer failed."),
+		sge::renderer::exception
+	)
 }

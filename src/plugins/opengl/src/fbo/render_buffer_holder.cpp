@@ -18,12 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/fbo/config.hpp>
+#include <sge/opengl/fbo/config_fwd.hpp>
+#include <sge/opengl/fbo/delete_render_buffer.hpp>
+#include <sge/opengl/fbo/gen_render_buffer.hpp>
 #include <sge/opengl/fbo/render_buffer_holder.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
 
 
 sge::opengl::fbo::render_buffer_holder::render_buffer_holder(
@@ -33,30 +32,20 @@ sge::opengl::fbo::render_buffer_holder::render_buffer_holder(
 	context_(
 		_context
 	),
-	id_()
-{
-	context_.gen_renderbuffers()(
-		1,
-		&id_
-	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Generating a render buffer failed."),
-		sge::renderer::exception
+	id_(
+		sge::opengl::fbo::gen_render_buffer(
+			context_
+		)
 	)
+{
 }
 
 sge::opengl::fbo::render_buffer_holder::~render_buffer_holder()
 {
-	context_.delete_renderbuffers()(
-		1,
-		&id_
+	sge::opengl::fbo::delete_render_buffer(
+		context_,
+		id_
 	);
-
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Deleting a render buffer failed."),
-		sge::renderer::exception
-	)
 }
 
 GLuint

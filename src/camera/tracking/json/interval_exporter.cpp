@@ -84,6 +84,9 @@ sge::camera::tracking::json::interval_exporter::update()
 }
 
 sge::camera::tracking::json::interval_exporter::~interval_exporter()
+noexcept(
+	false
+)
 {
 	if(
 		!sge::parse::json::output::to_file(

@@ -113,10 +113,12 @@ set(
 	src/plugins/opengl/include/sge/opengl/fbo/create_id.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/create_target.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/delete_id.hpp
+	src/plugins/opengl/include/sge/opengl/fbo/delete_render_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/depth_stencil_format_to_attachment.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/depth_stencil_surface.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/depth_stencil_surface_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/error_string_map.hpp
+	src/plugins/opengl/include/sge/opengl/fbo/gen_render_buffer.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/get_config.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/id.hpp
 	src/plugins/opengl/include/sge/opengl/fbo/last_context.hpp
@@ -703,8 +705,10 @@ set(
 	src/plugins/opengl/src/fbo/create_id.cpp
 	src/plugins/opengl/src/fbo/create_target.cpp
 	src/plugins/opengl/src/fbo/delete_id.cpp
+	src/plugins/opengl/src/fbo/delete_render_buffer.cpp
 	src/plugins/opengl/src/fbo/depth_stencil_format_to_attachment.cpp
 	src/plugins/opengl/src/fbo/depth_stencil_surface.cpp
+	src/plugins/opengl/src/fbo/gen_render_buffer.cpp
 	src/plugins/opengl/src/fbo/get_config.cpp
 	src/plugins/opengl/src/fbo/last_context.cpp
 	src/plugins/opengl/src/fbo/no_buffer.cpp

@@ -51,7 +51,7 @@ public:
 private:
 	sge::opengl::fbo::config const &context_;
 
-	GLuint id_;
+	GLuint const id_;
 };
 
 }

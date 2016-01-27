@@ -243,15 +243,20 @@ sge::noise::simplex::object<Float,N>::contrib(
 	vector_type const &intv)
 {
 	Float t = static_cast<Float>(0.6);
+
 	t -= fcppt::math::vector::dot(v,v);
+
 	if (t < 0)
 		return static_cast<Float>(0);
-	else
-		t *= t;
-		return t * t * fcppt::math::vector::dot(
+
+	t *= t;
+
+	return
+		t * t * fcppt::math::vector::dot(
 			gradients_[
 				index(intv) % (2u * N)],
-			v);
+			v
+		);
 }
 
 #endif
