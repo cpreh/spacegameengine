@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tag_value.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/loop.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/mpl/enum_range.hpp>
