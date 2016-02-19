@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2015 Carl Philipp Reh (carlphilippreh <at> gmail.com)
+Copyright (C) 2006-2016 Carl Philipp Reh (carlphilippreh <at> gmail.com)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/roles/index_buffer.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
-#include <majutsu/role.hpp>
 #include <majutsu/record.hpp>
+#include <majutsu/role.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/vector/vector10.hpp>

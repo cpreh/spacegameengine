@@ -1,6 +1,6 @@
 /*
 spacegameengine is a portable easy to use game engine written in C++.
-Copyright (C) 2006-2015 Carl Philipp Reh (carlphilippreh <at> gmail.com)
+Copyright (C) 2006-2016 Carl Philipp Reh (carlphilippreh <at> gmail.com)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public License
@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_DETAIL_OBJECT_CLASS_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_STATE_DETAIL_OBJECT_CLASS_IMPL_HPP_INCLUDED
 
-#include <majutsu/role.hpp>
 #include <majutsu/record.hpp>
+#include <majutsu/role.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
