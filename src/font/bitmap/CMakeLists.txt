@@ -20,6 +20,8 @@ set(
 	src/font/bitmap/include/sge/src/font/bitmap/logger.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/make_rep.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/object.hpp
+	src/font/bitmap/include/sge/src/font/bitmap/position.hpp
+	src/font/bitmap/include/sge/src/font/bitmap/position_fwd.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/rep.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/rep_fwd.hpp
 	src/font/bitmap/include/sge/src/font/bitmap/text.hpp
@@ -31,6 +33,7 @@ set(
 	src/font/bitmap/logger.cpp
 	src/font/bitmap/make_rep.cpp
 	src/font/bitmap/object.cpp
+	src/font/bitmap/position.cpp
 	src/font/bitmap/rep.cpp
 	src/font/bitmap/text.cpp
 )

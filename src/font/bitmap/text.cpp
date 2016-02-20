@@ -44,18 +44,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/sub.hpp>
 #include <sge/src/font/bitmap/char_map.hpp>
 #include <sge/src/font/bitmap/char_metric.hpp>
-#include <sge/src/font/bitmap/char_metric_ref_vector.hpp>
 #include <sge/src/font/bitmap/const_view.hpp>
 #include <sge/src/font/bitmap/line.hpp>
 #include <sge/src/font/bitmap/line_height.hpp>
 #include <sge/src/font/bitmap/make_rep.hpp>
+#include <sge/src/font/bitmap/position.hpp>
 #include <sge/src/font/bitmap/text.hpp>
+#include <fcppt/loop.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
-#include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/math/box/contains_point.hpp>
 #include <fcppt/math/box/null.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/math/dim/to_signed.hpp>
 #include <fcppt/math/dim/to_unsigned.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/math/vector/to_unsigned.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/variant/match.hpp>
 
 
@@ -117,6 +123,200 @@ sge::font::bitmap::text::render(
 		sge::image::algorithm::uninitialized::yes
 	);
 
+	this->iterate(
+		[
+			&_view
+		](
+			sge::font::bitmap::position const &_position
+		)
+		{
+			sge::font::bitmap::char_metric const &char_metric(
+				_position.metric()
+			);
+
+			sge::font::bitmap::const_view const source_view(
+				char_metric.view()
+			);
+
+			sge::image2d::algorithm::copy_and_convert(
+				source_view,
+				sge::image2d::view::sub(
+					_view,
+					sge::image2d::rect(
+						fcppt::math::vector::structure_cast<
+							sge::image2d::rect::vector,
+							fcppt::cast::size_fun
+						>(
+							fcppt::math::vector::to_unsigned(
+								_position.pos()
+							)
+						),
+						sge::image2d::view::size(
+							source_view
+						)
+					)
+				),
+				sge::image::algorithm::may_overlap::no,
+				sge::image::algorithm::uninitialized::no
+			);
+
+			return
+				fcppt::loop::continue_;
+		}
+	);
+}
+
+sge::font::rect
+sge::font::bitmap::text::rect() const
+{
+	return
+		rep_.rect();
+}
+
+sge::font::dim
+sge::font::bitmap::text::logical_size() const
+{
+	return
+		this->rect().size();
+}
+
+sge::font::rect
+sge::font::bitmap::text::cursor_rect(
+	sge::font::index const _index
+) const
+{
+	// TODO: This code would better be expressed using ranges.
+
+	typedef
+	fcppt::optional::object<
+		sge::font::rect
+	>
+	optional_rect;
+
+	optional_rect result;
+
+	sge::font::index index{
+		0u
+	};
+
+	this->iterate(
+		[
+			&result,
+			&index,
+			_index
+		](
+			sge::font::bitmap::position const _position
+		)
+		{
+			if(
+				index
+				==
+				_index
+			)
+			{
+				result =
+					optional_rect{
+						sge::font::rect{
+							_position.pos(),
+							fcppt::math::dim::structure_cast<
+								sge::font::dim,
+								fcppt::cast::size_fun
+							>(
+								fcppt::math::dim::to_signed(
+									sge::image2d::view::size(
+										_position.metric().view()
+									)
+								)
+							)
+						}
+					};
+
+				return
+					fcppt::loop::break_;
+			}
+
+			++index;
+
+			return
+				fcppt::loop::continue_;
+		}
+	);
+
+	return
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			result
+		);
+}
+
+sge::font::optional_index
+sge::font::bitmap::text::pos_to_index(
+	sge::font::vector const _pos
+) const
+{
+	// TODO: This code would better be expressed using ranges.
+
+	sge::font::optional_index result;
+
+	sge::font::index index{
+		0u
+	};
+
+	this->iterate(
+		[
+			&result,
+			&index,
+			_pos
+		](
+			sge::font::bitmap::position const _position
+		)
+		{
+			if(
+				fcppt::math::box::contains_point(
+					sge::font::rect{
+						_position.pos(),
+						fcppt::math::dim::structure_cast<
+							sge::font::dim,
+							fcppt::cast::size_fun
+						>(
+							fcppt::math::dim::to_signed(
+								sge::image2d::view::size(
+									_position.metric().view()
+								)
+							)
+						)
+					},
+					_pos
+				)
+			)
+			{
+				result =
+					sge::font::optional_index{
+						index
+					};
+
+				return
+					fcppt::loop::break_;
+			}
+
+			++index;
+
+			return
+				fcppt::loop::continue_;
+		}
+	);
+
+	return
+		result;
+}
+
+template<
+	typename Function
+>
+void
+sge::font::bitmap::text::iterate(
+	Function const &_function
+) const
+{
 	sge::font::unit top(
 		0u
 	);
@@ -168,95 +368,35 @@ sge::font::bitmap::text::render(
 			)
 		);
 
-		sge::font::bitmap::char_metric_ref_vector const &metrics(
-			line.char_metrics()
-		);
-
 		for(
-			auto const &metric
+			auto const metric
 			:
-			metrics
+			line.char_metrics()
 		)
 		{
-			sge::font::bitmap::char_metric const &char_metric(
-				metric.get()
-			);
-
-			sge::font::bitmap::const_view const source_view(
-				char_metric.view()
-			);
-
-			sge::image2d::algorithm::copy_and_convert(
-				source_view,
-				sge::image2d::view::sub(
-					_view,
-					sge::image2d::rect(
-						sge::image2d::rect::vector(
-							fcppt::cast::size<
-								sge::image::size_type
-							>(
-								fcppt::cast::to_unsigned(
-									left
-								)
-							),
-							fcppt::cast::size<
-								sge::image::size_type
-							>(
-								fcppt::cast::to_unsigned(
-									top
-								)
-							)
-						),
-						sge::image2d::view::size(
-							source_view
-						)
-					)
-				),
-				sge::image::algorithm::may_overlap::no,
-				sge::image::algorithm::uninitialized::no
-			);
+			switch(
+				_function(
+					sge::font::bitmap::position{
+						sge::font::vector{
+							left,
+							top
+						},
+						metric.get()
+					}
+				)
+			)
+			{
+			case fcppt::loop::break_:
+				return;
+			case fcppt::loop::continue_:
+				break;
+			}
 
 			left +=
-				char_metric.x_advance();
+				metric.get().x_advance();
 		}
 
 		top +=
 			line_height_.get();
 	}
-}
-
-sge::font::rect
-sge::font::bitmap::text::rect() const
-{
-	return
-		rep_.rect();
-}
-
-sge::font::dim
-sge::font::bitmap::text::logical_size() const
-{
-	return
-		this->rect().size();
-}
-
-sge::font::rect
-sge::font::bitmap::text::cursor_rect(
-	sge::font::index const _index
-) const
-{
-	// FIXME
-	return
-		fcppt::math::box::null<
-			sge::font::rect
-		>();
-}
-
-sge::font::optional_index
-sge::font::bitmap::text::pos_to_index(
-	sge::font::vector const _pos
-) const
-{
-	// FIXME
-	return
-		sge::font::optional_index();
 }

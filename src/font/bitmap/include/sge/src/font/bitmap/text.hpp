@@ -88,6 +88,14 @@ private:
 	) const
 	override;
 
+	template<
+		typename Function
+	>
+	void
+	iterate(
+		Function const &
+	) const;
+
 	sge::font::bitmap::line_height const line_height_;
 
 	sge::font::align_h::variant const align_h_;
