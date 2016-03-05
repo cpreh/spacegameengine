@@ -97,10 +97,13 @@ sge::camera::tracking::object::object(
 		_keyframes),
 	is_looping_(
 		_is_looping),
-	current_keyframe_(
+	current_keyframe_{
 		keyframes_.begin(),
-		keyframes_.begin(),
-		keyframes_.end()),
+		cyclic_iterator::boundary{
+			keyframes_.begin(),
+			keyframes_.end()
+		}
+	},
 	current_time_point_(
 		0.0f),
 	is_active_(
@@ -171,7 +174,7 @@ sge::camera::tracking::object::update(
 
 		current_keyframe_++;
 
-		if(current_keyframe_.get() == current_keyframe_.begin())
+		if(current_keyframe_.get() == current_keyframe_.get_boundary().first)
 		{
 			finished_ =
 				true;
