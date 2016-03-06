@@ -18,10 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/model/md3/exception.hpp>
 #include <sge/model/md3/scalar.hpp>
 #include <sge/src/model/md3/endian.hpp>
 #include <sge/src/model/md3/read_scalar.hpp>
-#include <fcppt/io/read_exn.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/io/read.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -33,10 +36,18 @@ sge::model::md3::read_scalar(
 )
 {
 	return
-		fcppt::io::read_exn<
-			sge::model::md3::scalar
-		>(
-			_stream,
-			sge::model::md3::endian()
+		fcppt::optional::to_exception(
+			fcppt::io::read<
+				sge::model::md3::scalar
+			>(
+				_stream,
+				sge::model::md3::endian()
+			),
+			[]{
+				return
+					sge::model::md3::exception{
+						FCPPT_TEXT("Failed reading a scalar")
+					};
+			}
 		);
 }

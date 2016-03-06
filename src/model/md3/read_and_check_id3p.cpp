@@ -18,12 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/model/md3/exception.hpp>
 #include <sge/model/md3/u8.hpp>
 #include <sge/src/model/md3/endian.hpp>
 #include <sge/src/model/md3/read_and_check_id3p.hpp>
-#include <fcppt/io/read_exn.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/io/read.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <algorithm>
 #include <array>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
@@ -34,32 +36,43 @@ sge::model::md3::read_and_check_id3p(
 	std::istream &_stream
 )
 {
-	typedef std::array<
+	typedef
+	std::array<
 		md3::u8,
 		4
-	> id3p_array;
+	>
+	id3p_array;
 
 	id3p_array const to_check{{
 		0x49, 0x44, 0x50, 0x33
 	}};
 
+	// TODO: Make a function for this!
 	id3p_array id3p;
 
 	for(
-		auto &elem : id3p
+		auto &elem
+		:
+		id3p
 	)
 		elem =
-			fcppt::io::read_exn<
-				md3::u8
-			>(
-				_stream,
-				md3::endian()
+			fcppt::optional::to_exception(
+				fcppt::io::read<
+					sge::model::md3::u8
+				>(
+					_stream,
+					sge::model::md3::endian()
+				),
+				[]{
+					return
+						sge::model::md3::exception{
+							FCPPT_TEXT("Failed reading id3p")
+						};
+				}
 			);
 
 	return
-		std::equal(
-			id3p.begin(),
-			id3p.end(),
-			to_check.begin()
-		);
+		to_check
+		==
+		id3p;
 }
