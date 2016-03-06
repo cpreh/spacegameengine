@@ -92,7 +92,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/extract_from_string_exn.hpp>
+#include <fcppt/extract_from_string.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -104,6 +104,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -490,10 +491,23 @@ try
 		return awl::main::exit_failure();
 	}
 
-	unsigned const rectangle_count =
-		fcppt::extract_from_string_exn<unsigned>(
-			std::string(
-				_context.argv()[1]));
+	unsigned const rectangle_count{
+		fcppt::optional::to_exception(
+			fcppt::extract_from_string<
+				unsigned
+			>(
+				std::string(
+					_context.argv()[1]
+				)
+			),
+			[]{
+				return
+					fcppt::exception{
+						FCPPT_TEXT("rectangle count is not an integer")
+					};
+			}
+		)
+	};
 
 	// TODO: Remove this
 	sge::window::dim const window_dim(

@@ -21,12 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/bvh/dummy_node.hpp>
 #include <sge/bvh/object_impl.hpp>
 #include <sge/bvh/tree_traits.hpp>
-#include <fcppt/extract_from_string_exn.hpp>
+#include <fcppt/exception.hpp>
+#include <fcppt/extract_from_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/tree/depth.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/random/variate.hpp>
 #include <fcppt/random/distribution/basic.hpp>
 #include <fcppt/random/distribution/parameters/uniform_real.hpp>
@@ -54,10 +56,23 @@ try
 		return EXIT_FAILURE;
 	}
 
-	unsigned const rectangle_count =
-		fcppt::extract_from_string_exn<unsigned>(
-			std::string(
-				argv[1]));
+	unsigned const rectangle_count{
+		fcppt::optional::to_exception(
+			fcppt::extract_from_string<
+				unsigned
+			>(
+				std::string(
+					argv[1]
+				)
+			),
+			[]{
+				return
+					fcppt::exception{
+						FCPPT_TEXT("rectangle count is not an integer.")
+					};
+			}
+		)
+	};
 
 	typedef
 	fcppt::math::box::rect<float>

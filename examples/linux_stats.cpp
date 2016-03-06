@@ -82,7 +82,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/extract_from_string_exn.hpp>
+#include <fcppt/extract_from_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -97,6 +97,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <array>
@@ -389,6 +390,7 @@ example_main(
 try
 {
 	count_memory();
+
 	if(_context.argc() <= 3)
 	{
 		std::cerr
@@ -403,17 +405,55 @@ try
 	}
 
 	sge::timer::scoped_frame_limiter::ticks_per_second const desired_fps(
-		fcppt::extract_from_string_exn<sge::timer::scoped_frame_limiter::ticks_per_second>(
-			std::string(
-				_context.argv()[1])));
+		fcppt::optional::to_exception(
+			fcppt::extract_from_string<
+				sge::timer::scoped_frame_limiter::ticks_per_second
+			>(
+				std::string(
+					_context.argv()[1]
+				)
+			),
+			[]{
+				return
+					fcppt::exception{
+						FCPPT_TEXT("Ticks per second is not an integer.")
+					};
+			}
+		)
+	);
 
-	sge::window::dim const graph_dim(
-		fcppt::extract_from_string_exn<sge::window::dim::value_type>(
-			std::string(
-				_context.argv()[2])),
-		fcppt::extract_from_string_exn<sge::window::dim::value_type>(
-			std::string(
-				_context.argv()[3])));
+	sge::window::dim const graph_dim{
+		fcppt::optional::to_exception(
+			fcppt::extract_from_string<
+				sge::window::dim::value_type
+			>(
+				std::string(
+					_context.argv()[2]
+				)
+			),
+			[]{
+				return
+					fcppt::exception{
+						FCPPT_TEXT("Graph width is not an integer.")
+					};
+			}
+		),
+		fcppt::optional::to_exception(
+			fcppt::extract_from_string<
+				sge::window::dim::value_type
+			>(
+				std::string(
+					_context.argv()[3]
+				)
+			),
+			[]{
+				return
+					fcppt::exception{
+						FCPPT_TEXT("Graph height is not an integer.")
+					};
+			}
+		)
+	};
 
 	std::vector<std::string> devices = ::network_devices();
 	std::size_t network_device_count = devices.size();
