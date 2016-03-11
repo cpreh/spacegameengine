@@ -21,11 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/platform/version.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
-// FIXME: I couldn't quite figure out which headers are needed here
-// (apart from the obvious ones)
-#include <boost/spirit/include/qi.hpp>
-// Do we need to include at_c explicitly?
+#include <boost/spirit/include/qi_char.hpp>
+#include <boost/spirit/include/qi_lit.hpp>
+#include <boost/spirit/include/qi_operator.hpp>
+#include <boost/spirit/include/qi_parse.hpp>
+#include <boost/spirit/include/qi_uint.hpp>
+#include <boost/spirit/include/support_standard.hpp>
 #include <boost/fusion/container/vector/vector10.hpp>
+#include <boost/fusion/sequence/intrinsic/at_c.hpp>
+#include <string>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -82,7 +86,7 @@ sge::opencl::platform::version::version(
 			boost::fusion::at_c<2>(
 				output).end());
 
-  FCPPT_ASSERT_PRE(
+	FCPPT_ASSERT_PRE(
 		begin == end && res);
 }
 
