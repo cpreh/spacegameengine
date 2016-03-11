@@ -45,9 +45,11 @@ set(
 	src/media/include/sge/src/media/logger.hpp
 	src/media/include/sge/src/media/muxer_impl.hpp
 	src/media/include/sge/src/media/muxer_parameters_impl.hpp
+	src/media/include/sge/src/media/raw_streambuf.hpp
 	src/media/log_location.cpp
 	src/media/logger.cpp
 	src/media/path_to_extension.cpp
+	src/media/raw_streambuf.cpp
 )
 
 sge_generate_instantiate_symbol_header(
