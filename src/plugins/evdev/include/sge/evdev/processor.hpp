@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_PROCESSOR_HPP_INCLUDED
 #define SGE_EVDEV_PROCESSOR_HPP_INCLUDED
 
-#include <sge/evdev/focus_manager.hpp>
 #include <sge/evdev/eventfd/object_fwd.hpp>
 #include <sge/evdev/inotify/event_fwd.hpp>
 #include <sge/evdev/inotify/reader_fwd.hpp>
@@ -39,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
-#include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <awl/backends/linux/fd/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -65,8 +63,8 @@ class processor
 		processor
 	);
 public:
+	explicit
 	processor(
-		sge::window::object const &,
 		sge::window::system const &
 	);
 
@@ -146,8 +144,6 @@ private:
 	sge::input::joypad::remove_signal joypad_remove_;
 
 	sge::evdev::joypad::map joypads_;
-
-	sge::evdev::focus_manager const focus_manager_;
 
 	boost::filesystem::path const path_;
 

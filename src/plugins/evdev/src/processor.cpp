@@ -42,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
-#include <sge/window/object_fwd.hpp>
 #include <sge/window/system.hpp>
 #include <awl/backends/linux/fd/processor.hpp>
 #include <awl/system/event/processor.hpp>
@@ -57,7 +56,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::evdev::processor::processor(
-	sge::window::object const &_window,
 	sge::window::system const &_window_system
 )
 :
@@ -65,10 +63,6 @@ sge::evdev::processor::processor(
 	joypad_discover_(),
 	joypad_remove_(),
 	joypads_(),
-	focus_manager_(
-		_window_system.awl_system(),
-		_window
-	),
 	path_(
 		"/dev/input"
 	),
@@ -223,7 +217,6 @@ sge::evdev::processor::dev_init()
 
 	sge::evdev::joypad::init(
 		sge::evdev::joypad::add_parameters(
-			focus_manager_,
 			processor_,
 			joypads_,
 			joypad_discover_
@@ -250,7 +243,6 @@ sge::evdev::processor::dev_event(
 	case sge::evdev::inotify::event_type::add:
 		sge::evdev::joypad::add(
 			sge::evdev::joypad::add_parameters(
-				focus_manager_,
 				processor_,
 				joypads_,
 				joypad_discover_
@@ -268,7 +260,6 @@ sge::evdev::processor::dev_event(
 	case sge::evdev::inotify::event_type::attrib:
 		sge::evdev::joypad::attrib(
 			sge::evdev::joypad::add_parameters(
-				focus_manager_,
 				processor_,
 				joypads_,
 				joypad_discover_

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/focus_manager_fwd.hpp>
 #include <sge/evdev/joypad/add_parameters.hpp>
 #include <sge/evdev/joypad/map.hpp>
 #include <sge/input/joypad/discover_signal.hpp>
@@ -26,15 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::evdev::joypad::add_parameters::add_parameters(
-	sge::evdev::focus_manager const &_focus_manager,
 	awl::backends::linux::fd::processor &_processor,
 	sge::evdev::joypad::map &_map,
 	sge::input::joypad::discover_signal &_discover_signal
 )
 :
-	focus_manager_(
-		_focus_manager
-	),
 	processor_(
 		_processor
 	),
@@ -45,13 +40,6 @@ sge::evdev::joypad::add_parameters::add_parameters(
 		_discover_signal
 	)
 {
-}
-
-sge::evdev::focus_manager const &
-sge::evdev::joypad::add_parameters::focus_manager() const
-{
-	return
-		focus_manager_;
 }
 
 awl::backends::linux::fd::processor &

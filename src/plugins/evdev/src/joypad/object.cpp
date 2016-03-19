@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/focus_manager_fwd.hpp>
 #include <sge/evdev/device/conditional_event.hpp>
 #include <sge/evdev/device/event.hpp>
 #include <sge/evdev/device/event_type.hpp>
@@ -47,7 +46,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::evdev::joypad::object::object(
-	sge::evdev::focus_manager const &_focus_manager,
 	awl::backends::linux::fd::processor &_processor,
 	sge::evdev::device::fd_unique_ptr _fd,
 	sge::evdev::joypad::info const &_info
@@ -55,7 +53,6 @@ sge::evdev::joypad::object::object(
 :
 	sge::input::joypad::device(),
 	sge::evdev::device::object(
-		_focus_manager,
 		_processor,
 		std::move(
 			_fd

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_DEVICE_OBJECT_HPP_INCLUDED
 #define SGE_EVDEV_DEVICE_OBJECT_HPP_INCLUDED
 
-#include <sge/evdev/focus_manager_fwd.hpp>
 #include <sge/evdev/device/event_fwd.hpp>
 #include <sge/evdev/device/fd_fwd.hpp>
 #include <sge/evdev/device/fd_unique_ptr.hpp>
@@ -45,7 +44,6 @@ class object
 	);
 public:
 	object(
-		sge::evdev::focus_manager const &,
 		awl::backends::linux::fd::processor &,
 		sge::evdev::device::fd_unique_ptr
 	);
@@ -63,8 +61,6 @@ private:
 	process_event(
 		sge::evdev::device::event const &
 	) = 0;
-
-	sge::evdev::focus_manager const &focus_manager_;
 
 	sge::evdev::device::fd_unique_ptr const fd_;
 

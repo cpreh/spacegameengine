@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/focus_manager.hpp>
 #include <sge/evdev/device/event.hpp>
 #include <sge/evdev/device/fd.hpp>
 #include <sge/evdev/device/fd_unique_ptr.hpp>
@@ -38,14 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::evdev::device::object::object(
-	sge::evdev::focus_manager const &_focus_manager,
 	awl::backends::linux::fd::processor &_processor,
 	sge::evdev::device::fd_unique_ptr _fd
 )
 :
-	focus_manager_(
-		_focus_manager
-	),
 	fd_(
 		std::move(
 			_fd
@@ -75,7 +70,9 @@ sge::evdev::device::object::on_event(
 	awl::backends::linux::fd::event const &
 )
 {
-	ssize_t result = -1;
+	ssize_t result{
+		-1
+	};
 
 	input_event event;
 
@@ -93,16 +90,11 @@ sge::evdev::device::object::on_event(
 		)
 		> 0
 	)
-	{
-		if(
-			focus_manager_.focus()
-		)
-			this->process_event(
-				sge::evdev::device::event(
-					event
-				)
-			);
-	}
+		this->process_event(
+			sge::evdev::device::event(
+				event
+			)
+		);
 
 	if(
 		result == -1

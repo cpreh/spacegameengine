@@ -89,7 +89,6 @@ sge::evdev::joypad::add(
 						fcppt::make_unique_ptr<
 							sge::evdev::joypad::object
 						>(
-							_parameters.focus_manager(),
 							_parameters.processor(),
 							std::move(
 								_fd

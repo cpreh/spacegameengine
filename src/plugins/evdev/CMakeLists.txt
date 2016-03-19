@@ -27,8 +27,6 @@ set(
 	src/plugins/evdev/include/sge/evdev/eventfd/fd.hpp
 	src/plugins/evdev/include/sge/evdev/eventfd/object.hpp
 	src/plugins/evdev/include/sge/evdev/eventfd/object_fwd.hpp
-	src/plugins/evdev/include/sge/evdev/focus_manager.hpp
-	src/plugins/evdev/include/sge/evdev/focus_manager_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/callback.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/convert_event_type.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/event.hpp
@@ -89,7 +87,6 @@ set(
 	src/plugins/evdev/src/eventfd/fd.cpp
 	src/plugins/evdev/src/eventfd/object.cpp
 	src/plugins/evdev/src/exports.cpp
-	src/plugins/evdev/src/focus_manager.cpp
 	src/plugins/evdev/src/inotify/convert_event_type.cpp
 	src/plugins/evdev/src/inotify/event.cpp
 	src/plugins/evdev/src/inotify/object.cpp

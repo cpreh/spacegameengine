@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_JOYPAD_ADD_PARAMETERS_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_ADD_PARAMETERS_HPP_INCLUDED
 
-#include <sge/evdev/focus_manager_fwd.hpp>
 #include <sge/evdev/joypad/add_parameters_fwd.hpp>
 #include <sge/evdev/joypad/map.hpp>
 #include <sge/input/joypad/discover_signal.hpp>
@@ -43,14 +42,10 @@ class add_parameters
 	);
 public:
 	add_parameters(
-		sge::evdev::focus_manager const &,
 		awl::backends::linux::fd::processor &,
 		sge::evdev::joypad::map &,
 		sge::input::joypad::discover_signal &
 	);
-
-	sge::evdev::focus_manager const &
-	focus_manager() const;
 
 	awl::backends::linux::fd::processor &
 	processor() const;
@@ -61,8 +56,6 @@ public:
 	sge::input::joypad::discover_signal &
 	discover_signal() const;
 private:
-	sge::evdev::focus_manager const &focus_manager_;
-
 	awl::backends::linux::fd::processor &processor_;
 
 	sge::evdev::joypad::map &map_;

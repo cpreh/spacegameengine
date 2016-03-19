@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_JOYPAD_OBJECT_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_OBJECT_HPP_INCLUDED
 
-#include <sge/evdev/focus_manager_fwd.hpp>
 #include <sge/evdev/device/event_fwd.hpp>
 #include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <sge/evdev/device/object.hpp>
@@ -58,7 +57,6 @@ class object
 	);
 public:
 	object(
-		sge::evdev::focus_manager const &,
 		awl::backends::linux::fd::processor &,
 		sge::evdev::device::fd_unique_ptr,
 		sge::evdev::joypad::info const &

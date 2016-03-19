@@ -43,7 +43,7 @@ sge::evdev::system::~system()
 
 sge::input::processor_unique_ptr
 sge::evdev::system::create_processor(
-	sge::window::object const &_window,
+	sge::window::object const &,
 	sge::window::system const &_window_system
 )
 {
@@ -54,7 +54,6 @@ sge::evdev::system::create_processor(
 			fcppt::make_unique_ptr<
 				sge::evdev::processor
 			>(
-				_window,
 				_window_system
 			)
 		);
