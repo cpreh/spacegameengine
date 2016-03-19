@@ -94,7 +94,6 @@ set(
 	src/plugins/x11input/include/sge/x11input/focus/looked_up_string.hpp
 	src/plugins/x11input/include/sge/x11input/focus/looked_up_string_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/focus/lookup_string.hpp
-	src/plugins/x11input/include/sge/x11input/focus/manager.hpp
 	src/plugins/x11input/include/sge/x11input/focus/object.hpp
 	src/plugins/x11input/include/sge/x11input/focus/object_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/focus/object_unique_ptr.hpp
