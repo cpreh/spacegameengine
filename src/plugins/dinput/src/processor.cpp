@@ -58,10 +58,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/window/has_focus.hpp>
-#include <awl/window/event/focus_in_callback.hpp>
-#include <awl/window/event/focus_in_fwd.hpp>
-#include <awl/window/event/focus_out_callback.hpp>
-#include <awl/window/event/focus_out_fwd.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -73,6 +69,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/cast/static_downcast.hpp>
+#include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -142,25 +139,37 @@ sge::dinput::processor::processor(
 		fcppt::assign::make_container<
 			fcppt::signal::auto_connection_container
 		>(
-			event_processor_.focus_in_callback(
-				awl::window::event::focus_in_callback(
+			event_processor_.register_callback(
+				fcppt::strong_typedef_construct_cast<
+					awl::backends::windows::event::type,
+					fcppt::cast::to_unsigned_fun
+				>(
+					WM_SETFOCUS
+				),
+				awl::backends::windows::window::event::callback{
 					std::bind(
 						&sge::dinput::processor::on_focus_in,
 						this,
 						std::placeholders::_1
 					)
-				)
+				}
 			)
 		)
 		(
-			event_processor_.focus_out_callback(
-				awl::window::event::focus_out_callback(
+			event_processor_.register_callback(
+				fcppt::strong_typedef_construct_cast<
+					awl::backends::windows::event::type,
+					fcppt::cast::to_unsigned_fun
+				>(
+					WM_KILLFOCUS
+				),
+				awl::backends::windows::window::event::callback{
 					std::bind(
 						&sge::dinput::processor::on_focus_out,
 						this,
 						std::placeholders::_1
 					)
-				)
+				}
 			)
 		)
 		(
@@ -318,9 +327,9 @@ sge::dinput::processor::joypad_remove_callback(
 		};
 }
 
-void
+awl::backends::windows::window::event::return_type
 sge::dinput::processor::on_focus_in(
-	awl::window::event::focus_in const &
+	awl::backends::windows::window::event::object const &
 )
 {
 	FCPPT_LOG_DEBUG(
@@ -340,11 +349,14 @@ sge::dinput::processor::on_focus_in(
 			std::placeholders::_1
 		)
 	);
+
+	return
+		awl::backends::windows::window::event::return_type();
 }
 
-void
+awl::backends::windows::window::event::return_type
 sge::dinput::processor::on_focus_out(
-	awl::window::event::focus_out const &
+	awl::backends::windows::window::event::object const &
 )
 {
 	FCPPT_LOG_DEBUG(
@@ -364,6 +376,9 @@ sge::dinput::processor::on_focus_out(
 			std::placeholders::_1
 		)
 	);
+
+	return
+		awl::backends::windows::window::event::return_type();
 }
 
 void

@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_event.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
+#include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/event/lparam.hpp>
 #include <awl/backends/windows/event/post_message.hpp>
 #include <awl/backends/windows/event/type.hpp>
@@ -52,9 +53,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/window/has_focus.hpp>
-#include <awl/window/event/focus_out_callback.hpp>
-#include <awl/window/event/focus_out_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -62,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/cast/static_downcast.hpp>
+#include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -110,14 +111,20 @@ sge::wininput::processor::processor(
 		fcppt::assign::make_container<
 			fcppt::signal::auto_connection_container
 		>(
-			event_processor_.focus_out_callback(
-				awl::window::event::focus_out_callback(
+			event_processor_.register_callback(
+				fcppt::strong_typedef_construct_cast<
+					awl::backends::windows::event::type,
+					fcppt::cast::to_unsigned_fun
+				>(
+					WM_KILLFOCUS
+				),
+				awl::backends::windows::window::event::callback{
 					std::bind(
 						&sge::wininput::processor::on_focus_out,
 						this,
 						std::placeholders::_1
 					)
-				)
+				}
 			)
 		)
 		(
@@ -259,9 +266,9 @@ sge::wininput::processor::joypad_remove_callback(
 		fcppt::signal::optional_auto_connection{};
 }
 
-void
+awl::backends::windows::window::event::return_type
 sge::wininput::processor::on_focus_out(
-	awl::window::event::focus_out const &
+	awl::backends::windows::window::event::object const &
 )
 {
 	FCPPT_LOG_DEBUG(
@@ -279,6 +286,9 @@ sge::wininput::processor::on_focus_out(
 			_cursor->focus_out();
 		}
 	);
+
+	return
+		awl::backends::windows::window::event::return_type();
 }
 
 awl::backends::windows::window::event::return_type

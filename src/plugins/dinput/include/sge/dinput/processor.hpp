@@ -51,8 +51,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/return_type_fwd.hpp>
 #include <awl/backends/windows/window/event/scoped_user_message.hpp>
 #include <awl/system/object_fwd.hpp>
-#include <awl/window/event/focus_in_fwd.hpp>
-#include <awl/window/event/focus_out_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
@@ -144,14 +142,14 @@ public:
 	)
 	override;
 private:
-	void
+	awl::backends::windows::window::event::return_type
 	on_focus_in(
-		awl::window::event::focus_in const &
+		awl::backends::windows::window::event::object const &
 	);
 
-	void
+	awl::backends::windows::window::event::return_type
 	on_focus_out(
-		awl::window::event::focus_out const &
+		awl::backends::windows::window::event::object const &
 	);
 
 	void

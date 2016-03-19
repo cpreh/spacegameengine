@@ -40,10 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
-#include <awl/window/event/focus_in_callback.hpp>
-#include <awl/window/event/focus_in_fwd.hpp>
-#include <awl/window/event/focus_out_callback.hpp>
-#include <awl/window/event/focus_out_fwd.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -126,32 +122,50 @@ sge::wininput::focus::object::object(
 				}
 			)
 		)(
-			event_processor_.focus_in_callback(
-				awl::window::event::focus_in_callback{
+			event_processor_.register_callback(
+				fcppt::strong_typedef_construct_cast<
+					awl::backends::windows::event::type,
+					fcppt::cast::to_unsigned_fun
+				>(
+					WM_SETFOCUS
+				),
+				awl::backends::windows::window::event::callback{
 					[
 						this
 					](
-						awl::window::event::focus_in const &
+						awl::backends::windows::window::event::object const &
 					)
 					{
 						in_signal_(
 							sge::input::focus::in_event{}
 						);
+
+						return
+							awl::backends::windows::window::event::return_type();
 					}
 				}
 			)
 		)(
-			event_processor_.focus_out_callback(
-				awl::window::event::focus_out_callback{
+			event_processor_.register_callback(
+				fcppt::strong_typedef_construct_cast<
+					awl::backends::windows::event::type,
+					fcppt::cast::to_unsigned_fun
+				>(
+					WM_KILLFOCUS
+				),
+				awl::backends::windows::window::event::callback{
 					[
 						this
 					](
-						awl::window::event::focus_out const &
+						awl::backends::windows::window::event::object const &
 					)
 					{
 						out_signal_(
 							sge::input::focus::out_event{}
 						);
+
+						return
+							awl::backends::windows::window::event::return_type();
 					}
 				}
 			)
