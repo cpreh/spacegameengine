@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11input/create_parameters.hpp>
-#include <sge/x11input/mask_c.hpp>
 #include <sge/x11input/logger.hpp>
+#include <sge/x11input/mask_c.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/use.hpp>
 #include <sge/x11input/device/info/single.hpp>
