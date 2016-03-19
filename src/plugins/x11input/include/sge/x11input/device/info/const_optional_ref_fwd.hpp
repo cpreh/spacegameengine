@@ -18,13 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/device/enter_demuxer.hpp>
-#include <sge/x11input/device/enter_event.hpp>
-#include <sge/x11input/device/event_demuxer_impl.hpp>
+#ifndef SGE_X11INPUT_DEVICE_INFO_CONST_OPTIONAL_REF_FWD_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_INFO_CONST_OPTIONAL_REF_FWD_HPP_INCLUDED
+
+#include <fcppt/optional/reference_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
 
-template
-class
-sge::x11input::device::event_demuxer<
-	sge::x11input::device::enter_event
->;
+namespace sge
+{
+namespace x11input
+{
+namespace device
+{
+namespace info
+{
+
+typedef
+fcppt::optional::reference<
+	XIDeviceInfo const
+>
+const_optional_ref;
+
+}
+}
+}
+}
+
+#endif

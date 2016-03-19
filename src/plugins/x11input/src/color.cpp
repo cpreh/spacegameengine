@@ -41,25 +41,37 @@ sge::x11input::color::color(
 	colormap_(
 		_colormap
 	),
-	color_()
-{
-	XColor dummy;
+	color_(
+		[
+			this,
+			&_name
+		]{
+			XColor dummy;
 
-	if(
-		::XAllocNamedColor(
-			display_.get(),
-			colormap_,
-			fcppt::to_std_string(
-				_name
-			).c_str(),
-			&color_,
-			&dummy
-		)
-		== 0
+			XColor result;
+
+			if(
+				::XAllocNamedColor(
+					display_.get(),
+					colormap_,
+					fcppt::to_std_string(
+						_name
+					).c_str(),
+					&result,
+					&dummy
+				)
+				== 0
+			)
+				throw
+					sge::input::exception{
+						FCPPT_TEXT("XAllocNamedColor() failed!")
+					};
+
+			return
+				result;
+		}()
 	)
-		throw sge::input::exception(
-			FCPPT_TEXT("XAllocNamedColor() failed!")
-		);
+{
 }
 
 sge::x11input::color::~color()
@@ -76,5 +88,6 @@ sge::x11input::color::~color()
 XColor
 sge::x11input::color::get() const
 {
-	return color_;
+	return
+		color_;
 }

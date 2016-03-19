@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/input_method.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/class_hint.hpp>
+#include <awl/backends/x11/window/const_optional_class_hint_ref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <fcppt/config/external_end.hpp>
@@ -30,35 +33,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11input::input_method::input_method(
 	awl::backends::x11::display &_display,
-	awl::backends::x11::window::class_hint const *const _class_hint
+	awl::backends::x11::window::const_optional_class_hint_ref const &_class_hint
 )
 :
-	class_hint_(
-		_class_hint
-	),
 	xim_(
 		::XOpenIM(
 			_display.get(),
 			nullptr,
-			_class_hint
-			?
-				const_cast<
-					char *
-				>(
-					_class_hint->res_name().c_str()
+			fcppt::optional::maybe(
+				_class_hint,
+				[]()
+				-> char *
+				{
+					return
+						nullptr;
+				},
+				[](
+					fcppt::reference<
+						awl::backends::x11::window::class_hint const
+					> const _hint
 				)
-			:
-				nullptr
-			,
-			_class_hint
-			?
-				const_cast<
-					char *
-				>(
-					_class_hint->res_class().c_str()
+				{
+					return
+						const_cast<
+							char *
+						>(
+							_hint.get().res_name().c_str()
+						);
+				}
+			),
+			fcppt::optional::maybe(
+				_class_hint,
+				[]()
+				-> char *
+				{
+					return
+						nullptr;
+				},
+				[](
+					fcppt::reference<
+						awl::backends::x11::window::class_hint const
+					> const _hint
 				)
-			:
-				nullptr
+				{
+					return
+						const_cast<
+							char *
+						>(
+							_hint.get().res_class().c_str()
+						);
+				}
+			)
 		)
 	)
 {
@@ -67,9 +92,10 @@ sge::x11input::input_method::input_method(
 		==
 		nullptr
 	)
-		throw sge::input::exception(
-			FCPPT_TEXT("XOpenIM() failed!")
-		);
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("XOpenIM() failed!")
+			};
 }
 
 sge::x11input::input_method::~input_method()
@@ -82,11 +108,6 @@ sge::x11input::input_method::~input_method()
 XIM
 sge::x11input::input_method::get() const
 {
-	return xim_;
-}
-
-awl::backends::x11::window::class_hint const *
-sge::x11input::input_method::class_hint() const
-{
-	return class_hint_;
+	return
+		xim_;
 }

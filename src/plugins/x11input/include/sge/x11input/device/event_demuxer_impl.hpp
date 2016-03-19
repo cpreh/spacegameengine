@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_DEVICE_EVENT_DEMUXER_IMPL_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_EVENT_DEMUXER_IMPL_HPP_INCLUDED
 
-#include <sge/x11input/device/demuxer_enabled.hpp>
+#include <sge/x11input/device/event_added.hpp>
 #include <sge/x11input/device/event_data.hpp>
 #include <sge/x11input/device/event_demuxer_decl.hpp>
 #include <sge/x11input/device/event_deviceid.hpp>
@@ -57,8 +57,7 @@ sge::x11input::device::event_demuxer<
 >::event_demuxer(
 	awl::backends::x11::system::event::processor &_system_processor,
 	awl::backends::x11::system::event::opcode const &_opcode,
-	awl::backends::x11::window::object const &_window,
-	sge::x11input::device::demuxer_enabled const _enabled
+	awl::backends::x11::window::object const &_window
 )
 :
 	system_processor_(
@@ -71,10 +70,7 @@ sge::x11input::device::event_demuxer<
 		_window
 	),
 	connections_(),
-	signals_(),
-	active_(
-		_enabled.get()
-	)
+	signals_()
 {
 }
 
@@ -157,7 +153,9 @@ sge::x11input::device::event_demuxer<
 			window_,
 			_id,
 			_type,
-			true
+			sge::x11input::device::event_added{
+				true
+			}
 		);
 
 	return
@@ -180,36 +178,19 @@ template<
 void
 sge::x11input::device::event_demuxer<
 	Event
->::active(
-	bool const _active
-)
-{
-	active_ =
-		_active;
-}
-
-template<
-	typename Event
->
-void
-sge::x11input::device::event_demuxer<
-	Event
 >::on_event(
 	awl::backends::x11::system::event::object const &_event
 )
 {
-	// Ingore everything while not in our window
-	if(
-		!active_
-	)
-		return;
-
 	sge::x11input::device::event_data const cookie(
 		window_.display(),
 		_event
 	);
 
-	typedef typename Event::value_type xi_event;
+	typedef
+	typename
+	Event::value_type
+	xi_event;
 
 	xi_event const &device_event(
 		*fcppt::cast::from_void_ptr<
@@ -270,7 +251,9 @@ sge::x11input::device::event_demuxer<
 			window_,
 			_id,
 			_type,
-			false
+			sge::x11input::device::event_added{
+				false
+			}
 		);
 
 		if(

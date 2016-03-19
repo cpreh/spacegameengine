@@ -49,9 +49,10 @@ sge::x11input::device::info::base::base(
 		==
 		nullptr
 	)
-		throw sge::input::exception(
-			FCPPT_TEXT("XIQueryDevice failed!")
-		);
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("XIQueryDevice failed!")
+			};
 }
 
 sge::x11input::device::info::base::~base()
@@ -64,11 +65,13 @@ sge::x11input::device::info::base::~base()
 XIDeviceInfo const *
 sge::x11input::device::info::base::get() const
 {
-	return devices_;
+	return
+		devices_;
 }
 
 sge::x11input::device::info::base::size_type
 sge::x11input::device::info::base::size() const
 {
-	return size_;
+	return
+		size_;
 }

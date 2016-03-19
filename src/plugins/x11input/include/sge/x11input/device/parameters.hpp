@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_DEVICE_PARAMETERS_HPP_INCLUDED
 
 #include <sge/x11input/create_parameters_fwd.hpp>
-#include <sge/x11input/device/enter_demuxer_fwd.hpp>
 #include <sge/x11input/device/id.hpp>
-#include <sge/x11input/device/leave_demuxer_fwd.hpp>
 #include <sge/x11input/device/parameters_fwd.hpp>
 #include <sge/x11input/device/raw_demuxer_fwd.hpp>
 #include <sge/x11input/device/window_demuxer_fwd.hpp>
@@ -54,9 +52,7 @@ public:
 		awl::backends::x11::system::event::opcode,
 		awl::backends::x11::window::object const &,
 		sge::x11input::device::window_demuxer &,
-		sge::x11input::device::raw_demuxer &,
-		sge::x11input::device::enter_demuxer &,
-		sge::x11input::device::leave_demuxer &
+		sge::x11input::device::raw_demuxer &
 	);
 
 	sge::x11input::device::id
@@ -76,12 +72,6 @@ public:
 
 	sge::x11input::device::raw_demuxer &
 	raw_demuxer() const;
-
-	sge::x11input::device::enter_demuxer &
-	enter_demuxer() const;
-
-	sge::x11input::device::leave_demuxer &
-	leave_demuxer() const;
 private:
 	sge::x11input::device::id const id_;
 
@@ -94,10 +84,6 @@ private:
 	sge::x11input::device::window_demuxer &window_demuxer_;
 
 	sge::x11input::device::raw_demuxer &raw_demuxer_;
-
-	sge::x11input::device::enter_demuxer &enter_demuxer_;
-
-	sge::x11input::device::leave_demuxer &leave_demuxer_;
 };
 
 }

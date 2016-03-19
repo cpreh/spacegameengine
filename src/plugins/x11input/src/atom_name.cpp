@@ -50,5 +50,6 @@ sge::x11input::atom_name::~atom_name()
 char const *
 sge::x11input::atom_name::get() const
 {
-	return name_;
+	return
+		name_;
 }

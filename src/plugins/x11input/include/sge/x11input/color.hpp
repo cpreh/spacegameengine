@@ -43,7 +43,7 @@ public:
 	color(
 		awl::backends::x11::display &,
 		Colormap,
-		fcppt::string const &name
+		fcppt::string const &
 	);
 
 	~color();

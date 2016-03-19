@@ -18,29 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_LEAVE_EVENT_FWD_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_LEAVE_EVENT_FWD_HPP_INCLUDED
+#ifndef SGE_X11INPUT_MASK_C_HPP_INCLUDED
+#define SGE_X11INPUT_MASK_C_HPP_INCLUDED
 
-#include <sge/x11input/device/event_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
+#include <sge/x11input/mask_type.hpp>
+#include <fcppt/bit/mask.hpp>
+#include <fcppt/bit/mask_c.hpp>
 
 
 namespace sge
 {
 namespace x11input
 {
-namespace device
-{
 
-typedef
-sge::x11input::device::event<
-	XILeaveEvent
+template<
+	sge::x11input::mask_type Mask
 >
-leave_event;
-
+inline
+fcppt::bit::mask<
+	sge::x11input::mask_type
+>
+mask_c()
+{
+	return
+		fcppt::bit::mask_c<
+			sge::x11input::mask_type,
+			Mask
+		>();
 }
+
 }
 }
 

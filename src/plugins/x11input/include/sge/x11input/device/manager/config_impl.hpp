@@ -28,7 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/const.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/container/find_opt_iterator.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/reference.hpp>
 #include <fcppt/signal/object.hpp>
@@ -159,27 +161,35 @@ sge::x11input::device::manager::config<
 	sge::x11input::device::id const _id
 )
 {
-	typename object_map::iterator const it(
-		objects_.find(
-			_id
-		)
-	);
+	return
+		fcppt::optional::maybe(
+			fcppt::container::find_opt_iterator(
+				objects_,
+				_id
+			),
+			fcppt::const_(
+				false
+			),
+			[
+				this
+			](
+				typename object_map::iterator const _it
+			)
+			{
+				remove_(
+					RemoveEvent(
+						*_it->second
+					)
+				);
 
-	FCPPT_ASSERT_ERROR(
-		it != objects_.end()
-	);
+				objects_.erase(
+					_it
+				);
 
-	remove_(
-		RemoveEvent(
-			*it->second
-		)
-	);
-
-	objects_.erase(
-		it
-	);
-
-	return true;
+				return
+					true;
+			}
+		);
 }
 
 template<
@@ -209,6 +219,13 @@ sge::x11input::device::manager::config<
 		std::move(
 			initial_objects_
 		);
+
+	for(
+		auto const &object
+		:
+		objects_
+	)
+		object.second->init();
 }
 
 template<
@@ -241,10 +258,13 @@ sge::x11input::device::manager::config<
 		object->id()
 	);
 
-	typedef std::pair<
-		typename object_map::iterator,
+	typedef
+	std::pair<
+		typename
+		object_map::iterator,
 		bool
-	> insert_result;
+	>
+	insert_result;
 
 	insert_result const it(
 		_map.insert(

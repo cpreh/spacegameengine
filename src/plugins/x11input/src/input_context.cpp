@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/exception.hpp>
 #include <sge/x11input/input_context.hpp>
-#include <awl/backends/x11/window/class_hint.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -30,48 +29,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11input::input_context::input_context(
 	XIM const _xim,
-	awl::backends::x11::window::class_hint const *const _class_hint,
 	awl::backends::x11::window::object const &_window
 )
 :
 	xic_(
-		_class_hint
-		?
-			::XCreateIC(
-				_xim,
-				XNClientWindow,
-				_window.get(),
-				XNFocusWindow,
-				_window.get(),
-				XNInputStyle,
-				XIMPreeditNothing | XIMStatusNothing,
-				XNResourceName,
-				_class_hint->res_name().c_str(),
-				XNResourceClass,
-				_class_hint->res_class().c_str(),
-				NULL
-			)
-		:
-			nullptr
+		::XCreateIC(
+			_xim,
+			XNClientWindow,
+			_window.get(),
+			XNFocusWindow,
+			_window.get(),
+			XNInputStyle,
+			XIMPreeditNothing | XIMStatusNothing,
+			// FIXME: Do we need this?
+			/*
+			XNResourceName,
+			_class_hint.res_name().c_str(),
+			XNResourceClass,
+			_class_hint.res_class().c_str(),*/
+			NULL
+		)
 	)
 {
-	if(
-		_class_hint
-		==
-		nullptr
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("XCreateIC() called without a class hint!")
-		);
-
 	if(
 		xic_
 		==
 		nullptr
 	)
-		throw sge::input::exception(
-			FCPPT_TEXT("XCreateIC() failed!")
-		);
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("XCreateIC() failed!")
+			};
 }
 
 sge::x11input::input_context::~input_context()
@@ -84,5 +72,6 @@ sge::x11input::input_context::~input_context()
 XIC
 sge::x11input::input_context::get() const
 {
-	return xic_;
+	return
+		xic_;
 }

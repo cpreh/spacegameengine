@@ -117,10 +117,7 @@ sge::x11input::processor::processor(
 	window_demuxer_(
 		system_event_processor_,
 		opcode_,
-		x11_window_,
-		sge::x11input::device::demuxer_enabled(
-			true
-		)
+		x11_window_
 	),
 	root_window_(
 		awl::backends::x11::window::root(
@@ -131,34 +128,12 @@ sge::x11input::processor::processor(
 	raw_demuxer_(
 		system_event_processor_,
 		opcode_,
-		*root_window_,
-		sge::x11input::device::demuxer_enabled(
-			false
-		)
+		*root_window_
 	),
 	hierarchy_demuxer_(
 		system_event_processor_,
 		opcode_,
-		x11_window_,
-		sge::x11input::device::demuxer_enabled(
-			true
-		)
-	),
-	enter_demuxer_(
-		system_event_processor_,
-		opcode_,
-		x11_window_,
-		sge::x11input::device::demuxer_enabled(
-			true
-		)
-	),
-	leave_demuxer_(
-		system_event_processor_,
-		opcode_,
-		x11_window_,
-		sge::x11input::device::demuxer_enabled(
-			true
-		)
+		x11_window_
 	),
 	invisible_cursor_(
 		awl::backends::x11::cursor::create_invisible(
@@ -175,10 +150,9 @@ sge::x11input::processor::processor(
 	),
 	input_context_(
 		fcppt::make_unique_ptr<
-			x11input::input_context
+			sge::x11input::input_context
 		>(
 			input_method_->get(),
-			input_method_->class_hint(),
 			x11_window_
 		)
 	),
@@ -284,7 +258,6 @@ sge::x11input::processor::processor(
 		)
 		.move_container()
 	),
-	cursor_manager_(),
 	init_atom_(
 		awl::backends::x11::intern_atom(
 			x11_window_.display(),
@@ -314,62 +287,12 @@ sge::x11input::processor::processor(
 		(
 			window_event_processor_.register_callback(
 				awl::backends::x11::window::event::type(
-					FocusIn
-				),
-				awl::backends::x11::window::event::callback{
-					std::bind(
-						&sge::x11input::processor::on_focus_in,
-						this,
-						std::placeholders::_1
-					)
-				}
-			)
-		)
-		(
-			window_event_processor_.register_callback(
-				awl::backends::x11::window::event::type(
-					FocusOut
-				),
-				awl::backends::x11::window::event::callback{
-					std::bind(
-						&sge::x11input::processor::on_focus_out,
-						this,
-						std::placeholders::_1
-					)
-				}
-			)
-		)
-		(
-			window_event_processor_.register_callback(
-				awl::backends::x11::window::event::type(
 					ClientMessage
 				),
 				awl::backends::x11::window::event::callback{
 					std::bind(
 						&sge::x11input::processor::on_client_message,
 						this,
-						std::placeholders::_1
-					)
-				}
-			)
-		)
-		(
-			cursor_discover_.connect(
-				sge::input::cursor::discover_callback{
-					std::bind(
-						&sge::x11input::cursor::manager::discover,
-						&cursor_manager_,
-						std::placeholders::_1
-					)
-				}
-			)
-		)
-		(
-			cursor_remove_.connect(
-				sge::input::cursor::remove_callback{
-					std::bind(
-						&sge::x11input::cursor::manager::remove,
-						&cursor_manager_,
 						std::placeholders::_1
 					)
 				}
@@ -383,16 +306,12 @@ sge::x11input::processor::processor(
 	);
 
 	for(
-		int const index
+		auto const &device
 		:
-		fcppt::make_int_range_count(
-			current_devices.size()
-		)
+		current_devices
 	)
 		device_manager_.initial(
-			current_devices[
-				index
-			]
+			device
 		);
 
 	sge::x11input::send_init_event(
@@ -538,9 +457,7 @@ sge::x11input::processor::device_parameters(
 			opcode_,
 			x11_window_,
 			window_demuxer_,
-			raw_demuxer_,
-			enter_demuxer_,
-			leave_demuxer_
+			raw_demuxer_
 		);
 }
 
@@ -602,8 +519,7 @@ sge::x11input::processor::create_cursor(
 			this->device_parameters(
 				_param
 			),
-			*invisible_cursor_,
-			cursor_manager_.entered()
+			*invisible_cursor_
 		);
 }
 
@@ -624,44 +540,6 @@ sge::x11input::processor::on_hierarchy_changed(
 				index
 			]
 		);
-}
-
-void
-sge::x11input::processor::on_focus_in(
-	awl::backends::x11::window::event::object const &
-)
-{
-	FCPPT_LOG_DEBUG(
-		sge::x11input::logger(),
-		fcppt::log::_
-			<< FCPPT_TEXT("FocusIn")
-	);
-
-	raw_demuxer_.active(
-		true
-	);
-
-	// FIXME: We need to manage the cursors that belong to this focus
-	cursor_manager_.focus_in();
-}
-
-void
-sge::x11input::processor::on_focus_out(
-	awl::backends::x11::window::event::object const &
-)
-{
-	FCPPT_LOG_DEBUG(
-		sge::x11input::logger(),
-		fcppt::log::_
-			<< FCPPT_TEXT("FocusOut")
-	);
-
-	raw_demuxer_.active(
-		false
-	);
-
-	// FIXME: We need to manage the cursors that belong to this focus
-	cursor_manager_.focus_out();
 }
 
 void

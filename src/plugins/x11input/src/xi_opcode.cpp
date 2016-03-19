@@ -41,13 +41,16 @@ sge::x11input::xi_opcode(
 			&opcode,
 			&event,
 			&error
-		) == True
+		)
+		==
+		True
 		?
-			x11input::optional_opcode(
-				awl::backends::x11::system::event::opcode(
+			sge::x11input::optional_opcode{
+				awl::backends::x11::system::event::opcode{
 					opcode
-				)
-			)
+				}
+			}
 		:
-			x11input::optional_opcode();
+			sge::x11input::optional_opcode{}
+		;
 }

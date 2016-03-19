@@ -41,9 +41,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -91,52 +93,56 @@ sge::x11input::system::create_processor(
 			1
 		)
 	)
-		throw sge::input::exception(
-			FCPPT_TEXT("The X server doesn't support XI2.1!")
-		);
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("The X server doesn't support XI2.1!")
+			};
 
-	if(
-		char const *const locale_name =
-			sge::x11input::lc_ctype()
-	)
-	{
-		sge::x11input::scoped_locale const temp_locale(
-			locale_name
-		);
-
-		if(
-			::XSupportsLocale()
-			==
-			False
+	fcppt::optional::maybe(
+		sge::x11input::lc_ctype(),
+		[]{
+			FCPPT_LOG_WARNING(
+				sge::x11input::logger(),
+				fcppt::log::_
+					<< FCPPT_TEXT("LC_CTYPE is not set.")
+					<< FCPPT_TEXT(" Character conversion of X11 will not work properly!")
+			);
+		},
+		[](
+			std::string const &_locale_name
 		)
-			throw sge::input::exception(
-				FCPPT_TEXT("X doesn't support the locale ")
-				+
-				fcppt::from_std_string(
-					locale_name
-				)
+		{
+			sge::x11input::scoped_locale const temp_locale(
+				_locale_name
 			);
 
-		if(
-			::XSetLocaleModifiers(
-				"" // XMODIFIERS are appended automatically
+			if(
+				::XSupportsLocale()
+				==
+				False
 			)
-			==
-			nullptr
-		)
-			throw sge::input::exception(
-				FCPPT_TEXT("XSetLocaleModifiers() failed!")
-			);
-	}
-	else
-	{
-		FCPPT_LOG_WARNING(
-			sge::x11input::logger(),
-			fcppt::log::_
-				<< FCPPT_TEXT("LC_CTYPE is not set.")
-				<< FCPPT_TEXT(" Character conversion of X11 will not work properly!")
-		);
-	}
+				throw
+					sge::input::exception{
+						FCPPT_TEXT("X doesn't support the locale ")
+						+
+						fcppt::from_std_string(
+							_locale_name
+						)
+					};
+
+			if(
+				::XSetLocaleModifiers(
+					"" // XMODIFIERS are appended automatically
+				)
+				==
+				nullptr
+			)
+				throw
+					sge::input::exception{
+						FCPPT_TEXT("XSetLocaleModifiers() failed!")
+					};
+		}
+	);
 
 	return
 		fcppt::unique_ptr_to_base<

@@ -19,13 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/exception.hpp>
+#include <sge/x11input/device/event_added.hpp>
 #include <sge/x11input/device/select_events.hpp>
 #include <awl/backends/x11/deleter.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/object.hpp>
+#include <fcppt/const.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/algorithm/find_if_opt.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
@@ -35,6 +39,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/optional/deref.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <algorithm>
@@ -44,40 +51,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-namespace
-{
-
-XIEventMask const
-make_mask(
-	sge::x11input::device::id const _id,
-	unsigned char *const _data,
-	std::size_t const _size
-)
-{
-	XIEventMask const ret =
-	{
-		_id.get(),
-		fcppt::cast::size<
-			int
-		>(
-			fcppt::cast::to_signed(
-				_size
-			)
-		),
-		_data
-	};
-
-	return ret;
-}
-
-}
-
 void
 sge::x11input::device::select_events(
 	awl::backends::x11::window::object const &_window,
 	sge::x11input::device::id const _device,
 	awl::backends::x11::system::event::type const _type,
-	bool const _add
+	sge::x11input::device::event_added const _add
 )
 {
 	if(
@@ -113,14 +92,16 @@ sge::x11input::device::select_events(
 	if(
 		num_masks == -1
 	)
-		throw sge::input::exception(
-			FCPPT_TEXT("XIGetSelectedEvents() failed!")
-		);
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("XIGetSelectedEvents() failed!")
+			};
 
-	// somehow boost::is_pod thinks that XIEventMask is not a POD
-	typedef std::vector<
+	typedef
+	std::vector<
 		XIEventMask
-	> event_mask_vector;
+	>
+	event_mask_vector;
 
 	// Copy all masks over because we might need to add a new mask.
 	event_mask_vector event_masks(
@@ -131,29 +112,36 @@ sge::x11input::device::select_events(
 
 	// Look if there is already a mask for this device.
 	// If there is, we have to update it.
-	event_mask_vector::iterator const prev_mask(
-		std::find_if(
-			event_masks.begin(),
-			event_masks.end(),
-			[
-				_device
-			](
-				XIEventMask const &_mask
+	fcppt::optional::reference<
+		XIEventMask
+	> prev_mask(
+		fcppt::optional::deref(
+			fcppt::algorithm::find_if_opt(
+				event_masks,
+				[
+					_device
+				](
+					XIEventMask const &_mask
+				)
+				{
+					return
+						_device.get()
+						==
+						_mask.deviceid;
+				}
 			)
-			{
-				return
-					_device.get()
-					==
-					_mask.deviceid;
-			}
 		)
 	);
 
-	typedef unsigned char bit_type;
+	typedef
+	unsigned char
+	bit_type;
 
-	typedef fcppt::container::raw_vector<
+	typedef
+	fcppt::container::raw_vector<
 		bit_type
-	> raw_container;
+	>
+	raw_container;
 
 	// This is the size of the mask buffer that
 	// is needed for the new event type only.
@@ -180,19 +168,32 @@ sge::x11input::device::select_events(
 	);
 
 	raw_container store(
-		prev_mask
-		!= event_masks.end()
-		?
-			std::max(
-				least_size,
-				static_cast<
-					raw_container::size_type
-				>(
-					prev_mask->mask_len
-				)
+		fcppt::optional::maybe(
+			prev_mask,
+			fcppt::const_(
+				least_size
+			),
+			[
+				least_size
+			](
+				fcppt::reference<
+					XIEventMask
+				> const _mask
 			)
-		:
-			least_size,
+			{
+				return
+					std::max(
+						least_size,
+						fcppt::cast::size<
+							raw_container::size_type
+						>(
+							fcppt::cast::to_unsigned(
+								_mask.get().mask_len
+							)
+						)
+					);
+			}
+		),
 		fcppt::literal<
 			bit_type
 		>(
@@ -200,43 +201,61 @@ sge::x11input::device::select_events(
 		)
 	);
 
-	// If there is no previous mask,
-	// push back a new one.
-	if(
-		prev_mask == event_masks.end()
-	)
-		event_masks.push_back(
-			::make_mask(
-				_device,
-				store.data(),
-				store.size()
-			)
-		);
-	// Otherwise copy the old mask over,
-	// and reset its store.
-	else
-	{
-		std::copy(
-			prev_mask->mask,
-			prev_mask->mask
-			+ prev_mask->mask_len,
-			store.data()
-		);
-
-		prev_mask->mask = store.data();
-
-		prev_mask->mask_len =
-			fcppt::cast::size<
-				int
-			>(
-				fcppt::cast::to_signed(
-					store.size()
-				)
+	fcppt::optional::maybe(
+		prev_mask,
+		// If there is no previous mask,
+		// push back a new one.
+		[
+			&event_masks,
+			&store,
+			_device
+		]{
+			event_masks.push_back(
+				XIEventMask{
+					_device.get(),
+					fcppt::cast::size<
+						int
+					>(
+						fcppt::cast::to_signed(
+							store.size()
+						)
+					),
+					store.data()
+				}
 			);
-	}
+		},
+		// Otherwise copy the old mask over,
+		// and reset its store.
+		[
+			&store
+		](
+			fcppt::reference<
+				XIEventMask
+			> const _mask
+		)
+		{
+			std::copy_n(
+				_mask.get().mask,
+				_mask.get().mask_len,
+				store.data()
+			);
+
+			_mask.get().mask =
+				store.data();
+
+			_mask.get().mask_len =
+				fcppt::cast::size<
+					int
+				>(
+					fcppt::cast::to_signed(
+						store.size()
+					)
+				);
+		}
+	);
 
 	if(
-		_add
+		_add.get()
 	)
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
@@ -269,7 +288,8 @@ FCPPT_PP_POP_WARNING
 		)
 		!= Success
 	)
-		throw sge::input::exception(
-			FCPPT_TEXT("XISelectEvents failed!")
-		);
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("XISelectEvents failed!")
+			};
 }

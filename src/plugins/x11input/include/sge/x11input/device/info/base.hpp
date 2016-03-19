@@ -44,7 +44,9 @@ class base
 		base
 	);
 public:
-	typedef int size_type;
+	typedef
+	int
+	size_type;
 
 	base(
 		awl::backends::x11::display &,

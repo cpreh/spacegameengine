@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_DEVICE_EVENT_DEMUXER_DECL_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_EVENT_DEMUXER_DECL_HPP_INCLUDED
 
-#include <sge/x11input/device/demuxer_enabled.hpp>
 #include <sge/x11input/device/event_demuxer_fwd.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <awl/backends/x11/system/event/object_fwd.hpp>
@@ -67,8 +66,7 @@ public:
 	event_demuxer(
 		awl::backends::x11::system::event::processor &,
 		awl::backends::x11::system::event::opcode const &,
-		awl::backends::x11::window::object const &,
-		sge::x11input::device::demuxer_enabled
+		awl::backends::x11::window::object const &
 	);
 
 	~event_demuxer();
@@ -145,8 +143,6 @@ private:
 	connection_map connections_;
 
 	signal_map signals_;
-
-	bool active_;
 };
 
 }

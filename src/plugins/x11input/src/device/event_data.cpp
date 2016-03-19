@@ -63,5 +63,6 @@ sge::x11input::device::event_data::~event_data()
 void const *
 sge::x11input::device::event_data::data() const
 {
-	return store_.data;
+	return
+		store_.data;
 }

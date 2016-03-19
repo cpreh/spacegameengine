@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_ENTER_EVENT_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_ENTER_EVENT_HPP_INCLUDED
+#ifndef SGE_X11INPUT_DEVICE_INFO_CONST_OPTIONAL_REF_HPP_INCLUDED
+#define SGE_X11INPUT_DEVICE_INFO_CONST_OPTIONAL_REF_HPP_INCLUDED
 
-#include <sge/x11input/device/enter_event_fwd.hpp>
-#include <sge/x11input/device/event.hpp>
+#include <sge/x11input/device/info/const_optional_ref_fwd.hpp>
+#include <fcppt/optional/reference.hpp>
 
 
 #endif

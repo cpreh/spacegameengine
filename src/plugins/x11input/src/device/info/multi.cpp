@@ -43,20 +43,18 @@ sge::x11input::device::info::multi::~multi()
 {
 }
 
-XIDeviceInfo const &
-sge::x11input::device::info::multi::operator[](
-	size_type const _index
-) const
+sge::x11input::device::info::multi::iterator
+sge::x11input::device::info::multi::begin() const
 {
 	return
-		info_base_.get()[
-			_index
-		];
+		info_base_.get();
 }
 
-sge::x11input::device::info::multi::size_type
-sge::x11input::device::info::multi::size() const
+sge::x11input::device::info::multi::iterator
+sge::x11input::device::info::multi::end() const
 {
 	return
+		info_base_.get()
+		+
 		info_base_.size();
 }

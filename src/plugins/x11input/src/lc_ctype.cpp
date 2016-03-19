@@ -19,26 +19,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11input/lc_ctype.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <cstdlib>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/getenv.hpp>
+#include <fcppt/optional_std_string.hpp>
+#include <fcppt/optional/alternative.hpp>
 
 
-char const *
+fcppt::optional_std_string
 sge::x11input::lc_ctype()
 {
-	if(
-		char const *const ret =
-			std::getenv("LC_ALL")
-	)
-		return ret;
-
-	if(
-		char const *const ret =
-			std::getenv("LC_CTYPE")
-	)
-		return ret;
-
 	return
-		std::getenv("LANG");
+		fcppt::optional::alternative(
+			fcppt::optional::alternative(
+				fcppt::getenv(
+					"LC_ALL"
+				),
+				fcppt::getenv(
+					"LC_CTYPE"
+				)
+			),
+			fcppt::getenv(
+				"LANG"
+			)
+		);
 }

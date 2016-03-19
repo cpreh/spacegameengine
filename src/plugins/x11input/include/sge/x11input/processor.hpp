@@ -45,12 +45,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/create_parameters_fwd.hpp>
 #include <sge/x11input/input_context_fwd.hpp>
 #include <sge/x11input/input_method_fwd.hpp>
-#include <sge/x11input/cursor/manager.hpp>
 #include <sge/x11input/cursor/object_unique_ptr.hpp>
-#include <sge/x11input/device/enter_demuxer.hpp>
 #include <sge/x11input/device/hierarchy_demuxer.hpp>
 #include <sge/x11input/device/hierarchy_event_fwd.hpp>
-#include <sge/x11input/device/leave_demuxer.hpp>
 #include <sge/x11input/device/parameters_fwd.hpp>
 #include <sge/x11input/device/raw_demuxer.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
@@ -195,16 +192,6 @@ private:
 	);
 
 	void
-	on_focus_in(
-		awl::backends::x11::window::event::object const &
-	);
-
-	void
-	on_focus_out(
-		awl::backends::x11::window::event::object const &
-	);
-
-	void
 	on_client_message(
 		awl::backends::x11::window::event::object const &
 	);
@@ -224,10 +211,6 @@ private:
 	sge::x11input::device::raw_demuxer raw_demuxer_;
 
 	sge::x11input::device::hierarchy_demuxer hierarchy_demuxer_;
-
-	sge::x11input::device::enter_demuxer enter_demuxer_;
-
-	sge::x11input::device::leave_demuxer leave_demuxer_;
 
 	awl::backends::x11::cursor::object_unique_ptr const invisible_cursor_;
 
@@ -264,8 +247,6 @@ private:
 	sge::input::cursor::remove_signal cursor_remove_;
 
 	sge::x11input::device::manager::object device_manager_;
-
-	sge::x11input::cursor::manager cursor_manager_;
 
 	awl::backends::x11::atom const init_atom_;
 

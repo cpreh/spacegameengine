@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
-#include <map>
+#include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -72,18 +72,20 @@ private:
 	>
 	bool
 	update(
-		x11input::device::use,
+		sge::x11input::device::use,
 		Function const &
 	);
 
 	awl::backends::x11::display &display_;
 
-	x11input::device::manager::config_map const config_;
+	sge::x11input::device::manager::config_map const config_;
 
-	typedef std::map<
+	typedef
+	std::unordered_map<
 		sge::x11input::device::id,
 		sge::x11input::device::use
-	> use_map;
+	>
+	use_map;
 
 	use_map uses_;
 };

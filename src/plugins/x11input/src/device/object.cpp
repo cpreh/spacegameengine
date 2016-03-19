@@ -26,9 +26,9 @@ sge::x11input::device::object::object(
 	sge::x11input::device::id const _id
 )
 :
-	id_(
+	id_{
 		_id
-	)
+	}
 {
 }
 
@@ -41,4 +41,9 @@ sge::x11input::device::object::id() const
 {
 	return
 		id_;
+}
+
+void
+sge::x11input::device::object::init()
+{
 }

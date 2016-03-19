@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_DEVICE_INFO_SINGLE_HPP_INCLUDED
 
 #include <sge/x11input/device/id.hpp>
+#include <sge/x11input/device/info/const_optional_ref.hpp>
 #include <sge/x11input/device/info/multi.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -52,12 +53,12 @@ public:
 
 	~single();
 
-	XIDeviceInfo const *
+	sge::x11input::device::info::const_optional_ref
 	get() const;
 private:
 	sge::x11input::device::info::multi info_base_;
 
-	XIDeviceInfo const *const info_;
+	sge::x11input::device::info::const_optional_ref const info_;
 };
 
 }

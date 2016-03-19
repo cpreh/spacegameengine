@@ -18,12 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_ENTER_EVENT_FWD_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_ENTER_EVENT_FWD_HPP_INCLUDED
+#ifndef SGE_X11INPUT_FOCUS_MANAGER_HPP_INCLUDED
+#define SGE_X11INPUT_FOCUS_MANAGER_HPP_INCLUDED
 
-#include <sge/x11input/device/event_fwd.hpp>
+#include <sge/input/focus/discover_event_fwd.hpp>
+#include <sge/input/focus/remove_event_fwd.hpp>
+#include <sge/x11input/focus/object_fwd.hpp>
+#include <sge/x11input/focus/optional_ref_fwd.hpp>
+#include <sge/x11input/device/id.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_std_hash.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
+#include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -31,14 +38,45 @@ namespace sge
 {
 namespace x11input
 {
-namespace device
+namespace focus
 {
 
-typedef
-sge::x11input::device::event<
-	XIEnterEvent
->
-enter_event;
+class manager
+{
+	FCPPT_NONCOPYABLE(
+		manager
+	);
+public:
+	manager();
+
+	~manager();
+
+	void
+	discover(
+		sge::input::focus::discover_event const &
+	);
+
+	void
+	remove(
+		sge::input::focus::remove_event const &
+	);
+
+	sge::x11input::focus::optional_ref
+	focus(
+		sge::x11input::device::id
+	);
+private:
+	typedef
+	std::unordered_map<
+		sge::x11input::device::id,
+		fcppt::reference<
+			sge::x11input::focus::object
+		>
+	>
+	object_set;
+
+	object_set objects_;
+};
 
 }
 }

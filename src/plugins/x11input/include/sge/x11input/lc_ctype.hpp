@@ -21,13 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_LC_CTYPE_HPP_INCLUDED
 #define SGE_X11INPUT_LC_CTYPE_HPP_INCLUDED
 
+#include <fcppt/optional_std_string.hpp>
+
 
 namespace sge
 {
 namespace x11input
 {
 
-char const *
+fcppt::optional_std_string
 lc_ctype();
 
 }

@@ -49,6 +49,10 @@ public:
 
 	sge::x11input::device::id
 	id() const;
+
+	virtual
+	void
+	init();
 private:
 	sge::x11input::device::id const id_;
 };

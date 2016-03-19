@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11input/create_parameters.hpp>
+#include <sge/x11input/mask_c.hpp>
 #include <sge/x11input/logger.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/use.hpp>
@@ -28,13 +29,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/manager/object.hpp>
 #include <awl/backends/x11/discard.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/fold.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/bit/test.hpp>
+#include <fcppt/container/find_opt_iterator.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
+#include <boost/range/iterator_range_core.hpp>
 #include <functional>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -93,10 +101,18 @@ sge::x11input::device::manager::object::change(
 	);
 
 	if(
-		(
-			(_info.flags & XIMasterAdded)
-			||
-			(_info.flags & XIDeviceEnabled)
+		fcppt::bit::test(
+			_info.flags,
+			sge::x11input::mask_c<
+				XIMasterAdded
+			>()
+		)
+		||
+		fcppt::bit::test(
+			_info.flags,
+			sge::x11input::mask_c<
+				XIDeviceEnabled
+			>()
 		)
 	)
 	{
@@ -118,51 +134,70 @@ sge::x11input::device::manager::object::change(
 			device_id
 		);
 
-		if(
-			device_info.get()
-			==
-			nullptr
-		)
-		{
-			FCPPT_LOG_DEBUG(
-				sge::x11input::logger(),
-				fcppt::log::_
-					<< FCPPT_TEXT("x11input: Device with id: ")
-					<< device_id
-					<< FCPPT_TEXT(" seems to have already disappeared.")
-			);
-
-			return;
-		}
-
-		if(
-			this->update(
+		fcppt::optional::maybe(
+			device_info.get(),
+			[
+				device_id
+			]{
+				FCPPT_LOG_DEBUG(
+					sge::x11input::logger(),
+					fcppt::log::_
+						<< FCPPT_TEXT("x11input: Device with id: ")
+						<< device_id
+						<< FCPPT_TEXT(" seems to have already disappeared.")
+				);
+			},
+			[
+				device_id,
 				device_use,
-				std::bind(
-					&sge::x11input::device::manager::config_base::add,
-					std::placeholders::_1,
-					sge::x11input::create_parameters(
-						device_id,
-						*device_info.get()
+				this
+			](
+				fcppt::reference<
+					XIDeviceInfo const
+				> const _device_info
+			)
+			{
+				if(
+					this->update(
+						device_use,
+						std::bind(
+							&sge::x11input::device::manager::config_base::add,
+							std::placeholders::_1,
+							sge::x11input::create_parameters(
+								device_id,
+								_device_info.get()
+							)
+						)
 					)
 				)
-			)
-		)
-		{
-			FCPPT_ASSERT_ERROR(
-				uses_.insert(
-					std::make_pair(
-						device_id,
-						device_use
-					)
-				).second
-			);
-		}
+				{
+					FCPPT_ASSERT_ERROR(
+						uses_.insert(
+							std::make_pair(
+								device_id,
+								device_use
+							)
+						).second
+					);
+				}
+			}
+		);
 	}
 
 	if(
-		(_info.flags & XIMasterRemoved)
-		|| (_info.flags & XISlaveRemoved)
+		fcppt::bit::test(
+			_info.flags,
+			sge::x11input::mask_c<
+				XIMasterRemoved
+			>()
+		)
+		||
+		fcppt::bit::test(
+			_info.flags,
+			sge::x11input::mask_c<
+				XISlaveRemoved
+			>()
+		)
 	)
 	{
 		FCPPT_LOG_DEBUG(
@@ -172,29 +207,31 @@ sge::x11input::device::manager::object::change(
 				<< device_id
 		);
 
-		use_map::iterator const it(
-			uses_.find(
+		fcppt::optional::maybe_void(
+			fcppt::container::find_opt_iterator(
+				uses_,
 				device_id
+			),
+			[
+				device_id,
+				this
+			](
+				use_map::iterator const _it
 			)
-		);
+			{
+				this->update(
+					_it->second,
+					std::bind(
+						&sge::x11input::device::manager::config_base::remove,
+						std::placeholders::_1,
+						device_id
+					)
+				);
 
-		// It is possible we had no use for this device
-		if(
-			it == uses_.end()
-		)
-			return;
-
-		this->update(
-			it->second,
-			std::bind(
-				&sge::x11input::device::manager::config_base::remove,
-				std::placeholders::_1,
-				device_id
-			)
-		);
-
-		uses_.erase(
-			it
+				uses_.erase(
+					_it
+				);
+			}
 		);
 	}
 
@@ -209,7 +246,9 @@ void
 sge::x11input::device::manager::object::dispatch_initial()
 {
 	for(
-		auto const &item : config_
+		auto const &item
+		:
+		config_
 	)
 		item.second->dispatch_initial();
 }
@@ -223,33 +262,32 @@ sge::x11input::device::manager::object::update(
 	Function const &_function
 )
 {
-	typedef std::pair<
-		sge::x11input::device::manager::config_map::const_iterator,
-		sge::x11input::device::manager::config_map::const_iterator
-	> range_pair;
-
-	range_pair const range(
+	auto const range(
 		config_.equal_range(
 			_use
 		)
 	);
 
-	bool changed(
-		false
-	);
-
-	for(
-		sge::x11input::device::manager::config_map::const_iterator it(
-			range.first
-		);
-		it != range.second;
-		++it
-	)
-		changed =
-			_function(
-				*it->second
+	return
+		fcppt::algorithm::fold(
+			boost::make_iterator_range(
+				range.first,
+				range.second
+			),
+			false,
+			[
+				&_function
+			](
+				sge::x11input::device::manager::config_map::value_type const &_value,
+				bool const _state
 			)
-			|| changed;
-
-	return changed;
+			{
+				return
+					_function(
+						*_value.second
+					)
+					||
+					_state;
+			}
+		);
 }

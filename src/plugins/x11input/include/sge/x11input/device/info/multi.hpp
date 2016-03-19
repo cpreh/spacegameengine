@@ -44,8 +44,6 @@ class multi
 		multi
 	);
 public:
-	typedef sge::x11input::device::info::base::size_type size_type;
-
 	explicit
 	multi(
 		awl::backends::x11::display &
@@ -53,13 +51,19 @@ public:
 
 	~multi();
 
-	XIDeviceInfo const &
-	operator[](
-		size_type index
-	) const;
+	typedef
+	XIDeviceInfo const *
+	iterator;
 
-	size_type
-	size() const;
+	typedef
+	iterator
+	const_iterator;
+
+	iterator
+	begin() const;
+
+	iterator
+	end() const;
 private:
 	sge::x11input::device::info::base info_base_;
 };

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_CURSOR_OBJECT_FWD_HPP_INCLUDED
 #define SGE_X11INPUT_CURSOR_OBJECT_FWD_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace x11input

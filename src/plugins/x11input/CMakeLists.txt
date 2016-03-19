@@ -11,7 +11,6 @@ set(
 	src/plugins/x11input/include/sge/x11input/cursor/grab_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/info_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/make_scroll_valuators.hpp
-	src/plugins/x11input/include/sge/x11input/cursor/manager.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/object.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/object_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/object_unique_ptr.hpp
@@ -21,12 +20,8 @@ set(
 	src/plugins/x11input/include/sge/x11input/cursor/scroll_valuator.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/scroll_valuator_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/scroll_valuator_map.hpp
-	src/plugins/x11input/include/sge/x11input/device/demuxer_enabled.hpp
-	src/plugins/x11input/include/sge/x11input/device/enter_demuxer.hpp
-	src/plugins/x11input/include/sge/x11input/device/enter_demuxer_fwd.hpp
-	src/plugins/x11input/include/sge/x11input/device/enter_event.hpp
-	src/plugins/x11input/include/sge/x11input/device/enter_event_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/device/event.hpp
+	src/plugins/x11input/include/sge/x11input/device/event_added.hpp
 	src/plugins/x11input/include/sge/x11input/device/event_data.hpp
 	src/plugins/x11input/include/sge/x11input/device/event_demuxer_decl.hpp
 	src/plugins/x11input/include/sge/x11input/device/event_demuxer_fwd.hpp
@@ -45,14 +40,13 @@ set(
 	src/plugins/x11input/include/sge/x11input/device/info/class_map.hpp
 	src/plugins/x11input/include/sge/x11input/device/info/class_maybe.hpp
 	src/plugins/x11input/include/sge/x11input/device/info/class_type.hpp
+	src/plugins/x11input/include/sge/x11input/device/info/const_optional_ref.hpp
+	src/plugins/x11input/include/sge/x11input/device/info/const_optional_ref_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/device/info/make_class_pair.hpp
 	src/plugins/x11input/include/sge/x11input/device/info/multi.hpp
 	src/plugins/x11input/include/sge/x11input/device/info/name.hpp
 	src/plugins/x11input/include/sge/x11input/device/info/single.hpp
 	src/plugins/x11input/include/sge/x11input/device/info/string_from_atom.hpp
-	src/plugins/x11input/include/sge/x11input/device/leave_demuxer.hpp
-	src/plugins/x11input/include/sge/x11input/device/leave_demuxer_fwd.hpp
-	src/plugins/x11input/include/sge/x11input/device/leave_event_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/device/manager/config.hpp
 	src/plugins/x11input/include/sge/x11input/device/manager/config_base.hpp
 	src/plugins/x11input/include/sge/x11input/device/manager/config_base_fwd.hpp
@@ -100,6 +94,7 @@ set(
 	src/plugins/x11input/include/sge/x11input/focus/looked_up_string.hpp
 	src/plugins/x11input/include/sge/x11input/focus/looked_up_string_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/focus/lookup_string.hpp
+	src/plugins/x11input/include/sge/x11input/focus/manager.hpp
 	src/plugins/x11input/include/sge/x11input/focus/object.hpp
 	src/plugins/x11input/include/sge/x11input/focus/object_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/focus/object_unique_ptr.hpp
@@ -123,7 +118,9 @@ set(
 	src/plugins/x11input/include/sge/x11input/lc_ctype.hpp
 	src/plugins/x11input/include/sge/x11input/logger.hpp
 	src/plugins/x11input/include/sge/x11input/logger_context.hpp
+	src/plugins/x11input/include/sge/x11input/mask_c.hpp
 	src/plugins/x11input/include/sge/x11input/mask_is_set.hpp
+	src/plugins/x11input/include/sge/x11input/mask_type.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/axis.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/axis_code.hpp
 	src/plugins/x11input/include/sge/x11input/mouse/axis_info.hpp
@@ -155,12 +152,10 @@ set(
 	src/plugins/x11input/src/cursor/find_scroll_valuator.cpp
 	src/plugins/x11input/src/cursor/grab.cpp
 	src/plugins/x11input/src/cursor/make_scroll_valuators.cpp
-	src/plugins/x11input/src/cursor/manager.cpp
 	src/plugins/x11input/src/cursor/object.cpp
 	src/plugins/x11input/src/cursor/query_pointer.cpp
 	src/plugins/x11input/src/cursor/scroll_code.cpp
 	src/plugins/x11input/src/cursor/scroll_valuator.cpp
-	src/plugins/x11input/src/device/enter_demuxer.cpp
 	src/plugins/x11input/src/device/event.cpp
 	src/plugins/x11input/src/device/event_data.cpp
 	src/plugins/x11input/src/device/hierarchy_demuxer.cpp

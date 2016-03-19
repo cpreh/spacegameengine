@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/x11input/input_method_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
-#include <awl/backends/x11/window/class_hint_fwd.hpp>
+#include <awl/backends/x11/window/const_optional_class_hint_ref_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
@@ -43,19 +43,14 @@ class input_method
 public:
 	input_method(
 		awl::backends::x11::display &,
-		awl::backends::x11::window::class_hint const *
+		awl::backends::x11::window::const_optional_class_hint_ref const &
 	);
 
 	~input_method();
 
 	XIM
 	get() const;
-
-	awl::backends::x11::window::class_hint const *
-	class_hint() const;
 private:
-	awl::backends::x11::window::class_hint const *const class_hint_;
-
 	XIM const xim_;
 };
 

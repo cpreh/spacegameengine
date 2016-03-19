@@ -18,11 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_DEVICE_LEAVE_DEMUXER_HPP_INCLUDED
-#define SGE_X11INPUT_DEVICE_LEAVE_DEMUXER_HPP_INCLUDED
+#ifndef SGE_X11INPUT_MASK_TYPE_HPP_INCLUDED
+#define SGE_X11INPUT_MASK_TYPE_HPP_INCLUDED
 
-#include <sge/x11input/device/event_demuxer_decl.hpp>
-#include <sge/x11input/device/leave_demuxer_fwd.hpp>
 
+namespace sge
+{
+namespace x11input
+{
+
+typedef
+int
+mask_type;
+
+}
+}
 
 #endif

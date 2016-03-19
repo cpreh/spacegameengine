@@ -30,12 +30,12 @@ sge::x11input::create_parameters::create_parameters(
 	XIDeviceInfo const &_info
 )
 :
-	id_(
+	id_{
 		_id
-	),
-	info_(
+	},
+	info_{
 		_info
-	)
+	}
 {
 }
 
