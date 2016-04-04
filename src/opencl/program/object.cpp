@@ -35,9 +35,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/post.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/config/gcc_version_at_least.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/verbose.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 SGE_OPENCL_DECLARE_LOCAL_LOGGER(
@@ -92,9 +96,19 @@ sge::opencl::program::object::object(
 			current_blob->first->device_id_);
 	}
 
+	FCPPT_PP_PUSH_WARNING
+	#if FCPPT_CONFIG_GCC_VERSION_AT_LEAST(6,0)
+	// Alignment does not matter here
+	FCPPT_PP_DISABLE_GCC_WARNING(-Wignored-attributes)
+	#endif
+
 	typedef
-	fcppt::container::raw_vector<cl_int>
+	fcppt::container::raw_vector<
+		cl_int
+	>
 	return_status_vector;
+
+	FCPPT_PP_POP_WARNING
 
 	// statuuus, with a long 'u' ;)
 	return_status_vector return_status(

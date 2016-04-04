@@ -129,7 +129,7 @@ sge::opencl::kernel::object::argument(
 			&name = name_,
 			&kernel = kernel_
 		](
-			auto const &_value
+			auto const _value
 		)
 		{
 			cl_int const error_code{

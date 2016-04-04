@@ -22,6 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_KERNEL_NUMERIC_TYPE_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
+#include <fcppt/config/gcc_version_at_least.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/variadic.hpp>
 
 
@@ -31,6 +35,12 @@ namespace opencl
 {
 namespace kernel
 {
+
+FCPPT_PP_PUSH_WARNING
+#if FCPPT_CONFIG_GCC_VERSION_AT_LEAST(6,0)
+// Alignment does not matter here
+FCPPT_PP_DISABLE_GCC_WARNING(-Wignored-attributes)
+#endif
 
 typedef
 fcppt::variant::variadic<
@@ -47,6 +57,8 @@ fcppt::variant::variadic<
 	cl_double
 >
 numeric_type;
+
+FCPPT_PP_POP_WARNING
 
 }
 }
