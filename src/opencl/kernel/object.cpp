@@ -27,10 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/opencl/handle_error.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 
@@ -117,83 +117,71 @@ sge::opencl::kernel::object::argument(
 		FCPPT_TEXT("clSetKernelArg(memory object)"));
 }
 
-namespace
-{
-struct numeric_visitor
-{
-FCPPT_NONASSIGNABLE(
-	numeric_visitor);
-public:
-	typedef
-	void
-	result_type;
-
-	explicit
-	numeric_visitor(
-		sge::opencl::kernel::name::value_type const &_name,
-		cl_kernel const &_kernel,
-		sge::opencl::kernel::argument_index const &_index)
-	:
-		name_(
-			_name),
-		kernel_(
-			_kernel),
-		index_(
-			_index)
-	{
-	}
-
-	template<typename T>
-	result_type
-	operator()(
-		T const &t) const
-	{
-		cl_int const error_code =
-			clSetKernelArg(
-				kernel_,
-				static_cast<cl_uint>(
-					index_.get()),
-				sizeof(
-					T),
-				&t);
-
-		if(error_code == CL_SUCCESS)
-			return;
-
-		if(error_code == CL_INVALID_ARG_SIZE)
-			// TODO: opencl exception
-			throw sge::core::exception(
-				FCPPT_TEXT("Kernel \"")+
-				fcppt::from_std_string(
-					name_)+
-				FCPPT_TEXT("\": clSetKernelArg for argument ")+
-				fcppt::insert_to_fcppt_string(
-					index_)+
-				FCPPT_TEXT(" returned CL_INVALID_ARG_SIZE. ")
-				FCPPT_TEXT("This could mean that you mixed up the ordering or the exact types ")
-				FCPPT_TEXT("of the kernel's arguments."));
-		sge::opencl::handle_error(
-			error_code,
-			FCPPT_TEXT("clSetKernelArg(numeric type)"));
-	}
-private:
-	sge::opencl::kernel::name::value_type const name_;
-	cl_kernel const &kernel_;
-	sge::opencl::kernel::argument_index const index_;
-};
-}
-
 void
 sge::opencl::kernel::object::argument(
-	kernel::argument_index const &index,
-	kernel::numeric_type const &o)
+	sge::opencl::kernel::argument_index const &_index,
+	sge::opencl::kernel::numeric_type const &_object
+)
 {
 	fcppt::variant::apply_unary(
-		numeric_visitor(
-			name_,
-			kernel_,
-			index),
-		o);
+		[
+			_index,
+			&name = name_,
+			&kernel = kernel_
+		](
+			auto const &_value
+		)
+		{
+			cl_int const error_code{
+				::clSetKernelArg(
+					kernel,
+					fcppt::cast::size<
+						cl_uint
+					>(
+						_index.get()
+					),
+					sizeof(
+						decltype(
+							_value
+						)
+					),
+					&_value
+				)
+			};
+
+			switch(
+				error_code
+			)
+			{
+			case CL_SUCCESS:
+				return;
+			case CL_INVALID_ARG_SIZE:
+				// TODO: opencl exception
+				throw
+					sge::core::exception{
+						FCPPT_TEXT("Kernel \"")+
+						fcppt::from_std_string(
+							name
+						)
+						+
+						FCPPT_TEXT("\": clSetKernelArg for argument ")+
+						fcppt::insert_to_fcppt_string(
+							_index
+						)
+						+
+						FCPPT_TEXT(" returned CL_INVALID_ARG_SIZE. ")
+						FCPPT_TEXT("This could mean that you mixed up the ordering or the exact types ")
+						FCPPT_TEXT("of the kernel's arguments.")
+					};
+			}
+
+			sge::opencl::handle_error(
+				error_code,
+				FCPPT_TEXT("clSetKernelArg(numeric type)")
+			);
+		},
+		_object
+	);
 }
 
 void
