@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/detail/iterate_functions.hpp>
 #include <sge/plugin/library/detail/log_context_function_name.hpp>
 #include <sge/plugin/library/detail/version_function_name.hpp>
-#include <fcppt/assign/make_container.hpp>
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -73,9 +72,7 @@ sge_log_context_function(\
 FCPPT_PP_PUSH_WARNING \
 FCPPT_PP_DISABLE_VC_WARNING(4191) \
 SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
-	fcppt::assign::make_container<\
-		sge::plugin::library::function_map::container\
-	>(\
+	sge::plugin::library::function_map::container{\
 		std::make_pair(\
 			sge::plugin::library::detail::version_function_name,\
 			reinterpret_cast<\
@@ -83,8 +80,7 @@ SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 			>(\
 				&sge_info_function\
 			)\
-		)\
-	)(\
+		),\
 		std::make_pair(\
 			sge::plugin::library::detail::log_context_function_name,\
 			reinterpret_cast<\
@@ -92,13 +88,13 @@ SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 			>(\
 				&sge_log_context_function\
 			)\
+		) \
+		BOOST_PP_SEQ_FOR_EACH(\
+			SGE_PLUGIN_LIBRARY_DETAIL_ITERATE_FUNCTIONS,\
+			,\
+			plugin_functions\
 		)\
-	)\
-	BOOST_PP_SEQ_FOR_EACH(\
-		SGE_PLUGIN_LIBRARY_DETAIL_ITERATE_FUNCTIONS,\
-		void,\
-		plugin_functions\
-	) \
+	}\
 SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST \
 FCPPT_PP_POP_WARNING
 

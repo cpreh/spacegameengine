@@ -118,9 +118,7 @@ sge::input::mouse::manager::discover(
 								std::placeholders::_1
 							)
 						}
-					)
-				)
-				(
+					),
 					_event.get().button_callback(
 						sge::input::mouse::button_callback{
 							std::bind(
@@ -133,10 +131,8 @@ sge::input::mouse::manager::discover(
 						}
 					)
 				)
-				.move_container()
 			)
 		).second
-		== true
 	);
 
 	discover_callback_(

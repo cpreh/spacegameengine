@@ -90,9 +90,7 @@ sge::x11input::focus::object::object(
 						std::placeholders::_1
 					)
 				}
-			)
-		)
-		(
+			),
 			_param.window_demuxer().register_callback(
 				awl::backends::x11::system::event::type(
 					XI_KeyRelease
@@ -105,9 +103,7 @@ sge::x11input::focus::object::object(
 						std::placeholders::_1
 					)
 				}
-			)
-		)
-		(
+			),
 			_param.window_demuxer().register_callback(
 				awl::backends::x11::system::event::type(
 					XI_FocusIn
@@ -125,9 +121,7 @@ sge::x11input::focus::object::object(
 						);
 					}
 				}
-			)
-		)
-		(
+			),
 			_param.window_demuxer().register_callback(
 				awl::backends::x11::system::event::type(
 					XI_FocusOut
@@ -147,7 +141,6 @@ sge::x11input::focus::object::object(
 				}
 			)
 		)
-		.move_container()
 	)
 {
 }

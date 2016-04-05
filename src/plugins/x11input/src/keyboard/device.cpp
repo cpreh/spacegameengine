@@ -67,9 +67,7 @@ sge::x11input::keyboard::device::device(
 						std::placeholders::_1
 					)
 				}
-			)
-		)
-		(
+			),
 			_param.window_demuxer().register_callback(
 				awl::backends::x11::system::event::type(
 					XI_KeyRelease
@@ -84,7 +82,6 @@ sge::x11input::keyboard::device::device(
 				}
 			)
 		)
-		.move_container()
 	)
 {
 }

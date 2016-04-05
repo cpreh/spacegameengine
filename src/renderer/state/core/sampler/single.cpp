@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/single.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/assign/make_map.hpp>
 
 
 void
@@ -34,11 +33,11 @@ sge::renderer::state::core::sampler::single(
 )
 {
 	_context.sampler_state(
-		fcppt::assign::make_map<
-			sge::renderer::state::core::sampler::const_optional_object_ref_map
-		>(
-			_stage,
-			_object
-		)
+		sge::renderer::state::core::sampler::const_optional_object_ref_map{
+			sge::renderer::state::core::sampler::const_optional_object_ref_map::value_type{
+				_stage,
+				_object
+			}
+		}
 	);
 }

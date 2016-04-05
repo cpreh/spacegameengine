@@ -310,8 +310,7 @@ try
 									sge::gui::optional_needed_width()
 								)
 							)
-						)
-					)(
+						),
 						sge::gui::widget::unique_ptr_tree(
 							fcppt::unique_ptr_to_base<
 								sge::gui::widget::base
@@ -328,7 +327,6 @@ try
 							)
 						)
 					)
-					.move_container()
 				);
 		}
 	);

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/error_string_map.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_map.hpp>
 
 
 sge::opengl::fbo::config::config(
@@ -93,35 +92,40 @@ sge::opengl::fbo::config::config(
 	framebuffer_complete_(
 		_fbo_complete
 	),
-	error_strings_(
-		fcppt::assign::make_map<
-			sge::opengl::fbo::error_string_map
-		>(
+	error_strings_{
+		sge::opengl::fbo::error_string_map::value_type{
 			_fbo_undefined,
 			FCPPT_TEXT("undefined")
-		)(
+		},
+		sge::opengl::fbo::error_string_map::value_type{
 			_fbo_incomplete_attachment,
 			FCPPT_TEXT("incomplete attachment")
-		)(
+		},
+		sge::opengl::fbo::error_string_map::value_type{
 			_fbo_incomplete_missing_attachment,
 			FCPPT_TEXT("incomplete missing attachment")
-		)(
+		},
+		sge::opengl::fbo::error_string_map::value_type{
 			_fbo_incomplete_draw_buffer,
 			FCPPT_TEXT("incomplete draw buffer")
-		)(
+		},
+		sge::opengl::fbo::error_string_map::value_type{
 			_fbo_incomplete_read_buffer,
 			FCPPT_TEXT("incomplete read buffer")
-		)(
+		},
+		sge::opengl::fbo::error_string_map::value_type{
 			_fbo_unsupported,
 			FCPPT_TEXT("unsupported")
-		)(
+		},
+		sge::opengl::fbo::error_string_map::value_type{
 			_fbo_incomplete_multisample,
 			FCPPT_TEXT("incomplete multisample")
-		)(
+		},
+		sge::opengl::fbo::error_string_map::value_type{
 			_fbo_incomplete_layer_targets,
 			FCPPT_TEXT("incomplete layer targets")
-		)
-	),
+		}
+	},
 	renderbuffer_target_(
 		_renderbuffer_target
 	),

@@ -133,9 +133,7 @@ sge::input::cursor::manager::discover(
 								std::placeholders::_1
 							)
 						}
-					)
-				)
-				(
+					),
 					_event.get().move_callback(
 						sge::input::cursor::move_callback{
 							std::bind(
@@ -146,9 +144,7 @@ sge::input::cursor::manager::discover(
 								std::placeholders::_1
 							)
 						}
-					)
-				)
-				(
+					),
 					_event.get().scroll_callback(
 						sge::input::cursor::scroll_callback{
 							std::bind(
@@ -161,10 +157,8 @@ sge::input::cursor::manager::discover(
 						}
 					)
 				)
-				.move_container()
 			)
 		).second
-		== true
 	);
 
 	discover_callback_(

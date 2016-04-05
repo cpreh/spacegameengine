@@ -69,7 +69,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/map.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/assign/make_map.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 
@@ -121,7 +120,7 @@ struct light_visitor
 	}
 };
 
-sge::renderer::state::ffp::lighting::light::parameters const
+sge::renderer::state::ffp::lighting::light::parameters
 transform_light(
 	sge::scenic::render_context::light::object const &_light)
 {
@@ -163,14 +162,19 @@ sge::scenic::render_context::ffp::object::object(
 					sge::renderer::state::core::sampler::address::mode_all(
 						sge::renderer::state::core::sampler::address::mode::repeat)),
 				sge::renderer::state::core::sampler::filter::trilinear()))),
-	scoped_sampler_(
+	scoped_sampler_{
 		_context,
-		fcppt::assign::make_map<sge::renderer::state::core::sampler::const_object_ref_map>
-		(
-			sge::renderer::texture::stage(
-				0u),
-			fcppt::make_cref(
-				*diffuse_texture_sampler_))),
+		sge::renderer::state::core::sampler::const_object_ref_map{
+			sge::renderer::state::core::sampler::const_object_ref_map::value_type{
+				sge::renderer::texture::stage{
+					0u
+				},
+				fcppt::make_cref(
+					*diffuse_texture_sampler_
+				)
+			}
+		}
+	},
 	current_lighting_(
 		manager_.renderer_.create_lighting_state(
 			sge::renderer::state::ffp::lighting::parameters(

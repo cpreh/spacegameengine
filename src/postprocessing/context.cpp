@@ -67,7 +67,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/object_impl.hpp>
-#include <fcppt/assign/make_map.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
@@ -483,11 +482,15 @@ sge::postprocessing::context::finalize()
 
 	sge::renderer::state::core::sampler::scoped scoped_filter(
 		result->get(),
-		fcppt::assign::make_map<sge::renderer::state::core::sampler::const_object_ref_map>
-			(
+		sge::renderer::state::core::sampler::const_object_ref_map{
+			sge::renderer::state::core::sampler::const_object_ref_map::value_type{
 				finalize_input_texture_parameter_.stage(),
-				sge::renderer::state::core::sampler::const_object_ref(
-					*point_sampler_)));
+				sge::renderer::state::core::sampler::const_object_ref{
+					*point_sampler_
+				}
+			}
+		}
+	);
 
 	/*
 	sge::renderer::texture::filter::scoped scoped_texture_filter_1(

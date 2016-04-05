@@ -141,7 +141,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/array_map.hpp>
-#include <fcppt/assign/make_map.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -684,25 +683,24 @@ try
 		)
 	);
 
-	sge::renderer::state::core::sampler::const_object_ref_map const samplers(
-		fcppt::assign::make_map<
-			sge::renderer::state::core::sampler::const_object_ref_map
-		>(
+	sge::renderer::state::core::sampler::const_object_ref_map const samplers{
+		sge::renderer::state::core::sampler::const_object_ref_map::value_type{
 			sge::renderer::texture::stage(
 				0u
 			),
 			fcppt::make_cref(
 				*sampler_state
 			)
-		)(
+		},
+		sge::renderer::state::core::sampler::const_object_ref_map::value_type{
 			sge::renderer::texture::stage(
 				1u
 			),
 			fcppt::make_cref(
 				*sampler_state
 			)
-		)
-	);
+		}
+	};
 
 	while(
 		sys.window_system().poll()

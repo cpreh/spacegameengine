@@ -80,9 +80,7 @@ sge::x11input::mouse::device::device(
 						std::placeholders::_1
 					)
 				}
-			)
-		)
-		(
+			),
 			_param.window_demuxer().register_callback(
 				awl::backends::x11::system::event::type(
 					XI_ButtonPress
@@ -95,9 +93,7 @@ sge::x11input::mouse::device::device(
 						std::placeholders::_1
 					)
 				}
-			)
-		)
-		(
+			),
 			_param.window_demuxer().register_callback(
 				awl::backends::x11::system::event::type(
 					XI_ButtonRelease
@@ -112,7 +108,6 @@ sge::x11input::mouse::device::device(
 				}
 			)
 		)
-		.move_container()
 	),
 	info_(
 		sge::x11input::mouse::info(

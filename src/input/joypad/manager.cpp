@@ -123,9 +123,7 @@ sge::input::joypad::manager::discover(
 								std::placeholders::_1
 							)
 						}
-					)
-				)
-				(
+					),
 					_event.get().button_callback(
 						sge::input::joypad::button_callback{
 							std::bind(
@@ -136,9 +134,7 @@ sge::input::joypad::manager::discover(
 								std::placeholders::_1
 							)
 						}
-					)
-				)
-				(
+					),
 					_event.get().relative_axis_callback(
 						sge::input::joypad::relative_axis_callback{
 							std::bind(
@@ -151,10 +147,8 @@ sge::input::joypad::manager::discover(
 						}
 					)
 				)
-				.move_container()
 			)
 		).second
-		== true
 	);
 
 	discover_callback_(

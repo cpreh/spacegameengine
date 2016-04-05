@@ -41,7 +41,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/assert/optional_error.hpp>
-#include <fcppt/assign/make_map.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
@@ -77,23 +76,31 @@ sge::scenic::render_context::cg::object::object(
 	scoped_shader_(
 		_context,
 		manager_.shader_),
-	sampler_state_(
+	sampler_state_{
 		_context,
-		fcppt::assign::make_map<sge::renderer::state::core::sampler::const_object_ref_map>
-			(
+		sge::renderer::state::core::sampler::const_object_ref_map{
+			sge::renderer::state::core::sampler::const_object_ref_map::value_type{
 				// I'd love to write this, but for this, the texture would have to be scoped, which it isn't yet
 				//manager_.diffuse_texture_.stage(),
-				sge::renderer::texture::stage(
-					0u),
-				sge::renderer::state::core::sampler::const_object_ref(
-					*manager_.mipmap_sampler_state_))
-			(
+				sge::renderer::texture::stage{
+					0u
+				},
+				sge::renderer::state::core::sampler::const_object_ref{
+					*manager_.mipmap_sampler_state_
+				}
+			},
+			sge::renderer::state::core::sampler::const_object_ref_map::value_type{
 				// I'd love to write this, but for this, the texture would have to be scoped, which it isn't yet
 				//manager_.specular_texture_.stage(),
-				sge::renderer::texture::stage(
-					1u),
-				sge::renderer::state::core::sampler::const_object_ref(
-					*manager_.mipmap_sampler_state_))),
+				sge::renderer::texture::stage{
+					1u
+				},
+				sge::renderer::state::core::sampler::const_object_ref{
+					*manager_.mipmap_sampler_state_
+				}
+			}
+		}
+	},
 	current_world_(
 		fcppt::math::matrix::identity<
 			sge::renderer::matrix4

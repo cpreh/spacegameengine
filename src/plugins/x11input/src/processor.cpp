@@ -80,7 +80,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <functional>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -169,7 +168,7 @@ sge::x11input::processor::processor(
 		fcppt::assign::make_container<
 			sge::x11input::device::manager::config_map
 		>(
-			std::make_pair(
+			sge::x11input::device::manager::config_map::value_type{
 				sge::x11input::device::use(
 					XIMasterKeyboard
 				),
@@ -188,10 +187,8 @@ sge::x11input::processor::processor(
 						)
 					}
 				)
-			)
-		)
-		(
-			std::make_pair(
+			},
+			sge::x11input::device::manager::config_map::value_type{
 				sge::x11input::device::use(
 					XISlaveKeyboard
 				),
@@ -210,10 +207,8 @@ sge::x11input::processor::processor(
 						)
 					}
 				)
-			)
-		)
-		(
-			std::make_pair(
+			},
+			sge::x11input::device::manager::config_map::value_type{
 				sge::x11input::device::use(
 					XIMasterPointer
 				),
@@ -232,10 +227,8 @@ sge::x11input::processor::processor(
 						)
 					}
 				)
-			)
-		)
-		(
-			std::make_pair(
+			},
+			sge::x11input::device::manager::config_map::value_type{
 				sge::x11input::device::use(
 					XISlavePointer
 				),
@@ -254,9 +247,8 @@ sge::x11input::processor::processor(
 						)
 					}
 				)
-			)
+			}
 		)
-		.move_container()
 	),
 	init_atom_(
 		awl::backends::x11::intern_atom(
@@ -282,9 +274,7 @@ sge::x11input::processor::processor(
 						std::placeholders::_1
 					)
 				}
-			)
-		)
-		(
+			),
 			window_event_processor_.register_callback(
 				awl::backends::x11::window::event::type(
 					ClientMessage
@@ -298,7 +288,6 @@ sge::x11input::processor::processor(
 				}
 			)
 		)
-		.move_container()
 	)
 {
 	sge::x11input::device::info::multi const current_devices(

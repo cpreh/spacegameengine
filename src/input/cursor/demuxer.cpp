@@ -264,9 +264,7 @@ sge::input::cursor::demuxer::assign_cursor()
 								std::placeholders::_1
 							)
 						}
-					)
-				)
-				(
+					),
 					_cursor.get().move_callback(
 						sge::input::cursor::move_callback{
 							std::bind(
@@ -275,9 +273,7 @@ sge::input::cursor::demuxer::assign_cursor()
 								std::placeholders::_1
 							)
 						}
-					)
-				)
-				(
+					),
 					_cursor.get().scroll_callback(
 						sge::input::cursor::scroll_callback{
 							std::bind(

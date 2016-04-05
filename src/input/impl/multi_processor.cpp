@@ -118,8 +118,7 @@ sge::input::impl::multi_processor::multi_processor(
 									std::placeholders::_1
 								)
 							}
-						)
-					)(
+						),
 						_processor->keyboard_remove_callback(
 							sge::input::keyboard::remove_callback{
 								std::bind(
@@ -128,8 +127,7 @@ sge::input::impl::multi_processor::multi_processor(
 									std::placeholders::_1
 								)
 							}
-						)
-					)(
+						),
 						_processor->mouse_discover_callback(
 							sge::input::mouse::discover_callback{
 								std::bind(
@@ -138,8 +136,7 @@ sge::input::impl::multi_processor::multi_processor(
 									std::placeholders::_1
 								)
 							}
-						)
-					)(
+						),
 						_processor->mouse_remove_callback(
 							sge::input::mouse::remove_callback{
 								std::bind(
@@ -148,8 +145,7 @@ sge::input::impl::multi_processor::multi_processor(
 									std::placeholders::_1
 								)
 							}
-						)
-					)(
+						),
 						_processor->focus_discover_callback(
 							sge::input::focus::discover_callback{
 								std::bind(
@@ -158,8 +154,7 @@ sge::input::impl::multi_processor::multi_processor(
 									std::placeholders::_1
 								)
 							}
-						)
-					)(
+						),
 						_processor->focus_remove_callback(
 							sge::input::focus::remove_callback{
 								std::bind(
@@ -168,8 +163,7 @@ sge::input::impl::multi_processor::multi_processor(
 									std::placeholders::_1
 								)
 							}
-						)
-					)(
+						),
 						_processor->cursor_discover_callback(
 							sge::input::cursor::discover_callback{
 								std::bind(
@@ -178,8 +172,7 @@ sge::input::impl::multi_processor::multi_processor(
 									std::placeholders::_1
 								)
 							}
-						)
-					)(
+						),
 						_processor->cursor_remove_callback(
 							sge::input::cursor::remove_callback{
 								std::bind(
@@ -188,8 +181,7 @@ sge::input::impl::multi_processor::multi_processor(
 									std::placeholders::_1
 								)
 							}
-						)
-					)(
+						),
 						_processor->joypad_discover_callback(
 							sge::input::joypad::discover_callback{
 								std::bind(
@@ -198,8 +190,7 @@ sge::input::impl::multi_processor::multi_processor(
 									std::placeholders::_1
 								)
 							}
-						)
-					)(
+						),
 						_processor->joypad_remove_callback(
 							sge::input::joypad::remove_callback{
 								std::bind(
@@ -209,8 +200,7 @@ sge::input::impl::multi_processor::multi_processor(
 								)
 							}
 						)
-					)
-					.move_container();
+					);
 			}
 		)
 	)

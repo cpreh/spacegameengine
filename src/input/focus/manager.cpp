@@ -136,9 +136,7 @@ sge::input::focus::manager::discover(
 								std::placeholders::_1
 							)
 						}
-					)
-				)
-				(
+					),
 					_event.get().key_callback(
 						sge::input::focus::key_callback{
 							std::bind(
@@ -149,9 +147,7 @@ sge::input::focus::manager::discover(
 								std::placeholders::_1
 							)
 						}
-					)
-				)
-				(
+					),
 					_event.get().key_repeat_callback(
 						sge::input::focus::key_repeat_callback{
 							std::bind(
@@ -162,9 +158,7 @@ sge::input::focus::manager::discover(
 								std::placeholders::_1
 							)
 						}
-					)
-				)
-				(
+					),
 					_event.get().in_callback(
 						sge::input::focus::in_callback{
 							std::bind(
@@ -175,9 +169,7 @@ sge::input::focus::manager::discover(
 								std::placeholders::_1
 							)
 						}
-					)
-				)
-				(
+					),
 					_event.get().out_callback(
 						sge::input::focus::out_callback{
 							std::bind(
@@ -190,7 +182,6 @@ sge::input::focus::manager::discover(
 						}
 					)
 				)
-				.move_container()
 			)
 		).second
 	);
@@ -211,7 +202,8 @@ sge::input::focus::manager::remove(
 				_event.get()
 			)
 		)
-		== 1u
+		==
+		1u
 	);
 
 	remove_callback_(

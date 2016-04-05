@@ -122,7 +122,6 @@ sge::input::keyboard::manager::discover(
 						}
 					)
 				)
-				.move_container()
 			)
 		).second
 	);
