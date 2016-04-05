@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/scroll_callback.hpp>
 #include <sge/input/cursor/scroll_signal.hpp>
-#include <sge/x11input/cursor/entered.hpp>
 #include <sge/x11input/cursor/grab_fwd.hpp>
 #include <sge/x11input/cursor/object_fwd.hpp>
 #include <sge/x11input/cursor/scroll_valuator_map.hpp>
@@ -72,9 +71,6 @@ public:
 
 	~object()
 	override;
-
-	void
-	on_focus_out();
 
 	void
 	init()
@@ -123,6 +119,11 @@ private:
 		sge::x11input::device::window_event const &
 	);
 
+	void
+	on_focus_out(
+		sge::x11input::device::window_event const &
+	);
+
 	template<
 		typename Event
 	>
@@ -163,7 +164,7 @@ private:
 
 	sge::input::cursor::mode mode_;
 
-	sge::x11input::cursor::entered entered_;
+	bool should_grab_;
 
 	sge::input::cursor::optional_position position_;
 

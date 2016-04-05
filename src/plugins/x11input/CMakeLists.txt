@@ -5,7 +5,6 @@ set(
 	src/plugins/x11input/include/sge/x11input/create_parameters.hpp
 	src/plugins/x11input/include/sge/x11input/create_parameters_fwd.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/button_code.hpp
-	src/plugins/x11input/include/sge/x11input/cursor/entered.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/find_scroll_valuator.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/grab.hpp
 	src/plugins/x11input/include/sge/x11input/cursor/grab_fwd.hpp

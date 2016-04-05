@@ -38,9 +38,6 @@ sge::x11input::device::parameters::parameters(
 	sge::x11input::device::raw_demuxer &_raw_demuxer
 )
 :
-	id_(
-		_param.id()
-	),
 	info_(
 		_param.info()
 	),
@@ -63,7 +60,18 @@ sge::x11input::device::id
 sge::x11input::device::parameters::id() const
 {
 	return
-		id_;
+		sge::x11input::device::id{
+			info_.deviceid
+		};
+}
+
+sge::x11input::device::id
+sge::x11input::device::parameters::paired_id() const
+{
+	return
+		sge::x11input::device::id{
+			info_.attachment
+		};
 }
 
 XIDeviceInfo const &

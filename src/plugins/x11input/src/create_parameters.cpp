@@ -19,31 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11input/create_parameters.hpp>
-#include <sge/x11input/device/id.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::x11input::create_parameters::create_parameters(
-	sge::x11input::device::id const _id,
 	XIDeviceInfo const &_info
 )
 :
-	id_{
-		_id
-	},
 	info_{
 		_info
 	}
 {
-}
-
-sge::x11input::device::id
-sge::x11input::create_parameters::id() const
-{
-	return
-		id_;
 }
 
 XIDeviceInfo const &

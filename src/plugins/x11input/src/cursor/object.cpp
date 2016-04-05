@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/scroll_event.hpp>
 #include <sge/x11input/logger.hpp>
 #include <sge/x11input/cursor/button_code.hpp>
-#include <sge/x11input/cursor/entered.hpp>
 #include <sge/x11input/cursor/grab.hpp>
 #include <sge/x11input/cursor/make_scroll_valuators.hpp>
 #include <sge/x11input/cursor/object.hpp>
@@ -114,6 +113,21 @@ sge::x11input::cursor::object::object(
 		(
 			_param.window_demuxer().register_callback(
 				awl::backends::x11::system::event::type(
+					XI_ButtonRelease
+				),
+				_param.id(),
+				sge::x11input::device::window_demuxer::callback{
+					std::bind(
+						&sge::x11input::cursor::object::on_button_up,
+						this,
+						std::placeholders::_1
+					)
+				}
+			)
+		)
+		(
+			_param.window_demuxer().register_callback(
+				awl::backends::x11::system::event::type(
 					XI_Enter
 				),
 				_param.id(),
@@ -144,12 +158,12 @@ sge::x11input::cursor::object::object(
 		(
 			_param.window_demuxer().register_callback(
 				awl::backends::x11::system::event::type(
-					XI_ButtonRelease
+					XI_FocusOut
 				),
-				_param.id(),
+				_param.paired_id(),
 				sge::x11input::device::window_demuxer::callback{
 					std::bind(
-						&sge::x11input::cursor::object::on_button_up,
+						&sge::x11input::cursor::object::on_focus_out,
 						this,
 						std::placeholders::_1
 					)
@@ -160,8 +174,8 @@ sge::x11input::cursor::object::object(
 	mode_(
 		sge::input::cursor::mode::normal
 	),
-	entered_{
-		false
+	should_grab_{
+		true
 	},
 	position_(
 		sge::x11input::cursor::query_pointer(
@@ -186,26 +200,8 @@ sge::x11input::cursor::object::~object()
 }
 
 void
-sge::x11input::cursor::object::on_focus_out()
-{
-	entered_ =
-		sge::x11input::cursor::entered{
-			false
-		};
-
-	this->check_grab();
-}
-
-void
 sge::x11input::cursor::object::init()
 {
-	// FIXME
-	//if(window_.visible())
-	entered_ =
-		sge::x11input::cursor::entered{
-			true
-		};
-
 	this->check_grab();
 }
 
@@ -322,6 +318,9 @@ sge::x11input::cursor::object::on_enter(
 			<< _event.get().event_y
 	);
 
+	should_grab_ =
+		true;
+
 	this->update_position(
 		_event
 	);
@@ -338,13 +337,30 @@ sge::x11input::cursor::object::on_leave(
 			<< FCPPT_TEXT("XILeave")
 	);
 
-	cursor_grab_ =
-		optional_cursor_grab_unique_ptr();
-
 	position_ =
 		sge::input::cursor::optional_position{};
 
+	should_grab_ =
+		false;
+
 	this->move_event();
+}
+
+void
+sge::x11input::cursor::object::on_focus_out(
+	sge::x11input::device::window_event const &
+)
+{
+	FCPPT_LOG_DEBUG(
+		sge::x11input::logger(),
+		fcppt::log::_
+			<< FCPPT_TEXT("XIFocusOut")
+	);
+
+	should_grab_ =
+		false;
+
+	this->check_grab();
 }
 
 template<
@@ -372,7 +388,10 @@ sge::x11input::cursor::object::on_button_down(
 	sge::x11input::device::window_event const &_event
 )
 {
-	this->init();
+	should_grab_ =
+		true;
+
+	this->check_grab();
 
 	this->button_event(
 		_event,
@@ -442,7 +461,7 @@ sge::x11input::cursor::object::check_grab()
 		if(
 			!cursor_grab_.has_value()
 			&&
-			entered_.get()
+			should_grab_
 		)
 			cursor_grab_ =
 				optional_cursor_grab_unique_ptr(
@@ -455,7 +474,7 @@ sge::x11input::cursor::object::check_grab()
 					)
 				);
 		else if(
-			!entered_.get()
+			!should_grab_
 		)
 			cursor_grab_ =
 				optional_cursor_grab_unique_ptr();

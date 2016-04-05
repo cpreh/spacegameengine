@@ -51,8 +51,7 @@ sge::x11input::cursor::grab::grab(
 		_id
 	)
 {
-	XIEventMask mask =
-	{
+	XIEventMask mask{
 		id_.get(),
 		0,
 		nullptr
@@ -101,12 +100,14 @@ sge::x11input::cursor::grab::grab(
 			break;
 		case GrabInvalidTime:
 		default:
-			throw sge::input::exception(
-				FCPPT_TEXT("X11 grab failed with code ")
-				+ fcppt::insert_to_fcppt_string(
-					ret
-				)
-			);
+			throw
+				sge::input::exception{
+					FCPPT_TEXT("X11 grab failed with code ")
+					+
+					fcppt::insert_to_fcppt_string(
+						ret
+					)
+				};
 		}
 	}
 }

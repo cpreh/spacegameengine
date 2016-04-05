@@ -58,6 +58,9 @@ public:
 	sge::x11input::device::id
 	id() const;
 
+	sge::x11input::device::id
+	paired_id() const;
+
 	XIDeviceInfo const &
 	info() const;
 
@@ -73,8 +76,6 @@ public:
 	sge::x11input::device::raw_demuxer &
 	raw_demuxer() const;
 private:
-	sge::x11input::device::id const id_;
-
 	XIDeviceInfo const &info_;
 
 	awl::backends::x11::system::event::opcode const opcode_;

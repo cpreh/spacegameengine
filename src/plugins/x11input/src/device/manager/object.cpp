@@ -82,9 +82,6 @@ sge::x11input::device::manager::object::initial(
 			&sge::x11input::device::manager::config_base::initial,
 			std::placeholders::_1,
 			sge::x11input::create_parameters(
-				sge::x11input::device::id(
-					_info.deviceid
-				),
 				_info
 			)
 		)
@@ -164,7 +161,6 @@ sge::x11input::device::manager::object::change(
 							&sge::x11input::device::manager::config_base::add,
 							std::placeholders::_1,
 							sge::x11input::create_parameters(
-								device_id,
 								_device_info.get()
 							)
 						)
