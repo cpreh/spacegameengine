@@ -162,8 +162,7 @@ sge::wininput::cursor::exclusive_mode::make_connection_pair(
 						std::placeholders::_1
 					)
 				}
-			)
-		)(
+			),
 			_event_processor.register_callback(
 				exit_event,
 				awl::backends::windows::window::event::callback{
@@ -175,5 +174,5 @@ sge::wininput::cursor::exclusive_mode::make_connection_pair(
 					)
 				}
 			)
-		).move_container();
+		);
 }

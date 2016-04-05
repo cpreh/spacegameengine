@@ -153,9 +153,7 @@ sge::dinput::processor::processor(
 						std::placeholders::_1
 					)
 				}
-			)
-		)
-		(
+			),
 			event_processor_.register_callback(
 				fcppt::strong_typedef_construct_cast<
 					awl::backends::windows::event::type,
@@ -170,9 +168,7 @@ sge::dinput::processor::processor(
 						std::placeholders::_1
 					)
 				}
-			)
-		)
-		(
+			),
 			event_processor_.register_callback(
 				init_message_.type(),
 				awl::backends::windows::window::event::callback{
@@ -182,9 +178,7 @@ sge::dinput::processor::processor(
 						std::placeholders::_1
 					)
 				}
-			)
-		)
-		(
+			),
 			system_processor_.register_handle_callback(
 				awl::backends::windows::system::event::handle_callback{
 					std::bind(

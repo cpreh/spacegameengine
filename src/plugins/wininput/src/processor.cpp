@@ -125,9 +125,7 @@ sge::wininput::processor::processor(
 						std::placeholders::_1
 					)
 				}
-			)
-		)
-		(
+			),
 			event_processor_.register_callback(
 				init_message_.type(),
 				awl::backends::windows::window::event::callback{

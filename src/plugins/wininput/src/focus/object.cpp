@@ -82,8 +82,7 @@ sge::wininput::focus::object::object(
 						std::placeholders::_1
 					)
 				}
-			)
-		)(
+			),
 			event_processor_.register_callback(
 				fcppt::strong_typedef_construct_cast<
 					awl::backends::windows::event::type,
@@ -101,8 +100,7 @@ sge::wininput::focus::object::object(
 						}
 					)
 				}
-			)
-		)(
+			),
 			event_processor_.register_callback(
 				fcppt::strong_typedef_construct_cast<
 					awl::backends::windows::event::type,
@@ -120,8 +118,7 @@ sge::wininput::focus::object::object(
 						}
 					)
 				}
-			)
-		)(
+			),
 			event_processor_.register_callback(
 				fcppt::strong_typedef_construct_cast<
 					awl::backends::windows::event::type,
@@ -144,8 +141,7 @@ sge::wininput::focus::object::object(
 							awl::backends::windows::window::event::return_type();
 					}
 				}
-			)
-		)(
+			),
 			event_processor_.register_callback(
 				fcppt::strong_typedef_construct_cast<
 					awl::backends::windows::event::type,
@@ -169,7 +165,7 @@ sge::wininput::focus::object::object(
 					}
 				}
 			)
-		).move_container()
+		)
 	)
 {
 }

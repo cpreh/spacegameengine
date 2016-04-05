@@ -109,7 +109,7 @@ sge::wininput::cursor::object::object(
 						)
 					}
 				)
-			).move_container(),
+			),
 			this->make_button_connections(
 				WM_LBUTTONDOWN,
 				WM_LBUTTONUP,
@@ -132,7 +132,7 @@ sge::wininput::cursor::object::object(
 					WM_MOUSEWHEEL,
 					sge::input::cursor::scroll_code::vertical
 				)
-			).move_container()
+			)
 			// FIXME: Why is there no WM_MOUSEHWHEEL?
 			/*
 			this->make_scroll_connection(
@@ -399,8 +399,7 @@ sge::wininput::cursor::object::make_button_connections(
 						}
 					)
 				}
-			)
-		)(
+			),
 			event_processor_.register_callback(
 				awl::backends::windows::event::type{
 					_up_event
