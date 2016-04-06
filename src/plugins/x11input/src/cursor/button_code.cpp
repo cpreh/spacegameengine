@@ -20,6 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/x11input/cursor/button_code.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/X.h>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::cursor::button_code
@@ -27,18 +30,21 @@ sge::x11input::cursor::button_code(
 	int const _detail
 )
 {
-	// FIXME: This is certainly wrong
 	switch(
 		_detail
 	)
 	{
-	case 1:
-		return sge::input::cursor::button_code::left;
-	case 2:
-		return sge::input::cursor::button_code::middle;
-	case 3:
-		return sge::input::cursor::button_code::right;
+	case Button1:
+		return
+			sge::input::cursor::button_code::left;
+	case Button2:
+		return
+			sge::input::cursor::button_code::middle;
+	case Button3:
+		return
+			sge::input::cursor::button_code::right;
 	}
 
-	return sge::input::cursor::button_code::unknown;
+	return
+		sge::input::cursor::button_code::unknown;
 }
