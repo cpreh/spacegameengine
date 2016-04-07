@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/device/index.hpp>
 #include <sge/src/systems/make_scoped_output.hpp>
 #include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/src/systems/modules/audio/loader.hpp>
@@ -350,15 +349,6 @@ sge::systems::detail::instance_impl::renderer_device_core() const
 		FCPPT_ASSERT_OPTIONAL_ERROR(
 			renderer_device_
 		)->get_core();
-}
-
-sge::renderer::device::index
-sge::systems::detail::instance_impl::renderer_device_index() const
-{
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			renderer_device_
-		)->index();
 }
 
 sge::input::system &

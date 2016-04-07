@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/core_unique_ptr.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/device/index.hpp>
 #include <sge/src/systems/modules/renderer/device_fwd.hpp>
 #include <sge/src/systems/modules/renderer/system_fwd.hpp>
 #include <sge/src/systems/modules/window/object_fwd.hpp>
@@ -62,15 +61,10 @@ public:
 	sge::renderer::device::core &
 	get_core() const;
 
-	sge::renderer::device::index
-	index() const;
-
 	sge::viewport::manager &
 	viewport_manager();
 private:
 	sge::renderer::device::core_unique_ptr const renderer_device_;
-
-	sge::renderer::device::index const index_;
 
 	sge::viewport::manager viewport_manager_;
 };

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/name.hpp>
 #include <sge/renderer/caps/system_field.hpp>
-#include <sge/renderer/device/index.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/target/viewport.hpp>
@@ -64,12 +63,6 @@ public:
 		sge::plugin::name const &
 	);
 
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::renderer &
-	device_index(
-		sge::renderer::device::index
-	);
-
 	sge::renderer::pixel_format::object const &
 	pixel_format() const;
 
@@ -84,9 +77,6 @@ public:
 
 	sge::systems::optional_name const &
 	name() const;
-
-	sge::renderer::device::index
-	device_index() const;
 private:
 	sge::renderer::pixel_format::object const pixel_format_;
 
@@ -97,8 +87,6 @@ private:
 	sge::renderer::caps::system_field caps_;
 
 	sge::systems::optional_name name_;
-
-	sge::renderer::device::index device_index_;
 };
 
 }

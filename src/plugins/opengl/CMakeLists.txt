@@ -8,7 +8,6 @@ set(
 	src/plugins/opengl/include/sge/opengl/backend/current.hpp
 	src/plugins/opengl/include/sge/opengl/backend/current_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/backend/current_unique_ptr.hpp
-	src/plugins/opengl/include/sge/opengl/backend/dummy.hpp
 	src/plugins/opengl/include/sge/opengl/backend/fun_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/backend/scoped_current.hpp
 	src/plugins/opengl/include/sge/opengl/backend/scoped_current_fwd.hpp
@@ -644,7 +643,6 @@ set(
 	src/plugins/opengl/src/backend/context.cpp
 	src/plugins/opengl/src/backend/create_system.cpp
 	src/plugins/opengl/src/backend/current.cpp
-	src/plugins/opengl/src/backend/dummy.cpp
 	src/plugins/opengl/src/backend/scoped_current.cpp
 	src/plugins/opengl/src/backend/system.cpp
 	src/plugins/opengl/src/buffer/base.cpp

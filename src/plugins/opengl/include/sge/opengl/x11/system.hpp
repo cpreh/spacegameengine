@@ -24,8 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/platform/device_state_unique_ptr.hpp>
 #include <sge/opengl/platform/system.hpp>
 #include <sge/opengl/xrandr/optional_system_unique_ptr.hpp>
-#include <sge/renderer/caps/device_count.hpp>
-#include <sge/renderer/device/index.hpp>
 #include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/backends/x11/system/object_fwd.hpp>
@@ -57,14 +55,8 @@ public:
 	~system()
 	override;
 private:
-	sge::renderer::caps::device_count
-	device_count() const
-	override;
-
 	sge::renderer::display_mode::container
-	display_modes(
-		sge::renderer::device::index
-	) const
+	display_modes() const
 	override;
 
 	sge::opengl::platform::device_state_unique_ptr

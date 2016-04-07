@@ -23,14 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/system_fwd.hpp>
-#include <sge/renderer/caps/device_count.hpp>
-#include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/device/core_unique_ptr.hpp>
 #include <sge/renderer/device/ffp_unique_ptr.hpp>
-#include <sge/renderer/device/index_fwd.hpp>
 #include <sge/renderer/device/parameters_fwd.hpp>
-#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
@@ -43,14 +39,14 @@ namespace renderer
 {
 
 /**
-\brief Creates sge::renderer::device objects and renderable visuals
+\brief Creates \link sge::renderer::device\endlink objects and renderable
+visuals
 
 \ingroup sge_renderer
 
-The main class created by sge::renderer::core. In order to render anything, you
-have to create an sge::renderer::device through this class. If you don't have a
-renderable window to pass, you can create a renderable visual that can be used
-to create one.
+The main class created by \linksge::renderer::core\endlink. This class creates
+renderable visuals which can then be used to create renderable windows. Given
+renderable windows, it also creates devices.
 */
 class SGE_CORE_DETAIL_CLASS_SYMBOL system
 {
@@ -65,8 +61,6 @@ public:
 	\brief Creates a core renderer
 
 	Creates a core renderer with properties from \a parameters
-
-	\param parameters The parameters to use
 	*/
 	virtual
 	sge::renderer::device::core_unique_ptr
@@ -78,8 +72,6 @@ public:
 	\brief Creates an ffp renderer
 
 	Creates an ffp renderer with properties from \a parameters
-
-	\param parameters The parameters to use
 	*/
 	virtual
 	sge::renderer::device::ffp_unique_ptr
@@ -88,62 +80,19 @@ public:
 	) = 0;
 
 	/**
-	\brief Creates a renderable visual that satisfies the requirements of
-	\a params
+	\brief Creates a renderable visual
 
 	Creates a renderable visual that satisfies the requirements of \a
-	params and can be used with sge::renderer::system::create_renderer.
+	pixel_format and can be used with
+	\link sge::renderer::system::create_renderer\endlink.
 
-	\param pixel_format The pixel format to use
-
-	\throw sge::renderer::exception if anything goes wrong
-
-	\return An awl::visual::object_unique_ptr that may not be null
+	\throw \link sge::renderer::exception\endlink if anything goes wrong
 	*/
 	virtual
 	awl::visual::object_unique_ptr
 	create_visual(
 		sge::renderer::pixel_format::object const &pixel_format
 	) = 0;
-
-	/**
-	\brief Returns the number of devices
-	*/
-	virtual
-	sge::renderer::caps::device_count
-	device_count() const = 0;
-
-	/**
-	\brief Queries the capabilities of a device
-
-	Returns the capabilities of the device identified by \a index.
-
-	\param index The device to query the capabilities for
-
-	\warning The behavior is undefined if index is equal to or greater
-	than the device count.
-	*/
-	virtual
-	sge::renderer::caps::device const &
-	device_caps(
-		sge::renderer::device::index index
-	) const = 0;
-
-	/**
-	\brief Queries the available display modes of a device
-
-	Returns the display modes of the device identified by \a index.
-
-	\param index The device to query the display modes of
-
-	\warning The behavior is undefined if index is equal to or greater
-	than the device count.
-	*/
-	virtual
-	sge::renderer::display_mode::container
-	display_modes(
-		sge::renderer::device::index index
-	) const = 0;
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	virtual

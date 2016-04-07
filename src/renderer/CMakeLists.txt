@@ -20,7 +20,6 @@ set(
 	include/sge/renderer/caps/clip_plane_indices.hpp
 	include/sge/renderer/caps/description.hpp
 	include/sge/renderer/caps/device.hpp
-	include/sge/renderer/caps/device_count.hpp
 	include/sge/renderer/caps/device_fwd.hpp
 	include/sge/renderer/caps/device_output.hpp
 	include/sge/renderer/caps/driver_name.hpp
@@ -106,9 +105,6 @@ set(
 	include/sge/renderer/device/ffp.hpp
 	include/sge/renderer/device/ffp_fwd.hpp
 	include/sge/renderer/device/ffp_unique_ptr.hpp
-	include/sge/renderer/device/index.hpp
-	include/sge/renderer/device/index_fwd.hpp
-	include/sge/renderer/device/index_value.hpp
 	include/sge/renderer/device/parameters.hpp
 	include/sge/renderer/device/parameters_fwd.hpp
 	include/sge/renderer/dim1.hpp

@@ -24,13 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/system_fwd.hpp>
 #include <sge/opengl/platform/system_fwd.hpp>
 #include <sge/renderer/system.hpp>
-#include <sge/renderer/caps/device.hpp>
-#include <sge/renderer/caps/device_count.hpp>
 #include <sge/renderer/device/core_unique_ptr.hpp>
 #include <sge/renderer/device/ffp_unique_ptr.hpp>
-#include <sge/renderer/device/index.hpp>
 #include <sge/renderer/device/parameters_fwd.hpp>
-#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
@@ -77,22 +73,6 @@ private:
 	)
 	override;
 
-	sge::renderer::caps::device_count
-	device_count() const
-	override;
-
-	sge::renderer::caps::device const &
-	device_caps(
-		sge::renderer::device::index
-	) const
-	override;
-
-	sge::renderer::display_mode::container
-	display_modes(
-		sge::renderer::device::index
-	) const
-	override;
-
 	typedef
 	fcppt::unique_ptr<
 		sge::opengl::platform::system
@@ -108,8 +88,6 @@ private:
 	backend_system_unique_ptr;
 
 	backend_system_unique_ptr const backend_system_;
-
-	sge::renderer::caps::device const caps_;
 };
 
 }

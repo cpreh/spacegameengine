@@ -42,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/device/index.hpp>
 #include <sge/src/systems/any_visitor.hpp>
 #include <sge/src/systems/extract_config.hpp>
 #include <sge/src/systems/extract_plugin_path.hpp>
@@ -265,13 +264,6 @@ sge::systems::detail::instance::renderer_device_core() const
 {
 	return
 		impl_->renderer_device_core();
-}
-
-sge::renderer::device::index
-sge::systems::detail::instance::renderer_device_index() const
-{
-	return
-		impl_->renderer_device_index();
 }
 
 sge::input::system &

@@ -25,8 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/x11/system.hpp>
 #include <sge/opengl/xrandr/create_system.hpp>
 #include <sge/opengl/xrandr/system.hpp>
-#include <sge/renderer/caps/device_count.hpp>
-#include <sge/renderer/device/index.hpp>
 #include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/backends/x11/system/object.hpp>
@@ -56,20 +54,8 @@ sge::opengl::x11::system::~system()
 {
 }
 
-sge::renderer::caps::device_count
-sge::opengl::x11::system::device_count() const
-{
-	// TODO:
-	return
-		sge::renderer::caps::device_count(
-			1u
-		);
-}
-
 sge::renderer::display_mode::container
-sge::opengl::x11::system::display_modes(
-	sge::renderer::device::index const _index
-) const
+sge::opengl::x11::system::display_modes() const
 {
 	// TODO:
 	return

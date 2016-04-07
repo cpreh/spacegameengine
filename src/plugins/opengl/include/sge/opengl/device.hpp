@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/platform/system_fwd.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/caps/device_fwd.hpp>
+#include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/context/core_unique_ptr.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <sge/renderer/display_mode/parameters_fwd.hpp>
 #include <sge/renderer/index/buffer_parameters_fwd.hpp>
@@ -123,8 +124,7 @@ public:
 		awl::window::object &,
 		awl::window::event::processor &,
 		sge::opengl::platform::system &,
-		sge::opengl::backend::system &,
-		sge::renderer::caps::device const &
+		sge::opengl::backend::system &
 	);
 
 	~device()
@@ -339,6 +339,10 @@ private:
 		sge::renderer::display_mode::optional_object const &
 	) override;
 
+	sge::renderer::display_mode::container
+	display_modes() const
+	override;
+
 	sge::opengl::texture::basic_parameters
 	texture_parameters();
 
@@ -347,6 +351,8 @@ private:
 		sge::opengl::platform::device_state
 	>
 	platform_device_state_unique_ptr;
+
+	sge::opengl::platform::system &platform_system_;
 
 	platform_device_state_unique_ptr const device_state_;
 
@@ -358,7 +364,7 @@ private:
 
 	sge::opengl::context::object context_;
 
-	sge::renderer::caps::device const &caps_;
+	sge::renderer::caps::device const caps_;
 
 	sge::renderer::target::onscreen_unique_ptr const onscreen_target_;
 };

@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <sge/renderer/index/buffer_parameters_fwd.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
@@ -400,10 +401,7 @@ public:
 	\brief Tries to set a new display mode
 
 	Tries to set the display mode of the monitor the window is on to \a
-	mode. Passing a mode returned by sge::renderer::system::display_modes
-	should be safe.
-
-	\param mode The display mode to use
+	mode.
 
 	\throw sge::renderer::exception If the display mode cannot be set.
 	*/
@@ -412,6 +410,16 @@ public:
 	display_mode(
 		sge::renderer::display_mode::optional_object const &mode
 	) = 0;
+
+	/**
+	\brief Queries the available display modes of a device
+
+	Returns the display modes currently available for this device. Can be
+	empty.
+	*/
+	virtual
+	sge::renderer::display_mode::container
+	display_modes() const = 0;
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	virtual

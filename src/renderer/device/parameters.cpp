@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/device/index.hpp>
 #include <sge/renderer/device/parameters.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <awl/window/object_fwd.hpp>
@@ -26,15 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::device::parameters::parameters(
-	sge::renderer::device::index const _index,
 	sge::renderer::display_mode::parameters const &_display_mode,
 	awl::window::object &_window,
 	awl::window::event::processor &_window_processor
 )
 :
-	index_(
-		_index
-	),
 	display_mode_(
 		_display_mode
 	),
@@ -45,13 +40,6 @@ sge::renderer::device::parameters::parameters(
 		_window_processor
 	)
 {
-}
-
-sge::renderer::device::index
-sge::renderer::device::parameters::index() const
-{
-	return
-		index_;
 }
 
 sge::renderer::display_mode::parameters const &

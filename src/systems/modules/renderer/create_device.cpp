@@ -41,7 +41,6 @@ sge::systems::modules::renderer::create_device(
 )
 {
 	sge::renderer::device::parameters const parameters(
-		_parameters.parameters().device_index(),
 		_parameters.parameters().display_mode(),
 		_window.get().awl_object(),
 		_window.get().awl_window_event_processor()

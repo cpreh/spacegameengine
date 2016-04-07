@@ -29,11 +29,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/system_unique_ptr.hpp>
 #include <sge/renderer/caps/device_output.hpp>
-#include <sge/renderer/device/index.hpp>
+#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_unique_ptr.hpp>
+#include <sge/renderer/device/parameters.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/renderer/display_mode/parameters.hpp>
+#include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/pixel_format/color.hpp>
+#include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
+#include <sge/renderer/pixel_format/optional_multi_samples.hpp>
+#include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/plugin/object.hpp>
 #include <awl/system/create.hpp>
 #include <awl/system/object.hpp>
 #include <awl/system/object_unique_ptr.hpp>
+#include <awl/visual/object.hpp>
+#include <awl/visual/object_unique_ptr.hpp>
+#include <awl/window/object.hpp>
+#include <awl/window/object_unique_ptr.hpp>
+#include <awl/window/parameters.hpp>
+#include <awl/window/event/create_processor.hpp>
+#include <awl/window/event/processor.hpp>
+#include <awl/window/event/processor_unique_ptr.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
@@ -76,27 +94,55 @@ try
 		)
 	);
 
-	for(
-		sge::renderer::device::index index(
-			0u
-		);
-		index.get() < render_sys->device_count().get();
-		++index
-	)
-		fcppt::io::cout()
-			<<
-			std::boolalpha
-			<<
-			FCPPT_TEXT("Device ")
-			<<
-			index
-			<<
-			FCPPT_TEXT(": ")
-			<<
-			render_sys->device_caps(
-				index
-			)
-			<< FCPPT_TEXT('\n');
+	awl::visual::object_unique_ptr const visual{
+		render_sys->create_visual(
+			sge::renderer::pixel_format::object{
+				sge::renderer::pixel_format::color::depth32,
+				sge::renderer::pixel_format::depth_stencil::off,
+				sge::renderer::pixel_format::optional_multi_samples{},
+				sge::renderer::pixel_format::srgb::no
+			}
+		)
+	};
+
+	awl::window::object_unique_ptr const window{
+		awl_system->create_window(
+			awl::window::parameters{
+				*visual
+			}
+		)
+	};
+
+	awl::window::event::processor_unique_ptr const window_processor{
+		awl::window::event::create_processor(
+			*window
+		)
+	};
+
+	sge::renderer::device::core_unique_ptr const render_device{
+		render_sys->create_core_renderer(
+			sge::renderer::device::parameters{
+				sge::renderer::display_mode::parameters{
+					sge::renderer::display_mode::vsync::on,
+					sge::renderer::display_mode::optional_object{}
+				},
+				*window,
+				*window_processor
+			}
+		)
+	};
+
+	fcppt::io::cout()
+		<<
+		std::boolalpha
+		<<
+		FCPPT_TEXT("Device ")
+		<<
+		FCPPT_TEXT(": ")
+		<<
+		render_device->caps()
+		<<
+		FCPPT_TEXT('\n');
 
 	return
 		EXIT_SUCCESS;

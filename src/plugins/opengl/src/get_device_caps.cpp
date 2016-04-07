@@ -23,12 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/get_int.hpp>
 #include <sge/opengl/get_string.hpp>
 #include <sge/opengl/srgb_context.hpp>
-#include <sge/opengl/backend/dummy.hpp>
-#include <sge/opengl/backend/system_fwd.hpp>
 #include <sge/opengl/context/object.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/fbo/context.hpp>
-#include <sge/opengl/info/context.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_config.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_context.hpp>
 #include <sge/opengl/state/core/sampler/filter/optional_anisotropy_config.hpp>
@@ -55,7 +52,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/render_target_supported.hpp>
 #include <sge/renderer/caps/srgb_framebuffer.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
-#include <awl/system/object_fwd.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
@@ -69,29 +65,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::caps::device
 sge::opengl::get_device_caps(
-	awl::system::object &_awl_system,
-	sge::opengl::backend::system &_device_system
+	sge::opengl::context::object &_context
 )
 {
-	sge::opengl::backend::dummy dummy_state(
-		_awl_system,
-		_device_system
-	);
-
-	sge::opengl::info::context const info(
-		dummy_state.current()
-	);
-
-	sge::opengl::context::object context(
-		info
-	);
-
 	sge::opengl::state::core::sampler::filter::optional_anisotropy_config const &anisotropy_config(
 		sge::opengl::context::use<
 			sge::opengl::state::core::sampler::filter::anisotropy_context
 		>(
-			context,
-			context.info()
+			_context,
+			_context.info()
 		).config()
 	);
 
@@ -99,8 +81,8 @@ sge::opengl::get_device_caps(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
 		>(
-			context,
-			context.info()
+			_context,
+			_context.info()
 		).config()
 	);
 
@@ -108,8 +90,8 @@ sge::opengl::get_device_caps(
 		sge::opengl::context::use<
 			sge::opengl::texture::volume_context
 		>(
-			context,
-			context.info()
+			_context,
+			_context.info()
 		).config()
 	);
 
@@ -117,8 +99,8 @@ sge::opengl::get_device_caps(
 		sge::opengl::context::use<
 			sge::opengl::fbo::context
 		>(
-			context,
-			context.info()
+			_context,
+			_context.info()
 		).config().has_value()
 	);
 
@@ -187,8 +169,8 @@ sge::opengl::get_device_caps(
 				sge::opengl::context::use<
 					sge::opengl::texture::npot_context
 				>(
-					context,
-					context.info()
+					_context,
+					_context.info()
 				).is_supported()
 			),
 			fcppt::strong_typedef_construct_cast<
@@ -261,8 +243,8 @@ sge::opengl::get_device_caps(
 				sge::opengl::context::use<
 					sge::opengl::srgb_context
 				>(
-					context,
-					context.info()
+					_context,
+					_context.info()
 				).flag().has_value()
 			)
 		);

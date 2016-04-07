@@ -118,9 +118,7 @@ try
 	for(
 		sge::renderer::display_mode::object const &mode
 		:
-		sys.renderer_system().display_modes(
-			sys.renderer_device_index()
-		)
+		sys.renderer_device_core().display_modes()
 	)
 		fcppt::io::cout()
 			<<

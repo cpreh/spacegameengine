@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/device/index.hpp>
 #include <sge/systems/cursor_demuxer_fwd.hpp>
 #include <sge/systems/focus_collector_fwd.hpp>
 #include <sge/systems/instance_decl.hpp>
@@ -187,25 +186,6 @@ sge::systems::instance<
 
 	return
 		instance_.renderer_device_core();
-}
-
-template<
-	typename Choices
->
-sge::renderer::device::index
-sge::systems::instance<
-	Choices
->::renderer_device_index() const
-{
-	static_assert(
-		sge::systems::detail::has_with_renderer<
-			Choices
-		>::value,
-		"configuration has no renderer"
-	);
-
-	return
-		instance_.renderer_device_index();
 }
 
 template<

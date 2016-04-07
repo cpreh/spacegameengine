@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp.hpp>
-#include <sge/renderer/device/index.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/src/systems/modules/renderer/create_device.hpp>
 #include <sge/src/systems/modules/renderer/device.hpp>
@@ -44,9 +43,6 @@ sge::systems::modules::renderer::device::device(
 			_system,
 			_window
 		)
-	),
-	index_(
-		_parameters.parameters().device_index()
 	),
 	viewport_manager_(
 		*renderer_device_,
@@ -76,13 +72,6 @@ sge::systems::modules::renderer::device::get_core() const
 {
 	return
 		*renderer_device_;
-}
-
-sge::renderer::device::index
-sge::systems::modules::renderer::device::index() const
-{
-	return
-		index_;
 }
 
 sge::viewport::manager &
