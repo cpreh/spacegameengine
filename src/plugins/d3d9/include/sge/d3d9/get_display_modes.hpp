@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_GET_DISPLAY_MODES_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/device/index.hpp>
+#include <sge/d3d9/device_index.hpp>
 #include <sge/renderer/display_mode/container.hpp>
 
 
@@ -34,7 +34,8 @@ namespace d3d9
 sge::renderer::display_mode::container
 get_display_modes(
 	IDirect3D9 &,
-	sge::renderer::device::index
+	sge::d3d9::device_index,
+	D3DFORMAT
 );
 
 }

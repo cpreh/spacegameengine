@@ -23,13 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/d3d_device_unique_ptr.hpp>
+#include <sge/d3d9/device_index.hpp>
 #include <sge/d3d9/resource_manager.hpp>
 #include <sge/d3d9/swapchain/d3d_unique_ptr.hpp>
 #include <sge/d3d9/target/onscreen_fwd.hpp>
 #include <sge/d3d9/state/core/defaults_fwd.hpp>
 #include <sge/d3d9/state/ffp/defaults_fwd.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/caps/device_fwd.hpp>
+#include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/context/core_unique_ptr.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
@@ -119,8 +120,7 @@ class device
 public:
 	device(
 		IDirect3D9 &,
-		sge::renderer::device::parameters const &,
-		sge::renderer::caps::device const &
+		sge::renderer::device::parameters const &
 	);
 
 	~device()
@@ -271,6 +271,10 @@ private:
 	)
 	override;
 
+	sge::renderer::display_mode::container
+	display_modes() const
+	override;
+
 	sge::renderer::context::ffp_unique_ptr
 	begin_rendering_ffp(
 		sge::renderer::target::base &
@@ -363,9 +367,11 @@ private:
 		awl::window::event::resize const &
 	);
 
+	sge::d3d9::device_index const index_;
+
 	sge::renderer::pixel_format::srgb const srgb_;
 
-	sge::renderer::caps::device const &caps_;
+	sge::renderer::caps::device const caps_;
 
 	D3DPRESENT_PARAMETERS present_parameters_;
 
@@ -398,6 +404,8 @@ private:
 	ffp_defaults_unique_ptr;
 
 	ffp_defaults_unique_ptr const ffp_defaults_;
+
+	sge::renderer::display_mode::container const display_modes_;
 
 	fcppt::signal::auto_connection const resize_connection_;
 };

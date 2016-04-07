@@ -19,16 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/device_index.hpp>
 #include <sge/d3d9/systemfuncs/get_caps.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/device/index.hpp>
 #include <fcppt/text.hpp>
 
 
-D3DCAPS9 const
+D3DCAPS9
 sge::d3d9::systemfuncs::get_caps(
 	IDirect3D9 &_system,
-	sge::renderer::device::index const _index
+	sge::d3d9::device_index const _index
 )
 {
 	D3DCAPS9 caps;
@@ -41,9 +41,11 @@ sge::d3d9::systemfuncs::get_caps(
 		)
 		!= D3D_OK
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("GetDeviceCaps failed")
-		);
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("GetDeviceCaps failed")
+			};
 
-	return caps;
+	return
+		caps;
 }

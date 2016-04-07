@@ -31,6 +31,7 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/d3d_unique_ptr.hpp
 	src/plugins/d3d9/include/sge/d3d9/d3dinclude.hpp
 	src/plugins/d3d9/include/sge/d3d9/device.hpp
+	src/plugins/d3d9/include/sge/d3d9/device_index.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/begin_scene.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/clear.hpp
 	src/plugins/d3d9/include/sge/d3d9/devicefuncs/create_cube_texture.hpp
@@ -70,7 +71,6 @@ SET(
 	src/plugins/d3d9/include/sge/d3d9/from_d3d_pitch.hpp
 	src/plugins/d3d9/include/sge/d3d9/get_device_caps.hpp
 	src/plugins/d3d9/include/sge/d3d9/get_display_modes.hpp
-	src/plugins/d3d9/include/sge/d3d9/get_display_modes_for_format.hpp
 	src/plugins/d3d9/include/sge/d3d9/index_buffer.hpp
 	src/plugins/d3d9/include/sge/d3d9/lock_flags.hpp
 	src/plugins/d3d9/include/sge/d3d9/logger.hpp
@@ -464,7 +464,6 @@ SET(
 	src/plugins/d3d9/src/exports.cpp
 	src/plugins/d3d9/src/get_device_caps.cpp
 	src/plugins/d3d9/src/get_display_modes.cpp
-	src/plugins/d3d9/src/get_display_modes_for_format.cpp
 	src/plugins/d3d9/src/index_buffer.cpp
 	src/plugins/d3d9/src/logger.cpp
 	src/plugins/d3d9/src/logger_context.cpp

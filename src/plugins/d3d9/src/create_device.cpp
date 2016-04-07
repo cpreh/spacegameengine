@@ -20,16 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/create_device.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/device_index.hpp>
 #include <sge/d3d9/parameters/tnl_caps.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/device/index.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::d3d9::d3d_device_unique_ptr
 sge::d3d9::create_device(
 	IDirect3D9 &_system,
-	sge::renderer::device::index const _index,
+	sge::d3d9::device_index const _index,
 	D3DPRESENT_PARAMETERS &_parameters
 )
 {

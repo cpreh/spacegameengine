@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_SYSTEMFUNCS_ENUM_ADAPTER_MODES_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/device_index.hpp>
 #include <sge/d3d9/optional_display_mode.hpp>
-#include <sge/renderer/device/index.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace systemfuncs
 sge::d3d9::optional_display_mode
 enum_adapter_modes(
 	IDirect3D9 &,
-	sge::renderer::device::index,
+	sge::d3d9::device_index,
 	D3DFORMAT,
 	UINT
 );

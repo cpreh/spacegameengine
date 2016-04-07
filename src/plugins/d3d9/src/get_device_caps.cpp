@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/get_device_caps.hpp>
+#include <sge/d3d9/device_index.hpp>
 #include <sge/d3d9/systemfuncs/get_caps.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/caps/clip_plane_indices.hpp>
@@ -37,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/srgb_framebuffer.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
-#include <sge/renderer/device/index.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 
@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::renderer::caps::device
 sge::d3d9::get_device_caps(
 	IDirect3D9 &_system,
-	sge::renderer::device::index const _index
+	sge::d3d9::device_index const _index
 )
 {
 	D3DCAPS9 const caps(

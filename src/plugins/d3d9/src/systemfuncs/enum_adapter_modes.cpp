@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/optional_display_mode.hpp>
 #include <sge/d3d9/systemfuncs/enum_adapter_modes.hpp>
+#include <sge/d3d9/device_index.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/device/index.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::d3d9::optional_display_mode
 sge::d3d9::systemfuncs::enum_adapter_modes(
 	IDirect3D9 &_d3d9,
-	sge::renderer::device::index const _adapter,
+	sge::d3d9::device_index const _adapter,
 	D3DFORMAT const _format,
 	UINT const _mode
 )

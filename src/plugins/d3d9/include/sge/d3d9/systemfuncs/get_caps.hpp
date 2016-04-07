@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_SYSTEMFUNCS_GET_CAPS_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/device/index.hpp>
+#include <sge/d3d9/device_index.hpp>
 
 
 namespace sge
@@ -32,10 +32,10 @@ namespace d3d9
 namespace systemfuncs
 {
 
-D3DCAPS9 const
+D3DCAPS9
 get_caps(
 	IDirect3D9 &,
-	sge::renderer::device::index
+	sge::d3d9::device_index
 );
 
 }

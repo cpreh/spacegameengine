@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/current_display_mode.hpp>
 #include <sge/d3d9/device.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/get_device_caps.hpp>
+#include <sge/d3d9/get_display_modes.hpp>
 #include <sge/d3d9/index_buffer.hpp>
 #include <sge/d3d9/multi_sample_quality.hpp>
 #include <sge/d3d9/resource_manager.hpp>
@@ -33,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/parameters/create.hpp>
 #include <sge/d3d9/parameters/extract_pixel_format.hpp>
 #include <sge/d3d9/parameters/extract_srgb.hpp>
+#include <sge/d3d9/parameters/convert/bit_depth.hpp>
 #include <sge/d3d9/render_context/create.hpp>
 #include <sge/d3d9/render_context/needs_present.hpp>
 #include <sge/d3d9/render_context/parameters.hpp>
@@ -72,6 +75,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/device/parameters.hpp>
+#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_parameters_fwd.hpp>
@@ -150,6 +154,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/static_downcast.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_signed.hpp>
@@ -186,18 +191,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::d3d9::device::device(
 	IDirect3D9 &_system,
-	sge::renderer::device::parameters const &_parameters,
-	sge::renderer::caps::device const &_caps
+	sge::renderer::device::parameters const &_parameters
 )
 :
 	sge::renderer::device::ffp(),
+	index_(
+		fcppt::cast::to_unsigned(
+			D3DADAPTER_DEFAULT
+		)
+	),
 	srgb_(
 		sge::d3d9::parameters::extract_srgb(
 			_parameters.window().visual()
 		)
 	),
 	caps_(
-		_caps
+		sge::d3d9::get_device_caps(
+			_system,
+			index_
+		)
 	),
 	present_parameters_(
 		sge::d3d9::parameters::create(
@@ -211,7 +223,7 @@ sge::d3d9::device::device(
 	device_(
 		sge::d3d9::create_device(
 			_system,
-			_parameters.index(),
+			index_,
 			present_parameters_
 		)
 	),
@@ -260,6 +272,17 @@ sge::d3d9::device::device(
 			sge::d3d9::state::ffp::defaults
 		>(
 			*device_
+		)
+	),
+	display_modes_(
+		sge::d3d9::get_display_modes(
+			_system,
+			index_,
+			sge::d3d9::parameters::convert::bit_depth(
+				sge::d3d9::parameters::extract_pixel_format(
+					_parameters.window().visual()
+				).color()
+			)
 		)
 	),
 	resize_connection_(
@@ -649,6 +672,13 @@ sge::d3d9::device::display_mode(
 )
 {
 	// TODO
+}
+
+sge::renderer::display_mode::container
+sge::d3d9::device::display_modes() const
+{
+	return
+		display_modes_;
 }
 
 sge::renderer::context::ffp_unique_ptr
