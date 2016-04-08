@@ -35,8 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/image/to_mizuiro_dim.hpp>
 #include <mizuiro/image/is_raw_view.hpp>
 #include <fcppt/absurd.hpp>
-#include <fcppt/decltype_sink.hpp>
 #include <fcppt/tag_type.hpp>
+#include <fcppt/use.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/mpl/invoke_on.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -95,13 +95,17 @@ sge::image::view::make(
 				auto const &_view_type
 			)
 			{
+				FCPPT_USE(
+					_view_type
+				);
+
 				return
 					typename
 					sge::image::traits::view<
 						Tag
 					>::type{
 						fcppt::tag_type<
-							FCPPT_DECLTYPE_SINK(
+							decltype(
 								_view_type
 							)
 						>(

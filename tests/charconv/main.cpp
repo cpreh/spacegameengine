@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/encoding_to_string.hpp>
 #include <sge/tests/charconv/test_data.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/tag_value.hpp>
+#include <fcppt/tag_type.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/use.hpp>
 #include <fcppt/algorithm/loop.hpp>
 #include <fcppt/algorithm/loop_break_mpl.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -84,13 +85,23 @@ FCPPT_PP_POP_WARNING
 			auto const _dest_encoding
 		)
 		{
+			FCPPT_USE(
+				_dest_encoding
+			);
+
+			typedef
+			fcppt::tag_type<
+				decltype(
+					_dest_encoding
+				)
+			>
+			dest_encoding;
+
 			try
 			{
 				auto const result(
 					sge::charconv::convert<
-						fcppt::tag_value(
-							_dest_encoding
-						),
+						dest_encoding::value,
 						sge::charconv::encoding::utf8
 					>(
 						input
@@ -100,9 +111,7 @@ FCPPT_PP_POP_WARNING
 				std::string const back(
 					sge::charconv::convert<
 						sge::charconv::encoding::utf8,
-						fcppt::tag_value(
-							_dest_encoding
-						)
+						dest_encoding::value
 					>(
 						result
 					)
@@ -113,9 +122,7 @@ FCPPT_PP_POP_WARNING
 					FCPPT_TEXT("Converting to ")
 					<<
 					sge::charconv::encoding_to_string(
-						fcppt::tag_value(
-							_dest_encoding
-						)
+						dest_encoding::value
 					)
 					<<
 					FCPPT_TEXT('\n');

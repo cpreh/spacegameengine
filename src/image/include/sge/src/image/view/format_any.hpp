@@ -24,8 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/traits/format_fwd.hpp>
 #include <sge/image/traits/format_static.hpp>
 #include <sge/src/image/view/format_type.hpp>
-#include <fcppt/decltype_sink.hpp>
+#include <fcppt/use.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -53,15 +56,22 @@ format_any(
 				auto const &_src
 			)
 			{
+				FCPPT_USE(
+					_src
+				);
+
 				return
 					sge::image::traits::format_static<
 						ColorTag
 					>:: template apply<
 						typename
 						sge::image::view::format_type<
-							FCPPT_DECLTYPE_SINK(
-								_src
-							)
+							typename
+							std::decay<
+								decltype(
+									_src
+								)
+							>::type
 						>::color_format
 					>::value;
 			},
