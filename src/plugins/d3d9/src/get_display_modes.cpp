@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/systemfuncs/enum_adapter_modes.hpp>
 #include <sge/renderer/display_mode/container.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/optional/map.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
+#include <fcppt/optional/map.hpp>
 
 
 sge::renderer::display_mode::container
