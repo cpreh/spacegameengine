@@ -53,7 +53,7 @@ public:
 private:
 	sge::input::focus::key key_;
 
-	sge::input::key::pressed const pressed_;
+	sge::input::key::pressed pressed_;
 };
 
 }

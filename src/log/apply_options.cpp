@@ -33,11 +33,12 @@ sge::log::apply_options(
 	sge::log::option_container const &_options
 )
 {
-	for(
+	for (
 		sge::log::option const &option
 		:
 		_options
 	)
+	{
 		try
 		{
 			fcppt::log::activate_levels_recursive(
@@ -46,7 +47,7 @@ sge::log::apply_options(
 				option.level()
 			);
 		}
-		catch(
+		catch (
 			fcppt::log::no_such_location const &_error
 		)
 		{
@@ -55,4 +56,5 @@ sge::log::apply_options(
 				<< _error.string()
 				<< FCPPT_TEXT('\n');
 		}
+	}
 }

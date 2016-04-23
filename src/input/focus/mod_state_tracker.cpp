@@ -35,7 +35,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_void.hpp>
 #include <fcppt/container/enum_array_impl.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::input::focus::mod_state_tracker::mod_state_tracker(
 	sge::input::focus::object &_focus
@@ -105,6 +111,8 @@ sge::input::focus::mod_state_tracker::mod_state_tracker(
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::input::focus::mod_state_tracker::~mod_state_tracker()
 {

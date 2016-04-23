@@ -44,6 +44,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_impl.hpp>
@@ -51,6 +54,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::wininput::focus::object::object(
 	awl::backends::windows::window::event::processor &_event_processor
@@ -169,6 +175,8 @@ sge::wininput::focus::object::object(
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::wininput::focus::object::~object()
 {

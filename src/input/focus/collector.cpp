@@ -37,9 +37,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/out_event_fwd.hpp>
 #include <sge/input/focus/remove_callback.hpp>
 #include <sge/input/focus/remove_event_fwd.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::input::focus::collector::collector(
 	sge::input::processor &_processor
@@ -156,6 +162,8 @@ sge::input::focus::collector::collector(
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::input::focus::collector::~collector()
 {
