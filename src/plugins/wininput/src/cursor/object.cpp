@@ -35,8 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/scroll_callback.hpp>
 #include <sge/input/cursor/scroll_code.hpp>
 #include <sge/input/cursor/scroll_event.hpp>
+#include <awl/backends/windows/message_type.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/backends/windows/window/screen_to_client.hpp>
 #include <awl/backends/windows/window/event/callback.hpp>
@@ -96,7 +96,7 @@ sge::wininput::cursor::object::object(
 			>(
 				event_processor_.register_callback(
 					fcppt::strong_typedef_construct_cast<
-						awl::backends::windows::event::type,
+						awl::backends::windows::message_type,
 						fcppt::cast::to_unsigned_fun
 					>(
 						WM_MOUSEMOVE
@@ -375,8 +375,8 @@ sge::wininput::cursor::object::on_scroll(
 
 fcppt::signal::auto_connection_container
 sge::wininput::cursor::object::make_button_connections(
-	awl::backends::windows::event::type::value_type const _down_event,
-	awl::backends::windows::event::type::value_type const _up_event,
+	awl::backends::windows::message_type::value_type const _down_event,
+	awl::backends::windows::message_type::value_type const _up_event,
 	sge::input::cursor::button_code const _code
 )
 {
@@ -385,7 +385,7 @@ sge::wininput::cursor::object::make_button_connections(
 			fcppt::signal::auto_connection_container
 		>(
 			event_processor_.register_callback(
-				awl::backends::windows::event::type{
+				awl::backends::windows::message_type{
 					_down_event
 				},
 				awl::backends::windows::window::event::callback{
@@ -401,7 +401,7 @@ sge::wininput::cursor::object::make_button_connections(
 				}
 			),
 			event_processor_.register_callback(
-				awl::backends::windows::event::type{
+				awl::backends::windows::message_type{
 					_up_event
 				},
 				awl::backends::windows::window::event::callback{
@@ -421,13 +421,13 @@ sge::wininput::cursor::object::make_button_connections(
 
 fcppt::signal::auto_connection
 sge::wininput::cursor::object::make_scroll_connection(
-	awl::backends::windows::event::type::value_type const _event,
+	awl::backends::windows::message_type::value_type const _event,
 	sge::input::cursor::scroll_code const _code
 )
 {
 	return
 		event_processor_.register_callback(
-			awl::backends::windows::event::type{
+			awl::backends::windows::message_type{
 				_event
 			},
 			awl::backends::windows::window::event::callback{

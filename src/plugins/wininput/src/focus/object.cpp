@@ -34,8 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key/pressed.hpp>
 #include <sge/wininput/focus/object.hpp>
 #include <sge/wininput/focus/translate_key_code.hpp>
+#include <awl/backends/windows/message_type.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/window/event/callback.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
@@ -76,7 +76,7 @@ sge::wininput::focus::object::object(
 		>(
 			event_processor_.register_callback(
 				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::event::type,
+					awl::backends::windows::message_type,
 					fcppt::cast::to_unsigned_fun
 				>(
 					WM_CHAR
@@ -91,7 +91,7 @@ sge::wininput::focus::object::object(
 			),
 			event_processor_.register_callback(
 				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::event::type,
+					awl::backends::windows::message_type,
 					fcppt::cast::to_unsigned_fun
 				>(
 					WM_KEYDOWN
@@ -109,7 +109,7 @@ sge::wininput::focus::object::object(
 			),
 			event_processor_.register_callback(
 				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::event::type,
+					awl::backends::windows::message_type,
 					fcppt::cast::to_unsigned_fun
 				>(
 					WM_KEYUP
@@ -127,7 +127,7 @@ sge::wininput::focus::object::object(
 			),
 			event_processor_.register_callback(
 				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::event::type,
+					awl::backends::windows::message_type,
 					fcppt::cast::to_unsigned_fun
 				>(
 					WM_SETFOCUS
@@ -150,7 +150,7 @@ sge::wininput::focus::object::object(
 			),
 			event_processor_.register_callback(
 				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::event::type,
+					awl::backends::windows::message_type,
 					fcppt::cast::to_unsigned_fun
 				>(
 					WM_KILLFOCUS

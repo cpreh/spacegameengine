@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WININPUT_CURSOR_EXCLUSIVE_MODE_HPP_INCLUDED
 
 #include <sge/wininput/cursor/exclusive_mode_fwd.hpp>
-#include <awl/backends/windows/event/type.hpp>
+#include <awl/backends/windows/message_type.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
@@ -54,26 +54,26 @@ public:
 private:
 	awl::backends::windows::window::event::return_type
 	on_temp_unacquire(
-		awl::backends::windows::event::type,
+		awl::backends::windows::message_type,
 		awl::backends::windows::window::event::object const &
 	);
 
 	awl::backends::windows::window::event::return_type
 	on_temp_acquire(
-		awl::backends::windows::event::type,
+		awl::backends::windows::message_type,
 		awl::backends::windows::window::event::object const &
 	);
 
 	fcppt::signal::auto_connection_container
 	make_connection_pair(
 		awl::backends::windows::window::event::processor &,
-		awl::backends::windows::event::type::value_type enter_event,
-		awl::backends::windows::event::type::value_type exit_event
+		awl::backends::windows::message_type::value_type enter_event,
+		awl::backends::windows::message_type::value_type exit_event
 	);
 
 	typedef
 	fcppt::optional::object<
-		awl::backends::windows::event::type
+		awl::backends::windows::message_type
 	>
 	optional_event_type;
 

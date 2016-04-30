@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WININPUT_FOCUS_TRANSLATE_KEY_CODE_HPP_INCLUDED
 
 #include <sge/input/key/code.hpp>
-#include <awl/backends/windows/event/wparam.hpp>
+#include <awl/backends/windows/wparam.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace focus
 
 sge::input::key::code
 translate_key_code(
-	awl::backends::windows::event::wparam
+	awl::backends::windows::wparam
 );
 
 }

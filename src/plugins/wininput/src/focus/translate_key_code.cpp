@@ -20,12 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/key/code.hpp>
 #include <sge/wininput/focus/translate_key_code.hpp>
-#include <awl/backends/windows/event/wparam.hpp>
+#include <awl/backends/windows/wparam.hpp>
 
 
 sge::input::key::code
 sge::wininput::focus::translate_key_code(
-	awl::backends::windows::event::wparam const _code
+	awl::backends::windows::wparam const _code
 )
 {
 	// FIXME: Add A-Z and 0-9

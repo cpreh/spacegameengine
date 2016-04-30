@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/scroll_callback.hpp>
 #include <sge/input/cursor/scroll_code_fwd.hpp>
 #include <sge/input/cursor/scroll_signal.hpp>
-#include <awl/backends/windows/event/type.hpp>
+#include <awl/backends/windows/message_type.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
@@ -130,14 +130,14 @@ private:
 
 	fcppt::signal::auto_connection_container
 	make_button_connections(
-		awl::backends::windows::event::type::value_type up_event,
-		awl::backends::windows::event::type::value_type down_event,
+		awl::backends::windows::message_type::value_type up_event,
+		awl::backends::windows::message_type::value_type down_event,
 		sge::input::cursor::button_code
 	);
 
 	fcppt::signal::auto_connection
 	make_scroll_connection(
-		awl::backends::windows::event::type::value_type,
+		awl::backends::windows::message_type::value_type,
 		sge::input::cursor::scroll_code
 	);
 

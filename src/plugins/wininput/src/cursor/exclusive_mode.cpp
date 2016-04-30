@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wininput/cursor/exclusive_mode.hpp>
 #include <sge/wininput/cursor/grab.hpp>
 #include <sge/wininput/cursor/ungrab.hpp>
+#include <awl/backends/windows/message_type.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/event/type.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/backends/windows/window/event/callback.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
@@ -92,7 +92,7 @@ sge::wininput::cursor::exclusive_mode::~exclusive_mode()
 
 awl::backends::windows::window::event::return_type
 sge::wininput::cursor::exclusive_mode::on_temp_unacquire(
-	awl::backends::windows::event::type const _event_type,
+	awl::backends::windows::message_type const _event_type,
 	awl::backends::windows::window::event::object const &
 )
 {
@@ -111,7 +111,7 @@ sge::wininput::cursor::exclusive_mode::on_temp_unacquire(
 
 awl::backends::windows::window::event::return_type
 sge::wininput::cursor::exclusive_mode::on_temp_acquire(
-	awl::backends::windows::event::type const _event_type,
+	awl::backends::windows::message_type const _event_type,
 	awl::backends::windows::window::event::object const &
 )
 {
@@ -138,11 +138,11 @@ sge::wininput::cursor::exclusive_mode::on_temp_acquire(
 fcppt::signal::auto_connection_container
 sge::wininput::cursor::exclusive_mode::make_connection_pair(
 	awl::backends::windows::window::event::processor &_event_processor,
-	awl::backends::windows::event::type::value_type const _enter_event,
-	awl::backends::windows::event::type::value_type const _exit_event
+	awl::backends::windows::message_type::value_type const _enter_event,
+	awl::backends::windows::message_type::value_type const _exit_event
 )
 {
-	awl::backends::windows::event::type const exit_event(
+	awl::backends::windows::message_type const exit_event(
 		_exit_event
 	);
 
@@ -151,7 +151,7 @@ sge::wininput::cursor::exclusive_mode::make_connection_pair(
 			fcppt::signal::auto_connection_container
 		>(
 			_event_processor.register_callback(
-				awl::backends::windows::event::type{
+				awl::backends::windows::message_type{
 					_enter_event
 				},
 				awl::backends::windows::window::event::callback{

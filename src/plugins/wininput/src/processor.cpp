@@ -43,11 +43,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_event.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
+#include <awl/backends/windows/lparam.hpp>
+#include <awl/backends/windows/message_type.hpp>
+#include <awl/backends/windows/post_message.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/event/lparam.hpp>
-#include <awl/backends/windows/event/post_message.hpp>
-#include <awl/backends/windows/event/type.hpp>
-#include <awl/backends/windows/event/wparam.hpp>
+#include <awl/backends/windows/wparam.hpp>
 #include <awl/backends/windows/window/object.hpp>
 #include <awl/backends/windows/window/event/callback.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
@@ -113,7 +113,7 @@ sge::wininput::processor::processor(
 		>(
 			event_processor_.register_callback(
 				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::event::type,
+					awl::backends::windows::message_type,
 					fcppt::cast::to_unsigned_fun
 				>(
 					WM_KILLFOCUS
@@ -141,13 +141,13 @@ sge::wininput::processor::processor(
 	cursor_(),
 	focus_()
 {
-	awl::backends::windows::event::post_message(
+	awl::backends::windows::post_message(
 		windows_window_.hwnd(),
 		init_message_.type(),
-		awl::backends::windows::event::wparam(
+		awl::backends::windows::wparam(
 			0u
 		),
-		awl::backends::windows::event::lparam(
+		awl::backends::windows::lparam(
 			0
 		)
 	);
