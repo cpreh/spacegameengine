@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/x11input/device/event_demuxer_fwd.hpp>
 #include <sge/x11input/device/id.hpp>
-#include <awl/backends/x11/system/event/object_fwd.hpp>
+#include <awl/backends/x11/system/event/generic_fwd.hpp>
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor_fwd.hpp>
 #include <awl/backends/x11/system/event/type.hpp>
@@ -91,7 +91,7 @@ public:
 private:
 	void
 	on_event(
-		awl::backends::x11::system::event::object const &
+		awl::backends::x11::system::event::generic const &
 	);
 
 	void

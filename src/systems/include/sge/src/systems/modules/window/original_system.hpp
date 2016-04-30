@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/src/systems/modules/window/system_base.hpp>
 #include <sge/window/system.hpp>
-#include <awl/event/processor_unique_ptr.hpp>
 #include <awl/system/object_unique_ptr.hpp>
 #include <awl/system/event/processor_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -58,8 +57,6 @@ private:
 	awl::system::object_unique_ptr const awl_system_;
 
 	awl::system::event::processor_unique_ptr const awl_system_event_processor_;
-
-	awl::event::processor_unique_ptr const awl_event_processor_;
 
 	sge::window::system system_;
 };

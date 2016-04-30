@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/select_events.hpp>
 #include <awl/backends/x11/system/event/callback.hpp>
+#include <awl/backends/x11/system/event/generic_fwd.hpp>
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/object.hpp>
@@ -179,7 +180,7 @@ void
 sge::x11input::device::event_demuxer<
 	Event
 >::on_event(
-	awl::backends::x11::system::event::object const &_event
+	awl::backends::x11::system::event::generic const &_event
 )
 {
 	sge::x11input::device::event_data const cookie(

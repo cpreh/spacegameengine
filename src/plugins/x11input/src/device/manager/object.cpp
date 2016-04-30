@@ -28,7 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/manager/config_map.hpp>
 #include <sge/x11input/device/manager/object.hpp>
 #include <awl/backends/x11/discard.hpp>
-#include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/sync.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
@@ -231,7 +232,8 @@ sge::x11input::device::manager::object::change(
 		);
 	}
 
-	display_.sync(
+	awl::backends::x11::sync(
+		display_,
 		awl::backends::x11::discard(
 			false
 		)

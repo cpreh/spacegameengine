@@ -31,8 +31,7 @@ sge::systems::modules::window::wrapped_system::wrapped_system(
 	sge::systems::modules::window::system_base(),
 	system_(
 		_parameters.awl_system(),
-		_parameters.awl_system_event_processor(),
-		_parameters.awl_event_processor()
+		_parameters.awl_system_event_processor()
 	)
 {
 }

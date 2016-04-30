@@ -24,8 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/dim_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/detail/symbol.hpp>
-#include <awl/event/processor_fwd.hpp>
-#include <awl/event/scoped_window_processor.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -45,8 +43,7 @@ public:
 	SGE_WINDOW_DETAIL_SYMBOL
 	object(
 		awl::window::object &,
-		awl::window::event::processor &,
-		awl::event::processor &
+		awl::window::event::processor &
 	);
 
 	SGE_WINDOW_DETAIL_SYMBOL
@@ -71,8 +68,6 @@ private:
 	awl::window::object &awl_object_;
 
 	awl::window::event::processor &awl_window_processor_;
-
-	awl::event::scoped_window_processor const attachment_;
 };
 
 }

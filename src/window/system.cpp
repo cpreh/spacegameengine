@@ -21,19 +21,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object.hpp>
 #include <sge/window/object_unique_ptr.hpp>
 #include <sge/window/system.hpp>
-#include <awl/event/processor.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/system/event/processor.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::window::system::system(
 	awl::system::object &_awl_system,
-	awl::system::event::processor &_awl_system_event_processor,
-	awl::event::processor &_awl_event_processor
+	awl::system::event::processor &_awl_system_event_processor
 )
 :
 	awl_system_(
@@ -42,9 +43,7 @@ sge::window::system::system(
 	awl_system_event_processor_(
 		_awl_system_event_processor
 	),
-	awl_event_processor_(
-		_awl_event_processor
-	)
+	exit_code_()
 {
 }
 
@@ -57,13 +56,6 @@ sge::window::system::awl_system() const
 {
 	return
 		awl_system_;
-}
-
-awl::event::processor &
-sge::window::system::awl_event_processor() const
-{
-	return
-		awl_event_processor_;
 }
 
 awl::system::event::processor &
@@ -84,15 +76,15 @@ sge::window::system::create(
 			sge::window::object
 		>(
 			_awl_window,
-			_awl_window_event_processor,
-			awl_event_processor_
+			_awl_window_event_processor
 		);
 }
 
 bool
 sge::window::system::poll()
 {
-	awl_event_processor_.poll();
+	exit_code_ =
+		awl_system_event_processor_.poll();
 
 	return
 		this->running();
@@ -101,7 +93,8 @@ sge::window::system::poll()
 bool
 sge::window::system::next()
 {
-	awl_event_processor_.next();
+	exit_code_ =
+		awl_system_event_processor_.next();
 
 	return
 		this->running();
@@ -111,7 +104,7 @@ bool
 sge::window::system::running() const
 {
 	return
-		awl_system_event_processor_.running();
+		!exit_code_.has_value();
 }
 
 void
@@ -127,6 +120,7 @@ sge::window::system::quit(
 awl::main::exit_code
 sge::window::system::exit_code() const
 {
+	// FIXME
 	return
-		awl_system_event_processor_.exit_code();
+		exit_code_.get_unsafe();
 }

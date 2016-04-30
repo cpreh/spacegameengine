@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/window/dim.hpp>
 #include <sge/window/object.hpp>
-#include <awl/event/processor_fwd.hpp>
 #include <awl/window/object.hpp>
 #include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -29,8 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::window::object::object(
 	awl::window::object &_awl_object,
-	awl::window::event::processor &_awl_window_processor,
-	awl::event::processor &_awl_processor
+	awl::window::event::processor &_awl_window_processor
 )
 :
 	awl_object_(
@@ -38,10 +36,6 @@ sge::window::object::object(
 	),
 	awl_window_processor_(
 		_awl_window_processor
-	),
-	attachment_(
-		_awl_processor,
-		awl_window_processor_
 	)
 {
 }

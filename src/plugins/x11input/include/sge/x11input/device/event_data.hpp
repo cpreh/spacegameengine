@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_DEVICE_EVENT_DATA_HPP_INCLUDED
 
 #include <awl/backends/x11/display_fwd.hpp>
-#include <awl/backends/x11/system/event/object_fwd.hpp>
+#include <awl/backends/x11/system/event/generic_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
@@ -44,7 +44,7 @@ class event_data
 public:
 	event_data(
 		awl::backends::x11::display &,
-		awl::backends::x11::system::event::object const &
+		awl::backends::x11::system::event::generic const &
 	);
 
 	~event_data();

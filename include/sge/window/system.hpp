@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_unique_ptr.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <sge/window/detail/symbol.hpp>
-#include <awl/event/processor_fwd.hpp>
 #include <awl/main/exit_code.hpp>
+#include <awl/main/optional_exit_code.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/system/event/processor_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
@@ -47,8 +47,7 @@ public:
 	SGE_WINDOW_DETAIL_SYMBOL
 	system(
 		awl::system::object &,
-		awl::system::event::processor &,
-		awl::event::processor &
+		awl::system::event::processor &
 	);
 
 	SGE_WINDOW_DETAIL_SYMBOL
@@ -57,10 +56,6 @@ public:
 	SGE_WINDOW_DETAIL_SYMBOL
 	awl::system::object &
 	awl_system() const;
-
-	SGE_WINDOW_DETAIL_SYMBOL
-	awl::event::processor &
-	awl_event_processor() const;
 
 	SGE_WINDOW_DETAIL_SYMBOL
 	awl::system::event::processor &
@@ -99,7 +94,7 @@ private:
 
 	awl::system::event::processor &awl_system_event_processor_;
 
-	awl::event::processor &awl_event_processor_;
+	awl::main::optional_exit_code exit_code_;
 };
 
 }

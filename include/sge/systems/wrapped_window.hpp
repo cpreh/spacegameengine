@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/wrapped_window_fwd.hpp>
 #include <sge/systems/detail/symbol.hpp>
-#include <awl/event/processor_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/system/event/processor_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
@@ -46,7 +45,6 @@ public:
 	wrapped_window(
 		awl::system::object &,
 		awl::system::event::processor &,
-		awl::event::processor &,
 		awl::window::object &,
 		awl::window::event::processor &
 	);
@@ -57,9 +55,6 @@ public:
 	awl::system::event::processor &
 	awl_system_event_processor() const;
 
-	awl::event::processor &
-	awl_event_processor() const;
-
 	awl::window::object &
 	awl_window() const;
 
@@ -69,8 +64,6 @@ private:
 	awl::system::object &awl_system_;
 
 	awl::system::event::processor &awl_system_event_processor_;
-
-	awl::event::processor &awl_event_processor_;
 
 	awl::window::object &awl_window_;
 
