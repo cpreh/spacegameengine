@@ -32,12 +32,9 @@ sge::systems::modules::window::original_system::original_system()
 	awl_system_(
 		awl::system::create()
 	),
-	awl_system_event_processor_(
-		awl_system_->create_processor()
-	),
 	system_(
 		*awl_system_,
-		*awl_system_event_processor_
+		awl_system_->processor()
 	)
 {
 }

@@ -45,7 +45,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/object.hpp>
 #include <awl/system/object_unique_ptr.hpp>
 #include <awl/system/event/processor.hpp>
-#include <awl/system/event/processor_unique_ptr.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object.hpp>
@@ -114,12 +113,8 @@ try
 		)
 	};
 
-	awl::system::event::processor_unique_ptr const system_processor{
-		awl_system->create_processor()
-	};
-
 	awl::window::event::processor_unique_ptr const window_processor{
-		system_processor->create_window_processor(
+		awl_system->processor().create_window_processor(
 			*window
 		)
 	};
