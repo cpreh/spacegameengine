@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/quit_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <awl/system/event/quit_fwd.hpp>
 #include <awl/window/event/destroy_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -55,11 +54,6 @@ private:
 	void
 	on_destroy(
 		awl::window::event::destroy const &
-	);
-
-	void
-	on_quit(
-		awl::system::event::quit const &
 	);
 
 	sge::window::system &system_;
