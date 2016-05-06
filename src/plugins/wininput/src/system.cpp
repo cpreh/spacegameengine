@@ -41,7 +41,7 @@ sge::wininput::system::~system()
 sge::input::processor_unique_ptr
 sge::wininput::system::create_processor(
 	sge::window::object const &_window,
-	sge::window::system const &_window_system
+	sge::window::system const &
 )
 {
 	return
@@ -51,8 +51,7 @@ sge::wininput::system::create_processor(
 			fcppt::make_unique_ptr<
 				sge::wininput::processor
 			>(
-				_window,
-				_window_system
+				_window
 			)
 		);
 }

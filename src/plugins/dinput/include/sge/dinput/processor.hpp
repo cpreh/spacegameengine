@@ -50,7 +50,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type_fwd.hpp>
 #include <awl/backends/windows/window/event/scoped_user_message.hpp>
-#include <awl/system/object_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
@@ -208,8 +207,6 @@ private:
 	dinput_unique_ptr;
 
 	dinput_unique_ptr const dinput_;
-
-	awl::system::object &awl_system_;
 
 	awl::backends::windows::window::object &windows_window_;
 

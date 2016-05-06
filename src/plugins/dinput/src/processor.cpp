@@ -53,11 +53,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/system/event/handle.hpp>
 #include <awl/backends/windows/system/event/handle_callback.hpp>
 #include <awl/backends/windows/system/event/processor.hpp>
+#include <awl/backends/windows/window/has_focus.hpp>
 #include <awl/backends/windows/window/object.hpp>
 #include <awl/backends/windows/window/event/callback.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
-#include <awl/window/has_focus.hpp>
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -94,9 +94,6 @@ sge::dinput::processor::processor(
 :
 	dinput_(
 		sge::dinput::create_dinput()
-	),
-	awl_system_(
-		_window_system.awl_system()
 	),
 	windows_window_(
 		fcppt::cast::static_downcast<
@@ -392,8 +389,7 @@ sge::dinput::processor::on_init(
 )
 {
 	if(
-		awl::window::has_focus(
-			awl_system_,
+		awl::backends::windows::window::has_focus(
 			windows_window_
 		)
 	)

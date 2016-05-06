@@ -42,17 +42,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_event.hpp>
 #include <sge/window/object.hpp>
-#include <sge/window/system.hpp>
 #include <awl/backends/windows/lparam.hpp>
 #include <awl/backends/windows/message_type.hpp>
 #include <awl/backends/windows/post_message.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/wparam.hpp>
+#include <awl/backends/windows/window/has_focus.hpp>
 #include <awl/backends/windows/window/object.hpp>
 #include <awl/backends/windows/window/event/callback.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
-#include <awl/window/has_focus.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -79,13 +78,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::wininput::processor::processor(
-	sge::window::object const &_window,
-	sge::window::system const &_window_system
+	sge::window::object const &_window
 )
 :
-	awl_system_(
-		_window_system.awl_system()
-	),
 	windows_window_(
 		fcppt::cast::static_downcast<
 			awl::backends::windows::window::object &
@@ -303,8 +298,7 @@ sge::wininput::processor::on_init(
 				event_processor_,
 				windows_window_,
 				sge::wininput::has_focus{
-					awl::window::has_focus(
-						awl_system_,
+					awl::backends::windows::window::has_focus(
 						windows_window_
 					)
 				}
