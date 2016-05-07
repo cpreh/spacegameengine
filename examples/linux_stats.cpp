@@ -456,7 +456,6 @@ try
 	};
 
 	std::vector<std::string> devices = ::network_devices();
-	std::size_t network_device_count = devices.size();
 
 	std::map<std::string, unsigned long> device_totals;
 
@@ -476,18 +475,6 @@ try
 					sge::systems::original_window(
 						sge::window::title(
 							FCPPT_TEXT("linux stats example")
-						)
-					).size_hints(
-						sge::window::size_hints{}
-						.minimum_size_hint(
-							sge::window::dim{
-								graph_dim.w(),
-								static_cast<
-									sge::window::dim::value_type
-								>(
-									2u + network_device_count
-								) * graph_dim.h()
-							}
 						)
 					)
 				)

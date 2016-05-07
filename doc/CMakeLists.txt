@@ -3802,7 +3802,6 @@ set(
 	include/sge/viewport/optional_resize_callback_fwd.hpp
 	include/sge/viewport/resize_callback.hpp
 	include/sge/viewport/resize_function.hpp
-	include/sge/window/convert_size_hints.hpp
 	include/sge/window/default_class_name.hpp
 	include/sge/window/dim.hpp
 	include/sge/window/dim_fwd.hpp
@@ -3811,8 +3810,6 @@ set(
 	include/sge/window/object_unique_ptr.hpp
 	include/sge/window/optional_dim.hpp
 	include/sge/window/optional_dim_fwd.hpp
-	include/sge/window/size_hints.hpp
-	include/sge/window/size_hints_fwd.hpp
 	include/sge/window/system.hpp
 	include/sge/window/system_fwd.hpp
 	include/sge/window/title.hpp

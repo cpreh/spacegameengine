@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/detail/symbol.hpp>
 #include <sge/window/dim_fwd.hpp>
 #include <sge/window/optional_dim.hpp>
-#include <sge/window/size_hints.hpp>
 #include <sge/window/title.hpp>
+#include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -58,12 +58,6 @@ public:
 
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::original_window &
-	size_hints(
-		sge::window::size_hints const &
-	);
-
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::original_window &
 	hide_cursor();
 
 	sge::window::title const &
@@ -72,22 +66,17 @@ public:
 	sge::window::optional_dim const &
 	dim() const;
 
-	fcppt::string const &
+	fcppt::optional_string const &
 	class_name() const;
-
-	sge::window::size_hints const &
-	size_hints() const;
 
 	bool
 	hide_cursor() const;
 private:
 	sge::window::title title_;
 
-	fcppt::string class_name_;
+	fcppt::optional_string class_name_;
 
 	sge::window::optional_dim dim_;
-
-	sge::window::size_hints size_hints_;
 
 	bool hide_cursor_;
 };
