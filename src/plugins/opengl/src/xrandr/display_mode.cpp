@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/pixel_size.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <awl/window/rect.hpp>
+#include <awl/backends/x11/window/rect.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/math/box/intersects.hpp>
 #include <fcppt/math/dim/comparison.hpp>
@@ -61,7 +61,7 @@ sge::opengl::xrandr::display_mode(
 		_window
 	);
 
-	awl::window::rect const window_rect(
+	awl::backends::x11::window::rect const window_rect(
 		_window.rect()
 	);
 

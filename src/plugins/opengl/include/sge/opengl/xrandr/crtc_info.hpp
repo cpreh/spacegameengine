@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/screen_resources_fwd.hpp>
 #include <sge/renderer/display_mode/pixel_size_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
-#include <awl/window/rect_fwd.hpp>
+#include <awl/backends/x11/window/rect_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
@@ -52,7 +52,7 @@ public:
 
 	~crtc_info();
 
-	awl::window::rect
+	awl::backends::x11::window::rect
 	rect() const;
 
 	sge::renderer::display_mode::pixel_size

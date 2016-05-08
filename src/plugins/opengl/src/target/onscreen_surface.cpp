@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/format.hpp>
+#include <sge/image2d/rect.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/flipped.hpp>
 #include <sge/image2d/view/make_const.hpp>
@@ -34,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/color_buffer/readable_surface.hpp>
+#include <awl/window/dim.hpp>
 #include <awl/window/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/display_mode/pixel_size.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/window/rect.hpp>
+#include <awl/backends/x11/window/rect.hpp>
 #include <fcppt/assert/throw.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -61,24 +61,24 @@ sge::opengl::xrandr::crtc_info::~crtc_info()
 	);
 }
 
-awl::window::rect
+awl::backends::x11::window::rect
 sge::opengl::xrandr::crtc_info::rect() const
 {
 	return
-		awl::window::rect(
-			awl::window::rect::vector(
+		awl::backends::x11::window::rect{
+			awl::backends::x11::window::rect::vector{
 				info_->x,
 				info_->y
-			),
-			awl::window::rect::dim(
+			},
+			awl::backends::x11::window::rect::dim{
 				fcppt::cast::to_signed(
 					info_->width
 				),
 				fcppt::cast::to_signed(
 					info_->height
 				)
-			)
-		);
+			}
+		};
 }
 
 sge::renderer::display_mode::pixel_size
