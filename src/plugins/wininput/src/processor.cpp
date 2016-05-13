@@ -52,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/callback.hpp>
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
+#include <awl/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -60,7 +61,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/cast/static_downcast.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
@@ -82,14 +83,14 @@ sge::wininput::processor::processor(
 )
 :
 	windows_window_(
-		fcppt::cast::static_downcast<
+		fcppt::cast::dynamic<
 			awl::backends::windows::window::object &
 		>(
 			_window.awl_object()
 		)
 	),
 	event_processor_(
-		fcppt::cast::static_downcast<
+		fcppt::cast::dynamic<
 			awl::backends::windows::window::event::processor &
 		>(
 			_window.awl_window_event_processor()

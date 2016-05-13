@@ -34,7 +34,7 @@ namespace d3d9
 namespace parameters
 {
 
-D3DPRESENT_PARAMETERS const
+D3DPRESENT_PARAMETERS
 create(
 	sge::renderer::pixel_format::object const &,
 	sge::renderer::display_mode::parameters const &,

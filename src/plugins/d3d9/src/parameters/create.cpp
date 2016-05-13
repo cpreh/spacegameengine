@@ -36,10 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/const.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/bind.hpp>
-#include <fcppt/cast/static_downcast.hpp>
+#include <fcppt/cast/dynamic.hpp>
 
 
-D3DPRESENT_PARAMETERS const
+D3DPRESENT_PARAMETERS
 sge::d3d9::parameters::create(
 	sge::renderer::pixel_format::object const &_pixel_format,
 	sge::renderer::display_mode::parameters const &_parameters,
@@ -74,7 +74,7 @@ sge::d3d9::parameters::create(
 			_pixel_format.multi_samples()
 		),
 		D3DSWAPEFFECT_DISCARD, // SwapEffect
-		fcppt::cast::static_downcast<
+		fcppt::cast::dynamic<
 			awl::backends::windows::window::object &
 		>(
 			_window
