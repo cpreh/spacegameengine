@@ -31,10 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/object.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <awl/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/cast/static_downcast.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/optional/alternative.hpp>
 #include <fcppt/optional/from_pointer.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -102,7 +102,7 @@ sge::opengl::glx::system::create_context(
 			fcppt::make_unique_ptr<
 				sge::opengl::glx::context
 			>(
-				fcppt::cast::static_downcast<
+				fcppt::cast::dynamic<
 					awl::backends::x11::window::object &
 				>(
 					_window

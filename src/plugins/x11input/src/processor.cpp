@@ -67,11 +67,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/event/object.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <awl/backends/x11/window/event/type.hpp>
+#include <awl/window/object.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/cast/static_downcast.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
@@ -93,21 +94,21 @@ sge::x11input::processor::processor(
 		_opcode
 	),
 	x11_window_(
-		fcppt::cast::static_downcast<
+		fcppt::cast::dynamic<
 			awl::backends::x11::window::object const &
 		>(
 			_window.awl_object()
 		)
 	),
 	window_event_processor_(
-		fcppt::cast::static_downcast<
+		fcppt::cast::dynamic<
 			awl::backends::x11::window::event::processor &
 		>(
 			_window.awl_window_event_processor()
 		)
 	),
 	system_event_processor_(
-		fcppt::cast::static_downcast<
+		fcppt::cast::dynamic<
 			awl::backends::x11::system::event::processor &
 		>(
 			_window_system.awl_system_event_processor()

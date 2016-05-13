@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/event/processor.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/cast/static_downcast.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/optional/deref.hpp>
 
 
@@ -80,12 +80,12 @@ sge::opengl::x11::system::create_device_state(
 					xrandr_system_
 				),
 				_display_mode,
-				fcppt::cast::static_downcast<
+				fcppt::cast::dynamic<
 					awl::backends::x11::window::object &
 				>(
 					_window
 				),
-				fcppt::cast::static_downcast<
+				fcppt::cast::dynamic<
 					awl::backends::x11::window::event::processor &
 				>(
 					_processor

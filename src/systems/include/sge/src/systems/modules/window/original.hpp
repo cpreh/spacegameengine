@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/cursor/object_unique_ptr.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_unique_ptr.hpp>
-#include <awl/window/event/processor_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -68,8 +67,6 @@ private:
 	awl::cursor::object_unique_ptr const awl_cursor_;
 
 	awl::window::object_unique_ptr const awl_window_;
-
-	awl::window::event::processor_unique_ptr const awl_window_event_processor_;
 
 	sge::window::object_unique_ptr const window_;
 };

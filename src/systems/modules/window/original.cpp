@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object.hpp>
 #include <awl/window/object.hpp>
 #include <awl/window/parameters.hpp>
-#include <awl/window/event/processor.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -89,15 +88,10 @@ sge::systems::modules::window::original::original(
 			)
 		)
 	),
-	awl_window_event_processor_(
-		_system.awl_system_event_processor().create_window_processor(
-			*awl_window_
-		)
-	),
 	window_(
 		_system.create(
 			*awl_window_,
-			*awl_window_event_processor_
+			awl_window_->processor()
 		)
 	)
 {

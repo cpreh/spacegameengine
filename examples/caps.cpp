@@ -51,7 +51,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/object_unique_ptr.hpp>
 #include <awl/window/parameters.hpp>
 #include <awl/window/event/processor.hpp>
-#include <awl/window/event/processor_unique_ptr.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
@@ -113,12 +112,6 @@ try
 		)
 	};
 
-	awl::window::event::processor_unique_ptr const window_processor{
-		awl_system->processor().create_window_processor(
-			*window
-		)
-	};
-
 	sge::renderer::device::core_unique_ptr const render_device{
 		render_sys->create_core_renderer(
 			sge::renderer::device::parameters{
@@ -127,7 +120,7 @@ try
 					sge::renderer::display_mode::optional_object{}
 				},
 				*window,
-				*window_processor
+				window->processor()
 			}
 		)
 	};
