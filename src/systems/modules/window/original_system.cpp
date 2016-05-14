@@ -33,8 +33,7 @@ sge::systems::modules::window::original_system::original_system()
 		awl::system::create()
 	),
 	system_(
-		*awl_system_,
-		awl_system_->processor()
+		*awl_system_
 	)
 {
 }

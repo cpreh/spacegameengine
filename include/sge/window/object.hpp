@@ -41,9 +41,9 @@ class object
 	);
 public:
 	SGE_WINDOW_DETAIL_SYMBOL
+	explicit
 	object(
-		awl::window::object &,
-		awl::window::event::processor &
+		awl::window::object &
 	);
 
 	SGE_WINDOW_DETAIL_SYMBOL
@@ -66,8 +66,6 @@ public:
 	awl_window_event_processor() const;
 private:
 	awl::window::object &awl_object_;
-
-	awl::window::event::processor &awl_window_processor_;
 };
 
 }

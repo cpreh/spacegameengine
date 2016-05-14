@@ -27,15 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::window::object::object(
-	awl::window::object &_awl_object,
-	awl::window::event::processor &_awl_window_processor
+	awl::window::object &_awl_object
 )
 :
 	awl_object_(
 		_awl_object
-	),
-	awl_window_processor_(
-		_awl_window_processor
 	)
 {
 }
@@ -73,5 +69,5 @@ awl::window::event::processor &
 sge::window::object::awl_window_event_processor() const
 {
 	return
-		awl_window_processor_;
+		awl_object_.processor();
 }

@@ -33,8 +33,7 @@ sge::systems::modules::window::wrapped::wrapped(
 	sge::systems::modules::window::base(),
 	window_(
 		_system.create(
-			_parameters.awl_window(),
-			_parameters.awl_window_event_processor()
+			_parameters.awl_window()
 		)
 	)
 {

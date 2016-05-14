@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_unique_ptr.hpp>
 #include <sge/window/system.hpp>
 #include <awl/main/exit_code.hpp>
-#include <awl/system/object_fwd.hpp>
+#include <awl/system/object.hpp>
 #include <awl/system/event/processor.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <awl/window/event/processor_fwd.hpp>
@@ -33,15 +33,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::window::system::system(
-	awl::system::object &_awl_system,
-	awl::system::event::processor &_awl_system_event_processor
+	awl::system::object &_awl_system
 )
 :
 	awl_system_(
 		_awl_system
-	),
-	awl_system_event_processor_(
-		_awl_system_event_processor
 	),
 	exit_code_()
 {
@@ -62,21 +58,19 @@ awl::system::event::processor &
 sge::window::system::awl_system_event_processor() const
 {
 	return
-		awl_system_event_processor_;
+		awl_system_.processor();
 }
 
 sge::window::object_unique_ptr
 sge::window::system::create(
-	awl::window::object &_awl_window,
-	awl::window::event::processor &_awl_window_event_processor
+	awl::window::object &_awl_window
 ) const
 {
 	return
 		fcppt::make_unique_ptr<
 			sge::window::object
 		>(
-			_awl_window,
-			_awl_window_event_processor
+			_awl_window
 		);
 }
 
@@ -84,7 +78,7 @@ bool
 sge::window::system::poll()
 {
 	exit_code_ =
-		awl_system_event_processor_.poll();
+		this->awl_system_event_processor().poll();
 
 	return
 		this->running();
@@ -94,7 +88,7 @@ bool
 sge::window::system::next()
 {
 	exit_code_ =
-		awl_system_event_processor_.next();
+		this->awl_system_event_processor().next();
 
 	return
 		this->running();
@@ -112,7 +106,7 @@ sge::window::system::quit(
 	awl::main::exit_code const _exit_code
 )
 {
-	awl_system_event_processor_.quit(
+	this->awl_system_event_processor().quit(
 		_exit_code
 	);
 }

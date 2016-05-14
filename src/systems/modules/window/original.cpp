@@ -90,8 +90,7 @@ sge::systems::modules::window::original::original(
 	),
 	window_(
 		_system.create(
-			*awl_window_,
-			awl_window_->processor()
+			*awl_window_
 		)
 	)
 {
