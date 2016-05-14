@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/exception.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
+#include <sge/input/system.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <sge/x11input/lc_ctype.hpp>
@@ -51,6 +52,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::x11input::system::system()
+:
+	sge::input::system()
 {
 }
 

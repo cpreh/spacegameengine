@@ -42,13 +42,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/discover_event_fwd.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_event_fwd.hpp>
+#include <sge/input/impl/logger.hpp>
 #include <sge/input/impl/multi_processor.hpp>
 #include <sge/input/impl/system_ptr_vector.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <fcppt/algorithm/map.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/algorithm/map_concat.hpp>
+#include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/cast/bad_dynamic.hpp>
+#include <fcppt/log/_.hpp>
+#include <fcppt/log/warning.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -72,7 +78,7 @@ sge::input::impl::multi_processor::multi_processor(
 :
 	sge::input::processor(),
 	processors_(
-		fcppt::algorithm::map<
+		fcppt::algorithm::map_optional<
 			sge::input::impl::multi_processor::processor_vector
 		>(
 			_systems,
@@ -83,11 +89,38 @@ sge::input::impl::multi_processor::multi_processor(
 				sge::input::system_unique_ptr const &_system
 			)
 			{
-				return
-					_system->create_processor(
-						_window,
-						_window_system
+				typedef
+				fcppt::optional::object<
+					sge::input::processor_unique_ptr
+				>
+				optional_processor;
+
+				try
+				{
+					return
+						optional_processor{
+							_system->create_processor(
+								_window,
+								_window_system
+							)
+						};
+				}
+				catch(
+					fcppt::cast::bad_dynamic const &_error
+				)
+				{
+					FCPPT_LOG_WARNING(
+						sge::input::impl::logger(),
+						fcppt::log::_
+							<<
+							FCPPT_TEXT("Unusuable input plugin ")
+							<<
+							_error.string()
 					);
+
+					return
+						optional_processor{};
+				}
 			}
 		)
 	),
