@@ -33,6 +33,7 @@ find_package(
 
 find_package(
 	Wayland
+	QUIET
 )
 
 find_package(
@@ -114,7 +115,7 @@ add_sge_lib(
 add_sge_lib(
 	wlinput
 	"Build the Wayland input plugin"
-	${WAYLAND_CLIENT_FOUND}
+	"${WAYLAND_CLIENT_FOUND}"
 )
 
 add_sge_lib(
