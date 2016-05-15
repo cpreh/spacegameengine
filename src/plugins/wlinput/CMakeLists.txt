@@ -1,6 +1,5 @@
 set(
 	SGE_WLINPUT_FILES
-	src/plugins/wlinput/include/sge/wlinput/focus/object.hpp
 	src/plugins/wlinput/include/sge/wlinput/logger_context.hpp
 	src/plugins/wlinput/include/sge/wlinput/processor.hpp
 	src/plugins/wlinput/include/sge/wlinput/system.hpp
