@@ -32,6 +32,10 @@ find_package(
 )
 
 find_package(
+	Wayland
+)
+
+find_package(
 	X11
 )
 
@@ -108,7 +112,13 @@ add_sge_lib(
 )
 
 add_sge_lib(
+	wlinput
+	"Build the Wayland input plugin"
+	${WAYLAND_CLIENT_FOUND}
+)
+
+add_sge_lib(
 	x11input
-	"Build the x11 input plugin"
+	"Build the X11 input plugin"
 	"${X11_Xinput_FOUND}"
 )

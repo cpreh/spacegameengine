@@ -14,7 +14,6 @@ set(
 	src/plugins/wininput/include/sge/wininput/cursor/set_capture.hpp
 	src/plugins/wininput/include/sge/wininput/cursor/show.hpp
 	src/plugins/wininput/include/sge/wininput/cursor/ungrab.hpp
-	src/plugins/wininput/include/sge/wininput/focus/object.hpp
 	src/plugins/wininput/include/sge/wininput/focus/object_fwd.hpp
 	src/plugins/wininput/include/sge/wininput/focus/translate_key_code.hpp
 	src/plugins/wininput/include/sge/wininput/has_focus.hpp

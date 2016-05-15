@@ -23,15 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
 #include <sge/plugin/description.hpp>
-#include <sge/plugin/flags.hpp>
 #include <sge/plugin/flags_field.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/min_core_version.hpp>
 #include <sge/plugin/name.hpp>
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/library/make_interface.hpp>
-#include <sge/x11input/logger_context.hpp>
-#include <sge/x11input/system.hpp>
+#include <sge/wlinput/logger_context.hpp>
+#include <sge/wlinput/system.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -42,19 +41,17 @@ namespace
 
 sge::plugin::info const info(
 	sge::plugin::name(
-		FCPPT_TEXT("x11input")
+		FCPPT_TEXT("wlinput")
 	),
 	sge::plugin::description(
-		FCPPT_TEXT("Uses XI2 to handle foci, cursors, keyboards and mice.")
+		FCPPT_TEXT("Uses Wayland seats to handle foci and cursors.")
 	),
 	sge::plugin::version(0x1u),
 	sge::plugin::min_core_version(0x1u),
 	sge::plugin::capabilities_field{
 		sge::plugin::capabilities::input
 	},
-	sge::plugin::flags_field{
-		sge::plugin::flags::delayed_unload
-	}
+	sge::plugin::flags_field{}
 );
 
 sge::input::system_unique_ptr
@@ -65,7 +62,7 @@ create_input_system()
 			sge::input::system
 		>(
 			fcppt::make_unique_ptr<
-				sge::x11input::system
+				sge::wlinput::system
 			>()
 		);
 }
@@ -74,6 +71,6 @@ create_input_system()
 
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
 	info,
-	sge::x11input::logger_context(),
+	sge::wlinput::logger_context(),
 	(create_input_system)
 )

@@ -349,6 +349,8 @@ update_plugin wave
 
 update_plugin wininput
 
+update_plugin wlinput
+
 update_plugin x11input
 
 update_example_library rucksack/testbed

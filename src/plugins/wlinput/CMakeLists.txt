@@ -1,0 +1,32 @@
+set(
+	SGE_WLINPUT_FILES
+	src/plugins/wlinput/include/sge/wlinput/focus/object.hpp
+	src/plugins/wlinput/include/sge/wlinput/logger_context.hpp
+	src/plugins/wlinput/include/sge/wlinput/processor.hpp
+	src/plugins/wlinput/include/sge/wlinput/system.hpp
+	src/plugins/wlinput/src/exports.cpp
+	src/plugins/wlinput/src/logger_context.cpp
+	src/plugins/wlinput/src/processor.cpp
+	src/plugins/wlinput/src/system.cpp
+)
+
+find_package(
+	awl
+	REQUIRED
+)
+
+add_sge_plugin(
+	wlinput
+	SGE_DEPS
+		sgeinput
+		sgelog
+		sgeplugin
+		sgewindow
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_log_TARGET}
+		${awl_TARGET}
+		${WAYLAND_CLIENT_LIBRARIES}
+	INCLUDE_DIRS
+		${WAYLAND_CLIENT_INCLUDE_DIRS}
+)
