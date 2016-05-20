@@ -1,9 +1,16 @@
 set(
 	SGE_WLINPUT_FILES
+	src/plugins/wlinput/include/sge/wlinput/cursor/object.hpp
+	src/plugins/wlinput/include/sge/wlinput/cursor/object_fwd.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/object.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/object_fwd.hpp
+	src/plugins/wlinput/include/sge/wlinput/initial_objects.hpp
 	src/plugins/wlinput/include/sge/wlinput/logger_context.hpp
 	src/plugins/wlinput/include/sge/wlinput/processor.hpp
 	src/plugins/wlinput/include/sge/wlinput/system.hpp
+	src/plugins/wlinput/src/cursor/object.cpp
 	src/plugins/wlinput/src/exports.cpp
+	src/plugins/wlinput/src/focus/object.cpp
 	src/plugins/wlinput/src/logger_context.cpp
 	src/plugins/wlinput/src/processor.cpp
 	src/plugins/wlinput/src/system.cpp

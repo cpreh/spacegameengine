@@ -31,9 +31,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system.hpp>
+#include <sge/wlinput/initial_objects.hpp>
 #include <sge/wlinput/processor.hpp>
+#include <sge/wlinput/cursor/object.hpp>
+#include <sge/wlinput/focus/object.hpp>
 #include <awl/backends/wayland/system/event/processor.hpp>
+#include <awl/backends/wayland/system/seat/caps.hpp>
 #include <awl/system/event/processor.hpp>
+#include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/optional_auto_connection.hpp>
@@ -55,8 +60,25 @@ sge::wlinput::processor::processor(
 	focus_discover_{},
 	focus_remove_{},
 	cursor_discover_{},
-	cursor_remove_{}
+	cursor_remove_{},
+	cursors_(
+		sge::wlinput::initial_objects<
+			sge::wlinput::cursor::object,
+			awl::backends::wayland::system::seat::caps::pointer
+		>(
+			system_processor_.seats()
+		)
+	),
+	foci_(
+		sge::wlinput::initial_objects<
+			sge::wlinput::focus::object,
+			awl::backends::wayland::system::seat::caps::keyboard
+		>(
+			system_processor_.seats()
+		)
+	)
 {
+	// FIXME: Add eventfd here!
 }
 
 sge::wlinput::processor::~processor()

@@ -38,10 +38,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
+#include <sge/wlinput/cursor/object_fwd.hpp>
+#include <sge/wlinput/focus/object_fwd.hpp>
+#include <awl/backends/wayland/registry_id.hpp>
 #include <awl/backends/wayland/system/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/signal/optional_auto_connection_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <unordered_map>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -134,6 +141,36 @@ private:
 	sge::input::cursor::discover_signal cursor_discover_;
 
 	sge::input::cursor::remove_signal cursor_remove_;
+
+	typedef
+	fcppt::unique_ptr<
+		sge::wlinput::cursor::object
+	>
+	cursor_unique_ptr;
+
+	typedef
+	std::unordered_map<
+		awl::backends::wayland::registry_id,
+		cursor_unique_ptr
+	>
+	cursor_map;
+
+	typedef
+	fcppt::unique_ptr<
+		sge::wlinput::focus::object
+	>
+	focus_unique_ptr;
+
+	typedef
+	std::unordered_map<
+		awl::backends::wayland::registry_id,
+		focus_unique_ptr
+	>
+	focus_map;
+
+	cursor_map cursors_;
+
+	focus_map foci_;
 };
 
 }
