@@ -20,8 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
+#include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/remove_callback.hpp>
 #include <sge/input/focus/discover_callback.hpp>
+#include <sge/input/focus/discover_event.hpp>
 #include <sge/input/focus/remove_callback.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
@@ -35,8 +37,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wlinput/processor.hpp>
 #include <sge/wlinput/cursor/object.hpp>
 #include <sge/wlinput/focus/object.hpp>
+#include <awl/backends/posix/event_fwd.hpp>
+#include <awl/backends/posix/posted.hpp>
+#include <awl/backends/posix/processor.hpp>
 #include <awl/backends/wayland/system/event/processor.hpp>
+#include <awl/backends/wayland/system/event/seat.hpp>
+#include <awl/backends/wayland/system/event/seat_callback.hpp>
 #include <awl/backends/wayland/system/seat/caps.hpp>
+#include <awl/backends/wayland/system/seat/object.hpp>
 #include <awl/system/event/processor.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
@@ -76,9 +84,30 @@ sge::wlinput::processor::processor(
 		>(
 			system_processor_.seats()
 		)
-	)
+	),
+	start_event_{
+		system_processor_.fd_processor().post(
+			awl::backends::posix::callback{
+				std::bind(
+					&sge::wlinput::processor::init,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	},
+	seat_connection_{
+		system_processor_.seat_callback(
+			awl::backends::wayland::system::event::seat_callback{
+				std::bind(
+					&sge::wlinput::processor::seat_changed,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	}
 {
-	// FIXME: Add eventfd here!
 }
 
 sge::wlinput::processor::~processor()
@@ -189,4 +218,63 @@ sge::wlinput::processor::joypad_remove_callback(
 {
 	return
 		fcppt::signal::optional_auto_connection{};
+}
+
+void
+sge::wlinput::processor::init(
+	awl::backends::posix::event const &
+)
+{
+	for(
+		auto const &focus
+		:
+		foci_
+	)
+		focus_discover_(
+			sge::input::focus::discover_event{
+				*focus.second
+			}
+		);
+
+	for(
+		auto const &cursor
+		:
+		cursors_
+	)
+		cursor_discover_(
+			sge::input::cursor::discover_event{
+				*cursor.second
+			}
+		);
+}
+
+void
+sge::wlinput::processor::seat_changed(
+	awl::backends::wayland::system::event::seat const &_seat
+)
+{
+	if(
+		_seat.added().get()
+	)
+		this->add_seat(
+			_seat.get()
+		);
+	else
+		this->remove_seat(
+			_seat.get()
+		);
+}
+
+void
+sge::wlinput::processor::add_seat(
+	awl::backends::wayland::system::seat::object const &_seat
+)
+{
+}
+
+void
+sge::wlinput::processor::remove_seat(
+	awl::backends::wayland::system::seat::object const &_seat
+)
+{
 }

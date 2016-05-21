@@ -40,10 +40,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system_fwd.hpp>
 #include <sge/wlinput/cursor/object_fwd.hpp>
 #include <sge/wlinput/focus/object_fwd.hpp>
+#include <awl/backends/posix/event_fwd.hpp>
+#include <awl/backends/posix/posted_unique_ptr.hpp>
 #include <awl/backends/wayland/registry_id.hpp>
 #include <awl/backends/wayland/system/event/processor_fwd.hpp>
+#include <awl/backends/wayland/system/event/seat_fwd.hpp>
+#include <awl/backends/wayland/system/seat/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/signal/optional_auto_connection_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -132,6 +137,26 @@ private:
 	)
 	override;
 
+	void
+	init(
+		awl::backends::posix::event const &
+	);
+
+	void
+	seat_changed(
+		awl::backends::wayland::system::event::seat const &
+	);
+
+	void
+	add_seat(
+		awl::backends::wayland::system::seat::object const &
+	);
+
+	void
+	remove_seat(
+		awl::backends::wayland::system::seat::object const &
+	);
+
 	awl::backends::wayland::system::event::processor &system_processor_;
 
 	sge::input::focus::discover_signal focus_discover_;
@@ -171,6 +196,10 @@ private:
 	cursor_map cursors_;
 
 	focus_map foci_;
+
+	awl::backends::posix::posted_unique_ptr const start_event_;
+
+	fcppt::signal::auto_connection const seat_connection_;
 };
 
 }
