@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/const.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/cast/try_dynamic.hpp>
+#include <fcppt/cast/dynamic.hpp>
 
 
 sge::renderer::pixel_format::srgb
@@ -35,7 +35,7 @@ sge::d3d9::parameters::extract_srgb(
 {
 	return
 		fcppt::optional::maybe(
-			fcppt::cast::try_dynamic<
+			fcppt::cast::dynamic<
 				sge::d3d9::visual const
 			>(
 				_visual

@@ -59,7 +59,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/object.hpp>
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/window/object.hpp>
-#include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
@@ -69,7 +68,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/append.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
-#include <fcppt/cast/dynamic.hpp>
+#include <fcppt/cast/dynamic_cross_exn.hpp>
+#include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
@@ -97,21 +97,21 @@ sge::dinput::processor::processor(
 		sge::dinput::create_dinput()
 	),
 	windows_window_(
-		fcppt::cast::dynamic<
+		fcppt::cast::dynamic_cross_exn<
 			awl::backends::windows::window::object &
 		>(
 			_window.awl_object()
 		)
 	),
 	event_processor_(
-		fcppt::cast::dynamic<
+		fcppt::cast::dynamic_exn<
 			awl::backends::windows::window::event::processor &
 		>(
 			_window.awl_window_event_processor()
 		)
 	),
 	system_processor_(
-		fcppt::cast::dynamic<
+		fcppt::cast::dynamic_exn<
 			awl::backends::windows::system::event::processor &
 		>(
 			_window_system.awl_system_event_processor()
@@ -131,7 +131,7 @@ sge::dinput::processor::processor(
 	joypad_discover_(),
 	joypad_remove_(),
 	init_message_(
-		event_processor_
+		system_processor_
 	),
 	connections_(
 		fcppt::assign::make_container<

@@ -42,11 +42,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_event.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/system.hpp>
 #include <awl/backends/windows/lparam.hpp>
 #include <awl/backends/windows/message_type.hpp>
 #include <awl/backends/windows/post_message.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/wparam.hpp>
+#include <awl/backends/windows/system/event/processor.hpp>
 #include <awl/backends/windows/window/has_focus.hpp>
 #include <awl/backends/windows/window/object.hpp>
 #include <awl/backends/windows/window/event/callback.hpp>
@@ -61,7 +63,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/cast/dynamic.hpp>
+#include <fcppt/cast/dynamic_cross_exn.hpp>
+#include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
@@ -79,18 +82,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::wininput::processor::processor(
+	sge::window::system const &_window_system,
 	sge::window::object const &_window
 )
 :
 	windows_window_(
-		fcppt::cast::dynamic<
+		fcppt::cast::dynamic_cross_exn<
 			awl::backends::windows::window::object &
 		>(
 			_window.awl_object()
 		)
 	),
 	event_processor_(
-		fcppt::cast::dynamic<
+		fcppt::cast::dynamic_exn<
 			awl::backends::windows::window::event::processor &
 		>(
 			_window.awl_window_event_processor()
@@ -101,7 +105,11 @@ sge::wininput::processor::processor(
 	cursor_discover_(),
 	cursor_remove_(),
 	init_message_(
-		event_processor_
+		fcppt::cast::dynamic_exn<
+			awl::backends::windows::system::event::processor &
+		>(
+			_window_system.awl_system_event_processor()
+		)
 	),
 	connections_(
 		fcppt::assign::make_container<

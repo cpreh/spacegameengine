@@ -45,11 +45,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system_fwd.hpp>
 #include <awl/backends/windows/system/event/handle_fwd.hpp>
 #include <awl/backends/windows/system/event/processor_fwd.hpp>
+#include <awl/backends/windows/system/event/scoped_user_message.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type_fwd.hpp>
-#include <awl/backends/windows/window/event/scoped_user_message.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
@@ -238,7 +238,7 @@ private:
 
 	sge::input::joypad::remove_signal joypad_remove_;
 
-	awl::backends::windows::window::event::scoped_user_message const init_message_;
+	awl::backends::windows::system::event::scoped_user_message const init_message_;
 
 	fcppt::signal::auto_connection_container const connections_;
 };

@@ -39,11 +39,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/system_fwd.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type_fwd.hpp>
-#include <awl/backends/windows/window/event/scoped_user_message.hpp>
+#include <awl/backends/windows/system/event/scoped_user_message.hpp>
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
@@ -64,8 +65,8 @@ class processor
 		processor
 	);
 public:
-	explicit
 	processor(
+		sge::window::system const &,
 		sge::window::object const &
 	);
 
@@ -154,7 +155,7 @@ private:
 
 	sge::input::cursor::remove_signal cursor_remove_;
 
-	awl::backends::windows::window::event::scoped_user_message const init_message_;
+	awl::backends::windows::system::event::scoped_user_message const init_message_;
 
 	fcppt::signal::auto_connection_container const connections_;
 
