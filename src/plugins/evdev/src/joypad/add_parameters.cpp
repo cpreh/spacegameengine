@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/add_parameters.hpp>
 #include <sge/evdev/joypad/map.hpp>
 #include <sge/input/joypad/discover_signal.hpp>
-#include <awl/backends/linux/fd/processor_fwd.hpp>
+#include <awl/backends/posix/processor_fwd.hpp>
 
 
 sge::evdev::joypad::add_parameters::add_parameters(
-	awl::backends::linux::fd::processor &_processor,
+	awl::backends::posix::processor &_processor,
 	sge::evdev::joypad::map &_map,
 	sge::input::joypad::discover_signal &_discover_signal
 )
@@ -42,7 +42,7 @@ sge::evdev::joypad::add_parameters::add_parameters(
 {
 }
 
-awl::backends::linux::fd::processor &
+awl::backends::posix::processor &
 sge::evdev::joypad::add_parameters::processor() const
 {
 	return

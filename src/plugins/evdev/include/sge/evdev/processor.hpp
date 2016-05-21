@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <awl/backends/linux/fd/processor_fwd.hpp>
+#include <awl/backends/posix/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -147,7 +147,7 @@ private:
 
 	boost::filesystem::path const path_;
 
-	awl::backends::linux::fd::processor &processor_;
+	awl::backends::posix::processor &processor_;
 
 	typedef
 	fcppt::unique_ptr<

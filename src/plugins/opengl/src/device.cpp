@@ -139,7 +139,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/cast/try_dynamic.hpp>
+#include <fcppt/cast/dynamic_cross.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
@@ -213,7 +213,7 @@ sge::opengl::device::device(
 	);
 
 	fcppt::optional::maybe_void(
-		fcppt::cast::try_dynamic<
+		fcppt::cast::dynamic_cross<
 			sge::renderer::visual_base const
 		>(
 			_window.visual()

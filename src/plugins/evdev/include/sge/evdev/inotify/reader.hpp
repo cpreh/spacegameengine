@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/inotify/object.hpp>
 #include <sge/evdev/inotify/reader_fwd.hpp>
 #include <sge/evdev/inotify/watch.hpp>
-#include <awl/backends/linux/fd/event_fwd.hpp>
-#include <awl/backends/linux/fd/processor_fwd.hpp>
+#include <awl/backends/posix/event_fwd.hpp>
+#include <awl/backends/posix/processor_fwd.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -48,7 +48,7 @@ class reader
 public:
 	reader(
 		boost::filesystem::path const &,
-		awl::backends::linux::fd::processor &,
+		awl::backends::posix::processor &,
 		sge::evdev::inotify::callback const &
 	);
 
@@ -56,7 +56,7 @@ public:
 private:
 	void
 	on_read(
-		awl::backends::linux::fd::event const &
+		awl::backends::posix::event const &
 	);
 
 	sge::evdev::inotify::object const object_;

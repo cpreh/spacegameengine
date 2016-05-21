@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/evdev/device/fd.hpp>
-#include <awl/backends/linux/fd/object.hpp>
+#include <awl/backends/posix/fd.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -53,7 +53,7 @@ sge::evdev::device::fd::~fd()
 		);
 }
 
-awl::backends::linux::fd::object
+awl::backends::posix::fd
 sge::evdev::device::fd::get() const
 {
 	FCPPT_ASSERT_PRE(

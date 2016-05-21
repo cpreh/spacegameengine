@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/eventfd/callback.hpp>
 #include <sge/evdev/eventfd/fd.hpp>
 #include <sge/evdev/eventfd/object_fwd.hpp>
-#include <awl/backends/linux/fd/processor_fwd.hpp>
+#include <awl/backends/posix/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
@@ -43,7 +43,7 @@ class object
 	);
 public:
 	object(
-		awl::backends::linux::fd::processor &,
+		awl::backends::posix::processor &,
 		sge::evdev::eventfd::callback const &
 	);
 

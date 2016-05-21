@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_EVENTFD_FD_HPP_INCLUDED
 #define SGE_EVDEV_EVENTFD_FD_HPP_INCLUDED
 
-#include <awl/backends/linux/fd/object.hpp>
+#include <awl/backends/posix/fd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -42,10 +42,10 @@ public:
 
 	~fd();
 
-	awl::backends::linux::fd::object
+	awl::backends::posix::fd
 	get() const;
 private:
-	awl::backends::linux::fd::object const fd_;
+	awl::backends::posix::fd const fd_;
 };
 
 }

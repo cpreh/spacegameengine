@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/info_fwd.hpp>
 #include <sge/input/joypad/relative_axis_callback.hpp>
 #include <sge/input/joypad/relative_axis_signal.hpp>
-#include <awl/backends/linux/fd/processor_fwd.hpp>
+#include <awl/backends/posix/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -57,7 +57,7 @@ class object
 	);
 public:
 	object(
-		awl::backends::linux::fd::processor &,
+		awl::backends::posix::processor &,
 		sge::evdev::device::fd_unique_ptr,
 		sge::evdev::joypad::info const &
 	);

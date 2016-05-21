@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/inotify/convert_event_type.hpp>
 #include <sge/evdev/inotify/event.hpp>
 #include <sge/evdev/inotify/reader.hpp>
-#include <awl/backends/linux/fd/callback.hpp>
-#include <awl/backends/linux/fd/event_fwd.hpp>
-#include <awl/backends/linux/fd/processor.hpp>
+#include <awl/backends/posix/callback.hpp>
+#include <awl/backends/posix/event_fwd.hpp>
+#include <awl/backends/posix/processor.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::evdev::inotify::reader::reader(
 	boost::filesystem::path const &_path,
-	awl::backends::linux::fd::processor &_processor,
+	awl::backends::posix::processor &_processor,
 	sge::evdev::inotify::callback const &_callback
 )
 :
@@ -53,7 +53,7 @@ sge::evdev::inotify::reader::reader(
 	fd_connection_(
 		_processor.register_fd_callback(
 			object_.fd(),
-			awl::backends::linux::fd::callback(
+			awl::backends::posix::callback(
 				std::bind(
 					&sge::evdev::inotify::reader::on_read,
 					this,
@@ -74,7 +74,7 @@ sge::evdev::inotify::reader::~reader()
 
 void
 sge::evdev::inotify::reader::on_read(
-	awl::backends::linux::fd::event const &
+	awl::backends::posix::event const &
 )
 {
 	// The manpage says that this is enough to read at least one inotify event

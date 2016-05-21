@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <sge/evdev/device/object.hpp>
 #include <sge/input/exception.hpp>
-#include <awl/backends/linux/fd/callback.hpp>
-#include <awl/backends/linux/fd/event_fwd.hpp>
-#include <awl/backends/linux/fd/processor.hpp>
+#include <awl/backends/posix/callback.hpp>
+#include <awl/backends/posix/event_fwd.hpp>
+#include <awl/backends/posix/processor.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::evdev::device::object::object(
-	awl::backends::linux::fd::processor &_processor,
+	awl::backends::posix::processor &_processor,
 	sge::evdev::device::fd_unique_ptr _fd
 )
 :
@@ -49,13 +49,13 @@ sge::evdev::device::object::object(
 	auto_connection_(
 		_processor.register_fd_callback(
 			fd_->get(),
-			awl::backends::linux::fd::callback(
+			awl::backends::posix::callback{
 				std::bind(
 					&sge::evdev::device::object::on_event,
 					this,
 					std::placeholders::_1
 				)
-			)
+			}
 		)
 	)
 {
@@ -67,7 +67,7 @@ sge::evdev::device::object::~object()
 
 void
 sge::evdev::device::object::on_event(
-	awl::backends::linux::fd::event const &
+	awl::backends::posix::event const &
 )
 {
 	ssize_t result{

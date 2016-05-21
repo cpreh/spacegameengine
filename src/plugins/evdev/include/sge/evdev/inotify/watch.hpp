@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/inotify/object_fwd.hpp>
 #include <sge/evdev/inotify/watch_fwd.hpp>
-#include <awl/backends/linux/fd/object.hpp>
+#include <awl/backends/posix/fd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -52,7 +52,7 @@ public:
 private:
 	sge::evdev::inotify::object const &object_;
 
-	awl::backends::linux::fd::object const fd_;
+	awl::backends::posix::fd const fd_;
 };
 
 }

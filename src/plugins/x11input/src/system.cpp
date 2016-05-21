@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/cast/dynamic.hpp>
+#include <fcppt/cast/dynamic_cross_exn.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -68,7 +68,7 @@ sge::x11input::system::create_processor(
 )
 {
 	awl::backends::x11::window::object const &x11_window(
-		fcppt::cast::dynamic<
+		fcppt::cast::dynamic_cross_exn<
 			awl::backends::x11::window::object const &
 		>(
 			_window.awl_object()

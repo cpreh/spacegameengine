@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/eventfd/callback.hpp>
 #include <sge/evdev/eventfd/object.hpp>
-#include <awl/backends/linux/fd/callback.hpp>
-#include <awl/backends/linux/fd/processor.hpp>
+#include <awl/backends/posix/callback.hpp>
+#include <awl/backends/posix/processor.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -43,7 +43,7 @@ value_type const value(
 }
 
 sge::evdev::eventfd::object::object(
-	awl::backends::linux::fd::processor &_processor,
+	awl::backends::posix::processor &_processor,
 	sge::evdev::eventfd::callback const &_callback
 )
 :
@@ -51,7 +51,7 @@ sge::evdev::eventfd::object::object(
 	fd_connection_(
 		_processor.register_fd_callback(
 			fd_.get(),
-			awl::backends::linux::fd::callback{
+			awl::backends::posix::callback{
 				std::bind(
 					_callback
 				)

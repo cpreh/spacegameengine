@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/wayland/system/seat/caps.hpp>
 #include <awl/system/event/processor.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
-#include <fcppt/cast/dynamic.hpp>
+#include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/optional_auto_connection.hpp>
 
@@ -51,7 +51,7 @@ sge::wlinput::processor::processor(
 :
 	sge::input::processor(),
 	system_processor_{
-		fcppt::cast::dynamic<
+		fcppt::cast::dynamic_exn<
 			awl::backends::wayland::system::event::processor &
 		>(
 			_system.awl_system_event_processor()

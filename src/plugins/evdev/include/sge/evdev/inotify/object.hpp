@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_EVDEV_INOTIFY_OBJECT_HPP_INCLUDED
 
 #include <sge/evdev/inotify/object_fwd.hpp>
-#include <awl/backends/linux/fd/object.hpp>
+#include <awl/backends/posix/fd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -43,10 +43,10 @@ public:
 
 	~object();
 
-	awl::backends::linux::fd::object
+	awl::backends::posix::fd
 	fd() const;
 private:
-	awl::backends::linux::fd::object const fd_;
+	awl::backends::posix::fd const fd_;
 };
 
 }

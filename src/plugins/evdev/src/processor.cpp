@@ -43,11 +43,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/window/system.hpp>
-#include <awl/backends/linux/fd/processor.hpp>
+#include <awl/backends/posix/processor_base.hpp>
 #include <awl/system/event/processor.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/cast/dynamic_cross_exn.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/optional_auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -67,11 +68,11 @@ sge::evdev::processor::processor(
 		"/dev/input"
 	),
 	processor_(
-		dynamic_cast<
-			awl::backends::linux::fd::processor &
+		fcppt::cast::dynamic_cross_exn<
+			awl::backends::posix::processor_base &
 		>(
 			_window_system.awl_system_event_processor()
-		)
+		).fd_processor()
 	),
 	eventfd_(
 		fcppt::make_unique_ptr<
