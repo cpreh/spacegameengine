@@ -23,10 +23,6 @@ set(
 	src/plugins/evdev/include/sge/evdev/device/read_bits_result.hpp
 	src/plugins/evdev/include/sge/evdev/device/read_bits_result_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/device/unique_id.hpp
-	src/plugins/evdev/include/sge/evdev/eventfd/callback.hpp
-	src/plugins/evdev/include/sge/evdev/eventfd/fd.hpp
-	src/plugins/evdev/include/sge/evdev/eventfd/object.hpp
-	src/plugins/evdev/include/sge/evdev/eventfd/object_fwd.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/callback.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/convert_event_type.hpp
 	src/plugins/evdev/include/sge/evdev/inotify/event.hpp
@@ -84,8 +80,6 @@ set(
 	src/plugins/evdev/src/device/name.cpp
 	src/plugins/evdev/src/device/object.cpp
 	src/plugins/evdev/src/device/unique_id.cpp
-	src/plugins/evdev/src/eventfd/fd.cpp
-	src/plugins/evdev/src/eventfd/object.cpp
 	src/plugins/evdev/src/exports.cpp
 	src/plugins/evdev/src/inotify/convert_event_type.cpp
 	src/plugins/evdev/src/inotify/event.cpp

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_PROCESSOR_HPP_INCLUDED
 #define SGE_EVDEV_PROCESSOR_HPP_INCLUDED
 
-#include <sge/evdev/eventfd/object_fwd.hpp>
 #include <sge/evdev/inotify/event_fwd.hpp>
 #include <sge/evdev/inotify/reader_fwd.hpp>
 #include <sge/evdev/joypad/map.hpp>
@@ -39,7 +38,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/window/system_fwd.hpp>
+#include <awl/backends/posix/event_fwd.hpp>
 #include <awl/backends/posix/processor_fwd.hpp>
+#include <awl/backends/posix/posted_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -132,7 +133,9 @@ private:
 	override;
 
 	void
-	dev_init();
+	dev_init(
+		awl::backends::posix::event const &
+	);
 
 	void
 	dev_event(
@@ -149,13 +152,7 @@ private:
 
 	awl::backends::posix::processor &processor_;
 
-	typedef
-	fcppt::unique_ptr<
-		sge::evdev::eventfd::object
-	>
-	eventfd_unique_ptr;
-
-	eventfd_unique_ptr const eventfd_;
+	awl::backends::posix::posted_unique_ptr const start_event_;
 
 	typedef
 	fcppt::unique_ptr<

@@ -19,8 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/evdev/processor.hpp>
-#include <sge/evdev/eventfd/callback.hpp>
-#include <sge/evdev/eventfd/object.hpp>
 #include <sge/evdev/inotify/callback.hpp>
 #include <sge/evdev/inotify/event.hpp>
 #include <sge/evdev/inotify/event_type.hpp>
@@ -43,6 +41,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/window/system.hpp>
+#include <awl/backends/posix/event_fwd.hpp>
+#include <awl/backends/posix/posted.hpp>
+#include <awl/backends/posix/processor.hpp>
 #include <awl/backends/posix/processor_base.hpp>
 #include <awl/system/event/processor.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -74,22 +75,19 @@ sge::evdev::processor::processor(
 			_window_system.awl_system_event_processor()
 		).fd_processor()
 	),
-	eventfd_(
-		fcppt::make_unique_ptr<
-			sge::evdev::eventfd::object
-		>(
-			processor_,
-			sge::evdev::eventfd::callback(
+	start_event_(
+		processor_.post(
+			awl::backends::posix::callback{
 				std::bind(
 					&sge::evdev::processor::dev_init,
-					this
+					this,
+					std::placeholders::_1
 				)
-			)
+			}
 		)
 	),
 	dev_reader_()
 {
-	eventfd_->write();
 }
 
 sge::evdev::processor::~processor()
@@ -195,10 +193,10 @@ sge::evdev::processor::joypad_remove_callback(
 }
 
 void
-sge::evdev::processor::dev_init()
+sge::evdev::processor::dev_init(
+	awl::backends::posix::event const &
+)
 {
-	eventfd_->read();
-
 	dev_reader_ =
 		optional_inotify_reader_unique_ptr(
 			fcppt::make_unique_ptr<
