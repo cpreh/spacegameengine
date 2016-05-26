@@ -44,9 +44,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/posix/posted_unique_ptr.hpp>
 #include <awl/backends/wayland/registry_id.hpp>
 #include <awl/backends/wayland/system/event/processor_fwd.hpp>
-#include <awl/backends/wayland/system/event/seat_fwd.hpp>
+#include <awl/backends/wayland/system/event/seat_added_fwd.hpp>
+#include <awl/backends/wayland/system/event/seat_removed_fwd.hpp>
+#include <awl/backends/wayland/system/seat/caps_field_fwd.hpp>
 #include <awl/backends/wayland/system/seat/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/reference_fwd.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -143,18 +146,21 @@ private:
 	);
 
 	void
-	seat_changed(
-		awl::backends::wayland::system::event::seat const &
+	add_seat(
+		awl::backends::wayland::system::event::seat_added const &
 	);
 
 	void
-	add_seat(
-		awl::backends::wayland::system::seat::object const &
+	seat_caps(
+		fcppt::reference<
+			awl::backends::wayland::system::seat::object const
+		>,
+		awl::backends::wayland::system::seat::caps_field
 	);
 
 	void
 	remove_seat(
-		awl::backends::wayland::system::seat::object const &
+		awl::backends::wayland::system::event::seat_removed const &
 	);
 
 	awl::backends::wayland::system::event::processor &system_processor_;
@@ -199,7 +205,18 @@ private:
 
 	awl::backends::posix::posted_unique_ptr const start_event_;
 
-	fcppt::signal::auto_connection const seat_connection_;
+	fcppt::signal::auto_connection const seat_added_connection_;
+
+	fcppt::signal::auto_connection const seat_removed_connection_;
+
+	typedef
+	std::unordered_map<
+		awl::backends::wayland::registry_id,
+		fcppt::signal::auto_connection
+	>
+	seat_connection_map;
+
+	seat_connection_map seat_connections_;
 };
 
 }

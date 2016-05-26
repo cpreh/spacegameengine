@@ -33,23 +33,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system.hpp>
+#include <sge/wlinput/change_caps.hpp>
 #include <sge/wlinput/initial_objects.hpp>
 #include <sge/wlinput/processor.hpp>
+#include <sge/wlinput/remove_seat.hpp>
 #include <sge/wlinput/cursor/object.hpp>
 #include <sge/wlinput/focus/object.hpp>
 #include <awl/backends/posix/event_fwd.hpp>
 #include <awl/backends/posix/posted.hpp>
 #include <awl/backends/posix/processor.hpp>
 #include <awl/backends/wayland/system/event/processor.hpp>
-#include <awl/backends/wayland/system/event/seat.hpp>
-#include <awl/backends/wayland/system/event/seat_callback.hpp>
+#include <awl/backends/wayland/system/event/seat_added.hpp>
+#include <awl/backends/wayland/system/event/seat_added_callback.hpp>
+#include <awl/backends/wayland/system/event/seat_removed.hpp>
+#include <awl/backends/wayland/system/event/seat_removed_callback.hpp>
 #include <awl/backends/wayland/system/seat/caps.hpp>
+#include <awl/backends/wayland/system/seat/caps_callback.hpp>
 #include <awl/backends/wayland/system/seat/object.hpp>
 #include <awl/system/event/processor.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/optional_auto_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::wlinput::processor::processor(
@@ -96,17 +108,29 @@ sge::wlinput::processor::processor(
 			}
 		)
 	},
-	seat_connection_{
-		system_processor_.seat_callback(
-			awl::backends::wayland::system::event::seat_callback{
+	seat_added_connection_{
+		system_processor_.seat_added_callback(
+			awl::backends::wayland::system::event::seat_added_callback{
 				std::bind(
-					&sge::wlinput::processor::seat_changed,
+					&sge::wlinput::processor::add_seat,
 					this,
 					std::placeholders::_1
 				)
 			}
 		)
-	}
+	},
+	seat_removed_connection_{
+		system_processor_.seat_removed_callback(
+			awl::backends::wayland::system::event::seat_removed_callback{
+				std::bind(
+					&sge::wlinput::processor::remove_seat,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	},
+	seat_connections_{}
 {
 }
 
@@ -249,32 +273,76 @@ sge::wlinput::processor::init(
 }
 
 void
-sge::wlinput::processor::seat_changed(
-	awl::backends::wayland::system::event::seat const &_seat
+sge::wlinput::processor::add_seat(
+	awl::backends::wayland::system::event::seat_added const &_seat
 )
 {
-	if(
-		_seat.added().get()
-	)
-		this->add_seat(
-			_seat.get()
-		);
-	else
-		this->remove_seat(
-			_seat.get()
-		);
+	FCPPT_ASSERT_ERROR(
+		seat_connections_.insert(
+			std::make_pair(
+				_seat.get().name(),
+				_seat.get().caps_callback(
+					awl::backends::wayland::system::seat::caps_callback{
+						std::bind(
+							&sge::wlinput::processor::seat_caps,
+							this,
+							fcppt::make_cref(
+								_seat.get()
+							),
+							std::placeholders::_1
+						)
+					}
+				)
+			)
+		).second
+	);
 }
 
 void
-sge::wlinput::processor::add_seat(
-	awl::backends::wayland::system::seat::object const &_seat
+sge::wlinput::processor::seat_caps(
+	fcppt::reference<
+		awl::backends::wayland::system::seat::object const
+	> const _seat,
+	awl::backends::wayland::system::seat::caps_field
 )
 {
+	sge::wlinput::change_caps<
+		awl::backends::wayland::system::seat::caps::keyboard
+	>(
+		foci_,
+		focus_discover_,
+		focus_remove_,
+		_seat.get()
+	);
+
+	sge::wlinput::change_caps<
+		awl::backends::wayland::system::seat::caps::pointer
+	>(
+		cursors_,
+		cursor_discover_,
+		cursor_remove_,
+		_seat.get()
+	);
 }
 
 void
 sge::wlinput::processor::remove_seat(
-	awl::backends::wayland::system::seat::object const &_seat
+	awl::backends::wayland::system::event::seat_removed const &_seat
 )
 {
+	sge::wlinput::remove_seat<
+		awl::backends::wayland::system::seat::caps::keyboard
+	>(
+		foci_,
+		focus_remove_,
+		_seat.get()
+	);
+
+	sge::wlinput::remove_seat<
+		awl::backends::wayland::system::seat::caps::pointer
+	>(
+		cursors_,
+		cursor_remove_,
+		_seat.get()
+	);
 }
