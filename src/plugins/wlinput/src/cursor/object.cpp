@@ -41,9 +41,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <stdint.h>
 #include <wayland-client-protocol.h>
 #include <wayland-util.h>
-#include <stdint.h>
 #include <fcppt/config/external_end.hpp>
 
 
