@@ -35,6 +35,9 @@ sge::wlinput::focus::data::data(
 	window_{
 		_window
 	},
+	entered_{
+		false
+	},
 	xkb_keymap_{},
 	xkb_state_{},
 	char_signal_{},

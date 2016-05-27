@@ -58,6 +58,8 @@ struct data
 
 	awl::backends::wayland::window::object const &window_;
 
+	bool entered_;
+
 	sge::wlinput::focus::optional_keymap xkb_keymap_;
 
 	sge::wlinput::focus::optional_state xkb_state_;

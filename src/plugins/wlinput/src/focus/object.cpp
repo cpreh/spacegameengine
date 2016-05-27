@@ -20,10 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/focus/char_callback.hpp>
 #include <sge/input/focus/in_callback.hpp>
+#include <sge/input/focus/in_event.hpp>
 #include <sge/input/focus/key_callback.hpp>
 #include <sge/input/focus/key_repeat_callback.hpp>
 #include <sge/input/focus/object.hpp>
 #include <sge/input/focus/out_callback.hpp>
+#include <sge/input/focus/out_event.hpp>
 #include <sge/wlinput/xkb_context_fwd.hpp>
 #include <sge/wlinput/focus/data.hpp>
 #include <sge/wlinput/focus/keymap.hpp>
@@ -35,10 +37,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wlinput/focus/state.hpp>
 #include <awl/backends/posix/fd.hpp>
 #include <awl/backends/wayland/seat_fwd.hpp>
-#include <awl/backends/wayland/window/object_fwd.hpp>
+#include <awl/backends/wayland/window/object.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -146,21 +149,63 @@ void
 keyboard_enter(
 	void *const _data,
 	wl_keyboard *,
-	uint32_t const _serial,
+	uint32_t,
 	wl_surface *const _surface,
 	wl_array *
 )
 {
+	sge::wlinput::focus::data &data(
+		*fcppt::cast::from_void_ptr<
+			sge::wlinput::focus::data *
+		>(
+			_data
+		)
+	);
+
+	if(
+		_surface
+		==
+		data.window_.surface()
+	)
+	{
+		data.entered_ =
+			true;
+
+		data.in_signal_(
+			sge::input::focus::in_event{}
+		);
+	}
 }
 
 void
 keyboard_leave(
 	void *const _data,
 	wl_keyboard *,
-	uint32_t const _serial,
+	uint32_t,
 	wl_surface *const _surface
 )
 {
+	sge::wlinput::focus::data &data(
+		*fcppt::cast::from_void_ptr<
+			sge::wlinput::focus::data *
+		>(
+			_data
+		)
+	);
+
+	if(
+		_surface
+		==
+		data.window_.surface()
+	)
+	{
+		data.entered_ =
+			false;
+
+		data.out_signal_(
+			sge::input::focus::out_event{}
+		);
+	}
 }
 
 void
@@ -179,13 +224,43 @@ void
 keyboard_modifiers(
 	void *const _data,
 	wl_keyboard *,
-	uint32_t const _serial,
+	uint32_t,
 	uint32_t const _mods_depressed,
 	uint32_t const _mods_latched,
 	uint32_t const _mods_locked,
 	uint32_t const _group
 )
 {
+	sge::wlinput::focus::data &data(
+		*fcppt::cast::from_void_ptr<
+			sge::wlinput::focus::data *
+		>(
+			_data
+		)
+	);
+
+	fcppt::optional::maybe_void(
+		data.xkb_state_,
+		[
+			_mods_depressed,
+			_mods_latched,
+			_mods_locked,
+			_group
+		](
+			sge::wlinput::focus::state const &_state
+		)
+		{
+			::xkb_state_update_mask(
+				_state.get(),
+				_mods_depressed,
+				_mods_latched,
+				_mods_locked,
+				0,
+				0,
+				_group
+			);
+		}
+	);
 }
 
 void
@@ -196,6 +271,7 @@ keyboard_repeat_info(
 	int32_t const _delay
 )
 {
+	// TODO: How do we get repeated keys?
 }
 
 wl_keyboard_listener const keyboard_listener{
