@@ -37,8 +37,23 @@ find_package(
 )
 
 find_package(
+	Xkbcommon
+)
+
+find_package(
 	X11
 )
+
+if(
+	WAYLAND_CLIENT_FOUND
+	AND
+	XKB_COMMON_FOUND
+)
+	set(
+		WLINPUT_DEFAULT
+		TRUE
+	)
+endif()
 
 add_sge_lib(
 	audio_null
@@ -115,7 +130,7 @@ add_sge_lib(
 add_sge_lib(
 	wlinput
 	"Build the Wayland input plugin"
-	"${WAYLAND_CLIENT_FOUND}"
+	"${WLINPUT_DEFAULT}"
 )
 
 add_sge_lib(
