@@ -1,8 +1,15 @@
 set(
 	SGE_WLINPUT_FILES
 	src/plugins/wlinput/include/sge/wlinput/change_caps.hpp
+	src/plugins/wlinput/include/sge/wlinput/cursor/button_code.hpp
+	src/plugins/wlinput/include/sge/wlinput/cursor/button_state.hpp
+	src/plugins/wlinput/include/sge/wlinput/cursor/data.hpp
+	src/plugins/wlinput/include/sge/wlinput/cursor/holder.hpp
 	src/plugins/wlinput/include/sge/wlinput/cursor/object.hpp
 	src/plugins/wlinput/include/sge/wlinput/cursor/object_fwd.hpp
+	src/plugins/wlinput/include/sge/wlinput/cursor/position.hpp
+	src/plugins/wlinput/include/sge/wlinput/cursor/scroll_code.hpp
+	src/plugins/wlinput/include/sge/wlinput/cursor/scroll_value.hpp
 	src/plugins/wlinput/include/sge/wlinput/focus/object.hpp
 	src/plugins/wlinput/include/sge/wlinput/focus/object_fwd.hpp
 	src/plugins/wlinput/include/sge/wlinput/initial_objects.hpp
@@ -10,7 +17,14 @@ set(
 	src/plugins/wlinput/include/sge/wlinput/processor.hpp
 	src/plugins/wlinput/include/sge/wlinput/remove_seat.hpp
 	src/plugins/wlinput/include/sge/wlinput/system.hpp
+	src/plugins/wlinput/src/cursor/button_code.cpp
+	src/plugins/wlinput/src/cursor/button_state.cpp
+	src/plugins/wlinput/src/cursor/data.cpp
+	src/plugins/wlinput/src/cursor/holder.cpp
 	src/plugins/wlinput/src/cursor/object.cpp
+	src/plugins/wlinput/src/cursor/position.cpp
+	src/plugins/wlinput/src/cursor/scroll_code.cpp
+	src/plugins/wlinput/src/cursor/scroll_value.cpp
 	src/plugins/wlinput/src/exports.cpp
 	src/plugins/wlinput/src/focus/object.cpp
 	src/plugins/wlinput/src/logger_context.cpp

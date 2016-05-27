@@ -22,19 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WLINPUT_CURSOR_OBJECT_HPP_INCLUDED
 
 #include <sge/input/cursor/button_callback.hpp>
-#include <sge/input/cursor/button_signal.hpp>
 #include <sge/input/cursor/mode_fwd.hpp>
 #include <sge/input/cursor/move_callback.hpp>
-#include <sge/input/cursor/move_signal.hpp>
 #include <sge/input/cursor/object.hpp>
-#include <sge/input/cursor/optional_position.hpp>
+#include <sge/input/cursor/optional_position_fwd.hpp>
 #include <sge/input/cursor/scroll_callback.hpp>
-#include <sge/input/cursor/scroll_signal.hpp>
+#include <sge/wlinput/cursor/data.hpp>
+#include <sge/wlinput/cursor/holder.hpp>
 #include <sge/wlinput/cursor/object_fwd.hpp>
 #include <awl/backends/wayland/seat_fwd.hpp>
+#include <awl/backends/wayland/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
-#include <fcppt/signal/object_decl.hpp>
 
 
 namespace sge
@@ -52,8 +51,8 @@ class object
 		object
 	);
 public:
-	explicit
 	object(
+		awl::backends::wayland::window::object const &,
 		awl::backends::wayland::seat const &
 	);
 
@@ -88,13 +87,9 @@ public:
 	)
 	override;
 private:
-	sge::input::cursor::optional_position position_;
+	sge::wlinput::cursor::holder const impl_;
 
-	sge::input::cursor::button_signal button_signal_;
-
-	sge::input::cursor::move_signal move_signal_;
-
-	sge::input::cursor::scroll_signal scroll_signal_;
+	sge::wlinput::cursor::data data_;
 };
 
 }

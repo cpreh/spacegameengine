@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/remove_callback.hpp>
 #include <sge/input/mouse/discover_callback.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
 #include <sge/wlinput/change_caps.hpp>
 #include <sge/wlinput/initial_objects.hpp>
@@ -50,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/wayland/system/seat/caps.hpp>
 #include <awl/backends/wayland/system/seat/caps_callback.hpp>
 #include <awl/backends/wayland/system/seat/object.hpp>
+#include <awl/backends/wayland/window/object.hpp>
 #include <awl/system/event/processor.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -65,7 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::wlinput::processor::processor(
-	sge::window::object const &,
+	sge::window::object const &_window,
 	sge::window::system const &_system
 )
 :
@@ -77,6 +78,13 @@ sge::wlinput::processor::processor(
 			_system.awl_system_event_processor()
 		)
 	},
+	window_{
+		fcppt::cast::dynamic_exn<
+			awl::backends::wayland::window::object &
+		>(
+			_window.awl_object()
+		)
+	},
 	focus_discover_{},
 	focus_remove_{},
 	cursor_discover_{},
@@ -86,6 +94,7 @@ sge::wlinput::processor::processor(
 			sge::wlinput::cursor::object,
 			awl::backends::wayland::system::seat::caps::pointer
 		>(
+			window_,
 			system_processor_.seats()
 		)
 	),
@@ -94,6 +103,7 @@ sge::wlinput::processor::processor(
 			sge::wlinput::focus::object,
 			awl::backends::wayland::system::seat::caps::keyboard
 		>(
+			window_,
 			system_processor_.seats()
 		)
 	),
@@ -309,6 +319,7 @@ sge::wlinput::processor::seat_caps(
 	sge::wlinput::change_caps<
 		awl::backends::wayland::system::seat::caps::keyboard
 	>(
+		window_,
 		foci_,
 		focus_discover_,
 		focus_remove_,
@@ -318,6 +329,7 @@ sge::wlinput::processor::seat_caps(
 	sge::wlinput::change_caps<
 		awl::backends::wayland::system::seat::caps::pointer
 	>(
+		window_,
 		cursors_,
 		cursor_discover_,
 		cursor_remove_,

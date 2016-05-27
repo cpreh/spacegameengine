@@ -48,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/wayland/system/event/seat_removed_fwd.hpp>
 #include <awl/backends/wayland/system/seat/caps_field_fwd.hpp>
 #include <awl/backends/wayland/system/seat/object_fwd.hpp>
+#include <awl/backends/wayland/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/reference_fwd.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -164,6 +165,8 @@ private:
 	);
 
 	awl::backends::wayland::system::event::processor &system_processor_;
+
+	awl::backends::wayland::window::object &window_;
 
 	sge::input::focus::discover_signal focus_discover_;
 

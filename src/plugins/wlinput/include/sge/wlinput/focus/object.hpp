@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/out_signal.hpp>
 #include <sge/wlinput/focus/object_fwd.hpp>
 #include <awl/backends/wayland/seat_fwd.hpp>
+#include <awl/backends/wayland/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -54,8 +55,8 @@ class object
 		object
 	);
 public:
-	explicit
 	object(
+		awl::backends::wayland::window::object const &,
 		awl::backends::wayland::seat const &
 	);
 

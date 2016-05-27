@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/wayland/system/seat/caps.hpp>
 #include <awl/backends/wayland/system/seat/caps_field.hpp>
 #include <awl/backends/wayland/system/seat/object.hpp>
+#include <awl/backends/wayland/window/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/error.hpp>
@@ -52,6 +53,7 @@ template<
 >
 void
 change_caps(
+	awl::backends::wayland::window::object const &_window,
 	std::unordered_map<
 		awl::backends::wayland::registry_id,
 		fcppt::unique_ptr<
@@ -109,6 +111,7 @@ change_caps(
 						fcppt::make_unique_ptr<
 							Object
 						>(
+							_window,
 							_seat.get()
 						)
 					)

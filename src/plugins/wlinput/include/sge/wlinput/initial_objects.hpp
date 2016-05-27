@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/wayland/system/seat/caps.hpp>
 #include <awl/backends/wayland/system/seat/object.hpp>
 #include <awl/backends/wayland/system/seat/set.hpp>
+#include <awl/backends/wayland/window/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
@@ -51,6 +52,7 @@ std::unordered_map<
 	>
 >
 initial_objects(
+	awl::backends::wayland::window::object const &_window,
 	awl::backends::wayland::system::seat::set const &_seats
 )
 {
@@ -68,7 +70,9 @@ initial_objects(
 			result_type
 		>(
 			_seats,
-			[](
+			[
+				&_window
+			](
 				awl::backends::wayland::system::seat::object const &_seat
 			)
 			{
@@ -94,6 +98,7 @@ initial_objects(
 								fcppt::make_unique_ptr<
 									Type
 								>(
+									_window,
 									_seat.get()
 								)
 							}

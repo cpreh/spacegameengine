@@ -26,11 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/out_callback.hpp>
 #include <sge/wlinput/focus/object.hpp>
 #include <awl/backends/wayland/seat_fwd.hpp>
+#include <awl/backends/wayland/window/object_fwd.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 
 
 sge::wlinput::focus::object::object(
+	awl::backends::wayland::window::object const &,
 	awl::backends::wayland::seat const &_seat
 )
 :
