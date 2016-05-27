@@ -21,12 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WLINPUT_INITIAL_OBJECTS_HPP_INCLUDED
 #define SGE_WLINPUT_INITIAL_OBJECTS_HPP_INCLUDED
 
+#include <sge/wlinput/create_function.hpp>
 #include <awl/backends/wayland/registry_id.hpp>
 #include <awl/backends/wayland/system/seat/caps.hpp>
 #include <awl/backends/wayland/system/seat/object.hpp>
 #include <awl/backends/wayland/system/seat/set.hpp>
-#include <awl/backends/wayland/window/object_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
@@ -52,7 +51,9 @@ std::unordered_map<
 	>
 >
 initial_objects(
-	awl::backends::wayland::window::object const &_window,
+	sge::wlinput::create_function<
+		Type
+	> const _create_function,
 	awl::backends::wayland::system::seat::set const &_seats
 )
 {
@@ -71,7 +72,7 @@ initial_objects(
 		>(
 			_seats,
 			[
-				&_window
+				&_create_function
 			](
 				awl::backends::wayland::system::seat::object const &_seat
 			)
@@ -95,10 +96,7 @@ initial_objects(
 						optional_value_type{
 							value_type{
 								_seat.name(),
-								fcppt::make_unique_ptr<
-									Type
-								>(
-									_window,
+								_create_function(
 									_seat.get()
 								)
 							}

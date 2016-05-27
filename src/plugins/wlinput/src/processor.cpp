@@ -37,7 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wlinput/initial_objects.hpp>
 #include <sge/wlinput/processor.hpp>
 #include <sge/wlinput/remove_seat.hpp>
+#include <sge/wlinput/cursor/create.hpp>
 #include <sge/wlinput/cursor/object.hpp>
+#include <sge/wlinput/focus/create.hpp>
 #include <sge/wlinput/focus/object.hpp>
 #include <awl/backends/posix/event_fwd.hpp>
 #include <awl/backends/posix/posted.hpp>
@@ -85,6 +87,7 @@ sge::wlinput::processor::processor(
 			_window.awl_object()
 		)
 	},
+	xkb_context_{},
 	focus_discover_{},
 	focus_remove_{},
 	cursor_discover_{},
@@ -94,7 +97,9 @@ sge::wlinput::processor::processor(
 			sge::wlinput::cursor::object,
 			awl::backends::wayland::system::seat::caps::pointer
 		>(
-			window_,
+			sge::wlinput::cursor::create(
+				window_
+			),
 			system_processor_.seats()
 		)
 	),
@@ -103,7 +108,10 @@ sge::wlinput::processor::processor(
 			sge::wlinput::focus::object,
 			awl::backends::wayland::system::seat::caps::keyboard
 		>(
-			window_,
+			sge::wlinput::focus::create(
+				xkb_context_,
+				window_
+			),
 			system_processor_.seats()
 		)
 	),
@@ -319,7 +327,10 @@ sge::wlinput::processor::seat_caps(
 	sge::wlinput::change_caps<
 		awl::backends::wayland::system::seat::caps::keyboard
 	>(
-		window_,
+		sge::wlinput::focus::create(
+			xkb_context_,
+			window_
+		),
 		foci_,
 		focus_discover_,
 		focus_remove_,
@@ -329,7 +340,9 @@ sge::wlinput::processor::seat_caps(
 	sge::wlinput::change_caps<
 		awl::backends::wayland::system::seat::caps::pointer
 	>(
-		window_,
+		sge::wlinput::cursor::create(
+			window_
+		),
 		cursors_,
 		cursor_discover_,
 		cursor_remove_,

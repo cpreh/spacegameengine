@@ -24,25 +24,211 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/key_repeat_callback.hpp>
 #include <sge/input/focus/object.hpp>
 #include <sge/input/focus/out_callback.hpp>
+#include <sge/wlinput/xkb_context_fwd.hpp>
+#include <sge/wlinput/focus/data.hpp>
+#include <sge/wlinput/focus/keymap.hpp>
+#include <sge/wlinput/focus/mmap.hpp>
 #include <sge/wlinput/focus/object.hpp>
+#include <sge/wlinput/focus/optional_keymap.hpp>
+#include <sge/wlinput/focus/optional_state.hpp>
+#include <sge/wlinput/focus/scoped_fd.hpp>
+#include <sge/wlinput/focus/state.hpp>
+#include <awl/backends/posix/fd.hpp>
 #include <awl/backends/wayland/seat_fwd.hpp>
 #include <awl/backends/wayland/window/object_fwd.hpp>
+#include <fcppt/exception.hpp>
+#include <fcppt/cast/from_void_ptr.hpp>
+#include <fcppt/optional/assign.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <wayland-client-protocol.h>
+#include <stdint.h>
+#include <fcppt/config/external_end.hpp>
 
+
+namespace
+{
+
+void
+keyboard_keymap(
+	void *const _data,
+	wl_keyboard *,
+	uint32_t const _format,
+	int32_t const _fd,
+	uint32_t const _size
+)
+{
+	sge::wlinput::focus::data &data(
+		*fcppt::cast::from_void_ptr<
+			sge::wlinput::focus::data *
+		>(
+			_data
+		)
+	);
+
+	awl::backends::posix::fd const fd{
+		_fd
+	};
+
+	sge::wlinput::focus::scoped_fd const scoped_fd{
+		fd
+	};
+
+	auto const remove_xkb(
+		[
+			&data
+		]{
+			data.xkb_state_ =
+				sge::wlinput::focus::optional_state();
+
+			data.xkb_keymap_ =
+				sge::wlinput::focus::optional_keymap();
+		}
+	);
+
+
+	if(
+		_format
+		!=
+		WL_KEYBOARD_KEYMAP_FORMAT_XKB_V1
+	)
+	{
+		remove_xkb();
+
+		return;
+	}
+
+	try
+	{
+		sge::wlinput::focus::mmap const mapped{
+			fd,
+			_size
+		};
+
+		sge::wlinput::focus::keymap &xkb_keymap{
+			fcppt::optional::assign(
+				data.xkb_keymap_,
+				sge::wlinput::focus::keymap{
+					data.xkb_context_,
+					mapped.string()
+				}
+			)
+		};
+
+		data.xkb_state_ =
+			sge::wlinput::focus::optional_state{
+				sge::wlinput::focus::state{
+					xkb_keymap
+				}
+			};
+	}
+	catch(
+		fcppt::exception const &_error
+	)
+	{
+		remove_xkb();
+
+		// TODO: Is this safe?
+		throw;
+	}
+	catch(
+		...
+	)
+	{
+		remove_xkb();
+
+		throw;
+	}
+}
+
+void
+keyboard_enter(
+	void *const _data,
+	wl_keyboard *,
+	uint32_t const _serial,
+	wl_surface *const _surface,
+	wl_array *
+)
+{
+}
+
+void
+keyboard_leave(
+	void *const _data,
+	wl_keyboard *,
+	uint32_t const _serial,
+	wl_surface *const _surface
+)
+{
+}
+
+void
+keyboard_key(
+	void *const _data,
+	wl_keyboard *,
+	uint32_t const _serial,
+	uint32_t const _time,
+	uint32_t const _key,
+	uint32_t const _state
+)
+{
+}
+
+void
+keyboard_modifiers(
+	void *const _data,
+	wl_keyboard *,
+	uint32_t const _serial,
+	uint32_t const _mods_depressed,
+	uint32_t const _mods_latched,
+	uint32_t const _mods_locked,
+	uint32_t const _group
+)
+{
+}
+
+void
+keyboard_repeat_info(
+	void *const _data,
+	wl_keyboard *,
+	int32_t const _rate,
+	int32_t const _delay
+)
+{
+}
+
+wl_keyboard_listener const keyboard_listener{
+	keyboard_keymap,
+	keyboard_enter,
+	keyboard_leave,
+	keyboard_key,
+	keyboard_modifiers,
+	keyboard_repeat_info
+};
+
+}
 
 sge::wlinput::focus::object::object(
-	awl::backends::wayland::window::object const &,
+	sge::wlinput::xkb_context const &_xkb_context,
+	awl::backends::wayland::window::object const &_window,
 	awl::backends::wayland::seat const &_seat
 )
 :
 	sge::input::focus::object(),
-	char_signal_{},
-	key_signal_{},
-	key_repeat_signal_{},
-	in_signal_{},
-	out_signal_{}
+	impl_{
+		_seat
+	},
+	data_{
+		_xkb_context,
+		_window
+	}
 {
+	::wl_keyboard_add_listener(
+		impl_.get(),
+		&keyboard_listener,
+		&data_
+	);
 }
 
 sge::wlinput::focus::object::~object()
@@ -55,7 +241,7 @@ sge::wlinput::focus::object::char_callback(
 )
 {
 	return
-		char_signal_.connect(
+		data_.char_signal_.connect(
 			_callback
 		);
 }
@@ -66,7 +252,7 @@ sge::wlinput::focus::object::key_callback(
 )
 {
 	return
-		key_signal_.connect(
+		data_.key_signal_.connect(
 			_callback
 		);
 }
@@ -77,7 +263,7 @@ sge::wlinput::focus::object::key_repeat_callback(
 )
 {
 	return
-		key_repeat_signal_.connect(
+		data_.key_repeat_signal_.connect(
 			_callback
 		);
 }
@@ -88,7 +274,7 @@ sge::wlinput::focus::object::in_callback(
 )
 {
 	return
-		in_signal_.connect(
+		data_.in_signal_.connect(
 			_callback
 		);
 }
@@ -99,7 +285,7 @@ sge::wlinput::focus::object::out_callback(
 )
 {
 	return
-		out_signal_.connect(
+		data_.out_signal_.connect(
 			_callback
 		);
 }

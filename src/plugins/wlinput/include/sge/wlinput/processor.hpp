@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
+#include <sge/wlinput/xkb_context.hpp>
 #include <sge/wlinput/cursor/object_fwd.hpp>
 #include <sge/wlinput/focus/object_fwd.hpp>
 #include <awl/backends/posix/event_fwd.hpp>
@@ -167,6 +168,8 @@ private:
 	awl::backends::wayland::system::event::processor &system_processor_;
 
 	awl::backends::wayland::window::object &window_;
+
+	sge::wlinput::xkb_context const xkb_context_;
 
 	sge::input::focus::discover_signal focus_discover_;
 

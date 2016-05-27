@@ -1,8 +1,11 @@
 set(
 	SGE_WLINPUT_FILES
 	src/plugins/wlinput/include/sge/wlinput/change_caps.hpp
+	src/plugins/wlinput/include/sge/wlinput/create_function.hpp
 	src/plugins/wlinput/include/sge/wlinput/cursor/button_code.hpp
 	src/plugins/wlinput/include/sge/wlinput/cursor/button_state.hpp
+	src/plugins/wlinput/include/sge/wlinput/cursor/create.hpp
+	src/plugins/wlinput/include/sge/wlinput/cursor/create_function.hpp
 	src/plugins/wlinput/include/sge/wlinput/cursor/data.hpp
 	src/plugins/wlinput/include/sge/wlinput/cursor/holder.hpp
 	src/plugins/wlinput/include/sge/wlinput/cursor/object.hpp
@@ -10,15 +13,32 @@ set(
 	src/plugins/wlinput/include/sge/wlinput/cursor/position.hpp
 	src/plugins/wlinput/include/sge/wlinput/cursor/scroll_code.hpp
 	src/plugins/wlinput/include/sge/wlinput/cursor/scroll_value.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/create.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/create_function.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/data.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/holder.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/keymap.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/keymap_fwd.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/mmap.hpp
 	src/plugins/wlinput/include/sge/wlinput/focus/object.hpp
 	src/plugins/wlinput/include/sge/wlinput/focus/object_fwd.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/optional_keymap.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/optional_keymap_fwd.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/optional_state.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/optional_state_fwd.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/scoped_fd.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/state.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/state_fwd.hpp
 	src/plugins/wlinput/include/sge/wlinput/initial_objects.hpp
 	src/plugins/wlinput/include/sge/wlinput/logger_context.hpp
 	src/plugins/wlinput/include/sge/wlinput/processor.hpp
 	src/plugins/wlinput/include/sge/wlinput/remove_seat.hpp
 	src/plugins/wlinput/include/sge/wlinput/system.hpp
+	src/plugins/wlinput/include/sge/wlinput/xkb_context.hpp
+	src/plugins/wlinput/include/sge/wlinput/xkb_context_fwd.hpp
 	src/plugins/wlinput/src/cursor/button_code.cpp
 	src/plugins/wlinput/src/cursor/button_state.cpp
+	src/plugins/wlinput/src/cursor/create.cpp
 	src/plugins/wlinput/src/cursor/data.cpp
 	src/plugins/wlinput/src/cursor/holder.cpp
 	src/plugins/wlinput/src/cursor/object.cpp
@@ -26,10 +46,18 @@ set(
 	src/plugins/wlinput/src/cursor/scroll_code.cpp
 	src/plugins/wlinput/src/cursor/scroll_value.cpp
 	src/plugins/wlinput/src/exports.cpp
+	src/plugins/wlinput/src/focus/create.cpp
+	src/plugins/wlinput/src/focus/data.cpp
+	src/plugins/wlinput/src/focus/holder.cpp
+	src/plugins/wlinput/src/focus/keymap.cpp
+	src/plugins/wlinput/src/focus/mmap.cpp
 	src/plugins/wlinput/src/focus/object.cpp
+	src/plugins/wlinput/src/focus/scoped_fd.cpp
+	src/plugins/wlinput/src/focus/state.cpp
 	src/plugins/wlinput/src/logger_context.cpp
 	src/plugins/wlinput/src/processor.cpp
 	src/plugins/wlinput/src/system.cpp
+	src/plugins/wlinput/src/xkb_context.cpp
 )
 
 find_package(

@@ -23,12 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/event/discover.hpp>
 #include <sge/input/event/remove.hpp>
+#include <sge/wlinput/create_function.hpp>
 #include <awl/backends/wayland/registry_id.hpp>
 #include <awl/backends/wayland/system/seat/caps.hpp>
 #include <awl/backends/wayland/system/seat/caps_field.hpp>
 #include <awl/backends/wayland/system/seat/object.hpp>
-#include <awl/backends/wayland/window/object_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/find_opt_iterator.hpp>
@@ -53,7 +52,9 @@ template<
 >
 void
 change_caps(
-	awl::backends::wayland::window::object const &_window,
+	sge::wlinput::create_function<
+		Object
+	> const &_create_function,
 	std::unordered_map<
 		awl::backends::wayland::registry_id,
 		fcppt::unique_ptr<
@@ -108,10 +109,7 @@ change_caps(
 				_map.insert(
 					std::make_pair(
 						_seat.name(),
-						fcppt::make_unique_ptr<
-							Object
-						>(
-							_window,
+						_create_function(
 							_seat.get()
 						)
 					)

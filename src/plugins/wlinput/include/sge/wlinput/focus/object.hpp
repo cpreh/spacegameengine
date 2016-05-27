@@ -22,22 +22,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WLINPUT_FOCUS_OBJECT_HPP_INCLUDED
 
 #include <sge/input/focus/char_callback.hpp>
-#include <sge/input/focus/char_signal.hpp>
 #include <sge/input/focus/in_callback.hpp>
-#include <sge/input/focus/in_signal.hpp>
 #include <sge/input/focus/key_callback.hpp>
 #include <sge/input/focus/key_repeat_callback.hpp>
-#include <sge/input/focus/key_repeat_signal.hpp>
-#include <sge/input/focus/key_signal.hpp>
 #include <sge/input/focus/object.hpp>
 #include <sge/input/focus/out_callback.hpp>
-#include <sge/input/focus/out_signal.hpp>
+#include <sge/wlinput/xkb_context_fwd.hpp>
+#include <sge/wlinput/focus/data.hpp>
+#include <sge/wlinput/focus/holder.hpp>
 #include <sge/wlinput/focus/object_fwd.hpp>
 #include <awl/backends/wayland/seat_fwd.hpp>
 #include <awl/backends/wayland/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
-#include <fcppt/signal/object_decl.hpp>
 
 
 namespace sge
@@ -56,6 +53,7 @@ class object
 	);
 public:
 	object(
+		sge::wlinput::xkb_context const &,
 		awl::backends::wayland::window::object const &,
 		awl::backends::wayland::seat const &
 	);
@@ -93,15 +91,9 @@ public:
 	)
 	override;
 private:
-	sge::input::focus::char_signal char_signal_;
+	sge::wlinput::focus::holder const impl_;
 
-	sge::input::focus::key_signal key_signal_;
-
-	sge::input::focus::key_repeat_signal key_repeat_signal_;
-
-	sge::input::focus::in_signal in_signal_;
-
-	sge::input::focus::out_signal out_signal_;
+	sge::wlinput::focus::data data_;
 };
 
 }
