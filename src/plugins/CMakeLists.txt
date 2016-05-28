@@ -55,6 +55,18 @@ if(
 	)
 endif()
 
+option(
+	ENABLE_X11
+	"Enable X11 in plugins"
+	${X11_FOUND}
+)
+
+option(
+	ENABLE_WAYLAND
+	"Enable Wayland in plugins"
+	${WAYLAND_CLIENT_FOUND}
+)
+
 add_sge_lib(
 	audio_null
 	"Build the null audio player plugin"

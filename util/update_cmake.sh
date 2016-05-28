@@ -261,11 +261,6 @@ update_opengl \
 	$(opengl_inc_src windows)
 
 update_opengl \
-	SGE_OPENGL_COCOA_FILES \
-	-e '.*\.(mm|cpp)?' \
-	$(opengl_inc_src cocoa)
-
-update_opengl \
 	SGE_OPENGL_X11_FILES \
 	$(opengl_inc_src x11)
 
@@ -290,6 +285,10 @@ update_opengl \
 update_opengl \
 	SGE_OPENGL_EGL_X11_FILES \
 	$(opengl_inc_src egl/x11)
+
+update_opengl \
+	SGE_OPENGL_WAYLAND_FILES \
+	$(opengl_inc_src wayland)
 
 update_plugin audio_null
 

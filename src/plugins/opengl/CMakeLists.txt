@@ -1355,6 +1355,12 @@ set(
 	src/plugins/opengl/src/egl/x11/visual.cpp
 )
 
+set(
+	SGE_OPENGL_WAYLAND_FILES
+	src/plugins/opengl/include/sge/opengl/wayland/system.hpp
+	src/plugins/opengl/src/wayland/system.cpp
+)
+
 find_package(
 	awl
 	REQUIRED
@@ -1369,7 +1375,6 @@ option(
 	"Use EGL in OpenGL"
 	OFF
 )
-#${EGL_FOUND}
 
 set(
 	SGE_OPENGL_FILES
@@ -1402,7 +1407,7 @@ set(
 )
 
 if(
-	UNIX
+	ENABLE_X11
 )
 	find_package(
 		X11
@@ -1441,7 +1446,6 @@ if(
 	list(
 		APPEND
 		SGE_OPENGL_ADDITIONAL_DEPS
-		${SGE_OPENGL_ADDITIONAL_DEPS}
 		${X11_Xrandr_LIB}
 	)
 
@@ -1460,7 +1464,48 @@ if(
 			${SGE_OPENGL_GLX_FILES}
 		)
 	endif()
-elseif(
+endif()
+
+if(
+	ENABLE_WAYLAND
+	AND
+	ENABLE_EGL
+)
+	include(
+		FindPkgConfig
+	)
+
+	pkg_check_modules(
+		WAYLAND_EGL
+		REQUIRED
+		wayland-egl
+	)
+
+	set(
+		SGE_OPENGL_HAVE_WAYLAND
+		TRUE
+	)
+
+	list(
+		APPEND
+		SGE_OPENGL_INCLUDE_DIRS
+		${WAYLAND_EGL_INCLUDE_DIRS}
+	)
+
+	list(
+		APPEND
+		SGE_OPENGL_FILES
+		${SGE_OPENGL_WAYLAND_FILES}
+	)
+
+	list(
+		APPEND
+		SGE_OPENGL_ADDITIONAL_DEPS
+		${WAYLAND_EGL_LIBRARIES}
+	)
+endif()
+
+if(
 	WIN32
 )
 	set(
