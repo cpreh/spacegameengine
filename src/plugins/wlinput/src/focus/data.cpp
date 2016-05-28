@@ -47,6 +47,7 @@ sge::wlinput::focus::data::data(
 	},
 	xkb_keymap_{},
 	xkb_state_{},
+	last_pressed_{},
 	char_signal_{},
 	key_signal_{},
 	key_repeat_signal_{},

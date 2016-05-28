@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/out_callback.hpp>
 #include <sge/input/focus/out_event.hpp>
 #include <sge/input/key/code.hpp>
+#include <sge/input/key/optional_code.hpp>
+#include <sge/input/key/pressed.hpp>
 #include <sge/wlinput/logger.hpp>
 #include <sge/wlinput/xkb_context_fwd.hpp>
 #include <sge/wlinput/focus/data.hpp>
@@ -64,6 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/comparison.hpp>
 #include <fcppt/optional/make.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -203,6 +206,9 @@ keyboard_enter(
 		data.entered_ =
 			true;
 
+		data.last_pressed_ =
+			sge::input::key::optional_code();
+
 		data.in_signal_(
 			sge::input::focus::in_event{}
 		);
@@ -233,6 +239,9 @@ keyboard_leave(
 	{
 		data.entered_ =
 			false;
+
+		data.last_pressed_ =
+			sge::input::key::optional_code();
 
 		data.out_signal_(
 			sge::input::focus::out_event{}
@@ -274,19 +283,44 @@ keyboard_key(
 				)
 			};
 
+			sge::input::key::pressed const pressed{
+				sge::wlinput::focus::key_pressed(
+					_state
+				)
+			};
+
+			sge::input::key::code const key_code{
+				sge::wlinput::focus::translate_keysym(
+					sge::wlinput::focus::get_keysym(
+						_xkb_state,
+						xkb_keycode
+					)
+				)
+			};
+
+			if(
+				pressed.get()
+			)
+				data.last_pressed_ =
+					sge::input::key::optional_code{
+						key_code
+					};
+			else if(
+				data.last_pressed_
+				==
+				sge::input::key::optional_code{
+					key_code
+				}
+			)
+				data.last_pressed_ =
+					sge::input::key::optional_code{};
+
 			data.key_signal_(
 				sge::input::focus::key_event{
 					sge::input::focus::key{
-						sge::wlinput::focus::translate_keysym(
-							sge::wlinput::focus::get_keysym(
-								_xkb_state,
-								xkb_keycode
-							)
-						)
+						key_code
 					},
-					sge::wlinput::focus::key_pressed(
-						_state
-					)
+					pressed
 				}
 			);
 
