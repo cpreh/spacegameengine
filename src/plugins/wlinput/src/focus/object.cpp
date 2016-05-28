@@ -41,8 +41,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wlinput/focus/data.hpp>
 #include <sge/wlinput/focus/get_keysym.hpp>
 #include <sge/wlinput/focus/get_utf8_string.hpp>
-#include <sge/wlinput/focus/keymap.hpp>
 #include <sge/wlinput/focus/key_pressed.hpp>
+#include <sge/wlinput/focus/keymap.hpp>
 #include <sge/wlinput/focus/mmap.hpp>
 #include <sge/wlinput/focus/object.hpp>
 #include <sge/wlinput/focus/optional_keymap.hpp>
@@ -50,8 +50,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wlinput/focus/scoped_fd.hpp>
 #include <sge/wlinput/focus/state.hpp>
 #include <sge/wlinput/focus/translate_keysym.hpp>
-#include <sge/wlinput/focus/xkb_keycode.hpp>
 #include <sge/wlinput/focus/wl_to_xkb_keycode.hpp>
+#include <sge/wlinput/focus/xkb_keycode.hpp>
 #include <awl/backends/posix/callback.hpp>
 #include <awl/backends/posix/event_fwd.hpp>
 #include <awl/backends/posix/fd.hpp>
@@ -72,8 +72,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <stdint.h>
 #include <cstdint>
+#include <stdint.h>
 #include <wayland-client-protocol.h>
 #include <fcppt/config/external_end.hpp>
 

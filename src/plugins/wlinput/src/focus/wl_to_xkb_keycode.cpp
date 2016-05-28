@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/wlinput/focus/xkb_keycode.hpp>
 #include <sge/wlinput/focus/wl_to_xkb_keycode.hpp>
+#include <sge/wlinput/focus/xkb_keycode.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>

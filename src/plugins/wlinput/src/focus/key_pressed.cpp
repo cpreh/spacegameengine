@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wlinput/focus/key_pressed.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <wayland-client-protocol.h>
 #include <cstdint>
+#include <wayland-client-protocol.h>
 #include <fcppt/config/external_end.hpp>
 
 
