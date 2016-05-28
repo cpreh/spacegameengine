@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/state_unique_ptr.hpp>
 #include <sge/opengl/xrandr/system.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
-#include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
@@ -43,8 +42,7 @@ sge::opengl::xrandr::system::~system()
 
 sge::opengl::xrandr::state_unique_ptr
 sge::opengl::xrandr::system::create_state(
-	awl::backends::x11::window::object &_window,
-	awl::backends::x11::window::event::processor &_processor
+	awl::backends::x11::window::object &_window
 )
 {
 	return
@@ -52,7 +50,6 @@ sge::opengl::xrandr::system::create_state(
 			sge::opengl::xrandr::state
 		>(
 			extension_,
-			_window,
-			_processor
+			_window
 		);
 }

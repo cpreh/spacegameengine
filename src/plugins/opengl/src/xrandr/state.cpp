@@ -34,8 +34,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/event/callback.hpp>
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <awl/backends/x11/window/event/type.hpp>
+#include <awl/window/object.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/dynamic_cross_exn.hpp>
 #include <fcppt/cast/size_fun.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/randr.h>
@@ -45,8 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::xrandr::state::state(
 	sge::opengl::xrandr::extension const &_extension,
-	awl::backends::x11::window::object &_window,
-	awl::backends::x11::window::event::processor &_event_processor
+	awl::backends::x11::window::object &_window
 )
 :
 	display_(
@@ -60,7 +62,16 @@ sge::opengl::xrandr::state::state(
 	),
 	display_mode_(),
 	change_connection_(
-		_event_processor.register_callback(
+		// TODO: Change libawl so this is not needed
+		fcppt::cast::static_downcast<
+			awl::backends::x11::window::event::processor &
+		>(
+			fcppt::cast::dynamic_cross_exn<
+				awl::window::object &
+			>(
+				window_
+			).processor()
+		).register_callback(
 			awl::backends::x11::window::event::type(
 				_extension.event_base().get()
 				+
@@ -76,7 +87,15 @@ sge::opengl::xrandr::state::state(
 		)
 	),
 	configure_connection_(
-		_event_processor.register_callback(
+		fcppt::cast::static_downcast<
+			awl::backends::x11::window::event::processor &
+		>(
+			fcppt::cast::dynamic_cross_exn<
+				awl::window::object &
+			>(
+				window_
+			).processor()
+		).register_callback(
 			awl::backends::x11::window::event::type(
 				ConfigureNotify
 			),

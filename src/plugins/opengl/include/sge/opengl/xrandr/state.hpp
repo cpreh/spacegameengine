@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <awl/backends/x11/window/event/object_fwd.hpp>
-#include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
@@ -50,8 +49,7 @@ class state
 public:
 	state(
 		sge::opengl::xrandr::extension const &,
-		awl::backends::x11::window::object &,
-		awl::backends::x11::window::event::processor &
+		awl::backends::x11::window::object &
 	);
 
 	~state();

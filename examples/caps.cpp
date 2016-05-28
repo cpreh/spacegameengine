@@ -119,8 +119,7 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object{}
 				},
-				*window,
-				window->processor()
+				*window
 			}
 		)
 	};

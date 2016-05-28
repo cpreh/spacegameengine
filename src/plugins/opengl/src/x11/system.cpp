@@ -29,9 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/backends/x11/system/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <awl/backends/x11/window/event/processor.hpp>
 #include <awl/window/object.hpp>
-#include <awl/window/event/processor.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/dynamic_cross_exn.hpp>
@@ -66,8 +64,7 @@ sge::opengl::x11::system::display_modes() const
 sge::opengl::platform::device_state_unique_ptr
 sge::opengl::x11::system::create_device_state(
 	sge::renderer::display_mode::optional_object const &_display_mode,
-	awl::window::object &_window,
-	awl::window::event::processor &_processor
+	awl::window::object &_window
 )
 {
 	return
@@ -85,11 +82,6 @@ sge::opengl::x11::system::create_device_state(
 					awl::backends::x11::window::object &
 				>(
 					_window
-				),
-				fcppt::cast::dynamic_exn<
-					awl::backends::x11::window::event::processor &
-				>(
-					_processor
 				)
 			)
 		);

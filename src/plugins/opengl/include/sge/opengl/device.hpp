@@ -87,7 +87,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
-#include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
@@ -122,7 +121,6 @@ public:
 	device(
 		sge::renderer::display_mode::parameters const &,
 		awl::window::object &,
-		awl::window::event::processor &,
 		sge::opengl::platform::system &,
 		sge::opengl::backend::system &
 	);

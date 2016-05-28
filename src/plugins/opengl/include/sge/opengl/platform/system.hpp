@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
-#include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -56,8 +55,7 @@ public:
 	sge::opengl::platform::device_state_unique_ptr
 	create_device_state(
 		sge::renderer::display_mode::optional_object const &,
-		awl::window::object &,
-		awl::window::event::processor &
+		awl::window::object &
 	) = 0;
 };
 

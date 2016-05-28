@@ -135,7 +135,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/window/object.hpp>
-#include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -166,7 +165,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::device::device(
 	sge::renderer::display_mode::parameters const &_display_mode,
 	awl::window::object &_window,
-	awl::window::event::processor &_event_processor,
 	sge::opengl::platform::system &_platform_system,
 	sge::opengl::backend::system &_backend_system
 )
@@ -177,8 +175,7 @@ sge::opengl::device::device(
 	device_state_(
 		_platform_system.create_device_state(
 			_display_mode.display_mode(),
-			_window,
-			_event_processor
+			_window
 		)
 	),
 	backend_context_(

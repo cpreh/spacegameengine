@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
-#include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
@@ -42,8 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::x11::device_state::device_state(
 	sge::opengl::xrandr::optional_system_ref const &_xrandr_system,
 	sge::renderer::display_mode::optional_object const &_display_mode,
-	awl::backends::x11::window::object &_window,
-	awl::backends::x11::window::event::processor &_event_processor
+	awl::backends::x11::window::object &_window
 )
 :
 	sge::opengl::platform::device_state(),
@@ -51,8 +49,7 @@ sge::opengl::x11::device_state::device_state(
 		fcppt::optional::map(
 			_xrandr_system,
 			[
-				&_window,
-				&_event_processor
+				&_window
 			](
 				fcppt::reference<
 					sge::opengl::xrandr::system
@@ -61,8 +58,7 @@ sge::opengl::x11::device_state::device_state(
 			{
 				return
 					_system.get().create_state(
-						_window,
-						_event_processor
+						_window
 					);
 			}
 		)
