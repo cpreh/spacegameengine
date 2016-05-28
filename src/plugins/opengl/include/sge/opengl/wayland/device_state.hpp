@@ -18,15 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_WAYLAND_SYSTEM_HPP_INCLUDED
-#define SGE_OPENGL_WAYLAND_SYSTEM_HPP_INCLUDED
+#ifndef SGE_OPENGL_WAYLAND_DEVICE_STATE_HPP_INCLUDED
+#define SGE_OPENGL_WAYLAND_DEVICE_STATE_HPP_INCLUDED
 
-#include <sge/opengl/platform/device_state_unique_ptr.hpp>
-#include <sge/opengl/platform/system.hpp>
-#include <sge/renderer/display_mode/container.hpp>
+#include <sge/opengl/platform/device_state.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
-#include <awl/backends/wayland/system/object_fwd.hpp>
-#include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -37,30 +33,29 @@ namespace opengl
 namespace wayland
 {
 
-class system
+class device_state
 :
-	public sge::opengl::platform::system
+	public sge::opengl::platform::device_state
 {
 	FCPPT_NONCOPYABLE(
-		system
+		device_state
 	);
 public:
 	explicit
-	system(
-		awl::backends::wayland::system::object &
+	device_state(
+		sge::renderer::display_mode::optional_object const &
 	);
 
-	~system()
+	~device_state()
 	override;
 private:
-	sge::renderer::display_mode::container
-	display_modes() const
+	sge::renderer::display_mode::optional_object
+	display_mode() const
 	override;
 
-	sge::opengl::platform::device_state_unique_ptr
-	create_device_state(
-		sge::renderer::display_mode::optional_object const &,
-		awl::window::object &
+	void
+	display_mode(
+		sge::renderer::display_mode::optional_object const &
 	)
 	override;
 };

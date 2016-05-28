@@ -1357,7 +1357,9 @@ set(
 
 set(
 	SGE_OPENGL_WAYLAND_FILES
+	src/plugins/opengl/include/sge/opengl/wayland/device_state.hpp
 	src/plugins/opengl/include/sge/opengl/wayland/system.hpp
+	src/plugins/opengl/src/wayland/device_state.cpp
 	src/plugins/opengl/src/wayland/system.cpp
 )
 
