@@ -16,7 +16,10 @@ set(
 	src/plugins/wlinput/include/sge/wlinput/focus/create.hpp
 	src/plugins/wlinput/include/sge/wlinput/focus/create_function.hpp
 	src/plugins/wlinput/include/sge/wlinput/focus/data.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/get_keysym.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/get_utf8_string.hpp
 	src/plugins/wlinput/include/sge/wlinput/focus/holder.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/key_pressed.hpp
 	src/plugins/wlinput/include/sge/wlinput/focus/keymap.hpp
 	src/plugins/wlinput/include/sge/wlinput/focus/keymap_fwd.hpp
 	src/plugins/wlinput/include/sge/wlinput/focus/mmap.hpp
@@ -29,7 +32,12 @@ set(
 	src/plugins/wlinput/include/sge/wlinput/focus/scoped_fd.hpp
 	src/plugins/wlinput/include/sge/wlinput/focus/state.hpp
 	src/plugins/wlinput/include/sge/wlinput/focus/state_fwd.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/translate_keysym.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/wl_to_xkb_keycode.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/xkb_keycode.hpp
+	src/plugins/wlinput/include/sge/wlinput/focus/xkb_keysym.hpp
 	src/plugins/wlinput/include/sge/wlinput/initial_objects.hpp
+	src/plugins/wlinput/include/sge/wlinput/logger.hpp
 	src/plugins/wlinput/include/sge/wlinput/logger_context.hpp
 	src/plugins/wlinput/include/sge/wlinput/processor.hpp
 	src/plugins/wlinput/include/sge/wlinput/remove_seat.hpp
@@ -48,12 +56,18 @@ set(
 	src/plugins/wlinput/src/exports.cpp
 	src/plugins/wlinput/src/focus/create.cpp
 	src/plugins/wlinput/src/focus/data.cpp
+	src/plugins/wlinput/src/focus/get_keysym.cpp
+	src/plugins/wlinput/src/focus/get_utf8_string.cpp
 	src/plugins/wlinput/src/focus/holder.cpp
+	src/plugins/wlinput/src/focus/key_pressed.cpp
 	src/plugins/wlinput/src/focus/keymap.cpp
 	src/plugins/wlinput/src/focus/mmap.cpp
 	src/plugins/wlinput/src/focus/object.cpp
 	src/plugins/wlinput/src/focus/scoped_fd.cpp
 	src/plugins/wlinput/src/focus/state.cpp
+	src/plugins/wlinput/src/focus/translate_keysym.cpp
+	src/plugins/wlinput/src/focus/wl_to_xkb_keycode.cpp
+	src/plugins/wlinput/src/logger.cpp
 	src/plugins/wlinput/src/logger_context.cpp
 	src/plugins/wlinput/src/processor.cpp
 	src/plugins/wlinput/src/system.cpp
@@ -68,6 +82,7 @@ find_package(
 add_sge_plugin(
 	wlinput
 	SGE_DEPS
+		sgecharconv
 		sgeinput
 		sgelog
 		sgeplugin

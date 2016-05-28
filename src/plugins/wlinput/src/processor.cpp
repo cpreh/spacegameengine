@@ -110,6 +110,7 @@ sge::wlinput::processor::processor(
 		>(
 			sge::wlinput::focus::create(
 				xkb_context_,
+				system_processor_.fd_processor(),
 				window_
 			),
 			system_processor_.seats()
@@ -329,6 +330,7 @@ sge::wlinput::processor::seat_caps(
 	>(
 		sge::wlinput::focus::create(
 			xkb_context_,
+			system_processor_.fd_processor(),
 			window_
 		),
 		foci_,

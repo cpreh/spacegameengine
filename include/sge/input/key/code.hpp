@@ -31,6 +31,9 @@ namespace input
 namespace key
 {
 
+// TODO: Split this into focus/keyboard
+// Focus should only use semantic keys, e.g. insert.
+// Keyboard should distinguish individual keys, e.g. insert, num_insert.
 enum class code
 {
 	escape,

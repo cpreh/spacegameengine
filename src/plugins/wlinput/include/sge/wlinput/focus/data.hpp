@@ -26,11 +26,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/key_repeat_signal.hpp>
 #include <sge/input/focus/key_signal.hpp>
 #include <sge/input/focus/out_signal.hpp>
+#include <sge/input/key/optional_code.hpp>
 #include <sge/wlinput/xkb_context_fwd.hpp>
 #include <sge/wlinput/focus/optional_keymap.hpp>
 #include <sge/wlinput/focus/optional_state.hpp>
+#include <awl/backends/posix/processor_fwd.hpp>
+#include <awl/backends/posix/timer_unique_ptr.hpp>
 #include <awl/backends/wayland/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/signal/object_decl.hpp>
 
 
@@ -49,12 +53,15 @@ struct data
 
 	data(
 		sge::wlinput::xkb_context const &,
+		awl::backends::posix::processor &,
 		awl::backends::wayland::window::object const &
 	);
 
 	~data();
 
 	sge::wlinput::xkb_context const &xkb_context_;
+
+	awl::backends::posix::processor &posix_processor_;
 
 	awl::backends::wayland::window::object const &window_;
 
@@ -63,6 +70,8 @@ struct data
 	sge::wlinput::focus::optional_keymap xkb_keymap_;
 
 	sge::wlinput::focus::optional_state xkb_state_;
+
+	sge::input::key::optional_code last_pressed_;
 
 	sge::input::focus::char_signal char_signal_;
 
@@ -73,6 +82,11 @@ struct data
 	sge::input::focus::in_signal in_signal_;
 
 	sge::input::focus::out_signal out_signal_;
+
+	fcppt::optional::object<
+		awl::backends::posix::timer_unique_ptr
+	>
+	repeat_timer_;
 };
 
 }

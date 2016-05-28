@@ -18,44 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/wlinput/xkb_context_fwd.hpp>
-#include <sge/wlinput/focus/data.hpp>
-#include <awl/backends/posix/processor_fwd.hpp>
-#include <awl/backends/posix/timer.hpp>
-#include <awl/backends/wayland/window/object_fwd.hpp>
-#include <fcppt/optional/object_impl.hpp>
-#include <fcppt/signal/object_impl.hpp>
+#include <sge/wlinput/focus/get_keysym.hpp>
+#include <sge/wlinput/focus/state.hpp>
+#include <sge/wlinput/focus/xkb_keycode.hpp>
+#include <sge/wlinput/focus/xkb_keysym.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <xkbcommon/xkbcommon.h>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::wlinput::focus::data::data(
-	sge::wlinput::xkb_context const &_xkb_context,
-	awl::backends::posix::processor &_posix_processor,
-	awl::backends::wayland::window::object const &_window
+sge::wlinput::focus::xkb_keysym
+sge::wlinput::focus::get_keysym(
+	sge::wlinput::focus::state const &_state,
+	sge::wlinput::focus::xkb_keycode const _code
 )
-:
-	xkb_context_{
-		_xkb_context
-	},
-	posix_processor_{
-		_posix_processor
-	},
-	window_{
-		_window
-	},
-	entered_{
-		false
-	},
-	xkb_keymap_{},
-	xkb_state_{},
-	char_signal_{},
-	key_signal_{},
-	key_repeat_signal_{},
-	in_signal_{},
-	out_signal_{},
-	repeat_timer_{}
 {
-}
-
-sge::wlinput::focus::data::~data()
-{
+	return
+		sge::wlinput::focus::xkb_keysym{
+			::xkb_state_key_get_one_sym(
+				_state.get(),
+				_code.get()
+			)
+		};
 }

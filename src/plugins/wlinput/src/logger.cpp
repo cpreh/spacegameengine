@@ -18,44 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/wlinput/xkb_context_fwd.hpp>
-#include <sge/wlinput/focus/data.hpp>
-#include <awl/backends/posix/processor_fwd.hpp>
-#include <awl/backends/posix/timer.hpp>
-#include <awl/backends/wayland/window/object_fwd.hpp>
-#include <fcppt/optional/object_impl.hpp>
-#include <fcppt/signal/object_impl.hpp>
+#include <sge/input/log_location.hpp>
+#include <sge/log/define_plugin.hpp>
+#include <sge/wlinput/logger.hpp>
+#include <sge/wlinput/logger_context.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/location.hpp>
 
 
-sge::wlinput::focus::data::data(
-	sge::wlinput::xkb_context const &_xkb_context,
-	awl::backends::posix::processor &_posix_processor,
-	awl::backends::wayland::window::object const &_window
+SGE_LOG_DEFINE_PLUGIN(
+	sge::wlinput::logger,
+	sge::wlinput::logger_context(),
+	sge::input::log_location()
+	/
+	FCPPT_TEXT("wlinput")
 )
-:
-	xkb_context_{
-		_xkb_context
-	},
-	posix_processor_{
-		_posix_processor
-	},
-	window_{
-		_window
-	},
-	entered_{
-		false
-	},
-	xkb_keymap_{},
-	xkb_state_{},
-	char_signal_{},
-	key_signal_{},
-	key_repeat_signal_{},
-	in_signal_{},
-	out_signal_{},
-	repeat_timer_{}
-{
-}
-
-sge::wlinput::focus::data::~data()
-{
-}

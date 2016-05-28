@@ -18,34 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/convert.hpp>
+#include <sge/charconv/encoding.hpp>
 #include <sge/input/focus/char_callback.hpp>
+#include <sge/input/focus/char_event.hpp>
+#include <sge/input/focus/char_type.hpp>
 #include <sge/input/focus/in_callback.hpp>
 #include <sge/input/focus/in_event.hpp>
+#include <sge/input/focus/key.hpp>
 #include <sge/input/focus/key_callback.hpp>
+#include <sge/input/focus/key_event.hpp>
 #include <sge/input/focus/key_repeat_callback.hpp>
+#include <sge/input/focus/key_repeat_event.hpp>
 #include <sge/input/focus/object.hpp>
 #include <sge/input/focus/out_callback.hpp>
 #include <sge/input/focus/out_event.hpp>
+#include <sge/input/key/code.hpp>
+#include <sge/wlinput/logger.hpp>
 #include <sge/wlinput/xkb_context_fwd.hpp>
 #include <sge/wlinput/focus/data.hpp>
+#include <sge/wlinput/focus/get_keysym.hpp>
+#include <sge/wlinput/focus/get_utf8_string.hpp>
 #include <sge/wlinput/focus/keymap.hpp>
+#include <sge/wlinput/focus/key_pressed.hpp>
 #include <sge/wlinput/focus/mmap.hpp>
 #include <sge/wlinput/focus/object.hpp>
 #include <sge/wlinput/focus/optional_keymap.hpp>
 #include <sge/wlinput/focus/optional_state.hpp>
 #include <sge/wlinput/focus/scoped_fd.hpp>
 #include <sge/wlinput/focus/state.hpp>
+#include <sge/wlinput/focus/translate_keysym.hpp>
+#include <sge/wlinput/focus/xkb_keycode.hpp>
+#include <sge/wlinput/focus/wl_to_xkb_keycode.hpp>
+#include <awl/backends/posix/callback.hpp>
+#include <awl/backends/posix/event_fwd.hpp>
 #include <awl/backends/posix/fd.hpp>
+#include <awl/backends/posix/processor.hpp>
+#include <awl/backends/posix/timer.hpp>
+#include <awl/backends/posix/timer_delay.hpp>
+#include <awl/backends/posix/timer_period.hpp>
 #include <awl/backends/wayland/seat_fwd.hpp>
 #include <awl/backends/wayland/window/object.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
+#include <fcppt/log/_.hpp>
+#include <fcppt/log/error.hpp>
 #include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/make.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <stdint.h>
+#include <cstdint>
 #include <wayland-client-protocol.h>
 #include <fcppt/config/external_end.hpp>
 
@@ -130,6 +155,13 @@ keyboard_keymap(
 		fcppt::exception const &_error
 	)
 	{
+		FCPPT_LOG_ERROR(
+			sge::wlinput::logger(),
+			fcppt::log::_
+				<<
+				_error.string()
+		);
+
 		remove_xkb();
 
 		// TODO: Is this safe?
@@ -212,12 +244,72 @@ void
 keyboard_key(
 	void *const _data,
 	wl_keyboard *,
-	uint32_t const _serial,
-	uint32_t const _time,
+	uint32_t,
+	uint32_t,
 	uint32_t const _key,
 	uint32_t const _state
 )
 {
+	sge::wlinput::focus::data &data(
+		*fcppt::cast::from_void_ptr<
+			sge::wlinput::focus::data *
+		>(
+			_data
+		)
+	);
+
+	fcppt::optional::maybe_void(
+		data.xkb_state_,
+		[
+			&data,
+			_key,
+			_state
+		](
+			sge::wlinput::focus::state const &_xkb_state
+		)
+		{
+			sge::wlinput::focus::xkb_keycode const xkb_keycode{
+				sge::wlinput::focus::wl_to_xkb_keycode(
+					_key
+				)
+			};
+
+			data.key_signal_(
+				sge::input::focus::key_event{
+					sge::input::focus::key{
+						sge::wlinput::focus::translate_keysym(
+							sge::wlinput::focus::get_keysym(
+								_xkb_state,
+								xkb_keycode
+							)
+						)
+					},
+					sge::wlinput::focus::key_pressed(
+						_state
+					)
+				}
+			);
+
+			for(
+				sge::input::focus::char_type const ch
+				:
+				sge::charconv::convert<
+					sge::charconv::encoding::wchar,
+					sge::charconv::encoding::utf8
+				>(
+					sge::wlinput::focus::get_utf8_string(
+						_xkb_state,
+						xkb_keycode
+					)
+				)
+			)
+				data.char_signal_(
+					sge::input::focus::char_event{
+						ch
+					}
+				);
+		}
+	);
 }
 
 void
@@ -271,7 +363,67 @@ keyboard_repeat_info(
 	int32_t const _delay
 )
 {
-	// TODO: How do we get repeated keys?
+	sge::wlinput::focus::data &data(
+		*fcppt::cast::from_void_ptr<
+			sge::wlinput::focus::data *
+		>(
+			_data
+		)
+	);
+
+	auto const convert_duration(
+		[](
+			std::int32_t const _duration
+		)
+		{
+			return
+				awl::backends::posix::duration{
+					_duration
+				};
+		}
+	);
+
+	data.repeat_timer_ =
+		fcppt::optional::make(
+			data.posix_processor_.create_timer(
+				awl::backends::posix::callback{
+					[
+						&data
+					](
+						awl::backends::posix::event const &
+					)
+					{
+						fcppt::optional::maybe_void(
+							data.last_pressed_,
+							[
+								&data
+							](
+								sge::input::key::code const _code
+							)
+							{
+								data.key_repeat_signal_(
+									sge::input::focus::key_repeat_event{
+										sge::input::focus::key{
+											_code
+										}
+									}
+								);
+							}
+						);
+					}
+				},
+				awl::backends::posix::timer_delay{
+					convert_duration(
+						_delay
+					)
+				},
+				awl::backends::posix::timer_period{
+					convert_duration(
+						_rate
+					)
+				}
+			)
+		);
 }
 
 wl_keyboard_listener const keyboard_listener{
@@ -287,6 +439,7 @@ wl_keyboard_listener const keyboard_listener{
 
 sge::wlinput::focus::object::object(
 	sge::wlinput::xkb_context const &_xkb_context,
+	awl::backends::posix::processor &_posix_processor,
 	awl::backends::wayland::window::object const &_window,
 	awl::backends::wayland::seat const &_seat
 )
@@ -297,6 +450,7 @@ sge::wlinput::focus::object::object(
 	},
 	data_{
 		_xkb_context,
+		_posix_processor,
 		_window
 	}
 {
