@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/context.hpp>
 #include <sge/opengl/backend/current_unique_ptr.hpp>
 #include <sge/opengl/egl/context_impl.hpp>
+#include <sge/opengl/egl/native_window_unique_ptr.hpp>
 #include <sge/opengl/egl/window_surface.hpp>
 #include <awl/visual/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -49,7 +50,7 @@ class context
 public:
 	context(
 		EGLDisplay,
-		EGLNativeWindowType,
+		sge::opengl::egl::native_window_unique_ptr &&,
 		awl::visual::object const &
 	);
 
@@ -67,6 +68,8 @@ private:
 	override;
 
 	EGLDisplay const display_;
+
+	sge::opengl::egl::native_window_unique_ptr const native_window_;
 
 	EGLConfig const config_;
 

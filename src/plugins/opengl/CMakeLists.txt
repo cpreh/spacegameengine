@@ -1302,6 +1302,8 @@ set(
 	src/plugins/opengl/include/sge/opengl/egl/native_display_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/egl/native_display_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/egl/native_window.hpp
+	src/plugins/opengl/include/sge/opengl/egl/native_window_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/egl/native_window_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/egl/no_context.hpp
 	src/plugins/opengl/include/sge/opengl/egl/no_display.hpp
 	src/plugins/opengl/include/sge/opengl/egl/no_surface.hpp
@@ -1349,9 +1351,11 @@ set(
 	SGE_OPENGL_EGL_X11_FILES
 	src/plugins/opengl/include/sge/opengl/egl/x11/create_visual_info.hpp
 	src/plugins/opengl/include/sge/opengl/egl/x11/native_display.hpp
+	src/plugins/opengl/include/sge/opengl/egl/x11/native_window.hpp
 	src/plugins/opengl/include/sge/opengl/egl/x11/visual.hpp
 	src/plugins/opengl/src/egl/x11/create_visual_info.cpp
 	src/plugins/opengl/src/egl/x11/native_display.cpp
+	src/plugins/opengl/src/egl/x11/native_window.cpp
 	src/plugins/opengl/src/egl/x11/visual.cpp
 )
 

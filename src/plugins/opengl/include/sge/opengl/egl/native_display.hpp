@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_EGL_NATIVE_DISPLAY_HPP_INCLUDED
 
 #include <sge/opengl/egl/native_display_fwd.hpp>
+#include <sge/opengl/egl/native_window_unique_ptr.hpp>
+#include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
@@ -49,6 +51,12 @@ public:
 	virtual
 	EGLNativeDisplayType
 	get() const = 0;
+
+	virtual
+	sge::opengl::egl::native_window_unique_ptr
+	create_native_window(
+		awl::window::object &
+	) = 0;
 };
 
 }

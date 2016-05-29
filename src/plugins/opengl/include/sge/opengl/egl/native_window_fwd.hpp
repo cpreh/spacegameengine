@@ -18,17 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_X11_NATIVE_DISPLAY_HPP_INCLUDED
-#define SGE_OPENGL_EGL_X11_NATIVE_DISPLAY_HPP_INCLUDED
-
-#include <sge/opengl/egl/native_display.hpp>
-#include <sge/opengl/egl/native_window_unique_ptr.hpp>
-#include <awl/backends/x11/system/object_fwd.hpp>
-#include <awl/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <EGL/egl.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_OPENGL_EGL_NATIVE_WINDOW_FWD_HPP_INCLUDED
+#define SGE_OPENGL_EGL_NATIVE_WINDOW_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -37,39 +28,9 @@ namespace opengl
 {
 namespace egl
 {
-namespace x11
-{
 
-class native_display
-:
-	public sge::opengl::egl::native_display
-{
-	FCPPT_NONCOPYABLE(
-		native_display
-	);
-public:
-	explicit
-	native_display(
-		awl::backends::x11::system::object &
-	);
+class native_window;
 
-	~native_display()
-	override;
-private:
-	EGLNativeDisplayType
-	get() const
-	override;
-
-	sge::opengl::egl::native_window_unique_ptr
-	create_native_window(
-		awl::window::object &
-	)
-	override;
-
-	EGLNativeDisplayType const display_;
-};
-
-}
 }
 }
 }

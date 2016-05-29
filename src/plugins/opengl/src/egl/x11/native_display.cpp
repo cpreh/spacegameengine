@@ -19,9 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/egl/native_display.hpp>
+#include <sge/opengl/egl/native_window.hpp>
+#include <sge/opengl/egl/native_window_unique_ptr.hpp>
 #include <sge/opengl/egl/x11/native_display.hpp>
+#include <sge/opengl/egl/x11/native_window.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/object.hpp>
+#include <awl/backends/x11/window/object.hpp>
+#include <awl/window/object.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/cast/dynamic_cross_exn.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -47,4 +55,25 @@ sge::opengl::egl::x11::native_display::get() const
 {
 	return
 		display_;
+}
+
+sge::opengl::egl::native_window_unique_ptr
+sge::opengl::egl::x11::native_display::create_native_window(
+	awl::window::object &_window
+)
+{
+	return
+		fcppt::unique_ptr_to_base<
+			sge::opengl::egl::native_window
+		>(
+			fcppt::make_unique_ptr<
+				sge::opengl::egl::x11::native_window
+			>(
+				fcppt::cast::dynamic_cross_exn<
+					awl::backends::x11::window::object &
+				>(
+					_window
+				)
+			)
+		);
 }

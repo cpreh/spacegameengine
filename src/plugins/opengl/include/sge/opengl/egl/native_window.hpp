@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_EGL_NATIVE_WINDOW_HPP_INCLUDED
 #define SGE_OPENGL_EGL_NATIVE_WINDOW_HPP_INCLUDED
 
-#include <awl/window/object_fwd.hpp>
+#include <sge/opengl/egl/native_window_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -34,10 +35,21 @@ namespace opengl
 namespace egl
 {
 
-EGLNativeWindowType
-native_window(
-	awl::window::object &
-);
+class native_window
+{
+	FCPPT_NONCOPYABLE(
+		native_window
+	);
+protected:
+	native_window();
+public:
+	virtual
+	~native_window() = 0;
+
+	virtual
+	EGLNativeWindowType
+	get() const = 0;
+};
 
 }
 }

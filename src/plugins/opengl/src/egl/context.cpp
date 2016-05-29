@@ -24,18 +24,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/egl/context.hpp>
 #include <sge/opengl/egl/current.hpp>
 #include <sge/opengl/egl/get_display.hpp>
+#include <sge/opengl/egl/native_window.hpp>
+#include <sge/opengl/egl/native_window_unique_ptr.hpp>
 #include <sge/opengl/egl/visual/to_config.hpp>
 #include <awl/visual/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::egl::context::context(
 	EGLDisplay const _display,
-	EGLNativeWindowType const _native_window,
+	sge::opengl::egl::native_window_unique_ptr &&_native_window,
 	awl::visual::object const &_visual
 )
 :
@@ -43,6 +46,11 @@ sge::opengl::egl::context::context(
 	display_(
 		_display
 	),
+	native_window_{
+		std::move(
+			_native_window
+		)
+	},
 	config_(
 		sge::opengl::egl::visual::to_config(
 			display_,
@@ -52,7 +60,7 @@ sge::opengl::egl::context::context(
 	surface_(
 		_display,
 		config_,
-		_native_window
+		native_window_->get()
 	),
 	context_(
 		_display,

@@ -108,7 +108,7 @@ sge::opengl::egl::system::create_context(
 				sge::opengl::egl::context
 			>(
 				egl_display_,
-				sge::opengl::egl::native_window(
+				egl_native_display_->create_native_window(
 					_window
 				),
 				_window.visual()

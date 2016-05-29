@@ -64,8 +64,9 @@ option(
 option(
 	ENABLE_WAYLAND
 	"Enable Wayland in plugins"
-	${WAYLAND_CLIENT_FOUND}
+	OFF
 )
+#${WAYLAND_CLIENT_FOUND}
 
 add_sge_lib(
 	audio_null

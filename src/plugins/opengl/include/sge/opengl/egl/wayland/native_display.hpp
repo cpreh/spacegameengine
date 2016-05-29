@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_X11_NATIVE_DISPLAY_HPP_INCLUDED
-#define SGE_OPENGL_EGL_X11_NATIVE_DISPLAY_HPP_INCLUDED
+#ifndef SGE_OPENGL_EGL_WAYLAND_NATIVE_DISPLAY_HPP_INCLUDED
+#define SGE_OPENGL_EGL_WAYLAND_NATIVE_DISPLAY_HPP_INCLUDED
 
 #include <sge/opengl/egl/native_display.hpp>
 #include <sge/opengl/egl/native_window_unique_ptr.hpp>
-#include <awl/backends/x11/system/object_fwd.hpp>
+#include <awl/backends/wayland/system/object_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -37,7 +37,7 @@ namespace opengl
 {
 namespace egl
 {
-namespace x11
+namespace wayland
 {
 
 class native_display
@@ -50,7 +50,7 @@ class native_display
 public:
 	explicit
 	native_display(
-		awl::backends::x11::system::object &
+		awl::backends::wayland::system::object &
 	);
 
 	~native_display()
