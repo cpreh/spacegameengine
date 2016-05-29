@@ -23,12 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/platform/system.hpp>
 #include <sge/opengl/windows/device_state.hpp>
 #include <sge/opengl/windows/system.hpp>
-#include <sge/renderer/caps/device_count.hpp>
-#include <sge/renderer/device/index.hpp>
 #include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
-#include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
@@ -43,20 +40,8 @@ sge::opengl::windows::system::~system()
 {
 }
 
-sge::renderer::caps::device_count
-sge::opengl::windows::system::device_count() const
-{
-	// TODO:
-	return
-		sge::renderer::caps::device_count(
-			1u
-		);
-}
-
 sge::renderer::display_mode::container
-sge::opengl::windows::system::display_modes(
-	sge::renderer::device::index const _index
-) const
+sge::opengl::windows::system::display_modes() const
 {
 	// TODO
 	return
@@ -66,8 +51,7 @@ sge::opengl::windows::system::display_modes(
 sge::opengl::platform::device_state_unique_ptr
 sge::opengl::windows::system::create_device_state(
 	sge::renderer::display_mode::optional_object const &_display_mode,
-	awl::window::object &,
-	awl::window::event::processor &
+	awl::window::object &
 )
 {
 	return

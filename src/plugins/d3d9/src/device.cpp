@@ -286,7 +286,7 @@ sge::d3d9::device::device(
 		)
 	),
 	resize_connection_(
-		_parameters.window_processor().resize_callback(
+		_parameters.window().processor().resize_callback(
 			awl::window::event::resize_callback{
 				std::bind(
 					&sge::d3d9::device::on_resize,
