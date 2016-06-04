@@ -261,6 +261,10 @@ update_opengl \
 	$(opengl_inc_src windows)
 
 update_opengl \
+	SGE_OPENGL_WAYLAND_FILES \
+	$(opengl_inc_src wayland)
+
+update_opengl \
 	SGE_OPENGL_X11_FILES \
 	$(opengl_inc_src x11)
 
@@ -287,8 +291,8 @@ update_opengl \
 	$(opengl_inc_src egl/x11)
 
 update_opengl \
-	SGE_OPENGL_WAYLAND_FILES \
-	$(opengl_inc_src wayland)
+	SGE_OPENGL_EGL_WAYLAND_FILES \
+	$(opengl_inc_src egl/wayland)
 
 update_plugin audio_null
 

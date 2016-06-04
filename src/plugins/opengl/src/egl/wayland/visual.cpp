@@ -18,21 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_NATIVE_WINDOW_FWD_HPP_INCLUDED
-#define SGE_OPENGL_EGL_NATIVE_WINDOW_FWD_HPP_INCLUDED
+#include <sge/opengl/egl/visual/base.hpp>
+#include <sge/opengl/egl/wayland/visual.hpp>
+#include <sge/renderer/pixel_format/object_fwd.hpp>
+#include <awl/backends/wayland/visual/null_object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <EGL/egl.h>
+#include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::opengl::egl::wayland::visual::visual(
+	EGLDisplay const _egl_display,
+	sge::renderer::pixel_format::object const &_pixel_format
+)
+:
+	sge::opengl::egl::visual::base(
+		_egl_display,
+		_pixel_format
+	),
+	awl::backends::wayland::visual::null_object()
 {
-namespace opengl
+}
+
+sge::opengl::egl::wayland::visual::~visual()
 {
-namespace egl
-{
-
-class native_window;
-
 }
-}
-}
-
-#endif

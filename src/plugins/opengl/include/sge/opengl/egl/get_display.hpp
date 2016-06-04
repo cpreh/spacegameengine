@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_EGL_GET_DISPLAY_HPP_INCLUDED
 #define SGE_OPENGL_EGL_GET_DISPLAY_HPP_INCLUDED
 
+#include <sge/opengl/egl/no_display.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -33,10 +36,32 @@ namespace opengl
 namespace egl
 {
 
+template<
+	typename NativeDisplay
+>
 EGLDisplay
 get_display(
-	EGLNativeDisplayType
-);
+	NativeDisplay const _native
+)
+{
+	EGLDisplay const result(
+		::eglGetDisplay(
+			_native
+		)
+	);
+
+	if(
+		result
+		==
+		sge::opengl::egl::no_display
+	)
+		throw
+			sge::renderer::exception(
+				FCPPT_TEXT("eglGetDisplay failed")
+			);
+	return
+		result;
+}
 
 }
 }

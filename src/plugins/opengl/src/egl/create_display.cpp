@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/config.hpp>
-#include <sge/opengl/egl/create_native_display.hpp>
-#include <sge/opengl/egl/native_display.hpp>
-#include <sge/opengl/egl/native_display_unique_ptr.hpp>
+#include <sge/opengl/egl/create_display.hpp>
+#include <sge/opengl/egl/display.hpp>
+#include <sge/opengl/egl/display_unique_ptr.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/system/object.hpp>
 #include <fcppt/function_impl.hpp>
@@ -46,11 +46,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 #if defined(SGE_OPENGL_HAVE_X11)
-#include <sge/opengl/egl/x11/native_display.hpp>
+#include <sge/opengl/egl/x11/display.hpp>
 #include <awl/backends/x11/system/object.hpp>
 #endif
 #if defined(SGE_OPENGL_HAVE_WAYLAND)
-#include <sge/opengl/egl/wayland/native_display.hpp>
+#include <sge/opengl/egl/wayland/display.hpp>
 #include <awl/backends/wayland/system/object.hpp>
 #endif
 
@@ -62,7 +62,7 @@ namespace
 typedef
 fcppt::either::object<
 	fcppt::string,
-	sge::opengl::egl::native_display_unique_ptr
+	sge::opengl::egl::display_unique_ptr
 >
 either_type;
 
@@ -102,7 +102,7 @@ try_create(
 							{
 								return
 									fcppt::unique_ptr_to_base<
-										sge::opengl::egl::native_display
+										sge::opengl::egl::display
 									>(
 										fcppt::make_unique_ptr<
 											Result
@@ -133,8 +133,8 @@ try_create(
 
 }
 
-sge::opengl::egl::native_display_unique_ptr
-sge::opengl::egl::create_native_display(
+sge::opengl::egl::display_unique_ptr
+sge::opengl::egl::create_display(
 	awl::system::object &_awl_system
 )
 {
@@ -144,7 +144,7 @@ sge::opengl::egl::create_native_display(
 				fcppt::container::make_array(
 #if defined(SGE_OPENGL_HAVE_X11)
 					try_create<
-						sge::opengl::egl::x11::native_display,
+						sge::opengl::egl::x11::display,
 						awl::backends::x11::system::object
 					>(
 						_awl_system
@@ -152,7 +152,7 @@ sge::opengl::egl::create_native_display(
 #endif
 #if defined(SGE_OPENGL_HAVE_WAYLAND)
 					try_create<
-						sge::opengl::egl::wayland::native_display,
+						sge::opengl::egl::wayland::display,
 						awl::backends::wayland::system::object
 					>(
 						_awl_system

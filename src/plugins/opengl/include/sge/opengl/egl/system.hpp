@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/backend/context_unique_ptr.hpp>
 #include <sge/opengl/backend/system.hpp>
+#include <sge/opengl/egl/display_unique_ptr.hpp>
 #include <sge/opengl/egl/init.hpp>
-#include <sge/opengl/egl/native_display_unique_ptr.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
@@ -72,9 +72,7 @@ private:
 
 	awl::system::object &awl_system_;
 
-	sge::opengl::egl::native_display_unique_ptr const egl_native_display_;
-
-	EGLDisplay const egl_display_;
+	sge::opengl::egl::display_unique_ptr const egl_display_;
 
 	sge::opengl::egl::init const init_;
 };

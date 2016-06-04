@@ -18,13 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_WAYLAND_NATIVE_DISPLAY_HPP_INCLUDED
-#define SGE_OPENGL_EGL_WAYLAND_NATIVE_DISPLAY_HPP_INCLUDED
+#ifndef SGE_OPENGL_EGL_X11_SURFACE_HPP_INCLUDED
+#define SGE_OPENGL_EGL_X11_SURFACE_HPP_INCLUDED
 
-#include <sge/opengl/egl/native_display.hpp>
-#include <sge/opengl/egl/native_window_unique_ptr.hpp>
-#include <awl/backends/wayland/system/object_fwd.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <sge/opengl/egl/surface.hpp>
+#include <sge/opengl/egl/window_surface_decl.hpp>
+#include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
@@ -37,36 +36,33 @@ namespace opengl
 {
 namespace egl
 {
-namespace wayland
+namespace x11
 {
 
-class native_display
+class surface
 :
-	public sge::opengl::egl::native_display
+	public sge::opengl::egl::surface
 {
 	FCPPT_NONCOPYABLE(
-		native_display
+		surface
 	);
 public:
-	explicit
-	native_display(
-		awl::backends::wayland::system::object &
+	surface(
+		EGLDisplay,
+		EGLConfig,
+		awl::backends::x11::window::object &
 	);
 
-	~native_display()
+	~surface()
 	override;
 private:
-	EGLNativeDisplayType
+	EGLSurface
 	get() const
 	override;
 
-	sge::opengl::egl::native_window_unique_ptr
-	create_native_window(
-		awl::window::object &
-	)
-	override;
-
-	EGLNativeDisplayType const display_;
+	sge::opengl::egl::window_surface<
+		EGLNativeWindowType
+	> const surface_;
 };
 
 }

@@ -24,13 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/system.hpp>
 #include <sge/opengl/egl/bind_api.hpp>
 #include <sge/opengl/egl/context.hpp>
-#include <sge/opengl/egl/create_native_display.hpp>
-#include <sge/opengl/egl/get_display.hpp>
-#include <sge/opengl/egl/native_display.hpp>
-#include <sge/opengl/egl/native_window.hpp>
+#include <sge/opengl/egl/create_display.hpp>
+#include <sge/opengl/egl/display.hpp>
+#include <sge/opengl/egl/surface.hpp>
 #include <sge/opengl/egl/system.hpp>
 #include <sge/opengl/egl/version_output.hpp>
-#include <sge/opengl/egl/visual/create.hpp>
+#include <sge/opengl/egl/visual/to_config.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
@@ -51,18 +50,13 @@ sge::opengl::egl::system::system(
 	awl_system_(
 		_awl_system
 	),
-	egl_native_display_(
-		sge::opengl::egl::create_native_display(
+	egl_display_(
+		sge::opengl::egl::create_display(
 			_awl_system
 		)
 	),
-	egl_display_(
-		sge::opengl::egl::get_display(
-			egl_native_display_->get()
-		)
-	),
 	init_(
-		egl_display_
+		egl_display_->get()
 	)
 {
 	FCPPT_LOG_INFO(
@@ -87,10 +81,8 @@ sge::opengl::egl::system::create_visual(
 )
 {
 	return
-		sge::opengl::egl::visual::create(
+		egl_display_->create_visual(
 			init_,
-			awl_system_,
-			egl_display_,
 			_pixel_format
 		);
 }
@@ -100,6 +92,13 @@ sge::opengl::egl::system::create_context(
 	awl::window::object &_window
 )
 {
+	EGLConfig const config{
+		sge::opengl::egl::visual::to_config(
+			egl_display_->get(),
+			_window.visual()
+		)
+	};
+
 	return
 		fcppt::unique_ptr_to_base<
 			sge::opengl::backend::context
@@ -107,11 +106,12 @@ sge::opengl::egl::system::create_context(
 			fcppt::make_unique_ptr<
 				sge::opengl::egl::context
 			>(
-				egl_display_,
-				egl_native_display_->create_native_window(
+				egl_display_->get(),
+				config,
+				egl_display_->create_surface(
+					config,
 					_window
-				),
-				_window.visual()
+				)
 			)
 		);
 }

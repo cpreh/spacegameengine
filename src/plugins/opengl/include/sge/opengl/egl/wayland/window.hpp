@@ -18,16 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_VISUAL_CREATE_HPP_INCLUDED
-#define SGE_OPENGL_EGL_VISUAL_CREATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_EGL_WAYLAND_WINDOW_HPP_INCLUDED
+#define SGE_OPENGL_EGL_WAYLAND_WINDOW_HPP_INCLUDED
 
-#include <sge/opengl/egl/init_fwd.hpp>
-#include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/system/object_fwd.hpp>
-#include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <EGL/egl.h>
+#include <wayland-egl-core.h>
 #include <fcppt/config/external_end.hpp>
+#include <sge/opengl/egl/wayland/window_holder.hpp>
+#include <awl/backends/wayland/window/object_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -36,16 +36,29 @@ namespace opengl
 {
 namespace egl
 {
-namespace visual
+namespace wayland
 {
 
-awl::visual::object_unique_ptr
-create(
-	sge::opengl::egl::init const &,
-	awl::system::object &,
-	EGLDisplay,
-	sge::renderer::pixel_format::object const &
-);
+class window
+{
+	FCPPT_NONCOPYABLE(
+		window
+	);
+public:
+	explicit
+	window(
+		awl::backends::wayland::window::object &
+	);
+
+	~window();
+
+	wl_egl_window *
+	get() const;
+private:
+	sge::opengl::egl::wayland::window_holder const window_;
+
+	fcppt::signal::auto_connection const resize_connection_;
+};
 
 }
 }

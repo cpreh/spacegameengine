@@ -1106,6 +1106,14 @@ set(
 )
 
 set(
+	SGE_OPENGL_WAYLAND_FILES
+	src/plugins/opengl/include/sge/opengl/wayland/device_state.hpp
+	src/plugins/opengl/include/sge/opengl/wayland/system.hpp
+	src/plugins/opengl/src/wayland/device_state.cpp
+	src/plugins/opengl/src/wayland/system.cpp
+)
+
+set(
 	SGE_OPENGL_X11_FILES
 	src/plugins/opengl/include/sge/opengl/x11/device_state.hpp
 	src/plugins/opengl/include/sge/opengl/x11/system.hpp
@@ -1288,8 +1296,11 @@ set(
 	src/plugins/opengl/include/sge/opengl/egl/bind_api.hpp
 	src/plugins/opengl/include/sge/opengl/egl/context.hpp
 	src/plugins/opengl/include/sge/opengl/egl/context_impl.hpp
-	src/plugins/opengl/include/sge/opengl/egl/create_native_display.hpp
+	src/plugins/opengl/include/sge/opengl/egl/create_display.hpp
 	src/plugins/opengl/include/sge/opengl/egl/current.hpp
+	src/plugins/opengl/include/sge/opengl/egl/display.hpp
+	src/plugins/opengl/include/sge/opengl/egl/display_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/egl/display_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/egl/get_config_attrib.hpp
 	src/plugins/opengl/include/sge/opengl/egl/get_display.hpp
 	src/plugins/opengl/include/sge/opengl/egl/init.hpp
@@ -1298,15 +1309,12 @@ set(
 	src/plugins/opengl/include/sge/opengl/egl/major_version.hpp
 	src/plugins/opengl/include/sge/opengl/egl/make_current.hpp
 	src/plugins/opengl/include/sge/opengl/egl/minor_version.hpp
-	src/plugins/opengl/include/sge/opengl/egl/native_display.hpp
-	src/plugins/opengl/include/sge/opengl/egl/native_display_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/egl/native_display_unique_ptr.hpp
-	src/plugins/opengl/include/sge/opengl/egl/native_window.hpp
-	src/plugins/opengl/include/sge/opengl/egl/native_window_fwd.hpp
-	src/plugins/opengl/include/sge/opengl/egl/native_window_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/egl/no_context.hpp
 	src/plugins/opengl/include/sge/opengl/egl/no_display.hpp
 	src/plugins/opengl/include/sge/opengl/egl/no_surface.hpp
+	src/plugins/opengl/include/sge/opengl/egl/surface.hpp
+	src/plugins/opengl/include/sge/opengl/egl/surface_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/egl/surface_unique_ptr.hpp
 	src/plugins/opengl/include/sge/opengl/egl/swap_buffers.hpp
 	src/plugins/opengl/include/sge/opengl/egl/system.hpp
 	src/plugins/opengl/include/sge/opengl/egl/version.hpp
@@ -1315,56 +1323,59 @@ set(
 	src/plugins/opengl/include/sge/opengl/egl/visual/base.hpp
 	src/plugins/opengl/include/sge/opengl/egl/visual/base_fwd.hpp
 	src/plugins/opengl/include/sge/opengl/egl/visual/choose_config.hpp
-	src/plugins/opengl/include/sge/opengl/egl/visual/create.hpp
 	src/plugins/opengl/include/sge/opengl/egl/visual/make_attributes.hpp
 	src/plugins/opengl/include/sge/opengl/egl/visual/to_config.hpp
-	src/plugins/opengl/include/sge/opengl/egl/window_surface.hpp
+	src/plugins/opengl/include/sge/opengl/egl/window_surface_decl.hpp
 	src/plugins/opengl/include/sge/opengl/egl/window_surface_fwd.hpp
+	src/plugins/opengl/include/sge/opengl/egl/window_surface_impl.hpp
 	src/plugins/opengl/src/egl/bind_api.cpp
 	src/plugins/opengl/src/egl/context.cpp
 	src/plugins/opengl/src/egl/context_impl.cpp
-	src/plugins/opengl/src/egl/create_native_display.cpp
+	src/plugins/opengl/src/egl/create_display.cpp
 	src/plugins/opengl/src/egl/current.cpp
+	src/plugins/opengl/src/egl/display.cpp
 	src/plugins/opengl/src/egl/get_config_attrib.cpp
-	src/plugins/opengl/src/egl/get_display.cpp
 	src/plugins/opengl/src/egl/init.cpp
 	src/plugins/opengl/src/egl/initialize.cpp
 	src/plugins/opengl/src/egl/make_current.cpp
-	src/plugins/opengl/src/egl/native_display.cpp
-	src/plugins/opengl/src/egl/native_window.cpp
 	src/plugins/opengl/src/egl/no_context.cpp
 	src/plugins/opengl/src/egl/no_display.cpp
 	src/plugins/opengl/src/egl/no_surface.cpp
+	src/plugins/opengl/src/egl/surface.cpp
 	src/plugins/opengl/src/egl/swap_buffers.cpp
 	src/plugins/opengl/src/egl/system.cpp
 	src/plugins/opengl/src/egl/version.cpp
 	src/plugins/opengl/src/egl/version_output.cpp
 	src/plugins/opengl/src/egl/visual/base.cpp
 	src/plugins/opengl/src/egl/visual/choose_config.cpp
-	src/plugins/opengl/src/egl/visual/create.cpp
 	src/plugins/opengl/src/egl/visual/make_attributes.cpp
 	src/plugins/opengl/src/egl/visual/to_config.cpp
-	src/plugins/opengl/src/egl/window_surface.cpp
 )
 
 set(
 	SGE_OPENGL_EGL_X11_FILES
 	src/plugins/opengl/include/sge/opengl/egl/x11/create_visual_info.hpp
-	src/plugins/opengl/include/sge/opengl/egl/x11/native_display.hpp
-	src/plugins/opengl/include/sge/opengl/egl/x11/native_window.hpp
+	src/plugins/opengl/include/sge/opengl/egl/x11/display.hpp
+	src/plugins/opengl/include/sge/opengl/egl/x11/surface.hpp
 	src/plugins/opengl/include/sge/opengl/egl/x11/visual.hpp
 	src/plugins/opengl/src/egl/x11/create_visual_info.cpp
-	src/plugins/opengl/src/egl/x11/native_display.cpp
-	src/plugins/opengl/src/egl/x11/native_window.cpp
+	src/plugins/opengl/src/egl/x11/display.cpp
+	src/plugins/opengl/src/egl/x11/surface.cpp
 	src/plugins/opengl/src/egl/x11/visual.cpp
 )
 
 set(
-	SGE_OPENGL_WAYLAND_FILES
-	src/plugins/opengl/include/sge/opengl/wayland/device_state.hpp
-	src/plugins/opengl/include/sge/opengl/wayland/system.hpp
-	src/plugins/opengl/src/wayland/device_state.cpp
-	src/plugins/opengl/src/wayland/system.cpp
+	SGE_OPENGL_EGL_WAYLAND_FILES
+	src/plugins/opengl/include/sge/opengl/egl/wayland/display.hpp
+	src/plugins/opengl/include/sge/opengl/egl/wayland/surface.hpp
+	src/plugins/opengl/include/sge/opengl/egl/wayland/visual.hpp
+	src/plugins/opengl/include/sge/opengl/egl/wayland/window.hpp
+	src/plugins/opengl/include/sge/opengl/egl/wayland/window_holder.hpp
+	src/plugins/opengl/src/egl/wayland/display.cpp
+	src/plugins/opengl/src/egl/wayland/surface.cpp
+	src/plugins/opengl/src/egl/wayland/visual.cpp
+	src/plugins/opengl/src/egl/wayland/window.cpp
+	src/plugins/opengl/src/egl/wayland/window_holder.cpp
 )
 
 find_package(
@@ -1502,6 +1513,7 @@ if(
 		APPEND
 		SGE_OPENGL_FILES
 		${SGE_OPENGL_WAYLAND_FILES}
+		${SGE_OPENGL_EGL_WAYLAND_FILES}
 	)
 
 	list(

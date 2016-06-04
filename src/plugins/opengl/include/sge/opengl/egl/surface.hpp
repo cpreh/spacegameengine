@@ -18,35 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/egl/get_display.hpp>
-#include <sge/opengl/egl/no_display.hpp>
-#include <sge/renderer/exception.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_OPENGL_EGL_SURFACE_HPP_INCLUDED
+#define SGE_OPENGL_EGL_SURFACE_HPP_INCLUDED
+
+#include <sge/opengl/egl/surface_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
 
-EGLDisplay
-sge::opengl::egl::get_display(
-	EGLNativeDisplayType const _native
-)
+namespace sge
 {
-	EGLDisplay const result(
-		::eglGetDisplay(
-			_native
-		)
-	);
+namespace opengl
+{
+namespace egl
+{
 
-	if(
-		result
-		==
-		sge::opengl::egl::no_display
-	)
-		throw
-			sge::renderer::exception(
-				FCPPT_TEXT("eglGetDisplay failed")
-			);
-	return
-		result;
+class surface
+{
+	FCPPT_NONCOPYABLE(
+		surface
+	);
+protected:
+	surface();
+public:
+	virtual
+	~surface() = 0;
+
+	virtual
+	EGLSurface
+	get() const = 0;
+};
+
 }
+}
+}
+
+#endif

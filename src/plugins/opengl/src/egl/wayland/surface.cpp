@@ -18,28 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_NATIVE_WINDOW_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_OPENGL_EGL_NATIVE_WINDOW_UNIQUE_PTR_HPP_INCLUDED
+#include <fcppt/config/external_begin.hpp>
+#include <wayland-egl-core.h>
+#include <fcppt/config/external_end.hpp>
+#include <sge/opengl/egl/surface.hpp>
+#include <sge/opengl/egl/window_surface_impl.hpp>
+#include <sge/opengl/egl/wayland/surface.hpp>
+#include <awl/backends/wayland/window/object.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <EGL/egl.h>
+#include <fcppt/config/external_end.hpp>
 
-#include <sge/opengl/egl/native_window_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 
-
-namespace sge
+sge::opengl::egl::wayland::surface::surface(
+	EGLDisplay const _display,
+	EGLConfig const _config,
+	awl::backends::wayland::window::object &_window
+)
+:
+	sge::opengl::egl::surface(),
+	window_{
+		_window
+	},
+	surface_{
+		_display,
+		_config,
+		window_.get()
+	}
 {
-namespace opengl
+}
+
+sge::opengl::egl::wayland::surface::~surface()
 {
-namespace egl
+}
+
+EGLSurface
+sge::opengl::egl::wayland::surface::get() const
 {
-
-typedef
-fcppt::unique_ptr<
-	sge::opengl::egl::native_window
->
-native_window_unique_ptr;
-
+	return
+		surface_.get();
 }
-}
-}
-
-#endif

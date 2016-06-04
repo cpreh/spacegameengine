@@ -23,11 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/current_unique_ptr.hpp>
 #include <sge/opengl/egl/context.hpp>
 #include <sge/opengl/egl/current.hpp>
-#include <sge/opengl/egl/get_display.hpp>
-#include <sge/opengl/egl/native_window.hpp>
-#include <sge/opengl/egl/native_window_unique_ptr.hpp>
-#include <sge/opengl/egl/visual/to_config.hpp>
-#include <awl/visual/object_fwd.hpp>
+#include <sge/opengl/egl/surface.hpp>
+#include <sge/opengl/egl/surface_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -38,34 +35,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::egl::context::context(
 	EGLDisplay const _display,
-	sge::opengl::egl::native_window_unique_ptr &&_native_window,
-	awl::visual::object const &_visual
+	EGLConfig const _config,
+	sge::opengl::egl::surface_unique_ptr &&_surface
 )
 :
 	sge::opengl::backend::context(),
-	display_(
+	display_{
 		_display
-	),
-	native_window_{
+	},
+	surface_{
 		std::move(
-			_native_window
+			_surface
 		)
 	},
-	config_(
-		sge::opengl::egl::visual::to_config(
-			display_,
-			_visual
-		)
-	),
-	surface_(
+	context_{
 		_display,
-		config_,
-		native_window_->get()
-	),
-	context_(
-		_display,
-		config_
-	)
+		_config
+	}
 {
 }
 
@@ -77,7 +63,7 @@ sge::opengl::backend::current_unique_ptr
 sge::opengl::egl::context::activate()
 {
 	context_.activate(
-		surface_.get()
+		surface_->get()
 	);
 
 	return
@@ -88,7 +74,7 @@ sge::opengl::egl::context::activate()
 				sge::opengl::egl::current
 			>(
 				display_,
-				surface_
+				surface_->get()
 			)
 		);
 }

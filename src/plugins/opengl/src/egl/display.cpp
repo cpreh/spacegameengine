@@ -18,28 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_NATIVE_DISPLAY_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_OPENGL_EGL_NATIVE_DISPLAY_UNIQUE_PTR_HPP_INCLUDED
-
-#include <sge/opengl/egl/native_display_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <sge/opengl/egl/display.hpp>
 
 
-namespace sge
+sge::opengl::egl::display::display()
 {
-namespace opengl
-{
-namespace egl
-{
-
-typedef
-fcppt::unique_ptr<
-	sge::opengl::egl::native_display
->
-native_display_unique_ptr;
-
-}
-}
 }
 
-#endif
+sge::opengl::egl::display::~display()
+{
+}

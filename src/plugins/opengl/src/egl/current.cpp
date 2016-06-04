@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/fun_ptr.hpp>
 #include <sge/opengl/egl/current.hpp>
 #include <sge/opengl/egl/swap_buffers.hpp>
-#include <sge/opengl/egl/window_surface.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <string>
@@ -31,16 +30,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::egl::current::current(
 	EGLDisplay const _display,
-	sge::opengl::egl::window_surface const &_surface
+	EGLSurface const _surface
 )
 :
 	sge::opengl::backend::current(),
-	display_(
+	display_{
 		_display
-	),
-	surface_(
+	},
+	surface_{
 		_surface
-	)
+	}
 {
 }
 
@@ -69,7 +68,7 @@ sge::opengl::egl::current::end_rendering()
 {
 	sge::opengl::egl::swap_buffers(
 		display_,
-		surface_.get()
+		surface_
 	);
 }
 

@@ -18,16 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_CURRENT_HPP_INCLUDED
-#define SGE_OPENGL_EGL_CURRENT_HPP_INCLUDED
+#ifndef SGE_OPENGL_EGL_X11_DISPLAY_HPP_INCLUDED
+#define SGE_OPENGL_EGL_X11_DISPLAY_HPP_INCLUDED
 
-#include <sge/opengl/backend/current.hpp>
-#include <sge/opengl/backend/fun_ptr.hpp>
-#include <sge/renderer/display_mode/vsync_fwd.hpp>
+#include <sge/opengl/egl/init_fwd.hpp>
+#include <sge/opengl/egl/display.hpp>
+#include <sge/opengl/egl/surface_unique_ptr.hpp>
+#include <sge/renderer/pixel_format/object_fwd.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/system/object_fwd.hpp>
+#include <awl/visual/object_unique_ptr.hpp>
+#include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
-#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -37,48 +41,49 @@ namespace opengl
 {
 namespace egl
 {
+namespace x11
+{
 
-class current
+class display
 :
-	public sge::opengl::backend::current
+	public sge::opengl::egl::display
 {
 	FCPPT_NONCOPYABLE(
-		current
+		display
 	);
 public:
-	current(
-		EGLDisplay,
-		EGLSurface
+	explicit
+	display(
+		awl::backends::x11::system::object &
 	);
 
-	~current()
+	~display()
 	override;
 private:
-	sge::opengl::backend::fun_ptr
-	load_function(
-		std::string const &
-	) const
+	EGLDisplay
+	get() const
 	override;
 
-	void
-	begin_rendering()
-	override;
-
-	void
-	end_rendering()
-	override;
-
-	void
-	vsync(
-		sge::renderer::display_mode::vsync
+	awl::visual::object_unique_ptr
+	create_visual(
+		sge::opengl::egl::init const &,
+		sge::renderer::pixel_format::object const &
 	)
 	override;
 
-	EGLDisplay const display_;
+	sge::opengl::egl::surface_unique_ptr
+	create_surface(
+		EGLConfig,
+		awl::window::object &
+	)
+	override;
 
-	EGLSurface const surface_;
+	awl::backends::x11::display &x11_display_;
+
+	EGLDisplay const display_;
 };
 
+}
 }
 }
 }

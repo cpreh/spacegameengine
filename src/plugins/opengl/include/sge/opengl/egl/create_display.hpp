@@ -18,13 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/egl/native_window.hpp>
+#ifndef SGE_OPENGL_EGL_CREATE_DISPLAY_HPP_INCLUDED
+#define SGE_OPENGL_EGL_CREATE_DISPLAY_HPP_INCLUDED
+
+#include <sge/opengl/egl/display_unique_ptr.hpp>
+#include <awl/system/object_fwd.hpp>
 
 
-sge::opengl::egl::native_window::native_window()
+namespace sge
 {
+namespace opengl
+{
+namespace egl
+{
+
+sge::opengl::egl::display_unique_ptr
+create_display(
+	awl::system::object &
+);
+
+}
+}
 }
 
-sge::opengl::egl::native_window::~native_window()
-{
-}
+#endif

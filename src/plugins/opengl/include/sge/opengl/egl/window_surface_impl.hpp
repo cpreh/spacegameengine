@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_OPENGL_EGL_WINDOW_SURFACE_IMPL_HPP_INCLUDED
+#define SGE_OPENGL_EGL_WINDOW_SURFACE_IMPL_HPP_INCLUDED
+
 #include <sge/opengl/egl/no_surface.hpp>
-#include <sge/opengl/egl/window_surface.hpp>
+#include <sge/opengl/egl/window_surface_decl.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -28,23 +31,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::egl::window_surface::window_surface(
+template<
+	typename NativeWindow
+>
+sge::opengl::egl::window_surface<
+	NativeWindow
+>::window_surface(
 	EGLDisplay const _display,
 	EGLConfig const _config,
-	EGLNativeWindowType const _window
+	NativeWindowType const _window
 )
 :
-	display_(
+	display_{
 		_display
-	),
-	surface_(
+	},
+	surface_{
 		::eglCreateWindowSurface(
 			_display,
 			_config,
 			_window,
 			nullptr // TODO: What do we need here?
 		)
-	)
+	}
 {
 	if(
 		surface_
@@ -52,12 +60,17 @@ sge::opengl::egl::window_surface::window_surface(
 		sge::opengl::egl::no_surface
 	)
 		throw
-			sge::renderer::exception(
+			sge::renderer::exception{
 				FCPPT_TEXT("eglCreateWindowSurface failed")
-			);
+			};
 }
 
-sge::opengl::egl::window_surface::~window_surface()
+template<
+	typename NativeWindow
+>
+sge::opengl::egl::window_surface<
+	NativeWindow
+>::~window_surface()
 {
 	FCPPT_ASSERT_ERROR(
 		::eglDestroySurface(
@@ -69,9 +82,16 @@ sge::opengl::egl::window_surface::~window_surface()
 	);
 }
 
+template<
+	typename NativeWindow
+>
 EGLSurface
-sge::opengl::egl::window_surface::get() const
+sge::opengl::egl::window_surface<
+	NativeWindow
+>::get() const
 {
 	return
 		surface_;
 }
+
+#endif

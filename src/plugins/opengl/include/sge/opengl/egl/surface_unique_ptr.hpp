@@ -18,8 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_WINDOW_SURFACE_FWD_HPP_INCLUDED
-#define SGE_OPENGL_EGL_WINDOW_SURFACE_FWD_HPP_INCLUDED
+#ifndef SGE_OPENGL_EGL_SURFACE_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_OPENGL_EGL_SURFACE_UNIQUE_PTR_HPP_INCLUDED
+
+#include <sge/opengl/egl/surface_fwd.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 
 
 namespace sge
@@ -29,10 +32,11 @@ namespace opengl
 namespace egl
 {
 
-template<
-	typename NativeWindow
+typedef
+fcppt::unique_ptr<
+	sge::opengl::egl::surface
 >
-class window_surface;
+surface_unique_ptr;
 
 }
 }

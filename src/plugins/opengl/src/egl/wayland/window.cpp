@@ -18,32 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/egl/native_window.hpp>
-#include <sge/opengl/egl/x11/native_window.hpp>
-#include <awl/backends/x11/window/object.hpp>
+#include <sge/opengl/egl/wayland/window.hpp>
+#include <awl/backends/wayland/window/object.hpp>
+#include <awl/window/event/processor.hpp>
+#include <awl/window/event/resize.hpp>
+#include <awl/window/event/resize_callback.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <EGL/egl.h>
+#include <wayland-egl-core.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::egl::x11::native_window::native_window(
-	awl::backends::x11::window::object &_window
+sge::opengl::egl::wayland::window::window(
+	awl::backends::wayland::window::object &_window
 )
 :
-	sge::opengl::egl::native_window(),
 	window_{
-		_window.get()
+		_window
+	},
+	resize_connection_{
+		_window.processor().resize_callback(
+			awl::window::event::resize_callback{
+				[
+					this
+				](
+					awl::window::event::resize const &_resize
+				)
+				{
+					::wl_egl_window_resize(
+						window_.get(),
+						fcppt::cast::to_signed(
+							_resize.dim().w()
+						),
+						fcppt::cast::to_signed(
+							_resize.dim().h()
+						),
+						0,
+						0
+					);
+				}
+			}
+		)
 	}
 {
 }
 
-sge::opengl::egl::x11::native_window::~native_window()
+
+sge::opengl::egl::wayland::window::~window()
 {
 }
 
-EGLNativeWindowType
-sge::opengl::egl::x11::native_window::get() const
+wl_egl_window *
+sge::opengl::egl::wayland::window::get() const
 {
 	return
-		window_;
+		window_.get();
 }

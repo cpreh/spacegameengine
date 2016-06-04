@@ -18,60 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_EGL_X11_NATIVE_DISPLAY_HPP_INCLUDED
-#define SGE_OPENGL_EGL_X11_NATIVE_DISPLAY_HPP_INCLUDED
-
-#include <sge/opengl/egl/native_display.hpp>
-#include <sge/opengl/egl/native_window_unique_ptr.hpp>
-#include <awl/backends/x11/system/object_fwd.hpp>
-#include <awl/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/opengl/egl/wayland/window_holder.hpp>
+#include <sge/renderer/exception.hpp>
+#include <awl/backends/wayland/window/object.hpp>
+#include <awl/window/dim.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <EGL/egl.h>
+#include <wayland-egl-core.h>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
-{
-namespace x11
-{
-
-class native_display
+sge::opengl::egl::wayland::window_holder::window_holder(
+	awl::backends::wayland::window::object &_window
+)
 :
-	public sge::opengl::egl::native_display
+	window_{
+		::wl_egl_window_create(
+			_window.surface(),
+			fcppt::cast::to_signed(
+				_window.size().w()
+			),
+			fcppt::cast::to_signed(
+				_window.size().h()
+			)
+		)
+	}
 {
-	FCPPT_NONCOPYABLE(
-		native_display
-	);
-public:
-	explicit
-	native_display(
-		awl::backends::x11::system::object &
-	);
-
-	~native_display()
-	override;
-private:
-	EGLNativeDisplayType
-	get() const
-	override;
-
-	sge::opengl::egl::native_window_unique_ptr
-	create_native_window(
-		awl::window::object &
+	if(
+		window_
+		==
+		nullptr
 	)
-	override;
-
-	EGLNativeDisplayType const display_;
-};
-
-}
-}
-}
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("Cannot create wayland egl window")
+			};
 }
 
-#endif
+
+sge::opengl::egl::wayland::window_holder::~window_holder()
+{
+	::wl_egl_window_destroy(
+		window_
+	);
+}
+
+wl_egl_window *
+sge::opengl::egl::wayland::window_holder::get() const
+{
+	return
+		window_;
+}

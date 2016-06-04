@@ -18,14 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/egl/native_display.hpp>
-#include <sge/opengl/egl/native_window.hpp>
-#include <sge/opengl/egl/native_window_unique_ptr.hpp>
-#include <sge/opengl/egl/x11/native_display.hpp>
-#include <sge/opengl/egl/x11/native_window.hpp>
+#include <sge/opengl/egl/get_display.hpp>
+#include <sge/opengl/egl/init_fwd.hpp>
+#include <sge/opengl/egl/display.hpp>
+#include <sge/opengl/egl/surface.hpp>
+#include <sge/opengl/egl/surface_unique_ptr.hpp>
+#include <sge/opengl/egl/x11/display.hpp>
+#include <sge/opengl/egl/x11/surface.hpp>
+#include <sge/opengl/egl/x11/visual.hpp>
+#include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
+#include <awl/visual/object.hpp>
+#include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -35,40 +41,68 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::egl::x11::native_display::native_display(
+sge::opengl::egl::x11::display::display(
 	awl::backends::x11::system::object &_awl_system
 )
 :
-	sge::opengl::egl::native_display(),
-	display_(
-		_awl_system.display().get()
-	)
+	sge::opengl::egl::display(),
+	x11_display_{
+		_awl_system.display()
+	},
+	display_{
+		sge::opengl::egl::get_display(
+			x11_display_.get()
+		)
+	}
 {
 }
 
-sge::opengl::egl::x11::native_display::~native_display()
+sge::opengl::egl::x11::display::~display()
 {
 }
 
-EGLNativeDisplayType
-sge::opengl::egl::x11::native_display::get() const
+EGLDisplay
+sge::opengl::egl::x11::display::get() const
 {
 	return
 		display_;
 }
 
-sge::opengl::egl::native_window_unique_ptr
-sge::opengl::egl::x11::native_display::create_native_window(
+awl::visual::object_unique_ptr
+sge::opengl::egl::x11::display::create_visual(
+	sge::opengl::egl::init const &,
+	sge::renderer::pixel_format::object const &_pixel_format
+)
+{
+	return
+		fcppt::unique_ptr_to_base<
+			awl::visual::object
+		>(
+			fcppt::make_unique_ptr<
+				sge::opengl::egl::x11::visual
+			>(
+				x11_display_,
+				display_,
+				_pixel_format
+			)
+		);
+}
+
+sge::opengl::egl::surface_unique_ptr
+sge::opengl::egl::x11::display::create_surface(
+	EGLConfig const _config,
 	awl::window::object &_window
 )
 {
 	return
 		fcppt::unique_ptr_to_base<
-			sge::opengl::egl::native_window
+			sge::opengl::egl::surface
 		>(
 			fcppt::make_unique_ptr<
-				sge::opengl::egl::x11::native_window
+				sge::opengl::egl::x11::surface
 			>(
+				display_,
+				_config,
 				fcppt::cast::dynamic_cross_exn<
 					awl::backends::x11::window::object &
 				>(
