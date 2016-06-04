@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_EGL_DISPLAY_HPP_INCLUDED
 #define SGE_OPENGL_EGL_DISPLAY_HPP_INCLUDED
 
-#include <sge/opengl/egl/init_fwd.hpp>
 #include <sge/opengl/egl/display_fwd.hpp>
+#include <sge/opengl/egl/init_fwd.hpp>
 #include <sge/opengl/egl/surface_unique_ptr.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>

@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/egl/display.hpp>
 #include <sge/opengl/egl/get_display.hpp>
 #include <sge/opengl/egl/init_fwd.hpp>
-#include <sge/opengl/egl/display.hpp>
 #include <sge/opengl/egl/surface.hpp>
 #include <sge/opengl/egl/surface_unique_ptr.hpp>
 #include <sge/opengl/egl/x11/display.hpp>

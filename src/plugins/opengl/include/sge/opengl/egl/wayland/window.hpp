@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <wayland-egl-core.h>
 #include <fcppt/config/external_end.hpp>
+#define SGE_OPENGL_EGL_WAYLAND_WINDOW_HPP_EGL_CORE_ON_TOP
 #include <sge/opengl/egl/wayland/window_holder.hpp>
 #include <awl/backends/wayland/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
