@@ -194,10 +194,10 @@ add_sge_base_library(
 		${fcppt_core_TARGET}
 		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
-		${OPENCL_LIBRARIES}
+		${OpenCL_LIBRARIES}
 		${OPENGL_gl_LIBRARY}
 	INCLUDE_DIRS
-		${OPENCL_INCLUDE_DIRS}
+		${OpenCL_INCLUDE_DIRS}
 		${OPENGL_INCLUDE_DIR}
 		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 		"${CMAKE_CURRENT_BINARY_DIR}/include"

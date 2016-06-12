@@ -391,7 +391,7 @@ add_sge_lib(
 add_sge_lib_depends(
 	opencl
 	"Build the opencl library"
-	${OPENCL_FOUND}
+	${OpenCL_FOUND}
 	"renderer/opengl"
 )
 
