@@ -18,4 +18,6 @@ add_sge_console_example(
 	bvh_benchmark
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+	INCLUDE_DIRS
+		${sge_BVH_INCLUDE_DIRS}
 )

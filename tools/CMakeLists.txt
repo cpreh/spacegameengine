@@ -74,6 +74,7 @@ function(
 	target_include_directories(
 		"${FULL_NAME}"
 		PRIVATE
+		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/tools/include"
 		"${CMAKE_CURRENT_SOURCE_DIR}/include"
 		${_INCLUDE_DIRS}
 	)
@@ -93,10 +94,6 @@ function(
 		"${INSTALL_BINARY_DIR}"
 	)
 endfunction()
-
-include_directories(
-	include
-)
 
 option(
 	ENABLE_CONTROL_CONFIG

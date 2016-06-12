@@ -32,10 +32,6 @@ include(
 
 fcppt_utils_static_shared()
 
-include_directories(
-	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include
-)
-
 option(
 	ENABLE_TEST
 	"Build the tests"
@@ -62,15 +58,9 @@ find_package(
 	"${NEEDED_BOOST_LIBS}"
 )
 
-include_directories(
-	${FCPPT_UTILS_INCLUDE_SYSTEM}
-	${Boost_INCLUDE_DIRS}
-)
-
 link_directories(
 	${Boost_LIBRARY_DIRS}
 )
-
 
 find_package(
 	fcppt
@@ -97,10 +87,6 @@ set(
 set(
 	PLUGIN_INSTALL_DIR
 	"${INSTALL_PLUGIN_DIR_BASE}/${PROJECT_NAME}"
-)
-
-include_directories(
-	"${FCPPT_UTILS_PROJECT_BINARY_DIR}/include"
 )
 
 add_subdirectory(
@@ -177,6 +163,21 @@ macro(
 		endif()
 	endforeach()
 endmacro()
+
+set(
+	sge_BVH_INCLUDE_DIRS
+	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include
+)
+
+set(
+	sge_PROJECTILE_INCLUDE_DIRS
+	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include
+)
+
+set(
+	sge_TIMER_INCLUDE_DIRS
+	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include
+)
 
 if(
 	ENABLE_EXAMPLES
