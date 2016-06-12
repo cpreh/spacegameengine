@@ -8,8 +8,20 @@ project(
 )
 
 set(
+	SGE_CMAKE_MODULE_PATH
+	"${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules"
+)
+
+set(
+	SGE_PUBLIC_CMAKE_MODULE_PATH
+	${SGE_CMAKE_MODULE_PATH}/public
+)
+
+list(
+	APPEND
 	CMAKE_MODULE_PATH
-	"${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules;${CMAKE_MODULE_PATH}"
+	${SGE_PUBLIC_CMAKE_MODULE_PATH}
+	${SGE_CMAKE_MODULE_PATH}/private
 )
 
 include(
@@ -205,7 +217,9 @@ get_property(
 )
 
 fcppt_utils_generate_config(
-	TRUE
+	HAS_BUILDDIR
+	CONFIG_PATH
+		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/cmake
 )
 
 install(
@@ -216,10 +230,8 @@ install(
 )
 
 install(
-	FILES
-	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/CMakeModules/FindCg.cmake
-	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/CMakeModules/FindCEGUI.cmake
-	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/CMakeModules/SGECustomPath.cmake
+	DIRECTORY
+	${SGE_PUBLIC_CMAKE_MODULE_PATH}/
 	DESTINATION
 	${INSTALL_CMAKEMODULES_DIR}
 )

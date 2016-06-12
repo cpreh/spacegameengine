@@ -319,7 +319,7 @@ function(
 		)
 
 		configure_file(
-			${FCPPT_UTILS_PROJECT_SOURCE_DIR}/dummy.cpp.in
+			${FCPPT_UTILS_PROJECT_SOURCE_DIR}/cmake/dummy.cpp.in
 			${SGE_DUMMY_SOURCE_FILE}
 		)
 
