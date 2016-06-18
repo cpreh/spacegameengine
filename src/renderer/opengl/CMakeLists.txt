@@ -20,10 +20,11 @@ add_sge_base_library(
 	"renderer/opengl"
 	ADDITIONAL_DEPS
 		"${OPENGL_gl_LIBRARY}"
+		fcppt_core_interface
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
 	INCLUDE_DIRS
-		${fcppt_INCLUDE_DIRS}
 		${OPENGL_INCLUDE_DIR}
 	TRANSITIVE_INCLUDE_DIRS
-		${fcppt_INCLUDE_DIRS}
 		${OPENGL_INCLUDE_DIR}
 )

@@ -40,9 +40,8 @@ add_sge_base_library(
 	ADDITIONAL_DEPS
 		${awl_TARGET}
 		${fcppt_core_TARGET}
+	TRANSITIVE_ADDITIONAL_DEPS
+		awl_interface
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/include"
-		"${awl_INCLUDE_DIRS}"
-	TRANSITIVE_INCLUDE_DIRS
-		"${awl_INCLUDE_DIRS}"
 )

@@ -69,15 +69,17 @@ add_sge_base_library(
 	SGE_DEPS
 		sgeimage
 		sgeimageds
+	ADDITIONAL_DEPS
+		fcppt_core_interface
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
 	INCLUDE_DIRS
 		"${FCPPT_UTILS_PROJECT_BINARY_DIR}/src/image/include"
 		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/image/ds/include"
 		"${CMAKE_CURRENT_SOURCE_DIR}/include"
-		"${fcppt_INCLUDE_DIRS}"
 		${IMAGE_INCLUDES}
 	TRANSITIVE_INCLUDE_DIRS
 		"${mizuiro_INCLUDE_DIRS}"
-		"${fcppt_INCLUDE_DIRS}"
 	COMPILE_DEFINITIONS
 		${IMAGE_DEFINITIONS}
 )

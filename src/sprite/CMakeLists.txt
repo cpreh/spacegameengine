@@ -446,9 +446,9 @@ add_sge_base_library(
 	SGE_DEPS
 		sgerenderer
 	ADDITIONAL_DEPS
+		majutsu_interface
 		${fcppt_core_TARGET}
-	INCLUDE_DIRS
-		${majutsu_INCLUDE_DIRS}
-	TRANSITIVE_INCLUDE_DIRS
-		${majutsu_INCLUDE_DIRS}
+	TRANSITIVE_ADDITIONAL_DEPS
+		majutsu_interface
+		fcppt_core_interface
 )

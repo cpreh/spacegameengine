@@ -138,6 +138,4 @@ add_sge_base_library(
 		${Boost_SYSTEM_LIBRARIES}
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/include"
-	TRANSITIVE_INCLUDE_DIRS
-		"${awl_INCLUDE_DIRS}"
 )

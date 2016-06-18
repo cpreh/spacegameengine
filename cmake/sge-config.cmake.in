@@ -7,8 +7,9 @@ fcppt_export_init(
 )
 
 fcppt_export_generate_targets(
-	"sgecore;@SGE_LIBRARIES@"
 	"${sge_USE_STATIC_LIBS}"
+	"sgecore"
+	@SGE_LIBRARIES@
 )
 
 foreach(
@@ -43,9 +44,4 @@ endforeach()
 
 unset(
 	CURRENT_TARGET
-)
-
-set(
-	sge_BVH_INCLUDE_DIRS
-	"@Boost_INCLUDE_DIRS@;@fcppt_INCLUDE_DIRS@;@sge_INCLUDE_DIR@"
 )

@@ -24,8 +24,8 @@ add_sge_base_library(
 	"renderer/cg"
 	SGE_DEPS
 		sgeimage
-	INCLUDE_DIRS
-		${fcppt_INCLUDE_DIRS}
-	TRANSITIVE_INCLUDE_DIRS
-		${fcppt_INCLUDE_DIRS}
+	ADDITIONAL_DEPS
+		fcppt_core_interface
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
 )

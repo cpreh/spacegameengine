@@ -11,8 +11,8 @@ set(
 
 add_sge_base_library(
 	core
-	INCLUDE_DIRS
-		"${fcppt_INCLUDE_DIRS}"
-	TRANSITIVE_INCLUDE_DIRS
-		"${fcppt_INCLUDE_DIRS}"
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
 )

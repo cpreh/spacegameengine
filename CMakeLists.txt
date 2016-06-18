@@ -217,7 +217,6 @@ get_property(
 )
 
 fcppt_utils_generate_config(
-	HAS_BUILDDIR
 	CONFIG_PATH
 		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/cmake
 )

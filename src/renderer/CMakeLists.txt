@@ -1194,13 +1194,14 @@ add_sge_base_library(
 		sgecore
 		sgeimage
 	ADDITIONAL_DEPS
+		awl_interface
 		${fcppt_log_TARGET}
+	TRANSITIVE_ADDITIONAL_DEPS
+		awl_interface
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/include"
-		"${awl_INCLUDE_DIRS}"
 		${PLUGIN_INCLUDES}
 	TRANSITIVE_INCLUDE_DIRS
-		"${awl_INCLUDE_DIRS}"
 		"${mizuiro_INCLUDE_DIRS}"
 	COMPILE_DEFINITIONS
 		${PLUGIN_DEFINITIONS}

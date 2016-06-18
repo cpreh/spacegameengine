@@ -120,8 +120,8 @@ function(
 	set(
 		MULTI_ARGS
 		SGE_DEPS
-		ADDITIONAL_DEPS
 		TRANSITIVE_SGE_DEPS
+		ADDITIONAL_DEPS
 		TRANSITIVE_ADDITIONAL_DEPS
 		INCLUDE_DIRS
 		TRANSITIVE_INCLUDE_DIRS
@@ -139,30 +139,71 @@ function(
 	)
 
 	if(
-		${_VARIANT} STREQUAL "STATIC"
+		NOT
+		"${_UNPARSED_ARGUMENTS}"
+		STREQUAL
+		""
+	)
+		message(
+			FATAL_ERROR
+			"Invalid parameters ${_UNPARSED_ARGUMENTS}"
+		)
+	endif()
+
+	if(
+		${_VARIANT}
+		STREQUAL
+		"STATIC"
 	)
 		fcppt_utils_static_link_name(
 			"${SGE_LIB_NAME}"
 			SGE_LIB_NAME
 		)
+	elseif(
+		${_VARIANT}
+		STREQUAL
+		"INTERFACE"
+	)
+		fcppt_utils_interface_link_name(
+			"${SGE_LIB_NAME}"
+			SGE_LIB_NAME
+		)
 	endif()
 
-	add_library(
-		${SGE_LIB_NAME}
+	if(
 		${_VARIANT}
-		${SGE_LIB_FILES}
+		STREQUAL
+		"INTERFACE"
 	)
+		add_library(
+			${SGE_LIB_NAME}
+			${_VARIANT}
+		)
+	else()
+		add_library(
+			${SGE_LIB_NAME}
+			${_VARIANT}
+			${SGE_LIB_FILES}
+		)
+	endif()
 
-	fcppt_utils_set_so_version(
-		${SGE_LIB_NAME}
-		${SGE_USED_SO_VERSION}
+	if(
+		NOT
+		${_VARIANT}
+		STREQUAL
+		"INTERFACE"
 	)
+		fcppt_utils_set_so_version(
+			${SGE_LIB_NAME}
+			${SGE_USED_SO_VERSION}
+		)
 
-	fcppt_utils_set_target_compiler_flags(
-		${SGE_LIB_NAME}
-		ADDITIONAL_FLAGS
-		"${_COMPILE_FLAGS}"
-	)
+		fcppt_utils_set_target_compiler_flags(
+			${SGE_LIB_NAME}
+			ADDITIONAL_FLAGS
+			"${_COMPILE_FLAGS}"
+		)
+	endif()
 
 	fcppt_utils_interface_static_link(
 		${SGE_LIB_NAME}
@@ -180,47 +221,78 @@ function(
 		TRANSITIVE_SGE_DEPS_RESULT
 	)
 
+	if(
+		NOT
+		${_VARIANT}
+		STREQUAL
+		"INTERFACE"
+	)
+		target_link_libraries(
+			${SGE_LIB_NAME}
+			PRIVATE
+			${_ADDITIONAL_DEPS}
+			${SGE_DEPS_RESULT}
+		)
+	endif()
+
 	target_link_libraries(
 		${SGE_LIB_NAME}
-		PRIVATE
-		${_ADDITIONAL_DEPS}
-		${SGE_DEPS_RESULT}
 		INTERFACE
 		${TRANSITIVE_SGE_DEPS_RESULT}
 		${_TRANSITIVE_ADDITIONAL_DEPS}
 	)
 
-	target_include_directories(
-		${SGE_LIB_NAME}
-		PUBLIC
+	set(
+		PUBLIC_INCLUDES
 		"$<BUILD_INTERFACE:${FCPPT_UTILS_PROJECT_BINARY_DIR}/include>"
 		"$<BUILD_INTERFACE:${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include>"
 		"$<INSTALL_INTERFACE:${INSTALL_INCLUDE_DIR}>"
 		${Boost_INCLUDE_DIRS}
-		PRIVATE
-		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/core/include
-		${_INCLUDE_DIRS}
+	)
+
+	if(
+		NOT
+		${_VARIANT}
+		STREQUAL
+		"INTERFACE"
+	)
+		target_include_directories(
+			${SGE_LIB_NAME}
+			PRIVATE
+			${PUBLIC_INCLUDES}
+			${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/core/include
+			${_INCLUDE_DIRS}
+		)
+	endif()
+
+	target_include_directories(
+		${SGE_LIB_NAME}
 		INTERFACE
+		${PUBLIC_INCLUDES}
 		${_TRANSITIVE_INCLUDE_DIRS}
 	)
 
+	if(
+		NOT
+		${_VARIANT}
+		STREQUAL
+		"INTERFACE"
+	)
+		target_compile_definitions(
+			${SGE_LIB_NAME}
+			PRIVATE
+			${_COMPILE_DEFINITIONS}
+		)
+	endif()
+
 	target_compile_definitions(
 		${SGE_LIB_NAME}
-		PRIVATE
-		${_COMPILE_DEFINITIONS}
 		INTERFACE
 		${_TRANSITIVE_COMPILE_DEFINITIONS}
 	)
 
-	fcppt_utils_add_target_include_dir(
-		${SGE_LIB_NAME}
-		TRUE
-	)
-
-	#Dummy and example libs should not be exported
+	#Example libs should not be exported
 	if(
-		NOT "${_BASE_VARIANT}" STREQUAL "DUMMY"
-		AND
 		NOT "${_BASE_VARIANT}" STREQUAL "EXAMPLE"
 	)
 		fcppt_utils_export_install_target(
@@ -313,6 +385,7 @@ function(
 	if(
 		"${_BASE_VARIANT}" STREQUAL "DUMMY"
 	)
+		# TODO: Use fcppt_utils here
 		set(
 			SGE_DUMMY_SOURCE_FILE
 			"${CMAKE_CURRENT_BINARY_DIR}/dummy.cpp"
@@ -353,8 +426,18 @@ function(
 		)
 	endif()
 
+	add_sge_base_library_variant(
+		${SGE_LIB_NAME}
+		"${SGE_LIB_FILES}"
+		VARIANT
+		"INTERFACE"
+		${ARGN}
+	)
+
 	if(
 		ENABLE_SHARED
+		AND NOT
+		"${_BASE_VARIANT}" STREQUAL "DUMMY"
 	)
 		add_sge_base_library_variant(
 			${SGE_LIB_NAME}
