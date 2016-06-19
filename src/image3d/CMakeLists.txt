@@ -171,13 +171,12 @@ add_sge_base_library(
 	ADDITIONAL_DEPS
 		fcppt_core_interface
 	TRANSITIVE_ADDITIONAL_DEPS
+		mizuiro_interface
 		fcppt_core_interface
 	INCLUDE_DIRS
 		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/image/color/include"
 		"${FCPPT_UTILS_PROJECT_BINARY_DIR}/src/image/include"
 		${IMAGE_INCLUDES}
-	TRANSITIVE_INCLUDE_DIRS
-		"${mizuiro_INCLUDE_DIRS}"
 	COMPILE_DEFINITIONS
 		${IMAGE_DEFINITIONS}
 )

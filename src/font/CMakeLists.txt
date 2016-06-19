@@ -141,12 +141,12 @@ add_sge_base_library(
 	TRANSITIVE_SGE_DEPS
 		sgecore
 	ADDITIONAL_DEPS
+		mizuiro_interface
 		${fcppt_log_TARGET}
+	TRANSITIVE_ADDITIONAL_DEPS
+		mizuiro_interface
 	INCLUDE_DIRS
-		${mizuiro_INCLUDE_DIRS}
 		${PLUGIN_INCLUDES}
-	TRANSITIVE_INCLUDE_DIRS
-		${mizuiro_INCLUDE_DIRS}
 	COMPILE_DEFINITIONS
 		${PLUGIN_DEFINITIONS}
 )
