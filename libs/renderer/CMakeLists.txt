@@ -1208,6 +1208,7 @@ add_sge_base_library(
 		sgeimage2d
 		sgeimage3d
 		sgeimagecolor
+		sgeimageds
 		sgeimageds2d
 		sgelog
 		sgeplugin
