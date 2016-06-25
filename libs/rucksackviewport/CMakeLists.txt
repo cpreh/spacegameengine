@@ -1,0 +1,19 @@
+set(
+	SGE_RUCKSACKVIEWPORT_FILES
+	libs/rucksackviewport/include/sge/rucksack/viewport/adaptor.hpp
+	libs/rucksackviewport/include/sge/rucksack/viewport/adaptor_fwd.hpp
+	libs/rucksackviewport/src/rucksack/viewport/adaptor.cpp
+)
+
+add_sge_base_library(
+	"rucksack/viewport"
+	SGE_DEPS
+		sgerenderer
+		sgerucksack
+		sgeviewport
+	TRANSITIVE_SGE_DEPS
+		sgerenderer_interface
+		sgeviewport_interface
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+)

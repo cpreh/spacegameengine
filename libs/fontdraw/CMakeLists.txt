@@ -1,0 +1,35 @@
+set(
+	SGE_FONTDRAW_FILES
+	libs/fontdraw/include/sge/font/draw/color_format.hpp
+	libs/fontdraw/include/sge/font/draw/create_ffp_sampler.hpp
+	libs/fontdraw/include/sge/font/draw/create_texture.hpp
+	libs/fontdraw/include/sge/font/draw/detail/static_text_impl_fwd.hpp
+	libs/fontdraw/include/sge/font/draw/set_matrices.hpp
+	libs/fontdraw/include/sge/font/draw/set_matrices_fwd.hpp
+	libs/fontdraw/include/sge/font/draw/set_states.hpp
+	libs/fontdraw/include/sge/font/draw/set_states_fwd.hpp
+	libs/fontdraw/include/sge/font/draw/simple.hpp
+	libs/fontdraw/include/sge/font/draw/static_text.hpp
+	libs/fontdraw/include/sge/font/draw/static_text_fwd.hpp
+	libs/fontdraw/src/font/draw/color_format.cpp
+	libs/fontdraw/src/font/draw/create_ffp_sampler.cpp
+	libs/fontdraw/src/font/draw/create_texture.cpp
+	libs/fontdraw/src/font/draw/detail/static_text_impl.cpp
+	libs/fontdraw/src/font/draw/include/sge/src/font/draw/detail/static_text_impl.hpp
+	libs/fontdraw/src/font/draw/simple.cpp
+	libs/fontdraw/src/font/draw/static_text.cpp
+)
+
+add_sge_base_library(
+	"font/draw"
+	SGE_DEPS
+		sgecore
+		sgefont
+		sgeimagecolor
+		sgeimage2d
+		sgerenderer
+		sgesprite
+		sgetexture
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/src/font/draw/include"
+)

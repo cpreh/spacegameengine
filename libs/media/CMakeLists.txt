@@ -1,0 +1,76 @@
+set(
+	SGE_MEDIA_FILES
+	libs/media/include/sge/media/all_extensions.hpp
+	libs/media/include/sge/media/check_extension.hpp
+	libs/media/include/sge/media/const_raw_pointer.hpp
+	libs/media/include/sge/media/const_raw_range.hpp
+	libs/media/include/sge/media/detail/muxer_fwd.hpp
+	libs/media/include/sge/media/error_string.hpp
+	libs/media/include/sge/media/extension.hpp
+	libs/media/include/sge/media/extension_fwd.hpp
+	libs/media/include/sge/media/extension_set.hpp
+	libs/media/include/sge/media/file_exception.hpp
+	libs/media/include/sge/media/file_exception_fwd.hpp
+	libs/media/include/sge/media/load_stream_result.hpp
+	libs/media/include/sge/media/load_stream_result_fwd.hpp
+	libs/media/include/sge/media/log_location.hpp
+	libs/media/include/sge/media/muxer.hpp
+	libs/media/include/sge/media/muxer_fwd.hpp
+	libs/media/include/sge/media/muxer_parameters.hpp
+	libs/media/include/sge/media/muxer_parameters_fwd.hpp
+	libs/media/include/sge/media/name.hpp
+	libs/media/include/sge/media/name_fwd.hpp
+	libs/media/include/sge/media/optional_extension.hpp
+	libs/media/include/sge/media/optional_extension_fwd.hpp
+	libs/media/include/sge/media/optional_extension_set.hpp
+	libs/media/include/sge/media/optional_extension_set_fwd.hpp
+	libs/media/include/sge/media/optional_name.hpp
+	libs/media/include/sge/media/optional_name_fwd.hpp
+	libs/media/include/sge/media/path_to_extension.hpp
+	libs/media/include/sge/media/raw_value.hpp
+	libs/media/include/sge/media/stream_unique_ptr.hpp
+	libs/media/include/sge/media/stream_unique_ptr_fwd.hpp
+	libs/media/src/media/all_extensions.cpp
+	libs/media/src/media/check_extension.cpp
+	libs/media/src/media/error_string.cpp
+	libs/media/src/media/include/sge/src/media/detail/muxer.hpp
+	libs/media/src/media/include/sge/src/media/detail/muxer_impl.hpp
+	libs/media/src/media/include/sge/src/media/file_exception_impl.hpp
+	libs/media/src/media/include/sge/src/media/instantiate_file_exception.hpp
+	libs/media/src/media/include/sge/src/media/instantiate_muxer_parameters.hpp
+	libs/media/src/media/include/sge/src/media/load.hpp
+	libs/media/src/media/include/sge/src/media/load_exn.hpp
+	libs/media/src/media/include/sge/src/media/load_raw.hpp
+	libs/media/src/media/include/sge/src/media/load_raw_exn.hpp
+	libs/media/src/media/include/sge/src/media/logger.hpp
+	libs/media/src/media/include/sge/src/media/muxer_impl.hpp
+	libs/media/src/media/include/sge/src/media/muxer_parameters_impl.hpp
+	libs/media/src/media/include/sge/src/media/raw_streambuf.hpp
+	libs/media/src/media/log_location.cpp
+	libs/media/src/media/logger.cpp
+	libs/media/src/media/path_to_extension.cpp
+	libs/media/src/media/raw_streambuf.cpp
+)
+
+sge_generate_instantiate_symbol_header(
+	media
+)
+
+add_sge_base_library(
+	media
+	SGE_DEPS
+		sgecore
+		sgelog
+		sgeplugin_interface
+	TRANSITIVE_SGE_DEPS
+		sgelog_interface
+		sgeplugin_interface
+	ADDITIONAL_DEPS
+		${fcppt_filesystem_TARGET}
+		${fcppt_log_TARGET}
+	TRANSITIVE_ADDITIONAL_DEPS
+		${fcppt_filesystem_TARGET}
+		${fcppt_log_TARGET}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/src/media/include"
+)

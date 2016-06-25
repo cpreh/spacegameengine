@@ -8,15 +8,11 @@ set(
 	"${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/plugins"
 )
 
-macro(
+function(
 	transform_sge_link_targets
 	SGELIBS
 	RESULT_VAR
 )
-	unset(
-		${RESULT_VAR}
-	)
-
 	foreach(
 		CURLIB
 		${SGELIBS}
@@ -25,13 +21,99 @@ macro(
 			${CURLIB}
 		)
 
+		string(
+			FIND
+			${CURLIB}
+			"_interface"
+			INTERFACE_POS
+		)
+
+		if(
+			${INTERFACE_POS}
+			EQUAL
+			-1
+		)
+			set(
+				TARGET_NAME
+				"${${CURLIB}_TARGET}"
+			)
+		else()
+			set(
+				TARGET_NAME
+				${CURLIB}
+			)
+		endif()
+
 		list(
 			APPEND
-			${RESULT_VAR}
-			"${${CURLIB}_TARGET}"
+			RESULT
+			${TARGET_NAME}
 		)
 	endforeach()
-endmacro()
+
+	set(
+		${RESULT_VAR}
+		${RESULT}
+		PARENT_SCOPE
+	)
+endfunction()
+
+function(
+	libname_to_enable_var
+	OUT
+	LIBNAME
+)
+	string(
+		REPLACE
+		"sge"
+		""
+		RESULT
+		${LIBNAME}
+	)
+
+	string(
+		REPLACE
+		"_interface"
+		""
+		RESULT
+		${RESULT}
+	)
+
+	string(
+		TOUPPER
+		"${RESULT}"
+		UPPER_RESULT
+	)
+
+	set(
+		${OUT}
+		ENABLE_${UPPER_RESULT}
+		PARENT_SCOPE
+	)
+endfunction()
+
+function(
+	sge_check_enable_var
+	OUT
+	ENABLE_VAR
+)
+	if(
+		NOT ${ENABLE_VAR} STREQUAL "ENABLE_CORE"
+		AND NOT ${ENABLE_VAR}
+	)
+		set(
+			${OUT}
+			FALSE
+			PARENT_SCOPE
+		)
+	else()
+		set(
+			${OUT}
+			TRUE
+			PARENT_SCOPE
+		)
+	endif()
+endfunction()
 
 function(
 	check_library_deps
@@ -42,31 +124,58 @@ function(
 		DEPENDENCY
 		${ADDITONAL_DEPS}
 	)
-		string(
-			REPLACE
-			"sge"
-			""
-			SUFFIX
+		libname_to_enable_var(
+			ENABLE_VAR
 			${DEPENDENCY}
 		)
 
-		string(
-			TOUPPER
-			${SUFFIX}
-			UPPER_SUFFIX
+		sge_check_enable_var(
+			DEP_PRESENT
+			${ENABLE_VAR}
 		)
 
 		if(
-			NOT ${UPPER_SUFFIX} STREQUAL "CORE"
-			AND NOT ENABLE_${UPPER_SUFFIX}
+			NOT ${DEP_PRESENT}
 		)
 			message(
 				FATAL_ERROR
-				"For ${LIB_NAME} to work you need to -D ENABLE_${UPPER_SUFFIX}=ON!"
+				"For ${LIB_NAME} to work you need to -D ${ENABLE_VAR}=ON!"
 			)
 		endif()
 	endforeach()
 endfunction()
+
+macro(
+	sge_check_optional_deps
+	COMPONENT
+	SGE_LIBRARIES
+)
+	foreach(
+		SGELIB
+		${SGE_LIBRARIES}
+	)
+		libname_to_enable_var(
+			ENABLE_VAR
+			${SGELIB}
+		)
+
+		sge_check_enable_var(
+			DEP_PRESENT
+			${ENABLE_VAR}
+		)
+
+		if(
+			NOT ${DEP_PRESENT}
+		)
+			message(
+				STATUS
+				"${COMPONENT} will not be built because ${ENABLE_VAR}=OFF!"
+			)
+
+			return()
+		endif()
+	endforeach()
+endmacro()
 
 set(
 	SGE_STATIC_LINK_FLAG
@@ -112,6 +221,11 @@ function(
 	SGE_LIB_FILES
 )
 	set(
+		OPTION_ARGS
+		HAS_IMPL_DIR
+	)
+
+	set(
 		SINGLE_ARGS
 		VARIANT
 		BASE_VARIANT
@@ -132,7 +246,7 @@ function(
 
 	cmake_parse_arguments(
 		""
-		""
+		"${OPTION_ARGS}"
 		"${SINGLE_ARGS}"
 		"${MULTI_ARGS}"
 		${ARGN}
@@ -245,7 +359,7 @@ function(
 	set(
 		PUBLIC_INCLUDES
 		"$<BUILD_INTERFACE:${FCPPT_UTILS_PROJECT_BINARY_DIR}/include>"
-		"$<BUILD_INTERFACE:${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include>"
+		"$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
 		"$<INSTALL_INTERFACE:${INSTALL_INCLUDE_DIR}>"
 		${Boost_INCLUDE_DIRS}
 	)
@@ -260,9 +374,19 @@ function(
 			${SGE_LIB_NAME}
 			PRIVATE
 			${PUBLIC_INCLUDES}
-			${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/core/include
+			${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/core/src/core/include
 			${_INCLUDE_DIRS}
 		)
+
+		if(
+			_HAS_IMPL_DIR
+		)
+			target_include_directories(
+				${SGE_LIB_NAME}
+				PRIVATE
+				${CMAKE_CURRENT_SOURCE_DIR}/impl/include
+			)
+		endif()
 	endif()
 
 	target_include_directories(
@@ -319,6 +443,11 @@ function(
 	RELATIVE_PATH
 )
 	set(
+		OPTION_ARGS
+		HAS_IMPL_DIR
+	)
+
+	set(
 		SINGLE_ARGS
 		BASE_VARIANT
 	)
@@ -337,7 +466,7 @@ function(
 
 	cmake_parse_arguments(
 		""
-		""
+		"${OPTION_ARGS}"
 		"${SINGLE_ARGS}"
 		"${MULTI_ARGS}"
 		${ARGN}
@@ -473,7 +602,7 @@ function(
 
 		set(
 			SGE_INSTALL_INCLUDE_DIRS
-			"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include/sge/${RELATIVE_PATH}"
+			"${CMAKE_CURRENT_SOURCE_DIR}/include/sge/${RELATIVE_PATH}"
 		)
 
 		if(
@@ -534,6 +663,9 @@ endfunction()
 #
 # COMPILE_FLAGS:
 #	A list of compile flags to add.
+#
+# HAS_IMPL_DIR:
+#	Option that includes the impl directory
 function(
 	add_sge_base_library
 	RELATIVE_PATH
@@ -620,7 +752,7 @@ function(
 
 	set(
 		${INCLUDES}
-		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/src/${LIB_NAME}/include
+		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/${LIB_NAME}/src/${LIB_NAME}/include
 		PARENT_SCOPE
 	)
 endfunction()

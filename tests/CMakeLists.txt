@@ -123,6 +123,8 @@ add_sge_test(
 
 add_sge_test(
 	projectile/triangulate_long
+	SGE_DEPS
+		sgeprojectile_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 	INCLUDE_DIRS
@@ -165,6 +167,8 @@ add_sge_test(
 
 add_sge_test(
 	timer/main
+	SGE_DEPS
+		sgetimer_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 	INCLUDE_DIRS

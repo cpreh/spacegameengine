@@ -1,0 +1,87 @@
+set(
+	SGE_GDIFONT_FILES
+	plugins/gdifont/include/sge/gdifont/a8_view.hpp
+	plugins/gdifont/include/sge/gdifont/added.hpp
+	plugins/gdifont/include/sge/gdifont/alpha_to_max.hpp
+	plugins/gdifont/include/sge/gdifont/calc_rect.hpp
+	plugins/gdifont/include/sge/gdifont/colors_to_max.hpp
+	plugins/gdifont/include/sge/gdifont/colors_to_max_visitor.hpp
+	plugins/gdifont/include/sge/gdifont/convert/align_h.hpp
+	plugins/gdifont/include/sge/gdifont/convert/flags.hpp
+	plugins/gdifont/include/sge/gdifont/create_dib_section.hpp
+	plugins/gdifont/include/sge/gdifont/create_font.hpp
+	plugins/gdifont/include/sge/gdifont/delete_object_deleter.hpp
+	plugins/gdifont/include/sge/gdifont/delete_object_deleter_fwd.hpp
+	plugins/gdifont/include/sge/gdifont/device_context.hpp
+	plugins/gdifont/include/sge/gdifont/device_context_fwd.hpp
+	plugins/gdifont/include/sge/gdifont/dib_section.hpp
+	plugins/gdifont/include/sge/gdifont/draw_text.hpp
+	plugins/gdifont/include/sge/gdifont/format.hpp
+	plugins/gdifont/include/sge/gdifont/get_bitmap.hpp
+	plugins/gdifont/include/sge/gdifont/get_object.hpp
+	plugins/gdifont/include/sge/gdifont/get_text_metrics.hpp
+	plugins/gdifont/include/sge/gdifont/hbitmap_unique_ptr.hpp
+	plugins/gdifont/include/sge/gdifont/hfont_unique_ptr.hpp
+	plugins/gdifont/include/sge/gdifont/include_windows.hpp
+	plugins/gdifont/include/sge/gdifont/logger.hpp
+	plugins/gdifont/include/sge/gdifont/logger_context.hpp
+	plugins/gdifont/include/sge/gdifont/make_flags.hpp
+	plugins/gdifont/include/sge/gdifont/make_metrics.hpp
+	plugins/gdifont/include/sge/gdifont/object.hpp
+	plugins/gdifont/include/sge/gdifont/render.hpp
+	plugins/gdifont/include/sge/gdifont/scoped_select.hpp
+	plugins/gdifont/include/sge/gdifont/select_object.hpp
+	plugins/gdifont/include/sge/gdifont/set_bk_color.hpp
+	plugins/gdifont/include/sge/gdifont/set_text_color.hpp
+	plugins/gdifont/include/sge/gdifont/system.hpp
+	plugins/gdifont/include/sge/gdifont/text.hpp
+	plugins/gdifont/src/added.cpp
+	plugins/gdifont/src/calc_rect.cpp
+	plugins/gdifont/src/colors_to_max.cpp
+	plugins/gdifont/src/convert/align_h.cpp
+	plugins/gdifont/src/convert/flags.cpp
+	plugins/gdifont/src/create_dib_section.cpp
+	plugins/gdifont/src/create_font.cpp
+	plugins/gdifont/src/delete_object_deleter.cpp
+	plugins/gdifont/src/device_context.cpp
+	plugins/gdifont/src/dib_section.cpp
+	plugins/gdifont/src/draw_text.cpp
+	plugins/gdifont/src/exports.cpp
+	plugins/gdifont/src/get_bitmap.cpp
+	plugins/gdifont/src/get_object.cpp
+	plugins/gdifont/src/get_text_metrics.cpp
+	plugins/gdifont/src/logger.cpp
+	plugins/gdifont/src/logger_context.cpp
+	plugins/gdifont/src/make_flags.cpp
+	plugins/gdifont/src/make_metrics.cpp
+	plugins/gdifont/src/object.cpp
+	plugins/gdifont/src/render.cpp
+	plugins/gdifont/src/scoped_select.cpp
+	plugins/gdifont/src/select_object.cpp
+	plugins/gdifont/src/set_bk_color.cpp
+	plugins/gdifont/src/set_text_color.cpp
+	plugins/gdifont/src/system.cpp
+	plugins/gdifont/src/text.cpp
+)
+
+find_package(
+	awl
+	REQUIRED
+)
+
+# TODO: Change this
+# Link to AWL so we get the unicode definitions
+
+add_sge_plugin(
+	gdifont
+	SGE_DEPS
+		sgefont
+		sgeimage2d
+		sgelog
+		sgeplugin
+	ADDITIONAL_DEPS
+		${awl_TARGET}
+		${fcppt_filesystem_TARGET}
+		${fcppt_log_TARGET}
+		${Boost_FILESYSTEM_LIBRARIES}
+)

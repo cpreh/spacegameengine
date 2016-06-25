@@ -1,0 +1,29 @@
+set(
+	SGE_WINDOW_FILES
+	libs/window/include/sge/window/default_class_name.hpp
+	libs/window/include/sge/window/dim.hpp
+	libs/window/include/sge/window/dim_fwd.hpp
+	libs/window/include/sge/window/object.hpp
+	libs/window/include/sge/window/object_fwd.hpp
+	libs/window/include/sge/window/object_unique_ptr.hpp
+	libs/window/include/sge/window/optional_dim.hpp
+	libs/window/include/sge/window/optional_dim_fwd.hpp
+	libs/window/include/sge/window/system.hpp
+	libs/window/include/sge/window/system_fwd.hpp
+	libs/window/include/sge/window/title.hpp
+	libs/window/include/sge/window/unit.hpp
+	libs/window/src/window/default_class_name.cpp
+	libs/window/src/window/object.cpp
+	libs/window/src/window/system.cpp
+)
+
+find_package(
+	awl
+	REQUIRED
+)
+
+add_sge_base_library(
+	window
+	ADDITIONAL_DEPS
+		${awl_TARGET}
+)

@@ -1,0 +1,82 @@
+set(
+	SGE_IMAGEDS2D_FILES
+	libs/imageds2d/include/sge/imageds2d/algorithm/copy.hpp
+	libs/imageds2d/include/sge/imageds2d/algorithm/invalid_copy.hpp
+	libs/imageds2d/include/sge/imageds2d/d16_format.hpp
+	libs/imageds2d/include/sge/imageds2d/d24s8_format.hpp
+	libs/imageds2d/include/sge/imageds2d/d32_format.hpp
+	libs/imageds2d/include/sge/imageds2d/dim.hpp
+	libs/imageds2d/include/sge/imageds2d/dim_fwd.hpp
+	libs/imageds2d/include/sge/imageds2d/pitch.hpp
+	libs/imageds2d/include/sge/imageds2d/pitch_fwd.hpp
+	libs/imageds2d/include/sge/imageds2d/rect.hpp
+	libs/imageds2d/include/sge/imageds2d/rect_fwd.hpp
+	libs/imageds2d/include/sge/imageds2d/store/d16.hpp
+	libs/imageds2d/include/sge/imageds2d/store/d16_fwd.hpp
+	libs/imageds2d/include/sge/imageds2d/store/d24s8.hpp
+	libs/imageds2d/include/sge/imageds2d/store/d24s8_fwd.hpp
+	libs/imageds2d/include/sge/imageds2d/store/d32.hpp
+	libs/imageds2d/include/sge/imageds2d/store/d32_fwd.hpp
+	libs/imageds2d/include/sge/imageds2d/tag.hpp
+	libs/imageds2d/include/sge/imageds2d/traits/box_fwd.hpp
+	libs/imageds2d/include/sge/imageds2d/traits/color_tag.hpp
+	libs/imageds2d/include/sge/imageds2d/traits/const_view_fwd.hpp
+	libs/imageds2d/include/sge/imageds2d/traits/dim_fwd.hpp
+	libs/imageds2d/include/sge/imageds2d/traits/pitch_fwd.hpp
+	libs/imageds2d/include/sge/imageds2d/traits/view_elements.hpp
+	libs/imageds2d/include/sge/imageds2d/traits/view_fwd.hpp
+	libs/imageds2d/include/sge/imageds2d/transform_elements.hpp
+	libs/imageds2d/include/sge/imageds2d/view/const_element.hpp
+	libs/imageds2d/include/sge/imageds2d/view/const_elements.hpp
+	libs/imageds2d/include/sge/imageds2d/view/const_elements_wrapper.hpp
+	libs/imageds2d/include/sge/imageds2d/view/const_elements_wrapper_fwd.hpp
+	libs/imageds2d/include/sge/imageds2d/view/const_object.hpp
+	libs/imageds2d/include/sge/imageds2d/view/const_object_fwd.hpp
+	libs/imageds2d/include/sge/imageds2d/view/data.hpp
+	libs/imageds2d/include/sge/imageds2d/view/element.hpp
+	libs/imageds2d/include/sge/imageds2d/view/element_base.hpp
+	libs/imageds2d/include/sge/imageds2d/view/elements.hpp
+	libs/imageds2d/include/sge/imageds2d/view/elements_wrapper.hpp
+	libs/imageds2d/include/sge/imageds2d/view/elements_wrapper_fwd.hpp
+	libs/imageds2d/include/sge/imageds2d/view/flipped.hpp
+	libs/imageds2d/include/sge/imageds2d/view/format.hpp
+	libs/imageds2d/include/sge/imageds2d/view/make.hpp
+	libs/imageds2d/include/sge/imageds2d/view/object.hpp
+	libs/imageds2d/include/sge/imageds2d/view/object_fwd.hpp
+	libs/imageds2d/include/sge/imageds2d/view/sub.hpp
+	libs/imageds2d/include/sge/imageds2d/view/to_const.hpp
+	libs/imageds2d/src/imageds2d/algorithm/copy.cpp
+	libs/imageds2d/src/imageds2d/store/d16.cpp
+	libs/imageds2d/src/imageds2d/store/d24s8.cpp
+	libs/imageds2d/src/imageds2d/store/d32.cpp
+	libs/imageds2d/src/imageds2d/view/const_object.cpp
+	libs/imageds2d/src/imageds2d/view/flipped.cpp
+	libs/imageds2d/src/imageds2d/view/format.cpp
+	libs/imageds2d/src/imageds2d/view/make.cpp
+	libs/imageds2d/src/imageds2d/view/object.cpp
+	libs/imageds2d/src/imageds2d/view/sub.cpp
+	libs/imageds2d/src/imageds2d/view/to_const.cpp
+)
+
+sge_implement_from_lib(
+	image
+	IMAGE_DEFINITIONS
+	IMAGE_INCLUDES
+)
+
+add_sge_base_library(
+	imageds2d
+	SGE_DEPS
+		sgeimage
+		sgeimageds
+	ADDITIONAL_DEPS
+		fcppt_core_interface
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
+		mizuiro_interface
+	INCLUDE_DIRS
+		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/imageds/src/image/ds/include"
+		${IMAGE_INCLUDES}
+	COMPILE_DEFINITIONS
+		${IMAGE_DEFINITIONS}
+)

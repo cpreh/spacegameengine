@@ -1,0 +1,61 @@
+set(
+	SGE_MODELOBJ_FILES
+	libs/modelobj/include/sge/model/obj/box.hpp
+	libs/modelobj/include/sge/model/obj/box_fwd.hpp
+	libs/modelobj/include/sge/model/obj/exception.hpp
+	libs/modelobj/include/sge/model/obj/face.hpp
+	libs/modelobj/include/sge/model/obj/face_sequence.hpp
+	libs/modelobj/include/sge/model/obj/face_vertex.hpp
+	libs/modelobj/include/sge/model/obj/face_vertex_sequence.hpp
+	libs/modelobj/include/sge/model/obj/identifier.hpp
+	libs/modelobj/include/sge/model/obj/log_location.hpp
+	libs/modelobj/include/sge/model/obj/material/ambient_color.hpp
+	libs/modelobj/include/sge/model/obj/material/diffuse_color.hpp
+	libs/modelobj/include/sge/model/obj/material/diffuse_texture_path.hpp
+	libs/modelobj/include/sge/model/obj/material/emissive_color.hpp
+	libs/modelobj/include/sge/model/obj/material/file_sequence.hpp
+	libs/modelobj/include/sge/model/obj/material/object.hpp
+	libs/modelobj/include/sge/model/obj/material/object_fwd.hpp
+	libs/modelobj/include/sge/model/obj/material/shininess.hpp
+	libs/modelobj/include/sge/model/obj/material/specular_color.hpp
+	libs/modelobj/include/sge/model/obj/material/specular_texture_path.hpp
+	libs/modelobj/include/sge/model/obj/material_map.hpp
+	libs/modelobj/include/sge/model/obj/material_to_face_sequence.hpp
+	libs/modelobj/include/sge/model/obj/normal.hpp
+	libs/modelobj/include/sge/model/obj/normal_index.hpp
+	libs/modelobj/include/sge/model/obj/normal_sequence.hpp
+	libs/modelobj/include/sge/model/obj/parse_mtllib.hpp
+	libs/modelobj/include/sge/model/obj/prototype.hpp
+	libs/modelobj/include/sge/model/obj/prototype_fwd.hpp
+	libs/modelobj/include/sge/model/obj/texture_coordinate.hpp
+	libs/modelobj/include/sge/model/obj/texture_coordinate_index.hpp
+	libs/modelobj/include/sge/model/obj/texture_coordinate_sequence.hpp
+	libs/modelobj/include/sge/model/obj/vertex_coordinate.hpp
+	libs/modelobj/include/sge/model/obj/vertex_coordinate_index.hpp
+	libs/modelobj/include/sge/model/obj/vertex_coordinate_sequence.hpp
+	libs/modelobj/src/model/obj/exception.cpp
+	libs/modelobj/src/model/obj/face_vertex.cpp
+	libs/modelobj/src/model/obj/include/sge/src/model/obj/logger.hpp
+	libs/modelobj/src/model/obj/log_location.cpp
+	libs/modelobj/src/model/obj/logger.cpp
+	libs/modelobj/src/model/obj/material/object.cpp
+	libs/modelobj/src/model/obj/parse_mtllib.cpp
+	libs/modelobj/src/model/obj/prototype.cpp
+)
+
+
+add_sge_base_library(
+	"model/obj"
+	SGE_DEPS
+		sgecharconv
+		sgecore
+		sgeimagecolor
+		sgelog
+		sgerenderer
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+		${fcppt_log_TARGET}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/src/model/obj/include"
+)

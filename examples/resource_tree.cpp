@@ -40,7 +40,7 @@ namespace
 
 typedef boost::filesystem::path resource;
 
-resource const
+resource
 path_to_resource(
 	boost::filesystem::path const &_path
 )

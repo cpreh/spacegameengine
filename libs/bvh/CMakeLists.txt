@@ -1,0 +1,19 @@
+set(
+	SGE_BVH_FILES
+	libs/bvh/include/sge/bvh/bounding_box.hpp
+	libs/bvh/include/sge/bvh/construct_median_cut.hpp
+	libs/bvh/include/sge/bvh/dummy_node.hpp
+	libs/bvh/include/sge/bvh/empty_node.hpp
+	libs/bvh/include/sge/bvh/leaf_wrapper.hpp
+	libs/bvh/include/sge/bvh/node_wrapper.hpp
+	libs/bvh/include/sge/bvh/object_decl.hpp
+	libs/bvh/include/sge/bvh/object_impl.hpp
+	libs/bvh/include/sge/bvh/traits/box.hpp
+	libs/bvh/include/sge/bvh/tree_traits.hpp
+)
+
+add_sge_dummy_library(
+	bvh
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
+)

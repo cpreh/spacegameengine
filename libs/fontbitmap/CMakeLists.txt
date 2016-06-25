@@ -1,0 +1,56 @@
+set(
+	SGE_FONTBITMAP_FILES
+	libs/fontbitmap/include/sge/font/bitmap/create.hpp
+	libs/fontbitmap/include/sge/font/bitmap/log_location.hpp
+	libs/fontbitmap/src/font/bitmap/char_metric.cpp
+	libs/fontbitmap/src/font/bitmap/create.cpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/char_map.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/char_metric.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/char_metric_fwd.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/char_metric_ref.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/char_metric_ref_vector.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/const_view.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/line.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/line_fwd.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/line_height.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/line_vector.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/load_offset.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/load_one_file.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/load_rect.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/logger.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/make_rep.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/object.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/position.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/position_fwd.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/rep.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/rep_fwd.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/text.hpp
+	libs/fontbitmap/src/font/bitmap/line.cpp
+	libs/fontbitmap/src/font/bitmap/load_offset.cpp
+	libs/fontbitmap/src/font/bitmap/load_one_file.cpp
+	libs/fontbitmap/src/font/bitmap/load_rect.cpp
+	libs/fontbitmap/src/font/bitmap/log_location.cpp
+	libs/fontbitmap/src/font/bitmap/logger.cpp
+	libs/fontbitmap/src/font/bitmap/make_rep.cpp
+	libs/fontbitmap/src/font/bitmap/object.cpp
+	libs/fontbitmap/src/font/bitmap/position.cpp
+	libs/fontbitmap/src/font/bitmap/rep.cpp
+	libs/fontbitmap/src/font/bitmap/text.cpp
+)
+
+add_sge_base_library(
+	"font/bitmap"
+	SGE_DEPS
+		sgecore
+		sgefont
+		sgeimagecolor
+		sgeimage2d
+		sgelog
+		sgeparsejson
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+		${fcppt_log_TARGET}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/src/font/bitmap/include"
+)

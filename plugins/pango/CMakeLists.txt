@@ -1,0 +1,75 @@
+set(
+	SGE_PANGO_FILES
+	plugins/pango/include/sge/pango/added.hpp
+	plugins/pango/include/sge/pango/convert/alignment.hpp
+	plugins/pango/include/sge/pango/convert/from_rect.hpp
+	plugins/pango/include/sge/pango/convert/from_rect_scale.hpp
+	plugins/pango/include/sge/pango/convert/from_unit.hpp
+	plugins/pango/include/sge/pango/convert/to_unit.hpp
+	plugins/pango/include/sge/pango/create_font_map.hpp
+	plugins/pango/include/sge/pango/create_layout.hpp
+	plugins/pango/include/sge/pango/create_text_layout.hpp
+	plugins/pango/include/sge/pango/extents.hpp
+	plugins/pango/include/sge/pango/extents_fwd.hpp
+	plugins/pango/include/sge/pango/font_description.hpp
+	plugins/pango/include/sge/pango/freetype/make_bitmap.hpp
+	plugins/pango/include/sge/pango/get_extents.hpp
+	plugins/pango/include/sge/pango/glib_deleter.hpp
+	plugins/pango/include/sge/pango/glib_deleter_fwd.hpp
+	plugins/pango/include/sge/pango/ink_rect.hpp
+	plugins/pango/include/sge/pango/ink_rect_fwd.hpp
+	plugins/pango/include/sge/pango/logger_context.hpp
+	plugins/pango/include/sge/pango/logical_rect.hpp
+	plugins/pango/include/sge/pango/logical_rect_fwd.hpp
+	plugins/pango/include/sge/pango/make_metrics.hpp
+	plugins/pango/include/sge/pango/no_multi_line.hpp
+	plugins/pango/include/sge/pango/object.hpp
+	plugins/pango/include/sge/pango/pango_font_map_unique_ptr.hpp
+	plugins/pango/include/sge/pango/pango_layout_unique_ptr.hpp
+	plugins/pango/include/sge/pango/system.hpp
+	plugins/pango/include/sge/pango/text.hpp
+	plugins/pango/src/added.cpp
+	plugins/pango/src/convert/alignment.cpp
+	plugins/pango/src/convert/from_rect.cpp
+	plugins/pango/src/convert/from_rect_scale.cpp
+	plugins/pango/src/convert/from_unit.cpp
+	plugins/pango/src/convert/to_unit.cpp
+	plugins/pango/src/create_font_map.cpp
+	plugins/pango/src/create_layout.cpp
+	plugins/pango/src/create_text_layout.cpp
+	plugins/pango/src/exports.cpp
+	plugins/pango/src/extents.cpp
+	plugins/pango/src/font_description.cpp
+	plugins/pango/src/freetype/make_bitmap.cpp
+	plugins/pango/src/get_extents.cpp
+	plugins/pango/src/glib_deleter.cpp
+	plugins/pango/src/logger_context.cpp
+	plugins/pango/src/make_metrics.cpp
+	plugins/pango/src/object.cpp
+	plugins/pango/src/system.cpp
+	plugins/pango/src/text.cpp
+)
+
+# TODO: Do we need this?
+link_directories(
+	${PANGO_LIBRARY_DIRS}
+)
+
+add_sge_plugin(
+	pango
+	SGE_DEPS
+		sgecharconv
+		sgefont
+		sgeimagecolor
+		sgeimage2d
+		sgeplugin
+	ADDITIONAL_DEPS
+		${PANGO_LIBRARIES}
+		${fcppt_filesystem_TARGET}
+		${fcppt_log_TARGET}
+		${Boost_FILESYSTEM_LIBRARIES}
+	INCLUDE_DIRS
+		${PANGO_INCLUDE_DIRS}
+	COMPILE_FLAGS
+		${PANGO_CFLAGS}
+)

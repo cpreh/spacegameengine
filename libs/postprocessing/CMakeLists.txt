@@ -1,0 +1,31 @@
+set(
+	SGE_POSTPROCESSING_FILES
+	libs/postprocessing/include/sge/postprocessing/context.hpp
+	libs/postprocessing/include/sge/postprocessing/context_fwd.hpp
+	libs/postprocessing/include/sge/postprocessing/fullscreen_quad.hpp
+	libs/postprocessing/include/sge/postprocessing/fullscreen_quad_fwd.hpp
+	libs/postprocessing/include/sge/postprocessing/vf/format.hpp
+	libs/postprocessing/include/sge/postprocessing/vf/format_part.hpp
+	libs/postprocessing/include/sge/postprocessing/vf/position.hpp
+	libs/postprocessing/include/sge/postprocessing/vf/texcoord.hpp
+	libs/postprocessing/src/postprocessing/context.cpp
+	libs/postprocessing/src/postprocessing/fullscreen_quad.cpp
+)
+
+add_sge_base_library(
+	"postprocessing"
+	SGE_DEPS
+		sgecg
+		sgeconfig
+		sgerenderer
+		sgerenderercg
+		sgeshader
+		sgeviewport
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+	TRANSITIVE_SGE_DEPS
+		sgeshader
+	INCLUDE_DIRS
+		"${Cg_INCLUDE_DIRS}"
+)

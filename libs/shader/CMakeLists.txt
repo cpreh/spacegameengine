@@ -1,0 +1,58 @@
+set(
+	SGE_SHADER_FILES
+	libs/shader/include/sge/shader/context.hpp
+	libs/shader/include/sge/shader/context_fwd.hpp
+	libs/shader/include/sge/shader/exception.hpp
+	libs/shader/include/sge/shader/exception_fwd.hpp
+	libs/shader/include/sge/shader/istream_ref.hpp
+	libs/shader/include/sge/shader/load_edited_string.hpp
+	libs/shader/include/sge/shader/optional_cflags.hpp
+	libs/shader/include/sge/shader/optional_context_ref.hpp
+	libs/shader/include/sge/shader/pair.hpp
+	libs/shader/include/sge/shader/pair_fwd.hpp
+	libs/shader/include/sge/shader/parameter/is_projection_matrix.hpp
+	libs/shader/include/sge/shader/parameter/matrix.hpp
+	libs/shader/include/sge/shader/parameter/matrix_decl.hpp
+	libs/shader/include/sge/shader/parameter/matrix_fwd.hpp
+	libs/shader/include/sge/shader/parameter/matrix_impl.hpp
+	libs/shader/include/sge/shader/parameter/name.hpp
+	libs/shader/include/sge/shader/parameter/planar_texture.hpp
+	libs/shader/include/sge/shader/parameter/planar_texture_fwd.hpp
+	libs/shader/include/sge/shader/parameter/scalar.hpp
+	libs/shader/include/sge/shader/parameter/scalar_decl.hpp
+	libs/shader/include/sge/shader/parameter/scalar_fwd.hpp
+	libs/shader/include/sge/shader/parameter/scalar_impl.hpp
+	libs/shader/include/sge/shader/parameter/vector.hpp
+	libs/shader/include/sge/shader/parameter/vector_decl.hpp
+	libs/shader/include/sge/shader/parameter/vector_fwd.hpp
+	libs/shader/include/sge/shader/parameter/vector_impl.hpp
+	libs/shader/include/sge/shader/pixel_profile.hpp
+	libs/shader/include/sge/shader/pixel_program_path.hpp
+	libs/shader/include/sge/shader/pixel_program_stream.hpp
+	libs/shader/include/sge/shader/scoped_pair.hpp
+	libs/shader/include/sge/shader/scoped_pair_fwd.hpp
+	libs/shader/include/sge/shader/vertex_profile.hpp
+	libs/shader/include/sge/shader/vertex_program_path.hpp
+	libs/shader/include/sge/shader/vertex_program_stream.hpp
+	libs/shader/src/shader/context.cpp
+	libs/shader/src/shader/exception.cpp
+	libs/shader/src/shader/load_edited_string.cpp
+	libs/shader/src/shader/pair.cpp
+	libs/shader/src/shader/parameter/planar_texture.cpp
+	libs/shader/src/shader/scoped_pair.cpp
+)
+
+add_sge_base_library(
+	"shader"
+	SGE_DEPS
+		sgecg
+		sgerenderer
+		sgerenderercg
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+	TRANSITIVE_SGE_DEPS
+		sgecg
+	TRANSITIVE_INCLUDE_DIRS
+		${Cg_INCLUDE_DIRS}
+)

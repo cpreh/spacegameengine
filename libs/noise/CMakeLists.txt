@@ -1,0 +1,24 @@
+set(
+	SGE_NOISE_FILES
+	libs/noise/include/sge/noise/perlin/object.hpp
+	libs/noise/include/sge/noise/perlin/object_decl.hpp
+	libs/noise/include/sge/noise/perlin/object_fwd.hpp
+	libs/noise/include/sge/noise/perlin/object_impl.hpp
+	libs/noise/include/sge/noise/sample.hpp
+	libs/noise/include/sge/noise/sample_parameters.hpp
+	libs/noise/include/sge/noise/sample_parameters_decl.hpp
+	libs/noise/include/sge/noise/sample_parameters_fwd.hpp
+	libs/noise/include/sge/noise/sample_parameters_impl.hpp
+	libs/noise/include/sge/noise/simplex/detail/mod.hpp
+	libs/noise/include/sge/noise/simplex/object.hpp
+	libs/noise/include/sge/noise/simplex/object_decl.hpp
+	libs/noise/include/sge/noise/simplex/object_fwd.hpp
+	libs/noise/include/sge/noise/simplex/object_impl.hpp
+	libs/noise/include/sge/noise/simplex/width.hpp
+)
+
+add_sge_dummy_library(
+	noise
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
+)

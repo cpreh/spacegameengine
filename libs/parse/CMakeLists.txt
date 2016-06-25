@@ -1,0 +1,50 @@
+set(
+	SGE_PARSE_FILES
+	libs/parse/include/sge/parse/encoding.hpp
+	libs/parse/include/sge/parse/error_string.hpp
+	libs/parse/include/sge/parse/exception.hpp
+	libs/parse/include/sge/parse/exception_fwd.hpp
+	libs/parse/include/sge/parse/info_to_string.hpp
+	libs/parse/include/sge/parse/install_error_handler.hpp
+	libs/parse/include/sge/parse/make_error_string.hpp
+	libs/parse/include/sge/parse/make_result.hpp
+	libs/parse/include/sge/parse/optional_error_string.hpp
+	libs/parse/include/sge/parse/optional_error_string_fwd.hpp
+	libs/parse/include/sge/parse/parse_exception.hpp
+	libs/parse/include/sge/parse/parse_exception_fwd.hpp
+	libs/parse/include/sge/parse/result.hpp
+	libs/parse/include/sge/parse/result_code.hpp
+	libs/parse/include/sge/parse/result_code_fwd.hpp
+	libs/parse/include/sge/parse/result_fwd.hpp
+	libs/parse/include/sge/parse/result_with_value.hpp
+	libs/parse/include/sge/parse/result_with_value_fwd.hpp
+	libs/parse/src/parse/exception.cpp
+	libs/parse/src/parse/include/sge/src/parse/instantiate_result_with_value.hpp
+	libs/parse/src/parse/include/sge/src/parse/output/to_file.hpp
+	libs/parse/src/parse/include/sge/src/parse/output/to_stream.hpp
+	libs/parse/src/parse/include/sge/src/parse/parse_file.hpp
+	libs/parse/src/parse/include/sge/src/parse/parse_file_exn.hpp
+	libs/parse/src/parse/include/sge/src/parse/parse_file_opt.hpp
+	libs/parse/src/parse/include/sge/src/parse/parse_stream.hpp
+	libs/parse/src/parse/include/sge/src/parse/result_with_value_impl.hpp
+	libs/parse/src/parse/info_to_string.cpp
+	libs/parse/src/parse/make_error_string.cpp
+	libs/parse/src/parse/parse_exception.cpp
+	libs/parse/src/parse/result.cpp
+)
+
+add_sge_base_library(
+	parse
+	SGE_DEPS
+		sgecore
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+	TRANSITIVE_SGE_DEPS
+		sgecore
+	TRANSITIVE_ADDITIONAL_DEPS
+		${fcppt_filesystem_TARGET}
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/src/parse/include"
+	TRANSITIVE_COMPILE_DEFINITIONS
+		"BOOST_SPIRIT_USE_PHOENIX_V3"
+)

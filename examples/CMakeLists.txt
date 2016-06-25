@@ -370,6 +370,7 @@ add_sge_example(
 		sgesystems
 		sgeviewport
 		sgewindow
+		sgetimer_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
@@ -542,6 +543,7 @@ add_sge_example(
 		sgeconfig
 		sgeimagecolor
 		sgeinput
+		sgelog
 		sgemedia
 		sgerenderer
 		sgesystems
@@ -581,6 +583,7 @@ add_sge_example(
 		sgetexture
 		sgeviewport
 		sgewindow
+		sgenoise_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
@@ -646,6 +649,7 @@ add_sge_example(
 		sgesystems
 		sgeviewport
 		sgewindow
+		sgetimer_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
@@ -707,6 +711,7 @@ add_sge_console_example(
 		sgeconfig
 		sgelog
 		sgesystems
+		sgetimer_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
@@ -857,6 +862,7 @@ add_sge_console_example(
 		sgeaudio
 		sgeconfig
 		sgesystems
+		sgetimer_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
@@ -945,6 +951,7 @@ add_sge_example(
 		sgesystems
 		sgeviewport
 		sgewindow
+		sgenoise_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}

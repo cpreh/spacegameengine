@@ -1,0 +1,63 @@
+set(
+	SGE_WININPUT_FILES
+	plugins/wininput/include/sge/wininput/cursor/clip.hpp
+	plugins/wininput/include/sge/wininput/cursor/define.hpp
+	plugins/wininput/include/sge/wininput/cursor/define_fwd.hpp
+	plugins/wininput/include/sge/wininput/cursor/exclusive_mode.hpp
+	plugins/wininput/include/sge/wininput/cursor/exclusive_mode_fwd.hpp
+	plugins/wininput/include/sge/wininput/cursor/get_pos.hpp
+	plugins/wininput/include/sge/wininput/cursor/grab.hpp
+	plugins/wininput/include/sge/wininput/cursor/object.hpp
+	plugins/wininput/include/sge/wininput/cursor/object_fwd.hpp
+	plugins/wininput/include/sge/wininput/cursor/pixmap.hpp
+	plugins/wininput/include/sge/wininput/cursor/release_capture.hpp
+	plugins/wininput/include/sge/wininput/cursor/set_capture.hpp
+	plugins/wininput/include/sge/wininput/cursor/show.hpp
+	plugins/wininput/include/sge/wininput/cursor/ungrab.hpp
+	plugins/wininput/include/sge/wininput/focus/object.hpp
+	plugins/wininput/include/sge/wininput/focus/object_fwd.hpp
+	plugins/wininput/include/sge/wininput/focus/translate_key_code.hpp
+	plugins/wininput/include/sge/wininput/has_focus.hpp
+	plugins/wininput/include/sge/wininput/logger.hpp
+	plugins/wininput/include/sge/wininput/logger_context.hpp
+	plugins/wininput/include/sge/wininput/processor.hpp
+	plugins/wininput/include/sge/wininput/system.hpp
+	plugins/wininput/src/cursor/clip.cpp
+	plugins/wininput/src/cursor/define.cpp
+	plugins/wininput/src/cursor/exclusive_mode.cpp
+	plugins/wininput/src/cursor/get_pos.cpp
+	plugins/wininput/src/cursor/grab.cpp
+	plugins/wininput/src/cursor/object.cpp
+	plugins/wininput/src/cursor/pixmap.cpp
+	plugins/wininput/src/cursor/release_capture.cpp
+	plugins/wininput/src/cursor/set_capture.cpp
+	plugins/wininput/src/cursor/show.cpp
+	plugins/wininput/src/cursor/ungrab.cpp
+	plugins/wininput/src/exports.cpp
+	plugins/wininput/src/focus/object.cpp
+	plugins/wininput/src/focus/translate_key_code.cpp
+	plugins/wininput/src/logger.cpp
+	plugins/wininput/src/logger_context.cpp
+	plugins/wininput/src/processor.cpp
+	plugins/wininput/src/system.cpp
+)
+
+find_package(
+	awl
+	REQUIRED
+)
+
+# TODO: Change this
+# Link to AWL so we get the unicode definitions
+
+add_sge_plugin(
+	wininput
+	SGE_DEPS
+		sgeinput
+		sgelog
+		sgeplugin
+		sgewindow
+	ADDITIONAL_DEPS
+		${awl_TARGET}
+		${fcppt_log_TARGET}
+)

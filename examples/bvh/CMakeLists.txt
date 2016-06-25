@@ -10,12 +10,15 @@ add_sge_example(
 		sgesystems
 		sgeviewport
 		sgewindow
+		sgebvh_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 )
 
 add_sge_console_example(
 	bvh_benchmark
+	SGE_DEPS
+		sgebvh_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 	INCLUDE_DIRS

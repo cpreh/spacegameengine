@@ -1,0 +1,217 @@
+set(
+	SGE_IMAGE_FILES
+	libs/image/include/sge/image/algorithm/clone.hpp
+	libs/image/include/sge/image/algorithm/compare.hpp
+	libs/image/include/sge/image/algorithm/copy.hpp
+	libs/image/include/sge/image/algorithm/copy_and_convert.hpp
+	libs/image/include/sge/image/algorithm/fill.hpp
+	libs/image/include/sge/image/algorithm/invalid_copy.hpp
+	libs/image/include/sge/image/algorithm/may_overlap.hpp
+	libs/image/include/sge/image/algorithm/may_overlap_fwd.hpp
+	libs/image/include/sge/image/algorithm/print.hpp
+	libs/image/include/sge/image/algorithm/uninitialized.hpp
+	libs/image/include/sge/image/algorithm/uninitialized_fwd.hpp
+	libs/image/include/sge/image/box.hpp
+	libs/image/include/sge/image/box_fwd.hpp
+	libs/image/include/sge/image/channel16.hpp
+	libs/image/include/sge/image/channel32.hpp
+	libs/image/include/sge/image/channel32f.hpp
+	libs/image/include/sge/image/channel8.hpp
+	libs/image/include/sge/image/const_raw_pointer.hpp
+	libs/image/include/sge/image/difference_type.hpp
+	libs/image/include/sge/image/dim.hpp
+	libs/image/include/sge/image/dim_fwd.hpp
+	libs/image/include/sge/image/exception.hpp
+	libs/image/include/sge/image/exception_fwd.hpp
+	libs/image/include/sge/image/format_static.hpp
+	libs/image/include/sge/image/heterogenous_format.hpp
+	libs/image/include/sge/image/homogenous_format.hpp
+	libs/image/include/sge/image/integral_size.hpp
+	libs/image/include/sge/image/invalid_convert.hpp
+	libs/image/include/sge/image/mizuiro_color.hpp
+	libs/image/include/sge/image/mizuiro_color_fwd.hpp
+	libs/image/include/sge/image/mizuiro_color_traits.hpp
+	libs/image/include/sge/image/pitch.hpp
+	libs/image/include/sge/image/pitch_fwd.hpp
+	libs/image/include/sge/image/raw_pointer.hpp
+	libs/image/include/sge/image/raw_value.hpp
+	libs/image/include/sge/image/size_type.hpp
+	libs/image/include/sge/image/store/basic.hpp
+	libs/image/include/sge/image/store/basic_fwd.hpp
+	libs/image/include/sge/image/store/element.hpp
+	libs/image/include/sge/image/store/object.hpp
+	libs/image/include/sge/image/store/object_fwd.hpp
+	libs/image/include/sge/image/store/view.hpp
+	libs/image/include/sge/image/traits/any_object_fwd.hpp
+	libs/image/include/sge/image/traits/box_fwd.hpp
+	libs/image/include/sge/image/traits/color_tag.hpp
+	libs/image/include/sge/image/traits/const_view_fwd.hpp
+	libs/image/include/sge/image/traits/dim_fwd.hpp
+	libs/image/include/sge/image/traits/format_fwd.hpp
+	libs/image/include/sge/image/traits/format_is_ref.hpp
+	libs/image/include/sge/image/traits/format_static.hpp
+	libs/image/include/sge/image/traits/format_stride.hpp
+	libs/image/include/sge/image/traits/format_to_string.hpp
+	libs/image/include/sge/image/traits/pitch_fwd.hpp
+	libs/image/include/sge/image/traits/store_fwd.hpp
+	libs/image/include/sge/image/traits/sub_out_of_range.hpp
+	libs/image/include/sge/image/traits/view_elements.hpp
+	libs/image/include/sge/image/traits/view_fwd.hpp
+	libs/image/include/sge/image/transform_elements.hpp
+	libs/image/include/sge/image/vector.hpp
+	libs/image/include/sge/image/vector_fwd.hpp
+	libs/image/include/sge/image/view/basic_format.hpp
+	libs/image/include/sge/image/view/checked_sub.hpp
+	libs/image/include/sge/image/view/const_object.hpp
+	libs/image/include/sge/image/view/const_object_fwd.hpp
+	libs/image/include/sge/image/view/data.hpp
+	libs/image/include/sge/image/view/element_base.hpp
+	libs/image/include/sge/image/view/flipped.hpp
+	libs/image/include/sge/image/view/format.hpp
+	libs/image/include/sge/image/view/get.hpp
+	libs/image/include/sge/image/view/has_element.hpp
+	libs/image/include/sge/image/view/make.hpp
+	libs/image/include/sge/image/view/make_const.hpp
+	libs/image/include/sge/image/view/make_mizuiro_type.hpp
+	libs/image/include/sge/image/view/mizuiro_access.hpp
+	libs/image/include/sge/image/view/mizuiro_traits.hpp
+	libs/image/include/sge/image/view/mizuiro_type.hpp
+	libs/image/include/sge/image/view/object.hpp
+	libs/image/include/sge/image/view/object_fwd.hpp
+	libs/image/include/sge/image/view/pitch.hpp
+	libs/image/include/sge/image/view/size.hpp
+	libs/image/include/sge/image/view/sub.hpp
+	libs/image/include/sge/image/view/sub_out_of_range.hpp
+	libs/image/include/sge/image/view/to_const.hpp
+	libs/image/include/sge/image/view/wrap.hpp
+	libs/image/include/sge/image/view/wrapped_type.hpp
+	libs/image/src/image/algorithm/convert_may_overlap.cpp
+	libs/image/src/image/algorithm/convert_uninitialized.cpp
+	libs/image/src/image/exception.cpp
+	libs/image/src/image/include/sge/src/image/algorithm/clone_impl.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/compare_element.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/compare_impl.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/compare_visitor.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/convert_may_overlap.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/convert_uninitialized.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/copy_and_convert_dynamic.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/copy_and_convert_impl.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/copy_and_convert_static.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/copy_impl.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/fill_impl.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/instantiate_clone.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/instantiate_compare.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/instantiate_copy.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/instantiate_copy_and_convert.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/instantiate_fill.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/instantiate_invalid_copy.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/instantiate_print.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/invalid_copy_impl.hpp
+	libs/image/src/image/include/sge/src/image/algorithm/print_impl.hpp
+	libs/image/src/image/include/sge/src/image/from_mizuiro_dim.hpp
+	libs/image/src/image/include/sge/src/image/instantiate_invalid_convert.hpp
+	libs/image/src/image/include/sge/src/image/invalid_convert_impl.hpp
+	libs/image/src/image/include/sge/src/image/store/basic_impl.hpp
+	libs/image/src/image/include/sge/src/image/store/instantiate_basic.hpp
+	libs/image/src/image/include/sge/src/image/store/instantiate_object.hpp
+	libs/image/src/image/include/sge/src/image/store/instantiate_object_ctor.hpp
+	libs/image/src/image/include/sge/src/image/store/instantiate_view.hpp
+	libs/image/src/image/include/sge/src/image/store/object_impl.hpp
+	libs/image/src/image/include/sge/src/image/store/view_any.hpp
+	libs/image/src/image/include/sge/src/image/store/view_impl.hpp
+	libs/image/src/image/include/sge/src/image/to_mizuiro_dim.hpp
+	libs/image/src/image/include/sge/src/image/traits/dynamic_copy_and_convert.hpp
+	libs/image/src/image/include/sge/src/image/traits/static_converter.hpp
+	libs/image/src/image/include/sge/src/image/view/checked_sub_any.hpp
+	libs/image/src/image/include/sge/src/image/view/checked_sub_condition.hpp
+	libs/image/src/image/include/sge/src/image/view/checked_sub_impl.hpp
+	libs/image/src/image/include/sge/src/image/view/const_object_impl.hpp
+	libs/image/src/image/include/sge/src/image/view/data_any.hpp
+	libs/image/src/image/include/sge/src/image/view/data_impl.hpp
+	libs/image/src/image/include/sge/src/image/view/flipped_any.hpp
+	libs/image/src/image/include/sge/src/image/view/flipped_impl.hpp
+	libs/image/src/image/include/sge/src/image/view/format_any.hpp
+	libs/image/src/image/include/sge/src/image/view/format_impl.hpp
+	libs/image/src/image/include/sge/src/image/view/format_macro.hpp
+	libs/image/src/image/include/sge/src/image/view/format_type.hpp
+	libs/image/src/image/include/sge/src/image/view/get_any.hpp
+	libs/image/src/image/include/sge/src/image/view/get_impl.hpp
+	libs/image/src/image/include/sge/src/image/view/instantiate_checked_sub.hpp
+	libs/image/src/image/include/sge/src/image/view/instantiate_const_nonconst.hpp
+	libs/image/src/image/include/sge/src/image/view/instantiate_const_object.hpp
+	libs/image/src/image/include/sge/src/image/view/instantiate_const_object_ctor.hpp
+	libs/image/src/image/include/sge/src/image/view/instantiate_data.hpp
+	libs/image/src/image/include/sge/src/image/view/instantiate_flipped.hpp
+	libs/image/src/image/include/sge/src/image/view/instantiate_format.hpp
+	libs/image/src/image/include/sge/src/image/view/instantiate_get.hpp
+	libs/image/src/image/include/sge/src/image/view/instantiate_make.hpp
+	libs/image/src/image/include/sge/src/image/view/instantiate_make_const.hpp
+	libs/image/src/image/include/sge/src/image/view/instantiate_object.hpp
+	libs/image/src/image/include/sge/src/image/view/instantiate_object_ctor.hpp
+	libs/image/src/image/include/sge/src/image/view/instantiate_pitch.hpp
+	libs/image/src/image/include/sge/src/image/view/instantiate_size.hpp
+	libs/image/src/image/include/sge/src/image/view/instantiate_sub.hpp
+	libs/image/src/image/include/sge/src/image/view/instantiate_sub_out_of_range.hpp
+	libs/image/src/image/include/sge/src/image/view/instantiate_to_const.hpp
+	libs/image/src/image/include/sge/src/image/view/make_const_impl.hpp
+	libs/image/src/image/include/sge/src/image/view/make_impl.hpp
+	libs/image/src/image/include/sge/src/image/view/object_impl.hpp
+	libs/image/src/image/include/sge/src/image/view/pitch_any.hpp
+	libs/image/src/image/include/sge/src/image/view/pitch_impl.hpp
+	libs/image/src/image/include/sge/src/image/view/size_any.hpp
+	libs/image/src/image/include/sge/src/image/view/size_impl.hpp
+	libs/image/src/image/include/sge/src/image/view/sub_any.hpp
+	libs/image/src/image/include/sge/src/image/view/sub_impl.hpp
+	libs/image/src/image/include/sge/src/image/view/sub_out_of_range_impl.hpp
+	libs/image/src/image/include/sge/src/image/view/to_const_impl.hpp
+)
+
+find_package(
+	mizuiro
+	REQUIRED
+)
+
+option(
+	ENABLE_STATIC_COPY_AND_CONVERT
+	"Use static copy and convert which will produce bigger but probably faster code"
+	OFF
+)
+
+if(
+	ENABLE_STATIC_COPY_AND_CONVERT
+)
+	SET(
+		SGE_IMAGE_STATIC_COPY_AND_CONVERT
+		TRUE
+	)
+endif()
+
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in
+	${CMAKE_CURRENT_BINARY_DIR}/include/sge/src/image/config.hpp
+)
+
+sge_generate_instantiate_symbol_header(
+	image
+)
+
+# FIXME: Move imagecolor out of here!
+add_sge_base_library(
+	image
+	SGE_DEPS
+		sgecore
+	TRANSITIVE_SGE_DEPS
+		sgecore
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+		mizuiro_interface
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
+		fcppt_filesystem_interface
+		mizuiro_interface
+	INCLUDE_DIRS
+		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/imagecolor/include"
+		"${CMAKE_CURRENT_SOURCE_DIR}/src/image/include"
+		"${CMAKE_CURRENT_BINARY_DIR}/include"
+)

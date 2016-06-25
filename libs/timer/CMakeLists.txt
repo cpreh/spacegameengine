@@ -1,0 +1,50 @@
+set(
+	SGE_TIMER_FILES
+	libs/timer/include/sge/timer/absolute.hpp
+	libs/timer/include/sge/timer/absolute_decl.hpp
+	libs/timer/include/sge/timer/absolute_fwd.hpp
+	libs/timer/include/sge/timer/absolute_impl.hpp
+	libs/timer/include/sge/timer/basic.hpp
+	libs/timer/include/sge/timer/basic_decl.hpp
+	libs/timer/include/sge/timer/basic_fwd.hpp
+	libs/timer/include/sge/timer/basic_impl.hpp
+	libs/timer/include/sge/timer/clocks/adjustable.hpp
+	libs/timer/include/sge/timer/clocks/adjustable_decl.hpp
+	libs/timer/include/sge/timer/clocks/adjustable_fwd.hpp
+	libs/timer/include/sge/timer/clocks/adjustable_impl.hpp
+	libs/timer/include/sge/timer/clocks/delta.hpp
+	libs/timer/include/sge/timer/clocks/delta_decl.hpp
+	libs/timer/include/sge/timer/clocks/delta_fwd.hpp
+	libs/timer/include/sge/timer/clocks/delta_impl.hpp
+	libs/timer/include/sge/timer/clocks/detail/stateful_base.hpp
+	libs/timer/include/sge/timer/clocks/detail/stateless_base.hpp
+	libs/timer/include/sge/timer/clocks/detail/wrapper.hpp
+	libs/timer/include/sge/timer/clocks/is_stateful.hpp
+	libs/timer/include/sge/timer/clocks/standard.hpp
+	libs/timer/include/sge/timer/difference.hpp
+	libs/timer/include/sge/timer/difference_and_reset.hpp
+	libs/timer/include/sge/timer/difference_fractional.hpp
+	libs/timer/include/sge/timer/elapsed.hpp
+	libs/timer/include/sge/timer/elapsed_and_reset.hpp
+	libs/timer/include/sge/timer/elapsed_fractional.hpp
+	libs/timer/include/sge/timer/elapsed_fractional_and_reset.hpp
+	libs/timer/include/sge/timer/frames_counter.hpp
+	libs/timer/include/sge/timer/frames_counter_fwd.hpp
+	libs/timer/include/sge/timer/parameters.hpp
+	libs/timer/include/sge/timer/parameters_decl.hpp
+	libs/timer/include/sge/timer/parameters_fwd.hpp
+	libs/timer/include/sge/timer/parameters_impl.hpp
+	libs/timer/include/sge/timer/remaining.hpp
+	libs/timer/include/sge/timer/remaining_fractional.hpp
+	libs/timer/include/sge/timer/reset_when_expired.hpp
+	libs/timer/include/sge/timer/scoped_frame_limiter.hpp
+	libs/timer/include/sge/timer/scoped_frame_limiter_fwd.hpp
+	libs/timer/src/timer/frames_counter.cpp
+	libs/timer/src/timer/scoped_frame_limiter.cpp
+)
+
+add_sge_base_library(
+	timer
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+)

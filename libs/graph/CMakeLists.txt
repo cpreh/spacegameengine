@@ -1,0 +1,52 @@
+set(
+	SGE_GRAPH_FILES
+	libs/graph/include/sge/graph/axis_constraint.hpp
+	libs/graph/include/sge/graph/axis_constraint_fwd.hpp
+	libs/graph/include/sge/graph/background_alt_color.hpp
+	libs/graph/include/sge/graph/background_color.hpp
+	libs/graph/include/sge/graph/baseline.hpp
+	libs/graph/include/sge/graph/baseline_color.hpp
+	libs/graph/include/sge/graph/color_scheme.hpp
+	libs/graph/include/sge/graph/color_schemes.hpp
+	libs/graph/include/sge/graph/detail/draw_visitor_fwd.hpp
+	libs/graph/include/sge/graph/foreground_alt_color.hpp
+	libs/graph/include/sge/graph/foreground_color.hpp
+	libs/graph/include/sge/graph/object.hpp
+	libs/graph/include/sge/graph/object_fwd.hpp
+	libs/graph/include/sge/graph/optional_axis_constraint.hpp
+	libs/graph/include/sge/graph/optional_axis_constraint_fwd.hpp
+	libs/graph/include/sge/graph/position.hpp
+	libs/graph/include/sge/graph/scalar.hpp
+	libs/graph/src/graph/axis_constraint.cpp
+	libs/graph/src/graph/color_scheme.cpp
+	libs/graph/src/graph/color_schemes.cpp
+	libs/graph/src/graph/include/sge/src/graph/detail/draw_visitor.hpp
+	libs/graph/src/graph/object.cpp
+)
+
+find_package(
+	majutsu
+	REQUIRED
+)
+
+add_sge_base_library(
+	"graph"
+	SGE_DEPS
+		sgeimage
+		sgeimagecolor
+		sgeimage2d
+		sgerenderer
+		sgesprite
+		sgetexture
+	TRANSITIVE_SGE_DEPS
+		sgeimagecolor_interface
+		sgerenderer_interface
+		sgesprite_interface
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+	TRANSITIVE_ADDITIONAL_DEPS
+		majutsu_interface
+		fcppt_core_interface
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/src/graph/include"
+)

@@ -1,0 +1,40 @@
+set(
+	SGE_RESOURCE_TREE_FILES
+	libs/resource_tree/include/sge/resource_tree/detail/add_directory.hpp
+	libs/resource_tree/include/sge/resource_tree/detail/base_path.hpp
+	libs/resource_tree/include/sge/resource_tree/detail/element_decl.hpp
+	libs/resource_tree/include/sge/resource_tree/detail/element_fwd.hpp
+	libs/resource_tree/include/sge/resource_tree/detail/element_impl.hpp
+	libs/resource_tree/include/sge/resource_tree/detail/element_vector.hpp
+	libs/resource_tree/include/sge/resource_tree/detail/init.hpp
+	libs/resource_tree/include/sge/resource_tree/detail/path_with_resource_decl.hpp
+	libs/resource_tree/include/sge/resource_tree/detail/path_with_resource_fwd.hpp
+	libs/resource_tree/include/sge/resource_tree/detail/path_with_resource_impl.hpp
+	libs/resource_tree/include/sge/resource_tree/detail/strip_file_extension.hpp
+	libs/resource_tree/include/sge/resource_tree/detail/strip_path_prefix.hpp
+	libs/resource_tree/include/sge/resource_tree/detail/sub_path.hpp
+	libs/resource_tree/include/sge/resource_tree/exception.hpp
+	libs/resource_tree/include/sge/resource_tree/object.hpp
+	libs/resource_tree/include/sge/resource_tree/object_decl.hpp
+	libs/resource_tree/include/sge/resource_tree/object_fwd.hpp
+	libs/resource_tree/include/sge/resource_tree/object_impl.hpp
+	libs/resource_tree/include/sge/resource_tree/path.hpp
+	libs/resource_tree/include/sge/resource_tree/path_fwd.hpp
+	libs/resource_tree/include/sge/resource_tree/path_to_resource_function.hpp
+	libs/resource_tree/src/resource_tree/detail/strip_file_extension.cpp
+	libs/resource_tree/src/resource_tree/detail/strip_path_prefix.cpp
+	libs/resource_tree/src/resource_tree/exception.cpp
+	libs/resource_tree/src/resource_tree/path.cpp
+)
+
+add_sge_base_library(
+	resource_tree
+	SGE_DEPS
+		sgecore
+	TRANSITIVE_SGE_DEPS
+		sgecore
+	ADDITIONAL_DEPS
+		${fcppt_filesystem_TARGET}
+	TRANSITIVE_ADDITIONAL_DEPS
+		${fcppt_filesystem_TARGET}
+)

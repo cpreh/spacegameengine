@@ -1,0 +1,41 @@
+set(
+	SGE_CHARCONV_FILES
+	libs/charconv/include/sge/charconv/char_type.hpp
+	libs/charconv/include/sge/charconv/conversion_failed.hpp
+	libs/charconv/include/sge/charconv/convert.hpp
+	libs/charconv/include/sge/charconv/detail/char_type.hpp
+	libs/charconv/include/sge/charconv/encoding.hpp
+	libs/charconv/include/sge/charconv/encoding_fwd.hpp
+	libs/charconv/include/sge/charconv/encoding_to_string.hpp
+	libs/charconv/include/sge/charconv/exception.hpp
+	libs/charconv/include/sge/charconv/fcppt_string_to_utf8.hpp
+	libs/charconv/include/sge/charconv/fcppt_string_to_utf8_file.hpp
+	libs/charconv/include/sge/charconv/string_type.hpp
+	libs/charconv/include/sge/charconv/utf8_file_to_fcppt_string.hpp
+	libs/charconv/include/sge/charconv/utf8_file_to_fcppt_string_exn.hpp
+	libs/charconv/include/sge/charconv/utf8_string.hpp
+	libs/charconv/include/sge/charconv/utf8_string_to_fcppt.hpp
+	libs/charconv/src/charconv/conversion_failed.cpp
+	libs/charconv/src/charconv/convert.cpp
+	libs/charconv/src/charconv/encoding_to_string.cpp
+	libs/charconv/src/charconv/exception.cpp
+	libs/charconv/src/charconv/fcppt_string_to_utf8.cpp
+	libs/charconv/src/charconv/fcppt_string_to_utf8_file.cpp
+	libs/charconv/src/charconv/include/sge/charconv/impl/fcppt_is_utf8.hpp
+	libs/charconv/src/charconv/utf8_file_to_fcppt_string.cpp
+	libs/charconv/src/charconv/utf8_file_to_fcppt_string_exn.cpp
+	libs/charconv/src/charconv/utf8_string_to_fcppt.cpp
+)
+
+add_sge_base_library(
+	charconv
+	SGE_DEPS
+		sgecore
+	ADDITIONAL_DEPS
+		${fcppt_filesystem_TARGET}
+		${fcppt_core_TARGET}
+	TRANSITIVE_SGE_DEPS
+		sgecore
+	INCLUDE_DIRS
+		"${CMAKE_CURRENT_SOURCE_DIR}/src/charconv/include"
+)

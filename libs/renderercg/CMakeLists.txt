@@ -1,0 +1,29 @@
+set(
+	SGE_RENDERERCG_FILES
+	libs/renderercg/include/sge/renderer/cg/loaded_program.hpp
+	libs/renderercg/include/sge/renderer/cg/loaded_program_fwd.hpp
+	libs/renderercg/include/sge/renderer/cg/loaded_program_unique_ptr.hpp
+	libs/renderercg/include/sge/renderer/cg/loaded_texture.hpp
+	libs/renderercg/include/sge/renderer/cg/loaded_texture_fwd.hpp
+	libs/renderercg/include/sge/renderer/cg/loaded_texture_unique_ptr.hpp
+	libs/renderercg/include/sge/renderer/cg/scoped_program.hpp
+	libs/renderercg/include/sge/renderer/cg/scoped_program_fwd.hpp
+	libs/renderercg/include/sge/renderer/cg/scoped_texture.hpp
+	libs/renderercg/include/sge/renderer/cg/scoped_texture_fwd.hpp
+	libs/renderercg/src/renderer/cg/loaded_program.cpp
+	libs/renderercg/src/renderer/cg/loaded_texture.cpp
+	libs/renderercg/src/renderer/cg/scoped_program.cpp
+	libs/renderercg/src/renderer/cg/scoped_texture.cpp
+)
+
+add_sge_base_library(
+	"renderer/cg"
+	SGE_DEPS
+		sgerenderer
+	TRANSITIVE_SGE_DEPS
+		sgerenderer_interface
+	ADDITIONAL_DEPS
+		fcppt_core_interface
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
+)

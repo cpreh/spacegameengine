@@ -10,6 +10,7 @@ add_sge_example(
 		sgesystems
 		sgeviewport
 		sgewindow
+		sgetimer_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}

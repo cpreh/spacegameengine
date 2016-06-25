@@ -1,0 +1,211 @@
+set(
+	SGE_OPENCL_FILES
+	libs/opencl/include/sge/opencl/binary_error_data.hpp
+	libs/opencl/include/sge/opencl/clinclude.hpp
+	libs/opencl/include/sge/opencl/command_queue/enqueue_kernel.hpp
+	libs/opencl/include/sge/opencl/command_queue/execution_mode.hpp
+	libs/opencl/include/sge/opencl/command_queue/execution_mode_fwd.hpp
+	libs/opencl/include/sge/opencl/command_queue/global_dim1.hpp
+	libs/opencl/include/sge/opencl/command_queue/global_dim2.hpp
+	libs/opencl/include/sge/opencl/command_queue/global_dim3.hpp
+	libs/opencl/include/sge/opencl/command_queue/local_dim1.hpp
+	libs/opencl/include/sge/opencl/command_queue/local_dim2.hpp
+	libs/opencl/include/sge/opencl/command_queue/local_dim3.hpp
+	libs/opencl/include/sge/opencl/command_queue/map_flags.hpp
+	libs/opencl/include/sge/opencl/command_queue/map_flags_fwd.hpp
+	libs/opencl/include/sge/opencl/command_queue/map_flags_to_native.hpp
+	libs/opencl/include/sge/opencl/command_queue/object.hpp
+	libs/opencl/include/sge/opencl/command_queue/object_fwd.hpp
+	libs/opencl/include/sge/opencl/command_queue/profiling_mode.hpp
+	libs/opencl/include/sge/opencl/command_queue/profiling_mode_fwd.hpp
+	libs/opencl/include/sge/opencl/command_queue/scoped.hpp
+	libs/opencl/include/sge/opencl/command_queue/scoped_buffer_mapping.hpp
+	libs/opencl/include/sge/opencl/command_queue/scoped_planar_mapping.hpp
+	libs/opencl/include/sge/opencl/context/error_callback.hpp
+	libs/opencl/include/sge/opencl/context/error_callback_type.hpp
+	libs/opencl/include/sge/opencl/context/object.hpp
+	libs/opencl/include/sge/opencl/context/object_fwd.hpp
+	libs/opencl/include/sge/opencl/context/optional_error_callback.hpp
+	libs/opencl/include/sge/opencl/context/parameters.hpp
+	libs/opencl/include/sge/opencl/context/parameters_fwd.hpp
+	libs/opencl/include/sge/opencl/device/object.hpp
+	libs/opencl/include/sge/opencl/device/object_fwd.hpp
+	libs/opencl/include/sge/opencl/device/object_ref_sequence.hpp
+	libs/opencl/include/sge/opencl/device/object_sequence.hpp
+	libs/opencl/include/sge/opencl/dim1.hpp
+	libs/opencl/include/sge/opencl/dim2.hpp
+	libs/opencl/include/sge/opencl/dim3.hpp
+	libs/opencl/include/sge/opencl/error_information_string.hpp
+	libs/opencl/include/sge/opencl/event/object.hpp
+	libs/opencl/include/sge/opencl/event/object_fwd.hpp
+	libs/opencl/include/sge/opencl/event/object_unique_ptr.hpp
+	libs/opencl/include/sge/opencl/event/sequence.hpp
+	libs/opencl/include/sge/opencl/kernel/argument_index.hpp
+	libs/opencl/include/sge/opencl/kernel/local_buffer.hpp
+	libs/opencl/include/sge/opencl/kernel/local_buffer_fwd.hpp
+	libs/opencl/include/sge/opencl/kernel/name.hpp
+	libs/opencl/include/sge/opencl/kernel/numeric_type.hpp
+	libs/opencl/include/sge/opencl/kernel/object.hpp
+	libs/opencl/include/sge/opencl/kernel/object_fwd.hpp
+	libs/opencl/include/sge/opencl/log_location.hpp
+	libs/opencl/include/sge/opencl/memory_object/base.hpp
+	libs/opencl/include/sge/opencl/memory_object/base_fwd.hpp
+	libs/opencl/include/sge/opencl/memory_object/base_ref_sequence.hpp
+	libs/opencl/include/sge/opencl/memory_object/buffer.hpp
+	libs/opencl/include/sge/opencl/memory_object/buffer_fwd.hpp
+	libs/opencl/include/sge/opencl/memory_object/byte_offset.hpp
+	libs/opencl/include/sge/opencl/memory_object/byte_size.hpp
+	libs/opencl/include/sge/opencl/memory_object/create_image_format.hpp
+	libs/opencl/include/sge/opencl/memory_object/flags.hpp
+	libs/opencl/include/sge/opencl/memory_object/flags_field.hpp
+	libs/opencl/include/sge/opencl/memory_object/flags_fwd.hpp
+	libs/opencl/include/sge/opencl/memory_object/image/format_output.hpp
+	libs/opencl/include/sge/opencl/memory_object/image/format_sequence.hpp
+	libs/opencl/include/sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp
+	libs/opencl/include/sge/opencl/memory_object/image/planar.hpp
+	libs/opencl/include/sge/opencl/memory_object/image/planar_fwd.hpp
+	libs/opencl/include/sge/opencl/memory_object/image/planar_pitch.hpp
+	libs/opencl/include/sge/opencl/memory_object/image/read_planar.hpp
+	libs/opencl/include/sge/opencl/memory_object/image/sge_color_format_to_opencl.hpp
+	libs/opencl/include/sge/opencl/memory_object/image/volume.hpp
+	libs/opencl/include/sge/opencl/memory_object/image/volume_fwd.hpp
+	libs/opencl/include/sge/opencl/memory_object/rect.hpp
+	libs/opencl/include/sge/opencl/memory_object/renderer_buffer_lock_mode.hpp
+	libs/opencl/include/sge/opencl/memory_object/renderer_buffer_lock_mode_fwd.hpp
+	libs/opencl/include/sge/opencl/memory_object/scoped_objects.hpp
+	libs/opencl/include/sge/opencl/platform/extension_sequence.hpp
+	libs/opencl/include/sge/opencl/platform/object.hpp
+	libs/opencl/include/sge/opencl/platform/object_fwd.hpp
+	libs/opencl/include/sge/opencl/platform/object_sequence.hpp
+	libs/opencl/include/sge/opencl/platform/profile_type.hpp
+	libs/opencl/include/sge/opencl/platform/profile_type_fwd.hpp
+	libs/opencl/include/sge/opencl/platform/version.hpp
+	libs/opencl/include/sge/opencl/program/blob.hpp
+	libs/opencl/include/sge/opencl/program/build_error.hpp
+	libs/opencl/include/sge/opencl/program/build_options.hpp
+	libs/opencl/include/sge/opencl/program/build_parameters.hpp
+	libs/opencl/include/sge/opencl/program/build_parameters_fwd.hpp
+	libs/opencl/include/sge/opencl/program/device_blob_map.hpp
+	libs/opencl/include/sge/opencl/program/file_to_source_string_sequence.hpp
+	libs/opencl/include/sge/opencl/program/notification_callback.hpp
+	libs/opencl/include/sge/opencl/program/notification_callback_type.hpp
+	libs/opencl/include/sge/opencl/program/object.hpp
+	libs/opencl/include/sge/opencl/program/object_fwd.hpp
+	libs/opencl/include/sge/opencl/program/optional_build_parameters.hpp
+	libs/opencl/include/sge/opencl/program/optional_notification_callback.hpp
+	libs/opencl/include/sge/opencl/program/source_string.hpp
+	libs/opencl/include/sge/opencl/program/source_string_sequence.hpp
+	libs/opencl/include/sge/opencl/single_device_system/object.hpp
+	libs/opencl/include/sge/opencl/single_device_system/object_fwd.hpp
+	libs/opencl/include/sge/opencl/single_device_system/optional_renderer.hpp
+	libs/opencl/include/sge/opencl/single_device_system/parameters.hpp
+	libs/opencl/include/sge/opencl/single_device_system/parameters_fwd.hpp
+	libs/opencl/include/sge/opencl/size_type.hpp
+	libs/opencl/include/sge/opencl/system.hpp
+	libs/opencl/include/sge/opencl/system_fwd.hpp
+	libs/opencl/include/sge/opencl/vector1.hpp
+	libs/opencl/include/sge/opencl/vector2.hpp
+	libs/opencl/include/sge/opencl/vector3.hpp
+	libs/opencl/src/opencl/command_queue/enqueue_kernel.cpp
+	libs/opencl/src/opencl/command_queue/map_flags_to_native.cpp
+	libs/opencl/src/opencl/command_queue/object.cpp
+	libs/opencl/src/opencl/command_queue/scoped.cpp
+	libs/opencl/src/opencl/command_queue/scoped_buffer_mapping.cpp
+	libs/opencl/src/opencl/command_queue/scoped_planar_mapping.cpp
+	libs/opencl/src/opencl/context/object.cpp
+	libs/opencl/src/opencl/context/parameters.cpp
+	libs/opencl/src/opencl/device/object.cpp
+	libs/opencl/src/opencl/event/flatten_sequence.cpp
+	libs/opencl/src/opencl/event/object.cpp
+	libs/opencl/src/opencl/handle_error.cpp
+	libs/opencl/src/opencl/include/sge/src/opencl/declare_local_logger.hpp
+	libs/opencl/src/opencl/include/sge/src/opencl/event/flatten_sequence.hpp
+	libs/opencl/src/opencl/include/sge/src/opencl/handle_error.hpp
+	libs/opencl/src/opencl/include/sge/src/opencl/logger.hpp
+	libs/opencl/src/opencl/include/sge/src/opencl/memory_object/renderer_buffer_lock_mode_to_cl_mem_flags.hpp
+	libs/opencl/src/opencl/include/sge/src/opencl/memory_object/to_opencl_mem_flags.hpp
+	libs/opencl/src/opencl/kernel/local_buffer.cpp
+	libs/opencl/src/opencl/kernel/object.cpp
+	libs/opencl/src/opencl/log_location.cpp
+	libs/opencl/src/opencl/logger.cpp
+	libs/opencl/src/opencl/memory_object/base.cpp
+	libs/opencl/src/opencl/memory_object/buffer.cpp
+	libs/opencl/src/opencl/memory_object/create_image_format.cpp
+	libs/opencl/src/opencl/memory_object/image/format_output.cpp
+	libs/opencl/src/opencl/memory_object/image/opencl_color_format_to_sge.cpp
+	libs/opencl/src/opencl/memory_object/image/planar.cpp
+	libs/opencl/src/opencl/memory_object/image/read_planar.cpp
+	libs/opencl/src/opencl/memory_object/image/sge_color_format_to_opencl.cpp
+	libs/opencl/src/opencl/memory_object/image/volume.cpp
+	libs/opencl/src/opencl/memory_object/scoped_objects.cpp
+	libs/opencl/src/opencl/memory_object/to_opencl_mem_flags.cpp
+	libs/opencl/src/opencl/platform/object.cpp
+	libs/opencl/src/opencl/platform/version.cpp
+	libs/opencl/src/opencl/program/build_error.cpp
+	libs/opencl/src/opencl/program/build_parameters.cpp
+	libs/opencl/src/opencl/program/file_to_source_string_sequence.cpp
+	libs/opencl/src/opencl/program/object.cpp
+	libs/opencl/src/opencl/single_device_system/object.cpp
+	libs/opencl/src/opencl/single_device_system/parameters.cpp
+	libs/opencl/src/opencl/system.cpp
+)
+
+find_package(
+	OpenGL
+)
+
+if(
+	WIN32
+)
+	set(
+		SGE_OPENCL_HAVE_WINDOWS TRUE
+	)
+else()
+	find_file(
+		GLX_HEADER
+		glx.h
+		PATHS "${OPENGL_INCLUDE_DIR}/GL"
+	)
+
+	if(
+		GLX_HEADER
+	)
+		set(
+			SGE_OPENCL_HAVE_GLX TRUE
+		)
+	endif()
+endif()
+
+configure_file(
+	${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in
+	${CMAKE_CURRENT_BINARY_DIR}/include/sge/opencl/config.hpp
+)
+
+add_sge_base_library(
+	opencl
+	SGE_DEPS
+		sgecore
+		sgeimagecolor
+		sgeimage2d
+		sgelog
+		sgerenderer
+		sgerendereropengl
+	TRANSITIVE_SGE_DEPS
+		sgecore_interface
+		sgeimagecolor_interface
+		sgeimage2d_interface
+		sgerenderer_interface
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+		${fcppt_log_TARGET}
+		${OpenCL_LIBRARIES}
+		${OPENGL_gl_LIBRARY}
+	INCLUDE_DIRS
+		${OpenCL_INCLUDE_DIRS}
+		${OPENGL_INCLUDE_DIR}
+		"${CMAKE_CURRENT_SOURCE_DIR}/src/opencl/include"
+		"${CMAKE_CURRENT_BINARY_DIR}/include"
+	COMPILE_DEFINITIONS
+		"CL_USE_DEPRECATED_OPENCL_1_1_APIS"
+)
