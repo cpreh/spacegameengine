@@ -47,10 +47,15 @@ add_sge_base_library(
 		sgeimage2d
 		sgelog
 		sgeparsejson
+	TRANSITIVE_SGE_DEPS
+		sgefont_interface
+		sgeimage2d_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
+		${Boost_FILESYSTEM_LIBRARIES}
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_log_interface
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/font/bitmap/include"
 )

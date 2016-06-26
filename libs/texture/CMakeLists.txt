@@ -81,8 +81,18 @@ add_sge_base_library(
 		sgeimage2d
 		sgelog
 		sgerenderer
+		sgeimage_interface
+	TRANSITIVE_SGE_DEPS
+		sgecore
+		sgeimage_interface
+		sgeimage2d_interface
+		sgerenderer_interface
 	ADDITIONAL_DEPS
 		${fcppt_log_TARGET}
+		fcppt_core_interface
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
+		fcppt_log_interface
 	INCLUDE_DIRS
 		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/renderer/src/renderer/include"
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/texture/include"

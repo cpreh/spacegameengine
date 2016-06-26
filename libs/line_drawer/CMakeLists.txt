@@ -25,8 +25,13 @@ add_sge_base_library(
 	SGE_DEPS
 		sgeimagecolor
 		sgerenderer
+	TRANSITIVE_SGE_DEPS
+		sgeimagecolor_interface
+		sgerenderer_interface
 	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
+		fcppt_core_interface
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/line_drawer/include"
 )

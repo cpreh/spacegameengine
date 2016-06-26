@@ -204,11 +204,9 @@ add_sge_base_library(
 		sgecore
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${fcppt_filesystem_TARGET}
 		mizuiro_interface
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
-		fcppt_filesystem_interface
 		mizuiro_interface
 	INCLUDE_DIRS
 		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/imagecolor/include"

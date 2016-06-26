@@ -21,11 +21,15 @@ add_sge_base_library(
 		sgerenderercg
 		sgeshader
 		sgeviewport
+		sgeimagecolor_interface
+	TRANSITIVE_SGE_DEPS
+		sgerenderer_interface
+		sgeshader_interface
+		sgeviewport_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${fcppt_filesystem_TARGET}
-	TRANSITIVE_SGE_DEPS
-		sgeshader
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
 	INCLUDE_DIRS
 		"${Cg_INCLUDE_DIRS}"
 )

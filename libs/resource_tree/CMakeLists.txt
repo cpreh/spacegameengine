@@ -35,6 +35,8 @@ add_sge_base_library(
 		sgecore
 	ADDITIONAL_DEPS
 		${fcppt_filesystem_TARGET}
+		fcppt_core_interface
 	TRANSITIVE_ADDITIONAL_DEPS
 		${fcppt_filesystem_TARGET}
+		fcppt_core_interface
 )

@@ -114,11 +114,13 @@ add_sge_base_library(
 	cg
 	SGE_DEPS
 		sgecore
+	TRANSITIVE_SGE_DEPS
+		sgecore
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${Cg_LIBRARIES}
-	TRANSITIVE_SGE_DEPS
-		sgecore
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/cg/include"
 		${Cg_INCLUDE_DIRS}

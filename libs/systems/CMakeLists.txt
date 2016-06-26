@@ -289,6 +289,7 @@ add_sge_base_library(
 		${Boost_FILESYSTEM_LIBRARIES}
 	TRANSITIVE_ADDITIONAL_DEPS
 		awl_interface
+		fcppt_core_interface
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/systems/include"
 )

@@ -14,11 +14,6 @@ set(
 	libs/consolegfx/src/console/gfx/object.cpp
 )
 
-find_package(
-	majutsu
-	REQUIRED
-)
-
 add_sge_base_library(
 	"console/gfx"
 	SGE_DEPS
@@ -39,5 +34,4 @@ add_sge_base_library(
 		${fcppt_core_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
-		majutsu_interface
 )

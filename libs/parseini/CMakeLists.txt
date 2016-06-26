@@ -68,8 +68,13 @@ add_sge_base_library(
 	parse/ini
 	SGE_DEPS
 		sgeparse
+	TRANSITIVE_SGE_DEPS
+		sgeparse_interface
 	ADDITIONAL_DEPS
+		fcppt_core_interface
 		${Boost_FILESYSTEM_LIBRARIES}
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/parse/ini/include"
 		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/parse/src/parse/include"

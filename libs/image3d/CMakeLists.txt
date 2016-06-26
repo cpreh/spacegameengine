@@ -168,6 +168,9 @@ add_sge_base_library(
 	SGE_DEPS
 		sgeimage
 		sgeimagecolor
+	TRANSITIVE_SGE_DEPS
+		sgeimage_interface
+		sgeimagecolor_interface
 	ADDITIONAL_DEPS
 		fcppt_core_interface
 	TRANSITIVE_ADDITIONAL_DEPS

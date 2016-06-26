@@ -410,12 +410,14 @@ add_sge_base_library(
 		sgelog
 		sgeplugin
 		sgewindow_interface
-	ADDITIONAL_DEPS
-		${fcppt_log_TARGET}
 	TRANSITIVE_SGE_DEPS
 		sgecore_interface
 		sgelog_interface
 		sgewindow_interface
+	ADDITIONAL_DEPS
+		${fcppt_log_TARGET}
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/input/include"
 		${PLUGIN_INCLUDES}

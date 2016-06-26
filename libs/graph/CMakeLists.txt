@@ -24,11 +24,6 @@ set(
 	libs/graph/src/graph/object.cpp
 )
 
-find_package(
-	majutsu
-	REQUIRED
-)
-
 add_sge_base_library(
 	"graph"
 	SGE_DEPS
@@ -45,7 +40,6 @@ add_sge_base_library(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS
-		majutsu_interface
 		fcppt_core_interface
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/graph/include"

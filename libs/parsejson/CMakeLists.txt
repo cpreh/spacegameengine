@@ -131,11 +131,13 @@ add_sge_base_library(
 	parse/json
 	SGE_DEPS
 		sgeparse
+	TRANSITIVE_SGE_DEPS
+		sgeparse
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
-	TRANSITIVE_SGE_DEPS
-		sgeparse
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/parse/json/include"
 		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/parse/src/parse/include"

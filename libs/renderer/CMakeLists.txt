@@ -1214,7 +1214,7 @@ add_sge_base_library(
 		sgeplugin
 		${SGE_RENDERER_CG_DEPS}
 	TRANSITIVE_SGE_DEPS
-		sgecore_interface
+		sgecore
 		sgeimage_interface
 		sgeimage2d_interface
 		sgeimage3d_interface
@@ -1224,11 +1224,13 @@ add_sge_base_library(
 		sgelog_interface
 		${SGE_RENDERER_CG_DEPS}
 	ADDITIONAL_DEPS
-		awl_interface
 		${fcppt_log_TARGET}
+		awl_interface
+		fcppt_core_interface
 	TRANSITIVE_ADDITIONAL_DEPS
 		awl_interface
 		mizuiro_interface
+		fcppt_core_interface
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/renderer/include"
 		${PLUGIN_INCLUDES}

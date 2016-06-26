@@ -133,12 +133,21 @@ add_sge_base_library(
 		sgelog
 		sgerenderer
 		sgeviewport
+	TRANSITIVE_SGE_DEPS
+		sgecore
+		sgeimagecolor_interface
+		sgeimage2d_interface
+		sgeinput_interface
+		sgerenderer_interface
+		sgeviewport_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
 		${CEGUI_LIBRARIES}
 	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
+		fcppt_log_interface
 		${CEGUI_LIBRARIES}
 	INCLUDE_DIRS
 		${CEGUI_INCLUDE_DIRS}

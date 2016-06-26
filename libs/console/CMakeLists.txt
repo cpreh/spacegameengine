@@ -60,10 +60,12 @@ add_sge_base_library(
 		sgecore
 		sgefont
 	TRANSITIVE_SGE_DEPS
-		sgecore_interface
+		sgecore
 		sgefont_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/console/include"
 )

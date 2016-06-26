@@ -52,10 +52,16 @@ add_sge_base_library(
 		sgeimagecolor
 		sgelog
 		sgerenderer
+	TRANSITIVE_SGE_DEPS
+		sgecore
+		sgeimagecolor_interface
+		sgerenderer_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/model/obj/include"
 )

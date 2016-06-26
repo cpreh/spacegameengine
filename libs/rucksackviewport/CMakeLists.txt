@@ -13,7 +13,10 @@ add_sge_base_library(
 		sgeviewport
 	TRANSITIVE_SGE_DEPS
 		sgerenderer_interface
+		sgerucksack_interface
 		sgeviewport_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
 )

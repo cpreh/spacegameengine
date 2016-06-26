@@ -30,6 +30,13 @@ add_sge_base_library(
 		sgerenderer
 		sgesprite
 		sgetexture
+	TRANSITIVE_SGE_DEPS
+		sgefont_interface
+		sgeimagecolor_interface
+		sgerenderer_interface
+		sgetexture_interface
+	ADDITIONAL_DEPS
+		fcppt_core_interface
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/font/draw/include"
 )

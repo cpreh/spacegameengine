@@ -143,7 +143,7 @@ add_sge_base_library(
 		sgemedia
 		sgeplugin
 	TRANSITIVE_SGE_DEPS
-		sgecore_interface
+		sgecore
 		sgemedia_interface
 	ADDITIONAL_DEPS
 		${fcppt_log_TARGET}

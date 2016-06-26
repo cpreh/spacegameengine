@@ -136,10 +136,14 @@ add_sge_base_library(
 		sgeline_drawer
 		sgelog
 		sgerenderer
+	TRANSITIVE_SGE_DEPS
+		sgerenderer_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${fcppt_log_TARGET}
 		${BULLET_LIBRARIES}
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/projectile/include"
 		${BULLET_INCLUDE_DIRS}
