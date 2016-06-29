@@ -111,6 +111,11 @@ if(
 		SGE_PLUGIN_ADDITIONAL_LIBS
 		"${awl_TARGET}"
 	)
+
+	set(
+		SGE_PLUGIN_TRANSITIVE_ADDITIONAL_LIBS
+		awl_interface
+	)
 else()
 	find_library(
 		POSIX_DL_LIBRARY
@@ -139,6 +144,7 @@ add_sge_base_library(
 	TRANSITIVE_ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${Boost_SYSTEM_LIBRARIES}
+		${SGE_PLUGIN_TRANSITIVE_ADDITIONAL_LIBS}
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/plugin/include"
 )
