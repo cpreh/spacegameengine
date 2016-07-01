@@ -48,17 +48,6 @@ find_package(
 	X11
 )
 
-if(
-	WAYLAND_CLIENT_FOUND
-	AND
-	XKB_COMMON_FOUND
-)
-	set(
-		WLINPUT_DEFAULT
-		TRUE
-	)
-endif()
-
 option(
 	ENABLE_X11
 	"Enable X11 in plugins"
@@ -144,14 +133,48 @@ add_sge_lib(
 	"${WIN32}"
 )
 
+if(
+	WAYLAND_CLIENT_FOUND
+	AND
+	XKB_COMMON_FOUND
+	AND
+	ENABLE_WAYLAND
+)
+	set(
+		WLINPUT_DEFAULT
+		TRUE
+	)
+else()
+	set(
+		WLINPUT_DEFAULT
+		FALSE
+	)
+endif()
+
 add_sge_lib(
 	wlinput
 	"Build the Wayland input plugin"
 	"${WLINPUT_DEFAULT}"
 )
 
+if(
+	ENABLE_X11
+	AND
+	${X11_Xinput_FOUND}
+)
+	set(
+		X11INPUT_DEFAULT
+		TRUE
+	)
+else()
+	set(
+		X11INPUT_DEFAULT
+		FALSE
+	)
+endif()
+
 add_sge_lib(
 	x11input
 	"Build the X11 input plugin"
-	"${X11_Xinput_FOUND}"
+	"${X11INPUT_DEFAULT}"
 )
