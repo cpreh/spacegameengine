@@ -1,4 +1,8 @@
 find_package(
+	Cg
+)
+
+find_package(
 	D3D9
 )
 
