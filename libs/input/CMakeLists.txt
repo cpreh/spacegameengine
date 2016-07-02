@@ -1,5 +1,18 @@
 set(
 	SGE_INPUT_FILES
+	libs/input/impl/include/sge/input/impl/event/discover_impl.hpp
+	libs/input/impl/include/sge/input/impl/event/instantiate_discover.hpp
+	libs/input/impl/include/sge/input/impl/event/instantiate_remove.hpp
+	libs/input/impl/include/sge/input/impl/event/remove_impl.hpp
+	libs/input/impl/include/sge/input/impl/info/container_impl.hpp
+	libs/input/impl/include/sge/input/impl/info/instantiate_container.hpp
+	libs/input/impl/include/sge/input/impl/logger.hpp
+	libs/input/impl/include/sge/input/impl/multi_processor.hpp
+	libs/input/impl/include/sge/input/impl/multi_system.hpp
+	libs/input/impl/include/sge/input/impl/system_ptr_vector.hpp
+	libs/input/impl/src/input/impl/logger.cpp
+	libs/input/impl/src/input/impl/multi_processor.cpp
+	libs/input/impl/src/input/impl/multi_system.cpp
 	libs/input/include/sge/input/capabilities.hpp
 	libs/input/include/sge/input/capabilities_field.hpp
 	libs/input/include/sge/input/capabilities_field_fwd.hpp
@@ -324,19 +337,6 @@ set(
 	libs/input/src/input/focus/mod_state_tracker.cpp
 	libs/input/src/input/focus/object.cpp
 	libs/input/src/input/focus/remove_event.cpp
-	libs/input/src/input/impl/logger.cpp
-	libs/input/src/input/impl/multi_processor.cpp
-	libs/input/src/input/impl/multi_system.cpp
-	libs/input/src/input/include/sge/input/impl/event/discover_impl.hpp
-	libs/input/src/input/include/sge/input/impl/event/instantiate_discover.hpp
-	libs/input/src/input/include/sge/input/impl/event/instantiate_remove.hpp
-	libs/input/src/input/include/sge/input/impl/event/remove_impl.hpp
-	libs/input/src/input/include/sge/input/impl/info/container_impl.hpp
-	libs/input/src/input/include/sge/input/impl/info/instantiate_container.hpp
-	libs/input/src/input/include/sge/input/impl/logger.hpp
-	libs/input/src/input/include/sge/input/impl/multi_processor.hpp
-	libs/input/src/input/include/sge/input/impl/multi_system.hpp
-	libs/input/src/input/include/sge/input/impl/system_ptr_vector.hpp
 	libs/input/src/input/joypad/absolute_axis.cpp
 	libs/input/src/input/joypad/absolute_axis_event.cpp
 	libs/input/src/input/joypad/absolute_axis_info.cpp
@@ -405,6 +405,7 @@ sge_implement_from_lib(
 
 add_sge_base_library(
 	input
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgecore
 		sgelog
@@ -419,7 +420,6 @@ add_sge_base_library(
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
 	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/input/include"
 		${PLUGIN_INCLUDES}
 	COMPILE_DEFINITIONS
 		${PLUGIN_DEFINITIONS}
