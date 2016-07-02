@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/color_buffer/volume.hpp>
 #include <sge/renderer/color_buffer/tag_from_dimension.hpp>
-#include <sge/src/renderer/buffer/instantiate_base.hpp>
+#include <sge/renderer/impl/buffer/instantiate_base.hpp>
 
 
-SGE_RENDERER_BUFFER_INSTANTIATE_BASE(
+SGE_RENDERER_IMPL_BUFFER_INSTANTIATE_BASE(
 	sge::renderer::color_buffer::tag_from_dimension<
 		3u
 	>

@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/perspective_af.hpp>
-#include <sge/src/renderer/projection/check_near.hpp>
-#include <sge/src/renderer/projection/check_near_far.hpp>
+#include <sge/renderer/impl/projection/check_near.hpp>
+#include <sge/renderer/impl/projection/check_near_far.hpp>
 #include <fcppt/math/matrix/row.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
@@ -41,12 +41,12 @@ sge::renderer::projection::perspective_af(
 	sge::renderer::projection::far const _far
 )
 {
-	sge::renderer::projection::check_near_far(
+	sge::renderer::impl::projection::check_near_far(
 		_near,
 		_far
 	);
 
-	sge::renderer::projection::check_near(
+	sge::renderer::impl::projection::check_near(
 		_near
 	);
 

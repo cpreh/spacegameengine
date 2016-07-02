@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/lock_rect_to_coords.hpp>
+#include <sge/renderer/impl/instantiate_float.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
-#include <sge/src/renderer/instantiate_float.hpp>
 #include <sge/src/texture/logger.hpp>
 #include <sge/texture/area_texc.hpp>
 #include <sge/texture/part.hpp>
@@ -137,6 +137,6 @@ sge::texture::area_texc<\
 	> const &\
 )
 
-SGE_RENDERER_INSTANTIATE_FLOAT(
+SGE_RENDERER_IMPL_INSTANTIATE_FLOAT(
 	SGE_TEXTURE_INSTANTIATE_AREA_TEXC
 )

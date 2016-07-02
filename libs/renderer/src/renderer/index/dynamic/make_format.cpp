@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/format.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
+#include <sge/renderer/impl/index/instantiate_all.hpp>
+#include <sge/renderer/impl/index/dynamic/format_enum_static.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
-#include <sge/src/renderer/index/instantiate_all.hpp>
-#include <sge/src/renderer/index/dynamic/format_enum_static.hpp>
 
 
 template<
@@ -33,7 +33,7 @@ sge::renderer::index::dynamic::format
 sge::renderer::index::dynamic::make_format()
 {
 	return
-		sge::renderer::index::dynamic::format_enum_static<
+		sge::renderer::impl::index::dynamic::format_enum_static<
 			Format
 		>::value;
 }
@@ -48,7 +48,7 @@ sge::renderer::index::dynamic::make_format<\
 	cur_format \
 >()
 
-SGE_RENDERER_INDEX_INSTANTIATE_ALL(
+SGE_RENDERER_IMPL_INDEX_INSTANTIATE_ALL(
 	SGE_RENDERER_INDEX_DYNAMIC_INSTANTIATE_MAKE_FORMAT
 );
 

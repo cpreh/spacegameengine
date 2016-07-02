@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/converter.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
-#include <sge/src/renderer/vf/dynamic/detail/converter_impl.hpp>
-#include <sge/src/renderer/vf/dynamic/detail/lock_interval.hpp>
-#include <sge/src/renderer/vf/dynamic/detail/locked_part_interval.hpp>
+#include <sge/renderer/impl/vf/dynamic/lock_interval.hpp>
+#include <sge/renderer/impl/vf/dynamic/locked_part_interval.hpp>
+#include <sge/renderer/impl/vf/dynamic/detail/converter_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -81,7 +81,7 @@ sge::renderer::vf::dynamic::converter::lock(
 					_locked_part.data(),
 					_locked_part.pos(),
 					written_intervals_,
-					sge::renderer::vf::dynamic::detail::locked_part_interval(
+					sge::renderer::impl::vf::dynamic::locked_part_interval(
 						_locked_part
 					)
 				);
@@ -128,8 +128,8 @@ sge::renderer::vf::dynamic::converter::unlock()
 			)
 		);
 
-		sge::renderer::vf::dynamic::detail::lock_interval const current_unlock(
-			sge::renderer::vf::dynamic::detail::locked_part_interval(
+		sge::renderer::impl::vf::dynamic::lock_interval const current_unlock(
+			sge::renderer::impl::vf::dynamic::locked_part_interval(
 				cur_locked_part
 			)
 		);

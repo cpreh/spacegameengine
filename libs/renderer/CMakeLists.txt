@@ -1,5 +1,53 @@
 set(
 	SGE_RENDERER_FILES
+	libs/renderer/impl/include/sge/renderer/impl/buffer/base_impl.hpp
+	libs/renderer/impl/include/sge/renderer/impl/buffer/const_scoped_lock_impl.hpp
+	libs/renderer/impl/include/sge/renderer/impl/buffer/instantiate_base.hpp
+	libs/renderer/impl/include/sge/renderer/impl/buffer/instantiate_const_scoped_lock.hpp
+	libs/renderer/impl/include/sge/renderer/impl/buffer/instantiate_readable.hpp
+	libs/renderer/impl/include/sge/renderer/impl/buffer/instantiate_scoped_lock.hpp
+	libs/renderer/impl/include/sge/renderer/impl/buffer/instantiate_writable.hpp
+	libs/renderer/impl/include/sge/renderer/impl/buffer/readable_impl.hpp
+	libs/renderer/impl/include/sge/renderer/impl/buffer/scoped_lock_impl.hpp
+	libs/renderer/impl/include/sge/renderer/impl/buffer/writable_impl.hpp
+	libs/renderer/impl/include/sge/renderer/impl/epsilon.hpp
+	libs/renderer/impl/include/sge/renderer/impl/index/dynamic/basic_view_impl.hpp
+	libs/renderer/impl/include/sge/renderer/impl/index/dynamic/format_enum_static.hpp
+	libs/renderer/impl/include/sge/renderer/impl/index/dynamic/instantiate_basic_view.hpp
+	libs/renderer/impl/include/sge/renderer/impl/index/instantiate_all.hpp
+	libs/renderer/impl/include/sge/renderer/impl/instantiate_float.hpp
+	libs/renderer/impl/include/sge/renderer/impl/is_epsilon_equal.hpp
+	libs/renderer/impl/include/sge/renderer/impl/logger.hpp
+	libs/renderer/impl/include/sge/renderer/impl/projection/check_near.hpp
+	libs/renderer/impl/include/sge/renderer/impl/projection/check_near_far.hpp
+	libs/renderer/impl/include/sge/renderer/impl/state/core/sampler/null_states.hpp
+	libs/renderer/impl/include/sge/renderer/impl/state/core/sampler/scoped_states.hpp
+	libs/renderer/impl/include/sge/renderer/impl/texture/basic_lockable_box_impl.hpp
+	libs/renderer/impl/include/sge/renderer/impl/texture/basic_parameters_impl.hpp
+	libs/renderer/impl/include/sge/renderer/impl/texture/basic_scoped_lock_impl.hpp
+	libs/renderer/impl/include/sge/renderer/impl/texture/const_basic_scoped_lock_impl.hpp
+	libs/renderer/impl/include/sge/renderer/impl/texture/instantiate_basic_lockable_box.hpp
+	libs/renderer/impl/include/sge/renderer/impl/texture/instantiate_basic_parameters.hpp
+	libs/renderer/impl/include/sge/renderer/impl/texture/instantiate_basic_scoped_lock.hpp
+	libs/renderer/impl/include/sge/renderer/impl/texture/instantiate_const_basic_scoped_lock.hpp
+	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/basic_view_impl.hpp
+	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/convert_if_color.hpp
+	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/detail/converter_impl.hpp
+	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/element_converter.hpp
+	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/element_converter_fwd.hpp
+	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/element_converter_vector.hpp
+	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/instantiate_basic_view.hpp
+	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/lock_interval.hpp
+	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/locked_part_interval.hpp
+	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/matching_color_format.hpp
+	libs/renderer/impl/src/renderer/impl/logger.cpp
+	libs/renderer/impl/src/renderer/impl/projection/check_near.cpp
+	libs/renderer/impl/src/renderer/impl/projection/check_near_far.cpp
+	libs/renderer/impl/src/renderer/impl/state/core/sampler/null_states.cpp
+	libs/renderer/impl/src/renderer/impl/state/core/sampler/scoped_states.cpp
+	libs/renderer/impl/src/renderer/vf/dynamic/element_converter.cpp
+	libs/renderer/impl/src/renderer/vf/dynamic/locked_part_interval.cpp
+	libs/renderer/impl/src/renderer/vf/dynamic/matching_color_format.cpp
 	libs/renderer/include/sge/renderer/aspect.hpp
 	libs/renderer/include/sge/renderer/basic_dim.hpp
 	libs/renderer/include/sge/renderer/basic_dim_fwd.hpp
@@ -921,46 +969,6 @@ set(
 	libs/renderer/src/renderer/display_mode/parameters.cpp
 	libs/renderer/src/renderer/display_mode/to_dpi.cpp
 	libs/renderer/src/renderer/exception.cpp
-	libs/renderer/src/renderer/include/sge/src/renderer/buffer/base_impl.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/buffer/const_scoped_lock_impl.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/buffer/instantiate_base.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/buffer/instantiate_const_scoped_lock.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/buffer/instantiate_readable.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/buffer/instantiate_scoped_lock.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/buffer/instantiate_writable.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/buffer/readable_impl.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/buffer/scoped_lock_impl.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/buffer/writable_impl.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/epsilon.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/index/dynamic/basic_view_impl.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/index/dynamic/format_enum_static.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/index/dynamic/instantiate_basic_view.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/index/instantiate_all.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/instantiate_float.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/is_epsilon_equal.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/logger.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/projection/check_near.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/projection/check_near_far.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/state/core/sampler/null_states.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/state/core/sampler/scoped_states.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/texture/basic_lockable_box_impl.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/texture/basic_parameters_impl.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/texture/basic_scoped_lock_impl.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/texture/const_basic_scoped_lock_impl.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/texture/instantiate_basic_lockable_box.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/texture/instantiate_basic_parameters.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/texture/instantiate_basic_scoped_lock.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/texture/instantiate_const_basic_scoped_lock.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/vf/dynamic/basic_view_impl.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/vf/dynamic/detail/convert_if_color.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/vf/dynamic/detail/converter_impl.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/vf/dynamic/detail/element_converter.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/vf/dynamic/detail/element_converter_fwd.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/vf/dynamic/detail/element_converter_vector.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/vf/dynamic/detail/lock_interval.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/vf/dynamic/detail/locked_part_interval.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/vf/dynamic/detail/matching_color_format.hpp
-	libs/renderer/src/renderer/include/sge/src/renderer/vf/dynamic/instantiate_basic_view.hpp
 	libs/renderer/src/renderer/index/any/make_view.cpp
 	libs/renderer/src/renderer/index/buffer.cpp
 	libs/renderer/src/renderer/index/buffer_base.cpp
@@ -979,7 +987,6 @@ set(
 	libs/renderer/src/renderer/lock_flags/write.cpp
 	libs/renderer/src/renderer/lock_rect_to_coords.cpp
 	libs/renderer/src/renderer/log_location.cpp
-	libs/renderer/src/renderer/logger.cpp
 	libs/renderer/src/renderer/occlusion_query/object.cpp
 	libs/renderer/src/renderer/occlusion_query/scoped.cpp
 	libs/renderer/src/renderer/pixel_format/color_bits.cpp
@@ -992,8 +999,6 @@ set(
 	libs/renderer/src/renderer/plugin/manager.cpp
 	libs/renderer/src/renderer/plugin/object.cpp
 	libs/renderer/src/renderer/plugin/traits.cpp
-	libs/renderer/src/renderer/projection/check_near.cpp
-	libs/renderer/src/renderer/projection/check_near_far.cpp
 	libs/renderer/src/renderer/projection/orthogonal.cpp
 	libs/renderer/src/renderer/projection/orthogonal_viewport.cpp
 	libs/renderer/src/renderer/projection/orthogonal_wh.cpp
@@ -1039,12 +1044,10 @@ set(
 	libs/renderer/src/renderer/state/core/sampler/filter/parameters.cpp
 	libs/renderer/src/renderer/state/core/sampler/filter/point.cpp
 	libs/renderer/src/renderer/state/core/sampler/filter/trilinear.cpp
-	libs/renderer/src/renderer/state/core/sampler/null_states.cpp
 	libs/renderer/src/renderer/state/core/sampler/object.cpp
 	libs/renderer/src/renderer/state/core/sampler/parameters.cpp
 	libs/renderer/src/renderer/state/core/sampler/scoped.cpp
 	libs/renderer/src/renderer/state/core/sampler/scoped_single.cpp
-	libs/renderer/src/renderer/state/core/sampler/scoped_states.cpp
 	libs/renderer/src/renderer/state/core/sampler/single.cpp
 	libs/renderer/src/renderer/state/ffp/alpha_test/default.cpp
 	libs/renderer/src/renderer/state/ffp/alpha_test/enabled.cpp
@@ -1147,9 +1150,6 @@ set(
 	libs/renderer/src/renderer/vf/dynamic/const_view.cpp
 	libs/renderer/src/renderer/vf/dynamic/converter.cpp
 	libs/renderer/src/renderer/vf/dynamic/detail/converter_impl.cpp
-	libs/renderer/src/renderer/vf/dynamic/detail/element_converter.cpp
-	libs/renderer/src/renderer/vf/dynamic/detail/locked_part_interval.cpp
-	libs/renderer/src/renderer/vf/dynamic/detail/matching_color_format.cpp
 	libs/renderer/src/renderer/vf/dynamic/element.cpp
 	libs/renderer/src/renderer/vf/dynamic/extra.cpp
 	libs/renderer/src/renderer/vf/dynamic/format.cpp
@@ -1203,6 +1203,7 @@ endif()
 
 add_sge_base_library(
 	renderer
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgecore
 		sgeimage2d
@@ -1232,7 +1233,6 @@ add_sge_base_library(
 		mizuiro_interface
 		fcppt_core_interface
 	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/renderer/include"
 		${PLUGIN_INCLUDES}
 	COMPILE_DEFINITIONS
 		${PLUGIN_DEFINITIONS}
