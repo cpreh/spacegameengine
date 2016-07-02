@@ -90,7 +90,6 @@ set(
 	libs/audio/src/audio/exception.cpp
 	libs/audio/src/audio/file.cpp
 	libs/audio/src/audio/file_exception.cpp
-	libs/audio/src/audio/include/sge/src/audio/logger.hpp
 	libs/audio/src/audio/listener.cpp
 	libs/audio/src/audio/load.cpp
 	libs/audio/src/audio/load_exn.cpp
@@ -103,7 +102,6 @@ set(
 	libs/audio/src/audio/loader_plugin/object.cpp
 	libs/audio/src/audio/loader_plugin/traits.cpp
 	libs/audio/src/audio/log_location.cpp
-	libs/audio/src/audio/logger.cpp
 	libs/audio/src/audio/multi_loader.cpp
 	libs/audio/src/audio/multi_loader_parameters.cpp
 	libs/audio/src/audio/player.cpp
@@ -149,7 +147,6 @@ add_sge_base_library(
 		${fcppt_log_TARGET}
 		${Boost_filesystem_LIBRARIES}
 	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/audio/include"
 		${PLUGIN_INCLUDES}
 		${MEDIA_INCLUDES}
 	COMPILE_DEFINITIONS
