@@ -18,17 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_TEXTURE_BASIC_PART_RAW_IMPL_HPP_INCLUDED
-#define SGE_SRC_TEXTURE_BASIC_PART_RAW_IMPL_HPP_INCLUDED
+#ifndef SGE_TEXTURE_IMPL_BASIC_PART_RAW_IMPL_HPP_INCLUDED
+#define SGE_TEXTURE_IMPL_BASIC_PART_RAW_IMPL_HPP_INCLUDED
 
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/src/texture/dereference_basic_part.hpp>
 #include <sge/texture/basic_part_raw.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/texture/sub_data.hpp>
+#include <sge/texture/impl/dereference_basic_part.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/math/box/comparison.hpp>
@@ -152,7 +152,7 @@ sge::texture::basic_part_raw<
 >::texture() const
 {
 	return
-		sge::texture::dereference_basic_part(
+		sge::texture::impl::dereference_basic_part(
 			texture_
 		);
 }

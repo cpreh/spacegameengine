@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_TEXTURE_LOGGER_HPP_INCLUDED
-#define SGE_SRC_TEXTURE_LOGGER_HPP_INCLUDED
+#ifndef SGE_TEXTURE_IMPL_LOGGER_HPP_INCLUDED
+#define SGE_TEXTURE_IMPL_LOGGER_HPP_INCLUDED
 
 #include <fcppt/log/object_fwd.hpp>
 
@@ -28,10 +28,13 @@ namespace sge
 {
 namespace texture
 {
+namespace impl
+{
 
 fcppt::log::object &
 logger();
 
+}
 }
 }
 

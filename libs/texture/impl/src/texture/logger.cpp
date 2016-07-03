@@ -19,11 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/define_lib.hpp>
-#include <sge/src/texture/logger.hpp>
 #include <sge/texture/log_location.hpp>
+#include <sge/texture/impl/logger.hpp>
 
 
 SGE_LOG_DEFINE_LIB(
-	sge::texture::logger,
+	sge::texture::impl::logger,
 	sge::texture::log_location()
 )

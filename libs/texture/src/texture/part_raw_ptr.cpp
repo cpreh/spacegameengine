@@ -19,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
-#include <sge/src/texture/instantiate_basic_part_raw.hpp>
+#include <sge/texture/impl/instantiate_basic_part_raw.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 
 
-SGE_TEXTURE_INSTANTIATE_BASIC_PART_RAW(
+SGE_TEXTURE_IMPL_INSTANTIATE_BASIC_PART_RAW(
 	sge::renderer::texture::planar_unique_ptr &&
 );

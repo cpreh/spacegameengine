@@ -1,5 +1,10 @@
 set(
 	SGE_TEXTURE_FILES
+	libs/texture/impl/include/sge/texture/impl/basic_part_raw_impl.hpp
+	libs/texture/impl/include/sge/texture/impl/dereference_basic_part.hpp
+	libs/texture/impl/include/sge/texture/impl/instantiate_basic_part_raw.hpp
+	libs/texture/impl/include/sge/texture/impl/logger.hpp
+	libs/texture/impl/src/texture/logger.cpp
 	libs/texture/include/sge/texture/area_texc.hpp
 	libs/texture/include/sge/texture/atlasing/border_h.hpp
 	libs/texture/include/sge/texture/atlasing/border_size.hpp
@@ -57,12 +62,7 @@ set(
 	libs/texture/src/texture/exception.cpp
 	libs/texture/src/texture/fragmented.cpp
 	libs/texture/src/texture/image_too_big.cpp
-	libs/texture/src/texture/include/sge/src/texture/basic_part_raw_impl.hpp
-	libs/texture/src/texture/include/sge/src/texture/dereference_basic_part.hpp
-	libs/texture/src/texture/include/sge/src/texture/instantiate_basic_part_raw.hpp
-	libs/texture/src/texture/include/sge/src/texture/logger.hpp
 	libs/texture/src/texture/log_location.cpp
-	libs/texture/src/texture/logger.cpp
 	libs/texture/src/texture/manager.cpp
 	libs/texture/src/texture/next_power_of_2.cpp
 	libs/texture/src/texture/part.cpp
@@ -76,6 +76,7 @@ set(
 
 add_sge_base_library(
 	texture
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgecore
 		sgeimage2d
@@ -93,8 +94,6 @@ add_sge_base_library(
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
 		fcppt_log_interface
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/texture/include"
 	USE_IMPL_INCLUDE_OF
 		renderer
 )

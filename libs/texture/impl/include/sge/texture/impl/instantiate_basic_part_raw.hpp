@@ -18,44 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_TEXTURE_DEREFERENCE_BASIC_PART_HPP_INCLUDED
-#define SGE_SRC_TEXTURE_DEREFERENCE_BASIC_PART_HPP_INCLUDED
+#ifndef SGE_TEXTURE_IMPL_INSTANTIATE_BASIC_PART_RAW_HPP_INCLUDED
+#define SGE_TEXTURE_IMPL_INSTANTIATE_BASIC_PART_RAW_HPP_INCLUDED
 
-#include <fcppt/unique_ptr_impl.hpp>
+#include <sge/src/core/export_class_instantiation.hpp>
+#include <sge/texture/impl/basic_part_raw_impl.hpp>
 
 
-namespace sge
-{
-namespace texture
-{
-
-template<
-	typename T
+#define SGE_TEXTURE_IMPL_INSTANTIATE_BASIC_PART_RAW(\
+	ref_type\
+)\
+template \
+class \
+SGE_CORE_EXPORT_CLASS_INSTANTIATION \
+sge::texture::basic_part_raw<\
+	ref_type\
 >
-T &
-dereference_basic_part(
-	T &_ref
-)
-{
-	return
-		_ref;
-}
-
-template<
-	typename T
->
-T &
-dereference_basic_part(
-	fcppt::unique_ptr<
-		T
-	> const &_ptr
-)
-{
-	return
-		*_ptr;
-}
-
-}
-}
 
 #endif

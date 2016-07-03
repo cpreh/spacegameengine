@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/impl/instantiate_float.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
-#include <sge/src/texture/logger.hpp>
 #include <sge/texture/area_texc.hpp>
 #include <sge/texture/part.hpp>
+#include <sge/texture/impl/logger.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/warning.hpp>
@@ -81,7 +81,7 @@ sge::texture::area_texc(
 		&& !_part.repeatable()
 	)
 		FCPPT_LOG_WARNING(
-			sge::texture::logger(),
+			sge::texture::impl::logger(),
 			fcppt::log::_
 				<< FCPPT_TEXT("texture not repeatable but repetition is ")
 				<< _repeat
