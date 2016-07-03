@@ -94,6 +94,7 @@ add_sge_base_library(
 		fcppt_core_interface
 		fcppt_log_interface
 	INCLUDE_DIRS
-		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/renderer/impl/include"
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/texture/include"
+	USE_IMPL_INCLUDE_OF
+		renderer
 )

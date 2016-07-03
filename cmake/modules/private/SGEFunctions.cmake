@@ -242,6 +242,7 @@ function(
 		COMPILE_DEFINITIONS
 		TRANSITIVE_COMPILE_DEFINITIONS
 		COMPILE_FLAGS
+		USE_IMPL_INCLUDE_OF
 	)
 
 	cmake_parse_arguments(
@@ -387,6 +388,17 @@ function(
 				${CMAKE_CURRENT_SOURCE_DIR}/impl/include
 			)
 		endif()
+
+		foreach(
+			INCLUDE_DEP
+			${_USE_IMPL_INCLUDE_OF}
+		)
+			target_include_directories(
+				${SGE_LIB_NAME}
+				PRIVATE
+				${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/${INCLUDE_DEP}/impl/include
+			)
+		endforeach()
 	endif()
 
 	target_include_directories(
@@ -462,6 +474,8 @@ function(
 		TRANSITIVE_INCLUDE_DIRS
 		COMPILE_DEFINITIONS
 		TRANSITIVE_COMPILE_DEFINITIONS
+		COMPILE_FLAGS
+		USE_IMPL_INCLUDE_OF
 	)
 
 	cmake_parse_arguments(
@@ -665,7 +679,11 @@ endfunction()
 #	A list of compile flags to add.
 #
 # HAS_IMPL_DIR:
-#	Option that includes the impl directory
+#	If set to true, include the impl/include directory.
+#
+# USE_IMPL_INCLUDE_OF:
+#	A list of sge libraries to use the impl include directory from.
+#
 function(
 	add_sge_base_library
 	RELATIVE_PATH
