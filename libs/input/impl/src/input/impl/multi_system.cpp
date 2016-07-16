@@ -23,45 +23,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/system_unique_ptr.hpp>
+#include <sge/input/impl/log_name.hpp>
 #include <sge/input/impl/multi_processor.hpp>
 #include <sge/input/impl/multi_system.hpp>
 #include <sge/input/impl/system_ptr_vector.hpp>
 #include <sge/input/plugin/context_fwd.hpp>
 #include <sge/input/plugin/object.hpp>
 #include <sge/input/plugin/traits.hpp>
+#include <sge/log/default_parameters.hpp>
+#include <sge/log/location.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/iterator.hpp>
-#include <sge/plugin/load_with_log_options.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 sge::input::impl::multi_system::multi_system(
-	sge::input::plugin::collection const &_collection,
-	sge::log::option_container const &_log_options
+	fcppt::log::context &_log_context,
+	sge::input::plugin::collection const &_collection
 )
 :
 	sge::input::system(),
+	log_{
+		_log_context,
+		sge::log::location(),
+		sge::log::default_parameters(
+			sge::input::impl::log_name()
+		)
+	},
 	plugins_(
 		fcppt::algorithm::map<
 			sge::input::impl::multi_system::plugin_vector
 		>(
 			_collection,
-			[
-				&_log_options
-			](
+			[](
 				sge::input::plugin::context const &_context
 			)
 			{
 				return
-					sge::plugin::load_with_log_options(
-						_context,
-						_log_options
-					);
+					_context.load();
 			}
 		)
 	),
@@ -115,6 +120,7 @@ sge::input::impl::multi_system::create_processor(
 			fcppt::make_unique_ptr<
 				sge::input::impl::multi_processor
 			>(
+				log_,
 				_window,
 				_window_system,
 				systems_

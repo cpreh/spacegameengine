@@ -19,9 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/charconv/utf8_string_to_fcppt.hpp>
+#include <sge/log/default_parameters.hpp>
+#include <sge/log/location.hpp>
 #include <sge/model/obj/exception.hpp>
 #include <sge/model/obj/prototype.hpp>
-#include <sge/src/model/obj/logger.hpp>
+#include <sge/model/obj/impl/log_name.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/no_init.hpp>
@@ -29,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/math/box/extend_bounding_box.hpp>
 #include <fcppt/math/box/null.hpp>
@@ -50,7 +53,7 @@ typedef
 unsigned long
 line_count;
 
-sge::model::obj::face_vertex const
+sge::model::obj::face_vertex
 parse_face_vertex(
 	line_count const _current_line,
 	std::istream &_stream)
@@ -122,9 +125,17 @@ parse_face_vertex(
 }
 
 sge::model::obj::prototype::prototype(
+	fcppt::log::context &_log_context,
 	boost::filesystem::path const &_filename
 )
 :
+	log_{
+		_log_context,
+		sge::log::location(),
+		sge::log::default_parameters(
+			sge::model::obj::impl::log_name()
+		)
+	},
 	vertex_coordinates_(),
 	texture_coordinates_(),
 	normals_(),
@@ -358,11 +369,15 @@ sge::model::obj::prototype::prototype(
 		else
 		{
 			FCPPT_LOG_WARNING(
-				sge::model::obj::logger(),
+				log_,
 				fcppt::log::_
-					<< FCPPT_TEXT("Invalid obj prefix: ")
-					<< fcppt::from_std_string(
-						prefix));
+					<<
+					FCPPT_TEXT("Invalid obj prefix: ")
+					<<
+					fcppt::from_std_string(
+						prefix
+					)
+			);
 		}
 	}
 

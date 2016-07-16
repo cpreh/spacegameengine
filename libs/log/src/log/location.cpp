@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/location.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/location.hpp>
+#include <fcppt/log/name.hpp>
 
 
 fcppt::log::location
@@ -28,6 +29,8 @@ sge::log::location()
 {
 	return
 		fcppt::log::location(
-			FCPPT_TEXT("sge")
+			fcppt::log::name{
+				FCPPT_TEXT("sge")
+			}
 		);
 }

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/optional_cache_ref_fwd.hpp>
 #include <sge/plugin/detail/context_base_vector.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -35,6 +36,7 @@ namespace plugin
 
 sge::plugin::detail::context_base_vector
 load_plugins(
+	fcppt::log::object &,
 	boost::filesystem::path const &,
 	sge::plugin::optional_cache_ref const &
 );

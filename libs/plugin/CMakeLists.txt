@@ -18,7 +18,6 @@ set(
 	libs/plugin/include/sge/plugin/detail/address_name.hpp
 	libs/plugin/include/sge/plugin/detail/context_base_vector.hpp
 	libs/plugin/include/sge/plugin/detail/iterator_base_type.hpp
-	libs/plugin/include/sge/plugin/detail/setup_loggers.hpp
 	libs/plugin/include/sge/plugin/detail/traits.hpp
 	libs/plugin/include/sge/plugin/exception.hpp
 	libs/plugin/include/sge/plugin/file_extension.hpp
@@ -33,7 +32,6 @@ set(
 	libs/plugin/include/sge/plugin/library/detail/interface_post.hpp
 	libs/plugin/include/sge/plugin/library/detail/interface_pre.hpp
 	libs/plugin/include/sge/plugin/library/detail/iterate_functions.hpp
-	libs/plugin/include/sge/plugin/library/detail/log_context_function_name.hpp
 	libs/plugin/include/sge/plugin/library/detail/version_function_name.hpp
 	libs/plugin/include/sge/plugin/library/exception.hpp
 	libs/plugin/include/sge/plugin/library/function_base.hpp
@@ -43,7 +41,6 @@ set(
 	libs/plugin/include/sge/plugin/library/object_shared_ptr.hpp
 	libs/plugin/include/sge/plugin/library/symbol_not_found.hpp
 	libs/plugin/include/sge/plugin/library/symbol_string.hpp
-	libs/plugin/include/sge/plugin/load_with_log_options.hpp
 	libs/plugin/include/sge/plugin/log_location.hpp
 	libs/plugin/include/sge/plugin/manager.hpp
 	libs/plugin/include/sge/plugin/manager_fwd.hpp
@@ -56,7 +53,6 @@ set(
 	libs/plugin/include/sge/plugin/version.hpp
 	libs/plugin/src/plugin/cache.cpp
 	libs/plugin/src/plugin/context_base.cpp
-	libs/plugin/src/plugin/detail/setup_loggers.cpp
 	libs/plugin/src/plugin/exception.cpp
 	libs/plugin/src/plugin/file_extension.cpp
 	libs/plugin/src/plugin/include/sge/src/plugin/address_name.hpp
@@ -76,8 +72,7 @@ set(
 	libs/plugin/src/plugin/include/sge/src/plugin/library/object.hpp
 	libs/plugin/src/plugin/include/sge/src/plugin/load_info.hpp
 	libs/plugin/src/plugin/include/sge/src/plugin/load_plugins.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/load_with_log_options_impl.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/logger.hpp
+	libs/plugin/src/plugin/include/sge/src/plugin/log_name.hpp
 	libs/plugin/src/plugin/include/sge/src/plugin/manager_impl.hpp
 	libs/plugin/src/plugin/include/sge/src/plugin/object_impl.hpp
 	libs/plugin/src/plugin/info.cpp
@@ -90,7 +85,7 @@ set(
 	libs/plugin/src/plugin/load_info.cpp
 	libs/plugin/src/plugin/load_plugins.cpp
 	libs/plugin/src/plugin/log_location.cpp
-	libs/plugin/src/plugin/logger.cpp
+	libs/plugin/src/plugin/log_name.cpp
 	libs/plugin/src/plugin/manager.cpp
 )
 
@@ -135,7 +130,6 @@ add_sge_base_library(
 		sgelog
 	TRANSITIVE_SGE_DEPS
 		sgecore
-		sgelog_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${fcppt_filesystem_TARGET}

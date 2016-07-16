@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/log/location.hpp>
+#include <sge/log/default_parameters.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/category_array.hpp>
 #include <sge/plugin/context_base_ref.hpp>
@@ -27,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/optional_cache_ref_fwd.hpp>
 #include <sge/src/plugin/context_base.hpp>
 #include <sge/src/plugin/load_plugins.hpp>
-#include <sge/src/plugin/logger.hpp>
+#include <sge/src/plugin/log_name.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/enum_array_init.hpp>
@@ -36,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -44,17 +47,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::plugin::manager::manager(
+	fcppt::log::context &_log_context,
 	boost::filesystem::path const &_path,
 	sge::plugin::optional_cache_ref const &_cache
 )
 :
+	log_{
+		_log_context,
+		sge::log::location(),
+		sge::log::default_parameters(
+			sge::plugin::log_name()
+		)
+	},
 	plugins_(
 		[
+			this,
 			&_path,
 			&_cache
 		]{
 			FCPPT_LOG_DEBUG(
-				sge::plugin::logger(),
+				log_,
 				fcppt::log::_
 					<< FCPPT_TEXT("Scanning for plugins in ")
 					<< fcppt::filesystem::path_to_string(
@@ -64,6 +76,7 @@ sge::plugin::manager::manager(
 
 			return
 				sge::plugin::load_plugins(
+					log_,
 					_path,
 					_cache
 				);

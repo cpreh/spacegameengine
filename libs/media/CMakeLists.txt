@@ -42,12 +42,12 @@ set(
 	libs/media/src/media/include/sge/src/media/load_exn.hpp
 	libs/media/src/media/include/sge/src/media/load_raw.hpp
 	libs/media/src/media/include/sge/src/media/load_raw_exn.hpp
-	libs/media/src/media/include/sge/src/media/logger.hpp
+	libs/media/src/media/include/sge/src/media/log_name.hpp
 	libs/media/src/media/include/sge/src/media/muxer_impl.hpp
 	libs/media/src/media/include/sge/src/media/muxer_parameters_impl.hpp
 	libs/media/src/media/include/sge/src/media/raw_streambuf.hpp
 	libs/media/src/media/log_location.cpp
-	libs/media/src/media/logger.cpp
+	libs/media/src/media/log_name.cpp
 	libs/media/src/media/path_to_extension.cpp
 	libs/media/src/media/raw_streambuf.cpp
 )

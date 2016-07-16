@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/detail/muxer_fwd.hpp>
 #include <sge/plugin/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/optional/reference_fwd.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -146,6 +147,8 @@ private:
 		plugin_system_pair
 	>
 	plugin_system_pair_container;
+
+	fcppt::log::object log_;
 
 	plugin_system_pair_container const plugins_;
 

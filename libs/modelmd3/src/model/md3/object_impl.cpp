@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/vertex_sequence.hpp>
 #include <sge/src/model/md3/endian.hpp>
 #include <sge/src/model/md3/frame.hpp>
-#include <sge/src/model/md3/logger.hpp>
 #include <sge/src/model/md3/max_qpath.hpp>
 #include <sge/src/model/md3/object_impl.hpp>
 #include <sge/src/model/md3/read_and_check_id3p.hpp>
@@ -47,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/repeat.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/log/_.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <istream>
@@ -54,10 +54,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::model::md3::object_impl::object_impl(
+	fcppt::log::object &_log,
 	std::istream &_stream,
 	sge::model::md3::load_flags_field const _flags
 )
 :
+	// TODO: direct initialization
 	vertices_{
 		0
 	},
@@ -93,7 +95,7 @@ sge::model::md3::object_impl::object_impl(
 	)
 	{
 		FCPPT_LOG_WARNING(
-			sge::model::md3::logger(),
+			_log,
 			fcppt::log::_
 				<< FCPPT_TEXT("md3 version is not 15 but continuing anyway.")
 		);
@@ -273,6 +275,7 @@ sge::model::md3::object_impl::indices(
 		surf.triangles()
 	);
 
+	// TODO: map
 	for(
 		auto const &triangle
 		:

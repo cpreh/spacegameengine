@@ -22,14 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/matrix_conversion/world_matrix_to_coordinate_system.hpp>
 #include <sge/camera/tracking/object.hpp>
 #include <sge/camera/tracking/alexa/lerp.hpp>
-#include <sge/src/camera/logger.hpp>
 #include <fcppt/cyclic_iterator_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
-#include <fcppt/log/_.hpp>
-#include <fcppt/log/debug.hpp>
 #include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/matrix/output.hpp>
 #include <fcppt/math/matrix/static.hpp>
@@ -187,18 +184,6 @@ sge::camera::tracking::object::update(
 			}
 		}
 	}
-
-	FCPPT_LOG_DEBUG(
-		sge::camera::logger(),
-		fcppt::log::_
-			<< FCPPT_TEXT("Keyframe count: ")
-			<< keyframes_.size()
-			<< FCPPT_TEXT('\n')
-			<< FCPPT_TEXT("Current keyframe index: ")
-			<< std::distance(
-				keyframes_.begin(),
-				current_keyframe_.get())
-	);
 
 	sge::renderer::matrix4 const
 		left(

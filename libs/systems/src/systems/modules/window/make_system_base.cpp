@@ -28,18 +28,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/wrapped_window_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/variant/match.hpp>
 
 
 sge::systems::modules::window::system_base_unique_ptr
 sge::systems::modules::window::make_system_base(
+	fcppt::log::context &_log_context,
 	sge::systems::window const &_parameters
 )
 {
 	return
 		fcppt::variant::match(
 			_parameters.source(),
-			[](
+			[
+				&_log_context
+			](
 				sge::systems::original_window const &
 			)
 			{
@@ -49,7 +53,9 @@ sge::systems::modules::window::make_system_base(
 					>(
 						fcppt::make_unique_ptr<
 							sge::systems::modules::window::original_system
-						>()
+						>(
+							_log_context
+						)
 					);
 			},
 			[](

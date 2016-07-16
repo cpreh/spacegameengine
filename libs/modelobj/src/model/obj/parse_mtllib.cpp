@@ -23,25 +23,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/init/blue.hpp>
 #include <sge/image/color/init/green.hpp>
 #include <sge/image/color/init/red.hpp>
+#include <sge/log/default_parameters.hpp>
+#include <sge/log/location.hpp>
 #include <sge/model/obj/exception.hpp>
 #include <sge/model/obj/identifier.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
+#include <sge/model/obj/impl/log_name.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/src/model/obj/logger.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/no_init.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <fcppt/optional/object_impl.hpp>
-#include <fcppt/optional/to_exception.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <sstream>
@@ -49,25 +53,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace
 {
+
+// TODO: Refactor this
 class parser
 {
-FCPPT_NONASSIGNABLE(
-	parser);
+	FCPPT_NONCOPYABLE(
+		parser
+	);
 public:
-	explicit
 	parser(
+		fcppt::log::context &_log_context,
 		boost::filesystem::path const &_filename
 	)
 	:
+		log_{
+			_log_context,
+			sge::log::location(),
+			sge::log::default_parameters(
+				sge::model::obj::impl::log_name()
+			)
+		},
 		parent_path_(
-			_filename.parent_path()),
+			_filename.parent_path()
+		),
 		result_(),
 		current_line_(
-			0u),
+			0u
+		),
 		current_material_(
-			fcppt::string()),
+			fcppt::string()
+		),
 		shininess_(),
 		ambient_(),
 		diffuse_(),
@@ -259,8 +277,11 @@ public:
 				diffuse_.has_value());
 
 			FCPPT_LOG_WARNING(
-				sge::model::obj::logger(),
-				fcppt::log::_ << FCPPT_TEXT("obj (mtl): dissolve currently not supported"));
+				log_,
+				fcppt::log::_
+					<<
+					FCPPT_TEXT("obj (mtl): dissolve currently not supported")
+			);
 			/*
 			(*diffuse_)[3] =
 				dissolve;
@@ -305,8 +326,13 @@ public:
 				break;
 			default:
 				FCPPT_LOG_WARNING(
-					sge::model::obj::logger(),
-					fcppt::log::_ << FCPPT_TEXT("obj (mtl): invalid light model: ") << light_model);
+					log_,
+					fcppt::log::_
+						<<
+						FCPPT_TEXT("obj (mtl): invalid light model: ")
+						<<
+						light_model
+				);
 				break;
 			}
 		}
@@ -348,8 +374,11 @@ public:
 		else
 		{
 			FCPPT_LOG_WARNING(
-				sge::model::obj::logger(),
-				fcppt::log::_ << FCPPT_TEXT("obj (mtl): invalid prefix"));
+				log_,
+				fcppt::log::_
+					<<
+					FCPPT_TEXT("obj (mtl): invalid prefix")
+			);
 		}
 	}
 
@@ -455,6 +484,8 @@ public:
 		);
 	}
 private:
+	fcppt::log::object log_;
+
 	boost::filesystem::path const parent_path_;
 
 	sge::model::obj::material_map result_;
@@ -500,10 +531,12 @@ private:
 
 sge::model::obj::material_map
 sge::model::obj::parse_mtllib(
+	fcppt::log::context &_log_context,
 	boost::filesystem::path const &_filename
 )
 {
 	parser p(
+		_log_context,
 		_filename
 	);
 

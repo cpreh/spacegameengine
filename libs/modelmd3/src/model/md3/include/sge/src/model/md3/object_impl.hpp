@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/model/md3/surface_vector.hpp>
 #include <sge/src/model/md3/tag_vector.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <iosfwd>
@@ -55,6 +56,7 @@ class object_impl
 	);
 public:
 	object_impl(
+		fcppt::log::object &,
 		std::istream &,
 		sge::model::md3::load_flags_field
 	);

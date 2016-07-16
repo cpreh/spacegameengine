@@ -6,11 +6,11 @@ set(
 	libs/input/impl/include/sge/input/impl/event/remove_impl.hpp
 	libs/input/impl/include/sge/input/impl/info/container_impl.hpp
 	libs/input/impl/include/sge/input/impl/info/instantiate_container.hpp
-	libs/input/impl/include/sge/input/impl/logger.hpp
+	libs/input/impl/include/sge/input/impl/log_name.hpp
 	libs/input/impl/include/sge/input/impl/multi_processor.hpp
 	libs/input/impl/include/sge/input/impl/multi_system.hpp
 	libs/input/impl/include/sge/input/impl/system_ptr_vector.hpp
-	libs/input/impl/src/input/impl/logger.cpp
+	libs/input/impl/src/input/impl/log_name.cpp
 	libs/input/impl/src/input/impl/multi_processor.cpp
 	libs/input/impl/src/input/impl/multi_system.cpp
 	libs/input/include/sge/input/capabilities.hpp

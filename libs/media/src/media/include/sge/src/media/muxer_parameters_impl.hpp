@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MEDIA_MUXER_PARAMETERS_IMPL_HPP_INCLUDED
 #define SGE_SRC_MEDIA_MUXER_PARAMETERS_IMPL_HPP_INCLUDED
 
-#include <sge/log/option_container.hpp>
 #include <sge/media/muxer_parameters.hpp>
 #include <sge/media/optional_extension_set.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 template<
@@ -32,37 +32,33 @@ template<
 sge::media::muxer_parameters<
 	System
 >::muxer_parameters(
+	fcppt::log::context &_log_context,
 	collection_type const &_collection,
 	sge::media::optional_extension_set const &_extensions
 )
 :
+	log_context_(
+		_log_context
+	),
 	collection_(
 		_collection
 	),
 	extensions_(
 		_extensions
-	),
-	log_options_()
+	)
 {
 }
 
 template<
 	typename System
 >
+fcppt::log::context &
 sge::media::muxer_parameters<
 	System
-> &
-sge::media::muxer_parameters<
-	System
->::log_options(
-	sge::log::option_container const &_log_options
-)
+>::log_context() const
 {
-	log_options_ =
-		_log_options;
-
 	return
-		*this;
+		log_context_;
 }
 
 template<
@@ -90,18 +86,6 @@ sge::media::muxer_parameters<
 {
 	return
 		extensions_;
-}
-
-template<
-	typename System
->
-sge::log::option_container const &
-sge::media::muxer_parameters<
-	System
->::log_options() const
-{
-	return
-		log_options_;
 }
 
 #endif

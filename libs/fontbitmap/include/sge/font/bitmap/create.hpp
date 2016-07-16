@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/bitmap/detail/symbol.hpp>
 #include <sge/image2d/system_fwd.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -39,6 +40,7 @@ namespace bitmap
 SGE_FONT_BITMAP_DETAIL_SYMBOL
 sge::font::object_unique_ptr
 create(
+	fcppt::log::context &,
 	boost::filesystem::path const &,
 	sge::image2d::system &
 );

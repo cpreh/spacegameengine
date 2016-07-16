@@ -31,6 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/detail/instantiate/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/enum_array_decl.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -49,6 +51,7 @@ class manager
 public:
 	SGE_PLUGIN_DETAIL_SYMBOL
 	manager(
+		fcppt::log::context &,
 		boost::filesystem::path const &,
 		sge::plugin::optional_cache_ref const &
 	);
@@ -65,6 +68,8 @@ public:
 	>
 	collection();
 private:
+	fcppt::log::object log_;
+
 	typedef
 	fcppt::container::enum_array<
 		sge::plugin::capabilities,

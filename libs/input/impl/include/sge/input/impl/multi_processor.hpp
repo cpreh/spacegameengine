@@ -57,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/optional_auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -80,6 +81,7 @@ class multi_processor
 	);
 public:
 	multi_processor(
+		fcppt::log::object &,
 		sge::window::object const &,
 		sge::window::system const &,
 		sge::input::impl::system_ptr_vector const &

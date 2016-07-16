@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/input/mouse/device_unique_ptr.hpp>
 #include <sge/input/plugin/collection_fwd.hpp>
-#include <sge/log/option_container.hpp>
 #include <sge/src/systems/modules/input/cursor_modifier_fwd.hpp>
 #include <sge/src/systems/modules/input/object_fwd.hpp>
 #include <sge/src/systems/modules/window/object_fwd.hpp>
@@ -62,7 +61,6 @@ class object
 public:
 	object(
 		sge::input::plugin::collection const &,
-		sge::log::option_container const &,
 		sge::systems::detail::input const &,
 		sge::systems::modules::window::system const &,
 		sge::systems::modules::window::object const &

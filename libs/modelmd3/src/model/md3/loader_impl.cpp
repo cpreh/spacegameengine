@@ -18,13 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/log/default_parameters.hpp>
+#include <sge/log/location.hpp>
 #include <sge/model/md3/load_flags_field.hpp>
 #include <sge/model/md3/object.hpp>
 #include <sge/model/md3/object_unique_ptr.hpp>
 #include <sge/src/model/md3/loader_impl.hpp>
+#include <sge/src/model/md3/log_name.hpp>
 #include <sge/src/model/md3/object_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
@@ -32,7 +36,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::model::md3::loader_impl::loader_impl()
+sge::model::md3::loader_impl::loader_impl(
+	fcppt::log::context &_log_context
+)
+:
+	log_{
+		_log_context,
+		sge::log::location(),
+		sge::log::default_parameters(
+			sge::model::md3::log_name()
+		)
+	}
 {
 }
 
@@ -63,6 +77,7 @@ sge::model::md3::loader_impl::load(
 			fcppt::make_unique_ptr<
 				sge::model::md3::object_impl
 			>(
+				log_,
 				file,
 				_flags
 			)
@@ -82,6 +97,7 @@ sge::model::md3::loader_impl::load_stream(
 			fcppt::make_unique_ptr<
 				sge::model::md3::object_impl
 			>(
+				log_,
 				_stream,
 				_flags
 			)

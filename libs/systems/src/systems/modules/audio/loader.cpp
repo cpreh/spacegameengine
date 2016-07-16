@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/multi_loader_parameters.hpp>
 #include <sge/audio/loader_plugin/collection_fwd.hpp>
-#include <sge/log/option_container.hpp>
 #include <sge/src/systems/modules/audio/loader.hpp>
 #include <sge/systems/audio_loader.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -30,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::systems::modules::audio::loader::loader(
 	sge::audio::loader_plugin::collection const &_collection,
-	sge::log::option_container const &_log_options,
 	sge::systems::audio_loader const &_parameters
 )
 :
@@ -41,8 +39,6 @@ sge::systems::modules::audio::loader::loader(
 			sge::audio::multi_loader_parameters(
 				_collection,
 				_parameters.extensions()
-			).log_options(
-				_log_options
 			)
 		)
 	)

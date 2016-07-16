@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace sge
@@ -67,6 +68,10 @@ public:
 
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	~instance();
+
+	SGE_SYSTEMS_DETAIL_SYMBOL
+	fcppt::log::context &
+	log_context() const;
 
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::plugin::manager &

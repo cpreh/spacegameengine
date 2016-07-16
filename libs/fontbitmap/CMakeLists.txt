@@ -17,7 +17,7 @@ set(
 	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/load_offset.hpp
 	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/load_one_file.hpp
 	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/load_rect.hpp
-	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/logger.hpp
+	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/log_name.hpp
 	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/make_rep.hpp
 	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/object.hpp
 	libs/fontbitmap/src/font/bitmap/include/sge/src/font/bitmap/position.hpp
@@ -30,7 +30,7 @@ set(
 	libs/fontbitmap/src/font/bitmap/load_one_file.cpp
 	libs/fontbitmap/src/font/bitmap/load_rect.cpp
 	libs/fontbitmap/src/font/bitmap/log_location.cpp
-	libs/fontbitmap/src/font/bitmap/logger.cpp
+	libs/fontbitmap/src/font/bitmap/log_name.cpp
 	libs/fontbitmap/src/font/bitmap/make_rep.cpp
 	libs/fontbitmap/src/font/bitmap/object.cpp
 	libs/fontbitmap/src/font/bitmap/position.cpp

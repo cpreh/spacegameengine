@@ -21,12 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_PLUGIN_INSTANTIATE_CONTEXT_HPP_INCLUDED
 #define SGE_SRC_PLUGIN_INSTANTIATE_CONTEXT_HPP_INCLUDED
 
-#include <sge/log/option_container.hpp>
-#include <sge/plugin/object.hpp>
 #include <sge/src/core/export_class_instantiation.hpp>
-#include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/src/plugin/context_impl.hpp>
-#include <sge/src/plugin/load_with_log_options_impl.hpp>
 
 
 #define SGE_PLUGIN_INSTANTIATE_CONTEXT(\
@@ -37,18 +33,6 @@ class \
 SGE_CORE_EXPORT_CLASS_INSTANTIATION \
 sge::plugin::context<\
 	plugin_type\
->; \
-\
-template \
-SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
-sge::plugin::object< \
-	plugin_type \
 > \
-sge::plugin::load_with_log_options( \
-	sge::plugin::context< \
-		plugin_type \
-	> const &, \
-	sge::log::option_container const & \
-)
 
 #endif

@@ -22,16 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_LIBRARY_MAKE_INTERFACE_HPP_INCLUDED
 
 #include <sge/plugin/info.hpp>
-#include <sge/plugin/detail/setup_loggers.hpp>
 #include <sge/plugin/library/function_base.hpp>
 #include <sge/plugin/library/function_map.hpp>
 #include <sge/plugin/library/detail/interface_post.hpp>
 #include <sge/plugin/library/detail/interface_pre.hpp>
 #include <sge/plugin/library/detail/iterate_functions.hpp>
-#include <sge/plugin/library/detail/log_context_function_name.hpp>
 #include <sge/plugin/library/detail/version_function_name.hpp>
-#include <fcppt/io/ostream.hpp>
-#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -43,7 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #define SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(\
 	plugin_info,\
-	plugin_log_context,\
 	plugin_functions\
 )\
 namespace\
@@ -52,21 +47,10 @@ namespace\
 sge::plugin::info \
 sge_info_function() \
 {\
-	return plugin_info;\
+	return \
+		plugin_info;\
 }\
 \
-void \
-sge_log_context_function(\
-	fcppt::io::ostream &_stream,\
-	fcppt::log::context &_context\
-)\
-{\
-	sge::plugin::detail::setup_loggers(\
-		_stream,\
-		plugin_log_context,\
-		_context\
-	);\
-}\
 }\
 \
 FCPPT_PP_PUSH_WARNING \
@@ -81,14 +65,6 @@ SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 				&sge_info_function\
 			)\
 		),\
-		std::make_pair(\
-			sge::plugin::library::detail::log_context_function_name,\
-			reinterpret_cast<\
-				sge::plugin::library::function_base\
-			>(\
-				&sge_log_context_function\
-			)\
-		) \
 		BOOST_PP_SEQ_FOR_EACH(\
 			SGE_PLUGIN_LIBRARY_DETAIL_ITERATE_FUNCTIONS,\
 			,\

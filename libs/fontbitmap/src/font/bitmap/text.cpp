@@ -54,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/box/contains_point.hpp>
 #include <fcppt/math/box/null.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -66,6 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::font::bitmap::text::text(
+	fcppt::log::object &_log,
 	sge::font::bitmap::char_map const &_char_map,
 	sge::font::string const &_string,
 	sge::font::text_parameters const &_text_parameters,
@@ -80,6 +82,7 @@ sge::font::bitmap::text::text(
 	),
 	rep_(
 		sge::font::bitmap::make_rep(
+			_log,
 			_char_map,
 			_line_height,
 			_string,

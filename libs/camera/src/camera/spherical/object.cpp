@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/optional_projection_matrix.hpp>
+#include <sge/camera/impl/set_pressed_if_appropriate.hpp>
 #include <sge/camera/spherical/object.hpp>
 #include <sge/camera/spherical/parameters.hpp>
 #include <sge/camera/spherical/coordinate_system/null.hpp>
@@ -29,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/renderer/vector4.hpp>
-#include <sge/src/camera/set_pressed_if_appropriate.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/pi.hpp>
@@ -244,35 +244,41 @@ void
 sge::camera::spherical::object::key_callback(
 	sge::input::keyboard::key_event const &_key_event)
 {
-	sge::camera::set_pressed_if_appropriate(
+	sge::camera::impl::set_pressed_if_appropriate(
 		increase_azimuth_pressed_,
 		action_mapping_.increase_azimuth().get(),
-		_key_event);
+		_key_event
+	);
 
-	sge::camera::set_pressed_if_appropriate(
+	sge::camera::impl::set_pressed_if_appropriate(
 		decrease_azimuth_pressed_,
 		action_mapping_.decrease_azimuth().get(),
-		_key_event);
+		_key_event
+	);
 
-	sge::camera::set_pressed_if_appropriate(
+	sge::camera::impl::set_pressed_if_appropriate(
 		increase_inclination_pressed_,
 		action_mapping_.increase_inclination().get(),
-		_key_event);
+		_key_event
+	);
 
-	sge::camera::set_pressed_if_appropriate(
+	sge::camera::impl::set_pressed_if_appropriate(
 		decrease_inclination_pressed_,
 		action_mapping_.decrease_inclination().get(),
-		_key_event);
+		_key_event
+	);
 
-	sge::camera::set_pressed_if_appropriate(
+	sge::camera::impl::set_pressed_if_appropriate(
 		increase_radius_pressed_,
 		action_mapping_.increase_radius().get(),
-		_key_event);
+		_key_event
+	);
 
-	sge::camera::set_pressed_if_appropriate(
+	sge::camera::impl::set_pressed_if_appropriate(
 		decrease_radius_pressed_,
 		action_mapping_.decrease_radius().get(),
-		_key_event);
+		_key_event
+	);
 
 	acceleration_.azimuth(
 		spherical::coordinate_system::azimuth(

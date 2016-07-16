@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/line.hpp>
 #include <sge/src/font/bitmap/line_height.hpp>
 #include <sge/src/font/bitmap/line_vector.hpp>
-#include <sge/src/font/bitmap/logger.hpp>
 #include <sge/src/font/bitmap/make_rep.hpp>
 #include <sge/src/font/bitmap/rep.hpp>
 #include <fcppt/const.hpp>
@@ -47,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
@@ -59,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::font::bitmap::rep
 sge::font::bitmap::make_rep(
+	fcppt::log::object &_log,
 	sge::font::bitmap::char_map const &_char_map,
 	sge::font::bitmap::line_height const _line_height,
 	sge::font::string const &_string,
@@ -117,7 +118,7 @@ sge::font::bitmap::make_rep(
 		)
 		{
 			FCPPT_LOG_ERROR(
-				sge::font::bitmap::logger(),
+				_log,
 				fcppt::log::_
 					<<
 					FCPPT_TEXT("Bitmapfont character '")

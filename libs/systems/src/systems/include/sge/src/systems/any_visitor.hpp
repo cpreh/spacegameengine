@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_ANY_VISITOR_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_ANY_VISITOR_HPP_INCLUDED
 
-#include <sge/log/option_container.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/config_fwd.hpp>
@@ -45,56 +44,52 @@ class any_visitor
 		any_visitor
 	);
 public:
-	typedef void result_type;
-
+	explicit
 	any_visitor(
-		sge::systems::detail::instance_impl &,
-		sge::log::option_container const &
+		sge::systems::detail::instance_impl &
 	);
 
-	result_type
+	void
 	operator()(
 		sge::systems::config const &
 	) const;
 
-	result_type
+	void
 	operator()(
 		sge::systems::detail::renderer const &
 	) const;
 
-	result_type
+	void
 	operator()(
 		sge::systems::window const &
 	) const;
 
-	result_type
+	void
 	operator()(
 		sge::systems::image2d const &
 	) const;
 
-	result_type
+	void
 	operator()(
 		sge::systems::audio_loader const &
 	) const;
 
-	result_type
+	void
 	operator()(
 		sge::systems::audio_player const &
 	) const;
 
-	result_type
+	void
 	operator()(
 		sge::systems::detail::input const &
 	) const;
 
-	result_type
+	void
 	operator()(
 		sge::systems::font const &
 	) const;
 private:
 	sge::systems::detail::instance_impl &impl_;
-
-	sge::log::option_container const &log_options_;
 };
 
 }

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/src/systems/modules/window/system_base_unique_ptr.hpp>
 #include <sge/systems/window_fwd.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace sge
@@ -36,6 +37,7 @@ namespace window
 
 sge::systems::modules::window::system_base_unique_ptr
 make_system_base(
+	fcppt::log::context &,
 	sge::systems::window const &
 );
 

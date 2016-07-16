@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
-#include <sge/log/option_container.hpp>
 #include <sge/parse/ini/optional_start_fwd.hpp>
 #include <sge/plugin/cache.hpp>
 #include <sge/plugin/manager.hpp>
@@ -63,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system_fwd.hpp>
 #include <awl/main/optional_scoped_output_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/context.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
 
@@ -94,8 +94,7 @@ public:
 	void
 	init_renderer_system(
 		sge::systems::detail::renderer const &,
-		sge::parse::ini::optional_start const &,
-		sge::log::option_container const &
+		sge::parse::ini::optional_start const &
 	);
 
 	void
@@ -110,36 +109,34 @@ public:
 
 	void
 	init_input(
-		sge::systems::detail::input const &,
-		sge::log::option_container const &
+		sge::systems::detail::input const &
 	);
 
 	void
 	init_image2d(
-		sge::systems::image2d const &,
-		sge::log::option_container const &
+		sge::systems::image2d const &
 	);
 
 	void
 	init_audio_loader(
-		sge::systems::audio_loader const &,
-		sge::log::option_container const &
+		sge::systems::audio_loader const &
 	);
 
 	void
 	init_audio_player(
-		sge::systems::audio_player const &,
-		sge::log::option_container const &
+		sge::systems::audio_player const &
 	);
 
 	void
 	init_font(
-		sge::systems::font const &,
-		sge::log::option_container const &
+		sge::systems::font const &
 	);
 
 	void
 	post_init();
+
+	fcppt::log::context &
+	log_context();
 
 	sge::plugin::manager &
 	plugin_manager();
@@ -195,6 +192,8 @@ public:
 	sge::viewport::manager &
 	viewport_manager() const;
 private:
+	fcppt::log::context log_context_;
+
 	awl::main::optional_scoped_output_unique_ptr const scoped_output_;
 	// Almost all plugins need to be unloaded last. If, for example,
 	// libGL.so is unloaded before the X window will be destroyed, then the

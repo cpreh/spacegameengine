@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/log/option_container.hpp>
 #include <sge/log/detail/symbol.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace sge
@@ -33,6 +34,7 @@ namespace log
 SGE_LOG_DETAIL_SYMBOL
 void
 apply_options(
+	fcppt::log::context &,
 	sge::log::option_container const &
 );
 

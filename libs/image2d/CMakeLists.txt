@@ -1,5 +1,7 @@
 set(
 	SGE_IMAGE2D_FILES
+	libs/image2d/impl/include/sge/image2d/impl/log_name.hpp
+	libs/image2d/impl/src/image2d/impl/log_name.cpp
 	libs/image2d/include/sge/image2d/a8_format.hpp
 	libs/image2d/include/sge/image2d/algorithm/clone.hpp
 	libs/image2d/include/sge/image2d/algorithm/compare.hpp
@@ -147,12 +149,10 @@ set(
 	libs/image2d/src/image2d/create_exn.cpp
 	libs/image2d/src/image2d/file.cpp
 	libs/image2d/src/image2d/file_exception.cpp
-	libs/image2d/src/image2d/include/sge/src/image2d/logger.hpp
 	libs/image2d/src/image2d/load.cpp
 	libs/image2d/src/image2d/load_exn.cpp
 	libs/image2d/src/image2d/load_raw_exn.cpp
 	libs/image2d/src/image2d/log_location.cpp
-	libs/image2d/src/image2d/logger.cpp
 	libs/image2d/src/image2d/multi_system.cpp
 	libs/image2d/src/image2d/multi_system_parameters.cpp
 	libs/image2d/src/image2d/plugin/collection.cpp
@@ -224,6 +224,7 @@ sge_implement_from_lib(
 
 add_sge_base_library(
 	image2d
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgeimage
 		sgeimagecolor
@@ -243,7 +244,6 @@ add_sge_base_library(
 	INCLUDE_DIRS
 		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/imagecolor/src/image/color/include"
 		"${FCPPT_UTILS_PROJECT_BINARY_DIR}/libs/image/include"
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/image2d/include"
 		${PLUGIN_INCLUDES}
 		${MEDIA_INCLUDES}
 		${IMAGE_INCLUDES}

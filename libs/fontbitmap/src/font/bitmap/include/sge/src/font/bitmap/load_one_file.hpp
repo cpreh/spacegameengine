@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/src/font/bitmap/char_map.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -39,6 +40,7 @@ namespace bitmap
 
 sge::image2d::file_unique_ptr
 load_one_file(
+	fcppt::log::object &,
 	boost::filesystem::path const &stem,
 	sge::parse::json::object const &,
 	sge::image2d::system &,

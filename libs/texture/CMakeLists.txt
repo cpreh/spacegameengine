@@ -3,8 +3,6 @@ set(
 	libs/texture/impl/include/sge/texture/impl/basic_part_raw_impl.hpp
 	libs/texture/impl/include/sge/texture/impl/dereference_basic_part.hpp
 	libs/texture/impl/include/sge/texture/impl/instantiate_basic_part_raw.hpp
-	libs/texture/impl/include/sge/texture/impl/logger.hpp
-	libs/texture/impl/src/texture/logger.cpp
 	libs/texture/include/sge/texture/area_texc.hpp
 	libs/texture/include/sge/texture/atlasing/border_h.hpp
 	libs/texture/include/sge/texture/atlasing/border_size.hpp
@@ -30,7 +28,6 @@ set(
 	libs/texture/include/sge/texture/fragmented_fwd.hpp
 	libs/texture/include/sge/texture/fragmented_unique_ptr.hpp
 	libs/texture/include/sge/texture/image_too_big.hpp
-	libs/texture/include/sge/texture/log_location.hpp
 	libs/texture/include/sge/texture/manager.hpp
 	libs/texture/include/sge/texture/manager_fwd.hpp
 	libs/texture/include/sge/texture/next_power_of_2.hpp
@@ -62,7 +59,6 @@ set(
 	libs/texture/src/texture/exception.cpp
 	libs/texture/src/texture/fragmented.cpp
 	libs/texture/src/texture/image_too_big.cpp
-	libs/texture/src/texture/log_location.cpp
 	libs/texture/src/texture/manager.cpp
 	libs/texture/src/texture/next_power_of_2.cpp
 	libs/texture/src/texture/part.cpp

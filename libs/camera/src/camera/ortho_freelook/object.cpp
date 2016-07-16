@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/ortho_freelook/object.hpp>
 #include <sge/camera/ortho_freelook/parameters.hpp>
+#include <sge/camera/impl/set_pressed_if_appropriate.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
@@ -32,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/projection/rect.hpp>
-#include <sge/src/camera/set_pressed_if_appropriate.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/math/box/stretch_relative.hpp>
@@ -255,18 +255,21 @@ void
 sge::camera::ortho_freelook::object::key_callback(
 	sge::input::keyboard::key_event const &_key_event)
 {
-	sge::camera::set_pressed_if_appropriate(
+	sge::camera::impl::set_pressed_if_appropriate(
 		zoom_in_pressed_,
 		action_mapping_.zoom_in().get(),
-		_key_event);
+		_key_event
+	);
 
-	sge::camera::set_pressed_if_appropriate(
+	sge::camera::impl::set_pressed_if_appropriate(
 		zoom_out_pressed_,
 		action_mapping_.zoom_out().get(),
-		_key_event);
+		_key_event
+	);
 
-	sge::camera::set_pressed_if_appropriate(
+	sge::camera::impl::set_pressed_if_appropriate(
 		pan_pressed_,
 		action_mapping_.activate_pan().get(),
-		_key_event);
+		_key_event
+	);
 }

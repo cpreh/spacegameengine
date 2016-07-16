@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/option_container.hpp>
 #include <sge/src/systems/any_visitor.hpp>
 #include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
@@ -32,27 +31,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::systems::any_visitor::any_visitor(
-	sge::systems::detail::instance_impl &_impl,
-	sge::log::option_container const &_log_options
+	sge::systems::detail::instance_impl &_impl
 )
 :
 	impl_(
 		_impl
-	),
-	log_options_(
-		_log_options
 	)
 {
 }
 
-sge::systems::any_visitor::result_type
+void
 sge::systems::any_visitor::operator()(
 	sge::systems::config const &
 ) const
 {
 }
 
-sge::systems::any_visitor::result_type
+void
 sge::systems::any_visitor::operator()(
 	sge::systems::detail::renderer const &_param
 ) const
@@ -62,7 +57,7 @@ sge::systems::any_visitor::operator()(
 	);
 }
 
-sge::systems::any_visitor::result_type
+void
 sge::systems::any_visitor::operator()(
 	sge::systems::window const &_param
 ) const
@@ -72,57 +67,52 @@ sge::systems::any_visitor::operator()(
 	);
 }
 
-sge::systems::any_visitor::result_type
+void
 sge::systems::any_visitor::operator()(
 	sge::systems::image2d const &_param
 ) const
 {
 	impl_.init_image2d(
-		_param,
-		log_options_
+		_param
 	);
 }
 
-sge::systems::any_visitor::result_type
+void
 sge::systems::any_visitor::operator()(
 	sge::systems::audio_loader const &_param
 ) const
 {
 	impl_.init_audio_loader(
-		_param,
-		log_options_
+		_param
 	);
 }
 
-sge::systems::any_visitor::result_type
+void
 sge::systems::any_visitor::operator()(
 	sge::systems::audio_player const &_param
 ) const
 {
 	impl_.init_audio_player(
-		_param,
-		log_options_
+		_param
 	);
 }
 
-sge::systems::any_visitor::result_type
+void
 sge::systems::any_visitor::operator()(
 	sge::systems::detail::input const &_param
 ) const
 {
 	impl_.init_input(
-		_param,
-		log_options_
+		_param
 	);
 }
 
-sge::systems::any_visitor::result_type
+void
 sge::systems::any_visitor::operator()(
 	sge::systems::font const &_param
 ) const
 {
 	impl_.init_font(
-		_param,
-		log_options_
+		_param
 	);
 }

@@ -1,5 +1,7 @@
 set(
 	SGE_MODELOBJ_FILES
+	libs/modelobj/impl/include/sge/model/obj/impl/log_name.hpp
+	libs/modelobj/impl/src/model/obj/impl/log_name.cpp
 	libs/modelobj/include/sge/model/obj/box.hpp
 	libs/modelobj/include/sge/model/obj/box_fwd.hpp
 	libs/modelobj/include/sge/model/obj/exception.hpp
@@ -35,9 +37,7 @@ set(
 	libs/modelobj/include/sge/model/obj/vertex_coordinate_sequence.hpp
 	libs/modelobj/src/model/obj/exception.cpp
 	libs/modelobj/src/model/obj/face_vertex.cpp
-	libs/modelobj/src/model/obj/include/sge/src/model/obj/logger.hpp
 	libs/modelobj/src/model/obj/log_location.cpp
-	libs/modelobj/src/model/obj/logger.cpp
 	libs/modelobj/src/model/obj/material/object.cpp
 	libs/modelobj/src/model/obj/parse_mtllib.cpp
 	libs/modelobj/src/model/obj/prototype.cpp
@@ -46,6 +46,7 @@ set(
 
 add_sge_base_library(
 	"model/obj"
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgecharconv
 		sgecore
@@ -62,6 +63,4 @@ add_sge_base_library(
 		${fcppt_log_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/model/obj/include"
 )

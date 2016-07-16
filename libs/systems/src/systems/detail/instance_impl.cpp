@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
-#include <sge/log/option_container.hpp>
 #include <sge/parse/ini/optional_start_fwd.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/manager.hpp>
@@ -69,6 +68,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
+#include <fcppt/log/context.hpp>
+#include <fcppt/log/enabled_levels.hpp>
+#include <fcppt/log/level.hpp>
+#include <fcppt/log/setting.hpp>
 
 
 sge::systems::detail::instance_impl::instance_impl(
@@ -76,6 +79,13 @@ sge::systems::detail::instance_impl::instance_impl(
 	sge::systems::optional_log_redirect_path const &_log_redirect_path
 )
 :
+	log_context_{
+		fcppt::log::setting{
+			fcppt::log::enabled_levels(
+				fcppt::log::level::info
+			)
+		}
+	},
 	scoped_output_(
 		sge::systems::make_scoped_output(
 			_log_redirect_path
@@ -83,6 +93,7 @@ sge::systems::detail::instance_impl::instance_impl(
 	),
 	plugin_cache_(),
 	plugin_manager_(
+		log_context_,
 		_plugin_path.get(),
 		sge::plugin::optional_cache_ref(
 			fcppt::make_ref(
@@ -124,8 +135,7 @@ sge::systems::detail::instance_impl::init_window_system(
 void
 sge::systems::detail::instance_impl::init_renderer_system(
 	sge::systems::detail::renderer const &_parameters,
-	sge::parse::ini::optional_start const &_config,
-	sge::log::option_container const &_log_options
+	sge::parse::ini::optional_start const &_config
 )
 {
 	renderer_system_ =
@@ -136,7 +146,6 @@ sge::systems::detail::instance_impl::init_renderer_system(
 				plugin_manager_.collection<
 					sge::renderer::core
 				>(),
-				_log_options,
 				_parameters,
 				_config,
 				*FCPPT_ASSERT_OPTIONAL_ERROR(
@@ -190,8 +199,7 @@ sge::systems::detail::instance_impl::init_renderer(
 
 void
 sge::systems::detail::instance_impl::init_input(
-	sge::systems::detail::input const &_parameters,
-	sge::log::option_container const &_log_options
+	sge::systems::detail::input const &_parameters
 )
 {
 	input_ =
@@ -202,7 +210,6 @@ sge::systems::detail::instance_impl::init_input(
 				plugin_manager_.collection<
 					sge::input::system
 				>(),
-				_log_options,
 				_parameters,
 				*FCPPT_ASSERT_OPTIONAL_ERROR(
 					window_system_
@@ -216,8 +223,7 @@ sge::systems::detail::instance_impl::init_input(
 
 void
 sge::systems::detail::instance_impl::init_image2d(
-	sge::systems::image2d const &_parameters,
-	sge::log::option_container const &_log_options
+	sge::systems::image2d const &_parameters
 )
 {
 	image2d_ =
@@ -228,7 +234,6 @@ sge::systems::detail::instance_impl::init_image2d(
 				plugin_manager_.collection<
 					sge::image2d::system
 				>(),
-				_log_options,
 				_parameters
 			)
 		);
@@ -236,8 +241,7 @@ sge::systems::detail::instance_impl::init_image2d(
 
 void
 sge::systems::detail::instance_impl::init_audio_loader(
-	sge::systems::audio_loader const &_parameters,
-	sge::log::option_container const &_log_options
+	sge::systems::audio_loader const &_parameters
 )
 {
 	audio_loader_ =
@@ -248,7 +252,6 @@ sge::systems::detail::instance_impl::init_audio_loader(
 				plugin_manager_.collection<
 					sge::audio::loader
 				>(),
-				_log_options,
 				_parameters
 			)
 		);
@@ -256,8 +259,7 @@ sge::systems::detail::instance_impl::init_audio_loader(
 
 void
 sge::systems::detail::instance_impl::init_audio_player(
-	sge::systems::audio_player const &_parameters,
-	sge::log::option_container const &_log_options
+	sge::systems::audio_player const &_parameters
 )
 {
 	audio_player_ =
@@ -268,7 +270,6 @@ sge::systems::detail::instance_impl::init_audio_player(
 				plugin_manager_.collection<
 					sge::audio::player
 				>(),
-				_log_options,
 				_parameters
 			)
 		);
@@ -276,8 +277,7 @@ sge::systems::detail::instance_impl::init_audio_player(
 
 void
 sge::systems::detail::instance_impl::init_font(
-	sge::systems::font const &_parameters,
-	sge::log::option_container const &_log_options
+	sge::systems::font const &_parameters
 )
 {
 	font_ =
@@ -288,7 +288,6 @@ sge::systems::detail::instance_impl::init_font(
 				plugin_manager_.collection<
 					sge::font::system
 				>(),
-				_log_options,
 				_parameters
 			)
 		);
@@ -306,6 +305,13 @@ sge::systems::detail::instance_impl::post_init()
 			_window_object->post_init();
 		}
 	);
+}
+
+fcppt::log::context &
+sge::systems::detail::instance_impl::log_context()
+{
+	return
+		log_context_;
 }
 
 sge::plugin::manager &

@@ -17,7 +17,7 @@ set(
 	libs/renderer/impl/include/sge/renderer/impl/index/instantiate_all.hpp
 	libs/renderer/impl/include/sge/renderer/impl/instantiate_float.hpp
 	libs/renderer/impl/include/sge/renderer/impl/is_epsilon_equal.hpp
-	libs/renderer/impl/include/sge/renderer/impl/logger.hpp
+	libs/renderer/impl/include/sge/renderer/impl/log_name.hpp
 	libs/renderer/impl/include/sge/renderer/impl/projection/check_near.hpp
 	libs/renderer/impl/include/sge/renderer/impl/projection/check_near_far.hpp
 	libs/renderer/impl/include/sge/renderer/impl/state/core/sampler/null_states.hpp
@@ -40,14 +40,14 @@ set(
 	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/lock_interval.hpp
 	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/locked_part_interval.hpp
 	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/matching_color_format.hpp
-	libs/renderer/impl/src/renderer/impl/logger.cpp
+	libs/renderer/impl/src/renderer/impl/log_name.cpp
 	libs/renderer/impl/src/renderer/impl/projection/check_near.cpp
 	libs/renderer/impl/src/renderer/impl/projection/check_near_far.cpp
 	libs/renderer/impl/src/renderer/impl/state/core/sampler/null_states.cpp
 	libs/renderer/impl/src/renderer/impl/state/core/sampler/scoped_states.cpp
-	libs/renderer/impl/src/renderer/vf/dynamic/element_converter.cpp
-	libs/renderer/impl/src/renderer/vf/dynamic/locked_part_interval.cpp
-	libs/renderer/impl/src/renderer/vf/dynamic/matching_color_format.cpp
+	libs/renderer/impl/src/renderer/impl/vf/dynamic/element_converter.cpp
+	libs/renderer/impl/src/renderer/impl/vf/dynamic/locked_part_interval.cpp
+	libs/renderer/impl/src/renderer/impl/vf/dynamic/matching_color_format.cpp
 	libs/renderer/include/sge/renderer/aspect.hpp
 	libs/renderer/include/sge/renderer/basic_dim.hpp
 	libs/renderer/include/sge/renderer/basic_dim_fwd.hpp

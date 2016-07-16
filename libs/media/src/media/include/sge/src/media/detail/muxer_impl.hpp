@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_MEDIA_DETAIL_MUXER_IMPL_HPP_INCLUDED
 #define SGE_SRC_MEDIA_DETAIL_MUXER_IMPL_HPP_INCLUDED
 
+#include <sge/log/default_parameters.hpp>
+#include <sge/log/location.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/load_stream_result.hpp>
@@ -31,9 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/iterator.hpp>
-#include <sge/plugin/load_with_log_options.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/src/media/logger.hpp>
+#include <sge/src/media/log_name.hpp>
 #include <sge/src/media/detail/muxer.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/make_ref.hpp>
@@ -72,12 +73,20 @@ sge::media::detail::muxer<
 	parameters const &_parameters
 )
 :
+	log_{
+		_parameters.log_context(),
+		sge::log::location(),
+		sge::log::default_parameters(
+			sge::media::log_name()
+		)
+	},
 	plugins_(
 		fcppt::algorithm::map_optional<
 			plugin_system_pair_container
 		>(
 			_parameters.collection(),
 			[
+				this,
 				&_parameters
 			](
 				sge::plugin::context<
@@ -86,10 +95,7 @@ sge::media::detail::muxer<
 			)
 			{
 				plugin_type plugin(
-					sge::plugin::load_with_log_options(
-						_context,
-						_parameters.log_options()
-					)
+					_context.load()
 				);
 
 				system_unique_ptr system_instance(
@@ -140,7 +146,7 @@ sge::media::detail::muxer<
 					!result.has_value()
 				)
 					FCPPT_LOG_DEBUG(
-						sge::media::logger(),
+						log_,
 						fcppt::log::_
 							<< FCPPT_TEXT("System ")
 							<< fcppt::type_name_from_info(

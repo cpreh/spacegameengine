@@ -27,11 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/impl/system_ptr_vector.hpp>
 #include <sge/input/plugin/collection_fwd.hpp>
 #include <sge/input/plugin/object.hpp>
-#include <sge/log/option_container.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -53,8 +54,8 @@ class multi_system
 	);
 public:
 	multi_system(
-		sge::input::plugin::collection const &,
-		sge::log::option_container const &
+		fcppt::log::context &,
+		sge::input::plugin::collection const &
 	);
 
 	~multi_system()
@@ -70,6 +71,8 @@ private:
 	sge::input::capabilities_field
 	capabilities() const
 	override;
+
+	fcppt::log::object log_;
 
 	typedef
 	std::vector<

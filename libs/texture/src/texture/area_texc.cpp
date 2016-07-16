@@ -23,11 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/texture/area_texc.hpp>
+#include <sge/texture/exception.hpp>
 #include <sge/texture/part.hpp>
-#include <sge/texture/impl/logger.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
-#include <fcppt/log/warning.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/componentwise_equal.hpp>
@@ -67,6 +66,7 @@ sge::texture::area_texc(
 		2
 	> vector_type;
 
+	// FIXME: Use optionals for repetition
 	if(
 		!fcppt::math::vector::componentwise_equal(
 			_repeat,
@@ -80,13 +80,16 @@ sge::texture::area_texc(
 		)
 		&& !_part.repeatable()
 	)
-		FCPPT_LOG_WARNING(
-			sge::texture::impl::logger(),
-			fcppt::log::_
-				<< FCPPT_TEXT("texture not repeatable but repetition is ")
-				<< _repeat
-				<< FCPPT_TEXT('!')
-		);
+		throw
+			sge::texture::exception{
+				FCPPT_TEXT("texture not repeatable but repetition is ")
+				+
+				fcppt::insert_to_fcppt_string(
+					_repeat
+				)
+				+
+				FCPPT_TEXT('!')
+			};
 
 	typedef
 	fcppt::math::box::rect<

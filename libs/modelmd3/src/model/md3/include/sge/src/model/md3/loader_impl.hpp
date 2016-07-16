@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/loader.hpp>
 #include <sge/model/md3/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <iosfwd>
@@ -47,7 +49,10 @@ class loader_impl
 		loader_impl
 	);
 public:
-	loader_impl();
+	explicit
+	loader_impl(
+		fcppt::log::context &
+	);
 
 	~loader_impl()
 	override;
@@ -65,6 +70,8 @@ private:
 		sge::model::md3::load_flags_field
 	)
 	override;
+
+	fcppt::log::object log_;
 };
 
 }

@@ -1,5 +1,9 @@
 set(
 	SGE_CAMERA_FILES
+	libs/camera/impl/include/sge/camera/impl/log_name.hpp
+	libs/camera/impl/include/sge/camera/impl/set_pressed_if_appropriate.hpp
+	libs/camera/impl/src/camera/impl/log_name.cpp
+	libs/camera/impl/src/camera/impl/set_pressed_if_appropriate.cpp
 	libs/camera/include/sge/camera/base.hpp
 	libs/camera/include/sge/camera/base_fwd.hpp
 	libs/camera/include/sge/camera/coordinate_system/forward.hpp
@@ -122,11 +126,8 @@ set(
 	libs/camera/src/camera/has_activation.cpp
 	libs/camera/src/camera/has_mutable_coordinate_system.cpp
 	libs/camera/src/camera/has_mutable_projection.cpp
-	libs/camera/src/camera/include/sge/src/camera/logger.hpp
-	libs/camera/src/camera/include/sge/src/camera/set_pressed_if_appropriate.hpp
 	libs/camera/src/camera/is_dynamic.cpp
 	libs/camera/src/camera/log_location.cpp
-	libs/camera/src/camera/logger.cpp
 	libs/camera/src/camera/matrix_conversion/rotation.cpp
 	libs/camera/src/camera/matrix_conversion/translation.cpp
 	libs/camera/src/camera/matrix_conversion/world.cpp
@@ -138,7 +139,6 @@ set(
 	libs/camera/src/camera/ortho_freelook/parameters.cpp
 	libs/camera/src/camera/ortho_freelook/projection_rectangle_from_viewport.cpp
 	libs/camera/src/camera/perspective_projection_from_viewport.cpp
-	libs/camera/src/camera/set_pressed_if_appropriate.cpp
 	libs/camera/src/camera/spherical/action/mapping.cpp
 	libs/camera/src/camera/spherical/action/wasd_mapping.cpp
 	libs/camera/src/camera/spherical/coordinate_system/homogenous.cpp
@@ -160,6 +160,7 @@ set(
 
 add_sge_base_library(
 	camera
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgecore
 		sgeinput
@@ -179,6 +180,4 @@ add_sge_base_library(
 		${fcppt_core_TARGET}
 		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/camera/include"
 )

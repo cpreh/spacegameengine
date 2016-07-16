@@ -41,12 +41,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/load_offset.hpp>
 #include <sge/src/font/bitmap/load_one_file.hpp>
 #include <sge/src/font/bitmap/load_rect.hpp>
-#include <sge/src/font/bitmap/logger.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <utility>
@@ -55,6 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::image2d::file_unique_ptr
 sge::font::bitmap::load_one_file(
+	fcppt::log::object &_log,
 	boost::filesystem::path const &_stem,
 	sge::parse::json::object const &_object,
 	sge::image2d::system &_image_system,
@@ -114,7 +115,7 @@ sge::font::bitmap::load_one_file(
 		)
 		{
 			FCPPT_LOG_ERROR(
-				sge::font::bitmap::logger(),
+				_log,
 				fcppt::log::_
 					<< FCPPT_TEXT("Invalid character in bitmap font: \"")
 					<< name
@@ -170,7 +171,7 @@ sge::font::bitmap::load_one_file(
 	)
 	{
 		FCPPT_LOG_ERROR(
-			sge::font::bitmap::logger(),
+			_log,
 			fcppt::log::_
 				<< FCPPT_TEXT("Skipping character in bitmap font because \"")
 				<< _exception.string()

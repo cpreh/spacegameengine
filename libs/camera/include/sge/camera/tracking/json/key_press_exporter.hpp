@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/key_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/strong_typedef.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -60,6 +62,7 @@ public:
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	key_press_exporter(
+		fcppt::log::context &,
 		sge::camera::base const &,
 		boost::filesystem::path const &,
 		sge::camera::update_duration const &,
@@ -70,6 +73,7 @@ public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	~key_press_exporter();
 private:
+	fcppt::log::object log_;
 	sge::camera::base const &camera_;
 	boost::filesystem::path const target_path_;
 	sge::camera::update_duration const duration_;

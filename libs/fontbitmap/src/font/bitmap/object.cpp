@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/exception.hpp>
 #include <sge/font/height.hpp>
+#include <sge/font/log_location.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
@@ -31,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/format.hpp>
+#include <sge/log/default_parameters.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/find_member_value_exn.hpp>
@@ -42,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/convert/to_int.hpp>
 #include <sge/src/font/bitmap/char_metric.hpp>
 #include <sge/src/font/bitmap/load_one_file.hpp>
+#include <sge/src/font/bitmap/log_name.hpp>
 #include <sge/src/font/bitmap/object.hpp>
 #include <sge/src/font/bitmap/text.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -50,17 +53,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::font::bitmap::object::object(
+	fcppt::log::context &_log_context,
 	boost::filesystem::path const &_path,
 	sge::image2d::system &_image_system
 )
 :
 	object(
+		_log_context,
 		_path,
 		_image_system,
 		sge::parse::json::parse_file_exn(
@@ -75,11 +81,19 @@ sge::font::bitmap::object::~object()
 }
 
 sge::font::bitmap::object::object(
+	fcppt::log::context &_log_context,
 	boost::filesystem::path const &_path,
 	sge::image2d::system &_image_system,
 	sge::parse::json::start const &_start
 )
 :
+	log_{
+		_log_context,
+		sge::font::log_location(),
+		sge::log::default_parameters(
+			sge::font::bitmap::log_name()
+		)
+	},
 	line_height_(
 		sge::parse::json::convert::to_int<
 			sge::font::unit
@@ -111,6 +125,7 @@ sge::font::bitmap::object::object(
 			{
 				return
 					sge::font::bitmap::load_one_file(
+						log_,
 						_path.parent_path(),
 						sge::parse::json::get_exn<
 							sge::parse::json::object
@@ -192,6 +207,7 @@ sge::font::bitmap::object::create_text(
 			fcppt::make_unique_ptr<
 				sge::font::bitmap::text
 			>(
+				log_,
 				char_map_,
 				_string,
 				_text_parameters,

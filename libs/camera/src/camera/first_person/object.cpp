@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/optional_projection_matrix.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
+#include <sge/camera/impl/set_pressed_if_appropriate.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
 #include <sge/input/keyboard/key_event_fwd.hpp>
@@ -28,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/axis_event.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/renderer/vector4.hpp>
-#include <sge/src/camera/set_pressed_if_appropriate.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/math/matrix/rotation_axis.hpp>
 #include <fcppt/math/matrix/vector.hpp>
@@ -205,37 +205,44 @@ direction_from_booleans(
 
 void
 sge::camera::first_person::object::key_callback(
-	sge::input::keyboard::key_event const &_key_event)
+	sge::input::keyboard::key_event const &_key_event
+)
 {
-	sge::camera::set_pressed_if_appropriate(
+	sge::camera::impl::set_pressed_if_appropriate(
 		left_pressed_,
 		action_mapping_.left().get(),
-		_key_event);
+		_key_event
+	);
 
-	sge::camera::set_pressed_if_appropriate(
+	sge::camera::impl::set_pressed_if_appropriate(
 		right_pressed_,
 		action_mapping_.right().get(),
-		_key_event);
+		_key_event
+	);
 
-	sge::camera::set_pressed_if_appropriate(
+	sge::camera::impl::set_pressed_if_appropriate(
 		up_pressed_,
 		action_mapping_.up().get(),
-		_key_event);
+		_key_event
+	);
 
-	sge::camera::set_pressed_if_appropriate(
+	sge::camera::impl::set_pressed_if_appropriate(
 		down_pressed_,
 		action_mapping_.down().get(),
-		_key_event);
+		_key_event
+	);
 
-	sge::camera::set_pressed_if_appropriate(
+	sge::camera::impl::set_pressed_if_appropriate(
 		forward_pressed_,
 		action_mapping_.forward().get(),
-		_key_event);
+		_key_event
+	);
 
-	sge::camera::set_pressed_if_appropriate(
+	sge::camera::impl::set_pressed_if_appropriate(
 		backward_pressed_,
 		action_mapping_.backward().get(),
-		_key_event);
+		_key_event
+	);
 
 	directions_ =
 		sge::renderer::vector3(

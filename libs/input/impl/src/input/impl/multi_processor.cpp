@@ -42,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/discover_event_fwd.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_event_fwd.hpp>
-#include <sge/input/impl/logger.hpp>
 #include <sge/input/impl/multi_processor.hpp>
 #include <sge/input/impl/system_ptr_vector.hpp>
 #include <sge/window/object_fwd.hpp>
@@ -53,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/cast/bad_dynamic.hpp>
 #include <fcppt/log/_.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -71,6 +71,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::input::impl::multi_processor::multi_processor(
+	fcppt::log::object &_log,
 	sge::window::object const &_window,
 	sge::window::system const &_window_system,
 	sge::input::impl::system_ptr_vector const &_systems
@@ -83,6 +84,7 @@ sge::input::impl::multi_processor::multi_processor(
 		>(
 			_systems,
 			[
+				&_log,
 				&_window,
 				&_window_system
 			](
@@ -110,7 +112,7 @@ sge::input::impl::multi_processor::multi_processor(
 				)
 				{
 					FCPPT_LOG_WARNING(
-						sge::input::impl::logger(),
+						_log,
 						fcppt::log::_
 							<<
 							FCPPT_TEXT("Unusuable input plugin: ")

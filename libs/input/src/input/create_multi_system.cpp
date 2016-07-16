@@ -25,12 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/plugin/collection_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 sge::input::system_unique_ptr
 sge::input::create_multi_system(
-	sge::input::plugin::collection const &_collection,
-	sge::log::option_container const &_log_options
+	fcppt::log::context &_log_context,
+	sge::input::plugin::collection const &_collection
 )
 {
 	return
@@ -40,8 +41,8 @@ sge::input::create_multi_system(
 			fcppt::make_unique_ptr<
 				sge::input::impl::multi_system
 			>(
-				_collection,
-				_log_options
+				_log_context,
+				_collection
 			)
 		);
 }

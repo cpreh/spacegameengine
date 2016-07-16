@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system_unique_ptr.hpp>
 #include <sge/input/detail/symbol.hpp>
 #include <sge/input/plugin/collection_fwd.hpp>
-#include <sge/log/option_container.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace sge
@@ -35,8 +35,8 @@ namespace input
 SGE_INPUT_DETAIL_SYMBOL
 sge::input::system_unique_ptr
 create_multi_system(
-	sge::input::plugin::collection const &,
-	sge::log::option_container const &
+	fcppt::log::context &,
+	sge::input::plugin::collection const &
 );
 
 }

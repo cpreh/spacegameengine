@@ -24,17 +24,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/create.hpp>
 #include <awl/system/object.hpp>
 #include <awl/system/event/processor.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
-sge::systems::modules::window::original_system::original_system()
+sge::systems::modules::window::original_system::original_system(
+	fcppt::log::context &_log_context
+)
 :
 	sge::systems::modules::window::system_base(),
-	awl_system_(
-		awl::system::create()
-	),
-	system_(
+	awl_system_{
+		awl::system::create(
+			_log_context
+		)
+	},
+	system_{
 		*awl_system_
-	)
+	}
 {
 }
 

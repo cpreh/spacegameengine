@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MEDIA_MUXER_PARAMETERS_HPP_INCLUDED
 #define SGE_MEDIA_MUXER_PARAMETERS_HPP_INCLUDED
 
-#include <sge/log/option_container.hpp>
 #include <sge/media/muxer_parameters_fwd.hpp>
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/media/detail/instantiate/symbol.hpp>
 #include <sge/plugin/collection.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace sge
@@ -51,33 +51,28 @@ public:
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
 	muxer_parameters(
+		fcppt::log::context &,
 		collection_type const &,
 		sge::media::optional_extension_set const &
 	);
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
-	muxer_parameters &
-	log_options(
-		sge::log::option_container const &
-	);
+	fcppt::log::context &
+	log_context() const;
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
 	collection_type const &
 	collection() const;
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
-	media::optional_extension_set const &
+	sge::media::optional_extension_set const &
 	extensions() const;
-
-	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
-	sge::log::option_container const &
-	log_options() const;
 private:
+	fcppt::log::context &log_context_;
+
 	collection_type const collection_;
 
 	sge::media::optional_extension_set const extensions_;
-
-	sge::log::option_container log_options_;
 };
 
 }

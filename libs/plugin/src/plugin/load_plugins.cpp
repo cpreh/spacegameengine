@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/symbol_not_found.hpp>
 #include <sge/src/plugin/context_base.hpp>
 #include <sge/src/plugin/load_plugins.hpp>
-#include <sge/src/plugin/logger.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -34,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/extension_without_dot.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::plugin::detail::context_base_vector
 sge::plugin::load_plugins(
+	fcppt::log::object &_log,
 	boost::filesystem::path const &_path,
 	sge::plugin::optional_cache_ref const &_cache
 )
@@ -60,6 +61,7 @@ sge::plugin::load_plugins(
 				boost::filesystem::directory_iterator()
 			),
 			[
+				&_log,
 				&_cache
 			](
 				boost::filesystem::path const &_cur_path
@@ -84,7 +86,7 @@ sge::plugin::load_plugins(
 				)
 				{
 					FCPPT_LOG_WARNING(
-						sge::plugin::logger(),
+						_log,
 						fcppt::log::_
 							<<
 							fcppt::filesystem::path_to_string(
@@ -119,7 +121,7 @@ sge::plugin::load_plugins(
 				)
 				{
 					FCPPT_LOG_WARNING(
-						sge::plugin::logger(),
+						_log,
 						fcppt::log::_
 							<<
 							fcppt::filesystem::path_to_string(
@@ -142,7 +144,7 @@ sge::plugin::load_plugins(
 				)
 				{
 					FCPPT_LOG_WARNING(
-						sge::plugin::logger(),
+						_log,
 						fcppt::log::_
 							<<
 							fcppt::filesystem::path_to_string(

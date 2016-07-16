@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/char_map.hpp>
 #include <sge/src/font/bitmap/line_height.hpp>
 #include <sge/src/font/bitmap/rep.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -37,6 +38,7 @@ namespace bitmap
 
 sge::font::bitmap::rep
 make_rep(
+	fcppt::log::object &,
 	sge::font::bitmap::char_map const &,
 	sge::font::bitmap::line_height,
 	sge::font::string const &,

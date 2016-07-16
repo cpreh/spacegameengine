@@ -42,7 +42,7 @@ set(
 	libs/modelmd3/src/model/md3/include/sge/src/model/md3/frame_vector.hpp
 	libs/modelmd3/src/model/md3/include/sge/src/model/md3/index_array.hpp
 	libs/modelmd3/src/model/md3/include/sge/src/model/md3/loader_impl.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/logger.hpp
+	libs/modelmd3/src/model/md3/include/sge/src/model/md3/log_name.hpp
 	libs/modelmd3/src/model/md3/include/sge/src/model/md3/max_qpath.hpp
 	libs/modelmd3/src/model/md3/include/sge/src/model/md3/object_impl.hpp
 	libs/modelmd3/src/model/md3/include/sge/src/model/md3/read_and_check_id3p.hpp
@@ -73,7 +73,7 @@ set(
 	libs/modelmd3/src/model/md3/loader.cpp
 	libs/modelmd3/src/model/md3/loader_impl.cpp
 	libs/modelmd3/src/model/md3/log_location.cpp
-	libs/modelmd3/src/model/md3/logger.cpp
+	libs/modelmd3/src/model/md3/log_name.cpp
 	libs/modelmd3/src/model/md3/object.cpp
 	libs/modelmd3/src/model/md3/object_impl.cpp
 	libs/modelmd3/src/model/md3/read_and_check_id3p.cpp

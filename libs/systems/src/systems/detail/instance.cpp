@@ -103,7 +103,8 @@ sge::systems::detail::instance::instance(
 		.log_settings()
 	);
 
-	sge::log::option_container const &log_options(
+	sge::log::apply_options(
+		this->log_context(),
 		fcppt::optional::maybe(
 			log_settings,
 			[]{
@@ -119,10 +120,6 @@ sge::systems::detail::instance::instance(
 					_settings.options();
 			}
 		)
-	);
-
-	sge::log::apply_options(
-		log_options
 	);
 
 	sge::parse::ini::result_with_value const ini_result_value(
@@ -197,16 +194,14 @@ sge::systems::detail::instance::instance(
 		sge::systems::detail::any_key::renderer,
 		[
 			this,
-			&ini_result_value,
-			&log_options
+			&ini_result_value
 		](
 			sge::systems::detail::renderer const &_param
 		)
 		{
 			impl_->init_renderer_system(
 				_param,
-				ini_result_value.start(),
-				log_options
+				ini_result_value.start()
 			);
 		}
 	);
@@ -218,8 +213,7 @@ sge::systems::detail::instance::instance(
 	)
 		fcppt::variant::apply_unary(
 			sge::systems::any_visitor(
-				*impl_,
-				log_options
+				*impl_
 			),
 			item.second
 		);

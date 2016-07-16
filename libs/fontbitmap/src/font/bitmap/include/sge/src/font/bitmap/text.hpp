@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/line_height.hpp>
 #include <sge/src/font/bitmap/rep.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -53,6 +54,7 @@ class text
 	);
 public:
 	text(
+		fcppt::log::object &,
 		sge::font::bitmap::char_map const &,
 		sge::font::string const &,
 		sge::font::text_parameters const &,

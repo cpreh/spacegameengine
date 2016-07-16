@@ -1,5 +1,7 @@
 set(
 	SGE_AUDIO_FILES
+	libs/audio/impl/include/sge/audio/impl/log_name.hpp
+	libs/audio/impl/src/audio/impl/log_name.cpp
 	libs/audio/include/sge/audio/bad_sound_alloc.hpp
 	libs/audio/include/sge/audio/bits_per_sample.hpp
 	libs/audio/include/sge/audio/buffer.hpp
@@ -135,6 +137,7 @@ sge_implement_from_lib(
 
 add_sge_base_library(
 	audio
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgecore
 		sgelog

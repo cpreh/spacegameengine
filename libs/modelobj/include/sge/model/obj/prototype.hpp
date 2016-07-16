@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/detail/symbol.hpp>
 #include <sge/model/obj/material/file_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <cstddef>
@@ -48,8 +50,8 @@ FCPPT_NONCOPYABLE(
 	prototype);
 public:
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
-	explicit
 	prototype(
+		fcppt::log::context &,
 		boost::filesystem::path const &
 	);
 
@@ -88,6 +90,7 @@ public:
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	~prototype();
 private:
+	fcppt::log::object log_;
 	sge::model::obj::vertex_coordinate_sequence vertex_coordinates_;
 	sge::model::obj::texture_coordinate_sequence texture_coordinates_;
 	sge::model::obj::normal_sequence normals_;

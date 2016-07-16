@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/loader_plugin/collection_fwd.hpp>
-#include <sge/log/option_container.hpp>
 #include <sge/src/systems/modules/audio/loader_fwd.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -47,7 +46,6 @@ class loader
 public:
 	loader(
 		sge::audio::loader_plugin::collection const &,
-		sge::log::option_container const &,
 		sge::systems::audio_loader const &
 	);
 

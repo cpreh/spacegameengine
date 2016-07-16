@@ -33,6 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/font/bitmap/char_map.hpp>
 #include <sge/src/font/bitmap/line_height.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <vector>
@@ -55,6 +57,7 @@ class object
 	);
 public:
 	object(
+		fcppt::log::context &,
 		boost::filesystem::path const &,
 		sge::image2d::system &
 	);
@@ -63,6 +66,7 @@ public:
 	override;
 private:
 	object(
+		fcppt::log::context &,
 		boost::filesystem::path const &,
 		sge::image2d::system &,
 		sge::parse::json::start const &
@@ -82,6 +86,8 @@ private:
 	sge::font::metrics
 	metrics() const
 	override;
+
+	fcppt::log::object log_;
 
 	sge::font::bitmap::line_height const line_height_;
 
