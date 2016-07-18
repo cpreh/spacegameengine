@@ -18,10 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio_null/logger_context.hpp>
-#include <fcppt/log/define_context.hpp>
+#ifndef SGE_SRC_SYSTEMS_LOG_NAME_HPP_INCLUDED
+#define SGE_SRC_SYSTEMS_LOG_NAME_HPP_INCLUDED
+
+#include <fcppt/log/name.hpp>
 
 
-FCPPT_LOG_DEFINE_CONTEXT(
-	sge::audio_null::logger_context
-)
+namespace sge
+{
+namespace systems
+{
+
+fcppt::log::name
+log_name();
+
+}
+}
+
+#endif

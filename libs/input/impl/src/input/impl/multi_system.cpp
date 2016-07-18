@@ -75,12 +75,16 @@ sge::input::impl::multi_system::multi_system(
 			sge::input::impl::system_ptr_vector
 		>(
 			plugins_,
-			[](
+			[
+				&_log_context
+			](
 				sge::input::plugin::object const &_plugin
 			)
 			{
 				return
-					_plugin.get()();
+					_plugin.get()(
+						_log_context
+					);
 			}
 		)
 	),

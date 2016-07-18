@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/core/exception.hpp>
+#include <sge/log/default_parameters.hpp>
+#include <sge/opencl/log_location.hpp>
 #include <sge/opencl/system.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/context/object.hpp>
@@ -28,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/single_device_system/object.hpp>
 #include <sge/opencl/single_device_system/parameters.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
-#include <sge/src/opencl/declare_local_logger.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -36,7 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/log/name.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -48,9 +52,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mutex>
 #include <fcppt/config/external_end.hpp>
 
-
-SGE_OPENCL_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("single_device_system"))
 
 namespace
 {
@@ -92,8 +93,9 @@ construct_context_parameters(
 
 sge::opencl::platform::object &
 choose_platform(
-		sge::opencl::platform::object_sequence &objects,
-		bool const prefer_gpu)
+	fcppt::log::object &_log,
+	sge::opencl::platform::object_sequence &objects,
+	bool const prefer_gpu)
 {
 	if(!prefer_gpu)
 		return
@@ -105,7 +107,7 @@ choose_platform(
 			return platform;
 
 	FCPPT_LOG_WARNING(
-		local_log,
+		_log,
 		fcppt::log::_ << FCPPT_TEXT("You preferred a GPU platform, but I didn't find one, so choosing a non-GPU platform now."));
 
 	return
@@ -116,12 +118,23 @@ choose_platform(
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::opencl::single_device_system::object::object(
+	fcppt::log::context &_log_context,
 	single_device_system::parameters const &_params)
 :
+	log_{
+		_log_context,
+		sge::opencl::log_location(),
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("single_device_system::object")
+			}
+		)
+	},
 	system_(
 		fcppt::make_unique_ptr<sge::opencl::system>()),
 	platform_(
 		&choose_platform(
+			log_,
 			system_->platforms(),
 			_params.prefers_gpu())),
 	device_(
@@ -276,7 +289,7 @@ sge::opencl::single_device_system::object::error_callback(
 		_error_data;
 
 	FCPPT_LOG_ERROR(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("An error in a context occured: \"")
 			<<

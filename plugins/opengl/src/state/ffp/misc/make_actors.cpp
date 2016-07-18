@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/misc/parameters.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/join.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -38,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::state::actor_vector
 sge::opengl::state::ffp::misc::make_actors(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context,
 	sge::renderer::state::ffp::misc::parameters const &_parameters
 )
@@ -74,6 +76,7 @@ sge::opengl::state::ffp::misc::make_actors(
 				)
 			},
 			sge::opengl::state::ffp::misc::point_sprite::set(
+				_log,
 				_context,
 				_parameters.enable_point_sprites()
 			)

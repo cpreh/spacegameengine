@@ -23,17 +23,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/window/system_base.hpp>
 #include <sge/systems/window_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 sge::systems::modules::window::system::system(
+	fcppt::log::context &_log_context,
 	sge::systems::window const &_parameters
 )
 :
-	base_(
+	base_{
 		sge::systems::modules::window::make_system_base(
+			_log_context,
 			_parameters
 		)
-	)
+	}
 {
 }
 

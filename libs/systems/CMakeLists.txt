@@ -142,7 +142,7 @@ set(
 	libs/systems/src/systems/include/sge/src/systems/find_plugin.hpp
 	libs/systems/src/systems/include/sge/src/systems/find_plugin_opt.hpp
 	libs/systems/src/systems/include/sge/src/systems/ini_section_name.hpp
-	libs/systems/src/systems/include/sge/src/systems/logger.hpp
+	libs/systems/src/systems/include/sge/src/systems/log_name.hpp
 	libs/systems/src/systems/include/sge/src/systems/make_any_key.hpp
 	libs/systems/src/systems/include/sge/src/systems/make_scoped_output.hpp
 	libs/systems/src/systems/include/sge/src/systems/merge_config_strings.hpp
@@ -208,8 +208,8 @@ set(
 	libs/systems/src/systems/ini_section_name.cpp
 	libs/systems/src/systems/input.cpp
 	libs/systems/src/systems/log_location.cpp
+	libs/systems/src/systems/log_name.cpp
 	libs/systems/src/systems/log_settings.cpp
-	libs/systems/src/systems/logger.cpp
 	libs/systems/src/systems/make_any_key.cpp
 	libs/systems/src/systems/make_empty_list.cpp
 	libs/systems/src/systems/make_scoped_output.cpp

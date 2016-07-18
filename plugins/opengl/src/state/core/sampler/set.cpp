@@ -30,11 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
 
 void
 sge::opengl::state::core::sampler::set(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context,
 	sge::renderer::state::core::sampler::const_optional_object_ref_map const &_objects
 )
@@ -66,6 +68,7 @@ sge::opengl::state::core::sampler::set(
 				stage
 			),
 			[
+				&_log,
 				&_context,
 				stage
 			](
@@ -73,6 +76,7 @@ sge::opengl::state::core::sampler::set(
 			)
 			{
 				sge::opengl::texture::active_level const active_level(
+					_log,
 					_context,
 					stage
 				);

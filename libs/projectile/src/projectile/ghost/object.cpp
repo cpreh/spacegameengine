@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/ghost/object.hpp>
 #include <sge/projectile/ghost/parameters.hpp>
 #include <sge/src/projectile/bullet_to_vector2.hpp>
-#include <sge/src/projectile/declare_local_logger.hpp>
 #include <sge/src/projectile/object_extrusion_depth.hpp>
 #include <sge/src/projectile/vector2_to_bullet.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -39,12 +38,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("ghost"))
-
 sge::projectile::ghost::object::object(
 	parameters const &p)
 :
+	log_{
+		p.log()
+	},
 	body_enter_(),
 	body_exit_(),
 	box_shape_(
@@ -61,7 +60,7 @@ sge::projectile::ghost::object::object(
 		fcppt::make_unique_ptr<btPairCachingGhostObject>())
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< this
 			<< FCPPT_TEXT(": Created a new ghost, position ")

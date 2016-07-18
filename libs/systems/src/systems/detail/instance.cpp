@@ -45,7 +45,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/any_visitor.hpp>
 #include <sge/src/systems/extract_config.hpp>
 #include <sge/src/systems/extract_plugin_path.hpp>
-#include <sge/src/systems/logger.hpp>
 #include <sge/src/systems/unpack_if_present.hpp>
 #include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/systems/config.hpp>
@@ -65,6 +64,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/log/_.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
@@ -144,12 +144,14 @@ sge::systems::detail::instance::instance(
 	case sge::parse::result_code::partial:
 		fcppt::optional::maybe_void(
 			ini_result.error_string(),
-			[](
+			[
+				this
+			](
 				sge::parse::error_string const &_error
 			)
 			{
 				FCPPT_LOG_ERROR(
-					sge::systems::logger(),
+					impl_->log(),
 					fcppt::log::_
 						<< _error
 				);
@@ -223,6 +225,13 @@ sge::systems::detail::instance::instance(
 
 sge::systems::detail::instance::~instance()
 {
+}
+
+fcppt::log::context &
+sge::systems::detail::instance::log_context() const
+{
+	return
+		impl_->log_context();
 }
 
 sge::plugin::manager &

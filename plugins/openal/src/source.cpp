@@ -43,17 +43,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/rad_to_deg.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/from.hpp>
 
 
 sge::openal::source::source(
+	fcppt::log::object &_log,
 	sge::audio::sound::nonpositional_parameters const &_parameters,
 	sge::openal::buffer_id const _buffer
 )
 :
 	source(
+		_log,
 		_buffer
 	)
 {
@@ -63,11 +66,13 @@ sge::openal::source::source(
 }
 
 sge::openal::source::source(
+	fcppt::log::object &_log,
 	sge::audio::sound::positional_parameters const &_parameters,
 	sge::openal::buffer_id const _buffer
 )
 :
 	source(
+		_log,
 		_buffer
 	)
 {
@@ -77,10 +82,13 @@ sge::openal::source::source(
 }
 
 sge::openal::source::source(
+	fcppt::log::object &_log,
 	sge::audio::sound::nonpositional_parameters const &_parameters
 )
 :
-	source()
+	source(
+		_log
+	)
 {
 	this->init(
 		_parameters
@@ -88,10 +96,13 @@ sge::openal::source::source(
 }
 
 sge::openal::source::source(
+	fcppt::log::object &_log,
 	sge::audio::sound::positional_parameters const &_parameters
 )
 :
-	source()
+	source(
+		_log
+	)
 {
 	this->init(
 		_parameters
@@ -395,9 +406,13 @@ sge::openal::source::repeat() const
 		repeat_;
 }
 
-sge::openal::source::source()
+sge::openal::source::source(
+	fcppt::log::object &_log
+)
 :
-	source_(),
+	source_(
+		_log
+	),
 	repeat_(
 		sge::audio::sound::repeat::once
 	)
@@ -405,10 +420,13 @@ sge::openal::source::source()
 }
 
 sge::openal::source::source(
+	fcppt::log::object &_log,
 	sge::openal::buffer_id const _buffer
 )
 :
-	source()
+	source(
+		_log
+	)
 {
 	sge::openal::funcs::source_int(
 		this->source_id(),

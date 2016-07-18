@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/basic_dim.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/size_type.hpp>
 
 
@@ -33,6 +34,7 @@ template<
 >
 void
 sge::opengl::texture::check_dim(
+	fcppt::log::object &_log,
 	sge::renderer::basic_dim<
 		Size
 	> const &_dim,
@@ -41,12 +43,14 @@ sge::opengl::texture::check_dim(
 )
 {
 	sge::opengl::texture::warn_min(
+		_log,
 		_dim,
 		_min_value,
 		_what
 	);
 
 	sge::opengl::texture::warn_pow2(
+		_log,
 		_dim,
 		_what
 	);
@@ -60,6 +64,7 @@ void \
 sge::opengl::texture::check_dim<\
 	dimension\
 >(\
+	fcppt::log::object &,\
 	sge::renderer::basic_dim< \
 		dimension \
 	> const &, \

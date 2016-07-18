@@ -26,10 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/base_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 sge::renderer::context::ffp_unique_ptr
 sge::opengl::render_context::create(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context,
 	sge::renderer::target::base &_target
 )
@@ -41,6 +43,7 @@ sge::opengl::render_context::create(
 			fcppt::make_unique_ptr<
 				sge::opengl::render_context::object
 			>(
+				_log,
 				_context,
 				_target
 			)

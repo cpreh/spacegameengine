@@ -70,8 +70,6 @@ set(
 	plugins/evdev/include/sge/evdev/joypad/relative_axis/make_info_container.hpp
 	plugins/evdev/include/sge/evdev/joypad/relative_axis/make_string.hpp
 	plugins/evdev/include/sge/evdev/joypad/remove.hpp
-	plugins/evdev/include/sge/evdev/logger.hpp
-	plugins/evdev/include/sge/evdev/logger_context.hpp
 	plugins/evdev/include/sge/evdev/processor.hpp
 	plugins/evdev/include/sge/evdev/system.hpp
 	plugins/evdev/src/device/create_fd.cpp
@@ -113,8 +111,6 @@ set(
 	plugins/evdev/src/joypad/relative_axis/make_info_container.cpp
 	plugins/evdev/src/joypad/relative_axis/make_string.cpp
 	plugins/evdev/src/joypad/remove.cpp
-	plugins/evdev/src/logger.cpp
-	plugins/evdev/src/logger_context.cpp
 	plugins/evdev/src/processor.cpp
 	plugins/evdev/src/system.cpp
 )

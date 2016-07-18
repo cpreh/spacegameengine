@@ -18,20 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_LOGGER_HPP_INCLUDED
-#define SGE_OPENGL_LOGGER_HPP_INCLUDED
+#ifndef SGE_PLUGIN_DETAIL_LOADER_FUNCTION_HPP_INCLUDED
+#define SGE_PLUGIN_DETAIL_LOADER_FUNCTION_HPP_INCLUDED
 
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace sge
 {
-namespace opengl
+namespace plugin
+{
+namespace detail
 {
 
-fcppt::log::object &
-logger();
+template<
+	typename Type
+>
+struct loader_function;
 
+template<
+	typename Result,
+	typename... Args
+>
+struct loader_function<
+	Result (
+		Args...
+	)
+>
+{
+	using
+	type
+	=
+	Result (
+		fcppt::log::context &,
+		Args...
+	);
+};
+
+}
 }
 }
 

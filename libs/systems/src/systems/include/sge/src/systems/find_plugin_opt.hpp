@@ -21,17 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_FIND_PLUGIN_OPT_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_FIND_PLUGIN_OPT_HPP_INCLUDED
 
-#include <sge/log/option_container.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/flags.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/iterator.hpp>
-#include <sge/plugin/load_with_log_options.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/src/systems/plugin_pair_decl.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -52,10 +51,10 @@ fcppt::optional::object<
 	>
 >
 find_plugin_opt(
+	fcppt::log::context &_log_context,
 	sge::plugin::collection<
 		System
 	> const &_collection,
-	sge::log::option_container const &_log_options,
 	TestFunction const &_test_function
 )
 {
@@ -84,10 +83,7 @@ find_plugin_opt(
 		plugin_type;
 
 		plugin_type plugin(
-			sge::plugin::load_with_log_options(
-				element,
-				_log_options
-			)
+			element.load()
 		);
 
 		typedef
@@ -97,7 +93,9 @@ find_plugin_opt(
 		system_unique_ptr;
 
 		system_unique_ptr system(
-			plugin.get()()
+			plugin.get()(
+				_log_context
+			)
 		);
 
 		if(

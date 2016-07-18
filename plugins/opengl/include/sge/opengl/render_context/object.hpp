@@ -56,6 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
@@ -79,6 +80,7 @@ class object
 	);
 public:
 	object(
+		fcppt::log::object &,
 		sge::opengl::context::object &,
 		sge::renderer::target::base &
 	);
@@ -253,6 +255,8 @@ private:
 	)
 	override;
 #endif
+
+	fcppt::log::object &log_;
 
 	sge::opengl::context::object &context_;
 

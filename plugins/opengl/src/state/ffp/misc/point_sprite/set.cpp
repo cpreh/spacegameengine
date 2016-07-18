@@ -28,11 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe.hpp>
 
 
 sge::opengl::state::actor_vector
 sge::opengl::state::ffp::misc::point_sprite::set(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context,
 	sge::renderer::state::ffp::misc::enable_point_sprites const _enable
 )
@@ -62,6 +64,7 @@ sge::opengl::state::ffp::misc::point_sprite::set(
 					};
 			},
 			[
+				&_log,
 				&_context,
 				_enable
 			](
@@ -70,6 +73,7 @@ sge::opengl::state::ffp::misc::point_sprite::set(
 			{
 				return
 					sge::opengl::state::ffp::misc::point_sprite::set_impl(
+						_log,
 						_context,
 						_config,
 						_enable

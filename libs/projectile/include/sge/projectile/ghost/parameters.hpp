@@ -21,10 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_GHOST_PARAMETERS_HPP_INCLUDED
 #define SGE_PROJECTILE_GHOST_PARAMETERS_HPP_INCLUDED
 
+#include <sge/projectile/log_fwd.hpp>
 #include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/ghost/position.hpp>
 #include <sge/projectile/ghost/size.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -33,25 +35,36 @@ namespace projectile
 {
 namespace ghost
 {
+
 class parameters
 {
-FCPPT_NONASSIGNABLE(
-	parameters);
+	FCPPT_NONASSIGNABLE(
+		parameters
+	);
 public:
-	SGE_PROJECTILE_DETAIL_SYMBOL explicit
+	SGE_PROJECTILE_DETAIL_SYMBOL
 	parameters(
+		sge::projectile::log const &,
 		sge::projectile::ghost::position const &,
-		sge::projectile::ghost::size const &);
+		sge::projectile::ghost::size const &
+	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::ghost::position const &
+	fcppt::log::object &
+	log() const;
+
+	sge::projectile::ghost::position const &
 	position() const;
 
-	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::ghost::size const &
+	sge::projectile::ghost::size const &
 	size() const;
 private:
+	fcppt::log::object &log_;
+
 	sge::projectile::ghost::position position_;
+
 	sge::projectile::ghost::size size_;
 };
+
 }
 }
 }

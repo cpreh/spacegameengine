@@ -41,7 +41,7 @@ sge::plugin::object<
 	),
 	loader_(
 		sge::plugin::library::load_function<
-			loader_fun
+			loader_function
 		>(
 			*lib_,
 			sge::plugin::detail::traits<
@@ -87,7 +87,7 @@ template<
 >
 typename sge::plugin::object<
 	Type
->::loader_fun
+>::loader_function
 sge::plugin::object<
 	Type
 >::get() const

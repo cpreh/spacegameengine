@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/fwds/rectf_fwd.hpp>
 #include <sge/src/cegui/fwds/vector3f_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
 #include <CEGUI/GeometryBuffer.h>
@@ -64,6 +65,7 @@ class geometry_buffer
 	);
 public:
 	geometry_buffer(
+		fcppt::log::object &,
 		sge::renderer::device::ffp &,
 		sge::renderer::vertex::declaration const &,
 		sge::cegui::optional_render_context_ref const &
@@ -155,6 +157,8 @@ private:
 	isClippingActive() const
 	override;
 private:
+	mutable fcppt::log::object log_;
+
 	typedef
 	std::vector<
 		sge::cegui::batch

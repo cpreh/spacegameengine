@@ -50,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/dynamic_cross_exn.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/optional_auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -58,10 +59,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::evdev::processor::processor(
+	fcppt::log::object &_log,
 	sge::window::system const &_window_system
 )
 :
 	sge::input::processor(),
+	log_{
+		_log
+	},
 	joypad_discover_(),
 	joypad_remove_(),
 	joypads_(),
@@ -215,6 +220,7 @@ sge::evdev::processor::dev_init(
 		);
 
 	sge::evdev::joypad::init(
+		log_,
 		sge::evdev::joypad::add_parameters(
 			processor_,
 			joypads_,
@@ -241,6 +247,7 @@ sge::evdev::processor::dev_event(
 	{
 	case sge::evdev::inotify::event_type::add:
 		sge::evdev::joypad::add(
+			log_,
 			sge::evdev::joypad::add_parameters(
 				processor_,
 				joypads_,
@@ -258,6 +265,7 @@ sge::evdev::processor::dev_event(
 		return;
 	case sge::evdev::inotify::event_type::attrib:
 		sge::evdev::joypad::attrib(
+			log_,
 			sge::evdev::joypad::add_parameters(
 				processor_,
 				joypads_,

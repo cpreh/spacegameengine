@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/triangle.hpp>
 #include <sge/projectile/shape/triangle_sequence.hpp>
 #include <sge/projectile/shape/detail/scalar_container.hpp>
-#include <sge/src/projectile/declare_local_logger.hpp>
 #include <sge/src/projectile/object_extrusion_depth.hpp>
 #include <sge/src/projectile/shape/triangle_scalars.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <LinearMath/btScalar.h>
@@ -34,12 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("triangle_scalars")
-)
-
 sge::projectile::shape::detail::scalar_container
 sge::projectile::shape::triangle_scalars(
+	fcppt::log::object &_log,
 	sge::projectile::shape::triangle_sequence const &_triangles
 )
 {
@@ -48,7 +45,7 @@ sge::projectile::shape::triangle_scalars(
 	);
 
 	FCPPT_LOG_DEBUG(
-		local_log,
+		_log,
 		fcppt::log::_
 			<< FCPPT_TEXT("constructing triangle mesh with ")
 			<< _triangles.size()
@@ -80,7 +77,7 @@ sge::projectile::shape::triangle_scalars(
 		)
 		{
 			FCPPT_LOG_VERBOSE(
-				local_log,
+				_log,
 				fcppt::log::_
 					<< FCPPT_TEXT("triangle begin"));
 
@@ -91,7 +88,7 @@ sge::projectile::shape::triangle_scalars(
 			)
 			{
 				FCPPT_LOG_VERBOSE(
-					local_log,
+					_log,
 					fcppt::log::_
 						<< FCPPT_TEXT("adding point ")
 						<< current_triangle_point[0]
@@ -106,7 +103,7 @@ sge::projectile::shape::triangle_scalars(
 			}
 
 			FCPPT_LOG_VERBOSE(
-				local_log,
+				_log,
 				fcppt::log::_
 					<< FCPPT_TEXT("triangle end"));
 		}

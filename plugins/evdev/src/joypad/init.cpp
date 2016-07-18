@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/add.hpp>
 #include <sge/evdev/joypad/add_parameters_fwd.hpp>
 #include <sge/evdev/joypad/init.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/filesystem/operations.hpp>
@@ -30,11 +31,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::evdev::joypad::init(
+	fcppt::log::object &_log,
 	sge::evdev::joypad::add_parameters const &_parameters,
 	boost::filesystem::path const &_path
 )
 {
 	for(
+		// TODO: iterator range
 		boost::filesystem::directory_iterator it(
 			_path
 		);
@@ -62,6 +65,7 @@ sge::evdev::joypad::init(
 			continue;
 
 		sge::evdev::joypad::add(
+			_log,
 			_parameters,
 			cur
 		);

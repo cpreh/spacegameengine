@@ -42,16 +42,19 @@ struct traits<
 >
 {
 	SGE_IMAGE2D_DETAIL_SYMBOL
-	static sge::plugin::detail::address_name
+	static
+	sge::plugin::detail::address_name
 	plugin_loader_name();
 
 	SGE_IMAGE2D_DETAIL_SYMBOL
-	static sge::plugin::capabilities
+	static
+	sge::plugin::capabilities
 	plugin_type();
 
-	typedef sge::image2d::system_unique_ptr (
-		*loader_fun
-	)();
+	using
+	loader_function
+	=
+	sge::image2d::system_unique_ptr ();
 };
 
 }

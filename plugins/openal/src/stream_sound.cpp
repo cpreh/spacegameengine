@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/buffer_id.hpp>
 #include <sge/openal/buffer_id_container.hpp>
 #include <sge/openal/file_format.hpp>
-#include <sge/openal/logger.hpp>
 #include <sge/openal/multi_buffer_holder.hpp>
 #include <sge/openal/stream_sound.hpp>
 #include <sge/openal/funcs/buffer_data.hpp>
@@ -50,14 +49,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 sge::openal::stream_sound::stream_sound(
+	fcppt::log::object &_log,
 	sge::audio::sound::nonpositional_parameters const &_parameters,
 	sge::audio::file &_audio_file
 )
 :
 	stream_sound(
+		_log,
 		_parameters,
 		_audio_file,
 		sge::openal::stream_sound::unified_ctor()
@@ -66,11 +68,13 @@ sge::openal::stream_sound::stream_sound(
 }
 
 sge::openal::stream_sound::stream_sound(
+	fcppt::log::object &_log,
 	sge::audio::sound::positional_parameters const &_parameters,
 	sge::audio::file &_audio_file
 )
 :
 	stream_sound(
+		_log,
 		_parameters,
 		_audio_file,
 		sge::openal::stream_sound::unified_ctor()
@@ -132,7 +136,7 @@ sge::openal::stream_sound::update()
 	}
 
 	FCPPT_LOG_DEBUG(
-		sge::openal::logger(),
+		log_,
 		fcppt::log::_
 			<< processed
 			<< FCPPT_TEXT(" buffers processed")
@@ -251,7 +255,7 @@ sge::openal::stream_sound::do_play()
 	);
 
 	FCPPT_LOG_DEBUG(
-		sge::openal::logger(),
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("queued ")
 			<< buffers_.container().size()
@@ -274,7 +278,7 @@ sge::openal::stream_sound::fill_buffer(
 	);
 
 	FCPPT_LOG_DEBUG(
-		sge::openal::logger(),
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("read ")
 			<< samples_read
@@ -288,7 +292,7 @@ sge::openal::stream_sound::fill_buffer(
 	)
 	{
 		FCPPT_LOG_DEBUG(
-			sge::openal::logger(),
+			log_,
 			fcppt::log::_
 				<< FCPPT_TEXT("at the end of last buffer")
 		);
@@ -344,14 +348,19 @@ template<
 	typename Parameters
 >
 sge::openal::stream_sound::stream_sound(
+	fcppt::log::object &_log,
 	Parameters const &_parameters,
 	sge::audio::file &_audio_file,
 	sge::openal::stream_sound::unified_ctor
 )
 :
 	sge::openal::source(
+		_log,
 		_parameters
 	),
+	log_{
+		_log
+	},
 	audio_file_(
 		_audio_file
 	),
@@ -382,7 +391,7 @@ sge::openal::stream_sound::stream_sound(
 	)
 {
 	FCPPT_LOG_DEBUG(
-		sge::openal::logger(),
+		_log,
 		fcppt::log::_
 			<< FCPPT_TEXT("Created ")
 			<< buffers_.container().size()

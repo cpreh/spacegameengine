@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_MODULES_RENDERER_FIND_PLUGIN_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_MODULES_RENDERER_FIND_PLUGIN_HPP_INCLUDED
 
-#include <sge/log/option_container.hpp>
 #include <sge/renderer/caps/system_field_fwd.hpp>
 #include <sge/renderer/plugin/collection_fwd.hpp>
 #include <sge/src/systems/modules/renderer/plugin_core_pair_fwd.hpp>
 #include <sge/systems/optional_name_fwd.hpp>
 #include <sge/systems/renderer_caps_fwd.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace sge
@@ -40,8 +40,8 @@ namespace renderer
 
 sge::systems::modules::renderer::plugin_core_pair
 find_plugin(
+	fcppt::log::context &,
 	sge::renderer::plugin::collection const &,
-	sge::log::option_container const &,
 	sge::systems::optional_name const &,
 	sge::renderer::caps::system_field const &,
 	sge::systems::renderer_caps

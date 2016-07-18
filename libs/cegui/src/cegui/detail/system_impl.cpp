@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/load_context.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
+#include <sge/log/default_parameters.hpp>
+#include <sge/log/location.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
@@ -32,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/target/viewport_is_null.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <sge/src/cegui/declare_local_logger.hpp>
+#include <sge/src/cegui/log_name.hpp>
 #include <sge/src/cegui/scoped_render_context.hpp>
 #include <sge/src/cegui/texture_parameters.hpp>
 #include <sge/src/cegui/to_cegui_rect.hpp>
@@ -44,7 +46,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/name.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/math/box/comparison.hpp>
 #include <fcppt/math/box/null.hpp>
 #include <fcppt/math/box/output.hpp>
@@ -67,14 +72,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-SGE_CEGUI_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("system")
-)
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::cegui::detail::system_impl::system_impl(
+	fcppt::log::context &_log_context,
 	sge::cegui::load_context const &_load_context,
 	sge::renderer::device::ffp &_renderer,
 	sge::image2d::system &_image_system,
@@ -83,22 +85,42 @@ sge::cegui::detail::system_impl::system_impl(
 	sge::renderer::texture::emulate_srgb const _emulate_srgb
 )
 :
+	main_log_{
+		_log_context,
+		sge::log::location(),
+		sge::log::default_parameters(
+			sge::cegui::log_name()
+		)
+	},
+	system_log_{
+		main_log_,
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("system")
+			}
+		)
+	},
 	prefix_(
 		_load_context.scheme_file().parent_path()
 	),
-	cegui_logger_(),
-	renderer_(
+	cegui_logger_(
+		main_log_
+	),
+	renderer_{
+		main_log_,
 		sge::cegui::texture_parameters(
 			prefix_,
 			_image_system,
 			_renderer,
 			_emulate_srgb
 		)
-	),
+	},
 	image_codec_(
 		_image_system
 	),
-	resource_provider_(),
+	resource_provider_{
+		main_log_
+	},
 	scoped_system_(
 		renderer_,
 		image_codec_,
@@ -264,7 +286,7 @@ sge::cegui::detail::system_impl::viewport_change(
 )
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		system_log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("viewport_change() with ")
 			<< _viewport.get()

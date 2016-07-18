@@ -33,8 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/collector.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/plugin/collection_fwd.hpp>
-#include <sge/log/option_container.hpp>
-#include <sge/src/systems/logger.hpp>
 #include <sge/src/systems/modules/input/cursor_modifier.hpp>
 #include <sge/src/systems/modules/input/cursor_modifier_unique_ptr.hpp>
 #include <sge/src/systems/modules/input/object.hpp>
@@ -50,12 +48,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/bitfield/comparison.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/log/_.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
 
 
 sge::systems::modules::input::object::object(
+	fcppt::log::context &_log_context,
+	fcppt::log::object &_log,
 	sge::input::plugin::collection const &_collection,
-	sge::log::option_container const &_log_options,
 	sge::systems::detail::input const &_parameters,
 	sge::systems::modules::window::system const &_window_system,
 	sge::systems::modules::window::object const &_window_object
@@ -63,8 +64,8 @@ sge::systems::modules::input::object::object(
 :
 	input_system_(
 		sge::input::create_multi_system(
-			_collection,
-			_log_options
+			_log_context,
+			_collection
 		)
 	),
 	input_processor_(
@@ -176,10 +177,10 @@ sge::systems::modules::input::object::object(
 		)
 		{
 			FCPPT_LOG_WARNING(
-				sge::systems::logger(),
+				_log,
 				fcppt::log::_
 					<<
-					FCPPT_TEXT("Your input plugins can't handle capability ")
+					FCPPT_TEXT("None of your input plugins handles capability ")
 					<<
 					sge::input::capabilities_to_string(
 						element

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/basic_dim_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/size_type.hpp>
 
 
@@ -39,6 +40,7 @@ template<
 >
 void
 check_dim(
+	fcppt::log::object &,
 	sge::renderer::basic_dim<
 		Size
 	> const &,

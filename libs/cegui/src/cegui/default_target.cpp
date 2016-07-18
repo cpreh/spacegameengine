@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/log/default_parameters.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/context/ffp.hpp>
@@ -31,19 +32,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/default_target.hpp>
 #include <sge/src/cegui/from_cegui_rect.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/to_cegui_rect.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/map.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/name.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/GeometryBuffer.h>
 #include <CEGUI/Rect.h>
@@ -51,10 +53,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUI/RenderTarget.h>
 #include <fcppt/config/external_end.hpp>
 
-
-SGE_CEGUI_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("default_target")
-)
 
 // cegui's internal OpenGL renderer uses a static viewport (I
 // think). The area is initialized to the current viewport in the
@@ -64,10 +62,19 @@ SGE_CEGUI_DECLARE_LOCAL_LOGGER(
 // sge already provides this viewport-adaption technique so I just
 // update the viewport variable when the viewport is requested.
 sge::cegui::default_target::default_target(
+	fcppt::log::object &_log,
 	sge::renderer::device::ffp &_renderer,
 	sge::cegui::optional_render_context_ref const &_render_context
 )
 :
+	log_{
+		_log,
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("default_target")
+			}
+		)
+	},
 	renderer_(
 		_renderer
 	),
@@ -89,7 +96,7 @@ sge::cegui::default_target::draw(
 )
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("default_target(")
 			<< this
@@ -105,7 +112,7 @@ sge::cegui::default_target::draw(
 )
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("default_target(")
 			<< this
@@ -182,7 +189,7 @@ void
 sge::cegui::default_target::activate()
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("default_target(")
 			<< this
@@ -215,7 +222,7 @@ void
 sge::cegui::default_target::deactivate()
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("default_target(")
 			<< this

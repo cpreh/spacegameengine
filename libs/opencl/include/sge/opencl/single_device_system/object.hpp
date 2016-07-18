@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/single_device_system/parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <mutex>
 #include <fcppt/config/external_end.hpp>
@@ -50,9 +52,11 @@ class object
 FCPPT_NONCOPYABLE(
 	object);
 public:
-	SGE_OPENCL_DETAIL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL
 	object(
-		sge::opencl::single_device_system::parameters const &);
+		fcppt::log::context &,
+		sge::opencl::single_device_system::parameters const &
+	);
 
 	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::system &
 	system();
@@ -90,6 +94,7 @@ public:
 	SGE_OPENCL_DETAIL_SYMBOL
 	~object();
 private:
+	fcppt::log::object log_;
 	fcppt::unique_ptr<sge::opencl::system> const system_;
 	sge::opencl::platform::object *platform_;
 	sge::opencl::device::object *device_;

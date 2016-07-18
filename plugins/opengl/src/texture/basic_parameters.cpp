@@ -20,16 +20,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 sge::opengl::texture::basic_parameters::basic_parameters(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context
 )
 :
+	log_{
+		_log
+	},
 	context_(
 		_context
 	)
 {
+}
+
+fcppt::log::object &
+sge::opengl::texture::basic_parameters::log() const
+{
+	return
+		log_;
 }
 
 sge::opengl::context::object &

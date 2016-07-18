@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_WORLD_HPP_INCLUDED
 
 #include <sge/projectile/fixed_timestep.hpp>
+#include <sge/projectile/log_fwd.hpp>
 #include <sge/projectile/maximum_substeps.hpp>
 #include <sge/projectile/scalar.hpp>
 #include <sge/projectile/time_increment.hpp>
@@ -37,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/group/sequence.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
 
@@ -58,7 +60,10 @@ FCPPT_NONCOPYABLE(
 	world);
 public:
 	SGE_PROJECTILE_DETAIL_SYMBOL
-	world();
+	explicit
+	world(
+		sge::projectile::log const &
+	);
 
 	SGE_PROJECTILE_DETAIL_SYMBOL void
 	update_discrete(
@@ -109,6 +114,7 @@ private:
 	friend class sge::projectile::group::object;
 	friend class sge::projectile::detail::debug_drawer_impl;
 
+	fcppt::log::object &log_;
 	fcppt::signal::object<body::collision_fn> body_collision_;
 	fcppt::unique_ptr<btCollisionConfiguration> const configuration_;
 	fcppt::unique_ptr<btCollisionDispatcher> const dispatcher_;

@@ -33,6 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
+#include <sge/log/default_parameters.hpp>
+#include <sge/log/location.hpp>
 #include <sge/openal/al.hpp>
 #include <sge/openal/buffer.hpp>
 #include <sge/openal/file_format.hpp>
@@ -42,13 +44,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/funcs/listener_float.hpp>
 #include <sge/openal/funcs/speed_of_sound.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/name.hpp>
 #include <fcppt/math/vector/null.hpp>
 
 
-sge::openal::player::player()
+sge::openal::player::player(
+	fcppt::log::context &_log_context
+)
 :
+	log_{
+		_log_context,
+		sge::log::location(),
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("openal")
+			}
+		)
+	},
 	device_(
 		nullptr
 	),
@@ -56,6 +72,7 @@ sge::openal::player::player()
 		device_
 	),
 	current_context_(
+		log_,
 		context_
 	),
 	listener_()
@@ -163,6 +180,7 @@ sge::openal::player::create_buffer(
 			fcppt::make_unique_ptr<
 				sge::openal::buffer
 			>(
+				log_,
 				_file
 			)
 		);
@@ -181,6 +199,7 @@ sge::openal::player::create_positional_stream(
 			fcppt::make_unique_ptr<
 				sge::openal::stream_sound
 			>(
+				log_,
 				_parameters,
 				_file
 			)
@@ -200,6 +219,7 @@ sge::openal::player::create_nonpositional_stream(
 			fcppt::make_unique_ptr<
 				sge::openal::stream_sound
 			>(
+				log_,
 				_parameters,
 				_file
 			)

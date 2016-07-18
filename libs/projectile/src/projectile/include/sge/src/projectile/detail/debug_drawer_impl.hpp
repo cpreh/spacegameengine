@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
@@ -50,6 +52,7 @@ FCPPT_NONCOPYABLE(
 	debug_drawer_impl);
 public:
 	debug_drawer_impl(
+		fcppt::log::context &,
 		sge::projectile::world &,
 		sge::renderer::device::core &);
 
@@ -70,6 +73,7 @@ public:
 	~debug_drawer_impl()
 	override;
 private:
+	fcppt::log::object log_;
 	btCollisionWorld &world_;
 	int debug_mode_;
 	sge::line_drawer::object line_drawer_;

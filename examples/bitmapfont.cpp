@@ -177,6 +177,7 @@ try
 
 	sge::font::object_unique_ptr const font_object(
 		sge::font::bitmap::create(
+			sys.log_context(),
 			sge::config::media_path()
 			/ FCPPT_TEXT("fonts")
 			/ FCPPT_TEXT("bitmap")

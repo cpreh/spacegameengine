@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_literal_strong_typedef.hpp>
 #include <fcppt/algorithm/join.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/type_iso/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -44,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::state::actor_vector
 sge::opengl::state::ffp::misc::point_sprite::set_impl(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context,
 	sge::opengl::state::ffp::misc::point_sprite::config const &_config,
 	sge::renderer::state::ffp::misc::enable_point_sprites const _enable
@@ -95,6 +97,7 @@ sge::opengl::state::ffp::misc::point_sprite::set_impl(
 					)
 				),
 				[
+					&_log,
 					_enable,
 					&_context,
 					&_config
@@ -106,6 +109,9 @@ sge::opengl::state::ffp::misc::point_sprite::set_impl(
 						sge::opengl::state::actor{
 							std::bind(
 								sge::opengl::state::ffp::misc::point_sprite::set_texture,
+								std::ref(
+									_log
+								),
 								std::ref(
 									_context
 								),

@@ -63,6 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/optional_scoped_output_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/log/context.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
 
@@ -138,6 +139,9 @@ public:
 	fcppt::log::context &
 	log_context();
 
+	fcppt::log::object &
+	log();
+
 	sge::plugin::manager &
 	plugin_manager();
 
@@ -193,6 +197,8 @@ public:
 	viewport_manager() const;
 private:
 	fcppt::log::context log_context_;
+
+	fcppt::log::object log_;
 
 	awl::main::optional_scoped_output_unique_ptr const scoped_output_;
 	// Almost all plugins need to be unloaded last. If, for example,

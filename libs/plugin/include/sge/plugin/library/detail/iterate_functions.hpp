@@ -21,10 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_LIBRARY_DETAIL_ITERATE_FUNCTIONS_HPP_INCLUDED
 #define SGE_PLUGIN_LIBRARY_DETAIL_ITERATE_FUNCTIONS_HPP_INCLUDED
 
+#include <sge/plugin/loader_function.hpp>
 #include <sge/plugin/library/function_base.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/stringize.hpp>
+#include <boost/preprocessor/tuple/elem.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -38,13 +40,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 std::make_pair(\
 	sge::plugin::library::symbol_string(\
 		BOOST_PP_STRINGIZE(\
-			elem\
+			BOOST_PP_TUPLE_ELEM(\
+				1,\
+				elem\
+			)\
 		)\
 	),\
 	reinterpret_cast<\
 		sge::plugin::library::function_base\
 	>(\
-		elem\
+		sge::plugin::loader_function<\
+			BOOST_PP_TUPLE_ELEM(\
+				0,\
+				elem\
+			)\
+		>{\
+			BOOST_PP_TUPLE_ELEM(\
+				1,\
+				elem\
+			)\
+		}\
 	)\
 )\
 

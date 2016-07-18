@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/first.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -37,6 +38,7 @@ namespace opengl
 
 void
 draw_elements(
+	fcppt::log::object &,
 	sge::opengl::context::object &,
 	sge::renderer::index::buffer const &,
 	sge::renderer::vertex::first,

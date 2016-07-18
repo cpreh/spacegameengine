@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/projectile/log.hpp>
 #include <sge/projectile/world.hpp>
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/ghost/object.hpp>
 #include <sge/projectile/group/id.hpp>
 #include <sge/projectile/group/object.hpp>
 #include <sge/src/projectile/collision_tester.hpp>
-#include <sge/src/projectile/declare_local_logger.hpp>
 #include <sge/src/projectile/ghost/detail/pair_callback.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -50,9 +50,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
-SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("world"))
 
 static_assert(
 	std::is_same<btScalar,float>::value,
@@ -100,8 +97,13 @@ is_collision_manifold(
 }
 }
 
-sge::projectile::world::world()
+sge::projectile::world::world(
+	sge::projectile::log const &_log
+)
 :
+	log_{
+		_log.world_log()
+	},
 	body_collision_(),
 	configuration_(
 		fcppt::unique_ptr_to_base<
@@ -146,7 +148,7 @@ sge::projectile::world::world()
 			1))
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_ << FCPPT_TEXT("constructed world"));
 	// bullet sets some default gravity
 	world_->setGravity(
@@ -177,7 +179,7 @@ sge::projectile::world::update_discrete(
 		FCPPT_TEXT("If you want a variable timestep, use the other update function"));
 
 	FCPPT_LOG_VERBOSE(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("Doing a fixed simulation step with delta ")
 			<< delta.get().count());
@@ -195,7 +197,7 @@ sge::projectile::world::update_continuous(
 	time_increment const &delta)
 {
 	FCPPT_LOG_VERBOSE(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("Doing a variable simulation step with delta ")
 			<< delta.get().count());
@@ -366,7 +368,7 @@ sge::projectile::world::internal_tick_callback(
 			continue;
 
 		FCPPT_LOG_VERBOSE(
-			local_log,
+			log_,
 			fcppt::log::_ << FCPPT_TEXT("There has been a collision between two bodies"));
 		body_collision_(
 			void_ptr_to_body(

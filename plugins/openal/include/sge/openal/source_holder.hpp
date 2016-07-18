@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/openal/source_id.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -36,13 +37,18 @@ class source_holder
 		source_holder
 	);
 public:
-	source_holder();
+	explicit
+	source_holder(
+		fcppt::log::object &
+	);
 
 	~source_holder();
 
 	sge::openal::source_id
 	get() const;
 private:
+	fcppt::log::object &log_;
+
 	sge::openal::source_id const value_;
 };
 

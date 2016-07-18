@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/debug_drawer.hpp>
 #include <sge/projectile/dim2.hpp>
 #include <sge/projectile/duration.hpp>
+#include <sge/projectile/log.hpp>
 #include <sge/projectile/log_location.hpp>
 #include <sge/projectile/rect.hpp>
 #include <sge/projectile/scalar.hpp>
@@ -193,6 +194,7 @@ public:
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 	body(
+		sge::projectile::log const &_log,
 		sge::projectile::world &_world,
 		sge::projectile::group::object &_group,
 		sge::projectile::shape::shared_base_ptr const shape,
@@ -201,6 +203,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 	:
 		body_(
 			sge::projectile::body::parameters(
+				_log,
 				sge::projectile::body::position(
 					fcppt::math::box::center(
 						r)),
@@ -380,6 +383,7 @@ public:
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 	body_following_ghost(
+		sge::projectile::log const &_log,
 		sge::projectile::world &_world,
 		sge::projectile::body::object &_body,
 		sge::projectile::ghost::size const &_size,
@@ -387,6 +391,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 	:
 		ghost_(
 			sge::projectile::ghost::parameters(
+				_log,
 				sge::projectile::ghost::position(
 					_body.position()),
 				_size)),
@@ -539,7 +544,13 @@ try
 		)
 	);
 
-	sge::projectile::world world;
+	sge::projectile::log log{
+		sys.log_context()
+	};
+
+	sge::projectile::world world{
+		log
+	};
 
 	fcppt::signal::auto_connection const body_collision_world(
 		world.body_collision(
@@ -550,6 +561,7 @@ try
 	);
 
 	sge::projectile::debug_drawer debug_drawer(
+		sys.log_context(),
 		world,
 		sys.renderer_device_ffp());
 	sge::projectile::group::object
@@ -565,6 +577,7 @@ try
 		true);
 
 	body first_body(
+		log,
 		world,
 		first_group,
 		fcppt::make_shared_ptr<
@@ -603,11 +616,13 @@ try
 		"((42,296),(253,162),(12,23),(420,22),(420,310))");
 
 	body second_body(
+		log,
 		world,
 		second_group,
 		fcppt::make_shared_ptr<
 			sge::projectile::shape::triangle_mesh
 		>(
+			log,
 			sge::projectile::triangulation::triangulate<
 				sge::projectile::triangulation::default_tag,
 				sge::projectile::shape::triangle_sequence
@@ -642,6 +657,7 @@ try
 	);
 
 	body_following_ghost first_ghost(
+		log,
 		world,
 		first_body.get(),
 		sge::projectile::ghost::size(

@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/shape/shared_base_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/vector/object_decl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -104,6 +105,7 @@ private:
 	friend class sge::projectile::body::detail::motion_state;
 	friend class sge::projectile::world;
 
+	fcppt::log::object &log_;
 	fcppt::unique_ptr<btTransform> const transformation_;
 	fcppt::unique_ptr<detail::motion_state> const motion_state_;
 	fcppt::signal::object<position_change_fn> position_change_;

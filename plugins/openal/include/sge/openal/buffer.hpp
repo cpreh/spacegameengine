@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/positional_unique_ptr.hpp>
 #include <sge/openal/buffer_holder.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -44,8 +45,8 @@ class buffer
 		buffer
 	);
 public:
-	explicit
 	buffer(
+		fcppt::log::object &,
 		sge::audio::file &
 	);
 
@@ -64,6 +65,8 @@ public:
 	~buffer()
 	override;
 private:
+	fcppt::log::object &log_;
+
 	sge::openal::buffer_holder const holder_;
 };
 

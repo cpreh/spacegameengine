@@ -18,19 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SYSTEMS_LOGGER_HPP_INCLUDED
-#define SGE_SRC_SYSTEMS_LOGGER_HPP_INCLUDED
+#ifndef SGE_PLUGIN_LOADER_FUNCTION_HPP_INCLUDED
+#define SGE_PLUGIN_LOADER_FUNCTION_HPP_INCLUDED
 
-#include <fcppt/log/object_fwd.hpp>
+#include <sge/plugin/detail/loader_function.hpp>
+#include <sge/plugin/detail/traits.hpp>
 
 
 namespace sge
 {
-namespace systems
+namespace plugin
 {
 
-fcppt::log::object &
-logger();
+template<
+	typename Type
+>
+using
+loader_function
+=
+typename
+sge::plugin::detail::loader_function<
+	typename
+	sge::plugin::detail::traits<
+		Type
+	>::loader_function
+>::type *;
 
 }
 }

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -38,6 +39,7 @@ namespace sampler
 
 void
 set(
+	fcppt::log::object &,
 	sge::opengl::context::object &,
 	sge::renderer::state::core::sampler::const_optional_object_ref_map const &
 );

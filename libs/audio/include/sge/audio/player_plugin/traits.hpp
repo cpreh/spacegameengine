@@ -35,27 +35,26 @@ namespace plugin
 namespace detail
 {
 
-/// The player plugin
-/**
- * For more information, see \ref plugin_main.
- */
 template<>
 struct traits<
 	sge::audio::player
 >
 {
 public:
-	SGE_AUDIO_DETAIL_SYMBOL static
+	SGE_AUDIO_DETAIL_SYMBOL
+	static
 	sge::plugin::detail::address_name
 	plugin_loader_name();
 
-	SGE_AUDIO_DETAIL_SYMBOL static
+	SGE_AUDIO_DETAIL_SYMBOL
+	static
 	sge::plugin::capabilities
 	plugin_type();
 
-	typedef sge::audio::player_unique_ptr (
-		*loader_fun
-	)();
+	using
+	loader_function
+	=
+	sge::audio::player_unique_ptr ();
 };
 
 }

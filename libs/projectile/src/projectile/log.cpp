@@ -19,67 +19,85 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/default_parameters.hpp>
-#include <sge/log/location.hpp>
-#include <sge/opengl/core.hpp>
-#include <sge/opengl/system.hpp>
-#include <sge/renderer/core.hpp>
-#include <sge/renderer/system.hpp>
-#include <sge/renderer/system_unique_ptr.hpp>
-#include <sge/renderer/caps/system.hpp>
-#include <sge/renderer/caps/system_field.hpp>
-#include <awl/system/object_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <sge/projectile/log.hpp>
+#include <sge/projectile/log_location.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/name.hpp>
+#include <fcppt/log/object.hpp>
 
 
-sge::opengl::core::core(
+sge::projectile::log::log(
 	fcppt::log::context &_log_context
 )
 :
-	sge::renderer::core(),
-	log_{
+	world_log_{
 		_log_context,
-		sge::log::location(),
+		sge::projectile::log_location(),
 		sge::log::default_parameters(
 			fcppt::log::name{
-				FCPPT_TEXT("opengl")
+				FCPPT_TEXT("world")
+			}
+		)
+	},
+	body_log_{
+		_log_context,
+		sge::projectile::log_location(),
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("body")
+			}
+		)
+	},
+	ghost_log_{
+		_log_context,
+		sge::projectile::log_location(),
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("ghost")
+			}
+		)
+	},
+	triangle_log_{
+		_log_context,
+		sge::projectile::log_location(),
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("triangle_mesh")
 			}
 		)
 	}
 {
 }
 
-sge::opengl::core::~core()
+sge::projectile::log::~log()
 {
 }
 
-sge::renderer::system_unique_ptr
-sge::opengl::core::create_system(
-	awl::system::object &_awl_system
-)
+fcppt::log::object &
+sge::projectile::log::world_log() const
 {
 	return
-		fcppt::unique_ptr_to_base<
-			sge::renderer::system
-		>(
-			fcppt::make_unique_ptr<
-				sge::opengl::system
-			>(
-				log_,
-				_awl_system
-			)
-		);
+		world_log_;
 }
 
-sge::renderer::caps::system_field
-sge::opengl::core::caps() const
+fcppt::log::object &
+sge::projectile::log::body_log() const
 {
 	return
-		sge::renderer::caps::system_field{
-			sge::renderer::caps::system::opengl,
-			sge::renderer::caps::system::ffp
-		};
+		body_log_;
+}
+
+fcppt::log::object &
+sge::projectile::log::ghost_log() const
+{
+	return
+		ghost_log_;
+}
+
+fcppt::log::object &
+sge::projectile::log::triangle_log() const
+{
+	return
+		triangle_log_;
 }

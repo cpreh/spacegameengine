@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/info/extension_set.hpp>
 #include <sge/opengl/info/version.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -45,8 +46,8 @@ class context
 		context
 	);
 public:
-	explicit
 	context(
+		fcppt::log::object &,
 		sge::opengl::backend::current const &
 	);
 

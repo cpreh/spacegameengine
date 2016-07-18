@@ -30,9 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/multi_buffer_holder.hpp>
 #include <sge/openal/source.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -49,11 +47,13 @@ class stream_sound
 	);
 public:
 	stream_sound(
+		fcppt::log::object &,
 		sge::audio::sound::nonpositional_parameters const &,
 		sge::audio::file &
 	);
 
 	stream_sound(
+		fcppt::log::object &,
 		sge::audio::sound::positional_parameters const &,
 		sge::audio::file &
 	);
@@ -69,6 +69,8 @@ public:
 	do_play()
 	override;
 private:
+	fcppt::log::object &log_;
+
 	sge::audio::file &audio_file_;
 
 	sge::audio::sample_count const buffer_samples_;
@@ -90,6 +92,7 @@ private:
 		typename Parameters
 	>
 	stream_sound(
+		fcppt::log::object &,
 		Parameters const &,
 		sge::audio::file &,
 		sge::openal::stream_sound::unified_ctor

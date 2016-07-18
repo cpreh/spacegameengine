@@ -19,13 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/from_cegui_string.hpp>
+#include <sge/log/default_parameters.hpp>
 #include <sge/src/cegui/cegui_logger.hpp>
-#include <sge/src/cegui/declare_local_logger.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/log/name.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -33,11 +35,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-SGE_CEGUI_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("CEGUI")
+sge::cegui::cegui_logger::cegui_logger(
+	fcppt::log::object &_log
 )
-
-sge::cegui::cegui_logger::cegui_logger()
+:
+	CEGUI::Logger(),
+	log_{
+		_log,
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("CEGUI")
+			}
+		)
+	}
 {
 }
 
@@ -63,14 +73,14 @@ sge::cegui::cegui_logger::logEvent(
 	{
 		case CEGUI::Errors:
 			FCPPT_LOG_ERROR(
-				local_log,
+				log_,
 				fcppt::log::_
 					<< converted
 			);
 			break;
 		case CEGUI::Warnings:
 			FCPPT_LOG_WARNING(
-				local_log,
+				log_,
 				fcppt::log::_
 					<< converted
 			);
@@ -78,14 +88,14 @@ sge::cegui::cegui_logger::logEvent(
 		case CEGUI::Standard:
 		case CEGUI::Informative:
 			FCPPT_LOG_DEBUG(
-				local_log,
+				log_,
 				fcppt::log::_
 					<< converted
 			);
 			break;
 		case CEGUI::Insane:
 			FCPPT_LOG_VERBOSE(
-				local_log,
+				log_,
 				fcppt::log::_
 					<< converted
 				);

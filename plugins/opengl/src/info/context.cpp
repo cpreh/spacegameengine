@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/logger.hpp>
 #include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/fun_ptr.hpp>
 #include <sge/opengl/info/context.hpp>
@@ -30,12 +29,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/info.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::info::context::context(
+	fcppt::log::object &_log,
 	sge::opengl::backend::current const &_current
 )
 :
@@ -54,7 +55,7 @@ sge::opengl::info::context::context(
 	)
 {
 	FCPPT_LOG_INFO(
-		sge::opengl::logger(),
+		_log,
 		fcppt::log::_
 			<< FCPPT_TEXT("Version is: ")
 			<< version_.major()

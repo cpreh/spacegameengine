@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/logger.hpp>
 #include <sge/evdev/device/create_fd.hpp>
 #include <sge/evdev/device/fd.hpp>
 #include <sge/evdev/device/fd_unique_ptr.hpp>
@@ -37,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -46,15 +46,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::evdev::joypad::add(
+	fcppt::log::object &_log,
 	sge::evdev::joypad::add_parameters const &_parameters,
 	boost::filesystem::path const &_path
 )
 {
 	fcppt::optional::maybe_void(
 		sge::evdev::device::create_fd(
+			_log,
 			_path
 		),
 		[
+			&_log,
 			&_parameters,
 			&_path
 		](
@@ -113,7 +116,7 @@ sge::evdev::joypad::add(
 			)
 			{
 				FCPPT_LOG_ERROR(
-					sge::evdev::logger(),
+					_log,
 					fcppt::log::_
 						<<
 						fcppt::filesystem::path_to_string(

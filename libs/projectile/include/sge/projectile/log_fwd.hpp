@@ -18,12 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/define_lib.hpp>
-#include <sge/projectile/log_location.hpp>
-#include <sge/src/projectile/logger.hpp>
+#ifndef SGE_PROJECTILE_LOG_FWD_HPP_INCLUDED
+#define SGE_PROJECTILE_LOG_FWD_HPP_INCLUDED
 
 
-SGE_LOG_DEFINE_LIB(
-	sge::projectile::logger,
-	sge::projectile::log_location()
-)
+namespace sge
+{
+namespace projectile
+{
+
+class log;
+
+}
+}
+
+#endif

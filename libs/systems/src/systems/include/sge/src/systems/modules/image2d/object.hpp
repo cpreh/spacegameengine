@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/image2d_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace sge
@@ -46,6 +47,7 @@ class object
 	);
 public:
 	object(
+		fcppt::log::context &,
 		sge::image2d::plugin::collection const &,
 		sge::systems::image2d const &
 	);

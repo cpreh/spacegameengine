@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/openal/buffer_id.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -36,13 +37,18 @@ class buffer_holder
 		buffer_holder
 	);
 public:
-	buffer_holder();
+	explicit
+	buffer_holder(
+		fcppt::log::object &
+	);
 
 	~buffer_holder();
 
 	sge::openal::buffer_id
 	get() const;
 private:
+	fcppt::log::object &log_;
+
 	sge::openal::buffer_id const buffer_;
 };
 

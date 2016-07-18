@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/init/blue.hpp>
 #include <sge/image/color/init/green.hpp>
 #include <sge/image/color/init/red.hpp>
+#include <sge/log/default_parameters.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/primitive_type.hpp>
@@ -62,7 +63,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/src/cegui/batch.hpp>
-#include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/from_cegui_rect.hpp>
 #include <sge/src/cegui/from_cegui_vector2.hpp>
 #include <sge/src/cegui/from_cegui_vector3.hpp>
@@ -89,6 +89,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/name.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/math/box/null.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -108,16 +110,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-SGE_CEGUI_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("geometry_buffer")
-)
-
 sge::cegui::geometry_buffer::geometry_buffer(
+	fcppt::log::object &_log,
 	sge::renderer::device::ffp &_renderer,
 	sge::renderer::vertex::declaration const &_vertex_declaration,
 	sge::cegui::optional_render_context_ref const &_render_context
 )
 :
+	log_{
+		_log,
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("geometry_buffer")
+			}
+		)
+	},
 	batches_(),
 	renderer_(
 		_renderer
@@ -179,7 +186,7 @@ sge::cegui::geometry_buffer::geometry_buffer(
 	)
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("geometry_buffer(")
 			<< this
@@ -201,7 +208,7 @@ sge::cegui::geometry_buffer::draw() const
 	);
 
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("geometry_buffer(")
 			<< this
@@ -412,7 +419,7 @@ sge::cegui::geometry_buffer::setClippingRegion(
 	);
 
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("geometry_buffer(")
 			<< this

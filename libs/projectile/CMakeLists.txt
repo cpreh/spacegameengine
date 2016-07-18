@@ -55,6 +55,8 @@ set(
 	libs/projectile/include/sge/projectile/group/object_fwd.hpp
 	libs/projectile/include/sge/projectile/group/object_ref.hpp
 	libs/projectile/include/sge/projectile/group/sequence.hpp
+	libs/projectile/include/sge/projectile/log.hpp
+	libs/projectile/include/sge/projectile/log_fwd.hpp
 	libs/projectile/include/sge/projectile/log_location.hpp
 	libs/projectile/include/sge/projectile/maximum_substeps.hpp
 	libs/projectile/include/sge/projectile/rect.hpp
@@ -108,17 +110,15 @@ set(
 	libs/projectile/src/projectile/include/sge/src/projectile/body/solidity/is_solid.hpp
 	libs/projectile/src/projectile/include/sge/src/projectile/bullet_to_vector2.hpp
 	libs/projectile/src/projectile/include/sge/src/projectile/collision_tester.hpp
-	libs/projectile/src/projectile/include/sge/src/projectile/declare_local_logger.hpp
 	libs/projectile/src/projectile/include/sge/src/projectile/detail/debug_drawer_impl.hpp
 	libs/projectile/src/projectile/include/sge/src/projectile/ghost/detail/pair_callback.hpp
-	libs/projectile/src/projectile/include/sge/src/projectile/logger.hpp
 	libs/projectile/src/projectile/include/sge/src/projectile/object_extrusion_depth.hpp
 	libs/projectile/src/projectile/include/sge/src/projectile/shape/triangle_indices.hpp
 	libs/projectile/src/projectile/include/sge/src/projectile/shape/triangle_scalars.hpp
 	libs/projectile/src/projectile/include/sge/src/projectile/structure_cast.hpp
 	libs/projectile/src/projectile/include/sge/src/projectile/vector2_to_bullet.hpp
+	libs/projectile/src/projectile/log.cpp
 	libs/projectile/src/projectile/log_location.cpp
-	libs/projectile/src/projectile/logger.cpp
 	libs/projectile/src/projectile/object_extrusion_depth.cpp
 	libs/projectile/src/projectile/shape/base.cpp
 	libs/projectile/src/projectile/shape/circle.cpp

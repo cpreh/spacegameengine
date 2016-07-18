@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/active_level_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -41,6 +42,7 @@ class active_level
 	);
 public:
 	active_level(
+		fcppt::log::object &,
 		sge::opengl::context::object &,
 		sge::renderer::texture::stage
 	);

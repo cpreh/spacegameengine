@@ -34,12 +34,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/maybe.hpp>
 
 
 void
 sge::opengl::texture::funcs::set_active_level(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context,
 	sge::renderer::texture::stage const _stage
 )
@@ -53,6 +55,7 @@ sge::opengl::texture::funcs::set_active_level(
 			_context.info()
 		).config(),
 		[
+			&_log,
 			_stage
 		]{
 			if(
@@ -63,7 +66,7 @@ sge::opengl::texture::funcs::set_active_level(
 				return;
 
 			FCPPT_LOG_ERROR(
-				sge::opengl::logger(),
+				_log,
 				fcppt::log::_
 					<< FCPPT_TEXT("Tried to set texture stage ")
 					<< _stage
@@ -71,6 +74,7 @@ sge::opengl::texture::funcs::set_active_level(
 			);
 		},
 		[
+			&_log,
 			_stage
 		](
 			sge::opengl::texture::multi_config const &_config
@@ -83,7 +87,7 @@ sge::opengl::texture::funcs::set_active_level(
 			)
 			{
 				FCPPT_LOG_WARNING(
-					sge::opengl::logger(),
+					_log,
 					fcppt::log::_
 						<< FCPPT_TEXT("GL_MAX_COMBINED_TEXTURE_UNITS is ")
 						<< _config.max_level()

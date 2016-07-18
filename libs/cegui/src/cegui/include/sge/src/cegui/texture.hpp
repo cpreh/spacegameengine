@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/fwds/rectf_fwd.hpp>
 #include <sge/src/cegui/fwds/sizef_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/strong_typedef.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Size.h>
@@ -60,6 +62,7 @@ public:
 	// loadFromFile or create_from_view. It won't have a valid size or
 	// texture object until then.
 	texture(
+		fcppt::log::object &,
 		sge::cegui::texture_parameters const &,
 		CEGUI::String const &name
 	);
@@ -68,6 +71,7 @@ public:
 	// This texture might be rendered to or it might get data by
 	// loadFromMemory.
 	texture(
+		fcppt::log::object &,
 		sge::cegui::texture_parameters const &,
 		CEGUI::String const &name,
 		CEGUI::Sizef const &,
@@ -143,29 +147,49 @@ private:
 		CEGUI::Texture::PixelFormat
 	) const
 	override;
-private:
-	sge::cegui::texture_parameters const texture_parameters_;
 
-	CEGUI::String const name_;
-
-	typedef fcppt::optional::object<
+	typedef
+	fcppt::optional::object<
 		CEGUI::Sizef
-	> optional_sizef;
+	>
+	optional_sizef;
 
-	// We _have_ to cache this because getSize returns a reference
-	sge::cegui::texture::optional_sizef size_;
-
-	typedef fcppt::optional::object<
+	typedef
+	fcppt::optional::object<
 		CEGUI::Vector2f
-	> optional_vector2f;
+	>
+	optional_vector2f;
 
-	sge::cegui::texture::optional_vector2f texel_scaling_;
+	FCPPT_MAKE_STRONG_TYPEDEF(
+		optional_vector2f,
+		optional_texel_scaling
+	);
 
 	typedef
 	fcppt::optional::object<
 		sge::renderer::texture::planar_unique_ptr
 	>
 	optional_planar_unique_ptr;
+
+	texture(
+		fcppt::log::object &,
+		sge::cegui::texture_parameters const &,
+		CEGUI::String const &,
+		sge::cegui::texture::optional_sizef const &,
+		sge::cegui::texture::optional_texel_scaling,
+		sge::cegui::texture::optional_planar_unique_ptr &&
+	);
+
+	fcppt::log::object log_;
+
+	sge::cegui::texture_parameters const texture_parameters_;
+
+	CEGUI::String const name_;
+
+	// We _have_ to cache this because getSize returns a reference
+	sge::cegui::texture::optional_sizef size_;
+
+	sge::cegui::texture::optional_texel_scaling texel_scaling_;
 
 	optional_planar_unique_ptr texture_;
 

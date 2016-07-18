@@ -118,16 +118,13 @@ set(
 	libs/opencl/src/opencl/event/flatten_sequence.cpp
 	libs/opencl/src/opencl/event/object.cpp
 	libs/opencl/src/opencl/handle_error.cpp
-	libs/opencl/src/opencl/include/sge/src/opencl/declare_local_logger.hpp
 	libs/opencl/src/opencl/include/sge/src/opencl/event/flatten_sequence.hpp
 	libs/opencl/src/opencl/include/sge/src/opencl/handle_error.hpp
-	libs/opencl/src/opencl/include/sge/src/opencl/logger.hpp
 	libs/opencl/src/opencl/include/sge/src/opencl/memory_object/renderer_buffer_lock_mode_to_cl_mem_flags.hpp
 	libs/opencl/src/opencl/include/sge/src/opencl/memory_object/to_opencl_mem_flags.hpp
 	libs/opencl/src/opencl/kernel/local_buffer.cpp
 	libs/opencl/src/opencl/kernel/object.cpp
 	libs/opencl/src/opencl/log_location.cpp
-	libs/opencl/src/opencl/logger.cpp
 	libs/opencl/src/opencl/memory_object/base.cpp
 	libs/opencl/src/opencl/memory_object/buffer.cpp
 	libs/opencl/src/opencl/memory_object/create_image_format.cpp

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/plugin/collection_fwd.hpp>
 #include <sge/font/plugin/object.hpp>
-#include <sge/log/option_container.hpp>
 #include <sge/systems/font_fwd.hpp>
 
 
@@ -39,7 +38,6 @@ namespace font
 sge::font::plugin::object
 find_plugin(
 	sge::font::plugin::collection const &,
-	sge::log::option_container const &,
 	sge::systems::font const &
 );
 

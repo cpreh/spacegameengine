@@ -22,9 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/active_level.hpp>
 #include <sge/opengl/texture/funcs/set_active_level.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 sge::opengl::texture::active_level::active_level(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context,
 	sge::renderer::texture::stage const _stage
 )
@@ -34,6 +36,7 @@ sge::opengl::texture::active_level::active_level(
 	)
 {
 	sge::opengl::texture::funcs::set_active_level(
+		_log,
 		_context,
 		_stage
 	);

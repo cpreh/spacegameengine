@@ -75,7 +75,7 @@ boost::enable_if<
 use(
 	sge::opengl::context::object &_object,
 	typename
-	Type::parameter &_parameter
+	Type::parameter _parameter
 )
 {
 	return

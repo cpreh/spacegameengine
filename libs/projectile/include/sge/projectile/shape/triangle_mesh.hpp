@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_SHAPE_TRIANGLE_MESH_HPP_INCLUDED
 #define SGE_PROJECTILE_SHAPE_TRIANGLE_MESH_HPP_INCLUDED
 
+#include <sge/projectile/log_fwd.hpp>
 #include <sge/projectile/scalar.hpp>
 #include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/shape/base.hpp>
@@ -51,8 +52,8 @@ class triangle_mesh
 	);
 public:
 	SGE_PROJECTILE_DETAIL_SYMBOL
-	explicit
 	triangle_mesh(
+		sge::projectile::log const &,
 		sge::projectile::shape::triangle_sequence const &
 	);
 

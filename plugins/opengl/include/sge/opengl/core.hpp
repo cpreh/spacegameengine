@@ -26,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/system_field_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object.hpp>
 
 
 namespace sge
@@ -41,7 +43,10 @@ class core
 		core
 	);
 public:
-	core();
+	explicit
+	core(
+		fcppt::log::context &
+	);
 
 	~core()
 	override;
@@ -55,6 +60,8 @@ private:
 	sge::renderer::caps::system_field
 	caps() const
 	override;
+
+	fcppt::log::object log_;
 };
 
 }

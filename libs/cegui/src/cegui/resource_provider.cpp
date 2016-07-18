@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/exception.hpp>
 #include <sge/cegui/from_cegui_string.hpp>
-#include <sge/src/cegui/declare_local_logger.hpp>
+#include <sge/log/default_parameters.hpp>
 #include <sge/src/cegui/resource_provider.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/name.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
@@ -39,11 +41,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-SGE_CEGUI_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("resource_provider")
+sge::cegui::resource_provider::resource_provider(
+	fcppt::log::object &_log
 )
-
-sge::cegui::resource_provider::resource_provider()
+:
+	log_{
+		_log,
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("resource_provider")
+			}
+		)
+	}
 {
 }
 
@@ -67,7 +76,7 @@ sge::cegui::resource_provider::loadRawDataContainer(
 			);
 
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("loadRawDataContainer(")
 			<< converted_filename
@@ -126,7 +135,7 @@ sge::cegui::resource_provider::unloadRawDataContainer(
 	CEGUI::RawDataContainer&data)
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("unloadRawDataContainer()"));
 
@@ -150,7 +159,7 @@ sge::cegui::resource_provider::getResourceGroupFileNames(
 			);
 
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("loadRawDataContainer(")
 			<< converted_file_pattern

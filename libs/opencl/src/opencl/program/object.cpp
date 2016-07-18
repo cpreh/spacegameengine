@@ -19,12 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/core/exception.hpp>
+#include <sge/log/default_parameters.hpp>
+#include <sge/opencl/log_location.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/device/object.hpp>
 #include <sge/opencl/program/build_error.hpp>
 #include <sge/opencl/program/build_parameters.hpp>
 #include <sge/opencl/program/object.hpp>
-#include <sge/src/opencl/declare_local_logger.hpp>
 #include <sge/src/opencl/handle_error.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -38,22 +39,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/gcc_version_at_least.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/log/_.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/name.hpp>
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
 
-SGE_OPENCL_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("program::object"))
-
 sge::opencl::program::object::object(
-	context::object &_context,
-	program::device_blob_map const &_blobs,
-	program::optional_build_parameters const &_opt_params)
+	fcppt::log::context &_log_context,
+	sge::opencl::context::object &_context,
+	sge::opencl::program::device_blob_map const &_blobs,
+	sge::opencl::program::optional_build_parameters const &_opt_params)
 :
-	program_(0),
-	notification_callback_()
+	object(
+		_log_context
+	)
 {
 	typedef
 	fcppt::container::raw_vector<unsigned char const *>
@@ -81,6 +83,7 @@ sge::opencl::program::object::object(
 		static_cast<device_id_vector::size_type>(
 			_blobs.size()));
 
+	// TODO: map
 	for(
 		program::device_blob_map::const_iterator current_blob =
 			_blobs.begin();
@@ -156,12 +159,14 @@ sge::opencl::program::object::object(
 }
 
 sge::opencl::program::object::object(
-	context::object &_context,
-	program::source_string_sequence const &_source_strings,
-	program::optional_build_parameters const &_opt_params)
+	fcppt::log::context &_log_context,
+	sge::opencl::context::object &_context,
+	sge::opencl::program::source_string_sequence const &_source_strings,
+	sge::opencl::program::optional_build_parameters const &_opt_params)
 :
-	program_(0),
-	notification_callback_()
+	object(
+		_log_context
+	)
 {
 	typedef
 	fcppt::container::raw_vector<char const *>
@@ -183,6 +188,7 @@ sge::opencl::program::object::object(
 		static_cast<length_vector::size_type>(
 			_source_strings.size()));
 
+	// TODO: map
 	for(
 		program::source_string_sequence::const_iterator source_string =
 			_source_strings.begin();
@@ -376,6 +382,24 @@ sge::opencl::program::object::~object()
 		FCPPT_TEXT("clReleaseProgram"));
 }
 
+sge::opencl::program::object::object(
+	fcppt::log::context &_log_context
+)
+:
+	log_{
+		_log_context,
+		sge::opencl::log_location(),
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("program::object")
+			}
+		)
+	},
+	program_(0),
+	notification_callback_()
+{
+}
+
 sge::opencl::program::object::device_id_vector
 sge::opencl::program::object::program_devices() const
 {
@@ -492,8 +516,9 @@ sge::opencl::program::object::check_program_return_values()
 
 		if(!build_log.empty())
 		{
+			// TODO: error?
 			FCPPT_LOG_VERBOSE(
-				local_log,
+				log_,
 				fcppt::log::_
 					<< FCPPT_TEXT("Program build failed, build log:\n")
 					<< fcppt::from_std_string(build_log));

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_CEGUI_RESOURCE_PROVIDER_HPP_INCLUDED
 
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/ResourceProvider.h>
 #include <vector>
@@ -47,7 +48,10 @@ class resource_provider
 		resource_provider
 	);
 public:
-	resource_provider();
+	explicit
+	resource_provider(
+		fcppt::log::object &
+	);
 
 	~resource_provider()
 	override;
@@ -73,6 +77,8 @@ private:
 		CEGUI::String const &resource_group
 	)
 	override;
+
+	fcppt::log::object log_;
 };
 
 }

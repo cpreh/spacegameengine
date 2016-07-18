@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/draw_context.hpp>
 #include <sge/opengl/draw_elements.hpp>
-#include <sge/opengl/logger.hpp>
 #include <sge/opengl/context/object.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/convert/primitive_type.hpp>
@@ -41,12 +40,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/log/_.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/maybe.hpp>
 
 
 void
 sge::opengl::draw_elements(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context,
 	sge::renderer::index::buffer const &_index_buffer,
 	sge::renderer::vertex::first const _first_vertex,
@@ -63,7 +64,7 @@ sge::opengl::draw_elements(
 	)
 	{
 		FCPPT_LOG_WARNING(
-			sge::opengl::logger(),
+			_log,
 			fcppt::log::_
 				<< FCPPT_TEXT("Rendering point lists with index buffers is not portable!")
 		);
@@ -76,7 +77,7 @@ sge::opengl::draw_elements(
 	)
 	{
 		FCPPT_LOG_WARNING(
-			sge::opengl::logger(),
+			_log,
 			fcppt::log::_
 				<< FCPPT_TEXT("Empty render() call with index_buffer. ")
 				<< FCPPT_TEXT("vertex_count was 0.")

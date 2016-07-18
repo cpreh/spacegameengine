@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/pitch.hpp>
 #include <sge/image2d/view/size.hpp>
+#include <sge/log/default_parameters.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -48,7 +49,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/src/cegui/convert_pixel_format.hpp>
-#include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/from_cegui_size.hpp>
 #include <sge/src/cegui/prefix.hpp>
 #include <sge/src/cegui/texel_scaling.hpp>
@@ -63,6 +63,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/name.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -71,30 +73,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <CEGUI/String.h>
 #include <CEGUI/Texture.h>
 #include <CEGUI/Vector.h>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
-SGE_CEGUI_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("texture")
-)
-
 sge::cegui::texture::texture(
+	fcppt::log::object &_log,
 	sge::cegui::texture_parameters const &_texture_parameters,
 	CEGUI::String const &_name
 )
 :
-	texture_parameters_(
-		_texture_parameters
-	),
-	name_(
-		_name
-	),
-	size_(),
-	texel_scaling_(),
-	texture_()
+	texture(
+		_log,
+		_texture_parameters,
+		_name,
+		sge::cegui::texture::optional_sizef(),
+		sge::cegui::texture::optional_texel_scaling(
+			sge::cegui::texture::optional_vector2f()
+		),
+		sge::cegui::texture::optional_planar_unique_ptr()
+	)
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("texture(")
 			<< this
@@ -107,47 +108,49 @@ sge::cegui::texture::texture(
 }
 
 sge::cegui::texture::texture(
+	fcppt::log::object &_log,
 	sge::cegui::texture_parameters const &_texture_parameters,
 	CEGUI::String const &_name,
 	CEGUI::Sizef const &_size,
 	sge::renderer::texture::capabilities_field const &_caps
 )
 :
-	texture_parameters_(
-		_texture_parameters
-	),
-	name_(
-		_name
-	),
-	size_(
-		_size
-	),
-	texel_scaling_(
-		sge::cegui::texel_scaling(
+	texture(
+		_log,
+		_texture_parameters,
+		_name,
+		sge::cegui::texture::optional_sizef{
 			_size
-		)
-	),
-	texture_(
-		texture_parameters_.renderer().create_planar_texture(
-			sge::renderer::texture::planar_parameters(
-				sge::cegui::from_cegui_size<
-					sge::renderer::texture::planar::dim
-				>(
+		},
+		sge::cegui::texture::optional_texel_scaling(
+			sge::cegui::texture::optional_vector2f{
+				sge::cegui::texel_scaling(
 					_size
-				),
-				sge::renderer::texture::color_format(
-					sge::image::color::format::rgba8,
-					texture_parameters_.emulate_srgb()
-				),
-				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags_field::null(),
-				_caps
+				)
+			}
+		),
+		sge::cegui::texture::optional_planar_unique_ptr{
+			texture_parameters_.renderer().create_planar_texture(
+				sge::renderer::texture::planar_parameters(
+					sge::cegui::from_cegui_size<
+						sge::renderer::texture::planar::dim
+					>(
+						_size
+					),
+					sge::renderer::texture::color_format(
+						sge::image::color::format::rgba8,
+						_texture_parameters.emulate_srgb()
+					),
+					sge::renderer::texture::mipmap::off(),
+					sge::renderer::resource_flags_field::null(),
+					_caps
+				)
 			)
-		)
+		}
 	)
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("texture(")
 			<< this
@@ -188,7 +191,7 @@ sge::cegui::texture::create_from_view(
 		&&
 		!size_.has_value()
 		&&
-		!texel_scaling_.has_value()
+		!texel_scaling_.get().has_value()
 	);
 
 	CEGUI::Sizef const new_size(
@@ -207,11 +210,13 @@ sge::cegui::texture::create_from_view(
 		);
 
 	texel_scaling_ =
-		sge::cegui::texture::optional_vector2f(
-			sge::cegui::texel_scaling(
-				new_size
-			)
-		);
+		sge::cegui::texture::optional_texel_scaling{
+			sge::cegui::texture::optional_vector2f{
+				sge::cegui::texel_scaling(
+					new_size
+				)
+			}
+		};
 
 	texture_ =
 		optional_planar_unique_ptr(
@@ -260,7 +265,7 @@ sge::cegui::texture::getTexelScaling() const
 {
 	return
 		FCPPT_ASSERT_OPTIONAL_ERROR(
-			texel_scaling_
+			texel_scaling_.get()
 		);
 }
 
@@ -271,7 +276,7 @@ sge::cegui::texture::loadFromFile(
 )
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("texture(")
 			<< this
@@ -305,7 +310,7 @@ sge::cegui::texture::loadFromMemory(
 )
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("texture(")
 			<< this
@@ -400,4 +405,41 @@ sge::cegui::texture::isPixelFormatSupported(
 		sge::cegui::convert_pixel_format(
 			_format
 		).has_value();
+}
+
+sge::cegui::texture::texture(
+	fcppt::log::object &_log,
+	sge::cegui::texture_parameters const &_texture_parameters,
+	CEGUI::String const &_name,
+	sge::cegui::texture::optional_sizef const &_size,
+	sge::cegui::texture::optional_texel_scaling const _texel_scaling,
+	sge::cegui::texture::optional_planar_unique_ptr &&_texture
+)
+:
+	log_{
+		_log,
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("texture")
+			}
+		)
+	},
+	texture_parameters_{
+		_texture_parameters
+	},
+	name_{
+		_name
+	},
+	size_{
+		_size
+	},
+	texel_scaling_{
+		_texel_scaling
+	},
+	texture_{
+		std::move(
+			_texture
+		)
+	}
+{
 }

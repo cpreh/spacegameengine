@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/openal/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -36,13 +37,15 @@ class current_context
 		current_context
 	);
 public:
-	explicit
 	current_context(
+		fcppt::log::object &,
 		sge::openal::context &
 	);
 
 	~current_context();
 private:
+	fcppt::log::object &log_;
+
 	sge::openal::context &context_;
 };
 

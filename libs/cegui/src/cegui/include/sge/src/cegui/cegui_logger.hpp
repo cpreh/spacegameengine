@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_CEGUI_CEGUI_LOGGER_HPP_INCLUDED
 
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Logger.h>
 #include <fcppt/config/external_end.hpp>
@@ -45,7 +46,10 @@ class cegui_logger
 		cegui_logger
 	);
 public:
-	cegui_logger();
+	explicit
+	cegui_logger(
+		fcppt::log::object &
+	);
 
 	~cegui_logger()
 	override;
@@ -63,6 +67,8 @@ private:
 		bool append
 	)
 	override;
+
+	fcppt::log::object log_;
 };
 
 }

@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/scene/mesh/object.hpp>
 #include <sge/scenic/vf/format.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/scaling.hpp>
@@ -50,11 +51,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::scenic::scene::object::object(
+	fcppt::log::context &_log_context,
 	sge::scenic::scene::manager &_scene_manager,
 	sge::viewport::manager &_viewport_manager,
 	sge::camera::base &_camera,
 	sge::scenic::scene::prototype_unique_ptr _prototype)
 :
+	log_context_{
+		_log_context
+	},
 	scene_manager_(
 		_scene_manager),
 	camera_(
@@ -113,6 +118,7 @@ sge::scenic::scene::object::render(
 		scene_manager_.texture_manager());
 
 	for(
+		// TODO: range-based loop
 		sge::scenic::scene::entity_sequence::const_iterator it =
 			prototype_->entities().begin();
 		it != prototype_->entities().end();
@@ -139,6 +145,7 @@ sge::scenic::scene::object::load_entities()
 		prototype_->entities()
 	)
 	{
+		// TODO: find_opt
 		mesh_map::iterator const mesh_name_and_instance(
 			mesh_name_to_instance_.find(
 				current_entity.mesh_path()));
@@ -147,7 +154,9 @@ sge::scenic::scene::object::load_entities()
 			continue;
 
 		sge::model::obj::prototype const new_prototype(
-			current_entity.mesh_path().get());
+			log_context_,
+			current_entity.mesh_path().get()
+		);
 
 		for(
 			boost::filesystem::path const &current_material_file
@@ -157,7 +166,10 @@ sge::scenic::scene::object::load_entities()
 		{
 			sge::model::obj::material_map const new_materials(
 				sge::model::obj::parse_mtllib(
-					current_material_file));
+					log_context_,
+					current_material_file
+				)
+			);
 
 			for(
 				auto const &current_obj_material

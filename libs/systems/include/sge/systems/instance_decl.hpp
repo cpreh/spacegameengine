@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/is_sequence.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -88,6 +89,9 @@ public:
 	);
 
 	~instance();
+
+	fcppt::log::context &
+	log_context() const;
 
 	sge::plugin::manager &
 	plugin_manager();

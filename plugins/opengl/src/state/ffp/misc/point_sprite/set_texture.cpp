@@ -31,10 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 void
 sge::opengl::state::ffp::misc::point_sprite::set_texture(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context,
 	sge::opengl::state::ffp::misc::point_sprite::config const &_point_sprite_config,
 	sge::renderer::texture::stage const _stage,
@@ -42,6 +44,7 @@ sge::opengl::state::ffp::misc::point_sprite::set_texture(
 )
 {
 	sge::opengl::texture::active_level const active_level(
+		_log,
 		_context,
 		_stage
 	);

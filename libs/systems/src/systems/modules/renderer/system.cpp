@@ -32,9 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 sge::systems::modules::renderer::system::system(
+	fcppt::log::context &_log_context,
 	sge::renderer::plugin::collection const &_collection,
 	sge::systems::detail::renderer const &_parameters,
 	sge::parse::ini::optional_start const &_config,
@@ -46,6 +48,7 @@ sge::systems::modules::renderer::system::system(
 	),
 	plugin_core_pair_(
 		sge::systems::modules::renderer::find_plugin(
+			_log_context,
 			_collection,
 			sge::systems::merge_config_strings(
 				_parameters.parameters().name(),

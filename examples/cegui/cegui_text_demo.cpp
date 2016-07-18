@@ -201,29 +201,43 @@ try
 
 	fcppt::signal::auto_connection const escape_connection(
 		sge::systems::quit_on_escape(
-			sys));
+			sys
+		)
+	);
 
 	sge::cegui::system gui_sys(
 		sge::cegui::load_context(
-			sge::config::media_path()/FCPPT_TEXT("gui")/FCPPT_TEXT("TaharezLook.scheme"))
-			.font_directory(
-				sge::config::media_path()/FCPPT_TEXT("fonts")),
+			sge::config::media_path()
+			/
+			FCPPT_TEXT("gui")
+			/
+			FCPPT_TEXT("TaharezLook.scheme")
+		)
+		.font_directory(
+			sge::config::media_path()
+			/
+			FCPPT_TEXT("fonts")
+		),
 		sys.renderer_device_ffp(),
 		sys.image_system(),
 		sys.viewport_manager(),
 		sge::cegui::cursor_visibility::visible,
-		sge::renderer::texture::emulate_srgb::yes);
+		sge::renderer::texture::emulate_srgb::yes
+	);
 
 	sge::cegui::syringe gui_syringe(
-		gui_sys);
+		gui_sys
+	);
 
 	sge::cegui::default_cursor gui_cursor(
 		gui_syringe,
-		sys.cursor_demuxer());
+		sys.cursor_demuxer()
+	);
 
 	sge::cegui::default_focus gui_keyboard(
 		gui_syringe,
-		sys.focus_collector());
+		sys.focus_collector()
+	);
 
 	sge::timer::basic<
 		sge::timer::clocks::standard

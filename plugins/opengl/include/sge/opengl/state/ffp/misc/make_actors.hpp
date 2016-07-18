@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/renderer/state/ffp/misc/parameters_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -39,6 +40,7 @@ namespace misc
 
 sge::opengl::state::actor_vector
 make_actors(
+	fcppt::log::object &,
 	sge::opengl::context::object &,
 	sge::renderer::state::ffp::misc::parameters const &
 );

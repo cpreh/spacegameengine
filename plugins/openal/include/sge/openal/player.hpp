@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/device.hpp>
 #include <sge/openal/listener.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object.hpp>
 
 
 namespace sge
@@ -49,7 +51,10 @@ class player
 		player
 	);
 public:
-	player();
+	explicit
+	player(
+		fcppt::log::context &
+	);
 
 	~player()
 	override;
@@ -100,6 +105,8 @@ public:
 	is_null() const
 	override;
 private:
+	fcppt::log::object log_;
+
 	sge::openal::device device_;
 
 	sge::openal::context context_;

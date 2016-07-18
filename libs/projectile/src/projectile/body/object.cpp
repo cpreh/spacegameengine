@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/body/parameters.hpp>
 #include <sge/projectile/shape/base.hpp>
 #include <sge/src/projectile/bullet_to_vector2.hpp>
-#include <sge/src/projectile/declare_local_logger.hpp>
 #include <sge/src/projectile/vector2_to_bullet.hpp>
 #include <sge/src/projectile/body/detail/motion_state.hpp>
 #include <sge/src/projectile/body/solidity/extract_mass.hpp>
@@ -49,13 +48,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("body"))
-
 namespace
 {
 btVector3
 inertia_for_shape(
+	fcppt::log::object &_log,
 	btCollisionShape &shape,
 	sge::projectile::body::solidity::variant const &solidity)
 {
@@ -73,7 +70,7 @@ inertia_for_shape(
 	if(mass > static_cast<btScalar>(0.000001))
 	{
 		FCPPT_LOG_DEBUG(
-			local_log,
+			_log,
 			fcppt::log::_
 				<< FCPPT_TEXT("solid body with mass ") << mass << FCPPT_TEXT(" so calculating inertia"));
 		shape.calculateLocalInertia(
@@ -102,6 +99,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::projectile::body::object::object(
 	parameters const &p)
 :
+	log_{
+		p.log()
+	},
 	transformation_(
 		fcppt::make_unique_ptr<btTransform>(
 			create_rotation_matrix(
@@ -126,13 +126,14 @@ sge::projectile::body::object::object(
 				// shape
 				&(shape_->bullet_shape()),
 				inertia_for_shape(
+					log_,
 					shape_->bullet_shape(),
 					p.solidity())))),
 	user_data_(
 		p.user_data())
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< this
 			<< FCPPT_TEXT(": Created a new body, position ")
@@ -158,7 +159,7 @@ sge::projectile::body::object::object(
 	if(!solidity::is_solid(p.solidity()))
 	{
 		FCPPT_LOG_DEBUG(
-			local_log,
+			log_,
 			fcppt::log::_
 				<< this
 				<< FCPPT_TEXT(": Setting to nonsolid (no contact response)"));
@@ -207,7 +208,7 @@ sge::projectile::body::object::position(
 	vector2 const &p)
 {
 	FCPPT_LOG_VERBOSE(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< this
 			<< FCPPT_TEXT(": Somebody reset the body's position to ")
@@ -246,7 +247,7 @@ sge::projectile::body::object::linear_velocity(
 	vector2 const &v)
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< this
 			<< FCPPT_TEXT(": Somebody reset the body's linear velocity to ")
@@ -272,7 +273,7 @@ sge::projectile::body::object::angular_velocity(
 	scalar const v)
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< this
 			<< FCPPT_TEXT(": Somebody reset the body's angular velocity to ")
@@ -310,7 +311,7 @@ sge::projectile::body::object::rotation(
 	scalar const r)
 {
 	FCPPT_LOG_VERBOSE(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< this
 			<< FCPPT_TEXT(": Somebody reset the body's rotation to ")
@@ -369,13 +370,13 @@ sge::projectile::body::object::setWorldTransform(
 	btTransform const &t)
 {
 	FCPPT_LOG_VERBOSE(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< this
 			<< FCPPT_TEXT(": Somebody wants to reset our world transformation! "));
 	(*transformation_) = t;
 	FCPPT_LOG_VERBOSE(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< this
 			<< FCPPT_TEXT(": New position ")
@@ -385,7 +386,7 @@ sge::projectile::body::object::setWorldTransform(
 			<<
 				this->rotation());
 	FCPPT_LOG_VERBOSE(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< this
 			<< FCPPT_TEXT(": New linear velocity ")

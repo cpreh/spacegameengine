@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/predef.hpp>
-#include <sge/log/global_context.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
@@ -704,7 +703,7 @@ show_usage(
 // Using simple trigonometry, we get "atan(f/(d/2))" for 'a'
 // The following function implements just this.
 
-sge::camera::coordinate_system::object const
+sge::camera::coordinate_system::object
 move_eye_position(
 	sge::camera::coordinate_system::object result,
 	sge::renderer::scalar const eye_distance,
@@ -938,11 +937,19 @@ try
 	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
 		sys.renderer_device_ffp().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
-				sge::renderer::vf::dynamic::make_format<vf::format>())));
+				sge::renderer::vf::dynamic::make_format<
+					vf::format
+				>()
+			)
+		)
+	);
 
 	// Create an md3 loader using the "create" function.
 	sge::model::md3::loader_unique_ptr const md3_loader(
-		sge::model::md3::create());
+		sge::model::md3::create(
+			sys.log_context()
+		)
+	);
 
 	// Create a model and a model collection
 	compiled_model main_model(
@@ -950,15 +957,18 @@ try
 		*vertex_declaration,
 		*md3_loader->load(
 			sge::config::media_path()
-				/ FCPPT_TEXT("md3s")
-				/ FCPPT_TEXT("arrow.md3"),
+			/
+			FCPPT_TEXT("md3s")
+			/
+			FCPPT_TEXT("arrow.md3"),
 			sge::model::md3::load_flags_field::null()
 		)
 	);
 
 	random_model_collection model_collection(
 		sys.renderer_device_ffp(),
-		main_model);
+		main_model
+	);
 
 	sge::timer::basic<
 		sge::timer::clocks::standard
@@ -1058,7 +1068,9 @@ try
 		// precaution, we _might_ divide by zero somewhere below, otherwise)
 		if(
 			sge::renderer::target::viewport_is_null(
-				sys.renderer_device_ffp().onscreen_target().viewport()))
+				sys.renderer_device_ffp().onscreen_target().viewport()
+			)
+		)
 			continue;
 
 		// This moves the camera around
@@ -1074,25 +1086,32 @@ try
 
 		sge::renderer::context::scoped_ffp const scoped_block(
 			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target());
+			sys.renderer_device_ffp().onscreen_target()
+		);
 
 		sge::renderer::context::ffp &context(
-			scoped_block.get());
+			scoped_block.get()
+		);
 
 		sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
 			sys.renderer_device_ffp().create_transform_state(
 				sge::renderer::state::ffp::transform::parameters(
-					camera.projection_matrix().get())));
+					camera.projection_matrix().get()
+				)
+			)
+		);
 
 		sge::renderer::state::ffp::transform::scoped const projection_transform(
 			context,
 			sge::renderer::state::ffp::transform::mode::projection,
-			*projection_state);
+			*projection_state
+		);
 
 		// The vertex declaration can be set once in this case
 		sge::renderer::vertex::scoped_declaration const scoped_vd(
 			context,
-			*vertex_declaration);
+			*vertex_declaration
+		);
 
 		sge::renderer::clear::depth_buffer_value const depth_clear_value(
 			1.f
@@ -1112,7 +1131,8 @@ try
 			// Set the color mask to "red"
 			sge::renderer::state::core::blend::scoped const scoped_blend(
 				context,
-				*blend_red_state);
+				*blend_red_state
+			);
 
 			model_collection.render(
 				context,
@@ -1120,7 +1140,10 @@ try
 					move_eye_position(
 						camera.coordinate_system(),
 						eye_distance,
-						focal_length)));
+						focal_length
+					)
+				)
+			);
 		}
 
 		// Clear depth buffer
@@ -1135,7 +1158,8 @@ try
 			// Set the color mask to cyan
 			sge::renderer::state::core::blend::scoped const scoped_blend(
 				context,
-				*blend_cyan_state);
+				*blend_cyan_state
+			);
 
 			model_collection.render(
 				context,
@@ -1143,7 +1167,10 @@ try
 					move_eye_position(
 						camera.coordinate_system(),
 						-eye_distance,
-						focal_length)));
+						focal_length
+					)
+				)
+			);
 		}
 	}
 
@@ -1158,7 +1185,8 @@ catch(
 		<< _error.string()
 		<< FCPPT_TEXT('\n');
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
@@ -1168,5 +1196,6 @@ catch(
 		<< _error.what()
 		<< '\n';
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }

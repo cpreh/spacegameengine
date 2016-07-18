@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/primitive_type_fwd.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -33,6 +34,7 @@ namespace opengl
 
 void
 draw_arrays(
+	fcppt::log::object &,
 	sge::renderer::vertex::first,
 	sge::renderer::vertex::count,
 	sge::renderer::primitive_type

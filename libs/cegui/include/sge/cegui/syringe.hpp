@@ -32,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/key_event_fwd.hpp>
 #include <sge/input/focus/key_repeat_event_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object.hpp>
 
 
 namespace CEGUI
@@ -52,8 +54,8 @@ class syringe
 	);
 public:
 	SGE_CEGUI_DETAIL_SYMBOL
-	explicit
 	syringe(
+		fcppt::log::context &,
 		sge::cegui::system &
 	);
 
@@ -103,6 +105,8 @@ public:
 	);
 private:
 	CEGUI::GUIContext &gui_context_;
+
+	fcppt::log::object log_;
 };
 
 }

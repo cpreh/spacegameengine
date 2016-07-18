@@ -32,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/program/source_string_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/raw_vector.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/optional/object.hpp>
 
 
@@ -48,12 +50,14 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_OPENCL_DETAIL_SYMBOL
 	object(
+		fcppt::log::context &,
 		sge::opencl::context::object &,
 		sge::opencl::program::device_blob_map const &,
 		sge::opencl::program::optional_build_parameters const &);
 
 	SGE_OPENCL_DETAIL_SYMBOL
 	object(
+		fcppt::log::context &,
 		sge::opencl::context::object &,
 		sge::opencl::program::source_string_sequence const &,
 		sge::opencl::program::optional_build_parameters const &);
@@ -70,12 +74,18 @@ public:
 
 	SGE_OPENCL_DETAIL_SYMBOL ~object();
 private:
+	explicit
+	object(
+		fcppt::log::context &
+	);
+
 	friend class sge::opencl::kernel::object;
 
 	typedef
 	fcppt::container::raw_vector<cl_device_id>
 	device_id_vector;
 
+	fcppt::log::object log_;
 	cl_program program_;
 	sge::opencl::program::optional_notification_callback notification_callback_;
 

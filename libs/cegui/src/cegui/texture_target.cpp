@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/predef.hpp>
+#include <sge/log/default_parameters.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/caps/device.hpp>
@@ -45,7 +46,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
-#include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/from_cegui_rect.hpp>
 #include <sge/src/cegui/from_cegui_size.hpp>
 #include <sge/src/cegui/optional_render_context_ref.hpp>
@@ -61,6 +61,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/name.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/null.hpp>
@@ -75,15 +77,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-SGE_CEGUI_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("texture_target")
-)
-
 sge::cegui::texture_target::texture_target(
+	fcppt::log::object &_main_log,
 	sge::cegui::texture_parameters const &_texture_parameters,
 	sge::cegui::optional_render_context_ref const &_render_context
 )
 :
+	main_log_{
+		_main_log
+	},
+	log_{
+		_main_log,
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("texture_target")
+			}
+		)
+	},
 	texture_parameters_(
 		_texture_parameters
 	),
@@ -107,7 +117,7 @@ sge::cegui::texture_target::texture_target(
 	transform_state_()
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("texture_target(")
 			<< this
@@ -132,7 +142,7 @@ sge::cegui::texture_target::draw(
 		return;
 
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("texture_target(")
 			<< this
@@ -155,7 +165,7 @@ sge::cegui::texture_target::draw(
 		return;
 
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("texture_target(")
 			<< this
@@ -171,7 +181,7 @@ sge::cegui::texture_target::setArea(
 )
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("texture_target(")
 			<< this
@@ -248,7 +258,7 @@ sge::cegui::texture_target::activate()
 		return;
 
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("texture_target(")
 			<< this
@@ -295,7 +305,7 @@ void
 sge::cegui::texture_target::deactivate()
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("texture_target(")
 			<< this
@@ -341,7 +351,7 @@ void
 sge::cegui::texture_target::clear()
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("texture_target(")
 			<< this
@@ -411,7 +421,7 @@ sge::cegui::texture_target::declareRenderSize(
 )
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("texture_target(")
 			<< this
@@ -453,6 +463,7 @@ sge::cegui::texture_target::declareRenderSize(
 				fcppt::make_unique_ptr<
 					sge::cegui::texture
 				>(
+					main_log_,
 					texture_parameters_,
 					texture_name
 				)
@@ -460,6 +471,7 @@ sge::cegui::texture_target::declareRenderSize(
 				fcppt::make_unique_ptr<
 					sge::cegui::texture
 				>(
+					main_log_,
 					texture_parameters_,
 					texture_name,
 					_size,

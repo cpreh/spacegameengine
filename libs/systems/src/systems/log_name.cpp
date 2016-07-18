@@ -18,21 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EVDEV_LOGGER_HPP_INCLUDED
-#define SGE_EVDEV_LOGGER_HPP_INCLUDED
+#include <sge/src/systems/log_name.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/name.hpp>
 
-#include <fcppt/log/object_fwd.hpp>
 
-
-namespace sge
+fcppt::log::name
+sge::systems::log_name()
 {
-namespace evdev
-{
-
-fcppt::log::object &
-logger();
-
+	return
+		fcppt::log::name{
+			FCPPT_TEXT("systems")
+		};
 }
-}
-
-#endif

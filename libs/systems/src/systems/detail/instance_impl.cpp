@@ -28,6 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/object_fwd.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
+#include <sge/log/default_parameters.hpp>
+#include <sge/log/location.hpp>
 #include <sge/parse/ini/optional_start_fwd.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/manager.hpp>
@@ -36,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/src/systems/log_name.hpp>
 #include <sge/src/systems/make_scoped_output.hpp>
 #include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/src/systems/modules/audio/loader.hpp>
@@ -71,6 +74,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/enabled_levels.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/log/setting.hpp>
 
 
@@ -85,6 +89,13 @@ sge::systems::detail::instance_impl::instance_impl(
 				fcppt::log::level::info
 			)
 		}
+	},
+	log_{
+		log_context_,
+		sge::log::location(),
+		sge::log::default_parameters(
+			sge::systems::log_name()
+		)
 	},
 	scoped_output_(
 		sge::systems::make_scoped_output(
@@ -127,6 +138,7 @@ sge::systems::detail::instance_impl::init_window_system(
 			fcppt::make_unique_ptr<
 				sge::systems::modules::window::system
 			>(
+				log_context_,
 				_parameters
 			)
 		);
@@ -143,6 +155,7 @@ sge::systems::detail::instance_impl::init_renderer_system(
 			fcppt::make_unique_ptr<
 				sge::systems::modules::renderer::system
 			>(
+				log_context_,
 				plugin_manager_.collection<
 					sge::renderer::core
 				>(),
@@ -207,6 +220,8 @@ sge::systems::detail::instance_impl::init_input(
 			fcppt::make_unique_ptr<
 				sge::systems::modules::input::object
 			>(
+				log_context_,
+				log_,
 				plugin_manager_.collection<
 					sge::input::system
 				>(),
@@ -231,6 +246,7 @@ sge::systems::detail::instance_impl::init_image2d(
 			fcppt::make_unique_ptr<
 				sge::systems::modules::image2d::object
 			>(
+				log_context_,
 				plugin_manager_.collection<
 					sge::image2d::system
 				>(),
@@ -249,6 +265,7 @@ sge::systems::detail::instance_impl::init_audio_loader(
 			fcppt::make_unique_ptr<
 				sge::systems::modules::audio::loader
 			>(
+				log_context_,
 				plugin_manager_.collection<
 					sge::audio::loader
 				>(),
@@ -267,6 +284,8 @@ sge::systems::detail::instance_impl::init_audio_player(
 			fcppt::make_unique_ptr<
 				sge::systems::modules::audio::player
 			>(
+				log_context_,
+				log_,
 				plugin_manager_.collection<
 					sge::audio::player
 				>(),
@@ -285,6 +304,7 @@ sge::systems::detail::instance_impl::init_font(
 			fcppt::make_unique_ptr<
 				sge::systems::modules::font::object
 			>(
+				log_context_,
 				plugin_manager_.collection<
 					sge::font::system
 				>(),
@@ -312,6 +332,13 @@ sge::systems::detail::instance_impl::log_context()
 {
 	return
 		log_context_;
+}
+
+fcppt::log::object &
+sge::systems::detail::instance_impl::log()
+{
+	return
+		log_;
 }
 
 sge::plugin::manager &

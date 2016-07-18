@@ -55,9 +55,10 @@ public:
 	sge::plugin::capabilities
 	plugin_type();
 
-	typedef sge::audio::loader_unique_ptr (
-		*loader_fun
-	)();
+	using
+	loader_function
+	=
+	sge::audio::loader_unique_ptr ();
 };
 
 }

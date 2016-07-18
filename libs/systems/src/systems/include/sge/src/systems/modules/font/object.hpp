@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/font/object_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace sge
@@ -46,6 +47,7 @@ class object
 	);
 public:
 	object(
+		fcppt::log::context &,
 		sge::font::plugin::collection const &,
 		sge::systems::font const &
 	);

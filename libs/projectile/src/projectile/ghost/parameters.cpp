@@ -18,28 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/projectile/log.hpp>
 #include <sge/projectile/ghost/parameters.hpp>
+#include <sge/projectile/ghost/position.hpp>
+#include <sge/projectile/ghost/size.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 sge::projectile::ghost::parameters::parameters(
+	sge::projectile::log const &_log,
 	sge::projectile::ghost::position const &_position,
-	sge::projectile::ghost::size const &_size)
+	sge::projectile::ghost::size const &_size
+)
 :
+	log_{
+		_log.ghost_log()
+	},
 	position_(
-		_position),
+		_position
+	),
 	size_(
-		_size)
+		_size
+	)
 {
+}
+
+fcppt::log::object &
+sge::projectile::ghost::parameters::log() const
+{
+	return
+		log_;
 }
 
 sge::projectile::ghost::position const &
 sge::projectile::ghost::parameters::position() const
 {
-	return position_;
+	return
+		position_;
 }
 
 sge::projectile::ghost::size const &
 sge::projectile::ghost::parameters::size() const
 {
-	return size_;
+	return
+		size_;
 }

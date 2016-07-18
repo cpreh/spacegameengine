@@ -51,8 +51,10 @@ struct traits<
 	sge::plugin::capabilities
 	plugin_type();
 
-	typedef sge::font::system_unique_ptr
-	(*loader_fun)();
+	using
+	loader_function
+	=
+	sge::font::system_unique_ptr ();
 };
 
 }

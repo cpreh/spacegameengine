@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/scene/mesh/object_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <map>
@@ -54,6 +55,7 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	object(
+		fcppt::log::context &,
 		sge::scenic::scene::manager &,
 		sge::viewport::manager &,
 		sge::camera::base &,
@@ -83,6 +85,7 @@ private:
 	>
 	material_map;
 
+	fcppt::log::context &log_context_;
 	sge::scenic::scene::manager &scene_manager_;
 	sge::camera::base &camera_;
 	sge::scenic::scene::prototype_unique_ptr const prototype_;

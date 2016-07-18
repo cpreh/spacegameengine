@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -39,14 +40,19 @@ class basic_parameters
 		basic_parameters
 	);
 public:
-	explicit
 	basic_parameters(
+		fcppt::log::object &,
 		sge::opengl::context::object &
 	);
+
+	fcppt::log::object &
+	log() const;
 
 	sge::opengl::context::object &
 	context() const;
 private:
+	fcppt::log::object &log_;
+
 	sge::opengl::context::object &context_;
 };
 

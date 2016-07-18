@@ -21,24 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/player.hpp>
 #include <sge/audio/player_plugin/collection_fwd.hpp>
 #include <sge/audio/player_plugin/traits.hpp>
-#include <sge/log/option_container.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/src/systems/find_plugin.hpp>
 #include <sge/src/systems/find_plugin_opt.hpp>
-#include <sge/src/systems/logger.hpp>
 #include <sge/src/systems/modules/audio/find_player_plugin.hpp>
 #include <sge/src/systems/modules/audio/player_pair.hpp>
 #include <sge/systems/audio_player.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
 
 
 sge::systems::modules::audio::player_pair
 sge::systems::modules::audio::find_player_plugin(
+	fcppt::log::context &_log_context,
+	fcppt::log::object &_log,
 	sge::audio::player_plugin::collection const &_collection,
-	sge::log::option_container const &_log_options,
 	sge::systems::audio_player const &_parameters
 )
 {
@@ -48,8 +49,8 @@ sge::systems::modules::audio::find_player_plugin(
 			sge::systems::find_plugin<
 				sge::audio::player
 			>(
+				_log_context,
 				_collection,
-				_log_options,
 				_parameters.name(),
 				[](
 					sge::audio::player const &
@@ -64,8 +65,8 @@ sge::systems::modules::audio::find_player_plugin(
 				sge::systems::find_plugin_opt<
 					sge::audio::player
 				>(
+					_log_context,
 					_collection,
-					_log_options,
 					[](
 						sge::audio::player const &_player
 					)
@@ -75,13 +76,14 @@ sge::systems::modules::audio::find_player_plugin(
 					}
 				),
 				[
+					&_log_context,
+					&_log,
 					&_collection,
-					&_log_options,
 					&_parameters
 				]
 				{
 					FCPPT_LOG_WARNING(
-						sge::systems::logger(),
+						_log,
 						fcppt::log::_
 							<< FCPPT_TEXT("Unable to load an audio player that is not null.")
 							<< FCPPT_TEXT(" Trying to load a null audio player instead.")
@@ -91,8 +93,8 @@ sge::systems::modules::audio::find_player_plugin(
 						sge::systems::find_plugin<
 							sge::audio::player
 						>(
+							_log_context,
 							_collection,
-							_log_options,
 							_parameters.name(),
 							[](
 								sge::audio::player const &_player

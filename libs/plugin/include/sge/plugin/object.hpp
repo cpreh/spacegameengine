@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_OBJECT_HPP_INCLUDED
 
 #include <sge/plugin/object_fwd.hpp>
-#include <sge/plugin/detail/traits.hpp>
+#include <sge/plugin/loader_function.hpp>
 #include <sge/plugin/detail/instantiate/symbol.hpp>
 #include <sge/plugin/library/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -45,11 +45,10 @@ class object
 	);
 public:
 	typedef
-	typename
-	sge::plugin::detail::traits<
+	sge::plugin::loader_function<
 		Type
-	>::loader_fun
-	loader_fun;
+	>
+	loader_function;
 
 	typedef
 	fcppt::shared_ptr<
@@ -78,12 +77,12 @@ public:
 	~object();
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	loader_fun
+	loader_function
 	get() const;
 private:
 	library_shared_ptr lib_;
 
-	loader_fun loader_;
+	loader_function loader_;
 };
 
 }

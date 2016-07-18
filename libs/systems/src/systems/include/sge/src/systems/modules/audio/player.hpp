@@ -27,6 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/systems/modules/audio/player_pair.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -45,6 +47,8 @@ class player
 	);
 public:
 	player(
+		fcppt::log::context &,
+		fcppt::log::object &,
 		sge::audio::player_plugin::collection const &,
 		sge::systems::audio_player const &
 	);

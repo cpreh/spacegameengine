@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/fwds/sizef_fwd.hpp>
 #include <sge/src/cegui/fwds/vector2f_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -60,6 +61,7 @@ class texture_target
 	);
 public:
 	texture_target(
+		fcppt::log::object &,
 		sge::cegui::texture_parameters const &,
 		sge::cegui::optional_render_context_ref const &
 	);
@@ -127,6 +129,10 @@ private:
 	isRenderingInverted() const
 	override;
 private:
+	fcppt::log::object &main_log_;
+
+	fcppt::log::object log_;
+
 	sge::cegui::texture_parameters const texture_parameters_;
 
 	typedef

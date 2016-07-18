@@ -99,6 +99,7 @@ init(
 	sge::opengl::texture::check_dim<
 		dim_wrapper::value
 	>(
+		_basic_parameters.log(),
 		size,
 		Types::buffer_types::dim_types::min_size(),
 		Types::name()

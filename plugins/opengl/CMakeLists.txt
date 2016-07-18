@@ -166,8 +166,6 @@ set(
 	plugins/opengl/include/sge/opengl/init_multi_sampling.hpp
 	plugins/opengl/include/sge/opengl/init_srgb.hpp
 	plugins/opengl/include/sge/opengl/internal_color_format.hpp
-	plugins/opengl/include/sge/opengl/logger.hpp
-	plugins/opengl/include/sge/opengl/logger_context.hpp
 	plugins/opengl/include/sge/opengl/multi_sample_context.hpp
 	plugins/opengl/include/sge/opengl/multi_sample_context_fwd.hpp
 	plugins/opengl/include/sge/opengl/occlusion_query/begin.hpp
@@ -732,8 +730,6 @@ set(
 	plugins/opengl/src/info/version_at_least.cpp
 	plugins/opengl/src/init_multi_sampling.cpp
 	plugins/opengl/src/init_srgb.cpp
-	plugins/opengl/src/logger.cpp
-	plugins/opengl/src/logger_context.cpp
 	plugins/opengl/src/multi_sample_context.cpp
 	plugins/opengl/src/occlusion_query/begin.cpp
 	plugins/opengl/src/occlusion_query/config.cpp

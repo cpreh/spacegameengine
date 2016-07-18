@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/texture_target_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
 #include <CEGUI/Renderer.h>
@@ -63,8 +64,8 @@ class renderer
 		renderer
 	);
 public:
-	explicit
 	renderer(
+		fcppt::log::object &,
 		sge::cegui::texture_parameters const &
 	);
 
@@ -232,6 +233,10 @@ private:
 		texture_unique_ptr
 	>
 	texture_map;
+
+	fcppt::log::object &main_log_;
+
+	fcppt::log::object log_;
 
 	sge::cegui::texture_parameters const texture_parameters_;
 

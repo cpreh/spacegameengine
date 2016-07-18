@@ -258,6 +258,7 @@ add_sge_console_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		${fcppt_log_TARGET}
 		${awl_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
 )

@@ -64,7 +64,7 @@ SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 			>(\
 				&sge_info_function\
 			)\
-		),\
+		) \
 		BOOST_PP_SEQ_FOR_EACH(\
 			SGE_PLUGIN_LIBRARY_DETAIL_ITERATE_FUNCTIONS,\
 			,\

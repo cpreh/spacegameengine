@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/optional_render_context_ref.hpp>
 #include <sge/src/cegui/fwds/vector2f_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Rect.h>
 #include <CEGUI/RenderTarget.h>
@@ -52,6 +53,7 @@ class default_target
 	);
 public:
 	default_target(
+		fcppt::log::object &,
 		sge::renderer::device::ffp &,
 		sge::cegui::optional_render_context_ref const &
 	);
@@ -100,6 +102,8 @@ private:
 		CEGUI::Vector2f &p_out
 	) const
 	override;
+
+	fcppt::log::object log_;
 
 	sge::renderer::device::ffp &renderer_;
 

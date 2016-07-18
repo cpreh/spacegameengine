@@ -44,7 +44,6 @@ set(
 	libs/cegui/src/cegui/include/sge/src/cegui/convert_cursor_button.hpp
 	libs/cegui/src/cegui/include/sge/src/cegui/convert_key.hpp
 	libs/cegui/src/cegui/include/sge/src/cegui/convert_pixel_format.hpp
-	libs/cegui/src/cegui/include/sge/src/cegui/declare_local_logger.hpp
 	libs/cegui/src/cegui/include/sge/src/cegui/default_target.hpp
 	libs/cegui/src/cegui/include/sge/src/cegui/detail/system_impl.hpp
 	libs/cegui/src/cegui/include/sge/src/cegui/from_cegui_rect.hpp
@@ -59,7 +58,7 @@ set(
 	libs/cegui/src/cegui/include/sge/src/cegui/geometry_buffer_fwd.hpp
 	libs/cegui/src/cegui/include/sge/src/cegui/image_codec.hpp
 	libs/cegui/src/cegui/include/sge/src/cegui/image_codec_fwd.hpp
-	libs/cegui/src/cegui/include/sge/src/cegui/logger.hpp
+	libs/cegui/src/cegui/include/sge/src/cegui/log_name.hpp
 	libs/cegui/src/cegui/include/sge/src/cegui/make_rasterizer_parameters.hpp
 	libs/cegui/src/cegui/include/sge/src/cegui/matrix_from_quaternion.hpp
 	libs/cegui/src/cegui/include/sge/src/cegui/optional_key_scan.hpp
@@ -95,7 +94,7 @@ set(
 	libs/cegui/src/cegui/include/sge/src/cegui/vf/vertex_view.hpp
 	libs/cegui/src/cegui/load_context.cpp
 	libs/cegui/src/cegui/log_location.cpp
-	libs/cegui/src/cegui/logger.cpp
+	libs/cegui/src/cegui/log_name.cpp
 	libs/cegui/src/cegui/make_rasterizer_parameters.cpp
 	libs/cegui/src/cegui/matrix_from_quaternion.cpp
 	libs/cegui/src/cegui/renderer.cpp

@@ -99,7 +99,9 @@ sge::media::detail::muxer<
 				);
 
 				system_unique_ptr system_instance(
-					plugin.get()()
+					plugin.get()(
+						_parameters.log_context()
+					)
 				);
 
 				typedef

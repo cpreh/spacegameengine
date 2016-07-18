@@ -139,6 +139,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/cast/dynamic_cross.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
@@ -163,12 +164,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::device::device(
+	fcppt::log::object &_log,
 	sge::renderer::display_mode::parameters const &_display_mode,
 	awl::window::object &_window,
 	sge::opengl::platform::system &_platform_system,
 	sge::opengl::backend::system &_backend_system
 )
 :
+	log_{
+		_log
+	},
 	platform_system_(
 		_platform_system
 	),
@@ -187,6 +192,7 @@ sge::opengl::device::device(
 		*backend_context_
 	),
 	info_(
+		_log,
 		scoped_current_.get()
 	),
 	context_(
@@ -216,6 +222,7 @@ sge::opengl::device::device(
 			_window.visual()
 		),
 		[
+			&_log,
 			this
 		](
 			fcppt::reference<
@@ -229,6 +236,7 @@ sge::opengl::device::device(
 			);
 
 			sge::opengl::init_srgb(
+				_log,
 				context_,
 				_visual.get().pixel_format().srgb()
 			);
@@ -515,6 +523,7 @@ sge::opengl::device::begin_rendering_ffp(
 
 	return
 		sge::opengl::render_context::create(
+			log_,
 			context_,
 			_target
 		);
@@ -603,6 +612,7 @@ sge::opengl::device::create_misc_state(
 {
 	return
 		sge::opengl::state::ffp::misc::create(
+			log_,
 			context_,
 			_parameters
 		);
@@ -660,6 +670,7 @@ sge::opengl::device::texture_parameters()
 {
 	return
 		sge::opengl::texture::basic_parameters(
+			log_,
 			context_
 		);
 }

@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_WARN_POW2_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_WARN_POW2_HPP_INCLUDED
 
-#include <sge/opengl/logger.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/is_power_of_2.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -46,6 +46,7 @@ template<
 >
 void
 warn_pow2(
+	fcppt::log::object &_log,
 	fcppt::math::dim::object<
 		T,
 		N,
@@ -66,7 +67,7 @@ warn_pow2(
 		)
 		{
 			FCPPT_LOG_DEBUG(
-				sge::opengl::logger(),
+				_log,
 				fcppt::log::_
 					<< FCPPT_TEXT("OpenGL implementations are not required to support ")
 					<< _what

@@ -89,6 +89,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
@@ -119,6 +120,7 @@ class device
 	);
 public:
 	device(
+		fcppt::log::object &,
 		sge::renderer::display_mode::parameters const &,
 		awl::window::object &,
 		sge::opengl::platform::system &,
@@ -349,6 +351,8 @@ private:
 		sge::opengl::platform::device_state
 	>
 	platform_device_state_unique_ptr;
+
+	fcppt::log::object &log_;
 
 	sge::opengl::platform::system &platform_system_;
 

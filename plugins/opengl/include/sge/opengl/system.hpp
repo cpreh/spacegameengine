@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -47,8 +48,8 @@ class system
 		system
 	);
 public:
-	explicit
 	system(
+		fcppt::log::object &,
 		awl::system::object &
 	);
 
@@ -78,6 +79,8 @@ private:
 		sge::opengl::platform::system
 	>
 	platform_system_unique_ptr;
+
+	fcppt::log::object &log_;
 
 	platform_system_unique_ptr const platform_system_;
 

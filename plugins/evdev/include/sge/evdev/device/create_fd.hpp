@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_EVDEV_DEVICE_CREATE_FD_HPP_INCLUDED
 
 #include <sge/evdev/device/optional_fd_unique_ptr.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -36,6 +37,7 @@ namespace device
 
 sge::evdev::device::optional_fd_unique_ptr
 create_fd(
+	fcppt::log::object &,
 	boost::filesystem::path const &
 );
 

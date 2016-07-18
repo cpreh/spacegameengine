@@ -25,18 +25,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/init/red.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
+#include <sge/log/default_parameters.hpp>
+#include <sge/projectile/log_location.hpp>
 #include <sge/projectile/world.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
-#include <sge/src/projectile/declare_local_logger.hpp>
 #include <sge/src/projectile/structure_cast.hpp>
 #include <sge/src/projectile/detail/debug_drawer_impl.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/log/_.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/name.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -45,13 +48,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("debug_drawer_impl"))
-
 sge::projectile::detail::debug_drawer_impl::debug_drawer_impl(
+	fcppt::log::context &_log_context,
 	sge::projectile::world &_world,
 	sge::renderer::device::core &_renderer)
 :
+	log_{
+		_log_context,
+		sge::projectile::log_location(),
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("debug_drawer_impl")
+			}
+		)
+	},
 	world_(
 		*_world.world_),
 	debug_mode_(
@@ -82,7 +92,7 @@ sge::projectile::detail::debug_drawer_impl::update()
 		);
 
 		FCPPT_LOG_DEBUG(
-			local_log,
+			log_,
 			fcppt::log::_ << FCPPT_TEXT("acquired lock"));
 
 		lock->value().clear();
@@ -95,7 +105,7 @@ sge::projectile::detail::debug_drawer_impl::update()
 		optional_scoped_lock_unique_ptr();
 
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_ << FCPPT_TEXT("released lock"));
 }
 
@@ -134,7 +144,6 @@ sge::projectile::detail::debug_drawer_impl::~debug_drawer_impl()
 		0);
 }
 
-// @override
 void
 sge::projectile::detail::debug_drawer_impl::drawLine(
 	btVector3 const &from,
@@ -148,7 +157,6 @@ sge::projectile::detail::debug_drawer_impl::drawLine(
 		color);
 }
 
-// @override
 void
 sge::projectile::detail::debug_drawer_impl::drawLine(
 	btVector3 const &_from,
@@ -203,7 +211,6 @@ sge::projectile::detail::debug_drawer_impl::drawLine(
 	);
 }
 
-// @override
 void
 sge::projectile::detail::debug_drawer_impl::drawContactPoint(
 	btVector3 const &point,
@@ -218,7 +225,6 @@ sge::projectile::detail::debug_drawer_impl::drawContactPoint(
 		color);
 }
 
-// @override
 void
 sge::projectile::detail::debug_drawer_impl::draw3dText(
 	btVector3 const&,
@@ -226,13 +232,12 @@ sge::projectile::detail::debug_drawer_impl::draw3dText(
 {
 }
 
-// @override
 void
 sge::projectile::detail::debug_drawer_impl::reportErrorWarning(
 	char const* warningString)
 {
 	FCPPT_LOG_WARNING(
-		local_log,
+		log_,
 		fcppt::log::_
 			<<
 			fcppt::from_std_string(
@@ -241,7 +246,6 @@ sge::projectile::detail::debug_drawer_impl::reportErrorWarning(
 	);
 }
 
-// @override
 void
 sge::projectile::detail::debug_drawer_impl::setDebugMode(
 	int const _debug_mode)
@@ -249,7 +253,6 @@ sge::projectile::detail::debug_drawer_impl::setDebugMode(
 	debug_mode_ = _debug_mode;
 }
 
-// @override
 int
 sge::projectile::detail::debug_drawer_impl::getDebugMode() const
 {

@@ -36,13 +36,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 sge::opengl::system::system(
+	fcppt::log::object &_log,
 	awl::system::object &_awl_system
 )
 :
 	sge::renderer::system::system(),
+	log_{
+		_log
+	},
 	platform_system_(
 		sge::opengl::platform::create_system(
 			_awl_system
@@ -87,6 +92,7 @@ sge::opengl::system::create_ffp_renderer(
 			fcppt::make_unique_ptr<
 				sge::opengl::device
 			>(
+				log_,
 				_parameters.display_mode(),
 				_parameters.window(),
 				*platform_system_,

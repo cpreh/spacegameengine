@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/cegui/log_location.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/unit.hpp>
@@ -34,9 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/key_repeat_event.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/code_to_string.hpp>
+#include <sge/log/default_parameters.hpp>
 #include <sge/src/cegui/convert_cursor_button.hpp>
 #include <sge/src/cegui/convert_key.hpp>
-#include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/optional_key_scan.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -44,6 +45,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/log/_.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/name.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/GUIContext.h>
@@ -55,25 +59,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::cegui::optional_key_scan const
+sge::cegui::optional_key_scan
 process_key_code(
+	fcppt::log::object &,
 	sge::input::key::code,
 	sge::cegui::optional_key_scan const &
 );
 
 }
 
-SGE_CEGUI_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("syringe")
-)
-
 sge::cegui::syringe::syringe(
+	fcppt::log::context &_log_context,
 	sge::cegui::system &_system
 )
 :
-	gui_context_(
+	gui_context_{
 		_system.gui_context()
-	)
+	},
+	log_{
+		_log_context,
+		sge::cegui::log_location(),
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("syringe")
+			}
+		)
+	}
 {
 }
 
@@ -88,6 +99,7 @@ sge::cegui::syringe::inject(
 {
 	fcppt::optional::maybe_void(
 		::process_key_code(
+			log_,
 			_event.key().code(),
 			sge::cegui::convert_key(
 				_event.key().code()
@@ -121,6 +133,7 @@ sge::cegui::syringe::inject(
 {
 	fcppt::optional::maybe_void(
 		::process_key_code(
+			log_,
 			_event.key().code(),
 			sge::cegui::convert_key(
 				_event.key().code()
@@ -185,10 +198,11 @@ sge::cegui::syringe::inject(
 			_event.button_code()
 		),
 		[
+			this,
 			&_event
 		]{
 			FCPPT_LOG_WARNING(
-				local_log,
+				log_,
 				fcppt::log::_
 					<< FCPPT_TEXT("Warning: got a button which I couldn't process. Its code is: ")
 					<< sge::input::cursor::button_code_to_string(
@@ -290,8 +304,9 @@ sge::cegui::syringe::inject(
 namespace
 {
 
-sge::cegui::optional_key_scan const
+sge::cegui::optional_key_scan
 process_key_code(
+	fcppt::log::object &_log,
 	sge::input::key::code const _orig_code,
 	sge::cegui::optional_key_scan const &_code
 )
@@ -300,10 +315,11 @@ process_key_code(
 		fcppt::optional::maybe(
 			_code,
 			[
+				&_log,
 				_orig_code
 			]{
 				FCPPT_LOG_WARNING(
-					local_log,
+					_log,
 					fcppt::log::_
 						<< FCPPT_TEXT("Got a key which I couldn't process. Its code is: ")
 						<< sge::input::key::code_to_string(

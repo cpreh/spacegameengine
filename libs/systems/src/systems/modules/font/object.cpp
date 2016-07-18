@@ -21,28 +21,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system.hpp>
 #include <sge/font/plugin/collection_fwd.hpp>
 #include <sge/font/plugin/traits.hpp>
-#include <sge/log/option_container.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/src/systems/modules/font/find_plugin.hpp>
 #include <sge/src/systems/modules/font/object.hpp>
 #include <sge/systems/font_fwd.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 sge::systems::modules::font::object::object(
+	fcppt::log::context &_log_context,
 	sge::font::plugin::collection const &_collection,
-	sge::log::option_container const &_log_options,
 	sge::systems::font const &_parameters
 )
 :
 	font_plugin_(
 		sge::systems::modules::font::find_plugin(
 			_collection,
-			_log_options,
 			_parameters
 		)
 	),
 	font_system_(
-		font_plugin_.get()()
+		font_plugin_.get()(
+			_log_context
+		)
 	)
 {
 }

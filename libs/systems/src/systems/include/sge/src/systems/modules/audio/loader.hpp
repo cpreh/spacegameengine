@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace sge
@@ -45,6 +46,7 @@ class loader
 	);
 public:
 	loader(
+		fcppt::log::context &,
 		sge::audio::loader_plugin::collection const &,
 		sge::systems::audio_loader const &
 	);

@@ -18,6 +18,7 @@ set(
 	libs/plugin/include/sge/plugin/detail/address_name.hpp
 	libs/plugin/include/sge/plugin/detail/context_base_vector.hpp
 	libs/plugin/include/sge/plugin/detail/iterator_base_type.hpp
+	libs/plugin/include/sge/plugin/detail/loader_function.hpp
 	libs/plugin/include/sge/plugin/detail/traits.hpp
 	libs/plugin/include/sge/plugin/exception.hpp
 	libs/plugin/include/sge/plugin/file_extension.hpp
@@ -41,6 +42,7 @@ set(
 	libs/plugin/include/sge/plugin/library/object_shared_ptr.hpp
 	libs/plugin/include/sge/plugin/library/symbol_not_found.hpp
 	libs/plugin/include/sge/plugin/library/symbol_string.hpp
+	libs/plugin/include/sge/plugin/loader_function.hpp
 	libs/plugin/include/sge/plugin/log_location.hpp
 	libs/plugin/include/sge/plugin/manager.hpp
 	libs/plugin/include/sge/plugin/manager_fwd.hpp

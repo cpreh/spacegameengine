@@ -20,20 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/projectile/shape/triangle_sequence.hpp>
 #include <sge/projectile/shape/detail/index_container.hpp>
-#include <sge/src/projectile/declare_local_logger.hpp>
 #include <sge/src/projectile/shape/triangle_indices.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/verbose.hpp>
 
 
-SGE_PROJECTILE_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("triangle_indices")
-)
-
 sge::projectile::shape::detail::index_container
 sge::projectile::shape::triangle_indices(
+	fcppt::log::object &_log,
 	sge::projectile::shape::triangle_sequence const &_triangles
 )
 {
@@ -45,7 +42,7 @@ sge::projectile::shape::triangle_indices(
 	);
 
 	FCPPT_LOG_DEBUG(
-		local_log,
+		_log,
 		fcppt::log::_
 			<< FCPPT_TEXT("filled scalar container, now filling index container"));
 
@@ -99,7 +96,7 @@ sge::projectile::shape::triangle_indices(
 	}
 
 	FCPPT_LOG_DEBUG(
-		local_log,
+		_log,
 		fcppt::log::_
 			<< FCPPT_TEXT("filled index container (last index was ") << current_index << FCPPT_TEXT("), now creating bullet shape"));
 

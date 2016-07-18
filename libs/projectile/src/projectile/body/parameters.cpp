@@ -18,10 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/projectile/log.hpp>
 #include <sge/projectile/body/parameters.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
+// TODO: Includes
 
 sge::projectile::body::parameters::parameters(
+	sge::projectile::log const &_log,
 	sge::projectile::body::position const &_position,
 	sge::projectile::body::linear_velocity const &_linear_velocity,
 	sge::projectile::body::angular_velocity const &_angular_velocity,
@@ -30,6 +34,9 @@ sge::projectile::body::parameters::parameters(
 	sge::projectile::body::solidity::variant const &_solidity,
 	sge::projectile::body::user_data const &_user_data)
 :
+	log_{
+		_log.body_log()
+	},
 	position_(
 		_position),
 	linear_velocity_(
@@ -45,6 +52,13 @@ sge::projectile::body::parameters::parameters(
 	user_data_(
 		_user_data)
 {
+}
+
+fcppt::log::object &
+sge::projectile::body::parameters::log() const
+{
+	return
+		log_;
 }
 
 sge::projectile::body::position const &

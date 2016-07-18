@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/config_fwd.hpp>
 #include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -42,6 +43,7 @@ namespace point_sprite
 
 sge::opengl::state::actor_vector
 set_impl(
+	fcppt::log::object &,
 	sge::opengl::context::object &,
 	sge::opengl::state::ffp::misc::point_sprite::config const &,
 	sge::renderer::state::ffp::misc::enable_point_sprites

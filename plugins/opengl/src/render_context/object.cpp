@@ -80,6 +80,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/opengl/cg/program/activate.hpp>
@@ -92,11 +93,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::render_context::object::object(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context,
 	sge::renderer::target::base &_target
 )
 :
 	sge::renderer::context::ffp(),
+	log_{
+		_log
+	},
 	context_(
 		_context
 	),
@@ -204,6 +209,7 @@ sge::opengl::render_context::object::render_indexed(
 )
 {
 	sge::opengl::draw_elements(
+		log_,
 		context_,
 		_index_buffer,
 		_first_vertex,
@@ -222,6 +228,7 @@ sge::opengl::render_context::object::render_nonindexed(
 )
 {
 	sge::opengl::draw_arrays(
+		log_,
 		_first_vertex,
 		_num_vertices,
 		_primitive_type
@@ -313,6 +320,7 @@ sge::opengl::render_context::object::sampler_state(
 )
 {
 	sge::opengl::state::core::sampler::set(
+		log_,
 		context_,
 		_samplers
 	);
@@ -390,6 +398,7 @@ sge::opengl::render_context::object::misc_state(
 )
 {
 	sge::opengl::state::ffp::misc::set(
+		log_,
 		context_,
 		_state
 	);

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/player.hpp>
 #include <sge/audio/player_unique_ptr.hpp>
-#include <sge/openal/logger_context.hpp>
+#include <sge/audio/player_plugin/traits.hpp>
 #include <sge/openal/player.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace
@@ -55,7 +56,9 @@ sge::plugin::info const info(
 );
 
 sge::audio::player_unique_ptr
-create_audio_player()
+create_audio_player(
+	fcppt::log::context &_log_context
+)
 {
 	return
 		fcppt::unique_ptr_to_base<
@@ -63,7 +66,9 @@ create_audio_player()
 		>(
 			fcppt::make_unique_ptr<
 				sge::openal::player
-			>()
+			>(
+				_log_context
+			)
 		);
 }
 
@@ -71,6 +76,10 @@ create_audio_player()
 
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
 	info,
-	sge::openal::logger_context(),
-	(create_audio_player)
+	(
+		(
+			sge::audio::player,
+			create_audio_player
+		)
+	)
 )

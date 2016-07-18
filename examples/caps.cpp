@@ -56,6 +56,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/log/context.hpp>
+#include <fcppt/log/enabled_levels.hpp>
+#include <fcppt/log/level.hpp>
+#include <fcppt/log/setting.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdlib>
 #include <ostream>
@@ -66,7 +70,16 @@ int
 main()
 try
 {
+	fcppt::log::context log_context{
+		fcppt::log::setting{
+			fcppt::log::enabled_levels(
+				fcppt::log::level::debug
+			)
+		}
+	};
+
 	sge::plugin::manager manager(
+		log_context,
 		sge::config::plugin_path(),
 		sge::plugin::optional_cache_ref()
 	);

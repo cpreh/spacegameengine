@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/source_holder.hpp>
 #include <sge/openal/source_id.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -49,22 +50,24 @@ class source
 	);
 public:
 	source(
+		fcppt::log::object &,
 		sge::audio::sound::nonpositional_parameters const &,
 		sge::openal::buffer_id
 	);
 
 	source(
+		fcppt::log::object &,
 		sge::audio::sound::positional_parameters const &,
 		sge::openal::buffer_id
 	);
 
-	explicit
 	source(
+		fcppt::log::object &,
 		sge::audio::sound::nonpositional_parameters const &
 	);
 
-	explicit
 	source(
+		fcppt::log::object &,
 		sge::audio::sound::positional_parameters const &
 	);
 
@@ -169,10 +172,13 @@ protected:
 	sge::audio::sound::repeat
 	repeat() const;
 private:
-	source();
-
 	explicit
 	source(
+		fcppt::log::object &
+	);
+
+	source(
+		fcppt::log::object &,
 		sge::openal::buffer_id
 	);
 

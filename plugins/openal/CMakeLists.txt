@@ -47,8 +47,6 @@ set(
 	plugins/openal/include/sge/openal/funcs/source_unqueue_buffers.hpp
 	plugins/openal/include/sge/openal/funcs/speed_of_sound.hpp
 	plugins/openal/include/sge/openal/listener.hpp
-	plugins/openal/include/sge/openal/logger.hpp
-	plugins/openal/include/sge/openal/logger_context.hpp
 	plugins/openal/include/sge/openal/multi_buffer_holder.hpp
 	plugins/openal/include/sge/openal/player.hpp
 	plugins/openal/include/sge/openal/source.hpp
@@ -97,8 +95,6 @@ set(
 	plugins/openal/src/funcs/source_unqueue_buffers.cpp
 	plugins/openal/src/funcs/speed_of_sound.cpp
 	plugins/openal/src/listener.cpp
-	plugins/openal/src/logger.cpp
-	plugins/openal/src/logger_context.cpp
 	plugins/openal/src/multi_buffer_holder.cpp
 	plugins/openal/src/player.cpp
 	plugins/openal/src/source.cpp

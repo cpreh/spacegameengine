@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/group/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
 
@@ -76,6 +77,7 @@ private:
 	friend class detail::pair_callback;
 	friend class sge::projectile::world;
 
+	fcppt::log::object &log_;
 	fcppt::signal::object<body_enter_fn> body_enter_;
 	fcppt::signal::object<body_exit_fn> body_exit_;
 	fcppt::unique_ptr<btCollisionShape> const box_shape_;

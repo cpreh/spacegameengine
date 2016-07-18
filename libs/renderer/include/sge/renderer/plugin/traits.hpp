@@ -52,10 +52,9 @@ struct traits<
 	plugin_type();
 
 	using
-	loader_fun
+	loader_function
 	=
-	sge::renderer::core_unique_ptr
-	(*)();
+	sge::renderer::core_unique_ptr ();
 };
 
 }

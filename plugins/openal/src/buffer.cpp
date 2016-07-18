@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/buffer.hpp>
 #include <sge/openal/check_state.hpp>
 #include <sge/openal/file_format.hpp>
-#include <sge/openal/logger.hpp>
 #include <sge/openal/source.hpp>
 #include <sge/openal/funcs/buffer_data.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -42,16 +41,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 sge::openal::buffer::buffer(
+	fcppt::log::object &_log,
 	sge::audio::file &_file
 )
 :
-	holder_()
+	log_{
+		_log
+	},
+	holder_{
+		_log
+	}
 {
 	FCPPT_LOG_DEBUG(
-		sge::openal::logger(),
+		_log,
 		fcppt::log::_
 			<< FCPPT_TEXT("Reading a whole file into a buffer")
 	);
@@ -61,7 +67,7 @@ sge::openal::buffer::buffer(
 	);
 
 	FCPPT_LOG_DEBUG(
-		sge::openal::logger(),
+		_log,
 		fcppt::log::_
 			<<
 			FCPPT_TEXT("creating buffer of size ")
@@ -122,6 +128,7 @@ sge::openal::buffer::create_positional(
 			fcppt::make_unique_ptr<
 				sge::openal::source
 			>(
+				log_,
 				_param,
 				holder_.get()
 			)
@@ -140,6 +147,7 @@ sge::openal::buffer::create_nonpositional(
 			fcppt::make_unique_ptr<
 				sge::openal::source
 			>(
+				log_,
 				_param,
 				holder_.get()
 			)

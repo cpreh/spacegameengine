@@ -20,12 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/plugin/collection_fwd.hpp>
 #include <sge/font/plugin/object.hpp>
-#include <sge/log/option_container.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/iterator.hpp>
-#include <sge/plugin/load_with_log_options.hpp>
 #include <sge/plugin/name.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/src/systems/modules/font/find_plugin.hpp>
@@ -41,13 +39,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::font::plugin::object
 sge::systems::modules::font::find_plugin(
 	sge::font::plugin::collection const &_collection,
-	sge::log::option_container const &_log_options,
 	sge::systems::font const &_parameters
 )
 {
 	sge::systems::optional_name const name(
 		_parameters.name()
 	);
+
+	// TODO: find_if
 
 	for(
 		auto element
@@ -75,32 +74,30 @@ sge::systems::modules::font::find_plugin(
 			)
 		)
 			return
-				sge::plugin::load_with_log_options(
-					element,
-					_log_options
-				);
+				element.load();
 	}
 
-	throw sge::systems::exception(
-		fcppt::optional::maybe(
-			name,
-			[]{
-				return
-					fcppt::string{
-						FCPPT_TEXT("No plugin of type sge::font::system found!")
-					};
-			},
-			[](
-				sge::plugin::name const &_name
+	throw
+		sge::systems::exception{
+			fcppt::optional::maybe(
+				name,
+				[]{
+					return
+						fcppt::string{
+							FCPPT_TEXT("No plugin of type sge::font::system found!")
+						};
+				},
+				[](
+					sge::plugin::name const &_name
+				)
+				{
+					return
+						FCPPT_TEXT("No plugin of type sge::font::system with name ")
+						+
+						_name.get()
+						+
+						FCPPT_TEXT(" found!");
+				}
 			)
-			{
-				return
-					FCPPT_TEXT("No plugin of type sge::font::system with name ")
-					+
-					_name.get()
-					+
-					FCPPT_TEXT(" found!");
-			}
-		)
-	);
+		};
 }

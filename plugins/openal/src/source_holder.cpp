@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/openal/logger.hpp>
 #include <sge/openal/source_holder.hpp>
 #include <sge/openal/source_id.hpp>
 #include <sge/openal/funcs/delete_source.hpp>
@@ -26,10 +25,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
-sge::openal::source_holder::source_holder()
+sge::openal::source_holder::source_holder(
+	fcppt::log::object &_log
+)
 :
+	log_{
+		_log
+	},
 	value_(
 		sge::openal::funcs::gen_source()
 	)
@@ -39,7 +44,7 @@ sge::openal::source_holder::source_holder()
 sge::openal::source_holder::~source_holder()
 {
 	FCPPT_LOG_DEBUG(
-		sge::openal::logger(),
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("Deleting a source")
 	);

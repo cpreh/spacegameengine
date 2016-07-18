@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace sge
@@ -52,6 +53,7 @@ class system
 	);
 public:
 	system(
+		fcppt::log::context &,
 		sge::renderer::plugin::collection const &,
 		sge::systems::detail::renderer const &,
 		sge::parse::ini::optional_start const &,

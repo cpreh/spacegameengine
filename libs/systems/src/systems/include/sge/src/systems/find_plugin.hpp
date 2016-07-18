@@ -21,24 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SRC_SYSTEMS_FIND_PLUGIN_HPP_INCLUDED
 #define SGE_SRC_SYSTEMS_FIND_PLUGIN_HPP_INCLUDED
 
-#include <sge/log/option_container.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/flags.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/iterator.hpp>
-#include <sge/plugin/load_with_log_options.hpp>
 #include <sge/plugin/name.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/src/systems/plugin_pair_decl.hpp>
 #include <sge/systems/exception.hpp>
 #include <sge/systems/optional_name.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/type_name_from_info.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <typeinfo>
 #include <utility>
@@ -58,17 +57,19 @@ sge::systems::plugin_pair<
 	System
 >
 find_plugin(
+	fcppt::log::context &_log_context,
 	sge::plugin::collection<
 		System
 	> const &_collection,
-	sge::log::option_container const &_log_options,
 	sge::systems::optional_name const &_opt_name,
 	TestFunction const &_test_function
 )
 {
-	typedef sge::systems::plugin_pair<
+	typedef
+	sge::systems::plugin_pair<
 		System
-	> return_type;
+	>
+	return_type;
 
 	for(
 		auto const &element
@@ -110,10 +111,7 @@ find_plugin(
 		plugin_type;
 
 		plugin_type plugin(
-			sge::plugin::load_with_log_options(
-				element,
-				_log_options
-			)
+			element.load()
 		);
 
 		typedef
@@ -123,7 +121,9 @@ find_plugin(
 		system_unique_ptr;
 
 		system_unique_ptr system(
-			plugin.get()()
+			plugin.get()(
+				_log_context
+			)
 		);
 
 		if(
@@ -161,36 +161,37 @@ find_plugin(
 			);
 	}
 
-	throw sge::systems::exception(
-		FCPPT_TEXT("No plugin of type ")
-		+
-		fcppt::type_name_from_info(
-			typeid(
-				System
+	throw
+		sge::systems::exception(
+			FCPPT_TEXT("No plugin of type ")
+			+
+			fcppt::type_name_from_info(
+				typeid(
+					System
+				)
 			)
-		)
-		+
-		fcppt::optional::maybe(
-			_opt_name,
-			[]{
-				return
-					fcppt::string{
-						FCPPT_TEXT(" matched the requested capabilities.")
-					};
-			},
-			[](
-				sge::plugin::name const &_name
+			+
+			fcppt::optional::maybe(
+				_opt_name,
+				[]{
+					return
+						fcppt::string{
+							FCPPT_TEXT(" matched the requested capabilities.")
+						};
+				},
+				[](
+					sge::plugin::name const &_name
+				)
+				{
+					return
+						FCPPT_TEXT(" and with name ")
+						+
+						_name.get()
+						+
+						FCPPT_TEXT(" found.");
+				}
 			)
-			{
-				return
-					FCPPT_TEXT(" and with name ")
-					+
-					_name.get()
-					+
-					FCPPT_TEXT(" found.");
-			}
-		)
-	);
+		);
 }
 
 }

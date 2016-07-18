@@ -38,6 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/cegui/scoped_system.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/GUIContext.h>
@@ -58,6 +60,7 @@ class system_impl
 	);
 public:
 	system_impl(
+		fcppt::log::context &,
 		sge::cegui::load_context const &,
 		sge::renderer::device::ffp &,
 		sge::image2d::system &,
@@ -85,6 +88,10 @@ private:
 	viewport_change(
 		sge::renderer::target::viewport
 	);
+
+	fcppt::log::object main_log_;
+
+	fcppt::log::object system_log_;
 
 	sge::cegui::prefix const prefix_;
 

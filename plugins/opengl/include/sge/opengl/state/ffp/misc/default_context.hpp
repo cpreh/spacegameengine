@@ -27,6 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/misc/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/reference_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -48,7 +53,16 @@ class default_context
 		default_context
 	);
 public:
-	typedef sge::opengl::context::object &parameter;
+	typedef
+	std::pair<
+		fcppt::reference<
+			fcppt::log::object
+		>,
+		fcppt::reference<
+			sge::opengl::context::object
+		>
+	>
+	parameter;
 
 	explicit
 	default_context(

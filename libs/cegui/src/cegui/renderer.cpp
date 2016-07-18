@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/from_cegui_string.hpp>
+#include <sge/log/default_parameters.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/context/ffp.hpp>
@@ -31,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/src/cegui/declare_local_logger.hpp>
 #include <sge/src/cegui/from_cegui_size.hpp>
 #include <sge/src/cegui/geometry_buffer.hpp>
 #include <sge/src/cegui/renderer.hpp>
@@ -52,6 +52,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/name.hpp>
+#include <fcppt/log/object.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/dim/to_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -61,14 +63,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-SGE_CEGUI_DECLARE_LOCAL_LOGGER(
-	FCPPT_TEXT("renderer")
-)
-
 sge::cegui::renderer::renderer(
+	fcppt::log::object &_main_log,
 	sge::cegui::texture_parameters const &_texture_parameters
 )
 :
+	main_log_{
+		_main_log
+	},
+	log_{
+		_main_log,
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("renderer")
+			}
+		)
+	},
 	texture_parameters_(
 		_texture_parameters
 	),
@@ -105,6 +115,7 @@ sge::cegui::renderer::renderer(
 		"sge renderer"
 	),
 	default_target_(
+		_main_log,
 		renderer_,
 		render_context_
 	),
@@ -113,7 +124,7 @@ sge::cegui::renderer::renderer(
 	textures_()
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("renderer()")
 	);
@@ -148,7 +159,7 @@ CEGUI::GeometryBuffer &
 sge::cegui::renderer::createGeometryBuffer()
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("createGeometryBuffer()")
 	);
@@ -157,6 +168,7 @@ sge::cegui::renderer::createGeometryBuffer()
 		fcppt::make_unique_ptr<
 			sge::cegui::geometry_buffer
 		>(
+			main_log_,
 			renderer_,
 			*vertex_declaration_,
 			render_context_
@@ -173,7 +185,7 @@ sge::cegui::renderer::destroyGeometryBuffer(
 )
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("destroyGeometryBuffer()")
 	);
@@ -209,7 +221,7 @@ void
 sge::cegui::renderer::destroyAllGeometryBuffers()
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("destroyAllGeometryBuffers()")
 	);
@@ -221,7 +233,7 @@ CEGUI::TextureTarget *
 sge::cegui::renderer::createTextureTarget()
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("createTextureTarget()")
 	);
@@ -230,6 +242,7 @@ sge::cegui::renderer::createTextureTarget()
 		fcppt::make_unique_ptr<
 			sge::cegui::texture_target
 		>(
+			main_log_,
 			texture_parameters_,
 			render_context_
 		)
@@ -245,7 +258,7 @@ sge::cegui::renderer::destroyTextureTarget(
 )
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("destroyTextureTarget(")
 			<< _texture
@@ -287,7 +300,7 @@ void
 sge::cegui::renderer::destroyAllTextureTargets()
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("destroyAllTextureTargets()")
 	);
@@ -301,7 +314,7 @@ sge::cegui::renderer::createTexture(
 )
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("createTexture()")
 	);
@@ -312,6 +325,7 @@ sge::cegui::renderer::createTexture(
 			fcppt::make_unique_ptr<
 				sge::cegui::texture
 			>(
+				main_log_,
 				texture_parameters_,
 				_name
 			)
@@ -326,7 +340,7 @@ sge::cegui::renderer::createTexture(
 )
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("createTexture(")
 			<< sge::cegui::from_cegui_string(
@@ -345,6 +359,7 @@ sge::cegui::renderer::createTexture(
 			fcppt::make_unique_ptr<
 				sge::cegui::texture
 			>(
+				main_log_,
 				texture_parameters_,
 				_name
 			)
@@ -367,7 +382,7 @@ sge::cegui::renderer::createTexture(
 )
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("createTexture(")
 			<< sge::cegui::from_cegui_size<
@@ -384,6 +399,7 @@ sge::cegui::renderer::createTexture(
 			fcppt::make_unique_ptr<
 				sge::cegui::texture
 			>(
+				main_log_,
 				texture_parameters_,
 				_name,
 				_size,
@@ -437,7 +453,7 @@ sge::cegui::renderer::destroyTexture(
 )
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("destroyTexture(")
 			<< sge::cegui::from_cegui_string(
@@ -458,7 +474,7 @@ void
 sge::cegui::renderer::destroyAllTextures()
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("destroyAllTextures()")
 	);
@@ -518,7 +534,7 @@ sge::cegui::renderer::beginRendering()
 	// projection matrix is set _here_.
 
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("beginRendering()")
 	);
@@ -532,7 +548,7 @@ void
 sge::cegui::renderer::endRendering()
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("endRendering()")
 	);
@@ -548,7 +564,7 @@ sge::cegui::renderer::setDisplaySize(
 )
 {
 	FCPPT_LOG_DEBUG(
-		local_log,
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("setDisplaySize(")
 			<< sge::cegui::from_cegui_size<
