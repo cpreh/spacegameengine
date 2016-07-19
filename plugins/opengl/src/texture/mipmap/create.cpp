@@ -100,7 +100,7 @@ sge::opengl::texture::mipmap::create(
 	)
 	{
 		FCPPT_LOG_ERROR(
-			sge::opengl::logger(),
+			_log,
 			fcppt::log::_
 				<< FCPPT_TEXT("anisotropic filtering is not supported!")
 		);

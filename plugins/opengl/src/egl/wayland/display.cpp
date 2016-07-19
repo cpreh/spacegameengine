@@ -40,16 +40,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::egl::wayland::display::display(
+	fcppt::log::object &_log,
 	awl::backends::wayland::system::object &_system
 )
 :
 	sge::opengl::egl::display(),
+	log_{
+		_log
+	},
 	display_{
 		sge::opengl::egl::get_display(
 			_system.display().get()
@@ -82,6 +87,7 @@ sge::opengl::egl::wayland::display::create_visual(
 			fcppt::make_unique_ptr<
 				sge::opengl::egl::wayland::visual
 			>(
+				log_,
 				display_,
 				_pixel_format
 			)

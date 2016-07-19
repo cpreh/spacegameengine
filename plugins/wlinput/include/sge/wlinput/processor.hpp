@@ -53,6 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/reference_fwd.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/signal/optional_auto_connection_fwd.hpp>
@@ -75,6 +76,7 @@ class processor
 	);
 public:
 	processor(
+		fcppt::log::object &,
 		sge::window::object const &,
 		sge::window::system const &
 	);
@@ -164,6 +166,8 @@ private:
 	remove_seat(
 		awl::backends::wayland::system::event::seat_removed const &
 	);
+
+	fcppt::log::object &log_;
 
 	awl::backends::wayland::system::event::processor &system_processor_;
 

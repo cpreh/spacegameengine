@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/logger.hpp>
 #include <sge/opengl/egl/attribute_vector.hpp>
 #include <sge/opengl/egl/visual/choose_config.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 EGLConfig
 sge::opengl::egl::visual::choose_config(
+	fcppt::log::object &_log,
 	EGLDisplay const _display,
 	sge::opengl::egl::attribute_vector const &_attributes
 )
@@ -72,7 +73,7 @@ sge::opengl::egl::visual::choose_config(
 		1
 	)
 		FCPPT_LOG_WARNING(
-			sge::opengl::logger(),
+			_log,
 			fcppt::log::_
 				<< FCPPT_TEXT("Multiple EGL configs are matching. Choosing the first one.")
 		);

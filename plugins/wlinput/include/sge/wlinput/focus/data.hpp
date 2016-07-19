@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/posix/timer_unique_ptr.hpp>
 #include <awl/backends/wayland/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/signal/object_decl.hpp>
 
@@ -52,12 +53,15 @@ struct data
 	);
 
 	data(
+		fcppt::log::object &,
 		sge::wlinput::xkb_context const &,
 		awl::backends::posix::processor &,
 		awl::backends::wayland::window::object const &
 	);
 
 	~data();
+
+	fcppt::log::object &log_;
 
 	sge::wlinput::xkb_context const &xkb_context_;
 

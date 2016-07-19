@@ -68,6 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_NEED_LOG
 #endif
 
+
 namespace
 {
 
@@ -113,7 +114,7 @@ try_create(
 	create_function<
 		Result,
 		Arg
-	> const _create
+	> const &_create
 )
 {
 	return
@@ -190,11 +191,6 @@ sge::opengl::platform::create_system(
 			fcppt::either::first_success(
 				fcppt::container::make_array(
 #if defined(SGE_OPENGL_HAVE_X11)
-					/*
-					try_create<
-						sge::opengl::x11::system,
-						awl::backends::x11::system::object
-					>(*/
 					try_create(
 						_awl_system,
 						create_function<

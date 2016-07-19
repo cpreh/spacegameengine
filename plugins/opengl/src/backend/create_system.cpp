@@ -63,6 +63,7 @@ sge::opengl::backend::create_system(
 			fcppt::make_unique_ptr<
 				sge::opengl::egl::system
 			>(
+				_log,
 				_awl_system
 			)
 #elif defined(SGE_OPENGL_HAVE_X11)

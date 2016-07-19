@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -50,8 +51,8 @@ class system
 		system
 	);
 public:
-	explicit
 	system(
+		fcppt::log::object &,
 		awl::system::object &
 	);
 
@@ -69,6 +70,8 @@ private:
 		awl::window::object &
 	)
 	override;
+
+	fcppt::log::object &log_;
 
 	awl::system::object &awl_system_;
 

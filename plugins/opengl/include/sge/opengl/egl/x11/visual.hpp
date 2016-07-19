@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/visual/wrapped.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -50,6 +51,7 @@ class visual
 	);
 public:
 	visual(
+		fcppt::log::object &,
 		awl::backends::x11::display const &,
 		EGLDisplay,
 		sge::renderer::pixel_format::object const &

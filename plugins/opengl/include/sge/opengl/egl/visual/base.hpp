@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/visual_base.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -48,6 +49,7 @@ class base
 	);
 public:
 	base(
+		fcppt::log::object &,
 		EGLDisplay,
 		sge::renderer::pixel_format::object const &
 	);

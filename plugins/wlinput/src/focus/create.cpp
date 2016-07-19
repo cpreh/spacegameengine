@@ -26,10 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/wayland/seat_fwd.hpp>
 #include <awl/backends/wayland/window/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 sge::wlinput::focus::create_function
 sge::wlinput::focus::create(
+	fcppt::log::object &_log,
 	sge::wlinput::xkb_context const &_context,
 	awl::backends::posix::processor &_posix_processor,
 	awl::backends::wayland::window::object const &_window
@@ -38,6 +40,7 @@ sge::wlinput::focus::create(
 	return
 		sge::wlinput::focus::create_function{
 			[
+				&_log,
 				&_context,
 				&_posix_processor,
 				&_window
@@ -49,6 +52,7 @@ sge::wlinput::focus::create(
 					fcppt::make_unique_ptr<
 						sge::wlinput::focus::object
 					>(
+						_log,
 						_context,
 						_posix_processor,
 						_window,

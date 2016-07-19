@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/optional_code.hpp>
 #include <sge/input/key/pressed.hpp>
-#include <sge/wlinput/logger.hpp>
 #include <sge/wlinput/xkb_context_fwd.hpp>
 #include <sge/wlinput/focus/data.hpp>
 #include <sge/wlinput/focus/get_keysym.hpp>
@@ -65,6 +64,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/optional/make.hpp>
@@ -159,7 +159,7 @@ keyboard_keymap(
 	)
 	{
 		FCPPT_LOG_ERROR(
-			sge::wlinput::logger(),
+			data.log_,
 			fcppt::log::_
 				<<
 				_error.string()
@@ -472,6 +472,7 @@ wl_keyboard_listener const keyboard_listener{
 }
 
 sge::wlinput::focus::object::object(
+	fcppt::log::object &_log,
 	sge::wlinput::xkb_context const &_xkb_context,
 	awl::backends::posix::processor &_posix_processor,
 	awl::backends::wayland::window::object const &_window,
@@ -483,6 +484,7 @@ sge::wlinput::focus::object::object(
 		_seat
 	},
 	data_{
+		_log,
 		_xkb_context,
 		_posix_processor,
 		_window

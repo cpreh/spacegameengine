@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/logger.hpp>
 #include <sge/opengl/backend/context.hpp>
 #include <sge/opengl/backend/context_unique_ptr.hpp>
 #include <sge/opengl/backend/system.hpp>
@@ -40,18 +39,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/info.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 sge::opengl::egl::system::system(
+	fcppt::log::object &_log,
 	awl::system::object &_awl_system
 )
 :
 	sge::opengl::backend::system(),
+	log_{
+		_log
+	},
 	awl_system_(
 		_awl_system
 	),
 	egl_display_(
 		sge::opengl::egl::create_display(
+			_log,
 			_awl_system
 		)
 	),
@@ -60,7 +65,7 @@ sge::opengl::egl::system::system(
 	)
 {
 	FCPPT_LOG_INFO(
-		sge::opengl::logger(),
+		_log,
 		fcppt::log::_
 			<< FCPPT_TEXT("EGL version is ")
 			<< init_.version()
@@ -94,6 +99,7 @@ sge::opengl::egl::system::create_context(
 {
 	EGLConfig const config{
 		sge::opengl::egl::visual::to_config(
+			log_,
 			egl_display_->get(),
 			_window.visual()
 		)

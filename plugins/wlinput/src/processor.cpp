@@ -59,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/optional_auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -68,11 +69,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::wlinput::processor::processor(
+	fcppt::log::object &_log,
 	sge::window::object const &_window,
 	sge::window::system const &_system
 )
 :
 	sge::input::processor(),
+	log_{
+		_log
+	},
 	system_processor_{
 		fcppt::cast::dynamic_exn<
 			awl::backends::wayland::system::event::processor &
@@ -109,6 +114,7 @@ sge::wlinput::processor::processor(
 			awl::backends::wayland::system::seat::caps::keyboard
 		>(
 			sge::wlinput::focus::create(
+				_log,
 				xkb_context_,
 				system_processor_.fd_processor(),
 				window_
@@ -329,6 +335,7 @@ sge::wlinput::processor::seat_caps(
 		awl::backends::wayland::system::seat::caps::keyboard
 	>(
 		sge::wlinput::focus::create(
+			log_,
 			xkb_context_,
 			system_processor_.fd_processor(),
 			window_

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wlinput/focus/create_function.hpp>
 #include <awl/backends/posix/processor_fwd.hpp>
 #include <awl/backends/wayland/window/object_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -36,6 +37,7 @@ namespace focus
 
 sge::wlinput::focus::create_function
 create(
+	fcppt::log::object &,
 	sge::wlinput::xkb_context const &,
 	awl::backends::posix::processor &,
 	awl::backends::wayland::window::object const &

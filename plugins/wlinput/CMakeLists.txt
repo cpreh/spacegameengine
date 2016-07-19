@@ -37,8 +37,6 @@ set(
 	plugins/wlinput/include/sge/wlinput/focus/xkb_keycode.hpp
 	plugins/wlinput/include/sge/wlinput/focus/xkb_keysym.hpp
 	plugins/wlinput/include/sge/wlinput/initial_objects.hpp
-	plugins/wlinput/include/sge/wlinput/logger.hpp
-	plugins/wlinput/include/sge/wlinput/logger_context.hpp
 	plugins/wlinput/include/sge/wlinput/processor.hpp
 	plugins/wlinput/include/sge/wlinput/remove_seat.hpp
 	plugins/wlinput/include/sge/wlinput/system.hpp
@@ -67,8 +65,6 @@ set(
 	plugins/wlinput/src/focus/state.cpp
 	plugins/wlinput/src/focus/translate_keysym.cpp
 	plugins/wlinput/src/focus/wl_to_xkb_keycode.cpp
-	plugins/wlinput/src/logger.cpp
-	plugins/wlinput/src/logger_context.cpp
 	plugins/wlinput/src/processor.cpp
 	plugins/wlinput/src/system.cpp
 	plugins/wlinput/src/xkb_context.cpp

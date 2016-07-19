@@ -23,16 +23,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/posix/processor_fwd.hpp>
 #include <awl/backends/posix/timer.hpp>
 #include <awl/backends/wayland/window/object_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/signal/object_impl.hpp>
 
 
 sge::wlinput::focus::data::data(
+	fcppt::log::object &_log,
 	sge::wlinput::xkb_context const &_xkb_context,
 	awl::backends::posix::processor &_posix_processor,
 	awl::backends::wayland::window::object const &_window
 )
 :
+	log_{
+		_log
+	},
 	xkb_context_{
 		_xkb_context
 	},

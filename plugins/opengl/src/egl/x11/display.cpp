@@ -36,16 +36,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/dynamic_cross_exn.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::egl::x11::display::display(
+	fcppt::log::object &_log,
 	awl::backends::x11::system::object &_awl_system
 )
 :
 	sge::opengl::egl::display(),
+	log_{
+		_log
+	},
 	x11_display_{
 		_awl_system.display()
 	},
@@ -81,6 +86,7 @@ sge::opengl::egl::x11::display::create_visual(
 			fcppt::make_unique_ptr<
 				sge::opengl::egl::x11::visual
 			>(
+				log_,
 				x11_display_,
 				display_,
 				_pixel_format

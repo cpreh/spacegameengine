@@ -24,18 +24,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/visual/wrapped.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::egl::x11::visual::visual(
+	fcppt::log::object &_log,
 	awl::backends::x11::display const &_display,
 	EGLDisplay const _egl_display,
 	sge::renderer::pixel_format::object const &_pixel_format
 )
 :
 	sge::opengl::egl::visual::base(
+		_log,
 		_egl_display,
 		_pixel_format
 	),
