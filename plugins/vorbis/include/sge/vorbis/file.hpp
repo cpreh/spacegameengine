@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/stream_unique_ptr.hpp>
 #include <sge/vorbis/stream_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vorbis/codec.h>
 #include <fcppt/config/external_end.hpp>
@@ -50,6 +51,7 @@ class file
 	);
 public:
 	file(
+		fcppt::log::object &,
 		sge::media::stream_unique_ptr &&,
 		sge::vorbis::stream_unique_ptr &&,
 		sge::media::optional_name const &
@@ -89,6 +91,8 @@ public:
 	~file()
 	override;
 private:
+	fcppt::log::object &log_;
+
 	sge::media::optional_name const name_;
 
 	sge::media::stream_unique_ptr const stdstream_;

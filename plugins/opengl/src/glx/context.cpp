@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <X11/X.h>
@@ -40,11 +41,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::glx::context::context(
+	fcppt::log::object &_log,
 	awl::backends::x11::window::object &_window,
 	sge::opengl::glx::optional_proc_address_function const _proc_address
 )
 :
 	sge::opengl::backend::context(),
+	log_{
+		_log
+	},
 	window_(
 		_window
 	),
@@ -98,6 +103,7 @@ sge::opengl::glx::context::activate()
 			fcppt::make_unique_ptr<
 				sge::opengl::glx::current
 			>(
+				log_,
 				window_,
 				proc_address_
 			)

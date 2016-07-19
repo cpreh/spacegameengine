@@ -2,6 +2,7 @@ set(
 	SGE_LOG_FILES
 	libs/log/include/sge/log/apply_options.hpp
 	libs/log/include/sge/log/default_parameters.hpp
+	libs/log/include/sge/log/default_setting.hpp
 	libs/log/include/sge/log/location.hpp
 	libs/log/include/sge/log/option.hpp
 	libs/log/include/sge/log/option_container.hpp
@@ -9,6 +10,7 @@ set(
 	libs/log/include/sge/log/stream.hpp
 	libs/log/src/log/apply_options.cpp
 	libs/log/src/log/default_parameters.cpp
+	libs/log/src/log/default_setting.cpp
 	libs/log/src/log/location.cpp
 	libs/log/src/log/option.cpp
 	libs/log/src/log/stream.cpp

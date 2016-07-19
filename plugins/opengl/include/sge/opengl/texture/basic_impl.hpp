@@ -48,6 +48,9 @@ sge::opengl::texture::basic<
 	sge::opengl::texture::base(
 		_type
 	),
+	log_{
+		_basic_parameters.log()
+	},
 	context_(
 		_basic_parameters.context()
 	),
@@ -129,6 +132,7 @@ sge::opengl::texture::basic<
 >::generate_mipmaps()
 {
 	sge::opengl::texture::scoped_work_binding const binding(
+		log_,
 		context_,
 		this->type(),
 		this->id()

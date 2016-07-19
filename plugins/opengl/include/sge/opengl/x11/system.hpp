@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/object_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -46,8 +47,8 @@ class system
 		system
 	);
 public:
-	explicit
 	system(
+		fcppt::log::object &,
 		awl::backends::x11::system::object &
 	);
 
@@ -64,6 +65,8 @@ private:
 		awl::window::object &
 	)
 	override;
+
+	fcppt::log::object &log_;
 
 	sge::opengl::xrandr::optional_system_unique_ptr const xrandr_system_;
 };

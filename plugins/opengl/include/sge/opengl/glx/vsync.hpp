@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/glx/swap_functions_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -34,6 +35,7 @@ namespace glx
 
 void
 vsync(
+	fcppt::log::object &,
 	sge::opengl::glx::swap_functions const &,
 	awl::backends::x11::display &
 );

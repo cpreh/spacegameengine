@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -47,6 +48,7 @@ class texpos_actor
 	);
 public:
 	texpos_actor(
+		fcppt::log::object &,
 		sge::opengl::vf::actor_parameters const &,
 		sge::renderer::vf::dynamic::texpos const &
 	);
@@ -66,6 +68,8 @@ private:
 		sge::opengl::vf::client_state_combiner &
 	) const
 	override;
+
+	fcppt::log::object &log_;
 
 	sge::opengl::context::object &context_;
 

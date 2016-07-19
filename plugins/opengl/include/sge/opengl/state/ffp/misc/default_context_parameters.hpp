@@ -18,10 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/wave/logger_context.hpp>
-#include <fcppt/log/define_context.hpp>
+#ifndef SGE_OPENGL_STATE_FFP_MISC_DEFAULT_CONTEXT_PARAMETERS_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_MISC_DEFAULT_CONTEXT_PARAMETERS_HPP_INCLUDED
+
+#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/state/ffp/misc/default_context_parameters_fwd.hpp>
+#include <fcppt/nonassignable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
-FCPPT_LOG_DEFINE_CONTEXT(
-	sge::wave::logger_context
-)
+namespace sge
+{
+namespace opengl
+{
+namespace state
+{
+namespace ffp
+{
+namespace misc
+{
+
+class default_context_parameters
+{
+	FCPPT_NONASSIGNABLE(
+		default_context_parameters
+	);
+public:
+	default_context_parameters(
+		fcppt::log::object &,
+		sge::opengl::context::object &
+	);
+
+	fcppt::log::object &
+	log() const;
+
+	sge::opengl::context::object &
+	context() const;
+private:
+	fcppt::log::object &log_;
+
+	sge::opengl::context::object &context_;
+};
+
+}
+}
+}
+}
+}
+
+#endif

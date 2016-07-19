@@ -18,20 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_VORBIS_LOGGER_CONTEXT_HPP_INCLUDED
-#define SGE_VORBIS_LOGGER_CONTEXT_HPP_INCLUDED
-
-#include <fcppt/log/context_fwd.hpp>
+#ifndef SGE_OPENGL_STATE_FFP_MISC_DEFAULT_CONTEXT_PARAMETERS_FWD_HPP_INCLUDED
+#define SGE_OPENGL_STATE_FFP_MISC_DEFAULT_CONTEXT_PARAMETERS_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace vorbis
+namespace opengl
+{
+namespace state
+{
+namespace ffp
+{
+namespace misc
 {
 
-fcppt::log::context &
-logger_context();
+class default_context_parameters;
 
+}
+}
+}
 }
 }
 

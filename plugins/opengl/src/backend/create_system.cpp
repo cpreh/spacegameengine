@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(SGE_OPENGL_HAVE_EGL)
 #include <sge/opengl/egl/system.hpp>
@@ -39,8 +40,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 
 
+#if defined(SGE_OPENGL_HAVE_EGL) || defined(SGE_OPENGL_HAVE_X11)
+#define SGE_OPENGL_BACKEND_CREATE_SYSTEM_NEED_LOG
+#endif
+
 sge::opengl::backend::system_unique_ptr
 sge::opengl::backend::create_system(
+#if defined(SGE_OPENGL_BACKEND_CREATE_SYSTEM_NEED_LOG)
+	fcppt::log::object &_log
+#else
+	fcppt::log::object &
+#endif
+	,
 	awl::system::object &_awl_system
 )
 {
@@ -58,6 +69,7 @@ sge::opengl::backend::create_system(
 			fcppt::make_unique_ptr<
 				sge::opengl::glx::system
 			>(
+				_log,
 				fcppt::cast::static_downcast<
 					awl::backends::x11::system::object &
 				>(

@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/format.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/size.hpp>
+#include <sge/log/default_setting.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/optional_name.hpp>
@@ -58,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/log/context.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -80,6 +82,10 @@ BOOST_AUTO_TEST_CASE(
 try
 {
 FCPPT_PP_POP_WARNING
+	fcppt::log::context log_context{
+		sge::log::default_setting()
+	};
+
 	typedef
 	sge::image2d::store::rgba8
 	store_type;
@@ -98,6 +104,7 @@ FCPPT_PP_POP_WARNING
 	};
 
 	sge::plugin::manager plugins(
+		log_context,
 		sge::config::plugin_path(),
 		sge::plugin::optional_cache_ref()
 	);
@@ -125,7 +132,9 @@ FCPPT_PP_POP_WARNING
 		);
 
 		sge::image2d::system_unique_ptr const system(
-			plugin.get()()
+			plugin.get()(
+				log_context
+			)
 		);
 
 		auto stream(

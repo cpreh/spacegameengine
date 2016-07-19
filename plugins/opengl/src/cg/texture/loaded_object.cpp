@@ -36,14 +36,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 sge::opengl::cg::texture::loaded_object::loaded_object(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context,
 	sge::cg::parameter::object const &_parameter,
 	sge::renderer::texture::base &_texture
 )
 :
+	log_{
+		_log
+	},
 	context_(
 		_context
 	),
@@ -103,6 +108,7 @@ sge::opengl::cg::texture::loaded_object::enable() const
 	);
 
 	sge::opengl::texture::active_level const active_level(
+		log_,
 		context_,
 		stage_
 	);

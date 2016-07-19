@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -35,6 +36,7 @@ namespace texture
 
 void
 activate(
+	fcppt::log::object &,
 	sge::opengl::context::object &,
 	sge::renderer::texture::const_optional_base_ref const &,
 	sge::renderer::texture::stage

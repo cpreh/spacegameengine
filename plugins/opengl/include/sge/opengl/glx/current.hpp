@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/vsync_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
@@ -50,6 +51,7 @@ class current
 	);
 public:
 	current(
+		fcppt::log::object &,
 		awl::backends::x11::window::object &,
 		sge::opengl::glx::optional_proc_address_function const &
 	);
@@ -76,6 +78,8 @@ private:
 		sge::renderer::display_mode::vsync
 	)
 	override;
+
+	fcppt::log::object &log_;
 
 	awl::backends::x11::window::object &window_;
 

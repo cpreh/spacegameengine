@@ -40,10 +40,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe.hpp>
 
 
 sge::opengl::vf::texpos_actor::texpos_actor(
+	fcppt::log::object &_log,
 	sge::opengl::vf::actor_parameters const &_param,
 	sge::renderer::vf::dynamic::texpos const &_element
 )
@@ -51,6 +53,9 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 	sge::opengl::vf::pointer_actor(
 		_param
 	),
+	log_{
+		_log
+	},
 	context_(
 		_param.context()
 	),
@@ -132,6 +137,7 @@ sge::opengl::vf::texpos_actor::operator()(
 	);
 
 	sge::opengl::texture::funcs::set_client_level(
+		log_,
 		context_,
 		index_
 	);

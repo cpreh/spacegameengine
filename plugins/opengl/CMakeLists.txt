@@ -349,6 +349,8 @@ set(
 	plugins/opengl/include/sge/opengl/state/ffp/lighting/set.hpp
 	plugins/opengl/include/sge/opengl/state/ffp/misc/create.hpp
 	plugins/opengl/include/sge/opengl/state/ffp/misc/default_context.hpp
+	plugins/opengl/include/sge/opengl/state/ffp/misc/default_context_parameters.hpp
+	plugins/opengl/include/sge/opengl/state/ffp/misc/default_context_parameters_fwd.hpp
 	plugins/opengl/include/sge/opengl/state/ffp/misc/make_actors.hpp
 	plugins/opengl/include/sge/opengl/state/ffp/misc/object.hpp
 	plugins/opengl/include/sge/opengl/state/ffp/misc/object_fwd.hpp
@@ -869,6 +871,7 @@ set(
 	plugins/opengl/src/state/ffp/lighting/set.cpp
 	plugins/opengl/src/state/ffp/misc/create.cpp
 	plugins/opengl/src/state/ffp/misc/default_context.cpp
+	plugins/opengl/src/state/ffp/misc/default_context_parameters.cpp
 	plugins/opengl/src/state/ffp/misc/make_actors.cpp
 	plugins/opengl/src/state/ffp/misc/object.cpp
 	plugins/opengl/src/state/ffp/misc/point_sprite/config.cpp

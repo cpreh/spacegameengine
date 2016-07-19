@@ -18,19 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PANGO_LOGGER_CONTEXT_HPP_INCLUDED
-#define SGE_PANGO_LOGGER_CONTEXT_HPP_INCLUDED
+#ifndef SGE_LOG_DEFAULT_SETTING_HPP_INCLUDED
+#define SGE_LOG_DEFAULT_SETTING_HPP_INCLUDED
 
-#include <fcppt/log/context_fwd.hpp>
+#include <sge/log/detail/symbol.hpp>
+#include <fcppt/log/setting.hpp>
 
 
 namespace sge
 {
-namespace pango
+namespace log
 {
 
-fcppt::log::context &
-logger_context();
+SGE_LOG_DETAIL_SYMBOL
+fcppt::log::setting
+default_setting();
 
 }
 }

@@ -42,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
@@ -65,6 +66,7 @@ class object
 	);
 public:
 	object(
+		fcppt::log::object &,
 		sge::x11input::device::parameters const &,
 		awl::backends::x11::cursor::object const &
 	);
@@ -155,6 +157,8 @@ private:
 
 	void
 	check_grab();
+
+	fcppt::log::object &log_;
 
 	awl::backends::x11::window::object const &window_;
 

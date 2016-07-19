@@ -31,9 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 sge::opengl::texture::basic_buffer_parameters::basic_buffer_parameters(
+	fcppt::log::object &_log,
 	sge::opengl::texture::binding const &_binding,
 	sge::opengl::context::object &_context,
 	sge::renderer::texture::mipmap::level const _level,
@@ -47,6 +49,9 @@ sge::opengl::texture::basic_buffer_parameters::basic_buffer_parameters(
 	sge::opengl::texture::is_render_target const _is_render_target
 )
 :
+	log_{
+		_log
+	},
 	binding_(
 		_binding
 	),
@@ -81,6 +86,13 @@ sge::opengl::texture::basic_buffer_parameters::basic_buffer_parameters(
 		_is_render_target
 	)
 {
+}
+
+fcppt::log::object &
+sge::opengl::texture::basic_buffer_parameters::log() const
+{
+	return
+		log_;
 }
 
 sge::opengl::texture::binding const &

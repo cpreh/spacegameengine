@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -90,6 +91,8 @@ private:
 	void
 	generate_mipmaps()
 	override;
+
+	fcppt::log::object &log_;
 
 	sge::opengl::context::object &context_;
 

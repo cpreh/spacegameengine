@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <utility>
@@ -43,12 +44,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::vorbis::file::file(
+	fcppt::log::object &_log,
 	sge::media::stream_unique_ptr &&_stdstream,
 	sge::vorbis::stream_unique_ptr &&_stream,
 	sge::media::optional_name const &_name
 )
 :
 	sge::audio::file(),
+	log_{
+		_log
+	},
 	name_(
 		_name
 	),
@@ -103,6 +108,7 @@ sge::vorbis::file::read(
 
 	std::size_t const bytes_read(
 		sge::vorbis::read(
+			log_,
 			*stream_,
 			name_,
 			_data.data()

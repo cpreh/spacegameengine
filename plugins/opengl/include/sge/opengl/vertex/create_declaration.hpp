@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -35,6 +36,7 @@ namespace vertex
 
 sge::renderer::vertex::declaration_unique_ptr
 create_declaration(
+	fcppt::log::object &,
 	sge::opengl::context::object &,
 	sge::renderer::vertex::declaration_parameters const &
 );

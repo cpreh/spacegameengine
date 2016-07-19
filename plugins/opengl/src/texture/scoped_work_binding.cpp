@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -39,6 +40,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::opengl::texture::scoped_work_binding::scoped_work_binding(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context,
 	sge::opengl::texture::type const _type,
 	sge::opengl::texture::id const _id
@@ -46,6 +48,7 @@ sge::opengl::texture::scoped_work_binding::scoped_work_binding(
 :
 	sge::opengl::texture::binding(),
 	active_level_(
+		_log,
 		_context,
 		this->stage()
 	),

@@ -23,12 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/vf/client_state.hpp>
 #include <sge/opengl/vf/context.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
-sge::opengl::vf::context::context()
+sge::opengl::vf::context::context(
+	fcppt::log::object &_log
+)
 :
 	sge::opengl::context::base(),
-	state_()
+	state_(
+		_log
+	)
 {
 }
 
@@ -37,7 +42,7 @@ sge::opengl::vf::context::~context()
 }
 
 sge::opengl::vf::client_state const &
-sge::opengl::vf::context::state()
+sge::opengl::vf::context::state() const
 {
 	return
 		state_;

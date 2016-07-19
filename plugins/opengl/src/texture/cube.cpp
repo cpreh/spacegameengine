@@ -67,6 +67,7 @@ sge::opengl::texture::cube::cube(
 			this
 		]{
 			sge::opengl::texture::scoped_work_binding const binding(
+				_basic_parameters.log(),
 				_basic_parameters.context(),
 				this->type(),
 				this->id()

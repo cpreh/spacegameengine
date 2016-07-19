@@ -18,7 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global_context.hpp>
+#include <sge/log/option.hpp>
+#include <sge/log/option_container.hpp>
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/dim1.hpp>
 #include <sge/opencl/log_location.hpp>
@@ -76,8 +77,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/renderer.hpp>
@@ -98,9 +101,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cin.hpp>
 #include <fcppt/io/cout.hpp>
-#include <fcppt/log/activate_levels_recursive.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/log/location.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/join.hpp>
@@ -183,11 +184,6 @@ int
 main()
 try
 {
-	fcppt::log::activate_levels_recursive(
-		sge::log::global_context(),
-		sge::opencl::log_location(),
-		fcppt::log::level::verbose);
-
 	sge::opencl::system opencl_system;
 
 	fcppt::io::cout()
@@ -323,7 +319,10 @@ try
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Creating sge::systems object...\n");
 
-	sge::window::dim const window_dim(1024u,768u);
+	sge::window::dim const window_dim{
+		1024u,
+		768u
+	};
 
 	sge::systems::instance<
 		boost::mpl::vector2<
@@ -334,6 +333,20 @@ try
 		>
 	> const sys(
 		sge::systems::make_list
+		(
+			// FIXME: Move this higher?
+			sge::systems::config()
+			.log_settings(
+				sge::systems::log_settings{
+					sge::log::option_container{
+						sge::log::option{
+							sge::opencl::log_location(),
+							fcppt::log::level::verbose
+						}
+					}
+				}
+			)
+		)
 		(
 			sge::systems::window(
 				sge::systems::window_source(
@@ -346,7 +359,8 @@ try
 			)
 			.dont_show()
 		)
-		(sge::systems::renderer(
+		(
+			sge::systems::renderer(
 				sge::renderer::pixel_format::object(
 					sge::renderer::pixel_format::color::depth32,
 					sge::renderer::pixel_format::depth_stencil::off,
@@ -438,6 +452,7 @@ try
 		<< FCPPT_TEXT("Done, now creating a program...");
 
 	sge::opencl::program::object main_program(
+		sys.log_context(),
 		main_context,
 		sge::opencl::program::source_string_sequence{
 			std::string(

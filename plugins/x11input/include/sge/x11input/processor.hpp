@@ -66,6 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/signal/optional_auto_connection_fwd.hpp>
@@ -85,6 +86,7 @@ class processor
 	);
 public:
 	processor(
+		fcppt::log::object &,
 		sge::window::object const &,
 		sge::window::system const &,
 		awl::backends::x11::system::event::opcode
@@ -195,6 +197,8 @@ private:
 	on_client_message(
 		awl::backends::x11::window::event::object const &
 	);
+
+	fcppt::log::object &log_;
 
 	awl::backends::x11::system::event::opcode const opcode_;
 

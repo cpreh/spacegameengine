@@ -19,13 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/logger.hpp>
 #include <sge/opengl/vf/client_state.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
@@ -39,6 +39,7 @@ template<
 >
 void
 insert_checked(
+	fcppt::log::object &,
 	Set &,
 	typename Set::value_type
 );
@@ -48,14 +49,20 @@ template<
 >
 void
 erase_checked(
+	fcppt::log::object &,
 	Set &,
 	typename Set::value_type
 );
 
 }
 
-sge::opengl::vf::client_state::client_state()
+sge::opengl::vf::client_state::client_state(
+	fcppt::log::object &_log
+)
 :
+	log_{
+		_log
+	},
 	normal_states_(),
 	texture_states_(),
 	attribute_states_()
@@ -68,6 +75,7 @@ sge::opengl::vf::client_state::enable(
 )
 {
 	::insert_checked(
+		log_.get(),
 		normal_states_,
 		_value
 	);
@@ -79,6 +87,7 @@ sge::opengl::vf::client_state::disable(
 )
 {
 	::erase_checked(
+		log_.get(),
 		normal_states_,
 		_value
 	);
@@ -90,6 +99,7 @@ sge::opengl::vf::client_state::enable_texture(
 )
 {
 	::insert_checked(
+		log_.get(),
 		texture_states_,
 		_value
 	);
@@ -101,6 +111,7 @@ sge::opengl::vf::client_state::disable_texture(
 )
 {
 	::erase_checked(
+		log_.get(),
 		texture_states_,
 		_value
 	);
@@ -112,6 +123,7 @@ sge::opengl::vf::client_state::enable_attribute(
 )
 {
 	::insert_checked(
+		log_.get(),
 		attribute_states_,
 		_value
 	);
@@ -123,6 +135,7 @@ sge::opengl::vf::client_state::disable_attribute(
 )
 {
 	::erase_checked(
+		log_.get(),
 		attribute_states_,
 		_value
 	);
@@ -161,6 +174,7 @@ template<
 >
 void
 insert_checked(
+	fcppt::log::object &_log,
 	Set &_set,
 	typename Set::value_type const _value
 )
@@ -171,7 +185,7 @@ insert_checked(
 		).second
 	)
 		FCPPT_LOG_ERROR(
-			sge::opengl::logger(),
+			_log,
 			fcppt::log::_
 				<< FCPPT_TEXT("Duplicate state inserted in opengl::vf!")
 				<< common_error
@@ -183,6 +197,7 @@ template<
 >
 void
 erase_checked(
+	fcppt::log::object &_log,
 	Set &_set,
 	typename Set::value_type const _value
 )
@@ -193,7 +208,7 @@ erase_checked(
 		)
 	)
 		FCPPT_LOG_ERROR(
-			sge::opengl::logger(),
+			_log,
 			fcppt::log::_
 				<< FCPPT_TEXT("State erased in opengl::vf that was not there!")
 				<< common_error

@@ -18,18 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/log_location.hpp>
-#include <sge/log/define_plugin.hpp>
-#include <sge/vorbis/logger.hpp>
-#include <sge/vorbis/logger_context.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/log/location.hpp>
+#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/state/ffp/misc/default_context_parameters.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
-SGE_LOG_DEFINE_PLUGIN(
-	sge::vorbis::logger,
-	sge::vorbis::logger_context(),
-	sge::audio::log_location()
-	/
-	FCPPT_TEXT("vorbis")
+sge::opengl::state::ffp::misc::default_context_parameters::default_context_parameters(
+	fcppt::log::object &_log,
+	sge::opengl::context::object &_context
 )
+:
+	log_{
+		_log
+	},
+	context_{
+		_context
+	}
+{
+}
+
+fcppt::log::object &
+sge::opengl::state::ffp::misc::default_context_parameters::log() const
+{
+	return
+		log_;
+}
+
+sge::opengl::context::object &
+sge::opengl::state::ffp::misc::default_context_parameters::context() const
+{
+	return
+		context_;
+}

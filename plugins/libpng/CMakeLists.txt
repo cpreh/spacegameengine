@@ -25,8 +25,6 @@ set(
 	plugins/libpng/include/sge/libpng/info_fwd.hpp
 	plugins/libpng/include/sge/libpng/is_png.hpp
 	plugins/libpng/include/sge/libpng/load_context.hpp
-	plugins/libpng/include/sge/libpng/logger.hpp
-	plugins/libpng/include/sge/libpng/logger_context.hpp
 	plugins/libpng/include/sge/libpng/make_format.hpp
 	plugins/libpng/include/sge/libpng/make_row_vector.hpp
 	plugins/libpng/include/sge/libpng/optional_file_rep.hpp
@@ -60,8 +58,6 @@ set(
 	plugins/libpng/src/info.cpp
 	plugins/libpng/src/is_png.cpp
 	plugins/libpng/src/load_context.cpp
-	plugins/libpng/src/logger.cpp
-	plugins/libpng/src/logger_context.cpp
 	plugins/libpng/src/make_format.cpp
 	plugins/libpng/src/make_row_vector.cpp
 	plugins/libpng/src/read_ptr.cpp

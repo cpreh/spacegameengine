@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/bitfield/object_decl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -62,6 +63,7 @@ class object
 	);
 public:
 	object(
+		fcppt::log::object &,
 		sge::x11input::device::parameters const &,
 		sge::x11input::input_context const &
 	);
@@ -108,6 +110,8 @@ private:
 	on_key_release(
 		sge::x11input::device::window_event const &
 	);
+
+	fcppt::log::object &log_;
 
 	sge::input::focus::key_signal key_signal_;
 

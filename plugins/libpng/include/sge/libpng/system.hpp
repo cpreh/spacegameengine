@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/media/stream_unique_ptr_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object.hpp>
 
 
 namespace sge
@@ -45,7 +47,10 @@ class system
 		system
 	);
 public:
-	system();
+	explicit
+	system(
+		fcppt::log::context &
+	);
 
 	~system()
 	override;
@@ -68,6 +73,8 @@ public:
 	sge::media::extension_set
 	extensions() const
 	override;
+private:
+	fcppt::log::object log_;
 };
 
 }

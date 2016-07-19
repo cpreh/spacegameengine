@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/logger.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/multi_config.hpp>
@@ -34,11 +33,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe.hpp>
 
 
 void
 sge::opengl::texture::funcs::set_client_level(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context,
 	sge::renderer::texture::stage const _stage
 )
@@ -53,6 +54,7 @@ sge::opengl::texture::funcs::set_client_level(
 			_context.info()
 		).config(),
 		[
+			&_log,
 			_stage
 		]{
 			if(
@@ -63,7 +65,7 @@ sge::opengl::texture::funcs::set_client_level(
 				return;
 
 			FCPPT_LOG_ERROR(
-				sge::opengl::logger(),
+				_log,
 				fcppt::log::_
 					<< FCPPT_TEXT("Tried to set texture coordinates for stage ")
 					<< _stage

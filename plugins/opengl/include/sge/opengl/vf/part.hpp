@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -47,6 +48,7 @@ class part
 	);
 public:
 	part(
+		fcppt::log::object &,
 		sge::opengl::context::object &,
 		sge::renderer::vf::dynamic::part const &
 	);
@@ -64,6 +66,8 @@ public:
 	void
 	unuse_me() const;
 private:
+	fcppt::log::object &log_;
+
 	sge::opengl::context::object &context_;
 
 	sge::renderer::vf::dynamic::part const part_;

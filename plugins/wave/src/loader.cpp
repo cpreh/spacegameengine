@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file.hpp>
 #include <sge/audio/load_stream_result.hpp>
 #include <sge/audio/loader.hpp>
+#include <sge/log/default_parameters.hpp>
+#include <sge/log/location.hpp>
 #include <sge/media/check_extension.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
@@ -35,6 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/name.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <istream>
 #include <utility>
@@ -50,9 +54,20 @@ sge::media::extension const extension(
 
 }
 
-sge::wave::loader::loader()
+sge::wave::loader::loader(
+	fcppt::log::context &_log_context
+)
 :
-	sge::audio::loader()
+	sge::audio::loader(),
+	log_{
+		_log_context,
+		sge::log::location(),
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("wave")
+			}
+		)
+	}
 {
 }
 
@@ -75,6 +90,7 @@ sge::wave::loader::load_stream(
 		?
 			fcppt::optional::maybe(
 				sge::wave::read_info(
+					log_,
 					*_stream,
 					_name
 				),
@@ -89,6 +105,7 @@ sge::wave::loader::load_stream(
 						};
 				},
 				[
+					this,
 					&_stream,
 					&_name
 				](
@@ -103,6 +120,7 @@ sge::wave::loader::load_stream(
 								fcppt::make_unique_ptr<
 									sge::wave::file
 								>(
+									log_,
 									std::move(
 										_stream
 									),

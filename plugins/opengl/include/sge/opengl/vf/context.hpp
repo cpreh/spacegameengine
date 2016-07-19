@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/client_state.hpp>
 #include <sge/opengl/vf/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -43,20 +44,25 @@ class context
 		context
 	);
 public:
-	context();
+	typedef
+	fcppt::log::object &
+	parameter;
+
+	explicit
+	context(
+		parameter
+	);
 
 	~context()
 	override;
 
 	sge::opengl::vf::client_state const &
-	state();
+	state() const;
 
 	void
 	state(
 		sge::opengl::vf::client_state const &
 	);
-
-	typedef void parameter;
 
 	static sge::opengl::context::id const static_id;
 private:

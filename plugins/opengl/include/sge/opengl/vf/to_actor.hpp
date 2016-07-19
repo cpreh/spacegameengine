@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/actor_unique_ptr.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -36,6 +37,7 @@ namespace vf
 
 sge::opengl::vf::actor_unique_ptr
 to_actor(
+	fcppt::log::object &,
 	sge::renderer::vf::dynamic::ordered_element const &,
 	sge::renderer::vf::dynamic::stride,
 	sge::opengl::context::object &

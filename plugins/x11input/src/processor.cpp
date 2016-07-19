@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/create_parameters.hpp>
 #include <sge/x11input/input_context.hpp>
 #include <sge/x11input/input_method.hpp>
-#include <sge/x11input/logger.hpp>
 #include <sge/x11input/processor.hpp>
 #include <sge/x11input/send_init_event.hpp>
 #include <sge/x11input/cursor/object.hpp>
@@ -76,6 +75,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/optional_auto_connection.hpp>
@@ -86,11 +86,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::x11input::processor::processor(
+	fcppt::log::object &_log,
 	sge::window::object const &_window,
 	sge::window::system const &_window_system,
 	awl::backends::x11::system::event::opcode const _opcode
 )
 :
+	log_{
+		_log
+	},
 	opcode_(
 		_opcode
 	),
@@ -166,6 +170,7 @@ sge::x11input::processor::processor(
 	cursor_discover_(),
 	cursor_remove_(),
 	device_manager_(
+		_log,
 		x11_window_.display(),
 		fcppt::assign::make_container<
 			sge::x11input::device::manager::config_map
@@ -491,6 +496,7 @@ sge::x11input::processor::create_focus(
 		fcppt::make_unique_ptr<
 			sge::x11input::focus::object
 		>(
+			log_,
 			this->device_parameters(
 				_param
 			),
@@ -507,6 +513,7 @@ sge::x11input::processor::create_cursor(
 		fcppt::make_unique_ptr<
 			sge::x11input::cursor::object
 		>(
+			log_,
 			this->device_parameters(
 				_param
 			),
@@ -539,7 +546,7 @@ sge::x11input::processor::on_client_message(
 )
 {
 	FCPPT_LOG_DEBUG(
-		sge::x11input::logger(),
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("ClientMessage")
 	);

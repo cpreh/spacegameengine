@@ -22,10 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/set_defaults.hpp>
 #include <sge/opengl/state/core/set_defaults.hpp>
 #include <sge/opengl/state/ffp/set_defaults.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 void
 sge::opengl::state::set_defaults(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context
 )
 {
@@ -34,6 +36,7 @@ sge::opengl::state::set_defaults(
 	);
 
 	sge::opengl::state::ffp::set_defaults(
+		_log,
 		_context
 	);
 }

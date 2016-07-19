@@ -5,8 +5,6 @@ set(
 	plugins/vorbis/include/sge/vorbis/file.hpp
 	plugins/vorbis/include/sge/vorbis/info.hpp
 	plugins/vorbis/include/sge/vorbis/loader.hpp
-	plugins/vorbis/include/sge/vorbis/logger.hpp
-	plugins/vorbis/include/sge/vorbis/logger_context.hpp
 	plugins/vorbis/include/sge/vorbis/open.hpp
 	plugins/vorbis/include/sge/vorbis/optional_stream_unique_ptr.hpp
 	plugins/vorbis/include/sge/vorbis/optional_stream_unique_ptr_fwd.hpp
@@ -21,8 +19,6 @@ set(
 	plugins/vorbis/src/file.cpp
 	plugins/vorbis/src/info.cpp
 	plugins/vorbis/src/loader.cpp
-	plugins/vorbis/src/logger.cpp
-	plugins/vorbis/src/logger_context.cpp
 	plugins/vorbis/src/open.cpp
 	plugins/vorbis/src/read.cpp
 	plugins/vorbis/src/seek.cpp

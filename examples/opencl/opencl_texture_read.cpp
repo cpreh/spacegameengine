@@ -67,6 +67,7 @@ main(
 	char *argv[])
 try
 {
+	// TODO: Use args
 	if(argc == 1)
 	{
 		fcppt::io::cerr()
@@ -77,15 +78,32 @@ try
 		return EXIT_FAILURE;
 	}
 
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Creating systems object\n");
+
+	sge::systems::instance<
+		boost::mpl::vector1<
+			sge::systems::with_image2d
+		>
+	> const sys(
+		sge::systems::make_list
+		(
+			sge::systems::image2d(
+				sge::media::all_extensions
+			)
+		)
+	);
+
+	fcppt::io::cout()
+		<< FCPPT_TEXT("Done, creating opencl system\n");
+
 	boost::filesystem::path const target_file_name(
 		fcppt::from_std_string(
 			argv[1]));
 
-	fcppt::io::cout()
-		<< FCPPT_TEXT("Creating opencl system\n");
-
 	// Mind the extra parens
 	sge::opencl::single_device_system::object opencl_system(
+		sys.log_context(),
 		sge::opencl::single_device_system::parameters()
 			.execution_mode(
 				sge::opencl::command_queue::execution_mode::out_of_order));
@@ -113,21 +131,10 @@ try
 			0u));
 
 	fcppt::io::cout()
-		<< FCPPT_TEXT("Done, creating systems object\n");
-
-	sge::systems::instance<
-		boost::mpl::vector1<
-			sge::systems::with_image2d
-		>
-	> const sys(
-		sge::systems::make_list
-			(sge::systems::image2d(
-				sge::media::all_extensions)));
-
-	fcppt::io::cout()
 		<< FCPPT_TEXT("Done, creating program\n");
 
 	sge::opencl::program::object main_program(
+		sys.log_context(),
 		opencl_system.context(),
 		sge::opencl::program::file_to_source_string_sequence(
 			sge::config::media_path() / FCPPT_TEXT("kernels") / FCPPT_TEXT("texture.cl")),

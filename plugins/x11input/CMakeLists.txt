@@ -114,8 +114,6 @@ set(
 	plugins/x11input/include/sge/x11input/keyboard/key_from_event.hpp
 	plugins/x11input/include/sge/x11input/keyboard/key_id.hpp
 	plugins/x11input/include/sge/x11input/lc_ctype.hpp
-	plugins/x11input/include/sge/x11input/logger.hpp
-	plugins/x11input/include/sge/x11input/logger_context.hpp
 	plugins/x11input/include/sge/x11input/mask_c.hpp
 	plugins/x11input/include/sge/x11input/mask_is_set.hpp
 	plugins/x11input/include/sge/x11input/mask_type.hpp
@@ -195,8 +193,6 @@ set(
 	plugins/x11input/src/keyboard/key_from_event.cpp
 	plugins/x11input/src/keyboard/key_id.cpp
 	plugins/x11input/src/lc_ctype.cpp
-	plugins/x11input/src/logger.cpp
-	plugins/x11input/src/logger_context.cpp
 	plugins/x11input/src/mask_is_set.cpp
 	plugins/x11input/src/mouse/axis.cpp
 	plugins/x11input/src/mouse/axis_code.cpp

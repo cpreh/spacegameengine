@@ -33,10 +33,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/static_downcast.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 void
 sge::opengl::state::ffp::sampler::set(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context,
 	sge::renderer::state::ffp::sampler::const_object_ref_vector const &_samplers
 )
@@ -59,6 +61,7 @@ sge::opengl::state::ffp::sampler::set(
 	)
 	{
 		sge::opengl::texture::active_level const active_level(
+			_log,
 			_context,
 			stage
 		);
@@ -100,6 +103,7 @@ sge::opengl::state::ffp::sampler::set(
 	)
 	{
 		sge::opengl::texture::active_level const active_level(
+			_log,
 			_context,
 			stage
 		);

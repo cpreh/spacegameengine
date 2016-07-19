@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/box/object_decl.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
@@ -158,6 +159,8 @@ private:
 
 	dim
 	lock_dim() const;
+
+	fcppt::log::object &log_;
 
 	sge::opengl::context::object &context_;
 

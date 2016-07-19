@@ -50,11 +50,13 @@ sge::opengl::system::system(
 	},
 	platform_system_(
 		sge::opengl::platform::create_system(
+			_log,
 			_awl_system
 		)
 	),
 	backend_system_(
 		sge::opengl::backend::create_system(
+			_log,
 			_awl_system
 		)
 	)

@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/loader.hpp>
 #include <sge/audio/loader_unique_ptr.hpp>
+#include <sge/audio/loader_plugin/traits.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
 #include <sge/plugin/description.hpp>
@@ -30,10 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/library/make_interface.hpp>
 #include <sge/wave/loader.hpp>
-#include <sge/wave/logger_context.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace
@@ -56,7 +57,9 @@ sge::plugin::info const info(
 
 
 sge::audio::loader_unique_ptr
-create_audio_loader()
+create_audio_loader(
+	fcppt::log::context &_log_context
+)
 {
 	return
 		fcppt::unique_ptr_to_base<
@@ -64,7 +67,9 @@ create_audio_loader()
 		>(
 			fcppt::make_unique_ptr<
 				sge::wave::loader
-			>()
+			>(
+				_log_context
+			)
 		);
 }
 
@@ -72,6 +77,10 @@ create_audio_loader()
 
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
 	info,
-	sge::wave::logger_context(),
-	(create_audio_loader)
+	(
+		(
+			sge::audio::loader,
+			create_audio_loader
+		)
+	)
 )

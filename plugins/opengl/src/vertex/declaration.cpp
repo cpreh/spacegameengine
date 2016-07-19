@@ -28,9 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part_list.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 sge::opengl::vertex::declaration::declaration(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context,
 	sge::renderer::vertex::declaration_parameters const &_parameters
 )
@@ -45,6 +47,7 @@ sge::opengl::vertex::declaration::declaration(
 		>(
 			format_.parts(),
 			[
+				&_log,
 				&_context
 			](
 				sge::renderer::vf::dynamic::part const &_part
@@ -54,6 +57,7 @@ sge::opengl::vertex::declaration::declaration(
 					fcppt::make_unique_ptr<
 						sge::opengl::vf::part
 					>(
+						_log,
 						_context,
 						_part
 					);

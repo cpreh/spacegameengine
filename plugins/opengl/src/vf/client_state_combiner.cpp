@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/enable_vertex_attrib_array.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/algorithm/set_difference.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <functional>
@@ -58,9 +59,13 @@ apply_difference(
 }
 
 sge::opengl::vf::client_state_combiner::client_state_combiner(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context
 )
 :
+	log_{
+		_log
+	},
 	context_(
 		_context
 	),
@@ -68,7 +73,8 @@ sge::opengl::vf::client_state_combiner::client_state_combiner(
 		sge::opengl::context::use<
 			sge::opengl::vf::context
 		>(
-			_context
+			_context,
+			_log
 		)
 	),
 	attribute_context_(
@@ -163,12 +169,18 @@ sge::opengl::vf::client_state_combiner::~client_state_combiner()
 		std::bind(
 			sge::opengl::vf::enable_texcoords,
 			std::ref(
+				log_
+			),
+			std::ref(
 				context_
 			),
 			std::placeholders::_1
 		),
 		std::bind(
 			sge::opengl::vf::disable_texcoords,
+			std::ref(
+				log_
+			),
 			std::ref(
 				context_
 			),

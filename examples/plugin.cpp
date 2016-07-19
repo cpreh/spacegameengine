@@ -24,8 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/input/system.hpp>
-#include <sge/log/global_context.hpp>
-#include <sge/log/location.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/info.hpp>
@@ -41,9 +39,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
-#include <fcppt/log/activate_levels_recursive.hpp>
+#include <fcppt/log/context.hpp>
+#include <fcppt/log/enabled_levels.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/log/location.hpp>
+#include <fcppt/log/setting.hpp>
 #include <fcppt/mpl/for_each.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -58,6 +57,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
+// TODO: Remove this
 class print_plugins
 {
 	FCPPT_NONASSIGNABLE(
@@ -90,25 +90,30 @@ int
 main()
 try
 {
-	fcppt::log::activate_levels_recursive(
-		sge::log::global_context(),
-		sge::log::location(),
-		fcppt::log::level::debug
+	fcppt::log::context log_context(
+		fcppt::log::setting{
+			fcppt::log::enabled_levels(
+				fcppt::log::level::debug
+			)
+		}
 	);
 
 	sge::plugin::manager manager(
+		log_context,
 		sge::config::plugin_path(),
 		sge::plugin::optional_cache_ref()
 	);
 
-	typedef boost::mpl::vector6<
+	typedef
+	boost::mpl::vector6<
 		sge::audio::loader,
 		sge::audio::player,
 		sge::font::system,
 		sge::image2d::system,
 		sge::input::system,
 		sge::renderer::core
-	> plugins;
+	>
+	plugins;
 
 	fcppt::mpl::for_each<
 		plugins

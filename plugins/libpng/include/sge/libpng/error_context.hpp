@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/png.hpp>
 #include <sge/media/optional_name.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/object.hpp>
 
 
@@ -39,8 +40,8 @@ class error_context
 		error_context
 	);
 public:
-	explicit
 	error_context(
+		fcppt::log::object &,
 		sge::media::optional_name const &
 	);
 
@@ -60,6 +61,8 @@ public:
 		png_const_charp
 	);
 private:
+	fcppt::log::object &log_;
+
 	sge::media::optional_name const name_;
 
 	void

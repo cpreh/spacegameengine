@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -50,6 +51,7 @@ class basic_buffer_parameters
 	);
 public:
 	basic_buffer_parameters(
+		fcppt::log::object &,
 		sge::opengl::texture::binding const &,
 		sge::opengl::context::object &,
 		sge::renderer::texture::mipmap::level,
@@ -62,6 +64,9 @@ public:
 		sge::opengl::internal_color_format,
 		sge::opengl::texture::is_render_target
 	);
+
+	fcppt::log::object &
+	log() const;
 
 	sge::opengl::texture::binding const &
 	binding() const;
@@ -96,6 +101,8 @@ public:
 	sge::opengl::texture::is_render_target
 	is_render_target() const;
 private:
+	fcppt::log::object &log_;
+
 	sge::opengl::texture::binding const &binding_;
 
 	sge::opengl::context::object &context_;

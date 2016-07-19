@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_FFP_SET_DEFAULTS_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -35,6 +36,7 @@ namespace ffp
 
 void
 set_defaults(
+	fcppt::log::object &,
 	sge::opengl::context::object &
 );
 

@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <set>
 #include <fcppt/config/external_end.hpp>
@@ -56,7 +58,10 @@ public:
 	>
 	index_state_set;
 
-	client_state();
+	explicit
+	client_state(
+		fcppt::log::object &
+	);
 
 	void
 	enable(
@@ -97,6 +102,10 @@ public:
 	index_state_set const &
 	attribute_states() const;
 private:
+	fcppt::reference<
+		fcppt::log::object
+	> log_;
+
 	normal_state_set normal_states_;
 
 	texture_state_set texture_states_;

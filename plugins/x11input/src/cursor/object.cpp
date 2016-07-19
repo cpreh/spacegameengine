@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/scroll_event.hpp>
-#include <sge/x11input/logger.hpp>
 #include <sge/x11input/cursor/button_code.hpp>
 #include <sge/x11input/cursor/grab.hpp>
 #include <sge/x11input/cursor/make_scroll_valuators.hpp>
@@ -51,6 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
@@ -63,6 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::x11input::cursor::object::object(
+	fcppt::log::object &_log,
 	sge::x11input::device::parameters const &_param,
 	awl::backends::x11::cursor::object const &_cursor
 )
@@ -71,6 +72,9 @@ sge::x11input::cursor::object::object(
 	sge::x11input::device::object(
 		_param.id()
 	),
+	log_{
+		_log
+	},
 	window_(
 		_param.window()
 	),
@@ -300,7 +304,7 @@ sge::x11input::cursor::object::on_enter(
 )
 {
 	FCPPT_LOG_DEBUG(
-		sge::x11input::logger(),
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("XIEnter: ")
 			<< _event.get().event_x
@@ -322,7 +326,7 @@ sge::x11input::cursor::object::on_leave(
 )
 {
 	FCPPT_LOG_DEBUG(
-		sge::x11input::logger(),
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("XILeave")
 	);
@@ -342,7 +346,7 @@ sge::x11input::cursor::object::on_focus_out(
 )
 {
 	FCPPT_LOG_DEBUG(
-		sge::x11input::logger(),
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("XIFocusOut")
 	);
@@ -458,6 +462,7 @@ sge::x11input::cursor::object::check_grab()
 					fcppt::make_unique_ptr<
 						sge::x11input::cursor::grab
 					>(
+						log_,
 						window_,
 						this->id(),
 						cursor_

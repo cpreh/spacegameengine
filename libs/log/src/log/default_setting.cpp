@@ -1,3 +1,4 @@
+
 /*
 spacegameengine is a portable easy to use game engine written in C++.
 Copyright (C) 2006-2016 Carl Philipp Reh (carlphilippreh <at> gmail.com)
@@ -18,21 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_WAVE_LOGGER_CONTEXT_HPP_INCLUDED
-#define SGE_WAVE_LOGGER_CONTEXT_HPP_INCLUDED
+#include <sge/log/default_setting.hpp>
+#include <fcppt/log/enabled_levels.hpp>
+#include <fcppt/log/level.hpp>
+#include <fcppt/log/setting.hpp>
 
-#include <fcppt/log/context_fwd.hpp>
 
-
-namespace sge
+fcppt::log::setting
+sge::log::default_setting()
 {
-namespace wave
-{
-
-fcppt::log::context &
-logger_context();
-
+	return
+		fcppt::log::setting{
+			fcppt::log::enabled_levels(
+				fcppt::log::level::info
+			)
+		};
 }
-}
-
-#endif

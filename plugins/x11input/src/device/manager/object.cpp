@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11input/create_parameters.hpp>
-#include <sge/x11input/logger.hpp>
 #include <sge/x11input/mask_c.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/use.hpp>
@@ -39,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/find_opt_iterator.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -50,10 +50,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::x11input::device::manager::object::object(
+	fcppt::log::object &_log,
 	awl::backends::x11::display &_display,
 	sge::x11input::device::manager::config_map &&_config
 )
 :
+	log_{
+		_log
+	},
 	display_(
 		_display
 	),
@@ -119,7 +123,7 @@ sge::x11input::device::manager::object::change(
 		);
 
 		FCPPT_LOG_DEBUG(
-			sge::x11input::logger(),
+			log_,
 			fcppt::log::_
 				<< FCPPT_TEXT("x11input: Discovered device with id: ")
 				<< device_id
@@ -135,10 +139,11 @@ sge::x11input::device::manager::object::change(
 		fcppt::optional::maybe(
 			device_info.get(),
 			[
+				this,
 				device_id
 			]{
 				FCPPT_LOG_DEBUG(
-					sge::x11input::logger(),
+					log_,
 					fcppt::log::_
 						<< FCPPT_TEXT("x11input: Device with id: ")
 						<< device_id
@@ -198,7 +203,7 @@ sge::x11input::device::manager::object::change(
 	)
 	{
 		FCPPT_LOG_DEBUG(
-			sge::x11input::logger(),
+			log_,
 			fcppt::log::_
 				<< FCPPT_TEXT("x11input: Removed device with id: ")
 				<< device_id

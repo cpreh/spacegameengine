@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/system_unique_ptr.hpp>
-#include <sge/libpng/logger_context.hpp>
+#include <sge/image2d/plugin/traits.hpp>
 #include <sge/libpng/system.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace
@@ -55,7 +56,9 @@ sge::plugin::info const info(
 );
 
 sge::image2d::system_unique_ptr
-create_image2d_system()
+create_image2d_system(
+	fcppt::log::context &_log_context
+)
 {
 	return
 		fcppt::unique_ptr_to_base<
@@ -63,7 +66,9 @@ create_image2d_system()
 		>(
 			fcppt::make_unique_ptr<
 				sge::libpng::system
-			>()
+			>(
+				_log_context
+			)
 		);
 }
 
@@ -71,6 +76,10 @@ create_image2d_system()
 
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
 	info,
-	sge::libpng::logger_context(),
-	(create_image2d_system)
+	(
+		(
+			sge::image2d::system,
+			create_image2d_system
+		)
+	)
 )

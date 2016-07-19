@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/texture/mipmap/parameters_fwd.hpp>
 #include <sge/renderer/texture/mipmap/all_levels_rep_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/size_type.hpp>
 
 
@@ -40,6 +41,7 @@ template<
 >
 void
 all_levels(
+	fcppt::log::object &,
 	sge::opengl::texture::mipmap::parameters<
 		Size
 	> const &,

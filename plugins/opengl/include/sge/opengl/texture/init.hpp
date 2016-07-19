@@ -158,6 +158,7 @@ init(
 	sge::opengl::texture::mipmap::create<
 		dim_wrapper::value
 	>(
+		_basic_parameters.log(),
 		sge::opengl::texture::mipmap::parameters<
 			dim_wrapper::value
 		>(
@@ -237,6 +238,7 @@ init(
 						>(
 							format,
 							sge::opengl::texture::basic_buffer_parameters(
+								_basic_parameters.log(),
 								_binding,
 								_basic_parameters.context(),
 								_index,

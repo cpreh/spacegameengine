@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/base_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -50,6 +51,7 @@ class loaded_object
 	);
 public:
 	loaded_object(
+		fcppt::log::object &,
 		sge::opengl::context::object &,
 		sge::cg::parameter::object const &,
 		sge::renderer::texture::base &
@@ -64,6 +66,8 @@ public:
 	void
 	disable() const;
 private:
+	fcppt::log::object &log_;
+
 	sge::opengl::context::object &context_;
 
 	sge::opengl::texture::bind_context &bind_context_;

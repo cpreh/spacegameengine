@@ -118,7 +118,10 @@ add_sge_test(
 	SGE_DEPS
 		sgeconfig
 		sgeimage2d
+		sgelog
 		sgeplugin
+	ADDITIONAL_DEPS
+		${fcppt_log_TARGET}
 )
 
 add_sge_test(

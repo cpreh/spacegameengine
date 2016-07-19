@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/logger.hpp>
 #include <sge/opengl/glx/current_drawable.hpp>
 #include <sge/opengl/glx/swap_functions.hpp>
 #include <sge/opengl/glx/vsync.hpp>
@@ -29,11 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/info.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe.hpp>
 
 
 void
 sge::opengl::glx::vsync(
+	fcppt::log::object &_log,
 	sge::opengl::glx::swap_functions const &_swap_functions,
 	awl::backends::x11::display &_display
 )
@@ -46,13 +47,14 @@ sge::opengl::glx::vsync(
 				false
 			),
 			[
+				&_log,
 				&_display
 			](
 				sge::opengl::glx::swap_functions::glx_swap_interval_ext_ref const _swap
 			)
 			{
 				FCPPT_LOG_INFO(
-					sge::opengl::logger(),
+					_log,
 					fcppt::log::_
 						<< FCPPT_TEXT("Using glXSwapIntervalExt")
 				);
@@ -76,12 +78,14 @@ sge::opengl::glx::vsync(
 			fcppt::const_(
 				false
 			),
-			[](
+			[
+				&_log
+			](
 				sge::opengl::glx::swap_functions::glx_swap_interval_sgi_ref const _swap
 			)
 			{
 				FCPPT_LOG_INFO(
-					sge::opengl::logger(),
+					_log,
 					fcppt::log::_
 						<< FCPPT_TEXT("Using glXSwapIntervalSGI")
 				);
@@ -105,7 +109,7 @@ sge::opengl::glx::vsync(
 		return;
 
 	FCPPT_LOG_ERROR(
-		sge::opengl::logger(),
+		_log,
 		fcppt::log::_
 			<< FCPPT_TEXT("Setting vsync is not supported.")
 	)

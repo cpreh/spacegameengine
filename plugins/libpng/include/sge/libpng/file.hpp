@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/libpng/file_rep.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -44,8 +45,8 @@ class file
 		file
 	);
 public:
-	explicit
 	file(
+		fcppt::log::object &,
 		sge::libpng::file_rep &&
 	);
 
@@ -71,6 +72,8 @@ private:
 		std::ostream &
 	) const
 	override;
+
+	fcppt::log::object &log_;
 
 	sge::libpng::file_rep const rep_;
 };

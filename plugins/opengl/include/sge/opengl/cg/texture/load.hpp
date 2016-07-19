@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -38,6 +39,7 @@ namespace texture
 
 sge::renderer::cg::loaded_texture_unique_ptr
 load(
+	fcppt::log::object &,
 	sge::opengl::context::object &,
 	sge::cg::parameter::object const &,
 	sge::renderer::texture::base &

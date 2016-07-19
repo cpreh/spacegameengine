@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/either/from_optional.hpp>
 #include <fcppt/either/object_impl.hpp>
 #include <fcppt/either/to_exception.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <typeinfo>
@@ -60,7 +61,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #if defined(SGE_OPENGL_HAVE_X11) || defined(SGE_OPENGL_HAVE_WAYLAND)
 #define SGE_OPENGL_NEED_TRY_CREATE
-#define SGE_OPENGL_NEED_ARG
+#define SGE_OPENGL_NEED_SYSTEM
+#endif
+
+#if defined(SGE_OPENGL_HAVE_X11)
+#define SGE_OPENGL_NEED_LOG
 #endif
 
 namespace
@@ -80,18 +85,41 @@ fcppt::function<
 function_type;
 
 #if defined(SGE_OPENGL_NEED_TRY_CREATE)
+
+template<
+	typename Result,
+	typename Arg
+>
+using
+create_function
+=
+fcppt::function<
+	fcppt::unique_ptr<
+		Result
+	>(
+		fcppt::reference<
+			Arg
+		>
+	)
+>;
+
 template<
 	typename Result,
 	typename Arg
 >
 function_type
 try_create(
-	awl::system::object &_awl_system
+	awl::system::object &_awl_system,
+	create_function<
+		Result,
+		Arg
+	> const _create
 )
 {
 	return
 		function_type{
 			[
+				&_create,
 				&_awl_system
 			]{
 				return
@@ -102,7 +130,9 @@ try_create(
 							>(
 								_awl_system
 							),
-							[](
+							[
+								&_create
+							](
 								fcppt::reference<
 									Arg
 								> const _system
@@ -112,10 +142,8 @@ try_create(
 									fcppt::unique_ptr_to_base<
 										sge::opengl::platform::system
 									>(
-										fcppt::make_unique_ptr<
-											Result
-										>(
-											_system.get()
+										_create(
+											_system
 										)
 									);
 							}
@@ -144,7 +172,13 @@ try_create(
 
 sge::opengl::platform::system_unique_ptr
 sge::opengl::platform::create_system(
-#if defined(SGE_OPENGL_NEED_ARG)
+#if defined(SGE_OPENGL_NEED_LOG)
+	fcppt::log::object &_log
+#else
+	fcppt::log::object &
+#endif
+	,
+#if defined(SGE_OPENGL_NEED_SYSTEM)
 	awl::system::object &_awl_system
 #else
 	awl::system::object &
@@ -156,11 +190,34 @@ sge::opengl::platform::create_system(
 			fcppt::either::first_success(
 				fcppt::container::make_array(
 #if defined(SGE_OPENGL_HAVE_X11)
+					/*
 					try_create<
 						sge::opengl::x11::system,
 						awl::backends::x11::system::object
-					>(
-						_awl_system
+					>(*/
+					try_create(
+						_awl_system,
+						create_function<
+							sge::opengl::x11::system,
+							awl::backends::x11::system::object
+						>{
+							[
+								&_log
+							](
+								fcppt::reference<
+									awl::backends::x11::system::object
+								> const _system
+							)
+							{
+								return
+									fcppt::make_unique_ptr<
+										sge::opengl::x11::system
+									>(
+										_log,
+										_system.get()
+									);
+							}
+						}
 					),
 #endif
 #if defined(SGE_OPENGL_HAVE_WAYLAND)
@@ -168,7 +225,25 @@ sge::opengl::platform::create_system(
 						sge::opengl::wayland::system,
 						awl::backends::wayland::system::object
 					>(
-						_awl_system
+						_awl_system,
+						create_function<
+							sge::opengl::wayland::system,
+							awl::backends::wayland::system::object
+						>{
+							[](
+								fcppt::reference<
+									awl::backends::wayland::system::object
+								> const _system
+							)
+							{
+								return
+									fcppt::make_unique_ptr<
+										sge::opengl::wayland::system
+									>(
+										_system.get()
+									);
+							}
+						}
 					),
 #endif
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)

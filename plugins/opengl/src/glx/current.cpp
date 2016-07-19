@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/logger.hpp>
 #include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/fun_ptr.hpp>
 #include <sge/opengl/glx/current.hpp>
@@ -34,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -44,11 +44,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::glx::current::current(
+	fcppt::log::object &_log,
 	awl::backends::x11::window::object &_window,
 	sge::opengl::glx::optional_proc_address_function const &_opt_proc_address
 )
 :
 	sge::opengl::backend::current(),
+	log_{
+		_log
+	},
 	window_(
 		_window
 	),
@@ -138,9 +142,11 @@ sge::opengl::glx::current::vsync(
 	)
 		fcppt::optional::maybe(
 			swap_functions_,
-			[]{
+			[
+				this
+			]{
 				FCPPT_LOG_ERROR(
-					sge::opengl::logger(),
+					log_,
 					fcppt::log::_
 						<<
 						FCPPT_TEXT("GLX extensions not available.")
@@ -155,6 +161,7 @@ sge::opengl::glx::current::vsync(
 			)
 			{
 				sge::opengl::glx::vsync(
+					log_,
 					_swap_functions,
 					window_.display()
 				);

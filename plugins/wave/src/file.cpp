@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/stream_unique_ptr.hpp>
 #include <sge/wave/file.hpp>
 #include <sge/wave/info.hpp>
-#include <sge/wave/logger.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
@@ -42,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/info.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <iosfwd>
@@ -50,12 +50,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::wave::file::file(
+	fcppt::log::object &_log,
 	sge::media::stream_unique_ptr &&_file,
 	sge::wave::info const &_info,
 	sge::media::optional_name const &_name
 )
 :
 	sge::audio::file(),
+	log_{
+		_log
+	},
 	name_(
 		_name
 	),
@@ -112,7 +116,7 @@ void
 sge::wave::file::reset()
 {
 	FCPPT_LOG_DEBUG(
-		sge::wave::logger(),
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("wave: resetting file")
 	);

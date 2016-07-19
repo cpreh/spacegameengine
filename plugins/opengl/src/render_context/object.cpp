@@ -118,6 +118,7 @@ sge::opengl::render_context::object::object(
 	scoped_offscreen_target_()
 {
 	sge::opengl::state::set_defaults(
+		log_,
 		_context
 	);
 }
@@ -275,6 +276,7 @@ sge::opengl::render_context::object::texture(
 )
 {
 	sge::opengl::texture::activate(
+		log_,
 		context_,
 		_texture,
 		_stage
@@ -410,6 +412,7 @@ sge::opengl::render_context::object::sampler_ffp_state(
 )
 {
 	sge::opengl::state::ffp::sampler::set(
+		log_,
 		context_,
 		_samplers
 	);

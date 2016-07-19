@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_impl.hpp>
@@ -55,6 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::x11input::focus::object::object(
+	fcppt::log::object &_log,
 	sge::x11input::device::parameters const &_param,
 	sge::x11input::input_context const &_input_context
 )
@@ -63,6 +65,9 @@ sge::x11input::focus::object::object(
 	sge::x11input::device::object(
 		_param.id()
 	),
+	log_{
+		_log
+	},
 	key_signal_(),
 	key_repeat_signal_(),
 	char_signal_(),
@@ -216,6 +221,7 @@ sge::x11input::focus::object::on_key_press(
 
 	sge::x11input::focus::looked_up_string const lookup(
 		sge::x11input::focus::lookup_string(
+			log_,
 			input_context_,
 			_event.get()
 		)

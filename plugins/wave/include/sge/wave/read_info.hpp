@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/wave/optional_info.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -35,6 +36,7 @@ namespace wave
 
 sge::wave::optional_info
 read_info(
+	fcppt::log::object &,
 	std::istream &,
 	sge::media::optional_name const &
 );

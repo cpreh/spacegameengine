@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/gamma.hpp>
 #include <sge/libpng/optional_format.hpp>
 #include <sge/libpng/png.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -33,6 +34,7 @@ namespace libpng
 
 sge::libpng::optional_format
 make_format(
+	fcppt::log::object &,
 	png_byte color_type,
 	png_byte bit_depth,
 	sge::libpng::gamma

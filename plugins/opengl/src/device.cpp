@@ -351,6 +351,7 @@ sge::opengl::device::create_vertex_declaration(
 {
 	return
 		sge::opengl::vertex::create_declaration(
+			log_,
 			context_,
 			_parameters
 		);
@@ -480,6 +481,7 @@ sge::opengl::device::load_cg_texture(
 {
 	return
 		sge::opengl::cg::texture::load(
+			log_,
 			context_,
 			_parameter,
 			_texture

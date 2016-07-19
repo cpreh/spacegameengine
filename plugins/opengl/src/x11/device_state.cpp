@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/logger.hpp>
 #include <sge/opengl/platform/device_state.hpp>
 #include <sge/opengl/x11/device_state.hpp>
 #include <sge/opengl/xrandr/optional_system_ref.hpp>
@@ -33,18 +32,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
 
 
 sge::opengl::x11::device_state::device_state(
+	fcppt::log::object &_log,
 	sge::opengl::xrandr::optional_system_ref const &_xrandr_system,
 	sge::renderer::display_mode::optional_object const &_display_mode,
 	awl::backends::x11::window::object &_window
 )
 :
 	sge::opengl::platform::device_state(),
+	log_{
+		_log
+	},
 	xrandr_state_(
 		fcppt::optional::map(
 			_xrandr_system,
@@ -114,9 +118,11 @@ sge::opengl::x11::device_state::display_mode(
 				return
 					fcppt::optional::maybe(
 						xrandr_state_,
-						[]{
+						[
+							this
+						]{
 							FCPPT_LOG_ERROR(
-								sge::opengl::logger(),
+								log_,
 								fcppt::log::_
 									<< FCPPT_TEXT("Xrandr was not found. Can't change the display mode.")
 							);

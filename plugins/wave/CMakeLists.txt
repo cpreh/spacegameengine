@@ -7,8 +7,6 @@ set(
 	plugins/wave/include/sge/wave/info.hpp
 	plugins/wave/include/sge/wave/info_fwd.hpp
 	plugins/wave/include/sge/wave/loader.hpp
-	plugins/wave/include/sge/wave/logger.hpp
-	plugins/wave/include/sge/wave/logger_context.hpp
 	plugins/wave/include/sge/wave/optional_header.hpp
 	plugins/wave/include/sge/wave/optional_header_fwd.hpp
 	plugins/wave/include/sge/wave/optional_info.hpp
@@ -20,8 +18,6 @@ set(
 	plugins/wave/src/ignore_chunks_until.cpp
 	plugins/wave/src/info.cpp
 	plugins/wave/src/loader.cpp
-	plugins/wave/src/logger.cpp
-	plugins/wave/src/logger_context.cpp
 	plugins/wave/src/read_info.cpp
 )
 

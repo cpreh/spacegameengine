@@ -79,6 +79,9 @@ sge::opengl::texture::basic_lockable_buffer<
 		_format,
 		_parameters
 	),
+	log_{
+		_parameters.log()
+	},
 	context_(
 		_parameters.context()
 	),
@@ -222,6 +225,7 @@ sge::opengl::texture::basic_lockable_buffer<
 		cur_lock->unlock();
 
 		sge::opengl::texture::scoped_work_binding const binding(
+			log_,
 			context_,
 			type_,
 			this->id()
@@ -317,6 +321,7 @@ sge::opengl::texture::basic_lockable_buffer<
 	)
 	{
 		sge::opengl::texture::scoped_work_binding const binding(
+			log_,
 			context_,
 			type_,
 			this->id()

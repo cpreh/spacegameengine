@@ -345,6 +345,7 @@ try
 				"ffp")));
 
 	sge::scenic::scene::object test_scene(
+		sys.log_context(),
 		scene_manager,
 		sys.viewport_manager(),
 		*camera,

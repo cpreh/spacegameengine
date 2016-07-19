@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/stream_unique_ptr.hpp>
 #include <sge/wave/info.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -50,6 +51,7 @@ class file
 	);
 public:
 	file(
+		fcppt::log::object &,
 		sge::media::stream_unique_ptr &&,
 		sge::wave::info const &,
 		sge::media::optional_name const &
@@ -86,6 +88,8 @@ public:
 	read_all()
 	override;
 private:
+	fcppt::log::object &log_;
+
 	sge::media::optional_name const name_;
 
 	sge::wave::info const info_;

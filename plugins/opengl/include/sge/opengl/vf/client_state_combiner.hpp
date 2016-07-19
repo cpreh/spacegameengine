@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/context_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -43,8 +44,8 @@ class client_state_combiner
 		client_state_combiner
 	);
 public:
-	explicit
 	client_state_combiner(
+		fcppt::log::object &,
 		sge::opengl::context::object &
 	);
 
@@ -80,6 +81,8 @@ public:
 
 	~client_state_combiner();
 private:
+	fcppt::log::object &log_;
+
 	sge::opengl::context::object &context_;
 
 	sge::opengl::vf::context &vf_context_;

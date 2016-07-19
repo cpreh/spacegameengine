@@ -29,6 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/file_rep_from_view.hpp>
 #include <sge/libpng/is_png.hpp>
 #include <sge/libpng/system.hpp>
+#include <sge/log/default_parameters.hpp>
+#include <sge/log/location.hpp>
 #include <sge/media/check_extension.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/extension.hpp>
@@ -36,7 +38,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/name.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -45,9 +50,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::libpng::system::system()
+sge::libpng::system::system(
+	fcppt::log::context &_log_context
+)
 :
-	sge::image2d::system()
+	sge::image2d::system(),
+	log_{
+		_log_context,
+		sge::log::location(),
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("libpng")
+			}
+		)
+	}
 {
 }
 
@@ -74,6 +90,7 @@ sge::libpng::system::load_stream(
 		?
 			fcppt::optional::maybe(
 				sge::libpng::file_rep_from_stream(
+					log_,
 					*_stream,
 					_name
 				),
@@ -87,7 +104,9 @@ sge::libpng::system::load_stream(
 							)
 						};
 				},
-				[](
+				[
+					this
+				](
 					sge::libpng::file_rep &&_rep
 				)
 				{
@@ -99,6 +118,7 @@ sge::libpng::system::load_stream(
 								fcppt::make_unique_ptr<
 									sge::libpng::file
 								>(
+									log_,
 									std::move(
 										_rep
 									)
@@ -131,7 +151,9 @@ sge::libpng::system::create(
 				sge::libpng::file_rep_from_view(
 					_view
 				),
-				[](
+				[
+					this
+				](
 					sge::libpng::file_rep &&_rep
 				)
 				{
@@ -142,6 +164,7 @@ sge::libpng::system::create(
 							fcppt::make_unique_ptr<
 								file
 							>(
+								log_,
 								std::move(
 									_rep
 								)

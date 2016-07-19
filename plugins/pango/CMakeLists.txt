@@ -18,7 +18,6 @@ set(
 	plugins/pango/include/sge/pango/glib_deleter_fwd.hpp
 	plugins/pango/include/sge/pango/ink_rect.hpp
 	plugins/pango/include/sge/pango/ink_rect_fwd.hpp
-	plugins/pango/include/sge/pango/logger_context.hpp
 	plugins/pango/include/sge/pango/logical_rect.hpp
 	plugins/pango/include/sge/pango/logical_rect_fwd.hpp
 	plugins/pango/include/sge/pango/make_metrics.hpp
@@ -43,7 +42,6 @@ set(
 	plugins/pango/src/freetype/make_bitmap.cpp
 	plugins/pango/src/get_extents.cpp
 	plugins/pango/src/glib_deleter.cpp
-	plugins/pango/src/logger_context.cpp
 	plugins/pango/src/make_metrics.cpp
 	plugins/pango/src/object.cpp
 	plugins/pango/src/system.cpp

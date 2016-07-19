@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/libpng/file_rep_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -35,6 +36,7 @@ namespace libpng
 
 void
 write(
+	fcppt::log::object &,
 	std::ostream &,
 	sge::media::optional_name const &,
 	sge::libpng::file_rep const &

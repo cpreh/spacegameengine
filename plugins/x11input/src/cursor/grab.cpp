@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/exception.hpp>
-#include <sge/x11input/logger.hpp>
 #include <sge/x11input/cursor/grab.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <awl/backends/x11/display.hpp>
@@ -30,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/X.h>
 #include <X11/extensions/XInput2.h>
@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::x11input::cursor::grab::grab(
+	fcppt::log::object &_log,
 	awl::backends::x11::window::object const &_window,
 	sge::x11input::device::id const _id,
 	awl::backends::x11::cursor::object const &_cursor
@@ -85,7 +86,7 @@ sge::x11input::cursor::grab::grab(
 		case GrabNotViewable:
 		case GrabFrozen:
 			FCPPT_LOG_DEBUG(
-				sge::x11input::logger(),
+				_log,
 				fcppt::log::_
 					<< FCPPT_TEXT("XIGrabDevice failed with code ")
 					<< ret

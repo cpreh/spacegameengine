@@ -37,11 +37,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/variant/match.hpp>
 
 
 sge::opengl::vf::actor_unique_ptr
 sge::opengl::vf::to_actor(
+	fcppt::log::object &_log,
 	sge::renderer::vf::dynamic::ordered_element const &_element,
 	sge::renderer::vf::dynamic::stride const _stride,
 	sge::opengl::context::object &_context
@@ -111,6 +113,7 @@ sge::opengl::vf::to_actor(
 					);
 			},
 			[
+				&_log,
 				&parameters
 			](
 				sge::renderer::vf::dynamic::texpos const &_texpos
@@ -123,6 +126,7 @@ sge::opengl::vf::to_actor(
 						fcppt::make_unique_ptr<
 							sge::opengl::vf::texpos_actor
 						>(
+							_log,
 							parameters,
 							_texpos
 						)

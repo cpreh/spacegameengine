@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/xrandr/optional_system_unique_ptr.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -34,6 +35,7 @@ namespace xrandr
 
 sge::opengl::xrandr::optional_system_unique_ptr
 create_system(
+	fcppt::log::object &,
 	awl::backends::x11::display &
 );
 

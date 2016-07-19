@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/logger.hpp>
 #include <sge/opengl/xrandr/create_system.hpp>
 #include <sge/opengl/xrandr/extension.hpp>
 #include <sge/opengl/xrandr/get_extension.hpp>
@@ -31,12 +30,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/maybe.hpp>
 
 
 sge::opengl::xrandr::optional_system_unique_ptr
 sge::opengl::xrandr::create_system(
+	fcppt::log::object &_log,
 	awl::backends::x11::display &_display
 )
 {
@@ -45,9 +46,11 @@ sge::opengl::xrandr::create_system(
 			sge::opengl::xrandr::get_extension(
 				_display
 			),
-			[]{
+			[
+				&_log
+			]{
 				FCPPT_LOG_WARNING(
-					sge::opengl::logger(),
+					_log,
 					fcppt::log::_
 						<< FCPPT_TEXT("xrandr extension not found")
 				);
@@ -56,6 +59,7 @@ sge::opengl::xrandr::create_system(
 					sge::opengl::xrandr::optional_system_unique_ptr();
 			},
 			[
+				&_log,
 				&_display
 			](
 				sge::opengl::xrandr::extension const _extension
@@ -78,7 +82,7 @@ sge::opengl::xrandr::create_system(
 				)
 				{
 					FCPPT_LOG_WARNING(
-						sge::opengl::logger(),
+						_log,
 						fcppt::log::_
 							<< FCPPT_TEXT("xrandr version ")
 							<< version

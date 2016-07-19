@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/global_context.hpp>
+#include <sge/log/default_setting.hpp>
 #include <sge/opencl/log_location.hpp>
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/program/build_error.hpp>
@@ -36,9 +36,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/stream_to_string.hpp>
-#include <fcppt/log/deactivate_levels_recursive.hpp>
+#include <fcppt/log/context.hpp>
+#include <fcppt/log/enabled_levels.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/log/location.hpp>
+#include <fcppt/log/location_setting.hpp>
+#include <fcppt/log/setting.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -60,10 +62,19 @@ main(
 	char *argv[])
 try
 {
-	fcppt::log::deactivate_levels_recursive(
-		sge::log::global_context(),
-		sge::opencl::log_location(),
-		fcppt::log::level::verbose
+	fcppt::log::context log_context(
+		sge::log::default_setting()
+	);
+
+	log_context.set(
+		fcppt::log::location_setting{
+			sge::opencl::log_location(),
+			fcppt::log::setting{
+				fcppt::log::enabled_levels(
+					fcppt::log::level::verbose
+				)
+			}
+		}
 	);
 
 	if(argc < 2)
@@ -86,13 +97,16 @@ try
 
 	// Mind the extra parens
 	sge::opencl::single_device_system::object opencl_system(
-		(sge::opencl::single_device_system::parameters()));
+		log_context,
+		sge::opencl::single_device_system::parameters()
+	);
 
 	boost::filesystem::ifstream stream(
 		target_file_name
 	);
 
 	sge::opencl::program::object main_program(
+		log_context,
 		opencl_system.context(),
 		sge::opencl::program::source_string_sequence{
 			fcppt::io::stream_to_string(

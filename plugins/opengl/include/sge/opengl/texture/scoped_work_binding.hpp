@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -49,6 +50,7 @@ class scoped_work_binding
 	);
 public:
 	scoped_work_binding(
+		fcppt::log::object &,
 		sge::opengl::context::object &,
 		sge::opengl::texture::type,
 		sge::opengl::texture::id

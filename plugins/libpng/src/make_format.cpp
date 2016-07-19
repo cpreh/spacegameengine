@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/compare_gamma.hpp>
 #include <sge/libpng/format.hpp>
 #include <sge/libpng/gamma.hpp>
-#include <sge/libpng/logger.hpp>
 #include <sge/libpng/make_format.hpp>
 #include <sge/libpng/optional_format.hpp>
 #include <sge/libpng/png.hpp>
@@ -30,10 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 sge::libpng::optional_format
 sge::libpng::make_format(
+	fcppt::log::object &_log,
 	png_byte const _color_type,
 	png_byte const _bit_depth,
 	sge::libpng::gamma const _gamma
@@ -52,7 +53,7 @@ sge::libpng::make_format(
 	)
 	{
 		FCPPT_LOG_ERROR(
-			sge::libpng::logger(),
+			_log,
 			fcppt::log::_
 				<< FCPPT_TEXT("PNG file has gAMA ")
 				<< _gamma

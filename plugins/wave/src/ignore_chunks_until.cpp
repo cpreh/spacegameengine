@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wave/extract_header.hpp>
 #include <sge/wave/header.hpp>
 #include <sge/wave/ignore_chunks_until.hpp>
-#include <sge/wave/logger.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
@@ -31,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/read.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/info.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 bool
 sge::wave::ignore_chunks_until(
+	fcppt::log::object &_log,
 	std::istream &_stream,
 	sge::wave::header const &_header,
 	fcppt::endianness::format const _endianness
@@ -55,6 +56,7 @@ sge::wave::ignore_chunks_until(
 				false
 			),
 			[
+				&_log,
 				&_header
 			](
 				sge::wave::header const &_cur
@@ -70,7 +72,7 @@ sge::wave::ignore_chunks_until(
 					do_continue
 				)
 					FCPPT_LOG_INFO(
-						sge::wave::logger(),
+						_log,
 						fcppt::log::_
 							<<
 							FCPPT_TEXT("detected unknown subchunk ")

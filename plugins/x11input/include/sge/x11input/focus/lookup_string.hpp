@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/x11input/input_context_fwd.hpp>
 #include <sge/x11input/focus/looked_up_string_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -37,6 +38,7 @@ namespace focus
 
 sge::x11input::focus::looked_up_string
 lookup_string(
+	fcppt::log::object &,
 	sge::x11input::input_context const &,
 	XIDeviceEvent const &
 );

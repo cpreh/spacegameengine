@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
 #include <sge/renderer/texture/mipmap/levels_rep.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/size_type.hpp>
 
 
@@ -36,6 +37,7 @@ template<
 >
 void
 sge::opengl::texture::mipmap::levels(
+	fcppt::log::object &_log,
 	sge::opengl::texture::mipmap::parameters<
 		Size
 	> const &_parameters,
@@ -57,6 +59,7 @@ sge::opengl::texture::mipmap::levels(
 		);
 
 		sge::opengl::texture::mipmap::auto_generate(
+			_log,
 			_parameters.binding(),
 			_parameters.context()
 		);
@@ -76,6 +79,7 @@ void \
 sge::opengl::texture::mipmap::levels<\
 	dimension\
 >(\
+	fcppt::log::object &, \
 	sge::opengl::texture::mipmap::parameters<\
 		dimension\
 	> const &,\

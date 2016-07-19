@@ -93,11 +93,15 @@ try
 	);
 
 	sge::renderer::core_unique_ptr const render_core(
-		plugin.get()()
+		plugin.get()(
+			log_context
+		)
 	);
 
 	awl::system::object_unique_ptr const awl_system(
-		awl::system::create()
+		awl::system::create(
+			log_context
+		)
 	);
 
 	sge::renderer::system_unique_ptr const render_sys(

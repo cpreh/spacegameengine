@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/exception.hpp>
 #include <sge/x11input/input_context.hpp>
-#include <sge/x11input/logger.hpp>
 #include <sge/x11input/focus/char_vector.hpp>
 #include <sge/x11input/focus/looked_up_string.hpp>
 #include <sge/x11input/focus/lookup_string.hpp>
@@ -33,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <X11/extensions/XInput2.h>
@@ -68,6 +68,7 @@ do_lookup(
 
 sge::x11input::focus::looked_up_string
 sge::x11input::focus::lookup_string(
+	fcppt::log::object &_log,
 	sge::x11input::input_context const &_input_context,
 	XIDeviceEvent const &_event
 )
@@ -151,7 +152,7 @@ sge::x11input::focus::lookup_string(
 	)
 	{
 		FCPPT_LOG_ERROR(
-			sge::x11input::logger(),
+			_log,
 			fcppt::log::_
 				<< FCPPT_TEXT("XwcLookupString mismatch of lengths!")
 				FCPPT_TEXT(" This usually happens if your locale is not set.")

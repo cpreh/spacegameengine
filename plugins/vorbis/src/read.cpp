@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/raw_pointer.hpp>
 #include <sge/media/error_string.hpp>
 #include <sge/media/optional_name_fwd.hpp>
-#include <sge/vorbis/logger.hpp>
 #include <sge/vorbis/read.hpp>
 #include <sge/vorbis/stream.hpp>
 #include <fcppt/text.hpp>
@@ -33,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/endianness/is_little_endian.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 std::size_t
 sge::vorbis::read(
+	fcppt::log::object &_log,
 	sge::vorbis::stream &_stream,
 	sge::media::optional_name const &_name,
 	sge::audio::raw_pointer const _data,
@@ -87,7 +88,7 @@ sge::vorbis::read(
 	// we can just ignore holes.
 	case OV_HOLE:
 		FCPPT_LOG_WARNING(
-			sge::vorbis::logger(),
+			_log,
 			fcppt::log::_ <<
 				sge::media::error_string(
 					_name,
@@ -116,7 +117,7 @@ sge::vorbis::read(
 	)
 	{
 		FCPPT_LOG_DEBUG(
-			sge::vorbis::logger(),
+			_log,
 			fcppt::log::_
 				<< FCPPT_TEXT("Read until the end.")
 		);

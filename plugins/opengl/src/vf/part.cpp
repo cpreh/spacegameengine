@@ -29,13 +29,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 sge::opengl::vf::part::part(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context,
 	sge::renderer::vf::dynamic::part const &_part
 )
 :
+	log_{
+		_log
+	},
 	context_(
 		_context
 	),
@@ -48,6 +53,7 @@ sge::opengl::vf::part::part(
 		>(
 			_part.elements(),
 			[
+				&_log,
 				&_part,
 				&_context
 			](
@@ -56,6 +62,7 @@ sge::opengl::vf::part::part(
 			{
 				return
 					sge::opengl::vf::to_actor(
+						_log,
 						_elem,
 						_part.stride(),
 						_context
@@ -83,6 +90,7 @@ sge::opengl::vf::part::use_me(
 ) const
 {
 	sge::opengl::vf::client_state_combiner states(
+		log_,
 		context_
 	);
 
@@ -107,6 +115,7 @@ void
 sge::opengl::vf::part::unuse_me() const
 {
 	sge::opengl::vf::client_state_combiner states(
+		log_,
 		context_
 	);
 

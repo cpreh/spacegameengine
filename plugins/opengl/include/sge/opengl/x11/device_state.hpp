@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
 
@@ -48,6 +49,7 @@ class device_state
 	);
 public:
 	device_state(
+		fcppt::log::object &,
 		sge::opengl::xrandr::optional_system_ref const &,
 		sge::renderer::display_mode::optional_object const &,
 		awl::backends::x11::window::object &
@@ -89,6 +91,8 @@ private:
 		resolution_unique_ptr
 	>
 	optional_resolution_unique_ptr;
+
+	fcppt::log::object &log_;
 
 	optional_xrandr_state_unique_ptr const xrandr_state_;
 

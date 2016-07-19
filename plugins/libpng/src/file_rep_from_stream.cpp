@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/header_bytes.hpp>
 #include <sge/libpng/info.hpp>
 #include <sge/libpng/load_context.hpp>
-#include <sge/libpng/logger.hpp>
 #include <sge/libpng/make_format.hpp>
 #include <sge/libpng/make_row_vector.hpp>
 #include <sge/libpng/optional_file_rep.hpp>
@@ -44,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/info.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -56,11 +56,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::libpng::optional_file_rep
 sge::libpng::file_rep_from_stream(
+	fcppt::log::object &_log,
 	std::istream &_stream,
 	sge::media::optional_name const &_name
 )
 {
 	sge::libpng::error_context error_context(
+		_log,
 		_name
 	);
 
@@ -130,7 +132,7 @@ sge::libpng::file_rep_from_stream(
 			);
 
 	FCPPT_LOG_DEBUG(
-		sge::libpng::logger(),
+		_log,
 		fcppt::log::_
 			<<
 			FCPPT_TEXT("png: dimensions: ")
@@ -156,7 +158,7 @@ sge::libpng::file_rep_from_stream(
 	{
 		case PNG_COLOR_TYPE_PALETTE:
 			FCPPT_LOG_INFO(
-				sge::libpng::logger(),
+				_log,
 				fcppt::log::_
 					<<
 					sge::media::error_string(
@@ -228,6 +230,7 @@ sge::libpng::file_rep_from_stream(
 	return
 		fcppt::optional::maybe(
 			sge::libpng::make_format(
+				_log,
 				color_type,
 				bpp,
 				sge::libpng::get_gamma(
@@ -236,11 +239,12 @@ sge::libpng::file_rep_from_stream(
 				)
 			),
 			[
+				&_log,
 				&_name,
 				bpp
 			]{
 				FCPPT_LOG_INFO(
-					sge::libpng::logger(),
+					_log,
 					fcppt::log::_
 						<<
 						sge::media::error_string(

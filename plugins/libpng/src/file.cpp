@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -43,9 +44,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::libpng::file::file(
+	fcppt::log::object &_log,
 	sge::libpng::file_rep &&_rep
 )
 :
+	log_{
+		_log
+	},
 	rep_(
 		std::move(
 			_rep
@@ -113,6 +118,7 @@ sge::libpng::file::save(
 			);
 
 	sge::libpng::write(
+		log_,
 		output,
 		name,
 		rep_
@@ -125,6 +131,7 @@ sge::libpng::file::save_stream(
 ) const
 {
 	sge::libpng::write(
+		log_,
 		_stream,
 		sge::media::optional_name(),
 		rep_

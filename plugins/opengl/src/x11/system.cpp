@@ -34,15 +34,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/dynamic_cross_exn.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/deref.hpp>
 
 
 sge::opengl::x11::system::system(
+	fcppt::log::object &_log,
 	awl::backends::x11::system::object &_awl_system
 )
 :
+	log_{
+		_log
+	},
 	xrandr_system_(
 		sge::opengl::xrandr::create_system(
+			_log,
 			_awl_system.display()
 		)
 	)
@@ -74,6 +80,7 @@ sge::opengl::x11::system::create_device_state(
 			fcppt::make_unique_ptr<
 				sge::opengl::x11::device_state
 			>(
+				log_,
 				fcppt::optional::deref(
 					xrandr_system_
 				),

@@ -206,6 +206,7 @@ try
 	);
 
 	sge::cegui::system gui_sys(
+		sys.log_context(),
 		sge::cegui::load_context(
 			sge::config::media_path()
 			/
@@ -226,6 +227,7 @@ try
 	);
 
 	sge::cegui::syringe gui_syringe(
+		sys.log_context(),
 		gui_sys
 	);
 

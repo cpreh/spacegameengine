@@ -36,10 +36,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/lighting/material/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/misc/const_optional_object_ref.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 void
 sge::opengl::state::ffp::set_defaults(
+	fcppt::log::object &_log,
 	sge::opengl::context::object &_context
 )
 {
@@ -74,11 +76,13 @@ sge::opengl::state::ffp::set_defaults(
 	);
 
 	sge::opengl::state::ffp::misc::set(
+		_log,
 		_context,
 		sge::renderer::state::ffp::misc::const_optional_object_ref()
 	);
 
 	sge::opengl::state::ffp::sampler::set_defaults(
+		_log,
 		_context
 	);
 

@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_name_fwd.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <climits>
 #include <iosfwd>
@@ -44,12 +45,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::libpng::write(
+	fcppt::log::object &_log,
 	std::ostream &_stream,
 	sge::media::optional_name const &_name,
 	sge::libpng::file_rep const &_rep
 )
 {
 	sge::libpng::error_context error_context{
+		_log,
 		_name
 	};
 

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/manager/config_map.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <unordered_map>
@@ -48,6 +49,7 @@ class object
 	);
 public:
 	object(
+		fcppt::log::object &,
 		awl::backends::x11::display &,
 		sge::x11input::device::manager::config_map &&
 	);
@@ -75,6 +77,8 @@ private:
 		sge::x11input::device::use,
 		Function const &
 	);
+
+	fcppt::log::object &log_;
 
 	awl::backends::x11::display &display_;
 

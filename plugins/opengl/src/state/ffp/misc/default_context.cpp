@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/state/ffp/misc/default_context.hpp>
+#include <sge/opengl/state/ffp/misc/default_context_parameters.hpp>
 #include <sge/opengl/state/ffp/misc/make_actors.hpp>
 #include <sge/opengl/state/ffp/misc/object.hpp>
 #include <sge/renderer/state/ffp/misc/default.hpp>
 #include <sge/renderer/state/ffp/misc/parameters.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/reference_impl.hpp>
 
 
 sge::opengl::state::ffp::misc::default_context::default_context(
@@ -40,8 +40,8 @@ sge::opengl::state::ffp::misc::default_context::default_context(
 			sge::opengl::state::ffp::misc::object
 		>(
 			sge::opengl::state::ffp::misc::make_actors(
-				_parameter.first.get(),
-				_parameter.second.get(),
+				_parameter.log(),
+				_parameter.context(),
 				sge::renderer::state::ffp::misc::default_()
 			)
 		)

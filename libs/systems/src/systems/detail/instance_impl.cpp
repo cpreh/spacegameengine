@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/device_fwd.hpp>
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/log/default_parameters.hpp>
+#include <sge/log/default_setting.hpp>
 #include <sge/log/location.hpp>
 #include <sge/parse/ini/optional_start_fwd.hpp>
 #include <sge/plugin/collection.hpp>
@@ -72,10 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/log/context.hpp>
-#include <fcppt/log/enabled_levels.hpp>
-#include <fcppt/log/level.hpp>
 #include <fcppt/log/object.hpp>
-#include <fcppt/log/setting.hpp>
 
 
 sge::systems::detail::instance_impl::instance_impl(
@@ -84,11 +82,7 @@ sge::systems::detail::instance_impl::instance_impl(
 )
 :
 	log_context_{
-		fcppt::log::setting{
-			fcppt::log::enabled_levels(
-				fcppt::log::level::info
-			)
-		}
+		sge::log::default_setting()
 	},
 	log_{
 		log_context_,

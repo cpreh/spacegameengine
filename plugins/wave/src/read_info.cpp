@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wave/header.hpp>
 #include <sge/wave/ignore_chunks_until.hpp>
 #include <sge/wave/info.hpp>
-#include <sge/wave/logger.hpp>
 #include <sge/wave/optional_header.hpp>
 #include <sge/wave/optional_info.hpp>
 #include <sge/wave/read_info.hpp>
@@ -40,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/read.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/info.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_multi.hpp>
 #include <fcppt/optional/object.hpp>
@@ -51,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::wave::optional_info
 sge::wave::read_info(
+	fcppt::log::object &_log,
 	std::istream &_stream,
 	sge::media::optional_name const &_name
 )
@@ -145,6 +146,7 @@ sge::wave::read_info(
 
 	if(
 		!sge::wave::ignore_chunks_until(
+			_log,
 			_stream,
 			sge::wave::header{{
 				'f','m','t',' '
@@ -175,6 +177,7 @@ sge::wave::read_info(
 				true
 			),
 			[
+				&_log,
 				&_name
 			](
 				std::uint16_t const _format
@@ -194,7 +197,7 @@ sge::wave::read_info(
 					unsupported
 				)
 					FCPPT_LOG_INFO(
-						sge::wave::logger(),
+						_log,
 						fcppt::log::_
 							<<
 							sge::media::error_string(
@@ -266,6 +269,7 @@ sge::wave::read_info(
 
 	if(
 		!sge::wave::ignore_chunks_until(
+			_log,
 			_stream,
 			sge::wave::header{{
 				'd','a','t','a'
