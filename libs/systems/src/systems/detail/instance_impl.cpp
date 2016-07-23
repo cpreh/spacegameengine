@@ -68,12 +68,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/scoped_output.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/deref.hpp>
-#include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/object.hpp>
+#include <fcppt/optional/deref.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 sge::systems::detail::instance_impl::instance_impl(

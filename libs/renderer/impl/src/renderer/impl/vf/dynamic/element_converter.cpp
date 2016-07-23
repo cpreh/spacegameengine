@@ -30,11 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/impl/vf/dynamic/element_converter.hpp>
+#include <sge/renderer/impl/vf/dynamic/lock_interval.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
-#include <sge/renderer/impl/vf/dynamic/element_converter.hpp>
-#include <sge/renderer/impl/vf/dynamic/lock_interval.hpp>
 #include <fcppt/assert/pre.hpp>
 
 

@@ -32,13 +32,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/optional_part_unique_ptr.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
-#include <fcppt/optional/from.hpp>
-#include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/algorithm/map_iteration_second.hpp>
 #include <fcppt/algorithm/update_action.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range_core.hpp>
 #include <utility>

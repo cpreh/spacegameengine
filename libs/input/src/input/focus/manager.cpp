@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/processor.hpp>
 #include <sge/input/focus/char_callback.hpp>
-#include <sge/input/focus/object.hpp>
 #include <sge/input/focus/discover_callback.hpp>
 #include <sge/input/focus/discover_event.hpp>
 #include <sge/input/focus/in_callback.hpp>
@@ -28,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/key_callback.hpp>
 #include <sge/input/focus/key_repeat_callback.hpp>
 #include <sge/input/focus/manager.hpp>
+#include <sge/input/focus/object.hpp>
 #include <sge/input/focus/out_callback.hpp>
 #include <sge/input/focus/out_event.hpp>
 #include <sge/input/focus/remove_callback.hpp>

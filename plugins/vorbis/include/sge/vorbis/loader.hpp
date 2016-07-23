@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_VORBIS_LOADER_HPP_INCLUDED
 #define SGE_VORBIS_LOADER_HPP_INCLUDED
 
-#include <sge/audio/loader.hpp>
 #include <sge/audio/load_stream_result_fwd.hpp>
+#include <sge/audio/loader.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>

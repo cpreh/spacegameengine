@@ -18,20 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/impl/vf/dynamic/lock_interval.hpp>
+#include <sge/renderer/impl/vf/dynamic/locked_part_interval.hpp>
+#include <sge/renderer/impl/vf/dynamic/detail/converter_impl.hpp>
 #include <sge/renderer/lock_flags/read.hpp>
 #include <sge/renderer/lock_flags/write.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/converter.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
-#include <sge/renderer/impl/vf/dynamic/lock_interval.hpp>
-#include <sge/renderer/impl/vf/dynamic/locked_part_interval.hpp>
-#include <sge/renderer/impl/vf/dynamic/detail/converter_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 sge::renderer::vf::dynamic::converter::converter(

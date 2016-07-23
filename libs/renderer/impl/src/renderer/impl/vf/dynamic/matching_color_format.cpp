@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image/color/format_to_string.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/impl/vf/dynamic/matching_color_format.hpp>
+#include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/contains.hpp>
 #include <fcppt/algorithm/find_if_opt.hpp>

@@ -47,10 +47,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/posix/processor_base.hpp>
 #include <awl/system/event/processor.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/dynamic_cross_exn.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/optional_auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>

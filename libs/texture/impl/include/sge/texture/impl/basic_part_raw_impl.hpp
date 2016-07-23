@@ -29,10 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part.hpp>
 #include <sge/texture/sub_data.hpp>
 #include <sge/texture/impl/dereference_basic_part.hpp>
-#include <fcppt/optional/from.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/math/box/comparison.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

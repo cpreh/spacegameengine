@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/context_fwd.hpp>
 #include <sge/gui/duration.hpp>
 #include <sge/gui/master_fwd.hpp>
-#include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/background/base_fwd.hpp>
+#include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/main_area/base_fwd.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
 #include <sge/gui/widget/base_fwd.hpp>

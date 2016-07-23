@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/wininput/cursor/release_capture.hpp>
 #include <sge/input/exception.hpp>
+#include <sge/wininput/cursor/release_capture.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/text.hpp>
 

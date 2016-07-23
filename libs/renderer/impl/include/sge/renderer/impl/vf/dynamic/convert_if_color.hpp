@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_IMPL_VF_DYNAMIC_CONVERT_IF_COLOR_HPP_INCLUDED
 
 #include <sge/image/color/format.hpp>
+#include <sge/renderer/impl/vf/dynamic/element_converter.hpp>
+#include <sge/renderer/impl/vf/dynamic/element_converter_vector.hpp>
+#include <sge/renderer/impl/vf/dynamic/matching_color_format.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
-#include <sge/renderer/impl/vf/dynamic/element_converter.hpp>
-#include <sge/renderer/impl/vf/dynamic/element_converter_vector.hpp>
-#include <sge/renderer/impl/vf/dynamic/matching_color_format.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/variant/to_optional.hpp>
 

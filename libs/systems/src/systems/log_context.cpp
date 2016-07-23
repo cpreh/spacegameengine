@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/log/default_setting.hpp>
 #include <sge/src/systems/log_context.hpp>
 #include <sge/systems/optional_log_context_ref.hpp>
-#include <sge/log/default_setting.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>

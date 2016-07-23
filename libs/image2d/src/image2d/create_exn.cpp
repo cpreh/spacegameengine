@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/media/extension_fwd.hpp>
-#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 
 sge::image2d::file_unique_ptr

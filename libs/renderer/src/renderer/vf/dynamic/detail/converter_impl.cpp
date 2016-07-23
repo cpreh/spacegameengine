@@ -19,15 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/impl/vf/dynamic/convert_if_color.hpp>
+#include <sge/renderer/impl/vf/dynamic/element_converter.hpp>
+#include <sge/renderer/impl/vf/dynamic/lock_interval.hpp>
+#include <sge/renderer/impl/vf/dynamic/detail/converter_impl.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/extra.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/vf/dynamic/detail/lock_interval_set.hpp>
-#include <sge/renderer/impl/vf/dynamic/detail/converter_impl.hpp>
-#include <sge/renderer/impl/vf/dynamic/convert_if_color.hpp>
-#include <sge/renderer/impl/vf/dynamic/element_converter.hpp>
-#include <sge/renderer/impl/vf/dynamic/lock_interval.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/variant/to_optional.hpp>
 

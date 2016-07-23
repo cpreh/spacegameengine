@@ -39,13 +39,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/cursor_hotspot.hpp>
 #include <sge/texture/const_part_ref.hpp>
 #include <sge/texture/part_fwd.hpp>
-#include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/map.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/to_signed.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 

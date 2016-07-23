@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_IMPL_VF_DYNAMIC_LOCKED_PART_INTERVAL_HPP_INCLUDED
 #define SGE_RENDERER_IMPL_VF_DYNAMIC_LOCKED_PART_INTERVAL_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic/locked_part_fwd.hpp>
 #include <sge/renderer/impl/vf/dynamic/lock_interval.hpp>
+#include <sge/renderer/vf/dynamic/locked_part_fwd.hpp>
 
 
 namespace sge

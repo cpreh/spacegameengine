@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_MD3_CREATE_HPP_INCLUDED
 #define SGE_MODEL_MD3_CREATE_HPP_INCLUDED
 
-#include <fcppt/log/context_fwd.hpp>
 #include <sge/model/md3/loader_unique_ptr.hpp>
 #include <sge/model/md3/detail/symbol.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace sge

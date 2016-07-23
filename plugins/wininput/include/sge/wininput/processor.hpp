@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WININPUT_PROCESSOR_HPP_INCLUDED
 #define SGE_WININPUT_PROCESSOR_HPP_INCLUDED
 
-#include <sge/wininput/cursor/object_fwd.hpp>
-#include <sge/wininput/focus/object_fwd.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/discover_callback.hpp>
 #include <sge/input/cursor/discover_signal.hpp>
@@ -40,14 +38,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
+#include <sge/wininput/cursor/object_fwd.hpp>
+#include <sge/wininput/focus/object_fwd.hpp>
+#include <awl/backends/windows/system/event/scoped_user_message.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/backends/windows/window/event/object_fwd.hpp>
 #include <awl/backends/windows/window/event/processor_fwd.hpp>
 #include <awl/backends/windows/window/event/return_type_fwd.hpp>
-#include <awl/backends/windows/system/event/scoped_user_message.hpp>
-#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/signal/optional_auto_connection_fwd.hpp>

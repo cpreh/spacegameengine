@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/focus/object_fwd.hpp>
 #include <sge/input/focus/discover_event.hpp>
+#include <sge/input/focus/object_fwd.hpp>
 #include <sge/input/impl/event/instantiate_discover.hpp>
 
 

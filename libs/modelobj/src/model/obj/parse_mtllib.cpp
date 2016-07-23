@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/parse_mtllib.hpp>
 #include <sge/model/obj/impl/log_name.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <fcppt/optional/from.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -44,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/warning.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>

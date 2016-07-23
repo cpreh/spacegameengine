@@ -25,14 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/to_dpi.hpp>
-#include <fcppt/optional/from.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/optional/bind.hpp>
-#include <fcppt/optional/map.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/fill.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/optional/bind.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/map.hpp>
 
 
 sge::renderer::display_mode::dpi

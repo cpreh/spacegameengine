@@ -20,13 +20,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/dim1.hpp>
 #include <sge/renderer/lock_segment.hpp>
+#include <sge/renderer/impl/buffer/instantiate_base.hpp>
+#include <sge/renderer/impl/buffer/instantiate_readable.hpp>
+#include <sge/renderer/impl/buffer/instantiate_writable.hpp>
 #include <sge/renderer/vertex/buffer_base.hpp>
 #include <sge/renderer/vertex/tag.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
-#include <sge/renderer/impl/buffer/instantiate_base.hpp>
-#include <sge/renderer/impl/buffer/instantiate_readable.hpp>
-#include <sge/renderer/impl/buffer/instantiate_writable.hpp>
 
 
 SGE_RENDERER_IMPL_BUFFER_INSTANTIATE_BASE(

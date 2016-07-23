@@ -18,10 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/wininput/has_focus.hpp>
-#include <sge/wininput/cursor/exclusive_mode.hpp>
-#include <sge/wininput/cursor/get_pos.hpp>
-#include <sge/wininput/cursor/object.hpp>
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
@@ -35,6 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/scroll_callback.hpp>
 #include <sge/input/cursor/scroll_code.hpp>
 #include <sge/input/cursor/scroll_event.hpp>
+#include <sge/wininput/has_focus.hpp>
+#include <sge/wininput/cursor/exclusive_mode.hpp>
+#include <sge/wininput/cursor/get_pos.hpp>
+#include <sge/wininput/cursor/object.hpp>
 #include <awl/backends/windows/message_type.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
@@ -44,15 +44,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/processor.hpp>
 #include <awl/backends/windows/window/event/return_type.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/bind.hpp>
-#include <fcppt/optional/map.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/join.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>
+#include <fcppt/optional/bind.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

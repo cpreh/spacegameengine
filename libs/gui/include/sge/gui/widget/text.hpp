@@ -21,15 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_WIDGET_TEXT_HPP_INCLUDED
 #define SGE_GUI_WIDGET_TEXT_HPP_INCLUDED
 
+#include <sge/font/object_fwd.hpp>
+#include <sge/font/string.hpp>
 #include <sge/gui/optional_needed_width.hpp>
-#include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/text_color.hpp>
+#include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
 #include <sge/gui/style/base_fwd.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/text_fwd.hpp>
-#include <sge/font/object_fwd.hpp>
-#include <sge/font/string.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/rucksack/axis_policy_fwd.hpp>

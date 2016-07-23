@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/impl/is_epsilon_equal.hpp>
 #include <sge/renderer/impl/projection/check_near.hpp>
+#include <sge/renderer/projection/near.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
 

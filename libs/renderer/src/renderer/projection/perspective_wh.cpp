@@ -20,12 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/impl/projection/check_near.hpp>
+#include <sge/renderer/impl/projection/check_near_far.hpp>
 #include <sge/renderer/projection/dim.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/perspective_wh.hpp>
-#include <sge/renderer/impl/projection/check_near.hpp>
-#include <sge/renderer/impl/projection/check_near_far.hpp>
 #include <fcppt/math/matrix/row.hpp>
 
 

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CHARCONV_FCPPT_STRING_TO_UTF8_HPP_INCLUDED
 #define SGE_CHARCONV_FCPPT_STRING_TO_UTF8_HPP_INCLUDED
 
-#include <sge/charconv/detail/symbol.hpp>
 #include <sge/charconv/utf8_string.hpp>
+#include <sge/charconv/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
 

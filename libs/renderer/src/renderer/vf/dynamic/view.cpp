@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/vf/dynamic/view.hpp>
 #include <sge/renderer/impl/vf/dynamic/instantiate_basic_view.hpp>
+#include <sge/renderer/vf/dynamic/view.hpp>
 
 
 SGE_RENDERER_IMPL_VF_DYNAMIC_INSTANTIATE_BASIC_VIEW(

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_WIDGET_TAB_HPP_INCLUDED
 #define SGE_GUI_WIDGET_TAB_HPP_INCLUDED
 
+#include <sge/font/object_fwd.hpp>
 #include <sge/gui/context_fwd.hpp>
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/style/base_fwd.hpp>
@@ -28,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widget/reference_name_vector.hpp>
 #include <sge/gui/widget/tab_fwd.hpp>
 #include <sge/gui/widget/unique_ptr_vector.hpp>
-#include <sge/font/object_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 

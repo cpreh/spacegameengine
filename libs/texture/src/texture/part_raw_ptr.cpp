@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
-#include <sge/texture/impl/instantiate_basic_part_raw.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
+#include <sge/texture/impl/instantiate_basic_part_raw.hpp>
 
 
 SGE_TEXTURE_IMPL_INSTANTIATE_BASIC_PART_RAW(

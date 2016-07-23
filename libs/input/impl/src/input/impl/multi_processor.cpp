@@ -30,6 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/discover_event_fwd.hpp>
 #include <sge/input/focus/remove_callback.hpp>
 #include <sge/input/focus/remove_event_fwd.hpp>
+#include <sge/input/impl/multi_processor.hpp>
+#include <sge/input/impl/system_ptr_vector.hpp>
 #include <sge/input/joypad/discover_callback.hpp>
 #include <sge/input/joypad/discover_event_fwd.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
@@ -42,8 +44,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/discover_event_fwd.hpp>
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/input/mouse/remove_event_fwd.hpp>
-#include <sge/input/impl/multi_processor.hpp>
-#include <sge/input/impl/system_ptr_vector.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/text.hpp>

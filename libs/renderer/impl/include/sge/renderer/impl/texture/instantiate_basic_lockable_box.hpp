@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_IMPL_TEXTURE_INSTANTIATE_BASIC_LOCKABLE_BOX_HPP_INCLUDED
 #define SGE_RENDERER_IMPL_TEXTURE_INSTANTIATE_BASIC_LOCKABLE_BOX_HPP_INCLUDED
 
-#include <sge/src/core/export_class_instantiation.hpp>
 #include <sge/renderer/impl/texture/basic_lockable_box_impl.hpp>
+#include <sge/src/core/export_class_instantiation.hpp>
 
 
 #define SGE_RENDERER_IMPL_TEXTURE_INSTANTIATE_BASIC_LOCKABLE_BOX(\

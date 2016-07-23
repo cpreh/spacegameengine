@@ -39,8 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/remove_callback.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <awl/backends/posix/event_fwd.hpp>
-#include <awl/backends/posix/processor_fwd.hpp>
 #include <awl/backends/posix/posted_unique_ptr.hpp>
+#include <awl/backends/posix/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/object_fwd.hpp>

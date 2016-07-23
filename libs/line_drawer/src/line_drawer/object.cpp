@@ -56,11 +56,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/line_drawer/vf/position.hpp>
 #include <sge/src/line_drawer/vf/vertex_view.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
-#include <fcppt/assert/optional_error.hpp>
-#include <fcppt/cast/size.hpp>
 
 
 sge::line_drawer::object::object(

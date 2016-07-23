@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_SHAPE_DETAIL_SCALAR_CONTAINER_HPP_INCLUDED
 #define SGE_PROJECTILE_SHAPE_DETAIL_SCALAR_CONTAINER_HPP_INCLUDED
 
-#include <fcppt/container/raw_vector.hpp>
 #include <sge/projectile/scalar.hpp>
+#include <fcppt/container/raw_vector.hpp>
 
 
 namespace sge

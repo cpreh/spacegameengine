@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/surfacefuncs/lock_rect.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/lock_rect_fwd.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 
 D3DLOCKED_RECT const

@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/impl/vf/dynamic/element_converter_fwd.hpp>
+#include <sge/renderer/impl/vf/dynamic/lock_interval.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
-#include <sge/renderer/impl/vf/dynamic/element_converter_fwd.hpp>
-#include <sge/renderer/impl/vf/dynamic/lock_interval.hpp>
 
 
 namespace sge

@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_WIDGET_REFERENCE_NAME_PAIR_HPP_INCLUDED
 #define SGE_GUI_WIDGET_REFERENCE_NAME_PAIR_HPP_INCLUDED
 
+#include <sge/font/string.hpp>
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/widget/reference.hpp>
 #include <sge/gui/widget/reference_name_pair_fwd.hpp>
-#include <sge/font/string.hpp>
 
 
 namespace sge

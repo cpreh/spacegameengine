@@ -31,11 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/assign.hpp>
-#include <fcppt/optional/deref.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/deref.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 
 sge::shader::parameter::planar_texture::planar_texture(

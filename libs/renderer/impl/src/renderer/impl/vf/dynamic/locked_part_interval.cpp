@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/vf/dynamic/locked_part.hpp>
 #include <sge/renderer/impl/vf/dynamic/lock_interval.hpp>
 #include <sge/renderer/impl/vf/dynamic/locked_part_interval.hpp>
+#include <sge/renderer/vf/dynamic/locked_part.hpp>
 
 
 sge::renderer::impl::vf::dynamic::lock_interval

@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/index/buffer.hpp>
-#include <sge/renderer/index/tag.hpp>
-#include <sge/renderer/index/const_scoped_lock.hpp>
 #include <sge/renderer/impl/buffer/instantiate_const_scoped_lock.hpp>
+#include <sge/renderer/index/buffer.hpp>
+#include <sge/renderer/index/const_scoped_lock.hpp>
+#include <sge/renderer/index/tag.hpp>
 
 
 SGE_RENDERER_IMPL_BUFFER_INSTANTIATE_CONST_SCOPED_LOCK(

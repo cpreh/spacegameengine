@@ -65,10 +65,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
-#include <fcppt/optional/assign.hpp>
-#include <fcppt/optional/map.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 

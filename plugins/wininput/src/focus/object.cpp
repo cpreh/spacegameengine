@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/key.hpp>
 #include <sge/input/focus/key_callback.hpp>
 #include <sge/input/focus/key_event.hpp>
-#include <sge/input/focus/key_repeat_event.hpp>
 #include <sge/input/focus/key_repeat_callback.hpp>
+#include <sge/input/focus/key_repeat_event.hpp>
 #include <sge/input/focus/object.hpp>
 #include <sge/input/focus/out_callback.hpp>
 #include <sge/input/focus/out_event.hpp>

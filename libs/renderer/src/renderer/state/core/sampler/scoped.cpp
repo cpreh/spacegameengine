@@ -19,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/context/core.hpp>
-#include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
-#include <sge/renderer/state/core/sampler/scoped.hpp>
 #include <sge/renderer/impl/state/core/sampler/null_states.hpp>
 #include <sge/renderer/impl/state/core/sampler/scoped_states.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
+#include <sge/renderer/state/core/sampler/scoped.hpp>
 
 
 sge::renderer::state::core::sampler::scoped::scoped(

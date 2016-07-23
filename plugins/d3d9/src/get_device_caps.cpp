@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/d3d9/get_device_caps.hpp>
 #include <sge/d3d9/device_index.hpp>
+#include <sge/d3d9/get_device_caps.hpp>
 #include <sge/d3d9/systemfuncs/get_caps.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/caps/clip_plane_indices.hpp>

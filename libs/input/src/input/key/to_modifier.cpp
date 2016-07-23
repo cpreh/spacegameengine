@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/input/key/code.hpp>
 #include <sge/input/key/is_alt.hpp>
 #include <sge/input/key/is_control.hpp>
 #include <sge/input/key/is_shift.hpp>
-#include <sge/input/key/code.hpp>
 #include <sge/input/key/modifier.hpp>
 #include <sge/input/key/optional_modifier.hpp>
 #include <sge/input/key/to_modifier.hpp>

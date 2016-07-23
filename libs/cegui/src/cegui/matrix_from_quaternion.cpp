@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/src/cegui/matrix_from_quaternion.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/src/cegui/matrix_from_quaternion.hpp>
 #include <fcppt/math/matrix/row.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Quaternion.h>

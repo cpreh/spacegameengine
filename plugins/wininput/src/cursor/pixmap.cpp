@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/wininput/cursor/pixmap.hpp>
 #include <sge/input/exception.hpp>
+#include <sge/wininput/cursor/pixmap.hpp>
 #include <awl/backends/windows/module_handle.hpp>
 #include <awl/backends/windows/system_metrics.hpp>
 #include <awl/backends/windows/windows.hpp>

@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension.hpp>
 #include <sge/src/cegui/image_codec.hpp>
 #include <sge/src/cegui/texture.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/ImageCodec.h>
 #include <CEGUI/Texture.h>

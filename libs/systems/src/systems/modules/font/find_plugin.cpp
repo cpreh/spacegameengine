@@ -31,9 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/font.hpp>
 #include <sge/systems/optional_name.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/optional/maybe.hpp>
 
 
 sge::font::plugin::object

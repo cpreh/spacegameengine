@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GUI_NEEDED_WIDTH_FROM_STRINGS_HPP_INCLUDED
 #define SGE_GUI_NEEDED_WIDTH_FROM_STRINGS_HPP_INCLUDED
 
+#include <sge/font/object_fwd.hpp>
 #include <sge/gui/needed_width.hpp>
 #include <sge/gui/string_container.hpp>
 #include <sge/gui/detail/symbol.hpp>
-#include <sge/font/object_fwd.hpp>
 
 
 namespace sge
