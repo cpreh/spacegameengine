@@ -80,6 +80,8 @@ set(
 	libs/systems/include/sge/systems/make_list.hpp
 	libs/systems/include/sge/systems/mouse_collector.hpp
 	libs/systems/include/sge/systems/mouse_collector_fwd.hpp
+	libs/systems/include/sge/systems/optional_log_context_ref.hpp
+	libs/systems/include/sge/systems/optional_log_context_ref_fwd.hpp
 	libs/systems/include/sge/systems/optional_log_redirect_path.hpp
 	libs/systems/include/sge/systems/optional_log_redirect_path_fwd.hpp
 	libs/systems/include/sge/systems/optional_log_settings.hpp
@@ -142,6 +144,7 @@ set(
 	libs/systems/src/systems/include/sge/src/systems/find_plugin.hpp
 	libs/systems/src/systems/include/sge/src/systems/find_plugin_opt.hpp
 	libs/systems/src/systems/include/sge/src/systems/ini_section_name.hpp
+	libs/systems/src/systems/include/sge/src/systems/log_context.hpp
 	libs/systems/src/systems/include/sge/src/systems/log_name.hpp
 	libs/systems/src/systems/include/sge/src/systems/make_any_key.hpp
 	libs/systems/src/systems/include/sge/src/systems/make_scoped_output.hpp
@@ -207,6 +210,7 @@ set(
 	libs/systems/src/systems/include/sge/src/systems/unpack_if_present.hpp
 	libs/systems/src/systems/ini_section_name.cpp
 	libs/systems/src/systems/input.cpp
+	libs/systems/src/systems/log_context.cpp
 	libs/systems/src/systems/log_location.cpp
 	libs/systems/src/systems/log_name.cpp
 	libs/systems/src/systems/log_settings.cpp

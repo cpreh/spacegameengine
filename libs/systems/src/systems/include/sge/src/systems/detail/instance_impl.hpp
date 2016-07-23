@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/src/systems/log_context.hpp>
 #include <sge/src/systems/modules/audio/loader_unique_ptr.hpp>
 #include <sge/src/systems/modules/audio/player_unique_ptr.hpp>
 #include <sge/src/systems/modules/font/object_unique_ptr.hpp>
@@ -51,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
+#include <sge/systems/optional_log_context_ref_fwd.hpp>
 #include <sge/systems/optional_log_redirect_path_fwd.hpp>
 #include <sge/systems/plugin_path.hpp>
 #include <sge/systems/window_fwd.hpp>
@@ -62,7 +64,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system_fwd.hpp>
 #include <awl/main/optional_scoped_output_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
@@ -82,6 +84,7 @@ class instance_impl
 public:
 	instance_impl(
 		sge::systems::plugin_path const &,
+		sge::systems::optional_log_context_ref const &,
 		sge::systems::optional_log_redirect_path const &
 	);
 
@@ -196,7 +199,7 @@ public:
 	sge::viewport::manager &
 	viewport_manager() const;
 private:
-	fcppt::log::context log_context_;
+	sge::systems::log_context log_context_;
 
 	fcppt::log::object log_;
 
