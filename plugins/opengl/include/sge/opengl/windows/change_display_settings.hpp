@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_WINDOWS_CHANGE_DISPLAY_SETTINGS_HPP_INCLUDED
 
 #include <sge/renderer/display_mode/object_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -33,6 +34,7 @@ namespace windows
 
 void
 change_display_settings(
+	fcppt::log::object &,
 	sge::renderer::display_mode::object const &
 );
 

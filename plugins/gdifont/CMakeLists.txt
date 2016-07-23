@@ -23,8 +23,6 @@ set(
 	plugins/gdifont/include/sge/gdifont/hbitmap_unique_ptr.hpp
 	plugins/gdifont/include/sge/gdifont/hfont_unique_ptr.hpp
 	plugins/gdifont/include/sge/gdifont/include_windows.hpp
-	plugins/gdifont/include/sge/gdifont/logger.hpp
-	plugins/gdifont/include/sge/gdifont/logger_context.hpp
 	plugins/gdifont/include/sge/gdifont/make_flags.hpp
 	plugins/gdifont/include/sge/gdifont/make_metrics.hpp
 	plugins/gdifont/include/sge/gdifont/object.hpp
@@ -50,8 +48,6 @@ set(
 	plugins/gdifont/src/get_bitmap.cpp
 	plugins/gdifont/src/get_object.cpp
 	plugins/gdifont/src/get_text_metrics.cpp
-	plugins/gdifont/src/logger.cpp
-	plugins/gdifont/src/logger_context.cpp
 	plugins/gdifont/src/make_flags.cpp
 	plugins/gdifont/src/make_metrics.cpp
 	plugins/gdifont/src/object.cpp

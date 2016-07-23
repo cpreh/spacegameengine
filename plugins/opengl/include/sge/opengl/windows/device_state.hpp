@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/platform/device_state.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -41,8 +42,8 @@ class device_state
 		device_state
 	);
 public:
-	explicit
 	device_state(
+		fcppt::log::object &,
 		sge::renderer::display_mode::optional_object const &
 	);
 

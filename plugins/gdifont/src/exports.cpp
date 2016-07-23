@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/system.hpp>
 #include <sge/font/system_unique_ptr.hpp>
-#include <sge/gdifont/logger_context.hpp>
+#include <sge/font/plugin/traits.hpp>
 #include <sge/gdifont/system.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace
@@ -55,7 +56,9 @@ sge::plugin::info const info(
 );
 
 sge::font::system_unique_ptr
-create_font_system()
+create_font_system(
+	fcppt::log::context &
+)
 {
 	return
 		fcppt::unique_ptr_to_base<
@@ -71,6 +74,10 @@ create_font_system()
 
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
 	info,
-	sge::gdifont::logger_context(),
-	(create_font_system)
+	(
+		(
+			sge::font::system,
+			create_font_system
+		)
+	)
 )

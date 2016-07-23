@@ -47,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/system/event/scoped_user_message.hpp>
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/signal/optional_auto_connection_fwd.hpp>
@@ -66,6 +67,7 @@ class processor
 	);
 public:
 	processor(
+		fcppt::log::object &,
 		sge::window::system const &,
 		sge::window::object const &
 	);
@@ -142,6 +144,8 @@ private:
 	on_init(
 		awl::backends::windows::window::event::object const &
 	);
+
+	fcppt::log::object &log_;
 
 	awl::backends::windows::window::object &windows_window_;
 

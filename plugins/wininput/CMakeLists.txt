@@ -18,8 +18,6 @@ set(
 	plugins/wininput/include/sge/wininput/focus/object_fwd.hpp
 	plugins/wininput/include/sge/wininput/focus/translate_key_code.hpp
 	plugins/wininput/include/sge/wininput/has_focus.hpp
-	plugins/wininput/include/sge/wininput/logger.hpp
-	plugins/wininput/include/sge/wininput/logger_context.hpp
 	plugins/wininput/include/sge/wininput/processor.hpp
 	plugins/wininput/include/sge/wininput/system.hpp
 	plugins/wininput/src/cursor/clip.cpp
@@ -36,8 +34,6 @@ set(
 	plugins/wininput/src/exports.cpp
 	plugins/wininput/src/focus/object.cpp
 	plugins/wininput/src/focus/translate_key_code.cpp
-	plugins/wininput/src/logger.cpp
-	plugins/wininput/src/logger_context.cpp
 	plugins/wininput/src/processor.cpp
 	plugins/wininput/src/system.cpp
 )

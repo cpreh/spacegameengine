@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/wininput/has_focus.hpp>
-#include <sge/wininput/logger.hpp>
 #include <sge/wininput/processor.hpp>
 #include <sge/wininput/cursor/object.hpp>
 #include <sge/wininput/focus/object.hpp>
@@ -68,6 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -82,10 +82,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::wininput::processor::processor(
+	fcppt::log::object &_log,
 	sge::window::system const &_window_system,
 	sge::window::object const &_window
 )
 :
+	log_{
+		_log
+	},
 	windows_window_(
 		fcppt::cast::dynamic_cross_exn<
 			awl::backends::windows::window::object &
@@ -274,7 +278,7 @@ sge::wininput::processor::on_focus_out(
 )
 {
 	FCPPT_LOG_DEBUG(
-		sge::wininput::logger(),
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("focus out")
 	);

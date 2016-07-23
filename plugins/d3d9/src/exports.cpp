@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/d3d9/core.hpp>
-#include <sge/d3d9/logger_context.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
 #include <sge/plugin/description.hpp>
@@ -32,9 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/make_interface.hpp>
 #include <sge/renderer/core.hpp>
 #include <sge/renderer/core_unique_ptr.hpp>
+#include <sge/renderer/plugin/traits.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace
@@ -56,7 +57,9 @@ sge::plugin::info const info(
 );
 
 sge::renderer::core_unique_ptr
-create_renderer_core()
+create_renderer_core(
+	fcppt::log::context &
+)
 {
 	return
 		fcppt::unique_ptr_to_base<
@@ -72,6 +75,10 @@ create_renderer_core()
 
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
 	info,
-	sge::d3d9::logger_context(),
-	(create_renderer_core)
+	(
+		(
+			sge::renderer::core,
+			create_renderer_core
+		)
+	)
 )

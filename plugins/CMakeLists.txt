@@ -134,11 +134,11 @@ add_sge_lib(
 )
 
 if(
-	WAYLAND_CLIENT_FOUND
+	"${WAYLAND_CLIENT_FOUND}"
 	AND
-	XKB_COMMON_FOUND
+	"${XKB_COMMON_FOUND}"
 	AND
-	ENABLE_WAYLAND
+	${ENABLE_WAYLAND}
 )
 	set(
 		WLINPUT_DEFAULT
@@ -158,9 +158,9 @@ add_sge_lib(
 )
 
 if(
-	ENABLE_X11
+	${ENABLE_X11}
 	AND
-	${X11_Xinput_FOUND}
+	"${X11_Xinput_FOUND}"
 )
 	set(
 		X11INPUT_DEFAULT

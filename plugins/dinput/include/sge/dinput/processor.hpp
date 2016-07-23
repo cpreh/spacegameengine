@@ -52,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/event/return_type_fwd.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/signal/optional_auto_connection_fwd.hpp>
@@ -74,6 +75,7 @@ class processor
 	);
 public:
 	processor(
+		fcppt::log::object &,
 		sge::window::object const &,
 		sge::window::system const &
 	);
@@ -205,6 +207,8 @@ private:
 		fcppt::com_deleter
 	>
 	dinput_unique_ptr;
+
+	fcppt::log::object &log_;
 
 	dinput_unique_ptr const dinput_;
 

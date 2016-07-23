@@ -49,8 +49,6 @@ SET(
 	plugins/dinput/include/sge/dinput/keyboard/key_map.hpp
 	plugins/dinput/include/sge/dinput/keyboard/make_info.hpp
 	plugins/dinput/include/sge/dinput/keyboard/translate_key_code.hpp
-	plugins/dinput/include/sge/dinput/logger.hpp
-	plugins/dinput/include/sge/dinput/logger_context.hpp
 	plugins/dinput/include/sge/dinput/mouse/axis_code.hpp
 	plugins/dinput/include/sge/dinput/mouse/axis_map.hpp
 	plugins/dinput/include/sge/dinput/mouse/button_code.hpp
@@ -99,8 +97,6 @@ SET(
 	plugins/dinput/src/keyboard/info.cpp
 	plugins/dinput/src/keyboard/make_info.cpp
 	plugins/dinput/src/keyboard/translate_key_code.cpp
-	plugins/dinput/src/logger.cpp
-	plugins/dinput/src/logger_context.cpp
 	plugins/dinput/src/mouse/axis_code.cpp
 	plugins/dinput/src/mouse/button_code.cpp
 	plugins/dinput/src/mouse/device.cpp

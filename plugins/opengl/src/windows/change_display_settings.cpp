@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/logger.hpp>
 #include <sge/opengl/windows/change_display_settings.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/output.hpp>
@@ -27,11 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
 
 void
 sge::opengl::windows::change_display_settings(
+	fcppt::log::object &_log,
 	sge::renderer::display_mode::object const &_mode
 )
 {
@@ -72,7 +73,7 @@ sge::opengl::windows::change_display_settings(
 		DISP_CHANGE_SUCCESSFUL
 	)
 		FCPPT_LOG_ERROR(
-			sge::opengl::logger(),
+			_log,
 			fcppt::log::_
 				<< FCPPT_TEXT("Cannot change resolution to ")
 				<< _mode

@@ -64,7 +64,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_NEED_SYSTEM
 #endif
 
-#if defined(SGE_OPENGL_HAVE_X11)
+#if defined(SGE_OPENGL_HAVE_X11) || defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #define SGE_OPENGL_NEED_LOG
 #endif
 
@@ -244,7 +244,9 @@ sge::opengl::platform::create_system(
 #endif
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 					function_type{
-						[]{
+						[
+							&_log
+						]{
 							return
 								either_type{
 									fcppt::unique_ptr_to_base<
@@ -252,7 +254,9 @@ sge::opengl::platform::create_system(
 									>(
 										fcppt::make_unique_ptr<
 											sge::opengl::windows::system
-										>()
+										>(
+											_log
+										)
 									)
 								};
 						}

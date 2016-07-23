@@ -22,15 +22,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/capabilities_field.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
+#include <sge/log/default_parameters.hpp>
+#include <sge/log/location.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <sge/wininput/processor.hpp>
 #include <sge/wininput/system.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/name.hpp>
 
 
-sge::wininput::system::system()
+sge::wininput::system::system(
+	fcppt::log::context &_log_context
+)
+:
+	log_{
+		_log_context,
+		sge::log::location(),
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("wininput")
+			}
+		)
+	}
 {
 }
 
@@ -51,6 +68,7 @@ sge::wininput::system::create_processor(
 			fcppt::make_unique_ptr<
 				sge::wininput::processor
 			>(
+				log_,
 				_window_system,
 				_window
 			)

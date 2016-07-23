@@ -73,8 +73,6 @@ SET(
 	plugins/d3d9/include/sge/d3d9/get_display_modes.hpp
 	plugins/d3d9/include/sge/d3d9/index_buffer.hpp
 	plugins/d3d9/include/sge/d3d9/lock_flags.hpp
-	plugins/d3d9/include/sge/d3d9/logger.hpp
-	plugins/d3d9/include/sge/d3d9/logger_context.hpp
 	plugins/d3d9/include/sge/d3d9/make_pitch.hpp
 	plugins/d3d9/include/sge/d3d9/make_pitch_2d.hpp
 	plugins/d3d9/include/sge/d3d9/make_pitch_3d.hpp
@@ -465,8 +463,6 @@ SET(
 	plugins/d3d9/src/get_device_caps.cpp
 	plugins/d3d9/src/get_display_modes.cpp
 	plugins/d3d9/src/index_buffer.cpp
-	plugins/d3d9/src/logger.cpp
-	plugins/d3d9/src/logger_context.cpp
 	plugins/d3d9/src/make_pitch.cpp
 	plugins/d3d9/src/make_pitch_2d.cpp
 	plugins/d3d9/src/make_pitch_3d.cpp

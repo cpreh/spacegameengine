@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/create_dinput.hpp>
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/logger.hpp>
 #include <sge/dinput/processor.hpp>
 #include <sge/dinput/device/object.hpp>
 #include <sge/dinput/device/parameters.hpp>
@@ -73,6 +72,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -89,10 +89,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::dinput::processor::processor(
+	fcppt::log::object &_log,
 	sge::window::object const &_window,
 	sge::window::system const &_window_system
 )
 :
+	log_{
+		_log
+	},
 	dinput_(
 		sge::dinput::create_dinput()
 	),
@@ -325,7 +329,7 @@ sge::dinput::processor::on_focus_in(
 )
 {
 	FCPPT_LOG_DEBUG(
-		sge::dinput::logger(),
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("DirectInput: focus in")
 	);
@@ -352,7 +356,7 @@ sge::dinput::processor::on_focus_out(
 )
 {
 	FCPPT_LOG_DEBUG(
-		sge::dinput::logger(),
+		log_,
 		fcppt::log::_
 			<< FCPPT_TEXT("DirectInput: focus out")
 	);
