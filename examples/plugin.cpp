@@ -32,11 +32,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/optional_cache_ref.hpp>
 #include <sge/renderer/core.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/strong_typedef_output.hpp>
-#include <fcppt/tag.hpp>
+#include <fcppt/tag_type.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
+#include <fcppt/use.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/log/context.hpp>
@@ -53,38 +53,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-
-// TODO: Remove this
-class print_plugins
-{
-	FCPPT_NONASSIGNABLE(
-		print_plugins
-	);
-public:
-	typedef void result_type;
-
-	explicit
-	print_plugins(
-		sge::plugin::manager &
-	);
-
-	template<
-		typename Type
-	>
-	result_type
-	operator()(
-		fcppt::tag<
-			Type
-		>
-	) const;
-private:
-	sge::plugin::manager &manager_;
-};
-
-}
 
 int
 main()
@@ -118,9 +86,59 @@ try
 	fcppt::mpl::for_each<
 		plugins
 	>(
-		print_plugins(
-			manager
+		[
+			&manager
+		](
+			auto const _tag
 		)
+		{
+			FCPPT_USE(
+				_tag
+			);
+
+			typedef
+			fcppt::tag_type<
+				decltype(
+					_tag
+				)
+			>
+			type;
+
+			fcppt::io::cout()
+				<<
+				fcppt::type_name_from_info(
+					typeid(
+						type
+					)
+				)
+				<<
+				FCPPT_TEXT('\n');
+
+			for(
+				auto const &plugin
+				:
+				manager.collection<
+					type
+				>()
+			)
+			{
+				sge::plugin::info const &info(
+					plugin.info()
+				);
+
+				fcppt::io::cout()
+					<<
+					FCPPT_TEXT("\tname: \"")
+					<<
+					info.name()
+					<<
+					FCPPT_TEXT("\", description: \"")
+					<<
+					info.description()
+					<<
+					FCPPT_TEXT("\"\n");
+			}
+		}
 	);
 }
 catch(
@@ -128,8 +146,10 @@ catch(
 )
 {
 	fcppt::io::cerr()
-		<< _exception.string()
-		<< FCPPT_TEXT('\n');
+		<<
+		_exception.string()
+		<<
+		FCPPT_TEXT('\n');
 
 	return
 		EXIT_FAILURE;
@@ -139,63 +159,11 @@ catch(
 )
 {
 	std::cerr
-		<< _exception.what()
-		<< '\n';
+		<<
+		_exception.what()
+		<<
+		'\n';
 
 	return
 		EXIT_FAILURE;
-}
-
-namespace
-{
-
-print_plugins::print_plugins(
-	sge::plugin::manager &_manager
-)
-:
-	manager_(
-		_manager
-	)
-{
-}
-
-template<
-	typename Type
->
-void
-print_plugins::operator()(
-	fcppt::tag<
-		Type
-	>
-) const
-{
-	fcppt::io::cout()
-		<< fcppt::type_name_from_info(
-			typeid(
-				Type
-			)
-		)
-		<< FCPPT_TEXT('\n');
-
-	for(
-		auto const &plugin
-		:
-		manager_.collection<
-			Type
-		>()
-	)
-	{
-		sge::plugin::info const &info(
-			plugin.info()
-		);
-
-		fcppt::io::cout()
-			<< FCPPT_TEXT("\tname: \"")
-			<< info.name()
-			<< FCPPT_TEXT("\", description: \"")
-			<< info.description()
-			<< FCPPT_TEXT("\"\n");
-	}
-}
-
 }
