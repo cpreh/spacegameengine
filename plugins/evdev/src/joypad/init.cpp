@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/add.hpp>
 #include <sge/evdev/joypad/add_parameters_fwd.hpp>
 #include <sge/evdev/joypad/init.hpp>
+#include <fcppt/filesystem/directory_range.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/predicate.hpp>
-#include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -37,18 +37,13 @@ sge::evdev::joypad::init(
 )
 {
 	for(
-		// TODO: iterator range
-		boost::filesystem::directory_iterator it(
+		boost::filesystem::path const &cur
+		:
+		fcppt::filesystem::directory_range(
 			_path
-		);
-		it != boost::filesystem::directory_iterator();
-		++it
+		)
 	)
 	{
-		boost::filesystem::path const &cur(
-			it->path()
-		);
-
 		if(
 			boost::filesystem::is_directory(
 				cur
