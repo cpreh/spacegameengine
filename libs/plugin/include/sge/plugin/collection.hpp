@@ -54,6 +54,10 @@ public:
 	iterator;
 
 	typedef
+	iterator
+	const_iterator;
+
+	typedef
 	sge::plugin::context<
 		Type
 	>

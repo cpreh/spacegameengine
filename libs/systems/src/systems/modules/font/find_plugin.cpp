@@ -19,13 +19,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/plugin/collection_fwd.hpp>
+#include <sge/font/plugin/context_fwd.hpp>
+#include <sge/font/plugin/iterator_fwd.hpp>
 #include <sge/font/plugin/object.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/name.hpp>
-#include <sge/plugin/object.hpp>
 #include <sge/src/systems/modules/font/find_plugin.hpp>
 #include <sge/systems/exception.hpp>
 #include <sge/systems/font.hpp>
@@ -33,7 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/const.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/find_if_opt.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 
 sge::font::plugin::object
@@ -46,58 +50,73 @@ sge::systems::modules::font::find_plugin(
 		_parameters.name()
 	);
 
-	// TODO: find_if
-
-	for(
-		auto element
-		:
-		_collection
-	)
-	{
-		if(
-			fcppt::optional::maybe(
-				name,
-				fcppt::const_(
-					true
+	return
+		fcppt::optional::to_exception(
+			fcppt::optional::map(
+				fcppt::algorithm::find_if_opt(
+					_collection,
+					[
+						&name
+					](
+						sge::font::plugin::context const &_plugin
+					)
+					{
+						return
+							fcppt::optional::maybe(
+								name,
+								fcppt::const_(
+									true
+								),
+								[
+									&_plugin
+								](
+									sge::plugin::name const &_name
+								)
+								{
+									return
+										_name
+										==
+										_plugin.info().name();
+								}
+							);
+					}
 				),
-				[
-					&element
-				](
-					sge::plugin::name const &_name
-				)
-				{
-					return
-						_name
-						==
-						element.info().name();
-				}
-			)
-		)
-			return
-				element.load();
-	}
-
-	throw
-		sge::systems::exception{
-			fcppt::optional::maybe(
-				name,
-				[]{
-					return
-						fcppt::string{
-							FCPPT_TEXT("No plugin of type sge::font::system found!")
-						};
-				},
 				[](
-					sge::plugin::name const &_name
+					sge::font::plugin::iterator const &_iterator
 				)
+				->
+				sge::font::plugin::context
 				{
 					return
-						FCPPT_TEXT("No plugin of type sge::font::system with name ")
-						+
-						_name.get()
-						+
-						FCPPT_TEXT(" found!");
+						*_iterator;
 				}
-			)
-		};
+			),
+			[
+				&name
+			]{
+				return
+					sge::systems::exception{
+						fcppt::optional::maybe(
+							name,
+							[]{
+								return
+									fcppt::string{
+										FCPPT_TEXT("No plugin of type sge::font::system found!")
+									};
+							},
+							[](
+								sge::plugin::name const &_name
+							)
+							{
+								return
+									FCPPT_TEXT("No plugin of type sge::font::system with name ")
+									+
+									_name.get()
+									+
+									FCPPT_TEXT(" found!");
+							}
+						)
+					};
+			}
+		).load();
 }

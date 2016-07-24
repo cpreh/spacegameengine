@@ -18,20 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_CONTEXT_FWD_HPP_INCLUDED
-#define SGE_PLUGIN_CONTEXT_FWD_HPP_INCLUDED
+#ifndef SGE_FONT_PLUGIN_ITERATOR_FWD_HPP_INCLUDED
+#define SGE_FONT_PLUGIN_ITERATOR_FWD_HPP_INCLUDED
+
+#include <sge/font/system_fwd.hpp>
+#include <sge/plugin/iterator_fwd.hpp>
 
 
 namespace sge
 {
+namespace font
+{
 namespace plugin
 {
 
-template<
-	typename T
+typedef
+sge::plugin::iterator<
+	sge::font::system
 >
-class context;
+iterator;
 
+}
 }
 }
 
