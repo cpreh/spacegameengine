@@ -80,6 +80,7 @@ sge::font::bitmap::load_one_file(
 		)
 	);
 
+	// TODO: map_optional
 	for(
 		auto const &elem
 		:
