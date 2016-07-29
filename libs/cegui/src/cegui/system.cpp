@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/duration.hpp>
 #include <sge/cegui/load_context_fwd.hpp>
 #include <sge/cegui/system.hpp>
+#include <sge/cegui/impl/detail/system_impl.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <sge/src/cegui/detail/system_impl.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/log/context_fwd.hpp>

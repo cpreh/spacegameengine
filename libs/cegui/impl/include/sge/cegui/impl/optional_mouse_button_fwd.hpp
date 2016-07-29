@@ -18,17 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/log_location.hpp>
-#include <sge/cegui/impl/log_name.hpp>
-#include <sge/log/location.hpp>
-#include <fcppt/log/location.hpp>
+#ifndef SGE_CEGUI_IMPL_OPTIONAL_MOUSE_BUTTON_FWD_HPP_INCLUDED
+#define SGE_CEGUI_IMPL_OPTIONAL_MOUSE_BUTTON_FWD_HPP_INCLUDED
+
+#include <fcppt/optional/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CEGUI/InputEvent.h>
+#include <fcppt/config/external_end.hpp>
 
 
-fcppt::log::location
-sge::cegui::log_location()
+namespace sge
 {
-	return
-		sge::log::location()
-		/
-		sge::cegui::impl::log_name();
+namespace cegui
+{
+namespace impl
+{
+
+typedef
+fcppt::optional::object<
+	CEGUI::MouseButton
+>
+optional_mouse_button;
+
 }
+}
+}
+
+#endif

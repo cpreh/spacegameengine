@@ -18,17 +18,63 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/log_location.hpp>
-#include <sge/cegui/impl/log_name.hpp>
-#include <sge/log/location.hpp>
-#include <fcppt/log/location.hpp>
+#ifndef SGE_CEGUI_IMPL_CEGUI_LOGGER_HPP_INCLUDED
+#define SGE_CEGUI_IMPL_CEGUI_LOGGER_HPP_INCLUDED
+
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CEGUI/Logger.h>
+#include <fcppt/config/external_end.hpp>
 
 
-fcppt::log::location
-sge::cegui::log_location()
+namespace CEGUI
 {
-	return
-		sge::log::location()
-		/
-		sge::cegui::impl::log_name();
+class String;
 }
+
+namespace sge
+{
+namespace cegui
+{
+namespace impl
+{
+
+class cegui_logger
+:
+	public CEGUI::Logger
+{
+	FCPPT_NONCOPYABLE(
+		cegui_logger
+	);
+public:
+	explicit
+	cegui_logger(
+		fcppt::log::object &
+	);
+
+	~cegui_logger()
+	override;
+private:
+	void
+	logEvent(
+		CEGUI::String const & message,
+		CEGUI::LoggingLevel level
+	)
+	override;
+
+	void
+	setLogFilename(
+		CEGUI::String const &filename,
+		bool append
+	)
+	override;
+
+	fcppt::log::object log_;
+};
+
+}
+}
+}
+
+#endif

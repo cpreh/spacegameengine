@@ -18,17 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/log_location.hpp>
-#include <sge/cegui/impl/log_name.hpp>
-#include <sge/log/location.hpp>
-#include <fcppt/log/location.hpp>
+#ifndef SGE_CEGUI_IMPL_CONVERT_KEY_HPP_INCLUDED
+#define SGE_CEGUI_IMPL_CONVERT_KEY_HPP_INCLUDED
+
+#include <sge/cegui/impl/optional_key_scan_fwd.hpp>
+#include <sge/input/key/code_fwd.hpp>
 
 
-fcppt::log::location
-sge::cegui::log_location()
+namespace sge
 {
-	return
-		sge::log::location()
-		/
-		sge::cegui::impl::log_name();
+namespace cegui
+{
+namespace impl
+{
+
+sge::cegui::impl::optional_key_scan
+convert_key(
+	sge::input::key::code
+);
+
 }
+}
+}
+
+#endif

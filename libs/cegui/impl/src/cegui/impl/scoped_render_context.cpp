@@ -18,17 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/log_location.hpp>
-#include <sge/cegui/impl/log_name.hpp>
-#include <sge/log/location.hpp>
-#include <fcppt/log/location.hpp>
+#include <sge/cegui/impl/optional_render_context_ref.hpp>
+#include <sge/cegui/impl/renderer.hpp>
+#include <sge/cegui/impl/scoped_render_context.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
+#include <fcppt/make_ref.hpp>
 
 
-fcppt::log::location
-sge::cegui::log_location()
+sge::cegui::impl::scoped_render_context::scoped_render_context(
+	sge::cegui::impl::renderer &_renderer,
+	sge::renderer::context::ffp &_render_context
+)
+:
+	renderer_(
+		_renderer
+	)
 {
-	return
-		sge::log::location()
-		/
-		sge::cegui::impl::log_name();
+	renderer_.render_context(
+		sge::cegui::impl::optional_render_context_ref(
+			fcppt::make_ref(
+				_render_context
+			)
+		)
+	);
+}
+
+sge::cegui::impl::scoped_render_context::~scoped_render_context()
+{
+	renderer_.render_context(
+		sge::cegui::impl::optional_render_context_ref()
+	);
 }

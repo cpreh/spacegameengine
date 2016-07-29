@@ -18,17 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/log_location.hpp>
 #include <sge/cegui/impl/log_name.hpp>
-#include <sge/log/location.hpp>
-#include <fcppt/log/location.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/log/name.hpp>
 
 
-fcppt::log::location
-sge::cegui::log_location()
+fcppt::log::name
+sge::cegui::impl::log_name()
 {
 	return
-		sge::log::location()
-		/
-		sge::cegui::impl::log_name();
+		fcppt::log::name{
+			FCPPT_TEXT("cegui")
+		};
 }

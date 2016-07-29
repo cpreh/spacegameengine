@@ -18,17 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/log_location.hpp>
-#include <sge/cegui/impl/log_name.hpp>
-#include <sge/log/location.hpp>
-#include <fcppt/log/location.hpp>
+#include <sge/cegui/impl/matrix_from_quaternion.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <fcppt/math/matrix/row.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CEGUI/Quaternion.h>
+#include <fcppt/config/external_end.hpp>
 
 
-fcppt::log::location
-sge::cegui::log_location()
+sge::renderer::matrix4
+sge::cegui::impl::matrix_from_quaternion(
+	CEGUI::Quaternion const _quat
+)
 {
+	sge::renderer::scalar const
+		s = _quat.d_w,
+		x = _quat.d_x,
+		y = _quat.d_y,
+		z = _quat.d_z;
+
 	return
-		sge::log::location()
-		/
-		sge::cegui::impl::log_name();
+		sge::renderer::matrix4(
+			fcppt::math::matrix::row(
+				1-2*(y*y + z*z), 2*x*y-2*s*z, 2*s*y + 2*x*z, 0.f
+			),
+			fcppt::math::matrix::row(
+				2*x*y+2*s*z, 1-2*(x*x + z*z),-2*s*x+2*y*z,0.f
+			),
+			fcppt::math::matrix::row(
+				-2*s*y + 2*x*z,2*s*x+2*y*z,1-2*(x*x+y*y),0.f
+			),
+			fcppt::math::matrix::row(
+				0.f,0.f,0.f,1.f
+			)
+		);
 }

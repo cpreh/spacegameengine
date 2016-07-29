@@ -18,17 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/log_location.hpp>
-#include <sge/cegui/impl/log_name.hpp>
-#include <sge/log/location.hpp>
-#include <fcppt/log/location.hpp>
+#include <sge/cegui/impl/make_rasterizer_parameters.hpp>
+#include <sge/renderer/state/core/rasterizer/cull_mode.hpp>
+#include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
+#include <sge/renderer/state/core/rasterizer/fill_mode.hpp>
+#include <sge/renderer/state/core/rasterizer/parameters.hpp>
 
 
-fcppt::log::location
-sge::cegui::log_location()
+sge::renderer::state::core::rasterizer::parameters
+sge::cegui::impl::make_rasterizer_parameters(
+	sge::renderer::state::core::rasterizer::enable_scissor_test const _enable_scissor_test
+)
 {
 	return
-		sge::log::location()
-		/
-		sge::cegui::impl::log_name();
+		sge::renderer::state::core::rasterizer::parameters(
+			sge::renderer::state::core::rasterizer::cull_mode::off,
+			sge::renderer::state::core::rasterizer::fill_mode::solid,
+			_enable_scissor_test
+		);
 }

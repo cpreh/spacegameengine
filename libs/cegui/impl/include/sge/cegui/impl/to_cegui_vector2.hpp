@@ -18,17 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/log_location.hpp>
-#include <sge/cegui/impl/log_name.hpp>
-#include <sge/log/location.hpp>
-#include <fcppt/log/location.hpp>
+#ifndef SGE_CEGUI_IMPL_TO_CEGUI_VECTOR2_HPP_INCLUDED
+#define SGE_CEGUI_IMPL_TO_CEGUI_VECTOR2_HPP_INCLUDED
+
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CEGUI/Vector.h>
+#include <fcppt/config/external_end.hpp>
 
 
-fcppt::log::location
-sge::cegui::log_location()
+namespace sge
+{
+namespace cegui
+{
+namespace impl
+{
+
+template<
+	typename ValueType
+>
+CEGUI::Vector2<
+	ValueType
+>
+to_cegui_vector2(
+	fcppt::math::vector::static_<
+		ValueType,
+		2
+	> const &_container
+)
 {
 	return
-		sge::log::location()
-		/
-		sge::cegui::impl::log_name();
+		CEGUI::Vector2<
+			ValueType
+		>(
+			_container.x(),
+			_container.y()
+		);
 }
+
+}
+}
+}
+
+#endif

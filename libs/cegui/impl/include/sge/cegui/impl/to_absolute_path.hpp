@@ -18,17 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/log_location.hpp>
-#include <sge/cegui/impl/log_name.hpp>
-#include <sge/log/location.hpp>
-#include <fcppt/log/location.hpp>
+#ifndef SGE_CEGUI_IMPL_TO_ABSOLUTE_PATH_HPP_INCLUDED
+#define SGE_CEGUI_IMPL_TO_ABSOLUTE_PATH_HPP_INCLUDED
+
+#include <sge/cegui/impl/prefix.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
-fcppt::log::location
-sge::cegui::log_location()
+namespace CEGUI
 {
-	return
-		sge::log::location()
-		/
-		sge::cegui::impl::log_name();
+class String;
 }
+
+namespace sge
+{
+namespace cegui
+{
+namespace impl
+{
+
+boost::filesystem::path
+to_absolute_path(
+	sge::cegui::impl::prefix const &,
+	CEGUI::String const &filename
+);
+
+}
+}
+}
+
+#endif

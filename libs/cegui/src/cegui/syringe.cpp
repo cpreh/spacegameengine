@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/unit.hpp>
+#include <sge/cegui/impl/convert_cursor_button.hpp>
+#include <sge/cegui/impl/convert_key.hpp>
+#include <sge/cegui/impl/optional_key_scan.hpp>
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
@@ -36,9 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/code_to_string.hpp>
 #include <sge/log/default_parameters.hpp>
-#include <sge/src/cegui/convert_cursor_button.hpp>
-#include <sge/src/cegui/convert_key.hpp>
-#include <sge/src/cegui/optional_key_scan.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/int_to_float.hpp>
@@ -59,11 +59,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::cegui::optional_key_scan
+sge::cegui::impl::optional_key_scan
 process_key_code(
 	fcppt::log::object &,
 	sge::input::key::code,
-	sge::cegui::optional_key_scan const &
+	sge::cegui::impl::optional_key_scan const &
 );
 
 }
@@ -101,7 +101,7 @@ sge::cegui::syringe::inject(
 		::process_key_code(
 			log_,
 			_event.key().code(),
-			sge::cegui::convert_key(
+			sge::cegui::impl::convert_key(
 				_event.key().code()
 			)
 		),
@@ -135,7 +135,7 @@ sge::cegui::syringe::inject(
 		::process_key_code(
 			log_,
 			_event.key().code(),
-			sge::cegui::convert_key(
+			sge::cegui::impl::convert_key(
 				_event.key().code()
 			)
 		),
@@ -165,8 +165,7 @@ sge::cegui::syringe::inject(
 	utf32_string;
 
 	utf32_string const converted_string(
-		sge::charconv::convert
-		<
+		sge::charconv::convert<
 			sge::charconv::encoding::utf32,
 			sge::charconv::encoding::wchar
 		>(
@@ -194,7 +193,7 @@ sge::cegui::syringe::inject(
 )
 {
 	fcppt::optional::maybe(
-		sge::cegui::convert_cursor_button(
+		sge::cegui::impl::convert_cursor_button(
 			_event.button_code()
 		),
 		[
@@ -304,11 +303,11 @@ sge::cegui::syringe::inject(
 namespace
 {
 
-sge::cegui::optional_key_scan
+sge::cegui::impl::optional_key_scan
 process_key_code(
 	fcppt::log::object &_log,
 	sge::input::key::code const _orig_code,
-	sge::cegui::optional_key_scan const &_code
+	sge::cegui::impl::optional_key_scan const &_code
 )
 {
 	return
@@ -328,7 +327,7 @@ process_key_code(
 						<< FCPPT_TEXT("; Doing nothing."));
 
 				return
-					sge::cegui::optional_key_scan();
+					sge::cegui::impl::optional_key_scan();
 			},
 			[](
 				CEGUI::Key::Scan const _scan
@@ -337,11 +336,11 @@ process_key_code(
 				return
 					_scan != CEGUI::Key::Unknown
 					?
-						sge::cegui::optional_key_scan(
+						sge::cegui::impl::optional_key_scan(
 							_scan
 						)
 					:
-						sge::cegui::optional_key_scan()
+						sge::cegui::impl::optional_key_scan()
 					;
 			}
 		);

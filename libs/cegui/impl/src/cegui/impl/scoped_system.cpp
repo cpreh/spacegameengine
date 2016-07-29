@@ -18,17 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/log_location.hpp>
-#include <sge/cegui/impl/log_name.hpp>
-#include <sge/log/location.hpp>
-#include <fcppt/log/location.hpp>
+#include <sge/cegui/impl/image_codec.hpp>
+#include <sge/cegui/impl/renderer.hpp>
+#include <sge/cegui/impl/resource_provider.hpp>
+#include <sge/cegui/impl/scoped_system.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CEGUI/System.h>
+#include <fcppt/config/external_end.hpp>
 
 
-fcppt::log::location
-sge::cegui::log_location()
+sge::cegui::impl::scoped_system::scoped_system(
+	sge::cegui::impl::renderer &_renderer,
+	sge::cegui::impl::image_codec &_image_codec,
+	sge::cegui::impl::resource_provider &_resource_provider
+)
 {
-	return
-		sge::log::location()
-		/
-		sge::cegui::impl::log_name();
+	CEGUI::System::create(
+		_renderer,
+		// Resource provider
+		&_resource_provider,
+		// XML parser
+		nullptr,
+		&_image_codec,
+		// Script module,
+		nullptr,
+		// config file
+		"",
+		// log file
+		"CEGUI.log"
+	);
+}
+
+sge::cegui::impl::scoped_system::~scoped_system()
+{
+	CEGUI::System::destroy();
 }

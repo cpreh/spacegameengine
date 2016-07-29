@@ -18,17 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/log_location.hpp>
-#include <sge/cegui/impl/log_name.hpp>
-#include <sge/log/location.hpp>
-#include <fcppt/log/location.hpp>
+#ifndef SGE_CEGUI_IMPL_IMAGE_CODEC_HPP_INCLUDED
+#define SGE_CEGUI_IMPL_IMAGE_CODEC_HPP_INCLUDED
+
+#include <sge/cegui/impl/image_codec_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CEGUI/ImageCodec.h>
+#include <fcppt/config/external_end.hpp>
 
 
-fcppt::log::location
-sge::cegui::log_location()
+namespace CEGUI
 {
-	return
-		sge::log::location()
-		/
-		sge::cegui::impl::log_name();
+class RawDataContainer;
+class Texture;
 }
+
+namespace sge
+{
+namespace cegui
+{
+namespace impl
+{
+
+class image_codec
+:
+	public CEGUI::ImageCodec
+{
+	FCPPT_NONCOPYABLE(
+		image_codec
+	);
+public:
+	explicit
+	image_codec(
+		sge::image2d::system &
+	);
+
+	~image_codec()
+	override;
+private:
+	CEGUI::Texture *
+	load(
+		CEGUI::RawDataContainer const &,
+		CEGUI::Texture *
+	)
+	override;
+public:
+	sge::image2d::system &
+	image_system() const;
+private:
+	sge::image2d::system &image_system_;
+};
+
+}
+}
+}
+
+#endif
