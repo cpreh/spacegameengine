@@ -62,9 +62,3 @@ find_package_handle_standard_args(
 	CEGUI_INCLUDE_DIR
 	CEGUI_LIBRARY
 )
-
-get_filename_component(
-	CEGUI_LIBRARY_DIRS
-	${CEGUI_LIBRARY}
-	PATH
-)

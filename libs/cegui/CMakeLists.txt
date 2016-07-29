@@ -116,11 +116,6 @@ set(
 	libs/cegui/src/cegui/toolbox/scoped_layout.cpp
 )
 
-# TODO: Do we need this?
-link_directories(
-	"${CEGUI_LIBRARY_DIRS}"
-)
-
 add_sge_base_library(
 	cegui
 	SGE_DEPS
