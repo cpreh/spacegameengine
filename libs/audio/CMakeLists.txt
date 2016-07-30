@@ -146,6 +146,7 @@ add_sge_base_library(
 	TRANSITIVE_SGE_DEPS
 		sgecore
 		sgemedia_interface
+		sgeplugin_interface
 	ADDITIONAL_DEPS
 		${fcppt_log_TARGET}
 		${Boost_filesystem_LIBRARIES}

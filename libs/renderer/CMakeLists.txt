@@ -1223,6 +1223,7 @@ add_sge_base_library(
 		sgeimageds_interface
 		sgeimageds2d_interface
 		sgelog_interface
+		sgeplugin_interface
 		${SGE_RENDERER_CG_DEPS}
 	ADDITIONAL_DEPS
 		${fcppt_log_TARGET}

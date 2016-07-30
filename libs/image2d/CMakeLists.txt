@@ -235,6 +235,7 @@ add_sge_base_library(
 		sgeimage_interface
 		sgeimagecolor_interface
 		sgemedia_interface
+		sgeplugin_interface
 	ADDITIONAL_DEPS
 		fcppt_core_interface
 	TRANSITIVE_ADDITIONAL_DEPS
