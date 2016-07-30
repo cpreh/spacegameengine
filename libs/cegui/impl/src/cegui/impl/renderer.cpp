@@ -42,13 +42,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/find_if_opt.hpp>
 #include <fcppt/algorithm/remove_if.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/error_message.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/assert/unreachable_message.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/log/_.hpp>
@@ -61,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/to_vector.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
 #include <algorithm>
@@ -203,12 +205,11 @@ sge::cegui::impl::renderer::destroyGeometryBuffer(
 			<< FCPPT_TEXT("destroyGeometryBuffer()")
 	);
 
-	// TODO: Why do we use pointers here?
-	sge::cegui::impl::geometry_buffer const *const sge_buffer(
+	sge::cegui::impl::geometry_buffer const &sge_buffer(
 		dynamic_cast<
-			sge::cegui::impl::geometry_buffer const *
+			sge::cegui::impl::geometry_buffer const &
 		>(
-			&_buffer
+			_buffer
 		)
 	);
 
@@ -216,7 +217,7 @@ sge::cegui::impl::renderer::destroyGeometryBuffer(
 		fcppt::algorithm::remove_if(
 			geometry_buffers_,
 			[
-				sge_buffer
+				&sge_buffer
 			](
 				geometry_buffer_unique_ptr const &_element_buffer
 			)
@@ -224,7 +225,7 @@ sge::cegui::impl::renderer::destroyGeometryBuffer(
 				return
 					_element_buffer.get_pointer()
 					==
-					sge_buffer;
+					&sge_buffer;
 			}
 		),
 		FCPPT_TEXT("Tried to destroy a geometry buffer which was not registered")
@@ -283,12 +284,11 @@ sge::cegui::impl::renderer::destroyTextureTarget(
 		_texture
 	);
 
-	// TODO: Why pointers?
-	sge::cegui::impl::texture_target *sge_target(
+	sge::cegui::impl::texture_target &sge_target(
 		dynamic_cast<
-			sge::cegui::impl::texture_target *
+			sge::cegui::impl::texture_target &
 		>(
-			_texture
+			*_texture
 		)
 	);
 
@@ -296,7 +296,7 @@ sge::cegui::impl::renderer::destroyTextureTarget(
 		fcppt::algorithm::remove_if(
 			texture_targets_,
 			[
-				sge_target
+				&sge_target
 			](
 				texture_target_unique_ptr const &_target
 			)
@@ -304,7 +304,7 @@ sge::cegui::impl::renderer::destroyTextureTarget(
 				return
 					_target.get_pointer()
 					==
-					sge_target;
+					&sge_target;
 			}
 		),
 		FCPPT_TEXT("Tried to destroy a texture target which was not registered")
@@ -357,15 +357,20 @@ sge::cegui::impl::renderer::createTexture(
 	FCPPT_LOG_DEBUG(
 		log_,
 		fcppt::log::_
-			<< FCPPT_TEXT("createTexture(")
-			<< sge::cegui::from_cegui_string(
+			<<
+			FCPPT_TEXT("createTexture(")
+			<<
+			sge::cegui::from_cegui_string(
 				_filename
 			)
-			<< FCPPT_TEXT(", ")
-			<< sge::cegui::from_cegui_string(
+			<<
+			FCPPT_TEXT(", ")
+			<<
+			sge::cegui::from_cegui_string(
 				_resource_group
 			)
-			<< FCPPT_TEXT(')')
+			<<
+			FCPPT_TEXT(')')
 	);
 
 	CEGUI::Texture &result(
@@ -429,37 +434,37 @@ sge::cegui::impl::renderer::destroyTexture(
 	CEGUI::Texture &_texture
 )
 {
-	sge::cegui::impl::texture *tex(
-		&dynamic_cast<
+	sge::cegui::impl::texture &sge_texture(
+		dynamic_cast<
 			sge::cegui::impl::texture &
 		>(
 			_texture
 		)
 	);
 
-	// TODO: remove_if
-	for(
-		sge::cegui::impl::renderer::texture_map::iterator it(
-			textures_.begin()
-		);
-		it != textures_.end();
-		++it
-	)
-		if(
-			it->second.get_pointer()
-			==
-			tex
+	fcppt::optional::object<
+		texture_map::iterator
+	> const result{
+		fcppt::algorithm::find_if_opt(
+			textures_,
+			[
+				&sge_texture
+			](
+				texture_map::value_type const &_entry
+			)
+			{
+				return
+					_entry.second.get_pointer()
+					==
+					&sge_texture;
+			}
 		)
-		{
-			textures_.erase(
-				it
-			);
+	};
 
-			return;
-		}
-
-	FCPPT_ASSERT_UNREACHABLE_MESSAGE(
-		FCPPT_TEXT("Tried to destroy a texture by pointer which was not registered")
+	textures_.erase(
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			result
+		)
 	);
 }
 
@@ -595,8 +600,6 @@ sge::cegui::impl::renderer::setDisplaySize(
 	display_size_ =
 		_display_size;
 
-	// This is what OpenGL does, too, but the default target currently
-	// ignores this message
 	default_target_.setArea(
 		sge::cegui::impl::to_cegui_rect(
 			fcppt::math::box::structure_cast<
@@ -629,7 +632,7 @@ CEGUI::uint
 sge::cegui::impl::renderer::getMaxTextureSize() const
 {
 	return
-		static_cast<
+		fcppt::cast::size<
 			CEGUI::uint
 		>(
 			std::min(
