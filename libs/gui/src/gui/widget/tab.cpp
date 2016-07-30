@@ -43,6 +43,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/container/maybe_front.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
@@ -181,15 +183,26 @@ sge::gui::widget::tab::tab(
 		)
 	);
 
-	if(
-		!_widgets.empty()
-	)
-		this->push_back(
-			sge::gui::widget::reference_alignment_pair(
-				_widgets.front().reference(),
-				sge::rucksack::alignment::left_or_top
-			)
-		);
+	fcppt::optional::maybe_void(
+		fcppt::container::maybe_front(
+			_widgets
+		),
+		[
+			this
+		](
+			fcppt::reference<
+				sge::gui::widget::reference_name_pair const
+			> const _front
+		)
+		{
+			this->push_back(
+				sge::gui::widget::reference_alignment_pair(
+					_front.get().reference(),
+					sge::rucksack::alignment::left_or_top
+				)
+			);
+		}
+	);
 }
 
 sge::gui::widget::tab::~tab()
