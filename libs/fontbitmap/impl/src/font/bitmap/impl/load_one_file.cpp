@@ -21,6 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/core/exception.hpp>
 #include <sge/font/exception.hpp>
 #include <sge/font/unit.hpp>
+#include <sge/font/bitmap/impl/char_map.hpp>
+#include <sge/font/bitmap/impl/char_metric.hpp>
+#include <sge/font/bitmap/impl/load_offset.hpp>
+#include <sge/font/bitmap/impl/load_one_file.hpp>
+#include <sge/font/bitmap/impl/load_rect.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/load_exn.hpp>
@@ -36,11 +41,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/convert/to_int.hpp>
-#include <sge/font/bitmap/impl/char_map.hpp>
-#include <sge/font/bitmap/impl/char_metric.hpp>
-#include <sge/font/bitmap/impl/load_offset.hpp>
-#include <sge/font/bitmap/impl/load_one_file.hpp>
-#include <sge/font/bitmap/impl/load_rect.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>

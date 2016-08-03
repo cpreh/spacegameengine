@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/exception.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/vector.hpp>
+#include <sge/font/bitmap/impl/load_offset.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/convert/to_int.hpp>
-#include <sge/font/bitmap/impl/load_offset.hpp>
 #include <fcppt/text.hpp>
 
 

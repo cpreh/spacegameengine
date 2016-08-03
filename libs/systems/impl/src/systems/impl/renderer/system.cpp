@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/core.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/plugin/collection_fwd.hpp>
+#include <sge/systems/detail/renderer.hpp>
 #include <sge/systems/impl/merge_config_strings.hpp>
 #include <sge/systems/impl/renderer/find_plugin.hpp>
 #include <sge/systems/impl/renderer/system.hpp>
 #include <sge/systems/impl/window/system.hpp>
-#include <sge/systems/detail/renderer.hpp>
 #include <sge/window/system.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>

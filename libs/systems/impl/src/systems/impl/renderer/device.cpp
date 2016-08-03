@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <sge/systems/detail/renderer.hpp>
 #include <sge/systems/impl/renderer/create_device.hpp>
 #include <sge/systems/impl/renderer/device.hpp>
 #include <sge/systems/impl/renderer/system_fwd.hpp>
 #include <sge/systems/impl/window/object.hpp>
-#include <sge/systems/detail/renderer.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/window/dim.hpp>
 #include <fcppt/cast/static_downcast.hpp>

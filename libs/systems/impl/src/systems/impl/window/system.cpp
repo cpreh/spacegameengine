@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/systems/window_fwd.hpp>
 #include <sge/systems/impl/window/make_system_base.hpp>
 #include <sge/systems/impl/window/system.hpp>
 #include <sge/systems/impl/window/system_base.hpp>
-#include <sge/systems/window_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/log/context_fwd.hpp>
 

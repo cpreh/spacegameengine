@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/discover_event.hpp>
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/object.hpp>
-#include <sge/systems/impl/input/cursor_modifier.hpp>
 #include <sge/systems/cursor_option_field.hpp>
+#include <sge/systems/impl/input/cursor_modifier.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

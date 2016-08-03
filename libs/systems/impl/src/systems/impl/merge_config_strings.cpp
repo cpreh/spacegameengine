@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/start_fwd.hpp>
 #include <sge/parse/ini/value.hpp>
 #include <sge/plugin/name.hpp>
+#include <sge/systems/optional_name.hpp>
 #include <sge/systems/impl/ini_section_name.hpp>
 #include <sge/systems/impl/merge_config_strings.hpp>
-#include <sge/systems/optional_name.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/map.hpp>
 

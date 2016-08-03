@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/plugin_path.hpp>
 #include <sge/systems/plugin_path.hpp>
+#include <sge/systems/detail/any_map.hpp>
 #include <sge/systems/impl/extract_config.hpp>
 #include <sge/systems/impl/extract_plugin_path.hpp>
-#include <sge/systems/detail/any_map.hpp>
 #include <fcppt/optional/from.hpp>
 
 

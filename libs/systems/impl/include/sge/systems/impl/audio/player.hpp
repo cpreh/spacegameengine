@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/player_plugin/collection_fwd.hpp>
+#include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/impl/audio/player_fwd.hpp>
 #include <sge/systems/impl/audio/player_pair.hpp>
-#include <sge/systems/audio_player_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/object_fwd.hpp>

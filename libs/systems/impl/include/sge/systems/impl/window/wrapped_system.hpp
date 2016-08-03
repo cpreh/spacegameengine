@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_IMPL_WINDOW_WRAPPED_SYSTEM_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_WINDOW_WRAPPED_SYSTEM_HPP_INCLUDED
 
-#include <sge/systems/impl/window/system_base.hpp>
 #include <sge/systems/wrapped_window_fwd.hpp>
+#include <sge/systems/impl/window/system_base.hpp>
 #include <sge/window/system.hpp>
 #include <fcppt/noncopyable.hpp>
 

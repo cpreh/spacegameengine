@@ -27,10 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_unique_ptr.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/plugin/collection_fwd.hpp>
+#include <sge/systems/detail/renderer_fwd.hpp>
 #include <sge/systems/impl/renderer/plugin_core_pair.hpp>
 #include <sge/systems/impl/renderer/system_fwd.hpp>
 #include <sge/systems/impl/window/system_fwd.hpp>
-#include <sge/systems/detail/renderer_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>

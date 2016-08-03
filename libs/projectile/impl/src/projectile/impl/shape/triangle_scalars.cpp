@@ -19,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/projectile/triangle.hpp>
-#include <sge/projectile/shape/triangle_sequence.hpp>
-#include <sge/projectile/shape/detail/scalar_container.hpp>
 #include <sge/projectile/impl/object_extrusion_depth.hpp>
 #include <sge/projectile/impl/shape/triangle_scalars.hpp>
+#include <sge/projectile/shape/triangle_sequence.hpp>
+#include <sge/projectile/shape/detail/scalar_container.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>

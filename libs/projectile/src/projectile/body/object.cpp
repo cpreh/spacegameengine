@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/vector3.hpp>
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/body/parameters.hpp>
-#include <sge/projectile/shape/base.hpp>
 #include <sge/projectile/impl/bullet_to_vector2.hpp>
 #include <sge/projectile/impl/vector2_to_bullet.hpp>
 #include <sge/projectile/impl/body/detail/motion_state.hpp>
 #include <sge/projectile/impl/body/solidity/extract_mass.hpp>
 #include <sge/projectile/impl/body/solidity/is_solid.hpp>
+#include <sge/projectile/shape/base.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>

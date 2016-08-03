@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/systems/wrapped_window.hpp>
 #include <sge/systems/impl/window/system_base.hpp>
 #include <sge/systems/impl/window/wrapped_system.hpp>
-#include <sge/systems/wrapped_window.hpp>
 #include <sge/window/system.hpp>
 
 

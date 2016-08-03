@@ -18,8 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/impl/any_visitor.hpp>
-#include <sge/systems/impl/detail/instance_impl.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/config_fwd.hpp>
@@ -28,6 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/window_fwd.hpp>
 #include <sge/systems/detail/input_fwd.hpp>
 #include <sge/systems/detail/renderer_fwd.hpp>
+#include <sge/systems/impl/any_visitor.hpp>
+#include <sge/systems/impl/detail/instance_impl.hpp>
 
 
 sge::systems::impl::any_visitor::any_visitor(

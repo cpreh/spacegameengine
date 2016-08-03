@@ -34,11 +34,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/device_fwd.hpp>
 #include <sge/input/mouse/device_unique_ptr.hpp>
 #include <sge/input/plugin/collection_fwd.hpp>
+#include <sge/systems/detail/input_fwd.hpp>
 #include <sge/systems/impl/input/cursor_modifier_fwd.hpp>
 #include <sge/systems/impl/input/object_fwd.hpp>
 #include <sge/systems/impl/window/object_fwd.hpp>
 #include <sge/systems/impl/window/system_fwd.hpp>
-#include <sge/systems/detail/input_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/context_fwd.hpp>

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opencl/exception.hpp>
 #include <sge/log/default_parameters.hpp>
+#include <sge/opencl/exception.hpp>
 #include <sge/opencl/log_location.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/device/object.hpp>

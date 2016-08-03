@@ -18,15 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/systems/original_window_fwd.hpp>
+#include <sge/systems/window.hpp>
+#include <sge/systems/wrapped_window_fwd.hpp>
 #include <sge/systems/impl/renderer/optional_system_ref.hpp>
 #include <sge/systems/impl/window/base.hpp>
 #include <sge/systems/impl/window/base_unique_ptr.hpp>
 #include <sge/systems/impl/window/make_base.hpp>
 #include <sge/systems/impl/window/original.hpp>
 #include <sge/systems/impl/window/wrapped.hpp>
-#include <sge/systems/original_window_fwd.hpp>
-#include <sge/systems/window.hpp>
-#include <sge/systems/wrapped_window_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonassignable.hpp>

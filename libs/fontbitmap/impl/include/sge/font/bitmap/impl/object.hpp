@@ -26,12 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/text_unique_ptr.hpp>
+#include <sge/font/bitmap/impl/char_map.hpp>
+#include <sge/font/bitmap/impl/line_height.hpp>
 #include <sge/image/color/optional_format.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/start_fwd.hpp>
-#include <sge/font/bitmap/impl/char_map.hpp>
-#include <sge/font/bitmap/impl/line_height.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/object.hpp>

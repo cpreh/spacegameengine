@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/projectile/log.hpp>
-#include <sge/projectile/shape/triangle_mesh.hpp>
 #include <sge/projectile/impl/shape/triangle_indices.hpp>
 #include <sge/projectile/impl/shape/triangle_scalars.hpp>
+#include <sge/projectile/shape/triangle_mesh.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>

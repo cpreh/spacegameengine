@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/plugin/collection_fwd.hpp>
 #include <sge/font/plugin/traits.hpp>
 #include <sge/plugin/object.hpp>
+#include <sge/systems/font_fwd.hpp>
 #include <sge/systems/impl/font/find_plugin.hpp>
 #include <sge/systems/impl/font/object.hpp>
-#include <sge/systems/font_fwd.hpp>
 #include <fcppt/log/context_fwd.hpp>
 
 

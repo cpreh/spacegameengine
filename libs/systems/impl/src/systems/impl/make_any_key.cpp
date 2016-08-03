@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/impl/make_any_key.hpp>
 #include <sge/systems/detail/any.hpp>
 #include <sge/systems/detail/any_key.hpp>
+#include <sge/systems/impl/make_any_key.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 

@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_IMPL_RENDERER_CREATE_DEVICE_HPP_INCLUDED
 
 #include <sge/renderer/device/core_unique_ptr.hpp>
+#include <sge/systems/detail/renderer_fwd.hpp>
 #include <sge/systems/impl/renderer/system_fwd.hpp>
 #include <sge/systems/impl/window/object_fwd.hpp>
-#include <sge/systems/detail/renderer_fwd.hpp>
 
 
 namespace sge

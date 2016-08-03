@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_FONT_BITMAP_IMPL_LOAD_ONE_FILE_HPP_INCLUDED
 #define SGE_FONT_BITMAP_IMPL_LOAD_ONE_FILE_HPP_INCLUDED
 
+#include <sge/font/bitmap/impl/char_map.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/font/bitmap/impl/char_map.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
