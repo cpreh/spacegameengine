@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/program/replace_extra.hpp>
 #include <sge/cg/program/replace_extra_callback.hpp>
 #include <sge/cg/program/source.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/function_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/xpressive/basic_regex.hpp>
 #include <boost/xpressive/regex_actions.hpp>
@@ -31,33 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/xpressive/regex_primitives.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
-namespace
-{
-
-// TODO: Why can't we use a lambda here?
-class replace_functor
-{
-	FCPPT_NONASSIGNABLE(
-		replace_functor
-	);
-public:
-	explicit
-	replace_functor(
-		sge::cg::program::replace_extra_callback const &
-	);
-
-	typedef sge::cg::string result_type;
-
-	result_type
-	operator()(
-		sge::cg::program::extra_index::value_type
-	) const;
-private:
-	sge::cg::program::replace_extra_callback const callback_;
-};
-
-}
 
 sge::cg::program::source
 sge::cg::program::replace_extra(
@@ -83,9 +56,27 @@ sge::cg::program::replace_extra(
 				_source.get(),
 				regex,
 				boost::xpressive::val(
-					replace_functor(
-						_callback
-					)
+					fcppt::function<
+						sge::cg::string (
+							sge::cg::program::extra_index::value_type
+						)
+					>{
+						[
+							&_callback
+						](
+							sge::cg::program::extra_index::value_type const _value
+						)
+						->
+						sge::cg::string
+						{
+							return
+								_callback(
+									sge::cg::program::extra_index{
+										_value
+									}
+								);
+						}
+					}
 				)(
 					boost::xpressive::as<
 						sge::cg::program::extra_index::value_type
@@ -95,32 +86,4 @@ sge::cg::program::replace_extra(
 				)
 			)
 		);
-}
-
-namespace
-{
-
-replace_functor::replace_functor(
-	sge::cg::program::replace_extra_callback const &_callback
-)
-:
-	callback_(
-		_callback
-	)
-{
-}
-
-replace_functor::result_type
-replace_functor::operator()(
-	sge::cg::program::extra_index::value_type const _value
-) const
-{
-	return
-		callback_(
-			sge::cg::program::extra_index(
-				_value
-			)
-		);
-}
-
 }
