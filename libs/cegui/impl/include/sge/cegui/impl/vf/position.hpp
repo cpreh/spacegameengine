@@ -34,9 +34,6 @@ namespace impl
 namespace vf
 {
 
-// TODO
-// I don't really know why they're using three-dimensional
-// coordinates, I just copy & pasted that part.
 typedef
 sge::renderer::vf::pos<
 	sge::cegui::unit,
