@@ -18,42 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/detail/any_fwd.hpp>
-#include <sge/systems/detail/any_map.hpp>
-#include <sge/systems/detail/list.hpp>
-#include <sge/systems/impl/make_any_key.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#include <sge/image2d/multi_system.hpp>
+#include <sge/image2d/multi_system_parameters.hpp>
+#include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/plugin/collection_fwd.hpp>
+#include <sge/systems/image2d.hpp>
+#include <sge/systems/impl/image2d/object.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
-sge::systems::detail::list::list()
-:
-	states_()
-{
-}
-
-void
-sge::systems::detail::list::insert(
-	sge::systems::detail::any const &_any
+sge::systems::impl::image2d::object::object(
+	fcppt::log::context &_log_context,
+	sge::image2d::plugin::collection const &_collection,
+	sge::systems::image2d const &_parameters
 )
+:
+	image_multi_system_(
+		fcppt::make_unique_ptr<
+			sge::image2d::multi_system
+		>(
+			sge::image2d::multi_system_parameters{
+				_log_context,
+				_collection,
+				_parameters.extensions()
+			}
+		)
+	)
 {
-	FCPPT_ASSERT_ERROR(
-		states_.insert(
-			std::make_pair(
-				sge::systems::impl::make_any_key(
-					_any
-				),
-				_any
-			)
-		).second == 1u
-	);
 }
 
-sge::systems::detail::any_map const &
-sge::systems::detail::list::get() const
+sge::systems::impl::image2d::object::~object()
+{
+}
+
+sge::image2d::system &
+sge::systems::impl::image2d::object::system() const
 {
 	return
-		states_;
+		*image_multi_system_;
 }

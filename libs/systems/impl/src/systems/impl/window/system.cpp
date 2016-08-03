@@ -18,42 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/detail/any_fwd.hpp>
-#include <sge/systems/detail/any_map.hpp>
-#include <sge/systems/detail/list.hpp>
-#include <sge/systems/impl/make_any_key.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#include <sge/systems/impl/window/make_system_base.hpp>
+#include <sge/systems/impl/window/system.hpp>
+#include <sge/systems/impl/window/system_base.hpp>
+#include <sge/systems/window_fwd.hpp>
+#include <sge/window/system_fwd.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
-sge::systems::detail::list::list()
-:
-	states_()
-{
-}
-
-void
-sge::systems::detail::list::insert(
-	sge::systems::detail::any const &_any
+sge::systems::impl::window::system::system(
+	fcppt::log::context &_log_context,
+	sge::systems::window const &_parameters
 )
+:
+	base_{
+		sge::systems::impl::window::make_system_base(
+			_log_context,
+			_parameters
+		)
+	}
 {
-	FCPPT_ASSERT_ERROR(
-		states_.insert(
-			std::make_pair(
-				sge::systems::impl::make_any_key(
-					_any
-				),
-				_any
-			)
-		).second == 1u
-	);
 }
 
-sge::systems::detail::any_map const &
-sge::systems::detail::list::get() const
+sge::systems::impl::window::system::~system()
+{
+}
+
+sge::window::system &
+sge::systems::impl::window::system::get() const
 {
 	return
-		states_;
+		base_->get();
 }

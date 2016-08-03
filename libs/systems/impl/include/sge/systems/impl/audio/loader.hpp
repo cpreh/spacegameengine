@@ -18,42 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/detail/any_fwd.hpp>
-#include <sge/systems/detail/any_map.hpp>
-#include <sge/systems/detail/list.hpp>
-#include <sge/systems/impl/make_any_key.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_SYSTEMS_IMPL_AUDIO_LOADER_HPP_INCLUDED
+#define SGE_SYSTEMS_IMPL_AUDIO_LOADER_HPP_INCLUDED
+
+#include <sge/audio/multi_loader_fwd.hpp>
+#include <sge/audio/loader_plugin/collection_fwd.hpp>
+#include <sge/systems/audio_loader_fwd.hpp>
+#include <sge/systems/impl/audio/loader_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
-sge::systems::detail::list::list()
-:
-	states_()
+namespace sge
 {
-}
-
-void
-sge::systems::detail::list::insert(
-	sge::systems::detail::any const &_any
-)
+namespace systems
 {
-	FCPPT_ASSERT_ERROR(
-		states_.insert(
-			std::make_pair(
-				sge::systems::impl::make_any_key(
-					_any
-				),
-				_any
-			)
-		).second == 1u
+namespace impl
+{
+namespace audio
+{
+
+class loader
+{
+	FCPPT_NONCOPYABLE(
+		loader
 	);
+public:
+	loader(
+		fcppt::log::context &,
+		sge::audio::loader_plugin::collection const &,
+		sge::systems::audio_loader const &
+	);
+
+	~loader();
+
+	sge::audio::loader &
+	get() const;
+private:
+	typedef
+	fcppt::unique_ptr<
+		sge::audio::multi_loader
+	>
+	audio_multi_loader_ptr;
+
+	audio_multi_loader_ptr const audio_multi_loader_;
+};
+
+}
+}
+}
 }
 
-sge::systems::detail::any_map const &
-sge::systems::detail::list::get() const
-{
-	return
-		states_;
-}
+#endif

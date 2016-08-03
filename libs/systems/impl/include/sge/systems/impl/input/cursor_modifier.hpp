@@ -18,47 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_MAKE_LIST_HPP_INCLUDED
-#define SGE_SYSTEMS_MAKE_LIST_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_IMPL_INPUT_CURSOR_MODIFIER_HPP_INCLUDED
+#define SGE_SYSTEMS_IMPL_INPUT_CURSOR_MODIFIER_HPP_INCLUDED
 
-#include <sge/systems/list_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/fusion/container/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/input/processor_fwd.hpp>
+#include <sge/input/cursor/discover_event_fwd.hpp>
+#include <sge/systems/cursor_option_field.hpp>
+#include <sge/systems/impl/input/cursor_modifier_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/optional_auto_connection.hpp>
 
 
 namespace sge
 {
 namespace systems
 {
-
-template<
-	typename Param
->
-inline
-sge::systems::list<
-	boost::fusion::vector1<
-		Param
-	>
->
-make_list(
-	Param const &_param
-)
+namespace impl
 {
-	return
-		sge::systems::list<
-			boost::fusion::vector1<
-				Param
-			>
-		>(
-			boost::fusion::vector1<
-				Param
-			>(
-				_param
-			)
-		);
-}
+namespace input
+{
 
+class cursor_modifier
+{
+	FCPPT_NONCOPYABLE(
+		cursor_modifier
+	);
+public:
+	cursor_modifier(
+		sge::input::processor &,
+		sge::systems::cursor_option_field const &
+	);
+
+	~cursor_modifier();
+private:
+	void
+	cursor_discover(
+		sge::input::cursor::discover_event const &
+	);
+
+	sge::systems::cursor_option_field const options_;
+
+	fcppt::signal::optional_auto_connection const connection_;
+};
+
+}
+}
 }
 }
 

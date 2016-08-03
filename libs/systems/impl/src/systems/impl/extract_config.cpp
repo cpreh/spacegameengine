@@ -18,42 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/detail/any_fwd.hpp>
+#include <sge/systems/config.hpp>
+#include <sge/systems/detail/any.hpp>
+#include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_map.hpp>
-#include <sge/systems/detail/list.hpp>
-#include <sge/systems/impl/make_any_key.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#include <sge/systems/impl/extract_config.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/container/find_opt_mapped.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/variant/get_exn.hpp>
 
 
-sge::systems::detail::list::list()
-:
-	states_()
-{
-}
-
-void
-sge::systems::detail::list::insert(
-	sge::systems::detail::any const &_any
+sge::systems::config
+sge::systems::impl::extract_config(
+	sge::systems::detail::any_map const &_map
 )
 {
-	FCPPT_ASSERT_ERROR(
-		states_.insert(
-			std::make_pair(
-				sge::systems::impl::make_any_key(
-					_any
-				),
-				_any
-			)
-		).second == 1u
-	);
-}
-
-sge::systems::detail::any_map const &
-sge::systems::detail::list::get() const
-{
 	return
-		states_;
+		fcppt::optional::maybe(
+			fcppt::container::find_opt_mapped(
+				_map,
+				sge::systems::detail::any_key::config
+			),
+			[]{
+				return
+					sge::systems::config();
+			},
+			[](
+				fcppt::reference<
+					sge::systems::detail::any const
+				> const _config
+			)
+			{
+				return
+					fcppt::variant::get_exn<
+						sge::systems::config
+					>(
+						_config.get()
+					);
+			}
+
+		);
 }

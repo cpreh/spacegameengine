@@ -18,42 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/detail/any_fwd.hpp>
-#include <sge/systems/detail/any_map.hpp>
-#include <sge/systems/detail/list.hpp>
-#include <sge/systems/impl/make_any_key.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_SYSTEMS_IMPL_RENDERER_FIND_PLUGIN_HPP_INCLUDED
+#define SGE_SYSTEMS_IMPL_RENDERER_FIND_PLUGIN_HPP_INCLUDED
+
+#include <sge/renderer/caps/system_field_fwd.hpp>
+#include <sge/renderer/plugin/collection_fwd.hpp>
+#include <sge/systems/optional_name_fwd.hpp>
+#include <sge/systems/renderer_caps_fwd.hpp>
+#include <sge/systems/impl/renderer/plugin_core_pair_fwd.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
-sge::systems::detail::list::list()
-:
-	states_()
+namespace sge
 {
+namespace systems
+{
+namespace impl
+{
+namespace renderer
+{
+
+sge::systems::impl::renderer::plugin_core_pair
+find_plugin(
+	fcppt::log::context &,
+	sge::renderer::plugin::collection const &,
+	sge::systems::optional_name const &,
+	sge::renderer::caps::system_field const &,
+	sge::systems::renderer_caps
+);
+
+}
+}
+}
 }
 
-void
-sge::systems::detail::list::insert(
-	sge::systems::detail::any const &_any
-)
-{
-	FCPPT_ASSERT_ERROR(
-		states_.insert(
-			std::make_pair(
-				sge::systems::impl::make_any_key(
-					_any
-				),
-				_any
-			)
-		).second == 1u
-	);
-}
-
-sge::systems::detail::any_map const &
-sge::systems::detail::list::get() const
-{
-	return
-		states_;
-}
+#endif

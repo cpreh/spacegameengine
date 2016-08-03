@@ -42,11 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/src/systems/any_visitor.hpp>
-#include <sge/src/systems/extract_config.hpp>
-#include <sge/src/systems/extract_plugin_path.hpp>
-#include <sge/src/systems/unpack_if_present.hpp>
-#include <sge/src/systems/detail/instance_impl.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/optional_log_settings.hpp>
@@ -55,6 +50,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/detail/instance.hpp>
 #include <sge/systems/detail/list.hpp>
 #include <sge/systems/detail/renderer.hpp>
+#include <sge/systems/impl/any_visitor.hpp>
+#include <sge/systems/impl/extract_config.hpp>
+#include <sge/systems/impl/extract_plugin_path.hpp>
+#include <sge/systems/impl/unpack_if_present.hpp>
+#include <sge/systems/impl/detail/instance_impl.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
@@ -77,11 +77,11 @@ sge::systems::detail::instance::instance(
 		fcppt::make_unique_ptr<
 			sge::systems::detail::instance_impl
 		>(
-			sge::systems::extract_plugin_path(
+			sge::systems::impl::extract_plugin_path(
 				_list.get()
 			),
 			fcppt::optional::bind(
-				sge::systems::extract_config(
+				sge::systems::impl::extract_config(
 					_list.get()
 				).log_settings(),
 				[](
@@ -93,7 +93,7 @@ sge::systems::detail::instance::instance(
 				}
 			),
 			fcppt::optional::bind(
-				sge::systems::extract_config(
+				sge::systems::impl::extract_config(
 					_list.get()
 				)
 				.log_settings(),
@@ -109,7 +109,7 @@ sge::systems::detail::instance::instance(
 	)
 {
 	sge::systems::optional_log_settings const log_settings(
-		sge::systems::extract_config(
+		sge::systems::impl::extract_config(
 			_list.get()
 		)
 		.log_settings()
@@ -181,7 +181,7 @@ sge::systems::detail::instance::instance(
 
 	// Special case:
 	// The window system must be initialized before the renderer system.
-	sge::systems::unpack_if_present<
+	sge::systems::impl::unpack_if_present<
 		sge::systems::window
 	>(
 		map,
@@ -201,7 +201,7 @@ sge::systems::detail::instance::instance(
 
 	// Special case:
 	// The renderer system must be initialized before the window.
-	sge::systems::unpack_if_present<
+	sge::systems::impl::unpack_if_present<
 		sge::systems::detail::renderer
 	>(
 		map,
@@ -226,7 +226,7 @@ sge::systems::detail::instance::instance(
 		map
 	)
 		fcppt::variant::apply_unary(
-			sge::systems::any_visitor(
+			sge::systems::impl::any_visitor(
 				*impl_
 			),
 			item.second

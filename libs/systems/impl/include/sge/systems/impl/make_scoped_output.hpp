@@ -18,42 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/detail/any_fwd.hpp>
-#include <sge/systems/detail/any_map.hpp>
-#include <sge/systems/detail/list.hpp>
-#include <sge/systems/impl/make_any_key.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_SYSTEMS_IMPL_MAKE_SCOPED_OUTPUT_HPP_INCLUDED
+#define SGE_SYSTEMS_IMPL_MAKE_SCOPED_OUTPUT_HPP_INCLUDED
+
+#include <sge/systems/optional_log_redirect_path_fwd.hpp>
+#include <awl/main/optional_scoped_output_unique_ptr.hpp>
 
 
-sge::systems::detail::list::list()
-:
-	states_()
+namespace sge
 {
+namespace systems
+{
+namespace impl
+{
+
+awl::main::optional_scoped_output_unique_ptr
+make_scoped_output(
+	sge::systems::optional_log_redirect_path const &
+);
+
+}
+}
 }
 
-void
-sge::systems::detail::list::insert(
-	sge::systems::detail::any const &_any
-)
-{
-	FCPPT_ASSERT_ERROR(
-		states_.insert(
-			std::make_pair(
-				sge::systems::impl::make_any_key(
-					_any
-				),
-				_any
-			)
-		).second == 1u
-	);
-}
-
-sge::systems::detail::any_map const &
-sge::systems::detail::list::get() const
-{
-	return
-		states_;
-}
+#endif

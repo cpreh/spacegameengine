@@ -36,6 +36,7 @@ sge::pango::added::added(
 :
 	sge::font::added()
 {
+	// TODO: Don't use the global fontmap
 	if(
 		::FcConfigAppFontAddFile(
 			nullptr,

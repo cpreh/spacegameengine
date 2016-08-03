@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/location.hpp>
-#include <sge/src/systems/log_name.hpp>
 #include <sge/systems/log_location.hpp>
+#include <sge/systems/impl/log_name.hpp>
 #include <fcppt/log/location.hpp>
 
 
@@ -30,5 +30,5 @@ sge::systems::log_location()
 	return
 		sge::log::location()
 		/
-		sge::systems::log_name();
+		sge::systems::impl::log_name();
 }

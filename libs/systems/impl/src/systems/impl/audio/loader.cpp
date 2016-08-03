@@ -18,42 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/detail/any_fwd.hpp>
-#include <sge/systems/detail/any_map.hpp>
-#include <sge/systems/detail/list.hpp>
-#include <sge/systems/impl/make_any_key.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#include <sge/audio/loader_fwd.hpp>
+#include <sge/audio/multi_loader.hpp>
+#include <sge/audio/multi_loader_parameters.hpp>
+#include <sge/audio/loader_plugin/collection_fwd.hpp>
+#include <sge/systems/audio_loader.hpp>
+#include <sge/systems/impl/audio/loader.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
-sge::systems::detail::list::list()
-:
-	states_()
-{
-}
-
-void
-sge::systems::detail::list::insert(
-	sge::systems::detail::any const &_any
+sge::systems::impl::audio::loader::loader(
+	fcppt::log::context &_log_context,
+	sge::audio::loader_plugin::collection const &_collection,
+	sge::systems::audio_loader const &_parameters
 )
-{
-	FCPPT_ASSERT_ERROR(
-		states_.insert(
-			std::make_pair(
-				sge::systems::impl::make_any_key(
-					_any
-				),
-				_any
+:
+	audio_multi_loader_(
+		fcppt::make_unique_ptr<
+			sge::audio::multi_loader
+		>(
+			sge::audio::multi_loader_parameters(
+				_log_context,
+				_collection,
+				_parameters.extensions()
 			)
-		).second == 1u
-	);
+		)
+	)
+{
 }
 
-sge::systems::detail::any_map const &
-sge::systems::detail::list::get() const
+sge::systems::impl::audio::loader::~loader()
+{
+}
+
+sge::audio::loader &
+sge::systems::impl::audio::loader::get() const
 {
 	return
-		states_;
+		*audio_multi_loader_;
 }

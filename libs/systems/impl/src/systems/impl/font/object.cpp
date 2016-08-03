@@ -18,42 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/detail/any_fwd.hpp>
-#include <sge/systems/detail/any_map.hpp>
-#include <sge/systems/detail/list.hpp>
-#include <sge/systems/impl/make_any_key.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#include <sge/font/system.hpp>
+#include <sge/font/plugin/collection_fwd.hpp>
+#include <sge/font/plugin/traits.hpp>
+#include <sge/plugin/object.hpp>
+#include <sge/systems/impl/font/find_plugin.hpp>
+#include <sge/systems/impl/font/object.hpp>
+#include <sge/systems/font_fwd.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
-sge::systems::detail::list::list()
-:
-	states_()
-{
-}
-
-void
-sge::systems::detail::list::insert(
-	sge::systems::detail::any const &_any
+sge::systems::impl::font::object::object(
+	fcppt::log::context &_log_context,
+	sge::font::plugin::collection const &_collection,
+	sge::systems::font const &_parameters
 )
+:
+	font_plugin_(
+		sge::systems::impl::font::find_plugin(
+			_collection,
+			_parameters
+		)
+	),
+	font_system_(
+		font_plugin_.get()(
+			_log_context
+		)
+	)
 {
-	FCPPT_ASSERT_ERROR(
-		states_.insert(
-			std::make_pair(
-				sge::systems::impl::make_any_key(
-					_any
-				),
-				_any
-			)
-		).second == 1u
-	);
 }
 
-sge::systems::detail::any_map const &
-sge::systems::detail::list::get() const
+sge::systems::impl::font::object::~object()
+{
+}
+
+sge::font::system &
+sge::systems::impl::font::object::system() const
 {
 	return
-		states_;
+		*font_system_;
 }

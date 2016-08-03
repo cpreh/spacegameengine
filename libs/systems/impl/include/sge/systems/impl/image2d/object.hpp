@@ -18,47 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_MAKE_LIST_HPP_INCLUDED
-#define SGE_SYSTEMS_MAKE_LIST_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_IMPL_IMAGE2D_OBJECT_HPP_INCLUDED
+#define SGE_SYSTEMS_IMPL_IMAGE2D_OBJECT_HPP_INCLUDED
 
-#include <sge/systems/list_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/fusion/container/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/image2d/multi_system_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/plugin/collection_fwd.hpp>
+#include <sge/systems/image2d_fwd.hpp>
+#include <sge/systems/impl/image2d/object_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace sge
 {
 namespace systems
 {
-
-template<
-	typename Param
->
-inline
-sge::systems::list<
-	boost::fusion::vector1<
-		Param
-	>
->
-make_list(
-	Param const &_param
-)
+namespace impl
 {
-	return
-		sge::systems::list<
-			boost::fusion::vector1<
-				Param
-			>
-		>(
-			boost::fusion::vector1<
-				Param
-			>(
-				_param
-			)
-		);
-}
+namespace image2d
+{
 
+class object
+{
+	FCPPT_NONCOPYABLE(
+		object
+	);
+public:
+	object(
+		fcppt::log::context &,
+		sge::image2d::plugin::collection const &,
+		sge::systems::image2d const &
+	);
+
+	~object();
+
+	sge::image2d::system &
+	system() const;
+private:
+	typedef
+	fcppt::unique_ptr<
+		sge::image2d::multi_system
+	>
+	image_multi_unique_ptr;
+
+	image_multi_unique_ptr const image_multi_system_;
+};
+
+}
+}
 }
 }
 

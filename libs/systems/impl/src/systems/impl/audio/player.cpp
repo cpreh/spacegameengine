@@ -18,42 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/detail/any_fwd.hpp>
-#include <sge/systems/detail/any_map.hpp>
-#include <sge/systems/detail/list.hpp>
-#include <sge/systems/impl/make_any_key.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#include <sge/audio/player.hpp>
+#include <sge/audio/player_plugin/collection_fwd.hpp>
+#include <sge/systems/audio_player_fwd.hpp>
+#include <sge/systems/impl/audio/find_player_plugin.hpp>
+#include <sge/systems/impl/audio/player.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
-sge::systems::detail::list::list()
-:
-	states_()
-{
-}
-
-void
-sge::systems::detail::list::insert(
-	sge::systems::detail::any const &_any
+sge::systems::impl::audio::player::player(
+	fcppt::log::context &_log_context,
+	fcppt::log::object &_log,
+	sge::audio::player_plugin::collection const &_collection,
+	sge::systems::audio_player const &_parameters
 )
+:
+	player_pair_(
+		sge::systems::impl::audio::find_player_plugin(
+			_log_context,
+			_log,
+			_collection,
+			_parameters
+		)
+	)
 {
-	FCPPT_ASSERT_ERROR(
-		states_.insert(
-			std::make_pair(
-				sge::systems::impl::make_any_key(
-					_any
-				),
-				_any
-			)
-		).second == 1u
-	);
 }
 
-sge::systems::detail::any_map const &
-sge::systems::detail::list::get() const
+sge::systems::impl::audio::player::~player()
+{
+}
+
+
+sge::audio::player &
+sge::systems::impl::audio::player::get() const
 {
 	return
-		states_;
+		player_pair_.system();
 }

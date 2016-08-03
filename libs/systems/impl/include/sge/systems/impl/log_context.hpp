@@ -18,42 +18,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/detail/any_fwd.hpp>
-#include <sge/systems/detail/any_map.hpp>
-#include <sge/systems/detail/list.hpp>
-#include <sge/systems/impl/make_any_key.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_SYSTEMS_IMPL_LOG_CONTEXT_HPP_INCLUDED
+#define SGE_SYSTEMS_IMPL_LOG_CONTEXT_HPP_INCLUDED
+
+#include <sge/systems/optional_log_context_ref_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/variant/variadic.hpp>
 
 
-sge::systems::detail::list::list()
-:
-	states_()
+namespace sge
 {
-}
-
-void
-sge::systems::detail::list::insert(
-	sge::systems::detail::any const &_any
-)
+namespace systems
 {
-	FCPPT_ASSERT_ERROR(
-		states_.insert(
-			std::make_pair(
-				sge::systems::impl::make_any_key(
-					_any
-				),
-				_any
-			)
-		).second == 1u
+namespace impl
+{
+
+class log_context
+{
+	FCPPT_NONCOPYABLE(
+		log_context
 	);
+public:
+	explicit
+	log_context(
+		sge::systems::optional_log_context_ref
+	);
+
+	~log_context();
+
+	fcppt::log::context &
+	get() const;
+private:
+	typedef
+	fcppt::variant::variadic<
+		fcppt::unique_ptr<
+			fcppt::log::context
+		>,
+		fcppt::reference<
+			fcppt::log::context
+		>
+	>
+	variant;
+
+	variant const impl_;
+};
+
+}
+}
 }
 
-sge::systems::detail::any_map const &
-sge::systems::detail::list::get() const
-{
-	return
-		states_;
-}
+#endif

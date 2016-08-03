@@ -1,5 +1,114 @@
 set(
 	SGE_SYSTEMS_FILES
+	libs/systems/impl/include/sge/systems/impl/any_visitor.hpp
+	libs/systems/impl/include/sge/systems/impl/audio/find_player_plugin.hpp
+	libs/systems/impl/include/sge/systems/impl/audio/loader.hpp
+	libs/systems/impl/include/sge/systems/impl/audio/loader_fwd.hpp
+	libs/systems/impl/include/sge/systems/impl/audio/loader_unique_ptr.hpp
+	libs/systems/impl/include/sge/systems/impl/audio/player.hpp
+	libs/systems/impl/include/sge/systems/impl/audio/player_fwd.hpp
+	libs/systems/impl/include/sge/systems/impl/audio/player_pair.hpp
+	libs/systems/impl/include/sge/systems/impl/audio/player_pair_fwd.hpp
+	libs/systems/impl/include/sge/systems/impl/audio/player_unique_ptr.hpp
+	libs/systems/impl/include/sge/systems/impl/detail/custom_cursor.hpp
+	libs/systems/impl/include/sge/systems/impl/detail/instance_impl.hpp
+	libs/systems/impl/include/sge/systems/impl/extract_config.hpp
+	libs/systems/impl/include/sge/systems/impl/extract_plugin_path.hpp
+	libs/systems/impl/include/sge/systems/impl/find_plugin.hpp
+	libs/systems/impl/include/sge/systems/impl/find_plugin_opt.hpp
+	libs/systems/impl/include/sge/systems/impl/font/find_plugin.hpp
+	libs/systems/impl/include/sge/systems/impl/font/object.hpp
+	libs/systems/impl/include/sge/systems/impl/font/object_fwd.hpp
+	libs/systems/impl/include/sge/systems/impl/font/object_unique_ptr.hpp
+	libs/systems/impl/include/sge/systems/impl/image2d/object.hpp
+	libs/systems/impl/include/sge/systems/impl/image2d/object_fwd.hpp
+	libs/systems/impl/include/sge/systems/impl/image2d/object_unique_ptr.hpp
+	libs/systems/impl/include/sge/systems/impl/ini_section_name.hpp
+	libs/systems/impl/include/sge/systems/impl/input/cursor_modifier.hpp
+	libs/systems/impl/include/sge/systems/impl/input/cursor_modifier_fwd.hpp
+	libs/systems/impl/include/sge/systems/impl/input/cursor_modifier_unique_ptr.hpp
+	libs/systems/impl/include/sge/systems/impl/input/object.hpp
+	libs/systems/impl/include/sge/systems/impl/input/object_fwd.hpp
+	libs/systems/impl/include/sge/systems/impl/input/object_unique_ptr.hpp
+	libs/systems/impl/include/sge/systems/impl/log_context.hpp
+	libs/systems/impl/include/sge/systems/impl/log_name.hpp
+	libs/systems/impl/include/sge/systems/impl/make_any_key.hpp
+	libs/systems/impl/include/sge/systems/impl/make_scoped_output.hpp
+	libs/systems/impl/include/sge/systems/impl/merge_config_strings.hpp
+	libs/systems/impl/include/sge/systems/impl/plugin_pair_decl.hpp
+	libs/systems/impl/include/sge/systems/impl/plugin_pair_fwd.hpp
+	libs/systems/impl/include/sge/systems/impl/plugin_pair_impl.hpp
+	libs/systems/impl/include/sge/systems/impl/renderer/create_device.hpp
+	libs/systems/impl/include/sge/systems/impl/renderer/device.hpp
+	libs/systems/impl/include/sge/systems/impl/renderer/device_fwd.hpp
+	libs/systems/impl/include/sge/systems/impl/renderer/device_unique_ptr.hpp
+	libs/systems/impl/include/sge/systems/impl/renderer/find_plugin.hpp
+	libs/systems/impl/include/sge/systems/impl/renderer/optional_system_ref.hpp
+	libs/systems/impl/include/sge/systems/impl/renderer/optional_system_ref_fwd.hpp
+	libs/systems/impl/include/sge/systems/impl/renderer/plugin_core_pair.hpp
+	libs/systems/impl/include/sge/systems/impl/renderer/plugin_core_pair_fwd.hpp
+	libs/systems/impl/include/sge/systems/impl/renderer/system.hpp
+	libs/systems/impl/include/sge/systems/impl/renderer/system_fwd.hpp
+	libs/systems/impl/include/sge/systems/impl/renderer/system_unique_ptr.hpp
+	libs/systems/impl/include/sge/systems/impl/unpack_if_present.hpp
+	libs/systems/impl/include/sge/systems/impl/window/base.hpp
+	libs/systems/impl/include/sge/systems/impl/window/base_fwd.hpp
+	libs/systems/impl/include/sge/systems/impl/window/base_unique_ptr.hpp
+	libs/systems/impl/include/sge/systems/impl/window/make_base.hpp
+	libs/systems/impl/include/sge/systems/impl/window/make_system_base.hpp
+	libs/systems/impl/include/sge/systems/impl/window/object.hpp
+	libs/systems/impl/include/sge/systems/impl/window/object_fwd.hpp
+	libs/systems/impl/include/sge/systems/impl/window/object_unique_ptr.hpp
+	libs/systems/impl/include/sge/systems/impl/window/original.hpp
+	libs/systems/impl/include/sge/systems/impl/window/original_system.hpp
+	libs/systems/impl/include/sge/systems/impl/window/quit.hpp
+	libs/systems/impl/include/sge/systems/impl/window/quit_fwd.hpp
+	libs/systems/impl/include/sge/systems/impl/window/system.hpp
+	libs/systems/impl/include/sge/systems/impl/window/system_base.hpp
+	libs/systems/impl/include/sge/systems/impl/window/system_base_fwd.hpp
+	libs/systems/impl/include/sge/systems/impl/window/system_base_unique_ptr.hpp
+	libs/systems/impl/include/sge/systems/impl/window/system_fwd.hpp
+	libs/systems/impl/include/sge/systems/impl/window/system_unique_ptr.hpp
+	libs/systems/impl/include/sge/systems/impl/window/to_awl_parameters.hpp
+	libs/systems/impl/include/sge/systems/impl/window/wrapped.hpp
+	libs/systems/impl/include/sge/systems/impl/window/wrapped_system.hpp
+	libs/systems/impl/src/systems/impl/any_visitor.cpp
+	libs/systems/impl/src/systems/impl/audio/find_player_plugin.cpp
+	libs/systems/impl/src/systems/impl/audio/loader.cpp
+	libs/systems/impl/src/systems/impl/audio/player.cpp
+	libs/systems/impl/src/systems/impl/audio/player_pair.cpp
+	libs/systems/impl/src/systems/impl/detail/custom_cursor.cpp
+	libs/systems/impl/src/systems/impl/detail/instance_impl.cpp
+	libs/systems/impl/src/systems/impl/extract_config.cpp
+	libs/systems/impl/src/systems/impl/extract_plugin_path.cpp
+	libs/systems/impl/src/systems/impl/font/find_plugin.cpp
+	libs/systems/impl/src/systems/impl/font/object.cpp
+	libs/systems/impl/src/systems/impl/image2d/object.cpp
+	libs/systems/impl/src/systems/impl/ini_section_name.cpp
+	libs/systems/impl/src/systems/impl/input/cursor_modifier.cpp
+	libs/systems/impl/src/systems/impl/input/object.cpp
+	libs/systems/impl/src/systems/impl/log_context.cpp
+	libs/systems/impl/src/systems/impl/log_name.cpp
+	libs/systems/impl/src/systems/impl/make_any_key.cpp
+	libs/systems/impl/src/systems/impl/make_scoped_output.cpp
+	libs/systems/impl/src/systems/impl/merge_config_strings.cpp
+	libs/systems/impl/src/systems/impl/renderer/create_device.cpp
+	libs/systems/impl/src/systems/impl/renderer/device.cpp
+	libs/systems/impl/src/systems/impl/renderer/find_plugin.cpp
+	libs/systems/impl/src/systems/impl/renderer/plugin_core_pair.cpp
+	libs/systems/impl/src/systems/impl/renderer/system.cpp
+	libs/systems/impl/src/systems/impl/window/base.cpp
+	libs/systems/impl/src/systems/impl/window/make_base.cpp
+	libs/systems/impl/src/systems/impl/window/make_system_base.cpp
+	libs/systems/impl/src/systems/impl/window/object.cpp
+	libs/systems/impl/src/systems/impl/window/original.cpp
+	libs/systems/impl/src/systems/impl/window/original_system.cpp
+	libs/systems/impl/src/systems/impl/window/quit.cpp
+	libs/systems/impl/src/systems/impl/window/system.cpp
+	libs/systems/impl/src/systems/impl/window/system_base.cpp
+	libs/systems/impl/src/systems/impl/window/to_awl_parameters.cpp
+	libs/systems/impl/src/systems/impl/window/wrapped.cpp
+	libs/systems/impl/src/systems/impl/window/wrapped_system.cpp
 	libs/systems/include/sge/systems/audio_loader.hpp
 	libs/systems/include/sge/systems/audio_loader_fwd.hpp
 	libs/systems/include/sge/systems/audio_player.hpp
@@ -118,132 +227,23 @@ set(
 	libs/systems/include/sge/systems/with_window_fwd.hpp
 	libs/systems/include/sge/systems/wrapped_window.hpp
 	libs/systems/include/sge/systems/wrapped_window_fwd.hpp
-	libs/systems/src/systems/any_visitor.cpp
 	libs/systems/src/systems/audio_loader.cpp
 	libs/systems/src/systems/audio_player.cpp
 	libs/systems/src/systems/audio_player_default.cpp
 	libs/systems/src/systems/config.cpp
 	libs/systems/src/systems/custom_cursor.cpp
-	libs/systems/src/systems/detail/custom_cursor.cpp
 	libs/systems/src/systems/detail/input.cpp
 	libs/systems/src/systems/detail/instance.cpp
-	libs/systems/src/systems/detail/instance_impl.cpp
 	libs/systems/src/systems/detail/list.cpp
 	libs/systems/src/systems/detail/quit_on_escape.cpp
 	libs/systems/src/systems/detail/renderer.cpp
 	libs/systems/src/systems/exception.cpp
-	libs/systems/src/systems/extract_config.cpp
-	libs/systems/src/systems/extract_plugin_path.cpp
 	libs/systems/src/systems/font.cpp
 	libs/systems/src/systems/image2d.cpp
-	libs/systems/src/systems/include/sge/src/systems/any_visitor.hpp
-	libs/systems/src/systems/include/sge/src/systems/detail/custom_cursor.hpp
-	libs/systems/src/systems/include/sge/src/systems/detail/instance_impl.hpp
-	libs/systems/src/systems/include/sge/src/systems/extract_config.hpp
-	libs/systems/src/systems/include/sge/src/systems/extract_plugin_path.hpp
-	libs/systems/src/systems/include/sge/src/systems/find_plugin.hpp
-	libs/systems/src/systems/include/sge/src/systems/find_plugin_opt.hpp
-	libs/systems/src/systems/include/sge/src/systems/ini_section_name.hpp
-	libs/systems/src/systems/include/sge/src/systems/log_context.hpp
-	libs/systems/src/systems/include/sge/src/systems/log_name.hpp
-	libs/systems/src/systems/include/sge/src/systems/make_any_key.hpp
-	libs/systems/src/systems/include/sge/src/systems/make_scoped_output.hpp
-	libs/systems/src/systems/include/sge/src/systems/merge_config_strings.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/audio/find_player_plugin.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/audio/loader.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/audio/loader_fwd.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/audio/loader_unique_ptr.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/audio/player.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/audio/player_fwd.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/audio/player_pair.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/audio/player_pair_fwd.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/audio/player_unique_ptr.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/font/find_plugin.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/font/object.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/font/object_fwd.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/font/object_unique_ptr.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/image2d/object.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/image2d/object_fwd.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/image2d/object_unique_ptr.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/input/cursor_modifier.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/input/cursor_modifier_fwd.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/input/cursor_modifier_unique_ptr.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/input/object.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/input/object_fwd.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/input/object_unique_ptr.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/renderer/create_device.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/renderer/device.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/renderer/device_fwd.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/renderer/device_unique_ptr.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/renderer/find_plugin.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/renderer/optional_system_ref.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/renderer/optional_system_ref_fwd.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/renderer/plugin_core_pair.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/renderer/plugin_core_pair_fwd.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/renderer/system.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/renderer/system_fwd.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/renderer/system_unique_ptr.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/base.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/base_fwd.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/base_unique_ptr.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/make_base.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/make_system_base.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/object.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/object_fwd.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/object_unique_ptr.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/original.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/original_system.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/quit.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/quit_fwd.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/system.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/system_base.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/system_base_fwd.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/system_base_unique_ptr.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/system_fwd.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/system_unique_ptr.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/to_awl_parameters.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/wrapped.hpp
-	libs/systems/src/systems/include/sge/src/systems/modules/window/wrapped_system.hpp
-	libs/systems/src/systems/include/sge/src/systems/plugin_pair_decl.hpp
-	libs/systems/src/systems/include/sge/src/systems/plugin_pair_fwd.hpp
-	libs/systems/src/systems/include/sge/src/systems/plugin_pair_impl.hpp
-	libs/systems/src/systems/include/sge/src/systems/unpack_if_present.hpp
-	libs/systems/src/systems/ini_section_name.cpp
 	libs/systems/src/systems/input.cpp
-	libs/systems/src/systems/log_context.cpp
 	libs/systems/src/systems/log_location.cpp
-	libs/systems/src/systems/log_name.cpp
 	libs/systems/src/systems/log_settings.cpp
-	libs/systems/src/systems/make_any_key.cpp
 	libs/systems/src/systems/make_empty_list.cpp
-	libs/systems/src/systems/make_scoped_output.cpp
-	libs/systems/src/systems/merge_config_strings.cpp
-	libs/systems/src/systems/modules/audio/find_player_plugin.cpp
-	libs/systems/src/systems/modules/audio/loader.cpp
-	libs/systems/src/systems/modules/audio/player.cpp
-	libs/systems/src/systems/modules/audio/player_pair.cpp
-	libs/systems/src/systems/modules/font/find_plugin.cpp
-	libs/systems/src/systems/modules/font/object.cpp
-	libs/systems/src/systems/modules/image2d/object.cpp
-	libs/systems/src/systems/modules/input/cursor_modifier.cpp
-	libs/systems/src/systems/modules/input/object.cpp
-	libs/systems/src/systems/modules/renderer/create_device.cpp
-	libs/systems/src/systems/modules/renderer/device.cpp
-	libs/systems/src/systems/modules/renderer/find_plugin.cpp
-	libs/systems/src/systems/modules/renderer/plugin_core_pair.cpp
-	libs/systems/src/systems/modules/renderer/system.cpp
-	libs/systems/src/systems/modules/window/base.cpp
-	libs/systems/src/systems/modules/window/make_base.cpp
-	libs/systems/src/systems/modules/window/make_system_base.cpp
-	libs/systems/src/systems/modules/window/object.cpp
-	libs/systems/src/systems/modules/window/original.cpp
-	libs/systems/src/systems/modules/window/original_system.cpp
-	libs/systems/src/systems/modules/window/quit.cpp
-	libs/systems/src/systems/modules/window/system.cpp
-	libs/systems/src/systems/modules/window/system_base.cpp
-	libs/systems/src/systems/modules/window/to_awl_parameters.cpp
-	libs/systems/src/systems/modules/window/wrapped.cpp
-	libs/systems/src/systems/modules/window/wrapped_system.cpp
 	libs/systems/src/systems/original_window.cpp
 	libs/systems/src/systems/renderer.cpp
 	libs/systems/src/systems/window.cpp
@@ -257,6 +257,7 @@ find_package(
 
 add_sge_base_library(
 	systems
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgeaudio
 		sgeconfig
@@ -294,6 +295,4 @@ add_sge_base_library(
 	TRANSITIVE_ADDITIONAL_DEPS
 		awl_interface
 		fcppt_core_interface
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/systems/include"
 )

@@ -18,42 +18,62 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/detail/any_fwd.hpp>
+#ifndef SGE_SYSTEMS_IMPL_UNPACK_IF_PRESENT_HPP_INCLUDED
+#define SGE_SYSTEMS_IMPL_UNPACK_IF_PRESENT_HPP_INCLUDED
+
+#include <sge/systems/detail/any.hpp>
+#include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_map.hpp>
-#include <sge/systems/detail/list.hpp>
-#include <sge/systems/impl/make_any_key.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/container/find_opt_mapped.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/variant/get_exn.hpp>
 
 
-sge::systems::detail::list::list()
-:
-	states_()
+namespace sge
 {
-}
+namespace systems
+{
+namespace impl
+{
 
+template<
+	typename Parameter,
+	typename Function
+>
 void
-sge::systems::detail::list::insert(
-	sge::systems::detail::any const &_any
+unpack_if_present(
+	sge::systems::detail::any_map const &_map,
+	sge::systems::detail::any_key const _key,
+	Function const _function
 )
 {
-	FCPPT_ASSERT_ERROR(
-		states_.insert(
-			std::make_pair(
-				sge::systems::impl::make_any_key(
-					_any
-				),
-				_any
-			)
-		).second == 1u
+	fcppt::optional::maybe_void(
+		fcppt::container::find_opt_mapped(
+			_map,
+			_key
+		),
+		[
+			_function
+		](
+			fcppt::reference<
+				sge::systems::detail::any const
+			> const _element
+		)
+		{
+			_function(
+				fcppt::variant::get_exn<
+					Parameter
+				>(
+					_element.get()
+				)
+			);
+		}
 	);
 }
-
-sge::systems::detail::any_map const &
-sge::systems::detail::list::get() const
-{
-	return
-		states_;
 }
+
+}
+}
+
+#endif
