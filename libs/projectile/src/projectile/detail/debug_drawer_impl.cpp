@@ -31,11 +31,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
-#include <sge/src/projectile/structure_cast.hpp>
 #include <sge/src/projectile/detail/debug_drawer_impl.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/cast/size_fun.hpp>
+#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/debug.hpp>
@@ -45,6 +47,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
+#include <LinearMath/btScalar.h>
+#include <LinearMath/btVector3.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -179,16 +183,36 @@ sge::projectile::detail::debug_drawer_impl::drawLine(
 			scoped_lock_unique_ptr const &_lock
 		)
 		{
+			auto const make_vector(
+				[](
+					btVector3 const &_s
+				)
+				->
+				sge::renderer::vector3
+				{
+					return
+						fcppt::math::vector::structure_cast<
+							sge::renderer::vector3,
+							fcppt::cast::size_fun
+						>(
+							fcppt::math::vector::static_<
+								btScalar,
+								3u
+							>{
+								_s[0],
+								_s[1],
+								_s[2]
+							}
+						);
+				}
+			);
+
 			_lock->value().push_back(
 				sge::line_drawer::line(
-					sge::projectile::structure_cast<
-						sge::renderer::vector3
-					>(
+					make_vector(
 						_from
 					),
-					sge::projectile::structure_cast<
-						sge::renderer::vector3
-					>(
+					make_vector(
 						_to
 					),
 					sge::image::color::any::object(

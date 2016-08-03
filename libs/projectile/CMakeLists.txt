@@ -115,7 +115,6 @@ set(
 	libs/projectile/src/projectile/include/sge/src/projectile/object_extrusion_depth.hpp
 	libs/projectile/src/projectile/include/sge/src/projectile/shape/triangle_indices.hpp
 	libs/projectile/src/projectile/include/sge/src/projectile/shape/triangle_scalars.hpp
-	libs/projectile/src/projectile/include/sge/src/projectile/structure_cast.hpp
 	libs/projectile/src/projectile/include/sge/src/projectile/vector2_to_bullet.hpp
 	libs/projectile/src/projectile/log.cpp
 	libs/projectile/src/projectile/log_location.cpp
