@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
-#include <sge/src/rucksack/flip_axis.hpp>
-#include <sge/src/rucksack/make_components.hpp>
+#include <sge/rucksack/impl/flip_axis.hpp>
+#include <sge/rucksack/impl/make_components.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
@@ -39,7 +39,7 @@ sge::rucksack::widget::base::size(
 )
 {
 	this->size(
-		sge::rucksack::make_components<
+		sge::rucksack::impl::make_components<
 			sge::rucksack::dim
 		>(
 			std::make_pair(
@@ -47,11 +47,11 @@ sge::rucksack::widget::base::size(
 				_value
 			),
 			std::make_pair(
-				sge::rucksack::flip_axis(
+				sge::rucksack::impl::flip_axis(
 					_axis
 				),
 				this->size(
-					sge::rucksack::flip_axis(
+					sge::rucksack::impl::flip_axis(
 						_axis
 					)
 				)
@@ -67,7 +67,7 @@ sge::rucksack::widget::base::position(
 )
 {
 	this->position(
-		sge::rucksack::make_components<
+		sge::rucksack::impl::make_components<
 			sge::rucksack::vector
 		>(
 			std::make_pair(
@@ -75,11 +75,11 @@ sge::rucksack::widget::base::position(
 				_value
 			),
 			std::make_pair(
-				sge::rucksack::flip_axis(
+				sge::rucksack::impl::flip_axis(
 					_axis
 				),
 				this->position(
-					sge::rucksack::flip_axis(
+					sge::rucksack::impl::flip_axis(
 						_axis
 					)
 				)

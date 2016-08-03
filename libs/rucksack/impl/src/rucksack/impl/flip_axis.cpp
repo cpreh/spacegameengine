@@ -18,23 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RUCKSACK_FLIP_AXIS_HPP_INCLUDED
-#define SGE_SRC_RUCKSACK_FLIP_AXIS_HPP_INCLUDED
-
 #include <sge/rucksack/axis.hpp>
+#include <sge/rucksack/impl/flip_axis.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
-
-namespace sge
-{
-namespace rucksack
-{
 
 sge::rucksack::axis
-flip_axis(
-	sge::rucksack::axis
-);
+sge::rucksack::impl::flip_axis(
+	sge::rucksack::axis const _axis
+)
+{
+	switch(
+		_axis
+	)
+	{
+	case sge::rucksack::axis::x:
+		return
+			sge::rucksack::axis::y;
+	case sge::rucksack::axis::y:
+		return
+			sge::rucksack::axis::x;
+	}
 
+	FCPPT_ASSERT_UNREACHABLE;
 }
-}
-
-#endif

@@ -35,8 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/widget/optional_ref.hpp>
 #include <sge/rucksack/widget/reference_alignment.hpp>
 #include <sge/rucksack/widget/reference_alignment_container.hpp>
-#include <sge/src/rucksack/extract_size.hpp>
-#include <sge/src/rucksack/flip_axis.hpp>
+#include <sge/rucksack/impl/extract_size.hpp>
+#include <sge/rucksack/impl/flip_axis.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/reference_comparison.hpp>
@@ -476,7 +476,7 @@ sge::rucksack::widget::box::relayout()
 						remaining_size{
 							_info.remaining()
 							-
-							sge::rucksack::extract_size(
+							sge::rucksack::impl::extract_size(
 								policy
 							)
 						},
@@ -905,7 +905,7 @@ sge::rucksack::axis
 sge::rucksack::widget::box::minor_axis() const
 {
 	return
-		sge::rucksack::flip_axis(
+		sge::rucksack::impl::flip_axis(
 			axis_
 		);
 }

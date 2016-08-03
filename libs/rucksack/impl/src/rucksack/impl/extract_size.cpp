@@ -18,27 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/rucksack/axis.hpp>
-#include <sge/src/rucksack/flip_axis.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <sge/rucksack/axis_policy.hpp>
+#include <sge/rucksack/minimum_size.hpp>
+#include <sge/rucksack/preferred_size.hpp>
+#include <sge/rucksack/scalar.hpp>
+#include <sge/rucksack/impl/extract_size.hpp>
+#include <fcppt/variant/match.hpp>
 
 
-sge::rucksack::axis
-sge::rucksack::flip_axis(
-	sge::rucksack::axis const _axis
+sge::rucksack::scalar
+sge::rucksack::impl::extract_size(
+	sge::rucksack::axis_policy const &_policy
 )
 {
-	switch(
-		_axis
-	)
-	{
-	case sge::rucksack::axis::x:
-		return
-			sge::rucksack::axis::y;
-	case sge::rucksack::axis::y:
-		return
-			sge::rucksack::axis::x;
-	}
-
-	FCPPT_ASSERT_UNREACHABLE;
+	return
+		fcppt::variant::match(
+			_policy,
+			[](
+				sge::rucksack::minimum_size const _pol
+			)
+			{
+				return
+					_pol.get();
+			},
+			[](
+				sge::rucksack::preferred_size const _pol
+			)
+			{
+				return
+					_pol.get();
+			}
+		);
 }

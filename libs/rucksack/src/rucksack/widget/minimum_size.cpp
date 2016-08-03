@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/minimum_size.hpp>
-#include <sge/src/rucksack/extract_size.hpp>
+#include <sge/rucksack/impl/extract_size.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>
 
@@ -101,7 +101,7 @@ sge::rucksack::widget::minimum_size::axis_policy() const
 					return
 						sge::rucksack::axis_policy{
 							sge::rucksack::preferred_size{
-								sge::rucksack::extract_size(
+								sge::rucksack::impl::extract_size(
 									child_.axis_policy()[
 										_axis
 									]
@@ -122,10 +122,10 @@ sge::rucksack::widget::minimum_size::relayout()
 
 	child_.size(
 		sge::rucksack::dim(
-			sge::rucksack::extract_size(
+			sge::rucksack::impl::extract_size(
 				child_.axis_policy().x()
 			),
-			sge::rucksack::extract_size(
+			sge::rucksack::impl::extract_size(
 				child_.axis_policy().y()
 			)
 		)

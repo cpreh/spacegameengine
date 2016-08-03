@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RUCKSACK_EXTRACT_SIZE_HPP_INCLUDED
-#define SGE_SRC_RUCKSACK_EXTRACT_SIZE_HPP_INCLUDED
+#ifndef SGE_RUCKSACK_IMPL_EXTRACT_SIZE_HPP_INCLUDED
+#define SGE_RUCKSACK_IMPL_EXTRACT_SIZE_HPP_INCLUDED
 
 #include <sge/rucksack/axis_policy_fwd.hpp>
 #include <sge/rucksack/scalar.hpp>
@@ -29,12 +29,15 @@ namespace sge
 {
 namespace rucksack
 {
+namespace impl
+{
 
 sge::rucksack::scalar
 extract_size(
 	sge::rucksack::axis_policy const &
 );
 
+}
 }
 }
 

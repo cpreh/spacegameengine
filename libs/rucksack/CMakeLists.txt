@@ -1,5 +1,11 @@
 set(
 	SGE_RUCKSACK_FILES
+	libs/rucksack/impl/include/sge/rucksack/impl/extract_size.hpp
+	libs/rucksack/impl/include/sge/rucksack/impl/flip_axis.hpp
+	libs/rucksack/impl/include/sge/rucksack/impl/make_components.hpp
+	libs/rucksack/impl/src/rucksack/impl/extract_size.cpp
+	libs/rucksack/impl/src/rucksack/impl/flip_axis.cpp
+	libs/rucksack/impl/src/rucksack/impl/make_axis_policy.cpp
 	libs/rucksack/include/sge/rucksack/alignment.hpp
 	libs/rucksack/include/sge/rucksack/alignment_fwd.hpp
 	libs/rucksack/include/sge/rucksack/axis.hpp
@@ -49,12 +55,6 @@ set(
 	libs/rucksack/src/rucksack/axis_policy2.cpp
 	libs/rucksack/src/rucksack/axis_policy2_comparison.cpp
 	libs/rucksack/src/rucksack/axis_to_index.cpp
-	libs/rucksack/src/rucksack/extract_size.cpp
-	libs/rucksack/src/rucksack/flip_axis.cpp
-	libs/rucksack/src/rucksack/include/sge/src/rucksack/extract_size.hpp
-	libs/rucksack/src/rucksack/include/sge/src/rucksack/flip_axis.hpp
-	libs/rucksack/src/rucksack/include/sge/src/rucksack/make_components.hpp
-	libs/rucksack/src/rucksack/make_axis_policy.cpp
 	libs/rucksack/src/rucksack/widget/base.cpp
 	libs/rucksack/src/rucksack/widget/box.cpp
 	libs/rucksack/src/rucksack/widget/dummy.cpp
@@ -67,6 +67,7 @@ set(
 
 add_sge_base_library(
 	"rucksack"
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgecore_interface
 	TRANSITIVE_SGE_DEPS
@@ -75,6 +76,4 @@ add_sge_base_library(
 		${fcppt_core_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/rucksack/include"
 )

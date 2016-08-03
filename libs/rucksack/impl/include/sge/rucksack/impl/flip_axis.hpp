@@ -18,35 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/rucksack/axis_policy.hpp>
-#include <sge/rucksack/minimum_size.hpp>
-#include <sge/rucksack/preferred_size.hpp>
-#include <sge/rucksack/scalar.hpp>
-#include <sge/src/rucksack/extract_size.hpp>
-#include <fcppt/variant/match.hpp>
+#ifndef SGE_RUCKSACK_IMPL_FLIP_AXIS_HPP_INCLUDED
+#define SGE_RUCKSACK_IMPL_FLIP_AXIS_HPP_INCLUDED
+
+#include <sge/rucksack/axis.hpp>
 
 
-sge::rucksack::scalar
-sge::rucksack::extract_size(
-	sge::rucksack::axis_policy const &_policy
-)
+namespace sge
 {
-	return
-		fcppt::variant::match(
-			_policy,
-			[](
-				sge::rucksack::minimum_size const _pol
-			)
-			{
-				return
-					_pol.get();
-			},
-			[](
-				sge::rucksack::preferred_size const _pol
-			)
-			{
-				return
-					_pol.get();
-			}
-		);
+namespace rucksack
+{
+namespace impl
+{
+
+sge::rucksack::axis
+flip_axis(
+	sge::rucksack::axis
+);
+
 }
+}
+}
+
+#endif

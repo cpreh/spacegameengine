@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RUCKSACK_MAKE_COMPONENTS_HPP_INCLUDED
-#define SGE_SRC_RUCKSACK_MAKE_COMPONENTS_HPP_INCLUDED
+#ifndef SGE_RUCKSACK_IMPL_MAKE_COMPONENTS_HPP_INCLUDED
+#define SGE_RUCKSACK_IMPL_MAKE_COMPONENTS_HPP_INCLUDED
 
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_to_index.hpp>
@@ -33,6 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 namespace rucksack
+{
+namespace impl
 {
 
 template<
@@ -85,6 +87,7 @@ make_components(
 		ret;
 }
 
+}
 }
 }
 
