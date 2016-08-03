@@ -18,45 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/projectile/body/object.hpp>
-#include <sge/projectile/impl/body/detail/motion_state.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <LinearMath/btMotionState.h>
-#include <LinearMath/btTransform.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_PROJECTILE_IMPL_SHAPE_TRIANGLE_INDICES_HPP_INCLUDED
+#define SGE_PROJECTILE_IMPL_SHAPE_TRIANGLE_INDICES_HPP_INCLUDED
+
+#include <sge/projectile/shape/triangle_sequence.hpp>
+#include <sge/projectile/shape/detail/index_container.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
-sge::projectile::body::detail::motion_state::motion_state(
-	sge::projectile::body::object &_body
-)
-:
-	btMotionState(),
-	body_(
-		_body
-	)
+namespace sge
 {
+namespace projectile
+{
+namespace impl
+{
+namespace shape
+{
+
+sge::projectile::shape::detail::index_container
+triangle_indices(
+	fcppt::log::object &,
+	sge::projectile::shape::triangle_sequence const &
+);
+
+}
+}
+}
 }
 
-sge::projectile::body::detail::motion_state::~motion_state()
-{
-}
-
-void
-sge::projectile::body::detail::motion_state::getWorldTransform(
-	btTransform &_transform
-) const
-{
-	body_.getWorldTransform(
-		_transform
-	);
-}
-
-void
-sge::projectile::body::detail::motion_state::setWorldTransform(
-	btTransform const &_transform
-)
-{
-	body_.setWorldTransform(
-		_transform
-	);
-}
+#endif

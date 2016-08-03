@@ -18,45 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/projectile/body/object.hpp>
-#include <sge/projectile/impl/body/detail/motion_state.hpp>
+#ifndef SGE_PROJECTILE_IMPL_COLLISION_TESTER_HPP_INCLUDED
+#define SGE_PROJECTILE_IMPL_COLLISION_TESTER_HPP_INCLUDED
+
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <LinearMath/btMotionState.h>
-#include <LinearMath/btTransform.h>
+#include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::projectile::body::detail::motion_state::motion_state(
-	sge::projectile::body::object &_body
-)
+namespace sge
+{
+namespace projectile
+{
+namespace impl
+{
+
+class collision_tester
 :
-	btMotionState(),
-	body_(
-		_body
+	public btCollisionWorld::ContactResultCallback
+{
+	FCPPT_NONCOPYABLE(
+		collision_tester
+	);
+public:
+	collision_tester();
+
+	~collision_tester()
+	override;
+
+	bool
+	result() const;
+private:
+	bool
+	needsCollision(
+		btBroadphaseProxy *
+	) const
+	override;
+
+	btScalar
+	addSingleResult(
+		btManifoldPoint &,
+		btCollisionObjectWrapper const *colObj0Wrap,
+		int partId0,
+		int index0,
+		btCollisionObjectWrapper const *colObj1Wrap,
+		int partId1,
+		int index1
 	)
-{
+	override;
+
+	bool result_;
+};
+
+}
+}
 }
 
-sge::projectile::body::detail::motion_state::~motion_state()
-{
-}
-
-void
-sge::projectile::body::detail::motion_state::getWorldTransform(
-	btTransform &_transform
-) const
-{
-	body_.getWorldTransform(
-		_transform
-	);
-}
-
-void
-sge::projectile::body::detail::motion_state::setWorldTransform(
-	btTransform const &_transform
-)
-{
-	body_.setWorldTransform(
-		_transform
-	);
-}
+#endif

@@ -18,45 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/projectile/body/object.hpp>
-#include <sge/projectile/impl/body/detail/motion_state.hpp>
+#include <sge/projectile/vector2.hpp>
+#include <sge/projectile/impl/vector2_to_bullet.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <LinearMath/btMotionState.h>
-#include <LinearMath/btTransform.h>
+#include <LinearMath/btScalar.h>
+#include <LinearMath/btVector3.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::projectile::body::detail::motion_state::motion_state(
-	sge::projectile::body::object &_body
-)
-:
-	btMotionState(),
-	body_(
-		_body
-	)
-{
-}
-
-sge::projectile::body::detail::motion_state::~motion_state()
-{
-}
-
-void
-sge::projectile::body::detail::motion_state::getWorldTransform(
-	btTransform &_transform
-) const
-{
-	body_.getWorldTransform(
-		_transform
-	);
-}
-
-void
-sge::projectile::body::detail::motion_state::setWorldTransform(
-	btTransform const &_transform
+btVector3
+sge::projectile::impl::vector2_to_bullet(
+	sge::projectile::vector2 const &_vector
 )
 {
-	body_.setWorldTransform(
-		_transform
-	);
+	return
+		btVector3(
+			_vector.x(),
+			_vector.y(),
+			fcppt::literal<
+				btScalar
+			>(
+				0
+			)
+		);
 }

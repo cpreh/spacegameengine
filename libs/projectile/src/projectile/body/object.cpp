@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/body/parameters.hpp>
 #include <sge/projectile/shape/base.hpp>
-#include <sge/src/projectile/bullet_to_vector2.hpp>
-#include <sge/src/projectile/vector2_to_bullet.hpp>
-#include <sge/src/projectile/body/detail/motion_state.hpp>
-#include <sge/src/projectile/body/solidity/extract_mass.hpp>
-#include <sge/src/projectile/body/solidity/is_solid.hpp>
+#include <sge/projectile/impl/bullet_to_vector2.hpp>
+#include <sge/projectile/impl/vector2_to_bullet.hpp>
+#include <sge/projectile/impl/body/detail/motion_state.hpp>
+#include <sge/projectile/impl/body/solidity/extract_mass.hpp>
+#include <sge/projectile/impl/body/solidity/is_solid.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
@@ -62,7 +62,7 @@ inertia_for_shape(
 		0);
 
 	btScalar const mass =
-		sge::projectile::body::solidity::extract_mass(
+		sge::projectile::impl::body::solidity::extract_mass(
 			solidity);
 
 	// FIXME: Rather test if the solidity actually implies a mass, then
@@ -106,10 +106,10 @@ sge::projectile::body::object::object(
 		fcppt::make_unique_ptr<btTransform>(
 			create_rotation_matrix(
 				p.rotation().get()),
-			vector2_to_bullet(
+			sge::projectile::impl::vector2_to_bullet(
 				p.position().get()))),
 	motion_state_(
-		fcppt::make_unique_ptr<detail::motion_state>(
+		fcppt::make_unique_ptr<sge::projectile::body::detail::motion_state>(
 			*this)),
 	position_change_(),
 	rotation_change_(),
@@ -119,7 +119,7 @@ sge::projectile::body::object::object(
 		fcppt::make_unique_ptr<btRigidBody>(
 			btRigidBody::btRigidBodyConstructionInfo(
 				// mass
-				solidity::extract_mass(
+				sge::projectile::impl::body::solidity::extract_mass(
 					p.solidity()),
 				// motion state
 				motion_state_.get_pointer(),
@@ -142,7 +142,7 @@ sge::projectile::body::object::object(
 			<< p.rotation().get()
 			<< FCPPT_TEXT(", mass ")
 			<<
-				solidity::extract_mass(
+				sge::projectile::impl::body::solidity::extract_mass(
 					p.solidity())
 			<< FCPPT_TEXT(", linear velocity ")
 			<<
@@ -156,7 +156,7 @@ sge::projectile::body::object::object(
 	body_->setUserPointer(
 		this);
 
-	if(!solidity::is_solid(p.solidity()))
+	if(!sge::projectile::impl::body::solidity::is_solid(p.solidity()))
 	{
 		FCPPT_LOG_DEBUG(
 			log_,
@@ -199,7 +199,7 @@ sge::projectile::vector2
 sge::projectile::body::object::position() const
 {
 	return
-		bullet_to_vector2(
+		sge::projectile::impl::bullet_to_vector2(
 			transformation_->getOrigin());
 }
 
@@ -215,7 +215,7 @@ sge::projectile::body::object::position(
 			<<
 				p);
 	transformation_->setOrigin(
-		vector2_to_bullet(
+		sge::projectile::impl::vector2_to_bullet(
 			p));
 	// For speed and position calculation afterwards, it uses the
 	// centerOfMassTransform and the *Interpolation* methods, so we
@@ -238,7 +238,7 @@ sge::projectile::vector2
 sge::projectile::body::object::linear_velocity() const
 {
 	return
-		bullet_to_vector2(
+		sge::projectile::impl::bullet_to_vector2(
 			body_->getLinearVelocity());
 }
 
@@ -254,7 +254,7 @@ sge::projectile::body::object::linear_velocity(
 			<<
 				v);
 	body_->setLinearVelocity(
-		vector2_to_bullet(
+		sge::projectile::impl::vector2_to_bullet(
 			v));
 	// We have to re-activate a maybe-sleeping body
 	body_->setActivationState(

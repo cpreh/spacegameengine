@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/world_fwd.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
-#include <sge/src/projectile/detail/debug_drawer_impl.hpp>
+#include <sge/projectile/impl/detail/debug_drawer_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/log/context_fwd.hpp>
 
@@ -30,13 +30,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::projectile::debug_drawer::debug_drawer(
 	fcppt::log::context &_log,
 	sge::projectile::world &_world,
-	sge::renderer::device::core &_renderer)
+	sge::renderer::device::core &_renderer
+)
 :
 	impl_(
-		fcppt::make_unique_ptr<detail::debug_drawer_impl>(
+		fcppt::make_unique_ptr<
+			sge::projectile::detail::debug_drawer_impl
+		>(
 			_log,
 			_world,
-			_renderer))
+			_renderer
+		)
+	)
 {
 }
 
@@ -48,10 +53,12 @@ sge::projectile::debug_drawer::update()
 
 void
 sge::projectile::debug_drawer::render(
-	sge::renderer::context::core &_render_context)
+	sge::renderer::context::core &_render_context
+)
 {
 	impl_->render(
-		_render_context);
+		_render_context
+	);
 }
 
 void
@@ -59,13 +66,15 @@ sge::projectile::debug_drawer::active(
 	bool const _active)
 {
 	impl_->active(
-		_active);
+		_active
+	);
 }
 
 bool
 sge::projectile::debug_drawer::active() const
 {
-	return impl_->active();
+	return
+		impl_->active();
 }
 
 sge::projectile::debug_drawer::~debug_drawer()

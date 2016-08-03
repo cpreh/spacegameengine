@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/projectile/log.hpp>
 #include <sge/projectile/shape/triangle_mesh.hpp>
-#include <sge/src/projectile/shape/triangle_indices.hpp>
-#include <sge/src/projectile/shape/triangle_scalars.hpp>
+#include <sge/projectile/impl/shape/triangle_indices.hpp>
+#include <sge/projectile/impl/shape/triangle_scalars.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>
@@ -35,13 +35,13 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 )
 :
 	scalars_(
-		sge::projectile::shape::triangle_scalars(
+		sge::projectile::impl::shape::triangle_scalars(
 			_log.triangle_log(),
 			_triangles
 		)
 	),
 	indices_(
-		sge::projectile::shape::triangle_indices(
+		sge::projectile::impl::shape::triangle_indices(
 			_log.triangle_log(),
 			_triangles
 		)

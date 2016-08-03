@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PROJECTILE_GHOST_DETAIL_PAIR_CALLBACK_FWD_HPP_INCLUDED
 #define SGE_PROJECTILE_GHOST_DETAIL_PAIR_CALLBACK_FWD_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace projectile
@@ -29,7 +30,9 @@ namespace ghost
 {
 namespace detail
 {
+
 class pair_callback;
+
 }
 }
 }

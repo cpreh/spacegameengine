@@ -18,45 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/projectile/body/object.hpp>
-#include <sge/projectile/impl/body/detail/motion_state.hpp>
+#ifndef SGE_PROJECTILE_IMPL_BODY_SOLIDITY_EXTRACT_MASS_HPP_INCLUDED
+#define SGE_PROJECTILE_IMPL_BODY_SOLIDITY_EXTRACT_MASS_HPP_INCLUDED
+
+#include <sge/projectile/body/solidity/variant_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <LinearMath/btMotionState.h>
-#include <LinearMath/btTransform.h>
+#include <LinearMath/btScalar.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::projectile::body::detail::motion_state::motion_state(
-	sge::projectile::body::object &_body
-)
-:
-	btMotionState(),
-	body_(
-		_body
-	)
+namespace sge
 {
+namespace projectile
+{
+namespace impl
+{
+namespace body
+{
+namespace solidity
+{
+
+btScalar
+extract_mass(
+	sge::projectile::body::solidity::variant const &
+);
+
+}
+}
+}
+}
 }
 
-sge::projectile::body::detail::motion_state::~motion_state()
-{
-}
-
-void
-sge::projectile::body::detail::motion_state::getWorldTransform(
-	btTransform &_transform
-) const
-{
-	body_.getWorldTransform(
-		_transform
-	);
-}
-
-void
-sge::projectile::body::detail::motion_state::setWorldTransform(
-	btTransform const &_transform
-)
-{
-	body_.setWorldTransform(
-		_transform
-	);
-}
+#endif

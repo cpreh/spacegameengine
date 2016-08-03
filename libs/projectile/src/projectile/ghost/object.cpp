@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/projectile/ghost/object.hpp>
 #include <sge/projectile/ghost/parameters.hpp>
-#include <sge/src/projectile/bullet_to_vector2.hpp>
-#include <sge/src/projectile/object_extrusion_depth.hpp>
-#include <sge/src/projectile/vector2_to_bullet.hpp>
+#include <sge/projectile/impl/bullet_to_vector2.hpp>
+#include <sge/projectile/impl/object_extrusion_depth.hpp>
+#include <sge/projectile/impl/vector2_to_bullet.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -55,7 +55,7 @@ sge::projectile::ghost::object::object(
 				btVector3(
 					p.size().get().w()/2,
 					p.size().get().h()/2,
-					object_extrusion_depth())))),
+					sge::projectile::impl::object_extrusion_depth())))),
 	ghost_object_(
 		fcppt::make_unique_ptr<btPairCachingGhostObject>())
 {
@@ -86,7 +86,7 @@ sge::projectile::vector2
 sge::projectile::ghost::object::position() const
 {
 	return
-		bullet_to_vector2(
+		sge::projectile::impl::bullet_to_vector2(
 			ghost_object_->getWorldTransform().getOrigin());
 }
 
@@ -97,7 +97,7 @@ sge::projectile::ghost::object::position(
 	ghost_object_->setWorldTransform(
 		btTransform(
 			btMatrix3x3::getIdentity(),
-			vector2_to_bullet(
+			sge::projectile::impl::vector2_to_bullet(
 				p)));
 }
 

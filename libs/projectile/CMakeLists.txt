@@ -1,5 +1,24 @@
 set(
 	SGE_PROJECTILE_FILES
+	libs/projectile/impl/include/sge/projectile/impl/body/detail/motion_state.hpp
+	libs/projectile/impl/include/sge/projectile/impl/body/solidity/extract_mass.hpp
+	libs/projectile/impl/include/sge/projectile/impl/body/solidity/is_solid.hpp
+	libs/projectile/impl/include/sge/projectile/impl/bullet_to_vector2.hpp
+	libs/projectile/impl/include/sge/projectile/impl/collision_tester.hpp
+	libs/projectile/impl/include/sge/projectile/impl/detail/debug_drawer_impl.hpp
+	libs/projectile/impl/include/sge/projectile/impl/ghost/detail/pair_callback.hpp
+	libs/projectile/impl/include/sge/projectile/impl/object_extrusion_depth.hpp
+	libs/projectile/impl/include/sge/projectile/impl/shape/triangle_indices.hpp
+	libs/projectile/impl/include/sge/projectile/impl/shape/triangle_scalars.hpp
+	libs/projectile/impl/include/sge/projectile/impl/vector2_to_bullet.hpp
+	libs/projectile/impl/src/projectile/impl/body/solidity/extract_mass.cpp
+	libs/projectile/impl/src/projectile/impl/body/solidity/is_solid.cpp
+	libs/projectile/impl/src/projectile/impl/bullet_to_vector2.cpp
+	libs/projectile/impl/src/projectile/impl/detail/debug_drawer_impl.cpp
+	libs/projectile/impl/src/projectile/impl/object_extrusion_depth.cpp
+	libs/projectile/impl/src/projectile/impl/shape/triangle_indices.cpp
+	libs/projectile/impl/src/projectile/impl/shape/triangle_scalars.cpp
+	libs/projectile/impl/src/projectile/impl/vector2_to_bullet.cpp
 	libs/projectile/include/sge/projectile/body/angular_velocity.hpp
 	libs/projectile/include/sge/projectile/body/collision.hpp
 	libs/projectile/include/sge/projectile/body/collision_fn.hpp
@@ -93,43 +112,25 @@ set(
 	libs/projectile/src/projectile/body/object.cpp
 	libs/projectile/src/projectile/body/parameters.cpp
 	libs/projectile/src/projectile/body/scoped.cpp
-	libs/projectile/src/projectile/body/solidity/extract_mass.cpp
-	libs/projectile/src/projectile/body/solidity/is_solid.cpp
 	libs/projectile/src/projectile/body/solidity/solid.cpp
-	libs/projectile/src/projectile/bullet_to_vector2.cpp
 	libs/projectile/src/projectile/collision_tester.cpp
 	libs/projectile/src/projectile/debug_drawer.cpp
-	libs/projectile/src/projectile/detail/debug_drawer_impl.cpp
 	libs/projectile/src/projectile/ghost/detail/pair_callback.cpp
 	libs/projectile/src/projectile/ghost/object.cpp
 	libs/projectile/src/projectile/ghost/parameters.cpp
 	libs/projectile/src/projectile/ghost/scoped.cpp
 	libs/projectile/src/projectile/group/object.cpp
-	libs/projectile/src/projectile/include/sge/src/projectile/body/detail/motion_state.hpp
-	libs/projectile/src/projectile/include/sge/src/projectile/body/solidity/extract_mass.hpp
-	libs/projectile/src/projectile/include/sge/src/projectile/body/solidity/is_solid.hpp
-	libs/projectile/src/projectile/include/sge/src/projectile/bullet_to_vector2.hpp
-	libs/projectile/src/projectile/include/sge/src/projectile/collision_tester.hpp
-	libs/projectile/src/projectile/include/sge/src/projectile/detail/debug_drawer_impl.hpp
-	libs/projectile/src/projectile/include/sge/src/projectile/ghost/detail/pair_callback.hpp
-	libs/projectile/src/projectile/include/sge/src/projectile/object_extrusion_depth.hpp
-	libs/projectile/src/projectile/include/sge/src/projectile/shape/triangle_indices.hpp
-	libs/projectile/src/projectile/include/sge/src/projectile/shape/triangle_scalars.hpp
-	libs/projectile/src/projectile/include/sge/src/projectile/vector2_to_bullet.hpp
 	libs/projectile/src/projectile/log.cpp
 	libs/projectile/src/projectile/log_location.cpp
-	libs/projectile/src/projectile/object_extrusion_depth.cpp
 	libs/projectile/src/projectile/shape/base.cpp
 	libs/projectile/src/projectile/shape/circle.cpp
-	libs/projectile/src/projectile/shape/triangle_indices.cpp
 	libs/projectile/src/projectile/shape/triangle_mesh.cpp
-	libs/projectile/src/projectile/shape/triangle_scalars.cpp
-	libs/projectile/src/projectile/vector2_to_bullet.cpp
 	libs/projectile/src/projectile/world.cpp
 )
 
 add_sge_base_library(
 	projectile
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgeimagecolor
 		sgeline_drawer
@@ -144,6 +145,5 @@ add_sge_base_library(
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
 	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/projectile/include"
 		${BULLET_INCLUDE_DIRS}
 )

@@ -19,10 +19,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/projectile/log.hpp>
+#include <sge/projectile/body/angular_velocity.hpp>
+#include <sge/projectile/body/linear_velocity.hpp>
 #include <sge/projectile/body/parameters.hpp>
+#include <sge/projectile/body/position.hpp>
+#include <sge/projectile/body/rotation.hpp>
+#include <sge/projectile/body/user_data.hpp>
+#include <sge/projectile/body/solidity/variant.hpp>
+#include <sge/projectile/detail/symbol.hpp>
+#include <sge/projectile/shape/shared_base_ptr.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
-// TODO: Includes
 
 sge::projectile::body::parameters::parameters(
 	sge::projectile::log const &_log,
@@ -38,19 +45,26 @@ sge::projectile::body::parameters::parameters(
 		_log.body_log()
 	},
 	position_(
-		_position),
+		_position
+	),
 	linear_velocity_(
-		_linear_velocity),
+		_linear_velocity
+	),
 	angular_velocity_(
-		_angular_velocity),
+		_angular_velocity
+	),
 	shape_(
-		_shape),
+		_shape
+	),
 	rotation_(
-		_rotation),
+		_rotation
+	),
 	solidity_(
-		_solidity),
+		_solidity
+	),
 	user_data_(
-		_user_data)
+		_user_data
+	)
 {
 }
 
@@ -64,41 +78,48 @@ sge::projectile::body::parameters::log() const
 sge::projectile::body::position const &
 sge::projectile::body::parameters::position() const
 {
-	return position_;
+	return
+		position_;
 }
 
 sge::projectile::body::linear_velocity const &
 sge::projectile::body::parameters::linear_velocity() const
 {
-	return linear_velocity_;
+	return
+		linear_velocity_;
 }
 
 sge::projectile::body::angular_velocity const &
 sge::projectile::body::parameters::angular_velocity() const
 {
-	return angular_velocity_;
+	return
+		angular_velocity_;
 }
 
 sge::projectile::shape::shared_base_ptr const &
 sge::projectile::body::parameters::shape() const
 {
-	return shape_;
+	return
+		shape_;
 }
 
 sge::projectile::body::rotation const &
 sge::projectile::body::parameters::rotation() const
 {
-	return rotation_;
+	return
+		rotation_;
 }
 
 sge::projectile::body::solidity::variant const &
 sge::projectile::body::parameters::solidity() const
 {
-	return solidity_;
+	return
+		solidity_;
 }
 
 sge::projectile::body::user_data const &
 sge::projectile::body::parameters::user_data() const
 {
-	return user_data_;
+	return
+		user_data_;
 }

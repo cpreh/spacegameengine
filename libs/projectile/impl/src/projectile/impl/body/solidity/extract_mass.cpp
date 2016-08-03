@@ -18,52 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/projectile/impl/collision_tester.hpp>
+#include <sge/projectile/body/solidity/nonsolid.hpp>
+#include <sge/projectile/body/solidity/solid.hpp>
+#include <sge/projectile/body/solidity/static.hpp>
+#include <sge/projectile/body/solidity/variant.hpp>
+#include <sge/projectile/impl/body/solidity/extract_mass.hpp>
+#include <fcppt/literal.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
+#include <LinearMath/btScalar.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::projectile::impl::collision_tester::collision_tester()
-:
-	result_(
-		false
-	)
-{
-}
-
-sge::projectile::impl::collision_tester::~collision_tester()
-{
-}
-
-bool
-sge::projectile::impl::collision_tester::result() const
-{
-	return
-		result_;
-}
-
-bool
-sge::projectile::impl::collision_tester::needsCollision(
-	btBroadphaseProxy *
-) const
-{
-	return
-		true;
-}
-
 btScalar
-sge::projectile::impl::collision_tester::addSingleResult(
-	btManifoldPoint &,
-	btCollisionObjectWrapper const *,
-	int,
-	int,
-	btCollisionObjectWrapper const *,
-	int,
-	int
+sge::projectile::impl::body::solidity::extract_mass(
+	sge::projectile::body::solidity::variant const &_solidity
 )
 {
-	result_ = true;
-
-	return 0.f; // wtf?
+	return
+		fcppt::variant::match(
+			_solidity,
+			[](
+				sge::projectile::body::solidity::static_ const &
+			)
+			{
+				return
+					fcppt::literal<
+						btScalar
+					>(
+						0
+					);
+			},
+			[](
+				sge::projectile::body::solidity::solid const &_solid
+			)
+			{
+				return
+					_solid.mass().get();
+			},
+			[](
+				sge::projectile::body::solidity::nonsolid const &
+			)
+			{
+				return
+					fcppt::literal<
+						btScalar
+					>(
+						1
+					);
+			}
+		);
 }

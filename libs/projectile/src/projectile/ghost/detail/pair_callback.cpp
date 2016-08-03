@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/ghost/object.hpp>
-#include <sge/src/projectile/ghost/detail/pair_callback.hpp>
+#include <sge/projectile/impl/ghost/detail/pair_callback.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>

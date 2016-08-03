@@ -18,45 +18,66 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/projectile/body/object.hpp>
-#include <sge/projectile/impl/body/detail/motion_state.hpp>
+#ifndef SGE_PROJECTILE_IMPL_GHOST_DETAIL_PAIR_CALLBACK_HPP_INCLUDED
+#define SGE_PROJECTILE_IMPL_GHOST_DETAIL_PAIR_CALLBACK_HPP_INCLUDED
+
+// The header below isn't self-contained, this is a fix for that
+struct btBroadphaseProxy;
+
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <LinearMath/btMotionState.h>
-#include <LinearMath/btTransform.h>
+#include <BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::projectile::body::detail::motion_state::motion_state(
-	sge::projectile::body::object &_body
-)
+namespace sge
+{
+namespace projectile
+{
+namespace ghost
+{
+namespace detail
+{
+
+class pair_callback
 :
-	btMotionState(),
-	body_(
-		_body
+	public btOverlappingPairCallback
+{
+	FCPPT_NONCOPYABLE(
+		pair_callback
+	);
+public:
+	pair_callback();
+
+	~pair_callback()
+	override;
+private:
+	btBroadphasePair *
+	addOverlappingPair(
+		btBroadphaseProxy*,
+		btBroadphaseProxy*
 	)
-{
+	override;
+
+	void *
+	removeOverlappingPair(
+		btBroadphaseProxy*,
+		btBroadphaseProxy*,
+		btDispatcher*
+	)
+	override;
+
+	void
+	removeOverlappingPairsContainingProxy(
+		btBroadphaseProxy*,
+		btDispatcher*
+	)
+	override;
+};
+
+}
+}
+}
 }
 
-sge::projectile::body::detail::motion_state::~motion_state()
-{
-}
-
-void
-sge::projectile::body::detail::motion_state::getWorldTransform(
-	btTransform &_transform
-) const
-{
-	body_.getWorldTransform(
-		_transform
-	);
-}
-
-void
-sge::projectile::body::detail::motion_state::setWorldTransform(
-	btTransform const &_transform
-)
-{
-	body_.setWorldTransform(
-		_transform
-	);
-}
+#endif

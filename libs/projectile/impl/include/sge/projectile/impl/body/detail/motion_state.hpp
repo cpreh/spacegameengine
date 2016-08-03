@@ -18,45 +18,65 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/projectile/body/object.hpp>
-#include <sge/projectile/impl/body/detail/motion_state.hpp>
+#ifndef SGE_PROJECTILE_IMPL_BODY_DETAIL_MOTION_STATE_HPP_INCLUDED
+#define SGE_PROJECTILE_IMPL_BODY_DETAIL_MOTION_STATE_HPP_INCLUDED
+
+#include <sge/projectile/body/object_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <LinearMath/btMotionState.h>
 #include <LinearMath/btTransform.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::projectile::body::detail::motion_state::motion_state(
-	sge::projectile::body::object &_body
-)
+namespace sge
+{
+namespace projectile
+{
+namespace body
+{
+namespace detail
+{
+
+// This is just a trampoline class because I couldn't derive
+// body::object itself from btMotionState (since then I would break
+// the pimpl stuff).
+class motion_state
 :
-	btMotionState(),
-	body_(
-		_body
+	public btMotionState
+{
+	FCPPT_NONCOPYABLE(
+		motion_state
+	);
+public:
+	explicit
+	motion_state(
+		sge::projectile::body::object &
+	);
+
+	~motion_state()
+	override;
+private:
+	sge::projectile::body::object &body_;
+
+	// @override
+	void
+	getWorldTransform(
+		btTransform &
+	) const
+	override;
+
+	// @override
+	void
+	setWorldTransform(
+		btTransform const &
 	)
-{
+	override;
+};
+
+}
+}
+}
 }
 
-sge::projectile::body::detail::motion_state::~motion_state()
-{
-}
-
-void
-sge::projectile::body::detail::motion_state::getWorldTransform(
-	btTransform &_transform
-) const
-{
-	body_.getWorldTransform(
-		_transform
-	);
-}
-
-void
-sge::projectile::body::detail::motion_state::setWorldTransform(
-	btTransform const &_transform
-)
-{
-	body_.setWorldTransform(
-		_transform
-	);
-}
+#endif
