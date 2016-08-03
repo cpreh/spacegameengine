@@ -30,14 +30,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/object.hpp>
 #include <sge/systems/exception.hpp>
 #include <sge/systems/optional_name.hpp>
+#include <sge/systems/impl/find_plugin_opt.hpp>
 #include <sge/systems/impl/plugin_pair_decl.hpp>
-#include <fcppt/const.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <typeinfo>
 #include <utility>
@@ -67,132 +70,157 @@ find_plugin(
 	TestFunction const &_test_function
 )
 {
-	typedef
-	sge::systems::impl::plugin_pair<
-		System
-	>
-	return_type;
-
-	for(
-		auto const &element
-		:
-		_collection
-	)
-	{
-		bool const name_is_same(
+	return
+		fcppt::optional::to_exception(
 			fcppt::optional::maybe(
 				_opt_name,
-				fcppt::const_(
-					false
-				),
 				[
-					&element
+					&_log_context,
+					&_collection,
+					&_test_function
+				]{
+					return
+						sge::systems::impl::find_plugin_opt(
+							_log_context,
+							_collection,
+							_test_function
+						);
+				},
+				[
+					&_log_context,
+					&_collection,
+					&_test_function
 				](
 					sge::plugin::name const &_name
 				)
 				{
 					return
-						_name
-						==
-						element.info().name();
+						fcppt::algorithm::find_by_opt(
+							_collection,
+							[
+								&_log_context,
+								&_test_function,
+								&_name
+							](
+								sge::plugin::context<
+									System
+								> const &_element
+							)
+							{
+								typedef
+								sge::systems::impl::plugin_pair<
+									System
+								>
+								return_type;
+
+								typedef
+								fcppt::optional::object<
+									return_type
+								>
+								optional_result;
+
+								if(
+									_element.info().name()
+									!=
+									_name
+								)
+									return
+										optional_result{};
+
+								typedef
+								sge::plugin::object<
+									System
+								>
+								plugin_type;
+
+								plugin_type plugin(
+									_element.load()
+								);
+
+								typedef
+								fcppt::unique_ptr<
+									System
+								>
+								system_unique_ptr;
+
+								system_unique_ptr system(
+									plugin.get()(
+										_log_context
+									)
+								);
+
+								if(
+									_test_function(
+										*system
+									)
+								)
+									return
+										optional_result{
+											return_type{
+												std::move(
+													plugin
+												),
+												std::move(
+													system
+												)
+											}
+										};
+
+								throw
+									sge::systems::exception{
+										FCPPT_TEXT("Plugin of type ")
+										+
+										fcppt::type_name_from_info(
+											typeid(
+												System
+											)
+										)
+										+
+										FCPPT_TEXT(" and name ")
+										+
+										_name.get()
+										+
+										FCPPT_TEXT(" was explicitly requested but doesn't match the requested capabilities.")
+									};
+							}
+						);
 				}
-			)
-		);
-
-		if(
-			_opt_name.has_value()
-			&&
-			!name_is_same
-		)
-			continue;
-
-		typedef
-		sge::plugin::object<
-			System
-		>
-		plugin_type;
-
-		plugin_type plugin(
-			element.load()
-		);
-
-		typedef
-		fcppt::unique_ptr<
-			System
-		>
-		system_unique_ptr;
-
-		system_unique_ptr system(
-			plugin.get()(
-				_log_context
-			)
-		);
-
-		if(
-			_test_function(
-				*system
-			)
-		)
-			return
-				return_type(
-					std::move(
-						plugin
-					),
-					std::move(
-						system
-					)
-				);
-		else if(
-			name_is_same
-		)
-			throw sge::systems::exception(
-				FCPPT_TEXT("Plugin of type ")
-				+
-				fcppt::type_name_from_info(
-					typeid(
-						System
-					)
-				)
-				+
-				FCPPT_TEXT(" and name ")
-				+
-				// TODO: Find a better structure for this function
-				_opt_name.get_unsafe().get()
-				+
-				FCPPT_TEXT(" was explicitly requested but doesn't match the requested capabilities.")
-			);
-	}
-
-	throw
-		sge::systems::exception(
-			FCPPT_TEXT("No plugin of type ")
-			+
-			fcppt::type_name_from_info(
-				typeid(
-					System
-				)
-			)
-			+
-			fcppt::optional::maybe(
-				_opt_name,
-				[]{
-					return
-						fcppt::string{
-							FCPPT_TEXT(" matched the requested capabilities.")
-						};
-				},
-				[](
-					sge::plugin::name const &_name
-				)
-				{
-					return
-						FCPPT_TEXT(" and with name ")
+			),
+			[
+				&_opt_name
+			]{
+				return
+					sge::systems::exception(
+						FCPPT_TEXT("No plugin of type ")
 						+
-						_name.get()
+						fcppt::type_name_from_info(
+							typeid(
+								System
+							)
+						)
 						+
-						FCPPT_TEXT(" found.");
-				}
-			)
+						fcppt::optional::maybe(
+							_opt_name,
+							[]{
+								return
+									fcppt::string{
+										FCPPT_TEXT(" matched the requested capabilities.")
+									};
+							},
+							[](
+								sge::plugin::name const &_name
+							)
+							{
+								return
+									FCPPT_TEXT(" and with name ")
+									+
+									_name.get()
+									+
+									FCPPT_TEXT(" found.");
+							}
+						)
+					);
+			}
 		);
 }
 
