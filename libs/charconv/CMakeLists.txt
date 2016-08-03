@@ -1,5 +1,6 @@
 set(
 	SGE_CHARCONV_FILES
+	libs/charconv/impl/include/sge/charconv/impl/fcppt_is_utf8.hpp
 	libs/charconv/include/sge/charconv/char_type.hpp
 	libs/charconv/include/sge/charconv/conversion_failed.hpp
 	libs/charconv/include/sge/charconv/convert.hpp
@@ -21,7 +22,6 @@ set(
 	libs/charconv/src/charconv/exception.cpp
 	libs/charconv/src/charconv/fcppt_string_to_utf8.cpp
 	libs/charconv/src/charconv/fcppt_string_to_utf8_file.cpp
-	libs/charconv/src/charconv/include/sge/charconv/impl/fcppt_is_utf8.hpp
 	libs/charconv/src/charconv/utf8_file_to_fcppt_string.cpp
 	libs/charconv/src/charconv/utf8_file_to_fcppt_string_exn.cpp
 	libs/charconv/src/charconv/utf8_string_to_fcppt.cpp
@@ -29,6 +29,7 @@ set(
 
 add_sge_base_library(
 	charconv
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgecore
 	TRANSITIVE_SGE_DEPS
@@ -36,6 +37,4 @@ add_sge_base_library(
 	ADDITIONAL_DEPS
 		${fcppt_filesystem_TARGET}
 		${fcppt_core_TARGET}
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/charconv/include"
 )
