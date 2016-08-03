@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/core/exception.hpp>
+#include <sge/opencl/exception.hpp>
 #include <sge/src/opencl/handle_error.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
@@ -98,7 +98,7 @@ sge::opencl::handle_error(
 	if(error_code != CL_SUCCESS)
 	{
 		throw
-			sge::core::exception(
+			sge::opencl::exception(
 				FCPPT_TEXT("Function ")+
 				function_name+
 				FCPPT_TEXT(": ")+

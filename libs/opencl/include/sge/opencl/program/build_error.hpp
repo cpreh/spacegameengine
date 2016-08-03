@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENCL_PROGRAM_BUILD_ERROR_HPP_INCLUDED
 #define SGE_OPENCL_PROGRAM_BUILD_ERROR_HPP_INCLUDED
 
-#include <sge/core/exception.hpp>
 #include <sge/core/detail/class_symbol.hpp>
+#include <sge/opencl/exception.hpp>
 #include <sge/opencl/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
@@ -35,8 +35,7 @@ namespace program
 {
 class SGE_CORE_DETAIL_CLASS_SYMBOL build_error
 :
-	// TODO: opencl exception
-	public sge::core::exception
+	public sge::opencl::exception
 {
 public:
 	SGE_OPENCL_DETAIL_SYMBOL

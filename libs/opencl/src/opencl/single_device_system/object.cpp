@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/core/exception.hpp>
+#include <sge/opencl/exception.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <sge/opencl/log_location.hpp>
 #include <sge/opencl/system.hpp>
@@ -188,8 +188,7 @@ sge::opencl::single_device_system::object::update()
 			this
 		]{
 			return
-				// TODO: opencl exception
-				sge::core::exception(
+				sge::opencl::exception(
 					FCPPT_TEXT("An asynchronous error occured: ")+
 					fcppt::from_std_string(
 						error_information_

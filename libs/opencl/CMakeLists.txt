@@ -40,6 +40,7 @@ set(
 	libs/opencl/include/sge/opencl/event/object_fwd.hpp
 	libs/opencl/include/sge/opencl/event/object_unique_ptr.hpp
 	libs/opencl/include/sge/opencl/event/sequence.hpp
+	libs/opencl/include/sge/opencl/exception.hpp
 	libs/opencl/include/sge/opencl/kernel/argument_index.hpp
 	libs/opencl/include/sge/opencl/kernel/local_buffer.hpp
 	libs/opencl/include/sge/opencl/kernel/local_buffer_fwd.hpp
@@ -117,6 +118,7 @@ set(
 	libs/opencl/src/opencl/device/object.cpp
 	libs/opencl/src/opencl/event/flatten_sequence.cpp
 	libs/opencl/src/opencl/event/object.cpp
+	libs/opencl/src/opencl/exception.cpp
 	libs/opencl/src/opencl/handle_error.cpp
 	libs/opencl/src/opencl/include/sge/src/opencl/event/flatten_sequence.hpp
 	libs/opencl/src/opencl/include/sge/src/opencl/handle_error.hpp

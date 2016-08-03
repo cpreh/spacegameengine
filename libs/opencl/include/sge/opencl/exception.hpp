@@ -18,28 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opencl/exception.hpp>
-#include <sge/opencl/program/build_error.hpp>
+#ifndef SGE_OPENCL_EXCEPTION_HPP_INCLUDED
+#define SGE_OPENCL_EXCEPTION_HPP_INCLUDED
+
+#include <sge/core/exception.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/opencl/detail/symbol.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/assert/information_fwd.hpp>
 
 
-sge::opencl::program::build_error::build_error(
-	fcppt::string const &_message)
+namespace sge
+{
+namespace opencl
+{
+
+/**
+\brief The base class for every opencl exception
+
+\ingroup sge_opencl
+*/
+class SGE_CORE_DETAIL_CLASS_SYMBOL exception
 :
-	sge::opencl::exception(
-		FCPPT_TEXT("Error building OpenCL program: ")+_message),
-	message_(
-		_message)
+	public sge::core::exception
 {
+public:
+	/**
+	\brief Constructs the exception from a string
+
+	Constructs the exception from \a what
+	*/
+	SGE_OPENCL_DETAIL_SYMBOL
+	explicit
+	exception(
+		fcppt::string const &what
+	);
+
+	/**
+	\brief Constructs the exception from an assert info
+
+	Constructs the exception from \a info
+	*/
+	SGE_OPENCL_DETAIL_SYMBOL
+	explicit
+	exception(
+		fcppt::assert_::information const &info
+	);
+};
+
+}
 }
 
-fcppt::string const &
-sge::opencl::program::build_error::message() const
-{
-	return message_;
-}
-
-sge::opencl::program::build_error::~build_error() throw()
-{
-}
+#endif
