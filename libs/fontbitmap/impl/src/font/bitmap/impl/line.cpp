@@ -18,17 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/log_location.hpp>
-#include <sge/font/bitmap/log_location.hpp>
-#include <sge/font/bitmap/impl/log_name.hpp>
-#include <fcppt/log/location.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/font/bitmap/impl/char_metric_ref_vector.hpp>
+#include <sge/font/bitmap/impl/line.hpp>
 
 
-fcppt::log::location
-sge::font::bitmap::log_location()
+sge::font::bitmap::impl::line::line(
+	sge::font::bitmap::impl::char_metric_ref_vector const &_char_metrics,
+	sge::font::unit const _width
+)
+:
+	char_metrics_(
+		_char_metrics
+	),
+	width_(
+		_width
+	)
+{
+}
+
+sge::font::bitmap::impl::line::line(
+	line &&
+) = default;
+
+sge::font::bitmap::impl::line &
+sge::font::bitmap::impl::line::operator=(
+	line &&
+) = default;
+
+sge::font::bitmap::impl::line::~line()
+{
+}
+
+sge::font::bitmap::impl::char_metric_ref_vector const &
+sge::font::bitmap::impl::line::char_metrics() const
 {
 	return
-		sge::font::log_location()
-		/
-		sge::font::bitmap::impl::log_name();
+		char_metrics_;
+}
+
+sge::font::unit
+sge::font::bitmap::impl::line::width() const
+{
+	return
+		width_;
 }

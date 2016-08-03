@@ -18,17 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/log_location.hpp>
-#include <sge/font/bitmap/log_location.hpp>
-#include <sge/font/bitmap/impl/log_name.hpp>
-#include <fcppt/log/location.hpp>
+#ifndef SGE_FONT_BITMAP_IMPL_CHAR_METRIC_HPP_INCLUDED
+#define SGE_FONT_BITMAP_IMPL_CHAR_METRIC_HPP_INCLUDED
+
+#include <sge/font/unit.hpp>
+#include <sge/font/vector.hpp>
+#include <sge/font/bitmap/impl/char_metric_fwd.hpp>
+#include <sge/font/bitmap/impl/const_view.hpp>
 
 
-fcppt::log::location
-sge::font::bitmap::log_location()
+namespace sge
 {
-	return
-		sge::font::log_location()
-		/
-		sge::font::bitmap::impl::log_name();
+namespace font
+{
+namespace bitmap
+{
+namespace impl
+{
+
+class char_metric
+{
+public:
+	char_metric(
+		sge::font::bitmap::impl::const_view const &,
+		sge::font::vector const &offset,
+		sge::font::unit x_advance
+	);
+
+	~char_metric();
+
+	sge::font::bitmap::impl::const_view
+	view() const;
+
+	sge::font::vector
+	offset() const;
+
+	sge::font::unit
+	x_advance() const;
+private:
+	sge::font::bitmap::impl::const_view view_;
+
+	sge::font::vector offset_;
+
+	sge::font::unit x_advance_;
+};
+
 }
+}
+}
+}
+
+#endif

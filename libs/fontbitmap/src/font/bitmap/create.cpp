@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/bitmap/create.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/src/font/bitmap/object.hpp>
+#include <sge/font/bitmap/impl/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/log/context_fwd.hpp>
@@ -43,7 +43,7 @@ sge::font::bitmap::create(
 			sge::font::object
 		>(
 			fcppt::make_unique_ptr<
-				sge::font::bitmap::object
+				sge::font::bitmap::impl::object
 			>(
 				_log_context,
 				_path,

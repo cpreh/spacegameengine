@@ -18,17 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/log_location.hpp>
-#include <sge/font/bitmap/log_location.hpp>
-#include <sge/font/bitmap/impl/log_name.hpp>
-#include <fcppt/log/location.hpp>
+#include <sge/font/vector.hpp>
+#include <sge/font/bitmap/impl/char_metric_fwd.hpp>
+#include <sge/font/bitmap/impl/position.hpp>
 
 
-fcppt::log::location
-sge::font::bitmap::log_location()
+sge::font::bitmap::impl::position::position(
+	sge::font::vector const _pos,
+	sge::font::bitmap::impl::char_metric const &_metric
+)
+:
+	pos_{
+		_pos
+	},
+	metric_{
+		_metric
+	}
+{
+}
+
+sge::font::vector
+sge::font::bitmap::impl::position::pos() const
 {
 	return
-		sge::font::log_location()
-		/
-		sge::font::bitmap::impl::log_name();
+		pos_;
+}
+
+sge::font::bitmap::impl::char_metric const &
+sge::font::bitmap::impl::position::metric() const
+{
+	return
+		metric_.get();
 }

@@ -18,17 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/log_location.hpp>
-#include <sge/font/bitmap/log_location.hpp>
-#include <sge/font/bitmap/impl/log_name.hpp>
-#include <fcppt/log/location.hpp>
+#include <sge/font/unit.hpp>
+#include <sge/font/vector.hpp>
+#include <sge/font/bitmap/impl/char_metric.hpp>
+#include <sge/font/bitmap/impl/const_view.hpp>
 
 
-fcppt::log::location
-sge::font::bitmap::log_location()
+sge::font::bitmap::impl::char_metric::char_metric(
+	sge::font::bitmap::impl::const_view const &_view,
+	sge::font::vector const &_offset,
+	sge::font::unit const _x_advance
+)
+:
+	view_(
+		_view
+	),
+	offset_(
+		_offset
+	),
+	x_advance_(
+		_x_advance
+	)
+{
+}
+
+sge::font::bitmap::impl::char_metric::~char_metric()
+{
+}
+
+sge::font::bitmap::impl::const_view
+sge::font::bitmap::impl::char_metric::view() const
 {
 	return
-		sge::font::log_location()
-		/
-		sge::font::bitmap::impl::log_name();
+		view_;
+}
+
+sge::font::vector
+sge::font::bitmap::impl::char_metric::offset() const
+{
+	return
+		offset_;
+}
+
+sge::font::unit
+sge::font::bitmap::impl::char_metric::x_advance() const
+{
+	return
+		x_advance_;
 }
