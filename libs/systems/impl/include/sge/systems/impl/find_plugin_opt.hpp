@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/object.hpp>
 #include <sge/systems/impl/plugin_pair_decl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -60,67 +61,72 @@ find_plugin_opt(
 	TestFunction const &_test_function
 )
 {
-	typedef
-	sge::systems::impl::plugin_pair<
-		System
-	>
-	pair_type;
-
-	typedef
-	fcppt::optional::object<
-		pair_type
-	>
-	return_type;
-
-	// TODO: find_by
-	for(
-		auto const &element
-		:
-		_collection
-	)
-	{
-		typedef
-		sge::plugin::object<
-			System
-		>
-		plugin_type;
-
-		plugin_type plugin(
-			element.load()
-		);
-
-		typedef
-		fcppt::unique_ptr<
-			System
-		>
-		system_unique_ptr;
-
-		system_unique_ptr system(
-			plugin.get()(
-				_log_context
-			)
-		);
-
-		if(
-			_test_function(
-				*system
-			)
-		)
-			return
-				return_type(
-					pair_type(
-						std::move(
-							plugin
-						),
-						std::move(
-							system
-						)
-					)
-				);
-	}
-
 	return
-		return_type();
+		fcppt::algorithm::find_by_opt(
+			_collection,
+			[
+				&_log_context,
+				&_test_function
+			](
+				sge::plugin::context<
+					System
+				> const &_element
+			)
+			{
+				typedef
+				sge::systems::impl::plugin_pair<
+					System
+				>
+				pair_type;
+
+				typedef
+				fcppt::optional::object<
+					pair_type
+				>
+				return_type;
+
+				typedef
+				sge::plugin::object<
+					System
+				>
+				plugin_type;
+
+				plugin_type plugin{
+					_element.load()
+				};
+
+				typedef
+				fcppt::unique_ptr<
+					System
+				>
+				system_unique_ptr;
+
+				system_unique_ptr system{
+					plugin.get()(
+						_log_context
+					)
+				};
+
+				return
+					_test_function(
+						*system
+					)
+					?
+						return_type{
+							pair_type{
+								std::move(
+									plugin
+								),
+								std::move(
+									system
+								)
+							}
+						}
+					:
+						return_type{}
+					;
+			}
+		);
 }
 
 }
