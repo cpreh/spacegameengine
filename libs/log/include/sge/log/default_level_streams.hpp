@@ -18,31 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/apply_options.hpp>
-#include <sge/log/option.hpp>
-#include <sge/log/option_container.hpp>
-#include <fcppt/log/context.hpp>
-#include <fcppt/log/enabled_levels.hpp>
-#include <fcppt/log/setting.hpp>
+#ifndef SGE_LOG_DEFAULT_LEVEL_STREAMS_HPP_INCLUDED
+#define SGE_LOG_DEFAULT_LEVEL_STREAMS_HPP_INCLUDED
+
+#include <sge/log/detail/symbol.hpp>
+#include <fcppt/log/level_stream_array.hpp>
 
 
-void
-sge::log::apply_options(
-	fcppt::log::context &_context,
-	sge::log::option_container const &_options
-)
+namespace sge
 {
-	for(
-		sge::log::option const &option
-		:
-		_options
-	)
-		_context.set(
-			option.location(),
-			fcppt::log::setting{
-				fcppt::log::enabled_levels(
-					option.level()
-				)
-			}
-		);
+namespace log
+{
+
+SGE_LOG_DETAIL_SYMBOL
+fcppt::log::level_stream_array
+default_level_streams();
+
 }
+}
+
+#endif

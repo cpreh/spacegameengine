@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/input/system.hpp>
+#include <sge/log/default_level_streams.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/info.hpp>
@@ -63,7 +64,8 @@ try
 			fcppt::log::enabled_levels(
 				fcppt::log::level::debug
 			)
-		}
+		},
+		sge::log::default_level_streams()
 	);
 
 	sge::plugin::manager manager(

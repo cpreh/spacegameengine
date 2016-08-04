@@ -18,31 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/apply_options.hpp>
-#include <sge/log/option.hpp>
-#include <sge/log/option_container.hpp>
-#include <fcppt/log/context.hpp>
-#include <fcppt/log/enabled_levels.hpp>
-#include <fcppt/log/setting.hpp>
+#include <sge/log/default_level_streams.hpp>
+#include <sge/log/stream.hpp>
+#include <fcppt/algorithm/enum_array_init.hpp>
+#include <fcppt/log/level.hpp>
+#include <fcppt/log/level_stream.hpp>
+#include <fcppt/log/level_stream_array.hpp>
+#include <fcppt/log/format/default_level.hpp>
+#include <fcppt/log/format/optional_function.hpp>
 
 
-void
-sge::log::apply_options(
-	fcppt::log::context &_context,
-	sge::log::option_container const &_options
-)
+fcppt::log::level_stream_array
+sge::log::default_level_streams()
 {
-	for(
-		sge::log::option const &option
-		:
-		_options
-	)
-		_context.set(
-			option.location(),
-			fcppt::log::setting{
-				fcppt::log::enabled_levels(
-					option.level()
-				)
+	return
+		fcppt::algorithm::enum_array_init<
+			fcppt::log::level_stream_array
+		>(
+			[](
+				fcppt::log::level const _level
+			)
+			{
+				return
+					fcppt::log::level_stream(
+						sge::log::stream(),
+						fcppt::log::format::optional_function(
+							fcppt::log::format::default_level(
+								_level
+							)
+						)
+					);
 			}
 		);
 }

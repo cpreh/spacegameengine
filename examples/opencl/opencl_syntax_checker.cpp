@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/log/default_level_streams.hpp>
 #include <sge/log/default_setting.hpp>
 #include <sge/opencl/log_location.hpp>
 #include <sge/opencl/kernel/object.hpp>
@@ -39,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/enabled_levels.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/log/location_setting.hpp>
 #include <fcppt/log/setting.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/classification.hpp>
@@ -59,24 +59,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int
 main(
 	int argc,
-	char *argv[])
+	char *argv[]
+)
 try
 {
 	fcppt::log::context log_context(
-		sge::log::default_setting()
+		sge::log::default_setting(),
+		sge::log::default_level_streams()
 	);
 
 	log_context.set(
-		fcppt::log::location_setting{
-			sge::opencl::log_location(),
-			fcppt::log::setting{
-				fcppt::log::enabled_levels(
-					fcppt::log::level::verbose
-				)
-			}
+		sge::opencl::log_location(),
+		fcppt::log::setting{
+			fcppt::log::enabled_levels(
+				fcppt::log::level::verbose
+			)
 		}
 	);
 
+	// TODO: Use args
 	if(argc < 2)
 	{
 		fcppt::io::cerr()

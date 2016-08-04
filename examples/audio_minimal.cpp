@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/repeat.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/config/plugin_path.hpp>
+#include <sge/log/default_level_streams.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -80,7 +81,8 @@ try
 			fcppt::log::enabled_levels(
 				fcppt::log::level::debug
 			)
-		}
+		},
+		sge::log::default_level_streams()
 	};
 
 //! [manual_initialization_pm]

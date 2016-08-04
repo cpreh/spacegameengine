@@ -225,9 +225,12 @@ add_sge_console_example(
 	SGE_DEPS
 		sgeaudio
 		sgeconfig
+		sgemedia_interface
+		sgelog
 		sgeplugin
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		${fcppt_log_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
 )
 
@@ -253,14 +256,14 @@ add_sge_console_example(
 	caps
 	SGE_DEPS
 		sgeconfig
+		sgelog
 		sgeplugin
 		sgerenderer
 		sgewindow
 	ADDITIONAL_DEPS
+		${awl_TARGET}
 		${fcppt_core_TARGET}
 		${fcppt_log_TARGET}
-		${awl_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_console_example(
