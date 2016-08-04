@@ -6,6 +6,7 @@ add_sge_example(
 		sgegui
 		sgeimagecolor
 		sgeimage2d
+		sgemedia_interface
 		sgerenderer
 		sgerucksack
 		sgesystems
@@ -14,6 +15,6 @@ add_sge_example(
 		sgeviewport
 		sgewindow
 	ADDITIONAL_DEPS
-		${Boost_FILESYSTEM_LIBRARY}
 		${fcppt_core_TARGET}
+		${Boost_FILESYSTEM_LIBRARY}
 )

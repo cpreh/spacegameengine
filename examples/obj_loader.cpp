@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 int main()
 try
 {
+	// TODO: This example is not compiled
 	sge::model::obj::prototype const loaded_model(
 		sge::config::media_path() / FCPPT_TEXT("objs") / FCPPT_TEXT("Monkey.obj"));
 

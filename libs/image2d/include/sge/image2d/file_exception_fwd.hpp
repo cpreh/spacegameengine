@@ -30,6 +30,7 @@ namespace sge
 namespace image2d
 {
 
+// TODO: sge::image2d::exception
 typedef
 sge::media::file_exception<
 	sge::image::exception

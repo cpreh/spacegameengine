@@ -6,12 +6,14 @@ add_sge_example(
 		sgeimagecolor
 		sgeinput
 		sgelog
+		sgemedia_interface
 		sgerenderer
 		sgesystems
+		sgetimer_interface
 		sgeviewport
 		sgewindow
-		sgetimer_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 )

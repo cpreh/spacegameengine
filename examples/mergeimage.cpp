@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/core/exception.hpp>
+#include <sge/image/size_type.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/predef.hpp>
@@ -40,9 +41,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/lock_rect.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -73,21 +71,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::renderer::size_type
+sge::image::size_type
 calc_size(
-	sge::renderer::size_type const _image_count,
-	sge::renderer::dim2 const &_dim
+	sge::image::size_type const _image_count,
+	sge::image2d::dim const &_dim
 )
 {
 	for(
-		sge::renderer::size_type const index
+		sge::image::size_type const index
 		:
 		fcppt::make_int_range_count(
 			11u
 		)
 	)
 	{
-		sge::renderer::size_type const size(
+		sge::image::size_type const size(
 			1u << index
 		);
 
@@ -104,7 +102,7 @@ calc_size(
 	);
 }
 
-sge::renderer::dim2 const
+sge::image2d::dim const
 first_dim(
 	boost::filesystem::path const &_path,
 	sge::image2d::system &_system
@@ -193,9 +191,9 @@ try
 		)
 	);
 
-	sge::renderer::size_type const image_count(
+	sge::image::size_type const image_count(
 		static_cast<
-			sge::renderer::size_type
+			sge::image::size_type
 		>(
 			std::distance(
 				boost::filesystem::directory_iterator(
@@ -216,14 +214,14 @@ try
 		return EXIT_SUCCESS;
 	}
 
-	sge::renderer::dim2 const dim(
+	sge::image2d::dim const dim(
 		first_dim(
 			path,
 			il
 		)
 	);
 
-	sge::renderer::size_type const border_sz(
+	sge::image::size_type const border_sz(
 		calc_size(
 			image_count,
 			dim

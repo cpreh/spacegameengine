@@ -3,41 +3,6 @@ add_sge_example(
 	SGE_DEPS
 		sgecg
 		sgeimagecolor
-		sgeinput
-		sgerenderer
-		sgerenderercg
-		sgesystems
-		sgeviewport
-		sgewindow
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-)
-
-add_sge_example(
-	cg_simple
-	SGE_DEPS
-		sgecg
-		sgeimagecolor
-		sgeinput
-		sgerenderer
-		sgerenderercg
-		sgesystems
-		sgeviewport
-		sgewindow
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-)
-
-add_sge_example(
-	cg_texture
-	SGE_DEPS
-		sgecg
-		sgeconfig
-		sgeimagecolor
-		sgeinput
-		sgemedia
 		sgerenderer
 		sgerenderercg
 		sgesystems
@@ -54,8 +19,39 @@ add_sge_example(
 		sgecg
 		sgeconfig
 		sgeimagecolor
-		sgeinput
-		sgemedia
+		sgemedia_interface
+		sgerenderer
+		sgerenderercg
+		sgesystems
+		sgeviewport
+		sgewindow
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${Boost_FILESYSTEM_LIBRARIES}
+)
+
+add_sge_example(
+	cg_simple
+	SGE_DEPS
+		sgecg
+		sgeimagecolor
+		sgerenderer
+		sgerenderercg
+		sgesystems
+		sgeviewport
+		sgewindow
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${Boost_FILESYSTEM_LIBRARIES}
+)
+
+add_sge_example(
+	cg_texture
+	SGE_DEPS
+		sgecg
+		sgeconfig
+		sgeimagecolor
+		sgemedia_interface
 		sgerenderer
 		sgerenderercg
 		sgesystems

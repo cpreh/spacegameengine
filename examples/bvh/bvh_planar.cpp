@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/bvh/dummy_node.hpp>
 #include <sge/bvh/object_impl.hpp>
-#include <sge/config/media_path.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8_from_hex_string.hpp>
 #include <sge/input/key/code.hpp>
@@ -81,7 +80,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
-#include <sge/texture/part_raw_ref.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/system.hpp>

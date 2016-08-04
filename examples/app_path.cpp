@@ -29,18 +29,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-int main()
+int
+main()
 try
 {
 	fcppt::io::cout()
-		<< sge::config::app_path()
-		<< FCPPT_TEXT('\n');
+		<<
+		sge::config::app_path()
+		<<
+		FCPPT_TEXT('\n');
 }
 catch(
 	std::exception const &_exception
 )
 {
-	std::cerr << _exception.what() << '\n';
+	std::cerr
+		<<
+		_exception.what()
+		<<
+		'\n';
 
-	return EXIT_FAILURE;
+	return
+		EXIT_FAILURE;
 }

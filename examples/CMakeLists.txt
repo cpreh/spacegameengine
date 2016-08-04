@@ -204,10 +204,12 @@ add_sge_example(
 		sgemodelmd3
 		sgerenderer
 		sgesystems
+		sgetimer_interface
 		sgeviewport
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 )
 
@@ -242,7 +244,7 @@ add_sge_example(
 		sgefontbitmap
 		sgefontdraw
 		sgeimagecolor
-		sgeinput
+		sgemedia_interface
 		sgerenderer
 		sgesystems
 		sgeviewport
@@ -259,7 +261,6 @@ add_sge_console_example(
 		sgelog
 		sgeplugin
 		sgerenderer
-		sgewindow
 	ADDITIONAL_DEPS
 		${awl_TARGET}
 		${fcppt_core_TARGET}
@@ -269,7 +270,6 @@ add_sge_console_example(
 add_sge_console_example(
 	color_string_convert
 	SGE_DEPS
-		sgecore
 		sgeimage
 		sgeimagecolor
 	ADDITIONAL_DEPS
@@ -293,7 +293,8 @@ add_sge_example(
 		sgeconsolegfx
 		sgefont
 		sgeimagecolor
-		sgeinput
+		sgeimage2d
+		sgemedia_interface
 		sgerenderer
 		sgesystems
 		sgetexture
@@ -311,6 +312,7 @@ add_sge_example(
 		sgeimagecolor
 		sgeinput
 		sgelog
+		sgemedia_interface
 		sgerenderer
 		sgesystems
 		sgetexture
@@ -318,6 +320,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 )
 
@@ -338,8 +341,10 @@ add_sge_example(
 		sgeaudio
 		sgeconfig
 		sgeimagecolor
+		sgeimage2d
 		sgeinput
 		sgelog
+		sgemedia_interface
 		sgerenderer
 		sgesprite
 		sgesystems
@@ -348,6 +353,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 )
 
@@ -372,11 +378,13 @@ add_sge_example(
 		sgelog
 		sgerenderer
 		sgesystems
-		sgeviewport
+		sgetimer_interface
+		sgeviewport_interface
 		sgewindow
 		sgetimer_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 )
 
@@ -385,6 +393,7 @@ add_sge_example(
 	SGE_DEPS
 		sgegraph
 		sgeimagecolor
+		sgeimage2d_interface
 		sgelog
 		sgerenderer
 		sgesystems
@@ -392,6 +401,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 )
 
@@ -407,7 +417,6 @@ add_sge_console_example(
 add_sge_example(
 	input
 	SGE_DEPS
-		sgeconfig
 		sgeconsole
 		sgeconsolegfx
 		sgefont
@@ -416,12 +425,12 @@ add_sge_example(
 		sgelog
 		sgerenderer
 		sgesystems
-		sgetexture
 		sgetimer
 		sgeviewport
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 )
 
@@ -430,7 +439,8 @@ add_sge_example(
 	SGE_DEPS
 		sgeconfig
 		sgeimagecolor
-		sgeinput
+		sgeimage2d
+		sgemedia_interface
 		sgerenderer
 		sgesprite
 		sgesystems
@@ -457,6 +467,7 @@ add_sge_example(
 		sgeconfig
 		sgeimagecolor
 		sgeimage2d
+		sgemedia_interface
 		sgerenderer
 		sgesprite
 		sgesystems
@@ -500,6 +511,32 @@ add_sge_example(
 		${fcppt_core_TARGET}
 )
 
+if(
+	${CMAKE_SYSTEM_NAME}
+	STREQUAL
+	"Linux"
+)
+	add_sge_example(
+		linux_stats
+		SGE_DEPS
+			sgefont
+			sgefontdraw
+			sgegraph
+			sgeimagecolor
+			sgeimage2d_interface
+			sgelog
+			sgerenderer
+			sgesystems
+			sgetimer
+			sgeviewport
+			sgewindow
+		ADDITIONAL_DEPS
+			${fcppt_core_TARGET}
+			fcppt_log_interface
+			${Boost_FILESYSTEM_LIBRARIES}
+	)
+endif()
+
 add_sge_console_example(
 	log_path
 	SGE_DEPS
@@ -509,32 +546,14 @@ add_sge_console_example(
 		${Boost_FILESYSTEM_LIBRARIES}
 )
 
-if(${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-	add_sge_example(
-		linux_stats
-		SGE_DEPS
-			sgefont
-			sgefontdraw
-			sgegraph
-			sgelog
-			sgerenderer
-			sgesystems
-			sgeviewport
-			sgewindow
-			sgeimagecolor
-			sgetimer
-		ADDITIONAL_DEPS
-			${fcppt_core_TARGET}
-			${Boost_FILESYSTEM_LIBRARIES}
-	)
-endif()
-
 add_sge_console_example(
 	mergeimage
 	SGE_DEPS
 		sgecore
+		sgeimage_interface
 		sgeimagecolor
 		sgeimage2d
+		sgemedia_interface
 		sgesystems
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
@@ -546,15 +565,15 @@ add_sge_example(
 	SGE_DEPS
 		sgeconfig
 		sgeimagecolor
-		sgeinput
 		sgelog
-		sgemedia
+		sgemedia_interface
 		sgerenderer
 		sgesystems
 		sgeviewport
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 )
 
@@ -563,7 +582,6 @@ add_sge_example(
 	SGE_DEPS
 		sgeconfig
 		sgeimagecolor
-		sgeinput
 		sgerenderer
 		sgesprite
 		sgesystems
@@ -578,29 +596,33 @@ add_sge_example(
 add_sge_example(
 	noise
 	SGE_DEPS
+		sgeimage_interface
 		sgeimagecolor
 		sgeimage2d
 		sgelog
+		sgenoise_interface
 		sgerenderer
 		sgesprite
 		sgesystems
 		sgetexture
 		sgeviewport
 		sgewindow
-		sgenoise_interface
 	ADDITIONAL_DEPS
+		mizuiro_interface
 		${fcppt_core_TARGET}
+		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_console_example(
 	opengl
 	SGE_DEPS
+		sgeimage_interface
 		sgerenderer
 		sgerendereropengl
 		sgesystems
 		sgeviewport
-		sgewindow
+		sgewindow_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
@@ -612,16 +634,20 @@ add_sge_example(
 		sgecamera
 		sgeconfig
 		sgeimagecolor
+		sgeimage2d
 		sgeinput
 		sgelog
+		sgemedia_interface
 		sgerenderer
 		sgesprite
 		sgesystems
 		sgetexture
+		sgetimer_interface
 		sgeviewport
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 )
 
@@ -651,11 +677,12 @@ add_sge_example(
 		sgeprojectile
 		sgerenderer
 		sgesystems
+		sgetimer_interface
 		sgeviewport
 		sgewindow
-		sgetimer_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 )
 
@@ -673,17 +700,19 @@ add_sge_console_example(
 add_sge_example(
 	scenic
 	SGE_DEPS
+		sgecamera
 		sgeconfig
+		sgegraph
 		sgeimagecolor
 		sgeinput
+		sgemedia_interface
+		sgeparsejson
 		sgerenderer
+		sgescenic
 		sgesystems
+		sgetimer_interface
 		sgeviewport
 		sgewindow
-		sgescenic
-		sgecamera
-		sgegraph
-		sgeparsejson
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
@@ -697,6 +726,7 @@ add_sge_example(
 		sgeimagecolor
 		sgeimage2d
 		sgeinput
+		sgemedia_interface
 		sgerenderer
 		sgesprite
 		sgesystems
@@ -714,10 +744,12 @@ add_sge_console_example(
 		sgeaudio
 		sgeconfig
 		sgelog
+		sgemedia_interface
 		sgesystems
 		sgetimer_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 )
 
@@ -725,7 +757,6 @@ add_sge_example(
 	sprite_color
 	SGE_DEPS
 		sgeimagecolor
-		sgeinput
 		sgelog
 		sgerenderer
 		sgesprite
@@ -734,6 +765,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 )
 
@@ -742,8 +774,8 @@ add_sge_example(
 	SGE_DEPS
 		sgeconfig
 		sgeimagecolor
-		sgeinput
 		sgelog
+		sgemedia_interface
 		sgerenderer
 		sgesprite
 		sgesystems
@@ -752,6 +784,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 )
 
@@ -762,6 +795,7 @@ add_sge_example(
 		sgeimagecolor
 		sgeimage2d
 		sgeinput
+		sgemedia_interface
 		sgerenderer
 		sgesprite
 		sgesystems
@@ -778,7 +812,7 @@ add_sge_example(
 	SGE_DEPS
 		sgeconfig
 		sgeimagecolor
-		sgeinput
+		sgemedia_interface
 		sgerenderer
 		sgesprite
 		sgesystems
@@ -795,18 +829,21 @@ add_sge_example(
 	SGE_DEPS
 		sgeaudio
 		sgeconfig
+		sgegraph
 		sgeimagecolor
+		sgeimage2d
 		sgeinput
 		sgelog
+		sgemedia_interface
 		sgerenderer
 		sgesprite
 		sgesystems
 		sgetexture
 		sgeviewport
 		sgewindow
-		sgegraph
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 )
 
@@ -816,7 +853,7 @@ add_sge_example(
 		sgeconfig
 		sgeimagecolor
 		sgeimage2d
-		sgeinput
+		sgemedia_interface
 		sgerenderer
 		sgesprite
 		sgesystems
@@ -834,6 +871,7 @@ add_sge_example(
 		sgecamera
 		sgefont
 		sgefontdraw
+		sgeimage_interface
 		sgeimagecolor
 		sgeimage2d
 		sgeinput
@@ -854,6 +892,7 @@ add_sge_console_example(
 	SGE_DEPS
 		sgeaudio
 		sgeconfig
+		sgemedia_interface
 		sgesystems
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
@@ -865,6 +904,7 @@ add_sge_console_example(
 	SGE_DEPS
 		sgeaudio
 		sgeconfig
+		sgemedia_interface
 		sgesystems
 		sgetimer_interface
 	ADDITIONAL_DEPS
@@ -876,7 +916,7 @@ add_sge_example(
 	tutorial/sprite_03
 	SGE_DEPS
 		sgeconfig
-		sgeinput
+		sgemedia_interface
 		sgerenderer
 		sgesprite
 		sgesystems
@@ -892,7 +932,6 @@ add_sge_example(
 	vertex
 	SGE_DEPS
 		sgeimagecolor
-		sgeinput
 		sgerenderer
 		sgesystems
 		sgeviewport
@@ -906,7 +945,6 @@ add_sge_example(
 	vertex_index
 	SGE_DEPS
 		sgeimagecolor
-		sgeinput
 		sgerenderer
 		sgesystems
 		sgeviewport
@@ -920,7 +958,6 @@ add_sge_example(
 	vertex_planar
 	SGE_DEPS
 		sgeimagecolor
-		sgeinput
 		sgerenderer
 		sgesystems
 		sgeviewport
@@ -934,7 +971,7 @@ add_sge_example(
 	vertex_texture
 	SGE_DEPS
 		sgeconfig
-		sgeinput
+		sgemedia_interface
 		sgerenderer
 		sgesystems
 		sgeviewport
@@ -948,15 +985,18 @@ add_sge_example(
 	volume_texture
 	SGE_DEPS
 		sgecamera
+		sgeimage_interface
 		sgeimagecolor
 		sgeimage3d
 		sgeinput
+		sgenoise_interface
 		sgerenderer
 		sgesystems
+		sgetimer_interface
 		sgeviewport
 		sgewindow
-		sgenoise_interface
 	ADDITIONAL_DEPS
+		mizuiro_interface
 		${fcppt_core_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
 )
