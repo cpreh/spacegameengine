@@ -19,35 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/default_level_streams.hpp>
-#include <sge/log/stream.hpp>
-#include <fcppt/algorithm/enum_array_init.hpp>
-#include <fcppt/log/level.hpp>
-#include <fcppt/log/level_stream.hpp>
+#include <fcppt/log/default_level_streams.hpp>
 #include <fcppt/log/level_stream_array.hpp>
-#include <fcppt/log/format/default_level.hpp>
-#include <fcppt/log/format/optional_function.hpp>
 
 
 fcppt::log::level_stream_array
 sge::log::default_level_streams()
 {
 	return
-		fcppt::algorithm::enum_array_init<
-			fcppt::log::level_stream_array
-		>(
-			[](
-				fcppt::log::level const _level
-			)
-			{
-				return
-					fcppt::log::level_stream(
-						sge::log::stream(),
-						fcppt::log::format::optional_function(
-							fcppt::log::format::default_level(
-								_level
-							)
-						)
-					);
-			}
-		);
+		fcppt::log::default_level_streams();
 }

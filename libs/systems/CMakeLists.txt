@@ -33,7 +33,6 @@ set(
 	libs/systems/impl/include/sge/systems/impl/log_context.hpp
 	libs/systems/impl/include/sge/systems/impl/log_name.hpp
 	libs/systems/impl/include/sge/systems/impl/make_any_key.hpp
-	libs/systems/impl/include/sge/systems/impl/make_scoped_output.hpp
 	libs/systems/impl/include/sge/systems/impl/merge_config_strings.hpp
 	libs/systems/impl/include/sge/systems/impl/plugin_pair_decl.hpp
 	libs/systems/impl/include/sge/systems/impl/plugin_pair_fwd.hpp
@@ -90,7 +89,6 @@ set(
 	libs/systems/impl/src/systems/impl/log_context.cpp
 	libs/systems/impl/src/systems/impl/log_name.cpp
 	libs/systems/impl/src/systems/impl/make_any_key.cpp
-	libs/systems/impl/src/systems/impl/make_scoped_output.cpp
 	libs/systems/impl/src/systems/impl/merge_config_strings.cpp
 	libs/systems/impl/src/systems/impl/renderer/create_device.cpp
 	libs/systems/impl/src/systems/impl/renderer/device.cpp
@@ -182,7 +180,6 @@ set(
 	libs/systems/include/sge/systems/list_fwd.hpp
 	libs/systems/include/sge/systems/list_impl.hpp
 	libs/systems/include/sge/systems/log_location.hpp
-	libs/systems/include/sge/systems/log_redirect_path.hpp
 	libs/systems/include/sge/systems/log_settings.hpp
 	libs/systems/include/sge/systems/log_settings_fwd.hpp
 	libs/systems/include/sge/systems/make_empty_list.hpp
@@ -191,8 +188,6 @@ set(
 	libs/systems/include/sge/systems/mouse_collector_fwd.hpp
 	libs/systems/include/sge/systems/optional_log_context_ref.hpp
 	libs/systems/include/sge/systems/optional_log_context_ref_fwd.hpp
-	libs/systems/include/sge/systems/optional_log_redirect_path.hpp
-	libs/systems/include/sge/systems/optional_log_redirect_path_fwd.hpp
 	libs/systems/include/sge/systems/optional_log_settings.hpp
 	libs/systems/include/sge/systems/optional_log_settings_fwd.hpp
 	libs/systems/include/sge/systems/optional_name.hpp

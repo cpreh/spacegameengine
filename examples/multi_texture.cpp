@@ -18,10 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config/app_name.hpp>
-#include <sge/config/log_path.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/config/own_company_name.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
@@ -167,14 +164,6 @@ try
 							fcppt::log::level::debug
 						}
 					}
-				)
-				.redirect(
-					sge::config::log_path(
-						sge::config::own_company_name(),
-						sge::config::app_name(
-							FCPPT_TEXT("example_multi_texture")
-						)
-					)
 				)
 			)
 		)

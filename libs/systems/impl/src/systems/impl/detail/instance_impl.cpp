@@ -43,13 +43,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
 #include <sge/systems/optional_log_context_ref_fwd.hpp>
-#include <sge/systems/optional_log_redirect_path_fwd.hpp>
 #include <sge/systems/plugin_path.hpp>
 #include <sge/systems/window_fwd.hpp>
 #include <sge/systems/detail/input_fwd.hpp>
 #include <sge/systems/detail/renderer_fwd.hpp>
 #include <sge/systems/impl/log_name.hpp>
-#include <sge/systems/impl/make_scoped_output.hpp>
 #include <sge/systems/impl/audio/loader.hpp>
 #include <sge/systems/impl/audio/player.hpp>
 #include <sge/systems/impl/detail/instance_impl.hpp>
@@ -65,7 +63,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <awl/main/scoped_output.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/optional_error.hpp>
@@ -78,8 +75,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::systems::detail::instance_impl::instance_impl(
 	sge::systems::plugin_path const &_plugin_path,
-	sge::systems::optional_log_context_ref const &_log_context,
-	sge::systems::optional_log_redirect_path const &_log_redirect_path
+	sge::systems::optional_log_context_ref const &_log_context
 )
 :
 	log_context_{
@@ -92,11 +88,6 @@ sge::systems::detail::instance_impl::instance_impl(
 			sge::systems::impl::log_name()
 		)
 	},
-	scoped_output_(
-		sge::systems::impl::make_scoped_output(
-			_log_redirect_path
-		)
-	),
 	plugin_cache_(),
 	plugin_manager_(
 		this->log_context(),

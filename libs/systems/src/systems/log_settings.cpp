@@ -19,15 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/log/option_container.hpp>
-#include <sge/systems/log_redirect_path.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/optional_log_context_ref.hpp>
-#include <sge/systems/optional_log_redirect_path.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/log/context_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::systems::log_settings::log_settings(
@@ -37,25 +32,8 @@ sge::systems::log_settings::log_settings(
 	options_(
 		_options
 	),
-	redirect_(),
 	log_context_()
 {
-}
-
-sge::systems::log_settings &
-sge::systems::log_settings::redirect(
-	boost::filesystem::path const &_path
-)
-{
-	redirect_ =
-		sge::systems::optional_log_redirect_path(
-			sge::systems::log_redirect_path(
-				_path
-			)
-		);
-
-	return
-		*this;
 }
 
 sge::systems::log_settings &
@@ -79,13 +57,6 @@ sge::systems::log_settings::options() const
 {
 	return
 		options_;
-}
-
-sge::systems::optional_log_redirect_path const &
-sge::systems::log_settings::redirect() const
-{
-	return
-		redirect_;
 }
 
 sge::systems::optional_log_context_ref const &

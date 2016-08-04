@@ -43,7 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
 #include <sge/systems/optional_log_context_ref_fwd.hpp>
-#include <sge/systems/optional_log_redirect_path_fwd.hpp>
 #include <sge/systems/plugin_path.hpp>
 #include <sge/systems/window_fwd.hpp>
 #include <sge/systems/detail/input_fwd.hpp>
@@ -62,7 +61,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <awl/main/optional_scoped_output_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/object.hpp>
@@ -84,8 +82,7 @@ class instance_impl
 public:
 	instance_impl(
 		sge::systems::plugin_path const &,
-		sge::systems::optional_log_context_ref const &,
-		sge::systems::optional_log_redirect_path const &
+		sge::systems::optional_log_context_ref const &
 	);
 
 	~instance_impl();
@@ -203,7 +200,6 @@ private:
 
 	fcppt::log::object log_;
 
-	awl::main::optional_scoped_output_unique_ptr const scoped_output_;
 	// Almost all plugins need to be unloaded last. If, for example,
 	// libGL.so is unloaded before the X window will be destroyed, then the
 	// unloading will crash.

@@ -24,11 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/option_container.hpp>
 #include <sge/systems/log_settings_fwd.hpp>
 #include <sge/systems/optional_log_context_ref.hpp>
-#include <sge/systems/optional_log_redirect_path.hpp>
 #include <sge/systems/detail/symbol.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -47,12 +43,6 @@ public:
 
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::log_settings &
-	redirect(
-		boost::filesystem::path const &
-	);
-
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::log_settings &
 	log_context(
 		fcppt::log::context &
 	);
@@ -60,15 +50,10 @@ public:
 	sge::log::option_container const &
 	options() const;
 
-	sge::systems::optional_log_redirect_path const &
-	redirect() const;
-
 	sge::systems::optional_log_context_ref const &
 	log_context() const;
 private:
 	sge::log::option_container options_;
-
-	sge::systems::optional_log_redirect_path redirect_;
 
 	sge::systems::optional_log_context_ref log_context_;
 };

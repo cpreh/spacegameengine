@@ -91,19 +91,6 @@ sge::systems::detail::instance::instance(
 					return
 						_settings.log_context();
 				}
-			),
-			fcppt::optional::bind(
-				sge::systems::impl::extract_config(
-					_list.get()
-				)
-				.log_settings(),
-				[](
-					sge::systems::log_settings const &_settings
-				)
-				{
-					return
-						_settings.redirect();
-				}
 			)
 		)
 	)
