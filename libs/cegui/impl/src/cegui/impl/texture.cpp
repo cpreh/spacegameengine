@@ -136,7 +136,7 @@ sge::cegui::impl::texture::texture(
 			}
 		),
 		sge::cegui::impl::texture::optional_planar_unique_ptr{
-			texture_parameters_.renderer().create_planar_texture(
+			_texture_parameters.renderer().create_planar_texture(
 				sge::renderer::texture::planar_parameters(
 					fcppt::math::dim::to_unsigned(
 						fcppt::math::dim::structure_cast<
