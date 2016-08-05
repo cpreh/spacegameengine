@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/media/log_name.hpp>
 #include <sge/src/media/detail/muxer.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/loop.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
@@ -45,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/contains.hpp>
 #include <fcppt/algorithm/find_if_opt.hpp>
 #include <fcppt/algorithm/fold.hpp>
+#include <fcppt/algorithm/fold_break.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/algorithm/set_intersection.hpp>
 #include <fcppt/algorithm/set_union.hpp>
@@ -360,8 +362,7 @@ sge::media::detail::muxer<
 ) const
 {
 	return
-		// TODO: Make it possible to break out early
-		fcppt::algorithm::fold(
+		fcppt::algorithm::fold_break(
 			plugins_,
 			load_stream_result{
 				std::move(
@@ -394,12 +395,15 @@ sge::media::detail::muxer<
 							);
 
 							return
-								_plugin.second->load_stream(
-									std::move(
-										_cur_stream
-									),
-									sge::media::optional_extension(),
-									_name
+								std::make_pair(
+									fcppt::loop::continue_,
+									_plugin.second->load_stream(
+										std::move(
+											_cur_stream
+										),
+										sge::media::optional_extension(),
+										_name
+									)
 								);
 						},
 						[](
@@ -407,11 +411,14 @@ sge::media::detail::muxer<
 						)
 						{
 							return
-								load_stream_result{
-									std::move(
-										_file
-									)
-								};
+								std::make_pair(
+									fcppt::loop::break_,
+									load_stream_result{
+										std::move(
+											_file
+										)
+									}
+								);
 						}
 					);
 			}
