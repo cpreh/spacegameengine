@@ -194,7 +194,13 @@ private:
 
 	sge::cegui::impl::clip clip_;
 
-	CEGUI::RenderEffect *render_effect_;
+	typedef
+	fcppt::optional::reference<
+		CEGUI::RenderEffect
+	>
+	optional_render_effect_ref;
+
+	optional_render_effect_ref render_effect_;
 
 	sge::renderer::state::core::rasterizer::object_unique_ptr const rasterizer_scissor_on_;
 

@@ -77,6 +77,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
+#include <fcppt/const.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_int_range_count.hpp>
@@ -101,6 +102,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/optional/comparison.hpp>
+#include <fcppt/optional/from_pointer.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_pointer.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
 #include <CEGUI/Quaternion.h>
@@ -162,10 +167,7 @@ sge::cegui::impl::geometry_buffer::geometry_buffer(
 	clip_(
 		true
 	),
-	render_effect_(
-		// TODO: Don't use a pointer here
-		nullptr
-	),
+	render_effect_{},
 	rasterizer_scissor_on_(
 		renderer_.create_rasterizer_state(
 			sge::cegui::impl::make_rasterizer_parameters(
@@ -280,11 +282,21 @@ sge::cegui::impl::geometry_buffer::draw() const
 	);
 
 	int const pass_count(
-		render_effect_
-		?
-			render_effect_->getPassCount()
-		:
-			1
+		fcppt::optional::maybe(
+			render_effect_,
+			fcppt::const_(
+				1
+			),
+			[](
+				fcppt::reference<
+					CEGUI::RenderEffect
+				> const _effect
+			)
+			{
+				return
+					_effect.get().getPassCount();
+			}
+		)
 	);
 
 	sge::renderer::state::core::rasterizer::const_optional_object_ref prev_rasterizer;
@@ -297,12 +309,21 @@ sge::cegui::impl::geometry_buffer::draw() const
 		)
 	)
 	{
-		if(
-			render_effect_
-		)
-			render_effect_->performPreRenderFunctions(
+		fcppt::optional::maybe_void(
+			render_effect_,
+			[
 				pass
-			);
+			](
+				fcppt::reference<
+					CEGUI::RenderEffect
+				> const _effect
+			)
+			{
+				_effect.get().performPreRenderFunctions(
+					pass
+				);
+			}
+		);
 
 		for(
 			sge::cegui::impl::batch const &batch
@@ -364,10 +385,17 @@ sge::cegui::impl::geometry_buffer::draw() const
 		sge::renderer::state::core::rasterizer::const_optional_object_ref()
 	);
 
-	if(
-		render_effect_
-	)
-		render_effect_->performPostRenderFunctions();
+	fcppt::optional::maybe_void(
+		render_effect_,
+		[](
+			fcppt::reference<
+				CEGUI::RenderEffect
+			> const _effect
+		)
+		{
+			_effect.get().performPostRenderFunctions();
+		}
+	);
 }
 
 void
@@ -580,14 +608,18 @@ sge::cegui::impl::geometry_buffer::setRenderEffect(
 )
 {
 	render_effect_ =
-		_render_effect;
+		fcppt::optional::from_pointer(
+			_render_effect
+		);
 }
 
 CEGUI::RenderEffect *
 sge::cegui::impl::geometry_buffer::getRenderEffect()
 {
 	return
-		render_effect_;
+		fcppt::optional::to_pointer(
+			render_effect_
+		);
 }
 
 void
