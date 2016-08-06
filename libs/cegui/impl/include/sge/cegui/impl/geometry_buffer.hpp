@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/log/object.hpp>
+#include <fcppt/optional/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
 #include <CEGUI/GeometryBuffer.h>
@@ -173,8 +174,13 @@ private:
 
 	sge::renderer::vertex::declaration const &vertex_declaration_;
 
-	// TODO: Don't use pointers
-	sge::cegui::impl::texture *active_texture_;
+	typedef
+	fcppt::optional::reference<
+		sge::cegui::impl::texture
+	>
+	optional_texture_ref;
+
+	optional_texture_ref active_texture_;
 
 	sge::renderer::vector3 translation_;
 

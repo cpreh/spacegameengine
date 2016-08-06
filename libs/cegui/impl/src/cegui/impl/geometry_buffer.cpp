@@ -78,13 +78,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/reference_comparison.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/assert/pre_message.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/log/_.hpp>
@@ -134,9 +134,7 @@ sge::cegui::impl::geometry_buffer::geometry_buffer(
 	vertex_declaration_(
 		_vertex_declaration
 	),
-	active_texture_(
-		nullptr
-	),
+	active_texture_{},
 	translation_(
 		fcppt::math::vector::null<
 			sge::renderer::vector3
@@ -452,16 +450,13 @@ sge::cegui::impl::geometry_buffer::appendGeometry(
 	CEGUI::uint const _vertex_count
 )
 {
-	FCPPT_ASSERT_PRE_MESSAGE(
-		active_texture_,
-		FCPPT_TEXT("I got geometry without an active texture, how should I handle this? :/")
-	);
-
 	batches_.push_back(
 		sge::cegui::impl::batch{
 			renderer_,
 			vertex_declaration_,
-			active_texture_->impl(),
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				active_texture_
+			).get().impl(),
 			sge::renderer::vertex::count(
 				_vertex_count
 			),
@@ -535,11 +530,15 @@ sge::cegui::impl::geometry_buffer::setActiveTexture(
 	);
 
 	active_texture_ =
-		&dynamic_cast<
-			sge::cegui::impl::texture &
-		>(
-			*_tex
-		);
+		sge::cegui::impl::geometry_buffer::optional_texture_ref{
+			fcppt::make_ref(
+				dynamic_cast<
+					sge::cegui::impl::texture &
+				>(
+					*_tex
+				)
+			)
+		};
 }
 
 void
@@ -547,7 +546,8 @@ sge::cegui::impl::geometry_buffer::reset()
 {
 	batches_.clear();
 
-	active_texture_ = nullptr;
+	active_texture_ =
+		sge::cegui::impl::geometry_buffer::optional_texture_ref{};
 }
 
 CEGUI::Texture *
