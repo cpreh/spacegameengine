@@ -505,6 +505,34 @@ function(
 		sge${LIB_NAME}
 	)
 
+	foreach(
+		INCLUDE_DIR
+		${_INCLUDE_DIRS}
+	)
+		fcppt_utils_is_path_prefix_of(
+			INCLUDE_DIR_IS_PREFIX_OF_SOURCE_DIR
+			${FCPPT_UTILS_PROJECT_SOURCE_DIR}
+			${INCLUDE_DIR}
+		)
+
+		fcppt_utils_is_path_prefix_of(
+			INCLUDE_DIR_IS_PREFIX_OF_BINARY_DIR
+			${FCPPT_UTILS_PROJECT_BINARY_DIR}
+			${INCLUDE_DIR}
+		)
+
+		if(
+			${INCLUDE_DIR_IS_PREFIX_OF_SOURCE_DIR}
+			AND
+			NOT
+			${INCLUDE_DIR_IS_PREFIX_OF_BINARY_DIR}
+		)
+			message(
+				"${LIB_NAME} includes ${INCLUDE_DIR}, which is part of sge's source directory"
+			)
+		endif()
+	endforeach()
+
 	check_library_deps(
 		"${LIB_NAME}"
 		"${_SGE_DEPS}"
