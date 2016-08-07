@@ -33,8 +33,6 @@ function(
 			${_SGE_DEPS}
 		ADDITIONAL_DEPS
 			${_ADDITIONAL_DEPS}
-		INCLUDE_DIRS
-			"${CMAKE_CURRENT_SOURCE_DIR}/testbed/include"
 	)
 endfunction()
 

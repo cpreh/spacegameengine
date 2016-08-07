@@ -39,7 +39,6 @@ function(
 		MULTI_ARGS
 		SGE_DEPS
 		ADDITIONAL_DEPS
-		INCLUDE_DIRS
 	)
 
 	cmake_parse_arguments(
@@ -106,7 +105,7 @@ function(
 	target_include_directories(
 		"${FULL_NAME}"
 		PRIVATE
-		"${_INCLUDE_DIRS}"
+		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/examples/include
 	)
 
 	target_link_libraries(
@@ -136,7 +135,6 @@ function(
 		MULTI_ARGS
 		SGE_DEPS
 		ADDITIONAL_DEPS
-		INCLUDE_DIRS
 	)
 
 	cmake_parse_arguments(
@@ -153,9 +151,6 @@ function(
 			${_SGE_DEPS}
 		ADDITIONAL_DEPS
 			${_ADDITIONAL_DEPS}
-		INCLUDE_DIRS
-			${FCPPT_UTILS_PROJECT_SOURCE_DIR}/examples/include
-			${_INCLUDE_DIRS}
 		CONSOLE_EXAMPLE
 			FALSE
 	)
@@ -169,7 +164,6 @@ function(
 		MULTI_ARGS
 		SGE_DEPS
 		ADDITIONAL_DEPS
-		INCLUDE_DIRS
 	)
 
 	cmake_parse_arguments(
@@ -186,8 +180,6 @@ function(
 			${_SGE_DEPS}
 		ADDITIONAL_DEPS
 			${_ADDITIONAL_DEPS}
-		INCLUDE_DIRS
-			${_INCLUDE_DIRS}
 		CONSOLE_EXAMPLE
 			TRUE
 	)

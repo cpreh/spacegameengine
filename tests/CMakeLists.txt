@@ -130,8 +130,6 @@ add_sge_test(
 		sgeprojectile_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-	INCLUDE_DIRS
-		${sge_PROJECTILE_INCLUDE_DIRS}
 )
 
 add_sge_test(
@@ -174,6 +172,4 @@ add_sge_test(
 		sgetimer_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-	INCLUDE_DIRS
-		${sge_TIMER_INCLUDE_DIRS}
 )

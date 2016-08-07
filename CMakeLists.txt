@@ -52,7 +52,9 @@ option(
 
 set(
 	NEEDED_BOOST_LIBS
-	"filesystem;program_options;system"
+	filesystem
+	program_options
+	system
 )
 
 if(
@@ -61,17 +63,13 @@ if(
 	list(
 		APPEND
 		NEEDED_BOOST_LIBS
-		"unit_test_framework"
+		unit_test_framework
 	)
 endif()
 
 find_package(
 	Boost 1.47.0 REQUIRED COMPONENTS
 	"${NEEDED_BOOST_LIBS}"
-)
-
-link_directories(
-	${Boost_LIBRARY_DIRS}
 )
 
 find_package(
@@ -143,21 +141,6 @@ option(
 	OFF
 )
 
-set(
-	sge_BVH_INCLUDE_DIRS
-	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include
-)
-
-set(
-	sge_PROJECTILE_INCLUDE_DIRS
-	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include
-)
-
-set(
-	sge_TIMER_INCLUDE_DIRS
-	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/include
-)
-
 if(
 	ENABLE_EXAMPLES
 )
@@ -185,7 +168,7 @@ get_property(
 
 fcppt_utils_generate_config(
 	CONFIG_PATH
-		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/cmake
+	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/cmake
 )
 
 install(
