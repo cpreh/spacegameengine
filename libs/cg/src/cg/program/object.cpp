@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/program/from_file_parameters.hpp>
 #include <sge/cg/program/from_string_parameters.hpp>
 #include <sge/cg/program/object.hpp>
-#include <sge/src/cg/program/convert_source_type.hpp>
+#include <sge/cg/impl/program/convert_source_type.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -63,7 +63,7 @@ sge::cg::program::object::object(
 	program_(
 		::cgCreateProgram(
 			_parameters.context().get(),
-			sge::cg::program::convert_source_type(
+			sge::cg::impl::program::convert_source_type(
 				_parameters.source_type()
 			),
 			_parameters.source().get().c_str(),
@@ -90,7 +90,7 @@ sge::cg::program::object::object(
 	program_(
 		::cgCreateProgramFromFile(
 			_parameters.context().get(),
-			sge::cg::program::convert_source_type(
+			sge::cg::impl::program::convert_source_type(
 				_parameters.source_type()
 			),
 			_parameters.path().string().c_str(),

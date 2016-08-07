@@ -18,30 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CG_PARAMETER_VECTOR_ELEMENT_COUNT_HPP_INCLUDED
-#define SGE_SRC_CG_PARAMETER_VECTOR_ELEMENT_COUNT_HPP_INCLUDED
+#include <sge/cg/check_state.hpp>
+#include <sge/cg/exception.hpp>
+#include <sge/cg/parameter/object.hpp>
+#include <sge/cg/impl/parameter/get_type.hpp>
+#include <fcppt/assert/throw.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <Cg/cg.h>
+#include <fcppt/config/external_end.hpp>
 
-#include <sge/cg/parameter/object_fwd.hpp>
-#include <fcppt/math/size_type.hpp>
 
-
-namespace sge
+CGtype
+sge::cg::impl::parameter::get_type(
+	sge::cg::parameter::object const &_parameter
+)
 {
-namespace cg
-{
-namespace parameter
-{
-namespace vector
-{
+	CGtype const ret(
+		::cgGetParameterType(
+			_parameter.get()
+		)
+	);
 
-fcppt::math::size_type
-element_count(
-	sge::cg::parameter::object const &
-);
+	SGE_CG_CHECK_STATE(
+		FCPPT_TEXT("cgGetParameterType failed"),
+		sge::cg::exception
+	);
 
-}
-}
-}
-}
+	FCPPT_ASSERT_THROW(
+		ret
+		!=
+		CG_UNKNOWN_TYPE,
+		sge::cg::exception
+	);
 
-#endif
+	return
+		ret;
+}

@@ -20,36 +20,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/check_state.hpp>
 #include <sge/cg/exception.hpp>
-#include <sge/cg/parameter/object.hpp>
-#include <sge/src/cg/parameter/get_type.hpp>
-#include <fcppt/assert/throw.hpp>
+#include <sge/cg/impl/parameter/get_type_base.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
 
 CGtype
-sge::cg::parameter::get_type(
-	sge::cg::parameter::object const &_parameter
+sge::cg::impl::parameter::get_type_base(
+	CGtype const _type
 )
 {
 	CGtype const ret(
-		::cgGetParameterType(
-			_parameter.get()
+		::cgGetTypeBase(
+			_type
 		)
 	);
 
 	SGE_CG_CHECK_STATE(
-		FCPPT_TEXT("cgGetParameterType failed"),
+		FCPPT_TEXT("cgGetTypeBase failed"),
 		sge::cg::exception
-	);
-
-	FCPPT_ASSERT_THROW(
-		ret
-		!=
-		CG_UNKNOWN_TYPE,
-		sge::cg::exception
-	);
+	)
 
 	return
 		ret;

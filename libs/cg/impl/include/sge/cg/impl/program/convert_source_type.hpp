@@ -18,21 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/src/cg/true.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#ifndef SGE_CG_IMPL_PROGRAM_CONVERT_SOURCE_TYPE_HPP_INCLUDED
+#define SGE_CG_IMPL_PROGRAM_CONVERT_SOURCE_TYPE_HPP_INCLUDED
+
+#include <sge/cg/program/source_type_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
+namespace sge
+{
+namespace cg
+{
+namespace impl
+{
+namespace program
+{
 
-CGbool
-const
-sge::cg::true_
-= CG_TRUE;
+CGenum
+convert_source_type(
+	sge::cg::program::source_type
+);
 
-FCPPT_PP_POP_WARNING
+}
+}
+}
+}
+
+#endif

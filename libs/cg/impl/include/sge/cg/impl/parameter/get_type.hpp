@@ -18,49 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_CG_IMPL_PARAMETER_GET_TYPE_HPP_INCLUDED
+#define SGE_CG_IMPL_PARAMETER_GET_TYPE_HPP_INCLUDED
+
 #include <sge/cg/parameter/object_fwd.hpp>
-#include <sge/src/cg/true.hpp>
-#include <sge/src/cg/parameter/get_type.hpp>
-#include <sge/src/cg/parameter/vector/element_count.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/math/size_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
 
-fcppt::math::size_type
-sge::cg::parameter::vector::element_count(
-	sge::cg::parameter::object const &_parameter
-)
+namespace sge
 {
-	int
-		rows,
-		columns;
+namespace cg
+{
+namespace impl
+{
+namespace parameter
+{
 
-	if(
-		::cgGetTypeSizes(
-			sge::cg::parameter::get_type(
-				_parameter
-			),
-			&rows,
-			&columns
-		)
-		==
-		sge::cg::true_
-	)
-		return 0;
+CGtype
+get_type(
+	sge::cg::parameter::object const &
+);
 
-	FCPPT_ASSERT_ERROR(
-		rows
-		==
-		1
-	);
-
-	return
-		static_cast<
-			fcppt::math::size_type
-		>(
-			columns
-		);
 }
+}
+}
+}
+
+#endif

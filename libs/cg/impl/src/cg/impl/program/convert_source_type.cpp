@@ -18,31 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/check_state.hpp>
-#include <sge/cg/exception.hpp>
-#include <sge/src/cg/parameter/get_type_base.hpp>
-#include <fcppt/text.hpp>
+#include <sge/cg/program/source_type.hpp>
+#include <sge/cg/impl/program/convert_source_type.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
 
-CGtype
-sge::cg::parameter::get_type_base(
-	CGtype const _type
+CGenum
+sge::cg::impl::program::convert_source_type(
+	sge::cg::program::source_type const _type
 )
 {
-	CGtype const ret(
-		::cgGetTypeBase(
-			_type
-		)
-	);
-
-	SGE_CG_CHECK_STATE(
-		FCPPT_TEXT("cgGetTypeBase failed"),
-		sge::cg::exception
+	switch(
+		_type
 	)
+	{
+	case sge::cg::program::source_type::text:
+		return CG_SOURCE;
+	case sge::cg::program::source_type::binary:
+		return CG_OBJECT;
+	}
 
-	return
-		ret;
+	FCPPT_ASSERT_UNREACHABLE;
 }

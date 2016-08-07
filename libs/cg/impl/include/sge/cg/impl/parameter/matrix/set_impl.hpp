@@ -18,29 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CG_PROGRAM_CONVERT_SOURCE_TYPE_HPP_INCLUDED
-#define SGE_SRC_CG_PROGRAM_CONVERT_SOURCE_TYPE_HPP_INCLUDED
+#ifndef SGE_CG_IMPL_PARAMETER_MATRIX_SET_IMPL_HPP_INCLUDED
+#define SGE_CG_IMPL_PARAMETER_MATRIX_SET_IMPL_HPP_INCLUDED
 
-#include <sge/cg/program/source_type_fwd.hpp>
+
+#include <sge/cg/check_state.hpp>
+#include <sge/cg/exception.hpp>
+#include <sge/cg/parameter/object.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace program
-{
-
-CGenum
-convert_source_type(
-	sge::cg::program::source_type
-);
-
-}
-}
+#define SGE_CG_IMPL_PARAMETER_MATRIX_SET_IMPL(\
+	type,\
+	cg_name\
+)\
+void \
+sge::cg::parameter::matrix::detail::set_ ## type(\
+	sge::cg::parameter::object const &_parameter,\
+	type const *const _data\
+)\
+{\
+	::cgSetMatrixParameter ## cg_name ## r(\
+		_parameter.get(),\
+		_data\
+	);\
+\
+	SGE_CG_CHECK_STATE(\
+		FCPPT_TEXT("cgSetMatrixParameter failed"),\
+		sge::cg::exception\
+	)\
 }
 
 #endif

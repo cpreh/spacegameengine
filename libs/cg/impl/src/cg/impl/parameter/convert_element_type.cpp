@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cg/parameter/element_type.hpp>
-#include <sge/src/cg/parameter/convert_element_type.hpp>
+#include <sge/cg/impl/parameter/convert_element_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 CGtype
-sge::cg::parameter::convert_element_type(
+sge::cg::impl::parameter::convert_element_type(
 	sge::cg::parameter::element_type const _type
 )
 {

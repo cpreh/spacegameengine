@@ -18,10 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CG_PARAMETER_TYPE_BASE_ENUM_HPP_INCLUDED
-#define SGE_SRC_CG_PARAMETER_TYPE_BASE_ENUM_HPP_INCLUDED
-
-#include <sge/src/cg/type_integral_c.hpp>
+#include <sge/cg/impl/true.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -30,58 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
-{
-
 FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
-template<
-	typename Type
->
-struct type_base_enum;
-
-template<>
-struct type_base_enum<
-	double
->
-:
-sge::cg::type_integral_c<
-	CG_DOUBLE
->
-{
-};
-
-template<>
-struct type_base_enum<
-	float
->
-:
-sge::cg::type_integral_c<
-	CG_FLOAT
->
-{
-};
-
-template<>
-struct type_base_enum<
-	int
->
-:
-sge::cg::type_integral_c<
-	CG_INT
->
-{
-};
+CGbool
+const
+sge::cg::impl::true_
+= CG_TRUE;
 
 FCPPT_PP_POP_WARNING
-
-}
-}
-}
-
-#endif

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CG_PARAMETER_CONVERT_ELEMENT_TYPE_HPP_INCLUDED
-#define SGE_SRC_CG_PARAMETER_CONVERT_ELEMENT_TYPE_HPP_INCLUDED
+#ifndef SGE_CG_IMPL_PARAMETER_CONVERT_ELEMENT_TYPE_HPP_INCLUDED
+#define SGE_CG_IMPL_PARAMETER_CONVERT_ELEMENT_TYPE_HPP_INCLUDED
 
 #include <sge/cg/parameter/element_type_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -31,6 +31,8 @@ namespace sge
 {
 namespace cg
 {
+namespace impl
+{
 namespace parameter
 {
 
@@ -39,6 +41,7 @@ convert_element_type(
 	sge::cg::parameter::element_type
 );
 
+}
 }
 }
 }

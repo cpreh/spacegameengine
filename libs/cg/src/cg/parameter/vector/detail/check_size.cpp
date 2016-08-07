@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/cg/impl/parameter/vector/element_count.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/parameter/vector/detail/check_size.hpp>
-#include <sge/src/cg/parameter/vector/element_count.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/math/size_type.hpp>
 
@@ -32,7 +32,7 @@ sge::cg::parameter::vector::detail::check_size(
 )
 {
 	FCPPT_ASSERT_ERROR(
-		sge::cg::parameter::vector::element_count(
+		sge::cg::impl::parameter::vector::element_count(
 			_parameter
 		)
 		==

@@ -18,38 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CG_PARAMETER_SCALAR_SET_IMPL_HPP_INCLUDED
-#define SGE_SRC_CG_PARAMETER_SCALAR_SET_IMPL_HPP_INCLUDED
+#ifndef SGE_CG_IMPL_PARAMETER_GET_TYPE_BASE_HPP_INCLUDED
+#define SGE_CG_IMPL_PARAMETER_GET_TYPE_BASE_HPP_INCLUDED
 
-
-#include <sge/cg/check_state.hpp>
-#include <sge/cg/exception.hpp>
-#include <sge/cg/parameter/object.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
 
-#define SGE_SRC_CG_PARAMETER_SCALAR_SET_IMPL(\
-	type,\
-	cg_name\
-)\
-void \
-sge::cg::parameter::scalar::detail::set_ ## type(\
-	sge::cg::parameter::object const &_parameter,\
-	type const _scalar\
-)\
-{\
-	::cgSetParameter1 ## cg_name(\
-		_parameter.get(),\
-		_scalar\
-	);\
-\
-	SGE_CG_CHECK_STATE(\
-		FCPPT_TEXT("cgSetParameter1 failed"),\
-		sge::cg::exception\
-	)\
+namespace sge
+{
+namespace cg
+{
+namespace impl
+{
+namespace parameter
+{
+
+CGtype
+get_type_base(
+	CGtype
+);
+
+}
+}
+}
 }
 
 #endif

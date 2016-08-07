@@ -18,10 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CG_PARAMETER_GET_TYPE_HPP_INCLUDED
-#define SGE_SRC_CG_PARAMETER_GET_TYPE_HPP_INCLUDED
+#ifndef SGE_CG_IMPL_FALSE_HPP_INCLUDED
+#define SGE_CG_IMPL_FALSE_HPP_INCLUDED
 
-#include <sge/cg/parameter/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
@@ -31,13 +30,13 @@ namespace sge
 {
 namespace cg
 {
-namespace parameter
+namespace impl
 {
 
-CGtype
-get_type(
-	sge::cg::parameter::object const &
-);
+extern
+CGbool
+const
+false_;
 
 }
 }

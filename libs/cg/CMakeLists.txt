@@ -1,5 +1,24 @@
 set(
 	SGE_CG_FILES
+	libs/cg/impl/include/sge/cg/impl/false.hpp
+	libs/cg/impl/include/sge/cg/impl/parameter/convert_element_type.hpp
+	libs/cg/impl/include/sge/cg/impl/parameter/get_type.hpp
+	libs/cg/impl/include/sge/cg/impl/parameter/get_type_base.hpp
+	libs/cg/impl/include/sge/cg/impl/parameter/matrix/set_impl.hpp
+	libs/cg/impl/include/sge/cg/impl/parameter/scalar/set_impl.hpp
+	libs/cg/impl/include/sge/cg/impl/parameter/type_base_enum.hpp
+	libs/cg/impl/include/sge/cg/impl/parameter/vector/element_count.hpp
+	libs/cg/impl/include/sge/cg/impl/parameter/vector/set_impl.hpp
+	libs/cg/impl/include/sge/cg/impl/program/convert_source_type.hpp
+	libs/cg/impl/include/sge/cg/impl/true.hpp
+	libs/cg/impl/include/sge/cg/impl/type_integral_c.hpp
+	libs/cg/impl/src/cg/impl/false.cpp
+	libs/cg/impl/src/cg/impl/parameter/convert_element_type.cpp
+	libs/cg/impl/src/cg/impl/parameter/get_type.cpp
+	libs/cg/impl/src/cg/impl/parameter/get_type_base.cpp
+	libs/cg/impl/src/cg/impl/parameter/vector/element_count.cpp
+	libs/cg/impl/src/cg/impl/program/convert_source_type.cpp
+	libs/cg/impl/src/cg/impl/true.cpp
 	libs/cg/include/sge/cg/char_type.hpp
 	libs/cg/include/sge/cg/check_state.hpp
 	libs/cg/include/sge/cg/check_state_listing.hpp
@@ -66,25 +85,9 @@ set(
 	libs/cg/src/cg/error_listing.cpp
 	libs/cg/src/cg/error_string.cpp
 	libs/cg/src/cg/exception.cpp
-	libs/cg/src/cg/false.cpp
-	libs/cg/src/cg/include/sge/src/cg/false.hpp
-	libs/cg/src/cg/include/sge/src/cg/parameter/convert_element_type.hpp
-	libs/cg/src/cg/include/sge/src/cg/parameter/get_type.hpp
-	libs/cg/src/cg/include/sge/src/cg/parameter/get_type_base.hpp
-	libs/cg/src/cg/include/sge/src/cg/parameter/matrix/set_impl.hpp
-	libs/cg/src/cg/include/sge/src/cg/parameter/scalar/set_impl.hpp
-	libs/cg/src/cg/include/sge/src/cg/parameter/type_base_enum.hpp
-	libs/cg/src/cg/include/sge/src/cg/parameter/vector/element_count.hpp
-	libs/cg/src/cg/include/sge/src/cg/parameter/vector/set_impl.hpp
-	libs/cg/src/cg/include/sge/src/cg/program/convert_source_type.hpp
-	libs/cg/src/cg/include/sge/src/cg/true.hpp
-	libs/cg/src/cg/include/sge/src/cg/type_integral_c.hpp
-	libs/cg/src/cg/parameter/convert_element_type.cpp
 	libs/cg/src/cg/parameter/created.cpp
 	libs/cg/src/cg/parameter/detail/check_base_type.cpp
 	libs/cg/src/cg/parameter/detail/check_type.cpp
-	libs/cg/src/cg/parameter/get_type.cpp
-	libs/cg/src/cg/parameter/get_type_base.cpp
 	libs/cg/src/cg/parameter/matrix/detail/check_size.cpp
 	libs/cg/src/cg/parameter/matrix/detail/set_double.cpp
 	libs/cg/src/cg/parameter/matrix/detail/set_float.cpp
@@ -98,20 +101,18 @@ set(
 	libs/cg/src/cg/parameter/vector/detail/set_double.cpp
 	libs/cg/src/cg/parameter/vector/detail/set_float.cpp
 	libs/cg/src/cg/parameter/vector/detail/set_int.cpp
-	libs/cg/src/cg/parameter/vector/element_count.cpp
 	libs/cg/src/cg/profile/object.cpp
 	libs/cg/src/cg/program/compile_options.cpp
-	libs/cg/src/cg/program/convert_source_type.cpp
 	libs/cg/src/cg/program/from_file_parameters.cpp
 	libs/cg/src/cg/program/from_string_parameters.cpp
 	libs/cg/src/cg/program/object.cpp
 	libs/cg/src/cg/program/replace_extra.cpp
 	libs/cg/src/cg/to_fcppt_string.cpp
-	libs/cg/src/cg/true.cpp
 )
 
 add_sge_base_library(
 	cg
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgecore
 	TRANSITIVE_SGE_DEPS
@@ -122,7 +123,6 @@ add_sge_base_library(
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
 	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/cg/include"
 		${Cg_INCLUDE_DIRS}
 	TRANSITIVE_INCLUDE_DIRS
 		${Cg_INCLUDE_DIRS}

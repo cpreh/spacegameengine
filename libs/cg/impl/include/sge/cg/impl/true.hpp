@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CG_TRUE_HPP_INCLUDED
-#define SGE_SRC_CG_TRUE_HPP_INCLUDED
+#ifndef SGE_CG_IMPL_TRUE_HPP_INCLUDED
+#define SGE_CG_IMPL_TRUE_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
@@ -30,12 +30,15 @@ namespace sge
 {
 namespace cg
 {
+namespace impl
+{
 
 extern
 CGbool
 const
 true_;
 
+}
 }
 }
 

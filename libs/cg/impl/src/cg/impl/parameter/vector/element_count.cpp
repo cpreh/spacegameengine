@@ -18,28 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CG_PARAMETER_GET_TYPE_BASE_HPP_INCLUDED
-#define SGE_SRC_CG_PARAMETER_GET_TYPE_BASE_HPP_INCLUDED
-
+#include <sge/cg/parameter/object_fwd.hpp>
+#include <sge/cg/impl/true.hpp>
+#include <sge/cg/impl/parameter/get_type.hpp>
+#include <sge/cg/impl/parameter/vector/element_count.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+fcppt::math::size_type
+sge::cg::impl::parameter::vector::element_count(
+	sge::cg::parameter::object const &_parameter
+)
 {
-namespace cg
-{
-namespace parameter
-{
+	int
+		rows,
+		columns;
 
-CGtype
-get_type_base(
-	CGtype
-);
+	if(
+		::cgGetTypeSizes(
+			sge::cg::impl::parameter::get_type(
+				_parameter
+			),
+			&rows,
+			&columns
+		)
+		==
+		sge::cg::impl::true_
+	)
+		return
+			0;
 
-}
-}
-}
+	FCPPT_ASSERT_ERROR(
+		rows
+		==
+		1
+	);
 
-#endif
+	return
+		fcppt::cast::size<
+			fcppt::math::size_type
+		>(
+			fcppt::cast::to_unsigned(
+				columns
+			)
+		);
+}
