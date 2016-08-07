@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CONSOLE_EVAL_GRAMMAR_HPP_INCLUDED
-#define SGE_SRC_CONSOLE_EVAL_GRAMMAR_HPP_INCLUDED
+#ifndef SGE_CONSOLE_IMPL_EVAL_GRAMMAR_HPP_INCLUDED
+#define SGE_CONSOLE_IMPL_EVAL_GRAMMAR_HPP_INCLUDED
 
-#include <sge/src/console/eval_grammar_decl.hpp>
-#include <sge/src/console/eval_grammar_fwd.hpp>
-#include <sge/src/console/eval_grammar_impl.hpp>
+#include <sge/console/impl/eval_grammar_decl.hpp>
+#include <sge/console/impl/eval_grammar_fwd.hpp>
+#include <sge/console/impl/eval_grammar_impl.hpp>
 
 
 #endif

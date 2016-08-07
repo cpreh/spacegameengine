@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CONSOLE_EVAL_GRAMMAR_DECL_HPP_INCLUDED
-#define SGE_SRC_CONSOLE_EVAL_GRAMMAR_DECL_HPP_INCLUDED
+#ifndef SGE_CONSOLE_IMPL_EVAL_GRAMMAR_DECL_HPP_INCLUDED
+#define SGE_CONSOLE_IMPL_EVAL_GRAMMAR_DECL_HPP_INCLUDED
 
 #include <sge/console/arg_list.hpp>
+#include <sge/console/impl/eval_grammar_fwd.hpp>
 #include <sge/font/string.hpp>
-#include <sge/src/console/eval_grammar_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -37,6 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 namespace console
+{
+namespace impl
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -84,6 +86,7 @@ private:
 
 FCPPT_PP_POP_WARNING
 
+}
 }
 }
 

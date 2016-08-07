@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/console/muxing_narrow_streambuf.hpp>
-#include <sge/src/console/instantiate_muxing_streambuf.hpp>
+#include <sge/console/impl/instantiate_muxing_streambuf.hpp>
 
 
-SGE_CONSOLE_INSTANTIATE_MUXING_STREAMBUF(
+SGE_CONSOLE_IMPL_INSTANTIATE_MUXING_STREAMBUF(
 	char
 );

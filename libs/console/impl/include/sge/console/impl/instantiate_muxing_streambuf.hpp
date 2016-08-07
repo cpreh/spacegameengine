@@ -18,31 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CONSOLE_FROM_STRING_HPP_INCLUDED
-#define SGE_SRC_CONSOLE_FROM_STRING_HPP_INCLUDED
+#ifndef SGE_CONSOLE_IMPL_INSTANTIATE_MUXING_STREAMBUF_HPP_INCLUDED
+#define SGE_CONSOLE_IMPL_INSTANTIATE_MUXING_STREAMBUF_HPP_INCLUDED
 
-#include <fcppt/string.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <string>
-#include <fcppt/config/external_end.hpp>
+#include <sge/console/impl/muxing_streambuf_impl.hpp>
+#include <sge/src/core/export_class_instantiation.hpp>
 
 
-namespace sge
-{
-namespace console
-{
-
-fcppt::string
-from_string(
-	std::string const &
-);
-
-fcppt::string
-from_string(
-	std::wstring const &
-);
-
-}
-}
+#define SGE_CONSOLE_IMPL_INSTANTIATE_MUXING_STREAMBUF(\
+	char_type\
+)\
+template \
+class \
+SGE_CORE_EXPORT_CLASS_INSTANTIATION \
+sge::console::muxing_streambuf<\
+	char_type\
+>
 
 #endif

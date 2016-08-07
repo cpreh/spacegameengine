@@ -18,13 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CONSOLE_EVAL_GRAMMAR_FWD_HPP_INCLUDED
-#define SGE_SRC_CONSOLE_EVAL_GRAMMAR_FWD_HPP_INCLUDED
+#ifndef SGE_CONSOLE_IMPL_EVAL_GRAMMAR_FWD_HPP_INCLUDED
+#define SGE_CONSOLE_IMPL_EVAL_GRAMMAR_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace console
+{
+namespace impl
 {
 
 template<
@@ -32,6 +34,7 @@ template<
 >
 class eval_grammar;
 
+}
 }
 }
 

@@ -30,10 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/signal.hpp>
 #include <sge/console/callback/function.hpp>
 #include <sge/console/callback/parameters.hpp>
+#include <sge/console/impl/eval_grammar.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
-#include <sge/src/console/eval_grammar.hpp>
 #include <fcppt/insert_to_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
@@ -222,7 +222,7 @@ sge::console::object::eval(
 
 			sge::console::arg_list args;
 
-			sge::console::eval_grammar<
+			sge::console::impl::eval_grammar<
 				sge::font::string::const_iterator
 			> grammar;
 

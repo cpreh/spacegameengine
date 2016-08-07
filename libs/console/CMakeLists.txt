@@ -1,5 +1,13 @@
 set(
 	SGE_CONSOLE_FILES
+	libs/console/impl/include/sge/console/impl/eval_grammar.hpp
+	libs/console/impl/include/sge/console/impl/eval_grammar_decl.hpp
+	libs/console/impl/include/sge/console/impl/eval_grammar_fwd.hpp
+	libs/console/impl/include/sge/console/impl/eval_grammar_impl.hpp
+	libs/console/impl/include/sge/console/impl/from_string.hpp
+	libs/console/impl/include/sge/console/impl/instantiate_muxing_streambuf.hpp
+	libs/console/impl/include/sge/console/impl/muxing_streambuf_impl.hpp
+	libs/console/impl/src/console/impl/from_string.cpp
 	libs/console/include/sge/console/arg_list.hpp
 	libs/console/include/sge/console/callback/convenience.hpp
 	libs/console/include/sge/console/callback/detail/convenience_wrapper.hpp
@@ -40,15 +48,7 @@ set(
 	libs/console/include/sge/console/signal_fwd.hpp
 	libs/console/src/console/callback/parameters.cpp
 	libs/console/src/console/exception.cpp
-	libs/console/src/console/from_string.cpp
 	libs/console/src/console/function.cpp
-	libs/console/src/console/include/sge/src/console/eval_grammar.hpp
-	libs/console/src/console/include/sge/src/console/eval_grammar_decl.hpp
-	libs/console/src/console/include/sge/src/console/eval_grammar_fwd.hpp
-	libs/console/src/console/include/sge/src/console/eval_grammar_impl.hpp
-	libs/console/src/console/include/sge/src/console/from_string.hpp
-	libs/console/src/console/include/sge/src/console/instantiate_muxing_streambuf.hpp
-	libs/console/src/console/include/sge/src/console/muxing_streambuf_impl.hpp
 	libs/console/src/console/muxing_narrow_streambuf.cpp
 	libs/console/src/console/muxing_wide_streambuf.cpp
 	libs/console/src/console/object.cpp
@@ -56,6 +56,7 @@ set(
 
 add_sge_base_library(
 	console
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgecore
 		sgefont
@@ -66,6 +67,4 @@ add_sge_base_library(
 		${fcppt_core_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/console/include"
 )

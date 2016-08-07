@@ -18,61 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CONSOLE_EVAL_GRAMMAR_IMPL_HPP_INCLUDED
-#define SGE_SRC_CONSOLE_EVAL_GRAMMAR_IMPL_HPP_INCLUDED
+#ifndef SGE_CONSOLE_IMPL_FROM_STRING_HPP_INCLUDED
+#define SGE_CONSOLE_IMPL_FROM_STRING_HPP_INCLUDED
 
-#include <sge/font/lit.hpp>
-#include <sge/src/console/eval_grammar_decl.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/include/qi_char.hpp>
-#include <boost/spirit/include/qi_operator.hpp>
-#include <boost/spirit/include/qi_string.hpp>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
-template<
-	typename Iterator
->
-sge::console::eval_grammar<
-	Iterator
->::eval_grammar()
-:
-	eval_grammar::base_type(
-		start_
-	),
-	word_(),
-	quoted_string_(),
-	argument_(),
-	start_()
+namespace sge
 {
-	namespace encoding = boost::spirit::standard_wide;
+namespace console
+{
+namespace impl
+{
 
-	using encoding::char_;
-	using encoding::space;
+fcppt::string
+from_string(
+	std::string const &
+);
 
-	word_ %=
-		+~space;
+fcppt::string
+from_string(
+	std::wstring const &
+);
 
-	quoted_string_ %=
-		SGE_FONT_LIT('"')
-		>> +(~char_(SGE_FONT_LIT('"')))
-		>> SGE_FONT_LIT('"');
-
-	argument_ %=
-		quoted_string_
-		| word_;
-
-	start_ %=
-		argument_ % (+space);
 }
-
-template<
-	typename Iterator
->
-sge::console::eval_grammar<
-	Iterator
->::~eval_grammar()
-{
+}
 }
 
 #endif
