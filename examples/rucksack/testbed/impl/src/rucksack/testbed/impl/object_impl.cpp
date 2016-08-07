@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/rucksack/testbed/systems.hpp>
+#include <sge/rucksack/testbed/impl/object_impl.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/buffers/single_impl.hpp>
@@ -49,7 +50,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/state/object_impl.hpp>
 #include <sge/sprite/state/parameters_impl.hpp>
-#include <sge/src/rucksack/testbed/object_impl.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
@@ -66,6 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/log/level.hpp>
@@ -132,14 +133,18 @@ sge::rucksack::testbed::object_impl::object_impl(
 	),
 	buffers_(
 		systems_.renderer_device_ffp(),
-		sge::sprite::buffers::option::dynamic),
+		sge::sprite::buffers::option::dynamic
+	),
 	sprite_states_(
 		systems_.renderer_device_ffp(),
-		sge::rucksack::testbed::object_impl::sprite_state_parameters()),
+		sge::rucksack::testbed::object_impl::sprite_state_parameters()
+	),
 	sprites_(),
 	quit_connection_(
 		sge::systems::quit_on_escape(
-			systems_))
+			systems_
+		)
+	)
 {
 }
 
@@ -150,7 +155,9 @@ sge::rucksack::testbed::object_impl::add_widget(
 {
 	sprites_.push_back(
 		std::make_pair(
-			&_widget,
+			fcppt::make_ref(
+				_widget
+			),
 			sprite_object(
 				sge::sprite::roles::pos{} =
 					fcppt::math::vector::null<
@@ -175,16 +182,19 @@ awl::main::exit_code
 sge::rucksack::testbed::object_impl::run()
 {
 	while(
-		systems_.window_system().poll())
+		systems_.window_system().poll()
+	)
 	{
 		this->update();
 
 		sge::renderer::context::scoped_ffp const scoped_block(
 			systems_.renderer_device_ffp(),
-			systems_.renderer_device_ffp().onscreen_target());
+			systems_.renderer_device_ffp().onscreen_target()
+		);
 
 		this->render(
-			scoped_block.get());
+			scoped_block.get()
+		);
 	}
 
 	return
@@ -201,9 +211,12 @@ sge::rucksack::testbed::object_impl::update()
 	)
 	{
 		entry.second.pos(
-			entry.first->position());
+			entry.first.get().position()
+		);
+
 		entry.second.size(
-			entry.first->size());
+			entry.first.get().size()
+		);
 	}
 }
 
@@ -246,7 +259,8 @@ sge::rucksack::testbed::object_impl::render(
 sge::rucksack::testbed::systems const &
 sge::rucksack::testbed::object_impl::systems() const
 {
-	return systems_;
+	return
+		systems_;
 }
 
 sge::rucksack::testbed::object_impl::~object_impl()

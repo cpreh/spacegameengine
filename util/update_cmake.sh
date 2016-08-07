@@ -36,14 +36,13 @@ function update_example_library()
 {
 	local examplelibrary="$1"
 	local upperpath=$(toupper "${examplelibrary}")
-	local prefix=examples/"${examplelibrary}"
+	local exampledir=examples/"${examplelibrary}"
 
 	update_cmake \
-		"${prefix}"/CMakeLists.txt \
+		"${exampledir}"/CMakeLists.txt \
 		SGE_"${upperpath/\//}"_FILES \
 		"${@:2}" \
-		"${prefix}"/include/sge/"${examplelibrary}" \
-		"${prefix}"/src
+		"${exampledir}"
 }
 
 function update_tool()

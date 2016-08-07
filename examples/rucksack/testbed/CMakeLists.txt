@@ -1,16 +1,17 @@
 set(
 	SGE_RUCKSACKTESTBED_FILES
+	examples/rucksack/testbed/impl/include/sge/rucksack/testbed/impl/object_impl.hpp
+	examples/rucksack/testbed/impl/src/rucksack/testbed/impl/object_impl.cpp
 	examples/rucksack/testbed/include/sge/rucksack/testbed/object.hpp
 	examples/rucksack/testbed/include/sge/rucksack/testbed/object_impl_fwd.hpp
 	examples/rucksack/testbed/include/sge/rucksack/testbed/systems.hpp
 	examples/rucksack/testbed/include/sge/rucksack/testbed/systems_fwd.hpp
-	examples/rucksack/testbed/src/include/sge/src/rucksack/testbed/object_impl.hpp
 	examples/rucksack/testbed/src/object.cpp
-	examples/rucksack/testbed/src/object_impl.cpp
 )
 
 add_sge_example_library(
 	"rucksack/testbed"
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgeimagecolor
 		sgelog
@@ -22,7 +23,4 @@ add_sge_example_library(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/include"
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/include"
 )

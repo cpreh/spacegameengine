@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_RUCKSACK_TESTBED_OBJECT_IMPL_HPP_INCLUDED
-#define SGE_SRC_RUCKSACK_TESTBED_OBJECT_IMPL_HPP_INCLUDED
+#ifndef SGE_RUCKSACK_IMPL_TESTBED_OBJECT_IMPL_HPP_INCLUDED
+#define SGE_RUCKSACK_IMPL_TESTBED_OBJECT_IMPL_HPP_INCLUDED
 
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -58,19 +59,23 @@ namespace rucksack
 {
 namespace testbed
 {
+
 class object_impl
 {
-FCPPT_NONCOPYABLE(
-	object_impl);
+	FCPPT_NONCOPYABLE(
+		object_impl
+	);
 public:
 	explicit
 	object_impl(
-		sge::window::title const &);
+		sge::window::title const &
+	);
 
 	void
 	add_widget(
 		sge::rucksack::widget::base &,
-		sge::image::color::any::object const &);
+		sge::image::color::any::object const &
+	);
 
 	awl::main::exit_code
 	run();
@@ -80,7 +85,8 @@ public:
 
 	void
 	render(
-		sge::renderer::context::ffp &);
+		sge::renderer::context::ffp &
+	);
 
 	sge::rucksack::testbed::systems const &
 	systems() const;
@@ -92,12 +98,14 @@ private:
 	color_format;
 
 	typedef
-	sge::sprite::config::choices
-	<
-		sge::sprite::config::type_choices
-		<
-			sge::sprite::config::unit_type<rucksack::scalar>,
-			sge::sprite::config::float_type<float>
+	sge::sprite::config::choices<
+		sge::sprite::config::type_choices<
+			sge::sprite::config::unit_type<
+				sge::rucksack::scalar
+			>,
+			sge::sprite::config::float_type<
+				float
+			>
 		>,
 		sge::sprite::config::pos<
 			sge::sprite::config::pos_option::pos
@@ -105,8 +113,7 @@ private:
 		sge::sprite::config::normal_size<
 			sge::sprite::config::texture_size_option::never
 		>,
-		boost::mpl::vector1
-		<
+		boost::mpl::vector1<
 			sge::sprite::config::with_color<
 				color_format
 			>
@@ -115,15 +122,15 @@ private:
 	sprite_choices;
 
 	typedef
-	sge::sprite::buffers::with_declaration
-	<
-		sge::sprite::buffers::single<sprite_choices>
+	sge::sprite::buffers::with_declaration<
+		sge::sprite::buffers::single<
+			sprite_choices
+		>
 	>
 	sprite_buffers;
 
 	typedef
-	sge::sprite::object
-	<
+	sge::sprite::object<
 		sprite_choices
 	>
 	sprite_object;
@@ -133,39 +140,41 @@ private:
 	sprite_state_choices;
 
 	typedef
-	sge::sprite::state::object
-	<
+	sge::sprite::state::object<
 		sprite_state_choices
 	>
 	sprite_state_object;
 
 	typedef
-	sge::sprite::state::parameters
-	<
+	sge::sprite::state::parameters<
 		sprite_state_choices
 	>
 	sprite_state_parameters;
 
 	typedef
-	std::vector
-	<
-		std::pair
-		<
-			sge::rucksack::widget::base*,
+	std::vector<
+		std::pair<
+			fcppt::reference<
+				sge::rucksack::widget::base
+			>,
 			sprite_object
 		>
 	>
 	sprite_list;
 
 	sge::rucksack::testbed::systems const systems_;
+
 	sprite_buffers buffers_;
+
 	sprite_state_object sprite_states_;
+
 	sprite_list sprites_;
+
 	fcppt::signal::auto_connection const quit_connection_;
 };
+
 }
 }
 }
 
 #endif
-

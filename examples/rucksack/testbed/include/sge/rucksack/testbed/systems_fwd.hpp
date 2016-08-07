@@ -39,7 +39,8 @@ namespace rucksack
 namespace testbed
 {
 
-typedef sge::systems::instance<
+typedef
+sge::systems::instance<
 	boost::mpl::vector3<
 		sge::systems::with_window,
 		sge::systems::with_renderer<
@@ -51,7 +52,8 @@ typedef sge::systems::instance<
 			>
 		>
 	>
-> systems;
+>
+systems;
 
 }
 }
