@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref_fwd.hpp>
-#include <sge/src/plugin/context_base.hpp>
-#include <sge/src/plugin/load_plugins.hpp>
-#include <sge/src/plugin/log_name.hpp>
+#include <sge/plugin/impl/context_base.hpp>
+#include <sge/plugin/impl/load_plugins.hpp>
+#include <sge/plugin/impl/log_name.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/enum_array_init.hpp>
@@ -56,7 +56,7 @@ sge::plugin::manager::manager(
 		_log_context,
 		sge::log::location(),
 		sge::log::default_parameters(
-			sge::plugin::log_name()
+			sge::plugin::impl::log_name()
 		)
 	},
 	plugins_(
@@ -75,7 +75,7 @@ sge::plugin::manager::manager(
 			);
 
 			return
-				sge::plugin::load_plugins(
+				sge::plugin::impl::load_plugins(
 					log_,
 					_path,
 					_cache

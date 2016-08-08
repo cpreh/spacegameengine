@@ -1174,12 +1174,6 @@ find_package(
 	REQUIRED
 )
 
-sge_implement_from_lib(
-	plugin
-	PLUGIN_DEFINITIONS
-	PLUGIN_INCLUDES
-)
-
 set(
 	SGE_RENDERER_HAVE_CG
 	${ENABLE_CG}
@@ -1233,10 +1227,8 @@ add_sge_base_library(
 		awl_interface
 		mizuiro_interface
 		fcppt_core_interface
-	INCLUDE_DIRS
-		${PLUGIN_INCLUDES}
-	COMPILE_DEFINITIONS
-		${PLUGIN_DEFINITIONS}
+	IMPLEMENT_FROM
+		plugin
 )
 
 configure_file(

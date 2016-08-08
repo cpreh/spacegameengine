@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/system_fwd.hpp>
 #include <sge/font/plugin/traits.hpp>
-#include <sge/src/plugin/instantiate_context.hpp>
+#include <sge/plugin/impl/instantiate_context.hpp>
 
 
-SGE_PLUGIN_INSTANTIATE_CONTEXT(
+SGE_PLUGIN_IMPL_INSTANTIATE_CONTEXT(
 	sge::font::system
 );

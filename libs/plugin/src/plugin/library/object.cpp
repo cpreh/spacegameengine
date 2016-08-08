@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/library/exception.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
-#include <sge/src/plugin/library/error.hpp>
-#include <sge/src/plugin/library/object.hpp>
+#include <sge/plugin/impl/library/error.hpp>
+#include <sge/plugin/impl/library/object.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -155,11 +155,14 @@ sge::plugin::library::object::object(
 	if(
 		!handle_
 	)
-		throw sge::plugin::library::exception(
-			fcppt::string(
-				FCPPT_TEXT("Failed to load library::object: "))
-				+ library::error()
-			);
+		throw
+			sge::plugin::library::exception{
+				fcppt::string(
+					FCPPT_TEXT("Failed to load library::object: ")
+					+
+					sge::plugin::impl::library::error()
+				)
+			};
 }
 
 sge::plugin::library::object::~object()
@@ -203,7 +206,7 @@ sge::plugin::library::object::name() const
 		name_;
 }
 
-sge::plugin::library::loaded_symbol
+sge::plugin::impl::library::loaded_symbol
 sge::plugin::library::object::load(
 	sge::plugin::library::symbol_string const &_fun
 )

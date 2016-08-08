@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/plugin/traits.hpp>
-#include <sge/src/plugin/instantiate_object.hpp>
+#include <sge/plugin/impl/instantiate_object.hpp>
 
 
-SGE_PLUGIN_INSTANTIATE_OBJECT(
+SGE_PLUGIN_IMPL_INSTANTIATE_OBJECT(
 	sge::image2d::system
 );

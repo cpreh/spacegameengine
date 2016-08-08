@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/player.hpp>
 #include <sge/audio/player_plugin/traits.hpp>
-#include <sge/src/plugin/instantiate_collection.hpp>
+#include <sge/plugin/impl/instantiate_collection.hpp>
 
 
-SGE_PLUGIN_INSTANTIATE_COLLECTION(
+SGE_PLUGIN_IMPL_INSTANTIATE_COLLECTION(
 	sge::audio::player
 );

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/log/location.hpp>
 #include <sge/plugin/log_location.hpp>
-#include <sge/src/plugin/log_name.hpp>
+#include <sge/plugin/impl/log_name.hpp>
 #include <fcppt/log/location.hpp>
 
 
@@ -30,5 +30,5 @@ sge::plugin::log_location()
 	return
 		sge::log::location()
 		/
-		sge::plugin::log_name();
+		sge::plugin::impl::log_name();
 }

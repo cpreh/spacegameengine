@@ -128,12 +128,6 @@ find_package(
 	REQUIRED
 )
 
-sge_implement_from_lib(
-	plugin
-	PLUGIN_DEFINITIONS
-	PLUGIN_INCLUDES
-)
-
 add_sge_base_library(
 	font
 	SGE_DEPS
@@ -155,8 +149,6 @@ add_sge_base_library(
 		mizuiro_interface
 		fcppt_core_interface
 		fcppt_log_interface
-	INCLUDE_DIRS
-		${PLUGIN_INCLUDES}
-	COMPILE_DEFINITIONS
-		${PLUGIN_DEFINITIONS}
+	IMPLEMENT_FROM
+		plugin
 )

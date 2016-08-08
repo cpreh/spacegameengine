@@ -123,12 +123,6 @@ set(
 	libs/audio/src/audio/vector2_to_vector.cpp
 )
 
-sge_implement_from_lib(
-	plugin
-	PLUGIN_DEFINITIONS
-	PLUGIN_INCLUDES
-)
-
 add_sge_base_library(
 	audio
 	HAS_IMPL_DIR
@@ -144,10 +138,7 @@ add_sge_base_library(
 	ADDITIONAL_DEPS
 		${fcppt_log_TARGET}
 		${Boost_filesystem_LIBRARIES}
-	INCLUDE_DIRS
-		${PLUGIN_INCLUDES}
-	COMPILE_DEFINITIONS
-		${PLUGIN_DEFINITIONS}
 	IMPLEMENT_FROM
 		media
+		plugin
 )

@@ -1,5 +1,30 @@
 set(
 	SGE_PLUGIN_FILES
+	libs/plugin/impl/include/sge/plugin/impl/address_name.hpp
+	libs/plugin/impl/include/sge/plugin/impl/collection_impl.hpp
+	libs/plugin/impl/include/sge/plugin/impl/context_base.hpp
+	libs/plugin/impl/include/sge/plugin/impl/context_impl.hpp
+	libs/plugin/impl/include/sge/plugin/impl/instantiate_collection.hpp
+	libs/plugin/impl/include/sge/plugin/impl/instantiate_context.hpp
+	libs/plugin/impl/include/sge/plugin/impl/instantiate_iterator.hpp
+	libs/plugin/impl/include/sge/plugin/impl/instantiate_manager.hpp
+	libs/plugin/impl/include/sge/plugin/impl/instantiate_object.hpp
+	libs/plugin/impl/include/sge/plugin/impl/iterator_impl.hpp
+	libs/plugin/impl/include/sge/plugin/impl/library/error.hpp
+	libs/plugin/impl/include/sge/plugin/impl/library/load_function.hpp
+	libs/plugin/impl/include/sge/plugin/impl/library/load_function_base.hpp
+	libs/plugin/impl/include/sge/plugin/impl/library/loaded_symbol.hpp
+	libs/plugin/impl/include/sge/plugin/impl/library/object.hpp
+	libs/plugin/impl/include/sge/plugin/impl/load_info.hpp
+	libs/plugin/impl/include/sge/plugin/impl/load_plugins.hpp
+	libs/plugin/impl/include/sge/plugin/impl/log_name.hpp
+	libs/plugin/impl/include/sge/plugin/impl/manager_impl.hpp
+	libs/plugin/impl/include/sge/plugin/impl/object_impl.hpp
+	libs/plugin/impl/src/plugin/impl/library/error.cpp
+	libs/plugin/impl/src/plugin/impl/library/load_function_base.cpp
+	libs/plugin/impl/src/plugin/impl/load_info.cpp
+	libs/plugin/impl/src/plugin/impl/load_plugins.cpp
+	libs/plugin/impl/src/plugin/impl/log_name.cpp
 	libs/plugin/include/sge/plugin/cache.hpp
 	libs/plugin/include/sge/plugin/cache_fwd.hpp
 	libs/plugin/include/sge/plugin/capabilities.hpp
@@ -57,37 +82,12 @@ set(
 	libs/plugin/src/plugin/context_base.cpp
 	libs/plugin/src/plugin/exception.cpp
 	libs/plugin/src/plugin/file_extension.cpp
-	libs/plugin/src/plugin/include/sge/src/plugin/address_name.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/collection_impl.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/context_base.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/context_impl.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/instantiate_collection.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/instantiate_context.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/instantiate_iterator.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/instantiate_manager.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/instantiate_object.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/iterator_impl.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/library/error.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/library/load_function.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/library/load_function_base.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/library/loaded_symbol.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/library/object.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/load_info.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/load_plugins.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/log_name.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/manager_impl.hpp
-	libs/plugin/src/plugin/include/sge/src/plugin/object_impl.hpp
 	libs/plugin/src/plugin/info.cpp
-	libs/plugin/src/plugin/library/error.cpp
 	libs/plugin/src/plugin/library/exception.cpp
 	libs/plugin/src/plugin/library/function_map.cpp
-	libs/plugin/src/plugin/library/load_function_base.cpp
 	libs/plugin/src/plugin/library/object.cpp
 	libs/plugin/src/plugin/library/symbol_not_found.cpp
-	libs/plugin/src/plugin/load_info.cpp
-	libs/plugin/src/plugin/load_plugins.cpp
 	libs/plugin/src/plugin/log_location.cpp
-	libs/plugin/src/plugin/log_name.cpp
 	libs/plugin/src/plugin/manager.cpp
 )
 
@@ -127,6 +127,7 @@ endif()
 
 add_sge_base_library(
 	plugin
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgecore
 		sgelog
@@ -141,6 +142,4 @@ add_sge_base_library(
 		${fcppt_core_TARGET}
 		${Boost_SYSTEM_LIBRARIES}
 		${SGE_PLUGIN_TRANSITIVE_ADDITIONAL_LIBS}
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/plugin/include"
 )

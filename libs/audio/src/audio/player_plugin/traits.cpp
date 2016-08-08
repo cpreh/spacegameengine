@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/player_plugin/traits.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/detail/address_name.hpp>
-#include <sge/src/plugin/address_name.hpp>
+#include <sge/plugin/impl/address_name.hpp>
 
 
 sge::plugin::detail::address_name
@@ -31,7 +31,7 @@ sge::plugin::detail::traits<
 >::plugin_loader_name()
 {
 	return
-		SGE_PLUGIN_ADDRESS_NAME(
+		SGE_PLUGIN_IMPL_ADDRESS_NAME(
 			"create_audio_player"
 		);
 }

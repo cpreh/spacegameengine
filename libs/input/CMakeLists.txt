@@ -397,12 +397,6 @@ set(
 	libs/input/src/input/system.cpp
 )
 
-sge_implement_from_lib(
-	plugin
-	PLUGIN_DEFINITIONS
-	PLUGIN_INCLUDES
-)
-
 add_sge_base_library(
 	input
 	HAS_IMPL_DIR
@@ -420,8 +414,6 @@ add_sge_base_library(
 		${fcppt_log_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
-	INCLUDE_DIRS
-		${PLUGIN_INCLUDES}
-	COMPILE_DEFINITIONS
-		${PLUGIN_DEFINITIONS}
+	IMPLEMENT_FROM
+		plugin
 )

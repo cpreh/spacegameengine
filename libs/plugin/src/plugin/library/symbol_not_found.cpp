@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/library/symbol_not_found.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
-#include <sge/src/plugin/library/error.hpp>
+#include <sge/plugin/impl/library/error.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -44,7 +44,7 @@ sge::plugin::library::symbol_not_found::symbol_not_found(
 		+
 		FCPPT_TEXT(" : ")
 		+
-		sge::plugin::library::error()
+		sge::plugin::impl::library::error()
 	),
 	library_name_(
 		_library_name

@@ -205,12 +205,6 @@ find_package(
 )
 
 sge_implement_from_lib(
-	plugin
-	PLUGIN_DEFINITIONS
-	PLUGIN_INCLUDES
-)
-
-sge_implement_from_lib(
 	image
 	IMAGE_DEFINITIONS
 	IMAGE_INCLUDES
@@ -239,11 +233,10 @@ add_sge_base_library(
 	INCLUDE_DIRS
 		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/imagecolor/src/image/color/include"
 		"${FCPPT_UTILS_PROJECT_BINARY_DIR}/libs/image/include"
-		${PLUGIN_INCLUDES}
 		${IMAGE_INCLUDES}
 	COMPILE_DEFINITIONS
-		${PLUGIN_DEFINITIONS}
 		${IMAGE_DEFINITIONS}
 	IMPLEMENT_FROM
 		media
+		plugin
 )
