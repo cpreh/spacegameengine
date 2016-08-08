@@ -1,5 +1,7 @@
 set(
 	SGE_FONTDRAW_FILES
+	libs/fontdraw/impl/include/sge/font/draw/impl/detail/static_text_impl.hpp
+	libs/fontdraw/impl/src/font/draw/impl/detail/static_text_impl.cpp
 	libs/fontdraw/include/sge/font/draw/color_format.hpp
 	libs/fontdraw/include/sge/font/draw/create_ffp_sampler.hpp
 	libs/fontdraw/include/sge/font/draw/create_texture.hpp
@@ -14,14 +16,13 @@ set(
 	libs/fontdraw/src/font/draw/color_format.cpp
 	libs/fontdraw/src/font/draw/create_ffp_sampler.cpp
 	libs/fontdraw/src/font/draw/create_texture.cpp
-	libs/fontdraw/src/font/draw/detail/static_text_impl.cpp
-	libs/fontdraw/src/font/draw/include/sge/src/font/draw/detail/static_text_impl.hpp
 	libs/fontdraw/src/font/draw/simple.cpp
 	libs/fontdraw/src/font/draw/static_text.cpp
 )
 
 add_sge_base_library(
 	"font/draw"
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgecore
 		sgefont
@@ -37,6 +38,4 @@ add_sge_base_library(
 		sgetexture_interface
 	ADDITIONAL_DEPS
 		fcppt_core_interface
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/font/draw/include"
 )

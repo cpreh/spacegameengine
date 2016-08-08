@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/draw/create_texture.hpp>
 #include <sge/font/draw/set_matrices_fwd.hpp>
 #include <sge/font/draw/set_states_fwd.hpp>
+#include <sge/font/draw/impl/detail/static_text_impl.hpp>
 #include <sge/image/color/optional_format.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -61,7 +62,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/roles/rasterizer.hpp>
 #include <sge/sprite/state/roles/transform.hpp>
 #include <sge/sprite/types/vector.hpp>
-#include <sge/src/font/draw/detail/static_text_impl.hpp>
 #include <sge/texture/const_part_ref.hpp>
 #include <sge/texture/part.hpp>
 #include <fcppt/make_unique_ptr.hpp>
