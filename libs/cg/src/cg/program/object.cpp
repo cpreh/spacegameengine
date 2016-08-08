@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/string.hpp>
 #include <sge/cg/to_fcppt_string.hpp>
 #include <sge/cg/context/object.hpp>
+#include <sge/cg/impl/program/convert_source_type.hpp>
 #include <sge/cg/parameter/named.hpp>
 #include <sge/cg/parameter/object.hpp>
 #include <sge/cg/parameter/optional_named.hpp>
@@ -31,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/program/from_file_parameters.hpp>
 #include <sge/cg/program/from_string_parameters.hpp>
 #include <sge/cg/program/object.hpp>
-#include <sge/cg/impl/program/convert_source_type.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>

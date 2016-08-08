@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/program/source_type.hpp>
 #include <sge/cg/impl/program/convert_source_type.hpp>
+#include <sge/cg/program/source_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>

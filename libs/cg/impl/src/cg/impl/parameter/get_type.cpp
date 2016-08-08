@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/check_state.hpp>
 #include <sge/cg/exception.hpp>
-#include <sge/cg/parameter/object.hpp>
 #include <sge/cg/impl/parameter/get_type.hpp>
+#include <sge/cg/parameter/object.hpp>
 #include <fcppt/assert/throw.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>

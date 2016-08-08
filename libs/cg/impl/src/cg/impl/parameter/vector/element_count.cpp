@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/impl/true.hpp>
 #include <sge/cg/impl/parameter/get_type.hpp>
 #include <sge/cg/impl/parameter/vector/element_count.hpp>
+#include <sge/cg/parameter/object_fwd.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned.hpp>

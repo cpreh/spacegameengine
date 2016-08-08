@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cg/parameter/vector/detail/set_float.hpp>
 #include <sge/cg/impl/parameter/vector/set_impl.hpp>
+#include <sge/cg/parameter/vector/detail/set_float.hpp>
 
 
 SGE_CG_IMPL_PARAMETER_VECTOR_SET_IMPL(
