@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_MEDIA_INSTANTIATE_FILE_EXCEPTION_HPP_INCLUDED
-#define SGE_SRC_MEDIA_INSTANTIATE_FILE_EXCEPTION_HPP_INCLUDED
+#ifndef SGE_MEDIA_IMPL_INSTANTIATE_FILE_EXCEPTION_HPP_INCLUDED
+#define SGE_MEDIA_IMPL_INSTANTIATE_FILE_EXCEPTION_HPP_INCLUDED
 
 #include <sge/src/core/export_class_instantiation.hpp>
-#include <sge/src/media/file_exception_impl.hpp>
+#include <sge/media/impl/file_exception_impl.hpp>
 
 
-#define SGE_MEDIA_INSTANTIATE_FILE_EXCEPTION(\
+#define SGE_MEDIA_IMPL_INSTANTIATE_FILE_EXCEPTION(\
 	base\
 )\
 template \

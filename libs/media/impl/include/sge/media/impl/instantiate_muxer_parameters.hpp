@@ -18,23 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_MEDIA_LOG_NAME_HPP_INCLUDED
-#define SGE_SRC_MEDIA_LOG_NAME_HPP_INCLUDED
+#ifndef SGE_MEDIA_IMPL_INSTANTIATE_MUXER_PARAMETERS_HPP_INCLUDED
+#define SGE_MEDIA_IMPL_INSTANTIATE_MUXER_PARAMETERS_HPP_INCLUDED
 
-#include <sge/media/detail/symbol.hpp>
-#include <fcppt/log/name.hpp>
+#include <sge/src/core/export_class_instantiation.hpp>
+#include <sge/media/impl/muxer_parameters_impl.hpp>
 
 
-namespace sge
-{
-namespace media
-{
-
-SGE_MEDIA_DETAIL_SYMBOL
-fcppt::log::name
-log_name();
-
-}
-}
+#define SGE_MEDIA_IMPL_INSTANTIATE_MUXER_PARAMETERS(\
+	system\
+)\
+template \
+class \
+SGE_CORE_EXPORT_CLASS_INSTANTIATION \
+sge::media::muxer_parameters<\
+	system\
+>
 
 #endif

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/loader.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
-#include <sge/src/media/load_raw_exn.hpp>
+#include <sge/media/impl/load_raw_exn.hpp>
 
 
 sge::audio::file_unique_ptr
@@ -36,7 +36,7 @@ sge::audio::load_raw_exn(
 )
 {
 	return
-		sge::media::load_raw_exn<
+		sge::media::impl::load_raw_exn<
 			sge::audio::file_unique_ptr,
 			sge::audio::exception
 		>(

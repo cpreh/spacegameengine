@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_MEDIA_LOAD_HPP_INCLUDED
-#define SGE_SRC_MEDIA_LOAD_HPP_INCLUDED
+#ifndef SGE_MEDIA_IMPL_LOAD_HPP_INCLUDED
+#define SGE_MEDIA_IMPL_LOAD_HPP_INCLUDED
 
 #include <sge/media/file_exception.hpp>
 #include <sge/media/name.hpp>
@@ -43,6 +43,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 namespace media
+{
+namespace impl
 {
 
 template<
@@ -122,6 +124,7 @@ load(
 	}
 }
 
+}
 }
 }
 

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/load.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
-#include <sge/src/media/load.hpp>
+#include <sge/media/impl/load.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -37,7 +37,7 @@ sge::image2d::load(
 )
 {
 	return
-		sge::media::load<
+		sge::media::impl::load<
 			sge::image2d::file_unique_ptr,
 			sge::image::exception
 		>(

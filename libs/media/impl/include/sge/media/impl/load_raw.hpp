@@ -18,61 +18,63 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_MEDIA_IMPL_LOAD_RAW_HPP_INCLUDED
+#define SGE_MEDIA_IMPL_LOAD_RAW_HPP_INCLUDED
+
 #include <sge/media/const_raw_range.hpp>
-#include <sge/src/media/raw_streambuf.hpp>
-#include <fcppt/cast/to_char_ptr.hpp>
+#include <sge/media/optional_extension_fwd.hpp>
+#include <sge/media/optional_name.hpp>
+#include <sge/media/impl/raw_streambuf.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <streambuf>
+#include <istream>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::media::raw_streambuf::raw_streambuf(
-	sge::media::const_raw_range const &_range
+namespace sge
+{
+namespace media
+{
+namespace impl
+{
+
+template<
+	typename Result,
+	typename System
+>
+fcppt::optional::object<
+	Result
+>
+load_raw(
+	System &_system,
+	sge::media::const_raw_range const &_range,
+	sge::media::optional_extension const &_extension
 )
-:
-	std::streambuf()
 {
-	auto const convert(
-		[](
-			sge::media::const_raw_pointer const _ptr
-		)
-		-> char_type *
-		{
-			// The streambuf should never write to
-			// this unless pbackfail has
-			// non-default behavior
-			return
-				const_cast<
-					char_type *
+	sge::media::impl::raw_streambuf buf{
+		_range
+	};
+
+	return
+		fcppt::variant::to_optional<
+			Result
+		>(
+			_system.load_stream(
+				fcppt::make_unique_ptr<
+					std::istream
 				>(
-					fcppt::cast::to_char_ptr<
-						char_type const *
-					>(
-						_ptr
-					)
-				);
-		}
-	);
-
-	char_type *const beg(
-		convert(
-			_range.begin()
-		)
-	);
-
-	char_type *const end(
-		convert(
-			_range.end()
-		)
-	);
-
-	this->setg(
-		beg,
-		beg,
-		end
-	);
+					&buf
+				),
+				_extension,
+				sge::media::optional_name()
+			)
+		);
 }
 
-sge::media::raw_streambuf::~raw_streambuf()
-{
 }
+}
+}
+
+#endif

@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/exception.hpp>
 #include <sge/image2d/file_exception.hpp>
-#include <sge/src/media/instantiate_file_exception.hpp>
+#include <sge/media/impl/instantiate_file_exception.hpp>
 
 
-SGE_MEDIA_INSTANTIATE_FILE_EXCEPTION(
+SGE_MEDIA_IMPL_INSTANTIATE_FILE_EXCEPTION(
 	sge::image::exception
 );

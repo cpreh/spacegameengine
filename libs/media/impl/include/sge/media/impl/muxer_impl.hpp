@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_MEDIA_MUXER_IMPL_HPP_INCLUDED
-#define SGE_SRC_MEDIA_MUXER_IMPL_HPP_INCLUDED
+#ifndef SGE_MEDIA_IMPL_MUXER_IMPL_HPP_INCLUDED
+#define SGE_MEDIA_IMPL_MUXER_IMPL_HPP_INCLUDED
 
 #include <sge/media/extension_fwd.hpp>
 #include <sge/media/extension_set.hpp>
@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/media/stream_unique_ptr.hpp>
-#include <sge/src/media/detail/muxer_impl.hpp>
+#include <sge/media/impl/detail/muxer_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/optional/reference.hpp>

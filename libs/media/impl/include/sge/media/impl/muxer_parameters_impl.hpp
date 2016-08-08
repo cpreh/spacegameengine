@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_MEDIA_MUXER_PARAMETERS_IMPL_HPP_INCLUDED
-#define SGE_SRC_MEDIA_MUXER_PARAMETERS_IMPL_HPP_INCLUDED
+#ifndef SGE_MEDIA_IMPL_MUXER_PARAMETERS_IMPL_HPP_INCLUDED
+#define SGE_MEDIA_IMPL_MUXER_PARAMETERS_IMPL_HPP_INCLUDED
 
 #include <sge/media/muxer_parameters.hpp>
 #include <sge/media/optional_extension_set.hpp>

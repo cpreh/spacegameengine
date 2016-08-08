@@ -18,43 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_MEDIA_RAW_STREAMBUF_HPP_INCLUDED
-#define SGE_SRC_MEDIA_RAW_STREAMBUF_HPP_INCLUDED
+#ifndef SGE_MEDIA_IMPL_LOG_NAME_HPP_INCLUDED
+#define SGE_MEDIA_IMPL_LOG_NAME_HPP_INCLUDED
 
-#include <sge/core/detail/class_symbol.hpp>
-#include <sge/media/const_raw_range.hpp>
 #include <sge/media/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <streambuf>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/log/name.hpp>
 
 
 namespace sge
 {
 namespace media
 {
-
-class SGE_CORE_DETAIL_CLASS_SYMBOL raw_streambuf
-:
-	public
-		std::streambuf
+namespace impl
 {
-	FCPPT_NONCOPYABLE(
-		raw_streambuf
-	);
-public:
-	SGE_MEDIA_DETAIL_SYMBOL
-	explicit
-	raw_streambuf(
-		sge::media::const_raw_range const &
-	);
 
-	SGE_MEDIA_DETAIL_SYMBOL
-	~raw_streambuf()
-	override;
-};
+SGE_MEDIA_DETAIL_SYMBOL
+fcppt::log::name
+log_name();
 
+}
 }
 }
 

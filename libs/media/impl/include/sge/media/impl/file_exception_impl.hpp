@@ -18,21 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_MEDIA_INSTANTIATE_MUXER_PARAMETERS_HPP_INCLUDED
-#define SGE_SRC_MEDIA_INSTANTIATE_MUXER_PARAMETERS_HPP_INCLUDED
+#ifndef SGE_MEDIA_IMPL_FILE_EXCEPTION_IMPL_HPP_INCLUDED
+#define SGE_MEDIA_IMPL_FILE_EXCEPTION_IMPL_HPP_INCLUDED
 
-#include <sge/src/core/export_class_instantiation.hpp>
-#include <sge/src/media/muxer_parameters_impl.hpp>
+#include <sge/media/error_string.hpp>
+#include <sge/media/file_exception.hpp>
+#include <sge/media/optional_name.hpp>
+#include <fcppt/string.hpp>
 
 
-#define SGE_MEDIA_INSTANTIATE_MUXER_PARAMETERS(\
-	system\
-)\
-template \
-class \
-SGE_CORE_EXPORT_CLASS_INSTANTIATION \
-sge::media::muxer_parameters<\
-	system\
+template<
+	typename Base
 >
+sge::media::file_exception<
+	Base
+>::file_exception(
+	sge::media::optional_name const &_name,
+	fcppt::string const &_text
+)
+:
+	Base(
+		sge::media::error_string(
+			_name,
+			_text
+		)
+	)
+{
+}
 
 #endif

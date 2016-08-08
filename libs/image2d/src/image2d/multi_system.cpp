@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/media/stream_unique_ptr.hpp>
-#include <sge/src/media/muxer_impl.hpp>
+#include <sge/media/impl/muxer_impl.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/bind.hpp>
 

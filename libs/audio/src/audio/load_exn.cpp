@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/load_exn.hpp>
 #include <sge/audio/loader.hpp>
-#include <sge/src/media/load_exn.hpp>
+#include <sge/media/impl/load_exn.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -36,7 +36,7 @@ sge::audio::load_exn(
 )
 {
 	return
-		sge::media::load_exn<
+		sge::media::impl::load_exn<
 			sge::audio::file_unique_ptr,
 			sge::audio::exception
 		>(

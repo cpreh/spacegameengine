@@ -18,19 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_MEDIA_LOAD_RAW_EXN_HPP_INCLUDED
-#define SGE_SRC_MEDIA_LOAD_RAW_EXN_HPP_INCLUDED
+#ifndef SGE_MEDIA_IMPL_LOAD_EXN_HPP_INCLUDED
+#define SGE_MEDIA_IMPL_LOAD_EXN_HPP_INCLUDED
 
-#include <sge/media/const_raw_range.hpp>
-#include <sge/media/optional_extension_fwd.hpp>
-#include <sge/src/media/load_raw.hpp>
+#include <sge/media/impl/load.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace media
+{
+namespace impl
 {
 
 template<
@@ -39,30 +43,36 @@ template<
 	typename System
 >
 Result
-load_raw_exn(
+load_exn(
 	System &_system,
-	sge::media::const_raw_range const &_range,
-	sge::media::optional_extension const &_extension
+	boost::filesystem::path const &_path
 )
 {
 	return
 		fcppt::optional::to_exception(
-			sge::media::load_raw<
-				Result
+			sge::media::impl::load<
+				Result,
+				Exception
 			>(
 				_system,
-				_range,
-				_extension
+				_path
 			),
-			[]{
+			[
+				&_path
+			]{
 				return
 					Exception(
-						FCPPT_TEXT("load_raw_exn failed")
+						FCPPT_TEXT("Unable to load ")
+						+
+						fcppt::filesystem::path_to_string(
+							_path
+						)
 					);
 			}
 		);
 }
 
+}
 }
 }
 

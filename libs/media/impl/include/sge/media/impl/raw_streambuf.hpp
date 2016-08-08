@@ -18,32 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_MEDIA_FILE_EXCEPTION_IMPL_HPP_INCLUDED
-#define SGE_SRC_MEDIA_FILE_EXCEPTION_IMPL_HPP_INCLUDED
+#ifndef SGE_MEDIA_IMPL_RAW_STREAMBUF_HPP_INCLUDED
+#define SGE_MEDIA_IMPL_RAW_STREAMBUF_HPP_INCLUDED
 
-#include <sge/media/error_string.hpp>
-#include <sge/media/file_exception.hpp>
-#include <sge/media/optional_name.hpp>
-#include <fcppt/string.hpp>
+#include <sge/core/detail/class_symbol.hpp>
+#include <sge/media/const_raw_range.hpp>
+#include <sge/media/detail/symbol.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <streambuf>
+#include <fcppt/config/external_end.hpp>
 
 
-template<
-	typename Base
->
-sge::media::file_exception<
-	Base
->::file_exception(
-	sge::media::optional_name const &_name,
-	fcppt::string const &_text
-)
-:
-	Base(
-		sge::media::error_string(
-			_name,
-			_text
-		)
-	)
+namespace sge
 {
+namespace media
+{
+namespace impl
+{
+
+class SGE_CORE_DETAIL_CLASS_SYMBOL raw_streambuf
+:
+	public
+		std::streambuf
+{
+	FCPPT_NONCOPYABLE(
+		raw_streambuf
+	);
+public:
+	SGE_MEDIA_DETAIL_SYMBOL
+	explicit
+	raw_streambuf(
+		sge::media::const_raw_range const &
+	);
+
+	SGE_MEDIA_DETAIL_SYMBOL
+	~raw_streambuf()
+	override;
+};
+
+}
+}
 }
 
 #endif

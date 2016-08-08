@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_MEDIA_DETAIL_MUXER_IMPL_HPP_INCLUDED
-#define SGE_SRC_MEDIA_DETAIL_MUXER_IMPL_HPP_INCLUDED
+#ifndef SGE_MEDIA_IMPL_DETAIL_MUXER_IMPL_HPP_INCLUDED
+#define SGE_MEDIA_IMPL_DETAIL_MUXER_IMPL_HPP_INCLUDED
 
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
@@ -34,8 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/src/media/log_name.hpp>
-#include <sge/src/media/detail/muxer.hpp>
+#include <sge/media/impl/log_name.hpp>
+#include <sge/media/impl/detail/muxer.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/loop.hpp>
 #include <fcppt/make_ref.hpp>
@@ -79,7 +79,7 @@ sge::media::detail::muxer<
 		_parameters.log_context(),
 		sge::log::location(),
 		sge::log::default_parameters(
-			sge::media::log_name()
+			sge::media::impl::log_name()
 		)
 	},
 	plugins_(

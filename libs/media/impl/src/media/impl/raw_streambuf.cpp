@@ -18,59 +18,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_MEDIA_LOAD_EXN_HPP_INCLUDED
-#define SGE_SRC_MEDIA_LOAD_EXN_HPP_INCLUDED
-
-#include <sge/src/media/load.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/optional/to_exception.hpp>
+#include <sge/media/const_raw_range.hpp>
+#include <sge/media/impl/raw_streambuf.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <streambuf>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace media
-{
-
-template<
-	typename Result,
-	typename Exception,
-	typename System
->
-Result
-load_exn(
-	System &_system,
-	boost::filesystem::path const &_path
+sge::media::impl::raw_streambuf::raw_streambuf(
+	sge::media::const_raw_range const &_range
 )
+:
+	std::streambuf()
 {
-	return
-		fcppt::optional::to_exception(
-			sge::media::load<
-				Result,
-				Exception
-			>(
-				_system,
-				_path
-			),
-			[
-				&_path
-			]{
-				return
-					Exception(
-						FCPPT_TEXT("Unable to load ")
-						+
-						fcppt::filesystem::path_to_string(
-							_path
-						)
-					);
-			}
-		);
+	auto const convert(
+		[](
+			sge::media::const_raw_pointer const _ptr
+		)
+		-> char_type *
+		{
+			// The streambuf should never write to
+			// this unless pbackfail has
+			// non-default behavior
+			return
+				const_cast<
+					char_type *
+				>(
+					fcppt::cast::to_char_ptr<
+						char_type const *
+					>(
+						_ptr
+					)
+				);
+		}
+	);
+
+	char_type *const beg(
+		convert(
+			_range.begin()
+		)
+	);
+
+	char_type *const end(
+		convert(
+			_range.end()
+		)
+	);
+
+	this->setg(
+		beg,
+		beg,
+		end
+	);
 }
 
+sge::media::impl::raw_streambuf::~raw_streambuf()
+{
 }
-}
-
-#endif

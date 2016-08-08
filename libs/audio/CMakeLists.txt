@@ -129,12 +129,6 @@ sge_implement_from_lib(
 	PLUGIN_INCLUDES
 )
 
-sge_implement_from_lib(
-	media
-	MEDIA_DEFINITIONS
-	MEDIA_INCLUDES
-)
-
 add_sge_base_library(
 	audio
 	HAS_IMPL_DIR
@@ -152,8 +146,8 @@ add_sge_base_library(
 		${Boost_filesystem_LIBRARIES}
 	INCLUDE_DIRS
 		${PLUGIN_INCLUDES}
-		${MEDIA_INCLUDES}
 	COMPILE_DEFINITIONS
 		${PLUGIN_DEFINITIONS}
-		${MEDIA_DEFINITIONS}
+	IMPLEMENT_FROM
+		media
 )

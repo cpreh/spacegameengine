@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/multi_system_parameters.hpp>
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/src/media/instantiate_muxer_parameters.hpp>
+#include <sge/media/impl/instantiate_muxer_parameters.hpp>
 
 
-SGE_MEDIA_INSTANTIATE_MUXER_PARAMETERS(
+SGE_MEDIA_IMPL_INSTANTIATE_MUXER_PARAMETERS(
 	sge::image2d::system
 );

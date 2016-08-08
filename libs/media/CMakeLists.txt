@@ -1,5 +1,20 @@
 set(
 	SGE_MEDIA_FILES
+	libs/media/impl/include/sge/media/impl/detail/muxer.hpp
+	libs/media/impl/include/sge/media/impl/detail/muxer_impl.hpp
+	libs/media/impl/include/sge/media/impl/file_exception_impl.hpp
+	libs/media/impl/include/sge/media/impl/instantiate_file_exception.hpp
+	libs/media/impl/include/sge/media/impl/instantiate_muxer_parameters.hpp
+	libs/media/impl/include/sge/media/impl/load.hpp
+	libs/media/impl/include/sge/media/impl/load_exn.hpp
+	libs/media/impl/include/sge/media/impl/load_raw.hpp
+	libs/media/impl/include/sge/media/impl/load_raw_exn.hpp
+	libs/media/impl/include/sge/media/impl/log_name.hpp
+	libs/media/impl/include/sge/media/impl/muxer_impl.hpp
+	libs/media/impl/include/sge/media/impl/muxer_parameters_impl.hpp
+	libs/media/impl/include/sge/media/impl/raw_streambuf.hpp
+	libs/media/impl/src/media/impl/log_name.cpp
+	libs/media/impl/src/media/impl/raw_streambuf.cpp
 	libs/media/include/sge/media/all_extensions.hpp
 	libs/media/include/sge/media/check_extension.hpp
 	libs/media/include/sge/media/const_raw_pointer.hpp
@@ -33,23 +48,8 @@ set(
 	libs/media/src/media/all_extensions.cpp
 	libs/media/src/media/check_extension.cpp
 	libs/media/src/media/error_string.cpp
-	libs/media/src/media/include/sge/src/media/detail/muxer.hpp
-	libs/media/src/media/include/sge/src/media/detail/muxer_impl.hpp
-	libs/media/src/media/include/sge/src/media/file_exception_impl.hpp
-	libs/media/src/media/include/sge/src/media/instantiate_file_exception.hpp
-	libs/media/src/media/include/sge/src/media/instantiate_muxer_parameters.hpp
-	libs/media/src/media/include/sge/src/media/load.hpp
-	libs/media/src/media/include/sge/src/media/load_exn.hpp
-	libs/media/src/media/include/sge/src/media/load_raw.hpp
-	libs/media/src/media/include/sge/src/media/load_raw_exn.hpp
-	libs/media/src/media/include/sge/src/media/log_name.hpp
-	libs/media/src/media/include/sge/src/media/muxer_impl.hpp
-	libs/media/src/media/include/sge/src/media/muxer_parameters_impl.hpp
-	libs/media/src/media/include/sge/src/media/raw_streambuf.hpp
 	libs/media/src/media/log_location.cpp
-	libs/media/src/media/log_name.cpp
 	libs/media/src/media/path_to_extension.cpp
-	libs/media/src/media/raw_streambuf.cpp
 )
 
 sge_generate_instantiate_symbol_header(
@@ -58,6 +58,7 @@ sge_generate_instantiate_symbol_header(
 
 add_sge_base_library(
 	media
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgecore
 		sgelog
@@ -71,6 +72,4 @@ add_sge_base_library(
 	TRANSITIVE_ADDITIONAL_DEPS
 		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/media/include"
 )
