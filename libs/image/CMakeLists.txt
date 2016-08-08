@@ -42,6 +42,7 @@ set(
 	libs/image/include/sge/image/store/object.hpp
 	libs/image/include/sge/image/store/object_fwd.hpp
 	libs/image/include/sge/image/store/view.hpp
+	libs/image/include/sge/image/traits/any_convert.hpp
 	libs/image/include/sge/image/traits/any_object_fwd.hpp
 	libs/image/include/sge/image/traits/box_fwd.hpp
 	libs/image/include/sge/image/traits/color_tag.hpp
@@ -195,7 +196,6 @@ sge_generate_instantiate_symbol_header(
 	image
 )
 
-# FIXME: Move imagecolor out of here!
 add_sge_base_library(
 	image
 	SGE_DEPS
@@ -209,7 +209,6 @@ add_sge_base_library(
 		fcppt_core_interface
 		mizuiro_interface
 	INCLUDE_DIRS
-		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/imagecolor/include"
 		"${CMAKE_CURRENT_SOURCE_DIR}/src/image/include"
 		"${CMAKE_CURRENT_BINARY_DIR}/include"
 )

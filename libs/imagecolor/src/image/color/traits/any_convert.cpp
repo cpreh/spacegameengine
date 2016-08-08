@@ -37,12 +37,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/sbgra8_format.hpp>
 #include <sge/image/color/srgb8_format.hpp>
 #include <sge/image/color/srgba8_format.hpp>
+#include <sge/image/color/tag.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <sge/image/color/any/object.hpp>
+#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/image/color/traits/any_convert.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/src/image/color/instantiate_format.hpp>
-#include <sge/src/image/color/any/convert_visitor.hpp>
-#include <fcppt/variant/apply_unary.hpp>
 
 
 template<
@@ -51,20 +51,21 @@ template<
 sge::image::mizuiro_color<
 	Dest
 >
-sge::image::color::any::convert(
+sge::image::traits::any_convert<
+	sge::image::color::tag
+>::execute(
 	sge::image::color::any::object const &_color
 )
 {
 	return
-		fcppt::variant::apply_unary(
-			sge::image::color::any::convert_visitor<
-				Dest
-			>(),
-			_color.get()
+		sge::image::color::any::convert<
+			Dest
+		>(
+			_color
 		);
 }
 
-#define SGE_INSTANTIATE_COLOR_CONVERT(\
+#define SGE_IMAGE_COLOR_INSTANTIATE_ANY_CONVERT(\
 	format_arg,\
 	_\
 )\
@@ -73,15 +74,17 @@ SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::mizuiro_color<\
 	sge::image::color::format_arg ## _format\
 > \
-sge::image::color::any::convert<\
+sge::image::traits::any_convert<\
+	sge::image::color::tag \
+>::execute< \
 	sge::image::color::format_arg ## _format\
 >(\
 	sge::image::color::any::object const &\
 )
 
 SGE_SRC_IMAGE_COLOR_INSTANTIATE_FORMAT(
-	SGE_INSTANTIATE_COLOR_CONVERT,
+	SGE_IMAGE_COLOR_INSTANTIATE_ANY_CONVERT,
 	_
 );
 
-#undef SGE_INSTANTIATE_COLOR_CONVERT
+#undef SGE_IMAGE_COLOR_INSTANTIATE_ANY_CONVERT

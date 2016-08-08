@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/mizuiro_color.hpp>
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
-#include <sge/image/color/any/convert.hpp>
+#include <sge/image/traits/any_convert.hpp>
 #include <sge/image/traits/any_object_fwd.hpp>
 #include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/view_fwd.hpp>
@@ -60,7 +60,12 @@ sge::image::algorithm::fill(
 		{
 			mizuiro::image::algorithm::fill_c(
 				_view_inner,
-				sge::image::color::any::convert<
+				sge::image::traits::any_convert<
+					typename
+					sge::image::traits::color_tag<
+						Tag
+					>::type
+				>:: template execute<
 					typename
 					sge::image::view::format_type<
 						decltype(

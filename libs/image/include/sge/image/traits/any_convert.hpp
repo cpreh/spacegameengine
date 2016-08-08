@@ -18,35 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/algorithm/uninitialized.hpp>
-#include <sge/image/color/any/object_fwd.hpp>
-#include <sge/image/color/traits/any_convert.hpp>
-#include <sge/image/color/traits/any_object_fwd.hpp>
-#include <sge/image3d/tag.hpp>
-#include <sge/image3d/algorithm/fill.hpp>
-#include <sge/image3d/traits/color_tag.hpp>
-#include <sge/image3d/traits/view_fwd.hpp>
-#include <sge/image3d/view/object.hpp>
-#include <sge/src/image/algorithm/fill_impl.hpp>
-#include <sge/src/image/algorithm/instantiate_fill.hpp>
+#ifndef SGE_IMAGE_TRAITS_ANY_CONVERT_HPP_INCLUDED
+#define SGE_IMAGE_TRAITS_ANY_CONVERT_HPP_INCLUDED
 
 
-void
-sge::image3d::algorithm::fill(
-	sge::image3d::view::object const &_dest,
-	sge::image::color::any::object const &_col,
-	sge::image::algorithm::uninitialized const _uninitialized
-)
+namespace sge
 {
-	sge::image::algorithm::fill<
-		sge::image3d::tag
-	>(
-		_dest,
-		_col,
-		_uninitialized
-	);
+namespace image
+{
+namespace traits
+{
+
+template<
+	typename Format
+>
+struct any_convert;
+
+}
+}
 }
 
-SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_FILL(
-	sge::image3d::tag
-);
+#endif

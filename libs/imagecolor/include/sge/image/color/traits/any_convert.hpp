@@ -18,35 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/algorithm/uninitialized.hpp>
+#ifndef SGE_IMAGE_COLOR_TRAITS_ANY_CONVERT_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_TRAITS_ANY_CONVERT_HPP_INCLUDED
+
+#include <sge/image/mizuiro_color_fwd.hpp>
+#include <sge/image/traits/any_convert.hpp>
+#include <sge/image/color/tag.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
-#include <sge/image/color/traits/any_convert.hpp>
-#include <sge/image/color/traits/any_object_fwd.hpp>
-#include <sge/image3d/tag.hpp>
-#include <sge/image3d/algorithm/fill.hpp>
-#include <sge/image3d/traits/color_tag.hpp>
-#include <sge/image3d/traits/view_fwd.hpp>
-#include <sge/image3d/view/object.hpp>
-#include <sge/src/image/algorithm/fill_impl.hpp>
-#include <sge/src/image/algorithm/instantiate_fill.hpp>
+#include <sge/image/color/detail/symbol.hpp>
 
 
-void
-sge::image3d::algorithm::fill(
-	sge::image3d::view::object const &_dest,
-	sge::image::color::any::object const &_col,
-	sge::image::algorithm::uninitialized const _uninitialized
-)
+namespace sge
 {
-	sge::image::algorithm::fill<
-		sge::image3d::tag
-	>(
-		_dest,
-		_col,
-		_uninitialized
+namespace image
+{
+namespace traits
+{
+
+template<>
+struct any_convert<
+	sge::image::color::tag
+>
+{
+	template<
+		typename Dest
+	>
+	SGE_IMAGE_COLOR_DETAIL_SYMBOL
+	static
+	sge::image::mizuiro_color<
+		Dest
+	>
+	execute(
+		sge::image::color::any::object const &
 	);
+};
+
+}
+}
 }
 
-SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_FILL(
-	sge::image3d::tag
-);
+#endif

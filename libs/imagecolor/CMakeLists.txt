@@ -90,6 +90,7 @@ set(
 	libs/imagecolor/include/sge/image/color/srgba8_format.hpp
 	libs/imagecolor/include/sge/image/color/srgba8_fwd.hpp
 	libs/imagecolor/include/sge/image/color/tag.hpp
+	libs/imagecolor/include/sge/image/color/traits/any_convert.hpp
 	libs/imagecolor/include/sge/image/color/traits/any_object_fwd.hpp
 	libs/imagecolor/include/sge/image/color/traits/format_fwd.hpp
 	libs/imagecolor/include/sge/image/color/traits/format_static.hpp
@@ -207,6 +208,7 @@ set(
 	libs/imagecolor/src/image/color/invalid_convert.cpp
 	libs/imagecolor/src/image/color/invalid_copy.cpp
 	libs/imagecolor/src/image/color/predef.cpp
+	libs/imagecolor/src/image/color/traits/any_convert.cpp
 	libs/imagecolor/src/image/color/traits/format_stride.cpp
 	libs/imagecolor/src/image/color/traits/format_to_string.cpp
 )
