@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_FILL_HPP_INCLUDED
 
 #include <sge/image/algorithm/uninitialized.hpp>
-#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/image/traits/any_object_fwd.hpp>
+#include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/src/image/algorithm/fill_impl.hpp>
@@ -40,7 +41,11 @@ sge::image::algorithm::fill< \
 	sge::image::traits::view<\
 		tag\
 	>::type const &, \
-	sge::image::color::any::object const &,\
+	sge::image::traits::any_object< \
+		sge::image::traits::color_tag< \
+			tag \
+		>::type \
+	>::type const &, \
 	sge::image::algorithm::uninitialized \
 )
 

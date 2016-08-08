@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SRC_IMAGE_VIEW_INSTANTIATE_MAKE_CONST_HPP_INCLUDED
 
 #include <sge/image/const_raw_pointer.hpp>
-#include <sge/image/color/format_fwd.hpp>
+#include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/traits/dim_fwd.hpp>
+#include <sge/image/traits/format_fwd.hpp>
 #include <sge/image/traits/pitch_fwd.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/src/image/view/make_const_impl.hpp>
@@ -45,7 +46,11 @@ sge::image::view::make_const< \
 	sge::image::traits::dim<\
 		Tag\
 	>::type const &,\
-	sge::image::color::format, \
+	sge::image::traits::format< \
+		sge::image::traits::color_tag< \
+			Tag \
+		>::type \
+	>::type, \
 	sge::image::traits::pitch<\
 		Tag\
 	>::type const &\
