@@ -18,40 +18,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_PARSE_INI_OUTPUT_TO_RANGE_FUNCTOR_HPP_INCLUDED
-#define SGE_SRC_PARSE_INI_OUTPUT_TO_RANGE_FUNCTOR_HPP_INCLUDED
+#ifndef SGE_PARSE_IMPL_OUTPUT_TO_FILE_HPP_INCLUDED
+#define SGE_PARSE_IMPL_OUTPUT_TO_FILE_HPP_INCLUDED
 
-#include <sge/parse/ini/output/to_range.hpp>
+#include <sge/parse/exception.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/io/ofstream.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace parse
 {
-namespace ini
+namespace impl
 {
 namespace output
 {
 
-struct to_range_functor
+template<
+	typename ToStream,
+	typename Data
+>
+bool
+to_file(
+	ToStream const &_to_stream,
+	boost::filesystem::path const &_path,
+	Data const &_data
+)
 {
-	template<
-		typename Out,
-		typename Data
-	>
-	bool
-	operator()(
-		Out &_out,
-		Data const &_data
-	) const
-	{
-		return
-			sge::parse::ini::output::to_range(
-				_out,
-				_data
+	fcppt::io::ofstream ofs(
+		_path,
+		std::ios_base::binary
+	);
+
+	if(
+		!ofs.is_open()
+	)
+		throw
+			sge::parse::exception(
+				FCPPT_TEXT("Opening ")
+				+
+				fcppt::filesystem::path_to_string(
+					_path
+				)
+				+
+				FCPPT_TEXT(" failed!")
 			);
-	}
-};
+
+	return
+		_to_stream(
+			ofs,
+			_data
+		);
+}
 
 }
 }

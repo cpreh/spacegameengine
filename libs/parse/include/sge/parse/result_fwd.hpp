@@ -32,5 +32,4 @@ class result;
 }
 }
 
-
 #endif

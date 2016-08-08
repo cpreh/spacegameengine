@@ -30,9 +30,11 @@ namespace sge
 namespace parse
 {
 
-typedef fcppt::optional::object<
+typedef
+fcppt::optional::object<
 	sge::parse::error_string
-> optional_error_string;
+>
+optional_error_string;
 
 }
 }

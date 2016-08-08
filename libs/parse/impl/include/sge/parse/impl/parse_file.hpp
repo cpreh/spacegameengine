@@ -18,16 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_PARSE_PARSE_FILE_EXN_HPP_INCLUDED
-#define SGE_SRC_PARSE_PARSE_FILE_EXN_HPP_INCLUDED
+#ifndef SGE_PARSE_IMPL_PARSE_FILE_HPP_INCLUDED
+#define SGE_PARSE_IMPL_PARSE_FILE_HPP_INCLUDED
 
+#include <sge/parse/error_string.hpp>
 #include <sge/parse/make_error_string.hpp>
-#include <sge/parse/parse_exception.hpp>
+#include <sge/parse/optional_error_string.hpp>
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
-#include <sge/src/parse/parse_file.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/io/ifstream.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,41 +39,80 @@ namespace sge
 {
 namespace parse
 {
+namespace impl
+{
 
 template<
 	typename Result
 >
-Result
-parse_file_exn(
-	boost::filesystem::path const &_path
+sge::parse::result
+parse_file(
+	boost::filesystem::path const &_path,
+	Result &_result
 )
 {
-	Result parse_result;
+	fcppt::io::ifstream ifs(
+		_path,
+		std::ios_base::binary
+	);
 
-	sge::parse::result const result(
-		sge::parse::parse_file(
-			_path,
-			parse_result
-		)
+	ifs.unsetf(
+		std::ios_base::skipws
 	);
 
 	if(
-		result.result_code()
-		!=
-		sge::parse::result_code::ok
+		!ifs.is_open()
 	)
-		throw
-			sge::parse::parse_exception(
-				result.result_code(),
-				sge::parse::make_error_string(
-					result
+		return
+			sge::parse::result(
+				sge::parse::result_code::not_open,
+				sge::parse::optional_error_string(
+					sge::parse::error_string(
+						FCPPT_TEXT("Failed to open ")
+						+
+						fcppt::filesystem::path_to_string(
+							_path
+						)
+					)
 				)
 			);
 
+	sge::parse::result const result(
+		// use ADL
+		parse_stream(
+			ifs,
+			_result
+		)
+	);
+
 	return
-		parse_result;
+		result.result_code()
+		==
+		sge::parse::result_code::ok
+		?
+			result
+		:
+			sge::parse::result(
+				result.result_code(),
+				sge::parse::optional_error_string(
+					sge::parse::error_string(
+						FCPPT_TEXT("Failed to parse \"")
+						+
+						fcppt::filesystem::path_to_string(
+							_path
+						)
+						+
+						FCPPT_TEXT("\", ")
+					)
+					+
+					sge::parse::make_error_string(
+						result
+					)
+				)
+			);
 }
 
+}
 }
 }
 

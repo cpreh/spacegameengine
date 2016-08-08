@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/result_with_value.hpp>
 #include <sge/parse/json/start.hpp>
-#include <sge/src/parse/instantiate_result_with_value.hpp>
+#include <sge/parse/impl/instantiate_result_with_value.hpp>
 
 
-SGE_PARSE_INSTANTIATE_RESULT_WITH_VALUE(
+SGE_PARSE_IMPL_INSTANTIATE_RESULT_WITH_VALUE(
 	sge::parse::json::start
 );

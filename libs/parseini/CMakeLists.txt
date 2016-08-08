@@ -50,7 +50,6 @@ set(
 	libs/parseini/src/parse/ini/get_or_create.cpp
 	libs/parseini/src/parse/ini/get_or_create_entry.cpp
 	libs/parseini/src/parse/ini/get_or_create_section.cpp
-	libs/parseini/src/parse/ini/include/sge/src/parse/ini/output/to_range_functor.hpp
 	libs/parseini/src/parse/ini/output/to_file.cpp
 	libs/parseini/src/parse/ini/output/to_stream.cpp
 	libs/parseini/src/parse/ini/parse_file.cpp
@@ -75,7 +74,6 @@ add_sge_base_library(
 		${Boost_FILESYSTEM_LIBRARIES}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/parse/ini/include"
-		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/parse/src/parse/include"
+	IMPLEMENT_FROM
+		parse
 )

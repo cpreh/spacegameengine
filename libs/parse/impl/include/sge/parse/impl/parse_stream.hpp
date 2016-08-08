@@ -18,55 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_PARSE_RESULT_WITH_VALUE_IMPL_HPP_INCLUDED
-#define SGE_SRC_PARSE_RESULT_WITH_VALUE_IMPL_HPP_INCLUDED
+#ifndef SGE_PARSE_IMPL_PARSE_STREAM_HPP_INCLUDED
+#define SGE_PARSE_IMPL_PARSE_STREAM_HPP_INCLUDED
 
 #include <sge/parse/result.hpp>
-#include <sge/parse/result_with_value.hpp>
+#include <fcppt/char_type.hpp>
+#include <fcppt/io/istream.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/spirit/home/support/iterators/istream_iterator.hpp>
+#include <fcppt/config/external_end.hpp>
 
+
+namespace sge
+{
+namespace parse
+{
+namespace impl
+{
 
 template<
-	typename Start
+	typename Result
 >
-sge::parse::result_with_value<
-	Start
->::result_with_value(
-	optional_start const &_start,
-	sge::parse::result const &_result
+sge::parse::result
+parse_stream(
+	fcppt::io::istream &_ifs,
+	Result &_result
 )
-:
-	start_(
-		_start
-	),
-	result_(
-		_result
-	)
 {
+	typedef
+	boost::spirit::basic_istream_iterator<
+		fcppt::char_type
+	>
+	istream_iterator;
+
+	istream_iterator begin(
+		_ifs
+	);
+
+	return
+		parse_range(
+			begin,
+			istream_iterator(),
+			_result
+		);
 }
 
-template<
-	typename Start
->
-typename
-sge::parse::result_with_value<
-	Start
->::optional_start const &
-sge::parse::result_with_value<
-	Start
->::start() const
-{
-	return start_;
 }
-
-template<
-	typename Start
->
-sge::parse::result const &
-sge::parse::result_with_value<
-	Start
->::result() const
-{
-	return result_;
+}
 }
 
 #endif

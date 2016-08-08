@@ -18,42 +18,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_PARSE_JSON_OUTPUT_TO_RANGE_FUNCTOR_HPP_INCLUDED
-#define SGE_SRC_PARSE_JSON_OUTPUT_TO_RANGE_FUNCTOR_HPP_INCLUDED
+#ifndef SGE_PARSE_IMPL_PARSE_FILE_EXN_HPP_INCLUDED
+#define SGE_PARSE_IMPL_PARSE_FILE_EXN_HPP_INCLUDED
 
-#include <sge/parse/json/output/to_range.hpp>
+#include <sge/parse/make_error_string.hpp>
+#include <sge/parse/parse_exception.hpp>
+#include <sge/parse/result.hpp>
+#include <sge/parse/result_code.hpp>
+#include <sge/parse/impl/parse_file.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace parse
 {
-namespace json
-{
-namespace output
+namespace impl
 {
 
-struct to_range_functor
+template<
+	typename Result
+>
+Result
+parse_file_exn(
+	boost::filesystem::path const &_path
+)
 {
-	template<
-		typename Out,
-		typename Data
-	>
-	bool
-	operator()(
-		Out &_out,
-		Data const &_data
-	) const
-	{
-		return
-			sge::parse::json::output::to_range(
-				_out,
-				_data
+	Result parse_result;
+
+	sge::parse::result const result(
+		sge::parse::impl::parse_file(
+			_path,
+			parse_result
+		)
+	);
+
+	if(
+		result.result_code()
+		!=
+		sge::parse::result_code::ok
+	)
+		throw
+			sge::parse::parse_exception(
+				result.result_code(),
+				sge::parse::make_error_string(
+					result
+				)
 			);
-	}
-};
 
+	return
+		parse_result;
 }
+
 }
 }
 }

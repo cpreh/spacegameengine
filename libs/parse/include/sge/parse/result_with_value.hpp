@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_with_value_fwd.hpp>
-#include <sge/parse/detail/symbol.hpp>
+#include <sge/parse/detail/instantiate/symbol.hpp>
 #include <fcppt/optional/object_impl.hpp>
 
 
@@ -38,21 +38,23 @@ template<
 class result_with_value
 {
 public:
-	typedef fcppt::optional::object<
+	typedef
+	fcppt::optional::object<
 		Start
-	> optional_start;
+	>
+	optional_start;
 
-	SGE_PARSE_DETAIL_SYMBOL
+	SGE_PARSE_DETAIL_INSTANTIATE_SYMBOL
 	result_with_value(
 		optional_start const &,
 		sge::parse::result const &
 	);
 
-	SGE_PARSE_DETAIL_SYMBOL
+	SGE_PARSE_DETAIL_INSTANTIATE_SYMBOL
 	optional_start const &
 	start() const;
 
-	SGE_PARSE_DETAIL_SYMBOL
+	SGE_PARSE_DETAIL_INSTANTIATE_SYMBOL
 	sge::parse::result const &
 	result() const;
 private:

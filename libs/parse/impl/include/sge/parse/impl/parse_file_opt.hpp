@@ -18,16 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_PARSE_OUTPUT_TO_FILE_HPP_INCLUDED
-#define SGE_SRC_PARSE_OUTPUT_TO_FILE_HPP_INCLUDED
+#ifndef SGE_PARSE_IMPL_PARSE_FILE_OPT_HPP_INCLUDED
+#define SGE_PARSE_IMPL_PARSE_FILE_OPT_HPP_INCLUDED
 
-#include <sge/parse/exception.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/io/ofstream.hpp>
+#include <sge/parse/result.hpp>
+#include <sge/parse/result_code.hpp>
+#include <sge/parse/result_with_value.hpp>
+#include <sge/parse/impl/parse_file.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,43 +34,56 @@ namespace sge
 {
 namespace parse
 {
-namespace output
+namespace impl
 {
 
 template<
-	typename ToStream,
-	typename Data
+	typename Result
 >
-bool
-to_file(
-	ToStream const &_to_stream,
-	boost::filesystem::path const &_path,
-	Data const &_data
+sge::parse::result_with_value<
+	Result
+>
+parse_file_opt(
+	boost::filesystem::path const &_path
 )
 {
-	fcppt::io::ofstream ofs(
-		_path,
-		std::ios_base::binary
+	Result value;
+
+	sge::parse::result const result(
+		sge::parse::impl::parse_file(
+			_path,
+			value
+		)
 	);
 
-	if(
-		!ofs.is_open()
-	)
-		throw
-			sge::parse::exception(
-				FCPPT_TEXT("Opening ")
-				+
-				fcppt::filesystem::path_to_string(
-					_path
-				)
-				+
-				FCPPT_TEXT(" failed!")
-			);
+	typedef
+	sge::parse::result_with_value<
+		Result
+	>
+	result_type;
+
+	typedef
+	typename
+	result_type::optional_start
+	optional_start;
 
 	return
-		_to_stream(
-			ofs,
-			_data
+		sge::parse::result_with_value<
+			Result
+		>(
+			result.result_code()
+			==
+			sge::parse::result_code::ok
+			?
+				optional_start(
+					std::move(
+						value
+					)
+				)
+			:
+				optional_start()
+			,
+			result
 		);
 }
 

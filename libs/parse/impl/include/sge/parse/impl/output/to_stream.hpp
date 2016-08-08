@@ -18,63 +18,55 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_PARSE_PARSE_FILE_OPT_HPP_INCLUDED
-#define SGE_SRC_PARSE_PARSE_FILE_OPT_HPP_INCLUDED
+#ifndef SGE_PARSE_IMPL_OUTPUT_TO_STREAM_HPP_INCLUDED
+#define SGE_PARSE_IMPL_OUTPUT_TO_STREAM_HPP_INCLUDED
 
-#include <sge/parse/result.hpp>
-#include <sge/parse/result_code.hpp>
-#include <sge/parse/result_with_value.hpp>
-#include <sge/src/parse/parse_file.hpp>
+#include <fcppt/io/ostream.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <iterator>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace parse
 {
+namespace impl
+{
+namespace output
+{
 
 template<
-	typename Result
+	typename ToRange,
+	typename Data
 >
-sge::parse::result_with_value<
-	Result
->
-parse_file_opt(
-	boost::filesystem::path const &_path
+bool
+to_stream(
+	ToRange const &_to_range,
+	fcppt::io::ostream &_ofs,
+	Data const &_data
 )
 {
-	Result value;
+	typedef
+	std::ostream_iterator<
+		fcppt::io::ostream::char_type,
+		fcppt::io::ostream::char_type
+	>
+	ostream_iterator;
 
-	sge::parse::result const result(
-		sge::parse::parse_file(
-			_path,
-			value
-		)
+	ostream_iterator sink(
+		_ofs
 	);
 
-	typedef sge::parse::result_with_value<
-		Result
-	> result_type;
-
-	typedef typename result_type::optional_start optional_start;
-
 	return
-		sge::parse::result_with_value<
-			Result
-		>(
-			result.result_code()
-			==
-			sge::parse::result_code::ok
-			?
-				optional_start(
-					value
-				)
-			:
-				optional_start()
-			,
-			result
+		_to_range(
+			sink,
+			_data
 		);
 }
 
+}
+}
 }
 }
 

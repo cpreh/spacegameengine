@@ -18,53 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_PARSE_OUTPUT_TO_STREAM_HPP_INCLUDED
-#define SGE_SRC_PARSE_OUTPUT_TO_STREAM_HPP_INCLUDED
+#ifndef SGE_PARSE_IMPL_INSTANTIATE_RESULT_WITH_VALUE_HPP_INCLUDED
+#define SGE_PARSE_IMPL_INSTANTIATE_RESULT_WITH_VALUE_HPP_INCLUDED
 
-#include <fcppt/io/ostream.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <iterator>
-#include <fcppt/config/external_end.hpp>
+#include <sge/src/core/export_class_instantiation.hpp>
+#include <sge/parse/impl/result_with_value_impl.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace output
-{
-
-template<
-	typename ToRange,
-	typename Data
+#define SGE_PARSE_IMPL_INSTANTIATE_RESULT_WITH_VALUE(\
+	start_symbol\
+)\
+template \
+class \
+SGE_CORE_EXPORT_CLASS_INSTANTIATION \
+sge::parse::result_with_value<\
+	start_symbol\
 >
-bool
-to_stream(
-	ToRange const &_to_range,
-	fcppt::io::ostream &_ofs,
-	Data const &_data
-)
-{
-	typedef
-	std::ostream_iterator<
-		fcppt::io::ostream::char_type,
-		fcppt::io::ostream::char_type
-	>
-	ostream_iterator;
-
-	ostream_iterator sink(
-		_ofs
-	);
-
-	return
-		_to_range(
-			sink,
-			_data
-		);
-}
-
-}
-}
-}
 
 #endif

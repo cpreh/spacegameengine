@@ -104,7 +104,6 @@ set(
 	libs/parsejson/src/parse/json/config/modify_user_value.cpp
 	libs/parsejson/src/parse/json/find_object.cpp
 	libs/parsejson/src/parse/json/find_object_exn.cpp
-	libs/parsejson/src/parse/json/include/sge/src/parse/json/output/to_range_functor.hpp
 	libs/parsejson/src/parse/json/invalid_get.cpp
 	libs/parsejson/src/parse/json/is_null.cpp
 	libs/parsejson/src/parse/json/make_recursive_objects.cpp
@@ -138,7 +137,6 @@ add_sge_base_library(
 		${Boost_FILESYSTEM_LIBRARIES}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/parse/json/include"
-		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/parse/src/parse/include"
+	IMPLEMENT_FROM
+		parse
 )
