@@ -1,5 +1,85 @@
 set(
 	SGE_IMAGECOLOR_FILES
+	libs/imagecolor/impl/include/sge/image/color/impl/any/convert_visitor.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/converter.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/algorithm/cac/choose.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/algorithm/cac/convert.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/algorithm/cac/convert_visitor.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/algorithm/cac/copy.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/algorithm/cac/function.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/algorithm/cac/permutate_compare.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/algorithm/cac/rgb_to_srgb.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/algorithm/cac/source.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/algorithm/cac/srgb_to_rgb.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/algorithm/cac/visitor.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/algorithm/copy_and_convert.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/a8.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/all.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/bgr32f.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/bgr8.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/bgra32f.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/bgra8.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/bgrx8.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/empty_c8_1.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/from_static.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/from_static_type.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/l8.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/la8.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/luminance_c8_1.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/luminance_c8_2.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/object_base_decl.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/object_base_impl.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/object_decl.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/object_fwd.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/object_impl.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/object_traits.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/r32f.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/r_c32f_1.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/rgb32f.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/rgb8.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/rgb_c32f_3.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/rgb_c32f_4.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/rgb_c8_3.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/rgb_c8_4.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/rgba32f.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/rgba8.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/rgbx8.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/sbgr8.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/sbgra8.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/srgb8.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/srgb_c8_3.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/srgb_c8_4.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/format/srgba8.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/basic_elements.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/basic_variant.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/color_format.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/color_layout.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/format_channel.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/from_static.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/from_static_visitor.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/image_format.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/instantiate_format.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/traits/dynamic_copy_and_convert.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/traits/static_converter.hpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/a8.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/bgr32f.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/bgr8.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/bgra32f.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/bgra8.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/bgrx8.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/from_static.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/l8.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/la8.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/r32f.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/rgb32f.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/rgb8.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/rgba32f.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/rgba8.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/rgbx8.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/sbgr8.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/sbgra8.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/srgb8.cpp
+	libs/imagecolor/impl/src/image/color/impl/dynamic/format/srgba8.cpp
 	libs/imagecolor/include/sge/image/color/a8.hpp
 	libs/imagecolor/include/sge/image/color/a8_format.hpp
 	libs/imagecolor/include/sge/image/color/a8_fwd.hpp
@@ -120,91 +200,11 @@ set(
 	libs/imagecolor/src/image/color/any/from_string.cpp
 	libs/imagecolor/src/image/color/any/object.cpp
 	libs/imagecolor/src/image/color/any/print.cpp
-	libs/imagecolor/src/image/color/dynamic/format/a8.cpp
-	libs/imagecolor/src/image/color/dynamic/format/bgr32f.cpp
-	libs/imagecolor/src/image/color/dynamic/format/bgr8.cpp
-	libs/imagecolor/src/image/color/dynamic/format/bgra32f.cpp
-	libs/imagecolor/src/image/color/dynamic/format/bgra8.cpp
-	libs/imagecolor/src/image/color/dynamic/format/bgrx8.cpp
-	libs/imagecolor/src/image/color/dynamic/format/from_static.cpp
-	libs/imagecolor/src/image/color/dynamic/format/l8.cpp
-	libs/imagecolor/src/image/color/dynamic/format/la8.cpp
-	libs/imagecolor/src/image/color/dynamic/format/r32f.cpp
-	libs/imagecolor/src/image/color/dynamic/format/rgb32f.cpp
-	libs/imagecolor/src/image/color/dynamic/format/rgb8.cpp
-	libs/imagecolor/src/image/color/dynamic/format/rgba32f.cpp
-	libs/imagecolor/src/image/color/dynamic/format/rgba8.cpp
-	libs/imagecolor/src/image/color/dynamic/format/rgbx8.cpp
-	libs/imagecolor/src/image/color/dynamic/format/sbgr8.cpp
-	libs/imagecolor/src/image/color/dynamic/format/sbgra8.cpp
-	libs/imagecolor/src/image/color/dynamic/format/srgb8.cpp
-	libs/imagecolor/src/image/color/dynamic/format/srgba8.cpp
 	libs/imagecolor/src/image/color/element_count.cpp
 	libs/imagecolor/src/image/color/format_element_size.cpp
 	libs/imagecolor/src/image/color/format_is_srgb.cpp
 	libs/imagecolor/src/image/color/format_stride.cpp
 	libs/imagecolor/src/image/color/format_to_string.cpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/any/convert_visitor.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/converter.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/choose.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/convert.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/convert_visitor.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/copy.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/function.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/permutate_compare.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/rgb_to_srgb.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/source.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/srgb_to_rgb.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/algorithm/cac/visitor.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/algorithm/copy_and_convert.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/a8.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/all.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/bgr32f.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/bgr8.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/bgra32f.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/bgra8.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/bgrx8.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/empty_c8_1.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/from_static.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/from_static_type.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/l8.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/la8.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/luminance_c8_1.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/luminance_c8_2.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/object_base_decl.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/object_base_impl.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/object_decl.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/object_fwd.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/object_impl.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/object_traits.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/r32f.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/r_c32f_1.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/rgb32f.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/rgb8.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/rgb_c32f_3.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/rgb_c32f_4.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/rgb_c8_3.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/rgb_c8_4.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/rgba32f.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/rgba8.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/rgbx8.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/sbgr8.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/sbgra8.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/srgb8.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/srgb_c8_3.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/srgb_c8_4.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/format/srgba8.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/view/basic_elements.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/view/basic_variant.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/view/color_format.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/view/color_layout.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/view/format_channel.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/view/from_static.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/view/from_static_visitor.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/dynamic/view/image_format.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/instantiate_format.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/traits/dynamic_copy_and_convert.hpp
-	libs/imagecolor/src/image/color/include/sge/src/image/color/traits/static_converter.hpp
 	libs/imagecolor/src/image/color/invalid_convert.cpp
 	libs/imagecolor/src/image/color/invalid_copy.cpp
 	libs/imagecolor/src/image/color/predef.cpp
@@ -218,14 +218,9 @@ find_package(
 	REQUIRED
 )
 
-sge_implement_from_lib(
-	image
-	IMAGE_DEFINITIONS
-	IMAGE_INCLUDES
-)
-
 add_sge_base_library(
 	"image/color"
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgeimage
 	TRANSITIVE_SGE_DEPS
@@ -236,9 +231,6 @@ add_sge_base_library(
 	TRANSITIVE_ADDITIONAL_DEPS
 		mizuiro_interface
 		fcppt_core_interface
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/image/color/include"
-		${IMAGE_INCLUDES}
-	COMPILE_DEFINITIONS
-		${IMAGE_DEFINITIONS}
+	IMPLEMENT_FROM
+		image
 )

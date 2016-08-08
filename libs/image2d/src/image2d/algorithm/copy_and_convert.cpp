@@ -29,10 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/traits/view_fwd.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
-#include <sge/src/image/algorithm/copy_and_convert_impl.hpp>
-#include <sge/src/image/algorithm/instantiate_copy_and_convert.hpp>
-#include <sge/src/image/color/traits/dynamic_copy_and_convert.hpp>
-#include <sge/src/image/color/traits/static_converter.hpp>
+#include <sge/image/impl/algorithm/copy_and_convert_impl.hpp>
+#include <sge/image/impl/algorithm/instantiate_copy_and_convert.hpp>
+#include <sge/image/color/impl/traits/dynamic_copy_and_convert.hpp>
+#include <sge/image/color/impl/traits/static_converter.hpp>
 
 
 void
@@ -53,6 +53,6 @@ sge::image2d::algorithm::copy_and_convert(
 	);
 }
 
-SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_COPY_AND_CONVERT(
+SGE_IMAGE_IMPL_ALGORITHM_INSTANTIATE_COPY_AND_CONVERT(
 	sge::image2d::tag
 );

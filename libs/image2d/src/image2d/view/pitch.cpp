@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/pitch.hpp>
-#include <sge/src/image/view/instantiate_pitch.hpp>
-#include <sge/src/image/view/pitch_impl.hpp>
+#include <sge/image/impl/view/instantiate_pitch.hpp>
+#include <sge/image/impl/view/pitch_impl.hpp>
 
 
 sge::image2d::pitch
@@ -56,6 +56,6 @@ sge::image2d::view::pitch(
 		);
 }
 
-SGE_SRC_IMAGE_VIEW_INSTANTIATE_PITCH(
+SGE_IMAGE_IMPL_VIEW_INSTANTIATE_PITCH(
 	sge::image2d::tag
 );

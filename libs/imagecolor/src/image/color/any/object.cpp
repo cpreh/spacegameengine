@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/mizuiro_color.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
-#include <sge/src/image/color/instantiate_format.hpp>
+#include <sge/image/color/impl/instantiate_format.hpp>
 
 
 template<
@@ -74,7 +74,7 @@ sge::image::color::any::object::object( \
 	> const & \
 )
 
-SGE_SRC_IMAGE_COLOR_INSTANTIATE_FORMAT(
+SGE_IMAGE_COLOR_IMPL_INSTANTIATE_FORMAT(
 	SGE_IMAGE_COLOR_ANY_OBJECT_INSTANTIATE_CTOR,
 	_
 );

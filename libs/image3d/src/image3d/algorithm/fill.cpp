@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/traits/color_tag.hpp>
 #include <sge/image3d/traits/view_fwd.hpp>
 #include <sge/image3d/view/object.hpp>
-#include <sge/src/image/algorithm/fill_impl.hpp>
-#include <sge/src/image/algorithm/instantiate_fill.hpp>
+#include <sge/image/impl/algorithm/fill_impl.hpp>
+#include <sge/image/impl/algorithm/instantiate_fill.hpp>
 
 
 void
@@ -47,6 +47,6 @@ sge::image3d::algorithm::fill(
 	);
 }
 
-SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_FILL(
+SGE_IMAGE_IMPL_ALGORITHM_INSTANTIATE_FILL(
 	sge::image3d::tag
 );

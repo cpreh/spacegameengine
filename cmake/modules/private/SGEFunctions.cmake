@@ -813,31 +813,6 @@ function(
 	)
 endfunction()
 
-function(
-	sge_implement_from_lib
-	LIB_NAME
-	DEFINITIONS
-	INCLUDES
-)
-	string(
-		TOUPPER
-		${LIB_NAME}
-		UPPER_LIB_NAME
-	)
-
-	set(
-		${DEFINITIONS}
-		"-D SGE_${UPPER_LIB_NAME}_DETAIL_INSTANTIATE_EXPORTS"
-		PARENT_SCOPE
-	)
-
-	set(
-		${INCLUDES}
-		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/${LIB_NAME}/src/${LIB_NAME}/include
-		PARENT_SCOPE
-	)
-endfunction()
-
 # add_sge_plugin
 #
 # Adds an sge plugin

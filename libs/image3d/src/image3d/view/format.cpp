@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/format.hpp>
 #include <sge/image3d/view/object.hpp>
-#include <sge/src/image/view/format_impl.hpp>
-#include <sge/src/image/view/instantiate_format.hpp>
+#include <sge/image/impl/view/format_impl.hpp>
+#include <sge/image/impl/view/instantiate_format.hpp>
 
 
 sge::image::color::format
@@ -58,6 +58,6 @@ sge::image3d::view::format(
 		);
 }
 
-SGE_SRC_IMAGE_VIEW_INSTANTIATE_FORMAT(
+SGE_IMAGE_IMPL_VIEW_INSTANTIATE_FORMAT(
 	sge::image3d::tag
 );

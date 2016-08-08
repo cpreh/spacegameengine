@@ -32,8 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/make_const.hpp>
 #include <sge/image3d/view/object.hpp>
-#include <sge/src/image/view/instantiate_make_const.hpp>
-#include <sge/src/image/view/make_const_impl.hpp>
+#include <sge/image/impl/view/instantiate_make_const.hpp>
+#include <sge/image/impl/view/make_const_impl.hpp>
 
 
 sge::image3d::view::const_object
@@ -55,6 +55,6 @@ sge::image3d::view::make_const(
 		);
 }
 
-SGE_SRC_IMAGE_VIEW_INSTANTIATE_MAKE_CONST(
+SGE_IMAGE_IMPL_VIEW_INSTANTIATE_MAKE_CONST(
 	sge::image3d::tag
 );

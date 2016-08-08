@@ -204,12 +204,6 @@ find_package(
 	REQUIRED
 )
 
-sge_implement_from_lib(
-	image
-	IMAGE_DEFINITIONS
-	IMAGE_INCLUDES
-)
-
 add_sge_base_library(
 	image2d
 	HAS_IMPL_DIR
@@ -231,12 +225,11 @@ add_sge_base_library(
 		fcppt_core_interface
 		fcppt_log_interface
 	INCLUDE_DIRS
-		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/imagecolor/src/image/color/include"
 		"${FCPPT_UTILS_PROJECT_BINARY_DIR}/libs/image/include"
-		${IMAGE_INCLUDES}
-	COMPILE_DEFINITIONS
-		${IMAGE_DEFINITIONS}
 	IMPLEMENT_FROM
+		image
 		media
 		plugin
+	USE_IMPL_INCLUDE_OF
+		imagecolor
 )

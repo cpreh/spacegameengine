@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/imageds2d/traits/view_fwd.hpp>
 #include <sge/imageds2d/view/const_object.hpp>
 #include <sge/imageds2d/view/object.hpp>
-#include <sge/src/image/algorithm/copy_impl.hpp>
-#include <sge/src/image/algorithm/instantiate_copy.hpp>
+#include <sge/image/impl/algorithm/copy_impl.hpp>
+#include <sge/image/impl/algorithm/instantiate_copy.hpp>
 
 
 void
@@ -50,6 +50,6 @@ sge::imageds2d::algorithm::copy(
 	);
 }
 
-SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_COPY(
+SGE_IMAGE_IMPL_ALGORITHM_INSTANTIATE_COPY(
 	sge::imageds2d::tag
 );

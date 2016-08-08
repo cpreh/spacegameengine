@@ -40,8 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
-#include <sge/src/image/color/instantiate_format.hpp>
-#include <sge/src/image/color/any/convert_visitor.hpp>
+#include <sge/image/color/impl/instantiate_format.hpp>
+#include <sge/image/color/impl/any/convert_visitor.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 
@@ -57,7 +57,7 @@ sge::image::color::any::convert(
 {
 	return
 		fcppt::variant::apply_unary(
-			sge::image::color::any::convert_visitor<
+			sge::image::color::impl::any::convert_visitor<
 				Dest
 			>(),
 			_color.get()
@@ -79,7 +79,7 @@ sge::image::color::any::convert<\
 	sge::image::color::any::object const &\
 )
 
-SGE_SRC_IMAGE_COLOR_INSTANTIATE_FORMAT(
+SGE_IMAGE_COLOR_IMPL_INSTANTIATE_FORMAT(
 	SGE_INSTANTIATE_COLOR_CONVERT,
 	_
 );

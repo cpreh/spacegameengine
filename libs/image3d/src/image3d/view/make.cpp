@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/traits/view_fwd.hpp>
 #include <sge/image3d/view/make.hpp>
 #include <sge/image3d/view/object.hpp>
-#include <sge/src/image/view/instantiate_make.hpp>
-#include <sge/src/image/view/make_impl.hpp>
+#include <sge/image/impl/view/instantiate_make.hpp>
+#include <sge/image/impl/view/make_impl.hpp>
 
 
 sge::image3d::view::object
@@ -54,6 +54,6 @@ sge::image3d::view::make(
 		);
 }
 
-SGE_SRC_IMAGE_VIEW_INSTANTIATE_MAKE(
+SGE_IMAGE_IMPL_VIEW_INSTANTIATE_MAKE(
 	sge::image3d::tag
 );

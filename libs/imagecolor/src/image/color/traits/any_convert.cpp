@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/image/color/traits/any_convert.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
-#include <sge/src/image/color/instantiate_format.hpp>
+#include <sge/image/color/impl/instantiate_format.hpp>
 
 
 template<
@@ -82,7 +82,7 @@ sge::image::traits::any_convert<\
 	sge::image::color::any::object const &\
 )
 
-SGE_SRC_IMAGE_COLOR_INSTANTIATE_FORMAT(
+SGE_IMAGE_COLOR_IMPL_INSTANTIATE_FORMAT(
 	SGE_IMAGE_COLOR_INSTANTIATE_ANY_CONVERT,
 	_
 );

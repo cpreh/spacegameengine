@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/invalid_convert.hpp>
 #include <sge/image/color/tag.hpp>
 #include <sge/image/color/traits/format_to_string.hpp>
-#include <sge/src/image/instantiate_invalid_convert.hpp>
+#include <sge/image/impl/instantiate_invalid_convert.hpp>
 
 
-SGE_SRC_IMAGE_INSTANTIATE_INVALID_CONVERT(
+SGE_IMAGE_IMPL_INSTANTIATE_INVALID_CONVERT(
 	sge::image::color::tag
 );

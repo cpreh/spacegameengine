@@ -58,12 +58,6 @@ set(
 	libs/imageds2d/src/imageds2d/view/to_const.cpp
 )
 
-sge_implement_from_lib(
-	image
-	IMAGE_DEFINITIONS
-	IMAGE_INCLUDES
-)
-
 add_sge_base_library(
 	imageds2d
 	SGE_DEPS
@@ -77,9 +71,8 @@ add_sge_base_library(
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
 		mizuiro_interface
-	INCLUDE_DIRS
-		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/imageds/src/image/ds/include"
-		${IMAGE_INCLUDES}
-	COMPILE_DEFINITIONS
-		${IMAGE_DEFINITIONS}
+	IMPLEMENT_FROM
+		image
+	USE_IMPL_INCLUDE_OF
+		imageds
 )

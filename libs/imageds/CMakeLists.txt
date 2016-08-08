@@ -1,5 +1,6 @@
 set(
 	SGE_IMAGEDS_FILES
+	libs/imageds/impl/include/sge/image/ds/impl/instantiate_format.hpp
 	libs/imageds/include/sge/image/ds/channel/depth.hpp
 	libs/imageds/include/sge/image/ds/channel/depth_fwd.hpp
 	libs/imageds/include/sge/image/ds/channel/stencil.hpp
@@ -35,7 +36,6 @@ set(
 	libs/imageds/include/sge/image/ds/view/d32_format.hpp
 	libs/imageds/src/image/ds/format_stride.cpp
 	libs/imageds/src/image/ds/format_to_string.cpp
-	libs/imageds/src/image/ds/include/sge/src/image/ds/instantiate_format.hpp
 	libs/imageds/src/image/ds/invalid_convert.cpp
 	libs/imageds/src/image/ds/invalid_copy.cpp
 	libs/imageds/src/image/ds/traits/format_stride.cpp
@@ -47,14 +47,9 @@ find_package(
 	REQUIRED
 )
 
-sge_implement_from_lib(
-	image
-	IMAGE_DEFINITIONS
-	IMAGE_INCLUDES
-)
-
 add_sge_base_library(
 	"image/ds"
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgeimage
 	TRANSITIVE_SGE_DEPS
@@ -64,9 +59,8 @@ add_sge_base_library(
 	TRANSITIVE_ADDITIONAL_DEPS
 		mizuiro_interface
 		fcppt_core_interface
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/include"
-		${IMAGE_INCLUDES}
 	COMPILE_DEFINITIONS
 		${IMAGE_DEFINITIONS}
+	IMPLEMENT_FROM
+		image
 )

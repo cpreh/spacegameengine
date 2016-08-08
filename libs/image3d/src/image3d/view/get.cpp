@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/get.hpp>
 #include <sge/image3d/view/object.hpp>
-#include <sge/src/image/view/get_impl.hpp>
-#include <sge/src/image/view/instantiate_get.hpp>
+#include <sge/image/impl/view/get_impl.hpp>
+#include <sge/image/impl/view/instantiate_get.hpp>
 
 
 sge::image::color::any::object
@@ -63,6 +63,6 @@ sge::image3d::view::get(
 		);
 }
 
-SGE_SRC_IMAGE_VIEW_INSTANTIATE_GET(
+SGE_IMAGE_IMPL_VIEW_INSTANTIATE_GET(
 	sge::image3d::tag
 );

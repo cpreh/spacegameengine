@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/ds/invalid_copy.hpp>
 #include <sge/image/ds/tag.hpp>
 #include <sge/image/ds/traits/format_to_string.hpp>
-#include <sge/src/image/algorithm/instantiate_invalid_copy.hpp>
+#include <sge/image/impl/algorithm/instantiate_invalid_copy.hpp>
 
 
-SGE_SRC_IMAGE_ALGORITHM_INSTANTIATE_INVALID_COPY(
+SGE_IMAGE_IMPL_ALGORITHM_INSTANTIATE_INVALID_COPY(
 	sge::image::ds::tag
 );
