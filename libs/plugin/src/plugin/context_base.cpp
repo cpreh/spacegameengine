@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/cache.hpp>
 #include <sge/plugin/flags.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
-#include <sge/plugin/library/object_shared_ptr.hpp>
 #include <sge/plugin/impl/context_base.hpp>
 #include <sge/plugin/impl/load_info.hpp>
 #include <sge/plugin/impl/library/object.hpp>
+#include <sge/plugin/library/object_shared_ptr.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/weak_ptr_impl.hpp>

@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_VIEW_FORMAT_ANY_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_FORMAT_ANY_HPP_INCLUDED
 
+#include <sge/image/impl/view/format_type.hpp>
 #include <sge/image/traits/format_fwd.hpp>
 #include <sge/image/traits/format_static.hpp>
-#include <sge/image/impl/view/format_type.hpp>
 #include <fcppt/use.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>

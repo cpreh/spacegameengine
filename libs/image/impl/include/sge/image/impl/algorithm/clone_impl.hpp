@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_ALGORITHM_CLONE_IMPL_HPP_INCLUDED
 
 #include <sge/image/algorithm/clone.hpp>
+#include <sge/image/impl/view/format_type.hpp>
 #include <sge/image/store/basic.hpp>
 #include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/traits/store_fwd.hpp>
-#include <sge/image/impl/view/format_type.hpp>
 #include <mizuiro/image/algorithm/clone.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 

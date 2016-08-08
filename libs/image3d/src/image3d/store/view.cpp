@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/impl/store/instantiate_view.hpp>
+#include <sge/image/impl/store/view_impl.hpp>
 #include <sge/image3d/tag.hpp>
 #include <sge/image3d/store/object.hpp>
 #include <sge/image3d/store/view.hpp>
@@ -26,8 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/traits/view_fwd.hpp>
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
-#include <sge/image/impl/store/instantiate_view.hpp>
-#include <sge/image/impl/store/view_impl.hpp>
 
 
 sge::image3d::view::object

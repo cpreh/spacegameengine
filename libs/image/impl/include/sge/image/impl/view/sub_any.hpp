@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/box.hpp>
 #include <sge/image/mizuiro_color.hpp>
-#include <sge/image/view/wrap.hpp>
 #include <sge/image/impl/to_mizuiro_dim.hpp>
+#include <sge/image/view/wrap.hpp>
 #include <mizuiro/image/sub_view.hpp>
 #include <fcppt/math/vector/to_dim.hpp>
 #include <fcppt/variant/apply_unary.hpp>

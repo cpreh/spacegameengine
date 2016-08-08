@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_ALGORITHM_COMPARE_IMPL_HPP_INCLUDED
 
 #include <sge/image/algorithm/compare.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/impl/algorithm/compare_visitor.hpp>
+#include <sge/image/traits/const_view_fwd.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 
 

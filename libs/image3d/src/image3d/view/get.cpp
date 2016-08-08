@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/color/traits/any_object_fwd.hpp>
+#include <sge/image/impl/view/get_impl.hpp>
+#include <sge/image/impl/view/instantiate_get.hpp>
 #include <sge/image3d/dim.hpp>
 #include <sge/image3d/tag.hpp>
 #include <sge/image3d/traits/color_tag.hpp>
@@ -29,8 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/get.hpp>
 #include <sge/image3d/view/object.hpp>
-#include <sge/image/impl/view/get_impl.hpp>
-#include <sge/image/impl/view/instantiate_get.hpp>
 
 
 sge::image::color::any::object

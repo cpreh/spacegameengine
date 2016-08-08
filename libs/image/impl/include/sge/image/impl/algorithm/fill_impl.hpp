@@ -24,12 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/mizuiro_color.hpp>
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
+#include <sge/image/impl/algorithm/convert_uninitialized.hpp>
+#include <sge/image/impl/view/format_type.hpp>
 #include <sge/image/traits/any_convert.hpp>
 #include <sge/image/traits/any_object_fwd.hpp>
 #include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/view_fwd.hpp>
-#include <sge/image/impl/algorithm/convert_uninitialized.hpp>
-#include <sge/image/impl/view/format_type.hpp>
 #include <mizuiro/image/algorithm/fill_c.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 

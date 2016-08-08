@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/core_fwd.hpp>
 #include <sge/plugin/impl/instantiate_iterator.hpp>
+#include <sge/renderer/core_fwd.hpp>
 
 
 SGE_PLUGIN_IMPL_INSTANTIATE_ITERATOR(

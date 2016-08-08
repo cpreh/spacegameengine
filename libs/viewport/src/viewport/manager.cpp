@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/viewport/impl/detail/manager_impl.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/viewport/optional_resize_callback_fwd.hpp>
+#include <sge/viewport/impl/detail/manager_impl.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>

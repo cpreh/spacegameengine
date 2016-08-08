@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
+#include <sge/image/color/impl/dynamic/view/color_layout.hpp>
 #include <sge/image/impl/algorithm/convert_may_overlap.hpp>
 #include <sge/image/impl/algorithm/convert_uninitialized.hpp>
-#include <sge/image/color/impl/dynamic/view/color_layout.hpp>
 #include <mizuiro/image/algorithm/copy_different_channel_order.hpp>
 #include <mizuiro/image/algorithm/copy_same_channel_order.hpp>
 #include <mizuiro/image/algorithm/may_overlap.hpp>

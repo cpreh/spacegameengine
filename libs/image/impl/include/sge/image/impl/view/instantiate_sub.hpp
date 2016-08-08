@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_VIEW_INSTANTIATE_SUB_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_SUB_HPP_INCLUDED
 
-#include <sge/image/traits/box_fwd.hpp>
-#include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/image/impl/view/instantiate_const_nonconst.hpp>
 #include <sge/image/impl/view/sub_impl.hpp>
+#include <sge/image/traits/box_fwd.hpp>
+#include <sge/src/core/export_function_instantiation.hpp>
 
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_SUB_BASE(\

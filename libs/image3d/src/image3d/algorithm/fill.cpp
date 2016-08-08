@@ -22,13 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/image/color/traits/any_convert.hpp>
 #include <sge/image/color/traits/any_object_fwd.hpp>
+#include <sge/image/impl/algorithm/fill_impl.hpp>
+#include <sge/image/impl/algorithm/instantiate_fill.hpp>
 #include <sge/image3d/tag.hpp>
 #include <sge/image3d/algorithm/fill.hpp>
 #include <sge/image3d/traits/color_tag.hpp>
 #include <sge/image3d/traits/view_fwd.hpp>
 #include <sge/image3d/view/object.hpp>
-#include <sge/image/impl/algorithm/fill_impl.hpp>
-#include <sge/image/impl/algorithm/instantiate_fill.hpp>
 
 
 void

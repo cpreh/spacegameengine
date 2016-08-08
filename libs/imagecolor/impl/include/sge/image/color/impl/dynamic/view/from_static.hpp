@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_IMPL_DYNAMIC_VIEW_FROM_STATIC_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_IMPL_DYNAMIC_VIEW_FROM_STATIC_HPP_INCLUDED
 
-#include <sge/image/view/element_base.hpp>
 #include <sge/image/color/impl/dynamic/format/from_static.hpp>
 #include <sge/image/color/impl/dynamic/format/from_static_type.hpp>
+#include <sge/image/view/element_base.hpp>
 
 
 namespace sge

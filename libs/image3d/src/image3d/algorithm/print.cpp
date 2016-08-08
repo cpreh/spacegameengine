@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/impl/algorithm/instantiate_print.hpp>
+#include <sge/image/impl/algorithm/print_impl.hpp>
 #include <sge/image3d/tag.hpp>
 #include <sge/image3d/algorithm/print.hpp>
 #include <sge/image3d/traits/const_view_fwd.hpp>
 #include <sge/image3d/view/const_object.hpp>
-#include <sge/image/impl/algorithm/instantiate_print.hpp>
-#include <sge/image/impl/algorithm/print_impl.hpp>
 #include <fcppt/io/ostream.hpp>
 
 

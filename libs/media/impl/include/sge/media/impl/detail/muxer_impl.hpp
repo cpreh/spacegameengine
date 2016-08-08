@@ -30,12 +30,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/optional_name.hpp>
 #include <sge/media/stream_unique_ptr.hpp>
+#include <sge/media/impl/log_name.hpp>
+#include <sge/media/impl/detail/muxer.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/media/impl/log_name.hpp>
-#include <sge/media/impl/detail/muxer.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/loop.hpp>
 #include <fcppt/make_ref.hpp>

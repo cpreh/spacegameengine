@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_VIEW_FLIPPED_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_FLIPPED_IMPL_HPP_INCLUDED
 
+#include <sge/image/impl/view/flipped_any.hpp>
 #include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/image/view/flipped.hpp>
-#include <sge/image/impl/view/flipped_any.hpp>
 
 
 template<

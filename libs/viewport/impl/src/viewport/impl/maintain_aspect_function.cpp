@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <sge/viewport/fractional_aspect.hpp>
 #include <sge/viewport/impl/center.hpp>
 #include <sge/viewport/impl/maintain_aspect_function.hpp>
-#include <sge/viewport/fractional_aspect.hpp>
 #include <sge/window/dim.hpp>
 #include <awl/window/event/resize.hpp>
 #include <fcppt/cast/size_fun.hpp>

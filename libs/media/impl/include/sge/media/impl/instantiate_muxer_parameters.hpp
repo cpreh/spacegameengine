@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MEDIA_IMPL_INSTANTIATE_MUXER_PARAMETERS_HPP_INCLUDED
 #define SGE_MEDIA_IMPL_INSTANTIATE_MUXER_PARAMETERS_HPP_INCLUDED
 
-#include <sge/src/core/export_class_instantiation.hpp>
 #include <sge/media/impl/muxer_parameters_impl.hpp>
+#include <sge/src/core/export_class_instantiation.hpp>
 
 
 #define SGE_MEDIA_IMPL_INSTANTIATE_MUXER_PARAMETERS(\

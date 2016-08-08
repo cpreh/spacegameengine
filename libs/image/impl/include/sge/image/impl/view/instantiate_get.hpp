@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_GET_HPP_INCLUDED
 
 #include <sge/image/color/any/object.hpp>
+#include <sge/image/impl/view/get_impl.hpp>
+#include <sge/image/impl/view/instantiate_const_nonconst.hpp>
 #include <sge/image/traits/any_object_fwd.hpp>
 #include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/dim_fwd.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
-#include <sge/image/impl/view/get_impl.hpp>
-#include <sge/image/impl/view/instantiate_const_nonconst.hpp>
 
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_GET_BASE(\

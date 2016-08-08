@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/impl/store/instantiate_basic.hpp>
 #include <sge/imageds2d/d32_format.hpp>
 #include <sge/imageds2d/store/d32.hpp>
-#include <sge/image/impl/store/instantiate_basic.hpp>
 
 
 SGE_IMAGE_IMPL_STORE_INSTANTIATE_BASIC(

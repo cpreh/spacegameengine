@@ -24,12 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
-#include <sge/image/traits/color_tag.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
 #include <sge/image/impl/algorithm/convert_may_overlap.hpp>
 #include <sge/image/impl/algorithm/convert_uninitialized.hpp>
 #include <sge/image/impl/traits/static_converter.hpp>
+#include <sge/image/traits/color_tag.hpp>
+#include <sge/image/traits/const_view_fwd.hpp>
+#include <sge/image/traits/view_fwd.hpp>
 #include <mizuiro/image/algorithm/copy_and_convert.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/object_impl.hpp>

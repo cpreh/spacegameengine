@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/impl/view/instantiate_sub.hpp>
+#include <sge/image/impl/view/sub_impl.hpp>
 #include <sge/image2d/rect.hpp>
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/traits/box_fwd.hpp>
@@ -26,8 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/sub.hpp>
-#include <sge/image/impl/view/instantiate_sub.hpp>
-#include <sge/image/impl/view/sub_impl.hpp>
 
 
 sge::image2d::view::object

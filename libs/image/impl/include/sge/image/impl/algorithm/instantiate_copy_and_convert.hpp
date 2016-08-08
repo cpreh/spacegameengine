@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
+#include <sge/image/impl/algorithm/copy_and_convert_impl.hpp>
 #include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
-#include <sge/image/impl/algorithm/copy_and_convert_impl.hpp>
 
 
 #define SGE_IMAGE_IMPL_ALGORITHM_INSTANTIATE_COPY_AND_CONVERT(\

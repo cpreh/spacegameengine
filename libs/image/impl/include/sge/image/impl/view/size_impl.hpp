@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_VIEW_SIZE_IMPL_HPP_INCLUDED
 
 #include <sge/image/dim.hpp>
+#include <sge/image/impl/view/size_any.hpp>
 #include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/image/traits/dim_fwd.hpp>
 #include <sge/image/traits/view_fwd.hpp>
 #include <sge/image/view/size.hpp>
-#include <sge/image/impl/view/size_any.hpp>
 
 
 template<

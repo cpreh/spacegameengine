@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/ds/traits/format_fwd.hpp>
+#include <sge/image/impl/algorithm/copy_impl.hpp>
+#include <sge/image/impl/algorithm/instantiate_copy.hpp>
 #include <sge/imageds2d/tag.hpp>
 #include <sge/imageds2d/algorithm/copy.hpp>
 #include <sge/imageds2d/traits/color_tag.hpp>
@@ -28,8 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/imageds2d/traits/view_fwd.hpp>
 #include <sge/imageds2d/view/const_object.hpp>
 #include <sge/imageds2d/view/object.hpp>
-#include <sge/image/impl/algorithm/copy_impl.hpp>
-#include <sge/image/impl/algorithm/instantiate_copy.hpp>
 
 
 void

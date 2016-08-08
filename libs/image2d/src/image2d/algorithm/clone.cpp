@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/impl/algorithm/clone_impl.hpp>
+#include <sge/image/impl/algorithm/instantiate_clone.hpp>
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/algorithm/clone.hpp>
 #include <sge/image2d/store/object.hpp>
 #include <sge/image2d/traits/const_view_fwd.hpp>
 #include <sge/image2d/traits/store_fwd.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/image/impl/algorithm/clone_impl.hpp>
-#include <sge/image/impl/algorithm/instantiate_clone.hpp>
 
 
 sge::image2d::store::object

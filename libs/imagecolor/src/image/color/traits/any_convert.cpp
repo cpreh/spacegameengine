@@ -40,9 +40,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/tag.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
+#include <sge/image/color/impl/instantiate_format.hpp>
 #include <sge/image/color/traits/any_convert.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
-#include <sge/image/color/impl/instantiate_format.hpp>
 
 
 template<

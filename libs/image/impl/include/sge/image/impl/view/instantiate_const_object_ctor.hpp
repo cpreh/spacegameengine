@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_VIEW_INSTANTIATE_CONST_OBJECT_CTOR_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_CONST_OBJECT_CTOR_HPP_INCLUDED
 
-#include <sge/src/core/export_function_instantiation.hpp>
 #include <sge/image/impl/view/const_object_impl.hpp>
 #include <sge/image/impl/view/format_macro.hpp>
+#include <sge/src/core/export_function_instantiation.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
 #include <fcppt/config/external_end.hpp>

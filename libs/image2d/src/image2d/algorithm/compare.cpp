@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/impl/algorithm/compare_impl.hpp>
+#include <sge/image/impl/algorithm/instantiate_compare.hpp>
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/algorithm/compare.hpp>
 #include <sge/image2d/traits/const_view_fwd.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/image/impl/algorithm/compare_impl.hpp>
-#include <sge/image/impl/algorithm/instantiate_compare.hpp>
 
 
 bool

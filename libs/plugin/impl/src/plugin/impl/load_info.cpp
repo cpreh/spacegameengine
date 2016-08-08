@@ -19,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/plugin/info.hpp>
-#include <sge/plugin/library/detail/version_function_name.hpp>
 #include <sge/plugin/impl/load_info.hpp>
 #include <sge/plugin/impl/library/load_function.hpp>
 #include <sge/plugin/impl/library/object.hpp>
+#include <sge/plugin/library/detail/version_function_name.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>

@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_SUB_OUT_OF_RANGE_HPP_INCLUDED
 
 #include <sge/image/box.hpp>
+#include <sge/image/impl/view/sub_out_of_range_impl.hpp>
 #include <sge/image/traits/box_fwd.hpp>
 #include <sge/src/core/export_class_instantiation.hpp>
-#include <sge/image/impl/view/sub_out_of_range_impl.hpp>
 
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_SUB_OUT_OF_RANGE(\

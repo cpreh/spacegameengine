@@ -23,13 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/dim_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
 #include <sge/image/color/impl/dynamic/algorithm/cac/visitor.hpp>
 #include <sge/image/color/impl/dynamic/format/object_decl.hpp>
 #include <sge/image/color/impl/dynamic/format/object_traits.hpp>
 #include <sge/image/color/impl/dynamic/view/from_static_visitor.hpp>
+#include <sge/image/traits/const_view_fwd.hpp>
+#include <sge/image/traits/dim_fwd.hpp>
+#include <sge/image/traits/view_fwd.hpp>
 #include <mizuiro/const_tag.hpp>
 #include <mizuiro/nonconst_tag.hpp>
 #include <fcppt/variant/apply_binary.hpp>

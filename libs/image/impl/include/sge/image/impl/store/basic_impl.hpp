@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/dim.hpp>
 #include <sge/image/mizuiro_color.hpp>
-#include <sge/image/store/basic.hpp>
-#include <sge/image/view/wrap.hpp>
 #include <sge/image/impl/from_mizuiro_dim.hpp>
 #include <sge/image/impl/to_mizuiro_dim.hpp>
+#include <sge/image/store/basic.hpp>
+#include <sge/image/view/wrap.hpp>
 #include <mizuiro/no_init.hpp>
 #include <mizuiro/image/dimension_impl.hpp>
 #include <mizuiro/image/store_impl.hpp>
