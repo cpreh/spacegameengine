@@ -478,13 +478,19 @@ sge::cegui::impl::geometry_buffer::appendGeometry(
 	CEGUI::uint const _vertex_count
 )
 {
+	sge::cegui::impl::texture &active_texture{
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			active_texture_
+		).get()
+	};
+
 	batches_.push_back(
 		sge::cegui::impl::batch{
 			renderer_,
 			vertex_declaration_,
 			FCPPT_ASSERT_OPTIONAL_ERROR(
-				active_texture_
-			).get().impl(),
+				active_texture.impl()
+			).get(),
 			sge::renderer::vertex::count(
 				_vertex_count
 			),

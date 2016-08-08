@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/optional/object_decl.hpp>
+#include <fcppt/optional/reference_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Size.h>
 #include <CEGUI/Texture.h>
@@ -83,9 +84,13 @@ public:
 	~texture()
 	override;
 
-	// The geometry buffer needs this so it can scope the texture
-	// correctly.
-	sge::renderer::texture::planar &
+	typedef
+	fcppt::optional::reference<
+		sge::renderer::texture::planar
+	>
+	optional_planar_texture_ref;
+
+	optional_planar_texture_ref
 	impl();
 
 	// This is called by the image_codec to circumvent the
@@ -94,11 +99,6 @@ public:
 	create_from_view(
 		sge::image2d::view::const_object const &
 	);
-
-	// We need to handle the empty texture case more than once in the
-	// texture target, so this helper function emerged
-	bool
-	empty() const;
 private:
 	CEGUI::String const &
 	getName() const

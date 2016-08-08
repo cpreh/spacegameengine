@@ -72,7 +72,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/static.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_unsigned.hpp>
+#include <fcppt/optional/deref.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Size.h>
 #include <CEGUI/String.h>
@@ -193,11 +195,11 @@ sge::cegui::impl::texture::~texture()
 {
 }
 
-sge::renderer::texture::planar &
+sge::cegui::impl::texture::optional_planar_texture_ref
 sge::cegui::impl::texture::impl()
 {
 	return
-		*FCPPT_ASSERT_OPTIONAL_ERROR(
+		fcppt::optional::deref(
 			texture_
 		);
 }
@@ -257,14 +259,7 @@ sge::cegui::impl::texture::create_from_view(
 		);
 }
 
-bool
-sge::cegui::impl::texture::empty() const
-{
-	return
-		!texture_.has_value();
-}
-
-CEGUI::String const  &
+CEGUI::String const &
 sge::cegui::impl::texture::getName() const
 {
 	return
@@ -396,7 +391,9 @@ sge::cegui::impl::texture::loadFromMemory(
 	);
 
 	sge::renderer::texture::scoped_planar_lock const lock(
-		this->impl(),
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			this->impl()
+		).get(),
 		sge::renderer::lock_mode::writeonly
 	);
 

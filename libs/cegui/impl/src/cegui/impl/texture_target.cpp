@@ -54,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
@@ -71,7 +72,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_signed.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/GeometryBuffer.h>
 #include <CEGUI/RenderQueue.h>
@@ -137,9 +141,9 @@ sge::cegui::impl::texture_target::draw(
 )
 {
 	if(
-		FCPPT_ASSERT_OPTIONAL_ERROR(
+		!FCPPT_ASSERT_OPTIONAL_ERROR(
 			texture_
-		)->empty()
+		)->impl().has_value()
 	)
 		return;
 
@@ -160,9 +164,9 @@ sge::cegui::impl::texture_target::draw(
 )
 {
 	if(
-		FCPPT_ASSERT_OPTIONAL_ERROR(
+		!FCPPT_ASSERT_OPTIONAL_ERROR(
 			texture_
-		)->empty()
+		)->impl().has_value()
 	)
 		return;
 
@@ -265,9 +269,9 @@ void
 sge::cegui::impl::texture_target::activate()
 {
 	if(
-		FCPPT_ASSERT_OPTIONAL_ERROR(
+		!FCPPT_ASSERT_OPTIONAL_ERROR(
 			texture_
-		)->empty()
+		)->impl().has_value()
 	)
 		return;
 
@@ -330,9 +334,9 @@ sge::cegui::impl::texture_target::deactivate()
 	);
 
 	if(
-		FCPPT_ASSERT_OPTIONAL_ERROR(
+		!FCPPT_ASSERT_OPTIONAL_ERROR(
 			texture_
-		)->empty()
+		)->impl().has_value()
 	)
 		return;
 
@@ -381,45 +385,51 @@ sge::cegui::impl::texture_target::clear()
 		)
 	);
 
-	// TODO: Use optionals here
-	if(
-		texture.empty()
-	)
-		return;
-
-	// Make sure we clear everything
-
-	sge::renderer::pixel_rect const rect(
-		fcppt::math::vector::null<
-			sge::renderer::pixel_rect::vector
-		>(),
-		fcppt::math::dim::structure_cast<
-			sge::renderer::pixel_rect::dim,
-			fcppt::cast::size_fun
-		>(
-			fcppt::math::dim::to_signed(
-				texture.impl().size()
-			)
+	fcppt::optional::maybe_void(
+		texture.impl(),
+		[
+			this
+		](
+			fcppt::reference<
+				sge::renderer::texture::planar
+			> const _texture
 		)
-	);
+		{
+			// Make sure we clear everything
 
-	target_->viewport(
-		sge::renderer::target::viewport(
-			rect
-		)
-	);
+			sge::renderer::pixel_rect const rect(
+				fcppt::math::vector::null<
+					sge::renderer::pixel_rect::vector
+				>(),
+				fcppt::math::dim::structure_cast<
+					sge::renderer::pixel_rect::dim,
+					fcppt::cast::size_fun
+				>(
+					fcppt::math::dim::to_signed(
+						_texture.get().size()
+					)
+				)
+			);
 
-	target_->scissor_area(
-		sge::renderer::target::scissor_area(
-			rect
-		)
-	);
+			target_->viewport(
+				sge::renderer::target::viewport(
+					rect
+				)
+			);
 
-	target_->clear(
-		sge::renderer::clear::parameters()
-		.back_buffer(
-			sge::image::color::predef::transparent()
-		)
+			target_->scissor_area(
+				sge::renderer::target::scissor_area(
+					rect
+				)
+			);
+
+			target_->clear(
+				sge::renderer::clear::parameters()
+				.back_buffer(
+					sge::image::color::predef::transparent()
+				)
+			);
+		}
 	);
 }
 
@@ -477,8 +487,9 @@ sge::cegui::impl::texture_target::declareRenderSize(
 	>
 	signed_dim;
 
-	texture_ =
-		optional_texture_unique_ptr(
+	texture_unique_ptr &texture(
+		fcppt::optional::assign(
+			texture_,
 			fcppt::math::dim::structure_cast<
 				signed_dim,
 				fcppt::cast::float_to_int_fun
@@ -511,34 +522,41 @@ sge::cegui::impl::texture_target::declareRenderSize(
 						sge::renderer::texture::capabilities::render_target
 					}
 				)
-		);
-
-	// TODO: Use optionals here
-	if(
-		texture_.get_unsafe()->empty()
-	)
-		return;
-
-	target_->color_surface(
-		sge::renderer::color_buffer::optional_surface_ref(
-			fcppt::reference_to_base<
-				sge::renderer::color_buffer::surface
-			>(
-				fcppt::make_ref(
-					texture_.get_unsafe()->impl().level(
-						sge::renderer::texture::mipmap::level(
-							0u
-						)
-					)
-				)
-			)
-		),
-		sge::renderer::target::surface_index(
-			0u
 		)
 	);
 
-	this->clear();
+	fcppt::optional::maybe_void(
+		texture->impl(),
+		[
+			this
+		](
+			fcppt::reference<
+				sge::renderer::texture::planar
+			> const _texture
+		)
+		{
+			target_->color_surface(
+				sge::renderer::color_buffer::optional_surface_ref(
+					fcppt::reference_to_base<
+						sge::renderer::color_buffer::surface
+					>(
+						fcppt::make_ref(
+							_texture.get().level(
+								sge::renderer::texture::mipmap::level(
+									0u
+								)
+							)
+						)
+					)
+				),
+				sge::renderer::target::surface_index(
+					0u
+				)
+			);
+
+			this->clear();
+		}
+	);
 }
 
 bool
