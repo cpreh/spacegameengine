@@ -556,6 +556,12 @@ function(
 			message(
 				"${LIB_NAME} includes ${INCLUDE_DIR}, which is part of sge's source directory"
 			)
+	#	elseif(
+	#			${INCLUDE_DIR_IS_PREFIX_OF_BINARY_DIR}
+	#	)
+	#		message(
+	#			"${LIB_NAME} includes ${INCLUDE_DIR}, which is part of sge's binary directory"
+	#		)
 		endif()
 	endforeach()
 

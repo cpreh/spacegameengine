@@ -35,6 +35,8 @@ sge_config_add_custom_path(
 
 set(
 	SGE_CONFIG_FILES
+	libs/config/impl/include/sge/config/impl/try_create_path.hpp
+	libs/config/impl/src/config/impl/try_create_path.cpp
 	libs/config/include/sge/config/app_name.hpp
 	libs/config/include/sge/config/app_path.hpp
 	libs/config/include/sge/config/cache_path.hpp
@@ -59,7 +61,6 @@ set(
 	libs/config/src/config/getenv.cpp
 	libs/config/src/config/getenv_exn.cpp
 	libs/config/src/config/homedir.cpp
-	libs/config/src/config/include/sge/src/config/try_create_path.hpp
 	libs/config/src/config/log_path.cpp
 	libs/config/src/config/media_path.cpp
 	libs/config/src/config/no_such_env_var.cpp
@@ -67,7 +68,6 @@ set(
 	libs/config/src/config/own_company_name.cpp
 	libs/config/src/config/own_log_path.cpp
 	libs/config/src/config/plugin_path.cpp
-	libs/config/src/config/try_create_path.cpp
 	libs/config/src/config/user_name.cpp
 )
 
@@ -88,6 +88,7 @@ endif()
 
 add_sge_base_library(
 	config
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgecore
 	TRANSITIVE_SGE_DEPS
@@ -100,7 +101,6 @@ add_sge_base_library(
 		${Boost_FILESYSTEM_LIBRARIES}
 		${Boost_SYSTEM_LIBRARIES}
 	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/config/include"
 		${MEDIA_INCLUDES}
 		${PLUGIN_INCLUDES}
 )

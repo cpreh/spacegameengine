@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/cache_path.hpp>
 #include <sge/config/company_name.hpp>
 #include <sge/config/log_path.hpp>
-#include <sge/src/config/try_create_path.hpp>
+#include <sge/config/impl/try_create_path.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -35,20 +35,14 @@ sge::config::log_path(
 	sge::config::app_name const &_app_name
 )
 {
-	boost::filesystem::path const path(
-		sge::config::cache_path(
-			sge::config::app_name(
-				_company_name.get()
+	return
+		sge::config::impl::try_create_path(
+			sge::config::cache_path(
+				sge::config::app_name(
+					_company_name.get()
+				)
 			)
 		)
-	);
-
-	sge::config::try_create_path(
-		path
-	);
-
-	return
-		path
 		/
 		(
 			_app_name.get()

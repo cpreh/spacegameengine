@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_CONFIG_TRY_CREATE_PATH_HPP_INCLUDED
-#define SGE_SRC_CONFIG_TRY_CREATE_PATH_HPP_INCLUDED
+#ifndef SGE_CONFIG_IMPL_TRY_CREATE_PATH_HPP_INCLUDED
+#define SGE_CONFIG_IMPL_TRY_CREATE_PATH_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -30,12 +30,15 @@ namespace sge
 {
 namespace config
 {
+namespace impl
+{
 
 boost::filesystem::path
 try_create_path(
 	boost::filesystem::path const &
 );
 
+}
 }
 }
 

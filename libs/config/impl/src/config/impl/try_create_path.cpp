@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/exception.hpp>
-#include <sge/src/config/try_create_path.hpp>
+#include <sge/config/impl/try_create_path.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/create_directories_recursive_exn.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 boost::filesystem::path
-sge::config::try_create_path(
+sge::config::impl::try_create_path(
 	boost::filesystem::path const &_path
 )
 {
