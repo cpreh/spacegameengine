@@ -1,5 +1,40 @@
 set(
 	SGE_GUI_FILES
+	libs/gui/impl/include/sge/gui/impl/draw_image.hpp
+	libs/gui/impl/include/sge/gui/impl/draw_image_repeat.hpp
+	libs/gui/impl/include/sge/gui/impl/draw_sprite.hpp
+	libs/gui/impl/include/sge/gui/impl/fill_rect.hpp
+	libs/gui/impl/include/sge/gui/impl/gravity_east.hpp
+	libs/gui/impl/include/sge/gui/impl/gravity_south.hpp
+	libs/gui/impl/include/sge/gui/impl/image_sprite_choices.hpp
+	libs/gui/impl/include/sge/gui/impl/make_container_pair.hpp
+	libs/gui/impl/include/sge/gui/impl/relayout_ancestor.hpp
+	libs/gui/impl/include/sge/gui/impl/renderer/scoped.hpp
+	libs/gui/impl/include/sge/gui/impl/renderer/stateless.hpp
+	libs/gui/impl/include/sge/gui/impl/shrink_rect.hpp
+	libs/gui/impl/include/sge/gui/impl/sprite_type_choices.hpp
+	libs/gui/impl/include/sge/gui/impl/style/background_color.hpp
+	libs/gui/impl/include/sge/gui/impl/style/border_color.hpp
+	libs/gui/impl/include/sge/gui/impl/style/inner_border.hpp
+	libs/gui/impl/include/sge/gui/impl/style/outer_border.hpp
+	libs/gui/impl/include/sge/gui/impl/style/simple.hpp
+	libs/gui/impl/include/sge/gui/impl/style/spacing.hpp
+	libs/gui/impl/include/sge/gui/impl/style/text_color.hpp
+	libs/gui/impl/include/sge/gui/impl/swap_pair.hpp
+	libs/gui/impl/src/gui/impl/draw_image.cpp
+	libs/gui/impl/src/gui/impl/draw_image_repeat.cpp
+	libs/gui/impl/src/gui/impl/fill_rect.cpp
+	libs/gui/impl/src/gui/impl/gravity_east.cpp
+	libs/gui/impl/src/gui/impl/gravity_south.cpp
+	libs/gui/impl/src/gui/impl/make_container_pair.cpp
+	libs/gui/impl/src/gui/impl/relayout_ancestor.cpp
+	libs/gui/impl/src/gui/impl/renderer/scoped.cpp
+	libs/gui/impl/src/gui/impl/renderer/stateless.cpp
+	libs/gui/impl/src/gui/impl/shrink_rect.cpp
+	libs/gui/impl/src/gui/impl/style/background_color.cpp
+	libs/gui/impl/src/gui/impl/style/border_color.cpp
+	libs/gui/impl/src/gui/impl/style/simple.cpp
+	libs/gui/impl/src/gui/impl/style/text_color.cpp
 	libs/gui/include/sge/gui/background/base.hpp
 	libs/gui/include/sge/gui/background/base_fwd.hpp
 	libs/gui/include/sge/gui/background/colored.hpp
@@ -115,41 +150,6 @@ set(
 	libs/gui/src/gui/context.cpp
 	libs/gui/src/gui/create_texture.cpp
 	libs/gui/src/gui/draw.cpp
-	libs/gui/src/gui/impl/draw_image.cpp
-	libs/gui/src/gui/impl/draw_image_repeat.cpp
-	libs/gui/src/gui/impl/fill_rect.cpp
-	libs/gui/src/gui/impl/gravity_east.cpp
-	libs/gui/src/gui/impl/gravity_south.cpp
-	libs/gui/src/gui/impl/make_container_pair.cpp
-	libs/gui/src/gui/impl/relayout_ancestor.cpp
-	libs/gui/src/gui/impl/renderer/scoped.cpp
-	libs/gui/src/gui/impl/renderer/stateless.cpp
-	libs/gui/src/gui/impl/shrink_rect.cpp
-	libs/gui/src/gui/impl/style/background_color.cpp
-	libs/gui/src/gui/impl/style/border_color.cpp
-	libs/gui/src/gui/impl/style/simple.cpp
-	libs/gui/src/gui/impl/style/text_color.cpp
-	libs/gui/src/gui/include/sge/gui/impl/draw_image.hpp
-	libs/gui/src/gui/include/sge/gui/impl/draw_image_repeat.hpp
-	libs/gui/src/gui/include/sge/gui/impl/draw_sprite.hpp
-	libs/gui/src/gui/include/sge/gui/impl/fill_rect.hpp
-	libs/gui/src/gui/include/sge/gui/impl/gravity_east.hpp
-	libs/gui/src/gui/include/sge/gui/impl/gravity_south.hpp
-	libs/gui/src/gui/include/sge/gui/impl/image_sprite_choices.hpp
-	libs/gui/src/gui/include/sge/gui/impl/make_container_pair.hpp
-	libs/gui/src/gui/include/sge/gui/impl/relayout_ancestor.hpp
-	libs/gui/src/gui/include/sge/gui/impl/renderer/scoped.hpp
-	libs/gui/src/gui/include/sge/gui/impl/renderer/stateless.hpp
-	libs/gui/src/gui/include/sge/gui/impl/shrink_rect.hpp
-	libs/gui/src/gui/include/sge/gui/impl/sprite_type_choices.hpp
-	libs/gui/src/gui/include/sge/gui/impl/style/background_color.hpp
-	libs/gui/src/gui/include/sge/gui/impl/style/border_color.hpp
-	libs/gui/src/gui/include/sge/gui/impl/style/inner_border.hpp
-	libs/gui/src/gui/include/sge/gui/impl/style/outer_border.hpp
-	libs/gui/src/gui/include/sge/gui/impl/style/simple.hpp
-	libs/gui/src/gui/include/sge/gui/impl/style/spacing.hpp
-	libs/gui/src/gui/include/sge/gui/impl/style/text_color.hpp
-	libs/gui/src/gui/include/sge/gui/impl/swap_pair.hpp
 	libs/gui/src/gui/main_area/base.cpp
 	libs/gui/src/gui/main_area/fixed_position.cpp
 	libs/gui/src/gui/main_area/screen_corner.cpp
@@ -184,6 +184,7 @@ set(
 
 add_sge_base_library(
 	gui
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgefont
 		sgefontdraw
@@ -213,6 +214,4 @@ add_sge_base_library(
 		${fcppt_core_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/gui/include"
 )
