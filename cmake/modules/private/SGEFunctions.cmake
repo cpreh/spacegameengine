@@ -243,6 +243,7 @@ function(
 		TRANSITIVE_COMPILE_DEFINITIONS
 		COMPILE_FLAGS
 		USE_IMPL_INCLUDE_OF
+		IMPLEMENT_FROM
 	)
 
 	cmake_parse_arguments(
@@ -389,6 +390,7 @@ function(
 			)
 		endif()
 
+		# TODO: Get rid of this
 		foreach(
 			INCLUDE_DEP
 			${_USE_IMPL_INCLUDE_OF}
@@ -397,6 +399,29 @@ function(
 				${SGE_LIB_NAME}
 				PRIVATE
 				${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/${INCLUDE_DEP}/impl/include
+			)
+		endforeach()
+
+		foreach(
+			IMPL_DEP
+			${_IMPLEMENT_FROM}
+		)
+			string(
+				TOUPPER
+				${IMPL_DEP}
+				UPPER_IMPL_DEP
+			)
+
+			target_compile_definitions(
+				${SGE_LIB_NAME}
+				PRIVATE
+				"SGE_${UPPER_IMPL_DEP}_DETAIL_INSTANTIATE_EXPORTS"
+			)
+
+			target_include_directories(
+				${SGE_LIB_NAME}
+				PRIVATE
+				${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/${IMPL_DEP}/impl/include
 			)
 		endforeach()
 	endif()
@@ -476,6 +501,7 @@ function(
 		TRANSITIVE_COMPILE_DEFINITIONS
 		COMPILE_FLAGS
 		USE_IMPL_INCLUDE_OF
+		IMPLEMENT_FROM
 	)
 
 	cmake_parse_arguments(
@@ -711,6 +737,9 @@ endfunction()
 #
 # USE_IMPL_INCLUDE_OF:
 #	A list of sge libraries to use the impl include directory from.
+#
+# IMPLEMENT_FROM:
+#	A list of sge libraries to implement templates from
 #
 function(
 	add_sge_base_library
