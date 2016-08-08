@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/src/viewport/center.hpp>
-#include <sge/src/viewport/maintain_aspect_function.hpp>
+#include <sge/viewport/impl/center.hpp>
+#include <sge/viewport/impl/maintain_aspect_function.hpp>
 #include <sge/viewport/fractional_aspect.hpp>
 #include <sge/window/dim.hpp>
 #include <awl/window/event/resize.hpp>
@@ -39,9 +39,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-typedef boost::rational<
+typedef
+boost::rational<
 	sge::viewport::fractional_aspect::value_type
-> rational;
+>
+rational;
 
 rational::int_type
 truncate_rational(
@@ -57,7 +59,7 @@ truncate_rational(
 }
 
 sge::renderer::target::viewport
-sge::viewport::maintain_aspect_function(
+sge::viewport::impl::maintain_aspect_function(
 	awl::window::event::resize const &_event,
 	sge::viewport::fractional_aspect const _aspect
 )
@@ -116,7 +118,7 @@ sge::viewport::maintain_aspect_function(
 	);
 
 	return
-		sge::viewport::center(
+		sge::viewport::impl::center(
 			horizontal
 			?
 				sge::window::dim(

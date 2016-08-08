@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/src/viewport/detail/manager_impl.hpp>
+#include <sge/viewport/impl/detail/manager_impl.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/viewport/resize_callback.hpp>

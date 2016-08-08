@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/src/viewport/center.hpp>
+#include <sge/viewport/impl/center.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/viewport/resize_callback.hpp>
 #include <sge/window/dim.hpp>
@@ -42,7 +42,7 @@ sge::viewport::center_on_resize(
 			)
 			{
 				return
-					sge::viewport::center(
+					sge::viewport::impl::center(
 						_dim,
 						fcppt::math::dim::structure_cast<
 							sge::window::dim,

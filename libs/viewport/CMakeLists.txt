@@ -1,5 +1,11 @@
 set(
 	SGE_VIEWPORT_FILES
+	libs/viewport/impl/include/sge/viewport/impl/center.hpp
+	libs/viewport/impl/include/sge/viewport/impl/detail/manager_impl.hpp
+	libs/viewport/impl/include/sge/viewport/impl/maintain_aspect_function.hpp
+	libs/viewport/impl/src/viewport/impl/center.cpp
+	libs/viewport/impl/src/viewport/impl/detail/manager_impl.cpp
+	libs/viewport/impl/src/viewport/impl/maintain_aspect_function.cpp
 	libs/viewport/include/sge/viewport/center_on_resize.hpp
 	libs/viewport/include/sge/viewport/detail/manager_impl_fwd.hpp
 	libs/viewport/include/sge/viewport/fill_on_resize.hpp
@@ -14,16 +20,10 @@ set(
 	libs/viewport/include/sge/viewport/optional_resize_callback_fwd.hpp
 	libs/viewport/include/sge/viewport/resize_callback.hpp
 	libs/viewport/include/sge/viewport/resize_function.hpp
-	libs/viewport/src/viewport/center.cpp
 	libs/viewport/src/viewport/center_on_resize.cpp
-	libs/viewport/src/viewport/detail/manager_impl.cpp
 	libs/viewport/src/viewport/fill_on_resize.cpp
 	libs/viewport/src/viewport/fractional_aspect.cpp
-	libs/viewport/src/viewport/include/sge/src/viewport/center.hpp
-	libs/viewport/src/viewport/include/sge/src/viewport/detail/manager_impl.hpp
-	libs/viewport/src/viewport/include/sge/src/viewport/maintain_aspect_function.hpp
 	libs/viewport/src/viewport/maintain_aspect.cpp
-	libs/viewport/src/viewport/maintain_aspect_function.cpp
 	libs/viewport/src/viewport/manager.cpp
 )
 
@@ -34,6 +34,7 @@ find_package(
 
 add_sge_base_library(
 	viewport
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgerenderer
 		sgewindow
@@ -46,6 +47,4 @@ add_sge_base_library(
 	TRANSITIVE_ADDITIONAL_DEPS
 		awl_interface
 		fcppt_core_interface
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/viewport/include"
 )

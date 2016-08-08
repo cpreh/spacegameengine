@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_VIEWPORT_MAINTAIN_ASPECT_FUNCTION_HPP_INCLUDED
-#define SGE_SRC_VIEWPORT_MAINTAIN_ASPECT_FUNCTION_HPP_INCLUDED
+#ifndef SGE_VIEWPORT_IMPL_MAINTAIN_ASPECT_FUNCTION_HPP_INCLUDED
+#define SGE_VIEWPORT_IMPL_MAINTAIN_ASPECT_FUNCTION_HPP_INCLUDED
 
 #include <sge/renderer/target/viewport_fwd.hpp>
 #include <sge/viewport/fractional_aspect.hpp>
@@ -30,6 +30,8 @@ namespace sge
 {
 namespace viewport
 {
+namespace impl
+{
 
 sge::renderer::target::viewport
 maintain_aspect_function(
@@ -37,6 +39,7 @@ maintain_aspect_function(
 	sge::viewport::fractional_aspect
 );
 
+}
 }
 }
 

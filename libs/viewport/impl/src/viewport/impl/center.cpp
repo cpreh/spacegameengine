@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <sge/src/viewport/center.hpp>
+#include <sge/viewport/impl/center.hpp>
 #include <sge/window/dim.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size.hpp>
@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::target::viewport
-sge::viewport::center(
+sge::viewport::impl::center(
 	sge::window::dim const &_ref_dim,
 	sge::window::dim const &_window_dim
 )

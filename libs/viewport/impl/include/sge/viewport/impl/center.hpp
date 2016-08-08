@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_VIEWPORT_CENTER_HPP_INCLUDED
-#define SGE_SRC_VIEWPORT_CENTER_HPP_INCLUDED
+#ifndef SGE_VIEWPORT_IMPL_CENTER_HPP_INCLUDED
+#define SGE_VIEWPORT_IMPL_CENTER_HPP_INCLUDED
 
 #include <sge/renderer/target/viewport_fwd.hpp>
 #include <sge/window/dim.hpp>
@@ -29,6 +29,8 @@ namespace sge
 {
 namespace viewport
 {
+namespace impl
+{
 
 sge::renderer::target::viewport
 center(
@@ -36,6 +38,7 @@ center(
 	sge::window::dim const &window_dim
 );
 
+}
 }
 }
 
