@@ -18,28 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/model/md3/create.hpp>
-#include <sge/model/md3/loader.hpp>
-#include <sge/model/md3/loader_unique_ptr.hpp>
-#include <sge/model/md3/impl/loader.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <sge/model/md3/exception.hpp>
+#include <sge/model/md3/impl/endian.hpp>
+#include <sge/model/md3/impl/read_s32.hpp>
+#include <sge/model/md3/impl/s32.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/io/read.hpp>
+#include <fcppt/optional/to_exception.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <iosfwd>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::model::md3::loader_unique_ptr
-sge::model::md3::create(
-	fcppt::log::context &_log_context
+sge::model::md3::impl::s32
+sge::model::md3::impl::read_s32(
+	std::istream &_stream
 )
 {
 	return
-		fcppt::unique_ptr_to_base<
-			sge::model::md3::loader
-		>(
-			fcppt::make_unique_ptr<
-				sge::model::md3::impl::loader
+		fcppt::optional::to_exception(
+			fcppt::io::read<
+				sge::model::md3::impl::s32
 			>(
-				_log_context
-			)
+				_stream,
+				sge::model::md3::impl::endian()
+			),
+			[]{
+				return
+					sge::model::md3::exception{
+						FCPPT_TEXT("Failed reading an s32")
+					};
+			}
 		);
 }

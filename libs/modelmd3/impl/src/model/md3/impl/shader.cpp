@@ -18,28 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/model/md3/create.hpp>
-#include <sge/model/md3/loader.hpp>
-#include <sge/model/md3/loader_unique_ptr.hpp>
-#include <sge/model/md3/impl/loader.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <sge/model/md3/impl/endian.hpp>
+#include <sge/model/md3/impl/max_qpath.hpp>
+#include <sge/model/md3/impl/read_s32.hpp>
+#include <sge/model/md3/impl/read_string.hpp>
+#include <sge/model/md3/impl/shader.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <iosfwd>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::model::md3::loader_unique_ptr
-sge::model::md3::create(
-	fcppt::log::context &_log_context
+sge::model::md3::impl::shader::shader(
+	std::istream &_stream
 )
-{
-	return
-		fcppt::unique_ptr_to_base<
-			sge::model::md3::loader
+:
+	name_(
+		sge::model::md3::impl::read_string<
+			sge::model::md3::impl::max_qpath::value
 		>(
-			fcppt::make_unique_ptr<
-				sge::model::md3::impl::loader
-			>(
-				_log_context
-			)
-		);
+			_stream
+		)
+	),
+	shader_index_(
+		sge::model::md3::impl::read_s32(
+			_stream
+		)
+	)
+{
 }

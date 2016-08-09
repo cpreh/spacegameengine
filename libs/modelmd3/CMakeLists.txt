@@ -1,5 +1,58 @@
 set(
 	SGE_MODELMD3_FILES
+	libs/modelmd3/impl/include/sge/model/md3/impl/axis_array.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/convert_normal.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/endian.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/frame.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/frame_vector.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/index_array.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/loader.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/log_name.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/max_qpath.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/object.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/read_and_check_id3p.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/read_s16.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/read_s32.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/read_scalar.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/read_string.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/read_vec3.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/s16.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/s32.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/shader.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/shader_vector.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/surface.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/surface_vector.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/tag.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/tag_vector.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/texpos.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/texpos_vector.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/transformed_vertex.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/transformed_vertex_vector.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/triangle.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/triangle_vector.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/vec3.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/vec3_fwd.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/vertex.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/vertex_fwd.hpp
+	libs/modelmd3/impl/include/sge/model/md3/impl/xyz_scale.hpp
+	libs/modelmd3/impl/src/model/md3/impl/convert_normal.cpp
+	libs/modelmd3/impl/src/model/md3/impl/frame.cpp
+	libs/modelmd3/impl/src/model/md3/impl/loader.cpp
+	libs/modelmd3/impl/src/model/md3/impl/log_name.cpp
+	libs/modelmd3/impl/src/model/md3/impl/object.cpp
+	libs/modelmd3/impl/src/model/md3/impl/read_and_check_id3p.cpp
+	libs/modelmd3/impl/src/model/md3/impl/read_s16.cpp
+	libs/modelmd3/impl/src/model/md3/impl/read_s32.cpp
+	libs/modelmd3/impl/src/model/md3/impl/read_scalar.cpp
+	libs/modelmd3/impl/src/model/md3/impl/read_string.cpp
+	libs/modelmd3/impl/src/model/md3/impl/read_vec3.cpp
+	libs/modelmd3/impl/src/model/md3/impl/shader.cpp
+	libs/modelmd3/impl/src/model/md3/impl/surface.cpp
+	libs/modelmd3/impl/src/model/md3/impl/tag.cpp
+	libs/modelmd3/impl/src/model/md3/impl/texpos.cpp
+	libs/modelmd3/impl/src/model/md3/impl/transformed_vertex.cpp
+	libs/modelmd3/impl/src/model/md3/impl/triangle.cpp
+	libs/modelmd3/impl/src/model/md3/impl/vertex.cpp
 	libs/modelmd3/include/sge/model/md3/create.hpp
 	libs/modelmd3/include/sge/model/md3/exception.hpp
 	libs/modelmd3/include/sge/model/md3/index.hpp
@@ -31,68 +84,16 @@ set(
 	libs/modelmd3/include/sge/model/md3/texcoord_sequence.hpp
 	libs/modelmd3/include/sge/model/md3/u8.hpp
 	libs/modelmd3/include/sge/model/md3/vertex_sequence.hpp
-	libs/modelmd3/src/model/md3/convert_normal.cpp
 	libs/modelmd3/src/model/md3/create.cpp
 	libs/modelmd3/src/model/md3/exception.cpp
-	libs/modelmd3/src/model/md3/frame.cpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/axis_array.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/convert_normal.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/endian.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/frame.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/frame_vector.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/index_array.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/loader_impl.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/log_name.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/max_qpath.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/object_impl.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/read_and_check_id3p.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/read_s16.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/read_s32.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/read_scalar.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/read_string.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/read_vec3.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/s16.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/s32.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/shader.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/shader_vector.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/surface.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/surface_vector.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/tag.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/tag_vector.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/texpos.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/texpos_vector.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/transformed_vertex.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/transformed_vertex_vector.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/triangle.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/triangle_vector.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/vec3.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/vec3_fwd.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/vertex.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/vertex_fwd.hpp
-	libs/modelmd3/src/model/md3/include/sge/src/model/md3/xyz_scale.hpp
 	libs/modelmd3/src/model/md3/loader.cpp
-	libs/modelmd3/src/model/md3/loader_impl.cpp
 	libs/modelmd3/src/model/md3/log_location.cpp
-	libs/modelmd3/src/model/md3/log_name.cpp
 	libs/modelmd3/src/model/md3/object.cpp
-	libs/modelmd3/src/model/md3/object_impl.cpp
-	libs/modelmd3/src/model/md3/read_and_check_id3p.cpp
-	libs/modelmd3/src/model/md3/read_s16.cpp
-	libs/modelmd3/src/model/md3/read_s32.cpp
-	libs/modelmd3/src/model/md3/read_scalar.cpp
-	libs/modelmd3/src/model/md3/read_string.cpp
-	libs/modelmd3/src/model/md3/read_vec3.cpp
-	libs/modelmd3/src/model/md3/shader.cpp
-	libs/modelmd3/src/model/md3/surface.cpp
-	libs/modelmd3/src/model/md3/tag.cpp
-	libs/modelmd3/src/model/md3/texpos.cpp
-	libs/modelmd3/src/model/md3/transformed_vertex.cpp
-	libs/modelmd3/src/model/md3/triangle.cpp
-	libs/modelmd3/src/model/md3/vertex.cpp
 )
 
 add_sge_base_library(
 	"model/md3"
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgecore
 		sgelog
@@ -105,6 +106,4 @@ add_sge_base_library(
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
 		fcppt_log_interface
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/model/md3/include"
 )

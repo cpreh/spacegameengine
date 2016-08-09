@@ -18,28 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/model/md3/create.hpp>
-#include <sge/model/md3/loader.hpp>
-#include <sge/model/md3/loader_unique_ptr.hpp>
-#include <sge/model/md3/impl/loader.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#ifndef SGE_MODEL_MD3_IMPL_TEXPOS_HPP_INCLUDED
+#define SGE_MODEL_MD3_IMPL_TEXPOS_HPP_INCLUDED
+
+#include <sge/model/md3/scalar.hpp>
+#include <sge/model/md3/texcoord.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <istream>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::model::md3::loader_unique_ptr
-sge::model::md3::create(
-	fcppt::log::context &_log_context
-)
+namespace sge
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::model::md3::loader
-		>(
-			fcppt::make_unique_ptr<
-				sge::model::md3::impl::loader
-			>(
-				_log_context
-			)
-		);
+namespace model
+{
+namespace md3
+{
+namespace impl
+{
+
+class texpos
+{
+public:
+	explicit
+	texpos(
+		std::istream &
+	);
+
+	sge::model::md3::texcoord
+	texcoord() const;
+private:
+	sge::model::md3::scalar x_, y_;
+};
+
 }
+}
+}
+}
+
+#endif

@@ -18,28 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/model/md3/create.hpp>
-#include <sge/model/md3/loader.hpp>
-#include <sge/model/md3/loader_unique_ptr.hpp>
-#include <sge/model/md3/impl/loader.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <sge/model/md3/impl/frame.hpp>
+#include <sge/model/md3/impl/read_scalar.hpp>
+#include <sge/model/md3/impl/read_string.hpp>
+#include <sge/model/md3/impl/read_vec3.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <iosfwd>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::model::md3::loader_unique_ptr
-sge::model::md3::create(
-	fcppt::log::context &_log_context
+sge::model::md3::impl::frame::frame(
+	std::istream &_stream
 )
-{
-	return
-		fcppt::unique_ptr_to_base<
-			sge::model::md3::loader
+:
+	min_bounds_(
+		sge::model::md3::impl::read_vec3(
+			_stream
+		)
+	),
+	max_bounds_(
+		sge::model::md3::impl::read_vec3(
+			_stream
+		)
+	),
+	local_origin_(
+		sge::model::md3::impl::read_vec3(
+			_stream
+		)
+	),
+	radius_(
+		sge::model::md3::impl::read_scalar(
+			_stream
+		)
+	),
+	name_(
+		sge::model::md3::impl::read_string<
+			16
 		>(
-			fcppt::make_unique_ptr<
-				sge::model::md3::impl::loader
-			>(
-				_log_context
-			)
-		);
+			_stream
+		)
+	)
+{
 }

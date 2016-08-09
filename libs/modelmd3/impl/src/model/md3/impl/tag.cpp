@@ -18,28 +18,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/model/md3/create.hpp>
-#include <sge/model/md3/loader.hpp>
-#include <sge/model/md3/loader_unique_ptr.hpp>
-#include <sge/model/md3/impl/loader.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <sge/model/md3/impl/axis_array.hpp>
+#include <sge/model/md3/impl/max_qpath.hpp>
+#include <sge/model/md3/impl/read_string.hpp>
+#include <sge/model/md3/impl/read_vec3.hpp>
+#include <sge/model/md3/impl/tag.hpp>
+#include <sge/model/md3/impl/vec3.hpp>
+#include <fcppt/algorithm/array_init_move.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <cstddef>
+#include <iosfwd>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::model::md3::loader_unique_ptr
-sge::model::md3::create(
-	fcppt::log::context &_log_context
+sge::model::md3::impl::tag::tag(
+	std::istream &_stream
 )
-{
-	return
-		fcppt::unique_ptr_to_base<
-			sge::model::md3::loader
+:
+	name_(
+		sge::model::md3::impl::read_string<
+			sge::model::md3::impl::max_qpath::value
 		>(
-			fcppt::make_unique_ptr<
-				sge::model::md3::impl::loader
-			>(
-				_log_context
-			)
-		);
+			_stream
+		)
+	),
+	origin_(
+		sge::model::md3::impl::read_vec3(
+			_stream
+		)
+	),
+	axis_(
+		fcppt::algorithm::array_init_move<
+			sge::model::md3::impl::axis_array
+		>(
+			[
+				&_stream
+			]
+			{
+				return
+					sge::model::md3::impl::read_vec3(
+						_stream
+					);
+			}
+		)
+	)
+{
 }
