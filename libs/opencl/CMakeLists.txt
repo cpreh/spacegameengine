@@ -1,5 +1,12 @@
 set(
 	SGE_OPENCL_FILES
+	libs/opencl/impl/include/sge/opencl/impl/event/flatten_sequence.hpp
+	libs/opencl/impl/include/sge/opencl/impl/handle_error.hpp
+	libs/opencl/impl/include/sge/opencl/impl/memory_object/renderer_buffer_lock_mode_to_cl_mem_flags.hpp
+	libs/opencl/impl/include/sge/opencl/impl/memory_object/to_opencl_mem_flags.hpp
+	libs/opencl/impl/src/opencl/impl/event/flatten_sequence.cpp
+	libs/opencl/impl/src/opencl/impl/handle_error.cpp
+	libs/opencl/impl/src/opencl/impl/memory_object/to_opencl_mem_flags.cpp
 	libs/opencl/include/sge/opencl/binary_error_data.hpp
 	libs/opencl/include/sge/opencl/clinclude.hpp
 	libs/opencl/include/sge/opencl/command_queue/enqueue_kernel.hpp
@@ -116,14 +123,8 @@ set(
 	libs/opencl/src/opencl/context/object.cpp
 	libs/opencl/src/opencl/context/parameters.cpp
 	libs/opencl/src/opencl/device/object.cpp
-	libs/opencl/src/opencl/event/flatten_sequence.cpp
 	libs/opencl/src/opencl/event/object.cpp
 	libs/opencl/src/opencl/exception.cpp
-	libs/opencl/src/opencl/handle_error.cpp
-	libs/opencl/src/opencl/include/sge/src/opencl/event/flatten_sequence.hpp
-	libs/opencl/src/opencl/include/sge/src/opencl/handle_error.hpp
-	libs/opencl/src/opencl/include/sge/src/opencl/memory_object/renderer_buffer_lock_mode_to_cl_mem_flags.hpp
-	libs/opencl/src/opencl/include/sge/src/opencl/memory_object/to_opencl_mem_flags.hpp
 	libs/opencl/src/opencl/kernel/local_buffer.cpp
 	libs/opencl/src/opencl/kernel/object.cpp
 	libs/opencl/src/opencl/log_location.cpp
@@ -137,7 +138,6 @@ set(
 	libs/opencl/src/opencl/memory_object/image/sge_color_format_to_opencl.cpp
 	libs/opencl/src/opencl/memory_object/image/volume.cpp
 	libs/opencl/src/opencl/memory_object/scoped_objects.cpp
-	libs/opencl/src/opencl/memory_object/to_opencl_mem_flags.cpp
 	libs/opencl/src/opencl/platform/object.cpp
 	libs/opencl/src/opencl/platform/version.cpp
 	libs/opencl/src/opencl/program/build_error.cpp
@@ -182,6 +182,7 @@ configure_file(
 
 add_sge_base_library(
 	opencl
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgecore
 		sgeimagecolor
@@ -205,7 +206,6 @@ add_sge_base_library(
 	INCLUDE_DIRS
 		${OpenCL_INCLUDE_DIRS}
 		${OPENGL_INCLUDE_DIR}
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/opencl/include"
 		"${CMAKE_CURRENT_BINARY_DIR}/include"
 	COMPILE_DEFINITIONS
 		"CL_USE_DEPRECATED_OPENCL_1_1_APIS"

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/program/build_error.hpp>
 #include <sge/opencl/program/build_parameters.hpp>
 #include <sge/opencl/program/object.hpp>
-#include <sge/src/opencl/handle_error.hpp>
+#include <sge/opencl/impl/handle_error.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
@@ -135,11 +135,11 @@ sge::opencl::program::object::object(
 		:
 		return_status
 	)
-		opencl::handle_error(
+		opencl::impl::handle_error(
 			current_return_status,
 			FCPPT_TEXT("clCreateProgramWithBinary"));
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clCreateProgramWithBinary"));
 
@@ -213,7 +213,7 @@ sge::opencl::program::object::object(
 			lengths.data(),
 			&error_code);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clCreateProgramWithSource"));
 
@@ -375,7 +375,7 @@ sge::opencl::program::object::~object()
 		clReleaseProgram(
 			program_);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clReleaseProgram"));
 }
@@ -416,7 +416,7 @@ sge::opencl::program::object::program_devices() const
 			&number_of_devices,
 			0);
 
-	sge::opencl::handle_error(
+	sge::opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetProgramInfo(CL_PROGRAM_NUM_DEVICES)"));
 
@@ -433,7 +433,7 @@ sge::opencl::program::object::program_devices() const
 			devices.data(),
 			0);
 
-	sge::opencl::handle_error(
+	sge::opencl::impl::handle_error(
 		error_code2,
 		FCPPT_TEXT("clGetProgramInfo(CL_PROGRAM_DEVICES)"));
 
@@ -465,7 +465,7 @@ sge::opencl::program::object::check_program_return_values()
 				&return_status,
 				0);
 
-		opencl::handle_error(
+		opencl::impl::handle_error(
 			error_code4,
 			FCPPT_TEXT("clGetProgramBuildInfo(Build status of a device)"));
 
@@ -490,7 +490,7 @@ sge::opencl::program::object::check_program_return_values()
 				0,
 				&program_build_log_size);
 
-		opencl::handle_error(
+		opencl::impl::handle_error(
 			error_code5,
 			FCPPT_TEXT("clGetProgramBuildInfo(Build log size)"));
 
@@ -508,7 +508,7 @@ sge::opencl::program::object::check_program_return_values()
 				&build_log[0],
 				0);
 
-		opencl::handle_error(
+		opencl::impl::handle_error(
 			error_code6,
 			FCPPT_TEXT("clGetProgramBuildInfo(Build log string)"));
 

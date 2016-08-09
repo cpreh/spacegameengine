@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/memory_object/scoped_objects.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
-#include <sge/src/opencl/handle_error.hpp>
+#include <sge/opencl/impl/handle_error.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 
@@ -67,7 +67,7 @@ sge::opencl::memory_object::scoped_objects::scoped_objects(
 			0,
 			0,
 			0);
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clEnqueueAcquireGLObjects"));
 }
@@ -78,6 +78,7 @@ sge::opencl::memory_object::scoped_objects::~scoped_objects()
 	fcppt::container::raw_vector<cl_mem>
 	mem_vector;
 
+	// TODO: map
 	mem_vector impls;
 	impls.reserve(
 		static_cast<mem_vector::size_type>(
@@ -99,14 +100,14 @@ sge::opencl::memory_object::scoped_objects::~scoped_objects()
 			0,
 			0,
 			0);
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clReleaseAcquireGLObjects"));
 
 	error_code =
 		clFinish(
 			queue_.impl());
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clFinish"));
 }

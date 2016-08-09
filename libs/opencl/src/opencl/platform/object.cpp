@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/platform/object.hpp>
 #include <sge/opencl/platform/profile_type.hpp>
-#include <sge/src/opencl/handle_error.hpp>
+#include <sge/opencl/impl/handle_error.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/contains.hpp>
 #include <fcppt/assert/pre_message.hpp>
@@ -51,7 +51,7 @@ platform_info_string(
 			0, // param value (we don't want that, yet)
 			&param_value_size);
 
-	sge::opencl::handle_error(
+	sge::opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetPlatformInfo"));
 
@@ -68,7 +68,7 @@ platform_info_string(
 			// param value size
 			0);
 
-	sge::opencl::handle_error(
+	sge::opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetPlatformInfo"));
 
@@ -200,7 +200,7 @@ sge::opencl::platform::object::object(
 			0,
 			&number_of_devices);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetDeviceIDs"));
 
@@ -223,7 +223,7 @@ sge::opencl::platform::object::object(
 			// Pointer to the number of devices
 			0);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetDeviceIDs"));
 

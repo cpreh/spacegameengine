@@ -18,28 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_OPENCL_EVENT_FLATTEN_SEQUENCE_HPP_INCLUDED
-#define SGE_SRC_OPENCL_EVENT_FLATTEN_SEQUENCE_HPP_INCLUDED
+#ifndef SGE_OPENCL_IMPL_MEMORY_OBJECT_TO_OPENCL_MEM_FLAGS_HPP_INCLUDED
+#define SGE_OPENCL_IMPL_MEMORY_OBJECT_TO_OPENCL_MEM_FLAGS_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/event/sequence.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
+#include <sge/opencl/memory_object/flags_field.hpp>
 
 
 namespace sge
 {
 namespace opencl
 {
-namespace event
+namespace impl
 {
-std::vector<cl_event>
-flatten_sequence(
-	sge::opencl::event::sequence const &);
+namespace memory_object
+{
+
+cl_mem_flags
+to_opencl_mem_flags(
+	sge::opencl::memory_object::flags_field const &
+);
+
+}
 }
 }
 }
 
 #endif
-

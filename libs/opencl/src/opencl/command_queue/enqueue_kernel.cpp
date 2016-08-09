@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/event/object.hpp>
 #include <sge/opencl/kernel/object.hpp>
-#include <sge/src/opencl/handle_error.hpp>
-#include <sge/src/opencl/event/flatten_sequence.hpp>
+#include <sge/opencl/impl/handle_error.hpp>
+#include <sge/opencl/impl/event/flatten_sequence.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -139,7 +139,7 @@ enqueue_kernel_internal(
 			?
 				nullptr
 			:
-				sge::opencl::event::flatten_sequence(
+				sge::opencl::impl::event::flatten_sequence(
 					_events).data(),
 			&(result->handle()));
 
@@ -180,7 +180,7 @@ enqueue_kernel_internal(
 			);
 	}
 
-	sge::opencl::handle_error(
+	sge::opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clEnqueueNDRangeKernel(work)"));
 

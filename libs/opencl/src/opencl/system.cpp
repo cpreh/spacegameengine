@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/system.hpp>
 #include <sge/opencl/platform/object.hpp>
-#include <sge/src/opencl/handle_error.hpp>
+#include <sge/opencl/impl/handle_error.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector.hpp>
 
@@ -41,7 +41,7 @@ sge::opencl::system::system()
 			0,
 			&number_of_platforms);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetplatformIDs"));
 
@@ -64,7 +64,7 @@ sge::opencl::system::system()
 			// pointer to the number of platforms
 			0);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetplatformIDs"));
 

@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/command_queue/scoped_buffer_mapping.hpp>
 #include <sge/opencl/memory_object/buffer.hpp>
-#include <sge/src/opencl/handle_error.hpp>
-#include <sge/src/opencl/event/flatten_sequence.hpp>
+#include <sge/opencl/impl/handle_error.hpp>
+#include <sge/opencl/impl/event/flatten_sequence.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 
@@ -62,13 +62,13 @@ sge::opencl::command_queue::scoped_buffer_mapping::scoped_buffer_mapping(
 			?
 				0
 			:
-				sge::opencl::event::flatten_sequence(
+				sge::opencl::impl::event::flatten_sequence(
 					_events).data(),
 			// result event
 			0,
 			&error_code);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clEnqueueMapBuffer"));
 }
@@ -93,7 +93,7 @@ sge::opencl::command_queue::scoped_buffer_mapping::~scoped_buffer_mapping()
 			0,
 			0);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clEnqueueUnmapMemObject"));
 }

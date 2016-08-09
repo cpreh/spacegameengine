@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/image/volume.hpp>
 #include <sge/renderer/opengl/texture/base.hpp>
 #include <sge/renderer/texture/volume.hpp>
-#include <sge/src/opencl/handle_error.hpp>
-#include <sge/src/opencl/memory_object/to_opencl_mem_flags.hpp>
+#include <sge/opencl/impl/handle_error.hpp>
+#include <sge/opencl/impl/memory_object/to_opencl_mem_flags.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -52,7 +52,7 @@ sge::opencl::memory_object::image::volume::volume(
 	impl_ =
 		clCreateFromGLTexture3D(
 			_context.impl(),
-			memory_object::to_opencl_mem_flags(
+			sge::opencl::impl::memory_object::to_opencl_mem_flags(
 				_mem_flags),
 			dynamic_cast<renderer::opengl::texture::base &>(
 				_renderer_texture).type().get(),
@@ -62,7 +62,7 @@ sge::opencl::memory_object::image::volume::volume(
 				_renderer_texture).id().get(),
 			&error_code);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clCreateFromGLTexture3D()"));
 
@@ -74,7 +74,7 @@ sge::opencl::memory_object::image::volume::volume(
 			&image_format_,
 			0);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetImageInfo(image format)"));
 }
@@ -104,7 +104,7 @@ sge::opencl::memory_object::image::volume::~volume()
 		clReleaseMemObject(
 			impl_);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clReleaseMemObject(volume texture)"));
 }

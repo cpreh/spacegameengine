@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/device/object.hpp>
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/config.hpp>
-#include <sge/src/opencl/handle_error.hpp>
+#include <sge/opencl/impl/handle_error.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/container/raw_vector.hpp>
@@ -123,7 +123,7 @@ sge::opencl::context::object::object(
 			this,
 			&error_code);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clCreateContext"));
 }
@@ -149,7 +149,7 @@ sge::opencl::context::object::supported_planar_image_formats(
 			0,
 			&num_entries);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetSupportedImageFormats(number of formats)"));
 
@@ -166,7 +166,7 @@ sge::opencl::context::object::supported_planar_image_formats(
 			&result[0],
 			0);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetSupportedImageFormats(format list)"));
 
@@ -188,7 +188,7 @@ sge::opencl::context::object::supported_volume_image_formats(
 			0,
 			&num_entries);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetSupportedImageFormats(number of formats)"));
 
@@ -205,7 +205,7 @@ sge::opencl::context::object::supported_volume_image_formats(
 			&result[0],
 			0);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetSupportedImageFormats(format list)"));
 
@@ -221,7 +221,7 @@ sge::opencl::context::object::~object()
 		clReleaseContext(
 			context_);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clReleaseContext"));
 }

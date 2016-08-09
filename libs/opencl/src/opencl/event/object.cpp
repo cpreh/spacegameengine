@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opencl/event/object.hpp>
-#include <sge/src/opencl/handle_error.hpp>
+#include <sge/opencl/impl/handle_error.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
@@ -56,7 +56,7 @@ sge::opencl::event::object::~object()
 	if(!handle_retrieved_)
 		return;
 
-	sge::opencl::handle_error(
+	sge::opencl::impl::handle_error(
 		clReleaseEvent(
 			handle_),
 		fcppt::string(

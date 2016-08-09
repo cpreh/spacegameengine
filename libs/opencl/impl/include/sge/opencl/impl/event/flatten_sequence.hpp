@@ -18,26 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/src/opencl/memory_object/to_opencl_mem_flags.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
-#include <fcppt/container/bitfield/operators.hpp>
+#ifndef SGE_OPENCL_IMPL_EVENT_FLATTEN_SEQUENCE_HPP_INCLUDED
+#define SGE_OPENCL_IMPL_EVENT_FLATTEN_SEQUENCE_HPP_INCLUDED
+
+#include <sge/opencl/clinclude.hpp>
+#include <sge/opencl/event/sequence.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
-cl_mem_flags
-sge::opencl::memory_object::to_opencl_mem_flags(
-	memory_object::flags_field const &f)
+namespace sge
 {
-	cl_mem_flags result = 0;
+namespace opencl
+{
+namespace impl
+{
+namespace event
+{
 
-	if(f & memory_object::flags::read && f & memory_object::flags::write)
-		result = CL_MEM_READ_WRITE;
-	else if(f & memory_object::flags::read)
-		result = CL_MEM_READ_ONLY;
-	else if(f & memory_object::flags::write)
-		result = CL_MEM_WRITE_ONLY;
+std::vector<
+	cl_event
+>
+flatten_sequence(
+	sge::opencl::event::sequence const &
+);
 
-	if(f & memory_object::flags::alloc_host_ptr)
-		result |= CL_MEM_ALLOC_HOST_PTR;
-
-	return result;
 }
+}
+}
+}
+
+#endif

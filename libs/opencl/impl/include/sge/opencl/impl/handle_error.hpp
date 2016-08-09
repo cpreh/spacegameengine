@@ -18,31 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_OPENCL_IMPL_HANDLE_ERROR_HPP_INCLUDED
+#define SGE_OPENCL_IMPL_HANDLE_ERROR_HPP_INCLUDED
+
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/event/object.hpp>
-#include <sge/opencl/event/object_unique_ptr.hpp>
-#include <sge/src/opencl/event/flatten_sequence.hpp>
-#include <fcppt/algorithm/map.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/string.hpp>
 
 
-std::vector<cl_event>
-sge::opencl::event::flatten_sequence(
-	sge::opencl::event::sequence const &_event_sequence)
+namespace sge
 {
-	return
-		fcppt::algorithm::map<
-			std::vector<cl_event>
-		>(
-			_event_sequence,
-			[](
-				sge::opencl::event::object_unique_ptr const &_ptr
-			)
-			{
-				return
-					_ptr->handle();
-			}
-		);
+namespace opencl
+{
+namespace impl
+{
+
+void
+handle_error(
+	cl_int,
+	fcppt::string const &
+);
+
 }
+}
+}
+
+#endif

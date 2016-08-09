@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opencl/exception.hpp>
-#include <sge/src/opencl/handle_error.hpp>
+#include <sge/opencl/impl/handle_error.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -91,7 +91,7 @@ error_code_to_string(
 }
 
 void
-sge::opencl::handle_error(
+sge::opencl::impl::handle_error(
 	cl_int const error_code,
 	fcppt::string const &function_name)
 {

@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/image/planar.hpp>
 #include <sge/renderer/opengl/texture/base.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/src/opencl/handle_error.hpp>
-#include <sge/src/opencl/memory_object/to_opencl_mem_flags.hpp>
+#include <sge/opencl/impl/handle_error.hpp>
+#include <sge/opencl/impl/memory_object/to_opencl_mem_flags.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -95,21 +95,21 @@ sge::opencl::memory_object::image::planar::planar(
 	impl_ =
 		clCreateImage(
 			_context.impl(),
-			memory_object::to_opencl_mem_flags(
+			sge::opencl::impl::memory_object::to_opencl_mem_flags(
 				_mem_flags),
 			&_image_format,
 			&image_description,
 			0,
 			&error_code);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clCreateImage(planar texture)"));
 #else
 	impl_ =
 		clCreateImage2D(
 			_context.impl(),
-			memory_object::to_opencl_mem_flags(
+			sge::opencl::impl::memory_object::to_opencl_mem_flags(
 				_mem_flags),
 			&_image_format,
 			_size.w(),
@@ -118,7 +118,7 @@ sge::opencl::memory_object::image::planar::planar(
 			0,
 			&error_code);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clCreateImage(planar texture)"));
 #endif
@@ -144,7 +144,7 @@ sge::opencl::memory_object::image::planar::planar(
 	impl_ =
 		clCreateFromGLTexture2D(
 			_context.impl(),
-			memory_object::to_opencl_mem_flags(
+			sge::opencl::impl::memory_object::to_opencl_mem_flags(
 				_mem_flags),
 			GL_TEXTURE_2D,
 			// mip level
@@ -153,7 +153,7 @@ sge::opencl::memory_object::image::planar::planar(
 				_renderer_texture).id().get(),
 			&error_code);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clCreateFromGLTexture2D()"));
 
@@ -165,7 +165,7 @@ sge::opencl::memory_object::image::planar::planar(
 			&image_format_,
 			0);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetImageInfo(image format)"));
 }
@@ -195,7 +195,7 @@ sge::opencl::memory_object::image::planar::~planar()
 		clReleaseMemObject(
 			impl_);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clReleaseMemObject(planar texture)"));
 }

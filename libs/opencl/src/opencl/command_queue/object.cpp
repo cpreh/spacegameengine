@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/command_queue/profiling_mode.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/device/object.hpp>
-#include <sge/src/opencl/handle_error.hpp>
+#include <sge/opencl/impl/handle_error.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -58,7 +58,7 @@ sge::opencl::command_queue::object::object(
 				static_cast<cl_command_queue_properties>(0),
 			&error_code);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clCreateCommandQueue"));
 }
@@ -87,7 +87,7 @@ sge::opencl::command_queue::object::finish()
 	cl_int const finish_error_code = clFinish(
 		queue_);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		finish_error_code,
 		FCPPT_TEXT("clFinish"));
 }
@@ -102,7 +102,7 @@ sge::opencl::command_queue::object::~object()
 		clReleaseCommandQueue(
 			queue_);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clCommandQueueRelease"));
 }

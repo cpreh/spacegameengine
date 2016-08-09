@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/program/object.hpp>
-#include <sge/src/opencl/handle_error.hpp>
+#include <sge/opencl/impl/handle_error.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
@@ -61,7 +61,7 @@ sge::opencl::kernel::object::object(
 					_name.get())+
 				FCPPT_TEXT("\" is invalid."));
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clCreateKernel"));
 
@@ -74,7 +74,7 @@ sge::opencl::kernel::object::object(
 			// Pointer to the argument size
 			0);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetKernelInfo(number of arguments)"));
 }
@@ -111,7 +111,7 @@ sge::opencl::kernel::object::argument(
 				cl_mem),
 			&mem_ptr);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clSetKernelArg(memory object)"));
 }
@@ -173,7 +173,7 @@ sge::opencl::kernel::object::argument(
 					};
 			}
 
-			sge::opencl::handle_error(
+			sge::opencl::impl::handle_error(
 				error_code,
 				FCPPT_TEXT("clSetKernelArg(numeric type)")
 			);
@@ -196,7 +196,7 @@ sge::opencl::kernel::object::argument(
 			_bytes.get(),
 			_data);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clSetKernelArg(arbitrary data)"));
 }
@@ -214,7 +214,7 @@ sge::opencl::kernel::object::argument(
 			_local_buffer.byte_size(),
 			0);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clSetKernelArg(local buffer)"));
 }
@@ -234,7 +234,7 @@ sge::opencl::kernel::object::work_group_size(
 			&result,
 			0);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetKernelWorkGroupInfo()"));
 
@@ -250,7 +250,7 @@ sge::opencl::kernel::object::~object()
 		clReleaseKernel(
 			kernel_);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clReleaseKernel"));
 }

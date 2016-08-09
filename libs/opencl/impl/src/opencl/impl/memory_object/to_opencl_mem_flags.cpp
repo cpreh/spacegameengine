@@ -18,22 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_OPENCL_HANDLE_ERROR_HPP_INCLUDED
-#define SGE_SRC_OPENCL_HANDLE_ERROR_HPP_INCLUDED
-
-#include <sge/opencl/clinclude.hpp>
-#include <fcppt/string.hpp>
+#include <sge/opencl/impl/memory_object/to_opencl_mem_flags.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/container/bitfield/operators.hpp>
 
 
-namespace sge
+cl_mem_flags
+sge::opencl::impl::memory_object::to_opencl_mem_flags(
+	sge::opencl::memory_object::flags_field const &f)
 {
-namespace opencl
-{
-void
-handle_error(
-	cl_int,
-	fcppt::string const &);
-}
-}
+	cl_mem_flags result = 0;
 
-#endif
+	if(f & sge::opencl::memory_object::flags::read && f & sge::opencl::memory_object::flags::write)
+		result = CL_MEM_READ_WRITE;
+	else if(f & sge::opencl::memory_object::flags::read)
+		result = CL_MEM_READ_ONLY;
+	else if(f & sge::opencl::memory_object::flags::write)
+		result = CL_MEM_WRITE_ONLY;
+
+	if(f & sge::opencl::memory_object::flags::alloc_host_ptr)
+		result |= CL_MEM_ALLOC_HOST_PTR;
+
+	return result;
+}

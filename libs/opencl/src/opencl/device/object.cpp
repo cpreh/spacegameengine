@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/device/object.hpp>
-#include <sge/src/opencl/handle_error.hpp>
+#include <sge/opencl/impl/handle_error.hpp>
 #include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
@@ -101,7 +101,7 @@ device_info(
 			0, // param value (we don't want that, yet)
 			&param_value_size);
 
-	sge::opencl::handle_error(
+	sge::opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetDeviceInfo(option size)"));
 
@@ -118,7 +118,7 @@ device_info(
 			// param value size
 			0);
 
-	sge::opencl::handle_error(
+	sge::opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetDeviceInfo(option value)"));
 
@@ -286,7 +286,7 @@ max_work_item_sizes_to_string(
 			// param value size
 			0);
 
-	sge::opencl::handle_error(
+	sge::opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetDeviceInfo(option value)"));
 
@@ -459,7 +459,7 @@ sge::opencl::device::object::is_gpu() const
 			&type,
 			0);
 
-	sge::opencl::handle_error(
+	sge::opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetDeviceInfo(option value)"));
 

@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/opengl/buffer/base.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
-#include <sge/src/opencl/handle_error.hpp>
-#include <sge/src/opencl/memory_object/renderer_buffer_lock_mode_to_cl_mem_flags.hpp>
-#include <sge/src/opencl/memory_object/to_opencl_mem_flags.hpp>
+#include <sge/opencl/impl/handle_error.hpp>
+#include <sge/opencl/impl/memory_object/renderer_buffer_lock_mode_to_cl_mem_flags.hpp>
+#include <sge/opencl/impl/memory_object/to_opencl_mem_flags.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -43,13 +43,13 @@ sge::opencl::memory_object::buffer::buffer(
 	impl_ =
 		clCreateBuffer(
 			_context.impl(),
-			memory_object::to_opencl_mem_flags(
+			sge::opencl::impl::memory_object::to_opencl_mem_flags(
 				_flags),
 			_byte_size.get(),
 			0,
 			&error_code);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clCreateBuffer"));
 }
@@ -69,13 +69,13 @@ sge::opencl::memory_object::buffer::buffer(
 	impl_ =
 		clCreateFromGLBuffer(
 			_context.impl(),
-			memory_object::renderer_buffer_lock_mode_to_cl_mem_flags(
+			sge::opencl::impl::memory_object::renderer_buffer_lock_mode_to_cl_mem_flags(
 				_lock_mode),
 			dynamic_cast<sge::renderer::opengl::buffer::base &>(
 				_vb).id().get(),
 			&error_code);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clCreateFromGLBuffer"));
 }
@@ -101,7 +101,7 @@ sge::opencl::memory_object::buffer::~buffer()
 		clReleaseMemObject(
 			impl_);
 
-	opencl::handle_error(
+	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clReleaseMemObject(buffer)"));
 }
