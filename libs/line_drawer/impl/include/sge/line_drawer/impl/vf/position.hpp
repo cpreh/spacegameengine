@@ -18,25 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_LINE_DRAWER_VF_POSITION_HPP_INCLUDED
-#define SGE_SRC_LINE_DRAWER_VF_POSITION_HPP_INCLUDED
+#ifndef SGE_LINE_DRAWER_IMPL_VF_POSITION_HPP_INCLUDED
+#define SGE_LINE_DRAWER_IMPL_VF_POSITION_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vf/pos.hpp>
+
 
 namespace sge
 {
 namespace line_drawer
 {
+namespace impl
+{
 namespace vf
 {
+
 typedef
-sge::renderer::vf::pos
-<
+sge::renderer::vf::pos<
 	sge::renderer::scalar,
 	3
 >
 position;
+
+}
 }
 }
 }

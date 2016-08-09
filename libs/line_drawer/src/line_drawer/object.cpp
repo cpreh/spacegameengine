@@ -51,10 +51,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <sge/src/line_drawer/vf/color.hpp>
-#include <sge/src/line_drawer/vf/format.hpp>
-#include <sge/src/line_drawer/vf/position.hpp>
-#include <sge/src/line_drawer/vf/vertex_view.hpp>
+#include <sge/line_drawer/impl/vf/color.hpp>
+#include <sge/line_drawer/impl/vf/format.hpp>
+#include <sge/line_drawer/impl/vf/position.hpp>
+#include <sge/line_drawer/impl/vf/vertex_view.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>
@@ -74,7 +74,7 @@ sge::line_drawer::object::object(
 		renderer_.create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<
-					sge::line_drawer::vf::format
+					sge::line_drawer::impl::vf::format
 				>()
 			)
 		)
@@ -214,23 +214,38 @@ sge::line_drawer::object::unlock()
 		),
 		sge::renderer::lock_mode::writeonly);
 
-	sge::line_drawer::vf::vertex_view const vertices(
+	sge::line_drawer::impl::vf::vertex_view const vertices(
 		vblock.value());
 
-	sge::line_drawer::vf::vertex_view::iterator vb_it(
+	sge::line_drawer::impl::vf::vertex_view::iterator vb_it(
 		vertices.begin());
 
 	for(
 		auto const &line : lines_
 	)
 	{
-		(vb_it)->set<vf::position>(
-			line.begin());
-		(vb_it++)->set<vf::color>(
-			line.begin_color());
-		(vb_it)->set<vf::position>(
-			line.end());
-		(vb_it++)->set<vf::color>(
-			line.end_color());
+		(vb_it)->set<
+			sge::line_drawer::impl::vf::position
+		>(
+			line.begin()
+		);
+
+		(vb_it++)->set<
+			sge::line_drawer::impl::vf::color
+		>(
+			line.begin_color()
+		);
+
+		(vb_it)->set<
+			sge::line_drawer::impl::vf::position
+		>(
+			line.end()
+		);
+
+		(vb_it++)->set<
+			sge::line_drawer::impl::vf::color
+		>(
+			line.end_color()
+		);
 	}
 }

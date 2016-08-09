@@ -18,32 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_LINE_DRAWER_VF_PART_HPP_INCLUDED
-#define SGE_SRC_LINE_DRAWER_VF_PART_HPP_INCLUDED
+#ifndef SGE_LINE_DRAWER_IMPL_VF_VERTEX_VIEW_HPP_INCLUDED
+#define SGE_LINE_DRAWER_IMPL_VF_VERTEX_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/vf/part.hpp>
-#include <sge/src/line_drawer/vf/color.hpp>
-#include <sge/src/line_drawer/vf/position.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/renderer/vf/view.hpp>
+#include <sge/line_drawer/impl/vf/part.hpp>
+
 
 namespace sge
 {
 namespace line_drawer
 {
+namespace impl
+{
 namespace vf
 {
+
 typedef
-sge::renderer::vf::part
-<
-	boost::mpl::vector2
-	<
-		position,
-		color
-	>
+sge::renderer::vf::view<
+	sge::line_drawer::impl::vf::part
 >
-part;
+vertex_view;
+
+}
 }
 }
 }
