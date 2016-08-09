@@ -1,5 +1,6 @@
 set(
 	SGE_GRAPH_FILES
+	libs/graph/impl/include/sge/graph/impl/detail/draw_visitor.hpp
 	libs/graph/include/sge/graph/axis_constraint.hpp
 	libs/graph/include/sge/graph/axis_constraint_fwd.hpp
 	libs/graph/include/sge/graph/background_alt_color.hpp
@@ -20,12 +21,12 @@ set(
 	libs/graph/src/graph/axis_constraint.cpp
 	libs/graph/src/graph/color_scheme.cpp
 	libs/graph/src/graph/color_schemes.cpp
-	libs/graph/src/graph/include/sge/src/graph/detail/draw_visitor.hpp
 	libs/graph/src/graph/object.cpp
 )
 
 add_sge_base_library(
 	"graph"
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgeimage
 		sgeimagecolor
@@ -41,6 +42,4 @@ add_sge_base_library(
 		${fcppt_core_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/graph/include"
 )

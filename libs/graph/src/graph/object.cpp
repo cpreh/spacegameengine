@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/graph/optional_axis_constraint.hpp>
 #include <sge/graph/position.hpp>
 #include <sge/graph/scalar.hpp>
+#include <sge/graph/impl/detail/draw_visitor.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/any/convert.hpp>
@@ -51,7 +52,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/texture0.hpp>
 #include <sge/sprite/state/object_impl.hpp>
 #include <sge/sprite/state/parameters_impl.hpp>
-#include <sge/src/graph/detail/draw_visitor.hpp>
 #include <sge/texture/part_raw_ref.hpp>
 #include <mizuiro/color/operators.hpp>
 #include <fcppt/const.hpp>

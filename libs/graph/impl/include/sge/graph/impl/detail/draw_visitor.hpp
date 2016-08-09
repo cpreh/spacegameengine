@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_GRAPH_DETAIL_DRAW_VISITOR_HPP_INCLUDED
-#define SGE_SRC_GRAPH_DETAIL_DRAW_VISITOR_HPP_INCLUDED
+#ifndef SGE_GRAPH_IMPL_DETAIL_DRAW_VISITOR_HPP_INCLUDED
+#define SGE_GRAPH_IMPL_DETAIL_DRAW_VISITOR_HPP_INCLUDED
 
 #include <sge/graph/object.hpp>
 #include <fcppt/nonassignable.hpp>
