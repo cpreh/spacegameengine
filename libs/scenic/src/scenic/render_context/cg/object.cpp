@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/fog/properties.hpp>
 #include <sge/scenic/render_context/light/object.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
-#include <sge/src/scenic/render_context/cg/any_color_to_vector4.hpp>
+#include <sge/scenic/impl/render_context/cg/any_color_to_vector4.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
@@ -152,19 +152,19 @@ sge::scenic::render_context::cg::object::material(
 	sge::scenic::render_context::material::object const &_material)
 {
 	manager_.material_diffuse_color_.set(
-		sge::scenic::render_context::cg::any_color_to_vector4(
+		sge::scenic::impl::render_context::cg::any_color_to_vector4(
 			_material.diffuse_color().get()));
 
 	manager_.material_specular_color_.set(
-		sge::scenic::render_context::cg::any_color_to_vector4(
+		sge::scenic::impl::render_context::cg::any_color_to_vector4(
 			_material.specular_color().get()));
 
 	manager_.material_emissive_color_.set(
-		sge::scenic::render_context::cg::any_color_to_vector4(
+		sge::scenic::impl::render_context::cg::any_color_to_vector4(
 			_material.emissive_color().get()));
 
 	manager_.material_ambient_color_.set(
-		sge::scenic::render_context::cg::any_color_to_vector4(
+		sge::scenic::impl::render_context::cg::any_color_to_vector4(
 			_material.ambient_color().get()));
 
 	manager_.material_shininess_.set(
@@ -343,7 +343,7 @@ sge::scenic::render_context::cg::object::fog(
 			manager_.fog_end_.set(
 				_fog.end().get());
 			manager_.fog_color_.set(
-				sge::scenic::render_context::cg::any_color_to_vector4(
+				sge::scenic::impl::render_context::cg::any_color_to_vector4(
 					_fog.color().get()));
 		}
 	);

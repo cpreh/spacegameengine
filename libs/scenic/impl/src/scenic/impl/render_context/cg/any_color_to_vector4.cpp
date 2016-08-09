@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/src/scenic/render_context/cg/any_color_to_vector4.hpp>
+#include <sge/scenic/impl/render_context/cg/any_color_to_vector4.hpp>
 #include <mizuiro/color/object.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
 #include <mizuiro/color/channel/blue.hpp>
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::vector4
-sge::scenic::render_context::cg::any_color_to_vector4(
+sge::scenic::impl::render_context::cg::any_color_to_vector4(
 	sge::image::color::any::object const &_any_color)
 {
 	sge::image::color::rgba32f const converted(

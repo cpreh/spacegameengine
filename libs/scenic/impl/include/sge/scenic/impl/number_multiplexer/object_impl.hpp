@@ -18,16 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SCENIC_NUMBER_MULTIPLEXER_OBJECT_IMPL_HPP_INCLUDED
-#define SGE_SRC_SCENIC_NUMBER_MULTIPLEXER_OBJECT_IMPL_HPP_INCLUDED
+#ifndef SGE_SCENIC_IMPL_NUMBER_MULTIPLEXER_OBJECT_IMPL_HPP_INCLUDED
+#define SGE_SCENIC_IMPL_NUMBER_MULTIPLEXER_OBJECT_IMPL_HPP_INCLUDED
 
-#include <sge/src/scenic/number_multiplexer/object_decl.hpp>
-#include <sge/src/scenic/number_multiplexer/set_bits.hpp>
+#include <sge/scenic/impl/number_multiplexer/object_decl.hpp>
+#include <sge/scenic/impl/number_multiplexer/set_bits.hpp>
 #include <fcppt/literal.hpp>
 
 
 template<typename T>
-sge::scenic::number_multiplexer::object<T>::object()
+sge::scenic::impl::number_multiplexer::object<T>::object()
 :
 	value_(
 		fcppt::literal<value_type>(
@@ -39,7 +39,7 @@ sge::scenic::number_multiplexer::object<T>::object()
 }
 
 template<typename T>
-sge::scenic::number_multiplexer::object<T>::object(
+sge::scenic::impl::number_multiplexer::object<T>::object(
 	value_type const _value)
 :
 	value_(
@@ -51,13 +51,13 @@ sge::scenic::number_multiplexer::object<T>::object(
 }
 
 template<typename T>
-sge::scenic::number_multiplexer::object<T> &
-sge::scenic::number_multiplexer::object<T>::append(
+sge::scenic::impl::number_multiplexer::object<T> &
+sge::scenic::impl::number_multiplexer::object<T>::append(
 	bit_count const &_bit_count,
 	value_type const _value)
 {
 	value_ =
-		sge::scenic::number_multiplexer::set_bits(
+		sge::scenic::impl::number_multiplexer::set_bits(
 			last_bit_set_,
 			_bit_count.get(),
 			_value,
@@ -72,8 +72,8 @@ sge::scenic::number_multiplexer::object<T>::append(
 
 template<typename T>
 typename
-sge::scenic::number_multiplexer::object<T>::value_type
-sge::scenic::number_multiplexer::object<T>::value() const
+sge::scenic::impl::number_multiplexer::object<T>::value_type
+sge::scenic::impl::number_multiplexer::object<T>::value() const
 {
 	return
 		value_;

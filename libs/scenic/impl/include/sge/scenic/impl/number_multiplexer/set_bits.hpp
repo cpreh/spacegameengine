@@ -18,17 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SCENIC_NUMBER_MULTIPLEXER_OBJECT_FWD_HPP_INCLUDED
-#define SGE_SRC_SCENIC_NUMBER_MULTIPLEXER_OBJECT_FWD_HPP_INCLUDED
+#ifndef SGE_SCENIC_IMPL_NUMBER_MULTIPLEXER_SET_BITS_HPP_INCLUDED
+#define SGE_SCENIC_IMPL_NUMBER_MULTIPLEXER_SET_BITS_HPP_INCLUDED
 
 namespace sge
 {
 namespace scenic
 {
+namespace impl
+{
 namespace number_multiplexer
 {
 template<typename T>
-class number_multiplexer;
+T
+set_bits(
+	T const begin,
+	T const size,
+	T const value,
+	T const input)
+{
+	T const part =
+		((1u << begin) - 1u) ^ ((1u << (begin + size)) - 1u);
+
+	return
+		(input & ~part) | (value << begin);
+}
+
+}
 }
 }
 }

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SCENIC_RENDER_CONTEXT_CG_ANY_COLOR_TO_VECTOR4_HPP_INCLUDED
-#define SGE_SRC_SCENIC_RENDER_CONTEXT_CG_ANY_COLOR_TO_VECTOR4_HPP_INCLUDED
+#ifndef SGE_SCENIC_IMPL_RENDER_CONTEXT_CG_ANY_COLOR_TO_VECTOR4_HPP_INCLUDED
+#define SGE_SCENIC_IMPL_RENDER_CONTEXT_CG_ANY_COLOR_TO_VECTOR4_HPP_INCLUDED
 
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/vector4.hpp>
@@ -29,13 +29,19 @@ namespace sge
 {
 namespace scenic
 {
+namespace impl
+{
 namespace render_context
 {
 namespace cg
 {
+
 sge::renderer::vector4
 any_color_to_vector4(
-	sge::image::color::any::object const &);
+	sge::image::color::any::object const &
+);
+
+}
 }
 }
 }

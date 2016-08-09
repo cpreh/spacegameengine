@@ -1,5 +1,11 @@
 set(
 	SGE_SCENIC_FILES
+	libs/scenic/impl/include/sge/scenic/impl/number_multiplexer/object_decl.hpp
+	libs/scenic/impl/include/sge/scenic/impl/number_multiplexer/object_fwd.hpp
+	libs/scenic/impl/include/sge/scenic/impl/number_multiplexer/object_impl.hpp
+	libs/scenic/impl/include/sge/scenic/impl/number_multiplexer/set_bits.hpp
+	libs/scenic/impl/include/sge/scenic/impl/render_context/cg/any_color_to_vector4.hpp
+	libs/scenic/impl/src/scenic/impl/render_context/cg/any_color_to_vector4.cpp
 	libs/scenic/include/sge/scenic/box.hpp
 	libs/scenic/include/sge/scenic/exception.hpp
 	libs/scenic/include/sge/scenic/grid/depth_test.hpp
@@ -121,14 +127,8 @@ set(
 	libs/scenic/include/sge/scenic/vf/texcoord.hpp
 	libs/scenic/src/scenic/exception.cpp
 	libs/scenic/src/scenic/grid/object.cpp
-	libs/scenic/src/scenic/include/sge/src/scenic/number_multiplexer/object_decl.hpp
-	libs/scenic/src/scenic/include/sge/src/scenic/number_multiplexer/object_fwd.hpp
-	libs/scenic/src/scenic/include/sge/src/scenic/number_multiplexer/object_impl.hpp
-	libs/scenic/src/scenic/include/sge/src/scenic/number_multiplexer/set_bits.hpp
-	libs/scenic/src/scenic/include/sge/src/scenic/render_context/cg/any_color_to_vector4.hpp
 	libs/scenic/src/scenic/index_buffer_range.cpp
 	libs/scenic/src/scenic/render_context/base.cpp
-	libs/scenic/src/scenic/render_context/cg/any_color_to_vector4.cpp
 	libs/scenic/src/scenic/render_context/cg/light/directional.cpp
 	libs/scenic/src/scenic/render_context/cg/light/point.cpp
 	libs/scenic/src/scenic/render_context/cg/manager.cpp
@@ -158,6 +158,7 @@ set(
 
 add_sge_base_library(
 	"scenic"
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgecamera
 		sgecg
@@ -187,9 +188,4 @@ add_sge_base_library(
 		${Boost_FILESYSTEM_LIBRARIES}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
-	INCLUDE_DIRS
-		"${CMAKE_CURRENT_SOURCE_DIR}/src/scenic/include"
-		${Cg_INCLUDE_DIRS}
-	TRANSITIVE_INCLUDE_DIRS
-		${Cg_INCLUDE_DIRS}
 )

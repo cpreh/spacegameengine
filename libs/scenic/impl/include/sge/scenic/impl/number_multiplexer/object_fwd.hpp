@@ -18,54 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SRC_SCENIC_NUMBER_MULTIPLEXER_OBJECT_DECL_HPP_INCLUDED
-#define SGE_SRC_SCENIC_NUMBER_MULTIPLEXER_OBJECT_DECL_HPP_INCLUDED
-
-#include <sge/src/scenic/number_multiplexer/object_fwd.hpp>
-#include <fcppt/strong_typedef.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
-
+#ifndef SGE_SCENIC_IMPL_NUMBER_MULTIPLEXER_OBJECT_FWD_HPP_INCLUDED
+#define SGE_SCENIC_IMPL_NUMBER_MULTIPLEXER_OBJECT_FWD_HPP_INCLUDED
 
 namespace sge
 {
 namespace scenic
 {
+namespace impl
+{
 namespace number_multiplexer
 {
 template<typename T>
-class object
-{
-static_assert(
-	std::is_unsigned<T>::value,
-	"number_multiplexer only works on unsigned types");
-public:
-	typedef
-	T
-	value_type;
-
-	FCPPT_MAKE_STRONG_TYPEDEF(
-		value_type,
-		bit_count);
-
-	object();
-
-	explicit
-	object(
-		value_type);
-
-	object &
-	append(
-		bit_count const &,
-		value_type);
-
-	value_type
-	value() const;
-private:
-	value_type value_;
-	value_type last_bit_set_;
-};
+class number_multiplexer;
+}
 }
 }
 }
