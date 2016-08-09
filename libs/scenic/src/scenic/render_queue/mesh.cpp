@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/scenic/render_queue/mesh.hpp>
 #include <sge/scenic/impl/number_multiplexer/object_impl.hpp>
+#include <sge/scenic/render_queue/mesh.hpp>
 
 
 namespace

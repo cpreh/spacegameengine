@@ -19,11 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opencl/context/object.hpp>
+#include <sge/opencl/impl/handle_error.hpp>
+#include <sge/opencl/impl/memory_object/to_opencl_mem_flags.hpp>
 #include <sge/opencl/memory_object/image/volume.hpp>
 #include <sge/renderer/opengl/texture/base.hpp>
 #include <sge/renderer/texture/volume.hpp>
-#include <sge/opencl/impl/handle_error.hpp>
-#include <sge/opencl/impl/memory_object/to_opencl_mem_flags.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size_fun.hpp>

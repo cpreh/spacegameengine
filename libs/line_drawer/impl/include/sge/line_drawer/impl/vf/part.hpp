@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_LINE_DRAWER_IMPL_VF_PART_HPP_INCLUDED
 #define SGE_LINE_DRAWER_IMPL_VF_PART_HPP_INCLUDED
 
-#include <sge/renderer/vf/part.hpp>
 #include <sge/line_drawer/impl/vf/color.hpp>
 #include <sge/line_drawer/impl/vf/position.hpp>
+#include <sge/renderer/vf/part.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>

@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/system.hpp>
-#include <sge/opencl/platform/object.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
+#include <sge/opencl/platform/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/raw_vector.hpp>
 

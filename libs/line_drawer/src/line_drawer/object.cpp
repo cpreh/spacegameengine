@@ -19,6 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/line_drawer/object.hpp>
+#include <sge/line_drawer/impl/vf/color.hpp>
+#include <sge/line_drawer/impl/vf/format.hpp>
+#include <sge/line_drawer/impl/vf/position.hpp>
+#include <sge/line_drawer/impl/vf/vertex_view.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -51,10 +55,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <sge/line_drawer/impl/vf/color.hpp>
-#include <sge/line_drawer/impl/vf/format.hpp>
-#include <sge/line_drawer/impl/vf/position.hpp>
-#include <sge/line_drawer/impl/vf/vertex_view.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>

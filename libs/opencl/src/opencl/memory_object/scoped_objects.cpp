@@ -20,10 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/command_queue/object.hpp>
+#include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/memory_object/scoped_objects.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
-#include <sge/opencl/impl/handle_error.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 
