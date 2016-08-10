@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
-#include <fcppt/container/data.hpp>
 #include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/math/ceil_div.hpp>
 #include <fcppt/optional/deref.hpp>
@@ -275,9 +274,7 @@ FCPPT_PP_POP_WARNING
 		::XISelectEvents(
 			_window.display().get(),
 			_window.get(),
-			fcppt::container::data(
-				event_masks
-			),
+			event_masks.data(),
 			fcppt::cast::size<
 				int
 			>(
