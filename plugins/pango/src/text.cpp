@@ -132,9 +132,7 @@ sge::pango::text::cursor_rect(
 	sge::font::index const _index
 ) const
 {
-	PangoRectangle
-		strong_pos,
-		weak_pos;
+	PangoRectangle strong_pos;
 
 	::pango_layout_get_cursor_pos(
 		layout_.get_pointer(),
@@ -146,7 +144,7 @@ sge::pango::text::cursor_rect(
 			)
 		),
 		&strong_pos,
-		&weak_pos
+		nullptr
 	);
 
 	return
