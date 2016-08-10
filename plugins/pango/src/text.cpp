@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
+#include <sge/font/unit.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/font/view_fwd.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
@@ -34,13 +35,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/algorithm/fill.hpp>
 #include <sge/pango/create_text_layout.hpp>
 #include <sge/pango/get_extents.hpp>
+#include <sge/pango/index.hpp>
 #include <sge/pango/text.hpp>
+#include <sge/pango/xy_to_index.hpp>
 #include <sge/pango/convert/from_rect_scale.hpp>
-#include <sge/pango/convert/to_unit.hpp>
 #include <sge/pango/freetype/make_bitmap.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
 #include <pango/pangoft2.h>
@@ -157,33 +160,26 @@ sge::pango::text::pos_to_index(
 	sge::font::vector const _pos
 ) const
 {
-	int result;
-
-	int trailing;
-
 	return
-		::pango_layout_xy_to_index(
-			layout_.get_pointer(),
-			sge::pango::convert::to_unit(
-				_pos.x()
+		fcppt::optional::map(
+			sge::pango::xy_to_index(
+				*layout_,
+				_pos
 			),
-			sge::pango::convert::to_unit(
-				_pos.y()
-			),
-			&result,
-			&trailing
-		)
-		==
-		TRUE
-		?
-			sge::font::optional_index(
-				fcppt::cast::to_unsigned(
-					trailing
-					+
-					result
-				)
+			[](
+				sge::pango::index const _index
 			)
-		:
-			sge::font::optional_index()
-		;
+			{
+				return
+					fcppt::cast::size<
+						sge::font::index
+					>(
+						fcppt::cast::to_unsigned(
+							_index.trailing().get()
+							+
+							_index.result().get()
+						)
+					);
+			}
+		);
 }

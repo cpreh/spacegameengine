@@ -16,6 +16,8 @@ set(
 	plugins/pango/include/sge/pango/get_extents.hpp
 	plugins/pango/include/sge/pango/glib_deleter.hpp
 	plugins/pango/include/sge/pango/glib_deleter_fwd.hpp
+	plugins/pango/include/sge/pango/index.hpp
+	plugins/pango/include/sge/pango/index_fwd.hpp
 	plugins/pango/include/sge/pango/ink_rect.hpp
 	plugins/pango/include/sge/pango/ink_rect_fwd.hpp
 	plugins/pango/include/sge/pango/logical_rect.hpp
@@ -23,10 +25,13 @@ set(
 	plugins/pango/include/sge/pango/make_metrics.hpp
 	plugins/pango/include/sge/pango/no_multi_line.hpp
 	plugins/pango/include/sge/pango/object.hpp
+	plugins/pango/include/sge/pango/optional_index.hpp
+	plugins/pango/include/sge/pango/optional_index_fwd.hpp
 	plugins/pango/include/sge/pango/pango_font_map_unique_ptr.hpp
 	plugins/pango/include/sge/pango/pango_layout_unique_ptr.hpp
 	plugins/pango/include/sge/pango/system.hpp
 	plugins/pango/include/sge/pango/text.hpp
+	plugins/pango/include/sge/pango/xy_to_index.hpp
 	plugins/pango/src/added.cpp
 	plugins/pango/src/convert/alignment.cpp
 	plugins/pango/src/convert/from_rect.cpp
@@ -42,10 +47,12 @@ set(
 	plugins/pango/src/freetype/make_bitmap.cpp
 	plugins/pango/src/get_extents.cpp
 	plugins/pango/src/glib_deleter.cpp
+	plugins/pango/src/index.cpp
 	plugins/pango/src/make_metrics.cpp
 	plugins/pango/src/object.cpp
 	plugins/pango/src/system.cpp
 	plugins/pango/src/text.cpp
+	plugins/pango/src/xy_to_index.cpp
 )
 
 # TODO: Do we need this?
