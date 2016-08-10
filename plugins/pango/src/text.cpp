@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/index_vector.hpp>
+#include <sge/charconv/utf8_indices.hpp>
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/font/dim.hpp>
 #include <sge/font/index.hpp>
 #include <sge/font/optional_index.hpp>
 #include <sge/font/rect.hpp>
-#include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/unit.hpp>
@@ -35,24 +37,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/algorithm/fill.hpp>
 #include <sge/pango/create_text_layout.hpp>
 #include <sge/pango/get_extents.hpp>
+#include <sge/pango/get_strong_cursor_pos.hpp>
 #include <sge/pango/index.hpp>
 #include <sge/pango/text.hpp>
 #include <sge/pango/xy_to_index.hpp>
 #include <sge/pango/convert/from_rect_scale.hpp>
 #include <sge/pango/freetype/make_bitmap.hpp>
+#include <fcppt/algorithm/binary_search.hpp>
+#include <fcppt/assert/error.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/container/at_optional.hpp>
+#include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
 #include <pango/pangoft2.h>
+#include <iterator>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::pango::text::text(
 	PangoLayout &_layout,
-	sge::font::string const &_string,
+	sge::charconv::utf8_string const &_string,
 	sge::font::text_parameters const &_text_parameters
 )
 :
@@ -66,6 +75,11 @@ sge::pango::text::text(
 	extents_(
 		sge::pango::get_extents(
 			*layout_
+		)
+	),
+	indices_(
+		sge::charconv::utf8_indices(
+			_string
 		)
 	)
 {
@@ -132,24 +146,23 @@ sge::pango::text::cursor_rect(
 	sge::font::index const _index
 ) const
 {
-	PangoRectangle strong_pos;
-
-	::pango_layout_get_cursor_pos(
-		layout_.get_pointer(),
-		fcppt::cast::size<
-			int
-		>(
-			fcppt::cast::to_signed(
-				_index
-			)
-		),
-		&strong_pos,
-		nullptr
-	);
-
 	return
 		sge::pango::convert::from_rect_scale(
-			strong_pos
+			sge::pango::get_strong_cursor_pos(
+				*layout_,
+				fcppt::cast::size<
+					int
+				>(
+					fcppt::cast::to_signed(
+						FCPPT_ASSERT_OPTIONAL_ERROR(
+							fcppt::container::at_optional(
+								indices_,
+								_index
+							)
+						).get()
+					)
+				)
+			)
 		);
 }
 
@@ -159,24 +172,49 @@ sge::pango::text::pos_to_index(
 ) const
 {
 	return
-		fcppt::optional::map(
+		fcppt::optional::bind(
 			sge::pango::xy_to_index(
 				*layout_,
 				_pos
 			),
-			[](
+			[
+				this
+			](
 				sge::pango::index const _index
 			)
 			{
 				return
-					fcppt::cast::size<
-						sge::font::index
-					>(
-						fcppt::cast::to_unsigned(
-							_index.trailing().get()
-							+
-							_index.result().get()
+					fcppt::optional::map(
+						fcppt::algorithm::binary_search(
+							indices_,
+							fcppt::cast::size<
+								sge::charconv::index
+							>(
+								fcppt::cast::to_unsigned(
+									_index.trailing().get()
+									+
+									_index.result().get()
+								)
+							)
+						),
+						[
+							this
+						](
+							sge::charconv::index_vector::const_iterator const _it
 						)
+						{
+							return
+								fcppt::cast::size<
+									sge::font::index
+								>(
+									fcppt::cast::to_unsigned(
+										std::distance(
+											indices_.begin(),
+											_it
+										)
+									)
+								);
+						}
 					);
 			}
 		);

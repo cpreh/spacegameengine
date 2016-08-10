@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PANGO_TEXT_HPP_INCLUDED
 #define SGE_PANGO_TEXT_HPP_INCLUDED
 
+#include <sge/charconv/index_vector.hpp>
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/font/dim_fwd.hpp>
 #include <sge/font/index.hpp>
 #include <sge/font/optional_index_fwd.hpp>
 #include <sge/font/rect_fwd.hpp>
-#include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/vector_fwd.hpp>
@@ -53,7 +54,7 @@ class text
 public:
 	text(
 		PangoLayout &,
-		sge::font::string const &,
+		sge::charconv::utf8_string const &,
 		sge::font::text_parameters const &
 	);
 
@@ -89,6 +90,8 @@ private:
 	sge::pango::pango_layout_unique_ptr const layout_;
 
 	sge::pango::extents const extents_;
+
+	sge::charconv::index_vector const indices_;
 };
 
 }

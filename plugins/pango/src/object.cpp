@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/convert.hpp>
+#include <sge/charconv/encoding.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/parameters.hpp>
@@ -87,7 +89,12 @@ sge::pango::object::create_text(
 				sge::pango::text
 			>(
 				*layout_,
-				_text,
+				sge::charconv::convert<
+					sge::charconv::encoding::utf8,
+					sge::charconv::encoding::wchar
+				>(
+					_text
+				),
 				_parameters
 			)
 		);

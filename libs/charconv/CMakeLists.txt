@@ -11,9 +11,14 @@ set(
 	libs/charconv/include/sge/charconv/exception.hpp
 	libs/charconv/include/sge/charconv/fcppt_string_to_utf8.hpp
 	libs/charconv/include/sge/charconv/fcppt_string_to_utf8_file.hpp
+	libs/charconv/include/sge/charconv/index.hpp
+	libs/charconv/include/sge/charconv/index_vector.hpp
 	libs/charconv/include/sge/charconv/string_type.hpp
+	libs/charconv/include/sge/charconv/utf8_bytes.hpp
+	libs/charconv/include/sge/charconv/utf8_char.hpp
 	libs/charconv/include/sge/charconv/utf8_file_to_fcppt_string.hpp
 	libs/charconv/include/sge/charconv/utf8_file_to_fcppt_string_exn.hpp
+	libs/charconv/include/sge/charconv/utf8_indices.hpp
 	libs/charconv/include/sge/charconv/utf8_string.hpp
 	libs/charconv/include/sge/charconv/utf8_string_to_fcppt.hpp
 	libs/charconv/src/charconv/conversion_failed.cpp
@@ -22,8 +27,10 @@ set(
 	libs/charconv/src/charconv/exception.cpp
 	libs/charconv/src/charconv/fcppt_string_to_utf8.cpp
 	libs/charconv/src/charconv/fcppt_string_to_utf8_file.cpp
+	libs/charconv/src/charconv/utf8_bytes.cpp
 	libs/charconv/src/charconv/utf8_file_to_fcppt_string.cpp
 	libs/charconv/src/charconv/utf8_file_to_fcppt_string_exn.cpp
+	libs/charconv/src/charconv/utf8_indices.cpp
 	libs/charconv/src/charconv/utf8_string_to_fcppt.cpp
 )
 
