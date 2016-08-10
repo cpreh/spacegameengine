@@ -121,7 +121,7 @@ sge::pango::create_text_layout(
 
 	::pango_layout_set_ellipsize(
 		layout.get_pointer(),
-		PANGO_ELLIPSIZE_NONE
+		PANGO_ELLIPSIZE_END
 	);
 
 	::pango_layout_set_indent(
