@@ -107,7 +107,6 @@ set(
 	plugins/x11input/include/sge/x11input/keyboard/device_unique_ptr.hpp
 	plugins/x11input/include/sge/x11input/keyboard/key_from_event.hpp
 	plugins/x11input/include/sge/x11input/keyboard/key_id.hpp
-	plugins/x11input/include/sge/x11input/lc_ctype.hpp
 	plugins/x11input/include/sge/x11input/mask_c.hpp
 	plugins/x11input/include/sge/x11input/mask_is_set.hpp
 	plugins/x11input/include/sge/x11input/mask_type.hpp
@@ -128,9 +127,7 @@ set(
 	plugins/x11input/include/sge/x11input/optional_opcode.hpp
 	plugins/x11input/include/sge/x11input/optional_opcode_fwd.hpp
 	plugins/x11input/include/sge/x11input/processor.hpp
-	plugins/x11input/include/sge/x11input/scoped_locale.hpp
 	plugins/x11input/include/sge/x11input/send_init_event.hpp
-	plugins/x11input/include/sge/x11input/setlocale.hpp
 	plugins/x11input/include/sge/x11input/system.hpp
 	plugins/x11input/include/sge/x11input/xi_opcode.hpp
 	plugins/x11input/include/sge/x11input/xi_version.hpp
@@ -139,9 +136,12 @@ set(
 	plugins/x11input/include/sge/x11input/xim/create_method.hpp
 	plugins/x11input/include/sge/x11input/xim/get_filter_events.hpp
 	plugins/x11input/include/sge/x11input/xim/get_ic_values.hpp
+	plugins/x11input/include/sge/x11input/xim/lc_ctype.hpp
 	plugins/x11input/include/sge/x11input/xim/method.hpp
 	plugins/x11input/include/sge/x11input/xim/method_fwd.hpp
 	plugins/x11input/include/sge/x11input/xim/method_unique_ptr.hpp
+	plugins/x11input/include/sge/x11input/xim/scoped_locale.hpp
+	plugins/x11input/include/sge/x11input/xim/setlocale.hpp
 	plugins/x11input/src/atom_name.cpp
 	plugins/x11input/src/color.cpp
 	plugins/x11input/src/create_parameters.cpp
@@ -190,7 +190,6 @@ set(
 	plugins/x11input/src/keyboard/device.cpp
 	plugins/x11input/src/keyboard/key_from_event.cpp
 	plugins/x11input/src/keyboard/key_id.cpp
-	plugins/x11input/src/lc_ctype.cpp
 	plugins/x11input/src/mask_is_set.cpp
 	plugins/x11input/src/mouse/axis.cpp
 	plugins/x11input/src/mouse/axis_code.cpp
@@ -205,16 +204,17 @@ set(
 	plugins/x11input/src/mouse/make_axis_infos.cpp
 	plugins/x11input/src/mouse/make_button_infos.cpp
 	plugins/x11input/src/processor.cpp
-	plugins/x11input/src/scoped_locale.cpp
 	plugins/x11input/src/send_init_event.cpp
-	plugins/x11input/src/setlocale.cpp
 	plugins/x11input/src/system.cpp
 	plugins/x11input/src/xi_opcode.cpp
 	plugins/x11input/src/xi_version.cpp
 	plugins/x11input/src/xim/context.cpp
 	plugins/x11input/src/xim/create_method.cpp
 	plugins/x11input/src/xim/get_filter_events.cpp
+	plugins/x11input/src/xim/lc_ctype.cpp
 	plugins/x11input/src/xim/method.cpp
+	plugins/x11input/src/xim/scoped_locale.cpp
+	plugins/x11input/src/xim/setlocale.cpp
 )
 
 find_package(

@@ -18,28 +18,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/scoped_locale.hpp>
-#include <sge/x11input/setlocale.hpp>
+#include <sge/input/exception.hpp>
+#include <sge/x11input/xim/setlocale.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <clocale>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::x11input::scoped_locale::scoped_locale(
-	std::string const &_name
+std::string
+sge::x11input::xim::setlocale(
+	std::string const &_what
 )
-:
-	old_locale_(
-		sge::x11input::setlocale(
-			_name
+{
+	char const *const ret(
+		::setlocale(
+			LC_ALL,
+			_what.c_str()
 		)
-	)
-{
-}
-
-sge::x11input::scoped_locale::~scoped_locale()
-{
-	sge::x11input::setlocale(
-		old_locale_
 	);
+
+	if(
+		ret
+		==
+		nullptr
+	)
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("Can't set LC_ALL to ")
+				+
+				fcppt::from_std_string(
+					_what
+				)
+			};
+
+	return
+		ret;
 }

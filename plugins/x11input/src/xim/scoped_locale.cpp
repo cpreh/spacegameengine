@@ -18,25 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_SETLOCALE_HPP_INCLUDED
-#define SGE_X11INPUT_SETLOCALE_HPP_INCLUDED
-
+#include <sge/x11input/xim/scoped_locale.hpp>
+#include <sge/x11input/xim/setlocale.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::x11input::xim::scoped_locale::scoped_locale(
+	std::string const &_name
+)
+:
+	old_locale_(
+		sge::x11input::xim::setlocale(
+			_name
+		)
+	)
 {
-namespace x11input
+}
+
+sge::x11input::xim::scoped_locale::~scoped_locale()
 {
-
-std::string
-setlocale(
-	std::string const &
-);
-
+	sge::x11input::xim::setlocale(
+		old_locale_
+	);
 }
-}
-
-#endif

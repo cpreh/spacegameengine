@@ -18,21 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_LC_CTYPE_HPP_INCLUDED
-#define SGE_X11INPUT_LC_CTYPE_HPP_INCLUDED
-
+#include <sge/x11input/xim/lc_ctype.hpp>
+#include <fcppt/getenv.hpp>
 #include <fcppt/optional_std_string.hpp>
+#include <fcppt/optional/alternative.hpp>
 
-
-namespace sge
-{
-namespace x11input
-{
 
 fcppt::optional_std_string
-lc_ctype();
-
+sge::x11input::xim::lc_ctype()
+{
+	return
+		fcppt::optional::alternative(
+			fcppt::optional::alternative(
+				fcppt::getenv(
+					"LC_ALL"
+				),
+				fcppt::getenv(
+					"LC_CTYPE"
+				)
+			),
+			fcppt::getenv(
+				"LANG"
+			)
+		);
 }
-}
-
-#endif

@@ -19,11 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/exception.hpp>
-#include <sge/x11input/lc_ctype.hpp>
-#include <sge/x11input/scoped_locale.hpp>
 #include <sge/x11input/xim/create_method.hpp>
+#include <sge/x11input/xim/lc_ctype.hpp>
 #include <sge/x11input/xim/method.hpp>
 #include <sge/x11input/xim/method_unique_ptr.hpp>
+#include <sge/x11input/xim/scoped_locale.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -46,7 +46,7 @@ sge::x11input::xim::create_method(
 {
 	return
 		fcppt::optional::maybe(
-			sge::x11input::lc_ctype(),
+			sge::x11input::xim::lc_ctype(),
 			[
 				&_display,
 				&_log
@@ -71,7 +71,7 @@ sge::x11input::xim::create_method(
 				std::string const &_locale_name
 			)
 			{
-				sge::x11input::scoped_locale const temp_locale(
+				sge::x11input::xim::scoped_locale const temp_locale(
 					_locale_name
 				);
 

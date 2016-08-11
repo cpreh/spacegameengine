@@ -18,38 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/exception.hpp>
-#include <sge/x11input/setlocale.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <clocale>
-#include <string>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_X11INPUT_XIM_LC_CTYPE_HPP_INCLUDED
+#define SGE_X11INPUT_XIM_LC_CTYPE_HPP_INCLUDED
+
+#include <fcppt/optional_std_string.hpp>
 
 
-std::string
-sge::x11input::setlocale(
-	std::string const &_what
-)
+namespace sge
 {
-	char const *const ret(
-		::setlocale(
-			LC_ALL,
-			_what.c_str()
-		)
-	);
+namespace x11input
+{
+namespace xim
+{
 
-	if(
-		!ret
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("Can't set LC_ALL to ")
-			+
-			fcppt::from_std_string(
-				_what
-			)
-		);
+fcppt::optional_std_string
+lc_ctype();
 
-	return ret;
 }
+}
+}
+
+#endif

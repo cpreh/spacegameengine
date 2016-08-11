@@ -18,27 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/lc_ctype.hpp>
-#include <fcppt/getenv.hpp>
-#include <fcppt/optional_std_string.hpp>
-#include <fcppt/optional/alternative.hpp>
+#ifndef SGE_X11INPUT_XIM_SCOPED_LOCALE_HPP_INCLUDED
+#define SGE_X11INPUT_XIM_SCOPED_LOCALE_HPP_INCLUDED
+
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
 
-fcppt::optional_std_string
-sge::x11input::lc_ctype()
+namespace sge
 {
-	return
-		fcppt::optional::alternative(
-			fcppt::optional::alternative(
-				fcppt::getenv(
-					"LC_ALL"
-				),
-				fcppt::getenv(
-					"LC_CTYPE"
-				)
-			),
-			fcppt::getenv(
-				"LANG"
-			)
-		);
+namespace x11input
+{
+namespace xim
+{
+
+class scoped_locale
+{
+	FCPPT_NONCOPYABLE(
+		scoped_locale
+	);
+public:
+	explicit
+	scoped_locale(
+		std::string const &
+	);
+
+	~scoped_locale();
+private:
+	std::string const old_locale_;
+};
+
 }
+}
+}
+
+#endif
