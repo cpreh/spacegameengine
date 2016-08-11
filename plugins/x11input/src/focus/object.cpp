@@ -52,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <X11/Xlib.h>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
 #include <functional>
@@ -136,6 +137,10 @@ sge::x11input::focus::object::object(
 						sge::x11input::device::window_event const &
 					)
 					{
+						::XSetICFocus(
+							xim_context_->get()
+						);
+
 						in_signal_(
 							sge::input::focus::in_event{}
 						);
@@ -156,6 +161,10 @@ sge::x11input::focus::object::object(
 					{
 						out_signal_(
 							sge::input::focus::out_event{}
+						);
+
+						::XUnsetICFocus(
+							xim_context_->get()
 						);
 					}
 				}
