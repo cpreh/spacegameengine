@@ -136,12 +136,15 @@ set(
 	plugins/x11input/include/sge/x11input/xim/create_method.hpp
 	plugins/x11input/include/sge/x11input/xim/get_filter_events.hpp
 	plugins/x11input/include/sge/x11input/xim/get_ic_values.hpp
+	plugins/x11input/include/sge/x11input/xim/get_im_values.hpp
+	plugins/x11input/include/sge/x11input/xim/get_supported_styles.hpp
 	plugins/x11input/include/sge/x11input/xim/lc_ctype.hpp
 	plugins/x11input/include/sge/x11input/xim/method.hpp
 	plugins/x11input/include/sge/x11input/xim/method_fwd.hpp
 	plugins/x11input/include/sge/x11input/xim/method_unique_ptr.hpp
 	plugins/x11input/include/sge/x11input/xim/scoped_locale.hpp
 	plugins/x11input/include/sge/x11input/xim/setlocale.hpp
+	plugins/x11input/include/sge/x11input/xim/supported_styles_unique_ptr.hpp
 	plugins/x11input/src/atom_name.cpp
 	plugins/x11input/src/color.cpp
 	plugins/x11input/src/create_parameters.cpp
@@ -211,6 +214,7 @@ set(
 	plugins/x11input/src/xim/context.cpp
 	plugins/x11input/src/xim/create_method.cpp
 	plugins/x11input/src/xim/get_filter_events.cpp
+	plugins/x11input/src/xim/get_supported_styles.cpp
 	plugins/x11input/src/xim/lc_ctype.cpp
 	plugins/x11input/src/xim/method.cpp
 	plugins/x11input/src/xim/scoped_locale.cpp
