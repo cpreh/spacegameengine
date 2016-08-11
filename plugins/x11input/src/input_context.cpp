@@ -37,8 +37,8 @@ sge::x11input::input_context::input_context(
 			_xim,
 			XNClientWindow,
 			_window.get(),
-			XNFocusWindow,
-			_window.get(),
+			//XNFocusWindow,
+			//_window.get(),
 			XNInputStyle,
 			XIMPreeditNothing | XIMStatusNothing,
 			// FIXME: Do we need this?

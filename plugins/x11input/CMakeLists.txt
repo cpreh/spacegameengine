@@ -89,14 +89,12 @@ set(
 	plugins/x11input/include/sge/x11input/device/window_event_fwd.hpp
 	plugins/x11input/include/sge/x11input/focus/char_vector.hpp
 	plugins/x11input/include/sge/x11input/focus/char_vector_fwd.hpp
-	plugins/x11input/include/sge/x11input/focus/fake_core_event.hpp
 	plugins/x11input/include/sge/x11input/focus/looked_up_string.hpp
 	plugins/x11input/include/sge/x11input/focus/looked_up_string_fwd.hpp
 	plugins/x11input/include/sge/x11input/focus/lookup_string.hpp
 	plugins/x11input/include/sge/x11input/focus/object.hpp
 	plugins/x11input/include/sge/x11input/focus/object_fwd.hpp
 	plugins/x11input/include/sge/x11input/focus/object_unique_ptr.hpp
-	plugins/x11input/include/sge/x11input/focus/to_base_event.hpp
 	plugins/x11input/include/sge/x11input/focus/translate_event.hpp
 	plugins/x11input/include/sge/x11input/input_context.hpp
 	plugins/x11input/include/sge/x11input/input_context_fwd.hpp
@@ -175,11 +173,9 @@ set(
 	plugins/x11input/src/device/window_demuxer.cpp
 	plugins/x11input/src/exports.cpp
 	plugins/x11input/src/focus/config.cpp
-	plugins/x11input/src/focus/fake_core_event.cpp
 	plugins/x11input/src/focus/looked_up_string.cpp
 	plugins/x11input/src/focus/lookup_string.cpp
 	plugins/x11input/src/focus/object.cpp
-	plugins/x11input/src/focus/to_base_event.cpp
 	plugins/x11input/src/focus/translate_event.cpp
 	plugins/x11input/src/input_context.cpp
 	plugins/x11input/src/input_method.cpp

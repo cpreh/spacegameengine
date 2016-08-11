@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/window_event.hpp>
-#include <sge/x11input/focus/fake_core_event.hpp>
 #include <sge/x11input/focus/looked_up_string.hpp>
 #include <sge/x11input/focus/lookup_string.hpp>
 #include <sge/x11input/focus/object.hpp>
@@ -214,11 +213,6 @@ sge::x11input::focus::object::on_key_press(
 	sge::x11input::device::window_event const &_event
 )
 {
-	sge::x11input::focus::fake_core_event(
-		window_,
-		_event
-	);
-
 	sge::x11input::focus::looked_up_string const lookup(
 		sge::x11input::focus::lookup_string(
 			log_,
@@ -268,11 +262,6 @@ sge::x11input::focus::object::on_key_release(
 	sge::x11input::device::window_event const &_event
 )
 {
-	sge::x11input::focus::fake_core_event(
-		window_,
-		_event
-	);
-
 	key_signal_(
 		sge::input::focus::key_event(
 			sge::input::focus::key{
