@@ -489,6 +489,7 @@ sge::x11input::processor::create_focus(
 			sge::x11input::focus::object
 		>(
 			log_,
+			window_event_processor_,
 			this->device_parameters(
 				_param
 			),

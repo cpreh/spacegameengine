@@ -39,9 +39,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/xim/context_fwd.hpp>
 #include <sge/x11input/xim/method_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
+#include <awl/backends/x11/window/event/processor_fwd.hpp>
+#include <awl/backends/x11/window/event/scoped_mask.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
-#include <fcppt/container/bitfield/object_decl.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
@@ -66,6 +67,7 @@ class object
 public:
 	object(
 		fcppt::log::object &,
+		awl::backends::x11::window::event::processor &,
 		sge::x11input::device::parameters const &,
 		sge::x11input::xim::method const &
 	);
@@ -134,6 +136,8 @@ private:
 	xim_context_ptr;
 
 	xim_context_ptr const xim_context_;
+
+	awl::backends::x11::window::event::scoped_mask const scoped_event_mask_;
 
 	fcppt::signal::auto_connection_container const connections_;
 };

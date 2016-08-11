@@ -136,6 +136,8 @@ set(
 	plugins/x11input/include/sge/x11input/xi_version.hpp
 	plugins/x11input/include/sge/x11input/xim/context.hpp
 	plugins/x11input/include/sge/x11input/xim/context_fwd.hpp
+	plugins/x11input/include/sge/x11input/xim/get_filter_events.hpp
+	plugins/x11input/include/sge/x11input/xim/get_ic_values.hpp
 	plugins/x11input/include/sge/x11input/xim/method.hpp
 	plugins/x11input/include/sge/x11input/xim/method_fwd.hpp
 	plugins/x11input/src/atom_name.cpp
@@ -208,6 +210,7 @@ set(
 	plugins/x11input/src/xi_opcode.cpp
 	plugins/x11input/src/xi_version.cpp
 	plugins/x11input/src/xim/context.cpp
+	plugins/x11input/src/xim/get_filter_events.cpp
 	plugins/x11input/src/xim/method.cpp
 )
 

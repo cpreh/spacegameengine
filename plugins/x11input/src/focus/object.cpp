@@ -39,10 +39,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/key/event_to_sge_code.hpp>
 #include <sge/x11input/key/repeated.hpp>
 #include <sge/x11input/xim/context.hpp>
+#include <sge/x11input/xim/get_filter_events.hpp>
 #include <sge/x11input/xim/method.hpp>
-#include <awl/backends/x11/system/event/object.hpp>
-#include <awl/backends/x11/system/event/processor.hpp>
+#include <awl/backends/x11/system/event/type.hpp>
 #include <awl/backends/x11/window/object.hpp>
+#include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
@@ -59,13 +60,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::x11input::focus::object::object(
 	fcppt::log::object &_log,
-	sge::x11input::device::parameters const &_param,
+	awl::backends::x11::window::event::processor &_window_processor,
+	sge::x11input::device::parameters const &_parameters,
 	sge::x11input::xim::method const &_xim_method
 )
 :
 	sge::input::focus::object(),
 	sge::x11input::device::object(
-		_param.id()
+		_parameters.id()
 	),
 	log_{
 		_log
@@ -76,25 +78,31 @@ sge::x11input::focus::object::object(
 	in_signal_(),
 	out_signal_(),
 	window_(
-		_param.window()
+		_parameters.window()
 	),
 	xim_context_(
 		fcppt::make_unique_ptr<
 			sge::x11input::xim::context
 		>(
 			_xim_method.get(),
-			_param.window()
+			_parameters.window()
+		)
+	),
+	scoped_event_mask_(
+		_window_processor,
+		sge::x11input::xim::get_filter_events(
+			*xim_context_
 		)
 	),
 	connections_(
 		fcppt::assign::make_container<
 			fcppt::signal::auto_connection_container
 		>(
-			_param.window_demuxer().register_callback(
+			_parameters.window_demuxer().register_callback(
 				awl::backends::x11::system::event::type(
 					XI_KeyPress
 				),
-				_param.id(),
+				_parameters.id(),
 				sge::x11input::device::window_demuxer::callback{
 					std::bind(
 						&sge::x11input::focus::object::on_key_press,
@@ -103,11 +111,11 @@ sge::x11input::focus::object::object(
 					)
 				}
 			),
-			_param.window_demuxer().register_callback(
+			_parameters.window_demuxer().register_callback(
 				awl::backends::x11::system::event::type(
 					XI_KeyRelease
 				),
-				_param.id(),
+				_parameters.id(),
 				sge::x11input::device::window_demuxer::callback{
 					std::bind(
 						&sge::x11input::focus::object::on_key_release,
@@ -116,11 +124,11 @@ sge::x11input::focus::object::object(
 					)
 				}
 			),
-			_param.window_demuxer().register_callback(
+			_parameters.window_demuxer().register_callback(
 				awl::backends::x11::system::event::type(
 					XI_FocusIn
 				),
-				_param.id(),
+				_parameters.id(),
 				sge::x11input::device::window_demuxer::callback{
 					[
 						this
@@ -134,11 +142,11 @@ sge::x11input::focus::object::object(
 					}
 				}
 			),
-			_param.window_demuxer().register_callback(
+			_parameters.window_demuxer().register_callback(
 				awl::backends::x11::system::event::type(
 					XI_FocusOut
 				),
-				_param.id(),
+				_parameters.id(),
 				sge::x11input::device::window_demuxer::callback{
 					[
 						this
