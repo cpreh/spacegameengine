@@ -18,49 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/exception.hpp>
-#include <sge/x11input/xim/method.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/Xlib.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_X11INPUT_XIM_CREATE_METHOD_HPP_INCLUDED
+#define SGE_X11INPUT_XIM_CREATE_METHOD_HPP_INCLUDED
+
+#include <sge/x11input/xim/method_unique_ptr.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
-sge::x11input::xim::method::method(
-	awl::backends::x11::display const &_display
-)
-:
-	xim_(
-		::XOpenIM(
-			_display.get(),
-			nullptr,
-			nullptr,
-			nullptr
-		)
-	)
+namespace sge
 {
-	if(
-		xim_
-		==
-		nullptr
-	)
-		throw
-			sge::input::exception{
-				FCPPT_TEXT("XOpenIM() failed!")
-			};
+namespace x11input
+{
+namespace xim
+{
+
+sge::x11input::xim::method_unique_ptr
+create_method(
+	fcppt::log::object &,
+	awl::backends::x11::display const &
+);
+
+}
+}
 }
 
-sge::x11input::xim::method::~method()
-{
-	::XCloseIM(
-		xim_
-	);
-}
-
-XIM
-sge::x11input::xim::method::get() const
-{
-	return
-		xim_;
-}
+#endif

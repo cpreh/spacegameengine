@@ -52,7 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/keyboard/device_unique_ptr.hpp>
 #include <sge/x11input/mouse/device.hpp>
 #include <sge/x11input/mouse/device_unique_ptr.hpp>
-#include <sge/x11input/xim/context.hpp>
+#include <sge/x11input/xim/create_method.hpp>
 #include <sge/x11input/xim/method.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/intern_atom.hpp>
@@ -146,11 +146,9 @@ sge::x11input::processor::processor(
 		)
 	),
 	xim_method_(
-		fcppt::make_unique_ptr<
-			sge::x11input::xim::method
-		>(
-			x11_window_.display(),
-			x11_window_.class_hint()
+		sge::x11input::xim::create_method(
+			_log,
+			x11_window_.display()
 		)
 	),
 	keyboard_discover_(),

@@ -28,30 +28,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/location.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <sge/x11input/lc_ctype.hpp>
 #include <sge/x11input/processor.hpp>
-#include <sge/x11input/scoped_locale.hpp>
 #include <sge/x11input/system.hpp>
 #include <sge/x11input/xi_opcode.hpp>
 #include <sge/x11input/xi_version.hpp>
 #include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <awl/window/object.hpp>
-#include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/dynamic_cross_exn.hpp>
-#include <fcppt/log/_.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/name.hpp>
-#include <fcppt/log/warning.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/to_exception.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/Xlib.h>
-#include <string>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::x11input::system::system(
@@ -115,54 +105,6 @@ sge::x11input::system::create_processor(
 			sge::input::exception{
 				FCPPT_TEXT("The X server doesn't support XI2.1!")
 			};
-
-	fcppt::optional::maybe(
-		sge::x11input::lc_ctype(),
-		[
-			this
-		]{
-			FCPPT_LOG_WARNING(
-				log_,
-				fcppt::log::_
-					<< FCPPT_TEXT("LC_CTYPE is not set.")
-					<< FCPPT_TEXT(" Character conversion of X11 will not work properly!")
-			);
-		},
-		[](
-			std::string const &_locale_name
-		)
-		{
-			sge::x11input::scoped_locale const temp_locale(
-				_locale_name
-			);
-
-			if(
-				::XSupportsLocale()
-				==
-				False
-			)
-				throw
-					sge::input::exception{
-						FCPPT_TEXT("X doesn't support the locale ")
-						+
-						fcppt::from_std_string(
-							_locale_name
-						)
-					};
-
-			if(
-				::XSetLocaleModifiers(
-					"" // XMODIFIERS are appended automatically
-				)
-				==
-				nullptr
-			)
-				throw
-					sge::input::exception{
-						FCPPT_TEXT("XSetLocaleModifiers() failed!")
-					};
-		}
-	);
 
 	return
 		fcppt::unique_ptr_to_base<

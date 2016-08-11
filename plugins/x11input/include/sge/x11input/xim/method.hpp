@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/x11input/xim/method_fwd.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
-#include <awl/backends/x11/window/const_optional_class_hint_ref_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
@@ -43,9 +42,9 @@ class method
 		method
 	);
 public:
+	explicit
 	method(
-		awl::backends::x11::display &,
-		awl::backends::x11::window::const_optional_class_hint_ref const &
+		awl::backends::x11::display const &
 	);
 
 	~method();

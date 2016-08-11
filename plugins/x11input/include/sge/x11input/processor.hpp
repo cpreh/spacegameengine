@@ -53,7 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/focus/object_unique_ptr.hpp>
 #include <sge/x11input/keyboard/device_unique_ptr.hpp>
 #include <sge/x11input/mouse/device_unique_ptr.hpp>
-#include <sge/x11input/xim/method_fwd.hpp>
+#include <sge/x11input/xim/method_unique_ptr.hpp>
 #include <awl/backends/x11/atom.hpp>
 #include <awl/backends/x11/cursor/object_unique_ptr.hpp>
 #include <awl/backends/x11/system/event/object_fwd.hpp>
@@ -64,7 +64,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/event/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -217,13 +216,7 @@ private:
 
 	awl::backends::x11::cursor::object_unique_ptr const invisible_cursor_;
 
-	typedef
-	fcppt::unique_ptr<
-		sge::x11input::xim::method
-	>
-	xim_method_ptr;
-
-	xim_method_ptr const xim_method_;
+	sge::x11input::xim::method_unique_ptr const xim_method_;
 
 	sge::input::keyboard::discover_signal keyboard_discover_;
 
