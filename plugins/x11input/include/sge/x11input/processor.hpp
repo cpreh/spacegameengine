@@ -43,8 +43,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <sge/x11input/create_parameters_fwd.hpp>
-#include <sge/x11input/input_context_fwd.hpp>
-#include <sge/x11input/input_method_fwd.hpp>
 #include <sge/x11input/cursor/object_unique_ptr.hpp>
 #include <sge/x11input/device/hierarchy_demuxer.hpp>
 #include <sge/x11input/device/hierarchy_event_fwd.hpp>
@@ -55,6 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/focus/object_unique_ptr.hpp>
 #include <sge/x11input/keyboard/device_unique_ptr.hpp>
 #include <sge/x11input/mouse/device_unique_ptr.hpp>
+#include <sge/x11input/xim/method_fwd.hpp>
 #include <awl/backends/x11/atom.hpp>
 #include <awl/backends/x11/cursor/object_unique_ptr.hpp>
 #include <awl/backends/x11/system/event/object_fwd.hpp>
@@ -220,19 +219,11 @@ private:
 
 	typedef
 	fcppt::unique_ptr<
-		sge::x11input::input_method
+		sge::x11input::xim::method
 	>
-	input_method_ptr;
+	xim_method_ptr;
 
-	input_method_ptr const input_method_;
-
-	typedef
-	fcppt::unique_ptr<
-		sge::x11input::input_context
-	>
-	input_context_ptr;
-
-	input_context_ptr const input_context_;
+	xim_method_ptr const xim_method_;
 
 	sge::input::keyboard::discover_signal keyboard_discover_;
 

@@ -18,42 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_INPUT_METHOD_HPP_INCLUDED
-#define SGE_X11INPUT_INPUT_METHOD_HPP_INCLUDED
-
-#include <sge/x11input/input_method_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <awl/backends/x11/window/const_optional_class_hint_ref_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/Xlib.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_X11INPUT_XIM_METHOD_FWD_HPP_INCLUDED
+#define SGE_X11INPUT_XIM_METHOD_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace x11input
 {
-
-class input_method
+namespace xim
 {
-	FCPPT_NONCOPYABLE(
-		input_method
-	);
-public:
-	input_method(
-		awl::backends::x11::display &,
-		awl::backends::x11::window::const_optional_class_hint_ref const &
-	);
 
-	~input_method();
+class method;
 
-	XIM
-	get() const;
-private:
-	XIM const xim_;
-};
-
+}
 }
 }
 

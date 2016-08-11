@@ -32,13 +32,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/object.hpp>
 #include <sge/input/focus/out_callback.hpp>
 #include <sge/input/focus/out_signal.hpp>
-#include <sge/x11input/input_context_fwd.hpp>
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/parameters_fwd.hpp>
 #include <sge/x11input/device/window_event_fwd.hpp>
 #include <sge/x11input/focus/object_fwd.hpp>
+#include <sge/x11input/xim/context_fwd.hpp>
+#include <sge/x11input/xim/method_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/container/bitfield/object_decl.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
@@ -65,7 +67,7 @@ public:
 	object(
 		fcppt::log::object &,
 		sge::x11input::device::parameters const &,
-		sge::x11input::input_context const &
+		sge::x11input::xim::method const &
 	);
 
 	~object()
@@ -125,7 +127,13 @@ private:
 
 	awl::backends::x11::window::object const &window_;
 
-	sge::x11input::input_context const &input_context_;
+	typedef
+	fcppt::unique_ptr<
+		sge::x11input::xim::context
+	>
+	xim_context_ptr;
+
+	xim_context_ptr const xim_context_;
 
 	fcppt::signal::auto_connection_container const connections_;
 };

@@ -18,60 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/exception.hpp>
-#include <sge/x11input/input_context.hpp>
-#include <awl/backends/x11/window/object.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_X11INPUT_XIM_METHOD_HPP_INCLUDED
+#define SGE_X11INPUT_XIM_METHOD_HPP_INCLUDED
+
+#include <sge/x11input/xim/method_fwd.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/window/const_optional_class_hint_ref_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::x11input::input_context::input_context(
-	XIM const _xim,
-	awl::backends::x11::window::object const &_window
-)
-:
-	xic_(
-		::XCreateIC(
-			_xim,
-			XNClientWindow,
-			_window.get(),
-			//XNFocusWindow,
-			//_window.get(),
-			XNInputStyle,
-			XIMPreeditNothing | XIMStatusNothing,
-			// FIXME: Do we need this?
-			/*
-			XNResourceName,
-			_class_hint.res_name().c_str(),
-			XNResourceClass,
-			_class_hint.res_class().c_str(),*/
-			NULL
-		)
-	)
+namespace sge
 {
-	if(
-		xic_
-		==
-		nullptr
-	)
-		throw
-			sge::input::exception{
-				FCPPT_TEXT("XCreateIC() failed!")
-			};
-}
+namespace x11input
+{
+namespace xim
+{
 
-sge::x11input::input_context::~input_context()
+class method
 {
-	::XDestroyIC(
-		xic_
+	FCPPT_NONCOPYABLE(
+		method
 	);
+public:
+	method(
+		awl::backends::x11::display &,
+		awl::backends::x11::window::const_optional_class_hint_ref const &
+	);
+
+	~method();
+
+	XIM
+	get() const;
+private:
+	XIM const xim_;
+};
+
+}
+}
 }
 
-XIC
-sge::x11input::input_context::get() const
-{
-	return
-		xic_;
-}
+#endif

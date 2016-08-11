@@ -32,8 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
 #include <sge/x11input/create_parameters.hpp>
-#include <sge/x11input/input_context.hpp>
-#include <sge/x11input/input_method.hpp>
 #include <sge/x11input/processor.hpp>
 #include <sge/x11input/send_init_event.hpp>
 #include <sge/x11input/cursor/object.hpp>
@@ -54,6 +52,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/keyboard/device_unique_ptr.hpp>
 #include <sge/x11input/mouse/device.hpp>
 #include <sge/x11input/mouse/device_unique_ptr.hpp>
+#include <sge/x11input/xim/context.hpp>
+#include <sge/x11input/xim/method.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/intern_atom.hpp>
 #include <awl/backends/x11/cursor/create_invisible.hpp>
@@ -145,20 +145,12 @@ sge::x11input::processor::processor(
 			x11_window_.display()
 		)
 	),
-	input_method_(
+	xim_method_(
 		fcppt::make_unique_ptr<
-			sge::x11input::input_method
+			sge::x11input::xim::method
 		>(
 			x11_window_.display(),
 			x11_window_.class_hint()
-		)
-	),
-	input_context_(
-		fcppt::make_unique_ptr<
-			sge::x11input::input_context
-		>(
-			input_method_->get(),
-			x11_window_
 		)
 	),
 	keyboard_discover_(),
@@ -500,7 +492,7 @@ sge::x11input::processor::create_focus(
 			this->device_parameters(
 				_param
 			),
-			*input_context_
+			*xim_method_
 		);
 }
 

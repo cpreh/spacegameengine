@@ -19,12 +19,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/exception.hpp>
-#include <sge/x11input/input_context.hpp>
 #include <sge/x11input/focus/char_vector.hpp>
 #include <sge/x11input/focus/looked_up_string.hpp>
 #include <sge/x11input/focus/lookup_string.hpp>
 #include <sge/x11input/focus/translate_event.hpp>
 #include <sge/x11input/key/translate_code.hpp>
+#include <sge/x11input/xim/context.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size.hpp>
@@ -45,7 +45,7 @@ namespace
 
 int
 do_lookup(
-	sge::x11input::input_context const &_input_context,
+	sge::x11input::xim::context const &_input_context,
 	XKeyPressedEvent &_event,
 	wchar_t *const _data,
 	int const _size,
@@ -69,7 +69,7 @@ do_lookup(
 sge::x11input::focus::looked_up_string
 sge::x11input::focus::lookup_string(
 	fcppt::log::object &_log,
-	sge::x11input::input_context const &_input_context,
+	sge::x11input::xim::context const &_input_context,
 	XIDeviceEvent const &_event
 )
 {

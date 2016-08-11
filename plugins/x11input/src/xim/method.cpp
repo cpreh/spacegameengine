@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/exception.hpp>
-#include <sge/x11input/input_method.hpp>
+#include <sge/x11input/xim/method.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/class_hint.hpp>
 #include <awl/backends/x11/window/const_optional_class_hint_ref.hpp>
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-sge::x11input::input_method::input_method(
+sge::x11input::xim::method::method(
 	awl::backends::x11::display &_display,
 	awl::backends::x11::window::const_optional_class_hint_ref const &_class_hint
 )
@@ -98,7 +98,7 @@ sge::x11input::input_method::input_method(
 			};
 }
 
-sge::x11input::input_method::~input_method()
+sge::x11input::xim::method::~method()
 {
 	::XCloseIM(
 		xim_
@@ -106,7 +106,7 @@ sge::x11input::input_method::~input_method()
 }
 
 XIM
-sge::x11input::input_method::get() const
+sge::x11input::xim::method::get() const
 {
 	return
 		xim_;

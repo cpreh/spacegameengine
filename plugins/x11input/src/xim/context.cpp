@@ -18,18 +18,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_INPUT_METHOD_FWD_HPP_INCLUDED
-#define SGE_X11INPUT_INPUT_METHOD_FWD_HPP_INCLUDED
+#include <sge/input/exception.hpp>
+#include <sge/x11input/xim/context.hpp>
+#include <awl/backends/x11/window/object.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/Xlib.h>
+#include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::x11input::xim::context::context(
+	XIM const _xim,
+	awl::backends::x11::window::object const &_window
+)
+:
+	xic_(
+		::XCreateIC(
+			_xim,
+			XNClientWindow,
+			_window.get(),
+			XNInputStyle,
+			XIMPreeditNothing | XIMStatusNothing,
+			NULL
+		)
+	)
 {
-namespace x11input
+	if(
+		xic_
+		==
+		nullptr
+	)
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("XCreateIC() failed!")
+			};
+}
+
+sge::x11input::xim::context::~context()
 {
-
-class input_method;
-
+	::XDestroyIC(
+		xic_
+	);
 }
-}
 
-#endif
+XIC
+sge::x11input::xim::context::get() const
+{
+	return
+		xic_;
+}

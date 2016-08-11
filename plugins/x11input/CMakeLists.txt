@@ -96,10 +96,6 @@ set(
 	plugins/x11input/include/sge/x11input/focus/object_fwd.hpp
 	plugins/x11input/include/sge/x11input/focus/object_unique_ptr.hpp
 	plugins/x11input/include/sge/x11input/focus/translate_event.hpp
-	plugins/x11input/include/sge/x11input/input_context.hpp
-	plugins/x11input/include/sge/x11input/input_context_fwd.hpp
-	plugins/x11input/include/sge/x11input/input_method.hpp
-	plugins/x11input/include/sge/x11input/input_method_fwd.hpp
 	plugins/x11input/include/sge/x11input/key/code.hpp
 	plugins/x11input/include/sge/x11input/key/code_from_event.hpp
 	plugins/x11input/include/sge/x11input/key/code_to_sym.hpp
@@ -138,6 +134,10 @@ set(
 	plugins/x11input/include/sge/x11input/system.hpp
 	plugins/x11input/include/sge/x11input/xi_opcode.hpp
 	plugins/x11input/include/sge/x11input/xi_version.hpp
+	plugins/x11input/include/sge/x11input/xim/context.hpp
+	plugins/x11input/include/sge/x11input/xim/context_fwd.hpp
+	plugins/x11input/include/sge/x11input/xim/method.hpp
+	plugins/x11input/include/sge/x11input/xim/method_fwd.hpp
 	plugins/x11input/src/atom_name.cpp
 	plugins/x11input/src/color.cpp
 	plugins/x11input/src/create_parameters.cpp
@@ -177,8 +177,6 @@ set(
 	plugins/x11input/src/focus/lookup_string.cpp
 	plugins/x11input/src/focus/object.cpp
 	plugins/x11input/src/focus/translate_event.cpp
-	plugins/x11input/src/input_context.cpp
-	plugins/x11input/src/input_method.cpp
 	plugins/x11input/src/key/code_from_event.cpp
 	plugins/x11input/src/key/code_to_sym.cpp
 	plugins/x11input/src/key/event_to_sge_code.cpp
@@ -209,6 +207,8 @@ set(
 	plugins/x11input/src/system.cpp
 	plugins/x11input/src/xi_opcode.cpp
 	plugins/x11input/src/xi_version.cpp
+	plugins/x11input/src/xim/context.cpp
+	plugins/x11input/src/xim/method.cpp
 )
 
 find_package(

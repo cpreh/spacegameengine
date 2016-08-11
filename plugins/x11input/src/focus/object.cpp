@@ -30,7 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/out_callback.hpp>
 #include <sge/input/focus/out_event.hpp>
 #include <sge/input/key/pressed.hpp>
-#include <sge/x11input/input_context_fwd.hpp>
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/window_event.hpp>
@@ -39,9 +38,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/focus/object.hpp>
 #include <sge/x11input/key/event_to_sge_code.hpp>
 #include <sge/x11input/key/repeated.hpp>
+#include <sge/x11input/xim/context.hpp>
+#include <sge/x11input/xim/method.hpp>
 #include <awl/backends/x11/system/event/object.hpp>
 #include <awl/backends/x11/system/event/processor.hpp>
 #include <awl/backends/x11/window/object.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -57,7 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::x11input::focus::object::object(
 	fcppt::log::object &_log,
 	sge::x11input::device::parameters const &_param,
-	sge::x11input::input_context const &_input_context
+	sge::x11input::xim::method const &_xim_method
 )
 :
 	sge::input::focus::object(),
@@ -75,8 +78,13 @@ sge::x11input::focus::object::object(
 	window_(
 		_param.window()
 	),
-	input_context_(
-		_input_context
+	xim_context_(
+		fcppt::make_unique_ptr<
+			sge::x11input::xim::context
+		>(
+			_xim_method.get(),
+			_param.window()
+		)
 	),
 	connections_(
 		fcppt::assign::make_container<
@@ -216,7 +224,7 @@ sge::x11input::focus::object::on_key_press(
 	sge::x11input::focus::looked_up_string const lookup(
 		sge::x11input::focus::lookup_string(
 			log_,
-			input_context_,
+			*xim_context_,
 			_event.get()
 		)
 	);
