@@ -427,6 +427,15 @@ add_sge_example(
 )
 
 add_sge_example(
+	input_only
+	SGE_DEPS
+		sgesystems
+		sgewindow
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+)
+
+add_sge_example(
 	intrusivesprite
 	SGE_DEPS
 		sgeconfig
