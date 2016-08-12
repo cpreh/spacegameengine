@@ -81,9 +81,10 @@ read_bits(
 		==
 		-1
 	)
-		throw sge::input::exception{
-			FCPPT_TEXT("ioctl reading device capabilities failed!")
-		};
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("ioctl reading device capabilities failed!")
+			};
 
 	return
 		result_type(

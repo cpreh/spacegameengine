@@ -176,6 +176,11 @@ set(
 	libs/input/include/sge/input/joypad/discover_event_fwd.hpp
 	libs/input/include/sge/input/joypad/discover_function.hpp
 	libs/input/include/sge/input/joypad/discover_signal.hpp
+	libs/input/include/sge/input/joypad/ff/type.hpp
+	libs/input/include/sge/input/joypad/ff/type_field.hpp
+	libs/input/include/sge/input/joypad/ff/type_field_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/type_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/type_to_string.hpp
 	libs/input/include/sge/input/joypad/info.hpp
 	libs/input/include/sge/input/joypad/info_fwd.hpp
 	libs/input/include/sge/input/joypad/manager.hpp
@@ -347,6 +352,7 @@ set(
 	libs/input/src/input/joypad/button_info_container.cpp
 	libs/input/src/input/joypad/device.cpp
 	libs/input/src/input/joypad/discover_event.cpp
+	libs/input/src/input/joypad/ff/type_to_string.cpp
 	libs/input/src/input/joypad/info.cpp
 	libs/input/src/input/joypad/manager.cpp
 	libs/input/src/input/joypad/relative_axis.cpp

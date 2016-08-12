@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/absolute_axis/make_info_container.hpp>
 #include <sge/evdev/joypad/button/info_container.hpp>
 #include <sge/evdev/joypad/button/make_info_container.hpp>
+#include <sge/evdev/joypad/ff/make_info.hpp>
 #include <sge/evdev/joypad/relative_axis/info_container.hpp>
 #include <sge/evdev/joypad/relative_axis/make_info_container.hpp>
 #include <sge/input/joypad/info.hpp>
@@ -62,6 +63,9 @@ sge::evdev::joypad::make_info(
 				absolute_axis.infos(),
 				buttons.infos(),
 				relative_axis.infos(),
+				sge::evdev::joypad::ff::make_info(
+					_fd
+				),
 				sge::evdev::device::name(
 					_fd
 				),

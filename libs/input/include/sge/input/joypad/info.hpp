@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/button_info_container.hpp>
 #include <sge/input/joypad/info_fwd.hpp>
 #include <sge/input/joypad/relative_axis_info_container.hpp>
+#include <sge/input/joypad/ff/type_field.hpp>
 
 
 namespace sge
@@ -45,6 +46,7 @@ public:
 		sge::input::joypad::absolute_axis_info_container const &,
 		sge::input::joypad::button_info_container const &,
 		sge::input::joypad::relative_axis_info_container const &,
+		sge::input::joypad::ff::type_field,
 		sge::input::info::name const &,
 		sge::input::info::unique_id const &
 	);
@@ -62,6 +64,10 @@ public:
 	relative_axes() const;
 
 	SGE_INPUT_DETAIL_SYMBOL
+	sge::input::joypad::ff::type_field
+	ff_types() const;
+
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::info::name const &
 	name() const;
 
@@ -74,6 +80,8 @@ private:
 	sge::input::joypad::button_info_container buttons_;
 
 	sge::input::joypad::relative_axis_info_container relative_axes_;
+
+	sge::input::joypad::ff::type_field ff_types_;
 
 	sge::input::info::name name_;
 

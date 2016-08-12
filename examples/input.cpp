@@ -85,6 +85,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/relative_axis_info_container.hpp>
 #include <sge/input/joypad/remove_callback.hpp>
 #include <sge/input/joypad/remove_event.hpp>
+#include <sge/input/joypad/ff/type.hpp>
+#include <sge/input/joypad/ff/type_to_string.hpp>
 #include <sge/input/key/code_to_string.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/discover_callback.hpp>
@@ -160,11 +162,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_wstring.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/make_enum_range.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
+#include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/log/level.hpp>
@@ -1054,6 +1058,31 @@ joypad_discover(
 					button_info.name()
 				)
 				<< FCPPT_TEXT('\n');
+	}
+
+	{
+		fcppt::io::cout()
+			<< FCPPT_TEXT("\tff effects: \n");
+
+		for(
+			sge::input::joypad::ff::type const effect
+			:
+			fcppt::make_enum_range<
+				sge::input::joypad::ff::type
+			>()
+		)
+			if(
+				info.ff_types()
+				&
+				effect
+			)
+				fcppt::io::cout()
+					<< FCPPT_TEXT("\t\t ")
+					<<
+					sge::input::joypad::ff::type_to_string(
+						effect
+					)
+					<< FCPPT_TEXT('\n');
 	}
 
 }
