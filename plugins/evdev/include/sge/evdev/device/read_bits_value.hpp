@@ -18,15 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EVDEV_DEVICE_READ_BITS_RESULT_FWD_HPP_INCLUDED
-#define SGE_EVDEV_DEVICE_READ_BITS_RESULT_FWD_HPP_INCLUDED
-
-#include <sge/evdev/device/event_type_value.hpp>
-#include <sge/evdev/device/read_bits_value.hpp>
-#include <fcppt/container/bitfield/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_EVDEV_DEVICE_READ_BITS_VALUE_HPP_INCLUDED
+#define SGE_EVDEV_DEVICE_READ_BITS_VALUE_HPP_INCLUDED
 
 
 namespace sge
@@ -36,19 +29,9 @@ namespace evdev
 namespace device
 {
 
-template<
-	sge::evdev::device::event_type_value Count
->
-using read_bits_result
-=
-fcppt::container::bitfield::object<
-	sge::evdev::device::event_type_value,
-	std::integral_constant<
-		sge::evdev::device::event_type_value,
-		Count
-	>,
-	sge::evdev::device::read_bits_value
->;
+typedef
+unsigned long
+read_bits_value;
 
 }
 }

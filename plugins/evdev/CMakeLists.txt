@@ -22,6 +22,7 @@ set(
 	plugins/evdev/include/sge/evdev/device/read_bits.hpp
 	plugins/evdev/include/sge/evdev/device/read_bits_result.hpp
 	plugins/evdev/include/sge/evdev/device/read_bits_result_fwd.hpp
+	plugins/evdev/include/sge/evdev/device/read_bits_value.hpp
 	plugins/evdev/include/sge/evdev/device/unique_id.hpp
 	plugins/evdev/include/sge/evdev/inotify/callback.hpp
 	plugins/evdev/include/sge/evdev/inotify/convert_event_type.hpp
