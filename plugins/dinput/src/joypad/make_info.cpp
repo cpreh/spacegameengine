@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/button_info_container.hpp>
 #include <sge/input/joypad/info.hpp>
 #include <sge/input/joypad/relative_axis_info_container.hpp>
+#include <sge/input/joypad/ff/type_field.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -64,6 +65,8 @@ sge::dinput::joypad::make_info(
 				sge::input::joypad::relative_axis_info_container(
 					object.relative_axis()
 				),
+				// FIXME
+				sge::input::joypad::ff::type_field::null(),
 				sge::input::info::name(
 					_name
 				),
