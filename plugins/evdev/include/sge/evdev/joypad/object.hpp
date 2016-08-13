@@ -34,6 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/info_fwd.hpp>
 #include <sge/input/joypad/relative_axis_callback.hpp>
 #include <sge/input/joypad/relative_axis_signal.hpp>
+#include <sge/input/joypad/ff/effect_unique_ptr.hpp>
+#include <sge/input/joypad/ff/parameters_fwd.hpp>
 #include <awl/backends/posix/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
@@ -90,6 +92,12 @@ private:
 	void
 	process_event(
 		sge::evdev::device::event const &
+	)
+	override;
+
+	sge::input::joypad::ff::effect_unique_ptr
+	create_ff_effect(
+		sge::input::joypad::ff::parameters const &
 	)
 	override;
 

@@ -107,3 +107,11 @@ sge::evdev::device::object::on_event(
 			FCPPT_TEXT("Reading a device failed")
 		};
 }
+
+
+sge::evdev::device::fd const &
+sge::evdev::device::object::fd() const
+{
+	return
+		*fd_;
+}

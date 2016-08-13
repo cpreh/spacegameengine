@@ -18,58 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EVDEV_DEVICE_OBJECT_HPP_INCLUDED
-#define SGE_EVDEV_DEVICE_OBJECT_HPP_INCLUDED
+#ifndef SGE_INPUT_JOYPAD_FF_PERIODIC_HPP_INCLUDED
+#define SGE_INPUT_JOYPAD_FF_PERIODIC_HPP_INCLUDED
 
-#include <sge/evdev/device/event_fwd.hpp>
-#include <sge/evdev/device/fd_fwd.hpp>
-#include <sge/evdev/device/fd_unique_ptr.hpp>
-#include <awl/backends/posix/event_fwd.hpp>
-#include <awl/backends/posix/processor_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <sge/input/detail/symbol.hpp>
+#include <sge/input/joypad/ff/magnitude.hpp>
+#include <sge/input/joypad/ff/offset.hpp>
+#include <sge/input/joypad/ff/periodic_fwd.hpp>
+#include <sge/input/joypad/ff/period.hpp>
+#include <sge/input/joypad/ff/phase.hpp>
+#include <sge/input/joypad/ff/waveform.hpp>
 
 
 namespace sge
 {
-namespace evdev
+namespace input
 {
-namespace device
+namespace joypad
+{
+namespace ff
 {
 
-class object
+class periodic
 {
-	FCPPT_NONCOPYABLE(
-		object
-	);
 public:
-	object(
-		awl::backends::posix::processor &,
-		sge::evdev::device::fd_unique_ptr
+	SGE_INPUT_DETAIL_SYMBOL
+	periodic(
+		sge::input::joypad::ff::waveform,
+		sge::input::joypad::ff::magnitude,
+		sge::input::joypad::ff::offset,
+		sge::input::joypad::ff::phase,
+		sge::input::joypad::ff::period
 	);
-
-	virtual
-	~object() = 0;
-
-	void
-	on_event(
-		awl::backends::posix::event const &
-	);
-protected:
-	sge::evdev::device::fd const &
-	fd() const;
-private:
-	virtual
-	void
-	process_event(
-		sge::evdev::device::event const &
-	) = 0;
-
-	sge::evdev::device::fd_unique_ptr const fd_;
-
-	fcppt::signal::auto_connection const auto_connection_;
 };
 
+}
 }
 }
 }

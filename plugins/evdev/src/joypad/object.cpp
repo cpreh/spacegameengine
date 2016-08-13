@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/absolute_axis/make_event.hpp>
 #include <sge/evdev/joypad/button/make_event.hpp>
 #include <sge/evdev/joypad/relative_axis/make_event.hpp>
+#include <sge/evdev/joypad/ff/effect.hpp>
 #include <sge/input/joypad/absolute_axis_callback.hpp>
 #include <sge/input/joypad/absolute_axis_event.hpp>
 #include <sge/input/joypad/button_callback.hpp>
@@ -36,7 +37,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/info.hpp>
 #include <sge/input/joypad/relative_axis_callback.hpp>
 #include <sge/input/joypad/relative_axis_event.hpp>
+#include <sge/input/joypad/ff/effect.hpp>
+#include <sge/input/joypad/ff/effect_unique_ptr.hpp>
+#include <sge/input/joypad/ff/parameters_fwd.hpp>
 #include <awl/backends/posix/processor_fwd.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -151,4 +157,22 @@ sge::evdev::joypad::object::process_event(
 
 		break;
 	}
+}
+
+sge::input::joypad::ff::effect_unique_ptr
+sge::evdev::joypad::object::create_ff_effect(
+	sge::input::joypad::ff::parameters const &_parameters
+)
+{
+	return
+		fcppt::unique_ptr_to_base<
+			sge::input::joypad::ff::effect
+		>(
+			fcppt::make_unique_ptr<
+				sge::evdev::joypad::ff::effect
+			>(
+				this->fd(),
+				_parameters
+			)
+		);
 }

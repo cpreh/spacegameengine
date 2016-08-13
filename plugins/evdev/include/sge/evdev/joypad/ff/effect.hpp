@@ -18,58 +18,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_EVDEV_DEVICE_OBJECT_HPP_INCLUDED
-#define SGE_EVDEV_DEVICE_OBJECT_HPP_INCLUDED
+#ifndef SGE_EVDEV_JOYPAD_FF_EFFECT_HPP_INCLUDED
+#define SGE_EVDEV_JOYPAD_FF_EFFECT_HPP_INCLUDED
 
-#include <sge/evdev/device/event_fwd.hpp>
 #include <sge/evdev/device/fd_fwd.hpp>
-#include <sge/evdev/device/fd_unique_ptr.hpp>
-#include <awl/backends/posix/event_fwd.hpp>
-#include <awl/backends/posix/processor_fwd.hpp>
+#include <sge/input/joypad/ff/effect.hpp>
+#include <sge/input/joypad/ff/parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
 {
 namespace evdev
 {
-namespace device
+namespace joypad
+{
+namespace ff
 {
 
-class object
+class effect
+:
+	public
+		sge::input::joypad::ff::effect
 {
 	FCPPT_NONCOPYABLE(
-		object
+		effect
 	);
 public:
-	object(
-		awl::backends::posix::processor &,
-		sge::evdev::device::fd_unique_ptr
+	effect(
+		sge::evdev::device::fd const &,
+		sge::input::joypad::ff::parameters const &
 	);
 
-	virtual
-	~object() = 0;
+	~effect()
+	override;
 
 	void
-	on_event(
-		awl::backends::posix::event const &
-	);
-protected:
-	sge::evdev::device::fd const &
-	fd() const;
+	play()
+	override;
+
+	void
+	stop()
+	override;
 private:
-	virtual
-	void
-	process_event(
-		sge::evdev::device::event const &
-	) = 0;
 
-	sge::evdev::device::fd_unique_ptr const fd_;
-
-	fcppt::signal::auto_connection const auto_connection_;
 };
 
+}
 }
 }
 }

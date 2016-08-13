@@ -176,11 +176,79 @@ set(
 	libs/input/include/sge/input/joypad/discover_event_fwd.hpp
 	libs/input/include/sge/input/joypad/discover_function.hpp
 	libs/input/include/sge/input/joypad/discover_signal.hpp
+	libs/input/include/sge/input/joypad/ff/attack_level.hpp
+	libs/input/include/sge/input/joypad/ff/attack_level_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/attack_time.hpp
+	libs/input/include/sge/input/joypad/ff/attack_time_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/condition.hpp
+	libs/input/include/sge/input/joypad/ff/condition_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/constant.hpp
+	libs/input/include/sge/input/joypad/ff/constant_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/deadband_center.hpp
+	libs/input/include/sge/input/joypad/ff/deadband_center_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/deadband_size.hpp
+	libs/input/include/sge/input/joypad/ff/deadband_size_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/degrees_value.hpp
+	libs/input/include/sge/input/joypad/ff/delay.hpp
+	libs/input/include/sge/input/joypad/ff/delay_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/direction.hpp
+	libs/input/include/sge/input/joypad/ff/direction_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/duration.hpp
+	libs/input/include/sge/input/joypad/ff/effect.hpp
+	libs/input/include/sge/input/joypad/ff/effect_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/effect_unique_ptr.hpp
+	libs/input/include/sge/input/joypad/ff/end_magnitude.hpp
+	libs/input/include/sge/input/joypad/ff/end_magnitude_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/envelope.hpp
+	libs/input/include/sge/input/joypad/ff/envelope_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/fade_level.hpp
+	libs/input/include/sge/input/joypad/ff/fade_level_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/fade_time.hpp
+	libs/input/include/sge/input/joypad/ff/fade_time_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/left_coefficient.hpp
+	libs/input/include/sge/input/joypad/ff/left_coefficient_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/left_saturation.hpp
+	libs/input/include/sge/input/joypad/ff/left_saturation_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/magnitude.hpp
+	libs/input/include/sge/input/joypad/ff/magnitude_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/milli_degrees_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/offset.hpp
+	libs/input/include/sge/input/joypad/ff/offset_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/optional_duration.hpp
+	libs/input/include/sge/input/joypad/ff/optional_duration_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/optional_trigger.hpp
+	libs/input/include/sge/input/joypad/ff/optional_trigger_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/parameters.hpp
+	libs/input/include/sge/input/joypad/ff/parameters_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/period.hpp
+	libs/input/include/sge/input/joypad/ff/period_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/periodic.hpp
+	libs/input/include/sge/input/joypad/ff/periodic_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/phase.hpp
+	libs/input/include/sge/input/joypad/ff/phase_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/ramp.hpp
+	libs/input/include/sge/input/joypad/ff/ramp_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/right_coefficient.hpp
+	libs/input/include/sge/input/joypad/ff/right_coefficient_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/right_saturation.hpp
+	libs/input/include/sge/input/joypad/ff/right_saturation_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/signed_value.hpp
+	libs/input/include/sge/input/joypad/ff/start_magnitude.hpp
+	libs/input/include/sge/input/joypad/ff/start_magnitude_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/trigger.hpp
+	libs/input/include/sge/input/joypad/ff/trigger_cooldown.hpp
+	libs/input/include/sge/input/joypad/ff/trigger_cooldown_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/trigger_fwd.hpp
 	libs/input/include/sge/input/joypad/ff/type.hpp
 	libs/input/include/sge/input/joypad/ff/type_field.hpp
 	libs/input/include/sge/input/joypad/ff/type_field_fwd.hpp
 	libs/input/include/sge/input/joypad/ff/type_fwd.hpp
 	libs/input/include/sge/input/joypad/ff/type_to_string.hpp
+	libs/input/include/sge/input/joypad/ff/unsigned_value.hpp
+	libs/input/include/sge/input/joypad/ff/variant.hpp
+	libs/input/include/sge/input/joypad/ff/variant_fwd.hpp
+	libs/input/include/sge/input/joypad/ff/waveform.hpp
+	libs/input/include/sge/input/joypad/ff/waveform_fwd.hpp
 	libs/input/include/sge/input/joypad/info.hpp
 	libs/input/include/sge/input/joypad/info_fwd.hpp
 	libs/input/include/sge/input/joypad/manager.hpp
@@ -352,6 +420,8 @@ set(
 	libs/input/src/input/joypad/button_info_container.cpp
 	libs/input/src/input/joypad/device.cpp
 	libs/input/src/input/joypad/discover_event.cpp
+	libs/input/src/input/joypad/ff/effect.cpp
+	libs/input/src/input/joypad/ff/parameters.cpp
 	libs/input/src/input/joypad/ff/type_to_string.cpp
 	libs/input/src/input/joypad/info.cpp
 	libs/input/src/input/joypad/manager.cpp

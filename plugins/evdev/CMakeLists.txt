@@ -54,6 +54,7 @@ set(
 	plugins/evdev/include/sge/evdev/joypad/button/make_info_container.hpp
 	plugins/evdev/include/sge/evdev/joypad/button/make_string.hpp
 	plugins/evdev/include/sge/evdev/joypad/event_map.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/effect.hpp
 	plugins/evdev/include/sge/evdev/joypad/ff/make_info.hpp
 	plugins/evdev/include/sge/evdev/joypad/info.hpp
 	plugins/evdev/include/sge/evdev/joypad/info_fwd.hpp
@@ -101,6 +102,7 @@ set(
 	plugins/evdev/src/joypad/button/make_info_container.cpp
 	plugins/evdev/src/joypad/button/make_string.cpp
 	plugins/evdev/src/joypad/event_map.cpp
+	plugins/evdev/src/joypad/ff/effect.cpp
 	plugins/evdev/src/joypad/ff/make_info.cpp
 	plugins/evdev/src/joypad/info.cpp
 	plugins/evdev/src/joypad/init.cpp
