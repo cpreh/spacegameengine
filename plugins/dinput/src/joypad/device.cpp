@@ -43,6 +43,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/relative_axis_callback.hpp>
 #include <sge/input/joypad/relative_axis_event.hpp>
 #include <sge/input/joypad/relative_axis_id.hpp>
+#include <sge/input/joypad/ff/effect.hpp>
+#include <sge/input/joypad/ff/effect_unique_ptr.hpp>
+#include <sge/input/joypad/ff/parameters_fwd.hpp>
+#include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/optional/copy_value.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -122,6 +126,16 @@ sge::dinput::joypad::device::info() const
 {
 	return
 		info_.input_info();
+}
+
+sge::input::joypad::ff::effect_unique_ptr
+sge::dinput::joypad::device::create_ff_effect(
+	sge::input::joypad::ff::parameters const &_parameters
+)
+{
+	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
+		FCPPT_TEXT("Implement force feedback in DInput")
+	);
 }
 
 void
