@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_JOYPAD_FF_TRIGGER_COOLDOWN_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_FF_TRIGGER_COOLDOWN_HPP_INCLUDED
 
-#include <sge/input/joypad/ff/trigger_cooldown_fwd.hpp>
 #include <sge/input/joypad/ff/optional_duration.hpp>
+#include <sge/input/joypad/ff/trigger_cooldown_fwd.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 

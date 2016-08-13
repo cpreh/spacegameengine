@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/x11input/xim/context_fwd.hpp>
-#include <sge/x11input/xim/get_ic_values.hpp>
 #include <sge/x11input/xim/get_filter_events.hpp>
+#include <sge/x11input/xim/get_ic_values.hpp>
 #include <awl/backends/x11/window/event/mask.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>

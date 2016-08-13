@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/ff/envelope.hpp>
 #include <sge/input/joypad/ff/magnitude.hpp>
 #include <sge/input/joypad/ff/offset.hpp>
-#include <sge/input/joypad/ff/periodic.hpp>
 #include <sge/input/joypad/ff/period.hpp>
+#include <sge/input/joypad/ff/periodic.hpp>
 #include <sge/input/joypad/ff/phase.hpp>
 #include <sge/input/joypad/ff/waveform.hpp>
 
