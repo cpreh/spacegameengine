@@ -18,57 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_JOYPAD_FF_RAMP_HPP_INCLUDED
-#define SGE_INPUT_JOYPAD_FF_RAMP_HPP_INCLUDED
-
-#include <sge/input/detail/symbol.hpp>
 #include <sge/input/joypad/ff/end_magnitude.hpp>
 #include <sge/input/joypad/ff/envelope.hpp>
-#include <sge/input/joypad/ff/ramp_fwd.hpp>
+#include <sge/input/joypad/ff/ramp.hpp>
 #include <sge/input/joypad/ff/start_magnitude.hpp>
 
 
-namespace sge
+sge::input::joypad::ff::ramp::ramp(
+	sge::input::joypad::ff::start_magnitude const _start_magnitude,
+	sge::input::joypad::ff::end_magnitude const _end_magnitude,
+	sge::input::joypad::ff::envelope const &_envelope
+)
+:
+	start_magnitude_{
+		_start_magnitude
+	},
+	end_magnitude_{
+		_end_magnitude
+	},
+	envelope_{
+		_envelope
+	}
 {
-namespace input
-{
-namespace joypad
-{
-namespace ff
-{
-
-class ramp
-{
-public:
-	SGE_INPUT_DETAIL_SYMBOL
-	ramp(
-		sge::input::joypad::ff::start_magnitude,
-		sge::input::joypad::ff::end_magnitude,
-		sge::input::joypad::ff::envelope const &
-	);
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::start_magnitude
-	start_magnitude() const;
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::end_magnitude
-	end_magnitude() const;
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::envelope const &
-	envelope() const;
-private:
-	sge::input::joypad::ff::start_magnitude start_magnitude_;
-
-	sge::input::joypad::ff::end_magnitude end_magnitude_;
-
-	sge::input::joypad::ff::envelope envelope_;
-};
-
-}
-}
-}
 }
 
-#endif
+sge::input::joypad::ff::start_magnitude
+sge::input::joypad::ff::ramp::start_magnitude() const
+{
+	return
+		start_magnitude_;
+}
+
+sge::input::joypad::ff::end_magnitude
+sge::input::joypad::ff::ramp::end_magnitude() const
+{
+	return
+		end_magnitude_;
+}
+
+sge::input::joypad::ff::envelope const &
+sge::input::joypad::ff::ramp::envelope() const
+{
+	return
+		envelope_;
+}

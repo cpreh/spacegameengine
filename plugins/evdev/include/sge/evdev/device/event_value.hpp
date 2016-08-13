@@ -18,47 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_JOYPAD_FF_TRIGGER_HPP_INCLUDED
-#define SGE_INPUT_JOYPAD_FF_TRIGGER_HPP_INCLUDED
+#ifndef SGE_EVDEV_DEVICE_EVENT_VALUE_HPP_INCLUDED
+#define SGE_EVDEV_DEVICE_EVENT_VALUE_HPP_INCLUDED
 
-#include <sge/input/detail/symbol.hpp>
-#include <sge/input/joypad/button_id.hpp>
-#include <sge/input/joypad/ff/trigger_cooldown.hpp>
-#include <sge/input/joypad/ff/trigger_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace input
+namespace evdev
 {
-namespace joypad
-{
-namespace ff
+namespace device
 {
 
-class trigger
-{
-public:
-	SGE_INPUT_DETAIL_SYMBOL
-	trigger(
-		sge::input::joypad::button_id,
-		sge::input::joypad::ff::trigger_cooldown
-	);
+typedef
+std::int32_t
+event_value;
 
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::button_id
-	button() const;
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::trigger_cooldown
-	cooldown() const;
-private:
-	sge::input::joypad::button_id button_;
-
-	sge::input::joypad::ff::trigger_cooldown cooldown_;
-};
-
-}
 }
 }
 }

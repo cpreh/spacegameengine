@@ -44,6 +44,18 @@ public:
 		sge::input::joypad::ff::magnitude,
 		sge::input::joypad::ff::envelope const &
 	);
+
+	SGE_INPUT_DETAIL_SYMBOL
+	sge::input::joypad::ff::magnitude
+	magnitude() const;
+
+	SGE_INPUT_DETAIL_SYMBOL
+	sge::input::joypad::ff::envelope const &
+	envelope() const;
+private:
+	sge::input::joypad::ff::magnitude magnitude_;
+
+	sge::input::joypad::ff::envelope envelope_;
 };
 
 }

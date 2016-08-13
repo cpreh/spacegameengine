@@ -18,52 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_JOYPAD_FF_RAMP_HPP_INCLUDED
-#define SGE_INPUT_JOYPAD_FF_RAMP_HPP_INCLUDED
+#ifndef SGE_EVDEV_JOYPAD_FF_UPLOADED_EFFECT_HPP_INCLUDED
+#define SGE_EVDEV_JOYPAD_FF_UPLOADED_EFFECT_HPP_INCLUDED
 
-#include <sge/input/detail/symbol.hpp>
-#include <sge/input/joypad/ff/end_magnitude.hpp>
-#include <sge/input/joypad/ff/envelope.hpp>
-#include <sge/input/joypad/ff/ramp_fwd.hpp>
-#include <sge/input/joypad/ff/start_magnitude.hpp>
+#include <sge/evdev/device/fd_fwd.hpp>
+#include <sge/evdev/joypad/ff/id.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <linux/input.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace input
+namespace evdev
 {
 namespace joypad
 {
 namespace ff
 {
 
-class ramp
+class uploaded_effect
 {
+	FCPPT_NONCOPYABLE(
+		uploaded_effect
+	);
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	ramp(
-		sge::input::joypad::ff::start_magnitude,
-		sge::input::joypad::ff::end_magnitude,
-		sge::input::joypad::ff::envelope const &
+	uploaded_effect(
+		sge::evdev::device::fd const &,
+		ff_effect
 	);
 
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::start_magnitude
-	start_magnitude() const;
+	~uploaded_effect();
 
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::end_magnitude
-	end_magnitude() const;
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::envelope const &
-	envelope() const;
+	sge::evdev::joypad::ff::id
+	id() const;
 private:
-	sge::input::joypad::ff::start_magnitude start_magnitude_;
+	sge::evdev::device::fd const &fd_;
 
-	sge::input::joypad::ff::end_magnitude end_magnitude_;
-
-	sge::input::joypad::ff::envelope envelope_;
+	ff_effect effect_;
 };
 
 }

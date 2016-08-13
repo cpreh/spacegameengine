@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/detail/symbol.hpp>
 #include <sge/input/joypad/ff/effect_fwd.hpp>
+#include <sge/input/joypad/ff/optional_play_count_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -51,7 +52,9 @@ public:
 
 	virtual
 	void
-	play() = 0;
+	play(
+		sge::input::joypad::ff::optional_play_count
+	) = 0;
 
 	virtual
 	void

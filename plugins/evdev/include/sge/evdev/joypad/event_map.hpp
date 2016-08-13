@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_EVDEV_JOYPAD_EVENT_MAP_HPP_INCLUDED
 
 #include <sge/evdev/device/event_map.hpp>
+#include <sge/evdev/joypad/button/event_map.hpp>
 #include <sge/input/joypad/absolute_axis_id.hpp>
-#include <sge/input/joypad/button_id.hpp>
 #include <sge/input/joypad/relative_axis_id.hpp>
 
 
@@ -44,9 +44,7 @@ public:
 	absolute_axis_map;
 
 	typedef
-	sge::evdev::device::event_map<
-		sge::input::joypad::button_id
-	>
+	sge::evdev::joypad::button::event_map
 	button_map;
 
 	typedef

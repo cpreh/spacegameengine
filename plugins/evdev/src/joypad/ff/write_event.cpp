@@ -18,63 +18,62 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/joypad/event_map.hpp>
-#include <sge/evdev/joypad/info.hpp>
-#include <sge/evdev/joypad/is_joypad.hpp>
+#include <sge/evdev/device/event_value.hpp>
+#include <sge/evdev/device/fd.hpp>
+#include <sge/evdev/joypad/ff/id.hpp>
+#include <sge/evdev/joypad/ff/write_event.hpp>
+#include <sge/input/exception.hpp>
+#include <fcppt/literal.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
+#include <sys/time.h>
+#include <time.h>
+#include <unistd.h>
 #include <fcppt/config/external_end.hpp>
 
 
-bool
-sge::evdev::joypad::is_joypad(
-	sge::evdev::joypad::info const &_info
+void
+sge::evdev::joypad::ff::write_event(
+	sge::evdev::device::fd const &_fd,
+	sge::evdev::joypad::ff::id const _id,
+	sge::evdev::device::event_value const _value
 )
 {
-	bool has_joypad_buttons(
-		false
-	);
-
-	sge::evdev::joypad::event_map::button_map const &buttons(
-		_info.event_map().buttons()
-	);
-
-	// TODO: Algorithm
-	for(
-		sge::evdev::joypad::event_map::button_map::const_iterator it(
-			buttons.begin()
-		);
-		it != buttons.end();
-		++it
-	)
-	{
-		int const value(
-			static_cast<
-				int
+	input_event const event{
+		timeval{
+			fcppt::literal<
+				time_t
 			>(
-				it->first.get()
+				0
+			),
+			fcppt::literal<
+				suseconds_t
+			>(
+				0
 			)
-		);
+		},
+		EV_FF,
+		fcppt::cast::to_unsigned(
+			_id.get()
+		),
+		_value
+	};
 
-		if(
-			value
-			>= BTN_MOUSE
-			&&
-			value
-			<= BTN_TASK
+	if(
+		::write(
+			_fd.get().get(),
+			&event,
+			sizeof(
+				event
+			)
 		)
-			return false;
-
-		if(
-			value
-			>= BTN_JOYSTICK
-			&&
-			value
-			< BTN_DIGI
-		)
-			has_joypad_buttons = true;
-	}
-
-	return
-		has_joypad_buttons;
+		==
+		-1
+	)
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("Writing a FF event failed")
+			};
 }

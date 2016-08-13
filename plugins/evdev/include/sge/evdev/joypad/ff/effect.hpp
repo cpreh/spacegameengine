@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_EVDEV_JOYPAD_FF_EFFECT_HPP_INCLUDED
 
 #include <sge/evdev/device/fd_fwd.hpp>
+#include <sge/evdev/joypad/button/event_map.hpp>
+#include <sge/evdev/joypad/ff/uploaded_effect.hpp>
 #include <sge/input/joypad/ff/effect.hpp>
+#include <sge/input/joypad/ff/optional_play_count_fwd.hpp>
 #include <sge/input/joypad/ff/parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -47,6 +50,7 @@ class effect
 public:
 	effect(
 		sge::evdev::device::fd const &,
+		sge::evdev::joypad::button::event_map const &,
 		sge::input::joypad::ff::parameters const &
 	);
 
@@ -54,14 +58,18 @@ public:
 	override;
 
 	void
-	play()
+	play(
+		sge::input::joypad::ff::optional_play_count
+	)
 	override;
 
 	void
 	stop()
 	override;
 private:
+	sge::evdev::device::fd const &fd_;
 
+	sge::evdev::joypad::ff::uploaded_effect const uploaded_effect_;
 };
 
 }

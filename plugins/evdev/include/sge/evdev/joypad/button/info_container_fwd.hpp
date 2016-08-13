@@ -35,10 +35,12 @@ namespace joypad
 namespace button
 {
 
-typedef sge::evdev::device::basic_info<
+typedef
+sge::evdev::device::basic_info<
 	sge::input::joypad::button_id,
 	sge::input::joypad::button_info
-> info_container;
+>
+info_container;
 
 }
 }

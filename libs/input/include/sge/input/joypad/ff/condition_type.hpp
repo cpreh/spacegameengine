@@ -18,14 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_JOYPAD_FF_RAMP_HPP_INCLUDED
-#define SGE_INPUT_JOYPAD_FF_RAMP_HPP_INCLUDED
+#ifndef SGE_INPUT_JOYPAD_FF_CONDITION_TYPE_HPP_INCLUDED
+#define SGE_INPUT_JOYPAD_FF_CONDITION_TYPE_HPP_INCLUDED
 
-#include <sge/input/detail/symbol.hpp>
-#include <sge/input/joypad/ff/end_magnitude.hpp>
-#include <sge/input/joypad/ff/envelope.hpp>
-#include <sge/input/joypad/ff/ramp_fwd.hpp>
-#include <sge/input/joypad/ff/start_magnitude.hpp>
+#include <sge/input/joypad/ff/condition_type_fwd.hpp>
 
 
 namespace sge
@@ -37,33 +33,13 @@ namespace joypad
 namespace ff
 {
 
-class ramp
+enum class condition_type
 {
-public:
-	SGE_INPUT_DETAIL_SYMBOL
-	ramp(
-		sge::input::joypad::ff::start_magnitude,
-		sge::input::joypad::ff::end_magnitude,
-		sge::input::joypad::ff::envelope const &
-	);
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::start_magnitude
-	start_magnitude() const;
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::end_magnitude
-	end_magnitude() const;
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::envelope const &
-	envelope() const;
-private:
-	sge::input::joypad::ff::start_magnitude start_magnitude_;
-
-	sge::input::joypad::ff::end_magnitude end_magnitude_;
-
-	sge::input::joypad::ff::envelope envelope_;
+	// TODO: Which ones are right here?
+	spring,
+	damper,
+	inertia,
+	friction
 };
 
 }

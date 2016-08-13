@@ -18,49 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_JOYPAD_FF_TRIGGER_HPP_INCLUDED
-#define SGE_INPUT_JOYPAD_FF_TRIGGER_HPP_INCLUDED
+#include <sge/evdev/joypad/ff/convert_duration.hpp>
+#include <sge/evdev/joypad/ff/convert_envelope.hpp>
+#include <sge/input/joypad/ff/envelope.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <linux/input.h>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
-#include <sge/input/detail/symbol.hpp>
-#include <sge/input/joypad/button_id.hpp>
-#include <sge/input/joypad/ff/trigger_cooldown.hpp>
-#include <sge/input/joypad/ff/trigger_fwd.hpp>
 
-
-namespace sge
+ff_envelope
+sge::evdev::joypad::ff::convert_envelope(
+	sge::input::joypad::ff::envelope const &_envelope
+)
 {
-namespace input
-{
-namespace joypad
-{
-namespace ff
-{
-
-class trigger
-{
-public:
-	SGE_INPUT_DETAIL_SYMBOL
-	trigger(
-		sge::input::joypad::button_id,
-		sge::input::joypad::ff::trigger_cooldown
-	);
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::button_id
-	button() const;
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::trigger_cooldown
-	cooldown() const;
-private:
-	sge::input::joypad::button_id button_;
-
-	sge::input::joypad::ff::trigger_cooldown cooldown_;
-};
-
+	return
+		ff_envelope{
+			sge::evdev::joypad::ff::convert_duration(
+				_envelope.attack_time().get()
+			),
+			fcppt::cast::size<
+				std::uint16_t
+			>(
+				_envelope.attack_level().get()
+			),
+			sge::evdev::joypad::ff::convert_duration(
+				_envelope.fade_time().get()
+			),
+			fcppt::cast::size<
+				std::uint16_t
+			>(
+				_envelope.fade_level().get()
+			)
+		};
 }
-}
-}
-}
-
-#endif

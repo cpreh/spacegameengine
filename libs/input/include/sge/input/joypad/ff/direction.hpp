@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_JOYPAD_FF_DIRECTION_HPP_INCLUDED
 
 #include <sge/input/joypad/ff/direction_fwd.hpp>
+#include <sge/input/joypad/ff/milli_degrees.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 

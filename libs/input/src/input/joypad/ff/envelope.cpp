@@ -18,65 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_JOYPAD_FF_ENVELOPE_HPP_INCLUDED
-#define SGE_INPUT_JOYPAD_FF_ENVELOPE_HPP_INCLUDED
-
-#include <sge/input/detail/symbol.hpp>
 #include <sge/input/joypad/ff/attack_level.hpp>
 #include <sge/input/joypad/ff/attack_time.hpp>
 #include <sge/input/joypad/ff/fade_level.hpp>
 #include <sge/input/joypad/ff/fade_time.hpp>
-#include <sge/input/joypad/ff/envelope_fwd.hpp>
+#include <sge/input/joypad/ff/envelope.hpp>
 
 
-namespace sge
+sge::input::joypad::ff::envelope::envelope(
+	sge::input::joypad::ff::attack_level const _attack_level,
+	sge::input::joypad::ff::attack_time const _attack_time,
+	sge::input::joypad::ff::fade_level const _fade_level,
+	sge::input::joypad::ff::fade_time const _fade_time
+)
+:
+	attack_level_{
+		_attack_level
+	},
+	attack_time_{
+		_attack_time
+	},
+	fade_level_{
+		_fade_level
+	},
+	fade_time_{
+		_fade_time
+	}
 {
-namespace input
-{
-namespace joypad
-{
-namespace ff
-{
-
-class envelope
-{
-public:
-	SGE_INPUT_DETAIL_SYMBOL
-	envelope(
-		sge::input::joypad::ff::attack_level,
-		sge::input::joypad::ff::attack_time,
-		sge::input::joypad::ff::fade_level,
-		sge::input::joypad::ff::fade_time
-	);
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::attack_level
-	attack_level() const;
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::attack_time
-	attack_time() const;
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::fade_level
-	fade_level() const;
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::fade_time
-	fade_time() const;
-private:
-	sge::input::joypad::ff::attack_level attack_level_;
-
-	sge::input::joypad::ff::attack_time attack_time_;
-
-	sge::input::joypad::ff::fade_level fade_level_;
-
-	sge::input::joypad::ff::fade_time fade_time_;
-};
-
-}
-}
-}
 }
 
-#endif
+sge::input::joypad::ff::attack_level
+sge::input::joypad::ff::envelope::attack_level() const
+{
+	return
+		attack_level_;
+}
+
+sge::input::joypad::ff::attack_time
+sge::input::joypad::ff::envelope::attack_time() const
+{
+	return
+		attack_time_;
+}
+
+sge::input::joypad::ff::fade_level
+sge::input::joypad::ff::envelope::fade_level() const
+{
+	return
+		fade_level_;
+}
+
+sge::input::joypad::ff::fade_time
+sge::input::joypad::ff::envelope::fade_time() const
+{
+	return
+		fade_time_;
+}

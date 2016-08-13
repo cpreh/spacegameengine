@@ -11,6 +11,7 @@ set(
 	plugins/evdev/include/sge/evdev/device/event_map.hpp
 	plugins/evdev/include/sge/evdev/device/event_type.hpp
 	plugins/evdev/include/sge/evdev/device/event_type_value.hpp
+	plugins/evdev/include/sge/evdev/device/event_value.hpp
 	plugins/evdev/include/sge/evdev/device/fd.hpp
 	plugins/evdev/include/sge/evdev/device/fd_fwd.hpp
 	plugins/evdev/include/sge/evdev/device/fd_unique_ptr.hpp
@@ -47,6 +48,7 @@ set(
 	plugins/evdev/include/sge/evdev/joypad/add_parameters.hpp
 	plugins/evdev/include/sge/evdev/joypad/add_parameters_fwd.hpp
 	plugins/evdev/include/sge/evdev/joypad/attrib.hpp
+	plugins/evdev/include/sge/evdev/joypad/button/event_map.hpp
 	plugins/evdev/include/sge/evdev/joypad/button/info_container.hpp
 	plugins/evdev/include/sge/evdev/joypad/button/info_container_fwd.hpp
 	plugins/evdev/include/sge/evdev/joypad/button/make_event.hpp
@@ -54,8 +56,25 @@ set(
 	plugins/evdev/include/sge/evdev/joypad/button/make_info_container.hpp
 	plugins/evdev/include/sge/evdev/joypad/button/make_string.hpp
 	plugins/evdev/include/sge/evdev/joypad/event_map.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/convert_condition.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/convert_constant.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/convert_duration.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/convert_effect.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/convert_effect_type.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/convert_envelope.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/convert_periodic.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/convert_ramp.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/convert_replay.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/convert_trigger.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/convert_variant.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/convert_waveform.hpp
 	plugins/evdev/include/sge/evdev/joypad/ff/effect.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/find_button.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/id.hpp
 	plugins/evdev/include/sge/evdev/joypad/ff/make_info.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/uploaded_effect.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/variant.hpp
+	plugins/evdev/include/sge/evdev/joypad/ff/write_event.hpp
 	plugins/evdev/include/sge/evdev/joypad/info.hpp
 	plugins/evdev/include/sge/evdev/joypad/info_fwd.hpp
 	plugins/evdev/include/sge/evdev/joypad/init.hpp
@@ -102,8 +121,23 @@ set(
 	plugins/evdev/src/joypad/button/make_info_container.cpp
 	plugins/evdev/src/joypad/button/make_string.cpp
 	plugins/evdev/src/joypad/event_map.cpp
+	plugins/evdev/src/joypad/ff/convert_condition.cpp
+	plugins/evdev/src/joypad/ff/convert_constant.cpp
+	plugins/evdev/src/joypad/ff/convert_duration.cpp
+	plugins/evdev/src/joypad/ff/convert_effect.cpp
+	plugins/evdev/src/joypad/ff/convert_effect_type.cpp
+	plugins/evdev/src/joypad/ff/convert_envelope.cpp
+	plugins/evdev/src/joypad/ff/convert_periodic.cpp
+	plugins/evdev/src/joypad/ff/convert_ramp.cpp
+	plugins/evdev/src/joypad/ff/convert_replay.cpp
+	plugins/evdev/src/joypad/ff/convert_trigger.cpp
+	plugins/evdev/src/joypad/ff/convert_variant.cpp
+	plugins/evdev/src/joypad/ff/convert_waveform.cpp
 	plugins/evdev/src/joypad/ff/effect.cpp
+	plugins/evdev/src/joypad/ff/find_button.cpp
 	plugins/evdev/src/joypad/ff/make_info.cpp
+	plugins/evdev/src/joypad/ff/uploaded_effect.cpp
+	plugins/evdev/src/joypad/ff/write_event.cpp
 	plugins/evdev/src/joypad/info.cpp
 	plugins/evdev/src/joypad/init.cpp
 	plugins/evdev/src/joypad/is_joypad.cpp

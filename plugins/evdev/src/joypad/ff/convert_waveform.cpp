@@ -18,49 +18,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_JOYPAD_FF_TRIGGER_HPP_INCLUDED
-#define SGE_INPUT_JOYPAD_FF_TRIGGER_HPP_INCLUDED
+#include <sge/evdev/joypad/ff/convert_waveform.hpp>
+#include <sge/input/joypad/ff/waveform.hpp>
+#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <linux/input.h>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
-#include <sge/input/detail/symbol.hpp>
-#include <sge/input/joypad/button_id.hpp>
-#include <sge/input/joypad/ff/trigger_cooldown.hpp>
-#include <sge/input/joypad/ff/trigger_fwd.hpp>
 
-
-namespace sge
+std::uint16_t
+sge::evdev::joypad::ff::convert_waveform(
+	sge::input::joypad::ff::waveform const _waveform
+)
 {
-namespace input
-{
-namespace joypad
-{
-namespace ff
-{
+	switch(
+		_waveform
+	)
+	{
+	case sge::input::joypad::ff::waveform::square:
+		return
+			FF_SQUARE;
+	case sge::input::joypad::ff::waveform::triangle:
+		return
+			FF_TRIANGLE;
+	case sge::input::joypad::ff::waveform::sine:
+		return
+			FF_SINE;
+	case sge::input::joypad::ff::waveform::saw_up:
+		return
+			FF_SAW_UP;
+	case sge::input::joypad::ff::waveform::saw_down:
+		return
+			FF_SAW_DOWN;
+	}
 
-class trigger
-{
-public:
-	SGE_INPUT_DETAIL_SYMBOL
-	trigger(
-		sge::input::joypad::button_id,
-		sge::input::joypad::ff::trigger_cooldown
-	);
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::button_id
-	button() const;
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::trigger_cooldown
-	cooldown() const;
-private:
-	sge::input::joypad::button_id button_;
-
-	sge::input::joypad::ff::trigger_cooldown cooldown_;
-};
-
+	FCPPT_ASSERT_UNREACHABLE;
 }
-}
-}
-}
-
-#endif

@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_JOYPAD_FF_CONDITION_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_FF_CONDITION_HPP_INCLUDED
 
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/joypad/ff/condition_fwd.hpp>
+#include <sge/input/joypad/ff/condition_type.hpp>
 #include <sge/input/joypad/ff/deadband_center.hpp>
 #include <sge/input/joypad/ff/deadband_size.hpp>
 #include <sge/input/joypad/ff/left_coefficient.hpp>
@@ -44,6 +46,7 @@ class condition
 public:
 	SGE_INPUT_DETAIL_SYMBOL
 	condition(
+		sge::input::joypad::ff::condition_type,
 		sge::input::joypad::ff::left_coefficient,
 		sge::input::joypad::ff::right_coefficient,
 		sge::input::joypad::ff::left_saturation,
@@ -51,6 +54,48 @@ public:
 		sge::input::joypad::ff::deadband_center,
 		sge::input::joypad::ff::deadband_size
 	);
+
+	SGE_INPUT_DETAIL_SYMBOL
+	sge::input::joypad::ff::condition_type
+	type() const;
+
+	SGE_INPUT_DETAIL_SYMBOL
+	sge::input::joypad::ff::left_coefficient
+	left_coefficient() const;
+
+	SGE_INPUT_DETAIL_SYMBOL
+	sge::input::joypad::ff::right_coefficient
+	right_coefficient() const;
+
+	SGE_INPUT_DETAIL_SYMBOL
+	sge::input::joypad::ff::left_saturation
+	left_saturation() const;
+
+	SGE_INPUT_DETAIL_SYMBOL
+	sge::input::joypad::ff::right_saturation
+	right_saturation() const;
+
+	SGE_INPUT_DETAIL_SYMBOL
+	sge::input::joypad::ff::deadband_center
+	deadband_center() const;
+
+	SGE_INPUT_DETAIL_SYMBOL
+	sge::input::joypad::ff::deadband_size
+	deadband_size() const;
+private:
+	sge::input::joypad::ff::condition_type type_;
+
+	sge::input::joypad::ff::left_coefficient left_coefficient_;
+
+	sge::input::joypad::ff::right_coefficient right_coefficient_;
+
+	sge::input::joypad::ff::left_saturation left_saturation_;
+
+	sge::input::joypad::ff::right_saturation right_saturation_;
+
+	sge::input::joypad::ff::deadband_center deadband_center_;
+
+	sge::input::joypad::ff::deadband_size deadband_size_;
 };
 
 }

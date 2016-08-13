@@ -172,6 +172,7 @@ sge::evdev::joypad::object::create_ff_effect(
 				sge::evdev::joypad::ff::effect
 			>(
 				this->fd(),
+				info_.event_map().buttons(),
 				_parameters
 			)
 		);

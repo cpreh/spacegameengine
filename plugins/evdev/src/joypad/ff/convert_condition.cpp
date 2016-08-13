@@ -18,63 +18,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/joypad/event_map.hpp>
-#include <sge/evdev/joypad/info.hpp>
-#include <sge/evdev/joypad/is_joypad.hpp>
+#include <sge/evdev/joypad/ff/convert_condition.hpp>
+#include <sge/input/joypad/ff/condition.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 
-bool
-sge::evdev::joypad::is_joypad(
-	sge::evdev::joypad::info const &_info
+ff_condition_effect
+sge::evdev::joypad::ff::convert_condition(
+	sge::input::joypad::ff::condition const &_condition
 )
 {
-	bool has_joypad_buttons(
-		false
-	);
-
-	sge::evdev::joypad::event_map::button_map const &buttons(
-		_info.event_map().buttons()
-	);
-
-	// TODO: Algorithm
-	for(
-		sge::evdev::joypad::event_map::button_map::const_iterator it(
-			buttons.begin()
-		);
-		it != buttons.end();
-		++it
-	)
-	{
-		int const value(
-			static_cast<
-				int
-			>(
-				it->first.get()
-			)
-		);
-
-		if(
-			value
-			>= BTN_MOUSE
-			&&
-			value
-			<= BTN_TASK
-		)
-			return false;
-
-		if(
-			value
-			>= BTN_JOYSTICK
-			&&
-			value
-			< BTN_DIGI
-		)
-			has_joypad_buttons = true;
-	}
-
 	return
-		has_joypad_buttons;
+		ff_condition_effect{
+			fcppt::cast::size<
+				std::uint16_t
+			>(
+				_condition.right_saturation().get()
+			),
+			fcppt::cast::size<
+				std::uint16_t
+			>(
+				_condition.left_saturation().get()
+			),
+			fcppt::cast::size<
+				std::int16_t
+			>(
+				_condition.right_coefficient().get()
+			),
+			fcppt::cast::size<
+				std::int16_t
+			>(
+				_condition.left_coefficient().get()
+			),
+			fcppt::cast::size<
+				std::uint16_t
+			>(
+				_condition.deadband_size().get()
+			),
+			fcppt::cast::size<
+				std::int16_t
+			>(
+				_condition.deadband_center().get()
+			)
+		};
 }

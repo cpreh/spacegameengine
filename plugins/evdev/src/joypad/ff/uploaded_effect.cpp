@@ -18,63 +18,66 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/joypad/event_map.hpp>
-#include <sge/evdev/joypad/info.hpp>
-#include <sge/evdev/joypad/is_joypad.hpp>
+#include <sge/evdev/device/fd.hpp>
+#include <sge/evdev/joypad/ff/id.hpp>
+#include <sge/evdev/joypad/ff/uploaded_effect.hpp>
+#include <sge/input/exception.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
+#include <sys/ioctl.h>
 #include <fcppt/config/external_end.hpp>
 
 
-bool
-sge::evdev::joypad::is_joypad(
-	sge::evdev::joypad::info const &_info
+sge::evdev::joypad::ff::uploaded_effect::uploaded_effect(
+	sge::evdev::device::fd const &_fd,
+	ff_effect const _effect
 )
-{
-	bool has_joypad_buttons(
-		false
-	);
-
-	sge::evdev::joypad::event_map::button_map const &buttons(
-		_info.event_map().buttons()
-	);
-
-	// TODO: Algorithm
-	for(
-		sge::evdev::joypad::event_map::button_map::const_iterator it(
-			buttons.begin()
-		);
-		it != buttons.end();
-		++it
-	)
-	{
-		int const value(
-			static_cast<
-				int
-			>(
-				it->first.get()
-			)
-		);
-
-		if(
-			value
-			>= BTN_MOUSE
-			&&
-			value
-			<= BTN_TASK
-		)
-			return false;
-
-		if(
-			value
-			>= BTN_JOYSTICK
-			&&
-			value
-			< BTN_DIGI
-		)
-			has_joypad_buttons = true;
+:
+	fd_{
+		_fd
+	},
+	effect_{
+		_effect
 	}
+{
+	effect_.id =
+		-1;
 
+	if(
+		::ioctl(
+			fd_.get().get(),
+			EVIOCSFF,
+			&effect_
+		)
+		==
+		-1
+	)
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("Uploading a FF effect failed")
+			};
+}
+
+sge::evdev::joypad::ff::uploaded_effect::~uploaded_effect()
+{
+	FCPPT_ASSERT_ERROR(
+		::ioctl(
+			fd_.get().get(),
+			EVIOCRMFF,
+			&effect_
+		)
+		!=
+		-1
+	);
+}
+
+sge::evdev::joypad::ff::id
+sge::evdev::joypad::ff::uploaded_effect::id() const
+{
 	return
-		has_joypad_buttons;
+		sge::evdev::joypad::ff::id{
+			effect_.id
+		};
 }

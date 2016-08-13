@@ -18,63 +18,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/joypad/event_map.hpp>
-#include <sge/evdev/joypad/info.hpp>
-#include <sge/evdev/joypad/is_joypad.hpp>
+#include <sge/evdev/joypad/ff/convert_duration.hpp>
+#include <sge/evdev/joypad/ff/convert_replay.hpp>
+#include <sge/input/joypad/ff/delay.hpp>
+#include <sge/input/joypad/ff/duration.hpp>
+#include <sge/input/joypad/ff/optional_duration.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
+#include <limits>
 #include <fcppt/config/external_end.hpp>
 
 
-bool
-sge::evdev::joypad::is_joypad(
-	sge::evdev::joypad::info const &_info
+ff_replay
+sge::evdev::joypad::ff::convert_replay(
+	sge::input::joypad::ff::optional_duration const &_opt_duration,
+	sge::input::joypad::ff::delay const _delay
 )
 {
-	bool has_joypad_buttons(
-		false
-	);
-
-	sge::evdev::joypad::event_map::button_map const &buttons(
-		_info.event_map().buttons()
-	);
-
-	// TODO: Algorithm
-	for(
-		sge::evdev::joypad::event_map::button_map::const_iterator it(
-			buttons.begin()
-		);
-		it != buttons.end();
-		++it
-	)
-	{
-		int const value(
-			static_cast<
-				int
-			>(
-				it->first.get()
-			)
-		);
-
-		if(
-			value
-			>= BTN_MOUSE
-			&&
-			value
-			<= BTN_TASK
-		)
-			return false;
-
-		if(
-			value
-			>= BTN_JOYSTICK
-			&&
-			value
-			< BTN_DIGI
-		)
-			has_joypad_buttons = true;
-	}
-
 	return
-		has_joypad_buttons;
+		ff_replay{
+			fcppt::optional::maybe(
+				_opt_duration,
+				[]{
+					// TODO: What to put here?
+					return
+						std::numeric_limits<
+							std::uint16_t
+						>::max();
+				},
+				[](
+					sge::input::joypad::ff::duration const _duration
+				)
+				{
+					return
+						sge::evdev::joypad::ff::convert_duration(
+							_duration
+						);
+				}
+			),
+			sge::evdev::joypad::ff::convert_duration(
+				_delay.get()
+			)
+		};
 }

@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_JOYPAD_FF_DEGREES_VALUE_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_FF_DEGREES_VALUE_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstddef>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -32,7 +36,7 @@ namespace ff
 {
 
 typedef
-unsigned
+std::uint32_t
 degrees_value;
 
 }
