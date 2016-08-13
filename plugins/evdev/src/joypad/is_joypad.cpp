@@ -18,11 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/evdev/device/event_type.hpp>
 #include <sge/evdev/joypad/event_map.hpp>
 #include <sge/evdev/joypad/info.hpp>
 #include <sge/evdev/joypad/is_joypad.hpp>
+#include <sge/input/joypad/button_id.hpp>
+#include <fcppt/loop.hpp>
+#include <fcppt/algorithm/fold_break.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -31,50 +37,55 @@ sge::evdev::joypad::is_joypad(
 	sge::evdev::joypad::info const &_info
 )
 {
-	bool has_joypad_buttons(
-		false
-	);
-
-	sge::evdev::joypad::event_map::button_map const &buttons(
-		_info.event_map().buttons()
-	);
-
-	// TODO: Algorithm
-	for(
-		sge::evdev::joypad::event_map::button_map::const_iterator it(
-			buttons.begin()
-		);
-		it != buttons.end();
-		++it
-	)
-	{
-		int const value(
-			static_cast<
-				int
-			>(
-				it->first.get()
-			)
-		);
-
-		if(
-			value
-			>= BTN_MOUSE
-			&&
-			value
-			<= BTN_TASK
-		)
-			return false;
-
-		if(
-			value
-			>= BTN_JOYSTICK
-			&&
-			value
-			< BTN_DIGI
-		)
-			has_joypad_buttons = true;
-	}
-
 	return
-		has_joypad_buttons;
+		fcppt::algorithm::fold_break(
+			_info.event_map().buttons(),
+			false,
+			[](
+				std::pair<
+					sge::evdev::device::event_type,
+					sge::input::joypad::button_id
+				> const _element,
+				bool const _has_joypad_buttons
+			)
+			{
+				int const value(
+					fcppt::cast::to_signed(
+						_element.first.get()
+					)
+				);
+
+				if(
+					value
+					>= BTN_MOUSE
+					&&
+					value
+					<= BTN_TASK
+				)
+					return
+						std::make_pair(
+							fcppt::loop::break_,
+							false
+						);
+
+				if(
+					value
+					>= BTN_JOYSTICK
+					&&
+					value
+					< BTN_DIGI
+				)
+					return
+						std::make_pair(
+							fcppt::loop::continue_,
+							true
+						);
+
+				return
+					std::make_pair(
+						fcppt::loop::continue_,
+						_has_joypad_buttons
+					);
+			}
+		);
 }

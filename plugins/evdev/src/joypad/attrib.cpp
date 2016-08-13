@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/add.hpp>
 #include <sge/evdev/joypad/add_parameters.hpp>
 #include <sge/evdev/joypad/attrib.hpp>
+#include <fcppt/container/find_opt.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -34,13 +35,11 @@ sge::evdev::joypad::attrib(
 	boost::filesystem::path const &_path
 )
 {
-	// TODO: count?
 	if(
-		_parameters.map().find(
+		fcppt::container::find_opt(
+			_parameters.map(),
 			_path
-		)
-		!=
-		_parameters.map().end()
+		).has_value()
 	)
 		return;
 

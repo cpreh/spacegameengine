@@ -23,6 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/remove.hpp>
 #include <sge/input/joypad/remove_event.hpp>
 #include <sge/input/joypad/remove_signal.hpp>
+#include <fcppt/container/find_opt_iterator.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -36,24 +38,27 @@ sge::evdev::joypad::remove(
 	boost::filesystem::path const &_path
 )
 {
-	sge::evdev::joypad::map::iterator const it(
-		_map.find(
+	fcppt::optional::maybe_void(
+		fcppt::container::find_opt_iterator(
+			_map,
 			_path
+		),
+		[
+			&_map,
+			&_signal
+		](
+			sge::evdev::joypad::map::iterator const _it
 		)
-	);
+		{
+			_signal(
+				sge::input::joypad::remove_event(
+					*_it->second
+				)
+			);
 
-	if(
-		it == _map.end()
-	)
-		return;
-
-	_signal(
-		sge::input::joypad::remove_event(
-			*it->second
-		)
-	);
-
-	_map.erase(
-		it
+			_map.erase(
+				_it
+			);
+		}
 	);
 }
