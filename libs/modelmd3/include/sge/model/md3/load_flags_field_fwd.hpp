@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_MD3_LOAD_FLAGS_FIELD_FWD_HPP_INCLUDED
 
 #include <sge/model/md3/load_flags.hpp>
-#include <fcppt/container/bitfield/object_from_enum.hpp>
+#include <fcppt/container/bitfield/enum_object_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace md3
 {
 
 typedef
-fcppt::container::bitfield::object_from_enum<
+fcppt::container::bitfield::enum_object<
 	sge::model::md3::load_flags
 >
 load_flags_field;

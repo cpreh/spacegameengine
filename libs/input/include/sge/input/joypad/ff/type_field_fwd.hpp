@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_JOYPAD_FF_TYPE_FIELD_FWD_HPP_INCLUDED
 
 #include <sge/input/joypad/ff/type.hpp>
-#include <fcppt/container/bitfield/object_from_enum.hpp>
+#include <fcppt/container/bitfield/enum_object_fwd.hpp>
 
 
 namespace sge
@@ -35,7 +35,7 @@ namespace ff
 {
 
 typedef
-fcppt::container::bitfield::object_from_enum<
+fcppt::container::bitfield::enum_object<
 	sge::input::joypad::ff::type
 >
 type_field;

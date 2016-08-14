@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_FONT_FLAGS_FIELD_FWD_HPP_INCLUDED
 
 #include <sge/font/flags.hpp>
-#include <fcppt/container/bitfield/object_from_enum.hpp>
+#include <fcppt/container/bitfield/enum_object_fwd.hpp>
 
 
 namespace sge
@@ -30,9 +30,11 @@ namespace sge
 namespace font
 {
 
-typedef fcppt::container::bitfield::object_from_enum<
+typedef
+fcppt::container::bitfield::enum_object<
 	sge::font::flags
-> flags_field;
+>
+flags_field;
 
 }
 }

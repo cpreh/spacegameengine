@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_KEY_MOD_STATE_HPP_INCLUDED
 
 #include <sge/input/key/mod_state_fwd.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/container/bitfield/enum_object.hpp>
 
 
 #endif

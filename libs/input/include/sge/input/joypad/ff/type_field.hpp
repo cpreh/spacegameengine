@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_JOYPAD_FF_TYPE_FIELD_HPP_INCLUDED
 
 #include <sge/input/joypad/ff/type_field_fwd.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/container/bitfield/enum_object.hpp>
 
 
 #endif

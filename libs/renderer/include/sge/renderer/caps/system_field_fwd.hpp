@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_CAPS_SYSTEM_FIELD_FWD_HPP_INCLUDED
 
 #include <sge/renderer/caps/system.hpp>
-#include <fcppt/container/bitfield/object_from_enum.hpp>
+#include <fcppt/container/bitfield/enum_object_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace caps
 {
 
 typedef
-fcppt::container::bitfield::object_from_enum<
+fcppt::container::bitfield::enum_object<
 	sge::renderer::caps::system
 >
 system_field;

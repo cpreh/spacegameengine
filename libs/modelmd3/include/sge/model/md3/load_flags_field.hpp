@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_MD3_LOAD_FLAGS_FIELD_HPP_INCLUDED
 
 #include <sge/model/md3/load_flags_field_fwd.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/container/bitfield/enum_object.hpp>
 
 
 #endif
