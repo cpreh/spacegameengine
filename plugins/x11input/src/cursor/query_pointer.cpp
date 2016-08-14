@@ -71,7 +71,8 @@ sge::x11input::cursor::query_pointer(
 		)
 		== False
 	)
-		return sge::input::cursor::optional_position();
+		return
+			sge::input::cursor::optional_position();
 
 	typedef
 	fcppt::unique_ptr<

@@ -1,7 +1,6 @@
 set(
 	SGE_X11INPUT_FILES
 	plugins/x11input/include/sge/x11input/atom_name.hpp
-	plugins/x11input/include/sge/x11input/color.hpp
 	plugins/x11input/include/sge/x11input/create_parameters.hpp
 	plugins/x11input/include/sge/x11input/create_parameters_fwd.hpp
 	plugins/x11input/include/sge/x11input/cursor/button_code.hpp
@@ -146,7 +145,6 @@ set(
 	plugins/x11input/include/sge/x11input/xim/setlocale.hpp
 	plugins/x11input/include/sge/x11input/xim/supported_styles_unique_ptr.hpp
 	plugins/x11input/src/atom_name.cpp
-	plugins/x11input/src/color.cpp
 	plugins/x11input/src/create_parameters.cpp
 	plugins/x11input/src/cursor/button_code.cpp
 	plugins/x11input/src/cursor/config.cpp

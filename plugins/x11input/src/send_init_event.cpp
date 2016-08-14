@@ -36,13 +36,16 @@ sge::x11input::send_init_event(
 	awl::backends::x11::atom const _atom
 )
 {
-	XClientMessageEvent client_message;
-
-	client_message.type = ClientMessage;
-	client_message.display = _window.display().get();
-	client_message.window = _window.get();
-	client_message.message_type = _atom.get();
-	client_message.format = 8; // dont' care about the format
+	XClientMessageEvent client_message{
+		ClientMessage,
+		0ul, // serial
+		True, // send_event
+		_window.display().get(),
+		_window.get(),
+		_atom.get(),
+		8, // format
+		{{0}}
+	};
 
 	XEvent event;
 
