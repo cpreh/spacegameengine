@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/key/code.hpp>
-#include <sge/x11input/key/translate_code.hpp>
+#include <sge/x11input/key/translate_sym.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/X.h>
 #include <X11/keysym.h>
@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::input::key::code
-sge::x11input::key::translate_code(
+sge::x11input::key::translate_sym(
 	KeySym const _sym
 )
 {

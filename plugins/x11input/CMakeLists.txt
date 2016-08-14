@@ -99,8 +99,9 @@ set(
 	plugins/x11input/include/sge/x11input/key/code_from_event.hpp
 	plugins/x11input/include/sge/x11input/key/code_to_sym.hpp
 	plugins/x11input/include/sge/x11input/key/event_to_sge_code.hpp
+	plugins/x11input/include/sge/x11input/key/is_repeated.hpp
 	plugins/x11input/include/sge/x11input/key/repeated.hpp
-	plugins/x11input/include/sge/x11input/key/translate_code.hpp
+	plugins/x11input/include/sge/x11input/key/translate_sym.hpp
 	plugins/x11input/include/sge/x11input/keyboard/device.hpp
 	plugins/x11input/include/sge/x11input/keyboard/device_fwd.hpp
 	plugins/x11input/include/sge/x11input/keyboard/device_unique_ptr.hpp
@@ -130,9 +131,12 @@ set(
 	plugins/x11input/include/sge/x11input/system.hpp
 	plugins/x11input/include/sge/x11input/xi_opcode.hpp
 	plugins/x11input/include/sge/x11input/xi_version.hpp
+	plugins/x11input/include/sge/x11input/xim/const_optional_method_ref.hpp
+	plugins/x11input/include/sge/x11input/xim/const_optional_method_ref_fwd.hpp
 	plugins/x11input/include/sge/x11input/xim/context.hpp
 	plugins/x11input/include/sge/x11input/xim/context_fwd.hpp
 	plugins/x11input/include/sge/x11input/xim/create_method.hpp
+	plugins/x11input/include/sge/x11input/xim/create_method_opt.hpp
 	plugins/x11input/include/sge/x11input/xim/get_filter_events.hpp
 	plugins/x11input/include/sge/x11input/xim/get_ic_values.hpp
 	plugins/x11input/include/sge/x11input/xim/get_im_values.hpp
@@ -141,6 +145,8 @@ set(
 	plugins/x11input/include/sge/x11input/xim/method.hpp
 	plugins/x11input/include/sge/x11input/xim/method_fwd.hpp
 	plugins/x11input/include/sge/x11input/xim/method_unique_ptr.hpp
+	plugins/x11input/include/sge/x11input/xim/optional_method_unique_ptr.hpp
+	plugins/x11input/include/sge/x11input/xim/optional_method_unique_ptr_fwd.hpp
 	plugins/x11input/include/sge/x11input/xim/scoped_locale.hpp
 	plugins/x11input/include/sge/x11input/xim/setlocale.hpp
 	plugins/x11input/include/sge/x11input/xim/supported_styles_unique_ptr.hpp
@@ -185,8 +191,8 @@ set(
 	plugins/x11input/src/key/code_from_event.cpp
 	plugins/x11input/src/key/code_to_sym.cpp
 	plugins/x11input/src/key/event_to_sge_code.cpp
-	plugins/x11input/src/key/repeated.cpp
-	plugins/x11input/src/key/translate_code.cpp
+	plugins/x11input/src/key/is_repeated.cpp
+	plugins/x11input/src/key/translate_sym.cpp
 	plugins/x11input/src/keyboard/config.cpp
 	plugins/x11input/src/keyboard/device.cpp
 	plugins/x11input/src/keyboard/key_from_event.cpp
@@ -211,6 +217,7 @@ set(
 	plugins/x11input/src/xi_version.cpp
 	plugins/x11input/src/xim/context.cpp
 	plugins/x11input/src/xim/create_method.cpp
+	plugins/x11input/src/xim/create_method_opt.cpp
 	plugins/x11input/src/xim/get_filter_events.cpp
 	plugins/x11input/src/xim/get_supported_styles.cpp
 	plugins/x11input/src/xim/lc_ctype.cpp

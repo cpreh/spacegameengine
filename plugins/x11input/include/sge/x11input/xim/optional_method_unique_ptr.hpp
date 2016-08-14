@@ -18,30 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/key/code.hpp>
-#include <sge/x11input/key/code_from_event.hpp>
-#include <sge/x11input/key/code_to_sym.hpp>
-#include <sge/x11input/key/event_to_sge_code.hpp>
-#include <sge/x11input/key/translate_sym.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_X11INPUT_XIM_OPTIONAL_METHOD_UNIQUE_PTR_HPP_INCLUDED
+#define SGE_X11INPUT_XIM_OPTIONAL_METHOD_UNIQUE_PTR_HPP_INCLUDED
+
+#include <sge/x11input/xim/optional_method_unique_ptr_fwd.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
-sge::input::key::code
-sge::x11input::key::event_to_sge_code(
-	awl::backends::x11::display const &_display,
-	XIDeviceEvent const &_event
-)
-{
-	return
-		sge::x11input::key::translate_sym(
-			sge::x11input::key::code_to_sym(
-				_display,
-				sge::x11input::key::code_from_event(
-					_event
-				)
-			)
-		);
-}
+#endif

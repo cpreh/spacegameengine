@@ -52,7 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/keyboard/device_unique_ptr.hpp>
 #include <sge/x11input/mouse/device.hpp>
 #include <sge/x11input/mouse/device_unique_ptr.hpp>
-#include <sge/x11input/xim/create_method.hpp>
+#include <sge/x11input/xim/create_method_opt.hpp>
 #include <sge/x11input/xim/method.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/intern_atom.hpp>
@@ -67,8 +67,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/event/processor.hpp>
 #include <awl/backends/x11/window/event/type.hpp>
 #include <awl/window/object.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/cast/dynamic_cross_exn.hpp>
@@ -76,6 +78,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/optional/deref.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/optional_auto_connection.hpp>
@@ -146,7 +150,7 @@ sge::x11input::processor::processor(
 		)
 	),
 	xim_method_(
-		sge::x11input::xim::create_method(
+		sge::x11input::xim::create_method_opt(
 			_log,
 			x11_window_.display()
 		)
@@ -491,7 +495,22 @@ sge::x11input::processor::create_focus(
 			this->device_parameters(
 				_param
 			),
-			*xim_method_
+			fcppt::optional::map(
+				fcppt::optional::deref(
+					xim_method_
+				),
+				[](
+					fcppt::reference<
+						sge::x11input::xim::method
+					> const _method
+				)
+				{
+					return
+						fcppt::make_cref(
+							_method.get()
+						);
+				}
+			)
 		);
 }
 

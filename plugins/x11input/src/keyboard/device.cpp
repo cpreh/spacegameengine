@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
 #include <sge/x11input/device/window_event.hpp>
-#include <sge/x11input/key/repeated.hpp>
+#include <sge/x11input/key/is_repeated.hpp>
 #include <sge/x11input/keyboard/device.hpp>
 #include <sge/x11input/keyboard/key_from_event.hpp>
 #include <awl/backends/x11/system/event/object.hpp>
@@ -107,9 +107,9 @@ sge::x11input::keyboard::device::on_key_press(
 )
 {
 	if(
-		!sge::x11input::key::repeated(
+		!sge::x11input::key::is_repeated(
 			_event.get()
-		)
+		).get()
 	)
 		key_signal_(
 			sge::input::keyboard::key_event(

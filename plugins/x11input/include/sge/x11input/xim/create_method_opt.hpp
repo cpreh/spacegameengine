@@ -18,26 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/x11input/key/repeated.hpp>
-#include <fcppt/bit/mask_c.hpp>
-#include <fcppt/bit/test.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XI2.h>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_X11INPUT_XIM_CREATE_METHOD_OPT_HPP_INCLUDED
+#define SGE_X11INPUT_XIM_CREATE_METHOD_OPT_HPP_INCLUDED
+
+#include <sge/x11input/xim/optional_method_unique_ptr.hpp>
+#include <awl/backends/x11/display_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
-bool
-sge::x11input::key::repeated(
-	XIDeviceEvent const &_event
-)
+namespace sge
 {
-	return
-		fcppt::bit::test(
-			_event.flags,
-			fcppt::bit::mask_c<
-				int,
-				XIKeyRepeat
-			>()
-		);
+namespace x11input
+{
+namespace xim
+{
+
+sge::x11input::xim::optional_method_unique_ptr
+create_method_opt(
+	fcppt::log::object &,
+	awl::backends::x11::display const &
+);
+
 }
+}
+}
+
+#endif

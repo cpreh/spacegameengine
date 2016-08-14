@@ -18,30 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/key/code.hpp>
-#include <sge/x11input/key/code_from_event.hpp>
-#include <sge/x11input/key/code_to_sym.hpp>
-#include <sge/x11input/key/event_to_sge_code.hpp>
-#include <sge/x11input/key/translate_sym.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
+#ifndef SGE_X11INPUT_KEY_IS_REPEATED_HPP_INCLUDED
+#define SGE_X11INPUT_KEY_IS_REPEATED_HPP_INCLUDED
+
+#include <sge/x11input/key/repeated.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::input::key::code
-sge::x11input::key::event_to_sge_code(
-	awl::backends::x11::display const &_display,
-	XIDeviceEvent const &_event
-)
+namespace sge
 {
-	return
-		sge::x11input::key::translate_sym(
-			sge::x11input::key::code_to_sym(
-				_display,
-				sge::x11input::key::code_from_event(
-					_event
-				)
-			)
-		);
+namespace x11input
+{
+namespace key
+{
+
+sge::x11input::key::repeated
+is_repeated(
+	XIDeviceEvent const &
+);
+
 }
+}
+}
+
+#endif

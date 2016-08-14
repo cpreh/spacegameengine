@@ -32,18 +32,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/object.hpp>
 #include <sge/input/focus/out_callback.hpp>
 #include <sge/input/focus/out_signal.hpp>
+#include <sge/input/key/code_fwd.hpp>
 #include <sge/x11input/device/object.hpp>
 #include <sge/x11input/device/parameters_fwd.hpp>
 #include <sge/x11input/device/window_event_fwd.hpp>
 #include <sge/x11input/focus/object_fwd.hpp>
+#include <sge/x11input/key/repeated.hpp>
 #include <sge/x11input/xim/context_fwd.hpp>
-#include <sge/x11input/xim/method_fwd.hpp>
+#include <sge/x11input/xim/const_optional_method_ref_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
-#include <awl/backends/x11/window/event/scoped_mask.hpp>
+#include <awl/backends/x11/window/event/scoped_mask_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -69,7 +72,7 @@ public:
 		fcppt::log::object &,
 		awl::backends::x11::window::event::processor &,
 		sge::x11input::device::parameters const &,
-		sge::x11input::xim::method const &
+		sge::x11input::xim::const_optional_method_ref const &
 	);
 
 	~object()
@@ -115,6 +118,12 @@ private:
 		sge::x11input::device::window_event const &
 	);
 
+	void
+	process_key_down(
+		sge::x11input::key::repeated,
+		sge::input::key::code
+	);
+
 	fcppt::log::object &log_;
 
 	sge::input::focus::key_signal key_signal_;
@@ -133,11 +142,29 @@ private:
 	fcppt::unique_ptr<
 		sge::x11input::xim::context
 	>
-	xim_context_ptr;
+	xim_context_unique_ptr;
 
-	xim_context_ptr const xim_context_;
+	typedef
+	fcppt::optional::object<
+		xim_context_unique_ptr
+	>
+	optional_xim_context_unique_ptr;
 
-	awl::backends::x11::window::event::scoped_mask const scoped_event_mask_;
+	optional_xim_context_unique_ptr const xim_context_;
+
+	typedef
+	fcppt::unique_ptr<
+		awl::backends::x11::window::event::scoped_mask
+	>
+	scoped_mask_unique_ptr;
+
+	typedef
+	fcppt::optional::object<
+		scoped_mask_unique_ptr
+	>
+	optional_scoped_mask_unique_ptr;
+
+	optional_scoped_mask_unique_ptr const scoped_event_mask_;
 
 	fcppt::signal::auto_connection_container const connections_;
 };

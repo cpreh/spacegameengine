@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_X11INPUT_KEY_TRANSLATE_CODE_HPP_INCLUDED
-#define SGE_X11INPUT_KEY_TRANSLATE_CODE_HPP_INCLUDED
+#ifndef SGE_X11INPUT_KEY_TRANSLATE_SYM_HPP_INCLUDED
+#define SGE_X11INPUT_KEY_TRANSLATE_SYM_HPP_INCLUDED
 
 #include <sge/input/key/code.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/Xlib.h>
+#include <X11/X.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,7 +35,7 @@ namespace key
 {
 
 sge::input::key::code
-translate_code(
+translate_sym(
 	KeySym
 );
 

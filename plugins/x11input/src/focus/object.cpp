@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/key_repeat_event.hpp>
 #include <sge/input/focus/out_callback.hpp>
 #include <sge/input/focus/out_event.hpp>
+#include <sge/input/key/code.hpp>
 #include <sge/input/key/pressed.hpp>
 #include <sge/x11input/device/parameters.hpp>
 #include <sge/x11input/device/window_demuxer.hpp>
@@ -37,17 +38,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/focus/lookup_string.hpp>
 #include <sge/x11input/focus/object.hpp>
 #include <sge/x11input/key/event_to_sge_code.hpp>
+#include <sge/x11input/key/is_repeated.hpp>
 #include <sge/x11input/key/repeated.hpp>
+#include <sge/x11input/xim/const_optional_method_ref.hpp>
 #include <sge/x11input/xim/context.hpp>
 #include <sge/x11input/xim/get_filter_events.hpp>
 #include <sge/x11input/xim/method.hpp>
 #include <awl/backends/x11/system/event/type.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
+#include <awl/backends/x11/window/event/scoped_mask.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection_container.hpp>
 #include <fcppt/signal/object_impl.hpp>
@@ -63,7 +72,7 @@ sge::x11input::focus::object::object(
 	fcppt::log::object &_log,
 	awl::backends::x11::window::event::processor &_window_processor,
 	sge::x11input::device::parameters const &_parameters,
-	sge::x11input::xim::method const &_xim_method
+	sge::x11input::xim::const_optional_method_ref const &_xim_method
 )
 :
 	sge::input::focus::object(),
@@ -81,18 +90,46 @@ sge::x11input::focus::object::object(
 	window_(
 		_parameters.window()
 	),
-	xim_context_(
-		fcppt::make_unique_ptr<
-			sge::x11input::xim::context
-		>(
-			_xim_method.get(),
-			_parameters.window()
+	xim_context_{
+		fcppt::optional::map(
+			_xim_method,
+			[
+				&_parameters
+			](
+				fcppt::reference<
+					sge::x11input::xim::method const
+				> const _method
+			)
+			{
+				return
+					fcppt::make_unique_ptr<
+						sge::x11input::xim::context
+					>(
+						_method.get().get(),
+						_parameters.window()
+					);
+			}
 		)
-	),
+	},
 	scoped_event_mask_(
-		_window_processor,
-		sge::x11input::xim::get_filter_events(
-			*xim_context_
+		fcppt::optional::map(
+			xim_context_,
+			[
+				&_window_processor
+			](
+				xim_context_unique_ptr const &_context
+			)
+			{
+				return
+					fcppt::make_unique_ptr<
+						awl::backends::x11::window::event::scoped_mask
+					>(
+						_window_processor,
+						sge::x11input::xim::get_filter_events(
+							*_context
+						)
+					);
+			}
 		)
 	),
 	connections_(
@@ -137,8 +174,16 @@ sge::x11input::focus::object::object(
 						sge::x11input::device::window_event const &
 					)
 					{
-						::XSetICFocus(
-							xim_context_->get()
+						fcppt::optional::maybe_void(
+							xim_context_,
+							[](
+								xim_context_unique_ptr const &_context
+							)
+							{
+								::XSetICFocus(
+									_context->get()
+								);
+							}
 						);
 
 						in_signal_(
@@ -163,8 +208,16 @@ sge::x11input::focus::object::object(
 							sge::input::focus::out_event{}
 						);
 
-						::XUnsetICFocus(
-							xim_context_->get()
+						fcppt::optional::maybe_void(
+							xim_context_,
+							[](
+								xim_context_unique_ptr const &_context
+							)
+							{
+								::XUnsetICFocus(
+									_context->get()
+								);
+							}
 						);
 					}
 				}
@@ -238,48 +291,60 @@ sge::x11input::focus::object::on_key_press(
 	sge::x11input::device::window_event const &_event
 )
 {
-	sge::x11input::focus::looked_up_string const lookup(
-		sge::x11input::focus::lookup_string(
-			log_,
-			*xim_context_,
+	sge::x11input::key::repeated const repeated{
+		sge::x11input::key::is_repeated(
 			_event.get()
 		)
-	);
+	};
 
-	sge::input::focus::key const key(
-		lookup.key_code()
-	);
-
-	if(
-		sge::x11input::key::repeated(
-			_event.get()
+	fcppt::optional::maybe(
+		xim_context_,
+		[
+			this,
+			repeated,
+			&_event
+		]{
+			this->process_key_down(
+				repeated,
+				sge::x11input::key::event_to_sge_code(
+					window_.display(),
+					_event.get()
+				)
+			);
+		},
+		[
+			this,
+			repeated,
+			&_event
+		](
+			xim_context_unique_ptr const &_context
 		)
-	)
-		key_repeat_signal_(
-			sge::input::focus::key_repeat_event(
-				key
-			)
-		);
-	else
-		key_signal_(
-			sge::input::focus::key_event(
-				key,
-				sge::input::key::pressed{
-					true
-				}
-			)
-		);
+		{
+			sge::x11input::focus::looked_up_string const lookup(
+				sge::x11input::focus::lookup_string(
+					log_,
+					*_context,
+					_event.get()
+				)
+			);
 
-	for(
-		auto const &element
-		:
-		lookup.char_codes()
-	)
-		char_signal_(
-			sge::input::focus::char_event(
-				element
+			this->process_key_down(
+				repeated,
+				lookup.key_code()
+			);
+
+			for(
+				auto const &element
+				:
+				lookup.char_codes()
 			)
-		);
+				char_signal_(
+					sge::input::focus::char_event(
+						element
+					)
+				);
+		}
+	);
 }
 
 void
@@ -300,4 +365,33 @@ sge::x11input::focus::object::on_key_release(
 			}
 		)
 	);
+}
+
+void
+sge::x11input::focus::object::process_key_down(
+	sge::x11input::key::repeated const _repeated,
+	sge::input::key::code const _key_code
+)
+{
+	sge::input::focus::key const key(
+		_key_code
+	);
+
+	if(
+		_repeated.get()
+	)
+		key_repeat_signal_(
+			sge::input::focus::key_repeat_event(
+				key
+			)
+		);
+	else
+		key_signal_(
+			sge::input::focus::key_event(
+				key,
+				sge::input::key::pressed{
+					true
+				}
+			)
+		);
 }

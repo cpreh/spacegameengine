@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/focus/looked_up_string.hpp>
 #include <sge/x11input/focus/lookup_string.hpp>
 #include <sge/x11input/focus/translate_event.hpp>
-#include <sge/x11input/key/translate_code.hpp>
+#include <sge/x11input/key/translate_sym.hpp>
 #include <sge/x11input/xim/context.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -73,7 +73,9 @@ sge::x11input::focus::lookup_string(
 	XIDeviceEvent const &_event
 )
 {
-	KeySym key_sym;
+	KeySym key_sym{
+		NoSymbol
+	};
 
 	XKeyPressedEvent xev(
 		sge::x11input::focus::translate_event(
@@ -179,7 +181,7 @@ sge::x11input::focus::lookup_string(
 		return
 			sge::x11input::focus::looked_up_string(
 				sge::x11input::focus::char_vector(),
-				sge::x11input::key::translate_code(
+				sge::x11input::key::translate_sym(
 					key_sym
 				)
 			);
@@ -189,7 +191,7 @@ sge::x11input::focus::lookup_string(
 				std::move(
 					buffer
 				),
-				sge::x11input::key::translate_code(
+				sge::x11input::key::translate_sym(
 					key_sym
 				)
 			);

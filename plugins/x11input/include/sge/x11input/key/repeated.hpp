@@ -21,9 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_KEY_REPEATED_HPP_INCLUDED
 #define SGE_X11INPUT_KEY_REPEATED_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
 namespace sge
@@ -33,9 +31,9 @@ namespace x11input
 namespace key
 {
 
-bool
-repeated(
-	XIDeviceEvent const &
+FCPPT_MAKE_STRONG_TYPEDEF(
+	bool,
+	repeated
 );
 
 }
