@@ -32,7 +32,7 @@ namespace dinput
 namespace joypad
 {
 
-sge::input::joypad::relative_axis_info const
+sge::input::joypad::relative_axis_info
 make_relative_axis_info(
 	DIDEVICEOBJECTINSTANCE const &
 );

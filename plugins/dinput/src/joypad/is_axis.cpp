@@ -30,7 +30,7 @@ sge::dinput::joypad::is_axis(
 	return
 		_guid == GUID_XAxis
 		|| _guid == GUID_YAxis
-	    || _guid == GUID_ZAxis
+		|| _guid == GUID_ZAxis
 		|| _guid == GUID_RxAxis
 		|| _guid == GUID_RyAxis
 		|| _guid == GUID_RzAxis

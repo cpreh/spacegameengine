@@ -33,6 +33,10 @@ SET(
 	plugins/dinput/include/sge/dinput/joypad/device.hpp
 	plugins/dinput/include/sge/dinput/joypad/device_fwd.hpp
 	plugins/dinput/include/sge/dinput/joypad/enumerator.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/enum_effects.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/guid_to_type.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/optional_type.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/optional_type_fwd.hpp
 	plugins/dinput/include/sge/dinput/joypad/info.hpp
 	plugins/dinput/include/sge/dinput/joypad/info_fwd.hpp
 	plugins/dinput/include/sge/dinput/joypad/is_axis.hpp
@@ -86,6 +90,8 @@ SET(
 	plugins/dinput/src/joypad/axis_code.cpp
 	plugins/dinput/src/joypad/device.cpp
 	plugins/dinput/src/joypad/enumerator.cpp
+	plugins/dinput/src/joypad/ff/enum_effects.cpp
+	plugins/dinput/src/joypad/ff/guid_to_type.cpp
 	plugins/dinput/src/joypad/info.cpp
 	plugins/dinput/src/joypad/is_axis.cpp
 	plugins/dinput/src/joypad/make_absolute_axis_info.cpp

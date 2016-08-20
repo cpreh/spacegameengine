@@ -32,7 +32,7 @@ namespace dinput
 namespace joypad
 {
 
-sge::input::joypad::absolute_axis_info const
+sge::input::joypad::absolute_axis_info
 make_absolute_axis_info(
 	IDirectInputDevice8 &,
 	DIDEVICEOBJECTINSTANCE const &

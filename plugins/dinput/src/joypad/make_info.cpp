@@ -24,17 +24,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/joypad/enumerator.hpp>
 #include <sge/dinput/joypad/info.hpp>
 #include <sge/dinput/joypad/make_info.hpp>
+#include <sge/dinput/joypad/ff/enum_effects.hpp>
 #include <sge/input/info/name.hpp>
 #include <sge/input/info/unique_id.hpp>
 #include <sge/input/joypad/absolute_axis_info_container.hpp>
 #include <sge/input/joypad/button_info_container.hpp>
 #include <sge/input/joypad/info.hpp>
 #include <sge/input/joypad/relative_axis_info_container.hpp>
-#include <sge/input/joypad/ff/type_field.hpp>
 #include <fcppt/string.hpp>
 
 
-sge::dinput::joypad::info const
+sge::dinput::joypad::info
 sge::dinput::joypad::make_info(
 	IDirectInputDevice8 &_device,
 	fcppt::string const &_name,
@@ -65,8 +65,9 @@ sge::dinput::joypad::make_info(
 				sge::input::joypad::relative_axis_info_container(
 					object.relative_axis()
 				),
-				// FIXME
-				sge::input::joypad::ff::type_field::null(),
+				sge::dinput::joypad::ff::enum_effects(
+					_device
+				),
 				sge::input::info::name(
 					_name
 				),

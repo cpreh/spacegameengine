@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 
 
-sge::input::joypad::absolute_axis_info const
+sge::input::joypad::absolute_axis_info
 sge::dinput::joypad::make_absolute_axis_info(
 	IDirectInputDevice8 &_device,
 	DIDEVICEOBJECTINSTANCE const &_data

@@ -33,7 +33,7 @@ namespace dinput
 namespace joypad
 {
 
-sge::dinput::joypad::info const
+sge::dinput::joypad::info
 make_info(
 	IDirectInputDevice8 &,
 	fcppt::string const &name,

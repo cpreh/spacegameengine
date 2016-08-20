@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_DINPUT_JOYPAD_MAKE_BUTTON_INFO_HPP_INCLUDED
-#define SGE_DINPUT_JOYPAD_MAKE_BUTTON_INFO_HPP_INCLUDED
+#ifndef SGE_DINPUT_JOYPAD_FF_GUID_TO_TYPE_HPP_INCLUDED
+#define SGE_DINPUT_JOYPAD_FF_GUID_TO_TYPE_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-#include <sge/input/joypad/button_info_fwd.hpp>
+#include <sge/dinput/joypad/ff/optional_type.hpp>
 
 
 namespace sge
@@ -31,12 +31,15 @@ namespace dinput
 {
 namespace joypad
 {
+namespace ff
+{
 
-sge::input::joypad::button_info
-make_button_info(
-	DIDEVICEOBJECTINSTANCE const &
+sge::dinput::joypad::ff::optional_type
+guid_to_type(
+	REFGUID
 );
 
+}
 }
 }
 }
