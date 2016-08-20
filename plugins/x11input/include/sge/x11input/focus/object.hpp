@@ -38,8 +38,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/window_event_fwd.hpp>
 #include <sge/x11input/focus/object_fwd.hpp>
 #include <sge/x11input/key/repeated.hpp>
-#include <sge/x11input/xim/context_fwd.hpp>
 #include <sge/x11input/xim/const_optional_method_ref_fwd.hpp>
+#include <sge/x11input/xim/context_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <awl/backends/x11/window/event/scoped_mask_fwd.hpp>
