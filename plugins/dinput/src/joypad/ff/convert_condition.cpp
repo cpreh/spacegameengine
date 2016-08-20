@@ -18,45 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/joypad/axis_code.hpp>
-#include <sge/input/joypad/axis_code.hpp>
+#include <sge/dinput/joypad/ff/convert_condition.hpp>
+#include <sge/input/joypad/ff/condition.hpp>
+#include <fcppt/cast/size.hpp>
 
 
-sge::input::joypad::axis_code
-sge::dinput::joypad::axis_code(
-	DWORD const _code
+DICONDITION
+sge::dinput::joypad::ff::convert_condition(
+	sge::input::joypad::ff::condition const &_condition
 )
 {
-	if(
-		_code
-		==
-		sge::dinput::cast_key(
-			DIMOFS_X
-		)
-	)
-		return
-			sge::input::joypad::axis_code::x;
-	else if(
-		_code
-		==
-		sge::dinput::cast_key(
-			DIMOFS_Y
-		)
-	)
-		return
-			sge::input::joypad::axis_code::y;
-	else if(
-		_code
-		==
-		sge:: dinput::cast_key(
-			DIMOFS_Z
-		)
-	)
-		return
-			sge::input::joypad::axis_code::z;
-
 	return
-		sge::input::joypad::axis_code::unknown;
+		DICONDITION{
+			fcppt::cast::size<
+				LONG
+			>(
+				_condition.deadband_center().get()
+			),
+			fcppt::cast::size<
+				LONG
+			>(
+				_condition.right_coefficient().get()
+			),
+			fcppt::cast::size<
+				LONG
+			>(
+				_condition.left_coefficient().get()
+			),
+			fcppt::cast::size<
+				DWORD
+			>(
+				_condition.right_saturation().get()
+			),
+			fcppt::cast::size<
+				DWORD
+			>(
+				_condition.left_saturation().get()
+			),
+			fcppt::cast::size<
+				LONG
+			>(
+				_condition.deadband_size().get()
+			)
+		};
 }

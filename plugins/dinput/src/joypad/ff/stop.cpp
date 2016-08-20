@@ -18,45 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/joypad/axis_code.hpp>
-#include <sge/input/joypad/axis_code.hpp>
+#include <sge/dinput/joypad/ff/stop.hpp>
+#include <sge/input/exception.hpp>
+#include <fcppt/text.hpp>
 
 
-sge::input::joypad::axis_code
-sge::dinput::joypad::axis_code(
-	DWORD const _code
+void
+sge::dinput::joypad::ff::stop(
+	IDirectInputEffect &_effect
 )
 {
 	if(
-		_code
-		==
-		sge::dinput::cast_key(
-			DIMOFS_X
-		)
+		_effect.Stop()
+		!=
+		DI_OK
 	)
-		return
-			sge::input::joypad::axis_code::x;
-	else if(
-		_code
-		==
-		sge::dinput::cast_key(
-			DIMOFS_Y
-		)
-	)
-		return
-			sge::input::joypad::axis_code::y;
-	else if(
-		_code
-		==
-		sge:: dinput::cast_key(
-			DIMOFS_Z
-		)
-	)
-		return
-			sge::input::joypad::axis_code::z;
-
-	return
-		sge::input::joypad::axis_code::unknown;
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("Stopping an effect failed")
+			};
 }

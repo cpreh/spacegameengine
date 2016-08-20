@@ -18,45 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
-#include <sge/dinput/di.hpp>
-#include <sge/dinput/joypad/axis_code.hpp>
-#include <sge/input/joypad/axis_code.hpp>
+#ifndef SGE_DINPUT_JOYPAD_FF_OPTIONAL_ENVELOPE_HPP_INCLUDED
+#define SGE_DINPUT_JOYPAD_FF_OPTIONAL_ENVELOPE_HPP_INCLUDED
+
+#include <sge/dinput/joypad/ff/optional_envelope_fwd.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
-sge::input::joypad::axis_code
-sge::dinput::joypad::axis_code(
-	DWORD const _code
-)
-{
-	if(
-		_code
-		==
-		sge::dinput::cast_key(
-			DIMOFS_X
-		)
-	)
-		return
-			sge::input::joypad::axis_code::x;
-	else if(
-		_code
-		==
-		sge::dinput::cast_key(
-			DIMOFS_Y
-		)
-	)
-		return
-			sge::input::joypad::axis_code::y;
-	else if(
-		_code
-		==
-		sge:: dinput::cast_key(
-			DIMOFS_Z
-		)
-	)
-		return
-			sge::input::joypad::axis_code::z;
-
-	return
-		sge::input::joypad::axis_code::unknown;
-}
+#endif

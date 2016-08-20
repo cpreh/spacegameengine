@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/joypad/device.hpp>
 #include <sge/dinput/joypad/make_info.hpp>
 #include <sge/dinput/joypad/relative_axis_map.hpp>
+#include <sge/dinput/joypad/ff/effect.hpp>
 #include <sge/input/info/name.hpp>
 #include <sge/input/joypad/absolute_axis.hpp>
 #include <sge/input/joypad/absolute_axis_callback.hpp>
@@ -46,7 +47,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/ff/effect.hpp>
 #include <sge/input/joypad/ff/effect_unique_ptr.hpp>
 #include <sge/input/joypad/ff/parameters_fwd.hpp>
-#include <fcppt/assert/unimplemented_message.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/optional/copy_value.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -133,9 +135,18 @@ sge::dinput::joypad::device::create_ff_effect(
 	sge::input::joypad::ff::parameters const &_parameters
 )
 {
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("Implement force feedback in DInput")
-	);
+	return
+		fcppt::unique_ptr_to_base<
+			sge::input::joypad::ff::effect
+		>(
+			fcppt::make_unique_ptr<
+				sge::dinput::joypad::ff::effect
+			>(
+				this->get(),
+				info_.button_map(),
+				_parameters
+			)
+		);
 }
 
 void
@@ -165,6 +176,7 @@ sge::dinput::joypad::device::on_dispatch(
 						].code(),
 						_id
 					),
+					// TODO: Conversion function
 					static_cast<
 						sge::input::joypad::axis_value
 					>(
@@ -224,6 +236,7 @@ sge::dinput::joypad::device::on_dispatch(
 						].code(),
 						_id
 					),
+					// TODO: Conversion function
 					static_cast<
 						sge::input::joypad::axis_value
 					>(

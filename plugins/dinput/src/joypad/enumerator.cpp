@@ -157,7 +157,9 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 FCPPT_PP_POP_WARNING
 	}
 	else if(
-		_data.guidType == GUID_Button
+		_data.guidType
+		==
+		GUID_Button
 	)
 		sge::dinput::device::add_element(
 			_data,

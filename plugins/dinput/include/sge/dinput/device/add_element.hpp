@@ -47,7 +47,7 @@ add_element(
 	DIDEVICEOBJECTINSTANCE const &_data,
 	Map &_map,
 	Vector &_vector,
-	Function _function // nonconst because of VC++12
+	Function const &_function
 )
 {
 	FCPPT_ASSERT_ERROR(

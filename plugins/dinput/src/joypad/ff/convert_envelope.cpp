@@ -18,45 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/joypad/axis_code.hpp>
-#include <sge/input/joypad/axis_code.hpp>
+#include <sge/dinput/joypad/ff/convert_duration.hpp>
+#include <sge/dinput/joypad/ff/convert_envelope.hpp>
+#include <sge/input/joypad/ff/envelope.hpp>
+#include <fcppt/cast/size.hpp>
 
 
-sge::input::joypad::axis_code
-sge::dinput::joypad::axis_code(
-	DWORD const _code
+DIENVELOPE
+sge::dinput::joypad::ff::convert_envelope(
+	sge::input::joypad::ff::envelope const &_envelope
 )
 {
-	if(
-		_code
-		==
-		sge::dinput::cast_key(
-			DIMOFS_X
-		)
-	)
-		return
-			sge::input::joypad::axis_code::x;
-	else if(
-		_code
-		==
-		sge::dinput::cast_key(
-			DIMOFS_Y
-		)
-	)
-		return
-			sge::input::joypad::axis_code::y;
-	else if(
-		_code
-		==
-		sge:: dinput::cast_key(
-			DIMOFS_Z
-		)
-	)
-		return
-			sge::input::joypad::axis_code::z;
-
 	return
-		sge::input::joypad::axis_code::unknown;
+		DIENVELOPE{
+			sizeof(
+				DIENVELOPE
+			),
+			fcppt::cast::size<
+				DWORD
+			>(
+				_envelope.attack_level().get()
+			),
+			sge::dinput::joypad::ff::convert_duration(
+				_envelope.attack_time().get()
+			),
+			fcppt::cast::size<
+				DWORD
+			>(
+				_envelope.fade_level().get()
+			),
+			sge::dinput::joypad::ff::convert_duration(
+				_envelope.fade_time().get()
+			)
+		};
 }

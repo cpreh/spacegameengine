@@ -33,10 +33,31 @@ SET(
 	plugins/dinput/include/sge/dinput/joypad/device.hpp
 	plugins/dinput/include/sge/dinput/joypad/device_fwd.hpp
 	plugins/dinput/include/sge/dinput/joypad/enumerator.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/convert_condition.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/convert_constant.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/convert_duration.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/convert_envelope.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/convert_periodic.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/convert_ramp.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/convert_type_parameters.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/create_effect.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/dinput_effect_unique_ptr.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/effect.hpp
 	plugins/dinput/include/sge/dinput/joypad/ff/enum_effects.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/envelope_from_variant.hpp
 	plugins/dinput/include/sge/dinput/joypad/ff/guid_to_type.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/optional_envelope.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/optional_envelope_fwd.hpp
 	plugins/dinput/include/sge/dinput/joypad/ff/optional_type.hpp
 	plugins/dinput/include/sge/dinput/joypad/ff/optional_type_fwd.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/scoped_download.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/scoped_download_fwd.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/start.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/stop.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/type_parameters.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/type_parameters_fwd.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/variant_to_guid.hpp
+	plugins/dinput/include/sge/dinput/joypad/ff/with_parameters.hpp
 	plugins/dinput/include/sge/dinput/joypad/info.hpp
 	plugins/dinput/include/sge/dinput/joypad/info_fwd.hpp
 	plugins/dinput/include/sge/dinput/joypad/is_axis.hpp
@@ -90,8 +111,22 @@ SET(
 	plugins/dinput/src/joypad/axis_code.cpp
 	plugins/dinput/src/joypad/device.cpp
 	plugins/dinput/src/joypad/enumerator.cpp
+	plugins/dinput/src/joypad/ff/convert_condition.cpp
+	plugins/dinput/src/joypad/ff/convert_constant.cpp
+	plugins/dinput/src/joypad/ff/convert_duration.cpp
+	plugins/dinput/src/joypad/ff/convert_envelope.cpp
+	plugins/dinput/src/joypad/ff/convert_periodic.cpp
+	plugins/dinput/src/joypad/ff/convert_ramp.cpp
+	plugins/dinput/src/joypad/ff/convert_type_parameters.cpp
+	plugins/dinput/src/joypad/ff/create_effect.cpp
+	plugins/dinput/src/joypad/ff/effect.cpp
 	plugins/dinput/src/joypad/ff/enum_effects.cpp
+	plugins/dinput/src/joypad/ff/envelope_from_variant.cpp
 	plugins/dinput/src/joypad/ff/guid_to_type.cpp
+	plugins/dinput/src/joypad/ff/scoped_download.cpp
+	plugins/dinput/src/joypad/ff/start.cpp
+	plugins/dinput/src/joypad/ff/stop.cpp
+	plugins/dinput/src/joypad/ff/variant_to_guid.cpp
 	plugins/dinput/src/joypad/info.cpp
 	plugins/dinput/src/joypad/is_axis.cpp
 	plugins/dinput/src/joypad/make_absolute_axis_info.cpp

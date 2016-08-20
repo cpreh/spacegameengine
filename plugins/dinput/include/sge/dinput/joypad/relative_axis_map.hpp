@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/di.hpp>
 #include <sge/input/joypad/relative_axis_id.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <map>
+#include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,10 +35,12 @@ namespace dinput
 namespace joypad
 {
 
-typedef std::map<
+typedef
+std::unordered_map<
 	DWORD,
 	sge::input::joypad::relative_axis_id
-> relative_axis_map;
+>
+relative_axis_map;
 
 }
 }

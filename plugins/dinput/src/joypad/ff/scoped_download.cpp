@@ -18,45 +18,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/joypad/axis_code.hpp>
-#include <sge/input/joypad/axis_code.hpp>
+#include <sge/dinput/joypad/ff/scoped_download.hpp>
+#include <sge/input/exception.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/assert/error.hpp>
 
 
-sge::input::joypad::axis_code
-sge::dinput::joypad::axis_code(
-	DWORD const _code
+sge::dinput::joypad::ff::scoped_download::scoped_download(
+	IDirectInputEffect &_effect
 )
+:
+	effect_{
+		_effect
+	}
 {
-	if(
-		_code
-		==
-		sge::dinput::cast_key(
-			DIMOFS_X
-		)
+	switch(
+		effect_.Download()
 	)
-		return
-			sge::input::joypad::axis_code::x;
-	else if(
-		_code
-		==
-		sge::dinput::cast_key(
-			DIMOFS_Y
-		)
-	)
-		return
-			sge::input::joypad::axis_code::y;
-	else if(
-		_code
-		==
-		sge:: dinput::cast_key(
-			DIMOFS_Z
-		)
-	)
-		return
-			sge::input::joypad::axis_code::z;
+	{
+	case DI_OK:
+		return;
+	case
+	static_cast<
+		HRESULT
+	>(
+		DIERR_DEVICEFULL
+	):
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("FF device is full!")
+			};
+	default:
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("Failed downloading an effect!")
+			};
+	}
+}
 
-	return
-		sge::input::joypad::axis_code::unknown;
+sge::dinput::joypad::ff::scoped_download::~scoped_download()
+{
+	FCPPT_ASSERT_ERROR(
+		effect_.Unload()
+		==
+		DI_OK
+	);
 }

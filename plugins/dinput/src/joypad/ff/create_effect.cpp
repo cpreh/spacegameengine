@@ -18,45 +18,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/dinput/cast_key.hpp>
 #include <sge/dinput/di.hpp>
-#include <sge/dinput/joypad/axis_code.hpp>
-#include <sge/input/joypad/axis_code.hpp>
+#include <sge/dinput/joypad/ff/create_effect.hpp>
+#include <sge/dinput/joypad/ff/dinput_effect_unique_ptr.hpp>
+#include <sge/input/exception.hpp>
+#include <fcppt/text.hpp>
 
 
-sge::input::joypad::axis_code
-sge::dinput::joypad::axis_code(
-	DWORD const _code
+sge::dinput::joypad::ff::dinput_effect_unique_ptr
+sge::dinput::joypad::ff::create_effect(
+	IDirectInputDevice8 &_device,
+	REFGUID _guid,
+	DIEFFECT const &_effect
 )
 {
+	IDirectInputEffect *result;
+
 	if(
-		_code
-		==
-		sge::dinput::cast_key(
-			DIMOFS_X
+		_device.CreateEffect(
+			_guid,
+			&_effect,
+			&result,
+			nullptr
 		)
+		!=
+		DI_OK
 	)
-		return
-			sge::input::joypad::axis_code::x;
-	else if(
-		_code
-		==
-		sge::dinput::cast_key(
-			DIMOFS_Y
-		)
-	)
-		return
-			sge::input::joypad::axis_code::y;
-	else if(
-		_code
-		==
-		sge:: dinput::cast_key(
-			DIMOFS_Z
-		)
-	)
-		return
-			sge::input::joypad::axis_code::z;
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("CreateEffect failed")
+			};
 
 	return
-		sge::input::joypad::axis_code::unknown;
+		sge::dinput::joypad::ff::dinput_effect_unique_ptr{
+			result
+		};
 }
