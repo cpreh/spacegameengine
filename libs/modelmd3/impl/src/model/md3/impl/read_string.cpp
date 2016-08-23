@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <array>
+#include <ios>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
 
@@ -42,7 +43,7 @@ sge::model::md3::impl::read_string(
 )
 {
 	std::array<
-		md3::string::value_type,
+		sge::model::md3::string::value_type,
 		Max
 	> tmp_name;
 
