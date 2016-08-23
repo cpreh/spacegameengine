@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/impl/algorithm/print_impl.hpp>
 #include <sge/image/traits/const_view_fwd.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
-#include <fcppt/io/ostream.hpp>
+#include <fcppt/io/ostream_fwd.hpp>
 
 
 #define SGE_IMAGE_IMPL_ALGORITHM_INSTANTIATE_PRINT(\

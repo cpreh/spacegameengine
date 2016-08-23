@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/parse_range.hpp>
 #include <sge/parse/ini/parse_stream.hpp>
 #include <sge/parse/ini/start.hpp>
-#include <fcppt/io/istream.hpp>
+#include <fcppt/io/istream_fwd.hpp>
 
 
 sge::parse::result

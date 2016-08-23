@@ -21,13 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/program/source.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
-#include <sge/shader/exception.hpp>
 #include <sge/shader/load_edited_string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/stream_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
@@ -36,12 +32,16 @@ sge::cg::program::source
 sge::shader::load_edited_string(
 	sge::renderer::device::core &_renderer,
 	sge::renderer::vertex::declaration const &_vd,
-	std::istream &_stream)
+	std::istream &_stream
+)
 {
 	return
 		_renderer.transform_cg_vertex_program(
 			_vd,
 			sge::cg::program::source(
 				fcppt::io::stream_to_string(
-					_stream)));
+					_stream
+				)
+			)
+		);
 }

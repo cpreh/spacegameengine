@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/start_fwd.hpp>
 #include <sge/parse/json/output/to_range.hpp>
 #include <sge/parse/json/output/to_stream.hpp>
-#include <fcppt/io/ostream.hpp>
+#include <fcppt/io/ostream_fwd.hpp>
 
 
 bool

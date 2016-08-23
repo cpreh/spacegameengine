@@ -21,73 +21,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/print.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/color/any/print.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/io/ostream_fwd.hpp>
 
-
-namespace
-{
-
-class visitor
-{
-	FCPPT_NONASSIGNABLE(
-		visitor
-	);
-public:
-	typedef fcppt::io::ostream &result_type;
-
-	explicit visitor(
-		fcppt::io::ostream &_stream
-	);
-
-	template<
-		typename T
-	>
-	result_type
-	operator()(
-		T const &
-	) const;
-private:
-	fcppt::io::ostream &stream_;
-};
-
-}
 
 fcppt::io::ostream &
 sge::image::color::any::operator<<(
 	fcppt::io::ostream &_stream,
-	any::object const &_object
+	sge::image::color::any::object const &_object
 )
 {
 	return
 		fcppt::variant::apply_unary(
-			::visitor(
-				_stream
-			),
+			[
+				&_stream
+			](
+				auto const &_value
+			)
+			->
+			fcppt::io::ostream &
+			{
+				return
+					_stream
+					<<
+					_value;
+			},
 			_object.get()
 		);
-}
-
-namespace
-{
-
-visitor::visitor(
-	fcppt::io::ostream &_stream
-)
-:
-	stream_(_stream)
-{}
-
-template<
-	typename T
->
-visitor::result_type
-visitor::operator()(
-	T const &_value
-) const
-{
-	return stream_ << _value;
-}
-
 }
