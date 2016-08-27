@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/filesystem/ofstream.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/io/ofstream.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -51,7 +51,7 @@ to_file(
 	Data const &_data
 )
 {
-	fcppt::io::ofstream ofs(
+	fcppt::filesystem::ofstream ofs(
 		_path,
 		std::ios_base::binary
 	);

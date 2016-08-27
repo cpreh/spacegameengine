@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/filesystem/ifstream.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/io/ifstream.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <ios>
@@ -51,7 +51,7 @@ parse_file(
 	Result &_result
 )
 {
-	fcppt::io::ifstream ifs(
+	fcppt::filesystem::ifstream ifs(
 		_path,
 		std::ios_base::binary
 	);
