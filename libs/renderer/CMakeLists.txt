@@ -1227,6 +1227,7 @@ add_sge_base_library(
 		awl_interface
 		mizuiro_interface
 		fcppt_core_interface
+		fcppt_log_interface
 	IMPLEMENT_FROM
 		plugin
 )

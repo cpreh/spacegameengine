@@ -85,11 +85,9 @@ add_sge_base_library(
 		sgeimage2d_interface
 		sgerenderer_interface
 	ADDITIONAL_DEPS
-		${fcppt_log_TARGET}
 		fcppt_core_interface
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
-		fcppt_log_interface
 	USE_IMPL_INCLUDE_OF
 		renderer
 )

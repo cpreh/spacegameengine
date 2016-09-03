@@ -290,4 +290,5 @@ add_sge_base_library(
 	TRANSITIVE_ADDITIONAL_DEPS
 		awl_interface
 		fcppt_core_interface
+		fcppt_log_interface
 )

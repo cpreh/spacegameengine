@@ -63,4 +63,5 @@ add_sge_base_library(
 		${fcppt_log_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
+		fcppt_log_interface
 )
