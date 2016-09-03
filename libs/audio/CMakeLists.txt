@@ -136,8 +136,12 @@ add_sge_base_library(
 		sgemedia_interface
 		sgeplugin_interface
 	ADDITIONAL_DEPS
+		fcppt_core_interface
 		${fcppt_log_TARGET}
 		${Boost_filesystem_LIBRARIES}
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
+		fcppt_log_interface
 	IMPLEMENT_FROM
 		media
 		plugin
