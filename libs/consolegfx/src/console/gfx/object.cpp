@@ -195,12 +195,7 @@ sge::console::gfx::object::render(
 		current_y =
 			this->render_line(
 				_render_context,
-				input_line_.edited(
-					// This used to be "bool cursor_active" which was controlled by
-					// a timer, but due to the unneccessary timer depenceny, this
-					// was removed
-					true
-				),
+				input_line_.edited(),
 				current_y
 			);
 

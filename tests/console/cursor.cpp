@@ -31,74 +31,82 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-BOOST_AUTO_TEST_CASE(cursor)
+BOOST_AUTO_TEST_CASE(
+	console_cursor
+)
 {
 FCPPT_PP_POP_WARNING
 
 	sge::console::gfx::cursor c;
 
 	BOOST_REQUIRE(
-		c.edited(true) ==
-			SGE_FONT_LIT("_"));
+		c.edited()
+		==
+		SGE_FONT_LIT("_")
+	);
 
 	BOOST_REQUIRE(
-		c.edited(false) ==
-			SGE_FONT_LIT(" "));
+		c.string()
+		==
+		SGE_FONT_LIT("")
+	);
 
 	BOOST_REQUIRE(
-		c.string() ==
-			SGE_FONT_LIT(""));
-
-	BOOST_REQUIRE(
-		c.empty());
+		c.empty()
+	);
 
 	c.insert(
-		SGE_FONT_LIT('f'));
+		SGE_FONT_LIT('f')
+	);
+
 	c.insert(
-		SGE_FONT_LIT('o'));
+		SGE_FONT_LIT('o')
+	);
 	c.insert(
-		SGE_FONT_LIT('o'));
+		SGE_FONT_LIT('o')
+	);
 
 	BOOST_REQUIRE(
-		c.edited(true) ==
-			SGE_FONT_LIT("foo_"));
+		c.edited()
+		==
+		SGE_FONT_LIT("foo_")
+	);
 
 	BOOST_REQUIRE(
-		c.edited(false) ==
-			SGE_FONT_LIT("foo "));
-
-	BOOST_REQUIRE(
-		c.string() ==
-			SGE_FONT_LIT("foo"));
+		c.string()
+		==
+		SGE_FONT_LIT("foo")
+	);
 
 	c.erase_word();
 
 	BOOST_REQUIRE(
-		c.edited(true) ==
-			SGE_FONT_LIT("_"));
+		c.edited()
+		==
+		SGE_FONT_LIT("_")
+	);
 
 	BOOST_REQUIRE(
-		c.edited(false) ==
-			SGE_FONT_LIT(" "));
-
-	BOOST_REQUIRE(
-		c.string() ==
-			SGE_FONT_LIT(""));
+		c.string()
+		==
+		SGE_FONT_LIT("")
+	);
 
 	c.string(
-		SGE_FONT_LIT("bar"));
+		SGE_FONT_LIT("bar")
+	);
 
 	BOOST_REQUIRE(
-		c.edited(true) ==
-			SGE_FONT_LIT("bar_"));
+		c.edited()
+		==
+		SGE_FONT_LIT("bar_")
+	);
 
 	BOOST_REQUIRE(
-		c.edited(false) ==
-			SGE_FONT_LIT("bar "));
-
-	BOOST_REQUIRE(
-		c.string() ==
-			SGE_FONT_LIT("bar"));
+		c.string()
+		==
+		SGE_FONT_LIT("bar")
+	);
 
 	c.left();
 	c.left();
@@ -106,84 +114,87 @@ FCPPT_PP_POP_WARNING
 	c.left();
 
 	BOOST_REQUIRE(
-		c.edited(true) ==
-			SGE_FONT_LIT("_ar "));
+		c.edited()
+		==
+		SGE_FONT_LIT("_ar ")
+	);
 
 	BOOST_REQUIRE(
-		c.edited(false) ==
-			SGE_FONT_LIT("bar "));
-
-	BOOST_REQUIRE(
-		c.string() ==
-			SGE_FONT_LIT("bar"));
+		c.string()
+		==
+		SGE_FONT_LIT("bar")
+	);
 
 	c.erase_char();
 
 	BOOST_REQUIRE(
-		c.edited(true) ==
-			SGE_FONT_LIT("_r "));
+		c.edited()
+		==
+		SGE_FONT_LIT("_r ")
+	);
 
 	BOOST_REQUIRE(
-		c.edited(false) ==
-			SGE_FONT_LIT("ar "));
-
-	BOOST_REQUIRE(
-		c.string() ==
-			SGE_FONT_LIT("ar"));
+		c.string()
+		==
+		SGE_FONT_LIT("ar")
+	);
 
 	c.erase_char();
 	c.erase_char();
 	c.erase_char();
 
 	BOOST_REQUIRE(
-		c.edited(true) ==
-			SGE_FONT_LIT("_"));
+		c.edited()
+		==
+		SGE_FONT_LIT("_")
+	);
 
 	BOOST_REQUIRE(
-		c.edited(false) ==
-			SGE_FONT_LIT(" "));
-
-	BOOST_REQUIRE(
-		c.string() ==
-			SGE_FONT_LIT(""));
+		c.string()
+		==
+		SGE_FONT_LIT("")
+	);
 
 	c.string(
-		SGE_FONT_LIT("foo"));
+		SGE_FONT_LIT("foo")
+	);
 
 	c.left();
 	c.left();
 
 	c.insert(
-		SGE_FONT_LIT('b'));
+		SGE_FONT_LIT('b')
+	);
 
 	BOOST_REQUIRE(
-		c.edited(true) ==
-			SGE_FONT_LIT("fb_o "));
+		c.edited()
+		==
+		SGE_FONT_LIT("fb_o ")
+	);
 
 	BOOST_REQUIRE(
-		c.edited(false) ==
-			SGE_FONT_LIT("fboo "));
-
-	BOOST_REQUIRE(
-		c.string() ==
-			SGE_FONT_LIT("fboo"));
+		c.string()
+		==
+		SGE_FONT_LIT("fboo")
+	);
 
 	c.left();
 
 	c.insert(
-		SGE_FONT_LIT('r'));
+		SGE_FONT_LIT('r')
+	);
 
 	BOOST_REQUIRE(
-		c.edited(true) ==
-			SGE_FONT_LIT("fr_oo "));
+		c.edited()
+		==
+		SGE_FONT_LIT("fr_oo ")
+	);
 
 	BOOST_REQUIRE(
-		c.edited(false) ==
-			SGE_FONT_LIT("frboo "));
-
-	BOOST_REQUIRE(
-		c.string() ==
-			SGE_FONT_LIT("frboo"));
+		c.string()
+		==
+		SGE_FONT_LIT("frboo")
+	);
 
 	c.right();
 	c.right();
@@ -194,50 +205,53 @@ FCPPT_PP_POP_WARNING
 	c.right();
 
 	BOOST_REQUIRE(
-		c.edited(true) ==
-			SGE_FONT_LIT("frboo_"));
+		c.edited()
+		==
+		SGE_FONT_LIT("frboo_")
+	);
 
 	BOOST_REQUIRE(
-		c.edited(false) ==
-			SGE_FONT_LIT("frboo "));
-
-	BOOST_REQUIRE(
-		c.string() ==
-			SGE_FONT_LIT("frboo"));
+		c.string()
+		==
+		SGE_FONT_LIT("frboo")
+	);
 
 	c.to_start();
 
 	BOOST_REQUIRE(
-		c.edited(true) ==
-			SGE_FONT_LIT("_rboo "));
+		c.edited()
+		==
+		SGE_FONT_LIT("_rboo ")
+	);
 
 	BOOST_REQUIRE(
-		c.edited(false) ==
-			SGE_FONT_LIT("frboo "));
+		c.string()
+		==
+		SGE_FONT_LIT("frboo")
+	);
 
 	BOOST_REQUIRE(
-		c.string() ==
-			SGE_FONT_LIT("frboo"));
-
-	BOOST_REQUIRE(
-		c.at_start());
+		c.at_start()
+	);
 
 	c.to_end();
 
 	BOOST_REQUIRE(
-		c.edited(true) ==
-			SGE_FONT_LIT("frboo_"));
+		c.edited()
+		==
+		SGE_FONT_LIT("frboo_")
+	);
 
 	BOOST_REQUIRE(
-		c.edited(false) ==
-			SGE_FONT_LIT("frboo "));
-
-	BOOST_REQUIRE(
-		c.string() ==
-			SGE_FONT_LIT("frboo"));
+		c.string()
+		==
+		SGE_FONT_LIT("frboo")
+	);
 
 	c.string(
-		SGE_FONT_LIT("foo bar"));
+		SGE_FONT_LIT("foo bar")
+	);
+
 	c.left();
 	c.left();
 	c.left();
@@ -245,44 +259,51 @@ FCPPT_PP_POP_WARNING
 	c.erase_word();
 
 	BOOST_REQUIRE(
-		c.edited(true) ==
-			SGE_FONT_LIT("_bar "));
+		c.edited()
+		==
+		SGE_FONT_LIT("_bar ")
+	);
 
 	BOOST_REQUIRE(
-		c.edited(false) ==
-			SGE_FONT_LIT(" bar "));
-
-	BOOST_REQUIRE(
-		c.string() ==
-			SGE_FONT_LIT(" bar"));
+		c.string()
+		==
+		SGE_FONT_LIT(" bar")
+	);
 
 	c.erase_word();
 
 	BOOST_REQUIRE(
-		c.edited(true) ==
-			SGE_FONT_LIT("_bar "));
+		c.edited()
+		==
+		SGE_FONT_LIT("_bar ")
+	);
 
 	BOOST_REQUIRE(
-		c.edited(false) ==
-			SGE_FONT_LIT(" bar "));
-
-	BOOST_REQUIRE(
-		c.string() ==
-			SGE_FONT_LIT(" bar"));
+		c.string()
+		==
+		SGE_FONT_LIT(" bar")
+	);
 
 	c.string(
-		SGE_FONT_LIT("foo"));
+		SGE_FONT_LIT("foo")
+	);
+
 	c.left();
 	c.left();
 
 	BOOST_REQUIRE(
-		c.edited(true) ==
-			SGE_FONT_LIT("f_o "));
+		c.edited()
+		==
+		SGE_FONT_LIT("f_o ")
+	);
 
 	c.insert(
-		SGE_FONT_LIT('a'));
+		SGE_FONT_LIT('a')
+	);
 
 	BOOST_REQUIRE(
-		c.edited(true) ==
-			SGE_FONT_LIT("fa_o "));
+		c.edited()
+		==
+		SGE_FONT_LIT("fa_o ")
+	);
 }

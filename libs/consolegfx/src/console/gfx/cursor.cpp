@@ -41,18 +41,19 @@ sge::console::gfx::cursor::~cursor()
 }
 
 sge::font::string
-sge::console::gfx::cursor::edited(
-	bool const _active
-) const
+sge::console::gfx::cursor::edited() const
 {
-	sge::font::string l =
-		line_;
+	sge::font::string result(
+		line_
+	);
 
-	if (_active)
-		l[pos_] =
-			SGE_FONT_LIT('_');
+	result[
+		pos_
+	] =
+		SGE_FONT_LIT('_');
+
 	return
-		l;
+		result;
 }
 
 sge::font::string

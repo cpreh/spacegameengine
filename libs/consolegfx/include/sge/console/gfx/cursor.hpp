@@ -54,9 +54,7 @@ public:
 
 	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	sge::font::string
-	edited(
-		bool
-	) const;
+	edited() const;
 
 	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	sge::font::string
