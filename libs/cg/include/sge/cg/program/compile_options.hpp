@@ -63,7 +63,7 @@ public:
 	SGE_CG_DETAIL_SYMBOL
 	explicit
 	compile_options(
-		string_sequence const &
+		string_sequence
 	);
 
 	SGE_CG_DETAIL_SYMBOL

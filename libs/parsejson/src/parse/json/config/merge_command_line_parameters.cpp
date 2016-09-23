@@ -36,8 +36,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/algorithm/shortest_levenshtein.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/config/compiler.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/container/vector.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
@@ -78,6 +82,11 @@ process_option(
 
 	result_type result;
 
+FCPPT_PP_PUSH_WARNING
+#if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
+FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
+#endif
+
 	if(
 		!boost::spirit::qi::parse(
 			_input.begin(),
@@ -98,6 +107,8 @@ process_option(
 			+
 			FCPPT_TEXT("\" has an invalid format. See --help to see what that means.")
 		};
+
+FCPPT_PP_POP_WARNING
 
 	string_vector &first(
 		boost::fusion::at_c<

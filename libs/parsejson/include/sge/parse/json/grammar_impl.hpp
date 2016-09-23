@@ -32,6 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/detail/insert_member.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/compiler.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/spirit_traits/optional_basic.hpp>
 #include <fcppt/spirit_traits/variant_basic.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -79,6 +83,12 @@ sge::parse::json::grammar<
 	namespace encoding = parse::encoding;
 
 	namespace qi = boost::spirit::qi;
+
+FCPPT_PP_PUSH_WARNING
+#if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
+FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
+#endif
+
 
 	null_ =
 		qi::lit(
@@ -174,6 +184,8 @@ sge::parse::json::grammar<
 		array_
 		|
 		object_;
+
+FCPPT_PP_POP_WARNING
 
 	sge::parse::install_error_handler(
 		start_,

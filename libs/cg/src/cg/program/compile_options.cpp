@@ -18,7 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/cg/char_type.hpp>
+#include <sge/cg/string.hpp>
 #include <sge/cg/program/compile_options.hpp>
+#include <fcppt/algorithm/map.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
+
 
 sge::cg::program::compile_options::compile_options()
 :
@@ -27,7 +34,8 @@ sge::cg::program::compile_options::compile_options()
 }
 
 sge::cg::program::compile_options::compile_options(
-	sge::cg::char_type const **_pointers)
+	sge::cg::char_type const **_pointers
+)
 :
 	value_()
 {
@@ -39,29 +47,38 @@ sge::cg::program::compile_options::compile_options(
 }
 
 sge::cg::program::compile_options::compile_options(
-	string_sequence const &_value)
+	string_sequence _value
+)
 :
 	value_(
-		_value)
+		std::move(
+			_value
+		)
+	)
 {
 }
 
 sge::cg::program::compile_options::pointer_sequence
 sge::cg::program::compile_options::pointers() const
 {
-	// TODO: Refactor this
-	sge::cg::program::compile_options::pointer_sequence result;
-
-	for(
-		string_sequence::const_iterator it =
-			value_.begin();
-		it != value_.end();
-		++it)
-		result.push_back(
-			it->c_str());
+	sge::cg::program::compile_options::pointer_sequence result{
+		fcppt::algorithm::map<
+			sge::cg::program::compile_options::pointer_sequence
+		>(
+			value_,
+			[](
+				sge::cg::string const &_string
+			)
+			{
+				return
+					_string.c_str();
+			}
+		)
+	};
 
 	result.push_back(
-		0);
+		nullptr
+	);
 
 	return
 		result;

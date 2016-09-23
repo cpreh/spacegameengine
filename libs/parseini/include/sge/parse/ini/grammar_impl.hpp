@@ -29,6 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/detail/adapt_section.hpp>
 #include <sge/parse/ini/detail/adapt_start.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/compiler.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/qi_char.hpp>
 #include <boost/spirit/include/qi_eol.hpp>
@@ -59,6 +63,11 @@ sge::parse::ini::grammar<
 	using boost::spirit::lit;
 	using boost::spirit::lexeme;
 	using boost::spirit::eol;
+
+FCPPT_PP_PUSH_WARNING
+#if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
+FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
+#endif
 
 	entry_ %=
 		!char_(FCPPT_TEXT('['))
@@ -96,6 +105,8 @@ sge::parse::ini::grammar<
 		ini_,
 		error_string_
 	);
+
+FCPPT_PP_POP_WARNING
 }
 
 template<

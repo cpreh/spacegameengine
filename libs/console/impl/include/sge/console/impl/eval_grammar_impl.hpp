@@ -23,6 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/console/impl/eval_grammar_decl.hpp>
 #include <sge/font/lit.hpp>
+#include <fcppt/config/compiler.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/qi_char.hpp>
 #include <boost/spirit/include/qi_operator.hpp>
@@ -50,6 +54,11 @@ sge::console::impl::eval_grammar<
 	using encoding::char_;
 	using encoding::space;
 
+FCPPT_PP_PUSH_WARNING
+#if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
+FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
+#endif
+
 	word_ %=
 		+~space;
 
@@ -64,6 +73,8 @@ sge::console::impl::eval_grammar<
 
 	start_ %=
 		argument_ % (+space);
+
+FCPPT_PP_POP_WARNING
 }
 
 template<
