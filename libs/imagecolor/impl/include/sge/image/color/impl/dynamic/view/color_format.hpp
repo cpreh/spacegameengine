@@ -44,7 +44,7 @@ color_format(
 )
 {
 	return
-		*_format.format_store().get();
+		_format.format_store().get();
 }
 
 }

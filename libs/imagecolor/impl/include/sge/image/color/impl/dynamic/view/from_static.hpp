@@ -24,6 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/impl/dynamic/format/from_static.hpp>
 #include <sge/image/color/impl/dynamic/format/from_static_type.hpp>
 #include <sge/image/view/element_base.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <functional>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -72,8 +75,10 @@ from_static(
 			typename dest_type::format_store_type(
 				dest_format(
 					typename dest_format::format_store_type(
-						&sge::image::color::impl::dynamic::format::from_static(
-							typename View::format::color_format()
+						std::cref(
+							sge::image::color::impl::dynamic::format::from_static(
+								typename View::format::color_format()
+							)
 						)
 					)
 				)
