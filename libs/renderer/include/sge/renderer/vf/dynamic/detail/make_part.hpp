@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/offset_list.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/vf/dynamic/detail/make_element.hpp>
-#include <fcppt/use.hpp>
 #include <fcppt/tag_type.hpp>
+#include <fcppt/use.hpp>
 #include <fcppt/mpl/for_each.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/size.hpp>
