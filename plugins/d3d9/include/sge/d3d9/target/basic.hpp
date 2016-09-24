@@ -61,7 +61,8 @@ private:
 	void
 	viewport(
 		sge::renderer::target::viewport const &
-	);
+	)
+	override;
 
 	sge::renderer::target::viewport
 	viewport() const

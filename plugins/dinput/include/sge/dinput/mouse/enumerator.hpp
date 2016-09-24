@@ -47,7 +47,8 @@ class enumerator
 public:
 	enumerator();
 
-	~enumerator();
+	~enumerator()
+	override;
 
 	sge::input::mouse::axis_info_container::vector const &
 	axis() const;
@@ -64,7 +65,8 @@ private:
 	void
 	dispatch(
 		DIDEVICEOBJECTINSTANCE const &
-	);
+	)
+	override;
 
 	sge::input::mouse::axis_info_container::vector axis_;
 

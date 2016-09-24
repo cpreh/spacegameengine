@@ -44,7 +44,8 @@ class enumerator
 public:
 	enumerator();
 
-	~enumerator();
+	~enumerator()
+	override;
 
 	sge::dinput::keyboard::key_map const &
 	key_map() const;
@@ -52,7 +53,8 @@ private:
 	void
 	dispatch(
 		DIDEVICEOBJECTINSTANCE const &
-	);
+	)
+	override;
 
 	sge::dinput::keyboard::key_map key_map_;
 };

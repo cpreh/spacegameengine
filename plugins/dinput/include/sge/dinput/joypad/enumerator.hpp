@@ -52,7 +52,8 @@ public:
 		IDirectInputDevice8 &
 	);
 
-	~enumerator();
+	~enumerator()
+	override;
 
 	sge::input::joypad::absolute_axis_info_container::vector const &
 	absolute_axis() const;
@@ -75,7 +76,8 @@ private:
 	void
 	dispatch(
 		DIDEVICEOBJECTINSTANCE const &
-	);
+	)
+	override;
 
 	IDirectInputDevice8 &device_;
 

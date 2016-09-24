@@ -100,17 +100,20 @@ private:
 	override;
 
 	void
-	generate_mipmaps();
+	generate_mipmaps()
+	override;
 protected:
 	sge::renderer::texture::mipmap::level_count
 	levels() const
 	override;
 public:
 	d3d_type &
-	get() const;
+	get() const
+	override;
 
 	sge::image::color::format
-	color_format() const;
+	color_format() const
+	override;
 protected:
 	parameters_type const &
 	parameters() const;

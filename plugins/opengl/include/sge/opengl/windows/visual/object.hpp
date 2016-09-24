@@ -50,12 +50,14 @@ public:
 		sge::renderer::pixel_format::object const &
 	);
 
-	~object();
+	~object()
+	override;
 private:
 	void
 	apply(
 		HWND
-	) const;
+	) const
+	override;
 
 	sge::opengl::wgl::visual::config const &config_;
 

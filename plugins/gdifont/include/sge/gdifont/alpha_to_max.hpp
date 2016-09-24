@@ -47,7 +47,9 @@ struct alpha_to_max
 		)
 			_color.set(
 				mizuiro::color::channel::alpha(),
-				mizuiro::color::access::channel_max(
+				mizuiro::color::access::channel_max<
+					sge::gdifont::a8_view::format::color_format
+				>(
 					_color.format_store(),
 					mizuiro::color::channel::alpha()
 				)
