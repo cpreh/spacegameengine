@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_PART_HPP_INCLUDED
 
 #include <sge/renderer/vf/part_fwd.hpp>
+#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/detail/element_stride.hpp>
 #include <fcppt/mpl/partial_sums.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -52,7 +53,8 @@ struct part
 	>::type strides;
 
 	typedef typename fcppt::mpl::partial_sums<
-		strides
+		strides,
+		sge::renderer::vf::vertex_size
 	>::type offsets;
 
 };

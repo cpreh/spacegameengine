@@ -118,13 +118,13 @@ make_part()
 			);
 
 			offs.push_back(
-				sge::renderer::vf::dynamic::offset(
+				sge::renderer::vf::dynamic::offset{
 					fcppt::tag_type<
 						decltype(
 							_tag
 						)
-					>{}
-				)
+					>::value
+				}
 			);
 
 		}
