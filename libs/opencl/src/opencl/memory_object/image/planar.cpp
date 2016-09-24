@@ -115,7 +115,7 @@ sge::opencl::memory_object::image::planar::planar(
 			_size.w(),
 			_size.h(),
 			_pitch.get(),
-			0,
+			nullptr,
 			&error_code);
 
 	opencl::impl::handle_error(
@@ -163,7 +163,7 @@ sge::opencl::memory_object::image::planar::planar(
 			CL_IMAGE_FORMAT,
 			sizeof(cl_image_format),
 			&image_format_,
-			0);
+			nullptr);
 
 	opencl::impl::handle_error(
 		error_code,

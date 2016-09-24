@@ -23,12 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/dynamic/element_list.hpp>
+#include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/offset_list.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
-#include <sge/renderer/vf/dynamic/detail/make_element_list.hpp>
-#include <sge/renderer/vf/dynamic/detail/make_offsets.hpp>
+#include <sge/renderer/vf/dynamic/detail/make_element.hpp>
+#include <fcppt/use.hpp>
+#include <fcppt/tag_type.hpp>
+#include <fcppt/mpl/for_each.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/for_each.hpp>
+#include <boost/mpl/size.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -49,34 +53,91 @@ template<
 sge::renderer::vf::dynamic::part
 make_part()
 {
-	typedef typename Part::elements elements;
+	typedef
+	typename
+	Part::elements
+	elements;
 
-	typedef typename Part::offsets offsets;
+	typedef
+	typename
+	Part::offsets
+	offsets;
 
 	sge::renderer::vf::dynamic::element_list elems;
 
-	boost::mpl::for_each<
+	elems.reserve(
+		boost::mpl::size<
+			elements
+		>::value
+	);
+
+	fcppt::mpl::for_each<
 		elements
 	>(
-		sge::renderer::vf::dynamic::detail::make_element_list(
-			elems
+		[
+			&elems
+		](
+			auto const &_tag
 		)
+		{
+			FCPPT_USE(
+				_tag
+			);
+
+			elems.push_back(
+				sge::renderer::vf::dynamic::detail::make_element(
+					fcppt::tag_type<
+						decltype(
+							_tag
+						)
+					>{}
+				)
+			);
+		}
 	);
 
 	sge::renderer::vf::dynamic::offset_list offs;
 
-	boost::mpl::for_each<
+	offs.reserve(
+		boost::mpl::size<
+			offsets
+		>::value
+	);
+
+	fcppt::mpl::for_each<
 		offsets
 	>(
-		sge::renderer::vf::dynamic::detail::make_offsets(
-			offs
+		[
+			&offs
+		](
+			auto const &_tag
 		)
+		{
+			FCPPT_USE(
+				_tag
+			);
+
+			offs.push_back(
+				sge::renderer::vf::dynamic::offset(
+					fcppt::tag_type<
+						decltype(
+							_tag
+						)
+					>{}
+				)
+			);
+
+		}
 	);
 
 	return
 		sge::renderer::vf::dynamic::part(
-			elems,
-			offs
+			std::move(
+				elems
+			),
+			std::move(
+				offs
+			)
 		);
 }
 

@@ -42,7 +42,8 @@ sge::opencl::command_queue::scoped_buffer_mapping::scoped_buffer_mapping(
 	buffer_(
 		_buffer.impl()),
 	ptr_(
-		0)
+		nullptr
+	)
 {
 	cl_int error_code;
 
@@ -60,12 +61,12 @@ sge::opencl::command_queue::scoped_buffer_mapping::scoped_buffer_mapping(
 				_events.size()),
 			_events.empty()
 			?
-				0
+				nullptr
 			:
 				sge::opencl::impl::event::flatten_sequence(
 					_events).data(),
 			// result event
-			0,
+			nullptr,
 			&error_code);
 
 	opencl::impl::handle_error(
@@ -90,8 +91,8 @@ sge::opencl::command_queue::scoped_buffer_mapping::~scoped_buffer_mapping()
 			buffer_,
 			this->ptr(),
 			0,
-			0,
-			0);
+			nullptr,
+			nullptr);
 
 	opencl::impl::handle_error(
 		error_code,

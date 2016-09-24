@@ -72,7 +72,7 @@ sge::opencl::memory_object::image::volume::volume(
 			CL_IMAGE_FORMAT,
 			sizeof(cl_image_format),
 			&image_format_,
-			0);
+			nullptr);
 
 	opencl::impl::handle_error(
 		error_code,

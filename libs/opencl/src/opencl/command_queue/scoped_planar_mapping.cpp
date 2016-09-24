@@ -53,7 +53,7 @@ sge::opencl::command_queue::scoped_planar_mapping::scoped_planar_mapping(
 	image_(
 		_image.impl()),
 	ptr_(
-		0),
+		nullptr),
 	pitch_()
 {
 	cl_int error_code;
@@ -74,17 +74,17 @@ sge::opencl::command_queue::scoped_planar_mapping::scoped_planar_mapping(
 			size,
 			&pitch_,
 			// slice pitch
-			0,
+			nullptr,
 			static_cast<cl_uint>(
 				_events.size()),
 			_events.empty()
 			?
-				0
+				nullptr
 			:
 				sge::opencl::impl::event::flatten_sequence(
 					_events).data(),
 			// event
-			0,
+			nullptr,
 			&error_code);
 
 	opencl::impl::handle_error(
@@ -137,8 +137,8 @@ sge::opencl::command_queue::scoped_planar_mapping::~scoped_planar_mapping()
 			image_,
 			this->ptr(),
 			0,
-			0,
-			0);
+			nullptr,
+			nullptr);
 
 	opencl::impl::handle_error(
 		error_code,

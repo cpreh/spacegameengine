@@ -42,7 +42,7 @@ sge::opencl::kernel::object::object(
 	name_(
 		_name.get()),
 	kernel_(
-		0),
+		nullptr),
 	argument_count_()
 {
 	cl_int error_code;
@@ -72,7 +72,7 @@ sge::opencl::kernel::object::object(
 			sizeof(cl_uint),
 			&argument_count_,
 			// Pointer to the argument size
-			0);
+			nullptr);
 
 	opencl::impl::handle_error(
 		error_code,
@@ -212,7 +212,7 @@ sge::opencl::kernel::object::argument(
 			static_cast<cl_uint>(
 				index.get()),
 			_local_buffer.byte_size(),
-			0);
+			nullptr);
 
 	opencl::impl::handle_error(
 		error_code,
@@ -232,7 +232,7 @@ sge::opencl::kernel::object::work_group_size(
 			CL_KERNEL_WORK_GROUP_SIZE,
 			sizeof(std::size_t),
 			&result,
-			0);
+			nullptr);
 
 	opencl::impl::handle_error(
 		error_code,

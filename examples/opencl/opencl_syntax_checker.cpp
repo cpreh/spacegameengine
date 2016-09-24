@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
+#include <fcppt/config/compiler.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
@@ -41,6 +42,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/enabled_levels.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/setting.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -137,6 +141,11 @@ try
 			e.message(),
 			boost::is_any_of(FCPPT_TEXT("\n")));
 
+FCPPT_PP_PUSH_WARNING
+#if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
+FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
+#endif
+
 		boost::xpressive::basic_regex<fcppt::string::const_iterator> broken_error_indicator_regex =
 			boost::xpressive::bos >>
 			FCPPT_TEXT(':') >>
@@ -153,29 +162,66 @@ try
 			+boost::xpressive::_d >>
 			FCPPT_TEXT(':');
 
-		for(line_sequence::const_iterator it = lines.begin(); it != lines.end(); ++it)
+
+		for(
+			fcppt::string const &line
+			:
+			lines
+		)
 		{
-			boost::xpressive::match_results<fcppt::string::const_iterator> what;
-			if(boost::xpressive::regex_search(*it,what,broken_error_indicator_regex))
-			{
-				fcppt::io::cerr() << fcppt::filesystem::path_to_string(target_file_name) <<  *it << FCPPT_TEXT("\n");
-			}
-			else if(boost::xpressive::regex_search(*it,what,builtin_error_string))
+			boost::xpressive::match_results<
+				fcppt::string::const_iterator
+			> what;
+
+			if(
+				boost::xpressive::regex_search(
+					line,
+					what,
+					broken_error_indicator_regex
+				)
+			)
 			{
 				fcppt::io::cerr()
 					<<
-						boost::xpressive::regex_replace(
-							*it,
-							builtin_error_string,
-							FCPPT_TEXT("<built-in>:"))
-					<< FCPPT_TEXT("\n");
+					fcppt::filesystem::path_to_string(
+						target_file_name
+					)
+					<<
+					line
+					<<
+					FCPPT_TEXT('\n');
+			}
+			else if(
+				boost::xpressive::regex_search(
+					line,
+					what,
+					builtin_error_string
+				)
+			)
+			{
+				fcppt::io::cerr()
+					<<
+					boost::xpressive::regex_replace(
+						line,
+						builtin_error_string,
+						FCPPT_TEXT("<built-in>:")
+					)
+					<<
+					FCPPT_TEXT('\n');
 			}
 			else
 			{
-				fcppt::io::cerr() << *it << FCPPT_TEXT("\n");
+				fcppt::io::cerr()
+					<<
+					line
+					<<
+					FCPPT_TEXT('\n');
 			}
 		}
-		return EXIT_FAILURE;
+FCPPT_PP_POP_WARNING
+
+		return
+			EXIT_FAILURE;
 	}
 
 	opencl_system.update();

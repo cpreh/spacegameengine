@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/impl/vf/dynamic/lock_interval.hpp>
 #include <sge/renderer/impl/vf/dynamic/locked_part_interval.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
+#include <fcppt/config/compiler.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 sge::renderer::impl::vf::dynamic::lock_interval
@@ -28,9 +32,18 @@ sge::renderer::impl::vf::dynamic::locked_part_interval(
 	sge::renderer::vf::dynamic::locked_part const &_locked_part
 )
 {
+FCPPT_PP_PUSH_WARNING
+#if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
+FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
+#endif
+
 	return
 		sge::renderer::impl::vf::dynamic::lock_interval(
 			_locked_part.pos().get(),
-			_locked_part.pos().get() + _locked_part.count().get()
+			_locked_part.pos().get()
+			+
+			_locked_part.count().get()
 		);
+
+FCPPT_PP_POP_WARNING
 }

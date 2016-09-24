@@ -109,7 +109,7 @@ sge::projectile::ghost::detail::pair_callback::addOverlappingPair(
 			proxy1);
 	}
 
-	return 0;
+	return nullptr;
 }
 
 void*
@@ -184,7 +184,7 @@ sge::projectile::ghost::detail::pair_callback::removeOverlappingPair(
 			proxy1);
 	}
 
-	return 0;
+	return nullptr;
 }
 
 void

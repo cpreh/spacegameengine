@@ -854,11 +854,8 @@ set(
 	libs/renderer/include/sge/renderer/vf/dynamic/detail/lock_interval_set.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/detail/make_color.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/detail/make_element.hpp
-	libs/renderer/include/sge/renderer/vf/dynamic/detail/make_element_list.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/detail/make_extra_element.hpp
-	libs/renderer/include/sge/renderer/vf/dynamic/detail/make_offsets.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/detail/make_part.hpp
-	libs/renderer/include/sge/renderer/vf/dynamic/detail/make_part_list.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/detail/make_vector.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/element.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/element_count.hpp

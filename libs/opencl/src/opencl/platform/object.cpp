@@ -48,7 +48,7 @@ platform_info_string(
 			p,
 			info,
 			0, // param value size (we don't know that, yet)
-			0, // param value (we don't want that, yet)
+			nullptr, // param value (we don't want that, yet)
 			&param_value_size);
 
 	sge::opencl::impl::handle_error(
@@ -66,7 +66,7 @@ platform_info_string(
 			param_value_size,
 			result_string.data(),
 			// param value size
-			0);
+			nullptr);
 
 	sge::opencl::impl::handle_error(
 		error_code,
@@ -197,7 +197,7 @@ sge::opencl::platform::object::object(
 			// Number of entries
 			0,
 			// Device data
-			0,
+			nullptr,
 			&number_of_devices);
 
 	opencl::impl::handle_error(
@@ -221,7 +221,7 @@ sge::opencl::platform::object::object(
 			// Device data
 			device_ids.data(),
 			// Pointer to the number of devices
-			0);
+			nullptr);
 
 	opencl::impl::handle_error(
 		error_code,

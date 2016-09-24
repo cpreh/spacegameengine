@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opencl::context::object::object(
 	opencl::context::parameters const &_params)
 :
-	context_(0),
+	context_(nullptr),
 	error_callback_(
 		_params.error_callback())
 {
@@ -146,7 +146,7 @@ sge::opencl::context::object::supported_planar_image_formats(
 			mem_flags,
 			CL_MEM_OBJECT_IMAGE2D,
 			0,
-			0,
+			nullptr,
 			&num_entries);
 
 	opencl::impl::handle_error(
@@ -163,8 +163,8 @@ sge::opencl::context::object::supported_planar_image_formats(
 			mem_flags,
 			CL_MEM_OBJECT_IMAGE2D,
 			num_entries,
-			&result[0],
-			0);
+			result.data(),
+			nullptr);
 
 	opencl::impl::handle_error(
 		error_code,
@@ -185,7 +185,7 @@ sge::opencl::context::object::supported_volume_image_formats(
 			mem_flags,
 			CL_MEM_OBJECT_IMAGE3D,
 			0,
-			0,
+			nullptr,
 			&num_entries);
 
 	opencl::impl::handle_error(
@@ -202,8 +202,8 @@ sge::opencl::context::object::supported_volume_image_formats(
 			mem_flags,
 			CL_MEM_OBJECT_IMAGE3D,
 			num_entries,
-			&result[0],
-			0);
+			result.data(),
+			nullptr);
 
 	opencl::impl::handle_error(
 		error_code,

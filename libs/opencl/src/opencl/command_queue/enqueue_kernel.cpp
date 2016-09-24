@@ -115,7 +115,7 @@ enqueue_kernel_internal(
 			_kernel.impl(),
 			static_cast<cl_uint>(
 				global_dim.size()),
-			0, // global work offset (not implemented in 1.1)
+			nullptr, // global work offset (not implemented in 1.1)
 			global_dim.data(),
 			fcppt::optional::maybe(
 				work_dim,
@@ -141,7 +141,8 @@ enqueue_kernel_internal(
 			:
 				sge::opencl::impl::event::flatten_sequence(
 					_events).data(),
-			&(result->handle()));
+			&(result->handle())
+		);
 
 	if(error_code == CL_INVALID_WORK_GROUP_SIZE)
 	{

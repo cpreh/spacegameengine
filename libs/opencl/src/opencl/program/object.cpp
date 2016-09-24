@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/post.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/gcc_version_at_least.hpp>
+#include <fcppt/container/data.hpp>
 #include <fcppt/container/raw_vector.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/context_fwd.hpp>
@@ -393,7 +394,8 @@ sge::opencl::program::object::object(
 			}
 		)
 	},
-	program_(0),
+	// TODO: Direct initialization
+	program_(nullptr),
 	notification_callback_()
 {
 }
@@ -414,7 +416,7 @@ sge::opencl::program::object::program_devices() const
 			CL_PROGRAM_NUM_DEVICES,
 			sizeof(cl_uint),
 			&number_of_devices,
-			0);
+			nullptr);
 
 	sge::opencl::impl::handle_error(
 		error_code,
@@ -431,7 +433,7 @@ sge::opencl::program::object::program_devices() const
 			static_cast<size_t>(
 				sizeof(cl_device_id) * devices.size()),
 			devices.data(),
-			0);
+			nullptr);
 
 	sge::opencl::impl::handle_error(
 		error_code2,
@@ -447,6 +449,7 @@ sge::opencl::program::object::check_program_return_values()
 	device_id_vector const devices =
 		this->program_devices();
 
+	// TODO: Normal loop
 	for(
 		device_id_vector::const_iterator it =
 			devices.begin();
@@ -463,7 +466,7 @@ sge::opencl::program::object::check_program_return_values()
 				sizeof(
 					cl_build_status),
 				&return_status,
-				0);
+				nullptr);
 
 		opencl::impl::handle_error(
 			error_code4,
@@ -487,7 +490,7 @@ sge::opencl::program::object::check_program_return_values()
 				*it,
 				CL_PROGRAM_BUILD_LOG,
 				0,
-				0,
+				nullptr,
 				&program_build_log_size);
 
 		opencl::impl::handle_error(
@@ -505,8 +508,10 @@ sge::opencl::program::object::check_program_return_values()
 				*it,
 				CL_PROGRAM_BUILD_LOG,
 				program_build_log_size,
-				&build_log[0],
-				0);
+				fcppt::container::data(
+					build_log
+				),
+				nullptr);
 
 		opencl::impl::handle_error(
 			error_code6,

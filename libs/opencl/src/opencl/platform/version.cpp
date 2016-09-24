@@ -20,6 +20,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/platform/version.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/config/compiler.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/container/vector/vector10.hpp>
 #include <boost/fusion/sequence/intrinsic/at_c.hpp>
@@ -43,34 +47,51 @@ sge::opencl::platform::version::version(
 	platform_specific_()
 {
 
-// TODO: Use tab indentation
-  namespace qi = boost::spirit::qi;
+	namespace qi = boost::spirit::qi;
 
-  std::string::const_iterator
-    begin =
-     	_version_string.begin(),
-    end =
-      _version_string.end();
+	std::string::const_iterator
+	begin =
+		_version_string.begin(),
+	end =
+		_version_string.end();
+
+FCPPT_PP_PUSH_WARNING
+#if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
+FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
+#endif
 
 	qi::uint_parser<version::unit> unit_parser;
 
-  typedef
-  boost::fusion::vector3
-  <
-    version::unit,
-    version::unit,
-    std::vector<char>
-  >
-  output_type;
+	typedef
+	boost::fusion::vector3
+	<
+		version::unit,
+		version::unit,
+		std::vector<char>
+	>
+	output_type;
 
-  output_type output;
+	output_type output;
 
-  bool res =
-    qi::parse(
-      begin,
-      end,
-      qi::lit("OpenCL ") >> unit_parser >> qi::lit(".") >> unit_parser >> qi::lit(" ") >> (*boost::spirit::standard::char_),
-      output);
+	bool const res{
+		qi::parse(
+			begin,
+			end,
+			qi::lit("OpenCL ")
+			>>
+			unit_parser
+			>>
+			qi::lit(".")
+			>>
+			unit_parser
+			>>
+			qi::lit(" ")
+			>>
+			(*boost::spirit::standard::char_)
+			,
+			output
+		)
+	};
 
 	major_ =
 		boost::fusion::at_c<0>(
@@ -89,6 +110,8 @@ sge::opencl::platform::version::version(
 
 	FCPPT_ASSERT_PRE(
 		begin == end && res);
+
+FCPPT_PP_POP_WARNING
 }
 
 sge::opencl::platform::version::unit

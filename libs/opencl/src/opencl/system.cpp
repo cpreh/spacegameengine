@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opencl::system::system()
 :
+	// TODO: Direct initialization
 	platforms_()
 {
 	cl_uint number_of_platforms;
@@ -38,7 +39,7 @@ sge::opencl::system::system()
 			// maximum number of entries
 			0,
 			// pointer to the entries array
-			0,
+			nullptr,
 			&number_of_platforms);
 
 	opencl::impl::handle_error(
@@ -62,7 +63,7 @@ sge::opencl::system::system()
 			number_of_platforms,
 			platform_ids.data(),
 			// pointer to the number of platforms
-			0);
+			nullptr);
 
 	opencl::impl::handle_error(
 		error_code,

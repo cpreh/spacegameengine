@@ -145,7 +145,8 @@ sge::projectile::detail::debug_drawer_impl::active() const
 sge::projectile::detail::debug_drawer_impl::~debug_drawer_impl()
 {
 	world_.setDebugDrawer(
-		0);
+		nullptr
+	);
 }
 
 void

@@ -46,6 +46,7 @@ sge::opencl::memory_object::scoped_objects::scoped_objects(
 	fcppt::container::raw_vector<cl_mem>
 	mem_vector;
 
+	// TODO: map
 	mem_vector impls;
 	impls.reserve(
 		static_cast<mem_vector::size_type>(
@@ -65,8 +66,8 @@ sge::opencl::memory_object::scoped_objects::scoped_objects(
 				impls.size()),
 			impls.data(),
 			0,
-			0,
-			0);
+			nullptr,
+			nullptr);
 	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clEnqueueAcquireGLObjects"));
@@ -98,8 +99,8 @@ sge::opencl::memory_object::scoped_objects::~scoped_objects()
 				impls.size()),
 			impls.data(),
 			0,
-			0,
-			0);
+			nullptr,
+			nullptr);
 	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clReleaseAcquireGLObjects"));

@@ -98,7 +98,7 @@ device_info(
 			current_device,
 			info,
 			0, // param value size (we don't know that, yet)
-			0, // param value (we don't want that, yet)
+			nullptr, // param value (we don't want that, yet)
 			&param_value_size);
 
 	sge::opencl::impl::handle_error(
@@ -116,7 +116,7 @@ device_info(
 			param_value_size,
 			result_string.data(),
 			// param value size
-			0);
+			nullptr);
 
 	sge::opencl::impl::handle_error(
 		error_code,
@@ -284,13 +284,14 @@ max_work_item_sizes_to_string(
 				sizeof(std::size_t) * max_work_item_dimensions),
 			sizes.data(),
 			// param value size
-			0);
+			nullptr);
 
 	sge::opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetDeviceInfo(option value)"));
 
 	std::string result;
+	// TODO: Refactor this
 	result += '(';
 	for(size_vector::const_iterator it = sizes.begin(); it != sizes.end(); ++it)
 	{
@@ -457,7 +458,7 @@ sge::opencl::device::object::is_gpu() const
 			CL_DEVICE_TYPE,
 			sizeof(cl_device_type),
 			&type,
-			0);
+			nullptr);
 
 	sge::opencl::impl::handle_error(
 		error_code,
