@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LOG_DEFAULT_SETTING_HPP_INCLUDED
-#define SGE_LOG_DEFAULT_SETTING_HPP_INCLUDED
+#ifndef SGE_LOG_DEFAULT_LEVEL_HPP_INCLUDED
+#define SGE_LOG_DEFAULT_LEVEL_HPP_INCLUDED
 
 #include <sge/log/detail/symbol.hpp>
-#include <fcppt/log/setting.hpp>
+#include <fcppt/log/optional_level.hpp>
 
 
 namespace sge
@@ -31,8 +31,8 @@ namespace log
 {
 
 SGE_LOG_DETAIL_SYMBOL
-fcppt::log::setting
-default_setting();
+fcppt::log::optional_level
+default_level();
 
 }
 }

@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
 #include <fcppt/log/context.hpp>
-#include <fcppt/log/enabled_levels.hpp>
-#include <fcppt/log/setting.hpp>
+#include <fcppt/log/optional_level.hpp>
 
 
 void
@@ -39,10 +38,8 @@ sge::log::apply_options(
 	)
 		_context.set(
 			option.location(),
-			fcppt::log::setting{
-				fcppt::log::enabled_levels(
-					option.level()
-				)
+			fcppt::log::optional_level{
+				option.level()
 			}
 		);
 }

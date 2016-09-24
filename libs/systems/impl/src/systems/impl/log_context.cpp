@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/log/default_level.hpp>
 #include <sge/log/default_level_streams.hpp>
-#include <sge/log/default_setting.hpp>
 #include <sge/systems/optional_log_context_ref.hpp>
 #include <sge/systems/impl/log_context.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -43,7 +43,7 @@ sge::systems::impl::log_context::log_context(
 						fcppt::make_unique_ptr<
 							fcppt::log::context
 						>(
-							sge::log::default_setting(),
+							sge::log::default_level(),
 							sge::log::default_level_streams()
 						)
 					};

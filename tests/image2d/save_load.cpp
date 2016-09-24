@@ -41,8 +41,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/format.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/size.hpp>
+#include <sge/log/default_level.hpp>
 #include <sge/log/default_level_streams.hpp>
-#include <sge/log/default_setting.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/optional_name.hpp>
@@ -84,7 +84,7 @@ try
 {
 FCPPT_PP_POP_WARNING
 	fcppt::log::context log_context{
-		sge::log::default_setting(),
+		sge::log::default_level(),
 		sge::log::default_level_streams()
 	};
 

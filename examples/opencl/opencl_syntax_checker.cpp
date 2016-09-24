@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/log/default_level.hpp>
 #include <sge/log/default_level_streams.hpp>
-#include <sge/log/default_setting.hpp>
 #include <sge/opencl/log_location.hpp>
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/program/build_error.hpp>
@@ -39,9 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/stream_to_string.hpp>
 #include <fcppt/log/context.hpp>
-#include <fcppt/log/enabled_levels.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/log/setting.hpp>
+#include <fcppt/log/optional_level.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -68,16 +67,14 @@ main(
 try
 {
 	fcppt::log::context log_context(
-		sge::log::default_setting(),
+		sge::log::default_level(),
 		sge::log::default_level_streams()
 	);
 
 	log_context.set(
 		sge::opencl::log_location(),
-		fcppt::log::setting{
-			fcppt::log::enabled_levels(
-				fcppt::log::level::verbose
-			)
+		fcppt::log::optional_level{
+			fcppt::log::level::verbose
 		}
 	);
 

@@ -19,19 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/default_setting.hpp>
-#include <fcppt/log/enabled_levels.hpp>
+#include <sge/log/default_level.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/log/setting.hpp>
+#include <fcppt/log/optional_level.hpp>
 
 
-fcppt::log::setting
-sge::log::default_setting()
+fcppt::log::optional_level
+sge::log::default_level()
 {
 	return
-		fcppt::log::setting{
-			fcppt::log::enabled_levels(
-				fcppt::log::level::info
-			)
+		fcppt::log::optional_level{
+			fcppt::log::level::info
 		};
 }
