@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_DETAIL_INIT_ONE_OPTION_HPP_INCLUDED
 #define SGE_SPRITE_STATE_DETAIL_INIT_ONE_OPTION_HPP_INCLUDED
 
-#include <fcppt/record/element.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/record/element.hpp>
 
 
 namespace sge

@@ -35,13 +35,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
 #include <sge/sprite/render/texture_ref.hpp>
-#include <fcppt/record/element.hpp>
-#include <fcppt/record/object_impl.hpp>
 #include <fcppt/mpl/append.hpp>
 #include <fcppt/mpl/flatten.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>

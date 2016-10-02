@@ -36,9 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/roles/index_count.hpp>
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
-#include <fcppt/record/element.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/record/element.hpp>
 
 
 namespace sge

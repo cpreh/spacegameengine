@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
 
 #include <sge/sprite/detail/application.hpp>
-#include <fcppt/record/object_impl.hpp>
 #include <fcppt/mpl/flatten.hpp>
+#include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/joint_view.hpp>

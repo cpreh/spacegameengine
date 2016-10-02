@@ -46,10 +46,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/basic/homogenous_pair_decl.hpp>
 #include <sge/sprite/types/basic/unit.hpp>
 #include <sge/sprite/types/basic/vector_decl.hpp>
-#include <fcppt/record/label_value_type.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/record/label_value_type.hpp>
 
 
 namespace sge

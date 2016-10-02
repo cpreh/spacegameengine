@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/detail/parameters_init.hpp>
 #include <sge/sprite/state/roles/blend_write_mask.hpp>
 #include <sge/sprite/state/roles/enable_scissor_test.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/record/init.hpp>
 #include <fcppt/record/label_value_type.hpp>
 #include <fcppt/record/set.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>

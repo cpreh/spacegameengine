@@ -25,11 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/render_device.hpp>
 #include <sge/sprite/state/detail/object_class.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
-#include <fcppt/record/get.hpp>
-#include <fcppt/record/set.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/tag.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/record/get.hpp>
+#include <fcppt/record/set.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <utility>
