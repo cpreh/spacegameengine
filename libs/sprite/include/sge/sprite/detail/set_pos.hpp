@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/pos_or_center.hpp>
 #include <sge/sprite/types/pos.hpp>
 #include <sge/sprite/types/pos_or_center.hpp>
-#include <majutsu/set.hpp>
+#include <fcppt/record/set.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -61,7 +61,7 @@ set_pos(
 
 )
 {
-	majutsu::set<
+	fcppt::record::set<
 		sge::sprite::roles::pos
 	>(
 		_elements,
@@ -90,7 +90,7 @@ set_pos(
 	> const _pos
 )
 {
-	majutsu::set<
+	fcppt::record::set<
 		sge::sprite::roles::pos_or_center
 	>(
 		_elements,

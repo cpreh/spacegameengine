@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/roles/first_vertex.hpp>
 #include <sge/sprite/buffers/roles/index_buffer.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
-#include <majutsu/get.hpp>
+#include <fcppt/record/get.hpp>
 
 
 template<
@@ -61,7 +61,7 @@ sge::sprite::buffers::slice<
 >::vertex_buffer() const
 {
 	return
-		*majutsu::get<
+		*fcppt::record::get<
 			sge::sprite::buffers::roles::vertex_buffer
 		>(
 			this->buffer_object()
@@ -77,7 +77,7 @@ sge::sprite::buffers::slice<
 >::index_buffer() const
 {
 	return
-		*majutsu::get<
+		*fcppt::record::get<
 			sge::sprite::buffers::roles::index_buffer
 		>(
 			this->buffer_object()
@@ -93,7 +93,7 @@ sge::sprite::buffers::slice<
 >::first_vertex() const
 {
 	return
-		majutsu::get<
+		fcppt::record::get<
 			sge::sprite::buffers::roles::first_vertex
 		>(
 			offsets_
@@ -109,7 +109,7 @@ sge::sprite::buffers::slice<
 >::first_index() const
 {
 	return
-		majutsu::get<
+		fcppt::record::get<
 			sge::sprite::buffers::roles::first_index
 		>(
 			offsets_

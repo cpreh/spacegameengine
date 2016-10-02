@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/transform_texture_levels_static.hpp>
 #include <sge/sprite/detail/primitives/texture_ref_type.hpp>
 #include <sge/sprite/roles/texture.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -53,23 +53,28 @@ private:
 	>
 	struct make_role
 	{
-		typedef majutsu::role<
+		typedef
+		fcppt::record::element<
+			sge::sprite::roles::texture<
+				Level::value
+			>,
 			typename
 			sge::sprite::detail::primitives::texture_ref_type<
 				Ownership
-			>::type,
-			sge::sprite::roles::texture<
-				Level::value
-			>
-		> type;
+			>::type
+		>
+		type;
 	};
 public:
-	typedef typename sge::sprite::detail::transform_texture_levels_static<
+	typedef
+	typename
+	sge::sprite::detail::transform_texture_levels_static<
 		make_role<
 			boost::mpl::_1
 		>,
 		Levels
-	>::type type;
+	>::type
+	type;
 };
 
 }

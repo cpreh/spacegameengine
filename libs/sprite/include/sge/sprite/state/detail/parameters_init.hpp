@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_DETAIL_PARAMETERS_INIT_HPP_INCLUDED
 #define SGE_SPRITE_STATE_DETAIL_PARAMETERS_INIT_HPP_INCLUDED
 
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
 #include <fcppt/optional/object_impl.hpp>
 
 
@@ -38,17 +38,17 @@ struct parameters_init
 {
 	template<
 		typename Type,
-		typename Tag
+		typename Label
 	>
 	fcppt::optional::object<
 		Type
 	>
 	operator()(
-		majutsu::role<
+		fcppt::record::element<
+			Label,
 			fcppt::optional::object<
 				Type
-			>,
-			Tag
+			>
 		>
 	) const
 	{

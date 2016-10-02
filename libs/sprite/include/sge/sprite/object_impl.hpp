@@ -50,9 +50,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/basic/dim_impl.hpp>
 #include <sge/sprite/types/basic/homogenous_pair_impl.hpp>
 #include <sge/sprite/types/basic/vector_impl.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/role_value_type.hpp>
-#include <majutsu/set.hpp>
+#include <fcppt/record/get.hpp>
+#include <fcppt/record/label_value_type.hpp>
+#include <fcppt/record/set.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -955,7 +955,7 @@ template<
 	typename Role
 >
 inline
-majutsu::role_value_type<
+fcppt::record::label_value_type<
 	typename
 	sge::sprite::object<
 		Choices
@@ -967,7 +967,7 @@ sge::sprite::object<
 >::get() const
 {
 	return
-		majutsu::get<
+		fcppt::record::get<
 			Role
 		>(
 			elements_
@@ -985,13 +985,13 @@ void
 sge::sprite::object<
 	Choices
 >::set(
-	majutsu::role_value_type<
+	fcppt::record::label_value_type<
 		element_type,
 		Role
 	> const &_value
 )
 {
-	majutsu::set<
+	fcppt::record::set<
 		Role
 	>(
 		elements_,

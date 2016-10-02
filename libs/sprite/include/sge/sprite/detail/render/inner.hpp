@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
 #include <sge/sprite/detail/render/range_object.hpp>
 #include <sge/sprite/render/range_part_impl.hpp>
-#include <majutsu/get.hpp>
+#include <fcppt/record/get.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -63,7 +63,7 @@ inner(
 )
 {
 	_render_context.render_indexed(
-		*majutsu::get<
+		*fcppt::record::get<
 			sge::sprite::buffers::roles::index_buffer
 		>(
 			_range

@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/detail/parameters_init.hpp>
 #include <sge/sprite/state/roles/blend_write_mask.hpp>
 #include <sge/sprite/state/roles/enable_scissor_test.hpp>
-#include <majutsu/init.hpp>
-#include <majutsu/role_value_type.hpp>
-#include <majutsu/set.hpp>
+#include <fcppt/record/init.hpp>
+#include <fcppt/record/label_value_type.hpp>
+#include <fcppt/record/set.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
@@ -42,7 +42,7 @@ sge::sprite::state::parameters<
 >::parameters()
 :
 	elements_(
-		majutsu::init<
+		fcppt::record::init<
 			elements_type
 		>(
 			sge::sprite::state::detail::parameters_init{}
@@ -103,21 +103,21 @@ sge::sprite::state::parameters<
 sge::sprite::state::parameters<
 	StateChoices
 >::set(
-	majutsu::role_value_type<
+	fcppt::record::label_value_type<
 		elements_type,
 		Role
 	> _value
 )
 {
 	return
-		majutsu::set<
+		fcppt::record::set<
 			Role
 		>(
 			elements_,
 			fcppt::optional::object<
 				typename
 				std::decay<
-					majutsu::role_value_type<
+					fcppt::record::label_value_type<
 						elements_type,
 						Role
 					>

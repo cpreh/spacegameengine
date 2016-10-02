@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/center.hpp>
 #include <sge/sprite/types/pos.hpp>
 #include <sge/sprite/types/vector.hpp>
-#include <majutsu/get.hpp>
+#include <fcppt/record/get.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
@@ -64,7 +64,7 @@ get_pos(
 )
 {
 	return
-		majutsu::get<
+		fcppt::record::get<
 			sge::sprite::roles::pos
 		>(
 			_elements
@@ -100,7 +100,7 @@ get_pos(
 				typename
 				Choices::type_choices
 			>{
-				majutsu::get<
+				fcppt::record::get<
 					sge::sprite::roles::center
 				>(
 					_elements
@@ -131,7 +131,7 @@ get_pos(
 {
 	return
 		fcppt::variant::match(
-			majutsu::get<
+			fcppt::record::get<
 				sge::sprite::roles::pos_or_center
 			>(
 				_elements

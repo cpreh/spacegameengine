@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/mizuiro_color.hpp>
 #include <sge/sprite/config/with_color_fwd.hpp>
 #include <sge/sprite/roles/color.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -53,11 +53,11 @@ struct with_color
 	{
 		typedef
 		boost::mpl::vector1<
-			majutsu::role<
+			fcppt::record::element<
+				sge::sprite::roles::color,
 				sge::image::mizuiro_color<
 					color_format
-				>,
-				sge::sprite::roles::color
+				>
 			>
 		>
 		type;

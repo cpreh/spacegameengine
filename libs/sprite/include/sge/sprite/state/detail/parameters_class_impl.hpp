@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_DETAIL_PARAMETERS_CLASS_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_STATE_DETAIL_PARAMETERS_CLASS_IMPL_HPP_INCLUDED
 
-#include <majutsu/record.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/object_impl.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -74,17 +74,17 @@ private:
 	struct parameter_class_element
 	{
 		typedef
-		majutsu::role<
+		fcppt::record::element<
 			typename
-			Type::optional_extra_parameters,
+			Type::parameter_role,
 			typename
-			Type::parameter_role
+			Type::optional_extra_parameters
 		>
 		type;
 	};
 public:
 	typedef
-	majutsu::record<
+	fcppt::record::object<
 		typename boost::mpl::transform<
 			typename boost::mpl::copy_if<
 				typename StateChoices::optional_elements,

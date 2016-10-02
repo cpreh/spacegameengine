@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/pos_or_center.hpp>
 #include <sge/sprite/types/pos_or_center_fwd.hpp>
 #include <sge/sprite/types/vector_fwd.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
 
 
 namespace sge
@@ -54,12 +54,12 @@ struct pos<
 >
 {
 	typedef
-	majutsu::role<
+	fcppt::record::element<
+		sge::sprite::roles::pos,
 		sge::sprite::types::vector<
 			typename
 			Choices::type_choices
-		>,
-		sge::sprite::roles::pos
+		>
 	>
 	type;
 };
@@ -73,12 +73,12 @@ struct pos<
 >
 {
 	typedef
-	majutsu::role<
+	fcppt::record::element<
+		sge::sprite::roles::center,
 		sge::sprite::types::vector<
 			typename
 			Choices::type_choices
-		>,
-		sge::sprite::roles::center
+		>
 	>
 	type;
 };
@@ -92,12 +92,12 @@ struct pos<
 >
 {
 	typedef
-	majutsu::role<
+	fcppt::record::element<
+		sge::sprite::roles::pos_or_center,
 		sge::sprite::types::pos_or_center<
 			typename
 			Choices::type_choices
-		>,
-		sge::sprite::roles::pos_or_center
+		>
 	>
 	type;
 };

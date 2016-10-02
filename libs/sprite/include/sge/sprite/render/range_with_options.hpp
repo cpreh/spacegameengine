@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/object_fwd.hpp>
 #include <sge/sprite/state/options_fwd.hpp>
 #include <sge/sprite/state/scoped_impl.hpp>
-#include <majutsu/get.hpp>
+#include <fcppt/record/get.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
@@ -88,7 +88,7 @@ range_with_options(
 
 			sge::sprite::detail::render::scoped_vertex const scoped_vertex(
 				_parameters,
-				*majutsu::get<
+				*fcppt::record::get<
 					sge::sprite::buffers::roles::vertex_buffer
 				>(
 					_range_object.get()

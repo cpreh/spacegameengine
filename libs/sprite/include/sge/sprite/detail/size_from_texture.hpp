@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/texture0.hpp>
 #include <sge/sprite/types/dim.hpp>
 #include <sge/texture/part.hpp>
-#include <majutsu/get.hpp>
+#include <fcppt/record/get.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
@@ -60,7 +60,7 @@ size_from_texture(
 			fcppt::cast::static_cast_fun
 		>(
 			sge::sprite::deref_texture(
-				majutsu::get<
+				fcppt::record::get<
 					sge::sprite::roles::texture0
 				>(
 					_elements

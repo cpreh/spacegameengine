@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/options_fwd.hpp>
 #include <sge/sprite/state/vertex_options.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
-#include <majutsu/role_value_type.hpp>
+#include <fcppt/record/label_value_type.hpp>
 
 
 namespace sge
@@ -73,7 +73,7 @@ public:
 	>
 	options &
 	set(
-		majutsu::role_value_type<
+		fcppt::record::label_value_type<
 			elements_type,
 			Role
 		>

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/size_or_texture_size.hpp>
 #include <sge/sprite/types/dim_fwd.hpp>
 #include <sge/sprite/types/size_or_texture_size_fwd.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -58,12 +58,12 @@ struct normal_size<
 {
 	typedef
 	boost::mpl::vector1<
-		majutsu::role<
+		fcppt::record::element<
+			sge::sprite::roles::size,
 			sge::sprite::types::dim<
 				typename
 				Choices::type_choices
-			>,
-			sge::sprite::roles::size
+			>
 		>
 	>
 	type;
@@ -92,12 +92,12 @@ struct normal_size<
 {
 	typedef
 	boost::mpl::vector1<
-		majutsu::role<
+		fcppt::record::element<
+			sge::sprite::roles::size_or_texture_size,
 			sge::sprite::types::size_or_texture_size<
 				typename
 				Choices::type_choices
-			>,
-			sge::sprite::roles::size_or_texture_size
+			>
 		>
 	>
 	type;

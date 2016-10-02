@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/detail/make_one_object.hpp>
 #include <sge/sprite/state/detail/object_class.hpp>
 #include <sge/sprite/state/detail/parameters_class.hpp>
-#include <majutsu/init.hpp>
+#include <fcppt/record/init.hpp>
 
 
 namespace sge
@@ -54,7 +54,7 @@ make_objects(
 )
 {
 	return
-		majutsu::init<
+		fcppt::record::init<
 			sge::sprite::state::detail::object_class<
 				StateChoices
 			>

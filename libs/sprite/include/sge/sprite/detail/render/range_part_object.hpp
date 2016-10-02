@@ -35,8 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
 #include <sge/sprite/render/texture_ref.hpp>
-#include <majutsu/record.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/object_impl.hpp>
 #include <fcppt/mpl/append.hpp>
 #include <fcppt/mpl/flatten.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -65,24 +65,24 @@ template<
 struct range_part_object
 {
 private:
-	typedef majutsu::role<
-		sge::renderer::vertex::first,
-		sge::sprite::buffers::roles::first_vertex
+	typedef fcppt::record::element<
+		sge::sprite::buffers::roles::first_vertex,
+		sge::renderer::vertex::first
 	> first_vertex_role;
 
-	typedef majutsu::role<
-		sge::renderer::index::first,
-		sge::sprite::buffers::roles::first_index
+	typedef fcppt::record::element<
+		sge::sprite::buffers::roles::first_index,
+		sge::renderer::index::first
 	> first_index_role;
 
-	typedef majutsu::role<
-		sge::renderer::vertex::count,
-		sge::sprite::detail::roles::vertex_count
+	typedef fcppt::record::element<
+		sge::sprite::detail::roles::vertex_count,
+		sge::renderer::vertex::count
 	> vertex_count_role;
 
-	typedef majutsu::role<
-		sge::renderer::index::count,
-		sge::sprite::detail::roles::index_count
+	typedef fcppt::record::element<
+		sge::sprite::detail::roles::index_count,
+		sge::renderer::index::count
 	> index_count_role;
 
 	typedef boost::mpl::vector2<
@@ -111,11 +111,11 @@ private:
 	>
 	struct make_texture_role
 	{
-		typedef majutsu::role<
-			sge::sprite::render::texture_ref,
+		typedef fcppt::record::element<
 			sge::sprite::detail::roles::texture<
 				Level::value
-			>
+			>,
+			sge::sprite::render::texture_ref
 		> type;
 	};
 
@@ -147,7 +147,7 @@ FCPPT_PP_POP_WARNING
 
 public:
 	typedef
-	majutsu::record<
+	fcppt::record::object<
 		fcppt::mpl::flatten<
 			typename
 			boost::mpl::eval_if<

@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/roles/index_buffer.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
-#include <majutsu/record.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -50,21 +50,21 @@ struct object
 {
 private:
 	typedef
-	majutsu::role<
-		sge::renderer::vertex::buffer_unique_ptr,
-		sge::sprite::buffers::roles::vertex_buffer
+	fcppt::record::element<
+		sge::sprite::buffers::roles::vertex_buffer,
+		sge::renderer::vertex::buffer_unique_ptr
 	>
 	vertex_buffer_role;
 
 	typedef
-	majutsu::role<
-		sge::renderer::index::buffer_unique_ptr,
-		sge::sprite::buffers::roles::index_buffer
+	fcppt::record::element<
+		sge::sprite::buffers::roles::index_buffer,
+		sge::renderer::index::buffer_unique_ptr
 	>
 	index_buffer_role;
 public:
 	typedef
-	majutsu::record<
+	fcppt::record::object<
 		typename
 		boost::mpl::if_<
 			sge::sprite::detail::config::needs_index_buffer<

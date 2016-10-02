@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_ROLES_TEXTURE_POINT_SIZE_HPP_INCLUDED
 
 #include <sge/sprite/texture_level.hpp>
-#include <majutsu/make_role_tag_arg.hpp>
+#include <fcppt/record/make_label_arg.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace sprite
 namespace roles
 {
 
-MAJUTSU_MAKE_ROLE_TAG_ARG(
+FCPPT_RECORD_MAKE_LABEL_ARG(
 	texture_point_size,
 	sge::sprite::texture_level
 );

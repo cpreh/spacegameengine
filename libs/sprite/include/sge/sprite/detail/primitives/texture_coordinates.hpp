@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/transform_texture_levels_static.hpp>
 #include <sge/sprite/roles/texture_coordinates.hpp>
 #include <sge/sprite/types/texture_coordinates_fwd.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -52,12 +52,12 @@ private:
 	struct make_role
 	{
 		typedef
-		majutsu::role<
-			sge::sprite::types::texture_coordinates<
-				typename Choices::type_choices
-			>,
+		fcppt::record::element<
 			sge::sprite::roles::texture_coordinates<
 				Level::value
+			>,
+			sge::sprite::types::texture_coordinates<
+				typename Choices::type_choices
 			>
 		>
 		type;

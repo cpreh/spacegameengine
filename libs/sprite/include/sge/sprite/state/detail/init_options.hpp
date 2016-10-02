@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/state/detail/init_one_option.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
-#include <majutsu/init.hpp>
+#include <fcppt/record/init.hpp>
 
 
 namespace sge
@@ -45,7 +45,7 @@ sge::sprite::state::detail::options_class<
 init_options()
 {
 	return
-		majutsu::init<
+		fcppt::record::init<
 			sge::sprite::state::detail::options_class<
 				StateChoices
 			>

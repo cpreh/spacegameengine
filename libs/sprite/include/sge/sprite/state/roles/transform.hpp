@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_ROLES_TRANSFORM_HPP_INCLUDED
 #define SGE_SPRITE_STATE_ROLES_TRANSFORM_HPP_INCLUDED
 
-#include <majutsu/make_role_tag.hpp>
+#include <fcppt/record/make_label.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace state
 namespace roles
 {
 
-MAJUTSU_MAKE_ROLE_TAG(
+FCPPT_RECORD_MAKE_LABEL(
 	transform
 );
 

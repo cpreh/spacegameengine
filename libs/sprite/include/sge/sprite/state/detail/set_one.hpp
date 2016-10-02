@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/render_device.hpp>
 #include <sge/sprite/state/detail/object_class.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/set.hpp>
+#include <fcppt/record/get.hpp>
+#include <fcppt/record/set.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/tag.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -119,7 +119,7 @@ public:
 	{
 		// TODO: Move this somewhere else
 		if(
-			!majutsu::get<
+			!fcppt::record::get<
 				typename
 				Type::role
 			>(
@@ -130,7 +130,7 @@ public:
 
 		Type::set(
 			render_context_,
-			*majutsu::get<
+			*fcppt::record::get<
 				typename
 				Type::role
 			>(
@@ -153,7 +153,7 @@ public:
 	) const
 	{
 		if(
-			!majutsu::get<
+			!fcppt::record::get<
 				typename
 				Type::role
 			>(
@@ -165,7 +165,7 @@ public:
 		// This should be more generic, but it will do for transform
 		// for now
 		// TODO: Check if the state has options or not
-		majutsu::set<
+		fcppt::record::set<
 			typename
 			Type::role
 		>(
@@ -173,7 +173,7 @@ public:
 			Type::make(
 				render_device_,
 				render_context_,
-				majutsu::get<
+				fcppt::record::get<
 					typename
 					Type::option_role
 				>(
@@ -183,7 +183,7 @@ public:
 		);
 
 		fcppt::optional::maybe_void(
-			majutsu::get<
+			fcppt::record::get<
 				typename
 				Type::role
 			>(

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_DETAIL_OBJECT_CLASS_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_STATE_DETAIL_OBJECT_CLASS_IMPL_HPP_INCLUDED
 
-#include <majutsu/record.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/object_impl.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
@@ -52,7 +52,9 @@ private:
 	struct object_class_element
 	{
 		typedef
-		majutsu::role<
+		fcppt::record::element<
+			typename
+			Type::role,
 			typename
 			boost::mpl::if_<
 				typename
@@ -63,14 +65,12 @@ private:
 					typename
 					Type::state_type
 				>
-			>::type,
-			typename
-			Type::role
+			>::type
 		> type;
 	};
 public:
 	typedef
-	majutsu::record<
+	fcppt::record::object<
 		typename
 		boost::mpl::transform<
 			typename

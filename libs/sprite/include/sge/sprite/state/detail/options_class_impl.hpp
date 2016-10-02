@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_STATE_DETAIL_OPTIONS_CLASS_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/state/detail/options_class_element.hpp>
-#include <majutsu/record.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/object_impl.hpp>
 #include <fcppt/mpl/append.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -79,17 +79,17 @@ private:
 	struct option_class_element
 	{
 		typedef
-		majutsu::role<
+		fcppt::record::element<
 			typename
-			Type::optional_extra_option,
+			Type::option_role,
 			typename
-			Type::option_role
+			Type::optional_extra_option
 		>
 		type;
 	};
 public:
 	typedef
-	majutsu::record<
+	fcppt::record::object<
 		typename
 		fcppt::mpl::append<
 			typename boost::mpl::transform<

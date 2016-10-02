@@ -36,9 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/roles/index_count.hpp>
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
-#include <sge/sprite/roles/texture.hpp>
-#include <majutsu/get.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/nonassignable.hpp>
 
@@ -100,9 +98,9 @@ public:
 	>
 	Type
 	operator()(
-		majutsu::role<
-			Type,
-			sge::sprite::detail::roles::vertex_count
+		fcppt::record::element<
+			sge::sprite::detail::roles::vertex_count,
+			Type
 		>
 	) const
 	{
@@ -119,9 +117,9 @@ public:
 	>
 	Type
 	operator()(
-		majutsu::role<
-			Type,
-			sge::sprite::buffers::roles::first_vertex
+		fcppt::record::element<
+			sge::sprite::buffers::roles::first_vertex,
+			Type
 		>
 	) const
 	{
@@ -142,9 +140,9 @@ public:
 	>
 	Type
 	operator()(
-		majutsu::role<
-			Type,
-			sge::sprite::detail::roles::index_count
+		fcppt::record::element<
+			sge::sprite::detail::roles::index_count,
+			Type
 		>
 	) const
 	{
@@ -161,9 +159,9 @@ public:
 	>
 	Type
 	operator()(
-		majutsu::role<
-			Type,
-			sge::sprite::buffers::roles::first_index
+		fcppt::record::element<
+			sge::sprite::buffers::roles::first_index,
+			Type
 		>
 	) const
 	{
@@ -185,24 +183,20 @@ public:
 	>
 	Type
 	operator()(
-		majutsu::role<
-			Type,
+		fcppt::record::element<
 			sge::sprite::detail::roles::texture<
 				Level
-			>
+			>,
+			Type
 		>
 	) const
 	{
 		return
 			fcppt::make_cref(
 				sge::sprite::deref_texture(
-					majutsu::get<
-						sge::sprite::roles::texture<
-							Level
-						>
-					>(
-						object_
-					)
+					object_. template texture_level<
+						Level
+					>()
 				).texture()
 			);
 	}

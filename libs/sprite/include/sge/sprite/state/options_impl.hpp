@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/roles/projection_dim.hpp>
 #include <sge/sprite/state/roles/rasterizer.hpp>
 #include <sge/sprite/state/roles/transform.hpp>
-#include <majutsu/role_value_type.hpp>
-#include <majutsu/set.hpp>
+#include <fcppt/record/label_value_type.hpp>
+#include <fcppt/record/set.hpp>
 
 
 template<
@@ -154,13 +154,13 @@ sge::sprite::state::options<
 sge::sprite::state::options<
 	StateChoices
 >::set(
-	majutsu::role_value_type<
+	fcppt::record::label_value_type<
 		elements_type,
 		Role
 	> _state
 )
 {
-	majutsu::set<
+	fcppt::record::set<
 		Role
 	>(
 		elements_,

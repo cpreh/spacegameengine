@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/basic/homogenous_pair_decl.hpp>
 #include <sge/sprite/types/basic/unit.hpp>
 #include <sge/sprite/types/basic/vector_decl.hpp>
-#include <majutsu/role_value_type.hpp>
+#include <fcppt/record/label_value_type.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -422,7 +422,7 @@ public:
 	template<
 		typename Role
 	>
-	majutsu::role_value_type<
+	fcppt::record::label_value_type<
 		element_type,
 		Role
 	> const &
@@ -433,7 +433,7 @@ public:
 	>
 	void
 	set(
-		majutsu::role_value_type<
+		fcppt::record::label_value_type<
 			element_type,
 			Role
 		> const &

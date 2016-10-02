@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/size_or_texture_size.hpp>
 #include <sge/sprite/types/dim.hpp>
 #include <sge/sprite/types/size_or_texture_size.hpp>
-#include <majutsu/set.hpp>
+#include <fcppt/record/set.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -61,7 +61,7 @@ set_size(
 
 )
 {
-	majutsu::set<
+	fcppt::record::set<
 		sge::sprite::roles::size
 	>(
 		_elements,
@@ -90,7 +90,7 @@ set_size(
 	> const _size
 )
 {
-	majutsu::set<
+	fcppt::record::set<
 		sge::sprite::roles::size_or_texture_size
 	>(
 		_elements,

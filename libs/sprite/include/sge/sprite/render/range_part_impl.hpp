@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/roles/vertex_count.hpp>
 #include <sge/sprite/render/range_part_decl.hpp>
 #include <sge/sprite/render/texture_ref.hpp>
-#include <majutsu/get.hpp>
+#include <fcppt/record/get.hpp>
 
 
 template<
@@ -60,7 +60,7 @@ sge::sprite::render::range_part<
 >::first_index() const
 {
 	return
-		majutsu::get<
+		fcppt::record::get<
 			sge::sprite::buffers::roles::first_index
 		>(
 			object_
@@ -76,7 +76,7 @@ sge::sprite::render::range_part<
 >::first_vertex() const
 {
 	return
-		majutsu::get<
+		fcppt::record::get<
 			sge::sprite::buffers::roles::first_vertex
 		>(
 			object_
@@ -92,7 +92,7 @@ sge::sprite::render::range_part<
 >::vertex_count() const
 {
 	return
-		majutsu::get<
+		fcppt::record::get<
 			sge::sprite::detail::roles::vertex_count
 		>(
 			object_
@@ -108,7 +108,7 @@ sge::sprite::render::range_part<
 >::index_count() const
 {
 	return
-		majutsu::get<
+		fcppt::record::get<
 			sge::sprite::detail::roles::index_count
 		>(
 			object_
@@ -127,7 +127,7 @@ sge::sprite::render::range_part<
 >::texture_level() const
 {
 	return
-		majutsu::get<
+		fcppt::record::get<
 			sge::sprite::detail::roles::texture<
 				Level
 			>

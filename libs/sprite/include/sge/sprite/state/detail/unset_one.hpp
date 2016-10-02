@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/state/render_context.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
-#include <majutsu/get.hpp>
+#include <fcppt/record/get.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/tag.hpp>
 
@@ -85,7 +85,7 @@ public:
 	) const
 	{
 		if(
-			majutsu::get<
+			fcppt::record::get<
 				typename Type::role
 			>(
 				options_

@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/state/render_device.hpp>
 #include <sge/sprite/state/detail/parameters_class.hpp>
-#include <majutsu/get.hpp>
+#include <fcppt/record/get.hpp>
+#include <fcppt/record/element.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -135,9 +136,9 @@ public:
 		>::state_type
 	>::type
 	operator()(
-		majutsu::role<
-			Type,
-			Role
+		fcppt::record::element<
+			Role,
+			Type
 		>
 	) const
 	{
@@ -146,7 +147,7 @@ public:
 				Role
 			>::make(
 				render_device_,
-				majutsu::get<
+				fcppt::record::get<
 					typename
 					state_for_role<
 						Role
@@ -175,9 +176,9 @@ public:
 		>
 	>::type
 	operator()(
-		majutsu::role<
-			Type,
-			Role
+		fcppt::record::element<
+			Role,
+			Type
 		>
 	) const
 	{

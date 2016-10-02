@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_DETAIL_INIT_ONE_OPTION_HPP_INCLUDED
 #define SGE_SPRITE_STATE_DETAIL_INIT_ONE_OPTION_HPP_INCLUDED
 
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
 #include <fcppt/optional/object_impl.hpp>
 
 
@@ -44,9 +44,9 @@ struct init_one_option
 	>
 	bool
 	operator()(
-		majutsu::role<
-			bool,
-			Tag
+		fcppt::record::element<
+			Tag,
+			bool
 		>
 	) const
 	{
@@ -62,11 +62,11 @@ struct init_one_option
 		Type
 	>
 	operator()(
-		majutsu::role<
+		fcppt::record::element<
+			Tag,
 			fcppt::optional::object<
 				Type
-			>,
-			Tag
+			>
 		>
 	) const
 	{

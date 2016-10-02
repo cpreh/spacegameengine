@@ -436,11 +436,6 @@ set(
 	libs/sprite/src/sprite/state/with_transform.cpp
 )
 
-find_package(
-	majutsu
-	REQUIRED
-)
-
 add_sge_base_library(
 	sprite
 	SGE_DEPS
@@ -451,9 +446,7 @@ add_sge_base_library(
 		sgetexture
 		sgeimage_interface
 	ADDITIONAL_DEPS
-		majutsu_interface
 		${fcppt_core_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS
-		majutsu_interface
 		fcppt_core_interface
 )

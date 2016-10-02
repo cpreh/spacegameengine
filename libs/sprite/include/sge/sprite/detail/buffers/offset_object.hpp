@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/roles/first_index.hpp>
 #include <sge/sprite/buffers/roles/first_vertex.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
-#include <majutsu/record.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -50,21 +50,21 @@ struct offset_object
 {
 private:
 	typedef
-	majutsu::role<
-		sge::renderer::vertex::first,
-		sge::sprite::buffers::roles::first_vertex
+	fcppt::record::element<
+		sge::sprite::buffers::roles::first_vertex,
+		sge::renderer::vertex::first
 	>
 	vertex_buffer_role;
 
 	typedef
-	majutsu::role<
-		sge::renderer::index::first,
-		sge::sprite::buffers::roles::first_index
+	fcppt::record::element<
+		sge::sprite::buffers::roles::first_index,
+		sge::renderer::index::first
 	>
 	index_buffer_role;
 public:
 	typedef
-	majutsu::record<
+	fcppt::record::object<
 		typename
 		boost::mpl::if_<
 			sge::sprite::detail::config::needs_index_buffer<

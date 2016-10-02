@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/vertex_count.hpp>
 #include <sge/sprite/buffers/zero_offset.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
-#include <majutsu/get.hpp>
+#include <fcppt/record/get.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -116,7 +116,7 @@ sge::sprite::buffers::single<
 				)
 				{
 					if(
-						majutsu::get<
+						fcppt::record::get<
 							sge::sprite::buffers::roles::vertex_buffer
 						>(
 							_buffers

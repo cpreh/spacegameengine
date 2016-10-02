@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/render/range.hpp>
 #include <sge/sprite/detail/render/range_object.hpp>
 #include <sge/sprite/render/range_impl.hpp>
-#include <majutsu/get.hpp>
+#include <fcppt/record/get.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
@@ -93,7 +93,7 @@ render_one(
 		{
 			sge::renderer::vertex::scoped_buffer const scoped_buffer(
 				_render_context,
-				*majutsu::get<
+				*fcppt::record::get<
 					sge::sprite::buffers::roles::vertex_buffer
 				>(
 					_range_object.get()

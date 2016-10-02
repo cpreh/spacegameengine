@@ -24,12 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/with_rotation_fwd.hpp>
 #include <sge/sprite/roles/rotation.hpp>
 #include <sge/sprite/types/rotation.hpp>
-#include <majutsu/role.hpp>
+#include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
-
-
 
 
 namespace sge
@@ -48,12 +46,12 @@ struct with_rotation
 	{
 		typedef
 		boost::mpl::vector1<
-			majutsu::role<
+			fcppt::record::element<
+				sge::sprite::roles::rotation,
 				sge::sprite::types::rotation<
 					typename
 					Choices::type_choices
-				>,
-				sge::sprite::roles::rotation
+				>
 			>
 		>
 		type;

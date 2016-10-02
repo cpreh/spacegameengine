@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/size_or_texture_size.hpp>
 #include <sge/sprite/types/dim.hpp>
 #include <sge/sprite/types/texture_size.hpp>
-#include <majutsu/get.hpp>
+#include <fcppt/record/get.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
@@ -90,7 +90,7 @@ get_size(
 )
 {
 	return
-		majutsu::get<
+		fcppt::record::get<
 			sge::sprite::roles::size
 		>(
 			_elements
@@ -119,7 +119,7 @@ get_size(
 {
 	return
 		fcppt::variant::match(
-			majutsu::get<
+			fcppt::record::get<
 				sge::sprite::roles::size_or_texture_size
 			>(
 				_elements
