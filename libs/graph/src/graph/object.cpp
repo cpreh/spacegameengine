@@ -55,6 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_raw_ref.hpp>
 #include <mizuiro/color/operators.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
@@ -63,7 +64,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/algorithm/minmax_element.hpp>
 #include <algorithm>
 #include <cmath>
 #include <cstdlib>
@@ -75,6 +75,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
+// TODO: Use fcppt::math::bresenham?
 template<
 	typename View,
 	typename Color
@@ -354,24 +355,24 @@ sge::graph::object::object(
 
 void
 sge::graph::object::push(
-	sge::graph::scalar _datum)
+	sge::graph::scalar const _datum
+)
 {
 	data_buffer_.push_back(
-		_datum);
+		_datum
+	);
 
-	typedef
-	buffer_type::iterator
-	iterator_type;
+	current_min_ =
+		std::min(
+			current_min_,
+			_datum
+		);
 
-	std::pair<iterator_type, iterator_type>
-	minmax(
-		boost::minmax_element(
-			data_buffer_.begin(),
-			data_buffer_.end()
-	));
-
-	current_min_ = *(minmax.first);
-	current_max_ = *(minmax.second);
+	current_max_ =
+		std::max(
+			current_max_,
+			_datum
+		);
 
 	if (current_max_ <= current_min_)
 		current_max_ += 1.0;
@@ -406,7 +407,13 @@ sge::graph::object::clear(
 	View const &_view
 )
 {
-	for (sge::image::size_type x = 0; x < dim_.w(); ++x)
+	for(
+		sge::image::size_type const x
+		:
+		fcppt::make_int_range_count(
+			dim_.w()
+		)
+	)
 	{
 		adapted_bresenham(
 			_view,
@@ -493,20 +500,33 @@ sge::graph::object::draw_data(
 		current_axis_constraint.max(),
 		dim_.h());
 
-	for (value_type i = 0; i < data_buffer_.size(); ++i)
+	for(
+		auto const index
+		:
+		fcppt::make_int_range_count(
+			data_buffer_.size()
+		)
+	)
 	{
+		sge::graph::scalar const cur{
+			data_buffer_[
+				index
+			]
+		};
+
 		value_type const
 		value = fit_into_scale(
 			fcppt::math::clamp(
-				data_buffer_[i],
+				cur,
 				current_axis_constraint.min(),
 				current_axis_constraint.max()),
 			current_axis_constraint.min(),
 			current_axis_constraint.max(),
 			dim_.h());
 
-		bool const above =
-			data_buffer_[i] > 0.0;
+		bool const above{
+			cur > 0.0
+		};
 
 		sge::image::color::any::object const &col1(
 				above ?
@@ -523,11 +543,11 @@ sge::graph::object::draw_data(
 		adapted_bresenham(
 			_view,
 			sge::image2d::vector(
-				i,
+				index,
 				zero
 			),
 			sge::image2d::vector(
-				i,
+				index,
 				value
 			),
 			col1,
