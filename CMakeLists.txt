@@ -7,6 +7,13 @@ project(
 	sge
 )
 
+set_property(
+	GLOBAL
+	PROPERTY
+	USE_FOLDERS
+	ON
+)
+
 set(
 	SGE_CMAKE_MODULE_PATH
 	"${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules"

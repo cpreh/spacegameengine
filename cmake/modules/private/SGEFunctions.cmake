@@ -343,6 +343,13 @@ function(
 		STREQUAL
 		"INTERFACE"
 	)
+		set_target_properties(
+			${SGE_LIB_NAME}
+			PROPERTIES
+			FOLDER
+			sge
+		)
+
 		target_link_libraries(
 			${SGE_LIB_NAME}
 			PRIVATE
@@ -879,6 +886,13 @@ function(
 		${SGE_PLUGIN_NAME}
 		MODULE
 		${SGE_${UPPER_PLUGIN_NAME}_FILES_ABS}
+	)
+
+	set_target_properties(
+		${SGE_PLUGIN_NAME}
+		PROPERTIES
+		FOLDER
+		sge/plugins
 	)
 
 	transform_sge_link_targets(
