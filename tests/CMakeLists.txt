@@ -1,6 +1,6 @@
 function(
 	add_sge_test
-	PATHNAME
+	PATH_NAME
 )
 	set(
 		OPTION_ARGS
@@ -23,7 +23,7 @@ function(
 	)
 
 	sge_check_optional_deps(
-		"${PATHNAME}"
+		"${PATH_NAME}"
 		"${_SGE_DEPS}"
 	)
 
@@ -42,7 +42,8 @@ function(
 	endif()
 
 	fcppt_utils_add_test(
-		"${PATHNAME}"
+		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/tests
+		"${PATH_NAME}"
 		${NO_CODE}
 		LINK_LIBS
 			${SGE_LIBRARIES_RESULT}
