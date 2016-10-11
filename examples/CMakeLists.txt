@@ -28,7 +28,7 @@ set(
 
 function(
 	add_sge_example_base
-	EXAMPLE_NAME
+	PATH_NAME
 )
 	set(
 		SINGLE_ARGS
@@ -50,7 +50,7 @@ function(
 	)
 
 	sge_check_optional_deps(
-		"The ${EXAMPLE_NAME} example"
+		"The ${PATH_NAME} example"
 		"${_SGE_DEPS}"
 	)
 
@@ -59,7 +59,7 @@ function(
 		"/"
 		""
 		FULL_NAME
-		${EXAMPLE_NAME}
+		${PATH_NAME}
 	)
 
 	set(
@@ -69,7 +69,7 @@ function(
 
 	set(
 		SOURCE_FILE
-		"${EXAMPLE_NAME}.cpp"
+		"${PATH_NAME}.cpp"
 	)
 
 	if(
@@ -92,6 +92,12 @@ function(
 			${awl_TARGET}
 		)
 	endif()
+
+	fcppt_utils_set_target_folder(
+		${FULL_NAME}
+		examples
+		${PATH_NAME}
+	)
 
 	fcppt_utils_set_target_compiler_flags(
 		${FULL_NAME}
@@ -129,7 +135,7 @@ endfunction()
 
 function(
 	add_sge_example
-	EXAMPLE_NAME
+	PATH_NAME
 )
 	set(
 		MULTI_ARGS
@@ -146,7 +152,7 @@ function(
 	)
 
 	add_sge_example_base(
-		"${EXAMPLE_NAME}"
+		"${PATH_NAME}"
 		SGE_DEPS
 			${_SGE_DEPS}
 		ADDITIONAL_DEPS
@@ -158,7 +164,7 @@ endfunction()
 
 function(
 	add_sge_console_example
-	EXAMPLE_NAME
+	PATH_NAME
 )
 	set(
 		MULTI_ARGS
@@ -175,7 +181,7 @@ function(
 	)
 
 	add_sge_example_base(
-		"${EXAMPLE_NAME}"
+		"${PATH_NAME}"
 		SGE_DEPS
 			${_SGE_DEPS}
 		ADDITIONAL_DEPS
