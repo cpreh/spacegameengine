@@ -57,7 +57,7 @@ function(
 	string(
 		REPLACE
 		"/"
-		""
+		"_"
 		FULL_NAME
 		${PATH_NAME}
 	)
@@ -69,7 +69,7 @@ function(
 
 	set(
 		SOURCE_FILE
-		"${PATH_NAME}.cpp"
+		"${FCPPT_UTILS_PROJECT_SOURCE_DIR}/examples/${PATH_NAME}.cpp"
 	)
 
 	if(

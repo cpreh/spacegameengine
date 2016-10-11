@@ -27,7 +27,7 @@ function(
 	)
 
 	add_sge_example(
-		"rucksack_${EXAMPLE_NAME}"
+		"rucksack/${EXAMPLE_NAME}"
 		SGE_DEPS
 			sgerucksacktestbed
 			${_SGE_DEPS}

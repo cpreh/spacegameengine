@@ -1,5 +1,5 @@
 add_sge_console_example(
-	opencl_simple
+	opencl/simple
 	SGE_DEPS
 		sgelog
 		sgeopencl
@@ -14,7 +14,7 @@ add_sge_console_example(
 )
 
 add_sge_console_example(
-	opencl_syntax_checker
+	opencl/syntax_checker
 	SGE_DEPS
 		sgelog
 		sgeopencl
@@ -25,7 +25,7 @@ add_sge_console_example(
 )
 
 add_sge_console_example(
-	opencl_texture_read
+	opencl/texture_read
 	SGE_DEPS
 		sgeconfig
 		sgeimage2d

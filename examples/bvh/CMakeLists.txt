@@ -1,5 +1,5 @@
 add_sge_console_example(
-	bvh_benchmark
+	bvh/benchmark
 	SGE_DEPS
 		sgebvh_interface
 	ADDITIONAL_DEPS
@@ -8,7 +8,7 @@ add_sge_console_example(
 
 # TODO: Why is image needed here?
 add_sge_example(
-	bvh_planar
+	bvh/planar
 	SGE_DEPS
 		sgebvh_interface
 		sgeimage

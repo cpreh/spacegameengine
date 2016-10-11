@@ -1,5 +1,5 @@
 add_sge_example(
-	gui_main
+	gui/main
 	SGE_DEPS
 		sgeconfig
 		sgefont

@@ -1,5 +1,5 @@
 add_sge_example(
-	cg_parameters
+	cg/parameters
 	SGE_DEPS
 		sgecg
 		sgeimagecolor
@@ -14,7 +14,7 @@ add_sge_example(
 )
 
 add_sge_example(
-	cg_pointsprites
+	cg/pointsprites
 	SGE_DEPS
 		sgecg
 		sgeconfig
@@ -31,7 +31,7 @@ add_sge_example(
 )
 
 add_sge_example(
-	cg_simple
+	cg/simple
 	SGE_DEPS
 		sgecg
 		sgeimagecolor
@@ -46,7 +46,7 @@ add_sge_example(
 )
 
 add_sge_example(
-	cg_texture
+	cg/texture
 	SGE_DEPS
 		sgecg
 		sgeconfig
