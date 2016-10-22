@@ -42,21 +42,21 @@ sge::opengl::texture::color_format_types::convert_format_function_type
 sge::opengl::texture::color_format_types::convert_format()
 {
 	return
-		&sge::opengl::convert::color_to_format;
+		sge::opengl::convert::color_to_format;
 }
 
 sge::opengl::texture::color_format_types::convert_format_type_function
 sge::opengl::texture::color_format_types::convert_format_type()
 {
 	return
-		&sge::opengl::convert::color_to_format_type;
+		sge::opengl::convert::color_to_format_type;
 }
 
 sge::opengl::texture::color_format_types::convert_internal_format_function
 sge::opengl::texture::color_format_types::convert_internal_format()
 {
 	return
-		&sge::opengl::convert::color_to_internal_format;
+		sge::opengl::convert::color_to_internal_format;
 }
 
 sge::opengl::texture::color_format_types::format

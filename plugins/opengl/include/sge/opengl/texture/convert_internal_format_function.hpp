@@ -37,7 +37,7 @@ template<
 using convert_internal_format_function
 =
 sge::opengl::internal_color_format
-(*)
+(&)
 (
 	Format
 );

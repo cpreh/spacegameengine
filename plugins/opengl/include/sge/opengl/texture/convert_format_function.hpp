@@ -38,7 +38,7 @@ using
 convert_format_function
 =
 sge::opengl::color_format
-(*)
+(&)
 (
 	Format
 );

@@ -46,6 +46,8 @@ sge::opengl::convert::color_to_format_type(
 	case sge::image::color::format::srgba8:
 	case sge::image::color::format::sbgr8:
 	case sge::image::color::format::sbgra8:
+	case sge::image::color::format::rgbx8:
+	case sge::image::color::format::bgrx8:
 		return
 			sge::opengl::convert::make_color_format_type(
 				GL_UNSIGNED_BYTE
@@ -59,9 +61,6 @@ sge::opengl::convert::color_to_format_type(
 			sge::opengl::convert::make_color_format_type(
 				GL_FLOAT
 			);
-	case sge::image::color::format::rgbx8:
-	case sge::image::color::format::bgrx8:
-		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

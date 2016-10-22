@@ -37,7 +37,7 @@ template<
 using convert_format_type_function
 =
 sge::opengl::color_format_type
-(*)
+(&)
 (
 	Format
 );
