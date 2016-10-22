@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/format.hpp>
 #include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/vertex/buffer.hpp>
+#include <sge/opengl/vf/color_formats.hpp>
 #include <sge/opengl/vf/part.hpp>
 #include <sge/renderer/dim1.hpp>
 #include <sge/renderer/lock_mode.hpp>
@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/count.hpp>
-#include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
@@ -59,10 +58,7 @@ sge::opengl::vertex::buffer::buffer(
 	),
 	converter_(
 		format_part_,
-		sge::renderer::vf::dynamic::color_format_vector{
-			sge::image::color::format::rgba8,
-			sge::image::color::format::rgba32f
-		}
+		sge::opengl::vf::color_formats()
 	),
 	buffer_(
 		sge::opengl::context::use<

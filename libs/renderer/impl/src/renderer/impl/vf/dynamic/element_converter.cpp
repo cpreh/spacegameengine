@@ -32,24 +32,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/impl/vf/dynamic/element_converter.hpp>
 #include <sge/renderer/impl/vf/dynamic/lock_interval.hpp>
+#include <sge/renderer/impl/vf/dynamic/unlock.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
 sge::renderer::impl::vf::dynamic::element_converter::element_converter(
-	sge::image::color::format const _original_color,
-	sge::image::color::format const _backend_color,
+	original_format const _original_format,
+	backend_format const _backend_format,
 	sge::renderer::vf::dynamic::stride const _stride,
 	sge::renderer::vf::dynamic::offset const _offset
 )
 :
-	original_color_(
-		_original_color
+	original_format_(
+		_original_format
 	),
-	backend_color_(
-		_backend_color
+	backend_format_(
+		_backend_format
 	),
 	stride_(
 		_stride
@@ -60,11 +62,11 @@ sge::renderer::impl::vf::dynamic::element_converter::element_converter(
 {
 	FCPPT_ASSERT_PRE(
 		sge::image::color::format_stride(
-			original_color_
+			original_format_.get()
 		)
 		==
 		sge::image::color::format_stride(
-			backend_color_
+			backend_format_.get()
 		)
 	);
 }
@@ -74,20 +76,21 @@ sge::renderer::impl::vf::dynamic::element_converter::convert(
 	sge::renderer::impl::vf::dynamic::lock_interval const &_interval,
 	sge::renderer::raw_pointer const _data,
 	sge::renderer::vertex::first const _pos,
-	bool const _unlock
-)
+	sge::renderer::impl::vf::dynamic::unlock const _unlock
+) const
 {
 	if(
-		original_color_
+		original_format_.get()
 		==
-		backend_color_
+		backend_format_.get()
 	)
 		return;
 
 	// pos refers to the beginning of the lock
 	FCPPT_ASSERT_PRE(
 		_interval.lower()
-		>= _pos.get()
+		>=
+		_pos.get()
 	);
 
 	sge::renderer::raw_pointer const begin(
@@ -95,10 +98,13 @@ sge::renderer::impl::vf::dynamic::element_converter::convert(
 		+
 		(
 			_interval.lower()
-			- _pos.get()
+			-
+			_pos.get()
 		)
-		* stride_.get()
-		+ offset_.get()
+		*
+		stride_.get()
+		+
+		offset_.get()
 	);
 
 	sge::image2d::dim const dim(
@@ -108,38 +114,36 @@ sge::renderer::impl::vf::dynamic::element_converter::convert(
 		_interval.lower()
 	);
 
-	sge::image2d::pitch const pitch(
-		static_cast<
-			sge::image2d::pitch::value_type
-		>(
+	sge::image2d::pitch const pitch{
+		fcppt::cast::to_signed(
 			stride_.get()
 			-
 			sge::image::color::format_stride(
-				original_color_
+				original_format_.get()
 			)
 		)
-	);
+	};
 
 	sge::image2d::algorithm::copy_and_convert(
 		sge::image2d::view::make_const(
 			begin,
 			dim,
-			_unlock
+			_unlock.get()
 			?
-				original_color_
+				original_format_.get()
 			:
-				backend_color_
+				backend_format_.get()
 			,
 			pitch
 		),
 		sge::image2d::view::make(
 			begin,
 			dim,
-			_unlock
+			_unlock.get()
 			?
-				backend_color_
+				backend_format_.get()
 			:
-				original_color_
+				original_format_.get()
 			,
 			pitch
 		),

@@ -31,23 +31,21 @@ set(
 	libs/renderer/impl/include/sge/renderer/impl/texture/instantiate_basic_scoped_lock.hpp
 	libs/renderer/impl/include/sge/renderer/impl/texture/instantiate_const_basic_scoped_lock.hpp
 	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/basic_view_impl.hpp
-	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/convert_if_color.hpp
 	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/detail/converter_impl.hpp
 	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/element_converter.hpp
 	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/element_converter_fwd.hpp
-	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/element_converter_vector.hpp
 	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/instantiate_basic_view.hpp
 	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/lock_interval.hpp
 	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/locked_part_interval.hpp
-	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/matching_color_format.hpp
+	libs/renderer/impl/include/sge/renderer/impl/vf/dynamic/unlock.hpp
 	libs/renderer/impl/src/renderer/impl/log_name.cpp
 	libs/renderer/impl/src/renderer/impl/projection/check_near.cpp
 	libs/renderer/impl/src/renderer/impl/projection/check_near_far.cpp
 	libs/renderer/impl/src/renderer/impl/state/core/sampler/null_states.cpp
 	libs/renderer/impl/src/renderer/impl/state/core/sampler/scoped_states.cpp
+	libs/renderer/impl/src/renderer/impl/vf/dynamic/detail/converter_impl.cpp
 	libs/renderer/impl/src/renderer/impl/vf/dynamic/element_converter.cpp
 	libs/renderer/impl/src/renderer/impl/vf/dynamic/locked_part_interval.cpp
-	libs/renderer/impl/src/renderer/impl/vf/dynamic/matching_color_format.cpp
 	libs/renderer/include/sge/renderer/aspect.hpp
 	libs/renderer/include/sge/renderer/basic_dim.hpp
 	libs/renderer/include/sge/renderer/basic_dim_fwd.hpp
@@ -874,6 +872,7 @@ set(
 	libs/renderer/include/sge/renderer/vf/dynamic/locked_part_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/make_format.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/make_part_index.hpp
+	libs/renderer/include/sge/renderer/vf/dynamic/matching_color_format.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/normal.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/normal_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/offset.hpp
@@ -1146,11 +1145,11 @@ set(
 	libs/renderer/src/renderer/vf/dynamic/color.cpp
 	libs/renderer/src/renderer/vf/dynamic/const_view.cpp
 	libs/renderer/src/renderer/vf/dynamic/converter.cpp
-	libs/renderer/src/renderer/vf/dynamic/detail/converter_impl.cpp
 	libs/renderer/src/renderer/vf/dynamic/element.cpp
 	libs/renderer/src/renderer/vf/dynamic/extra.cpp
 	libs/renderer/src/renderer/vf/dynamic/format.cpp
 	libs/renderer/src/renderer/vf/dynamic/locked_part.cpp
+	libs/renderer/src/renderer/vf/dynamic/matching_color_format.cpp
 	libs/renderer/src/renderer/vf/dynamic/normal.cpp
 	libs/renderer/src/renderer/vf/dynamic/ordered_element.cpp
 	libs/renderer/src/renderer/vf/dynamic/part.cpp

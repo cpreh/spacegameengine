@@ -292,7 +292,7 @@ update_plugin vorbis
 
 update_plugin wave
 
-update_plugin wic
+#update_plugin wic
 
 update_plugin wininput
 

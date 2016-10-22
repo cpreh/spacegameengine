@@ -617,8 +617,10 @@ set(
 	plugins/opengl/include/sge/opengl/vf/client_state_combiner.hpp
 	plugins/opengl/include/sge/opengl/vf/client_state_combiner_fwd.hpp
 	plugins/opengl/include/sge/opengl/vf/color_actor.hpp
+	plugins/opengl/include/sge/opengl/vf/color_formats.hpp
 	plugins/opengl/include/sge/opengl/vf/context.hpp
 	plugins/opengl/include/sge/opengl/vf/context_fwd.hpp
+	plugins/opengl/include/sge/opengl/vf/convert_color_format.hpp
 	plugins/opengl/include/sge/opengl/vf/convert_element_type.hpp
 	plugins/opengl/include/sge/opengl/vf/disable_texcoords.hpp
 	plugins/opengl/include/sge/opengl/vf/disable_vertex_attrib_array.hpp
@@ -1011,7 +1013,9 @@ set(
 	plugins/opengl/src/vf/client_state.cpp
 	plugins/opengl/src/vf/client_state_combiner.cpp
 	plugins/opengl/src/vf/color_actor.cpp
+	plugins/opengl/src/vf/color_formats.cpp
 	plugins/opengl/src/vf/context.cpp
+	plugins/opengl/src/vf/convert_color_format.cpp
 	plugins/opengl/src/vf/convert_element_type.cpp
 	plugins/opengl/src/vf/disable_texcoords.cpp
 	plugins/opengl/src/vf/disable_vertex_attrib_array.cpp

@@ -25,9 +25,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/impl/vf/dynamic/element_converter_fwd.hpp>
 #include <sge/renderer/impl/vf/dynamic/lock_interval.hpp>
+#include <sge/renderer/impl/vf/dynamic/unlock.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
 namespace sge
@@ -44,9 +46,19 @@ namespace dynamic
 class element_converter
 {
 public:
+	FCPPT_MAKE_STRONG_TYPEDEF(
+		sge::image::color::format,
+		original_format
+	);
+
+	FCPPT_MAKE_STRONG_TYPEDEF(
+		sge::image::color::format,
+		backend_format
+	);
+
 	element_converter(
-		sge::image::color::format original_color,
-		sge::image::color::format backend_color,
+		original_format,
+		backend_format,
 		sge::renderer::vf::dynamic::stride,
 		sge::renderer::vf::dynamic::offset
 	);
@@ -56,12 +68,12 @@ public:
 		sge::renderer::impl::vf::dynamic::lock_interval const &,
 		sge::renderer::raw_pointer data,
 		sge::renderer::vertex::first,
-		bool unlock
-	);
+		sge::renderer::impl::vf::dynamic::unlock
+	) const;
 private:
-	sge::image::color::format
-		original_color_,
-		backend_color_;
+	original_format original_format_;
+
+	backend_format backend_format_;
 
 	sge::renderer::vf::dynamic::stride stride_;
 

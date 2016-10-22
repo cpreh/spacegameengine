@@ -18,44 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/color_to_format_type.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/opengl/vf/color_formats.hpp>
 #include <sge/opengl/vf/convert_color_format.hpp>
-#include <sge/opengl/vf/convert_element_type.hpp>
-#include <sge/opengl/vf/extra_format.hpp>
-#include <sge/renderer/vf/dynamic/color.hpp>
-#include <sge/renderer/vf/dynamic/extra_any.hpp>
-#include <sge/renderer/vf/dynamic/vector.hpp>
-#include <fcppt/variant/match.hpp>
+#include <sge/renderer/vf/dynamic/matching_color_format.hpp>
 
 
-GLenum
-sge::opengl::vf::extra_format(
-	sge::renderer::vf::dynamic::extra_any const &_any
+sge::image::color::format
+sge::opengl::vf::convert_color_format(
+	sge::image::color::format const _format
 )
 {
 	return
-		fcppt::variant::match(
-			_any,
-			[](
-				sge::renderer::vf::dynamic::vector const &_vector
-			)
-			{
-				return
-					sge::opengl::vf::convert_element_type(
-						_vector.element_type()
-					);
-			},
-			[](
-				sge::renderer::vf::dynamic::color const &_color
-			)
-			{
-				return
-					sge::opengl::convert::color_to_format_type(
-						sge::opengl::vf::convert_color_format(
-							_color.color_format()
-						)
-					).get();
-			}
+		sge::renderer::vf::dynamic::matching_color_format(
+			_format,
+			sge::opengl::vf::color_formats()
 		);
 }

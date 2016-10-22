@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_IMPL_VF_DYNAMIC_MATCHING_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_IMPL_VF_DYNAMIC_MATCHING_COLOR_FORMAT_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DYNAMIC_MATCHING_COLOR_FORMAT_HPP_INCLUDED
+#define SGE_RENDERER_VF_DYNAMIC_MATCHING_COLOR_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/format_fwd.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 
 
@@ -29,20 +30,18 @@ namespace sge
 {
 namespace renderer
 {
-namespace impl
-{
 namespace vf
 {
 namespace dynamic
 {
 
+SGE_RENDERER_DETAIL_SYMBOL
 sge::image::color::format
 matching_color_format(
 	sge::image::color::format,
 	sge::renderer::vf::dynamic::color_format_vector const &
 );
 
-}
 }
 }
 }

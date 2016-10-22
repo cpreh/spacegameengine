@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/element_count.hpp>
 #include <sge/opengl/common.hpp>
+#include <sge/opengl/vf/convert_color_format.hpp>
 #include <sge/opengl/vf/extra_elements.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/vf/dynamic/extra_any.hpp>
@@ -60,7 +61,9 @@ sge::opengl::vf::extra_elements(
 					>(
 						fcppt::cast::to_signed(
 							sge::image::color::element_count(
-								_color.color_format()
+								sge::opengl::vf::convert_color_format(
+									_color.color_format()
+								)
 							)
 						)
 					);

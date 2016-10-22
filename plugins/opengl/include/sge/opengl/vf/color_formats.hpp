@@ -18,34 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_IMPL_VF_DYNAMIC_ELEMENT_CONVERTER_VECTOR_HPP_INCLUDED
-#define SGE_RENDERER_IMPL_VF_DYNAMIC_ELEMENT_CONVERTER_VECTOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_VF_COLOR_FORMATS_HPP_INCLUDED
+#define SGE_OPENGL_VF_COLOR_FORMATS_HPP_INCLUDED
 
-#include <sge/renderer/impl/vf/dynamic/element_converter.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
+#include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 
 
 namespace sge
 {
-namespace renderer
-{
-namespace impl
+namespace opengl
 {
 namespace vf
 {
-namespace dynamic
-{
 
-typedef
-std::vector<
-	sge::renderer::impl::vf::dynamic::element_converter
->
-element_converter_vector;
+sge::renderer::vf::dynamic::color_format_vector
+color_formats();
 
-}
-}
 }
 }
 }
