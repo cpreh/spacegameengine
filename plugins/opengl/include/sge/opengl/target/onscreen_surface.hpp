@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_format_type.hpp>
 #include <sge/renderer/raw_value.hpp>
-#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/color_buffer/readable_surface.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -88,8 +87,6 @@ private:
 	awl::window::object &window_;
 
 	mutable buffer_type buffer_;
-
-	sge::renderer::size_type const stride_;
 };
 
 }

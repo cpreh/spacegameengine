@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/format.hpp>
+#include <sge/image/color/format_stride.hpp>
 #include <sge/image2d/rect.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/flipped.hpp>
@@ -56,10 +57,7 @@ sge::opengl::target::onscreen_surface::onscreen_surface(
 	window_(
 		_window
 	),
-	buffer_(),
-	stride_(
-		4u
-	)
+	buffer_()
 {
 }
 
@@ -85,7 +83,9 @@ sge::opengl::target::onscreen_surface::lock_c(
 			_dest.size()
 		)
 		*
-		stride_
+		sge::image::color::format_stride(
+			this->format()
+		)
 	);
 
 	sge::opengl::target::read_pixels(
