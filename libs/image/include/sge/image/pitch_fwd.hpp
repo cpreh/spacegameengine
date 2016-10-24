@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_PITCH_FWD_HPP_INCLUDED
 
 #include <sge/image/difference_type.hpp>
-#include <sge/image/size_type.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/static_fwd.hpp>
 
 
@@ -32,7 +32,7 @@ namespace image
 {
 
 template<
-	sge::image::size_type Dim
+	fcppt::math::size_type Dim
 >
 using pitch
 =

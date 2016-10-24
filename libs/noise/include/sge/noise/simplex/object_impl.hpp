@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/noise/simplex/detail/mod.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/algorithm/array_init_const.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/vector.hpp>
@@ -40,9 +41,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
+
 template<
 	typename Float,
-	std::size_t N
+	fcppt::math::size_type N
 >
 sge::noise::simplex::object<
 	Float,
@@ -90,7 +92,10 @@ sge::noise::simplex::object<
 	}
 }
 
-template<typename Float, std::size_t N>
+template<
+	typename Float,
+	fcppt::math::size_type N
+>
 Float
 sge::noise::simplex::object<Float,N>::sample(
 	vector_type const &in)
@@ -123,7 +128,10 @@ sge::noise::simplex::object<Float,N>::sample(
 	return static_cast<Float>(40.0) * res;
 }
 
-template<typename Float, std::size_t N>
+template<
+	typename Float,
+	fcppt::math::size_type N
+>
 std::size_t
 sge::noise::simplex::object<Float,N>::index(
 	vector_type const &vec)
@@ -144,7 +152,10 @@ sge::noise::simplex::object<Float,N>::index(
 	return res;
 }
 
-template<typename Float, std::size_t N>
+template<
+	typename Float,
+	fcppt::math::size_type N
+>
 typename sge::noise::simplex::object<Float,N>::corner_array
 sge::noise::simplex::object<Float,N>::corners(
 	vector_type point)
@@ -188,7 +199,10 @@ sge::noise::simplex::object<Float,N>::corners(
 	return res;
 }
 
-template<typename Float, std::size_t N>
+template<
+	typename Float,
+	fcppt::math::size_type N
+>
 Float
 sge::noise::simplex::object<Float,N>::stretch_factor()
 {
@@ -197,7 +211,10 @@ sge::noise::simplex::object<Float,N>::stretch_factor()
 	);
 }
 
-template<typename Float, std::size_t N>
+template<
+	typename Float,
+	fcppt::math::size_type N
+>
 Float
 sge::noise::simplex::object<Float,N>::inv_factor()
 {
@@ -206,7 +223,10 @@ sge::noise::simplex::object<Float,N>::inv_factor()
 	);
 }
 
-template<typename Float, std::size_t N>
+template<
+	typename Float,
+	fcppt::math::size_type N
+>
 typename sge::noise::simplex::object<Float,N>::matrix
 sge::noise::simplex::object<Float,N>::stretch_m()
 {
@@ -221,7 +241,10 @@ sge::noise::simplex::object<Float,N>::stretch_m()
 	return tmp;
 }
 
-template<typename Float, std::size_t N>
+template<
+	typename Float,
+	fcppt::math::size_type N
+>
 typename sge::noise::simplex::object<Float,N>::matrix
 sge::noise::simplex::object<Float,N>::inv_m()
 {
@@ -236,7 +259,10 @@ sge::noise::simplex::object<Float,N>::inv_m()
 	return tmp;
 }
 
-template<typename Float, std::size_t N>
+template<
+	typename Float,
+	fcppt::math::size_type N
+>
 Float
 sge::noise::simplex::object<Float,N>::contrib(
 	vector_type const &v,

@@ -43,7 +43,7 @@ namespace simplex
 
 template<
 	typename Float,
-	std::size_t N
+	fcppt::math::size_type N
 >
 class object
 {

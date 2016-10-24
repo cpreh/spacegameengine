@@ -25,18 +25,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/no_init.hpp>
 #include <fcppt/container/grid/interpolate.hpp>
 #include <fcppt/math/mod.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/random/variate.hpp>
 #include <fcppt/random/distribution/basic.hpp>
 #include <fcppt/random/distribution/parameters/uniform_real.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <cstddef>
-#include <fcppt/config/external_end.hpp>
 
 
 template
 <
 	typename Float,
-	std::size_t N,
+	fcppt::math::size_type N,
 	typename Interpolator
 >
 template
@@ -94,7 +92,7 @@ sge::noise::perlin::object<Float,N,Interpolator>::object(
 template
 <
 	typename Float,
-	std::size_t N,
+	fcppt::math::size_type N,
 	typename Interpolator
 >
 typename
@@ -102,16 +100,17 @@ sge::noise::perlin::object<Float,N,Interpolator>::value_type
 sge::noise::perlin::object<Float,N,Interpolator>::sample(
 	vector_type v) const
 {
-	for(std::size_t i = 0u; i < N; ++i)
+	// TODO: init
+	for(fcppt::math::size_type i = 0u; i < N; ++i)
 	{
 		value_type const current_dimension =
 			static_cast<value_type>(
-				gradients_.size()[static_cast<typename grid_type::dim::size_type>(i)]);
+				gradients_.size()[i]);
 
-		v[static_cast<typename vector_type::size_type>(i)] =
+		v[i] =
 			fcppt::math::mod(
 				fcppt::math::mod(
-					v[static_cast<typename vector_type::size_type>(i)],
+					v[i],
 					current_dimension) +
 				current_dimension,
 				current_dimension);

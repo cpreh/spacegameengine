@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <mizuiro/size_type.hpp>
 #include <mizuiro/image/dimension.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/init.hpp>
 #include <fcppt/math/dim/static.hpp>
@@ -41,7 +42,11 @@ template<
 >
 fcppt::math::dim::static_<
 	T,
-	N
+	fcppt::cast::size<
+		fcppt::math::size_type
+	>(
+		N
+	)
 >
 from_mizuiro_dim(
 	mizuiro::image::dimension<
@@ -54,7 +59,11 @@ from_mizuiro_dim(
 		fcppt::math::dim::init<
 			fcppt::math::dim::static_<
 				T,
-				N
+				fcppt::cast::size<
+					fcppt::math::size_type
+				>(
+					N
+				)
 			>
 		>(
 			[

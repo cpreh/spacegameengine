@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/noise/perlin/object_fwd.hpp>
 #include <fcppt/container/grid/object_impl.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/static_fwd.hpp>
 #include <fcppt/preprocessor/pure.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstddef>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -40,7 +40,7 @@ namespace perlin
 template
 <
 	typename Float,
-	std::size_t N,
+	fcppt::math::size_type N,
 	typename Interpolator
 >
 class object
