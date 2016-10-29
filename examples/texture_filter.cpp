@@ -665,9 +665,15 @@ try
 		)
 	);
 
-	filter_array::const_pointer current_filter(
-		filters.data()
-	);
+	fcppt::reference<
+		filter_array::value_type const
+	> current_filter{
+		std::get<
+			0
+		>(
+			filters
+		)
+	};
 
 	fcppt::signal::auto_connection const texture_connection(
 		sys.keyboard_collector().key_callback(
@@ -713,7 +719,7 @@ try
 								)
 								{
 									current_filter =
-										_filter.get_pointer();
+										_filter;
 								}
 							);
 						}
@@ -844,7 +850,7 @@ try
 				sge::renderer::texture::stage(
 					0u
 				),
-				current_filter->second.get()
+				current_filter.get().second.get()
 			);
 
 			sge::sprite::render::range_with_options(
@@ -884,7 +890,7 @@ try
 			sys.renderer_device_ffp(),
 			scoped_block.get(),
 			*font,
-			current_filter->first
+			current_filter.get().first
 			+
 			text_appendix,
 			sge::font::text_parameters(

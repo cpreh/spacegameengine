@@ -22,8 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/focus_change.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/reference_comparison.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_const.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
@@ -89,9 +92,13 @@ sge::gui::context::destroy(
 		)
 		{
 			if(
-				_focus.get_pointer()
+				fcppt::reference_to_const(
+					_focus
+				)
 				==
-				&_widget
+				fcppt::make_cref(
+					_widget
+				)
 			)
 				focus_ =
 					sge::gui::widget::optional_ref();

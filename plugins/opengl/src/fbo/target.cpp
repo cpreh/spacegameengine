@@ -286,7 +286,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 					dynamic_cast<
 						sge::opengl::fbo::depth_stencil_surface *
 					>(
-						_surface.get_pointer()
+						&_surface.get()
 					)
 			)
 			{
@@ -306,7 +306,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 					dynamic_cast<
 						sge::opengl::texture::buffer_base *
 					>(
-						_surface.get_pointer()
+						&_surface.get()
 					)
 			)
 			{
