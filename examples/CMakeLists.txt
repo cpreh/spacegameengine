@@ -507,6 +507,7 @@ add_sge_example(
 add_sge_example(
 	line_of_sight
 	SGE_DEPS
+		sgebresenham_interface
 		sgeimagecolor
 		sgeinput
 		sgerenderer

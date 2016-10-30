@@ -18,16 +18,68 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/log/default_level.hpp>
-#include <fcppt/log/level.hpp>
-#include <fcppt/log/optional_level.hpp>
+#ifndef SGE_BRESENHAM_DETAIL_THICK_HPP_INCLUDED
+#define SGE_BRESENHAM_DETAIL_THICK_HPP_INCLUDED
+
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
-fcppt::log::optional_level
-sge::log::default_level()
+namespace sge
+{
+namespace bresenham
+{
+namespace detail
+{
+
+template<
+	bool Thick,
+	typename Callback,
+	typename T
+>
+inline
+typename
+std::enable_if<
+	Thick,
+	bool
+>::type
+thick(
+	Callback const &_callback,
+	T const _x,
+	T const _y
+)
 {
 	return
-		fcppt::log::optional_level{
-			fcppt::log::level::info
-		};
+		_callback(
+			_x,
+			_y
+		);
 }
+
+template<
+	bool Thick,
+	typename Callback,
+	typename T
+>
+inline
+typename
+std::enable_if<
+	!Thick,
+	bool
+>::type
+thick(
+	Callback const &,
+	T,
+	T
+)
+{
+	return
+		true;
+}
+
+}
+}
+}
+
+#endif

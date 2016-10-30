@@ -88,6 +88,12 @@ add_subdirectory(
 )
 
 add_sge_lib(
+	bresenham
+	"Build the bvh library"
+	ON
+)
+
+add_sge_lib(
 	bvh
 	"Build the bvh library"
 	ON

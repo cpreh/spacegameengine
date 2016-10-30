@@ -59,103 +59,64 @@ function update_tool()
 }
 
 # base libs
-update_sublibrary audio
+declare -a BASE_LIBS
 
-update_sublibrary camera
+BASE_LIBS=(
+	audio
+	bresenham
+	bvh
+	camera
+	cegui
+	charconv
+	core
+	cg
+	config
+	console
+	consolegfx
+	font
+	fontbitmap
+	fontdraw
+	gui
+	graph
+	image
+	image2d
+	image3d
+	imagecolor
+	imageds
+	imageds2d
+	input
+	line_drawer
+	log
+	media
+	modelmd3
+	modelobj
+	noise
+	opencl
+	parse
+	parseini
+	parsejson
+	postprocessing
+	projectile
+	plugin
+	renderer
+	renderercg
+	rendereropengl
+	resource_tree
+	rucksack
+	rucksackviewport
+	scenic
+	shader
+	sprite
+	systems
+	texture
+	timer
+	viewport
+	window
+)
 
-update_sublibrary cegui
-
-update_sublibrary charconv
-
-update_sublibrary core
-
-update_sublibrary bvh
-
-update_sublibrary cg
-
-update_sublibrary config
-
-update_sublibrary console
-
-update_sublibrary consolegfx
-
-update_sublibrary font
-
-update_sublibrary fontbitmap
-
-update_sublibrary fontdraw
-
-update_sublibrary gui
-
-update_sublibrary graph
-
-update_sublibrary image
-
-update_sublibrary image2d
-
-update_sublibrary image3d
-
-update_sublibrary imagecolor
-
-update_sublibrary imageds
-
-update_sublibrary imageds2d
-
-update_sublibrary input
-
-update_sublibrary line_drawer
-
-update_sublibrary log
-
-update_sublibrary media
-
-update_sublibrary modelmd3
-
-update_sublibrary modelobj
-
-update_sublibrary noise
-
-update_sublibrary opencl
-
-update_sublibrary parse
-
-update_sublibrary parseini
-
-update_sublibrary parsejson
-
-update_sublibrary postprocessing
-
-update_sublibrary projectile
-
-update_sublibrary plugin
-
-update_sublibrary renderer
-
-update_sublibrary renderercg
-
-update_sublibrary rendereropengl
-
-update_sublibrary resource_tree
-
-update_sublibrary rucksack
-
-update_sublibrary rucksackviewport
-
-update_sublibrary scenic
-
-update_sublibrary shader
-
-update_sublibrary sprite
-
-update_sublibrary systems
-
-update_sublibrary texture
-
-update_sublibrary timer
-
-update_sublibrary viewport
-
-update_sublibrary window
+for lib in ${BASE_LIBS[@]} ; do
+	update_sublibrary ${lib}
+done
 
 # plugins
 

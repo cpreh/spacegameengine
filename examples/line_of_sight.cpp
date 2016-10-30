@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/bresenham/normal.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/any/convert.hpp>
@@ -102,7 +103,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/grid/pos.hpp>
 #include <fcppt/container/grid/resize_preserve_init.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/math/bresenham.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/vector/null.hpp>
@@ -487,7 +487,7 @@ try
 										cell_size_dim
 									);
 
-									fcppt::math::bresenham(
+									sge::bresenham::normal(
 										fcppt::math::vector::structure_cast<
 											signed_pos,
 											fcppt::cast::to_signed_fun

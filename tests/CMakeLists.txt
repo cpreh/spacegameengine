@@ -64,6 +64,14 @@ configure_file(
 )
 
 add_sge_test(
+	bresenham/main
+	SGE_DEPS
+		sgebresenham_interface
+	ADDITIONAL_DEPS
+		fcppt_core_interface
+)
+
+add_sge_test(
 	charconv/main
 	SGE_DEPS
 		sgecharconv
