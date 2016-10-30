@@ -50,7 +50,7 @@ sge::d3d9::devicefuncs::set_depth_stencil_surface(
 				)
 				{
 					return
-						_surface_ref.get_pointer();
+						&_surface_ref.get();
 				}
 			)
 		)

@@ -58,7 +58,7 @@ sge::d3d9::devicefuncs::set_render_target(
 				)
 				{
 					return
-						_surface_ref.get_pointer();
+						&_surface_ref.get();
 				}
 			)
 		)
