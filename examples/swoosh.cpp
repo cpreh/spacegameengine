@@ -135,7 +135,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/math/step.hpp>
 #include <fcppt/math/vector/fill.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/null.hpp>
@@ -297,6 +296,31 @@ cursor_speed_tracker::current_speed() const
 
 namespace
 {
+template<
+	typename T
+>
+T
+step(
+	T const &_value,
+	T const &_vmin
+)
+{
+	return
+		_value >= _vmin
+		?
+			fcppt::literal<
+				T
+			>(
+				1
+			)
+		:
+			fcppt::literal<
+				T
+			>(
+				0
+			);
+}
+
 cursor_speed_tracker::scalar
 cursor_speed_modifier(
 	cursor_speed_tracker::scalar const _input)
@@ -307,7 +331,7 @@ cursor_speed_modifier(
 				_input / 100.0f,
 				0.5f),
 		final_value =
-			fcppt::math::step(
+			step(
 				initial_value,
 				0.25f) *
 			initial_value;
@@ -642,20 +666,6 @@ try
 		sound_siren->update();
 		graph.render(
 			scoped_block.get());
-
-		/*
-		std::cout << "current speed: " << cursor_speed.current_speed() << "\n";
-		cursor_speed_tracker::scalar const
-			initial_value =
-				std::pow(
-					cursor_speed.current_speed() / 100.0f,
-					0.5f),
-			final_value =
-				fcppt::math::step(
-					initial_value,
-					0.25f) *
-				initial_value;
-		*/
 
 		graph.push(
 			cursor_speed.current_speed());
