@@ -98,14 +98,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_signed_fun.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/container/grid/in_range.hpp>
-#include <fcppt/container/grid/make_pos_ref_range.hpp>
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/container/grid/pos.hpp>
-#include <fcppt/container/grid/resize_preserve_init.hpp>
+#include <fcppt/container/grid/resize.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/dim.hpp>
-#include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -259,14 +257,21 @@ try
 	auto const make_sprite(
 		[
 			cell_size
-		]()
+		](
+			sprite_grid::pos const _pos
+		)
 		{
 			return
 				sprite_object(
 					sge::sprite::roles::pos{} =
-						fcppt::math::vector::null<
-							sprite_object::vector
-						>(),
+						fcppt::math::vector::structure_cast<
+							sprite_object::vector,
+							fcppt::cast::size_fun
+						>(
+							_pos
+						)
+						*
+						cell_size,
 					sge::sprite::roles::size{} =
 						cell_size,
 					sge::sprite::roles::color{} =
@@ -294,38 +299,7 @@ try
 		>(
 			cell_size
 		),
-		make_sprite()
-	);
-
-	auto const update_positions(
-		[
-			cell_size
-		](
-			sprite_grid &_sprites
-		)
-		{
-			for(
-				auto item
-				:
-				fcppt::container::grid::make_pos_ref_range(
-					_sprites
-				)
-			)
-				item.value().pos(
-					fcppt::math::vector::structure_cast<
-						sprite_object::vector,
-						fcppt::cast::size_fun
-					>(
-						item.pos()
-					)
-					*
-					cell_size
-				);
-		}
-	);
-
-	update_positions(
-		sprites
+		make_sprite
 	);
 
 	typedef
@@ -346,39 +320,35 @@ try
 			sge::viewport::manage_callback{
 				[
 					&sprites,
-					update_positions,
 					make_sprite,
 					cell_size
 				](
 					sge::renderer::target::viewport const &_viewport
 				)
 				{
-					fcppt::container::grid::resize_preserve_init(
-						sprites,
-						fcppt::math::dim::structure_cast<
-							sprite_grid::dim,
-							fcppt::cast::size_fun
-						>(
+					sprites =
+						fcppt::container::grid::resize(
+							sprites,
 							fcppt::math::dim::structure_cast<
-								sge::renderer::screen_size,
-								fcppt::cast::to_unsigned_fun
+								sprite_grid::dim,
+								fcppt::cast::size_fun
 							>(
-								_viewport.get().size()
+								fcppt::math::dim::structure_cast<
+									sge::renderer::screen_size,
+									fcppt::cast::to_unsigned_fun
+								>(
+									_viewport.get().size()
+								)
 							)
-						)
-						/
-						fcppt::math::dim::structure_cast<
-							sprite_grid::dim,
-							fcppt::cast::size_fun
-						>(
-							cell_size
-						),
-						make_sprite()
-					);
-
-					update_positions(
-						sprites
-					);
+							/
+							fcppt::math::dim::structure_cast<
+								sprite_grid::dim,
+								fcppt::cast::size_fun
+							>(
+								cell_size
+							),
+							make_sprite
+						);
 				}
 			}
 		)
