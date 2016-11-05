@@ -100,8 +100,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/dim/fill.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/math/interpolation/perlin_fifth_degree_functor.hpp>
-#include <fcppt/math/interpolation/trigonometric_functor.hpp>
+#include <fcppt/math/interpolation/perlin_fifth_degree.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
@@ -116,6 +115,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
+struct interpolator
+{
+	template<
+		typename Float,
+		typename Value
+	>
+	Value
+	operator()(
+		Float const _f,
+		Value const _v1,
+		Value const _v2
+	) const
+	{
+		return
+			fcppt::math::interpolation::perlin_fifth_degree(
+				_f,
+				_v1,
+				_v2
+			);
+	}
+};
+
 void
 fill_texture(
 	sge::image2d::store::l8::view_type _view)
@@ -129,8 +150,11 @@ fill_texture(
 	noise_type;
 	*/
 	typedef
-	//sge::noise::perlin::object<double,2,fcppt::math::interpolation::trigonometric_functor>
-	sge::noise::perlin::object<double,2,fcppt::math::interpolation::perlin_fifth_degree_functor>
+	sge::noise::perlin::object<
+		double,
+		2,
+		interpolator
+	>
 	noise_type;
 
 	typedef
@@ -151,6 +175,7 @@ fill_texture(
 			_view.size()[1]/100),
 		rng);
 
+	// TODO: Refactor this
 	for (dim_value_type y = 0; y < _view.size()[1]; ++y)
 		for (dim_value_type x = 0; x < _view.size()[0]; ++x)
 		{
