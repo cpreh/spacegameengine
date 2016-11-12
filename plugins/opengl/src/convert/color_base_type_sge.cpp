@@ -19,15 +19,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/format.hpp>
-#include <sge/opengl/color_format.hpp>
+#include <sge/opengl/color_base_type.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/color_to_format.hpp>
-#include <sge/opengl/convert/make_color_format.hpp>
+#include <sge/opengl/convert/color_base_type_sge.hpp>
+#include <sge/opengl/convert/make_color_base_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
-sge::opengl::color_format
-sge::opengl::convert::color_to_format(
+sge::opengl::color_base_type
+sge::opengl::convert::color_base_type_sge(
 	sge::image::color::format const _format
 )
 {
@@ -36,56 +36,31 @@ sge::opengl::convert::color_to_format(
 	)
 	{
 	case sge::image::color::format::a8:
-		return
-			sge::opengl::convert::make_color_format(
-				GL_ALPHA
-			);
 	case sge::image::color::format::l8:
-		return
-			sge::opengl::convert::make_color_format(
-				GL_LUMINANCE
-			);
-	case sge::image::color::format::r32f:
-		return
-			sge::opengl::convert::make_color_format(
-				GL_RED
-			);
 	case sge::image::color::format::la8:
-		return
-			sge::opengl::convert::make_color_format(
-				GL_LUMINANCE_ALPHA
-			);
-	case sge::image::color::format::srgb8:
 	case sge::image::color::format::rgb8:
-	case sge::image::color::format::rgb32f:
-		return
-			sge::opengl::convert::make_color_format(
-				GL_RGB
-			);
-	case sge::image::color::format::sbgr8:
 	case sge::image::color::format::bgr8:
-	case sge::image::color::format::bgr32f:
-		return
-			sge::opengl::convert::make_color_format(
-				GL_BGR
-			);
 	case sge::image::color::format::rgba8:
-	case sge::image::color::format::srgba8:
-	case sge::image::color::format::rgba32f:
-		return
-			sge::opengl::convert::make_color_format(
-				GL_RGBA
-			);
-	case sge::image::color::format::sbgra8:
 	case sge::image::color::format::bgra8:
-	case sge::image::color::format::bgra32f:
-		return
-			sge::opengl::convert::make_color_format(
-				GL_BGRA
-			);
+	case sge::image::color::format::srgb8:
+	case sge::image::color::format::srgba8:
+	case sge::image::color::format::sbgr8:
+	case sge::image::color::format::sbgra8:
 	case sge::image::color::format::rgbx8:
 	case sge::image::color::format::bgrx8:
-		break;
+		return
+			sge::opengl::convert::make_color_base_type<
+				GL_UNSIGNED_BYTE
+			>();
+	case sge::image::color::format::r32f:
+	case sge::image::color::format::rgb32f:
+	case sge::image::color::format::bgr32f:
+	case sge::image::color::format::rgba32f:
+	case sge::image::color::format::bgra32f:
+		return
+			sge::opengl::convert::make_color_base_type<
+				GL_FLOAT
+			>();
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

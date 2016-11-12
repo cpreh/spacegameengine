@@ -18,45 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/color_format.hpp>
+#ifndef SGE_OPENGL_COLOR_BASE_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_COLOR_BASE_TYPE_HPP_INCLUDED
+
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/format_to_string.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/strong_typedef.hpp>
 
 
-fcppt::string
-sge::opengl::convert::format_to_string(
-	opengl::color_format const _format
-)
+namespace sge
 {
-	switch(
-		_format.get()
-	)
-	{
-	case GL_COLOR_INDEX:
-		return FCPPT_TEXT("COLOR_INDEX");
-	case GL_RED:
-		return FCPPT_TEXT("RED");
-	case GL_GREEN:
-		return FCPPT_TEXT("GREEN");
-	case GL_BLUE:
-		return FCPPT_TEXT("BLUE");
-	case GL_ALPHA:
-		return FCPPT_TEXT("ALPHA");
-	case GL_RGB:
-		return FCPPT_TEXT("RGB");
-	case GL_BGR:
-		return FCPPT_TEXT("BGR");
-	case GL_RGBA:
-		return FCPPT_TEXT("RGBA");
-	case GL_BGRA:
-		return FCPPT_TEXT("BGRA");
-	case GL_LUMINANCE:
-		return FCPPT_TEXT("LUMINANCE");
-	case GL_LUMINANCE_ALPHA:
-		return FCPPT_TEXT("LUMINANCE_ALPHA");
-	}
+namespace opengl
+{
 
-	FCPPT_ASSERT_UNREACHABLE;
+FCPPT_MAKE_STRONG_TYPEDEF(
+	GLenum,
+	color_base_type
+);
+
 }
+}
+
+#endif

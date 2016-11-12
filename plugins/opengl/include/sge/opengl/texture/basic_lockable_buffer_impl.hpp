@@ -91,11 +91,11 @@ sge::opengl::texture::basic_lockable_buffer<
 	resource_flags_(
 		_parameters.resource_flags()
 	),
-	color_format_(
-		_parameters.color_format()
+	color_order_(
+		_parameters.color_order()
 	),
-	color_format_type_(
-		_parameters.color_format_type()
+	color_base_type_(
+		_parameters.color_base_type()
 	),
 	internal_color_format_(
 		_parameters.internal_color_format()
@@ -242,8 +242,8 @@ sge::opengl::texture::basic_lockable_buffer<
 			binding,
 			context_,
 			this->buffer_type(),
-			color_format_,
-			color_format_type_,
+			color_order_,
+			color_base_type_,
 			this->level(),
 			this->size(),
 			fcppt::optional::from(
@@ -330,8 +330,8 @@ sge::opengl::texture::basic_lockable_buffer<
 		sge::opengl::texture::funcs::get_image(
 			binding,
 			this->buffer_type(),
-			color_format_,
-			color_format_type_,
+			color_order_,
+			color_base_type_,
 			cur_lock->read_pointer(),
 			this->level()
 		);

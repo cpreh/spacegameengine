@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/color_to_format_type.hpp>
+#include <sge/opengl/convert/color_base_type_sge.hpp>
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/opengl/vf/color_actor.hpp>
 #include <sge/opengl/vf/convert_color_format.hpp>
@@ -56,7 +56,7 @@ sge::opengl::vf::color_actor::color_actor(
 		)
 	),
 	format_(
-		sge::opengl::convert::color_to_format_type(
+		sge::opengl::convert::color_base_type_sge(
 			sge::opengl::vf::convert_color_format(
 				_color.color_format()
 			)

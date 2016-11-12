@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TARGET_READ_PIXELS_HPP_INCLUDED
 #define SGE_OPENGL_TARGET_READ_PIXELS_HPP_INCLUDED
 
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
-#include <sge/renderer/pixel_unit.hpp>
+#include <sge/opengl/color_base_type.hpp>
+#include <sge/opengl/color_order.hpp>
+#include <sge/renderer/pixel_pos_fwd.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/screen_unit.hpp>
+#include <sge/renderer/screen_size_fwd.hpp>
 
 
 namespace sge
@@ -37,13 +37,10 @@ namespace target
 
 void
 read_pixels(
-	// TODO: Better types
-	sge::renderer::pixel_unit x,
-	sge::renderer::pixel_unit y,
-	sge::renderer::screen_unit width,
-	sge::renderer::screen_unit height,
-	sge::opengl::color_format,
-	sge::opengl::color_format_type,
+	sge::renderer::pixel_pos,
+	sge::renderer::screen_size,
+	sge::opengl::color_order,
+	sge::opengl::color_base_type,
 	sge::renderer::raw_pointer
 );
 

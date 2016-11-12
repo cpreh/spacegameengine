@@ -20,21 +20,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/format.hpp>
 #include <sge/opengl/color_format.hpp>
-#include <sge/opengl/texture/best_color_format.hpp>
+#include <sge/opengl/convert/color_format.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
-sge::opengl::color_format
-sge::opengl::texture::best_color_format(
-	sge::image::color::format const _format
+sge::image::color::format
+sge::opengl::convert::color_format(
+	sge::opengl::color_format const _format
 )
 {
 #define SGE_OPENGL_CONVERT_FORMAT(\
 	name\
-)\
-case sge::image::color::format::name: \
+) \
+case sge::opengl::color_format::name: \
 	return \
-		sge::opengl::color_format::name
+		sge::image::color::format::name
 
 	switch(
 		_format
@@ -82,19 +82,12 @@ case sge::image::color::format::name: \
 	SGE_OPENGL_CONVERT_FORMAT(
 		srgba8
 	);
-	// TODO: Why?
-	case sge::image::color::format::sbgr8:
-		return
-			sge::opengl::color_format::srgb8;
-	case sge::image::color::format::sbgra8:
-		return
-			sge::opengl::color_format::srgba8;
-	case sge::image::color::format::rgbx8:
-		return
-			sge::opengl::color_format::rgb8;
-	case sge::image::color::format::bgrx8:
-		return
-			sge::opengl::color_format::bgr8;
+	SGE_OPENGL_CONVERT_FORMAT(
+		sbgr8
+	);
+	SGE_OPENGL_CONVERT_FORMAT(
+		sbgra8
+	);
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

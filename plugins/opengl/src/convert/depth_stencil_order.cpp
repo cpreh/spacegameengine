@@ -18,39 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/color_format_type.hpp>
+#include <sge/image/ds/format.hpp>
+#include <sge/opengl/color_order.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/format_type_to_string.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
+#include <sge/opengl/convert/depth_stencil_order.hpp>
+#include <sge/opengl/convert/make_color_order.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
-fcppt::string
-sge::opengl::convert::format_type_to_string(
-	opengl::color_format_type const _format_type
+sge::opengl::color_order
+sge::opengl::convert::depth_stencil_order(
+	sge::image::ds::format const _format
 )
 {
 	switch(
-		_format_type.get()
+		_format
 	)
 	{
-	case GL_UNSIGNED_BYTE:
-		return FCPPT_TEXT("UNSIGNED_BYTE");
-	case GL_BYTE:
-		return FCPPT_TEXT("BYTE");
-	case GL_BITMAP:
-		return FCPPT_TEXT("BITMAP");
-	case GL_UNSIGNED_SHORT:
-		return FCPPT_TEXT("UNSIGNED SHORT");
-	case GL_SHORT:
-		return FCPPT_TEXT("SHORT");
-	case GL_UNSIGNED_INT:
-		return FCPPT_TEXT("UNSIGNED INT");
-	case GL_INT:
-		return FCPPT_TEXT("INT");
-	case GL_FLOAT:
-		return FCPPT_TEXT("FLOAT");
+	case sge::image::ds::format::d16:
+	case sge::image::ds::format::d32:
+		return
+			sge::opengl::convert::make_color_order<
+				GL_DEPTH_COMPONENT
+			>();
+	case sge::image::ds::format::d24s8:
+		return
+			sge::opengl::convert::make_color_order<
+				GL_DEPTH_STENCIL
+			>();
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

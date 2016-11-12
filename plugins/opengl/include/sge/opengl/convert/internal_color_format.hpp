@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_DEPTH_STENCIL_TO_FORMAT_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_DEPTH_STENCIL_TO_FORMAT_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONVERT_INTERNAL_COLOR_FORMAT_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_INTERNAL_COLOR_FORMAT_HPP_INCLUDED
 
-#include <sge/image/ds/format_fwd.hpp>
-#include <sge/opengl/color_format.hpp>
+#include <sge/opengl/color_format_fwd.hpp>
+#include <sge/opengl/internal_color_format.hpp>
 
 
 namespace sge
@@ -32,9 +32,9 @@ namespace opengl
 namespace convert
 {
 
-sge::opengl::color_format
-depth_stencil_to_format(
-	sge::image::ds::format
+sge::opengl::internal_color_format
+internal_color_format(
+	sge::opengl::color_format
 );
 
 }

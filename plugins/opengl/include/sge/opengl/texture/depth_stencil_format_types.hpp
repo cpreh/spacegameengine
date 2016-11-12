@@ -22,10 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_DEPTH_STENCIL_FORMAT_TYPES_HPP_INCLUDED
 
 #include <sge/image/ds/format_fwd.hpp>
-#include <sge/opengl/texture/convert_format_function.hpp>
-#include <sge/opengl/texture/convert_format_type_function.hpp>
+#include <sge/opengl/texture/convert_base_type_function.hpp>
 #include <sge/opengl/texture/convert_internal_format_function.hpp>
+#include <sge/opengl/texture/convert_order_function.hpp>
 #include <sge/opengl/texture/depth_stencil_format_types_fwd.hpp>
+#include <sge/opengl/texture/format_result_fwd.hpp>
 
 
 namespace sge
@@ -41,31 +42,29 @@ struct depth_stencil_format_types
 	sge::image::ds::format
 	format;
 
-	static
+	typedef
 	format
-	best_format(
-		format
-	);
+	gl_format;
 
 	typedef
-	sge::opengl::texture::convert_format_function<
+	sge::opengl::texture::convert_order_function<
 		format
 	>
-	convert_format_function_type;
+	convert_order_function_type;
 
 	static
-	convert_format_function_type
-	convert_format();
+	convert_order_function_type
+	convert_order();
 
 	typedef
-	sge::opengl::texture::convert_format_type_function<
+	sge::opengl::texture::convert_base_type_function<
 		format
 	>
-	convert_format_type_function;
+	convert_base_type_function;
 
 	static
-	convert_format_type_function
-	convert_format_type();
+	convert_base_type_function
+	convert_base_type();
 
 	typedef
 	sge::opengl::texture::convert_internal_format_function<
@@ -77,10 +76,16 @@ struct depth_stencil_format_types
 	convert_internal_format_function
 	convert_internal_format();
 
-	static
-	format
-	translate_format(
+	typedef
+	sge::opengl::texture::format_result<
 		format,
+		gl_format
+	>
+	format_result;
+
+	static
+	format_result
+	translate_format(
 		format
 	);
 };

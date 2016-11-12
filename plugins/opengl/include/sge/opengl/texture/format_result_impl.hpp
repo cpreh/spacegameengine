@@ -18,23 +18,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/color_format_type.hpp>
-#include <sge/opengl/convert/make_color_format_type.hpp>
-#include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/cast/static_cast_fun.hpp>
+#ifndef SGE_OPENGL_TEXTURE_FORMAT_RESULT_IMPL_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_FORMAT_RESULT_IMPL_HPP_INCLUDED
+
+#include <sge/opengl/texture/format_result_decl.hpp>
 
 
-sge::opengl::color_format_type
-sge::opengl::convert::make_color_format_type(
-	int const _format
+template<
+	typename SGEFormat,
+	typename GLFormat
+>
+sge::opengl::texture::format_result<
+	SGEFormat,
+	GLFormat
+>::format_result(
+	SGEFormat const _sge_format,
+	GLFormat const _gl_format
 )
+:
+	sge_format_{
+		_sge_format
+	},
+	gl_format_{
+		_gl_format
+	}
 {
-	// TODO: Make this a template that accepts constants only
-	return
-		fcppt::strong_typedef_construct_cast<
-			sge::opengl::color_format_type,
-			fcppt::cast::static_cast_fun
-		>(
-			_format
-		);
 }
+
+template<
+	typename SGEFormat,
+	typename GLFormat
+>
+SGEFormat
+sge::opengl::texture::format_result<
+	SGEFormat,
+	GLFormat
+>::sge_format() const
+{
+	return
+		sge_format_;
+}
+
+template<
+	typename SGEFormat,
+	typename GLFormat
+>
+GLFormat
+sge::opengl::texture::format_result<
+	SGEFormat,
+	GLFormat
+>::gl_format() const
+{
+	return
+		gl_format_;
+}
+
+#endif

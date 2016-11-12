@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/format.hpp>
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
+#include <sge/opengl/color_base_type.hpp>
+#include <sge/opengl/color_order.hpp>
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters.hpp>
@@ -43,8 +43,8 @@ sge::opengl::texture::basic_buffer_parameters::basic_buffer_parameters(
 	sge::opengl::texture::buffer_type const _buffer_type,
 	sge::opengl::texture::id const _id,
 	sge::renderer::resource_flags_field const &_resource_flags,
-	sge::opengl::color_format const _color_format,
-	sge::opengl::color_format_type const _color_format_type,
+	sge::opengl::color_order const _color_order,
+	sge::opengl::color_base_type const _color_base_type,
 	sge::opengl::internal_color_format const _internal_color_format,
 	sge::opengl::texture::is_render_target const _is_render_target
 )
@@ -73,11 +73,11 @@ sge::opengl::texture::basic_buffer_parameters::basic_buffer_parameters(
 	resource_flags_(
 		_resource_flags
 	),
-	color_format_(
-		_color_format
+	color_order_(
+		_color_order
 	),
-	color_format_type_(
-		_color_format_type
+	color_base_type_(
+		_color_base_type
 	),
 	internal_color_format_(
 		_internal_color_format
@@ -144,18 +144,18 @@ sge::opengl::texture::basic_buffer_parameters::resource_flags() const
 		resource_flags_;
 }
 
-sge::opengl::color_format
-sge::opengl::texture::basic_buffer_parameters::color_format() const
+sge::opengl::color_order
+sge::opengl::texture::basic_buffer_parameters::color_order() const
 {
 	return
-		color_format_;
+		color_order_;
 }
 
-sge::opengl::color_format_type
-sge::opengl::texture::basic_buffer_parameters::color_format_type() const
+sge::opengl::color_base_type
+sge::opengl::texture::basic_buffer_parameters::color_base_type() const
 {
 	return
-		color_format_type_;
+		color_base_type_;
 }
 
 sge::opengl::internal_color_format

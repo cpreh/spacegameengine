@@ -308,6 +308,8 @@ set(
 	libs/renderer/include/sge/renderer/pixel_format/srgb.hpp
 	libs/renderer/include/sge/renderer/pixel_format/srgb_fwd.hpp
 	libs/renderer/include/sge/renderer/pixel_format/stencil_bits.hpp
+	libs/renderer/include/sge/renderer/pixel_pos.hpp
+	libs/renderer/include/sge/renderer/pixel_pos_fwd.hpp
 	libs/renderer/include/sge/renderer/pixel_rect.hpp
 	libs/renderer/include/sge/renderer/pixel_rect_fwd.hpp
 	libs/renderer/include/sge/renderer/pixel_unit.hpp

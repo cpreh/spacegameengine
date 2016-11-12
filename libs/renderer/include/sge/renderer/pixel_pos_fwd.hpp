@@ -18,26 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_BEST_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_BEST_COLOR_FORMAT_HPP_INCLUDED
+#ifndef SGE_RENDERER_PIXEL_POS_FWD_HPP_INCLUDED
+#define SGE_RENDERER_PIXEL_POS_FWD_HPP_INCLUDED
 
-#include <sge/image/color/format_fwd.hpp>
-#include <sge/opengl/color_format.hpp>
+#include <sge/renderer/pixel_unit.hpp>
+#include <fcppt/math/vector/static_fwd.hpp>
 
 
 namespace sge
 {
-namespace opengl
-{
-namespace texture
+namespace renderer
 {
 
-sge::opengl::color_format
-best_color_format(
-	sge::image::color::format
-);
+/**
+\brief A typedef for a position in pixel coordinates
 
-}
+\ingroup sge_renderer
+*/
+typedef
+fcppt::math::vector::static_<
+	sge::renderer::pixel_unit,
+	2
+>
+pixel_pos;
+
 }
 }
 

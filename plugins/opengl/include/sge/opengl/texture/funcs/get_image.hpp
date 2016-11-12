@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_FUNCS_GET_IMAGE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_FUNCS_GET_IMAGE_HPP_INCLUDED
 
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
+#include <sge/opengl/color_base_type.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/renderer/raw_pointer.hpp>
@@ -42,8 +41,8 @@ void
 get_image(
 	sge::opengl::texture::binding const &,
 	sge::opengl::texture::buffer_type,
-	sge::opengl::color_format,
-	sge::opengl::color_format_type,
+	sge::opengl::color_order,
+	sge::opengl::color_base_type,
 	sge::renderer::raw_pointer dest,
 	sge::renderer::texture::mipmap::level
 );

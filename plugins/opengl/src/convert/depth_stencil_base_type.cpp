@@ -18,27 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_BEST_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_BEST_COLOR_FORMAT_HPP_INCLUDED
+#include <sge/image/ds/format.hpp>
+#include <sge/opengl/color_base_type.hpp>
+#include <sge/opengl/common.hpp>
+#include <sge/opengl/convert/depth_stencil_base_type.hpp>
+#include <sge/opengl/convert/make_color_base_type.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
-#include <sge/image/color/format_fwd.hpp>
-#include <sge/opengl/color_format.hpp>
 
-
-namespace sge
+sge::opengl::color_base_type
+sge::opengl::convert::depth_stencil_base_type(
+	sge::image::ds::format const _type
+)
 {
-namespace opengl
-{
-namespace texture
-{
+	switch(
+		_type
+	)
+	{
+	case sge::image::ds::format::d16:
+		return
+			sge::opengl::convert::make_color_base_type<
+				GL_UNSIGNED_SHORT
+			>();
+	case sge::image::ds::format::d32:
+	case sge::image::ds::format::d24s8:
+		return
+			sge::opengl::convert::make_color_base_type<
+				GL_FLOAT
+			>();
+	}
 
-sge::opengl::color_format
-best_color_format(
-	sge::image::color::format
-);
-
+	FCPPT_ASSERT_UNREACHABLE;
 }
-}
-}
-
-#endif

@@ -18,25 +18,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_MAKE_COLOR_FORMAT_TYPE_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_MAKE_COLOR_FORMAT_TYPE_HPP_INCLUDED
-
-#include <sge/opengl/color_format_type.hpp>
+#ifndef SGE_OPENGL_COLOR_FORMAT_FWD_HPP_INCLUDED
+#define SGE_OPENGL_COLOR_FORMAT_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace convert
-{
 
-sge::opengl::color_format_type
-make_color_format_type(
-	int format
-);
+enum class color_format;
 
-}
 }
 }
 

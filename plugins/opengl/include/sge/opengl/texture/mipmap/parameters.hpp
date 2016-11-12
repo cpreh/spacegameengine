@@ -21,6 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_MIPMAP_PARAMETERS_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_MIPMAP_PARAMETERS_HPP_INCLUDED
 
+#include <sge/opengl/color_base_type.hpp>
+#include <sge/opengl/color_order.hpp>
+#include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
@@ -49,9 +52,11 @@ class parameters
 		parameters
 	);
 public:
-	typedef sge::renderer::basic_dim<
+	typedef
+	sge::renderer::basic_dim<
 		Dim
-	> dim;
+	>
+	dim;
 
 	typedef
 	sge::opengl::texture::init_function<
@@ -63,8 +68,8 @@ public:
 		sge::opengl::texture::binding const &,
 		sge::opengl::context::object &,
 		sge::opengl::texture::buffer_type,
-		sge::opengl::color_format,
-		sge::opengl::color_format_type,
+		sge::opengl::color_order,
+		sge::opengl::color_base_type,
 		sge::opengl::internal_color_format,
 		dim const &,
 		init_function_type
@@ -79,11 +84,11 @@ public:
 	sge::opengl::texture::buffer_type
 	buffer_type() const;
 
-	sge::opengl::color_format
-	format() const;
+	sge::opengl::color_order
+	format_order() const;
 
-	sge::opengl::color_format_type
-	format_type() const;
+	sge::opengl::color_base_type
+	format_base_type() const;
 
 	sge::opengl::internal_color_format
 	internal_format() const;
@@ -100,11 +105,11 @@ private:
 
 	sge::opengl::texture::buffer_type const buffer_type_;
 
-	sge::opengl::color_format format_;
+	sge::opengl::color_order const format_order_;
 
-	sge::opengl::color_format_type format_type_;
+	sge::opengl::color_base_type const format_base_type_;
 
-	sge::opengl::internal_color_format internal_format_;
+	sge::opengl::internal_color_format const internal_format_;
 
 	dim const size_;
 

@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
+#include <sge/opengl/color_base_type.hpp>
+#include <sge/opengl/color_order.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
@@ -38,8 +38,8 @@ void
 sge::opengl::texture::funcs::get_image(
 	sge::opengl::texture::binding const &,
 	sge::opengl::texture::buffer_type const _buffer_type,
-	sge::opengl::color_format const _format,
-	sge::opengl::color_format_type const _format_type,
+	sge::opengl::color_order const _format,
+	sge::opengl::color_base_type const _format_type,
 	sge::renderer::raw_pointer const _dest,
 	sge::renderer::texture::mipmap::level const _level
 )

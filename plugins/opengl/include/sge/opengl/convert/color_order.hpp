@@ -18,23 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_OPENGL_CONVERT_COLOR_ORDER_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_COLOR_ORDER_HPP_INCLUDED
+
+#include <sge/opengl/color_order.hpp>
 #include <sge/opengl/color_format.hpp>
-#include <sge/opengl/convert/make_color_format.hpp>
-#include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/cast/static_cast_fun.hpp>
 
 
-sge::opengl::color_format
-sge::opengl::convert::make_color_format(
-	int const _format
-)
+namespace sge
 {
-	// TODO: Template
-	return
-		fcppt::strong_typedef_construct_cast<
-			sge::opengl::color_format,
-			fcppt::cast::static_cast_fun
-		>(
-			_format
-		);
+namespace opengl
+{
+namespace convert
+{
+
+sge::opengl::color_order
+color_order(
+	sge::opengl::color_format
+);
+
 }
+}
+}
+
+#endif

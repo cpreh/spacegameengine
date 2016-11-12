@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_SUB_FUNCTION_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_SUB_FUNCTION_HPP_INCLUDED
 
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
+#include <sge/opengl/color_base_type.hpp>
+#include <sge/opengl/color_order.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
@@ -51,8 +51,8 @@ void
 	sge::opengl::texture::binding const &,
 	sge::opengl::context::object &,
 	sge::opengl::texture::buffer_type,
-	sge::opengl::color_format,
-	sge::opengl::color_format_type,
+	sge::opengl::color_order,
+	sge::opengl::color_base_type,
 	sge::renderer::texture::mipmap::level,
 	sge::renderer::basic_dim<
 		Size

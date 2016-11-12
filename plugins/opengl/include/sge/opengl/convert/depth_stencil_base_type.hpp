@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_FORMAT_TO_STRING_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_FORMAT_TO_STRING_HPP_INCLUDED
+#ifndef SGE_OPENGL_CONVERT_DEPTH_STENCIL_BASE_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_CONVERT_DEPTH_STENCIL_BASE_TYPE_HPP_INCLUDED
 
-#include <sge/opengl/color_format.hpp>
-#include <fcppt/string.hpp>
+#include <sge/image/ds/format_fwd.hpp>
+#include <sge/opengl/color_base_type.hpp>
 
 
 namespace sge
@@ -32,9 +32,9 @@ namespace opengl
 namespace convert
 {
 
-fcppt::string
-format_to_string(
-	sge::opengl::color_format
+sge::opengl::color_base_type
+depth_stencil_base_type(
+	sge::image::ds::format
 );
 
 }

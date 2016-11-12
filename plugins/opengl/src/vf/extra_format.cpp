@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/convert/color_to_format_type.hpp>
+#include <sge/opengl/convert/color_base_type_sge.hpp>
 #include <sge/opengl/vf/convert_color_format.hpp>
 #include <sge/opengl/vf/convert_element_type.hpp>
 #include <sge/opengl/vf/extra_format.hpp>
@@ -51,7 +51,7 @@ sge::opengl::vf::extra_format(
 			)
 			{
 				return
-					sge::opengl::convert::color_to_format_type(
+					sge::opengl::convert::color_base_type_sge(
 						sge::opengl::vf::convert_color_format(
 							_color.color_format()
 						)

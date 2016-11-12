@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
+#include <sge/opengl/color_order.hpp>
+#include <sge/opengl/color_base_type.hpp>
 #include <sge/opengl/range_check.hpp>
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/pbo_context.hpp>
@@ -49,8 +49,8 @@ sge::opengl::texture::funcs::set_box(
 	sge::opengl::texture::binding const &,
 	sge::opengl::context::object &_context,
 	sge::opengl::texture::buffer_type const _buffer_type,
-	sge::opengl::color_format const _format,
-	sge::opengl::color_format_type const _format_type,
+	sge::opengl::color_order const _format,
+	sge::opengl::color_base_type const _format_type,
 	sge::renderer::texture::mipmap::level const _level,
 	sge::renderer::dim3 const &_dim,
 	sge::renderer::lock_box const &_lock_box,

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_INIT_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_INIT_HPP_INCLUDED
 
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
+#include <sge/opengl/color_base_type.hpp>
+#include <sge/opengl/color_order.hpp>
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/check_dim.hpp>
 #include <sge/opengl/texture/extend_size.hpp>
+#include <sge/opengl/texture/format_result_impl.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/is_render_target.hpp>
 #include <sge/opengl/texture/type.hpp>
@@ -85,6 +86,7 @@ init(
 	>
 	extended_dim;
 
+	// TODO: Get rid of this
 	typedef
 	typename
 	extended_dim::dim_wrapper
@@ -107,37 +109,30 @@ init(
 
 	typedef
 	typename
-	Types::buffer_types::format_types::format
-	format_type;
+	Types::buffer_types::format_types::format_result
+	format_result_type;
 
-	format_type const format(
-		Types::buffer_types::format_types::best_format(
-			_parameters.format()
-		)
-	);
-
-	format_type const gl_format(
+	format_result_type const format{
 		Types::buffer_types::format_types::translate_format(
-			format,
 			_parameters.format()
 		)
-	);
+	};
 
-	sge::opengl::color_format const color_format(
-		Types::buffer_types::format_types::convert_format()(
-			gl_format
+	sge::opengl::color_order const color_order(
+		Types::buffer_types::format_types::convert_order()(
+			format.gl_format()
 		)
 	);
 
-	sge::opengl::color_format_type const color_format_type(
-		Types::buffer_types::format_types::convert_format_type()(
-			gl_format
+	sge::opengl::color_base_type const color_base_type(
+		Types::buffer_types::format_types::convert_base_type()(
+			format.gl_format()
 		)
 	);
 
 	sge::opengl::internal_color_format const internal_color_format(
 		Types::buffer_types::format_types::convert_internal_format()(
-			gl_format
+			format.gl_format()
 		)
 	);
 
@@ -145,8 +140,8 @@ init(
 		_binding,
 		_basic_parameters.context(),
 		_buffer_type,
-		color_format,
-		color_format_type,
+		color_order,
+		color_base_type,
 		internal_color_format,
 		sge::renderer::texture::mipmap::level(
 			0u
@@ -165,8 +160,8 @@ init(
 			_binding,
 			_basic_parameters.context(),
 			_buffer_type,
-			color_format,
-			color_format_type,
+			color_order,
+			color_base_type,
 			internal_color_format,
 			size,
 			Types::buffer_types::dim_types::init_function()
@@ -219,8 +214,8 @@ init(
 				_buffer_type,
 				_id,
 				&_parameters,
-				color_format,
-				color_format_type,
+				color_order,
+				color_base_type,
 				format,
 				internal_color_format,
 				is_target
@@ -236,7 +231,7 @@ init(
 						fcppt::make_unique_ptr<
 							gl_buffer
 						>(
-							format,
+							format.sge_format(),
 							sge::opengl::texture::basic_buffer_parameters(
 								_basic_parameters.log(),
 								_binding,
@@ -246,8 +241,8 @@ init(
 								_buffer_type,
 								_id,
 								_parameters.resource_flags(),
-								color_format,
-								color_format_type,
+								color_order,
+								color_base_type,
 								internal_color_format,
 								is_target
 							)

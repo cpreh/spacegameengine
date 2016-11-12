@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
+#include <sge/opengl/color_order.hpp>
+#include <sge/opengl/color_base_type.hpp>
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
@@ -37,8 +37,8 @@ sge::opengl::texture::mipmap::parameters<
 	sge::opengl::texture::binding const &_binding,
 	sge::opengl::context::object &_context,
 	sge::opengl::texture::buffer_type const _buffer_type,
-	sge::opengl::color_format const _format,
-	sge::opengl::color_format_type const _format_type,
+	sge::opengl::color_order const _format_order,
+	sge::opengl::color_base_type const _format_base_type,
 	sge::opengl::internal_color_format const _internal_format,
 	dim const &_size,
 	init_function_type _init_function
@@ -53,11 +53,11 @@ sge::opengl::texture::mipmap::parameters<
 	buffer_type_(
 		_buffer_type
 	),
-	format_(
-		_format
+	format_order_(
+		_format_order
 	),
-	format_type_(
-		_format_type
+	format_base_type_(
+		_format_base_type
 	),
 	internal_format_(
 		_internal_format
@@ -110,25 +110,25 @@ sge::opengl::texture::mipmap::parameters<
 template<
 	fcppt::math::size_type Dim
 >
-sge::opengl::color_format
+sge::opengl::color_order
 sge::opengl::texture::mipmap::parameters<
 	Dim
->::format() const
+>::format_order() const
 {
 	return
-		format_;
+		format_order_;
 }
 
 template<
 	fcppt::math::size_type Dim
 >
-sge::opengl::color_format_type
+sge::opengl::color_base_type
 sge::opengl::texture::mipmap::parameters<
 	Dim
->::format_type() const
+>::format_base_type() const
 {
 	return
-		format_type_;
+		format_base_type_;
 }
 
 template<

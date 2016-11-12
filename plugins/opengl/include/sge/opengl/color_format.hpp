@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_COLOR_FORMAT_HPP_INCLUDED
 #define SGE_OPENGL_COLOR_FORMAT_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/opengl/color_format_fwd.hpp>
 
 
 namespace sge
@@ -30,10 +29,26 @@ namespace sge
 namespace opengl
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	GLenum,
-	color_format
-);
+enum class color_format
+{
+	a8,
+	l8,
+	r32f,
+	la8,
+	rgb8,
+	bgr8,
+	rgba8,
+	bgra8,
+	rgb32f,
+	bgr32f,
+	rgba32f,
+	bgra32f,
+	srgb8,
+	srgba8,
+	sbgr8,
+	sbgra8,
+	fcppt_maximum = sbgra8
+};
 
 }
 }

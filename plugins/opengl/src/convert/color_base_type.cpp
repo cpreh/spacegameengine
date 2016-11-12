@@ -18,26 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_CONVERT_MAKE_COLOR_FORMAT_HPP_INCLUDED
-#define SGE_OPENGL_CONVERT_MAKE_COLOR_FORMAT_HPP_INCLUDED
-
+#include <sge/opengl/color_base_type.hpp>
 #include <sge/opengl/color_format.hpp>
+#include <sge/opengl/convert/color_base_type.hpp>
+#include <sge/opengl/convert/color_base_type_sge.hpp>
+#include <sge/opengl/convert/color_format.hpp>
 
 
-namespace sge
+sge::opengl::color_base_type
+sge::opengl::convert::color_base_type(
+	sge::opengl::color_format const _format
+)
 {
-namespace opengl
-{
-namespace convert
-{
-
-sge::opengl::color_format
-make_color_format(
-	int format
-);
-
+	return
+		sge::opengl::convert::color_base_type_sge(
+			sge::opengl::convert::color_format(
+				_format
+			)
+		);
 }
-}
-}
-
-#endif

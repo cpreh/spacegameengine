@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/traits/color_tag.hpp>
 #include <sge/image/traits/format_fwd.hpp>
 #include <sge/image/traits/pitch_fwd.hpp>
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
+#include <sge/opengl/color_base_type.hpp>
+#include <sge/opengl/color_order.hpp>
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/basic_buffer.hpp>
@@ -168,9 +168,9 @@ private:
 
 	sge::renderer::resource_flags_field const resource_flags_;
 
-	sge::opengl::color_format const color_format_;
+	sge::opengl::color_order const color_order_;
 
-	sge::opengl::color_format_type const color_format_type_;
+	sge::opengl::color_base_type const color_base_type_;
 
 	sge::opengl::internal_color_format const internal_color_format_;
 

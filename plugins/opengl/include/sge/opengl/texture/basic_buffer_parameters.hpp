@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BASIC_BUFFER_PARAMETERS_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASIC_BUFFER_PARAMETERS_HPP_INCLUDED
 
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
+#include <sge/opengl/color_base_type.hpp>
+#include <sge/opengl/color_order.hpp>
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters_fwd.hpp>
@@ -59,8 +59,8 @@ public:
 		sge::opengl::texture::buffer_type,
 		sge::opengl::texture::id,
 		sge::renderer::resource_flags_field const &,
-		sge::opengl::color_format,
-		sge::opengl::color_format_type,
+		sge::opengl::color_order,
+		sge::opengl::color_base_type,
 		sge::opengl::internal_color_format,
 		sge::opengl::texture::is_render_target
 	);
@@ -89,11 +89,11 @@ public:
 	sge::renderer::resource_flags_field const &
 	resource_flags() const;
 
-	sge::opengl::color_format
-	color_format() const;
+	sge::opengl::color_order
+	color_order() const;
 
-	sge::opengl::color_format_type
-	color_format_type() const;
+	sge::opengl::color_base_type
+	color_base_type() const;
 
 	sge::opengl::internal_color_format
 	internal_color_format() const;
@@ -117,9 +117,9 @@ private:
 
 	sge::renderer::resource_flags_field const resource_flags_;
 
-	sge::opengl::color_format const color_format_;
+	sge::opengl::color_order const color_order_;
 
-	sge::opengl::color_format_type const color_format_type_;
+	sge::opengl::color_base_type const color_base_type_;
 
 	sge::opengl::internal_color_format const internal_color_format_;
 

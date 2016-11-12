@@ -47,8 +47,10 @@ set(
 	plugins/opengl/include/sge/opengl/clear/depth_buffer.hpp
 	plugins/opengl/include/sge/opengl/clear/set.hpp
 	plugins/opengl/include/sge/opengl/clear/stencil_buffer.hpp
+	plugins/opengl/include/sge/opengl/color_base_type.hpp
 	plugins/opengl/include/sge/opengl/color_format.hpp
-	plugins/opengl/include/sge/opengl/color_format_type.hpp
+	plugins/opengl/include/sge/opengl/color_format_fwd.hpp
+	plugins/opengl/include/sge/opengl/color_order.hpp
 	plugins/opengl/include/sge/opengl/common.hpp
 	plugins/opengl/include/sge/opengl/context/base.hpp
 	plugins/opengl/include/sge/opengl/context/base_fwd.hpp
@@ -67,17 +69,17 @@ set(
 	plugins/opengl/include/sge/opengl/context/optional_base_ref_fwd.hpp
 	plugins/opengl/include/sge/opengl/context/use.hpp
 	plugins/opengl/include/sge/opengl/context/use_impl.hpp
-	plugins/opengl/include/sge/opengl/convert/color_to_format.hpp
-	plugins/opengl/include/sge/opengl/convert/color_to_format_type.hpp
-	plugins/opengl/include/sge/opengl/convert/color_to_internal_format.hpp
-	plugins/opengl/include/sge/opengl/convert/depth_stencil_to_format.hpp
-	plugins/opengl/include/sge/opengl/convert/depth_stencil_to_format_type.hpp
+	plugins/opengl/include/sge/opengl/convert/color_base_type.hpp
+	plugins/opengl/include/sge/opengl/convert/color_base_type_sge.hpp
+	plugins/opengl/include/sge/opengl/convert/color_format.hpp
+	plugins/opengl/include/sge/opengl/convert/color_order.hpp
+	plugins/opengl/include/sge/opengl/convert/depth_stencil_base_type.hpp
+	plugins/opengl/include/sge/opengl/convert/depth_stencil_order.hpp
 	plugins/opengl/include/sge/opengl/convert/depth_stencil_to_internal_format.hpp
-	plugins/opengl/include/sge/opengl/convert/format_to_string.hpp
-	plugins/opengl/include/sge/opengl/convert/format_type_to_string.hpp
 	plugins/opengl/include/sge/opengl/convert/index_format.hpp
-	plugins/opengl/include/sge/opengl/convert/make_color_format.hpp
-	plugins/opengl/include/sge/opengl/convert/make_color_format_type.hpp
+	plugins/opengl/include/sge/opengl/convert/internal_color_format.hpp
+	plugins/opengl/include/sge/opengl/convert/make_color_base_type.hpp
+	plugins/opengl/include/sge/opengl/convert/make_color_order.hpp
 	plugins/opengl/include/sge/opengl/convert/primitive_type.hpp
 	plugins/opengl/include/sge/opengl/convert/projection.hpp
 	plugins/opengl/include/sge/opengl/convert/resource_flags.hpp
@@ -476,9 +478,9 @@ set(
 	plugins/opengl/include/sge/opengl/texture/convert/level.hpp
 	plugins/opengl/include/sge/opengl/texture/convert/make_buffer_type.hpp
 	plugins/opengl/include/sge/opengl/texture/convert/make_type.hpp
-	plugins/opengl/include/sge/opengl/texture/convert_format_function.hpp
-	plugins/opengl/include/sge/opengl/texture/convert_format_type_function.hpp
+	plugins/opengl/include/sge/opengl/texture/convert_base_type_function.hpp
 	plugins/opengl/include/sge/opengl/texture/convert_internal_format_function.hpp
+	plugins/opengl/include/sge/opengl/texture/convert_order_function.hpp
 	plugins/opengl/include/sge/opengl/texture/create_cube.hpp
 	plugins/opengl/include/sge/opengl/texture/create_depth_stencil.hpp
 	plugins/opengl/include/sge/opengl/texture/create_lock.hpp
@@ -508,6 +510,9 @@ set(
 	plugins/opengl/include/sge/opengl/texture/disable.hpp
 	plugins/opengl/include/sge/opengl/texture/enable.hpp
 	plugins/opengl/include/sge/opengl/texture/extend_size.hpp
+	plugins/opengl/include/sge/opengl/texture/format_result_decl.hpp
+	plugins/opengl/include/sge/opengl/texture/format_result_fwd.hpp
+	plugins/opengl/include/sge/opengl/texture/format_result_impl.hpp
 	plugins/opengl/include/sge/opengl/texture/funcs/bind.hpp
 	plugins/opengl/include/sge/opengl/texture/funcs/delete.hpp
 	plugins/opengl/include/sge/opengl/texture/funcs/env_arg.hpp
@@ -668,17 +673,15 @@ set(
 	plugins/opengl/src/context/id.cpp
 	plugins/opengl/src/context/make_id.cpp
 	plugins/opengl/src/context/object.cpp
-	plugins/opengl/src/convert/color_to_format.cpp
-	plugins/opengl/src/convert/color_to_format_type.cpp
-	plugins/opengl/src/convert/color_to_internal_format.cpp
-	plugins/opengl/src/convert/depth_stencil_to_format.cpp
-	plugins/opengl/src/convert/depth_stencil_to_format_type.cpp
+	plugins/opengl/src/convert/color_base_type.cpp
+	plugins/opengl/src/convert/color_base_type_sge.cpp
+	plugins/opengl/src/convert/color_format.cpp
+	plugins/opengl/src/convert/color_order.cpp
+	plugins/opengl/src/convert/depth_stencil_base_type.cpp
+	plugins/opengl/src/convert/depth_stencil_order.cpp
 	plugins/opengl/src/convert/depth_stencil_to_internal_format.cpp
-	plugins/opengl/src/convert/format_to_string.cpp
-	plugins/opengl/src/convert/format_type_to_string.cpp
 	plugins/opengl/src/convert/indexed_format.cpp
-	plugins/opengl/src/convert/make_color_format.cpp
-	plugins/opengl/src/convert/make_color_format_type.cpp
+	plugins/opengl/src/convert/internal_color_format.cpp
 	plugins/opengl/src/convert/primitive_type.cpp
 	plugins/opengl/src/convert/projection.cpp
 	plugins/opengl/src/convert/resource_flags.cpp

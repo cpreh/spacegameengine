@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_FUNCS_SET_2D_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_FUNCS_SET_2D_HPP_INCLUDED
 
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
+#include <sge/opengl/color_base_type.hpp>
+#include <sge/opengl/color_order.hpp>
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
@@ -46,8 +46,8 @@ set_2d(
 	sge::opengl::texture::binding const &,
 	sge::opengl::context::object &,
 	sge::opengl::texture::buffer_type,
-	sge::opengl::color_format,
-	sge::opengl::color_format_type,
+	sge::opengl::color_order,
+	sge::opengl::color_base_type,
 	sge::opengl::internal_color_format,
 	sge::renderer::texture::mipmap::level,
 	sge::renderer::dim2 const &,

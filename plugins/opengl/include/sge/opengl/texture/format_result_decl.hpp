@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_CONVERT_FORMAT_FUNCTION_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_CONVERT_FORMAT_FUNCTION_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_FORMAT_RESULT_DECL_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_FORMAT_RESULT_DECL_HPP_INCLUDED
 
-#include <sge/opengl/color_format.hpp>
+#include <sge/opengl/texture/format_result_fwd.hpp>
 
 
 namespace sge
@@ -32,16 +32,27 @@ namespace texture
 {
 
 template<
-	typename Format
+	typename SGEFormat,
+	typename GLFormat
 >
-using
-convert_format_function
-=
-sge::opengl::color_format
-(&)
-(
-	Format
-);
+class format_result
+{
+public:
+	format_result(
+		SGEFormat,
+		GLFormat
+	);
+
+	SGEFormat
+	sge_format() const;
+
+	GLFormat
+	gl_format() const;
+private:
+	SGEFormat sge_format_;
+
+	GLFormat gl_format_;
+};
 
 }
 }

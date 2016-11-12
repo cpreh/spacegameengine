@@ -22,10 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_COLOR_FORMAT_TYPES_HPP_INCLUDED
 
 #include <sge/image/color/format_fwd.hpp>
+#include <sge/opengl/color_format_fwd.hpp>
 #include <sge/opengl/texture/color_format_types_fwd.hpp>
-#include <sge/opengl/texture/convert_format_function.hpp>
-#include <sge/opengl/texture/convert_format_type_function.hpp>
+#include <sge/opengl/texture/convert_base_type_function.hpp>
+#include <sge/opengl/texture/convert_order_function.hpp>
 #include <sge/opengl/texture/convert_internal_format_function.hpp>
+#include <sge/opengl/texture/format_result_fwd.hpp>
 #include <sge/renderer/texture/color_format_fwd.hpp>
 
 
@@ -38,37 +40,37 @@ namespace texture
 
 struct color_format_types
 {
-	typedef sge::image::color::format format;
-
-	static
-	format
-	best_format(
-		sge::renderer::texture::color_format const &
-	);
+	typedef
+	sge::image::color::format
+	format;
 
 	typedef
-	sge::opengl::texture::convert_format_function<
-		format
-	>
-	convert_format_function_type;
-
-	static
-	convert_format_function_type
-	convert_format();
+	sge::opengl::color_format
+	gl_format;
 
 	typedef
-	sge::opengl::texture::convert_format_type_function<
-		format
+	sge::opengl::texture::convert_order_function<
+		gl_format
 	>
-	convert_format_type_function;
+	convert_order_function_type;
 
 	static
-	convert_format_type_function
-	convert_format_type();
+	convert_order_function_type
+	convert_order();
+
+	typedef
+	sge::opengl::texture::convert_base_type_function<
+		gl_format
+	>
+	convert_base_type_function;
+
+	static
+	convert_base_type_function
+	convert_base_type();
 
 	typedef
 	sge::opengl::texture::convert_internal_format_function<
-		format
+		gl_format
 	>
 	convert_internal_format_function;
 
@@ -76,10 +78,16 @@ struct color_format_types
 	convert_internal_format_function
 	convert_internal_format();
 
-	static
-	format
-	translate_format(
+	typedef
+	sge::opengl::texture::format_result<
 		format,
+		gl_format
+	>
+	format_result;
+
+	static
+	format_result
+	translate_format(
 		sge::renderer::texture::color_format const &
 	);
 };

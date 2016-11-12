@@ -18,22 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_COLOR_FORMAT_TYPE_HPP_INCLUDED
-#define SGE_OPENGL_COLOR_FORMAT_TYPE_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_CONVERT_ORDER_FUNCTION_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_CONVERT_ORDER_FUNCTION_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/opengl/color_order.hpp>
+
 
 namespace sge
 {
 namespace opengl
 {
+namespace texture
+{
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	GLenum,
-	color_format_type
+template<
+	typename Format
+>
+using
+convert_order_function
+=
+sge::opengl::color_order
+(&)
+(
+	Format
 );
 
+}
 }
 }
 

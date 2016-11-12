@@ -20,14 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
+#include <sge/opengl/color_base_type.hpp>
+#include <sge/opengl/color_order.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/target/read_pixels.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/pixel_unit.hpp>
+#include <sge/renderer/pixel_pos.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/screen_unit.hpp>
+#include <sge/renderer/screen_size.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -36,12 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::target::read_pixels(
-	sge::renderer::pixel_unit const _pos_x,
-	sge::renderer::pixel_unit const _pos_y,
-	sge::renderer::screen_unit const _width,
-	sge::renderer::screen_unit const _height,
-	sge::opengl::color_format const _format,
-	sge::opengl::color_format_type const _format_type,
+	sge::renderer::pixel_pos const _pos,
+	sge::renderer::screen_size const _size,
+	sge::opengl::color_order const _format,
+	sge::opengl::color_base_type const _format_type,
 	sge::renderer::raw_pointer const _dest
 )
 {
@@ -50,25 +48,25 @@ sge::opengl::target::read_pixels(
 		fcppt::cast::size<
 			GLint
 		>(
-			_pos_x
+			_pos.x()
 		),
 		fcppt::cast::size<
 			GLint
 		>(
-			_pos_y
+			_pos.y()
 		),
 		fcppt::cast::size<
 			GLsizei
 		>(
 			fcppt::cast::to_signed(
-				_width
+				_size.w()
 			)
 		),
 		fcppt::cast::size<
 			GLsizei
 		>(
 			fcppt::cast::to_signed(
-				_height
+				_size.h()
 			)
 		),
 		_format.get(),
