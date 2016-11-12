@@ -113,8 +113,12 @@ sge::opengl::target::onscreen_surface::lock_c(
 		>(
 			_dest.size().h()
 		),
-		this->color_format(),
-		this->color_format_type(),
+		sge::opengl::convert::color_to_format(
+			this->format()
+		),
+		sge::opengl::convert::color_to_format_type(
+			this->format()
+		),
 		buffer_.data()
 	);
 
@@ -157,22 +161,4 @@ sge::opengl::target::onscreen_surface::format() const
 {
 	return
 		sge::image::color::format::rgba8;
-}
-
-sge::opengl::color_format
-sge::opengl::target::onscreen_surface::color_format() const
-{
-	return
-		sge::opengl::convert::color_to_format(
-			this->format()
-		);
-}
-
-sge::opengl::color_format_type
-sge::opengl::target::onscreen_surface::color_format_type() const
-{
-	return
-		sge::opengl::convert::color_to_format_type(
-			this->format()
-		);
 }

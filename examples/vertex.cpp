@@ -149,16 +149,24 @@ try
 	);
 
 //! [position_declaration]
-	typedef sge::renderer::vf::pos<
+	typedef
+	sge::renderer::vf::pos<
 		float,
 		3
-	> pos3_type;
+	>
+	pos3_type;
 //! [position_declaration]
 
 //! [color_declaration]
-	typedef sge::renderer::vf::color<
-		sge::image::color::bgra8_format
-	> color_type;
+	typedef
+	sge::image::color::bgra8_format
+	color_format;
+
+	typedef
+	sge::renderer::vf::color<
+		color_format
+	>
+	color_type;
 //! [color_declaration]
 
 //! [format_part_declaration]
@@ -247,7 +255,7 @@ try
 			color_type
 		>(
 			sge::image::color::any::convert<
-				sge::image::color::bgra8_format
+				color_format
 			>(
 				sge::image::color::predef::cyan()
 			)
@@ -267,7 +275,7 @@ try
 			color_type
 		>(
 			sge::image::color::any::convert<
-				sge::image::color::bgra8_format
+				color_format
 			>(
 				sge::image::color::predef::yellow()
 			)
@@ -285,7 +293,7 @@ try
 			color_type
 		>(
 			sge::image::color::any::convert<
-				sge::image::color::bgra8_format
+				color_format
 			>(
 				sge::image::color::predef::magenta()
 			)

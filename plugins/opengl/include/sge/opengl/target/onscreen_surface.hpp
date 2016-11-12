@@ -22,8 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TARGET_ONSCREEN_SURFACE_HPP_INCLUDED
 
 #include <sge/image/color/format.hpp>
-#include <sge/opengl/color_format.hpp>
-#include <sge/opengl/color_format_type.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/color_buffer/readable_surface.hpp>
 #include <awl/window/object_fwd.hpp>
@@ -71,12 +69,6 @@ private:
 	sge::image::color::format
 	format() const
 	override;
-
-	sge::opengl::color_format
-	color_format() const;
-
-	sge::opengl::color_format_type
-	color_format_type() const;
 
 	typedef
 	fcppt::container::raw_vector<
