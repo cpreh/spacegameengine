@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/convert/depth_stencil_order.hpp>
 #include <sge/opengl/convert/depth_stencil_base_type.hpp>
+#include <sge/opengl/convert/depth_stencil_order.hpp>
 #include <sge/opengl/convert/depth_stencil_to_internal_format.hpp>
 #include <sge/opengl/texture/depth_stencil_format_types.hpp>
 #include <sge/opengl/texture/format_result_impl.hpp>

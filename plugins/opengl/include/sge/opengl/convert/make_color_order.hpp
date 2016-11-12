@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_CONVERT_MAKE_COLOR_ORDER_HPP_INCLUDED
 #define SGE_OPENGL_CONVERT_MAKE_COLOR_ORDER_HPP_INCLUDED
 
-#include <fcppt/cast/to_unsigned.hpp>
 #include <sge/opengl/color_order.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 
 
 namespace sge

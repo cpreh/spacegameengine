@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_format_fwd.hpp>
 #include <sge/opengl/texture/color_format_types_fwd.hpp>
 #include <sge/opengl/texture/convert_base_type_function.hpp>
-#include <sge/opengl/texture/convert_order_function.hpp>
 #include <sge/opengl/texture/convert_internal_format_function.hpp>
+#include <sge/opengl/texture/convert_order_function.hpp>
 #include <sge/opengl/texture/format_result_fwd.hpp>
 #include <sge/renderer/texture/color_format_fwd.hpp>
 
