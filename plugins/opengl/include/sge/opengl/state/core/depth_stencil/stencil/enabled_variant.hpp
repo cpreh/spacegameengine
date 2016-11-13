@@ -18,14 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_VISITOR_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_VISITOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_ENABLED_VARIANT_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_ENABLED_VARIANT_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/enabled_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/off_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/enabled_variant_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/read_mask.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
 
 
 namespace sge
@@ -41,32 +42,14 @@ namespace depth_stencil
 namespace stencil
 {
 
-class visitor
-{
-	FCPPT_NONASSIGNABLE(
-		visitor
-	);
-public:
-	// TODO: match
-	explicit
-	visitor(
-		sge::opengl::context::object &
-	);
-
-	typedef sge::opengl::state::actor_vector result_type;
-
-	result_type
-	operator()(
-		sge::renderer::state::core::depth_stencil::stencil::off const &
-	) const;
-
-	result_type
-	operator()(
-		sge::renderer::state::core::depth_stencil::stencil::enabled const &
-	) const;
-private:
-	sge::opengl::context::object &context_;
-};
+sge::opengl::state::actor_vector
+enabled_variant(
+	sge::opengl::context::object &,
+	sge::renderer::state::core::depth_stencil::stencil::ref,
+	sge::renderer::state::core::depth_stencil::stencil::read_mask,
+	sge::renderer::state::core::depth_stencil::stencil::write_mask,
+	sge::renderer::state::core::depth_stencil::stencil::enabled_variant const &
+);
 
 }
 }

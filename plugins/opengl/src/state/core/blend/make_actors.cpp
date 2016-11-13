@@ -24,12 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
-#include <sge/opengl/state/core/blend/alpha_visitor.hpp>
+#include <sge/opengl/state/core/blend/alpha.hpp>
 #include <sge/opengl/state/core/blend/make_actors.hpp>
 #include <sge/renderer/state/core/blend/parameters.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/join.hpp>
-#include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -43,10 +42,8 @@ sge::opengl::state::core::blend::make_actors(
 {
 	return
 		fcppt::algorithm::join(
-			fcppt::variant::apply_unary(
-				sge::opengl::state::core::blend::alpha_visitor(
-					_context
-				),
+			sge::opengl::state::core::blend::alpha(
+				_context,
 				_parameters.alpha_variant()
 			),
 			sge::opengl::state::actor_vector{

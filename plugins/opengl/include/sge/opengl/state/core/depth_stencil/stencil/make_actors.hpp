@@ -18,29 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_MAKE_ACTORS_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_MAKE_ACTORS_HPP_INCLUDED
+
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
-#include <sge/opengl/state/core/depth_stencil/make_actors.hpp>
-#include <sge/opengl/state/core/depth_stencil/depth/make_actors.hpp>
-#include <sge/opengl/state/core/depth_stencil/stencil/make_actors.hpp>
-#include <sge/renderer/state/core/depth_stencil/parameters.hpp>
-#include <fcppt/algorithm/join.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/variant_fwd.hpp>
 
+
+namespace sge
+{
+namespace opengl
+{
+namespace state
+{
+namespace core
+{
+namespace depth_stencil
+{
+namespace stencil
+{
 
 sge::opengl::state::actor_vector
-sge::opengl::state::core::depth_stencil::make_actors(
-	sge::opengl::context::object &_context,
-	sge::renderer::state::core::depth_stencil::parameters const &_parameters
-)
-{
-	return
-		fcppt::algorithm::join(
-			sge::opengl::state::core::depth_stencil::depth::make_actors(
-				_parameters.depth_variant()
-			),
-			sge::opengl::state::core::depth_stencil::stencil::make_actors(
-				_context,
-				_parameters.stencil_variant()
-			)
-		);
+make_actors(
+	sge::opengl::context::object &,
+	sge::renderer::state::core::depth_stencil::stencil::variant const &
+);
+
 }
+}
+}
+}
+}
+}
+
+#endif

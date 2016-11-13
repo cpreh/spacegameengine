@@ -235,8 +235,8 @@ set(
 	plugins/opengl/include/sge/opengl/state/convert/source_blend_func.hpp
 	plugins/opengl/include/sge/opengl/state/convert/stencil_func.hpp
 	plugins/opengl/include/sge/opengl/state/convert/stencil_op.hpp
-	plugins/opengl/include/sge/opengl/state/core/blend/alpha_enabled_visitor.hpp
-	plugins/opengl/include/sge/opengl/state/core/blend/alpha_visitor.hpp
+	plugins/opengl/include/sge/opengl/state/core/blend/alpha.hpp
+	plugins/opengl/include/sge/opengl/state/core/blend/alpha_enabled.hpp
 	plugins/opengl/include/sge/opengl/state/core/blend/config.hpp
 	plugins/opengl/include/sge/opengl/state/core/blend/config_fwd.hpp
 	plugins/opengl/include/sge/opengl/state/core/blend/context.hpp
@@ -251,7 +251,7 @@ set(
 	plugins/opengl/include/sge/opengl/state/core/blend/set.hpp
 	plugins/opengl/include/sge/opengl/state/core/depth_stencil/create.hpp
 	plugins/opengl/include/sge/opengl/state/core/depth_stencil/default_context.hpp
-	plugins/opengl/include/sge/opengl/state/core/depth_stencil/depth/visitor.hpp
+	plugins/opengl/include/sge/opengl/state/core/depth_stencil/depth/make_actors.hpp
 	plugins/opengl/include/sge/opengl/state/core/depth_stencil/depth/write_enable.hpp
 	plugins/opengl/include/sge/opengl/state/core/depth_stencil/make_actors.hpp
 	plugins/opengl/include/sge/opengl/state/core/depth_stencil/object.hpp
@@ -261,12 +261,12 @@ set(
 	plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/config_fwd.hpp
 	plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/context.hpp
 	plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/context_fwd.hpp
-	plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/enabled_visitor.hpp
+	plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/enabled_variant.hpp
 	plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/func_separate.hpp
+	plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/make_actors.hpp
 	plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/op_separate.hpp
 	plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/optional_config.hpp
 	plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/optional_config_fwd.hpp
-	plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/visitor.hpp
 	plugins/opengl/include/sge/opengl/state/core/depth_stencil/stencil/write_mask.hpp
 	plugins/opengl/include/sge/opengl/state/core/rasterizer/create.hpp
 	plugins/opengl/include/sge/opengl/state/core/rasterizer/cull_mode.hpp
@@ -785,8 +785,8 @@ set(
 	plugins/opengl/src/state/convert/source_blend_func.cpp
 	plugins/opengl/src/state/convert/stencil_func.cpp
 	plugins/opengl/src/state/convert/stencil_op.cpp
-	plugins/opengl/src/state/core/blend/alpha_enabled_visitor.cpp
-	plugins/opengl/src/state/core/blend/alpha_visitor.cpp
+	plugins/opengl/src/state/core/blend/alpha.cpp
+	plugins/opengl/src/state/core/blend/alpha_enabled.cpp
 	plugins/opengl/src/state/core/blend/config.cpp
 	plugins/opengl/src/state/core/blend/context.cpp
 	plugins/opengl/src/state/core/blend/create.cpp
@@ -796,17 +796,17 @@ set(
 	plugins/opengl/src/state/core/blend/set.cpp
 	plugins/opengl/src/state/core/depth_stencil/create.cpp
 	plugins/opengl/src/state/core/depth_stencil/default_context.cpp
-	plugins/opengl/src/state/core/depth_stencil/depth/visitor.cpp
+	plugins/opengl/src/state/core/depth_stencil/depth/make_actors.cpp
 	plugins/opengl/src/state/core/depth_stencil/depth/write_enable.cpp
 	plugins/opengl/src/state/core/depth_stencil/make_actors.cpp
 	plugins/opengl/src/state/core/depth_stencil/object.cpp
 	plugins/opengl/src/state/core/depth_stencil/set.cpp
 	plugins/opengl/src/state/core/depth_stencil/stencil/config.cpp
 	plugins/opengl/src/state/core/depth_stencil/stencil/context.cpp
-	plugins/opengl/src/state/core/depth_stencil/stencil/enabled_visitor.cpp
+	plugins/opengl/src/state/core/depth_stencil/stencil/enabled_variant.cpp
 	plugins/opengl/src/state/core/depth_stencil/stencil/func_separate.cpp
+	plugins/opengl/src/state/core/depth_stencil/stencil/make_actors.cpp
 	plugins/opengl/src/state/core/depth_stencil/stencil/op_separate.cpp
-	plugins/opengl/src/state/core/depth_stencil/stencil/visitor.cpp
 	plugins/opengl/src/state/core/depth_stencil/stencil/write_mask.cpp
 	plugins/opengl/src/state/core/rasterizer/create.cpp
 	plugins/opengl/src/state/core/rasterizer/cull_mode.cpp

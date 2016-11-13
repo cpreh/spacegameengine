@@ -18,14 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_BLEND_ALPHA_VISITOR_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_BLEND_ALPHA_VISITOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_DEPTH_MAKE_ACTORS_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_DEPTH_MAKE_ACTORS_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
-#include <sge/renderer/state/core/blend/alpha_enabled_fwd.hpp>
-#include <sge/renderer/state/core/blend/alpha_off_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/variant_fwd.hpp>
 
 
 namespace sge
@@ -36,36 +33,17 @@ namespace state
 {
 namespace core
 {
-namespace blend
+namespace depth_stencil
+{
+namespace depth
 {
 
-class alpha_visitor
-{
-	FCPPT_NONASSIGNABLE(
-		alpha_visitor
-	);
-public:
-	// TODO: Use match
-	explicit
-	alpha_visitor(
-		sge::opengl::context::object &
-	);
+sge::opengl::state::actor_vector
+make_actors(
+	sge::renderer::state::core::depth_stencil::depth::variant const &
+);
 
-	typedef sge::opengl::state::actor_vector result_type;
-
-	result_type
-	operator()(
-		sge::renderer::state::core::blend::alpha_off const &
-	) const;
-
-	result_type
-	operator()(
-		sge::renderer::state::core::blend::alpha_enabled const &
-	) const;
-private:
-	sge::opengl::context::object &context_;
-};
-
+}
 }
 }
 }

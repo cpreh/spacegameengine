@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_DEPTH_VISITOR_HPP_INCLUDED
-#define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_DEPTH_VISITOR_HPP_INCLUDED
+#ifndef SGE_OPENGL_STATE_CORE_BLEND_ALPHA_HPP_INCLUDED
+#define SGE_OPENGL_STATE_CORE_BLEND_ALPHA_HPP_INCLUDED
 
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
-#include <sge/renderer/state/core/depth_stencil/depth/enabled_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/depth/off_fwd.hpp>
+#include <sge/renderer/state/core/blend/alpha_variant_fwd.hpp>
 
 
 namespace sge
@@ -34,28 +34,15 @@ namespace state
 {
 namespace core
 {
-namespace depth_stencil
-{
-namespace depth
+namespace blend
 {
 
-class visitor
-{
-public:
-	typedef sge::opengl::state::actor_vector result_type;
+sge::opengl::state::actor_vector
+alpha(
+	sge::opengl::context::object &,
+	sge::renderer::state::core::blend::alpha_variant const &
+);
 
-	result_type
-	operator()(
-		sge::renderer::state::core::depth_stencil::depth::off const &
-	) const;
-
-	result_type
-	operator()(
-		sge::renderer::state::core::depth_stencil::depth::enabled const &
-	) const;
-};
-
-}
 }
 }
 }
