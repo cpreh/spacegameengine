@@ -86,21 +86,13 @@ init(
 	>
 	extended_dim;
 
-	// TODO: Get rid of this
-	typedef
-	typename
-	extended_dim::dim_wrapper
-	dim_wrapper;
-
 	extended_dim const size(
 		sge::opengl::texture::extend_size(
 			_parameters.size()
 		)
 	);
 
-	sge::opengl::texture::check_dim<
-		dim_wrapper::value
-	>(
+	sge::opengl::texture::check_dim(
 		_basic_parameters.log(),
 		size,
 		Types::buffer_types::dim_types::min_size(),
@@ -150,12 +142,10 @@ init(
 		nullptr
 	);
 
-	sge::opengl::texture::mipmap::create<
-		dim_wrapper::value
-	>(
+	sge::opengl::texture::mipmap::create(
 		_basic_parameters.log(),
 		sge::opengl::texture::mipmap::parameters<
-			dim_wrapper::value
+			extended_dim::dim_wrapper::value
 		>(
 			_binding,
 			_basic_parameters.context(),
@@ -170,9 +160,7 @@ init(
 	);
 
 	sge::renderer::texture::mipmap::level_count const mip_levels(
-		sge::opengl::texture::mipmap::get_levels<
-			dim_wrapper::value
-		>(
+		sge::opengl::texture::mipmap::get_levels(
 			_parameters.mipmap(),
 			size
 		)
