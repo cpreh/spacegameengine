@@ -57,8 +57,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/dynamic_any_fun.hpp>
 #include <fcppt/cast/dynamic_cross_exn.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/math/box/null.hpp>
 #include <fcppt/optional/copy_value.hpp>
@@ -67,7 +68,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -281,49 +285,62 @@ sge::opengl::fbo::target::depth_stencil_surface(
 				)
 			);
 
-			// TODO: This is ugly
-			if(
-				sge::opengl::fbo::depth_stencil_surface *ptr =
-					dynamic_cast<
-						sge::opengl::fbo::depth_stencil_surface *
+			fcppt::variant::match(
+				fcppt::optional::to_exception(
+					fcppt::variant::dynamic_cast_<
+						boost::mpl::vector2<
+							fcppt::reference<
+								sge::opengl::fbo::depth_stencil_surface
+							>,
+							fcppt::reference<
+								sge::opengl::texture::buffer_base
+							>
+						>,
+						fcppt::cast::dynamic_any_fun
 					>(
-						&_surface.get()
-					)
-			)
-			{
-				depth_stencil_attachment_ =
-					optional_attachment_unique_ptr(
-						this->create_buffer_binding(
-							ptr->render_buffer(),
-							attachment
-						)
-					);
-
-				return;
-			}
-
-			if(
-				sge::opengl::texture::buffer_base *ptr =
-					dynamic_cast<
-						sge::opengl::texture::buffer_base *
-					>(
-						&_surface.get()
-					)
-			)
-			{
-				depth_stencil_attachment_ =
-					optional_attachment_unique_ptr(
-						this->create_texture_binding(
-							*ptr,
-							attachment
-						)
-					);
-
-				return;
-			}
-
-			throw sge::renderer::exception(
-				FCPPT_TEXT("Invalid depth_stencil_surface in add_surface!")
+						_surface.get()
+					),
+					[]{
+						return
+							sge::renderer::exception(
+								FCPPT_TEXT("Invalid depth_stencil_surface in add_surface!")
+							);
+					}
+				),
+				[
+					attachment,
+					this
+				](
+					fcppt::reference<
+						sge::opengl::fbo::depth_stencil_surface
+					> const _fbo_surface
+				)
+				{
+					depth_stencil_attachment_ =
+						optional_attachment_unique_ptr(
+							this->create_buffer_binding(
+								_fbo_surface.get().render_buffer(),
+								attachment
+							)
+						);
+				},
+				[
+					attachment,
+					this
+				](
+					fcppt::reference<
+						sge::opengl::texture::buffer_base
+					> const _texture_surface
+				)
+				{
+					depth_stencil_attachment_ =
+						optional_attachment_unique_ptr(
+							this->create_texture_binding(
+								_texture_surface.get(),
+								attachment
+							)
+						);
+				}
 			);
 		}
 	);
