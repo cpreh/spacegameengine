@@ -47,7 +47,7 @@ public:
 	>
 	gl_active_texture;
 
-	// FIXME: mesa headers are broken
+	// TODO: mesa headers are broken
 	//PFNGLCLIENTACTIVETEXTUREPROC
 	typedef
 	PFNGLACTIVETEXTUREPROC

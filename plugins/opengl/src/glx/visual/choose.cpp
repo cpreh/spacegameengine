@@ -38,8 +38,7 @@ sge::opengl::glx::visual::choose(
 	sge::opengl::glx::visual::attribute_container const &_attributes
 )
 {
-	// TODO: Don't initialize a unique ptr to nullptr
-	awl::backends::x11::visual::info_unique_ptr info(
+	XVisualInfo *const info{
 		::glXChooseVisual(
 			_display.get(),
 			_screen.get(),
@@ -49,17 +48,20 @@ sge::opengl::glx::visual::choose(
 				_attributes.data()
 			)
 		)
-	);
+	};
 
 	if(
-		info.get_pointer()
+		info
 		==
 		nullptr
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("glXChooseVisual() failed!")
-		);
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("glXChooseVisual() failed!")
+			};
 
 	return
-		info;
+		awl::backends::x11::visual::info_unique_ptr{
+			info
+		};
 }

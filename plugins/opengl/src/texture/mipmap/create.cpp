@@ -73,42 +73,6 @@ sge::opengl::texture::mipmap::create(
 			);
 		}
 	);
-
-	// FIXME: ?
-#if 0
-		opengl::texture::funcs::auto_generate_mipmap(
-			_scoped_work,
-			_context,
-			_type
-		);
-
-	if(
-		_filter.anisotropy().get() == 0u
-	)
-		return;
-
-	texture::context const &context(
-		opengl::context::use<
-			texture::context
-		>(
-			_context
-		)
-	);
-
-	if(
-		!context.anisotropic_filter_supported()
-	)
-	{
-		FCPPT_LOG_ERROR(
-			_log,
-			fcppt::log::_
-				<< FCPPT_TEXT("anisotropic filtering is not supported!")
-		);
-
-		return;
-	}
-
-#endif
 }
 
 #define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_CREATE(\
