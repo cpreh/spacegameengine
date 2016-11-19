@@ -38,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/unbind.hpp>
 #include <sge/opengl/target/basic_impl.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
-#include <sge/opengl/texture/color_surface.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/screen_unit.hpp>
@@ -59,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/size.hpp>
-#include <fcppt/cast/static_downcast.hpp>
+#include <fcppt/cast/dynamic_cross_exn.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/math/box/null.hpp>
 #include <fcppt/optional/copy_value.hpp>
@@ -207,10 +206,9 @@ sge::opengl::fbo::target::color_surface(
 			> const _surface
 		)
 		{
-			// FIXME: Use buffer base and don't static_cast
-			sge::opengl::texture::color_surface &texture_surface(
-				fcppt::cast::static_downcast<
-					sge::opengl::texture::color_surface &
+			sge::opengl::texture::buffer_base &texture_surface(
+				fcppt::cast::dynamic_cross_exn<
+					sge::opengl::texture::buffer_base &
 				>(
 					_surface.get()
 				)
@@ -219,10 +217,11 @@ sge::opengl::fbo::target::color_surface(
 			if(
 				!texture_surface.is_render_target().get()
 			)
-				throw sge::renderer::exception(
-					FCPPT_TEXT("You tried to use a texture as a render target ")
-					FCPPT_TEXT("which hasn't been created as such!")
-				);
+				throw
+					sge::renderer::exception{
+						FCPPT_TEXT("You tried to use a texture as a render target ")
+						FCPPT_TEXT("which hasn't been created as such!")
+					};
 
 			color_attachments_.insert(
 				std::make_pair(
