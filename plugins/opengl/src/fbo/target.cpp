@@ -116,7 +116,7 @@ sge::opengl::fbo::target::target(
 
 sge::opengl::fbo::target::~target()
 {
-	opengl::fbo::temporary_bind const scoped_exit(
+	sge::opengl::fbo::temporary_bind const scoped_exit(
 		config_,
 		last_context_,
 		fbo_
@@ -136,6 +136,8 @@ sge::opengl::fbo::target::on_bind()
 	last_context_.last_buffer(
 		fbo_.id()
 	);
+
+	this->check();
 }
 
 void
@@ -350,7 +352,7 @@ sge::opengl::fbo::target::create_texture_binding(
 	sge::opengl::fbo::attachment_type const _attachment
 )
 {
-	sge::opengl::fbo::attachment_unique_ptr ret(
+	return
 		fcppt::unique_ptr_to_base<
 			sge::opengl::fbo::attachment
 		>(
@@ -361,13 +363,7 @@ sge::opengl::fbo::target::create_texture_binding(
 				_surface,
 				_attachment
 			)
-		)
-	);
-
-	this->check();
-
-	return
-		ret;
+		);
 }
 
 sge::opengl::fbo::attachment_unique_ptr
@@ -376,7 +372,7 @@ sge::opengl::fbo::target::create_buffer_binding(
 	sge::opengl::fbo::attachment_type const _attachment
 )
 {
-	sge::opengl::fbo::attachment_unique_ptr ret(
+	return
 		fcppt::unique_ptr_to_base<
 			sge::opengl::fbo::attachment
 		>(
@@ -387,13 +383,7 @@ sge::opengl::fbo::target::create_buffer_binding(
 				_buffer,
 				_attachment
 			)
-		)
-	);
-
-	this->check();
-
-	return
-		ret;
+		);
 }
 
 void
@@ -415,24 +405,25 @@ sge::opengl::fbo::target::check()
 		!=
 		config_.framebuffer_complete()
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("FBO is incomplete! ")
-			+
-			fcppt::optional::from(
-				fcppt::optional::copy_value(
-					fcppt::container::find_opt_mapped(
-						config_.error_strings(),
-						status
-					)
-				),
-				[]{
-					return
-						fcppt::string{
-							FCPPT_TEXT("unknown")
-						};
-				}
-			)
-		);
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("FBO is incomplete! ")
+				+
+				fcppt::optional::from(
+					fcppt::optional::copy_value(
+						fcppt::container::find_opt_mapped(
+							config_.error_strings(),
+							status
+						)
+					),
+					[]{
+						return
+							fcppt::string{
+								FCPPT_TEXT("unknown")
+							};
+					}
+				)
+			};
 }
 
 template
