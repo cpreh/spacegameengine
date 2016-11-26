@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_base_type.hpp>
 #include <sge/opengl/color_order.hpp>
 #include <sge/opengl/internal_color_format.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/instantiate_dim.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
@@ -35,8 +34,8 @@ sge::opengl::texture::mipmap::parameters<
 	Dim
 >::parameters(
 	sge::opengl::texture::binding const &_binding,
-	sge::opengl::context::object &_context,
 	sge::opengl::texture::buffer_type const _buffer_type,
+	config_type const &_config,
 	sge::opengl::color_order const _format_order,
 	sge::opengl::color_base_type const _format_base_type,
 	sge::opengl::internal_color_format const _internal_format,
@@ -47,11 +46,11 @@ sge::opengl::texture::mipmap::parameters<
 	binding_(
 		_binding
 	),
-	context_(
-		_context
-	),
 	buffer_type_(
 		_buffer_type
+	),
+	config_(
+		_config
 	),
 	format_order_(
 		_format_order
@@ -86,18 +85,6 @@ sge::opengl::texture::mipmap::parameters<
 template<
 	fcppt::math::size_type Dim
 >
-sge::opengl::context::object &
-sge::opengl::texture::mipmap::parameters<
-	Dim
->::context() const
-{
-	return
-		context_;
-}
-
-template<
-	fcppt::math::size_type Dim
->
 sge::opengl::texture::buffer_type
 sge::opengl::texture::mipmap::parameters<
 	Dim
@@ -105,6 +92,21 @@ sge::opengl::texture::mipmap::parameters<
 {
 	return
 		buffer_type_;
+}
+
+template<
+	fcppt::math::size_type Dim
+>
+typename
+sge::opengl::texture::mipmap::parameters<
+	Dim
+>::config_type const &
+sge::opengl::texture::mipmap::parameters<
+	Dim
+>::config() const
+{
+	return
+		config_;
 }
 
 template<

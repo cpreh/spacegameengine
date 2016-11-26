@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image2d/traits/pitch_fwd.hpp>
+#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/basic_lockable_buffer.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/buffer_surface_types.hpp>
@@ -30,6 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/cube_types.hpp>
 #include <sge/opengl/texture/init.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
+#include <sge/opengl/texture/surface_config_fwd.hpp>
+#include <sge/opengl/texture/surface_context.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/color_buffer/surface.hpp>
 #include <sge/renderer/texture/base.hpp>
@@ -73,12 +76,21 @@ sge::opengl::texture::cube::cube(
 				this->id()
 			);
 
+			sge::opengl::texture::surface_config const &surface_config{
+				sge::opengl::context::use<
+					sge::opengl::texture::surface_context
+				>(
+					_basic_parameters.context()
+				).config()
+			};
+
 			return
 				fcppt::algorithm::enum_array_init<
 					side_array
 				>(
 					[
 						&binding,
+						&surface_config,
 						&_config,
 						&_basic_parameters,
 						&_parameters,
@@ -94,6 +106,7 @@ sge::opengl::texture::cube::cube(
 								binding,
 								_basic_parameters,
 								_parameters,
+								surface_config,
 								_config.cube_texture_type(),
 								_config.cube_sides()[
 									_side

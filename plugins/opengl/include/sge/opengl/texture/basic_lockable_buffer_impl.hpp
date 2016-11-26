@@ -72,11 +72,13 @@ sge::opengl::texture::basic_lockable_buffer<
 	Types
 >::basic_lockable_buffer(
 	format_type const _format,
+	config_type const &_config,
 	sge::opengl::texture::basic_buffer_parameters const &_parameters
 )
 :
 	gl_base(
 		_format,
+		_config,
 		_parameters
 	),
 	log_{
@@ -84,6 +86,9 @@ sge::opengl::texture::basic_lockable_buffer<
 	},
 	context_(
 		_parameters.context()
+	),
+	config_(
+		_config
 	),
 	type_(
 		_parameters.type()
@@ -241,6 +246,7 @@ sge::opengl::texture::basic_lockable_buffer<
 		Types::dim_types::sub_function()(
 			binding,
 			context_,
+			config_,
 			this->buffer_type(),
 			color_order_,
 			color_base_type_,

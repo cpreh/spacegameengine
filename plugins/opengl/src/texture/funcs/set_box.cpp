@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
-#include <sge/opengl/texture/volume_context.hpp>
+#include <sge/opengl/texture/volume_config.hpp>
 #include <sge/opengl/texture/funcs/set_box.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/dim3.hpp>
@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/math/box/output.hpp>
@@ -48,6 +47,7 @@ void
 sge::opengl::texture::funcs::set_box(
 	sge::opengl::texture::binding const &,
 	sge::opengl::context::object &_context,
+	sge::opengl::texture::volume_config const &_config,
 	sge::opengl::texture::buffer_type const _buffer_type,
 	sge::opengl::color_order const _format,
 	sge::opengl::color_base_type const _format_type,
@@ -71,9 +71,10 @@ sge::opengl::texture::funcs::set_box(
 		.unpack_buffer()
 		.native()
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("OpenGL: Texture source is 0 although no PBO is bound!")
-		);
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("OpenGL: Texture source is 0 although no PBO is bound!")
+			};
 
 	if(
 		!sge::opengl::range_check(
@@ -81,30 +82,23 @@ sge::opengl::texture::funcs::set_box(
 			_lock_box
 		)
 	)
-		throw sge::renderer::exception(
-			(
-				fcppt::format(
-					FCPPT_TEXT("box for setting a texture is out of range (box=%1%, dim=%2%)!")
+		throw
+			sge::renderer::exception{
+				(
+					fcppt::format(
+						FCPPT_TEXT("box for setting a texture is out of range (box=%1%, dim=%2%)!")
+					)
+					% _lock_box
+					% _dim
 				)
-				% _lock_box
-				% _dim
-			)
-			.str()
-		);
+				.str()
+			};
 
 	sge::renderer::lock_box::dim const lock_size(
 		_lock_box.size()
 	);
 
-	// TODO: Pass the config into this function
-	FCPPT_ASSERT_OPTIONAL_ERROR(
-		sge::opengl::context::use<
-			sge::opengl::texture::volume_context
-		>(
-			_context,
-			_context.info()
-		).config()
-	).tex_sub_image_3d()(
+	_config.tex_sub_image_3d()(
 		_buffer_type.get(),
 		fcppt::cast::to_signed(
 			_level.get()

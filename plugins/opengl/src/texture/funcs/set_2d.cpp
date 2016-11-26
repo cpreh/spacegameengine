@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_order.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/internal_color_format.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
+#include <sge/opengl/texture/surface_config_fwd.hpp>
 #include <sge/opengl/texture/funcs/set_2d.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::texture::funcs::set_2d(
 	sge::opengl::texture::binding const &,
-	sge::opengl::context::object &,
+	sge::opengl::texture::surface_config const &,
 	sge::opengl::texture::buffer_type const _buffer_type,
 	sge::opengl::color_order const _format,
 	sge::opengl::color_base_type const _format_type,

@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/check_dim.hpp>
+#include <sge/opengl/texture/config_fwd.hpp>
 #include <sge/opengl/texture/extend_size.hpp>
 #include <sge/opengl/texture/format_result_impl.hpp>
 #include <sge/opengl/texture/id.hpp>
@@ -75,6 +76,9 @@ init(
 	sge::opengl::texture::binding const &_binding,
 	sge::opengl::texture::basic_parameters const &_basic_parameters,
 	typename Types::parameters const &_parameters,
+	sge::opengl::texture::config<
+		Types::buffer_types::dim_types::num_dims
+	> const &_config,
 	sge::opengl::texture::type const _type,
 	sge::opengl::texture::buffer_type const _buffer_type,
 	sge::opengl::texture::id const _id
@@ -130,7 +134,7 @@ init(
 
 	Types::buffer_types::dim_types::init_function()(
 		_binding,
-		_basic_parameters.context(),
+		_config,
 		_buffer_type,
 		color_order,
 		color_base_type,
@@ -144,12 +148,13 @@ init(
 
 	sge::opengl::texture::mipmap::create(
 		_basic_parameters.log(),
+		_basic_parameters.context(),
 		sge::opengl::texture::mipmap::parameters<
 			extended_dim::dim_wrapper::value
 		>(
 			_binding,
-			_basic_parameters.context(),
 			_buffer_type,
+			_config,
 			color_order,
 			color_base_type,
 			internal_color_format,
@@ -198,6 +203,7 @@ init(
 			[
 				&_binding,
 				&_basic_parameters,
+				&_config,
 				_type,
 				_buffer_type,
 				_id,
@@ -220,6 +226,7 @@ init(
 							gl_buffer
 						>(
 							format.sge_format(),
+							_config,
 							sge::opengl::texture::basic_buffer_parameters(
 								_basic_parameters.log(),
 								_binding,

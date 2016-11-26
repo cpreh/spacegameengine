@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
+#include <sge/opengl/texture/config_fwd.hpp>
 #include <sge/renderer/basic_dim_fwd.hpp>
 #include <sge/renderer/basic_lock_box_fwd.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
@@ -50,6 +51,9 @@ void
 (
 	sge::opengl::texture::binding const &,
 	sge::opengl::context::object &,
+	sge::opengl::texture::config<
+		Size
+	> const &,
 	sge::opengl::texture::buffer_type,
 	sge::opengl::color_order,
 	sge::opengl::color_base_type,

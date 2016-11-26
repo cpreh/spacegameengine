@@ -473,6 +473,8 @@ set(
 	plugins/opengl/include/sge/opengl/texture/color_volume_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/color_volume_types.hpp
 	plugins/opengl/include/sge/opengl/texture/color_volume_types_fwd.hpp
+	plugins/opengl/include/sge/opengl/texture/config_fwd.hpp
+	plugins/opengl/include/sge/opengl/texture/config_impl.hpp
 	plugins/opengl/include/sge/opengl/texture/const_optional_base_ref.hpp
 	plugins/opengl/include/sge/opengl/texture/const_optional_base_ref_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/convert/level.hpp
@@ -581,6 +583,10 @@ set(
 	plugins/opengl/include/sge/opengl/texture/scoped_work_binding_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/set_samplers.hpp
 	plugins/opengl/include/sge/opengl/texture/sub_function.hpp
+	plugins/opengl/include/sge/opengl/texture/surface_config.hpp
+	plugins/opengl/include/sge/opengl/texture/surface_config_fwd.hpp
+	plugins/opengl/include/sge/opengl/texture/surface_context.hpp
+	plugins/opengl/include/sge/opengl/texture/surface_context_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/type.hpp
 	plugins/opengl/include/sge/opengl/texture/volume.hpp
 	plugins/opengl/include/sge/opengl/texture/volume_basic.hpp
@@ -994,6 +1000,7 @@ set(
 	plugins/opengl/src/texture/render_binding.cpp
 	plugins/opengl/src/texture/scoped_work_binding.cpp
 	plugins/opengl/src/texture/set_samplers.cpp
+	plugins/opengl/src/texture/surface_context.cpp
 	plugins/opengl/src/texture/volume.cpp
 	plugins/opengl/src/texture/volume_basic.cpp
 	plugins/opengl/src/texture/volume_config.cpp

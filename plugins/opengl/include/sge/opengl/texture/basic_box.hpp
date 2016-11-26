@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/basic.hpp>
 #include <sge/opengl/texture/basic_box_fwd.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
+#include <sge/opengl/texture/config_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
@@ -69,7 +70,10 @@ public:
 	basic_box(
 		sge::opengl::texture::basic_parameters const &,
 		sge::opengl::texture::type,
-		parameters_type const &
+		parameters_type const &,
+		sge::opengl::texture::config<
+			Types::buffer_types::dim_types::num_dims
+		> const &
 	);
 
 	~basic_box()

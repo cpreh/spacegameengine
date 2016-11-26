@@ -41,7 +41,7 @@ struct buffer_volume_types
 	sge::renderer::size_type
 	min_size();
 
-	static fcppt::math::size_type const num_dims = 3;
+	static constexpr fcppt::math::size_type const num_dims = 3;
 
 	typedef
 	sge::opengl::texture::init_function<

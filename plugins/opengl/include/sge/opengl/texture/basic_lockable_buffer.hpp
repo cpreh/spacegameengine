@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/basic_buffer_parameters_fwd.hpp>
 #include <sge/opengl/texture/basic_fwd.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
+#include <sge/opengl/texture/config_fwd.hpp>
 #include <sge/opengl/texture/lock_base.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
@@ -87,8 +88,20 @@ public:
 	gl_base::format_type
 	format_type;
 
+	typedef
+	typename
+	gl_base::dim
+	dim;
+
+	typedef
+	sge::opengl::texture::config<
+		dim::static_size::value
+	>
+	config_type;
+
 	basic_lockable_buffer(
 		format_type,
+		config_type const &,
 		sge::opengl::texture::basic_buffer_parameters const &
 	);
 
@@ -102,11 +115,6 @@ public:
 	typedef
 	sge::opengl::texture::lock_base::const_pointer
 	const_pointer;
-
-	typedef
-	typename
-	gl_base::dim
-	dim;
 
 	typedef
 	typename
@@ -163,6 +171,8 @@ private:
 	fcppt::log::object &log_;
 
 	sge::opengl::context::object &context_;
+
+	config_type const &config_;
 
 	sge::opengl::texture::type const type_;
 

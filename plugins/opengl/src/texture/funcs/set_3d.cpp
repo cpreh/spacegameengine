@@ -23,18 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_order.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/internal_color_format.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
-#include <sge/opengl/texture/volume_context.hpp>
+#include <sge/opengl/texture/volume_config.hpp>
 #include <sge/opengl/texture/funcs/set_3d.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/dim3.hpp>
 #include <sge/renderer/texture/creation_failed.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -43,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 void
 sge::opengl::texture::funcs::set_3d(
 	sge::opengl::texture::binding const &,
-	sge::opengl::context::object &_context,
+	sge::opengl::texture::volume_config const &_config,
 	sge::opengl::texture::buffer_type const _buffer_type,
 	sge::opengl::color_order const _format,
 	sge::opengl::color_base_type const _format_type,
@@ -53,15 +50,7 @@ sge::opengl::texture::funcs::set_3d(
 	sge::renderer::const_raw_pointer const _src
 )
 {
-	// TODO: Pass the config into this function
-	FCPPT_ASSERT_OPTIONAL_ERROR(
-		sge::opengl::context::use<
-			sge::opengl::texture::volume_context
-		>(
-			_context,
-			_context.info()
-		).config()
-	).tex_image_3d()(
+	_config.tex_image_3d()(
 		_buffer_type.get(),
 		fcppt::cast::to_signed(
 			_level.get()

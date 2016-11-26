@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/instantiate_dim.hpp>
 #include <sge/opengl/texture/mipmap/all_levels.hpp>
 #include <sge/opengl/texture/mipmap/auto_generate.hpp>
@@ -39,6 +40,7 @@ template<
 void
 sge::opengl::texture::mipmap::all_levels(
 	fcppt::log::object &_log,
+	sge::opengl::context::object &_context,
 	sge::opengl::texture::mipmap::parameters<
 		Size
 	> const &_parameters,
@@ -53,7 +55,7 @@ sge::opengl::texture::mipmap::all_levels(
 		sge::opengl::texture::mipmap::auto_generate(
 			_log,
 			_parameters.binding(),
-			_parameters.context()
+			_context
 		);
 	else
 		sge::opengl::texture::mipmap::generate_levels(
@@ -75,6 +77,7 @@ sge::opengl::texture::mipmap::all_levels<\
 	dimension\
 >(\
 	fcppt::log::object &,\
+	sge::opengl::context::object &,\
 	sge::opengl::texture::mipmap::parameters<\
 		dimension\
 	> const &,\

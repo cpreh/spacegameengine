@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
+#include <sge/opengl/texture/surface_config_fwd.hpp>
 #include <sge/opengl/texture/funcs/set_rect.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -47,6 +48,7 @@ void
 sge::opengl::texture::funcs::set_rect(
 	sge::opengl::texture::binding const &,
 	sge::opengl::context::object &_context,
+	sge::opengl::texture::surface_config const &,
 	sge::opengl::texture::buffer_type const _buffer_type,
 	sge::opengl::color_order const _format,
 	sge::opengl::color_base_type const _format_type,
@@ -70,9 +72,10 @@ sge::opengl::texture::funcs::set_rect(
 		.unpack_buffer()
 		.native()
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("OpenGL: Texture source is 0 although no PBO is bound!")
-		);
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("OpenGL: Texture source is 0 although no PBO is bound!")
+			};
 
 	if(
 		!sge::opengl::range_check(
@@ -80,16 +83,17 @@ sge::opengl::texture::funcs::set_rect(
 			_lock_rect
 		)
 	)
-		throw sge::renderer::exception(
-			(
-				fcppt::format(
-					FCPPT_TEXT("rect for setting a texture is out of range (rect=%1%, dim=%2%)!")
+		throw
+			sge::renderer::exception{
+				(
+					fcppt::format(
+						FCPPT_TEXT("rect for setting a texture is out of range (rect=%1%, dim=%2%)!")
+					)
+					% _lock_rect
+					% _dim
 				)
-				% _lock_rect
-				% _dim
-			)
-			.str()
-		);
+				.str()
+			};
 
 	sge::renderer::lock_rect::dim const lock_size(
 		_lock_rect.size()

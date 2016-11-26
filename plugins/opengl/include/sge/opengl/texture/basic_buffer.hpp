@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/basic_buffer_fwd.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters_fwd.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
+#include <sge/opengl/texture/config_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/dim/object_decl.hpp>
 
@@ -75,18 +76,25 @@ public:
 	>::type
 	format_type;
 
+	typedef
+	typename
+	base_type::dim
+	dim;
+
+	typedef
+	sge::opengl::texture::config<
+		dim::static_size::value
+	>
+	config_type;
+
 	basic_buffer(
 		format_type,
+		config_type const &,
 		sge::opengl::texture::basic_buffer_parameters const &
 	);
 
 	~basic_buffer()
 	override;
-
-	typedef
-	typename
-	base_type::dim
-	dim;
 
 	dim
 	size() const

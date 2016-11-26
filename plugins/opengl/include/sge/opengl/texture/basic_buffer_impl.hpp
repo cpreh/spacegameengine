@@ -35,6 +35,7 @@ sge::opengl::texture::basic_buffer<
 	Types
 >::basic_buffer(
 	format_type const _format,
+	config_type const &,
 	sge::opengl::texture::basic_buffer_parameters const &_parameters
 )
 :

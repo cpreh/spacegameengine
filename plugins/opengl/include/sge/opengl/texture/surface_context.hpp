@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_BUFFER_SURFACE_TYPES_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_BUFFER_SURFACE_TYPES_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_SURFACE_CONTEXT_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_SURFACE_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/texture/buffer_surface_types_fwd.hpp>
-#include <sge/opengl/texture/init_function.hpp>
-#include <sge/opengl/texture/sub_function.hpp>
-#include <sge/renderer/size_type.hpp>
-#include <fcppt/math/size_type.hpp>
+#include <sge/opengl/context/base.hpp>
+#include <sge/opengl/context/id.hpp>
+#include <sge/opengl/texture/surface_config.hpp>
+#include <sge/opengl/texture/surface_context_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -35,33 +35,29 @@ namespace opengl
 namespace texture
 {
 
-struct buffer_surface_types
+class surface_context
+:
+	public sge::opengl::context::base
 {
-	static
-	sge::renderer::size_type
-	min_size();
-
-	static constexpr fcppt::math::size_type const num_dims = 2;
-
+	FCPPT_NONCOPYABLE(
+		surface_context
+	);
+public:
 	typedef
-	sge::opengl::texture::init_function<
-		num_dims
-	>
-	init_function_type;
+	void
+	parameter;
 
-	static
-	init_function_type
-	init_function();
+	surface_context();
 
-	typedef
-	sge::opengl::texture::sub_function<
-		num_dims
-	>
-	sub_function_type;
+	~surface_context()
+	override;
 
-	static
-	sub_function_type
-	sub_function();
+	sge::opengl::texture::surface_config const &
+	config() const;
+
+	static sge::opengl::context::id const static_id;
+private:
+	sge::opengl::texture::surface_config const config_;
 };
 
 }

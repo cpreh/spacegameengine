@@ -35,7 +35,8 @@ sge::opengl::texture::volume::volume(
 	sge::opengl::texture::volume_basic(
 		_basic_parameters,
 		_config.volume_texture_type(),
-		_parameters
+		_parameters,
+		_config
 	)
 {
 }

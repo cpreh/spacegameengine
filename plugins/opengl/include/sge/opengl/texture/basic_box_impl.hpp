@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/basic_box.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
+#include <sge/opengl/texture/config_fwd.hpp>
 #include <sge/opengl/texture/init.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
@@ -40,7 +41,10 @@ sge::opengl::texture::basic_box<
 >::basic_box(
 	sge::opengl::texture::basic_parameters const &_basic_parameters,
 	sge::opengl::texture::type const _type,
-	parameters_type const &_parameters
+	parameters_type const &_parameters,
+	sge::opengl::texture::config<
+		Types::buffer_types::dim_types::num_dims
+	> const &_config
 )
 :
 	base_type(
@@ -53,6 +57,7 @@ sge::opengl::texture::basic_box<
 			&_basic_parameters,
 			_type,
 			&_parameters,
+			&_config,
 			this
 		]{
 			sge::opengl::texture::scoped_work_binding const binding(
@@ -69,6 +74,7 @@ sge::opengl::texture::basic_box<
 					binding,
 					_basic_parameters,
 					_parameters,
+					_config,
 					_type,
 					sge::opengl::texture::buffer_type(
 						_type.get()

@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_base_type.hpp>
 #include <sge/opengl/color_order.hpp>
 #include <sge/opengl/internal_color_format.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
+#include <sge/opengl/texture/config_fwd.hpp>
 #include <sge/opengl/texture/init_function.hpp>
 #include <sge/opengl/texture/mipmap/parameters_fwd.hpp>
 #include <sge/renderer/basic_dim.hpp>
@@ -59,6 +59,12 @@ public:
 	dim;
 
 	typedef
+	sge::opengl::texture::config<
+		Dim
+	>
+	config_type;
+
+	typedef
 	sge::opengl::texture::init_function<
 		Dim
 	>
@@ -66,8 +72,8 @@ public:
 
 	parameters(
 		sge::opengl::texture::binding const &,
-		sge::opengl::context::object &,
 		sge::opengl::texture::buffer_type,
+		config_type const &,
 		sge::opengl::color_order,
 		sge::opengl::color_base_type,
 		sge::opengl::internal_color_format,
@@ -78,11 +84,11 @@ public:
 	sge::opengl::texture::binding const &
 	binding() const;
 
-	sge::opengl::context::object &
-	context() const;
-
 	sge::opengl::texture::buffer_type
 	buffer_type() const;
+
+	config_type const &
+	config() const;
 
 	sge::opengl::color_order
 	format_order() const;
@@ -101,9 +107,9 @@ public:
 private:
 	sge::opengl::texture::binding const &binding_;
 
-	sge::opengl::context::object &context_;
-
 	sge::opengl::texture::buffer_type const buffer_type_;
+
+	config_type const &config_;
 
 	sge::opengl::color_order const format_order_;
 

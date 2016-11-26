@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
+#include <sge/opengl/texture/volume_config_fwd.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/dim3_fwd.hpp>
 #include <sge/renderer/lock_box_fwd.hpp>
@@ -45,6 +46,7 @@ void
 set_box(
 	sge::opengl::texture::binding const &,
 	sge::opengl::context::object &,
+	sge::opengl::texture::volume_config const &,
 	sge::opengl::texture::buffer_type,
 	sge::opengl::color_order,
 	sge::opengl::color_base_type,

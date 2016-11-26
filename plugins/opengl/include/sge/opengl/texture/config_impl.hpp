@@ -18,19 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_TEXTURE_FUNCS_SET_RECT_HPP_INCLUDED
-#define SGE_OPENGL_TEXTURE_FUNCS_SET_RECT_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_CONFIG_IMPL_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_CONFIG_IMPL_HPP_INCLUDED
 
-#include <sge/opengl/color_base_type.hpp>
-#include <sge/opengl/color_order.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/surface_config_fwd.hpp>
-#include <sge/renderer/const_raw_pointer.hpp>
-#include <sge/renderer/dim2_fwd.hpp>
-#include <sge/renderer/lock_rect_fwd.hpp>
-#include <sge/renderer/texture/mipmap/level.hpp>
+#include <sge/opengl/texture/volume_config_fwd.hpp>
+#include <fcppt/math/size_type.hpp>
 
 
 namespace sge
@@ -39,24 +32,32 @@ namespace opengl
 {
 namespace texture
 {
-namespace funcs
+
+template<
+	fcppt::math::size_type Size
+>
+struct config_impl;
+
+template<>
+struct config_impl<
+	2u
+>
 {
+	typedef
+	sge::opengl::texture::surface_config
+	type;
+};
 
-void
-set_rect(
-	sge::opengl::texture::binding const &,
-	sge::opengl::context::object &,
-	sge::opengl::texture::surface_config const &,
-	sge::opengl::texture::buffer_type,
-	sge::opengl::color_order,
-	sge::opengl::color_base_type,
-	sge::renderer::texture::mipmap::level,
-	sge::renderer::dim2 const &,
-	sge::renderer::lock_rect const &,
-	sge::renderer::const_raw_pointer src
-);
+template<>
+struct config_impl<
+	3u
+>
+{
+	typedef
+	sge::opengl::texture::volume_config
+	type;
+};
 
-}
 }
 }
 }
