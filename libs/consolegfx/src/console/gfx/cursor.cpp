@@ -23,16 +23,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/char_type.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
+#include <fcppt/literal.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/container/at_optional.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 sge::console::gfx::cursor::cursor()
 :
-	line_(
-		SGE_FONT_LIT(" ")
-	),
-	pos_(
+	line_(),
+	pos_{
 		0u
-	)
+	}
 {
 }
 
@@ -47,24 +51,45 @@ sge::console::gfx::cursor::edited() const
 		line_
 	);
 
-	result[
-		pos_
-	] =
-		SGE_FONT_LIT('_');
+	sge::font::char_type const caret{
+		SGE_FONT_LIT('_')
+	};
+
+	fcppt::optional::maybe(
+		fcppt::container::at_optional(
+			result,
+			pos_
+		),
+		[
+			caret,
+			&result
+		]{
+			result.push_back(
+				caret
+			);
+		},
+		[
+			caret
+		](
+			fcppt::reference<
+				sge::font::char_type
+			> const _ref
+		)
+		{
+			_ref.get() =
+				caret;
+		}
+	);
 
 	return
 		result;
 }
 
-sge::font::string
+sge::font::string const &
 sge::console::gfx::cursor::string() const
 {
-	// skip last space
 	return
-		line_.substr(
-			0u,
-			line_.length()-1u
-		);
+		line_;
 }
 
 void
@@ -73,92 +98,139 @@ sge::console::gfx::cursor::string(
 )
 {
 	line_ =
-		_line + SGE_FONT_LIT(' ');
+		_line;
+
 	pos_ =
-		line_.length()-1u;
+		line_.length();
 }
 
 void
 sge::console::gfx::cursor::erase_word()
 {
+	typedef
+	fcppt::optional::object<
+		size_type
+	>
+	optional_index;
+
+	auto const rfind(
+		[
+			this
+		](
+			sge::font::char_type const _char,
+			size_type const _index
+		)
+		->
+		optional_index
+		{
+			size_type const index{
+				line_.rfind(
+					_char,
+					_index
+				)
+			};
+
+			return
+				index
+				==
+				sge::font::string::npos
+				?
+					optional_index()
+				:
+					optional_index(
+						index
+					)
+				;
+		}
+	);
+
 	if(
-		this->empty()
-		||
-		this->at_start()
+		pos_
+		==
+		0u
 	)
 		return;
 
-	size_type
-		s =
-			line_.rfind(
+	size_type const index{
+		fcppt::optional::from(
+			rfind(
 				SGE_FONT_LIT(' '),
-				static_cast<size_type>(
-					pos_-1));
-
-	if (s == sge::font::string::npos)
-		s =
-			static_cast<size_type>(
-				0);
+				pos_
+				-
+				1u
+			),
+			[]{
+				return
+					fcppt::literal<
+						size_type
+					>(
+						0u
+					);
+			}
+		)
+	};
 
 	line_.erase(
-		s,
-		static_cast<size_type>(
-			pos_-s));
+		index,
+		pos_
+		-
+		index
+	);
+
 	pos_ =
-		s;
+		index;
 }
 
 void
 sge::console::gfx::cursor::erase_char()
 {
-	if (pos_ == static_cast<size_type>(line_.length()-1))
-		return;
-
 	line_.erase(
 		pos_,
-		static_cast<size_type>(
-			1));
+		1u
+	);
 }
 
 void
 sge::console::gfx::cursor::left()
 {
-	if (pos_ == static_cast<size_type>(0))
-		return;
-	pos_ =
-		static_cast<size_type>(
-			pos_-1);
+	if(
+		pos_
+		!=
+		0u
+	)
+		--pos_;
 }
 
 void
 sge::console::gfx::cursor::right()
 {
-	if (pos_ == static_cast<size_type>(line_.length()-1))
-		return;
-	pos_++;
+	if(
+		pos_
+		!=
+		line_.length()
+	)
+		++pos_;
 }
 
 void
 sge::console::gfx::cursor::to_start()
 {
 	pos_ =
-		static_cast<size_type>(
-			0);
+		0u;
 }
 
 void
 sge::console::gfx::cursor::to_end()
 {
 	pos_ =
-		static_cast<size_type>(
-			line_.length()-1);
+		line_.length();
 }
 
 bool
 sge::console::gfx::cursor::empty() const
 {
 	return
-		line_.length() == 1u;
+		line_.empty();
 }
 
 void
@@ -167,17 +239,12 @@ sge::console::gfx::cursor::insert(
 )
 {
 	line_.insert(
-		pos_++,
+		pos_,
 		1u,
 		_char
 	);
-}
 
-bool
-sge::console::gfx::cursor::at_start() const
-{
-	return
-		pos_ == 0u;
+	++pos_;
 }
 
 void

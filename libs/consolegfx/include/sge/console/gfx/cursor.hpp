@@ -42,10 +42,6 @@ class cursor
 		cursor
 	);
 public:
-	typedef
-	sge::font::string::size_type
-	size_type;
-
 	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	cursor();
 
@@ -57,7 +53,7 @@ public:
 	edited() const;
 
 	SGE_CONSOLE_GFX_DETAIL_SYMBOL
-	sge::font::string
+	sge::font::string const &
 	string() const;
 
 	SGE_CONSOLE_GFX_DETAIL_SYMBOL
@@ -101,16 +97,16 @@ public:
 	);
 
 	SGE_CONSOLE_GFX_DETAIL_SYMBOL
-	bool
-	at_start() const;
-
-	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	void
 	complete_word(
 		sge::console::function_map const &
 	);
 private:
 	sge::font::string line_;
+
+	typedef
+	sge::font::string::size_type
+	size_type;
 
 	size_type pos_;
 };

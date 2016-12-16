@@ -365,20 +365,15 @@ sge::console::gfx::object::char_callback(
 	)
 		return;
 
-	// is a printable character? then append to input
 	if(
 		std::isprint(
 			_event.character(),
 			std::locale()
 		)
 	)
-	{
 		input_line_.insert(
 			_event.character()
 		);
-
-		return;
-	}
 }
 
 void
@@ -421,13 +416,13 @@ sge::console::gfx::object::key_action(
 			input_line_.erase_char();
 		break;
 		case sge::input::key::code::backspace:
-			if (input_line_.at_start())
-				return;
 			input_line_.left();
 			input_line_.erase_char();
 		break;
 		case sge::input::key::code::tab:
-			input_line_.complete_word(object_.functions());
+			input_line_.complete_word(
+				object_.functions()
+			);
 		break;
 		case sge::input::key::code::pageup:
 			if(

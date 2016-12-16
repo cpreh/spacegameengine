@@ -116,7 +116,7 @@ FCPPT_PP_POP_WARNING
 	BOOST_REQUIRE(
 		c.edited()
 		==
-		SGE_FONT_LIT("_ar ")
+		SGE_FONT_LIT("_ar")
 	);
 
 	BOOST_REQUIRE(
@@ -130,7 +130,7 @@ FCPPT_PP_POP_WARNING
 	BOOST_REQUIRE(
 		c.edited()
 		==
-		SGE_FONT_LIT("_r ")
+		SGE_FONT_LIT("_r")
 	);
 
 	BOOST_REQUIRE(
@@ -169,7 +169,7 @@ FCPPT_PP_POP_WARNING
 	BOOST_REQUIRE(
 		c.edited()
 		==
-		SGE_FONT_LIT("fb_o ")
+		SGE_FONT_LIT("fb_o")
 	);
 
 	BOOST_REQUIRE(
@@ -187,7 +187,7 @@ FCPPT_PP_POP_WARNING
 	BOOST_REQUIRE(
 		c.edited()
 		==
-		SGE_FONT_LIT("fr_oo ")
+		SGE_FONT_LIT("fr_oo")
 	);
 
 	BOOST_REQUIRE(
@@ -221,17 +221,13 @@ FCPPT_PP_POP_WARNING
 	BOOST_REQUIRE(
 		c.edited()
 		==
-		SGE_FONT_LIT("_rboo ")
+		SGE_FONT_LIT("_rboo")
 	);
 
 	BOOST_REQUIRE(
 		c.string()
 		==
 		SGE_FONT_LIT("frboo")
-	);
-
-	BOOST_REQUIRE(
-		c.at_start()
 	);
 
 	c.to_end();
@@ -261,7 +257,7 @@ FCPPT_PP_POP_WARNING
 	BOOST_REQUIRE(
 		c.edited()
 		==
-		SGE_FONT_LIT("_bar ")
+		SGE_FONT_LIT("_bar")
 	);
 
 	BOOST_REQUIRE(
@@ -275,7 +271,7 @@ FCPPT_PP_POP_WARNING
 	BOOST_REQUIRE(
 		c.edited()
 		==
-		SGE_FONT_LIT("_bar ")
+		SGE_FONT_LIT("_bar")
 	);
 
 	BOOST_REQUIRE(
@@ -294,7 +290,7 @@ FCPPT_PP_POP_WARNING
 	BOOST_REQUIRE(
 		c.edited()
 		==
-		SGE_FONT_LIT("f_o ")
+		SGE_FONT_LIT("f_o")
 	);
 
 	c.insert(
@@ -304,6 +300,6 @@ FCPPT_PP_POP_WARNING
 	BOOST_REQUIRE(
 		c.edited()
 		==
-		SGE_FONT_LIT("fa_o ")
+		SGE_FONT_LIT("fa_o")
 	);
 }
