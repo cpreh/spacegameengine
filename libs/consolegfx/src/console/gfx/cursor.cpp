@@ -19,16 +19,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/console/function_map.hpp>
+#include <sge/console/prefix.hpp>
 #include <sge/console/gfx/cursor.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
+#include <fcppt/const.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/container/at_optional.hpp>
+#include <fcppt/container/maybe_front.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/reference.hpp>
 
 
 sge::console::gfx::cursor::cursor()
@@ -107,6 +113,7 @@ sge::console::gfx::cursor::string(
 void
 sge::console::gfx::cursor::erase_word()
 {
+	// TODO: Move this out of here
 	typedef
 	fcppt::optional::object<
 		size_type
@@ -249,7 +256,141 @@ sge::console::gfx::cursor::insert(
 
 void
 sge::console::gfx::cursor::complete_word(
+	sge::console::prefix const _prefix,
 	sge::console::function_map const &_map
 )
 {
+	if(
+		fcppt::optional::maybe(
+			fcppt::container::maybe_front(
+				line_
+			),
+			fcppt::const_(
+				true
+			),
+			[
+				_prefix
+			](
+				fcppt::reference<
+					sge::font::char_type
+				> const _front
+			)
+			{
+				return
+					_front.get()
+					!=
+					_prefix.get();
+			}
+		)
+	)
+		return;
+
+	typedef
+	fcppt::optional::reference<
+		sge::font::string const
+	>
+	optional_string_ref;
+
+	// TODO: Move this out of here
+	auto const upper_bound(
+		[
+			&_map
+		](
+			sge::font::string const &_string
+		)
+		->
+		optional_string_ref
+		{
+			sge::console::function_map::const_iterator const it{
+				_map.upper_bound(
+					_string
+				)
+			};
+
+			return
+				it
+				==
+				_map.end()
+				?
+					optional_string_ref{}
+				:
+					optional_string_ref{
+						fcppt::make_cref(
+							it->first
+						)
+					}
+				;
+		}
+	);
+
+	size_type const start_pos{
+		1u
+	};
+
+	sge::font::string const search_string(
+		line_.substr(
+			start_pos,
+			pos_
+			-
+			start_pos
+		)
+	);
+
+	fcppt::optional::maybe_void(
+		upper_bound(
+			search_string
+		),
+		[
+			start_pos,
+			&search_string,
+			this
+		](
+			fcppt::reference<
+				sge::font::string const
+			> const _string
+		)
+		{
+			auto const is_prefix_of(
+				[](
+					sge::font::string const &_search,
+					sge::font::string const &_whole
+				)
+				{
+					return
+						_search.size()
+						<=
+						_whole.size()
+						&&
+						_whole.substr(
+							0u,
+							_search.size()
+						)
+						==
+						_search;
+				}
+			);
+
+			if(
+				!search_string.empty()
+				&&
+				is_prefix_of(
+					search_string,
+					_string.get()
+				)
+			)
+			{
+				line_.replace(
+					start_pos,
+					search_string.size(),
+					_string.get()
+				);
+
+				pos_ =
+					start_pos
+					+
+					_string.get().size();
+
+			}
+		}
+	);
 }

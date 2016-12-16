@@ -421,6 +421,7 @@ sge::console::gfx::object::key_action(
 		break;
 		case sge::input::key::code::tab:
 			input_line_.complete_word(
+				object_.prefix(),
 				object_.functions()
 			);
 		break;
@@ -479,7 +480,8 @@ sge::console::gfx::object::key_action(
 			try
 			{
 				object_.eval(
-					input_line_.string());
+					input_line_.string()
+				);
 			}
 			catch(
 				sge::console::exception const &_error

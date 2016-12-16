@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CONSOLE_GFX_CURSOR_HPP_INCLUDED
 
 #include <sge/console/function_map.hpp>
+#include <sge/console/prefix.hpp>
 #include <sge/console/gfx/cursor_fwd.hpp>
 #include <sge/console/gfx/detail/symbol.hpp>
 #include <sge/font/char_type.hpp>
@@ -99,6 +100,7 @@ public:
 	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	void
 	complete_word(
+		sge::console::prefix,
 		sge::console::function_map const &
 	);
 private:

@@ -302,4 +302,6 @@ FCPPT_PP_POP_WARNING
 		==
 		SGE_FONT_LIT("fa_o")
 	);
+
+	// TODO: Add complete_word tests
 }

@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/callback/parameters_fwd.hpp>
 #include <sge/console/detail/symbol.hpp>
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/font/char_type.hpp>
 #include <sge/font/string.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -102,7 +101,7 @@ public:
 	functions() const;
 
 	SGE_CONSOLE_DETAIL_SYMBOL
-	sge::font::char_type
+	sge::console::prefix
 	prefix() const;
 
 	SGE_CONSOLE_DETAIL_SYMBOL
@@ -125,7 +124,7 @@ private:
 		sge::console::message_function
 	> message_;
 
-	sge::font::char_type const prefix_;
+	sge::console::prefix const prefix_;
 
 	sge::console::function_map funcs_;
 

@@ -69,7 +69,7 @@ sge::console::object::object(
 	error_(),
 	message_(),
 	prefix_(
-		_prefix.get()
+		_prefix
 	),
 	funcs_(),
 	fallback_(),
@@ -206,7 +206,7 @@ sge::console::object::eval(
 			if(
 				_prefix.get()
 				!=
-				prefix_
+				prefix_.get()
 			)
 			{
 				fallback_(
@@ -304,7 +304,7 @@ sge::console::object::functions() const
 		funcs_;
 }
 
-sge::font::char_type
+sge::console::prefix
 sge::console::object::prefix() const
 {
 	return
