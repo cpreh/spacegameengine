@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_PLATFORM_DEVICE_STATE_HPP_INCLUDED
 
 #include <sge/opengl/platform/device_state_fwd.hpp>
+#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -53,6 +54,10 @@ public:
 	display_mode(
 		sge::renderer::display_mode::optional_object const &
 	) = 0;
+
+	virtual
+	sge::renderer::display_mode::container
+	display_modes() const = 0;
 };
 
 }

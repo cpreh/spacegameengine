@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/extension_fwd.hpp>
 #include <sge/opengl/xrandr/resolution_unique_ptr.hpp>
 #include <sge/opengl/xrandr/state_fwd.hpp>
+#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
@@ -61,6 +62,9 @@ public:
 	choose_resolution(
 		sge::renderer::display_mode::object const &
 	);
+
+	sge::renderer::display_mode::container
+	display_modes() const;
 private:
 	void
 	event_callback(

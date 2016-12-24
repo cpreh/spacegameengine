@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/optional_system_ref_fwd.hpp>
 #include <sge/opengl/xrandr/resolution_fwd.hpp>
 #include <sge/opengl/xrandr/state_fwd.hpp>
+#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -66,6 +67,10 @@ private:
 	display_mode(
 		sge::renderer::display_mode::optional_object const &
 	)
+	override;
+
+	sge::renderer::display_mode::container
+	display_modes() const
 	override;
 
 	typedef

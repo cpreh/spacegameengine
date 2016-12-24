@@ -174,9 +174,6 @@ sge::opengl::device::device(
 	log_{
 		_log
 	},
-	platform_system_(
-		_platform_system
-	),
 	device_state_(
 		_platform_system.create_device_state(
 			_display_mode.display_mode(),
@@ -664,7 +661,7 @@ sge::renderer::display_mode::container
 sge::opengl::device::display_modes() const
 {
 	return
-		platform_system_.display_modes();
+		device_state_->display_modes();
 }
 
 sge::opengl::texture::basic_parameters

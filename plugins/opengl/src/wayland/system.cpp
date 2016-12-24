@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/platform/system.hpp>
 #include <sge/opengl/wayland/device_state.hpp>
 #include <sge/opengl/wayland/system.hpp>
-#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/backends/wayland/system/object_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
@@ -41,14 +40,6 @@ sge::opengl::wayland::system::system(
 
 sge::opengl::wayland::system::~system()
 {
-}
-
-sge::renderer::display_mode::container
-sge::opengl::wayland::system::display_modes() const
-{
-	// FIXME
-	return
-		sge::renderer::display_mode::container{};
 }
 
 sge::opengl::platform::device_state_unique_ptr

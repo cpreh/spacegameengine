@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/state.hpp>
 #include <sge/opengl/xrandr/state_unique_ptr.hpp>
 #include <sge/opengl/xrandr/system.hpp>
+#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
@@ -143,6 +144,27 @@ sge::opengl::x11::device_state::display_mode(
 								);
 						}
 					);
+			}
+		);
+}
+
+
+sge::renderer::display_mode::container
+sge::opengl::x11::device_state::display_modes() const
+{
+	return
+		fcppt::optional::maybe(
+			xrandr_state_,
+			[]{
+				return
+					sge::renderer::display_mode::container();
+			},
+			[](
+				xrandr_state_unique_ptr const &_state
+			)
+			{
+				return
+					_state->display_modes();
 			}
 		);
 }

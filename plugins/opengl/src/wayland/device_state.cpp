@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/platform/device_state.hpp>
 #include <sge/opengl/wayland/device_state.hpp>
+#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 
 
@@ -48,4 +49,12 @@ sge::opengl::wayland::device_state::display_mode(
 	sge::renderer::display_mode::optional_object const &_display_mode
 )
 {
+}
+
+sge::renderer::display_mode::container
+sge::opengl::wayland::device_state::display_modes() const
+{
+	// FIXME
+	return
+		sge::renderer::display_mode::container{};
 }

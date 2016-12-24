@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/platform/device_state_unique_ptr.hpp>
 #include <sge/opengl/platform/system_fwd.hpp>
-#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -46,10 +45,6 @@ protected:
 public:
 	virtual
 	~system() = 0;
-
-	virtual
-	sge::renderer::display_mode::container
-	display_modes() const = 0;
 
 	virtual
 	sge::opengl::platform::device_state_unique_ptr

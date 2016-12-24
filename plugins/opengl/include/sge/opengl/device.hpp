@@ -354,8 +354,6 @@ private:
 
 	fcppt::log::object &log_;
 
-	sge::opengl::platform::system &platform_system_;
-
 	platform_device_state_unique_ptr const device_state_;
 
 	sge::opengl::backend::context_unique_ptr const backend_context_;

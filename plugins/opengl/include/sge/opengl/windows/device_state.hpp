@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_WINDOWS_DEVICE_STATE_HPP_INCLUDED
 
 #include <sge/opengl/platform/device_state.hpp>
+#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/log/object_fwd.hpp>
@@ -58,6 +59,10 @@ private:
 	display_mode(
 		sge::renderer::display_mode::optional_object const &
 	)
+	override;
+
+	sge::renderer::display_mode::container
+	display_modes() const
 	override;
 };
 

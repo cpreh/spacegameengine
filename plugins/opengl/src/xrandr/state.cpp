@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/select_input.hpp>
 #include <sge/opengl/xrandr/state.hpp>
 #include <sge/opengl/xrandr/update_configuration.hpp>
+#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <awl/backends/x11/default_screen.hpp>
@@ -153,6 +154,14 @@ sge::opengl::xrandr::state::choose_resolution(
 			window_,
 			_display_mode
 		);
+}
+
+sge::renderer::display_mode::container
+sge::opengl::xrandr::state::display_modes() const
+{
+	// TODO
+	return
+		sge::renderer::display_mode::container();
 }
 
 void
