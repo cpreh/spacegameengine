@@ -82,6 +82,8 @@ private:
 
 	sge::renderer::display_mode::optional_object display_mode_;
 
+	sge::renderer::display_mode::container display_modes_;
+
 	fcppt::signal::auto_connection const change_connection_;
 
 	fcppt::signal::auto_connection const configure_connection_;

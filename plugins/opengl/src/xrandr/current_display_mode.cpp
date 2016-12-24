@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/combine_rates.hpp>
 #include <sge/opengl/xrandr/crtc_info.hpp>
 #include <sge/opengl/xrandr/crtcs_view.hpp>
-#include <sge/opengl/xrandr/display_mode.hpp>
+#include <sge/opengl/xrandr/current_display_mode.hpp>
 #include <sge/opengl/xrandr/modes_view.hpp>
 #include <sge/opengl/xrandr/output_info.hpp>
 #include <sge/opengl/xrandr/outputs_view.hpp>
@@ -51,7 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::renderer::display_mode::optional_object
-sge::opengl::xrandr::display_mode(
+sge::opengl::xrandr::current_display_mode(
 	awl::backends::x11::display &_display,
 	awl::backends::x11::window::object &_window
 )

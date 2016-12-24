@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_DISPLAY_MODE_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_DISPLAY_MODE_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_CURRENT_DISPLAY_MODE_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_CURRENT_DISPLAY_MODE_HPP_INCLUDED
 
-#include <sge/renderer/display_mode/optional_object_fwd.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 
@@ -34,7 +34,7 @@ namespace xrandr
 {
 
 sge::renderer::display_mode::optional_object
-display_mode(
+current_display_mode(
 	awl::backends::x11::display &,
 	awl::backends::x11::window::object &
 );

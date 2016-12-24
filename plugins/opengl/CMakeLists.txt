@@ -1202,13 +1202,15 @@ set(
 	plugins/opengl/include/sge/opengl/xrandr/create_system.hpp
 	plugins/opengl/include/sge/opengl/xrandr/crtc_info.hpp
 	plugins/opengl/include/sge/opengl/xrandr/crtcs_view.hpp
+	plugins/opengl/include/sge/opengl/xrandr/current_display_mode.hpp
 	plugins/opengl/include/sge/opengl/xrandr/current_mode.hpp
-	plugins/opengl/include/sge/opengl/xrandr/display_mode.hpp
+	plugins/opengl/include/sge/opengl/xrandr/display_modes.hpp
 	plugins/opengl/include/sge/opengl/xrandr/extension.hpp
 	plugins/opengl/include/sge/opengl/xrandr/extension_fwd.hpp
 	plugins/opengl/include/sge/opengl/xrandr/get_extension.hpp
 	plugins/opengl/include/sge/opengl/xrandr/get_version.hpp
 	plugins/opengl/include/sge/opengl/xrandr/input_mask.hpp
+	plugins/opengl/include/sge/opengl/xrandr/make_display_mode.hpp
 	plugins/opengl/include/sge/opengl/xrandr/mode.hpp
 	plugins/opengl/include/sge/opengl/xrandr/mode_fwd.hpp
 	plugins/opengl/include/sge/opengl/xrandr/mode_index.hpp
@@ -1223,6 +1225,8 @@ set(
 	plugins/opengl/include/sge/opengl/xrandr/optional_system_unique_ptr_fwd.hpp
 	plugins/opengl/include/sge/opengl/xrandr/output_info.hpp
 	plugins/opengl/include/sge/opengl/xrandr/outputs_view.hpp
+	plugins/opengl/include/sge/opengl/xrandr/rates.hpp
+	plugins/opengl/include/sge/opengl/xrandr/rates_fwd.hpp
 	plugins/opengl/include/sge/opengl/xrandr/refresh_rate.hpp
 	plugins/opengl/include/sge/opengl/xrandr/refresh_rate_from_mode.hpp
 	plugins/opengl/include/sge/opengl/xrandr/resolution.hpp
@@ -1252,15 +1256,18 @@ set(
 	plugins/opengl/src/xrandr/create_system.cpp
 	plugins/opengl/src/xrandr/crtc_info.cpp
 	plugins/opengl/src/xrandr/crtcs_view.cpp
+	plugins/opengl/src/xrandr/current_display_mode.cpp
 	plugins/opengl/src/xrandr/current_mode.cpp
-	plugins/opengl/src/xrandr/display_mode.cpp
+	plugins/opengl/src/xrandr/display_modes.cpp
 	plugins/opengl/src/xrandr/extension.cpp
 	plugins/opengl/src/xrandr/get_extension.cpp
 	plugins/opengl/src/xrandr/get_version.cpp
+	plugins/opengl/src/xrandr/make_display_mode.cpp
 	plugins/opengl/src/xrandr/mode.cpp
 	plugins/opengl/src/xrandr/modes_view.cpp
 	plugins/opengl/src/xrandr/output_info.cpp
 	plugins/opengl/src/xrandr/outputs_view.cpp
+	plugins/opengl/src/xrandr/rates.cpp
 	plugins/opengl/src/xrandr/refresh_rate_from_mode.cpp
 	plugins/opengl/src/xrandr/resolution.cpp
 	plugins/opengl/src/xrandr/screen_resources.cpp

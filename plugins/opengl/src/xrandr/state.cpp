@@ -19,7 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/xrandr/choose_resolution.hpp>
-#include <sge/opengl/xrandr/display_mode.hpp>
+#include <sge/opengl/xrandr/current_display_mode.hpp>
+#include <sge/opengl/xrandr/display_modes.hpp>
 #include <sge/opengl/xrandr/extension.hpp>
 #include <sge/opengl/xrandr/input_mask.hpp>
 #include <sge/opengl/xrandr/resolution.hpp>
@@ -63,6 +64,7 @@ sge::opengl::xrandr::state::state(
 		_window
 	),
 	display_mode_(),
+	display_modes_(),
 	change_connection_(
 		// TODO: Change libawl so this is not needed
 		fcppt::cast::static_downcast<
@@ -159,9 +161,8 @@ sge::opengl::xrandr::state::choose_resolution(
 sge::renderer::display_mode::container
 sge::opengl::xrandr::state::display_modes() const
 {
-	// TODO
 	return
-		sge::renderer::display_mode::container();
+		display_modes_;
 }
 
 void
@@ -181,8 +182,13 @@ void
 sge::opengl::xrandr::state::update()
 {
 	display_mode_ =
-		sge::opengl::xrandr::display_mode(
+		sge::opengl::xrandr::current_display_mode(
 			display_,
 			window_
+		);
+
+	display_modes_ =
+		sge::opengl::xrandr::display_modes(
+			config_
 		);
 }
