@@ -18,49 +18,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_MODE_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_MODE_HPP_INCLUDED
-
-#include <sge/opengl/xrandr/mode_fwd.hpp>
+#include <sge/opengl/xrandr/configuration.hpp>
 #include <sge/opengl/xrandr/mode_index.hpp>
-#include <sge/opengl/xrandr/refresh_rate.hpp>
-#include <sge/opengl/xrandr/rotation.hpp>
+#include <sge/opengl/xrandr/sizes.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/Xrandr.h>
+#include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::opengl::xrandr::sizes::sizes(
+	sge::opengl::xrandr::configuration const &_config
+)
+:
+	size_{
+		0
+	},
+	sizes_{
+		::XRRConfigSizes(
+			_config.get(),
+			&size_
+		)
+	}
 {
-namespace opengl
-{
-namespace xrandr
-{
-
-class mode
-{
-public:
-	mode(
-		sge::opengl::xrandr::mode_index,
-		sge::opengl::xrandr::rotation,
-		sge::opengl::xrandr::refresh_rate
-	);
-
-	sge::opengl::xrandr::mode_index
-	index() const;
-
-	sge::opengl::xrandr::rotation
-	rotation() const;
-
-	sge::opengl::xrandr::refresh_rate
-	rate() const;
-private:
-	sge::opengl::xrandr::mode_index index_;
-
-	sge::opengl::xrandr::rotation rotation_;
-
-	sge::opengl::xrandr::refresh_rate rate_;
-};
-
-}
-}
 }
 
-#endif
+sge::opengl::xrandr::sizes::iterator
+sge::opengl::xrandr::sizes::begin() const
+{
+	return
+		sizes_;
+}
+
+sge::opengl::xrandr::sizes::iterator
+sge::opengl::xrandr::sizes::end() const
+{
+	return
+		sizes_
+		+
+		size_;
+}
+
+XRRScreenSize const &
+sge::opengl::xrandr::sizes::operator[](
+	sge::opengl::xrandr::mode_index const _index
+) const
+{
+	return
+		*(
+			this->begin()
+			+
+			_index.get()
+		);
+}
+
+sge::opengl::xrandr::mode_index
+sge::opengl::xrandr::sizes::size() const
+{
+	return
+		sge::opengl::xrandr::mode_index{
+			size_
+		};
+}

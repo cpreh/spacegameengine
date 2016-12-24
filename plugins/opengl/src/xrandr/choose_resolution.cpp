@@ -19,16 +19,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/xrandr/choose_resolution.hpp>
-#include <sge/opengl/xrandr/configuration.hpp>
+#include <sge/opengl/xrandr/configuration_fwd.hpp>
 #include <sge/opengl/xrandr/current_mode.hpp>
 #include <sge/opengl/xrandr/mode.hpp>
+#include <sge/opengl/xrandr/mode_index.hpp>
 #include <sge/opengl/xrandr/resolution.hpp>
 #include <sge/opengl/xrandr/resolution_unique_ptr.hpp>
+#include <sge/opengl/xrandr/sizes.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <fcppt/make_int_range_count.hpp>
+#include <fcppt/make_literal_strong_typedef.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
@@ -39,6 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/to_unsigned.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/type_iso/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
@@ -51,29 +55,23 @@ sge::opengl::xrandr::choose_resolution(
 	sge::renderer::display_mode::object const &_mode
 )
 {
-	// TODO: Make a function that returns a pair
-	int nsizes;
-
-	::XRRScreenSize *const sizes(
-		::XRRConfigSizes(
-			_config.get(),
-			&nsizes
-		)
-	);
+	sge::opengl::xrandr::sizes const sizes{
+		_config
+	};
 
 	return
 		fcppt::optional::to_exception(
 			fcppt::algorithm::find_by_opt(
 				fcppt::make_int_range_count(
-					nsizes
+					sizes.size()
 				),
 				[
 					&_config,
 					&_window,
 					&_mode,
-					sizes
+					&sizes
 				](
-					int const _index
+					sge::opengl::xrandr::mode_index const _index
 				)
 				{
 					::XRRScreenSize const &current(
@@ -114,15 +112,8 @@ sge::opengl::xrandr::choose_resolution(
 								>(
 									_window,
 									_config,
-									sge::opengl::xrandr::mode{
-										static_cast<
-											SizeID
-										>(
-											_index
-										),
-										RR_Rotate_0,
-										_mode.refresh_rate()
-									},
+									_index,
+									_mode.refresh_rate(),
 									sge::opengl::xrandr::current_mode(
 										_config
 									)

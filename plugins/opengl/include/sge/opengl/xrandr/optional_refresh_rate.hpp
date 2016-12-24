@@ -18,49 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_XRANDR_MODE_HPP_INCLUDED
-#define SGE_OPENGL_XRANDR_MODE_HPP_INCLUDED
+#ifndef SGE_OPENGL_XRANDR_OPTIONAL_REFRESH_RATE_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_OPTIONAL_REFRESH_RATE_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/mode_fwd.hpp>
-#include <sge/opengl/xrandr/mode_index.hpp>
-#include <sge/opengl/xrandr/refresh_rate.hpp>
-#include <sge/opengl/xrandr/rotation.hpp>
+#include <sge/opengl/xrandr/optional_refresh_rate_fwd.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
-
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
-{
-
-class mode
-{
-public:
-	mode(
-		sge::opengl::xrandr::mode_index,
-		sge::opengl::xrandr::rotation,
-		sge::opengl::xrandr::refresh_rate
-	);
-
-	sge::opengl::xrandr::mode_index
-	index() const;
-
-	sge::opengl::xrandr::rotation
-	rotation() const;
-
-	sge::opengl::xrandr::refresh_rate
-	rate() const;
-private:
-	sge::opengl::xrandr::mode_index index_;
-
-	sge::opengl::xrandr::rotation rotation_;
-
-	sge::opengl::xrandr::refresh_rate rate_;
-};
-
-}
-}
-}
 
 #endif

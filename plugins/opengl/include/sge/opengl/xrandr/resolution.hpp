@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/xrandr/configuration_fwd.hpp>
 #include <sge/opengl/xrandr/mode.hpp>
+#include <sge/opengl/xrandr/mode_index.hpp>
 #include <sge/opengl/xrandr/resolution_fwd.hpp>
+#include <sge/renderer/display_mode/optional_refresh_rate_fwd.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -44,7 +46,8 @@ public:
 	resolution(
 		awl::backends::x11::window::object &,
 		sge::opengl::xrandr::configuration const &,
-		sge::opengl::xrandr::mode const &new_mode,
+		sge::opengl::xrandr::mode_index,
+		sge::renderer::display_mode::optional_refresh_rate const &,
 		sge::opengl::xrandr::mode const &old_mode
 	);
 

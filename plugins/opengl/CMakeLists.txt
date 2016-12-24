@@ -1211,23 +1211,30 @@ set(
 	plugins/opengl/include/sge/opengl/xrandr/input_mask.hpp
 	plugins/opengl/include/sge/opengl/xrandr/mode.hpp
 	plugins/opengl/include/sge/opengl/xrandr/mode_fwd.hpp
+	plugins/opengl/include/sge/opengl/xrandr/mode_index.hpp
 	plugins/opengl/include/sge/opengl/xrandr/modes_view.hpp
 	plugins/opengl/include/sge/opengl/xrandr/optional_extension.hpp
 	plugins/opengl/include/sge/opengl/xrandr/optional_extension_fwd.hpp
+	plugins/opengl/include/sge/opengl/xrandr/optional_refresh_rate.hpp
+	plugins/opengl/include/sge/opengl/xrandr/optional_refresh_rate_fwd.hpp
 	plugins/opengl/include/sge/opengl/xrandr/optional_system_ref.hpp
 	plugins/opengl/include/sge/opengl/xrandr/optional_system_ref_fwd.hpp
 	plugins/opengl/include/sge/opengl/xrandr/optional_system_unique_ptr.hpp
 	plugins/opengl/include/sge/opengl/xrandr/optional_system_unique_ptr_fwd.hpp
 	plugins/opengl/include/sge/opengl/xrandr/output_info.hpp
 	plugins/opengl/include/sge/opengl/xrandr/outputs_view.hpp
+	plugins/opengl/include/sge/opengl/xrandr/refresh_rate.hpp
 	plugins/opengl/include/sge/opengl/xrandr/refresh_rate_from_mode.hpp
 	plugins/opengl/include/sge/opengl/xrandr/resolution.hpp
 	plugins/opengl/include/sge/opengl/xrandr/resolution_fwd.hpp
 	plugins/opengl/include/sge/opengl/xrandr/resolution_unique_ptr.hpp
+	plugins/opengl/include/sge/opengl/xrandr/rotation.hpp
 	plugins/opengl/include/sge/opengl/xrandr/screen_resources.hpp
 	plugins/opengl/include/sge/opengl/xrandr/screen_resources_fwd.hpp
 	plugins/opengl/include/sge/opengl/xrandr/select_input.hpp
 	plugins/opengl/include/sge/opengl/xrandr/set_resolution.hpp
+	plugins/opengl/include/sge/opengl/xrandr/sizes.hpp
+	plugins/opengl/include/sge/opengl/xrandr/sizes_fwd.hpp
 	plugins/opengl/include/sge/opengl/xrandr/state.hpp
 	plugins/opengl/include/sge/opengl/xrandr/state_fwd.hpp
 	plugins/opengl/include/sge/opengl/xrandr/state_unique_ptr.hpp
@@ -1259,6 +1266,7 @@ set(
 	plugins/opengl/src/xrandr/screen_resources.cpp
 	plugins/opengl/src/xrandr/select_input.cpp
 	plugins/opengl/src/xrandr/set_resolution.cpp
+	plugins/opengl/src/xrandr/sizes.cpp
 	plugins/opengl/src/xrandr/state.cpp
 	plugins/opengl/src/xrandr/system.cpp
 	plugins/opengl/src/xrandr/update_configuration.cpp
