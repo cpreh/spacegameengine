@@ -18,45 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/xrandr/configuration.hpp>
-#include <sge/renderer/exception.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window/object.hpp>
-#include <fcppt/assert/post.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/Xrandr.h>
-#include <fcppt/config/external_end.hpp>
+#ifndef SGE_OPENGL_XRANDR_UPDATE_CONFIGURATION_HPP_INCLUDED
+#define SGE_OPENGL_XRANDR_UPDATE_CONFIGURATION_HPP_INCLUDED
+
+#include <awl/backends/x11/window/event/object_fwd.hpp>
+#include <fcppt/preprocessor/warn_unused_result.hpp>
 
 
-sge::opengl::xrandr::configuration::configuration(
-	awl::backends::x11::window::object &_window
+namespace sge
+{
+namespace opengl
+{
+namespace xrandr
+{
+
+bool
+update_configuration(
+	awl::backends::x11::window::event::object const &
 )
-:
-	config_(
-		::XRRGetScreenInfo(
-			_window.display().get(),
-			_window.get()
-		)
-	)
-{
-	FCPPT_ASSERT_POST(
-		config_
-		!=
-		nullptr,
-		sge::renderer::exception
-	);
+FCPPT_PP_WARN_UNUSED_RESULT;
+
+}
+}
 }
 
-::XRRScreenConfiguration *
-sge::opengl::xrandr::configuration::get() const
-{
-	return
-		config_;
-}
-
-sge::opengl::xrandr::configuration::~configuration()
-{
-	::XRRFreeScreenConfigInfo(
-		config_
-	);
-}
+#endif

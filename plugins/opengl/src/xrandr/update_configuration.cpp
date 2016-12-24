@@ -18,45 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/xrandr/configuration.hpp>
-#include <sge/renderer/exception.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window/object.hpp>
-#include <fcppt/assert/post.hpp>
+#include <sge/opengl/xrandr/update_configuration.hpp>
+#include <awl/backends/x11/window/event/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::xrandr::configuration::configuration(
-	awl::backends::x11::window::object &_window
+bool
+sge::opengl::xrandr::update_configuration(
+	awl::backends::x11::window::event::object const &_event
 )
-:
-	config_(
-		::XRRGetScreenInfo(
-			_window.display().get(),
-			_window.get()
-		)
-	)
-{
-	FCPPT_ASSERT_POST(
-		config_
-		!=
-		nullptr,
-		sge::renderer::exception
-	);
-}
-
-::XRRScreenConfiguration *
-sge::opengl::xrandr::configuration::get() const
 {
 	return
-		config_;
-}
-
-sge::opengl::xrandr::configuration::~configuration()
-{
-	::XRRFreeScreenConfigInfo(
-		config_
-	);
+		::XRRUpdateConfiguration(
+			const_cast<
+				XEvent *
+			>(
+				&_event.get()
+			)
+		)
+		==
+		1;
 }

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/resolution_unique_ptr.hpp>
 #include <sge/opengl/xrandr/select_input.hpp>
 #include <sge/opengl/xrandr/state.hpp>
+#include <sge/opengl/xrandr/update_configuration.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <awl/backends/x11/default_screen.hpp>
@@ -79,7 +80,7 @@ sge::opengl::xrandr::state::state(
 			),
 			awl::backends::x11::window::event::callback(
 				std::bind(
-					&sge::opengl::xrandr::state::change_callback,
+					&sge::opengl::xrandr::state::event_callback,
 					this,
 					std::placeholders::_1
 				)
@@ -101,7 +102,7 @@ sge::opengl::xrandr::state::state(
 			),
 			awl::backends::x11::window::event::callback(
 				std::bind(
-					&sge::opengl::xrandr::state::configure_callback,
+					&sge::opengl::xrandr::state::event_callback,
 					this,
 					std::placeholders::_1
 				)
@@ -155,19 +156,16 @@ sge::opengl::xrandr::state::choose_resolution(
 }
 
 void
-sge::opengl::xrandr::state::change_callback(
-	awl::backends::x11::window::event::object const &
+sge::opengl::xrandr::state::event_callback(
+	awl::backends::x11::window::event::object const &_event
 )
 {
-	this->update();
-}
-
-void
-sge::opengl::xrandr::state::configure_callback(
-	awl::backends::x11::window::event::object const &
-)
-{
-	this->update();
+	if(
+		sge::opengl::xrandr::update_configuration(
+			_event
+		)
+	)
+		this->update();
 }
 
 void

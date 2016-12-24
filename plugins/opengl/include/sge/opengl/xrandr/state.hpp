@@ -63,12 +63,7 @@ public:
 	);
 private:
 	void
-	change_callback(
-		awl::backends::x11::window::event::object const &
-	);
-
-	void
-	configure_callback(
+	event_callback(
 		awl::backends::x11::window::event::object const &
 	);
 

@@ -1234,6 +1234,7 @@ set(
 	plugins/opengl/include/sge/opengl/xrandr/system.hpp
 	plugins/opengl/include/sge/opengl/xrandr/system_fwd.hpp
 	plugins/opengl/include/sge/opengl/xrandr/system_unique_ptr.hpp
+	plugins/opengl/include/sge/opengl/xrandr/update_configuration.hpp
 	plugins/opengl/include/sge/opengl/xrandr/version.hpp
 	plugins/opengl/include/sge/opengl/xrandr/version_fwd.hpp
 	plugins/opengl/src/xrandr/choose_resolution.cpp
@@ -1260,6 +1261,7 @@ set(
 	plugins/opengl/src/xrandr/set_resolution.cpp
 	plugins/opengl/src/xrandr/state.cpp
 	plugins/opengl/src/xrandr/system.cpp
+	plugins/opengl/src/xrandr/update_configuration.cpp
 	plugins/opengl/src/xrandr/version.cpp
 )
 
