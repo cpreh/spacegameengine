@@ -1062,7 +1062,7 @@ joypad_discover(
 
 	{
 		fcppt::io::cout()
-			<< FCPPT_TEXT("\tff effects: \n");
+			<< FCPPT_TEXT("\tff effects:\n");
 
 		for(
 			sge::input::joypad::ff::type const effect

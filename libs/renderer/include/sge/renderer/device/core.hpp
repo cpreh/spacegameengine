@@ -99,9 +99,7 @@ public:
 	/**
 	\brief Begins the rendering operation
 
-	To be able to call device::render_indexed or device::render_nonindexed,
-	this function must be called first. To end the rendering process and
-	present it, use device::end_rendering.
+	To end the rendering process and present it, use device::end_rendering.
 
 	\param target The render target to use, which can either be
 	device::onscreen_target or an offscreen target.
