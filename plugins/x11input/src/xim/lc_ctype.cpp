@@ -33,12 +33,18 @@ sge::x11input::xim::lc_ctype()
 				fcppt::getenv(
 					"LC_ALL"
 				),
-				fcppt::getenv(
-					"LC_CTYPE"
-				)
+				[]{
+					return
+						fcppt::getenv(
+							"LC_CTYPE"
+						);
+				}
 			),
-			fcppt::getenv(
-				"LANG"
-			)
+			[]{
+				return
+					fcppt::getenv(
+						"LANG"
+					);
+			}
 		);
 }
