@@ -140,7 +140,6 @@ sge::cegui::syringe::inject(
 			)
 		),
 		[
-			&_event,
 			this
 		](
 			CEGUI::Key::Scan const _scan

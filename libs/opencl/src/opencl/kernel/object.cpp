@@ -125,15 +125,14 @@ sge::opencl::kernel::object::argument(
 	fcppt::variant::apply_unary(
 		[
 			_index,
-			&name = name_,
-			&kernel = kernel_
+			this
 		](
 			auto const _value
 		)
 		{
 			cl_int const error_code{
 				::clSetKernelArg(
-					kernel,
+					kernel_,
 					fcppt::cast::size<
 						cl_uint
 					>(
@@ -159,7 +158,7 @@ sge::opencl::kernel::object::argument(
 					sge::opencl::exception{
 						FCPPT_TEXT("Kernel \"")+
 						fcppt::from_std_string(
-							name
+							name_
 						)
 						+
 						FCPPT_TEXT("\": clSetKernelArg for argument ")+

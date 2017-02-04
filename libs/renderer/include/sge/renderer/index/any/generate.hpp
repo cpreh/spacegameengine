@@ -51,7 +51,6 @@ generate(
 {
 	fcppt::variant::apply_unary(
 		[
-			&_view,
 			&_gen
 		](
 			auto const &_inner_view

@@ -287,9 +287,7 @@ sge::rucksack::widget::box::axis_policy() const
 			children_,
 			sge::rucksack::make_axis_policy(
 				sge::rucksack::axis_policy_function{
-					[
-						this
-					](
+					[](
 						sge::rucksack::axis
 					)
 					{

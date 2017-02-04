@@ -67,16 +67,13 @@ sge::console::gfx::cursor::edited() const
 			pos_
 		),
 		[
-			caret,
 			&result
 		]{
 			result.push_back(
 				caret
 			);
 		},
-		[
-			caret
-		](
+		[](
 			fcppt::reference<
 				sge::font::char_type
 			> const _ref
@@ -341,7 +338,6 @@ sge::console::gfx::cursor::complete_word(
 			search_string
 		),
 		[
-			start_pos,
 			&search_string,
 			this
 		](
