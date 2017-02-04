@@ -60,7 +60,6 @@ option(
 set(
 	NEEDED_BOOST_LIBS
 	filesystem
-	program_options
 	system
 )
 
