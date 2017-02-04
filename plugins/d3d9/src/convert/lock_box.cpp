@@ -21,46 +21,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/lock_box.hpp>
 #include <sge/renderer/lock_box.hpp>
+#include <fcppt/cast/size.hpp>
 
 
-D3DBOX const
+D3DBOX
 sge::d3d9::convert::lock_box(
 	sge::renderer::lock_box const &_box
 )
 {
-	D3DBOX const ret =
-	{
-		static_cast<
-			UINT
-		>(
-			_box.left()
-		),
-		static_cast<
-			UINT
-		>(
-			_box.top()
-		),
-		static_cast<
-			UINT
-		>(
-			_box.right()
-		),
-		static_cast<
-			UINT
-		>(
-			_box.bottom()
-		),
-		static_cast<
-			UINT
-		>(
-			_box.front()
-		),
-		static_cast<
-			UINT
-		>(
-			_box.back()
-		)
-	};
-
-	return ret;
+	return
+		D3DBOX{
+			fcppt::cast::size<
+				UINT
+			>(
+				_box.left()
+			),
+			fcppt::cast::size<
+				UINT
+			>(
+				_box.top()
+			),
+			fcppt::cast::size<
+				UINT
+			>(
+				_box.right()
+			),
+			fcppt::cast::size<
+				UINT
+			>(
+				_box.bottom()
+			),
+			fcppt::cast::size<
+				UINT
+			>(
+				_box.front()
+			),
+			fcppt::cast::size<
+				UINT
+			>(
+				_box.back()
+			)
+		};
 }

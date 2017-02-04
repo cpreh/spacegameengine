@@ -20,20 +20,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/vector3.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
+#include <sge/renderer/vector3.hpp>
 
 
-D3DVECTOR const
+D3DVECTOR
 sge::d3d9::convert::vector3(
-	renderer::vector3 const &_vec
+	sge::renderer::vector3 const &_vec
 )
 {
-	D3DVECTOR const ret =
-	{
-		_vec.x(),
-		_vec.y(),
-		_vec.z()
-	};
-
-	return ret;
+	return
+		D3DVECTOR{
+			_vec.x(),
+			_vec.y(),
+			_vec.z()
+		};
 }

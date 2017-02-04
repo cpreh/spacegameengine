@@ -34,9 +34,11 @@ sge::d3d9::convert::index_format(
 	)
 	{
 	case sge::renderer::index::dynamic::format::i16:
-		return D3DFMT_INDEX16;
+		return
+			D3DFMT_INDEX16;
 	case sge::renderer::index::dynamic::format::i32:
-		return D3DFMT_INDEX32;
+		return
+			D3DFMT_INDEX32;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

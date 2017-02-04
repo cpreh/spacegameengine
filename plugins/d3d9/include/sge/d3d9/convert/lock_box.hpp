@@ -32,7 +32,7 @@ namespace d3d9
 namespace convert
 {
 
-D3DBOX const
+D3DBOX
 lock_box(
 	sge::renderer::lock_box const &
 );

@@ -23,13 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba32f.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/any/object_fwd.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
 #include <mizuiro/color/channel/blue.hpp>
 #include <mizuiro/color/channel/green.hpp>
 #include <mizuiro/color/channel/red.hpp>
 
 
-D3DCOLORVALUE const
+D3DCOLORVALUE
 sge::d3d9::convert::to_color_value(
 	sge::image::color::any::object const &_color
 )
@@ -42,21 +43,19 @@ sge::d3d9::convert::to_color_value(
 		)
 	);
 
-	D3DCOLORVALUE const ret =
-	{
-		conv.get(
-			mizuiro::color::channel::red()
-		),
-		conv.get(
-			mizuiro::color::channel::green()
-		),
-		conv.get(
-			mizuiro::color::channel::blue()
-		),
-		conv.get(
-			mizuiro::color::channel::alpha()
-		)
-	};
-
-	return ret;
+	return
+		D3DCOLORVALUE{
+			conv.get(
+				mizuiro::color::channel::red()
+			),
+			conv.get(
+				mizuiro::color::channel::green()
+			),
+			conv.get(
+				mizuiro::color::channel::blue()
+			),
+			conv.get(
+				mizuiro::color::channel::alpha()
+			)
+		};
 }

@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_CONVERT_MATRIX_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/matrix4_fwd.hpp>
+
 
 namespace sge
 {
@@ -31,9 +32,9 @@ namespace d3d9
 namespace convert
 {
 
-D3DMATRIX const
+D3DMATRIX
 matrix(
-	sge::renderer::matrix4
+	sge::renderer::matrix4 const &
 );
 
 }

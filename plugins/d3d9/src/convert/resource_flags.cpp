@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/bitfield/operators.hpp>
 
 
-sge::d3d9::usage const
+sge::d3d9::usage
 sge::d3d9::convert::resource_flags(
 	sge::renderer::resource_flags_field const &_flags
 )

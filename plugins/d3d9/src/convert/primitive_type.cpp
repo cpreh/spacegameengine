@@ -34,17 +34,23 @@ sge::d3d9::convert::primitive_type(
 	)
 	{
 	case sge::renderer::primitive_type::point_list:
-		return D3DPT_POINTLIST;
+		return
+			D3DPT_POINTLIST;
 	case sge::renderer::primitive_type::line_list:
-		return D3DPT_LINELIST;
+		return
+			D3DPT_LINELIST;
 	case sge::renderer::primitive_type::triangle_list:
-		return D3DPT_TRIANGLELIST;
+		return
+			D3DPT_TRIANGLELIST;
 	case sge::renderer::primitive_type::line_strip:
-		return D3DPT_LINESTRIP;
+		return
+			D3DPT_LINESTRIP;
 	case sge::renderer::primitive_type::triangle_strip:
-		return D3DPT_TRIANGLESTRIP;
+		return
+			D3DPT_TRIANGLESTRIP;
 	case sge::renderer::primitive_type::triangle_fan:
-		return D3DPT_TRIANGLEFAN;
+		return
+			D3DPT_TRIANGLEFAN;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

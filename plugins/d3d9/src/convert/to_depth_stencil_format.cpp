@@ -34,11 +34,14 @@ sge::d3d9::convert::to_depth_stencil_format(
 	)
 	{
 	case D3DFMT_D16:
-		return sge::image::ds::format::d16;
+		return
+			sge::image::ds::format::d16;
 	case D3DFMT_D24S8:
-		return sge::image::ds::format::d24s8;
+		return
+			sge::image::ds::format::d24s8;
 	case D3DFMT_D32:
-		return sge::image::ds::format::d32;
+		return
+			sge::image::ds::format::d32;
 	default:
 		break;
 	}

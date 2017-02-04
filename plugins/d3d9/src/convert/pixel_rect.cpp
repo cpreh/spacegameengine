@@ -20,17 +20,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/pixel_rect.hpp>
-#include <sge/d3d9/convert/rect_base.hpp>
-#include <fcppt/math/box/object_impl.hpp>
+#include <sge/renderer/pixel_rect.hpp>
+#include <fcppt/cast/size.hpp>
 
 
-RECT const
+RECT
 sge::d3d9::convert::pixel_rect(
-	renderer::pixel_rect const &_rect
+	sge::renderer::pixel_rect const &_rect
 )
 {
 	return
-		convert::rect_base(
-			_rect
-		);
+		RECT{
+			fcppt::cast::size<
+				LONG
+			>(
+				_rect.left()
+			),
+			fcppt::cast::size<
+				LONG
+			>(
+				_rect.top()
+			),
+			fcppt::cast::size<
+				LONG
+			>(
+				_rect.right()
+			),
+			fcppt::cast::size<
+				LONG
+			>(
+				_rect.bottom()
+			)
+		};
 }

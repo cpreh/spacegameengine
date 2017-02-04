@@ -32,7 +32,7 @@ namespace d3d9
 namespace convert
 {
 
-D3DVIEWPORT9 const
+D3DVIEWPORT9
 viewport(
 	sge::renderer::target::viewport const &
 );

@@ -33,7 +33,7 @@ namespace d3d9
 namespace convert
 {
 
-sge::d3d9::lock_flags const
+sge::d3d9::lock_flags
 lock_flags(
 	sge::renderer::lock_flags::method,
 	sge::renderer::resource_flags_field const &

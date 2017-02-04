@@ -66,6 +66,7 @@ sge::d3d9::convert::color_format(
 	case sge::image::color::format::rgba32f:
 		return
 			D3DFMT_A32B32G32R32F;
+	// FIXME: Use optional_format
 	case sge::image::color::format::rgb8:
 	case sge::image::color::format::srgb8:
 	case sge::image::color::format::rgb32f:

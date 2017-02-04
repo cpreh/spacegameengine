@@ -32,7 +32,7 @@ namespace d3d9
 namespace convert
 {
 
-D3DVECTOR const
+D3DVECTOR
 vector3(
 	sge::renderer::vector3 const &
 );

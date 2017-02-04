@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 
+
 namespace sge
 {
 namespace d3d9
@@ -33,7 +34,7 @@ namespace convert
 
 D3DPOOL
 resource_flags_to_pool(
-	renderer::resource_flags_field const &
+	sge::renderer::resource_flags_field const &
 );
 
 }

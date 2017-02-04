@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_D3D9_CONVERT_PIXEL_RECT_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/pixel_rect_fwd.hpp>
+
 
 namespace sge
 {
@@ -31,9 +32,9 @@ namespace d3d9
 namespace convert
 {
 
-RECT const
+RECT
 pixel_rect(
-	renderer::pixel_rect const &
+	sge::renderer::pixel_rect const &
 );
 
 }

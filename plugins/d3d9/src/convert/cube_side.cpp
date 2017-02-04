@@ -34,17 +34,23 @@ sge::d3d9::convert::cube_side(
 	)
 	{
 	case sge::renderer::texture::cube_side::front:
-		return D3DCUBEMAP_FACE_NEGATIVE_Z;
+		return
+			D3DCUBEMAP_FACE_NEGATIVE_Z;
 	case sge::renderer::texture::cube_side::back:
-		return D3DCUBEMAP_FACE_POSITIVE_Z;
+		return
+			D3DCUBEMAP_FACE_POSITIVE_Z;
 	case sge::renderer::texture::cube_side::left:
-		return D3DCUBEMAP_FACE_NEGATIVE_X;
+		return
+			D3DCUBEMAP_FACE_NEGATIVE_X;
 	case sge::renderer::texture::cube_side::right:
-		return D3DCUBEMAP_FACE_POSITIVE_X;
+		return
+			D3DCUBEMAP_FACE_POSITIVE_X;
 	case sge::renderer::texture::cube_side::top:
-		return D3DCUBEMAP_FACE_POSITIVE_Y;
+		return
+			D3DCUBEMAP_FACE_POSITIVE_Y;
 	case sge::renderer::texture::cube_side::bottom:
-		return D3DCUBEMAP_FACE_NEGATIVE_Y;
+		return
+			D3DCUBEMAP_FACE_NEGATIVE_Y;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

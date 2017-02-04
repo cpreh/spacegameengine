@@ -34,11 +34,14 @@ sge::d3d9::convert::depth_stencil_format(
 	)
 	{
 	case sge::image::ds::format::d16:
-		return D3DFMT_D16;
+		return
+			D3DFMT_D16;
 	case sge::image::ds::format::d24s8:
-		return D3DFMT_D24S8;
+		return
+			D3DFMT_D24S8;
 	case sge::image::ds::format::d32:
-		return D3DFMT_D32;
+		return
+			D3DFMT_D32;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

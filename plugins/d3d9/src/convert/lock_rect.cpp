@@ -20,17 +20,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/lock_rect.hpp>
-#include <sge/d3d9/convert/rect_base.hpp>
 #include <sge/renderer/lock_rect.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
-RECT const
+RECT
 sge::d3d9::convert::lock_rect(
 	sge::renderer::lock_rect const &_rect
 )
 {
 	return
-		sge::d3d9::convert::rect_base(
-			_rect
-		);
+		RECT{
+			fcppt::cast::size<
+				LONG
+			>(
+				fcppt::cast::to_signed(
+					_rect.left()
+				)
+			),
+			fcppt::cast::size<
+				LONG
+			>(
+				fcppt::cast::to_signed(
+					_rect.top()
+				)
+			),
+			fcppt::cast::size<
+				LONG
+			>(
+				fcppt::cast::to_signed(
+					_rect.right()
+				)
+			),
+			fcppt::cast::size<
+				LONG
+			>(
+				fcppt::cast::to_signed(
+					_rect.bottom()
+				)
+			)
+		};
 }

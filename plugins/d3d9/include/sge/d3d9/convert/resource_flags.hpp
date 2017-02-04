@@ -32,7 +32,7 @@ namespace d3d9
 namespace convert
 {
 
-sge::d3d9::usage const
+sge::d3d9::usage
 resource_flags(
 	sge::renderer::resource_flags_field const &
 );

@@ -14,7 +14,6 @@ SET(
 	plugins/d3d9/include/sge/d3d9/convert/matrix.hpp
 	plugins/d3d9/include/sge/d3d9/convert/pixel_rect.hpp
 	plugins/d3d9/include/sge/d3d9/convert/primitive_type.hpp
-	plugins/d3d9/include/sge/d3d9/convert/rect_base.hpp
 	plugins/d3d9/include/sge/d3d9/convert/resource_flags.hpp
 	plugins/d3d9/include/sge/d3d9/convert/resource_flags_to_pool.hpp
 	plugins/d3d9/include/sge/d3d9/convert/to_color.hpp

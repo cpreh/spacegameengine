@@ -32,7 +32,7 @@ namespace d3d9
 namespace convert
 {
 
-RECT const
+RECT
 lock_rect(
 	sge::renderer::lock_rect const &
 );

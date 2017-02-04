@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/convert/viewport.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <fcppt/cast/size.hpp>
 
 
-D3DVIEWPORT9 const
+D3DVIEWPORT9
 sge::d3d9::convert::viewport(
 	sge::renderer::target::viewport const &_viewport
 )
@@ -33,31 +34,29 @@ sge::d3d9::convert::viewport(
 		_viewport.get()
 	);
 
-	D3DVIEWPORT9 const ret =
-	{
-		static_cast<
-			DWORD
-		>(
-			rect.left()
-		),
-		static_cast<
-			DWORD
-		>(
-			rect.top()
-		),
-		static_cast<
-			DWORD
-		>(
-			rect.size().w()
-		),
-		static_cast<
-			DWORD
-		>(
-			rect.size().h()
-		),
-		0.f,
-		1.f
-	};
-
-	return ret;
+	return
+		D3DVIEWPORT9{
+			fcppt::cast::size<
+				DWORD
+			>(
+				rect.left()
+			),
+			fcppt::cast::size<
+				DWORD
+			>(
+				rect.top()
+			),
+			fcppt::cast::size<
+				DWORD
+			>(
+				rect.size().w()
+			),
+			fcppt::cast::size<
+				DWORD
+			>(
+				rect.size().h()
+			),
+			0.f,
+			1.f
+		};
 }
