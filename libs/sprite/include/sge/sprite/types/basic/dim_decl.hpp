@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_TYPES_BASIC_DIM_DECL_HPP_INCLUDED
 
 #include <sge/sprite/types/basic/dim_fwd.hpp>
-#include <fcppt/math/dim/object_decl.hpp>
+#include <fcppt/math/dim/static_decl.hpp>
 
 
 #endif

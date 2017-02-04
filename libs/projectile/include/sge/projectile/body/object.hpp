@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/projectile/scalar.hpp>
 #include <sge/projectile/world_fwd.hpp>
+#include <sge/projectile/vector2_fwd.hpp>
 #include <sge/projectile/body/parameters_fwd.hpp>
 #include <sge/projectile/body/position_change.hpp>
 #include <sge/projectile/body/position_change_fn.hpp>
@@ -35,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/object_fwd.hpp>
-#include <fcppt/math/vector/object_decl.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
 
@@ -49,58 +49,81 @@ namespace projectile
 {
 namespace body
 {
+
 class object
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONCOPYABLE(
+		object
+	);
 public:
-	SGE_PROJECTILE_DETAIL_SYMBOL explicit
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	explicit
 	object(
-		parameters const &);
+		sge::projectile::body::parameters const &
+	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL vector2
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	sge::projectile::vector2
 	position() const;
 
-	SGE_PROJECTILE_DETAIL_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	void
 	position(
-		vector2 const &);
+		sge::projectile::vector2 const &
+	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL vector2
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	sge::projectile::vector2
 	linear_velocity() const;
 
-	SGE_PROJECTILE_DETAIL_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	void
 	linear_velocity(
-		vector2 const &);
+		sge::projectile::vector2 const &
+	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL scalar
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	sge::projectile::scalar
 	angular_velocity() const;
 
-	SGE_PROJECTILE_DETAIL_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	void
 	angular_velocity(
-		scalar);
+		sge::projectile::scalar
+	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::shape::shared_base_ptr
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	sge::projectile::shape::shared_base_ptr
 	shape() const;
 
-	SGE_PROJECTILE_DETAIL_SYMBOL scalar
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	sge::projectile::scalar
 	rotation() const;
 
-	SGE_PROJECTILE_DETAIL_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	void
 	rotation(
-		scalar);
+		sge::projectile::scalar
+	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL fcppt::signal::auto_connection
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	fcppt::signal::auto_connection
 	position_change(
-		sge::projectile::body::position_change const &);
+		sge::projectile::body::position_change const &
+	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL fcppt::signal::auto_connection
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	fcppt::signal::auto_connection
 	rotation_change(
-		sge::projectile::body::rotation_change const &);
+		sge::projectile::body::rotation_change const &
+	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::body::user_data const &
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	sge::projectile::body::user_data const &
 	user_data() const;
 
-	SGE_PROJECTILE_DETAIL_SYMBOL ~object();
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	~object();
 private:
 	friend class sge::projectile::body::detail::motion_state;
 	friend class sge::projectile::world;
@@ -124,6 +147,7 @@ private:
 	setWorldTransform(
 		btTransform const &);
 };
+
 }
 }
 }

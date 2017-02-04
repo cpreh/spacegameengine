@@ -40,6 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/container/array_size.hpp>
+#include <fcppt/math/from_array.hpp>
+#include <fcppt/math/to_array_type.hpp>
 #include <fcppt/math/matrix/init.hpp>
 #include <fcppt/math/matrix/is_matrix.hpp>
 #include <fcppt/type_traits/is_iterable.hpp>
@@ -438,14 +440,17 @@ struct convert_from_impl<
 	)
 	{
 		return
-			Result{
+			fcppt::math::from_array<
+				Result
+			>(
 				sge::parse::json::convert_from<
-					typename
-					Result::storage_type
+					fcppt::math::to_array_type<
+						Result
+					>
 				>(
 					_value
 				)
-			};
+			);
 	}
 };
 

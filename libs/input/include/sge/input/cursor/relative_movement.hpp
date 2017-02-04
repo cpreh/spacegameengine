@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/relative_movement_fwd.hpp>
 #include <sge/input/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/vector/object_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>

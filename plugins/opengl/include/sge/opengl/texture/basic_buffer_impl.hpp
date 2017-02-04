@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/basic_buffer_parameters.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
 #include <sge/opengl/texture/get_level_size.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/math/dim/static_impl.hpp>
 
 
 template<

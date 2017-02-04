@@ -140,12 +140,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_cref.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/algorithm/array_map.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/math/vector/map.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -364,10 +364,8 @@ fill_geometry(
 		);
 
 		pos_vector const texpos(
-			fcppt::algorithm::array_map<
-				pos_vector::storage_type
-			>(
-				position.storage(),
+			fcppt::math::vector::map(
+				position,
 				[](
 					sge::renderer::scalar const _value
 				)
