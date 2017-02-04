@@ -112,10 +112,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/options/default_help_switch.hpp>
 #include <fcppt/options/error.hpp>
 #include <fcppt/options/help_text.hpp>
+#include <fcppt/options/long_name.hpp>
 #include <fcppt/options/make_default_value.hpp>
 #include <fcppt/options/make_optional.hpp>
 #include <fcppt/options/no_default_value.hpp>
-#include <fcppt/options/long_name.hpp>
 #include <fcppt/options/option.hpp>
 #include <fcppt/options/optional_help_text.hpp>
 #include <fcppt/options/optional_short_name.hpp>
@@ -128,7 +128,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/record/permute.hpp>
 #include <fcppt/record/variadic.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/variant/output.hpp>
