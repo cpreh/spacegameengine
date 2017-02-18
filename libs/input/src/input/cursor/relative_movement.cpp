@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/relative_move_event.hpp>
 #include <sge/input/cursor/relative_movement.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/optional/maybe_multi.hpp>
+#include <fcppt/optional/maybe_void_multi.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -85,21 +85,9 @@ sge::input::cursor::relative_movement::move_callback_internal(
 	sge::input::cursor::move_event const &_event
 )
 {
-	auto const assign_position(
+	fcppt::optional::maybe_void_multi(
 		[
-			this,
-			&_event
-		]{
-			last_position_ =
-				_event.position();
-		}
-	);
-
-	fcppt::optional::maybe_multi(
-		assign_position,
-		[
-			this,
-			&assign_position
+			this
 		](
 			sge::input::cursor::position const _last_position,
 			sge::input::cursor::position const _new_position
@@ -112,10 +100,11 @@ sge::input::cursor::relative_movement::move_callback_internal(
 					_last_position
 				)
 			);
-
-			assign_position();
 		},
 		last_position_,
 		_event.position()
 	);
+
+	last_position_ =
+		_event.position();
 }
