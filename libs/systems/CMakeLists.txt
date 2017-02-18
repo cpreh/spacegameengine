@@ -285,6 +285,7 @@ add_sge_base_library(
 		sgewindow_interface
 	ADDITIONAL_DEPS
 		${awl_TARGET}
+		${fcppt_core_TARGET}
 		${fcppt_log_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
 	TRANSITIVE_ADDITIONAL_DEPS

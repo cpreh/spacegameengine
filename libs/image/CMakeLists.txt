@@ -207,7 +207,7 @@ add_sge_base_library(
 		${fcppt_core_TARGET}
 		mizuiro_interface
 	TRANSITIVE_ADDITIONAL_DEPS
-		fcppt_core_interface
+		${fcppt_core_TARGET}
 		mizuiro_interface
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_BINARY_DIR}/include"
