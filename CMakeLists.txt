@@ -32,6 +32,19 @@ list(
 )
 
 include(
+	GNUInstallDirs
+)
+
+find_package(
+	fcppt
+	REQUIRED
+)
+
+include(
+	SGEFunctions
+)
+
+include(
 	FcpptCMakeUtils
 )
 
@@ -43,10 +56,6 @@ fcppt_utils_handle_so_version(
 	SGE_SO_VERSION
 	SGE_USED_SO_VERSION
 	"0.1"
-)
-
-include(
-	SGEFunctions
 )
 
 fcppt_utils_static_shared()
@@ -78,23 +87,14 @@ find_package(
 	"${NEEDED_BOOST_LIBS}"
 )
 
-find_package(
-	fcppt
-	REQUIRED
-)
-
-fcppt_utils_install_data_dir(
-	INSTALL_DATA_DIR
-)
-
 set(
 	MEDIA_INSTALL_DIR
-	"${INSTALL_DATA_DIR}/media"
+	"${FCPPT_UTILS_INSTALL_DATA_DIR}/media"
 )
 
 set(
-	INSTALL_PLUGIN_DIR_BASE
-	"${INSTALL_LIBRARY_DIR}"
+	SGE_INSTALL_PLUGIN_DIR_BASE
+	"${CMAKE_INSTALL_LIBDIR}"
 	CACHE
 	STRING
 	"Custom plugin base installation directory"
@@ -102,7 +102,7 @@ set(
 
 set(
 	PLUGIN_INSTALL_DIR
-	"${INSTALL_PLUGIN_DIR_BASE}/${PROJECT_NAME}"
+	"${SGE_INSTALL_PLUGIN_DIR_BASE}/${PROJECT_NAME}"
 )
 
 add_subdirectory(
@@ -174,7 +174,9 @@ get_property(
 
 fcppt_utils_generate_config(
 	CONFIG_PATH
-	${FCPPT_UTILS_PROJECT_SOURCE_DIR}/cmake
+		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/cmake
+	MODULES_PATH
+		${FCPPT_UTILS_PROJECT_SOURCE_DIR}/cmake/modules/public
 )
 
 install(
@@ -188,5 +190,5 @@ install(
 	DIRECTORY
 	${SGE_PUBLIC_CMAKE_MODULE_PATH}/
 	DESTINATION
-	${INSTALL_CMAKEMODULES_DIR}
+	${FCPPT_UTILS_INSTALL_CMAKEMODULES_DIR}
 )

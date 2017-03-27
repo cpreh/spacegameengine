@@ -4,7 +4,7 @@ include(
 
 set(
 	SGE_PLUGIN_INSTALL_PATH
-	"${PLUGIN_INSTALL_DIR}"
+	"${CMAKE_INSTALL_PREFIX}/${PLUGIN_INSTALL_DIR}"
 )
 
 set(
@@ -14,7 +14,7 @@ set(
 
 set(
 	SGE_MEDIA_INSTALL_PATH
-	"${MEDIA_INSTALL_DIR}"
+	"${CMAKE_INSTALL_PREFIX}/${MEDIA_INSTALL_DIR}"
 )
 
 sge_config_add_custom_path(

@@ -91,7 +91,7 @@ function(
 		TARGETS
 		"${FULL_NAME}"
 		DESTINATION
-		"${INSTALL_BINARY_DIR}"
+		"${CMAKE_INSTALL_BINDIR}"
 	)
 endfunction()
 

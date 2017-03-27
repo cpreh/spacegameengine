@@ -22,6 +22,18 @@ function(
 		${ARGN}
 	)
 
+	if(
+		NOT
+		"${_UNPARSED_ARGUMENTS}"
+		STREQUAL
+		""
+	)
+		message(
+			FATAL_ERROR
+			"Invalid parameters ${_UNPARSED_ARGUMENTS}"
+		)
+	endif()
+
 	foreach(
 		DEP
 		${_DEPENDS}
@@ -362,7 +374,7 @@ add_sge_lib(
 	shader
 	"Build the shader wrapper library"
 	ON
-	DEPENS
+	DEPENDS
 		cg
 		renderercg
 )

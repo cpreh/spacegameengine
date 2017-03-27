@@ -19,8 +19,8 @@ option(
 )
 
 set(
-	INSTALL_EXAMPLE_DIR
-	"${INSTALL_BINARY_DIR}"
+	SGE_INSTALL_EXAMPLE_DIR
+	"${CMAKE_INSTALL_BINDIR}"
 	CACHE
 	STRING
 	"Custom example installation directory"
@@ -128,7 +128,7 @@ function(
 			TARGETS
 			${FULL_NAME}
 			DESTINATION
-			"${INSTALL_EXAMPLE_DIR}"
+			"${SGE_INSTALL_EXAMPLE_DIR}"
 		)
 	endif()
 endfunction()

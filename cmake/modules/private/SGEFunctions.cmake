@@ -1,4 +1,8 @@
 include(
+	FcpptCMakeUtils
+)
+
+include(
 	CMakeParseArguments
 )
 
@@ -309,8 +313,10 @@ function(
 		STREQUAL
 		"INTERFACE"
 	)
-		fcppt_utils_set_so_version(
+		set_target_properties(
 			${SGE_LIB_NAME}
+			PROPERTIES
+			VERSION
 			${SGE_USED_SO_VERSION}
 		)
 
@@ -369,7 +375,7 @@ function(
 		PUBLIC_INCLUDES
 		"$<BUILD_INTERFACE:${FCPPT_UTILS_PROJECT_BINARY_DIR}/include>"
 		"$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-		"$<INSTALL_INTERFACE:${INSTALL_INCLUDE_DIR}>"
+		"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 		${Boost_INCLUDE_DIRS}
 	)
 
@@ -477,9 +483,63 @@ function(
 			TARGETS
 			"${SGE_LIB_NAME}"
 			DESTINATION
-			"${INSTALL_LIBRARY_DIR}"
+			"${CMAKE_INSTALL_LIBDIR}"
 		)
 	endif()
+endfunction()
+
+function(
+	is_path_prefix_of
+	RESULT
+	PREFIX_STRING
+	PATH_STRING
+)
+	set(
+		${RESULT}
+		FALSE
+		PARENT_SCOPE
+	)
+
+	set(
+		CURRENT_DIRECTORY
+		"${PATH_STRING}"
+	)
+
+	while(
+		TRUE
+	)
+		if(
+			"${PREFIX_STRING}"
+			STREQUAL "${CURRENT_DIRECTORY}"
+		)
+			set(
+				${RESULT}
+				TRUE
+				PARENT_SCOPE
+			)
+
+			break()
+		endif()
+
+		get_filename_component(
+			NEW_CURRENT_DIRECTORY
+			"${CURRENT_DIRECTORY}"
+			PATH
+		)
+
+		if(
+			"${NEW_CURRENT_DIRECTORY}"
+			STREQUAL
+			"${CURRENT_DIRECTORY}"
+		)
+			break()
+		endif()
+
+		set(
+			CURRENT_DIRECTORY
+			"${NEW_CURRENT_DIRECTORY}"
+		)
+	endwhile()
 endfunction()
 
 function(
@@ -542,13 +602,13 @@ function(
 		INCLUDE_DIR
 		${_INCLUDE_DIRS}
 	)
-		fcppt_utils_is_path_prefix_of(
+		is_path_prefix_of(
 			INCLUDE_DIR_IS_PREFIX_OF_SOURCE_DIR
 			${FCPPT_UTILS_PROJECT_SOURCE_DIR}
 			${INCLUDE_DIR}
 		)
 
-		fcppt_utils_is_path_prefix_of(
+		is_path_prefix_of(
 			INCLUDE_DIR_IS_PREFIX_OF_BINARY_DIR
 			${FCPPT_UTILS_PROJECT_BINARY_DIR}
 			${INCLUDE_DIR}
@@ -700,7 +760,7 @@ function(
 			DIRECTORY
 			${SGE_INSTALL_INCLUDE_DIRS}
 			DESTINATION
-			"${INSTALL_INCLUDE_DIR}/sge/${DEST_INCLUDE_PATH}"
+			"${CMAKE_INSTALL_INCLUDEDIR}/sge/${DEST_INCLUDE_PATH}"
 		)
 	endif()
 endfunction()

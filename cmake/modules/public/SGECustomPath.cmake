@@ -93,6 +93,16 @@ function(
 	SGE_CONFIG_INSTALL_PATH
 	SGE_CONFIG_INCLUDE_DIR_RESULT
 )
+	if(
+		NOT IS_ABSOLUTE
+		${SGE_CONFIG_INSTALL_PATH}
+	)
+		message(
+			FATAL_ERROR
+			"SGE_CONFIG_INSTALL_PATH \"${SGE_CONFIG_INSTALL_PATH}\" is not absolute!"
+		)
+	endif()
+
 	set(
 		SGE_CONFIG_INCLUDE_DIR
 		${FCPPT_UTILS_PROJECT_BINARY_DIR}/sgeconfig/include
