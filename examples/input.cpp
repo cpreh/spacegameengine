@@ -184,7 +184,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <example_main.hpp>
 #include <exception>
 #include <ostream>
-#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -340,8 +339,8 @@ extract_silent_parameter(
 	awl::main::function_context const &
 );
 
-std::string const silent_parameter(
-	"-silent"
+fcppt::string const silent_parameter(
+	FCPPT_TEXT("-silent")
 );
 
 struct dummy_event_handler
