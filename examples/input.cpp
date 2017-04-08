@@ -159,16 +159,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
+#include <fcppt/args_from_second.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_wstring.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/make_enum_range.hpp>
 #include <fcppt/optional_string.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
+#include <fcppt/either/match.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/log/level.hpp>
@@ -178,6 +179,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/options/error.hpp>
+#include <fcppt/options/error_output.hpp>
+#include <fcppt/options/long_name.hpp>
+#include <fcppt/options/optional_help_text.hpp>
+#include <fcppt/options/optional_short_name.hpp>
+#include <fcppt/options/parse.hpp>
+#include <fcppt/options/result.hpp>
+#include <fcppt/options/result_of.hpp>
+#include <fcppt/options/switch.hpp>
+#include <fcppt/record/get.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -334,15 +346,6 @@ mouse_button(
 	sge::input::mouse::button_event const &
 );
 
-bool
-extract_silent_parameter(
-	awl::main::function_context const &
-);
-
-fcppt::string const silent_parameter(
-	FCPPT_TEXT("-silent")
-);
-
 struct dummy_event_handler
 {
 	typedef void result_type;
@@ -368,6 +371,27 @@ wrap_silent(
 	bool silent
 );
 
+FCPPT_RECORD_MAKE_LABEL(
+	silent_label
+);
+
+typedef
+fcppt::options::switch_<
+	silent_label
+>
+silent_switch;
+
+typedef
+fcppt::options::result_of<
+	silent_switch
+>
+options_result;
+
+awl::main::exit_code
+input_main(
+	options_result const &
+);
+
 }
 
 awl::main::exit_code const
@@ -376,29 +400,89 @@ example_main(
 )
 try
 {
-	if(
-		_context.argc() > 2
-		||
-		(
-			_context.argc() == 2
-			&&
-			_context.argv()[1]
-			!=
-			silent_parameter
+	silent_switch const args_parser{
+		fcppt::options::optional_short_name{},
+		fcppt::options::long_name{
+			FCPPT_TEXT("silent")
+		},
+		fcppt::options::optional_help_text{}
+	};
+
+	fcppt::options::result<
+		options_result
+	> const result{
+		fcppt::options::parse(
+			args_parser,
+			fcppt::args_from_second(
+				_context.argc(),
+				_context.argv()
+			)
 		)
-	)
-	{
-		awl::show_error(
-			FCPPT_TEXT("You can pass no arguments or -silent to suppress input.")
+	};
+
+	return
+		fcppt::either::match(
+			result,
+			[](
+				fcppt::options::error const &_error
+			)
+			{
+				awl::show_error(
+					fcppt::insert_to_fcppt_string(
+						_error
+					)
+				);
+
+				return
+					awl::main::exit_failure();
+			},
+			[](
+				options_result const &_result
+			)
+			{
+				return
+					input_main(
+						_result
+					);
+			}
 		);
+}
+catch(
+	fcppt::exception const &_exception
+)
+{
+	awl::show_error(
+		_exception.string()
+	);
 
-		return
-			awl::main::exit_failure();
-	}
+	return
+		awl::main::exit_failure();
+}
+catch(
+	std::exception const &_exception
+)
+{
+	awl::show_error_narrow(
+		_exception.what()
+	);
 
+	return
+		awl::main::exit_failure();
+}
+
+namespace
+{
+
+awl::main::exit_code
+input_main(
+	options_result const &_args
+)
+{
 	bool const silent(
-		extract_silent_parameter(
-			_context
+		fcppt::record::get<
+			silent_label
+		>(
+			_args
 		)
 	);
 
@@ -710,31 +794,6 @@ try
 	return
 		sys.window_system().exit_code();
 }
-catch(
-	fcppt::exception const &_exception
-)
-{
-	awl::show_error(
-		_exception.string()
-	);
-
-	return
-		awl::main::exit_failure();
-}
-catch(
-	std::exception const &_exception
-)
-{
-	awl::show_error_narrow(
-		_exception.what()
-	);
-
-	return
-		awl::main::exit_failure();
-}
-
-namespace
-{
 
 fcppt::string
 output_optional_string(
@@ -1315,20 +1374,6 @@ mouse_button(
 		<< FCPPT_TEXT("\n\tpressed: ")
 		<< _event.pressed()
 		<< FCPPT_TEXT('\n');
-}
-
-bool
-extract_silent_parameter(
-	awl::main::function_context const &_context
-)
-{
-	return
-		_context.argc() == 2
-		&&
-		_context.argv()[1]
-		==
-		silent_parameter
-		;
 }
 
 template<
