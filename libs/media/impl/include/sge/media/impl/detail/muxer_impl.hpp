@@ -56,6 +56,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/reference.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ios>
@@ -112,6 +115,8 @@ sge::media::detail::muxer<
 				>
 				optional_plugin_system_pair;
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)
 				optional_plugin_system_pair result(
 					fcppt::optional::maybe(
 						_parameters.extensions(),
@@ -145,6 +150,7 @@ sge::media::detail::muxer<
 					:
 						optional_plugin_system_pair()
 				);
+FCPPT_PP_POP_WARNING
 
 				if(
 					!result.has_value()
@@ -244,6 +250,8 @@ sge::media::detail::muxer<
 				sge::media::extension const &_extension
 			)
 			{
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)
 				return
 					fcppt::optional::maybe(
 						this->mux_extension(
@@ -281,6 +289,7 @@ sge::media::detail::muxer<
 								);
 						}
 					);
+FCPPT_PP_POP_WARNING
 			}
 		);
 }
@@ -376,6 +385,8 @@ sge::media::detail::muxer<
 				load_stream_result &&_cur
 			)
 			{
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)
 				return
 					fcppt::variant::match(
 						std::move(
@@ -421,6 +432,7 @@ sge::media::detail::muxer<
 								);
 						}
 					);
+FCPPT_PP_POP_WARNING
 			}
 		);
 }
