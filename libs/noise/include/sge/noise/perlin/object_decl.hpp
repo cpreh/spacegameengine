@@ -37,8 +37,8 @@ namespace noise
 {
 namespace perlin
 {
-template
-<
+
+template<
 	typename Float,
 	fcppt::math::size_type N,
 	typename Interpolator
@@ -57,33 +57,41 @@ public:
 	value_type;
 
 	typedef
-	fcppt::container::grid::object<value_type,N>
+	fcppt::container::grid::object<
+		value_type,
+		N
+	>
 	grid_type;
 
 	typedef
-	fcppt::math::vector::static_
-	<
+	fcppt::math::vector::static_<
 		value_type,
 		N
 	>
 	vector_type;
 
-	typedef typename
+	typedef
+	typename
 	grid_type::dim
 	dim;
 
-	template<typename Rng>
+	template<
+		typename Rng
+	>
 	object(
 		dim const &,
-		Rng &);
+		Rng &
+	);
 
 	value_type
 	sample(
-		vector_type) const
+		vector_type
+	) const
 	FCPPT_PP_PURE;
 private:
 	grid_type gradients_;
 };
+
 }
 }
 }

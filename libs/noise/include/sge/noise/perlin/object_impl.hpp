@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_NOISE_PERLIN_OBJECT_IMPL_HPP_INCLUDED
 
 #include <sge/noise/perlin/object_decl.hpp>
-#include <fcppt/no_init.hpp>
 #include <fcppt/container/grid/interpolate.hpp>
 #include <fcppt/math/mod.hpp>
 #include <fcppt/math/size_type.hpp>
@@ -31,62 +30,86 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/random/distribution/parameters/uniform_real.hpp>
 
 
-template
-<
+template<
 	typename Float,
 	fcppt::math::size_type N,
 	typename Interpolator
 >
-template
-<
+template<
 	typename Rng
 >
-sge::noise::perlin::object<Float,N,Interpolator>::object(
+sge::noise::perlin::object<
+	Float,
+	N,
+	Interpolator
+>::object(
 	dim const &_size,
-	Rng &_random_generator)
+	Rng &_random_generator
+)
 :
 	gradients_(
-		_size,
-		fcppt::no_init{}
+		[
+			&_size,
+			&_random_generator
+		]{
+			typedef
+			fcppt::random::distribution::basic<
+				fcppt::random::distribution::parameters::uniform_real<
+					value_type
+				>
+			>
+			uniform_real_distribution;
+
+			typedef
+			typename
+			uniform_real_distribution::param_type
+			distribution_parameters;
+
+			typedef
+			fcppt::random::variate<
+				Rng,
+				uniform_real_distribution
+			>
+			variate;
+
+			variate v{
+				_random_generator,
+				uniform_real_distribution{
+					typename
+					distribution_parameters::min{
+						fcppt::literal<
+							value_type
+						>(
+							-1
+						)
+					},
+					typename
+					distribution_parameters::sup{
+						fcppt::literal<
+							value_type
+						>(
+							1
+						)
+					}
+				}
+			};
+
+			return
+				grid_type{
+					_size,
+					[
+						&v
+					](
+						typename
+						grid_type::pos
+					){
+						return
+							v();
+					}
+				};
+		}()
 	)
 {
-	typedef
-	fcppt::random::distribution::basic
-	<
-		fcppt::random::distribution::parameters::uniform_real
-		<
-			value_type
-		>
-	>
-	uniform_real_distribution;
-
-	typedef
-	typename
-	uniform_real_distribution::param_type
-	distribution_parameters;
-
-	typedef
-	fcppt::random::variate
-	<
-		Rng,
-		uniform_real_distribution
-	>
-	variate;
-
-	variate v(
-		_random_generator,
-		uniform_real_distribution(
-			typename distribution_parameters::min(
-				static_cast<value_type>(
-					-1)),
-			typename distribution_parameters::sup(
-				static_cast<value_type>(
-					1))));
-
-	for(
-		auto &elem : gradients_
-	)
-		elem = v();
 }
 
 template
