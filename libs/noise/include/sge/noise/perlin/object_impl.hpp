@@ -22,9 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_NOISE_PERLIN_OBJECT_IMPL_HPP_INCLUDED
 
 #include <sge/noise/perlin/object_decl.hpp>
+#include <fcppt/use.hpp>
+#include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/container/grid/interpolate.hpp>
+#include <fcppt/math/at_c.hpp>
 #include <fcppt/math/mod.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/math/vector/init.hpp>
 #include <fcppt/random/variate.hpp>
 #include <fcppt/random/distribution/basic.hpp>
 #include <fcppt/random/distribution/parameters/uniform_real.hpp>
@@ -112,38 +116,78 @@ sge::noise::perlin::object<
 {
 }
 
-template
-<
+template<
 	typename Float,
 	fcppt::math::size_type N,
 	typename Interpolator
 >
 typename
-sge::noise::perlin::object<Float,N,Interpolator>::value_type
-sge::noise::perlin::object<Float,N,Interpolator>::sample(
-	vector_type v) const
+sge::noise::perlin::object<
+	Float,
+	N,
+	Interpolator
+>::value_type
+sge::noise::perlin::object<
+	Float,
+	N,
+	Interpolator
+>::sample(
+	vector_type const _v
+) const
 {
-	// TODO: init
-	for(fcppt::math::size_type i = 0u; i < N; ++i)
-	{
-		value_type const current_dimension =
-			static_cast<value_type>(
-				gradients_.size()[i]);
-
-		v[i] =
-			fcppt::math::mod(
-				fcppt::math::mod(
-					v[i],
-					current_dimension) +
-				current_dimension,
-				current_dimension);
-	}
-
 	return
 		fcppt::container::grid::interpolate(
 			gradients_,
-			v,
-			Interpolator());
+			fcppt::math::vector::init<
+				vector_type
+			>(
+				[
+					&_v,
+					this
+				](
+					auto const _index
+				)
+				{
+					FCPPT_USE(
+						_index
+					);
+
+					typedef
+					decltype(
+						_index
+					)
+					index;
+
+					value_type const current_dimension{
+						fcppt::cast::int_to_float<
+							value_type
+						>(
+							fcppt::math::at_c<
+								index::value
+							>(
+								gradients_.size()
+							)
+						)
+					};
+
+					return
+						fcppt::math::mod(
+							fcppt::math::mod(
+								fcppt::math::at_c<
+									index::value
+								>(
+									_v
+								),
+								current_dimension
+							)
+							+
+							current_dimension,
+							current_dimension
+						);
+				}
+			),
+			Interpolator()
+		);
 }
 
 #endif
