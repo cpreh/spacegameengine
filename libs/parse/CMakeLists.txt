@@ -49,6 +49,4 @@ add_sge_base_library(
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
 		${fcppt_filesystem_TARGET}
-	TRANSITIVE_COMPILE_DEFINITIONS
-		"BOOST_SPIRIT_USE_PHOENIX_V3"
 )
