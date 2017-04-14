@@ -26,10 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/contains.hpp>
 #include <fcppt/assert/pre_message.hpp>
-#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/container/dynamic_array.hpp>
+#include <fcppt/container/buffer/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
+#include <cstddef>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
@@ -41,7 +43,7 @@ platform_info_string(
 	cl_platform_id const &p,
 	cl_platform_info const &info)
 {
-	size_t param_value_size;
+	std::size_t param_value_size;
 
 	cl_int error_code =
 		clGetPlatformInfo(
@@ -55,9 +57,11 @@ platform_info_string(
 		error_code,
 		FCPPT_TEXT("clGetPlatformInfo"));
 
-	fcppt::container::raw_vector<char> result_string(
-		static_cast<fcppt::container::raw_vector<char>::size_type>(
-			param_value_size));
+	fcppt::container::dynamic_array<
+		char
+	> result_string(
+		param_value_size
+	);
 
 	error_code =
 		clGetPlatformInfo(
@@ -205,7 +209,9 @@ sge::opencl::platform::object::object(
 		FCPPT_TEXT("clGetDeviceIDs"));
 
 	typedef
-	fcppt::container::raw_vector<cl_device_id>
+	fcppt::container::buffer::object<
+		cl_device_id
+	>
 	device_id_sequence;
 
 	device_id_sequence device_ids(
@@ -219,9 +225,13 @@ sge::opencl::platform::object::object(
 			// Number of entries
 			number_of_devices,
 			// Device data
-			device_ids.data(),
+			device_ids.write_data(),
 			// Pointer to the number of devices
 			nullptr);
+
+	device_ids.written(
+		device_ids.write_size()
+	);
 
 	opencl::impl::handle_error(
 		error_code,

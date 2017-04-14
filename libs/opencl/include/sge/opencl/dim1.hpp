@@ -24,13 +24,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/size_type.hpp>
 #include <fcppt/math/dim/static.hpp>
 
+
 namespace sge
 {
 namespace opencl
 {
+
 typedef
-fcppt::math::dim::static_<sge::opencl::size_type,1>
+fcppt::math::dim::static_<
+	sge::opencl::size_type,
+	1
+>
 dim1;
+
 }
 }
 

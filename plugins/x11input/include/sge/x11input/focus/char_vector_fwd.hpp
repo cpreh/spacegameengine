@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_FOCUS_CHAR_VECTOR_FWD_HPP_INCLUDED
 
 #include <sge/input/focus/char_type.hpp>
-#include <fcppt/container/raw_vector_fwd.hpp>
+#include <fcppt/container/raw_vector/object_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ namespace focus
 {
 
 typedef
-fcppt::container::raw_vector<
+fcppt::container::raw_vector::object<
 	sge::input::focus::char_type
 >
 char_vector;

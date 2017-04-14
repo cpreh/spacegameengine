@@ -37,6 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/from_sge_format.hpp>
 #include <sge/libpng/optional_file_rep.hpp>
 #include <sge/libpng/to_sge_format.hpp>
+#include <fcppt/container/buffer/read_from.hpp>
+#include <fcppt/container/buffer/to_raw_vector.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/optional/map.hpp>
@@ -69,36 +71,53 @@ sge::libpng::file_rep_from_view(
 					)
 				);
 
-
 				sge::image::color::format const dest_format(
 					sge::libpng::to_sge_format(
 						_png_dest_format
 					)
 				);
 
-				sge::libpng::byte_vector bytes(
-					fcppt::math::dim::contents(
-						size
-					)
-					*
-					sge::image::color::format_stride(
-						dest_format
-					)
-				);
+				sge::libpng::byte_vector bytes{
+					fcppt::container::buffer::to_raw_vector(
+						fcppt::container::buffer::read_from<
+							sge::libpng::byte_vector::value_type
+						>(
+							fcppt::math::dim::contents(
+								size
+							)
+							*
+							sge::image::color::format_stride(
+								dest_format
+							),
+							[
+								size,
+								dest_format,
+								&_view
+							](
+								sge::libpng::byte_vector::pointer const _data,
+								sge::libpng::byte_vector::size_type const _byte_size
+							)
+							{
+								sge::image2d::algorithm::copy_and_convert(
+									_view,
+									sge::image2d::view::make(
+										_data,
+										size,
+										dest_format,
+										fcppt::math::dim::null<
+											sge::image2d::pitch
+										>()
+									),
+									sge::image::algorithm::may_overlap::no,
+									sge::image::algorithm::uninitialized::yes
+								);
 
-				sge::image2d::algorithm::copy_and_convert(
-					_view,
-					sge::image2d::view::make(
-						bytes.data(),
-						size,
-						dest_format,
-						fcppt::math::dim::null<
-							sge::image2d::pitch
-						>()
-					),
-					sge::image::algorithm::may_overlap::no,
-					sge::image::algorithm::uninitialized::yes
-				);
+								return
+									_byte_size;
+							}
+						)
+					)
+				};
 
 				return
 					sge::libpng::file_rep(

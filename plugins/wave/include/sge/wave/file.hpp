@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/bits_per_sample.hpp>
 #include <sge/audio/channel_count.hpp>
 #include <sge/audio/file.hpp>
+#include <sge/audio/sample_buffer_fwd.hpp>
 #include <sge/audio/sample_container_fwd.hpp>
 #include <sge/audio/sample_count.hpp>
 #include <sge/audio/sample_rate.hpp>
@@ -80,7 +81,7 @@ public:
 	sge::audio::sample_count
 	read(
 		sge::audio::sample_count,
-		sge::audio::sample_container &
+		sge::audio::sample_buffer &
 	)
 	override;
 

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/bytes_per_sample.hpp>
 #include <sge/audio/channel_count.hpp>
 #include <sge/audio/file.hpp>
+#include <sge/audio/sample_buffer.hpp>
 #include <sge/audio/sample_container.hpp>
 #include <sge/audio/sample_count.hpp>
 #include <sge/audio/sample_rate.hpp>
@@ -36,6 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/container/buffer/resize_write_area.hpp>
+#include <fcppt/container/buffer/to_raw_vector.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
@@ -79,7 +82,7 @@ sge::vorbis::file::file(
 sge::audio::sample_count
 sge::vorbis::file::read(
 	sge::audio::sample_count const _samples,
-	sge::audio::sample_container &_data
+	sge::audio::sample_buffer &_data
 )
 {
 	sge::audio::sample_count const bytes_per_sample(
@@ -96,25 +99,19 @@ sge::vorbis::file::read(
 		bytes_per_sample
 	};
 
-	std::size_t const old_size(
-		_data.size()
-	);
-
-	_data.resize_uninitialized(
-		_data.size()
-		+
-		bytes_to_read
-	);
+	_data =
+		fcppt::container::buffer::resize_write_area(
+			_data,
+			bytes_to_read
+		);
 
 	std::size_t const bytes_read(
 		sge::vorbis::read(
 			log_,
 			*stream_,
 			name_,
-			_data.data()
-			+
-			old_size,
-			bytes_to_read
+			_data.write_data(),
+			_data.write_size()
 		)
 	);
 
@@ -126,9 +123,7 @@ sge::vorbis::file::read(
 		0u
 	);
 
-	_data.resize_uninitialized(
-		old_size
-		+
+	_data.written(
 		bytes_read
 	);
 
@@ -141,7 +136,9 @@ sge::vorbis::file::read(
 sge::audio::sample_container
 sge::vorbis::file::read_all()
 {
-	sge::audio::sample_container result;
+	sge::audio::sample_buffer result{
+		0u
+	};
 
 	while(
 		this->read(
@@ -160,7 +157,11 @@ sge::vorbis::file::read_all()
 		;
 
 	return
-		result;
+		fcppt::container::buffer::to_raw_vector(
+			std::move(
+				result
+			)
+		);
 }
 
 sge::audio::channel_count

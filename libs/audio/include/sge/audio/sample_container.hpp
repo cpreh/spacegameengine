@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_SAMPLE_CONTAINER_HPP_INCLUDED
 
 #include <sge/audio/sample_container_fwd.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/container/raw_vector/object_impl.hpp>
 
 
 #endif

@@ -96,8 +96,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cin.hpp>
 #include <fcppt/io/cout.hpp>
@@ -384,14 +387,22 @@ try
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Done. Creating a context with all devices on this platform...\n");
 
-	sge::opencl::device::object_ref_sequence device_refs;
-	for(
-		sge::opencl::device::object &current_device
-		:
-		chosen_platform.devices()
-	)
-		device_refs.push_back(
-			&current_device);
+	sge::opencl::device::object_ref_sequence const device_refs(
+		fcppt::algorithm::map<
+			sge::opencl::device::object_ref_sequence
+		>(
+			chosen_platform.devices(),
+			[](
+				sge::opencl::device::object &_device
+			)
+			{
+				return
+					fcppt::make_ref(
+						_device
+					);
+			}
+		)
+	);
 
 	sge::opencl::context::object main_context(
 		sge::opencl::context::parameters(
@@ -549,7 +560,7 @@ try
 		<< FCPPT_TEXT("Done, now creating a command queue\n");
 
 	sge::opencl::command_queue::object main_queue(
-		*device_refs[0],
+		device_refs[0].get(),
 		main_context,
 		sge::opencl::command_queue::execution_mode::out_of_order,
 		sge::opencl::command_queue::profiling_mode::disabled);
@@ -561,7 +572,13 @@ try
 		sge::opencl::memory_object::scoped_objects scoped_vb(
 			main_queue,
 			sge::opencl::memory_object::base_ref_sequence{
-				(&cl_vb)
+				fcppt::reference_to_base<
+					sge::opencl::memory_object::base
+				>(
+					fcppt::make_ref(
+						cl_vb
+					)
+				)
 			}
 		);
 

@@ -40,6 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/cast/promote.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/container/buffer/read_from.hpp>
+#include <fcppt/container/buffer/to_raw_vector.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/info.hpp>
@@ -207,24 +209,42 @@ sge::libpng::file_rep_from_stream(
 	);
 
 	sge::libpng::byte_vector bytes(
-		fcppt::math::dim::contents(
-			size
-		)
-		*
-		bytes_per_pixel.get()
-	);
+		fcppt::container::buffer::to_raw_vector(
+			fcppt::container::buffer::read_from<
+				sge::libpng::byte_vector::value_type
+			>(
+				fcppt::math::dim::contents(
+					size
+				)
+				*
+				bytes_per_pixel.get(),
+				[
+					&read_ptr,
+					bytes_per_pixel,
+					size
+				](
+					sge::libpng::byte_vector::pointer const _data,
+					sge::libpng::byte_vector::size_type const _byte_size
+				)
+				{
+					sge::libpng::row_vector row_ptrs(
+						sge::libpng::make_row_vector(
+							size,
+							_data,
+							bytes_per_pixel
+						)
+					);
 
-	sge::libpng::row_vector row_ptrs(
-		sge::libpng::make_row_vector(
-			size,
-			bytes.data(),
-			bytes_per_pixel
-		)
-	);
+					::png_read_image(
+						read_ptr.ptr(),
+						row_ptrs.data()
+					);
 
-	::png_read_image(
-		read_ptr.ptr(),
-		row_ptrs.data()
+					return
+						_byte_size;
+				}
+			)
+		)
 	);
 
 	return

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENAL_BUFFER_ID_CONTAINER_HPP_INCLUDED
 
 #include <sge/openal/buffer_id_container_fwd.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/container/raw_vector/object_impl.hpp>
 
 
 #endif

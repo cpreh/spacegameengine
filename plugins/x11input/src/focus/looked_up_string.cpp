@@ -30,6 +30,7 @@ sge::x11input::focus::looked_up_string::looked_up_string(
 	sge::x11input::focus::char_vector &&_char_codes,
 	sge::input::key::code const _key_code
 )
+noexcept
 :
 	char_codes_(
 		std::move(
@@ -42,8 +43,29 @@ sge::x11input::focus::looked_up_string::looked_up_string(
 {
 }
 
+sge::x11input::focus::looked_up_string::looked_up_string(
+	looked_up_string &&
+)
+noexcept
+=
+default;
+
+sge::x11input::focus::looked_up_string &
+sge::x11input::focus::looked_up_string::operator=(
+	looked_up_string &&
+)
+noexcept
+=
+default;
+
+sge::x11input::focus::looked_up_string::~looked_up_string()
+noexcept
+{
+}
+
 sge::x11input::focus::char_vector const &
 sge::x11input::focus::looked_up_string::char_codes() const
+noexcept
 {
 	return
 		char_codes_;
@@ -51,6 +73,7 @@ sge::x11input::focus::looked_up_string::char_codes() const
 
 sge::input::key::code
 sge::x11input::focus::looked_up_string::key_code() const
+noexcept
 {
 	return
 		key_code_;

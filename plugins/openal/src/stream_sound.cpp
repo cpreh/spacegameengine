@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/file.hpp>
+#include <sge/audio/sample_buffer.hpp>
 #include <sge/audio/sample_container.hpp>
 #include <sge/audio/sample_count.hpp>
 #include <sge/audio/sound/base.hpp>
@@ -38,18 +39,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/funcs/source_queue_buffers.hpp>
 #include <sge/openal/funcs/source_unqueue_buffer.hpp>
 #include <sge/openal/funcs/source_unqueue_buffers.hpp>
+#include <fcppt/const.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/loop.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/loop_break.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/container/buffer/to_raw_vector.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/optional/make.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/nothing.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 sge::openal::stream_sound::stream_sound(
@@ -86,14 +92,14 @@ sge::openal::stream_sound::~stream_sound()
 {
 	this->stop();
 
-	sge::openal::buffer_id_container buffers(
+	sge::openal::buffer_id_container buffers{
 		fcppt::cast::to_unsigned(
 			sge::openal::funcs::get_source_int(
 				this->source_id(),
 				AL_BUFFERS_QUEUED
 			)
 		)
-	);
+	};
 
 	sge::openal::funcs::source_unqueue_buffers(
 		this->source_id(),
@@ -268,80 +274,117 @@ sge::openal::stream_sound::fill_buffer(
 	sge::openal::buffer_id const _buffer
 )
 {
-	sge::audio::sample_container data;
+	typedef
+	fcppt::optional::object<
+		sge::audio::sample_container
+	>
+	optional_sample_container;
 
-	sge::audio::sample_count samples_read(
-		audio_file_.read(
-			buffer_samples_,
-			data
-		)
-	);
+	auto const next_samples(
+		[
+			this
+		]()
+		->
+		optional_sample_container
+		{
+			sge::audio::sample_buffer data{
+				0u
+			};
 
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::_
-			<< FCPPT_TEXT("read ")
-			<< samples_read
-			<< FCPPT_TEXT(" samples")
-	);
-
-	if(
-		samples_read
-		==
-		0u
-	)
-	{
-		FCPPT_LOG_DEBUG(
-			log_,
-			fcppt::log::_
-				<< FCPPT_TEXT("at the end of last buffer")
-		);
-
-		// there's nothing more to load, but the sound should be looped? then reset
-		// and start from the beginning
-		if(
-			this->repeat()
-			!=
-			sge::audio::sound::repeat::loop
-		)
-			return
-				false;
-
-		audio_file_.reset();
-
-		samples_read =
-			audio_file_.read(
-				buffer_samples_,
-				data
+			sge::audio::sample_count samples_read(
+				audio_file_.read(
+					buffer_samples_,
+					data
+				)
 			);
-	}
 
-	FCPPT_ASSERT_ERROR(
-		!data.empty()
-	);
+			FCPPT_LOG_DEBUG(
+				log_,
+				fcppt::log::_
+					<< FCPPT_TEXT("read ")
+					<< samples_read
+					<< FCPPT_TEXT(" samples")
+			);
 
-	sge::openal::funcs::buffer_data(
-		_buffer,
-		format_,
-		data.data(),
-		fcppt::cast::size<
-			ALsizei
-		>(
-			fcppt::cast::to_signed(
-				data.size()
+			if(
+				samples_read
+				==
+				0u
 			)
-		),
-		fcppt::cast::size<
-			ALsizei
-		>(
-			fcppt::cast::to_signed(
-				audio_file_.sample_rate().get()
-			)
-		)
+			{
+				FCPPT_LOG_DEBUG(
+					log_,
+					fcppt::log::_
+						<< FCPPT_TEXT("at the end of last buffer")
+				);
+
+				// there's nothing more to load, but the sound should be looped? then reset
+				// and start from the beginning
+				if(
+					this->repeat()
+					!=
+					sge::audio::sound::repeat::loop
+				)
+					return
+						fcppt::optional::nothing{};
+
+				audio_file_.reset();
+
+				samples_read =
+					audio_file_.read(
+						buffer_samples_,
+						data
+					);
+			}
+
+			return
+				fcppt::optional::make(
+					fcppt::container::buffer::to_raw_vector(
+						std::move(
+							data
+						)
+					)
+				);
+		}
 	);
 
 	return
-		true;
+		fcppt::optional::maybe(
+			next_samples(),
+			fcppt::const_(
+				false
+			),
+			[
+				_buffer,
+				this
+			](
+				sge::audio::sample_container const &_data
+			)
+			{
+				sge::openal::funcs::buffer_data(
+					_buffer,
+					format_,
+					_data.data(),
+					fcppt::cast::size<
+						ALsizei
+					>(
+						fcppt::cast::to_signed(
+							_data.size()
+						)
+					),
+					fcppt::cast::size<
+						ALsizei
+					>(
+						fcppt::cast::to_signed(
+							audio_file_.sample_rate().get()
+						)
+					)
+				);
+
+				return
+					true;
+			}
+		);
 }
 
 template<

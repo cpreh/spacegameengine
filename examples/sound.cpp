@@ -62,7 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cin.hpp>
 #include <fcppt/io/cout.hpp>
@@ -85,6 +85,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <limits>
 #include <ostream>
 #include <string>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -104,9 +105,10 @@ load_raw(
 	);
 
 	typedef
-	fcppt::container::raw_vector<
+	std::vector<
 		char
-	> raw_byte_container;
+	>
+	raw_byte_container;
 
 	raw_byte_container raw_bytes{
 		std::istreambuf_iterator<
@@ -123,15 +125,17 @@ load_raw(
 		sge::audio::load_raw_exn(
 			_audio_loader,
 			sge::media::const_raw_range(
-				reinterpret_cast<
+				fcppt::cast::to_char_ptr<
 					sge::media::const_raw_pointer
 				>(
 					raw_bytes.data()
 				),
-				reinterpret_cast<
+				fcppt::cast::to_char_ptr<
 					sge::media::const_raw_pointer
 				>(
-					raw_bytes.data_end()
+					raw_bytes.data()
+					+
+					raw_bytes.size()
 				)
 			),
 			sge::media::optional_extension()

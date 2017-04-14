@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/single_device_system/parameters.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
@@ -65,7 +66,9 @@ construct_context_parameters(
 	sge::opencl::context::parameters result(
 		_platform,
 		sge::opencl::device::object_ref_sequence{
-			&_device
+			fcppt::make_ref(
+				_device
+			)
 		}
 	);
 

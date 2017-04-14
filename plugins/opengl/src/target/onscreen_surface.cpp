@@ -40,12 +40,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/container/buffer/object_impl.hpp>
+#include <fcppt/container/buffer/read_from.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/to_signed.hpp>
+#include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/nothing.hpp>
 #include <fcppt/optional/object_impl.hpp>
 
 
@@ -71,51 +74,69 @@ sge::opengl::target::onscreen_surface::lock_c(
 ) const
 {
 	if(
-		!buffer_.empty()
+		buffer_.has_value()
 	)
 		throw
 			sge::renderer::exception(
 				FCPPT_TEXT("renderer::target()::lock(): already locked!")
 			);
 
-	buffer_.resize_uninitialized(
-		fcppt::math::dim::contents(
-			_dest.size()
-		)
-		*
-		sge::image::color::format_stride(
-			this->format()
-		)
-	);
+	buffer_type &buffer{
+		fcppt::optional::assign(
+			buffer_,
+			fcppt::container::buffer::read_from<
+				sge::renderer::raw_value
+			>(
+				fcppt::math::dim::contents(
+					_dest.size()
+				)
+				*
+				sge::image::color::format_stride(
+					this->format()
+				),
+				[
+					this,
+					&_dest
+				](
+					buffer_type::pointer const _data,
+					buffer_type::size_type const _size
+				)
+				{
+					sge::opengl::target::read_pixels(
+						fcppt::math::vector::structure_cast<
+							sge::renderer::pixel_pos,
+							fcppt::cast::size_fun
+						>(
+							fcppt::math::vector::to_signed(
+								_dest.pos()
+							)
+						),
+						fcppt::math::dim::structure_cast<
+							sge::renderer::screen_size,
+							fcppt::cast::size_fun
+						>(
+							_dest.size()
+						),
+						sge::opengl::convert::color_order(
+							this->gl_format()
+						),
+						sge::opengl::convert::color_base_type(
+							this->gl_format()
+						),
+						_data
+					);
 
-	sge::opengl::target::read_pixels(
-		fcppt::math::vector::structure_cast<
-			sge::renderer::pixel_pos,
-			fcppt::cast::size_fun
-		>(
-			fcppt::math::vector::to_signed(
-				_dest.pos()
+					return
+						_size;
+				}
 			)
-		),
-		fcppt::math::dim::structure_cast<
-			sge::renderer::screen_size,
-			fcppt::cast::size_fun
-		>(
-			_dest.size()
-		),
-		sge::opengl::convert::color_order(
-			this->gl_format()
-		),
-		sge::opengl::convert::color_base_type(
-			this->gl_format()
-		),
-		buffer_.data()
-	);
+		)
+	};
 
 	return
 		sge::image2d::view::flipped(
 			sge::image2d::view::make_const(
-				buffer_.data(),
+				buffer.read_data(),
 				_dest.size(),
 				this->format(),
 				fcppt::math::dim::null<
@@ -128,7 +149,8 @@ sge::opengl::target::onscreen_surface::lock_c(
 void
 sge::opengl::target::onscreen_surface::unlock() const
 {
-	buffer_.free_memory();
+	buffer_ =
+		fcppt::optional::nothing{};
 }
 
 sge::opengl::target::onscreen_surface::dim

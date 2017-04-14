@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/impl/event/flatten_sequence.hpp>
 #include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
 #include <sge/opencl/memory_object/image/planar.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 

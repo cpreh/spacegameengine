@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/triangulation/traits/insert_result.hpp>
 #include <sge/projectile/triangulation/traits/scalar.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/container/raw_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/algorithm_ext/iota.hpp>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -39,8 +39,7 @@ namespace projectile
 namespace triangulation
 {
 
-template
-<
+template<
 	typename Tag,
 	typename ResultContainer,
 	typename ContourContainer
@@ -80,7 +79,7 @@ triangulate(
 	);
 
 	typedef
-	fcppt::container::raw_vector<
+	std::vector<
 		size_type
 	>
 	index_vector;
@@ -89,6 +88,7 @@ triangulate(
 		_contour.size()
 	);
 
+	// TODO: Initialize this directly
 	// we want a counter-clockwise polygon in indices
 	if(
 		static_cast<

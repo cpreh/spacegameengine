@@ -18,22 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENCL_PROGRAM_BLOB_HPP_INCLUDED
-#define SGE_OPENCL_PROGRAM_BLOB_HPP_INCLUDED
+#ifndef SGE_AUDIO_SAMPLE_BUFFER_HPP_INCLUDED
+#define SGE_AUDIO_SAMPLE_BUFFER_HPP_INCLUDED
 
-#include <fcppt/container/raw_vector.hpp>
+#include <sge/audio/sample_container_fwd.hpp>
+#include <fcppt/container/buffer/object_impl.hpp>
 
-namespace sge
-{
-namespace opencl
-{
-namespace program
-{
-typedef
-fcppt::container::raw_vector<unsigned char>
-blob;
-}
-}
-}
 
 #endif

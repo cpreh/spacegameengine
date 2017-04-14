@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/bytes_per_sample.hpp>
 #include <sge/audio/channel_count.hpp>
 #include <sge/audio/file.hpp>
+#include <sge/audio/sample_buffer.hpp>
 #include <sge/audio/sample_container.hpp>
 #include <sge/audio/sample_count.hpp>
 #include <sge/audio/sample_rate.hpp>
@@ -36,6 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/container/buffer/resize_write_area.hpp>
+#include <fcppt/container/buffer/to_raw_vector.hpp>
 #include <fcppt/endianness/host_format.hpp>
 #include <fcppt/endianness/reverse_mem.hpp>
 #include <fcppt/log/_.hpp>
@@ -132,7 +136,7 @@ sge::wave::file::reset()
 sge::audio::sample_count
 sge::wave::file::read(
 	sge::audio::sample_count const _sample_count,
-	sge::audio::sample_container &_array
+	sge::audio::sample_buffer &_array
 )
 {
 	sge::audio::sample_count const samples_to_read{
@@ -174,31 +178,21 @@ sge::wave::file::read(
 		bytes_per_sample
 	};
 
-	sge::audio::sample_container::size_type const old_size{
-		_array.size()
-	};
-
-	_array.resize_uninitialized(
-		old_size
-		+
-		fcppt::cast::size<
-			sge::audio::sample_container::size_type
-		>(
-			bytes_to_read
-		)
-	);
-
-	sge::audio::sample_container::pointer const old_pos{
-		_array.data()
-		+
-		old_size
-	};
+	_array =
+		fcppt::container::buffer::resize_write_area(
+			_array,
+			fcppt::cast::size<
+				sge::audio::sample_buffer::size_type
+			>(
+				bytes_to_read
+			)
+		);
 
 	file_->read(
 		fcppt::cast::to_char_ptr<
 			char *
 		>(
-			old_pos
+			_array.write_data()
 		),
 		fcppt::cast::size<
 			std::streamsize
@@ -208,6 +202,16 @@ sge::wave::file::read(
 			)
 		)
 	);
+
+	sge::audio::sample_buffer::size_type const bytes_read{
+		fcppt::cast::size<
+			sge::audio::sample_buffer::size_type
+		>(
+			fcppt::cast::to_unsigned(
+				file_->gcount()
+			)
+		)
+	};
 
 	if(
 		bytes_per_sample
@@ -224,15 +228,21 @@ sge::wave::file::read(
 	)
 		for(
 			sge::audio::sample_container::pointer data(
-				old_pos
+				_array.write_data()
 			);
-			data != _array.data_end();
+			// FIXME
+			data < _array.write_data() + bytes_read;
 			data += bytes_per_sample
 		)
 			fcppt::endianness::reverse_mem(
 				data,
 				bytes_per_sample
 			);
+
+	// TODO: Make this easier!
+	_array.written(
+		bytes_read
+	);
 
 	samples_read_ +=
 		samples_to_read;
@@ -244,15 +254,25 @@ sge::wave::file::read(
 sge::audio::sample_container
 sge::wave::file::read_all()
 {
-	sge::audio::sample_container result;
-
-	this->read(
+	sge::audio::sample_count const to_read{
 		info_.samples()
 		-
-		samples_read_,
+		samples_read_
+	};
+
+	sge::audio::sample_buffer result{
+		to_read
+	};
+
+	this->read(
+		to_read,
 		result
 	);
 
 	return
-		result;
+		fcppt::container::buffer::to_raw_vector(
+			std::move(
+				result
+			)
+		);
 }

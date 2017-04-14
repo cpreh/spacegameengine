@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_MEMORY_OBJECT_BASE_REF_SEQUENCE_HPP_INCLUDED
 
 #include <sge/opencl/memory_object/base_fwd.hpp>
-#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -31,9 +34,15 @@ namespace opencl
 {
 namespace memory_object
 {
+
 typedef
-fcppt::container::raw_vector<memory_object::base*>
+std::vector<
+	fcppt::reference<
+		sge::opencl::memory_object::base
+	>
+>
 base_ref_sequence;
+
 }
 }
 }

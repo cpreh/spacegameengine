@@ -24,18 +24,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/memory_object/scoped_objects.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
+#include <fcppt/reference.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opencl::memory_object::scoped_objects::scoped_objects(
-	command_queue::object &_queue,
-	memory_object::base_ref_sequence const &_objects)
+	sge::opencl::command_queue::object &_queue,
+	sge::opencl::memory_object::base_ref_sequence const &_objects)
 :
 	queue_(
-		_queue),
+		_queue
+	),
 	objects_(
-		_objects)
+		_objects
+	)
 {
 	FCPPT_ASSERT_PRE(
 		!_objects.empty());
@@ -43,72 +51,100 @@ sge::opencl::memory_object::scoped_objects::scoped_objects(
 	glFinish();
 
 	typedef
-	fcppt::container::raw_vector<cl_mem>
+	std::vector<
+		cl_mem
+	>
 	mem_vector;
 
-	// TODO: map
-	mem_vector impls;
-	impls.reserve(
-		static_cast<mem_vector::size_type>(
-			_objects.size()));
-	for(
-		memory_object::base_ref_sequence::const_iterator it =
-			_objects.begin();
-		it != _objects.end();
-		++it)
-		impls.push_back(
-			(*it)->impl());
+	mem_vector const impls(
+		fcppt::algorithm::map<
+			mem_vector
+		>(
+			_objects,
+			[](
+				fcppt::reference<
+					sge::opencl::memory_object::base
+				> const _ref
+			)
+			{
+				return
+					_ref.get().impl();
+			}
+		)
+	);
 
-	cl_int const error_code =
+	cl_int const error_code{
 		clEnqueueAcquireGLObjects(
 			_queue.impl(),
-			static_cast<cl_uint>(
-				impls.size()),
+			fcppt::cast::size<
+				cl_uint
+			>(
+				impls.size()
+			),
 			impls.data(),
 			0,
 			nullptr,
-			nullptr);
-	opencl::impl::handle_error(
+			nullptr
+		)
+	};
+
+	sge::opencl::impl::handle_error(
 		error_code,
-		FCPPT_TEXT("clEnqueueAcquireGLObjects"));
+		FCPPT_TEXT("clEnqueueAcquireGLObjects")
+	);
 }
 
 sge::opencl::memory_object::scoped_objects::~scoped_objects()
 {
 	typedef
-	fcppt::container::raw_vector<cl_mem>
+	std::vector<
+		cl_mem
+	>
 	mem_vector;
 
-	// TODO: map
-	mem_vector impls;
-	impls.reserve(
-		static_cast<mem_vector::size_type>(
-			objects_.size()));
-	for(
-		memory_object::base_ref_sequence::const_iterator it =
-			objects_.begin();
-		it != objects_.end();
-		++it)
-		impls.push_back(
-			(*it)->impl());
+	mem_vector const impls(
+		fcppt::algorithm::map<
+			mem_vector
+		>(
+			objects_,
+			[](
+				fcppt::reference<
+					sge::opencl::memory_object::base
+				> const _ref
+			)
+			{
+				return
+					_ref.get().impl();
+			}
+		)
+	);
 
 	cl_int error_code =
 		clEnqueueReleaseGLObjects(
 			queue_.impl(),
-			static_cast<cl_uint>(
-				impls.size()),
+			fcppt::cast::size<
+				cl_uint
+			>(
+				impls.size()
+			),
 			impls.data(),
 			0,
 			nullptr,
-			nullptr);
-	opencl::impl::handle_error(
+			nullptr
+		);
+
+	sge::opencl::impl::handle_error(
 		error_code,
-		FCPPT_TEXT("clReleaseAcquireGLObjects"));
+		FCPPT_TEXT("clReleaseAcquireGLObjects")
+	);
 
 	error_code =
 		clFinish(
-			queue_.impl());
-	opencl::impl::handle_error(
+			queue_.impl()
+		);
+
+	sge::opencl::impl::handle_error(
 		error_code,
-		FCPPT_TEXT("clFinish"));
+		FCPPT_TEXT("clFinish")
+	);
 }

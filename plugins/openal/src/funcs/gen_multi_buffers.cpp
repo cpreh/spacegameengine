@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/funcs/gen_multi_buffers.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/container/buffer/read_from.hpp>
+#include <fcppt/container/buffer/to_raw_vector.hpp>
 
 
 sge::openal::buffer_id_container
@@ -31,21 +33,31 @@ sge::openal::funcs::gen_multi_buffers(
 	sge::openal::buffer_id_container::size_type const _size
 )
 {
-	sge::openal::buffer_id_container result(
-		_size
-	);
-
-	sge::openal::funcs::gen_buffers(
-		result.data(),
-		fcppt::cast::size<
-			ALsizei
-		>(
-			fcppt::cast::to_signed(
-				_size
-			)
-		)
-	);
-
 	return
-		result;
+		fcppt::container::buffer::to_raw_vector(
+			fcppt::container::buffer::read_from<
+				sge::openal::buffer_id_container::value_type
+			>(
+				_size,
+				[](
+					sge::openal::buffer_id_container::pointer const _data,
+					sge::openal::buffer_id_container::size_type const _inner_size
+				)
+				{
+					sge::openal::funcs::gen_buffers(
+						_data,
+						fcppt::cast::size<
+							ALsizei
+						>(
+							fcppt::cast::to_signed(
+								_inner_size
+							)
+						)
+					);
+
+					return
+						_inner_size;
+				}
+			)
+		);
 }

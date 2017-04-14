@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/math/ceil_div.hpp>
 #include <fcppt/optional/deref.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -137,7 +136,7 @@ sge::x11input::device::select_events(
 	bit_type;
 
 	typedef
-	fcppt::container::raw_vector<
+	std::vector<
 		bit_type
 	>
 	raw_container;

@@ -22,9 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_DEVICE_OBJECT_REF_SEQUENCE_HPP_INCLUDED
 
 #include <sge/opencl/device/object_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -32,9 +34,15 @@ namespace opencl
 {
 namespace device
 {
+
 typedef
-std::vector<opencl::device::object *>
+std::vector<
+	fcppt::reference<
+		sge::opencl::device::object
+	>
+>
 object_ref_sequence;
+
 }
 }
 }

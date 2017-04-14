@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/platform.hpp>
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #include <sge/config/exception.hpp>
-#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/container/dynamic_array.hpp>
 #include <fcppt/error/strerrno.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -30,10 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sys/types.h>
 #include <pwd.h>
 #include <unistd.h>
-#include <cerrno>
 #include <fcppt/config/external_end.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-#include <sge/config/exception.hpp>
 #include <sge/config/exception.hpp>
 #include <awl/backends/windows/format_message.hpp>
 #include <fcppt/text.hpp>
@@ -71,46 +70,66 @@ sge::config::user_name()
 		fcppt::string(
 			raw_characters.data());
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+	long const bufsize{
+		sysconf(
+			_SC_GETPW_R_SIZE_MAX
+		)
+	};
+
+	if(
+		bufsize
+		==
+		-1
+	)
+		throw
+			sge::config::exception{
+				FCPPT_TEXT("Couldn't determine maximum user name length")
+			};
+
 	typedef
-	fcppt::container::raw_vector<char>
+	fcppt::container::dynamic_array<
+		char
+	>
 	raw_byte_sequence;
 
-	raw_byte_sequence buf;
-
-	long const bufsize =
-		sysconf(
-			_SC_GETPW_R_SIZE_MAX);
-
-	if (bufsize == -1)          /* Value was indeterminate */
-		throw
-			sge::config::exception(
-				FCPPT_TEXT("Couldn't determine maximum user name length"));
-
-	buf.resize(
-		static_cast<raw_byte_sequence::size_type>(
-			bufsize));
+	raw_byte_sequence buf{
+		fcppt::cast::to_unsigned(
+			bufsize
+		)
+	};
 
 	struct passwd pwd;
 	struct passwd *result;
 
-	int const error_code =
+	int const error_code{
 		getpwuid_r(
 			getuid(),
 			&pwd,
 			buf.data(),
 			buf.size(),
-			&result);
+			&result
+		)
+	};
 
-	if(error_code)
+	// TODO: We should check for ERANGE here.
+	if(
+		error_code
+		!=
+		0
+	)
 		throw
-			sge::config::exception(
-				FCPPT_TEXT("Couldn't determine user name: ")+
-				fcppt::error::strerrno());
+			sge::config::exception{
+				FCPPT_TEXT("Couldn't determine user name: ")
+				+
+				fcppt::error::strerrno()
+			};
 
 	return
 		fcppt::from_std_string(
 			std::string(
-				pwd.pw_name));
+				pwd.pw_name
+			)
+		);
 #else
 #error "don't know how to find a config path"
 #endif

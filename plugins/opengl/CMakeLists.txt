@@ -1158,7 +1158,6 @@ set(
 	plugins/opengl/include/sge/opengl/glx/swap_functions_fwd.hpp
 	plugins/opengl/include/sge/opengl/glx/system.hpp
 	plugins/opengl/include/sge/opengl/glx/visual/attribute_container.hpp
-	plugins/opengl/include/sge/opengl/glx/visual/attribute_container_fwd.hpp
 	plugins/opengl/include/sge/opengl/glx/visual/choose.hpp
 	plugins/opengl/include/sge/opengl/glx/visual/convert_color.hpp
 	plugins/opengl/include/sge/opengl/glx/visual/create.hpp

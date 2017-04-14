@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/impl/event/flatten_sequence.hpp>
 #include <sge/opencl/memory_object/buffer.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
 
 
 sge::opencl::command_queue::scoped_buffer_mapping::scoped_buffer_mapping(

@@ -88,12 +88,10 @@ set(
 	libs/opencl/include/sge/opencl/platform/profile_type.hpp
 	libs/opencl/include/sge/opencl/platform/profile_type_fwd.hpp
 	libs/opencl/include/sge/opencl/platform/version.hpp
-	libs/opencl/include/sge/opencl/program/blob.hpp
 	libs/opencl/include/sge/opencl/program/build_error.hpp
 	libs/opencl/include/sge/opencl/program/build_options.hpp
 	libs/opencl/include/sge/opencl/program/build_parameters.hpp
 	libs/opencl/include/sge/opencl/program/build_parameters_fwd.hpp
-	libs/opencl/include/sge/opencl/program/device_blob_map.hpp
 	libs/opencl/include/sge/opencl/program/file_to_source_string_sequence.hpp
 	libs/opencl/include/sge/opencl/program/notification_callback.hpp
 	libs/opencl/include/sge/opencl/program/notification_callback_type.hpp

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENAL_BUFFER_ID_CONTAINER_FWD_HPP_INCLUDED
 
 #include <sge/openal/al.hpp>
-#include <fcppt/container/raw_vector_fwd.hpp>
+#include <fcppt/container/raw_vector/object_fwd.hpp>
 
 
 namespace sge
@@ -30,9 +30,11 @@ namespace sge
 namespace openal
 {
 
-typedef fcppt::container::raw_vector<
+typedef
+fcppt::container::raw_vector::object<
 	ALuint
-> buffer_id_container;
+>
+buffer_id_container;
 
 }
 }

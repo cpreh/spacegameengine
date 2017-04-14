@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wlinput/focus/xkb_keycode.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/container/dynamic_array_impl.hpp>
 
 
 sge::charconv::utf8_string
@@ -48,7 +48,7 @@ sge::wlinput::focus::get_utf8_string(
 		0
 	);
 
-	fcppt::container::raw_vector<
+	fcppt::container::dynamic_array<
 		char
 	> buffer(
 		fcppt::cast::to_unsigned(

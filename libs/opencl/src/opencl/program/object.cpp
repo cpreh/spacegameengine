@@ -28,15 +28,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/program/build_parameters.hpp>
 #include <sge/opencl/program/object.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/post.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/config/gcc_version_at_least.hpp>
 #include <fcppt/container/data.hpp>
-#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/container/buffer/object.hpp>
+#include <fcppt/container/buffer/to_raw_vector.hpp>
+#include <fcppt/container/raw_vector/object_impl.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/name.hpp>
@@ -46,118 +50,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
-
-sge::opencl::program::object::object(
-	fcppt::log::context &_log_context,
-	sge::opencl::context::object &_context,
-	sge::opencl::program::device_blob_map const &_blobs,
-	sge::opencl::program::optional_build_parameters const &_opt_params)
-:
-	object(
-		_log_context
-	)
-{
-	typedef
-	fcppt::container::raw_vector<unsigned char const *>
-	blob_ptr_vector;
-
-	typedef
-	fcppt::container::raw_vector<size_t>
-	length_vector;
-
-	blob_ptr_vector blobs;
-
-	blobs.reserve(
-		static_cast<blob_ptr_vector::size_type>(
-			_blobs.size()));
-
-	length_vector lengths;
-
-	lengths.reserve(
-		static_cast<length_vector::size_type>(
-			_blobs.size()));
-
-	device_id_vector devices;
-
-	devices.reserve(
-		static_cast<device_id_vector::size_type>(
-			_blobs.size()));
-
-	// TODO: map
-	for(
-		program::device_blob_map::const_iterator current_blob =
-			_blobs.begin();
-		current_blob != _blobs.end();
-		++current_blob)
-	{
-		blobs.push_back(
-			&(*current_blob->second.begin()));
-		lengths.push_back(
-			static_cast<size_t>(
-				current_blob->second.size()));
-		devices.push_back(
-			current_blob->first->device_id_);
-	}
-
-	FCPPT_PP_PUSH_WARNING
-	#if FCPPT_CONFIG_GCC_VERSION_AT_LEAST(6,0)
-	// Alignment does not matter here
-	FCPPT_PP_DISABLE_GCC_WARNING(-Wignored-attributes)
-	#endif
-
-	typedef
-	fcppt::container::raw_vector<
-		cl_int
-	>
-	return_status_vector;
-
-	FCPPT_PP_POP_WARNING
-
-	// statuuus, with a long 'u' ;)
-	return_status_vector return_status(
-		static_cast<return_status_vector::size_type>(
-			_blobs.size()));
-
-	cl_int error_code;
-	program_ =
-		clCreateProgramWithBinary(
-			_context.context_,
-			static_cast<cl_uint>(
-				_blobs.size()),
-			devices.data(),
-			lengths.data(),
-			blobs.data(),
-			return_status.data(),
-			&error_code);
-
-	for(
-		auto const &current_return_status
-		:
-		return_status
-	)
-		opencl::impl::handle_error(
-			current_return_status,
-			FCPPT_TEXT("clCreateProgramWithBinary"));
-
-	opencl::impl::handle_error(
-		error_code,
-		FCPPT_TEXT("clCreateProgramWithBinary"));
-
-	fcppt::optional::maybe_void(
-		_opt_params,
-		[
-			this
-		](
-			sge::opencl::program::build_parameters const &_params
-		)
-		{
-			this->build(
-				_params
-			);
-		}
-	);
-}
 
 sge::opencl::program::object::object(
 	fcppt::log::context &_log_context,
@@ -170,11 +66,11 @@ sge::opencl::program::object::object(
 	)
 {
 	typedef
-	fcppt::container::raw_vector<char const *>
+	std::vector<char const *>
 	string_ptr_vector;
 
 	typedef
-	fcppt::container::raw_vector<size_t>
+	std::vector<size_t>
 	length_vector;
 
 	string_ptr_vector strings;
@@ -266,12 +162,13 @@ sge::opencl::program::object::build(
 					>(
 						_devices,
 						[](
-							// TODO: Don't use pointers
-							sge::opencl::device::object *const _device
+							fcppt::reference<
+								sge::opencl::device::object
+							> const _device
 						)
 						{
 							return
-								_device->device_id_;
+								_device.get().device_id_;
 						}
 					);
 			}
@@ -311,62 +208,6 @@ sge::opencl::program::object::build(
 	this->check_program_return_values();
 }
 
-sge::opencl::program::device_blob_map
-sge::opencl::program::object::binaries() const
-{
-	// Problem with this function: We have to
-	// - Query for the number of devices
-	// - Query the devices themselves
-	// - Resolve the device_ids to the sgeopencl device objects
-	// The last step is the problem. The devices associated with a
-	// program is a subset of all devices belonging to
-	// the context. We'd have to query all these devices (and the
-	// context). But I'm too lazy for that right now
-	throw sge::opencl::exception(FCPPT_TEXT("Not supported right now"));
-
-#if 0
-	sge::opencl::program::device_blob_map result;
-
-	cl_uint number_of_devices;
-
-	clGetProgramInfo(
-		program_,
-		CL_PROGRAM_NUM_DEVICES,
-		sizeof(cl_uint),
-		&number_of_devices,
-		0);
-
-	device_id_vector devices;
-
-	clGetProgramInfo(
-		program_,
-		CL_PROGRAM_DEVICES,
-		static_cast<size_t>(
-			sizeof(cl_device_id) * devices.size()),
-		devices.data(),
-		0);
-
-	fcppt::container::raw_vector<size_t> sizes;
-
-	clGetProgramInfo(
-		program_,
-		CL_PROGRAM_BINARY_SIZES,
-		static_cast<size_t>(
-			sizeof(size_t) * sizes.size()),
-		sizes.data(),
-		0);
-
-	program::device_blob_map device_to_blob(
-		static_cast<program::device_blob_map::size_type>(
-			number_of_devices));
-
-	for(program::device_blob_map::size_type i = 0; i < device_to_blob.size(); ++i)
-		device_to_blob[i].first = devices[i];
-
-	return result;
-#endif
-}
-
 sge::opencl::program::object::~object()
 {
 	if(!program_)
@@ -403,8 +244,6 @@ sge::opencl::program::object::object(
 sge::opencl::program::object::device_id_vector
 sge::opencl::program::object::program_devices() const
 {
-	device_id_vector devices;
-
 	// We need the device vector anyway when we handle the
 	// errors, so we get it here. Hope it's not too much
 	// of a performance penalty.
@@ -422,25 +261,39 @@ sge::opencl::program::object::program_devices() const
 		error_code,
 		FCPPT_TEXT("clGetProgramInfo(CL_PROGRAM_NUM_DEVICES)"));
 
-	devices.resize(
-		static_cast<device_id_vector::size_type>(
-			number_of_devices));
+	fcppt::container::buffer::object<
+		cl_device_id
+	> devices{
+		fcppt::cast::size<
+			device_id_vector::size_type
+		>(
+			number_of_devices
+		)
+	};
 
 	cl_int const error_code2 =
 		clGetProgramInfo(
 			program_,
 			CL_PROGRAM_DEVICES,
 			static_cast<size_t>(
-				sizeof(cl_device_id) * devices.size()),
-			devices.data(),
+				sizeof(cl_device_id) * devices.write_size()),
+			devices.write_data(),
 			nullptr);
+
+	devices.written(
+		devices.write_size()
+	);
 
 	sge::opencl::impl::handle_error(
 		error_code2,
 		FCPPT_TEXT("clGetProgramInfo(CL_PROGRAM_DEVICES)"));
 
 	return
-		devices;
+		fcppt::container::buffer::to_raw_vector(
+			std::move(
+				devices
+			)
+		);
 }
 
 void

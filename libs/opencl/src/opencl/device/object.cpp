@@ -24,65 +24,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/insert_to_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/container/buffer/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <algorithm>
 #include <cstddef>
 #include <cstring>
 #include <iterator>
 #include <string>
-#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
-template<typename Source,typename Dest>
-typename
-boost::enable_if
-<
-	std::is_same
-	<
-		Dest,
-		std::string
-	>,
-	void
->::type
-copy_to_result(
-	Source const &s,
-	Dest &d)
-{
-	d.resize(
-		static_cast<typename Dest::size_type>(
-			s.size()-1));
 
-	std::copy(
-		s.begin(),
-		s.end(),
-		d.begin());
+typedef
+fcppt::container::buffer::object<
+	char
+>
+buffer_type;
+
+void
+copy_to_result(
+	buffer_type const &_source,
+	std::string &_dest
+)
+{
+	_dest =
+		std::string(
+			_source.begin(),
+			std::prev(
+				_source.end()
+			)
+		);
 }
 
-template<typename Source,typename Dest>
-typename
-boost::disable_if
-<
-	std::is_same
-	<
-		Dest,
-		std::string
-	>,
-	void
->::type
+template<
+	typename Dest
+>
+void
 copy_to_result(
-	Source const &s,
-	Dest &d)
+	buffer_type const &_source,
+	Dest &_dest
+)
 {
 	std::memcpy(
-		&d,
-		s.data(),
-		static_cast<std::size_t>(
-			s.size()));
+		&_dest,
+		_source.read_data(),
+		_source.read_size()
+	);
 }
 
 template<typename Result>
@@ -105,18 +94,27 @@ device_info(
 		error_code,
 		FCPPT_TEXT("clGetDeviceInfo(option size)"));
 
-	fcppt::container::raw_vector<char> result_string(
-		static_cast<fcppt::container::raw_vector<char>::size_type>(
-			param_value_size));
+	buffer_type result_string(
+		fcppt::cast::size<
+			buffer_type::size_type
+		>(
+			param_value_size
+		)
+	);
 
 	error_code =
 		clGetDeviceInfo(
 			current_device,
 			info,
 			param_value_size,
-			result_string.data(),
+			result_string.write_data(),
 			// param value size
-			nullptr);
+			nullptr
+		);
+
+	result_string.written(
+		result_string.write_size()
+	);
 
 	sge::opencl::impl::handle_error(
 		error_code,
@@ -126,9 +124,11 @@ device_info(
 
 	copy_to_result(
 		result_string,
-		result);
+		result
+	);
 
-	return result;
+	return
+		result;
 }
 
 
@@ -269,12 +269,18 @@ max_work_item_sizes_to_string(
 			CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS);
 
 	typedef
-	fcppt::container::raw_vector<std::size_t>
+	fcppt::container::buffer::object<
+		std::size_t
+	>
 	size_vector;
 
-	size_vector sizes(
-		static_cast<size_vector::size_type>(
-			max_work_item_dimensions));
+	size_vector sizes{
+		fcppt::cast::size<
+			size_vector::size_type
+		>(
+			max_work_item_dimensions
+		)
+	};
 
 	cl_int const error_code =
 		clGetDeviceInfo(
@@ -282,9 +288,13 @@ max_work_item_sizes_to_string(
 			CL_DEVICE_MAX_WORK_ITEM_SIZES,
 			static_cast<std::size_t>(
 				sizeof(std::size_t) * max_work_item_dimensions),
-			sizes.data(),
+			sizes.write_data(),
 			// param value size
 			nullptr);
+
+	sizes.written(
+		sizes.write_size()
+	);
 
 	sge::opencl::impl::handle_error(
 		error_code,

@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/exception.hpp>
+#include <sge/input/focus/char_type.hpp>
 #include <sge/x11input/focus/char_vector.hpp>
 #include <sge/x11input/focus/looked_up_string.hpp>
 #include <sge/x11input/focus/lookup_string.hpp>
@@ -30,6 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/container/buffer/object_impl.hpp>
+#include <fcppt/container/buffer/to_raw_vector.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
@@ -73,9 +76,7 @@ sge::x11input::focus::lookup_string(
 	XIDeviceEvent const &_event
 )
 {
-	KeySym key_sym{
-		NoSymbol
-	};
+	// TODO: Refactor this!
 
 	XKeyPressedEvent xev(
 		sge::x11input::focus::translate_event(
@@ -84,30 +85,57 @@ sge::x11input::focus::lookup_string(
 	);
 
 	FCPPT_ASSERT_ERROR(
-		xev.type == KeyPress
+		xev.type
+		==
+		KeyPress
 	);
 
-	Status status;
+	auto const get_size(
+		[
+			&_input_context,
+			&xev
+		]
+		{
+			Status status;
 
-	// first get the size needed
-	int const needed_chars(
-		::do_lookup(
-			_input_context,
-			xev,
-			nullptr,
-			0,
-			key_sym,
-			status
-		)
+			KeySym key_sym{
+				NoSymbol
+			};
+
+			// first get the size needed
+			int const needed_chars{
+				::do_lookup(
+					_input_context,
+					xev,
+					nullptr,
+					0,
+					key_sym,
+					status
+				)
+			};
+
+			FCPPT_ASSERT_ERROR(
+				needed_chars == 0
+				||
+				status == XBufferOverflow
+			);
+
+			return
+				needed_chars;
+		}
 	);
 
-	FCPPT_ASSERT_ERROR(
-		needed_chars == 0
-		||
-		status == XBufferOverflow
-	);
+	typedef
+	fcppt::container::buffer::object<
+		sge::input::focus::char_type
+	>
+	buffer_type;
 
-	sge::x11input::focus::char_vector buffer(
+	int const needed_chars{
+		get_size()
+	};
+
+	buffer_type buffer{
 		fcppt::cast::size<
 			sge::x11input::focus::char_vector::size_type
 		>(
@@ -115,18 +143,24 @@ sge::x11input::focus::lookup_string(
 				needed_chars
 			)
 		)
-	);
+	};
+
+	Status status;
+
+	KeySym key_sym{
+		NoSymbol
+	};
 
 	int const chars_return(
 		::do_lookup(
 			_input_context,
 			xev,
-			buffer.data(),
+			buffer.write_data(),
 			fcppt::cast::size<
 				int
 			>(
 				fcppt::cast::to_signed(
-					buffer.size()
+					buffer.write_size()
 				)
 			),
 			key_sym,
@@ -139,9 +173,9 @@ sge::x11input::focus::lookup_string(
 	);
 
 	// less chars might be returned here if the locale doesn't support it
-	buffer.resize_uninitialized(
+	buffer.written(
 		fcppt::cast::size<
-			sge::x11input::focus::char_vector::size_type
+			buffer_type::size_type
 		>(
 			fcppt::cast::to_unsigned(
 				chars_return
@@ -150,7 +184,9 @@ sge::x11input::focus::lookup_string(
 	);
 
 	if(
-		chars_return != needed_chars
+		chars_return
+		!=
+		needed_chars
 	)
 	{
 		FCPPT_LOG_ERROR(
@@ -172,8 +208,10 @@ sge::x11input::focus::lookup_string(
 	case XLookupChars:
 		return
 			sge::x11input::focus::looked_up_string(
-				std::move(
-					buffer
+				fcppt::container::buffer::to_raw_vector(
+					std::move(
+						buffer
+					)
 				),
 				sge::input::key::code::unknown
 			);
@@ -188,8 +226,10 @@ sge::x11input::focus::lookup_string(
 	case XLookupBoth:
 		return
 			sge::x11input::focus::looked_up_string(
-				std::move(
-					buffer
+				fcppt::container::buffer::to_raw_vector(
+					std::move(
+						buffer
+					)
 				),
 				sge::x11input::key::translate_sym(
 					key_sym

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/bits_per_sample.hpp>
 #include <sge/audio/channel_count.hpp>
 #include <sge/audio/file_fwd.hpp>
+#include <sge/audio/sample_buffer_fwd.hpp>
 #include <sge/audio/sample_container_fwd.hpp>
 #include <sge/audio/sample_count.hpp>
 #include <sge/audio/sample_rate.hpp>
@@ -63,9 +64,10 @@ public:
 	*/
 	virtual
 	sge::audio::sample_count
+	// TODO: Return the buffer here?
 	read(
 		sge::audio::sample_count _samples,
-		sge::audio::sample_container &_destination
+		sge::audio::sample_buffer &_destination
 	)
 	FCPPT_PP_WARN_UNUSED_RESULT
 	= 0;

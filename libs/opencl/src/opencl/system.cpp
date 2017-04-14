@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/platform/object.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/container/buffer/object.hpp>
 
 
 sge::opencl::system::system()
@@ -50,7 +50,7 @@ sge::opencl::system::system()
 		return;
 
 	typedef
-	fcppt::container::raw_vector<cl_platform_id>
+	fcppt::container::buffer::object<cl_platform_id>
 	platform_id_sequence;
 
 	platform_id_sequence platform_ids(
@@ -61,14 +61,19 @@ sge::opencl::system::system()
 	error_code =
 		clGetPlatformIDs(
 			number_of_platforms,
-			platform_ids.data(),
+			platform_ids.write_data(),
 			// pointer to the number of platforms
 			nullptr);
+
+	platform_ids.written(
+		platform_ids.write_size()
+	);
 
 	opencl::impl::handle_error(
 		error_code,
 		FCPPT_TEXT("clGetplatformIDs"));
 
+	// TODO: map
 	for(
 		auto const &platform
 		:

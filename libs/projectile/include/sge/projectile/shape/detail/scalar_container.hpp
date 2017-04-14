@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_SHAPE_DETAIL_SCALAR_CONTAINER_HPP_INCLUDED
 
 #include <sge/projectile/scalar.hpp>
-#include <fcppt/container/raw_vector.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -35,7 +37,7 @@ namespace detail
 {
 
 typedef
-fcppt::container::raw_vector<
+std::vector<
 	sge::projectile::scalar
 >
 scalar_container;

@@ -24,8 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key/code.hpp>
 #include <sge/x11input/focus/char_vector.hpp>
 #include <sge/x11input/focus/looked_up_string_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
+#include <fcppt/noncopyable.hpp>
 
 
 namespace sge
@@ -37,24 +36,41 @@ namespace focus
 
 class looked_up_string
 {
-	FCPPT_NONASSIGNABLE(
+	FCPPT_NONCOPYABLE(
 		looked_up_string
 	);
 public:
 	looked_up_string(
 		sge::x11input::focus::char_vector &&,
 		sge::input::key::code
-	);
+	)
+	noexcept;
+
+	looked_up_string(
+		looked_up_string &&
+	)
+	noexcept;
+
+	looked_up_string &
+	operator=(
+		looked_up_string &&
+	)
+	noexcept;
+
+	~looked_up_string()
+	noexcept;
 
 	sge::x11input::focus::char_vector const &
-	char_codes() const;
+	char_codes() const
+	noexcept;
 
 	sge::input::key::code
-	key_code() const;
+	key_code() const
+	noexcept;
 private:
-	sge::x11input::focus::char_vector const char_codes_;
+	sge::x11input::focus::char_vector char_codes_;
 
-	sge::input::key::code const key_code_;
+	sge::input::key::code key_code_;
 };
 
 }

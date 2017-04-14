@@ -27,7 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/color_buffer/readable_surface.hpp>
 #include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/raw_vector_decl.hpp>
+#include <fcppt/container/buffer/object_decl.hpp>
+#include <fcppt/optional/object_decl.hpp>
 
 
 namespace sge
@@ -74,15 +75,21 @@ private:
 	format() const
 	override;
 
+	awl::window::object &window_;
+
 	typedef
-	fcppt::container::raw_vector<
+	fcppt::container::buffer::object<
 		sge::renderer::raw_value
 	>
 	buffer_type;
 
-	awl::window::object &window_;
+	typedef
+	fcppt::optional::object<
+		buffer_type
+	>
+	optional_buffer_type;
 
-	mutable buffer_type buffer_;
+	mutable optional_buffer_type buffer_;
 };
 
 }

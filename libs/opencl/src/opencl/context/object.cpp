@@ -26,9 +26,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/config.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
-#include <fcppt/container/raw_vector.hpp>
 #if defined(SGE_OPENCL_HAVE_GLX)
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
@@ -39,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #error "Don't know what to include for opencl platform code"
 #endif
 #include <fcppt/config/external_begin.hpp>
-#include <boost/range/iterator_range.hpp>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -99,33 +101,48 @@ sge::opencl::context::object::object(
 	};
 
 	typedef
-	fcppt::container::raw_vector<cl_device_id>
-	raw_device_sequence;
+	std::vector<
+		cl_device_id
+	>
+	device_id_vector;
 
-	raw_device_sequence raw_devices;
+	device_id_vector const devices(
+		fcppt::algorithm::map<
+			device_id_vector
+		>(
+			_params.device_refs(),
+			[](
+				fcppt::reference<
+					sge::opencl::device::object
+				> const _ref
+			)
+			{
+				return
+					_ref.get().device_id_;
+			}
+		)
+	);
 
-	for(
-		opencl::device::object_ref_sequence::const_iterator current_device =
-			_params.device_refs().begin();
-		current_device != _params.device_refs().end();
-		++current_device)
-		raw_devices.push_back(
-			(*current_device)->device_id_);
-
+	// TODO: Initialize this directly
 	context_ =
 		clCreateContext(
 			props,
-			static_cast<cl_uint>(
-				raw_devices.size()),
-			raw_devices.data(),
+			fcppt::cast::size<
+				cl_uint
+			>(
+				devices.size()
+			),
+			devices.data(),
 			&object::error_callback,
 			// user data to the callback
 			this,
-			&error_code);
+			&error_code
+		);
 
-	opencl::impl::handle_error(
+	sge::opencl::impl::handle_error(
 		error_code,
-		FCPPT_TEXT("clCreateContext"));
+		FCPPT_TEXT("clCreateContext")
+	);
 }
 
 cl_context
