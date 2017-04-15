@@ -22,7 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/sampler/address/mode_t.hpp>
 #include <sge/renderer/state/core/sampler/address/mode_u.hpp>
 #include <sge/renderer/state/core/sampler/address/parameters.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wshadow)
 
 sge::renderer::state::core::sampler::address::parameters::parameters(
 	sge::renderer::state::core::sampler::address::mode_s const _mode_s,
@@ -41,6 +47,8 @@ sge::renderer::state::core::sampler::address::parameters::parameters(
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::renderer::state::core::sampler::address::mode_s
 sge::renderer::state::core::sampler::address::parameters::mode_s() const

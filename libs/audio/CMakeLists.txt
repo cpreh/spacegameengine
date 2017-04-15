@@ -53,6 +53,8 @@ set(
 	libs/audio/include/sge/audio/position_fwd.hpp
 	libs/audio/include/sge/audio/raw_data.hpp
 	libs/audio/include/sge/audio/raw_pointer.hpp
+	libs/audio/include/sge/audio/sample_buffer.hpp
+	libs/audio/include/sge/audio/sample_buffer_fwd.hpp
 	libs/audio/include/sge/audio/sample_container.hpp
 	libs/audio/include/sge/audio/sample_container_fwd.hpp
 	libs/audio/include/sge/audio/sample_count.hpp

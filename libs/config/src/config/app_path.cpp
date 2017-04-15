@@ -28,8 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/src/core/include_windows.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/char_type.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/container/buffer/read_from.hpp>
+#include <fcppt/container/buffer/to_raw_vector.hpp>
+#include <fcppt/container/raw_vector/object_impl.hpp>
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
@@ -43,34 +46,58 @@ boost::filesystem::path
 sge::config::app_path()
 {
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-	typedef fcppt::container::raw_vector<
+	typedef
+	fcppt::container::raw_vector::object<
 		fcppt::char_type
-	> buffer_type;
+	>
+	buffer_type;
 
-	buffer_type buf(
-		32768u
-	);
-
-	if(
-		!::GetModuleFileName(
-			NULL,
-			buf.data(),
-			static_cast<
-				DWORD
+	buffer_type const buf{
+		fcppt::container::buffer::to_raw_vector(
+			fcppt::container::buffer::read_from<
+				fcppt::char_type
 			>(
-				buf.size()
+				32768u,
+				[](
+					buffer_type::pointer const _data,
+					buffer_type::size_type const _size
+				)
+				{
+					DWORD const count{
+						::GetModuleFileName(
+							NULL,
+							_data,
+							fcppt::cast::size<
+								DWORD
+							>(
+								_size
+							)
+						)
+					};
+
+					if(
+						count
+						==
+						0u
+					)
+						throw
+							sge::config::exception{
+								FCPPT_TEXT("GetModuleFileName() failed!")
+							};
+
+					return
+						count;
+				}
 			)
 		)
-	)
-		throw sge::config::exception(
-			FCPPT_TEXT("GetModuleFileName() failed!")
-		);
+	};
 
 	return
 		boost::filesystem::path(
-			fcppt::string(
-				buf.data()
-			)
+			fcppt::string{
+				buf.data(),
+				buf.data_end()
+			}
 		).parent_path();
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 	boost::filesystem::path const self(
@@ -82,9 +109,10 @@ sge::config::app_path()
 			self
 		)
 	)
-		throw sge::config::exception(
-			FCPPT_TEXT("/prof/self/exe does not exist")
-		);
+		throw
+			sge::config::exception{
+				FCPPT_TEXT("/prof/self/exe does not exist")
+			};
 
 	return
 		boost::filesystem::read_symlink(

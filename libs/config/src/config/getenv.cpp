@@ -24,10 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/platform.hpp>
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/src/core/include_windows.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/container/raw_vector_impl.hpp>
 #include <fcppt/char_type.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/container/buffer/object_impl.hpp>
+#include <fcppt/container/buffer/read_from_opt.hpp>
+#include <fcppt/optional/make_if.hpp>
+#include <fcppt/optional/map.hpp>
 #else
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/to_std_string.hpp>
@@ -43,44 +45,67 @@ sge::config::getenv(
 )
 {
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-	// an environment variable cannot be longer than 32767 characters
-	fcppt::container::raw_vector<
+	typedef
+	fcppt::container::buffer::object<
 		fcppt::char_type
-	> buffer(
-		32767
-	);
-
-	DWORD const ret(
-		::GetEnvironmentVariable(
-			_name.c_str(),
-			buffer.data(),
-			static_cast<
-				DWORD
-			>(
-				buffer.size()
-			)
-		)
-	);
-
-	if(
-		ret == 0
-	)
-		return fcppt::optional_string();
-
-	FCPPT_ASSERT_ERROR(
-		ret <=
-		static_cast<
-			DWORD
-		>(
-			buffer.size()
-		)
-	);
-
+	>
+	buffer_type;
+	
 	return
-		fcppt::optional_string(
-			fcppt::string(
-				buffer.data()
+		fcppt::optional::map(
+			fcppt::container::buffer::read_from_opt<
+				fcppt::char_type
+			>(
+				// An environment variable cannot be longer than 32767 characters
+				32767u,
+				[
+					&_name
+				](
+					buffer_type::pointer const _data,
+					buffer_type::size_type const _size
+				)
+				{
+					DWORD const ret(
+						::GetEnvironmentVariable(
+							_name.c_str(),
+							_data,
+							fcppt::cast::size<
+								DWORD
+							>(
+								_size
+							)
+						)
+					);
+
+					return
+						fcppt::optional::make_if(
+							ret
+							!=
+							0u,
+							[
+								ret
+							]{
+								return
+									fcppt::cast::size<
+										buffer_type::size_type
+									>(
+										ret
+									);
+							}
+						);
+				}
+			),
+			[](
+				fcppt::container::buffer::object<
+					fcppt::char_type
+				> &&_buffer
 			)
+			{
+				return
+					fcppt::string{
+						_buffer.read_data()
+					};
+			}
 		);
 #else
 	char const *const ret(

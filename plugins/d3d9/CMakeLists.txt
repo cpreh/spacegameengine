@@ -386,7 +386,6 @@ SET(
 	plugins/d3d9/include/sge/d3d9/vf/convert/vector_type.hpp
 	plugins/d3d9/include/sge/d3d9/vf/create.hpp
 	plugins/d3d9/include/sge/d3d9/vf/element_vector.hpp
-	plugins/d3d9/include/sge/d3d9/vf/element_vector_fwd.hpp
 	plugins/d3d9/include/sge/d3d9/vf/texture_coordinate_count.hpp
 	plugins/d3d9/include/sge/d3d9/vf/texture_coordinates.hpp
 	plugins/d3d9/include/sge/d3d9/visual.hpp
