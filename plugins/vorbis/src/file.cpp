@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
-#include <fcppt/container/buffer/resize_write_area.hpp>
+#include <fcppt/container/buffer/append_from.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -82,7 +82,7 @@ sge::vorbis::file::file(
 sge::audio::sample_count
 sge::vorbis::file::read(
 	sge::audio::sample_count const _samples,
-	sge::audio::sample_buffer &_data
+	sge::audio::sample_buffer &_buffer
 )
 {
 	sge::audio::sample_count const bytes_per_sample(
@@ -99,36 +99,55 @@ sge::vorbis::file::read(
 		bytes_per_sample
 	};
 
-	_data =
-		fcppt::container::buffer::resize_write_area(
-			_data,
-			bytes_to_read
+	// TODO: Make this API less ugly
+	sge::audio::sample_buffer::size_type const old_size{
+		_buffer.read_size()
+	};
+
+	_buffer =
+		fcppt::container::buffer::append_from(
+			std::move(
+				_buffer
+			),
+			bytes_to_read,
+			[
+				bytes_per_sample,
+				this
+			](
+				sge::audio::sample_buffer::pointer const _data,
+				sge::audio::sample_buffer::size_type const _size
+			)
+			{
+				std::size_t const bytes_read(
+					sge::vorbis::read(
+						log_,
+						*stream_,
+						name_,
+						_data,
+						_size
+					)
+				);
+
+				// FIXME: This might not be true if a file is truncated?
+				FCPPT_ASSERT_ERROR(
+					bytes_read
+					%
+					bytes_per_sample
+					==
+					0u
+				);
+
+				return
+					bytes_read;
+			}
 		);
 
-	std::size_t const bytes_read(
-		sge::vorbis::read(
-			log_,
-			*stream_,
-			name_,
-			_data.write_data(),
-			_data.write_size()
-		)
-	);
-
-	FCPPT_ASSERT_ERROR(
-		bytes_read
-		%
-		bytes_per_sample
-		==
-		0u
-	);
-
-	_data.written(
-		bytes_read
-	);
-
 	return
-		bytes_read
+		(
+			_buffer.read_size()
+			-
+			old_size
+		)
 		/
 		bytes_per_sample;
 }

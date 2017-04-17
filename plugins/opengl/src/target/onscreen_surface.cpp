@@ -85,7 +85,7 @@ sge::opengl::target::onscreen_surface::lock_c(
 		fcppt::optional::assign(
 			buffer_,
 			fcppt::container::buffer::read_from<
-				sge::renderer::raw_value
+				buffer_type
 			>(
 				fcppt::math::dim::contents(
 					_dest.size()

@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/src/core/include_windows.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/container/buffer/object_impl.hpp>
 #include <fcppt/container/buffer/read_from.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
 #include <fcppt/container/raw_vector/object_impl.hpp>
@@ -55,7 +56,9 @@ sge::config::app_path()
 	buffer_type const buf{
 		fcppt::container::buffer::to_raw_vector(
 			fcppt::container::buffer::read_from<
-				fcppt::char_type
+				fcppt::container::buffer::object<
+					fcppt::char_type
+				>
 			>(
 				32768u,
 				[](

@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/from_sge_format.hpp>
 #include <sge/libpng/optional_file_rep.hpp>
 #include <sge/libpng/to_sge_format.hpp>
+#include <fcppt/container/buffer/object_impl.hpp>
 #include <fcppt/container/buffer/read_from.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
 #include <fcppt/math/dim/contents.hpp>
@@ -80,7 +81,9 @@ sge::libpng::file_rep_from_view(
 				sge::libpng::byte_vector bytes{
 					fcppt::container::buffer::to_raw_vector(
 						fcppt::container::buffer::read_from<
-							sge::libpng::byte_vector::value_type
+							fcppt::container::buffer::object<
+								sge::libpng::byte_vector::value_type
+							>
 						>(
 							fcppt::math::dim::contents(
 								size

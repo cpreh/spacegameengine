@@ -38,7 +38,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
-#include <fcppt/container/buffer/resize_write_area.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
 #include <fcppt/endianness/host_format.hpp>
 #include <fcppt/endianness/reverse_mem.hpp>
@@ -178,15 +177,13 @@ sge::wave::file::read(
 		bytes_per_sample
 	};
 
-	_array =
-		fcppt::container::buffer::resize_write_area(
-			_array,
-			fcppt::cast::size<
-				sge::audio::sample_buffer::size_type
-			>(
-				bytes_to_read
-			)
-		);
+	_array.resize_write_area(
+		fcppt::cast::size<
+			sge::audio::sample_buffer::size_type
+		>(
+			bytes_to_read
+		)
+	);
 
 	file_->read(
 		fcppt::cast::to_char_ptr<
@@ -198,7 +195,7 @@ sge::wave::file::read(
 			std::streamsize
 		>(
 			fcppt::cast::to_signed(
-				bytes_to_read
+				_array.write_size()
 			)
 		)
 	);
@@ -247,6 +244,7 @@ sge::wave::file::read(
 	samples_read_ +=
 		samples_to_read;
 
+	// FIXME: What do we do if the file was truncated?
 	return
 		samples_to_read;
 }

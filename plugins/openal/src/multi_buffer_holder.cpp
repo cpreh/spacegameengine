@@ -45,5 +45,6 @@ sge::openal::multi_buffer_holder::~multi_buffer_holder()
 sge::openal::buffer_id_container const &
 sge::openal::multi_buffer_holder::container() const
 {
-	return container_;
+	return
+		container_;
 }

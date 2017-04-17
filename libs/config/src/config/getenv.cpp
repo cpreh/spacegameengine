@@ -50,11 +50,11 @@ sge::config::getenv(
 		fcppt::char_type
 	>
 	buffer_type;
-	
+
 	return
 		fcppt::optional::map(
 			fcppt::container::buffer::read_from_opt<
-				fcppt::char_type
+				buffer_type
 			>(
 				// An environment variable cannot be longer than 32767 characters
 				32767u,
