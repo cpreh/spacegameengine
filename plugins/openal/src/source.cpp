@@ -124,7 +124,9 @@ sge::openal::source::play(
 	this->do_play();
 
 	if(
-		this->status() != sge::audio::sound::play_status::playing
+		this->status()
+		!=
+		sge::audio::sound::play_status::playing
 	)
 		sge::openal::funcs::source_play(
 			this->source_id()
@@ -181,7 +183,9 @@ void
 sge::openal::source::stop()
 {
 	if(
-		this->status() == audio::sound::play_status::stopped
+		this->status()
+		==
+		audio::sound::play_status::stopped
 	)
 		return;
 

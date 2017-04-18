@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/openal/al.hpp>
 #include <sge/openal/buffer_id.hpp>
-#include <sge/openal/buffer_id_container.hpp>
 #include <sge/openal/file_format.hpp>
 #include <sge/openal/multi_buffer_holder.hpp>
 #include <sge/openal/stream_sound.hpp>
@@ -92,24 +91,11 @@ sge::openal::stream_sound::~stream_sound()
 {
 	this->stop();
 
-	sge::openal::buffer_id_container buffers{
-		fcppt::cast::to_unsigned(
-			sge::openal::funcs::get_source_int(
-				this->source_id(),
-				AL_BUFFERS_QUEUED
-			)
-		)
-	};
-
 	sge::openal::funcs::source_unqueue_buffers(
 		this->source_id(),
-		buffers.data(),
-		fcppt::cast::size<
-			ALsizei
-		>(
-			fcppt::cast::to_signed(
-				buffers.size()
-			)
+		sge::openal::funcs::get_source_int(
+			this->source_id(),
+			AL_BUFFERS_QUEUED
 		)
 	);
 }

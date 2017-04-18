@@ -18,29 +18,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/audio/exception.hpp>
 #include <sge/openal/al.hpp>
-#include <sge/openal/check_state.hpp>
+#include <sge/openal/buffer_id_container.hpp>
 #include <sge/openal/source_id.hpp>
 #include <sge/openal/funcs/source_unqueue_buffers.hpp>
-#include <fcppt/text.hpp>
+#include <sge/openal/funcs/source_unqueue_buffers_impl.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/container/buffer/object_impl.hpp>
+#include <fcppt/container/buffer/read_from.hpp>
+#include <fcppt/container/buffer/to_raw_vector.hpp>
 
 
-void
+sge::openal::buffer_id_container
 sge::openal::funcs::source_unqueue_buffers(
 	sge::openal::source_id const _source,
-	ALuint *const _buffers,
 	ALsizei const _size
 )
 {
-	::alSourceUnqueueBuffers(
-		_source.get(),
-		_size,
-		_buffers
-	);
+	return
+		fcppt::container::buffer::to_raw_vector(
+			fcppt::container::buffer::read_from<
+				fcppt::container::buffer::object<
+					ALuint
+				>
+			>(
+				fcppt::cast::to_unsigned(
+					_size
+				),
+				[
+					_source
+				](
+					sge::openal::buffer_id_container::pointer const _data,
+					sge::openal::buffer_id_container::size_type const _inner_size
+				)
+				{
+					sge::openal::funcs::source_unqueue_buffers_impl(
+						_source,
+						fcppt::cast::size<
+							ALsizei
+						>(
+							fcppt::cast::to_signed(
+								_inner_size
+							)
+						),
+						_data
+					);
 
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourceUnqueueBuffers failed"),
-		sge::audio::exception
-	)
+					return
+						_inner_size;
+				}
+			)
+		);
 }

@@ -18,11 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_FUNCS_SOURCE_UNQUEUE_BUFFERS_HPP_INCLUDED
-#define SGE_OPENAL_FUNCS_SOURCE_UNQUEUE_BUFFERS_HPP_INCLUDED
+#ifndef SGE_OPENAL_FUNCS_SOURCE_UNQUEUE_BUFFERS_IMPL_HPP_INCLUDED
+#define SGE_OPENAL_FUNCS_SOURCE_UNQUEUE_BUFFERS_IMPL_HPP_INCLUDED
 
 #include <sge/openal/al.hpp>
-#include <sge/openal/buffer_id_container.hpp>
 #include <sge/openal/source_id.hpp>
 
 
@@ -33,10 +32,11 @@ namespace openal
 namespace funcs
 {
 
-sge::openal::buffer_id_container
-source_unqueue_buffers(
+void
+source_unqueue_buffers_impl(
 	sge::openal::source_id,
-	ALsizei
+	ALsizei size,
+	ALuint *result
 );
 
 }

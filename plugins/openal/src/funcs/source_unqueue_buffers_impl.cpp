@@ -18,29 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENAL_FUNCS_SOURCE_UNQUEUE_BUFFERS_HPP_INCLUDED
-#define SGE_OPENAL_FUNCS_SOURCE_UNQUEUE_BUFFERS_HPP_INCLUDED
 
+#include <sge/audio/exception.hpp>
 #include <sge/openal/al.hpp>
-#include <sge/openal/buffer_id_container.hpp>
+#include <sge/openal/check_state.hpp>
 #include <sge/openal/source_id.hpp>
+#include <sge/openal/funcs/source_unqueue_buffers_impl.hpp>
+#include <fcppt/text.hpp>
 
 
-namespace sge
+void
+sge::openal::funcs::source_unqueue_buffers_impl(
+	sge::openal::source_id const _source,
+	ALsizei const _size,
+	ALuint *const _result
+)
 {
-namespace openal
-{
-namespace funcs
-{
+	::alSourceUnqueueBuffers(
+		_source.get(),
+		_size,
+		_result
+	);
 
-sge::openal::buffer_id_container
-source_unqueue_buffers(
-	sge::openal::source_id,
-	ALsizei
-);
-
+	SGE_OPENAL_CHECK_STATE(
+		FCPPT_TEXT("alSourceUnqueueBuffers failed"),
+		sge::audio::exception
+	)
 }
-}
-}
-
-#endif
