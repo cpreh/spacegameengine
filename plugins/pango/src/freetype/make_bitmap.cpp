@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ft2build.h>
+#include FT_BITMAP_H
 #include FT_IMAGE_H
 #include <fcppt/config/external_end.hpp>
 
@@ -41,8 +42,6 @@ sge::pango::freetype::make_bitmap(
 	sge::font::view const &_view
 )
 {
-	FT_Bitmap bitmap;
-
 	typedef sge::image2d::view::element_base<
 		sge::image::color::a8_format,
 		mizuiro::nonconst_tag
@@ -78,6 +77,12 @@ sge::pango::freetype::make_bitmap(
 		>(
 			view.size()[1]
 		)
+	);
+
+	FT_Bitmap bitmap;
+
+	FT_Bitmap_Init(
+		&bitmap
 	);
 
 	bitmap.rows = height;
