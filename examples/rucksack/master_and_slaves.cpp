@@ -120,7 +120,9 @@ try
 
 	testbed.add_widget(
 		viewport_box,
-		sge::image::color::predef::blue()
+		sge::image::color::any::object{
+			sge::image::color::predef::blue()
+		}
 	);
 
 	sge::rucksack::widget::dummy master_dummy{
@@ -143,7 +145,9 @@ try
 
 	testbed.add_widget(
 		master_dummy,
-		sge::image::color::predef::cyan()
+		sge::image::color::any::object{
+			sge::image::color::predef::cyan()
+		}
 	);
 
 	typedef
@@ -201,7 +205,9 @@ try
 
 		testbed.add_widget(
 			*dummy,
-			sge::image::color::predef::red()
+			sge::image::color::any::object{
+				sge::image::color::predef::red()
+			}
 		);
 	}
 

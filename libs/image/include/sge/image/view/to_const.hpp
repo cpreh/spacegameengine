@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_VIEW_TO_CONST_HPP_INCLUDED
 
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/view/const_object_fwd.hpp>
+#include <sge/image/view/object_fwd.hpp>
 
 
 namespace sge
@@ -37,13 +37,13 @@ template<
 	typename Tag
 >
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-typename sge::image::traits::const_view<
+sge::image::view::const_object<
 	Tag
->::type
+>
 to_const(
-	typename sge::image::traits::view<
+	sge::image::view::object<
 		Tag
-	>::type const &
+	> const &
 );
 
 }

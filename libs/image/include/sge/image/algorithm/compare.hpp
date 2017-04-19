@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_ALGORITHM_COMPARE_HPP_INCLUDED
 
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
+#include <sge/image/view/const_object_fwd.hpp>
 
 
 namespace sge
@@ -38,12 +38,12 @@ template<
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 bool
 compare(
-	typename sge::image::traits::const_view<
+	sge::image::view::const_object<
 		Tag
-	>::type const &,
-	typename sge::image::traits::const_view<
+	> const &,
+	sge::image::view::const_object<
 		Tag
-	>::type const &
+	> const &
 );
 
 }

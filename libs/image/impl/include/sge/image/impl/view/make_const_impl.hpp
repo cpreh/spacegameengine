@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_VIEW_MAKE_CONST_IMPL_HPP_INCLUDED
 
 #include <sge/image/const_raw_pointer.hpp>
+#include <sge/image/dim_fwd.hpp>
+#include <sge/image/pitch_fwd.hpp>
 #include <sge/image/raw_pointer.hpp>
-#include <sge/image/traits/color_tag.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/dim_fwd.hpp>
-#include <sge/image/traits/format_fwd.hpp>
-#include <sge/image/traits/pitch_fwd.hpp>
+#include <sge/image/traits/image/color_tag.hpp>
+#include <sge/image/traits/pixel/format_fwd.hpp>
+#include <sge/image/view/const_object.hpp>
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/make_const.hpp>
 #include <sge/image/view/to_const.hpp>
@@ -36,22 +36,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Tag
 >
-typename sge::image::traits::const_view<
+sge::image::view::const_object<
 	Tag
->::type
+>
 sge::image::view::make_const(
 	sge::image::const_raw_pointer const _data,
-	typename sge::image::traits::dim<
+	sge::image::dim<
 		Tag
-	>::type const &_dim,
-	typename sge::image::traits::format<
-		typename sge::image::traits::color_tag<
+	> const &_dim,
+	sge::image::traits::pixel::format<
+		sge::image::traits::image::color_tag<
 			Tag
-		>::type
-	>::type const _format,
-	typename sge::image::traits::pitch<
+		>
+	> const _format,
+	sge::image::pitch<
 		Tag
-	>::type const &_pitch
+	> const &_pitch
 )
 {
 	return

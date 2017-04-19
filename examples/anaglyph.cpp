@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/predef.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
@@ -1118,7 +1119,9 @@ try
 		context.clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::color::predef::black()
+				sge::image::color::any::object{
+					sge::image::color::predef::black()
+				}
 			)
 			.depth_buffer(
 				depth_clear_value

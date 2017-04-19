@@ -1,6 +1,9 @@
 set(
 	SGE_IMAGEDS_FILES
-	libs/imageds/impl/include/sge/image/ds/impl/instantiate_format.hpp
+	libs/imageds/impl/include/sge/image/ds/impl/format_map.hpp
+	libs/imageds/impl/include/sge/image/ds/impl/format_pair.hpp
+	libs/imageds/impl/include/sge/image/ds/impl/make_format_pair.hpp
+	libs/imageds/impl/include/sge/image/ds/impl/traits/format_map.hpp
 	libs/imageds/include/sge/image/ds/channel/depth.hpp
 	libs/imageds/include/sge/image/ds/channel/depth_fwd.hpp
 	libs/imageds/include/sge/image/ds/channel/stencil.hpp
@@ -8,10 +11,8 @@ set(
 	libs/imageds/include/sge/image/ds/d16_format.hpp
 	libs/imageds/include/sge/image/ds/d24s8_format.hpp
 	libs/imageds/include/sge/image/ds/d32_format.hpp
-	libs/imageds/include/sge/image/ds/elements.hpp
 	libs/imageds/include/sge/image/ds/format.hpp
 	libs/imageds/include/sge/image/ds/format_fwd.hpp
-	libs/imageds/include/sge/image/ds/format_static.hpp
 	libs/imageds/include/sge/image/ds/format_stride.hpp
 	libs/imageds/include/sge/image/ds/format_to_string.hpp
 	libs/imageds/include/sge/image/ds/init/depth.hpp
@@ -25,12 +26,12 @@ set(
 	libs/imageds/include/sge/image/ds/space/depth_fwd.hpp
 	libs/imageds/include/sge/image/ds/space/depth_stencil.hpp
 	libs/imageds/include/sge/image/ds/space/depth_stencil_fwd.hpp
+	libs/imageds/include/sge/image/ds/static_formats.hpp
 	libs/imageds/include/sge/image/ds/tag.hpp
 	libs/imageds/include/sge/image/ds/traits/format_fwd.hpp
-	libs/imageds/include/sge/image/ds/traits/format_static.hpp
 	libs/imageds/include/sge/image/ds/traits/format_stride.hpp
 	libs/imageds/include/sge/image/ds/traits/format_to_string.hpp
-	libs/imageds/include/sge/image/ds/transform_elements.hpp
+	libs/imageds/include/sge/image/ds/traits/static_formats.hpp
 	libs/imageds/include/sge/image/ds/view/d16_format.hpp
 	libs/imageds/include/sge/image/ds/view/d24s8_format.hpp
 	libs/imageds/include/sge/image/ds/view/d32_format.hpp

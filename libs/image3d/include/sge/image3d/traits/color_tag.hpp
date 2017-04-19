@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE3D_TRAITS_COLOR_TAG_HPP_INCLUDED
 
 #include <sge/image/color/tag.hpp>
-#include <sge/image/traits/color_tag.hpp>
+#include <sge/image/traits/image/color_tag_tpl_fwd.hpp>
 #include <sge/image3d/tag.hpp>
 
 
@@ -32,15 +32,20 @@ namespace image
 {
 namespace traits
 {
+namespace image
+{
 
 template<>
-struct color_tag<
+struct color_tag_tpl<
 	sge::image3d::tag
 >
 {
-	typedef sge::image::color::tag type;
+	typedef
+	sge::image::color::tag
+	type;
 };
 
+}
 }
 }
 }

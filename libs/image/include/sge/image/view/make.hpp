@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_MAKE_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_MAKE_HPP_INCLUDED
 
+#include <sge/image/dim_fwd.hpp>
+#include <sge/image/pitch_fwd.hpp>
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/traits/color_tag.hpp>
-#include <sge/image/traits/dim_fwd.hpp>
-#include <sge/image/traits/format_fwd.hpp>
-#include <sge/image/traits/pitch_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/traits/image/color_tag.hpp>
+#include <sge/image/traits/pixel/format_fwd.hpp>
+#include <sge/image/view/object.hpp>
 
 
 namespace sge
@@ -41,22 +41,22 @@ template<
 	typename Tag
 >
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-typename sge::image::traits::view<
+sge::image::view::object<
 	Tag
->::type
+>
 make(
 	sge::image::raw_pointer,
-	typename sge::image::traits::dim<
+	sge::image::dim<
 		Tag
-	>::type const &,
-	typename sge::image::traits::format<
-		typename sge::image::traits::color_tag<
+	> const &,
+	sge::image::traits::pixel::format<
+		sge::image::traits::image::color_tag<
 			Tag
-		>::type
-	>::type,
-	typename sge::image::traits::pitch<
+		>
+	>,
+	sge::image::pitch<
 		Tag
-	>::type const &
+	> const &
 );
 
 }

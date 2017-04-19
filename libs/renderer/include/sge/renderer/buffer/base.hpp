@@ -22,16 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_BUFFER_BASE_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/image/traits/color_tag.hpp>
-#include <sge/image/traits/dim_fwd.hpp>
-#include <sge/image/traits/format_fwd.hpp>
-#include <sge/image/traits/format_is_ref.hpp>
+#include <sge/image/dim_fwd.hpp>
+#include <sge/image/traits/image/color_tag.hpp>
+#include <sge/image/traits/pixel/format_fwd.hpp>
 #include <sge/renderer/buffer/base_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -57,73 +53,34 @@ public:
 	virtual
 	~base() = 0;
 
-	/**
-	\brief The image tag
-
-	The image tag is used by generic algorithms that abstract 2D/3D and
-	formats.
-	*/
 	typedef
 	ImageTag
 	image_tag;
 
-	/**
-	\brief The dimension type
-
-	Specifies a dimension in pixels
-	*/
 	typedef
-	typename
-	sge::image::traits::dim<
+	sge::image::dim<
 		ImageTag
-	>::type
+	>
 	dim;
 
-	/**
-	\brief The color tag associated with the image tag
-	*/
 	typedef
-	typename
-	sge::image::traits::color_tag<
+	sge::image::traits::image::color_tag<
 		ImageTag
-	>::type
+	>
 	format_tag;
 
-	/**
-	\brief The color format used by this buffer
-	*/
 	typedef
-	typename
-	sge::image::traits::format<
+	sge::image::traits::pixel::format<
 		format_tag
-	>::type
+	>
 	format_type;
 
-	/**
-	\brief The size of the buffer
-
-	\return The size of the buffer as a size of pixels
-	*/
 	virtual
 	dim
 	size() const = 0;
 
-	typedef
-	typename
-	boost::mpl::if_<
-		sge::image::traits::format_is_ref<
-			ImageTag
-		>,
-		format_type const &,
-		format_type
-	>::type
-	format_return_type;
-
-	/**
-	\brief The format used by this buffer
-	*/
 	virtual
-	format_return_type
+	format_type
 	format() const = 0;
 };
 

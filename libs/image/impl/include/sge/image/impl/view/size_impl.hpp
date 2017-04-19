@@ -23,22 +23,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/dim.hpp>
 #include <sge/image/impl/view/size_any.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/dim_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/view/const_object_fwd.hpp>
+#include <sge/image/view/object_fwd.hpp>
 #include <sge/image/view/size.hpp>
 
 
 template<
 	typename Tag
 >
-typename sge::image::traits::dim<
+sge::image::dim<
 	Tag
->::type
+>
 sge::image::view::size(
-	typename sge::image::traits::view<
+	sge::image::view::object<
 		Tag
-	>::type const &_view
+	> const &_view
 )
 {
 	return
@@ -52,13 +51,13 @@ sge::image::view::size(
 template<
 	typename Tag
 >
-typename sge::image::traits::dim<
+sge::image::dim<
 	Tag
->::type
+>
 sge::image::view::size(
-	typename sge::image::traits::const_view<
+	sge::image::view::const_object<
 		Tag
-	>::type const &_view
+	> const &_view
 )
 {
 	return

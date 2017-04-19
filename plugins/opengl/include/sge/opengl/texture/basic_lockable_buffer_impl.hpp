@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/copy.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
-#include <sge/image/traits/format_stride.hpp>
+#include <sge/image/traits/pixel/format_stride.hpp>
 #include <sge/image/view/flipped.hpp>
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/sub.hpp>
@@ -106,9 +106,9 @@ sge::opengl::texture::basic_lockable_buffer<
 		_parameters.internal_color_format()
 	),
 	stride_(
-		sge::image::traits::format_stride<
+		sge::image::traits::pixel::format_stride<
 			color_tag
-		>::execute(
+		>(
 			this->format()
 		)
 	),

@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_BUFFER_WRITABLE_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/image/traits/view_fwd.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/buffer/readable.hpp>
 #include <sge/renderer/buffer/writable_fwd.hpp>
+#include <sge/renderer/buffer/traits/view.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -95,10 +95,9 @@ public:
 	The view type of nonconst locks
 	*/
 	typedef
-	typename
-	sge::image::traits::view<
+	sge::renderer::buffer::traits::view<
 		ImageTag
-	>::type
+	>
 	view;
 
 	/**

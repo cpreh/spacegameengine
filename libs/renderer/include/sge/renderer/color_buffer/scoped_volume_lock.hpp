@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_COLOR_BUFFER_SCOPED_VOLUME_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_COLOR_BUFFER_SCOPED_VOLUME_LOCK_HPP_INCLUDED
 
-#include <sge/image3d/traits/box_fwd.hpp>
-#include <sge/image3d/traits/view_fwd.hpp>
+#include <sge/image3d/traits/dimension.hpp>
 #include <sge/image3d/view/object.hpp>
 #include <sge/renderer/buffer/scoped_lock.hpp>
 #include <sge/renderer/color_buffer/scoped_volume_lock_fwd.hpp>

@@ -22,32 +22,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_STORE_VIEW_IMPL_HPP_INCLUDED
 
 #include <sge/image/impl/store/view_any.hpp>
+#include <sge/image/store/object_fwd.hpp>
 #include <sge/image/store/view.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/store_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/view/const_object.hpp>
+#include <sge/image/view/object.hpp>
 
 
 template<
 	typename Tag
 >
-typename
-sge::image::traits::view<
+sge::image::view::object<
 	Tag
->::type
+>
 sge::image::store::view(
-	typename
-	sge::image::traits::store<
+	sge::image::store::object<
 		Tag
-	>::type &_store
+	> &_store
 )
 {
 	return
 		sge::image::impl::store::view_any<
-			typename
-			sge::image::traits::view<
+			sge::image::view::object<
 				Tag
-			>::type
+			>
 		>(
 			_store
 		);
@@ -56,23 +53,20 @@ sge::image::store::view(
 template<
 	typename Tag
 >
-typename
-sge::image::traits::const_view<
+sge::image::view::const_object<
 	Tag
->::type
+>
 sge::image::store::view(
-	typename
-	sge::image::traits::store<
+	sge::image::store::object<
 		Tag
-	>::type const &_store
+	> const &_store
 )
 {
 	return
 		sge::image::impl::store::view_any<
-			typename
-			sge::image::traits::const_view<
+			sge::image::view::const_object<
 				Tag
-			>::type
+			>
 		>(
 			_store
 		);

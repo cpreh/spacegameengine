@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/exception.hpp>
 #include <sge/image/algorithm/invalid_copy.hpp>
-#include <sge/image/traits/format_to_string.hpp>
+#include <sge/image/traits/pixel/format_to_string.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -37,25 +37,25 @@ sge::image::algorithm::invalid_copy<
 	format const _dest
 )
 :
-	sge::image::exception(
+	sge::image::exception{
 		FCPPT_TEXT("Invalid image copy from ")
 		+
-		sge::image::traits::format_to_string<
+		sge::image::traits::pixel::format_to_string<
 			Tag
-		>::execute(
+		>(
 			_source
 		)
 		+
 		FCPPT_TEXT(" to ")
 		+
-		sge::image::traits::format_to_string<
+		sge::image::traits::pixel::format_to_string<
 			Tag
-		>::execute(
+		>(
 			_dest
 		)
 		+
 		FCPPT_TEXT(". The two formats must be the same!")
-	)
+	}
 {
 }
 

@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_VIEW_INSTANTIATE_SIZE_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_SIZE_HPP_INCLUDED
 
+#include <sge/image/dim.hpp>
 #include <sge/image/impl/view/instantiate_const_nonconst.hpp>
 #include <sge/image/impl/view/size_impl.hpp>
-#include <sge/image/traits/dim_fwd.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 
 
@@ -33,15 +33,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 template \
 SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
-sge::image::traits::dim<\
+sge::image::dim<\
 	tag\
->::type \
+> \
 sge::image::view::size<\
 	tag\
 >(\
-	sge::image::traits::view_type<\
+	sge::image::view::view_type<\
 		tag\
-	>::type const &\
+	> const &\
 )
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_SIZE(\

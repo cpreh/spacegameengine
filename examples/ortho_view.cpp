@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/ortho_freelook/projection_rectangle_from_viewport.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/image/color/predef.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/input/cursor/mode.hpp>
@@ -433,7 +434,11 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::color::predef::black()));
+				sge::image::color::any::object{
+					sge::image::color::predef::black()
+				}
+			)
+		);
 
 		sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
 			sys.renderer_device_ffp().create_transform_state(

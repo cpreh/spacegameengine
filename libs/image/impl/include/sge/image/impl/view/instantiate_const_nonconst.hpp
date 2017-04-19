@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_VIEW_INSTANTIATE_CONST_NONCONST_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_CONST_NONCONST_HPP_INCLUDED
 
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/view/const_object_fwd.hpp>
+#include <sge/image/view/object_fwd.hpp>
 
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_CONST_NONCONST(\
@@ -31,12 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 macro(\
 	tag,\
-	const_view\
+	const_object\
 );\
 \
 macro(\
 	tag,\
-	view\
+	object\
 )
 
 #endif

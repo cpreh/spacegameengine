@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_VIEW_SUB_ANY_HPP_INCLUDED
 
 #include <sge/image/box.hpp>
-#include <sge/image/mizuiro_color.hpp>
+#include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/impl/to_mizuiro_dim.hpp>
 #include <sge/image/view/wrap.hpp>
 #include <mizuiro/image/sub_view.hpp>

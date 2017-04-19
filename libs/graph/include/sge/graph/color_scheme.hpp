@@ -24,10 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/graph/background_alt_color.hpp>
 #include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline_color.hpp>
+#include <sge/graph/color.hpp>
 #include <sge/graph/foreground_alt_color.hpp>
 #include <sge/graph/foreground_color.hpp>
 #include <sge/graph/detail/symbol.hpp>
-#include <sge/image/color/any/object.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -50,65 +50,65 @@ public:
 	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	foreground_color(
-		sge::image::color::any::object const &);
+		sge::graph::color const &);
 
 	SGE_GRAPH_DETAIL_SYMBOL
-	sge::image::color::any::object const &
+	sge::graph::color const &
 	foreground_color() const;
 
 	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	background_color(
-		sge::image::color::any::object const &);
+		sge::graph::color const &);
 
 	SGE_GRAPH_DETAIL_SYMBOL
-	sge::image::color::any::object const &
+	sge::graph::color const &
 	background_color() const;
 
 	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	foreground_alt_color(
-		sge::image::color::any::object const &);
+		sge::graph::color const &);
 
 	SGE_GRAPH_DETAIL_SYMBOL
-	sge::image::color::any::object const &
+	sge::graph::color const &
 	foreground_alt_color() const;
 
 	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	background_alt_color(
-		sge::image::color::any::object const &);
+		sge::graph::color const &);
 
 	SGE_GRAPH_DETAIL_SYMBOL
-	sge::image::color::any::object const &
+	sge::graph::color const &
 	background_alt_color() const;
 
 	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	baseline_color(
-		sge::image::color::any::object const &);
+		sge::graph::color const &);
 
 	SGE_GRAPH_DETAIL_SYMBOL
-	sge::image::color::any::object const &
+	sge::graph::color const &
 	baseline_color() const;
 
 	SGE_GRAPH_DETAIL_SYMBOL
 	~color_scheme();
 
 private:
-	sge::image::color::any::object
+	sge::graph::color
 	foreground_color_;
 
-	sge::image::color::any::object
+	sge::graph::color
 	background_color_;
 
-	sge::image::color::any::object
+	sge::graph::color
 	foreground_alt_color_;
 
-	sge::image::color::any::object
+	sge::graph::color
 	background_alt_color_;
 
-	sge::image::color::any::object
+	sge::graph::color
 	baseline_color_;
 };
 

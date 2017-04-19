@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/predef.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
@@ -178,7 +179,9 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::color::predef::yellow()
+				sge::image::color::any::object{
+					sge::image::color::predef::yellow()
+				}
 			)
 		);
 	}

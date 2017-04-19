@@ -5,7 +5,6 @@ set(
 	libs/image3d/include/sge/image3d/algorithm/compare.hpp
 	libs/image3d/include/sge/image3d/algorithm/copy.hpp
 	libs/image3d/include/sge/image3d/algorithm/copy_and_convert.hpp
-	libs/image3d/include/sge/image3d/algorithm/fill.hpp
 	libs/image3d/include/sge/image3d/algorithm/invalid_copy.hpp
 	libs/image3d/include/sge/image3d/algorithm/print.hpp
 	libs/image3d/include/sge/image3d/bgr32f_format.hpp
@@ -43,10 +42,6 @@ set(
 	libs/image3d/include/sge/image3d/store/bgra8_fwd.hpp
 	libs/image3d/include/sge/image3d/store/bgrx8.hpp
 	libs/image3d/include/sge/image3d/store/bgrx8_fwd.hpp
-	libs/image3d/include/sge/image3d/store/element.hpp
-	libs/image3d/include/sge/image3d/store/elements.hpp
-	libs/image3d/include/sge/image3d/store/elements_wrapper.hpp
-	libs/image3d/include/sge/image3d/store/elements_wrapper_fwd.hpp
 	libs/image3d/include/sge/image3d/store/l8.hpp
 	libs/image3d/include/sge/image3d/store/l8_fwd.hpp
 	libs/image3d/include/sge/image3d/store/la8.hpp
@@ -75,32 +70,14 @@ set(
 	libs/image3d/include/sge/image3d/store/srgba8_fwd.hpp
 	libs/image3d/include/sge/image3d/store/view.hpp
 	libs/image3d/include/sge/image3d/tag.hpp
-	libs/image3d/include/sge/image3d/traits/box_fwd.hpp
 	libs/image3d/include/sge/image3d/traits/color_tag.hpp
-	libs/image3d/include/sge/image3d/traits/const_view_fwd.hpp
-	libs/image3d/include/sge/image3d/traits/dim_fwd.hpp
-	libs/image3d/include/sge/image3d/traits/pitch_fwd.hpp
-	libs/image3d/include/sge/image3d/traits/store_fwd.hpp
-	libs/image3d/include/sge/image3d/traits/sub_out_of_range.hpp
-	libs/image3d/include/sge/image3d/traits/view_elements.hpp
-	libs/image3d/include/sge/image3d/traits/view_fwd.hpp
-	libs/image3d/include/sge/image3d/transform_elements.hpp
+	libs/image3d/include/sge/image3d/traits/dimension.hpp
 	libs/image3d/include/sge/image3d/view/checked_sub.hpp
-	libs/image3d/include/sge/image3d/view/const_element.hpp
-	libs/image3d/include/sge/image3d/view/const_elements.hpp
-	libs/image3d/include/sge/image3d/view/const_elements_wrapper.hpp
-	libs/image3d/include/sge/image3d/view/const_elements_wrapper_fwd.hpp
 	libs/image3d/include/sge/image3d/view/const_object.hpp
 	libs/image3d/include/sge/image3d/view/const_object_fwd.hpp
 	libs/image3d/include/sge/image3d/view/data.hpp
-	libs/image3d/include/sge/image3d/view/element.hpp
-	libs/image3d/include/sge/image3d/view/element_base.hpp
-	libs/image3d/include/sge/image3d/view/elements.hpp
-	libs/image3d/include/sge/image3d/view/elements_wrapper.hpp
-	libs/image3d/include/sge/image3d/view/elements_wrapper_fwd.hpp
 	libs/image3d/include/sge/image3d/view/flipped.hpp
 	libs/image3d/include/sge/image3d/view/format.hpp
-	libs/image3d/include/sge/image3d/view/get.hpp
 	libs/image3d/include/sge/image3d/view/make.hpp
 	libs/image3d/include/sge/image3d/view/make_const.hpp
 	libs/image3d/include/sge/image3d/view/object.hpp
@@ -114,7 +91,6 @@ set(
 	libs/image3d/src/image3d/algorithm/compare.cpp
 	libs/image3d/src/image3d/algorithm/copy.cpp
 	libs/image3d/src/image3d/algorithm/copy_and_convert.cpp
-	libs/image3d/src/image3d/algorithm/fill.cpp
 	libs/image3d/src/image3d/algorithm/print.cpp
 	libs/image3d/src/image3d/store/a8.cpp
 	libs/image3d/src/image3d/store/bgr32f.cpp
@@ -141,7 +117,6 @@ set(
 	libs/image3d/src/image3d/view/data.cpp
 	libs/image3d/src/image3d/view/flipped.cpp
 	libs/image3d/src/image3d/view/format.cpp
-	libs/image3d/src/image3d/view/get.cpp
 	libs/image3d/src/image3d/view/make.cpp
 	libs/image3d/src/image3d/view/make_const.cpp
 	libs/image3d/src/image3d/view/object.cpp

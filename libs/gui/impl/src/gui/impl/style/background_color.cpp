@@ -27,5 +27,7 @@ sge::image::color::any::object
 sge::gui::impl::style::background_color()
 {
 	return
-		sge::image::color::predef::lightgrey();
+		sge::image::color::any::object{
+			sge::image::color::predef::lightgrey()
+		};
 }

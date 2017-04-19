@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/impl/texture_parameters.hpp>
 #include <sge/cegui/impl/texture_target.hpp>
 #include <sge/image/color/predef.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -426,7 +427,9 @@ sge::cegui::impl::texture_target::clear()
 			target_->clear(
 				sge::renderer::clear::parameters()
 				.back_buffer(
-					sge::image::color::predef::transparent()
+					sge::image::color::any::object{
+						sge::image::color::predef::transparent()
+					}
 				)
 			);
 		}

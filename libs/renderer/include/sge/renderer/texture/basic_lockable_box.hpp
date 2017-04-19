@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_TEXTURE_BASIC_LOCKABLE_BOX_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/image/traits/dim_fwd.hpp>
+#include <sge/image/dim_fwd.hpp>
 #include <sge/renderer/buffer/readable_fwd.hpp>
 #include <sge/renderer/buffer/writable_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
@@ -58,10 +58,9 @@ public:
 	override = 0;
 
 	typedef
-	typename
-	sge::image::traits::dim<
+	sge::image::dim<
 		Tag
-	>::type
+	>
 	dim;
 
 	typedef

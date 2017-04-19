@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_GRAPH_BASELINE_COLOR_HPP_INCLUDED
 #define SGE_GRAPH_BASELINE_COLOR_HPP_INCLUDED
 
-#include <sge/image/color/any/object.hpp>
+#include <sge/graph/color.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -29,11 +29,13 @@ namespace sge
 {
 namespace graph
 {
+
 FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::image::color::any::object,
-	baseline_color);
+	sge::graph::color,
+	baseline_color
+);
+
 }
 }
 
 #endif
-

@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_ANY_CONVERT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_ANY_CONVERT_HPP_INCLUDED
 
-#include <sge/image/mizuiro_color_fwd.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/image/color/detail/symbol.hpp>
+#include <sge/image/pixel/mizuiro_type.hpp>
 
 
 namespace sge
@@ -35,12 +35,13 @@ namespace color
 namespace any
 {
 
+// TODO: enable_if?
 template<
-	typename Dest
+	typename Format
 >
 SGE_IMAGE_COLOR_DETAIL_SYMBOL
-sge::image::mizuiro_color<
-	Dest
+sge::image::pixel::mizuiro_type<
+	Format
 >
 convert(
 	sge::image::color::any::object const &

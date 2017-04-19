@@ -41,6 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/graph/position.hpp>
 #include <sge/graph/scalar.hpp>
 #include <sge/image/color/predef.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
@@ -535,7 +536,9 @@ try
 			0,
 			0
 		),
-		sge::image::color::predef::white(),
+		sge::image::color::any::object{
+			sge::image::color::predef::white()
+		},
 		sge::renderer::texture::emulate_srgb::yes
 	);
 
@@ -560,7 +563,9 @@ try
 				)
 			)
 		),
-		sge::image::color::predef::white(),
+		sge::image::color::any::object{
+			sge::image::color::predef::white()
+		},
 		sge::renderer::texture::emulate_srgb::yes
 	);
 
@@ -700,7 +705,9 @@ try
 							0,
 							y
 						),
-						sge::image::color::predef::white(),
+						sge::image::color::any::object{
+							sge::image::color::predef::white()
+						},
 						sge::renderer::texture::emulate_srgb::yes
 					)
 				)

@@ -18,26 +18,11 @@ set(
 	libs/imageds2d/include/sge/imageds2d/store/d32.hpp
 	libs/imageds2d/include/sge/imageds2d/store/d32_fwd.hpp
 	libs/imageds2d/include/sge/imageds2d/tag.hpp
-	libs/imageds2d/include/sge/imageds2d/traits/box_fwd.hpp
 	libs/imageds2d/include/sge/imageds2d/traits/color_tag.hpp
-	libs/imageds2d/include/sge/imageds2d/traits/const_view_fwd.hpp
-	libs/imageds2d/include/sge/imageds2d/traits/dim_fwd.hpp
-	libs/imageds2d/include/sge/imageds2d/traits/pitch_fwd.hpp
-	libs/imageds2d/include/sge/imageds2d/traits/view_elements.hpp
-	libs/imageds2d/include/sge/imageds2d/traits/view_fwd.hpp
-	libs/imageds2d/include/sge/imageds2d/transform_elements.hpp
-	libs/imageds2d/include/sge/imageds2d/view/const_element.hpp
-	libs/imageds2d/include/sge/imageds2d/view/const_elements.hpp
-	libs/imageds2d/include/sge/imageds2d/view/const_elements_wrapper.hpp
-	libs/imageds2d/include/sge/imageds2d/view/const_elements_wrapper_fwd.hpp
+	libs/imageds2d/include/sge/imageds2d/traits/dimension.hpp
 	libs/imageds2d/include/sge/imageds2d/view/const_object.hpp
 	libs/imageds2d/include/sge/imageds2d/view/const_object_fwd.hpp
 	libs/imageds2d/include/sge/imageds2d/view/data.hpp
-	libs/imageds2d/include/sge/imageds2d/view/element.hpp
-	libs/imageds2d/include/sge/imageds2d/view/element_base.hpp
-	libs/imageds2d/include/sge/imageds2d/view/elements.hpp
-	libs/imageds2d/include/sge/imageds2d/view/elements_wrapper.hpp
-	libs/imageds2d/include/sge/imageds2d/view/elements_wrapper_fwd.hpp
 	libs/imageds2d/include/sge/imageds2d/view/flipped.hpp
 	libs/imageds2d/include/sge/imageds2d/view/format.hpp
 	libs/imageds2d/include/sge/imageds2d/view/make.hpp

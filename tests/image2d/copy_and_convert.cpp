@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/channel8.hpp>
 #include <sge/image/dim.hpp>
-#include <sge/image/mizuiro_color.hpp>
+#include <sge/image/pixel/mizuiro_type.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/init/alpha.hpp>
@@ -36,7 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <mizuiro/color/compare.hpp>
-#include <mizuiro/image/view.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -83,7 +82,7 @@ test_conversion(
 			1u,
 			1u
 		),
-		sge::image::mizuiro_color<
+		sge::image::pixel::mizuiro_type<
 			typename Source::color_format
 		>(
 			_source
@@ -129,7 +128,7 @@ test_conversion(
 					0u
 				)
 			],
-			sge::image::mizuiro_color<
+			sge::image::pixel::mizuiro_type<
 				typename Dest::color_format
 			>(
 				_dest

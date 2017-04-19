@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/config/own_log_path.hpp>
 #include <sge/image/color/predef.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
 #include <sge/media/extension.hpp>
@@ -289,7 +290,9 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::color::predef::red()
+				sge::image::color::any::object{
+					sge::image::color::predef::red()
+				}
 			)
 		);
 

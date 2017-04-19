@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/ds/format_fwd.hpp>
 #include <sge/image/ds/tag.hpp>
 #include <sge/image/ds/detail/symbol.hpp>
-#include <sge/image/traits/format_stride.hpp>
+#include <sge/image/traits/pixel/format_stride_tpl_fwd.hpp>
 
 
 namespace sge
@@ -34,9 +34,11 @@ namespace image
 {
 namespace traits
 {
+namespace pixel
+{
 
 template<>
-struct format_stride<
+struct format_stride_tpl<
 	sge::image::ds::tag
 >
 {
@@ -48,6 +50,7 @@ struct format_stride<
 	);
 };
 
+}
 }
 }
 }

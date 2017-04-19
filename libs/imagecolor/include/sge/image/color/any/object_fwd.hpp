@@ -21,6 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_ANY_OBJECT_FWD_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_ANY_OBJECT_FWD_HPP_INCLUDED
 
+#include <sge/image/color/tag.hpp>
+#include <sge/image/pixel/object_fwd.hpp>
+
+
 namespace sge
 {
 namespace image
@@ -30,7 +34,11 @@ namespace color
 namespace any
 {
 
-class object;
+typedef
+sge::image::pixel::object<
+	sge::image::color::tag
+>
+object;
 
 }
 }

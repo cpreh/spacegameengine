@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_CONST_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_CONST_OBJECT_HPP_INCLUDED
 
+#include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
+#include <sge/image/view/const_elements.hpp>
 #include <sge/image/view/const_object_fwd.hpp>
-#include <sge/image/view/has_element.hpp>
+#include <sge/image/view/mizuiro_type_fwd.hpp>
 #include <sge/image/view/object_fwd.hpp>
+#include <mizuiro/const_tag.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -39,39 +39,52 @@ namespace view
 {
 
 template<
-	typename ElementsWrapper,
-	typename NonConstElementsWrapper
+	typename Tag
 >
 class const_object
 {
 public:
 	typedef
 	sge::image::view::object<
-		NonConstElementsWrapper
+		Tag
 	>
 	nonconst_object;
 
 	typedef
+	sge::image::view::const_elements<
+		Tag
+	>
+	elements;
+
+	typedef
 	fcppt::variant::object<
-		typename
-		ElementsWrapper::type
+		elements
 	>
 	variant;
 
 	template<
-		typename Element,
-		typename =
-			typename boost::enable_if<
-				sge::image::view::has_element<
-					ElementsWrapper,
-					Element
-				>
-			>::type
+		typename Format
 	>
+	explicit
+	const_object(
+		sge::image::view::mizuiro_type<
+			Format,
+			mizuiro::const_tag
+		> const &_view
+	)
+	:
+		const_object(
+			variant{
+				_view
+			}
+		)
+	{
+	}
+
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	explicit
 	const_object(
-		Element const &
+		variant const &
 	);
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL

@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/tag.hpp>
 #include <sge/image/color/impl/dynamic/algorithm/copy_and_convert.hpp>
 #include <sge/image/impl/traits/dynamic_copy_and_convert.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/view/const_object_fwd.hpp>
+#include <sge/image/view/object_fwd.hpp>
 
 
 namespace sge
@@ -50,12 +50,12 @@ struct dynamic_copy_and_convert<
 	static
 	void
 	execute(
-		typename sge::image::traits::const_view<
+		sge::image::view::const_object<
 			Tag
-		>::type const &_src,
-		typename sge::image::traits::view<
+		> const &_src,
+		sge::image::view::object<
 			Tag
-		>::type const &_dest,
+		> const &_dest,
 		sge::image::algorithm::may_overlap const _overlap,
 		sge::image::algorithm::uninitialized const _uninitialized
 	)

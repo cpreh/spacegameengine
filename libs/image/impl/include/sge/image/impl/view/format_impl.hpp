@@ -22,32 +22,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_VIEW_FORMAT_IMPL_HPP_INCLUDED
 
 #include <sge/image/impl/view/format_any.hpp>
-#include <sge/image/traits/color_tag.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/format_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/traits/pixel/format_fwd.hpp>
+#include <sge/image/traits/image/color_tag.hpp>
 #include <sge/image/view/format.hpp>
 
 
 template<
 	typename Tag
 >
-typename sge::image::traits::format<
-	typename sge::image::traits::color_tag<
+sge::image::traits::pixel::format<
+	sge::image::traits::image::color_tag<
 		Tag
-	>::type
->::type
+	>
+>
 sge::image::view::format(
-	typename sge::image::traits::view<
+	sge::image::view::object<
 		Tag
-	>::type const &_view
+	> const &_view
 )
 {
 	return
 		sge::image::impl::view::format_any<
-			typename sge::image::traits::color_tag<
+			sge::image::traits::image::color_tag<
 				Tag
-			>::type
+			>
 		>(
 			_view
 		);
@@ -57,22 +55,22 @@ sge::image::view::format(
 template<
 	typename Tag
 >
-typename sge::image::traits::format<
-	typename sge::image::traits::color_tag<
+sge::image::traits::pixel::format<
+	sge::image::traits::image::color_tag<
 		Tag
-	>::type
->::type
+	>
+>
 sge::image::view::format(
-	typename sge::image::traits::const_view<
+	sge::image::view::const_object<
 		Tag
-	>::type const &_view
+	> const &_view
 )
 {
 	return
 		sge::image::impl::view::format_any<
-			typename sge::image::traits::color_tag<
+			sge::image::traits::image::color_tag<
 				Tag
-			>::type
+			>
 		>(
 			_view
 		);

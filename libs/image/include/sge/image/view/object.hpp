@@ -21,13 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_OBJECT_HPP_INCLUDED
 
+#include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/view/has_element.hpp>
+#include <sge/image/view/elements.hpp>
 #include <sge/image/view/object_fwd.hpp>
 #include <fcppt/variant/object_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -38,32 +36,44 @@ namespace view
 {
 
 template<
-	typename ElementsWrapper
+	typename Tag
 >
 class object
 {
 public:
 	typedef
+	sge::image::view::elements<
+		Tag
+	>
+	elements;
+
+	typedef
 	fcppt::variant::object<
-		typename
-		ElementsWrapper::type
+		elements
 	>
 	variant;
 
+	// TODO: Improve the typing of this
 	template<
-		typename Element,
-		typename =
-			typename boost::enable_if<
-				sge::image::view::has_element<
-					ElementsWrapper,
-					Element
-				>
-			>::type
+		typename View
 	>
+	explicit
+	object(
+		View const &_view
+	)
+	:
+		object(
+			variant{
+				_view
+			}
+		)
+	{
+	}
+
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	explicit
 	object(
-		Element const &
+		variant const &
 	);
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL

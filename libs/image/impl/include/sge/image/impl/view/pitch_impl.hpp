@@ -21,23 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_VIEW_PITCH_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_PITCH_IMPL_HPP_INCLUDED
 
+#include <sge/image/pitch.hpp>
 #include <sge/image/impl/view/pitch_any.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/pitch_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/view/const_object_fwd.hpp>
 #include <sge/image/view/pitch.hpp>
+#include <sge/image/view/object_fwd.hpp>
 
 
 template<
 	typename Tag
 >
-typename sge::image::traits::pitch<
+sge::image::pitch<
 	Tag
->::type
+>
 sge::image::view::pitch(
-	typename sge::image::traits::view<
+	sge::image::view::object<
 		Tag
-	>::type const &_view
+	> const &_view
 )
 {
 	return
@@ -51,13 +51,13 @@ sge::image::view::pitch(
 template<
 	typename Tag
 >
-typename sge::image::traits::pitch<
+sge::image::pitch<
 	Tag
->::type
+>
 sge::image::view::pitch(
-	typename sge::image::traits::const_view<
+	sge::image::view::const_object<
 		Tag
-	>::type const &_view
+	> const &_view
 )
 {
 	return

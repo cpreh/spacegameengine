@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_BOX_FWD_HPP_INCLUDED
 #define SGE_IMAGE_BOX_FWD_HPP_INCLUDED
 
-#include <sge/image/size_type.hpp>
-#include <fcppt/math/size_type.hpp>
-#include <fcppt/math/box/object_fwd.hpp>
+#include <sge/image/basic_box_fwd.hpp>
+#include <sge/image/traits/image/dimension.hpp>
 
 
 namespace sge
@@ -32,14 +31,15 @@ namespace image
 {
 
 template<
-	fcppt::math::size_type Dim
+	typename Tag
 >
 using
 box
 =
-fcppt::math::box::object<
-	sge::image::size_type,
-	Dim
+sge::image::basic_box<
+	sge::image::traits::image::dimension<
+		Tag
+	>::value
 >;
 
 }

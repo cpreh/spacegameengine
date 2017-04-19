@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_VIEW_TO_CONST_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_TO_CONST_IMPL_HPP_INCLUDED
 
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/view/const_object.hpp>
+#include <sge/image/view/object.hpp>
 #include <sge/image/view/to_const.hpp>
 #include <mizuiro/image/make_const_view.hpp>
 #include <fcppt/variant/apply_unary.hpp>
@@ -31,15 +31,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Tag
 >
-typename
-sge::image::traits::const_view<
+sge::image::view::const_object<
 	Tag
->::type
+>
 sge::image::view::to_const(
-	typename
-	sge::image::traits::view<
+	sge::image::view::object<
 		Tag
-	>::type const &_src
+	> const &_src
 )
 {
 	return
@@ -49,10 +47,9 @@ sge::image::view::to_const(
 			)
 			{
 				return
-					typename
-					sge::image::traits::const_view<
+					sge::image::view::const_object<
 						Tag
-					>::type(
+					>(
 						mizuiro::image::make_const_view(
 							_src_inner
 						)

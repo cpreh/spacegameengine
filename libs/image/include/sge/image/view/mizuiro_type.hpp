@@ -21,34 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_MIZUIRO_TYPE_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_MIZUIRO_TYPE_HPP_INCLUDED
 
-#include <sge/image/view/mizuiro_access.hpp>
-#include <sge/image/view/mizuiro_traits.hpp>
-#include <mizuiro/image/view_fwd.hpp>
+#include <sge/image/view/mizuiro_type_fwd.hpp>
+#include <sge/image/view/mizuiro_type_tpl.hpp>
 
-
-
-namespace sge
-{
-namespace image
-{
-namespace view
-{
-
-template<
-	typename Format,
-	typename Constness
->
-struct mizuiro_type
-{
-	typedef mizuiro::image::view<
-		sge::image::view::mizuiro_access,
-		Format,
-		Constness
-	> type;
-};
-
-}
-}
-}
 
 #endif

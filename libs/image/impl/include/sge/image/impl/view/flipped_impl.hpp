@@ -22,21 +22,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_VIEW_FLIPPED_IMPL_HPP_INCLUDED
 
 #include <sge/image/impl/view/flipped_any.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/view/const_object.hpp>
 #include <sge/image/view/flipped.hpp>
+#include <sge/image/view/object.hpp>
 
 
 template<
 	typename Tag
 >
-typename sge::image::traits::view<
+sge::image::view::object<
 	Tag
->::type
+>
 sge::image::view::flipped(
-	typename sge::image::traits::view<
+	sge::image::view::object<
 		Tag
-	>::type const &_view
+	> const &_view
 )
 {
 	return
@@ -48,13 +48,13 @@ sge::image::view::flipped(
 template<
 	typename Tag
 >
-typename sge::image::traits::const_view<
+sge::image::view::const_object<
 	Tag
->::type
+>
 sge::image::view::flipped(
-	typename sge::image::traits::const_view<
+	sge::image::view::const_object<
 		Tag
-	>::type const &_view
+	> const &_view
 )
 {
 	return

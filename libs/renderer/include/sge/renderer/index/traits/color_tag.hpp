@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_TRAITS_COLOR_TAG_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_TRAITS_COLOR_TAG_HPP_INCLUDED
 
-#include <sge/image/traits/color_tag.hpp>
+#include <sge/image/traits/image/color_tag_tpl_fwd.hpp>
 #include <sge/renderer/index/tag.hpp>
 
 
@@ -31,9 +31,11 @@ namespace image
 {
 namespace traits
 {
+namespace image
+{
 
 template<>
-struct color_tag<
+struct color_tag_tpl<
 	sge::renderer::index::tag
 >
 {
@@ -42,6 +44,7 @@ struct color_tag<
 	type;
 };
 
+}
 }
 }
 }

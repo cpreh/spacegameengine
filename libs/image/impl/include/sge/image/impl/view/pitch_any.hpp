@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_VIEW_PITCH_ANY_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_PITCH_ANY_HPP_INCLUDED
 
+#include <sge/image/pitch.hpp>
 #include <sge/image/impl/from_mizuiro_dim.hpp>
-#include <sge/image/traits/pitch_fwd.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 
@@ -39,10 +39,9 @@ template<
 	typename Tag,
 	typename View
 >
-typename
-sge::image::traits::pitch<
+sge::image::pitch<
 	Tag
->::type
+>
 pitch_any(
 	View const &_view
 )

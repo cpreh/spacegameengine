@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system.hpp>
 #include <sge/font/to_fcppt_string.hpp>
 #include <sge/image/color/predef.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/media/extension.hpp>
@@ -287,7 +288,9 @@ try
 		object,
 		sys.renderer_device_ffp(),
 		sge::console::gfx::font_color(
-			sge::image::color::predef::white()
+			sge::image::color::any::object{
+				sge::image::color::predef::white()
+			}
 		),
 		*font_object,
 		sys.focus_collector(),
@@ -337,7 +340,9 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::color::predef::black()
+				sge::image::color::any::object{
+					sge::image::color::predef::black()
+				}
 			)
 		);
 

@@ -31,7 +31,9 @@ namespace image
 namespace view
 {
 
-typedef mizuiro::access::raw mizuiro_access;
+typedef
+mizuiro::access::raw
+mizuiro_access;
 
 }
 }

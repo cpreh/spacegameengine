@@ -23,28 +23,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/impl/view/format_impl.hpp>
 #include <sge/image/impl/view/instantiate_const_nonconst.hpp>
-#include <sge/image/traits/color_tag.hpp>
-#include <sge/image/traits/format_fwd.hpp>
+#include <sge/image/traits/image/color_tag.hpp>
+#include <sge/image/traits/pixel/format_fwd.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_FORMAT_BASE(\
 	tag,\
-	view_type\
+	object_type\
 )\
 template \
 SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
-sge::image::traits::format< \
-	sge::image::traits::color_tag<\
+sge::image::traits::pixel::format< \
+	sge::image::traits::image::color_tag<\
 		tag \
-	>::type\
->::type \
+	> \
+> \
 sge::image::view::format<\
 	tag\
 >(\
-	sge::image::traits::view_type<\
+	sge::image::view::object_type<\
 		tag\
-	>::type const &\
+	> const &\
 )
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_FORMAT(\

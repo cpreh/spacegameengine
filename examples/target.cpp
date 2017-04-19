@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/media_path.hpp>
 #include <sge/image/color/predef.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/load_exn.hpp>
@@ -348,7 +349,9 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::color::predef::red()
+				sge::image::color::any::object{
+					sge::image::color::predef::red()
+				}
 			)
 		);
 
@@ -392,7 +395,9 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::color::predef::blue()
+				sge::image::color::any::object{
+					sge::image::color::predef::blue()
+				}
 			)
 		);
 

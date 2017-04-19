@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_ALGORITHM_INSTANTIATE_PRINT_HPP_INCLUDED
 
 #include <sge/image/impl/algorithm/print_impl.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
+#include <sge/image/view/const_object.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 #include <fcppt/io/ostream_fwd.hpp>
 
@@ -37,9 +37,9 @@ sge::image::algorithm::print< \
 	tag \
 >( \
 	fcppt::io::ostream &, \
-	sge::image::traits::const_view<\
+	sge::image::view::const_object<\
 		tag\
-	>::type const & \
+	> const & \
 )
 
 #endif

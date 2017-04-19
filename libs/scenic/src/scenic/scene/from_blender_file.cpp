@@ -360,7 +360,10 @@ load_light(
 		converted_color);
 
 	sge::scenic::render_context::ambient_color ambient_color(
-		sge::image::color::predef::black());
+		sge::image::color::any::object{
+			sge::image::color::predef::black()
+		}
+	);
 
 	if(light_type == FCPPT_TEXT("directional"))
 	{

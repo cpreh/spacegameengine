@@ -29,13 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 template<
-	typename Box
+	typename Tag
 >
 sge::image::view::sub_out_of_range<
-	Box
+	Tag
 >::sub_out_of_range(
-	Box const &_outer,
-	Box const &_inner
+	box const &_outer,
+	box const &_inner
 )
 :
 	sge::image::exception(
@@ -57,32 +57,40 @@ sge::image::view::sub_out_of_range<
 }
 
 template<
-	typename Box
+	typename Tag
 >
-Box const &
+typename
 sge::image::view::sub_out_of_range<
-	Box
+	Tag
+>::box const &
+sge::image::view::sub_out_of_range<
+	Tag
 >::outer() const
 {
-	return outer_;
+	return
+		outer_;
 }
 
 template<
-	typename Box
+	typename Tag
 >
-Box const &
+typename
 sge::image::view::sub_out_of_range<
-	Box
+	Tag
+>::box const &
+sge::image::view::sub_out_of_range<
+	Tag
 >::inner() const
 {
-	return inner_;
+	return
+		inner_;
 }
 
 template<
-	typename Box
+	typename Tag
 >
 sge::image::view::sub_out_of_range<
-	Box
+	Tag
 >::~sub_out_of_range() throw()
 {
 }

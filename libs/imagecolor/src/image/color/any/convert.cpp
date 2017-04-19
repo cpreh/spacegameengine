@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/mizuiro_color.hpp>
 #include <sge/image/color/a8_format.hpp>
 #include <sge/image/color/bgr32f_format.hpp>
 #include <sge/image/color/bgr8_format.hpp>
@@ -37,51 +36,70 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/sbgra8_format.hpp>
 #include <sge/image/color/srgb8_format.hpp>
 #include <sge/image/color/srgba8_format.hpp>
+#include <sge/image/color/tag.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <sge/image/color/any/object.hpp>
-#include <sge/image/color/impl/instantiate_format.hpp>
-#include <sge/image/color/impl/any/convert_visitor.hpp>
+#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/image/color/impl/pp_formats.hpp>
+#include <sge/image/color/impl/traits/static_converter.hpp>
+#include <sge/image/color/traits/static_formats.hpp>
+#include <sge/image/impl/pixel/convert_impl.hpp>
+#include <sge/image/impl/pixel/instantiate_convert.hpp>
+#include <sge/image/pixel/mizuiro_type.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
-	typename Dest
+	typename Format
 >
-sge::image::mizuiro_color<
-	Dest
+sge::image::pixel::mizuiro_type<
+	Format
 >
 sge::image::color::any::convert(
 	sge::image::color::any::object const &_color
 )
 {
 	return
-		fcppt::variant::apply_unary(
-			sge::image::color::impl::any::convert_visitor<
-				Dest
-			>(),
-			_color.get()
+		sge::image::pixel::convert<
+			sge::image::color::tag,
+			Format
+		>(
+			_color
 		);
 }
 
+// TODO: Abstract his?
+
 #define SGE_INSTANTIATE_COLOR_CONVERT(\
-	format_arg,\
-	_\
+	seq,\
+	_,\
+	format_arg\
 )\
 template \
 SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
-sge::image::mizuiro_color<\
-	sge::image::color::format_arg ## _format\
+sge::image::pixel::mizuiro_type<\
+	sge::image::color:: BOOST_PP_CAT(format_arg,_format)\
 > \
 sge::image::color::any::convert<\
-	sge::image::color::format_arg ## _format\
+	sge::image::color:: BOOST_PP_CAT(format_arg,_format)\
 >(\
 	sge::image::color::any::object const &\
-)
+) \
+; \
+SGE_IMAGE_IMPL_PIXEL_INSTANTIATE_CONVERT(\
+	sge::image::color::tag,\
+	sge::image::color:: BOOST_PP_CAT(format_arg,_format)\
+) \
+;
 
-SGE_IMAGE_COLOR_IMPL_INSTANTIATE_FORMAT(
+BOOST_PP_SEQ_FOR_EACH(
 	SGE_INSTANTIATE_COLOR_CONVERT,
-	_
-);
+	_,
+	SGE_IMAGE_COLOR_IMPL_PP_FORMATS
+)
 
 #undef SGE_INSTANTIATE_COLOR_CONVERT

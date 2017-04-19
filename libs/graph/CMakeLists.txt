@@ -7,6 +7,7 @@ set(
 	libs/graph/include/sge/graph/background_color.hpp
 	libs/graph/include/sge/graph/baseline.hpp
 	libs/graph/include/sge/graph/baseline_color.hpp
+	libs/graph/include/sge/graph/color.hpp
 	libs/graph/include/sge/graph/color_scheme.hpp
 	libs/graph/include/sge/graph/color_schemes.hpp
 	libs/graph/include/sge/graph/detail/draw_visitor_fwd.hpp

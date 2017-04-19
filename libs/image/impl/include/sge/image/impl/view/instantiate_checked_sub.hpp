@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_VIEW_INSTANTIATE_CHECKED_SUB_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_CHECKED_SUB_HPP_INCLUDED
 
+#include <sge/image/box_fwd.hpp>
 #include <sge/image/impl/view/checked_sub_impl.hpp>
 #include <sge/image/impl/view/instantiate_const_nonconst.hpp>
-#include <sge/image/traits/box_fwd.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 
 
@@ -33,18 +33,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 template \
 SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
-sge::image::traits::view_type<\
+sge::image::view::view_type<\
 	tag\
->::type \
+> \
 sge::image::view::checked_sub<\
 	tag\
 >(\
-	sge::image::traits::view_type<\
+	sge::image::view::view_type<\
 		tag\
-	>::type const &,\
-	sge::image::traits::box<\
+	> const &,\
+	sge::image::box<\
 		tag\
-	>::type const &\
+	> const &\
 )
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_CHECKED_SUB(\

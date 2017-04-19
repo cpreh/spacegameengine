@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 fcppt::string
-sge::image::traits::format_to_string<
+sge::image::traits::pixel::format_to_string_tpl<
 	sge::image::color::tag
 >::execute(
 	sge::image::color::format const _format

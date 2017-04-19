@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vf/dynamic/basic_view_fwd.hpp>
+#include <sge/renderer/vf/dynamic/part_cref.hpp>
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -43,19 +43,20 @@ template<
 >
 class basic_view
 {
-	FCPPT_NONASSIGNABLE(
-		basic_view
-	);
 public:
-	typedef Pointer pointer;
+	typedef
+	Pointer
+	pointer;
 
-	typedef sge::renderer::vertex::count size_type;
+	typedef
+	sge::renderer::vertex::count
+	size_type;
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	basic_view(
 		pointer data,
 		size_type elements,
-		sge::renderer::vf::dynamic::part const &,
+		sge::renderer::vf::dynamic::part_cref,
 		sge::renderer::vf::dynamic::part_index
 	);
 
@@ -75,13 +76,13 @@ public:
 	sge::renderer::vf::dynamic::part_index
 	part_index() const;
 private:
-	pointer const data_;
+	pointer data_;
 
-	size_type const size_;
+	size_type size_;
 
-	sge::renderer::vf::dynamic::part const &part_;
+	sge::renderer::vf::dynamic::part_cref part_;
 
-	sge::renderer::vf::dynamic::part_index const part_index_;
+	sge::renderer::vf::dynamic::part_index part_index_;
 };
 
 }

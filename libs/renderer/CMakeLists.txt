@@ -61,6 +61,10 @@ set(
 	libs/renderer/include/sge/renderer/buffer/readable_fwd.hpp
 	libs/renderer/include/sge/renderer/buffer/scoped_lock.hpp
 	libs/renderer/include/sge/renderer/buffer/scoped_lock_fwd.hpp
+	libs/renderer/include/sge/renderer/buffer/traits/const_view.hpp
+	libs/renderer/include/sge/renderer/buffer/traits/const_view_tpl_fwd.hpp
+	libs/renderer/include/sge/renderer/buffer/traits/view.hpp
+	libs/renderer/include/sge/renderer/buffer/traits/view_tpl_fwd.hpp
 	libs/renderer/include/sge/renderer/buffer/writable.hpp
 	libs/renderer/include/sge/renderer/buffer/writable_fwd.hpp
 	libs/renderer/include/sge/renderer/caps/clip_plane_indices.hpp
@@ -253,10 +257,9 @@ set(
 	libs/renderer/include/sge/renderer/index/tag.hpp
 	libs/renderer/include/sge/renderer/index/to_const_format.hpp
 	libs/renderer/include/sge/renderer/index/to_nonconst_format.hpp
-	libs/renderer/include/sge/renderer/index/traits/box_fwd.hpp
 	libs/renderer/include/sge/renderer/index/traits/color_tag.hpp
 	libs/renderer/include/sge/renderer/index/traits/const_view_fwd.hpp
-	libs/renderer/include/sge/renderer/index/traits/dim_fwd.hpp
+	libs/renderer/include/sge/renderer/index/traits/dimension.hpp
 	libs/renderer/include/sge/renderer/index/traits/format_fwd.hpp
 	libs/renderer/include/sge/renderer/index/traits/view_fwd.hpp
 	libs/renderer/include/sge/renderer/index/view.hpp
@@ -819,12 +822,10 @@ set(
 	libs/renderer/include/sge/renderer/vertex/scoped_lock_fwd.hpp
 	libs/renderer/include/sge/renderer/vertex/tag.hpp
 	libs/renderer/include/sge/renderer/vertex/to_primitive_count.hpp
-	libs/renderer/include/sge/renderer/vertex/traits/box_fwd.hpp
 	libs/renderer/include/sge/renderer/vertex/traits/color_tag.hpp
 	libs/renderer/include/sge/renderer/vertex/traits/const_view_fwd.hpp
-	libs/renderer/include/sge/renderer/vertex/traits/dim_fwd.hpp
+	libs/renderer/include/sge/renderer/vertex/traits/dimension.hpp
 	libs/renderer/include/sge/renderer/vertex/traits/format_fwd.hpp
-	libs/renderer/include/sge/renderer/vertex/traits/format_is_ref.hpp
 	libs/renderer/include/sge/renderer/vertex/traits/view_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/color.hpp
 	libs/renderer/include/sge/renderer/vf/color_base.hpp
@@ -883,6 +884,7 @@ set(
 	libs/renderer/include/sge/renderer/vf/dynamic/ordered_element_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/ordered_element_list.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/part.hpp
+	libs/renderer/include/sge/renderer/vf/dynamic/part_cref.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/part_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/part_index.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/part_list.hpp

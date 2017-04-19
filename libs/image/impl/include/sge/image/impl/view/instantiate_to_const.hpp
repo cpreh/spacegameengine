@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_TO_CONST_HPP_INCLUDED
 
 #include <sge/image/impl/view/to_const_impl.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/view/const_object.hpp>
+#include <sge/image/view/object.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 
 
@@ -32,15 +32,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 template \
 SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
-sge::image::traits::const_view<\
+sge::image::view::const_object<\
 	Tag\
->::type \
+> \
 sge::image::view::to_const< \
 	Tag \
 >( \
-	sge::image::traits::view<\
+	sge::image::view::object<\
 		Tag\
-	>::type const &\
+	> const &\
 )
 
 #endif

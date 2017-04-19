@@ -20,29 +20,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8.hpp>
-#include <sge/image/color/any/object.hpp>
 #include <sge/image/color/init/alpha.hpp>
 #include <sge/image/color/init/blue.hpp>
 #include <sge/image/color/init/green.hpp>
 #include <sge/image/color/init/red.hpp>
+#include <fcppt/literal.hpp>
 
 
 #define SGE_DEFINE_COLOR_A(name, r, g, b, a)\
-sge::image::color::any::object \
+sge::image::color::rgba8 \
 sge::image::color::predef::name()\
 {\
-	typedef sge::image::color::rgba8 color_type;\
-	typedef color_type::format::channel_type value_type;\
+	typedef \
+	sge::image::color::rgba8 \
+	color_type;\
+\
+	typedef \
+	color_type::format::channel_type \
+	value_type;\
 \
 	return \
-		sge::image::color::any::object(\
-			sge::image::color::rgba8(\
-				(sge::image::color::init::red() = static_cast<value_type>(r))\
-				(sge::image::color::init::green() = static_cast<value_type>(g))\
-				(sge::image::color::init::blue() = static_cast<value_type>(b))\
-				(sge::image::color::init::alpha() = static_cast<value_type>(a))\
-			)\
-		);\
+		color_type{\
+			(sge::image::color::init::red() = fcppt::literal<value_type>(r))\
+			(sge::image::color::init::green() = fcppt::literal<value_type>(g))\
+			(sge::image::color::init::blue() = fcppt::literal<value_type>(b))\
+			(sge::image::color::init::alpha() = fcppt::literal<value_type>(a))\
+		};\
 }
 
 #define SGE_DEFINE_COLOR(name, r, g, b)\

@@ -29,7 +29,9 @@ namespace sge
 namespace image
 {
 
-typedef sge::image::raw_value const *const_raw_pointer;
+typedef
+sge::image::raw_value const *
+const_raw_pointer;
 
 }
 }

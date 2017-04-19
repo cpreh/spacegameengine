@@ -21,9 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BASIC_LOCKABLE_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASIC_LOCKABLE_BUFFER_HPP_INCLUDED
 
-#include <sge/image/traits/color_tag.hpp>
-#include <sge/image/traits/format_fwd.hpp>
-#include <sge/image/traits/pitch_fwd.hpp>
+#include <sge/image/pitch_fwd.hpp>
 #include <sge/opengl/color_base_type.hpp>
 #include <sge/opengl/color_order.hpp>
 #include <sge/opengl/internal_color_format.hpp>
@@ -209,10 +207,9 @@ private:
 	mutable optional_lock_area lock_area_;
 
 	typedef
-	typename
-	sge::image::traits::pitch<
+	sge::image::pitch<
 		image_tag
-	>::type
+	>
 	pitch;
 };
 

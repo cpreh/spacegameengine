@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_TRAITS_STATIC_CONVERTER_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_TRAITS_STATIC_CONVERTER_HPP_INCLUDED
 
+#include <sge/image/impl/traits/static_converter_tpl_fwd.hpp>
+
 
 namespace sge
 {
@@ -34,7 +36,13 @@ namespace traits
 template<
 	typename Tag
 >
-struct static_converter;
+using
+static_converter
+=
+typename
+sge::image::impl::traits::static_converter_tpl<
+	Tag
+>::type;
 
 }
 }

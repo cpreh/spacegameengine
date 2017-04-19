@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VERTEX_TRAITS_FORMAT_FWD_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_TRAITS_FORMAT_FWD_HPP_INCLUDED
 
-#include <sge/image/traits/format_fwd.hpp>
+#include <sge/image/traits/pixel/format_tpl_fwd.hpp>
 #include <sge/renderer/vertex/tag.hpp>
-#include <sge/renderer/vf/dynamic/part_fwd.hpp>
+#include <sge/renderer/vf/dynamic/part_cref.hpp>
 
 
 namespace sge
@@ -32,17 +32,20 @@ namespace image
 {
 namespace traits
 {
+namespace pixel
+{
 
 template<>
-struct format<
+struct format_tpl<
 	sge::renderer::vertex::tag
 >
 {
 	typedef
-	sge::renderer::vf::dynamic::part
+	sge::renderer::vf::dynamic::part_cref
 	type;
 };
 
+}
 }
 }
 }

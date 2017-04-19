@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/exception.hpp>
 #include <sge/font/view.hpp>
 #include <sge/image/color/a8_format.hpp>
-#include <sge/image2d/view/element_base.hpp>
+#include <sge/image/view/basic_format.hpp>
+#include <sge/image/view/mizuiro_type.hpp>
 #include <sge/pango/freetype/make_bitmap.hpp>
 #include <mizuiro/nonconst_tag.hpp>
 #include <mizuiro/image/view_impl.hpp>
@@ -42,10 +43,16 @@ sge::pango::freetype::make_bitmap(
 	sge::font::view const &_view
 )
 {
-	typedef sge::image2d::view::element_base<
-		sge::image::color::a8_format,
+	// FIXME: Use the correct view types
+	typedef
+	sge::image::view::mizuiro_type<
+		sge::image::view::basic_format<
+			2,
+			sge::image::color::a8_format
+		>,
 		mizuiro::nonconst_tag
-	>::type a8_view;
+	>
+	a8_view;
 
 	a8_view const &view(
 		fcppt::optional::to_exception(

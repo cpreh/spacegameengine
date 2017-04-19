@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_A8_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE2D_A8_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/view/a8_format.hpp>
+#include <sge/image/color/a8_format.hpp>
+#include <sge/image/view/basic_format.hpp>
 
 
 namespace sge
@@ -30,8 +31,9 @@ namespace image2d
 {
 
 typedef
-sge::image::color::view::a8_format<
-	2
+sge::image::view::basic_format<
+	2,
+	sge::image::color::a8_format
 >
 a8_format;
 

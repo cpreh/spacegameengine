@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_VIEW_CHECKED_SUB_CONDITION_HPP_INCLUDED
 
 #include <sge/image/box.hpp>
-#include <sge/image/traits/box_fwd.hpp>
-#include <sge/image/traits/sub_out_of_range.hpp>
+#include <sge/image/view/sub_out_of_range.hpp>
 #include <sge/image/view/size.hpp>
 #include <fcppt/math/box/contains.hpp>
 #include <fcppt/math/vector/null.hpp>
@@ -45,14 +44,19 @@ template<
 void
 checked_sub_condition(
 	View const &_src,
-	typename sge::image::traits::box<
+	sge::image::box<
 		Tag
-	>::type const &_box
+	> const &_box
+)
+noexcept(
+	false
 )
 {
-	typedef typename sge::image::traits::box<
+	typedef
+	sge::image::box<
 		Tag
-	>::type box;
+	>
+	box;
 
 	box const outer(
 		fcppt::math::vector::null<
@@ -73,12 +77,12 @@ checked_sub_condition(
 		)
 	)
 		throw
-			typename sge::image::traits::sub_out_of_range<
+			sge::image::view::sub_out_of_range<
 				Tag
-			>::type(
+			>{
 				outer,
 				_box
-			);
+			};
 }
 
 }

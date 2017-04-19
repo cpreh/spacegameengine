@@ -27,5 +27,7 @@ sge::image::color::any::object
 sge::gui::impl::style::text_color()
 {
 	return
-		sge::image::color::predef::black();
+		sge::image::color::any::object{
+			sge::image::color::predef::black()
+		};
 }

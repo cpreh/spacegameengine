@@ -18,26 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/impl/instantiate_format.hpp>
 #include <sge/image/impl/view/instantiate_const_object.hpp>
-#include <sge/image3d/traits/const_view_fwd.hpp>
-#include <sge/image3d/traits/view_fwd.hpp>
-#include <sge/image3d/view/const_element.hpp>
-#include <sge/image3d/view/const_elements_wrapper.hpp>
+#include <sge/image3d/tag.hpp>
 #include <sge/image3d/view/const_object.hpp>
-#include <sge/image3d/view/elements_wrapper_fwd.hpp>
 
-
-#define SGE_IMAGE2D_VIEW_CONST_OBJECT_INSTANTIATE_ARGS ( \
-	sge::image3d::view::const_elements_wrapper, \
-	sge::image3d::view::const_element, \
-	sge::image::color, \
-	sge::image3d::view::elements_wrapper \
-)
 
 SGE_IMAGE_IMPL_VIEW_INSTANTIATE_CONST_OBJECT(
-	SGE_IMAGE2D_VIEW_CONST_OBJECT_INSTANTIATE_ARGS,
-	SGE_IMAGE_COLOR_IMPL_INSTANTIATE_FORMAT
+	sge::image3d::tag
 );
-
-#undef SGE_IMAGE2D_VIEW_CONST_OBJECT_INSTANTIATE_ARGS

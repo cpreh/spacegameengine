@@ -19,10 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/media_path.hpp>
+#include <sge/image/color/convert.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
-#include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
@@ -279,7 +280,7 @@ try
 				sprite_object::vector
 			>(),
 		sge::sprite::roles::color{} =
-			sge::image::color::any::convert<
+			sge::image::color::convert<
 				color_format
 			>(
 				sge::image::color::predef::red()
@@ -313,7 +314,9 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::color::predef::black()
+				sge::image::color::any::object{
+					sge::image::color::predef::black()
+				}
 			)
 		);
 

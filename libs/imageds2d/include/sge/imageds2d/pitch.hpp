@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGEDS2D_PITCH_HPP_INCLUDED
 #define SGE_IMAGEDS2D_PITCH_HPP_INCLUDED
 
-#include <sge/image/pitch.hpp>
+#include <sge/image/basic_pitch.hpp>
 #include <sge/imageds2d/pitch_fwd.hpp>
 
 

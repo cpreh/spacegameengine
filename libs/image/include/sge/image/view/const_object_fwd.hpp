@@ -30,8 +30,7 @@ namespace view
 {
 
 template<
-	typename ElementsWrapper,
-	typename NonConstElemenstWrapper
+	typename Tag
 >
 class const_object;
 

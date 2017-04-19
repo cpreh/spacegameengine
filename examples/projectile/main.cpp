@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/predef.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_callback.hpp>
@@ -738,7 +739,9 @@ try
 				scoped_block.get().clear(
 					sge::renderer::clear::parameters()
 					.back_buffer(
-						sge::image::color::predef::black()
+						sge::image::color::any::object{
+							sge::image::color::predef::black()
+						}
 					)
 				);
 

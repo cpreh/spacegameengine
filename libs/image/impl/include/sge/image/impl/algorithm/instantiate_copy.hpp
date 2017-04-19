@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/impl/algorithm/copy_impl.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/view/const_object_fwd.hpp>
+#include <sge/image/view/object_fwd.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 
 
@@ -38,12 +38,12 @@ void \
 sge::image::algorithm::copy< \
 	tag \
 >( \
-	sge::image::traits::const_view<\
+	sge::image::view::const_object<\
 		tag\
-	>::type const &, \
-	sge::image::traits::view<\
+	> const &, \
+	sge::image::view::object<\
 		tag\
-	>::type const &, \
+	> const &, \
 	sge::image::algorithm::may_overlap, \
 	sge::image::algorithm::uninitialized \
 )

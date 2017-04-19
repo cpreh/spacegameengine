@@ -120,7 +120,9 @@ try
 
 	testbed.add_widget(
 		viewport_box,
-		sge::image::color::predef::blue()
+		sge::image::color::any::object{
+			sge::image::color::predef::blue()
+		}
 	);
 
 	typedef
@@ -178,7 +180,9 @@ try
 
 		testbed.add_widget(
 			*dummy,
-			sge::image::color::predef::red()
+			sge::image::color::any::object{
+				sge::image::color::predef::red()
+			}
 		);
 	}
 

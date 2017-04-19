@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/view/const_object_fwd.hpp>
+#include <sge/image/view/object_fwd.hpp>
 
 
 namespace sge
@@ -41,9 +41,9 @@ template<
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 sge::image::raw_pointer
 data(
-	typename sge::image::traits::view<
+	sge::image::view::object<
 		Tag
-	>::type const &
+	> const &
 );
 
 template<
@@ -52,9 +52,9 @@ template<
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 sge::image::const_raw_pointer
 data(
-	typename sge::image::traits::const_view<
+	sge::image::view::const_object<
 		Tag
-	>::type const &
+	> const &
 );
 
 }

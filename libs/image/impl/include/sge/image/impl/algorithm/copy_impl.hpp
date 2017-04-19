@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_ALGORITHM_COPY_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_ALGORITHM_COPY_IMPL_HPP_INCLUDED
 
-#include <sge/image/mizuiro_color.hpp>
+#include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/algorithm/copy.hpp>
 #include <sge/image/algorithm/invalid_copy.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
@@ -29,9 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/impl/algorithm/convert_may_overlap.hpp>
 #include <sge/image/impl/algorithm/convert_uninitialized.hpp>
 #include <sge/image/impl/view/format_type.hpp>
-#include <sge/image/traits/color_tag.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/traits/image/color_tag.hpp>
+#include <sge/image/view/const_object.hpp>
 #include <sge/image/view/format.hpp>
 #include <sge/image/view/mizuiro_type.hpp>
 #include <sge/image/view/object.hpp>
@@ -47,14 +46,12 @@ template<
 >
 void
 sge::image::algorithm::copy(
-	typename
-	sge::image::traits::const_view<
+	sge::image::view::const_object<
 		Tag
-	>::type const &_src,
-	typename
-	sge::image::traits::view<
+	> const &_src,
+	sge::image::view::object<
 		Tag
-	>::type const &_dest,
+	> const &_dest,
 	sge::image::algorithm::may_overlap const _overlap,
 	sge::image::algorithm::uninitialized const _uninitialized
 )
@@ -73,7 +70,6 @@ try
 				mizuiro::image::algorithm::copy(
 					_src_inner,
 					fcppt::variant::get_exn<
-						typename
 						sge::image::view::mizuiro_type<
 							sge::image::impl::view::format_type<
 								decltype(
@@ -81,7 +77,7 @@ try
 								)
 							>,
 							mizuiro::nonconst_tag
-						>::type
+						>
 					>(
 						_dest.get()
 					),
@@ -102,10 +98,9 @@ catch(
 {
 	throw
 		sge::image::algorithm::invalid_copy<
-			typename
-			sge::image::traits::color_tag<
+			sge::image::traits::image::color_tag<
 				Tag
-			>::type
+			>
 		>{
 			sge::image::view::format<
 				Tag

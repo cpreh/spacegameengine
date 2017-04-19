@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/impl/view/data_impl.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/view/const_object_fwd.hpp>
+#include <sge/image/view/object_fwd.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 
 
@@ -40,9 +40,9 @@ pointer \
 sge::image::view::data<\
 	tag\
 >(\
-	sge::image::traits::view_type<\
+	sge::image::view::view_type<\
 		tag\
-	>::type const &\
+	> const &\
 )
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_DATA(\
@@ -50,12 +50,12 @@ sge::image::view::data<\
 )\
 SGE_IMAGE_IMPL_VIEW_INSTANTIATE_DATA_BASE(\
 	tag,\
-	view,\
+	object,\
 	sge::image::raw_pointer\
 );\
 SGE_IMAGE_IMPL_VIEW_INSTANTIATE_DATA_BASE(\
 	tag,\
-	const_view,\
+	const_object,\
 	sge::image::const_raw_pointer\
 )
 

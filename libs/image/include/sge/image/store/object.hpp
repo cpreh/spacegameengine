@@ -21,12 +21,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_STORE_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE_STORE_OBJECT_HPP_INCLUDED
 
+#include <sge/image/dim_fwd.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
+#include <sge/image/store/elements.hpp>
 #include <sge/image/store/object_fwd.hpp>
-#include <sge/image/view/has_element.hpp>
+#include <sge/image/traits/image/color_tag.hpp>
+#include <sge/image/traits/pixel/format_fwd.hpp>
+#include <fcppt/no_init_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,48 +43,77 @@ namespace store
 {
 
 template<
-	typename ElementsWrapper
+	typename Tag
 >
 class object
 {
+	FCPPT_NONCOPYABLE(
+		object
+	);
 public:
 	typedef
+	sge::image::store::elements<
+		Tag
+	>
+	store_elements;
+
+	typedef
 	fcppt::variant::object<
-		typename
-		ElementsWrapper::type
+		store_elements
 	>
 	variant;
 
-	template<
-		typename Element,
-		typename =
-			typename boost::enable_if<
-				sge::image::view::has_element<
-					ElementsWrapper,
-					Element
-				>
-			>::type
+	typedef
+	sge::image::dim<
+		Tag
 	>
+	dim;
+
+	typedef
+	sge::image::traits::pixel::format<
+		sge::image::traits::image::color_tag<
+			Tag
+		>
+	>
+	format;
+
+	// TODO: Can we improve this?
+	template<
+		typename Element
+	>
+	explicit
+	object(
+		Element &&_element
+	)
+	:
+		object(
+			variant{
+				std::forward<
+					Element
+				>(
+					_element
+				)
+			}
+		)
+	{
+	}
+
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	explicit
 	object(
-		Element &&
+		variant &&
 	);
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	object(
-		object const &
+		format,
+		dim const &,
+		fcppt::no_init const &
 	);
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	object(
 		object &&
-	);
-
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	object &
-	operator=(
-		object const &
 	);
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL

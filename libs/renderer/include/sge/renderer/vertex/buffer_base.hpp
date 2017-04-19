@@ -23,12 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/buffer/writable.hpp>
 #include <sge/renderer/vertex/buffer_base_fwd.hpp>
-#include <sge/renderer/vertex/traits/box_fwd.hpp>
 #include <sge/renderer/vertex/traits/color_tag.hpp>
 #include <sge/renderer/vertex/traits/const_view_fwd.hpp>
-#include <sge/renderer/vertex/traits/dim_fwd.hpp>
+#include <sge/renderer/vertex/traits/dimension.hpp>
 #include <sge/renderer/vertex/traits/format_fwd.hpp>
-#include <sge/renderer/vertex/traits/format_is_ref.hpp>
 #include <sge/renderer/vertex/traits/view_fwd.hpp>
 
 

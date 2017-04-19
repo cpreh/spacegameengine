@@ -90,7 +90,7 @@ sge::font::draw::detail::static_text_impl::static_text_impl(
 		sge::font::draw::create_ffp_sampler(
 			_renderer,
 			sge::font::draw::color_format(
-				_font.color_format()
+				_font.preferred_color_format()
 			)
 		)
 	),
@@ -105,7 +105,7 @@ sge::font::draw::detail::static_text_impl::static_text_impl(
 			_renderer,
 			*text_,
 			sge::font::draw::color_format(
-				_font.color_format()
+				_font.preferred_color_format()
 			),
 			_emulate_srgb
 		)

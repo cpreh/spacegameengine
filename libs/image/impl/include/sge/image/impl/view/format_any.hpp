@@ -21,14 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_VIEW_FORMAT_ANY_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_FORMAT_ANY_HPP_INCLUDED
 
+#include <sge/image/impl/static_to_dynamic_format.hpp>
 #include <sge/image/impl/view/format_type.hpp>
-#include <sge/image/traits/format_fwd.hpp>
-#include <sge/image/traits/format_static.hpp>
+#include <sge/image/traits/pixel/format_fwd.hpp>
 #include <fcppt/use.hpp>
 #include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -44,10 +41,9 @@ template<
 	typename ColorTag,
 	typename View
 >
-typename
-sge::image::traits::format<
+sge::image::traits::pixel::format<
 	ColorTag
->::type
+>
 format_any(
 	View const &_view
 )
@@ -63,17 +59,13 @@ format_any(
 				);
 
 				return
-					sge::image::traits::format_static<
-						ColorTag
-					>:: template apply<
+					sge::image::impl::static_to_dynamic_format<
+						ColorTag,
 						typename
 						sge::image::impl::view::format_type<
-							typename
-							std::decay<
-								decltype(
-									_src
-								)
-							>::type
+							decltype(
+								_src
+							)
 						>::color_format
 					>::value;
 			},

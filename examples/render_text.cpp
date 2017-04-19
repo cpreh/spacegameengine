@@ -29,12 +29,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_unique_ptr.hpp>
 #include <sge/font/align_h/left.hpp>
 #include <sge/font/align_h/variant.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/save_from_view.hpp>
-#include <sge/image2d/store/a8.hpp>
-#include <sge/image2d/store/rgba8.hpp>
+#include <sge/image2d/store/object.hpp>
+#include <sge/image2d/store/view.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
+#include <sge/image2d/view/to_const.hpp>
 #include <sge/systems/font.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/make_list.hpp>
@@ -45,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/args_from_second.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/main.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
@@ -53,6 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/options/apply.hpp>
 #include <fcppt/options/argument.hpp>
 #include <fcppt/options/default_help_switch.hpp>
@@ -152,8 +156,14 @@ render_text_main(
 		)
 	};
 
-	// FIXME: Make it possible to initialize store::object from a color format
-	sge::image2d::store::a8 store{
+	sge::image2d::store::object store{
+		fcppt::optional::from(
+			font->preferred_color_format(),
+			[]{
+				return
+					sge::image::color::format::a8;
+			}
+		),
 		fcppt::math::dim::structure_cast<
 			sge::image2d::dim,
 			fcppt::cast::size_fun
@@ -161,32 +171,22 @@ render_text_main(
 			text->rect().size()
 		),
 		// TODO: Initialize with something?
-		sge::image2d::store::a8::no_init{}
+		fcppt::no_init{}
 	};
 
 	text->render(
-		sge::image2d::view::object{
-			store.wrapped_view()
-		}
+		sge::image2d::store::view(
+			store
+		)
 	);
-
-	sge::image2d::store::rgba8 converted_store{
-		store.size(),
-		sge::image2d::store::rgba8::init_function{
-			[](
-				sge::image2d::store::rgba8::view_type const &_result
-			)
-			{
-				// FIXME
-			}
-		}
-	};
 
 	sge::image2d::save_from_view(
 		sys.image_system(),
-		sge::image2d::view::const_object{
-			store.const_wrapped_view()
-		},
+		sge::image2d::view::to_const(
+			sge::image2d::store::view(
+				store
+			)
+		),
 		boost::filesystem::path{
 			fcppt::record::get<
 				output_file_label

@@ -34,7 +34,7 @@ namespace view
 {
 
 template<
-	typename ElementsWrapper,
+	typename Elements,
 	typename Element
 >
 using
@@ -42,8 +42,7 @@ has_element
 =
 typename
 boost::mpl::contains<
-	typename
-	ElementsWrapper::type,
+	Elements,
 	Element
 >::type;
 

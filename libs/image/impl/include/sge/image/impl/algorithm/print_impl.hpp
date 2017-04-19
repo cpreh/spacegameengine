@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_ALGORITHM_PRINT_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_ALGORITHM_PRINT_IMPL_HPP_INCLUDED
 
-#include <sge/image/mizuiro_color.hpp>
+#include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/algorithm/print.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
+#include <sge/image/view/const_object.hpp>
 #include <mizuiro/color/output.hpp>
 #include <mizuiro/image/algorithm/print.hpp>
 #include <fcppt/io/ostream_fwd.hpp>
@@ -36,10 +36,9 @@ template<
 void
 sge::image::algorithm::print(
 	fcppt::io::ostream &_ostream,
-	typename
-	sge::image::traits::const_view<
+	sge::image::view::const_object<
 		Tag
-	>::type const &_view
+	> const &_view
 )
 {
 	fcppt::variant::apply_unary(

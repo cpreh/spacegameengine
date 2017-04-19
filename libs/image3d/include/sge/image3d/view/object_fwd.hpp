@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE3D_VIEW_OBJECT_FWD_HPP_INCLUDED
 
 #include <sge/image/view/object_fwd.hpp>
-#include <sge/image3d/view/elements_wrapper_fwd.hpp>
+#include <sge/image3d/tag.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace view
 
 typedef
 sge::image::view::object<
-	image3d::view::elements_wrapper
+	sge::image3d::tag
 >
 object;
 

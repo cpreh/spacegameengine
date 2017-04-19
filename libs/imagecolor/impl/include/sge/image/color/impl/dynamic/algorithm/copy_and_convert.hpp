@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/impl/dynamic/format/object_decl.hpp>
 #include <sge/image/color/impl/dynamic/format/object_traits.hpp>
 #include <sge/image/color/impl/dynamic/view/from_static_visitor.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/dim_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/traits/image/dimension.hpp>
+#include <sge/image/view/const_object.hpp>
+#include <sge/image/view/object.hpp>
 #include <mizuiro/const_tag.hpp>
 #include <mizuiro/nonconst_tag.hpp>
 #include <fcppt/variant/apply_binary.hpp>
@@ -54,19 +54,21 @@ template<
 >
 void
 copy_and_convert(
-	typename sge::image::traits::const_view<
+	sge::image::view::const_object<
 		Tag
-	>::type const &_source,
-	typename sge::image::traits::view<
+	> const &_source,
+	sge::image::view::object<
 		Tag
-	>::type const &_dest,
+	> const &_dest,
 	sge::image::algorithm::may_overlap const _overlap,
 	sge::image::algorithm::uninitialized const _uninitialized
 )
 {
-	typedef typename sge::image::traits::dim<
+	typedef
+	sge::image::traits::image::dimension<
 		Tag
-	>::type::dim_wrapper dim_wrapper;
+	>
+	dim;
 
 	fcppt::variant::apply_binary(
 		sge::image::color::impl::dynamic::algorithm::cac::visitor(
@@ -75,14 +77,14 @@ copy_and_convert(
 		),
 		fcppt::variant::apply_unary(
 			sge::image::color::impl::dynamic::view::from_static_visitor<
-				dim_wrapper::value,
+				dim::value,
 				mizuiro::const_tag
 			>(),
 			_source.get()
 		),
 		fcppt::variant::apply_unary(
 			sge::image::color::impl::dynamic::view::from_static_visitor<
-				dim_wrapper::value,
+				dim::value,
 				mizuiro::nonconst_tag
 			>(),
 			_dest.get()

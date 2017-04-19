@@ -22,93 +22,124 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_STORE_OBJECT_IMPL_HPP_INCLUDED
 
 #include <sge/image/mizuiro_color_traits.hpp>
+#include <sge/image/impl/view/to_static_format.hpp>
+#include <sge/image/traits/image/color_tag.hpp>
+#include <sge/image/traits/pixel/format_fwd.hpp>
 #include <sge/image/store/object.hpp>
+#include <sge/image/view/to_wrapped_type.hpp>
+#include <fcppt/no_init.hpp>
+#include <fcppt/runtime_enum.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <type_traits>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 template<
-	typename ElementsWrapper
->
-template<
-	typename Element,
-	typename
+	typename Tag
 >
 sge::image::store::object<
-	ElementsWrapper
+	Tag
 >::object(
-	Element &&_element
+	variant &&_variant
 )
 :
-	variant_(
+	variant_{
 		std::move(
-			_element
+			_variant
 		)
-	)
+	}
 {
 }
 
 template<
-	typename ElementsWrapper
+	typename Tag
 >
 sge::image::store::object<
-	ElementsWrapper
+	Tag
 >::object(
-	object const &
-) = default;
+	format const _format,
+	dim const &_size,
+	fcppt::no_init const &
+)
+:
+	variant_{
+		fcppt::runtime_enum<
+			sge::image::traits::pixel::format<
+				sge::image::traits::image::color_tag<
+					Tag
+				>
+			>
+		>(
+			_format,
+			[
+				&_size
+			](
+				auto const &_static_format
+			)
+			{
+				return
+					variant{
+						sge::image::store::basic<
+							sge::image::impl::view::to_static_format<
+								Tag,
+								typename
+								std::decay<
+									decltype(
+										_static_format
+									)
+								>::type
+							>
+						>(
+							_size,
+							fcppt::no_init{}
+						)
+					};
+			}
+		)
+	}
+{
+}
 
 template<
-	typename ElementsWrapper
+	typename Tag
 >
 sge::image::store::object<
-	ElementsWrapper
+	Tag
 >::object(
 	object &&
 ) = default;
 
 template<
-	typename ElementsWrapper
+	typename Tag
 >
 sge::image::store::object<
-	ElementsWrapper
+	Tag
 > &
 sge::image::store::object<
-	ElementsWrapper
->::operator=(
-	object const &
-) = default;
-
-template<
-	typename ElementsWrapper
->
-sge::image::store::object<
-	ElementsWrapper
-> &
-sge::image::store::object<
-	ElementsWrapper
+	Tag
 >::operator=(
 	object &&
 ) = default;
 
 template<
-	typename ElementsWrapper
+	typename Tag
 >
 sge::image::store::object<
-	ElementsWrapper
+	Tag
 >::~object()
 {
 }
 
 template<
-	typename ElementsWrapper
+	typename Tag
 >
 typename
 sge::image::store::object<
-	ElementsWrapper
+	Tag
 >::variant &
 sge::image::store::object<
-	ElementsWrapper
+	Tag
 >::get()
 {
 	return
@@ -116,14 +147,14 @@ sge::image::store::object<
 }
 
 template<
-	typename ElementsWrapper
+	typename Tag
 >
 typename
 sge::image::store::object<
-	ElementsWrapper
+	Tag
 >::variant const &
 sge::image::store::object<
-	ElementsWrapper
+	Tag
 >::get() const
 {
 	return

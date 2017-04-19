@@ -21,8 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/impl/view/flipped_impl.hpp>
 #include <sge/image/impl/view/instantiate_flipped.hpp>
 #include <sge/imageds2d/tag.hpp>
-#include <sge/imageds2d/traits/const_view_fwd.hpp>
-#include <sge/imageds2d/traits/view_fwd.hpp>
 #include <sge/imageds2d/view/const_object.hpp>
 #include <sge/imageds2d/view/flipped.hpp>
 #include <sge/imageds2d/view/object.hpp>

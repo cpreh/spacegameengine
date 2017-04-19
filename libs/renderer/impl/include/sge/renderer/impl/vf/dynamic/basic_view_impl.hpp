@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_IMPL_VF_DYNAMIC_BASIC_VIEW_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/vf/dynamic/basic_view.hpp>
+#include <sge/renderer/vf/dynamic/part_cref.hpp>
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 
@@ -34,7 +35,7 @@ sge::renderer::vf::dynamic::basic_view<
 >::basic_view(
 	pointer const _data,
 	size_type const _size,
-	sge::renderer::vf::dynamic::part const &_part,
+	sge::renderer::vf::dynamic::part_cref const _part,
 	sge::renderer::vf::dynamic::part_index const _part_index
 )
 :
@@ -56,7 +57,8 @@ sge::renderer::vf::dynamic::basic_view<
 template<
 	typename Pointer
 >
-typename sge::renderer::vf::dynamic::basic_view<
+typename
+sge::renderer::vf::dynamic::basic_view<
 	Pointer
 >::pointer
 sge::renderer::vf::dynamic::basic_view<
@@ -70,7 +72,8 @@ sge::renderer::vf::dynamic::basic_view<
 template<
 	typename Pointer
 >
-typename sge::renderer::vf::dynamic::basic_view<
+typename
+sge::renderer::vf::dynamic::basic_view<
 	Pointer
 >::size_type
 sge::renderer::vf::dynamic::basic_view<
@@ -90,7 +93,7 @@ sge::renderer::vf::dynamic::basic_view<
 >::part() const
 {
 	return
-		part_;
+		part_.get();
 }
 
 template<

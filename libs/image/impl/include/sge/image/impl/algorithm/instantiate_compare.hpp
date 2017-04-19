@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_ALGORITHM_INSTANTIATE_COMPARE_HPP_INCLUDED
 
 #include <sge/image/impl/algorithm/compare_impl.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
+#include <sge/image/view/const_object.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 
 
@@ -35,12 +35,12 @@ bool \
 sge::image::algorithm::compare< \
 	tag \
 >( \
-	sge::image::traits::const_view<\
+	sge::image::view::const_object<\
 		tag\
-	>::type const &, \
-	sge::image::traits::const_view<\
+	> const &, \
+	sge::image::view::const_object<\
 		tag\
-	>::type const & \
+	> const & \
 )
 
 #endif

@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/graph/color_schemes.hpp>
 #include <sge/graph/object.hpp>
 #include <sge/image/color/predef.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key_event.hpp>
 #include <sge/media/extension.hpp>
@@ -469,7 +470,9 @@ main_program(
 		sge::scenic::grid::distance_to_origin{
 			0.0f
 		},
-		sge::image::color::predef::white()
+		sge::image::color::any::object{
+			sge::image::color::predef::white()
+		}
 	};
 
 	/*
@@ -562,7 +565,9 @@ main_program(
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 				.back_buffer(
-					sge::image::color::predef::black()
+					sge::image::color::any::object{
+						sge::image::color::predef::black()
+					}
 				)
 				.depth_buffer(
 					1.0f

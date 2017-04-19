@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/media_path.hpp>
 #include <sge/image/color/predef.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/load_exn.hpp>
@@ -319,7 +320,9 @@ try
 				sge::renderer::state::ffp::lighting::variant{
 					sge::renderer::state::ffp::lighting::enabled{
 						sge::renderer::state::ffp::lighting::ambient_color{
-							sge::image::color::predef::black()
+							sge::image::color::any::object{
+								sge::image::color::predef::black()
+							}
 						},
 						sge::renderer::state::ffp::lighting::diffuse_from_vertex{
 							false
@@ -334,13 +337,19 @@ try
 		sys.renderer_device_ffp().create_light_state(
 			sge::renderer::state::ffp::lighting::light::parameters{
 				sge::renderer::state::ffp::lighting::diffuse_color{
-					sge::image::color::predef::black()
+					sge::image::color::any::object{
+						sge::image::color::predef::black()
+					}
 				},
 				sge::renderer::state::ffp::lighting::specular_color{
-					sge::image::color::predef::black()
+					sge::image::color::any::object{
+						sge::image::color::predef::black()
+					}
 				},
 				sge::renderer::state::ffp::lighting::ambient_color{
-					sge::image::color::predef::yellow()
+					sge::image::color::any::object{
+						sge::image::color::predef::yellow()
+					}
 				},
 				sge::renderer::state::ffp::lighting::light::variant{
 					sge::renderer::state::ffp::lighting::light::point{
@@ -384,7 +393,9 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::color::predef::black()
+				sge::image::color::any::object{
+					sge::image::color::predef::black()
+				}
 			)
 		);
 

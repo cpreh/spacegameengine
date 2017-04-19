@@ -1,6 +1,5 @@
 set(
 	SGE_IMAGECOLOR_FILES
-	libs/imagecolor/impl/include/sge/image/color/impl/any/convert_visitor.hpp
 	libs/imagecolor/impl/include/sge/image/color/impl/converter.hpp
 	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/algorithm/cac/choose.hpp
 	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/algorithm/cac/convert.hpp
@@ -58,8 +57,12 @@ set(
 	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/from_static.hpp
 	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/from_static_visitor.hpp
 	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/image_format.hpp
-	libs/imagecolor/impl/include/sge/image/color/impl/instantiate_format.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/format_map.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/format_pair.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/make_format_pair.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/pp_formats.hpp
 	libs/imagecolor/impl/include/sge/image/color/impl/traits/dynamic_copy_and_convert.hpp
+	libs/imagecolor/impl/include/sge/image/color/impl/traits/format_map.hpp
 	libs/imagecolor/impl/include/sge/image/color/impl/traits/static_converter.hpp
 	libs/imagecolor/impl/src/image/color/impl/dynamic/format/a8.cpp
 	libs/imagecolor/impl/src/image/color/impl/dynamic/format/bgr32f.cpp
@@ -87,8 +90,6 @@ set(
 	libs/imagecolor/include/sge/image/color/any/compare.hpp
 	libs/imagecolor/include/sge/image/color/any/convert.hpp
 	libs/imagecolor/include/sge/image/color/any/detail/compare.hpp
-	libs/imagecolor/include/sge/image/color/any/detail/make_object.hpp
-	libs/imagecolor/include/sge/image/color/any/elements.hpp
 	libs/imagecolor/include/sge/image/color/any/from_string.hpp
 	libs/imagecolor/include/sge/image/color/any/object.hpp
 	libs/imagecolor/include/sge/image/color/any/object_fwd.hpp
@@ -111,12 +112,10 @@ set(
 	libs/imagecolor/include/sge/image/color/convert.hpp
 	libs/imagecolor/include/sge/image/color/detail/is_convertible.hpp
 	libs/imagecolor/include/sge/image/color/element_count.hpp
-	libs/imagecolor/include/sge/image/color/elements.hpp
 	libs/imagecolor/include/sge/image/color/format.hpp
 	libs/imagecolor/include/sge/image/color/format_element_size.hpp
 	libs/imagecolor/include/sge/image/color/format_fwd.hpp
 	libs/imagecolor/include/sge/image/color/format_is_srgb.hpp
-	libs/imagecolor/include/sge/image/color/format_static.hpp
 	libs/imagecolor/include/sge/image/color/format_stride.hpp
 	libs/imagecolor/include/sge/image/color/format_to_string.hpp
 	libs/imagecolor/include/sge/image/color/init/alpha.hpp
@@ -133,6 +132,7 @@ set(
 	libs/imagecolor/include/sge/image/color/la8.hpp
 	libs/imagecolor/include/sge/image/color/la8_format.hpp
 	libs/imagecolor/include/sge/image/color/la8_fwd.hpp
+	libs/imagecolor/include/sge/image/color/make_format.hpp
 	libs/imagecolor/include/sge/image/color/optional_format.hpp
 	libs/imagecolor/include/sge/image/color/optional_format_fwd.hpp
 	libs/imagecolor/include/sge/image/color/predef.hpp
@@ -169,32 +169,12 @@ set(
 	libs/imagecolor/include/sge/image/color/srgba8.hpp
 	libs/imagecolor/include/sge/image/color/srgba8_format.hpp
 	libs/imagecolor/include/sge/image/color/srgba8_fwd.hpp
+	libs/imagecolor/include/sge/image/color/static_formats.hpp
 	libs/imagecolor/include/sge/image/color/tag.hpp
-	libs/imagecolor/include/sge/image/color/traits/any_convert.hpp
-	libs/imagecolor/include/sge/image/color/traits/any_object_fwd.hpp
 	libs/imagecolor/include/sge/image/color/traits/format_fwd.hpp
-	libs/imagecolor/include/sge/image/color/traits/format_static.hpp
 	libs/imagecolor/include/sge/image/color/traits/format_stride.hpp
 	libs/imagecolor/include/sge/image/color/traits/format_to_string.hpp
-	libs/imagecolor/include/sge/image/color/transform_elements.hpp
-	libs/imagecolor/include/sge/image/color/view/a8_format.hpp
-	libs/imagecolor/include/sge/image/color/view/bgr32f_format.hpp
-	libs/imagecolor/include/sge/image/color/view/bgr8_format.hpp
-	libs/imagecolor/include/sge/image/color/view/bgra32f_format.hpp
-	libs/imagecolor/include/sge/image/color/view/bgra8_format.hpp
-	libs/imagecolor/include/sge/image/color/view/bgrx8_format.hpp
-	libs/imagecolor/include/sge/image/color/view/l8_format.hpp
-	libs/imagecolor/include/sge/image/color/view/la8_format.hpp
-	libs/imagecolor/include/sge/image/color/view/r32f_format.hpp
-	libs/imagecolor/include/sge/image/color/view/rgb32f_format.hpp
-	libs/imagecolor/include/sge/image/color/view/rgb8_format.hpp
-	libs/imagecolor/include/sge/image/color/view/rgba32f_format.hpp
-	libs/imagecolor/include/sge/image/color/view/rgba8_format.hpp
-	libs/imagecolor/include/sge/image/color/view/rgbx8_format.hpp
-	libs/imagecolor/include/sge/image/color/view/sbgr8_format.hpp
-	libs/imagecolor/include/sge/image/color/view/sbgra8_format.hpp
-	libs/imagecolor/include/sge/image/color/view/srgb8_format.hpp
-	libs/imagecolor/include/sge/image/color/view/srgba8_format.hpp
+	libs/imagecolor/include/sge/image/color/traits/static_formats.hpp
 	libs/imagecolor/src/image/color/any/clear.cpp
 	libs/imagecolor/src/image/color/any/convert.cpp
 	libs/imagecolor/src/image/color/any/from_string.cpp
@@ -207,8 +187,8 @@ set(
 	libs/imagecolor/src/image/color/format_to_string.cpp
 	libs/imagecolor/src/image/color/invalid_convert.cpp
 	libs/imagecolor/src/image/color/invalid_copy.cpp
+	libs/imagecolor/src/image/color/make_format.cpp
 	libs/imagecolor/src/image/color/predef.cpp
-	libs/imagecolor/src/image/color/traits/any_convert.cpp
 	libs/imagecolor/src/image/color/traits/format_stride.cpp
 	libs/imagecolor/src/image/color/traits/format_to_string.cpp
 )

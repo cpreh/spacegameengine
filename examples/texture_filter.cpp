@@ -43,6 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/l8.hpp>
 #include <sge/image/color/predef.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/image/color/init/luminance.hpp>
 #include <sge/image/view/wrap.hpp>
 #include <sge/image2d/dim.hpp>
@@ -810,7 +811,9 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::color::predef::lightblue()
+				sge::image::color::any::object{
+					sge::image::color::predef::lightblue()
+				}
 			)
 		);
 
@@ -901,7 +904,9 @@ try
 				)
 			),
 			font_pos,
-			sge::image::color::predef::red(),
+			sge::image::color::any::object{
+				sge::image::color::predef::red()
+			},
 			sge::renderer::texture::emulate_srgb::yes
 		);
 
@@ -922,7 +927,9 @@ try
 				)
 			),
 			font_pos,
-			sge::image::color::predef::red(),
+			sge::image::color::any::object{
+				sge::image::color::predef::red()
+			},
 			sge::renderer::texture::emulate_srgb::yes
 		);
 	}

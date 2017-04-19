@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/impl/algorithm/fill_impl.hpp>
-#include <sge/image/traits/any_object_fwd.hpp>
-#include <sge/image/traits/color_tag.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/pixel/object_fwd.hpp>
+#include <sge/image/traits/image/color_tag.hpp>
+#include <sge/image/view/object_fwd.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 
 
@@ -38,14 +38,14 @@ void \
 sge::image::algorithm::fill< \
 	tag \
 >( \
-	sge::image::traits::view<\
+	sge::image::view::object<\
 		tag\
-	>::type const &, \
-	sge::image::traits::any_object< \
-		sge::image::traits::color_tag< \
+	> const &, \
+	sge::image::pixel::object<\
+		sge::image::traits::image::color_tag< \
 			tag \
-		>::type \
-	>::type const &, \
+		> \
+	> const &, \
 	sge::image::algorithm::uninitialized \
 )
 

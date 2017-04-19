@@ -247,7 +247,9 @@ try
 							_view
 						)
 					),
-					sge::image::color::predef::transparent(),
+					sge::image::color::any::object{
+						sge::image::color::predef::transparent()
+					},
 					sge::image::algorithm::uninitialized::yes
 				);
 			}

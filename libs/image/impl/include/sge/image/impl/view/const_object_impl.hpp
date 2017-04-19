@@ -27,41 +27,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 template<
-	typename ElementsWrapper,
-	typename NonConstElementsWrapper
->
-template<
-	typename Element,
-	typename
+	typename Tag
 >
 sge::image::view::const_object<
-	ElementsWrapper,
-	NonConstElementsWrapper
+	Tag
 >::const_object(
-	Element const &_element
+	variant const &_variant
 )
 :
 	variant_(
-		_element
+		_variant
 	)
 {
 }
 
 template<
-	typename ElementsWrapper,
-	typename NonConstElementsWrapper
+	typename Tag
 >
 sge::image::view::const_object<
-	ElementsWrapper,
-	NonConstElementsWrapper
+	Tag
 >::const_object(
 	nonconst_object const &_other
 )
 :
 	variant_(
 		sge::image::view::to_const<
-			typename
-			ElementsWrapper::tag
+			Tag
 		>(
 			_other
 		).get()
@@ -70,55 +61,46 @@ sge::image::view::const_object<
 }
 
 template<
-	typename ElementsWrapper,
-	typename NonConstElementsWrapper
+	typename Tag
 >
 sge::image::view::const_object<
-	ElementsWrapper,
-	NonConstElementsWrapper
+	Tag
 >::const_object(
 	const_object const &_other
 )
 = default;
 
 template<
-	typename ElementsWrapper,
-	typename NonConstElementsWrapper
+	typename Tag
 >
 sge::image::view::const_object<
-	ElementsWrapper,
-	NonConstElementsWrapper
+	Tag
 > &
 sge::image::view::const_object<
-	ElementsWrapper,
-	NonConstElementsWrapper
+	Tag
 >::operator=(
 	const_object const &_other
 )
 = default;
 
 template<
-	typename ElementsWrapper,
-	typename NonConstElementsWrapper
+	typename Tag
 >
 sge::image::view::const_object<
-	ElementsWrapper,
-	NonConstElementsWrapper
+	Tag
 >::~const_object()
 {
 }
 
 template<
-	typename ElementsWrapper,
-	typename NonConstElementsWrapper
+	typename Tag
 >
-typename sge::image::view::const_object<
-	ElementsWrapper,
-	NonConstElementsWrapper
+typename
+sge::image::view::const_object<
+	Tag
 >::variant const &
 sge::image::view::const_object<
-	ElementsWrapper,
-	NonConstElementsWrapper
+	Tag
 >::get() const
 {
 	return

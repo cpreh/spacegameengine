@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/rect.hpp>
 #include <sge/font/system.hpp>
 #include <sge/image/color/predef.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/input/log_location.hpp>
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code_to_string.hpp>
@@ -580,7 +581,9 @@ input_main(
 		console,
 		sys.renderer_device_ffp(),
 		sge::console::gfx::font_color(
-			sge::image::color::predef::white()
+			sge::image::color::any::object{
+				sge::image::color::predef::white()
+			}
 		),
 		*font,
 		sys.focus_collector(),
@@ -782,7 +785,9 @@ input_main(
 		scoped_ffp.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::color::predef::black()
+				sge::image::color::any::object{
+					sge::image::color::predef::black()
+				}
 			)
 		);
 

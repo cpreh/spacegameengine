@@ -21,11 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_BUFFER_SCOPED_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_BUFFER_SCOPED_LOCK_HPP_INCLUDED
 
-#include <sge/image/traits/box_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/box_fwd.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/buffer/scoped_lock_fwd.hpp>
 #include <sge/renderer/buffer/writable_fwd.hpp>
+#include <sge/renderer/buffer/traits/view.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -61,17 +61,15 @@ public:
 	buffer_type;
 
 	typedef
-	typename
-	sge::image::traits::box<
+	sge::image::box<
 		Tag
-	>::type
+	>
 	lock_area;
 
 	typedef
-	typename
-	sge::image::traits::view<
+	sge::renderer::buffer::traits::view<
 		Tag
-	>::type
+	>
 	view;
 
 	/**

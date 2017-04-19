@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/graph/axis_constraint.hpp>
 #include <sge/graph/baseline.hpp>
+#include <sge/graph/color.hpp>
 #include <sge/graph/color_scheme.hpp>
 #include <sge/graph/object.hpp>
 #include <sge/graph/optional_axis_constraint.hpp>
@@ -168,9 +169,16 @@ adapted_bresenham(
 			_pos2.x(),
 			_pos2.y()),
 		sge::image::color::any::convert<typename View::format::color_format>(
-			_color1),
+			sge::image::color::any::object{
+				_color1
+			}
+		),
 		sge::image::color::any::convert<typename View::format::color_format>(
-			_color2));
+			sge::image::color::any::object{
+				_color2
+			}
+		)
+	);
 }
 
 sge::graph::scalar
@@ -193,7 +201,7 @@ draw_rectangle(
 	View const &_view,
 	sge::image2d::vector const &_corner1,
 	sge::image2d::vector const &_corner2,
-	sge::image::color::any::object const &_color
+	sge::graph::color const &_color
 )
 {
 	adapted_bresenham(
@@ -528,13 +536,13 @@ sge::graph::object::draw_data(
 			cur > 0.0
 		};
 
-		sge::image::color::any::object const &col1(
+		sge::graph::color const &col1(
 				above ?
 				color_scheme_.foreground_color()
 				:
 				color_scheme_.foreground_alt_color());
 
-		sge::image::color::any::object const &col2(
+		sge::graph::color const &col2(
 				above ?
 				color_scheme_.foreground_alt_color()
 				:

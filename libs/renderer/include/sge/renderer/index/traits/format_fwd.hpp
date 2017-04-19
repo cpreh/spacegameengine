@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_TRAITS_FORMAT_FWD_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_TRAITS_FORMAT_FWD_HPP_INCLUDED
 
-#include <sge/image/traits/format_fwd.hpp>
+#include <sge/image/traits/pixel/format_fwd.hpp>
 #include <sge/renderer/index/tag.hpp>
 #include <sge/renderer/index/dynamic/format_fwd.hpp>
 
@@ -32,9 +32,11 @@ namespace image
 {
 namespace traits
 {
+namespace pixel
+{
 
 template<>
-struct format<
+struct format_tpl<
 	sge::renderer::index::tag
 >
 {
@@ -43,6 +45,7 @@ struct format<
 	type;
 };
 
+}
 }
 }
 }

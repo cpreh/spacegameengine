@@ -19,9 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/bresenham/normal.hpp>
+#include <sge/image/color/convert.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8_format.hpp>
-#include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_event.hpp>
@@ -275,7 +276,7 @@ try
 					sge::sprite::roles::size{} =
 						cell_size,
 					sge::sprite::roles::color{} =
-						sge::image::color::any::convert<
+						sge::image::color::convert<
 							color_format
 						>(
 							sge::image::color::predef::white()
@@ -484,7 +485,7 @@ try
 													_pos
 												)
 											].color(
-												sge::image::color::any::convert<
+												sge::image::color::convert<
 													color_format
 												>(
 													sge::image::color::predef::red()
@@ -522,7 +523,7 @@ try
 							sprites
 						)
 							element.color(
-								sge::image::color::any::convert<
+								sge::image::color::convert<
 									color_format
 								>(
 									sge::image::color::predef::white()
@@ -546,7 +547,9 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::color::predef::black()
+				sge::image::color::any::object{
+					sge::image::color::predef::black()
+				}
 			)
 		);
 

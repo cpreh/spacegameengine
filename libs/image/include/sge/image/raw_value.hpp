@@ -29,7 +29,9 @@ namespace sge
 namespace image
 {
 
-typedef mizuiro::raw_value raw_value;
+typedef
+mizuiro::raw_value
+raw_value;
 
 }
 }

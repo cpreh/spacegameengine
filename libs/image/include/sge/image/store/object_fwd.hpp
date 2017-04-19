@@ -30,7 +30,7 @@ namespace store
 {
 
 template<
-	typename ElementsWrapper
+	typename Tag
 >
 class object;
 

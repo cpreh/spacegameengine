@@ -289,8 +289,12 @@ private:
 						sge::line_drawer::line(
 							pos3,
 							pos3,
-							sge::image::color::predef::red(),
-							sge::image::color::predef::blue()
+							sge::image::color::any::object{
+								sge::image::color::predef::red()
+							},
+							sge::image::color::any::object{
+								sge::image::color::predef::blue()
+							}
 						)
 					);
 				}
@@ -399,7 +403,11 @@ try
 		scoped_block.get().clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::color::predef::black()));
+				sge::image::color::any::object{
+					sge::image::color::predef::black()
+				}
+			)
+		);
 
 		// This function sets up an orthographic projection and calls
 		// render. It's just a wrapper.
@@ -439,8 +447,11 @@ try
 				)
 			),
 			font_pos,
-			sge::image::color::predef::red(),
-			sge::renderer::texture::emulate_srgb::yes);
+			sge::image::color::any::object{
+				sge::image::color::predef::red()
+			},
+			sge::renderer::texture::emulate_srgb::yes
+		);
 
 		sge::font::draw::simple(
 			sys.renderer_device_ffp(),
@@ -459,7 +470,9 @@ try
 				)
 			),
 			font_pos,
-			sge::image::color::predef::red(),
+			sge::image::color::any::object{
+				sge::image::color::predef::red()
+			},
 			sge::renderer::texture::emulate_srgb::yes
 		);
 	}

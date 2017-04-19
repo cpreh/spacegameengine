@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_DETAIL_IS_CONVERTIBLE_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_DETAIL_IS_CONVERTIBLE_HPP_INCLUDED
 
-#include <sge/image/mizuiro_color.hpp>
+#include <sge/image/pixel/mizuiro_type.hpp>
 #include <mizuiro/color/convert_static.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
@@ -51,7 +51,7 @@ decltype(
 		DestFormat
 	>(
 		std::declval<
-			sge::image::mizuiro_color<
+			sge::image::pixel::mizuiro_type<
 				SourceFormat
 			>
 		>()

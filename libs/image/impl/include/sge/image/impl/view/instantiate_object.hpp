@@ -21,27 +21,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_VIEW_INSTANTIATE_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_OBJECT_HPP_INCLUDED
 
-#include <sge/image/impl/view/instantiate_object_ctor.hpp>
 #include <sge/image/impl/view/object_impl.hpp>
 #include <sge/src/core/export_class_instantiation.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/preprocessor/tuple/elem.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_OBJECT(\
-	args,\
-	instantiate_format\
+	tag\
 )\
 template \
 class \
 SGE_CORE_EXPORT_CLASS_INSTANTIATION \
 sge::image::view::object<\
-	BOOST_PP_TUPLE_ELEM(0, args)\
->; \
-instantiate_format(\
-	SGE_IMAGE_IMPL_VIEW_INSTANTIATE_OBJECT_CTOR,\
-	args\
-)
+	tag \
+>
 
 #endif

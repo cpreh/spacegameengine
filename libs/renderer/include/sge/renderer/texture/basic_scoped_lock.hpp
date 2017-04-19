@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_BASIC_SCOPED_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_BASIC_SCOPED_LOCK_HPP_INCLUDED
 
-#include <sge/image/traits/box_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/box_fwd.hpp>
+#include <sge/image/view/object_fwd.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/buffer/scoped_lock.hpp>
 #include <sge/renderer/buffer/writable_fwd.hpp>
@@ -61,17 +61,15 @@ public:
 	buffer;
 
 	typedef
-	typename
-	sge::image::traits::box<
+	sge::image::box<
 		Tag
-	>::type
+	>
 	lock_area;
 
 	typedef
-	typename
-	sge::image::traits::view<
+	sge::image::view::object<
 		Tag
-	>::type
+	>
 	view;
 
 	SGE_RENDERER_DETAIL_SYMBOL

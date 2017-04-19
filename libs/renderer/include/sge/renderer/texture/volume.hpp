@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_VOLUME_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_VOLUME_HPP_INCLUDED
 
-#include <sge/image3d/traits/dim_fwd.hpp>
+#include <sge/image3d/traits/dimension.hpp>
 #include <sge/renderer/texture/basic_lockable_box.hpp>
 #include <sge/renderer/texture/volume_fwd.hpp>
 

@@ -33,9 +33,11 @@ namespace image
 namespace ds
 {
 
-typedef sge::image::invalid_convert<
+typedef
+sge::image::invalid_convert<
 	sge::image::ds::tag
-> invalid_convert;
+>
+invalid_convert;
 
 }
 }

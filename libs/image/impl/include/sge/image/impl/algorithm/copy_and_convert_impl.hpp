@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/view/const_object_fwd.hpp>
+#include <sge/image/view/object_fwd.hpp>
 #include <sge/image/impl/config.hpp>
 
 #if defined(SGE_IMAGE_STATIC_COPY_AND_CONVERT)
@@ -40,12 +40,12 @@ template<
 >
 void
 sge::image::algorithm::copy_and_convert(
-	typename sge::image::traits::const_view<
+	sge::image::view::const_object<
 		Tag
-	>::type const &_src,
-	typename sge::image::traits::view<
+	> const &_src,
+	sge::image::view::object<
 		Tag
-	>::type const &_dest,
+	> const &_dest,
 	sge::image::algorithm::may_overlap const _overlap,
 	sge::image::algorithm::uninitialized const _uninitialized
 )

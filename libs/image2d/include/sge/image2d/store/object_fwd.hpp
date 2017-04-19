@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE2D_STORE_OBJECT_FWD_HPP_INCLUDED
 
 #include <sge/image/store/object_fwd.hpp>
-#include <sge/image2d/store/elements_wrapper_fwd.hpp>
+#include <sge/image2d/tag.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace store
 
 typedef
 sge::image::store::object<
-	sge::image2d::store::elements_wrapper
+	sge::image2d::tag
 >
 object;
 

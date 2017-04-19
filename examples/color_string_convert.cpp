@@ -40,7 +40,8 @@ try
 		fcppt::io::cout() << FCPPT_TEXT("Usage: ") << argv[0] << FCPPT_TEXT(" <color-string>\n");
 		return EXIT_FAILURE;
 	}
-	fcppt::io::cout() << sge::image::color::any::from_string(argv[1]) << FCPPT_TEXT("\n");
+	// FIXME
+//	fcppt::io::cout() << sge::image::color::any::from_string(argv[1]) << FCPPT_TEXT("\n");
 	return EXIT_SUCCESS;
 }
 catch(

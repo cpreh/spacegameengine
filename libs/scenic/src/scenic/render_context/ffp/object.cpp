@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/predef.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/context/ffp.hpp>
@@ -181,7 +182,9 @@ sge::scenic::render_context::ffp::object::object(
 				sge::renderer::state::ffp::lighting::variant(
 					sge::renderer::state::ffp::lighting::enabled(
 						sge::renderer::state::ffp::lighting::ambient_color(
-							sge::image::color::predef::black()
+							sge::image::color::any::object{
+								sge::image::color::predef::black()
+							}
 						),
 						sge::renderer::state::ffp::lighting::diffuse_from_vertex(
 							false

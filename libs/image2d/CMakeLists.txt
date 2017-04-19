@@ -68,10 +68,6 @@ set(
 	libs/image2d/include/sge/image2d/store/bgra8_fwd.hpp
 	libs/image2d/include/sge/image2d/store/bgrx8.hpp
 	libs/image2d/include/sge/image2d/store/bgrx8_fwd.hpp
-	libs/image2d/include/sge/image2d/store/element.hpp
-	libs/image2d/include/sge/image2d/store/elements.hpp
-	libs/image2d/include/sge/image2d/store/elements_wrapper.hpp
-	libs/image2d/include/sge/image2d/store/elements_wrapper_fwd.hpp
 	libs/image2d/include/sge/image2d/store/l8.hpp
 	libs/image2d/include/sge/image2d/store/l8_fwd.hpp
 	libs/image2d/include/sge/image2d/store/la8.hpp
@@ -103,34 +99,16 @@ set(
 	libs/image2d/include/sge/image2d/system_fwd.hpp
 	libs/image2d/include/sge/image2d/system_unique_ptr.hpp
 	libs/image2d/include/sge/image2d/tag.hpp
-	libs/image2d/include/sge/image2d/traits/box_fwd.hpp
 	libs/image2d/include/sge/image2d/traits/color_tag.hpp
-	libs/image2d/include/sge/image2d/traits/const_view_fwd.hpp
-	libs/image2d/include/sge/image2d/traits/dim_fwd.hpp
-	libs/image2d/include/sge/image2d/traits/pitch_fwd.hpp
-	libs/image2d/include/sge/image2d/traits/store_fwd.hpp
-	libs/image2d/include/sge/image2d/traits/sub_out_of_range.hpp
-	libs/image2d/include/sge/image2d/traits/view_elements.hpp
-	libs/image2d/include/sge/image2d/traits/view_fwd.hpp
-	libs/image2d/include/sge/image2d/transform_elements.hpp
+	libs/image2d/include/sge/image2d/traits/dimension.hpp
 	libs/image2d/include/sge/image2d/vector.hpp
 	libs/image2d/include/sge/image2d/vector_fwd.hpp
 	libs/image2d/include/sge/image2d/view/checked_sub.hpp
-	libs/image2d/include/sge/image2d/view/const_element.hpp
-	libs/image2d/include/sge/image2d/view/const_elements.hpp
-	libs/image2d/include/sge/image2d/view/const_elements_wrapper.hpp
-	libs/image2d/include/sge/image2d/view/const_elements_wrapper_fwd.hpp
 	libs/image2d/include/sge/image2d/view/const_object.hpp
 	libs/image2d/include/sge/image2d/view/const_object_fwd.hpp
 	libs/image2d/include/sge/image2d/view/data.hpp
-	libs/image2d/include/sge/image2d/view/element.hpp
-	libs/image2d/include/sge/image2d/view/element_base.hpp
-	libs/image2d/include/sge/image2d/view/elements.hpp
-	libs/image2d/include/sge/image2d/view/elements_wrapper.hpp
-	libs/image2d/include/sge/image2d/view/elements_wrapper_fwd.hpp
 	libs/image2d/include/sge/image2d/view/flipped.hpp
 	libs/image2d/include/sge/image2d/view/format.hpp
-	libs/image2d/include/sge/image2d/view/get.hpp
 	libs/image2d/include/sge/image2d/view/make.hpp
 	libs/image2d/include/sge/image2d/view/make_const.hpp
 	libs/image2d/include/sge/image2d/view/object.hpp
@@ -188,7 +166,6 @@ set(
 	libs/image2d/src/image2d/view/data.cpp
 	libs/image2d/src/image2d/view/flipped.cpp
 	libs/image2d/src/image2d/view/format.cpp
-	libs/image2d/src/image2d/view/get.cpp
 	libs/image2d/src/image2d/view/make.cpp
 	libs/image2d/src/image2d/view/make_const.cpp
 	libs/image2d/src/image2d/view/object.cpp

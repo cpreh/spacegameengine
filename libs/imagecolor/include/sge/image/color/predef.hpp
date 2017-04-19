@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_PREDEF_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_PREDEF_HPP_INCLUDED
 
-#include <sge/image/color/any/object.hpp>
+#include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/detail/symbol.hpp>
 
 
@@ -36,7 +36,7 @@ namespace color
 	name\
 )\
 SGE_IMAGE_COLOR_DETAIL_SYMBOL \
-sge::image::color::any::object \
+sge::image::color::rgba8 \
 name();
 
 namespace predef

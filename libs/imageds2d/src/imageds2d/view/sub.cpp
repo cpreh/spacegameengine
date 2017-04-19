@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/impl/view/sub_impl.hpp>
 #include <sge/imageds2d/rect.hpp>
 #include <sge/imageds2d/tag.hpp>
-#include <sge/imageds2d/traits/box_fwd.hpp>
-#include <sge/imageds2d/traits/const_view_fwd.hpp>
-#include <sge/imageds2d/traits/view_fwd.hpp>
+#include <sge/imageds2d/traits/dimension.hpp>
 #include <sge/imageds2d/view/const_object.hpp>
 #include <sge/imageds2d/view/object.hpp>
 #include <sge/imageds2d/view/sub.hpp>

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/tag.hpp>
 #include <sge/image/color/impl/converter.hpp>
-#include <sge/image/impl/traits/static_converter.hpp>
+#include <sge/image/impl/traits/static_converter_tpl_fwd.hpp>
 
 
 namespace sge
@@ -36,11 +36,13 @@ namespace traits
 {
 
 template<>
-struct static_converter<
+struct static_converter_tpl<
 	sge::image::color::tag
 >
 {
-	typedef sge::image::color::impl::converter type;
+	typedef
+	sge::image::color::impl::converter
+	type;
 };
 
 }

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/ds/format_fwd.hpp>
 #include <sge/image/ds/tag.hpp>
-#include <sge/image/traits/format_fwd.hpp>
+#include <sge/image/traits/pixel/format_tpl_fwd.hpp>
 
 
 namespace sge
@@ -32,15 +32,20 @@ namespace image
 {
 namespace traits
 {
+namespace pixel
+{
 
 template<>
-struct format<
+struct format_tpl<
 	sge::image::ds::tag
 >
 {
-	typedef sge::image::ds::format type;
+	typedef
+	sge::image::ds::format
+	type;
 };
 
+}
 }
 }
 }

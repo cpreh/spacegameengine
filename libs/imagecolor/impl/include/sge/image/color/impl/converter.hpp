@@ -21,11 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_IMPL_CONVERTER_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_IMPL_CONVERTER_HPP_INCLUDED
 
-#include <sge/image/mizuiro_color.hpp>
 #include <sge/image/color/convert.hpp>
-#include <sge/image/color/format_static.hpp>
 #include <sge/image/color/invalid_convert.hpp>
 #include <sge/image/color/is_convertible.hpp>
+#include <sge/image/color/tag.hpp>
+#include <sge/image/pixel/mizuiro_type.hpp>
+#include <sge/image/impl/static_to_dynamic_format.hpp>
+#include <sge/image/color/impl/traits/format_map.hpp>
 #include <mizuiro/color/object.hpp>
 #include <mizuiro/color/format/argument.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -49,18 +51,21 @@ struct converter
 		typename Source
 	>
 	static
-	typename boost::enable_if<
+	typename
+	boost::enable_if<
 		sge::image::color::is_convertible<
-			typename Source::format,
+			typename
+			Source::format,
 			DestFormat
 		>,
-		sge::image::mizuiro_color<
+		sge::image::pixel::mizuiro_type<
 			DestFormat
 		>
 	>::type
 	execute(
 		Source const &_source,
-		typename mizuiro::color::object<
+		typename
+		mizuiro::color::object<
 			DestFormat
 		>::format_store_type const & =
 			mizuiro::color::format::argument<
@@ -81,18 +86,21 @@ struct converter
 		typename Source
 	>
 	static
-	typename boost::disable_if<
+	typename
+	boost::disable_if<
 		sge::image::color::is_convertible<
-			typename Source::format,
+			typename
+			Source::format,
 			DestFormat
 		>,
-		sge::image::mizuiro_color<
+		sge::image::pixel::mizuiro_type<
 			DestFormat
 		>
 	>::type
 	execute(
 		Source const &,
-		typename mizuiro::color::object<
+		typename
+		mizuiro::color::object<
 			DestFormat
 		>::format_store_type const & =
 			mizuiro::color::format::argument<
@@ -100,14 +108,18 @@ struct converter
 			>::get()
 	)
 	{
-		throw sge::image::color::invalid_convert(
-			sge::image::color::format_static<
-				typename Source::format
-			>::value,
-			sge::image::color::format_static<
-				DestFormat
-			>::value
-		);
+		throw
+			sge::image::color::invalid_convert{
+				sge::image::impl::static_to_dynamic_format<
+					sge::image::color::tag,
+					typename
+					Source::format
+				>::value,
+				sge::image::impl::static_to_dynamic_format<
+					sge::image::color::tag,
+					DestFormat
+				>::value
+			};
 	}
 };
 

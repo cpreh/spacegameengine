@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/uninitialized_fwd.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/traits/any_object_fwd.hpp>
-#include <sge/image/traits/color_tag.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/pixel/object_fwd.hpp>
+#include <sge/image/traits/image/color_tag.hpp>
+#include <sge/image/view/object_fwd.hpp>
 
 
 namespace sge
@@ -41,14 +41,14 @@ template<
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 void
 fill(
-	typename sge::image::traits::view<
+	sge::image::view::object<
 		Tag
-	>::type const &,
-	typename sge::image::traits::any_object<
-		typename sge::image::traits::color_tag<
+	> const &,
+	sge::image::pixel::object<
+		sge::image::traits::image::color_tag<
 			Tag
-		>::type
-	>::type const &,
+		>
+	> const &,
 	sge::image::algorithm::uninitialized
 );
 

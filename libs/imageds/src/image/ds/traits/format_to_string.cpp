@@ -22,11 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/ds/format_to_string.hpp>
 #include <sge/image/ds/tag.hpp>
 #include <sge/image/ds/traits/format_to_string.hpp>
+#include <sge/image/traits/pixel/format_to_string_tpl_fwd.hpp>
 #include <fcppt/string.hpp>
 
 
 fcppt::string
-sge::image::traits::format_to_string<
+sge::image::traits::pixel::format_to_string_tpl<
 	sge::image::ds::tag
 >::execute(
 	sge::image::ds::format const _format

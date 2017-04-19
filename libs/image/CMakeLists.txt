@@ -20,20 +20,34 @@ set(
 	libs/image/impl/include/sge/image/impl/algorithm/instantiate_print.hpp
 	libs/image/impl/include/sge/image/impl/algorithm/invalid_copy_impl.hpp
 	libs/image/impl/include/sge/image/impl/algorithm/print_impl.hpp
+	libs/image/impl/include/sge/image/impl/format_key.hpp
+	libs/image/impl/include/sge/image/impl/format_map.hpp
+	libs/image/impl/include/sge/image/impl/format_pair.hpp
 	libs/image/impl/include/sge/image/impl/from_mizuiro_dim.hpp
 	libs/image/impl/include/sge/image/impl/instantiate_invalid_convert.hpp
+	libs/image/impl/include/sge/image/impl/instantiate_make_format.hpp
 	libs/image/impl/include/sge/image/impl/invalid_convert_impl.hpp
+	libs/image/impl/include/sge/image/impl/make_format_impl.hpp
+	libs/image/impl/include/sge/image/impl/make_format_pair.hpp
+	libs/image/impl/include/sge/image/impl/pixel/convert_impl.hpp
+	libs/image/impl/include/sge/image/impl/pixel/instantiate_convert.hpp
+	libs/image/impl/include/sge/image/impl/pixel/instantiate_object.hpp
+	libs/image/impl/include/sge/image/impl/pixel/object_impl.hpp
+	libs/image/impl/include/sge/image/impl/pixel/to_static_format.hpp
+	libs/image/impl/include/sge/image/impl/static_to_dynamic_format.hpp
 	libs/image/impl/include/sge/image/impl/store/basic_impl.hpp
 	libs/image/impl/include/sge/image/impl/store/instantiate_basic.hpp
 	libs/image/impl/include/sge/image/impl/store/instantiate_object.hpp
-	libs/image/impl/include/sge/image/impl/store/instantiate_object_ctor.hpp
 	libs/image/impl/include/sge/image/impl/store/instantiate_view.hpp
 	libs/image/impl/include/sge/image/impl/store/object_impl.hpp
 	libs/image/impl/include/sge/image/impl/store/view_any.hpp
 	libs/image/impl/include/sge/image/impl/store/view_impl.hpp
 	libs/image/impl/include/sge/image/impl/to_mizuiro_dim.hpp
 	libs/image/impl/include/sge/image/impl/traits/dynamic_copy_and_convert.hpp
+	libs/image/impl/include/sge/image/impl/traits/pixel/format_map.hpp
+	libs/image/impl/include/sge/image/impl/traits/pixel/format_map_tpl_fwd.hpp
 	libs/image/impl/include/sge/image/impl/traits/static_converter.hpp
+	libs/image/impl/include/sge/image/impl/traits/static_converter_tpl_fwd.hpp
 	libs/image/impl/include/sge/image/impl/view/checked_sub_any.hpp
 	libs/image/impl/include/sge/image/impl/view/checked_sub_condition.hpp
 	libs/image/impl/include/sge/image/impl/view/checked_sub_impl.hpp
@@ -46,20 +60,15 @@ set(
 	libs/image/impl/include/sge/image/impl/view/format_impl.hpp
 	libs/image/impl/include/sge/image/impl/view/format_macro.hpp
 	libs/image/impl/include/sge/image/impl/view/format_type.hpp
-	libs/image/impl/include/sge/image/impl/view/get_any.hpp
-	libs/image/impl/include/sge/image/impl/view/get_impl.hpp
 	libs/image/impl/include/sge/image/impl/view/instantiate_checked_sub.hpp
 	libs/image/impl/include/sge/image/impl/view/instantiate_const_nonconst.hpp
 	libs/image/impl/include/sge/image/impl/view/instantiate_const_object.hpp
-	libs/image/impl/include/sge/image/impl/view/instantiate_const_object_ctor.hpp
 	libs/image/impl/include/sge/image/impl/view/instantiate_data.hpp
 	libs/image/impl/include/sge/image/impl/view/instantiate_flipped.hpp
 	libs/image/impl/include/sge/image/impl/view/instantiate_format.hpp
-	libs/image/impl/include/sge/image/impl/view/instantiate_get.hpp
 	libs/image/impl/include/sge/image/impl/view/instantiate_make.hpp
 	libs/image/impl/include/sge/image/impl/view/instantiate_make_const.hpp
 	libs/image/impl/include/sge/image/impl/view/instantiate_object.hpp
-	libs/image/impl/include/sge/image/impl/view/instantiate_object_ctor.hpp
 	libs/image/impl/include/sge/image/impl/view/instantiate_pitch.hpp
 	libs/image/impl/include/sge/image/impl/view/instantiate_size.hpp
 	libs/image/impl/include/sge/image/impl/view/instantiate_sub.hpp
@@ -76,6 +85,7 @@ set(
 	libs/image/impl/include/sge/image/impl/view/sub_impl.hpp
 	libs/image/impl/include/sge/image/impl/view/sub_out_of_range_impl.hpp
 	libs/image/impl/include/sge/image/impl/view/to_const_impl.hpp
+	libs/image/impl/include/sge/image/impl/view/to_static_format.hpp
 	libs/image/impl/src/image/impl/algorithm/convert_may_overlap.cpp
 	libs/image/impl/src/image/impl/algorithm/convert_uninitialized.cpp
 	libs/image/include/sge/image/algorithm/clone.hpp
@@ -89,6 +99,14 @@ set(
 	libs/image/include/sge/image/algorithm/print.hpp
 	libs/image/include/sge/image/algorithm/uninitialized.hpp
 	libs/image/include/sge/image/algorithm/uninitialized_fwd.hpp
+	libs/image/include/sge/image/basic_box.hpp
+	libs/image/include/sge/image/basic_box_fwd.hpp
+	libs/image/include/sge/image/basic_dim.hpp
+	libs/image/include/sge/image/basic_dim_fwd.hpp
+	libs/image/include/sge/image/basic_pitch.hpp
+	libs/image/include/sge/image/basic_pitch_fwd.hpp
+	libs/image/include/sge/image/basic_vector.hpp
+	libs/image/include/sge/image/basic_vector_fwd.hpp
 	libs/image/include/sge/image/box.hpp
 	libs/image/include/sge/image/box_fwd.hpp
 	libs/image/include/sge/image/channel16.hpp
@@ -99,71 +117,78 @@ set(
 	libs/image/include/sge/image/difference_type.hpp
 	libs/image/include/sge/image/dim.hpp
 	libs/image/include/sge/image/dim_fwd.hpp
+	libs/image/include/sge/image/dimension_count.hpp
+	libs/image/include/sge/image/dimension_integral_c.hpp
 	libs/image/include/sge/image/exception.hpp
 	libs/image/include/sge/image/exception_fwd.hpp
-	libs/image/include/sge/image/format_static.hpp
 	libs/image/include/sge/image/heterogenous_format.hpp
 	libs/image/include/sge/image/homogenous_format.hpp
 	libs/image/include/sge/image/integral_size.hpp
 	libs/image/include/sge/image/invalid_convert.hpp
-	libs/image/include/sge/image/mizuiro_color.hpp
-	libs/image/include/sge/image/mizuiro_color_fwd.hpp
+	libs/image/include/sge/image/invalid_convert_fwd.hpp
+	libs/image/include/sge/image/make_format.hpp
 	libs/image/include/sge/image/mizuiro_color_traits.hpp
 	libs/image/include/sge/image/pitch.hpp
 	libs/image/include/sge/image/pitch_fwd.hpp
+	libs/image/include/sge/image/pixel/convert.hpp
+	libs/image/include/sge/image/pixel/elements.hpp
+	libs/image/include/sge/image/pixel/mizuiro_type.hpp
+	libs/image/include/sge/image/pixel/mizuiro_type_fwd.hpp
+	libs/image/include/sge/image/pixel/mizuiro_type_tpl.hpp
+	libs/image/include/sge/image/pixel/mizuiro_type_tpl_fwd.hpp
+	libs/image/include/sge/image/pixel/object.hpp
+	libs/image/include/sge/image/pixel/object_fwd.hpp
 	libs/image/include/sge/image/raw_pointer.hpp
 	libs/image/include/sge/image/raw_value.hpp
 	libs/image/include/sge/image/size_type.hpp
 	libs/image/include/sge/image/store/basic.hpp
 	libs/image/include/sge/image/store/basic_fwd.hpp
-	libs/image/include/sge/image/store/element.hpp
+	libs/image/include/sge/image/store/elements.hpp
 	libs/image/include/sge/image/store/object.hpp
 	libs/image/include/sge/image/store/object_fwd.hpp
 	libs/image/include/sge/image/store/view.hpp
-	libs/image/include/sge/image/traits/any_convert.hpp
-	libs/image/include/sge/image/traits/any_object_fwd.hpp
-	libs/image/include/sge/image/traits/box_fwd.hpp
-	libs/image/include/sge/image/traits/color_tag.hpp
-	libs/image/include/sge/image/traits/const_view_fwd.hpp
-	libs/image/include/sge/image/traits/dim_fwd.hpp
-	libs/image/include/sge/image/traits/format_fwd.hpp
-	libs/image/include/sge/image/traits/format_is_ref.hpp
-	libs/image/include/sge/image/traits/format_static.hpp
-	libs/image/include/sge/image/traits/format_stride.hpp
-	libs/image/include/sge/image/traits/format_to_string.hpp
-	libs/image/include/sge/image/traits/pitch_fwd.hpp
-	libs/image/include/sge/image/traits/store_fwd.hpp
-	libs/image/include/sge/image/traits/sub_out_of_range.hpp
-	libs/image/include/sge/image/traits/view_elements.hpp
-	libs/image/include/sge/image/traits/view_fwd.hpp
-	libs/image/include/sge/image/transform_elements.hpp
-	libs/image/include/sge/image/vector.hpp
-	libs/image/include/sge/image/vector_fwd.hpp
+	libs/image/include/sge/image/traits/image/color_tag.hpp
+	libs/image/include/sge/image/traits/image/color_tag_tpl_fwd.hpp
+	libs/image/include/sge/image/traits/image/dimension.hpp
+	libs/image/include/sge/image/traits/image/dimension_tpl_fwd.hpp
+	libs/image/include/sge/image/traits/pixel/format_fwd.hpp
+	libs/image/include/sge/image/traits/pixel/format_stride.hpp
+	libs/image/include/sge/image/traits/pixel/format_stride_tpl_fwd.hpp
+	libs/image/include/sge/image/traits/pixel/format_to_string.hpp
+	libs/image/include/sge/image/traits/pixel/format_to_string_tpl_fwd.hpp
+	libs/image/include/sge/image/traits/pixel/format_tpl_fwd.hpp
+	libs/image/include/sge/image/traits/pixel/static_formats.hpp
+	libs/image/include/sge/image/traits/pixel/static_formats_tpl_fwd.hpp
+	libs/image/include/sge/image/view/basic_elements.hpp
 	libs/image/include/sge/image/view/basic_format.hpp
 	libs/image/include/sge/image/view/checked_sub.hpp
+	libs/image/include/sge/image/view/const_elements.hpp
 	libs/image/include/sge/image/view/const_object.hpp
 	libs/image/include/sge/image/view/const_object_fwd.hpp
 	libs/image/include/sge/image/view/data.hpp
-	libs/image/include/sge/image/view/element_base.hpp
+	libs/image/include/sge/image/view/elements.hpp
 	libs/image/include/sge/image/view/flipped.hpp
 	libs/image/include/sge/image/view/format.hpp
-	libs/image/include/sge/image/view/get.hpp
 	libs/image/include/sge/image/view/has_element.hpp
 	libs/image/include/sge/image/view/make.hpp
 	libs/image/include/sge/image/view/make_const.hpp
-	libs/image/include/sge/image/view/make_mizuiro_type.hpp
 	libs/image/include/sge/image/view/mizuiro_access.hpp
 	libs/image/include/sge/image/view/mizuiro_traits.hpp
 	libs/image/include/sge/image/view/mizuiro_type.hpp
+	libs/image/include/sge/image/view/mizuiro_type_fwd.hpp
+	libs/image/include/sge/image/view/mizuiro_type_tpl.hpp
+	libs/image/include/sge/image/view/mizuiro_type_tpl_fwd.hpp
 	libs/image/include/sge/image/view/object.hpp
 	libs/image/include/sge/image/view/object_fwd.hpp
 	libs/image/include/sge/image/view/pitch.hpp
 	libs/image/include/sge/image/view/size.hpp
 	libs/image/include/sge/image/view/sub.hpp
 	libs/image/include/sge/image/view/sub_out_of_range.hpp
+	libs/image/include/sge/image/view/sub_out_of_range_fwd.hpp
 	libs/image/include/sge/image/view/to_const.hpp
+	libs/image/include/sge/image/view/to_wrapped_type.hpp
+	libs/image/include/sge/image/view/to_wrapped_type_fwd.hpp
 	libs/image/include/sge/image/view/wrap.hpp
-	libs/image/include/sge/image/view/wrapped_type.hpp
 	libs/image/src/image/exception.cpp
 )
 

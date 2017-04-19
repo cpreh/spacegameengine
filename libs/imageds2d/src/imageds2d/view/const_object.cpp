@@ -18,26 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/ds/impl/instantiate_format.hpp>
 #include <sge/image/impl/view/instantiate_const_object.hpp>
-#include <sge/imageds2d/traits/const_view_fwd.hpp>
-#include <sge/imageds2d/traits/view_fwd.hpp>
-#include <sge/imageds2d/view/const_element.hpp>
-#include <sge/imageds2d/view/const_elements_wrapper.hpp>
+#include <sge/imageds2d/tag.hpp>
 #include <sge/imageds2d/view/const_object.hpp>
-#include <sge/imageds2d/view/elements_wrapper_fwd.hpp>
 
-
-#define SGE_IMAGEDS2D_VIEW_CONST_OBJECT_INSTANTIATE_ARGS ( \
-	sge::imageds2d::view::const_elements_wrapper, \
-	sge::imageds2d::view::const_element, \
-	sge::image::ds, \
-	sge::imageds2d::view::elements_wrapper \
-)
 
 SGE_IMAGE_IMPL_VIEW_INSTANTIATE_CONST_OBJECT(
-	SGE_IMAGEDS2D_VIEW_CONST_OBJECT_INSTANTIATE_ARGS,
-	SGE_IMAGE_DS_IMPL_INSTANTIATE_FORMAT
+	sge::imageds2d::tag
 );
-
-#undef SGE_IMAGEDS2D_VIEW_CONST_OBJECT_INSTANTIATE_ARGS

@@ -21,20 +21,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VERTEX_TRAITS_CONST_VIEW_FWD_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_TRAITS_CONST_VIEW_FWD_HPP_INCLUDED
 
-#include <sge/image/traits/const_view_fwd.hpp>
+#include <sge/renderer/buffer/traits/const_view_tpl_fwd.hpp>
 #include <sge/renderer/vertex/tag.hpp>
 #include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
 
 
 namespace sge
 {
-namespace image
+namespace renderer
+{
+namespace buffer
 {
 namespace traits
 {
 
 template<>
-struct const_view<
+struct const_view_tpl<
 	sge::renderer::vertex::tag
 >
 {
@@ -43,6 +45,7 @@ struct const_view<
 	type;
 };
 
+}
 }
 }
 }

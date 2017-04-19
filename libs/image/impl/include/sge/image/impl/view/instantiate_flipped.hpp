@@ -28,19 +28,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_FLIPPED_BASE(\
 	tag,\
-	view_type\
+	object_type\
 ) \
 template \
 SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
-sge::image::traits::view_type<\
+sge::image::view::object_type<\
 	tag\
->::type \
+> \
 sge::image::view::flipped<\
 	tag \
 >(\
-	sge::image::traits::view_type<\
+	sge::image::view::object_type<\
 		tag\
-	>::type const &\
+	> const &\
 )
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_FLIPPED(\

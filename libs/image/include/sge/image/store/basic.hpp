@@ -21,13 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_STORE_BASIC_HPP_INCLUDED
 #define SGE_IMAGE_STORE_BASIC_HPP_INCLUDED
 
-#include <sge/image/dim_fwd.hpp>
-#include <sge/image/mizuiro_color_fwd.hpp>
+#include <sge/image/basic_dim_fwd.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
+#include <sge/image/pixel/mizuiro_type_fwd.hpp>
 #include <sge/image/store/basic_fwd.hpp>
 #include <sge/image/view/mizuiro_access.hpp>
-#include <sge/image/view/wrapped_type.hpp>
+#include <sge/image/view/to_wrapped_type_fwd.hpp>
 #include <mizuiro/image/store_decl.hpp>
+#include <fcppt/no_init_fwd.hpp>
 #include <fcppt/function_impl.hpp>
 
 
@@ -62,7 +63,7 @@ public:
 	const_pointer;
 
 	typedef
-	sge::image::dim<
+	sge::image::basic_dim<
 		Format::dim::static_size
 	>
 	dim;
@@ -78,29 +79,23 @@ public:
 	const_view_type;
 
 	typedef
-	typename
-	sge::image::view::wrapped_type<
+	sge::image::view::to_wrapped_type<
 		view_type
-	>::type
+	>
 	wrapped_view_type;
 
 	typedef
-	typename
-	sge::image::view::wrapped_type<
+	sge::image::view::to_wrapped_type<
 		const_view_type
-	>::type
+	>
 	const_wrapped_view_type;
 
 	typedef
-	sge::image::mizuiro_color<
+	sge::image::pixel::mizuiro_type<
 		typename
 		Format::color_format
 	>
 	mizuiro_color;
-
-	struct no_init
-	{
-	};
 
 	typedef
 	fcppt::function<
@@ -119,7 +114,7 @@ public:
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	basic(
 		dim const &,
-		no_init
+		fcppt::no_init const &
 	);
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL

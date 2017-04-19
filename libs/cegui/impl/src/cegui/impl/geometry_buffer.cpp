@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/impl/vf/position.hpp>
 #include <sge/cegui/impl/vf/texcoord.hpp>
 #include <sge/cegui/impl/vf/vertex_view.hpp>
-#include <sge/image/mizuiro_color.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/init/alpha.hpp>
 #include <sge/image/color/init/blue.hpp>

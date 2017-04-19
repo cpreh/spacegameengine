@@ -21,26 +21,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_VIEW_CHECKED_SUB_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_CHECKED_SUB_IMPL_HPP_INCLUDED
 
+#include <sge/image/box_fwd.hpp>
 #include <sge/image/impl/view/checked_sub_any.hpp>
-#include <sge/image/traits/box_fwd.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
 #include <sge/image/view/checked_sub.hpp>
+#include <sge/image/view/const_object_fwd.hpp>
+#include <sge/image/view/object_fwd.hpp>
 
 
 template<
 	typename Tag
 >
-typename sge::image::traits::view<
+sge::image::view::object<
 	Tag
->::type
+>
 sge::image::view::checked_sub(
-	typename sge::image::traits::view<
+	sge::image::view::object<
 		Tag
-	>::type const &_view,
-	typename sge::image::traits::box<
+	> const &_view,
+	sge::image::box<
 		Tag
-	>::type const &_box
+	> const &_box
 )
 {
 	return
@@ -55,16 +55,16 @@ sge::image::view::checked_sub(
 template<
 	typename Tag
 >
-typename sge::image::traits::const_view<
+sge::image::view::const_object<
 	Tag
->::type
+>
 sge::image::view::checked_sub(
-	typename sge::image::traits::const_view<
+	sge::image::view::const_object<
 		Tag
-	>::type const &_view,
-	typename sge::image::traits::box<
+	> const &_view,
+	sge::image::box<
 		Tag
-	>::type const &_box
+	> const &_box
 )
 {
 	return

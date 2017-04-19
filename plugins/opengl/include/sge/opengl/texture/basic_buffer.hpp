@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_BASIC_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASIC_BUFFER_HPP_INCLUDED
 
-#include <sge/image/traits/color_tag.hpp>
-#include <sge/image/traits/format_fwd.hpp>
+#include <sge/image/traits/image/color_tag.hpp>
+#include <sge/image/traits/pixel/format_fwd.hpp>
 #include <sge/opengl/texture/basic_buffer_fwd.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters_fwd.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
@@ -63,17 +63,15 @@ public:
 	image_tag;
 
 	typedef
-	typename
-	sge::image::traits::color_tag<
+	sge::image::traits::image::color_tag<
 		image_tag
-	>::type
+	>
 	color_tag;
 
 	typedef
-	typename
-	sge::image::traits::format<
+	sge::image::traits::pixel::format<
 		color_tag
-	>::type
+	>
 	format_type;
 
 	typedef

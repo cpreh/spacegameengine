@@ -33,9 +33,11 @@ namespace image
 namespace ds
 {
 
-typedef sge::image::algorithm::invalid_copy<
+typedef
+sge::image::algorithm::invalid_copy<
 	sge::image::ds::tag
-> invalid_copy;
+>
+invalid_copy;
 
 }
 }

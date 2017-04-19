@@ -21,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_PITCH_FWD_HPP_INCLUDED
 #define SGE_IMAGE_PITCH_FWD_HPP_INCLUDED
 
-#include <sge/image/difference_type.hpp>
-#include <fcppt/math/size_type.hpp>
-#include <fcppt/math/dim/static_fwd.hpp>
+#include <sge/image/basic_pitch_fwd.hpp>
+#include <sge/image/traits/image/dimension.hpp>
 
 
 namespace sge
@@ -32,13 +31,15 @@ namespace image
 {
 
 template<
-	fcppt::math::size_type Dim
+	typename Tag
 >
-using pitch
+using
+pitch
 =
-fcppt::math::dim::static_<
-	sge::image::difference_type,
-	Dim - 1u
+sge::image::basic_pitch<
+	sge::image::traits::image::dimension<
+		Tag
+	>::value
 >;
 
 }

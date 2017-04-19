@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/impl/dynamic/format/from_static.hpp>
 #include <sge/image/color/impl/dynamic/format/from_static_type.hpp>
-#include <sge/image/view/element_base.hpp>
+#include <sge/image/view/basic_format.hpp>
+#include <sge/image/view/mizuiro_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -45,39 +46,54 @@ namespace view
 template<
 	typename View
 >
-typename
-sge::image::view::element_base<
-	sge::image::color::impl::dynamic::format::from_static_type<
-		typename View::format::color_format
+sge::image::view::mizuiro_type<
+	sge::image::view::basic_format<
+		View::dim::static_size,
+		sge::image::color::impl::dynamic::format::from_static_type<
+			typename
+			View::format::color_format
+		>
 	>,
-	View::dim::static_size,
-	typename View::constness
->::type
+	typename
+	View::constness
+>
 from_static(
 	View const &_view
 )
 {
-	typedef typename sge::image::view::element_base<
-		sge::image::color::impl::dynamic::format::from_static_type<
-			typename View::format::color_format
+	typedef
+	sge::image::view::mizuiro_type<
+		sge::image::view::basic_format<
+			View::dim::static_size,
+			sge::image::color::impl::dynamic::format::from_static_type<
+				typename
+				View::format::color_format
+			>
 		>,
-		View::dim::static_size,
-		typename View::constness
-	>::type dest_type;
+		typename
+		View::constness
+	>
+	dest_type;
 
-	typedef typename dest_type::format dest_format;
+	typedef
+	typename
+	dest_type::format
+	dest_format;
 
 	return
 		dest_type(
 			_view.size(),
 			_view.data(),
 			_view.pitch(),
-			typename dest_type::format_store_type(
+			typename
+			dest_type::format_store_type(
 				dest_format(
-					typename dest_format::format_store_type(
+					typename
+					dest_format::format_store_type(
 						std::cref(
 							sge::image::color::impl::dynamic::format::from_static(
-								typename View::format::color_format()
+								typename
+								View::format::color_format()
 							)
 						)
 					)

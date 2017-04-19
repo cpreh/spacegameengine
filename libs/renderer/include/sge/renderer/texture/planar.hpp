@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_TEXTURE_PLANAR_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_PLANAR_HPP_INCLUDED
 
-#include <sge/image2d/traits/dim_fwd.hpp>
+#include <sge/image2d/traits/dimension.hpp>
 #include <sge/renderer/texture/basic_lockable_box.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 

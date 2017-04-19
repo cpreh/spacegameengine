@@ -26,62 +26,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 template<
-	typename ElementsWrapper
->
-template<
-	typename Element,
-	typename
+	typename Tag
 >
 sge::image::view::object<
-	ElementsWrapper
+	Tag
 >::object(
-	Element const &_element
+	variant const &_variant
 )
 :
 	variant_(
-		_element
+		_variant
 	)
 {
 }
 
 template<
-	typename ElementsWrapper
+	typename Tag
 >
 sge::image::view::object<
-	ElementsWrapper
+	Tag
 >::object(
 	object const &
 ) = default;
 
 template<
-	typename ElementsWrapper
+	typename Tag
 >
 sge::image::view::object<
-	ElementsWrapper
+	Tag
 > &
 sge::image::view::object<
-	ElementsWrapper
+	Tag
 >::operator=(
 	object const &
 ) = default;
 
 template<
-	typename ElementsWrapper
+	typename Tag
 >
 sge::image::view::object<
-	ElementsWrapper
+	Tag
 >::~object()
 {
 }
 
 template<
-	typename ElementsWrapper
+	typename Tag
 >
-typename sge::image::view::object<
-	ElementsWrapper
+typename
+sge::image::view::object<
+	Tag
 >::variant const &
 sge::image::view::object<
-	ElementsWrapper
+	Tag
 >::get() const
 {
 	return

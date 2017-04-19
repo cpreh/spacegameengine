@@ -36,8 +36,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
+#include <sge/renderer/vf/dynamic/part_cref.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
+#include <fcppt/make_cref.hpp>
 
 
 sge::opengl::vertex::buffer::buffer(
@@ -190,11 +192,13 @@ sge::opengl::vertex::buffer::resource_flags() const
 		buffer_.flags();
 }
 
-sge::renderer::vf::dynamic::part const &
+sge::renderer::vf::dynamic::part_cref
 sge::opengl::vertex::buffer::format() const
 {
 	return
-		format_part_;
+		fcppt::make_cref(
+			format_part_
+		);
 }
 
 sge::renderer::vf::dynamic::part_index

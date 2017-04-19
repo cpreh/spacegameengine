@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE3D_BOX_FWD_HPP_INCLUDED
 #define SGE_IMAGE3D_BOX_FWD_HPP_INCLUDED
 
-#include <sge/image/box_fwd.hpp>
+#include <sge/image/basic_box_fwd.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ namespace image3d
 {
 
 typedef
-sge::image::box<
+sge::image::basic_box<
 	3
 >
 box;

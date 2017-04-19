@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/may_overlap_fwd.hpp>
 #include <sge/image/algorithm/uninitialized_fwd.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/view/const_object_fwd.hpp>
+#include <sge/image/view/object_fwd.hpp>
 
 
 namespace sge
@@ -41,12 +41,12 @@ template<
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 void
 copy_and_convert(
-	typename sge::image::traits::const_view<
+	sge::image::view::const_object<
 		Tag
-	>::type const &,
-	typename sge::image::traits::view<
+	> const &,
+	sge::image::view::object<
 		Tag
-	>::type const &,
+	> const &,
 	sge::image::algorithm::may_overlap,
 	sge::image::algorithm::uninitialized
 );

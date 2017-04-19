@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <sge/image/color/any/object_fwd.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/line_drawer/color.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/renderer/vector3.hpp>
@@ -34,8 +34,12 @@ sge::line_drawer::line::line(
 	sge::line_drawer::line::line(
 		_begin,
 		_end,
-		sge::image::color::predef::white(),
-		sge::image::color::predef::white()
+		sge::image::color::any::object{
+			sge::image::color::predef::white()
+		},
+		sge::image::color::any::object{
+			sge::image::color::predef::white()
+		}
 	)
 {
 }

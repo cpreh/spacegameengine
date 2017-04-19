@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_STORE_INSTANTIATE_VIEW_HPP_INCLUDED
 
 #include <sge/image/impl/store/view_impl.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/store_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/store/object_fwd.hpp>
+#include <sge/image/view/const_object_fwd.hpp>
+#include <sge/image/view/object_fwd.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 
 
@@ -35,15 +35,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 template \
 SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
-sge::image::traits::view_type<\
+sge::image::view::view_type<\
 	tag\
->::type \
+>\
 sge::image::store::view<\
 	tag\
 >(\
-	sge::image::traits::store<\
+	sge::image::store::object<\
 		tag\
-	>::type ref_operator \
+	> ref_operator \
 )
 
 #define SGE_IMAGE_IMPL_STORE_INSTANTIATE_VIEW(\
@@ -52,12 +52,12 @@ sge::image::store::view<\
 SGE_IMAGE_IMPL_STORE_INSTANTIATE_VIEW_BASE(\
 	tag,\
 	&,\
-	view\
+	object\
 );\
 SGE_IMAGE_IMPL_STORE_INSTANTIATE_VIEW_BASE(\
 	tag,\
 	const &,\
-	const_view\
+	const_object\
 )
 
 #endif

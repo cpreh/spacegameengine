@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_ALGORITHM_INSTANTIATE_CLONE_HPP_INCLUDED
 
 #include <sge/image/impl/algorithm/clone_impl.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/store_fwd.hpp>
+#include <sge/image/store/object.hpp>
+#include <sge/image/view/const_object.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 
 
@@ -32,15 +32,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 template \
 SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
-sge::image::traits::store<\
+sge::image::store::object<\
 	tag\
->::type \
+> \
 sge::image::algorithm::clone< \
 	tag \
 >( \
-	sge::image::traits::const_view<\
+	sge::image::view::const_object<\
 		tag\
-	>::type const & \
+	> const & \
 )
 
 #endif

@@ -134,17 +134,23 @@ try
 
 	testbed.add_widget(
 		viewport_box,
-		sge::image::color::predef::blue()
+		sge::image::color::any::object{
+			sge::image::color::predef::blue()
+		}
 	);
 
 	testbed.add_widget(
 		inner_sprite,
-		sge::image::color::predef::red()
+		sge::image::color::any::object{
+			sge::image::color::predef::red()
+		}
 	);
 
 	testbed.add_widget(
 		inner_sprite2,
-		sge::image::color::predef::green()
+		sge::image::color::any::object{
+			sge::image::color::predef::green()
+		}
 	);
 
 	return

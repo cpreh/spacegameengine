@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/clone.hpp>
 #include <sge/image/impl/view/format_type.hpp>
 #include <sge/image/store/basic.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/store_fwd.hpp>
+#include <sge/image/store/object.hpp>
+#include <sge/image/view/const_object.hpp>
 #include <mizuiro/image/algorithm/clone.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
@@ -33,15 +33,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Tag
 >
-typename
-sge::image::traits::store<
+sge::image::store::object<
 	Tag
->::type
+>
 sge::image::algorithm::clone(
-	typename
-	sge::image::traits::const_view<
+	sge::image::view::const_object<
 		Tag
-	>::type const &_view
+	> const &_view
 )
 {
 	return
@@ -51,10 +49,9 @@ sge::image::algorithm::clone(
 			)
 			{
 				return
-					typename
-					sge::image::traits::store<
+					sge::image::store::object<
 						Tag
-					>::type{
+					>{
 						sge::image::store::basic<
 							sge::image::impl::view::format_type<
 								decltype(

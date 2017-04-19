@@ -28,137 +28,171 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_from_hex_string.hpp>
-#include <sge/image/color/any/object.hpp>
 
 
 sge::graph::color_scheme
 sge::graph::color_schemes::default_()
 {
 	return
-	sge::graph::color_scheme(
-		sge::graph::foreground_color(
-			sge::image::color::predef::gray()),
-		sge::graph::foreground_alt_color(
-			sge::image::color::predef::gray()),
-		sge::graph::background_color(
-			sge::image::color::predef::black()),
-		sge::graph::background_alt_color(
-			sge::image::color::predef::black()),
-		sge::graph::baseline_color(
-			sge::image::color::predef::lightgreen())
-	);
+		sge::graph::color_scheme(
+			sge::graph::foreground_color(
+				sge::image::color::predef::gray()
+			),
+			sge::graph::foreground_alt_color(
+				sge::image::color::predef::gray()
+			),
+			sge::graph::background_color(
+				sge::image::color::predef::black()
+			),
+			sge::graph::background_alt_color(
+				sge::image::color::predef::black()
+			),
+			sge::graph::baseline_color(
+				sge::image::color::predef::lightgreen()
+			)
+		);
 }
 
 sge::graph::color_scheme
 sge::graph::color_schemes::bright()
 {
 	return
-	sge::graph::color_scheme(
-		sge::graph::foreground_color(
-			sge::image::color::any::object(
+		sge::graph::color_scheme(
+			sge::graph::foreground_color(
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
-						"F6F792"),
-					255))),
-		sge::graph::foreground_alt_color(
-			sge::image::color::any::object(
+						"F6F792"
+					),
+					255
+				)
+			),
+			sge::graph::foreground_alt_color(
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
-						"DAEDE2"),
-					255))),
-		sge::graph::background_color(
-			sge::image::color::any::object(
+						"DAEDE2"
+					),
+					255
+				)
+			),
+			sge::graph::background_color(
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
-						"333745"),
-					255))),
-		sge::graph::background_alt_color(
-			sge::image::color::any::object(
+						"333745"
+					),
+					255
+				)
+			),
+			sge::graph::background_alt_color(
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
-						"77C4D3"),
-					255))),
-		sge::graph::baseline_color(
-			sge::image::color::any::object(
+						"77C4D3"
+					),
+					255
+				)
+			),
+			sge::graph::baseline_color(
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
-						"EA2E49"),
-					255)))
-	);
+						"EA2E49"
+					),
+					255
+				)
+			)
+		);
 }
 
 sge::graph::color_scheme
 sge::graph::color_schemes::night()
 {
 	return
-	sge::graph::color_scheme(
-		sge::graph::foreground_color(
-			sge::image::color::any::object(
+		sge::graph::color_scheme(
+			sge::graph::foreground_color(
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
-						"008000"),
-					255))),
-		sge::graph::foreground_alt_color(
-			sge::image::color::any::object(
+						"008000"
+					),
+					255
+				)
+			),
+			sge::graph::foreground_alt_color(
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
-						"77C4D3"),
-					255))),
-		sge::graph::background_color(
-			sge::image::color::any::object(
+						"77C4D3"
+					),
+					255
+				)
+			),
+			sge::graph::background_color(
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
-						"2E2E2E"),
-					255))),
-		sge::graph::background_alt_color(
-			sge::image::color::any::object(
+						"2E2E2E"
+					),
+					255
+				)
+			),
+			sge::graph::background_alt_color(
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
-						"2E2E2E"),
-					255))),
-		sge::graph::baseline_color(
-			sge::image::color::any::object(
+						"2E2E2E"
+					),
+					255
+				)
+			),
+			sge::graph::baseline_color(
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
-						"808080"),
-					255)))
-	);
+						"808080"
+					),
+					255
+				)
+			)
+		);
 }
 
 sge::graph::color_scheme
 sge::graph::color_schemes::minimal()
 {
 	return
-	sge::graph::color_scheme(
-		sge::graph::foreground_color(
-			sge::image::color::any::object(
+		sge::graph::color_scheme(
+			sge::graph::foreground_color(
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
-						"808080"),
-					255))),
-		sge::graph::foreground_alt_color(
-			sge::image::color::any::object(
+						"808080"
+					),
+					255
+				)
+			),
+			sge::graph::foreground_alt_color(
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
-						"808080"),
-					255))),
-		sge::graph::background_color(
-			sge::image::color::any::object(
+						"808080"
+					),
+					255
+				)
+			),
+			sge::graph::background_color(
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
-						"000000"),
-					0))),
-		sge::graph::background_alt_color(
-			sge::image::color::any::object(
+						"000000"
+					),
+					0
+				)
+			),
+			sge::graph::background_alt_color(
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
-						"000000"),
-					0))),
-		sge::graph::baseline_color(
-			sge::image::color::any::object(
+						"000000"
+					),
+					0
+				)
+			),
+			sge::graph::baseline_color(
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
-						"FFFFFF"),
-					255)))
-	);
+						"FFFFFF"
+					),
+					255
+				)
+			)
+		);
 }

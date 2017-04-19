@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/image/exception.hpp>
+#include <sge/image/invalid_convert_fwd.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/traits/format_fwd.hpp>
+#include <sge/image/traits/pixel/format_fwd.hpp>
 
 
 namespace sge
@@ -41,10 +42,9 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL invalid_convert
 {
 public:
 	typedef
-	typename
-	sge::image::traits::format<
+	sge::image::traits::pixel::format<
 		Tag
-	>::type
+	>
 	format;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL

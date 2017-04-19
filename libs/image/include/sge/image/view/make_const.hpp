@@ -22,12 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_VIEW_MAKE_CONST_HPP_INCLUDED
 
 #include <sge/image/const_raw_pointer.hpp>
+#include <sge/image/dim_fwd.hpp>
+#include <sge/image/pitch_fwd.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/traits/color_tag.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/dim_fwd.hpp>
-#include <sge/image/traits/format_fwd.hpp>
-#include <sge/image/traits/pitch_fwd.hpp>
+#include <sge/image/traits/image/color_tag.hpp>
+#include <sge/image/traits/pixel/format_fwd.hpp>
+#include <sge/image/view/const_object.hpp>
 
 
 namespace sge
@@ -41,22 +41,22 @@ template<
 	typename Tag
 >
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-typename sge::image::traits::const_view<
+sge::image::view::const_object<
 	Tag
->::type
+>
 make_const(
-	sge::image::const_raw_pointer const, // Workaround for VC++ bug
-	typename sge::image::traits::dim<
+	sge::image::const_raw_pointer,
+	sge::image::dim<
 		Tag
-	>::type const &,
-	typename sge::image::traits::format<
-		typename sge::image::traits::color_tag<
+	> const &,
+	sge::image::traits::pixel::format<
+		sge::image::traits::image::color_tag<
 			Tag
-		>::type
-	>::type,
-	typename sge::image::traits::pitch<
+		>
+	>,
+	sge::image::pitch<
 		Tag
-	>::type const &
+	> const &
 );
 
 }

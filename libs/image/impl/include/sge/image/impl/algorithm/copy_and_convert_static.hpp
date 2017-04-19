@@ -27,12 +27,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/impl/algorithm/convert_may_overlap.hpp>
 #include <sge/image/impl/algorithm/convert_uninitialized.hpp>
 #include <sge/image/impl/traits/static_converter.hpp>
-#include <sge/image/traits/color_tag.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/traits/image/color_tag.hpp>
+#include <sge/image/view/const_object.hpp>
+#include <sge/image/view/object.hpp>
 #include <mizuiro/image/algorithm/copy_and_convert.hpp>
 #include <fcppt/variant/apply_binary.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 
 namespace sge
@@ -49,14 +48,12 @@ template<
 >
 void
 copy_and_convert_static(
-	typename
-	sge::image::traits::const_view<
+	sge::image::view::const_object<
 		Tag
-	>::type const &_src,
-	typename
-	sge::image::traits::view<
+	> const &_src,
+	sge::image::view::object<
 		Tag
-	>::type const &_dest,
+	> const &_dest,
 	sge::image::algorithm::may_overlap const _overlap,
 	sge::image::algorithm::uninitialized const _uninitialized
 )
@@ -72,13 +69,11 @@ copy_and_convert_static(
 		{
 			return
 				mizuiro::image::algorithm::copy_and_convert<
-					typename
 					sge::image::impl::traits::static_converter<
-						typename
-						sge::image::traits::color_tag<
+						sge::image::traits::image::color_tag<
 							Tag
-						>::type
-					>::type
+						>
+					>
 				>(
 					_src_inner,
 					_dest_inner,

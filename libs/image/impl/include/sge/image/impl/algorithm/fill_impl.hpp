@@ -21,15 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_ALGORITHM_FILL_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_ALGORITHM_FILL_IMPL_HPP_INCLUDED
 
-#include <sge/image/mizuiro_color.hpp>
+#include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/impl/algorithm/convert_uninitialized.hpp>
 #include <sge/image/impl/view/format_type.hpp>
-#include <sge/image/traits/any_convert.hpp>
-#include <sge/image/traits/any_object_fwd.hpp>
-#include <sge/image/traits/color_tag.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/pixel/convert.hpp>
+#include <sge/image/pixel/object_fwd.hpp>
+#include <sge/image/traits/image/color_tag.hpp>
 #include <mizuiro/image/algorithm/fill_c.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
@@ -39,14 +38,14 @@ template<
 >
 void
 sge::image::algorithm::fill(
-	typename sge::image::traits::view<
+	sge::image::view::object<
 		Tag
-	>::type const &_view,
-	typename sge::image::traits::any_object<
-		typename sge::image::traits::color_tag<
+	> const &_view,
+	sge::image::pixel::object<
+		sge::image::traits::image::color_tag<
 			Tag
-		>::type
-	>::type const &_value,
+		>
+	> const &_value,
 	sge::image::algorithm::uninitialized const _uninitialized
 )
 {
@@ -60,12 +59,10 @@ sge::image::algorithm::fill(
 		{
 			mizuiro::image::algorithm::fill_c(
 				_view_inner,
-				sge::image::traits::any_convert<
-					typename
-					sge::image::traits::color_tag<
+				sge::image::pixel::convert<
+					sge::image::traits::image::color_tag<
 						Tag
-					>::type
-				>:: template execute<
+					>,
 					typename
 					sge::image::impl::view::format_type<
 						decltype(

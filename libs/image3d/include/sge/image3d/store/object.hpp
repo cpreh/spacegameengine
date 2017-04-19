@@ -21,9 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE3D_STORE_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE3D_STORE_OBJECT_HPP_INCLUDED
 
+#include <sge/image/color/traits/format_fwd.hpp>
+#include <sge/image/color/traits/static_formats.hpp>
 #include <sge/image/store/object.hpp>
-#include <sge/image3d/store/elements_wrapper.hpp>
 #include <sge/image3d/store/object_fwd.hpp>
+#include <sge/image3d/traits/color_tag.hpp>
+#include <sge/image3d/traits/dimension.hpp>
 
 
 #endif

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/box.hpp>
 #include <sge/image/exception.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
+#include <sge/image/view/sub_out_of_range_fwd.hpp>
 
 
 namespace sge
@@ -35,32 +36,38 @@ namespace view
 {
 
 template<
-	typename Box
+	typename Tag
 >
 class SGE_CORE_DETAIL_CLASS_SYMBOL sub_out_of_range
 :
 	public sge::image::exception
 {
 public:
+	typedef
+	sge::image::box<
+		Tag
+	>
+	box;
+
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	sub_out_of_range(
-		Box const &outer,
-		Box const &inner
+		box const &outer,
+		box const &inner
 	);
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	Box const &
+	box const &
 	outer() const;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	Box const &
+	box const &
 	inner() const;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	~sub_out_of_range() throw()
 	override;
 private:
-	Box
+	box
 		outer_,
 		inner_;
 };

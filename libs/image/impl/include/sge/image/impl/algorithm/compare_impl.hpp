@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/algorithm/compare.hpp>
 #include <sge/image/impl/algorithm/compare_visitor.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
+#include <sge/image/view/const_object.hpp>
 #include <fcppt/variant/apply_binary.hpp>
 
 
@@ -32,12 +32,12 @@ template<
 >
 bool
 sge::image::algorithm::compare(
-	typename sge::image::traits::const_view<
+	sge::image::view::const_object<
 		Tag
-	>::type const &_src1,
-	typename sge::image::traits::const_view<
+	> const &_src1,
+	sge::image::view::const_object<
 		Tag
-	>::type const &_src2
+	> const &_src2
 )
 {
 	return

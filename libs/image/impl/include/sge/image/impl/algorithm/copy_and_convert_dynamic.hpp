@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/impl/traits/dynamic_copy_and_convert.hpp>
-#include <sge/image/traits/color_tag.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
-#include <sge/image/traits/view_fwd.hpp>
+#include <sge/image/traits/image/color_tag.hpp>
+#include <sge/image/view/const_object_fwd.hpp>
+#include <sge/image/view/object_fwd.hpp>
 
 
 namespace sge
@@ -44,20 +44,20 @@ template<
 inline
 void
 copy_and_convert_dynamic(
-	typename sge::image::traits::const_view<
+	sge::image::view::const_object<
 		Tag
-	>::type const &_src,
-	typename sge::image::traits::view<
+	> const &_src,
+	sge::image::view::object<
 		Tag
-	>::type const &_dest,
+	> const &_dest,
 	sge::image::algorithm::may_overlap const _overlap,
 	sge::image::algorithm::uninitialized const _uninitialized
 )
 {
 	sge::image::impl::traits::dynamic_copy_and_convert<
-		typename sge::image::traits::color_tag<
+		sge::image::traits::image::color_tag<
 			Tag
-		>::type
+		>
 	>:: template execute<
 		Tag
 	>(

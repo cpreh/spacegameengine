@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format_fwd.hpp>
 #include <sge/image/color/tag.hpp>
 #include <sge/image/color/detail/symbol.hpp>
-#include <sge/image/traits/format_to_string.hpp>
+#include <sge/image/traits/pixel/format_to_string_tpl_fwd.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -34,9 +34,11 @@ namespace image
 {
 namespace traits
 {
+namespace pixel
+{
 
 template<>
-struct format_to_string<
+struct format_to_string_tpl<
 	sge::image::color::tag
 >
 {
@@ -48,6 +50,7 @@ struct format_to_string<
 	);
 };
 
+}
 }
 }
 }

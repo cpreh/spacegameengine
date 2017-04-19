@@ -19,8 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/bgra8_format.hpp>
+#include <sge/image/color/convert.hpp>
 #include <sge/image/color/predef.hpp>
-#include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -254,7 +255,7 @@ try
 		(*vb_it).set<
 			color_type
 		>(
-			sge::image::color::any::convert<
+			sge::image::color::convert<
 				color_format
 			>(
 				sge::image::color::predef::cyan()
@@ -274,7 +275,7 @@ try
 		(*vb_it).set<
 			color_type
 		>(
-			sge::image::color::any::convert<
+			sge::image::color::convert<
 				color_format
 			>(
 				sge::image::color::predef::yellow()
@@ -292,7 +293,7 @@ try
 		(*vb_it).set<
 			color_type
 		>(
-			sge::image::color::any::convert<
+			sge::image::color::convert<
 				color_format
 			>(
 				sge::image::color::predef::magenta()
@@ -325,7 +326,9 @@ try
 		context.clear(
 			sge::renderer::clear::parameters()
 			.back_buffer(
-				sge::image::color::predef::black()
+				sge::image::color::any::object{
+					sge::image::color::predef::black()
+				}
 			)
 		);
 

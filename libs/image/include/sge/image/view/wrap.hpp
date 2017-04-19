@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_WRAP_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_WRAP_HPP_INCLUDED
 
-#include <sge/image/view/wrapped_type.hpp>
+#include <sge/image/view/to_wrapped_type.hpp>
 
 
 namespace sge
@@ -34,17 +34,18 @@ namespace view
 template<
 	typename View
 >
-typename sge::image::view::wrapped_type<
+inline
+sge::image::view::to_wrapped_type<
 	View
->::type
+>
 wrap(
 	View const &_view
 )
 {
 	return
-		typename sge::image::view::wrapped_type<
+		sge::image::view::to_wrapped_type<
 			View
-		>::type(
+		>(
 			_view
 		);
 }

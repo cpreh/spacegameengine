@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_COLOR_FWD_HPP_INCLUDED
 #define SGE_SPRITE_COLOR_FWD_HPP_INCLUDED
 
-#include <sge/image/mizuiro_color_fwd.hpp>
+#include <sge/image/pixel/mizuiro_type_fwd.hpp>
 #include <sge/sprite/detail/config/color_format.hpp>
 
 
@@ -35,7 +35,7 @@ template<
 >
 using color
 =
-sge::image::mizuiro_color<
+sge::image::pixel::mizuiro_type<
 	typename
 	sge::sprite::detail::config::color_format<
 		Choices

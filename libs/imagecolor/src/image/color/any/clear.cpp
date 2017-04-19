@@ -86,7 +86,9 @@ sge::image::color::any::clear(
 	case sge::image::color::format::rgba32f:
 	case sge::image::color::format::bgra32f:
 		return
-			sge::image::color::predef::transparent();
+			sge::image::color::any::object(
+				sge::image::color::predef::transparent()
+			);
 	case sge::image::color::format::srgb8:
 	case sge::image::color::format::srgba8:
 		return

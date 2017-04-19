@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_VECTOR_FWD_HPP_INCLUDED
 #define SGE_IMAGE2D_VECTOR_FWD_HPP_INCLUDED
 
-#include <sge/image/vector_fwd.hpp>
+#include <sge/image/basic_vector_fwd.hpp>
 
 
 namespace sge
@@ -29,9 +29,11 @@ namespace sge
 namespace image2d
 {
 
-typedef sge::image::vector<
+typedef
+sge::image::basic_vector<
 	2
-> vector;
+>
+vector;
 
 }
 }

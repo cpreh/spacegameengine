@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_BUFFER_CONST_SCOPED_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_BUFFER_CONST_SCOPED_LOCK_HPP_INCLUDED
 
-#include <sge/image/traits/box_fwd.hpp>
-#include <sge/image/traits/const_view_fwd.hpp>
+#include <sge/image/box_fwd.hpp>
 #include <sge/renderer/buffer/const_scoped_lock_fwd.hpp>
 #include <sge/renderer/buffer/readable_fwd.hpp>
+#include <sge/renderer/buffer/traits/const_view.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -41,7 +41,7 @@ namespace buffer
 
 \ingroup sge_renderer
 
-Creates a box with value type renderer::size_type.
+Creates a box with value type sge::renderer::size_type.
 Used for locking of buffers readonly. It locks the buffer in the constructor
 and unlocks it in the destructor.
 */
@@ -61,17 +61,15 @@ public:
 	buffer_type;
 
 	typedef
-	typename
-	sge::image::traits::box<
+	sge::image::box<
 		Tag
-	>::type
+	>
 	lock_area;
 
 	typedef
-	typename
-	sge::image::traits::const_view<
+	sge::renderer::buffer::traits::const_view<
 		Tag
-	>::type
+	>
 	const_view;
 
 	/**

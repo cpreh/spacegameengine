@@ -35,6 +35,7 @@ namespace color
 namespace any
 {
 
+// FIXME: This is in the wrong namespace
 SGE_IMAGE_COLOR_DETAIL_SYMBOL
 fcppt::io::ostream &
 operator<<(

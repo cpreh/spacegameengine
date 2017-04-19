@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/graph/background_alt_color.hpp>
 #include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline_color.hpp>
+#include <sge/graph/color.hpp>
 #include <sge/graph/color_scheme.hpp>
 #include <sge/graph/foreground_alt_color.hpp>
 #include <sge/graph/foreground_color.hpp>
-#include <sge/image/color/any/object.hpp>
 
 
 sge::graph::color_scheme::color_scheme(
@@ -50,13 +50,13 @@ sge::graph::color_scheme::color_scheme(
 
 void
 sge::graph::color_scheme::foreground_color(
-	sge::image::color::any::object const &_col)
+	sge::graph::color const &_col)
 {
 	foreground_color_ =
 		_col;
 }
 
-sge::image::color::any::object const &
+sge::graph::color const &
 sge::graph::color_scheme::foreground_color() const
 {
 	return foreground_color_;
@@ -64,13 +64,13 @@ sge::graph::color_scheme::foreground_color() const
 
 void
 sge::graph::color_scheme::background_color(
-	sge::image::color::any::object const &_col)
+	sge::graph::color const &_col)
 {
 	background_color_ =
 		_col;
 }
 
-sge::image::color::any::object const &
+sge::graph::color const &
 sge::graph::color_scheme::background_color() const
 {
 	return background_color_;
@@ -78,13 +78,13 @@ sge::graph::color_scheme::background_color() const
 
 void
 sge::graph::color_scheme::foreground_alt_color(
-	sge::image::color::any::object const &_col)
+	sge::graph::color const &_col)
 {
 	foreground_alt_color_ =
 		_col;
 }
 
-sge::image::color::any::object const &
+sge::graph::color const &
 sge::graph::color_scheme::foreground_alt_color() const
 {
 	return foreground_alt_color_;
@@ -92,13 +92,13 @@ sge::graph::color_scheme::foreground_alt_color() const
 
 void
 sge::graph::color_scheme::background_alt_color(
-	sge::image::color::any::object const &_col)
+	sge::graph::color const &_col)
 {
 	background_alt_color_ =
 		_col;
 }
 
-sge::image::color::any::object const &
+sge::graph::color const &
 sge::graph::color_scheme::background_alt_color() const
 {
 	return background_alt_color_;
@@ -106,13 +106,13 @@ sge::graph::color_scheme::background_alt_color() const
 
 void
 sge::graph::color_scheme::baseline_color(
-	sge::image::color::any::object const &_col)
+	sge::graph::color const &_col)
 {
 	baseline_color_ =
 		_col;
 }
 
-sge::image::color::any::object const &
+sge::graph::color const &
 sge::graph::color_scheme::baseline_color() const
 {
 	return baseline_color_;
