@@ -58,15 +58,11 @@ public:
 	) = 0;
 
 	/**
-	\brief Tells which color format this font can handle
-
-	If this font object can only handle a specific color type (including
-	all convertible formats) then this function will return which one it
-	is. Otherwise, the function returns an empty optional.
+	\brief Tells which color format is preferred by this font, if any.
 	*/
 	virtual
 	sge::image::color::optional_format
-	color_format() const = 0;
+	preferred_color_format() const = 0;
 
 	virtual
 	sge::font::metrics

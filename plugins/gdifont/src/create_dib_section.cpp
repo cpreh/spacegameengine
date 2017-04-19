@@ -37,6 +37,7 @@ sge::gdifont::create_dib_section(
 	VOID *&_bits_result
 )
 {
+	// TODO: Support all formats
 	BITMAPINFO info;
 
 	ZeroMemory(

@@ -84,9 +84,8 @@ sge::gdifont::object::create_text(
 }
 
 sge::image::color::optional_format
-sge::gdifont::object::color_format() const
+sge::gdifont::object::preferred_color_format() const
 {
-	// TODO: Support all formats
 	return
 		sge::image::color::optional_format(
 			sge::image::color::format::a8

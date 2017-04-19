@@ -39,6 +39,7 @@ function(
 		MULTI_ARGS
 		SGE_DEPS
 		ADDITIONAL_DEPS
+		COMPILE_OPTIONS
 	)
 
 	cmake_parse_arguments(
@@ -108,6 +109,12 @@ function(
 		SGE_LIBRARIES_RESULT
 	)
 
+	target_compile_options(
+		"${FULL_NAME}"
+		PRIVATE
+		${_COMPILE_OPTIONS}
+	)
+
 	target_include_directories(
 		"${FULL_NAME}"
 		PRIVATE
@@ -141,6 +148,7 @@ function(
 		MULTI_ARGS
 		SGE_DEPS
 		ADDITIONAL_DEPS
+		COMPILE_OPTIONS
 	)
 
 	cmake_parse_arguments(
@@ -157,6 +165,8 @@ function(
 			${_SGE_DEPS}
 		ADDITIONAL_DEPS
 			${_ADDITIONAL_DEPS}
+		COMPILE_OPTIONS
+			${_COMPILE_OPTIONS}
 		CONSOLE_EXAMPLE
 			FALSE
 	)
@@ -170,6 +180,7 @@ function(
 		MULTI_ARGS
 		SGE_DEPS
 		ADDITIONAL_DEPS
+		COMPILE_OPTIONS
 	)
 
 	cmake_parse_arguments(
@@ -186,6 +197,8 @@ function(
 			${_SGE_DEPS}
 		ADDITIONAL_DEPS
 			${_ADDITIONAL_DEPS}
+		COMPILE_OPTIONS
+			${_COMPILE_OPTIONS}
 		CONSOLE_EXAMPLE
 			TRUE
 	)
@@ -693,6 +706,21 @@ add_sge_example(
 		${fcppt_core_TARGET}
 		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
+)
+
+add_sge_console_example(
+	render_text
+	SGE_DEPS
+		sgefont
+		sgeimage2d
+		sgesystems
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_options_TARGET}
+		${Boost_FILESYSTEM_LIBRARIES}
+		${FCPPT_UTILS_MAIN_LINK_LIBS}
+	COMPILE_OPTIONS
+		${FCPPT_UTILS_MAIN_COMPILE_OPTIONS}
 )
 
 add_sge_console_example(

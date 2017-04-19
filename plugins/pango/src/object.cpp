@@ -101,7 +101,7 @@ sge::pango::object::create_text(
 }
 
 sge::image::color::optional_format
-sge::pango::object::color_format() const
+sge::pango::object::preferred_color_format() const
 {
 	// TODO: This should be extended to all formats
 	return

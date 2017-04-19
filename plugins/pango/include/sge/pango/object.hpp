@@ -68,7 +68,7 @@ private:
 	override;
 
 	sge::image::color::optional_format
-	color_format() const
+	preferred_color_format() const
 	override;
 
 	sge::font::metrics

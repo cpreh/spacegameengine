@@ -217,7 +217,7 @@ sge::font::bitmap::impl::object::create_text(
 }
 
 sge::image::color::optional_format
-sge::font::bitmap::impl::object::color_format() const
+sge::font::bitmap::impl::object::preferred_color_format() const
 {
 	return
 		color_format_;
