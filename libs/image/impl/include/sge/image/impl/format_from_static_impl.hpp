@@ -18,26 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_IMPL_INSTANTIATE_MAKE_FORMAT_HPP_INCLUDED
-#define SGE_IMAGE_IMPL_INSTANTIATE_MAKE_FORMAT_HPP_INCLUDED
+#ifndef SGE_IMAGE_IMPL_FORMAT_FROM_STATIC_IMPL_HPP_INCLUDED
+#define SGE_IMAGE_IMPL_FORMAT_FROM_STATIC_IMPL_HPP_INCLUDED
 
-#include <sge/image/impl/make_format_impl.hpp>
+#include <sge/image/format_from_static.hpp>
+#include <sge/image/impl/static_to_dynamic_format.hpp>
 #include <sge/image/traits/pixel/format_fwd.hpp>
-#include <sge/src/core/export_function_instantiation.hpp>
 
 
-#define SGE_IMAGE_IMPL_INSTANTIATE_MAKE_FORMAT(\
-	tag,\
-	format_arg\
-)\
-template \
-SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
-sge::image::traits::pixel::format< \
-	tag \
-> \
-sge::image::make_format<\
-	tag,\
-	format_arg\
->()
+template<
+	typename Tag,
+	typename Format
+>
+sge::image::traits::pixel::format<
+	Tag
+>
+sge::image::format_from_static()
+{
+	return
+		sge::image::impl::static_to_dynamic_format<
+			Tag,
+			Format
+		>::value;
+}
 
 #endif

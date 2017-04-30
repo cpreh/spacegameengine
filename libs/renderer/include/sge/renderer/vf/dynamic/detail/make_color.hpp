@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_COLOR_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_COLOR_HPP_INCLUDED
 
-#include <sge/image/color/make_format.hpp>
+#include <sge/image/color/format_from_static.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 
 
@@ -44,7 +44,7 @@ make_color()
 {
 	return
 		sge::renderer::vf::dynamic::color(
-			sge::image::color::make_format<
+			sge::image::color::format_from_static<
 				Format
 			>()
 		);

@@ -18,28 +18,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_IMPL_MAKE_FORMAT_IMPL_HPP_INCLUDED
-#define SGE_IMAGE_IMPL_MAKE_FORMAT_IMPL_HPP_INCLUDED
+#ifndef SGE_IMAGE_FORMAT_FROM_STATIC_HPP_INCLUDED
+#define SGE_IMAGE_FORMAT_FROM_STATIC_HPP_INCLUDED
 
-#include <sge/image/make_format.hpp>
-#include <sge/image/impl/static_to_dynamic_format.hpp>
 #include <sge/image/traits/pixel/format_fwd.hpp>
+#include <sge/image/detail/instantiate/symbol.hpp>
 
+
+namespace sge
+{
+namespace image
+{
+
+// TODO: Improve typing
 
 template<
 	typename Tag,
 	typename Format
 >
+SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 sge::image::traits::pixel::format<
 	Tag
 >
-sge::image::make_format()
-{
-	return
-		sge::image::impl::static_to_dynamic_format<
-			Tag,
-			Format
-		>::value;
+format_from_static();
+
+}
 }
 
 #endif

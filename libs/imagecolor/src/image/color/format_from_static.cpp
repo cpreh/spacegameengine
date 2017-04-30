@@ -19,13 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/format.hpp>
-#include <sge/image/color/make_format.hpp>
+#include <sge/image/color/format_from_static.hpp>
 #include <sge/image/color/tag.hpp>
 #include <sge/image/color/traits/format_fwd.hpp>
 #include <sge/image/color/impl/pp_formats.hpp>
 #include <sge/image/color/impl/traits/format_map.hpp>
-#include <sge/image/impl/make_format_impl.hpp>
-#include <sge/image/impl/instantiate_make_format.hpp>
+#include <sge/image/impl/format_from_static_impl.hpp>
+#include <sge/image/impl/instantiate_format_from_static.hpp>
 #include <sge/src/core/export_function_instantiation.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/cat.hpp>
@@ -37,10 +37,10 @@ template<
 	typename Format
 >
 sge::image::color::format
-sge::image::color::make_format()
+sge::image::color::format_from_static()
 {
 	return
-		sge::image::make_format<
+		sge::image::format_from_static<
 			sge::image::color::tag,
 			Format
 		>();
@@ -48,7 +48,7 @@ sge::image::color::make_format()
 
 // TODO: Abstract his?
 
-#define SGE_INSTANTIATE_COLOR_MAKE_FORMAT(\
+#define SGE_INSTANTIATE_COLOR_FORMAT_FROM_STATIC(\
 	seq,\
 	_,\
 	format_arg\
@@ -56,20 +56,20 @@ sge::image::color::make_format()
 template \
 SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::color::format \
-sge::image::color::make_format<\
+sge::image::color::format_from_static<\
 	sge::image::color:: BOOST_PP_CAT(format_arg,_format)\
 >() \
 ; \
-SGE_IMAGE_IMPL_INSTANTIATE_MAKE_FORMAT(\
+SGE_IMAGE_IMPL_INSTANTIATE_FORMAT_FROM_STATIC(\
 	sge::image::color::tag,\
 	sge::image::color:: BOOST_PP_CAT(format_arg,_format)\
 ) \
 ;
 
 BOOST_PP_SEQ_FOR_EACH(
-	SGE_INSTANTIATE_COLOR_MAKE_FORMAT,
+	SGE_INSTANTIATE_COLOR_FORMAT_FROM_STATIC,
 	_,
 	SGE_IMAGE_COLOR_IMPL_PP_FORMATS
 )
 
-#undef SGE_INSTANTIATE_COLOR_MAKE_FORMAT
+#undef SGE_INSTANTIATE_COLOR_FORMAT_FROM_STATIC

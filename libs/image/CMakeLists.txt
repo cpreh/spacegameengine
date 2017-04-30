@@ -20,14 +20,14 @@ set(
 	libs/image/impl/include/sge/image/impl/algorithm/instantiate_print.hpp
 	libs/image/impl/include/sge/image/impl/algorithm/invalid_copy_impl.hpp
 	libs/image/impl/include/sge/image/impl/algorithm/print_impl.hpp
+	libs/image/impl/include/sge/image/impl/format_from_static_impl.hpp
 	libs/image/impl/include/sge/image/impl/format_key.hpp
 	libs/image/impl/include/sge/image/impl/format_map.hpp
 	libs/image/impl/include/sge/image/impl/format_pair.hpp
 	libs/image/impl/include/sge/image/impl/from_mizuiro_dim.hpp
+	libs/image/impl/include/sge/image/impl/instantiate_format_from_static.hpp
 	libs/image/impl/include/sge/image/impl/instantiate_invalid_convert.hpp
-	libs/image/impl/include/sge/image/impl/instantiate_make_format.hpp
 	libs/image/impl/include/sge/image/impl/invalid_convert_impl.hpp
-	libs/image/impl/include/sge/image/impl/make_format_impl.hpp
 	libs/image/impl/include/sge/image/impl/make_format_pair.hpp
 	libs/image/impl/include/sge/image/impl/pixel/convert_impl.hpp
 	libs/image/impl/include/sge/image/impl/pixel/instantiate_convert.hpp
@@ -121,12 +121,12 @@ set(
 	libs/image/include/sge/image/dimension_integral_c.hpp
 	libs/image/include/sge/image/exception.hpp
 	libs/image/include/sge/image/exception_fwd.hpp
+	libs/image/include/sge/image/format_from_static.hpp
 	libs/image/include/sge/image/heterogenous_format.hpp
 	libs/image/include/sge/image/homogenous_format.hpp
 	libs/image/include/sge/image/integral_size.hpp
 	libs/image/include/sge/image/invalid_convert.hpp
 	libs/image/include/sge/image/invalid_convert_fwd.hpp
-	libs/image/include/sge/image/make_format.hpp
 	libs/image/include/sge/image/mizuiro_color_traits.hpp
 	libs/image/include/sge/image/pitch.hpp
 	libs/image/include/sge/image/pitch_fwd.hpp

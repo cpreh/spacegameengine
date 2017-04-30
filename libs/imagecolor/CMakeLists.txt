@@ -114,6 +114,7 @@ set(
 	libs/imagecolor/include/sge/image/color/element_count.hpp
 	libs/imagecolor/include/sge/image/color/format.hpp
 	libs/imagecolor/include/sge/image/color/format_element_size.hpp
+	libs/imagecolor/include/sge/image/color/format_from_static.hpp
 	libs/imagecolor/include/sge/image/color/format_fwd.hpp
 	libs/imagecolor/include/sge/image/color/format_is_srgb.hpp
 	libs/imagecolor/include/sge/image/color/format_stride.hpp
@@ -132,7 +133,6 @@ set(
 	libs/imagecolor/include/sge/image/color/la8.hpp
 	libs/imagecolor/include/sge/image/color/la8_format.hpp
 	libs/imagecolor/include/sge/image/color/la8_fwd.hpp
-	libs/imagecolor/include/sge/image/color/make_format.hpp
 	libs/imagecolor/include/sge/image/color/optional_format.hpp
 	libs/imagecolor/include/sge/image/color/optional_format_fwd.hpp
 	libs/imagecolor/include/sge/image/color/predef.hpp
@@ -181,12 +181,12 @@ set(
 	libs/imagecolor/src/image/color/any/print.cpp
 	libs/imagecolor/src/image/color/element_count.cpp
 	libs/imagecolor/src/image/color/format_element_size.cpp
+	libs/imagecolor/src/image/color/format_from_static.cpp
 	libs/imagecolor/src/image/color/format_is_srgb.cpp
 	libs/imagecolor/src/image/color/format_stride.cpp
 	libs/imagecolor/src/image/color/format_to_string.cpp
 	libs/imagecolor/src/image/color/invalid_convert.cpp
 	libs/imagecolor/src/image/color/invalid_copy.cpp
-	libs/imagecolor/src/image/color/make_format.cpp
 	libs/imagecolor/src/image/color/predef.cpp
 	libs/imagecolor/src/image/color/traits/format_stride.cpp
 	libs/imagecolor/src/image/color/traits/format_to_string.cpp
