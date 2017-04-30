@@ -58,8 +58,6 @@ set(
 	libs/image/impl/include/sge/image/impl/view/flipped_impl.hpp
 	libs/image/impl/include/sge/image/impl/view/format_any.hpp
 	libs/image/impl/include/sge/image/impl/view/format_impl.hpp
-	libs/image/impl/include/sge/image/impl/view/format_macro.hpp
-	libs/image/impl/include/sge/image/impl/view/format_type.hpp
 	libs/image/impl/include/sge/image/impl/view/instantiate_checked_sub.hpp
 	libs/image/impl/include/sge/image/impl/view/instantiate_const_nonconst.hpp
 	libs/image/impl/include/sge/image/impl/view/instantiate_const_object.hpp
@@ -169,7 +167,6 @@ set(
 	libs/image/include/sge/image/view/elements.hpp
 	libs/image/include/sge/image/view/flipped.hpp
 	libs/image/include/sge/image/view/format.hpp
-	libs/image/include/sge/image/view/has_element.hpp
 	libs/image/include/sge/image/view/make.hpp
 	libs/image/include/sge/image/view/make_const.hpp
 	libs/image/include/sge/image/view/mizuiro_access.hpp

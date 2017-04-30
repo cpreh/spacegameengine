@@ -22,12 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_ALGORITHM_CLONE_IMPL_HPP_INCLUDED
 
 #include <sge/image/algorithm/clone.hpp>
-#include <sge/image/impl/view/format_type.hpp>
 #include <sge/image/store/basic.hpp>
 #include <sge/image/store/object.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <mizuiro/image/algorithm/clone.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -53,11 +55,12 @@ sge::image::algorithm::clone(
 						Tag
 					>{
 						sge::image::store::basic<
-							sge::image::impl::view::format_type<
+							typename
+							std::decay<
 								decltype(
 									_inner_view
 								)
-							>
+							>::type::format
 						>(
 							mizuiro::image::algorithm::clone(
 								_inner_view

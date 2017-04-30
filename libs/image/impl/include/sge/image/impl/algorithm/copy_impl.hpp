@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/impl/algorithm/convert_may_overlap.hpp>
 #include <sge/image/impl/algorithm/convert_uninitialized.hpp>
-#include <sge/image/impl/view/format_type.hpp>
 #include <sge/image/traits/image/color_tag.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/image/view/format.hpp>
@@ -39,6 +38,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/apply_binary.hpp>
 #include <fcppt/variant/get_exn.hpp>
 #include <fcppt/variant/invalid_get.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -71,11 +73,12 @@ try
 					_src_inner,
 					fcppt::variant::get_exn<
 						sge::image::view::mizuiro_type<
-							sge::image::impl::view::format_type<
+							typename
+							std::decay<
 								decltype(
 									_src_inner
 								)
-							>,
+							>::type::format,
 							mizuiro::nonconst_tag
 						>
 					>(

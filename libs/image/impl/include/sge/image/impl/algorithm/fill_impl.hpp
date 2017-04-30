@@ -25,12 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/impl/algorithm/convert_uninitialized.hpp>
-#include <sge/image/impl/view/format_type.hpp>
 #include <sge/image/pixel/convert.hpp>
 #include <sge/image/pixel/object_fwd.hpp>
 #include <sge/image/traits/image/color_tag.hpp>
 #include <mizuiro/image/algorithm/fill_c.hpp>
 #include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -64,11 +66,11 @@ sge::image::algorithm::fill(
 						Tag
 					>,
 					typename
-					sge::image::impl::view::format_type<
+					std::decay<
 						decltype(
 							_view_inner
 						)
-					>::color_format
+					>::type::format::color_format
 				>(
 					_value
 				),
