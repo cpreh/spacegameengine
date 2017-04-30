@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
+// TODO: Use fcppt.options
 int
 main(
 	int const argc,
@@ -41,7 +42,7 @@ try
 		return EXIT_FAILURE;
 	}
 	// FIXME
-//	fcppt::io::cout() << sge::image::color::any::from_string(argv[1]) << FCPPT_TEXT("\n");
+	fcppt::io::cout() << sge::image::color::any::from_string(argv[1]) << FCPPT_TEXT("\n");
 	return EXIT_SUCCESS;
 }
 catch(

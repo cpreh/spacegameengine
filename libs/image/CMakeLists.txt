@@ -32,7 +32,9 @@ set(
 	libs/image/impl/include/sge/image/impl/pixel/convert_impl.hpp
 	libs/image/impl/include/sge/image/impl/pixel/instantiate_convert.hpp
 	libs/image/impl/include/sge/image/impl/pixel/instantiate_object.hpp
+	libs/image/impl/include/sge/image/impl/pixel/instantiate_object_output.hpp
 	libs/image/impl/include/sge/image/impl/pixel/object_impl.hpp
+	libs/image/impl/include/sge/image/impl/pixel/object_output_impl.hpp
 	libs/image/impl/include/sge/image/impl/pixel/to_static_format.hpp
 	libs/image/impl/include/sge/image/impl/static_to_dynamic_format.hpp
 	libs/image/impl/include/sge/image/impl/store/basic_impl.hpp
@@ -136,6 +138,8 @@ set(
 	libs/image/include/sge/image/pixel/mizuiro_type_tpl_fwd.hpp
 	libs/image/include/sge/image/pixel/object.hpp
 	libs/image/include/sge/image/pixel/object_fwd.hpp
+	libs/image/include/sge/image/pixel/object_output.hpp
+	libs/image/include/sge/image/pixel/print.hpp
 	libs/image/include/sge/image/raw_pointer.hpp
 	libs/image/include/sge/image/raw_value.hpp
 	libs/image/include/sge/image/size_type.hpp

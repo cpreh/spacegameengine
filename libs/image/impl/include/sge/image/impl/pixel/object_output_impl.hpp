@@ -18,11 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/color/tag.hpp>
-#include <sge/image/color/any/object.hpp>
-#include <sge/image/impl/pixel/instantiate_object_output.hpp>
+#ifndef SGE_IMAGE_IMPL_PIXEL_OBJECT_OUTPUT_IMPL_HPP_INCLUDED
+#define SGE_IMAGE_IMPL_PIXEL_OBJECT_OUTPUT_IMPL_HPP_INCLUDED
+
+#include <sge/image/pixel/object.hpp>
+#include <sge/image/pixel/object_output.hpp>
+#include <sge/image/pixel/print.hpp>
+#include <fcppt/io/ostream_fwd.hpp>
+#include <fcppt/variant/apply_unary.hpp>
 
 
-SGE_IMAGE_IMPL_PIXEL_INSTANTIATE_OBJECT_OUTPUT(
-	sge::image::color::tag
-);
+template<
+	typename Tag
+>
+fcppt::io::ostream &
+sge::image::pixel::operator<<(
+	fcppt::io::ostream &_stream,
+	sge::image::pixel::object<
+		Tag
+	> const &_object
+)
+{
+	return
+		fcppt::variant::apply_unary(
+			[
+				&_stream
+			](
+				auto const &_value
+			)
+			->
+			fcppt::io::ostream &
+			{
+				return
+					_stream
+					<<
+					_value;
+			},
+			_object.get()
+		);
+}
+
+#endif

@@ -22,30 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_ANY_PRINT_HPP_INCLUDED
 
 #include <sge/image/color/any/object_fwd.hpp>
-#include <sge/image/color/detail/symbol.hpp>
-#include <fcppt/io/ostream_fwd.hpp>
+#include <sge/image/pixel/object_output.hpp>
 
-
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace any
-{
-
-// FIXME: This is in the wrong namespace
-SGE_IMAGE_COLOR_DETAIL_SYMBOL
-fcppt::io::ostream &
-operator<<(
-	fcppt::io::ostream &,
-	sge::image::color::any::object const &
-);
-
-}
-}
-}
-}
 
 #endif

@@ -136,7 +136,6 @@ set(
 	libs/imagecolor/include/sge/image/color/optional_format.hpp
 	libs/imagecolor/include/sge/image/color/optional_format_fwd.hpp
 	libs/imagecolor/include/sge/image/color/predef.hpp
-	libs/imagecolor/include/sge/image/color/print.hpp
 	libs/imagecolor/include/sge/image/color/r32f.hpp
 	libs/imagecolor/include/sge/image/color/r32f_format.hpp
 	libs/imagecolor/include/sge/image/color/r32f_fwd.hpp
