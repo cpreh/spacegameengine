@@ -18,31 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_IMPL_INSTANTIATE_FORMAT_FROM_STATIC_HPP_INCLUDED
-#define SGE_IMAGE_IMPL_INSTANTIATE_FORMAT_FROM_STATIC_HPP_INCLUDED
+#ifndef SGE_IMAGE_HAS_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE_HAS_FORMAT_HPP_INCLUDED
 
-#include <sge/image/enable_if_has_format.hpp>
-#include <sge/image/impl/format_from_static_impl.hpp>
-#include <sge/image/traits/pixel/format_fwd.hpp>
-#include <sge/src/core/export_function_instantiation.hpp>
+#include <sge/image/traits/pixel/static_formats.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/contains.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
-#define SGE_IMAGE_IMPL_INSTANTIATE_FORMAT_FROM_STATIC(\
-	tag,\
-	format_arg\
-)\
-template \
-SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
-sge::image::enable_if_has_format<\
-	tag,\
-	format_arg,\
-	sge::image::traits::pixel::format< \
-		tag \
-	> \
-> \
-sge::image::format_from_static<\
-	tag,\
-	format_arg\
->()
+namespace sge
+{
+namespace image
+{
+
+template<
+	typename Tag,
+	typename Format
+>
+using
+has_format
+=
+typename
+boost::mpl::contains<
+	sge::image::traits::pixel::static_formats<
+		Tag
+	>,
+	Format
+>::type;
+
+}
+}
 
 #endif

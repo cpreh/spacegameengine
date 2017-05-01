@@ -18,31 +18,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_IMPL_INSTANTIATE_FORMAT_FROM_STATIC_HPP_INCLUDED
-#define SGE_IMAGE_IMPL_INSTANTIATE_FORMAT_FROM_STATIC_HPP_INCLUDED
+#ifndef SGE_IMAGE_COLOR_ENABLE_IF_HAS_FORMAT_HPP_INCLUDED
+#define SGE_IMAGE_COLOR_ENABLE_IF_HAS_FORMAT_HPP_INCLUDED
 
 #include <sge/image/enable_if_has_format.hpp>
-#include <sge/image/impl/format_from_static_impl.hpp>
-#include <sge/image/traits/pixel/format_fwd.hpp>
-#include <sge/src/core/export_function_instantiation.hpp>
+#include <sge/image/color/tag.hpp>
+#include <sge/image/color/traits/static_formats.hpp>
 
 
-#define SGE_IMAGE_IMPL_INSTANTIATE_FORMAT_FROM_STATIC(\
-	tag,\
-	format_arg\
-)\
-template \
-SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
-sge::image::enable_if_has_format<\
-	tag,\
-	format_arg,\
-	sge::image::traits::pixel::format< \
-		tag \
-	> \
-> \
-sge::image::format_from_static<\
-	tag,\
-	format_arg\
->()
+namespace sge
+{
+namespace image
+{
+namespace color
+{
+
+template<
+	typename Format,
+	typename Result
+>
+using
+enable_if_has_format
+=
+sge::image::enable_if_has_format<
+	sge::image::color::tag,
+	Format,
+	Result
+>;
+
+}
+}
+}
 
 #endif

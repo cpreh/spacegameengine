@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/color/enable_if_has_format.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/format_from_static.hpp>
 #include <sge/image/color/tag.hpp>
@@ -36,7 +37,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Format
 >
-sge::image::color::format
+sge::image::color::enable_if_has_format<
+	Format,
+	sge::image::color::format
+>
 sge::image::color::format_from_static()
 {
 	return
@@ -55,7 +59,10 @@ sge::image::color::format_from_static()
 )\
 template \
 SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
-sge::image::color::format \
+sge::image::color::enable_if_has_format< \
+	sge::image::color:: BOOST_PP_CAT(format_arg,_format),\
+	sge::image::color::format \
+> \
 sge::image::color::format_from_static<\
 	sge::image::color:: BOOST_PP_CAT(format_arg,_format)\
 >() \

@@ -112,6 +112,7 @@ set(
 	libs/imagecolor/include/sge/image/color/convert.hpp
 	libs/imagecolor/include/sge/image/color/detail/is_convertible.hpp
 	libs/imagecolor/include/sge/image/color/element_count.hpp
+	libs/imagecolor/include/sge/image/color/enable_if_has_format.hpp
 	libs/imagecolor/include/sge/image/color/format.hpp
 	libs/imagecolor/include/sge/image/color/format_element_size.hpp
 	libs/imagecolor/include/sge/image/color/format_from_static.hpp

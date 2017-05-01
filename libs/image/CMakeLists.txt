@@ -119,9 +119,11 @@ set(
 	libs/image/include/sge/image/dim_fwd.hpp
 	libs/image/include/sge/image/dimension_count.hpp
 	libs/image/include/sge/image/dimension_integral_c.hpp
+	libs/image/include/sge/image/enable_if_has_format.hpp
 	libs/image/include/sge/image/exception.hpp
 	libs/image/include/sge/image/exception_fwd.hpp
 	libs/image/include/sge/image/format_from_static.hpp
+	libs/image/include/sge/image/has_format.hpp
 	libs/image/include/sge/image/heterogenous_format.hpp
 	libs/image/include/sge/image/homogenous_format.hpp
 	libs/image/include/sge/image/integral_size.hpp
