@@ -389,7 +389,6 @@ function(
 			${SGE_LIB_NAME}
 			PRIVATE
 			${PUBLIC_INCLUDES}
-			${FCPPT_UTILS_PROJECT_SOURCE_DIR}/libs/core/src/core/include
 			${_INCLUDE_DIRS}
 		)
 

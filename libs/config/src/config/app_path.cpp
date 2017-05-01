@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-#include <sge/src/core/include_windows.hpp>
+#include <sge/core/impl/include_windows.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/container/buffer/object_impl.hpp>

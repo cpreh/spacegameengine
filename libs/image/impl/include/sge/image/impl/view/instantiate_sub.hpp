@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_VIEW_INSTANTIATE_SUB_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_SUB_HPP_INCLUDED
 
+#include <sge/core/impl/export_function_instantiation.hpp>
 #include <sge/image/box_fwd.hpp>
 #include <sge/image/impl/view/instantiate_const_nonconst.hpp>
 #include <sge/image/impl/view/sub_impl.hpp>
-#include <sge/src/core/export_function_instantiation.hpp>
 
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_SUB_BASE(\
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	object_type\
 )\
 template \
-SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
+SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::view::object_type<\
 	tag\
 > \

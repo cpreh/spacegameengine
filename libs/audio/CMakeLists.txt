@@ -137,6 +137,8 @@ add_sge_base_library(
 		sgecore
 		sgemedia_interface
 		sgeplugin_interface
+	USE_IMPL_INCLUDE_OF
+		core
 	ADDITIONAL_DEPS
 		fcppt_core_interface
 		${fcppt_log_TARGET}

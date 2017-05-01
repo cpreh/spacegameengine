@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/parameter/detail/check_base_type.hpp>
 #include <sge/cg/parameter/detail/generate_types.hpp>
-#include <sge/src/core/export_function_instantiation.hpp>
+#include <sge/core/impl/export_function_instantiation.hpp>
 #include <fcppt/assert/error.hpp>
 
 
@@ -53,7 +53,7 @@ sge::cg::parameter::detail::check_base_type(
 	type\
 )\
 template \
-SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
+SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
 void \
 sge::cg::parameter::detail::check_base_type<\
 	type\

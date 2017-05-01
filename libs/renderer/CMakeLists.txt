@@ -1219,6 +1219,8 @@ add_sge_base_library(
 		sgelog_interface
 		sgeplugin_interface
 		${SGE_RENDERER_CG_DEPS}
+	USE_IMPL_INCLUDE_OF
+		core
 	ADDITIONAL_DEPS
 		${fcppt_log_TARGET}
 		awl_interface

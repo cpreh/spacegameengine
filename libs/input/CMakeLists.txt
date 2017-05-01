@@ -499,6 +499,8 @@ add_sge_base_library(
 		sgelog_interface
 		sgeplugin_interface
 		sgewindow_interface
+	USE_IMPL_INCLUDE_OF
+		core
 	ADDITIONAL_DEPS
 		${fcppt_log_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_IMPL_INSTANTIATE_BASIC_PART_RAW_HPP_INCLUDED
 #define SGE_TEXTURE_IMPL_INSTANTIATE_BASIC_PART_RAW_HPP_INCLUDED
 
-#include <sge/src/core/export_class_instantiation.hpp>
+#include <sge/core/impl/export_class_instantiation.hpp>
 #include <sge/texture/impl/basic_part_raw_impl.hpp>
 
 
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 template \
 class \
-SGE_CORE_EXPORT_CLASS_INSTANTIATION \
+SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION \
 sge::texture::basic_part_raw<\
 	ref_type\
 >

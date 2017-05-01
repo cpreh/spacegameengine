@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_IMPL_TEXTURE_INSTANTIATE_BASIC_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_IMPL_TEXTURE_INSTANTIATE_BASIC_PARAMETERS_HPP_INCLUDED
 
+#include <sge/core/impl/export_class_instantiation.hpp>
 #include <sge/renderer/impl/texture/basic_parameters_impl.hpp>
-#include <sge/src/core/export_class_instantiation.hpp>
 
 
 #define SGE_RENDERER_IMPL_TEXTURE_INSTANTIATE_BASIC_PARAMETERS(\
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 template \
 class \
-SGE_CORE_EXPORT_CLASS_INSTANTIATION \
+SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION \
 sge::renderer::texture::basic_parameters<\
 	texture_size_type,\
 	format_type\

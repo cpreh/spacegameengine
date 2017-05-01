@@ -44,6 +44,8 @@ add_sge_base_library(
 		sgecore
 	TRANSITIVE_SGE_DEPS
 		sgecore
+	USE_IMPL_INCLUDE_OF
+		core
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS

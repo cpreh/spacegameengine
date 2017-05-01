@@ -132,6 +132,8 @@ add_sge_base_library(
 		sgeparse
 	TRANSITIVE_SGE_DEPS
 		sgeparse
+	USE_IMPL_INCLUDE_OF
+		core
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}

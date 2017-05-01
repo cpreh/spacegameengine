@@ -141,6 +141,8 @@ add_sge_base_library(
 		sgeimage2d_interface
 		sgeimagecolor_interface
 		sgeplugin_interface
+	USE_IMPL_INCLUDE_OF
+		core
 	ADDITIONAL_DEPS
 		mizuiro_interface
 		${fcppt_core_TARGET}

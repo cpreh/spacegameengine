@@ -63,6 +63,8 @@ add_sge_base_library(
 	TRANSITIVE_SGE_DEPS
 		sgecore
 		sgefont_interface
+	USE_IMPL_INCLUDE_OF
+		core
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS

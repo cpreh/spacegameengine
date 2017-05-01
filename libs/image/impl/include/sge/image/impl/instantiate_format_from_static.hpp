@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_INSTANTIATE_FORMAT_FROM_STATIC_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_INSTANTIATE_FORMAT_FROM_STATIC_HPP_INCLUDED
 
+#include <sge/core/impl/export_function_instantiation.hpp>
 #include <sge/image/enable_if_has_format.hpp>
 #include <sge/image/impl/format_from_static_impl.hpp>
 #include <sge/image/traits/pixel/format_fwd.hpp>
-#include <sge/src/core/export_function_instantiation.hpp>
 
 
 #define SGE_IMAGE_IMPL_INSTANTIATE_FORMAT_FROM_STATIC(\
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	format_arg\
 )\
 template \
-SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
+SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::enable_if_has_format<\
 	tag,\
 	format_arg,\

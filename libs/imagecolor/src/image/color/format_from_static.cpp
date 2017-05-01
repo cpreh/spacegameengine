@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/core/impl/export_function_instantiation.hpp>
 #include <sge/image/color/enable_if_has_format.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/format_from_static.hpp>
@@ -27,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/traits/format_fwd.hpp>
 #include <sge/image/impl/format_from_static_impl.hpp>
 #include <sge/image/impl/instantiate_format_from_static.hpp>
-#include <sge/src/core/export_function_instantiation.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
@@ -58,7 +58,7 @@ sge::image::color::format_from_static()
 	format_arg\
 )\
 template \
-SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
+SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::color::enable_if_has_format< \
 	sge::image::color:: BOOST_PP_CAT(format_arg,_format),\
 	sge::image::color::format \

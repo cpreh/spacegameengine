@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/core/impl/export_function_instantiation.hpp>
 #include <sge/image/color/a8_format.hpp>
 #include <sge/image/color/bgr32f_format.hpp>
 #include <sge/image/color/bgr8_format.hpp>
@@ -45,7 +46,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/impl/pixel/convert_impl.hpp>
 #include <sge/image/impl/pixel/instantiate_convert.hpp>
 #include <sge/image/pixel/mizuiro_type.hpp>
-#include <sge/src/core/export_function_instantiation.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/cat.hpp>
@@ -80,7 +80,7 @@ sge::image::color::any::convert(
 	format_arg\
 )\
 template \
-SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
+SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::pixel::mizuiro_type<\
 	sge::image::color:: BOOST_PP_CAT(format_arg,_format)\
 > \

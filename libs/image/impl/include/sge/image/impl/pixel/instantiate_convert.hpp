@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_PIXEL_INSTANTIATE_CONVERT_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_PIXEL_INSTANTIATE_CONVERT_HPP_INCLUDED
 
+#include <sge/core/impl/export_function_instantiation.hpp>
 #include <sge/image/impl/pixel/convert_impl.hpp>
 #include <sge/image/pixel/mizuiro_type.hpp>
 #include <sge/image/pixel/object_fwd.hpp>
-#include <sge/src/core/export_function_instantiation.hpp>
 
 
 #define SGE_IMAGE_IMPL_PIXEL_INSTANTIATE_CONVERT(\
@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	format\
 )\
 template \
-SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
+SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
 sge::image::pixel::mizuiro_type< \
 	format \
 > \

@@ -84,6 +84,8 @@ add_sge_base_library(
 		sgeimage_interface
 		sgeimage2d_interface
 		sgerenderer_interface
+	USE_IMPL_INCLUDE_OF
+		core
 	ADDITIONAL_DEPS
 		fcppt_core_interface
 	TRANSITIVE_ADDITIONAL_DEPS

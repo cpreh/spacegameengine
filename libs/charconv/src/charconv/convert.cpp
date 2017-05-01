@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
-#include <sge/src/core/export_function_instantiation.hpp>
+#include <sge/core/impl/export_function_instantiation.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
@@ -237,7 +237,7 @@ catch(
 	param\
 )\
 template \
-SGE_CORE_EXPORT_FUNCTION_INSTANTIATION \
+SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
 sge::charconv::string_type< \
 	BOOST_PP_SEQ_ELEM(0, param) \
 > \

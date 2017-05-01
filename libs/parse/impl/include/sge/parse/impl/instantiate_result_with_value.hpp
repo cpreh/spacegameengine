@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_IMPL_INSTANTIATE_RESULT_WITH_VALUE_HPP_INCLUDED
 #define SGE_PARSE_IMPL_INSTANTIATE_RESULT_WITH_VALUE_HPP_INCLUDED
 
+#include <sge/core/impl/export_class_instantiation.hpp>
 #include <sge/parse/impl/result_with_value_impl.hpp>
-#include <sge/src/core/export_class_instantiation.hpp>
 
 
 #define SGE_PARSE_IMPL_INSTANTIATE_RESULT_WITH_VALUE(\
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 )\
 template \
 class \
-SGE_CORE_EXPORT_CLASS_INSTANTIATION \
+SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION \
 sge::parse::result_with_value<\
 	start_symbol\
 >

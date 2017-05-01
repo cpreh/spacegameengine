@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/core/impl/export_class_instantiation.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/impl/index/instantiate_all.hpp>
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/dynamic/basic_view.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
-#include <sge/src/core/export_class_instantiation.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/to_signed.hpp>
 
@@ -159,7 +159,7 @@ sge::renderer::index::view<
 )\
 template \
 class \
-SGE_CORE_EXPORT_CLASS_INSTANTIATION \
+SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION \
 sge::renderer::index::view<\
 	format \
 >
