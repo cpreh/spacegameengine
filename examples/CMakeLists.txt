@@ -285,6 +285,10 @@ add_sge_console_example(
 		sgeimagecolor
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		${fcppt_options_TARGET}
+		${FCPPT_UTILS_MAIN_LINK_LIBS}
+	COMPILE_OPTIONS
+		${FCPPT_UTILS_MAIN_COMPILE_OPTIONS}
 )
 
 add_sge_console_example(
