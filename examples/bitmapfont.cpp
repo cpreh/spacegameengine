@@ -73,43 +73,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/dim.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
+#include <fcppt/args_from_second.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/cerr.hpp>
+#include <fcppt/either/match.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/options/argument.hpp>
+#include <fcppt/options/error.hpp>
+#include <fcppt/options/error_output.hpp>
+#include <fcppt/options/long_name.hpp>
+#include <fcppt/options/make_optional.hpp>
+#include <fcppt/options/optional_help_text.hpp>
+#include <fcppt/options/parse.hpp>
+#include <fcppt/options/result_of.hpp>
+#include <fcppt/record/get.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <iostream>
-#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
-awl::main::exit_code const
-example_main(
-	awl::main::function_context const &_main_function_context
-)
-try
+namespace
 {
-	if(
-		_main_function_context.argc() > 2
-	)
-	{
-		fcppt::io::cerr()
-			<< FCPPT_TEXT("Pass exactly one argument to show a given text")
-			FCPPT_TEXT(" or pass nothing to see the default text.\n");
 
-		return
-			awl::main::exit_failure();
-	}
-
+awl::main::exit_code
+example_main(
+	sge::font::string const &_text
+)
+{
 	sge::systems::instance<
 		boost::mpl::vector4<
 			sge::systems::with_renderer<
@@ -130,7 +135,7 @@ try
 				sge::systems::window_source(
 					sge::systems::original_window(
 						sge::window::title(
-							FCPPT_TEXT("sge animtest")
+							FCPPT_TEXT("bitmapfont")
 						)
 					)
 				)
@@ -193,22 +198,10 @@ try
 		)
 	);
 
-	sge::font::string const string(
-		_main_function_context.argc() == 2
-		?
-			sge::font::from_fcppt_string(
-				fcppt::from_std_string(
-					_main_function_context.argv()[1]
-				)
-			)
-		:
-			SGE_FONT_LIT("test abcd e 123456789 10 11")
-	);
-
 	sge::font::draw::static_text static_text_left(
 		sys.renderer_device_ffp(),
 		*font_object,
-		string,
+		_text,
 		sge::font::text_parameters(
 			sge::font::align_h::variant(
 				sge::font::align_h::left(
@@ -231,7 +224,7 @@ try
 	sge::font::draw::static_text static_text_center(
 		sys.renderer_device_ffp(),
 		*font_object,
-		string,
+		_text,
 		sge::font::text_parameters(
 			sge::font::align_h::variant(
 				sge::font::align_h::center(
@@ -254,7 +247,7 @@ try
 	sge::font::draw::static_text static_text_right(
 		sys.renderer_device_ffp(),
 		*font_object,
-		string,
+		_text,
 		sge::font::text_parameters(
 			sge::font::align_h::variant(
 				sge::font::align_h::right(
@@ -307,22 +300,118 @@ try
 
 	return
 		sys.window_system().exit_code();
+
+}
+
+}
+
+awl::main::exit_code const
+example_main(
+	awl::main::function_context const &_main_function_context
+)
+try
+{
+	FCPPT_RECORD_MAKE_LABEL(
+		text_label
+	);
+
+	auto const parser(
+		fcppt::options::make_optional(
+			fcppt::options::argument<
+				text_label,
+				fcppt::string
+			>{
+				fcppt::options::long_name{
+					FCPPT_TEXT("text")
+				},
+				fcppt::options::optional_help_text{}
+			}
+		)
+	);
+
+	typedef
+	fcppt::options::result_of<
+		decltype(
+			parser
+		)
+	>
+	result_type;
+
+	return
+		fcppt::either::match(
+			fcppt::options::parse(
+				parser,
+				fcppt::args_from_second(
+					_main_function_context.argc(),
+					_main_function_context.argv()
+				)
+			),
+			[](
+				fcppt::options::error const &_error
+			)
+			{
+				awl::show_error(
+					fcppt::insert_to_fcppt_string(
+						_error
+					)
+				);
+
+				return
+					awl::main::exit_failure();
+			},
+			[](
+				result_type const &_result
+			)
+			{
+				return
+					example_main(
+						fcppt::optional::from(
+							fcppt::optional::map(
+								fcppt::record::get<
+									text_label
+								>(
+									_result
+								),
+								[](
+									fcppt::string const &_text
+								)
+								{
+									return
+										sge::font::from_fcppt_string(
+											_text
+										);
+								}
+							),
+							[]{
+								return
+									sge::font::string{
+										SGE_FONT_LIT("test abcd e 123456789 10 11")
+									};
+							}
+						)
+					);
+			}
+		);
 }
 catch(
 	fcppt::exception const &_exception
 )
 {
-	fcppt::io::cerr()
-		<< _exception.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_exception.string()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_exception
 )
 {
-	std::cerr << _exception.what() << '\n';
+	awl::show_error_narrow(
+		_exception.what()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
