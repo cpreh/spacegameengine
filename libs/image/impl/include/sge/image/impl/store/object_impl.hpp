@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/impl/view/to_static_format.hpp>
+#include <sge/image/store/object.hpp>
 #include <sge/image/traits/image/color_tag.hpp>
 #include <sge/image/traits/pixel/format_fwd.hpp>
-#include <sge/image/store/object.hpp>
 #include <sge/image/view/to_wrapped_type.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/runtime_enum.hpp>

@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_VIEW_TO_STATIC_FORMAT_HPP_INCLUDED
 
 #include <sge/image/impl/pixel/to_static_format.hpp>
-#include <sge/image/view/basic_format.hpp>
 #include <sge/image/traits/image/color_tag.hpp>
 #include <sge/image/traits/image/dimension.hpp>
+#include <sge/image/view/basic_format.hpp>
 
 
 namespace sge

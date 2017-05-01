@@ -19,9 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/from_fcppt_string.hpp>
-#include <sge/font/parameters.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/object_unique_ptr.hpp>
+#include <sge/font/parameters.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/text.hpp>
@@ -39,8 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/to_const.hpp>
 #include <sge/systems/font.hpp>
 #include <sge/systems/image2d.hpp>
-#include <sge/systems/make_list.hpp>
 #include <sge/systems/instance.hpp>
+#include <sge/systems/make_list.hpp>
 #include <sge/systems/with_font.hpp>
 #include <sge/systems/with_image2d.hpp>
 #include <fcppt/args_char.hpp>

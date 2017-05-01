@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_CONVERT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_CONVERT_HPP_INCLUDED
 
-#include <sge/image/pixel/mizuiro_type.hpp>
 #include <sge/image/color/is_convertible.hpp>
+#include <sge/image/pixel/mizuiro_type.hpp>
 #include <mizuiro/color/convert_static.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>

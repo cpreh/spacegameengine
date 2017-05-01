@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_COLOR_SRGB8_FWD_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_SRGB8_FWD_HPP_INCLUDED
 
-#include <sge/image/pixel/mizuiro_type_fwd.hpp>
 #include <sge/image/color/srgb8_format.hpp>
+#include <sge/image/pixel/mizuiro_type_fwd.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

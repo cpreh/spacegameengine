@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_TRAITS_PIXEL_FORMAT_TO_STRING_HPP_INCLUDED
 #define SGE_IMAGE_TRAITS_PIXEL_FORMAT_TO_STRING_HPP_INCLUDED
 
-#include <fcppt/string.hpp>
 #include <sge/image/traits/pixel/format_fwd.hpp>
 #include <sge/image/traits/pixel/format_to_string_tpl_fwd.hpp>
+#include <fcppt/string.hpp>
 
 
 namespace sge

@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/invalid_convert.hpp>
 #include <sge/image/color/is_convertible.hpp>
 #include <sge/image/color/tag.hpp>
-#include <sge/image/pixel/mizuiro_type.hpp>
-#include <sge/image/impl/static_to_dynamic_format.hpp>
 #include <sge/image/color/impl/traits/format_map.hpp>
+#include <sge/image/impl/static_to_dynamic_format.hpp>
+#include <sge/image/pixel/mizuiro_type.hpp>
 #include <mizuiro/color/object.hpp>
 #include <mizuiro/color/format/argument.hpp>
 #include <fcppt/config/external_begin.hpp>

@@ -20,8 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/ds/format.hpp>
-#include <sge/image/ds/traits/format_fwd.hpp>
 #include <sge/image/ds/impl/traits/format_map.hpp>
+#include <sge/image/ds/traits/format_fwd.hpp>
 #include <sge/image/impl/view/instantiate_make.hpp>
 #include <sge/image/impl/view/make_impl.hpp>
 #include <sge/imageds2d/dim.hpp>
