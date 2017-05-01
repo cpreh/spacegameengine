@@ -38,9 +38,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
+#include <sge/renderer/vf/dynamic/part_cref.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
@@ -168,11 +170,13 @@ sge::d3d9::vertex::buffer::resource_flags() const
 		resource_flags_;
 }
 
-sge::renderer::vf::dynamic::part const &
+sge::renderer::vf::dynamic::part_cref
 sge::d3d9::vertex::buffer::format() const
 {
 	return
-		format_part_;
+		fcppt::make_cref(
+			format_part_
+		);
 }
 
 sge::renderer::vf::dynamic::part_index

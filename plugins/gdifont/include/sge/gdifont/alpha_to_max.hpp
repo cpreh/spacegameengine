@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GDIFONT_ALPHA_TO_MAX_HPP_INCLUDED
 
 #include <sge/gdifont/a8_view.hpp>
-#include <sge/image/mizuiro_color.hpp>
+#include <sge/image/mizuiro_color_traits.hpp>
 #include <mizuiro/color/access/channel_max.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
 

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_D3D9_FROM_D3D_PITCH_HPP_INCLUDED
 #define SGE_D3D9_FROM_D3D_PITCH_HPP_INCLUDED
 
-#include <sge/image/dim.hpp>
-#include <sge/image/pitch.hpp>
+#include <sge/image/basic_dim.hpp>
+#include <sge/image/basic_pitch.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/format_stride.hpp>
@@ -41,14 +41,14 @@ namespace d3d9
 template<
 	sge::image::size_type Dim
 >
-sge::image::pitch<
+sge::image::basic_pitch<
 	Dim
 >
 from_d3d_pitch(
-	sge::image::pitch<
+	sge::image::basic_pitch<
 		Dim
 	> const &_pitches,
-	sge::image::dim<
+	sge::image::basic_dim<
 		Dim
 	> const &_dim,
 	sge::image::color::format const _format
@@ -56,7 +56,7 @@ from_d3d_pitch(
 {
 	return
 		fcppt::math::dim::init<
-			sge::image::pitch<
+			sge::image::basic_pitch<
 				Dim
 			>
 		>(
@@ -78,7 +78,7 @@ from_d3d_pitch(
 					fcppt::cast::to_signed(
 						fcppt::math::dim::contents(
 							fcppt::math::dim::narrow_cast<
-								sge::image::dim<
+								sge::image::basic_dim<
 									Dim
 									-
 									1

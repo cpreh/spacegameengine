@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GDIFONT_A8_VIEW_HPP_INCLUDED
 
 #include <sge/image/color/a8_format.hpp>
-#include <sge/image2d/view/element_base.hpp>
+#include <sge/image/view/basic_format.hpp>
+#include <sge/image/view/mizuiro_type.hpp>
 #include <mizuiro/nonconst_tag.hpp>
 
 
@@ -31,10 +32,15 @@ namespace sge
 namespace gdifont
 {
 
-typedef sge::image2d::view::element_base<
-	sge::image::color::a8_format,
+typedef
+sge::image::view::mizuiro_type<
+	sge::image::view::basic_format<
+		2,
+		sge::image::color::a8_format
+	>,
 	mizuiro::nonconst_tag
->::type a8_view;
+>
+a8_view;
 
 }
 }
