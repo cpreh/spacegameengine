@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_PIXEL_CONVERT_HPP_INCLUDED
 #define SGE_IMAGE_PIXEL_CONVERT_HPP_INCLUDED
 
+#include <sge/image/enable_if_has_format.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
 #include <sge/image/pixel/mizuiro_type.hpp>
 #include <sge/image/pixel/object_fwd.hpp>
@@ -33,14 +34,17 @@ namespace image
 namespace pixel
 {
 
-// TODO: Improve typing of this.
 template<
 	typename Tag,
 	typename Format
 >
 SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-sge::image::pixel::mizuiro_type<
-	Format
+sge::image::enable_if_has_format<
+	Tag,
+	Format,
+	sge::image::pixel::mizuiro_type<
+		Format
+	>
 >
 convert(
 	sge::image::pixel::object<

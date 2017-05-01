@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/bgra32f_format.hpp>
 #include <sge/image/color/bgra8_format.hpp>
 #include <sge/image/color/bgrx8_format.hpp>
+#include <sge/image/color/enable_if_has_format.hpp>
 #include <sge/image/color/l8_format.hpp>
 #include <sge/image/color/la8_format.hpp>
 #include <sge/image/color/r32f_format.hpp>
@@ -56,8 +57,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 template<
 	typename Format
 >
-sge::image::pixel::mizuiro_type<
-	Format
+sge::image::color::enable_if_has_format<
+	Format,
+	sge::image::pixel::mizuiro_type<
+		Format
+	>
 >
 sge::image::color::any::convert(
 	sge::image::color::any::object const &_color
@@ -81,8 +85,11 @@ sge::image::color::any::convert(
 )\
 template \
 SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
-sge::image::pixel::mizuiro_type<\
-	sge::image::color:: BOOST_PP_CAT(format_arg,_format)\
+sge::image::color::enable_if_has_format<\
+	sge::image::color:: BOOST_PP_CAT(format_arg,_format),\
+	sge::image::pixel::mizuiro_type<\
+		sge::image::color:: BOOST_PP_CAT(format_arg,_format)\
+	> \
 > \
 sge::image::color::any::convert<\
 	sge::image::color:: BOOST_PP_CAT(format_arg,_format)\

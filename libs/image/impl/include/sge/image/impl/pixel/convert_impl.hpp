@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_PIXEL_CONVERT_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_PIXEL_CONVERT_IMPL_HPP_INCLUDED
 
+#include <sge/image/enable_if_has_format.hpp>
 #include <sge/image/impl/traits/static_converter.hpp>
 #include <sge/image/pixel/convert.hpp>
 #include <sge/image/pixel/mizuiro_type.hpp>
@@ -33,8 +34,12 @@ template<
 	typename Tag,
 	typename Format
 >
-sge::image::pixel::mizuiro_type<
-	Format
+sge::image::enable_if_has_format<
+	Tag,
+	Format,
+	sge::image::pixel::mizuiro_type<
+		Format
+	>
 >
 sge::image::pixel::convert(
 	sge::image::pixel::object<
