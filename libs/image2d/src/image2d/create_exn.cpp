@@ -42,10 +42,14 @@ sge::image2d::create_exn(
 				_view,
 				_extension
 			),
-			[]{
+			[
+				&_extension
+			]{
 				return
 					sge::image::exception(
-						FCPPT_TEXT("create_exn failed")
+						FCPPT_TEXT("create_exn failed with extension ")
+						+
+						_extension.get()
 					);
 			}
 		);

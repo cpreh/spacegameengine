@@ -37,9 +37,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/to_const.hpp>
+#include <sge/log/location.hpp>
+#include <sge/log/option.hpp>
+#include <sge/log/option_container.hpp>
+#include <sge/systems/config.hpp>
 #include <sge/systems/font.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
+#include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/with_font.hpp>
 #include <sge/systems/with_image2d.hpp>
@@ -55,8 +60,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/either/match.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/log/level.hpp>
+#include <fcppt/log/level_input.hpp>
+#include <fcppt/log/level_output.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/optional/from.hpp>
+#include <fcppt/optional/make.hpp>
 #include <fcppt/options/apply.hpp>
 #include <fcppt/options/argument.hpp>
 #include <fcppt/options/default_help_switch.hpp>
@@ -64,7 +73,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/options/help_result.hpp>
 #include <fcppt/options/help_text.hpp>
 #include <fcppt/options/long_name.hpp>
+#include <fcppt/options/make_default_value.hpp>
+#include <fcppt/options/option.hpp>
 #include <fcppt/options/optional_help_text.hpp>
+#include <fcppt/options/optional_short_name.hpp>
 #include <fcppt/options/parse_help.hpp>
 #include <fcppt/options/result.hpp>
 #include <fcppt/options/result_of.hpp>
@@ -98,6 +110,10 @@ FCPPT_RECORD_MAKE_LABEL(
 	output_file_label
 );
 
+FCPPT_RECORD_MAKE_LABEL(
+	log_level_label
+);
+
 typedef
 fcppt::record::variadic<
 	fcppt::record::element<
@@ -107,6 +123,10 @@ fcppt::record::variadic<
 	fcppt::record::element<
 		output_file_label,
 		fcppt::string
+	>,
+	fcppt::record::element<
+		log_level_label,
+		fcppt::log::level
 	>
 >
 argument_record;
@@ -129,6 +149,23 @@ render_text_main(
 			)
 		)(
 			sge::systems::font()
+		)
+		(
+			sge::systems::config()
+			.log_settings(
+				sge::systems::log_settings(
+					sge::log::option_container{
+						sge::log::option{
+							sge::log::location(),
+							fcppt::record::get<
+								log_level_label
+							>(
+								_args
+							)
+						}
+					}
+				)
+			)
 		)
 	};
 
@@ -234,6 +271,25 @@ try
 				fcppt::options::optional_help_text{
 					fcppt::options::help_text{
 						FCPPT_TEXT("Path to the output file.")
+					}
+				}
+			},
+			fcppt::options::option<
+				log_level_label,
+				fcppt::log::level
+			>{
+				fcppt::options::optional_short_name{},
+				fcppt::options::long_name{
+					FCPPT_TEXT("log-level")
+				},
+				fcppt::options::make_default_value(
+					fcppt::optional::make(
+						fcppt::log::level::debug
+					)
+				),
+				fcppt::options::optional_help_text{
+					fcppt::options::help_text{
+						FCPPT_TEXT("The log level to use.")
 					}
 				}
 			}

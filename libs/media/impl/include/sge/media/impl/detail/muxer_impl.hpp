@@ -40,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/loop.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -50,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/algorithm/set_intersection.hpp>
 #include <fcppt/algorithm/set_union.hpp>
+#include <fcppt/container/output.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
@@ -158,17 +160,22 @@ FCPPT_PP_POP_WARNING
 					FCPPT_LOG_DEBUG(
 						log_,
 						fcppt::log::_
-							<< FCPPT_TEXT("System ")
-							<< fcppt::type_name_from_info(
+							<<
+							FCPPT_TEXT("System ")
+							<<
+							fcppt::type_name_from_info(
 								typeid(
 									system
 								)
 							)
-							<< FCPPT_TEXT(" didn't find plugin ")
-							<< fcppt::filesystem::path_to_string(
+							<<
+							FCPPT_TEXT(" didn't find plugin ")
+							<<
+							fcppt::filesystem::path_to_string(
 								_context.path()
 							)
-							<< FCPPT_TEXT(" to be useful.")
+							<<
+							FCPPT_TEXT(" to be useful.")
 					);
 
 				return
@@ -195,6 +202,26 @@ FCPPT_PP_POP_WARNING
 		)
 	)
 {
+	FCPPT_LOG_DEBUG(
+		log_,
+		fcppt::log::_
+			<<
+			FCPPT_TEXT("Available extensions for system ")
+			<<
+			fcppt::type_name_from_info(
+				typeid(
+					system
+				)
+			)
+			<<
+			FCPPT_TEXT(" are ")
+			<<
+			fcppt::container::output(
+				extensions_
+			)
+			<<
+			FCPPT_TEXT('.')
+	);
 }
 
 template<

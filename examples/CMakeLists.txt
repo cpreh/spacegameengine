@@ -718,9 +718,11 @@ add_sge_console_example(
 	SGE_DEPS
 		sgefont
 		sgeimage2d
+		sgelog
 		sgesystems
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		${fcppt_log_TARGET}
 		${fcppt_options_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
 		${FCPPT_UTILS_MAIN_LINK_LIBS}
