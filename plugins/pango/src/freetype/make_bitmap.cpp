@@ -20,17 +20,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/font/exception.hpp>
 #include <sge/font/view.hpp>
-#include <sge/image/color/a8_format.hpp>
-#include <sge/image/view/basic_format.hpp>
-#include <sge/image/view/mizuiro_type.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/image/color/format_to_string.hpp>
+#include <sge/image2d/dim.hpp>
+#include <sge/image2d/view/data.hpp>
+#include <sge/image2d/view/format.hpp>
+#include <sge/image2d/view/pitch.hpp>
+#include <sge/image2d/view/size.hpp>
 #include <sge/pango/freetype/make_bitmap.hpp>
-#include <mizuiro/nonconst_tag.hpp>
+#include <sge/pango/freetype/pixel_mode.hpp>
 #include <mizuiro/image/view_impl.hpp>
-#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
-#include <fcppt/variant/to_optional.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ft2build.h>
 #include FT_BITMAP_H
@@ -43,38 +46,17 @@ sge::pango::freetype::make_bitmap(
 	sge::font::view const &_view
 )
 {
-	// FIXME: Use the correct view types
-	typedef
-	sge::image::view::mizuiro_type<
-		sge::image::view::basic_format<
-			2,
-			sge::image::color::a8_format
-		>,
-		mizuiro::nonconst_tag
-	>
-	a8_view;
-
-	a8_view const &view(
-		fcppt::optional::to_exception(
-			fcppt::variant::to_optional<
-				a8_view
-			>(
-				_view.get()
-			),
-			[]{
-				return
-					sge::font::exception{
-						FCPPT_TEXT("Only a8 views are currently supported by sge::pango!")
-					};
-			}
+	sge::image2d::dim const size{
+		sge::image2d::view::size(
+			_view
 		)
-	);
+	};
 
 	unsigned const width(
 		fcppt::cast::size<
 			unsigned
 		>(
-			view.size()[0]
+			size.w()
 		)
 	);
 
@@ -82,7 +64,7 @@ sge::pango::freetype::make_bitmap(
 		fcppt::cast::size<
 			unsigned
 		>(
-			view.size()[1]
+			size.h()
 		)
 	);
 
@@ -92,15 +74,19 @@ sge::pango::freetype::make_bitmap(
 		&bitmap
 	);
 
-	bitmap.rows = height;
+	bitmap.rows =
+		height;
 
-	bitmap.width = width;
+	bitmap.width =
+		width;
 
 	int const pitch(
 		fcppt::cast::size<
 			int
 		>(
-			view.pitch()[0]
+			sge::image2d::view::pitch(
+				_view
+			).w()
 		)
 	);
 
@@ -116,11 +102,39 @@ sge::pango::freetype::make_bitmap(
 			width
 		);
 
-	bitmap.buffer = view.data();
+	bitmap.buffer =
+		sge::image2d::view::data(
+			_view
+		);
 
-	bitmap.num_grays = 256;
+	bitmap.num_grays =
+		256;
 
-	bitmap.pixel_mode = FT_PIXEL_MODE_GRAY;
+	sge::image::color::format const format{
+		sge::image2d::view::format(
+			_view
+		)
+	};
 
-	return bitmap;
+	bitmap.pixel_mode =
+		fcppt::optional::to_exception(
+			sge::pango::freetype::pixel_mode(
+				format
+			),
+			[
+				format
+			]{
+				return
+					sge::font::exception{
+						FCPPT_TEXT("Unsupported image format ")
+						+
+						sge::image::color::format_to_string(
+							format
+						)
+					};
+			}
+		);
+
+	return
+		bitmap;
 }

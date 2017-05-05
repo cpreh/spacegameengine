@@ -13,6 +13,9 @@ set(
 	plugins/pango/include/sge/pango/extents_fwd.hpp
 	plugins/pango/include/sge/pango/font_description.hpp
 	plugins/pango/include/sge/pango/freetype/make_bitmap.hpp
+	plugins/pango/include/sge/pango/freetype/optional_pixel_mode.hpp
+	plugins/pango/include/sge/pango/freetype/optional_pixel_mode_fwd.hpp
+	plugins/pango/include/sge/pango/freetype/pixel_mode.hpp
 	plugins/pango/include/sge/pango/get_extents.hpp
 	plugins/pango/include/sge/pango/get_strong_cursor_pos.hpp
 	plugins/pango/include/sge/pango/glib_deleter.hpp
@@ -46,6 +49,7 @@ set(
 	plugins/pango/src/extents.cpp
 	plugins/pango/src/font_description.cpp
 	plugins/pango/src/freetype/make_bitmap.cpp
+	plugins/pango/src/freetype/pixel_mode.cpp
 	plugins/pango/src/get_extents.cpp
 	plugins/pango/src/get_strong_cursor_pos.cpp
 	plugins/pango/src/glib_deleter.cpp
