@@ -31,10 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/vector.hpp>
 #include <sge/font/view_fwd.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
-#include <sge/image/color/a8.hpp>
-#include <sge/image/color/any/object.hpp>
-#include <sge/image/color/init/alpha.hpp>
+#include <sge/image/color/any/clear.hpp>
 #include <sge/image2d/algorithm/fill.hpp>
+#include <sge/image2d/view/format.hpp>
 #include <sge/pango/create_text_layout.hpp>
 #include <sge/pango/get_extents.hpp>
 #include <sge/pango/get_strong_cursor_pos.hpp>
@@ -100,12 +99,11 @@ sge::pango::text::render(
 		)
 	);
 
-	// TODO: do this properly
 	sge::image2d::algorithm::fill(
 		_view,
-		sge::image::color::any::object(
-			sge::image::color::a8(
-				sge::image::color::init::alpha() %= 0.f
+		sge::image::color::any::clear(
+			sge::image2d::view::format(
+				_view
 			)
 		),
 		sge::image::algorithm::uninitialized::yes

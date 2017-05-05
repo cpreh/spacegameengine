@@ -29,14 +29,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/text_unique_ptr.hpp>
 #include <sge/font/align_h/left.hpp>
 #include <sge/font/align_h/variant.hpp>
-#include <sge/image/color/format.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/save_from_view.hpp>
-#include <sge/image2d/store/object.hpp>
-#include <sge/image2d/store/view.hpp>
+#include <sge/image2d/store/l8.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
-#include <sge/image2d/view/to_const.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
@@ -64,7 +61,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level_input.hpp>
 #include <fcppt/log/level_output.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/optional/from.hpp>
 #include <fcppt/optional/make.hpp>
 #include <fcppt/options/apply.hpp>
 #include <fcppt/options/argument.hpp>
@@ -193,14 +189,7 @@ render_text_main(
 		)
 	};
 
-	sge::image2d::store::object store{
-		fcppt::optional::from(
-			font->preferred_color_format(),
-			[]{
-				return
-					sge::image::color::format::a8;
-			}
-		),
+	sge::image2d::store::l8 store{
 		fcppt::math::dim::structure_cast<
 			sge::image2d::dim,
 			fcppt::cast::size_fun
@@ -212,18 +201,16 @@ render_text_main(
 	};
 
 	text->render(
-		sge::image2d::store::view(
-			store
+		sge::image2d::view::object(
+			store.wrapped_view()
 		)
 	);
 
 	sge::image2d::save_from_view(
 		sys.image_system(),
-		sge::image2d::view::to_const(
-			sge::image2d::store::view(
-				store
-			)
-		),
+		sge::image2d::view::const_object{
+			store.const_wrapped_view()
+		},
 		boost::filesystem::path{
 			fcppt::record::get<
 				output_file_label
