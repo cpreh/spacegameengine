@@ -25,11 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::gdifont::delete_object_deleter::operator()(
-		HGDIOBJ const _object
+	HGDIOBJ const _object
 ) const
 {
 	if(
-		_object != nullptr
+		_object
+		!=
+		nullptr
 	)
 		FCPPT_ASSERT_ERROR(
 			::DeleteObject(

@@ -27,18 +27,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::gdifont::device_context::device_context()
 :
-	hdc_(
+	hdc_{
 		::CreateCompatibleDC(
 			nullptr
 		)
-	)
+	}
 {
 	if(
-		hdc_ == nullptr
+		hdc_
+		==
+		nullptr
 	)
-		throw sge::font::exception(
-			FCPPT_TEXT("CreateCompatibleDC failed!")
-		);
+		throw
+			sge::font::exception{
+				FCPPT_TEXT("CreateCompatibleDC failed!")
+			};
 }
 
 sge::gdifont::device_context::~device_context()
@@ -54,5 +57,6 @@ sge::gdifont::device_context::~device_context()
 HDC
 sge::gdifont::device_context::get() const
 {
-	return hdc_;
+	return
+		hdc_;
 }

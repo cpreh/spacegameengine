@@ -34,7 +34,7 @@ namespace sge
 namespace gdifont
 {
 
-sge::font::rect const
+sge::font::rect
 calc_rect(
 	sge::gdifont::device_context const &,
 	HFONT,

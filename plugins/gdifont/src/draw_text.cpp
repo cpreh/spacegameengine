@@ -24,13 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/draw_text.hpp>
 #include <sge/gdifont/include_windows.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
-void
+RECT
 sge::gdifont::draw_text(
 	sge::gdifont::device_context const &_device_context,
 	sge::font::string const &_string,
-	RECT &_rect,
+	RECT _rect,
 	UINT const _format
 )
 {
@@ -38,17 +40,24 @@ sge::gdifont::draw_text(
 		DrawTextW(
 			_device_context.get(),
 			_string.data(),
-			static_cast<
+			fcppt::cast::size<
 				int
 			>(
-				_string.size()
+				fcppt::cast::to_signed(
+					_string.size()
+				)
 			),
 			&_rect,
 			_format
 		)
-		== 0
+		==
+		0
 	)
-		throw sge::font::exception(
-			FCPPT_TEXT("DrawText failed!")
-		);
+		throw
+			sge::font::exception{
+				FCPPT_TEXT("DrawText failed!")
+			};
+
+	return
+		_rect;
 }

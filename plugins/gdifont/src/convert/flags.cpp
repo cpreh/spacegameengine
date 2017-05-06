@@ -50,5 +50,6 @@ sge::gdifont::convert::flags(
 	)
 		ret |= DT_WORDBREAK;
 
-	return ret;
+	return
+		ret;
 }

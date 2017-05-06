@@ -31,11 +31,11 @@ namespace sge
 namespace gdifont
 {
 
-void
+RECT
 draw_text(
 	sge::gdifont::device_context const &,
 	sge::font::string const &,
-	RECT &,
+	RECT,
 	UINT format
 );
 

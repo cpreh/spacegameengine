@@ -69,20 +69,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/cerr.hpp>
-#include <fcppt/io/ostringstream.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <iostream>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
@@ -157,20 +157,17 @@ try
 		)
 	);
 
-	fcppt::io::ostringstream output_stream;
-
-	output_stream
-		<< font->metrics();
-
 	sge::font::draw::static_text static_text(
 		sys.renderer_device_ffp(),
 		*font,
 		SGE_FONT_LIT(
-			"日本語は書ける, "
+			"Hello World!"
 		)
 		+
 		sge::font::from_fcppt_string(
-			output_stream.str()
+			fcppt::insert_to_fcppt_string(
+				font->metrics()
+			)
 		),
 		sge::font::text_parameters(
 			sge::font::align_h::variant(
@@ -223,19 +220,21 @@ catch(
 	fcppt::exception const &_error
 )
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_error.string()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
 )
 {
-	std::cerr
-		<< _error.what()
-		<< '\n';
+	awl::show_error_narrow(
+		_error.what()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }

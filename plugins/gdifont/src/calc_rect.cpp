@@ -35,13 +35,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/variant/apply_unary.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <limits>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/variant/match.hpp>
 
 
-sge::font::rect const
+sge::font::rect
 sge::gdifont::calc_rect(
 	sge::gdifont::device_context const &_device_context,
 	HFONT const _font,
@@ -55,137 +52,135 @@ sge::gdifont::calc_rect(
 		_font
 	);
 
-	LONG const max_unit(
-		std::numeric_limits<
-			LONG
-		>::max()
+	LONG const zero{
+		0
+	};
+
+	RECT const result{
+		sge::gdifont::draw_text(
+			_device_context,
+			_string,
+			RECT{
+				zero,
+				zero,
+				fcppt::optional::maybe(
+					sge::font::align_h::extract_max_width(
+						_align_h
+					),
+					fcppt::const_(
+						zero
+					),
+					[](
+						sge::font::align_h::max_width const _max_width
+					)
+					{
+						return
+							fcppt::cast::size<
+								LONG
+							>(
+								_max_width.get()
+							);
+					}
+				),
+				zero
+			},
+			_format.get()
+			|
+			DT_CALCRECT
+		)
+	};
+
+	FCPPT_ASSERT_ERROR(
+		result.left
+		==
+		zero
+		&&
+		result.top
+		==
+		zero
 	);
 
-	RECT result =
-	{
-		0,
-		0,
-		fcppt::optional::maybe(
-			sge::font::align_h::extract_max_width(
-				_align_h
-			),
-			fcppt::const_(
-				max_unit
-			),
-			[](
-				sge::font::align_h::max_width const _max_width
+	LONG const width{
+		result.right
+	};
+
+	LONG const pos_x{
+		fcppt::variant::match(
+			_align_h,
+			[
+				zero
+			](
+				sge::font::align_h::left const &
+			)
+			{
+				return
+					zero;
+			},
+			[
+				width
+			](
+				sge::font::align_h::center const &_center
+			)
+			{
+				return
+					(
+						fcppt::cast::size<
+							LONG
+						>(
+							_center.max_width().get()
+						)
+						-
+						width
+					)
+					/
+					LONG{
+						2
+					};
+			},
+			[
+				width
+			](
+				sge::font::align_h::right const &_right
 			)
 			{
 				return
 					fcppt::cast::size<
 						LONG
 					>(
-						_max_width.get()
-					);
+						_right.max_width().get()
+					)
+					-
+					width;
 			}
-		),
-		max_unit
-	};
-
-	sge::gdifont::draw_text(
-		_device_context,
-		_string,
-		result,
-		_format.get()
-		|
-		DT_CALCRECT
-	);
-
-	FCPPT_ASSERT_ERROR(
-		result.left == 0
-		&&
-		result.top == 0
-	);
-
-	// TODO: Do this in a functional style!
-
-	class align_visitor
-	{
-		FCPPT_NONASSIGNABLE(
-			align_visitor
-		);
-	public:
-		explicit
-		align_visitor(
-			RECT &_result
 		)
-		:
-			result_(
-				_result
-			)
-		{
-		}
-
-		typedef
-		void
-		result_type;
-
-		result_type
-		operator()(
-			sge::font::align_h::left const &
-		) const
-		{
-		}
-
-		result_type
-		operator()(
-			sge::font::align_h::center const &_center
-		) const
-		{
-			result_.left = (_center.max_width().get() - result_.right) / 2;
-
-			result_.right = (_center.max_width().get() + result_.right) / 2;
-		}
-
-		result_type
-		operator()(
-			sge::font::align_h::right const &_right
-		) const
-		{
-			result_.left = _right.max_width().get() - result_.right;
-
-			result_.right = _right.max_width().get();
-		}
-	private:
-		RECT &result_;
 	};
-
-	fcppt::variant::apply_unary(
-		align_visitor(
-			result
-		),
-		_align_h
-	);
 
 	return
 		sge::font::rect(
 			sge::font::rect::vector(
-				static_cast<
+				fcppt::cast::size<
 					sge::font::rect::value_type
 				>(
-					result.left
+					pos_x
 				),
-				static_cast<
+				fcppt::cast::size<
 					sge::font::rect::value_type
 				>(
-					result.top
+					zero
 				)
 			),
 			sge::font::rect::dim(
-				static_cast<
+				fcppt::cast::size<
 					sge::font::rect::value_type
 				>(
-					result.right - result.left
+					pos_x
+					+
+					width
 				),
-				static_cast<
+				fcppt::cast::size<
 					sge::font::rect::value_type
 				>(
-					result.bottom - result.top
+					result.bottom
 				)
 			)
 		);
