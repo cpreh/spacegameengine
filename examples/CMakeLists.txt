@@ -642,6 +642,18 @@ add_sge_example(
 )
 
 add_sge_console_example(
+	obj_loader
+	SGE_DEPS
+		sgeconfig
+		sgemodelobj
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
+		${fcppt_log_TARGET}
+		${Boost_FILESYSTEM_LIBRARIES}
+)
+
+add_sge_console_example(
 	opengl
 	SGE_DEPS
 		sgeimage_interface

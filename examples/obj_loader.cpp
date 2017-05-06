@@ -19,81 +19,175 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/config/media_path.hpp>
+#include <sge/model/obj/material_to_face_sequence.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
 #include <sge/model/obj/prototype.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cerr.hpp>
+#include <fcppt/io/cout.hpp>
+#include <fcppt/log/context.hpp>
+#include <fcppt/log/default_level_streams.hpp>
+#include <fcppt/log/level.hpp>
+#include <fcppt/log/optional_level.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstddef>
+#include <boost/filesystem/path.hpp>
+#include <cstdlib>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
 
-int main()
+int
+main()
 try
 {
-	// TODO: This example is not compiled
-	sge::model::obj::prototype const loaded_model(
-		sge::config::media_path() / FCPPT_TEXT("objs") / FCPPT_TEXT("Monkey.obj"));
+	fcppt::log::context log_context{
+		fcppt::log::optional_level{
+			fcppt::log::level::debug
+		},
+		fcppt::log::default_level_streams()
+	};
 
-	std::cout << "Loaded successfully!\n";
+	sge::model::obj::prototype const loaded_model{
+		log_context,
+		sge::config::media_path()
+		/
+		FCPPT_TEXT("objs")
+		/
+		FCPPT_TEXT("Monkey.obj")
+	};
 
-	std::cout << "Would produce: " << (loaded_model.face_count() * 3u) << " indices\n";
-	std::cout << "Has: " << (loaded_model.face_vertices().size()) << " face vertices\n";
-	std::cout << "Bounding box: " << loaded_model.bounding_box() << "\n";
-	if(loaded_model.material_files().empty())
+	fcppt::io::cout()
+		<<
+		FCPPT_TEXT("Loaded successfully!\n")
+		<<
+		FCPPT_TEXT("Would produce: ")
+		<<
+		(loaded_model.face_count() * 3u)
+		<<
+		FCPPT_TEXT(" indices\n")
+		<<
+		FCPPT_TEXT("Has: ")
+		<<
+		loaded_model.face_vertices().size()
+		<<
+		FCPPT_TEXT(" face vertices\n")
+		<<
+		FCPPT_TEXT("Bounding box: ")
+		<<
+		loaded_model.bounding_box()
+		<<
+		FCPPT_TEXT('\n');
+
+	if(
+		loaded_model.material_files().empty()
+	)
 	{
-		std::cout << "No material files\n";
+		fcppt::io::cout()
+			<<
+			FCPPT_TEXT("No material files\n");
 	}
 	else
 	{
-		std::cout << "Material files:\n";
+		fcppt::io::cout()
+			<<
+			FCPPT_TEXT("Material files:\n");
+
 		for(
-			sge::model::obj::material_file_sequence::const_iterator it =
-				loaded_model.material_files().begin();
-			it != loaded_model.material_files().end();
-			++it)
+			boost::filesystem::path const &path
+			:
+			loaded_model.material_files()
+		)
 		{
-			std::cout << *it << "\n";
-			std::cout << "Loading...\n";
+			fcppt::io::cout()
+				<<
+				fcppt::filesystem::path_to_string(
+					path
+				)
+				<<
+				FCPPT_TEXT('\n')
+				<<
+				FCPPT_TEXT("Loading...\n");
+
 			sge::model::obj::parse_mtllib(
-				sge::config::media_path() / FCPPT_TEXT("mtls") / (*it));
+				log_context,
+				sge::config::media_path()
+				/
+				FCPPT_TEXT("mtls")
+				/
+				path
+			);
 		}
 	}
 
-	std::cout
-		<< "Vertices/texcoords/normals: "
-		<< loaded_model.vertex_coordinates().size()
-		<< "/"
-		<< loaded_model.texture_coordinates().size()
-		<< "/"
-		<< loaded_model.normals().size()
-		<< "\n";
+	fcppt::io::cout()
+		<<
+		FCPPT_TEXT("Vertices/texcoords/normals: ")
+		<<
+		loaded_model.vertex_coordinates().size()
+		<<
+		FCPPT_TEXT('/')
+		<<
+		loaded_model.texture_coordinates().size()
+		<<
+		FCPPT_TEXT('/')
+		<<
+		loaded_model.normals().size()
+		<<
+		FCPPT_TEXT('\n');
 
-	std::cout
-		<< "First vertex/texcoord/normal: "
-		<< loaded_model.vertex_coordinates().front()
-		<< "/"
-		<< loaded_model.texture_coordinates().front()
-		<< "/"
-		<< loaded_model.normals().front()
-		<< "\n";
+	fcppt::io::cout()
+		<<
+		FCPPT_TEXT("First vertex/texcoord/normal: ")
+		<<
+		loaded_model.vertex_coordinates().front()
+		<<
+		FCPPT_TEXT('/')
+		<<
+		loaded_model.texture_coordinates().front()
+		<<
+		FCPPT_TEXT('/')
+		<<
+		loaded_model.normals().front()
+		<<
+		FCPPT_TEXT('\n');
 
-	std::cout << "Parts:\n";
+	fcppt::io::cout()
+		<<
+		FCPPT_TEXT("Parts:\n");
+
 	for(
-		sge::model::obj::material_to_face_sequence::const_iterator it =
-			loaded_model.parts().begin();
-		it != loaded_model.parts().end();
-		++it)
+		sge::model::obj::material_to_face_sequence::value_type const &pair
+		:
+		loaded_model.parts()
+	)
 	{
-		if(it->first.get().empty())
-			std::cout << "\tDefault material\n";
+		if(
+			pair.first.get().empty()
+		)
+			fcppt::io::cout()
+				<<
+				FCPPT_TEXT("\tDefault material\n");
 		else
-			std::cout << "\tMaterial: " << it->first << "\n";
-		std::cout << "\tFaces: " << it->second.size() << "\n";
+			fcppt::io::cout()
+				<<
+				FCPPT_TEXT("\tMaterial: ")
+				<<
+				pair.first
+				<<
+				FCPPT_TEXT('\n');
+
+		fcppt::io::cout()
+			<<
+			FCPPT_TEXT("\tFaces: ")
+			<<
+			pair.second.size()
+			<<
+			FCPPT_TEXT('\n');
 	}
 }
 catch(
@@ -101,20 +195,28 @@ catch(
 )
 {
 	fcppt::io::cerr()
-		<< FCPPT_TEXT("caugth exception: ")
-		<< _exception.string()
-		<< FCPPT_TEXT('\n');
+		<<
+		FCPPT_TEXT("Caught exception: ")
+		<<
+		_exception.string()
+		<<
+		FCPPT_TEXT('\n');
 
-	return EXIT_FAILURE;
+	return
+		EXIT_FAILURE;
 }
 catch(
 	std::exception const &_exception
 )
 {
 	std::cout
-		<< "caught exception: "
-		<< _exception.what()
-		<< '\n';
+		<<
+		"Caught exception: "
+		<<
+		_exception.what()
+		<<
+		'\n';
 
-	return EXIT_FAILURE;
+	return
+		EXIT_FAILURE;
 }

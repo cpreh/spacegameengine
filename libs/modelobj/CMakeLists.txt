@@ -55,7 +55,7 @@ add_sge_base_library(
 		sgerenderer
 	TRANSITIVE_SGE_DEPS
 		sgecore
-		sgeimagecolor_interface
+		sgeimagecolor
 		sgerenderer_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
