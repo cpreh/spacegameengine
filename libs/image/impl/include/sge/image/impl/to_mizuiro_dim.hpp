@@ -21,13 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_TO_MIZUIRO_DIM_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_TO_MIZUIRO_DIM_HPP_INCLUDED
 
-#include <mizuiro/no_init.hpp>
 #include <mizuiro/image/dimension.hpp>
+#include <fcppt/use.hpp>
+#include <fcppt/algorithm/array_init.hpp>
+#include <fcppt/math/at_c.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/dim/object.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <algorithm>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/math/dim/object_impl.hpp>
 
 
 namespace sge
@@ -54,22 +53,40 @@ to_mizuiro_dim(
 	> const &_src
 )
 {
-	// TODO: Use proper initialization here
+	typedef
 	mizuiro::image::dimension<
 		N,
 		T
-	> dest{
-		mizuiro::no_init{}
-	};
-
-	std::copy(
-		_src.storage().begin(),
-		_src.storage().end(),
-		dest.begin()
-	);
+	>
+	result_type;
 
 	return
-		dest;
+		result_type{
+			fcppt::algorithm::array_init<
+				typename
+				result_type::array_type
+			>(
+				[
+					&_src
+				](
+					auto const _index
+				)
+				{
+					FCPPT_USE(
+						_index
+					);
+
+					return
+						fcppt::math::at_c<
+							decltype(
+								_index
+							)::value
+						>(
+							_src
+						);
+				}
+			)
+		};
 }
 
 }
