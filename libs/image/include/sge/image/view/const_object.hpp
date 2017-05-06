@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_VIEW_CONST_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_CONST_OBJECT_HPP_INCLUDED
 
+#include <sge/image/has_format.hpp>
 #include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
+#include <sge/image/traits/image/color_tag.hpp>
 #include <sge/image/view/const_elements.hpp>
 #include <sge/image/view/const_object_fwd.hpp>
 #include <sge/image/view/mizuiro_type_fwd.hpp>
@@ -79,6 +81,16 @@ public:
 			}
 		)
 	{
+		static_assert(
+			sge::image::has_format<
+				sge::image::traits::image::color_tag<
+					Tag
+				>,
+				typename
+				Format::color_format
+			>::value,
+			"Invalid format."
+		);
 	}
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL

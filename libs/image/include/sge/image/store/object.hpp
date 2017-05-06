@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_STORE_OBJECT_HPP_INCLUDED
 
 #include <sge/image/dim_fwd.hpp>
+#include <sge/image/has_format.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
+#include <sge/image/store/basic_fwd.hpp>
 #include <sge/image/store/elements.hpp>
 #include <sge/image/store/object_fwd.hpp>
 #include <sge/image/traits/image/color_tag.hpp>
@@ -77,25 +79,34 @@ public:
 	>
 	format;
 
-	// TODO: Can we improve this?
 	template<
-		typename Element
+		typename Format
 	>
 	explicit
 	object(
-		Element &&_element
+		sge::image::store::basic<
+			Format
+		> &&_element
 	)
 	:
 		object(
 			variant{
-				std::forward<
-					Element
-				>(
+				std::move(
 					_element
 				)
 			}
 		)
 	{
+		static_assert(
+			sge::image::has_format<
+				sge::image::traits::image::color_tag<
+					Tag
+				>,
+				typename
+				Format::color_format
+			>::value,
+			"Invalid format store."
+		);
 	}
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL

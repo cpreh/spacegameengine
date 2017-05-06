@@ -21,9 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_PIXEL_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE_PIXEL_OBJECT_HPP_INCLUDED
 
+#include <sge/image/has_format.hpp>
 #include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
 #include <sge/image/pixel/elements.hpp>
+#include <sge/image/pixel/mizuiro_type_fwd.hpp>
 #include <sge/image/pixel/object_fwd.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
@@ -53,13 +55,14 @@ public:
 	>
 	variant;
 
-	// TODO: Improve the typing of this
 	template<
-		typename Color
+		typename Format
 	>
 	explicit
 	object(
-		Color const &_color
+		sge::image::pixel::mizuiro_type<
+			Format
+		> const &_color
 	)
 	:
 		object(
@@ -68,6 +71,13 @@ public:
 			}
 		)
 	{
+		static_assert(
+			sge::image::has_format<
+				Tag,
+				Format
+			>::value,
+			"Invalid format."
+		);
 	}
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
