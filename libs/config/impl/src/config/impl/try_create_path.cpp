@@ -20,14 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/exception.hpp>
 #include <sge/config/impl/try_create_path.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/filesystem/create_directories_recursive_exn.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/either/error_from_optional.hpp>
+#include <fcppt/either/to_exception.hpp>
+#include <fcppt/filesystem/create_directories_recursive.hpp>
+#include <fcppt/filesystem/create_directory_error.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
+#include <boost/system/error_code.hpp>
 #include <fcppt/config/external_end.hpp>
-
 
 
 boost::filesystem::path
@@ -35,26 +35,28 @@ sge::config::impl::try_create_path(
 	boost::filesystem::path const &_path
 )
 {
-	if(
-		!boost::filesystem::exists(
-			_path
-		)
-	)
-		fcppt::filesystem::create_directories_recursive_exn(
-			_path
-		);
-
-	if(
-		!boost::filesystem::is_directory(
-			_path
-		)
-	)
-		throw sge::config::exception(
-			fcppt::filesystem::path_to_string(
+	fcppt::either::to_exception(
+		fcppt::either::error_from_optional(
+			fcppt::filesystem::create_directories_recursive(
 				_path
 			)
-			+ FCPPT_TEXT(" is not a directory!")
-		);
+		),
+		[
+			&_path
+		](
+			boost::system::error_code const _error
+		)
+		{
+			return
+				sge::config::exception{
+					fcppt::filesystem::create_directory_error(
+						_path,
+						_error
+					)
+				};
+		}
+	);
 
-	return _path;
+	return
+		_path;
 }
