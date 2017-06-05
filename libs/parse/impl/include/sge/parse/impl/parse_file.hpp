@@ -28,7 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/result_code.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/ifstream.hpp>
+#include <fcppt/filesystem/open.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <ios>
@@ -51,65 +53,77 @@ parse_file(
 	Result &_result
 )
 {
-	fcppt::filesystem::ifstream ifs(
-		_path,
-		std::ios_base::binary
-	);
-
-	ifs.unsetf(
-		std::ios_base::skipws
-	);
-
-	if(
-		!ifs.is_open()
-	)
-		return
-			sge::parse::result(
-				sge::parse::result_code::not_open,
-				sge::parse::optional_error_string(
-					sge::parse::error_string(
-						FCPPT_TEXT("Failed to open ")
-						+
-						fcppt::filesystem::path_to_string(
-							_path
-						)
-					)
-				)
-			);
-
-	sge::parse::result const result(
-		// use ADL
-		parse_stream(
-			ifs,
-			_result
-		)
-	);
-
 	return
-		result.result_code()
-		==
-		sge::parse::result_code::ok
-		?
-			result
-		:
-			sge::parse::result(
-				result.result_code(),
-				sge::parse::optional_error_string(
-					sge::parse::error_string(
-						FCPPT_TEXT("Failed to parse \"")
-						+
-						fcppt::filesystem::path_to_string(
-							_path
+		fcppt::optional::maybe(
+			fcppt::filesystem::open<
+				fcppt::filesystem::ifstream
+			>(
+				_path,
+				std::ios_base::binary
+			),
+			[
+				&_path
+			]{
+				return
+					sge::parse::result(
+						sge::parse::result_code::not_open,
+						sge::parse::optional_error_string(
+							sge::parse::error_string(
+								FCPPT_TEXT("Failed to open ")
+								+
+								fcppt::filesystem::path_to_string(
+									_path
+								)
+							)
 						)
-						+
-						FCPPT_TEXT("\", ")
+					);
+			},
+			[
+				&_result,
+				&_path
+			](
+				fcppt::filesystem::ifstream &&_ifs
+			)
+			{
+				_ifs.unsetf(
+					std::ios_base::skipws
+				);
+
+				sge::parse::result const result(
+					// use ADL
+					parse_stream(
+						_ifs,
+						_result
 					)
-					+
-					sge::parse::make_error_string(
+				);
+
+				return
+					result.result_code()
+					==
+					sge::parse::result_code::ok
+					?
 						result
-					)
-				)
-			);
+					:
+						sge::parse::result(
+							result.result_code(),
+							sge::parse::optional_error_string(
+								sge::parse::error_string(
+									FCPPT_TEXT("Failed to parse \"")
+									+
+									fcppt::filesystem::path_to_string(
+										_path
+									)
+									+
+									FCPPT_TEXT("\", ")
+								)
+								+
+								sge::parse::make_error_string(
+									result
+								)
+							)
+						);
+			}
+		);
 }
 
 }
