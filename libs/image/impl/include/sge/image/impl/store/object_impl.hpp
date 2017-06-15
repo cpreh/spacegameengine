@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/traits/pixel/format_fwd.hpp>
 #include <sge/image/view/to_wrapped_type.hpp>
 #include <fcppt/no_init.hpp>
-#include <fcppt/runtime_enum.hpp>
+#include <fcppt/enum/to_static.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <utility>
@@ -64,7 +64,7 @@ sge::image::store::object<
 )
 :
 	variant_{
-		fcppt::runtime_enum<
+		fcppt::enum_::to_static<
 			sge::image::traits::pixel::format<
 				sge::image::traits::image::color_tag<
 					Tag

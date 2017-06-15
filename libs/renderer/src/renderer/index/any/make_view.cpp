@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/any/detail/make_view_element.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
-#include <fcppt/runtime_enum.hpp>
+#include <fcppt/enum/to_static.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -37,7 +37,7 @@ sge::renderer::index::any::make_view(
 )
 {
 	return
-		fcppt::runtime_enum(
+		fcppt::enum_::to_static(
 			_view.format(),
 			[
 				&_view

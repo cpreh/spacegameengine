@@ -32,8 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/mizuiro_type.hpp>
 #include <sge/image/view/object.hpp>
 #include <mizuiro/nonconst_tag.hpp>
-#include <fcppt/runtime_enum.hpp>
 #include <fcppt/use.hpp>
+#include <fcppt/enum/to_static.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -61,7 +61,7 @@ sge::image::view::make(
 )
 {
 	return
-		fcppt::runtime_enum<
+		fcppt::enum_::to_static<
 			sge::image::traits::pixel::format<
 				sge::image::traits::image::color_tag<
 					Tag

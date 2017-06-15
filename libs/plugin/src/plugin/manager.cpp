@@ -32,10 +32,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/impl/log_name.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/algorithm/enum_array_init.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
-#include <fcppt/container/enum_array_impl.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
+#include <fcppt/enum/array_impl.hpp>
+#include <fcppt/enum/array_init.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/context_fwd.hpp>
@@ -83,7 +83,7 @@ sge::plugin::manager::manager(
 		}()
 	),
 	categories_(
-		fcppt::algorithm::enum_array_init<
+		fcppt::enum_::array_init<
 			sge::plugin::manager::plugin_map
 		>(
 			[

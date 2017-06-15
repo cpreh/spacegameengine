@@ -43,9 +43,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/algorithm/enum_array_init.hpp>
 #include <fcppt/cast/size_fun.hpp>
-#include <fcppt/container/enum_array_impl.hpp>
+#include <fcppt/enum/array_impl.hpp>
+#include <fcppt/enum/array_init.hpp>
 
 
 sge::opengl::texture::cube::cube(
@@ -85,7 +85,7 @@ sge::opengl::texture::cube::cube(
 			};
 
 			return
-				fcppt::algorithm::enum_array_init<
+				fcppt::enum_::array_init<
 					side_array
 				>(
 					[

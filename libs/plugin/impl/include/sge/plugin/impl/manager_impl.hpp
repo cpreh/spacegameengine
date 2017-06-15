@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/detail/traits.hpp>
-#include <fcppt/container/enum_array_impl.hpp>
+#include <fcppt/enum/array_impl.hpp>
 
 
 template<

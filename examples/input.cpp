@@ -164,13 +164,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_wstring.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
-#include <fcppt/make_enum_range.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/either/match.hpp>
+#include <fcppt/enum/make_range.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/ostream.hpp>
 #include <fcppt/log/level.hpp>
@@ -1130,7 +1130,7 @@ joypad_discover(
 		for(
 			sge::input::joypad::ff::type const effect
 			:
-			fcppt::make_enum_range<
+			fcppt::enum_::make_range<
 				sge::input::joypad::ff::type
 			>()
 		)

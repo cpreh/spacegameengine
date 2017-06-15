@@ -28,12 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key/mod_state.hpp>
 #include <sge/input/key/modifier.hpp>
 #include <sge/input/key/to_modifier.hpp>
-#include <fcppt/make_enum_range.hpp>
-#include <fcppt/algorithm/enum_array_init.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/cast/to_void.hpp>
-#include <fcppt/container/enum_array_impl.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
+#include <fcppt/enum/array_impl.hpp>
+#include <fcppt/enum/array_init.hpp>
+#include <fcppt/enum/make_range.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -123,7 +123,7 @@ sge::input::focus::mod_state_tracker::mod_state() const
 {
 	return
 		fcppt::algorithm::fold(
-			fcppt::make_enum_range<
+			fcppt::enum_::make_range<
 				sge::input::key::modifier
 			>(),
 			sge::input::key::mod_state::null(),
@@ -157,7 +157,7 @@ sge::input::focus::mod_state_tracker::count_array
 sge::input::focus::mod_state_tracker::null_array()
 {
 	return
-		fcppt::algorithm::enum_array_init<
+		fcppt::enum_::array_init<
 			count_array
 		>(
 			[](

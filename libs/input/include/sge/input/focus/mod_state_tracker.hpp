@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key/mod_state_fwd.hpp>
 #include <sge/input/key/modifier.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/container/enum_array_decl.hpp>
+#include <fcppt/enum/array_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
@@ -59,7 +59,7 @@ public:
 	mod_state() const;
 private:
 	typedef
-	fcppt::container::enum_array<
+	fcppt::enum_::array<
 		sge::input::key::modifier,
 		sge::input::focus::count
 	>

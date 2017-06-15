@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_CUBE_SIDE_ARRAY_HPP_INCLUDED
 
 #include <sge/opengl/texture/cube_side_array_fwd.hpp>
-#include <fcppt/container/enum_array_impl.hpp>
+#include <fcppt/enum/array_impl.hpp>
 
 
 #endif

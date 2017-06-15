@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
-#include <fcppt/container/enum_array_fwd.hpp>
+#include <fcppt/enum/array_fwd.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ namespace texture
 {
 
 typedef
-fcppt::container::enum_array<
+fcppt::enum_::array<
 	sge::renderer::texture::cube_side,
 	sge::opengl::texture::buffer_type
 >

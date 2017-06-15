@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/transform/set_defaults.hpp>
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <fcppt/make_enum_range.hpp>
+#include <fcppt/enum/make_range.hpp>
 
 
 void
@@ -34,7 +34,7 @@ sge::opengl::state::ffp::transform::set_defaults(
 	for(
 		auto mode
 		:
-		fcppt::make_enum_range<
+		fcppt::enum_::make_range<
 			sge::renderer::state::ffp::transform::mode
 		>()
 	)
