@@ -51,13 +51,11 @@ parse_stream(
 	>
 	istream_iterator;
 
-	istream_iterator begin(
-		_ifs
-	);
-
 	return
 		parse_range(
-			begin,
+			istream_iterator(
+				_ifs
+			),
 			istream_iterator(),
 			_result
 		);

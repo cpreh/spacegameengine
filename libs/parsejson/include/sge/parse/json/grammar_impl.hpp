@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/detail/adapt_object.hpp>
 #include <sge/parse/json/detail/adapt_start.hpp>
 #include <sge/parse/json/detail/insert_member.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/compiler.hpp>
@@ -188,8 +189,12 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
 FCPPT_PP_POP_WARNING
 
 	sge::parse::install_error_handler(
-		start_,
-		error_string_
+		fcppt::make_ref(
+			start_
+		),
+		fcppt::make_ref(
+			error_string_
+		)
 	);
 }
 
@@ -210,7 +215,8 @@ sge::parse::json::grammar<
 	In
 >::error_string() const
 {
-	return error_string_;
+	return
+		error_string_;
 }
 
 #endif

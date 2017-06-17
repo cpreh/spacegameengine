@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/optional_error_string.hpp>
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
@@ -41,7 +42,9 @@ template<
 sge::parse::result
 make_result(
 	bool const _retval,
-	In &_begin,
+	fcppt::reference<
+		In const
+	> const _begin,
 	In const &_end,
 	Grammar const &_grammar
 )
@@ -49,7 +52,7 @@ make_result(
 	sge::parse::result_code const result_code(
 		_retval
 		?
-			_begin
+			_begin.get()
 			==
 			_end
 			?
@@ -79,7 +82,7 @@ make_result(
 							FCPPT_TEXT("Parsing failed without an error, probably trailing garbage: \"")
 							+
 							fcppt::string(
-								_begin,
+								_begin.get(),
 								_end
 							)
 							+

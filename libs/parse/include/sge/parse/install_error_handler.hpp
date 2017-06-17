@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/error_string.hpp>
 #include <sge/parse/info_to_string.hpp>
 #include <sge/parse/optional_error_string.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -48,16 +49,20 @@ template<
 >
 void
 install_error_handler(
-	Rule &_rule,
-	sge::parse::optional_error_string &_error_string
+	fcppt::reference<
+		Rule
+	> const _rule,
+	fcppt::reference<
+		sge::parse::optional_error_string
+	> const _error_string
 )
 {
 	boost::spirit::qi::on_error<
 		boost::spirit::qi::fail
 	>(
-		_rule,
+		_rule.get(),
 		boost::phoenix::ref(
-			_error_string
+			_error_string.get()
 		) =
 			boost::phoenix::construct<
 				sge::parse::optional_error_string

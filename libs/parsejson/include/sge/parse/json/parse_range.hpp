@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/result.hpp>
 #include <sge/parse/json/grammar.hpp>
 #include <sge/parse/json/start.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/spirit/include/qi_parse.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -43,7 +44,7 @@ template<
 >
 sge::parse::result
 parse_range(
-	In &_beg,
+	In _beg,
 	In const _end,
 	sge::parse::json::start &_result
 )
@@ -61,7 +62,9 @@ parse_range(
 				sge::parse::encoding::space,
 				_result
 			),
-			_beg,
+			fcppt::make_cref(
+				_beg
+			),
 			_end,
 			parser
 		);

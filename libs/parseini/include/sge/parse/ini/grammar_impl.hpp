@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/detail/adapt_entry.hpp>
 #include <sge/parse/ini/detail/adapt_section.hpp>
 #include <sge/parse/ini/detail/adapt_start.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/compiler.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -102,8 +103,12 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
 		section_vector_;
 
 	sge::parse::install_error_handler(
-		ini_,
-		error_string_
+		fcppt::make_ref(
+			ini_
+		),
+		fcppt::make_ref(
+			error_string_
+		)
 	);
 
 FCPPT_PP_POP_WARNING
@@ -126,7 +131,8 @@ sge::parse::ini::grammar<
 	In
 >::error_string() const
 {
-	return error_string_;
+	return
+		error_string_;
 }
 
 #endif
