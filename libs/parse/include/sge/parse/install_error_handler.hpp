@@ -72,8 +72,8 @@ install_error_handler(
 					boost::phoenix::construct<
 						fcppt::string
 					>(
-						boost::spirit::qi::labels::_1,
-						boost::spirit::qi::labels::_3
+						boost::spirit::qi::labels::_3,
+						boost::spirit::qi::labels::_2
 					)
 					+
 					FCPPT_TEXT("\" - expected ")
