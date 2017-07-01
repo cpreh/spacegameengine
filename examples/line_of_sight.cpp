@@ -94,10 +94,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/reference.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/to_signed_fun.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>
+#include <fcppt/container/grid/at_optional.hpp>
 #include <fcppt/container/grid/in_range.hpp>
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/container/grid/pos.hpp>
@@ -477,19 +479,30 @@ try
 											signed_pos const _pos
 										)
 										{
-											sprites[
-												fcppt::math::vector::structure_cast<
-													sprite_grid::pos,
-													fcppt::cast::to_unsigned_fun
-												>(
-													_pos
+											fcppt::optional::maybe_void(
+												fcppt::container::grid::at_optional(
+													sprites,
+													fcppt::math::vector::structure_cast<
+														sprite_grid::pos,
+														fcppt::cast::to_unsigned_fun
+													>(
+														_pos
+													)
+												),
+												[](
+													fcppt::reference<
+														sprite_object
+													> const _sprite
 												)
-											].color(
-												sge::image::color::convert<
-													color_format
-												>(
-													sge::image::color::predef::red()
-												)
+												{
+													_sprite.get().color(
+														sge::image::color::convert<
+															color_format
+														>(
+															sge::image::color::predef::red()
+														)
+													);
+												}
 											);
 
 											return
