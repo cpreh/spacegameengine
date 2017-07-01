@@ -73,14 +73,14 @@ to_static_container(
 			_array.elements.size()
 		)
 	)
-		result[
+		result.get_unsafe(
 			static_cast<
 				typename
 				Container::size_type
 			>(
 				index
 			)
-		] =
+		) =
 			static_cast<
 				typename Container::value_type
 			>(

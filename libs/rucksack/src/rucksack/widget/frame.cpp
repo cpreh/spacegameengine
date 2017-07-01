@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/rucksack/access_axis.hpp>
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
-#include <sge/rucksack/axis_to_index.hpp>
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/minimum_size.hpp>
 #include <sge/rucksack/padding.hpp>
@@ -121,11 +121,10 @@ sge::rucksack::widget::frame::axis_policy() const
 		)
 		{
 			sge::rucksack::scalar const extra(
-				this->extra_size()[
-					sge::rucksack::axis_to_index(
-						_axis
-					)
-				]
+				sge::rucksack::access_axis(
+					this->extra_size(),
+					_axis
+				)
 			);
 
 			return

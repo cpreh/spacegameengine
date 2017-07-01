@@ -50,9 +50,9 @@ struct access_element<
 	)
 	{
 		return
-			_vertex[
+			_vertex.get_unsafe(
 				_index
-			];
+			);
 	}
 };
 

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RUCKSACK_DIM_FWD_HPP_INCLUDED
 #define SGE_RUCKSACK_DIM_FWD_HPP_INCLUDED
 
+#include <sge/rucksack/dim_size.hpp>
 #include <sge/rucksack/scalar.hpp>
 #include <fcppt/math/dim/static_fwd.hpp>
 
@@ -31,10 +32,9 @@ namespace rucksack
 {
 
 typedef
-fcppt::math::dim::static_
-<
+fcppt::math::dim::static_<
 	sge::rucksack::scalar,
-	2
+	sge::rucksack::dim_size::value
 >
 dim;
 

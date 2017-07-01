@@ -64,9 +64,9 @@ vector3_to_rgb32f(
 {
 	return
 		sge::image::color::rgb32f(
-			(sge::image::color::init::red() %= v[0])
-			(sge::image::color::init::green() %= v[1])
-			(sge::image::color::init::blue() %= v[2]));
+			(sge::image::color::init::red() %= v.x())
+			(sge::image::color::init::green() %= v.y())
+			(sge::image::color::init::blue() %= v.z()));
 }
 
 // This just switches y and z

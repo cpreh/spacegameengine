@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widget/image.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/rucksack/access_axis.hpp>
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy_function.hpp>
-#include <sge/rucksack/axis_to_index.hpp>
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/make_axis_policy.hpp>
 #include <sge/rucksack/preferred_size.hpp>
@@ -73,19 +73,17 @@ sge::gui::widget::image::image(
 									sge::rucksack::scalar
 								>(
 									fcppt::cast::to_signed(
-										texture_.size()[
-											sge::rucksack::axis_to_index(
-												_axis
-											)
-										]
+										sge::rucksack::access_axis(
+											texture_.size(),
+											_axis
+										)
 									)
 								)
 								+
-								style_.image_spacing()[
-									sge::rucksack::axis_to_index(
-										_axis
-									)
-								]
+								sge::rucksack::access_axis(
+									style_.image_spacing(),
+									_axis
+								)
 							}
 						};
 				}

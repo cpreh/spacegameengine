@@ -25,10 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widget/bar.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/rucksack/access_axis.hpp>
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy_function.hpp>
-#include <sge/rucksack/axis_to_index.hpp>
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/make_axis_policy.hpp>
 #include <sge/rucksack/minimum_size.hpp>
@@ -70,11 +70,10 @@ sge::gui::widget::bar::bar(
 				)
 				{
 					sge::rucksack::scalar const ret{
-						_dim[
-							sge::rucksack::axis_to_index(
-								_cur_axis
-							)
-						]
+						sge::rucksack::access_axis(
+							_dim,
+							_cur_axis
+						)
 					};
 
 					return

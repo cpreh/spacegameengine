@@ -228,7 +228,7 @@ sge::model::obj::prototype::prototype(
 			sge::model::obj::vertex_coordinate coordinate{
 				fcppt::no_init()};
 
-			if(!(line_rest >> coordinate[0] >> coordinate[1] >> coordinate[2]))
+			if(!(line_rest >> coordinate.x() >> coordinate.y() >> coordinate.z()))
 				throw
 					sge::model::obj::exception(
 						FCPPT_TEXT("Error on line ")+
@@ -237,7 +237,7 @@ sge::model::obj::prototype::prototype(
 						FCPPT_TEXT(": Invalid coordinate(s)"));
 
 			// Flip z
-			coordinate[2] = -coordinate[2];
+			coordinate.z() = -coordinate.z();
 
 			if(vertex_coordinates_.empty())
 				bounding_box_ =
@@ -264,7 +264,7 @@ sge::model::obj::prototype::prototype(
 			sge::model::obj::normal normal{
 				fcppt::no_init()};
 
-			if(!(line_rest >> normal[0] >> normal[1] >> normal[2]))
+			if(!(line_rest >> normal.x() >> normal.y() >> normal.z()))
 				throw
 					sge::model::obj::exception(
 						FCPPT_TEXT("Error on line ")+
@@ -273,7 +273,7 @@ sge::model::obj::prototype::prototype(
 						FCPPT_TEXT(": Invalid normal(s)"));
 
 			// Flip z
-			normal[2] = -normal[2];
+			normal.z() = -normal.z();
 
 			normals_.push_back(
 				normal);
@@ -286,7 +286,7 @@ sge::model::obj::prototype::prototype(
 			sge::model::obj::texture_coordinate tex_coord{
 				fcppt::no_init()};
 
-			if(!(line_rest >> tex_coord[0] >> tex_coord[1]))
+			if(!(line_rest >> tex_coord.x() >> tex_coord.y()))
 				throw
 					sge::model::obj::exception(
 						FCPPT_TEXT("Error on line ")+

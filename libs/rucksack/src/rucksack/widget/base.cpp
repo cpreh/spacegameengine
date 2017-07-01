@@ -18,14 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/rucksack/access_axis.hpp>
 #include <sge/rucksack/axis.hpp>
-#include <sge/rucksack/axis_to_index.hpp>
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/rect.hpp>
 #include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/vector.hpp>
-#include <sge/rucksack/impl/flip_axis.hpp>
-#include <sge/rucksack/impl/make_components.hpp>
+#include <sge/rucksack/impl/update_axis.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -39,23 +38,10 @@ sge::rucksack::widget::base::size(
 )
 {
 	this->size(
-		sge::rucksack::impl::make_components<
-			sge::rucksack::dim
-		>(
-			std::make_pair(
-				_axis,
-				_value
-			),
-			std::make_pair(
-				sge::rucksack::impl::flip_axis(
-					_axis
-				),
-				this->size(
-					sge::rucksack::impl::flip_axis(
-						_axis
-					)
-				)
-			)
+		sge::rucksack::impl::update_axis(
+			this->size(),
+			_axis,
+			_value
 		)
 	);
 }
@@ -67,23 +53,10 @@ sge::rucksack::widget::base::position(
 )
 {
 	this->position(
-		sge::rucksack::impl::make_components<
-			sge::rucksack::vector
-		>(
-			std::make_pair(
-				_axis,
-				_value
-			),
-			std::make_pair(
-				sge::rucksack::impl::flip_axis(
-					_axis
-				),
-				this->position(
-					sge::rucksack::impl::flip_axis(
-						_axis
-					)
-				)
-			)
+		sge::rucksack::impl::update_axis(
+			this->position(),
+			_axis,
+			_value
 		)
 	);
 }
@@ -94,11 +67,10 @@ sge::rucksack::widget::base::size(
 ) const
 {
 	return
-		this->size()[
-			sge::rucksack::axis_to_index(
-				_axis
-			)
-		];
+		sge::rucksack::access_axis(
+			this->size(),
+			_axis
+		);
 }
 
 sge::rucksack::scalar
@@ -106,12 +78,20 @@ sge::rucksack::widget::base::position(
 	sge::rucksack::axis const _axis
 ) const
 {
+	static_assert(
+		sge::rucksack::vector::static_size::value
+		==
+		fcppt::enum_::size<
+			sge::rucksack::axis
+		>::value,
+		""
+	);
+
 	return
-		this->position()[
-			sge::rucksack::axis_to_index(
-				_axis
-			)
-		];
+		sge::rucksack::access_axis(
+			this->position(),
+			_axis
+		);
 }
 
 sge::rucksack::widget::base::~base()

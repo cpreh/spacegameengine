@@ -85,9 +85,9 @@ sge::noise::simplex::object<
 				vector_type
 			>()
 		);
-		tmp[i] = static_cast<Float>(1);
+		tmp.get_unsafe(i) = static_cast<Float>(1);
 		gradients_[2u*i] = tmp;
-		tmp[i] = static_cast<Float>(-1);
+		tmp.get_unsafe(i) = static_cast<Float>(-1);
 		gradients_[2u*i+1u] = tmp;
 	}
 }
@@ -185,13 +185,13 @@ sge::noise::simplex::object<Float,N>::corners(
 	for (typename vector_type::size_type j = 0; j < N; ++j)
 	{
 		for (typename vector_type::size_type i = 0; i < N; ++i)
-			if (point[i] > max)
+			if (point.get_unsafe(i) > max)
 			{
-				max = point[i];
+				max = point.get_unsafe(i);
 				max_i = i;
 			}
 		max = static_cast<Float>(-1);
-		point[max_i] = static_cast<Float>(-2);
+		point.get_unsafe(max_i) = static_cast<Float>(-2);
 		cur += fcppt::math::vector::unit<vector_type>(max_i);
 		res[j+1] = vector_type(cur);
 	}
@@ -235,7 +235,7 @@ sge::noise::simplex::object<Float,N>::stretch_m()
 
 	for (typename matrix::size_type i = 0; i < N; ++i)
 		for (typename matrix::size_type j = 0; j < N; ++j)
-			tmp[i][j] =
+			tmp.get_unsafe(i).get_unsafe(j) =
 				stretch_factor() +
 				((i == j)? 1 : 0 );
 	return tmp;
@@ -253,7 +253,7 @@ sge::noise::simplex::object<Float,N>::inv_m()
 
 	for (typename matrix::size_type i = 0; i < N; ++i)
 		for (typename matrix::size_type j = 0; j < N; ++j)
-			tmp[i][j] =
+			tmp.get_unsafe(i).get_unsafe(j) =
 				inv_factor() +
 				((i == j)? 1 : 0 );
 	return tmp;

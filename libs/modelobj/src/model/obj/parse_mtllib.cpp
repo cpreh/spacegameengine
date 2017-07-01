@@ -194,7 +194,7 @@ public:
 			};
 
 			this->throw_error_if(
-				!(ss >> new_ambient[0] >> new_ambient[1] >> new_ambient[2]),
+				!(ss >> new_ambient.x() >> new_ambient.y() >> new_ambient.z()),
 				FCPPT_TEXT("Invalid ambient"));
 
 			ambient_ =
@@ -232,7 +232,7 @@ public:
 			};
 
 			this->throw_error_if(
-				!(ss >> new_diffuse[0] >> new_diffuse[1] >> new_diffuse[2]),
+				!(ss >> new_diffuse.x() >> new_diffuse.y() >> new_diffuse.z()),
 				FCPPT_TEXT("Invalid diffuse"));
 
 			diffuse_ =
@@ -250,7 +250,7 @@ public:
 			};
 
 			this->throw_error_if(
-				!(ss >> new_specular[0] >> new_specular[1] >> new_specular[2]),
+				!(ss >> new_specular.x() >> new_specular.y() >> new_specular.z()),
 				FCPPT_TEXT("Invalid specular"));
 
 			specular_ =
@@ -410,9 +410,9 @@ public:
 				return
 					sge::image::color::any::object{
 						sge::image::color::rgb32f{
-							(sge::image::color::init::red() %= (_vec)[0])
-							(sge::image::color::init::green() %= (_vec)[1])
-							(sge::image::color::init::blue() %= (_vec)[2])
+							(sge::image::color::init::red() %= (_vec).x())
+							(sge::image::color::init::green() %= (_vec).y())
+							(sge::image::color::init::blue() %= (_vec).z())
 						}
 					};
 			}

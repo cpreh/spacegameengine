@@ -32,7 +32,8 @@ namespace rucksack
 enum class axis
 {
 	x,
-	y
+	y,
+	fcppt_maximum = y
 };
 
 }

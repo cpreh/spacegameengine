@@ -44,13 +44,13 @@ sge::camera::matrix_conversion::rotation(
 	return
 		sge::renderer::matrix4(
 			fcppt::math::matrix::row(
-				r[0],r[1],r[2],0.0f
+				r.x(),r.y(),r.z(),0.0f
 			),
 			fcppt::math::matrix::row(
-				u[0],u[1],u[2],0.0f
+				u.x(),u.y(),u.z(),0.0f
 			),
 			fcppt::math::matrix::row(
-				f[0],f[1],f[2],0.0f
+				f.x(),f.y(),f.z(),0.0f
 			),
 			fcppt::math::matrix::row(
 				0.0f,0.0f,0.0f,1.0f

@@ -32,13 +32,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/renderer/base.hpp>
 #include <sge/gui/style/base.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/rucksack/access_axis.hpp>
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/padding.hpp>
 #include <sge/rucksack/rect.hpp>
 #include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/vector.hpp>
-#include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/cast/float_to_int.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
@@ -129,14 +129,10 @@ sge::gui::impl::style::simple::draw_bar(
 			fcppt::cast::int_to_float<
 				sge::gui::fill_level::value_type
 			>(
-				inner_rect.size()[
-					// TODO: Make a function in rucksack for this
-					fcppt::cast::enum_to_int<
-						fcppt::math::size_type
-					>(
-						_axis
-					)
-				]
+				sge::rucksack::access_axis(
+					inner_rect.size(),
+					_axis
+				)
 			)
 			*
 			_fill_level.get()

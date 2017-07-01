@@ -2,10 +2,11 @@ set(
 	SGE_RUCKSACK_FILES
 	libs/rucksack/impl/include/sge/rucksack/impl/extract_size.hpp
 	libs/rucksack/impl/include/sge/rucksack/impl/flip_axis.hpp
-	libs/rucksack/impl/include/sge/rucksack/impl/make_components.hpp
+	libs/rucksack/impl/include/sge/rucksack/impl/update_axis.hpp
 	libs/rucksack/impl/src/rucksack/impl/extract_size.cpp
 	libs/rucksack/impl/src/rucksack/impl/flip_axis.cpp
 	libs/rucksack/impl/src/rucksack/impl/make_axis_policy.cpp
+	libs/rucksack/include/sge/rucksack/access_axis.hpp
 	libs/rucksack/include/sge/rucksack/alignment.hpp
 	libs/rucksack/include/sge/rucksack/alignment_fwd.hpp
 	libs/rucksack/include/sge/rucksack/axis.hpp
@@ -21,6 +22,7 @@ set(
 	libs/rucksack/include/sge/rucksack/axis_to_index.hpp
 	libs/rucksack/include/sge/rucksack/dim.hpp
 	libs/rucksack/include/sge/rucksack/dim_fwd.hpp
+	libs/rucksack/include/sge/rucksack/dim_size.hpp
 	libs/rucksack/include/sge/rucksack/make_axis_policy.hpp
 	libs/rucksack/include/sge/rucksack/minimum_size.hpp
 	libs/rucksack/include/sge/rucksack/minimum_size_fwd.hpp

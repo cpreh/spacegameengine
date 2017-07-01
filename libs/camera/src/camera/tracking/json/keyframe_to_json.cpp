@@ -55,7 +55,7 @@ sge::camera::tracking::json::keyframe_to_json(
 			result_matrix_row.elements.push_back(
 				sge::parse::json::value(
 					static_cast<sge::parse::json::float_type>(
-						matrix[i][j])));
+						matrix.get_unsafe(i).get_unsafe(j))));
 		result_matrix.elements.push_back(
 			sge::parse::json::value(
 				result_matrix_row));

@@ -69,11 +69,15 @@ public:
 		return
 			fcppt::math::box::center(
 				sge::bvh::traits::box<leaf>::extract_box(
-					_left.value()))[axis_]
+					_left.value()
+				)
+			).get_unsafe(axis_)
 			<
 			fcppt::math::box::center(
 				sge::bvh::traits::box<leaf>::extract_box(
-					_right.value()))[axis_];
+					_right.value()
+				)
+			).get_unsafe(axis_);
 	}
 
 	fcppt::math::size_type

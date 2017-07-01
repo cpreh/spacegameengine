@@ -18,76 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RUCKSACK_IMPL_MAKE_COMPONENTS_HPP_INCLUDED
-#define SGE_RUCKSACK_IMPL_MAKE_COMPONENTS_HPP_INCLUDED
+#ifndef SGE_RUCKSACK_DIM_SIZE_HPP_INCLUDED
+#define SGE_RUCKSACK_DIM_SIZE_HPP_INCLUDED
 
-#include <sge/rucksack/axis.hpp>
-#include <sge/rucksack/axis_to_index.hpp>
-#include <sge/rucksack/scalar.hpp>
-#include <fcppt/no_init.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/math/static_size.hpp>
 
 
 namespace sge
 {
 namespace rucksack
 {
-namespace impl
-{
 
-template<
-	typename Ret
+typedef
+fcppt::math::static_size<
+	2
 >
-Ret
-make_components(
-	std::pair<
-		sge::rucksack::axis,
-		sge::rucksack::scalar
-	> const _pair1,
-	std::pair<
-		sge::rucksack::axis,
-		sge::rucksack::scalar
-	> const _pair2
-)
-{
-	Ret ret{
-		fcppt::no_init()
-	};
+dim_size;
 
-	auto const assign(
-		[
-			&ret
-		](
-			std::pair<
-				sge::rucksack::axis,
-				sge::rucksack::scalar
-			> const _pair
-		)
-		{
-			ret[
-				sge::rucksack::axis_to_index(
-					_pair.first
-				)
-			] =
-				_pair.second;
-		}
-	);
-
-	assign(
-		_pair1
-	);
-
-	assign(
-		_pair2
-	);
-
-	return
-		ret;
-}
-
-}
 }
 }
 

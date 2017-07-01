@@ -72,9 +72,10 @@ permute_vector_according_to_orientation(
 
 	return
 		sge::renderer::vector3(
-			_input[axis_mappings[orientation][0]],
-			_input[axis_mappings[orientation][1]],
-			_input[axis_mappings[orientation][2]]);
+			_input.get_unsafe(axis_mappings[orientation][0]),
+			_input.get_unsafe(axis_mappings[orientation][1]),
+			_input.get_unsafe(axis_mappings[orientation][2])
+		);
 }
 }
 
@@ -98,22 +99,22 @@ sge::scenic::grid::object::object(
 		line_drawer_);
 
 	for(
-		sge::renderer::scalar y = _rect.pos()[1];
-		y <= _rect.pos()[1] + _rect.size()[1];
-		y += _spacing.get()[1])
+		sge::renderer::scalar y = _rect.pos().y();
+		y <= _rect.pos().y() + _rect.size().h();
+		y += _spacing.get().h())
 	{
 		llock.value().push_back(
 			sge::line_drawer::line(
 				permute_vector_according_to_orientation(
 					_orientation,
 					sge::renderer::vector3(
-						_rect.pos()[0],
+						_rect.pos().x(),
 						y,
 						_distance_to_origin.get())),
 				permute_vector_according_to_orientation(
 					_orientation,
 					sge::renderer::vector3(
-						_rect.pos()[0]+_rect.size()[0],
+						_rect.pos().x()+_rect.size().w(),
 						y,
 						_distance_to_origin.get())),
 				_color,
@@ -121,9 +122,9 @@ sge::scenic::grid::object::object(
 	}
 
 	for(
-		sge::renderer::scalar x = _rect.pos()[0];
-		x <= _rect.pos()[0] + _rect.size()[0];
-		x += _spacing.get()[0])
+		sge::renderer::scalar x = _rect.pos().x();
+		x <= _rect.pos().x() + _rect.size().w();
+		x += _spacing.get().w())
 	{
 		llock.value().push_back(
 			sge::line_drawer::line(
@@ -131,13 +132,13 @@ sge::scenic::grid::object::object(
 					_orientation,
 					sge::renderer::vector3(
 						x,
-						_rect.pos()[1],
+						_rect.pos().y(),
 						_distance_to_origin.get())),
 				permute_vector_according_to_orientation(
 					_orientation,
 					sge::renderer::vector3(
 						x,
-						_rect.pos()[1]+_rect.size()[1],
+						_rect.pos().y()+_rect.size().h(),
 						_distance_to_origin.get())),
 				_color,
 				_color));

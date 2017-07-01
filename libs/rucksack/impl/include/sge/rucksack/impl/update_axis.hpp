@@ -18,26 +18,65 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RUCKSACK_VECTOR_FWD_HPP_INCLUDED
-#define SGE_RUCKSACK_VECTOR_FWD_HPP_INCLUDED
+#ifndef SGE_RUCKSACK_IMPL_UPDATE_AXIS_HPP_INCLUDED
+#define SGE_RUCKSACK_IMPL_UPDATE_AXIS_HPP_INCLUDED
 
-#include <sge/rucksack/dim_size.hpp>
+#include <sge/rucksack/axis.hpp>
+#include <sge/rucksack/axis_to_index.hpp>
 #include <sge/rucksack/scalar.hpp>
-#include <fcppt/math/vector/static_fwd.hpp>
+#include <fcppt/enum/size.hpp>
+#include <fcppt/preprocessor/warn_unused_result.hpp>
 
 
 namespace sge
 {
 namespace rucksack
 {
+namespace impl
+{
 
-typedef
-fcppt::math::vector::static_<
-	sge::rucksack::scalar,
-	sge::rucksack::dim_size::value
+template<
+	typename Ret
 >
-vector;
+Ret
+update_axis(
+	Ret,
+	sge::rucksack::axis,
+	sge::rucksack::scalar
+)
+FCPPT_PP_WARN_UNUSED_RESULT;
 
+template<
+	typename Ret
+>
+Ret
+update_axis(
+	Ret _result,
+	sge::rucksack::axis const _axis,
+	sge::rucksack::scalar const _scalar
+)
+{
+	static_assert(
+		Ret::static_size::value
+		==
+		fcppt::enum_::size<
+			sge::rucksack::axis
+		>::value,
+		""
+	);
+
+	_result.get_unsafe(
+		sge::rucksack::axis_to_index(
+			_axis
+		)
+	) =
+		_scalar;
+
+	return
+		_result;
+}
+
+}
 }
 }
 

@@ -92,14 +92,14 @@ sge::projectile::impl::shape::triangle_scalars(
 					_log,
 					fcppt::log::_
 						<< FCPPT_TEXT("adding point ")
-						<< current_triangle_point[0]
+						<< current_triangle_point.x()
 						<< FCPPT_TEXT(',')
-						<< current_triangle_point[1]
+						<< current_triangle_point.y()
 						<< FCPPT_TEXT(',')
 						<< current_z);
 
-				*current_scalar++ = current_triangle_point[0];
-				*current_scalar++ = current_triangle_point[1];
+				*current_scalar++ = current_triangle_point.x();
+				*current_scalar++ = current_triangle_point.y();
 				*current_scalar++ = current_z;
 			}
 

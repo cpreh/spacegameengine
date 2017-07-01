@@ -18,39 +18,90 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/camera/coordinate_system/forward.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/coordinate_system/position.hpp>
+#include <sge/camera/coordinate_system/right.hpp>
+#include <sge/camera/coordinate_system/up.hpp>
 #include <sge/camera/matrix_conversion/world_matrix_to_coordinate_system.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/vector3.hpp>
+#include <fcppt/math/matrix/at_index_c.hpp>
+#include <fcppt/math/matrix/index.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
+#include <fcppt/math/vector/narrow_cast.hpp>
 
 
 sge::camera::coordinate_system::object
 sge::camera::matrix_conversion::world_matrix_to_coordinate_system(
-	sge::renderer::matrix4 const &_m)
+	sge::renderer::matrix4 const &_m
+)
 {
 	sge::renderer::matrix4 const inverted(
 		fcppt::math::matrix::inverse(
-			_m));
+			_m
+		)
+	);
 
 	return
 		sge::camera::coordinate_system::object(
 			sge::camera::coordinate_system::right(
-				sge::renderer::vector3(
-					_m[0][0],
-					_m[0][1],
-					_m[0][2])),
+				fcppt::math::vector::narrow_cast<
+					sge::renderer::vector3
+				>(
+					fcppt::math::matrix::at_c<
+						0
+					>(
+						_m
+					)
+				)
+			),
 			sge::camera::coordinate_system::up(
-				sge::renderer::vector3(
-					_m[1][0],
-					_m[1][1],
-					_m[1][2])),
+				fcppt::math::vector::narrow_cast<
+					sge::renderer::vector3
+				>(
+					fcppt::math::matrix::at_c<
+						1
+					>(
+						_m
+					)
+				)
+			),
 			sge::camera::coordinate_system::forward(
-				sge::renderer::vector3(
-					_m[2][0],
-					_m[2][1],
-					_m[2][2])),
+				fcppt::math::vector::narrow_cast<
+					sge::renderer::vector3
+				>(
+					fcppt::math::matrix::at_c<
+						2
+					>(
+						_m
+					)
+				)
+			),
 			sge::camera::coordinate_system::position(
 				sge::renderer::vector3(
-					-inverted[0][3],
-					-inverted[1][3],
-					-inverted[2][3])));
+					-fcppt::math::matrix::at_index_c(
+						inverted,
+						fcppt::math::matrix::index<
+							0,
+							3
+						>{}
+					),
+					-fcppt::math::matrix::at_index_c(
+						inverted,
+						fcppt::math::matrix::index<
+							1,
+							3
+						>{}
+					),
+					-fcppt::math::matrix::at_index_c(
+						inverted,
+						fcppt::math::matrix::index<
+							2,
+							3
+						>{}
+					)
+				)
+			)
+		);
 }

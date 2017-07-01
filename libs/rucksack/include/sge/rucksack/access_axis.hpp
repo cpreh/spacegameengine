@@ -18,12 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RUCKSACK_VECTOR_FWD_HPP_INCLUDED
-#define SGE_RUCKSACK_VECTOR_FWD_HPP_INCLUDED
+#ifndef SGE_RUCKSACK_ACCESS_AXIS_HPP_INCLUDED
+#define SGE_RUCKSACK_ACCESS_AXIS_HPP_INCLUDED
 
-#include <sge/rucksack/dim_size.hpp>
-#include <sge/rucksack/scalar.hpp>
-#include <fcppt/math/vector/static_fwd.hpp>
+#include <sge/rucksack/axis.hpp>
+#include <sge/rucksack/axis_to_index.hpp>
+#include <fcppt/enum/size.hpp>
 
 
 namespace sge
@@ -31,12 +31,32 @@ namespace sge
 namespace rucksack
 {
 
-typedef
-fcppt::math::vector::static_<
-	sge::rucksack::scalar,
-	sge::rucksack::dim_size::value
+template<
+	typename Value
 >
-vector;
+typename
+Value::value_type
+access_axis(
+	Value const &_value,
+	sge::rucksack::axis const _axis
+)
+{
+	static_assert(
+		Value::static_size::value
+		==
+		fcppt::enum_::size<
+			sge::rucksack::axis
+		>::value,
+		""
+	);
+
+	return
+		_value.get_unsafe(
+			sge::rucksack::axis_to_index(
+				_axis
+			)
+		);
+}
 
 }
 }
