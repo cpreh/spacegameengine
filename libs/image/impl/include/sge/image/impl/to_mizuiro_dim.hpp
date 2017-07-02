@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/use.hpp>
 #include <fcppt/algorithm/array_init.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/dim/at_c.hpp>
+#include <fcppt/math/dim/at.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 
 
@@ -77,7 +77,7 @@ to_mizuiro_dim(
 					);
 
 					return
-						fcppt::math::dim::at_c<
+						fcppt::math::dim::at<
 							decltype(
 								_index
 							)::value

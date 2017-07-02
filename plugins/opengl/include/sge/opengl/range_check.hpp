@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/int_range_count.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/dim/at_c.hpp>
+#include <fcppt/math/dim/at.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/vector/at_c.hpp>
+#include <fcppt/math/vector/at.hpp>
 
 
 namespace sge
@@ -80,13 +80,13 @@ range_check(
 				index;
 
 				return
-					fcppt::math::vector::at_c<
+					fcppt::math::vector::at<
 						index::value
 					>(
 						_box.max()
 					)
 					<=
-					fcppt::math::dim::at_c<
+					fcppt::math::dim::at<
 						index::value
 					>(
 						_dim

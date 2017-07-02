@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <fcppt/cast/to_signed.hpp>
-#include <fcppt/math/at_c.hpp>
+#include <fcppt/math/dim/at.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/init.hpp>
 #include <fcppt/math/dim/narrow_cast.hpp>
@@ -69,7 +69,7 @@ from_d3d_pitch(
 			)
 			{
 				return
-					fcppt::math::at_c<
+					fcppt::math::dim::at<
 						_index
 					>(
 						_pitches

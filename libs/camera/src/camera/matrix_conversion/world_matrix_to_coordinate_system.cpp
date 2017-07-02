@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/matrix_conversion/world_matrix_to_coordinate_system.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <fcppt/math/matrix/at_index_c.hpp>
-#include <fcppt/math/matrix/index.hpp>
+#include <fcppt/math/matrix/at_r.hpp>
+#include <fcppt/math/matrix/at_r_c.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/vector/narrow_cast.hpp>
 
@@ -49,7 +49,7 @@ sge::camera::matrix_conversion::world_matrix_to_coordinate_system(
 				fcppt::math::vector::narrow_cast<
 					sge::renderer::vector3
 				>(
-					fcppt::math::matrix::at_c<
+					fcppt::math::matrix::at_r<
 						0
 					>(
 						_m
@@ -60,7 +60,7 @@ sge::camera::matrix_conversion::world_matrix_to_coordinate_system(
 				fcppt::math::vector::narrow_cast<
 					sge::renderer::vector3
 				>(
-					fcppt::math::matrix::at_c<
+					fcppt::math::matrix::at_r<
 						1
 					>(
 						_m
@@ -71,7 +71,7 @@ sge::camera::matrix_conversion::world_matrix_to_coordinate_system(
 				fcppt::math::vector::narrow_cast<
 					sge::renderer::vector3
 				>(
-					fcppt::math::matrix::at_c<
+					fcppt::math::matrix::at_r<
 						2
 					>(
 						_m
@@ -80,26 +80,23 @@ sge::camera::matrix_conversion::world_matrix_to_coordinate_system(
 			),
 			sge::camera::coordinate_system::position(
 				sge::renderer::vector3(
-					-fcppt::math::matrix::at_index_c(
-						inverted,
-						fcppt::math::matrix::index<
-							0,
-							3
-						>{}
+					-fcppt::math::matrix::at_r_c<
+						0,
+						3
+					>(
+						inverted
 					),
-					-fcppt::math::matrix::at_index_c(
-						inverted,
-						fcppt::math::matrix::index<
-							1,
-							3
-						>{}
+					-fcppt::math::matrix::at_r_c<
+						1,
+						3
+					>(
+						inverted
 					),
-					-fcppt::math::matrix::at_index_c(
-						inverted,
-						fcppt::math::matrix::index<
-							2,
-							3
-						>{}
+					-fcppt::math::matrix::at_r_c<
+						2,
+						3
+					>(
+						inverted
 					)
 				)
 			)

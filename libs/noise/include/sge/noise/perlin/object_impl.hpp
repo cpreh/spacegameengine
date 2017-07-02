@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/grid/interpolate.hpp>
 #include <fcppt/math/mod.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/dim/at_c.hpp>
-#include <fcppt/math/vector/at_c.hpp>
+#include <fcppt/math/dim/at.hpp>
+#include <fcppt/math/vector/at.hpp>
 #include <fcppt/math/vector/init.hpp>
 #include <fcppt/random/variate.hpp>
 #include <fcppt/random/distribution/basic.hpp>
@@ -163,7 +163,7 @@ sge::noise::perlin::object<
 						fcppt::cast::int_to_float<
 							value_type
 						>(
-							fcppt::math::dim::at_c<
+							fcppt::math::dim::at<
 								index::value
 							>(
 								gradients_.size()
@@ -174,7 +174,7 @@ sge::noise::perlin::object<
 					return
 						fcppt::math::mod(
 							fcppt::math::mod(
-								fcppt::math::vector::at_c<
+								fcppt::math::vector::at<
 									index::value
 								>(
 									_v
