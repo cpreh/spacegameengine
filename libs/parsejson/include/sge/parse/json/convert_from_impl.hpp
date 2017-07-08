@@ -270,11 +270,11 @@ struct convert_from_impl<
 							Result::value_type
 						>(
 							std::get<
-								_index.row
+								_index.row()
 							>(
 								inner
 							).get()[
-								_index.column
+								_index.column()
 							]
 						);
 				}
