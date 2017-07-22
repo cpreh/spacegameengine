@@ -153,7 +153,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/poll.hpp>
+#include <sge/window/poll_function.hpp>
 #include <sge/window/title.hpp>
 #include <awl/show_error.hpp>
 #include <awl/show_error_narrow.hpp>
@@ -767,37 +768,40 @@ input_main(
 		)
 	);
 
-	while(
-		sys.window_system().poll()
-	)
-	{
-		sge::timer::scoped_frame_limiter const limiter(
-			sge::renderer::display_mode::desired_fps(
-				sys.renderer_device_ffp().display_mode()
-			)
-		);
-
-		sge::renderer::context::scoped_ffp const scoped_ffp(
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target()
-		);
-
-		scoped_ffp.get().clear(
-			sge::renderer::clear::parameters()
-			.back_buffer(
-				sge::image::color::any::object{
-					sge::image::color::predef::black()
-				}
-			)
-		);
-
-		console_gfx.render(
-			scoped_ffp.get()
-		);
-	}
-
 	return
-		sys.window_system().exit_code();
+		sge::window::poll(
+			sys.window_system(),
+			sge::window::poll_function{
+				[
+					&sys,
+					&console_gfx
+				]{
+					sge::timer::scoped_frame_limiter const limiter(
+						sge::renderer::display_mode::desired_fps(
+							sys.renderer_device_ffp().display_mode()
+						)
+					);
+
+					sge::renderer::context::scoped_ffp const scoped_ffp(
+						sys.renderer_device_ffp(),
+						sys.renderer_device_ffp().onscreen_target()
+					);
+
+					scoped_ffp.get().clear(
+						sge::renderer::clear::parameters()
+						.back_buffer(
+							sge::image::color::any::object{
+								sge::image::color::predef::black()
+							}
+						)
+					);
+
+					console_gfx.render(
+						scoped_ffp.get()
+					);
+				}
+			}
+		);
 }
 
 fcppt::string

@@ -8,12 +8,15 @@ set(
 	libs/window/include/sge/window/object_unique_ptr.hpp
 	libs/window/include/sge/window/optional_dim.hpp
 	libs/window/include/sge/window/optional_dim_fwd.hpp
+	libs/window/include/sge/window/poll.hpp
+	libs/window/include/sge/window/poll_function.hpp
 	libs/window/include/sge/window/system.hpp
 	libs/window/include/sge/window/system_fwd.hpp
 	libs/window/include/sge/window/title.hpp
 	libs/window/include/sge/window/unit.hpp
 	libs/window/src/window/default_class_name.cpp
 	libs/window/src/window/object.cpp
+	libs/window/src/window/poll.cpp
 	libs/window/src/window/system.cpp
 )
 
