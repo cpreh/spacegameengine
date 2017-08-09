@@ -21,19 +21,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WLINPUT_REMOVE_SEAT_HPP_INCLUDED
 #define SGE_WLINPUT_REMOVE_SEAT_HPP_INCLUDED
 
-#include <sge/input/event/remove.hpp>
-#include <awl/backends/wayland/registry_id.hpp>
+#include <sge/wlinput/map.hpp>
 #include <awl/backends/wayland/system/seat/caps.hpp>
 #include <awl/backends/wayland/system/seat/caps_field.hpp>
 #include <awl/backends/wayland/system/seat/object.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/shared_ptr_impl.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/container/find_opt_iterator.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
-#include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/signal/object_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <unordered_map>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/optional/join.hpp>
+#include <fcppt/optional/make_if.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -43,69 +47,78 @@ namespace wlinput
 
 template<
 	awl::backends::wayland::system::seat::caps Caps,
-	typename Object,
-	typename Base
+	typename RemoveEvent,
+	typename Object
 >
-void
+awl::event::optional_base_unique_ptr
 remove_seat(
-	std::unordered_map<
-		awl::backends::wayland::registry_id,
-		fcppt::unique_ptr<
-			Object
-		>
+	sge::wlinput::map<
+		Object
 	> &_map,
-	fcppt::signal::object<
-		void (
-			sge::input::event::remove<
-				Base
-			> const &
-		)
-	> &_remove_signal,
 	awl::backends::wayland::system::seat::object const &_seat
 )
 {
 	typedef
-	std::unordered_map<
-		awl::backends::wayland::registry_id,
-		fcppt::unique_ptr<
-			Object
-		>
+	sge::wlinput::map<
+		Object
 	>
 	object_map;
 
-	if(
-		_seat.caps()
-		&
-		Caps
-	)
-	{
-		fcppt::optional::maybe_void(
-			fcppt::container::find_opt_iterator(
-				_map,
-				_seat.name()
-			),
-			[
-				&_remove_signal,
-				&_map
-			](
-				typename
-				object_map::iterator const _iterator
-			)
-			{
-				_remove_signal(
-					sge::input::event::remove<
-						Base
-					>{
-						*_iterator->second
+	FCPPT_PP_PUSH_WARNING
+	FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)
+
+	auto const make_event(
+		[
+			&_map,
+			&_seat
+		]{
+			return
+				fcppt::optional::map(
+					fcppt::container::find_opt_iterator(
+						_map,
+						_seat.name()
+					),
+					[
+						&_map
+					](
+						typename
+						object_map::iterator const _iterator
+					)
+					{
+						awl::event::base_unique_ptr event{
+							fcppt::unique_ptr_to_base<
+								awl::event::base
+							>(
+								fcppt::make_unique_ptr<
+									RemoveEvent
+								>(
+									_iterator->second
+								)
+							)
+						};
+
+						_map.erase(
+							_iterator
+						);
+
+						return
+							event;
 					}
 				);
+		}
+	);
 
-				_map.erase(
-					_iterator
-				);
-			}
+	FCPPT_PP_POP_WARNING
+
+	return
+		fcppt::optional::join(
+			fcppt::optional::make_if(
+				_seat.caps()
+				&
+				Caps,
+				make_event
+			)
 		);
-	}
 }
 
 }

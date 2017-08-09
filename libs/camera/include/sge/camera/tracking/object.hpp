@@ -22,15 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_TRACKING_OBJECT_HPP_INCLUDED
 
 #include <sge/camera/base.hpp>
-#include <sge/camera/has_activation.hpp>
-#include <sge/camera/has_mutable_coordinate_system.hpp>
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/is_dynamic.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
+#include <sge/camera/projection_matrix.hpp>
+#include <sge/camera/update_duration.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/tracking/is_looping.hpp>
 #include <sge/camera/tracking/keyframe_sequence.hpp>
 #include <sge/core/detail/class_symbol.hpp>
+#include <sge/input/event_base_fwd.hpp>
 #include <fcppt/cyclic_iterator_decl.hpp>
 
 
@@ -44,7 +46,6 @@ namespace tracking
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 :
 	public virtual sge::camera::base,
-	public sge::camera::has_activation,
 	public sge::camera::is_dynamic,
 	public sge::camera::has_mutable_projection
 {
@@ -56,8 +57,7 @@ public:
 	object(
 		sge::camera::optional_projection_matrix const &,
 		sge::camera::tracking::keyframe_sequence const &,
-		sge::camera::tracking::is_looping,
-		sge::camera::is_active
+		sge::camera::tracking::is_looping
 	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
@@ -66,7 +66,7 @@ public:
 	override;
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::projection_matrix
+	sge::camera::optional_projection_matrix
 	projection_matrix() const
 	override;
 
@@ -78,21 +78,16 @@ public:
 	override;
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::is_active
-	is_active() const
-	override;
-
-	SGE_CAMERA_DETAIL_SYMBOL
 	void
-	is_active(
-		sge::camera::is_active
+	update(
+		sge::camera::update_duration
 	)
 	override;
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	void
-	update(
-		sge::camera::update_duration
+	process_event(
+		sge::input::event_base const &
 	)
 	override;
 
@@ -119,8 +114,6 @@ private:
 	cyclic_iterator current_keyframe_;
 
 	sge::camera::update_duration current_time_point_;
-
-	sge::camera::is_active is_active_;
 
 	sge::camera::coordinate_system::object coordinate_system_;
 

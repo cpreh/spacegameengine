@@ -31,17 +31,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widget/base_fwd.hpp>
 #include <sge/gui/widget/optional_focus_fwd.hpp>
 #include <sge/gui/widget/optional_ref_fwd.hpp>
-#include <sge/input/cursor/button_event_fwd.hpp>
-#include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/focus/char_event_fwd.hpp>
-#include <sge/input/focus/key_event_fwd.hpp>
-#include <sge/input/focus/key_repeat_event_fwd.hpp>
-#include <sge/input/focus/object_fwd.hpp>
+#include <sge/input/event_base_fwd.hpp>
+#include <sge/input/cursor/event/button_fwd.hpp>
+#include <sge/input/focus/event/char_fwd.hpp>
+#include <sge/input/focus/event/key_fwd.hpp>
+#include <sge/input/focus/event/key_repeat_fwd.hpp>
 #include <sge/input/key/code_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -57,8 +55,6 @@ class master
 public:
 	SGE_GUI_DETAIL_SYMBOL
 	master(
-		sge::input::focus::object &,
-		sge::input::cursor::object &,
 		sge::gui::context &,
 		sge::gui::main_area::base &
 	);
@@ -87,25 +83,31 @@ public:
 	update(
 		sge::gui::duration
 	);
+
+	SGE_GUI_DETAIL_SYMBOL
+	void
+	process_event(
+		sge::input::event_base const &
+	);
 private:
 	void
 	key_event(
-		sge::input::focus::key_event const &
+		sge::input::focus::event::key const &
 	);
 
 	void
 	key_repeat_event(
-		sge::input::focus::key_repeat_event const &
+		sge::input::focus::event::key_repeat const &
 	);
 
 	void
 	char_event(
-		sge::input::focus::char_event const &
+		sge::input::focus::event::char_ const &
 	);
 
 	void
 	button_event(
-		sge::input::cursor::button_event const &
+		sge::input::cursor::event::button const &
 	);
 
 	void
@@ -121,17 +123,9 @@ private:
 	sge::gui::widget::base &
 	widget();
 
-	sge::input::cursor::object &cursor_;
-
 	sge::gui::context &context_;
 
 	sge::gui::main_area::base &main_area_;
-
-	fcppt::signal::auto_connection const
-		key_connection_,
-		key_repeat_connection_,
-		char_connection_,
-		button_connection_;
 };
 
 }

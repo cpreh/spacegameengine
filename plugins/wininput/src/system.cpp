@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <sge/window/system_fwd.hpp>
 #include <sge/wininput/processor.hpp>
 #include <sge/wininput/system.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -57,8 +56,7 @@ sge::wininput::system::~system()
 
 sge::input::processor_unique_ptr
 sge::wininput::system::create_processor(
-	sge::window::object const &_window,
-	sge::window::system const &_window_system
+	sge::window::object &_window
 )
 {
 	return
@@ -69,7 +67,6 @@ sge::wininput::system::create_processor(
 				sge::wininput::processor
 			>(
 				log_,
-				_window_system,
 				_window
 			)
 		);

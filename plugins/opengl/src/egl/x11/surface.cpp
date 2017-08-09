@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/egl/surface.hpp>
 #include <sge/opengl/egl/window_surface_impl.hpp>
 #include <sge/opengl/egl/x11/surface.hpp>
-#include <awl/backends/x11/window/object.hpp>
+#include <awl/backends/x11/window/base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::egl::x11::surface::surface(
 	EGLDisplay const _display,
 	EGLConfig const _config,
-	awl::backends::x11::window::object &_surface
+	awl::backends::x11::window::base const &_surface
 )
 :
 	sge::opengl::egl::surface(),

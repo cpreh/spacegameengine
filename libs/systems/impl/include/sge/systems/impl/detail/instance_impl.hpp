@@ -27,10 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
-#include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/focus/object_fwd.hpp>
-#include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/mouse/device_fwd.hpp>
 #include <sge/parse/ini/optional_start_fwd.hpp>
 #include <sge/plugin/cache.hpp>
 #include <sge/plugin/manager.hpp>
@@ -42,10 +38,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
+#include <sge/systems/input_fwd.hpp>
 #include <sge/systems/optional_log_context_ref_fwd.hpp>
 #include <sge/systems/plugin_path.hpp>
 #include <sge/systems/window_fwd.hpp>
-#include <sge/systems/detail/input_fwd.hpp>
 #include <sge/systems/detail/instance_impl_fwd.hpp>
 #include <sge/systems/detail/renderer_fwd.hpp>
 #include <sge/systems/impl/log_context.hpp>
@@ -110,7 +106,7 @@ public:
 
 	void
 	init_input(
-		sge::systems::detail::input const &
+		sge::systems::input const &
 	);
 
 	void
@@ -162,18 +158,6 @@ public:
 
 	sge::input::processor &
 	input_processor() const;
-
-	sge::input::focus::object &
-	focus_collector() const;
-
-	sge::input::cursor::object &
-	cursor_demuxer() const;
-
-	sge::input::keyboard::device &
-	keyboard_collector() const;
-
-	sge::input::mouse::device &
-	mouse_collector() const;
 
 	sge::image2d::system &
 	image_system() const;

@@ -19,10 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/base.hpp>
+#include <sge/camera/optional_projection_matrix.hpp>
 #include <sge/camera/coordinate_system/identity.hpp>
+#include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
+#include <sge/camera/tracking/is_looping.hpp>
 #include <sge/camera/tracking/object.hpp>
 #include <sge/camera/tracking/json/interval_exporter.hpp>
 #include <sge/camera/tracking/json/key_press_exporter.hpp>
@@ -32,8 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/graph/object.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/event_base.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -46,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
@@ -62,10 +65,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
-#include <sge/systems/mouse_collector.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
@@ -83,14 +84,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
+#include <awl/show_message.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/exit_success.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/args_from_second.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
@@ -98,9 +105,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/either/match.hpp>
-#include <fcppt/io/cerr.hpp>
-#include <fcppt/io/cout.hpp>
 #include <fcppt/math/matrix/output.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/optional/make.hpp>
@@ -137,9 +143,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <chrono>
 #include <example_main.hpp>
 #include <exception>
-#include <iostream>
-#include <ostream>
-#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -214,8 +217,10 @@ main_program(
 		).has_value()
 	)
 	{
-		fcppt::io::cerr() <<
-			FCPPT_TEXT("You specified to record a file and use the tracking camera, that doesn't make sense.\n");
+		awl::show_error(
+			FCPPT_TEXT("You specified to record a file and use the tracking camera, that doesn't make sense.\n")
+		);
+
 		return
 			awl::main::exit_failure();
 	}
@@ -231,12 +236,7 @@ main_program(
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
 			>,
-			sge::systems::with_input<
-				boost::mpl::vector2<
-					sge::systems::keyboard_collector,
-					sge::systems::mouse_collector
-				>
-			>,
+			sge::systems::with_input,
 			sge::systems::with_image2d
 		>
 	> const sys(
@@ -302,9 +302,7 @@ main_program(
 			>(
 				_options
 			),
-			[
-				&sys
-			]{
+			[]{
 				return
 					fcppt::unique_ptr_to_base<
 						sge::camera::base
@@ -313,11 +311,6 @@ main_program(
 							sge::camera::first_person::object
 						>(
 							sge::camera::first_person::parameters(
-								sys.keyboard_collector(),
-								sys.mouse_collector(),
-								sge::camera::is_active(
-									true
-								),
 								sge::camera::first_person::movement_speed(
 									4.0f
 								),
@@ -346,9 +339,6 @@ main_program(
 								).array()
 							),
 							sge::camera::tracking::is_looping(
-								true
-							),
-							sge::camera::is_active(
 								true
 							)
 						)
@@ -522,89 +512,148 @@ main_program(
 		sge::camera::coordinate_system::identity());
 	*/
 
-	while(
-		sys.window_system().poll())
-	{
-		sge::camera::update_duration const difference_since_last_frame(
-			std::chrono::duration_cast<
-				sge::camera::update_duration
+	auto const draw(
+		[
+			&camera,
+			&camera_timer,
+			&exporter,
+			&graph,
+			&scene_manager,
+			&simple_grid_xz,
+			&sys,
+			&test_scene
+		]{
+			sge::camera::update_duration const difference_since_last_frame(
+				std::chrono::duration_cast<
+					sge::camera::update_duration
+				>(
+					sge::timer::elapsed_and_reset(
+						camera_timer
+					)
+				)
+			);
+
+			dynamic_cast<
+				sge::camera::is_dynamic &
 			>(
-				sge::timer::elapsed_and_reset(
-					camera_timer
+				*camera
+			).update(
+				difference_since_last_frame
+			);
+
+			graph.push(
+				difference_since_last_frame.count()
+			);
+
+			fcppt::optional::maybe_void(
+				exporter,
+				[](
+					exporter_unique_ptr const &_exporter
 				)
-			)
-		);
+				{
+					_exporter->update();
+				}
+			);
 
-		dynamic_cast<
-			sge::camera::is_dynamic &
-		>(
-			*camera
-		).update(
-			difference_since_last_frame
-		);
-
-		graph.push(
-			difference_since_last_frame.count()
-		);
-
-		fcppt::optional::maybe_void(
-			exporter,
-			[](
-				exporter_unique_ptr const &_exporter
-			)
-			{
-				_exporter->update();
-			}
-		);
-
-		sge::renderer::context::scoped_ffp const scoped_block{
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target()
-		};
-
-		scoped_block.get().clear(
-			sge::renderer::clear::parameters()
-				.back_buffer(
-					sge::image::color::any::object{
-						sge::image::color::predef::black()
-					}
-				)
-				.depth_buffer(
-					1.0f
-				)
-		);
-
-		/*
-		skydome.render(
-			scoped_block.get());
-		*/
-
-		{
-			sge::scenic::render_context::base_unique_ptr const wrapped_context{
-				scene_manager.create_render_context(
-					scoped_block.get()
-				)
+			sge::renderer::context::scoped_ffp const scoped_block{
+				sys.renderer_device_ffp(),
+				sys.renderer_device_ffp().onscreen_target()
 			};
 
-			test_scene.render(
-				*wrapped_context
+			scoped_block.get().clear(
+				sge::renderer::clear::parameters()
+					.back_buffer(
+						sge::image::color::any::object{
+							sge::image::color::predef::black()
+						}
+					)
+					.depth_buffer(
+						1.0f
+					)
+			);
+
+			/*
+			skydome.render(
+				scoped_block.get());
+			*/
+
+			{
+				sge::scenic::render_context::base_unique_ptr const wrapped_context{
+					scene_manager.create_render_context(
+						scoped_block.get()
+					)
+				};
+
+				test_scene.render(
+					*wrapped_context
+				);
+			}
+
+			simple_grid_xz.render(
+				scoped_block.get(),
+				sge::scenic::grid::depth_test{
+					true
+				}
+			);
+
+			graph.render(
+				scoped_block.get()
 			);
 		}
-
-		simple_grid_xz.render(
-			scoped_block.get(),
-			sge::scenic::grid::depth_test{
-				true
-			}
-		);
-
-		graph.render(
-			scoped_block.get()
-		);
-	}
+	);
 
 	return
-		sys.window_system().exit_code();
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&camera,
+					&draw
+				](
+					awl::event::base const &_event
+				)
+				{
+					fcppt::optional::maybe_void(
+						fcppt::cast::dynamic<
+							sge::renderer::event::render const
+						>(
+							_event
+						),
+						[
+							&draw
+						](
+							fcppt::reference<
+								sge::renderer::event::render const
+							>
+						)
+						{
+							draw();
+						}
+					);
+
+					fcppt::optional::maybe_void(
+						fcppt::cast::dynamic<
+							sge::input::event_base const
+						>(
+							_event
+						),
+						[
+							&camera
+						](
+							fcppt::reference<
+								sge::input::event_base const
+							> const _input_event
+						)
+						{
+							camera->process_event(
+								_input_event.get()
+							);
+						}
+					);
+
+				}
+			}
+		);
 }
 
 }
@@ -740,11 +789,11 @@ try
 							fcppt::options::error const &_error
 						)
 						{
-							fcppt::io::cerr()
-								<<
-								_error
-								<<
-								FCPPT_TEXT('\n');
+							awl::show_error(
+								fcppt::insert_to_fcppt_string(
+									_error
+								)
+							);
 
 							return
 								awl::main::exit_failure();
@@ -768,11 +817,11 @@ try
 				fcppt::options::help_text const &_help_text
 			)
 			{
-				fcppt::io::cout()
-					<<
-					_help_text
-					<<
-					FCPPT_TEXT('\n');
+				awl::show_message(
+					fcppt::insert_to_fcppt_string(
+						_help_text
+					)
+				);
 
 				return
 					awl::main::exit_success();
@@ -783,9 +832,9 @@ catch(
 	fcppt::exception const &_error
 )
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_error.string()
+	);
 
 	return
 		awl::main::exit_failure();
@@ -794,9 +843,9 @@ catch(
 	std::exception const &_error
 )
 {
-	std::cerr
-		<< _error.what()
-		<< '\n';
+	awl::show_error_narrow(
+		_error.what()
+	);
 
 	return
 		awl::main::exit_failure();

@@ -27,10 +27,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/window_source.hpp>
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_window.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/title.hpp>
 #include <awl/show_error.hpp>
 #include <awl/show_error_narrow.hpp>
+#include <awl/event/base_fwd.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
@@ -52,9 +54,7 @@ try
 	sge::systems::instance<
 		boost::mpl::vector2<
 			sge::systems::with_window,
-			sge::systems::with_input<
-				boost::mpl::vector0<>
-			>
+			sge::systems::with_input
 		>
 	> const sys(
 		sge::systems::make_list
@@ -76,13 +76,17 @@ try
 		)
 	);
 
-	while(
-		sys.window_system().next()
-	)
-		;
-
 	return
-		sys.window_system().exit_code();
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[](
+					awl::event::base const &
+				)
+				{
+				}
+			}
+		);
 }
 catch(
 	fcppt::exception const &_exception

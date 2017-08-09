@@ -6,6 +6,7 @@ add_sge_example(
 		sgegui
 		sgeimagecolor
 		sgeimage2d
+		sgeinput
 		sgemedia_interface
 		sgerenderer
 		sgerucksack

@@ -21,13 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_INOTIFY_READER_HPP_INCLUDED
 #define SGE_EVDEV_INOTIFY_READER_HPP_INCLUDED
 
-#include <sge/evdev/inotify/callback.hpp>
+#include <sge/evdev/inotify/event_container.hpp>
 #include <sge/evdev/inotify/object.hpp>
 #include <sge/evdev/inotify/reader_fwd.hpp>
 #include <sge/evdev/inotify/watch.hpp>
-#include <awl/backends/posix/event_fwd.hpp>
-#include <awl/backends/posix/processor_fwd.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <awl/backends/posix/fd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -46,26 +44,22 @@ class reader
 		reader
 	);
 public:
+	explicit
 	reader(
-		boost::filesystem::path const &,
-		awl::backends::posix::processor &,
-		sge::evdev::inotify::callback const &
+		boost::filesystem::path const &
 	);
 
 	~reader();
-private:
-	void
-	on_read(
-		awl::backends::posix::event const &
-	);
 
+	sge::evdev::inotify::event_container
+	on_event();
+
+	awl::backends::posix::fd
+	fd() const;
+private:
 	sge::evdev::inotify::object const object_;
 
 	sge::evdev::inotify::watch const watch_;
-
-	fcppt::signal::auto_connection const fd_connection_;
-
-	sge::evdev::inotify::callback const callback_;
 };
 
 }

@@ -24,14 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/input_fwd.hpp>
 #include <sge/systems/with_input_fwd.hpp>
 #include <sge/systems/with_window_fwd.hpp>
-#include <sge/systems/detail/input_option.hpp>
-#include <fcppt/mpl/all_of.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/bool.hpp>
-#include <boost/mpl/is_sequence.hpp>
-#include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -40,38 +35,21 @@ namespace sge
 namespace systems
 {
 
-template<
-	typename InputOptions
->
 struct with_input
 {
-	static_assert(
-		boost::mpl::is_sequence<
-			InputOptions
-		>::value,
-		"InputOptions must be an mpl sequence"
-	);
+	typedef
+	boost::mpl::true_
+	needs_init;
 
-	static_assert(
-		fcppt::mpl::all_of<
-			InputOptions,
-			std::is_base_of<
-				sge::systems::detail::input_option,
-				boost::mpl::_1
-			>
-		>::value,
-		"The contents of InputOptions must be valid"
-	);
+	typedef
+	sge::systems::input
+	parameter_type;
 
-	typedef InputOptions options;
-
-	typedef boost::mpl::true_ needs_init;
-
-	typedef sge::systems::input parameter_type;
-
-	typedef boost::mpl::vector1<
+	typedef
+	boost::mpl::vector1<
 		sge::systems::with_window
-	> needs_before;
+	>
+	needs_before;
 };
 
 }

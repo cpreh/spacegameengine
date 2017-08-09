@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/device.hpp>
+#include <sge/opengl/event_handler.hpp>
 #include <sge/opengl/get_device_caps.hpp>
 #include <sge/opengl/init_multi_sampling.hpp>
 #include <sge/opengl/init_srgb.hpp>
@@ -65,6 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/display_mode/container.hpp>
+#include <sge/renderer/display_mode/draw_timer_setting_opt.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/index/buffer.hpp>
@@ -133,6 +135,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
+#include <sge/window/object.hpp>
+#include <sge/window/system.hpp>
+#include <awl/system/object.hpp>
+#include <awl/system/event/processor.hpp>
+#include <awl/timer/object.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/window/object.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -166,7 +173,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::device::device(
 	fcppt::log::object &_log,
 	sge::renderer::display_mode::parameters const &_display_mode,
-	awl::window::object &_window,
+	sge::window::object &_window,
 	sge::opengl::platform::system &_platform_system,
 	sge::opengl::backend::system &_backend_system
 )
@@ -204,9 +211,26 @@ sge::opengl::device::device(
 		sge::opengl::target::create_onscreen(
 			context_,
 			scoped_current_.get(),
-			_window
+			_window.awl_object()
 		)
-	)
+	),
+	timer_{
+		// TODO: Wrap this
+		_window.system().awl_system().processor().create_timer(
+			sge::renderer::display_mode::draw_timer_setting_opt(
+				_log,
+				device_state_->display_mode()
+			)
+		)
+	},
+	event_connection_{
+		_window.system().event_handler(
+			sge::opengl::event_handler(
+				_window.awl_object(),
+				*timer_
+			)
+		)
+	}
 {
 	scoped_current_.get().vsync(
 		_display_mode.vsync()
@@ -216,7 +240,7 @@ sge::opengl::device::device(
 		fcppt::cast::dynamic_cross<
 			sge::renderer::visual_base const
 		>(
-			_window.visual()
+			_window.awl_object().visual()
 		),
 		[
 			&_log,

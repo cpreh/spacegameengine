@@ -54,8 +54,7 @@ public:
 private:
 	sge::input::processor_unique_ptr
 	create_processor(
-		sge::window::object const &,
-		sge::window::system const &
+		sge::window::object &
 	)
 	override;
 

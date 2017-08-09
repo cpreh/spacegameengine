@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_IMPL_SET_PRESSED_IF_APPROPRIATE_HPP_INCLUDED
 
 #include <sge/input/key/optional_code_fwd.hpp>
-#include <sge/input/keyboard/key_event_fwd.hpp>
+#include <sge/input/keyboard/event/key_fwd.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ void
 set_pressed_if_appropriate(
 	bool &,
 	sge::input::key::optional_code const &,
-	sge::input::keyboard::key_event const &
+	sge::input::keyboard::event::key const &
 );
 
 }

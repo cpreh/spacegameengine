@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/configuration.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window/object.hpp>
+#include <awl/backends/x11/window/base.hpp>
 #include <fcppt/assert/post.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
@@ -29,15 +29,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::xrandr::configuration::configuration(
-	awl::backends::x11::window::object &_window
+	awl::backends::x11::window::base const &_window
 )
 :
-	config_(
+	config_{
 		::XRRGetScreenInfo(
 			_window.display().get(),
 			_window.get()
 		)
-	)
+	}
 {
 	FCPPT_ASSERT_POST(
 		config_

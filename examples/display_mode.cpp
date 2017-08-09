@@ -42,30 +42,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
-#include <sge/window/object.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/exit_success.hpp>
 #include <awl/main/function_context_fwd.hpp>
-#include <awl/window/event/processor.hpp>
-#include <awl/window/event/show_callback.hpp>
-#include <awl/window/event/show_fwd.hpp>
+#include <awl/window/event/show.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/cerr.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <iostream>
-#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -129,66 +129,84 @@ try
 	fcppt::io::cout()
 		<< FCPPT_TEXT('\n');
 
-	fcppt::signal::auto_connection const con(
-		sys.window().awl_window_event_processor().show_callback(
-			awl::window::event::show_callback{
+	auto const print_display_mode(
+		[
+			&sys
+		]()
+		{
+			fcppt::optional::maybe(
+				sys.renderer_device_core().display_mode(),
+				[]{
+					fcppt::io::cout()
+						<<
+						FCPPT_TEXT("No display mode set.\n");
+				},
+				[](
+					sge::renderer::display_mode::object const &_mode
+				){
+					fcppt::io::cout()
+						<<
+						FCPPT_TEXT("Current display mode:\n\t")
+						<<
+						_mode
+						<<
+						FCPPT_TEXT("\nDPI:\n\t")
+						<<
+						sge::renderer::display_mode::to_dpi(
+							sge::renderer::display_mode::optional_object(
+								_mode
+							)
+						)
+						<<
+						FCPPT_TEXT('\n');
+				}
+			);
+
+			sys.window_system().quit(
+				awl::main::exit_success()
+			);
+		}
+	);
+
+	return
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
 				[
-					&sys
+					&print_display_mode
 				](
-					awl::window::event::show const &
+					awl::event::base const &_event
 				)
 				{
-					fcppt::optional::maybe(
-						sys.renderer_device_core().display_mode(),
-						[]{
-							fcppt::io::cout()
-								<<
-								FCPPT_TEXT("No display mode set.\n");
-						},
-						[](
-							sge::renderer::display_mode::object const &_mode
-						){
-							fcppt::io::cout()
-								<<
-								FCPPT_TEXT("Current display mode:\n\t")
-								<<
-								_mode
-								<<
-								FCPPT_TEXT("\nDPI:\n\t")
-								<<
-								sge::renderer::display_mode::to_dpi(
-									sge::renderer::display_mode::optional_object(
-										_mode
-									)
-								)
-								<<
-								FCPPT_TEXT('\n');
+					fcppt::optional::maybe_void(
+						fcppt::cast::dynamic<
+							awl::window::event::show const
+						>(
+							_event
+						),
+						[
+							&print_display_mode
+						](
+							fcppt::reference<
+								awl::window::event::show const
+							>
+						)
+						{
+							print_display_mode();
 						}
-					);
-
-					sys.window_system().quit(
-						awl::main::exit_success()
 					);
 				}
 			}
-		)
-	);
+		);
 
-	while(
-		sys.window_system().next()
-	)
-	;
-
-	return
-		sys.window_system().exit_code();
 }
 catch(
 	fcppt::exception const &_error
 )
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_error.string()
+	);
 
 	return
 		awl::main::exit_failure();
@@ -197,9 +215,9 @@ catch(
 	std::exception const &_error
 )
 {
-	std::cerr
-		<< _error.what()
-		<< '\n';
+	awl::show_error_narrow(
+		_error.what()
+	);
 
 	return
 		awl::main::exit_failure();

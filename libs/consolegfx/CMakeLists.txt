@@ -5,6 +5,7 @@ set(
 	libs/consolegfx/include/sge/console/gfx/detail/pointed_history.hpp
 	libs/consolegfx/include/sge/console/gfx/font_color.hpp
 	libs/consolegfx/include/sge/console/gfx/font_color_fwd.hpp
+	libs/consolegfx/include/sge/console/gfx/input_active.hpp
 	libs/consolegfx/include/sge/console/gfx/object.hpp
 	libs/consolegfx/include/sge/console/gfx/object_fwd.hpp
 	libs/consolegfx/include/sge/console/gfx/output_line_limit.hpp

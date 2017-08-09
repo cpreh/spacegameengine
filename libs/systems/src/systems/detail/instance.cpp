@@ -26,10 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
-#include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/focus/object_fwd.hpp>
-#include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/mouse/device_fwd.hpp>
 #include <sge/log/apply_options.hpp>
 #include <sge/log/option_container.hpp>
 #include <sge/parse/error_string.hpp>
@@ -280,34 +276,6 @@ sge::systems::detail::instance::input_processor() const
 {
 	return
 		impl_->input_processor();
-}
-
-sge::input::focus::object &
-sge::systems::detail::instance::focus_collector() const
-{
-	return
-		impl_->focus_collector();
-}
-
-sge::input::cursor::object &
-sge::systems::detail::instance::cursor_demuxer() const
-{
-	return
-		impl_->cursor_demuxer();
-}
-
-sge::input::keyboard::device &
-sge::systems::detail::instance::keyboard_collector() const
-{
-	return
-		impl_->keyboard_collector();
-}
-
-sge::input::mouse::device &
-sge::systems::detail::instance::mouse_collector() const
-{
-	return
-		impl_->mouse_collector();
 }
 
 sge::image2d::system &

@@ -24,6 +24,8 @@ SET(
 	plugins/dinput/include/sge/dinput/di.hpp
 	plugins/dinput/include/sge/dinput/dinput_device_unique_ptr.hpp
 	plugins/dinput/include/sge/dinput/dinput_unique_ptr.hpp
+	plugins/dinput/include/sge/dinput/enum_devices.hpp
+	plugins/dinput/include/sge/dinput/enum_devices_function.hpp
 	plugins/dinput/include/sge/dinput/guid_to_string.hpp
 	plugins/dinput/include/sge/dinput/has_focus.hpp
 	plugins/dinput/include/sge/dinput/is_down.hpp
@@ -105,6 +107,7 @@ SET(
 	plugins/dinput/src/device/object.cpp
 	plugins/dinput/src/device/parameters.cpp
 	plugins/dinput/src/device/range.cpp
+	plugins/dinput/src/enum_devices.cpp
 	plugins/dinput/src/exports.cpp
 	plugins/dinput/src/guid_to_string.cpp
 	plugins/dinput/src/is_down.cpp

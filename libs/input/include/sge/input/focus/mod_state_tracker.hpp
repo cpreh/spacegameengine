@@ -22,14 +22,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_FOCUS_MOD_STATE_TRACKER_HPP_INCLUDED
 
 #include <sge/input/detail/symbol.hpp>
-#include <sge/input/focus/count.hpp>
 #include <sge/input/focus/mod_state_tracker_fwd.hpp>
-#include <sge/input/focus/object_fwd.hpp>
+#include <sge/input/focus/shared_ptr.hpp>
+#include <sge/input/focus/event/base_fwd.hpp>
 #include <sge/input/key/mod_state_fwd.hpp>
 #include <sge/input/key/modifier.hpp>
+#include <sge/input/key/pressed.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/shared_ptr_std_hash.hpp>
 #include <fcppt/enum/array_decl.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <unordered_map>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -46,34 +50,38 @@ class mod_state_tracker
 	);
 public:
 	SGE_INPUT_DETAIL_SYMBOL
-	explicit
-	mod_state_tracker(
-		sge::input::focus::object &
-	);
+	mod_state_tracker();
 
 	SGE_INPUT_DETAIL_SYMBOL
 	~mod_state_tracker();
 
 	SGE_INPUT_DETAIL_SYMBOL
+	void
+	event(
+		sge::input::focus::event::base const &
+	);
+
+	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::key::mod_state
-	mod_state() const;
+	mod_state(
+		sge::input::focus::shared_ptr const &
+	) const;
 private:
 	typedef
 	fcppt::enum_::array<
 		sge::input::key::modifier,
-		sge::input::focus::count
+		sge::input::key::pressed
 	>
-	count_array;
+	pressed_array;
 
-	static
-	count_array
-	null_array();
+	typedef
+	std::unordered_map<
+		sge::input::focus::shared_ptr,
+		pressed_array
+	>
+	map_type;
 
-	count_array counts_;
-
-	fcppt::signal::auto_connection const in_connection_;
-
-	fcppt::signal::auto_connection const key_connection_;
+	map_type map_;
 };
 
 }

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/prefix.hpp>
 #include <sge/console/callback/convenience.hpp>
 #include <sge/console/gfx/font_color.hpp>
+#include <sge/console/gfx/input_active.hpp>
 #include <sge/console/gfx/object.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
@@ -38,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
+#include <sge/input/focus/event/base.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -49,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
@@ -58,11 +61,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/systems/focus_collector.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
@@ -79,25 +80,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/exit_success.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/insert_to_string.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/cerr.hpp>
+#include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
-#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -113,12 +122,7 @@ try
 				sge::systems::renderer_caps::ffp
 			>,
 			sge::systems::with_window,
-			sge::systems::with_input<
-				boost::mpl::vector2<
-					sge::systems::focus_collector,
-					sge::systems::keyboard_collector
-				>
-			>,
+			sge::systems::with_input,
 			sge::systems::with_image2d,
 			sge::systems::with_font
 		>
@@ -217,11 +221,14 @@ try
 				)
 				{
 					fcppt::io::cout()
-						<< FCPPT_TEXT("fallback called with argument:")
-						<< sge::font::to_fcppt_string(
+						<<
+						FCPPT_TEXT("fallback called with argument:")
+						<<
+						sge::font::to_fcppt_string(
 							_arg
 						)
-						<< FCPPT_TEXT('\n');
+						<<
+						FCPPT_TEXT('\n');
 				}
 			}
 		)
@@ -230,7 +237,9 @@ try
 	fcppt::signal::auto_connection const c2(
 		object.insert(
 			sge::console::callback::convenience<
-				void(float)
+				void(
+					float
+				)
 			>(
 				[
 					&object
@@ -293,7 +302,6 @@ try
 			}
 		),
 		*font_object,
-		sys.focus_collector(),
 		sge::font::rect{
 			fcppt::math::vector::null<
 				sge::font::rect::vector
@@ -308,69 +316,133 @@ try
 		)
 	);
 
+	// TODO: muxing_fcppt_streambuf?
 	sge::console::muxing_narrow_streambuf stdout_streambuf(
 		std::cout,
 		object,
-		sge::console::muxing::enabled);
+		sge::console::muxing::enabled
+	);
 
 	std::cout << "Test for console muxer (cout).\n";
+
 	std::cout << "You should see this message in the console and in the terminal (if available)\n";
 
 	sge::console::muxing_narrow_streambuf stderr_streambuf(
 		std::cerr,
 		object,
-		sge::console::muxing::disabled);
-
-	std::cerr << "Test for console muxer (cerr).\n";
-	std::cerr << "You should see this message _only_ in the console and _not_ in the terminal (if available)\n";
-
-	gfx.active(
-		true
+		sge::console::muxing::disabled
 	);
 
-	while(
-		sys.window_system().poll()
-	)
-	{
-		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target()
-		);
+	std::cerr << "Test for console muxer (cerr).\n";
 
-		scoped_block.get().clear(
-			sge::renderer::clear::parameters()
-			.back_buffer(
-				sge::image::color::any::object{
-					sge::image::color::predef::black()
+	std::cerr << "You should see this message _only_ in the console and _not_ in the terminal (if available)\n";
+
+	auto const draw(
+		[
+			&gfx,
+			&sys
+		]{
+			sge::renderer::context::scoped_ffp const scoped_block(
+				sys.renderer_device_ffp(),
+				sys.renderer_device_ffp().onscreen_target()
+			);
+
+			scoped_block.get().clear(
+				sge::renderer::clear::parameters()
+				.back_buffer(
+					sge::image::color::any::object{
+						sge::image::color::predef::black()
+					}
+				)
+			);
+
+			gfx.render(
+				scoped_block.get(),
+				sge::console::gfx::input_active{
+					true
 				}
-			)
-		);
-
-		gfx.render(
-			scoped_block.get()
-		);
-	}
+			);
+		}
+	);
 
 	return
-		sys.window_system().exit_code();
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&draw,
+					&gfx
+				](
+					awl::event::base const &_event
+				)
+				{
+					fcppt::optional::maybe_void(
+						fcppt::variant::dynamic_cast_<
+							boost::mpl::vector2<
+								sge::renderer::event::render const,
+								sge::input::focus::event::base const
+							>,
+							fcppt::cast::dynamic_fun
+						>(
+							_event
+						),
+						[
+							&draw,
+							&gfx
+						](
+							auto const &_variant
+						)
+						{
+							fcppt::variant::match(
+								_variant,
+								[
+									&draw
+								](
+									fcppt::reference<
+										sge::renderer::event::render const
+									>
+								)
+								{
+									draw();
+								},
+								[
+									&gfx
+								](
+									fcppt::reference<
+										sge::input::focus::event::base const
+									> const _focus_event
+								)
+								{
+									gfx.focus_event(
+										_focus_event.get()
+									);
+								}
+							);
+						}
+					);
+				}
+			}
+		);
 }
 catch(
 	fcppt::exception const &_error
 )
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_error.string()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
 )
 {
-	std::cerr
-		<< _error.what()
-		<< '\n';
+	awl::show_error_narrow(
+		_error.what()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }

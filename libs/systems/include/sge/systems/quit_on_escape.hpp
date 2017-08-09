@@ -43,7 +43,6 @@ quit_on_escape(
 {
 	return
 		sge::systems::detail::quit_on_escape(
-			_instance.keyboard_collector(),
 			_instance.window_system()
 		);
 }

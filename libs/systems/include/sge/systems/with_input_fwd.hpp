@@ -27,9 +27,6 @@ namespace sge
 namespace systems
 {
 
-template<
-	typename InputOptions
->
 struct with_input;
 
 }

@@ -75,7 +75,7 @@ struct make_key_visitor
 	)
 
 	SGE_SYSTEMS_MAKE_KEY_CASE(
-		detail::input,
+		input,
 		input
 	)
 

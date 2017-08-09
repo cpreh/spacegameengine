@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
@@ -55,7 +56,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
@@ -71,10 +71,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/title.hpp>
 #include <awl/show_error.hpp>
 #include <awl/show_error_narrow.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
@@ -82,12 +84,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/either/match.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/map.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/options/argument.hpp>
 #include <fcppt/options/error.hpp>
 #include <fcppt/options/error_output.hpp>
@@ -98,7 +103,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/options/result_of.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
@@ -111,7 +115,7 @@ namespace
 {
 
 awl::main::exit_code
-example_main(
+main_program(
 	sge::font::string const &_text
 )
 {
@@ -121,11 +125,7 @@ example_main(
 				sge::systems::renderer_caps::ffp
 			>,
 			sge::systems::with_window,
-			sge::systems::with_input<
-				boost::mpl::vector1<
-					sge::systems::keyboard_collector
-				>
-			>,
+			sge::systems::with_input,
 			sge::systems::with_image2d
 		>
 	> const sys(
@@ -198,7 +198,7 @@ example_main(
 		)
 	);
 
-	sge::font::draw::static_text static_text_left(
+	sge::font::draw::static_text const static_text_left(
 		sys.renderer_device_ffp(),
 		*font_object,
 		_text,
@@ -221,7 +221,7 @@ example_main(
 		sge::renderer::texture::emulate_srgb::yes
 	);
 
-	sge::font::draw::static_text static_text_center(
+	sge::font::draw::static_text const static_text_center(
 		sys.renderer_device_ffp(),
 		*font_object,
 		_text,
@@ -244,7 +244,7 @@ example_main(
 		sge::renderer::texture::emulate_srgb::yes
 	);
 
-	sge::font::draw::static_text static_text_right(
+	sge::font::draw::static_text const static_text_right(
 		sys.renderer_device_ffp(),
 		*font_object,
 		_text,
@@ -267,40 +267,71 @@ example_main(
 		sge::renderer::texture::emulate_srgb::yes
 	);
 
-	while(
-		sys.window_system().poll()
-	)
-	{
-		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target()
-		);
+	auto const draw(
+		[
+			&static_text_center,
+			&static_text_left,
+			&static_text_right,
+			&sys
+		]{
+			sge::renderer::context::scoped_ffp const scoped_block(
+				sys.renderer_device_ffp(),
+				sys.renderer_device_ffp().onscreen_target()
+			);
 
-		scoped_block.get().clear(
-			sge::renderer::clear::parameters()
-			.back_buffer(
-				sge::image::color::any::object{
-					sge::image::color::predef::black()
-				}
-			)
-		);
+			scoped_block.get().clear(
+				sge::renderer::clear::parameters()
+				.back_buffer(
+					sge::image::color::any::object{
+						sge::image::color::predef::black()
+					}
+				)
+			);
 
-		static_text_left.draw(
-			scoped_block.get()
-		);
+			static_text_left.draw(
+				scoped_block.get()
+			);
 
-		static_text_center.draw(
-			scoped_block.get()
-		);
+			static_text_center.draw(
+				scoped_block.get()
+			);
 
-		static_text_right.draw(
-			scoped_block.get()
-		);
-	}
+			static_text_right.draw(
+				scoped_block.get()
+			);
+		}
+	);
 
 	return
-		sys.window_system().exit_code();
-
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&draw
+				](
+					awl::event::base const &_event
+				)
+				{
+					fcppt::optional::maybe_void(
+						fcppt::cast::dynamic<
+							sge::renderer::event::render const
+						>(
+							_event
+						),
+						[
+							&draw
+						](
+							fcppt::reference<
+								sge::renderer::event::render const
+							>
+						)
+						{
+							draw();
+						}
+					);
+				}
+			}
+		);
 }
 
 }
@@ -364,7 +395,7 @@ try
 			)
 			{
 				return
-					example_main(
+					main_program(
 						fcppt::optional::from(
 							fcppt::optional::map(
 								fcppt::record::get<

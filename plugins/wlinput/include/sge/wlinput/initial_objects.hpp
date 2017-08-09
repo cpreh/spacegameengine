@@ -22,17 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WLINPUT_INITIAL_OBJECTS_HPP_INCLUDED
 
 #include <sge/wlinput/create_function.hpp>
-#include <awl/backends/wayland/registry_id.hpp>
+#include <sge/wlinput/map.hpp>
 #include <awl/backends/wayland/system/seat/caps.hpp>
 #include <awl/backends/wayland/system/seat/object.hpp>
 #include <awl/backends/wayland/system/seat/set.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <awl/backends/wayland/system/seat/shared_ptr.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
-#include <fcppt/optional/object_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <unordered_map>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/optional/make_if.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -44,11 +44,8 @@ template<
 	typename Type,
 	awl::backends::wayland::system::seat::caps Caps
 >
-std::unordered_map<
-	awl::backends::wayland::registry_id,
-	fcppt::unique_ptr<
-		Type
-	>
+sge::wlinput::map<
+	Type
 >
 initial_objects(
 	sge::wlinput::create_function<
@@ -58,13 +55,13 @@ initial_objects(
 )
 {
 	typedef
-	std::unordered_map<
-		awl::backends::wayland::registry_id,
-		fcppt::unique_ptr<
-			Type
-		>
+	sge::wlinput::map<
+		Type
 	>
 	result_type;
+
+	FCPPT_PP_PUSH_WARNING
+	FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)
 
 	return
 		fcppt::algorithm::map_optional<
@@ -74,38 +71,36 @@ initial_objects(
 			[
 				&_create_function
 			](
-				awl::backends::wayland::system::seat::object const &_seat
+				awl::backends::wayland::system::seat::shared_ptr const &_seat
 			)
 			{
-				typedef
-				typename
-				result_type::value_type
-				value_type;
-
-				typedef
-				fcppt::optional::object<
-					value_type
-				>
-				optional_value_type;
-
 				return
-					_seat.caps()
-					&
-					Caps
-					?
-						optional_value_type{
-							value_type{
-								_seat.name(),
-								_create_function(
-									_seat.get()
-								)
-							}
+					fcppt::optional::make_if(
+						_seat->caps()
+						&
+						Caps,
+						[
+							&_create_function,
+							&_seat
+						]{
+							typedef
+							typename
+							result_type::value_type
+							value_type;
+
+							return
+								value_type{
+									_seat->name(),
+									_create_function(
+										_seat->get()
+									)
+								};
 						}
-					:
-						optional_value_type{}
-					;
+					);
 			}
 		);
+
+	FCPPT_PP_POP_WARNING
 }
 
 }

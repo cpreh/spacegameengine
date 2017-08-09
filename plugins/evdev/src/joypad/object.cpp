@@ -29,47 +29,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/button/make_event.hpp>
 #include <sge/evdev/joypad/relative_axis/make_event.hpp>
 #include <sge/evdev/joypad/ff/effect.hpp>
-#include <sge/input/joypad/absolute_axis_callback.hpp>
-#include <sge/input/joypad/absolute_axis_event.hpp>
-#include <sge/input/joypad/button_callback.hpp>
-#include <sge/input/joypad/button_event.hpp>
 #include <sge/input/joypad/device.hpp>
 #include <sge/input/joypad/info.hpp>
-#include <sge/input/joypad/relative_axis_callback.hpp>
-#include <sge/input/joypad/relative_axis_event.hpp>
 #include <sge/input/joypad/ff/effect.hpp>
 #include <sge/input/joypad/ff/effect_unique_ptr.hpp>
 #include <sge/input/joypad/ff/parameters_fwd.hpp>
-#include <awl/backends/posix/processor_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
+#include <fcppt/enable_shared_from_this_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
-#include <functional>
+#include <boost/filesystem/path.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::evdev::joypad::object::object(
-	awl::backends::posix::processor &_processor,
-	sge::evdev::device::fd_unique_ptr _fd,
+	sge::evdev::device::fd_unique_ptr &&_fd,
+	boost::filesystem::path const &_path,
+	sge::window::object &_window,
 	sge::evdev::joypad::info const &_info
 )
 :
-	sge::input::joypad::device(),
-	sge::evdev::device::object(
-		_processor,
+	sge::input::joypad::device{},
+	sge::evdev::device::object{
 		std::move(
 			_fd
-		)
-	),
-	info_(
+		),
+		_path
+	},
+	fcppt::enable_shared_from_this<
+		sge::evdev::joypad::object
+	>{},
+	window_{
+		_window
+	},
+	info_{
 		_info
-	),
-	absolute_axis_(),
-	button_(),
-	relative_axis_()
+	}
 {
 }
 
@@ -77,37 +77,11 @@ sge::evdev::joypad::object::~object()
 {
 }
 
-fcppt::signal::auto_connection
-sge::evdev::joypad::object::absolute_axis_callback(
-	sge::input::joypad::absolute_axis_callback const &_callback
-)
+sge::window::object &
+sge::evdev::joypad::object::window() const
 {
 	return
-		absolute_axis_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::evdev::joypad::object::button_callback(
-	sge::input::joypad::button_callback const &_callback
-)
-{
-	return
-		button_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::evdev::joypad::object::relative_axis_callback(
-	sge::input::joypad::relative_axis_callback const &_callback
-)
-{
-	return
-		relative_axis_.connect(
-			_callback
-		);
+		window_;
 }
 
 sge::input::joypad::info const &
@@ -117,7 +91,7 @@ sge::evdev::joypad::object::info() const
 		info_.input_info();
 }
 
-void
+awl::event::optional_base_unique_ptr
 sge::evdev::joypad::object::process_event(
 	sge::evdev::device::event const &_event
 )
@@ -127,36 +101,36 @@ sge::evdev::joypad::object::process_event(
 	)
 	{
 	case EV_ABS:
-		sge::evdev::device::conditional_event(
-			_event,
-			absolute_axis_,
-			info_.event_map().absolute_axis(),
-			info_.input_info().absolute_axes(),
-			&sge::evdev::joypad::absolute_axis::make_event
-		);
-
-		break;
+		return
+			sge::evdev::device::conditional_event(
+				this->fcppt_shared_from_this(),
+				_event,
+				info_.event_map().absolute_axis(),
+				info_.input_info().absolute_axes(),
+				&sge::evdev::joypad::absolute_axis::make_event
+			);
 	case EV_KEY:
-		sge::evdev::device::conditional_event(
-			_event,
-			button_,
-			info_.event_map().buttons(),
-			info_.input_info().buttons(),
-			&sge::evdev::joypad::button::make_event
-		);
-
-		break;
+		return
+			sge::evdev::device::conditional_event(
+				this->fcppt_shared_from_this(),
+				_event,
+				info_.event_map().buttons(),
+				info_.input_info().buttons(),
+				&sge::evdev::joypad::button::make_event
+			);
 	case EV_REL:
-		sge::evdev::device::conditional_event(
-			_event,
-			relative_axis_,
-			info_.event_map().relative_axis(),
-			info_.input_info().relative_axes(),
-			&sge::evdev::joypad::relative_axis::make_event
-		);
-
-		break;
+		return
+			sge::evdev::device::conditional_event(
+				this->fcppt_shared_from_this(),
+				_event,
+				info_.event_map().relative_axis(),
+				info_.input_info().relative_axes(),
+				&sge::evdev::joypad::relative_axis::make_event
+			);
 	}
+
+	return
+		awl::event::optional_base_unique_ptr{};
 }
 
 sge::input::joypad::ff::effect_unique_ptr

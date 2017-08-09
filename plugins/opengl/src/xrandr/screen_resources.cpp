@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/screen_resources.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window/object.hpp>
+#include <awl/backends/x11/window/base.hpp>
 #include <fcppt/assert/throw.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
@@ -29,13 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::xrandr::screen_resources::screen_resources(
-	awl::backends::x11::display &_display,
-	awl::backends::x11::window::object &_window
+	awl::backends::x11::window::base const &_window
 )
 :
 	resources_(
 		::XRRGetScreenResources(
-			_display.get(),
+			_window.display().get(),
 			_window.get()
 		)
 

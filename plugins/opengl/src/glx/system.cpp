@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glx/visual/create.hpp>
 #include <sge/opengl/glx/visual/get_srgb_flag.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
+#include <sge/window/object.hpp>
 #include <awl/backends/x11/system/object.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <awl/visual/object.hpp>
@@ -35,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/const.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/cast/dynamic_cross_exn.hpp>
+#include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/alternative.hpp>
 #include <fcppt/optional/from_pointer.hpp>
@@ -100,7 +101,7 @@ sge::opengl::glx::system::create_visual(
 
 sge::opengl::backend::context_unique_ptr
 sge::opengl::glx::system::create_context(
-	awl::window::object &_window
+	sge::window::object &_window
 )
 {
 	return
@@ -111,10 +112,10 @@ sge::opengl::glx::system::create_context(
 				sge::opengl::glx::context
 			>(
 				log_,
-				fcppt::cast::dynamic_cross_exn<
+				fcppt::cast::dynamic_exn<
 					awl::backends::x11::window::object &
 				>(
-					_window
+					_window.awl_object()
 				),
 				get_proc_address_
 			)

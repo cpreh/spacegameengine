@@ -20,29 +20,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/wrapped_window.hpp>
 #include <awl/system/object_fwd.hpp>
-#include <awl/system/event/processor_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
-#include <awl/window/event/processor_fwd.hpp>
 
 
 sge::systems::wrapped_window::wrapped_window(
 	awl::system::object &_awl_system,
-	awl::system::event::processor &_awl_system_event_processor,
-	awl::window::object &_awl_window,
-	awl::window::event::processor &_awl_window_event_processor
+	awl::window::object &_awl_window
 )
 :
 	awl_system_(
 		_awl_system
 	),
-	awl_system_event_processor_(
-		_awl_system_event_processor
-	),
 	awl_window_(
 		_awl_window
-	),
-	awl_window_event_processor_(
-		_awl_window_event_processor
 	)
 {
 }
@@ -54,23 +44,9 @@ sge::systems::wrapped_window::awl_system() const
 		awl_system_;
 }
 
-awl::system::event::processor &
-sge::systems::wrapped_window::awl_system_event_processor() const
-{
-	return
-		awl_system_event_processor_;
-}
-
 awl::window::object &
 sge::systems::wrapped_window::awl_window() const
 {
 	return
 		awl_window_;
-}
-
-awl::window::event::processor &
-sge::systems::wrapped_window::awl_window_event_processor() const
-{
-	return
-		awl_window_event_processor_;
 }

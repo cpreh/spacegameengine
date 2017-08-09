@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_OPTIONAL_OPCODE_FWD_HPP_INCLUDED
 #define SGE_X11INPUT_OPTIONAL_OPCODE_FWD_HPP_INCLUDED
 
-#include <awl/backends/x11/system/event/opcode.hpp>
+#include <sge/x11input/opcode.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
 
@@ -32,8 +32,9 @@ namespace x11input
 
 typedef
 fcppt::optional::object<
-	awl::backends::x11::system::event::opcode
-> optional_opcode;
+	sge::x11input::opcode
+>
+optional_opcode;
 
 }
 }

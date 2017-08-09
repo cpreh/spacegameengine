@@ -18,160 +18,239 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/focus/count.hpp>
-#include <sge/input/focus/in_callback.hpp>
-#include <sge/input/focus/in_event.hpp>
-#include <sge/input/focus/key_callback.hpp>
-#include <sge/input/focus/key_event.hpp>
 #include <sge/input/focus/mod_state_tracker.hpp>
-#include <sge/input/focus/object.hpp>
+#include <sge/input/focus/shared_ptr.hpp>
+#include <sge/input/focus/event/base.hpp>
+#include <sge/input/focus/event/discover.hpp>
+#include <sge/input/focus/event/in.hpp>
+#include <sge/input/focus/event/key.hpp>
+#include <sge/input/focus/event/out.hpp>
+#include <sge/input/focus/event/remove.hpp>
 #include <sge/input/key/mod_state.hpp>
 #include <sge/input/key/modifier.hpp>
+#include <sge/input/key/pressed.hpp>
 #include <sge/input/key/to_modifier.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/use.hpp>
 #include <fcppt/algorithm/fold.hpp>
-#include <fcppt/cast/to_void.hpp>
+#include <fcppt/cast/dynamic_fun.hpp>
+#include <fcppt/container/find_opt_mapped.hpp>
+#include <fcppt/container/get_or_insert.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/enum/array_impl.hpp>
 #include <fcppt/enum/array_init.hpp>
 #include <fcppt/enum/make_range.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/preprocessor/disable_vc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
+#include <fcppt/variant/match.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/vector/vector10.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
-
-sge::input::focus::mod_state_tracker::mod_state_tracker(
-	sge::input::focus::object &_focus
-)
+sge::input::focus::mod_state_tracker::mod_state_tracker()
 :
-	counts_(
-		sge::input::focus::mod_state_tracker::null_array()
-	),
-	in_connection_(
-		_focus.in_callback(
-			sge::input::focus::in_callback(
-				[
-					this
-				](
-					sge::input::focus::in_event const &
-				)
-				{
-					counts_ =
-						sge::input::focus::mod_state_tracker::null_array();
-				}
-			)
-		)
-	),
-	key_connection_(
-		_focus.key_callback(
-			sge::input::focus::key_callback(
-				[
-					this
-				](
-					sge::input::focus::key_event const &_event
-				)
-				{
-					fcppt::optional::maybe_void(
-						sge::input::key::to_modifier(
-							_event.key().code()
-						),
-						[
-							&_event,
-							this
-						](
-							sge::input::key::modifier const _mod
-						)
-						{
-							count &entry(
-								counts_[
-									_mod
-								]
-							);
-
-							if(
-								_event.pressed()
-							)
-								++entry;
-							else if(
-								entry
-								!=
-								sge::input::focus::count{
-									0u
-								}
-							)
-								--entry;
-						}
-					);
-				}
-			)
-		)
-	)
+	map_()
 {
 }
-
-FCPPT_PP_POP_WARNING
 
 sge::input::focus::mod_state_tracker::~mod_state_tracker()
 {
 }
 
-sge::input::key::mod_state
-sge::input::focus::mod_state_tracker::mod_state() const
+void
+sge::input::focus::mod_state_tracker::event(
+	sge::input::focus::event::base const &_event
+)
 {
-	return
-		fcppt::algorithm::fold(
-			fcppt::enum_::make_range<
-				sge::input::key::modifier
-			>(),
-			sge::input::key::mod_state::null(),
-			[
-				this
-			](
-				sge::input::key::modifier const _mod,
-				sge::input::key::mod_state const _state
-			)
-			{
-				return
-					counts_[
-						_mod
-					]
-					!=
-					sge::input::focus::count{
-						0u
-					}
-					?
-						_state
-						|
-						_mod
-					:
-						_state
-					;
-			}
-		);
+	fcppt::optional::maybe_void(
+		fcppt::variant::dynamic_cast_<
+			boost::mpl::vector5<
+				sge::input::focus::event::discover const,
+				sge::input::focus::event::in const,
+				sge::input::focus::event::out const,
+				sge::input::focus::event::key const,
+				sge::input::focus::event::remove const
+			>,
+			fcppt::cast::dynamic_fun
+		>(
+			_event
+		),
+		[
+			this
+		](
+			auto const &_variant
+		)
+		{
+			sge::input::focus::shared_ptr const focus{
+				fcppt::variant::apply_unary(
+					[](
+						auto const _ref
+					)
+					{
+						return
+							_ref.get().focus();
+					},
+					_variant
+				)
+			};
+
+			auto const false_array(
+				[]{
+					return
+						fcppt::enum_::array_init<
+							pressed_array
+						>(
+							[](
+								auto const _index
+							)
+							{
+								FCPPT_USE(
+									_index
+								);
+
+								return
+									sge::input::key::pressed{
+										false
+									};
+							}
+						);
+				}
+			);
+
+			auto const reset_pressed(
+				[
+					this,
+					focus,
+					false_array
+				](
+					auto const &
+				){
+					this->map_.insert(
+						std::make_pair(
+							focus,
+							false_array()
+						)
+					);
+				}
+			);
+
+			fcppt::variant::match(
+				_variant,
+				reset_pressed,
+				reset_pressed,
+				reset_pressed,
+				[
+					false_array,
+					focus,
+					this
+				](
+					fcppt::reference<
+						sge::input::focus::event::key const
+					> const _key_event
+				)
+				{
+					fcppt::optional::maybe_void(
+						sge::input::key::to_modifier(
+							_key_event.get().get().code()
+						),
+						[
+							false_array,
+							focus,
+							_key_event,
+							this
+						](
+							sge::input::key::modifier const _mod
+						)
+						{
+								fcppt::container::get_or_insert(
+									this->map_,
+									focus,
+									[
+										false_array
+									](
+										sge::input::focus::shared_ptr
+									){
+										return
+											false_array();
+									}
+								)[
+									_mod
+								] =
+									sge::input::key::pressed{
+										_key_event.get().pressed()
+									};
+						}
+					);
+				},
+				[
+					this,
+					focus
+				](
+					fcppt::reference<
+						sge::input::focus::event::remove const
+					>
+				)
+				{
+					this->map_.erase(
+						focus
+					);
+				}
+			);
+		}
+	);
 }
 
-sge::input::focus::mod_state_tracker::count_array
-sge::input::focus::mod_state_tracker::null_array()
+sge::input::key::mod_state
+sge::input::focus::mod_state_tracker::mod_state(
+	sge::input::focus::shared_ptr const &_ref
+) const
 {
 	return
-		fcppt::enum_::array_init<
-			count_array
-		>(
+		fcppt::optional::maybe(
+			fcppt::container::find_opt_mapped(
+				this->map_,
+				_ref
+			),
+			[]{
+				return
+					sge::input::key::mod_state::null();
+			},
 			[](
-				auto const _index
+				fcppt::reference<
+					pressed_array const
+				> const _pressed
 			)
 			{
-				fcppt::cast::to_void(
-					_index
-				);
-
 				return
-					sge::input::focus::count{
-						0u
-					};
+					fcppt::algorithm::fold(
+						fcppt::enum_::make_range<
+							sge::input::key::modifier
+						>(),
+						sge::input::key::mod_state::null(),
+						[
+							&_pressed
+						](
+							sge::input::key::modifier const _mod,
+							sge::input::key::mod_state const _state
+						)
+						{
+							return
+								_pressed.get()[
+									_mod
+								].get()
+								?
+									_state
+									|
+									_mod
+								:
+									_state
+								;
+						}
+					);
 			}
 		);
 }

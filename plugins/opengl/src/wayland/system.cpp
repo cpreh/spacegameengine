@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/wayland/device_state.hpp>
 #include <sge/opengl/wayland/system.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <awl/backends/wayland/system/object_fwd.hpp>
-#include <awl/window/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
@@ -45,7 +45,7 @@ sge::opengl::wayland::system::~system()
 sge::opengl::platform::device_state_unique_ptr
 sge::opengl::wayland::system::create_device_state(
 	sge::renderer::display_mode::optional_object const &_display_mode,
-	awl::window::object &_window
+	sge::window::object &_window
 )
 {
 	return

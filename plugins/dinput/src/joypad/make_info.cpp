@@ -31,13 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/button_info_container.hpp>
 #include <sge/input/joypad/info.hpp>
 #include <sge/input/joypad/relative_axis_info_container.hpp>
-#include <fcppt/string.hpp>
 
 
 sge::dinput::joypad::info
 sge::dinput::joypad::make_info(
 	IDirectInputDevice8 &_device,
-	fcppt::string const &_name,
+	sge::input::info::name const &_name,
 	GUID const &_guid
 )
 {
@@ -68,9 +67,7 @@ sge::dinput::joypad::make_info(
 				sge::dinput::joypad::ff::enum_effects(
 					_device
 				),
-				sge::input::info::name(
-					_name
-				),
+				_name,
 				sge::input::info::unique_id(
 					sge::dinput::guid_to_string(
 						_guid

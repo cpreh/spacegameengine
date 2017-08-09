@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/impl/window/base.hpp>
 #include <sge/systems/impl/window/wrapped.hpp>
 #include <sge/window/object.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/system_fwd.hpp>
 
 
 sge::systems::impl::window::wrapped::wrapped(
@@ -31,11 +31,10 @@ sge::systems::impl::window::wrapped::wrapped(
 )
 :
 	sge::systems::impl::window::base(),
-	window_(
-		_system.create(
-			_parameters.awl_window()
-		)
-	)
+	window_{
+		_system,
+		_parameters.awl_window()
+	}
 {
 }
 
@@ -47,5 +46,5 @@ sge::window::object &
 sge::systems::impl::window::wrapped::get() const
 {
 	return
-		*window_;
+		window_;
 }

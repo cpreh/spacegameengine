@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/egl/display_unique_ptr.hpp>
 #include <sge/opengl/egl/init.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -67,7 +67,7 @@ private:
 
 	sge::opengl::backend::context_unique_ptr
 	create_context(
-		awl::window::object &
+		sge::window::object &
 	)
 	override;
 

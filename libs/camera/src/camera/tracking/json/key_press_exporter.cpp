@@ -23,25 +23,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/impl/log_name.hpp>
 #include <sge/camera/tracking/json/key_press_exporter.hpp>
 #include <sge/camera/tracking/json/keyframes_to_json.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/event_base.hpp>
+#include <sge/input/keyboard/event/key.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/parse/json/array_or_object.hpp>
 #include <sge/parse/json/start.hpp>
 #include <sge/parse/json/output/to_file.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/info.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -52,7 +51,6 @@ sge::camera::tracking::json::key_press_exporter::key_press_exporter(
 	sge::camera::base const &_camera,
 	boost::filesystem::path const &_target_path,
 	sge::camera::update_duration const &_duration,
-	sge::input::keyboard::device &_keyboard,
 	keyframe_keypress const &_keyframe_keypress,
 	export_keypress const &_export_keypress
 )
@@ -64,28 +62,22 @@ sge::camera::tracking::json::key_press_exporter::key_press_exporter(
 			sge::camera::impl::log_name()
 		)
 	},
-	camera_(
-		_camera),
-	target_path_(
-		_target_path),
-	duration_(
-		_duration),
-	keyframe_keypress_(
-		_keyframe_keypress),
-	export_keypress_(
-		_export_keypress),
-	key_press_connection_(
-		_keyboard.key_callback(
-			sge::input::keyboard::key_callback{
-				std::bind(
-					&key_press_exporter::key_callback,
-					this,
-					std::placeholders::_1
-				)
-			}
-		)
-	),
-	keyframes_()
+	camera_{
+		_camera
+	},
+	target_path_{
+		_target_path
+	},
+	duration_{
+		_duration
+	},
+	keyframe_keypress_{
+		_keyframe_keypress
+	},
+	export_keypress_{
+		_export_keypress
+	},
+	keyframes_{}
 {
 }
 
@@ -96,36 +88,80 @@ sge::camera::tracking::json::key_press_exporter::~key_press_exporter()
 }
 
 void
-sge::camera::tracking::json::key_press_exporter::key_callback(
-	sge::input::keyboard::key_event const &_key_event)
+sge::camera::tracking::json::key_press_exporter::process_event(
+	sge::input::event_base const &_event
+)
 {
-	if(!_key_event.pressed())
+	fcppt::optional::maybe_void(
+		fcppt::cast::dynamic<
+			sge::input::keyboard::event::key const
+		>(
+			_event
+		),
+		[
+			this
+		](
+			fcppt::reference<
+				sge::input::keyboard::event::key const
+			> const _key_event
+		)
+		{
+			this->key_event(
+				_key_event.get()
+			);
+		}
+	);
+}
+
+void
+sge::camera::tracking::json::key_press_exporter::key_event(
+	sge::input::keyboard::event::key const &_key_event
+)
+{
+	if(
+		!_key_event.pressed()
+	)
 		return;
 
-	if(_key_event.key().code() == keyframe_keypress_.get())
+	if(
+		_key_event.get().code()
+		==
+		keyframe_keypress_.get()
+	)
 	{
 		FCPPT_LOG_INFO(
 			log_,
 			fcppt::log::_
-				<< FCPPT_TEXT("Storing keyframe..."));
+				<< FCPPT_TEXT("Storing keyframe...")
+		);
 
 		keyframes_.push_back(
 			sge::camera::tracking::keyframe(
 				duration_,
-				camera_.coordinate_system()));
+				camera_.coordinate_system()
+			)
+		);
+
 		FCPPT_LOG_INFO(
 			log_,
 			fcppt::log::_
-				<< FCPPT_TEXT("Done!"));
+				<< FCPPT_TEXT("Done!")
+		);
 	}
-	else if(_key_event.key().code() == export_keypress_.get())
+	else if(
+		_key_event.get().code()
+		==
+		export_keypress_.get()
+	)
 	{
 		FCPPT_LOG_INFO(
 			log_,
 			fcppt::log::_
 				<< FCPPT_TEXT("Storing keyframe file ")
 				<< target_path_
-				<< FCPPT_TEXT("..."));
+				<< FCPPT_TEXT("...")
+		);
+
 		if(
 			!sge::parse::json::output::to_file(
 				target_path_,
@@ -152,6 +188,7 @@ sge::camera::tracking::json::key_press_exporter::key_callback(
 		FCPPT_LOG_INFO(
 			log_,
 			fcppt::log::_
-				<< FCPPT_TEXT("Done!"));
+				<< FCPPT_TEXT("Done!")
+		);
 	}
 }

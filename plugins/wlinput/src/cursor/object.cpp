@@ -18,15 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/cursor/button_callback.hpp>
-#include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/mode.hpp>
-#include <sge/input/cursor/move_callback.hpp>
-#include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
-#include <sge/input/cursor/scroll_callback.hpp>
-#include <sge/input/cursor/scroll_event.hpp>
+#include <sge/input/cursor/shared_ptr.hpp>
+#include <sge/input/cursor/event/button.hpp>
+#include <sge/input/cursor/event/move.hpp>
+#include <sge/input/cursor/event/scroll.hpp>
 #include <sge/wlinput/cursor/button_code.hpp>
 #include <sge/wlinput/cursor/button_state.hpp>
 #include <sge/wlinput/cursor/data.hpp>
@@ -34,12 +32,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wlinput/cursor/position.hpp>
 #include <sge/wlinput/cursor/scroll_code.hpp>
 #include <sge/wlinput/cursor/scroll_value.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <awl/backends/wayland/seat_fwd.hpp>
 #include <awl/backends/wayland/window/object.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/container_reference.hpp>
+#include <fcppt/enable_shared_from_this_impl.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <stdint.h>
 #include <wayland-client-protocol.h>
@@ -82,10 +84,17 @@ pointer_enter(
 				)
 			};
 
-		data.move_signal_(
-			sge::input::cursor::move_event{
-				data.position_
-			}
+		data.events_.get().push_back(
+			fcppt::unique_ptr_to_base<
+				awl::event::base
+			>(
+				fcppt::make_unique_ptr<
+					sge::input::cursor::event::move
+				>(
+					data.cursor_.get_shared_ptr(),
+					data.position_
+				)
+			)
 		);
 	}
 }
@@ -115,10 +124,17 @@ pointer_leave(
 		data.position_ =
 			sge::input::cursor::optional_position{};
 
-		data.move_signal_(
-			sge::input::cursor::move_event{
-				data.position_
-			}
+		data.events_.get().push_back(
+			fcppt::unique_ptr_to_base<
+				awl::event::base
+			>(
+				fcppt::make_unique_ptr<
+					sge::input::cursor::event::move
+				>(
+					data.cursor_.get_shared_ptr(),
+					data.position_
+				)
+			)
 		);
 	}
 }
@@ -152,10 +168,17 @@ pointer_motion(
 				)
 			};
 
-		data.move_signal_(
-			sge::input::cursor::move_event{
-				data.position_
-			}
+		data.events_.get().push_back(
+			fcppt::unique_ptr_to_base<
+				awl::event::base
+			>(
+				fcppt::make_unique_ptr<
+					sge::input::cursor::event::move
+				>(
+					data.cursor_.get_shared_ptr(),
+					data.position_
+				)
+			)
 		);
 	}
 }
@@ -188,16 +211,23 @@ pointer_button(
 			sge::input::cursor::position const _position
 		)
 		{
-			data.button_signal_(
-				sge::input::cursor::button_event{
-					sge::wlinput::cursor::button_code(
-						_button
-					),
-					_position,
-					sge::wlinput::cursor::button_state(
-						_state
+			data.events_.get().push_back(
+				fcppt::unique_ptr_to_base<
+					awl::event::base
+				>(
+					fcppt::make_unique_ptr<
+						sge::input::cursor::event::button
+					>(
+						data.cursor_.get_shared_ptr(),
+						sge::wlinput::cursor::button_code(
+							_button
+						),
+						_position,
+						sge::wlinput::cursor::button_state(
+							_state
+						)
 					)
-				}
+				)
 			);
 		}
 	);
@@ -260,15 +290,22 @@ pointer_axis_discrete(
 	if(
 		data.position_.has_value()
 	)
-		data.scroll_signal_(
-			sge::input::cursor::scroll_event{
-				sge::wlinput::cursor::scroll_code(
-					_axis
-				),
-				sge::wlinput::cursor::scroll_value(
-					_discrete
+		data.events_.get().push_back(
+			fcppt::unique_ptr_to_base<
+				awl::event::base
+			>(
+				fcppt::make_unique_ptr<
+					sge::input::cursor::event::scroll
+				>(
+					data.cursor_.get_shared_ptr(),
+					sge::wlinput::cursor::scroll_code(
+						_axis
+					),
+					sge::wlinput::cursor::scroll_value(
+						_discrete
+					)
 				)
-			}
+			)
 		);
 }
 
@@ -287,16 +324,26 @@ wl_pointer_listener const pointer_listener{
 }
 
 sge::wlinput::cursor::object::object(
+	sge::window::object &_sge_window,
 	awl::backends::wayland::window::object const &_window,
+	awl::event::container_reference const _events,
 	awl::backends::wayland::seat const &_seat
 )
 :
-	sge::input::cursor::object(),
+	sge::input::cursor::object{},
+	fcppt::enable_shared_from_this<
+		sge::wlinput::cursor::object
+	>{},
+	window_{
+		_sge_window
+	},
 	impl_{
 		_seat
 	},
 	data_{
-		_window
+		*this,
+		_window,
+		_events
 	}
 {
 	::wl_pointer_add_listener(
@@ -306,41 +353,15 @@ sge::wlinput::cursor::object::object(
 	);
 }
 
+sge::window::object &
+sge::wlinput::cursor::object::window() const
+{
+	return
+		window_;
+}
+
 sge::wlinput::cursor::object::~object()
 {
-}
-
-fcppt::signal::auto_connection
-sge::wlinput::cursor::object::button_callback(
-	sge::input::cursor::button_callback const &_callback
-)
-{
-	return
-		data_.button_signal_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::wlinput::cursor::object::move_callback(
-	sge::input::cursor::move_callback const &_callback
-)
-{
-	return
-		data_.move_signal_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::wlinput::cursor::object::scroll_callback(
-	sge::input::cursor::scroll_callback const &_callback
-)
-{
-	return
-		data_.scroll_signal_.connect(
-			_callback
-		);
 }
 
 sge::input::cursor::optional_position
@@ -356,4 +377,11 @@ sge::wlinput::cursor::object::mode(
 )
 {
 	// TODO: We need a different API here because this is not implementable in wayland
+}
+
+sge::input::cursor::shared_ptr
+sge::wlinput::cursor::object::get_shared_ptr()
+{
+	return
+		this->fcppt_shared_from_this();
 }

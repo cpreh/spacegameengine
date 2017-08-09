@@ -18,22 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/focus/char_callback.hpp>
-#include <sge/input/focus/char_event.hpp>
-#include <sge/input/focus/in_callback.hpp>
-#include <sge/input/focus/in_event.hpp>
+#include <sge/input/focus/char_type.hpp>
 #include <sge/input/focus/key.hpp>
-#include <sge/input/focus/key_callback.hpp>
-#include <sge/input/focus/key_event.hpp>
-#include <sge/input/focus/key_repeat_callback.hpp>
-#include <sge/input/focus/key_repeat_event.hpp>
-#include <sge/input/focus/out_callback.hpp>
-#include <sge/input/focus/out_event.hpp>
+#include <sge/input/focus/event/char.hpp>
+#include <sge/input/focus/event/in.hpp>
+#include <sge/input/focus/event/key.hpp>
+#include <sge/input/focus/event/key_repeat.hpp>
+#include <sge/input/focus/event/out.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/pressed.hpp>
-#include <sge/x11input/device/parameters.hpp>
-#include <sge/x11input/device/window_demuxer.hpp>
-#include <sge/x11input/device/window_event.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <sge/x11input/device/id.hpp>
+#include <sge/x11input/event/device_function.hpp>
+#include <sge/x11input/event/select.hpp>
+#include <sge/x11input/event/type_c.hpp>
+#include <sge/x11input/event/window_demuxer.hpp>
 #include <sge/x11input/focus/looked_up_string.hpp>
 #include <sge/x11input/focus/lookup_string.hpp>
 #include <sge/x11input/focus/object.hpp>
@@ -44,13 +43,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/xim/context.hpp>
 #include <sge/x11input/xim/get_filter_events.hpp>
 #include <sge/x11input/xim/method.hpp>
-#include <awl/backends/x11/system/event/type.hpp>
+#include <awl/backends/x11/Xlib.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <awl/backends/x11/window/event/processor_fwd.hpp>
-#include <awl/backends/x11/window/event/scoped_mask.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/base_unique_ptr.hpp>
+#include <awl/event/connection.hpp>
+#include <awl/event/container.hpp>
+#include <fcppt/enable_shared_from_this_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/algorithm/join.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/map.hpp>
@@ -58,43 +63,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/auto_connection_container.hpp>
-#include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/Xlib.h>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
+#include <boost/mpl/vector/vector10.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::x11input::focus::object::object(
+	sge::window::object &_sge_window,
 	fcppt::log::object &_log,
-	awl::backends::x11::window::event::processor &_window_processor,
-	sge::x11input::device::parameters const &_parameters,
+	awl::backends::x11::window::object &_window,
+	sge::x11input::device::id const _id,
+	sge::x11input::event::window_demuxer &_window_demuxer,
 	sge::x11input::xim::const_optional_method_ref const &_xim_method
 )
 :
-	sge::input::focus::object(),
-	sge::x11input::device::object(
-		_parameters.id()
-	),
+	sge::input::focus::object{},
+	fcppt::enable_shared_from_this<
+		sge::x11input::focus::object
+	>{},
+	sge_window_{
+		_sge_window
+	},
 	log_{
 		_log
 	},
-	key_signal_(),
-	key_repeat_signal_(),
-	char_signal_(),
-	in_signal_(),
-	out_signal_(),
-	window_(
-		_parameters.window()
-	),
+	window_{
+		_window
+	},
 	xim_context_{
 		fcppt::optional::map(
 			_xim_method,
 			[
-				&_parameters
+				&_window
 			](
 				fcppt::reference<
 					sge::x11input::xim::method const
@@ -106,268 +109,284 @@ sge::x11input::focus::object::object(
 						sge::x11input::xim::context
 					>(
 						_method.get().get(),
-						_parameters.window()
+						_window
 					);
 			}
 		)
 	},
-	scoped_event_mask_(
+	mask_connection_{
 		fcppt::optional::map(
 			xim_context_,
 			[
-				&_window_processor
+				&_window
 			](
 				xim_context_unique_ptr const &_context
 			)
 			{
 				return
-					fcppt::make_unique_ptr<
-						awl::backends::x11::window::event::scoped_mask
-					>(
-						_window_processor,
+					_window.add_event_mask(
 						sge::x11input::xim::get_filter_events(
 							*_context
 						)
 					);
 			}
 		)
-	),
-	connections_(
-		fcppt::assign::make_container<
-			fcppt::signal::auto_connection_container
-		>(
-			_parameters.window_demuxer().register_callback(
-				awl::backends::x11::system::event::type(
-					XI_KeyPress
-				),
-				_parameters.id(),
-				sge::x11input::device::window_demuxer::callback{
-					std::bind(
-						&sge::x11input::focus::object::on_key_press,
-						this,
-						std::placeholders::_1
-					)
-				}
-			),
-			_parameters.window_demuxer().register_callback(
-				awl::backends::x11::system::event::type(
-					XI_KeyRelease
-				),
-				_parameters.id(),
-				sge::x11input::device::window_demuxer::callback{
-					std::bind(
-						&sge::x11input::focus::object::on_key_release,
-						this,
-						std::placeholders::_1
-					)
-				}
-			),
-			_parameters.window_demuxer().register_callback(
-				awl::backends::x11::system::event::type(
-					XI_FocusIn
-				),
-				_parameters.id(),
-				sge::x11input::device::window_demuxer::callback{
-					[
-						this
-					](
-						sge::x11input::device::window_event const &
-					)
-					{
-						fcppt::optional::maybe_void(
-							xim_context_,
-							[](
-								xim_context_unique_ptr const &_context
-							)
-							{
-								::XSetICFocus(
-									_context->get()
-								);
-							}
-						);
-
-						in_signal_(
-							sge::input::focus::in_event{}
-						);
-					}
-				}
-			),
-			_parameters.window_demuxer().register_callback(
-				awl::backends::x11::system::event::type(
-					XI_FocusOut
-				),
-				_parameters.id(),
-				sge::x11input::device::window_demuxer::callback{
-					[
-						this
-					](
-						sge::x11input::device::window_event const &
-					)
-					{
-						out_signal_(
-							sge::input::focus::out_event{}
-						);
-
-						fcppt::optional::maybe_void(
-							xim_context_,
-							[](
-								xim_context_unique_ptr const &_context
-							)
-							{
-								::XUnsetICFocus(
-									_context->get()
-								);
-							}
-						);
-					}
-				}
-			)
+	},
+	event_connection_{
+		_window_demuxer.on_event(
+			_id,
+			sge::x11input::event::device_function{
+				std::bind(
+					&sge::x11input::focus::object::on_event,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
-	)
+	}
 {
+	sge::x11input::event::select<
+		boost::mpl::vector4<
+			sge::x11input::event::type_c<
+				XI_KeyPress
+			>,
+			sge::x11input::event::type_c<
+				XI_KeyRelease
+			>,
+			sge::x11input::event::type_c<
+				XI_FocusIn
+			>,
+			sge::x11input::event::type_c<
+				XI_FocusOut
+			>
+		>
+	>(
+		_window_demuxer,
+		_id
+	);
 }
 
 sge::x11input::focus::object::~object()
 {
 }
 
-fcppt::signal::auto_connection
-sge::x11input::focus::object::key_callback(
-	sge::input::focus::key_callback const &_callback
-)
+sge::window::object &
+sge::x11input::focus::object::window() const
 {
 	return
-		key_signal_.connect(
-			_callback
-		);
+		sge_window_;
 }
 
-fcppt::signal::auto_connection
-sge::x11input::focus::object::key_repeat_callback(
-	sge::input::focus::key_repeat_callback const &_callback
+awl::event::container
+sge::x11input::focus::object::on_event(
+	XIDeviceEvent const &_event
 )
 {
+	switch(
+		_event.evtype
+	)
+	{
+	case XI_KeyPress:
+		return
+			this->on_key_press(
+				_event
+			);
+	case XI_KeyRelease:
+		return
+			fcppt::assign::make_container<
+				awl::event::container
+			>(
+				this->on_key_release(
+					_event
+				)
+			);
+	case XI_FocusIn:
+		return
+			fcppt::assign::make_container<
+				awl::event::container
+			>(
+				this->on_focus_in()
+			);
+	case XI_FocusOut:
+		return
+			fcppt::assign::make_container<
+				awl::event::container
+			>(
+				this->on_focus_out()
+			);
+	}
+
 	return
-		key_repeat_signal_.connect(
-			_callback
-		);
+		awl::event::container{};
 }
 
-fcppt::signal::auto_connection
-sge::x11input::focus::object::char_callback(
-	sge::input::focus::char_callback const &_callback
-)
-{
-	return
-		char_signal_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::x11input::focus::object::in_callback(
-	sge::input::focus::in_callback const &_callback
-)
-{
-	return
-		in_signal_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::x11input::focus::object::out_callback(
-	sge::input::focus::out_callback const &_callback
-)
-{
-	return
-		out_signal_.connect(
-			_callback
-		);
-}
-
-void
+awl::event::container
 sge::x11input::focus::object::on_key_press(
-	sge::x11input::device::window_event const &_event
+	XIDeviceEvent const &_event
 )
 {
 	sge::x11input::key::repeated const repeated{
 		sge::x11input::key::is_repeated(
-			_event.get()
+			_event
 		)
 	};
 
-	fcppt::optional::maybe(
-		xim_context_,
-		[
-			this,
-			repeated,
-			&_event
-		]{
-			this->process_key_down(
+	return
+		fcppt::optional::maybe(
+			xim_context_,
+			[
+				this,
 				repeated,
-				sge::x11input::key::event_to_sge_code(
-					window_.display(),
-					_event.get()
-				)
-			);
-		},
-		[
-			this,
-			repeated,
-			&_event
-		](
+				&_event
+			]{
+				return
+					fcppt::assign::make_container<
+						awl::event::container
+					>(
+						this->process_key_down(
+							repeated,
+							sge::x11input::key::event_to_sge_code(
+								window_.display(),
+								_event
+							)
+						)
+					);
+			},
+			[
+				this,
+				repeated,
+				&_event
+			](
+				xim_context_unique_ptr const &_context
+			)
+			{
+				sge::x11input::focus::looked_up_string const lookup(
+					sge::x11input::focus::lookup_string(
+						log_,
+						*_context,
+						_event
+					)
+				);
+
+				return
+					fcppt::algorithm::join(
+						fcppt::assign::make_container<
+							awl::event::container
+						>(
+							this->process_key_down(
+								repeated,
+								lookup.key_code()
+							)
+						),
+						fcppt::algorithm::map<
+							awl::event::container
+						>(
+							lookup.char_codes(),
+							[
+								this
+							](
+								sge::input::focus::char_type const _element
+							)
+							{
+								return
+									fcppt::unique_ptr_to_base<
+										awl::event::base
+									>(
+										fcppt::make_unique_ptr<
+											sge::input::focus::event::char_
+										>(
+											this->fcppt_shared_from_this(),
+											_element
+										)
+									);
+							}
+						)
+					);
+			}
+		);
+}
+
+awl::event::base_unique_ptr
+sge::x11input::focus::object::on_key_release(
+	XIDeviceEvent const &_event
+)
+{
+	return
+		fcppt::unique_ptr_to_base<
+			awl::event::base
+		>(
+			fcppt::make_unique_ptr<
+				sge::input::focus::event::key
+			>(
+				this->fcppt_shared_from_this(),
+				sge::input::focus::key{
+					sge::x11input::key::event_to_sge_code(
+						window_.display(),
+						_event
+					)
+				},
+				sge::input::key::pressed{
+					false
+				}
+			)
+		);
+}
+
+awl::event::base_unique_ptr
+sge::x11input::focus::object::on_focus_in()
+{
+	fcppt::optional::maybe_void(
+		xim_context_,
+		[](
 			xim_context_unique_ptr const &_context
 		)
 		{
-			sge::x11input::focus::looked_up_string const lookup(
-				sge::x11input::focus::lookup_string(
-					log_,
-					*_context,
-					_event.get()
-				)
+			::XSetICFocus(
+				_context->get()
 			);
-
-			this->process_key_down(
-				repeated,
-				lookup.key_code()
-			);
-
-			for(
-				auto const &element
-				:
-				lookup.char_codes()
-			)
-				char_signal_(
-					sge::input::focus::char_event(
-						element
-					)
-				);
 		}
 	);
+
+	return
+		fcppt::unique_ptr_to_base<
+			awl::event::base
+		>(
+			fcppt::make_unique_ptr<
+				sge::input::focus::event::in
+			>(
+				this->fcppt_shared_from_this()
+			)
+		);
 }
 
-void
-sge::x11input::focus::object::on_key_release(
-	sge::x11input::device::window_event const &_event
-)
+awl::event::base_unique_ptr
+sge::x11input::focus::object::on_focus_out()
 {
-	key_signal_(
-		sge::input::focus::key_event(
-			sge::input::focus::key{
-				sge::x11input::key::event_to_sge_code(
-					window_.display(),
-					_event.get()
-				)
-			},
-			sge::input::key::pressed{
-				false
-			}
+	fcppt::optional::maybe_void(
+		xim_context_,
+		[](
+			xim_context_unique_ptr const &_context
 		)
+		{
+			::XUnsetICFocus(
+				_context->get()
+			);
+		}
 	);
+
+	return
+		fcppt::unique_ptr_to_base<
+			awl::event::base
+		>(
+			fcppt::make_unique_ptr<
+				sge::input::focus::event::out
+			>(
+				this->fcppt_shared_from_this()
+			)
+		);
 }
 
-void
+awl::event::base_unique_ptr
 sge::x11input::focus::object::process_key_down(
 	sge::x11input::key::repeated const _repeated,
 	sge::input::key::code const _key_code
@@ -377,21 +396,32 @@ sge::x11input::focus::object::process_key_down(
 		_key_code
 	);
 
-	if(
+	return
 		_repeated.get()
-	)
-		key_repeat_signal_(
-			sge::input::focus::key_repeat_event(
-				key
+		?
+			fcppt::unique_ptr_to_base<
+				awl::event::base
+			>(
+				fcppt::make_unique_ptr<
+					sge::input::focus::event::key_repeat
+				>(
+					this->fcppt_shared_from_this(),
+					key
+				)
 			)
-		);
-	else
-		key_signal_(
-			sge::input::focus::key_event(
-				key,
-				sge::input::key::pressed{
-					true
-				}
+		:
+			fcppt::unique_ptr_to_base<
+				awl::event::base
+			>(
+				fcppt::make_unique_ptr<
+					sge::input::focus::event::key
+				>(
+					this->fcppt_shared_from_this(),
+					key,
+					sge::input::key::pressed{
+						true
+					}
+				)
 			)
-		);
+		;
 }

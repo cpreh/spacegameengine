@@ -24,10 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/device/event_fwd.hpp>
 #include <sge/evdev/device/fd_fwd.hpp>
 #include <sge/evdev/device/fd_unique_ptr.hpp>
-#include <awl/backends/posix/event_fwd.hpp>
-#include <awl/backends/posix/processor_fwd.hpp>
+#include <awl/backends/posix/fd.hpp>
+#include <awl/event/container.hpp>
+#include <awl/event/optional_base_unique_ptr_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -44,30 +47,34 @@ class object
 	);
 public:
 	object(
-		awl::backends::posix::processor &,
-		sge::evdev::device::fd_unique_ptr
+		sge::evdev::device::fd_unique_ptr &&,
+		boost::filesystem::path const &
 	);
 
 	virtual
 	~object() = 0;
 
-	void
-	on_event(
-		awl::backends::posix::event const &
-	);
+	awl::event::container
+	on_event();
+
+	awl::backends::posix::fd
+	posix_fd() const;
+
+	boost::filesystem::path const &
+	path() const;
 protected:
 	sge::evdev::device::fd const &
 	fd() const;
 private:
 	virtual
-	void
+	awl::event::optional_base_unique_ptr
 	process_event(
 		sge::evdev::device::event const &
 	) = 0;
 
 	sge::evdev::device::fd_unique_ptr const fd_;
 
-	fcppt::signal::auto_connection const auto_connection_;
+	boost::filesystem::path const path_;
 };
 
 }

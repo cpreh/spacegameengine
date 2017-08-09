@@ -26,13 +26,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace line_drawer
 {
+
 typedef
-std::vector<line>
+std::vector<
+	sge::line_drawer::line
+>
 line_sequence;
+
 }
 }
 

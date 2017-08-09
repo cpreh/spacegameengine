@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/device/parameters_fwd.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -44,7 +44,7 @@ public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	parameters(
 		sge::renderer::display_mode::parameters const &,
-		awl::window::object &
+		sge::window::object &
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
@@ -52,12 +52,12 @@ public:
 	display_mode() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	awl::window::object &
+	sge::window::object &
 	window() const;
 private:
 	sge::renderer::display_mode::parameters const display_mode_;
 
-	awl::window::object &window_;
+	sge::window::object &window_;
 };
 
 }

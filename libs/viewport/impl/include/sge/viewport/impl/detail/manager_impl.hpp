@@ -28,10 +28,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/viewport/detail/manager_impl_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <awl/window/event/resize_fwd.hpp>
+#include <awl/event/container.hpp>
+#include <awl/window/event/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/object.hpp>
+#include <fcppt/signal/object_decl.hpp>
 
 
 namespace sge
@@ -68,16 +69,16 @@ public:
 	sge::renderer::target::viewport
 	viewport() const;
 private:
-	void
+	awl::event::container
 	on_resize(
-		awl::window::event::resize const &
+		awl::window::event::base const &
 	);
 
 	sge::renderer::target::base &target_;
 
 	sge::viewport::optional_resize_callback resize_callback_;
 
-	fcppt::signal::auto_connection const resize_connection_;
+	fcppt::signal::auto_connection const event_connection_;
 
 	typedef
 	fcppt::signal::object<

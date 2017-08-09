@@ -27,12 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/keyboard/device_fwd.hpp>
 #include <sge/dinput/keyboard/info.hpp>
 #include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_signal.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <awl/event/optional_base_unique_ptr_fwd.hpp>
+#include <fcppt/enable_shared_from_this_decl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/signal/auto_connection_fwd.hpp>
-#include <fcppt/signal/object_decl.hpp>
 
 
 
@@ -45,8 +43,14 @@ namespace keyboard
 
 class device
 :
-	public sge::input::keyboard::device,
-	public sge::dinput::device::object
+	public
+		sge::input::keyboard::device,
+	public
+		sge::dinput::device::object,
+	public
+		fcppt::enable_shared_from_this<
+			sge::dinput::keyboard::device
+		>
 {
 	FCPPT_NONCOPYABLE(
 		device
@@ -60,19 +64,15 @@ public:
 	~device()
 	override;
 private:
-	fcppt::signal::auto_connection
-	key_callback(
-		sge::input::keyboard::key_callback const &
-	)
+	sge::window::object &
+	window() const
 	override;
 
-	void
+	awl::event::optional_base_unique_ptr
 	on_dispatch(
 		DIDEVICEOBJECTDATA const &
 	)
 	override;
-
-	sge::input::keyboard::key_signal key_signal_;
 
 	sge::dinput::keyboard::info const info_;
 };

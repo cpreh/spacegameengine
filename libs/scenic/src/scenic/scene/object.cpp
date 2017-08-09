@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/base.hpp>
 #include <sge/camera/has_mutable_projection.hpp>
+#include <sge/camera/projection_matrix.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
@@ -45,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/scaling.hpp>
 #include <fcppt/math/matrix/translation.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -76,7 +78,9 @@ sge::scenic::scene::object::object(
 		prototype_->camera().fov()),
 	mesh_name_to_instance_(),
 	materials_(),
-	state_changes_()
+	state_changes_{
+		0u
+	}
 {
 	this->load_entities();
 
@@ -101,35 +105,47 @@ sge::scenic::scene::object::render(
 	)
 		return;
 
-	state_changes_ =
-		0u;
+	fcppt::optional::maybe_void(
+		camera_.projection_matrix(),
+		[
+			&_context,
+			this
+		](
+			sge::camera::projection_matrix const &_projection
+		)
+		{
+			state_changes_ =
+				0u;
 
-	_context.transform(
-		sge::scenic::render_context::transform_matrix_type::projection,
-		camera_.projection_matrix().get());
+			_context.transform(
+				sge::scenic::render_context::transform_matrix_type::projection,
+				_projection.get()
+			);
 
-	this->activate_lights(
-		_context);
+			this->activate_lights(
+				_context);
 
-	_context.fog(
-		prototype_->fog());
+			_context.fog(
+				prototype_->fog());
 
-	sge::scenic::render_queue::object current_render_queue(
-		scene_manager_.texture_manager());
+			sge::scenic::render_queue::object current_render_queue(
+				scene_manager_.texture_manager());
 
-	for(
-		// TODO: range-based loop
-		sge::scenic::scene::entity_sequence::const_iterator it =
-			prototype_->entities().begin();
-		it != prototype_->entities().end();
-		++it)
-		this->render_entity(
-			*it,
-			current_render_queue);
+			for(
+				// TODO: range-based loop
+				sge::scenic::scene::entity_sequence::const_iterator it =
+					prototype_->entities().begin();
+				it != prototype_->entities().end();
+				++it)
+				this->render_entity(
+					*it,
+					current_render_queue);
 
-	/*sge::scenic::render_queue::state_change_count const state_changes(
-	 */
-	current_render_queue.render(_context)/*)*/;
+			/*sge::scenic::render_queue::state_change_count const state_changes(
+			 */
+			current_render_queue.render(_context)/*)*/;
+		}
+	);
 }
 
 sge::scenic::scene::object::~object()

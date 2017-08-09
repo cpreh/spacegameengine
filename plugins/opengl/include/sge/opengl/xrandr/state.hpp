@@ -22,15 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_XRANDR_STATE_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/configuration.hpp>
-#include <sge/opengl/xrandr/extension_fwd.hpp>
+#include <sge/opengl/xrandr/extension.hpp>
 #include <sge/opengl/xrandr/resolution_unique_ptr.hpp>
 #include <sge/opengl/xrandr/state_fwd.hpp>
 #include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
-#include <awl/backends/x11/window/event/object_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <awl/backends/x11/window/base_fwd.hpp>
+#include <awl/event/container.hpp>
+#include <awl/window/event/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
@@ -50,7 +51,7 @@ class state
 public:
 	state(
 		sge::opengl::xrandr::extension const &,
-		awl::backends::x11::window::object &
+		sge::window::object &
 	);
 
 	~state();
@@ -66,17 +67,17 @@ public:
 	sge::renderer::display_mode::container
 	display_modes() const;
 private:
-	void
-	event_callback(
-		awl::backends::x11::window::event::object const &
+	awl::event::container
+	on_event(
+		awl::window::event::base const &
 	);
 
 	void
 	update();
 
-	awl::backends::x11::display &display_;
+	sge::opengl::xrandr::extension const extension_;
 
-	awl::backends::x11::window::object &window_;
+	awl::backends::x11::window::base &window_;
 
 	sge::opengl::xrandr::configuration const config_;
 
@@ -84,9 +85,7 @@ private:
 
 	sge::renderer::display_mode::container display_modes_;
 
-	fcppt::signal::auto_connection const change_connection_;
-
-	fcppt::signal::auto_connection const configure_connection_;
+	fcppt::signal::auto_connection const event_connection_;
 };
 
 }

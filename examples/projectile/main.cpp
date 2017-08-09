@@ -21,9 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/input/key/code.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/event/key.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
 #include <sge/projectile/debug_drawer.hpp>
@@ -72,6 +70,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
@@ -90,7 +89,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
@@ -109,8 +107,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
@@ -120,8 +122,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/cerr.hpp>
+#include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/box/center.hpp>
 #include <fcppt/math/vector/input.hpp>
@@ -131,6 +134,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <chrono>
@@ -148,48 +153,80 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-template<typename Container,typename Ch,typename Traits>
+
+template<
+	typename Container,
+	typename Ch,
+	typename Traits
+>
 Container
 container_from_stream(
-	std::basic_istream<Ch,Traits> &s)
+	std::basic_istream<
+		Ch,
+		Traits
+	> &s
+)
 {
 	Ch c;
+
 	s >> c;
-	if(c != s.widen('('))
+
+	if(
+		c != s.widen('(')
+	)
 	{
 		s.setstate(
-			std::ios_base::failbit);
-		return Container();
+			std::ios_base::failbit
+		);
+
+		return
+			Container();
 	}
 
 	s >> c;
+
 	Container result;
-	while(c != s.widen(')'))
+
+	while(
+		c != s.widen(')')
+	)
 	{
 		s.putback(
-			c);
-		if(!s)
-			return Container();
-		typename Container::value_type new_value{
-			fcppt::no_init()};
+			c
+		);
+
+		typename
+		Container::value_type new_value{
+			fcppt::no_init()
+		};
 
 		s >> new_value;
-		if(!s)
-			return Container();
+
+		if(
+			!s
+		)
+			return
+				Container();
+
 		result.insert(
 			result.end(),
-			new_value);
+			new_value
+		);
+
 		s >> c;
+
 		s >> c;
 	}
 
-	return result;
+	return
+		result;
 }
 
 class body
 {
-FCPPT_NONCOPYABLE(
-	body);
+	FCPPT_NONCOPYABLE(
+		body
+	);
 public:
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
@@ -197,31 +234,44 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		sge::projectile::log const &_log,
 		sge::projectile::world &_world,
 		sge::projectile::group::object &_group,
-		sge::projectile::shape::shared_base_ptr const shape,
-		sge::projectile::body::solidity::variant const &solidity,
-		sge::projectile::rect const &r)
+		sge::projectile::shape::shared_base_ptr const _shape,
+		sge::projectile::body::solidity::variant const &_solidity,
+		sge::projectile::rect const _rect
+	)
 	:
-		body_(
-			sge::projectile::body::parameters(
+		body_{
+			sge::projectile::body::parameters{
 				_log,
 				sge::projectile::body::position(
 					fcppt::math::box::center(
-						r)),
+						_rect
+					)
+				),
 				sge::projectile::body::linear_velocity(
 					fcppt::math::vector::null<
 						sge::projectile::vector2
 					>()
 				),
 				sge::projectile::body::angular_velocity(
-					static_cast<sge::projectile::scalar>(
-						0)),
-				shape,
+					fcppt::literal<
+						sge::projectile::scalar
+					>(
+						0
+					)
+				),
+				_shape,
 				sge::projectile::body::rotation(
-					static_cast<sge::projectile::scalar>(
-						0)),
-				solidity,
-				sge::projectile::body::user_data())),
-		body_scope_(
+					fcppt::literal<
+						sge::projectile::scalar
+					>(
+						0
+					)
+				),
+				_solidity,
+				sge::projectile::body::user_data()
+			}
+		},
+		body_scope_{
 			_world,
 			body_,
 			sge::projectile::group::sequence{
@@ -229,7 +279,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 					_group
 				)
 			}
-		)
+		}
 	{
 	}
 FCPPT_PP_POP_WARNING
@@ -241,10 +291,12 @@ FCPPT_PP_POP_WARNING
 	sge::projectile::body::object &
 	get()
 	{
-		return body_;
+		return
+			body_;
 	}
 private:
 	sge::projectile::body::object body_;
+
 	sge::projectile::body::scoped body_scope_;
 };
 
@@ -258,11 +310,12 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 	body_keyboard_mover(
 		sge::projectile::world &_world,
-		sge::projectile::body::object &_body,
-		sge::input::keyboard::device &_keyboard)
+		sge::projectile::body::object &_body
+	)
 	:
 		body_(
-			_body),
+			_body
+		),
 		body_collision_connection_(
 			_world.body_collision(
 				sge::projectile::body::collision{
@@ -271,17 +324,6 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 						this,
 						std::placeholders::_1,
 						std::placeholders::_2
-					)
-				}
-			)
-		),
-		key_callback_connection_(
-			_keyboard.key_callback(
-				sge::input::keyboard::key_callback{
-					std::bind(
-						&body_keyboard_mover::key_callback,
-						this,
-						std::placeholders::_1
 					)
 				}
 			)
@@ -298,69 +340,123 @@ FCPPT_PP_POP_WARNING
 	~body_keyboard_mover()
 	{
 	}
+
+	void
+	key_event(
+		sge::input::keyboard::event::key const &_event
+	)
+	{
+		velocity_ =
+			body_.linear_velocity()
+			+
+			fcppt::literal<
+				sge::projectile::scalar
+			>(
+				30
+			)
+			*
+			this->key_event_to_vector(
+				_event
+			);
+
+		body_.linear_velocity(
+			velocity_
+		);
+	}
 private:
 	sge::projectile::body::object &body_;
+
 	fcppt::signal::auto_connection const body_collision_connection_;
-	fcppt::signal::auto_connection const key_callback_connection_;
+
 	sge::projectile::vector2 velocity_;
 
 	void
 	body_collision(
-		sge::projectile::body::object const &a,
-		sge::projectile::body::object const &b)
+		sge::projectile::body::object const &_body1,
+		sge::projectile::body::object const &_body2
+	)
 	{
-		if (&a == &body_ || &b == &body_)
+		if(
+			&_body1 == &body_
+			||
+			&_body2 == &body_
+		)
 		{
 			body_.linear_velocity(
-				velocity_);
+				velocity_
+			);
+
 			body_.angular_velocity(
-				static_cast<sge::projectile::scalar>(
-					0));
+				fcppt::literal<
+					sge::projectile::scalar
+				>(
+					0
+				)
+			);
 		}
 	}
 
-	void
-	key_callback(
-		sge::input::keyboard::key_event const &e)
+	static
+	sge::projectile::vector2
+	key_code_to_vector(
+		sge::input::key::code const _key_code
+	)
 	{
-		velocity_ =
-			body_.linear_velocity() +
-				static_cast<sge::projectile::scalar>(30) *
-				key_event_to_vector(
-					e);
-		body_.linear_velocity(
-			velocity_);
+		switch(
+			_key_code
+		)
+		{
+		case sge::input::key::code::left:
+			return
+				sge::projectile::vector2{
+					-1.f,
+					0.f
+				};
+		case sge::input::key::code::right:
+			return
+				sge::projectile::vector2{
+					1.f,
+					0.f
+				};
+		case sge::input::key::code::up:
+			return
+				sge::projectile::vector2{
+					0.f,
+					-1.f
+				};
+		case sge::input::key::code::down:
+			return
+				sge::projectile::vector2{
+					0.f,
+					1.f
+				};
+		default:
+			return
+				fcppt::math::vector::null<
+					sge::projectile::vector2
+				>();
+		}
 	}
 
+	static
 	sge::projectile::vector2
 	key_event_to_vector(
-		sge::input::keyboard::key_event const &e)
+		sge::input::keyboard::event::key const &_event
+	)
 	{
-		sge::projectile::vector2 result(
-			fcppt::math::vector::null<
-				sge::projectile::vector2
-			>()
-		);
+		sge::projectile::vector2 const result{
+			key_code_to_vector(
+				_event.get().code()
+			)
+		};
 
-		switch (e.key().code())
-		{
-			case sge::input::key::code::left:
-				result = sge::projectile::vector2(-1.f,0.f);
-				break;
-			case sge::input::key::code::right:
-				result = sge::projectile::vector2(1.f,0.f);
-				break;
-			case sge::input::key::code::up:
-				result = sge::projectile::vector2(0.f,-1.f);
-				break;
-			case sge::input::key::code::down:
-				result = sge::projectile::vector2(0.f,1.f);
-				break;
-			default:
-				break;
-		}
-
-		return e.pressed() ? result : (-result);
+		return
+			_event.pressed()
+			?
+				result
+			:
+				-result
+			;
 	}
 
 };
@@ -368,10 +464,18 @@ private:
 void
 body_collision(
 	sge::projectile::body::object const &,
-	sge::projectile::body::object const &)
+	sge::projectile::body::object const &
+)
 {
-	static unsigned ticker = 1u;
-	std::cout << ticker++ << ": body collision!\n";
+	static unsigned ticker{
+		1u
+	};
+
+	std::cout
+		<<
+		ticker++
+		<<
+		": body collision!\n";
 }
 
 class body_following_ghost
@@ -387,18 +491,23 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 		sge::projectile::world &_world,
 		sge::projectile::body::object &_body,
 		sge::projectile::ghost::size const &_size,
-		sge::projectile::group::sequence const &_groups)
+		sge::projectile::group::sequence const &_groups
+	)
 	:
 		ghost_(
 			sge::projectile::ghost::parameters(
 				_log,
 				sge::projectile::ghost::position(
-					_body.position()),
-				_size)),
+					_body.position()
+				),
+				_size
+			)
+		),
 		ghost_scope_(
 			_world,
 			ghost_,
-			_groups),
+			_groups
+		),
 		body_position_change_connection_(
 			_body.position_change(
 				sge::projectile::body::position_change{
@@ -441,7 +550,9 @@ FCPPT_PP_POP_WARNING
 	}
 private:
 	sge::projectile::ghost::object ghost_;
+
 	sge::projectile::ghost::scoped ghost_scope_;
+
 	fcppt::signal::auto_connection const
 		body_position_change_connection_,
 		body_enter_connection_,
@@ -449,26 +560,33 @@ private:
 
 	void
 	body_position_change(
-		sge::projectile::body::position const &p)
+		sge::projectile::body::position const &_pos
+	)
 	{
 		ghost_.position(
-			p.get());
+			_pos.get()
+		);
 	}
 
 	void
 	body_enter(
-		sge::projectile::body::object const &)
+		sge::projectile::body::object const &
+	)
 	{
-		std::cout << "Body enter!\n";
+		std::cout
+			<< "Body enter!\n";
 	}
 
 	void
 	body_exit(
-		sge::projectile::body::object const &)
+		sge::projectile::body::object const &
+	)
 	{
-		std::cout << "Body exit!\n";
+		std::cout
+			<< "Body exit!\n";
 	}
 };
+
 }
 
 awl::main::exit_code const
@@ -483,11 +601,7 @@ try
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
 			>,
-			sge::systems::with_input<
-				boost::mpl::vector1<
-					sge::systems::keyboard_collector
-				>
-			>
+			sge::systems::with_input
 		>
 	> const sys(
 		sge::systems::make_list
@@ -656,7 +770,7 @@ try
 		)
 	);
 
-	body_following_ghost first_ghost(
+	body_following_ghost first_ghost{
 		log,
 		world,
 		first_body.get(),
@@ -671,16 +785,18 @@ try
 				first_group
 			)
 		}
-	);
+	};
 
-	body_keyboard_mover keyboard_mover(
+	body_keyboard_mover keyboard_mover{
 		world,
-		first_body.get(),
-		sys.keyboard_collector());
+		first_body.get()
+	};
 
-	fcppt::signal::auto_connection const escape_connection(
+	fcppt::signal::auto_connection const escape_connection{
 		sge::systems::quit_on_escape(
-			sys));
+			sys
+		)
+	};
 
 	sge::timer::basic<
 		sge::timer::clocks::standard
@@ -694,98 +810,162 @@ try
 		)
 	);
 
-	while(
-		sys.window_system().poll())
-	{
-		world.update_continuous(
-			sge::projectile::time_increment(
-				std::chrono::duration_cast<
-					sge::projectile::duration
-				>(
-					sge::timer::elapsed(
-						frame_timer
-					)
-				)
-			)
-		);
-
-		frame_timer.reset();
-
-		debug_drawer.update();
-
-		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target()
-		);
-
-		fcppt::optional::maybe_void(
-			sge::renderer::projection::orthogonal_viewport(
-				scoped_block.get().target().viewport(),
-				sge::renderer::projection::near(
-					0.f
-				),
-				sge::renderer::projection::far(
-					10.f
-				)
-			),
-			[
-				&scoped_block,
-				&debug_drawer,
-				&sys
-			](
-				sge::renderer::matrix4 const &_projection
-			)
-			{
-				scoped_block.get().clear(
-					sge::renderer::clear::parameters()
-					.back_buffer(
-						sge::image::color::any::object{
-							sge::image::color::predef::black()
-						}
-					)
-				);
-
-				sge::renderer::state::ffp::transform::object_unique_ptr const transform_state(
-					sys.renderer_device_ffp().create_transform_state(
-						sge::renderer::state::ffp::transform::parameters(
-							_projection
+	auto const draw(
+		[
+			&debug_drawer,
+			&frame_timer,
+			&sys,
+			&world
+		]{
+			world.update_continuous(
+				sge::projectile::time_increment(
+					std::chrono::duration_cast<
+						sge::projectile::duration
+					>(
+						sge::timer::elapsed(
+							frame_timer
 						)
 					)
-				);
+				)
+			);
 
-				sge::renderer::state::ffp::transform::scoped const scoped_transform(
-					scoped_block.get(),
-					sge::renderer::state::ffp::transform::mode::projection,
-					*transform_state
-				);
+			frame_timer.reset();
 
-				debug_drawer.render(
-					scoped_block.get()
-				);
-			}
-		);
-	}
+			debug_drawer.update();
+
+			sge::renderer::context::scoped_ffp const scoped_block(
+				sys.renderer_device_ffp(),
+				sys.renderer_device_ffp().onscreen_target()
+			);
+
+			fcppt::optional::maybe_void(
+				sge::renderer::projection::orthogonal_viewport(
+					scoped_block.get().target().viewport(),
+					sge::renderer::projection::near(
+						0.f
+					),
+					sge::renderer::projection::far(
+						10.f
+					)
+				),
+				[
+					&scoped_block,
+					&debug_drawer,
+					&sys
+				](
+					sge::renderer::matrix4 const &_projection
+				)
+				{
+					scoped_block.get().clear(
+						sge::renderer::clear::parameters()
+						.back_buffer(
+							sge::image::color::any::object{
+								sge::image::color::predef::black()
+							}
+						)
+					);
+
+					sge::renderer::state::ffp::transform::object_unique_ptr const transform_state(
+						sys.renderer_device_ffp().create_transform_state(
+							sge::renderer::state::ffp::transform::parameters(
+								_projection
+							)
+						)
+					);
+
+					sge::renderer::state::ffp::transform::scoped const scoped_transform(
+						scoped_block.get(),
+						sge::renderer::state::ffp::transform::mode::projection,
+						*transform_state
+					);
+
+					debug_drawer.render(
+						scoped_block.get()
+					);
+				}
+			);
+		}
+	);
 
 	return
-		sys.window_system().exit_code();
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&keyboard_mover,
+					&draw
+				](
+					awl::event::base const &_event
+				)
+				{
+					fcppt::optional::maybe_void(
+						fcppt::variant::dynamic_cast_<
+							boost::mpl::vector2<
+								sge::input::keyboard::event::key const,
+								sge::renderer::event::render const
+							>,
+							fcppt::cast::dynamic_fun
+						>(
+							_event
+						),
+						[
+							&keyboard_mover,
+							&draw
+						](
+							auto const &_variant
+						)
+						{
+							fcppt::variant::match(
+								_variant,
+								[
+									&keyboard_mover
+								](
+									fcppt::reference<
+										sge::input::keyboard::event::key const
+									> const _key_event
+								)
+								{
+									keyboard_mover.key_event(
+										_key_event.get()
+									);
+								},
+								[
+									&draw
+								](
+									fcppt::reference<
+										sge::renderer::event::render const
+									>
+								)
+								{
+									draw();
+								}
+							);
+						}
+					);
+				}
+			}
+		);
+
 }
 catch(
 	fcppt::exception const &_error
 )
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_error.string()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
 )
 {
-	std::cerr
-		<< _error.what()
-		<< '\n';
+	awl::show_error_narrow(
+		_error.what()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }

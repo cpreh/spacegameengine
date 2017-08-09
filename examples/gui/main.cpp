@@ -64,6 +64,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/load_exn.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/const_object.hpp>
+#include <sge/input/event_base.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -76,6 +77,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/to_dpi.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
@@ -85,9 +87,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/rucksack/alignment.hpp>
 #include <sge/rucksack/axis.hpp>
-#include <sge/systems/cursor_demuxer.hpp>
 #include <sge/systems/cursor_option_field.hpp>
-#include <sge/systems/focus_collector.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
@@ -109,21 +109,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/show_error.hpp>
 #include <awl/show_error_narrow.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/exit_success.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assign/make_container.hpp>
+#include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/container/tree/map.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <chrono>
@@ -145,12 +153,7 @@ try
 				sge::systems::renderer_caps::ffp
 			>,
 			sge::systems::with_window,
-			sge::systems::with_input<
-				boost::mpl::vector2<
-					sge::systems::focus_collector,
-					sge::systems::cursor_demuxer
-				>
-			>,
+			sge::systems::with_input,
 			sge::systems::with_image2d
 		>
 	> const sys(
@@ -486,8 +489,6 @@ try
 	);
 
 	sge::gui::master master(
-		sys.focus_collector(),
-		sys.cursor_demuxer(),
 		context,
 		main_area
 	);
@@ -510,49 +511,109 @@ try
 		)
 	);
 
-	while(
-		sys.window_system().poll()
-	)
-	{
-		sge::timer::scoped_frame_limiter const limiter(
-			sge::renderer::display_mode::desired_fps(
-				sys.renderer_device_ffp().display_mode()
-			)
-		);
-
-		master.update(
-			std::chrono::duration_cast<
-				sge::gui::duration
-			>(
-				sge::timer::elapsed_and_reset(
-					frame_timer
+	auto const draw(
+		[
+			&background,
+			&frame_timer,
+			&master,
+			&sys
+		]{
+			sge::timer::scoped_frame_limiter const limiter(
+				sge::renderer::display_mode::desired_fps(
+					sys.renderer_device_ffp().display_mode()
 				)
-			)
-		);
+			);
 
-		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target()
-		);
+			master.update(
+				std::chrono::duration_cast<
+					sge::gui::duration
+				>(
+					sge::timer::elapsed_and_reset(
+						frame_timer
+					)
+				)
+			);
 
-		scoped_block.get().clear(
-			sge::renderer::clear::parameters()
-			.back_buffer(
-				sge::image::color::any::object{
-					sge::image::color::predef::blue()
-				}
-			)
-		);
+			sge::renderer::context::scoped_ffp const scoped_block(
+				sys.renderer_device_ffp(),
+				sys.renderer_device_ffp().onscreen_target()
+			);
 
-		master.draw_with_states(
-			sys.renderer_device_ffp(),
-			scoped_block.get(),
-			background
-		);
-	}
+			scoped_block.get().clear(
+				sge::renderer::clear::parameters()
+				.back_buffer(
+					sge::image::color::any::object{
+						sge::image::color::predef::blue()
+					}
+				)
+			);
+
+			master.draw_with_states(
+				sys.renderer_device_ffp(),
+				scoped_block.get(),
+				background
+			);
+		}
+	);
 
 	return
-		sys.window_system().exit_code();
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&master,
+					&draw
+				](
+					awl::event::base const &_event
+				)
+				{
+					fcppt::optional::maybe_void(
+						fcppt::variant::dynamic_cast_<
+							boost::mpl::vector2<
+								sge::renderer::event::render const,
+								sge::input::event_base const
+							>,
+							fcppt::cast::dynamic_fun
+						>(
+							_event
+						),
+						[
+							&master,
+							&draw
+						](
+							auto const &_variant
+						)
+						{
+							fcppt::variant::match(
+								_variant,
+								[
+									&draw
+								](
+									fcppt::reference<
+										sge::renderer::event::render const
+									>
+								)
+								{
+									draw();
+								},
+								[
+									&master
+								](
+									fcppt::reference<
+										sge::input::event_base const
+									> const _input_event
+								)
+								{
+									master.process_event(
+										_input_event.get()
+									);
+								}
+							);
+						}
+					);
+				}
+			}
+		);
 }
 catch(
 	fcppt::exception const &_error

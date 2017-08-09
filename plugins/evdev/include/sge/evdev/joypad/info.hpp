@@ -37,8 +37,8 @@ class info
 {
 public:
 	info(
-		sge::input::joypad::info const &,
-		sge::evdev::joypad::event_map const &
+		sge::input::joypad::info &&,
+		sge::evdev::joypad::event_map &&
 	);
 
 	sge::input::joypad::info const &

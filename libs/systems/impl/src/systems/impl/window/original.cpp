@@ -89,9 +89,8 @@ sge::systems::impl::window::original::original(
 		)
 	),
 	window_(
-		_system.create(
-			*awl_window_
-		)
+		_system,
+		*awl_window_
 	)
 {
 }
@@ -104,5 +103,5 @@ sge::window::object &
 sge::systems::impl::window::original::get() const
 {
 	return
-		*window_;
+		window_;
 }

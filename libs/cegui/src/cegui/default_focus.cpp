@@ -20,60 +20,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/default_focus.hpp>
 #include <sge/cegui/syringe.hpp>
-#include <sge/input/focus/char_callback.hpp>
-#include <sge/input/focus/char_event_fwd.hpp>
-#include <sge/input/focus/key_callback.hpp>
-#include <sge/input/focus/key_event_fwd.hpp>
-#include <sge/input/focus/key_repeat_callback.hpp>
-#include <sge/input/focus/key_repeat_event_fwd.hpp>
-#include <sge/input/focus/object.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <sge/input/focus/event/char.hpp>
+#include <sge/input/focus/event/key.hpp>
+#include <sge/input/focus/event/key_repeat.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/cast/dynamic_fun.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <functional>
+#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::cegui::default_focus::default_focus(
-	sge::cegui::syringe &_syringe,
-	sge::input::focus::object &_focus
+	sge::cegui::syringe &_syringe
 )
 :
-	syringe_(
+	syringe_{
 		_syringe
-	),
-	key_callback_(
-		_focus.key_callback(
-			sge::input::focus::key_callback{
-				std::bind(
-					&default_focus::key_callback,
-					this,
-					std::placeholders::_1
-				)
-			}
-		)
-	),
-	key_repeat_callback_(
-		_focus.key_repeat_callback(
-			sge::input::focus::key_repeat_callback{
-				std::bind(
-					&default_focus::key_repeat_callback,
-					this,
-					std::placeholders::_1
-				)
-			}
-		)
-	),
-	char_callback_(
-		_focus.char_callback(
-			sge::input::focus::char_callback{
-				std::bind(
-					&default_focus::char_callback,
-					this,
-					std::placeholders::_1
-				)
-			}
-		)
-	)
+	}
 {
 }
 
@@ -82,31 +48,66 @@ sge::cegui::default_focus::~default_focus()
 }
 
 void
-sge::cegui::default_focus::key_callback(
-	sge::input::focus::key_event const &_event
+sge::cegui::default_focus::process_event(
+	sge::input::event_base const &_event
 )
 {
-	syringe_.inject(
-		_event
-	);
-}
-
-void
-sge::cegui::default_focus::key_repeat_callback(
-	sge::input::focus::key_repeat_event const &_event
-)
-{
-	syringe_.inject(
-		_event
-	);
-}
-
-void
-sge::cegui::default_focus::char_callback(
-	sge::input::focus::char_event const &_event
-)
-{
-	syringe_.inject(
-		_event
+	fcppt::optional::maybe_void(
+		fcppt::variant::dynamic_cast_<
+			boost::mpl::vector3<
+				sge::input::focus::event::key const,
+				sge::input::focus::event::key_repeat const,
+				sge::input::focus::event::char_ const
+			>,
+			fcppt::cast::dynamic_fun
+		>(
+			_event
+		),
+		[
+			this
+		](
+			auto const &_variant
+		)
+		{
+			fcppt::variant::match(
+				_variant,
+				[
+					this
+				](
+					fcppt::reference<
+						sge::input::focus::event::key const
+					> const _key_event
+				)
+				{
+					this->syringe_.inject(
+						_key_event.get()
+					);
+				},
+				[
+					this
+				](
+					fcppt::reference<
+						sge::input::focus::event::key_repeat const
+					> const _key_repeat_event
+				)
+				{
+					this->syringe_.inject(
+						_key_repeat_event.get()
+					);
+				},
+				[
+					this
+				](
+					fcppt::reference<
+						sge::input::focus::event::char_ const
+					> const _char_event
+				)
+				{
+					this->syringe_.inject(
+						_char_event.get()
+					);
+				}
+			);
+		}
 	);
 }

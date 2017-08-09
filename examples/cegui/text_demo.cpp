@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/own_log_path.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/input/event_base.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
 #include <sge/media/extension.hpp>
@@ -46,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
@@ -53,13 +55,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/systems/config.hpp>
-#include <sge/systems/cursor_demuxer.hpp>
 #include <sge/systems/cursor_option_field.hpp>
-#include <sge/systems/focus_collector.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
@@ -79,29 +78,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/title.hpp>
 #include <awl/show_error.hpp>
 #include <awl/show_error_narrow.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <awl/main/scoped_output.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/io/clog.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <chrono>
 #include <example_main.hpp>
 #include <exception>
-#include <functional>
-#include <set>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -130,13 +133,7 @@ try
 				sge::systems::renderer_caps::ffp
 			>,
 			sge::systems::with_window,
-			sge::systems::with_input<
-				boost::mpl::vector3<
-					sge::systems::focus_collector,
-					sge::systems::keyboard_collector,
-					sge::systems::cursor_demuxer
-				>
-			>,
+			sge::systems::with_input,
 			sge::systems::with_image2d
 		>
 	> const sys(
@@ -231,15 +228,13 @@ try
 		gui_sys
 	);
 
-	sge::cegui::default_cursor gui_cursor(
-		gui_syringe,
-		sys.cursor_demuxer()
-	);
+	sge::cegui::default_cursor gui_cursor{
+		gui_syringe
+	};
 
-	sge::cegui::default_focus gui_keyboard(
-		gui_syringe,
-		sys.focus_collector()
-	);
+	sge::cegui::default_focus gui_focus{
+		gui_syringe
+	};
 
 	sge::timer::basic<
 		sge::timer::clocks::standard
@@ -267,42 +262,110 @@ try
 		scoped_layout.window()
 	);
 
-	while(
-		sys.window_system().poll())
-	{
-		gui_sys.update(
-			std::chrono::duration_cast<
-				sge::cegui::duration
-			>(
-				sge::timer::elapsed(
-					frame_timer
+	auto const draw(
+		[
+			&frame_timer,
+			&gui_sys,
+			&sys
+		]{
+			gui_sys.update(
+				std::chrono::duration_cast<
+					sge::cegui::duration
+				>(
+					sge::timer::elapsed(
+						frame_timer
+					)
 				)
-			)
-		);
+			);
 
-		frame_timer.reset();
+			frame_timer.reset();
 
-		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target()
-		);
+			sge::renderer::context::scoped_ffp const scoped_block(
+				sys.renderer_device_ffp(),
+				sys.renderer_device_ffp().onscreen_target()
+			);
 
-		scoped_block.get().clear(
-			sge::renderer::clear::parameters()
-			.back_buffer(
-				sge::image::color::any::object{
-					sge::image::color::predef::red()
-				}
-			)
-		);
+			scoped_block.get().clear(
+				sge::renderer::clear::parameters()
+				.back_buffer(
+					sge::image::color::any::object{
+						sge::image::color::predef::red()
+					}
+				)
+			);
 
-		gui_sys.render(
-			scoped_block.get()
-		);
-	}
+			gui_sys.render(
+				scoped_block.get()
+			);
+		}
+	);
 
 	return
-		sys.window_system().exit_code();
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&draw,
+					&gui_cursor,
+					&gui_focus
+				](
+					awl::event::base const &_event
+				)
+				{
+					fcppt::optional::maybe_void(
+						fcppt::variant::dynamic_cast_<
+							boost::mpl::vector2<
+								sge::renderer::event::render const,
+								sge::input::event_base const
+							>,
+							fcppt::cast::dynamic_fun
+						>(
+							_event
+						),
+						[
+							&draw,
+							&gui_cursor,
+							&gui_focus
+						](
+							auto const &_variant
+						)
+						{
+							fcppt::variant::match(
+								_variant,
+								[
+									&draw
+								](
+									fcppt::reference<
+										sge::renderer::event::render const
+									>
+								)
+								{
+									draw();
+								},
+								[
+									&gui_cursor,
+									&gui_focus
+								](
+									fcppt::reference<
+										sge::input::event_base const
+									> const _input_event
+								)
+								{
+									gui_cursor.process_event(
+										_input_event.get()
+									);
+
+									gui_focus.process_event(
+										_input_event.get()
+									);
+								}
+							);
+						}
+					);
+				}
+			}
+		);
+
 }
 catch(
 	fcppt::exception const &_error

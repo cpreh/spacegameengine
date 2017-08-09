@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/iterator.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/fold.hpp>
@@ -113,8 +114,7 @@ sge::input::impl::multi_system::~multi_system()
 
 sge::input::processor_unique_ptr
 sge::input::impl::multi_system::create_processor(
-	sge::window::object const &_window,
-	sge::window::system const &_window_system
+	sge::window::object &_window
 )
 {
 	return
@@ -126,7 +126,6 @@ sge::input::impl::multi_system::create_processor(
 			>(
 				log_,
 				_window,
-				_window_system,
 				systems_
 			)
 		);

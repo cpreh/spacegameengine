@@ -18,53 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/inotify/callback.hpp>
 #include <sge/evdev/inotify/convert_event_type.hpp>
 #include <sge/evdev/inotify/event.hpp>
+#include <sge/evdev/inotify/event_container.hpp>
 #include <sge/evdev/inotify/reader.hpp>
-#include <awl/backends/posix/callback.hpp>
-#include <awl/backends/posix/event_fwd.hpp>
-#include <awl/backends/posix/processor.hpp>
+#include <awl/backends/posix/fd.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <linux/limits.h>
 #include <sys/inotify.h>
 #include <array>
 #include <cstddef>
-#include <functional>
 #include <string>
 #include <unistd.h>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::evdev::inotify::reader::reader(
-	boost::filesystem::path const &_path,
-	awl::backends::posix::processor &_processor,
-	sge::evdev::inotify::callback const &_callback
+	boost::filesystem::path const &_path
 )
 :
-	object_(),
-	watch_(
+	object_{},
+	watch_{
 		_path,
 		object_
-	),
-	fd_connection_(
-		_processor.register_fd_callback(
-			object_.fd(),
-			awl::backends::posix::callback(
-				std::bind(
-					&sge::evdev::inotify::reader::on_read,
-					this,
-					std::placeholders::_1
-				)
-			)
-		)
-	),
-	callback_(
-		_callback
-	)
+	}
 {
 }
 
@@ -72,10 +51,8 @@ sge::evdev::inotify::reader::~reader()
 {
 }
 
-void
-sge::evdev::inotify::reader::on_read(
-	awl::backends::posix::event const &
-)
+sge::evdev::inotify::event_container
+sge::evdev::inotify::reader::on_event()
 {
 	// The manpage says that this is enough to read at least one inotify event
 	typedef std::array<
@@ -114,6 +91,9 @@ sge::evdev::inotify::reader::on_read(
 	std::size_t index(
 		0u
 	);
+
+	// TODO: Make a range for this
+	sge::evdev::inotify::event_container result;
 
 	while(
 		index
@@ -154,15 +134,15 @@ sge::evdev::inotify::reader::on_read(
 			buffer.data() + index
 		);
 
-		callback_(
-			sge::evdev::inotify::event(
+		result.push_back(
+			sge::evdev::inotify::event{
 				boost::filesystem::path(
 					path_name
 				),
 				sge::evdev::inotify::convert_event_type(
 					event.mask
 				)
-			)
+			}
 		);
 
 		index +=
@@ -174,4 +154,14 @@ sge::evdev::inotify::reader::on_read(
 		==
 		bytes
 	);
+
+	return
+		result;
+}
+
+awl::backends::posix::fd
+sge::evdev::inotify::reader::fd() const
+{
+	return
+		object_.fd();
 }

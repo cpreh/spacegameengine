@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wlinput/focus/create.hpp>
 #include <sge/wlinput/focus/create_function.hpp>
 #include <sge/wlinput/focus/object.hpp>
-#include <awl/backends/posix/processor_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <awl/backends/wayland/seat_fwd.hpp>
 #include <awl/backends/wayland/window/object_fwd.hpp>
+#include <awl/event/container_reference.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
@@ -32,18 +33,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::wlinput::focus::create_function
 sge::wlinput::focus::create(
 	fcppt::log::object &_log,
+	sge::window::object &_sge_window,
 	sge::wlinput::xkb_context const &_context,
-	awl::backends::posix::processor &_posix_processor,
-	awl::backends::wayland::window::object const &_window
+	awl::backends::wayland::window::object const &_window,
+	awl::event::container_reference const _events
 )
 {
 	return
 		sge::wlinput::focus::create_function{
 			[
 				&_log,
+				&_sge_window,
 				&_context,
-				&_posix_processor,
-				&_window
+				&_window,
+				_events
 			](
 				awl::backends::wayland::seat const &_seat
 			)
@@ -53,9 +56,10 @@ sge::wlinput::focus::create(
 						sge::wlinput::focus::object
 					>(
 						_log,
+						_sge_window,
 						_context,
-						_posix_processor,
 						_window,
+						_events,
 						_seat
 					);
 			}

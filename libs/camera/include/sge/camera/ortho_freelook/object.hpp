@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_ORTHO_FREELOOK_OBJECT_HPP_INCLUDED
 
 #include <sge/camera/base.hpp>
-#include <sge/camera/has_activation.hpp>
 #include <sge/camera/is_dynamic.hpp>
+#include <sge/camera/optional_projection_matrix_fwd.hpp>
+#include <sge/camera/update_duration.hpp>
+#include <sge/camera/coordinate_system/object_fwd.hpp>
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/ortho_freelook/optional_projection_rectangle.hpp>
 #include <sge/camera/ortho_freelook/pan_speed.hpp>
@@ -31,12 +33,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/ortho_freelook/zoom_speed.hpp>
 #include <sge/camera/ortho_freelook/action/mapping.hpp>
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/input/keyboard/key_event_fwd.hpp>
-#include <sge/input/mouse/axis_event_fwd.hpp>
+#include <sge/input/event_base_fwd.hpp>
+#include <sge/input/keyboard/event/key_fwd.hpp>
+#include <sge/input/mouse/event/axis_fwd.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/rect.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -57,8 +59,7 @@ rectangle) that is done when the mouse moves by "one".
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 :
 	public virtual sge::camera::base,
-	public sge::camera::is_dynamic,
-	public sge::camera::has_activation
+	public sge::camera::is_dynamic
 {
 	FCPPT_NONCOPYABLE(
 		object
@@ -82,19 +83,14 @@ public:
 	override;
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::projection_matrix
+	sge::camera::optional_projection_matrix
 	projection_matrix() const
 	override;
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::is_active
-	is_active() const
-	override;
-
-	SGE_CAMERA_DETAIL_SYMBOL
 	void
-	is_active(
-		sge::camera::is_active
+	process_event(
+		sge::input::event_base const &
 	)
 	override;
 
@@ -115,10 +111,6 @@ public:
 	~object()
 	override;
 private:
-	fcppt::signal::auto_connection const mouse_axis_connection_;
-
-	fcppt::signal::auto_connection const keyboard_key_connection_;
-
 	sge::camera::ortho_freelook::action::mapping action_mapping_;
 
 	sge::camera::ortho_freelook::optional_projection_rectangle current_projection_rectangle_;
@@ -131,8 +123,6 @@ private:
 
 	sge::renderer::projection::far far_;
 
-	sge::camera::is_active is_active_;
-
 	bool zoom_in_pressed_;
 
 	bool zoom_out_pressed_;
@@ -140,13 +130,13 @@ private:
 	bool pan_pressed_;
 
 	void
-	mouse_axis_callback(
-		sge::input::mouse::axis_event const &
+	mouse_axis_event(
+		sge::input::mouse::event::axis const &
 	);
 
 	void
-	key_callback(
-		sge::input::keyboard::key_event const &
+	key_event(
+		sge::input::keyboard::event::key const &
 	);
 };
 

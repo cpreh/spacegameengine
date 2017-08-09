@@ -21,21 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WLINPUT_CHANGE_CAPS_HPP_INCLUDED
 #define SGE_WLINPUT_CHANGE_CAPS_HPP_INCLUDED
 
-#include <sge/input/event/discover.hpp>
-#include <sge/input/event/remove.hpp>
 #include <sge/wlinput/create_function.hpp>
-#include <awl/backends/wayland/registry_id.hpp>
+#include <sge/wlinput/map.hpp>
 #include <awl/backends/wayland/system/seat/caps.hpp>
 #include <awl/backends/wayland/system/seat/caps_field.hpp>
 #include <awl/backends/wayland/system/seat/object.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/base_unique_ptr.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/find_opt_iterator.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
-#include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/signal/object_impl.hpp>
+#include <fcppt/optional/make_if.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <unordered_map>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -47,117 +51,140 @@ namespace wlinput
 
 template<
 	awl::backends::wayland::system::seat::caps Caps,
-	typename Object,
-	typename Base
+	typename Discover,
+	typename Remove,
+	typename Object
 >
-void
+awl::event::optional_base_unique_ptr
 change_caps(
 	sge::wlinput::create_function<
 		Object
 	> const &_create_function,
-	std::unordered_map<
-		awl::backends::wayland::registry_id,
-		fcppt::unique_ptr<
-			Object
-		>
+	sge::wlinput::map<
+		Object
 	> &_map,
-	fcppt::signal::object<
-		void (
-			sge::input::event::discover<
-				Base
-			> const &
-		)
-	> &_discover_signal,
-	fcppt::signal::object<
-		void (
-			sge::input::event::remove<
-				Base
-			> const &
-		)
-	> &_remove_signal,
 	awl::backends::wayland::system::seat::object const &_seat
 )
 {
 	typedef
-	std::unordered_map<
-		awl::backends::wayland::registry_id,
-		fcppt::unique_ptr<
-			Object
-		>
+	sge::wlinput::map<
+		Object
 	>
 	object_map;
 
-	if(
+	FCPPT_PP_PUSH_WARNING
+	FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)
+
+	auto const add_cap(
+		[
+			&_create_function,
+			&_map,
+			&_seat
+		]()
+		->
+		awl::event::optional_base_unique_ptr
+		{
+			return
+				fcppt::optional::make_if(
+					_map.count(
+						_seat.name()
+					)
+					==
+					0u,
+					[
+						&_create_function,
+						&_map,
+						&_seat
+					]{
+						std::pair<
+							typename
+							object_map::iterator,
+							bool
+						> const result{
+							_map.insert(
+								std::make_pair(
+									_seat.name(),
+									_create_function(
+										_seat.get()
+									)
+								)
+							)
+						};
+
+						FCPPT_ASSERT_ERROR(
+							result.second
+						);
+
+						return
+							fcppt::unique_ptr_to_base<
+								awl::event::base
+							>(
+								fcppt::make_unique_ptr<
+									Discover
+								>(
+									result.first->second
+								)
+							);
+					}
+				);
+		}
+	);
+
+	auto const remove_cap(
+		[
+			 &_map,
+			 &_seat
+		]()
+		->
+		awl::event::optional_base_unique_ptr
+		{
+			return
+				fcppt::optional::map(
+					fcppt::container::find_opt_iterator(
+						_map,
+						_seat.name()
+					),
+					[
+						&_map
+					](
+						typename
+						object_map::iterator const _iterator
+					)
+					{
+						awl::event::base_unique_ptr result{
+							fcppt::unique_ptr_to_base<
+								awl::event::base
+							>(
+								fcppt::make_unique_ptr<
+									Remove
+								>(
+									_iterator->second
+								)
+							)
+						};
+
+						_map.erase(
+							_iterator
+						);
+
+						return
+							result;
+					}
+				);
+		}
+	);
+
+	FCPPT_PP_POP_WARNING
+
+	return
 		_seat.caps()
 		&
 		Caps
-	)
-	{
-		if(
-			_map.count(
-				_seat.name()
-			)
-			==
-			0u
-		)
-		{
-			std::pair<
-				typename
-				object_map::iterator,
-				bool
-			> const result{
-				_map.insert(
-					std::make_pair(
-						_seat.name(),
-						_create_function(
-							_seat.get()
-						)
-					)
-				)
-			};
-
-			FCPPT_ASSERT_ERROR(
-				result.second
-			);
-
-			_discover_signal(
-				sge::input::event::discover<
-					Base
-				>{
-					*result.first->second
-				}
-			);
-		}
-	}
-	else
-	{
-		fcppt::optional::maybe_void(
-			fcppt::container::find_opt_iterator(
-				_map,
-				_seat.name()
-			),
-			[
-				&_remove_signal,
-				&_map
-			](
-				typename
-				object_map::iterator const _iterator
-			)
-			{
-				_remove_signal(
-					sge::input::event::remove<
-						Base
-					>{
-						*_iterator->second
-					}
-				);
-
-				_map.erase(
-					_iterator
-				);
-			}
-		);
-	}
+		?
+			add_cap()
+		:
+			remove_cap()
+		;
 }
 
 }

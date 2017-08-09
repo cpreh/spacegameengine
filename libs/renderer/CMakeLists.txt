@@ -171,6 +171,8 @@ set(
 	libs/renderer/include/sge/renderer/display_mode/dpi.hpp
 	libs/renderer/include/sge/renderer/display_mode/dpi_fwd.hpp
 	libs/renderer/include/sge/renderer/display_mode/dpi_unit.hpp
+	libs/renderer/include/sge/renderer/display_mode/draw_timer_setting.hpp
+	libs/renderer/include/sge/renderer/display_mode/draw_timer_setting_opt.hpp
 	libs/renderer/include/sge/renderer/display_mode/object.hpp
 	libs/renderer/include/sge/renderer/display_mode/object_fwd.hpp
 	libs/renderer/include/sge/renderer/display_mode/optional_dimensions.hpp
@@ -191,6 +193,10 @@ set(
 	libs/renderer/include/sge/renderer/display_mode/to_dpi.hpp
 	libs/renderer/include/sge/renderer/display_mode/vsync.hpp
 	libs/renderer/include/sge/renderer/display_mode/vsync_fwd.hpp
+	libs/renderer/include/sge/renderer/event/base.hpp
+	libs/renderer/include/sge/renderer/event/base_fwd.hpp
+	libs/renderer/include/sge/renderer/event/render.hpp
+	libs/renderer/include/sge/renderer/event/render_fwd.hpp
 	libs/renderer/include/sge/renderer/exception.hpp
 	libs/renderer/include/sge/renderer/index/any/basic_view.hpp
 	libs/renderer/include/sge/renderer/index/any/basic_view_fwd.hpp
@@ -964,10 +970,14 @@ set(
 	libs/renderer/src/renderer/device/parameters.cpp
 	libs/renderer/src/renderer/display_mode/comparison.cpp
 	libs/renderer/src/renderer/display_mode/desired_fps.cpp
+	libs/renderer/src/renderer/display_mode/draw_timer_setting.cpp
+	libs/renderer/src/renderer/display_mode/draw_timer_setting_opt.cpp
 	libs/renderer/src/renderer/display_mode/object.cpp
 	libs/renderer/src/renderer/display_mode/output.cpp
 	libs/renderer/src/renderer/display_mode/parameters.cpp
 	libs/renderer/src/renderer/display_mode/to_dpi.cpp
+	libs/renderer/src/renderer/event/base.cpp
+	libs/renderer/src/renderer/event/render.cpp
 	libs/renderer/src/renderer/exception.cpp
 	libs/renderer/src/renderer/index/any/make_view.cpp
 	libs/renderer/src/renderer/index/buffer.cpp
@@ -1207,6 +1217,7 @@ add_sge_base_library(
 		sgeimageds2d
 		sgelog
 		sgeplugin
+                sgewindow_interface
 		${SGE_RENDERER_CG_DEPS}
 	TRANSITIVE_SGE_DEPS
 		sgecore
@@ -1218,12 +1229,13 @@ add_sge_base_library(
 		sgeimageds2d_interface
 		sgelog_interface
 		sgeplugin_interface
+                sgewindow_interface
 		${SGE_RENDERER_CG_DEPS}
 	USE_IMPL_INCLUDE_OF
 		core
 	ADDITIONAL_DEPS
 		${fcppt_log_TARGET}
-		awl_interface
+                ${awl_TARGET}
 		fcppt_core_interface
 	TRANSITIVE_ADDITIONAL_DEPS
 		awl_interface

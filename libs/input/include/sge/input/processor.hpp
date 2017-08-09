@@ -23,19 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/processor_fwd.hpp>
-#include <sge/input/cursor/discover_callback.hpp>
-#include <sge/input/cursor/remove_callback.hpp>
+#include <sge/input/cursor/container.hpp>
+#include <sge/input/focus/container.hpp>
+#include <sge/input/joypad/container.hpp>
+#include <sge/input/keyboard/container.hpp>
+#include <sge/input/mouse/container.hpp>
 #include <sge/input/detail/symbol.hpp>
-#include <sge/input/focus/discover_callback.hpp>
-#include <sge/input/focus/remove_callback.hpp>
-#include <sge/input/joypad/discover_callback.hpp>
-#include <sge/input/joypad/remove_callback.hpp>
-#include <sge/input/keyboard/discover_callback.hpp>
-#include <sge/input/keyboard/remove_callback.hpp>
-#include <sge/input/mouse/discover_callback.hpp>
-#include <sge/input/mouse/remove_callback.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/optional_auto_connection_fwd.hpp>
 
 
 namespace sge
@@ -52,84 +47,34 @@ protected:
 	SGE_INPUT_DETAIL_SYMBOL
 	processor();
 public:
-	//
-	// keyboards
-	//
-	virtual
-	fcppt::signal::optional_auto_connection
-	keyboard_discover_callback(
-		sge::input::keyboard::discover_callback const &
-	) = 0;
-
-	virtual
-	fcppt::signal::optional_auto_connection
-	keyboard_remove_callback(
-		sge::input::keyboard::remove_callback const &
-	) = 0;
-
-	//
-	// mice
-	//
-	virtual
-	fcppt::signal::optional_auto_connection
-	mouse_discover_callback(
-		sge::input::mouse::discover_callback const &
-	) = 0;
-
-	virtual
-	fcppt::signal::optional_auto_connection
-	mouse_remove_callback(
-		sge::input::mouse::remove_callback const &
-	) = 0;
-
-	//
-	// foci
-	//
-	virtual
-	fcppt::signal::optional_auto_connection
-	focus_discover_callback(
-		sge::input::focus::discover_callback const &
-	) = 0;
-
-	virtual
-	fcppt::signal::optional_auto_connection
-	focus_remove_callback(
-		sge::input::focus::remove_callback const &
-	) = 0;
-
-	//
-	// cursors
-	//
-	virtual
-	fcppt::signal::optional_auto_connection
-	cursor_discover_callback(
-		sge::input::cursor::discover_callback const &
-	) = 0;
-
-	virtual
-	fcppt::signal::optional_auto_connection
-	cursor_remove_callback(
-		sge::input::cursor::remove_callback const &
-	) = 0;
-
-	//
-	// joypads
-	//
-	virtual
-	fcppt::signal::optional_auto_connection
-	joypad_discover_callback(
-		sge::input::joypad::discover_callback const &
-	) = 0;
-
-	virtual
-	fcppt::signal::optional_auto_connection
-	joypad_remove_callback(
-		sge::input::joypad::remove_callback const &
-	) = 0;
-
 	SGE_INPUT_DETAIL_SYMBOL
 	virtual
 	~processor() = 0;
+
+	// TODO: Can we remove this?
+	virtual
+	sge::window::object &
+	window() const = 0;
+
+	virtual
+	sge::input::cursor::container
+	cursors() const = 0;
+
+	virtual
+	sge::input::focus::container
+	foci() const = 0;
+
+	virtual
+	sge::input::joypad::container
+	joypads() const = 0;
+
+	virtual
+	sge::input::keyboard::container
+	keyboards() const = 0;
+
+	virtual
+	sge::input::mouse::container
+	mice() const = 0;
 };
 
 }

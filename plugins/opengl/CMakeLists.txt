@@ -97,6 +97,7 @@ set(
 	plugins/opengl/include/sge/opengl/enable_bool.hpp
 	plugins/opengl/include/sge/opengl/enable_client_state.hpp
 	plugins/opengl/include/sge/opengl/error_string.hpp
+	plugins/opengl/include/sge/opengl/event_handler.hpp
 	plugins/opengl/include/sge/opengl/extension_set.hpp
 	plugins/opengl/include/sge/opengl/extension_supported.hpp
 	plugins/opengl/include/sge/opengl/fbo/attach_render_buffer.hpp
@@ -703,6 +704,7 @@ set(
 	plugins/opengl/src/enable_bool.cpp
 	plugins/opengl/src/enable_client_state.cpp
 	plugins/opengl/src/error_string.cpp
+	plugins/opengl/src/event_handler.cpp
 	plugins/opengl/src/exports.cpp
 	plugins/opengl/src/fbo/attach_render_buffer.cpp
 	plugins/opengl/src/fbo/attach_texture_2d.cpp

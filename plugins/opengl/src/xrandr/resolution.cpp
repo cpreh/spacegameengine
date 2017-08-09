@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/set_resolution.hpp>
 #include <sge/renderer/display_mode/optional_refresh_rate.hpp>
 #include <sge/renderer/display_mode/refresh_rate.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
+#include <awl/backends/x11/window/base_fwd.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::xrandr::resolution::resolution(
-	awl::backends::x11::window::object &_window,
+	awl::backends::x11::window::base const &_window,
 	sge::opengl::xrandr::configuration const &_config,
 	sge::opengl::xrandr::mode_index const _mode_index,
 	sge::renderer::display_mode::optional_refresh_rate const &_opt_rate,

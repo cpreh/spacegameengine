@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/mode_index.hpp>
 #include <sge/opengl/xrandr/optional_refresh_rate_fwd.hpp>
 #include <sge/opengl/xrandr/rotation.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
+#include <awl/backends/x11/window/base_fwd.hpp>
 
 
 namespace sge
@@ -37,7 +37,7 @@ namespace xrandr
 
 void
 set_resolution(
-	awl::backends::x11::window::object &,
+	awl::backends::x11::window::base const &,
 	sge::opengl::xrandr::configuration const &,
 	sge::opengl::xrandr::mode_index,
 	sge::opengl::xrandr::rotation,

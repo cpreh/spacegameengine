@@ -18,218 +18,172 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/button_pressed.hpp>
 #include <sge/input/cursor/mode.hpp>
-#include <sge/input/cursor/move_event.hpp>
+#include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
-#include <sge/input/cursor/scroll_event.hpp>
+#include <sge/input/cursor/event/button.hpp>
+#include <sge/input/cursor/event/move.hpp>
+#include <sge/input/cursor/event/scroll.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <sge/x11input/cursor/button_code.hpp>
+#include <sge/x11input/cursor/create_grab.hpp>
 #include <sge/x11input/cursor/grab.hpp>
 #include <sge/x11input/cursor/make_scroll_valuators.hpp>
 #include <sge/x11input/cursor/object.hpp>
+#include <sge/x11input/cursor/optional_grab_unique_ptr.hpp>
 #include <sge/x11input/cursor/position.hpp>
 #include <sge/x11input/cursor/query_pointer.hpp>
 #include <sge/x11input/cursor/scroll_valuator.hpp>
-#include <sge/x11input/device/event.hpp>
-#include <sge/x11input/device/parameters.hpp>
-#include <sge/x11input/device/window_demuxer.hpp>
-#include <sge/x11input/device/window_event.hpp>
-#include <sge/x11input/device/valuator/callback.hpp>
-#include <sge/x11input/device/valuator/foreach.hpp>
+#include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/valuator/index.hpp>
+#include <sge/x11input/device/valuator/pair.hpp>
+#include <sge/x11input/device/valuator/range.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
+#include <sge/x11input/event/device_function.hpp>
+#include <sge/x11input/event/select.hpp>
+#include <sge/x11input/event/type_c.hpp>
+#include <sge/x11input/event/window_demuxer.hpp>
 #include <awl/backends/x11/cursor/object_fwd.hpp>
-#include <awl/backends/x11/system/event/type.hpp>
+#include <awl/backends/x11/window/base_fwd.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/base_unique_ptr.hpp>
+#include <awl/event/container.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
+#include <fcppt/enable_shared_from_this_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/algorithm/join.hpp>
+#include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/assign/make_container.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
-#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/make_if.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/optional/object_impl.hpp>
-#include <fcppt/signal/auto_connection_container.hpp>
+#include <fcppt/optional/to_container.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/Xlib.h>
+#include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
+#include <boost/mpl/vector/vector10.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::x11input::cursor::object::object(
+	sge::window::object &_sge_window,
 	fcppt::log::object &_log,
-	sge::x11input::device::parameters const &_param,
+	awl::backends::x11::window::base const &_window,
+	XIDeviceInfo const &_info,
+	sge::x11input::event::window_demuxer &_window_demuxer,
 	awl::backends::x11::cursor::object const &_cursor
 )
 :
 	sge::input::cursor::object(),
-	sge::x11input::device::object(
-		_param.id()
-	),
+	fcppt::enable_shared_from_this<
+		sge::x11input::cursor::object
+	>{},
+	sge_window_{
+		_sge_window
+	},
+	id_{
+		sge::x11input::device::id{
+			_info.deviceid
+		}
+	},
 	log_{
 		_log
 	},
-	window_(
-		_param.window()
-	),
-	cursor_(
+	window_{
+		_window
+	},
+	cursor_{
 		_cursor
-	),
-	connections_(
-		fcppt::assign::make_container<
-			fcppt::signal::auto_connection_container
-		>(
-			_param.window_demuxer().register_callback(
-				awl::backends::x11::system::event::type(
-					XI_Motion
-				),
-				_param.id(),
-				sge::x11input::device::window_demuxer::callback{
-					std::bind(
-						&sge::x11input::cursor::object::on_motion,
-						this,
-						std::placeholders::_1
-					)
-				}
-			),
-			_param.window_demuxer().register_callback(
-				awl::backends::x11::system::event::type(
-					XI_ButtonPress
-				),
-				_param.id(),
-				sge::x11input::device::window_demuxer::callback{
-					std::bind(
-						&sge::x11input::cursor::object::on_button_down,
-						this,
-						std::placeholders::_1
-					)
-				}
-			),
-			_param.window_demuxer().register_callback(
-				awl::backends::x11::system::event::type(
-					XI_ButtonRelease
-				),
-				_param.id(),
-				sge::x11input::device::window_demuxer::callback{
-					std::bind(
-						&sge::x11input::cursor::object::on_button_up,
-						this,
-						std::placeholders::_1
-					)
-				}
-			),
-			_param.window_demuxer().register_callback(
-				awl::backends::x11::system::event::type(
-					XI_Enter
-				),
-				_param.id(),
-				sge::x11input::device::window_demuxer::callback{
-					std::bind(
-						&sge::x11input::cursor::object::on_enter,
-						this,
-						std::placeholders::_1
-					)
-				}
-			),
-			_param.window_demuxer().register_callback(
-				awl::backends::x11::system::event::type(
-					XI_Leave
-				),
-				_param.id(),
-				sge::x11input::device::window_demuxer::callback{
-					std::bind(
-						&sge::x11input::cursor::object::on_leave,
-						this,
-						std::placeholders::_1
-					)
-				}
-			),
-			_param.window_demuxer().register_callback(
-				awl::backends::x11::system::event::type(
-					XI_FocusOut
-				),
-				_param.paired_id(),
-				sge::x11input::device::window_demuxer::callback{
-					std::bind(
-						&sge::x11input::cursor::object::on_focus_out,
-						this,
-						std::placeholders::_1
-					)
-				}
-			)
+	},
+	position_{
+		sge::x11input::cursor::query_pointer(
+			_window,
+			this->id_
 		)
-	),
-	mode_(
-		sge::input::cursor::mode::normal
-	),
-	should_grab_{
+	},
+	first_enter_{
 		true
 	},
-	position_(
-		sge::x11input::cursor::query_pointer(
-			window_,
-			_param.id()
+	event_connection_{
+		_window_demuxer.on_event(
+			this->id_,
+			sge::x11input::event::device_function{
+				std::bind(
+					&sge::x11input::cursor::object::on_event,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
-	),
-	scroll_valuators_(
+	},
+	paired_event_connection_{
+		_window_demuxer.on_event(
+			sge::x11input::device::id{
+				_info.attachment
+			},
+			sge::x11input::event::device_function{
+				std::bind(
+					&sge::x11input::cursor::object::on_paired_event,
+					this,
+					std::placeholders::_1
+				)
+			}
+		)
+	},
+	mode_{
+		sge::input::cursor::mode::normal
+	},
+	scroll_valuators_{
 		sge::x11input::cursor::make_scroll_valuators(
-			_param.info()
+			_info
 		)
-	),
-	button_signal_(),
-	move_signal_(),
-	scroll_signal_(),
-	cursor_grab_()
+	},
+	cursor_grab_{}
 {
+	sge::x11input::event::select<
+		boost::mpl::vector5<
+			sge::x11input::event::type_c<
+				XI_Motion
+			>,
+			sge::x11input::event::type_c<
+				XI_ButtonPress
+			>,
+			sge::x11input::event::type_c<
+				XI_ButtonRelease
+			>,
+			sge::x11input::event::type_c<
+				XI_Enter
+			>,
+			sge::x11input::event::type_c<
+				XI_Leave
+			>
+		>
+	>(
+		_window_demuxer,
+		this->id_
+	);
 }
 
 sge::x11input::cursor::object::~object()
 {
 }
 
-void
-sge::x11input::cursor::object::init()
-{
-	this->check_grab();
-}
-
-fcppt::signal::auto_connection
-sge::x11input::cursor::object::button_callback(
-	sge::input::cursor::button_callback const &_callback
-)
+sge::window::object &
+sge::x11input::cursor::object::window() const
 {
 	return
-		button_signal_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::x11input::cursor::object::move_callback(
-	sge::input::cursor::move_callback const &_callback
-)
-{
-	return
-		move_signal_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::x11input::cursor::object::scroll_callback(
-	sge::input::cursor::scroll_callback const &_callback
-)
-{
-	return
-		scroll_signal_.connect(
-			_callback
-		);
+		sge_window_;
 }
 
 sge::input::cursor::optional_position
@@ -247,82 +201,186 @@ sge::x11input::cursor::object::mode(
 	mode_ =
 		_mode;
 
-	this->check_grab();
+	if(
+		mode_
+		==
+		sge::input::cursor::mode::normal
+	)
+		this->ungrab();
 }
 
-void
-sge::x11input::cursor::object::on_motion(
-	sge::x11input::device::window_event const &_event
+awl::event::container
+sge::x11input::cursor::object::on_event(
+	XIDeviceEvent const &_event
 )
 {
-	sge::x11input::device::valuator::foreach(
-		_event.get().valuators,
-		sge::x11input::device::valuator::callback{
-			[
-				this
-			](
-				sge::x11input::device::valuator::index const _index,
-				sge::x11input::device::valuator::value const _value
-			)
-			{
-				fcppt::optional::maybe_void(
-					fcppt::container::find_opt_mapped(
-						scroll_valuators_,
-						_index
-					),
-					[
-						_value,
-						this
-					](
-						fcppt::reference<
-							sge::x11input::cursor::scroll_valuator
-						> const _valuator
-					)
-					{
-						scroll_signal_(
-							sge::input::cursor::scroll_event(
-								_valuator.get().code(),
-								_valuator.get().update(
-									_value
-								)
-							)
-						);
-					}
-				);
-			}
-		}
-	);
+	switch(
+		_event.evtype
+	)
+	{
+	case XI_Motion:
+		return
+			this->on_motion(
+				_event
+			);
+	case XI_ButtonPress:
+		return
+			fcppt::optional::to_container<
+				awl::event::container
+			>(
+				this->on_button_down(
+					_event
+				)
+			);
+	case XI_ButtonRelease:
+		return
+			fcppt::optional::to_container<
+				awl::event::container
+			>(
+				this->on_button_up(
+					_event
+				)
+			);
+	case XI_Enter:
+		return
+			fcppt::assign::make_container<
+				awl::event::container
+			>(
+				this->on_enter(
+					_event
+				)
+			);
+	case XI_Leave:
+		return
+			fcppt::assign::make_container<
+				awl::event::container
+			>(
+				this->on_leave(
+					_event
+				)
+			);
+	}
 
-	this->update_position(
-		_event
-	);
+	return
+		awl::event::container{};
 }
 
-void
+awl::event::container
+sge::x11input::cursor::object::on_paired_event(
+	XIDeviceEvent const &_event
+)
+{
+	if(
+		_event.evtype
+		==
+		XI_FocusOut
+	)
+		this->on_focus_out();
+
+	return
+		awl::event::container{};
+}
+
+awl::event::container
+sge::x11input::cursor::object::on_motion(
+	XIDeviceEvent const &_event
+)
+{
+	return
+		fcppt::algorithm::join(
+			fcppt::algorithm::map_optional<
+				awl::event::container
+			>(
+				sge::x11input::device::valuator::range(
+					_event.valuators
+				),
+				[
+					this
+				](
+					sge::x11input::device::valuator::pair const _element
+				)
+				{
+					return
+						fcppt::optional::map(
+							fcppt::container::find_opt_mapped(
+								scroll_valuators_,
+								_element.index()
+							),
+							[
+								_element,
+								this
+							](
+								fcppt::reference<
+									sge::x11input::cursor::scroll_valuator
+								> const _valuator
+							)
+							{
+								return
+									fcppt::unique_ptr_to_base<
+										awl::event::base
+									>(
+										fcppt::make_unique_ptr<
+											sge::input::cursor::event::scroll
+										>(
+											this->fcppt_shared_from_this(),
+											_valuator.get().code(),
+											_valuator.get().update(
+												_element.value()
+											)
+										)
+									);
+							}
+						);
+				}
+			),
+			// TODO: Check if this is necessary!
+			fcppt::assign::make_container<
+				awl::event::container
+			>(
+				this->update_position(
+					_event
+				)
+			)
+		);
+}
+
+awl::event::base_unique_ptr
 sge::x11input::cursor::object::on_enter(
-	sge::x11input::device::window_event const &_event
+	XIDeviceEvent const &_event
 )
 {
 	FCPPT_LOG_DEBUG(
 		log_,
 		fcppt::log::_
-			<< FCPPT_TEXT("XIEnter: ")
-			<< _event.get().event_x
-			<< FCPPT_TEXT(",")
-			<< _event.get().event_y
+			<<
+			FCPPT_TEXT("XIEnter: ")
+			<<
+			_event.event_x
+			<<
+			FCPPT_TEXT(",")
+			<<
+			_event.event_y
 	);
 
-	should_grab_ =
-		true;
+	if(
+		first_enter_
+	)
+	{
+		first_enter_ =
+			false;
 
-	this->update_position(
-		_event
-	);
+		this->grab();
+	}
+
+	return
+		this->update_position(
+			_event
+		);
 }
 
-void
+awl::event::base_unique_ptr
 sge::x11input::cursor::object::on_leave(
-	sge::x11input::device::window_event const &
+	XIDeviceEvent const &
 )
 {
 	FCPPT_LOG_DEBUG(
@@ -334,16 +392,14 @@ sge::x11input::cursor::object::on_leave(
 	position_ =
 		sge::input::cursor::optional_position{};
 
-	should_grab_ =
-		false;
+	this->ungrab();
 
-	this->move_event();
+	return
+		this->make_position_event();
 }
 
 void
-sge::x11input::cursor::object::on_focus_out(
-	sge::x11input::device::window_event const &
-)
+sge::x11input::cursor::object::on_focus_out()
 {
 	FCPPT_LOG_DEBUG(
 		log_,
@@ -351,20 +407,12 @@ sge::x11input::cursor::object::on_focus_out(
 			<< FCPPT_TEXT("XIFocusOut")
 	);
 
-	should_grab_ =
-		false;
-
-	this->check_grab();
+	this->ungrab();
 }
 
-template<
-	typename Event
->
-void
+awl::event::base_unique_ptr
 sge::x11input::cursor::object::update_position(
-	sge::x11input::device::event<
-		Event
-	> const &_event
+	XIDeviceEvent const &_event
 )
 {
 	position_ =
@@ -374,112 +422,118 @@ sge::x11input::cursor::object::update_position(
 			)
 		};
 
-	this->move_event();
+	return
+		this->make_position_event();
 }
 
-void
+awl::event::base_unique_ptr
+sge::x11input::cursor::object::make_position_event()
+{
+	return
+		fcppt::unique_ptr_to_base<
+			awl::event::base
+		>(
+			fcppt::make_unique_ptr<
+				sge::input::cursor::event::move
+			>(
+				this->fcppt_shared_from_this(),
+				position_
+			)
+		);
+}
+
+awl::event::optional_base_unique_ptr
 sge::x11input::cursor::object::on_button_down(
-	sge::x11input::device::window_event const &_event
+	XIDeviceEvent const &_event
 )
 {
-	should_grab_ =
-		true;
+	this->grab();
 
-	this->check_grab();
-
-	this->button_event(
-		_event,
-		sge::input::cursor::button_pressed{
-			true
-		}
-	);
+	return
+		this->button_event(
+			_event,
+			sge::input::cursor::button_pressed{
+				true
+			}
+		);
 }
 
-void
+awl::event::optional_base_unique_ptr
 sge::x11input::cursor::object::on_button_up(
-	sge::x11input::device::window_event const &_event
+	XIDeviceEvent const &_event
 )
 {
-	this->button_event(
-		_event,
-		sge::input::cursor::button_pressed{
-			false
-		}
-	);
+	return
+		this->button_event(
+			_event,
+			sge::input::cursor::button_pressed{
+				false
+			}
+		);
 }
 
-void
+awl::event::optional_base_unique_ptr
 sge::x11input::cursor::object::button_event(
-	sge::x11input::device::window_event const &_event,
+	XIDeviceEvent const &_event,
 	sge::input::cursor::button_pressed const _pressed
 )
 {
-	if(
-		_event.get().flags
-		&
-		XIPointerEmulated
-	)
-		return;
-
-	button_signal_(
-		sge::input::cursor::button_event(
-			sge::x11input::cursor::button_code(
-				_event.get().detail
+	return
+		fcppt::optional::make_if(
+			!(
+				_event.flags
+				&
+				XIPointerEmulated
 			),
-			sge::x11input::cursor::position(
-				_event
-			),
-			_pressed
-		)
-	);
-}
-
-void
-sge::x11input::cursor::object::move_event()
-{
-	move_signal_(
-		sge::input::cursor::move_event(
-			position_
-		)
-	);
-}
-
-void
-sge::x11input::cursor::object::check_grab()
-{
-	switch(
-		mode_
-	)
-	{
-	case sge::input::cursor::mode::exclusive:
-		if(
-			!cursor_grab_.has_value()
-			&&
-			should_grab_
-		)
-			cursor_grab_ =
-				optional_cursor_grab_unique_ptr(
-					fcppt::make_unique_ptr<
-						sge::x11input::cursor::grab
+			[
+				this,
+				&_event,
+				_pressed
+			]{
+				return
+					fcppt::unique_ptr_to_base<
+						awl::event::base
 					>(
-						log_,
-						window_,
-						this->id(),
-						cursor_
-					)
-				);
-		else if(
-			!should_grab_
-		)
-			cursor_grab_ =
-				optional_cursor_grab_unique_ptr();
+						fcppt::make_unique_ptr<
+							sge::input::cursor::event::button
+						>(
+							this->fcppt_shared_from_this(),
+							sge::x11input::cursor::button_code(
+								_event.detail
+							),
+							// FIXME
+							sge::x11input::cursor::position(
+								_event
+							),
+							_pressed
+						)
+					);
+			}
+		);
+}
 
-		return;
-	case sge::input::cursor::mode::normal:
+void
+sge::x11input::cursor::object::grab()
+{
+	if(
+		mode_
+		==
+		sge::input::cursor::mode::exclusive
+		&&
+		!cursor_grab_.has_value()
+	)
 		cursor_grab_ =
-			optional_cursor_grab_unique_ptr();
-		return;
-	}
+			sge::x11input::cursor::create_grab(
+				this->log_,
+				this->window_,
+				this->id_,
+				this->cursor_
+			);
+}
 
-	FCPPT_ASSERT_UNREACHABLE;
+void
+sge::x11input::cursor::object::ungrab()
+{
+	cursor_grab_ =
+		sge::x11input::cursor::optional_grab_unique_ptr();
 }

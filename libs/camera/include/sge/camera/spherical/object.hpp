@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_SPHERICAL_OBJECT_HPP_INCLUDED
 
 #include <sge/camera/base.hpp>
-#include <sge/camera/has_activation.hpp>
 #include <sge/camera/has_mutable_projection.hpp>
-#include <sge/camera/is_active.hpp>
 #include <sge/camera/is_dynamic.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
+#include <sge/camera/projection_matrix.hpp>
+#include <sge/camera/update_duration.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/spherical/acceleration_factor.hpp>
@@ -39,10 +39,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/spherical/action/mapping.hpp>
 #include <sge/camera/spherical/coordinate_system/object.hpp>
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/input/keyboard/key_event_fwd.hpp>
-#include <sge/input/mouse/axis_event_fwd.hpp>
+#include <sge/input/event_base_fwd.hpp>
+#include <sge/input/keyboard/event/key_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -55,7 +54,6 @@ namespace spherical
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 :
 	public virtual sge::camera::base,
-	public sge::camera::has_activation,
 	public sge::camera::is_dynamic,
 	public sge::camera::has_mutable_projection
 {
@@ -75,7 +73,7 @@ public:
 	override;
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::projection_matrix
+	sge::camera::optional_projection_matrix
 	projection_matrix() const
 	override;
 
@@ -87,18 +85,6 @@ public:
 	override;
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::is_active
-	is_active() const
-	override;
-
-	SGE_CAMERA_DETAIL_SYMBOL
-	void
-	is_active(
-		sge::camera::is_active
-	)
-	override;
-
-	SGE_CAMERA_DETAIL_SYMBOL
 	void
 	update(
 		sge::camera::update_duration
@@ -106,11 +92,16 @@ public:
 	override;
 
 	SGE_CAMERA_DETAIL_SYMBOL
+	void
+	process_event(
+		sge::input::event_base const &
+	)
+	override;
+
+	SGE_CAMERA_DETAIL_SYMBOL
 	~object()
 	override;
 private:
-	fcppt::signal::auto_connection const keyboard_connection_;
-
 	sge::camera::spherical::action::mapping action_mapping_;
 
 	sge::camera::spherical::movement_speed movement_speed_;
@@ -124,8 +115,6 @@ private:
 	sge::camera::spherical::acceleration_factor acceleration_factor_;
 
 	sge::camera::spherical::damping_factor damping_factor_;
-
-	sge::camera::is_active is_active_;
 
 	sge::camera::spherical::coordinate_system::object coordinate_system_;
 
@@ -142,8 +131,8 @@ private:
 	bool increase_radius_pressed_, decrease_radius_pressed_;
 
 	void
-	key_callback(
-		sge::input::keyboard::key_event const &
+	key_event(
+		sge::input::keyboard::event::key const &
 	);
 };
 

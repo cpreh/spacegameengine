@@ -86,10 +86,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <awl/timer/unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
@@ -122,7 +124,7 @@ public:
 	device(
 		fcppt::log::object &,
 		sge::renderer::display_mode::parameters const &,
-		awl::window::object &,
+		sge::window::object &,
 		sge::opengl::platform::system &,
 		sge::opengl::backend::system &
 	);
@@ -367,6 +369,10 @@ private:
 	sge::renderer::caps::device const caps_;
 
 	sge::renderer::target::onscreen_unique_ptr const onscreen_target_;
+
+	awl::timer::unique_ptr const timer_;
+
+	fcppt::signal::auto_connection const event_connection_;
 };
 
 }

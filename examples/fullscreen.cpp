@@ -24,10 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
 #include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/clear/parameters.hpp>
-#include <sge/renderer/context/core.hpp>
-#include <sge/renderer/context/scoped_core.hpp>
-#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_dimensions.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
@@ -39,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
-#include <sge/renderer/target/onscreen.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -52,26 +47,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/window_source.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
-#include <sge/timer/basic.hpp>
-#include <sge/timer/parameters.hpp>
-#include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
+#include <awl/event/base_fwd.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/exit_success.hpp>
 #include <awl/main/function_context_fwd.hpp>
+#include <awl/system/object.hpp>
+#include <awl/system/event/processor.hpp>
+#include <awl/timer/duration.hpp>
+#include <awl/timer/delay.hpp>
+#include <awl/timer/match.hpp>
+#include <awl/timer/object.hpp>
+#include <awl/timer/setting_no_period.hpp>
+#include <awl/timer/unique_ptr.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
-#include <chrono>
 #include <example_main.hpp>
 #include <exception>
-#include <ostream>
+#include <chrono>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -142,70 +145,65 @@ try
 		)
 	);
 
-	sge::timer::basic<
-		sge::timer::clocks::standard
-	> timer(
-		sge::timer::parameters<
-			sge::timer::clocks::standard
-		>(
-			std::chrono::seconds(
-				5
-			)
-		)
-	);
-
-	while(
-		sys.window_system().poll()
-	)
-	{
-		if(
-			timer.expired()
-		)
-		{
-			sys.window_system().quit(
-				awl::main::exit_success()
-			);
-
-			timer.active(
-				false
-			);
-		}
-
-		sge::renderer::context::scoped_core const scoped_block(
-			sys.renderer_device_core(),
-			sys.renderer_device_core().onscreen_target()
-		);
-
-		scoped_block.get().clear(
-			sge::renderer::clear::parameters()
-			.back_buffer(
-				sge::image::color::any::object{
-					sge::image::color::predef::yellow()
+	awl::timer::unique_ptr const timer{
+		sys.window_system().awl_system().processor().create_timer(
+			awl::timer::setting_no_period(
+				awl::timer::delay{
+					std::chrono::duration_cast<
+						awl::timer::duration
+					>(
+						std::chrono::seconds{
+							3
+						}
+					)
 				}
 			)
-		);
-	}
+		)
+	};
 
 	return
-		sys.window_system().exit_code();
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&sys,
+					&timer
+				](
+					awl::event::base const &_event
+				)
+				{
+					if(
+						awl::timer::match(
+							_event,
+							*timer
+						)
+					)
+						sys.window_system().quit(
+							awl::main::exit_success()
+						);
+				}
+			}
+		);
 }
 catch(
 	fcppt::exception const &_error
 )
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_error.string()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
 )
 {
-	fcppt::io::cerr()
-		<< _error.what()
-		<< FCPPT_TEXT('\n');
+	awl::show_error_narrow(
+		_error.what()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }

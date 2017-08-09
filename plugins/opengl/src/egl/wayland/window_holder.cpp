@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/wayland/window/object.hpp>
 #include <awl/window/dim.hpp>
+#include <awl/window/object.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <wayland-egl-core.h>
@@ -30,12 +32,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::egl::wayland::window_holder::window_holder(
-	awl::backends::wayland::window::object &_window
+	awl::window::object const &_window
 )
 :
 	window_{
 		::wl_egl_window_create(
-			_window.surface(),
+			fcppt::cast::dynamic_exn<
+				awl::backends::wayland::window::object const &
+			>(
+				_window
+			).surface(),
 			fcppt::cast::to_signed(
 				_window.size().w()
 			),

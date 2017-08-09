@@ -26,14 +26,15 @@ sge::systems::input::input(
 	sge::systems::cursor_option_field const &_cursor_options
 )
 :
-	cursor_options_(
+	cursor_options_{
 		_cursor_options
-	)
+	}
 {
 }
 
 sge::systems::cursor_option_field const &
 sge::systems::input::cursor_options() const
 {
-	return cursor_options_;
+	return
+		cursor_options_;
 }

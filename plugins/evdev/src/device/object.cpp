@@ -23,13 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <sge/evdev/device/object.hpp>
 #include <sge/input/exception.hpp>
-#include <awl/backends/posix/callback.hpp>
-#include <awl/backends/posix/event_fwd.hpp>
-#include <awl/backends/posix/processor.hpp>
+#include <awl/backends/posix/fd.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/base_unique_ptr.hpp>
+#include <awl/event/container.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
+#include <boost/filesystem/path.hpp>
 #include <cerrno>
 #include <unistd.h>
 #include <utility>
@@ -37,27 +39,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::evdev::device::object::object(
-	awl::backends::posix::processor &_processor,
-	sge::evdev::device::fd_unique_ptr _fd
+	sge::evdev::device::fd_unique_ptr &&_fd,
+	boost::filesystem::path const &_path
 )
 :
-	fd_(
+	fd_{
 		std::move(
 			_fd
 		)
-	),
-	auto_connection_(
-		_processor.register_fd_callback(
-			fd_->get(),
-			awl::backends::posix::callback{
-				std::bind(
-					&sge::evdev::device::object::on_event,
-					this,
-					std::placeholders::_1
-				)
-			}
-		)
-	)
+	},
+	path_{
+		_path
+	}
 {
 }
 
@@ -65,16 +58,17 @@ sge::evdev::device::object::~object()
 {
 }
 
-void
-sge::evdev::device::object::on_event(
-	awl::backends::posix::event const &
-)
+awl::event::container
+sge::evdev::device::object::on_event()
 {
 	ssize_t result{
 		-1
 	};
 
 	input_event event;
+
+	// TODO: Make a range for this
+	awl::event::container events;
 
 	while(
 		(
@@ -90,24 +84,57 @@ sge::evdev::device::object::on_event(
 		)
 		> 0
 	)
-		this->process_event(
-			sge::evdev::device::event(
-				event
+		fcppt::optional::maybe_void(
+			this->process_event(
+				sge::evdev::device::event(
+					event
+				)
+			),
+			[
+				&events
+			](
+				awl::event::base_unique_ptr &&_event
 			)
+			{
+				events.push_back(
+					std::move(
+						_event
+					)
+				);
+			}
 		);
 
 	if(
-		result == -1
+		result
+		==
+		-1
 		&&
 		errno
 		!=
 		EAGAIN
 	)
-		throw sge::input::exception{
-			FCPPT_TEXT("Reading a device failed")
-		};
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("Reading a device failed")
+			};
+
+	return
+		events;
 }
 
+awl::backends::posix::fd
+sge::evdev::device::object::posix_fd() const
+{
+	return
+		this->fd().get();
+}
+
+boost::filesystem::path const &
+sge::evdev::device::object::path() const
+{
+	return
+		path_;
+}
 
 sge::evdev::device::fd const &
 sge::evdev::device::object::fd() const

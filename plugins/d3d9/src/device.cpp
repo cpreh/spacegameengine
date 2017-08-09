@@ -76,7 +76,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/device/parameters.hpp>
 #include <sge/renderer/display_mode/container.hpp>
+#include <sge/renderer/display_mode/draw_timer_setting_opt.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_parameters_fwd.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
@@ -143,26 +145,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
+#include <sge/window/event_function.hpp>
+#include <sge/window/object.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/system_event_function.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/container.hpp>
+#include <awl/system/object.hpp>
+#include <awl/system/event/processor.hpp>
+#include <awl/timer/match.hpp>
+#include <awl/timer/object.hpp>
 #include <awl/window/object.hpp>
-#include <awl/window/event/processor.hpp>
-#include <awl/window/event/resize_callback.hpp>
+#include <awl/window/event/base.hpp>
 #include <awl/window/event/resize.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_signed.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/optional/make_if.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_container.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
-#include <functional>
 #include <thread>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -191,6 +208,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::d3d9::device::device(
 	IDirect3D9 &_system,
+	fcppt::log::object &_log,
 	sge::renderer::device::parameters const &_parameters
 )
 :
@@ -202,7 +220,7 @@ sge::d3d9::device::device(
 	),
 	srgb_(
 		sge::d3d9::parameters::extract_srgb(
-			_parameters.window().visual()
+			_parameters.window().awl_object().visual()
 		)
 	),
 	caps_(
@@ -214,10 +232,10 @@ sge::d3d9::device::device(
 	present_parameters_(
 		sge::d3d9::parameters::create(
 			sge::d3d9::parameters::extract_pixel_format(
-				_parameters.window().visual()
+				_parameters.window().awl_object().visual()
 			),
 			_parameters.display_mode(),
-			_parameters.window()
+			_parameters.window().awl_object()
 		)
 	),
 	device_(
@@ -280,22 +298,57 @@ sge::d3d9::device::device(
 			index_,
 			sge::d3d9::parameters::convert::bit_depth(
 				sge::d3d9::parameters::extract_pixel_format(
-					_parameters.window().visual()
+					_parameters.window().awl_object().visual()
 				).color()
 			)
 		)
 	),
-	resize_connection_(
-		_parameters.window().processor().resize_callback(
-			awl::window::event::resize_callback{
-				std::bind(
-					&sge::d3d9::device::on_resize,
-					this,
-					std::placeholders::_1
+	window_{
+		_parameters.window()
+	},
+	draw_timer_{
+		// TODO: How do we know when this changes?
+		_parameters.window().system().awl_system().processor().create_timer(
+			sge::renderer::display_mode::draw_timer_setting_opt(
+				_log,
+				this->display_mode()
+			)
+		)
+	},
+	window_event_connection_{
+		_parameters.window().event_handler(
+			sge::window::event_function{
+				[
+					this
+				](
+					awl::window::event::base const &_event
 				)
+				{
+					return
+						this->on_window_event(
+							_event
+						);
+				}
 			}
 		)
-	)
+	},
+	system_event_connection_{
+		_parameters.window().system().event_handler(
+			sge::window::system_event_function{
+				[
+					this
+				](
+					awl::event::base const &_event
+				)
+				{
+					return
+						this->on_system_event(
+							_event
+						);
+				}
+			}
+		)
+	}
 {
 }
 
@@ -876,6 +929,69 @@ sge::d3d9::device::reset()
 		);
 
 	this->reinit();
+}
+
+awl::event::container
+sge::d3d9::device::on_window_event(
+	awl::window::event::base const &_event
+)
+{
+	fcppt::optional::maybe_void(
+		fcppt::cast::dynamic<
+			awl::window::event::resize const
+		>(
+			_event
+		),
+		[
+			this
+		](
+			fcppt::reference<
+				awl::window::event::resize const
+			> const _resize
+		)
+		{
+			this->on_resize(
+				_resize.get()
+			);
+		}
+	);
+
+	return
+		awl::event::container{};
+}
+
+awl::event::container
+sge::d3d9::device::on_system_event(
+	awl::event::base const &_event
+)
+{
+	return
+		fcppt::optional::to_container<
+			awl::event::container
+		>(
+			fcppt::optional::make_if(
+				awl::timer::match(
+					_event,
+					*draw_timer_
+				),
+				[
+					this
+				]{
+					return
+						fcppt::unique_ptr_to_base<
+							awl::event::base
+						>(
+							fcppt::make_unique_ptr<
+								sge::renderer::event::render
+							>(
+								fcppt::make_ref(
+									this->window_.awl_object()
+								)
+							)
+						);
+				}
+			)
+		);
 }
 
 void

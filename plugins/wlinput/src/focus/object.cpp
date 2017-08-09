@@ -20,19 +20,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
-#include <sge/input/focus/char_callback.hpp>
-#include <sge/input/focus/char_event.hpp>
 #include <sge/input/focus/char_type.hpp>
-#include <sge/input/focus/in_callback.hpp>
-#include <sge/input/focus/in_event.hpp>
 #include <sge/input/focus/key.hpp>
-#include <sge/input/focus/key_callback.hpp>
-#include <sge/input/focus/key_event.hpp>
-#include <sge/input/focus/key_repeat_callback.hpp>
-#include <sge/input/focus/key_repeat_event.hpp>
 #include <sge/input/focus/object.hpp>
-#include <sge/input/focus/out_callback.hpp>
-#include <sge/input/focus/out_event.hpp>
+#include <sge/input/focus/shared_ptr.hpp>
+#include <sge/input/focus/event/char.hpp>
+#include <sge/input/focus/event/in.hpp>
+#include <sge/input/focus/event/key.hpp>
+#include <sge/input/focus/event/key_repeat.hpp>
+#include <sge/input/focus/event/out.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/optional_code.hpp>
 #include <sge/input/key/pressed.hpp>
@@ -51,16 +47,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wlinput/focus/translate_keysym.hpp>
 #include <sge/wlinput/focus/wl_to_xkb_keycode.hpp>
 #include <sge/wlinput/focus/xkb_keycode.hpp>
-#include <awl/backends/posix/callback.hpp>
-#include <awl/backends/posix/event_fwd.hpp>
+#include <sge/window/object.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/system_event_function.hpp>
 #include <awl/backends/posix/fd.hpp>
-#include <awl/backends/posix/processor.hpp>
-#include <awl/backends/posix/timer.hpp>
-#include <awl/backends/posix/timer_delay.hpp>
-#include <awl/backends/posix/timer_period.hpp>
 #include <awl/backends/wayland/seat_fwd.hpp>
 #include <awl/backends/wayland/window/object.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/container.hpp>
+#include <awl/event/container_reference.hpp>
+#include <awl/system/object.hpp>
+#include <awl/system/event/processor.hpp>
+#include <awl/timer/delay.hpp>
+#include <awl/timer/duration.hpp>
+#include <awl/timer/match.hpp>
+#include <awl/timer/object.hpp>
+#include <awl/timer/period.hpp>
+#include <awl/timer/setting.hpp>
+#include <awl/timer/unique_ptr.hpp>
+#include <fcppt/enable_shared_from_this_impl.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
@@ -68,8 +76,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/optional/make.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/to_container.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
@@ -166,17 +176,12 @@ keyboard_keymap(
 		);
 
 		remove_xkb();
-
-		// TODO: Is this safe?
-		throw;
 	}
 	catch(
 		...
 	)
 	{
 		remove_xkb();
-
-		throw;
 	}
 }
 
@@ -209,8 +214,16 @@ keyboard_enter(
 		data.last_pressed_ =
 			sge::input::key::optional_code();
 
-		data.in_signal_(
-			sge::input::focus::in_event{}
+		data.events_.get().push_back(
+			fcppt::unique_ptr_to_base<
+				awl::event::base
+			>(
+				fcppt::make_unique_ptr<
+					sge::input::focus::event::in
+				>(
+					data.focus_.get_shared_ptr()
+				)
+			)
 		);
 	}
 }
@@ -243,8 +256,16 @@ keyboard_leave(
 		data.last_pressed_ =
 			sge::input::key::optional_code();
 
-		data.out_signal_(
-			sge::input::focus::out_event{}
+		data.events_.get().push_back(
+			fcppt::unique_ptr_to_base<
+				awl::event::base
+			>(
+				fcppt::make_unique_ptr<
+					sge::input::focus::event::out
+				>(
+					data.focus_.get_shared_ptr()
+				)
+			)
 		);
 	}
 }
@@ -312,16 +333,24 @@ keyboard_key(
 					key_code
 				}
 			)
+				// TODO: Reset key repeat timer here?
 				data.last_pressed_ =
 					sge::input::key::optional_code{};
 
-			data.key_signal_(
-				sge::input::focus::key_event{
-					sge::input::focus::key{
-						key_code
-					},
-					pressed
-				}
+			data.events_.get().push_back(
+				fcppt::unique_ptr_to_base<
+					awl::event::base
+				>(
+					fcppt::make_unique_ptr<
+						sge::input::focus::event::key
+					>(
+						data.focus_.get_shared_ptr(),
+						sge::input::focus::key{
+							key_code
+						},
+						pressed
+					)
+				)
 			);
 
 			for(
@@ -337,10 +366,18 @@ keyboard_key(
 					)
 				)
 			)
-				data.char_signal_(
-					sge::input::focus::char_event{
-						ch
-					}
+				// TODO: Make a string event instead of a char one?
+				data.events_.get().push_back(
+					fcppt::unique_ptr_to_base<
+						awl::event::base
+					>(
+						fcppt::make_unique_ptr<
+							sge::input::focus::event::char_
+						>(
+							data.focus_.get_shared_ptr(),
+							ch
+						)
+					)
 				);
 		}
 	);
@@ -411,7 +448,7 @@ keyboard_repeat_info(
 		)
 		{
 			return
-				awl::backends::posix::duration{
+				awl::timer::duration{
 					_duration
 				};
 		}
@@ -419,42 +456,18 @@ keyboard_repeat_info(
 
 	data.repeat_timer_ =
 		fcppt::optional::make(
-			data.posix_processor_.create_timer(
-				awl::backends::posix::callback{
-					[
-						&data
-					](
-						awl::backends::posix::event const &
-					)
-					{
-						fcppt::optional::maybe_void(
-							data.last_pressed_,
-							[
-								&data
-							](
-								sge::input::key::code const _code
-							)
-							{
-								data.key_repeat_signal_(
-									sge::input::focus::key_repeat_event{
-										sge::input::focus::key{
-											_code
-										}
-									}
-								);
-							}
-						);
+			data.processor_.create_timer(
+				awl::timer::setting{
+					awl::timer::delay{
+						convert_duration(
+							_delay
+						)
+					},
+					awl::timer::period{
+						convert_duration(
+							_rate
+						)
 					}
-				},
-				awl::backends::posix::timer_delay{
-					convert_duration(
-						_delay
-					)
-				},
-				awl::backends::posix::timer_period{
-					convert_duration(
-						_rate
-					)
 				}
 			)
 		);
@@ -473,21 +486,66 @@ wl_keyboard_listener const keyboard_listener{
 
 sge::wlinput::focus::object::object(
 	fcppt::log::object &_log,
+	sge::window::object &_sge_window,
 	sge::wlinput::xkb_context const &_xkb_context,
-	awl::backends::posix::processor &_posix_processor,
 	awl::backends::wayland::window::object const &_window,
+	awl::event::container_reference const _events,
 	awl::backends::wayland::seat const &_seat
 )
 :
-	sge::input::focus::object(),
+	sge::input::focus::object{},
+	fcppt::enable_shared_from_this<
+		sge::wlinput::focus::object
+	>{},
 	impl_{
 		_seat
 	},
 	data_{
 		_log,
+		*this,
 		_xkb_context,
-		_posix_processor,
-		_window
+		_sge_window.system().awl_system().processor(),
+		_window,
+		_events
+	},
+	event_connection_{
+		_sge_window.system().event_handler(
+			sge::window::system_event_function{
+				[
+					this
+				](
+					awl::event::base const &_event
+				)
+				{
+					return
+						fcppt::optional::maybe(
+							this->data_.repeat_timer_,
+							[]{
+								return
+									awl::event::container{};
+							},
+							[
+								this,
+								&_event
+							](
+								awl::timer::unique_ptr const &_timer
+							)
+							{
+								return
+									awl::timer::match(
+										_event,
+										*_timer
+									)
+									?
+										this->on_key_repeat()
+									:
+										awl::event::container{}
+									;
+							}
+						);
+				}
+			}
+		)
 	}
 {
 	::wl_keyboard_add_listener(
@@ -501,57 +559,42 @@ sge::wlinput::focus::object::~object()
 {
 }
 
-fcppt::signal::auto_connection
-sge::wlinput::focus::object::char_callback(
-	sge::input::focus::char_callback const &_callback
-)
+sge::input::focus::shared_ptr
+sge::wlinput::focus::object::get_shared_ptr()
 {
 	return
-		data_.char_signal_.connect(
-			_callback
-		);
+		this->fcppt_shared_from_this();
 }
 
-fcppt::signal::auto_connection
-sge::wlinput::focus::object::key_callback(
-	sge::input::focus::key_callback const &_callback
-)
+awl::event::container
+sge::wlinput::focus::object::on_key_repeat()
 {
 	return
-		data_.key_signal_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::wlinput::focus::object::key_repeat_callback(
-	sge::input::focus::key_repeat_callback const &_callback
-)
-{
-	return
-		data_.key_repeat_signal_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::wlinput::focus::object::in_callback(
-	sge::input::focus::in_callback const &_callback
-)
-{
-	return
-		data_.in_signal_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::wlinput::focus::object::out_callback(
-	sge::input::focus::out_callback const &_callback
-)
-{
-	return
-		data_.out_signal_.connect(
-			_callback
+		fcppt::optional::to_container<
+			awl::event::container
+		>(
+			fcppt::optional::map(
+				data_.last_pressed_,
+				[
+					this
+				](
+					sge::input::key::code const _code
+				)
+				{
+					return
+						fcppt::unique_ptr_to_base<
+							awl::event::base
+						>(
+							fcppt::make_unique_ptr<
+								sge::input::focus::event::key_repeat
+							>(
+								this->get_shared_ptr(),
+								sge::input::focus::key{
+									_code
+								}
+							)
+						);
+				}
+			)
 		);
 }

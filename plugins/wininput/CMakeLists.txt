@@ -14,10 +14,10 @@ set(
 	plugins/wininput/include/sge/wininput/cursor/set_capture.hpp
 	plugins/wininput/include/sge/wininput/cursor/show.hpp
 	plugins/wininput/include/sge/wininput/cursor/ungrab.hpp
+	plugins/wininput/include/sge/wininput/focus/key_repeated.hpp
 	plugins/wininput/include/sge/wininput/focus/object.hpp
 	plugins/wininput/include/sge/wininput/focus/object_fwd.hpp
 	plugins/wininput/include/sge/wininput/focus/translate_key_code.hpp
-	plugins/wininput/include/sge/wininput/has_focus.hpp
 	plugins/wininput/include/sge/wininput/processor.hpp
 	plugins/wininput/include/sge/wininput/system.hpp
 	plugins/wininput/src/cursor/clip.cpp
@@ -32,6 +32,7 @@ set(
 	plugins/wininput/src/cursor/show.cpp
 	plugins/wininput/src/cursor/ungrab.cpp
 	plugins/wininput/src/exports.cpp
+	plugins/wininput/src/focus/key_repeated.cpp
 	plugins/wininput/src/focus/object.cpp
 	plugins/wininput/src/focus/translate_key_code.cpp
 	plugins/wininput/src/processor.cpp

@@ -22,44 +22,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WLINPUT_PROCESSOR_HPP_INCLUDED
 
 #include <sge/input/processor.hpp>
-#include <sge/input/cursor/discover_callback.hpp>
-#include <sge/input/cursor/discover_signal.hpp>
-#include <sge/input/cursor/remove_callback.hpp>
-#include <sge/input/cursor/remove_signal.hpp>
-#include <sge/input/focus/discover_callback.hpp>
-#include <sge/input/focus/discover_signal.hpp>
-#include <sge/input/focus/remove_callback.hpp>
-#include <sge/input/focus/remove_signal.hpp>
-#include <sge/input/joypad/discover_callback.hpp>
-#include <sge/input/joypad/remove_callback.hpp>
-#include <sge/input/keyboard/discover_callback.hpp>
-#include <sge/input/keyboard/remove_callback.hpp>
-#include <sge/input/mouse/discover_callback.hpp>
-#include <sge/input/mouse/remove_callback.hpp>
+#include <sge/input/cursor/container.hpp>
+#include <sge/input/focus/container.hpp>
+#include <sge/input/joypad/container.hpp>
+#include <sge/input/keyboard/container.hpp>
+#include <sge/input/mouse/container.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <sge/window/system_fwd.hpp>
+#include <sge/wlinput/map.hpp>
 #include <sge/wlinput/xkb_context.hpp>
 #include <sge/wlinput/cursor/object_fwd.hpp>
 #include <sge/wlinput/focus/object_fwd.hpp>
-#include <awl/backends/posix/event_fwd.hpp>
-#include <awl/backends/posix/posted_unique_ptr.hpp>
-#include <awl/backends/wayland/registry_id.hpp>
+#include <awl/backends/posix/fd.hpp>
+#include <awl/backends/wayland/display_fwd.hpp>
 #include <awl/backends/wayland/system/event/processor_fwd.hpp>
-#include <awl/backends/wayland/system/event/seat_added_fwd.hpp>
+#include <awl/backends/wayland/system/event/seat_caps_fwd.hpp>
 #include <awl/backends/wayland/system/event/seat_removed_fwd.hpp>
-#include <awl/backends/wayland/system/seat/caps_field_fwd.hpp>
-#include <awl/backends/wayland/system/seat/object_fwd.hpp>
 #include <awl/backends/wayland/window/object_fwd.hpp>
+#include <awl/event/base_fwd.hpp>
+#include <awl/event/connection_unique_ptr.hpp>
+#include <awl/event/container.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/reference_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/object_decl.hpp>
-#include <fcppt/signal/optional_auto_connection_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <unordered_map>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -77,92 +61,50 @@ class processor
 public:
 	processor(
 		fcppt::log::object &,
-		sge::window::object const &,
-		sge::window::system const &
+		sge::window::object &
 	);
 
 	~processor()
 	override;
 private:
-	fcppt::signal::optional_auto_connection
-	keyboard_discover_callback(
-		sge::input::keyboard::discover_callback const &
-	)
+	sge::window::object &
+	window() const
 	override;
 
-	fcppt::signal::optional_auto_connection
-	keyboard_remove_callback(
-		sge::input::keyboard::remove_callback const &
-	)
+	sge::input::cursor::container
+	cursors() const
 	override;
 
-	fcppt::signal::optional_auto_connection
-	mouse_discover_callback(
-		sge::input::mouse::discover_callback const &
-	)
+	sge::input::focus::container
+	foci() const
 	override;
 
-	fcppt::signal::optional_auto_connection
-	mouse_remove_callback(
-		sge::input::mouse::remove_callback const &
-	)
+	sge::input::joypad::container
+	joypads() const
 	override;
 
-	fcppt::signal::optional_auto_connection
-	focus_discover_callback(
-		sge::input::focus::discover_callback const &
-	)
+	sge::input::keyboard::container
+	keyboards() const
 	override;
 
-	fcppt::signal::optional_auto_connection
-	focus_remove_callback(
-		sge::input::focus::remove_callback const &
-	)
+	sge::input::mouse::container
+	mice() const
 	override;
 
-	fcppt::signal::optional_auto_connection
-	cursor_discover_callback(
-		sge::input::cursor::discover_callback const &
-	)
-	override;
-
-	fcppt::signal::optional_auto_connection
-	cursor_remove_callback(
-		sge::input::cursor::remove_callback const &
-	)
-	override;
-
-	fcppt::signal::optional_auto_connection
-	joypad_discover_callback(
-		sge::input::joypad::discover_callback const &
-	)
-	override;
-
-	fcppt::signal::optional_auto_connection
-	joypad_remove_callback(
-		sge::input::joypad::remove_callback const &
-	)
-	override;
-
-	void
-	init(
-		awl::backends::posix::event const &
+	awl::event::container
+	on_event(
+		awl::event::base const &
 	);
 
-	void
-	add_seat(
-		awl::backends::wayland::system::event::seat_added const &
-	);
+	awl::event::container
+	display_event();
 
-	void
+	awl::event::container
 	seat_caps(
-		fcppt::reference<
-			awl::backends::wayland::system::seat::object const
-		>,
-		awl::backends::wayland::system::seat::caps_field
+		awl::backends::wayland::system::event::seat_caps const &
 	);
 
-	void
+	awl::event::container
 	remove_seat(
 		awl::backends::wayland::system::event::seat_removed const &
 	);
@@ -171,41 +113,27 @@ private:
 
 	awl::backends::wayland::system::event::processor &system_processor_;
 
+	sge::window::object &sge_window_;
+
 	awl::backends::wayland::window::object &window_;
+
+	awl::backends::wayland::display &display_;
+
+	awl::backends::posix::fd const fd_;
 
 	sge::wlinput::xkb_context const xkb_context_;
 
-	sge::input::focus::discover_signal focus_discover_;
-
-	sge::input::focus::remove_signal focus_remove_;
-
-	sge::input::cursor::discover_signal cursor_discover_;
-
-	sge::input::cursor::remove_signal cursor_remove_;
+	awl::event::container last_events_;
 
 	typedef
-	fcppt::unique_ptr<
+	sge::wlinput::map<
 		sge::wlinput::cursor::object
-	>
-	cursor_unique_ptr;
-
-	typedef
-	std::unordered_map<
-		awl::backends::wayland::registry_id,
-		cursor_unique_ptr
 	>
 	cursor_map;
 
 	typedef
-	fcppt::unique_ptr<
+	sge::wlinput::map<
 		sge::wlinput::focus::object
-	>
-	focus_unique_ptr;
-
-	typedef
-	std::unordered_map<
-		awl::backends::wayland::registry_id,
-		focus_unique_ptr
 	>
 	focus_map;
 
@@ -213,20 +141,9 @@ private:
 
 	focus_map foci_;
 
-	awl::backends::posix::posted_unique_ptr const start_event_;
+	awl::event::connection_unique_ptr const fd_connection_;
 
-	fcppt::signal::auto_connection const seat_added_connection_;
-
-	fcppt::signal::auto_connection const seat_removed_connection_;
-
-	typedef
-	std::unordered_map<
-		awl::backends::wayland::registry_id,
-		fcppt::signal::auto_connection
-	>
-	seat_connection_map;
-
-	seat_connection_map seat_connections_;
+	fcppt::signal::auto_connection const event_connection_;
 };
 
 }

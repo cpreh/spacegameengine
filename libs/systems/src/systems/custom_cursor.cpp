@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/cursor/object_fwd.hpp>
+#include <sge/input/processor_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/systems/cursor_hotspot.hpp>
@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::systems::custom_cursor::custom_cursor(
+	sge::input::processor const &_processor,
 	sge::renderer::device::ffp &_renderer,
-	sge::input::cursor::object &_cursor,
 	sge::texture::part const &_texture,
 	sge::systems::cursor_hotspot const _hotspot
 )
@@ -39,8 +39,8 @@ sge::systems::custom_cursor::custom_cursor(
 		fcppt::make_unique_ptr<
 			sge::systems::detail::custom_cursor
 		>(
+			_processor,
 			_renderer,
-			_cursor,
 			_texture,
 			_hotspot
 		)

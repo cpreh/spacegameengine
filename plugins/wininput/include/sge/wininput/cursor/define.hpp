@@ -21,12 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WININPUT_CURSOR_DEFINE_HPP_INCLUDED
 #define SGE_WININPUT_CURSOR_DEFINE_HPP_INCLUDED
 
+#include <sge/window/object_fwd.hpp>
 #include <sge/wininput/cursor/define_fwd.hpp>
 #include <sge/wininput/cursor/pixmap.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/window/event/object_fwd.hpp>
-#include <awl/backends/windows/window/event/processor_fwd.hpp>
-#include <awl/backends/windows/window/event/return_type_fwd.hpp>
+#include <awl/backends/windows/window/event/generic_fwd.hpp>
+#include <awl/event/container.hpp>
+#include <awl/window/event/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -47,15 +48,18 @@ class define
 public:
 	explicit
 	define(
-		awl::backends::windows::window::event::processor &
+		sge::window::object &
 	);
 
 	~define();
 private:
-	awl::backends::windows::window::event::return_type
-	on_cursor(
-		awl::backends::windows::window::event::object const &
+	awl::event::container
+	on_event(
+		awl::window::event::base const &
 	);
+
+	void
+	on_cursor();
 
 	typedef
 	fcppt::optional::object<

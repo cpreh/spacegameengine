@@ -20,20 +20,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/device/parameters.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
 
 
 sge::renderer::device::parameters::parameters(
 	sge::renderer::display_mode::parameters const &_display_mode,
-	awl::window::object &_window
+	sge::window::object &_window
 )
 :
-	display_mode_(
+	display_mode_{
 		_display_mode
-	),
-	window_(
+	},
+	window_{
 		_window
-	)
+	}
 {
 }
 
@@ -44,7 +44,7 @@ sge::renderer::device::parameters::display_mode() const
 		display_mode_;
 }
 
-awl::window::object &
+sge::window::object &
 sge::renderer::device::parameters::window() const
 {
 	return

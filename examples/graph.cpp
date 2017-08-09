@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
@@ -59,15 +60,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_window.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/cerr.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/random/variate.hpp>
 #include <fcppt/random/distribution/basic.hpp>
 #include <fcppt/random/distribution/parameters/uniform_real.hpp>
@@ -77,8 +84,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <fstream>
-#include <iostream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -157,7 +162,9 @@ try
 		sge::graph::color_schemes::bright()
 	);
 
-	typedef fcppt::random::generator::minstd_rand generator_type;
+	typedef
+	fcppt::random::generator::minstd_rand
+	generator_type;
 
 	generator_type generator(
 		fcppt::random::generator::seed_from_chrono<
@@ -165,16 +172,20 @@ try
 		>()
 	);
 
-	typedef fcppt::random::distribution::basic<
+	typedef
+	fcppt::random::distribution::basic<
 		fcppt::random::distribution::parameters::uniform_real<
 			double
 		>
-	> uniform_real;
+	>
+	uniform_real;
 
-	typedef fcppt::random::variate<
+	typedef
+	fcppt::random::variate<
 		generator_type,
 		uniform_real
-	> variate;
+	>
+	variate;
 
 	variate rng(
 		generator,
@@ -188,44 +199,90 @@ try
 		)
 	);
 
-	while(
-		sys.window_system().poll()
-	)
-	{
-		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target()
-		);
+	auto const draw(
+		[
+			&graph,
+			&rng,
+			&sys
+		]{
+			sge::renderer::context::scoped_ffp const scoped_block(
+				sys.renderer_device_ffp(),
+				sys.renderer_device_ffp().onscreen_target()
+			);
 
-		sge::renderer::context::ffp &context(
-			scoped_block.get());
+			sge::renderer::context::ffp &context(
+				scoped_block.get()
+			);
 
-		context.clear(
-			sge::renderer::clear::parameters()
-			.back_buffer(
-				sge::image::color::any::object{
-					sge::image::color::predef::black()
+			context.clear(
+				sge::renderer::clear::parameters()
+				.back_buffer(
+					sge::image::color::any::object{
+						sge::image::color::predef::black()
+					}
+				)
+			);
+
+			graph.push(
+				rng()
+			);
+
+			graph.render(
+				context
+			);
+		}
+	);
+
+	return
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&draw
+				](
+					awl::event::base const &_event
+				)
+				{
+					fcppt::optional::maybe_void(
+						fcppt::cast::dynamic<
+							sge::renderer::event::render const
+						>(
+							_event
+						),
+						[
+							&draw
+						](
+							fcppt::reference<
+								sge::renderer::event::render const
+							>
+						)
+						{
+							draw();
+						}
+					);
 				}
-			));
-
-		graph.push(rng());
-
-		graph.render(
-			scoped_block.get()
+			}
 		);
-	}
-
-	return sys.window_system().exit_code();
 }
-catch(fcppt::exception const &e)
+catch(
+	fcppt::exception const &_error
+)
 {
-	fcppt::io::cerr() << e.string() << FCPPT_TEXT("\n");
-	return awl::main::exit_failure();
+	awl::show_error(
+		_error.string()
+	);
+
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
 )
 {
-	std::cerr << _error.what() << '\n';
-	return awl::main::exit_failure();
+	awl::show_error_narrow(
+		_error.what()
+	);
+
+	return
+		awl::main::exit_failure();
 }

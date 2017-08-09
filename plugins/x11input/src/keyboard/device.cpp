@@ -19,125 +19,185 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/key/pressed.hpp>
-#include <sge/input/keyboard/key_event.hpp>
-#include <sge/x11input/device/parameters.hpp>
-#include <sge/x11input/device/window_demuxer.hpp>
-#include <sge/x11input/device/window_event.hpp>
+#include <sge/input/keyboard/event/key.hpp>
+#include <sge/x11input/device/id.hpp>
+#include <sge/x11input/event/device_function.hpp>
+#include <sge/x11input/event/select.hpp>
+#include <sge/x11input/event/type_c.hpp>
+#include <sge/x11input/event/window_demuxer.hpp>
 #include <sge/x11input/key/is_repeated.hpp>
 #include <sge/x11input/keyboard/device.hpp>
 #include <sge/x11input/keyboard/key_from_event.hpp>
-#include <awl/backends/x11/system/event/object.hpp>
-#include <awl/backends/x11/system/event/processor.hpp>
-#include <awl/backends/x11/window/object.hpp>
+#include <awl/backends/x11/window/base.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/base_unique_ptr.hpp>
+#include <awl/event/container.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
+#include <fcppt/enable_shared_from_this_impl.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/auto_connection_container.hpp>
+#include <fcppt/optional/make_if.hpp>
+#include <fcppt/optional/to_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
+#include <boost/mpl/vector/vector10.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::x11input::keyboard::device::device(
-	sge::x11input::device::parameters const &_param
+	sge::window::object &_sge_window,
+	sge::x11input::device::id const _id,
+	awl::backends::x11::window::base const &_window,
+	sge::x11input::event::window_demuxer &_window_demuxer
 )
 :
-	sge::input::keyboard::device(),
-	sge::x11input::device::object(
-		_param.id()
-	),
-	key_signal_(),
-	window_(
-		_param.window()
-	),
-	connections_(
-		fcppt::assign::make_container<
-			fcppt::signal::auto_connection_container
-		>(
-			_param.window_demuxer().register_callback(
-				awl::backends::x11::system::event::type(
-					XI_KeyPress
-				),
-				_param.id(),
-				sge::x11input::device::window_demuxer::callback{
-					std::bind(
-						&sge::x11input::keyboard::device::on_key_press,
-						this,
-						std::placeholders::_1
-					)
-				}
-			),
-			_param.window_demuxer().register_callback(
-				awl::backends::x11::system::event::type(
-					XI_KeyRelease
-				),
-				_param.id(),
-				sge::x11input::device::window_demuxer::callback{
-					std::bind(
-						&sge::x11input::keyboard::device::on_key_release,
-						this,
-						std::placeholders::_1
-					)
-				}
-			)
+	sge::input::keyboard::device{},
+	fcppt::enable_shared_from_this<
+		sge::x11input::keyboard::device
+	>{},
+	sge_window_{
+		_sge_window
+	},
+	window_{
+		_window
+	},
+	event_connection_{
+		_window_demuxer.on_event(
+			_id,
+			sge::x11input::event::device_function{
+				std::bind(
+					&sge::x11input::keyboard::device::on_event,
+					this,
+					std::placeholders::_1
+				)
+			}
 		)
-	)
+	}
 {
+	sge::x11input::event::select<
+		boost::mpl::vector2<
+			sge::x11input::event::type_c<
+				XI_KeyPress
+			>,
+			sge::x11input::event::type_c<
+				XI_KeyRelease
+			>
+		>
+	>(
+		_window_demuxer,
+		_id
+	);
 }
 
 sge::x11input::keyboard::device::~device()
 {
 }
 
-fcppt::signal::auto_connection
-sge::x11input::keyboard::device::key_callback(
-	sge::input::keyboard::key_callback const &_callback
+sge::window::object &
+sge::x11input::keyboard::device::window() const
+{
+	return
+		sge_window_;
+}
+
+awl::event::container
+sge::x11input::keyboard::device::on_event(
+	XIDeviceEvent const &_event
+)
+{
+	switch(
+		_event.evtype
+	)
+	{
+	case XI_KeyPress:
+		return
+			fcppt::optional::to_container<
+				awl::event::container
+			>(
+				this->on_key_press(
+					_event
+				)
+			);
+	case XI_KeyRelease:
+		return
+			fcppt::assign::make_container<
+				awl::event::container
+			>(
+				this->on_key_release(
+					_event
+				)
+			);
+	}
+
+	return
+		awl::event::container{};
+}
+
+awl::event::optional_base_unique_ptr
+sge::x11input::keyboard::device::on_key_press(
+	XIDeviceEvent const &_event
 )
 {
 	return
-		key_signal_.connect(
-			_callback
+		fcppt::optional::make_if(
+			!sge::x11input::key::is_repeated(
+				_event
+			).get(),
+			[
+				this,
+				&_event
+			]{
+				return
+					this->make_key_event(
+						_event,
+						sge::input::key::pressed{
+							true
+						}
+					);
+			}
 		);
 }
 
-void
-sge::x11input::keyboard::device::on_key_press(
-	sge::x11input::device::window_event const &_event
+awl::event::base_unique_ptr
+sge::x11input::keyboard::device::on_key_release(
+	XIDeviceEvent const &_event
 )
 {
-	if(
-		!sge::x11input::key::is_repeated(
-			_event.get()
-		).get()
-	)
-		key_signal_(
-			sge::input::keyboard::key_event(
-				sge::x11input::keyboard::key_from_event(
-					window_.display(),
-					_event.get()
-				),
+	return
+		fcppt::unique_ptr_to_base<
+			awl::event::base
+		>(
+			this->make_key_event(
+				_event,
 				sge::input::key::pressed{
-					true
+					false
 				}
 			)
 		);
 }
 
-void
-sge::x11input::keyboard::device::on_key_release(
-	sge::x11input::device::window_event const &_event
+awl::event::base_unique_ptr
+sge::x11input::keyboard::device::make_key_event(
+	XIDeviceEvent const &_event,
+	sge::input::key::pressed const _pressed
 )
 {
-	key_signal_(
-		sge::input::keyboard::key_event(
-			sge::x11input::keyboard::key_from_event(
-				window_.display(),
-				_event.get()
-			),
-			sge::input::key::pressed{
-				false
-			}
-		)
-	);
+	return
+		fcppt::unique_ptr_to_base<
+			awl::event::base
+		>(
+			fcppt::make_unique_ptr<
+				sge::input::keyboard::event::key
+			>(
+				this->fcppt_shared_from_this(),
+				sge::x11input::keyboard::key_from_event(
+					window_.display(),
+					_event
+				),
+				_pressed
+			)
+		);
 }

@@ -18,47 +18,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/evdev/joypad/find_path.hpp>
 #include <sge/evdev/joypad/map.hpp>
 #include <sge/evdev/joypad/object.hpp>
 #include <sge/evdev/joypad/remove.hpp>
-#include <sge/input/joypad/remove_event.hpp>
-#include <sge/input/joypad/remove_signal.hpp>
-#include <fcppt/container/find_opt_iterator.hpp>
-#include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/signal/object_impl.hpp>
+#include <sge/input/joypad/shared_ptr.hpp>
+#include <sge/input/joypad/event/remove.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-void
+awl::event::optional_base_unique_ptr
 sge::evdev::joypad::remove(
 	sge::evdev::joypad::map &_map,
-	sge::input::joypad::remove_signal &_signal,
 	boost::filesystem::path const &_path
 )
 {
-	fcppt::optional::maybe_void(
-		fcppt::container::find_opt_iterator(
-			_map,
-			_path
-		),
-		[
-			&_map,
-			&_signal
-		](
-			sge::evdev::joypad::map::iterator const _it
-		)
-		{
-			_signal(
-				sge::input::joypad::remove_event(
-					*_it->second
-				)
-			);
+	return
+		fcppt::optional::map(
+			sge::evdev::joypad::find_path(
+				_map,
+				_path
+			),
+			[
+				&_map
+			](
+				sge::evdev::joypad::map::iterator const _pos
+			)
+			{
+				sge::input::joypad::shared_ptr const result{
+					_pos->second
+				};
 
-			_map.erase(
-				_it
-			);
-		}
-	);
+				_map.erase(
+					_pos
+				);
+
+				return
+					fcppt::unique_ptr_to_base<
+						awl::event::base
+					>(
+						fcppt::make_unique_ptr<
+							sge::input::joypad::event::remove
+						>(
+							result
+						)
+					);
+			}
+		);
 }

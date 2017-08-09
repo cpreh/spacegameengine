@@ -25,8 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/dinput_device_unique_ptr.hpp>
 #include <sge/dinput/device/object_fwd.hpp>
 #include <sge/dinput/device/parameters_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <awl/event/container.hpp>
+#include <awl/event/optional_base_unique_ptr_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-
 
 
 namespace sge
@@ -42,7 +44,7 @@ class object
 		object
 	);
 public:
-	void
+	awl::event::container
 	dispatch();
 
 	virtual
@@ -61,6 +63,9 @@ protected:
 
 	IDirectInputDevice8 &
 	get();
+
+	sge::window::object &
+	sge_window() const;
 private:
 	bool
 	acquire_impl();
@@ -82,10 +87,12 @@ private:
 	);
 
 	virtual
-	void
+	awl::event::optional_base_unique_ptr
 	on_dispatch(
 		DIDEVICEOBJECTDATA const &
 	) = 0;
+
+	sge::window::object &window_;
 
 	sge::dinput::dinput_device_unique_ptr const device_;
 };

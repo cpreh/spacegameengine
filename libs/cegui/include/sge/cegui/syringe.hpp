@@ -24,13 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/syringe_fwd.hpp>
 #include <sge/cegui/system_fwd.hpp>
 #include <sge/cegui/detail/symbol.hpp>
-#include <sge/input/cursor/button_event_fwd.hpp>
-#include <sge/input/cursor/move_event_fwd.hpp>
 #include <sge/input/cursor/position_fwd.hpp>
-#include <sge/input/cursor/scroll_event_fwd.hpp>
-#include <sge/input/focus/char_event_fwd.hpp>
-#include <sge/input/focus/key_event_fwd.hpp>
-#include <sge/input/focus/key_repeat_event_fwd.hpp>
+#include <sge/input/cursor/event/button_fwd.hpp>
+#include <sge/input/cursor/event/move_fwd.hpp>
+#include <sge/input/cursor/event/scroll_fwd.hpp>
+#include <sge/input/focus/event/char_fwd.hpp>
+#include <sge/input/focus/event/key_fwd.hpp>
+#include <sge/input/focus/event/key_repeat_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/object.hpp>
@@ -65,37 +65,37 @@ public:
 	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	inject(
-		sge::input::focus::key_event const &
+		sge::input::focus::event::key const &
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	inject(
-		sge::input::focus::key_repeat_event const &
+		sge::input::focus::event::key_repeat const &
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	inject(
-		sge::input::focus::char_event const &
+		sge::input::focus::event::char_ const &
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	inject(
-		sge::input::cursor::button_event const &
+		sge::input::cursor::event::button const &
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	inject(
-		sge::input::cursor::move_event const &
+		sge::input::cursor::event::move const &
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	inject(
-		sge::input::cursor::scroll_event const &
+		sge::input::cursor::event::scroll const &
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL

@@ -20,19 +20,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/d3d9/core.hpp>
 #include <sge/d3d9/system.hpp>
+#include <sge/log/default_parameters.hpp>
+#include <sge/log/location.hpp>
 #include <sge/renderer/core.hpp>
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/system_unique_ptr.hpp>
 #include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
-#include <awl/system/object_fwd.hpp>
+#include <sge/window/system_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/name.hpp>
 
 
-sge::d3d9::core::core()
+sge::d3d9::core::core(
+	fcppt::log::context &_log_context
+)
 :
-	sge::renderer::core()
+	sge::renderer::core(),
+	log_{
+		_log_context,
+		sge::log::location(),
+		sge::log::default_parameters(
+			fcppt::log::name{
+				FCPPT_TEXT("d3d9")
+			}
+		)
+	}
 {
 }
 
@@ -42,7 +58,7 @@ sge::d3d9::core::~core()
 
 sge::renderer::system_unique_ptr
 sge::d3d9::core::create_system(
-	awl::system::object &
+	sge::window::system &
 )
 {
 	return
@@ -51,7 +67,9 @@ sge::d3d9::core::create_system(
 		>(
 			fcppt::make_unique_ptr<
 				sge::d3d9::system
-			>()
+			>(
+				log_
+			)
 		);
 }
 

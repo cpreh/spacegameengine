@@ -128,12 +128,6 @@ add_sge_lib(
 )
 
 add_sge_lib(
-	wic
-	"Build the Windows Imaging Component image loader plugin"
-	"${WIN32}"
-)
-
-add_sge_lib(
 	wininput
 	"Build the WinAPI input plugin"
 	"${WIN32}"

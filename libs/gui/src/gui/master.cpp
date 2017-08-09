@@ -28,93 +28,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/optional_focus.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
-#include <sge/input/cursor/button_callback.hpp>
+#include <sge/input/event_base.hpp>
 #include <sge/input/cursor/button_code.hpp>
-#include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
-#include <sge/input/focus/char_callback.hpp>
-#include <sge/input/focus/char_event.hpp>
-#include <sge/input/focus/key_callback.hpp>
-#include <sge/input/focus/key_event.hpp>
-#include <sge/input/focus/key_repeat_callback.hpp>
-#include <sge/input/focus/key_repeat_event.hpp>
-#include <sge/input/focus/object.hpp>
+#include <sge/input/cursor/event/button.hpp>
+#include <sge/input/focus/event/char.hpp>
+#include <sge/input/focus/event/key.hpp>
+#include <sge/input/focus/event/key_repeat.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <functional>
+#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::gui::master::master(
-	sge::input::focus::object &_focus,
-	sge::input::cursor::object &_cursor,
 	sge::gui::context &_context,
 	sge::gui::main_area::base &_main_area
 )
 :
-	cursor_(
-		_cursor
-	),
-	context_(
+	context_{
 		_context
-	),
-	main_area_(
+	},
+	main_area_{
 		_main_area
-	),
-	key_connection_(
-		_focus.key_callback(
-			sge::input::focus::key_callback{
-				std::bind(
-					&sge::gui::master::key_event,
-					this,
-					std::placeholders::_1
-				)
-			}
-		)
-	),
-	key_repeat_connection_(
-		_focus.key_repeat_callback(
-			sge::input::focus::key_repeat_callback{
-				std::bind(
-					&sge::gui::master::key_repeat_event,
-					this,
-					std::placeholders::_1
-				)
-			}
-		)
-	),
-	char_connection_(
-		_focus.char_callback(
-			sge::input::focus::char_callback{
-				std::bind(
-					&sge::gui::master::char_event,
-					this,
-					std::placeholders::_1
-				)
-			}
-		)
-	),
-	button_connection_(
-		_cursor.button_callback(
-			sge::input::cursor::button_callback{
-				std::bind(
-					&sge::gui::master::button_event,
-					this,
-					std::placeholders::_1
-				)
-			}
-		)
-	)
+	}
 {
 }
 
@@ -168,21 +117,99 @@ sge::gui::master::update(
 }
 
 void
+sge::gui::master::process_event(
+	sge::input::event_base const &_event
+)
+{
+	fcppt::optional::maybe_void(
+		fcppt::variant::dynamic_cast_<
+			boost::mpl::vector4<
+				sge::input::focus::event::key const,
+				sge::input::focus::event::key_repeat const,
+				sge::input::focus::event::char_ const,
+				sge::input::cursor::event::button const
+			>,
+			fcppt::cast::dynamic_fun
+		>(
+			_event
+		),
+		[
+			this
+		](
+			auto const &_variant
+		)
+		{
+			fcppt::variant::match(
+				_variant,
+				[
+					this
+				](
+					fcppt::reference<
+						sge::input::focus::event::key const
+					> const _key_event
+				)
+				{
+					this->key_event(
+						_key_event.get()
+					);
+				},
+				[
+					this
+				](
+					fcppt::reference<
+						sge::input::focus::event::key_repeat const
+					> const _key_repeat_event
+				)
+				{
+					this->key_repeat_event(
+						_key_repeat_event.get()
+					);
+				},
+				[
+					this
+				](
+					fcppt::reference<
+						sge::input::focus::event::char_ const
+					> const _char_event
+				)
+				{
+					this->char_event(
+						_char_event.get()
+					);
+				},
+				[
+					this
+				](
+					fcppt::reference<
+						sge::input::cursor::event::button const
+					> const _button_event
+				)
+				{
+					this->button_event(
+						_button_event.get()
+					);
+				}
+			);
+		}
+	);
+}
+
+void
 sge::gui::master::key_event(
-	sge::input::focus::key_event const &_event
+	sge::input::focus::event::key const &_event
 )
 {
 	if(
 		_event.pressed()
 	)
 		this->handle_key(
-			_event.key().code()
+			_event.get().code()
 		);
 }
 
 void
 sge::gui::master::key_repeat_event(
-	sge::input::focus::key_repeat_event const &_event
+	sge::input::focus::event::key_repeat const &_event
 )
 {
 	this->handle_key(
@@ -192,7 +219,7 @@ sge::gui::master::key_repeat_event(
 
 void
 sge::gui::master::char_event(
-	sge::input::focus::char_event const &_event
+	sge::input::focus::event::char_ const &_event
 )
 {
 	fcppt::optional::maybe_void(
@@ -214,11 +241,11 @@ sge::gui::master::char_event(
 
 void
 sge::gui::master::button_event(
-	sge::input::cursor::button_event const &_event
+	sge::input::cursor::event::button const &_event
 )
 {
 	fcppt::optional::maybe_void(
-		cursor_.position(),
+		_event.cursor()->position(),
 		[
 			this,
 			&_event

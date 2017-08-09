@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/config.hpp>
 #include <sge/systems/font.hpp>
 #include <sge/systems/image2d.hpp>
+#include <sge/systems/input.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/systems/detail/any_fwd.hpp>
-#include <sge/systems/detail/input.hpp>
 #include <sge/systems/detail/renderer.hpp>
 #include <fcppt/variant/variadic.hpp>
 

@@ -22,10 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_FIRST_PERSON_OBJECT_HPP_INCLUDED
 
 #include <sge/camera/base.hpp>
-#include <sge/camera/has_activation.hpp>
 #include <sge/camera/has_mutable_coordinate_system.hpp>
 #include <sge/camera/has_mutable_projection.hpp>
-#include <sge/camera/is_active.hpp>
 #include <sge/camera/is_dynamic.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
 #include <sge/camera/projection_matrix_fwd.hpp>
@@ -37,12 +35,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/parameters_fwd.hpp>
 #include <sge/camera/first_person/action/mapping.hpp>
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/input/keyboard/key_event_fwd.hpp>
-#include <sge/input/mouse/axis_event_fwd.hpp>
+#include <sge/input/event_base_fwd.hpp>
+#include <sge/input/keyboard/event/key_fwd.hpp>
+#include <sge/input/mouse/event/axis_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -55,7 +53,6 @@ namespace first_person
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 :
 	public virtual sge::camera::base,
-	public sge::camera::has_activation,
 	public sge::camera::is_dynamic,
 	public sge::camera::has_mutable_projection,
 	public sge::camera::has_mutable_coordinate_system
@@ -83,7 +80,7 @@ public:
 	override;
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::projection_matrix
+	sge::camera::optional_projection_matrix
 	projection_matrix() const
 	override;
 
@@ -95,14 +92,9 @@ public:
 	override;
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::is_active
-	is_active() const
-	override;
-
-	SGE_CAMERA_DETAIL_SYMBOL
 	void
-	is_active(
-		sge::camera::is_active
+	process_event(
+		sge::input::event_base const &
 	)
 	override;
 
@@ -117,17 +109,11 @@ public:
 	~object()
 	override;
 private:
-	fcppt::signal::auto_connection const keyboard_connection_;
-
-	fcppt::signal::auto_connection const mouse_axis_connection_;
-
 	sge::camera::first_person::action::mapping action_mapping_;
 
 	sge::camera::first_person::movement_speed movement_speed_;
 
 	sge::camera::first_person::mouse_speed_multiplier mouse_speed_multiplier_;
-
-	sge::camera::is_active is_active_;
 
 	sge::renderer::vector3 directions_;
 
@@ -142,13 +128,13 @@ private:
 	bool forward_pressed_, backward_pressed_;
 
 	void
-	key_callback(
-		sge::input::keyboard::key_event const &
+	key_event(
+		sge::input::keyboard::event::key const &
 	);
 
 	void
-	mouse_axis_callback(
-		sge::input::mouse::axis_event const &
+	mouse_axis_event(
+		sge::input::mouse::event::axis const &
 	);
 
 	void

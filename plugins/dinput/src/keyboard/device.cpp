@@ -25,10 +25,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/pressed.hpp>
 #include <sge/input/keyboard/key.hpp>
-#include <sge/input/keyboard/key_event.hpp>
 #include <sge/input/keyboard/key_id.hpp>
+#include <sge/input/keyboard/event/key.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/enable_shared_from_this_impl.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/optional/copy_value.hpp>
@@ -36,7 +42,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/signal/object_impl.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -46,17 +51,19 @@ sge::dinput::keyboard::device::device(
 	dinput::device::parameters const &_parameters
 )
 :
-	sge::input::keyboard::device(),
-	sge::dinput::device::object(
+	sge::input::keyboard::device{},
+	sge::dinput::device::object{
 		_parameters,
 		c_dfDIKeyboard
-	),
-	key_signal_(),
-	info_(
+	},
+	fcppt::enable_shared_from_this<
+		sge::dinput::keyboard::device
+	>{},
+	info_{
 		sge::dinput::keyboard::make_info(
 			this->get()
 		)
-	)
+	}
 {
 }
 
@@ -66,18 +73,14 @@ sge::dinput::keyboard::device::~device()
 {
 }
 
-fcppt::signal::auto_connection
-sge::dinput::keyboard::device::key_callback(
-	sge::input::keyboard::key_callback const &_callback
-)
+sge::window::object &
+sge::dinput::keyboard::device::window() const
 {
 	return
-		key_signal_.connect(
-			_callback
-		);
+		this->sge_window();
 }
 
-void
+awl::event::optional_base_unique_ptr
 sge::dinput::keyboard::device::on_dispatch(
 	DIDEVICEOBJECTDATA const &_data
 )
@@ -112,10 +115,18 @@ sge::dinput::keyboard::device::on_dispatch(
 		)
 	};
 
-	key_signal_(
-		sge::input::keyboard::key_event(
-			key,
-			key_value
-		)
-	);
+	return
+		awl::event::optional_base_unique_ptr{
+			fcppt::unique_ptr_to_base<
+				awl::event::base
+			>(
+				fcppt::make_unique_ptr<
+					sge::input::keyboard::event::key
+				>(
+					this->fcppt_shared_from_this(),
+					key,
+					key_value
+				)
+			)
+		};
 }

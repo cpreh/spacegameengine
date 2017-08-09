@@ -23,6 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/device/event.hpp>
 #include <sge/evdev/device/event_type.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
+#include <fcppt/shared_ptr_impl.hpp>
+#include <fcppt/container/find_opt_mapped.hpp>
+#include <fcppt/optional/map.hpp>
 
 
 namespace sge
@@ -32,41 +37,50 @@ namespace evdev
 namespace device
 {
 
+// TODO: Better typing
 template<
-	typename Signal,
+	typename Type,
 	typename Map,
 	typename Info,
 	typename Function
 >
-void
+awl::event::optional_base_unique_ptr
 conditional_event(
+	fcppt::shared_ptr<
+		Type
+	> const _ptr,
 	sge::evdev::device::event const &_event,
-	Signal &_signal,
 	Map const &_map,
 	Info const &_info,
 	Function const &_function
 )
 {
-	typename Map::const_iterator const it(
-		_map.find(
-			sge::evdev::device::event_type(
-				_event.get().code
+	return
+		fcppt::optional::map(
+			fcppt::container::find_opt_mapped(
+				_map,
+				sge::evdev::device::event_type(
+					_event.get().code
+				)
+			),
+			[
+				_ptr,
+				&_function,
+				_info,
+				_event
+			](
+				auto const &_mapped
 			)
-		)
-	);
-
-	if(
-		it == _map.end()
-	)
-		return;
-
-	_signal(
-		_function(
-			it->second,
-			_info,
-			_event
-		)
-	);
+			{
+				return
+					_function(
+						_ptr,
+						_mapped.get(),
+						_info,
+						_event
+					);
+			}
+		);
 }
 
 }

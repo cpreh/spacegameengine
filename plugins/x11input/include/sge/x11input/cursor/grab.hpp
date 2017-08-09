@@ -24,9 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/cursor/grab_fwd.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <awl/backends/x11/cursor/object_fwd.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
+#include <awl/backends/x11/window/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -43,15 +42,14 @@ class grab
 	);
 public:
 	grab(
-		fcppt::log::object &,
-		awl::backends::x11::window::object const &,
+		awl::backends::x11::window::base const &,
 		sge::x11input::device::id,
 		awl::backends::x11::cursor::object const &
 	);
 
 	~grab();
 private:
-	awl::backends::x11::window::object const &window_;
+	awl::backends::x11::window::base const &window_;
 
 	sge::x11input::device::id const id_;
 };

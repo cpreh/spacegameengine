@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/mouse/button_fwd.hpp>
 #include <sge/input/mouse/button_info_container_fwd.hpp>
-#include <sge/x11input/device/window_event_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -35,7 +37,7 @@ namespace mouse
 
 sge::input::mouse::button
 button(
-	sge::x11input::device::window_event const &,
+	XIDeviceEvent const &,
 	sge::input::mouse::button_info_container const &
 );
 

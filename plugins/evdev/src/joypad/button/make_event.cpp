@@ -20,24 +20,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/device/event.hpp>
 #include <sge/evdev/joypad/button/make_event.hpp>
-#include <sge/input/joypad/button_event.hpp>
 #include <sge/input/joypad/button_id.hpp>
 #include <sge/input/joypad/button_info_container_fwd.hpp>
 #include <sge/input/joypad/button_pressed.hpp>
+#include <sge/input/joypad/shared_ptr.hpp>
+#include <sge/input/joypad/event/button.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/base_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 
 
-sge::input::joypad::button_event
+awl::event::base_unique_ptr
 sge::evdev::joypad::button::make_event(
+	sge::input::joypad::shared_ptr const &_joypad,
 	sge::input::joypad::button_id const _id,
 	sge::input::joypad::button_info_container const &,
 	sge::evdev::device::event const _event
 )
 {
 	return
-		sge::input::joypad::button_event(
-			_id,
-			sge::input::joypad::button_pressed{
-				_event.get().value != 0
-			}
+		fcppt::unique_ptr_to_base<
+			awl::event::base
+		>(
+			fcppt::make_unique_ptr<
+				sge::input::joypad::event::button
+			>(
+				_joypad,
+				_id,
+				sge::input::joypad::button_pressed{
+					_event.get().value != 0
+				}
+			)
 		);
 }

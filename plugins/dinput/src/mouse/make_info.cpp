@@ -30,10 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 
 
-sge::dinput::mouse::info const
+sge::dinput::mouse::info
 sge::dinput::mouse::make_info(
 	IDirectInputDevice8 &_device,
-	fcppt::string const &_name
+	sge::input::info::name const &_name
 )
 {
 	sge::dinput::mouse::enumerator object;
@@ -55,9 +55,7 @@ sge::dinput::mouse::make_info(
 				sge::input::mouse::button_info_container(
 					object.buttons()
 				),
-				sge::input::info::name(
-					_name
-				)
+				_name
 			),
 			object.axis_map(),
 			object.button_map()

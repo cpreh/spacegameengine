@@ -39,15 +39,17 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::camera::ortho_freelook::projection_rectangle_from_viewport::projection_rectangle_from_viewport(
 	sge::camera::ortho_freelook::object &_camera,
-	sge::viewport::manager &_viewport_manager)
+	sge::viewport::manager &_viewport_manager
+)
 :
 	camera_(
-		_camera),
+		_camera
+	),
 	viewport_callback_connection_(
 		_viewport_manager.manage_callback(
 			sge::viewport::manage_callback{
 				std::bind(
-					&projection_rectangle_from_viewport::viewport_callback,
+					&sge::camera::ortho_freelook::projection_rectangle_from_viewport::viewport_callback,
 					this,
 					std::placeholders::_1
 				)

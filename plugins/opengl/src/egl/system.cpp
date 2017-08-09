@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/egl/version_output.hpp>
 #include <sge/opengl/egl/visual/to_config.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
+#include <sge/window/object.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
@@ -94,14 +95,14 @@ sge::opengl::egl::system::create_visual(
 
 sge::opengl::backend::context_unique_ptr
 sge::opengl::egl::system::create_context(
-	awl::window::object &_window
+	sge::window::object &_window
 )
 {
 	EGLConfig const config{
 		sge::opengl::egl::visual::to_config(
 			log_,
 			egl_display_->get(),
-			_window.visual()
+			_window.awl_object().visual()
 		)
 	};
 

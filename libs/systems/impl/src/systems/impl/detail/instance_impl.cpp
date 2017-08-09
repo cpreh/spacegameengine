@@ -24,10 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
-#include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/focus/object_fwd.hpp>
-#include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/mouse/device_fwd.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/parse/ini/optional_start_fwd.hpp>
@@ -42,10 +38,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
+#include <sge/systems/input_fwd.hpp>
 #include <sge/systems/optional_log_context_ref_fwd.hpp>
 #include <sge/systems/plugin_path.hpp>
 #include <sge/systems/window_fwd.hpp>
-#include <sge/systems/detail/input_fwd.hpp>
 #include <sge/systems/detail/renderer_fwd.hpp>
 #include <sge/systems/impl/log_name.hpp>
 #include <sge/systems/impl/audio/loader.hpp>
@@ -198,7 +194,7 @@ sge::systems::detail::instance_impl::init_renderer(
 
 void
 sge::systems::detail::instance_impl::init_input(
-	sge::systems::detail::input const &_parameters
+	sge::systems::input const &_parameters
 )
 {
 	input_ =
@@ -212,9 +208,6 @@ sge::systems::detail::instance_impl::init_input(
 					sge::input::system
 				>(),
 				_parameters,
-				*FCPPT_ASSERT_OPTIONAL_ERROR(
-					window_system_
-				),
 				*FCPPT_ASSERT_OPTIONAL_ERROR(
 					window_object_
 				)
@@ -386,42 +379,6 @@ sge::systems::detail::instance_impl::input_processor() const
 		FCPPT_ASSERT_OPTIONAL_ERROR(
 			input_
 		)->processor();
-}
-
-sge::input::focus::object &
-sge::systems::detail::instance_impl::focus_collector() const
-{
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			input_
-		)->focus_collector();
-}
-
-sge::input::cursor::object &
-sge::systems::detail::instance_impl::cursor_demuxer() const
-{
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			input_
-		)->cursor_demuxer();
-}
-
-sge::input::keyboard::device &
-sge::systems::detail::instance_impl::keyboard_collector() const
-{
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			input_
-		)->keyboard_collector();
-}
-
-sge::input::mouse::device &
-sge::systems::detail::instance_impl::mouse_collector() const
-{
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			input_
-		)->mouse_collector();
 }
 
 sge::image2d::system &

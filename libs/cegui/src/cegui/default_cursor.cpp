@@ -20,69 +20,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/syringe.hpp>
-#include <sge/input/cursor/button_callback.hpp>
-#include <sge/input/cursor/button_event_fwd.hpp>
-#include <sge/input/cursor/move_callback.hpp>
-#include <sge/input/cursor/move_event_fwd.hpp>
-#include <sge/input/cursor/object.hpp>
-#include <sge/input/cursor/position.hpp>
-#include <sge/input/cursor/scroll_callback.hpp>
-#include <sge/input/cursor/scroll_event_fwd.hpp>
+#include <sge/input/event_base.hpp>
+#include <sge/input/cursor/event/button.hpp>
+#include <sge/input/cursor/event/move.hpp>
+#include <sge/input/cursor/event/scroll.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/preprocessor/disable_vc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <functional>
+#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
-
 sge::cegui::default_cursor::default_cursor(
-	sge::cegui::syringe &_syringe,
-	sge::input::cursor::object &_cursor
+	sge::cegui::syringe &_syringe
 )
 :
-	syringe_(
+	syringe_{
 		_syringe
-	),
-	button_connection_(
-		_cursor.button_callback(
-			sge::input::cursor::button_callback{
-				std::bind(
-					&default_cursor::button_callback,
-					this,
-					std::placeholders::_1
-				)
-			}
-		)
-	),
-	move_connection_(
-		_cursor.move_callback(
-			sge::input::cursor::move_callback{
-				std::bind(
-					&default_cursor::move_callback,
-					this,
-					std::placeholders::_1
-				)
-			}
-		)
-	),
-	scroll_connection_(
-		_cursor.scroll_callback(
-			sge::input::cursor::scroll_callback{
-				std::bind(
-					&default_cursor::scroll_callback,
-					this,
-					std::placeholders::_1
-				)
-			}
-		)
-	)
+	}
 {
+	// FIXME
+	/*
 	fcppt::optional::maybe_void(
 		_cursor.position(),
 		[
@@ -95,41 +56,74 @@ sge::cegui::default_cursor::default_cursor(
 				_pos
 			);
 		}
-	);
+	);*/
 }
-
-FCPPT_PP_POP_WARNING
 
 sge::cegui::default_cursor::~default_cursor()
 {
 }
 
 void
-sge::cegui::default_cursor::button_callback(
-	sge::input::cursor::button_event const &_event
+sge::cegui::default_cursor::process_event(
+	sge::input::event_base const &_event
 )
 {
-	syringe_.inject(
-		_event
-	);
-}
-
-void
-sge::cegui::default_cursor::move_callback(
-	sge::input::cursor::move_event const &_event
-)
-{
-	syringe_.inject(
-		_event
-	);
-}
-
-void
-sge::cegui::default_cursor::scroll_callback(
-	sge::input::cursor::scroll_event const &_event
-)
-{
-	syringe_.inject(
-		_event
+	fcppt::optional::maybe_void(
+		fcppt::variant::dynamic_cast_<
+			boost::mpl::vector3<
+				sge::input::cursor::event::button const,
+				sge::input::cursor::event::move const,
+				sge::input::cursor::event::scroll const
+			>,
+			fcppt::cast::dynamic_fun
+		>(
+			_event
+		),
+		[
+			this
+		](
+			auto const &_variant
+		)
+		{
+			fcppt::variant::match(
+				_variant,
+				[
+					this
+				](
+					fcppt::reference<
+						sge::input::cursor::event::button const
+					> const _button_event
+				)
+				{
+					this->syringe_.inject(
+						_button_event.get()
+					);
+				},
+				[
+					this
+				](
+					fcppt::reference<
+						sge::input::cursor::event::move const
+					> const _move_event
+				)
+				{
+					this->syringe_.inject(
+						_move_event.get()
+					);
+				},
+				[
+					this
+				](
+					fcppt::reference<
+						sge::input::cursor::event::scroll const
+					> const _scroll_event
+				)
+				{
+					this->syringe_.inject(
+						_scroll_event.get()
+					);
+				}
+			);
+		}
 	);
 }

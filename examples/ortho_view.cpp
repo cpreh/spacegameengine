@@ -19,7 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/projection_matrix.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
+#include <sge/camera/update_duration.hpp>
 #include <sge/camera/ortho_freelook/object.hpp>
 #include <sge/camera/ortho_freelook/parameters.hpp>
 #include <sge/camera/ortho_freelook/projection_rectangle_from_viewport.hpp>
@@ -28,12 +30,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
+#include <sge/input/event_base.hpp>
+#include <sge/input/processor.hpp>
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/key/code.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/event/key.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
@@ -47,17 +50,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
-#include <sge/renderer/target/viewport_is_null.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -89,14 +94,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/parameters.hpp>
 #include <sge/sprite/state/scoped.hpp>
 #include <sge/systems/config.hpp>
-#include <sge/systems/cursor_demuxer.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
-#include <sge/systems/mouse_collector.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
@@ -117,7 +119,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/title.hpp>
 #include <awl/show_error.hpp>
 #include <awl/show_error_narrow.hpp>
@@ -126,13 +129,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/unique_ptr_to_const.hpp>
+#include <fcppt/cast/dynamic.hpp>
+#include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <chrono>
@@ -153,13 +162,7 @@ try
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
 			>,
-			sge::systems::with_input<
-				boost::mpl::vector3<
-					sge::systems::cursor_demuxer,
-					sge::systems::keyboard_collector,
-					sge::systems::mouse_collector
-				>
-			>,
+			sge::systems::with_input,
 			sge::systems::with_image2d
 		>
 	> const sys(
@@ -225,18 +228,19 @@ try
 
 	sge::camera::ortho_freelook::object camera(
 		sge::camera::ortho_freelook::parameters(
-			sys.mouse_collector(),
-			sys.keyboard_collector(),
 			sge::renderer::projection::near(
-				0.0f),
+				0.0f
+			),
 			sge::renderer::projection::far(
-				10.0f),
-			sge::camera::is_active(
-				true)));
+				10.0f
+			)
+		)
+	);
 
-	sge::camera::ortho_freelook::projection_rectangle_from_viewport projection_rectangle_from_viewport(
+	sge::camera::ortho_freelook::projection_rectangle_from_viewport const projection_rectangle_from_viewport(
 		camera,
-		sys.viewport_manager());
+		sys.viewport_manager()
+	);
 
 	sge::texture::const_part_unique_ptr const tex_bg(
 		fcppt::unique_ptr_to_const(
@@ -288,7 +292,8 @@ try
 		)
 	);
 
-	typedef sge::sprite::config::choices<
+	typedef
+	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
 				int
@@ -312,32 +317,43 @@ try
 				sge::sprite::config::texture_ownership::reference
 			>
 		>
-	> sprite_choices;
+	>
+	sprite_choices;
 
-	typedef sge::sprite::object<
+	typedef
+	sge::sprite::object<
 		sprite_choices
-	> sprite_object;
+	>
+	sprite_object;
 
-	typedef sge::sprite::buffers::with_declaration<
+	typedef
+	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
-	> sprite_buffers_type;
+	>
+	sprite_buffers_type;
 
 	sprite_buffers_type sprite_buffers(
 		sys.renderer_device_ffp(),
 		sge::sprite::buffers::option::dynamic
 	);
 
-	typedef sge::sprite::state::all_choices sprite_state_choices;
+	typedef
+	sge::sprite::state::all_choices
+	sprite_state_choices;
 
-	typedef sge::sprite::state::object<
+	typedef
+	sge::sprite::state::object<
 		sprite_state_choices
-	> sprite_state_object;
+	>
+	sprite_state_object;
 
-	typedef sge::sprite::state::parameters<
+	typedef
+	sge::sprite::state::parameters<
 		sprite_state_choices
-	> sprite_state_parameters;
+	>
+	sprite_state_parameters;
 
 	sprite_state_object sprite_states(
 		sys.renderer_device_ffp(),
@@ -367,34 +383,37 @@ try
 			)
 	);
 
-	fcppt::signal::auto_connection const escape_connection(
+	fcppt::signal::auto_connection const escape_connection{
 		sge::systems::quit_on_escape(
-			sys));
-
-	fcppt::signal::auto_connection const grab_connection(
-		sys.keyboard_collector().key_callback(
-			sge::input::keyboard::key_callback{
-				[
-					&sys
-				](
-					sge::input::keyboard::key_event const &_event
-				)
-				{
-					if(
-						_event.key().code()
-						==
-						sge::input::key::code::g
-					)
-						sys.cursor_demuxer().mode(
-							_event.pressed()
-							?
-								sge::input::cursor::mode::exclusive
-							:
-								sge::input::cursor::mode::normal
-						);
-				}
-			}
+			sys
 		)
+	};
+
+	auto const grab_cursor(
+		[
+			&sys
+		](
+			sge::input::keyboard::event::key const &_event
+		)
+		{
+			if(
+				_event.get().code()
+				==
+				sge::input::key::code::g
+			)
+				for(
+					sge::input::cursor::shared_ptr const &cursor
+					:
+					sys.input_processor().cursors()
+				)
+					cursor->mode(
+						_event.pressed()
+						?
+							sge::input::cursor::mode::exclusive
+						:
+							sge::input::cursor::mode::normal
+					);
+		}
 	);
 
 	sge::timer::basic<
@@ -409,109 +428,231 @@ try
 		)
 	);
 
-	while(
-		sys.window_system().poll())
-	{
-		if(
-			sge::renderer::target::viewport_is_null(
-				sys.renderer_device_ffp().onscreen_target().viewport()))
-			continue;
-
-		camera.update(
-			std::chrono::duration_cast<
-				sge::camera::update_duration
-			>(
-				sge::timer::elapsed_and_reset(
-					camera_timer
+	auto const draw_camera(
+		[
+			&background,
+			&camera,
+			&sprite_buffers,
+			&sprite_states,
+			&sys,
+			&tux
+		](
+			sge::renderer::context::ffp &_context,
+			sge::camera::projection_matrix const &_projection
+		)
+		{
+			sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
+				sys.renderer_device_ffp().create_transform_state(
+					sge::renderer::state::ffp::transform::parameters(
+						_projection.get()
+					)
 				)
-			)
-		);
+			);
 
-		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target());
+			sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
+				sys.renderer_device_ffp().create_transform_state(
+					sge::renderer::state::ffp::transform::parameters(
+						sge::camera::matrix_conversion::world(
+							camera.coordinate_system()
+						)
+					)
+				)
+			);
 
-		scoped_block.get().clear(
-			sge::renderer::clear::parameters()
-			.back_buffer(
-				sge::image::color::any::object{
-					sge::image::color::predef::black()
+			sge::renderer::state::ffp::transform::scoped const projection_transform(
+				_context,
+				sge::renderer::state::ffp::transform::mode::projection,
+				*projection_state
+			);
+
+			sge::renderer::state::ffp::transform::scoped const world_transform(
+				_context,
+				sge::renderer::state::ffp::transform::mode::world,
+				*world_state
+			);
+
+			sge::sprite::state::scoped<
+				sprite_state_choices
+			> const scoped_state(
+				sys.renderer_device_ffp(),
+				_context,
+				sge::sprite::state::default_options<
+					sprite_state_choices
+				>(),
+				sprite_states
+			);
+
+			typedef
+			sge::sprite::state::options<
+				sprite_state_choices
+			>
+			sprite_state_options;
+
+			sprite_state_options const state_options(
+				sge::sprite::state::default_options<
+					sprite_state_choices
+				>()
+				.no_blend_state()
+				.no_rasterizer_state()
+				.no_transform_state()
+			);
+
+			typedef
+			sge::sprite::process::options<
+				sge::sprite::process::geometry_options::update
+			>
+			sprite_options;
+
+			sge::sprite::process::one_with_options<
+				sprite_options
+			>(
+				_context,
+				background,
+				sprite_buffers,
+				sprite_states,
+				state_options
+			);
+
+			sge::sprite::process::one_with_options<
+				sprite_options
+			>(
+				_context,
+				tux,
+				sprite_buffers,
+				sprite_states,
+				state_options
+			);
+		}
+	);
+
+	auto const draw(
+		[
+			&camera,
+			&camera_timer,
+			&draw_camera,
+			&sys
+		]{
+			camera.update(
+				std::chrono::duration_cast<
+					sge::camera::update_duration
+				>(
+					sge::timer::elapsed_and_reset(
+						camera_timer
+					)
+				)
+			);
+
+			sge::renderer::context::scoped_ffp const scoped_block(
+				sys.renderer_device_ffp(),
+				sys.renderer_device_ffp().onscreen_target()
+			);
+
+			scoped_block.get().clear(
+				sge::renderer::clear::parameters()
+				.back_buffer(
+					sge::image::color::any::object{
+						sge::image::color::predef::black()
+					}
+				)
+			);
+
+			fcppt::optional::maybe_void(
+				camera.projection_matrix(),
+				[
+					&draw_camera,
+					&scoped_block
+				](
+					sge::camera::projection_matrix const &_projection
+				)
+				{
+					draw_camera(
+						scoped_block.get(),
+						_projection
+					);
 				}
-			)
-		);
-
-		sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
-			sys.renderer_device_ffp().create_transform_state(
-				sge::renderer::state::ffp::transform::parameters(
-					camera.projection_matrix().get())));
-
-		sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
-			sys.renderer_device_ffp().create_transform_state(
-				sge::renderer::state::ffp::transform::parameters(
-					sge::camera::matrix_conversion::world(
-						camera.coordinate_system()))));
-
-		sge::renderer::state::ffp::transform::scoped const projection_transform(
-			scoped_block.get(),
-			sge::renderer::state::ffp::transform::mode::projection,
-			*projection_state);
-
-		sge::renderer::state::ffp::transform::scoped const world_transform(
-			scoped_block.get(),
-			sge::renderer::state::ffp::transform::mode::world,
-			*world_state);
-
-		sge::sprite::state::scoped<
-			sprite_state_choices
-		> const scoped_state(
-			sys.renderer_device_ffp(),
-			scoped_block.get(),
-			sge::sprite::state::default_options<
-				sprite_state_choices
-			>(),
-			sprite_states
-		);
-
-		typedef sge::sprite::state::options<
-			sprite_state_choices
-		> sprite_state_options;
-
-		sprite_state_options const state_options(
-			sge::sprite::state::default_options<
-				sprite_state_choices
-			>()
-			.no_blend_state()
-			.no_rasterizer_state()
-			.no_transform_state()
-		);
-
-		typedef sge::sprite::process::options<
-			sge::sprite::process::geometry_options::update
-		> sprite_options;
-
-		sge::sprite::process::one_with_options<
-			sprite_options
-		>(
-			scoped_block.get(),
-			background,
-			sprite_buffers,
-			sprite_states,
-			state_options
-		);
-
-		sge::sprite::process::one_with_options<
-			sprite_options
-		>(
-			scoped_block.get(),
-			tux,
-			sprite_buffers,
-			sprite_states,
-			state_options
-		);
-	}
+			);
+		}
+	);
 
 	return
-		sys.window_system().exit_code();
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&camera,
+					&draw,
+					&grab_cursor
+				](
+					awl::event::base const &_event
+				)
+				{
+					fcppt::optional::maybe_void(
+						fcppt::cast::dynamic<
+							sge::input::event_base const
+						>(
+							_event
+						),
+						[
+							&camera
+						](
+							fcppt::reference<
+								sge::input::event_base const
+							> const _input_event
+						)
+						{
+							camera.process_event(
+								_input_event.get()
+							);
+						}
+					);
+
+					fcppt::optional::maybe_void(
+						fcppt::variant::dynamic_cast_<
+							boost::mpl::vector2<
+								sge::renderer::event::render const,
+								sge::input::keyboard::event::key const
+							>,
+							fcppt::cast::dynamic_fun
+						>(
+							_event
+						),
+						[
+							&draw,
+							&grab_cursor
+						](
+							auto const &_variant
+						)
+						{
+							fcppt::variant::match(
+								_variant,
+								[
+									&draw
+								](
+									fcppt::reference<
+										sge::renderer::event::render const
+									>
+								)
+								{
+									draw();
+								},
+								[
+									&grab_cursor
+								](
+									fcppt::reference<
+										sge::input::keyboard::event::key const
+									> const _key_event
+								)
+								{
+									grab_cursor(
+										_key_event.get()
+									);
+								}
+							);
+						}
+					);
+				}
+			}
+		);
 }
 catch(
 	fcppt::exception const &_error

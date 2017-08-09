@@ -19,7 +19,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/perspective_projection_from_viewport.hpp>
+#include <sge/camera/projection_matrix.hpp>
 #include <sge/camera/coordinate_system/identity.hpp>
+#include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
@@ -31,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/init/luminance.hpp>
 #include <sge/image3d/store/l8.hpp>
 #include <sge/image3d/view/const_object.hpp>
+#include <sge/input/event_base.hpp>
 #include <sge/noise/sample.hpp>
 #include <sge/noise/sample_parameters.hpp>
 #include <sge/noise/simplex/object.hpp>
@@ -46,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
@@ -111,10 +115,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
-#include <sge/systems/mouse_collector.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
@@ -129,8 +131,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
@@ -138,16 +143,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/image/algorithm/uninitialized.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/map.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <array>
@@ -420,6 +429,59 @@ create_noise_texture(
 		)
 	);
 
+	auto const make_color(
+		[
+			&noise_generator
+		](
+			view_type::dim const _current_position
+		)
+		{
+			return
+				sge::image::color::l8(
+					sge::image::color::init::luminance()
+					=
+					static_cast<sge::image::channel8>(
+						256.0f *
+						(0.5f + 0.5f *
+						sge::noise::sample(
+							noise_generator,
+							param_type(
+								// TODO: Simplify this conversion
+								param_type::position_type(
+									noise_type::vector_type(
+										fcppt::cast::int_to_float<
+											noise_type::value_type
+										>(
+											_current_position.at_c<0>()
+										),
+										fcppt::cast::int_to_float<
+											noise_type::value_type
+										>(
+											_current_position.at_c<1>()
+										),
+										fcppt::cast::int_to_float<
+											noise_type::value_type
+										>(
+											_current_position.at_c<2>()
+										)
+									)
+								),
+								param_type::amplitude_type(
+									0.8f
+								),
+								param_type::frequency_type(
+									.005f
+								),
+								param_type::octaves_type(
+									6u
+								)
+							)
+						))
+					)
+				);
+		}
+	);
+
 	store_type const store{
 		store_type::dim(
 			128u,
@@ -428,7 +490,7 @@ create_noise_texture(
 		),
 		store_type::init_function{
 			[
-				&noise_generator
+				&make_color
 			](
 				view_type const &_view
 			)
@@ -436,53 +498,14 @@ create_noise_texture(
 				mizuiro::image::algorithm::fill_indexed(
 					_view,
 					[
-						&noise_generator
+						&make_color
 					](
 						view_type::dim const _current_position
 					)
 					{
 						return
-							sge::image::color::l8(
-								sge::image::color::init::luminance()
-								=
-								static_cast<sge::image::channel8>(
-									256.0f *
-									(0.5f + 0.5f *
-									sge::noise::sample(
-										noise_generator,
-										param_type(
-											// TODO: Simplify this conversion
-											param_type::position_type(
-												noise_type::vector_type(
-													fcppt::cast::int_to_float<
-														noise_type::value_type
-													>(
-														_current_position.at_c<0>()
-													),
-													fcppt::cast::int_to_float<
-														noise_type::value_type
-													>(
-														_current_position.at_c<1>()
-													),
-													fcppt::cast::int_to_float<
-														noise_type::value_type
-													>(
-														_current_position.at_c<2>()
-													)
-												)
-											),
-											param_type::amplitude_type(
-												0.8f
-											),
-											param_type::frequency_type(
-												.005f
-											),
-											param_type::octaves_type(
-												6u
-											)
-										)
-									))
-								)
+							make_color(
+								_current_position
 							);
 					},
 					mizuiro::image::algorithm::uninitialized::yes
@@ -517,12 +540,7 @@ try
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
 			>,
-			sge::systems::with_input<
-				boost::mpl::vector2<
-					sge::systems::keyboard_collector,
-					sge::systems::mouse_collector
-				>
-			>
+			sge::systems::with_input
 		>
 	> const sys(
 		sge::systems::make_list
@@ -612,11 +630,6 @@ try
 
 	sge::camera::first_person::object camera(
 		sge::camera::first_person::parameters(
-			sys.keyboard_collector(),
-			sys.mouse_collector(),
-			sge::camera::is_active(
-				true
-			),
 			sge::camera::first_person::movement_speed(
 				4.0f
 			),
@@ -640,9 +653,11 @@ try
 		)
 	);
 
-	typedef sge::timer::basic<
+	typedef
+	sge::timer::basic<
 		sge::timer::clocks::standard
-	> timer;
+	>
+	timer;
 
 	timer frame_timer(
 		timer::parameters(
@@ -700,134 +715,251 @@ try
 		}
 	};
 
-	while(
-		sys.window_system().poll()
-	)
-	{
-		camera.update(
-			std::chrono::duration_cast<
-				sge::camera::update_duration
-			>(
-				sge::timer::elapsed_and_reset(
-					frame_timer
+
+	auto const draw_camera(
+		[
+			&sys,
+			&vertex_declaration,
+			&texture,
+			&vertex_buffer,
+			&depth_stencil_state,
+			&samplers,
+			&camera
+		](
+			sge::renderer::context::ffp &_context,
+			sge::camera::projection_matrix const &_projection_matrix
+		)
+		{
+			sge::renderer::vertex::scoped_declaration const scoped_vd(
+				_context,
+				*vertex_declaration
+			);
+
+			sge::renderer::vertex::scoped_buffer const scoped_vb(
+				_context,
+				*vertex_buffer
+			);
+
+			sge::renderer::texture::scoped const scoped_texture1(
+				_context,
+				*texture,
+				sge::renderer::texture::stage(
+					0u
 				)
-			)
-		);
+			);
 
-		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target()
-		);
-
-		sge::renderer::vertex::scoped_declaration const scoped_vd(
-			scoped_block.get(),
-			*vertex_declaration
-		);
-
-		sge::renderer::vertex::scoped_buffer const scoped_vb(
-			scoped_block.get(),
-			*vertex_buffer
-		);
-
-		sge::renderer::texture::scoped const scoped_texture1(
-			scoped_block.get(),
-			*texture,
-			sge::renderer::texture::stage(
-				0u
-			)
-		);
-
-		sge::renderer::texture::scoped const scoped_texture2(
-			scoped_block.get(),
-			*texture,
-			sge::renderer::texture::stage(
-				1u
-			)
-		);
-
-		sge::renderer::state::core::depth_stencil::scoped const scoped_depth_stencil(
-			scoped_block.get(),
-			*depth_stencil_state
-		);
-
-		sge::renderer::state::core::sampler::scoped const scoped_sampler(
-			scoped_block.get(),
-			samplers
-		);
-
-		scoped_block.get().clear(
-			sge::renderer::clear::parameters()
-			.back_buffer(
-				sge::image::color::any::object{
-					sge::image::color::predef::black()
-				}
-			)
-			.depth_buffer(
-				1.f
-			)
-		);
-
-		sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
-			sys.renderer_device_ffp().create_transform_state(
-				sge::renderer::state::ffp::transform::parameters(
-					camera.projection_matrix().get()
+			sge::renderer::texture::scoped const scoped_texture2(
+				_context,
+				*texture,
+				sge::renderer::texture::stage(
+					1u
 				)
-			)
-		);
+			);
 
-		sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
-			sys.renderer_device_ffp().create_transform_state(
-				sge::renderer::state::ffp::transform::parameters(
-					sge::camera::matrix_conversion::world(
-						camera.coordinate_system()
+			sge::renderer::state::core::depth_stencil::scoped const scoped_depth_stencil(
+				_context,
+				*depth_stencil_state
+			);
+
+			sge::renderer::state::core::sampler::scoped const scoped_sampler(
+				_context,
+				samplers
+			);
+
+			sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
+				sys.renderer_device_ffp().create_transform_state(
+					sge::renderer::state::ffp::transform::parameters(
+						_projection_matrix.get()
 					)
 				)
-			)
-		);
+			);
 
-		sge::renderer::state::ffp::transform::scoped const projection_transform(
-			scoped_block.get(),
-			sge::renderer::state::ffp::transform::mode::projection,
-			*projection_state
-		);
+			sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
+				sys.renderer_device_ffp().create_transform_state(
+					sge::renderer::state::ffp::transform::parameters(
+						sge::camera::matrix_conversion::world(
+							camera.coordinate_system()
+						)
+					)
+				)
+			);
 
-		sge::renderer::state::ffp::transform::scoped const world_transform(
-			scoped_block.get(),
-			sge::renderer::state::ffp::transform::mode::world,
-			*world_state
-		);
+			sge::renderer::state::ffp::transform::scoped const projection_transform(
+				_context,
+				sge::renderer::state::ffp::transform::mode::projection,
+				*projection_state
+			);
 
-		scoped_block.get().render_nonindexed(
-			sge::renderer::vertex::first(
-				0u
-			),
-			sge::renderer::vertex::count(
-				vertex_buffer->linear_size()
-			),
-			sge::renderer::primitive_type::triangle_list
-		);
-	}
+			sge::renderer::state::ffp::transform::scoped const world_transform(
+				_context,
+				sge::renderer::state::ffp::transform::mode::world,
+				*world_state
+			);
+
+			_context.render_nonindexed(
+				sge::renderer::vertex::first(
+					0u
+				),
+				sge::renderer::vertex::count(
+					vertex_buffer->linear_size()
+				),
+				sge::renderer::primitive_type::triangle_list
+			);
+		}
+	);
+
+	auto const draw(
+		[
+			&draw_camera,
+			&camera,
+			&frame_timer,
+			&sys
+		](
+			sge::renderer::event::render const &
+		)
+		{
+			camera.update(
+				std::chrono::duration_cast<
+					sge::camera::update_duration
+				>(
+					sge::timer::elapsed_and_reset(
+						frame_timer
+					)
+				)
+			);
+
+			sge::renderer::context::scoped_ffp const scoped_block(
+				sys.renderer_device_ffp(),
+				sys.renderer_device_ffp().onscreen_target()
+			);
+
+			scoped_block.get().clear(
+				sge::renderer::clear::parameters()
+				.back_buffer(
+					sge::image::color::any::object{
+						sge::image::color::predef::black()
+					}
+				)
+				.depth_buffer(
+					1.f
+				)
+			);
+
+			fcppt::optional::maybe_void(
+				camera.projection_matrix(),
+				[
+					&draw_camera,
+					&scoped_block
+				](
+					sge::camera::projection_matrix const &_projection
+				)
+				{
+					draw_camera(
+						scoped_block.get(),
+						_projection
+					);
+				}
+			);
+		}
+	);
+
+	auto const process_event(
+		[
+			&draw,
+			&camera
+		](
+			awl::event::base const &_event
+		)
+		{
+			fcppt::optional::maybe_void(
+				fcppt::variant::dynamic_cast_<
+					boost::mpl::vector2<
+						sge::renderer::event::render const,
+						sge::input::event_base const
+					>,
+					fcppt::cast::dynamic_fun
+				>(
+					_event
+				),
+				[
+					&draw,
+					&camera
+				](
+					auto const &_variant
+				)
+				{
+					fcppt::variant::match(
+						_variant,
+						[
+							&draw
+						](
+							fcppt::reference<
+								sge::renderer::event::render const
+							> const _render_event
+						)
+						{
+							draw(
+								_render_event.get()
+							);
+						},
+						[
+							&camera
+						](
+							fcppt::reference<
+								sge::input::event_base const
+							> const _input_event
+						)
+						{
+							camera.process_event(
+								_input_event.get()
+							);
+						}
+					);
+				}
+			);
+		}
+	);
 
 	return
-		sys.window_system().exit_code();
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&process_event
+				](
+					awl::event::base const &_event
+				)
+				{
+					process_event(
+						_event
+					);
+				}
+			}
+		);
 }
 catch(
 	fcppt::exception const &_error
 )
 {
 	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+		<<
+		_error.string()
+		<<
+		FCPPT_TEXT('\n');
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
 )
 {
 	std::cerr
-		<< _error.what()
-		<< '\n';
+		<<
+		_error.what()
+		<<
+		'\n';
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }

@@ -18,53 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/window/event_function.hpp>
+#include <sge/window/object.hpp>
 #include <sge/wininput/cursor/define.hpp>
-#include <awl/backends/windows/message_type.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/window/event/callback.hpp>
-#include <awl/backends/windows/window/event/object_fwd.hpp>
-#include <awl/backends/windows/window/event/processor.hpp>
-#include <awl/backends/windows/window/event/return_type.hpp>
-#include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/cast/to_unsigned_fun.hpp>
+#include <awl/backends/windows/window/event/generic.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/container.hpp>
+#include <awl/window/event/base.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::wininput::cursor::define::define(
-	awl::backends::windows::window::event::processor &_processor
+	sge::window::object &_window
 )
 :
-	previous_cursor_(),
-	pixmap_(),
-
-	connection_(
-		_processor.register_callback(
-			fcppt::strong_typedef_construct_cast<
-				awl::backends::windows::message_type,
-				fcppt::cast::to_unsigned_fun
-			>(
-				WM_SETCURSOR
-			),
-			awl::backends::windows::window::event::callback{
-				std::bind(
-					&wininput::cursor::define::on_cursor,
-					this,
-					std::placeholders::_1
-				)
+	previous_cursor_{},
+	pixmap_{},
+	connection_{
+		_window.event_handler(
+			sge::window::event_function{
+				[
+					this
+				](
+					awl::window::event::base const &_event
+				){
+					return
+						this->on_event(
+							_event
+						);
+				}
 			}
 		)
-	)
+	}
 {
 }
 
@@ -85,10 +80,40 @@ sge::wininput::cursor::define::~define()
 	);
 }
 
-awl::backends::windows::window::event::return_type
-sge::wininput::cursor::define::on_cursor(
-	awl::backends::windows::window::event::object const &
+awl::event::container
+sge::wininput::cursor::define::on_event(
+	awl::window::event::base const &_event
 )
+{
+	fcppt::optional::maybe_void(
+		fcppt::cast::dynamic<
+			awl::backends::windows::window::event::generic const
+		>(
+			_event
+		),
+		[
+			this
+		](
+			fcppt::reference<
+				awl::backends::windows::window::event::generic const
+			> const _window_event
+		)
+		{
+			if(
+				_window_event.get().type().get()
+				==
+				WM_SETCURSOR
+			)
+				this->on_cursor();
+		}
+	);
+
+	return
+		awl::event::container{};
+}
+
+void
+sge::wininput::cursor::define::on_cursor()
 {
 	HCURSOR const old(
 		::SetCursor(
@@ -103,9 +128,4 @@ sge::wininput::cursor::define::on_cursor(
 			optional_hcursor(
 				old
 			);
-
-	return
-		awl::backends::windows::window::event::return_type(
-			TRUE
-		);
 }

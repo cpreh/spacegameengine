@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/id.hpp>
 #include <awl/backends/x11/deleter.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window/object.hpp>
+#include <awl/backends/x11/window/base.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/cast/float_to_int.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::input::cursor::optional_position
 sge::x11input::cursor::query_pointer(
-	awl::backends::x11::window::object const &_window,
+	awl::backends::x11::window::base const &_window,
 	sge::x11input::device::id const &_id
 )
 {

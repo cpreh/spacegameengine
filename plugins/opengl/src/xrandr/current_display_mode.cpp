@@ -35,8 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_pixel_size.hpp>
 #include <sge/renderer/display_mode/optional_refresh_rate.hpp>
 #include <sge/renderer/display_mode/pixel_size.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <awl/backends/x11/window/object.hpp>
+#include <awl/backends/x11/window/base.hpp>
 #include <awl/backends/x11/window/rect.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/math/box/intersects.hpp>
@@ -52,14 +51,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::renderer::display_mode::optional_object
 sge::opengl::xrandr::current_display_mode(
-	awl::backends::x11::display &_display,
-	awl::backends::x11::window::object &_window
+	awl::backends::x11::window::base const &_window
 )
 {
-	sge::opengl::xrandr::screen_resources const resources(
-		_display,
+	sge::opengl::xrandr::screen_resources const resources{
 		_window
-	);
+	};
 
 	awl::backends::x11::window::rect const window_rect(
 		_window.rect()
@@ -80,7 +77,7 @@ sge::opengl::xrandr::current_display_mode(
 	)
 	{
 		sge::opengl::xrandr::crtc_info const crtc_info(
-			_display,
+			_window.display(),
 			resources,
 			crtc
 		);
@@ -119,7 +116,7 @@ sge::opengl::xrandr::current_display_mode(
 		)
 		{
 			sge::opengl::xrandr::output_info const output_info(
-				_display,
+				_window.display(),
 				resources,
 				output
 			);

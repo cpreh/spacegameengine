@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WINDOW_SYSTEM_HPP_INCLUDED
 #define SGE_WINDOW_SYSTEM_HPP_INCLUDED
 
-#include <sge/window/object_unique_ptr.hpp>
+#include <sge/window/system_event_function.hpp>
+#include <sge/window/system_event_function_type.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <sge/window/detail/symbol.hpp>
 #include <awl/main/exit_code.hpp>
-#include <awl/main/optional_exit_code.hpp>
 #include <awl/system/object_fwd.hpp>
-#include <awl/system/event/processor_fwd.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <awl/system/event/result_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/auto_connection_fwd.hpp>
+#include <fcppt/signal/object_decl.hpp>
 
 
 namespace sge
@@ -44,6 +45,7 @@ class system
 	);
 public:
 	SGE_WINDOW_DETAIL_SYMBOL
+	explicit
 	system(
 		awl::system::object &
 	);
@@ -52,30 +54,12 @@ public:
 	~system();
 
 	SGE_WINDOW_DETAIL_SYMBOL
-	awl::system::object &
-	awl_system() const;
-
-	SGE_WINDOW_DETAIL_SYMBOL
-	awl::system::event::processor &
-	awl_system_event_processor() const;
-
-	SGE_WINDOW_DETAIL_SYMBOL
-	sge::window::object_unique_ptr
-	create(
-		awl::window::object &
-	) const;
-
-	SGE_WINDOW_DETAIL_SYMBOL
-	bool
+	awl::system::event::result
 	poll();
 
 	SGE_WINDOW_DETAIL_SYMBOL
-	bool
+	awl::system::event::result
 	next();
-
-	SGE_WINDOW_DETAIL_SYMBOL
-	bool
-	running() const;
 
 	SGE_WINDOW_DETAIL_SYMBOL
 	void
@@ -84,12 +68,29 @@ public:
 	);
 
 	SGE_WINDOW_DETAIL_SYMBOL
-	awl::main::exit_code
-	exit_code() const;
+	fcppt::signal::auto_connection
+	event_handler(
+		sge::window::system_event_function
+	);
+
+	SGE_WINDOW_DETAIL_SYMBOL
+	awl::system::object &
+	awl_system();
 private:
+	awl::system::event::result
+	transform_events(
+		awl::system::event::result &&
+	);
+
 	awl::system::object &awl_system_;
 
-	awl::main::optional_exit_code exit_code_;
+	typedef
+	fcppt::signal::object<
+		sge::window::system_event_function_type
+	>
+	event_signal;
+
+	event_signal event_signal_;
 };
 
 }

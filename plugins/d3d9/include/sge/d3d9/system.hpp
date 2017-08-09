@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
 namespace sge
@@ -45,7 +46,10 @@ class system
 		system
 	);
 public:
-	system();
+	explicit
+	system(
+		fcppt::log::object &
+	);
 
 	~system()
 	override;
@@ -67,6 +71,8 @@ private:
 		sge::renderer::pixel_format::object const &
 	)
 	override;
+
+	fcppt::log::object &log_;
 
 	sge::d3d9::d3d_unique_ptr const system_;
 };

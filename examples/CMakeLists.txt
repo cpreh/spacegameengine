@@ -220,6 +220,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		${fcppt_options_TARGET}
 		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 		${Boost_SYSTEM_LIBRARIES}
@@ -277,6 +278,7 @@ add_sge_console_example(
 		sgelog
 		sgeplugin
 		sgerenderer
+		sgewindow
 	ADDITIONAL_DEPS
 		${awl_TARGET}
 		${fcppt_core_TARGET}
@@ -315,6 +317,7 @@ add_sge_example(
 		sgefont
 		sgeimagecolor
 		sgeimage2d
+		sgeinput
 		sgemedia_interface
 		sgerenderer
 		sgesystems
@@ -573,6 +576,8 @@ if(
 			sgewindow
 		ADDITIONAL_DEPS
 			${fcppt_core_TARGET}
+			${fcppt_filesystem_TARGET}
+			${fcppt_options_TARGET}
 			fcppt_log_interface
 			${Boost_FILESYSTEM_LIBRARIES}
 			${Boost_SYSTEM_LIBRARIES}

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_EVDEV_JOYPAD_REMOVE_HPP_INCLUDED
 
 #include <sge/evdev/joypad/map.hpp>
-#include <sge/input/joypad/remove_signal.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -35,10 +35,9 @@ namespace evdev
 namespace joypad
 {
 
-void
+awl::event::optional_base_unique_ptr
 remove(
 	sge::evdev::joypad::map &,
-	sge::input::joypad::remove_signal &,
 	boost::filesystem::path const &
 );
 

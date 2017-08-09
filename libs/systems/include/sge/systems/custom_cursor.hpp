@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_CUSTOM_CURSOR_HPP_INCLUDED
 #define SGE_SYSTEMS_CUSTOM_CURSOR_HPP_INCLUDED
 
-#include <sge/input/cursor/object_fwd.hpp>
+#include <sge/input/processor_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/systems/cursor_hotspot_fwd.hpp>
@@ -46,8 +46,8 @@ class custom_cursor
 public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	custom_cursor(
+		sge::input::processor const &,
 		sge::renderer::device::ffp &,
-		sge::input::cursor::object &,
 		sge::texture::part const &,
 		sge::systems::cursor_hotspot
 	);

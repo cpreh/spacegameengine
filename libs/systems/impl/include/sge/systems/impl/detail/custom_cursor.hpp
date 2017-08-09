@@ -21,12 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_IMPL_DETAIL_CUSTOM_CURSOR_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_DETAIL_CUSTOM_CURSOR_HPP_INCLUDED
 
-#include <sge/input/cursor/object_fwd.hpp>
+#include <sge/input/processor_fwd.hpp>
 #include <sge/input/cursor/optional_position_fwd.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/config/choices.hpp>
@@ -48,8 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/detail/custom_cursor_fwd.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional/object_decl.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -69,8 +68,8 @@ class custom_cursor
 	);
 public:
 	custom_cursor(
+		sge::input::processor const &,
 		sge::renderer::device::ffp &,
-		sge::input::cursor::object &,
 		sge::texture::part const &,
 		sge::systems::cursor_hotspot
 	);
@@ -85,6 +84,8 @@ public:
 	sge::systems::cursor_hotspot
 	hotspot() const;
 private:
+	sge::input::processor const &processor_;
+
 	sge::texture::part const &texture_;
 
 	sge::systems::cursor_hotspot const hotspot_;
@@ -157,14 +158,10 @@ private:
 	>
 	optional_sprite;
 
-	optional_sprite sprite_;
-
 	optional_sprite
 	make_sprite(
 		sge::input::cursor::optional_position
 	) const;
-
-	fcppt::signal::auto_connection const move_connection_;
 };
 
 }

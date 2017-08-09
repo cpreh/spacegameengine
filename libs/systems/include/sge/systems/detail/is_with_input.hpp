@@ -49,13 +49,9 @@ boost::mpl::false_
 {
 };
 
-template<
-	typename Choices
->
+template<>
 struct is_with_input<
-	sge::systems::with_input<
-		Choices
-	>
+	sge::systems::with_input
 >
 :
 boost::mpl::true_

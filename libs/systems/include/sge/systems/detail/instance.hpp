@@ -27,10 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
-#include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/focus/object_fwd.hpp>
-#include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/mouse/device_fwd.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/renderer/core_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
@@ -100,22 +96,6 @@ public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::input::processor &
 	input_processor() const;
-
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::input::focus::object &
-	focus_collector() const;
-
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::input::cursor::object &
-	cursor_demuxer() const;
-
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::input::keyboard::device &
-	keyboard_collector() const;
-
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::input::mouse::device &
-	mouse_collector() const;
 
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::image2d::system &

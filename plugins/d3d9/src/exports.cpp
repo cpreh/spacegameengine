@@ -58,7 +58,7 @@ sge::plugin::info const info(
 
 sge::renderer::core_unique_ptr
 create_renderer_core(
-	fcppt::log::context &
+	fcppt::log::context &_log_context
 )
 {
 	return
@@ -67,7 +67,9 @@ create_renderer_core(
 		>(
 			fcppt::make_unique_ptr<
 				sge::d3d9::core
-			>()
+			>(
+				_log_context
+			)
 		);
 }
 

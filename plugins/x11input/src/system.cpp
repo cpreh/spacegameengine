@@ -27,18 +27,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/window/object.hpp>
-#include <sge/window/system_fwd.hpp>
+#include <sge/x11input/opcode.hpp>
 #include <sge/x11input/processor.hpp>
 #include <sge/x11input/system.hpp>
 #include <sge/x11input/xi_opcode.hpp>
 #include <sge/x11input/xi_version.hpp>
-#include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <awl/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/cast/dynamic_cross_exn.hpp>
+#include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/optional/to_exception.hpp>
@@ -67,19 +66,18 @@ sge::x11input::system::~system()
 
 sge::input::processor_unique_ptr
 sge::x11input::system::create_processor(
-	sge::window::object const &_window,
-	sge::window::system const &_window_system
+	sge::window::object &_window
 )
 {
 	awl::backends::x11::window::object const &x11_window(
-		fcppt::cast::dynamic_cross_exn<
+		fcppt::cast::dynamic_exn<
 			awl::backends::x11::window::object const &
 		>(
 			_window.awl_object()
 		)
 	);
 
-	awl::backends::x11::system::event::opcode const opcode(
+	sge::x11input::opcode const opcode(
 		fcppt::optional::to_exception(
 			sge::x11input::xi_opcode(
 				x11_window.display()
@@ -87,7 +85,7 @@ sge::x11input::system::create_processor(
 			[]{
 				return
 					sge::input::exception{
-						FCPPT_TEXT("X Input extension not available! Please install libXi!")
+						FCPPT_TEXT("X Input extension not available!")
 					};
 			}
 		)
@@ -115,7 +113,6 @@ sge::x11input::system::create_processor(
 			>(
 				log_,
 				_window,
-				_window_system,
 				opcode
 			)
 		);

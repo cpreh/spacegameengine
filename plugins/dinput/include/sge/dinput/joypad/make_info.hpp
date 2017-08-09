@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/joypad/info_fwd.hpp>
-#include <fcppt/string.hpp>
+#include <sge/input/info/name.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace joypad
 sge::dinput::joypad::info
 make_info(
 	IDirectInputDevice8 &,
-	fcppt::string const &name,
+	sge::input::info::name const &,
 	GUID const &
 );
 

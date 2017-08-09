@@ -19,277 +19,244 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/input/processor.hpp>
-#include <sge/input/cursor/discover_callback.hpp>
-#include <sge/input/cursor/remove_callback.hpp>
-#include <sge/input/focus/discover_callback.hpp>
-#include <sge/input/focus/remove_callback.hpp>
-#include <sge/input/joypad/discover_callback.hpp>
-#include <sge/input/joypad/remove_callback.hpp>
-#include <sge/input/keyboard/discover_callback.hpp>
-#include <sge/input/keyboard/remove_callback.hpp>
-#include <sge/input/mouse/discover_callback.hpp>
-#include <sge/input/mouse/remove_callback.hpp>
+#include <sge/input/cursor/container.hpp>
+#include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/shared_ptr.hpp>
+#include <sge/input/cursor/event/discover.hpp>
+#include <sge/input/cursor/event/remove.hpp>
+#include <sge/input/focus/container.hpp>
+#include <sge/input/focus/object.hpp>
+#include <sge/input/focus/shared_ptr.hpp>
+#include <sge/input/focus/event/discover.hpp>
+#include <sge/input/focus/event/remove.hpp>
+#include <sge/input/joypad/container.hpp>
+#include <sge/input/keyboard/container.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/shared_ptr.hpp>
+#include <sge/input/keyboard/event/discover.hpp>
+#include <sge/input/keyboard/event/remove.hpp>
+#include <sge/input/mouse/container.hpp>
+#include <sge/input/mouse/device.hpp>
+#include <sge/input/mouse/shared_ptr.hpp>
+#include <sge/input/mouse/event/discover.hpp>
+#include <sge/input/mouse/event/remove.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
-#include <sge/x11input/create_parameters.hpp>
+#include <sge/window/system_event_function.hpp>
+#include <sge/x11input/opcode.hpp>
 #include <sge/x11input/processor.hpp>
-#include <sge/x11input/send_init_event.hpp>
 #include <sge/x11input/cursor/object.hpp>
-#include <sge/x11input/cursor/object_unique_ptr.hpp>
-#include <sge/x11input/device/hierarchy_demuxer.hpp>
-#include <sge/x11input/device/hierarchy_event.hpp>
 #include <sge/x11input/device/id.hpp>
-#include <sge/x11input/device/object.hpp>
-#include <sge/x11input/device/parameters.hpp>
-#include <sge/x11input/device/use.hpp>
+#include <sge/x11input/device/insert.hpp>
+#include <sge/x11input/device/remove.hpp>
 #include <sge/x11input/device/info/multi.hpp>
-#include <sge/x11input/device/manager/config_map.hpp>
-#include <sge/x11input/device/manager/create_function.hpp>
-#include <sge/x11input/device/manager/make_config.hpp>
+#include <sge/x11input/device/info/single.hpp>
+#include <sge/x11input/event/base.hpp>
+#include <sge/x11input/event/concrete_handler.hpp>
+#include <sge/x11input/event/device_type_set.hpp>
+#include <sge/x11input/event/handler.hpp>
+#include <sge/x11input/event/make_handler.hpp>
+#include <sge/x11input/event/type.hpp>
+#include <sge/x11input/event/type_c.hpp>
 #include <sge/x11input/focus/object.hpp>
-#include <sge/x11input/focus/object_unique_ptr.hpp>
 #include <sge/x11input/keyboard/device.hpp>
-#include <sge/x11input/keyboard/device_unique_ptr.hpp>
 #include <sge/x11input/mouse/device.hpp>
-#include <sge/x11input/mouse/device_unique_ptr.hpp>
 #include <sge/x11input/xim/create_method_opt.hpp>
 #include <sge/x11input/xim/method.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/intern_atom.hpp>
 #include <awl/backends/x11/cursor/create_invisible.hpp>
 #include <awl/backends/x11/cursor/object.hpp>
-#include <awl/backends/x11/system/event/opcode.hpp>
-#include <awl/backends/x11/system/event/processor.hpp>
+#include <awl/backends/x11/system/event/generic.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <awl/backends/x11/window/root.hpp>
-#include <awl/backends/x11/window/event/callback.hpp>
-#include <awl/backends/x11/window/event/object.hpp>
-#include <awl/backends/x11/window/event/processor.hpp>
-#include <awl/backends/x11/window/event/type.hpp>
+#include <awl/event/container.hpp>
 #include <awl/window/object.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
+#include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/cast/dynamic_cross_exn.hpp>
+#include <fcppt/shared_ptr_impl.hpp>
+#include <fcppt/tag_type.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/use.hpp>
+#include <fcppt/algorithm/join.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/algorithm/map.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
-#include <fcppt/log/_.hpp>
-#include <fcppt/log/debug.hpp>
+#include <fcppt/container/find_opt_mapped.hpp>
+#include <fcppt/container/map_values_copy.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/optional/cat.hpp>
+#include <fcppt/optional/bind.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/optional/deref.hpp>
+#include <fcppt/optional/join.hpp>
+#include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/map.hpp>
-#include <fcppt/signal/auto_connection_container.hpp>
-#include <fcppt/signal/object_impl.hpp>
-#include <fcppt/signal/optional_auto_connection.hpp>
+#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_container.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
-#include <functional>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::x11input::processor::processor(
 	fcppt::log::object &_log,
-	sge::window::object const &_window,
-	sge::window::system const &_window_system,
-	awl::backends::x11::system::event::opcode const _opcode
+	sge::window::object &_window,
+	sge::x11input::opcode const _opcode
 )
 :
 	log_{
 		_log
 	},
-	opcode_(
+	opcode_{
 		_opcode
-	),
-	x11_window_(
-		fcppt::cast::dynamic_cross_exn<
-			awl::backends::x11::window::object const &
+	},
+	window_{
+		_window
+	},
+	x11_window_{
+		fcppt::cast::dynamic_exn<
+			awl::backends::x11::window::object &
 		>(
 			_window.awl_object()
 		)
-	),
-	window_event_processor_(
-		fcppt::cast::dynamic_exn<
-			awl::backends::x11::window::event::processor &
-		>(
-			_window.awl_window_event_processor()
-		)
-	),
-	system_event_processor_(
-		fcppt::cast::dynamic_exn<
-			awl::backends::x11::system::event::processor &
-		>(
-			_window_system.awl_system_event_processor()
-		)
-	),
-	window_demuxer_(
-		system_event_processor_,
-		opcode_,
-		x11_window_
-	),
-	root_window_(
+	},
+	root_window_{
 		awl::backends::x11::window::root(
 			x11_window_.display(),
 			x11_window_.screen()
 		)
-	),
-	raw_demuxer_(
-		system_event_processor_,
-		opcode_,
-		*root_window_
-	),
-	hierarchy_demuxer_(
-		system_event_processor_,
-		opcode_,
-		x11_window_
-	),
-	invisible_cursor_(
+	},
+	invisible_cursor_{
 		awl::backends::x11::cursor::create_invisible(
 			x11_window_.display()
 		)
-	),
-	xim_method_(
+	},
+	xim_method_{
 		sge::x11input::xim::create_method_opt(
 			_log,
 			x11_window_.display()
 		)
-	),
-	keyboard_discover_(),
-	keyboard_remove_(),
-	mouse_discover_(),
-	mouse_remove_(),
-	focus_discover_(),
-	focus_remove_(),
-	cursor_discover_(),
-	cursor_remove_(),
-	device_manager_(
-		_log,
-		x11_window_.display(),
-		fcppt::assign::make_container<
-			sge::x11input::device::manager::config_map
-		>(
-			sge::x11input::device::manager::config_map::value_type{
-				sge::x11input::device::use(
-					XIMasterKeyboard
-				),
-				sge::x11input::device::manager::make_config<
-					sge::x11input::focus::object
-				>(
-					focus_discover_,
-					focus_remove_,
-					sge::x11input::device::manager::create_function<
-						sge::x11input::focus::object
-					>{
-						std::bind(
-							&sge::x11input::processor::create_focus,
-							this,
-							std::placeholders::_1
-						)
-					}
+	},
+	window_demuxer_{
+		x11_window_
+	},
+	raw_demuxer_{
+		*root_window_
+	},
+	foci_{},
+	keyboards_{},
+	cursors_{},
+	mice_{},
+	handlers_(
+		fcppt::algorithm::join(
+			fcppt::algorithm::map<
+				handler_map
+			>(
+				sge::x11input::event::device_type_set{},
+				[
+					this
+				](
+					auto const _value
 				)
-			},
-			sge::x11input::device::manager::config_map::value_type{
-				sge::x11input::device::use(
-					XISlaveKeyboard
-				),
-				sge::x11input::device::manager::make_config<
-					sge::x11input::keyboard::device
+				{
+					FCPPT_USE(
+						_value
+					);
+
+					return
+						sge::x11input::event::make_handler<
+							fcppt::tag_type<
+								decltype(
+									_value
+								)
+							>
+						>(
+							sge::x11input::event::concrete_handler<
+								XIDeviceEvent
+							>{
+								[
+									this
+								](
+									XIDeviceEvent const &_event
+								)
+								{
+									return
+										this->window_demuxer_.call(
+											_event
+										);
+								}
+							}
+						);
+				}
+			),
+			handler_map{
+				sge::x11input::event::make_handler<
+					sge::x11input::event::type_c<
+						XI_HierarchyChanged
+					>
 				>(
-					keyboard_discover_,
-					keyboard_remove_,
-					sge::x11input::device::manager::create_function<
-						sge::x11input::keyboard::device
+					sge::x11input::event::concrete_handler<
+						XIHierarchyEvent
 					>{
-						std::bind(
-							&sge::x11input::processor::create_keyboard,
-							this,
-							std::placeholders::_1
+						[
+							this
+						](
+							XIHierarchyEvent const &_event
 						)
+						{
+							return
+								this->hierarchy_event(
+									_event
+								);
+						}
 					}
-				)
-			},
-			sge::x11input::device::manager::config_map::value_type{
-				sge::x11input::device::use(
-					XIMasterPointer
 				),
-				sge::x11input::device::manager::make_config<
-					sge::x11input::cursor::object
+				sge::x11input::event::make_handler<
+					sge::x11input::event::type_c<
+						XI_RawMotion
+					>
 				>(
-					cursor_discover_,
-					cursor_remove_,
-					sge::x11input::device::manager::create_function<
-						sge::x11input::cursor::object
+					sge::x11input::event::concrete_handler<
+						XIRawEvent
 					>{
-						std::bind(
-							&sge::x11input::processor::create_cursor,
-							this,
-							std::placeholders::_1
+						[
+							this
+						](
+							XIRawEvent const &_event
 						)
-					}
-				)
-			},
-			sge::x11input::device::manager::config_map::value_type{
-				sge::x11input::device::use(
-					XISlavePointer
-				),
-				sge::x11input::device::manager::make_config<
-					sge::x11input::mouse::device
-				>(
-					mouse_discover_,
-					mouse_remove_,
-					sge::x11input::device::manager::create_function<
-						sge::x11input::mouse::device
-					>{
-						std::bind(
-							&sge::x11input::processor::create_mouse,
-							this,
-							std::placeholders::_1
-						)
+						{
+							return
+								this->raw_demuxer_.call(
+									_event
+								);
+						}
 					}
 				)
 			}
 		)
 	),
-	init_atom_(
-		awl::backends::x11::intern_atom(
-			x11_window_.display(),
-			"SGE start atom"
-		)
-	),
-	connections_(
-		fcppt::assign::make_container<
-			fcppt::signal::auto_connection_container
-		>(
-			hierarchy_demuxer_.register_callback(
-				awl::backends::x11::system::event::type(
-					XI_HierarchyChanged
-				),
-				sge::x11input::device::id(
-					XIAllDevices
-				),
-				sge::x11input::device::hierarchy_demuxer::callback{
-					std::bind(
-						&sge::x11input::processor::on_hierarchy_changed,
-						this,
-						std::placeholders::_1
-					)
+	event_connection_{
+		_window.system().event_handler(
+			sge::window::system_event_function{
+				[
+					this
+				](
+					awl::event::base const &_event
+				)
+				{
+					return
+						this->system_event(
+							_event
+						);
 				}
-			),
-			window_event_processor_.register_callback(
-				awl::backends::x11::window::event::type(
-					ClientMessage
-				),
-				awl::backends::x11::window::event::callback{
-					std::bind(
-						&sge::x11input::processor::on_client_message,
-						this,
-						std::placeholders::_1
-					)
-				}
-			)
+			}
 		)
-	)
+	}
 {
 	sge::x11input::device::info::multi const current_devices(
 		x11_window_.display()
@@ -300,273 +267,531 @@ sge::x11input::processor::processor(
 		:
 		current_devices
 	)
-		device_manager_.initial(
+		this->add_device(
 			device
 		);
-
-	sge::x11input::send_init_event(
-		x11_window_,
-		init_atom_
-	);
 }
 
 sge::x11input::processor::~processor()
 {
 }
 
-fcppt::signal::optional_auto_connection
-sge::x11input::processor::keyboard_discover_callback(
-	sge::input::keyboard::discover_callback const &_callback
-)
+sge::window::object &
+sge::x11input::processor::window() const
 {
 	return
-		fcppt::signal::optional_auto_connection{
-			keyboard_discover_.connect(
-				_callback
-			)
-		};
+		window_;
 }
 
-fcppt::signal::optional_auto_connection
-sge::x11input::processor::keyboard_remove_callback(
-	sge::input::keyboard::remove_callback const &_callback
-)
+sge::input::cursor::container
+sge::x11input::processor::cursors() const
 {
 	return
-		fcppt::signal::optional_auto_connection{
-			keyboard_remove_.connect(
-				_callback
-			)
-		};
-}
-
-fcppt::signal::optional_auto_connection
-sge::x11input::processor::mouse_discover_callback(
-	sge::input::mouse::discover_callback const &_callback
-)
-{
-	return
-		fcppt::signal::optional_auto_connection{
-			mouse_discover_.connect(
-				_callback
-			)
-		};
-}
-
-fcppt::signal::optional_auto_connection
-sge::x11input::processor::mouse_remove_callback(
-	sge::input::mouse::remove_callback const &_callback
-)
-{
-	return
-		fcppt::signal::optional_auto_connection{
-			mouse_remove_.connect(
-				_callback
-			)
-		};
-}
-
-fcppt::signal::optional_auto_connection
-sge::x11input::processor::focus_discover_callback(
-	sge::input::focus::discover_callback const &_callback
-)
-{
-	return
-		fcppt::signal::optional_auto_connection{
-			focus_discover_.connect(
-				_callback
-			)
-		};
-}
-
-fcppt::signal::optional_auto_connection
-sge::x11input::processor::focus_remove_callback(
-	sge::input::focus::remove_callback const &_callback
-)
-{
-	return
-		fcppt::signal::optional_auto_connection{
-			focus_remove_.connect(
-				_callback
-			)
-		};
-}
-
-fcppt::signal::optional_auto_connection
-sge::x11input::processor::cursor_discover_callback(
-	sge::input::cursor::discover_callback const &_callback
-)
-{
-	return
-		fcppt::signal::optional_auto_connection{
-			cursor_discover_.connect(
-				_callback
-			)
-		};
-}
-
-fcppt::signal::optional_auto_connection
-sge::x11input::processor::cursor_remove_callback(
-	sge::input::cursor::remove_callback const &_callback
-)
-{
-	return
-		fcppt::signal::optional_auto_connection{
-			cursor_remove_.connect(
-				_callback
-			)
-		};
-}
-
-fcppt::signal::optional_auto_connection
-sge::x11input::processor::joypad_discover_callback(
-	sge::input::joypad::discover_callback const &
-)
-{
-	return
-		fcppt::signal::optional_auto_connection{};
-}
-
-fcppt::signal::optional_auto_connection
-sge::x11input::processor::joypad_remove_callback(
-	sge::input::joypad::remove_callback const &
-)
-{
-	return
-		fcppt::signal::optional_auto_connection{};
-}
-
-sge::x11input::device::parameters
-sge::x11input::processor::device_parameters(
-	sge::x11input::create_parameters const &_param
-)
-{
-	return
-		sge::x11input::device::parameters(
-			_param,
-			opcode_,
-			x11_window_,
-			window_demuxer_,
-			raw_demuxer_
+		fcppt::container::map_values_copy<
+			sge::input::cursor::container
+		>(
+			cursors_
 		);
 }
 
-sge::x11input::keyboard::device_unique_ptr
-sge::x11input::processor::create_keyboard(
-	sge::x11input::create_parameters const &_param
-)
+sge::input::focus::container
+sge::x11input::processor::foci() const
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::x11input::keyboard::device
+		fcppt::container::map_values_copy<
+			sge::input::focus::container
 		>(
-			this->device_parameters(
-				_param
-			)
+			foci_
 		);
 }
 
-sge::x11input::mouse::device_unique_ptr
-sge::x11input::processor::create_mouse(
-	sge::x11input::create_parameters const &_param
-)
+sge::input::joypad::container
+sge::x11input::processor::joypads() const
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::x11input::mouse::device
+		sge::input::joypad::container{};
+}
+
+sge::input::keyboard::container
+sge::x11input::processor::keyboards() const
+{
+	return
+		fcppt::container::map_values_copy<
+			sge::input::keyboard::container
 		>(
-			this->device_parameters(
-				_param
-			)
+			keyboards_
 		);
 }
 
-sge::x11input::focus::object_unique_ptr
-sge::x11input::processor::create_focus(
-	sge::x11input::create_parameters const &_param
+sge::input::mouse::container
+sge::x11input::processor::mice() const
+{
+	return
+		fcppt::container::map_values_copy<
+			sge::input::mouse::container
+		>(
+			mice_
+		);
+}
+
+awl::event::container
+sge::x11input::processor::system_event(
+	awl::event::base const &_event
 )
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::x11input::focus::object
-		>(
-			log_,
-			window_event_processor_,
-			this->device_parameters(
-				_param
-			),
-			fcppt::optional::map(
-				fcppt::optional::deref(
-					xim_method_
+		fcppt::optional::from(
+			fcppt::optional::bind(
+				fcppt::cast::dynamic<
+					awl::backends::x11::system::event::generic const
+				>(
+					_event
 				),
-				[](
+				[
+					this
+				](
 					fcppt::reference<
-						sge::x11input::xim::method
-					> const _method
+						awl::backends::x11::system::event::generic const
+					> const _generic_event
 				)
 				{
 					return
-						fcppt::make_cref(
-							_method.get()
+						fcppt::optional::join(
+							fcppt::optional::make_if(
+								_generic_event.get().get().extension
+								==
+								this->opcode_.get(),
+								[
+									&_generic_event,
+									this
+								]{
+									return
+										this->extension_event(
+											_generic_event.get()
+										);
+								}
+							)
+						);
+				}
+			),
+			[]{
+				return
+					awl::event::container{};
+			}
+		);
+}
+
+sge::x11input::processor::optional_event_container
+sge::x11input::processor::extension_event(
+	awl::backends::x11::system::event::generic const &_event
+)
+{
+	XIEvent const generic_event{
+		sge::x11input::event::base(
+			_event
+		)
+	};
+
+	return
+		fcppt::optional::map(
+			fcppt::container::find_opt_mapped(
+				handlers_,
+				sge::x11input::event::type{
+					generic_event.evtype
+				}
+			),
+			[
+				&_event
+			](
+				fcppt::reference<
+					sge::x11input::event::handler const
+				> const _handler
+			)
+			{
+				return
+					_handler.get()(
+						_event
+					);
+			}
+		);
+}
+
+
+awl::event::container
+sge::x11input::processor::hierarchy_event(
+	XIHierarchyEvent const &_event
+)
+{
+	return
+		fcppt::optional::cat<
+			awl::event::container
+		>(
+			fcppt::algorithm::map<
+				std::vector<
+					awl::event::optional_base_unique_ptr
+				>
+			>(
+				fcppt::make_int_range_count(
+					_event.num_info
+				),
+				[
+					&_event,
+					this
+				](
+					int const _index
+				)
+				{
+					return
+						this->hierarchy_info(
+							_event.info[
+								_index
+							]
 						);
 				}
 			)
 		);
 }
 
-sge::x11input::cursor::object_unique_ptr
-sge::x11input::processor::create_cursor(
-	sge::x11input::create_parameters const &_param
+awl::event::optional_base_unique_ptr
+sge::x11input::processor::hierarchy_info(
+	XIHierarchyInfo const &_info
+)
+{
+	if(
+		_info.flags
+		&
+		XIMasterAdded
+		||
+		_info.flags
+		&
+		XISlaveAdded
+	)
+	{
+		sge::x11input::device::info::single const info{
+			x11_window_.display(),
+			sge::x11input::device::id{
+				_info.deviceid
+			}
+		};
+
+		return
+			fcppt::optional::bind(
+				info.get(),
+				[
+					this
+				](
+					fcppt::reference<
+						XIDeviceInfo const
+					> const _device_info
+				)
+				{
+					return
+						this->add_device(
+							_device_info.get()
+						);
+				}
+			);
+	}
+	else if(
+		_info.flags
+		&
+		XIMasterRemoved
+		||
+		_info.flags
+		&
+		XISlaveRemoved
+	)
+		return
+			this->remove_device(
+				_info
+			);
+
+	return
+		awl::event::optional_base_unique_ptr{};
+}
+
+awl::event::optional_base_unique_ptr
+sge::x11input::processor::add_device(
+	XIDeviceInfo const &_info
+)
+{
+	switch(
+		_info.use
+	)
+	{
+	case XIMasterKeyboard:
+		return
+			awl::event::optional_base_unique_ptr{
+				fcppt::unique_ptr_to_base<
+					awl::event::base
+				>(
+					fcppt::make_unique_ptr<
+						sge::input::focus::event::discover
+					>(
+						this->add_focus(
+							_info
+						)
+					)
+				)
+			};
+	case XISlaveKeyboard:
+		return
+			awl::event::optional_base_unique_ptr{
+				fcppt::unique_ptr_to_base<
+					awl::event::base
+				>(
+					fcppt::make_unique_ptr<
+						sge::input::keyboard::event::discover
+					>(
+						this->add_keyboard(
+							_info
+						)
+					)
+				)
+			};
+	case XIMasterPointer:
+		return
+			awl::event::optional_base_unique_ptr{
+				fcppt::unique_ptr_to_base<
+					awl::event::base
+				>(
+					fcppt::make_unique_ptr<
+						sge::input::cursor::event::discover
+					>(
+						this->add_cursor(
+							_info
+						)
+					)
+				)
+			};
+	case XISlavePointer:
+		return
+			awl::event::optional_base_unique_ptr{
+				fcppt::unique_ptr_to_base<
+					awl::event::base
+				>(
+					fcppt::make_unique_ptr<
+						sge::input::mouse::event::discover
+					>(
+						this->add_mouse(
+							_info
+						)
+					)
+				)
+			};
+	}
+
+	return
+		awl::event::optional_base_unique_ptr{};
+}
+
+awl::event::optional_base_unique_ptr
+sge::x11input::processor::remove_device(
+	XIHierarchyInfo const &_info
+)
+{
+	sge::x11input::device::id const id{
+		_info.deviceid
+	};
+
+	switch(
+		_info.use
+	)
+	{
+	case XIMasterKeyboard:
+		return
+			awl::event::optional_base_unique_ptr{
+				fcppt::unique_ptr_to_base<
+					awl::event::base
+				>(
+					fcppt::make_unique_ptr<
+						sge::input::focus::event::remove
+					>(
+						sge::x11input::device::remove(
+							foci_,
+							id
+						)
+					)
+				)
+			};
+	case XISlaveKeyboard:
+		return
+			awl::event::optional_base_unique_ptr{
+				fcppt::unique_ptr_to_base<
+					awl::event::base
+				>(
+					fcppt::make_unique_ptr<
+						sge::input::keyboard::event::remove
+					>(
+						sge::x11input::device::remove(
+							keyboards_,
+							id
+						)
+					)
+				)
+			};
+	case XIMasterPointer:
+		return
+			awl::event::optional_base_unique_ptr{
+				fcppt::unique_ptr_to_base<
+					awl::event::base
+				>(
+					fcppt::make_unique_ptr<
+						sge::input::cursor::event::remove
+					>(
+						sge::x11input::device::remove(
+							cursors_,
+							id
+						)
+					)
+				)
+			};
+	case XISlavePointer:
+		return
+			awl::event::optional_base_unique_ptr{
+				fcppt::unique_ptr_to_base<
+					awl::event::base
+				>(
+					fcppt::make_unique_ptr<
+						sge::input::mouse::event::remove
+					>(
+						sge::x11input::device::remove(
+							mice_,
+							id
+						)
+					)
+				)
+			};
+	}
+
+	return
+		awl::event::optional_base_unique_ptr{};
+}
+
+sge::input::focus::shared_ptr
+sge::x11input::processor::add_focus(
+	XIDeviceInfo const &_info
 )
 {
 	return
-		fcppt::make_unique_ptr<
-			sge::x11input::cursor::object
-		>(
-			log_,
-			this->device_parameters(
-				_param
-			),
-			*invisible_cursor_
+		sge::x11input::device::insert(
+			foci_,
+			sge::x11input::device::id{
+				_info.deviceid
+			},
+			fcppt::shared_ptr<
+				sge::input::focus::object
+			>{
+				fcppt::make_shared_ptr<
+					sge::x11input::focus::object
+				>(
+					window_,
+					log_,
+					x11_window_,
+					sge::x11input::device::id{
+						_info.deviceid
+					},
+					window_demuxer_,
+					fcppt::optional::map(
+						fcppt::optional::deref(
+							xim_method_
+						),
+						[](
+							fcppt::reference<
+								sge::x11input::xim::method
+							> const _method
+						)
+						{
+							return
+								fcppt::make_cref(
+									_method.get()
+								);
+						}
+					)
+				)
+			}
 		);
 }
 
-void
-sge::x11input::processor::on_hierarchy_changed(
-	sge::x11input::device::hierarchy_event const &_event
+sge::input::keyboard::shared_ptr
+sge::x11input::processor::add_keyboard(
+	XIDeviceInfo const &_info
 )
 {
-	for(
-		int const index
-		:
-		fcppt::make_int_range_count(
-			_event.get().num_info
-		)
-	)
-		device_manager_.change(
-			_event.get().info[
-				index
-			]
+	return
+		sge::x11input::device::insert(
+			keyboards_,
+			sge::x11input::device::id{
+				_info.deviceid
+			},
+			fcppt::shared_ptr<
+				sge::input::keyboard::device
+			>{
+				fcppt::make_shared_ptr<
+					sge::x11input::keyboard::device
+				>(
+					window_,
+					sge::x11input::device::id{
+						_info.deviceid
+					},
+					x11_window_,
+					window_demuxer_
+				)
+			}
 		);
 }
 
-void
-sge::x11input::processor::on_client_message(
-	awl::backends::x11::window::event::object const &_object
+sge::input::cursor::shared_ptr
+sge::x11input::processor::add_cursor(
+	XIDeviceInfo const &_info
 )
 {
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::_
-			<< FCPPT_TEXT("ClientMessage")
-	);
+	return
+		sge::x11input::device::insert(
+			cursors_,
+			sge::x11input::device::id{
+				_info.deviceid
+			},
+			fcppt::shared_ptr<
+				sge::input::cursor::object
+			>{
+				fcppt::make_shared_ptr<
+					sge::x11input::cursor::object
+				>(
+					window_,
+					log_,
+					x11_window_,
+					_info,
+					window_demuxer_,
+					*invisible_cursor_
+				)
+			}
+		);
+}
 
-	if(
-		_object.get().xclient.message_type
-		!=
-		init_atom_.get()
-	)
-		return;
-
-	device_manager_.dispatch_initial();
+sge::input::mouse::shared_ptr
+sge::x11input::processor::add_mouse(
+	XIDeviceInfo const &_info
+)
+{
+	return
+		sge::x11input::device::insert(
+			mice_,
+			sge::x11input::device::id{
+				_info.deviceid
+			},
+			fcppt::shared_ptr<
+				sge::input::mouse::device
+			>{
+				fcppt::make_shared_ptr<
+					sge::x11input::mouse::device
+				>(
+					window_,
+					x11_window_,
+					_info,
+					window_demuxer_,
+					raw_demuxer_
+				)
+			}
+		);
 }

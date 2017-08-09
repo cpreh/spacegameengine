@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/impl/set_pressed_if_appropriate.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/optional_code.hpp>
-#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/event/key.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
 
@@ -29,7 +29,7 @@ void
 sge::camera::impl::set_pressed_if_appropriate(
 	bool &_result,
 	sge::input::key::optional_code const &_optional_key,
-	sge::input::keyboard::key_event const &_key_event
+	sge::input::keyboard::event::key const &_key_event
 )
 {
 	fcppt::optional::maybe_void(
@@ -44,7 +44,7 @@ sge::camera::impl::set_pressed_if_appropriate(
 			if(
 				_code
 				==
-				_key_event.key().code()
+				_key_event.get().code()
 			)
 				_result =
 					_key_event.pressed();

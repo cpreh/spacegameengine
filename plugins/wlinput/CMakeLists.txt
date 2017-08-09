@@ -37,6 +37,7 @@ set(
 	plugins/wlinput/include/sge/wlinput/focus/xkb_keycode.hpp
 	plugins/wlinput/include/sge/wlinput/focus/xkb_keysym.hpp
 	plugins/wlinput/include/sge/wlinput/initial_objects.hpp
+	plugins/wlinput/include/sge/wlinput/map.hpp
 	plugins/wlinput/include/sge/wlinput/processor.hpp
 	plugins/wlinput/include/sge/wlinput/remove_seat.hpp
 	plugins/wlinput/include/sge/wlinput/system.hpp

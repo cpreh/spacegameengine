@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/x11input/opcode.hpp>
 #include <sge/x11input/xi_opcode.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/system/event/opcode.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
@@ -46,7 +46,7 @@ sge::x11input::xi_opcode(
 		True
 		?
 			sge::x11input::optional_opcode{
-				awl::backends::x11::system::event::opcode{
+				sge::x11input::opcode{
 					opcode
 				}
 			}

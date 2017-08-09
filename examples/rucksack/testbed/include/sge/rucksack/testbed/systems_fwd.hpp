@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RUCKSACK_TESTBED_SYSTEMS_FWD_HPP_INCLUDED
 
 #include <sge/systems/instance_fwd.hpp>
-#include <sge/systems/keyboard_collector_fwd.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/with_input_fwd.hpp>
 #include <sge/systems/with_renderer_fwd.hpp>
@@ -46,11 +45,7 @@ sge::systems::instance<
 		sge::systems::with_renderer<
 			sge::systems::renderer_caps::ffp
 		>,
-		sge::systems::with_input<
-			boost::mpl::vector1<
-				sge::systems::keyboard_collector
-			>
-		>
+		sge::systems::with_input
 	>
 >
 systems;

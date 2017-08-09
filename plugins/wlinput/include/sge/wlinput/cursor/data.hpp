@@ -21,13 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WLINPUT_CURSOR_DATA_HPP_INCLUDED
 #define SGE_WLINPUT_CURSOR_DATA_HPP_INCLUDED
 
-#include <sge/input/cursor/button_signal.hpp>
-#include <sge/input/cursor/move_signal.hpp>
 #include <sge/input/cursor/optional_position.hpp>
-#include <sge/input/cursor/scroll_signal.hpp>
+#include <sge/wlinput/cursor/object_fwd.hpp>
 #include <awl/backends/wayland/window/object_fwd.hpp>
+#include <awl/event/container_reference.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/object_decl.hpp>
 
 
 namespace sge
@@ -43,22 +41,21 @@ struct data
 		data
 	);
 
-	explicit
 	data(
-		awl::backends::wayland::window::object const &
+		sge::wlinput::cursor::object &,
+		awl::backends::wayland::window::object const &,
+		awl::event::container_reference
 	);
 
 	~data();
 
+	sge::wlinput::cursor::object &cursor_;
+
 	awl::backends::wayland::window::object const &window_;
 
+	awl::event::container_reference const events_;
+
 	sge::input::cursor::optional_position position_;
-
-	sge::input::cursor::button_signal button_signal_;
-
-	sge::input::cursor::move_signal move_signal_;
-
-	sge::input::cursor::scroll_signal scroll_signal_;
 };
 
 }

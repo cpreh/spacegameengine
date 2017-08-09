@@ -27,29 +27,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/dinput/device/funcs/set_data_format.hpp>
 #include <sge/dinput/device/funcs/unacquire.hpp>
 #include <sge/input/exception.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/base_unique_ptr.hpp>
+#include <awl/event/container.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
 #include <awl/backends/windows/system/event/handle.hpp>
-#include <awl/backends/windows/window/object.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <array>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
 
-DWORD const coop_level(
+DWORD const coop_level{
 	DISCL_FOREGROUND | DISCL_NONEXCLUSIVE
-);
+};
 
-DWORD const buffer_size(
+DWORD const buffer_size{
 	1024
-);
+};
 
 DIPROPDWORD const buffer_settings = {
 	{
@@ -75,13 +81,15 @@ sge::dinput::device::object::~object()
 {
 }
 
-void
+awl::event::container
 sge::dinput::device::object::dispatch()
 {
-	typedef std::array<
+	typedef
+	std::array<
 		DIDEVICEOBJECTDATA,
 		buffer_size
-	> input_buffer;
+	>
+	input_buffer;
 
 	input_buffer buffer;
 
@@ -89,6 +97,9 @@ sge::dinput::device::object::dispatch()
 		buffer_size
 	);
 
+	awl::event::container events;
+
+	// TODO: Make a range for this
 	for(
 		;;
 	)
@@ -121,38 +132,67 @@ sge::dinput::device::object::dispatch()
 					elements
 				)
 			)
-				this->on_dispatch(
-					buffer[
-						index
-					]
+				fcppt::optional::maybe_void(
+					this->on_dispatch(
+						buffer[
+							index
+						]
+					),
+					[
+						&events
+					](
+						awl::event::base_unique_ptr &&_event
+					)
+					{
+						events.push_back(
+							std::move(
+								_event
+							)
+						);
+					}
 				);
 		}
 
-		switch(
-			result
+		auto const do_continue(
+			[
+				this,
+				result
+			]{
+				switch(
+					result
+				)
+				{
+				case DI_OK:
+					return
+						false;
+				case DI_BUFFEROVERFLOW:
+					return
+						true;
+				case DIERR_INPUTLOST:
+					return
+						this->acquire_impl();
+				case DIERR_NOTACQUIRED:
+					this->acquire_impl();
+
+					return
+						false;
+				}
+
+				throw
+					sge::input::exception{
+						FCPPT_TEXT("GetDeviceData() failed!")
+					};
+			}
+		);
+
+		if(
+			!do_continue()
 		)
-		{
-		case DI_OK:
-			return;
-		case DI_BUFFEROVERFLOW:
 			break;
-		case DIERR_INPUTLOST:
-			if(
-				!this->acquire_impl()
-			)
-				return;
-
-			break;
-		case DIERR_NOTACQUIRED:
-			this->acquire_impl();
-
-			return;
-		default:
-			throw sge::input::exception(
-				FCPPT_TEXT("GetDeviceData() failed!")
-			);
-		}
 	}
+
+	return
+		events;
 }
 
 void
@@ -170,20 +210,23 @@ sge::dinput::device::object::unacquire()
 }
 
 sge::dinput::device::object::object(
-	sge::dinput::device::parameters const &_param,
+	sge::dinput::device::parameters const &_parameters,
 	DIDATAFORMAT const &_format
 )
 :
-	device_(
+	window_{
+		_parameters.sge_window()
+	},
+	device_{
 		sge::dinput::create_device(
-			_param.instance(),
-			_param.guid()
+			_parameters.instance(),
+			_parameters.guid()
 		)
-	)
+	}
 {
 	sge::dinput::device::funcs::set_cooperative_level(
 		this->get(),
-		_param.window(),
+		_parameters.window(),
 		coop_level
 	);
 
@@ -196,7 +239,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 FCPPT_PP_POP_WARNING
 
 	this->set_event_handle(
-		_param.event_handle().get()
+		_parameters.event_handle().get()
 	);
 
 	this->set_data_format(
@@ -209,6 +252,13 @@ sge::dinput::device::object::get()
 {
 	return
 		*device_;
+}
+
+sge::window::object &
+sge::dinput::device::object::sge_window() const
+{
+	return
+		window_;
 }
 
 bool
@@ -244,9 +294,10 @@ sge::dinput::device::object::set_property(
 		)
 		!= DI_OK
 	)
-		throw sge::input::exception(
-			FCPPT_TEXT("SetProperty() failed!")
-		);
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("SetProperty() failed!")
+			};
 }
 
 void
@@ -267,8 +318,9 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 FCPPT_PP_POP_WARNING
 		return;
 	default:
-		throw sge::input::exception(
-			FCPPT_TEXT("SetEventNotification() failed!")
-		);
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("SetEventNotification() failed!")
+			};
 	}
 }

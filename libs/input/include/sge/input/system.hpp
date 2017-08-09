@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/detail/symbol.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -52,8 +51,7 @@ public:
 	virtual
 	sge::input::processor_unique_ptr
 	create_processor(
-		sge::window::object const &,
-		sge::window::system const &
+		sge::window::object &
 	) = 0;
 
 	virtual

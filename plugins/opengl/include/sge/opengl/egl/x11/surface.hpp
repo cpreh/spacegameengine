@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/egl/surface.hpp>
 #include <sge/opengl/egl/window_surface_decl.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
+#include <awl/backends/x11/window/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
@@ -50,7 +50,7 @@ public:
 	surface(
 		EGLDisplay,
 		EGLConfig,
-		awl::backends::x11::window::object &
+		awl::backends::x11::window::base const &
 	);
 
 	~surface()

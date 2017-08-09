@@ -63,7 +63,7 @@ sge::systems::impl::renderer::system::system(
 	),
 	renderer_system_(
 		plugin_core_pair_.system().create_system(
-			_window_system.get().awl_system()
+			_window_system.get()
 		)
 	)
 {

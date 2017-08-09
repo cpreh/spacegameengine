@@ -25,15 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/update_duration.hpp>
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/tracking/keyframe_sequence.hpp>
+#include <sge/input/event_base_fwd.hpp>
 #include <sge/input/key/code_fwd.hpp>
-#include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/keyboard/key_event_fwd.hpp>
+#include <sge/input/keyboard/event/key_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/object.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -47,18 +45,22 @@ namespace tracking
 {
 namespace json
 {
+
 class key_press_exporter
 {
-FCPPT_NONCOPYABLE(
-	key_press_exporter);
+	FCPPT_NONCOPYABLE(
+		key_press_exporter
+	);
 public:
 	FCPPT_MAKE_STRONG_TYPEDEF(
 		sge::input::key::code,
-		keyframe_keypress);
+		keyframe_keypress
+	);
 
 	FCPPT_MAKE_STRONG_TYPEDEF(
 		sge::input::key::code,
-		export_keypress);
+		export_keypress
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	key_press_exporter(
@@ -66,26 +68,39 @@ public:
 		sge::camera::base const &,
 		boost::filesystem::path const &,
 		sge::camera::update_duration const &,
-		sge::input::keyboard::device &,
 		keyframe_keypress const &,
-		export_keypress const &);
+		export_keypress const &
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	~key_press_exporter();
+
+	SGE_CAMERA_DETAIL_SYMBOL
+	void
+	process_event(
+		sge::input::event_base const &
+	);
 private:
 	fcppt::log::object log_;
+
 	sge::camera::base const &camera_;
+
 	boost::filesystem::path const target_path_;
+
 	sge::camera::update_duration const duration_;
+
 	keyframe_keypress const keyframe_keypress_;
+
 	export_keypress const export_keypress_;
-	fcppt::signal::auto_connection const key_press_connection_;
+
 	sge::camera::tracking::keyframe_sequence keyframes_;
 
 	void
-	key_callback(
-		sge::input::keyboard::key_event const &);
+	key_event(
+		sge::input::keyboard::event::key const &
+	);
 };
+
 }
 }
 }

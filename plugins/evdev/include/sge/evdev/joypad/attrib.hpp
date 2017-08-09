@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_EVDEV_JOYPAD_ATTRIB_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_ATTRIB_HPP_INCLUDED
 
-#include <sge/evdev/joypad/add_parameters_fwd.hpp>
+#include <sge/evdev/joypad/map.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -35,10 +37,11 @@ namespace evdev
 namespace joypad
 {
 
-void
+awl::event::optional_base_unique_ptr
 attrib(
 	fcppt::log::object &,
-	sge::evdev::joypad::add_parameters const &,
+	sge::window::object &,
+	sge::evdev::joypad::map &,
 	boost::filesystem::path const &
 );
 

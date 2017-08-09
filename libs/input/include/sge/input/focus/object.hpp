@@ -23,14 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/detail/symbol.hpp>
-#include <sge/input/focus/char_callback.hpp>
-#include <sge/input/focus/in_callback.hpp>
-#include <sge/input/focus/key_callback.hpp>
-#include <sge/input/focus/key_repeat_callback.hpp>
 #include <sge/input/focus/object_fwd.hpp>
-#include <sge/input/focus/out_callback.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/auto_connection_fwd.hpp>
 
 
 namespace sge
@@ -54,34 +49,8 @@ public:
 	~object() = 0;
 
 	virtual
-	fcppt::signal::auto_connection
-	char_callback(
-		sge::input::focus::char_callback const &
-	) = 0;
-
-	virtual
-	fcppt::signal::auto_connection
-	key_callback(
-		sge::input::focus::key_callback const &
-	) = 0;
-
-	virtual
-	fcppt::signal::auto_connection
-	key_repeat_callback(
-		sge::input::focus::key_repeat_callback const &
-	) = 0;
-
-	virtual
-	fcppt::signal::auto_connection
-	in_callback(
-		sge::input::focus::in_callback const &
-	) = 0;
-
-	virtual
-	fcppt::signal::auto_connection
-	out_callback(
-		sge::input::focus::out_callback const &
-	) = 0;
+	sge::window::object &
+	window() const = 0;
 };
 
 }

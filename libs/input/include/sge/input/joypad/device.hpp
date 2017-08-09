@@ -23,15 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/detail/symbol.hpp>
-#include <sge/input/joypad/absolute_axis_callback.hpp>
-#include <sge/input/joypad/button_callback.hpp>
 #include <sge/input/joypad/device_fwd.hpp>
 #include <sge/input/joypad/info_fwd.hpp>
-#include <sge/input/joypad/relative_axis_callback.hpp>
 #include <sge/input/joypad/ff/effect_unique_ptr.hpp>
 #include <sge/input/joypad/ff/parameters_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/auto_connection_fwd.hpp>
 
 
 namespace sge
@@ -55,22 +52,8 @@ public:
 	~device() = 0;
 
 	virtual
-	fcppt::signal::auto_connection
-	absolute_axis_callback(
-		sge::input::joypad::absolute_axis_callback const &
-	) = 0;
-
-	virtual
-	fcppt::signal::auto_connection
-	button_callback(
-		sge::input::joypad::button_callback const &
-	) = 0;
-
-	virtual
-	fcppt::signal::auto_connection
-	relative_axis_callback(
-		sge::input::joypad::relative_axis_callback const &
-	) = 0;
+	sge::window::object &
+	window() const = 0;
 
 	virtual
 	sge::input::joypad::info const &

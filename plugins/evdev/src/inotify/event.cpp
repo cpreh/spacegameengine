@@ -22,20 +22,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/inotify/event_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::evdev::inotify::event::event(
-	boost::filesystem::path const &_filename,
+	boost::filesystem::path &&_filename,
 	sge::evdev::inotify::event_type const _event_type
 )
 :
-	filename_(
-		_filename
-	),
-	event_type_(
+	filename_{
+		std::move(
+			_filename
+		)
+	},
+	event_type_{
 		_event_type
-	)
+	}
 {
 }
 

@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/egl/surface.hpp>
 #include <sge/opengl/egl/window_surface_impl.hpp>
 #include <sge/opengl/egl/wayland/surface.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <awl/backends/wayland/window/object.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -35,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::egl::wayland::surface::surface(
 	EGLDisplay const _display,
 	EGLConfig const _config,
-	awl::backends::wayland::window::object &_window
+	sge::window::object &_window
 )
 :
 	sge::opengl::egl::surface(),

@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/display_mode/object.hpp>
-#include <awl/backends/x11/window/object.hpp>
+#include <awl/backends/x11/window/base_fwd.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -51,7 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 sge::opengl::xrandr::resolution_unique_ptr
 sge::opengl::xrandr::choose_resolution(
 	sge::opengl::xrandr::configuration const &_config,
-	awl::backends::x11::window::object &_window,
+	awl::backends::x11::window::base const &_window,
 	sge::renderer::display_mode::object const &_mode
 )
 {

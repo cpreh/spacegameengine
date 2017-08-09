@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_EGL_WAYLAND_WINDOW_HOLDER_HPP_INCLUDED
 #define SGE_OPENGL_EGL_WAYLAND_WINDOW_HOLDER_HPP_INCLUDED
 
-#include <awl/backends/wayland/window/object_fwd.hpp>
+#include <awl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <wayland-egl-core.h>
@@ -45,7 +45,7 @@ class window_holder
 public:
 	explicit
 	window_holder(
-		awl::backends::wayland::window::object &
+		awl::window::object const &
 	);
 
 	~window_holder();

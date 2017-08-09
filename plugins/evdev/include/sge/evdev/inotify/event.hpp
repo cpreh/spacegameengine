@@ -38,12 +38,9 @@ namespace inotify
 
 class event
 {
-	FCPPT_NONASSIGNABLE(
-		event
-	);
 public:
 	event(
-		boost::filesystem::path const &,
+		boost::filesystem::path &&,
 		sge::evdev::inotify::event_type
 	);
 
@@ -53,9 +50,9 @@ public:
 	sge::evdev::inotify::event_type
 	event_type() const;
 private:
-	boost::filesystem::path const filename_;
+	boost::filesystem::path filename_;
 
-	sge::evdev::inotify::event_type const event_type_;
+	sge::evdev::inotify::event_type event_type_;
 };
 
 }

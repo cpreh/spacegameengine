@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_BASE_HPP_INCLUDED
 #define SGE_CAMERA_BASE_HPP_INCLUDED
 
-#include <sge/camera/projection_matrix_fwd.hpp>
+#include <sge/camera/optional_projection_matrix_fwd.hpp>
 #include <sge/camera/coordinate_system/object_fwd.hpp>
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/core/detail/class_symbol.hpp>
+#include <sge/input/event_base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -46,8 +47,14 @@ public:
 	coordinate_system() const = 0;
 
 	virtual
-	sge::camera::projection_matrix
+	sge::camera::optional_projection_matrix
 	projection_matrix() const = 0;
+
+	virtual
+	void
+	process_event(
+		sge::input::event_base const &
+	) = 0;
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	virtual

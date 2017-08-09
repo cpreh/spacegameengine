@@ -26,14 +26,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/resize_callback.hpp>
 #include <sge/viewport/impl/detail/manager_impl.hpp>
 #include <sge/window/object.hpp>
-#include <awl/window/event/processor.hpp>
-#include <awl/window/event/resize_callback.hpp>
-#include <awl/window/event/resize_fwd.hpp>
+#include <awl/event/container.hpp>
+#include <awl/window/event/base.hpp>
+#include <awl/window/event/resize.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -47,15 +50,15 @@ sge::viewport::detail::manager_impl::manager_impl(
 	sge::viewport::optional_resize_callback const &_resize_callback
 )
 :
-	target_(
+	target_{
 		_device.onscreen_target()
-	),
-	resize_callback_(
+	},
+	resize_callback_{
 		_resize_callback
-	),
-	resize_connection_(
-		_window.awl_window_event_processor().resize_callback(
-			awl::window::event::resize_callback{
+	},
+	event_connection_{
+		_window.event_handler(
+			sge::window::event_function{
 				std::bind(
 					&sge::viewport::detail::manager_impl::on_resize,
 					this,
@@ -63,7 +66,7 @@ sge::viewport::detail::manager_impl::manager_impl(
 				)
 			}
 		)
-	),
+	},
 	manage_signal_()
 {
 }
@@ -100,29 +103,49 @@ sge::viewport::detail::manager_impl::viewport() const
 		target_.viewport();
 }
 
-void
+awl::event::container
 sge::viewport::detail::manager_impl::on_resize(
-	awl::window::event::resize const &_resize
+	awl::window::event::base const &_event
 )
 {
 	fcppt::optional::maybe_void(
-		resize_callback_,
+		fcppt::cast::dynamic<
+			awl::window::event::resize const
+		>(
+			_event
+		),
 		[
-			&_resize,
 			this
 		](
-			sge::viewport::resize_callback const &_callback
+			fcppt::reference<
+				awl::window::event::resize const
+			> const _resize
 		)
 		{
-			target_.viewport(
-				_callback(
-					_resize
+			// TODO: Turn this into events that we can return.
+			fcppt::optional::maybe_void(
+				resize_callback_,
+				[
+					&_resize,
+					this
+				](
+					sge::viewport::resize_callback const &_callback
 				)
+				{
+					target_.viewport(
+						_callback(
+							_resize.get()
+						)
+					);
+				}
+			);
+
+			manage_signal_(
+				this->viewport()
 			);
 		}
 	);
 
-	manage_signal_(
-		this->viewport()
-	);
+	return
+		awl::event::container();
 }

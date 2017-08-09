@@ -114,8 +114,6 @@ set(
 	libs/systems/include/sge/systems/audio_player_fwd.hpp
 	libs/systems/include/sge/systems/config.hpp
 	libs/systems/include/sge/systems/config_fwd.hpp
-	libs/systems/include/sge/systems/cursor_demuxer.hpp
-	libs/systems/include/sge/systems/cursor_demuxer_fwd.hpp
 	libs/systems/include/sge/systems/cursor_hotspot.hpp
 	libs/systems/include/sge/systems/cursor_hotspot_fwd.hpp
 	libs/systems/include/sge/systems/cursor_option.hpp
@@ -135,7 +133,6 @@ set(
 	libs/systems/include/sge/systems/detail/custom_cursor_fwd.hpp
 	libs/systems/include/sge/systems/detail/extract_needs_init.hpp
 	libs/systems/include/sge/systems/detail/extract_parameter_type.hpp
-	libs/systems/include/sge/systems/detail/has_input_option.hpp
 	libs/systems/include/sge/systems/detail/has_with_audio_loader.hpp
 	libs/systems/include/sge/systems/detail/has_with_audio_player.hpp
 	libs/systems/include/sge/systems/detail/has_with_font.hpp
@@ -143,9 +140,6 @@ set(
 	libs/systems/include/sge/systems/detail/has_with_input.hpp
 	libs/systems/include/sge/systems/detail/has_with_renderer.hpp
 	libs/systems/include/sge/systems/detail/has_with_window.hpp
-	libs/systems/include/sge/systems/detail/input.hpp
-	libs/systems/include/sge/systems/detail/input_fwd.hpp
-	libs/systems/include/sge/systems/detail/input_option.hpp
 	libs/systems/include/sge/systems/detail/instance.hpp
 	libs/systems/include/sge/systems/detail/instance_impl_fwd.hpp
 	libs/systems/include/sge/systems/detail/is_with_input.hpp
@@ -161,8 +155,6 @@ set(
 	libs/systems/include/sge/systems/empty_list.hpp
 	libs/systems/include/sge/systems/empty_list_fwd.hpp
 	libs/systems/include/sge/systems/exception.hpp
-	libs/systems/include/sge/systems/focus_collector.hpp
-	libs/systems/include/sge/systems/focus_collector_fwd.hpp
 	libs/systems/include/sge/systems/font.hpp
 	libs/systems/include/sge/systems/font_fwd.hpp
 	libs/systems/include/sge/systems/image2d.hpp
@@ -173,8 +165,6 @@ set(
 	libs/systems/include/sge/systems/instance_decl.hpp
 	libs/systems/include/sge/systems/instance_fwd.hpp
 	libs/systems/include/sge/systems/instance_impl.hpp
-	libs/systems/include/sge/systems/keyboard_collector.hpp
-	libs/systems/include/sge/systems/keyboard_collector_fwd.hpp
 	libs/systems/include/sge/systems/list.hpp
 	libs/systems/include/sge/systems/list_decl.hpp
 	libs/systems/include/sge/systems/list_fwd.hpp
@@ -184,8 +174,6 @@ set(
 	libs/systems/include/sge/systems/log_settings_fwd.hpp
 	libs/systems/include/sge/systems/make_empty_list.hpp
 	libs/systems/include/sge/systems/make_list.hpp
-	libs/systems/include/sge/systems/mouse_collector.hpp
-	libs/systems/include/sge/systems/mouse_collector_fwd.hpp
 	libs/systems/include/sge/systems/optional_log_context_ref.hpp
 	libs/systems/include/sge/systems/optional_log_context_ref_fwd.hpp
 	libs/systems/include/sge/systems/optional_log_settings.hpp
@@ -227,7 +215,6 @@ set(
 	libs/systems/src/systems/audio_player_default.cpp
 	libs/systems/src/systems/config.cpp
 	libs/systems/src/systems/custom_cursor.cpp
-	libs/systems/src/systems/detail/input.cpp
 	libs/systems/src/systems/detail/instance.cpp
 	libs/systems/src/systems/detail/list.cpp
 	libs/systems/src/systems/detail/quit_on_escape.cpp

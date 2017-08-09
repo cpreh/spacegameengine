@@ -30,13 +30,10 @@ set(
 	libs/camera/include/sge/camera/first_person/object_fwd.hpp
 	libs/camera/include/sge/camera/first_person/parameters.hpp
 	libs/camera/include/sge/camera/first_person/parameters_fwd.hpp
-	libs/camera/include/sge/camera/has_activation.hpp
-	libs/camera/include/sge/camera/has_activation_fwd.hpp
 	libs/camera/include/sge/camera/has_mutable_coordinate_system.hpp
 	libs/camera/include/sge/camera/has_mutable_coordinate_system_fwd.hpp
 	libs/camera/include/sge/camera/has_mutable_projection.hpp
 	libs/camera/include/sge/camera/has_mutable_projection_fwd.hpp
-	libs/camera/include/sge/camera/is_active.hpp
 	libs/camera/include/sge/camera/is_dynamic.hpp
 	libs/camera/include/sge/camera/is_dynamic_fwd.hpp
 	libs/camera/include/sge/camera/log_location.hpp
@@ -123,7 +120,6 @@ set(
 	libs/camera/src/camera/first_person/action/wasd_mapping.cpp
 	libs/camera/src/camera/first_person/object.cpp
 	libs/camera/src/camera/first_person/parameters.cpp
-	libs/camera/src/camera/has_activation.cpp
 	libs/camera/src/camera/has_mutable_coordinate_system.cpp
 	libs/camera/src/camera/has_mutable_projection.cpp
 	libs/camera/src/camera/is_dynamic.cpp

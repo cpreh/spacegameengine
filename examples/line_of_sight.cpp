@@ -23,16 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_code.hpp>
-#include <sge/input/cursor/button_event.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/position.hpp>
-#include <sge/input/key/action_callback.hpp>
+#include <sge/input/cursor/event/button.hpp>
 #include <sge/input/key/code.hpp>
-#include <sge/input/keyboard/action.hpp>
-#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/event/key.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
@@ -40,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
@@ -68,11 +66,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object.hpp>
-#include <sge/systems/cursor_demuxer.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>
@@ -87,15 +83,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/object.hpp>
-#include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/reference.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/to_signed_fun.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>
@@ -104,19 +105,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/grid/object.hpp>
 #include <fcppt/container/grid/pos.hpp>
 #include <fcppt/container/grid/resize.hpp>
-#include <fcppt/io/cerr.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <iostream>
-#include <ostream>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -133,12 +133,7 @@ try
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
 			>,
-			sge::systems::with_input<
-				boost::mpl::vector2<
-					sge::systems::cursor_demuxer,
-					sge::systems::keyboard_collector
-				>
-			>
+			sge::systems::with_input
 		>
 	> const sys(
 		sge::systems::make_list
@@ -365,228 +360,290 @@ try
 
 	sge::input::cursor::optional_position last_position;
 
-	fcppt::signal::auto_connection const click_connection(
-		sys.cursor_demuxer().button_callback(
-			sge::input::cursor::button_callback{
-				[
-					&sprites,
-					&last_position,
-					&sys,
+	auto const button_event(
+		[
+			&sprites,
+			&last_position,
+			cell_size
+		](
+			sge::input::cursor::event::button const &_event
+		)
+		{
+			if(
+				!_event.pressed()
+				||
+				_event.button_code()
+				!=
+				sge::input::cursor::button_code::left
+			)
+				return;
+
+			sprite_grid::dim const cell_size_dim(
+				fcppt::math::dim::structure_cast<
+					sprite_grid::dim,
+					fcppt::cast::size_fun
+				>(
 					cell_size
+				)
+			);
+
+			sge::input::cursor::position const cur_position{
+				_event.position()
+			};
+
+			sprite_grid::pos const cur_grid_position(
+				fcppt::math::vector::structure_cast<
+					sprite_grid::pos,
+					fcppt::cast::size_fun
+				>(
+					cur_position
+				)
+				/
+				cell_size_dim
+			);
+
+			if(
+				!fcppt::container::grid::in_range(
+					sprites,
+					cur_grid_position
+				)
+			)
+				return;
+
+			fcppt::optional::maybe(
+				last_position,
+				[
+					&last_position,
+					cur_position
+				]{
+					last_position =
+						sge::input::cursor::optional_position{
+							cur_position
+						};
+				},
+				[
+					&last_position,
+					&sprites,
+					cell_size_dim,
+					cur_grid_position
 				](
-					sge::input::cursor::button_event const &_event
+					sge::input::cursor::position const _last_position
 				)
 				{
-					if(
-						!_event.pressed()
-						||
-						_event.button_code()
-						!=
-						sge::input::cursor::button_code::left
-					)
-						return;
+					sprite_grid::pos const last_grid_position(
+						fcppt::math::vector::structure_cast<
+							sprite_grid::pos,
+							fcppt::cast::to_unsigned_fun
+						>(
+							fcppt::math::vector::structure_cast<
+								signed_pos,
+								fcppt::cast::size_fun
+							>(
+								_last_position
+							)
+						)
+						/
+						cell_size_dim
+					);
 
-					fcppt::optional::maybe_void(
-						sys.cursor_demuxer().position(),
+					sge::bresenham::normal(
+						fcppt::math::vector::structure_cast<
+							signed_pos,
+							fcppt::cast::to_signed_fun
+						>(
+							cur_grid_position
+						),
+						fcppt::math::vector::structure_cast<
+							signed_pos,
+							fcppt::cast::to_signed_fun
+						>(
+							last_grid_position
+						),
 						[
-							&sprites,
-							&last_position,
-							cell_size
+							&sprites
 						](
-							sge::input::cursor::position const _cur_position
+							signed_pos const _pos
 						)
 						{
-							sprite_grid::dim const cell_size_dim(
-								fcppt::math::dim::structure_cast<
-									sprite_grid::dim,
-									fcppt::cast::size_fun
-								>(
-									cell_size
-								)
-							);
-
-							sprite_grid::pos const cur_grid_position(
-								fcppt::math::vector::structure_cast<
-									sprite_grid::pos,
-									fcppt::cast::size_fun
-								>(
-									_cur_position
-								)
-								/
-								cell_size_dim
-							);
-
-							if(
-								!fcppt::container::grid::in_range(
+							fcppt::optional::maybe_void(
+								fcppt::container::grid::at_optional(
 									sprites,
-									cur_grid_position
-								)
-							)
-								return;
-
-							fcppt::optional::maybe(
-								last_position,
-								[
-									&last_position,
-									_cur_position
-								]{
-									last_position =
-										sge::input::cursor::optional_position{
-											_cur_position
-										};
-								},
-								[
-									&last_position,
-									&sprites,
-									cell_size_dim,
-									cur_grid_position
-								](
-									sge::input::cursor::position const _last_position
+									fcppt::math::vector::structure_cast<
+										sprite_grid::pos,
+										fcppt::cast::to_unsigned_fun
+									>(
+										_pos
+									)
+								),
+								[](
+									fcppt::reference<
+										sprite_object
+									> const _sprite
 								)
 								{
-									sprite_grid::pos const last_grid_position(
-										fcppt::math::vector::structure_cast<
-											sprite_grid::pos,
-											fcppt::cast::to_unsigned_fun
+									_sprite.get().color(
+										sge::image::color::convert<
+											color_format
 										>(
-											fcppt::math::vector::structure_cast<
-												signed_pos,
-												fcppt::cast::size_fun
-											>(
-												_last_position
-											)
+											sge::image::color::predef::red()
 										)
-										/
-										cell_size_dim
 									);
+								}
+							);
 
-									sge::bresenham::normal(
-										fcppt::math::vector::structure_cast<
-											signed_pos,
-											fcppt::cast::to_signed_fun
-										>(
-											cur_grid_position
-										),
-										fcppt::math::vector::structure_cast<
-											signed_pos,
-											fcppt::cast::to_signed_fun
-										>(
-											last_grid_position
-										),
-										[
-											&sprites
-										](
-											signed_pos const _pos
-										)
-										{
-											fcppt::optional::maybe_void(
-												fcppt::container::grid::at_optional(
-													sprites,
-													fcppt::math::vector::structure_cast<
-														sprite_grid::pos,
-														fcppt::cast::to_unsigned_fun
-													>(
-														_pos
-													)
-												),
-												[](
-													fcppt::reference<
-														sprite_object
-													> const _sprite
-												)
-												{
-													_sprite.get().color(
-														sge::image::color::convert<
-															color_format
-														>(
-															sge::image::color::predef::red()
-														)
-													);
-												}
-											);
+							return
+								true;
+						}
+					);
 
-											return
-												true;
-										}
+					last_position =
+						sge::input::cursor::optional_position{};
+				}
+			);
+		}
+	);
+
+	auto const key_event(
+		[
+			&sprites
+		](
+			sge::input::keyboard::event::key const &_event
+		)
+		{
+			if(
+				_event.get().code()
+				==
+				sge::input::key::code::c
+			)
+				for(
+					auto &element
+					:
+					sprites
+				)
+					element.color(
+						sge::image::color::convert<
+							color_format
+						>(
+							sge::image::color::predef::white()
+						)
+					);
+		}
+	);
+
+	auto const draw(
+		[
+			&sprite_buffers,
+			&sprite_state,
+			&sprites,
+			&sys
+		]{
+			sge::renderer::context::scoped_ffp const scoped_block(
+				sys.renderer_device_ffp(),
+				sys.renderer_device_ffp().onscreen_target()
+			);
+
+			scoped_block.get().clear(
+				sge::renderer::clear::parameters()
+				.back_buffer(
+					sge::image::color::any::object{
+						sge::image::color::predef::black()
+					}
+				)
+			);
+
+			sge::sprite::process::all(
+				scoped_block.get(),
+				sge::sprite::geometry::make_random_access_range(
+					sprites
+				),
+				sprite_buffers,
+				sge::sprite::compare::default_(),
+				sprite_state
+			);
+		}
+	);
+
+	return
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&button_event,
+					&draw,
+					&key_event
+				](
+					awl::event::base const &_event
+				)
+				{
+					fcppt::optional::maybe_void(
+						fcppt::variant::dynamic_cast_<
+							boost::mpl::vector3<
+								sge::renderer::event::render const,
+								sge::input::cursor::event::button const,
+								sge::input::keyboard::event::key const
+							>,
+							fcppt::cast::dynamic_fun
+						>(
+							_event
+						),
+						[
+							&button_event,
+							&draw,
+							&key_event
+						](
+							auto const &_variant
+						)
+						{
+							fcppt::variant::match(
+								_variant,
+								[
+									&draw
+								](
+									fcppt::reference<
+										sge::renderer::event::render const
+									>
+								)
+								{
+									draw();
+								},
+								[
+									&button_event
+								](
+									fcppt::reference<
+										sge::input::cursor::event::button const
+									> const _button_event
+								)
+								{
+									button_event(
+										_button_event.get()
 									);
-
-									last_position =
-										sge::input::cursor::optional_position{};
+								},
+								[
+									&key_event
+								](
+									fcppt::reference<
+										sge::input::keyboard::event::key const
+									> const _key_event
+								)
+								{
+									key_event(
+										_key_event.get()
+									);
 								}
 							);
 						}
 					);
 				}
 			}
-		)
-	);
-
-	fcppt::signal::auto_connection const clear_connection(
-		sys.keyboard_collector().key_callback(
-			sge::input::keyboard::action(
-				sge::input::key::code::c,
-				sge::input::key::action_callback{
-					[
-						&sprites
-					]()
-					{
-						for(
-							auto &element
-							:
-							sprites
-						)
-							element.color(
-								sge::image::color::convert<
-									color_format
-								>(
-									sge::image::color::predef::white()
-								)
-							);
-					}
-				}
-			)
-		)
-	);
-
-	while(
-		sys.window_system().poll()
-	)
-	{
-		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target()
 		);
-
-		scoped_block.get().clear(
-			sge::renderer::clear::parameters()
-			.back_buffer(
-				sge::image::color::any::object{
-					sge::image::color::predef::black()
-				}
-			)
-		);
-
-		sge::sprite::process::all(
-			scoped_block.get(),
-			sge::sprite::geometry::make_random_access_range(
-				sprites
-			),
-			sprite_buffers,
-			sge::sprite::compare::default_(),
-			sprite_state
-		);
-	}
-
-	return
-		sys.window_system().exit_code();
 }
 catch(
 	fcppt::exception const &_error
 )
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_error.string()
+	);
 
 	return
 		awl::main::exit_failure();
@@ -595,9 +652,9 @@ catch(
 	std::exception const &_error
 )
 {
-	std::cerr
-		<< _error.what()
-		<< '\n';
+	awl::show_error_narrow(
+		_error.what()
+	);
 
 	return
 		awl::main::exit_failure();

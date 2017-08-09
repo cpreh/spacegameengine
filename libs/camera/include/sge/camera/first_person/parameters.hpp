@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_FIRST_PERSON_PARAMETERS_HPP_INCLUDED
 #define SGE_CAMERA_FIRST_PERSON_PARAMETERS_HPP_INCLUDED
 
-#include <sge/camera/is_active.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
 #include <sge/camera/projection_matrix_fwd.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
@@ -29,8 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/mouse_speed_multiplier.hpp>
 #include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/action/mapping.hpp>
-#include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/mouse/device_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -49,24 +46,9 @@ class parameters
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	parameters(
-		sge::input::keyboard::device &,
-		sge::input::mouse::device &,
-		sge::camera::is_active const &,
 		sge::camera::first_person::movement_speed const &,
 		sge::camera::coordinate_system::object const &
 	);
-
-	SGE_CAMERA_DETAIL_SYMBOL
-	sge::input::keyboard::device &
-	keyboard() const;
-
-	SGE_CAMERA_DETAIL_SYMBOL
-	sge::input::mouse::device &
-	mouse() const;
-
-	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::is_active const &
-	is_active() const;
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	parameters &
@@ -108,12 +90,6 @@ public:
 	sge::camera::optional_projection_matrix const &
 	projection_matrix() const;
 private:
-	sge::input::keyboard::device &keyboard_;
-
-	sge::input::mouse::device &mouse_;
-
-	sge::camera::is_active is_active_;
-
 	sge::camera::first_person::action::mapping action_mapping_;
 
 	sge::camera::first_person::movement_speed movement_speed_;

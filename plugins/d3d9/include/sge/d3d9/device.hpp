@@ -85,9 +85,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <awl/event/base_fwd.hpp>
+#include <awl/event/container.hpp>
+#include <awl/timer/unique_ptr.hpp>
+#include <awl/window/event/base_fwd.hpp>
 #include <awl/window/event/resize_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
@@ -120,6 +126,7 @@ class device
 public:
 	device(
 		IDirect3D9 &,
+		fcppt::log::object &,
 		sge::renderer::device::parameters const &
 	);
 
@@ -362,6 +369,16 @@ private:
 	void
 	release();
 
+	awl::event::container
+	on_window_event(
+		awl::window::event::base const &
+	);
+
+	awl::event::container
+	on_system_event(
+		awl::event::base const &
+	);
+
 	void
 	on_resize(
 		awl::window::event::resize const &
@@ -407,7 +424,13 @@ private:
 
 	sge::renderer::display_mode::container const display_modes_;
 
-	fcppt::signal::auto_connection const resize_connection_;
+	sge::window::object &window_;
+
+	awl::timer::unique_ptr const draw_timer_;
+
+	fcppt::signal::auto_connection const window_event_connection_;
+
+	fcppt::signal::auto_connection const system_event_connection_;
 };
 
 }

@@ -19,20 +19,84 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/window/dim.hpp>
+#include <sge/window/event_combiner.hpp>
+#include <sge/window/event_function.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/system_event_function.hpp>
 #include <awl/window/object.hpp>
-#include <awl/window/event/processor_fwd.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/container.hpp>
+#include <awl/window/event/base.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::window::object::object(
-	awl::window::object &_awl_object
+	sge::window::system &_system,
+	awl::window::object &_awl_window
 )
 :
-	awl_object_(
-		_awl_object
-	)
+	system_{
+		_system
+	},
+	awl_object_{
+		_awl_window
+	},
+	event_signal_{
+		event_signal::combiner_function{
+			&sge::window::event_combiner
+		}
+	},
+	connection_{
+		_system.event_handler(
+			sge::window::system_event_function{
+				[
+					this
+				](
+					awl::event::base const &_event
+				)
+				{
+					return
+						fcppt::optional::maybe(
+							fcppt::cast::dynamic<
+								awl::window::event::base const
+							>(
+								_event
+							),
+							[]{
+								return
+									awl::event::container{};
+							},
+							[
+								this
+							](
+								fcppt::reference<
+									awl::window::event::base const
+								> const _ref
+							)
+							{
+								return
+									event_signal_(
+										event_signal::initial_value{
+											awl::event::container{}
+										},
+										_ref.get()
+									);
+							}
+						);
+				}
+			}
+		)
+	}
 {
 }
 
@@ -48,14 +112,14 @@ sge::window::object::size() const
 			sge::window::dim,
 			fcppt::cast::size_fun
 		>(
-			awl_object_.size()
+			this->awl_object().size()
 		);
 }
 
 void
 sge::window::object::show()
 {
-	awl_object_.show();
+	this->awl_object().show();
 }
 
 awl::window::object &
@@ -65,9 +129,22 @@ sge::window::object::awl_object() const
 		awl_object_;
 }
 
-awl::window::event::processor &
-sge::window::object::awl_window_event_processor() const
+fcppt::signal::auto_connection
+sge::window::object::event_handler(
+	sge::window::event_function _function
+)
 {
 	return
-		awl_object_.processor();
+		event_signal_.connect(
+			std::move(
+				_function
+			)
+		);
+}
+
+sge::window::system &
+sge::window::object::system() const
+{
+	return
+		system_;
 }

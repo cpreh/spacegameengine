@@ -18,15 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/camera/is_active.hpp>
 #include <sge/camera/ortho_freelook/optional_projection_rectangle.hpp>
 #include <sge/camera/ortho_freelook/pan_speed.hpp>
 #include <sge/camera/ortho_freelook/parameters.hpp>
 #include <sge/camera/ortho_freelook/zoom_speed.hpp>
 #include <sge/camera/ortho_freelook/action/mapping.hpp>
 #include <sge/camera/ortho_freelook/action/wsg_mapping.hpp>
-#include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/mouse/device_fwd.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
@@ -35,61 +32,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::camera::ortho_freelook::parameters::parameters(
-	sge::input::mouse::device &_mouse,
-	sge::input::keyboard::device &_keyboard,
 	sge::renderer::projection::near const _near,
-	sge::renderer::projection::far const _far,
-	sge::camera::is_active const _is_active
+	sge::renderer::projection::far const _far
 )
 :
-	mouse_(
-		_mouse
-	),
-	keyboard_(
-		_keyboard
-	),
-	zoom_speed_(
+	zoom_speed_{
 		fcppt::math::vector::fill<
 			sge::renderer::vector2
 		>(
 			0.30f
 		)
-	),
-	pan_speed_(
+	},
+	pan_speed_{
 		fcppt::math::vector::fill<
 			sge::renderer::vector2
 		>(
 			0.01f
 		)
-	),
-	projection_rectangle_(),
-	near_(
+	},
+	projection_rectangle_{},
+	near_{
 		_near
-	),
-	far_(
+	},
+	far_{
 		_far
-	),
-	is_active_(
-		_is_active
-	),
-	action_mapping_(
+	},
+	action_mapping_{
 		sge::camera::ortho_freelook::action::wsg_mapping()
-	)
+	}
 {
-}
-
-sge::input::mouse::device &
-sge::camera::ortho_freelook::parameters::mouse() const
-{
-	return
-		mouse_;
-}
-
-sge::input::keyboard::device &
-sge::camera::ortho_freelook::parameters::keyboard() const
-{
-	return
-		keyboard_;
 }
 
 sge::camera::ortho_freelook::parameters &
@@ -182,13 +153,6 @@ sge::camera::ortho_freelook::parameters::far() const
 {
 	return
 		far_;
-}
-
-sge::camera::is_active
-sge::camera::ortho_freelook::parameters::is_active() const
-{
-	return
-		is_active_;
 }
 
 sge::camera::ortho_freelook::parameters::~parameters()

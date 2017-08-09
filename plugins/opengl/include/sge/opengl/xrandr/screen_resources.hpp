@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_XRANDR_SCREEN_RESOURCES_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/screen_resources_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
+#include <awl/backends/x11/window/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
@@ -43,9 +42,9 @@ class screen_resources
 		screen_resources
 	);
 public:
+	explicit
 	screen_resources(
-		awl::backends::x11::display &,
-		awl::backends::x11::window::object &
+		awl::backends::x11::window::base const &
 	);
 
 	~screen_resources();

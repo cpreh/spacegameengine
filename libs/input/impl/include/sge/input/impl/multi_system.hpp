@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/plugin/object.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/object.hpp>
@@ -63,8 +62,7 @@ public:
 private:
 	sge::input::processor_unique_ptr
 	create_processor(
-		sge::window::object const &,
-		sge::window::system const &
+		sge::window::object &
 	)
 	override;
 

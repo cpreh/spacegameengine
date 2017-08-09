@@ -23,12 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/syringe_fwd.hpp>
 #include <sge/cegui/detail/symbol.hpp>
-#include <sge/input/cursor/button_event_fwd.hpp>
-#include <sge/input/cursor/move_event_fwd.hpp>
-#include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/cursor/scroll_event_fwd.hpp>
+#include <sge/input/event_base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -43,34 +39,21 @@ class default_cursor
 	);
 public:
 	SGE_CEGUI_DETAIL_SYMBOL
+	explicit
 	default_cursor(
-		sge::cegui::syringe &,
-		sge::input::cursor::object &
+		sge::cegui::syringe &
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL
 	~default_cursor();
+
+	SGE_CEGUI_DETAIL_SYMBOL
+	void
+	process_event(
+		sge::input::event_base const &
+	);
 private:
 	sge::cegui::syringe &syringe_;
-	fcppt::signal::auto_connection const
-		button_connection_,
-		move_connection_,
-		scroll_connection_;
-
-	void
-	button_callback(
-		sge::input::cursor::button_event const &
-	);
-
-	void
-	move_callback(
-		sge::input::cursor::move_event const &
-	);
-
-	void
-	scroll_callback(
-		sge::input::cursor::scroll_event const &
-	);
 };
 
 }

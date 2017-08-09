@@ -19,19 +19,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/systems/impl/window/quit.hpp>
+#include <sge/window/event_function.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
+#include <awl/event/container.hpp>
 #include <awl/main/exit_success.hpp>
-#include <awl/system/event/processor.hpp>
-#include <awl/window/event/destroy_callback.hpp>
-#include <awl/window/event/destroy_fwd.hpp>
-#include <awl/window/event/processor.hpp>
+#include <awl/window/event/base.hpp>
+#include <awl/window/event/close.hpp>
+#include <awl/window/event/destroy.hpp>
+#include <fcppt/cast/dynamic_fun.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <functional>
+#include <boost/mpl/vector/vector10.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,34 +46,50 @@ sge::systems::impl::window::quit::quit(
 	sge::window::object &_window
 )
 :
-	system_(
+	system_{
 		_system
-	),
-	destroy_connection_(
-		_window.awl_window_event_processor().destroy_callback(
-			awl::window::event::destroy_callback{
-				std::bind(
-					&sge::systems::impl::window::quit::on_destroy,
-					this,
-					std::placeholders::_1
+	},
+	destroy_connection_{
+		_window.event_handler(
+			sge::window::event_function{
+				[
+					this
+				](
+					awl::window::event::base const &_event
 				)
+				{
+					fcppt::optional::maybe_void(
+						fcppt::variant::dynamic_cast_<
+							boost::mpl::vector2<
+								awl::window::event::destroy const,
+								awl::window::event::close const
+							>,
+							fcppt::cast::dynamic_fun
+						>(
+							_event
+						),
+						[
+							this
+						](
+							auto const &
+						)
+						{
+							system_.quit(
+								awl::main::exit_success()
+							);
+						}
+					);
+
+					return
+						awl::event::container();
+				}
 			}
 		)
-	)
+	}
 {
 }
 FCPPT_PP_POP_WARNING
 
 sge::systems::impl::window::quit::~quit()
 {
-}
-
-void
-sge::systems::impl::window::quit::on_destroy(
-	awl::window::event::destroy const &
-)
-{
-	system_.quit(
-		awl::main::exit_success()
-	);
 }

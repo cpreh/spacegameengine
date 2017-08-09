@@ -40,12 +40,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
-#include <sge/input/cursor/move_callback.hpp>
-#include <sge/input/cursor/move_event.hpp>
-#include <sge/input/cursor/object.hpp>
-#include <sge/input/cursor/relative_move_callback.hpp>
-#include <sge/input/cursor/relative_move_event.hpp>
-#include <sge/input/cursor/relative_movement.hpp>
+#include <sge/input/cursor/event/move.hpp>
+#include <sge/input/cursor/relative_movement/event.hpp>
+#include <sge/input/cursor/relative_movement/object.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
@@ -62,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
@@ -96,12 +94,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/parameters.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/config.hpp>
-#include <sge/systems/cursor_demuxer.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
@@ -124,20 +120,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/unique_ptr_to_const.hpp>
+#include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/cast/size_fun.hpp>
-#include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -146,15 +147,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <ios>
-#include <iostream>
-#include <ostream>
-#include <streambuf>
-#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -170,12 +168,7 @@ try
 				sge::systems::renderer_caps::ffp
 			>,
 			sge::systems::with_window,
-			sge::systems::with_input<
-				boost::mpl::vector2<
-					sge::systems::keyboard_collector,
-					sge::systems::cursor_demuxer
-				>
-			>,
+			sge::systems::with_input,
 			sge::systems::with_audio_player,
 			sge::systems::with_audio_loader,
 			sge::systems::with_image2d
@@ -255,10 +248,6 @@ try
 		)
 	);
 
-	sge::input::cursor::object &cursor(
-		sys.cursor_demuxer()
-	);
-
 	sge::texture::const_part_unique_ptr const tex_bg(
 		fcppt::unique_ptr_to_const(
 			fcppt::unique_ptr_to_base<
@@ -309,7 +298,8 @@ try
 		)
 	);
 
-	typedef sge::sprite::config::choices<
+	typedef
+	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
 				sge::renderer::pixel_unit
@@ -333,27 +323,38 @@ try
 				sge::sprite::config::texture_ownership::reference
 			>
 		>
-	> sprite_choices;
+	>
+	sprite_choices;
 
-	typedef sge::sprite::object<
+	typedef
+	sge::sprite::object<
 		sprite_choices
-	> sprite_object;
+	>
+	sprite_object;
 
-	typedef sge::sprite::buffers::with_declaration<
+	typedef
+	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
-	> sprite_buffers;
+	>
+	sprite_buffers;
 
-	typedef sge::sprite::state::all_choices sprite_state_choices;
+	typedef
+	sge::sprite::state::all_choices
+	sprite_state_choices;
 
-	typedef sge::sprite::state::object<
+	typedef
+	sge::sprite::state::object<
 		sprite_state_choices
-	> sprite_state_object;
+	>
+	sprite_state_object;
 
-	typedef sge::sprite::state::parameters<
+	typedef
+	sge::sprite::state::parameters<
 		sprite_state_choices
-	> sprite_state_parameters;
+	>
+	sprite_state_parameters;
 
 	sprite_buffers sprite_buf(
 		sys.renderer_device_ffp(),
@@ -498,113 +499,182 @@ try
 		)
 	);
 
-	fcppt::signal::auto_connection const normal_connection{
-		cursor.move_callback(
-			sge::input::cursor::move_callback{
-				[
-					&sound_siren
-				](
-					sge::input::cursor::move_event const &_event
-				)
-				{
-					fcppt::optional::maybe_void(
-						_event.position(),
-						[
-							&sound_siren
-						](
-							sge::input::cursor::position const _pos
-						)
-						{
-							sound_siren->position(
-								sge::audio::vector2_to_vector(
-									fcppt::math::vector::structure_cast<
-										sge::audio::vector2,
-										fcppt::cast::int_to_float_fun
-									>(
-										_pos
-									)
-								)
-							);
-						}
-					);
-				}
-			}
+	auto const on_move(
+		[
+			&sound_siren
+		](
+			sge::input::cursor::event::move const &_event
 		)
-	};
-
-	sge::input::cursor::relative_movement rel_movement(
-		cursor
-	);
-
-	fcppt::signal::auto_connection const relative_connection{
-		rel_movement.relative_move_callback(
-			sge::input::cursor::relative_move_callback{
+		{
+			fcppt::optional::maybe_void(
+				_event.position(),
 				[
 					&sound_siren
 				](
-					sge::input::cursor::relative_move_event const &_event
+					sge::input::cursor::position const _pos
 				)
 				{
-					sound_siren->linear_velocity(
+					sound_siren->position(
 						sge::audio::vector2_to_vector(
 							fcppt::math::vector::structure_cast<
 								sge::audio::vector2,
 								fcppt::cast::int_to_float_fun
 							>(
-								_event.position()
+								_pos
 							)
 						)
 					);
 				}
-			}
-		)
+			);
+		}
+	);
+
+	sge::input::cursor::relative_movement::object rel_movement{
+		sys.input_processor()
 	};
 
-	while(
-		sys.window_system().poll()
-	)
-	{
-		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target()
-		);
+	auto const on_rel_move(
+		[
+			&sound_siren
+		](
+			sge::input::cursor::relative_movement::event const &_event
+		)
+		{
+			sound_siren->linear_velocity(
+				sge::audio::vector2_to_vector(
+					fcppt::math::vector::structure_cast<
+						sge::audio::vector2,
+						fcppt::cast::int_to_float_fun
+					>(
+						_event.difference().get()
+					)
+				)
+			);
+		}
+	);
 
-		scoped_block.get().clear(
-			sge::renderer::clear::parameters()
-			.back_buffer(
-				sge::image::color::any::object{
-					sge::image::color::predef::black()
-				}
-			)
-		);
+	auto const draw(
+		[
+			&background,
+			&sound_siren,
+			&sprite_buf,
+			&sprite_states,
+			&sys,
+			&tux
+		]{
+			sge::renderer::context::scoped_ffp const scoped_block(
+				sys.renderer_device_ffp(),
+				sys.renderer_device_ffp().onscreen_target()
+			);
 
-		sge::sprite::process::one(
-			scoped_block.get(),
-			background,
-			sprite_buf,
-			sprite_states
-		);
+			scoped_block.get().clear(
+				sge::renderer::clear::parameters()
+				.back_buffer(
+					sge::image::color::any::object{
+						sge::image::color::predef::black()
+					}
+				)
+			);
 
-		sge::sprite::process::one(
-			scoped_block.get(),
-			tux,
-			sprite_buf,
-			sprite_states
-		);
+			sge::sprite::process::one(
+				scoped_block.get(),
+				background,
+				sprite_buf,
+				sprite_states
+			);
 
-		sound_siren->update();
-	}
+			sge::sprite::process::one(
+				scoped_block.get(),
+				tux,
+				sprite_buf,
+				sprite_states
+			);
+
+			sound_siren->update();
+		}
+	);
 
 	return
-		sys.window_system().exit_code();
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&on_move,
+					&on_rel_move,
+					&draw
+				](
+					awl::event::base const &_event
+				)
+				{
+					fcppt::optional::maybe_void(
+						fcppt::variant::dynamic_cast_<
+							boost::mpl::vector3<
+								sge::input::cursor::event::move const,
+								sge::input::cursor::relative_movement::event const,
+								sge::renderer::event::render const
+							>,
+							fcppt::cast::dynamic_fun
+						>(
+							_event
+						),
+						[
+							&on_move,
+							&on_rel_move,
+							&draw
+						](
+							auto const &_variant
+						)
+						{
+							fcppt::variant::match(
+								_variant,
+								[
+									&on_move
+								](
+									fcppt::reference<
+										sge::input::cursor::event::move const
+									> const _move_event
+								)
+								{
+									on_move(
+										_move_event.get()
+									);
+								},
+								[
+									&on_rel_move
+								](
+									fcppt::reference<
+										sge::input::cursor::relative_movement::event const
+									> const _relative_movement
+								)
+								{
+									on_rel_move(
+										_relative_movement.get()
+									);
+								},
+								[
+									&draw
+								](
+									fcppt::reference<
+										sge::renderer::event::render const
+									>
+								)
+								{
+									draw();
+								}
+							);
+						}
+					);
+				}
+			}
+		);
 }
 catch(
 	fcppt::exception const &_error
 )
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_error.string()
+	);
 
 	return
 		awl::main::exit_failure();
@@ -613,9 +683,9 @@ catch(
 	std::exception const &_error
 )
 {
-	std::cerr
-		<< _error.what()
-		<< '\n';
+	awl::show_error_narrow(
+		_error.what()
+	);
 
 	return
 		awl::main::exit_failure();

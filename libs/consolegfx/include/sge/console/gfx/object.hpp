@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/object_fwd.hpp>
 #include <sge/console/gfx/cursor.hpp>
 #include <sge/console/gfx/font_color.hpp>
+#include <sge/console/gfx/input_active.hpp>
 #include <sge/console/gfx/output_line_limit_fwd.hpp>
 #include <sge/console/gfx/detail/pointed_history.hpp>
 #include <sge/console/gfx/detail/symbol.hpp>
@@ -31,11 +32,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/unit.hpp>
-#include <sge/input/focus/char_event_fwd.hpp>
-#include <sge/input/focus/key_event_fwd.hpp>
-#include <sge/input/focus/key_repeat_event_fwd.hpp>
+#include <sge/input/focus/key_fwd.hpp>
+#include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/focus/mod_state_tracker.hpp>
-#include <sge/input/focus/object_fwd.hpp>
+#include <sge/input/focus/event/base_fwd.hpp>
+#include <sge/input/focus/event/char_fwd.hpp>
+#include <sge/input/focus/event/key_fwd.hpp>
+#include <sge/input/focus/event/key_repeat_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -64,7 +67,6 @@ public:
 		sge::renderer::device::ffp &,
 		sge::console::gfx::font_color const &,
 		sge::font::object &,
-		sge::input::focus::object &,
 		sge::font::rect const &,
 		sge::console::gfx::output_line_limit
 	);
@@ -75,32 +77,14 @@ public:
 	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	void
 	render(
-		sge::renderer::context::ffp &
+		sge::renderer::context::ffp &,
+		sge::console::gfx::input_active
 	);
 
 	SGE_CONSOLE_GFX_DETAIL_SYMBOL
-	bool
-	active() const;
-
-	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	void
-	active(
-		bool
-	);
-
-	SGE_CONSOLE_GFX_DETAIL_SYMBOL
-	bool
-	input_active() const;
-
-	SGE_CONSOLE_GFX_DETAIL_SYMBOL
-	void
-	input_active(
-		bool
-	);
-
-	void
-	print(
-		sge::font::string const &
+	focus_event(
+		sge::input::focus::event::base const &
 	);
 
 	SGE_CONSOLE_GFX_DETAIL_SYMBOL
@@ -131,22 +115,13 @@ private:
 
 	sge::font::object &font_object_;
 
-	sge::input::focus::object &focus_;
-
 	sge::input::focus::mod_state_tracker mod_state_tracker_;
 
-	fcppt::signal::auto_connection const
-		key_connection_,
-		key_repeat_connection_,
-		char_connection_,
-		error_conn_,
-		message_conn_;
+	fcppt::signal::auto_connection const error_connection_;
+
+	fcppt::signal::auto_connection const message_connection_;
 
 	sge::font::rect area_;
-
-	bool active_;
-
-	bool input_active_;
 
 	sge::console::gfx::cursor input_line_;
 
@@ -156,6 +131,11 @@ private:
 
 	sge::console::gfx::detail::pointed_history output_lines_;
 
+	void
+	print(
+		sge::font::string const &
+	);
+
 	sge::font::unit
 	render_line(
 		sge::renderer::context::ffp &,
@@ -164,18 +144,24 @@ private:
 	);
 
 	void
-	key_callback(
-		sge::input::focus::key_event const &
+	on_key(
+		sge::input::focus::event::key const &
 	);
 
 	void
-	char_callback(
-		sge::input::focus::char_event const &
+	on_char(
+		sge::input::focus::event::char_ const &
+	);
+
+	void
+	on_key_repeat(
+		sge::input::focus::event::key_repeat const &
 	);
 
 	void
 	key_action(
-		sge::input::focus::key_repeat_event const &
+		sge::input::focus::shared_ptr const &,
+		sge::input::focus::key const &
 	);
 
 	void

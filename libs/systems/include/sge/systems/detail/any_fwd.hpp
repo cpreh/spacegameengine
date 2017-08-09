@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/config_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
+#include <sge/systems/input_fwd.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/systems/detail/input_fwd.hpp>
 #include <sge/systems/detail/renderer_fwd.hpp>
 #include <fcppt/variant/variadic_fwd.hpp>
 
@@ -47,7 +47,7 @@ fcppt::variant::variadic<
 	sge::systems::image2d,
 	sge::systems::audio_loader,
 	sge::systems::audio_player,
-	sge::systems::detail::input,
+	sge::systems::input,
 	sge::systems::font
 >
 any;

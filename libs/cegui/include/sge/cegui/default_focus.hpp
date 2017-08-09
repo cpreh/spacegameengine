@@ -23,12 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/syringe_fwd.hpp>
 #include <sge/cegui/detail/symbol.hpp>
-#include <sge/input/focus/char_event_fwd.hpp>
-#include <sge/input/focus/key_event_fwd.hpp>
-#include <sge/input/focus/key_repeat_event_fwd.hpp>
-#include <sge/input/focus/object_fwd.hpp>
+#include <sge/input/event_base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -43,35 +39,21 @@ class default_focus
 	);
 public:
 	SGE_CEGUI_DETAIL_SYMBOL
+	explicit
 	default_focus(
-		sge::cegui::syringe &,
-		sge::input::focus::object &
+		sge::cegui::syringe &
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL
 	~default_focus();
+
+	SGE_CEGUI_DETAIL_SYMBOL
+	void
+	process_event(
+		sge::input::event_base const &
+	);
 private:
 	sge::cegui::syringe &syringe_;
-
-	fcppt::signal::auto_connection const
-		key_callback_,
-		key_repeat_callback_,
-		char_callback_;
-
-	void
-	key_callback(
-		sge::input::focus::key_event const &
-	);
-
-	void
-	key_repeat_callback(
-		sge::input::focus::key_repeat_event const &
-	);
-
-	void
-	char_callback(
-		sge::input::focus::char_event const &
-	);
 };
 
 }

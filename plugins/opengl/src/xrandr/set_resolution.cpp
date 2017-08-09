@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/set_resolution.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window/object.hpp>
+#include <awl/backends/x11/window/base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 void
 sge::opengl::xrandr::set_resolution(
-	awl::backends::x11::window::object &_window,
+	awl::backends::x11::window::base const &_window,
 	sge::opengl::xrandr::configuration const &_config,
 	sge::opengl::xrandr::mode_index const _mode_index,
 	sge::opengl::xrandr::rotation const _rotation,
@@ -62,7 +62,7 @@ sge::opengl::xrandr::set_resolution(
 					CurrentTime
 				)
 				!=
-				Success
+				0
 			)
 				throw
 					sge::renderer::exception{
@@ -88,7 +88,8 @@ sge::opengl::xrandr::set_resolution(
 					_rate.get(),
 					CurrentTime
 				)
-				!= Success
+				!=
+				0
 			)
 				throw
 					sge::renderer::exception{

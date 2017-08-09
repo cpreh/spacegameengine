@@ -21,25 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_MOUSE_DEVICE_HPP_INCLUDED
 #define SGE_X11INPUT_MOUSE_DEVICE_HPP_INCLUDED
 
-#include <sge/input/mouse/axis_callback.hpp>
-#include <sge/input/mouse/axis_signal.hpp>
-#include <sge/input/mouse/button_callback.hpp>
 #include <sge/input/mouse/button_pressed.hpp>
-#include <sge/input/mouse/button_signal.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/info.hpp>
-#include <sge/x11input/device/object.hpp>
-#include <sge/x11input/device/parameters_fwd.hpp>
-#include <sge/x11input/device/raw_event_fwd.hpp>
-#include <sge/x11input/device/window_event_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <sge/x11input/device/valuator/accu_map.hpp>
-#include <sge/x11input/device/valuator/index.hpp>
-#include <sge/x11input/device/valuator/value.hpp>
+#include <sge/x11input/device/valuator/pair_fwd.hpp>
+#include <sge/x11input/event/raw_demuxer_fwd.hpp>
+#include <sge/x11input/event/window_demuxer_fwd.hpp>
 #include <sge/x11input/mouse/device_fwd.hpp>
+#include <awl/backends/x11/window/base_fwd.hpp>
+#include <awl/event/base_unique_ptr.hpp>
+#include <awl/event/container.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
+#include <fcppt/enable_shared_from_this_decl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/auto_connection_container.hpp>
-#include <fcppt/signal/auto_connection_fwd.hpp>
-#include <fcppt/signal/object.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -51,73 +51,81 @@ namespace mouse
 
 class device
 :
-	public sge::input::mouse::device,
-	public sge::x11input::device::object
+	public
+		sge::input::mouse::device,
+	public
+		fcppt::enable_shared_from_this<
+			sge::x11input::mouse::device
+		 >
 {
 	FCPPT_NONCOPYABLE(
 		device
 	);
 public:
-	explicit
 	device(
-		sge::x11input::device::parameters const &
+		sge::window::object &,
+		awl::backends::x11::window::base const &,
+		XIDeviceInfo const &,
+		sge::x11input::event::window_demuxer &,
+		sge::x11input::event::raw_demuxer &
 	);
 
 	~device()
 	override;
 private:
-	fcppt::signal::auto_connection
-	axis_callback(
-		sge::input::mouse::axis_callback const &
-	)
-	override;
-
-	fcppt::signal::auto_connection
-	button_callback(
-		sge::input::mouse::button_callback const &
-	)
+	sge::window::object &
+	window() const
 	override;
 
 	sge::input::mouse::info const &
 	info() const
 	override;
 
-	void
+	awl::event::container
+	on_event(
+		XIDeviceEvent const &
+	);
+
+	awl::event::container
+	on_raw_event(
+		XIRawEvent const &
+	);
+
+	awl::event::container
 	on_motion(
-		sge::x11input::device::raw_event const &
+		XIRawEvent const &
 	);
 
-	void
+	awl::event::base_unique_ptr
 	process_valuator(
-		sge::x11input::device::valuator::index,
-		sge::x11input::device::valuator::value
+		sge::x11input::device::valuator::pair
 	);
 
-	void
+	awl::event::optional_base_unique_ptr
 	on_button_down(
-		sge::x11input::device::window_event const &
+		XIDeviceEvent const &
 	);
 
-	void
+	awl::event::optional_base_unique_ptr
 	on_button_up(
-		sge::x11input::device::window_event const &
+		XIDeviceEvent const &
 	);
 
-	void
+	awl::event::optional_base_unique_ptr
 	button_event(
-		sge::x11input::device::window_event const &,
+		XIDeviceEvent const &,
 		sge::input::mouse::button_pressed
 	);
 
-	sge::x11input::device::valuator::accu_map accus_;
+	sge::window::object &sge_window_;
 
-	fcppt::signal::auto_connection_container const connections_;
+	sge::x11input::device::valuator::accu_map accus_;
 
 	sge::input::mouse::info const info_;
 
-	sge::input::mouse::axis_signal axis_signal_;
+	fcppt::signal::auto_connection const event_connection_;
 
-	sge::input::mouse::button_signal button_signal_;
+	fcppt::signal::auto_connection const raw_event_connection_;
 };
 
 }

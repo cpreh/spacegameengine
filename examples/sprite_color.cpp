@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
@@ -62,7 +63,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
@@ -77,22 +77,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_window.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/cerr.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/dim/fill.hpp>
 #include <fcppt/math/vector/null.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
+#include <exception>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -108,11 +114,7 @@ try
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
 			>,
-			sge::systems::with_input<
-				boost::mpl::vector1<
-					sge::systems::keyboard_collector
-				>
-			>
+			sge::systems::with_input
 		>
 	> const sys(
 		sge::systems::make_list
@@ -168,7 +170,8 @@ try
 	sge::image::color::rgba8_format
 	color_format;
 
-	typedef sge::sprite::config::choices<
+	typedef
+	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
 				int
@@ -188,28 +191,39 @@ try
 				color_format
 			>
 		>
-	> sprite_choices;
+	>
+	sprite_choices;
 
 	// Use buffers::multi just for testing
-	typedef sge::sprite::buffers::with_declaration<
+	typedef
+	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::multi<
 			sprite_choices
 		>
-	> sprite_buffers_type;
+	>
+	sprite_buffers_type;
 
-	typedef sge::sprite::object<
+	typedef
+	sge::sprite::object<
 		sprite_choices
-	> sprite_object;
+	>
+	sprite_object;
 
-	typedef sge::sprite::state::all_choices sprite_state_choices;
+	typedef
+	sge::sprite::state::all_choices
+	sprite_state_choices;
 
-	typedef sge::sprite::state::object<
+	typedef
+	sge::sprite::state::object<
 		sprite_state_choices
-	> sprite_state_object;
+	>
+	sprite_state_object;
 
-	typedef sge::sprite::state::parameters<
+	typedef
+	sge::sprite::state::parameters<
 		sprite_state_choices
-	> sprite_state_parameters;
+	>
+	sprite_state_parameters;
 
 	sprite_state_object sprite_state(
 		sys.renderer_device_ffp(),
@@ -246,43 +260,86 @@ try
 		)
 	);
 
+	auto const draw(
+		[
+			&spr,
+			&sprite_buffers,
+			&sprite_state,
+			&sys
+		]{
+			sge::renderer::context::scoped_ffp const scoped_block(
+				sys.renderer_device_ffp(),
+				sys.renderer_device_ffp().onscreen_target()
+			);
 
-	while(
-		sys.window_system().poll()
-	)
-	{
-		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target()
-		);
+			scoped_block.get().clear(
+				sge::renderer::clear::parameters()
+				.back_buffer(
+					sge::image::color::any::object{
+						sge::image::color::predef::black()
+					}
+				)
+			);
 
-		scoped_block.get().clear(
-			sge::renderer::clear::parameters()
-			.back_buffer(
-				sge::image::color::any::object{
-					sge::image::color::predef::black()
-				}
-			)
-		);
-
-		sge::sprite::process::one(
-			scoped_block.get(),
-			spr,
-			sprite_buffers,
-			sprite_state
-		);
-	}
+			sge::sprite::process::one(
+				scoped_block.get(),
+				spr,
+				sprite_buffers,
+				sprite_state
+			);
+		}
+	);
 
 	return
-		sys.window_system().exit_code();
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&draw
+				](
+					awl::event::base const &_event
+				)
+				{
+					fcppt::optional::maybe_void(
+						fcppt::cast::dynamic<
+							sge::renderer::event::render const
+						>(
+							_event
+						),
+						[
+							&draw
+						](
+							fcppt::reference<
+								sge::renderer::event::render const
+							>
+						)
+						{
+							draw();
+						}
+					);
+				}
+			}
+		);
 }
 catch(
-	fcppt::exception const &error
+	fcppt::exception const &_error
 )
 {
-	fcppt::io::cerr()
-		<< error.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_error.string()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
+}
+catch(
+	std::exception const &_error
+)
+{
+	awl::show_error_narrow(
+		_error.what()
+	);
+
+	return
+		awl::main::exit_failure();
 }

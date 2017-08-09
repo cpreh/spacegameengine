@@ -22,21 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_DETAIL_MAKE_LIST_VISITOR_HPP_INCLUDED
 
 #include <sge/systems/config_fwd.hpp>
-#include <sge/systems/cursor_demuxer_fwd.hpp>
-#include <sge/systems/focus_collector_fwd.hpp>
-#include <sge/systems/keyboard_collector_fwd.hpp>
-#include <sge/systems/mouse_collector_fwd.hpp>
 #include <sge/systems/renderer_fwd.hpp>
 #include <sge/systems/detail/any.hpp>
 #include <sge/systems/detail/extract_parameter_type.hpp>
-#include <sge/systems/detail/has_input_option.hpp>
-#include <sge/systems/detail/input.hpp>
 #include <sge/systems/detail/list.hpp>
 #include <sge/systems/detail/renderer.hpp>
 #include <sge/systems/detail/renderer_caps.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/and.hpp>
 #include <boost/mpl/contains.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/mpl/placeholders.hpp>
@@ -115,18 +108,10 @@ private:
 		typename Type
 	>
 	typename boost::enable_if<
-		boost::mpl::and_<
-			boost::mpl::not_<
-				std::is_same<
-					Type,
-					sge::systems::renderer
-				>
-			>,
-			boost::mpl::not_<
-				std::is_same<
-					Type,
-					sge::systems::input
-				>
+		boost::mpl::not_<
+			std::is_same<
+				Type,
+				sge::systems::renderer
 			>
 		>,
 		result_type
@@ -163,53 +148,6 @@ private:
 					sge::systems::detail::renderer_caps<
 						Choices
 					>::value
-				)
-			)
-		);
-	}
-
-	template<
-		typename Type
-	>
-	typename boost::enable_if<
-		std::is_same<
-			sge::systems::input,
-			Type
-		>,
-		result_type
-	>::type
-	add_impl(
-		Type const &_input
-	) const
-	{
-		result_.insert(
-			sge::systems::detail::any(
-				sge::systems::detail::input(
-					_input,
-					sge::systems::detail::input::focus_collector(
-						sge::systems::detail::has_input_option<
-							Choices,
-							sge::systems::focus_collector
-						>::value
-					),
-					sge::systems::detail::input::cursor_demuxer(
-						sge::systems::detail::has_input_option<
-							Choices,
-							sge::systems::cursor_demuxer
-						>::value
-					),
-					sge::systems::detail::input::keyboard_collector(
-						sge::systems::detail::has_input_option<
-							Choices,
-							sge::systems::keyboard_collector
-						>::value
-					),
-					sge::systems::detail::input::mouse_collector(
-						sge::systems::detail::has_input_option<
-							Choices,
-							sge::systems::mouse_collector
-						>::value
-					)
 				)
 			)
 		);

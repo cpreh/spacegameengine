@@ -38,6 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/grid/orientation.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/contents.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
@@ -148,7 +149,8 @@ sge::scenic::grid::object::object(
 void
 sge::scenic::grid::object::render(
 	sge::renderer::context::ffp &_context,
-	sge::scenic::grid::depth_test const &_depth_test)
+	sge::scenic::grid::depth_test const &_depth_test
+)
 {
 	if(
 		fcppt::math::dim::contents(
@@ -161,58 +163,81 @@ sge::scenic::grid::object::render(
 	)
 		return;
 
-	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_state(
-		renderer_.create_depth_stencil_state(
-			sge::renderer::state::core::depth_stencil::parameters(
-				_depth_test.get()
-				?
-					sge::renderer::state::core::depth_stencil::depth::variant(
-						sge::renderer::state::core::depth_stencil::depth::enabled(
-							sge::renderer::state::core::depth_stencil::depth::func::less,
-							sge::renderer::state::core::depth_stencil::depth::write_enable(
-								true
+	fcppt::optional::maybe_void(
+		camera_.projection_matrix(),
+		[
+			&_context,
+			&_depth_test,
+			this
+		](
+			sge::camera::projection_matrix const &_projection
+		)
+		{
+			sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_state(
+				renderer_.create_depth_stencil_state(
+					sge::renderer::state::core::depth_stencil::parameters(
+						_depth_test.get()
+						?
+							sge::renderer::state::core::depth_stencil::depth::variant(
+								sge::renderer::state::core::depth_stencil::depth::enabled(
+									sge::renderer::state::core::depth_stencil::depth::func::less,
+									sge::renderer::state::core::depth_stencil::depth::write_enable(
+										true
+									)
+								)
 							)
+						:
+							sge::renderer::state::core::depth_stencil::depth::variant(
+								sge::renderer::state::core::depth_stencil::depth::off()
+							)
+						,
+						sge::renderer::state::core::depth_stencil::stencil::variant(
+							sge::renderer::state::core::depth_stencil::stencil::off()
 						)
 					)
-				:
-					sge::renderer::state::core::depth_stencil::depth::variant(
-						sge::renderer::state::core::depth_stencil::depth::off()
-					)
-				,
-				sge::renderer::state::core::depth_stencil::stencil::variant(
-					sge::renderer::state::core::depth_stencil::stencil::off()
 				)
-			)
-		)
+			);
+
+			sge::renderer::state::core::depth_stencil::scoped const depth_transform(
+				_context,
+				*depth_state
+			);
+
+			sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
+				renderer_.create_transform_state(
+					sge::renderer::state::ffp::transform::parameters(
+						_projection.get()
+					)
+				)
+			);
+
+			sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
+				renderer_.create_transform_state(
+					sge::renderer::state::ffp::transform::parameters(
+						sge::camera::matrix_conversion::world(
+							camera_.coordinate_system()
+						)
+					)
+				)
+			);
+
+			sge::renderer::state::ffp::transform::scoped const projection_transform(
+				_context,
+				sge::renderer::state::ffp::transform::mode::projection,
+				*projection_state
+			);
+
+			sge::renderer::state::ffp::transform::scoped const world_transform(
+				_context,
+				sge::renderer::state::ffp::transform::mode::world,
+				*world_state
+			);
+
+			line_drawer_.render(
+				_context
+			);
+		}
 	);
-
-	sge::renderer::state::core::depth_stencil::scoped const depth_transform(
-		_context,
-		*depth_state);
-
-	sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
-		renderer_.create_transform_state(
-			sge::renderer::state::ffp::transform::parameters(
-				camera_.projection_matrix().get())));
-
-	sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
-		renderer_.create_transform_state(
-			sge::renderer::state::ffp::transform::parameters(
-				sge::camera::matrix_conversion::world(
-					camera_.coordinate_system()))));
-
-	sge::renderer::state::ffp::transform::scoped const projection_transform(
-		_context,
-		sge::renderer::state::ffp::transform::mode::projection,
-		*projection_state);
-
-	sge::renderer::state::ffp::transform::scoped const world_transform(
-		_context,
-		sge::renderer::state::ffp::transform::mode::world,
-		*world_state);
-
-	line_drawer_.render(
-		_context);
 }
 
 sge::scenic::grid::object::~object()

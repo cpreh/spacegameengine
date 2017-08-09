@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_SPHERICAL_PARAMETERS_HPP_INCLUDED
 #define SGE_CAMERA_SPHERICAL_PARAMETERS_HPP_INCLUDED
 
-#include <sge/camera/is_active.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
 #include <sge/camera/projection_matrix.hpp>
 #include <sge/camera/detail/symbol.hpp>
@@ -33,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/spherical/origin.hpp>
 #include <sge/camera/spherical/action/mapping.hpp>
 #include <sge/camera/spherical/coordinate_system/object.hpp>
-#include <sge/input/keyboard/device_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
 
 
@@ -52,19 +50,9 @@ class parameters
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	parameters(
-		sge::input::keyboard::device &,
-		sge::camera::is_active,
 		sge::camera::spherical::coordinate_system::object const &,
 		sge::camera::spherical::action::mapping const &
 	);
-
-	SGE_CAMERA_DETAIL_SYMBOL
-	sge::input::keyboard::device &
-	keyboard() const;
-
-	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::is_active
-	is_active() const;
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::spherical::coordinate_system::object const &
@@ -146,11 +134,7 @@ public:
 	sge::camera::optional_projection_matrix const &
 	projection_matrix() const;
 private:
-	sge::input::keyboard::device &keyboard_;
-
 	sge::camera::spherical::movement_speed movement_speed_;
-
-	sge::camera::is_active const is_active_;
 
 	sge::camera::spherical::coordinate_system::object const coordinate_system_;
 

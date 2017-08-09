@@ -20,32 +20,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/wlinput/xkb_context_fwd.hpp>
 #include <sge/wlinput/focus/data.hpp>
-#include <awl/backends/posix/processor_fwd.hpp>
-#include <awl/backends/posix/timer.hpp>
+#include <sge/wlinput/focus/object_fwd.hpp>
 #include <awl/backends/wayland/window/object_fwd.hpp>
+#include <awl/event/container_reference.hpp>
+#include <awl/system/event/processor_fwd.hpp>
+#include <awl/timer/object.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/object_impl.hpp>
-#include <fcppt/signal/object_impl.hpp>
 
 
 sge::wlinput::focus::data::data(
 	fcppt::log::object &_log,
+	sge::wlinput::focus::object &_focus,
 	sge::wlinput::xkb_context const &_xkb_context,
-	awl::backends::posix::processor &_posix_processor,
-	awl::backends::wayland::window::object const &_window
+	awl::system::event::processor &_processor,
+	awl::backends::wayland::window::object const &_window,
+	awl::event::container_reference const _events
 )
 :
 	log_{
 		_log
 	},
+	focus_{
+		_focus
+	},
 	xkb_context_{
 		_xkb_context
 	},
-	posix_processor_{
-		_posix_processor
+	processor_{
+		_processor
 	},
 	window_{
 		_window
+	},
+	events_{
+		_events
 	},
 	entered_{
 		false
@@ -53,11 +62,6 @@ sge::wlinput::focus::data::data(
 	xkb_keymap_{},
 	xkb_state_{},
 	last_pressed_{},
-	char_signal_{},
-	key_signal_{},
-	key_repeat_signal_{},
-	in_signal_{},
-	out_signal_{},
 	repeat_timer_{}
 {
 }

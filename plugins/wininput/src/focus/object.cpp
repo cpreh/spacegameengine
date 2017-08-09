@@ -18,161 +18,70 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/focus/char_callback.hpp>
-#include <sge/input/focus/char_event.hpp>
 #include <sge/input/focus/char_type.hpp>
-#include <sge/input/focus/in_callback.hpp>
-#include <sge/input/focus/in_event.hpp>
 #include <sge/input/focus/key.hpp>
-#include <sge/input/focus/key_callback.hpp>
-#include <sge/input/focus/key_event.hpp>
-#include <sge/input/focus/key_repeat_callback.hpp>
-#include <sge/input/focus/key_repeat_event.hpp>
 #include <sge/input/focus/object.hpp>
-#include <sge/input/focus/out_callback.hpp>
-#include <sge/input/focus/out_event.hpp>
+#include <sge/input/focus/event/char.hpp>
+#include <sge/input/focus/event/in.hpp>
+#include <sge/input/focus/event/key.hpp>
+#include <sge/input/focus/event/key_repeat.hpp>
+#include <sge/input/focus/event/out.hpp>
 #include <sge/input/key/pressed.hpp>
+#include <sge/window/event_function.hpp>
+#include <sge/window/object.hpp>
+#include <sge/wininput/focus/key_repeated.hpp>
 #include <sge/wininput/focus/object.hpp>
 #include <sge/wininput/focus/translate_key_code.hpp>
-#include <awl/backends/windows/message_type.hpp>
 #include <awl/backends/windows/windows.hpp>
-#include <awl/backends/windows/window/event/callback.hpp>
-#include <awl/backends/windows/window/event/object.hpp>
-#include <awl/backends/windows/window/event/processor.hpp>
-#include <awl/backends/windows/window/event/return_type.hpp>
-#include <fcppt/literal.hpp>
-#include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/cast/to_unsigned_fun.hpp>
+#include <awl/backends/windows/window/event/generic.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/base_unique_ptr.hpp>
+#include <awl/event/container.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
+#include <awl/window/event/base.hpp>
+#include <fcppt/enable_shared_from_this_impl.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/cast/dynamic.hpp>
+#include <fcppt/optional/bind.hpp>
+#include <fcppt/optional/to_container.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/auto_connection_container.hpp>
-#include <fcppt/signal/object_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::wininput::focus::object::object(
-	awl::backends::windows::window::event::processor &_event_processor
+	sge::window::object &_window
 )
 :
-	event_processor_(
-		_event_processor
-	),
-	char_signal_(),
-	key_signal_(),
-	key_repeat_signal_(),
-	in_signal_(),
-	out_signal_(),
-	connections_(
-		fcppt::assign::make_container<
-			fcppt::signal::auto_connection_container
-		>(
-			event_processor_.register_callback(
-				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::message_type,
-					fcppt::cast::to_unsigned_fun
-				>(
-					WM_CHAR
-				),
-				awl::backends::windows::window::event::callback{
-					std::bind(
-						&sge::wininput::focus::object::on_char,
-						this,
-						std::placeholders::_1
-					)
-				}
-			),
-			event_processor_.register_callback(
-				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::message_type,
-					fcppt::cast::to_unsigned_fun
-				>(
-					WM_KEYDOWN
-				),
-				awl::backends::windows::window::event::callback{
-					std::bind(
-						&sge::wininput::focus::object::on_key,
-						this,
-						std::placeholders::_1,
-						sge::input::key::pressed{
-							true
-						}
-					)
-				}
-			),
-			event_processor_.register_callback(
-				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::message_type,
-					fcppt::cast::to_unsigned_fun
-				>(
-					WM_KEYUP
-				),
-				awl::backends::windows::window::event::callback{
-					std::bind(
-						&sge::wininput::focus::object::on_key,
-						this,
-						std::placeholders::_1,
-						sge::input::key::pressed{
-							false
-						}
-					)
-				}
-			),
-			event_processor_.register_callback(
-				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::message_type,
-					fcppt::cast::to_unsigned_fun
-				>(
-					WM_SETFOCUS
-				),
-				awl::backends::windows::window::event::callback{
-					[
-						this
-					](
-						awl::backends::windows::window::event::object const &
-					)
-					{
-						in_signal_(
-							sge::input::focus::in_event{}
+	sge::input::focus::object{},
+	fcppt::enable_shared_from_this<
+		sge::wininput::focus::object
+	>{},
+	window_{
+		_window
+	},
+	event_connection_{
+		_window.event_handler(
+			sge::window::event_function{
+				[
+					this
+				](
+					awl::window::event::base const &_event
+				)
+				{
+					return
+						this->on_event(
+							_event
 						);
-
-						return
-							awl::backends::windows::window::event::return_type();
-					}
 				}
-			),
-			event_processor_.register_callback(
-				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::message_type,
-					fcppt::cast::to_unsigned_fun
-				>(
-					WM_KILLFOCUS
-				),
-				awl::backends::windows::window::event::callback{
-					[
-						this
-					](
-						awl::backends::windows::window::event::object const &
-					)
-					{
-						out_signal_(
-							sge::input::focus::out_event{}
-						);
-
-						return
-							awl::backends::windows::window::event::return_type();
-					}
-				}
-			)
+			}
 		)
-	)
+	}
 {
 }
 
@@ -182,85 +91,128 @@ sge::wininput::focus::object::~object()
 {
 }
 
-fcppt::signal::auto_connection
-sge::wininput::focus::object::char_callback(
-	sge::input::focus::char_callback const &_callback
+sge::window::object &
+sge::wininput::focus::object::window() const
+{
+	return
+		window_;
+}
+
+awl::event::container
+sge::wininput::focus::object::on_event(
+	awl::window::event::base const &_event
 )
 {
 	return
-		char_signal_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::wininput::focus::object::key_callback(
-	sge::input::focus::key_callback const &_callback
-)
-{
-	return
-		key_signal_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::wininput::focus::object::key_repeat_callback(
-	sge::input::focus::key_repeat_callback const &_callback
-)
-{
-	return
-		key_repeat_signal_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::wininput::focus::object::in_callback(
-	sge::input::focus::in_callback const &_callback
-)
-{
-	return
-		in_signal_.connect(
-			_callback
-		);
-}
-
-fcppt::signal::auto_connection
-sge::wininput::focus::object::out_callback(
-	sge::input::focus::out_callback const &_callback
-)
-{
-	return
-		out_signal_.connect(
-			_callback
-		);
-}
-
-awl::backends::windows::window::event::return_type
-sge::wininput::focus::object::on_char(
-	awl::backends::windows::window::event::object const &_event
-)
-{
-	char_signal_(
-		sge::input::focus::char_event(
-			static_cast<
-				sge::input::focus::char_type
-			>(
-				_event.wparam().get()
+		fcppt::optional::to_container<
+			awl::event::container
+		>(
+			fcppt::optional::bind(
+				fcppt::cast::dynamic<
+					awl::backends::windows::window::event::generic const
+				>(
+					_event
+				),
+				[
+					this
+				](
+					fcppt::reference<
+						awl::backends::windows::window::event::generic const
+					> const _window_event
+				)
+				{
+					return
+						this->on_window_event(
+							_window_event.get()
+						);
+				}
 			)
-		)
-	);
-
-	return
-		awl::backends::windows::window::event::return_type(
-			0
 		);
 }
 
-awl::backends::windows::window::event::return_type
+awl::event::optional_base_unique_ptr
+sge::wininput::focus::object::on_window_event(
+	awl::backends::windows::window::event::generic const &_event
+)
+{
+	switch(
+		_event.type().get()
+	)
+	{
+	case WM_CHAR:
+		return
+			awl::event::optional_base_unique_ptr{
+				fcppt::unique_ptr_to_base<
+					awl::event::base
+				>(
+					fcppt::make_unique_ptr<
+						sge::input::focus::event::char_
+					>(
+						this->fcppt_shared_from_this(),
+						// TODO: Conversion function
+						static_cast<
+							sge::input::focus::char_type
+						>(
+							_event.wparam().get()
+						)
+					)
+				)
+			};
+	case WM_KEYDOWN:
+		return
+			awl::event::optional_base_unique_ptr{
+				this->on_key(
+					_event,
+					sge::input::key::pressed{
+						true
+					}
+				)
+			};
+	case WM_KEYUP:
+		return
+			awl::event::optional_base_unique_ptr{
+				this->on_key(
+					_event,
+					sge::input::key::pressed{
+						false
+					}
+				)
+			};
+	case WM_SETFOCUS:
+		return
+			awl::event::optional_base_unique_ptr{
+				fcppt::unique_ptr_to_base<
+					awl::event::base
+				>(
+					fcppt::make_unique_ptr<
+						sge::input::focus::event::in
+					>(
+						this->fcppt_shared_from_this()
+					)
+				)
+			};
+	case WM_KILLFOCUS:
+		return
+			awl::event::optional_base_unique_ptr{
+				fcppt::unique_ptr_to_base<
+					awl::event::base
+				>(
+					fcppt::make_unique_ptr<
+						sge::input::focus::event::out
+					>(
+						this->fcppt_shared_from_this()
+					)
+				)
+			};
+	}
+
+	return
+		awl::event::optional_base_unique_ptr{};
+}
+
+awl::event::base_unique_ptr
 sge::wininput::focus::object::on_key(
-	awl::backends::windows::window::event::object const &_event,
+	awl::backends::windows::window::event::generic const &_event,
 	sge::input::key::pressed const _pressed
 )
 {
@@ -270,41 +222,34 @@ sge::wininput::focus::object::on_key(
 		)
 	);
 
-	if(
+	return
 		_pressed.get()
 		&&
-		(
-			// TODO: Make a function for this
-			_event.lparam().get()
-			&
-			(
-				fcppt::literal<
-					LPARAM
-				>(
-					1
-				)
-				<<
-				30u
-			)
+		sge::wininput::focus::key_repeated(
+			_event.lparam()
 		)
-		!=
-		0
-	)
-		key_repeat_signal_(
-			sge::input::focus::key_repeat_event(
-				key
+		?
+			fcppt::unique_ptr_to_base<
+				awl::event::base
+			>(
+				fcppt::make_unique_ptr<
+					sge::input::focus::event::key_repeat
+				>(
+					this->fcppt_shared_from_this(),
+					key
+				)
 			)
-		);
-	else
-		key_signal_(
-			sge::input::focus::key_event(
-				key,
-				_pressed
+		:
+			fcppt::unique_ptr_to_base<
+				awl::event::base
+			>(
+				fcppt::make_unique_ptr<
+					sge::input::focus::event::key
+				>(
+					this->fcppt_shared_from_this(),
+					key,
+					_pressed
+				)
 			)
-		);
-
-	return
-		awl::backends::windows::window::event::return_type(
-			0
-		);
+		;
 }

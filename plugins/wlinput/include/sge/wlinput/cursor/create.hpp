@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WLINPUT_CURSOR_CREATE_HPP_INCLUDED
 
 #include <sge/wlinput/cursor/create_function.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <awl/backends/wayland/window/object_fwd.hpp>
+#include <awl/event/container_reference.hpp>
 
 
 namespace sge
@@ -34,7 +36,9 @@ namespace cursor
 
 sge::wlinput::cursor::create_function
 create(
-	awl::backends::wayland::window::object const &
+	sge::window::object &,
+	awl::backends::wayland::window::object const &,
+	awl::event::container_reference
 );
 
 }

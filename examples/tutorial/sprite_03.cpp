@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
@@ -67,10 +68,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
-#include <sge/systems/mouse_collector.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
@@ -85,27 +84,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_raw_ref.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/unique_ptr_to_const.hpp>
-#include <fcppt/io/cerr.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/math/vector/null.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <array>
 #include <example_main.hpp>
 #include <exception>
-#include <iostream>
-#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -121,12 +123,7 @@ try
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
 			>,
-			sge::systems::with_input<
-				boost::mpl::vector2<
-					sge::systems::keyboard_collector,
-					sge::systems::mouse_collector
-				>
-			>,
+			sge::systems::with_input,
 			sge::systems::with_image2d
 		>
 	> const sys(
@@ -177,7 +174,8 @@ try
 		)
 	);
 
-	typedef sge::sprite::config::choices<
+	typedef
+	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
 				int
@@ -201,37 +199,49 @@ try
 				sge::sprite::config::texture_ownership::reference
 			>
 		>
-	> sprite_choices;
+	>
+	sprite_choices;
 
-	typedef sge::sprite::object<
+	typedef
+	sge::sprite::object<
 		sprite_choices
-	> sprite_object;
+	>
+	sprite_object;
 
-	typedef sge::sprite::buffers::with_declaration<
+	typedef
+	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
-	> sprite_buffers_type;
+	>
+	sprite_buffers_type;
 
 	sprite_buffers_type sprite_buffers(
 		sys.renderer_device_ffp(),
 		sge::sprite::buffers::option::dynamic
 	);
 
-	typedef sge::sprite::state::all_choices sprite_state_choices;
+	typedef
+	sge::sprite::state::all_choices
+	sprite_state_choices;
 
-	typedef sge::sprite::state::object<
+	typedef
+	sge::sprite::state::object<
 		sprite_state_choices
-	> sprite_state_object;
+	>
+	sprite_state_object;
 
-	typedef sge::sprite::state::parameters<
+	typedef
+	sge::sprite::state::parameters<
 		sprite_state_choices
-	> sprite_state_parameters;
+	>
+	sprite_state_parameters;
 
 	sprite_state_object sprite_state(
 		sys.renderer_device_ffp(),
 		sprite_state_parameters()
 	);
+
 	sge::renderer::texture::planar_unique_ptr const image_texture(
 		sge::renderer::texture::create_planar_from_path(
 			sge::config::media_path()
@@ -262,10 +272,12 @@ try
 	);
 
 //! [multi_objects]
-	typedef std::array<
+	typedef
+	std::array<
 		sprite_object,
 		2u
-	> sprite_array_2;
+	>
+	sprite_array_2;
 
 	sprite_array_2 sprites{{
 		sprite_object(
@@ -298,50 +310,82 @@ try
 		)
 	);
 
-	while(
-		sys.window_system().poll()
-	)
-	{
 //! [process_multi]
-		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target()
-		);
+	auto const draw(
+		[
+			&sprite_buffers,
+			&sprite_state,
+			&sprites,
+			&sys
+		]{
+			sge::renderer::context::scoped_ffp const scoped_block(
+				sys.renderer_device_ffp(),
+				sys.renderer_device_ffp().onscreen_target()
+			);
 
-		sge::sprite::process::all(
-			scoped_block.get(),
-			sge::sprite::geometry::make_random_access_range(
-				sprites
-			),
-			sprite_buffers,
-			sge::sprite::compare::default_(),
-			sprite_state
-		);
+			sge::sprite::process::all(
+				scoped_block.get(),
+				sge::sprite::geometry::make_random_access_range(
+					sprites
+				),
+				sprite_buffers,
+				sge::sprite::compare::default_(),
+				sprite_state
+			);
+		}
+	);
 //! [process_multi]
-	}
 
 	return
-		sys.window_system().exit_code();
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&draw
+				](
+					awl::event::base const &_event
+				)
+				{
+					fcppt::optional::maybe_void(
+						fcppt::cast::dynamic<
+							sge::renderer::event::render const
+						>(
+							_event
+						),
+						[
+							&draw
+						](
+							fcppt::reference<
+								sge::renderer::event::render const
+							>
+						)
+						{
+							draw();
+						}
+					);
+				}
+			}
+		);
 }
 catch(
 	fcppt::exception const &_exception
 )
 {
-	fcppt::io::cerr()
-		<< FCPPT_TEXT("caught sge exception: ")
-		<< _exception.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_exception.string()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_exception
 )
 {
-	std::cerr
-		<< "caught std exception: "
-		<< _exception.what()
-		<< '\n';
+	awl::show_error_narrow(
+		_exception.what()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }

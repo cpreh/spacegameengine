@@ -20,63 +20,68 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/device/parameters.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <awl/backends/windows/system/event/handle_fwd.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
-#include <fcppt/string.hpp>
 
 
 sge::dinput::device::parameters::parameters(
 	IDirectInput8 &_instance,
-	fcppt::string const &_name,
 	GUID const _guid,
+	sge::window::object &_sge_window,
 	awl::backends::windows::window::object &_window,
 	awl::backends::windows::system::event::handle &_event_handle
 )
 :
-	instance_(
+	instance_{
 		_instance
-	),
-	name_(
-		_name
-	),
-	guid_(
+	},
+	guid_{
 		_guid
-	),
-	window_(
+	},
+	sge_window_{
+		_sge_window
+	},
+	window_{
 		_window
-	),
-	event_handle_(
+	},
+	event_handle_{
 		_event_handle
-	)
+	}
 {
 }
 
 IDirectInput8 &
 sge::dinput::device::parameters::instance() const
 {
-	return instance_;
-}
-
-fcppt::string const &
-sge::dinput::device::parameters::name() const
-{
-	return name_;
+	return
+		instance_;
 }
 
 GUID
 sge::dinput::device::parameters::guid() const
 {
-	return guid_;
+	return
+		guid_;
+}
+
+sge::window::object &
+sge::dinput::device::parameters::sge_window() const
+{
+	return
+		sge_window_;
 }
 
 awl::backends::windows::window::object &
 sge::dinput::device::parameters::window() const
 {
-	return window_;
+	return
+		window_;
 }
 
 awl::backends::windows::system::event::handle &
 sge::dinput::device::parameters::event_handle() const
 {
-	return event_handle_;
+	return
+		event_handle_;
 }

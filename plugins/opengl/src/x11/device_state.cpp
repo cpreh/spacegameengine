@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>
@@ -43,7 +43,7 @@ sge::opengl::x11::device_state::device_state(
 	fcppt::log::object &_log,
 	sge::opengl::xrandr::optional_system_ref const &_xrandr_system,
 	sge::renderer::display_mode::optional_object const &_display_mode,
-	awl::backends::x11::window::object &_window
+	sge::window::object &_window
 )
 :
 	sge::opengl::platform::device_state(),

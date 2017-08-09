@@ -24,9 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/detail/symbol.hpp>
 #include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/keyboard/key_callback.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/auto_connection_fwd.hpp>
 
 
 namespace sge
@@ -50,10 +49,8 @@ public:
 	~device() = 0;
 
 	virtual
-	fcppt::signal::auto_connection
-	key_callback(
-		sge::input::keyboard::key_callback const &
-	) = 0;
+	sge::window::object &
+	window() const = 0;
 };
 
 }

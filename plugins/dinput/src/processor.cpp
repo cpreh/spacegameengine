@@ -20,68 +20,62 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/create_dinput.hpp>
 #include <sge/dinput/di.hpp>
+#include <sge/dinput/enum_devices.hpp>
+#include <sge/dinput/has_focus.hpp>
 #include <sge/dinput/processor.hpp>
 #include <sge/dinput/device/object.hpp>
 #include <sge/dinput/device/parameters.hpp>
 #include <sge/dinput/joypad/device.hpp>
 #include <sge/dinput/keyboard/device.hpp>
 #include <sge/dinput/mouse/device.hpp>
-#include <sge/input/exception.hpp>
-#include <sge/input/cursor/discover_callback.hpp>
-#include <sge/input/cursor/remove_callback.hpp>
-#include <sge/input/focus/discover_callback.hpp>
-#include <sge/input/focus/remove_callback.hpp>
-#include <sge/input/joypad/discover_callback.hpp>
-#include <sge/input/joypad/discover_event.hpp>
-#include <sge/input/joypad/remove_callback.hpp>
-#include <sge/input/joypad/remove_event.hpp>
-#include <sge/input/keyboard/discover_callback.hpp>
-#include <sge/input/keyboard/discover_event.hpp>
-#include <sge/input/keyboard/remove_callback.hpp>
-#include <sge/input/keyboard/remove_event.hpp>
-#include <sge/input/mouse/discover_callback.hpp>
-#include <sge/input/mouse/discover_event.hpp>
-#include <sge/input/mouse/remove_callback.hpp>
-#include <sge/input/mouse/remove_event.hpp>
+#include <sge/input/processor.hpp>
+#include <sge/input/cursor/container.hpp>
+#include <sge/input/focus/container.hpp>
+#include <sge/input/info/name.hpp>
+#include <sge/input/keyboard/container.hpp>
+#include <sge/input/keyboard/shared_ptr.hpp>
+#include <sge/input/joypad/container.hpp>
+#include <sge/input/joypad/shared_ptr.hpp>
+#include <sge/input/mouse/container.hpp>
+#include <sge/input/mouse/shared_ptr.hpp>
+#include <sge/window/event_function.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
-#include <awl/backends/windows/lparam.hpp>
-#include <awl/backends/windows/message_type.hpp>
-#include <awl/backends/windows/post_message.hpp>
-#include <awl/backends/windows/wparam.hpp>
+#include <sge/window/system_event_function.hpp>
 #include <awl/backends/windows/system/event/handle.hpp>
-#include <awl/backends/windows/system/event/handle_callback.hpp>
+#include <awl/backends/windows/system/event/handle_matches.hpp>
 #include <awl/backends/windows/system/event/processor.hpp>
 #include <awl/backends/windows/window/has_focus.hpp>
 #include <awl/backends/windows/window/object.hpp>
-#include <awl/backends/windows/window/event/callback.hpp>
-#include <awl/backends/windows/window/event/object.hpp>
-#include <awl/backends/windows/window/event/processor.hpp>
+#include <awl/backends/windows/window/event/generic.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/container.hpp>
+#include <awl/system/object.hpp>
 #include <awl/window/object.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/strong_typedef_construct_cast.hpp>
+#include <awl/window/event/base.hpp>
+#include <fcppt/function_impl.hpp>
+#include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/shared_ptr_impl.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/algorithm/append.hpp>
+#include <fcppt/unit.hpp>
+#include <fcppt/algorithm/fold.hpp>
+#include <fcppt/algorithm/join.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/assign/make_container.hpp>
-#include <fcppt/cast/dynamic_cross_exn.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
-#include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/signal/auto_connection_container.hpp>
-#include <fcppt/signal/object_impl.hpp>
-#include <fcppt/signal/optional_auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <algorithm>
-#include <functional>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -90,118 +84,84 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::dinput::processor::processor(
 	fcppt::log::object &_log,
-	sge::window::object const &_window,
-	sge::window::system const &_window_system
+	sge::window::object &_window
 )
 :
+	sge::input::processor{},
 	log_{
 		_log
 	},
-	dinput_(
+	window_{
+		_window
+	},
+	dinput_{
 		sge::dinput::create_dinput()
-	),
-	windows_window_(
-		fcppt::cast::dynamic_cross_exn<
+	},
+	windows_window_{
+		fcppt::cast::dynamic_exn<
 			awl::backends::windows::window::object &
 		>(
 			_window.awl_object()
 		)
-	),
-	event_processor_(
-		fcppt::cast::dynamic_exn<
-			awl::backends::windows::window::event::processor &
-		>(
-			_window.awl_window_event_processor()
-		)
-	),
-	system_processor_(
+	},
+	event_handle_{
 		fcppt::cast::dynamic_exn<
 			awl::backends::windows::system::event::processor &
 		>(
-			_window_system.awl_system_event_processor()
+			_window.system().awl_system().processor()
+		).create_event_handle()
+	},
+	has_focus_{
+		awl::backends::windows::window::has_focus(
+			windows_window_
 		)
-	),
-	devices_(),
-	event_handle_(
-		system_processor_.create_event_handle()
-	),
-	has_focus_(
-		false
-	),
-	keyboard_discover_(),
-	keyboard_remove_(),
-	mouse_discover_(),
-	mouse_remove_(),
-	joypad_discover_(),
-	joypad_remove_(),
-	init_message_(
-		system_processor_
-	),
-	connections_(
-		fcppt::assign::make_container<
-			fcppt::signal::auto_connection_container
-		>(
-			event_processor_.register_callback(
-				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::message_type,
-					fcppt::cast::to_unsigned_fun
-				>(
-					WM_SETFOCUS
-				),
-				awl::backends::windows::window::event::callback{
-					std::bind(
-						&sge::dinput::processor::on_focus_in,
-						this,
-						std::placeholders::_1
-					)
+	},
+	keyboards_{},
+	mice_{},
+	joypads_{},
+	event_connection_{
+		_window.system().event_handler(
+			sge::window::system_event_function{
+				[
+					this
+				](
+					awl::event::base const &_event
+				)
+				{
+					return
+						this->on_event(
+							_event
+						);
 				}
-			),
-			event_processor_.register_callback(
-				fcppt::strong_typedef_construct_cast<
-					awl::backends::windows::message_type,
-					fcppt::cast::to_unsigned_fun
-				>(
-					WM_KILLFOCUS
-				),
-				awl::backends::windows::window::event::callback{
-					std::bind(
-						&sge::dinput::processor::on_focus_out,
-						this,
-						std::placeholders::_1
-					)
-				}
-			),
-			event_processor_.register_callback(
-				init_message_.type(),
-				awl::backends::windows::window::event::callback{
-					std::bind(
-						&sge::dinput::processor::on_init,
-						this,
-						std::placeholders::_1
-					)
-				}
-			),
-			system_processor_.register_handle_callback(
-				awl::backends::windows::system::event::handle_callback{
-					std::bind(
-						&sge::dinput::processor::on_handle_ready,
-						this
-					)
-				}
-			)
+			}
 		)
-	)
+	},
+	window_event_connection_{
+		_window.event_handler(
+			sge::window::event_function{
+				[
+					this
+				](
+					awl::window::event::base const &_event
+				)
+				{
+					return
+						this->on_window_event(
+							_event
+						);
+				}
+			}
+		)
+	}
 {
-	awl::backends::windows::post_message(
-		windows_window_.hwnd(),
-		init_message_.type(),
-		awl::backends::windows::wparam(
-			0u
-		),
-		awl::backends::windows::lparam(
-			0
-		)
+	// TODO: How do we know if devices are added/removed?
+	sge::dinput::enum_devices(
+		*dinput_,
+		enum_devices_callback,
+		this
 	);
+
+	this->acquire_all();
 }
 FCPPT_PP_POP_WARNING
 
@@ -209,124 +169,203 @@ sge::dinput::processor::~processor()
 {
 }
 
-fcppt::signal::optional_auto_connection
-sge::dinput::processor::keyboard_discover_callback(
-	sge::input::keyboard::discover_callback const &_callback
-)
+sge::window::object &
+sge::dinput::processor::window() const
 {
 	return
-		fcppt::signal::optional_auto_connection{
-			keyboard_discover_.connect(
-				_callback
+		window_;
+}
+
+sge::input::cursor::container
+sge::dinput::processor::cursors() const
+{
+	return
+		sge::input::cursor::container{};
+}
+
+sge::input::focus::container
+sge::dinput::processor::foci() const
+{
+	return
+		sge::input::focus::container{};
+}
+
+sge::input::joypad::container
+sge::dinput::processor::joypads() const
+{
+	return
+		fcppt::algorithm::map<
+			sge::input::joypad::container
+		>(
+			joypads_,
+			[](
+				joypad_shared_ptr const &_joypad
 			)
-		};
+			->
+			sge::input::joypad::shared_ptr
+			{
+				return
+					_joypad;
+			}
+		);
 }
 
-fcppt::signal::optional_auto_connection
-sge::dinput::processor::keyboard_remove_callback(
-	sge::input::keyboard::remove_callback const &_callback
-)
+sge::input::keyboard::container
+sge::dinput::processor::keyboards() const
 {
 	return
-		fcppt::signal::optional_auto_connection{
-			keyboard_remove_.connect(
-				_callback
+		fcppt::algorithm::map<
+			sge::input::keyboard::container
+		>(
+			keyboards_,
+			[](
+				keyboard_shared_ptr const &_keyboard
 			)
-		};
+			->
+			sge::input::keyboard::shared_ptr
+			{
+				return
+					_keyboard;
+			}
+		);
 }
 
-fcppt::signal::optional_auto_connection
-sge::dinput::processor::mouse_discover_callback(
-	sge::input::mouse::discover_callback const &_callback
-)
+sge::input::mouse::container
+sge::dinput::processor::mice() const
 {
 	return
-		fcppt::signal::optional_auto_connection{
-			mouse_discover_.connect(
-				_callback
+		fcppt::algorithm::map<
+			sge::input::mouse::container
+		>(
+			mice_,
+			[](
+				mouse_shared_ptr const &_mouse
 			)
-		};
+			->
+			sge::input::mouse::shared_ptr
+			{
+				return
+					_mouse;
+			}
+		);
 }
 
-fcppt::signal::optional_auto_connection
-sge::dinput::processor::mouse_remove_callback(
-	sge::input::mouse::remove_callback const &_callback
+template<
+	typename State
+>
+State
+sge::dinput::processor::fold_devices(
+	State &&_state,
+	fold_device_function<
+		State
+	> const &_function
 )
 {
 	return
-		fcppt::signal::optional_auto_connection{
-			mouse_remove_.connect(
-				_callback
+		fcppt::algorithm::fold(
+			joypads_,
+			fcppt::algorithm::fold(
+				mice_,
+				fcppt::algorithm::fold(
+					keyboards_,
+					std::move(
+						_state
+					),
+					[
+						&_function
+					](
+						keyboard_shared_ptr const &_keyboard,
+						State &&_inner_state
+					)
+					{
+						return
+							_function(
+								*_keyboard,
+								std::move(
+									_inner_state
+								)
+							);
+					}
+				),
+				[
+					&_function
+				](
+					mouse_shared_ptr const &_mouse,
+					State &&_inner_state
+				)
+				{
+					return
+						_function(
+							*_mouse,
+							std::move(
+								_inner_state
+							)
+						);
+				}
+			),
+			[
+				&_function
+			](
+				joypad_shared_ptr const &_joypad,
+				State &&_inner_state
 			)
-		};
+			{
+				return
+					_function(
+						*_joypad,
+						std::move(
+							_inner_state
+						)
+					);
+			}
+		);
 }
 
-fcppt::signal::optional_auto_connection
-sge::dinput::processor::cursor_discover_callback(
-	sge::input::cursor::discover_callback const &
+void
+sge::dinput::processor::for_each_device(
+	for_each_device_function const &_function
 )
 {
-	return
-		fcppt::signal::optional_auto_connection{};
-}
-
-fcppt::signal::optional_auto_connection
-sge::dinput::processor::cursor_remove_callback(
-	sge::input::cursor::remove_callback const &
-)
-{
-	return
-		fcppt::signal::optional_auto_connection{};
-}
-
-fcppt::signal::optional_auto_connection
-sge::dinput::processor::focus_discover_callback(
-	sge::input::focus::discover_callback const &
-)
-{
-	return
-		fcppt::signal::optional_auto_connection{};
-}
-
-fcppt::signal::optional_auto_connection
-sge::dinput::processor::focus_remove_callback(
-	sge::input::focus::remove_callback const &
-)
-{
-	return
-		fcppt::signal::optional_auto_connection{};
-}
-
-fcppt::signal::optional_auto_connection
-sge::dinput::processor::joypad_discover_callback(
-	sge::input::joypad::discover_callback const &_callback
-)
-{
-	return
-		fcppt::signal::optional_auto_connection{
-			joypad_discover_.connect(
-				_callback
+	this->fold_devices(
+		fcppt::unit{},
+		fold_device_function<
+			fcppt::unit
+		>{
+			[
+				&_function
+			](
+				sge::dinput::device::object &_device,
+				fcppt::unit
 			)
-		};
+			{
+				_function(
+					_device
+				);
+
+				return
+					fcppt::unit{};
+			}
+		}
+	);
 }
 
-fcppt::signal::optional_auto_connection
-sge::dinput::processor::joypad_remove_callback(
-	sge::input::joypad::remove_callback const &_callback
-)
+void
+sge::dinput::processor::acquire_all()
 {
-	return
-		fcppt::signal::optional_auto_connection{
-			joypad_remove_.connect(
-				_callback
+	this->for_each_device(
+		for_each_device_function{
+			[](
+				sge::dinput::device::object &_device
 			)
-		};
+			{
+				_device.acquire();
+			}
+		}
+	);
 }
 
-awl::backends::windows::window::event::return_type
-sge::dinput::processor::on_focus_in(
-	awl::backends::windows::window::event::object const &
-)
+void
+sge::dinput::processor::on_focus_in()
 {
 	FCPPT_LOG_DEBUG(
 		log_,
@@ -339,21 +378,11 @@ sge::dinput::processor::on_focus_in(
 			true
 		);
 
-	this->for_each_device(
-		std::bind(
-			&sge::dinput::device::object::acquire,
-			std::placeholders::_1
-		)
-	);
-
-	return
-		awl::backends::windows::window::event::return_type();
+	this->acquire_all();
 }
 
-awl::backends::windows::window::event::return_type
-sge::dinput::processor::on_focus_out(
-	awl::backends::windows::window::event::object const &
-)
+void
+sge::dinput::processor::on_focus_out()
 {
 	FCPPT_LOG_DEBUG(
 		log_,
@@ -367,113 +396,103 @@ sge::dinput::processor::on_focus_out(
 		);
 
 	this->for_each_device(
-		std::bind(
-			&sge::dinput::device::object::unacquire,
-			std::placeholders::_1
-		)
+		for_each_device_function{
+			[](
+				sge::dinput::device::object &_device
+			)
+			{
+				_device.unacquire();
+			}
+		}
 	);
-
-	return
-		awl::backends::windows::window::event::return_type();
 }
 
-void
+awl::event::container
 sge::dinput::processor::on_handle_ready()
 {
-	this->for_each_device(
-		std::bind(
-			&sge::dinput::device::object::dispatch,
-			std::placeholders::_1
-		)
-	);
+	return
+		this->fold_devices(
+			awl::event::container{},
+			fold_device_function<
+				awl::event::container
+			>{
+				[](
+					sge::dinput::device::object &_device,
+					awl::event::container &&_state
+				)
+				{
+					return
+						fcppt::algorithm::join(
+							std::move(
+								_state
+							),
+							_device.dispatch()
+						);
+				}
+			}
+		);
 }
 
-awl::backends::windows::window::event::return_type
-sge::dinput::processor::on_init(
-	awl::backends::windows::window::event::object const &
+awl::event::container
+sge::dinput::processor::on_event(
+	awl::event::base const  &_event
 )
 {
-	if(
-		awl::backends::windows::window::has_focus(
-			windows_window_
+	return
+		awl::backends::windows::system::event::handle_matches(
+			_event,
+			*event_handle_
 		)
-	)
-		has_focus_ =
-			sge::dinput::has_focus(
-				true
-			);
+		?
+			this->on_handle_ready()
+		:
+			awl::event::container{}
+		;
+}
 
-	if(
-		dinput_->EnumDevices(
-			DI8DEVCLASS_ALL,
-			enum_devices_callback,
-			this,
-			DIEDFL_ATTACHEDONLY
+awl::event::container
+sge::dinput::processor::on_window_event(
+	awl::window::event::base const  &_event
+)
+{
+	fcppt::optional::maybe_void(
+		fcppt::cast::dynamic<
+			awl::backends::windows::window::event::generic const
+		>(
+			_event
+		),
+		[	
+			this
+		](
+			fcppt::reference<
+				awl::backends::windows::window::event::generic const
+			> const _windows_event
 		)
-		!= DI_OK
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("DirectInput Enumeration failed!")
-		);
+		{
+			switch(
+				_windows_event.get().type().get()
+			)
+			{
+			case WM_SETFOCUS:
+				this->on_focus_in();
+
+				break;
+			case WM_KILLFOCUS:
+				this->on_focus_out();
+
+				break;
+			}
+		}
+	);
 
 	return
-		awl::backends::windows::window::event::return_type(
-			0u
-		);
-}
-
-template<
-	typename Function
->
-void
-sge::dinput::processor::for_each_device(
-	Function const &_function
-)
-{
-	std::for_each(
-		devices_.begin(),
-		devices_.end(),
-		_function
-	);
-}
-
-template<
-	typename DiscoverEvent,
-	typename Ptr
->
-void
-sge::dinput::processor::add_device(
-	fcppt::signal::object<
-		void(
-			DiscoverEvent const &
-		)
-	> &_signal,
-	Ptr _ptr
-)
-{
-	_signal(
-		DiscoverEvent(
-			*_ptr
-		)
-	);
-
-	devices_.push_back(
-		fcppt::unique_ptr_to_base<
-			sge::dinput::device::object
-		>(
-			std::move(
-				_ptr
-			)
-		)
-	);
-
-	devices_.back()->acquire();
+		awl::event::container{};
 }
 
 BOOL
 sge::dinput::processor::enum_devices_callback(
-	LPCDIDEVICEINSTANCE _ddi,
-	LPVOID _state
+	LPCDIDEVICEINSTANCE const _ddi,
+	LPVOID const _state
 )
 {
 	sge::dinput::processor &instance(
@@ -489,26 +508,27 @@ sge::dinput::processor::enum_devices_callback(
 		& 0xFF
 	);
 
-	fcppt::string const product_name(
-		_ddi->tszProductName
-	);
+	sge::input::info::name const name{
+		fcppt::string{
+			_ddi->tszProductName
+		}
+	};
 
-	sge::dinput::device::parameters const parameters(
+	sge::dinput::device::parameters const parameters{
 		*instance.dinput_,
-		product_name,
 		_ddi->guidInstance,
+		instance.window_,
 		instance.windows_window_,
 		*instance.event_handle_
-	);
+	};
 
 	switch(
 		dev_type
 	)
 	{
 	case DI8DEVTYPE_KEYBOARD:
-		instance.add_device(
-			instance.keyboard_discover_,
-			fcppt::make_unique_ptr<
+		instance.keyboards_.push_back(
+			fcppt::make_shared_ptr<
 				sge::dinput::keyboard::device
 			>(
 				parameters
@@ -516,22 +536,22 @@ sge::dinput::processor::enum_devices_callback(
 		);
 		break;
 	case DI8DEVTYPE_MOUSE:
-		instance.add_device(
-			instance.mouse_discover_,
-			fcppt::make_unique_ptr<
+		instance.mice_.push_back(
+			fcppt::make_shared_ptr<
 				sge::dinput::mouse::device
 			>(
-				parameters
+				parameters,
+				name
 			)
 		);
 		break;
 	case DI8DEVTYPE_JOYSTICK:
-		instance.add_device(
-			instance.joypad_discover_,
-			fcppt::make_unique_ptr<
+		instance.joypads_.push_back(
+			fcppt::make_shared_ptr<
 				sge::dinput::joypad::device
 			>(
-				parameters
+				parameters,
+				name
 			)
 		);
 		break;

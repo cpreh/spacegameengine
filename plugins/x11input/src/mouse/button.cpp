@@ -21,19 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/button.hpp>
 #include <sge/input/mouse/button_id.hpp>
 #include <sge/input/mouse/button_info_container.hpp>
-#include <sge/x11input/device/window_event.hpp>
 #include <sge/x11input/mouse/button.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::mouse::button
 sge::x11input::mouse::button(
-	sge::x11input::device::window_event const &_event,
+	XIDeviceEvent const  &_event,
 	sge::input::mouse::button_info_container const &_info
 )
 {
 	int const detail(
-		_event.get().detail
+		_event.detail
 	);
 
 	FCPPT_ASSERT_PRE(

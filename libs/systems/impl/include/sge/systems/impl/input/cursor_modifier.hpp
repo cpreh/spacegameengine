@@ -22,11 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_IMPL_INPUT_CURSOR_MODIFIER_HPP_INCLUDED
 
 #include <sge/input/processor_fwd.hpp>
-#include <sge/input/cursor/discover_event_fwd.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/impl/input/cursor_modifier_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <awl/event/container.hpp>
+#include <awl/window/event/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/optional_auto_connection.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -45,20 +47,21 @@ class cursor_modifier
 	);
 public:
 	cursor_modifier(
-		sge::input::processor &,
+		sge::input::processor const &,
+		sge::window::object &,
 		sge::systems::cursor_option_field const &
 	);
 
 	~cursor_modifier();
 private:
-	void
-	cursor_discover(
-		sge::input::cursor::discover_event const &
-	);
+	awl::event::container
+	on_event(
+		awl::window::event::base const &
+	) const;
 
 	sge::systems::cursor_option_field const options_;
 
-	fcppt::signal::optional_auto_connection const connection_;
+	fcppt::signal::auto_connection const connection_;
 };
 
 }

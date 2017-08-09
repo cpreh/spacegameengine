@@ -18,15 +18,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/window/object.hpp>
-#include <sge/window/object_unique_ptr.hpp>
+#include <sge/window/event_combiner.hpp>
 #include <sge/window/system.hpp>
+#include <sge/window/system_event_function.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/container.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/system/object.hpp>
 #include <awl/system/event/processor.hpp>
-#include <awl/window/object_fwd.hpp>
-#include <awl/window/event/processor_fwd.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <awl/system/event/result.hpp>
+#include <fcppt/algorithm/join.hpp>
+#include <fcppt/algorithm/map_concat.hpp>
+#include <fcppt/either/match.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -36,10 +41,14 @@ sge::window::system::system(
 	awl::system::object &_awl_system
 )
 :
-	awl_system_(
+	awl_system_{
 		_awl_system
-	),
-	exit_code_()
+	},
+	event_signal_{
+		event_signal::combiner_function{
+			sge::window::event_combiner
+		}
+	}
 {
 }
 
@@ -47,58 +56,22 @@ sge::window::system::~system()
 {
 }
 
-awl::system::object &
-sge::window::system::awl_system() const
+awl::system::event::result
+sge::window::system::poll()
 {
 	return
-		awl_system_;
-}
-
-awl::system::event::processor &
-sge::window::system::awl_system_event_processor() const
-{
-	return
-		awl_system_.processor();
-}
-
-sge::window::object_unique_ptr
-sge::window::system::create(
-	awl::window::object &_awl_window
-) const
-{
-	return
-		fcppt::make_unique_ptr<
-			sge::window::object
-		>(
-			_awl_window
+		this->transform_events(
+			awl_system_.processor().poll()
 		);
 }
 
-bool
-sge::window::system::poll()
-{
-	exit_code_ =
-		this->awl_system_event_processor().poll();
-
-	return
-		this->running();
-}
-
-bool
+awl::system::event::result
 sge::window::system::next()
 {
-	exit_code_ =
-		this->awl_system_event_processor().next();
-
 	return
-		this->running();
-}
-
-bool
-sge::window::system::running() const
-{
-	return
-		!exit_code_.has_value();
+		this->transform_events(
+			awl_system_.processor().next()
+		);
 }
 
 void
@@ -106,15 +79,87 @@ sge::window::system::quit(
 	awl::main::exit_code const _exit_code
 )
 {
-	this->awl_system_event_processor().quit(
+	awl_system_.processor().quit(
 		_exit_code
 	);
 }
 
-awl::main::exit_code
-sge::window::system::exit_code() const
+fcppt::signal::auto_connection
+sge::window::system::event_handler(
+	sge::window::system_event_function const _function
+)
 {
-	// FIXME
 	return
-		exit_code_.get_unsafe();
+		event_signal_.connect(
+			_function
+		);
+}
+
+awl::system::object &
+sge::window::system::awl_system()
+{
+	return
+		awl_system_;
+}
+
+awl::system::event::result
+sge::window::system::transform_events(
+	awl::system::event::result &&_result
+)
+{
+	return
+		fcppt::either::match(
+			std::move(
+				_result
+			),
+			[](
+				awl::main::exit_code const _code
+			)
+			{
+				return
+					awl::system::event::result{
+						_code
+					};
+			},
+			[
+				this
+			](
+				awl::event::container &&_events
+			)
+			{
+				awl::event::container new_events(
+					fcppt::algorithm::map_concat<
+						awl::event::container
+					>(
+						_events,
+						[
+							this
+						](
+							awl::event::base_unique_ptr const &_event
+						)
+						{
+							return
+								event_signal_(
+									event_signal::initial_value{
+										awl::event::container{}
+									},
+									*_event
+								);
+						}
+					)
+				);
+
+				return
+					awl::system::event::result{
+						fcppt::algorithm::join(
+							std::move(
+								_events
+							),
+							std::move(
+								new_events
+							)
+						)
+					};
+			}
+		);
 }

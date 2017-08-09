@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/device/parameters_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <awl/backends/windows/system/event/handle_fwd.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/string.hpp>
 
 
 namespace sge
@@ -44,8 +44,8 @@ class parameters
 public:
 	parameters(
 		IDirectInput8 &,
-		fcppt::string const &name,
 		GUID,
+		sge::window::object &,
 		awl::backends::windows::window::object &,
 		awl::backends::windows::system::event::handle &
 	);
@@ -53,11 +53,11 @@ public:
 	IDirectInput8 &
 	instance() const;
 
-	fcppt::string const &
-	name() const;
-
 	GUID
 	guid() const;
+
+	sge::window::object &
+	sge_window() const;
 
 	awl::backends::windows::window::object &
 	window() const;
@@ -67,9 +67,9 @@ public:
 private:
 	IDirectInput8 &instance_;
 
-	fcppt::string const name_;
-
 	GUID const guid_;
+
+	sge::window::object &sge_window_;
 
 	awl::backends::windows::window::object &window_;
 

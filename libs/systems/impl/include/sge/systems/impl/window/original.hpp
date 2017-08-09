@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/original_window_fwd.hpp>
 #include <sge/systems/impl/renderer/optional_system_ref_fwd.hpp>
 #include <sge/systems/impl/window/base.hpp>
-#include <sge/window/object_unique_ptr.hpp>
+#include <sge/window/object.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <awl/cursor/object_unique_ptr.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
@@ -68,7 +68,7 @@ private:
 
 	awl::window::object_unique_ptr const awl_window_;
 
-	sge::window::object_unique_ptr const window_;
+	mutable sge::window::object window_;
 };
 
 }

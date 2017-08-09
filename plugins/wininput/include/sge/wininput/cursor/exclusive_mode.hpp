@@ -21,15 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WININPUT_CURSOR_EXCLUSIVE_MODE_HPP_INCLUDED
 #define SGE_WININPUT_CURSOR_EXCLUSIVE_MODE_HPP_INCLUDED
 
+#include <sge/window/object_fwd.hpp>
 #include <sge/wininput/cursor/exclusive_mode_fwd.hpp>
 #include <awl/backends/windows/message_type.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
-#include <awl/backends/windows/window/event/object_fwd.hpp>
-#include <awl/backends/windows/window/event/processor_fwd.hpp>
-#include <awl/backends/windows/window/event/return_type_fwd.hpp>
+#include <awl/backends/windows/window/event/generic_fwd.hpp>
+#include <awl/event/container.hpp>
+#include <awl/window/event/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional/object_impl.hpp>
-#include <fcppt/signal/auto_connection_container.hpp>
+#include <fcppt/optional/object_decl.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 
 
 namespace sge
@@ -46,29 +47,30 @@ class exclusive_mode
 	);
 public:
 	exclusive_mode(
-		awl::backends::windows::window::event::processor &,
+		sge::window::object &,
 		awl::backends::windows::window::object &
 	);
 
 	~exclusive_mode();
 private:
-	awl::backends::windows::window::event::return_type
+	awl::event::container
+	on_event(
+		awl::window::event::base const &
+	);
+
+	void
+	on_window_event(
+		awl::backends::windows::window::event::generic const &
+	);
+
+	void
 	on_temp_unacquire(
-		awl::backends::windows::message_type,
-		awl::backends::windows::window::event::object const &
+		awl::backends::windows::message_type
 	);
 
-	awl::backends::windows::window::event::return_type
+	void
 	on_temp_acquire(
-		awl::backends::windows::message_type,
-		awl::backends::windows::window::event::object const &
-	);
-
-	fcppt::signal::auto_connection_container
-	make_connection_pair(
-		awl::backends::windows::window::event::processor &,
-		awl::backends::windows::message_type::value_type enter_event,
-		awl::backends::windows::message_type::value_type exit_event
+		awl::backends::windows::message_type
 	);
 
 	typedef
@@ -81,7 +83,7 @@ private:
 
 	awl::backends::windows::window::object &window_;
 
-	fcppt::signal::auto_connection_container const connections_;
+	fcppt::signal::auto_connection const event_connection_;
 };
 
 }

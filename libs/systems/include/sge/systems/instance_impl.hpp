@@ -27,23 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
-#include <sge/input/cursor/object_fwd.hpp>
-#include <sge/input/focus/object_fwd.hpp>
-#include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/mouse/device_fwd.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/renderer/core_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/systems/cursor_demuxer_fwd.hpp>
-#include <sge/systems/focus_collector_fwd.hpp>
 #include <sge/systems/instance_decl.hpp>
-#include <sge/systems/keyboard_collector_fwd.hpp>
 #include <sge/systems/list_fwd.hpp>
-#include <sge/systems/mouse_collector_fwd.hpp>
 #include <sge/systems/renderer_caps.hpp>
-#include <sge/systems/detail/has_input_option.hpp>
 #include <sge/systems/detail/has_with_audio_loader.hpp>
 #include <sge/systems/detail/has_with_audio_player.hpp>
 #include <sge/systems/detail/has_with_font.hpp>
@@ -237,114 +228,6 @@ sge::systems::instance<
 
 	return
 		instance_.input_processor();
-}
-
-template<
-	typename Choices
->
-sge::input::focus::object &
-sge::systems::instance<
-	Choices
->::focus_collector() const
-{
-	static_assert(
-		sge::systems::detail::has_with_input<
-			Choices
-		>::value,
-		"configuration has no input"
-	);
-
-	static_assert(
-		sge::systems::detail::has_input_option<
-			Choices,
-			sge::systems::focus_collector
-		>::value,
-		"configuration has no focus collector"
-	);
-
-	return
-		instance_.focus_collector();
-}
-
-template<
-	typename Choices
->
-sge::input::cursor::object &
-sge::systems::instance<
-	Choices
->::cursor_demuxer() const
-{
-	static_assert(
-		sge::systems::detail::has_with_input<
-			Choices
-		>::value,
-		"configuration has no input"
-	);
-
-	static_assert(
-		sge::systems::detail::has_input_option<
-			Choices,
-			sge::systems::cursor_demuxer
-		>::value,
-		"configuration has no cursor demuxer"
-	);
-
-	return
-		instance_.cursor_demuxer();
-}
-
-template<
-	typename Choices
->
-sge::input::keyboard::device &
-sge::systems::instance<
-	Choices
->::keyboard_collector() const
-{
-	static_assert(
-		sge::systems::detail::has_with_input<
-			Choices
-		>::value,
-		"configuration has no input"
-	);
-
-	static_assert(
-		sge::systems::detail::has_input_option<
-			Choices,
-			sge::systems::keyboard_collector
-		>::value,
-		"configuration has no keyboard collector"
-	);
-
-	return
-		instance_.keyboard_collector();
-}
-
-template<
-	typename Choices
->
-sge::input::mouse::device &
-sge::systems::instance<
-	Choices
->::mouse_collector() const
-{
-	static_assert(
-		sge::systems::detail::has_with_input<
-			Choices
-		>::value,
-		"configuration has no input"
-	);
-
-	static_assert(
-		sge::systems::detail::has_input_option<
-			Choices,
-			sge::systems::mouse_collector
-		>::value,
-		"configuration has no mouse collector"
-	);
-
-	return
-		instance_.mouse_collector();
 }
 
 template<

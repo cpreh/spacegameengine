@@ -25,9 +25,9 @@ set(
 	plugins/evdev/include/sge/evdev/device/read_bits_result_fwd.hpp
 	plugins/evdev/include/sge/evdev/device/read_bits_value.hpp
 	plugins/evdev/include/sge/evdev/device/unique_id.hpp
-	plugins/evdev/include/sge/evdev/inotify/callback.hpp
 	plugins/evdev/include/sge/evdev/inotify/convert_event_type.hpp
 	plugins/evdev/include/sge/evdev/inotify/event.hpp
+	plugins/evdev/include/sge/evdev/inotify/event_container.hpp
 	plugins/evdev/include/sge/evdev/inotify/event_fwd.hpp
 	plugins/evdev/include/sge/evdev/inotify/event_type.hpp
 	plugins/evdev/include/sge/evdev/inotify/event_type_fwd.hpp
@@ -45,8 +45,6 @@ set(
 	plugins/evdev/include/sge/evdev/joypad/absolute_axis/make_info_container.hpp
 	plugins/evdev/include/sge/evdev/joypad/absolute_axis/make_string.hpp
 	plugins/evdev/include/sge/evdev/joypad/add.hpp
-	plugins/evdev/include/sge/evdev/joypad/add_parameters.hpp
-	plugins/evdev/include/sge/evdev/joypad/add_parameters_fwd.hpp
 	plugins/evdev/include/sge/evdev/joypad/attrib.hpp
 	plugins/evdev/include/sge/evdev/joypad/button/event_map.hpp
 	plugins/evdev/include/sge/evdev/joypad/button/info_container.hpp
@@ -55,6 +53,7 @@ set(
 	plugins/evdev/include/sge/evdev/joypad/button/make_info.hpp
 	plugins/evdev/include/sge/evdev/joypad/button/make_info_container.hpp
 	plugins/evdev/include/sge/evdev/joypad/button/make_string.hpp
+	plugins/evdev/include/sge/evdev/joypad/create.hpp
 	plugins/evdev/include/sge/evdev/joypad/event_map.hpp
 	plugins/evdev/include/sge/evdev/joypad/ff/convert_condition.hpp
 	plugins/evdev/include/sge/evdev/joypad/ff/convert_constant.hpp
@@ -75,6 +74,7 @@ set(
 	plugins/evdev/include/sge/evdev/joypad/ff/uploaded_effect.hpp
 	plugins/evdev/include/sge/evdev/joypad/ff/variant.hpp
 	plugins/evdev/include/sge/evdev/joypad/ff/write_event.hpp
+	plugins/evdev/include/sge/evdev/joypad/find_path.hpp
 	plugins/evdev/include/sge/evdev/joypad/info.hpp
 	plugins/evdev/include/sge/evdev/joypad/info_fwd.hpp
 	plugins/evdev/include/sge/evdev/joypad/init.hpp
@@ -83,7 +83,10 @@ set(
 	plugins/evdev/include/sge/evdev/joypad/map.hpp
 	plugins/evdev/include/sge/evdev/joypad/object.hpp
 	plugins/evdev/include/sge/evdev/joypad/object_fwd.hpp
-	plugins/evdev/include/sge/evdev/joypad/object_unique_ptr.hpp
+	plugins/evdev/include/sge/evdev/joypad/optional_iterator.hpp
+	plugins/evdev/include/sge/evdev/joypad/optional_iterator_fwd.hpp
+	plugins/evdev/include/sge/evdev/joypad/optional_shared_ptr.hpp
+	plugins/evdev/include/sge/evdev/joypad/optional_shared_ptr_fwd.hpp
 	plugins/evdev/include/sge/evdev/joypad/relative_axis/info_container.hpp
 	plugins/evdev/include/sge/evdev/joypad/relative_axis/info_container_fwd.hpp
 	plugins/evdev/include/sge/evdev/joypad/relative_axis/make_code.hpp
@@ -92,6 +95,7 @@ set(
 	plugins/evdev/include/sge/evdev/joypad/relative_axis/make_info_container.hpp
 	plugins/evdev/include/sge/evdev/joypad/relative_axis/make_string.hpp
 	plugins/evdev/include/sge/evdev/joypad/remove.hpp
+	plugins/evdev/include/sge/evdev/joypad/shared_ptr.hpp
 	plugins/evdev/include/sge/evdev/processor.hpp
 	plugins/evdev/include/sge/evdev/system.hpp
 	plugins/evdev/src/device/create_fd.cpp
@@ -113,13 +117,13 @@ set(
 	plugins/evdev/src/joypad/absolute_axis/make_info_container.cpp
 	plugins/evdev/src/joypad/absolute_axis/make_string.cpp
 	plugins/evdev/src/joypad/add.cpp
-	plugins/evdev/src/joypad/add_parameters.cpp
 	plugins/evdev/src/joypad/attrib.cpp
 	plugins/evdev/src/joypad/button/info_container.cpp
 	plugins/evdev/src/joypad/button/make_event.cpp
 	plugins/evdev/src/joypad/button/make_info.cpp
 	plugins/evdev/src/joypad/button/make_info_container.cpp
 	plugins/evdev/src/joypad/button/make_string.cpp
+	plugins/evdev/src/joypad/create.cpp
 	plugins/evdev/src/joypad/event_map.cpp
 	plugins/evdev/src/joypad/ff/convert_condition.cpp
 	plugins/evdev/src/joypad/ff/convert_constant.cpp
@@ -138,6 +142,7 @@ set(
 	plugins/evdev/src/joypad/ff/make_info.cpp
 	plugins/evdev/src/joypad/ff/uploaded_effect.cpp
 	plugins/evdev/src/joypad/ff/write_event.cpp
+	plugins/evdev/src/joypad/find_path.cpp
 	plugins/evdev/src/joypad/info.cpp
 	plugins/evdev/src/joypad/init.cpp
 	plugins/evdev/src/joypad/is_joypad.cpp

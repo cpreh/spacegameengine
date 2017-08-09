@@ -42,16 +42,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/plugin/object.hpp>
+#include <sge/window/object.hpp>
+#include <sge/window/system.hpp>
 #include <awl/system/create.hpp>
 #include <awl/system/object.hpp>
 #include <awl/system/object_unique_ptr.hpp>
-#include <awl/system/event/processor.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object.hpp>
 #include <awl/window/object_unique_ptr.hpp>
 #include <awl/window/parameters.hpp>
-#include <awl/window/event/processor.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
@@ -103,9 +103,13 @@ try
 		)
 	);
 
+	sge::window::system window_system{
+		*awl_system
+	};
+
 	sge::renderer::system_unique_ptr const render_sys(
 		render_core->create_system(
-			*awl_system
+			window_system
 		)
 	);
 
@@ -120,12 +124,17 @@ try
 		)
 	};
 
-	awl::window::object_unique_ptr const window{
+	awl::window::object_unique_ptr const awl_window{
 		awl_system->create_window(
 			awl::window::parameters{
 				*visual
 			}
 		)
+	};
+
+	sge::window::object window{
+		window_system,
+		*awl_window
 	};
 
 	sge::renderer::device::core_unique_ptr const render_device{
@@ -135,7 +144,7 @@ try
 					sge::renderer::display_mode::vsync::on,
 					sge::renderer::display_mode::optional_object{}
 				},
-				*window
+				window
 			}
 		)
 	};

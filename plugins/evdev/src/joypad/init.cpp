@@ -18,51 +18,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/evdev/joypad/add.hpp>
-#include <sge/evdev/joypad/add_parameters_fwd.hpp>
+#include <sge/evdev/joypad/create.hpp>
 #include <sge/evdev/joypad/init.hpp>
+#include <sge/evdev/joypad/map.hpp>
+#include <sge/evdev/joypad/object.hpp>
+#include <sge/evdev/joypad/shared_ptr.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/filesystem/directory_range.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/algorithm/string/predicate.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-void
+sge::evdev::joypad::map
 sge::evdev::joypad::init(
 	fcppt::log::object &_log,
-	sge::evdev::joypad::add_parameters const &_parameters,
+	sge::window::object &_window,
 	boost::filesystem::path const &_path
 )
 {
-	for(
-		boost::filesystem::path const &cur
-		:
-		fcppt::filesystem::directory_range(
-			_path
-		)
-	)
-	{
-		if(
-			boost::filesystem::is_directory(
-				cur
+	return
+		fcppt::algorithm::map_optional<
+			sge::evdev::joypad::map
+		>(
+			fcppt::filesystem::directory_range(
+				_path
+			),
+			[
+				&_log,
+				&_window
+			](
+				boost::filesystem::path const &_cur
 			)
-		)
-			continue;
-
-		if(
-			!boost::algorithm::starts_with(
-				cur.filename().string(),
-				"event"
-			)
-		)
-			continue;
-
-		sge::evdev::joypad::add(
-			_log,
-			_parameters,
-			cur
+			{
+				return
+					fcppt::optional::map(
+						sge::evdev::joypad::create(
+							_log,
+							_window,
+							_cur
+						),
+						[](
+							sge::evdev::joypad::shared_ptr const _ptr
+						)
+						{
+							return
+								sge::evdev::joypad::map::value_type{
+									_ptr->posix_fd(),
+									_ptr
+								};
+						}
+					);
+			}
 		);
-	}
 }

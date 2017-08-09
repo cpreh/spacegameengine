@@ -1,37 +1,26 @@
 set(
 	SGE_X11INPUT_FILES
 	plugins/x11input/include/sge/x11input/atom_name.hpp
-	plugins/x11input/include/sge/x11input/create_parameters.hpp
-	plugins/x11input/include/sge/x11input/create_parameters_fwd.hpp
 	plugins/x11input/include/sge/x11input/cursor/button_code.hpp
+	plugins/x11input/include/sge/x11input/cursor/create_grab.hpp
 	plugins/x11input/include/sge/x11input/cursor/find_scroll_valuator.hpp
 	plugins/x11input/include/sge/x11input/cursor/grab.hpp
+	plugins/x11input/include/sge/x11input/cursor/grab_error_to_string.hpp
 	plugins/x11input/include/sge/x11input/cursor/grab_fwd.hpp
+	plugins/x11input/include/sge/x11input/cursor/grab_unique_ptr.hpp
 	plugins/x11input/include/sge/x11input/cursor/info_fwd.hpp
 	plugins/x11input/include/sge/x11input/cursor/make_scroll_valuators.hpp
 	plugins/x11input/include/sge/x11input/cursor/object.hpp
 	plugins/x11input/include/sge/x11input/cursor/object_fwd.hpp
 	plugins/x11input/include/sge/x11input/cursor/object_unique_ptr.hpp
+	plugins/x11input/include/sge/x11input/cursor/optional_grab_unique_ptr.hpp
+	plugins/x11input/include/sge/x11input/cursor/optional_grab_unique_ptr_fwd.hpp
 	plugins/x11input/include/sge/x11input/cursor/position.hpp
 	plugins/x11input/include/sge/x11input/cursor/query_pointer.hpp
 	plugins/x11input/include/sge/x11input/cursor/scroll_code.hpp
 	plugins/x11input/include/sge/x11input/cursor/scroll_valuator.hpp
 	plugins/x11input/include/sge/x11input/cursor/scroll_valuator_fwd.hpp
 	plugins/x11input/include/sge/x11input/cursor/scroll_valuator_map.hpp
-	plugins/x11input/include/sge/x11input/device/event.hpp
-	plugins/x11input/include/sge/x11input/device/event_added.hpp
-	plugins/x11input/include/sge/x11input/device/event_data.hpp
-	plugins/x11input/include/sge/x11input/device/event_demuxer_decl.hpp
-	plugins/x11input/include/sge/x11input/device/event_demuxer_fwd.hpp
-	plugins/x11input/include/sge/x11input/device/event_demuxer_impl.hpp
-	plugins/x11input/include/sge/x11input/device/event_deviceid.hpp
-	plugins/x11input/include/sge/x11input/device/event_fwd.hpp
-	plugins/x11input/include/sge/x11input/device/has_deviceid.hpp
-	plugins/x11input/include/sge/x11input/device/has_deviceid_function.hpp
-	plugins/x11input/include/sge/x11input/device/hierarchy_demuxer.hpp
-	plugins/x11input/include/sge/x11input/device/hierarchy_demuxer_fwd.hpp
-	plugins/x11input/include/sge/x11input/device/hierarchy_event.hpp
-	plugins/x11input/include/sge/x11input/device/hierarchy_event_fwd.hpp
 	plugins/x11input/include/sge/x11input/device/id.hpp
 	plugins/x11input/include/sge/x11input/device/info/base.hpp
 	plugins/x11input/include/sge/x11input/device/info/class_cast.hpp
@@ -45,26 +34,11 @@ set(
 	plugins/x11input/include/sge/x11input/device/info/name.hpp
 	plugins/x11input/include/sge/x11input/device/info/single.hpp
 	plugins/x11input/include/sge/x11input/device/info/string_from_atom.hpp
-	plugins/x11input/include/sge/x11input/device/manager/config.hpp
-	plugins/x11input/include/sge/x11input/device/manager/config_base.hpp
-	plugins/x11input/include/sge/x11input/device/manager/config_base_fwd.hpp
-	plugins/x11input/include/sge/x11input/device/manager/config_base_unique_ptr.hpp
-	plugins/x11input/include/sge/x11input/device/manager/config_impl.hpp
-	plugins/x11input/include/sge/x11input/device/manager/config_map.hpp
-	plugins/x11input/include/sge/x11input/device/manager/create_function.hpp
-	plugins/x11input/include/sge/x11input/device/manager/make_config.hpp
-	plugins/x11input/include/sge/x11input/device/manager/object.hpp
-	plugins/x11input/include/sge/x11input/device/object.hpp
-	plugins/x11input/include/sge/x11input/device/object_fwd.hpp
+	plugins/x11input/include/sge/x11input/device/insert.hpp
+	plugins/x11input/include/sge/x11input/device/map.hpp
 	plugins/x11input/include/sge/x11input/device/optional_id.hpp
 	plugins/x11input/include/sge/x11input/device/optional_id_fwd.hpp
-	plugins/x11input/include/sge/x11input/device/parameters.hpp
-	plugins/x11input/include/sge/x11input/device/parameters_fwd.hpp
-	plugins/x11input/include/sge/x11input/device/raw_demuxer.hpp
-	plugins/x11input/include/sge/x11input/device/raw_demuxer_fwd.hpp
-	plugins/x11input/include/sge/x11input/device/raw_event.hpp
-	plugins/x11input/include/sge/x11input/device/raw_event_fwd.hpp
-	plugins/x11input/include/sge/x11input/device/select_events.hpp
+	plugins/x11input/include/sge/x11input/device/remove.hpp
 	plugins/x11input/include/sge/x11input/device/use.hpp
 	plugins/x11input/include/sge/x11input/device/valuator/absolute.hpp
 	plugins/x11input/include/sge/x11input/device/valuator/absolute_fwd.hpp
@@ -72,20 +46,48 @@ set(
 	plugins/x11input/include/sge/x11input/device/valuator/accu_map.hpp
 	plugins/x11input/include/sge/x11input/device/valuator/any.hpp
 	plugins/x11input/include/sge/x11input/device/valuator/any_fwd.hpp
-	plugins/x11input/include/sge/x11input/device/valuator/callback.hpp
-	plugins/x11input/include/sge/x11input/device/valuator/foreach.hpp
 	plugins/x11input/include/sge/x11input/device/valuator/index.hpp
+	plugins/x11input/include/sge/x11input/device/valuator/iterator.hpp
+	plugins/x11input/include/sge/x11input/device/valuator/iterator_base.hpp
+	plugins/x11input/include/sge/x11input/device/valuator/iterator_fwd.hpp
+	plugins/x11input/include/sge/x11input/device/valuator/length.hpp
 	plugins/x11input/include/sge/x11input/device/valuator/make_absolute.hpp
 	plugins/x11input/include/sge/x11input/device/valuator/make_any.hpp
+	plugins/x11input/include/sge/x11input/device/valuator/pair.hpp
+	plugins/x11input/include/sge/x11input/device/valuator/pair_fwd.hpp
+	plugins/x11input/include/sge/x11input/device/valuator/range.hpp
+	plugins/x11input/include/sge/x11input/device/valuator/range_fwd.hpp
 	plugins/x11input/include/sge/x11input/device/valuator/relative.hpp
 	plugins/x11input/include/sge/x11input/device/valuator/relative_fwd.hpp
 	plugins/x11input/include/sge/x11input/device/valuator/update.hpp
 	plugins/x11input/include/sge/x11input/device/valuator/update_accu.hpp
 	plugins/x11input/include/sge/x11input/device/valuator/value.hpp
-	plugins/x11input/include/sge/x11input/device/window_demuxer.hpp
-	plugins/x11input/include/sge/x11input/device/window_demuxer_fwd.hpp
-	plugins/x11input/include/sge/x11input/device/window_event.hpp
-	plugins/x11input/include/sge/x11input/device/window_event_fwd.hpp
+	plugins/x11input/include/sge/x11input/event/base.hpp
+	plugins/x11input/include/sge/x11input/event/concrete_handler.hpp
+	plugins/x11input/include/sge/x11input/event/demuxer_decl.hpp
+	plugins/x11input/include/sge/x11input/event/demuxer_fwd.hpp
+	plugins/x11input/include/sge/x11input/event/demuxer_impl.hpp
+	plugins/x11input/include/sge/x11input/event/device_function.hpp
+	plugins/x11input/include/sge/x11input/event/device_function_type.hpp
+	plugins/x11input/include/sge/x11input/event/device_type_set.hpp
+	plugins/x11input/include/sge/x11input/event/handler.hpp
+	plugins/x11input/include/sge/x11input/event/is_device.hpp
+	plugins/x11input/include/sge/x11input/event/is_hierarchy.hpp
+	plugins/x11input/include/sge/x11input/event/is_raw.hpp
+	plugins/x11input/include/sge/x11input/event/make_handler.hpp
+	plugins/x11input/include/sge/x11input/event/raw_demuxer.hpp
+	plugins/x11input/include/sge/x11input/event/raw_demuxer_fwd.hpp
+	plugins/x11input/include/sge/x11input/event/raw_function.hpp
+	plugins/x11input/include/sge/x11input/event/raw_function_type.hpp
+	plugins/x11input/include/sge/x11input/event/select.hpp
+	plugins/x11input/include/sge/x11input/event/select_device.hpp
+	plugins/x11input/include/sge/x11input/event/select_unsafe.hpp
+	plugins/x11input/include/sge/x11input/event/static_type.hpp
+	plugins/x11input/include/sge/x11input/event/type.hpp
+	plugins/x11input/include/sge/x11input/event/type_c.hpp
+	plugins/x11input/include/sge/x11input/event/type_container.hpp
+	plugins/x11input/include/sge/x11input/event/window_demuxer.hpp
+	plugins/x11input/include/sge/x11input/event/window_demuxer_fwd.hpp
 	plugins/x11input/include/sge/x11input/focus/char_vector.hpp
 	plugins/x11input/include/sge/x11input/focus/char_vector_fwd.hpp
 	plugins/x11input/include/sge/x11input/focus/looked_up_string.hpp
@@ -124,10 +126,10 @@ set(
 	plugins/x11input/include/sge/x11input/mouse/info.hpp
 	plugins/x11input/include/sge/x11input/mouse/make_axis_infos.hpp
 	plugins/x11input/include/sge/x11input/mouse/make_button_infos.hpp
+	plugins/x11input/include/sge/x11input/opcode.hpp
 	plugins/x11input/include/sge/x11input/optional_opcode.hpp
 	plugins/x11input/include/sge/x11input/optional_opcode_fwd.hpp
 	plugins/x11input/include/sge/x11input/processor.hpp
-	plugins/x11input/include/sge/x11input/send_init_event.hpp
 	plugins/x11input/include/sge/x11input/system.hpp
 	plugins/x11input/include/sge/x11input/xi_opcode.hpp
 	plugins/x11input/include/sge/x11input/xi_version.hpp
@@ -151,39 +153,36 @@ set(
 	plugins/x11input/include/sge/x11input/xim/setlocale.hpp
 	plugins/x11input/include/sge/x11input/xim/supported_styles_unique_ptr.hpp
 	plugins/x11input/src/atom_name.cpp
-	plugins/x11input/src/create_parameters.cpp
 	plugins/x11input/src/cursor/button_code.cpp
-	plugins/x11input/src/cursor/config.cpp
+	plugins/x11input/src/cursor/create_grab.cpp
 	plugins/x11input/src/cursor/find_scroll_valuator.cpp
 	plugins/x11input/src/cursor/grab.cpp
+	plugins/x11input/src/cursor/grab_error_to_string.cpp
 	plugins/x11input/src/cursor/make_scroll_valuators.cpp
 	plugins/x11input/src/cursor/object.cpp
+	plugins/x11input/src/cursor/position.cpp
 	plugins/x11input/src/cursor/query_pointer.cpp
 	plugins/x11input/src/cursor/scroll_code.cpp
 	plugins/x11input/src/cursor/scroll_valuator.cpp
-	plugins/x11input/src/device/event.cpp
-	plugins/x11input/src/device/event_data.cpp
-	plugins/x11input/src/device/hierarchy_demuxer.cpp
 	plugins/x11input/src/device/info/base.cpp
 	plugins/x11input/src/device/info/class_type.cpp
 	plugins/x11input/src/device/info/multi.cpp
 	plugins/x11input/src/device/info/name.cpp
 	plugins/x11input/src/device/info/single.cpp
 	plugins/x11input/src/device/info/string_from_atom.cpp
-	plugins/x11input/src/device/manager/config_base.cpp
-	plugins/x11input/src/device/manager/object.cpp
-	plugins/x11input/src/device/object.cpp
-	plugins/x11input/src/device/parameters.cpp
-	plugins/x11input/src/device/raw_demuxer.cpp
-	plugins/x11input/src/device/select_events.cpp
 	plugins/x11input/src/device/valuator/absolute.cpp
-	plugins/x11input/src/device/valuator/foreach.cpp
+	plugins/x11input/src/device/valuator/iterator.cpp
+	plugins/x11input/src/device/valuator/length.cpp
 	plugins/x11input/src/device/valuator/make_absolute.cpp
 	plugins/x11input/src/device/valuator/make_any.cpp
+	plugins/x11input/src/device/valuator/pair.cpp
+	plugins/x11input/src/device/valuator/range.cpp
 	plugins/x11input/src/device/valuator/relative.cpp
-	plugins/x11input/src/device/window_demuxer.cpp
+	plugins/x11input/src/event/base.cpp
+	plugins/x11input/src/event/raw_demuxer.cpp
+	plugins/x11input/src/event/select_unsafe.cpp
+	plugins/x11input/src/event/window_demuxer.cpp
 	plugins/x11input/src/exports.cpp
-	plugins/x11input/src/focus/config.cpp
 	plugins/x11input/src/focus/looked_up_string.cpp
 	plugins/x11input/src/focus/lookup_string.cpp
 	plugins/x11input/src/focus/object.cpp
@@ -193,7 +192,6 @@ set(
 	plugins/x11input/src/key/event_to_sge_code.cpp
 	plugins/x11input/src/key/is_repeated.cpp
 	plugins/x11input/src/key/translate_sym.cpp
-	plugins/x11input/src/keyboard/config.cpp
 	plugins/x11input/src/keyboard/device.cpp
 	plugins/x11input/src/keyboard/key_from_event.cpp
 	plugins/x11input/src/keyboard/key_id.cpp
@@ -205,13 +203,11 @@ set(
 	plugins/x11input/src/mouse/button.cpp
 	plugins/x11input/src/mouse/button_code.cpp
 	plugins/x11input/src/mouse/button_infos.cpp
-	plugins/x11input/src/mouse/config.cpp
 	plugins/x11input/src/mouse/device.cpp
 	plugins/x11input/src/mouse/info.cpp
 	plugins/x11input/src/mouse/make_axis_infos.cpp
 	plugins/x11input/src/mouse/make_button_infos.cpp
 	plugins/x11input/src/processor.cpp
-	plugins/x11input/src/send_init_event.cpp
 	plugins/x11input/src/system.cpp
 	plugins/x11input/src/xi_opcode.cpp
 	plugins/x11input/src/xi_version.cpp

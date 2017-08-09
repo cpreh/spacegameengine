@@ -22,11 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WINDOW_OBJECT_HPP_INCLUDED
 
 #include <sge/window/dim_fwd.hpp>
+#include <sge/window/event_function.hpp>
+#include <sge/window/event_function_type.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/system_fwd.hpp>
 #include <sge/window/detail/symbol.hpp>
 #include <awl/window/object_fwd.hpp>
-#include <awl/window/event/processor_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/signal/object_decl.hpp>
 
 
 namespace sge
@@ -41,8 +45,8 @@ class object
 	);
 public:
 	SGE_WINDOW_DETAIL_SYMBOL
-	explicit
 	object(
+		sge::window::system &,
 		awl::window::object &
 	);
 
@@ -62,10 +66,28 @@ public:
 	awl_object() const;
 
 	SGE_WINDOW_DETAIL_SYMBOL
-	awl::window::event::processor &
-	awl_window_event_processor() const;
+	fcppt::signal::auto_connection
+	event_handler(
+		sge::window::event_function
+	);
+
+	SGE_WINDOW_DETAIL_SYMBOL
+	sge::window::system &
+	system() const;
 private:
+	sge::window::system &system_;
+
 	awl::window::object &awl_object_;
+
+	typedef
+	fcppt::signal::object<
+		sge::window::event_function_type
+	>
+	event_signal;
+
+	event_signal event_signal_;
+
+	fcppt::signal::auto_connection const connection_;
 };
 
 }

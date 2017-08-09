@@ -34,14 +34,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 
-sge::d3d9::system::system()
+sge::d3d9::system::system(
+	fcppt::log::object &_log
+)
 :
 	sge::renderer::system(),
-	system_(
+	log_{
+		_log
+	},
+	system_{
 		sge::d3d9::create()
-	)
+	}
 {
 }
 
@@ -77,6 +83,7 @@ sge::d3d9::system::create_ffp_renderer(
 				sge::d3d9::device
 			>(
 				*system_,
+				log_,
 				_parameters
 			)
 		);

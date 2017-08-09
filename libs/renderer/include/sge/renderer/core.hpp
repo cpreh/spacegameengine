@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_unique_ptr.hpp>
 #include <sge/renderer/caps/system_field_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <awl/system/object_fwd.hpp>
+#include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -40,7 +40,7 @@ namespace renderer
 
 \ingroup sge_renderer
 
-Creates renderer systems from awl systems and provides the plugin's
+Creates renderer systems from window systems and provides the plugin's
 capabilities.
 */
 class SGE_CORE_DETAIL_CLASS_SYMBOL core
@@ -56,18 +56,12 @@ public:
 	virtual
 	~core() = 0;
 
-	/**
-	\brief Creates a renderer system from an awl system
-	*/
 	virtual
 	sge::renderer::system_unique_ptr
 	create_system(
-		awl::system::object &
+		sge::window::system &
 	) = 0;
 
-	/**
-	\brief Returns the plugin's capabilities
-	*/
 	virtual
 	sge::renderer::caps::system_field
 	caps() const = 0;

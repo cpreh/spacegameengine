@@ -31,17 +31,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/window/event_function.hpp>
+#include <sge/window/object.hpp>
 #include <awl/backends/x11/default_screen.hpp>
-#include <awl/backends/x11/window/object.hpp>
+#include <awl/backends/x11/window/base.hpp>
 #include <awl/backends/x11/window/root.hpp>
-#include <awl/backends/x11/window/event/callback.hpp>
-#include <awl/backends/x11/window/event/processor.hpp>
+#include <awl/backends/x11/window/event/generic.hpp>
 #include <awl/backends/x11/window/event/type.hpp>
+#include <awl/event/container.hpp>
+#include <awl/window/event/base.hpp>
 #include <awl/window/object.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/cast/dynamic_cross_exn.hpp>
+#include <fcppt/cast/dynamic.hpp>
+#include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/cast/size_fun.hpp>
-#include <fcppt/cast/static_downcast.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/randr.h>
@@ -51,76 +56,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::xrandr::state::state(
 	sge::opengl::xrandr::extension const &_extension,
-	awl::backends::x11::window::object &_window
+	sge::window::object &_window
 )
 :
-	display_(
-		_window.display()
-	),
-	window_(
-		_window
-	),
-	config_(
-		_window
-	),
-	display_mode_(),
-	display_modes_(),
-	change_connection_(
-		// TODO: Change libawl so this is not needed
-		fcppt::cast::static_downcast<
-			awl::backends::x11::window::event::processor &
+	extension_{
+		_extension
+	},
+	window_{
+		fcppt::cast::dynamic_exn<
+			awl::backends::x11::window::base &
 		>(
-			fcppt::cast::dynamic_cross_exn<
-				awl::window::object &
-			>(
-				window_
-			).processor()
-		).register_callback(
-			awl::backends::x11::window::event::type(
-				_extension.event_base().get()
-				+
-				RRScreenChangeNotify
-			),
-			awl::backends::x11::window::event::callback(
+			_window.awl_object()
+		)
+	},
+	config_{
+		window_
+	},
+	display_mode_{},
+	display_modes_{},
+	event_connection_{
+		_window.event_handler(
+			sge::window::event_function{
 				std::bind(
-					&sge::opengl::xrandr::state::event_callback,
+					&sge::opengl::xrandr::state::on_event,
 					this,
 					std::placeholders::_1
 				)
-			)
+			}
 		)
-	),
-	configure_connection_(
-		fcppt::cast::static_downcast<
-			awl::backends::x11::window::event::processor &
-		>(
-			fcppt::cast::dynamic_cross_exn<
-				awl::window::object &
-			>(
-				window_
-			).processor()
-		).register_callback(
-			awl::backends::x11::window::event::type(
-				ConfigureNotify
-			),
-			awl::backends::x11::window::event::callback(
-				std::bind(
-					&sge::opengl::xrandr::state::event_callback,
-					this,
-					std::placeholders::_1
-				)
-			)
-		)
-	)
+	}
 {
-	// TODO: This could be wrapped like in sge::x11input
+	// TODO: Select configure notify?
+
 	sge::opengl::xrandr::select_input(
-		display_,
 		// TODO: root_window?
 		*awl::backends::x11::window::root(
-			display_,
+			window_.display(),
 			awl::backends::x11::default_screen(
-				display_
+				window_.display()
 			)
 		),
 		fcppt::strong_typedef_construct_cast<
@@ -165,17 +138,58 @@ sge::opengl::xrandr::state::display_modes() const
 		display_modes_;
 }
 
-void
-sge::opengl::xrandr::state::event_callback(
-	awl::backends::x11::window::event::object const &_event
+awl::event::container
+sge::opengl::xrandr::state::on_event(
+	awl::window::event::base const &_event
 )
 {
-	if(
-		sge::opengl::xrandr::update_configuration(
+	fcppt::optional::maybe_void(
+		fcppt::cast::dynamic<
+			awl::backends::x11::window::event::generic const
+		>(
 			_event
+		),
+		[
+			this
+		](
+			fcppt::reference<
+				awl::backends::x11::window::event::generic const
+			> const _x11_event
 		)
-	)
-		this->update();
+		{
+			awl::backends::x11::window::event::type const type{
+				_x11_event.get().event().get().type
+			};
+
+			if(
+				type
+				==
+				awl::backends::x11::window::event::type{
+					this->extension_.event_base().get()
+					+
+					RRScreenChangeNotify
+				}
+				||
+				type
+				==
+				awl::backends::x11::window::event::type{
+					ConfigureNotify
+				}
+			)
+			{
+				if(
+					sge::opengl::xrandr::update_configuration(
+						_x11_event.get().event()
+					)
+				)
+					this->update();
+			}
+		}
+	);
+
+	// TODO: Return events here?
+	return
+		awl::event::container{};
 }
 
 void
@@ -183,7 +197,6 @@ sge::opengl::xrandr::state::update()
 {
 	display_mode_ =
 		sge::opengl::xrandr::current_display_mode(
-			display_,
 			window_
 		);
 

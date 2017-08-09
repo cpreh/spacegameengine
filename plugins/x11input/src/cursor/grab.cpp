@@ -20,27 +20,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/exception.hpp>
 #include <sge/x11input/cursor/grab.hpp>
+#include <sge/x11input/cursor/grab_error_to_string.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/cursor/object.hpp>
-#include <awl/backends/x11/window/object.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <awl/backends/x11/window/base.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
-#include <fcppt/log/_.hpp>
-#include <fcppt/log/debug.hpp>
-#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/X.h>
 #include <X11/extensions/XInput2.h>
-#include <chrono>
-#include <thread>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::x11input::cursor::grab::grab(
-	fcppt::log::object &_log,
-	awl::backends::x11::window::object const &_window,
+	awl::backends::x11::window::base const &_window,
 	sge::x11input::device::id const _id,
 	awl::backends::x11::cursor::object const &_cursor
 )
@@ -58,59 +51,34 @@ sge::x11input::cursor::grab::grab(
 		nullptr
 	};
 
-	for(
-		;;
-	)
-	{
-		Status const ret(
-			::XIGrabDevice(
-				_window.display().get(),
-				_id.get(),
-				_window.get(),
-				CurrentTime,
-				_cursor.get(),
-				GrabModeAsync,
-				GrabModeAsync,
-				True,
-				&mask
-			)
-		);
-
-		switch(
-			ret
+	Status const ret(
+		::XIGrabDevice(
+			_window.display().get(),
+			_id.get(),
+			_window.get(),
+			CurrentTime,
+			_cursor.get(),
+			GrabModeAsync,
+			GrabModeAsync,
+			True,
+			&mask
 		)
-		{
-		case GrabSuccess:
-			return;
-		case AlreadyGrabbed:
-		case GrabNotViewable:
-		case GrabFrozen:
-			FCPPT_LOG_DEBUG(
-				_log,
-				fcppt::log::_
-					<< FCPPT_TEXT("XIGrabDevice failed with code ")
-					<< ret
-					<< FCPPT_TEXT(". Retrying...")
-			);
+	);
 
-			std::this_thread::sleep_for(
-				std::chrono::milliseconds(
-					10
+
+	if(
+		ret
+		!=
+		GrabSuccess
+	)
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("X11 grab failed with code ")
+				+
+				sge::x11input::cursor::grab_error_to_string(
+					ret
 				)
-			);
-			break;
-		case GrabInvalidTime:
-		default:
-			throw
-				sge::input::exception{
-					FCPPT_TEXT("X11 grab failed with code ")
-					+
-					fcppt::insert_to_fcppt_string(
-						ret
-					)
-				};
-		}
-	}
+			};
 }
 
 sge::x11input::cursor::grab::~grab()

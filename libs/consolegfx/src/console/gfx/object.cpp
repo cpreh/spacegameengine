@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/message_callback.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/gfx/font_color.hpp>
+#include <sge/console/gfx/input_active.hpp>
 #include <sge/console/gfx/object.hpp>
 #include <sge/console/gfx/output_line_limit.hpp>
 #include <sge/console/gfx/detail/pointed_history.hpp>
@@ -37,27 +38,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/align_h/max_width.hpp>
 #include <sge/font/align_h/variant.hpp>
 #include <sge/font/draw/static_text.hpp>
-#include <sge/input/focus/char_callback.hpp>
-#include <sge/input/focus/char_event.hpp>
-#include <sge/input/focus/key_callback.hpp>
-#include <sge/input/focus/key_event.hpp>
-#include <sge/input/focus/key_repeat_callback.hpp>
-#include <sge/input/focus/key_repeat_event.hpp>
-#include <sge/input/focus/object.hpp>
+#include <sge/input/focus/key.hpp>
+#include <sge/input/focus/shared_ptr.hpp>
+#include <sge/input/focus/event/base.hpp>
+#include <sge/input/focus/event/char.hpp>
+#include <sge/input/focus/event/key.hpp>
+#include <sge/input/focus/event/key_repeat.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/modifier.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <boost/range/iterator_range_core.hpp>
 #include <functional>
 #include <locale>
@@ -72,63 +78,24 @@ sge::console::gfx::object::object(
 	sge::renderer::device::ffp &_renderer,
 	sge::console::gfx::font_color const &_font_color,
 	sge::font::object &_font_object,
-	sge::input::focus::object &_focus,
 	sge::font::rect const &_area,
 	sge::console::gfx::output_line_limit const _line_limit
 )
 :
-	object_(
+	object_{
 		_object
-	),
-	renderer_(
+	},
+	renderer_{
 		_renderer
-	),
-	font_color_(
+	},
+	font_color_{
 		_font_color
-	),
-	font_object_(
+	},
+	font_object_{
 		_font_object
-	),
-	focus_(
-		_focus
-	),
-	mod_state_tracker_(
-		_focus
-	),
-	key_connection_(
-		focus_.key_callback(
-			sge::input::focus::key_callback{
-				std::bind(
-					&sge::console::gfx::object::key_callback,
-					this,
-					std::placeholders::_1
-				)
-			}
-		)
-	),
-	key_repeat_connection_(
-		focus_.key_repeat_callback(
-			sge::input::focus::key_repeat_callback{
-				std::bind(
-					&sge::console::gfx::object::key_action,
-					this,
-					std::placeholders::_1
-				)
-			}
-		)
-	),
-	char_connection_(
-		_focus.char_callback(
-			sge::input::focus::char_callback{
-				std::bind(
-					&sge::console::gfx::object::char_callback,
-					this,
-					std::placeholders::_1
-				)
-			}
-		)
-	),
-	error_conn_(
+	},
+	mod_state_tracker_{},
+	error_connection_(
 		object_.register_error_callback(
 			sge::console::error_callback{
 				std::bind(
@@ -139,7 +106,7 @@ sge::console::gfx::object::object(
 			}
 		)
 	),
-	message_conn_(
+	message_connection_(
 		object_.register_message_callback(
 			sge::console::message_callback{
 				std::bind(
@@ -150,15 +117,9 @@ sge::console::gfx::object::object(
 			}
 		)
 	),
-	area_(
+	area_{
 		_area
-	),
-	active_(
-		false
-	),
-	input_active_(
-		true
-	),
+	},
 	input_line_(),
 	input_history_(),
 	current_input_(
@@ -182,7 +143,8 @@ sge::console::gfx::object::~object()
 
 void
 sge::console::gfx::object::render(
-	sge::renderer::context::ffp &_render_context
+	sge::renderer::context::ffp &_render_context,
+	sge::console::gfx::input_active const _input_active
 )
 {
 	sge::font::unit current_y(
@@ -190,7 +152,7 @@ sge::console::gfx::object::render(
 	);
 
 	if(
-		input_active_
+		_input_active.get()
 	)
 		current_y =
 			this->render_line(
@@ -222,46 +184,82 @@ sge::console::gfx::object::render(
 	}
 }
 
-bool
-sge::console::gfx::object::active() const
-{
-	return
-		active_;
-}
-
 void
-sge::console::gfx::object::active(
-	bool const _active
+sge::console::gfx::object::focus_event(
+	sge::input::focus::event::base const &_event
 )
 {
-	active_ =
-		_active;
-}
-
-bool
-sge::console::gfx::object::input_active() const
-{
-	return
-		input_active_;
-}
-
-void
-sge::console::gfx::object::input_active(
-	bool const _input_active
-)
-{
-	input_active_ =
-		_input_active;
-}
-
-void
-sge::console::gfx::object::print(
-	sge::font::string const &_string
-)
-{
-	output_lines_.push_front(
-		_string
+	mod_state_tracker_.event(
+		_event
 	);
+
+	fcppt::optional::maybe_void(
+		fcppt::variant::dynamic_cast_<
+			boost::mpl::vector3<
+				sge::input::focus::event::char_ const,
+				sge::input::focus::event::key const,
+				sge::input::focus::event::key_repeat const
+			>,
+			fcppt::cast::dynamic_fun
+		>(
+			_event
+		),
+		[
+			this
+		](
+			auto const &_variant
+		)
+		{
+			fcppt::variant::match(
+				_variant,
+				[
+					this
+				](
+					fcppt::reference<
+						sge::input::focus::event::char_ const
+					> const _char_event
+				)
+				{
+					this->on_char(
+						_char_event.get()
+					);
+				},
+				[
+					this
+				](
+					fcppt::reference<
+						sge::input::focus::event::key const
+					> const _key_event
+				)
+				{
+					this->on_key(
+						_key_event.get()
+					);
+				},
+				[
+					this
+				](
+					fcppt::reference<
+						sge::input::focus::event::key_repeat const
+					> const _key_repeat_event
+				)
+				{
+					this->on_key_repeat(
+						_key_repeat_event.get()
+					);
+				}
+			);
+		}
+	);
+}
+
+void
+sge::console::gfx::object::area(
+	sge::font::rect const &_area
+)
+{
+	area_ =
+		_area;
 }
 
 sge::console::object &
@@ -279,12 +277,13 @@ sge::console::gfx::object::console_object() const
 }
 
 void
-sge::console::gfx::object::area(
-	sge::font::rect const &_area
+sge::console::gfx::object::print(
+	sge::font::string const &_string
 )
 {
-	area_ =
-		_area;
+	output_lines_.push_front(
+		_string
+	);
 }
 
 sge::font::unit
@@ -337,34 +336,24 @@ sge::console::gfx::object::render_line(
 }
 
 void
-sge::console::gfx::object::key_callback(
-	sge::input::focus::key_event const &_key
+sge::console::gfx::object::on_key(
+	sge::input::focus::event::key const &_event
 )
 {
 	if(
-		active_
-		&&
-		_key.pressed()
+		_event.pressed()
 	)
 		this->key_action(
-			sge::input::focus::key_repeat_event(
-				_key.key()
-			)
+			_event.focus(),
+			_event.get()
 		);
 }
 
 void
-sge::console::gfx::object::char_callback(
-	sge::input::focus::char_event const &_event
+sge::console::gfx::object::on_char(
+	sge::input::focus::event::char_ const &_event
 )
 {
-	if(
-		!active_
-		||
-		!input_active_
-	)
-		return;
-
 	if(
 		std::isprint(
 			_event.character(),
@@ -377,36 +366,31 @@ sge::console::gfx::object::char_callback(
 }
 
 void
-sge::console::gfx::object::key_action(
-	sge::input::focus::key_repeat_event const &_event
+sge::console::gfx::object::on_key_repeat(
+	sge::input::focus::event::key_repeat const &_event
 )
 {
-	if(
-		!active_
-	)
-		return;
+	this->key_action(
+		_event.focus(),
+		_event.key()
+	);
+}
 
-	if(
-		!input_active_
-	)
-		switch(
-			_event.key().code()
-		)
-		{
-		case sge::input::key::code::pageup:
-		case sge::input::key::code::pagedown:
-			break;
-		default:
-			return;
-		}
-
+void
+sge::console::gfx::object::key_action(
+	sge::input::focus::shared_ptr const &_focus,
+	sge::input::focus::key const &_key
+)
+{
 	switch(
-		_event.key().code()
+		_key.code()
 	)
 	{
 		case sge::input::key::code::w:
 			if(
-				mod_state_tracker_.mod_state()
+				mod_state_tracker_.mod_state(
+					_focus
+				)
 				&
 				sge::input::key::modifier::control
 			)
@@ -427,7 +411,9 @@ sge::console::gfx::object::key_action(
 		break;
 		case sge::input::key::code::pageup:
 			if(
-				mod_state_tracker_.mod_state()
+				mod_state_tracker_.mod_state(
+					_focus
+				)
 				&
 				sge::input::key::modifier::shift
 			)
@@ -437,7 +423,9 @@ sge::console::gfx::object::key_action(
 		break;
 		case sge::input::key::code::pagedown:
 			if(
-				mod_state_tracker_.mod_state()
+				mod_state_tracker_.mod_state(
+					_focus
+				)
 				&
 				sge::input::key::modifier::shift
 			)

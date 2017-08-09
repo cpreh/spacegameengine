@@ -25,8 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/optional_system_unique_ptr.hpp>
 #include <sge/opengl/xrandr/system.hpp>
 #include <sge/opengl/xrandr/version.hpp>
-#include <awl/backends/x11/window/object.hpp>
-#include <awl/backends/x11/window/event/processor_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/_.hpp>

@@ -29,13 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
 #include <sge/input/cursor/button_code_to_string.hpp>
-#include <sge/input/cursor/button_event.hpp>
-#include <sge/input/cursor/move_event.hpp>
 #include <sge/input/cursor/position.hpp>
-#include <sge/input/cursor/scroll_event.hpp>
-#include <sge/input/focus/char_event.hpp>
-#include <sge/input/focus/key_event.hpp>
-#include <sge/input/focus/key_repeat_event.hpp>
+#include <sge/input/cursor/event/button.hpp>
+#include <sge/input/cursor/event/move.hpp>
+#include <sge/input/cursor/event/scroll.hpp>
+#include <sge/input/focus/event/char.hpp>
+#include <sge/input/focus/event/key.hpp>
+#include <sge/input/focus/event/key_repeat.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/code_to_string.hpp>
 #include <sge/log/default_parameters.hpp>
@@ -94,15 +94,15 @@ sge::cegui::syringe::~syringe()
 
 void
 sge::cegui::syringe::inject(
-	sge::input::focus::key_event const &_event
+	sge::input::focus::event::key const &_event
 )
 {
 	fcppt::optional::maybe_void(
 		::process_key_code(
 			log_,
-			_event.key().code(),
+			_event.get().code(),
 			sge::cegui::impl::convert_key(
-				_event.key().code()
+				_event.get().code()
 			)
 		),
 		[
@@ -128,7 +128,7 @@ sge::cegui::syringe::inject(
 
 void
 sge::cegui::syringe::inject(
-	sge::input::focus::key_repeat_event const &_event
+	sge::input::focus::event::key_repeat const &_event
 )
 {
 	fcppt::optional::maybe_void(
@@ -154,7 +154,7 @@ sge::cegui::syringe::inject(
 
 void
 sge::cegui::syringe::inject(
-	sge::input::focus::char_event const &_event
+	sge::input::focus::event::char_ const &_event
 )
 {
 	typedef
@@ -188,7 +188,7 @@ sge::cegui::syringe::inject(
 
 void
 sge::cegui::syringe::inject(
-	sge::input::cursor::button_event const &_event
+	sge::input::cursor::event::button const &_event
 )
 {
 	fcppt::optional::maybe(
@@ -239,7 +239,7 @@ sge::cegui::syringe::inject(
 
 void
 sge::cegui::syringe::inject(
-	sge::input::cursor::move_event const &_event
+	sge::input::cursor::event::move const &_event
 )
 {
 	fcppt::optional::maybe_void(
@@ -259,7 +259,7 @@ sge::cegui::syringe::inject(
 
 void
 sge::cegui::syringe::inject(
-	sge::input::cursor::scroll_event const &_event
+	sge::input::cursor::event::scroll const &_event
 )
 {
 	switch(

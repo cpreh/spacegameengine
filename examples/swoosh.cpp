@@ -41,11 +41,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/system.hpp>
-#include <sge/input/cursor/move_event.hpp>
-#include <sge/input/cursor/object.hpp>
-#include <sge/input/cursor/relative_move_callback.hpp>
-#include <sge/input/cursor/relative_move_event.hpp>
-#include <sge/input/cursor/relative_movement.hpp>
+#include <sge/input/cursor/relative_movement/event.hpp>
+#include <sge/input/cursor/relative_movement/object.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
@@ -61,6 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
@@ -94,12 +92,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/parameters.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/config.hpp>
-#include <sge/systems/cursor_demuxer.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
@@ -120,8 +116,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
@@ -130,31 +130,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/unique_ptr_to_const.hpp>
+#include <fcppt/cast/dynamic_fun.hpp>
+#include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
-#include <fcppt/io/cerr.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/vector/fill.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cmath>
 #include <example_main.hpp>
 #include <exception>
-#include <functional>
-#include <iostream>
 #include <numeric>
-#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -163,41 +165,52 @@ namespace
 
 class cursor_speed_tracker
 {
-FCPPT_NONCOPYABLE(
-	cursor_speed_tracker);
+	FCPPT_NONCOPYABLE(
+		cursor_speed_tracker
+	);
 public:
 	typedef
 	float
 	scalar;
 
 	typedef
-	fcppt::function<scalar(scalar)>
+	fcppt::function<
+		scalar(
+			scalar
+		)
+	>
 	modifier;
 
+	explicit
 	cursor_speed_tracker(
-		sge::input::cursor::object &,
-		modifier const &);
+		modifier const &
+	);
 
 	void
 	update();
 
 	scalar
 	current_speed() const;
+
+	void
+	move_event(
+		sge::input::cursor::relative_movement::event const &
+	);
 private:
 	typedef
-	boost::circular_buffer<scalar>
+	boost::circular_buffer<
+		scalar
+	>
 	speed_ring_buffer;
 
 	modifier const modifier_;
-	sge::input::cursor::relative_movement relative_cursor_movement_;
-	fcppt::signal::auto_connection relative_movement_connection_;
+
 	speed_ring_buffer speed_values_;
+
 	scalar current_speed_;
+
 	bool speed_updated_;
 
-	void
-	move_callback(
-		sge::input::cursor::relative_move_event const &);
 };
 
 }
@@ -209,56 +222,53 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 cursor_speed_tracker::cursor_speed_tracker(
-	sge::input::cursor::object &_cursor,
-	modifier const &_modifier)
+	modifier const &_modifier
+)
 :
-	modifier_(
-		_modifier),
-	relative_cursor_movement_(
-		_cursor),
-	relative_movement_connection_(
-		relative_cursor_movement_.relative_move_callback(
-			sge::input::cursor::relative_move_callback{
-				std::bind(
-					&cursor_speed_tracker::move_callback,
-					this,
-					std::placeholders::_1
-				)
-			}
-		)
-	),
-	speed_values_(
-		static_cast<speed_ring_buffer::capacity_type>(
-			10u)),
-	current_speed_(
-		0.0f),
-	speed_updated_(
-		false)
+	modifier_{
+		_modifier
+	},
+	speed_values_{
+		10u
+	},
+	current_speed_{
+		0.0f
+	},
+	speed_updated_{
+		false
+	}
 {
 	// Eliminate nasty / 0 in current_speed
 	speed_values_.push_back(
 		modifier_(
-			0.0f));
+			0.0f
+		)
+	);
 }
 
 FCPPT_PP_POP_WARNING
 
 void
-cursor_speed_tracker::move_callback(
-	sge::input::cursor::relative_move_event const &_e)
+cursor_speed_tracker::move_event(
+	sge::input::cursor::relative_movement::event const &_event
+)
 {
 	typedef
-	fcppt::math::vector::static_<scalar,2>
+	fcppt::math::vector::static_<
+		scalar,
+		2
+	>
 	vector2;
 
 	current_speed_ =
-		static_cast<scalar>(
-			fcppt::math::vector::length(
-				fcppt::math::vector::structure_cast<
-					vector2,
-					fcppt::cast::int_to_float_fun
-				>(
-					_e.position())));
+		fcppt::math::vector::length(
+			fcppt::math::vector::structure_cast<
+				vector2,
+				fcppt::cast::int_to_float_fun
+			>(
+				_event.difference().get()
+			)
+		);
 
 	speed_updated_ =
 		true;
@@ -273,8 +283,13 @@ cursor_speed_tracker::update()
 			?
 				current_speed_
 			:
-				fcppt::literal<scalar>(
-					0.0f)));
+				fcppt::literal<
+					scalar
+				>(
+					0.0f
+				)
+		)
+	);
 
 	speed_updated_ =
 		false;
@@ -287,16 +302,25 @@ cursor_speed_tracker::current_speed() const
 		std::accumulate(
 			speed_values_.begin(),
 			speed_values_.end(),
-			fcppt::literal<scalar>(
-				0)) /
-		static_cast<scalar>(
-			speed_values_.size());
+			fcppt::literal<
+				scalar
+			>(
+				0
+			)
+		)
+		/
+		fcppt::cast::int_to_float<
+			scalar
+		>(
+			speed_values_.size()
+		);
 }
 
 }
 
 namespace
 {
+
 template<
 	typename T
 >
@@ -324,18 +348,23 @@ step(
 
 cursor_speed_tracker::scalar
 cursor_speed_modifier(
-	cursor_speed_tracker::scalar const _input)
+	cursor_speed_tracker::scalar const _input
+)
 {
 	cursor_speed_tracker::scalar const
-		initial_value =
+		initial_value{
 			std::pow(
 				_input / 100.0f,
-				0.5f),
-		final_value =
+				0.5f
+			)
+		},
+		final_value{
 			step(
 				initial_value,
-				0.25f) *
-			initial_value;
+				0.25f
+			) *
+			initial_value
+		};
 
 	return
 		final_value;
@@ -354,12 +383,7 @@ try
 				sge::systems::renderer_caps::ffp
 			>,
 			sge::systems::with_window,
-			sge::systems::with_input<
-				boost::mpl::vector2<
-					sge::systems::keyboard_collector,
-					sge::systems::cursor_demuxer
-				>
-			>,
+			sge::systems::with_input,
 			sge::systems::with_audio_player,
 			sge::systems::with_audio_loader,
 			sge::systems::with_image2d
@@ -457,10 +481,6 @@ try
 		sge::graph::color_schemes::bright()
 	);
 
-	sge::input::cursor::object &cursor(
-		sys.cursor_demuxer()
-	);
-
 	sge::texture::const_part_unique_ptr const tex_bg(
 		fcppt::unique_ptr_to_const(
 			fcppt::unique_ptr_to_base<
@@ -511,7 +531,8 @@ try
 		)
 	);
 
-	typedef sge::sprite::config::choices<
+	typedef
+	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
 				int
@@ -535,27 +556,38 @@ try
 				sge::sprite::config::texture_ownership::reference
 			>
 		>
-	> sprite_choices;
+	>
+	sprite_choices;
 
-	typedef sge::sprite::object<
+	typedef
+	sge::sprite::object<
 		sprite_choices
-	> sprite_object;
+	>
+	sprite_object;
 
-	typedef sge::sprite::buffers::with_declaration<
+	typedef
+	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
-	> sprite_buffers;
+	>
+	sprite_buffers;
 
-	typedef sge::sprite::state::all_choices sprite_state_choices;
+	typedef
+	sge::sprite::state::all_choices
+	sprite_state_choices;
 
-	typedef sge::sprite::state::object<
+	typedef
+	sge::sprite::state::object<
 		sprite_state_choices
-	> sprite_state_object;
+	>
+	sprite_state_object;
 
-	typedef sge::sprite::state::parameters<
+	typedef
+	sge::sprite::state::parameters<
 		sprite_state_choices
-	> sprite_state_parameters;
+	>
+	sprite_state_parameters;
 
 	sprite_buffers sprite_buf(
 		sys.renderer_device_ffp(),
@@ -600,13 +632,17 @@ try
 		)
 	);
 
-	sge::audio::buffer_unique_ptr const sound_buffer(
+	sge::audio::buffer_unique_ptr const sound_buffer{
 		sys.audio_player().create_buffer(
-			*af_siren));
+			*af_siren
+		)
+	};
 
-	sge::audio::sound::base_unique_ptr const sound_siren(
+	sge::audio::sound::base_unique_ptr const sound_siren{
 		sound_buffer->create_nonpositional(
-			sge::audio::sound::nonpositional_parameters()));
+			sge::audio::sound::nonpositional_parameters()
+		)
+	};
 
 	sound_siren->play(
 		sge::audio::sound::repeat::loop
@@ -618,12 +654,11 @@ try
 		)
 	);
 
-	cursor_speed_tracker cursor_speed(
-		cursor,
+	cursor_speed_tracker cursor_speed{
 		cursor_speed_tracker::modifier{
 			&cursor_speed_modifier
 		}
-	);
+	};
 
 	sound_siren->pitch(
 		fcppt::literal<
@@ -633,69 +668,146 @@ try
 		)
 	);
 
-	while(
-		sys.window_system().poll()
-	)
-	{
-		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target()
-		);
+	sge::input::cursor::relative_movement::object const relative_cursor_movement{
+		sys.input_processor()
+	};
 
-		scoped_block.get().clear(
-			sge::renderer::clear::parameters()
-			.back_buffer(
-				sge::image::color::any::object{
-					sge::image::color::predef::black()
-				}
-			)
-		);
+	auto const draw(
+		[
+			&background,
+			&cursor_speed,
+			&graph,
+			&sound_siren,
+			&sprite_buf,
+			&sprite_states,
+			&sys,
+			&tux
+		]
+		{
+			sge::renderer::context::scoped_ffp const scoped_block(
+				sys.renderer_device_ffp(),
+				sys.renderer_device_ffp().onscreen_target()
+			);
 
-		sge::sprite::process::one(
-			scoped_block.get(),
-			background,
-			sprite_buf,
-			sprite_states
-		);
+			scoped_block.get().clear(
+				sge::renderer::clear::parameters()
+				.back_buffer(
+					sge::image::color::any::object{
+						sge::image::color::predef::black()
+					}
+				)
+			);
 
-		sge::sprite::process::one(
-			scoped_block.get(),
-			tux,
-			sprite_buf,
-			sprite_states
-		);
+			sge::sprite::process::one(
+				scoped_block.get(),
+				background,
+				sprite_buf,
+				sprite_states
+			);
 
-		cursor_speed.update();
-		sound_siren->update();
-		graph.render(
-			scoped_block.get());
+			sge::sprite::process::one(
+				scoped_block.get(),
+				tux,
+				sprite_buf,
+				sprite_states
+			);
 
-		graph.push(
-			cursor_speed.current_speed());
-		sound_siren->pitch(
-			cursor_speed.current_speed());
-	}
+			cursor_speed.update();
+
+			sound_siren->update();
+
+			graph.render(
+				scoped_block.get()
+			);
+
+			graph.push(
+				cursor_speed.current_speed()
+			);
+
+			sound_siren->pitch(
+				cursor_speed.current_speed()
+			);
+		}
+	);
 
 	return
-		sys.window_system().exit_code();
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&cursor_speed,
+					&draw
+				](
+					awl::event::base const &_event
+				)
+				{
+					fcppt::optional::maybe_void(
+						fcppt::variant::dynamic_cast_<
+							boost::mpl::vector2<
+								sge::input::cursor::relative_movement::event const,
+								sge::renderer::event::render const
+							>,
+							fcppt::cast::dynamic_fun
+						>(
+							_event
+						),
+						[
+							&cursor_speed,
+							&draw
+						](
+							auto const &_variant
+						)
+						{
+							fcppt::variant::match(
+								_variant,
+								[
+									&cursor_speed
+								](
+									fcppt::reference<
+										sge::input::cursor::relative_movement::event const
+									> const _relative_movement
+								)
+								{
+									cursor_speed.move_event(
+										_relative_movement.get()
+									);
+								},
+								[
+									&draw
+								](
+									fcppt::reference<
+										sge::renderer::event::render const
+									>
+								)
+								{
+									draw();
+								}
+							);
+						}
+					);
+				}
+			}
+		);
 }
 catch(
 	fcppt::exception const &_error
 )
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_error.string()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
 )
 {
-	std::cerr
-		<< _error.what()
-		<< '\n';
+	awl::show_error_narrow(
+		_error.what()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }

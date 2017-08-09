@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/ffp_unique_ptr.hpp>
 #include <sge/renderer/device/parameters.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
+#include <sge/window/object.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>

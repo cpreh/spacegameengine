@@ -60,18 +60,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/draw/simple.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/input/cursor/button_callback.hpp>
-#include <sge/input/cursor/button_event.hpp>
-#include <sge/input/cursor/move_callback.hpp>
-#include <sge/input/cursor/move_event.hpp>
-#include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
+#include <sge/input/cursor/event/button.hpp>
+#include <sge/input/cursor/event/move.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/render_to_screen.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/renderer/aspect.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector2.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
@@ -79,18 +78,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <sge/systems/cursor_demuxer.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
@@ -107,48 +106,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
-#include <fcppt/io/cerr.hpp>
+#include <fcppt/container/maybe_back.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/preprocessor/disable_vc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
+#include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <functional>
-#include <iostream>
-#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
+
 // The line drawer currently only accepts three-dimensional points for
 // its lines since it can be used to draw lines in "world space",
 // too. In this example, we're just going to show the two-dimensional
 // capabilities, so here's a function converting a 2D cursor position
 // to a 3D position by just appending a 0 at the end.
-sge::renderer::vector3 const
+sge::renderer::vector3
 cursor_position_to_vector3(
-	sge::input::cursor::position const &p)
+	sge::input::cursor::position const &_pos
+)
 {
 	return
 		fcppt::math::vector::construct(
@@ -156,161 +159,16 @@ cursor_position_to_vector3(
 				sge::renderer::vector2,
 				fcppt::cast::int_to_float_fun
 			>(
-				p
+				_pos
 			),
-			static_cast<sge::renderer::scalar>(
-				0));
+			fcppt::literal<
+				sge::renderer::scalar
+			>(
+				0
+			)
+		);
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_VC_WARNING(4355)
-class follows_cursor
-{
-FCPPT_NONCOPYABLE(
-	follows_cursor);
-public:
-	follows_cursor(
-		sge::line_drawer::object &_line_drawer,
-		sge::input::cursor::object &_cursor)
-	:
-		line_drawer_(
-			_line_drawer),
-		cursor_(
-			_cursor),
-		// Register a move callback (which uses absolute positions!) and a
-		// button callback
-		move_connection_(
-			_cursor.move_callback(
-				sge::input::cursor::move_callback{
-					std::bind(
-						&follows_cursor::move_callback,
-						this,
-						std::placeholders::_1
-					)
-				}
-			)
-		),
-		click_connection_(
-			_cursor.button_callback(
-				sge::input::cursor::button_callback{
-					std::bind(
-						&follows_cursor::click_callback,
-						this,
-						std::placeholders::_1
-					)
-				}
-			)
-		)
-	{
-	}
-FCPPT_PP_POP_WARNING
-
-	~follows_cursor()
-	{
-	}
-private:
-	sge::line_drawer::object &line_drawer_;
-
-	sge::input::cursor::object &cursor_;
-
-	fcppt::signal::auto_connection
-		move_connection_,
-		click_connection_;
-
-	void
-	move_callback(
-		sge::input::cursor::move_event const &_event
-	)
-	{
-		fcppt::optional::maybe_void(
-			_event.position(),
-			[
-				this
-			](
-				sge::input::cursor::position const _pos
-			)
-			{
-				// To change the line drawer's geometry, we have to create a lock,
-				// there's no other way
-				sge::line_drawer::scoped_lock lock(
-					line_drawer_);
-
-				if(lock.value().empty())
-					return;
-
-				// Then we can freely (!) change everything. When unlock is called
-				// (in the lock's destructor), all the geometry will be updated at
-				// once.
-				lock.value().back() =
-					sge::line_drawer::line(
-						lock.value().back().begin(),
-						cursor_position_to_vector3(
-							_pos
-						),
-						sge::image::color::any::object(
-							lock.value().back().begin_color()
-						),
-						sge::image::color::any::object(
-							lock.value().back().end_color()
-						)
-					);
-			}
-		);
-	}
-
-	void
-	click_callback(
-		sge::input::cursor::button_event const &e)
-	{
-		if(!e.pressed())
-			return;
-
-		// Same as above
-		sge::line_drawer::scoped_lock lock(
-			line_drawer_);
-
-		if(lock.value().empty())
-		{
-			fcppt::optional::maybe_void(
-				cursor_.position(),
-				[
-					&lock
-				](
-					sge::input::cursor::position const _pos
-				)
-				{
-					sge::renderer::vector3 const pos3(
-						cursor_position_to_vector3(
-							_pos
-						)
-					);
-
-					lock.value().push_back(
-						sge::line_drawer::line(
-							pos3,
-							pos3,
-							sge::image::color::any::object{
-								sge::image::color::predef::red()
-							},
-							sge::image::color::any::object{
-								sge::image::color::predef::blue()
-							}
-						)
-					);
-				}
-			);
-		}
-		else
-			lock.value().push_back(
-				sge::line_drawer::line(
-					lock.value().back().end(),
-					lock.value().back().end(),
-					sge::image::color::any::object(
-						lock.value().back().end_color()),
-					sge::image::color::any::object(
-						lock.value().back().begin_color())));
-	}
-};
 }
 
 awl::main::exit_code const
@@ -326,12 +184,7 @@ try
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
 			>,
-			sge::systems::with_input<
-				boost::mpl::vector2<
-					sge::systems::cursor_demuxer,
-					sge::systems::keyboard_collector
-				>
-			>
+			sge::systems::with_input
 		>
 	> const sys(
 		sge::systems::make_list
@@ -370,7 +223,9 @@ try
 
 	fcppt::signal::auto_connection const escape_connection(
 		sge::systems::quit_on_escape(
-			sys));
+			sys
+		)
+	);
 
 	sge::font::object_unique_ptr const font(
 		sys.font_system().create_font(
@@ -383,118 +238,319 @@ try
 
 	sge::timer::frames_counter frames_counter;
 
-	sge::line_drawer::object line_drawer(
-		sys.renderer_device_ffp());
+	sge::line_drawer::object line_drawer{
+		sys.renderer_device_ffp()
+	};
 
-	::follows_cursor follows_cursor(
-		line_drawer,
-		sys.cursor_demuxer());
+	auto const move_event(
+		[
+			&line_drawer
+		](
+			sge::input::cursor::event::move const &_event
+		)
+		{
+			fcppt::optional::maybe_void(
+				_event.position(),
+				[
+					&line_drawer
+				](
+					sge::input::cursor::position const _pos
+				)
+				{
+					// To change the line drawer's geometry, we have to create a lock.
+					sge::line_drawer::scoped_lock const lock{
+						line_drawer
+					};
 
-	while(
-		sys.window_system().poll())
-	{
-
-		frames_counter.update();
-
-		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target());
-
-		scoped_block.get().clear(
-			sge::renderer::clear::parameters()
-			.back_buffer(
-				sge::image::color::any::object{
-					sge::image::color::predef::black()
+					fcppt::optional::maybe_void(
+						fcppt::container::maybe_back(
+							lock.value()
+						),
+						[
+							_pos
+						](
+							fcppt::reference<
+								sge::line_drawer::line
+							> const _last
+						)
+						{
+							// Then we can freely (!) change everything. When unlock is called
+							// (in the lock's destructor), all the geometry will be updated at
+							// once.
+							_last.get() =
+								sge::line_drawer::line{
+									_last.get().begin(),
+									cursor_position_to_vector3(
+										_pos
+									),
+									sge::image::color::any::object(
+										_last.get().begin_color()
+									),
+									sge::image::color::any::object(
+										_last.get().end_color()
+									)
+								};
+						}
+					);
 				}
+			);
+		}
+	);
+
+	auto const button_event(
+		[
+			&line_drawer
+		](
+			sge::input::cursor::event::button const &_event
+		)
+		{
+			if(
+				!_event.pressed()
 			)
-		);
+				return;
 
-		// This function sets up an orthographic projection and calls
-		// render. It's just a wrapper.
-		sge::line_drawer::render_to_screen(
-			sys.renderer_device_ffp(),
-			scoped_block.get(),
-			line_drawer);
+			sge::line_drawer::scoped_lock const lock{
+				line_drawer
+			};
 
-		sge::font::vector const font_pos(
-			fcppt::math::vector::null<
-				sge::font::vector
-			>()
-		);
+			fcppt::optional::maybe(
+				fcppt::container::maybe_back(
+					lock.value()
+				),
+				[
+					&_event,
+					&lock
+				]{
+					sge::renderer::vector3 const pos3(
+						cursor_position_to_vector3(
+							_event.position()
+						)
+					);
 
-		sge::font::align_h::max_width const font_width(
-			fcppt::cast::size<
-				sge::font::unit
-			>(
-				fcppt::cast::to_signed(
-					sge::renderer::target::viewport_size(
-						sys.renderer_device_ffp().onscreen_target()
-					).w()
+					lock.value().push_back(
+						sge::line_drawer::line(
+							pos3,
+							pos3,
+							sge::image::color::any::object{
+								sge::image::color::predef::red()
+							},
+							sge::image::color::any::object{
+								sge::image::color::predef::blue()
+							}
+						)
+					);
+				},
+				[
+					&lock
+				](
+					fcppt::reference<
+						sge::line_drawer::line
+					> const _last
 				)
-			)
-		);
+				{
+					lock.value().push_back(
+						sge::line_drawer::line(
+							_last.get().end(),
+							_last.get().end(),
+							sge::image::color::any::object(
+								_last.get().end_color()
+							),
+							sge::image::color::any::object(
+								_last.get().begin_color()
+							)
+						)
+					);
+				}
+			);
+		}
+	);
 
-		sge::font::draw::simple(
-			sys.renderer_device_ffp(),
-			scoped_block.get(),
-			*font,
-			SGE_FONT_LIT("Press the left mouse button to set a point"),
-			sge::font::text_parameters(
-				sge::font::align_h::variant(
-					sge::font::align_h::left(
-						font_width
+	auto const draw(
+		[
+			&font,
+			&frames_counter,
+			&line_drawer,
+			&sys
+		]{
+			frames_counter.update();
+
+			sge::renderer::context::scoped_ffp const scoped_block(
+				sys.renderer_device_ffp(),
+				sys.renderer_device_ffp().onscreen_target()
+			);
+
+			scoped_block.get().clear(
+				sge::renderer::clear::parameters()
+				.back_buffer(
+					sge::image::color::any::object{
+						sge::image::color::predef::black()
+					}
+				)
+			);
+
+			// This function sets up an orthographic projection and calls
+			// render. It's just a wrapper.
+			sge::line_drawer::render_to_screen(
+				sys.renderer_device_ffp(),
+				scoped_block.get(),
+				line_drawer
+			);
+
+			sge::font::vector const font_pos(
+				fcppt::math::vector::null<
+					sge::font::vector
+				>()
+			);
+
+			sge::font::align_h::max_width const font_width(
+				fcppt::cast::size<
+					sge::font::unit
+				>(
+					fcppt::cast::to_signed(
+						sge::renderer::target::viewport_size(
+							sys.renderer_device_ffp().onscreen_target()
+						).w()
 					)
 				)
-			),
-			font_pos,
-			sge::image::color::any::object{
-				sge::image::color::predef::red()
-			},
-			sge::renderer::texture::emulate_srgb::yes
-		);
+			);
 
-		sge::font::draw::simple(
-			sys.renderer_device_ffp(),
-			scoped_block.get(),
-			*font,
-			sge::font::from_fcppt_string(
-				frames_counter.frames_str()
-			)
-			+
-			SGE_FONT_LIT(" fps"),
-			sge::font::text_parameters(
-				sge::font::align_h::variant(
-					sge::font::align_h::right(
-						font_width
+			sge::font::draw::simple(
+				sys.renderer_device_ffp(),
+				scoped_block.get(),
+				*font,
+				SGE_FONT_LIT("Press the left mouse button to set a point"),
+				sge::font::text_parameters(
+					sge::font::align_h::variant(
+						sge::font::align_h::left(
+							font_width
+						)
 					)
+				),
+				font_pos,
+				sge::image::color::any::object{
+					sge::image::color::predef::red()
+				},
+				sge::renderer::texture::emulate_srgb::yes
+			);
+
+			sge::font::draw::simple(
+				sys.renderer_device_ffp(),
+				scoped_block.get(),
+				*font,
+				sge::font::from_fcppt_string(
+					frames_counter.frames_str()
 				)
-			),
-			font_pos,
-			sge::image::color::any::object{
-				sge::image::color::predef::red()
-			},
-			sge::renderer::texture::emulate_srgb::yes
-		);
-	}
+				+
+				SGE_FONT_LIT(" fps"),
+				sge::font::text_parameters(
+					sge::font::align_h::variant(
+						sge::font::align_h::right(
+							font_width
+						)
+					)
+				),
+				font_pos,
+				sge::image::color::any::object{
+					sge::image::color::predef::red()
+				},
+				sge::renderer::texture::emulate_srgb::yes
+			);
+		}
+	);
 
 	return
-		sys.window_system().exit_code();
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&button_event,
+					&draw,
+					&move_event
+				](
+					awl::event::base const &_event
+				)
+				{
+					fcppt::optional::maybe_void(
+						fcppt::variant::dynamic_cast_<
+							boost::mpl::vector3<
+								sge::renderer::event::render const,
+								sge::input::cursor::event::button const,
+								sge::input::cursor::event::move const
+							>,
+							fcppt::cast::dynamic_fun
+						>(
+							_event
+						),
+						[
+							&button_event,
+							&draw,
+							&move_event
+						](
+							auto const &_variant
+						)
+						{
+							fcppt::variant::match(
+								_variant,
+								[
+									&draw
+								](
+									fcppt::reference<
+										sge::renderer::event::render const
+									>
+								)
+								{
+									draw();
+								},
+								[
+									&button_event
+								](
+									fcppt::reference<
+										sge::input::cursor::event::button const
+									> const _button_event
+								)
+								{
+									button_event(
+										_button_event.get()
+									);
+								},
+								[
+									&move_event
+								](
+									fcppt::reference<
+										sge::input::cursor::event::move const
+									> const _move_event
+								)
+								{
+									move_event(
+										_move_event.get()
+									);
+								}
+							);
+						}
+					);
+				}
+			}
+		);
 }
 catch(
-	fcppt::exception const &_error)
+	fcppt::exception const &_error
+)
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_error.string()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
-	std::exception const &_error)
+	std::exception const &_error
+)
 {
-	std::cerr
-		<< _error.what()
-		<< '\n';
+	awl::show_error_narrow(
+		_error.what()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }

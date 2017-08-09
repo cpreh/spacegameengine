@@ -21,32 +21,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_CURSOR_OBJECT_HPP_INCLUDED
 #define SGE_X11INPUT_CURSOR_OBJECT_HPP_INCLUDED
 
-#include <sge/input/cursor/button_callback.hpp>
 #include <sge/input/cursor/button_pressed.hpp>
-#include <sge/input/cursor/button_signal.hpp>
 #include <sge/input/cursor/mode.hpp>
-#include <sge/input/cursor/move_callback.hpp>
-#include <sge/input/cursor/move_signal.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
-#include <sge/input/cursor/scroll_callback.hpp>
-#include <sge/input/cursor/scroll_signal.hpp>
-#include <sge/x11input/cursor/grab_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <sge/x11input/cursor/optional_grab_unique_ptr.hpp>
 #include <sge/x11input/cursor/object_fwd.hpp>
 #include <sge/x11input/cursor/scroll_valuator_map.hpp>
-#include <sge/x11input/device/event_fwd.hpp>
-#include <sge/x11input/device/object.hpp>
-#include <sge/x11input/device/parameters_fwd.hpp>
-#include <sge/x11input/device/window_event_fwd.hpp>
+#include <sge/x11input/event/window_demuxer_fwd.hpp>
 #include <awl/backends/x11/cursor/object_fwd.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
+#include <awl/backends/x11/window/base_fwd.hpp>
+#include <awl/event/base_unique_ptr.hpp>
+#include <awl/event/container.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
+#include <fcppt/enable_shared_from_this_decl.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/log/object_fwd.hpp>
-#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/auto_connection_container.hpp>
-#include <fcppt/signal/object_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -58,42 +53,31 @@ namespace cursor
 
 class object
 :
-	public sge::input::cursor::object,
-	public sge::x11input::device::object
+	public
+		sge::input::cursor::object,
+	public
+		fcppt::enable_shared_from_this<
+			object
+		>
 {
 	FCPPT_NONCOPYABLE(
 		object
 	);
 public:
 	object(
+		sge::window::object &,
 		fcppt::log::object &,
-		sge::x11input::device::parameters const &,
+		awl::backends::x11::window::base const &,
+		XIDeviceInfo const &,
+		sge::x11input::event::window_demuxer &,
 		awl::backends::x11::cursor::object const &
 	);
 
 	~object()
 	override;
-
-	void
-	init()
-	override;
 private:
-	fcppt::signal::auto_connection
-	button_callback(
-		sge::input::cursor::button_callback const &
-	)
-	override;
-
-	fcppt::signal::auto_connection
-	move_callback(
-		sge::input::cursor::move_callback const &
-	)
-	override;
-
-	fcppt::signal::auto_connection
-	scroll_callback(
-		sge::input::cursor::scroll_callback const &
-	)
+	sge::window::object &
+	window() const
 	override;
 
 	sge::input::cursor::optional_position
@@ -106,93 +90,88 @@ private:
 	)
 	override;
 
-	void
+	awl::event::container
+	on_event(
+		XIDeviceEvent const &
+	);
+
+	awl::event::container
+	on_paired_event(
+		XIDeviceEvent const &
+	);
+
+	awl::event::container
 	on_motion(
-		sge::x11input::device::window_event const &
+		XIDeviceEvent const &
 	);
 
-	void
+	awl::event::base_unique_ptr
 	on_enter(
-		sge::x11input::device::window_event const &
+		XIDeviceEvent const &
 	);
 
-	void
+	awl::event::base_unique_ptr
 	on_leave(
-		sge::x11input::device::window_event const &
+		XIDeviceEvent const &
 	);
 
 	void
-	on_focus_out(
-		sge::x11input::device::window_event const &
-	);
+	on_focus_out();
 
-	template<
-		typename Event
-	>
-	void
+	awl::event::base_unique_ptr
 	update_position(
-		sge::x11input::device::event<
-			Event
-		> const &
+		XIDeviceEvent const &
 	);
 
-	void
+	awl::event::base_unique_ptr
+	make_position_event();
+
+	awl::event::optional_base_unique_ptr
 	on_button_down(
-		sge::x11input::device::window_event const &
+		XIDeviceEvent const &
 	);
 
-	void
+	awl::event::optional_base_unique_ptr
 	on_button_up(
-		sge::x11input::device::window_event const &
+		XIDeviceEvent const &
 	);
 
-	void
+	awl::event::optional_base_unique_ptr
 	button_event(
-		sge::x11input::device::window_event const &,
+		XIDeviceEvent const &,
 		sge::input::cursor::button_pressed
 	);
 
 	void
-	move_event();
+	grab();
 
 	void
-	check_grab();
+	ungrab();
+
+	sge::window::object &sge_window_;
+
+	sge::x11input::device::id const id_;
 
 	fcppt::log::object &log_;
 
-	awl::backends::x11::window::object const &window_;
+	awl::backends::x11::window::base const &window_;
 
 	awl::backends::x11::cursor::object const &cursor_;
 
-	fcppt::signal::auto_connection_container const connections_;
+	// TODO: Get rid of this
+	sge::input::cursor::optional_position position_;
+
+	bool first_enter_;
+
+	fcppt::signal::auto_connection const event_connection_;
+
+	fcppt::signal::auto_connection const paired_event_connection_;
 
 	sge::input::cursor::mode mode_;
 
-	bool should_grab_;
-
-	sge::input::cursor::optional_position position_;
-
 	sge::x11input::cursor::scroll_valuator_map scroll_valuators_;
 
-	sge::input::cursor::button_signal button_signal_;
-
-	sge::input::cursor::move_signal move_signal_;
-
-	sge::input::cursor::scroll_signal scroll_signal_;
-
-	typedef
-	fcppt::unique_ptr<
-		sge::x11input::cursor::grab
-	>
-	cursor_grab_unique_ptr;
-
-	typedef
-	fcppt::optional::object<
-		cursor_grab_unique_ptr
-	>
-	optional_cursor_grab_unique_ptr;
-
-	optional_cursor_grab_unique_ptr cursor_grab_;
+	sge::x11input::cursor::optional_grab_unique_ptr cursor_grab_;
 };
 
 }

@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_CURSOR_POSITION_HPP_INCLUDED
 
 #include <sge/input/cursor/position.hpp>
-#include <sge/input/cursor/position_unit.hpp>
-#include <sge/x11input/device/event.hpp>
-#include <fcppt/cast/float_to_int.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -34,30 +34,10 @@ namespace x11input
 namespace cursor
 {
 
-template<
-	typename Event
->
 sge::input::cursor::position
 position(
-	sge::x11input::device::event<
-		Event
-	> const &_event
-)
-{
-	return
-		sge::input::cursor::position(
-			fcppt::cast::float_to_int<
-				sge::input::cursor::position_unit
-			>(
-				_event.get().event_x
-			),
-			fcppt::cast::float_to_int<
-				sge::input::cursor::position_unit
-			>(
-				_event.get().event_y
-			)
-		);
-}
+	XIDeviceEvent const &
+);
 
 }
 }

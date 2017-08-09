@@ -21,18 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/event_map.hpp>
 #include <sge/evdev/joypad/info.hpp>
 #include <sge/input/joypad/info.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::evdev::joypad::info::info(
-	sge::input::joypad::info const &_input_info,
-	sge::evdev::joypad::event_map const &_event_map
+	sge::input::joypad::info &&_input_info,
+	sge::evdev::joypad::event_map &&_event_map
 )
 :
 	input_info_(
-		_input_info
+		std::move(
+			_input_info
+		)
 	),
 	event_map_(
-		_event_map
+		std::move(
+			_event_map
+		)
 	)
 {
 }

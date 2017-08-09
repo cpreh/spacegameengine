@@ -1,15 +1,13 @@
 set(
 	SGE_INPUT_FILES
-	libs/input/impl/include/sge/input/impl/event/discover_impl.hpp
-	libs/input/impl/include/sge/input/impl/event/instantiate_discover.hpp
-	libs/input/impl/include/sge/input/impl/event/instantiate_remove.hpp
-	libs/input/impl/include/sge/input/impl/event/remove_impl.hpp
+	libs/input/impl/include/sge/input/impl/cursor/relative_movement/detail/object.hpp
 	libs/input/impl/include/sge/input/impl/info/container_impl.hpp
 	libs/input/impl/include/sge/input/impl/info/instantiate_container.hpp
 	libs/input/impl/include/sge/input/impl/log_name.hpp
 	libs/input/impl/include/sge/input/impl/multi_processor.hpp
 	libs/input/impl/include/sge/input/impl/multi_system.hpp
 	libs/input/impl/include/sge/input/impl/system_ptr_vector.hpp
+	libs/input/impl/src/input/impl/cursor/relative_movement/detail/object.cpp
 	libs/input/impl/src/input/impl/log_name.cpp
 	libs/input/impl/src/input/impl/multi_processor.cpp
 	libs/input/impl/src/input/impl/multi_system.cpp
@@ -19,163 +17,113 @@ set(
 	libs/input/include/sge/input/capabilities_fwd.hpp
 	libs/input/include/sge/input/capabilities_to_string.hpp
 	libs/input/include/sge/input/create_multi_system.hpp
-	libs/input/include/sge/input/cursor/activatable.hpp
-	libs/input/include/sge/input/cursor/activatable_fwd.hpp
-	libs/input/include/sge/input/cursor/button_callback.hpp
 	libs/input/include/sge/input/cursor/button_code.hpp
 	libs/input/include/sge/input/cursor/button_code_fwd.hpp
 	libs/input/include/sge/input/cursor/button_code_to_string.hpp
-	libs/input/include/sge/input/cursor/button_event.hpp
-	libs/input/include/sge/input/cursor/button_event_fwd.hpp
-	libs/input/include/sge/input/cursor/button_function.hpp
 	libs/input/include/sge/input/cursor/button_pressed.hpp
-	libs/input/include/sge/input/cursor/button_signal.hpp
-	libs/input/include/sge/input/cursor/choose_callback.hpp
-	libs/input/include/sge/input/cursor/choose_function.hpp
-	libs/input/include/sge/input/cursor/default_choose.hpp
-	libs/input/include/sge/input/cursor/demuxer.hpp
-	libs/input/include/sge/input/cursor/demuxer_fwd.hpp
-	libs/input/include/sge/input/cursor/discover_callback.hpp
-	libs/input/include/sge/input/cursor/discover_event.hpp
-	libs/input/include/sge/input/cursor/discover_event_fwd.hpp
-	libs/input/include/sge/input/cursor/discover_function.hpp
-	libs/input/include/sge/input/cursor/discover_signal.hpp
-	libs/input/include/sge/input/cursor/manager.hpp
+	libs/input/include/sge/input/cursor/container.hpp
+	libs/input/include/sge/input/cursor/event/base.hpp
+	libs/input/include/sge/input/cursor/event/base_fwd.hpp
+	libs/input/include/sge/input/cursor/event/button.hpp
+	libs/input/include/sge/input/cursor/event/button_fwd.hpp
+	libs/input/include/sge/input/cursor/event/discover.hpp
+	libs/input/include/sge/input/cursor/event/discover_fwd.hpp
+	libs/input/include/sge/input/cursor/event/move.hpp
+	libs/input/include/sge/input/cursor/event/move_fwd.hpp
+	libs/input/include/sge/input/cursor/event/remove.hpp
+	libs/input/include/sge/input/cursor/event/remove_fwd.hpp
+	libs/input/include/sge/input/cursor/event/scroll.hpp
+	libs/input/include/sge/input/cursor/event/scroll_fwd.hpp
 	libs/input/include/sge/input/cursor/mode.hpp
 	libs/input/include/sge/input/cursor/mode_fwd.hpp
-	libs/input/include/sge/input/cursor/move_callback.hpp
-	libs/input/include/sge/input/cursor/move_event.hpp
-	libs/input/include/sge/input/cursor/move_event_fwd.hpp
-	libs/input/include/sge/input/cursor/move_function.hpp
-	libs/input/include/sge/input/cursor/move_signal.hpp
-	libs/input/include/sge/input/cursor/no_object.hpp
 	libs/input/include/sge/input/cursor/object.hpp
 	libs/input/include/sge/input/cursor/object_fwd.hpp
-	libs/input/include/sge/input/cursor/object_set.hpp
 	libs/input/include/sge/input/cursor/object_unique_ptr.hpp
-	libs/input/include/sge/input/cursor/optional_object_ref.hpp
-	libs/input/include/sge/input/cursor/optional_object_ref_fwd.hpp
 	libs/input/include/sge/input/cursor/optional_position.hpp
 	libs/input/include/sge/input/cursor/optional_position_fwd.hpp
 	libs/input/include/sge/input/cursor/position.hpp
 	libs/input/include/sge/input/cursor/position_fwd.hpp
 	libs/input/include/sge/input/cursor/position_unit.hpp
-	libs/input/include/sge/input/cursor/relative_move_callback.hpp
-	libs/input/include/sge/input/cursor/relative_move_event.hpp
-	libs/input/include/sge/input/cursor/relative_move_event_fwd.hpp
-	libs/input/include/sge/input/cursor/relative_move_function.hpp
-	libs/input/include/sge/input/cursor/relative_movement.hpp
-	libs/input/include/sge/input/cursor/relative_movement_fwd.hpp
-	libs/input/include/sge/input/cursor/remove_callback.hpp
-	libs/input/include/sge/input/cursor/remove_event.hpp
-	libs/input/include/sge/input/cursor/remove_event_fwd.hpp
-	libs/input/include/sge/input/cursor/remove_function.hpp
-	libs/input/include/sge/input/cursor/remove_signal.hpp
-	libs/input/include/sge/input/cursor/scoped_activation.hpp
-	libs/input/include/sge/input/cursor/scoped_activation_fwd.hpp
-	libs/input/include/sge/input/cursor/scroll_callback.hpp
+	libs/input/include/sge/input/cursor/relative_movement/detail/object_fwd.hpp
+	libs/input/include/sge/input/cursor/relative_movement/difference.hpp
+	libs/input/include/sge/input/cursor/relative_movement/difference_fwd.hpp
+	libs/input/include/sge/input/cursor/relative_movement/event.hpp
+	libs/input/include/sge/input/cursor/relative_movement/event_fwd.hpp
+	libs/input/include/sge/input/cursor/relative_movement/object.hpp
+	libs/input/include/sge/input/cursor/relative_movement/object_fwd.hpp
 	libs/input/include/sge/input/cursor/scroll_code.hpp
 	libs/input/include/sge/input/cursor/scroll_code_fwd.hpp
 	libs/input/include/sge/input/cursor/scroll_code_to_string.hpp
-	libs/input/include/sge/input/cursor/scroll_event.hpp
-	libs/input/include/sge/input/cursor/scroll_event_fwd.hpp
-	libs/input/include/sge/input/cursor/scroll_function.hpp
-	libs/input/include/sge/input/cursor/scroll_signal.hpp
 	libs/input/include/sge/input/cursor/scroll_value.hpp
-	libs/input/include/sge/input/event/discover.hpp
-	libs/input/include/sge/input/event/discover_fwd.hpp
-	libs/input/include/sge/input/event/remove.hpp
-	libs/input/include/sge/input/event/remove_fwd.hpp
+	libs/input/include/sge/input/cursor/shared_ptr.hpp
+	libs/input/include/sge/input/event_base.hpp
+	libs/input/include/sge/input/event_base_fwd.hpp
 	libs/input/include/sge/input/exception.hpp
-	libs/input/include/sge/input/focus/char_callback.hpp
-	libs/input/include/sge/input/focus/char_event.hpp
-	libs/input/include/sge/input/focus/char_event_fwd.hpp
-	libs/input/include/sge/input/focus/char_function.hpp
-	libs/input/include/sge/input/focus/char_signal.hpp
 	libs/input/include/sge/input/focus/char_type.hpp
-	libs/input/include/sge/input/focus/collector.hpp
-	libs/input/include/sge/input/focus/collector_fwd.hpp
-	libs/input/include/sge/input/focus/count.hpp
-	libs/input/include/sge/input/focus/discover_callback.hpp
-	libs/input/include/sge/input/focus/discover_event.hpp
-	libs/input/include/sge/input/focus/discover_event_fwd.hpp
-	libs/input/include/sge/input/focus/discover_function.hpp
-	libs/input/include/sge/input/focus/discover_signal.hpp
-	libs/input/include/sge/input/focus/in_callback.hpp
-	libs/input/include/sge/input/focus/in_event.hpp
-	libs/input/include/sge/input/focus/in_event_fwd.hpp
-	libs/input/include/sge/input/focus/in_function.hpp
-	libs/input/include/sge/input/focus/in_signal.hpp
+	libs/input/include/sge/input/focus/container.hpp
+	libs/input/include/sge/input/focus/event/base.hpp
+	libs/input/include/sge/input/focus/event/base_fwd.hpp
+	libs/input/include/sge/input/focus/event/char.hpp
+	libs/input/include/sge/input/focus/event/char_fwd.hpp
+	libs/input/include/sge/input/focus/event/discover.hpp
+	libs/input/include/sge/input/focus/event/discover_fwd.hpp
+	libs/input/include/sge/input/focus/event/in.hpp
+	libs/input/include/sge/input/focus/event/in_fwd.hpp
+	libs/input/include/sge/input/focus/event/key.hpp
+	libs/input/include/sge/input/focus/event/key_fwd.hpp
+	libs/input/include/sge/input/focus/event/key_repeat.hpp
+	libs/input/include/sge/input/focus/event/key_repeat_fwd.hpp
+	libs/input/include/sge/input/focus/event/out.hpp
+	libs/input/include/sge/input/focus/event/out_fwd.hpp
+	libs/input/include/sge/input/focus/event/remove.hpp
+	libs/input/include/sge/input/focus/event/remove_fwd.hpp
 	libs/input/include/sge/input/focus/key.hpp
-	libs/input/include/sge/input/focus/key_callback.hpp
-	libs/input/include/sge/input/focus/key_event.hpp
-	libs/input/include/sge/input/focus/key_event_fwd.hpp
-	libs/input/include/sge/input/focus/key_function.hpp
 	libs/input/include/sge/input/focus/key_fwd.hpp
-	libs/input/include/sge/input/focus/key_repeat_callback.hpp
-	libs/input/include/sge/input/focus/key_repeat_event.hpp
-	libs/input/include/sge/input/focus/key_repeat_event_fwd.hpp
-	libs/input/include/sge/input/focus/key_repeat_function.hpp
-	libs/input/include/sge/input/focus/key_repeat_signal.hpp
-	libs/input/include/sge/input/focus/key_signal.hpp
-	libs/input/include/sge/input/focus/manager.hpp
 	libs/input/include/sge/input/focus/mod_state_tracker.hpp
 	libs/input/include/sge/input/focus/mod_state_tracker_fwd.hpp
 	libs/input/include/sge/input/focus/object.hpp
 	libs/input/include/sge/input/focus/object_fwd.hpp
 	libs/input/include/sge/input/focus/object_unique_ptr.hpp
-	libs/input/include/sge/input/focus/out_callback.hpp
-	libs/input/include/sge/input/focus/out_event.hpp
-	libs/input/include/sge/input/focus/out_event_fwd.hpp
-	libs/input/include/sge/input/focus/out_function.hpp
-	libs/input/include/sge/input/focus/out_signal.hpp
-	libs/input/include/sge/input/focus/remove_callback.hpp
-	libs/input/include/sge/input/focus/remove_event.hpp
-	libs/input/include/sge/input/focus/remove_event_fwd.hpp
-	libs/input/include/sge/input/focus/remove_function.hpp
-	libs/input/include/sge/input/focus/remove_signal.hpp
+	libs/input/include/sge/input/focus/shared_ptr.hpp
 	libs/input/include/sge/input/info/container.hpp
 	libs/input/include/sge/input/info/container_fwd.hpp
 	libs/input/include/sge/input/info/id.hpp
 	libs/input/include/sge/input/info/name.hpp
 	libs/input/include/sge/input/info/unique_id.hpp
 	libs/input/include/sge/input/joypad/absolute_axis.hpp
-	libs/input/include/sge/input/joypad/absolute_axis_callback.hpp
-	libs/input/include/sge/input/joypad/absolute_axis_event.hpp
-	libs/input/include/sge/input/joypad/absolute_axis_event_fwd.hpp
-	libs/input/include/sge/input/joypad/absolute_axis_function.hpp
 	libs/input/include/sge/input/joypad/absolute_axis_fwd.hpp
 	libs/input/include/sge/input/joypad/absolute_axis_id.hpp
 	libs/input/include/sge/input/joypad/absolute_axis_info.hpp
 	libs/input/include/sge/input/joypad/absolute_axis_info_container.hpp
 	libs/input/include/sge/input/joypad/absolute_axis_info_container_fwd.hpp
 	libs/input/include/sge/input/joypad/absolute_axis_info_fwd.hpp
-	libs/input/include/sge/input/joypad/absolute_axis_signal.hpp
 	libs/input/include/sge/input/joypad/axis_code.hpp
 	libs/input/include/sge/input/joypad/axis_code_fwd.hpp
 	libs/input/include/sge/input/joypad/axis_code_to_string.hpp
 	libs/input/include/sge/input/joypad/axis_max.hpp
 	libs/input/include/sge/input/joypad/axis_min.hpp
 	libs/input/include/sge/input/joypad/axis_value.hpp
-	libs/input/include/sge/input/joypad/button_callback.hpp
-	libs/input/include/sge/input/joypad/button_event.hpp
-	libs/input/include/sge/input/joypad/button_event_fwd.hpp
-	libs/input/include/sge/input/joypad/button_function.hpp
 	libs/input/include/sge/input/joypad/button_id.hpp
 	libs/input/include/sge/input/joypad/button_info.hpp
 	libs/input/include/sge/input/joypad/button_info_container.hpp
 	libs/input/include/sge/input/joypad/button_info_container_fwd.hpp
 	libs/input/include/sge/input/joypad/button_info_fwd.hpp
 	libs/input/include/sge/input/joypad/button_pressed.hpp
-	libs/input/include/sge/input/joypad/button_signal.hpp
-	libs/input/include/sge/input/joypad/collector_fwd.hpp
+	libs/input/include/sge/input/joypad/container.hpp
 	libs/input/include/sge/input/joypad/device.hpp
 	libs/input/include/sge/input/joypad/device_fwd.hpp
-	libs/input/include/sge/input/joypad/discover_callback.hpp
-	libs/input/include/sge/input/joypad/discover_event.hpp
-	libs/input/include/sge/input/joypad/discover_event_fwd.hpp
-	libs/input/include/sge/input/joypad/discover_function.hpp
-	libs/input/include/sge/input/joypad/discover_signal.hpp
+	libs/input/include/sge/input/joypad/event/absolute_axis.hpp
+	libs/input/include/sge/input/joypad/event/absolute_axis_fwd.hpp
+	libs/input/include/sge/input/joypad/event/base.hpp
+	libs/input/include/sge/input/joypad/event/base_fwd.hpp
+	libs/input/include/sge/input/joypad/event/button.hpp
+	libs/input/include/sge/input/joypad/event/button_fwd.hpp
+	libs/input/include/sge/input/joypad/event/discover.hpp
+	libs/input/include/sge/input/joypad/event/discover_fwd.hpp
+	libs/input/include/sge/input/joypad/event/relative_axis.hpp
+	libs/input/include/sge/input/joypad/event/relative_axis_fwd.hpp
+	libs/input/include/sge/input/joypad/event/remove.hpp
+	libs/input/include/sge/input/joypad/event/remove_fwd.hpp
 	libs/input/include/sge/input/joypad/ff/attack_level.hpp
 	libs/input/include/sge/input/joypad/ff/attack_level_fwd.hpp
 	libs/input/include/sge/input/joypad/ff/attack_time.hpp
@@ -258,26 +206,14 @@ set(
 	libs/input/include/sge/input/joypad/ff/waveform_fwd.hpp
 	libs/input/include/sge/input/joypad/info.hpp
 	libs/input/include/sge/input/joypad/info_fwd.hpp
-	libs/input/include/sge/input/joypad/manager.hpp
 	libs/input/include/sge/input/joypad/relative_axis.hpp
-	libs/input/include/sge/input/joypad/relative_axis_callback.hpp
-	libs/input/include/sge/input/joypad/relative_axis_event.hpp
-	libs/input/include/sge/input/joypad/relative_axis_event_fwd.hpp
-	libs/input/include/sge/input/joypad/relative_axis_function.hpp
 	libs/input/include/sge/input/joypad/relative_axis_fwd.hpp
 	libs/input/include/sge/input/joypad/relative_axis_id.hpp
 	libs/input/include/sge/input/joypad/relative_axis_info.hpp
 	libs/input/include/sge/input/joypad/relative_axis_info_container.hpp
 	libs/input/include/sge/input/joypad/relative_axis_info_container_fwd.hpp
 	libs/input/include/sge/input/joypad/relative_axis_info_fwd.hpp
-	libs/input/include/sge/input/joypad/relative_axis_signal.hpp
-	libs/input/include/sge/input/joypad/remove_callback.hpp
-	libs/input/include/sge/input/joypad/remove_event.hpp
-	libs/input/include/sge/input/joypad/remove_event_fwd.hpp
-	libs/input/include/sge/input/joypad/remove_function.hpp
-	libs/input/include/sge/input/joypad/remove_signal.hpp
-	libs/input/include/sge/input/key/action.hpp
-	libs/input/include/sge/input/key/action_callback.hpp
+	libs/input/include/sge/input/joypad/shared_ptr.hpp
 	libs/input/include/sge/input/key/callback.hpp
 	libs/input/include/sge/input/key/code.hpp
 	libs/input/include/sge/input/key/code_fwd.hpp
@@ -300,57 +236,38 @@ set(
 	libs/input/include/sge/input/key/optional_modifier_fwd.hpp
 	libs/input/include/sge/input/key/pressed.hpp
 	libs/input/include/sge/input/key/to_modifier.hpp
-	libs/input/include/sge/input/keyboard/action.hpp
-	libs/input/include/sge/input/keyboard/collector.hpp
-	libs/input/include/sge/input/keyboard/collector_fwd.hpp
-	libs/input/include/sge/input/keyboard/convert_key_callback.hpp
+	libs/input/include/sge/input/keyboard/container.hpp
 	libs/input/include/sge/input/keyboard/device.hpp
 	libs/input/include/sge/input/keyboard/device_fwd.hpp
 	libs/input/include/sge/input/keyboard/device_unique_ptr.hpp
-	libs/input/include/sge/input/keyboard/discover_callback.hpp
-	libs/input/include/sge/input/keyboard/discover_event.hpp
-	libs/input/include/sge/input/keyboard/discover_event_fwd.hpp
-	libs/input/include/sge/input/keyboard/discover_function.hpp
-	libs/input/include/sge/input/keyboard/discover_signal.hpp
+	libs/input/include/sge/input/keyboard/event/base.hpp
+	libs/input/include/sge/input/keyboard/event/base_fwd.hpp
+	libs/input/include/sge/input/keyboard/event/discover.hpp
+	libs/input/include/sge/input/keyboard/event/discover_fwd.hpp
+	libs/input/include/sge/input/keyboard/event/key.hpp
+	libs/input/include/sge/input/keyboard/event/key_fwd.hpp
+	libs/input/include/sge/input/keyboard/event/remove.hpp
+	libs/input/include/sge/input/keyboard/event/remove_fwd.hpp
 	libs/input/include/sge/input/keyboard/key.hpp
-	libs/input/include/sge/input/keyboard/key_callback.hpp
-	libs/input/include/sge/input/keyboard/key_event.hpp
-	libs/input/include/sge/input/keyboard/key_event_fwd.hpp
-	libs/input/include/sge/input/keyboard/key_function.hpp
 	libs/input/include/sge/input/keyboard/key_fwd.hpp
 	libs/input/include/sge/input/keyboard/key_id.hpp
-	libs/input/include/sge/input/keyboard/key_signal.hpp
-	libs/input/include/sge/input/keyboard/manager.hpp
-	libs/input/include/sge/input/keyboard/remove_callback.hpp
-	libs/input/include/sge/input/keyboard/remove_event.hpp
-	libs/input/include/sge/input/keyboard/remove_event_fwd.hpp
-	libs/input/include/sge/input/keyboard/remove_function.hpp
-	libs/input/include/sge/input/keyboard/remove_signal.hpp
+	libs/input/include/sge/input/keyboard/shared_ptr.hpp
 	libs/input/include/sge/input/log_location.hpp
 	libs/input/include/sge/input/mouse/axis.hpp
-	libs/input/include/sge/input/mouse/axis_callback.hpp
 	libs/input/include/sge/input/mouse/axis_code.hpp
 	libs/input/include/sge/input/mouse/axis_code_fwd.hpp
 	libs/input/include/sge/input/mouse/axis_code_to_string.hpp
-	libs/input/include/sge/input/mouse/axis_event.hpp
-	libs/input/include/sge/input/mouse/axis_event_fwd.hpp
-	libs/input/include/sge/input/mouse/axis_function.hpp
 	libs/input/include/sge/input/mouse/axis_fwd.hpp
 	libs/input/include/sge/input/mouse/axis_id.hpp
 	libs/input/include/sge/input/mouse/axis_info.hpp
 	libs/input/include/sge/input/mouse/axis_info_container.hpp
 	libs/input/include/sge/input/mouse/axis_info_container_fwd.hpp
 	libs/input/include/sge/input/mouse/axis_info_fwd.hpp
-	libs/input/include/sge/input/mouse/axis_signal.hpp
 	libs/input/include/sge/input/mouse/axis_value.hpp
 	libs/input/include/sge/input/mouse/button.hpp
-	libs/input/include/sge/input/mouse/button_callback.hpp
 	libs/input/include/sge/input/mouse/button_code.hpp
 	libs/input/include/sge/input/mouse/button_code_fwd.hpp
 	libs/input/include/sge/input/mouse/button_code_to_string.hpp
-	libs/input/include/sge/input/mouse/button_event.hpp
-	libs/input/include/sge/input/mouse/button_event_fwd.hpp
-	libs/input/include/sge/input/mouse/button_function.hpp
 	libs/input/include/sge/input/mouse/button_fwd.hpp
 	libs/input/include/sge/input/mouse/button_id.hpp
 	libs/input/include/sge/input/mouse/button_info.hpp
@@ -358,25 +275,23 @@ set(
 	libs/input/include/sge/input/mouse/button_info_container_fwd.hpp
 	libs/input/include/sge/input/mouse/button_info_fwd.hpp
 	libs/input/include/sge/input/mouse/button_pressed.hpp
-	libs/input/include/sge/input/mouse/button_signal.hpp
-	libs/input/include/sge/input/mouse/collector.hpp
-	libs/input/include/sge/input/mouse/collector_fwd.hpp
+	libs/input/include/sge/input/mouse/container.hpp
 	libs/input/include/sge/input/mouse/device.hpp
 	libs/input/include/sge/input/mouse/device_fwd.hpp
 	libs/input/include/sge/input/mouse/device_unique_ptr.hpp
-	libs/input/include/sge/input/mouse/discover_callback.hpp
-	libs/input/include/sge/input/mouse/discover_event.hpp
-	libs/input/include/sge/input/mouse/discover_event_fwd.hpp
-	libs/input/include/sge/input/mouse/discover_function.hpp
-	libs/input/include/sge/input/mouse/discover_signal.hpp
+	libs/input/include/sge/input/mouse/event/axis.hpp
+	libs/input/include/sge/input/mouse/event/axis_fwd.hpp
+	libs/input/include/sge/input/mouse/event/base.hpp
+	libs/input/include/sge/input/mouse/event/base_fwd.hpp
+	libs/input/include/sge/input/mouse/event/button.hpp
+	libs/input/include/sge/input/mouse/event/button_fwd.hpp
+	libs/input/include/sge/input/mouse/event/discover.hpp
+	libs/input/include/sge/input/mouse/event/discover_fwd.hpp
+	libs/input/include/sge/input/mouse/event/remove.hpp
+	libs/input/include/sge/input/mouse/event/remove_fwd.hpp
 	libs/input/include/sge/input/mouse/info.hpp
 	libs/input/include/sge/input/mouse/info_fwd.hpp
-	libs/input/include/sge/input/mouse/manager.hpp
-	libs/input/include/sge/input/mouse/remove_callback.hpp
-	libs/input/include/sge/input/mouse/remove_event.hpp
-	libs/input/include/sge/input/mouse/remove_event_fwd.hpp
-	libs/input/include/sge/input/mouse/remove_function.hpp
-	libs/input/include/sge/input/mouse/remove_signal.hpp
+	libs/input/include/sge/input/mouse/shared_ptr.hpp
 	libs/input/include/sge/input/plugin/collection_fwd.hpp
 	libs/input/include/sge/input/plugin/context_fwd.hpp
 	libs/input/include/sge/input/plugin/object.hpp
@@ -390,43 +305,43 @@ set(
 	libs/input/include/sge/input/system_unique_ptr.hpp
 	libs/input/src/input/capabilities_to_string.cpp
 	libs/input/src/input/create_multi_system.cpp
-	libs/input/src/input/cursor/activatable.cpp
 	libs/input/src/input/cursor/button_code_to_string.cpp
-	libs/input/src/input/cursor/button_event.cpp
-	libs/input/src/input/cursor/default_choose.cpp
-	libs/input/src/input/cursor/demuxer.cpp
-	libs/input/src/input/cursor/discover_event.cpp
-	libs/input/src/input/cursor/manager.cpp
-	libs/input/src/input/cursor/move_event.cpp
-	libs/input/src/input/cursor/no_object.cpp
+	libs/input/src/input/cursor/event/base.cpp
+	libs/input/src/input/cursor/event/button.cpp
+	libs/input/src/input/cursor/event/discover.cpp
+	libs/input/src/input/cursor/event/move.cpp
+	libs/input/src/input/cursor/event/remove.cpp
+	libs/input/src/input/cursor/event/scroll.cpp
 	libs/input/src/input/cursor/object.cpp
-	libs/input/src/input/cursor/relative_move_event.cpp
-	libs/input/src/input/cursor/relative_movement.cpp
-	libs/input/src/input/cursor/remove_event.cpp
-	libs/input/src/input/cursor/scoped_activation.cpp
+	libs/input/src/input/cursor/relative_movement/event.cpp
+	libs/input/src/input/cursor/relative_movement/object.cpp
 	libs/input/src/input/cursor/scroll_code_to_string.cpp
-	libs/input/src/input/cursor/scroll_event.cpp
+	libs/input/src/input/event_base.cpp
 	libs/input/src/input/exception.cpp
-	libs/input/src/input/focus/char_event.cpp
-	libs/input/src/input/focus/collector.cpp
-	libs/input/src/input/focus/discover_event.cpp
+	libs/input/src/input/focus/event/base.cpp
+	libs/input/src/input/focus/event/char.cpp
+	libs/input/src/input/focus/event/discover.cpp
+	libs/input/src/input/focus/event/in.cpp
+	libs/input/src/input/focus/event/key.cpp
+	libs/input/src/input/focus/event/key_repeat.cpp
+	libs/input/src/input/focus/event/out.cpp
+	libs/input/src/input/focus/event/remove.cpp
 	libs/input/src/input/focus/key.cpp
-	libs/input/src/input/focus/key_event.cpp
-	libs/input/src/input/focus/key_repeat_event.cpp
-	libs/input/src/input/focus/manager.cpp
 	libs/input/src/input/focus/mod_state_tracker.cpp
 	libs/input/src/input/focus/object.cpp
-	libs/input/src/input/focus/remove_event.cpp
 	libs/input/src/input/joypad/absolute_axis.cpp
-	libs/input/src/input/joypad/absolute_axis_event.cpp
 	libs/input/src/input/joypad/absolute_axis_info.cpp
 	libs/input/src/input/joypad/absolute_axis_info_container.cpp
 	libs/input/src/input/joypad/axis_code_to_string.cpp
-	libs/input/src/input/joypad/button_event.cpp
 	libs/input/src/input/joypad/button_info.cpp
 	libs/input/src/input/joypad/button_info_container.cpp
 	libs/input/src/input/joypad/device.cpp
-	libs/input/src/input/joypad/discover_event.cpp
+	libs/input/src/input/joypad/event/absolute_axis.cpp
+	libs/input/src/input/joypad/event/base.cpp
+	libs/input/src/input/joypad/event/button.cpp
+	libs/input/src/input/joypad/event/discover.cpp
+	libs/input/src/input/joypad/event/relative_axis.cpp
+	libs/input/src/input/joypad/event/remove.cpp
 	libs/input/src/input/joypad/ff/condition.cpp
 	libs/input/src/input/joypad/ff/constant.cpp
 	libs/input/src/input/joypad/ff/effect.cpp
@@ -437,45 +352,37 @@ set(
 	libs/input/src/input/joypad/ff/trigger.cpp
 	libs/input/src/input/joypad/ff/type_to_string.cpp
 	libs/input/src/input/joypad/info.cpp
-	libs/input/src/input/joypad/manager.cpp
 	libs/input/src/input/joypad/relative_axis.cpp
-	libs/input/src/input/joypad/relative_axis_event.cpp
 	libs/input/src/input/joypad/relative_axis_info.cpp
 	libs/input/src/input/joypad/relative_axis_info_container.cpp
-	libs/input/src/input/joypad/remove_event.cpp
-	libs/input/src/input/key/action.cpp
 	libs/input/src/input/key/code_to_digit.cpp
 	libs/input/src/input/key/code_to_string.cpp
 	libs/input/src/input/key/is_alt.cpp
 	libs/input/src/input/key/is_control.cpp
 	libs/input/src/input/key/is_shift.cpp
 	libs/input/src/input/key/to_modifier.cpp
-	libs/input/src/input/keyboard/action.cpp
-	libs/input/src/input/keyboard/collector.cpp
-	libs/input/src/input/keyboard/convert_key_callback.cpp
 	libs/input/src/input/keyboard/device.cpp
-	libs/input/src/input/keyboard/discover_event.cpp
+	libs/input/src/input/keyboard/event/base.cpp
+	libs/input/src/input/keyboard/event/discover.cpp
+	libs/input/src/input/keyboard/event/key.cpp
+	libs/input/src/input/keyboard/event/remove.cpp
 	libs/input/src/input/keyboard/key.cpp
-	libs/input/src/input/keyboard/key_event.cpp
-	libs/input/src/input/keyboard/manager.cpp
-	libs/input/src/input/keyboard/remove_event.cpp
 	libs/input/src/input/log_location.cpp
 	libs/input/src/input/mouse/axis.cpp
 	libs/input/src/input/mouse/axis_code_to_string.cpp
-	libs/input/src/input/mouse/axis_event.cpp
 	libs/input/src/input/mouse/axis_info.cpp
 	libs/input/src/input/mouse/axis_info_container.cpp
 	libs/input/src/input/mouse/button.cpp
 	libs/input/src/input/mouse/button_code_to_string.cpp
-	libs/input/src/input/mouse/button_event.cpp
 	libs/input/src/input/mouse/button_info.cpp
 	libs/input/src/input/mouse/button_info_container.cpp
-	libs/input/src/input/mouse/collector.cpp
 	libs/input/src/input/mouse/device.cpp
-	libs/input/src/input/mouse/discover_event.cpp
+	libs/input/src/input/mouse/event/axis.cpp
+	libs/input/src/input/mouse/event/base.cpp
+	libs/input/src/input/mouse/event/button.cpp
+	libs/input/src/input/mouse/event/discover.cpp
+	libs/input/src/input/mouse/event/remove.cpp
 	libs/input/src/input/mouse/info.cpp
-	libs/input/src/input/mouse/manager.cpp
-	libs/input/src/input/mouse/remove_event.cpp
 	libs/input/src/input/plugin/collection.cpp
 	libs/input/src/input/plugin/context.cpp
 	libs/input/src/input/plugin/iterator.cpp
@@ -486,6 +393,11 @@ set(
 	libs/input/src/input/system.cpp
 )
 
+find_package(
+	awl
+	REQUIRED
+)
+
 add_sge_base_library(
 	input
 	HAS_IMPL_DIR
@@ -493,7 +405,7 @@ add_sge_base_library(
 		sgecore
 		sgelog
 		sgeplugin
-		sgewindow_interface
+		sgewindow
 	TRANSITIVE_SGE_DEPS
 		sgecore_interface
 		sgelog_interface
@@ -502,6 +414,7 @@ add_sge_base_library(
 	USE_IMPL_INCLUDE_OF
 		core
 	ADDITIONAL_DEPS
+                ${awl_TARGET}
 		${fcppt_log_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface

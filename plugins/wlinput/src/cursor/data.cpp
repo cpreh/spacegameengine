@@ -19,21 +19,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/wlinput/cursor/data.hpp>
+#include <sge/wlinput/cursor/object_fwd.hpp>
 #include <awl/backends/wayland/window/object_fwd.hpp>
-#include <fcppt/signal/object_impl.hpp>
+#include <awl/event/container_reference.hpp>
 
 
 sge::wlinput::cursor::data::data(
-	awl::backends::wayland::window::object const &_window
+	sge::wlinput::cursor::object &_cursor,
+	awl::backends::wayland::window::object const &_window,
+	awl::event::container_reference const _events
 )
 :
+	cursor_{
+		_cursor
+	},
 	window_{
 		_window
 	},
-	position_{},
-	button_signal_{},
-	move_signal_{},
-	scroll_signal_{}
+	events_{
+		_events
+	},
+	position_{}
 {
 }
 

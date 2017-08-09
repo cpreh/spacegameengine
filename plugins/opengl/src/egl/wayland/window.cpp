@@ -19,43 +19,65 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/egl/wayland/window.hpp>
-#include <awl/backends/wayland/window/object.hpp>
-#include <awl/window/event/processor.hpp>
+#include <sge/window/event_function.hpp>
+#include <sge/window/object.hpp>
+#include <awl/window/event/base.hpp>
 #include <awl/window/event/resize.hpp>
-#include <awl/window/event/resize_callback.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <wayland-egl-core.h>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::egl::wayland::window::window(
-	awl::backends::wayland::window::object &_window
+	sge::window::object &_window
 )
 :
-	window_{
-		_window
+	holder_{
+		_window.awl_object()
 	},
 	resize_connection_{
-		_window.processor().resize_callback(
-			awl::window::event::resize_callback{
+		_window.event_handler(
+			sge::window::event_function{
 				[
 					this
 				](
-					awl::window::event::resize const &_resize
+					awl::window::event::base const &_event
 				)
 				{
-					::wl_egl_window_resize(
-						window_.get(),
-						fcppt::cast::to_signed(
-							_resize.dim().w()
+					fcppt::optional::maybe_void(
+						fcppt::cast::dynamic<
+							awl::window::event::resize const
+						>(
+							_event
 						),
-						fcppt::cast::to_signed(
-							_resize.dim().h()
-						),
-						0,
-						0
+						[
+							this
+						](
+							fcppt::reference<
+								awl::window::event::resize const
+							> const _resize
+						)
+						{
+							::wl_egl_window_resize(
+								this->holder_.get(),
+								fcppt::cast::to_signed(
+									_resize.get().dim().w()
+								),
+								fcppt::cast::to_signed(
+									_resize.get().dim().h()
+								),
+								0,
+								0
+							);
+						}
 					);
+
+					return
+						awl::event::container{};
 				}
 			}
 		)
@@ -72,5 +94,5 @@ wl_egl_window *
 sge::opengl::egl::wayland::window::get() const
 {
 	return
-		window_.get();
+		holder_.get();
 }

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 #define SGE_OPENGL_EGL_WAYLAND_WINDOW_HPP_EGL_CORE_ON_TOP
 #include <sge/opengl/egl/wayland/window_holder.hpp>
-#include <awl/backends/wayland/window/object_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
@@ -48,7 +48,7 @@ class window
 public:
 	explicit
 	window(
-		awl::backends::wayland::window::object &
+		sge::window::object &
 	);
 
 	~window();
@@ -56,7 +56,7 @@ public:
 	wl_egl_window *
 	get() const;
 private:
-	sge::opengl::egl::wayland::window_holder const window_;
+	sge::opengl::egl::wayland::window_holder const holder_;
 
 	fcppt::signal::auto_connection const resize_connection_;
 };

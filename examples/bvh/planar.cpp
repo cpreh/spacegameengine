@@ -24,9 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/rgba8_from_hex_string.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/input/key/code.hpp>
-#include <sge/input/keyboard/device.hpp>
-#include <sge/input/keyboard/key_callback.hpp>
-#include <sge/input/keyboard/key_event.hpp>
+#include <sge/input/keyboard/event/key.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -39,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
@@ -69,7 +68,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/keyboard_collector.hpp>
 #include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
@@ -83,27 +81,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_window.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
+#include <awl/show_message.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
+#include <awl/main/exit_success.hpp>
 #include <awl/main/function_context.hpp>
-#include <awl/main/function_context_fwd.hpp>
+#include <fcppt/args_from_second.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/extract_from_string.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_int_range_count.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/assert/optional_error.hpp>
+#include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/container/tree/depth.hpp>
-#include <fcppt/io/cerr.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/options/argument.hpp>
+#include <fcppt/options/default_help_switch.hpp>
+#include <fcppt/options/error.hpp>
+#include <fcppt/options/help_text.hpp>
+#include <fcppt/options/long_name.hpp>
+#include <fcppt/options/optional_help_text.hpp>
+#include <fcppt/options/parse_help.hpp>
+#include <fcppt/options/result.hpp>
+#include <fcppt/options/result_of.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -113,13 +128,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/get.hpp>
+#include <fcppt/record/make_label.hpp>
+#include <fcppt/record/permute.hpp>
+#include <fcppt/record/variadic.hpp>
+#include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/get_exn.hpp>
+#include <fcppt/variant/match.hpp>
+#include <fcppt/variant/output.hpp>
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
 #include <example_main.hpp>
 #include <exception>
-#include <functional>
 #include <iostream>
 #include <ostream>
 #include <vector>
@@ -128,7 +150,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 namespace
 {
-typedef sge::sprite::config::choices<
+
+typedef
+sge::sprite::config::choices<
 	sge::sprite::config::type_choices<
 		sge::sprite::config::unit_type<
 			sge::renderer::scalar
@@ -148,35 +172,48 @@ typedef sge::sprite::config::choices<
 			sge::image::color::rgba8_format
 		>
 	>
-> sprite_choices;
+>
+sprite_choices;
 
-typedef sge::sprite::buffers::with_declaration<
+typedef
+sge::sprite::buffers::with_declaration<
 	sge::sprite::buffers::single<
 		sprite_choices
 	>
-> sprite_buffers_type;
-
-typedef sge::sprite::object<
-	sprite_choices
-> sprite_object;
-
-typedef sge::sprite::state::all_choices sprite_state_choices;
-
-typedef sge::sprite::state::object<
-	sprite_state_choices
-> sprite_state_object;
-
-typedef sge::sprite::state::parameters<
-	sprite_state_choices
-> sprite_state_parameters;
+>
+sprite_buffers_type;
 
 typedef
-fcppt::math::box::object<sge::renderer::scalar,2>
+sge::sprite::object<
+	sprite_choices
+>
+sprite_object;
+
+typedef
+sge::sprite::state::all_choices
+sprite_state_choices;
+
+typedef
+sge::sprite::state::object<
+	sprite_state_choices
+>
+sprite_state_object;
+
+typedef
+sge::sprite::state::parameters<
+	sprite_state_choices
+>
+sprite_state_parameters;
+
+typedef
+fcppt::math::box::object<
+	sge::renderer::scalar,
+	2
+>
 bvh_box;
 
 typedef
-sge::bvh::tree_traits
-<
+sge::bvh::tree_traits<
 	sge::bvh::dummy_node,
 	bvh_box,
 	bvh_box
@@ -184,17 +221,16 @@ sge::bvh::tree_traits
 bvh_tree_traits;
 
 typedef
-sge::bvh::object<bvh_tree_traits>
-bounding_hierarchy;
-
-typedef
-std::vector<sprite_object>
+std::vector<
+	sprite_object
+>
 sprite_sequence;
 
 sprite_object
 create_sprite(
 	bvh_box const &_rect,
-	sge::image::color::rgba8 const &_color)
+	sge::image::color::rgba8 const &_color
+)
 {
 	return
 		sprite_object(
@@ -209,38 +245,29 @@ create_sprite(
 
 class bvh_traverser
 {
-FCPPT_NONCOPYABLE(
-	bvh_traverser);
+	FCPPT_NONCOPYABLE(
+		bvh_traverser
+	);
 public:
-	FCPPT_PP_PUSH_WARNING
-	FCPPT_PP_DISABLE_VC_WARNING(4355)
-
+	explicit
 	bvh_traverser(
-		bvh_tree_traits::tree_representation const &_tree,
-		sge::input::keyboard::device &_keyboard)
+		bvh_tree_traits::tree_representation const &_tree
+	)
 	:
-		tree_(
-			_tree),
+		tree_{
+			_tree
+		},
 		current_tree_(
 			fcppt::make_cref(
 				tree_
-			)
-		),
-		keyboard_connection_(
-			_keyboard.key_callback(
-				sge::input::keyboard::key_callback{
-					std::bind(
-						&bvh_traverser::keyboard_callback,
-						this,
-						std::placeholders::_1
-					)
-				}
 			)
 		)
 	{
 	}
 
-	FCPPT_PP_POP_WARNING
+	~bvh_traverser()
+	{
+	}
 
 	sprite_sequence
 	sprites() const
@@ -263,8 +290,12 @@ public:
 				).bounding_box(),
 				sge::image::color::rgba8_from_hex_string(
 					std::string(
-						"2e2621"),
-					255)));
+						"2e2621"
+					),
+					255
+				)
+			)
+		);
 
 		fcppt::optional::maybe_void(
 			fcppt::variant::to_optional<
@@ -324,8 +355,11 @@ public:
 			tree.front(),
 			sge::image::color::rgba8_from_hex_string(
 				std::string(
-					"373c40"),
-				204));
+					"373c40"
+				),
+				204
+			)
+		);
 
 		// Then add the children
 		this->add_children(
@@ -333,37 +367,42 @@ public:
 			tree.back(),
 			sge::image::color::rgba8_from_hex_string(
 				std::string(
-					"73320b"),
-				204));
+					"73320b"
+				),
+				204
+			)
+		);
 
 		return
 			result;
 	}
-private:
-	bvh_tree_traits::tree_representation const &tree_;
-	bvh_tree_traits::tree_representation::const_optional_ref current_tree_;
-	fcppt::signal::auto_connection keyboard_connection_;
 
 	void
-	keyboard_callback(
-		sge::input::keyboard::key_event const &_event)
+	key_event(
+		sge::input::keyboard::event::key const &_event
+	)
 	{
-		bvh_tree_traits::tree_representation const &tree(
+		bvh_tree_traits::tree_representation const &tree{
 			FCPPT_ASSERT_OPTIONAL_ERROR(
 				current_tree_
 			).get()
-		);
+		};
 
-		if(!_event.pressed())
+		if(
+			!_event.pressed()
+		)
 			return;
 
 		bvh_tree_traits::tree_representation::const_optional_ref new_tree;
 
-		switch(_event.key().code())
+		switch(
+			_event.get().code()
+		)
 		{
 			case sge::input::key::code::left:
 				new_tree =
 					// TODO: maybe_front?
+					// Remove front() from fcppt::container::tree
 					bvh_tree_traits::tree_representation::const_optional_ref(
 						fcppt::make_cref(
 							tree.front()
@@ -438,22 +477,32 @@ private:
 		current_tree_ =
 			new_tree;
 	}
+private:
+	bvh_tree_traits::tree_representation const &tree_;
+
+	bvh_tree_traits::tree_representation::const_optional_ref current_tree_;
 
 	void
 	add_children(
 		sprite_sequence &_sprites,
 		bvh_tree_traits::tree_representation const &_tree,
-		sge::image::color::rgba8 const &_color) const
+		sge::image::color::rgba8 const &_color
+	) const
 	{
-		if(!_tree.empty())
+		if(
+			!_tree.empty()
+		)
 		{
 			for(
-				auto const &child : _tree
+				auto const &child
+				:
+				_tree
 			)
 				this->add_children(
 					_sprites,
 					child,
-					_color);
+					_color
+				);
 		}
 		else
 		{
@@ -475,36 +524,30 @@ private:
 		}
 	}
 };
-}
 
+FCPPT_RECORD_MAKE_LABEL(
+	rectangle_count_label
+);
 
-awl::main::exit_code const
-example_main(
-	awl::main::function_context const &_context
+typedef
+fcppt::record::variadic<
+	fcppt::record::element<
+		rectangle_count_label,
+		unsigned
+	>
+>
+arg_type;
+
+awl::main::exit_code
+main_program(
+	arg_type const &_args
 )
-try
 {
-	if(_context.argc() == 1)
-	{
-		std::cerr << "Usage: " << _context.argv()[0] << " <rectangle-count>\n";
-		return awl::main::exit_failure();
-	}
-
 	unsigned const rectangle_count{
-		fcppt::optional::to_exception(
-			fcppt::extract_from_string<
-				unsigned
-			>(
-				std::string(
-					_context.argv()[1]
-				)
-			),
-			[]{
-				return
-					fcppt::exception{
-						FCPPT_TEXT("rectangle count is not an integer")
-					};
-			}
+		fcppt::record::get<
+			rectangle_count_label
+		>(
+			_args
 		)
 	};
 
@@ -520,11 +563,7 @@ try
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
 			>,
-			sge::systems::with_input<
-				boost::mpl::vector1<
-					sge::systems::keyboard_collector
-				>
-			>
+			sge::systems::with_input
 		>
 	> const sys(
 		sge::systems::make_list
@@ -580,22 +619,22 @@ try
 	fcppt::random::generator::minstd_rand
 	generator_type;
 
-	generator_type generator(
-		fcppt::random::generator::seed_from_chrono<generator_type::seed>());
+	generator_type generator{
+		fcppt::random::generator::seed_from_chrono<
+			generator_type::seed
+		>()
+	};
 
 	typedef
-	fcppt::random::distribution::basic
-	<
-		fcppt::random::distribution::parameters::uniform_real
-		<
+	fcppt::random::distribution::basic<
+		fcppt::random::distribution::parameters::uniform_real<
 			sge::renderer::scalar
 		>
 	>
 	real_distribution;
 
 	typedef
-	fcppt::random::variate
-	<
+	fcppt::random::variate<
 		generator_type,
 		real_distribution
 	>
@@ -672,109 +711,297 @@ try
 		);
 
 
-	sge::bvh::object<bvh_tree_traits> bounding_hierarchy;
+	sge::bvh::object<
+		bvh_tree_traits
+	>
+	bounding_hierarchy;
 
-	bvh_tree_traits::leaf_sequence nodes;
-	for(unsigned i = 0; i < rectangle_count; ++i)
-	{
-		bvh_box::dim const new_size(
-			size_rng(),
-			size_rng());
+	bvh_tree_traits::leaf_sequence const nodes{
+		fcppt::algorithm::map<
+			bvh_tree_traits::leaf_sequence
+		>(
+			fcppt::make_int_range_count(
+				rectangle_count
+			),
+			[
+				&screen_size_rng,
+				&size_rng
+			](
+				unsigned
+			)
+			-> bvh_box
+			{
+				bvh_box::dim const new_size(
+					size_rng(),
+					size_rng()
+				);
 
-		nodes.push_back(
-			bvh_box(
-				bvh_box::vector(
-					screen_size_rng(),
-					screen_size_rng()) -
-				new_size/2.0f,
-				new_size));
-	}
+				return
+					bvh_box{
+						bvh_box::vector{
+							screen_size_rng(),
+							screen_size_rng()
+						}
+						-
+						new_size
+						/
+						2.0f,
+						new_size
+					};
+			}
+		)
+	};
 
 	{
 		typedef
 		std::chrono::steady_clock
 		clock_type;
 
-		clock_type::time_point const before =
-			clock_type::now();
+		clock_type::time_point const before{
+			clock_type::now()
+		};
 
 		bounding_hierarchy.insert(
-			nodes);
+			nodes
+		);
 
 		std::cout
-			<< "Construction time: "
 			<<
-				std::chrono::duration_cast<std::chrono::milliseconds>(
-					clock_type::now() - before).count()
-			<< "\n";
+			"Construction time: "
+			<<
+			std::chrono::duration_cast<
+				std::chrono::milliseconds
+			>(
+				clock_type::now() - before
+			).count()
+			<<
+			'\n';
 	}
 
-	std::cout << "Resulting tree depth: " << fcppt::container::tree::depth(bounding_hierarchy.representation()) << "\n";
+	std::cout
+		<<
+		"Resulting tree depth: "
+		<<
+		fcppt::container::tree::depth(
+			bounding_hierarchy.representation()
+		)
+		<<
+		'\n';
 
-	bvh_traverser traverser(
-		bounding_hierarchy.representation(),
-		sys.keyboard_collector());
+	bvh_traverser traverser{
+		bounding_hierarchy.representation()
+	};
 
-	// Set running to false when escape is pressed.
-	fcppt::signal::auto_connection const escape_connection(
+	fcppt::signal::auto_connection const escape_connection{
 		sge::systems::quit_on_escape(
 			sys
 		)
+	};
+
+	auto const draw(
+		[
+			&sprite_buffers,
+			&sprite_state,
+			&sys,
+			&traverser
+		]{
+			sge::renderer::context::scoped_ffp const scoped_block(
+				sys.renderer_device_ffp(),
+				sys.renderer_device_ffp().onscreen_target()
+			);
+
+			scoped_block.get().clear(
+				sge::renderer::clear::parameters()
+				.back_buffer(
+					sge::image::color::any::object{
+						sge::image::color::predef::black()
+					}
+				)
+			);
+
+			sge::sprite::process::all(
+				scoped_block.get(),
+				sge::sprite::geometry::make_random_access_range(
+					traverser.sprites()
+				),
+				sprite_buffers,
+				sge::sprite::compare::default_(),
+				sprite_state
+			);
+		}
 	);
 
-	while(
-		// Process window messages which will also process input.
-		sys.window_system().poll()
-	)
-	{
-		// Declare a render block, using the renderer's onscreen target.
-		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target()
-		);
-
-		// Here, we clear the back buffer with the clear color black() on each frame.
-		// We also clear the stencil buffer with value 0.
-		scoped_block.get().clear(
-			sge::renderer::clear::parameters()
-			.back_buffer(
-				sge::image::color::any::object{
-					sge::image::color::predef::black()
+	return
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&draw,
+					&traverser
+				](
+					awl::event::base const &_event
+				)
+				{
+					fcppt::optional::maybe_void(
+						fcppt::variant::dynamic_cast_<
+							boost::mpl::vector2<
+								sge::renderer::event::render const,
+								sge::input::keyboard::event::key const
+							>,
+							fcppt::cast::dynamic_fun
+						>(
+							_event
+						),
+						[
+							&draw,
+							&traverser
+						](
+							auto const &_variant
+						)
+						{
+							fcppt::variant::match(
+								_variant,
+								[
+									&draw
+								](
+									fcppt::reference<
+										sge::renderer::event::render const
+									>
+								)
+								{
+									draw();
+								},
+								[
+									&traverser
+								](
+									fcppt::reference<
+										sge::input::keyboard::event::key const
+									> const _key_event
+								)
+								{
+									traverser.key_event(
+										_key_event.get()
+									);
+								}
+							);
+						}
+					);
 				}
-			)
+			}
 		);
+}
 
-		// Render small sprite.
-		sge::sprite::process::all(
-			scoped_block.get(),
-			sge::sprite::geometry::make_random_access_range(
-				traverser.sprites()),
-			sprite_buffers,
-			sge::sprite::compare::default_(),
-			sprite_state
-		);
-	}
+}
+
+awl::main::exit_code const
+example_main(
+	awl::main::function_context const &_function_context
+)
+try
+{
+	fcppt::options::argument<
+		rectangle_count_label,
+		unsigned
+	> const parser{
+		fcppt::options::long_name{
+			FCPPT_TEXT("rectangle-count")
+		},
+		fcppt::options::optional_help_text{}
+	};
+
+	typedef
+	decltype(
+		parser
+	)
+	parser_type;
 
 	return
-		sys.window_system().exit_code();
+		fcppt::variant::match(
+			fcppt::options::parse_help(
+				fcppt::options::default_help_switch(),
+				parser,
+				fcppt::args_from_second(
+					_function_context.argc(),
+					_function_context.argv()
+				)
+			),
+			[](
+				fcppt::options::result<
+					fcppt::options::result_of<
+						parser_type
+					>
+				> const &_result
+			)
+			{
+				return
+					fcppt::either::match(
+						_result,
+						[](
+							fcppt::options::error const &_error
+						)
+						-> awl::main::exit_code
+						{
+							awl::show_error(
+								fcppt::insert_to_fcppt_string(
+									_error
+								)
+							);
+
+							return
+								awl::main::exit_failure();
+						},
+						[](
+							fcppt::options::result_of<
+								parser_type
+							> const &_args
+						)
+						-> awl::main::exit_code
+						{
+							return
+								main_program(
+									fcppt::record::permute<
+										arg_type
+									>(
+										_args
+									)
+								);
+						}
+					);
+			},
+			[](
+				fcppt::options::help_text const &_help_text
+			)
+			{
+				awl::show_message(
+					fcppt::insert_to_fcppt_string(
+						_help_text
+					)
+				);
+
+				return
+					awl::main::exit_success();
+			}
+		);
 }
 catch(
 	fcppt::exception const &_error
 )
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+	awl::show_error(
+		_error.string()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
 )
 {
-	std::cerr
-		<< _error.what()
-		<< '\n';
+	awl::show_error_narrow(
+		_error.what()
+	);
 
-	return awl::main::exit_failure();
+	return
+		awl::main::exit_failure();
 }

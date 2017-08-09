@@ -21,14 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_ORTHO_FREELOOK_PARAMETERS_HPP_INCLUDED
 #define SGE_CAMERA_ORTHO_FREELOOK_PARAMETERS_HPP_INCLUDED
 
-#include <sge/camera/is_active.hpp>
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/ortho_freelook/optional_projection_rectangle.hpp>
 #include <sge/camera/ortho_freelook/pan_speed.hpp>
 #include <sge/camera/ortho_freelook/zoom_speed.hpp>
 #include <sge/camera/ortho_freelook/action/mapping.hpp>
-#include <sge/input/keyboard/device_fwd.hpp>
-#include <sge/input/mouse/device_fwd.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/rect.hpp>
@@ -50,20 +47,9 @@ class parameters
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	parameters(
-		sge::input::mouse::device &,
-		sge::input::keyboard::device &,
 		sge::renderer::projection::near,
-		sge::renderer::projection::far,
-		sge::camera::is_active
+		sge::renderer::projection::far
 	);
-
-	SGE_CAMERA_DETAIL_SYMBOL
-	sge::input::mouse::device &
-	mouse() const;
-
-	SGE_CAMERA_DETAIL_SYMBOL
-	sge::input::keyboard::device &
-	keyboard() const;
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	parameters &
@@ -114,16 +100,8 @@ public:
 	far() const;
 
 	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::is_active
-	is_active() const;
-
-	SGE_CAMERA_DETAIL_SYMBOL
 	~parameters();
 private:
-	sge::input::mouse::device &mouse_;
-
-	sge::input::keyboard::device &keyboard_;
-
 	sge::camera::ortho_freelook::zoom_speed zoom_speed_;
 
 	sge::camera::ortho_freelook::pan_speed pan_speed_;
@@ -133,8 +111,6 @@ private:
 	sge::renderer::projection::near const near_;
 
 	sge::renderer::projection::far const far_;
-
-	sge::camera::is_active const is_active_;
 
 	sge::camera::ortho_freelook::action::mapping action_mapping_;
 };

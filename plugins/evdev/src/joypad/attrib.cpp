@@ -19,33 +19,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/evdev/joypad/add.hpp>
-#include <sge/evdev/joypad/add_parameters.hpp>
 #include <sge/evdev/joypad/attrib.hpp>
-#include <fcppt/container/find_opt.hpp>
+#include <sge/evdev/joypad/find_path.hpp>
+#include <sge/evdev/joypad/map.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <awl/event/base.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/optional/join.hpp>
+#include <fcppt/optional/make_if.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-void
+awl::event::optional_base_unique_ptr
 sge::evdev::joypad::attrib(
 	fcppt::log::object &_log,
-	sge::evdev::joypad::add_parameters const &_parameters,
+	sge::window::object &_window,
+	sge::evdev::joypad::map &_map,
 	boost::filesystem::path const &_path
 )
 {
-	if(
-		fcppt::container::find_opt(
-			_parameters.map(),
-			_path
-		).has_value()
-	)
-		return;
-
-	sge::evdev::joypad::add(
-		_log,
-		_parameters,
-		_path
-	);
+	return
+		fcppt::optional::join(
+			fcppt::optional::make_if(
+				!sge::evdev::joypad::find_path(
+					_map,
+					_path
+				).has_value(),
+				[
+					&_log,
+					&_window,
+					&_map,
+					&_path
+				]{
+					return
+						sge::evdev::joypad::add(
+							_log,
+							_window,
+							_map,
+							_path
+						);
+				}
+			)
+		);
 }

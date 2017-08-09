@@ -22,8 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_XRANDR_SELECT_INPUT_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/input_mask.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
+#include <awl/backends/x11/window/base_fwd.hpp>
 
 
 namespace sge
@@ -35,8 +34,7 @@ namespace xrandr
 
 void
 select_input(
-	awl::backends::x11::display &,
-	awl::backends::x11::window::object &,
+	awl::backends::x11::window::base const &,
 	sge::opengl::xrandr::input_mask
 );
 

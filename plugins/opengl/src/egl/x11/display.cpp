@@ -27,15 +27,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/egl/x11/surface.hpp>
 #include <sge/opengl/egl/x11/visual.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
+#include <sge/window/object.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/object.hpp>
-#include <awl/backends/x11/window/object.hpp>
+#include <awl/backends/x11/window/base.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/cast/dynamic_cross_exn.hpp>
+#include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
@@ -97,7 +98,7 @@ sge::opengl::egl::x11::display::create_visual(
 sge::opengl::egl::surface_unique_ptr
 sge::opengl::egl::x11::display::create_surface(
 	EGLConfig const _config,
-	awl::window::object &_window
+	sge::window::object &_window
 )
 {
 	return
@@ -109,10 +110,10 @@ sge::opengl::egl::x11::display::create_surface(
 			>(
 				display_,
 				_config,
-				fcppt::cast::dynamic_cross_exn<
-					awl::backends::x11::window::object &
+				fcppt::cast::dynamic_exn<
+					awl::backends::x11::window::base const &
 				>(
-					_window
+					_window.awl_object()
 				)
 			)
 		);

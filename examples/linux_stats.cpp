@@ -53,6 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
@@ -73,31 +74,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_font.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
-#include <sge/timer/scoped_frame_limiter.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/dim.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/loop.hpp>
+#include <sge/window/loop_function.hpp>
 #include <sge/window/title.hpp>
+#include <awl/show_error.hpp>
+#include <awl/show_error_narrow.hpp>
+#include <awl/show_message.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
+#include <awl/main/exit_success.hpp>
 #include <awl/main/function_context.hpp>
+#include <fcppt/args_from_second.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/extract_from_string.hpp>
+#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/to_signed.hpp>
-#include <fcppt/io/cerr.hpp>
+#include <fcppt/either/match.hpp>
+#include <fcppt/filesystem/open.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/optional/to_exception.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/options/apply.hpp>
+#include <fcppt/options/argument.hpp>
+#include <fcppt/options/default_help_switch.hpp>
+#include <fcppt/options/error.hpp>
+#include <fcppt/options/help_text.hpp>
+#include <fcppt/options/long_name.hpp>
+#include <fcppt/options/optional_help_text.hpp>
+#include <fcppt/options/parse_help.hpp>
+#include <fcppt/options/result.hpp>
+#include <fcppt/options/result_of.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/get.hpp>
+#include <fcppt/record/make_label.hpp>
+#include <fcppt/record/permute.hpp>
+#include <fcppt/record/variadic.hpp>
+#include <fcppt/variant/match.hpp>
+#include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <array>
@@ -105,17 +136,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <exception>
 #include <fstream>
 #include <ios>
-#include <iostream>
+#include <limits>
 #include <map>
 #include <numeric>
 #include <string>
 #include <type_traits>
 #include <utility>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
+
 class jiffies
 {
 public:
@@ -125,20 +158,25 @@ public:
 
 	FCPPT_MAKE_STRONG_TYPEDEF(
 		value_type,
-		total_type);
+		total_type
+	);
 
 	FCPPT_MAKE_STRONG_TYPEDEF(
 		value_type,
-		work_type);
+		work_type
+	);
 
 	jiffies(
 		total_type const &_total,
-		work_type const &_work)
+		work_type const &_work
+	)
 	:
 		total_(
-			_total),
+			_total
+		),
 		work_(
-			_work)
+			_work
+		)
 	{
 	}
 
@@ -158,67 +196,109 @@ public:
 
 	jiffies
 	operator-(
-		jiffies const &_other) const
+		jiffies const &_other
+	) const
 	{
 		return
 			jiffies(
 				this->total() - _other.total(),
-				this->work() - _other.work());
+				this->work() - _other.work()
+			);
 	}
 
-	template<typename Float>
+	template<
+		typename Float
+	>
 	typename
-	boost::enable_if
-	<
-		std::is_floating_point<Float>,
+	boost::enable_if<
+		std::is_floating_point<
+			Float
+		>,
 		Float
 	>::type
 	work_percentage() const
 	{
-		if(!total_.get())
-			return
-				static_cast<Float>(
-					0.0f);
-
 		return
-			static_cast<Float>(
-				work_.get()) /
-			static_cast<Float>(
-				total_.get()) *
-			static_cast<Float>(
-				100.0f);
+			total_.get()
+			!=
+			fcppt::literal<
+				value_type
+			>(
+				0
+			)
+			?
+				fcppt::cast::int_to_float<
+					Float
+				>(
+					work_.get()
+				)
+				/
+				fcppt::cast::int_to_float<
+					Float
+				>(
+					total_.get()
+				)
+				*
+				fcppt::literal<
+					Float
+				>(
+					100
+				)
+			:
+				fcppt::literal<
+					Float
+				>(
+					0
+				)
+			;
 	}
 private:
 	total_type total_;
+
 	work_type work_;
 };
 
 // Source: http://stackoverflow.com/questions/3017162/how-to-get-total-cpu-usage-in-linux-c
-jiffies const
+jiffies
 count_jiffies()
 {
-	std::ifstream cpuinfo(
-		"/proc/stat");
-
-	FCPPT_ASSERT_ERROR(
-		cpuinfo.is_open());
+	std::ifstream cpuinfo{
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			fcppt::filesystem::open<
+				std::ifstream
+			>(
+				"/proc/stat",
+				std::ios_base::in
+			)
+		)
+	};
 
 	std::string first_word;
+
 	cpuinfo >> first_word;
 
 	FCPPT_ASSERT_ERROR(
-		first_word == "cpu");
+		first_word == "cpu"
+	);
 
 	typedef
-	std::array<jiffies::value_type,7u>
+	std::array<
+		jiffies::value_type,
+		7u
+	>
 	jiffies_array;
 
 	jiffies_array current_jiffies;
 
+	// TODO: Use optionals
 	for(
-		auto &jiffie : current_jiffies
+		auto &jiffie
+		:
+		current_jiffies
 	)
-		if(!(cpuinfo >> jiffie))
+		if(
+			!(cpuinfo >> jiffie)
+		)
 			std::terminate();
 
 	return
@@ -227,87 +307,168 @@ count_jiffies()
 				std::accumulate(
 					current_jiffies.begin(),
 					current_jiffies.end(),
-					0u)),
+					0u
+				)
+			),
 			jiffies::work_type(
 				std::accumulate(
 					current_jiffies.begin(),
 					current_jiffies.begin() + 3,
-					0u)));
+					0u
+				)
+			)
+		);
 }
 
-struct
-graph_with_label
+class graph_with_label
 {
+	FCPPT_NONCOPYABLE(
+		graph_with_label
+	);
+public:
+	graph_with_label(
+		fcppt::unique_ptr<
+			sge::graph::object
+		> &&_graph,
+		fcppt::unique_ptr<
+			sge::font::draw::static_text
+		> &&_label
+	)
+	:
+		graph_(
+			std::move(
+				_graph
+			)
+		),
+		label_(
+			std::move(
+				_label
+			)
+		)
+	{
+	}
 
 	graph_with_label(
-		fcppt::unique_ptr<sge::graph::object> _graph,
-		fcppt::unique_ptr<sge::font::draw::static_text> _label)
-	:
-	graph_(
-		std::move(_graph)),
-	label_(
-		std::move(_label))
-	{}
+		graph_with_label &&
+	) = default;
+
+	graph_with_label &
+	operator=(
+		graph_with_label &&
+	) = delete;
+
+	~graph_with_label()
+	{
+	}
 
 	sge::graph::object &
 	get_graph() const
 	{
-		return *graph_;
+		return
+			*graph_;
 	}
 
 	sge::font::draw::static_text &
 	get_label() const
 	{
-		return *label_;
+		return
+			*label_;
 	}
+private:
+	fcppt::unique_ptr<
+		sge::graph::object
+	> graph_;
 
-	fcppt::unique_ptr<sge::graph::object> graph_;
-	fcppt::unique_ptr<sge::font::draw::static_text> label_;
+	fcppt::unique_ptr<
+		sge::font::draw::static_text
+	> label_;
 };
 
 double
 count_memory()
 {
 	std::ifstream meminfo(
-		"/proc/meminfo");
-
-	FCPPT_ASSERT_ERROR(
-		meminfo.is_open());
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			fcppt::filesystem::open<
+				std::ifstream
+			>(
+				"/proc/meminfo",
+				std::ios_base::in
+			)
+		)
+	);
 
 	unsigned
-		total = 0,
-		free = 0,
-		buffers = 0,
-		cached = 0,
-		slab = 0;
+		total{0},
+		free{0},
+		buffers{0},
+		cached{0},
+		slab{0};
 
 	std::string first_word, last_word;
+
 	unsigned value;
 
+	// TODO: Use optionals
 	while(
-		(meminfo >> first_word >> value).ignore(
-			std::numeric_limits<std::streamsize>::max(),
-			'\n'))
+		(
+			meminfo
+			>>
+			first_word
+			>>
+			value
+		).ignore(
+			std::numeric_limits<
+				std::streamsize
+			>::max(),
+			'\n'
+		)
+	)
 	{
-		if (first_word == "MemTotal:")
+		if(
+			first_word == "MemTotal:"
+		)
 			total = value;
-		else if (first_word == "MemFree:")
+		else if(
+			first_word == "MemFree:"
+		)
 			free = value;
-		else if (first_word == "Buffers:")
+		else if (
+			first_word == "Buffers:"
+		)
 			buffers = value;
-		else if (first_word == "Cached:")
+		else if(
+			first_word == "Cached:"
+		)
 			cached = value;
-		else if (first_word == "Slab:")
+		else if(
+			first_word == "Slab:"
+		)
 			slab = value;
 	}
 
-	unsigned used = total - free - buffers - cached - slab;
+	unsigned const used{
+		total - free - buffers - cached - slab
+	};
+
 	FCPPT_ASSERT_ERROR(
-		total > 0);
+		total > 0
+	);
+
 	return
-		100.0 *
-		static_cast<double>(used) /
-		static_cast<double>(total);
+		100.0
+		*
+		fcppt::cast::int_to_float<
+			double
+		>(
+			used
+		)
+		/
+		fcppt::cast::int_to_float<
+			double
+		>(
+			total
+		);
 }
 
 std::vector<
@@ -315,47 +476,79 @@ std::vector<
 >
 network_devices()
 {
-	std::ifstream netinfo(
-		"/proc/net/dev");
+	std::ifstream netinfo{
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			fcppt::filesystem::open<
+				std::ifstream
+			>(
+				"/proc/net/dev",
+				std::ios_base::in
+			)
+		)
+	};
 
-	FCPPT_ASSERT_ERROR(
-		netinfo.is_open());
+	// skip the first two lines
+	netinfo.ignore(
+		std::numeric_limits<
+			std::streamsize
+		>::max(),
+		'\n'
+	);
+
+	netinfo.ignore(
+		std::numeric_limits<
+			std::streamsize
+		>::max(),
+		'\n'
+	);
+
+	std::string device;
 
 	std::vector<
 		std::string
 	> result;
 
-	// skip the first two lines
-	netinfo.ignore(
-		std::numeric_limits<std::streamsize>::max(),
-		'\n');
-	netinfo.ignore(
-		std::numeric_limits<std::streamsize>::max(),
-		'\n');
-
-	std::string device;
+	// TODO: Use optionals
 	while(
-		(netinfo >> device).ignore(
-			std::numeric_limits<std::streamsize>::max(),
-			'\n'))
+		(
+			netinfo
+			>>
+			device
+		).ignore(
+			std::numeric_limits<
+				std::streamsize
+			>::max(),
+			'\n'
+		)
+	)
 	{
-		if (device != "lo:")
+		if(
+			device != "lo:"
+		)
 			result.push_back(
-				std::string(device.begin(), device.end() - 1u));
+				device
+			);
 	}
 
-	return result;
+	return
+		result;
 }
 
 unsigned long
 count_traffic(
-	std::string const &_device)
+	std::string const &_device
+)
 {
-	std::ifstream netinfo(
-		"/proc/net/dev");
-
-	FCPPT_ASSERT_ERROR(
-		netinfo.is_open());
+	std::ifstream netinfo{
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			fcppt::filesystem::open<
+				std::ifstream
+			>(
+				"/proc/net/dev",
+				std::ios_base::in
+			)
+		)
+	};
 
 	std::vector<
 		std::string
@@ -363,101 +556,101 @@ count_traffic(
 
 	// skip the first two lines
 	netinfo.ignore(
-		std::numeric_limits<std::streamsize>::max(),
-		'\n');
+		std::numeric_limits<
+			std::streamsize
+		>::max(),
+		'\n'
+	);
+
 	netinfo.ignore(
-		std::numeric_limits<std::streamsize>::max(),
-		'\n');
+		std::numeric_limits<
+			std::streamsize
+		>::max(),
+		'\n'
+	);
 
 	std::string device;
+
 	unsigned long value;
+
+	// TODO: Use optionals
 	while(
-		(netinfo >> device >> value).ignore(
-			std::numeric_limits<std::streamsize>::max(),
-			'\n'))
+		(
+			netinfo
+			>>
+			device
+			>>
+			value
+		).ignore(
+			std::numeric_limits<
+				std::streamsize
+			>::max(),
+			'\n'
+		)
+	)
 	{
-		if (device == _device + ':')
-			return value;
+		if(
+			device
+			==
+			_device + ':'
+		)
+			return
+				value;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;
 }
-}
 
-awl::main::exit_code const
-example_main(
-	awl::main::function_context const &_context)
-try
+FCPPT_RECORD_MAKE_LABEL(
+	width_label
+);
+
+FCPPT_RECORD_MAKE_LABEL(
+	height_label
+);
+
+typedef
+fcppt::record::variadic<
+	fcppt::record::element<
+		width_label,
+		sge::window::dim::value_type
+	>,
+	fcppt::record::element<
+		height_label,
+		sge::window::dim::value_type
+	>
+>
+arg_type;
+
+awl::main::exit_code
+main_program(
+	arg_type const &_args
+)
 {
-	count_memory();
-
-	if(_context.argc() <= 3)
-	{
-		std::cerr
-			<< "Usage: "
-			<<
-				_context.argv()[0]
-			<<
-				" <frames-per-second> <width> <height>\n";
-
-		return
-			awl::main::exit_failure();
-	}
-
-	sge::timer::scoped_frame_limiter::ticks_per_second const desired_fps(
-		fcppt::optional::to_exception(
-			fcppt::extract_from_string<
-				sge::timer::scoped_frame_limiter::ticks_per_second
-			>(
-				std::string(
-					_context.argv()[1]
-				)
-			),
-			[]{
-				return
-					fcppt::exception{
-						FCPPT_TEXT("Ticks per second is not an integer.")
-					};
-			}
-		)
-	);
-
 	sge::window::dim const graph_dim{
-		fcppt::optional::to_exception(
-			fcppt::extract_from_string<
-				sge::window::dim::value_type
-			>(
-				std::string(
-					_context.argv()[2]
-				)
-			),
-			[]{
-				return
-					fcppt::exception{
-						FCPPT_TEXT("Graph width is not an integer.")
-					};
-			}
+		fcppt::record::get<
+			width_label
+		>(
+			_args
 		),
-		fcppt::optional::to_exception(
-			fcppt::extract_from_string<
-				sge::window::dim::value_type
-			>(
-				std::string(
-					_context.argv()[3]
-				)
-			),
-			[]{
-				return
-					fcppt::exception{
-						FCPPT_TEXT("Graph height is not an integer.")
-					};
-			}
+		fcppt::record::get<
+			height_label
+		>(
+			_args
 		)
 	};
 
-	std::vector<std::string> devices = ::network_devices();
+	std::vector<
+		std::string
+	> const devices {
+		::network_devices()
+	};
 
-	std::map<std::string, unsigned long> device_totals;
+	std::map<
+		std::string,
+		unsigned long
+	>
+	device_totals;
 
 	sge::systems::instance<
 		boost::mpl::vector3<
@@ -573,7 +766,9 @@ try
 		sge::graph::position(
 			sge::renderer::vector2(
 				0.0f,
-				0.0f)),
+				0.0f
+			)
+		),
 		fcppt::math::dim::structure_cast<
 			sge::image2d::dim,
 			fcppt::cast::size_fun
@@ -586,7 +781,9 @@ try
 		sge::graph::optional_axis_constraint(
 			sge::graph::axis_constraint(
 				0.0,
-				100.0)),
+				100.0
+			)
+		),
 		sge::graph::color_schemes::default_()
 	);
 
@@ -609,16 +806,20 @@ try
 		),
 		sys.renderer_device_ffp(),
 		sge::graph::baseline(
-			50.0),
+			50.0
+		),
 		sge::graph::optional_axis_constraint(
 			sge::graph::axis_constraint(
 				0.0,
-				100.0)),
+				100.0
+			)
+		),
 		sge::graph::color_schemes::default_()
 	);
 
-	jiffies last_jiffies =
-		count_jiffies();
+	jiffies last_jiffies{
+		count_jiffies()
+	};
 
 	typedef
 	std::map<
@@ -641,7 +842,7 @@ try
 			*it
 		);
 
-		sge::font::unit y(
+		sge::font::unit const y{
 			fcppt::cast::size<
 				sge::font::unit
 			>(
@@ -655,7 +856,7 @@ try
 					graph_dim.h()
 				)
 			)
-		);
+		};
 
 		device_map.insert(
 			std::make_pair(
@@ -714,82 +915,271 @@ try
 			)
 		);
 
-		device_totals[device] =
-			::count_traffic(device);
+		device_totals[
+			device
+		] =
+			::count_traffic(
+				device
+			);
 	}
 
-	while(
-		sys.window_system().poll()
-	)
-	{
-		sge::timer::scoped_frame_limiter limiter(
-			desired_fps);
-
-		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_device_ffp(),
-			sys.renderer_device_ffp().onscreen_target()
-		);
-
-		jiffies const current_jiffies =
-			count_jiffies();
-		cpugraph.push(
-			(current_jiffies - last_jiffies).work_percentage<sge::graph::scalar>());
-		last_jiffies =
-			current_jiffies;
-		cpugraph.render(
-			scoped_block.get()
-		);
-		cpu_label.draw(
-			scoped_block.get()
-		);
-
-		memgraph.push(
-			count_memory());
-		memgraph.render(
-			scoped_block.get()
-		);
-		mem_label.draw(
-			scoped_block.get()
-		);
-
-		// network
-		for (
-			auto const &device
-			:
-			device_map
-		)
-		{
-			unsigned long traffic = ::count_traffic(device.first);
-
-			(device.second).get_graph().push(
-				static_cast<double>(
-					traffic -
-					device_totals[device.first]
-				)
+	auto const draw(
+		[
+			&cpugraph,
+			&cpu_label,
+			&device_map,
+			&device_totals,
+			&last_jiffies,
+			&memgraph,
+			&mem_label,
+			&sys
+		]{
+			sge::renderer::context::scoped_ffp const scoped_block(
+				sys.renderer_device_ffp(),
+				sys.renderer_device_ffp().onscreen_target()
 			);
 
-			device_totals[device.first] = traffic;
+			jiffies const current_jiffies{
+				count_jiffies()
+			};
 
-			(device.second).get_graph().render(
-				scoped_block.get());
+			cpugraph.push(
+				(
+					current_jiffies
+					-
+					last_jiffies
+				).work_percentage<
+					sge::graph::scalar
+				>()
+			);
 
-			(device.second).get_label().draw(
-				scoped_block.get());
+			last_jiffies =
+				current_jiffies;
+
+			cpugraph.render(
+				scoped_block.get()
+			);
+
+			cpu_label.draw(
+				scoped_block.get()
+			);
+
+			memgraph.push(
+				count_memory()
+			);
+
+			memgraph.render(
+				scoped_block.get()
+			);
+
+			mem_label.draw(
+				scoped_block.get()
+			);
+
+			// network
+			for(
+				auto const &device
+				:
+				device_map
+			)
+			{
+				unsigned long const traffic{
+					::count_traffic(
+						device.first
+					)
+				};
+
+				device.second.get_graph().push(
+					fcppt::cast::int_to_float<
+						sge::graph::scalar
+					>(
+						traffic
+						-
+						device_totals[
+							device.first
+						]
+					)
+				);
+
+				device_totals[
+					device.first
+				] = traffic;
+
+				device.second.get_graph().render(
+					scoped_block.get()
+				);
+
+				device.second.get_label().draw(
+					scoped_block.get()
+				);
+			}
 		}
+	);
 
-	}
-
-	return sys.window_system().exit_code();
+	return
+		sge::window::loop(
+			sys.window_system(),
+			sge::window::loop_function{
+				[
+					&draw
+				](
+					awl::event::base const &_event
+				)
+				{
+					fcppt::optional::maybe_void(
+						fcppt::cast::dynamic<
+							sge::renderer::event::render const
+						>(
+							_event
+						),
+						[
+							&draw
+						](
+							fcppt::reference<
+								sge::renderer::event::render const
+							>
+						)
+						{
+							draw();
+						}
+					);
+				}
+			}
+		);
 }
-catch(fcppt::exception const &e)
+
+}
+
+awl::main::exit_code const
+example_main(
+	awl::main::function_context const &_function_context
+)
+try
 {
-	fcppt::io::cerr() << e.string() << FCPPT_TEXT("\n");
-	return awl::main::exit_failure();
+	auto const parser(
+		fcppt::options::apply(
+			fcppt::options::argument<
+				width_label,
+				sge::window::dim::value_type
+			>{
+				fcppt::options::long_name{
+					FCPPT_TEXT("width")
+				},
+				fcppt::options::optional_help_text{
+					fcppt::options::help_text{
+						FCPPT_TEXT("The graph width")
+					}
+				}
+			},
+			fcppt::options::argument<
+				height_label,
+				sge::window::dim::value_type
+			>{
+				fcppt::options::long_name{
+					FCPPT_TEXT("height")
+				},
+				fcppt::options::optional_help_text{
+					fcppt::options::help_text{
+						FCPPT_TEXT("The graph height")
+					}
+				}
+			}
+		)
+	);
+
+	typedef
+	decltype(
+		parser
+	)
+	parser_type;
+
+	return
+		fcppt::variant::match(
+			fcppt::options::parse_help(
+				fcppt::options::default_help_switch(),
+				parser,
+				fcppt::args_from_second(
+					_function_context.argc(),
+					_function_context.argv()
+				)
+			),
+			[](
+				fcppt::options::result<
+					fcppt::options::result_of<
+						parser_type
+					>
+				> const &_result
+			)
+			{
+				return
+					fcppt::either::match(
+						_result,
+						[](
+							fcppt::options::error const &_error
+						)
+						-> awl::main::exit_code
+						{
+							awl::show_error(
+								fcppt::insert_to_fcppt_string(
+									_error
+								)
+							);
+
+							return
+								awl::main::exit_failure();
+						},
+						[](
+							fcppt::options::result_of<
+								parser_type
+							> const &_args
+						)
+						-> awl::main::exit_code
+						{
+							return
+								main_program(
+									fcppt::record::permute<
+										arg_type
+									>(
+										_args
+									)
+								);
+						}
+					);
+			},
+			[](
+				fcppt::options::help_text const &_help_text
+			)
+			{
+				awl::show_message(
+					fcppt::insert_to_fcppt_string(
+						_help_text
+					)
+				);
+
+				return
+					awl::main::exit_success();
+			}
+		);
+}
+catch(
+	fcppt::exception const &_error
+)
+{
+	awl::show_error(
+		_error.string()
+	);
+
+	return
+		awl::main::exit_failure();
 }
 catch(
 	std::exception const &_error
 )
 {
-	std::cerr << _error.what() << '\n';
-	return awl::main::exit_failure();
+	awl::show_error_narrow(
+		_error.what()
+	);
+
+	return
+		awl::main::exit_failure();
 }

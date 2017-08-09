@@ -22,52 +22,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_PROCESSOR_HPP_INCLUDED
 
 #include <sge/input/processor.hpp>
-#include <sge/input/cursor/discover_callback.hpp>
-#include <sge/input/cursor/discover_signal.hpp>
-#include <sge/input/cursor/remove_callback.hpp>
-#include <sge/input/cursor/remove_signal.hpp>
-#include <sge/input/focus/discover_callback.hpp>
-#include <sge/input/focus/discover_signal.hpp>
-#include <sge/input/focus/remove_callback.hpp>
-#include <sge/input/focus/remove_signal.hpp>
-#include <sge/input/joypad/discover_callback.hpp>
-#include <sge/input/joypad/remove_callback.hpp>
-#include <sge/input/keyboard/discover_callback.hpp>
-#include <sge/input/keyboard/discover_signal.hpp>
-#include <sge/input/keyboard/remove_callback.hpp>
-#include <sge/input/keyboard/remove_signal.hpp>
-#include <sge/input/mouse/discover_callback.hpp>
-#include <sge/input/mouse/discover_signal.hpp>
-#include <sge/input/mouse/remove_callback.hpp>
-#include <sge/input/mouse/remove_signal.hpp>
+#include <sge/input/cursor/container.hpp>
+#include <sge/input/cursor/object_fwd.hpp>
+#include <sge/input/cursor/shared_ptr.hpp>
+#include <sge/input/focus/container.hpp>
+#include <sge/input/focus/object_fwd.hpp>
+#include <sge/input/focus/shared_ptr.hpp>
+#include <sge/input/joypad/container.hpp>
+#include <sge/input/keyboard/container.hpp>
+#include <sge/input/keyboard/device_fwd.hpp>
+#include <sge/input/keyboard/shared_ptr.hpp>
+#include <sge/input/mouse/container.hpp>
+#include <sge/input/mouse/device_fwd.hpp>
+#include <sge/input/mouse/shared_ptr.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <sge/window/system_fwd.hpp>
-#include <sge/x11input/create_parameters_fwd.hpp>
-#include <sge/x11input/cursor/object_unique_ptr.hpp>
-#include <sge/x11input/device/hierarchy_demuxer.hpp>
-#include <sge/x11input/device/hierarchy_event_fwd.hpp>
-#include <sge/x11input/device/parameters_fwd.hpp>
-#include <sge/x11input/device/raw_demuxer.hpp>
-#include <sge/x11input/device/window_demuxer.hpp>
-#include <sge/x11input/device/manager/object.hpp>
-#include <sge/x11input/focus/object_unique_ptr.hpp>
-#include <sge/x11input/keyboard/device_unique_ptr.hpp>
-#include <sge/x11input/mouse/device_unique_ptr.hpp>
+#include <sge/x11input/opcode.hpp>
+#include <sge/x11input/device/id.hpp>
+#include <sge/x11input/device/map.hpp>
+#include <sge/x11input/event/handler.hpp>
+#include <sge/x11input/event/raw_demuxer.hpp>
+#include <sge/x11input/event/type.hpp>
+#include <sge/x11input/event/window_demuxer.hpp>
 #include <sge/x11input/xim/optional_method_unique_ptr.hpp>
-#include <awl/backends/x11/atom.hpp>
 #include <awl/backends/x11/cursor/object_unique_ptr.hpp>
+#include <awl/backends/x11/system/event/generic_fwd.hpp>
 #include <awl/backends/x11/system/event/object_fwd.hpp>
-#include <awl/backends/x11/system/event/opcode.hpp>
 #include <awl/backends/x11/system/event/processor_fwd.hpp>
+#include <awl/backends/x11/window/base_unique_ptr.hpp>
 #include <awl/backends/x11/window/object_fwd.hpp>
-#include <awl/backends/x11/window/object_unique_ptr.hpp>
-#include <awl/backends/x11/window/event/object_fwd.hpp>
-#include <awl/backends/x11/window/event/processor_fwd.hpp>
+#include <awl/event/base_fwd.hpp>
+#include <awl/event/container.hpp>
+#include <awl/event/optional_base_unique_ptr_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/strong_typedef_std_hash.hpp>
 #include <fcppt/log/object_fwd.hpp>
-#include <fcppt/signal/auto_connection_container.hpp>
+#include <fcppt/optional/object_fwd.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_decl.hpp>
-#include <fcppt/signal/optional_auto_connection_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XInput2.h>
+#include <unordered_map>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -85,160 +80,153 @@ class processor
 public:
 	processor(
 		fcppt::log::object &,
-		sge::window::object const &,
-		sge::window::system const &,
-		awl::backends::x11::system::event::opcode
+		sge::window::object &,
+		sge::x11input::opcode
 	);
 
 	~processor()
 	override;
 private:
-	fcppt::signal::optional_auto_connection
-	keyboard_discover_callback(
-		sge::input::keyboard::discover_callback const &
-	)
+	sge::window::object &
+	window() const
 	override;
 
-	fcppt::signal::optional_auto_connection
-	keyboard_remove_callback(
-		sge::input::keyboard::remove_callback const &
-	)
+	sge::input::cursor::container
+	cursors() const
 	override;
 
-	fcppt::signal::optional_auto_connection
-	mouse_discover_callback(
-		sge::input::mouse::discover_callback const &
-	)
+	sge::input::focus::container
+	foci() const
 	override;
 
-	fcppt::signal::optional_auto_connection
-	mouse_remove_callback(
-		sge::input::mouse::remove_callback const &
-	)
+	sge::input::joypad::container
+	joypads() const
 	override;
 
-	fcppt::signal::optional_auto_connection
-	focus_discover_callback(
-		sge::input::focus::discover_callback const &
-	)
+	sge::input::keyboard::container
+	keyboards() const
 	override;
 
-	fcppt::signal::optional_auto_connection
-	focus_remove_callback(
-		sge::input::focus::remove_callback const &
-	)
+	sge::input::mouse::container
+	mice() const
 	override;
 
-	fcppt::signal::optional_auto_connection
-	cursor_discover_callback(
-		sge::input::cursor::discover_callback const &
-	)
-	override;
-
-	fcppt::signal::optional_auto_connection
-	cursor_remove_callback(
-		sge::input::cursor::remove_callback const &
-	)
-	override;
-
-	fcppt::signal::optional_auto_connection
-	joypad_discover_callback(
-		sge::input::joypad::discover_callback const &
-	)
-	override;
-
-	fcppt::signal::optional_auto_connection
-	joypad_remove_callback(
-		sge::input::joypad::remove_callback const &
-	)
-	override;
-
-	sge::x11input::device::parameters
-	device_parameters(
-		sge::x11input::create_parameters const &
-	);
-
-	sge::x11input::keyboard::device_unique_ptr
-	create_keyboard(
-		sge::x11input::create_parameters const &
-	);
-
-	sge::x11input::mouse::device_unique_ptr
-	create_mouse(
-		sge::x11input::create_parameters const &
-	);
-
-	sge::x11input::focus::object_unique_ptr
-	create_focus(
-		sge::x11input::create_parameters const &
-	);
-
-	sge::x11input::cursor::object_unique_ptr
-	create_cursor(
-		sge::x11input::create_parameters const &
-	);
-
-	void
-	on_hierarchy_changed(
-		sge::x11input::device::hierarchy_event const &
-	);
-
-	template<
-		typename Function
+	typedef
+	fcppt::optional::object<
+		awl::event::container
 	>
-	void
-	for_each_cursor(
-		Function const &
+	optional_event_container;
+
+	awl::event::container
+	system_event(
+		awl::event::base const &
 	);
 
-	void
-	on_client_message(
-		awl::backends::x11::window::event::object const &
+	optional_event_container
+	extension_event(
+		awl::backends::x11::system::event::generic const &
+	);
+
+	awl::event::container
+	hierarchy_event(
+		XIHierarchyEvent const &
+	);
+
+	awl::event::optional_base_unique_ptr
+	hierarchy_info(
+		XIHierarchyInfo const &
+	);
+
+	awl::event::optional_base_unique_ptr
+	add_device(
+		XIDeviceInfo const &
+	);
+
+	awl::event::optional_base_unique_ptr
+	remove_device(
+		XIHierarchyInfo const &
+	);
+
+	sge::input::focus::shared_ptr
+	add_focus(
+		XIDeviceInfo const &
+	);
+
+	sge::input::keyboard::shared_ptr
+	add_keyboard(
+		XIDeviceInfo const &
+	);
+
+	sge::input::cursor::shared_ptr
+	add_cursor(
+		XIDeviceInfo const &
+	);
+
+	sge::input::mouse::shared_ptr
+	add_mouse(
+		XIDeviceInfo const &
 	);
 
 	fcppt::log::object &log_;
 
-	awl::backends::x11::system::event::opcode const opcode_;
+	sge::x11input::opcode const opcode_;
 
-	awl::backends::x11::window::object const &x11_window_;
+	sge::window::object &window_;
 
-	awl::backends::x11::window::event::processor &window_event_processor_;
+	awl::backends::x11::window::object &x11_window_;
 
-	awl::backends::x11::system::event::processor &system_event_processor_;
-
-	sge::x11input::device::window_demuxer window_demuxer_;
-
-	awl::backends::x11::window::object_unique_ptr const root_window_;
-
-	sge::x11input::device::raw_demuxer raw_demuxer_;
-
-	sge::x11input::device::hierarchy_demuxer hierarchy_demuxer_;
+	awl::backends::x11::window::base_unique_ptr const root_window_;
 
 	awl::backends::x11::cursor::object_unique_ptr const invisible_cursor_;
 
 	sge::x11input::xim::optional_method_unique_ptr const xim_method_;
 
-	sge::input::keyboard::discover_signal keyboard_discover_;
+	sge::x11input::event::window_demuxer window_demuxer_;
 
-	sge::input::keyboard::remove_signal keyboard_remove_;
+	sge::x11input::event::raw_demuxer raw_demuxer_;
 
-	sge::input::mouse::discover_signal mouse_discover_;
+	typedef
+	sge::x11input::device::map<
+		sge::input::focus::object
+	>
+	focus_map;
 
-	sge::input::mouse::remove_signal mouse_remove_;
+	typedef
+	sge::x11input::device::map<
+		sge::input::keyboard::device
+	>
+	keyboard_map;
 
-	sge::input::focus::discover_signal focus_discover_;
+	typedef
+	sge::x11input::device::map<
+		sge::input::cursor::object
+	>
+	cursor_map;
 
-	sge::input::focus::remove_signal focus_remove_;
+	typedef
+	sge::x11input::device::map<
+		sge::input::mouse::device
+	>
+	mouse_map;
 
-	sge::input::cursor::discover_signal cursor_discover_;
+	focus_map foci_;
 
-	sge::input::cursor::remove_signal cursor_remove_;
+	keyboard_map keyboards_;
 
-	sge::x11input::device::manager::object device_manager_;
+	cursor_map cursors_;
 
-	awl::backends::x11::atom const init_atom_;
+	mouse_map mice_;
 
-	fcppt::signal::auto_connection_container const connections_;
+	typedef
+	std::unordered_map<
+		sge::x11input::event::type,
+		sge::x11input::event::handler
+	>
+	handler_map;
+
+	handler_map const handlers_;
+
+	fcppt::signal::auto_connection const event_connection_;
 };
 
 }
