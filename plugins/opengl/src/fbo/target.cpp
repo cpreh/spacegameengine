@@ -289,12 +289,8 @@ sge::opengl::fbo::target::depth_stencil_surface(
 				fcppt::optional::to_exception(
 					fcppt::variant::dynamic_cast_<
 						boost::mpl::vector2<
-							fcppt::reference<
-								sge::opengl::fbo::depth_stencil_surface
-							>,
-							fcppt::reference<
-								sge::opengl::texture::buffer_base
-							>
+							sge::opengl::fbo::depth_stencil_surface,
+							sge::opengl::texture::buffer_base
 						>,
 						fcppt::cast::dynamic_any_fun
 					>(
