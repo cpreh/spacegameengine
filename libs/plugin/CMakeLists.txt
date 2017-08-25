@@ -139,6 +139,8 @@ add_sge_base_library(
 		${fcppt_core_TARGET}
 		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
+		${Boost_FILESYSTEM_LIBRARIES}
+		${Boost_SYSTEM_LIBRARIES}
 		${SGE_PLUGIN_ADDITIONAL_LIBS}
 	TRANSITIVE_ADDITIONAL_DEPS
 		${fcppt_core_TARGET}

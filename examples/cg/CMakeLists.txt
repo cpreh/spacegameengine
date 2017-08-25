@@ -11,6 +11,7 @@ add_sge_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
+		${Boost_SYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -28,6 +29,7 @@ add_sge_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
+		${Boost_SYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -43,6 +45,7 @@ add_sge_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
+		${Boost_SYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -60,4 +63,5 @@ add_sge_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
+		${Boost_SYSTEM_LIBRARIES}
 )

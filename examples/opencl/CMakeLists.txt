@@ -11,6 +11,7 @@ add_sge_console_example(
 		${fcppt_core_TARGET}
 		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
+		${Boost_SYSTEM_LIBRARIES}
 )
 
 add_sge_console_example(

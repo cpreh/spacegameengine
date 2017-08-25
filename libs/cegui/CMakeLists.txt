@@ -140,10 +140,14 @@ add_sge_base_library(
 		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
 		${CEGUI_LIBRARIES}
+		${Boost_FILESYSTEM_LIBRARIES}
+		${Boost_SYSTEM_LIBRARIES}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
 		fcppt_log_interface
 		${CEGUI_LIBRARIES}
+		${Boost_FILESYSTEM_LIBRARIES}
+		${Boost_SYSTEM_LIBRARIES}
 	INCLUDE_DIRS
 		${CEGUI_INCLUDE_DIRS}
 	TRANSITIVE_INCLUDE_DIRS

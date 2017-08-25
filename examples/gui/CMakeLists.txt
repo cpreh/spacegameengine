@@ -16,5 +16,6 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARY}
+		${Boost_FILESYSTEM_LIBRARIES}
+		${Boost_SYSTEM_LIBRARIES}
 )

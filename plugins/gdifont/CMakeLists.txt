@@ -80,4 +80,5 @@ add_sge_plugin(
 		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
+		${Boost_SYSTEM_LIBRARIES}
 )

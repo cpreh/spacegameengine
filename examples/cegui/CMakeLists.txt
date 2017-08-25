@@ -16,4 +16,5 @@ add_sge_example(
 		${fcppt_core_TARGET}
 		fcppt_log_interface
 		${Boost_FILESYSTEM_LIBRARIES}
+		${Boost_SYSTEM_LIBRARIES}
 )
