@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/version_fwd.hpp>
 #include <fcppt/io/ostream_fwd.hpp>
 
+#undef major
+#undef minor
 
 namespace sge
 {

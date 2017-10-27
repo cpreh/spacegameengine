@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/egl/minor_version.hpp>
 #include <sge/opengl/egl/version_fwd.hpp>
 
+#undef major
+#undef minor
 
 namespace sge
 {
