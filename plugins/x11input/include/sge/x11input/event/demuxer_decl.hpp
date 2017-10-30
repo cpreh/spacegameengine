@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/event/demuxer_fwd.hpp>
 #include <awl/backends/x11/window/base_fwd.hpp>
+#include <awl/event/container.hpp>
 #include <fcppt/function_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/strong_typedef_std_hash.hpp>

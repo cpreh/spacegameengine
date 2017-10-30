@@ -80,7 +80,6 @@ set(
 	plugins/x11input/include/sge/x11input/event/raw_function.hpp
 	plugins/x11input/include/sge/x11input/event/raw_function_type.hpp
 	plugins/x11input/include/sge/x11input/event/select.hpp
-	plugins/x11input/include/sge/x11input/event/select_device.hpp
 	plugins/x11input/include/sge/x11input/event/select_unsafe.hpp
 	plugins/x11input/include/sge/x11input/event/static_type.hpp
 	plugins/x11input/include/sge/x11input/event/type.hpp
