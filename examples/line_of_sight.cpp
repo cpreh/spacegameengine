@@ -283,20 +283,22 @@ try
 	);
 
 	sprite_grid sprites(
-		fcppt::math::dim::structure_cast<
-			sprite_grid::dim,
-			fcppt::cast::size_fun
-		>(
-			// TODO: Use something else here
-			sys.window().size()
-		)
-		/
-		fcppt::math::dim::structure_cast<
-			sprite_grid::dim,
-			fcppt::cast::size_fun
-		>(
-			cell_size
-		),
+		(
+			fcppt::math::dim::structure_cast<
+				sprite_grid::dim,
+				fcppt::cast::size_fun
+			>(
+				// TODO: Use something else here
+				sys.window().size()
+			)
+			/
+			fcppt::math::dim::structure_cast<
+				sprite_grid::dim,
+				fcppt::cast::size_fun
+			>(
+				cell_size
+			)
+		).get_unsafe(),
 		make_sprite
 	);
 
@@ -327,24 +329,26 @@ try
 					sprites =
 						fcppt::container::grid::resize(
 							sprites,
-							fcppt::math::dim::structure_cast<
-								sprite_grid::dim,
-								fcppt::cast::size_fun
-							>(
+							(
 								fcppt::math::dim::structure_cast<
-									sge::renderer::screen_size,
-									fcppt::cast::to_unsigned_fun
+									sprite_grid::dim,
+									fcppt::cast::size_fun
 								>(
-									_viewport.get().size()
+									fcppt::math::dim::structure_cast<
+										sge::renderer::screen_size,
+										fcppt::cast::to_unsigned_fun
+									>(
+										_viewport.get().size()
+									)
 								)
-							)
-							/
-							fcppt::math::dim::structure_cast<
-								sprite_grid::dim,
-								fcppt::cast::size_fun
-							>(
-								cell_size
-							),
+								/
+								fcppt::math::dim::structure_cast<
+									sprite_grid::dim,
+									fcppt::cast::size_fun
+								>(
+									cell_size
+								)
+							).get_unsafe(),
 							make_sprite
 						);
 				}
@@ -392,14 +396,16 @@ try
 			};
 
 			sprite_grid::pos const cur_grid_position(
-				fcppt::math::vector::structure_cast<
-					sprite_grid::pos,
-					fcppt::cast::size_fun
-				>(
-					cur_position
-				)
-				/
-				cell_size_dim
+				(
+					fcppt::math::vector::structure_cast<
+						sprite_grid::pos,
+						fcppt::cast::size_fun
+					>(
+						cur_position
+					)
+					/
+					cell_size_dim
+				).get_unsafe()
 			);
 
 			if(
@@ -431,19 +437,21 @@ try
 				)
 				{
 					sprite_grid::pos const last_grid_position(
-						fcppt::math::vector::structure_cast<
-							sprite_grid::pos,
-							fcppt::cast::to_unsigned_fun
-						>(
+						(
 							fcppt::math::vector::structure_cast<
-								signed_pos,
-								fcppt::cast::size_fun
+								sprite_grid::pos,
+								fcppt::cast::to_unsigned_fun
 							>(
-								_last_position
+								fcppt::math::vector::structure_cast<
+									signed_pos,
+									fcppt::cast::size_fun
+								>(
+									_last_position
+								)
 							)
-						)
-						/
-						cell_size_dim
+							/
+							cell_size_dim
+						).get_unsafe()
 					);
 
 					sge::bresenham::normal(

@@ -183,9 +183,11 @@ sge::gui::widget::button::on_draw(
 		>(
 			layout_.position()
 			+
-			style_.button_spacing()
-			/
-			2
+			(
+				style_.button_spacing()
+				/
+				2
+			).get_unsafe()
 		)
 		+
 		sge::font::vector(

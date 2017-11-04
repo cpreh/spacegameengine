@@ -129,9 +129,11 @@ sge::gui::widget::static_text::on_draw(
 		>(
 			this->layout().position()
 			+
-			style_.text_spacing()
-			/
-			2
+			(
+				style_.text_spacing()
+				/
+				2
+			).get_unsafe()
 		)
 	);
 

@@ -56,18 +56,20 @@ center_from_pos(
 	return
 		_pos.get()
 		+
-		sge::sprite::detail::get_size<
-			Choices
-		>(
-			_elements
-		)
-		/
-		fcppt::literal<
-			typename
-			Choices::type_choices::unit_type
-		>(
-			2
-		);
+		(
+			sge::sprite::detail::get_size<
+				Choices
+			>(
+				_elements
+			)
+			/
+			fcppt::literal<
+				typename
+				Choices::type_choices::unit_type
+			>(
+				2
+			)
+		).get_unsafe();
 }
 
 }

@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/event/axis.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/math/matrix/rotation_axis.hpp>
@@ -363,11 +364,13 @@ sge::camera::first_person::object::rotate_on_x(
 
 	coordinate_system_.forward(
 		sge::camera::coordinate_system::forward(
-			fcppt::math::vector::normalize(
-				fcppt::math::vector::narrow_cast<
-					sge::renderer::vector3
-				>(
-					rotated_forward
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				fcppt::math::vector::normalize(
+					fcppt::math::vector::narrow_cast<
+						sge::renderer::vector3
+					>(
+						rotated_forward
+					)
 				)
 			)
 		)
@@ -375,10 +378,12 @@ sge::camera::first_person::object::rotate_on_x(
 
 	coordinate_system_.right(
 		sge::camera::coordinate_system::right(
-			fcppt::math::vector::normalize(
-				fcppt::math::vector::cross(
-					y_axis,
-					coordinate_system_.forward().get()
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				fcppt::math::vector::normalize(
+					fcppt::math::vector::cross(
+						y_axis,
+						coordinate_system_.forward().get()
+					)
 				)
 			)
 		)
@@ -448,11 +453,13 @@ sge::camera::first_person::object::rotate_on_y(
 
 	coordinate_system_.forward(
 		sge::camera::coordinate_system::forward(
-			fcppt::math::vector::normalize(
-				fcppt::math::vector::narrow_cast<
-					sge::renderer::vector3
-				>(
-					rotated_forward
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				fcppt::math::vector::normalize(
+					fcppt::math::vector::narrow_cast<
+						sge::renderer::vector3
+					>(
+						rotated_forward
+					)
 				)
 			)
 		)
@@ -460,10 +467,12 @@ sge::camera::first_person::object::rotate_on_y(
 
 	coordinate_system_.up(
 		sge::camera::coordinate_system::up(
-			fcppt::math::vector::normalize(
-				fcppt::math::vector::cross(
-					coordinate_system_.forward().get(),
-					coordinate_system_.right().get()
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				fcppt::math::vector::normalize(
+					fcppt::math::vector::cross(
+						coordinate_system_.forward().get(),
+						coordinate_system_.right().get()
+					)
 				)
 			)
 		)

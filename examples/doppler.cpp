@@ -447,13 +447,15 @@ try
 								sprite_object::dim,
 								fcppt::cast::size_fun
 							>(
-								_viewport.get().size()
-								/
-								fcppt::literal<
-									sge::renderer::pixel_unit
-								>(
-									2
-								)
+								(
+									_viewport.get().size()
+									/
+									fcppt::literal<
+										sge::renderer::pixel_unit
+									>(
+										2
+									)
+								).get_unsafe()
 							)
 						)
 					);

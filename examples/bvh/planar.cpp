@@ -743,9 +743,11 @@ main_program(
 							screen_size_rng()
 						}
 						-
-						new_size
-						/
-						2.0f,
+						(
+							new_size
+							/
+							2.0f
+						).get_unsafe(),
 						new_size
 					};
 			}

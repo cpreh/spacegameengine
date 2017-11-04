@@ -51,9 +51,11 @@ sge::renderer::lock_rect_to_coords(
 	sge::renderer::dim2 const &_dim
 )
 {
-	typedef fcppt::math::box::rect<
+	typedef
+	fcppt::math::box::rect<
 		Ret
-	> ret_type;
+	>
+	ret_type;
 
 	ret_type const srect(
 		fcppt::math::box::structure_cast<
@@ -64,10 +66,12 @@ sge::renderer::lock_rect_to_coords(
 		)
 	);
 
-	typedef fcppt::math::dim::static_<
+	typedef
+	fcppt::math::dim::static_<
 		Ret,
 		2
-	> sdim_type;
+	>
+	sdim_type;
 
 	sdim_type const sdim(
 		fcppt::math::dim::structure_cast<
@@ -79,12 +83,22 @@ sge::renderer::lock_rect_to_coords(
 	);
 
 	return
+		// TODO: Make a function in fcppt::math::box for this
 		ret_type(
-			typename ret_type::vector(
-				srect.left() / sdim.w(),
-				srect.top() / sdim.h()
-			),
-			srect.size() / sdim
+			typename
+			ret_type::vector{
+				srect.left()
+				/
+				sdim.w(),
+				srect.top()
+				/
+				sdim.h()
+			},
+			(
+				srect.size()
+				/
+				sdim
+			).get_unsafe()
 		);
 }
 

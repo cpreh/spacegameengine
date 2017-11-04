@@ -122,22 +122,24 @@ sge::gui::widget::image::on_draw(
 		layout_.position()
 		+
 		(
-			layout_.size()
-			-
-			fcppt::math::dim::structure_cast<
-				sge::rucksack::dim,
-				fcppt::cast::size_fun
-			>(
-				fcppt::math::dim::to_signed(
-					texture_.area().size()
+			(
+				layout_.size()
+				-
+				fcppt::math::dim::structure_cast<
+					sge::rucksack::dim,
+					fcppt::cast::size_fun
+				>(
+					fcppt::math::dim::to_signed(
+						texture_.area().size()
+					)
 				)
 			)
-		)
-		/
-		fcppt::literal<
-			sge::rucksack::scalar
-		>(
-			2
-		)
+			/
+			fcppt::literal<
+				sge::rucksack::scalar
+			>(
+				2
+			)
+		).get_unsafe()
 	);
 }

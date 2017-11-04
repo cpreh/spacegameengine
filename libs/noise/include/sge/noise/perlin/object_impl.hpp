@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/noise/perlin/object_decl.hpp>
 #include <fcppt/use.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/container/grid/interpolate.hpp>
 #include <fcppt/math/mod.hpp>
@@ -171,8 +172,8 @@ sge::noise::perlin::object<
 						)
 					};
 
-					return
-						fcppt::math::mod(
+					value_type const temp{
+						FCPPT_ASSERT_OPTIONAL_ERROR(
 							fcppt::math::mod(
 								fcppt::math::vector::at<
 									index::value
@@ -181,9 +182,17 @@ sge::noise::perlin::object<
 								),
 								current_dimension
 							)
-							+
-							current_dimension,
-							current_dimension
+						)
+					};
+
+					return
+						FCPPT_ASSERT_OPTIONAL_ERROR(
+							fcppt::math::mod(
+								temp
+								+
+								current_dimension,
+								current_dimension
+							)
 						);
 				}
 			),

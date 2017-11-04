@@ -50,6 +50,7 @@ main(
 	char *argv[])
 try
 {
+	// TODO: fcppt::options
 	if(argc == 1)
 	{
 		std::cerr << "Usage: " << argv[0] << " <rectangle-count>\n";
@@ -147,9 +148,17 @@ try
 			bvh_box(
 				bvh_box::vector(
 					screen_size_rng(),
-					screen_size_rng()) -
-				new_size/2.0f,
-				new_size));
+					screen_size_rng()
+				)
+				-
+				(
+					new_size
+					/
+					2.0f
+				).get_unsafe(),
+				new_size
+			)
+		);
 	}
 
 	typedef

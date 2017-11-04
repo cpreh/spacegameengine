@@ -49,29 +49,38 @@ sge::renderer::display_mode::to_dpi(
 				)
 				{
 					return
-						fcppt::optional::map(
+						fcppt::optional::bind(
 							_mode.dimensions(),
 							[
 								&_mode
 							](
 								sge::renderer::display_mode::dimensions const &_dim
 							)
-							-> sge::renderer::display_mode::dpi
 							{
 								return
-									_mode.pixel_size().get()
-									/
-									fcppt::math::dim::structure_cast<
-										sge::renderer::display_mode::dpi,
-										fcppt::cast::int_to_float_fun
-									>(
-										_dim.get()
-									)
-									*
-									fcppt::literal<
-										sge::renderer::display_mode::dpi_unit
-									>(
-										25.4
+									fcppt::optional::map(
+										_mode.pixel_size().get()
+										/
+										fcppt::math::dim::structure_cast<
+											sge::renderer::display_mode::dpi,
+											fcppt::cast::int_to_float_fun
+										>(
+											_dim.get()
+										),
+										[](
+											sge::renderer::display_mode::dpi const _value
+										)
+										-> sge::renderer::display_mode::dpi
+										{
+											return
+												_value
+												*
+												fcppt::literal<
+													sge::renderer::display_mode::dpi_unit
+												>(
+													25.4
+												);
+										}
 									);
 							}
 						);
