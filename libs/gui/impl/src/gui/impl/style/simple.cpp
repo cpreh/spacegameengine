@@ -45,6 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/fill.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/fill.hpp>
 
 
 sge::gui::impl::style::simple::simple()
@@ -82,12 +83,20 @@ sge::gui::impl::style::simple::draw_button(
 		sge::rucksack::rect(
 			_area.pos()
 			+
-			sge::gui::impl::style::outer_border::value,
+			fcppt::math::vector::fill<
+				sge::rucksack::vector
+			>(
+				sge::gui::impl::style::outer_border::value
+			),
 			_area.size()
 			-
-			2
-			*
-			sge::gui::impl::style::outer_border::value
+			fcppt::math::dim::fill<
+				sge::rucksack::dim
+			>(
+				2
+				*
+				sge::gui::impl::style::outer_border::value
+			)
 		),
 		sge::gui::impl::style::background_color()
 	);
@@ -293,12 +302,20 @@ sge::gui::impl::style::simple::draw_edit(
 		sge::rucksack::rect(
 			_area.pos()
 			+
-			sge::gui::impl::style::outer_border::value,
+			fcppt::math::vector::fill<
+				sge::rucksack::vector
+			>(
+				sge::gui::impl::style::outer_border::value
+			),
 			_area.size()
 			-
-			2
-			*
-			sge::gui::impl::style::outer_border::value
+			fcppt::math::dim::fill<
+				sge::rucksack::dim
+			>(
+				2
+				*
+				sge::gui::impl::style::outer_border::value
+			)
 		),
 		sge::gui::impl::style::background_color()
 	);

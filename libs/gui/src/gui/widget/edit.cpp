@@ -59,6 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/preferred_size.hpp>
 #include <sge/rucksack/rect.hpp>
 #include <sge/rucksack/scalar.hpp>
+#include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
 #include <sge/timer/basic_impl.hpp>
@@ -71,12 +72,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/vector/fill.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <chrono>
 #include <locale>
 #include <fcppt/config/external_end.hpp>
 
@@ -456,9 +459,13 @@ sge::gui::widget::edit::make_static_text()
 			>(
 				layout_.position()
 				+
-				style_.edit_spacing().w()
-				/
-				2
+				fcppt::math::vector::fill<
+					sge::rucksack::vector
+				>(
+					style_.edit_spacing().w()
+					/
+					2
+				)
 			)
 			+
 			sge::font::vector(
