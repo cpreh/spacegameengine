@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_ORTHO_FREELOOK_ACTION_ACTIVATE_PAN_HPP_INCLUDED
 
 #include <sge/input/key/optional_code.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
 {
@@ -32,17 +34,19 @@ namespace ortho_freelook
 {
 namespace action
 {
+
 /**
 \brief The (optional) key code belonging to the action "activate pan"
 \ingroup sgecamera
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::input::key::optional_code,
-	activate_pan);
+	activate_pan
+);
+
 }
 }
 }
 }
 
 #endif
-

@@ -28,9 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/md3/impl/texpos_vector.hpp>
 #include <sge/model/md3/impl/transformed_vertex_vector.hpp>
 #include <sge/model/md3/impl/triangle_vector.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <istream>
+#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 

@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/wgl/ext.hpp>
 #include <sge/opengl/wgl/visual/pixel_format_types_fwd.hpp>
 #include <awl/backends/windows/windows.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 

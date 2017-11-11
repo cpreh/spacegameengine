@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_OCCLUSION_QUERY_PIXEL_COUNT_HPP_INCLUDED
 
 #include <sge/renderer/occlusion_query/pixel_count_value.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_FIXED_TIMESTEP_HPP_INCLUDED
 
 #include <sge/projectile/duration.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -29,9 +30,12 @@ namespace sge
 {
 namespace projectile
 {
+
 FCPPT_MAKE_STRONG_TYPEDEF(
-	projectile::duration,
-	fixed_timestep);
+	sge::projectile::duration,
+	fixed_timestep
+);
+
 }
 }
 

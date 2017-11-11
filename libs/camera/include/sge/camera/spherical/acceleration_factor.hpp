@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_SPHERICAL_ACCELERATION_FACTOR_HPP_INCLUDED
 
 #include <sge/camera/spherical/coordinate_system/object.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 

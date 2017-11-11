@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SCENIC_IMPL_NUMBER_MULTIPLEXER_OBJECT_DECL_HPP_INCLUDED
 
 #include <sge/scenic/impl/number_multiplexer/object_fwd.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>

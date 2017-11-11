@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_BODY_ROTATION_HPP_INCLUDED
 
 #include <sge/projectile/scalar.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -31,9 +32,12 @@ namespace projectile
 {
 namespace body
 {
+
 FCPPT_MAKE_STRONG_TYPEDEF(
-	scalar,
-	rotation);
+	sge::projectile::scalar,
+	rotation
+);
+
 }
 }
 }

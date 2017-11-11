@@ -50,7 +50,6 @@ set(
 	libs/camera/include/sge/camera/ortho_freelook/action/wsg_mapping.hpp
 	libs/camera/include/sge/camera/ortho_freelook/action/zoom_in.hpp
 	libs/camera/include/sge/camera/ortho_freelook/action/zoom_out.hpp
-	libs/camera/include/sge/camera/ortho_freelook/is_active.hpp
 	libs/camera/include/sge/camera/ortho_freelook/object.hpp
 	libs/camera/include/sge/camera/ortho_freelook/object_fwd.hpp
 	libs/camera/include/sge/camera/ortho_freelook/optional_projection_rectangle.hpp

@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/event_base_fwd.hpp>
 #include <sge/input/key/code_fwd.hpp>
 #include <sge/input/keyboard/event/key_fwd.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/log/context_fwd.hpp>

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GRAPH_POSITION_HPP_INCLUDED
 
 #include <sge/renderer/vector2.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -32,7 +33,8 @@ namespace graph
 
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::renderer::vector2,
-	position);
+	position
+);
 
 }
 }

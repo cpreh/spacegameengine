@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PROJECTILE_GHOST_SIZE_HPP_INCLUDED
 
 #include <sge/projectile/dim2.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -31,9 +32,12 @@ namespace projectile
 {
 namespace ghost
 {
+
 FCPPT_MAKE_STRONG_TYPEDEF(
-	dim2,
-	size);
+	sge::projectile::dim2,
+	size
+);
+
 }
 }
 }

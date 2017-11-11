@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_FIRST_PERSON_MOUSE_SPEED_MULTIPLIER_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
 {
@@ -30,16 +32,18 @@ namespace camera
 {
 namespace first_person
 {
+
 /**
 \brief The scaling factor for the raw mouse event axis values
 \ingroup sgecamera
 */
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::renderer::scalar,
-	mouse_speed_multiplier);
+	mouse_speed_multiplier
+);
+
 }
 }
 }
 
 #endif
-

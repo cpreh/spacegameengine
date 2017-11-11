@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_SPHERICAL_COORDINATE_SYSTEM_INCLINATION_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -33,13 +34,15 @@ namespace spherical
 {
 namespace coordinate_system
 {
+
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::renderer::scalar,
-	inclination);
+	inclination
+);
+
 }
 }
 }
 }
 
 #endif
-

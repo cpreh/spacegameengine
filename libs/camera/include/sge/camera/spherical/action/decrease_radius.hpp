@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_SPHERICAL_ACTION_DECREASE_RADIUS_HPP_INCLUDED
 
 #include <sge/input/key/optional_code.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
 {
@@ -32,13 +34,15 @@ namespace spherical
 {
 namespace action
 {
+
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::input::key::optional_code,
-	decrease_radius);
+	decrease_radius
+);
+
 }
 }
 }
 }
 
 #endif
-

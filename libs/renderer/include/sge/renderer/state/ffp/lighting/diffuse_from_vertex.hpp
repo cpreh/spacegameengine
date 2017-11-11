@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_STATE_FFP_LIGHTING_DIFFUSE_FROM_VERTEX_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_LIGHTING_DIFFUSE_FROM_VERTEX_HPP_INCLUDED
 
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_MODEL_OBJ_NORMAL_INDEX_HPP_INCLUDED
 #define SGE_MODEL_OBJ_NORMAL_INDEX_HPP_INCLUDED
 
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
@@ -33,9 +34,12 @@ namespace model
 {
 namespace obj
 {
+
 FCPPT_MAKE_STRONG_TYPEDEF(
 	std::size_t,
-	normal_index);
+	normal_index
+);
+
 }
 }
 }

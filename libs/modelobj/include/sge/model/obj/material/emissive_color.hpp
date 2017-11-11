@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_OBJ_MATERIAL_EMISSIVE_COLOR_HPP_INCLUDED
 
 #include <sge/image/color/any/object.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
 {
@@ -32,9 +34,12 @@ namespace obj
 {
 namespace material
 {
+
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::image::color::any::object,
-	emissive_color);
+	emissive_color
+);
+
 }
 }
 }

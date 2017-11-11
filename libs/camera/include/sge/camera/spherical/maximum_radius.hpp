@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CAMERA_SPHERICAL_MAXIMUM_RADIUS_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -31,12 +32,14 @@ namespace camera
 {
 namespace spherical
 {
+
 FCPPT_MAKE_STRONG_TYPEDEF(
-	renderer::scalar,
-	maximum_radius);
+	sge::renderer::scalar,
+	maximum_radius
+);
+
 }
 }
 }
 
 #endif
-

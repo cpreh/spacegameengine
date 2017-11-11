@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CAMERA_TRACKING_IS_LOOPING_HPP_INCLUDED
 #define SGE_CAMERA_TRACKING_IS_LOOPING_HPP_INCLUDED
 
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
 {
@@ -29,9 +31,12 @@ namespace camera
 {
 namespace tracking
 {
+
 FCPPT_MAKE_STRONG_TYPEDEF(
 	bool,
-	is_looping);
+	is_looping
+);
+
 }
 }
 }

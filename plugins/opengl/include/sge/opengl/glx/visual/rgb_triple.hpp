@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_GLX_VISUAL_RGB_TRIPLE_HPP_INCLUDED
 
 #include <sge/opengl/glx/visual/rgb_triple_fwd.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/strong_typedef.hpp>
 

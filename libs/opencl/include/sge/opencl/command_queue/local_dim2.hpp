@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_COMMAND_QUEUE_LOCAL_DIM2_HPP_INCLUDED
 
 #include <sge/opencl/dim2.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -31,12 +32,14 @@ namespace opencl
 {
 namespace command_queue
 {
+
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::opencl::dim2,
-	local_dim2);
+	local_dim2
+);
+
 }
 }
 }
 
 #endif
-

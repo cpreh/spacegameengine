@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_ANISOTROPIC_LEVEL_HPP_INCLUDED
 
 #include <sge/renderer/state/core/sampler/filter/anisotropic/level_value.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 

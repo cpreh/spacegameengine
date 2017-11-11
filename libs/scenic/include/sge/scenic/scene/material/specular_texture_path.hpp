@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_SCENE_MATERIAL_SPECULAR_TEXTURE_PATH_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_MATERIAL_SPECULAR_TEXTURE_PATH_HPP_INCLUDED
 
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>

@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_AUDIO_DIRECTION_FORWARD_HPP_INCLUDED
 
 #include <sge/audio/vector.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
+
 
 namespace sge
 {
@@ -30,9 +32,12 @@ namespace audio
 {
 namespace direction
 {
+
 FCPPT_MAKE_STRONG_TYPEDEF(
-	audio::vector,
-	forward);
+	sge::audio::vector,
+	forward
+);
+
 }
 }
 }
