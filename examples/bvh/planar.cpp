@@ -128,12 +128,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/random/distribution/parameters/uniform_real.hpp>
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/record/permute.hpp>
 #include <fcppt/record/variadic.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/get_exn.hpp>
 #include <fcppt/variant/match.hpp>

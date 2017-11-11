@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/display_mode/object.hpp>
-#include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/draw_timer_setting.hpp>
 #include <sge/renderer/display_mode/draw_timer_setting_opt.hpp>
+#include <sge/renderer/display_mode/object.hpp>
+#include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/refresh_rate.hpp>
 #include <awl/timer/setting.hpp>
 #include <fcppt/text.hpp>

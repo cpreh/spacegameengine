@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/camera/projection_matrix.hpp>
 #include <sge/camera/perspective_projection_from_viewport.hpp>
+#include <sge/camera/projection_matrix.hpp>
 #include <sge/camera/coordinate_system/identity.hpp>
 #include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/object.hpp>
@@ -194,9 +194,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/dynamic_cast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <array>

@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/renderer/display_mode/refresh_rate.hpp>
 #include <sge/renderer/display_mode/draw_timer_setting.hpp>
+#include <sge/renderer/display_mode/refresh_rate.hpp>
 #include <awl/timer/duration.hpp>
 #include <awl/timer/period.hpp>
 #include <awl/timer/setting_no_delay.hpp>

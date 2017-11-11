@@ -39,8 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/event/generic.hpp>
 #include <awl/backends/x11/window/event/type.hpp>
 #include <awl/event/container.hpp>
-#include <awl/window/event/base.hpp>
 #include <awl/window/object.hpp>
+#include <awl/window/event/base.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/dynamic.hpp>

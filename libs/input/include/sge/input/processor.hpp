@@ -24,11 +24,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/cursor/container.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/focus/container.hpp>
 #include <sge/input/joypad/container.hpp>
 #include <sge/input/keyboard/container.hpp>
 #include <sge/input/mouse/container.hpp>
-#include <sge/input/detail/symbol.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 

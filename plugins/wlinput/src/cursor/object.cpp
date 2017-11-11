@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/event/button.hpp>
 #include <sge/input/cursor/event/move.hpp>
 #include <sge/input/cursor/event/scroll.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <sge/wlinput/cursor/button_code.hpp>
 #include <sge/wlinput/cursor/button_state.hpp>
 #include <sge/wlinput/cursor/data.hpp>
@@ -32,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wlinput/cursor/position.hpp>
 #include <sge/wlinput/cursor/scroll_code.hpp>
 #include <sge/wlinput/cursor/scroll_value.hpp>
-#include <sge/window/object_fwd.hpp>
 #include <awl/backends/wayland/seat_fwd.hpp>
 #include <awl/backends/wayland/window/object.hpp>
 #include <awl/event/base.hpp>

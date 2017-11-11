@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/event/static_type.hpp>
 #include <sge/x11input/event/type.hpp>
 #include <sge/x11input/event/type_container.hpp>
-#include <fcppt/use.hpp>
 #include <fcppt/tag_type.hpp>
+#include <fcppt/use.hpp>
 #include <fcppt/algorithm/loop_break_mpl.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/config/external_begin.hpp>

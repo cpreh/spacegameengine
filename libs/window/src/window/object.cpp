@@ -24,9 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/system_event_function.hpp>
-#include <awl/window/object.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
+#include <awl/window/object.hpp>
 #include <awl/window/event/base.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/dynamic.hpp>

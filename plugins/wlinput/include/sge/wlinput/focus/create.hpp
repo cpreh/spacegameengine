@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_WLINPUT_FOCUS_CREATE_HPP_INCLUDED
 #define SGE_WLINPUT_FOCUS_CREATE_HPP_INCLUDED
 
+#include <sge/window/object_fwd.hpp>
 #include <sge/wlinput/xkb_context_fwd.hpp>
 #include <sge/wlinput/focus/create_function.hpp>
-#include <sge/window/object_fwd.hpp>
 #include <awl/backends/wayland/window/object_fwd.hpp>
 #include <awl/event/container_reference.hpp>
 #include <fcppt/log/object_fwd.hpp>

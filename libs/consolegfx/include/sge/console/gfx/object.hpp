@@ -33,8 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/string.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/input/focus/key_fwd.hpp>
-#include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/focus/mod_state_tracker.hpp>
+#include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/focus/event/base_fwd.hpp>
 #include <sge/input/focus/event/char_fwd.hpp>
 #include <sge/input/focus/event/key_fwd.hpp>

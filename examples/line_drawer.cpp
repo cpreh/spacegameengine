@@ -116,8 +116,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/reference_impl.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>

@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/event_base.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/focus/event/base_fwd.hpp>
-#include <sge/input/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 
 

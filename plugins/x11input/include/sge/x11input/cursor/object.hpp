@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <sge/x11input/cursor/optional_grab_unique_ptr.hpp>
 #include <sge/x11input/cursor/object_fwd.hpp>
+#include <sge/x11input/cursor/optional_grab_unique_ptr.hpp>
 #include <sge/x11input/cursor/scroll_valuator_map.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/event/window_demuxer_fwd.hpp>

@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/focus/object.hpp>
 #include <sge/input/focus/shared_ptr.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <sge/wlinput/xkb_context_fwd.hpp>
 #include <sge/wlinput/focus/data.hpp>
 #include <sge/wlinput/focus/holder.hpp>
 #include <sge/wlinput/focus/object_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
 #include <awl/backends/wayland/seat_fwd.hpp>
 #include <awl/backends/wayland/window/object_fwd.hpp>
 #include <awl/event/container.hpp>

@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_RANGE_CHECK_HPP_INCLUDED
 #define SGE_OPENGL_RANGE_CHECK_HPP_INCLUDED
 
-#include <fcppt/use.hpp>
 #include <fcppt/tag_type.hpp>
+#include <fcppt/use.hpp>
 #include <fcppt/algorithm/all_of.hpp>
 #include <fcppt/math/int_range_count.hpp>
 #include <fcppt/math/size_type.hpp>

@@ -128,11 +128,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>

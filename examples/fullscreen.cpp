@@ -61,8 +61,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context_fwd.hpp>
 #include <awl/system/object.hpp>
 #include <awl/system/event/processor.hpp>
-#include <awl/timer/duration.hpp>
 #include <awl/timer/delay.hpp>
+#include <awl/timer/duration.hpp>
 #include <awl/timer/match.hpp>
 #include <awl/timer/object.hpp>
 #include <awl/timer/setting_no_period.hpp>
@@ -72,9 +72,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <chrono>
 #include <example_main.hpp>
 #include <exception>
-#include <chrono>
 #include <fcppt/config/external_end.hpp>
 
 

@@ -32,6 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/optional_code.hpp>
 #include <sge/input/key/pressed.hpp>
+#include <sge/window/object.hpp>
+#include <sge/window/system.hpp>
+#include <sge/window/system_event_function.hpp>
 #include <sge/wlinput/xkb_context_fwd.hpp>
 #include <sge/wlinput/focus/data.hpp>
 #include <sge/wlinput/focus/get_keysym.hpp>
@@ -47,9 +50,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wlinput/focus/translate_keysym.hpp>
 #include <sge/wlinput/focus/wl_to_xkb_keycode.hpp>
 #include <sge/wlinput/focus/xkb_keycode.hpp>
-#include <sge/window/object.hpp>
-#include <sge/window/system.hpp>
-#include <sge/window/system_event_function.hpp>
 #include <awl/backends/posix/fd.hpp>
 #include <awl/backends/wayland/seat_fwd.hpp>
 #include <awl/backends/wayland/window/object.hpp>
@@ -76,9 +76,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/optional/make.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/map.hpp>
 #include <fcppt/optional/to_container.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>

@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/projection_matrix.hpp>
-#include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/camera/update_duration.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/camera/ortho_freelook/object.hpp>
 #include <sge/camera/ortho_freelook/parameters.hpp>
 #include <sge/camera/ortho_freelook/projection_rectangle_from_viewport.hpp>

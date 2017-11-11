@@ -23,10 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/discover.hpp>
-#include <sge/window/event_function.hpp>
-#include <sge/window/object.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/impl/input/cursor_modifier.hpp>
+#include <sge/window/event_function.hpp>
+#include <sge/window/object.hpp>
 #include <awl/event/container.hpp>
 #include <awl/window/event/base.hpp>
 #include <fcppt/reference_impl.hpp>

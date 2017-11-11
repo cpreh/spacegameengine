@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/detail/symbol.hpp>
 #include <sge/input/joypad/axis_value.hpp>
-#include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/relative_axis.hpp>
+#include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/base.hpp>
 #include <sge/input/joypad/event/relative_axis_fwd.hpp>
 #include <fcppt/noncopyable.hpp>

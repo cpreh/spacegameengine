@@ -101,9 +101,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_cref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/math/matrix/scaling.hpp>
 #include <fcppt/math/vector/static.hpp>
-#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>

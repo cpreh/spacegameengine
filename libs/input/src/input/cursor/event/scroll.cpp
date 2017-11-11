@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/scroll_code.hpp>
 #include <sge/input/cursor/scroll_value.hpp>
+#include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/base.hpp>
 #include <sge/input/cursor/event/scroll.hpp>
 

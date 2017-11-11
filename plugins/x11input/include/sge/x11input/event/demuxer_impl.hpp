@@ -29,9 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/event/container.hpp>
 #include <fcppt/function_impl.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/container/get_or_insert.hpp>
 #include <fcppt/container/find_opt_iterator.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
+#include <fcppt/container/get_or_insert.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>

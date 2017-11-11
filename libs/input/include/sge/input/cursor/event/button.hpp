@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_pressed.hpp>
-#include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/position.hpp>
+#include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/base.hpp>
 #include <sge/input/cursor/event/button_fwd.hpp>
 #include <sge/input/detail/symbol.hpp>

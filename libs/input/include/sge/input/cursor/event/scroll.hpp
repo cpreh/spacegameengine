@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_INPUT_CURSOR_EVENT_SCROLL_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/scroll_code.hpp>
 #include <sge/input/cursor/scroll_value.hpp>
+#include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/base.hpp>
 #include <sge/input/cursor/event/scroll_fwd.hpp>
 #include <sge/input/detail/symbol.hpp>
