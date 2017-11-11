@@ -107,6 +107,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/container/tree/depth.hpp>
 #include <fcppt/math/box/output.hpp>
+#include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_exception.hpp>
@@ -298,10 +299,21 @@ public:
 		);
 
 		fcppt::optional::maybe_void(
-			fcppt::variant::to_optional<
-				bvh_tree_traits::node_wrapper
-			>(
-				tree.front().value()
+			fcppt::optional::bind(
+				tree.front(),
+				[](
+					fcppt::reference<
+						bvh_tree_traits::tree_representation const
+					> const _front
+				)
+				{
+					return
+						fcppt::variant::to_optional<
+							bvh_tree_traits::node_wrapper
+						>(
+							_front.get().value()
+						);
+				}
 			),
 			[
 				&result
@@ -324,10 +336,21 @@ public:
 		);
 
 		fcppt::optional::maybe_void(
-			fcppt::variant::to_optional<
-				bvh_tree_traits::node_wrapper
-			>(
-				tree.back().value()
+			fcppt::optional::bind(
+				tree.back(),
+				[](
+					fcppt::reference<
+						bvh_tree_traits::tree_representation const
+					> const _back
+				)
+				{
+					return
+						fcppt::variant::to_optional<
+							bvh_tree_traits::node_wrapper
+						>(
+							_back.get().value()
+						);
+				}
 			),
 			[
 				&result
@@ -349,28 +372,52 @@ public:
 			}
 		);
 
-		// Then add the children
-		this->add_children(
-			result,
+		fcppt::optional::maybe_void(
 			tree.front(),
-			sge::image::color::rgba8_from_hex_string(
-				std::string(
-					"373c40"
-				),
-				204
+			[
+				&result,
+				this
+			](
+				fcppt::reference<
+					bvh_tree_traits::tree_representation const
+				> const _front
 			)
+			{
+				this->add_children(
+					result,
+					_front.get(),
+					sge::image::color::rgba8_from_hex_string(
+						std::string(
+							"373c40"
+						),
+						204
+					)
+				);
+			}
 		);
 
-		// Then add the children
-		this->add_children(
-			result,
+		fcppt::optional::maybe_void(
 			tree.back(),
-			sge::image::color::rgba8_from_hex_string(
-				std::string(
-					"73320b"
-				),
-				204
+			[
+				&result,
+				this
+			](
+				fcppt::reference<
+					bvh_tree_traits::tree_representation const
+				> const _back
 			)
+			{
+				this->add_children(
+					result,
+					_back.get(),
+					sge::image::color::rgba8_from_hex_string(
+						std::string(
+							"73320b"
+						),
+						204
+					)
+				);
+			}
 		);
 
 		return
@@ -393,67 +440,40 @@ public:
 		)
 			return;
 
-		bvh_tree_traits::tree_representation::const_optional_ref new_tree;
+		auto const make_tree(
+			[
+				&tree,
+				&_event
+			]{
+				switch(
+					_event.get().code()
+				)
+				{
+					case sge::input::key::code::left:
+						return
+							tree.front();
+					case sge::input::key::code::right:
+						return
+							tree.back();
+					case sge::input::key::code::up:
+						return
+							tree.front();
+					case sge::input::key::code::down:
+						return
+							tree.back();
+					case sge::input::key::code::p:
+						return
+							tree.parent();
+					default:
+						return
+							bvh_tree_traits::tree_representation::const_optional_ref{};
+				}
+			}
+		);
 
-		switch(
-			_event.get().code()
-		)
-		{
-			case sge::input::key::code::left:
-				new_tree =
-					// TODO: maybe_front?
-					// Remove front() from fcppt::container::tree
-					bvh_tree_traits::tree_representation::const_optional_ref(
-						fcppt::make_cref(
-							tree.front()
-						)
-					);
-				break;
-			case sge::input::key::code::right:
-				new_tree =
-					bvh_tree_traits::tree_representation::const_optional_ref(
-						fcppt::make_cref(
-							tree.back()
-						)
-					);
-				break;
-			case sge::input::key::code::up:
-				new_tree =
-					bvh_tree_traits::tree_representation::const_optional_ref(
-						fcppt::make_cref(
-							tree.front()
-						)
-					);
-				break;
-			case sge::input::key::code::down:
-				new_tree =
-					bvh_tree_traits::tree_representation::const_optional_ref(
-						fcppt::make_cref(
-							tree.back()
-						)
-					);
-				break;
-			case sge::input::key::code::p:
-				fcppt::optional::maybe_void(
-					tree.parent(),
-					[
-						&new_tree
-					](
-						fcppt::reference<
-							bvh_tree_traits::tree_representation const
-						> const _parent
-					)
-					{
-						new_tree =
-							bvh_tree_traits::tree_representation::const_optional_ref(
-								_parent
-							);
-					}
-				);
-				break;
-			default:
-				break;
-		}
+		bvh_tree_traits::tree_representation::const_optional_ref const new_tree{
+			make_tree()
+		};
 
 		if(
 			fcppt::optional::maybe(

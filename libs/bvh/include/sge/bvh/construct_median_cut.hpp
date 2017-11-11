@@ -256,7 +256,8 @@ construct_median_cut(
 				_leaves.begin(),
 				static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
 					_leaves.size()/2u))),
-		_tree.front());
+		_tree.front().get_unsafe().get()
+	);
 
 	sge::bvh::construct_median_cut<Traits>(
 		typename Traits::leaf_wrapper_sequence(
