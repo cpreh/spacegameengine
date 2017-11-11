@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/math/ceil_div.hpp>
@@ -65,22 +66,24 @@ sge::wininput::cursor::pixmap::pixmap()
 			);
 
 			byte_vector::size_type const size(
-				fcppt::math::ceil_div(
-					fcppt::cast::size<
-						byte_vector::size_type
-					>(
-						fcppt::cast::to_unsigned(
-							cursor_width
-							*
-							cursor_height
+				FCPPT_ASSERT_OPTIONAL_ERROR(
+					fcppt::math::ceil_div(
+						fcppt::cast::size<
+							byte_vector::size_type
+						>(
+							fcppt::cast::to_unsigned(
+								cursor_width
+								*
+								cursor_height
+							)
+						),
+						fcppt::cast::size<
+							byte_vector::size_type
+						>(
+							std::numeric_limits<
+								BYTE
+							>::digits
 						)
-					),
-					fcppt::cast::size<
-						byte_vector::size_type
-					>(
-						std::numeric_limits<
-							BYTE
-						>::digits
 					)
 				)
 			);
