@@ -596,6 +596,8 @@ add_sge_console_example(
 
 add_sge_console_example(
 	mergeimage
+	COMPILE_OPTIONS
+		${FCPPT_UTILS_MAIN_COMPILE_OPTIONS}
 	SGE_DEPS
 		sgecore
 		sgeimage_interface
@@ -605,6 +607,8 @@ add_sge_console_example(
 		sgesystems
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		${fcppt_options_TARGET}
+		${FCPPT_UTILS_MAIN_LINK_LIBS}
 		${Boost_FILESYSTEM_LIBRARIES}
 		${Boost_SYSTEM_LIBRARIES}
 )

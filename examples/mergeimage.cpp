@@ -46,14 +46,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/with_image2d.hpp>
+#include <fcppt/args_char.hpp>
+#include <fcppt/args_from_second.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/from_std_string.hpp>
 #include <fcppt/make_int_range_count.hpp>
+#include <fcppt/main.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/either/match.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/fill.hpp>
+#include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/options/argument.hpp>
+#include <fcppt/options/error.hpp>
+#include <fcppt/options/error_output.hpp>
+#include <fcppt/options/long_name.hpp>
+#include <fcppt/options/optional_help_text.hpp>
+#include <fcppt/options/parse.hpp>
+#include <fcppt/options/result_of.hpp>
+#include <fcppt/record/get.hpp>
+#include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
@@ -97,12 +112,13 @@ calc_size(
 			return size;
 	}
 
-	throw sge::core::exception(
-		FCPPT_TEXT("size too big!")
-	);
+	throw
+		sge::core::exception{
+			FCPPT_TEXT("size too big!")
+		};
 }
 
-sge::image2d::dim const
+sge::image2d::dim
 first_dim(
 	boost::filesystem::path const &_path,
 	sge::image2d::system &_system
@@ -119,9 +135,11 @@ first_dim(
 		)->size();
 }
 
-typedef std::vector<
+typedef
+std::vector<
 	boost::filesystem::path
-> path_vector;
+>
+path_vector;
 
 path_vector
 sort_paths(
@@ -140,28 +158,15 @@ sort_paths(
 		ret.end()
 	);
 
-	return ret;
-}
-
+	return
+		ret;
 }
 
 int
-main(
-	int argc,
-	char **argv
+program_main(
+	boost::filesystem::path const &_path
 )
-try
 {
-	if(
-		argc != 2
-	)
-	{
-		fcppt::io::cerr()
-			<< FCPPT_TEXT("please specify a path!\n");
-
-		return EXIT_FAILURE;
-	}
-
 	sge::systems::instance<
 		boost::mpl::vector1<
 			sge::systems::with_image2d
@@ -185,38 +190,38 @@ try
 		sys.image_system()
 	);
 
-	boost::filesystem::path const path(
-		fcppt::from_std_string(
-			argv[1]
-		)
-	);
-
 	sge::image::size_type const image_count(
-		static_cast<
+		fcppt::cast::size<
 			sge::image::size_type
 		>(
-			std::distance(
-				boost::filesystem::directory_iterator(
-					path
-				),
-				boost::filesystem::directory_iterator()
+			fcppt::cast::to_unsigned(
+				std::distance(
+					boost::filesystem::directory_iterator(
+						_path
+					),
+					boost::filesystem::directory_iterator()
+				)
 			)
 		)
 	);
 
 	if(
-		image_count == 0
+		image_count
+		==
+		0
 	)
 	{
 		fcppt::io::cerr()
-			<< FCPPT_TEXT("No files here.\n");
+			<<
+			FCPPT_TEXT("No files here.\n");
 
-		return EXIT_SUCCESS;
+		return
+			EXIT_SUCCESS;
 	}
 
 	sge::image2d::dim const dim(
 		first_dim(
-			path,
+			_path,
 			il
 		)
 	);
@@ -228,7 +233,9 @@ try
 		)
 	);
 
-	typedef sge::image2d::store::srgba8 image_type;
+	typedef
+	sge::image2d::store::srgba8
+	image_type;
 
 	image_type dest{
 		fcppt::math::dim::fill<
@@ -269,7 +276,7 @@ try
 
 	path_vector const paths(
 		sort_paths(
-			path
+			_path
 		)
 	);
 
@@ -287,13 +294,25 @@ try
 		);
 
 		if(
-			img->size() != dim
+			img->size()
+			!=
+			dim
 		)
 		{
 			fcppt::io::cerr()
-				<< FCPPT_TEXT("some dimensions do not match!\n");
+				<<
+				FCPPT_TEXT("Dimension ")
+				<<
+				img->size()
+				<<
+				FCPPT_TEXT(" is different from the previously used dimension ")
+				<<
+				dim
+				<<
+				FCPPT_TEXT('\n');
 
-			return EXIT_FAILURE;
+			return
+				EXIT_FAILURE;
 		}
 
 		sge::image2d::algorithm::copy_and_convert(
@@ -327,24 +346,108 @@ try
 		),
 		FCPPT_TEXT("out.png")
 	);
+
+	return
+		EXIT_SUCCESS;
+}
+
+FCPPT_RECORD_MAKE_LABEL(
+	path_label
+);
+
+}
+
+int
+FCPPT_MAIN(
+	int argc,
+	fcppt::args_char **argv
+)
+try
+{
+	auto const parser(
+		fcppt::options::argument<
+			path_label,
+			fcppt::string
+		>{
+			fcppt::options::long_name{
+				FCPPT_TEXT("path")
+			},
+			fcppt::options::optional_help_text{}
+		}
+	);
+
+	typedef
+	fcppt::options::result_of<
+		decltype(
+			parser
+		)
+	>
+	result_type;
+
+	return
+		fcppt::either::match(
+			fcppt::options::parse(
+				parser,
+				fcppt::args_from_second(
+					argc,
+					argv
+				)
+			),
+			[](
+				fcppt::options::error const &_error
+			)
+			{
+				fcppt::io::cerr()
+					<<
+					_error
+					<<
+					FCPPT_TEXT('\n');
+
+				return
+					EXIT_FAILURE;
+			},
+			[](
+				result_type const &_result
+			)
+			{
+				program_main(
+					boost::filesystem::path{
+						fcppt::record::get<
+							path_label
+						>(
+							_result
+						)
+					}
+				);
+
+				return
+					EXIT_SUCCESS;
+			}
+		);
 }
 catch(
 	fcppt::exception const &_exception
 )
 {
 	fcppt::io::cerr()
-		<< _exception.string()
-		<< FCPPT_TEXT('\n');
+		<<
+		_exception.string()
+		<<
+		FCPPT_TEXT('\n');
 
-	return EXIT_FAILURE;
+	return
+		EXIT_FAILURE;
 }
 catch(
 	std::exception const &_exception
 )
 {
 	std::cerr
-		<< _exception.what()
-		<< '\n';
+		<<
+		_exception.what()
+		<<
+		'\n';
 
-	return EXIT_FAILURE;
+	return
+		EXIT_FAILURE;
 }

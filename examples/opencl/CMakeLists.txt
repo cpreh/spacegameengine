@@ -16,17 +16,23 @@ add_sge_console_example(
 
 add_sge_console_example(
 	opencl/syntax_checker
+	COMPILE_OPTIONS
+		${FCPPT_UTILS_MAIN_COMPILE_OPTIONS}
 	SGE_DEPS
 		sgelog
 		sgeopencl
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${fcppt_log_TARGET}
 		${fcppt_filesystem_TARGET}
+		${fcppt_log_TARGET}
+		${fcppt_options_TARGET}
+		${FCPPT_UTILS_MAIN_LINK_LIBS}
 )
 
 add_sge_console_example(
 	opencl/texture_read
+	COMPILE_OPTIONS
+		${FCPPT_UTILS_MAIN_COMPILE_OPTIONS}
 	SGE_DEPS
 		sgeconfig
 		sgeimage2d
@@ -35,4 +41,6 @@ add_sge_console_example(
 		sgesystems
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		${fcppt_options_TARGET}
+		${FCPPT_UTILS_MAIN_LINK_LIBS}
 )

@@ -419,7 +419,6 @@ draw(
 	sge::console::gfx::object &
 );
 
-// TODO: Pass silent here
 void
 handle_events(
 	sge::renderer::device::ffp &,
