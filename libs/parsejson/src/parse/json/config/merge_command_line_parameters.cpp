@@ -33,8 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/fold.hpp>
+#include <fcppt/algorithm/join_strings.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/algorithm/shortest_levenshtein.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/compiler.hpp>
 #include <fcppt/io/cout.hpp>
@@ -175,9 +175,9 @@ FCPPT_PP_POP_WARNING
 					+
 					element
 					+
-					FCPPT_TEXT("\", did you mean: ")
+					FCPPT_TEXT("\", available members are: ")
 					+
-					fcppt::algorithm::shortest_levenshtein(
+					fcppt::algorithm::join_strings(
 						fcppt::algorithm::map<
 							string_vector
 						>(
@@ -190,7 +190,7 @@ FCPPT_PP_POP_WARNING
 									_element.first;
 							}
 						),
-						element
+						FCPPT_TEXT(", ")
 					)
 				};
 		}
