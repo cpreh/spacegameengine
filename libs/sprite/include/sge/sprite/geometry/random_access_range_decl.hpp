@@ -24,7 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/geometry/random_access_range_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/type_traits/is_random_access_iterator.hpp>
+#include <fcppt/type_traits/is_iterator_of_category.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <iterator>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -44,8 +47,9 @@ class random_access_range
 	);
 public:
 	static_assert(
-		fcppt::type_traits::is_random_access_iterator<
-			Iterator
+		fcppt::type_traits::is_iterator_of_category<
+			Iterator,
+			std::random_access_iterator_tag
 		>::value,
 		"Iterator must be a random access iterator"
 	);
