@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/string.hpp>
 #include <sge/parse/json/value.hpp>
+#include <sge/parse/json/detail/is_iterable.hpp>
 #include <sge/parse/json/detail/is_math_type.hpp>
 #include <fcppt/insert_to_fcppt_string.hpp>
 #include <fcppt/make_cref.hpp>
@@ -44,7 +45,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/to_array_type.hpp>
 #include <fcppt/math/matrix/init.hpp>
 #include <fcppt/math/matrix/is_matrix.hpp>
-#include <fcppt/type_traits/is_iterable.hpp>
 #include <fcppt/type_traits/is_std_array.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
@@ -296,7 +296,7 @@ struct convert_from_impl<
 	typename
 	boost::enable_if<
 		boost::mpl::and_<
-			fcppt::type_traits::is_iterable<
+			sge::parse::json::detail::is_iterable<
 				Result
 			>,
 			boost::mpl::not_<

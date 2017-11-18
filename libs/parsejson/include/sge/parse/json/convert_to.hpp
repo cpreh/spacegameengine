@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
+#include <sge/parse/json/detail/is_iterable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/type_traits/is_iterable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
@@ -115,7 +115,7 @@ boost::enable_if
 <
 	boost::mpl::and_
 	<
-		fcppt::type_traits::is_iterable<T>,
+		sge::parse::json::detail::is_iterable<T>,
 		boost::mpl::not_
 		<
 			std::is_same<T,fcppt::string>
