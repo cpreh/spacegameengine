@@ -24,6 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/impl/library/load_function_base.hpp>
 #include <sge/plugin/library/object_fwd.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
+#include <fcppt/config/gcc_version_at_least.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -49,6 +51,9 @@ load_function(
 {
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4191)
+#if FCPPT_CONFIG_GCC_VERSION_AT_LEAST(8,0)
+FCPPT_PP_DISABLE_GCC_WARNING(-Wcast-function-type)
+#endif
 	return
 		reinterpret_cast<
 			Function
