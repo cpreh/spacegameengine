@@ -179,8 +179,6 @@ set(
 	libs/image/include/sge/image/view/mizuiro_traits.hpp
 	libs/image/include/sge/image/view/mizuiro_type.hpp
 	libs/image/include/sge/image/view/mizuiro_type_fwd.hpp
-	libs/image/include/sge/image/view/mizuiro_type_tpl.hpp
-	libs/image/include/sge/image/view/mizuiro_type_tpl_fwd.hpp
 	libs/image/include/sge/image/view/object.hpp
 	libs/image/include/sge/image/view/object_fwd.hpp
 	libs/image/include/sge/image/view/pitch.hpp

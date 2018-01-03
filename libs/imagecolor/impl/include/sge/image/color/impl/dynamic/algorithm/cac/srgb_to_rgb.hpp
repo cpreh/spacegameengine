@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/space/srgb.hpp>
 #include <mizuiro/color/types/space.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/and.hpp>
+#include <brigand/functions/logical/and.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -53,7 +53,7 @@ template<
 using
 srgb_to_rgb
 =
-boost::mpl::and_<
+brigand::and_<
 	std::is_same<
 		mizuiro::color::types::space<
 			typename

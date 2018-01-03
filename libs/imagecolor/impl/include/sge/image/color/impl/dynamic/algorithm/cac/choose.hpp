@@ -31,11 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/conversion/srgb_to_rgb.hpp>
 #include <mizuiro/color/format/same_spaces.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/or.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <brigand/functions/logical/or.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
-
 
 
 namespace sge
@@ -154,7 +153,7 @@ template<
 inline
 typename
 boost::disable_if<
-	boost::mpl::or_<
+	brigand::or_<
 		mizuiro::color::format::same_spaces<
 			typename
 			SourceFormat::color_format,

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/size_type.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/integral_c.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,9 +35,10 @@ namespace image
 template<
 	sge::image::size_type Size
 >
-using integral_size
+using
+integral_size
 =
-boost::mpl::integral_c<
+std::integral_constant<
 	sge::image::size_type,
 	Size
 >;

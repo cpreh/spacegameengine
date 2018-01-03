@@ -47,8 +47,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/is_matrix.hpp>
 #include <fcppt/type_traits/is_std_array.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/not.hpp>
+#include <brigand/functions/logical/and.hpp>
+#include <brigand/functions/logical/not.hpp>
+#include <brigand/functions/logical/or.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <cstddef>
 #include <type_traits>
@@ -127,11 +128,11 @@ struct convert_from_impl<
 	Result,
 	typename
 	boost::enable_if<
-		boost::mpl::and_<
+		brigand::and_<
 			std::is_integral<
 				Result
 			>,
-			boost::mpl::not_<
+			brigand::not_<
 				std::is_same<
 					Result,
 					bool
@@ -295,16 +296,16 @@ struct convert_from_impl<
 	Result,
 	typename
 	boost::enable_if<
-		boost::mpl::and_<
+		brigand::and_<
 			sge::parse::json::detail::is_iterable<
 				Result
 			>,
-			boost::mpl::not_<
+			brigand::not_<
 				fcppt::type_traits::is_std_array<
 					Result
 				>
 			>,
-			boost::mpl::not_<
+			brigand::mot_<
 				std::is_same<
 					Result,
 					sge::parse::json::string
@@ -480,7 +481,7 @@ struct convert_from_impl<
 	Result,
 	typename
 	boost::enable_if<
-		boost::mpl::or_<
+		brigand::or_<
 			std::is_same<
 				sge::parse::json::object,
 				Result

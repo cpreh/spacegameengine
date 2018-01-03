@@ -23,7 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/traits/pixel/static_formats.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/contains.hpp>
+#include <brigand/algorithms/find.hpp>
+#include <brigand/functions/lambda/apply.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/types/args.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -39,13 +43,18 @@ template<
 using
 has_format
 =
-typename
-boost::mpl::contains<
+brigand::found<
 	sge::image::traits::pixel::static_formats<
 		Tag
 	>,
-	Format
->::type;
+	brigand::bind<
+		std::is_same,
+		brigand::pin<
+			Format
+		>,
+		brigand::_1
+	>
+>;
 
 }
 }

@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/fusion/container/vector/convert.hpp>
 #include <boost/fusion/functional/invocation/invoke.hpp>
 #include <boost/fusion/include/mpl.hpp>
-#include <boost/mpl/range_c.hpp>
+#include <brigand/sequences/range.hpp>
 #include <cstddef>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -114,7 +114,7 @@ public:
 		argument_tuple parameter_tuple;
 
 		fcppt::mpl::for_each<
-			boost::mpl::range_c<
+			brigand::range<
 				console::arg_list::size_type,
 				0,
 				boost::function_types::function_arity<

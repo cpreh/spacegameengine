@@ -23,10 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/impl/traits/pixel/format_map.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/deref.hpp>
-#include <boost/mpl/find_if.hpp>
-#include <boost/mpl/pair.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <brigand/algorithms/transform.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/sequences/pair.hpp>
+#include <brigand/sequences/map.hpp>
+#include <brigand/types/args.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -38,6 +39,56 @@ namespace image
 namespace impl
 {
 
+// TODO: Move this to fcppt
+template<
+	typename T
+>
+struct flip_pair_impl;
+
+template<
+	typename T1,
+	typename T2
+>
+struct flip_pair_impl<
+	brigand::pair<
+		T1,
+		T2
+	>
+>
+{
+	typedef
+	brigand::pair<
+		T2,
+		T1
+	>
+	type;
+};
+
+template<
+	typename Pair
+>
+using
+flip_pair
+=
+typename
+flip_pair_impl<
+	Pair
+>::type;
+
+template<
+	typename Map
+>
+using
+flip_map
+=
+brigand::transform<
+	Map,
+	brigand::bind<
+		flip_pair,
+		brigand::_1
+	>
+>;
+
 template<
 	typename ColorTag,
 	typename StaticFormat
@@ -45,24 +96,15 @@ template<
 using
 static_to_dynamic_format
 =
-typename
-boost::mpl::first<
-	typename
-	boost::mpl::deref<
-		typename
-		boost::mpl::find_if<
-			sge::image::impl::traits::pixel::format_map<
-				ColorTag
-			>,
-			std::is_same<
-				StaticFormat,
-				boost::mpl::second<
-					boost::mpl::_1
-				>
-			>
-		>::type
-	>::type
->::type;
+brigand::lookup<
+	flip_map<
+	//fcppt::mpl::flip_map<
+		sge::image::impl::traits::pixel::format_map<
+			ColorTag
+		>
+	>,
+	StaticFormat
+>;
 
 }
 }

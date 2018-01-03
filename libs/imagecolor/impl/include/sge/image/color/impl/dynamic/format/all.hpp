@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/impl/dynamic/format/srgb_c8_3.hpp>
 #include <sge/image/color/impl/dynamic/format/srgb_c8_4.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -50,7 +50,7 @@ namespace format
 {
 
 typedef
-boost::mpl::vector10<
+brigand::list<
 	sge::image::color::impl::dynamic::format::empty_c8_1,
 	sge::image::color::impl::dynamic::format::luminance_c8_1,
 	sge::image::color::impl::dynamic::format::luminance_c8_2,

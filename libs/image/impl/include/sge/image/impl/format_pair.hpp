@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/impl/format_key.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/pair.hpp>
+#include <brigand/sequences/pair.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,7 +42,7 @@ template<
 using
 format_pair
 =
-boost::mpl::pair<
+brigand::pair<
 	sge::image::impl::format_key<
 		Dynamic,
 		DynamicValue

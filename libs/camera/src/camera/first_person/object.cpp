@@ -50,7 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -149,7 +149,7 @@ sge::camera::first_person::object::process_event(
 {
 	fcppt::optional::maybe_void(
 		fcppt::variant::dynamic_cast_<
-			boost::mpl::vector2<
+			brigand::list<
 				sge::input::keyboard::event::key const,
 				sge::input::mouse::event::axis const
 			>,

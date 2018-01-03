@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_VIEW_MIZUIRO_TYPE_TPL_FWD_HPP_INCLUDED
-#define SGE_IMAGE_VIEW_MIZUIRO_TYPE_TPL_FWD_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_BASIC_FORMAT_C_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_BASIC_FORMAT_C_HPP_INCLUDED
 
-#include <sge/image/view/mizuiro_type_fwd.hpp>
+#include <sge/image/view/basic_format.hpp>
 
 
 namespace sge
@@ -32,18 +32,16 @@ namespace view
 {
 
 template<
-	typename Format,
-	typename Constness
+	typename Dim,
+	typename ColorFormat
 >
-struct mizuiro_type_tpl
-{
-	typedef
-	sge::image::view::mizuiro_type<
-		Format,
-		Constness
-	>
-	type;
-};
+using
+basic_format_c
+=
+sge::image::view::basic_format<
+	Dim::value,
+	ColorFormat
+>;
 
 }
 }

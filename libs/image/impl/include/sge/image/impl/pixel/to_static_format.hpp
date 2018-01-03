@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/impl/format_key.hpp>
 #include <sge/image/impl/traits/pixel/format_map.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/at.hpp>
+#include <brigand/sequences/map.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -44,8 +44,7 @@ template<
 using
 to_static_format
 =
-typename
-boost::mpl::at<
+brigand::lookup<
 	sge::image::impl::traits::pixel::format_map<
 		Tag
 	>,
@@ -54,7 +53,7 @@ boost::mpl::at<
 		FormatEnum::value_type,
 		FormatEnum::value
 	>
->::type;
+>;
 
 }
 }

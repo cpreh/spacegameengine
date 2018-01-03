@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/impl/vf/part.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -39,7 +39,7 @@ namespace vf
 
 typedef
 sge::renderer::vf::format<
-	boost::mpl::vector1<
+	brigand::list<
 		sge::cegui::impl::vf::part
 	>
 >

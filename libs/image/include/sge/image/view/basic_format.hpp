@@ -37,7 +37,8 @@ template<
 	sge::image::size_type Dim,
 	typename ColorFormat
 >
-using basic_format
+using
+basic_format
 =
 mizuiro::image::format::interleaved<
 	mizuiro::image::dimension<

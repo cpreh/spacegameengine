@@ -32,9 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/texture_size_option.hpp>
 #include <sge/sprite/config/with_texture.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
-
 
 
 namespace sge
@@ -59,7 +58,7 @@ sge::sprite::config::choices<
 	sge::sprite::config::normal_size<
 		TextureSize
 	>,
-	boost::mpl::vector1<
+	brigand::list<
 		sge::sprite::config::with_texture<
 			sge::sprite::config::texture_level_count<
 				1u

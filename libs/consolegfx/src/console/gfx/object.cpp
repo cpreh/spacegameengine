@@ -63,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <boost/range/iterator_range_core.hpp>
 #include <functional>
 #include <locale>
@@ -195,7 +195,7 @@ sge::console::gfx::object::focus_event(
 
 	fcppt::optional::maybe_void(
 		fcppt::variant::dynamic_cast_<
-			boost::mpl::vector3<
+			brigand::list<
 				sge::input::focus::event::char_ const,
 				sge::input::focus::event::key const,
 				sge::input::focus::event::key_repeat const

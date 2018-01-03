@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_MD3_IMPL_MAX_QPATH_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/integral_c.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -36,7 +36,7 @@ namespace impl
 {
 
 typedef
-boost::mpl::integral_c<
+std::integral_constant<
 	unsigned,
 	64u
 >

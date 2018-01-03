@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_IMPL_FORMAT_MAP_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/map.hpp>
+#include <brigand/sequences/map.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -39,7 +39,7 @@ template<
 using
 format_map
 =
-boost::mpl::map<
+brigand::map<
 	Args...
 >;
 

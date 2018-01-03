@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/line_drawer/impl/vf/position.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -40,7 +40,7 @@ namespace vf
 
 typedef
 sge::renderer::vf::part<
-	boost::mpl::vector2<
+	brigand::list<
 		sge::line_drawer::impl::vf::position,
 		sge::line_drawer::impl::vf::color
 	>

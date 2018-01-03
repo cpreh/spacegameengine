@@ -25,10 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/traits/image/color_tag.hpp>
 #include <sge/image/traits/image/dimension.hpp>
 #include <sge/image/traits/pixel/static_formats.hpp>
-#include <sge/image/view/basic_format.hpp>
+#include <sge/image/view/basic_format_c.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
+#include <brigand/algorithms/transform.hpp>
+#include <brigand/functions/lambda/apply.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -45,22 +47,25 @@ template<
 using
 elements
 =
-typename
-boost::mpl::transform<
+brigand::transform<
 	sge::image::traits::pixel::static_formats<
 		sge::image::traits::image::color_tag<
 			Tag
 		>
 	>,
-	sge::image::store::basic<
-		sge::image::view::basic_format<
-			sge::image::traits::image::dimension<
-				Tag
-			>::value,
-			boost::mpl::_1
+	brigand::bind<
+		sge::image::store::basic,
+		brigand::bind<
+			sge::image::view::basic_format_c,
+			brigand::pin<
+				sge::image::traits::image::dimension<
+					Tag
+				>
+			>,
+			brigand::_1
 		>
 	>
->::type;
+>;
 
 }
 }

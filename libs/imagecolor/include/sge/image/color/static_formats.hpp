@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/srgb8_format.hpp>
 #include <sge/image/color/srgba8_format.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector20.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -52,7 +52,7 @@ namespace color
 {
 
 typedef
-boost::mpl::vector18<
+brigand::list<
 	sge::image::color::a8_format,
 	sge::image::color::l8_format,
 	sge::image::color::r32f_format,

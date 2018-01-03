@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/ds/d24s8_format.hpp>
 #include <sge/image/ds/d32_format.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -37,7 +37,7 @@ namespace ds
 {
 
 typedef
-boost::mpl::vector3<
+brigand::list<
 	sge::image::ds::d16_format,
 	sge::image::ds::d32_format,
 	sge::image::ds::d24s8_format

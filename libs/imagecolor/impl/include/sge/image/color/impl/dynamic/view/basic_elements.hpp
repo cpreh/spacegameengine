@@ -24,11 +24,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/integral_size.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/color/impl/dynamic/format/all.hpp>
-#include <sge/image/view/basic_format.hpp>
+#include <sge/image/view/basic_format_c.hpp>
 #include <sge/image/view/mizuiro_type.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
+#include <brigand/algorithms/transform.hpp>
+#include <brigand/functions/lambda/apply.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -49,19 +51,25 @@ template<
 	sge::image::size_type Dim,
 	typename Constness
 >
-using basic_elements
+using
+basic_elements
 =
-typename
-boost::mpl::transform<
+brigand::transform<
 	sge::image::color::impl::dynamic::format::all,
-	sge::image::view::mizuiro_type<
-		sge::image::view::basic_format<
-			Dim,
-			boost::mpl::_1
+	brigand::bind<
+		sge::image::view::mizuiro_type,
+		brigand::bind<
+			sge::image::view::basic_format_c,
+			brigand::pin<
+				sge::image::integral_size<
+					Dim
+				>
+			>,
+			brigand::_1
 		>,
 		Constness
 	>
->::type;
+>;
 
 }
 }
