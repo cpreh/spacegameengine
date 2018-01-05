@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_CONFIG_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_POINT_SIZE_HPP_INCLUDED
 
-#include <sge/renderer/vf/is_index.hpp>
 #include <sge/sprite/config/point_size_fwd.hpp>
 #include <sge/sprite/config/size_choice.hpp>
 #include <sge/sprite/roles/point_size.hpp>
@@ -52,13 +51,6 @@ struct point_size
 :
 	sge::sprite::config::size_choice
 {
-private:
-	static_assert(
-		sge::renderer::vf::is_index<
-			Index
-		>::value,
-		"Index must be a vf::index"
-	);
 public:
 	typedef Index attribute_index;
 
