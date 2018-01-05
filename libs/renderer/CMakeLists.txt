@@ -837,7 +837,6 @@ set(
 	libs/renderer/include/sge/renderer/vf/color_base.hpp
 	libs/renderer/include/sge/renderer/vf/color_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/const_tag.hpp
-	libs/renderer/include/sge/renderer/vf/detail/calc_offset.hpp
 	libs/renderer/include/sge/renderer/vf/detail/copy_n.hpp
 	libs/renderer/include/sge/renderer/vf/detail/element_stride.hpp
 	libs/renderer/include/sge/renderer/vf/detail/iterator_base.hpp
@@ -910,9 +909,7 @@ set(
 	libs/renderer/include/sge/renderer/vf/format.hpp
 	libs/renderer/include/sge/renderer/vf/format_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/index.hpp
-	libs/renderer/include/sge/renderer/vf/index_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/index_type.hpp
-	libs/renderer/include/sge/renderer/vf/is_index.hpp
 	libs/renderer/include/sge/renderer/vf/iterator.hpp
 	libs/renderer/include/sge/renderer/vf/iterator_decl.hpp
 	libs/renderer/include/sge/renderer/vf/iterator_fwd.hpp

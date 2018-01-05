@@ -41,20 +41,18 @@ template<
 	typename Element,
 	typename Constness
 >
-struct make_view_element
-{
-	typedef
-	sge::renderer::index::view<
-		sge::renderer::index::format<
-			typename
-			sge::renderer::index::dynamic::format_element<
-				Element::value
-			>::type,
-			Constness
-		>
+using
+make_view_element
+=
+sge::renderer::index::view<
+	sge::renderer::index::format<
+		typename
+		sge::renderer::index::dynamic::format_element<
+			Element::value
+		>::type,
+		Constness
 	>
-	type;
-};
+>;
 
 }
 }

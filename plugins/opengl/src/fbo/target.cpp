@@ -71,7 +71,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -288,7 +288,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 			fcppt::variant::match(
 				fcppt::optional::to_exception(
 					fcppt::variant::dynamic_cast_<
-						boost::mpl::vector2<
+						brigand::list<
 							sge::opengl::fbo::depth_stencil_surface,
 							sge::opengl::texture::buffer_base
 						>,

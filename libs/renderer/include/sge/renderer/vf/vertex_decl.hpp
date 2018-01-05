@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/pointer.hpp>
 #include <sge/renderer/vf/vertex_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/brigand/found_t.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/contains.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -65,8 +65,9 @@ public:
 	template<
 		typename Field
 	>
-	typename boost::enable_if<
-		boost::mpl::contains<
+	typename
+	boost::enable_if<
+		fcppt::brigand::found_t<
 			elements,
 			Field
 		>,
@@ -80,7 +81,7 @@ public:
 		typename Field
 	>
 	typename boost::enable_if<
-		boost::mpl::contains<
+		fcppt::brigand::found_t<
 			elements,
 			Field
 		>,

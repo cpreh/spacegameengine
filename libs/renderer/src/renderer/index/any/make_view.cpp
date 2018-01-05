@@ -47,14 +47,13 @@ sge::renderer::index::any::make_view(
 			{
 				return
 					sge::renderer::index::any::view{
-						typename
 						sge::renderer::index::any::detail::make_view_element<
 							std::integral_constant<
 								sge::renderer::index::dynamic::format,
 								_value
 							>,
 							sge::renderer::index::nonconst_tag
-						>::type{
+						>{
 							_view.data(),
 							_view.size()
 						}

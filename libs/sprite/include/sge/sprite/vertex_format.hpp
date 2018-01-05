@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/format.hpp>
 #include <sge/sprite/detail/vf/format_part.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -39,7 +39,7 @@ template<
 struct vertex_format
 {
 	typedef sge::renderer::vf::format<
-		boost::mpl::vector1<
+		brigand::list<
 			typename sge::sprite::detail::vf::format_part<
 				Choices
 			>::type

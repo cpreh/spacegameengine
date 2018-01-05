@@ -29,11 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/detail/make_element.hpp>
 #include <fcppt/tag_type.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/mpl/for_each.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/size.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/algorithm/map.hpp>
 
 
 namespace sge
@@ -53,92 +50,55 @@ template<
 sge::renderer::vf::dynamic::part
 make_part()
 {
-	typedef
-	typename
-	Part::elements
-	elements;
-
-	typedef
-	typename
-	Part::offsets
-	offsets;
-
-	sge::renderer::vf::dynamic::element_list elems;
-
-	elems.reserve(
-		boost::mpl::size<
-			elements
-		>::value
-	);
-
-	fcppt::mpl::for_each<
-		elements
-	>(
-		[
-			&elems
-		](
-			auto const &_tag
-		)
-		{
-			FCPPT_USE(
-				_tag
-			);
-
-			elems.push_back(
-				sge::renderer::vf::dynamic::detail::make_element(
-					fcppt::tag_type<
-						decltype(
-							_tag
-						)
-					>{}
-				)
-			);
-		}
-	);
-
-	sge::renderer::vf::dynamic::offset_list offs;
-
-	offs.reserve(
-		boost::mpl::size<
-			offsets
-		>::value
-	);
-
-	fcppt::mpl::for_each<
-		offsets
-	>(
-		[
-			&offs
-		](
-			auto const &_tag
-		)
-		{
-			FCPPT_USE(
-				_tag
-			);
-
-			offs.push_back(
-				sge::renderer::vf::dynamic::offset{
-					fcppt::tag_type<
-						decltype(
-							_tag
-						)
-					>::value
-				}
-			);
-
-		}
-	);
-
 	return
-		sge::renderer::vf::dynamic::part(
-			std::move(
-				elems
+		sge::renderer::vf::dynamic::part{
+			fcppt::algorithm::map<
+				sge::renderer::vf::dynamic::element_list
+			>(
+				typename
+				Part::elements{},
+				[](
+					auto const &_tag
+				)
+				{
+					FCPPT_USE(
+						_tag
+					);
+
+					return
+						sge::renderer::vf::dynamic::detail::make_element(
+							fcppt::tag_type<
+								decltype(
+									_tag
+								)
+							>{}
+						);
+				}
 			),
-			std::move(
-				offs
+			fcppt::algorithm::map<
+				sge::renderer::vf::dynamic::offset_list
+			>(
+				typename
+				Part::offsets{},
+				[](
+					auto const &_tag
+				)
+				{
+					FCPPT_USE(
+						_tag
+					);
+
+					return
+						sge::renderer::vf::dynamic::offset{
+							fcppt::tag_type<
+								decltype(
+									_tag
+								)
+							>::value
+						};
+				}
 			)
-		);
+		};
 }
 
 }

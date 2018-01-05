@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/state/detail/options_class_element.hpp>
 #include <fcppt/mpl/append.hpp>
+#include <fcppt/mpl/to_brigand.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -90,26 +91,28 @@ private:
 public:
 	typedef
 	fcppt::record::object<
-		typename
-		fcppt::mpl::append<
-			typename boost::mpl::transform<
-				typename boost::mpl::copy_if<
-					typename StateChoices::optional_elements,
-					has_option<
+		fcppt::mpl::to_brigand<
+			typename
+			fcppt::mpl::append<
+				typename boost::mpl::transform<
+					typename boost::mpl::copy_if<
+						typename StateChoices::optional_elements,
+						has_option<
+							boost::mpl::_1
+						>
+					>::type,
+					option_class_element<
 						boost::mpl::_1
 					>
 				>::type,
-				option_class_element<
-					boost::mpl::_1
-				>
-			>::type,
-			typename boost::mpl::transform<
-				typename StateChoices::optional_elements,
-				sge::sprite::state::detail::options_class_element<
-					boost::mpl::_1
-				>
+				typename boost::mpl::transform<
+					typename StateChoices::optional_elements,
+					sge::sprite::state::detail::options_class_element<
+						boost::mpl::_1
+					>
+				>::type
 			>::type
-		>::type
+		>
 	>
 	type;
 };

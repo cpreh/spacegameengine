@@ -69,7 +69,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -246,7 +246,7 @@ sge::wlinput::processor::on_event(
 	return
 		fcppt::optional::maybe(
 			fcppt::variant::dynamic_cast_<
-				boost::mpl::vector3<
+				brigand::list<
 					awl::backends::wayland::system::event::seat_caps const,
 					awl::backends::wayland::system::event::seat_removed const,
 					awl::backends::posix::event const

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/vf/position.hpp>
 #include <sge/scenic/vf/texcoord.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -36,20 +36,19 @@ namespace scenic
 {
 namespace vf
 {
+
 typedef
-sge::renderer::vf::part
-<
-	boost::mpl::vector3
-	<
+sge::renderer::vf::part<
+	brigand::list<
 		sge::scenic::vf::position,
 		sge::scenic::vf::normal,
 		sge::scenic::vf::texcoord
 	>
 >
 format_part;
+
 }
 }
 }
 
 #endif
-

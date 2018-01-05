@@ -27,7 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/detail/make_part.hpp>
 #include <fcppt/tag_type.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/mpl/for_each.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/algorithm/map.hpp>
 
 
 namespace sge
@@ -45,38 +46,32 @@ template<
 sge::renderer::vf::dynamic::format
 make_format()
 {
-	sge::renderer::vf::dynamic::part_list parts;
-
-	fcppt::mpl::for_each<
-		typename
-		Format::parts
-	>(
-		[
-			&parts
-		](
-			auto const &_tag
-		)
-		{
-			FCPPT_USE(
-				_tag
-			);
-
-			parts.push_back(
-				sge::renderer::vf::dynamic::detail::make_part<
-					fcppt::tag_type<
-						decltype(
-							_tag
-						)
-					>
-				>()
-			);
-		}
-	);
-
 	return
-		sge::renderer::vf::dynamic::format(
-			parts
-		);
+		sge::renderer::vf::dynamic::format{
+			fcppt::algorithm::map<
+				sge::renderer::vf::dynamic::part_list
+			>(
+				typename
+				Format::parts{},
+				[](
+					auto const &_tag
+				)
+				{
+					FCPPT_USE(
+						_tag
+					);
+
+					return
+						sge::renderer::vf::dynamic::detail::make_part<
+							fcppt::tag_type<
+								decltype(
+									_tag
+								)
+							>
+						>();
+				}
+			)
+		};
 }
 
 }

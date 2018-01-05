@@ -24,10 +24,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/part_fwd.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/detail/element_stride.hpp>
-#include <fcppt/mpl/partial_sums.hpp>
+#include <fcppt/brigand/partial_sums.hpp>
+#include <fcppt/type_traits/is_brigand_sequence.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
+#include <brigand/algorithms/transform.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -43,19 +45,33 @@ template<
 >
 struct part
 {
-	typedef ElementList elements;
+	typedef
+	ElementList
+	elements;
 
-	typedef typename boost::mpl::transform<
+	static_assert(
+		fcppt::type_traits::is_brigand_sequence<
+			ElementList
+		>::value,
+		"ElementList must be a brigand sequence"
+	);
+
+	typedef
+	brigand::transform<
 		elements,
-		sge::renderer::vf::detail::element_stride<
-			boost::mpl::_1
+		brigand::bind<
+			sge::renderer::vf::detail::element_stride,
+			brigand::_1
 		>
-	>::type strides;
+	>
+	strides;
 
-	typedef typename fcppt::mpl::partial_sums<
+	typedef
+	fcppt::brigand::partial_sums<
 		strides,
 		sge::renderer::vf::vertex_size
-	>::type offsets;
+	>
+	offsets;
 
 };
 

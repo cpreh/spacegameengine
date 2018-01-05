@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -60,7 +60,7 @@ sge::systems::impl::window::quit::quit(
 				{
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
-							boost::mpl::vector2<
+							brigand::list<
 								awl::window::event::destroy const,
 								awl::window::event::close const
 							>,

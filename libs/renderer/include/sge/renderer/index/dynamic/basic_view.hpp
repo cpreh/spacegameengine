@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -49,7 +49,7 @@ class basic_view
 public:
 	typedef
 	typename
-	boost::mpl::if_c<
+	std::conditional<
 		IsConst,
 		sge::renderer::const_raw_pointer,
 		sge::renderer::raw_pointer

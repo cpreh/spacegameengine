@@ -23,10 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/index/any/detail/make_view_element.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
-#include <fcppt/mpl/enum_range.hpp>
+#include <fcppt/brigand/enum_range.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
+#include <brigand/algorithms/transform.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -44,18 +45,19 @@ namespace detail
 template<
 	typename Constness
 >
-using variant_types
+using
+variant_types
 =
-typename
-boost::mpl::transform<
-	fcppt::mpl::enum_range<
+brigand::transform<
+	fcppt::brigand::enum_range<
 		sge::renderer::index::dynamic::format
 	>,
-	sge::renderer::index::any::detail::make_view_element<
-		boost::mpl::_1,
+	brigand::bind<
+		sge::renderer::index::any::detail::make_view_element,
+		brigand::_1,
 		Constness
 	>
->::type;
+>;
 
 }
 }

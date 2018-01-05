@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/vf/const_tag.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -40,14 +39,15 @@ namespace vf
 template<
 	typename Constness
 >
-using pointer
+using
+pointer
 =
 typename
-boost::mpl::if_<
+std::conditional<
 	std::is_same<
 		Constness,
 		sge::renderer::vf::const_tag
-	>,
+	>::value,
 	sge::renderer::const_raw_pointer,
 	sge::renderer::raw_pointer
 >::type;

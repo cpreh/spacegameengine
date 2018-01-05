@@ -63,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/part_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <boost/mpl/vector.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -152,7 +152,7 @@ private:
 		sge::sprite::config::normal_size<
 			sge::sprite::config::texture_size_option::always
 		>,
-		brigand::list<
+		boost::mpl::vector<
 			sge::sprite::config::with_color<
 				sge::font::draw::detail::static_text_impl::color_format
 			>,

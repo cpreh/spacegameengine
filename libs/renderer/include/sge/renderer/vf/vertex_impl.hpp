@@ -22,15 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_VERTEX_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/vf/vertex_decl.hpp>
-#include <sge/renderer/vf/detail/calc_offset.hpp>
 #include <sge/renderer/vf/detail/copy_n.hpp>
 #include <sge/renderer/vf/detail/element_stride.hpp>
 #include <sge/renderer/vf/detail/raw_data.hpp>
 #include <sge/renderer/vf/detail/read_wrapper_impl.hpp>
+#include <fcppt/brigand/found_t.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/mpl/deref.hpp>
-#include <boost/mpl/find.hpp>
+#include <brigand/algorithms/index_of.hpp>
+#include <brigand/sequences/at.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -59,9 +58,11 @@ template<
 template<
 	typename Field
 >
-typename boost::enable_if<
-	boost::mpl::contains<
-		typename sge::renderer::vf::vertex<
+typename
+boost::enable_if<
+	fcppt::brigand::found_t<
+		typename
+		sge::renderer::vf::vertex<
 			Part,
 			Constness
 		>::elements,
@@ -76,20 +77,26 @@ sge::renderer::vf::vertex<
 	typename Field::packed_type const &_value
 )
 {
-	typedef typename boost::mpl::find<
+	typedef
+	brigand::index_of<
 		elements,
 		Field
-	>::type element_iterator;
+	>
+	index;
 
-	typedef typename sge::renderer::vf::detail::calc_offset<
+	typedef
+	brigand::at<
 		elements,
-		offsets,
-		element_iterator
-	>::type offset;
+		index
+	>
+	element;
 
-	typedef typename boost::mpl::deref<
-		element_iterator
-	>::type element;
+	typedef
+	brigand::at<
+		offsets,
+		index
+	>
+	offset;
 
 	sge::renderer::vf::detail::copy_n(
 		sge::renderer::vf::detail::raw_data(
@@ -97,12 +104,10 @@ sge::renderer::vf::vertex<
 		),
 		sge::renderer::vf::detail::element_stride<
 			element
-		>::type::value,
+		>::value,
 		data_
 		+
-		boost::mpl::deref<
-			offset
-		>::type::value
+		offset::value
 	);
 }
 
@@ -114,7 +119,7 @@ template<
 	typename Field
 >
 typename boost::enable_if<
-	boost::mpl::contains<
+	fcppt::brigand::found_t<
 		typename sge::renderer::vf::vertex<
 			Part,
 			Constness
@@ -129,27 +134,25 @@ sge::renderer::vf::vertex<
 >::get() const
 {
 	typedef
-	typename
-	boost::mpl::find<
+	brigand::index_of<
 		elements,
 		Field
-	>::type
-	element_iterator;
+	>
+	index;
 
 	typedef
-	sge::renderer::vf::detail::calc_offset<
+	brigand::at<
 		elements,
+		index
+	>
+	element;
+
+	typedef
+	brigand::at<
 		offsets,
-		element_iterator
+		index
 	>
 	offset;
-
-	typedef
-	typename
-	boost::mpl::deref<
-		element_iterator
-	>::type
-	element;
 
 	typedef
 	typename
@@ -158,17 +161,15 @@ sge::renderer::vf::vertex<
 
 	sge::renderer::vf::detail::read_wrapper<
 		packed_type
-	> ret;
+	> ret{};
 
 	sge::renderer::vf::detail::copy_n(
 		data_
 		+
-		boost::mpl::deref<
-			offset
-		>::type::value,
+		offset::value,
 		sge::renderer::vf::detail::element_stride<
 			element
-		>::type::value,
+		>::value,
 		sge::renderer::vf::detail::raw_data(
 			ret.get()
 		)

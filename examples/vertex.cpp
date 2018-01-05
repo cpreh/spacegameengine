@@ -93,6 +93,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <fcppt/config/external_end.hpp>
@@ -173,7 +174,7 @@ try
 //! [format_part_declaration]
 	typedef
 	sge::renderer::vf::part<
-		boost::mpl::vector2<
+		brigand::list<
 			pos3_type,
 			color_type
 		>
@@ -184,7 +185,7 @@ try
 //! [format_declaration]
 	typedef
 	sge::renderer::vf::format<
-		boost::mpl::vector1<
+		brigand::list<
 			format_part
 		>
 	>

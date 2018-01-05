@@ -87,6 +87,11 @@ find_package(
 	"${NEEDED_BOOST_LIBS}"
 )
 
+find_package(
+	Brigand
+	REQUIRED
+)
+
 set(
 	MEDIA_INSTALL_DIR
 	"${FCPPT_UTILS_INSTALL_DATA_DIR}/media"

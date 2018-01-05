@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/format.hpp>
 #include <sge/scenic/vf/format_part.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -34,15 +34,17 @@ namespace scenic
 {
 namespace vf
 {
+
 typedef
-sge::renderer::vf::format
-<
-	boost::mpl::vector1<sge::scenic::vf::format_part>
+sge::renderer::vf::format<
+	brigand::list<
+		sge::scenic::vf::format_part
+	>
 >
 format;
+
 }
 }
 }
 
 #endif
-

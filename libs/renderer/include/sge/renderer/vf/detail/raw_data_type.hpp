@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -41,13 +40,14 @@ namespace detail
 template<
 	typename T
 >
-using raw_data_type
+using
+raw_data_type
 =
 typename
-boost::mpl::if_<
+std::conditional<
 	std::is_const<
 		T
-	>,
+	>::value,
 	sge::renderer::const_raw_pointer,
 	sge::renderer::raw_pointer
 >::type;

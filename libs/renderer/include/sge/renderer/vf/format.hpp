@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_FORMAT_HPP_INCLUDED
 
 #include <sge/renderer/vf/format_fwd.hpp>
+#include <fcppt/type_traits/is_brigand_sequence.hpp>
 
 
 namespace sge
@@ -36,6 +37,13 @@ template<
 >
 struct format
 {
+	static_assert(
+		fcppt::type_traits::is_brigand_sequence<
+			PartList
+		>::value,
+		"PartList must be a brigand sequence"
+	);
+
 	typedef PartList parts;
 };
 

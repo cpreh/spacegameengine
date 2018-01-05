@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/mpl/append.hpp>
 #include <fcppt/mpl/contains_if.hpp>
 #include <fcppt/mpl/inner.hpp>
+#include <fcppt/mpl/to_brigand.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -142,27 +143,29 @@ FCPPT_PP_POP_WARNING
 	> optional_primitives;
 public:
 	typedef sge::renderer::vf::part<
-		typename boost::mpl::fold<
-			optional_primitives,
-			basic_with_size,
-			boost::mpl::eval_if<
-				fcppt::mpl::contains_if<
-					typename Choices::optional_elements,
-					boost::mpl::first<
-						boost::mpl::_2
-					>
-				>,
-				fcppt::mpl::append<
-					boost::mpl::_1,
-					fcppt::mpl::inner<
-						boost::mpl::second<
+		fcppt::mpl::to_brigand<
+			typename boost::mpl::fold<
+				optional_primitives,
+				basic_with_size,
+				boost::mpl::eval_if<
+					fcppt::mpl::contains_if<
+						typename Choices::optional_elements,
+						boost::mpl::first<
 							boost::mpl::_2
 						>
-					>
-				>,
-				boost::mpl::_1
-			>
-		>::type
+					>,
+					fcppt::mpl::append<
+						boost::mpl::_1,
+						fcppt::mpl::inner<
+							boost::mpl::second<
+								boost::mpl::_2
+							>
+						>
+					>,
+					boost::mpl::_1
+				>
+			>::type
+		>
 	> type;
 };
 

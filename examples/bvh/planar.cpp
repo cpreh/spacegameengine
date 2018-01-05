@@ -140,6 +140,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/output.hpp>
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <brigand/sequences.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <chrono>
 #include <example_main.hpp>
 #include <exception>
@@ -866,7 +868,7 @@ main_program(
 				{
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
-							boost::mpl::vector2<
+							brigand::list<
 								sge::renderer::event::render const,
 								sge::input::keyboard::event::key const
 							>,

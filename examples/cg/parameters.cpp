@@ -107,6 +107,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <brigand/sequences/list.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <example_main.hpp>
 #include <exception>
@@ -255,7 +256,7 @@ try
 
 	typedef
 	sge::renderer::vf::part<
-		boost::mpl::vector1<
+		brigand::list<
 			pos3_type
 		>
 	>
@@ -263,7 +264,7 @@ try
 
 	typedef
 	sge::renderer::vf::format<
-		boost::mpl::vector1<
+		brigand::list<
 			format_part
 		>
 	>

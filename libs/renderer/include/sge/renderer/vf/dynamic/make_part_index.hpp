@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
-#include <fcppt/mpl/index_of.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <brigand/algorithms/index_of.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -48,7 +50,7 @@ make_part_index()
 			sge::renderer::vf::dynamic::part_index,
 			fcppt::cast::static_cast_fun
 		>(
-			fcppt::mpl::index_of<
+			brigand::index_of<
 				typename Format::parts,
 				Part
 			>::value

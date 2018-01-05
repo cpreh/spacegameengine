@@ -107,6 +107,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <brigand/sequences/list.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <cstdlib>
@@ -144,27 +145,30 @@ query_value_from_user(
 
 namespace vf
 {
+
 typedef
-sge::renderer::vf::pos
-<
+sge::renderer::vf::pos<
 	sge::renderer::scalar,
 	2u
 >
 scalar_quantity;
 
 typedef
-sge::renderer::vf::part
-<
-	boost::mpl::vector1<vf::scalar_quantity>
+sge::renderer::vf::part<
+	brigand::list<
+		vf::scalar_quantity
+	>
 >
 part;
 
 typedef
-sge::renderer::vf::format
-<
-	boost::mpl::vector1<vf::part>
+sge::renderer::vf::format<
+	brigand::list<
+		vf::part
+	>
 >
 format;
+
 }
 
 void

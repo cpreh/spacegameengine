@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/const_tag.hpp>
 #include <sge/renderer/index/format_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -54,11 +53,11 @@ struct format
 
 	typedef
 	typename
-	boost::mpl::if_<
+	std::conditional<
 		std::is_same<
 			Constness,
 			sge::renderer::index::const_tag
-		>,
+		>::value,
 		sge::renderer::const_raw_pointer,
 		sge::renderer::raw_pointer
 	>::type

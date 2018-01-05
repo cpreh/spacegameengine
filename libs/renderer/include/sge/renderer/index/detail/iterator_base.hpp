@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/proxy_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/mpl/if.hpp>
 #include <iterator>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -46,19 +45,23 @@ namespace detail
 template<
 	typename Format
 >
-using iterator_base
+using
+iterator_base
 =
 boost::iterator_facade<
 	sge::renderer::index::iterator<
 		Format
 	>,
-	typename Format::index_type,
+	typename
+	Format::index_type,
 	std::random_access_iterator_tag,
-	typename boost::mpl::if_<
+	typename
+	std::conditional<
 		std::is_same<
-			typename Format::constness,
+			typename
+			Format::constness,
 			sge::renderer::index::nonconst_tag
-		>,
+		>::value,
 		sge::renderer::index::proxy<
 			Format
 		>,

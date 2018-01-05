@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_VF_TEXPOS_HPP_INCLUDED
 
 #include <sge/renderer/vf/element_count_type.hpp>
-#include <sge/renderer/vf/is_index.hpp>
 #include <sge/renderer/vf/texpos_fwd.hpp>
 #include <sge/renderer/vf/vector_base.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -64,13 +63,6 @@ sge::renderer::vf::vector_base<
 		NumSubElements >= 2
 		&& NumSubElements <= 3,
 		"NumSubElements mut be between 2 and 3"
-	);
-
-	static_assert(
-		sge::renderer::vf::is_index<
-			Index
-		>::value,
-		"Index must be a vf::index"
 	);
 
 	typedef Index index;

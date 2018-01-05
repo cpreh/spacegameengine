@@ -305,7 +305,7 @@ struct convert_from_impl<
 					Result
 				>
 			>,
-			brigand::mot_<
+			brigand::not_<
 				std::is_same<
 					Result,
 					sge::parse::json::string

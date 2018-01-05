@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/iterator_decl.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/back.hpp>
+#include <brigand/sequences/back.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -43,7 +43,7 @@ sge::renderer::vf::iterator<
 {
 	return
 		fcppt::cast::to_signed(
-			boost::mpl::back<
+			brigand::back<
 				typename Part::offsets
 			>::type::value
 		);

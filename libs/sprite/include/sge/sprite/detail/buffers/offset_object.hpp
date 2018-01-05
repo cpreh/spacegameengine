@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/functions/if.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -66,15 +66,15 @@ public:
 	typedef
 	fcppt::record::object<
 		typename
-		boost::mpl::if_<
+		brigand::if_<
 			sge::sprite::detail::config::needs_index_buffer<
 				Choices
 			>,
-			boost::mpl::vector2<
+			brigand::list<
 				vertex_buffer_role,
 				index_buffer_role
 			>,
-			boost::mpl::vector1<
+			brigand::list<
 				vertex_buffer_role
 			>
 		>::type
