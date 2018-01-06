@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/error_string.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/cast/promote.hpp>
+#include <fcppt/cast/promote_int.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/container/buffer/object_impl.hpp>
 #include <fcppt/container/buffer/read_from.hpp>
@@ -144,13 +144,13 @@ sge::libpng::file_rep_from_stream(
 			<<
 			FCPPT_TEXT(", bit depth: ")
 			<<
-			fcppt::cast::promote(
+			fcppt::cast::promote_int(
 				bpp
 			)
 			<<
 			FCPPT_TEXT(", channels: ")
 			<<
-			fcppt::cast::promote(
+			fcppt::cast::promote_int(
 				channels
 			)
 	);
@@ -277,7 +277,7 @@ sge::libpng::file_rep_from_stream(
 						<<
 						FCPPT_TEXT(" Depth is ")
 						<<
-						fcppt::cast::promote(
+						fcppt::cast::promote_int(
 							bpp
 						)
 				);
