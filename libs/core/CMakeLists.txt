@@ -14,5 +14,6 @@ add_sge_base_library(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_boost_interface
 		fcppt_core_interface
 )

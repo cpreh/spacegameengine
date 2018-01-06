@@ -137,10 +137,12 @@ add_sge_base_library(
 		core
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_boost_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 		${Boost_SYSTEM_LIBRARIES}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
+		fcppt_boost_interface
 	IMPLEMENT_FROM
 		parse
 )
