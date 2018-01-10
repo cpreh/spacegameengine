@@ -81,14 +81,14 @@ sge::model::md3::impl::surface::surface(
 		_stream
 	);
 
-	sge::model::md3::impl::s32 const num_frames(
+	sge::model::md3::impl::s32 const frames(
 		sge::model::md3::impl::read_s32(
 			_stream
 		)
 	);
 
 	if(
-		num_frames
+		frames
 		!=
 		_num_frames_head.get()
 	)
