@@ -157,10 +157,19 @@ add_sge_lib(
 	"${WLINPUT_DEFAULT}"
 )
 
+include(
+	FindPkgConfig
+)
+
+pkg_check_modules(
+	XINPUT_PKG
+	xi
+)
+
 if(
 	${ENABLE_X11}
 	AND
-	"${X11_Xinput_FOUND}"
+	"${XINPUT_PKG_FOUND}"
 )
 	set(
 		X11INPUT_DEFAULT
