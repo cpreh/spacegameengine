@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/core/impl/export_function_instantiation.hpp>
 #include <sge/plugin/loader_function.hpp>
-#include <sge/plugin/library/function_base.hpp>
 #include <sge/plugin/impl/detail/from_loader_function.hpp>
+#include <sge/plugin/library/function_base.hpp>
 
 
 #define SGE_PLUGIN_IMPL_INSTANTIATE_FROM_LOADER_FUNCTION(\

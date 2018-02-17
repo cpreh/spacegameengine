@@ -28,9 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/detail/read_wrapper_impl.hpp>
 #include <fcppt/brigand/found_t.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <brigand/algorithms/index_of.hpp>
 #include <brigand/sequences/at.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

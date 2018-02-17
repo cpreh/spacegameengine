@@ -63,8 +63,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
 #include <boost/range/iterator_range_core.hpp>
+#include <brigand/sequences/list.hpp>
 #include <functional>
 #include <locale>
 #include <fcppt/config/external_end.hpp>

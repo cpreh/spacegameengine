@@ -47,10 +47,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/is_matrix.hpp>
 #include <fcppt/type_traits/is_std_array.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <brigand/functions/logical/and.hpp>
 #include <brigand/functions/logical/not.hpp>
 #include <brigand/functions/logical/or.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <cstddef>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>

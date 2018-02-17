@@ -107,9 +107,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <cstdlib>
 #include <functional>
 #include <ios>

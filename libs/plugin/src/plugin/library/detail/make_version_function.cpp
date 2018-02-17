@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/plugin/impl/library/to_function_base_unsafe.hpp>
+#include <sge/plugin/impl/library/version_function_name.hpp>
 #include <sge/plugin/library/function_base_pair.hpp>
 #include <sge/plugin/library/detail/make_version_function.hpp>
 #include <sge/plugin/library/detail/version_function.hpp>
-#include <sge/plugin/impl/library/to_function_base_unsafe.hpp>
-#include <sge/plugin/impl/library/version_function_name.hpp>
 
 
 sge::plugin::library::function_base_pair
