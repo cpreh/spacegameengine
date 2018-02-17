@@ -18,45 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_IMPL_LIBRARY_LOAD_FUNCTION_HPP_INCLUDED
-#define SGE_PLUGIN_IMPL_LIBRARY_LOAD_FUNCTION_HPP_INCLUDED
+#ifndef SGE_PLUGIN_LIBRARY_FUNCTION_BASE_PAIR_HPP_INCLUDED
+#define SGE_PLUGIN_LIBRARY_FUNCTION_BASE_PAIR_HPP_INCLUDED
 
-#include <sge/plugin/impl/library/from_function_base_unsafe.hpp>
-#include <sge/plugin/impl/library/load_function_base.hpp>
-#include <sge/plugin/library/object_fwd.hpp>
+#include <sge/plugin/library/function_base.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace plugin
 {
-namespace impl
-{
 namespace library
 {
 
-template<
-	typename Function
+typedef
+std::pair<
+	sge::plugin::library::symbol_string,
+	sge::plugin::library::function_base
 >
-Function
-load_function(
-	sge::plugin::library::object &_object,
-	sge::plugin::library::symbol_string const &_symbol
-)
-{
-	return
-		sge::plugin::impl::library::from_function_base_unsafe<
-			Function
-		>(
-			sge::plugin::impl::library::load_function_base(
-				_object,
-				_symbol
-			)
-		);
-}
+function_base_pair;
 
-}
 }
 }
 }

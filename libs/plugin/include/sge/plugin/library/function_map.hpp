@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/function_base.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <map>
+#include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -39,20 +39,23 @@ namespace library
 class function_map
 {
 public:
-	typedef std::map<
-		library::symbol_string,
-		library::function_base
-	> container;
+	typedef
+	std::unordered_map<
+		sge::plugin::library::symbol_string,
+		sge::plugin::library::function_base
+	>
+	container;
 
 	SGE_PLUGIN_DETAIL_SYMBOL
-	explicit function_map(
-		container const &
+	explicit
+	function_map(
+		container &&
 	);
 
 	SGE_PLUGIN_DETAIL_SYMBOL
-	library::function_base
+	sge::plugin::library::function_base
 	function(
-		library::symbol_string const &
+		sge::plugin::library::symbol_string const &
 	) const;
 
 	SGE_PLUGIN_DETAIL_SYMBOL

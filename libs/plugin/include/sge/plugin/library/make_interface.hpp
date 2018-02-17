@@ -22,18 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PLUGIN_LIBRARY_MAKE_INTERFACE_HPP_INCLUDED
 
 #include <sge/plugin/info.hpp>
-#include <sge/plugin/library/function_base.hpp>
 #include <sge/plugin/library/function_map.hpp>
 #include <sge/plugin/library/detail/interface_post.hpp>
 #include <sge/plugin/library/detail/interface_pre.hpp>
 #include <sge/plugin/library/detail/iterate_functions.hpp>
-#include <sge/plugin/library/detail/version_function_name.hpp>
-#include <fcppt/preprocessor/disable_vc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/plugin/library/detail/make_version_function.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -53,17 +48,10 @@ sge_info_function() \
 \
 }\
 \
-FCPPT_PP_PUSH_WARNING \
-FCPPT_PP_DISABLE_VC_WARNING(4191) \
 SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 	sge::plugin::library::function_map::container{\
-		std::make_pair(\
-			sge::plugin::library::detail::version_function_name,\
-			reinterpret_cast<\
-				sge::plugin::library::function_base\
-			>(\
-				&sge_info_function\
-			)\
+		sge::plugin::library::detail::make_version_function(\
+			&sge_info_function\
 		) \
 		BOOST_PP_SEQ_FOR_EACH(\
 			SGE_PLUGIN_LIBRARY_DETAIL_ITERATE_FUNCTIONS,\
@@ -71,7 +59,6 @@ SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 			plugin_functions\
 		)\
 	}\
-SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST \
-FCPPT_PP_POP_WARNING
+SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST
 
 #endif

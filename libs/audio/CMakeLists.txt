@@ -101,6 +101,7 @@ set(
 	libs/audio/src/audio/loader.cpp
 	libs/audio/src/audio/loader_plugin/collection.cpp
 	libs/audio/src/audio/loader_plugin/context.cpp
+	libs/audio/src/audio/loader_plugin/from_loader_function.cpp
 	libs/audio/src/audio/loader_plugin/iterator.cpp
 	libs/audio/src/audio/loader_plugin/manager.cpp
 	libs/audio/src/audio/loader_plugin/object.cpp
@@ -111,6 +112,7 @@ set(
 	libs/audio/src/audio/player.cpp
 	libs/audio/src/audio/player_plugin/collection.cpp
 	libs/audio/src/audio/player_plugin/context.cpp
+	libs/audio/src/audio/player_plugin/from_loader_function.cpp
 	libs/audio/src/audio/player_plugin/iterator.cpp
 	libs/audio/src/audio/player_plugin/manager.cpp
 	libs/audio/src/audio/player_plugin/object.cpp

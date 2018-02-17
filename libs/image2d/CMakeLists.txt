@@ -135,6 +135,7 @@ set(
 	libs/image2d/src/image2d/multi_system_parameters.cpp
 	libs/image2d/src/image2d/plugin/collection.cpp
 	libs/image2d/src/image2d/plugin/context.cpp
+	libs/image2d/src/image2d/plugin/from_loader_function.cpp
 	libs/image2d/src/image2d/plugin/iterator.cpp
 	libs/image2d/src/image2d/plugin/manager.cpp
 	libs/image2d/src/image2d/plugin/object.cpp

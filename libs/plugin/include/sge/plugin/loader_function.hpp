@@ -36,13 +36,12 @@ template<
 using
 loader_function
 =
-typename
 sge::plugin::detail::loader_function<
 	typename
 	sge::plugin::detail::traits<
 		Type
 	>::loader_function
->::type *;
+> *;
 
 }
 }

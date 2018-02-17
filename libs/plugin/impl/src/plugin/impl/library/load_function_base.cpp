@@ -20,13 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/library/function_map.hpp>
 #include <sge/plugin/library/function_base.hpp>
+#include <sge/plugin/library/symbol_string.hpp>
 #include <sge/plugin/impl/library/load_function_base.hpp>
 #include <sge/plugin/impl/library/object.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-#include <fcppt/preprocessor/disable_vc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/plugin/impl/library/cast_function_unsafe.hpp>
+#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#include <fcppt/cast/from_void_ptr.hpp>
 #endif
 
 
@@ -36,16 +37,18 @@ sge::plugin::impl::library::load_function_base(
 	sge::plugin::library::symbol_string const &_name
 )
 {
-	char const *const map_name = "sge_plugin_functions";
+	sge::plugin::library::symbol_string const map_name{
+		"sge_plugin_functions"
+	};
 
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-	typedef sge::plugin::library::function_map const *(*map_function)();
+	using
+	map_function
+	=
+	sge::plugin::library::function_map const *(*)();
 
-FCPPT_PP_PUSH_WARNING
-	// this reinterpret_cast should be safe
-FCPPT_PP_DISABLE_VC_WARNING(4191)
 	return
-		reinterpret_cast<
+		sge::plugin::impl::library::cast_function_unsafe<
 			map_function
 		>(
 			_object.load(
@@ -54,10 +57,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4191)
 		)()->function(
 			_name
 		);
-FCPPT_PP_POP_WARNING
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 	return
-		static_cast<
+		fcppt::cast::from_void_ptr<
 			sge::plugin::library::function_map *
 		>(
 			_object.load(

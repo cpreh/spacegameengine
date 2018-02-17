@@ -165,6 +165,7 @@ set(
 	libs/image/include/sge/image/traits/pixel/static_formats_tpl_fwd.hpp
 	libs/image/include/sge/image/view/basic_elements.hpp
 	libs/image/include/sge/image/view/basic_format.hpp
+	libs/image/include/sge/image/view/basic_format_c.hpp
 	libs/image/include/sge/image/view/checked_sub.hpp
 	libs/image/include/sge/image/view/const_elements.hpp
 	libs/image/include/sge/image/view/const_object.hpp

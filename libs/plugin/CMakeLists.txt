@@ -4,17 +4,24 @@ set(
 	libs/plugin/impl/include/sge/plugin/impl/collection_impl.hpp
 	libs/plugin/impl/include/sge/plugin/impl/context_base.hpp
 	libs/plugin/impl/include/sge/plugin/impl/context_impl.hpp
+	libs/plugin/impl/include/sge/plugin/impl/detail/from_loader_function.hpp
 	libs/plugin/impl/include/sge/plugin/impl/instantiate_collection.hpp
 	libs/plugin/impl/include/sge/plugin/impl/instantiate_context.hpp
+	libs/plugin/impl/include/sge/plugin/impl/instantiate_from_loader_function.hpp
 	libs/plugin/impl/include/sge/plugin/impl/instantiate_iterator.hpp
 	libs/plugin/impl/include/sge/plugin/impl/instantiate_manager.hpp
 	libs/plugin/impl/include/sge/plugin/impl/instantiate_object.hpp
 	libs/plugin/impl/include/sge/plugin/impl/iterator_impl.hpp
+	libs/plugin/impl/include/sge/plugin/impl/library/cast_function_unsafe.hpp
 	libs/plugin/impl/include/sge/plugin/impl/library/error.hpp
+	libs/plugin/impl/include/sge/plugin/impl/library/from_function_base_unsafe.hpp
+	libs/plugin/impl/include/sge/plugin/impl/library/is_function_ptr.hpp
 	libs/plugin/impl/include/sge/plugin/impl/library/load_function.hpp
 	libs/plugin/impl/include/sge/plugin/impl/library/load_function_base.hpp
 	libs/plugin/impl/include/sge/plugin/impl/library/loaded_symbol.hpp
 	libs/plugin/impl/include/sge/plugin/impl/library/object.hpp
+	libs/plugin/impl/include/sge/plugin/impl/library/to_function_base_unsafe.hpp
+	libs/plugin/impl/include/sge/plugin/impl/library/version_function_name.hpp
 	libs/plugin/impl/include/sge/plugin/impl/load_info.hpp
 	libs/plugin/impl/include/sge/plugin/impl/load_plugins.hpp
 	libs/plugin/impl/include/sge/plugin/impl/log_name.hpp
@@ -22,6 +29,7 @@ set(
 	libs/plugin/impl/include/sge/plugin/impl/object_impl.hpp
 	libs/plugin/impl/src/plugin/impl/library/error.cpp
 	libs/plugin/impl/src/plugin/impl/library/load_function_base.cpp
+	libs/plugin/impl/src/plugin/impl/library/version_function_name.cpp
 	libs/plugin/impl/src/plugin/impl/load_info.cpp
 	libs/plugin/impl/src/plugin/impl/load_plugins.cpp
 	libs/plugin/impl/src/plugin/impl/log_name.cpp
@@ -42,8 +50,10 @@ set(
 	libs/plugin/include/sge/plugin/description.hpp
 	libs/plugin/include/sge/plugin/detail/address_name.hpp
 	libs/plugin/include/sge/plugin/detail/context_base_vector.hpp
+	libs/plugin/include/sge/plugin/detail/from_loader_function.hpp
 	libs/plugin/include/sge/plugin/detail/iterator_base_type.hpp
 	libs/plugin/include/sge/plugin/detail/loader_function.hpp
+	libs/plugin/include/sge/plugin/detail/loader_function_tpl.hpp
 	libs/plugin/include/sge/plugin/detail/traits.hpp
 	libs/plugin/include/sge/plugin/exception.hpp
 	libs/plugin/include/sge/plugin/file_extension.hpp
@@ -58,9 +68,11 @@ set(
 	libs/plugin/include/sge/plugin/library/detail/interface_post.hpp
 	libs/plugin/include/sge/plugin/library/detail/interface_pre.hpp
 	libs/plugin/include/sge/plugin/library/detail/iterate_functions.hpp
-	libs/plugin/include/sge/plugin/library/detail/version_function_name.hpp
+	libs/plugin/include/sge/plugin/library/detail/make_version_function.hpp
+	libs/plugin/include/sge/plugin/library/detail/version_function.hpp
 	libs/plugin/include/sge/plugin/library/exception.hpp
 	libs/plugin/include/sge/plugin/library/function_base.hpp
+	libs/plugin/include/sge/plugin/library/function_base_pair.hpp
 	libs/plugin/include/sge/plugin/library/function_map.hpp
 	libs/plugin/include/sge/plugin/library/make_interface.hpp
 	libs/plugin/include/sge/plugin/library/object_fwd.hpp
@@ -83,6 +95,7 @@ set(
 	libs/plugin/src/plugin/exception.cpp
 	libs/plugin/src/plugin/file_extension.cpp
 	libs/plugin/src/plugin/info.cpp
+	libs/plugin/src/plugin/library/detail/make_version_function.cpp
 	libs/plugin/src/plugin/library/exception.cpp
 	libs/plugin/src/plugin/library/function_map.cpp
 	libs/plugin/src/plugin/library/object.cpp

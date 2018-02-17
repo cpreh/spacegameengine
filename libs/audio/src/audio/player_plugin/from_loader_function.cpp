@@ -18,28 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_LIBRARY_DETAIL_VERSION_FUNCTION_NAME_HPP_INCLUDED
-#define SGE_PLUGIN_LIBRARY_DETAIL_VERSION_FUNCTION_NAME_HPP_INCLUDED
+#include <sge/audio/player_fwd.hpp>
+#include <sge/audio/player_plugin/traits.hpp>
+#include <sge/plugin/impl/instantiate_from_loader_function.hpp>
 
-#include <sge/plugin/library/symbol_string.hpp>
 
-
-namespace sge
-{
-namespace plugin
-{
-namespace library
-{
-namespace detail
-{
-
-sge::plugin::library::symbol_string const
-version_function_name
-	= "sge_plugin_version_info";
-
-}
-}
-}
-}
-
-#endif
+SGE_PLUGIN_IMPL_INSTANTIATE_FROM_LOADER_FUNCTION(
+	sge::audio::player
+);

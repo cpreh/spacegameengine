@@ -102,6 +102,7 @@ set(
 	libs/font/src/font/parameters_to_string.cpp
 	libs/font/src/font/plugin/collection.cpp
 	libs/font/src/font/plugin/context.cpp
+	libs/font/src/font/plugin/from_loader_function.cpp
 	libs/font/src/font/plugin/iterator.cpp
 	libs/font/src/font/plugin/manager.cpp
 	libs/font/src/font/plugin/object.cpp

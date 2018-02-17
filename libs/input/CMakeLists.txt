@@ -385,6 +385,7 @@ set(
 	libs/input/src/input/mouse/info.cpp
 	libs/input/src/input/plugin/collection.cpp
 	libs/input/src/input/plugin/context.cpp
+	libs/input/src/input/plugin/from_loader_function.cpp
 	libs/input/src/input/plugin/iterator.cpp
 	libs/input/src/input/plugin/manager.cpp
 	libs/input/src/input/plugin/object.cpp

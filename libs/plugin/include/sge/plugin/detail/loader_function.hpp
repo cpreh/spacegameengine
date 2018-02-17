@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PLUGIN_DETAIL_LOADER_FUNCTION_HPP_INCLUDED
 #define SGE_PLUGIN_DETAIL_LOADER_FUNCTION_HPP_INCLUDED
 
-#include <fcppt/log/context_fwd.hpp>
+#include <sge/plugin/detail/loader_function_tpl.hpp>
 
 
 namespace sge
@@ -34,26 +34,13 @@ namespace detail
 template<
 	typename Type
 >
-struct loader_function;
-
-template<
-	typename Result,
-	typename... Args
->
-struct loader_function<
-	Result (
-		Args...
-	)
->
-{
-	using
-	type
-	=
-	Result (
-		fcppt::log::context &,
-		Args...
-	);
-};
+using
+loader_function
+=
+typename
+sge::plugin::detail::loader_function_tpl<
+	Type
+>::type;
 
 }
 }

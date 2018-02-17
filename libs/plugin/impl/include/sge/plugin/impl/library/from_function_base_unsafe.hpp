@@ -18,13 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_IMPL_LIBRARY_LOAD_FUNCTION_HPP_INCLUDED
-#define SGE_PLUGIN_IMPL_LIBRARY_LOAD_FUNCTION_HPP_INCLUDED
+#ifndef SGE_PLUGIN_IMPL_LIBRARY_FROM_FUNCTION_BASE_UNSAFE_HPP_INCLUDED
+#define SGE_PLUGIN_IMPL_LIBRARY_FROM_FUNCTION_BASE_UNSAFE_HPP_INCLUDED
 
-#include <sge/plugin/impl/library/from_function_base_unsafe.hpp>
-#include <sge/plugin/impl/library/load_function_base.hpp>
-#include <sge/plugin/library/object_fwd.hpp>
-#include <sge/plugin/library/symbol_string.hpp>
+#include <sge/plugin/impl/library/cast_function_unsafe.hpp>
+#include <sge/plugin/library/function_base.hpp>
 
 
 namespace sge
@@ -39,20 +37,17 @@ namespace library
 template<
 	typename Function
 >
+inline
 Function
-load_function(
-	sge::plugin::library::object &_object,
-	sge::plugin::library::symbol_string const &_symbol
+from_function_base_unsafe(
+	sge::plugin::library::function_base const _function
 )
 {
 	return
-		sge::plugin::impl::library::from_function_base_unsafe<
+		sge::plugin::impl::library::cast_function_unsafe<
 			Function
 		>(
-			sge::plugin::impl::library::load_function_base(
-				_object,
-				_symbol
-			)
+			_function
 		);
 }
 

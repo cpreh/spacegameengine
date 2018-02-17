@@ -25,11 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/min_core_version.hpp>
 #include <sge/plugin/name.hpp>
 #include <sge/plugin/version.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::plugin::info::info(
-	sge::plugin::name const &_name,
-	sge::plugin::description const &_description,
+	sge::plugin::name &&_name,
+	sge::plugin::description &&_description,
 	sge::plugin::version const _version,
 	sge::plugin::min_core_version const _min_core_version,
 	sge::plugin::capabilities_field const &_capabilities,
@@ -37,10 +40,14 @@ sge::plugin::info::info(
 )
 :
 	name_(
-		_name
+		std::move(
+			_name
+		)
 	),
 	description_(
-		_description
+		std::move(
+			_description
+		)
 	),
 	version_(
 		_version

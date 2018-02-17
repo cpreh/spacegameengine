@@ -18,45 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_IMPL_LIBRARY_LOAD_FUNCTION_HPP_INCLUDED
-#define SGE_PLUGIN_IMPL_LIBRARY_LOAD_FUNCTION_HPP_INCLUDED
+#ifndef SGE_PLUGIN_DETAIL_LOADER_FUNCTION_TPL_HPP_INCLUDED
+#define SGE_PLUGIN_DETAIL_LOADER_FUNCTION_TPL_HPP_INCLUDED
 
-#include <sge/plugin/impl/library/from_function_base_unsafe.hpp>
-#include <sge/plugin/impl/library/load_function_base.hpp>
-#include <sge/plugin/library/object_fwd.hpp>
-#include <sge/plugin/library/symbol_string.hpp>
+#include <fcppt/log/context_fwd.hpp>
 
 
 namespace sge
 {
 namespace plugin
 {
-namespace impl
-{
-namespace library
+namespace detail
 {
 
 template<
-	typename Function
+	typename Type
 >
-Function
-load_function(
-	sge::plugin::library::object &_object,
-	sge::plugin::library::symbol_string const &_symbol
-)
-{
-	return
-		sge::plugin::impl::library::from_function_base_unsafe<
-			Function
-		>(
-			sge::plugin::impl::library::load_function_base(
-				_object,
-				_symbol
-			)
-		);
-}
+struct loader_function_tpl;
 
-}
+template<
+	typename Result,
+	typename... Args
+>
+struct loader_function_tpl<
+	Result (
+		Args...
+	)
+>
+{
+	using
+	type
+	=
+	Result (
+		fcppt::log::context &,
+		Args...
+	);
+};
+
 }
 }
 }

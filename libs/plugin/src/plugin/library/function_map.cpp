@@ -22,46 +22,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/function_map.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/container/find_opt_mapped.hpp>
+#include <fcppt/optional/to_exception.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::plugin::library::function_map::function_map(
-	container const &_functions
+	container &&_functions
 )
 :
-	functions_(_functions)
+	functions_(
+		std::move(
+			_functions
+		)
+	)
 {
 }
 
 sge::plugin::library::function_base
 sge::plugin::library::function_map::function(
-	library::symbol_string const &_name
+	sge::plugin::library::symbol_string const &_name
 ) const
 {
-	container::const_iterator const it(
-		functions_.find(
-			_name
-		)
-	);
-
-	// this should not happen
-	if(
-		it == functions_.end()
-	)
-		throw sge::plugin::library::exception(
-			FCPPT_TEXT("Missing function \"")
-			+
-			fcppt::from_std_string(
+	return
+		fcppt::optional::to_exception(
+			fcppt::container::find_opt_mapped(
+				functions_,
 				_name
-			)
-			+
-			FCPPT_TEXT("\" in a library!")
-		);
-
-	return it->second;
+			),
+			[
+				&_name
+			]{
+				return
+					sge::plugin::library::exception{
+						FCPPT_TEXT("Missing function \"")
+						+
+						fcppt::from_std_string(
+							_name
+						)
+						+
+						FCPPT_TEXT("\" in a library!")
+					};
+			}
+		).get();
 }
 
 sge::plugin::library::function_map::container const &
 sge::plugin::library::function_map::get() const
 {
-	return functions_;
+	return
+		functions_;
 }

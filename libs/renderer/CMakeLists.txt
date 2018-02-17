@@ -1002,6 +1002,7 @@ set(
 	libs/renderer/src/renderer/pixel_format/stencil_bits.cpp
 	libs/renderer/src/renderer/plugin/collection.cpp
 	libs/renderer/src/renderer/plugin/context.cpp
+	libs/renderer/src/renderer/plugin/from_loader_function.cpp
 	libs/renderer/src/renderer/plugin/iterator.cpp
 	libs/renderer/src/renderer/plugin/manager.cpp
 	libs/renderer/src/renderer/plugin/object.cpp

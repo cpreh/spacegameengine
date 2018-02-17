@@ -55,7 +55,7 @@ public:
 	symbol() const;
 
 	SGE_PLUGIN_DETAIL_SYMBOL
-	~symbol_not_found() throw()
+	~symbol_not_found()
 	override;
 private:
 	fcppt::string library_name_;

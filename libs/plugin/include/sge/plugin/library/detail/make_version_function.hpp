@@ -18,43 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PLUGIN_IMPL_LIBRARY_LOAD_FUNCTION_HPP_INCLUDED
-#define SGE_PLUGIN_IMPL_LIBRARY_LOAD_FUNCTION_HPP_INCLUDED
+#ifndef SGE_PLUGIN_LIBRARY_DETAIL_MAKE_VERSION_FUNCTION_HPP_INCLUDED
+#define SGE_PLUGIN_LIBRARY_DETAIL_MAKE_VERSION_FUNCTION_HPP_INCLUDED
 
-#include <sge/plugin/impl/library/from_function_base_unsafe.hpp>
-#include <sge/plugin/impl/library/load_function_base.hpp>
-#include <sge/plugin/library/object_fwd.hpp>
-#include <sge/plugin/library/symbol_string.hpp>
+#include <sge/plugin/detail/symbol.hpp>
+#include <sge/plugin/library/function_base_pair.hpp>
+#include <sge/plugin/library/detail/version_function.hpp>
 
 
 namespace sge
 {
 namespace plugin
 {
-namespace impl
-{
 namespace library
 {
-
-template<
-	typename Function
->
-Function
-load_function(
-	sge::plugin::library::object &_object,
-	sge::plugin::library::symbol_string const &_symbol
-)
+namespace detail
 {
-	return
-		sge::plugin::impl::library::from_function_base_unsafe<
-			Function
-		>(
-			sge::plugin::impl::library::load_function_base(
-				_object,
-				_symbol
-			)
-		);
-}
+
+SGE_PLUGIN_DETAIL_SYMBOL
+sge::plugin::library::function_base_pair
+make_version_function(
+	sge::plugin::library::detail::version_function
+);
 
 }
 }

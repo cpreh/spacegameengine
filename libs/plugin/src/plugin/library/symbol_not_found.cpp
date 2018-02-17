@@ -69,6 +69,6 @@ sge::plugin::library::symbol_not_found::symbol() const
 		symbol_;
 }
 
-sge::plugin::library::symbol_not_found::~symbol_not_found() throw()
+sge::plugin::library::symbol_not_found::~symbol_not_found()
 {
 }

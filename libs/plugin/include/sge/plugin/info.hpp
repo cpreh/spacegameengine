@@ -41,8 +41,8 @@ class info
 public:
 	SGE_PLUGIN_DETAIL_SYMBOL
 	info(
-		sge::plugin::name const &,
-		sge::plugin::description const &,
+		sge::plugin::name &&,
+		sge::plugin::description &&,
 		sge::plugin::version,
 		sge::plugin::min_core_version,
 		sge::plugin::capabilities_field const &,
