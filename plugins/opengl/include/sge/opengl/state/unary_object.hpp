@@ -54,11 +54,13 @@ public:
 			Parameter const &
 		)
 	>
-	actor;
+	actor_type;
 
-	typedef std::vector<
-		actor
-	> actor_vector;
+	typedef
+	std::vector<
+		actor_type
+	>
+	actor_vector;
 
 	explicit
 	unary_object(

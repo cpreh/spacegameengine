@@ -70,7 +70,7 @@ sge::opengl::state::unary_object<
 ) const
 {
 	for(
-		auto const &actor
+		actor_type const &actor
 		:
 		actors_
 	)
