@@ -1526,18 +1526,13 @@ if(
 	pkg_check_modules(
 		WAYLAND_EGL
 		REQUIRED
+		IMPORTED_TARGET
 		wayland-egl
 	)
 
 	set(
 		SGE_OPENGL_HAVE_WAYLAND
 		TRUE
-	)
-
-	list(
-		APPEND
-		SGE_OPENGL_INCLUDE_DIRS
-		${WAYLAND_EGL_INCLUDE_DIRS}
 	)
 
 	list(
@@ -1550,7 +1545,7 @@ if(
 	list(
 		APPEND
 		SGE_OPENGL_ADDITIONAL_DEPS
-		${WAYLAND_EGL_LIBRARIES}
+		PkgConfig::WAYLAND_EGL
 	)
 endif()
 

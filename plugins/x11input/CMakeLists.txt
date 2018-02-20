@@ -226,11 +226,6 @@ find_package(
 	REQUIRED
 )
 
-# TODO: Do we need this?
-link_directories(
-	${XINPUT_PKG_LIBRARY_DIRS}
-)
-
 add_sge_plugin(
 	x11input
 	SGE_DEPS
@@ -243,10 +238,7 @@ add_sge_plugin(
 		${fcppt_log_TARGET}
 		${awl_TARGET}
 		${X11_X11_LIB}
-		${XINPUT_PKG_LIBRARIES}
+		PkgConfig::XINPUT_PKG
 	INCLUDE_DIRS
 		${X11_X11_INCLUDE_PATH}
-		${XINPUT_PKG_INCLUDE_DIRS}
-	COMPILE_FLAGS
-		${XINPUT_PKG_CFLAGS}
 )

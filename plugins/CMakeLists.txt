@@ -163,6 +163,7 @@ include(
 
 pkg_check_modules(
 	XINPUT_PKG
+	IMPORTED_TARGET
 	xi
 )
 

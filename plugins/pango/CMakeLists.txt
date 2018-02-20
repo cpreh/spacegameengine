@@ -61,11 +61,6 @@ set(
 	plugins/pango/src/xy_to_index.cpp
 )
 
-# TODO: Do we need this?
-link_directories(
-	${PANGO_LIBRARY_DIRS}
-)
-
 add_sge_plugin(
 	pango
 	SGE_DEPS
@@ -75,13 +70,9 @@ add_sge_plugin(
 		sgeimage2d
 		sgeplugin
 	ADDITIONAL_DEPS
-		${PANGO_LIBRARIES}
+		PkgConfig::PANGO
 		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
 		${Boost_SYSTEM_LIBRARIES}
-	INCLUDE_DIRS
-		${PANGO_INCLUDE_DIRS}
-	COMPILE_FLAGS
-		${PANGO_CFLAGS}
 )
