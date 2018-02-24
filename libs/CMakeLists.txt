@@ -205,7 +205,7 @@ add_sge_lib(
 add_sge_lib(
 	cg
 	"Build the Cg library"
-	${CG_FOUND}
+	"${CG_FOUND}"
 )
 
 add_sge_lib(
@@ -223,7 +223,7 @@ add_sge_lib(
 add_sge_lib(
 	rendereropengl
 	"Build the opengl renderer frontend"
-	${OPENGL_FOUND}
+	"${OPENGL_FOUND}"
 )
 
 ##################################################
@@ -424,13 +424,13 @@ find_package(
 add_sge_lib(
 	cegui
 	"Build the cegui subsystem"
-	${CEGUI_FOUND}
+	"${CEGUI_FOUND}"
 )
 
 add_sge_lib(
 	opencl
 	"Build the opencl library"
-	${OpenCL_FOUND}
+	"${OpenCL_FOUND}"
 	DEPENDS
 		rendereropengl
 )
@@ -438,5 +438,5 @@ add_sge_lib(
 add_sge_lib(
 	projectile
 	"Build the projectile library"
-	${BULLET_FOUND}
+	"${BULLET_FOUND}"
 )

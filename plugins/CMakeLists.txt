@@ -48,32 +48,18 @@ pkg_check_modules(
 )
 
 pkg_check_modules(
-	WAYLAND_CLIENT
+	WAYLAND_INPUT
 	IMPORTED_TARGET
 	wayland-client
-)
-
-pkg_check_modules(
-	XKBCOMMON
-	IMPORTED_TARGET
 	xkbcommon
 )
 
-if(
-	"${WAYLAND_CLIENT_FOUND}"
-	AND
-	"${XKB_COMMON_FOUND}"
+pkg_check_modules(
+	XINPUT
+	IMPORTED_TARGET
+	xi
+	x11
 )
-	set(
-		WLINPUT_DEFAULT
-		TRUE
-	)
-else()
-	set(
-		WLINPUT_DEFAULT
-		FALSE
-	)
-endif()
 
 add_sge_lib(
 	audio_null
@@ -84,19 +70,19 @@ add_sge_lib(
 add_sge_lib(
 	d3d9
 	"Build the d3d9 render plugin"
-	${D3D9_FOUND}
+	"${D3D9_FOUND}"
 )
 
 add_sge_lib(
 	dinput
 	"Build the direct input 8 plugin"
-	${DINPUT_FOUND}
+	"${DINPUT_FOUND}"
 )
 
 add_sge_lib(
 	evdev
 	"Build the evdev input plugin"
-	${EVDEV_FOUND}
+	"${EVDEV_FOUND}"
 )
 
 add_sge_lib(
@@ -108,13 +94,13 @@ add_sge_lib(
 add_sge_lib(
 	openal
 	"Build the openal audio plugin"
-	${OPENAL_FOUND}
+	"${OPENAL_FOUND}"
 )
 
 add_sge_lib(
 	opengl
 	"Build the opengl render plugin"
-	${OPENGL_FOUND}
+	"${OPENGL_FOUND}"
 )
 
 add_sge_lib(
@@ -126,13 +112,13 @@ add_sge_lib(
 add_sge_lib(
 	libpng
 	"Build the libpng plugin"
-	${PNG_FOUND}
+	"${PNG_FOUND}"
 )
 
 add_sge_lib(
 	vorbis
 	"Build the vorbis loader plugin"
-	${VORBIS_FOUND}
+	"${VORBIS_FOUND}"
 )
 
 add_sge_lib(
@@ -150,18 +136,11 @@ add_sge_lib(
 add_sge_lib(
 	wlinput
 	"Build the Wayland input plugin"
-	${WLINPUT_DEFAULT}
-)
-
-pkg_check_modules(
-	XINPUT
-	IMPORTED_TARGET
-	xi
-	x11
+	"${WAYLAND_INPUT}"
 )
 
 add_sge_lib(
 	x11input
 	"Build the X11 input plugin"
-	${XINPUT_FOUND}
+	"${XINPUT_FOUND}"
 )
