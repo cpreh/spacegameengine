@@ -157,24 +157,11 @@ pkg_check_modules(
 	XINPUT
 	IMPORTED_TARGET
 	xi
+	x11
 )
-
-if(
-	"${XINPUT_FOUND}"
-)
-	set(
-		X11INPUT_DEFAULT
-		TRUE
-	)
-else()
-	set(
-		X11INPUT_DEFAULT
-		FALSE
-	)
-endif()
 
 add_sge_lib(
 	x11input
 	"Build the X11 input plugin"
-	"${X11INPUT_DEFAULT}"
+	${XINPUT_FOUND}
 )

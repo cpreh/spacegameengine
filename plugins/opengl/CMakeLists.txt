@@ -1460,14 +1460,17 @@ set(
 	${fcppt_log_TARGET}
 )
 
-find_package(
-	X11
+pkg_check_modules(
+	X11_OPENGL
+	IMPORTED_TARGET
+	x11
+	xrandr
 )
 
 option(
 	ENABLE_OPENGL_X11
 	"Enable X11 backend in OpenGL"
-	${X11_FOUND}
+	${X11_OPENGL_FOUND}
 )
 
 if(
@@ -1476,12 +1479,6 @@ if(
 	set(
 		SGE_OPENGL_HAVE_X11
 		TRUE
-	)
-
-	list(
-		APPEND
-		SGE_OPENGL_INCLUDE_DIRS
-		${X11_X11_INCLUDE}
 	)
 
 	list(
@@ -1498,14 +1495,8 @@ if(
 
 	list(
 		APPEND
-		SGE_OPENGL_INCLUDE_DIRS
-		${X11_Xrandr_INCLUDE_PATH}
-	)
-
-	list(
-		APPEND
 		SGE_OPENGL_ADDITIONAL_DEPS
-		${X11_Xrandr_LIB}
+		PkgConfig::X11_OPENGL
 	)
 
 	if(
