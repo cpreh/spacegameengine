@@ -35,10 +35,5 @@ add_sge_plugin(
 	ADDITIONAL_DEPS
 		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
-		${OGG_LIBRARY}
-		${VORBIS_LIBRARY}
-		${VORBIS_FILE_LIBRARY}
-	INCLUDE_DIRS
-		${VORBIS_INCLUDE_DIR}
-		${OGG_INCLUDE_DIR}
+		PkgConfig::VORBIS
 )

@@ -1409,13 +1409,19 @@ set(
 	plugins/opengl/src/egl/wayland/window_holder.cpp
 )
 
+include(
+	FindPkgConfig
+)
+
 find_package(
 	awl
 	REQUIRED
 )
 
-find_package(
+pkg_check_modules(
 	EGL
+	IMPORTED_TARGET
+	egl
 )
 
 option(
@@ -1519,10 +1525,6 @@ if(
 	endif()
 endif()
 
-include(
-	FindPkgConfig
-)
-
 pkg_check_modules(
 	WAYLAND_EGL
 	REQUIRED
@@ -1609,14 +1611,8 @@ if(
 
 	list(
 		APPEND
-		SGE_OPENGL_INCLUDE_DIRS
-		${EGL_INCLUDE_DIRS}
-	)
-
-	list(
-		APPEND
 		SGE_OPENGL_ADDITIONAL_DEPS
-		${EGL_LIBRARIES}
+		PkgConfig::EGL
 	)
 endif()
 

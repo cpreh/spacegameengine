@@ -26,8 +26,12 @@ find_package(
 	OpenAL
 )
 
-find_package(
-	Pango
+pkg_check_modules(
+	PANGO
+	IMPORTED_TARGET
+	pango
+	pangoft2
+	fontconfig
 )
 
 find_package(
@@ -35,8 +39,12 @@ find_package(
 	1.4.1
 )
 
-find_package(
-	Vorbis
+pkg_check_modules(
+	VORBIS
+	IMPORTED_TARGET
+	ogg
+	vorbis
+	vorbisfile
 )
 
 pkg_check_modules(
@@ -45,8 +53,10 @@ pkg_check_modules(
 	wayland-client
 )
 
-find_package(
-	Xkbcommon
+pkg_check_modules(
+	XKBCOMMON
+	IMPORTED_TARGET
+	xkbcommon
 )
 
 if(
