@@ -403,8 +403,14 @@ add_sge_lib(
 # Libraries with external dependencies
 ##################################################
 
-find_package(
-	Bullet
+include(
+	FindPkgConfig
+)
+
+pkg_check_modules(
+	BULLET
+	IMPORTED_TARGET
+	bullet
 )
 
 find_package(
