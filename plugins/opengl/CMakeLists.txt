@@ -1419,7 +1419,7 @@ find_package(
 )
 
 option(
-	ENABLE_EGL
+	ENABLE_OPENGL_EGL
 	"Use EGL in OpenGL"
 	OFF
 )
@@ -1454,14 +1454,19 @@ set(
 	${fcppt_log_TARGET}
 )
 
-if(
-	ENABLE_X11
+find_package(
+	X11
 )
-	find_package(
-		X11
-		REQUIRED
-	)
 
+option(
+	ENABLE_OPENGL_X11
+	"Enable X11 backend in OpenGL"
+	${X11_FOUND}
+)
+
+if(
+	ENABLE_OPENGL_X11
+)
 	set(
 		SGE_OPENGL_HAVE_X11
 		TRUE
@@ -1498,7 +1503,7 @@ if(
 	)
 
 	if(
-		ENABLE_EGL
+		ENABLE_OPENGL_EGL
 	)
 		list(
 			APPEND
@@ -1514,22 +1519,22 @@ if(
 	endif()
 endif()
 
-if(
-	ENABLE_WAYLAND
-	AND
-	ENABLE_EGL
+include(
+	FindPkgConfig
 )
-	include(
-		FindPkgConfig
-	)
 
-	pkg_check_modules(
-		WAYLAND_EGL
-		REQUIRED
-		IMPORTED_TARGET
-		wayland-egl
-	)
+pkg_check_modules(
+	WAYLAND_EGL
+	REQUIRED
+	IMPORTED_TARGET
+	wayland-egl
+)
 
+if(
+	ENABLE_OPENGL_WAYLAND
+	AND
+	ENABLE_OPENGL_EGL
+)
 	set(
 		SGE_OPENGL_HAVE_WAYLAND
 		TRUE
@@ -1589,7 +1594,7 @@ if(
 endif()
 
 if(
-	ENABLE_EGL
+	ENABLE_OPENGL_EGL
 )
 	set(
 		SGE_OPENGL_HAVE_EGL

@@ -1,3 +1,7 @@
+include(
+	FindPkgConfig
+)
+
 find_package(
 	Cg
 )
@@ -35,31 +39,31 @@ find_package(
 	Vorbis
 )
 
-find_package(
-	Wayland
-	QUIET
+pkg_check_modules(
+	WAYLAND_CLIENT
+	IMPORTED_TARGET
+	wayland-client
 )
 
 find_package(
 	Xkbcommon
 )
 
-find_package(
-	X11
+if(
+	"${WAYLAND_CLIENT_FOUND}"
+	AND
+	"${XKB_COMMON_FOUND}"
 )
-
-option(
-	ENABLE_X11
-	"Enable X11 in plugins"
-	${X11_FOUND}
-)
-
-option(
-	ENABLE_WAYLAND
-	"Enable Wayland in plugins"
-	OFF
-)
-#${WAYLAND_CLIENT_FOUND}
+	set(
+		WLINPUT_DEFAULT
+		TRUE
+	)
+else()
+	set(
+		WLINPUT_DEFAULT
+		FALSE
+	)
+endif()
 
 add_sge_lib(
 	audio_null
@@ -133,44 +137,20 @@ add_sge_lib(
 	"${WIN32}"
 )
 
-if(
-	"${WAYLAND_CLIENT_FOUND}"
-	AND
-	"${XKB_COMMON_FOUND}"
-	AND
-	${ENABLE_WAYLAND}
-)
-	set(
-		WLINPUT_DEFAULT
-		TRUE
-	)
-else()
-	set(
-		WLINPUT_DEFAULT
-		FALSE
-	)
-endif()
-
 add_sge_lib(
 	wlinput
 	"Build the Wayland input plugin"
-	"${WLINPUT_DEFAULT}"
-)
-
-include(
-	FindPkgConfig
+	${WLINPUT_DEFAULT}
 )
 
 pkg_check_modules(
-	XINPUT_PKG
+	XINPUT
 	IMPORTED_TARGET
 	xi
 )
 
 if(
-	${ENABLE_X11}
-	AND
-	"${XINPUT_PKG_FOUND}"
+	"${XINPUT_FOUND}"
 )
 	set(
 		X11INPUT_DEFAULT

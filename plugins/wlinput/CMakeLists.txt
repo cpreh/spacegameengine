@@ -88,8 +88,6 @@ add_sge_plugin(
 		${fcppt_core_TARGET}
 		${fcppt_log_TARGET}
 		${awl_TARGET}
-		${WAYLAND_CLIENT_LIBRARIES}
 		PkgConfig::XKBCOMMON
-	INCLUDE_DIRS
-		${WAYLAND_CLIENT_INCLUDE_DIRS}
+		PkgConfig::WAYLAND_CLIENT
 )

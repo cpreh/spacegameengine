@@ -238,7 +238,7 @@ add_sge_plugin(
 		${fcppt_log_TARGET}
 		${awl_TARGET}
 		${X11_X11_LIB}
-		PkgConfig::XINPUT_PKG
+		PkgConfig::XINPUT
 	INCLUDE_DIRS
 		${X11_X11_INCLUDE_PATH}
 )
