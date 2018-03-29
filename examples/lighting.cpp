@@ -129,8 +129,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/math/vector/push_back.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -354,7 +354,7 @@ try
 				sge::renderer::state::ffp::lighting::light::variant{
 					sge::renderer::state::ffp::lighting::light::point{
 						sge::renderer::state::ffp::lighting::light::position{
-							fcppt::math::vector::construct(
+							fcppt::math::vector::push_back(
 								fcppt::math::vector::structure_cast<
 									sge::renderer::vector2,
 									fcppt::cast::int_to_float_fun

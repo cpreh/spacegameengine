@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/dim/construct.hpp>
+#include <fcppt/math/dim/push_back.hpp>
 
 
 namespace
@@ -92,7 +92,7 @@ struct get_level_size_impl<
 	)
 	{
 		return
-			fcppt::math::dim::construct(
+			fcppt::math::dim::push_back(
 				get_level_size_impl<
 					2u
 				>::execute(

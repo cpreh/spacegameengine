@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/lighting/light/position.hpp>
 #include <sge/opengl/state/ffp/lighting/light/position_impl.hpp>
 #include <sge/renderer/state/ffp/lighting/light/position.hpp>
-#include <fcppt/math/vector/construct.hpp>
+#include <fcppt/math/vector/push_back.hpp>
 
 
 sge::opengl::state::index_actor
@@ -32,7 +32,7 @@ sge::opengl::state::ffp::lighting::light::position(
 {
 	return
 		sge::opengl::state::ffp::lighting::light::position_impl(
-			fcppt::math::vector::construct(
+			fcppt::math::vector::push_back(
 				_position.get(),
 				1.f
 			)

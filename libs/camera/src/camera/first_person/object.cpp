@@ -37,12 +37,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/rotation_axis.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/cross.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/narrow_cast.hpp>
 #include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/math/vector/push_back.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -351,7 +351,7 @@ sge::camera::first_person::object::rotate_on_x(
 	};
 
 	sge::renderer::vector4 const widened_forward{
-		fcppt::math::vector::construct(
+		fcppt::math::vector::push_back(
 			coordinate_system_.forward().get(),
 			0.f
 		)
@@ -440,7 +440,7 @@ sge::camera::first_person::object::rotate_on_y(
 	};
 
 	sge::renderer::vector4 const widened_forward{
-		fcppt::math::vector::construct(
+		fcppt::math::vector::push_back(
 			coordinate_system_.forward().get(),
 			0.f
 		)

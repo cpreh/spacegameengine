@@ -45,6 +45,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/inverse.hpp>
 #include <fcppt/math/matrix/transform_point.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
+#include <fcppt/math/vector/narrow_cast.hpp>
+#include <fcppt/math/vector/push_back.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -274,7 +276,7 @@ sge::scenic::render_context::cg::object::lights(
 					sge::scenic::render_context::light::direction(
 						fcppt::math::vector::narrow_cast<sge::renderer::vector3>(
 							current_world_ *
-							fcppt::math::vector::construct(
+							fcppt::math::vector::push_back(
 								_directional_light.direction().get(),
 								static_cast<sge::renderer::scalar>(
 									0.0f)))));

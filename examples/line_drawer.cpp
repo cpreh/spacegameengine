@@ -125,8 +125,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/container/maybe_back.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
-#include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/math/vector/push_back.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -155,7 +155,7 @@ cursor_position_to_vector3(
 )
 {
 	return
-		fcppt::math::vector::construct(
+		fcppt::math::vector::push_back(
 			fcppt::math::vector::structure_cast<
 				sge::renderer::vector2,
 				fcppt::cast::int_to_float_fun

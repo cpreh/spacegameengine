@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/algorithm/array_init_move.hpp>
+#include <fcppt/container/array_init_move.hpp>
 #include <fcppt/random/variate.hpp>
 #include <fcppt/random/distribution/basic.hpp>
 #include <fcppt/random/distribution/parameters/uniform_int.hpp>
@@ -165,7 +165,7 @@ try
 	dummy_unique_ptr_array;
 
 	dummy_unique_ptr_array sprites(
-		fcppt::algorithm::array_init_move<
+		fcppt::container::array_init_move<
 			dummy_unique_ptr_array
 		>(
 			[

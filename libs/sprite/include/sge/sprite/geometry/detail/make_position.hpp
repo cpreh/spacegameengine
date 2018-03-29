@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/geometry/detail/depth.hpp>
 #include <sge/sprite/geometry/detail/pos_packed_type.hpp>
-#include <fcppt/math/vector/construct.hpp>
+#include <fcppt/math/vector/push_back.hpp>
 
 
 namespace sge
@@ -52,7 +52,7 @@ make_position(
 )
 {
 	return
-		fcppt::math::vector::construct(
+		fcppt::math::vector::push_back(
 			_point,
 			sge::sprite::geometry::detail::depth(
 				_sprite

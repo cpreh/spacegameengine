@@ -37,7 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/rotation_axis.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/math/vector/construct.hpp>
 #include <fcppt/math/vector/cross.hpp>
 #include <fcppt/math/vector/length.hpp>
 #include <fcppt/math/vector/narrow_cast.hpp>

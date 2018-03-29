@@ -37,9 +37,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_cref.hpp>
 #include <fcppt/reference.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/algorithm/array_init.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/container/array_init.hpp>
 #include <fcppt/container/array_size.hpp>
 #include <fcppt/math/from_array.hpp>
 #include <fcppt/math/to_array_type.hpp>
@@ -218,7 +218,7 @@ struct convert_from_impl<
 		inner_array;
 
 		inner_array const inner(
-			fcppt::algorithm::array_init<
+			fcppt::container::array_init<
 				inner_array
 			>(
 				[
@@ -398,7 +398,7 @@ struct convert_from_impl<
 				);
 
 		return
-			fcppt::algorithm::array_init<
+			fcppt::container::array_init<
 				Result
 			>(
 				[

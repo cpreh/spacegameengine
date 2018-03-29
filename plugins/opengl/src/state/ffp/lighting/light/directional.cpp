@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/lighting/light/directional.hpp>
 #include <sge/opengl/state/ffp/lighting/light/position_impl.hpp>
 #include <sge/renderer/state/ffp/lighting/light/directional.hpp>
-#include <fcppt/math/vector/construct.hpp>
+#include <fcppt/math/vector/push_back.hpp>
 
 
 sge::opengl::state::index_actor_vector
@@ -33,7 +33,7 @@ sge::opengl::state::ffp::lighting::light::directional(
 	return
 		sge::opengl::state::index_actor_vector{
 			sge::opengl::state::ffp::lighting::light::position_impl(
-				fcppt::math::vector::construct(
+				fcppt::math::vector::push_back(
 					_directional.direction().get(),
 					// special value to make this a directional light
 					0.f
