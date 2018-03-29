@@ -80,7 +80,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/use.hpp>
 #include <fcppt/algorithm/join.hpp>
-#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/algorithm/loop_break_brigand.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
@@ -99,6 +99,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
+#include <brigand/adapted/list.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -157,7 +158,9 @@ sge::x11input::processor::processor(
 			fcppt::algorithm::map<
 				handler_map
 			>(
-				sge::x11input::event::device_type_set{},
+				brigand::as_list<
+					sge::x11input::event::device_type_set
+				>{},
 				[
 					this
 				](

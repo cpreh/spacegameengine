@@ -22,17 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/integral_c.hpp>
-#include <boost/mpl/pair.hpp>
+#include <brigand/sequences/pair.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
 #define SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(\
 	name\
 )\
-boost::mpl::pair<\
+brigand::pair<\
 	name ## Info ,\
-	boost::mpl::integral_c<\
+	std::integral_constant<\
 		int,\
 		name \
 	>\

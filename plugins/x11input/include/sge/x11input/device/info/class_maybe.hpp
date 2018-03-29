@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
-#include <boost/mpl/at.hpp>
+#include <brigand/sequences/map.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -62,10 +62,10 @@ class_maybe(
 			_info
 		)
 		==
-		boost::mpl::at<
+		brigand::lookup<
 			sge::x11input::device::info::class_map,
 			Class
-		>::type::value
+		>::value
 		?
 			result_type(
 				fcppt::make_cref(

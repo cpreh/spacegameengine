@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_X11INPUT_DEVICE_INFO_CLASS_CAST_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_INFO_CLASS_CAST_HPP_INCLUDED
 
+#include <fcppt/brigand/found_t.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/type_traits/remove_cv_ref_t.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
-#include <boost/mpl/contains.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <brigand/sequences/list.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -45,22 +45,20 @@ namespace info
 template<
 	typename Result
 >
-typename boost::enable_if<
-	boost::mpl::contains<
-		boost::mpl::vector4<
+std::enable_if_t<
+	fcppt::brigand::found_t<
+		brigand::list<
 			XIButtonClassInfo,
 			XIValuatorClassInfo,
 			XIKeyClassInfo,
 			XIScrollClassInfo
 		>,
-		typename std::remove_const<
-			typename std::remove_reference<
-				Result
-			>::type
-		>::type
-	>,
+		fcppt::type_traits::remove_cv_ref_t<
+			Result
+		>
+	>::value,
 	Result
->::type
+>
 class_cast(
 	XIAnyClassInfo const &_info
 )

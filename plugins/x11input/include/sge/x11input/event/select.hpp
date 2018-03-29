@@ -28,13 +28,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/event/type_container.hpp>
 #include <fcppt/tag_type.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/algorithm/loop_break_brigand.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/brigand/all_of.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/bool.hpp>
-#include <boost/mpl/fold.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <brigand/functions/lambda/apply.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/types/args.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -59,19 +59,19 @@ select(
 )
 {
 	static_assert(
-		boost::mpl::fold<
+		fcppt::brigand::all_of<
 			Events,
-			boost::mpl::true_,
-			boost::mpl::and_<
-				boost::mpl::_1,
-				std::is_same<
-					sge::x11input::event::static_type<
-						boost::mpl::_2
-					>,
+			brigand::bind<
+				std::is_same,
+				brigand::bind<
+					sge::x11input::event::static_type,
+					brigand::_1
+				>,
+				brigand::pin<
 					EventType
 				>
 			>
-		>::type::value,
+		>::value,
 		"Invalid device event"
 	);
 

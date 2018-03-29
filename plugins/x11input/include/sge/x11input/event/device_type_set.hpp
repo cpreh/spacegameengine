@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/x11input/event/type_c.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
-#include <boost/mpl/set.hpp>
+#include <brigand/sequences/set.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -36,7 +36,7 @@ namespace event
 {
 
 typedef
-boost::mpl::set<
+brigand::set<
 	sge::x11input::event::type_c<
 		XI_ButtonPress
 	>,

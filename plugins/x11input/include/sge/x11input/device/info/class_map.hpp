@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
-#include <boost/mpl/map.hpp>
+#include <brigand/sequences/map.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -39,7 +39,7 @@ namespace info
 {
 
 typedef
-boost::mpl::map<
+brigand::map<
 	SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(
 		XIButtonClass
 	),

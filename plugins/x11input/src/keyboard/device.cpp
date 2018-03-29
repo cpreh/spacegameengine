@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
@@ -78,7 +78,7 @@ sge::x11input::keyboard::device::device(
 	}
 {
 	sge::x11input::event::select<
-		boost::mpl::vector2<
+		brigand::list<
 			sge::x11input::event::type_c<
 				XI_KeyPress
 			>,

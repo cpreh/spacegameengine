@@ -67,10 +67,9 @@ make_handler(
 				)
 				{
 					typedef
-					typename
 					sge::x11input::event::static_type<
 						Type
-					>::type
+					>
 					event_type;
 
 					static_assert(

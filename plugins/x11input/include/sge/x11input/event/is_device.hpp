@@ -22,11 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_X11INPUT_EVENT_IS_DEVICE_HPP_INCLUDED
 
 #include <sge/x11input/event/device_type_set.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/contains.hpp>
+#include <brigand/sequences/contains.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -37,22 +34,16 @@ namespace x11input
 namespace event
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename Value
 >
-struct is_device
-:
-boost::mpl::contains<
+using
+is_device
+=
+brigand::contains<
 	sge::x11input::event::device_type_set,
 	Value
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }
