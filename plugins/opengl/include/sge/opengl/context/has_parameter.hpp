@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_CONTEXT_HAS_PARAMETER_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/not.hpp>
+#include <brigand/functions/logical/not.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -39,7 +39,7 @@ template<
 >
 using has_parameter
 =
-boost::mpl::not_<
+brigand::not_<
 	std::is_same<
 		typename Type::parameter,
 		void
