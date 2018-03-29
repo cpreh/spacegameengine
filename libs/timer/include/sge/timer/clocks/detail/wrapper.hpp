@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/clocks/detail/stateful_base.hpp>
 #include <sge/timer/clocks/detail/stateless_base.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -43,18 +43,17 @@ template<
 >
 using wrapper
 =
-typename
-boost::mpl::if_<
+std::conditional_t<
 	sge::timer::clocks::is_stateful<
 		Clock
-	>,
+	>::value,
 	sge::timer::clocks::detail::stateful_base<
 		Clock
 	>,
 	sge::timer::clocks::detail::stateless_base<
 		Clock
 	>
->::type;
+>;
 
 }
 }
