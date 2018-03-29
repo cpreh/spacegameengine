@@ -1516,18 +1516,18 @@ if(
 	endif()
 endif()
 
-pkg_check_modules(
-	WAYLAND_EGL
-	REQUIRED
-	IMPORTED_TARGET
-	wayland-egl
-)
-
 if(
 	ENABLE_OPENGL_WAYLAND
 	AND
 	ENABLE_OPENGL_EGL
 )
+	pkg_check_modules(
+		WAYLAND_EGL
+		REQUIRED
+		IMPORTED_TARGET
+		wayland-egl
+	)
+
 	set(
 		SGE_OPENGL_HAVE_WAYLAND
 		TRUE
