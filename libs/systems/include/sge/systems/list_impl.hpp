@@ -22,10 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_LIST_IMPL_HPP_INCLUDED
 
 #include <sge/systems/list_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/fusion/algorithm/transformation/push_back.hpp>
-#include <boost/fusion/container/vector/convert.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/container/tuple_push_back.hpp>
+#include <fcppt/container/tuple_push_back_result.hpp>
 
 
 template<
@@ -37,9 +35,9 @@ sge::systems::list<
 	Inits const &_inits
 )
 :
-	inits_(
+	inits_{
 		_inits
-	)
+	}
 {
 }
 
@@ -50,12 +48,10 @@ template<
 	typename Param
 >
 sge::systems::list<
-	typename boost::fusion::result_of::as_vector<
-		typename boost::fusion::result_of::push_back<
-			Inits,
-			Param
-		>::type
-	>::type
+	fcppt::container::tuple_push_back_result<
+		Inits,
+		Param
+	>
 >
 sge::systems::list<
 	Inits
@@ -65,18 +61,14 @@ sge::systems::list<
 {
 	return
 		sge::systems::list<
-			typename boost::fusion::result_of::as_vector<
-				typename boost::fusion::result_of::push_back<
-					Inits,
-					Param
-				>::type
-			>::type
+			fcppt::container::tuple_push_back_result<
+				Inits,
+				Param
+			>
 		>(
-			boost::fusion::as_vector(
-				boost::fusion::push_back(
-					inits_,
-					_param
-				)
+			fcppt::container::tuple_push_back(
+				inits_,
+				_param
 			)
 		);
 }
@@ -89,7 +81,8 @@ sge::systems::list<
 	Inits
 >::get() const
 {
-	return inits_;
+	return
+		inits_;
 }
 
 #endif

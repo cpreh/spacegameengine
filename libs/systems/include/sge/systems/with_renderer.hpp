@@ -26,8 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_renderer_fwd.hpp>
 #include <sge/systems/with_window_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -42,18 +41,26 @@ template<
 >
 struct with_renderer
 {
-	typedef std::integral_constant<
+	typedef
+	std::integral_constant<
 		sge::systems::renderer_caps,
 		Caps
-	> caps;
+	>
+	caps;
 
-	typedef boost::mpl::true_ needs_init;
+	typedef
+	std::true_type
+	needs_init;
 
-	typedef sge::systems::renderer parameter_type;
+	typedef
+	sge::systems::renderer
+	parameter_type;
 
-	typedef boost::mpl::vector1<
+	typedef
+	brigand::list<
 		sge::systems::with_window
-	> needs_before;
+	>
+	needs_before;
 };
 
 }

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/empty_list.hpp>
 #include <sge/systems/make_empty_list.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/fusion/container/vector/vector10.hpp>
+#include <tuple>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -29,7 +29,7 @@ sge::systems::empty_list
 sge::systems::make_empty_list()
 {
 	return
-		sge::systems::empty_list(
-			boost::fusion::vector0<>()
-		);
+		sge::systems::empty_list{
+			std::tuple<>{}
+		};
 }

@@ -18,52 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_LIST_DECL_HPP_INCLUDED
-#define SGE_SYSTEMS_LIST_DECL_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_DETAIL_MAKE_DEFAULT_HPP_INCLUDED
+#define SGE_SYSTEMS_DETAIL_MAKE_DEFAULT_HPP_INCLUDED
 
-#include <sge/systems/list_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <fcppt/container/tuple_push_back_result.hpp>
+#include <sge/systems/detail/any.hpp>
+#include <sge/systems/detail/extract_parameter_type.hpp>
+#include <fcppt/tag.hpp>
 
 
 namespace sge
 {
 namespace systems
 {
+namespace detail
+{
 
 template<
-	typename Inits
+	typename Type
 >
-class list
+inline
+sge::systems::detail::any
+make_default(
+	fcppt::tag<
+		Type
+	>
+)
 {
-	FCPPT_NONASSIGNABLE(
-		list
-	);
-public:
-	explicit
-	list(
-		Inits const &
-	);
+	return
+		sge::systems::detail::any{
+			sge::systems::detail::extract_parameter_type<
+				Type
+			>{}
+		};
+}
 
-	template<
-		typename Param
-	>
-	list<
-		fcppt::container::tuple_push_back_result<
-			Inits,
-			Param
-		>
-	>
-	operator()(
-		Param const &
-	) const;
-
-	Inits const &
-	get() const;
-private:
-	Inits inits_;
-};
-
+}
 }
 }
 

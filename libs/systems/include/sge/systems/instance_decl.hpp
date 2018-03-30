@@ -41,9 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/log/context_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/is_sequence.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/type_traits/is_brigand_sequence.hpp>
 
 
 namespace sge
@@ -61,7 +59,7 @@ class instance
 	);
 
 	static_assert(
-		boost::mpl::is_sequence<
+		fcppt::type_traits::is_brigand_sequence<
 			Choices
 		>::value,
 		"Choices must be an mpl sequence"

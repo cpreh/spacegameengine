@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/list_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/fusion/container/vector/vector10.hpp>
+#include <tuple>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -32,9 +32,11 @@ namespace sge
 namespace systems
 {
 
-typedef sge::systems::list<
-	boost::fusion::vector0<>
-> empty_list;
+typedef
+sge::systems::list<
+	std::tuple<>
+>
+empty_list;
 
 }
 }

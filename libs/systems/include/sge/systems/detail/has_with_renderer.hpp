@@ -22,9 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_DETAIL_HAS_WITH_RENDERER_HPP_INCLUDED
 
 #include <sge/systems/detail/is_with_renderer.hpp>
-#include <fcppt/mpl/contains_if.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <brigand/algorithms/find.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,12 +39,14 @@ namespace detail
 template<
 	typename Choices
 >
-using has_with_renderer
+using
+has_with_renderer
 =
-fcppt::mpl::contains_if<
+brigand::found<
 	Choices,
-	sge::systems::detail::is_with_renderer<
-		boost::mpl::_1
+	brigand::bind<
+		sge::systems::detail::is_with_renderer,
+		brigand::_1
 	>
 >;
 

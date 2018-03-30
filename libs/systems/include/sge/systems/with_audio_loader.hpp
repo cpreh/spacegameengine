@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/with_audio_loader_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -36,11 +36,17 @@ namespace systems
 
 struct with_audio_loader
 {
-	typedef boost::mpl::true_ needs_init;
+	typedef
+	std::true_type
+	needs_init;
 
-	typedef sge::systems::audio_loader parameter_type;
+	typedef
+	sge::systems::audio_loader
+	parameter_type;
 
-	typedef boost::mpl::vector0<> needs_before;
+	typedef
+	brigand::list<>
+	needs_before;
 };
 
 }

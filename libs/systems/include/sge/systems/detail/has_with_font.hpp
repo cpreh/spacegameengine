@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_DETAIL_HAS_WITH_FONT_HPP_INCLUDED
 
 #include <sge/systems/with_font_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/contains.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/brigand/found_t.hpp>
 
 
 namespace sge
@@ -37,9 +35,10 @@ namespace detail
 template<
 	typename Choices
 >
-using has_with_font
+using
+has_with_font
 =
-boost::mpl::contains<
+fcppt::brigand::found_t<
 	Choices,
 	sge::systems::with_font
 >;

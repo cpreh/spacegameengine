@@ -32,10 +32,11 @@ namespace detail
 template<
 	typename Type
 >
-struct extract_needs_init
-{
-	typedef typename Type::needs_init type;
-};
+using
+extract_needs_init
+=
+typename
+Type::needs_init;
 
 }
 }

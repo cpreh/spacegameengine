@@ -122,7 +122,6 @@ set(
 	libs/systems/include/sge/systems/cursor_option_fwd.hpp
 	libs/systems/include/sge/systems/custom_cursor.hpp
 	libs/systems/include/sge/systems/custom_cursor_fwd.hpp
-	libs/systems/include/sge/systems/detail/add_defaults.hpp
 	libs/systems/include/sge/systems/detail/any.hpp
 	libs/systems/include/sge/systems/detail/any_fwd.hpp
 	libs/systems/include/sge/systems/detail/any_key.hpp
@@ -146,8 +145,10 @@ set(
 	libs/systems/include/sge/systems/detail/is_with_renderer.hpp
 	libs/systems/include/sge/systems/detail/list.hpp
 	libs/systems/include/sge/systems/detail/list_fwd.hpp
+	libs/systems/include/sge/systems/detail/make_default.hpp
 	libs/systems/include/sge/systems/detail/make_list.hpp
-	libs/systems/include/sge/systems/detail/make_list_visitor.hpp
+	libs/systems/include/sge/systems/detail/make_list_element.hpp
+	libs/systems/include/sge/systems/detail/make_list_element_impl.hpp
 	libs/systems/include/sge/systems/detail/quit_on_escape.hpp
 	libs/systems/include/sge/systems/detail/renderer.hpp
 	libs/systems/include/sge/systems/detail/renderer_caps.hpp

@@ -18,14 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_DETAIL_ADD_DEFAULTS_HPP_INCLUDED
-#define SGE_SYSTEMS_DETAIL_ADD_DEFAULTS_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_DETAIL_MAKE_LIST_ELEMENT_IMPL_HPP_INCLUDED
+#define SGE_SYSTEMS_DETAIL_MAKE_LIST_ELEMENT_IMPL_HPP_INCLUDED
 
 #include <sge/systems/detail/any.hpp>
-#include <sge/systems/detail/extract_parameter_type.hpp>
-#include <sge/systems/detail/list.hpp>
-#include <fcppt/nonassignable.hpp>
-#include <fcppt/tag.hpp>
+#include <sge/systems/renderer.hpp>
+#include <sge/systems/detail/renderer.hpp>
+#include <sge/systems/detail/renderer_caps.hpp>
 
 
 namespace sge
@@ -35,47 +34,41 @@ namespace systems
 namespace detail
 {
 
-class add_defaults
+
+template<
+	typename Choices,
+	typename Type
+>
+sge::systems::detail::any
+make_list_element_impl(
+	Type const &_type
+)
 {
-	FCPPT_NONASSIGNABLE(
-		add_defaults
-	);
-public:
-	explicit
-	add_defaults(
-		sge::systems::detail::list &_result
-	)
-	:
-		result_(
-			_result
-		)
-	{
-	}
+	return
+		sge::systems::detail::any{
+			_type
+		};
+}
 
-	typedef void result_type;
-
-	template<
-		typename Type
-	>
-	result_type
-	operator()(
-		fcppt::tag<
-			Type
-		>
-	) const
-	{
-		result_.insert(
-			sge::systems::detail::any(
-				typename
-				sge::systems::detail::extract_parameter_type<
-					Type
-				>::type()
-			)
-		);
-	}
-private:
-	sge::systems::detail::list &result_;
-};
+template<
+	typename Choices
+>
+inline
+sge::systems::detail::any
+make_list_element_impl(
+	sge::systems::renderer const &_renderer
+)
+{
+	return
+		sge::systems::detail::any{
+			sge::systems::detail::renderer{
+				_renderer,
+				sge::systems::detail::renderer_caps<
+					Choices
+				>::value
+			}
+		};
+}
 
 }
 }

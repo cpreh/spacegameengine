@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/list_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/fusion/container/vector/vector10.hpp>
+#include <tuple>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -37,7 +37,7 @@ template<
 >
 inline
 sge::systems::list<
-	boost::fusion::vector1<
+	std::tuple<
 		Param
 	>
 >
@@ -47,16 +47,16 @@ make_list(
 {
 	return
 		sge::systems::list<
-			boost::fusion::vector1<
+			std::tuple<
 				Param
 			>
-		>(
-			boost::fusion::vector1<
+		>{
+			std::tuple<
 				Param
-			>(
+			>{
 				_param
-			)
-		);
+			}
+		};
 }
 
 }

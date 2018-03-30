@@ -21,13 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_DETAIL_ASSERT_DEPENDENCIES_ONE_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_ASSERT_DEPENDENCIES_ONE_HPP_INCLUDED
 
-#include <fcppt/mpl/all_of.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/brigand/all_of.hpp>
+#include <fcppt/brigand/found_t.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <brigand/functions/lambda/apply.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,26 +36,24 @@ namespace systems
 namespace detail
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename Choices,
 	typename Option
 >
-struct assert_dependencies_one
-:
-fcppt::mpl::all_of<
-	typename Option::needs_before,
-	boost::mpl::contains<
-		Choices,
-		boost::mpl::_1
+using
+assert_dependencies_one
+=
+fcppt::brigand::all_of<
+	typename
+	Option::needs_before,
+	brigand::bind<
+		fcppt::brigand::found_t,
+		brigand::pin<
+			Choices
+		>,
+		brigand::_1
 	>
->
-{
-};
-
-FCPPT_PP_POP_WARNING
+>;
 
 }
 }

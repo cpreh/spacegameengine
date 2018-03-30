@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/with_input_fwd.hpp>
 #include <sge/systems/with_window_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,7 +38,7 @@ namespace systems
 struct with_input
 {
 	typedef
-	boost::mpl::true_
+	std::true_type
 	needs_init;
 
 	typedef
@@ -46,7 +46,7 @@ struct with_input
 	parameter_type;
 
 	typedef
-	boost::mpl::vector1<
+	brigand::list<
 		sge::systems::with_window
 	>
 	needs_before;

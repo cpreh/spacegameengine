@@ -22,9 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_DETAIL_ASSERT_DEPENDENCIES_HPP_INCLUDED
 
 #include <sge/systems/detail/assert_dependencies_one.hpp>
-#include <fcppt/mpl/all_of.hpp>
+#include <fcppt/brigand/all_of.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <brigand/functions/lambda/apply.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,16 +40,19 @@ namespace detail
 template<
 	typename Choices
 >
-using assert_dependencies
+using
+assert_dependencies
 =
-typename
-fcppt::mpl::all_of<
+fcppt::brigand::all_of<
 	Choices,
-	sge::systems::detail::assert_dependencies_one<
-		Choices,
-		boost::mpl::_1
+	brigand::bind<
+		sge::systems::detail::assert_dependencies_one,
+		brigand::pin<
+			Choices
+		>,
+		brigand::_1
 	>
->::type;
+>;
 
 }
 }

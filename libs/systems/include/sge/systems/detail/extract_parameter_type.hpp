@@ -32,10 +32,11 @@ namespace detail
 template<
 	typename Type
 >
-struct extract_parameter_type
-{
-	typedef typename Type::parameter_type type;
-};
+using
+extract_parameter_type
+=
+typename
+Type::parameter_type;
 
 }
 }

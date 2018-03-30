@@ -23,9 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/detail/is_with_renderer.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/deref.hpp>
-#include <boost/mpl/find_if.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <brigand/algorithms/find.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/sequences/front.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -39,17 +40,19 @@ namespace detail
 template<
 	typename Choices
 >
-using renderer_caps
+using
+renderer_caps
 =
 typename
-boost::mpl::deref<
-	typename boost::mpl::find_if<
+brigand::front<
+	brigand::find<
 		Choices,
-		sge::systems::detail::is_with_renderer<
-			boost::mpl::_1
+		brigand::bind<
+			sge::systems::detail::is_with_renderer,
+			brigand::_1
 		>
-	>::type
->::type::caps;
+	>
+>::caps;
 
 }
 }
