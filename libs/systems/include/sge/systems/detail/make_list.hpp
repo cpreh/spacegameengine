@@ -22,22 +22,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_DETAIL_MAKE_LIST_HPP_INCLUDED
 
 #include <sge/systems/list_impl.hpp>
+#include <sge/systems/detail/any_list.hpp>
 #include <sge/systems/detail/extract_needs_init.hpp>
 #include <sge/systems/detail/extract_parameter_type.hpp>
 #include <sge/systems/detail/list.hpp>
-#include <sge/systems/detail/make_default.hpp>
+#include <sge/systems/detail/make_defaults.hpp>
 #include <sge/systems/detail/make_list_element.hpp>
-#include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_brigand.hpp>
+#include <fcppt/algorithm/join.hpp>
 #include <fcppt/algorithm/loop_break_tuple.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/brigand/all_of.hpp>
 #include <fcppt/brigand/found_t.hpp>
 #include <fcppt/brigand/implication.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/remove.hpp>
 #include <brigand/functions/lambda/apply.hpp>
 #include <brigand/functions/lambda/bind.hpp>
-#include <brigand/functions/logical/or.hpp>
 #include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -60,65 +59,6 @@ make_list(
 	> const &_init
 )
 {
-	// TODO: map/fold
-	sge::systems::detail::list result;
-
-	// Initialize every subsystem given in the parameters
-	fcppt::algorithm::loop(
-		_init.get(),
-		[
-			&result
-		](
-			auto const &_element
-		)
-		{
-			result.insert(
-				sge::systems::detail::make_list_element<
-					Choices
-				>(
-					_element
-				)
-			);
-		}
-	);
-
-	// For every subsystem that doesn't need initialization and is not
-	// initialized, add a default parameter
-	fcppt::algorithm::loop(
-		brigand::remove_if<
-			Choices,
-			brigand::bind<
-				brigand::or_,
-				brigand::bind<
-					sge::systems::detail::extract_needs_init,
-					brigand::_1
-				>,
-				brigand::bind<
-					fcppt::brigand::found_t,
-					brigand::pin<
-						Inits
-					>,
-					brigand::bind<
-						sge::systems::detail::extract_parameter_type,
-						brigand::_1
-					>
-				>
-			>
-		>{},
-		[
-			&result
-		](
-			auto const _type
-		)
-		{
-			result.insert(
-				sge::systems::detail::make_default(
-					_type
-				)
-			);
-		}
-	);
-
 	// Check that every subsystem that needs initialization is initialized
 	static_assert(
 		fcppt::brigand::all_of<
@@ -145,7 +85,33 @@ make_list(
 	);
 
 	return
-		result;
+		sge::systems::detail::list{
+			fcppt::algorithm::join(
+				// Initialize every subsystem given in the parameters
+				fcppt::algorithm::map<
+					sge::systems::detail::any_list
+				>(
+					_init.get(),
+					[](
+						auto const &_element
+					)
+					{
+						return
+							sge::systems::detail::make_list_element<
+								Choices
+							>(
+								_element
+							);
+					}
+				),
+				// For every subsystem that doesn't need initialization and is not
+				// initialized, add a default parameter
+				sge::systems::detail::make_defaults<
+					Choices,
+					Inits
+				>()
+			)
+		};
 }
 
 }

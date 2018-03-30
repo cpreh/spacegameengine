@@ -18,56 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_WINDOW_HPP_INCLUDED
-#define SGE_SYSTEMS_WINDOW_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_DETAIL_ANY_LIST_HPP_INCLUDED
+#define SGE_SYSTEMS_DETAIL_ANY_LIST_HPP_INCLUDED
 
-#include <sge/systems/window_fwd.hpp>
-#include <sge/systems/window_source.hpp>
-#include <sge/systems/detail/symbol.hpp>
+#include <sge/systems/detail/any.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <vector>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
 namespace systems
 {
-
-class window
+namespace detail
 {
-public:
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	explicit
-	window(
-		sge::systems::window_source const &
-	);
 
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::window &
-	dont_show();
+typedef
+std::vector<
+	sge::systems::detail::any
+>
+any_list;
 
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::window &
-	dont_quit();
-
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::window &
-	hide_cursor();
-
-	sge::systems::window_source const &
-	source() const;
-
-	bool
-	show() const;
-
-	bool
-	quit() const;
-private:
-	sge::systems::window_source source_;
-
-	bool show_;
-
-	bool quit_;
-};
-
+}
 }
 }
 

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/detail/symbol.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/window/object_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -35,9 +35,6 @@ namespace systems
 
 class wrapped_window
 {
-	FCPPT_NONASSIGNABLE(
-		wrapped_window
-	);
 public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	wrapped_window(
@@ -51,9 +48,13 @@ public:
 	awl::window::object &
 	awl_window() const;
 private:
-	awl::system::object &awl_system_;
+	fcppt::reference<
+		awl::system::object
+	> awl_system_;
 
-	awl::window::object &awl_window_;
+	fcppt::reference<
+		awl::window::object
+	> awl_window_;
 };
 
 }

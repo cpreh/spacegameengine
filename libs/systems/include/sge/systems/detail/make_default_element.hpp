@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SYSTEMS_DETAIL_MAKE_DEFAULT_HPP_INCLUDED
-#define SGE_SYSTEMS_DETAIL_MAKE_DEFAULT_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_DETAIL_MAKE_DEFAULT_ELEMENT_HPP_INCLUDED
+#define SGE_SYSTEMS_DETAIL_MAKE_DEFAULT_ELEMENT_HPP_INCLUDED
 
 #include <sge/systems/detail/any.hpp>
 #include <sge/systems/detail/extract_parameter_type.hpp>
@@ -38,7 +38,7 @@ template<
 >
 inline
 sge::systems::detail::any
-make_default(
+make_default_element(
 	fcppt::tag<
 		Type
 	>

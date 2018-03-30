@@ -28,12 +28,12 @@ sge::systems::wrapped_window::wrapped_window(
 	awl::window::object &_awl_window
 )
 :
-	awl_system_(
+	awl_system_{
 		_awl_system
-	),
-	awl_window_(
+	},
+	awl_window_{
 		_awl_window
-	)
+	}
 {
 }
 
@@ -41,12 +41,12 @@ awl::system::object &
 sge::systems::wrapped_window::awl_system() const
 {
 	return
-		awl_system_;
+		awl_system_.get();
 }
 
 awl::window::object &
 sge::systems::wrapped_window::awl_window() const
 {
 	return
-		awl_window_;
+		awl_window_.get();
 }

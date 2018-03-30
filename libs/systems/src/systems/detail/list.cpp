@@ -18,36 +18,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/systems/detail/any_fwd.hpp>
+#include <sge/systems/detail/any.hpp>
+#include <sge/systems/detail/any_list.hpp>
 #include <sge/systems/detail/any_map.hpp>
 #include <sge/systems/detail/list.hpp>
 #include <sge/systems/impl/make_any_key.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::systems::detail::list::list()
-:
-	states_()
-{
-}
-
-void
-sge::systems::detail::list::insert(
-	sge::systems::detail::any const &_any
+sge::systems::detail::list::list(
+	sge::systems::detail::any_list const &_elements
 )
+:
+	states_(
+		fcppt::algorithm::map<
+			sge::systems::detail::any_map
+		>(
+			_elements,
+			[](
+				sge::systems::detail::any const &_any
+			)
+			{
+				return
+					std::make_pair(
+						sge::systems::impl::make_any_key(
+							_any
+						),
+						_any
+					);
+			}
+		)
+	)
 {
 	FCPPT_ASSERT_ERROR(
-		states_.insert(
-			std::make_pair(
-				sge::systems::impl::make_any_key(
-					_any
-				),
-				_any
-			)
-		).second == 1u
+		_elements.size()
+		==
+		states_.size()
 	);
 }
 

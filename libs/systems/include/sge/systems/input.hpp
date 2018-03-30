@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input_fwd.hpp>
 #include <sge/systems/detail/symbol.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -34,9 +33,6 @@ namespace systems
 
 class input
 {
-	FCPPT_NONASSIGNABLE(
-		input
-	);
 public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	explicit
@@ -47,7 +43,7 @@ public:
 	sge::systems::cursor_option_field const &
 	cursor_options() const;
 private:
-	sge::systems::cursor_option_field const cursor_options_;
+	sge::systems::cursor_option_field cursor_options_;
 };
 
 }
