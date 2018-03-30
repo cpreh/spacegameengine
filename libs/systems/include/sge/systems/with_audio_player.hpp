@@ -45,7 +45,7 @@ struct with_audio_player
 	parameter_type;
 
 	typedef
-	brigand::listM>
+	brigand::list<>
 	needs_before;
 };
 

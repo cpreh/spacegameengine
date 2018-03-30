@@ -67,7 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <cstdlib>
 #include <exception>
 #include <iostream>
@@ -87,7 +87,7 @@ main_program(
 		<< FCPPT_TEXT("Creating systems object\n");
 
 	sge::systems::instance<
-		boost::mpl::vector1<
+		brigand::list<
 			sge::systems::with_image2d
 		>
 	> const sys(

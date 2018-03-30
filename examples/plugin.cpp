@@ -38,14 +38,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/use.hpp>
+#include <fcppt/algorithm/loop.hpp>
+#include <fcppt/algorithm/loop_break_brigand.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/optional_level.hpp>
-#include <fcppt/mpl/for_each.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <cstdlib>
 #include <exception>
 #include <iostream>
@@ -72,7 +73,7 @@ try
 	);
 
 	typedef
-	boost::mpl::vector6<
+	brigand::list<
 		sge::audio::loader,
 		sge::audio::player,
 		sge::font::system,
@@ -82,9 +83,8 @@ try
 	>
 	plugins;
 
-	fcppt::mpl::for_each<
-		plugins
-	>(
+	fcppt::algorithm::loop(
+		plugins{},
 		[
 			&manager
 		](

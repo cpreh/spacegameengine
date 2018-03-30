@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <fcppt/config/external_end.hpp>
@@ -52,7 +52,7 @@ example_main(
 try
 {
 	sge::systems::instance<
-		boost::mpl::vector2<
+		brigand::list<
 			sge::systems::with_window,
 			sge::systems::with_input
 		>

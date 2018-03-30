@@ -215,7 +215,7 @@ example_main(
 try
 {
 	sge::systems::instance<
-		boost::mpl::vector4<
+		brigand::list<
 			sge::systems::with_window,
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp

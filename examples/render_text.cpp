@@ -88,7 +88,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <cstdlib>
 #include <exception>
 #include <iostream>
@@ -133,7 +133,7 @@ render_text_main(
 )
 {
 	sge::systems::instance<
-		boost::mpl::vector2<
+		brigand::list<
 			sge::systems::with_image2d,
 			sge::systems::with_font
 		>

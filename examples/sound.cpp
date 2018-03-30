@@ -72,8 +72,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
-#include <boost/mpl/vector/vector10.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <brigand/sequences/list.hpp>
 #include <algorithm>
 #include <chrono>
 #include <cmath>
@@ -187,7 +187,7 @@ try
 	wait_for_input();
 
 	sge::systems::instance<
-		boost::mpl::vector2<
+		brigand::list<
 			sge::systems::with_audio_player,
 			sge::systems::with_audio_loader
 		>

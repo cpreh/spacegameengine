@@ -379,7 +379,7 @@ example_main(
 try
 {
 	sge::systems::instance<
-		boost::mpl::vector6<
+		brigand::list<
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
 			>,

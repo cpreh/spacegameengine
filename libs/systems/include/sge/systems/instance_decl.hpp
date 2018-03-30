@@ -62,7 +62,7 @@ class instance
 		fcppt::type_traits::is_brigand_sequence<
 			Choices
 		>::value,
-		"Choices must be an mpl sequence"
+		"Choices must be a brigand sequence"
 	);
 
 	static_assert(

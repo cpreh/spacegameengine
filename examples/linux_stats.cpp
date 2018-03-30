@@ -131,6 +131,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/match.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <brigand/sequences/list.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <array>
 #include <example_main.hpp>
@@ -654,7 +655,7 @@ main_program(
 	device_totals;
 
 	sge::systems::instance<
-		boost::mpl::vector3<
+		brigand::list<
 			sge::systems::with_window,
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp

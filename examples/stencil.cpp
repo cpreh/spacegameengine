@@ -132,6 +132,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <fcppt/config/external_end.hpp>
@@ -150,7 +151,7 @@ try
 	//   using any connected keyboard
 	// - The image2d system is used to load some png files
 	sge::systems::instance<
-		boost::mpl::vector4<
+		brigand::list<
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
 			>,
