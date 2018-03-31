@@ -56,11 +56,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/at.hpp>
-#include <boost/mpl/map.hpp>
-#include <boost/mpl/pair.hpp>
 #include <algorithm>
 #include <iterator>
+#include <type_traits>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -68,127 +66,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-typedef
-boost::mpl::map<
-	boost::mpl::pair<
-		boost::mpl::pair<
-			sge::rucksack::minimum_size,
-			sge::rucksack::minimum_size
-		>,
-		sge::rucksack::minimum_size
-	>,
-	boost::mpl::pair<
-		boost::mpl::pair<
-			sge::rucksack::minimum_size,
-			sge::rucksack::preferred_size
-		>,
-		sge::rucksack::minimum_size
-	>,
-	// TODO: Generate symmetric cases automatically
-	boost::mpl::pair<
-		boost::mpl::pair<
-			sge::rucksack::preferred_size,
-			sge::rucksack::minimum_size
-		>,
-		sge::rucksack::minimum_size
-	>,
-	boost::mpl::pair<
-		boost::mpl::pair<
-			sge::rucksack::preferred_size,
-			sge::rucksack::preferred_size
-		>,
-		sge::rucksack::preferred_size
-	>
+template<
+	typename P1,
+	typename P2
 >
-policy_map;
-
-class major_combiner
-{
-	FCPPT_NONASSIGNABLE(
-		major_combiner
-	);
-public:
-	explicit
-	major_combiner(
-		sge::rucksack::padding const _padding
-	)
-	:
-		padding_{
-			_padding
-		}
-	{
-	}
-
-	typedef
-	sge::rucksack::axis_policy
-	result_type;
-
-	template<
-		typename P1,
-		typename P2
-	>
-	result_type
-	operator()(
-		P1 const _p1,
-		P2 const _p2
-	) const
-	{
-		return
-			sge::rucksack::axis_policy{
-				typename
-				boost::mpl::at<
-					policy_map,
-					boost::mpl::pair<
-						P1,
-						P2
-					>
-				>::type{
-					_p1.get()
-					+
-					_p2.get()
-					+
-					padding_.get()
-				}
-			};
-	}
-private:
-	sge::rucksack::padding const padding_;
-};
-
-struct minor_combiner
-{
-	typedef
-	sge::rucksack::axis_policy
-	result_type;
-
-	template<
-		typename P1,
-		typename P2
-	>
-	result_type
-	operator()(
-		P1 const _p1,
-		P2 const _p2
-	) const
-	{
-		return
-			sge::rucksack::axis_policy{
-				typename
-				boost::mpl::at<
-					policy_map,
-					boost::mpl::pair<
-						P1,
-						P2
-					>
-				>::type{
-					std::max(
-						_p1.get(),
-						_p2.get()
-					)
-				}
-			};
-	}
-};
+using
+combine_policies
+=
+std::conditional_t<
+	std::is_same<
+		P1,
+		sge::rucksack::preferred_size
+	>::value
+	&&
+	std::is_same<
+		P2,
+		sge::rucksack::preferred_size
+	>::value,
+	sge::rucksack::preferred_size,
+	sge::rucksack::minimum_size
+>;
 
 }
 
@@ -314,9 +211,37 @@ sge::rucksack::widget::box::axis_policy() const
 			{
 				sge::rucksack::axis_policy const major{
 					fcppt::variant::apply_binary(
-						major_combiner(
-							padding_
-						),
+						[
+							this
+						](
+							auto const _p1,
+							auto const _p2
+						)
+						->
+						sge::rucksack::axis_policy
+						{
+							return
+								sge::rucksack::axis_policy{
+									combine_policies<
+										std::remove_const_t<
+											decltype(
+												_p1
+											)
+										>,
+										std::remove_const_t<
+											decltype(
+												_p2
+											)
+										>
+									>{
+										_p1.get()
+										+
+										_p2.get()
+										+
+										this->padding_.get()
+									}
+								};
+						},
 						_pair.first.get().axis_policy()[
 							this->major_axis()
 						],
@@ -328,7 +253,34 @@ sge::rucksack::widget::box::axis_policy() const
 
 				sge::rucksack::axis_policy const minor{
 					fcppt::variant::apply_binary(
-						minor_combiner(),
+						[](
+							auto const _p1,
+							auto const _p2
+						)
+						->
+						sge::rucksack::axis_policy
+						{
+							return
+								sge::rucksack::axis_policy{
+									combine_policies<
+										std::remove_const_t<
+											decltype(
+												_p1
+											)
+										>,
+										std::remove_const_t<
+											decltype(
+												_p2
+											)
+										>
+									>{
+										std::max(
+											_p1.get(),
+											_p2.get()
+										)
+									}
+								};
+						},
 						_pair.first.get().axis_policy()[
 							this->minor_axis()
 						],
