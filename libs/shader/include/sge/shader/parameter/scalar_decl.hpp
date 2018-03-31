@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/parameter/scalar_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/or.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -39,21 +38,24 @@ namespace shader
 {
 namespace parameter
 {
-template<typename ValueType>
+
+template<
+	typename ValueType
+>
 class scalar
 {
-FCPPT_NONCOPYABLE(
-	scalar);
+	FCPPT_NONCOPYABLE(
+		scalar
+	);
 public:
 	static_assert(
-		boost::mpl::or_<
-			std::is_same<
-				ValueType,
-				bool
-			>,
-			sge::cg::parameter::is_int_float_double<
-				ValueType
-			>
+		std::is_same<
+			ValueType,
+			bool
+		>::value
+		||
+		sge::cg::parameter::is_int_float_double<
+			ValueType
 		>::value,
 		"Shader parameters must be either bool, int, float or double"
 	);
@@ -65,11 +67,13 @@ public:
 	scalar(
 		sge::cg::program::object &,
 		sge::shader::parameter::name const &,
-		value_type);
+		value_type
+	);
 
 	void
 	set(
-		value_type);
+		value_type
+	);
 
 	~scalar();
 private:

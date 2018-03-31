@@ -26,47 +26,65 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/parameter/name.hpp>
 #include <sge/shader/parameter/scalar_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
-template<typename ValueType>
+template<
+	typename ValueType
+>
 sge::shader::parameter::scalar<ValueType>::scalar(
 	sge::cg::program::object &_program,
 	sge::shader::parameter::name const &_name,
-	value_type const _initial_value)
+	value_type const _initial_value
+)
 :
 	parameter_(
 		_program.parameter(
-			_name.get()))
+			_name.get()
+		)
+	)
 {
 	this->set(
-		_initial_value);
+		_initial_value
+	);
 }
 
-template<typename ValueType>
+template<
+	typename ValueType
+>
 void
 sge::shader::parameter::scalar<ValueType>::set(
-	value_type const _scalar)
+	value_type const _scalar
+)
 {
-	typedef typename
-	boost::mpl::if_
-	<
-		std::is_same<value_type,bool>,
+	typedef
+	std::conditional_t<
+		std::is_same<
+			value_type,
+			bool
+		>::value,
 		int,
 		value_type
-	>::type
+	>
 	promoted_type;
 
 	sge::cg::parameter::scalar::set(
 		parameter_.object(),
-		static_cast<promoted_type>(
-			_scalar));
+		static_cast<
+			promoted_type
+		>(
+			_scalar
+		)
+	);
 }
 
-template<typename ValueType>
-sge::shader::parameter::scalar<ValueType>::~scalar()
+template<
+	typename ValueType
+>
+sge::shader::parameter::scalar<
+	ValueType
+>::~scalar()
 {
 }
 
