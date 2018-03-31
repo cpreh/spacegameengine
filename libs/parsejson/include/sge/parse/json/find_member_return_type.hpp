@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <fcppt/optional/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -39,20 +38,19 @@ template<
 	typename T,
 	typename Arg
 >
-using find_member_return_type
+using
+find_member_return_type
 =
 fcppt::optional::reference<
-	typename
-	boost::mpl::if_<
+	std::conditional_t<
 		std::is_const<
 			Arg
-		>,
-		typename
-		std::add_const<
+		>::value,
+		std::add_const_t<
 			T
-		>::type,
+		>,
 		T
-	>::type
+	>
 >;
 
 }

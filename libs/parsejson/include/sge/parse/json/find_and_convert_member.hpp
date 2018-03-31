@@ -31,12 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
 #include <sge/parse/json/value.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/mpl/or.hpp>
-#include <boost/range/algorithm/find_if.hpp>
 #include <iterator>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -48,89 +47,121 @@ namespace parse
 {
 namespace json
 {
-template<typename T>
-typename
-boost::mpl::if_
-<
+
+template<
+	typename T
+>
+std::conditional_t<
 	// TODO: This check is broken
-	boost::mpl::or_
-	<
-		std::is_same
-		<
-			typename std::remove_const<T>::type,
-			sge::parse::json::value
+	std::is_same<
+		std::remove_const_t<
+			T
 		>,
-		boost::mpl::or_
-		<
-			std::is_same
-			<
-				typename std::remove_const<T>::type,
-				sge::parse::json::object
-			>,
-			boost::mpl::or_
-			<
-				std::is_same
-				<
-					typename std::remove_const<T>::type,
-					sge::parse::json::array
-				>
-			>
-		>
-	>,
+		sge::parse::json::value
+	>::value
+	||
+	std::is_same<
+		std::remove_const_t<
+			T
+		>,
+		sge::parse::json::object
+	>::value
+	||
+	std::is_same<
+		std::remove_const<
+			T
+		>,
+		sge::parse::json::array
+	>::value,
 	T const &,
 	T
->::type
+>
 find_and_convert_member(
-	sge::parse::json::object const &o,
-	sge::parse::json::path const &input_path)
+	sge::parse::json::object const &_object,
+	sge::parse::json::path const &_input_path
+)
 {
+	// TODO: path split
 	FCPPT_ASSERT_PRE(
-		!input_path.empty());
+		!_input_path.empty()
+	);
 
-	sge::parse::json::path const shortened_path =
+	sge::parse::json::path const shortened_path{
 		sge::parse::json::path(
-			input_path.begin(),
+			_input_path.begin(),
 			std::prev(
-				input_path.end()));
+				_input_path.end()
+			)
+		)
+	};
 
-	sge::parse::json::object const &found_object =
+	sge::parse::json::object const &found_object{
 		sge::parse::json::find_object_exn(
-			o,
-			shortened_path);
+			_object,
+			shortened_path
+		)
+	};
 
-	sge::parse::json::member_map::const_iterator it(
-		found_object.members.find(
-			input_path.back()));
-
-	if (it == found_object.members.end())
-		throw
-			sge::parse::exception(
-				FCPPT_TEXT("Couldn't find member \"")+
-				input_path.back()+
-				FCPPT_TEXT("\" in the object \"")+
-				sge::parse::json::path_to_string(
-					shortened_path)+
-				FCPPT_TEXT("\""));
+	fcppt::string const &path_back(
+		_input_path.back()
+	);
 
 	try
 	{
 		return
-			sge::parse::json::convert_from<T>(
-				it->second);
+			sge::parse::json::convert_from<
+				T
+			>(
+				fcppt::optional::to_exception(
+					fcppt::container::find_opt_mapped(
+						found_object.members,
+						path_back
+					),
+					[
+						&shortened_path,
+						&path_back
+					]{
+						return
+							sge::parse::exception(
+								FCPPT_TEXT("Couldn't find member \"")
+								+
+								path_back
+								+
+								FCPPT_TEXT("\" in the object \"")
+								+
+								sge::parse::json::path_to_string(
+									shortened_path
+								)
+								+
+								FCPPT_TEXT("\"")
+							);
+					}
+				).get()
+			);
 	}
-	catch (sge::parse::json::invalid_get const &e)
+	catch(
+		sge::parse::json::invalid_get const &_error
+	)
 	{
 		throw
 			sge::parse::exception(
-				FCPPT_TEXT("Unable to parse member \"")+
-				it->first+
-				FCPPT_TEXT("\" of object \"")+
+				FCPPT_TEXT("Unable to parse member \"")
+				+
+				path_back
+				+
+				FCPPT_TEXT("\" of object \"")
+				+
 				sge::parse::json::path_to_string(
-					shortened_path)+
-				FCPPT_TEXT("\": ")+
-				e.string());
+					shortened_path
+				)
+				+
+				FCPPT_TEXT("\": ")
+				+
+				_error.string()
+			);
 	}
 }
+
 }
 }
 }

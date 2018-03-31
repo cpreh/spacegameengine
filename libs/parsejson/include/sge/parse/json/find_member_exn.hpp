@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/get_exn.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -46,14 +45,13 @@ template<
 	typename T,
 	typename Arg
 >
-typename
-boost::mpl::if_<
+std::conditional_t<
 	std::is_const<
 		Arg
-	>,
+	>::value,
 	T const &,
 	T &
->::type
+>
 find_member_exn(
 	Arg &_members,
 	fcppt::string const &_name

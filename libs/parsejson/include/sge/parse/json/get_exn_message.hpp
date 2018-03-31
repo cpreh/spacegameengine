@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/to_optional_ref.hpp>
 #include <fcppt/variant/type_info.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
 #include <type_traits>
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>
@@ -59,14 +58,13 @@ get_exn_message(
 	return
 		fcppt::optional::to_exception(
 			fcppt::variant::to_optional_ref<
-				typename
-				boost::mpl::if_<
+				std::conditional_t<
 					std::is_const<
 						Arg
-					>,
+					>::value,
 					T const,
 					T
-				>::type
+				>
 			>(
 				_val
 			),

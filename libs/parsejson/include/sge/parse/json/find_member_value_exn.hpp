@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -42,14 +41,13 @@ namespace json
 template<
 	typename Arg
 >
-typename
-boost::mpl::if_<
+std::conditional_t<
 	std::is_const<
 		Arg
-	>,
+	>::value,
 	sge::parse::json::value const &,
 	sge::parse::json::value &
->::type
+>
 find_member_value_exn(
 	Arg &_members,
 	fcppt::string const &_name

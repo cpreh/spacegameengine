@@ -31,10 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/not.hpp>
-#include <boost/mpl/or.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -45,93 +41,124 @@ namespace parse
 {
 namespace json
 {
-template<typename T>
-typename
-boost::enable_if
-<
-	boost::mpl::or_
-	<
-		std::is_same<T,sge::parse::json::object>,
-		std::is_same<T,sge::parse::json::array>,
-		std::is_same<T,sge::parse::json::null>,
-		std::is_same<T,fcppt::string>,
-		std::is_same<T,bool>
-	>,
+
+template<
+	typename T
+>
+std::enable_if_t<
+	std::is_same<
+		T,
+		sge::parse::json::object
+	>::value
+	||
+	std::is_same<
+		T,
+		sge::parse::json::array
+	>::value
+	||
+	std::is_same<
+		T,
+		sge::parse::json::null
+	>::value
+	||
+	std::is_same<
+		T,
+		fcppt::string
+	>::value
+	||
+	std::is_same<
+		T,
+		bool
+	>::value,
 	sge::parse::json::value
->::type
+>
 convert_to(
-	T const &t)
+	T const &_value
+)
 {
 	return
 		sge::parse::json::value(
-			t
+			_value
 		);
 }
 
-template<typename T>
-typename
-boost::enable_if
-<
-	boost::mpl::and_
-	<
-		std::is_integral<T>,
-		boost::mpl::not_
-		<
-			std::is_same<T,bool>
-		>
+template<
+	typename T
+>
+std::enable_if_t<
+	std::is_integral<
+		T
+	>::value
+	&&
+	!std::is_same<
+		T,
+		bool
 	>,
 	sge::parse::json::value
->::type
+>
 convert_to(
-	T const &t)
+	T const &_value
+)
 {
 	return
 		sge::parse::json::value(
-			static_cast<sge::parse::json::int_type>(
-				t));
+			static_cast<
+				sge::parse::json::int_type
+			>(
+				_value
+			)
+		);
 }
 
-template<typename T>
-typename
-boost::enable_if
-<
-	std::is_floating_point<T>,
+template<
+	typename T
+>
+std::enable_if_t<
+	std::is_floating_point<
+		T
+	>::value,
 	sge::parse::json::value
->::type
+>
 convert_to(
-	T const &t)
+	T const &_value
+)
 {
 	return
 		sge::parse::json::value(
-			static_cast<sge::parse::json::float_type>(
-				t));
+			static_cast<
+				sge::parse::json::float_type
+			>(
+				_value
+			)
+		);
 }
 
 // TODO: We could make a convert_to which converts from a tuple to a
 // (heterogenous) array
-template<typename T>
-typename
-boost::enable_if
-<
-	boost::mpl::and_
-	<
-		sge::parse::json::detail::is_iterable<T>,
-		boost::mpl::not_
-		<
-			std::is_same<T,fcppt::string>
-		>
-	>,
+template<
+	typename T
+>
+std::enable_if_t<
+	sge::parse::json::detail::is_iterable<
+		T
+	>::value,
+	&&
+	!std::is_same<
+		T,
+		fcppt::string
+	>::value,
 	sge::parse::json::value
->::type
+>
 convert_to(
-	T const &t)
+	T const &_value
+)
 {
 	return
 		sge::parse::json::value(
 			fcppt::algorithm::map<
 				sge::parse::json::array
 			>(
-				t,
+				_value,
 				[](
 					typename
 					T::value_type const &_arg
