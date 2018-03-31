@@ -365,7 +365,7 @@ function(
 			${SGE_DEPS_RESULT}
 		)
 
-		fcppt_utils_link_pkgconfig_targets(
+		fcppt_utils_link_imported_targets(
 			${SGE_LIB_NAME}
 			PRIVATE
 			${_ADDITIONAL_DEPS_PKGCONFIG}
@@ -379,7 +379,7 @@ function(
 		${_TRANSITIVE_ADDITIONAL_DEPS}
 	)
 
-	fcppt_utils_link_pkgconfig_targets(
+	fcppt_utils_link_imported_targets(
 		${SGE_LIB_NAME}
 		INTERFACE
 		${_TRANSITIVE_ADDITIONAL_DEPS_PKGCONFIG}
