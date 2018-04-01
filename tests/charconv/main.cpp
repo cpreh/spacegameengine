@@ -27,10 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/use.hpp>
 #include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/algorithm/loop_break_brigand.hpp>
+#include <fcppt/brigand/enum_range.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
-#include <fcppt/mpl/enum_range.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -76,9 +76,9 @@ FCPPT_PP_POP_WARNING
 	);
 
 	fcppt::algorithm::loop(
-		fcppt::mpl::enum_range<
+		fcppt::brigand::enum_range<
 			sge::charconv::encoding
-		>::type{},
+		>{},
 		[
 			&input
 		](
