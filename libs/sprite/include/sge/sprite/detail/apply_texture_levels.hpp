@@ -23,13 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/config/is_texture_level_count.hpp>
 #include <sge/sprite/detail/make_texture_levels.hpp>
-#include <fcppt/config/compiler.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/algorithm/loop.hpp>
+#include <fcppt/algorithm/loop_break_brigand.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/for_each.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -44,29 +41,23 @@ template<
 	typename Levels,
 	typename Function
 >
-typename boost::enable_if<
+inline
+std::enable_if_t<
 	sge::sprite::config::is_texture_level_count<
 		Levels
-	>,
+	>::value,
 	void
->::type
+>
 apply_texture_levels(
 	Function const &_function
 )
 {
-FCPPT_PP_PUSH_WARNING
-#if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
-FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
-#endif
-	boost::mpl::for_each<
-		typename sge::sprite::detail::make_texture_levels<
+	fcppt::algorithm::loop(
+		sge::sprite::detail::make_texture_levels<
 			Levels
-		>::type
-	>(
+		>{},
 		_function
 	);
-
-FCPPT_PP_POP_WARNING
 }
 
 }

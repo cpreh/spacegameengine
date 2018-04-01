@@ -22,16 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_CONFIG_TEXTURE_REF_HPP_INCLUDED
 
 #include <sge/sprite/detail/config/find_texture_config.hpp>
+#include <sge/sprite/detail/config/lazy_head.hpp>
 #include <sge/sprite/detail/primitives/texture_ref_type.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/none_t.hpp>
-#include <boost/mpl/deref.hpp>
-#include <boost/mpl/end.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
+#include <brigand/functions/eval_if.hpp>
+#include <brigand/functions/arithmetic/identity.hpp>
+#include <brigand/sequences/list.hpp>
+#include <brigand/types/no_such_type.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -51,43 +48,40 @@ template<
 struct texture_ref
 {
 private:
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 	template<
-		typename Iterator
+		typename Element
 	>
-	struct obtain_ref_type
-	:
+	using
+	obtain_ref_type
+	=
+	typename
 	sge::sprite::detail::primitives::texture_ref_type<
-		boost::mpl::deref<
-			Iterator
-		>::type::ownership::value
-	>
-	{
-	};
+		Element::ownership::value
+	>::type;
 
-FCPPT_PP_POP_WARNING
-
-	typedef typename sge::sprite::detail::config::find_texture_config<
+	typedef
+	typename
+	sge::sprite::detail::config::find_texture_config<
 		Choices
-	>::type texture_iterator;
+	>::type
+	texture_list;
 public:
-	typedef typename boost::mpl::eval_if<
+	typedef
+	typename
+	brigand::eval_if<
 		std::is_same<
-			texture_iterator,
-			typename boost::mpl::end<
-				typename Choices::optional_elements
-			>::type
+			texture_list,
+			brigand::list<>
 		>,
-		boost::mpl::identity<
-			boost::none_t
+		brigand::identity<
+			brigand::no_such_type_
 		>,
-		obtain_ref_type<
-			texture_iterator
+		sge::sprite::detail::config::lazy_head<
+			obtain_ref_type,
+			texture_list
 		>
-	>::type type;
+	>::type
+	type;
 };
 
 }

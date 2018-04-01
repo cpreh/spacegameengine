@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/geometry/detail/fill_texture_level_impl.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/tag_type.hpp>
 
 
 namespace sge
@@ -72,14 +73,20 @@ public:
 		Level const &
 	) const
 	{
-		sge::sprite::geometry::detail::fill_texture_level_impl<
+		typedef
+		fcppt::tag_type<
 			Level
+		>
+		level;
+
+		sge::sprite::geometry::detail::fill_texture_level_impl<
+			level
 		>(
 			iterator_,
 			object_,
 			sge::sprite::deref_texture(
 				object_. template texture_level<
-					Level::value
+					level::value
 				>()
 			)
 		);

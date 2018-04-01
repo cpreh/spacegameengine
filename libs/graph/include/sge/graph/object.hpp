@@ -53,7 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/parameters_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
-#include <boost/mpl/vector.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -106,7 +106,7 @@ private:
 		sge::sprite::config::normal_size<
 			sge::sprite::config::texture_size_option::always
 		>,
-		boost::mpl::vector<
+		brigand::list<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
 					1u

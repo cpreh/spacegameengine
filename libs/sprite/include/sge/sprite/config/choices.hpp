@@ -25,9 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/is_pos_choice.hpp>
 #include <sge/sprite/config/is_size_choice.hpp>
 #include <sge/sprite/config/is_type_choices.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/is_sequence.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/type_traits/is_brigand_sequence.hpp>
 
 
 namespace sge
@@ -83,7 +81,7 @@ struct choices
 	);
 
 	static_assert(
-		boost::mpl::is_sequence<
+		fcppt::type_traits::is_brigand_sequence<
 			OptionalElements
 		>::value,
 		"OptionalElements must be an mpl sequence"

@@ -18,14 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_REPETITION_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_REPETITION_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_CONFIG_FIND_IF_IMPL_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_CONFIG_FIND_IF_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/roles/repetition.hpp>
-#include <sge/sprite/types/repetition.hpp>
-#include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <brigand/algorithms/find.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/sequences/size.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,24 +35,37 @@ namespace sprite
 {
 namespace detail
 {
-namespace primitives
+namespace config
 {
 
 template<
-	typename Choices
+	typename Elements,
+	template<
+		typename
+	> class Predicate
 >
-struct texture_repetition
+struct find_if_impl
 {
 	typedef
-	brigand::list<
-		fcppt::record::element<
-			sge::sprite::roles::repetition,
-			sge::sprite::types::repetition<
-				typename Choices::type_choices
-			>
+	brigand::find<
+		Elements,
+		brigand::bind<
+			Predicate,
+			brigand::_1
 		>
 	>
 	type;
+
+	// TODO
+/*
+	static_assert(
+		brigand::size<
+			type
+		>::value
+		<=
+		1u,
+		"Option specified multiple times"
+	);*/
 };
 
 }

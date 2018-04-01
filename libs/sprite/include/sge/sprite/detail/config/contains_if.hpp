@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_CONFIG_CONTAINS_IF_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_CONFIG_CONTAINS_IF_HPP_INCLUDED
 
-#include <fcppt/mpl/contains_if.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <brigand/algorithms/find.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,15 +43,16 @@ template<
 		typename
 	> class Predicate
 >
-using contains_if
+using
+contains_if
 =
-typename
-fcppt::mpl::contains_if<
+brigand::found<
 	Elements,
-	Predicate<
-		boost::mpl::_1
+	brigand::bind<
+		Predicate,
+		brigand::_1
 	>
->::type;
+>;
 
 }
 }

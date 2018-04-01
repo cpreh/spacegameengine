@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/config/has_custom_texture_point_pos.hpp>
 #include <sge/sprite/detail/vf/texture_point_pos.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/at.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <brigand/sequences/at.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -45,12 +45,12 @@ template<
 	typename Choices
 >
 inline
-typename boost::enable_if<
+std::enable_if_t<
 	sge::sprite::detail::config::has_custom_texture_point_pos<
 		Choices
-	>,
+	>::value,
 	void
->::type
+>
 fill_texture_point_pos(
 	Iterator const _iterator,
 	sge::sprite::object<
@@ -58,12 +58,15 @@ fill_texture_point_pos(
 	> const &_sprite
 )
 {
-	typedef typename boost::mpl::at<
-		typename sge::sprite::detail::vf::texture_point_pos<
+	typedef
+	brigand::at<
+		typename
+		sge::sprite::detail::vf::texture_point_pos<
 			Choices
 		>::type,
 		Level
-	>::type texture_point_pos;
+	>
+	texture_point_pos;
 
 	(*_iterator). template set<
 		texture_point_pos
@@ -80,12 +83,13 @@ template<
 	typename Choices
 >
 inline
-typename boost::disable_if<
+std::enable_if_t<
+	not
 	sge::sprite::detail::config::has_custom_texture_point_pos<
 		Choices
-	>,
+	>::value,
 	void
->::type
+>
 fill_texture_point_pos(
 	Iterator,
 	sge::sprite::object<

@@ -22,11 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_STATE_DETAIL_NEEDS_FFP_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
-#include <boost/mpl/fold.hpp>
-#include <boost/mpl/or.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
+#include <brigand/algorithms/any.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -48,26 +46,21 @@ private:
 	template<
 		typename Type
 	>
-	struct extract
-	{
-		typedef typename Type::needs_ffp type;
-	};
+	using
+	extract
+	=
+	typename Type::needs_ffp;
 public:
 	typedef
-	typename
-	boost::mpl::fold<
-		typename boost::mpl::transform<
-			typename StateChoices::optional_elements,
-			extract<
-				boost::mpl::_1
-			>
-		>::type,
-		boost::mpl::false_,
-		boost::mpl::or_<
-			boost::mpl::_1,
-			boost::mpl::_2
+	brigand::any<
+		typename
+		StateChoices::optional_elements,
+		brigand::bind<
+			extract,
+			brigand::_1
 		>
-	>::type type;
+	>
+	type;
 };
 
 }

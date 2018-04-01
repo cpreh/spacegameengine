@@ -96,7 +96,7 @@ set(
 	libs/sprite/include/sge/sprite/config/with_texture_point_size_fwd.hpp
 	libs/sprite/include/sge/sprite/count.hpp
 	libs/sprite/include/sge/sprite/deref_texture.hpp
-	libs/sprite/include/sge/sprite/detail/application.hpp
+	libs/sprite/include/sge/sprite/detail/apply_choices.hpp
 	libs/sprite/include/sge/sprite/detail/apply_texture_levels.hpp
 	libs/sprite/include/sge/sprite/detail/assign_post.hpp
 	libs/sprite/include/sge/sprite/detail/assign_pre.hpp
@@ -110,6 +110,7 @@ set(
 	libs/sprite/include/sge/sprite/detail/config/color_format.hpp
 	libs/sprite/include/sge/sprite/detail/config/contains_if.hpp
 	libs/sprite/include/sge/sprite/detail/config/find_if.hpp
+	libs/sprite/include/sge/sprite/detail/config/find_if_impl.hpp
 	libs/sprite/include/sge/sprite/detail/config/find_texture_config.hpp
 	libs/sprite/include/sge/sprite/detail/config/find_with_texture.hpp
 	libs/sprite/include/sge/sprite/detail/config/find_with_texture_point_size.hpp
@@ -126,6 +127,7 @@ set(
 	libs/sprite/include/sge/sprite/detail/config/has_texture_levels.hpp
 	libs/sprite/include/sge/sprite/detail/config/has_texture_point_size.hpp
 	libs/sprite/include/sge/sprite/detail/config/is_intrusive.hpp
+	libs/sprite/include/sge/sprite/detail/config/lazy_head.hpp
 	libs/sprite/include/sge/sprite/detail/config/needs_index_buffer.hpp
 	libs/sprite/include/sge/sprite/detail/config/needs_use_center.hpp
 	libs/sprite/include/sge/sprite/detail/config/needs_use_texture_size.hpp

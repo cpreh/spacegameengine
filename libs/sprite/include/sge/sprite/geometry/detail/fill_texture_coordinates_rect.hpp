@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/texture_coordinates.hpp>
 #include <sge/sprite/types/basic/float_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/at.hpp>
+#include <brigand/sequences/at.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -51,16 +51,21 @@ fill_texture_coordinates_rect(
 	> const &_rt
 )
 {
-	typedef sge::sprite::types::basic::float_vector<
+	typedef
+	sge::sprite::types::basic::float_vector<
 		typename Choices::type_choices
-	> tex_pos;
+	>
+	tex_pos;
 
-	typedef typename boost::mpl::at<
-		typename sge::sprite::detail::vf::texpos<
+	typedef
+	brigand::at<
+		typename
+		sge::sprite::detail::vf::texpos<
 			Choices
 		>::type,
 		Level
-	>::type vertex_texpos;
+	>
+	vertex_texpos;
 
 	(*_iterator++). template set<
 		vertex_texpos

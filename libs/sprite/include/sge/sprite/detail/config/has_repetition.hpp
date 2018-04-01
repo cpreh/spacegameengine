@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/texture_coordinates.hpp>
 #include <sge/sprite/detail/config/find_with_texture.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,7 +42,8 @@ template<
 >
 using has_repetition
 =
-boost::mpl::bool_<
+std::integral_constant<
+	bool,
 	sge::sprite::detail::config::find_with_texture<
 		Choices
 	>::coordinates::value

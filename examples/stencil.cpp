@@ -131,7 +131,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
 #include <brigand/sequences/list.hpp>
 #include <example_main.hpp>
 #include <exception>
@@ -240,7 +239,7 @@ try
 		sge::sprite::config::normal_size<
 			sge::sprite::config::texture_size_option::always
 		>,
-		boost::mpl::vector1<
+		brigand::list<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
 					1u

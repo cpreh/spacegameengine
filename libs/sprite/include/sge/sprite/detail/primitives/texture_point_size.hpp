@@ -28,10 +28,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/texture_point_size.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/equal_to.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/size.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/sequences/list.hpp>
+#include <brigand/sequences/size.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -62,7 +62,7 @@ struct texture_point_size<
 >
 {
 	typedef
-	boost::mpl::vector0<>
+	brigand::list<>
 	type;
 };
 
@@ -83,40 +83,36 @@ private:
 	template<
 		typename Level
 	>
-	struct make_role
-	{
-		typedef
-		fcppt::record::element<
-			sge::sprite::roles::texture_point_size<
-				Level::value
-			>,
+	using
+	make_role
+	=
+	fcppt::record::element<
+		sge::sprite::roles::texture_point_size<
+			Level::value
+		>,
+		sge::sprite::types::texture_point_size<
 			typename
-			sge::sprite::types::texture_point_size<
-				typename
-				Choices::type_choices
-			>::type
+			Choices::type_choices
 		>
-		type;
-	};
+	>;
 
 	static_assert(
-		boost::mpl::equal_to<
-			typename boost::mpl::size<
-				AttributeNames
-			>::type,
-			Levels
-		>::value,
+		brigand::size<
+			AttributeNames
+		>::value
+		==
+		Levels,
 		"The number of attribute names must match the number of texture levels"
 	);
 public:
 	typedef
-	typename
 	sge::sprite::detail::transform_texture_levels_static<
-		make_role<
-			boost::mpl::_1
+		brigand::bind<
+			make_role,
+			brigand::_1
 		>,
 		Levels
-	>::type
+	>
 	type;
 };
 

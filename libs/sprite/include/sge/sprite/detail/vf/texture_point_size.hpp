@@ -27,8 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/config/find_with_texture_point_size.hpp>
 #include <sge/sprite/detail/config/texture_levels.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/at.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/sequences/at.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -47,39 +48,53 @@ template<
 struct texture_point_size
 {
 private:
-	typedef typename sge::sprite::detail::config::texture_levels<
+	typedef
+	typename
+	sge::sprite::detail::config::texture_levels<
 		Choices
-	>::type texture_levels;
+	>::type
+	texture_levels;
 
-	typedef typename sge::sprite::detail::config::find_with_texture_point_size<
+	typedef
+	typename
+	sge::sprite::detail::config::find_with_texture_point_size<
 		Choices
-	>::type with_texture_point_size;
+	>::type
+	with_texture_point_size;
 
-	typedef typename with_texture_point_size::point_size point_size;
+	typedef
+	typename
+	with_texture_point_size::point_size
+	point_size;
 
 	template<
 		typename Level
 	>
-	struct make_size
-	{
-		typedef sge::renderer::vf::extra<
-			sge::renderer::vf::vector<
-				typename Choices::type_choices::float_type,
-				1
-			>,
-			typename boost::mpl::at<
-				typename point_size::attribute_indices,
-				Level
-			>::type
-		> type;
-	};
+	using
+	make_size
+	=
+	sge::renderer::vf::extra<
+		sge::renderer::vf::vector<
+			typename
+			Choices::type_choices::float_type,
+			1
+		>,
+		brigand::at<
+			typename
+			point_size::attribute_indices,
+			Level
+		>
+	>;
 public:
-	typedef typename sge::sprite::detail::transform_texture_levels_static<
-		make_size<
-			boost::mpl::_1
+	typedef
+	sge::sprite::detail::transform_texture_levels_static<
+		brigand::bind<
+			make_size,
+			brigand::_1
 		>,
 		texture_levels
-	>::type type;
+	>
+	type;
 };
 
 }

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -36,18 +36,22 @@ namespace compare
 
 struct nothing
 {
-	typedef bool result_type;
+	typedef
+	bool
+	result_type;
 
 	template<
 		typename Choices
 	>
-	using is_trivial
+	using
+	is_trivial
 	=
-	boost::mpl::true_;
+	std::true_type;
 
 	template<
 		typename Choices
 	>
+	inline
 	result_type
 	operator()(
 		sge::sprite::object<
@@ -58,7 +62,8 @@ struct nothing
 		> const &
 	) const
 	{
-		return false;
+		return
+			false;
 	}
 };
 

@@ -22,19 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_STATE_DETAIL_OPTIONS_CLASS_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/state/detail/options_class_element.hpp>
-#include <fcppt/mpl/append.hpp>
-#include <fcppt/mpl/to_brigand.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/copy_if.hpp>
-#include <boost/mpl/not.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
+#include <brigand/algorithms/remove.hpp>
+#include <brigand/algorithms/transform.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/functions/logical/and.hpp>
+#include <brigand/functions/logical/not.hpp>
+#include <brigand/sequences/append.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -53,65 +50,59 @@ template<
 struct options_class_impl
 {
 private:
-	FCPPT_PP_PUSH_WARNING
-	FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 	template<
 		typename Type
 	>
-	struct has_option
-	:
-	boost::mpl::and_<
-		boost::mpl::not_<
+	using
+	has_option
+	=
+	brigand::and_<
+		brigand::not_<
 			typename
 			Type::persistent
 		>,
 		typename
 		Type::has_parameter
-	>
-	{
-	};
-
-	FCPPT_PP_POP_WARNING
+	>;
 
 	template<
 		typename Type
 	>
-	struct option_class_element
-	{
-		typedef
-		fcppt::record::element<
-			typename
-			Type::option_role,
-			typename
-			Type::optional_extra_option
-		>
-		type;
-	};
+	using
+	option_class_element
+	=
+	fcppt::record::element<
+		typename
+		Type::option_role,
+		typename
+		Type::optional_extra_option
+	>;
 public:
 	typedef
 	fcppt::record::object<
-		fcppt::mpl::to_brigand<
-			typename
-			fcppt::mpl::append<
-				typename boost::mpl::transform<
-					typename boost::mpl::copy_if<
-						typename StateChoices::optional_elements,
-						has_option<
-							boost::mpl::_1
-						>
-					>::type,
-					option_class_element<
-						boost::mpl::_1
+		brigand::append<
+			brigand::transform<
+				brigand::filter<
+					typename
+					StateChoices::optional_elements,
+					brigand::bind<
+						has_option,
+						brigand::_1
 					>
-				>::type,
-				typename boost::mpl::transform<
-					typename StateChoices::optional_elements,
-					sge::sprite::state::detail::options_class_element<
-						boost::mpl::_1
-					>
-				>::type
-			>::type
+				>,
+				brigand::bind<
+					option_class_element,
+					brigand::_1
+				>
+			>,
+			brigand::transform<
+				typename
+				StateChoices::optional_elements,
+				brigand::bind<
+					sge::sprite::state::detail::options_class_element,
+					brigand::_1
+				>
+			>
 		>
 	>
 	type;

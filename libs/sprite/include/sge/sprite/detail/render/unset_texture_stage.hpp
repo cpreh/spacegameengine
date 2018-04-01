@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/tag_type.hpp>
 
 
 namespace sge
@@ -64,7 +65,9 @@ public:
 		render_context_.texture(
 			renderer::texture::const_optional_base_ref(),
 			sge::renderer::texture::stage(
-				Level::value
+				fcppt::tag_type<
+					Level
+				>::value
 			)
 		);
 	}

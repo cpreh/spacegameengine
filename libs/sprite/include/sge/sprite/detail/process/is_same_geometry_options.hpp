@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/process/geometry_options_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,7 +42,8 @@ template<
 >
 using is_same_geometry_options
 =
-boost::mpl::bool_<
+std::integral_constant<
+	bool,
 	Options1
 	==
 	Options2

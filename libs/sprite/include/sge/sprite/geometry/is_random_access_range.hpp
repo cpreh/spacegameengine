@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -37,15 +37,12 @@ namespace sprite
 namespace geometry
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename T
 >
 struct is_random_access_range
 :
-boost::mpl::false_
+std::false_type
 {
 };
 
@@ -58,11 +55,9 @@ struct is_random_access_range<
 	>
 >
 :
-boost::mpl::true_
+std::true_type
 {
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }

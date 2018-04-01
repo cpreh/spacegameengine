@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/compare/textures.hpp>
 #include <sge/sprite/detail/config/has_texture.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/not.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <brigand/functions/logical/not.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -40,14 +40,17 @@ namespace compare
 
 struct default_
 {
-	typedef bool result_type;
+	typedef
+	bool
+	result_type;
 
 	template<
 		typename Choices
 	>
-	using is_trivial
+	using
+	is_trivial
 	=
-	boost::mpl::not_<
+	brigand::not_<
 		sge::sprite::detail::config::has_texture<
 			Choices
 		>
@@ -56,12 +59,13 @@ struct default_
 	template<
 		typename Choices
 	>
-	typename boost::enable_if<
+	inline
+	std::enable_if_t<
 		sge::sprite::detail::config::has_texture<
 			Choices
-		>,
+		>::value,
 		result_type
-	>::type
+	>
 	operator()(
 		sge::sprite::object<
 			Choices
@@ -81,12 +85,14 @@ struct default_
 	template<
 		typename Choices
 	>
-	typename boost::disable_if<
+	inline
+	std::enable_if_t<
+		not
 		sge::sprite::detail::config::has_texture<
 			Choices
-		>,
+		>::value,
 		result_type
-	>::type
+	>
 	operator()(
 		sge::sprite::object<
 			Choices

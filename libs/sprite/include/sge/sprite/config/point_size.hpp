@@ -25,12 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/size_choice.hpp>
 #include <sge/sprite/roles/point_size.hpp>
 #include <sge/sprite/types/point_size.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -41,9 +38,6 @@ namespace sprite
 namespace config
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename Index
 >
@@ -52,7 +46,9 @@ struct point_size
 	sge::sprite::config::size_choice
 {
 public:
-	typedef Index attribute_index;
+	typedef
+	Index
+	attribute_index;
 
 	template<
 		typename Choices
@@ -60,7 +56,7 @@ public:
 	struct apply
 	{
 		typedef
-		boost::mpl::vector1<
+		brigand::list<
 			fcppt::record::element<
 				sge::sprite::roles::point_size,
 				sge::sprite::types::point_size<
@@ -72,8 +68,6 @@ public:
 		type;
 	};
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }

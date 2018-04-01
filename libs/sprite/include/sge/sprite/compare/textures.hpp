@@ -26,8 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/config/has_texture.hpp>
 #include <sge/sprite/detail/config/texture_levels.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -43,23 +42,25 @@ struct textures
 	template<
 		typename Choices
 	>
-	struct is_trivial
-	:
-	boost::mpl::false_
-	{
-	};
+	using
+	is_trivial
+	=
+	std::false_type;
 
-	typedef bool result_type;
+	typedef
+	bool
+	result_type;
 
 	template<
 		typename Choices
 	>
-	typename boost::enable_if<
+	inline
+	std::enable_if_t<
 		sge::sprite::detail::config::has_texture<
 			Choices
-		>,
+		>::value,
 		result_type
-	>::type
+	>
 	operator()(
 		sge::sprite::object<
 			Choices

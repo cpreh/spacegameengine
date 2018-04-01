@@ -27,7 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/texture_point_pos.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/sequences/list.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -60,7 +62,7 @@ struct texture_point_pos<
 >
 {
 	typedef
-	boost::mpl::vector0<>
+	brigand::list<>
 	type;
 };
 
@@ -80,30 +82,26 @@ private:
 	template<
 		typename Level
 	>
-	struct make_role
-	{
-		typedef
-		fcppt::record::element<
-			sge::sprite::roles::texture_point_pos<
-				Level::value
-			>,
-			typename
-			sge::sprite::types::texture_point_pos<
-				typename
-				Choices::type_choices
-			>::type
+	using
+	make_role
+	=
+	fcppt::record::element<
+		sge::sprite::roles::texture_point_pos<
+			Level::value
+		>,
+		sge::sprite::types::texture_point_pos<
+			Choices::type_choices
 		>
-		type;
-	};
+	>;
 public:
 	typedef
-	typename
 	sge::sprite::detail::transform_texture_levels_static<
-		make_role<
-			boost::mpl::_1
+		brigand::bind<
+			make_role,
+			brigand::_1
 		>,
 		Levels
-	>::type
+	>
 	type;
 };
 

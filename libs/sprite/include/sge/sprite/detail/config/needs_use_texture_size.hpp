@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/detail/config/has_normal_size.hpp>
 #include <sge/sprite/detail/config/has_texture.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <brigand/functions/logical/and.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -39,7 +42,7 @@ template<
 >
 using needs_use_texture_size
 =
-boost::mpl::and_<
+brigand::and_<
 	sge::sprite::detail::config::has_normal_size<
 		Choices
 	>,

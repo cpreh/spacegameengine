@@ -25,11 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/config/has_custom_texture_point_size.hpp>
 #include <sge/sprite/detail/vf/texture_point_pos.hpp>
 #include <sge/sprite/detail/vf/texture_point_size.hpp>
-#include <fcppt/mpl/append.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/functions/eval_if.hpp>
+#include <brigand/functions/arithmetic/identity.hpp>
+#include <brigand/functions/lambda/apply.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/sequences/back.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -53,52 +55,71 @@ private:
 	>
 	struct make_vector
 	{
-		typedef boost::mpl::vector1<
-			typename Type::type
-		> type;
+		typedef
+		brigand::list<
+			typename
+			Type::type
+		>
+		type;
 	};
 
-	typedef typename boost::mpl::eval_if<
+	typedef
+	typename
+	brigand::eval_if<
 		sge::sprite::detail::config::has_custom_texture_point_pos<
 			Choices
 		>,
-		make_vector<
-			sge::sprite::detail::vf::texture_point_pos<
-				Choices
+		brigand::apply<
+			brigand::bind<
+				make_vector,
+				brigand::pin<
+					sge::sprite::detail::vf::texture_point_pos<
+						Choices
+					>
+				>
 			>
 		>,
-		boost::mpl::identity<
-			boost::mpl::vector0<>
+		brigand::identity<
+			brigand::list<>
 		>
-	>::type vec1;
+	>::type
+	vec1;
 
 	template<
 		typename Type
 	>
-	struct append_size
-	:
-	fcppt::mpl::append<
+	using
+	append_size
+	=
+	brigand::push_back<
 		vec1,
-		boost::mpl::vector1<
-			typename Type::type
+		brigand::list<
+			typename
+			Type::type
 		>
-	>
-	{
-	};
+	>;
 public:
-	typedef typename boost::mpl::eval_if<
+	typedef
+	typename
+	brigand::eval_if<
 		sge::sprite::detail::config::has_custom_texture_point_size<
 			Choices
 		>,
-		append_size<
-			sge::sprite::detail::vf::texture_point_size<
-				Choices
+		brigand::apply<
+			brigand::bind<
+				append_size,
+				brigand::pin<
+					sge::sprite::detail::vf::texture_point_size<
+						Choices
+					>
+				>
 			>
 		>,
-		boost::mpl::identity<
+		brigand::identity<
 			vec1
 		>
-	>::type type;
+	>::type
+	type;
 };
 
 }

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/is_with_texture_point_size.hpp>
 #include <sge/sprite/detail/config/find_if.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/deref.hpp>
+#include <brigand/sequences/front.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -40,15 +40,16 @@ namespace config
 template<
 	typename Choices
 >
-using find_with_texture_point_size
+using
+find_with_texture_point_size
 =
-typename
-boost::mpl::deref<
+brigand::front<
 	sge::sprite::detail::config::find_if<
-		typename Choices::optional_elements,
+		typename
+		Choices::optional_elements,
 		sge::sprite::config::is_with_texture_point_size
 	>
->::type;
+>;
 
 }
 }

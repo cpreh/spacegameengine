@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/config/no_texture_point_size_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -36,7 +36,9 @@ namespace config
 
 struct no_texture_point_size
 {
-	typedef boost::mpl::true_ is_texture_point_size;
+	typedef
+	std::true_type
+	is_texture_point_size;
 };
 
 }

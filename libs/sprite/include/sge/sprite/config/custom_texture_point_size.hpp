@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_CONFIG_CUSTOM_TEXTURE_POINT_SIZE_HPP_INCLUDED
 
 #include <sge/sprite/config/custom_texture_point_size_fwd.hpp>
+#include <fcppt/type_traits/is_brigand_sequence.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
-#include <boost/mpl/is_sequence.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -40,16 +40,20 @@ template<
 >
 struct custom_texture_point_size
 {
-	typedef boost::mpl::true_ is_texture_point_size;
+	typedef
+	std::true_type
+	is_texture_point_size;
 
 	static_assert(
-		boost::mpl::is_sequence<
+		fcppt::type_traits::is_brigand_sequence<
 			AttributeNames
 		>::value,
 		"AttributeNames must be an mpl sequence"
 	);
 
-	typedef AttributeNames attribute_indices;
+	typedef
+	AttributeNames
+	attribute_indices;
 };
 
 }

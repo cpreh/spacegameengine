@@ -21,14 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_DETAIL_OBJECT_CLASS_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_STATE_DETAIL_OBJECT_CLASS_IMPL_HPP_INCLUDED
 
-#include <fcppt/mpl/to_brigand.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
+#include <brigand/algorithms/transform.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/types/args.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -50,37 +50,32 @@ private:
 	template<
 		typename Type
 	>
-	struct object_class_element
-	{
-		typedef
-		fcppt::record::element<
+	using
+	object_class_element
+	=
+	fcppt::record::element<
+		typename
+		Type::role,
+		std::conditional_t<
+			Type::persistent::value,
 			typename
-			Type::role,
-			typename
-			boost::mpl::if_<
+			Type::state_type,
+			fcppt::optional::object<
 				typename
-				Type::persistent,
-				typename
-				Type::state_type,
-				fcppt::optional::object<
-					typename
-					Type::state_type
-				>
-			>::type
-		> type;
-	};
+				Type::state_type
+			>
+		>
+	>;
 public:
 	typedef
 	fcppt::record::object<
-		fcppt::mpl::to_brigand<
+		brigand::transform<
 			typename
-			boost::mpl::transform<
-				typename
-				StateChoices::optional_elements,
-				object_class_element<
-					boost::mpl::_1
-				>
-			>::type
+			StateChoices::optional_elements,
+			brigand::bind<
+				object_class_element,
+				brigand::_1
+			>
 		>
 	>
 	type;

@@ -24,8 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/config/is_intrusive.hpp>
 #include <sge/sprite/intrusive/detail/object_base_hook.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/empty_base.hpp>
-#include <boost/mpl/if.hpp>
+#include <brigand/types/empty_base.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -41,14 +41,13 @@ template<
 >
 using object_base
 =
-typename
-boost::mpl::if_<
+std::conditional_t<
 	sge::sprite::detail::config::is_intrusive<
 		Choices
-	>,
+	>::value,
 	sge::sprite::intrusive::detail::object_base_hook,
-	boost::mpl::empty_base
->::type;
+	brigand::empty_base
+>;
 
 }
 }

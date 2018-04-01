@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/object_impl.hpp>
 #include <sge/sprite/state/options_impl.hpp>
 #include <sge/sprite/state/detail/set_one.hpp>
-#include <fcppt/mpl/for_each.hpp>
+#include <fcppt/algorithm/loop.hpp>
+#include <fcppt/algorithm/loop_break_brigand.hpp>
 
 
 namespace sge
@@ -51,9 +52,9 @@ set(
 	> &_states
 )
 {
-	fcppt::mpl::for_each<
-		typename StateChoices::optional_elements
-	>(
+	fcppt::algorithm::loop(
+		typename
+		StateChoices::optional_elements{},
 		sge::sprite::state::detail::set_one<
 			StateChoices
 		>(

@@ -21,10 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_CONFIG_FIND_IF_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_CONFIG_FIND_IF_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/find_if.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/sprite/detail/config/find_if_impl.hpp>
 
 
 namespace sge
@@ -42,14 +39,14 @@ template<
 		typename
 	> class Predicate
 >
-using find_if
+using
+find_if
 =
-boost::mpl::find_if<
+typename
+sge::sprite::detail::config::find_if_impl<
 	Elements,
-	Predicate<
-		boost::mpl::_1
-	>
->;
+	Predicate
+>::type;
 
 }
 }

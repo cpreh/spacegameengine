@@ -21,16 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
 
-#include <sge/sprite/detail/application.hpp>
-#include <fcppt/mpl/flatten.hpp>
-#include <fcppt/mpl/to_brigand.hpp>
+#include <sge/sprite/detail/apply_choices.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/apply.hpp>
-#include <boost/mpl/joint_view.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/algorithms/flatten.hpp>
+#include <brigand/sequences/append.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -47,35 +43,21 @@ template<
 using make_class
 =
 fcppt::record::object<
-	fcppt::mpl::to_brigand<
-		fcppt::mpl::flatten<
-			typename
-			boost::mpl::joint_view<
+	brigand::flatten<
+		typename
+		sge::sprite::detail::apply_choices<
+			Choices,
+			brigand::append<
 				typename
-				boost::mpl::transform<
+				Choices::optional_elements,
+				brigand::list<
 					typename
-					Choices::optional_elements,
-					sge::sprite::detail::application<
-						boost::mpl::_1,
-						Choices
-					>
-				>::type,
-				boost::mpl::vector2<
+					Choices::pos_choice,
 					typename
-					boost::mpl::apply<
-						typename
-						Choices::pos_choice,
-						Choices
-					>::type,
-					typename
-					boost::mpl::apply<
-						typename
-						Choices::size_choice,
-						Choices
-					>::type
+					Choices::size_choice
 				>
-			>::type
-		>
+			>
+		>::type
 	>
 >;
 

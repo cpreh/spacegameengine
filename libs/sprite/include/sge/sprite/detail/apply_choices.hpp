@@ -18,14 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_SPRITE_DETAIL_APPLICATION_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_APPLICATION_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_APPLY_CHOICES_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_APPLY_CHOICES_HPP_INCLUDED
 
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/apply.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -36,24 +33,33 @@ namespace sprite
 namespace detail
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-// TODO: why do we need this?
 template<
-	typename F,
-	typename T1
+	typename Choices,
+	typename Functions
 >
-struct application
-:
-boost::mpl::apply<
-	F,
-	T1
+struct apply_choices;
+
+// TODO: Can we do this in a better way?
+template<
+	typename Choices,
+	typename... Functions
+>
+struct apply_choices<
+	Choices,
+	brigand::list<
+		Functions...
+	>
 >
 {
+	typedef
+	brigand::list<
+		typename
+		Functions :: template apply<
+			Choices
+		>::type ...
+	>
+	type;
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }

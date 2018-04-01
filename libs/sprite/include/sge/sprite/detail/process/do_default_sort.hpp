@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/detail/config/has_texture_levels.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/not.hpp>
+#include <brigand/functions/logical/and.hpp>
+#include <brigand/functions/logical/not.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -43,11 +43,11 @@ template<
 >
 using do_default_sort
 =
-boost::mpl::and_<
+brigand::and_<
 	sge::sprite::detail::config::has_texture_levels<
 		Choices
 	>,
-	boost::mpl::not_<
+	brigand::not_<
 		typename Compare:: template is_trivial<
 			Choices
 		>::type

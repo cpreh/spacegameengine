@@ -30,10 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/geometry/detail/fill_position_unrotated.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/not.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <cmath>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -51,18 +49,16 @@ template<
 	typename Choices
 >
 inline
-typename
-boost::enable_if<
-	boost::mpl::and_<
-		sge::sprite::detail::config::has_rotation<
-			Choices
-		>,
-		sge::sprite::detail::config::has_normal_size<
-			Choices
-		>
-	>,
+std::enable_if_t<
+	sge::sprite::detail::config::has_rotation<
+		Choices
+	>::value
+	&&
+	sge::sprite::detail::config::has_normal_size<
+		Choices
+	>::value,
 	void
->::type
+>
 fill_position(
 	Iterator const _iterator,
 	sge::sprite::object<
@@ -100,20 +96,17 @@ template<
 	typename Choices
 >
 inline
-typename
-boost::enable_if<
-	boost::mpl::and_<
-		boost::mpl::not_<
-			sge::sprite::detail::config::has_rotation<
-				Choices
-			>
-		>,
-		sge::sprite::detail::config::has_normal_size<
-			Choices
-		>
-	>,
+std::enable_if_t<
+	not
+	sge::sprite::detail::config::has_rotation<
+		Choices
+	>::value
+	&&
+	sge::sprite::detail::config::has_normal_size<
+		Choices
+	>::value,
 	void
->::type
+>
 fill_position(
 	Iterator const _iterator,
 	sge::sprite::object<
@@ -132,12 +125,11 @@ template<
 	typename Choices
 >
 inline
-typename
-boost::enable_if<
+std::enable_if_t<
 	sge::sprite::detail::config::has_point_size<
 		Choices
-	>
->::type
+	>::value
+>
 fill_position(
 	Iterator const _iterator,
 	sge::sprite::object<

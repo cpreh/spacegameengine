@@ -29,8 +29,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/primitives/texture_point_pos.hpp>
 #include <sge/sprite/detail/primitives/texture_point_size.hpp>
 #include <sge/sprite/detail/primitives/texture_ptr.hpp>
-#include <fcppt/mpl/append.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <brigand/sequences/append.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -90,16 +90,14 @@ struct with_texture_point_size<
 	struct apply
 	{
 		typedef
-		typename
-		fcppt::mpl::append<
+		brigand::append<
 			typename
 			sge::sprite::detail::primitives::texture_ptr<
 				Choices,
 				texture_levels,
 				ownership::value
 			>::type,
-			typename
-			fcppt::mpl::append<
+			brigand::append<
 				typename
 				sge::sprite::detail::primitives::texture_point_pos<
 					Choices,
@@ -112,8 +110,8 @@ struct with_texture_point_size<
 					texture_levels,
 					point_size
 				>::type
-			>::type
-		>::type
+			>
+		>
 		type;
 	};
 };

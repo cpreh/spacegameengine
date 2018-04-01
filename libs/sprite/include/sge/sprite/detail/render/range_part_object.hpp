@@ -35,19 +35,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
 #include <sge/sprite/render/texture_ref.hpp>
-#include <fcppt/mpl/append.hpp>
-#include <fcppt/mpl/flatten.hpp>
-#include <fcppt/mpl/to_brigand.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/algorithms/flatten.hpp>
+#include <brigand/functions/eval_if.hpp>
+#include <brigand/functions/arithmetic/identity.hpp>
+#include <brigand/functions/lambda/apply.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/sequences/append.hpp>
+#include <brigand/sequences/list.hpp>
+#include <brigand/types/args.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -66,104 +65,119 @@ template<
 struct range_part_object
 {
 private:
-	typedef fcppt::record::element<
+	typedef
+	fcppt::record::element<
 		sge::sprite::buffers::roles::first_vertex,
 		sge::renderer::vertex::first
-	> first_vertex_role;
+	>
+	first_vertex_role;
 
-	typedef fcppt::record::element<
+	typedef
+	fcppt::record::element<
 		sge::sprite::buffers::roles::first_index,
 		sge::renderer::index::first
-	> first_index_role;
+	>
+	first_index_role;
 
-	typedef fcppt::record::element<
+	typedef
+	fcppt::record::element<
 		sge::sprite::detail::roles::vertex_count,
 		sge::renderer::vertex::count
-	> vertex_count_role;
+	>
+	vertex_count_role;
 
-	typedef fcppt::record::element<
+	typedef
+	fcppt::record::element<
 		sge::sprite::detail::roles::index_count,
 		sge::renderer::index::count
-	> index_count_role;
+	>
+	index_count_role;
 
-	typedef boost::mpl::vector2<
+	typedef
+	brigand::list<
 		first_vertex_role,
 		vertex_count_role
-	> base_types;
+	>
+	base_types;
 
-	typedef typename fcppt::mpl::append<
+	typedef
+	brigand::append<
 		base_types,
-		boost::mpl::vector2<
+		brigand::list<
 			first_index_role,
 			index_count_role
 		>
-	>::type indexed_types;
+	>
+	indexed_types;
 
-	typedef typename boost::mpl::if_<
+	typedef
+	std::conditional_t<
 		sge::sprite::detail::config::needs_index_buffer<
 			Choices
-		>,
+		>::value,
 		indexed_types,
 		base_types
-	>::type geometry_types;
+	>
+	geometry_types;
 
 	template<
 		typename Level
 	>
-	struct make_texture_role
-	{
-		typedef fcppt::record::element<
-			sge::sprite::detail::roles::texture<
-				Level::value
-			>,
-			sge::sprite::render::texture_ref
-		> type;
-	};
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+	using
+	make_texture_role
+	=
+	fcppt::record::element<
+		sge::sprite::detail::roles::texture<
+			Level::value
+		>,
+		sge::sprite::render::texture_ref
+	>;
 
 	template<
 		typename GeometryTypes
 	>
 	struct make_textures
-	:
-	fcppt::mpl::append<
-		boost::mpl::vector1<
-			GeometryTypes
-		>,
-		typename sge::sprite::detail::transform_texture_levels_static<
-			make_texture_role<
-				boost::mpl::_1
-			>,
-			typename sge::sprite::detail::config::texture_levels<
-				Choices
-			>::type
-		>::type
-	>
 	{
+		typedef
+		brigand::append<
+			brigand::list<
+				GeometryTypes
+			>,
+			sge::sprite::detail::transform_texture_levels_static<
+				brigand::bind<
+					make_texture_role,
+					brigand::_1
+				>,
+				typename
+				sge::sprite::detail::config::texture_levels<
+					Choices
+				>::type
+			>
+		>
+		type;
 	};
-
-FCPPT_PP_POP_WARNING
 
 public:
 	typedef
 	fcppt::record::object<
-		fcppt::mpl::to_brigand<
-			fcppt::mpl::flatten<
-				typename
-				boost::mpl::eval_if<
-					sge::sprite::detail::config::has_texture_levels<
-						Choices
-					>,
-					make_textures<
-						geometry_types
-					>,
-					boost::mpl::identity<
-						geometry_types
+		brigand::flatten<
+			typename
+			brigand::eval_if<
+				sge::sprite::detail::config::has_texture_levels<
+					Choices
+				>,
+				brigand::apply<
+					brigand::bind<
+						make_textures,
+						brigand::pin<
+							geometry_types
+						>
 					>
-				>::type
-			>
+				>,
+				brigand::identity<
+					geometry_types
+				>
+			>::type
 		>
 	>
 	type;

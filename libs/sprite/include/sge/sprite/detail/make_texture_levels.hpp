@@ -23,10 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/texture_level.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/back_inserter.hpp>
-#include <boost/mpl/copy.hpp>
-#include <boost/mpl/range_c.hpp>
-#include <boost/mpl/vector_c.hpp>
+#include <brigand/sequences/range.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,19 +39,11 @@ template<
 >
 using make_texture_levels
 =
-typename
-boost::mpl::copy<
-	boost::mpl::range_c<
-		sge::sprite::texture_level,
-		0u,
-		Levels::value
-	>,
-	boost::mpl::back_inserter<
-		boost::mpl::vector_c<
-			sge::sprite::texture_level
-		>
-	>
->::type;
+brigand::range<
+	sge::sprite::texture_level,
+	0u,
+	Levels::value
+>;
 
 }
 }

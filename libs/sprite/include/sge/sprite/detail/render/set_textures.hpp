@@ -31,10 +31,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/config/texture_levels.hpp>
 #include <sge/sprite/render/range_part_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
+#include <fcppt/tag_type.hpp>
 #include <fcppt/use.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -80,12 +80,11 @@ set_textures(
 			);
 
 			typedef
-			typename
-			std::decay<
+			fcppt::tag_type<
 				decltype(
 					_level
 				)
-			>::type
+			>
 			cur_level;
 
 			_render_context.texture(

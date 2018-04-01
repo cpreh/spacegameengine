@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/config/has_texture.hpp>
 #include <sge/sprite/detail/config/has_texture_point_size.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/or.hpp>
+#include <brigand/functions/logical/or.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,7 +42,7 @@ template<
 >
 using has_texture_levels
 =
-boost::mpl::or_<
+brigand::or_<
 	sge::sprite::detail::config::has_texture<
 		Choices
 	>,

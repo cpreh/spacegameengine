@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/state/choices.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -36,7 +36,7 @@ namespace state
 
 typedef
 sge::sprite::state::choices<
-	boost::mpl::vector0<>
+	brigand::list<>
 >
 no_choices;
 

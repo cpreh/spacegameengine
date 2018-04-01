@@ -32,10 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/area_texc.hpp>
 #include <sge/texture/part.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/not.hpp>
-#include <boost/mpl/or.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -54,17 +51,16 @@ template<
 	typename Choices
 >
 inline
-typename boost::enable_if<
-	boost::mpl::and_<
-		sge::sprite::detail::config::has_texture_coordinates<
-			Choices
-		>,
-		sge::sprite::detail::config::has_normal_size<
-			Choices
-		>
-	>,
+std::enable_if_t<
+	sge::sprite::detail::config::has_texture_coordinates<
+		Choices
+	>::value
+	&&
+	sge::sprite::detail::config::has_normal_size<
+		Choices
+	>::value,
 	void
->::type
+>
 fill_texture_coordinates(
 	Iterator const &_iterator,
 	sge::sprite::object<
@@ -90,17 +86,16 @@ template<
 	typename Choices
 >
 inline
-typename boost::enable_if<
-	boost::mpl::and_<
-		sge::sprite::detail::config::has_repetition<
-			Choices
-		>,
-		sge::sprite::detail::config::has_normal_size<
-			Choices
-		>
-	>,
+std::enable_if_t<
+	sge::sprite::detail::config::has_repetition<
+		Choices
+	>::value
+	&&
+	sge::sprite::detail::config::has_normal_size<
+		Choices
+	>::value,
 	void
->::type
+>
 fill_texture_coordinates(
 	Iterator const &_iterator,
 	sge::sprite::object<
@@ -133,24 +128,23 @@ template<
 	typename Choices
 >
 inline
-typename boost::enable_if<
-	boost::mpl::and_<
-		sge::sprite::detail::config::has_normal_size<
+std::enable_if_t<
+	sge::sprite::detail::config::has_normal_size<
+		Choices
+	>::value
+	&&
+	not
+	(
+		sge::sprite::detail::config::has_repetition<
 			Choices
-		>,
-		boost::mpl::not_<
-			boost::mpl::or_<
-				sge::sprite::detail::config::has_repetition<
-					Choices
-				>,
-				sge::sprite::detail::config::has_texture_coordinates<
-					Choices
-				>
-			>
-		>
-	>,
+		>::value
+		||
+		sge::sprite::detail::config::has_texture_coordinates<
+			Choices
+		>::value
+	),
 	void
->::type
+>
 fill_texture_coordinates(
 	Iterator const &_iterator,
 	sge::sprite::object<

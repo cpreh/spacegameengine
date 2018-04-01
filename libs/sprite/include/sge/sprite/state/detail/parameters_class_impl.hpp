@@ -21,17 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SPRITE_STATE_DETAIL_PARAMETERS_CLASS_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_STATE_DETAIL_PARAMETERS_CLASS_IMPL_HPP_INCLUDED
 
-#include <fcppt/mpl/to_brigand.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/copy_if.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/transform.hpp>
+#include <brigand/algorithms/remove.hpp>
+#include <brigand/algorithms/transform.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/functions/logical/and.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -50,54 +47,47 @@ template<
 struct parameters_class_impl
 {
 private:
-	FCPPT_PP_PUSH_WARNING
-	FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 	template<
 		typename Type
 	>
-	struct has_parameter
-	:
-	boost::mpl::and_<
+	using
+	has_parameter
+	=
+	brigand::and_<
 		typename
 		Type::persistent,
 		typename
 		Type::has_parameter
-	>
-	{
-	};
-
-	FCPPT_PP_POP_WARNING
+	>;
 
 	template<
 		typename Type
 	>
-	struct parameter_class_element
-	{
-		typedef
-		fcppt::record::element<
-			typename
-			Type::parameter_role,
-			typename
-			Type::optional_extra_parameters
-		>
-		type;
-	};
+	using
+	parameter_class_element
+	=
+	fcppt::record::element<
+		typename
+		Type::parameter_role,
+		typename
+		Type::optional_extra_parameters
+	>;
 public:
 	typedef
 	fcppt::record::object<
-		fcppt::mpl::to_brigand<
-			typename boost::mpl::transform<
-				typename boost::mpl::copy_if<
-					typename StateChoices::optional_elements,
-					has_parameter<
-						boost::mpl::_1
-					>
-				>::type,
-				parameter_class_element<
-					boost::mpl::_1
+		brigand::transform<
+			brigand::filter<
+				typename
+				StateChoices::optional_elements,
+				brigand::bind<
+					has_parameter,
+					brigand::_1
 				>
-			>::type
+			>,
+			brigand::bind<
+				parameter_class_element,
+				brigand::_1
+			>
 		>
 	>
 	type;

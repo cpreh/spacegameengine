@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/geometry/detail/count.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/integral_c.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -41,7 +41,7 @@ template<
 >
 using count_constant
 =
-boost::mpl::integral_c<
+std::integral_constant<
 	sge::sprite::geometry::detail::count,
 	Count
 >;

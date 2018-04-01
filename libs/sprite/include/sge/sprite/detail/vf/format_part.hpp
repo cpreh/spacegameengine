@@ -32,20 +32,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/vf/pos.hpp>
 #include <sge/sprite/detail/vf/texpos.hpp>
 #include <sge/sprite/detail/vf/texture_point.hpp>
-#include <fcppt/mpl/append.hpp>
-#include <fcppt/mpl/contains_if.hpp>
-#include <fcppt/mpl/inner.hpp>
-#include <fcppt/mpl/to_brigand.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/brigand/pair_first.hpp>
+#include <fcppt/brigand/pair_second.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/fold.hpp>
-#include <boost/mpl/identity.hpp>
-#include <boost/mpl/pair.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/algorithms/find.hpp>
+#include <brigand/algorithms/flatten.hpp>
+#include <brigand/algorithms/remove.hpp>
+#include <brigand/algorithms/transform.hpp>
+#include <brigand/functions/eval_if.hpp>
+#include <brigand/functions/arithmetic/identity.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/sequences/append.hpp>
+#include <brigand/sequences/list.hpp>
+#include <brigand/sequences/pair.hpp>
+#include <brigand/types/args.hpp>
+#include <brigand/types/no_such_type.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -64,59 +65,66 @@ template<
 struct format_part
 {
 private:
-	typedef boost::mpl::vector1<
-		typename sge::sprite::detail::vf::pos<
+	typedef
+	brigand::list<
+		typename
+		sge::sprite::detail::vf::pos<
 			Choices
 		>::type
-	> basic;
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
+	>
+	basic;
 
 	template<
 		typename Container
 	>
 	struct point_size_extra
-	:
-	fcppt::mpl::append<
-		basic,
-		boost::mpl::vector1<
-			typename sge::sprite::detail::vf::point_size<
-				Choices
-			>::type
+	{
+		typedef
+		brigand::append<
+			basic,
+			brigand::list<
+				typename
+				sge::sprite::detail::vf::point_size<
+					Choices
+				>::type
+			>
 		>
-	>
-	{
+		type;
 	};
 
-FCPPT_PP_POP_WARNING
-
-	template<
-		typename Type
-	>
-	struct make_vector
-	{
-		typedef boost::mpl::vector1<
-			typename Type::type
-		> type;
-	};
-
-	typedef typename boost::mpl::eval_if<
+	typedef
+	typename
+	brigand::eval_if<
 		sge::sprite::config::is_point_size<
 			typename Choices::size_choice
 		>,
 		point_size_extra<
 			basic
 		>,
-		boost::mpl::identity<
+		brigand::identity<
 			basic
 		>
-	>::type basic_with_size;
+	>::type
+	basic_with_size;
 
-	typedef boost::mpl::vector3<
-		boost::mpl::pair<
-			sge::sprite::config::is_with_color<
-				boost::mpl::_1
+	template<
+		typename Type
+	>
+	struct make_vector
+	{
+		typedef
+		brigand::list<
+			typename Type::type
+		>
+		type;
+	};
+
+	typedef
+	brigand::list<
+		brigand::pair<
+			brigand::bind<
+				sge::sprite::config::is_with_color,
+				brigand::_1
 			>,
 			make_vector<
 				sge::sprite::detail::vf::color<
@@ -124,49 +132,83 @@ FCPPT_PP_POP_WARNING
 				>
 			>
 		>,
-		boost::mpl::pair<
-			sge::sprite::config::is_with_texture<
-				boost::mpl::_1
+		brigand::pair<
+			brigand::bind<
+				sge::sprite::config::is_with_texture,
+				brigand::_1
 			>,
 			sge::sprite::detail::vf::texpos<
 				Choices
 			>
 		>,
-		boost::mpl::pair<
-			sge::sprite::config::is_with_texture_point_size<
-				boost::mpl::_1
+		brigand::pair<
+			brigand::bind<
+				sge::sprite::config::is_with_texture_point_size,
+				brigand::_1
 			>,
 			sge::sprite::detail::vf::texture_point<
 				Choices
 			>
 		>
-	> optional_primitives;
-public:
-	typedef sge::renderer::vf::part<
-		fcppt::mpl::to_brigand<
-			typename boost::mpl::fold<
-				optional_primitives,
-				basic_with_size,
-				boost::mpl::eval_if<
-					fcppt::mpl::contains_if<
-						typename Choices::optional_elements,
-						boost::mpl::first<
-							boost::mpl::_2
-						>
-					>,
-					fcppt::mpl::append<
-						boost::mpl::_1,
-						fcppt::mpl::inner<
-							boost::mpl::second<
-								boost::mpl::_2
-							>
-						>
-					>,
-					boost::mpl::_1
-				>
-			>::type
+	>
+	optional_primitives;
+
+	// TODO
+	template<
+		typename Pair
+	>
+	struct get_second
+	{
+		typedef
+		typename
+		fcppt::brigand::pair_second<
+			Pair
+		>::type
+		type;
+	};
+
+	template<
+		typename Pair
+	>
+	using
+	make_element
+	=
+	typename
+	brigand::eval_if<
+		brigand::found<
+			typename
+			Choices::optional_elements,
+			fcppt::brigand::pair_first<
+				Pair
+			>
+		>,
+		get_second<
+			Pair
+		>,
+		brigand::identity<
+			brigand::no_such_type_
 		>
-	> type;
+	>::type;
+public:
+	typedef
+	sge::renderer::vf::part<
+		brigand::append<
+			basic_with_size,
+			brigand::flatten<
+				brigand::remove<
+					brigand::transform<
+						optional_primitives,
+						brigand::bind<
+							make_element,
+							brigand::_1
+						>
+					>,
+					brigand::no_such_type_
+				>
+			>
+		>
+	>
+	type;
 };
 
 }

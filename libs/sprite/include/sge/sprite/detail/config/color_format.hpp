@@ -23,12 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/config/is_with_color.hpp>
 #include <sge/sprite/detail/config/find_if.hpp>
+#include <sge/sprite/detail/config/lazy_head.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/none_t.hpp>
-#include <boost/mpl/deref.hpp>
-#include <boost/mpl/end.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
+#include <brigand/functions/eval_if.hpp>
+#include <brigand/functions/arithmetic/identity.hpp>
+#include <brigand/sequences/list.hpp>
+#include <brigand/types/no_such_type.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -48,35 +48,40 @@ template<
 struct color_format
 {
 private:
-	typedef typename sge::sprite::detail::config::find_if<
-		typename Choices::optional_elements,
+	typedef
+	sge::sprite::detail::config::find_if<
+		typename
+		Choices::optional_elements,
 		sge::sprite::config::is_with_color
-	>::type iterator;
+	>
+	list;
 
 	template<
-		typename Iterator
+		typename Type
 	>
-	struct get_color_format
-	{
-		typedef typename boost::mpl::deref<
-			Iterator
-		>::type::color_format type;
-	};
+	using
+	get_color_format
+	=
+	typename
+	Type::color_format;
 public:
-	typedef typename boost::mpl::eval_if<
+	// TODO: Make a function for this
+	typedef
+	typename
+	brigand::eval_if<
 		std::is_same<
-			iterator,
-			typename boost::mpl::end<
-				typename Choices::optional_elements
-			>::type
+			list,
+			brigand::list<>
 		>,
-		boost::mpl::identity<
-			boost::none_t
+		brigand::identity<
+			brigand::no_such_type_
 		>,
-		get_color_format<
-			iterator
+		sge::sprite::detail::config::lazy_head<
+			get_color_format,
+			list
 		>
-	>::type type;
+	>::type
+	type;
 };
 
 }

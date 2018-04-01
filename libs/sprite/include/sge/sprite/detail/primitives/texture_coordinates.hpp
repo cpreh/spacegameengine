@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/texture_coordinates_fwd.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -49,28 +50,27 @@ private:
 	template<
 		typename Level
 	>
-	struct make_role
-	{
-		typedef
-		fcppt::record::element<
-			sge::sprite::roles::texture_coordinates<
-				Level::value
-			>,
-			sge::sprite::types::texture_coordinates<
-				typename Choices::type_choices
-			>
+	using
+	make_role
+	=
+	fcppt::record::element<
+		sge::sprite::roles::texture_coordinates<
+			Level::value
+		>,
+		sge::sprite::types::texture_coordinates<
+			typename
+			Choices::type_choices
 		>
-		type;
-	};
+	>;
 public:
 	typedef
-	typename
 	sge::sprite::detail::transform_texture_levels_static<
-		make_role<
-			boost::mpl::_1
+		brigand::bind<
+			make_role,
+			brigand::_1
 		>,
 		Levels
-	>::type
+	>
 	type;
 };
 

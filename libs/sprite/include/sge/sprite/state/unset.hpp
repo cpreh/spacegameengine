@@ -23,7 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/state/options_impl.hpp>
 #include <sge/sprite/state/detail/unset_one.hpp>
-#include <fcppt/mpl/for_each.hpp>
+#include <fcppt/algorithm/loop.hpp>
+#include <fcppt/algorithm/loop_break_brigand.hpp>
 
 
 namespace sge
@@ -45,9 +46,9 @@ unset(
 	> const &_options
 )
 {
-	fcppt::mpl::for_each<
-		typename StateChoices::optional_elements
-	>(
+	fcppt::algorithm::loop(
+		typename
+		StateChoices::optional_elements{},
 		sge::sprite::state::detail::unset_one<
 			StateChoices
 		>(

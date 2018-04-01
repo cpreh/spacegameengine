@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/with_rasterizer.hpp>
 #include <sge/sprite/state/with_transform.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -37,13 +37,15 @@ namespace sprite
 namespace state
 {
 
-typedef sge::sprite::state::choices<
-	boost::mpl::vector3<
+typedef
+sge::sprite::state::choices<
+	brigand::list<
 		sge::sprite::state::with_blend,
 		sge::sprite::state::with_rasterizer,
 		sge::sprite::state::with_transform
 	>
-> all_choices;
+>
+all_choices;
 
 }
 }

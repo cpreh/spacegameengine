@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/detail/config/find_texture_config.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/deref.hpp>
+#include <brigand/sequences/front.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -41,11 +41,15 @@ template<
 >
 struct texture_levels
 {
-	typedef typename boost::mpl::deref<
-		typename sge::sprite::detail::config::find_texture_config<
+	typedef
+	typename
+	brigand::front<
+		typename
+		sge::sprite::detail::config::find_texture_config<
 			Choices
 		>::type
-	>::type::texture_levels type;
+	>::texture_levels
+	type;
 };
 
 }

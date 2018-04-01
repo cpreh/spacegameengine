@@ -36,16 +36,14 @@ namespace detail
 template<
 	typename Type
 >
-struct options_class_element
-{
-	typedef
-	fcppt::record::element<
-		typename
-		Type::role,
-		bool
-	>
-	type;
-};
+using
+options_class_element
+=
+fcppt::record::element<
+	typename
+	Type::role,
+	bool
+>;
 
 }
 }

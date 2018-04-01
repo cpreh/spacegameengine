@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/config/custom_texture_point_pos_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -39,9 +39,12 @@ template<
 >
 struct custom_texture_point_pos
 {
-	typedef boost::mpl::bool_<
+	typedef
+	std::integral_constant<
+		bool,
 		CustomTexturePoint
-	> type;
+	>
+	type;
 };
 
 }

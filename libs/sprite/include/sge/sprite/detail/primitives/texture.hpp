@@ -26,7 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/primitives/texture_coordinates.hpp>
 #include <sge/sprite/detail/primitives/texture_ptr.hpp>
 #include <sge/sprite/detail/primitives/texture_repetition.hpp>
-#include <fcppt/mpl/append.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <brigand/sequences/append.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -59,8 +61,7 @@ struct texture<
 >
 {
 	typedef
-	typename
-	fcppt::mpl::append<
+	brigand::append<
 		typename sge::sprite::detail::primitives::texture_ptr<
 			Choices,
 			TextureLevels,
@@ -70,7 +71,7 @@ struct texture<
 			Choices,
 			TextureLevels
 		>::type
-	>::type
+	>
 	type;
 };
 
@@ -87,8 +88,7 @@ struct texture<
 >
 {
 	typedef
-	typename
-	fcppt::mpl::append<
+	brigand::append<
 		typename sge::sprite::detail::primitives::texture_ptr<
 			Choices,
 			TextureLevels,
@@ -97,7 +97,7 @@ struct texture<
 		typename sge::sprite::detail::primitives::texture_repetition<
 			Choices
 		>::type
-	>::type
+	>
 	type;
 };
 

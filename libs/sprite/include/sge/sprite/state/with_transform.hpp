@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/roles/projection_dim.hpp>
 #include <sge/sprite/state/roles/transform.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/bool.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -48,11 +48,11 @@ struct with_transform
 
 	typedef sge::sprite::state::roles::projection_dim option_role;
 
-	typedef boost::mpl::true_ needs_ffp;
+	typedef std::true_type needs_ffp;
 
-	typedef boost::mpl::false_ persistent;
+	typedef std::false_type persistent;
 
-	typedef boost::mpl::true_ has_parameter;
+	typedef std::true_type has_parameter;
 
 	typedef sge::renderer::state::ffp::transform::object_unique_ptr state_type;
 

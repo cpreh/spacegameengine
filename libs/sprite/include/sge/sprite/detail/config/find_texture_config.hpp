@@ -25,8 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/config/is_with_texture_point_size.hpp>
 #include <sge/sprite/detail/config/find_if.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/end.hpp>
-#include <boost/mpl/if.hpp>
+#include <brigand/sequences/list.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -46,28 +45,32 @@ template<
 struct find_texture_config
 {
 private:
-	typedef typename
+	typedef
 	sge::sprite::detail::config::find_if<
-		typename Choices::optional_elements,
+		typename
+		Choices::optional_elements,
 		sge::sprite::config::is_with_texture
-	>::type with_texture_iterator;
+	>
+	with_texture_list;
 
-	typedef typename
+	typedef
 	sge::sprite::detail::config::find_if<
-		typename Choices::optional_elements,
+		typename
+		Choices::optional_elements,
 		sge::sprite::config::is_with_texture_point_size
-	>::type with_texture_point_size_iterator;
+	>
+	with_texture_point_size_list;
 public:
-	typedef typename boost::mpl::if_<
+	typedef
+	std::conditional_t<
 		std::is_same<
-			with_texture_iterator,
-			typename boost::mpl::end<
-				typename Choices::optional_elements
-			>::type
-		>,
-		with_texture_point_size_iterator,
-		with_texture_iterator
-	>::type type;
+			with_texture_list,
+			brigand::list<>
+		>::value,
+		with_texture_point_size_list,
+		with_texture_list
+	>
+	type;
 };
 
 }

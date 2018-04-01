@@ -26,8 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/transform_texture_levels_static.hpp>
 #include <sge/sprite/detail/config/texture_levels.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <brigand/functions/lambda/bind.hpp>
+#include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -47,25 +49,30 @@ private:
 	template<
 		typename Level
 	>
-	struct make_pos
-	{
-		typedef sge::renderer::vf::texpos<
-			typename Choices::type_choices::float_type,
-			2,
-			sge::renderer::vf::index<
-				Level::value
-			>
-		> type;
-	};
+	using
+	make_pos
+	=
+	sge::renderer::vf::texpos<
+		typename
+		Choices::type_choices::float_type,
+		2,
+		sge::renderer::vf::index<
+			Level::value
+		>
+	>;
 public:
-	typedef typename sge::sprite::detail::transform_texture_levels_static<
-		make_pos<
-			boost::mpl::_1
+	typedef
+	sge::sprite::detail::transform_texture_levels_static<
+		brigand::bind<
+			make_pos,
+			brigand::_1
 		>,
-		typename sge::sprite::detail::config::texture_levels<
+		typename
+		sge::sprite::detail::config::texture_levels<
 			Choices
 		>::type
-	>::type type;
+	>
+	type;
 };
 
 }

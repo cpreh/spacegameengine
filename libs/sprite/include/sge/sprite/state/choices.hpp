@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_STATE_CHOICES_HPP_INCLUDED
 
 #include <sge/sprite/state/choices_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/is_sequence.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/type_traits/is_brigand_sequence.hpp>
 
 
 namespace sge
@@ -42,7 +40,7 @@ struct choices
 	typedef OptionalElements optional_elements;
 
 	static_assert(
-		boost::mpl::is_sequence<
+		fcppt::type_traits::is_brigand_sequence<
 			OptionalElements
 		>::value,
 		"OptionalElements must be an mpl sequence"

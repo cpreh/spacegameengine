@@ -22,9 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SPRITE_DETAIL_CONFIG_HAS_DEPTH_HPP_INCLUDED
 
 #include <sge/sprite/config/with_depth.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/contains.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/brigand/found_t.hpp>
 
 
 namespace sge
@@ -41,11 +39,11 @@ template<
 >
 using has_depth
 =
-typename
-boost::mpl::contains<
-	typename Choices::optional_elements,
+fcppt::brigand::found_t<
+	typename
+	Choices::optional_elements,
 	sge::sprite::config::with_depth
->::type;
+>;
 
 }
 }

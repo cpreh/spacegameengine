@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/rotation.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
+#include <brigand/sequences/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -45,7 +45,7 @@ struct with_rotation
 	struct apply
 	{
 		typedef
-		boost::mpl::vector1<
+		brigand::list<
 			fcppt::record::element<
 				sge::sprite::roles::rotation,
 				sge::sprite::types::rotation<
