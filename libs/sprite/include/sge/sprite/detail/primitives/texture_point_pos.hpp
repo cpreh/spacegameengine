@@ -42,6 +42,7 @@ namespace detail
 namespace primitives
 {
 
+// TODO: Add a test for this or remove.
 template<
 	typename Choices,
 	typename Levels,
@@ -90,6 +91,7 @@ private:
 			Level::value
 		>,
 		sge::sprite::types::texture_point_pos<
+			typename
 			Choices::type_choices
 		>
 	>;

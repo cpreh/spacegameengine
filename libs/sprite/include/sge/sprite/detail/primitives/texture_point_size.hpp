@@ -44,6 +44,7 @@ namespace detail
 namespace primitives
 {
 
+// TODO: Add a test for this or remove.
 template<
 	typename Choices,
 	typename Levels,
@@ -101,7 +102,7 @@ private:
 			AttributeNames
 		>::value
 		==
-		Levels,
+		Levels::value,
 		"The number of attribute names must match the number of texture levels"
 	);
 public:

@@ -42,6 +42,7 @@ namespace parse
 namespace json
 {
 
+// TODO: Add a test for this. This code is probably broken.
 template<
 	typename T
 >
@@ -90,10 +91,11 @@ std::enable_if_t<
 		T
 	>::value
 	&&
-	!std::is_same<
+	not
+	std::is_same<
 		T,
 		bool
-	>,
+	>::value,
 	sge::parse::json::value
 >
 convert_to(
@@ -141,9 +143,10 @@ template<
 std::enable_if_t<
 	sge::parse::json::detail::is_iterable<
 		T
-	>::value,
+	>::value
 	&&
-	!std::is_same<
+	not
+	std::is_same<
 		T,
 		fcppt::string
 	>::value,
