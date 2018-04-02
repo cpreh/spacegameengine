@@ -26,7 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/callback/detail/conversion_visitor.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
-#include <fcppt/mpl/for_each.hpp>
+#include <fcppt/algorithm/loop.hpp>
+#include <fcppt/algorithm/loop_break_brigand.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/function_types/function_arity.hpp>
 #include <boost/function_types/parameter_types.hpp>
@@ -113,15 +114,14 @@ public:
 
 		argument_tuple parameter_tuple;
 
-		fcppt::mpl::for_each<
+		fcppt::algorithm::loop(
 			brigand::range<
 				console::arg_list::size_type,
 				0,
 				boost::function_types::function_arity<
 					function_type
 				>::value
-			>
-		>(
+			>{},
 			sge::console::callback::detail::conversion_visitor<
 				argument_tuple
 			>(
