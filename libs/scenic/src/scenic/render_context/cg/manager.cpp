@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/container/array_init.hpp>
+#include <fcppt/container/array/init.hpp>
 #include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/vector/null.hpp>
 
@@ -194,7 +194,7 @@ sge::scenic::render_context::cg::manager::manager(
 		>()
 	),
 	point_lights_(
-		fcppt::container::array_init<
+		fcppt::container::array::init<
 			point_light_array
 		>(
 			[
@@ -216,7 +216,7 @@ sge::scenic::render_context::cg::manager::manager(
 		)
 	),
 	directional_lights_(
-		fcppt::container::array_init<
+		fcppt::container::array::init<
 			directional_light_array
 		>(
 			[

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <mizuiro/image/dimension.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/container/array_init.hpp>
+#include <fcppt/container/array/init.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/at.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -62,7 +62,7 @@ to_mizuiro_dim(
 
 	return
 		result_type{
-			fcppt::container::array_init<
+			fcppt::container::array::init<
 				typename
 				result_type::array_type
 			>(

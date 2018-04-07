@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/buffer/software.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/container/array_init_move.hpp>
+#include <fcppt/container/array/init_move.hpp>
 
 
 namespace sge
@@ -42,7 +42,7 @@ Array
 make_software()
 {
 	return
-		fcppt::container::array_init_move<
+		fcppt::container::array::init_move<
 			Array
 		>(
 			[]{

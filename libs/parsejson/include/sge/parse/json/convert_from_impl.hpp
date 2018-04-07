@@ -39,8 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/size.hpp>
-#include <fcppt/container/array_init.hpp>
-#include <fcppt/container/array_size.hpp>
+#include <fcppt/container/array/init.hpp>
+#include <fcppt/container/array/size.hpp>
 #include <fcppt/math/from_array.hpp>
 #include <fcppt/math/to_array_type.hpp>
 #include <fcppt/math/matrix/init.hpp>
@@ -218,7 +218,7 @@ struct convert_from_impl<
 		inner_array;
 
 		inner_array const inner(
-			fcppt::container::array_init<
+			fcppt::container::array::init<
 				inner_array
 			>(
 				[
@@ -374,7 +374,7 @@ struct convert_from_impl<
 		);
 
 		if(
-			fcppt::container::array_size<
+			fcppt::container::array::size<
 				Result
 			>::value
 			!=
@@ -385,7 +385,7 @@ struct convert_from_impl<
 					FCPPT_TEXT("Tried to convert into an array, but the dimensions did not match. Target array has dimension ")
 					+
 					fcppt::insert_to_fcppt_string(
-						fcppt::container::array_size<
+						fcppt::container::array::size<
 							Result
 						>::value
 					)
@@ -398,7 +398,7 @@ struct convert_from_impl<
 				);
 
 		return
-			fcppt::container::array_init<
+			fcppt::container::array::init<
 				Result
 			>(
 				[

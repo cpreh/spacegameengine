@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/list_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/container/tuple_push_back_result.hpp>
+#include <fcppt/container/tuple/push_back_result.hpp>
 
 
 namespace sge
@@ -49,7 +49,7 @@ public:
 		typename Param
 	>
 	list<
-		fcppt::container::tuple_push_back_result<
+		fcppt::container::tuple::push_back_result<
 			Inits,
 			Param
 		>

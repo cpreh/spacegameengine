@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/algorithm/join_strings.hpp>
 #include <fcppt/cast/dynamic.hpp>
-#include <fcppt/container/make_array.hpp>
+#include <fcppt/container/array/make.hpp>
 #include <fcppt/either/first_success.hpp>
 #include <fcppt/either/from_optional.hpp>
 #include <fcppt/either/object_impl.hpp>
@@ -189,7 +189,7 @@ sge::opengl::platform::create_system(
 	return
 		fcppt::either::to_exception(
 			fcppt::either::first_success(
-				fcppt::container::make_array(
+				fcppt::container::array::make(
 #if defined(SGE_OPENGL_HAVE_X11)
 					try_create(
 						_awl_system,

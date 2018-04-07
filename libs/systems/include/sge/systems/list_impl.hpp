@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_LIST_IMPL_HPP_INCLUDED
 
 #include <sge/systems/list_decl.hpp>
-#include <fcppt/container/tuple_push_back.hpp>
-#include <fcppt/container/tuple_push_back_result.hpp>
+#include <fcppt/container/tuple/push_back.hpp>
+#include <fcppt/container/tuple/push_back_result.hpp>
 
 
 template<
@@ -48,7 +48,7 @@ template<
 	typename Param
 >
 sge::systems::list<
-	fcppt::container::tuple_push_back_result<
+	fcppt::container::tuple::push_back_result<
 		Inits,
 		Param
 	>
@@ -61,12 +61,12 @@ sge::systems::list<
 {
 	return
 		sge::systems::list<
-			fcppt::container::tuple_push_back_result<
+			fcppt::container::tuple::push_back_result<
 				Inits,
 				Param
 			>
 		>(
-			fcppt::container::tuple_push_back(
+			fcppt::container::tuple::push_back(
 				inits_,
 				_param
 			)

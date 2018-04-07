@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/window/base.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/array_init_const.hpp>
+#include <fcppt/container/array/init_const.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -62,7 +62,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wconversion)
 FCPPT_PP_POP_WARNING
 
 	mask_type mask_data(
-		fcppt::container::array_init_const<
+		fcppt::container::array::init_const<
 			mask_type
 		>(
 			fcppt::literal<
