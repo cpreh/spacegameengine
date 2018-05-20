@@ -27,11 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/io/istringstream.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <ios>
 #include <fcppt/config/external_end.hpp>
 
@@ -54,16 +51,16 @@ check_failure(
 
 	sge::parse::ini::start result;
 
-	BOOST_CHECK((
+	CHECK(
 		sge::parse::ini::parse_stream(
 			stream,
 			result
 		).result_code()
 		!=
 		sge::parse::result_code::ok
-	));
+	);
 
-	BOOST_CHECK(
+	CHECK(
 		sge::parse::ini::output::to_stream(
 			fcppt::io::cout(),
 			result
@@ -73,15 +70,11 @@ check_failure(
 
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	parse_ini
+TEST_CASE(
+	"parse_ini",
+	"[sge]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	fcppt::string const test(
 		FCPPT_TEXT("[section]\n")
 			FCPPT_TEXT("foo1 = bar1\n")
@@ -102,7 +95,7 @@ FCPPT_PP_POP_WARNING
 
 	sge::parse::ini::start result;
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		sge::parse::ini::parse_stream(
 			stream,
 			result
@@ -111,66 +104,90 @@ FCPPT_PP_POP_WARNING
 		sge::parse::result_code::ok
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		sge::parse::ini::output::to_stream(
 			fcppt::io::cout(),
 			result
 		)
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		stream.eof()
 	);
 
-	BOOST_REQUIRE_EQUAL(
-		result.sections.size(),
+	// TODO: Improve this
+	REQUIRE(
+		result.sections.size()
+		==
 		2u
 	);
 
-	BOOST_REQUIRE_EQUAL(
-		result.sections[0].entries.size(),
+	REQUIRE(
+		result.sections[0].entries.size()
+		==
 		1u
 	);
 
-	BOOST_REQUIRE_EQUAL(
-		result.sections[1].entries.size(),
+	REQUIRE(
+		result.sections[1].entries.size()
+		==
 		3u
 	);
 
-	BOOST_CHECK(
-		result.sections[0].entries[0].name == FCPPT_TEXT("foo1")
-		&&
-		result.sections[0].entries[0].value == FCPPT_TEXT("bar1")
+	CHECK(
+		result.sections[0].entries[0].name
+		==
+		FCPPT_TEXT("foo1")
 	);
 
-	BOOST_CHECK(
-		result.sections[1].entries[0].name == FCPPT_TEXT("foo3")
-		&&
-		result.sections[1].entries[0].value == FCPPT_TEXT("bar3")
+	CHECK(
+		result.sections[0].entries[0].value
+		==
+		FCPPT_TEXT("bar1")
 	);
 
-	BOOST_CHECK(
-		result.sections[1].entries[1].name == FCPPT_TEXT("foo4")
-		&&
-		result.sections[1].entries[1].value == FCPPT_TEXT("bar4")
+	CHECK(
+		result.sections[1].entries[0].name
+		==
+		FCPPT_TEXT("foo3")
 	);
 
-	BOOST_CHECK(
-		result.sections[1].entries[2].name == FCPPT_TEXT("empty")
-		&&
-		result.sections[1].entries[2].value == FCPPT_TEXT("")
+	CHECK(
+		result.sections[1].entries[0].value
+		==
+		FCPPT_TEXT("bar3")
+	);
+
+	CHECK(
+		result.sections[1].entries[1].name
+		==
+		FCPPT_TEXT("foo4")
+	);
+
+	CHECK(
+		result.sections[1].entries[1].value
+		==
+		FCPPT_TEXT("bar4")
+	);
+
+	CHECK(
+		result.sections[1].entries[2].name
+		==
+		FCPPT_TEXT("empty")
+	);
+
+	CHECK(
+		result.sections[1].entries[2].value
+		==
+		FCPPT_TEXT("")
 	);
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	parse_ini_error
+TEST_CASE(
+	"parse_ini error",
+	"[sge]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	check_failure(
 		FCPPT_TEXT("garbage")
 	);

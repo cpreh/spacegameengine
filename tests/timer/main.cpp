@@ -25,31 +25,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/elapsed.hpp>
 #include <sge/timer/remaining.hpp>
 #include <sge/timer/clocks/delta.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <chrono>
 #include <fcppt/config/external_end.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	basic_timer
+TEST_CASE(
+	"timer::basic",
+	"[sge]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	typedef
 	sge::timer::clocks::delta<
 		std::chrono::milliseconds
 	>
 	clock;
 
-	clock clk;
+	clock clk{};
 
 	typedef
 	sge::timer::basic<
@@ -66,7 +59,7 @@ FCPPT_PP_POP_WARNING
 		}
 	};
 
-	BOOST_CHECK(
+	CHECK(
 		t1.interval()
 		==
 		std::chrono::seconds(
@@ -74,7 +67,7 @@ FCPPT_PP_POP_WARNING
 		)
 	);
 
-	BOOST_CHECK(
+	CHECK(
 		t1.expired()
 	);
 
@@ -86,11 +79,11 @@ FCPPT_PP_POP_WARNING
 
 	t1.reset();
 
-	BOOST_CHECK(
-		!t1.expired()
+	CHECK_FALSE(
+		t1.expired()
 	);
 
-	BOOST_CHECK(
+	CHECK(
 		sge::timer::remaining(
 			t1
 		)
@@ -106,7 +99,7 @@ FCPPT_PP_POP_WARNING
 		)
 	);
 
-	BOOST_CHECK(
+	CHECK(
 		sge::timer::elapsed(
 			t1
 		)
@@ -116,7 +109,7 @@ FCPPT_PP_POP_WARNING
 		)
 	);
 
-	BOOST_CHECK(
+	CHECK(
 		sge::timer::difference_fractional<
 			float
 		>(
@@ -127,15 +120,11 @@ FCPPT_PP_POP_WARNING
 	);
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	absolute_timer
+TEST_CASE(
+	"timer::absolute",
+	"[sge]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	typedef
 	sge::timer::clocks::delta<
 		std::chrono::milliseconds
@@ -154,7 +143,7 @@ FCPPT_PP_POP_WARNING
 		clk
 	};
 
-	BOOST_CHECK(
+	CHECK(
 		sge::timer::difference(
 			t1
 		)
@@ -170,7 +159,7 @@ FCPPT_PP_POP_WARNING
 		)
 	);
 
-	BOOST_CHECK(
+	CHECK(
 		sge::timer::difference_and_reset(
 			t1
 		)
@@ -180,7 +169,7 @@ FCPPT_PP_POP_WARNING
 		)
 	);
 
-	BOOST_CHECK(
+	CHECK(
 		sge::timer::difference(
 			t1
 		)

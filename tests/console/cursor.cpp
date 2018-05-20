@@ -20,38 +20,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/console/gfx/cursor.hpp>
 #include <sge/font/lit.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	console_cursor
+TEST_CASE(
+	"console cursor",
+	"[sge]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	sge::console::gfx::cursor c;
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.edited()
 		==
 		SGE_FONT_LIT("_")
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.string()
 		==
 		SGE_FONT_LIT("")
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.empty()
 	);
 
@@ -66,13 +59,13 @@ FCPPT_PP_POP_WARNING
 		SGE_FONT_LIT('o')
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.edited()
 		==
 		SGE_FONT_LIT("foo_")
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.string()
 		==
 		SGE_FONT_LIT("foo")
@@ -80,13 +73,13 @@ FCPPT_PP_POP_WARNING
 
 	c.erase_word();
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.edited()
 		==
 		SGE_FONT_LIT("_")
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.string()
 		==
 		SGE_FONT_LIT("")
@@ -96,13 +89,13 @@ FCPPT_PP_POP_WARNING
 		SGE_FONT_LIT("bar")
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.edited()
 		==
 		SGE_FONT_LIT("bar_")
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.string()
 		==
 		SGE_FONT_LIT("bar")
@@ -113,13 +106,13 @@ FCPPT_PP_POP_WARNING
 	c.left();
 	c.left();
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.edited()
 		==
 		SGE_FONT_LIT("_ar")
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.string()
 		==
 		SGE_FONT_LIT("bar")
@@ -127,13 +120,13 @@ FCPPT_PP_POP_WARNING
 
 	c.erase_char();
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.edited()
 		==
 		SGE_FONT_LIT("_r")
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.string()
 		==
 		SGE_FONT_LIT("ar")
@@ -143,13 +136,13 @@ FCPPT_PP_POP_WARNING
 	c.erase_char();
 	c.erase_char();
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.edited()
 		==
 		SGE_FONT_LIT("_")
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.string()
 		==
 		SGE_FONT_LIT("")
@@ -166,13 +159,13 @@ FCPPT_PP_POP_WARNING
 		SGE_FONT_LIT('b')
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.edited()
 		==
 		SGE_FONT_LIT("fb_o")
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.string()
 		==
 		SGE_FONT_LIT("fboo")
@@ -184,13 +177,13 @@ FCPPT_PP_POP_WARNING
 		SGE_FONT_LIT('r')
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.edited()
 		==
 		SGE_FONT_LIT("fr_oo")
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.string()
 		==
 		SGE_FONT_LIT("frboo")
@@ -204,13 +197,13 @@ FCPPT_PP_POP_WARNING
 	c.right();
 	c.right();
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.edited()
 		==
 		SGE_FONT_LIT("frboo_")
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.string()
 		==
 		SGE_FONT_LIT("frboo")
@@ -218,13 +211,13 @@ FCPPT_PP_POP_WARNING
 
 	c.to_start();
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.edited()
 		==
 		SGE_FONT_LIT("_rboo")
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.string()
 		==
 		SGE_FONT_LIT("frboo")
@@ -232,13 +225,13 @@ FCPPT_PP_POP_WARNING
 
 	c.to_end();
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.edited()
 		==
 		SGE_FONT_LIT("frboo_")
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.string()
 		==
 		SGE_FONT_LIT("frboo")
@@ -254,13 +247,13 @@ FCPPT_PP_POP_WARNING
 	c.left();
 	c.erase_word();
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.edited()
 		==
 		SGE_FONT_LIT("_bar")
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.string()
 		==
 		SGE_FONT_LIT(" bar")
@@ -268,13 +261,13 @@ FCPPT_PP_POP_WARNING
 
 	c.erase_word();
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.edited()
 		==
 		SGE_FONT_LIT("_bar")
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.string()
 		==
 		SGE_FONT_LIT(" bar")
@@ -287,7 +280,7 @@ FCPPT_PP_POP_WARNING
 	c.left();
 	c.left();
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.edited()
 		==
 		SGE_FONT_LIT("f_o")
@@ -297,7 +290,7 @@ FCPPT_PP_POP_WARNING
 		SGE_FONT_LIT('a')
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		c.edited()
 		==
 		SGE_FONT_LIT("fa_o")

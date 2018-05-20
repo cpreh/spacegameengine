@@ -72,16 +72,6 @@ set(
 	system
 )
 
-if(
-	ENABLE_TEST
-)
-	list(
-		APPEND
-		NEEDED_BOOST_LIBS
-		unit_test_framework
-	)
-endif()
-
 find_package(
 	Boost 1.47.0 REQUIRED COMPONENTS
 	"${NEEDED_BOOST_LIBS}"
@@ -163,6 +153,13 @@ endif()
 if(
 	ENABLE_TEST
 )
+	find_package(
+		Catch2
+		REQUIRED
+	)
+
+	fcppt_utils_setup_tests()
+
 	enable_testing()
 
 	add_subdirectory(

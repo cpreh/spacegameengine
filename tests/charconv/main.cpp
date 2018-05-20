@@ -20,38 +20,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
-#include <sge/charconv/encoding_to_string.hpp>
 #include <sge/tests/charconv/test_data.hpp>
-#include <fcppt/exception.hpp>
 #include <fcppt/tag_type.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/use.hpp>
 #include <fcppt/algorithm/loop.hpp>
 #include <fcppt/algorithm/loop_break_brigand.hpp>
 #include <fcppt/brigand/enum_range.hpp>
-#include <fcppt/io/cerr.hpp>
-#include <fcppt/io/cout.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <sstream>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	charconv_main
+TEST_CASE(
+	"charconv",
+	"[sge]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	boost::filesystem::path const test_data_path(
 		boost::filesystem::path(
 			SGE_TESTS_CHARCONV_TEST_DATA
@@ -63,7 +51,7 @@ FCPPT_PP_POP_WARNING
 		test_data_path
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		stream.is_open()
 	);
 
@@ -97,53 +85,29 @@ FCPPT_PP_POP_WARNING
 			>
 			dest_encoding;
 
-			try
-			{
-				auto const result(
-					sge::charconv::convert<
-						dest_encoding::value,
-						sge::charconv::encoding::utf8
-					>(
-						input
-					)
-				);
+			auto const result(
+				sge::charconv::convert<
+					dest_encoding::value,
+					sge::charconv::encoding::utf8
+				>(
+					input
+				)
+			);
 
-				std::string const back(
-					sge::charconv::convert<
-						sge::charconv::encoding::utf8,
-						dest_encoding::value
-					>(
-						result
-					)
-				);
+			std::string const back(
+				sge::charconv::convert<
+					sge::charconv::encoding::utf8,
+					dest_encoding::value
+				>(
+					result
+				)
+			);
 
-				fcppt::io::cout()
-					<<
-					FCPPT_TEXT("Converting to ")
-					<<
-					sge::charconv::encoding_to_string(
-						dest_encoding::value
-					)
-					<<
-					FCPPT_TEXT('\n');
-
-				BOOST_CHECK_EQUAL(
-					input,
-					back
-				);
-			}
-			catch(
-				fcppt::exception const &_error
-			)
-			{
-				fcppt::io::cerr()
-					<< _error.string()
-					<< FCPPT_TEXT('\n');
-
-				BOOST_CHECK(
-					false
-				);
-			}
+			CHECK(
+				input
+				==
+				back
+			);
 		}
 	);
 }

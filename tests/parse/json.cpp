@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/make_error_string.hpp>
 #include <sge/parse/result.hpp>
 #include <sge/parse/result_code.hpp>
 #include <sge/parse/json/array.hpp>
@@ -30,25 +29,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/cout.hpp>
 #include <fcppt/io/istringstream.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	parse_json_object
+TEST_CASE(
+	"parse_json object",
+	"sge]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	fcppt::string const test(
 		FCPPT_TEXT("{")
 			FCPPT_TEXT("\"foo\": 42,")
@@ -66,7 +57,7 @@ FCPPT_PP_POP_WARNING
 
 	sge::parse::json::start result;
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		sge::parse::json::parse_stream(
 			ss,
 			result
@@ -75,7 +66,7 @@ FCPPT_PP_POP_WARNING
 		sge::parse::result_code::ok
 	);
 
-	BOOST_CHECK(
+	CHECK(
 		sge::parse::json::find_member<
 			sge::parse::json::int_type
 		>(
@@ -85,15 +76,11 @@ FCPPT_PP_POP_WARNING
 	);
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	parse_json_array
+TEST_CASE(
+	"parse_json array",
+	"[sge]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	fcppt::string const test(
 		FCPPT_TEXT("[")
 			FCPPT_TEXT("42,")
@@ -107,7 +94,7 @@ FCPPT_PP_POP_WARNING
 
 	sge::parse::json::start result;
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		sge::parse::json::parse_stream(
 			ss,
 			result
@@ -117,15 +104,11 @@ FCPPT_PP_POP_WARNING
 	);
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	parse_json_error
+TEST_CASE(
+	"parse_json error",
+	"[sge]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	fcppt::string const test(
 		FCPPT_TEXT("{")
 			FCPPT_TEXT("\"foo\": 42,")
@@ -150,15 +133,9 @@ FCPPT_PP_POP_WARNING
 		)
 	);
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		ret.result_code()
 		!=
 		sge::parse::result_code::ok
 	);
-
-	fcppt::io::cout()
-		<< sge::parse::make_error_string(
-			ret
-		)
-		<< FCPPT_TEXT('\n');
 }

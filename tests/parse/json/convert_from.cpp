@@ -29,24 +29,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/output.hpp>
 #include <fcppt/math/matrix/row.hpp>
 #include <fcppt/math/matrix/static.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	parse_json_convert_from
+TEST_CASE(
+	"parse::json::convert_from",
+	"[sge]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	auto const make_row(
 		[](
 			std::vector<
@@ -152,8 +145,9 @@ FCPPT_PP_POP_WARNING
 		)
 	);
 
-	BOOST_CHECK_EQUAL(
-		result,
+	CHECK(
+		result
+		==
 		int_3_2_matrix(
 			fcppt::math::matrix::row(
 				1,

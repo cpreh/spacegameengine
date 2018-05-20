@@ -37,23 +37,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/math/vector/output.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	rucksack_box
+TEST_CASE(
+	"rucksack::box",
+	"[sge]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	sge::rucksack::widget::dummy child1{
 		sge::rucksack::axis_policy2{
 			sge::rucksack::axis_policy{
@@ -91,9 +84,9 @@ FCPPT_PP_POP_WARNING
 		}
 	);
 
-	BOOST_CHECK_EQUAL(
-		box1.axis_policy(),
-		(
+	CHECK(
+		box1.axis_policy()
+		==
 		sge::rucksack::axis_policy2{
 			sge::rucksack::axis_policy{
 				sge::rucksack::minimum_size{
@@ -105,19 +98,18 @@ FCPPT_PP_POP_WARNING
 					10
 				}
 			}
-		})
+		}
 	);
 
 	box1.relayout();
 
-	BOOST_CHECK_EQUAL(
-		child1.size(),
-		(
+	CHECK(
+		child1.size()
+		==
 		sge::rucksack::dim{
 			100,
 			10
 		}
-		)
 	);
 
 	sge::rucksack::widget::dummy child2{
@@ -142,9 +134,9 @@ FCPPT_PP_POP_WARNING
 
 	box1.relayout();
 
-	BOOST_CHECK_EQUAL(
-		box1.axis_policy(),
-		(
+	CHECK(
+		box1.axis_policy()
+		==
 		sge::rucksack::axis_policy2{
 			sge::rucksack::axis_policy{
 				sge::rucksack::minimum_size{
@@ -156,37 +148,33 @@ FCPPT_PP_POP_WARNING
 					10
 				}
 			}
-		})
+		}
 	);
 
-	BOOST_CHECK_EQUAL(
-		child1.size(),
-		(
+	CHECK(
+		child1.size()
+		==
 		sge::rucksack::dim{
 			90,
 			10
-		})
+		}
 	);
 
-	BOOST_CHECK_EQUAL(
-		child2.size(),
-		(
+	CHECK(
+		child2.size()
+		==
 		sge::rucksack::dim{
 			10,
 			10
-		})
+		}
 	);
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	rucksack_box_in_box
+TEST_CASE(
+	"rucksack::box in box",
+	"[sge]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	sge::rucksack::widget::dummy child_x_1{
 		sge::rucksack::axis_policy2{
 			sge::rucksack::axis_policy{
@@ -302,9 +290,9 @@ FCPPT_PP_POP_WARNING
 		}
 	);
 
-	BOOST_CHECK_EQUAL(
-		box2.axis_policy(),
-		(
+	CHECK(
+		box2.axis_policy()
+		==
 		sge::rucksack::axis_policy2{
 			sge::rucksack::axis_policy{
 				sge::rucksack::minimum_size{
@@ -316,77 +304,76 @@ FCPPT_PP_POP_WARNING
 					30
 				}
 			}
-		})
+		}
 	);
 
 	box2.relayout();
 
-	BOOST_CHECK_EQUAL(
-		child_x_1.position(),
-		(
+	CHECK(
+		child_x_1.position()
+		==
 		sge::rucksack::vector{
 			0,
 			5
-		})
+		}
 	);
 
-	BOOST_CHECK_EQUAL(
-		child_x_2.position(),
-		(
+	CHECK(
+		child_x_2.position()
+		==
 		sge::rucksack::vector{
 			80,
 			0
-		})
+		}
 	);
 
-	BOOST_CHECK_EQUAL(
-		child_x_1.size(),
-		(
+	CHECK(
+		child_x_1.size()
+		==
 		sge::rucksack::dim{
 			80,
 			10
-		})
+		}
 	);
 
-	BOOST_CHECK_EQUAL(
-		child_x_2.size(),
-		(
+	CHECK(
+		child_x_2.size()
+		==
 		sge::rucksack::dim{
 			20,
 			20
-		})
+		}
 	);
 
-	BOOST_CHECK_EQUAL(
-		box1.size(),
-		(
+	CHECK(
+		box1.size()
+		==
 		sge::rucksack::dim{
 			100,
 			20
 		}
-		)
 	);
 
-	BOOST_CHECK_EQUAL(
-		child_y_1.size(),
-		(
+	CHECK(
+		child_y_1.size()
+		==
 		sge::rucksack::dim{
 			100,
 			10
-		})
+		}
 	);
 
 	box1.pop_back_child();
 
 	box1.relayout();
 
-	BOOST_CHECK_EQUAL(
-		box1.position(),
-		(
+	CHECK(
+		box1.position()
+		==
 		sge::rucksack::vector{
 			0,
 			0
-		})
+		}
 	);
 
 	box1.push_back_child(
@@ -396,12 +383,12 @@ FCPPT_PP_POP_WARNING
 
 	box1.relayout();
 
-	BOOST_CHECK_EQUAL(
-		box1.position(),
-		(
+	CHECK(
+		box1.position()
+		==
 		sge::rucksack::vector{
 			0,
 			0
-		})
+		}
 	);
 }

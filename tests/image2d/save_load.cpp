@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system_unique_ptr.hpp>
 #include <sge/image2d/algorithm/compare.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
-#include <sge/image2d/algorithm/print.hpp>
 #include <sge/image2d/plugin/object.hpp>
 #include <sge/image2d/store/rgba8.hpp>
 #include <sge/image2d/view/const_object.hpp>
@@ -52,37 +51,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
-#include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assert/optional_error.hpp>
-#include <fcppt/io/cerr.hpp>
-#include <fcppt/io/cout.hpp>
 #include <fcppt/log/context.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/output.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <istream>
 #include <sstream>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	rgba
+TEST_CASE(
+	"save_load rgba",
+	"[sge]"
 )
-try
 {
-FCPPT_PP_POP_WARNING
 	fcppt::log::context log_context{
 		sge::log::default_level(),
 		sge::log::default_level_streams()
@@ -121,14 +111,6 @@ FCPPT_PP_POP_WARNING
 		>()
 	)
 	{
-		fcppt::io::cout()
-			<<
-			FCPPT_TEXT("Testing plugin ")
-			<<
-			element.info().name()
-			<<
-			FCPPT_TEXT('\n');
-
 		sge::image2d::plugin::object const plugin(
 			element.load()
 		);
@@ -191,10 +173,11 @@ FCPPT_PP_POP_WARNING
 			file->view()
 		);
 
-		BOOST_REQUIRE_EQUAL(
+		REQUIRE(
 			sge::image2d::view::size(
 				source_view
-			),
+			)
+			==
 			sge::image2d::view::size(
 				dest_view
 			)
@@ -229,47 +212,11 @@ FCPPT_PP_POP_WARNING
 			)
 		);
 
-		fcppt::io::cout()
-			<<
-			FCPPT_TEXT("Old store is :");
-
-		sge::image2d::algorithm::print(
-			fcppt::io::cout(),
-			source_view
-		);
-
-		fcppt::io::cout()
-			<< FCPPT_TEXT('\n');
-
-		fcppt::io::cout()
-			<<
-			FCPPT_TEXT("New store is :");
-
-		sge::image2d::algorithm::print(
-			fcppt::io::cout(),
-			store_back_view
-		);
-
-		fcppt::io::cout()
-			<< FCPPT_TEXT('\n');
-
-		BOOST_CHECK(
+		CHECK(
 			sge::image2d::algorithm::compare(
 				source_view,
 				store_back_view
 			)
 		);
 	}
-}
-catch(
-	fcppt::exception const &_error
-)
-{
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
-
-	BOOST_CHECK(
-		false
-	);
 }

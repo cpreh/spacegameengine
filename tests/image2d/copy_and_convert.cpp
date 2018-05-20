@@ -37,11 +37,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/view/object.hpp>
 #include <mizuiro/color/compare.hpp>
 #include <fcppt/cast/size.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -120,7 +117,7 @@ test_conversion(
 		}
 	};
 
-	BOOST_REQUIRE(
+	REQUIRE(
 		mizuiro::color::compare(
 			dest.view()[
 				typename dest_store::view_type::dim(
@@ -168,15 +165,11 @@ test_conversion(
 
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	rgba_to_bgra
+TEST_CASE(
+	"rgba_to_bgra",
+	"[sge]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	test_conversion<
 		sge::image2d::rgba8_format,
 		sge::image2d::bgra8_format
@@ -188,15 +181,11 @@ FCPPT_PP_POP_WARNING
 	);
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	rgb_to_rgba
+TEST_CASE(
+	"rgb_to_rgba",
+	"[sge]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	test_conversion<
 		sge::image2d::rgb8_format,
 		sge::image2d::rgba8_format

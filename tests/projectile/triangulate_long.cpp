@@ -23,14 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/object.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/static.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/test/unit_test.hpp>
+#include <catch.hpp>
 #include <array>
-#include <iostream>
-#include <ostream>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -75,71 +70,22 @@ test_long(
 		)
 	);
 
-	BOOST_CHECK(
+	CHECK(
 		result.size()
 		==
 		_points.size() - 2u
 	);
 
-	std::cout
-		<< "Triangulating "
-		<< _points.size()
-		<< " points:\n\t";
-
-	for(
-		point_sequence::const_iterator it(
-			_points.begin()
-		);
-		it != _points.end();
-		++it
-	)
-		std::cout
-			<< *it
-			<< ' ';
-
-	std::cout
-		<< "\nResult has "
-		<< result.size()
-		<< " triangles:\n";
-
-	for(
-		triangle_sequence::const_iterator it(
-			result.begin()
-		);
-		it != result.end();
-		++it
-	)
-	{
-		std::cout << '\t';
-
-		for(
-			triangle::const_iterator t_it(
-				it->begin()
-			);
-			t_it != it->end();
-			++t_it
-		)
-			std::cout
-				<< *t_it
-				<< ' ';
-
-		std::cout << '\n';
-	}
-
-	std::cout << '\n';
+	// FIXME
 }
 
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
-BOOST_AUTO_TEST_CASE(
-	projectile_triangulate_long
+TEST_CASE(
+	"projectile::triangulate_long",
+	"[sge]"
 )
 {
-FCPPT_PP_POP_WARNING
-
 	test_long(
 		point_sequence{
 			vector2(
