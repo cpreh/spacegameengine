@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/is_power_of_2.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/math/to_array.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/output.hpp>
 
@@ -58,10 +59,13 @@ warn_pow2(
 	for(
 		auto const element
 		:
-		_dim.storage()
+		fcppt::math::to_array(
+			_dim
+		)
 	)
 		if(
-			!fcppt::math::is_power_of_2(
+			not
+			fcppt::math::is_power_of_2(
 				element
 			)
 		)

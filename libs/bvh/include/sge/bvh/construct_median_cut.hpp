@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/math/to_array.hpp>
 #include <fcppt/math/box/center.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/algorithm/max_element.hpp>
@@ -153,12 +154,29 @@ construct_median_cut(
 					bounding_box),
 				bounding_box)));
 
-	sge::bvh::detail::construct_median_cut_comparator comparator(
-		static_cast<fcppt::math::size_type>(
-			std::distance(
-				bounding_box_size.storage().begin(),
-				boost::range::max_element(
-					bounding_box_size.storage()))));
+	sge::bvh::detail::construct_median_cut_comparator comparator{
+		[
+			bounding_box_size
+		]{
+			auto const array(
+				fcppt::math::to_array(
+					bounding_box_size
+				)
+			);
+
+			return
+				static_cast<
+					fcppt::math::size_type
+				>(
+					std::distance(
+						array.begin(),
+						boost::range::max_element(
+							array
+						)
+					)
+				);
+		}()
+	};
 
 	std::nth_element(
 		_leaves.begin(),

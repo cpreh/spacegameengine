@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/no_init.hpp>
 #include <fcppt/container/array/init_const.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/math/to_array.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/vector.hpp>
@@ -105,7 +106,9 @@ sge::noise::simplex::object<Float,N>::sample(
 	for(
 		auto &elem
 		:
-		tmp.storage()
+		fcppt::math::to_array(
+			tmp
+		)
 	)
 	{
 		elem = std::floor(elem);
@@ -140,7 +143,9 @@ sge::noise::simplex::object<Float,N>::index(
 	for (
 		auto const elem
 		:
-		vec.storage()
+		fcppt::math::to_array(
+			vec
+		)
 	)
 	{
 		long t = static_cast<long>(elem);

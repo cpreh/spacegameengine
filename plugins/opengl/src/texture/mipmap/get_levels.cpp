@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/log2.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/math/to_array.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/algorithm/max_element.hpp>
@@ -74,8 +75,11 @@ sge::opengl::texture::mipmap::get_levels(
 						1u
 						+
 						fcppt::math::log2(
+							// TODO!
 							*boost::range::max_element(
-								_dim.storage()
+								fcppt::math::to_array(
+									_dim
+								)
 							)
 						)
 					);
