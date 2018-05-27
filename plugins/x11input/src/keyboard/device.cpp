@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/enable_shared_from_this_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/make.hpp>
 #include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/to_container.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -123,7 +123,7 @@ sge::x11input::keyboard::device::on_event(
 			);
 	case XI_KeyRelease:
 		return
-			fcppt::assign::make_container<
+			fcppt::container::make<
 				awl::event::container
 			>(
 				this->on_key_release(

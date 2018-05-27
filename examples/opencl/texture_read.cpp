@@ -50,7 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/main.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/make.hpp>
 #include <fcppt/either/match.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
@@ -184,7 +184,7 @@ main_program(
 	);
 
 	sge::opencl::event::sequence events{
-		fcppt::assign::make_container<
+		fcppt::container::make<
 			sge::opencl::event::sequence
 		>(
 			sge::opencl::command_queue::enqueue_kernel(

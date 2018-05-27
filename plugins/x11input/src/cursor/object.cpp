@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/join.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
-#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/make.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
@@ -243,7 +243,7 @@ sge::x11input::cursor::object::on_event(
 			);
 	case XI_Enter:
 		return
-			fcppt::assign::make_container<
+			fcppt::container::make<
 				awl::event::container
 			>(
 				this->on_enter(
@@ -252,7 +252,7 @@ sge::x11input::cursor::object::on_event(
 			);
 	case XI_Leave:
 		return
-			fcppt::assign::make_container<
+			fcppt::container::make<
 				awl::event::container
 			>(
 				this->on_leave(
@@ -334,7 +334,7 @@ sge::x11input::cursor::object::on_motion(
 				}
 			),
 			// TODO: Check if this is necessary!
-			fcppt::assign::make_container<
+			fcppt::container::make<
 				awl::event::container
 			>(
 				this->update_position(

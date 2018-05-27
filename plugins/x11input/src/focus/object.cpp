@@ -56,7 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/join.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/make.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -193,7 +193,7 @@ sge::x11input::focus::object::on_event(
 			);
 	case XI_KeyRelease:
 		return
-			fcppt::assign::make_container<
+			fcppt::container::make<
 				awl::event::container
 			>(
 				this->on_key_release(
@@ -202,14 +202,14 @@ sge::x11input::focus::object::on_event(
 			);
 	case XI_FocusIn:
 		return
-			fcppt::assign::make_container<
+			fcppt::container::make<
 				awl::event::container
 			>(
 				this->on_focus_in()
 			);
 	case XI_FocusOut:
 		return
-			fcppt::assign::make_container<
+			fcppt::container::make<
 				awl::event::container
 			>(
 				this->on_focus_out()
@@ -240,7 +240,7 @@ sge::x11input::focus::object::on_key_press(
 				&_event
 			]{
 				return
-					fcppt::assign::make_container<
+					fcppt::container::make<
 						awl::event::container
 					>(
 						this->process_key_down(
@@ -270,7 +270,7 @@ sge::x11input::focus::object::on_key_press(
 
 				return
 					fcppt::algorithm::join(
-						fcppt::assign::make_container<
+						fcppt::container::make<
 							awl::event::container
 						>(
 							this->process_key_down(

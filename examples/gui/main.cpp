@@ -125,7 +125,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/assign/make_container.hpp>
+#include <fcppt/container/make.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/container/tree/map.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -299,7 +299,7 @@ try
 							sge::gui::optional_needed_width()
 						)
 					),
-					fcppt::assign::make_container<
+					fcppt::container::make<
 						sge::gui::widget::unique_ptr_tree::child_list
 					>(
 						sge::gui::widget::unique_ptr_tree(
