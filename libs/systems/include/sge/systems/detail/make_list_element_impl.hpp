@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SYSTEMS_DETAIL_MAKE_LIST_ELEMENT_IMPL_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_MAKE_LIST_ELEMENT_IMPL_HPP_INCLUDED
 
-#include <sge/systems/detail/any.hpp>
 #include <sge/systems/renderer.hpp>
+#include <sge/systems/detail/any.hpp>
 #include <sge/systems/detail/renderer.hpp>
 #include <sge/systems/detail/renderer_caps.hpp>
 

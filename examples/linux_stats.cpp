@@ -131,8 +131,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/match.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <brigand/sequences/list.hpp>
 #include <array>
 #include <example_main.hpp>
 #include <exception>
