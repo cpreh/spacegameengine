@@ -81,7 +81,7 @@ from_d3d_pitch(
 								sge::image::basic_dim<
 									Dim
 									-
-									1
+									1u
 								>
 							>(
 								_dim

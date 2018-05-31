@@ -40,7 +40,7 @@ sge::d3d9::convert::matrix(
 			sge::renderer::matrix4::value_type
 		)
 		*
-		_matrix.storage().size()
+		sge::renderer::matrix4::storage_type::storage_size::value
 	);
 
 	return
