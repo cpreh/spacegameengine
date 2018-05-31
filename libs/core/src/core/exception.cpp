@@ -23,14 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/assert/information_fwd.hpp>
 #include <fcppt/assert/make_message.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::core::exception::exception(
-	fcppt::string const &_string
+	fcppt::string &&_string
 )
 :
 	fcppt::exception(
-		_string
+		std::move(
+			_string
+		)
 	)
 {
 }
@@ -47,6 +52,6 @@ sge::core::exception::exception(
 {
 }
 
-sge::core::exception::~exception() throw()
+sge::core::exception::~exception() noexcept
 {
 }

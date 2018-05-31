@@ -41,7 +41,7 @@ public:
 	SGE_CORE_DETAIL_SYMBOL
 	explicit
 	exception(
-		fcppt::string const &
+		fcppt::string &&
 	);
 
 	SGE_CORE_DETAIL_SYMBOL
@@ -51,7 +51,7 @@ public:
 	);
 
 	SGE_CORE_DETAIL_SYMBOL
-	~exception() throw()
+	~exception() noexcept
 	override;
 };
 
