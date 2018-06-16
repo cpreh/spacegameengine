@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/char_type.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
-#include <fcppt/insert_to_string.hpp>
+#include <fcppt/output_to_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
@@ -337,7 +337,7 @@ sge::console::object::help_callback(
 )
 {
 	this->emit_message(
-		fcppt::insert_to_string<
+		fcppt::output_to_string<
 			sge::font::string
 		>(
 			funcs_.size()

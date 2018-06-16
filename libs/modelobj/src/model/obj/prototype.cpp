@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/prototype.hpp>
 #include <sge/model/obj/impl/log_name.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -64,7 +64,7 @@ parse_face_vertex(
 		throw
 			sge::model::obj::exception(
 				FCPPT_TEXT("Error on line ")+
-				fcppt::insert_to_fcppt_string(
+				fcppt::output_to_fcppt_string(
 					_current_line)+
 				FCPPT_TEXT(": Invalid face index"));
 
@@ -72,7 +72,7 @@ parse_face_vertex(
 		throw
 			sge::model::obj::exception(
 				FCPPT_TEXT("Error on line ")+
-				fcppt::insert_to_fcppt_string(
+				fcppt::output_to_fcppt_string(
 					_current_line)+
 				FCPPT_TEXT(": Invalid face delimiter (vertex)"));
 
@@ -90,7 +90,7 @@ parse_face_vertex(
 			throw
 				sge::model::obj::exception(
 					FCPPT_TEXT("Error on line ")+
-					fcppt::insert_to_fcppt_string(
+					fcppt::output_to_fcppt_string(
 						_current_line)+
 					FCPPT_TEXT(": Invalid face index (texture coordinate)"));
 	}
@@ -99,7 +99,7 @@ parse_face_vertex(
 		throw
 			sge::model::obj::exception(
 				FCPPT_TEXT("Error on line ")+
-				fcppt::insert_to_fcppt_string(
+				fcppt::output_to_fcppt_string(
 					_current_line)+
 				FCPPT_TEXT(": Invalid face delimiter (normal)"));
 
@@ -109,7 +109,7 @@ parse_face_vertex(
 		throw
 			sge::model::obj::exception(
 				FCPPT_TEXT("Error on line ")+
-				fcppt::insert_to_fcppt_string(
+				fcppt::output_to_fcppt_string(
 					_current_line)+
 				FCPPT_TEXT(": Invalid face index"));
 
@@ -190,7 +190,7 @@ sge::model::obj::prototype::prototype(
 			throw
 				sge::model::obj::exception(
 					FCPPT_TEXT("Error on line ")+
-					fcppt::insert_to_fcppt_string(
+					fcppt::output_to_fcppt_string(
 						line_counter)+
 					FCPPT_TEXT(": No prefix found."));
 
@@ -232,7 +232,7 @@ sge::model::obj::prototype::prototype(
 				throw
 					sge::model::obj::exception(
 						FCPPT_TEXT("Error on line ")+
-						fcppt::insert_to_fcppt_string(
+						fcppt::output_to_fcppt_string(
 							line_counter)+
 						FCPPT_TEXT(": Invalid coordinate(s)"));
 
@@ -268,7 +268,7 @@ sge::model::obj::prototype::prototype(
 				throw
 					sge::model::obj::exception(
 						FCPPT_TEXT("Error on line ")+
-						fcppt::insert_to_fcppt_string(
+						fcppt::output_to_fcppt_string(
 							line_counter)+
 						FCPPT_TEXT(": Invalid normal(s)"));
 
@@ -290,7 +290,7 @@ sge::model::obj::prototype::prototype(
 				throw
 					sge::model::obj::exception(
 						FCPPT_TEXT("Error on line ")+
-						fcppt::insert_to_fcppt_string(
+						fcppt::output_to_fcppt_string(
 							line_counter)+
 						FCPPT_TEXT(": Invalid tex coord(s)"));
 

@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opencl/exception.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
@@ -85,7 +85,7 @@ error_code_to_string(
 #ifdef CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR
 		case CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR: return FCPPT_TEXT("CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR: You probably forgot to acquire a shared OpenGL buffer.");
 #endif
-		default: return FCPPT_TEXT("Unknown (code: ")+fcppt::insert_to_fcppt_string(code)+FCPPT_TEXT(")");
+		default: return FCPPT_TEXT("Unknown (code: ")+fcppt::output_to_fcppt_string(code)+FCPPT_TEXT(")");
 	}
 }
 }

@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/kernel/object.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -165,7 +165,7 @@ enqueue_kernel_internal(
 				FCPPT_TEXT("\": workgroup size invalid. The global dimension is "
 				)
 				+
-				fcppt::insert_to_fcppt_string(
+				fcppt::output_to_fcppt_string(
 					_global_dim
 				)
 				+
@@ -182,7 +182,7 @@ enqueue_kernel_internal(
 						return
 							FCPPT_TEXT(", the workgroup dimension is ")
 							+
-							fcppt::insert_to_fcppt_string(
+							fcppt::output_to_fcppt_string(
 								_dim
 							);
 					}

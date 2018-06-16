@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/exception.hpp>
 #include <sge/plugin/iterator.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/cast/size.hpp>
@@ -130,7 +130,7 @@ sge::plugin::collection<
 		throw sge::plugin::exception(
 			FCPPT_TEXT("plugin::collection::get(): Index ")
 			+
-			fcppt::insert_to_fcppt_string(
+			fcppt::output_to_fcppt_string(
 				_index
 			)
 			+

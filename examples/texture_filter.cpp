@@ -170,7 +170,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/insert_to_string.hpp>
+#include <fcppt/output_to_string.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -367,7 +367,7 @@ try
 	sge::font::string const anisotropy_string(
 		SGE_FONT_LIT(' ')
 		+
-		fcppt::insert_to_string<
+		fcppt::output_to_string<
 			sge::font::string
 		>(
 			anisotropy
@@ -773,7 +773,7 @@ try
 	sge::font::string const text_appendix(
 		SGE_FONT_LIT(" (Press 1 through ")
 		+
-		fcppt::insert_to_string<
+		fcppt::output_to_string<
 			sge::font::string
 		>(
 			filters.size()

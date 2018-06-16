@@ -77,7 +77,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
@@ -164,7 +164,7 @@ try
 		)
 		+
 		sge::font::from_fcppt_string(
-			fcppt::insert_to_fcppt_string(
+			fcppt::output_to_fcppt_string(
 				font->metrics()
 			)
 		),

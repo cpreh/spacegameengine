@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format_to_string.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/dim/output.hpp>
 
@@ -75,7 +75,7 @@ sge::d3d9::devicefuncs::create_texture(
 		throw sge::renderer::exception(
 			FCPPT_TEXT("CreateTexture() with size ")
 			+
-			fcppt::insert_to_fcppt_string(
+			fcppt::output_to_fcppt_string(
 				_params.size()
 			)
 			+

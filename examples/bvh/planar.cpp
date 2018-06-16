@@ -965,7 +965,7 @@ try
 						-> awl::main::exit_code
 						{
 							awl::show_error(
-								fcppt::insert_to_fcppt_string(
+								fcppt::output_to_fcppt_string(
 									_error
 								)
 							);
@@ -996,7 +996,7 @@ try
 			)
 			{
 				awl::show_message(
-					fcppt::insert_to_fcppt_string(
+					fcppt::output_to_fcppt_string(
 						_help_text
 					)
 				);

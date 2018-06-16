@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/vf/texture_coordinate_count.hpp>
 #include <sge/d3d9/vf/convert/extra_index.hpp>
 #include <sge/renderer/vf/dynamic/index.hpp>
-#include <fcppt/insert_to_string.hpp>
+#include <fcppt/output_to_string.hpp>
 
 
 sge::cg::string
@@ -36,7 +36,7 @@ sge::d3d9::cg::program::replace_index(
 	return
 		"TEXCOORD"
 		+
-		fcppt::insert_to_string<
+		fcppt::output_to_string<
 			sge::cg::string
 		>(
 			sge::d3d9::vf::convert::extra_index(

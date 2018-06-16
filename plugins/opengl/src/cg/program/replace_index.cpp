@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/cg/program/replace_index.hpp>
 #include <sge/opengl/vf/extra_index.hpp>
 #include <sge/renderer/vf/dynamic/index.hpp>
-#include <fcppt/insert_to_string.hpp>
+#include <fcppt/output_to_string.hpp>
 
 
 sge::cg::string
@@ -34,7 +34,7 @@ sge::opengl::cg::program::replace_index(
 	return
 		"ATTR"
 		+
-		fcppt::insert_to_string<
+		fcppt::output_to_string<
 			sge::cg::string
 		>(
 			sge::opengl::vf::extra_index(

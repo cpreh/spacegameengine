@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/device/object.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
-#include <fcppt/insert_to_std_string.hpp>
+#include <fcppt/output_to_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size.hpp>
@@ -306,7 +306,7 @@ max_work_item_sizes_to_string(
 	for(size_vector::const_iterator it = sizes.begin(); it != sizes.end(); ++it)
 	{
 		result +=
-			fcppt::insert_to_std_string(
+			fcppt::output_to_std_string(
 				*it);
 
 		if(it != std::prev(sizes.end()))

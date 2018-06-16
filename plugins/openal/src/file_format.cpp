@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/sample_count.hpp>
 #include <sge/openal/al.hpp>
 #include <sge/openal/file_format.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 
@@ -70,13 +70,13 @@ sge::openal::file_format(
 		sge::audio::exception(
 			FCPPT_TEXT("OpenAL error: Format not supported: ")
 			+
-			fcppt::insert_to_fcppt_string(
+			fcppt::output_to_fcppt_string(
 				_file.bits_per_sample()
 			)
 			+
 			FCPPT_TEXT(" bps, ")
 			+
-			fcppt::insert_to_fcppt_string(
+			fcppt::output_to_fcppt_string(
 				_file.channels()
 			)
 			+

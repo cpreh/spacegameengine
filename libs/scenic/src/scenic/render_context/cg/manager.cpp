@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/render_context/cg/light/directional.hpp>
 #include <sge/scenic/render_context/cg/light/point.hpp>
 #include <sge/shader/context.hpp>
-#include <fcppt/insert_to_std_string.hpp>
+#include <fcppt/output_to_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -61,8 +61,8 @@ sge::scenic::render_context::cg::manager::manager(
 			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("ffp.cg")),
 		sge::shader::optional_cflags(
 			sge::shader::optional_cflags::string_sequence{
-				"-DMAX_POINT_LIGHTS="+fcppt::insert_to_std_string(max_point_lights::value),
-				"-DMAX_DIRECTIONAL_LIGHTS="+fcppt::insert_to_std_string(max_directional_lights::value)
+				"-DMAX_POINT_LIGHTS="+fcppt::output_to_std_string(max_point_lights::value),
+				"-DMAX_DIRECTIONAL_LIGHTS="+fcppt::output_to_std_string(max_directional_lights::value)
 			}
 		)
 	),

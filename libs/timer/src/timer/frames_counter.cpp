@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/frames_counter.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
@@ -77,7 +77,7 @@ fcppt::string
 sge::timer::frames_counter::frames_str() const
 {
 	return
-		fcppt::insert_to_fcppt_string(
+		fcppt::output_to_fcppt_string(
 			this->frames()
 		);
 }

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vector4.hpp>
 #include <sge/scenic/impl/render_context/cg/any_color_to_vector4.hpp>
 #include <sge/scenic/render_context/cg/light/directional.hpp>
-#include <fcppt/insert_to_std_string.hpp>
+#include <fcppt/output_to_std_string.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/math/vector/null.hpp>
@@ -39,7 +39,7 @@ param_name(
 	return
 		sge::shader::parameter::name(
 			"directional_lights["+
-			fcppt::insert_to_std_string(
+			fcppt::output_to_std_string(
 				_index.get())+
 			"]."+
 			_suffix);

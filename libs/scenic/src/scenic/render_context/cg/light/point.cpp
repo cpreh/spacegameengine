@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/impl/render_context/cg/any_color_to_vector4.hpp>
 #include <sge/scenic/render_context/cg/light/point.hpp>
 #include <sge/scenic/render_context/light/attenuation.hpp>
-#include <fcppt/insert_to_std_string.hpp>
+#include <fcppt/output_to_std_string.hpp>
 #include <fcppt/math/vector/null.hpp>
 
 
@@ -38,7 +38,7 @@ param_name(
 	return
 		sge::shader::parameter::name(
 			"point_lights["+
-			fcppt::insert_to_std_string(
+			fcppt::output_to_std_string(
 				_index.get())+
 			"]."+
 			_suffix);

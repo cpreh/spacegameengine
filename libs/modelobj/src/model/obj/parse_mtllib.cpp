@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/parse_mtllib.hpp>
 #include <sge/model/obj/impl/log_name.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/string.hpp>
@@ -157,7 +157,7 @@ public:
 			throw
 				sge::model::obj::exception(
 					FCPPT_TEXT("Error on line ")+
-					fcppt::insert_to_fcppt_string(
+					fcppt::output_to_fcppt_string(
 						current_line_)+
 					FCPPT_TEXT(": ")+
 					_error_message);
@@ -289,7 +289,7 @@ public:
 				throw
 					sge::model::obj::exception(
 						FCPPT_TEXT("Error on line ")+
-						fcppt::insert_to_fcppt_string(
+						fcppt::output_to_fcppt_string(
 							current_line_)+
 						FCPPT_TEXT(": Invalid dissolve value (!= 1, not supported)."));
 			*/
@@ -393,7 +393,7 @@ public:
 					sge::model::obj::exception{
 						FCPPT_TEXT("Error on line ")
 						+
-						fcppt::insert_to_fcppt_string(
+						fcppt::output_to_fcppt_string(
 							current_line_
 						)
 						+

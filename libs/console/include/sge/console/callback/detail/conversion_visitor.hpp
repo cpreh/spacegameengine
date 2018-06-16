@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/from_fcppt_string.hpp>
 #include <sge/font/lit.hpp>
 #include <fcppt/extract_from_string.hpp>
-#include <fcppt/insert_to_string.hpp>
+#include <fcppt/output_to_string.hpp>
 #include <fcppt/nonassignable.hpp>
 #include <fcppt/tag.hpp>
 #include <fcppt/type_name_from_info.hpp>
@@ -112,7 +112,7 @@ public:
 				console_.emit_error(
 					SGE_FONT_LIT("Couldn't convert argument ")
 					+
-					fcppt::insert_to_string<
+					fcppt::output_to_string<
 						sge::font::string
 					>(
 						Index::value

@@ -83,7 +83,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/args_from_second.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -382,7 +382,7 @@ try
 			)
 			{
 				awl::show_error(
-					fcppt::insert_to_fcppt_string(
+					fcppt::output_to_fcppt_string(
 						_error
 					)
 				);

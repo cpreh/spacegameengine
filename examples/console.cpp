@@ -92,7 +92,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/exit_success.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/insert_to_string.hpp>
+#include <fcppt/output_to_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
@@ -250,7 +250,7 @@ try
 					object.emit_message(
 						SGE_FONT_LIT("New value is ")
 						+
-						fcppt::insert_to_string<
+						fcppt::output_to_string<
 							sge::font::string
 						>(
 							_value

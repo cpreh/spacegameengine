@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/is_iterable.hpp>
 #include <sge/parse/json/detail/is_math_type.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/reference.hpp>
 #include <fcppt/text.hpp>
@@ -384,7 +384,7 @@ struct convert_from_impl<
 				sge::parse::exception(
 					FCPPT_TEXT("Tried to convert into an array, but the dimensions did not match. Target array has dimension ")
 					+
-					fcppt::insert_to_fcppt_string(
+					fcppt::output_to_fcppt_string(
 						fcppt::container::array::size<
 							Result
 						>::value
@@ -392,7 +392,7 @@ struct convert_from_impl<
 					+
 					FCPPT_TEXT(", source array has dimension ")
 					+
-					fcppt::insert_to_fcppt_string(
+					fcppt::output_to_fcppt_string(
 						array.elements.size()
 					)
 				);

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/program/object.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>
@@ -162,7 +162,7 @@ sge::opencl::kernel::object::argument(
 						)
 						+
 						FCPPT_TEXT("\": clSetKernelArg for argument ")+
-						fcppt::insert_to_fcppt_string(
+						fcppt::output_to_fcppt_string(
 							_index
 						)
 						+

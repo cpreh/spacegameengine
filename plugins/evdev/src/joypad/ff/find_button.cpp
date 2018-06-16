@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/ff/find_button.hpp>
 #include <sge/input/exception.hpp>
 #include <sge/input/joypad/button_id.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_if_opt.hpp>
@@ -69,7 +69,7 @@ sge::evdev::joypad::ff::find_button(
 					sge::input::exception{
 						FCPPT_TEXT("Invalid joypad button id ")
 						+
-						fcppt::insert_to_fcppt_string(
+						fcppt::output_to_fcppt_string(
 							_id
 						)
 					};

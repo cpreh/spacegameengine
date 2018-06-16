@@ -169,7 +169,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/main/function_context.hpp>
 #include <fcppt/args_from_second.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -1486,7 +1486,7 @@ try
 						-> awl::main::exit_code
 						{
 							awl::show_error(
-								fcppt::insert_to_fcppt_string(
+								fcppt::output_to_fcppt_string(
 									_error
 								)
 							);
@@ -1517,7 +1517,7 @@ try
 			)
 			{
 				awl::show_message(
-					fcppt::insert_to_fcppt_string(
+					fcppt::output_to_fcppt_string(
 						_help_text
 					)
 				);

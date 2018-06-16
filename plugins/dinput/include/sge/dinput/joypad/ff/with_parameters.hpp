@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/ff/trigger.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/function_impl.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/strong_typedef_output.hpp>
@@ -221,7 +221,7 @@ with_parameters(
 								sge::input::exception{
 									FCPPT_TEXT("Invalid button id for FF effect!")
 									+
-									fcppt::insert_to_fcppt_string(
+									fcppt::output_to_fcppt_string(
 										_trigger.button()
 									)
 								};

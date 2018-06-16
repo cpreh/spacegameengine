@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/area_texc.hpp>
 #include <sge/texture/exception.hpp>
 #include <sge/texture/part.hpp>
-#include <fcppt/insert_to_fcppt_string.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
@@ -84,7 +84,7 @@ sge::texture::area_texc(
 			sge::texture::exception{
 				FCPPT_TEXT("texture not repeatable but repetition is ")
 				+
-				fcppt::insert_to_fcppt_string(
+				fcppt::output_to_fcppt_string(
 					_repeat
 				)
 				+
