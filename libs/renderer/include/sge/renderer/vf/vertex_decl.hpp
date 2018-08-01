@@ -24,10 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/pointer.hpp>
 #include <sge/renderer/vf/vertex_fwd.hpp>
 #include <fcppt/nonassignable.hpp>
-#include <fcppt/brigand/found_t.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -65,14 +61,7 @@ public:
 	template<
 		typename Field
 	>
-	typename
-	boost::enable_if<
-		fcppt::brigand::found_t<
-			elements,
-			Field
-		>,
-		void
-	>::type
+	void
 	set(
 		typename Field::packed_type const &
 	);
@@ -80,13 +69,8 @@ public:
 	template<
 		typename Field
 	>
-	typename boost::enable_if<
-		fcppt::brigand::found_t<
-			elements,
-			Field
-		>,
-		typename Field::packed_type
-	>::type
+	typename
+	Field::packed_type
 	get() const;
 private:
 	pointer const data_;

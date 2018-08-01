@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/detail/read_wrapper_impl.hpp>
 #include <fcppt/brigand/found_t.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <brigand/algorithms/index_of.hpp>
 #include <brigand/sequences/at.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -58,18 +57,7 @@ template<
 template<
 	typename Field
 >
-typename
-boost::enable_if<
-	fcppt::brigand::found_t<
-		typename
-		sge::renderer::vf::vertex<
-			Part,
-			Constness
-		>::elements,
-		Field
-	>,
-	void
->::type
+void
 sge::renderer::vf::vertex<
 	Part,
 	Constness
@@ -77,6 +65,14 @@ sge::renderer::vf::vertex<
 	typename Field::packed_type const &_value
 )
 {
+	static_assert(
+		fcppt::brigand::found_t<
+			elements,
+			Field
+		>::value,
+		"Field not part of vertex format"
+	);
+
 	typedef
 	brigand::index_of<
 		elements,
@@ -118,21 +114,21 @@ template<
 template<
 	typename Field
 >
-typename boost::enable_if<
-	fcppt::brigand::found_t<
-		typename sge::renderer::vf::vertex<
-			Part,
-			Constness
-		>::elements,
-		Field
-	>,
-	typename Field::packed_type
->::type
+typename
+Field::packed_type
 sge::renderer::vf::vertex<
 	Part,
 	Constness
 >::get() const
 {
+	static_assert(
+		fcppt::brigand::found_t<
+			elements,
+			Field
+		>::value,
+		"Field not part of vertex format"
+	);
+
 	typedef
 	brigand::index_of<
 		elements,
