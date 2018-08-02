@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/reference_comparison.hpp>
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <cmath>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -54,13 +54,12 @@ struct compare_channels
 	template<
 		typename T
 	>
-	typename
-	boost::enable_if<
+	std::enable_if_t<
 		std::is_integral<
 			T
-		>,
+		>::value,
 		bool
-	>::type
+	>
 	operator()(
 		T const _a,
 		T const _b

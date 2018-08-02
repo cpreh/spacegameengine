@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/process/geometry_options.hpp>
 #include <sge/sprite/render/range_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -48,15 +48,15 @@ template<
 	typename Compare
 >
 inline
-typename boost::enable_if<
+std::enable_if_t<
 	sge::sprite::detail::process::is_same_geometry_options<
 		Options,
 		sge::sprite::process::geometry_options::sort_and_update
-	>,
+	>::value,
 	sge::sprite::render::range<
 		Choices
 	>
->::type
+>
 geometry(
 	Range const &_range,
 	Buffers &_buffers,
@@ -79,15 +79,15 @@ template<
 	typename Compare
 >
 inline
-typename boost::enable_if<
+std::enable_if_t<
 	sge::sprite::detail::process::is_same_geometry_options<
 		Options,
 		sge::sprite::process::geometry_options::update
-	>,
+	>::value,
 	sge::sprite::render::range<
 		Choices
 	>
->::type
+>
 geometry(
 	Range const &_range,
 	Buffers &_buffers,

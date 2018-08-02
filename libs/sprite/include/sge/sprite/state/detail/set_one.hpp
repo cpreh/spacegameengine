@@ -26,12 +26,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/detail/object_class.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/tag.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/set.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -107,10 +108,10 @@ public:
 	template<
 		typename Type
 	>
-	typename boost::enable_if<
-		typename Type::persistent,
+	std::enable_if_t<
+		Type::persistent::value,
 		result_type
-	>::type
+	>
 	operator()(
 		fcppt::tag<
 			Type
@@ -142,10 +143,12 @@ public:
 	template<
 		typename Type
 	>
-	typename boost::disable_if<
-		typename Type::persistent,
+	std::enable_if_t<
+		fcppt::not_(
+			Type::persistent::value
+		),
 		result_type
-	>::type
+	>
 	operator()(
 		fcppt::tag<
 			Type

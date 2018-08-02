@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/config/has_texture_levels.hpp>
 #include <sge/sprite/detail/config/texture_levels.hpp>
 #include <sge/sprite/detail/render/unset_texture_stages.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,12 +43,12 @@ namespace render
 template<
 	typename Choices
 >
-typename boost::enable_if<
+std::enable_if_t<
 	sge::sprite::detail::config::has_texture_levels<
 		Choices
-	>,
+	>::value,
 	void
->::type
+>
 unset_textures(
 	sge::renderer::context::core &_render_context
 )
@@ -64,12 +65,14 @@ unset_textures(
 template<
 	typename Choices
 >
-typename boost::disable_if<
-	sge::sprite::detail::config::has_texture_levels<
-		Choices
-	>,
+std::enable_if_t<
+	fcppt::not_(
+		sge::sprite::detail::config::has_texture_levels<
+			Choices
+		>::value
+	),
 	void
->::type
+>
 unset_textures(
 	sge::renderer::context::core &
 )

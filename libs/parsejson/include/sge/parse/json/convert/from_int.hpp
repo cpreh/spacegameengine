@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/int_type.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -40,16 +39,18 @@ namespace convert
 template<
 	typename IntType
 >
-typename boost::enable_if<
-	std::is_integral<
-		IntType
-	>,
-	sge::parse::json::int_type
->::type
+sge::parse::json::int_type
 from_int(
 	IntType const _value
 )
 {
+	static_assert(
+		std::is_integral<
+			IntType
+		>::value,
+		"IntType must be an integral type"
+	);
+
 	return
 		static_cast<
 			sge::parse::json::int_type

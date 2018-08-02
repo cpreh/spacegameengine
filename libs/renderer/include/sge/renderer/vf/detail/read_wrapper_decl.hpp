@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -62,12 +61,11 @@ template<
 >
 class read_wrapper<
 	T,
-	typename
-	boost::enable_if<
+	std::enable_if_t<
 		std::is_fundamental<
 			T
-		>
-	>::type
+		>::value
+	>
 >
 {
 	FCPPT_NONCOPYABLE(

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/has_format.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -40,14 +40,13 @@ template<
 using
 enable_if_has_format
 =
-typename
-boost::enable_if<
+std::enable_if_t<
 	sge::image::has_format<
 		Tag,
 		Format
-	>,
+	>::value,
 	Result
->::type;
+>;
 
 }
 }

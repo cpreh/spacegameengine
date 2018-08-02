@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -50,11 +49,11 @@ template<
 >
 struct choose_fundamental<
 	Type,
-	typename boost::enable_if<
+	std::enable_if_t<
 		std::is_integral<
 			Type
-		>
-	>::type
+		>::value
+	>
 >
 {
 	typedef sge::parse::json::int_type type;
@@ -65,11 +64,11 @@ template<
 >
 struct choose_fundamental<
 	Type,
-	typename boost::enable_if<
+	std::enable_if_t<
 		std::is_floating_point<
 			Type
-		>
-	>::type
+		>::value
+	>
 >
 {
 	typedef sge::parse::json::float_type type;
@@ -80,12 +79,12 @@ template<
 >
 struct choose_fundamental<
 	Type,
-	typename boost::enable_if<
+	std::enable_if_t<
 		std::is_same<
 			Type,
 			json::string
-		>
-	>::type
+		>::value
+	>
 >
 {
 	typedef sge::parse::json::string type;

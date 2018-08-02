@@ -28,9 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/parameter/vector/detail/set.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -47,12 +44,7 @@ template<
 	fcppt::math::size_type N,
 	typename S
 >
-typename boost::enable_if<
-	sge::cg::parameter::is_int_float_double<
-		T
-	>,
-	void
->::type
+void
 set(
 	sge::cg::parameter::object const &_parameter,
 	fcppt::math::vector::object<
@@ -62,6 +54,13 @@ set(
 	> const &_vector
 )
 {
+	static_assert(
+		sge::cg::parameter::is_int_float_double<
+			T
+		>::value,
+		"T must be int, float or double"
+	);
+
 	sge::cg::parameter::vector::detail::check_size(
 		_parameter,
 		N

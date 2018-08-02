@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/int_type.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -40,16 +39,18 @@ namespace convert
 template<
 	typename Enum
 >
-typename boost::enable_if<
-	std::is_enum<
-		Enum
-	>,
-	sge::parse::json::int_type
->::type
+sge::parse::json::int_type
 from_enum(
 	Enum const _enum
 )
 {
+	static_assert(
+		std::is_enum<
+			Enum
+		>::value,
+		"Enum must be an enum type"
+	);
+
 	return
 		static_cast<
 			sge::parse::json::int_type

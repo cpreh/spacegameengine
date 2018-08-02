@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //#include <mizuiro/color/channel_proxy.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <cmath>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -73,13 +72,12 @@ struct compare_element
 	template<
 		typename T
 	>
-	typename
-	boost::enable_if<
+	std::enable_if_t<
 		std::is_integral<
 			T
-		>,
+		>::value,
 		bool
-	>::type
+	>
 	operator()(
 		T const _value1,
 		T const _value2
@@ -94,13 +92,12 @@ struct compare_element
 	template<
 		typename T
 	>
-	typename
-	boost::enable_if<
+	std::enable_if_t<
 		std::is_floating_point<
 			T
-		>,
+		>::value,
 		bool
-	>::type
+	>
 	operator()(
 		T const _value1,
 		T const _value2

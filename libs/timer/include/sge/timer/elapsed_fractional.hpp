@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <chrono>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -39,19 +38,20 @@ template<
 	typename Float,
 	typename Clock
 >
-typename
-boost::enable_if<
-	std::is_floating_point<
-		Float
-	>,
-	Float
->::type
+Float
 elapsed_fractional(
 	sge::timer::basic<
 		Clock
 	> const &_timer
 )
 {
+	static_assert(
+		std::is_floating_point<
+			Float
+		>::value,
+		"Float must be a floating point type"
+	);
+
 	typedef
 	std::chrono::duration<
 		Float,

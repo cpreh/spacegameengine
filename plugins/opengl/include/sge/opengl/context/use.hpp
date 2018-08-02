@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/has_parameter.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use_impl.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -41,13 +42,14 @@ template<
 	typename Type
 >
 inline
-typename
-boost::disable_if<
-	sge::opengl::context::has_parameter<
-		Type
-	>,
+std::enable_if_t<
+	fcppt::not_(
+		sge::opengl::context::has_parameter<
+			Type
+		>::value
+	),
 	Type &
->::type
+>
 use(
 	sge::opengl::context::object &_object
 )
@@ -65,13 +67,12 @@ template<
 	typename Type
 >
 inline
-typename
-boost::enable_if<
+std::enable_if_t<
 	sge::opengl::context::has_parameter<
 		Type
-	>,
+	>::value,
 	Type &
->::type
+>
 use(
 	sge::opengl::context::object &_object,
 	typename

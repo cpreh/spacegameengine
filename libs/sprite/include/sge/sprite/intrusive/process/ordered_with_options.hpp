@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/render_context.hpp>
 #include <sge/sprite/state/scoped_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
@@ -55,12 +54,7 @@ template<
 	typename StateChoices,
 	typename Compare
 >
-typename boost::enable_if<
-	sge::sprite::process::is_options<
-		Options
-	>,
-	void
->::type
+void
 ordered_with_options(
 	RenderContext &_render_context,
 	sge::sprite::intrusive::ordered::collection<
@@ -77,6 +71,13 @@ ordered_with_options(
 	> const &_options
 )
 {
+	static_assert(
+		sge::sprite::process::is_options<
+			Options
+		>::value,
+		"Options must be a sprite::process::options"
+	);
+
 	typedef typename sge::sprite::intrusive::ordered::collection<
 		Choices,
 		Order

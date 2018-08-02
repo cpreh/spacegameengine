@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/impl/dynamic/algorithm/cac/permutate_compare.hpp>
 #include <sge/image/color/impl/dynamic/view/color_layout.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -77,13 +77,13 @@ public:
 		typename Source,
 		typename Dest
 	>
-	typename boost::enable_if<
+	std::enable_if_t<
 		std::is_same<
 			typename Source::format,
 			typename Dest::format
-		>,
+		>::value,
 		result_type
-	>::type
+	>
 	operator()(
 		Source const &_source,
 		Dest const &_dest
@@ -117,13 +117,15 @@ public:
 		typename Source,
 		typename Dest
 	>
-	typename boost::disable_if<
-		std::is_same<
-			typename Source::format,
-			typename Dest::format
-		>,
+	std::enable_if_t<
+		fcppt::not_(
+			std::is_same<
+				typename Source::format,
+				typename Dest::format
+			>::value
+		),
 		result_type
-	>::type
+	>
 	operator()(
 		Source const &_source,
 		Dest const &_dest

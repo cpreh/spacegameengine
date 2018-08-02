@@ -29,9 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/parameter/matrix/detail/size.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -49,13 +46,7 @@ template<
 	fcppt::math::size_type C,
 	typename S
 >
-typename
-boost::enable_if<
-	sge::cg::parameter::is_int_float_double<
-		T
-	>,
-	void
->::type
+void
 set(
 	sge::cg::parameter::object const &_parameter,
 	fcppt::math::matrix::object<
@@ -66,6 +57,13 @@ set(
 	> const &_matrix
 )
 {
+	static_assert(
+		sge::cg::parameter::is_int_float_double<
+			T
+		>::value,
+		"T must be int, float or double"
+	);
+
 	sge::cg::parameter::matrix::detail::check_size(
 		_parameter,
 		sge::cg::parameter::matrix::detail::size(

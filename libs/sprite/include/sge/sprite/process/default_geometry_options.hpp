@@ -23,11 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/detail/process/do_default_sort.hpp>
 #include <sge/sprite/process/geometry_options.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -56,12 +56,12 @@ template<
 struct default_geometry_options<
 	Choices,
 	Compare,
-	typename boost::enable_if<
+	std::enable_if_t<
 		sge::sprite::detail::process::do_default_sort<
 			Choices,
 			Compare
-		>
-	>::type
+		>::value
+	>
 >
 :
 std::integral_constant<
@@ -78,12 +78,14 @@ template<
 struct default_geometry_options<
 	Choices,
 	Compare,
-	typename boost::disable_if<
-		sge::sprite::detail::process::do_default_sort<
-			Choices,
-			Compare
-		>
-	>::type
+	std::enable_if_t<
+		fcppt::not_(
+			sge::sprite::detail::process::do_default_sort<
+				Choices,
+				Compare
+			>::value
+		)
+	>
 >
 :
 std::integral_constant<

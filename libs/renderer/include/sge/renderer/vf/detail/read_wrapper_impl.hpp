@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -83,12 +82,11 @@ template<
 inline
 sge::renderer::vf::detail::read_wrapper<
 	T,
-	typename
-	boost::enable_if<
+	std::enable_if_t<
 		std::is_fundamental<
 			T
-		>
-	>::type
+		>::value
+	>
 >::read_wrapper()
 // Don't initialize value_
 {
@@ -102,12 +100,11 @@ template<
 inline
 sge::renderer::vf::detail::read_wrapper<
 	T,
-	typename
-	boost::enable_if<
+	std::enable_if_t<
 		std::is_fundamental<
 			T
-		>
-	>::type
+		>::value
+	>
 >::~read_wrapper()
 {
 }
@@ -119,12 +116,11 @@ inline
 T &
 sge::renderer::vf::detail::read_wrapper<
 	T,
-	typename
-	boost::enable_if<
+	std::enable_if_t<
 		std::is_fundamental<
 			T
-		>
-	>::type
+		>::value
+	>
 >::get()
 {
 	return value_;

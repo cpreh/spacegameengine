@@ -24,9 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/detail/destroy.hpp>
 #include <sge/sprite/detail/config/is_intrusive.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -39,18 +36,20 @@ namespace detail
 template<
 	typename Choices
 >
-typename boost::enable_if<
-	sge::sprite::detail::config::is_intrusive<
-		Choices
-	>,
-	void
->::type
+void
 unlink(
 	sge::sprite::object<
 		Choices
 	> &_this
 )
 {
+	static_assert(
+		sge::sprite::detail::config::is_intrusive<
+			Choices
+		>::value,
+		"Sprite must be intrusive"
+	);
+
 	sge::sprite::detail::destroy(
 		_this
 	);

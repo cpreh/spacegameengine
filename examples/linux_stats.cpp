@@ -131,7 +131,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/match.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <brigand/sequences/list.hpp>
 #include <array>
 #include <example_main.hpp>
@@ -211,15 +210,16 @@ public:
 	template<
 		typename Float
 	>
-	typename
-	boost::enable_if<
-		std::is_floating_point<
-			Float
-		>,
-		Float
-	>::type
+	Float
 	work_percentage() const
 	{
+		static_assert(
+			std::is_floating_point<
+				Float
+			>::value,
+			"Float must be a floating point type"
+		);
+
 		return
 			total_.get()
 			!=

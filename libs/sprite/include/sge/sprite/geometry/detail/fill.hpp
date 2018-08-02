@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
 #include <sge/sprite/geometry/detail/fill_indices.hpp>
 #include <sge/sprite/geometry/detail/fill_vertices.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -45,15 +46,14 @@ template<
 	typename Choices
 >
 inline
-typename
-boost::enable_if<
+std::enable_if_t<
 	sge::sprite::detail::config::needs_index_buffer<
 		Choices
-	>,
+	>::value,
 	sge::sprite::render::range<
 		Choices
 	>
->::type
+>
 fill(
 	Range const &_range,
 	Compare const &_compare,
@@ -83,15 +83,16 @@ template<
 	typename Choices
 >
 inline
-typename
-boost::disable_if<
-	sge::sprite::detail::config::needs_index_buffer<
-		Choices
-	>,
+std::enable_if_t<
+	fcppt::not_(
+		sge::sprite::detail::config::needs_index_buffer<
+			Choices
+		>::value
+	),
 	sge::sprite::render::range<
 		Choices
 	>
->::type
+>
 fill(
 	Range const &_range,
 	Compare const &_compare,

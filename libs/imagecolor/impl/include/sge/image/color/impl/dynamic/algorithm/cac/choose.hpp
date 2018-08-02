@@ -30,9 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/conversion/same_to_same.hpp>
 #include <mizuiro/color/conversion/srgb_to_rgb.hpp>
 #include <mizuiro/color/format/same_spaces.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <brigand/functions/logical/or.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -57,19 +56,18 @@ template<
 	typename DestFormat
 >
 inline
-typename
-boost::enable_if<
+std::enable_if_t<
 	mizuiro::color::format::same_spaces<
 		typename
 		SourceFormat::color_format,
 		typename
 		DestFormat::color_format
-	>,
+	>::value,
 	sge::image::color::impl::dynamic::algorithm::cac::function<
 		SourceFormat,
 		DestFormat
 	>
->::type
+>
 choose(
 	SourceFormat const &,
 	DestFormat const &
@@ -89,17 +87,16 @@ template<
 	typename DestFormat
 >
 inline
-typename
-boost::enable_if<
+std::enable_if_t<
 	sge::image::color::impl::dynamic::algorithm::cac::rgb_to_srgb<
 		SourceFormat,
 		DestFormat
-	>,
+	>::value,
 	sge::image::color::impl::dynamic::algorithm::cac::function<
 		SourceFormat,
 		DestFormat
 	>
->::type
+>
 choose(
 	SourceFormat const &,
 	DestFormat const &
@@ -120,17 +117,16 @@ template<
 	typename DestFormat
 >
 inline
-typename
-boost::enable_if<
+std::enable_if_t<
 	sge::image::color::impl::dynamic::algorithm::cac::srgb_to_rgb<
 		SourceFormat,
 		DestFormat
-	>,
+	>::value,
 	sge::image::color::impl::dynamic::algorithm::cac::function<
 		SourceFormat,
 		DestFormat
 	>
->::type
+>
 choose(
 	SourceFormat const &,
 	DestFormat const &
@@ -151,29 +147,30 @@ template<
 	typename DestFormat
 >
 inline
-typename
-boost::disable_if<
-	brigand::or_<
+std::enable_if_t<
+	fcppt::not_(
 		mizuiro::color::format::same_spaces<
 			typename
 			SourceFormat::color_format,
 			typename
 			DestFormat::color_format
-		>,
+		>::value
+		||
 		sge::image::color::impl::dynamic::algorithm::cac::rgb_to_srgb<
 			SourceFormat,
 			DestFormat
-		>,
+		>::value
+		||
 		sge::image::color::impl::dynamic::algorithm::cac::srgb_to_rgb<
 			SourceFormat,
 			DestFormat
-		>
-	>,
+		>::value
+	),
 	sge::image::color::impl::dynamic::algorithm::cac::function<
 		SourceFormat,
 		DestFormat
 	>
->::type
+>
 choose(
 	SourceFormat const &_source,
 	DestFormat const &_dest

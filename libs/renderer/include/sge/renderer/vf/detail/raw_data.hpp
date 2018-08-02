@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/math/vector/is_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -44,18 +43,17 @@ template<
 	typename T
 >
 inline
-typename
-boost::enable_if<
+std::enable_if_t<
 	fcppt::math::vector::is_vector<
 		typename
 		std::remove_const<
 			T
 		>::type
-	>,
+	>::value,
 	sge::renderer::vf::detail::raw_data_type<
 		T
 	>
->::type
+>
 raw_data(
 	T &_value
 )
@@ -74,15 +72,14 @@ template<
 	typename T
 >
 inline
-typename
-boost::enable_if<
+std::enable_if_t<
 	std::is_fundamental<
 		T
-	>,
+	>::value,
 	sge::renderer::vf::detail::raw_data_type<
 		T
 	>
->::type
+>
 raw_data(
 	T &_value
 )
@@ -101,18 +98,17 @@ template<
 	typename T
 >
 inline
-typename
-boost::enable_if<
+std::enable_if_t<
 	mizuiro::color::is_color<
 		typename
 		std::remove_const<
 			T
 		>::type
-	>,
+	>::value,
 	sge::renderer::vf::detail::raw_data_type<
 		T
 	>
->::type
+>
 raw_data(
 	T &_value
 )

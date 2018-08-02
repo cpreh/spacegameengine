@@ -29,9 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/process/with_options.hpp>
 #include <sge/sprite/state/object_fwd.hpp>
 #include <sge/sprite/state/options_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -49,12 +46,7 @@ template<
 	typename StateChoices
 >
 inline
-typename boost::enable_if<
-	sge::sprite::process::is_options<
-		Options
-	>,
-	void
->::type
+void
 one_with_options(
 	RenderContext &_render_context,
 	sge::sprite::object<
@@ -69,6 +61,13 @@ one_with_options(
 	> const &_state_options
 )
 {
+	static_assert(
+		sge::sprite::process::is_options<
+			Options
+		>::value,
+		"Options must be a sprite::process::options"
+	);
+
 	static_assert(
 		Options::geometry_options::value
 		!=

@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/compare/detail/texture_level_function.hpp>
 #include <sge/sprite/detail/config/has_texture.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
@@ -42,12 +41,7 @@ template<
 	typename Choices
 >
 inline
-typename boost::enable_if<
-	sge::sprite::detail::config::has_texture<
-		Choices
-	>,
-	bool
->::type
+bool
 texture_level_equal(
 	sge::sprite::object<
 		Choices
@@ -57,6 +51,13 @@ texture_level_equal(
 	> const &_right
 )
 {
+	static_assert(
+		sge::sprite::detail::config::has_texture<
+			Choices
+		>::value,
+		"Sprite choices must have a texture"
+	);
+
 	return
 		sge::sprite::compare::detail::texture_level_function<
 			std::equal_to,

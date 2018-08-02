@@ -25,9 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/parameter/detail/check_type.hpp>
 #include <sge/cg/parameter/scalar/detail/set.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -42,17 +39,19 @@ namespace scalar
 template<
 	typename T
 >
-typename boost::enable_if<
-	sge::cg::parameter::is_int_float_double<
-		T
-	>,
-	void
->::type
+void
 set(
 	sge::cg::parameter::object const &_parameter,
 	T const _scalar
 )
 {
+	static_assert(
+		sge::cg::parameter::is_int_float_double<
+			T
+		>::value,
+		"T must be int, float or double"
+	);
+
 	sge::cg::parameter::detail::check_type<
 		T
 	>(

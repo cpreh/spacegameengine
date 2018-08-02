@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/detail/is_math_type.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/reference.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
@@ -47,10 +48,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/matrix/is_matrix.hpp>
 #include <fcppt/type_traits/is_std_array.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <brigand/functions/logical/and.hpp>
-#include <brigand/functions/logical/not.hpp>
-#include <brigand/functions/logical/or.hpp>
 #include <cstddef>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -74,12 +71,11 @@ template<
 >
 struct convert_from_impl<
 	Result,
-	typename
-	boost::enable_if<
+	std::enable_if_t<
 		std::is_floating_point<
 			Result
-		>
-	>::type
+		>::value
+	>
 >
 {
 	static
@@ -126,20 +122,18 @@ template<
 >
 struct convert_from_impl<
 	Result,
-	typename
-	boost::enable_if<
-		brigand::and_<
-			std::is_integral<
-				Result
-			>,
-			brigand::not_<
-				std::is_same<
-					Result,
-					bool
-				>
-			>
-		>
-	>::type
+	std::enable_if_t<
+		std::is_integral<
+			Result
+		>::value
+		&&
+		fcppt::not_(
+			std::is_same<
+				Result,
+				bool
+			>::value
+		)
+	>
 >
 {
 	static
@@ -166,12 +160,11 @@ template<
 >
 struct convert_from_impl<
 	Result,
-	typename
-	boost::enable_if<
+	std::enable_if_t<
 		fcppt::math::matrix::is_matrix<
 			Result
-		>
-	>::type
+		>::value
+	>
 >
 {
 	static
@@ -294,25 +287,24 @@ template<
 >
 struct convert_from_impl<
 	Result,
-	typename
-	boost::enable_if<
-		brigand::and_<
-			sge::parse::json::detail::is_iterable<
+	std::enable_if_t<
+		sge::parse::json::detail::is_iterable<
+			Result
+		>::value
+		&&
+		fcppt::not_(
+			fcppt::type_traits::is_std_array<
 				Result
-			>,
-			brigand::not_<
-				fcppt::type_traits::is_std_array<
-					Result
-				>
-			>,
-			brigand::not_<
-				std::is_same<
-					Result,
-					sge::parse::json::string
-				>
-			>
-		>
-	>::type
+			>::value
+		)
+		&&
+		fcppt::not_(
+			std::is_same<
+				Result,
+				sge::parse::json::string
+			>::value
+		)
+	>
 >
 {
 	static
@@ -351,12 +343,11 @@ template<
 >
 struct convert_from_impl<
 	Result,
-	typename
-	boost::enable_if<
+	std::enable_if_t<
 		fcppt::type_traits::is_std_array<
 			Result
-		>
-	>::type
+		>::value
+	>
 >
 {
 	static
@@ -426,12 +417,11 @@ template<
 >
 struct convert_from_impl<
 	Result,
-	typename
-	boost::enable_if<
+	std::enable_if_t<
 		sge::parse::json::detail::is_math_type<
 			Result
-		>
-	>::type
+		>::value
+	>
 >
 {
 	static
@@ -479,23 +469,22 @@ template<
 >
 struct convert_from_impl<
 	Result,
-	typename
-	boost::enable_if<
-		brigand::or_<
-			std::is_same<
-				sge::parse::json::object,
-				Result
-			>,
-			std::is_same<
-				sge::parse::json::array,
-				Result
-			>,
-			std::is_same<
-				sge::parse::json::string,
-				Result
-			>
-		>
-	>::type
+	std::enable_if_t<
+		std::is_same<
+			sge::parse::json::object,
+			Result
+		>::value
+		||
+		std::is_same<
+			sge::parse::json::array,
+			Result
+		>::value
+		||
+		std::is_same<
+			sge::parse::json::string,
+			Result
+		>::value
+	>
 >
 {
 	static

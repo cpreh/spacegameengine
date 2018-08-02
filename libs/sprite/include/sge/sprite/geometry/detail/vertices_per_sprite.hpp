@@ -23,11 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
 #include <sge/sprite/geometry/detail/count_constant.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -54,11 +55,11 @@ template<
 >
 struct vertices_per_sprite<
 	Choices,
-	typename boost::enable_if<
+	std::enable_if_t<
 		sge::sprite::detail::config::needs_index_buffer<
 			Choices
-		>
-	>::type
+		>::value
+	>
 >
 :
 sge::sprite::geometry::detail::count_constant<
@@ -72,11 +73,13 @@ template<
 >
 struct vertices_per_sprite<
 	Choices,
-	typename boost::disable_if<
-		sge::sprite::detail::config::needs_index_buffer<
-			Choices
-		>
-	>::type
+	std::enable_if_t<
+		fcppt::not_(
+			sge::sprite::detail::config::needs_index_buffer<
+				Choices
+			>::value
+		)
+	>
 >
 :
 sge::sprite::geometry::detail::count_constant<

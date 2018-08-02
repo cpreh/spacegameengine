@@ -36,23 +36,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/to_dim.hpp>
 #include <fcppt/type_traits/is_float_or_double.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <limits>
 #include <ostream>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
 template<
 	typename T
 >
-typename boost::enable_if<
+std::enable_if_t<
 	fcppt::type_traits::is_float_or_double<
 		T
-	>,
+	>::value,
 	fcppt::math::box::rect<
 		T
 	>
->::type
+>
 sge::texture::area_texc(
 	sge::texture::part const &_part,
 	fcppt::math::vector::static_<
@@ -122,14 +122,14 @@ sge::texture::area_texc(
 )\
 template \
 SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
-boost::enable_if< \
+std::enable_if_t< \
 	fcppt::type_traits::is_float_or_double< \
 		ftype \
-	>, \
+	>::value, \
 	fcppt::math::box::rect<\
 		ftype\
 	> \
->::type \
+> \
 sge::texture::area_texc<\
 	ftype\
 >( \

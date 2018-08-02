@@ -24,9 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/is_convertible.hpp>
 #include <sge/image/pixel/mizuiro_type.hpp>
 #include <mizuiro/color/convert_static.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -40,20 +37,21 @@ template<
 	typename DestFormat,
 	typename Src
 >
-typename
-boost::enable_if<
-	sge::image::color::is_convertible<
-		typename Src::format,
-		DestFormat
-	>,
-	sge::image::pixel::mizuiro_type<
-		DestFormat
-	>
->::type
+sge::image::pixel::mizuiro_type<
+	DestFormat
+>
 convert(
 	Src const &_src
 )
 {
+	static_assert(
+		sge::image::color::is_convertible<
+			typename Src::format,
+			DestFormat
+		>::value,
+		"Formats are not convertible"
+	);
+
 	return
 		mizuiro::color::convert_static::convert<
 			DestFormat

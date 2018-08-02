@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/static_fwd.hpp>
 #include <fcppt/type_traits/is_float_or_double.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -40,14 +40,14 @@ template<
 	typename T
 >
 SGE_TEXTURE_DETAIL_SYMBOL
-typename boost::enable_if<
+std::enable_if_t<
 	fcppt::type_traits::is_float_or_double<
 		T
-	>,
+	>::value,
 	fcppt::math::box::rect<
 		T
 	>
->::type
+>
 area_texc(
 	sge::texture::part const &,
 	fcppt::math::vector::static_<

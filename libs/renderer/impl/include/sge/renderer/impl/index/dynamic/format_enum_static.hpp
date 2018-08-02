@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -58,11 +57,11 @@ template<
 >
 struct format_enum_static<
 	Format,
-	typename boost::enable_if<
+	std::enable_if_t<
 		sge::renderer::index::format_is_16<
 			Format
-		>
-	>::type
+		>::value
+	>
 >
 :
 std::integral_constant<
@@ -77,11 +76,11 @@ template<
 >
 struct format_enum_static<
 	Format,
-	typename boost::enable_if<
+	std::enable_if_t<
 		sge::renderer::index::format_is_32<
 			Format
-		>
-	>::type
+		>::value
+	>
 >
 :
 std::integral_constant<

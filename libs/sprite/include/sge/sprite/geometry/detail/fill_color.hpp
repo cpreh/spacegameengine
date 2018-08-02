@@ -26,9 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/vf/color.hpp>
 #include <sge/sprite/geometry/detail/count.hpp>
 #include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/algorithm/repeat.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -46,13 +47,12 @@ template<
 	typename Choices
 >
 inline
-typename
-boost::enable_if<
+std::enable_if_t<
 	sge::sprite::detail::config::has_color<
 		Choices
-	>,
+	>::value,
 	void
->::type
+>
 fill_color(
 	Iterator _iterator,
 	sge::sprite::object<
@@ -84,13 +84,14 @@ template<
 	typename Choices
 >
 inline
-typename
-boost::disable_if<
-	sge::sprite::detail::config::has_color<
-		Choices
-	>,
+std::enable_if_t<
+	fcppt::not_(
+		sge::sprite::detail::config::has_color<
+			Choices
+		>::value
+	),
 	void
->::type
+>
 fill_color(
 	Iterator,
 	sge::sprite::object<

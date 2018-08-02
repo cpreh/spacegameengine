@@ -30,8 +30,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/pixel/mizuiro_type.hpp>
 #include <mizuiro/color/object.hpp>
 #include <mizuiro/color/format/argument.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -51,17 +52,16 @@ struct converter
 		typename Source
 	>
 	static
-	typename
-	boost::enable_if<
+	std::enable_if_t<
 		sge::image::color::is_convertible<
 			typename
 			Source::format,
 			DestFormat
-		>,
+		>::value,
 		sge::image::pixel::mizuiro_type<
 			DestFormat
 		>
-	>::type
+	>
 	execute(
 		Source const &_source,
 		typename
@@ -86,17 +86,18 @@ struct converter
 		typename Source
 	>
 	static
-	typename
-	boost::disable_if<
-		sge::image::color::is_convertible<
-			typename
-			Source::format,
-			DestFormat
-		>,
+	std::enable_if_t<
+		fcppt::not_(
+			sge::image::color::is_convertible<
+				typename
+				Source::format,
+				DestFormat
+			>::value
+		),
 		sge::image::pixel::mizuiro_type<
 			DestFormat
 		>
-	>::type
+	>
 	execute(
 		Source const &,
 		typename

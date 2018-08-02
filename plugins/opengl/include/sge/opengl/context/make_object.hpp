@@ -26,9 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/context/dummy_parameter_fwd.hpp>
 #include <sge/opengl/context/has_parameter.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,13 +43,12 @@ namespace context
 template<
 	typename Type
 >
-typename
-boost::enable_if<
+std::enable_if_t<
 	sge::opengl::context::has_parameter<
 		Type
-	>,
+	>::value,
 	sge::opengl::context::base_unique_ptr
->::type
+>
 make_object(
 	typename
 	Type::parameter &_parameter
@@ -69,13 +69,14 @@ make_object(
 template<
 	typename Type
 >
-typename
-boost::disable_if<
-	sge::opengl::context::has_parameter<
-		Type
-	>,
+std::enable_if_t<
+	fcppt::not_(
+		sge::opengl::context::has_parameter<
+			Type
+		>::value
+	),
 	sge::opengl::context::base_unique_ptr
->::type
+>
 make_object(
 	sge::opengl::context::dummy_parameter const &
 )
