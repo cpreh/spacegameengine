@@ -356,12 +356,6 @@ try
 		)
 	);
 
-	fcppt::signal::auto_connection const escape_connection(
-		sge::systems::quit_on_escape(
-			sys
-		)
-	);
-
 	sge::input::cursor::optional_position last_position;
 
 	auto const button_event(
@@ -576,6 +570,7 @@ try
 			sys.window_system(),
 			sge::window::loop_function{
 				[
+					&sys,
 					&button_event,
 					&draw,
 					&key_event
@@ -583,6 +578,11 @@ try
 					awl::event::base const &_event
 				)
 				{
+					sge::systems::quit_on_escape(
+						sys,
+						_event
+					);
+
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
 							brigand::list<

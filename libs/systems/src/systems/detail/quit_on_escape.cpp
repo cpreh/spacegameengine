@@ -22,60 +22,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/keyboard/event/key.hpp>
 #include <sge/systems/detail/quit_on_escape.hpp>
 #include <sge/window/system.hpp>
-#include <sge/window/system_event_function.hpp>
 #include <awl/event/base.hpp>
-#include <awl/event/container.hpp>
 #include <awl/main/exit_success.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 
 
-fcppt::signal::auto_connection
+void
 sge::systems::detail::quit_on_escape(
-	sge::window::system &_window_system
+	sge::window::system &_window_system,
+	awl::event::base const &_event
 )
 {
-	return
-		_window_system.event_handler(
-			sge::window::system_event_function{
-				[
-					&_window_system
-				](
-					awl::event::base const &_event
-				)
-				{
-					fcppt::optional::maybe_void(
-						fcppt::cast::dynamic<
-							sge::input::keyboard::event::key const
-						>(
-							_event
-						),
-						[
-							&_window_system
-						](
-							fcppt::reference<
-								sge::input::keyboard::event::key const
-							> const _key_event
-						)
-						{
-							if(
-								!_key_event.get().pressed()
-								&&
-								_key_event.get().get().code()
-								==
-								sge::input::key::code::escape
-							)
-								_window_system.quit(
-									awl::main::exit_success()
-								);
-						}
-					);
-
-					return
-						awl::event::container();
-				}
-			}
-		);
+	fcppt::optional::maybe_void(
+		fcppt::cast::dynamic<
+			sge::input::keyboard::event::key const
+		>(
+			_event
+		),
+		[
+			&_window_system
+		](
+			fcppt::reference<
+				sge::input::keyboard::event::key const
+			> const _key_event
+		)
+		{
+			if(
+				!_key_event.get().pressed()
+				&&
+				_key_event.get().get().code()
+				==
+				sge::input::key::code::escape
+			)
+				_window_system.quit(
+					awl::main::exit_success()
+				);
+		}
+	);
 }

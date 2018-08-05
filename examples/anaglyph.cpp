@@ -222,7 +222,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/record/permute.hpp>
 #include <fcppt/record/variadic.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/variant/output.hpp>
@@ -1021,12 +1020,6 @@ main_program(
 		)
 	);
 
-	fcppt::signal::auto_connection const escape_callback{
-		sge::systems::quit_on_escape(
-			sys
-		)
-	};
-
 	sge::camera::first_person::object camera{
 		sge::camera::first_person::parameters{
 			sge::camera::first_person::movement_speed(
@@ -1347,12 +1340,18 @@ main_program(
 			sys.window_system(),
 			sge::window::loop_function{
 				[
+					&sys,
 					&camera,
 					&draw
 				](
 					awl::event::base const &_event
 				)
 				{
+					sge::systems::quit_on_escape(
+						sys,
+						_event
+					);
+
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
 							brigand::list<

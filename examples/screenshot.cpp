@@ -108,7 +108,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -286,12 +285,6 @@ try
 			)
 	};
 
-	fcppt::signal::auto_connection const escape_connection{
-		sge::systems::quit_on_escape(
-			sys
-		)
-	};
-
 	auto const draw(
 		[
 			&background,
@@ -348,12 +341,18 @@ try
 			sys.window_system(),
 			sge::window::loop_function{
 				[
+					&sys,
 					&screenshot,
 					&draw
 				](
 					awl::event::base const &_event
 				)
 				{
+					sge::systems::quit_on_escape(
+						sys,
+						_event
+					);
+
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
 							brigand::list<

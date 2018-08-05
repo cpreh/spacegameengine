@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/detail/symbol.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <fcppt/signal/auto_connection_fwd.hpp>
+#include <awl/event/base_fwd.hpp>
 
 
 namespace sge
@@ -34,9 +34,10 @@ namespace detail
 {
 
 SGE_SYSTEMS_DETAIL_SYMBOL
-fcppt::signal::auto_connection
+void
 quit_on_escape(
-	sge::window::system &
+	sge::window::system &,
+	awl::event::base const &
 );
 
 }

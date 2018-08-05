@@ -133,7 +133,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/push_back.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <brigand/sequences/list.hpp>
 #include <example_main.hpp>
@@ -308,12 +307,6 @@ try
 			}
 	);
 
-	fcppt::signal::auto_connection const escape_connection{
-		sge::systems::quit_on_escape(
-			sys
-		)
-	};
-
 	sge::renderer::state::ffp::lighting::object_unique_ptr const light_state{
 		sys.renderer_device_ffp().create_lighting_state(
 			sge::renderer::state::ffp::lighting::parameters{
@@ -432,11 +425,18 @@ try
 			sys.window_system(),
 			sge::window::loop_function{
 				[
+					&sys,
 					&draw
 				](
 					awl::event::base const &_event
 				)
 				{
+
+					sge::systems::quit_on_escape(
+						sys,
+						_event
+					);
+
 					fcppt::optional::maybe_void(
 						fcppt::cast::dynamic<
 							sge::renderer::event::render const

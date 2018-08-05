@@ -194,7 +194,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/dynamic_cast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -674,12 +673,6 @@ try
 		)
 	);
 
-	fcppt::signal::auto_connection const input_connection(
-		sge::systems::quit_on_escape(
-			sys
-		)
-	);
-
 	fcppt::reference<
 		filter_array::value_type const
 	> current_filter{
@@ -989,6 +982,7 @@ try
 			sys.window_system(),
 			sge::window::loop_function{
 				[
+					&sys,
 					&camera,
 					&key_event,
 					&draw
@@ -996,6 +990,11 @@ try
 					awl::event::base const &_event
 				)
 				{
+					sge::systems::quit_on_escape(
+						sys,
+						_event
+					);
+
 					fcppt::optional::maybe_void(
 						fcppt::cast::dynamic<
 							sge::input::keyboard::event::key const

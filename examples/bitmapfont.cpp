@@ -192,12 +192,6 @@ main_program(
 		)
 	);
 
-	fcppt::signal::auto_connection const escape_connection(
-		sge::systems::quit_on_escape(
-			sys
-		)
-	);
-
 	sge::font::draw::static_text const static_text_left(
 		sys.renderer_device_ffp(),
 		*font_object,
@@ -307,11 +301,17 @@ main_program(
 			sys.window_system(),
 			sge::window::loop_function{
 				[
+					&sys,
 					&draw
 				](
 					awl::event::base const &_event
 				)
 				{
+					sge::systems::quit_on_escape(
+						sys,
+						_event
+					);
+
 					fcppt::optional::maybe_void(
 						fcppt::cast::dynamic<
 							sge::renderer::event::render const

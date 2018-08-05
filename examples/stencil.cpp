@@ -129,7 +129,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <brigand/sequences/list.hpp>
 #include <example_main.hpp>
@@ -372,13 +371,6 @@ try
 			}
 	);
 
-	// Set running to false when escape is pressed.
-	fcppt::signal::auto_connection const escape_connection(
-		sge::systems::quit_on_escape(
-			sys
-		)
-	);
-
 	// Create a stencil state which will always pass and increment the
 	// value stored in the stencil buffer for every pixel rendered.
 	sge::renderer::state::core::depth_stencil::object_unique_ptr const inc_state(
@@ -494,11 +486,18 @@ try
 			sys.window_system(),
 			sge::window::loop_function{
 				[
+					&sys,
 					&draw
 				](
 					awl::event::base const &_event
 				)
 				{
+					// Set running to false when escape is pressed.
+					sge::systems::quit_on_escape(
+						sys,
+						_event
+					);
+
 					fcppt::optional::maybe_void(
 						fcppt::cast::dynamic<
 							sge::renderer::event::render const

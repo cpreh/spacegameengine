@@ -179,12 +179,6 @@ try
 		)
 	);
 
-	fcppt::signal::auto_connection const escape_connection(
-		sge::systems::quit_on_escape(
-			sys
-		)
-	);
-
 	sge::console::object object(
 		sge::console::prefix(
 			SGE_FONT_LIT('/')
@@ -370,12 +364,18 @@ try
 			sys.window_system(),
 			sge::window::loop_function{
 				[
+					&sys,
 					&draw,
 					&gfx
 				](
 					awl::event::base const &_event
 				)
 				{
+					sge::systems::quit_on_escape(
+						sys,
+						_event
+					);
+
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
 							brigand::list<

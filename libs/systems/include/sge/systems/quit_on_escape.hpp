@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/systems/instance_impl.hpp>
 #include <sge/systems/detail/quit_on_escape.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <awl/event/base_fwd.hpp>
 
 
 namespace sge
@@ -34,16 +34,18 @@ namespace systems
 template<
 	typename Choices
 >
-fcppt::signal::auto_connection
+void
 quit_on_escape(
 	sge::systems::instance<
 		Choices
-	> const &_instance
+	> const &_instance,
+	awl::event::base const &_event
 )
 {
 	return
 		sge::systems::detail::quit_on_escape(
-			_instance.window_system()
+			_instance.window_system(),
+			_event
 		);
 }
 

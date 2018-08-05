@@ -154,7 +154,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/map.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -622,12 +621,6 @@ try
 		*vertex_buffer
 	);
 
-	fcppt::signal::auto_connection const input_connection(
-		sge::systems::quit_on_escape(
-			sys
-		)
-	);
-
 	sge::camera::first_person::object camera(
 		sge::camera::first_person::parameters(
 			sge::camera::first_person::movement_speed(
@@ -865,12 +858,18 @@ try
 
 	auto const process_event(
 		[
+			&sys,
 			&draw,
 			&camera
 		](
 			awl::event::base const &_event
 		)
 		{
+			sge::systems::quit_on_escape(
+				sys,
+				_event
+			);
+
 			fcppt::optional::maybe_void(
 				fcppt::variant::dynamic_cast_<
 					brigand::list<

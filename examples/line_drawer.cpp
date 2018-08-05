@@ -130,7 +130,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -218,12 +217,6 @@ try
 			sge::systems::input(
 				sge::systems::cursor_option_field::null()
 			)
-		)
-	);
-
-	fcppt::signal::auto_connection const escape_connection(
-		sge::systems::quit_on_escape(
-			sys
 		)
 	);
 
@@ -463,6 +456,7 @@ try
 			sys.window_system(),
 			sge::window::loop_function{
 				[
+					&sys,
 					&button_event,
 					&draw,
 					&move_event
@@ -470,6 +464,12 @@ try
 					awl::event::base const &_event
 				)
 				{
+
+					sge::systems::quit_on_escape(
+						sys,
+						_event
+					);
+
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
 							brigand::list<

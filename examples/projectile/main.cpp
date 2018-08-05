@@ -792,12 +792,6 @@ try
 		first_body.get()
 	};
 
-	fcppt::signal::auto_connection const escape_connection{
-		sge::systems::quit_on_escape(
-			sys
-		)
-	};
-
 	sge::timer::basic<
 		sge::timer::clocks::standard
 	> frame_timer(
@@ -892,12 +886,18 @@ try
 			sys.window_system(),
 			sge::window::loop_function{
 				[
+					&sys,
 					&keyboard_mover,
 					&draw
 				](
 					awl::event::base const &_event
 				)
 				{
+					sge::systems::quit_on_escape(
+						sys,
+						_event
+					);
+
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
 							brigand::list<

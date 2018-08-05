@@ -495,12 +495,6 @@ try
 		sge::audio::sound::repeat::loop
 	);
 
-	fcppt::signal::auto_connection const escape_connection(
-		sge::systems::quit_on_escape(
-			sys
-		)
-	);
-
 	auto const on_move(
 		[
 			&sound_siren
@@ -601,6 +595,7 @@ try
 			sys.window_system(),
 			sge::window::loop_function{
 				[
+					&sys,
 					&on_move,
 					&on_rel_move,
 					&draw
@@ -608,6 +603,11 @@ try
 					awl::event::base const &_event
 				)
 				{
+					sge::systems::quit_on_escape(
+						sys,
+						_event
+					);
+
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
 							brigand::list<

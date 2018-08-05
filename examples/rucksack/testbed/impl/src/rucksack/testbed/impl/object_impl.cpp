@@ -81,7 +81,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <vector>
@@ -147,12 +146,7 @@ sge::rucksack::testbed::object_impl::object_impl(
 		systems_.renderer_device_ffp(),
 		sge::rucksack::testbed::object_impl::sprite_state_parameters()
 	),
-	sprites_(),
-	quit_connection_(
-		sge::systems::quit_on_escape(
-			systems_
-		)
-	)
+	sprites_()
 {
 }
 
@@ -212,11 +206,17 @@ sge::rucksack::testbed::object_impl::run()
 			this->systems_.window_system(),
 			sge::window::loop_function{
 				[
+					this,
 					&draw
 				](
 					awl::event::base const &_event
 				)
 				{
+					sge::systems::quit_on_escape(
+						this->systems_,
+						_event
+					);
+
 					fcppt::optional::maybe_void(
 						fcppt::cast::dynamic<
 							sge::renderer::event::render const
