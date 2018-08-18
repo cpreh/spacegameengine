@@ -6,6 +6,7 @@ set(
 	libs/viewport/impl/src/viewport/impl/center.cpp
 	libs/viewport/impl/src/viewport/impl/detail/manager_impl.cpp
 	libs/viewport/impl/src/viewport/impl/maintain_aspect_function.cpp
+	libs/viewport/include/sge/viewport/aspect_from_screen_size.hpp
 	libs/viewport/include/sge/viewport/center_on_resize.hpp
 	libs/viewport/include/sge/viewport/detail/manager_impl_fwd.hpp
 	libs/viewport/include/sge/viewport/fill_on_resize.hpp
@@ -20,6 +21,7 @@ set(
 	libs/viewport/include/sge/viewport/optional_resize_callback_fwd.hpp
 	libs/viewport/include/sge/viewport/resize_callback.hpp
 	libs/viewport/include/sge/viewport/resize_function.hpp
+	libs/viewport/src/aspect_from_screen_size.cpp
 	libs/viewport/src/viewport/center_on_resize.cpp
 	libs/viewport/src/viewport/fill_on_resize.cpp
 	libs/viewport/src/viewport/fractional_aspect.cpp
