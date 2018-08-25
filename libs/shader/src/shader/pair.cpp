@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/algorithm/join.hpp>
+#include <fcppt/container/join.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -99,7 +99,7 @@ sge::shader::pair::pair(
 			sge::cg::program::main_function(
 				"vertex_main"),
 			sge::cg::program::compile_options(
-				fcppt::algorithm::join(
+				fcppt::container::join(
 					_context.vertex_compile_options().value(),
 					_optional_cflags.value()
 				)
@@ -119,7 +119,7 @@ sge::shader::pair::pair(
 			sge::cg::program::main_function(
 				"pixel_main"),
 			sge::cg::program::compile_options(
-				fcppt::algorithm::join(
+				fcppt::container::join(
 					_context.pixel_compile_options().value(),
 					_optional_cflags.value()
 				)
@@ -158,7 +158,7 @@ sge::shader::pair::pair(
 			sge::cg::program::main_function(
 				"vertex_main"),
 			sge::cg::program::compile_options(
-				fcppt::algorithm::join(
+				fcppt::container::join(
 					_context.vertex_compile_options().value(),
 					_optional_cflags.value()
 				)
@@ -177,7 +177,7 @@ sge::shader::pair::pair(
 			sge::cg::program::main_function(
 				"pixel_main"),
 			sge::cg::program::compile_options(
-				fcppt::algorithm::join(
+				fcppt::container::join(
 					_context.pixel_compile_options().value(),
 					_optional_cflags.value()
 				)

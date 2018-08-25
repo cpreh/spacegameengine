@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/config/merge_trees.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/algorithm/key_set.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
-#include <fcppt/algorithm/set_union.hpp>
+#include <fcppt/container/key_set.hpp>
+#include <fcppt/container/set_union.hpp>
 #include <fcppt/optional/combine.hpp>
 #include <fcppt/optional/copy_value.hpp>
 #include <fcppt/optional/map.hpp>
@@ -100,13 +100,13 @@ sge::parse::json::config::merge_trees(
 			fcppt::algorithm::map_optional<
 				sge::parse::json::member_map
 			>(
-				fcppt::algorithm::set_union(
-					fcppt::algorithm::key_set<
+				fcppt::container::set_union(
+					fcppt::container::key_set<
 						string_set
 					>(
 						_original.members
 					),
-					fcppt::algorithm::key_set<
+					fcppt::container::key_set<
 						string_set
 					>(
 						_update.members

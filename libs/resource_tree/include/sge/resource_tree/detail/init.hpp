@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/resource_tree/detail/base_path.hpp>
 #include <sge/resource_tree/detail/element_vector.hpp>
 #include <sge/resource_tree/detail/sub_path.hpp>
-#include <fcppt/algorithm/join.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assert/throw_message.hpp>
+#include <fcppt/container/join.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/operations.hpp>
@@ -94,7 +94,7 @@ init(
 	path_vector;
 
 	path_vector const directories(
-		fcppt::algorithm::join(
+		fcppt::container::join(
 			path_vector{
 				_path
 			},

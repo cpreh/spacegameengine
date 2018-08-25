@@ -28,12 +28,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/detail/list.hpp>
 #include <sge/systems/detail/make_defaults.hpp>
 #include <sge/systems/detail/make_list_element.hpp>
-#include <fcppt/algorithm/join.hpp>
 #include <fcppt/algorithm/loop_break_tuple.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/brigand/all_of.hpp>
 #include <fcppt/brigand/found_t.hpp>
 #include <fcppt/brigand/implication.hpp>
+#include <fcppt/container/join.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <brigand/functions/lambda/apply.hpp>
 #include <brigand/functions/lambda/bind.hpp>
@@ -86,7 +86,7 @@ make_list(
 
 	return
 		sge::systems::detail::list{
-			fcppt::algorithm::join(
+			fcppt::container::join(
 				// Initialize every subsystem given in the parameters
 				fcppt::algorithm::map<
 					sge::systems::detail::any_list

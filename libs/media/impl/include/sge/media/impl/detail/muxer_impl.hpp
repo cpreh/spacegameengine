@@ -49,9 +49,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/fold_break.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
-#include <fcppt/algorithm/set_intersection.hpp>
-#include <fcppt/algorithm/set_union.hpp>
 #include <fcppt/container/output.hpp>
+#include <fcppt/container/set_intersection.hpp>
+#include <fcppt/container/set_union.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
@@ -132,7 +132,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)
 						)
 						{
 							return
-								!fcppt::algorithm::set_intersection(
+								!fcppt::container::set_intersection(
 									_extensions,
 									system_instance->extensions()
 								).empty();
@@ -193,7 +193,7 @@ FCPPT_PP_POP_WARNING
 			)
 			{
 				return
-					fcppt::algorithm::set_union(
+					fcppt::container::set_union(
 						_plugin.second->extensions(),
 						_state
 					);

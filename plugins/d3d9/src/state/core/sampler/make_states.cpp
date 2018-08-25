@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/core/sampler/address/make_states.hpp>
 #include <sge/d3d9/state/core/sampler/filter/make_states.hpp>
 #include <sge/renderer/state/core/sampler/parameters.hpp>
-#include <fcppt/algorithm/join.hpp>
+#include <fcppt/container/join.hpp>
 
 
 sge::d3d9::state::core::sampler::state_vector
@@ -32,7 +32,7 @@ sge::d3d9::state::core::sampler::make_states(
 )
 {
 	return
-		fcppt::algorithm::join(
+		fcppt::container::join(
 			sge::d3d9::state::core::sampler::address::make_states(
 				_parameters.address()
 			),

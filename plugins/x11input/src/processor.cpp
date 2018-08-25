@@ -79,12 +79,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/tag_type.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/algorithm/join.hpp>
 #include <fcppt/algorithm/loop_break_brigand.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
+#include <fcppt/container/join.hpp>
 #include <fcppt/container/map_values_copy.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/bind.hpp>
@@ -154,7 +154,7 @@ sge::x11input::processor::processor(
 	cursors_{},
 	mice_{},
 	handlers_(
-		fcppt::algorithm::join(
+		fcppt::container::join(
 			fcppt::algorithm::map<
 				handler_map
 			>(

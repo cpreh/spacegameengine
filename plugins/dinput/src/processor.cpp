@@ -62,11 +62,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/unit.hpp>
 #include <fcppt/algorithm/fold.hpp>
-#include <fcppt/algorithm/join.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
+#include <fcppt/container/join.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
@@ -421,7 +421,7 @@ sge::dinput::processor::on_handle_ready()
 				)
 				{
 					return
-						fcppt::algorithm::join(
+						fcppt::container::join(
 							std::move(
 								_state
 							),

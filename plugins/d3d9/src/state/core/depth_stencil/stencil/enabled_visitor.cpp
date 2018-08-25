@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/combined.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/desc.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/separate.hpp>
-#include <fcppt/algorithm/join.hpp>
+#include <fcppt/container/join.hpp>
 
 
 sge::d3d9::state::core::depth_stencil::stencil::enabled_visitor::result_type
@@ -37,7 +37,7 @@ sge::d3d9::state::core::depth_stencil::stencil::enabled_visitor::operator()(
 ) const
 {
 	return
-		fcppt::algorithm::join(
+		fcppt::container::join(
 			sge::d3d9::state::render_vector{
 				sge::d3d9::state::render(
 					D3DRS_TWOSIDEDSTENCILMODE,
@@ -61,7 +61,7 @@ sge::d3d9::state::core::depth_stencil::stencil::enabled_visitor::operator()(
 	);
 
 	return
-		fcppt::algorithm::join(
+		fcppt::container::join(
 			sge::d3d9::state::render_vector{
 				sge::d3d9::state::render(
 					D3DRS_TWOSIDEDSTENCILMODE,

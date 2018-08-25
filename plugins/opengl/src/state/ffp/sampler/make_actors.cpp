@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/sampler/make_one_op.hpp>
 #include <sge/opengl/state/ffp/sampler/set_one.hpp>
 #include <sge/renderer/state/ffp/sampler/parameters.hpp>
-#include <fcppt/algorithm/join.hpp>
+#include <fcppt/container/join.hpp>
 
 
 sge::opengl::state::ffp::sampler::actor_vector
@@ -34,7 +34,7 @@ sge::opengl::state::ffp::sampler::make_actors(
 )
 {
 	return
-		fcppt::algorithm::join(
+		fcppt::container::join(
 			sge::opengl::state::ffp::sampler::actor_vector{
 				sge::opengl::state::ffp::sampler::set_one(
 					sge::opengl::texture::funcs::env_arg{
@@ -47,13 +47,11 @@ sge::opengl::state::ffp::sampler::make_actors(
 					}
 				)
 			},
-			fcppt::algorithm::join(
-				sge::opengl::state::ffp::sampler::make_one_op(
-					_parameters.color_op()
-				),
-				sge::opengl::state::ffp::sampler::make_one_op(
-					_parameters.alpha_op()
-				)
+			sge::opengl::state::ffp::sampler::make_one_op(
+				_parameters.color_op()
+			),
+			sge::opengl::state::ffp::sampler::make_one_op(
+				_parameters.alpha_op()
 			)
 		);
 }

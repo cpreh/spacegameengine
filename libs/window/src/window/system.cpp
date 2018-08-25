@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/system/object.hpp>
 #include <awl/system/event/processor.hpp>
 #include <awl/system/event/result.hpp>
-#include <fcppt/algorithm/join.hpp>
 #include <fcppt/algorithm/map_concat.hpp>
+#include <fcppt/container/join.hpp>
 #include <fcppt/either/match.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
@@ -151,7 +151,7 @@ sge::window::system::transform_events(
 
 				return
 					awl::system::event::result{
-						fcppt::algorithm::join(
+						fcppt::container::join(
 							std::move(
 								_events
 							),

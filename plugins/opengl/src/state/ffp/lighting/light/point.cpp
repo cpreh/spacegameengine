@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/lighting/light/position.hpp>
 #include <sge/renderer/state/ffp/lighting/light/cutoff_angle.hpp>
 #include <sge/renderer/state/ffp/lighting/light/point.hpp>
-#include <fcppt/algorithm/join.hpp>
+#include <fcppt/container/join.hpp>
 
 
 sge::opengl::state::index_actor_vector
@@ -34,7 +34,7 @@ sge::opengl::state::ffp::lighting::light::point(
 )
 {
 	return
-		fcppt::algorithm::join(
+		fcppt::container::join(
 			sge::opengl::state::index_actor_vector{
 				sge::opengl::state::ffp::lighting::light::position(
 					_point.position()

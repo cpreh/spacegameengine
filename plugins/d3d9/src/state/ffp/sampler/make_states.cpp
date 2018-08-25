@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/sampler/make_states.hpp>
 #include <sge/d3d9/state/ffp/sampler/state_vector.hpp>
 #include <sge/renderer/state/ffp/sampler/parameters.hpp>
-#include <fcppt/algorithm/join.hpp>
+#include <fcppt/container/join.hpp>
 
 
 sge::d3d9::state::ffp::sampler::state_vector
@@ -31,7 +31,7 @@ sge::d3d9::state::ffp::sampler::make_states(
 )
 {
 	return
-		fcppt::algorithm::join(
+		fcppt::container::join(
 			sge::d3d9::state::ffp::sampler::make_op(
 				_parameters.alpha_op()
 			),

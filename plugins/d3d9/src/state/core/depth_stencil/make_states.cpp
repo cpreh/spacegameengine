@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/core/depth_stencil/depth/visitor.hpp>
 #include <sge/d3d9/state/core/depth_stencil/stencil/visitor.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
-#include <fcppt/algorithm/join.hpp>
+#include <fcppt/container/join.hpp>
 #include <fcppt/variant/apply_unary.hpp>
 
 
@@ -33,7 +33,7 @@ sge::d3d9::state::core::depth_stencil::make_states(
 )
 {
 	return
-		fcppt::algorithm::join(
+		fcppt::container::join(
 			fcppt::variant::apply_unary(
 				sge::d3d9::state::core::depth_stencil::depth::visitor(),
 				_parameters.depth_variant()

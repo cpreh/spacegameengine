@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/lighting/light/point.hpp>
 #include <sge/opengl/state/ffp/lighting/light/spot.hpp>
 #include <sge/renderer/state/ffp/lighting/light/parameters.hpp>
-#include <fcppt/algorithm/join.hpp>
+#include <fcppt/container/join.hpp>
 #include <fcppt/variant/match.hpp>
 
 
@@ -36,7 +36,7 @@ sge::opengl::state::ffp::lighting::light::make_actors(
 )
 {
 	return
-		fcppt::algorithm::join(
+		fcppt::container::join(
 			sge::opengl::state::index_actor_vector{
 				sge::opengl::state::ffp::lighting::light::color(
 					GL_AMBIENT,

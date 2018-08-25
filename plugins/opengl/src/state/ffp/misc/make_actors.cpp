@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/ffp/misc/point_sprite/set.hpp>
 #include <sge/renderer/state/ffp/misc/parameters.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/algorithm/join.hpp>
+#include <fcppt/container/join.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -45,7 +45,7 @@ sge::opengl::state::ffp::misc::make_actors(
 )
 {
 	return
-		fcppt::algorithm::join(
+		fcppt::container::join(
 			sge::opengl::state::actor_vector{
 				sge::opengl::state::actor{
 					std::bind(

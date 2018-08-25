@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/enable_texcoords.hpp>
 #include <sge/opengl/vf/enable_vertex_attrib_array.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/algorithm/set_difference.hpp>
+#include <fcppt/container/set_difference.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
@@ -231,7 +231,7 @@ apply_difference(
 	for(
 		auto const &element
 		:
-		fcppt::algorithm::set_difference(
+		fcppt::container::set_difference(
 			_old_states,
 			_new_states
 		)
@@ -243,7 +243,7 @@ apply_difference(
 	for(
 		auto const &element
 		:
-		fcppt::algorithm::set_difference(
+		fcppt::container::set_difference(
 			_new_states,
 			_old_states
 		)

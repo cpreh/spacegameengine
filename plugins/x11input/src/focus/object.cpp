@@ -54,8 +54,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/algorithm/join.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/container/join.hpp>
 #include <fcppt/container/make.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/map.hpp>
@@ -269,7 +269,7 @@ sge::x11input::focus::object::on_key_press(
 				);
 
 				return
-					fcppt::algorithm::join(
+					fcppt::container::join(
 						fcppt::container::make<
 							awl::event::container
 						>(

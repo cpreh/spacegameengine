@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/off_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/variant.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/write_mask_all.hpp>
-#include <fcppt/algorithm/join.hpp>
+#include <fcppt/container/join.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
@@ -71,7 +71,7 @@ sge::opengl::state::core::depth_stencil::stencil::make_actors(
 			)
 			{
 				return
-					fcppt::algorithm::join(
+					fcppt::container::join(
 						sge::opengl::state::actor_vector{
 							sge::opengl::state::actor{
 								std::bind(

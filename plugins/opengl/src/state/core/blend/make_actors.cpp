@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/core/blend/make_actors.hpp>
 #include <sge/renderer/state/core/blend/parameters.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/algorithm/join.hpp>
+#include <fcppt/container/join.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -41,7 +41,7 @@ sge::opengl::state::core::blend::make_actors(
 )
 {
 	return
-		fcppt::algorithm::join(
+		fcppt::container::join(
 			sge::opengl::state::core::blend::alpha(
 				_context,
 				_parameters.alpha_variant()

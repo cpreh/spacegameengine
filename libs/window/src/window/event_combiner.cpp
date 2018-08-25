@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/event_combiner.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
-#include <fcppt/algorithm/join.hpp>
+#include <fcppt/container/join.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -34,7 +34,7 @@ sge::window::event_combiner(
 )
 {
 	return
-		fcppt::algorithm::join(
+		fcppt::container::join(
 			std::move(
 				_container1
 			),

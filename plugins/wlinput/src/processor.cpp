@@ -58,11 +58,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_ref.hpp>
 #include <fcppt/move_clear.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/algorithm/join.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
+#include <fcppt/container/join.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/to_container.hpp>
@@ -349,7 +349,7 @@ sge::wlinput::processor::seat_caps(
 	};
 
 	return
-		fcppt::algorithm::join(
+		fcppt::container::join(
 			fcppt::optional::to_container<
 				awl::event::container
 			>(
@@ -403,7 +403,7 @@ sge::wlinput::processor::remove_seat(
 	};
 
 	return
-		fcppt::algorithm::join(
+		fcppt::container::join(
 			fcppt::optional::to_container<
 				awl::event::container
 			>(
