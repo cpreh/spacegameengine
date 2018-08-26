@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
-#include <catch.hpp>
+#include <catch2/catch.hpp>
 #include <sstream>
 #include <string>
 #include <fcppt/config/external_end.hpp>
