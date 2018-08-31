@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/prototype.hpp>
 #include <sge/model/obj/impl/log_name.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/no_init.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>

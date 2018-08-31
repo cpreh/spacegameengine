@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/focus/string.hpp>
 #include <sge/input/focus/shared_ptr.hpp>
+#include <sge/input/focus/string.hpp>
 #include <sge/input/focus/event/base.hpp>
 #include <sge/input/focus/event/text.hpp>
 #include <fcppt/config/external_begin.hpp>
