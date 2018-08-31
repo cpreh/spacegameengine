@@ -185,7 +185,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
-#include <iostream>
 
 namespace
 {
@@ -1059,15 +1058,6 @@ focus_text(
 	> const _event
 )
 {
-	std::wcout << L"TEST TEST: " << _event.get().get().size() << L"\n";
-
-	for(
-		auto const c : _event.get().get()
-	)
-		std::wcout << static_cast<unsigned long>(c) << L" ";
-
-	std::wcout << L"\n";
-
 	fcppt::io::cout()
 		<<
 		FCPPT_TEXT("focus_text: ")
