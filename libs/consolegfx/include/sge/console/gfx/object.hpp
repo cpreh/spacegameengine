@@ -36,9 +36,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/mod_state_tracker.hpp>
 #include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/focus/event/base_fwd.hpp>
-#include <sge/input/focus/event/char_fwd.hpp>
 #include <sge/input/focus/event/key_fwd.hpp>
 #include <sge/input/focus/event/key_repeat_fwd.hpp>
+#include <sge/input/focus/event/text_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -149,8 +149,8 @@ private:
 	);
 
 	void
-	on_char(
-		sge::input::focus::event::char_ const &
+	on_text(
+		sge::input::focus::event::text const &
 	);
 
 	void

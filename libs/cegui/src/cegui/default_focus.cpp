@@ -20,9 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cegui/default_focus.hpp>
 #include <sge/cegui/syringe.hpp>
-#include <sge/input/focus/event/char.hpp>
 #include <sge/input/focus/event/key.hpp>
 #include <sge/input/focus/event/key_repeat.hpp>
+#include <sge/input/focus/event/text.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -57,7 +57,7 @@ sge::cegui::default_focus::process_event(
 			brigand::list<
 				sge::input::focus::event::key const,
 				sge::input::focus::event::key_repeat const,
-				sge::input::focus::event::char_ const
+				sge::input::focus::event::text const
 			>,
 			fcppt::cast::dynamic_fun
 		>(
@@ -99,12 +99,12 @@ sge::cegui::default_focus::process_event(
 					this
 				](
 					fcppt::reference<
-						sge::input::focus::event::char_ const
-					> const _char_event
+						sge::input::focus::event::text const
+					> const _text_event
 				)
 				{
 					this->syringe_.inject(
-						_char_event.get()
+						_text_event.get()
 					);
 				}
 			);

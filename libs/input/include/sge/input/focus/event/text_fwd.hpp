@@ -18,16 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_INPUT_FOCUS_EVENT_CHAR_HPP_INCLUDED
-#define SGE_INPUT_FOCUS_EVENT_CHAR_HPP_INCLUDED
-
-#include <sge/core/detail/class_symbol.hpp>
-#include <sge/input/detail/symbol.hpp>
-#include <sge/input/focus/char_type.hpp>
-#include <sge/input/focus/shared_ptr.hpp>
-#include <sge/input/focus/event/base.hpp>
-#include <sge/input/focus/event/char_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#ifndef SGE_INPUT_FOCUS_EVENT_TEXT_FWD_HPP_INCLUDED
+#define SGE_INPUT_FOCUS_EVENT_TEXT_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -39,30 +31,7 @@ namespace focus
 namespace event
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL char_
-:
-	public sge::input::focus::event::base
-{
-	FCPPT_NONCOPYABLE(
-		char_
-	);
-public:
-	SGE_INPUT_DETAIL_SYMBOL
-	char_(
-		sge::input::focus::shared_ptr,
-		sge::input::focus::char_type
-	);
-
-	SGE_INPUT_DETAIL_SYMBOL
-	~char_()
-	override;
-
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::focus::char_type
-	character() const;
-private:
-	sge::input::focus::char_type const character_;
-};
+class text;
 
 }
 }

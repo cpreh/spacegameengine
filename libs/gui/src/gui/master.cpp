@@ -33,9 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/event/button.hpp>
-#include <sge/input/focus/event/char.hpp>
+#include <sge/input/focus/char_type.hpp>
 #include <sge/input/focus/event/key.hpp>
 #include <sge/input/focus/event/key_repeat.hpp>
+#include <sge/input/focus/event/text.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
@@ -126,7 +127,7 @@ sge::gui::master::process_event(
 			brigand::list<
 				sge::input::focus::event::key const,
 				sge::input::focus::event::key_repeat const,
-				sge::input::focus::event::char_ const,
+				sge::input::focus::event::text const,
 				sge::input::cursor::event::button const
 			>,
 			fcppt::cast::dynamic_fun
@@ -169,12 +170,12 @@ sge::gui::master::process_event(
 					this
 				](
 					fcppt::reference<
-						sge::input::focus::event::char_ const
-					> const _char_event
+						sge::input::focus::event::text const
+					> const _text_event
 				)
 				{
-					this->char_event(
-						_char_event.get()
+					this->text_event(
+						_text_event.get()
 					);
 				},
 				[
@@ -218,8 +219,8 @@ sge::gui::master::key_repeat_event(
 }
 
 void
-sge::gui::master::char_event(
-	sge::input::focus::event::char_ const &_event
+sge::gui::master::text_event(
+	sge::input::focus::event::text const &_event
 )
 {
 	fcppt::optional::maybe_void(
@@ -232,9 +233,14 @@ sge::gui::master::char_event(
 			> const _focus
 		)
 		{
-			_focus.get().on_char(
-				_event.character()
-			);
+			for(
+				sge::input::focus::char_type const element
+				:
+				_event.get()
+			)
+				_focus.get().on_char(
+					element
+				);
 		}
 	);
 }

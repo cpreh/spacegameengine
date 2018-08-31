@@ -20,15 +20,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
-#include <sge/input/focus/char_type.hpp>
 #include <sge/input/focus/key.hpp>
 #include <sge/input/focus/object.hpp>
 #include <sge/input/focus/shared_ptr.hpp>
-#include <sge/input/focus/event/char.hpp>
 #include <sge/input/focus/event/in.hpp>
 #include <sge/input/focus/event/key.hpp>
 #include <sge/input/focus/event/key_repeat.hpp>
 #include <sge/input/focus/event/out.hpp>
+#include <sge/input/focus/event/text.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/optional_code.hpp>
 #include <sge/input/key/pressed.hpp>
@@ -353,32 +352,26 @@ keyboard_key(
 				)
 			);
 
-			for(
-				sge::input::focus::char_type const ch
-				:
-				sge::charconv::convert<
-					sge::charconv::encoding::wchar,
-					sge::charconv::encoding::utf8
+			data.events_.get().push_back(
+				fcppt::unique_ptr_to_base<
+					awl::event::base
 				>(
-					sge::wlinput::focus::get_utf8_string(
-						_xkb_state,
-						xkb_keycode
-					)
-				)
-			)
-				// TODO: Make a string event instead of a char one?
-				data.events_.get().push_back(
-					fcppt::unique_ptr_to_base<
-						awl::event::base
+					fcppt::make_unique_ptr<
+						sge::input::focus::event::text
 					>(
-						fcppt::make_unique_ptr<
-							sge::input::focus::event::char_
+						data.focus_.get_shared_ptr(),
+						sge::charconv::convert<
+							sge::charconv::encoding::wchar,
+							sge::charconv::encoding::utf8
 						>(
-							data.focus_.get_shared_ptr(),
-							ch
+							sge::wlinput::focus::get_utf8_string(
+								_xkb_state,
+								xkb_keycode
+							)
 						)
 					)
-				);
+				)
+			);
 		}
 	);
 }

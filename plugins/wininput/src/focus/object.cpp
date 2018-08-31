@@ -21,11 +21,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/focus/char_type.hpp>
 #include <sge/input/focus/key.hpp>
 #include <sge/input/focus/object.hpp>
-#include <sge/input/focus/event/char.hpp>
+#include <sge/input/focus/string.hpp>
 #include <sge/input/focus/event/in.hpp>
 #include <sge/input/focus/event/key.hpp>
 #include <sge/input/focus/event/key_repeat.hpp>
 #include <sge/input/focus/event/out.hpp>
+#include <sge/input/focus/event/text.hpp>
 #include <sge/input/key/pressed.hpp>
 #include <sge/window/event_function.hpp>
 #include <sge/window/object.hpp>
@@ -146,15 +147,17 @@ sge::wininput::focus::object::on_window_event(
 					awl::event::base
 				>(
 					fcppt::make_unique_ptr<
-						sge::input::focus::event::char_
+						sge::input::focus::event::text
 					>(
 						this->fcppt_shared_from_this(),
-						// TODO: Conversion function
-						static_cast<
-							sge::input::focus::char_type
-						>(
-							_event.wparam().get()
-						)
+						sge::input::focus::string{
+							// TODO: Conversion function
+							static_cast<
+								sge::input::focus::char_type
+							>(
+								_event.wparam().get()
+							)
+						}
 					)
 				)
 			};

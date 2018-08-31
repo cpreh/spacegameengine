@@ -33,9 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widget/optional_ref_fwd.hpp>
 #include <sge/input/event_base_fwd.hpp>
 #include <sge/input/cursor/event/button_fwd.hpp>
-#include <sge/input/focus/event/char_fwd.hpp>
 #include <sge/input/focus/event/key_fwd.hpp>
 #include <sge/input/focus/event/key_repeat_fwd.hpp>
+#include <sge/input/focus/event/text_fwd.hpp>
 #include <sge/input/key/code_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
@@ -101,8 +101,8 @@ private:
 	);
 
 	void
-	char_event(
-		sge::input::focus::event::char_ const &
+	text_event(
+		sge::input::focus::event::text const &
 	);
 
 	void

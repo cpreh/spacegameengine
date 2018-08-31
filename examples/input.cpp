@@ -49,13 +49,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/cursor/event/scroll.hpp>
 #include <sge/input/focus/object.hpp>
 #include <sge/input/focus/shared_ptr.hpp>
-#include <sge/input/focus/event/char.hpp>
 #include <sge/input/focus/event/discover.hpp>
 #include <sge/input/focus/event/in.hpp>
 #include <sge/input/focus/event/key.hpp>
 #include <sge/input/focus/event/key_repeat.hpp>
 #include <sge/input/focus/event/out.hpp>
 #include <sge/input/focus/event/remove.hpp>
+#include <sge/input/focus/event/text.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
 #include <sge/input/joypad/absolute_axis_info_container.hpp>
 #include <sge/input/joypad/axis_code_to_string.hpp>
@@ -185,6 +185,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
+#include <iostream>
 
 namespace
 {
@@ -259,9 +260,9 @@ focus_remove(
 );
 
 void
-focus_char(
+focus_text(
 	fcppt::reference<
-		sge::input::focus::event::char_ const
+		sge::input::focus::event::text const
 	>
 );
 
@@ -737,7 +738,7 @@ handle_events(
 				sge::input::cursor::event::scroll const,
 				sge::input::focus::event::discover const,
 				sge::input::focus::event::remove const,
-				sge::input::focus::event::char_ const,
+				sge::input::focus::event::text const,
 				sge::input::focus::event::key const,
 				sge::input::focus::event::key_repeat const,
 				sge::input::focus::event::in const,
@@ -790,7 +791,7 @@ handle_events(
 				cursor_scroll,
 				focus_discover,
 				focus_remove,
-				focus_char,
+				focus_text,
 				focus_key,
 				focus_key_repeat,
 				focus_in,
@@ -1052,24 +1053,31 @@ focus_remove(
 }
 
 void
-focus_char(
+focus_text(
 	fcppt::reference<
-		sge::input::focus::event::char_ const
+		sge::input::focus::event::text const
 	> const _event
 )
 {
+	std::wcout << L"TEST TEST: " << _event.get().get().size() << L"\n";
+
+	for(
+		auto const c : _event.get().get()
+	)
+		std::wcout << static_cast<unsigned long>(c) << L" ";
+
+	std::wcout << L"\n";
+
 	fcppt::io::cout()
 		<<
-		FCPPT_TEXT("focus_char: ")
+		FCPPT_TEXT("focus_text: ")
 		<<
 		_event.get().focus()
 		<<
-		FCPPT_TEXT("\n\tchar: ")
+		FCPPT_TEXT("\n\ttext: ")
 		<<
 		fcppt::from_std_wstring(
-			std::wstring{
-				_event.get().character()
-			}
+			_event.get().get()
 		)
 		<<
 		FCPPT_TEXT('\n');

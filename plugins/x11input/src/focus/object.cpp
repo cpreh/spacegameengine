@@ -18,13 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/input/focus/char_type.hpp>
 #include <sge/input/focus/key.hpp>
-#include <sge/input/focus/event/char.hpp>
+#include <sge/input/focus/string.hpp>
 #include <sge/input/focus/event/in.hpp>
 #include <sge/input/focus/event/key.hpp>
 #include <sge/input/focus/event/key_repeat.hpp>
 #include <sge/input/focus/event/out.hpp>
+#include <sge/input/focus/event/text.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/pressed.hpp>
 #include <sge/window/object_fwd.hpp>
@@ -50,12 +50,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/event/connection.hpp>
 #include <awl/event/container.hpp>
 #include <fcppt/enable_shared_from_this_impl.hpp>
+#include <fcppt/identity.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/container/join.hpp>
 #include <fcppt/container/make.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/map.hpp>
@@ -269,37 +269,27 @@ sge::x11input::focus::object::on_key_press(
 				);
 
 				return
-					fcppt::container::join(
-						fcppt::container::make<
-							awl::event::container
-						>(
-							this->process_key_down(
-								repeated,
-								lookup.key_code()
-							)
+					fcppt::container::make<
+						awl::event::container
+					>(
+						this->process_key_down(
+							repeated,
+							lookup.key_code()
 						),
-						fcppt::algorithm::map<
-							awl::event::container
+						fcppt::unique_ptr_to_base<
+							awl::event::base
 						>(
-							lookup.char_codes(),
-							[
-								this
-							](
-								sge::input::focus::char_type const _element
+							fcppt::make_unique_ptr<
+								sge::input::focus::event::text
+							>(
+								this->fcppt_shared_from_this(),
+								fcppt::algorithm::map<
+									sge::input::focus::string
+								>(
+									lookup.char_codes(),
+									fcppt::identity{}
+								)
 							)
-							{
-								return
-									fcppt::unique_ptr_to_base<
-										awl::event::base
-									>(
-										fcppt::make_unique_ptr<
-											sge::input::focus::event::char_
-										>(
-											this->fcppt_shared_from_this(),
-											_element
-										)
-									);
-							}
 						)
 					);
 			}

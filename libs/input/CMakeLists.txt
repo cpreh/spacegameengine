@@ -63,8 +63,6 @@ set(
 	libs/input/include/sge/input/focus/container.hpp
 	libs/input/include/sge/input/focus/event/base.hpp
 	libs/input/include/sge/input/focus/event/base_fwd.hpp
-	libs/input/include/sge/input/focus/event/char.hpp
-	libs/input/include/sge/input/focus/event/char_fwd.hpp
 	libs/input/include/sge/input/focus/event/discover.hpp
 	libs/input/include/sge/input/focus/event/discover_fwd.hpp
 	libs/input/include/sge/input/focus/event/in.hpp
@@ -77,6 +75,8 @@ set(
 	libs/input/include/sge/input/focus/event/out_fwd.hpp
 	libs/input/include/sge/input/focus/event/remove.hpp
 	libs/input/include/sge/input/focus/event/remove_fwd.hpp
+	libs/input/include/sge/input/focus/event/text.hpp
+	libs/input/include/sge/input/focus/event/text_fwd.hpp
 	libs/input/include/sge/input/focus/key.hpp
 	libs/input/include/sge/input/focus/key_fwd.hpp
 	libs/input/include/sge/input/focus/mod_state_tracker.hpp
@@ -85,6 +85,7 @@ set(
 	libs/input/include/sge/input/focus/object_fwd.hpp
 	libs/input/include/sge/input/focus/object_unique_ptr.hpp
 	libs/input/include/sge/input/focus/shared_ptr.hpp
+	libs/input/include/sge/input/focus/string.hpp
 	libs/input/include/sge/input/info/container.hpp
 	libs/input/include/sge/input/info/container_fwd.hpp
 	libs/input/include/sge/input/info/id.hpp
@@ -319,13 +320,13 @@ set(
 	libs/input/src/input/event_base.cpp
 	libs/input/src/input/exception.cpp
 	libs/input/src/input/focus/event/base.cpp
-	libs/input/src/input/focus/event/char.cpp
 	libs/input/src/input/focus/event/discover.cpp
 	libs/input/src/input/focus/event/in.cpp
 	libs/input/src/input/focus/event/key.cpp
 	libs/input/src/input/focus/event/key_repeat.cpp
 	libs/input/src/input/focus/event/out.cpp
 	libs/input/src/input/focus/event/remove.cpp
+	libs/input/src/input/focus/event/text.cpp
 	libs/input/src/input/focus/key.cpp
 	libs/input/src/input/focus/mod_state_tracker.cpp
 	libs/input/src/input/focus/object.cpp

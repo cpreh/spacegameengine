@@ -25,22 +25,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cegui/impl/convert_cursor_button.hpp>
 #include <sge/cegui/impl/convert_key.hpp>
 #include <sge/cegui/impl/optional_key_scan.hpp>
+#include <sge/charconv/char_type.hpp>
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
-#include <sge/charconv/string_type.hpp>
 #include <sge/input/cursor/button_code_to_string.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/event/button.hpp>
 #include <sge/input/cursor/event/move.hpp>
 #include <sge/input/cursor/event/scroll.hpp>
-#include <sge/input/focus/event/char.hpp>
 #include <sge/input/focus/event/key.hpp>
 #include <sge/input/focus/event/key_repeat.hpp>
+#include <sge/input/focus/event/text.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/code_to_string.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/context_fwd.hpp>
@@ -52,7 +51,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/GUIContext.h>
 #include <CEGUI/InputEvent.h>
-#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -154,36 +152,24 @@ sge::cegui::syringe::inject(
 
 void
 sge::cegui::syringe::inject(
-	sge::input::focus::event::char_ const &_event
+	sge::input::focus::event::text const &_event
 )
 {
-	typedef
-	sge::charconv::string_type<
-		sge::charconv::encoding::utf32
-	>
-	utf32_string;
-
-	utf32_string const converted_string(
+	for(
+		sge::charconv::char_type<
+			sge::charconv::encoding::utf32
+		> const element
+		:
 		sge::charconv::convert<
 			sge::charconv::encoding::utf32,
 			sge::charconv::encoding::wchar
 		>(
-			std::basic_string<
-				sge::input::focus::char_type
-			>(
-				1u,
-				_event.character()
-			)
+			_event.get()
 		)
-	);
-
-	FCPPT_ASSERT_ERROR(
-		converted_string.size() == 1
-	);
-
-	gui_context_.injectChar(
-		converted_string[0]
-	);
+	)
+		gui_context_.injectChar(
+			element
+		);
 }
 
 void

@@ -38,12 +38,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/align_h/max_width.hpp>
 #include <sge/font/align_h/variant.hpp>
 #include <sge/font/draw/static_text.hpp>
+#include <sge/input/focus/char_type.hpp>
 #include <sge/input/focus/key.hpp>
 #include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/focus/event/base.hpp>
-#include <sge/input/focus/event/char.hpp>
 #include <sge/input/focus/event/key.hpp>
 #include <sge/input/focus/event/key_repeat.hpp>
+#include <sge/input/focus/event/text.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/modifier.hpp>
 #include <sge/renderer/context/ffp.hpp>
@@ -196,7 +197,7 @@ sge::console::gfx::object::focus_event(
 	fcppt::optional::maybe_void(
 		fcppt::variant::dynamic_cast_<
 			brigand::list<
-				sge::input::focus::event::char_ const,
+				sge::input::focus::event::text const,
 				sge::input::focus::event::key const,
 				sge::input::focus::event::key_repeat const
 			>,
@@ -216,12 +217,12 @@ sge::console::gfx::object::focus_event(
 					this
 				](
 					fcppt::reference<
-						sge::input::focus::event::char_ const
-					> const _char_event
+						sge::input::focus::event::text const
+					> const _text_event
 				)
 				{
-					this->on_char(
-						_char_event.get()
+					this->on_text(
+						_text_event.get()
 					);
 				},
 				[
@@ -350,19 +351,24 @@ sge::console::gfx::object::on_key(
 }
 
 void
-sge::console::gfx::object::on_char(
-	sge::input::focus::event::char_ const &_event
+sge::console::gfx::object::on_text(
+	sge::input::focus::event::text const &_event
 )
 {
-	if(
-		std::isprint(
-			_event.character(),
-			std::locale()
-		)
+	for(
+		sge::input::focus::char_type const element
+		:
+		_event.get()
 	)
-		input_line_.insert(
-			_event.character()
-		);
+		if(
+			std::isprint(
+				element,
+				std::locale()
+			)
+		)
+			input_line_.insert(
+				element
+			);
 }
 
 void
