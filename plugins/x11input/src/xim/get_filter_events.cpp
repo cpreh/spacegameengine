@@ -39,7 +39,8 @@ sge::x11input::xim::get_filter_events(
 	sge::x11input::xim::get_ic_values(
 		_context,
 		XNFilterEvents,
-		&mask
+		&mask,
+		nullptr
 	);
 
 	return
