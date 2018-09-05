@@ -12,12 +12,6 @@ find_package(
 	REQUIRED
 )
 
-option(
-	INSTALL_EXAMPLES
-	"Install the examples"
-	OFF
-)
-
 set(
 	SGE_INSTALL_EXAMPLE_DIR
 	"${CMAKE_INSTALL_BINDIR}"
@@ -128,16 +122,12 @@ function(
 		${SGE_LIBRARIES_RESULT}
 	)
 
-	if(
-		INSTALL_EXAMPLES
+	install(
+		TARGETS
+		${FULL_NAME}
+		DESTINATION
+		"${SGE_INSTALL_EXAMPLE_DIR}"
 	)
-		install(
-			TARGETS
-			${FULL_NAME}
-			DESTINATION
-			"${SGE_INSTALL_EXAMPLE_DIR}"
-		)
-	endif()
 endfunction()
 
 function(
