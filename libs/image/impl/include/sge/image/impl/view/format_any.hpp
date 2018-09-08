@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/impl/static_to_dynamic_format.hpp>
 #include <sge/image/traits/pixel/format_fwd.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -51,7 +51,7 @@ format_any(
 )
 {
 	return
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			[](
 				auto const &_src
 			)

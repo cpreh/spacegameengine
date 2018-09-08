@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/cast/size.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 
 
 sge::opencl::kernel::object::object(
@@ -122,7 +122,7 @@ sge::opencl::kernel::object::argument(
 	sge::opencl::kernel::numeric_type const &_object
 )
 {
-	fcppt::variant::apply_unary(
+	fcppt::variant::apply(
 		[
 			_index,
 			this

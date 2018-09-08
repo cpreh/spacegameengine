@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/ostream.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
@@ -104,7 +104,7 @@ public:
 					% it->first
 				).str();
 
-			fcppt::variant::apply_unary(
+			fcppt::variant::apply(
 				output_visitor(
 					stream_,
 					tabs_+2
@@ -150,7 +150,7 @@ public:
 			++it
 		)
 		{
-			fcppt::variant::apply_unary(
+			fcppt::variant::apply(
 				output_visitor(
 					stream_,
 					tabs_+1
@@ -329,7 +329,7 @@ sge::parse::json::output::tabbed_to_stream(
 )
 {
 	return
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			start_visitor(
 				_stream
 			),

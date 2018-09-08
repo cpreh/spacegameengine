@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/store/object.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <mizuiro/image/algorithm/clone.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -45,7 +45,7 @@ sge::image::algorithm::clone(
 )
 {
 	return
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			[](
 				auto const &_inner_view
 			)

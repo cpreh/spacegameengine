@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/object.hpp>
 #include <sge/image/view/to_const.hpp>
 #include <mizuiro/image/make_const_view.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 
 
 template<
@@ -41,7 +41,7 @@ sge::image::view::to_const(
 )
 {
 	return
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			[](
 				auto const &_src_inner
 			)

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/dim.hpp>
 #include <sge/image/impl/from_mizuiro_dim.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 
 
 namespace sge
@@ -47,7 +47,7 @@ size_any(
 )
 {
 	return
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			[](
 				auto const &_src
 			)

@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/enum/make_range.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -86,7 +86,7 @@ sge::input::focus::mod_state_tracker::event(
 		)
 		{
 			sge::input::focus::shared_ptr const focus{
-				fcppt::variant::apply_unary(
+				fcppt::variant::apply(
 					[](
 						auto const _ref
 					)

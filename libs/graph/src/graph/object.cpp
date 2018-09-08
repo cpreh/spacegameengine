@@ -63,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <cmath>
@@ -355,7 +355,7 @@ sge::graph::object::object(
 		*texture_,
 		sge::renderer::lock_mode::writeonly);
 
-	fcppt::variant::apply_unary(
+	fcppt::variant::apply(
 		sge::graph::detail::draw_visitor(
 			*this),
 		lock.value().get());
@@ -395,7 +395,7 @@ sge::graph::object::render(
 			*texture_,
 			sge::renderer::lock_mode::writeonly);
 
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			sge::graph::detail::draw_visitor(
 				*this),
 			lock.value().get());

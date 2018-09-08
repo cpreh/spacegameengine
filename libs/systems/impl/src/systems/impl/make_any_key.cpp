@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/detail/any.hpp>
 #include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/impl/make_any_key.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 
 
 namespace
@@ -93,7 +93,7 @@ sge::systems::impl::make_any_key(
 )
 {
 	return
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			::make_key_visitor(),
 			_any
 		);

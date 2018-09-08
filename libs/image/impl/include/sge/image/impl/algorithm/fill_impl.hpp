@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/pixel/object_fwd.hpp>
 #include <sge/image/traits/image/color_tag.hpp>
 #include <mizuiro/image/algorithm/fill_c.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -51,7 +51,7 @@ sge::image::algorithm::fill(
 	sge::image::algorithm::uninitialized const _uninitialized
 )
 {
-	fcppt::variant::apply_unary(
+	fcppt::variant::apply(
 		[
 			&_value,
 			_uninitialized

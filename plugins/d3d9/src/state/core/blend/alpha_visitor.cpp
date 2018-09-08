@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/blend/alpha_enabled.hpp>
 #include <sge/renderer/state/core/blend/alpha_off_fwd.hpp>
 #include <fcppt/container/join.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 
 
 sge::d3d9::state::core::blend::alpha_visitor::result_type
@@ -56,7 +56,7 @@ sge::d3d9::state::core::blend::alpha_visitor::operator()(
 					TRUE
 				)
 			},
-			fcppt::variant::apply_unary(
+			fcppt::variant::apply(
 				sge::d3d9::state::core::blend::alpha_enabled_visitor(),
 				_enabled
 			)

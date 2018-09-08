@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/object.hpp>
 #include <mizuiro/nonconst_tag.hpp>
 #include <mizuiro/image/algorithm/copy.hpp>
-#include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/variant/apply.hpp>
 #include <fcppt/variant/get_exn.hpp>
 #include <fcppt/variant/invalid_get.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -59,7 +59,7 @@ sge::image::algorithm::copy(
 )
 try
 {
-	fcppt::variant::apply_unary(
+	fcppt::variant::apply(
 		[
 			&_dest,
 			_overlap,

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/convert/light/parameters.hpp>
 #include <sge/d3d9/state/convert/light/visitor.hpp>
 #include <sge/renderer/state/ffp/lighting/light/parameters.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cfloat>
 #include <cmath>
@@ -37,7 +37,7 @@ sge::d3d9::state::convert::light::parameters(
 {
 	D3DLIGHT9 ret;
 
-	fcppt::variant::apply_unary(
+	fcppt::variant::apply(
 			sge::d3d9::state::convert::light::visitor(
 				ret
 			),

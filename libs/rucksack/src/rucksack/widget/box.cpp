@@ -52,7 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/vector/null.hpp>
-#include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/variant/apply.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -210,7 +210,7 @@ sge::rucksack::widget::box::axis_policy() const
 			)
 			{
 				sge::rucksack::axis_policy const major{
-					fcppt::variant::apply_binary(
+					fcppt::variant::apply(
 						[
 							this
 						](
@@ -252,7 +252,7 @@ sge::rucksack::widget::box::axis_policy() const
 				};
 
 				sge::rucksack::axis_policy const minor{
-					fcppt::variant::apply_binary(
+					fcppt::variant::apply(
 						[](
 							auto const _p1,
 							auto const _p2

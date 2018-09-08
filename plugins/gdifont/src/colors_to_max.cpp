@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gdifont/colors_to_max.hpp>
 #include <sge/gdifont/colors_to_max_visitor.hpp>
 #include <sge/image2d/view/object.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 
 
 void
@@ -29,7 +29,7 @@ sge::gdifont::colors_to_max(
 	sge::image2d::view::object const &_view
 )
 {
-	fcppt::variant::apply_unary(
+	fcppt::variant::apply(
 		sge::gdifont::colors_to_max_visitor(),
 		_view.get()
 	);

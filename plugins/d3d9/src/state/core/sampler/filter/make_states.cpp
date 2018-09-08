@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/core/sampler/filter/make_states.hpp>
 #include <sge/d3d9/state/core/sampler/filter/visitor.hpp>
 #include <sge/renderer/state/core/sampler/filter/parameters.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 
 
 sge::d3d9::state::core::sampler::state_vector
@@ -32,7 +32,7 @@ sge::d3d9::state::core::sampler::filter::make_states(
 )
 {
 	return
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			sge::d3d9::state::core::sampler::filter::visitor(),
 			_parameters.variant()
 		);

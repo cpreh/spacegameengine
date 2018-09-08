@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/view/wrap.hpp>
 #include <mizuiro/image/flipped_view.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 
 
 namespace sge
@@ -45,7 +45,7 @@ flipped_any(
 )
 {
 	return
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			[](
 				auto const &_src
 			)

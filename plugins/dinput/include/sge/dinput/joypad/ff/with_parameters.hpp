@@ -52,7 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/optional/to_pointer.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <array>
@@ -278,7 +278,7 @@ with_parameters(
 				}
 			)
 		),
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			[](
 				auto const &_value
 			)
@@ -294,7 +294,7 @@ with_parameters(
 			},
 			variant_parameters
 		),
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			[](
 				auto &_value
 			)

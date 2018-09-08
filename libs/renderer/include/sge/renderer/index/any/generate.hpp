@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/any/view.hpp>
 #include <fcppt/tag.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -49,7 +49,7 @@ generate(
 	Gen const &_gen
 )
 {
-	fcppt::variant::apply_unary(
+	fcppt::variant::apply(
 		[
 			&_gen
 		](

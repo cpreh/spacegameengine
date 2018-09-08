@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/algorithm/compare.hpp>
 #include <sge/image/impl/algorithm/compare_visitor.hpp>
 #include <sge/image/view/const_object.hpp>
-#include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/variant/apply.hpp>
 
 
 template<
@@ -41,7 +41,7 @@ sge::image::algorithm::compare(
 )
 {
 	return
-		fcppt::variant::apply_binary(
+		fcppt::variant::apply(
 			sge::image::impl::algorithm::compare_visitor(),
 			_src1.get(),
 			_src2.get()

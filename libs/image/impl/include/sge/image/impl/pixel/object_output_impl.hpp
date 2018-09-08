@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/pixel/object_output.hpp>
 #include <sge/image/pixel/print.hpp>
 #include <fcppt/io/ostream_fwd.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 
 
 template<
@@ -40,7 +40,7 @@ sge::image::pixel::operator<<(
 )
 {
 	return
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			[
 				&_stream
 			](

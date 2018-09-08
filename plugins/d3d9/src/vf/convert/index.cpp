@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/vf/convert/index.hpp>
 #include <sge/d3d9/vf/convert/index_visitor.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 
@@ -34,7 +34,7 @@ sge::d3d9::vf::convert::index(
 )
 {
 	return
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			sge::d3d9::vf::convert::index_visitor(
 				_texture_coordinates
 			),

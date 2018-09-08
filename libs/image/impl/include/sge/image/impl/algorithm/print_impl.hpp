@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <mizuiro/color/output.hpp>
 #include <mizuiro/image/algorithm/print.hpp>
 #include <fcppt/io/ostream_fwd.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 
 
 template<
@@ -41,7 +41,7 @@ sge::image::algorithm::print(
 	> const &_view
 )
 {
-	fcppt::variant::apply_unary(
+	fcppt::variant::apply(
 		[
 			&_ostream
 		](

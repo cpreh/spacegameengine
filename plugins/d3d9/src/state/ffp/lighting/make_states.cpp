@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/state/ffp/lighting/make_states.hpp>
 #include <sge/d3d9/state/ffp/lighting/visitor.hpp>
 #include <sge/renderer/state/ffp/lighting/parameters.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 
 
 sge::d3d9::state::render_vector
@@ -31,7 +31,7 @@ sge::d3d9::state::ffp::lighting::make_states(
 )
 {
 	return
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			sge::d3d9::state::ffp::lighting::visitor(),
 			_parameters.variant()
 		);

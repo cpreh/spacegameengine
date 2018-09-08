@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/pixel/mizuiro_type.hpp>
 #include <sge/image/pixel/object.hpp>
 #include <mizuiro/color/convert.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 
 
 template<
@@ -48,7 +48,7 @@ sge::image::pixel::convert(
 )
 {
 	return
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			[](
 				auto const &_source
 			)

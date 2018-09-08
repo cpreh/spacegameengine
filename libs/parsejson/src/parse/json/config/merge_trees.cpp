@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object.hpp>
-#include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <set>
 #include <fcppt/config/external_end.hpp>
@@ -140,7 +140,7 @@ sge::parse::json::config::merge_trees(
 								)
 								{
 									return
-										fcppt::variant::apply_binary(
+										fcppt::variant::apply(
 											visitor(),
 											_original_value,
 											_update_value

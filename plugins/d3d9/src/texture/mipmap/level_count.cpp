@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/texture/mipmap/level_count.hpp>
 #include <sge/d3d9/texture/mipmap/level_count_visitor.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 
@@ -31,7 +31,7 @@ sge::d3d9::texture::mipmap::level_count(
 )
 {
 	return
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			mipmap::level_count_visitor(),
 			_object.variant()
 		);

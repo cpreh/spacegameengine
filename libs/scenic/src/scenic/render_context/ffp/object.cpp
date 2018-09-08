@@ -70,7 +70,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/map.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 
 
 namespace
@@ -133,7 +133,7 @@ transform_light(
 				_light.specular_color().get()),
 			sge::renderer::state::ffp::lighting::ambient_color(
 				_light.ambient_color().get()),
-			fcppt::variant::apply_unary(
+			fcppt::variant::apply(
 				light_visitor(),
 				_light.variant()));
 }

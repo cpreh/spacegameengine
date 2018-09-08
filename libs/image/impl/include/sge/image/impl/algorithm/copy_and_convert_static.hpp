@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/const_object.hpp>
 #include <sge/image/view/object.hpp>
 #include <mizuiro/image/algorithm/copy_and_convert.hpp>
-#include <fcppt/variant/apply_binary.hpp>
+#include <fcppt/variant/apply.hpp>
 
 
 namespace sge
@@ -58,7 +58,7 @@ copy_and_convert_static(
 	sge::image::algorithm::uninitialized const _uninitialized
 )
 {
-	fcppt::variant::apply_binary(
+	fcppt::variant::apply(
 		[
 			_overlap,
 			_uninitialized

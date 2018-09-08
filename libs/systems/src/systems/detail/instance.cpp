@@ -62,7 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
 
 
 sge::systems::detail::instance::instance(
@@ -208,7 +208,7 @@ sge::systems::detail::instance::instance(
 		:
 		map
 	)
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			sge::systems::impl::any_visitor(
 				*impl_
 			),

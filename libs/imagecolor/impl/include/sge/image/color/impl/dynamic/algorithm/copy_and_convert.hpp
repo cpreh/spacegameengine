@@ -32,8 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/view/object.hpp>
 #include <mizuiro/const_tag.hpp>
 #include <mizuiro/nonconst_tag.hpp>
-#include <fcppt/variant/apply_binary.hpp>
-#include <fcppt/variant/apply_unary.hpp>
+#include <fcppt/variant/apply.hpp>
+#include <fcppt/variant/apply.hpp>
 
 
 namespace sge
@@ -70,19 +70,19 @@ copy_and_convert(
 	>
 	dim;
 
-	fcppt::variant::apply_binary(
+	fcppt::variant::apply(
 		sge::image::color::impl::dynamic::algorithm::cac::visitor(
 			_overlap,
 			_uninitialized
 		),
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			sge::image::color::impl::dynamic::view::from_static_visitor<
 				dim::value,
 				mizuiro::const_tag
 			>(),
 			_source.get()
 		),
-		fcppt::variant::apply_unary(
+		fcppt::variant::apply(
 			sge::image::color::impl::dynamic::view::from_static_visitor<
 				dim::value,
 				mizuiro::nonconst_tag
