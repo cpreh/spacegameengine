@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/heterogenous_format.hpp>
 #include <sge/image/ds/layout/depth_stencil.hpp>
-#include <mizuiro/mpl/size_list.hpp>
+#include <mizuiro/size_list.hpp>
 
 
 namespace sge
@@ -35,7 +35,7 @@ namespace ds
 
 typedef
 sge::image::heterogenous_format<
-	mizuiro::mpl::size_list<
+	mizuiro::size_list<
 		24u,
 		8u
 	>,

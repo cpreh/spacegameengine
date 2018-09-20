@@ -23,7 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/ds/channel/depth_fwd.hpp>
 #include <sge/image/ds/space/depth_fwd.hpp>
-#include <mizuiro/mpl/list.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <brigand/sequences/list.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -38,7 +40,7 @@ namespace space
 struct depth
 {
 	typedef
-	mizuiro::mpl::list<
+	brigand::list<
 		sge::image::ds::channel::depth
 	>
 	required_channels;

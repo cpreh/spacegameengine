@@ -24,7 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/ds/channel/depth.hpp>
 #include <sge/image/ds/space/depth.hpp>
 #include <mizuiro/color/layout/make.hpp>
-#include <mizuiro/mpl/list.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <brigand/sequences/list.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -39,7 +41,7 @@ namespace layout
 typedef
 mizuiro::color::layout::make<
 	sge::image::ds::space::depth,
-	mizuiro::mpl::list<
+	brigand::list<
 		sge::image::ds::channel::depth
 	>
 >
