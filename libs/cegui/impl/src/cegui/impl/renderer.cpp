@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/from_cegui_string.hpp>
+#include <sge/cegui/to_fcppt_string.hpp>
 #include <sge/cegui/impl/from_cegui_size.hpp>
 #include <sge/cegui/impl/geometry_buffer.hpp>
 #include <sge/cegui/impl/renderer.hpp>
@@ -62,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/to_vector.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
@@ -360,14 +361,30 @@ sge::cegui::impl::renderer::createTexture(
 			<<
 			FCPPT_TEXT("createTexture(")
 			<<
-			sge::cegui::from_cegui_string(
-				_filename
+			fcppt::optional::from(
+				sge::cegui::to_fcppt_string(
+					_filename
+				),
+				[]{
+					return
+						fcppt::string{
+							FCPPT_TEXT("Failed to convert filename!")
+						};
+				}
 			)
 			<<
 			FCPPT_TEXT(", ")
 			<<
-			sge::cegui::from_cegui_string(
-				_resource_group
+			fcppt::optional::from(
+				sge::cegui::to_fcppt_string(
+					_resource_group
+				),
+				[]{
+					return
+						fcppt::string{
+							FCPPT_TEXT("Failed to convert resource group!")
+						};
+				}
 			)
 			<<
 			FCPPT_TEXT(')')
@@ -476,9 +493,19 @@ sge::cegui::impl::renderer::destroyTexture(
 	FCPPT_LOG_DEBUG(
 		log_,
 		fcppt::log::_
-			<< FCPPT_TEXT("destroyTexture(")
-			<< sge::cegui::from_cegui_string(
-				_name
+			<<
+			FCPPT_TEXT("destroyTexture(")
+			<<
+			fcppt::optional::from(
+				sge::cegui::to_fcppt_string(
+					_name
+				),
+				[]{
+					return
+						fcppt::string{
+							FCPPT_TEXT("Failed to convert texture name!")
+						};
+				}
 			)
 			<< FCPPT_TEXT(')')
 	);

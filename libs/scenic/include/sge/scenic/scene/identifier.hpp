@@ -21,8 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_SCENIC_SCENE_IDENTIFIER_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_IDENTIFIER_HPP_INCLUDED
 
+#include <sge/charconv/utf8_string.hpp>
 #include <fcppt/make_strong_typedef.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -32,9 +32,12 @@ namespace scenic
 {
 namespace scene
 {
+
 FCPPT_MAKE_STRONG_TYPEDEF(
-	fcppt::string,
-	identifier);
+	sge::charconv::utf8_string,
+	identifier
+);
+
 }
 }
 }

@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/utf8_string_to_fcppt.hpp>
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/image/color/rgb32f.hpp>
 #include <sge/image/color/init/blue.hpp>
 #include <sge/image/color/init/green.hpp>
@@ -84,7 +84,7 @@ public:
 			0u
 		),
 		current_material_(
-			fcppt::string()
+			sge::charconv::utf8_string{}
 		),
 		shininess_(),
 		ambient_(),
@@ -366,10 +366,11 @@ public:
 
 			current_material_ =
 				sge::model::obj::identifier(
-					sge::charconv::utf8_string_to_fcppt(
-						sge::charconv::utf8_string(
-							_rest_of_line.begin(),
-							_rest_of_line.end())));
+					sge::charconv::utf8_string(
+						_rest_of_line.begin(),
+						_rest_of_line.end()
+					)
+				);
 		}
 		else
 		{

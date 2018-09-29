@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/from_cegui_string.hpp>
+#include <sge/cegui/to_fcppt_string.hpp>
 #include <sge/cegui/impl/cegui_logger.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <fcppt/string.hpp>
@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/log/warning.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Logger.h>
 #include <fcppt/config/external_end.hpp>
@@ -62,8 +63,16 @@ sge::cegui::impl::cegui_logger::logEvent(
 )
 {
 	fcppt::string const converted(
-		sge::cegui::from_cegui_string(
-			_message
+		fcppt::optional::from(
+			sge::cegui::to_fcppt_string(
+				_message
+			),
+			[]{
+				return
+					fcppt::string{
+						FCPPT_TEXT("Failed to convert CEGUI string!")
+					};
+			}
 		)
 	);
 

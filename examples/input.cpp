@@ -147,6 +147,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/reference.hpp>
 #include <fcppt/shared_ptr_output.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
@@ -1066,8 +1067,16 @@ focus_text(
 		<<
 		FCPPT_TEXT("\n\ttext: ")
 		<<
-		fcppt::from_std_wstring(
-			_event.get().get()
+		fcppt::optional::from(
+			fcppt::from_std_wstring(
+				_event.get().get()
+			),
+			[]{
+				return
+					fcppt::string{
+						FCPPT_TEXT("Failed to convert focus text!")
+					};
+			}
 		)
 		<<
 		FCPPT_TEXT('\n');

@@ -34,13 +34,14 @@ namespace model
 {
 namespace obj
 {
+
 typedef
-std::map
-<
+std::map<
 	sge::model::obj::identifier,
 	sge::model::obj::face_sequence
 >
 material_to_face_sequence;
+
 }
 }
 }

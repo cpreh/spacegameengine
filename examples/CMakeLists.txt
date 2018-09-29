@@ -663,6 +663,7 @@ add_sge_example(
 add_sge_console_example(
 	obj_loader
 	SGE_DEPS
+		sgecharconv
 		sgeconfig
 		sgemodelobj
 	ADDITIONAL_DEPS

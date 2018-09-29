@@ -47,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/optional_level.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/options/apply.hpp>
 #include <fcppt/options/argument.hpp>
 #include <fcppt/options/default_help_switch.hpp>
@@ -162,8 +163,20 @@ main_program(
 								+=
 								" "
 								+
-								fcppt::to_std_string(
-									_arg
+								fcppt::optional::to_exception(
+									fcppt::to_std_string(
+										_arg
+									),
+									[
+										&_arg
+									]{
+										return
+											fcppt::exception{
+												FCPPT_TEXT("Unable to convert to std::string: ")
+												+
+												_arg
+											};
+									}
 								);
 						}
 					)

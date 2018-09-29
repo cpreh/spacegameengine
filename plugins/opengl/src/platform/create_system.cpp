@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/exception.hpp>
 #include <awl/system/object.hpp>
 #include <fcppt/function_impl.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
@@ -154,9 +155,11 @@ try_create(
 								fcppt::string{
 									FCPPT_TEXT("Failed to convert to \"")
 									+
-									fcppt::type_name_from_info(
-										typeid(
-											Arg
+									fcppt::from_std_string(
+										fcppt::type_name_from_info(
+											typeid(
+												Arg
+											)
 										)
 									)
 									+

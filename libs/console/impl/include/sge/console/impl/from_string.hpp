@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_IMPL_FROM_STRING_HPP_INCLUDED
 #define SGE_CONSOLE_IMPL_FROM_STRING_HPP_INCLUDED
 
-#include <fcppt/string.hpp>
+#include <sge/font/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -34,12 +34,12 @@ namespace console
 namespace impl
 {
 
-fcppt::string
+sge::font::string
 from_string(
 	std::string const &
 );
 
-fcppt::string
+sge::font::string
 from_string(
 	std::wstring const &
 );

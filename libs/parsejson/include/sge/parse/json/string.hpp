@@ -31,6 +31,7 @@ namespace parse
 namespace json
 {
 
+// FIXME: Specify the encoding
 typedef fcppt::string string;
 
 }

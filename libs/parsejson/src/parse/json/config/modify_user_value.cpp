@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/path_to_string.hpp>
 #include <sge/parse/json/config/modify_user_value.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -40,8 +41,9 @@ void
 sge::parse::json::config::modify_user_value(
 	sge::parse::json::object const &structure_json,
 	sge::parse::json::object &user_json,
-	json::path const &input_path,
-	sge::parse::json::value const &new_value)
+	sge::parse::json::path const &input_path,
+	sge::parse::json::value const &new_value
+)
 {
 	FCPPT_ASSERT_PRE(
 		!input_path.empty());
@@ -53,18 +55,33 @@ sge::parse::json::config::modify_user_value(
 
 	if(old_value.type_index() != new_value.type_index())
 		throw
-			sge::parse::exception(
-				FCPPT_TEXT("Error trying to update the user configuration node \"")+
-				json::path_to_string(
-					input_path)+
-				FCPPT_TEXT("\", the types of the old and new value didn't match. The old type was \"")+
-				fcppt::type_name_from_info(
-					fcppt::variant::type_info(
-						old_value))+
-				FCPPT_TEXT("\", the new type was \"")+
-				fcppt::type_name_from_info(
-					fcppt::variant::type_info(
-						new_value)));
+			sge::parse::exception{
+				FCPPT_TEXT("Error trying to update the user configuration node \"")
+				+
+				sge::parse::json::path_to_string(
+					input_path
+				)
+				+
+				FCPPT_TEXT("\", the types of the old and new value didn't match. The old type was \"")
+				+
+				fcppt::from_std_string(
+					fcppt::type_name_from_info(
+						fcppt::variant::type_info(
+							old_value
+						)
+					)
+				)
+				+
+				FCPPT_TEXT("\", the new type was \"")
+				+
+				fcppt::from_std_string(
+					fcppt::type_name_from_info(
+						fcppt::variant::type_info(
+							new_value
+						)
+					)
+				)
+			};
 
 	sge::parse::json::object &target =
 		// 0 is not permitted, 1 would mean: just take a value from

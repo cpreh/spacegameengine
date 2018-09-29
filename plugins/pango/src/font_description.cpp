@@ -18,11 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/font/exception.hpp>
 #include <sge/font/ttf_size.hpp>
 #include <sge/font/weight/unit.hpp>
 #include <sge/pango/font_description.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-font.h>
 #include <glib.h>
@@ -66,8 +69,20 @@ sge::pango::font_description::family(
 {
 	::pango_font_description_set_family(
 		impl_,
-		fcppt::to_std_string(
-			_family
+		fcppt::optional::to_exception(
+			fcppt::to_std_string(
+				_family
+			),
+			[
+				&_family
+			]{
+				return
+					sge::font::exception{
+						FCPPT_TEXT("Failed to convert font family: ")
+						+
+						_family
+					};
+			}
 		).c_str()
 	);
 }
@@ -99,5 +114,6 @@ sge::pango::font_description::italic()
 PangoFontDescription *
 sge::pango::font_description::get()
 {
-	return impl_;
+	return
+		impl_;
 }

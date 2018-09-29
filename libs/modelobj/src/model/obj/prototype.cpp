@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/charconv/utf8_string_to_fcppt.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/model/obj/exception.hpp>
@@ -170,8 +169,11 @@ sge::model::obj::prototype::prototype(
 	face_vertex_to_index_map face_vertex_to_index;
 
 	line_count line_counter = 0u;
-	sge::model::obj::identifier current_material((
-		fcppt::string()));
+
+	sge::model::obj::identifier current_material{
+		sge::charconv::utf8_string{}
+	};
+
 	std::string line;
 	while(
 		std::getline(
@@ -214,11 +216,12 @@ sge::model::obj::prototype::prototype(
 		else if(prefix == "usemtl")
 		{
 			current_material =
-				sge::model::obj::identifier(
-					sge::charconv::utf8_string_to_fcppt(
-						sge::charconv::utf8_string(
-							rest_of_line.begin(),
-							rest_of_line.end())));
+				sge::model::obj::identifier{
+					sge::charconv::utf8_string{
+						rest_of_line.begin(),
+						rest_of_line.end()
+					}
+				};
 		}
 		else if(prefix == "v")
 		{

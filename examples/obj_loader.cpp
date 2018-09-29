@@ -18,11 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/utf8_string_to_fcppt.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/model/obj/material_to_face_sequence.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
 #include <sge/model/obj/prototype.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -34,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/optional_level.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <cstdlib>
@@ -177,7 +180,17 @@ try
 				<<
 				FCPPT_TEXT("\tMaterial: ")
 				<<
-				pair.first
+				fcppt::optional::from(
+					sge::charconv::utf8_string_to_fcppt(
+						pair.first.get()
+					),
+					[]{
+						return
+							fcppt::string{
+								FCPPT_TEXT("Failed to convert material name!")
+							};
+					}
+				)
 				<<
 				FCPPT_TEXT('\n');
 

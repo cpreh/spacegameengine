@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/config/exception.hpp>
 #include <sge/config/getenv.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
@@ -32,7 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/map.hpp>
 #else
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdlib>
 #include <fcppt/config/external_end.hpp>
@@ -108,13 +111,25 @@ sge::config::getenv(
 			}
 		);
 #else
-	char const *const ret(
+	char const *const ret{
 		::std::getenv(
-			fcppt::to_std_string(
-				_name
+			fcppt::optional::to_exception(
+				fcppt::to_std_string(
+					_name
+				),
+				[
+					&_name
+				]{
+					return
+						sge::config::exception{
+							FCPPT_TEXT("Failed to convert config variable name: ")
+							+
+							_name
+						};
+				}
 			).c_str()
 		)
-	);
+	};
 
 	return
 		ret

@@ -85,7 +85,6 @@ set(
 	libs/cegui/include/sge/cegui/detail/system_impl_fwd.hpp
 	libs/cegui/include/sge/cegui/duration.hpp
 	libs/cegui/include/sge/cegui/exception.hpp
-	libs/cegui/include/sge/cegui/from_cegui_string.hpp
 	libs/cegui/include/sge/cegui/load_context.hpp
 	libs/cegui/include/sge/cegui/load_context_fwd.hpp
 	libs/cegui/include/sge/cegui/log_location.hpp
@@ -95,6 +94,8 @@ set(
 	libs/cegui/include/sge/cegui/system_fwd.hpp
 	libs/cegui/include/sge/cegui/to_cegui_color.hpp
 	libs/cegui/include/sge/cegui/to_cegui_string.hpp
+	libs/cegui/include/sge/cegui/to_fcppt_string.hpp
+	libs/cegui/include/sge/cegui/to_wstring.hpp
 	libs/cegui/include/sge/cegui/toolbox/append_row.hpp
 	libs/cegui/include/sge/cegui/toolbox/row.hpp
 	libs/cegui/include/sge/cegui/toolbox/scoped_gui_sheet.hpp
@@ -104,13 +105,14 @@ set(
 	libs/cegui/src/cegui/default_focus.cpp
 	libs/cegui/src/cegui/default_font.cpp
 	libs/cegui/src/cegui/exception.cpp
-	libs/cegui/src/cegui/from_cegui_string.cpp
 	libs/cegui/src/cegui/load_context.cpp
 	libs/cegui/src/cegui/log_location.cpp
 	libs/cegui/src/cegui/syringe.cpp
 	libs/cegui/src/cegui/system.cpp
 	libs/cegui/src/cegui/to_cegui_color.cpp
 	libs/cegui/src/cegui/to_cegui_string.cpp
+	libs/cegui/src/cegui/to_fcppt_string.cpp
+	libs/cegui/src/cegui/to_wstring.cpp
 	libs/cegui/src/cegui/toolbox/append_row.cpp
 	libs/cegui/src/cegui/toolbox/scoped_gui_sheet.cpp
 	libs/cegui/src/cegui/toolbox/scoped_layout.cpp

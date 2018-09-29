@@ -174,6 +174,7 @@ add_sge_base_library(
 		sgeviewport
 	TRANSITIVE_SGE_DEPS
 		sgecamera_interface
+		sgecharconv_interface
 		sgecg_interface
 		sgecore_interface
 		sgeimagecolor_interface

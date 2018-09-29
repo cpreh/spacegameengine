@@ -19,23 +19,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/to_wstring.hpp>
-#include <sge/cegui/impl/prefix.hpp>
-#include <sge/cegui/impl/to_absolute_path.hpp>
+#include <sge/charconv/convert.hpp>
+#include <sge/charconv/encoding.hpp>
+#include <sge/charconv/string_type.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <CEGUI/Base.h>
+#include <CEGUI/String.h>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
-boost::filesystem::path
-sge::cegui::impl::to_absolute_path(
-	sge::cegui::impl::prefix const &_prefix,
-	CEGUI::String const &_filename
+std::wstring
+sge::cegui::to_wstring(
+	CEGUI::String const &_string
 )
 {
+	typedef
+	sge::charconv::string_type<
+		sge::charconv::encoding::utf32
+	>
+	source_string;
+
+	static_assert(
+		sizeof(
+			source_string::value_type
+		)
+		==
+		sizeof(
+			CEGUI::utf32
+		),
+		"CEGUI's string must use utf32"
+	);
+
 	return
-		_prefix.get()
-		/
-		sge::cegui::to_wstring(
-			_filename
+		sge::charconv::convert<
+			sge::charconv::encoding::wchar,
+			sge::charconv::encoding::utf32
+		>(
+			source_string(
+				_string.begin(),
+				_string.end()
+			)
 		);
 }

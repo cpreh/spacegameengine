@@ -54,6 +54,7 @@ add_sge_base_library(
 		sgelog
 		sgerenderer
 	TRANSITIVE_SGE_DEPS
+		sgecharconv_interface
 		sgecore
 		sgeimagecolor
 		sgerenderer_interface

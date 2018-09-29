@@ -18,60 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/from_cegui_string.hpp>
-#include <sge/charconv/convert.hpp>
-#include <sge/charconv/encoding.hpp>
-#include <sge/charconv/string_type.hpp>
+#include <sge/cegui/to_fcppt_string.hpp>
+#include <sge/cegui/to_wstring.hpp>
 #include <fcppt/from_std_wstring.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/optional_string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUI/Base.h>
 #include <CEGUI/String.h>
 #include <fcppt/config/external_end.hpp>
 
 
-fcppt::string
-sge::cegui::from_cegui_string(
+fcppt::optional_string
+sge::cegui::to_fcppt_string(
 	CEGUI::String const &_string
 )
 {
-	typedef
-	sge::charconv::string_type<
-		sge::charconv::encoding::utf32
-	>
-	source_string;
-
-	static_assert(
-		sizeof(
-			source_string::value_type
-		)
-		==
-		sizeof(
-			CEGUI::utf32
-		),
-		"CEGUI's string must use utf32"
-	);
-
-	typedef
-	sge::charconv::string_type<
-		sge::charconv::encoding::wchar
-	>
-	dest_string;
-
-	dest_string const dest(
-		sge::charconv::convert<
-			sge::charconv::encoding::wchar,
-			sge::charconv::encoding::utf32
-		>(
-			source_string(
-				_string.begin(),
-				_string.end()
-			)
-		)
-	);
-
 	return
 		fcppt::from_std_wstring(
-			dest
+			sge::cegui::to_wstring(
+				_string
+			)
 		);
 }

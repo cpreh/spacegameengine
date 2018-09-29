@@ -94,10 +94,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/exception.hpp>
 #include <fcppt/output_to_string.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
@@ -218,8 +220,16 @@ try
 						<<
 						FCPPT_TEXT("fallback called with argument:")
 						<<
-						sge::font::to_fcppt_string(
-							_arg
+						fcppt::optional::from(
+							sge::font::to_fcppt_string(
+								_arg
+							),
+							[]{
+								return
+									fcppt::string{
+										FCPPT_TEXT("Failed to convert fallback text!")
+									};
+							}
 						)
 						<<
 						FCPPT_TEXT('\n');

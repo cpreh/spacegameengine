@@ -28,6 +28,7 @@ set(
 	libs/font/include/sge/font/flags_field_fwd.hpp
 	libs/font/include/sge/font/flags_fwd.hpp
 	libs/font/include/sge/font/from_fcppt_string.hpp
+	libs/font/include/sge/font/from_std_wstring.hpp
 	libs/font/include/sge/font/height.hpp
 	libs/font/include/sge/font/index.hpp
 	libs/font/include/sge/font/lit.hpp
@@ -67,6 +68,7 @@ set(
 	libs/font/include/sge/font/text_parameters_fwd.hpp
 	libs/font/include/sge/font/text_unique_ptr.hpp
 	libs/font/include/sge/font/to_fcppt_string.hpp
+	libs/font/include/sge/font/to_std_wstring.hpp
 	libs/font/include/sge/font/ttf_size.hpp
 	libs/font/include/sge/font/unit.hpp
 	libs/font/include/sge/font/v_center.hpp
@@ -94,6 +96,7 @@ set(
 	libs/font/src/font/align_h/right.cpp
 	libs/font/src/font/exception.cpp
 	libs/font/src/font/from_fcppt_string.cpp
+	libs/font/src/font/from_std_wstring.cpp
 	libs/font/src/font/log_location.cpp
 	libs/font/src/font/metrics.cpp
 	libs/font/src/font/metrics_output.cpp
@@ -111,6 +114,7 @@ set(
 	libs/font/src/font/text.cpp
 	libs/font/src/font/text_parameters.cpp
 	libs/font/src/font/to_fcppt_string.cpp
+	libs/font/src/font/to_std_wstring.cpp
 	libs/font/src/font/v_center.cpp
 	libs/font/src/font/weight/bold.cpp
 	libs/font/src/font/weight/heavy.cpp

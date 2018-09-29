@@ -32,9 +32,11 @@ namespace sge
 namespace font
 {
 
-typedef std::basic_string<
+typedef
+std::basic_string<
 	sge::font::char_type
-> string;
+>
+string;
 
 }
 }

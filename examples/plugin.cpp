@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/optional_cache_ref.hpp>
 #include <sge/renderer/core.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/tag_type.hpp>
 #include <fcppt/text.hpp>
@@ -105,9 +106,11 @@ try
 
 			fcppt::io::cout()
 				<<
-				fcppt::type_name_from_info(
-					typeid(
-						type
+				fcppt::from_std_string(
+					fcppt::type_name_from_info(
+						typeid(
+							type
+						)
 					)
 				)
 				<<

@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/font/from_fcppt_string.hpp>
+#include <sge/font/from_std_wstring.hpp>
 #include <sge/font/string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/to_std_wstring.hpp>
@@ -30,7 +31,9 @@ sge::font::from_fcppt_string(
 )
 {
 	return
-		fcppt::to_std_wstring(
-			_string
+		sge::font::from_std_wstring(
+			fcppt::to_std_wstring(
+				_string
+			)
 		);
 }

@@ -46,6 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/_.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -85,7 +86,7 @@ sge::font::bitmap::impl::make_rep(
 		)
 	);
 
-	sge::font::bitmap::impl::char_metric_ref_vector current_line;
+	sge::font::bitmap::impl::char_metric_ref_vector current_line{};
 
 	sge::font::unit width{
 		0
@@ -122,11 +123,19 @@ sge::font::bitmap::impl::make_rep(
 					<<
 					FCPPT_TEXT("Bitmapfont character '")
 					<<
-					sge::font::to_fcppt_string(
-						sge::font::string(
-							1u,
-							*it
-						)
+					fcppt::optional::from(
+						sge::font::to_fcppt_string(
+							sge::font::string(
+								1u,
+								*it
+							)
+						),
+						[]{
+							return
+								fcppt::string{
+									FCPPT_TEXT("Invalid character")
+								};
+						}
 					)
 					<<
 					FCPPT_TEXT("' not available!")

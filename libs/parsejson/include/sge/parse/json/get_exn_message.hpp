@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/invalid_get.hpp>
 #include <sge/parse/json/detail/get_return_type.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/optional/to_exception.hpp>
@@ -76,15 +77,19 @@ get_exn_message(
 					sge::parse::json::invalid_get(
 						FCPPT_TEXT("json::get_exn<")
 						+
-						fcppt::type_name_from_info(
-							typeid(T)
+						fcppt::from_std_string(
+							fcppt::type_name_from_info(
+								typeid(T)
+							)
 						)
 						+
 						FCPPT_TEXT("> failed! Type is \"")
 						+
-						fcppt::type_name_from_info(
-							fcppt::variant::type_info(
-								_val
+						fcppt::from_std_string(
+							fcppt::type_name_from_info(
+								fcppt::variant::type_info(
+									_val
+								)
 							)
 						)
 						+

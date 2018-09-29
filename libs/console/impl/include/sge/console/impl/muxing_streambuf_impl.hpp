@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/muxing_streambuf.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/impl/from_string.hpp>
-#include <sge/font/from_fcppt_string.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -147,10 +146,8 @@ sge::console::muxing_streambuf<
 		)
 		{
 			object_.emit_message(
-				sge::font::from_fcppt_string(
-					sge::console::impl::from_string(
-						buffer_
-					)
+				sge::console::impl::from_string(
+					buffer_
 				)
 			);
 

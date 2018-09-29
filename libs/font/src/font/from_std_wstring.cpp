@@ -18,24 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/to_wstring.hpp>
-#include <sge/cegui/impl/prefix.hpp>
-#include <sge/cegui/impl/to_absolute_path.hpp>
+#include <sge/font/from_std_wstring.hpp>
+#include <sge/font/string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
-boost::filesystem::path
-sge::cegui::impl::to_absolute_path(
-	sge::cegui::impl::prefix const &_prefix,
-	CEGUI::String const &_filename
+sge::font::string
+sge::font::from_std_wstring(
+	std::wstring const &_string
 )
 {
 	return
-		_prefix.get()
-		/
-		sge::cegui::to_wstring(
-			_filename
-		);
+		_string;
 }

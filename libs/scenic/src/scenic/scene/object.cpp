@@ -196,9 +196,13 @@ sge::scenic::scene::object::load_entities()
 				materials_.insert(
 					std::make_pair(
 						sge::scenic::scene::identifier(
-							current_obj_material.first.get()),
+							current_obj_material.first.get()
+						),
 						sge::scenic::scene::material::from_obj_material(
-							current_obj_material.second)));
+							current_obj_material.second
+						)
+					)
+				);
 			}
 		}
 

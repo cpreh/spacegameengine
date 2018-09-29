@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/charconv/detail/symbol.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/optional_string.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace charconv
 {
 
 SGE_CHARCONV_DETAIL_SYMBOL
-fcppt::string
+fcppt::optional_string
 utf8_string_to_fcppt(
 	sge::charconv::utf8_string const &
 );

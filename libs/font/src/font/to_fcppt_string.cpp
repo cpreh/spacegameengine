@@ -21,10 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/string.hpp>
 #include <sge/font/to_fcppt_string.hpp>
 #include <fcppt/from_std_wstring.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/optional_string.hpp>
 
 
-fcppt::string
+fcppt::optional_string
 sge::font::to_fcppt_string(
 	sge::font::string const &_string
 )

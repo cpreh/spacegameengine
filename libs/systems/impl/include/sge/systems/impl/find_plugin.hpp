@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/optional_name.hpp>
 #include <sge/systems/impl/find_plugin_opt.hpp>
 #include <sge/systems/impl/plugin_pair_decl.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
@@ -170,9 +171,11 @@ find_plugin(
 									sge::systems::exception{
 										FCPPT_TEXT("Plugin of type ")
 										+
-										fcppt::type_name_from_info(
-											typeid(
-												System
+										fcppt::from_std_string(
+											fcppt::type_name_from_info(
+												typeid(
+													System
+												)
 											)
 										)
 										+
@@ -193,9 +196,11 @@ find_plugin(
 					sge::systems::exception(
 						FCPPT_TEXT("No plugin of type ")
 						+
-						fcppt::type_name_from_info(
-							typeid(
-								System
+						fcppt::from_std_string(
+							fcppt::type_name_from_info(
+								typeid(
+									System
+								)
 							)
 						)
 						+

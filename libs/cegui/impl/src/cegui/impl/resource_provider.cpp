@@ -19,10 +19,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/cegui/exception.hpp>
-#include <sge/cegui/from_cegui_string.hpp>
+#include <sge/cegui/to_wstring.hpp>
 #include <sge/cegui/impl/resource_provider.hpp>
 #include <sge/log/default_parameters.hpp>
-#include <fcppt/from_std_string.hpp>
+#include <fcppt/from_std_wstring.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
@@ -31,12 +31,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
 #include <cstddef>
 #include <fstream>
 #include <ios>
+#include <string>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -63,40 +65,75 @@ void
 sge::cegui::impl::resource_provider::loadRawDataContainer(
 	CEGUI::String const &filename,
 	CEGUI::RawDataContainer &output,
-	CEGUI::String const &resource_group)
+	CEGUI::String const &resource_group
+)
 {
-	fcppt::string const
-		converted_filename =
-			sge::cegui::from_cegui_string(
+	std::wstring const
+		converted_filename(
+			sge::cegui::to_wstring(
 				filename
-			),
-		converted_resource_group =
-			sge::cegui::from_cegui_string(
+			)
+		),
+		converted_resource_group(
+			sge::cegui::to_wstring(
 				resource_group
-			);
+			)
+		);
 
 	FCPPT_LOG_DEBUG(
 		log_,
 		fcppt::log::_
-			<< FCPPT_TEXT("loadRawDataContainer(")
-			<< converted_filename
-			<< FCPPT_TEXT(", ")
-			<< converted_resource_group
-			<< FCPPT_TEXT(")"));
+			<<
+			FCPPT_TEXT("loadRawDataContainer(")
+			<<
+			fcppt::optional::from(
+				fcppt::from_std_wstring(
+					converted_filename
+				),
+				[]{
+					return
+						fcppt::string{
+							FCPPT_TEXT("Failed to convert filename")
+						};
+				}
+			)
+			<<
+			FCPPT_TEXT(", ")
+			<<
+			fcppt::optional::from(
+				fcppt::from_std_wstring(
+					converted_resource_group
+				),
+				[]{
+					return
+						fcppt::string{
+							FCPPT_TEXT("Failed to convert resource group")
+						};
+				}
+			)
+			<<
+			FCPPT_TEXT(")")
+	);
 
-	boost::filesystem::path const load_path =
-		!converted_resource_group.empty()
+	boost::filesystem::path const load_path(
+		converted_resource_group.empty()
 		?
 			boost::filesystem::path(
-				converted_resource_group)/converted_filename
+				converted_filename
+			)
 		:
 			boost::filesystem::path(
-				converted_filename);
+				converted_resource_group
+			)
+			/
+			converted_filename
+	);
 
 	boost::filesystem::ifstream file_stream(
 		load_path,
 		std::ios::binary);
 
+	// TODO: filesystem::open
 	if(!file_stream.is_open())
 		throw sge::cegui::exception(
 			FCPPT_TEXT("Coudn't open file \"")+
@@ -133,12 +170,14 @@ sge::cegui::impl::resource_provider::loadRawDataContainer(
 
 void
 sge::cegui::impl::resource_provider::unloadRawDataContainer(
-	CEGUI::RawDataContainer&data)
+	CEGUI::RawDataContainer &data
+)
 {
 	FCPPT_LOG_DEBUG(
 		log_,
 		fcppt::log::_
-			<< FCPPT_TEXT("unloadRawDataContainer()"));
+			<< FCPPT_TEXT("unloadRawDataContainer()")
+	);
 
 	data.release();
 }
@@ -149,27 +188,59 @@ sge::cegui::impl::resource_provider::getResourceGroupFileNames(
 	CEGUI::String const &file_pattern,
 	CEGUI::String const &resource_group)
 {
-	fcppt::string const
-		converted_file_pattern =
-			sge::cegui::from_cegui_string(
+	std::wstring const
+		converted_file_pattern(
+			sge::cegui::to_wstring(
 				file_pattern
-			),
-		converted_resource_group =
-			sge::cegui::from_cegui_string(
+			)
+		),
+		converted_resource_group(
+			sge::cegui::to_wstring(
 				resource_group
-			);
+			)
+		);
 
 	FCPPT_LOG_DEBUG(
 		log_,
 		fcppt::log::_
-			<< FCPPT_TEXT("loadRawDataContainer(")
-			<< converted_file_pattern
-			<< FCPPT_TEXT(", ")
-			<< converted_resource_group
-			<< FCPPT_TEXT(")"));
+			<<
+			FCPPT_TEXT("loadRawDataContainer(")
+			<<
+			fcppt::optional::from(
+				fcppt::from_std_wstring(
+					converted_file_pattern
+				),
+				[]{
+					return
+						fcppt::string{
+							FCPPT_TEXT("Failed to convert file pattern")
+						};
+				}
+			)
+			<<
+			FCPPT_TEXT(", ")
+			<<
+			fcppt::optional::from(
+				fcppt::from_std_wstring(
+					converted_resource_group
+				),
+				[]{
+					return
+						fcppt::string{
+							FCPPT_TEXT("Failed to convert resource group")
+						};
+				}
+			)
+			<<
+			FCPPT_TEXT(")")
+	);
+
 	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("resource_provider::getResourceGroupFilenames not implemented yet!"));
-	return 0u;
+		FCPPT_TEXT("resource_provider::getResourceGroupFilenames not implemented yet!")
+	);
+
+	return
+		0u;
 }
 
 sge::cegui::impl::resource_provider::~resource_provider()

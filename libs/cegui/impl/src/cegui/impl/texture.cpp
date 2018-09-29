@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/cegui/from_cegui_string.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
+#include <sge/cegui/to_fcppt_string.hpp>
 #include <sge/cegui/unit.hpp>
 #include <sge/cegui/impl/convert_pixel_format.hpp>
 #include <sge/cegui/impl/from_cegui_size.hpp>
@@ -73,6 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_unsigned.hpp>
 #include <fcppt/optional/deref.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -105,13 +106,26 @@ sge::cegui::impl::texture::texture(
 	FCPPT_LOG_DEBUG(
 		log_,
 		fcppt::log::_
-			<< FCPPT_TEXT("texture(")
-			<< this
-			<< FCPPT_TEXT(")::texture(")
-			<< sge::cegui::from_cegui_string(
-				_name
+			<<
+			FCPPT_TEXT("texture(")
+			<<
+			this
+			<<
+			FCPPT_TEXT(")::texture(")
+			<<
+			fcppt::optional::from(
+				sge::cegui::to_fcppt_string(
+					_name
+				),
+				[]{
+					return
+						fcppt::string{
+							FCPPT_TEXT("Failed to convert name")
+						};
+				}
 			)
-			<< FCPPT_TEXT(')')
+			<<
+			FCPPT_TEXT(')')
 	);
 }
 
@@ -177,8 +191,16 @@ sge::cegui::impl::texture::texture(
 			<<
 			FCPPT_TEXT(")::texture(")
 			<<
-			sge::cegui::from_cegui_string(
-				_name
+			fcppt::optional::from(
+				sge::cegui::to_fcppt_string(
+					_name
+				),
+				[]{
+					return
+						fcppt::string{
+							FCPPT_TEXT("Failed to convert name")
+						};
+				}
 			)
 			<<
 			FCPPT_TEXT(", ")
@@ -307,14 +329,30 @@ sge::cegui::impl::texture::loadFromFile(
 			<<
 			FCPPT_TEXT(")::loadFromFile(")
 			<<
-			sge::cegui::from_cegui_string(
-				_filename
+			fcppt::optional::from(
+				sge::cegui::to_fcppt_string(
+					_filename
+				),
+				[]{
+					return
+						fcppt::string{
+							FCPPT_TEXT("Failed to convert filename")
+						};
+				}
 			)
 			<<
 			FCPPT_TEXT(", ")
 			<<
-			sge::cegui::from_cegui_string(
-				_resource_group
+			fcppt::optional::from(
+				sge::cegui::to_fcppt_string(
+					_resource_group
+				),
+				[]{
+					return
+						fcppt::string{
+							FCPPT_TEXT("Failed to convert resource name")
+						};
+				}
 			)
 			<<
 			FCPPT_TEXT(')')

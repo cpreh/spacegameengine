@@ -19,29 +19,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/console/impl/from_string.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/from_std_wstring.hpp>
-#include <fcppt/string.hpp>
+#include <sge/font/from_std_wstring.hpp>
+#include <sge/font/string.hpp>
+#include <fcppt/widen.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
 
-fcppt::string
+sge::font::string
 sge::console::impl::from_string(
 	std::string const &_string
 )
 {
 	return
-		fcppt::from_std_string(
-			_string
+		sge::console::impl::from_string(
+			fcppt::widen(
+				_string
+			)
 		);
 }
 
-fcppt::string
+sge::font::string
 sge::console::impl::from_string(
 	std::wstring const &_string
 )
 {
 	return
-		fcppt::from_std_wstring(
+		sge::font::from_std_wstring(
 			_string
 		);
 }
