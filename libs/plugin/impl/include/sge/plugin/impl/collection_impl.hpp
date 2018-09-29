@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/exception.hpp>
 #include <sge/plugin/iterator.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
@@ -136,9 +137,11 @@ sge::plugin::collection<
 			+
 			FCPPT_TEXT(" out of range for type: \"")
 			+
-			fcppt::type_name_from_info(
-				typeid(
-					Type
+			fcppt::from_std_string(
+				fcppt::type_name_from_info(
+					typeid(
+						Type
+					)
 				)
 			)
 			+

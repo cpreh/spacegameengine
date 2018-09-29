@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/object.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/loop.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -163,9 +164,11 @@ FCPPT_PP_POP_WARNING
 							<<
 							FCPPT_TEXT("System ")
 							<<
-							fcppt::type_name_from_info(
-								typeid(
-									system
+							fcppt::from_std_string(
+								fcppt::type_name_from_info(
+									typeid(
+										system
+									)
 								)
 							)
 							<<
@@ -208,9 +211,11 @@ FCPPT_PP_POP_WARNING
 			<<
 			FCPPT_TEXT("Available extensions for system ")
 			<<
-			fcppt::type_name_from_info(
-				typeid(
-					system
+			fcppt::from_std_string(
+				fcppt::type_name_from_info(
+					typeid(
+						system
+					)
 				)
 			)
 			<<

@@ -40,7 +40,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
-#include <fcppt/to_std_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <dlfcn.h>
 #include <fcppt/config/external_end.hpp>
@@ -142,11 +141,7 @@ sge::plugin::library::object::object(
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 	handle_(
 		::dlopen(
-			fcppt::to_std_string(
-				fcppt::filesystem::path_to_string(
-					_name
-				)
-			).c_str(),
+			_name.string().c_str(),
 			RTLD_NOW
 		)
 	)
@@ -222,14 +217,20 @@ sge::plugin::library::object::load(
 	if(
 		!ret
 	)
-		throw sge::plugin::library::exception(
-			FCPPT_TEXT("Function ")
-			+ fcppt::from_std_string(_fun)
-			+ FCPPT_TEXT(" not found in ")
-			+ fcppt::filesystem::path_to_string(
-				this->name()
-			)
-		);
+		throw
+			sge::plugin::library::exception{
+				FCPPT_TEXT("Function ")
+				+
+				fcppt::from_std_string(
+					_fun
+				)
+				+
+				FCPPT_TEXT(" not found in ")
+				+
+				fcppt::filesystem::path_to_string(
+					this->name()
+				)
+			};
 
 	return
 		ret;
@@ -248,13 +249,18 @@ sge::plugin::library::object::load(
 		!=
 		nullptr
 	)
-		throw sge::plugin::library::exception(
-			fcppt::from_std_string(_fun)
-			+ FCPPT_TEXT(" not found in library ")
-			+ fcppt::filesystem::path_to_string(
-				this->name()
-			)
-		);
+		throw
+			sge::plugin::library::exception{
+				fcppt::from_std_string(
+					_fun
+				)
+				+
+				FCPPT_TEXT(" not found in library ")
+				+
+				fcppt::filesystem::path_to_string(
+					this->name()
+				)
+			};
 
 	return
 		ret;
