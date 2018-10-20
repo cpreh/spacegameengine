@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/srgb8_format.hpp>
 #include <sge/image/color/srgba8_format.hpp>
 #include <sge/image/color/impl/make_format_pair.hpp>
-#include <sge/image/color/impl/pp_formats.hpp>
+#include <sge/image/color/detail/pp_formats.hpp>
 #include <sge/image/impl/format_map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/for_each_i.hpp>
@@ -61,7 +61,7 @@ sge::image::impl::format_map<
 	BOOST_PP_SEQ_FOR_EACH_I(
 		SGE_IMAGE_COLOR_IMPL_MAKE_FORMAT_PAIR,
 		_,
-		SGE_IMAGE_COLOR_IMPL_PP_FORMATS
+		SGE_IMAGE_COLOR_DETAIL_PP_FORMATS
 	)
 >
 format_map;

@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
+#include <sge/audio/file_exception.hpp>
 #include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/load_exn.hpp>
 #include <sge/audio/loader.hpp>

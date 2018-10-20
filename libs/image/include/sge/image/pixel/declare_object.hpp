@@ -18,68 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_COLOR_ANY_DETAIL_COMPARE_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_ANY_DETAIL_COMPARE_HPP_INCLUDED
+#ifndef SGE_IMAGE_PIXEL_DECLARE_OBJECT_HPP_INCLUDED
+#define SGE_IMAGE_PIXEL_DECLARE_OBJECT_HPP_INCLUDED
 
-#include <mizuiro/color/compare.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <sge/core/detail/export_class_declaration.hpp>
+#include <sge/image/pixel/object.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace any
-{
-namespace detail
-{
-
-template<
-	typename CompareChannels
+#define SGE_IMAGE_PIXEL_DECLARE_OBJECT(\
+	tag \
+)\
+extern \
+template \
+class \
+SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \
+sge::image::pixel::object<\
+	tag\
 >
-class compare
-{
-	FCPPT_NONASSIGNABLE(
-		compare
-	);
-public:
-	explicit
-	compare(
-		CompareChannels const &_compare_channels
-	)
-	:
-		compare_channels_(
-			_compare_channels
-		)
-	{
-	}
-
-	template<
-		typename T
-	>
-	bool
-	operator()(
-		T const &_a,
-		T const &_b
-	) const
-	{
-		return
-			mizuiro::color::compare(
-				_a,
-				_b,
-				compare_channels_
-			);
-	}
-private:
-	CompareChannels const compare_channels_;
-};
-
-}
-}
-}
-}
-}
 
 #endif

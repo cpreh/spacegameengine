@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/algorithm/uninitialized.hpp>
+#include <sge/image/color/any/convert.hpp>
 #include <sge/image/impl/algorithm/fill_impl.hpp>
 #include <sge/image/impl/algorithm/instantiate_fill.hpp>
 #include <sge/image2d/tag.hpp>

@@ -5,6 +5,7 @@ set(
 	libs/core/impl/include/sge/core/impl/include_windows.hpp
 	libs/core/include/sge/core/check_state.hpp
 	libs/core/include/sge/core/detail/class_symbol.hpp
+	libs/core/include/sge/core/detail/export_class_declaration.hpp
 	libs/core/include/sge/core/exception.hpp
 	libs/core/src/core/exception.cpp
 )

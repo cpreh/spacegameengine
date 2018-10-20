@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/impl/view/instantiate_const_object.hpp>
 #include <sge/imageds2d/tag.hpp>
 #include <sge/imageds2d/view/const_object.hpp>
+#include <sge/imageds2d/view/to_const.hpp>
 
 
 SGE_IMAGE_IMPL_VIEW_INSTANTIATE_CONST_OBJECT(

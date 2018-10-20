@@ -8,7 +8,6 @@ set(
 	libs/image2d/include/sge/image2d/algorithm/copy.hpp
 	libs/image2d/include/sge/image2d/algorithm/copy_and_convert.hpp
 	libs/image2d/include/sge/image2d/algorithm/fill.hpp
-	libs/image2d/include/sge/image2d/algorithm/invalid_copy.hpp
 	libs/image2d/include/sge/image2d/algorithm/print.hpp
 	libs/image2d/include/sge/image2d/bgr32f_format.hpp
 	libs/image2d/include/sge/image2d/bgr8_format.hpp
@@ -39,7 +38,12 @@ set(
 	libs/image2d/include/sge/image2d/optional_file_unique_ptr_fwd.hpp
 	libs/image2d/include/sge/image2d/pitch.hpp
 	libs/image2d/include/sge/image2d/pitch_fwd.hpp
+	libs/image2d/include/sge/image2d/plugin/collection.hpp
 	libs/image2d/include/sge/image2d/plugin/collection_fwd.hpp
+	libs/image2d/include/sge/image2d/plugin/context.hpp
+	libs/image2d/include/sge/image2d/plugin/context_fwd.hpp
+	libs/image2d/include/sge/image2d/plugin/iterator.hpp
+	libs/image2d/include/sge/image2d/plugin/iterator_fwd.hpp
 	libs/image2d/include/sge/image2d/plugin/object.hpp
 	libs/image2d/include/sge/image2d/plugin/object_fwd.hpp
 	libs/image2d/include/sge/image2d/plugin/traits.hpp

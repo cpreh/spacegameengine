@@ -23,15 +23,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/information_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::audio::exception::exception(
-	fcppt::string const &_what
+	fcppt::string &&_what
 )
 :
 	sge::core::exception(
 		FCPPT_TEXT("audio: ")
-		+ _what
+		+
+		std::move(
+			_what
+		)
 	)
 {
 }
@@ -43,5 +49,31 @@ sge::audio::exception::exception(
 	sge::core::exception(
 		_information
 	)
+{
+}
+
+sge::audio::exception::exception(
+	exception &&
+)
+= default;
+
+sge::audio::exception::exception(
+	exception const &
+)
+= default;
+
+sge::audio::exception &
+sge::audio::exception::operator=(
+	exception &&
+)
+= default;
+
+sge::audio::exception &
+sge::audio::exception::operator=(
+	exception const &
+)
+= default;
+
+sge::audio::exception::~exception() noexcept
 {
 }

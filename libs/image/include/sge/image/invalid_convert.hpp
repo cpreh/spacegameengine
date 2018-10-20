@@ -52,6 +52,32 @@ public:
 		format source,
 		format dest
 	);
+
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+	invalid_convert(
+		invalid_convert &&
+	);
+
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+	invalid_convert(
+		invalid_convert const &
+	);
+
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+	invalid_convert &
+	operator=(
+		invalid_convert &&
+	);
+
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+	invalid_convert &
+	operator=(
+		invalid_convert const &
+	);
+
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+	~invalid_convert() noexcept
+	override;
 };
 
 }

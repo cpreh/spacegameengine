@@ -34,28 +34,48 @@ namespace sge
 namespace audio
 {
 
-/// Base class for all audio related errors
 class SGE_CORE_DETAIL_CLASS_SYMBOL exception
 :
 	public sge::core::exception
 {
 public:
-	/// Initialize exception with an error string
 	SGE_AUDIO_DETAIL_SYMBOL
 	explicit
 	exception(
-		fcppt::string const &
+		fcppt::string &&
 	);
 
-	/// Initialize exception with assertion information
-	/**
-	 * For an introduction to assertions in fcppt, see <a href="...">this overview</a>
-	 */
 	SGE_AUDIO_DETAIL_SYMBOL
 	explicit
 	exception(
 		fcppt::assert_::information const &
 	);
+
+	SGE_AUDIO_DETAIL_SYMBOL
+	exception(
+		exception &&
+	);
+
+	SGE_AUDIO_DETAIL_SYMBOL
+	exception(
+		exception const &
+	);
+
+	SGE_AUDIO_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception &&
+	);
+
+	SGE_AUDIO_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception const &
+	);
+
+	SGE_AUDIO_DETAIL_SYMBOL
+	~exception() noexcept
+	override;
 };
 
 }

@@ -35,24 +35,10 @@ sge::plugin::iterator<
 	sge::plugin::category_array::const_iterator const _it
 )
 :
-	it_(
+	it_{
 		_it
-	)
+	}
 {
-}
-
-template<
-	typename Type
->
-void
-sge::plugin::iterator<
-	Type
->::advance(
-	difference_type const _diff
-)
-{
-	it_ +=
-		_diff;
 }
 
 template<
@@ -64,17 +50,6 @@ sge::plugin::iterator<
 >::increment()
 {
 	++it_;
-}
-
-template<
-	typename Type
->
-void
-sge::plugin::iterator<
-	Type
->::decrement()
-{
-	--it_;
 }
 
 template<
@@ -109,24 +84,6 @@ sge::plugin::iterator<
 		>(
 			it_->get()
 		);
-}
-
-template<
-	typename Type
->
-typename sge::plugin::iterator<
-	Type
->::difference_type
-sge::plugin::iterator<
-	Type
->::distance_to(
-	iterator const &_other
-) const
-{
-	return
-		_other.it_
-		-
-		it_;
 }
 
 #endif

@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/multi_loader_parameters.hpp>
+#include <sge/audio/loader_plugin/collection.hpp>
 #include <sge/media/impl/instantiate_muxer_parameters.hpp>
 
 

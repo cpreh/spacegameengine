@@ -23,10 +23,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/impl/dynamic/format/empty_c8_1.hpp>
 #include <sge/image/color/impl/dynamic/format/object_impl.hpp>
 #include <mizuiro/color/layout/alpha.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wexit-time-destructors)
 
 sge::image::color::impl::dynamic::format::empty_c8_1 const
-sge::image::color::impl::dynamic::format::a8(
+sge::image::color::impl::dynamic::format::a8{
 	mizuiro::color::layout::alpha{},
 	sge::image::color::format::a8
-);
+};
+
+FCPPT_PP_POP_WARNING

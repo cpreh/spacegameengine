@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/format_from_static.hpp>
 #include <sge/image/color/tag.hpp>
-#include <sge/image/color/impl/pp_formats.hpp>
+#include <sge/image/color/detail/pp_formats.hpp>
 #include <sge/image/color/impl/traits/format_map.hpp>
 #include <sge/image/color/traits/format_fwd.hpp>
 #include <sge/image/impl/format_from_static_impl.hpp>
@@ -50,8 +50,6 @@ sge::image::color::format_from_static()
 		>();
 }
 
-// TODO: Abstract his?
-
 #define SGE_INSTANTIATE_COLOR_FORMAT_FROM_STATIC(\
 	seq,\
 	_,\
@@ -76,7 +74,5 @@ SGE_IMAGE_IMPL_INSTANTIATE_FORMAT_FROM_STATIC(\
 BOOST_PP_SEQ_FOR_EACH(
 	SGE_INSTANTIATE_COLOR_FORMAT_FROM_STATIC,
 	_,
-	SGE_IMAGE_COLOR_IMPL_PP_FORMATS
+	SGE_IMAGE_COLOR_DETAIL_PP_FORMATS
 )
-
-#undef SGE_INSTANTIATE_COLOR_FORMAT_FROM_STATIC

@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/color/any/detail/compare.hpp>
+#include <mizuiro/color/compare.hpp>
 #include <fcppt/variant/compare.hpp>
 
 
@@ -49,11 +50,20 @@ compare(
 		fcppt::variant::compare(
 			_a.get(),
 			_b.get(),
-			sge::image::color::any::detail::compare<
-				CompareChannels
-			>(
-				_compare_channels
+			[
+				&_compare_channels
+			](
+				auto const &_left,
+				auto const &_right
 			)
+			{
+				return
+					mizuiro::color::compare(
+						_left,
+						_right,
+						_compare_channels
+					);
+			}
 		);
 }
 

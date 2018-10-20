@@ -18,42 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_ALGORITHM_INVALID_COPY_HPP_INCLUDED
-#define SGE_IMAGE_ALGORITHM_INVALID_COPY_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_PLUGIN_ITERATOR_FWD_HPP_INCLUDED
+#define SGE_IMAGE2D_PLUGIN_ITERATOR_FWD_HPP_INCLUDED
 
-#include <sge/core/detail/class_symbol.hpp>
-#include <sge/image/exception.hpp>
-#include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/traits/pixel/format_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp>
+#include <sge/plugin/iterator_fwd.hpp>
 
 
 namespace sge
 {
-namespace image
+namespace image2d
 {
-namespace algorithm
+namespace plugin
 {
 
-template<
-	typename Tag
+typedef
+sge::plugin::iterator<
+	sge::image2d::system
 >
-class SGE_CORE_DETAIL_CLASS_SYMBOL invalid_copy
-:
-	public sge::image::exception
-{
-public:
-	typedef
-	sge::image::traits::pixel::format<
-		Tag
-	>
-	format;
-
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	invalid_copy(
-		format source,
-		format dest
-	);
-};
+iterator;
 
 }
 }

@@ -46,6 +46,32 @@ public:
 		sge::media::optional_name const &,
 		fcppt::string const &
 	);
+
+	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
+	file_exception(
+		file_exception &&
+	);
+
+	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
+	file_exception(
+		file_exception const &
+	);
+
+	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
+	file_exception &
+	operator=(
+		file_exception &&
+	);
+
+	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
+	file_exception &
+	operator=(
+		file_exception const &
+	);
+
+	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
+	~file_exception() noexcept
+	override;
 };
 
 }

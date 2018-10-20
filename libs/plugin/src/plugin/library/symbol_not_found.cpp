@@ -55,6 +55,28 @@ sge::plugin::library::symbol_not_found::symbol_not_found(
 {
 }
 
+sge::plugin::library::symbol_not_found::symbol_not_found(
+	symbol_not_found &&
+)
+= default;
+
+sge::plugin::library::symbol_not_found::symbol_not_found(
+	symbol_not_found const &
+)
+= default;
+
+sge::plugin::library::symbol_not_found &
+sge::plugin::library::symbol_not_found::operator=(
+	symbol_not_found &&
+)
+= default;
+
+sge::plugin::library::symbol_not_found &
+sge::plugin::library::symbol_not_found::operator=(
+	symbol_not_found const &
+)
+= default;
+
 fcppt::string const &
 sge::plugin::library::symbol_not_found::library_name() const
 {

@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/charconv/conversion_failed.hpp>
+#include <sge/charconv/exception.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -27,5 +28,31 @@ sge::charconv::conversion_failed::conversion_failed()
 	sge::charconv::exception(
 		FCPPT_TEXT("Conversion failed!")
 	)
+{
+}
+
+sge::charconv::conversion_failed::conversion_failed(
+	conversion_failed &&
+)
+= default;
+
+sge::charconv::conversion_failed::conversion_failed(
+	conversion_failed const &
+)
+= default;
+
+sge::charconv::conversion_failed &
+sge::charconv::conversion_failed::operator=(
+	conversion_failed &&
+)
+= default;
+
+sge::charconv::conversion_failed &
+sge::charconv::conversion_failed::operator=(
+	conversion_failed const &
+)
+= default;
+
+sge::charconv::conversion_failed::~conversion_failed() noexcept
 {
 }

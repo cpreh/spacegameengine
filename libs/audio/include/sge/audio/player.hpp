@@ -49,16 +49,13 @@ namespace audio
  */
 class SGE_CORE_DETAIL_CLASS_SYMBOL player
 {
-public:
 	FCPPT_NONCOPYABLE(
 		player
 	);
 protected:
-	/** \protectedctor */
 	SGE_AUDIO_DETAIL_SYMBOL
 	player();
 public:
-	/// The listener object
 	virtual
 	sge::audio::listener &
 	listener() = 0;
@@ -125,13 +122,12 @@ public:
 	bool
 	is_null() const = 0;
 
-	/** \virtualdtor */
 	SGE_AUDIO_DETAIL_SYMBOL
 	virtual
-	~player() = 0;
+	~player();
 };
 
 }
 }
 
-#endif // PLAYER_HPP
+#endif

@@ -47,6 +47,10 @@ set(
 	libs/plugin/include/sge/plugin/context_base_ref.hpp
 	libs/plugin/include/sge/plugin/context_base_unique_ptr.hpp
 	libs/plugin/include/sge/plugin/context_fwd.hpp
+	libs/plugin/include/sge/plugin/declare_collection.hpp
+	libs/plugin/include/sge/plugin/declare_context.hpp
+	libs/plugin/include/sge/plugin/declare_iterator.hpp
+	libs/plugin/include/sge/plugin/declare_object.hpp
 	libs/plugin/include/sge/plugin/description.hpp
 	libs/plugin/include/sge/plugin/detail/address_name.hpp
 	libs/plugin/include/sge/plugin/detail/context_base_vector.hpp

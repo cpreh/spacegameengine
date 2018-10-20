@@ -51,6 +51,28 @@ public:
 	);
 
 	SGE_CORE_DETAIL_SYMBOL
+	exception(
+		exception &&
+	);
+
+	SGE_CORE_DETAIL_SYMBOL
+	exception(
+		exception const &
+	);
+
+	SGE_CORE_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception &&
+	);
+
+	SGE_CORE_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception const &
+	);
+
+	SGE_CORE_DETAIL_SYMBOL
 	~exception() noexcept
 	override;
 };

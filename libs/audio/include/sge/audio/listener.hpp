@@ -49,19 +49,22 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL listener
 		listener
 	);
 protected:
-	/** \protectedctor */
-	SGE_AUDIO_DETAIL_SYMBOL explicit
+	SGE_AUDIO_DETAIL_SYMBOL
 	listener();
 public:
 	/// Set the position
-	virtual void
+	virtual
+	void
 	position(
-		audio::vector const &) = 0;
+		sge::audio::vector const &
+	) = 0;
 
 	/// Set the linear velocity
-	virtual void
+	virtual
+	void
 	linear_velocity(
-		audio::vector const &) = 0;
+		sge::audio::vector const &
+	) = 0;
 
 	/// Set the direction
 	/**
@@ -72,13 +75,15 @@ public:
 	 * independent/normalized vectors, so they won't correct or check this
 	 * either. Be careful.
 	 */
-	virtual void
+	virtual
+	void
 	direction(
-		direction::object const &) = 0;
+		sge::audio::direction::object const &
+	) = 0;
 
-	/** \virtualdtor */
-	SGE_AUDIO_DETAIL_SYMBOL virtual
-	~listener() = 0;
+	SGE_AUDIO_DETAIL_SYMBOL
+	virtual
+	~listener();
 };
 
 }

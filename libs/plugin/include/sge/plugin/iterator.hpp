@@ -25,18 +25,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/iterator_fwd.hpp>
 #include <sge/plugin/detail/iterator_base_type.hpp>
 #include <sge/plugin/detail/instantiate/symbol.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
 {
 namespace plugin
 {
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename T
@@ -88,17 +82,7 @@ public:
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	void
-	advance(
-		difference_type
-	);
-
-	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	void
 	increment();
-
-	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	void
-	decrement();
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	bool
@@ -109,19 +93,9 @@ public:
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	reference
 	dereference() const;
-
-	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	difference_type
-	distance_to(
-		iterator const &
-	) const;
 private:
 	sge::plugin::category_array::const_iterator it_;
-
-	friend class boost::iterator_core_access;
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }

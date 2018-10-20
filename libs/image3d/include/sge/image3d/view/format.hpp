@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE3D_VIEW_FORMAT_HPP_INCLUDED
 
 #include <sge/image/color/format_fwd.hpp>
+#include <sge/image/view/declare_format.hpp>
 #include <sge/image3d/detail/symbol.hpp>
 #include <sge/image3d/view/const_object_fwd.hpp>
 #include <sge/image3d/view/object_fwd.hpp>
@@ -49,5 +50,9 @@ format(
 }
 }
 }
+
+SGE_IMAGE_VIEW_DECLARE_FORMAT(
+	sge::image3d::tag
+);
 
 #endif

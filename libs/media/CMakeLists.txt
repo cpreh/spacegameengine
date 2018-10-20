@@ -19,6 +19,8 @@ set(
 	libs/media/include/sge/media/check_extension.hpp
 	libs/media/include/sge/media/const_raw_pointer.hpp
 	libs/media/include/sge/media/const_raw_range.hpp
+	libs/media/include/sge/media/declare_file_exception.hpp
+	libs/media/include/sge/media/declare_muxer_parameters.hpp
 	libs/media/include/sge/media/detail/muxer_fwd.hpp
 	libs/media/include/sge/media/error_string.hpp
 	libs/media/include/sge/media/extension.hpp

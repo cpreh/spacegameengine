@@ -18,23 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_ALGORITHM_INVALID_COPY_HPP_INCLUDED
-#define SGE_IMAGE2D_ALGORITHM_INVALID_COPY_HPP_INCLUDED
+#ifndef SGE_PLUGIN_DECLARE_OBJECT_HPP_INCLUDED
+#define SGE_PLUGIN_DECLARE_OBJECT_HPP_INCLUDED
 
-#include <sge/image/color/invalid_copy.hpp>
+#include <sge/core/detail/export_class_declaration.hpp>
+#include <sge/plugin/object.hpp>
 
 
-namespace sge
-{
-namespace image2d
-{
-namespace algorithm
-{
-
-typedef sge::image::color::invalid_copy invalid_copy;
-
-}
-}
-}
+#define SGE_PLUGIN_DECLARE_OBJECT(\
+	plugin_type\
+)\
+extern \
+template \
+class \
+SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \
+sge::plugin::object<\
+	plugin_type\
+>
 
 #endif

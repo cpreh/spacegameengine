@@ -40,14 +40,41 @@ namespace audio
  */
 class SGE_CORE_DETAIL_CLASS_SYMBOL bad_sound_alloc
 :
-	public audio::exception
+	public sge::audio::exception
 {
 public:
 	/// Initialize exception with an error string
 	SGE_AUDIO_DETAIL_SYMBOL
-	explicit bad_sound_alloc(
-		fcppt::string const &
+	explicit
+	bad_sound_alloc(
+		fcppt::string &&
 	);
+
+	SGE_AUDIO_DETAIL_SYMBOL
+	bad_sound_alloc(
+		bad_sound_alloc &&
+	);
+
+	SGE_AUDIO_DETAIL_SYMBOL
+	bad_sound_alloc(
+		bad_sound_alloc const &
+	);
+
+	SGE_AUDIO_DETAIL_SYMBOL
+	bad_sound_alloc &
+	operator=(
+		bad_sound_alloc &&
+	);
+
+	SGE_AUDIO_DETAIL_SYMBOL
+	bad_sound_alloc &
+	operator=(
+		bad_sound_alloc const &
+	);
+
+	SGE_AUDIO_DETAIL_SYMBOL
+	~bad_sound_alloc() noexcept
+	override;
 };
 
 }

@@ -38,6 +38,32 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL conversion_failed
 public:
 	SGE_CHARCONV_DETAIL_SYMBOL
 	conversion_failed();
+
+	SGE_CHARCONV_DETAIL_SYMBOL
+	conversion_failed(
+		conversion_failed &&
+	);
+
+	SGE_CHARCONV_DETAIL_SYMBOL
+	conversion_failed(
+		conversion_failed const &
+	);
+
+	SGE_CHARCONV_DETAIL_SYMBOL
+	conversion_failed &
+	operator=(
+		conversion_failed &&
+	);
+
+	SGE_CHARCONV_DETAIL_SYMBOL
+	conversion_failed &
+	operator=(
+		conversion_failed const &
+	);
+
+	SGE_CHARCONV_DETAIL_SYMBOL
+	~conversion_failed() noexcept
+	override;
 };
 
 }

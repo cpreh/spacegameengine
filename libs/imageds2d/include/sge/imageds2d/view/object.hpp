@@ -22,10 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGEDS2D_VIEW_OBJECT_HPP_INCLUDED
 
 #include <sge/image/ds/traits/static_formats.hpp>
+#include <sge/image/view/declare_object.hpp>
 #include <sge/image/view/object.hpp>
+#include <sge/imageds2d/tag.hpp>
 #include <sge/imageds2d/traits/color_tag.hpp>
 #include <sge/imageds2d/traits/dimension.hpp>
 #include <sge/imageds2d/view/object_fwd.hpp>
+
+
+SGE_IMAGE_VIEW_DECLARE_OBJECT(
+	sge::imageds2d::tag
+);
 
 
 #endif

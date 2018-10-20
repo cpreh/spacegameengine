@@ -23,8 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/context_fwd.hpp>
 #include <sge/plugin/iterator_fwd.hpp>
+#include <fcppt/iterator/base_impl.hpp>
+#include <fcppt/iterator/types.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/iterator/iterator_facade.hpp>
+#include <cstddef>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
@@ -41,16 +43,19 @@ template<
 >
 using iterator_base_type
 =
-boost::iterator_facade<
-	sge::plugin::iterator<
-		Type
-	>,
-	sge::plugin::context<
-		Type
-	>,
-	std::random_access_iterator_tag,
-	sge::plugin::context<
-		Type
+fcppt::iterator::base<
+	fcppt::iterator::types<
+		sge::plugin::iterator<
+			Type
+		>,
+		sge::plugin::context<
+			Type
+		>,
+		sge::plugin::context<
+			Type
+		>,
+		std::ptrdiff_t,
+		std::input_iterator_tag
 	>
 >;
 

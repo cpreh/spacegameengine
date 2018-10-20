@@ -5,7 +5,6 @@ set(
 	libs/image3d/include/sge/image3d/algorithm/compare.hpp
 	libs/image3d/include/sge/image3d/algorithm/copy.hpp
 	libs/image3d/include/sge/image3d/algorithm/copy_and_convert.hpp
-	libs/image3d/include/sge/image3d/algorithm/invalid_copy.hpp
 	libs/image3d/include/sge/image3d/algorithm/print.hpp
 	libs/image3d/include/sge/image3d/bgr32f_format.hpp
 	libs/image3d/include/sge/image3d/bgr8_format.hpp

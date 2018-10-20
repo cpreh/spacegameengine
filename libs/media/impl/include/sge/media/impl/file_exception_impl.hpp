@@ -46,4 +46,59 @@ sge::media::file_exception<
 {
 }
 
+template<
+	typename Base
+>
+sge::media::file_exception<
+	Base
+>::file_exception(
+	file_exception &&
+)
+= default;
+
+template<
+	typename Base
+>
+sge::media::file_exception<
+	Base
+>::file_exception(
+	file_exception const &
+)
+= default;
+
+template<
+	typename Base
+>
+sge::media::file_exception<
+	Base
+> &
+sge::media::file_exception<
+	Base
+>::operator=(
+	file_exception &&
+)
+= default;
+
+template<
+	typename Base
+>
+sge::media::file_exception<
+	Base
+> &
+sge::media::file_exception<
+	Base
+>::operator=(
+	file_exception const &
+)
+= default;
+
+template<
+	typename Base
+>
+sge::media::file_exception<
+	Base
+>::~file_exception() noexcept
+{
+}
+
 #endif

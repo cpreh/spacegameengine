@@ -34,6 +34,7 @@ namespace sge
 {
 namespace audio
 {
+
 /// Interface class for buffers (nonstreaming sound factories)
 /**
  * The buffer class is an interface class, you cannot instantiate it. Audio
@@ -53,27 +54,30 @@ public:
 	/**
 	 * For an introduction to positional (3D) sounds, see \ref audio_positional
 	 */
-	virtual sound::positional_unique_ptr
+	virtual
+	sge::audio::sound::positional_unique_ptr
 	create_positional(
-		sound::positional_parameters const &
+		sge::audio::sound::positional_parameters const &
 	) = 0;
 
 	/// Create a nonpositional sound
 	/**
 	 * For an introduction to nonpositional sounds, see \ref audio_example
 	 */
-	virtual sound::base_unique_ptr
+	virtual
+	sge::audio::sound::base_unique_ptr
 	create_nonpositional(
-		sound::nonpositional_parameters const &) = 0;
+		sge::audio::sound::nonpositional_parameters const &
+	) = 0;
 
-	/** \virtualdtor */
-	SGE_AUDIO_DETAIL_SYMBOL virtual
-	~buffer() = 0;
+	SGE_AUDIO_DETAIL_SYMBOL
+	virtual
+	~buffer();
 protected:
-	/** \protectedctor */
-	SGE_AUDIO_DETAIL_SYMBOL explicit
+	SGE_AUDIO_DETAIL_SYMBOL
 	buffer();
 };
+
 }
 }
 

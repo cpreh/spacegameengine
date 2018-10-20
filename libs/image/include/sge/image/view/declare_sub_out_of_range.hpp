@@ -18,23 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE3D_ALGORITHM_INVALID_COPY_HPP_INCLUDED
-#define SGE_IMAGE3D_ALGORITHM_INVALID_COPY_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_DECLARE_SUB_OUT_OF_RANGE_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_DECLARE_SUB_OUT_OF_RANGE_HPP_INCLUDED
 
-#include <sge/image/color/invalid_copy.hpp>
+#include <sge/core/detail/export_class_declaration.hpp>
+#include <sge/image/view/sub_out_of_range.hpp>
 
 
-namespace sge
-{
-namespace image3d
-{
-namespace algorithm
-{
+#define SGE_IMAGE_VIEW_DECLARE_SUB_OUT_OF_RANGE(\
+	tag \
+)\
+extern \
+template \
+class \
+SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \
+sge::image::view::sub_out_of_range<\
+	tag \
+>
 
-typedef sge::image::color::invalid_copy invalid_copy;
-
-}
-}
-}
 
 #endif

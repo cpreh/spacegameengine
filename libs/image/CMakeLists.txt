@@ -16,9 +16,7 @@ set(
 	libs/image/impl/include/sge/image/impl/algorithm/instantiate_copy.hpp
 	libs/image/impl/include/sge/image/impl/algorithm/instantiate_copy_and_convert.hpp
 	libs/image/impl/include/sge/image/impl/algorithm/instantiate_fill.hpp
-	libs/image/impl/include/sge/image/impl/algorithm/instantiate_invalid_copy.hpp
 	libs/image/impl/include/sge/image/impl/algorithm/instantiate_print.hpp
-	libs/image/impl/include/sge/image/impl/algorithm/invalid_copy_impl.hpp
 	libs/image/impl/include/sge/image/impl/algorithm/print_impl.hpp
 	libs/image/impl/include/sge/image/impl/format_from_static_impl.hpp
 	libs/image/impl/include/sge/image/impl/format_key.hpp
@@ -27,7 +25,9 @@ set(
 	libs/image/impl/include/sge/image/impl/from_mizuiro_dim.hpp
 	libs/image/impl/include/sge/image/impl/instantiate_format_from_static.hpp
 	libs/image/impl/include/sge/image/impl/instantiate_invalid_convert.hpp
+	libs/image/impl/include/sge/image/impl/instantiate_invalid_copy.hpp
 	libs/image/impl/include/sge/image/impl/invalid_convert_impl.hpp
+	libs/image/impl/include/sge/image/impl/invalid_copy_impl.hpp
 	libs/image/impl/include/sge/image/impl/make_format_pair.hpp
 	libs/image/impl/include/sge/image/impl/pixel/convert_impl.hpp
 	libs/image/impl/include/sge/image/impl/pixel/instantiate_convert.hpp
@@ -93,7 +93,6 @@ set(
 	libs/image/include/sge/image/algorithm/copy.hpp
 	libs/image/include/sge/image/algorithm/copy_and_convert.hpp
 	libs/image/include/sge/image/algorithm/fill.hpp
-	libs/image/include/sge/image/algorithm/invalid_copy.hpp
 	libs/image/include/sge/image/algorithm/may_overlap.hpp
 	libs/image/include/sge/image/algorithm/may_overlap_fwd.hpp
 	libs/image/include/sge/image/algorithm/print.hpp
@@ -114,6 +113,8 @@ set(
 	libs/image/include/sge/image/channel32f.hpp
 	libs/image/include/sge/image/channel8.hpp
 	libs/image/include/sge/image/const_raw_pointer.hpp
+	libs/image/include/sge/image/declare_invalid_convert.hpp
+	libs/image/include/sge/image/declare_invalid_copy.hpp
 	libs/image/include/sge/image/difference_type.hpp
 	libs/image/include/sge/image/dim.hpp
 	libs/image/include/sge/image/dim_fwd.hpp
@@ -129,10 +130,14 @@ set(
 	libs/image/include/sge/image/integral_size.hpp
 	libs/image/include/sge/image/invalid_convert.hpp
 	libs/image/include/sge/image/invalid_convert_fwd.hpp
+	libs/image/include/sge/image/invalid_copy.hpp
+	libs/image/include/sge/image/invalid_copy_fwd.hpp
 	libs/image/include/sge/image/mizuiro_color_traits.hpp
 	libs/image/include/sge/image/pitch.hpp
 	libs/image/include/sge/image/pitch_fwd.hpp
 	libs/image/include/sge/image/pixel/convert.hpp
+	libs/image/include/sge/image/pixel/declare_convert.hpp
+	libs/image/include/sge/image/pixel/declare_object.hpp
 	libs/image/include/sge/image/pixel/elements.hpp
 	libs/image/include/sge/image/pixel/mizuiro_type.hpp
 	libs/image/include/sge/image/pixel/mizuiro_type_fwd.hpp
@@ -147,6 +152,8 @@ set(
 	libs/image/include/sge/image/size_type.hpp
 	libs/image/include/sge/image/store/basic.hpp
 	libs/image/include/sge/image/store/basic_fwd.hpp
+	libs/image/include/sge/image/store/declare_basic.hpp
+	libs/image/include/sge/image/store/declare_object.hpp
 	libs/image/include/sge/image/store/elements.hpp
 	libs/image/include/sge/image/store/object.hpp
 	libs/image/include/sge/image/store/object_fwd.hpp
@@ -171,6 +178,14 @@ set(
 	libs/image/include/sge/image/view/const_object.hpp
 	libs/image/include/sge/image/view/const_object_fwd.hpp
 	libs/image/include/sge/image/view/data.hpp
+	libs/image/include/sge/image/view/declare_const_object.hpp
+	libs/image/include/sge/image/view/declare_format.hpp
+	libs/image/include/sge/image/view/declare_make.hpp
+	libs/image/include/sge/image/view/declare_object.hpp
+	libs/image/include/sge/image/view/declare_size.hpp
+	libs/image/include/sge/image/view/declare_sub.hpp
+	libs/image/include/sge/image/view/declare_sub_out_of_range.hpp
+	libs/image/include/sge/image/view/declare_to_const.hpp
 	libs/image/include/sge/image/view/elements.hpp
 	libs/image/include/sge/image/view/flipped.hpp
 	libs/image/include/sge/image/view/format.hpp

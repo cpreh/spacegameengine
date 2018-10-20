@@ -31,7 +31,14 @@ set(
 	libs/audio/include/sge/audio/load_stream_result_fwd.hpp
 	libs/audio/include/sge/audio/loader.hpp
 	libs/audio/include/sge/audio/loader_fwd.hpp
+	libs/audio/include/sge/audio/loader_plugin/collection.hpp
 	libs/audio/include/sge/audio/loader_plugin/collection_fwd.hpp
+	libs/audio/include/sge/audio/loader_plugin/context.hpp
+	libs/audio/include/sge/audio/loader_plugin/context_fwd.hpp
+	libs/audio/include/sge/audio/loader_plugin/iterator.hpp
+	libs/audio/include/sge/audio/loader_plugin/iterator_fwd.hpp
+	libs/audio/include/sge/audio/loader_plugin/object.hpp
+	libs/audio/include/sge/audio/loader_plugin/object_fwd.hpp
 	libs/audio/include/sge/audio/loader_plugin/traits.hpp
 	libs/audio/include/sge/audio/loader_unique_ptr.hpp
 	libs/audio/include/sge/audio/log_location.hpp
@@ -43,7 +50,12 @@ set(
 	libs/audio/include/sge/audio/optional_file_unique_ptr_fwd.hpp
 	libs/audio/include/sge/audio/player.hpp
 	libs/audio/include/sge/audio/player_fwd.hpp
+	libs/audio/include/sge/audio/player_plugin/collection.hpp
 	libs/audio/include/sge/audio/player_plugin/collection_fwd.hpp
+	libs/audio/include/sge/audio/player_plugin/context.hpp
+	libs/audio/include/sge/audio/player_plugin/context_fwd.hpp
+	libs/audio/include/sge/audio/player_plugin/iterator.hpp
+	libs/audio/include/sge/audio/player_plugin/iterator_fwd.hpp
 	libs/audio/include/sge/audio/player_plugin/object.hpp
 	libs/audio/include/sge/audio/player_plugin/object_fwd.hpp
 	libs/audio/include/sge/audio/player_plugin/traits.hpp

@@ -59,4 +59,59 @@ sge::image::invalid_convert<
 {
 }
 
+template<
+	typename Tag
+>
+sge::image::invalid_convert<
+	Tag
+>::invalid_convert(
+	invalid_convert &&
+)
+= default;
+
+template<
+	typename Tag
+>
+sge::image::invalid_convert<
+	Tag
+>::invalid_convert(
+	invalid_convert const &
+)
+= default;
+
+template<
+	typename Tag
+>
+sge::image::invalid_convert<
+	Tag
+> &
+sge::image::invalid_convert<
+	Tag
+>::operator=(
+	invalid_convert &&
+)
+= default;
+
+template<
+	typename Tag
+>
+sge::image::invalid_convert<
+	Tag
+> &
+sge::image::invalid_convert<
+	Tag
+>::operator=(
+	invalid_convert const &
+)
+= default;
+
+template<
+	typename Tag
+>
+sge::image::invalid_convert<
+	Tag
+>::~invalid_convert() noexcept
+{
+}
+
 #endif

@@ -60,7 +60,6 @@ set(
 	libs/imagecolor/impl/include/sge/image/color/impl/format_map.hpp
 	libs/imagecolor/impl/include/sge/image/color/impl/format_pair.hpp
 	libs/imagecolor/impl/include/sge/image/color/impl/make_format_pair.hpp
-	libs/imagecolor/impl/include/sge/image/color/impl/pp_formats.hpp
 	libs/imagecolor/impl/include/sge/image/color/impl/traits/dynamic_copy_and_convert.hpp
 	libs/imagecolor/impl/include/sge/image/color/impl/traits/format_map.hpp
 	libs/imagecolor/impl/include/sge/image/color/impl/traits/static_converter.hpp
@@ -89,7 +88,6 @@ set(
 	libs/imagecolor/include/sge/image/color/any/clear.hpp
 	libs/imagecolor/include/sge/image/color/any/compare.hpp
 	libs/imagecolor/include/sge/image/color/any/convert.hpp
-	libs/imagecolor/include/sge/image/color/any/detail/compare.hpp
 	libs/imagecolor/include/sge/image/color/any/from_string.hpp
 	libs/imagecolor/include/sge/image/color/any/object.hpp
 	libs/imagecolor/include/sge/image/color/any/object_fwd.hpp
@@ -111,6 +109,7 @@ set(
 	libs/imagecolor/include/sge/image/color/bgrx8_fwd.hpp
 	libs/imagecolor/include/sge/image/color/convert.hpp
 	libs/imagecolor/include/sge/image/color/detail/is_convertible.hpp
+	libs/imagecolor/include/sge/image/color/detail/pp_formats.hpp
 	libs/imagecolor/include/sge/image/color/element_count.hpp
 	libs/imagecolor/include/sge/image/color/enable_if_has_format.hpp
 	libs/imagecolor/include/sge/image/color/format.hpp

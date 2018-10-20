@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/context_fwd.hpp>
 #include <sge/plugin/iterator_fwd.hpp>
 #include <sge/plugin/detail/instantiate/symbol.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_decl.hpp>
 
 
 namespace sge
@@ -39,9 +39,6 @@ template<
 >
 class collection
 {
-	FCPPT_NONASSIGNABLE(
-		collection
-	);
 public:
 	typedef
 	sge::plugin::category_array::size_type
@@ -79,6 +76,12 @@ public:
 	);
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
+	collection &
+	operator=(
+		collection const &
+	);
+
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	~collection();
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
@@ -90,16 +93,12 @@ public:
 	end() const;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	context
-	get(
-		size_type index
-	) const;
-
-	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	size_type
 	size() const;
 private:
-	sge::plugin::category_array const &plugins_;
+	fcppt::reference<
+		sge::plugin::category_array const
+	> plugins_;
 };
 
 }

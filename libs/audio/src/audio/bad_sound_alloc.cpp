@@ -19,10 +19,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/audio/bad_sound_alloc.hpp>
+#include <sge/audio/exception.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
+
 
 sge::audio::bad_sound_alloc::bad_sound_alloc(
-	fcppt::string const &s
+	fcppt::string &&_message
 )
 :
-	exception(s)
-{}
+	sge::audio::exception(
+		std::move(
+			_message
+		)
+	)
+{
+}
+
+sge::audio::bad_sound_alloc::bad_sound_alloc(
+	bad_sound_alloc &&
+)
+= default;
+
+sge::audio::bad_sound_alloc::bad_sound_alloc(
+	bad_sound_alloc const &
+)
+= default;
+
+sge::audio::bad_sound_alloc &
+sge::audio::bad_sound_alloc::operator=(
+	bad_sound_alloc &&
+)
+= default;
+
+sge::audio::bad_sound_alloc &
+sge::audio::bad_sound_alloc::operator=(
+	bad_sound_alloc const &
+)
+= default;
+
+sge::audio::bad_sound_alloc::~bad_sound_alloc() noexcept
+{
+}

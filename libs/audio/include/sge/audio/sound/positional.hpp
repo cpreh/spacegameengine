@@ -36,6 +36,7 @@ namespace audio
 {
 namespace sound
 {
+
 /// The base class for positional (3D) sounds (streaming, nonstreaming)
 /**
  * This class is an interface class, you cannot instantiate it. Audio plugins
@@ -51,60 +52,77 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL positional
 		positional
 	);
 protected:
-	/** \protectedctor */
 	SGE_AUDIO_DETAIL_SYMBOL
 	positional();
 public:
-	/** \virtualdtor */
 	SGE_AUDIO_DETAIL_SYMBOL
 	~positional()
-	override = 0;
+	override;
 
 	/// Sets the 3D position
-	virtual void
+	virtual
+	void
 	position(
-		audio::vector const &) = 0;
+		sge::audio::vector const &
+	) = 0;
 
 	/// Sets the linear velocity (used for Doppler calculations) (see \ref audio_positional)
-	virtual void
+	virtual
+	void
 	linear_velocity(
-		audio::vector const &) = 0;
+		sge::audio::vector const &
+	) = 0;
 
 	/// Sets the rolloff factor (see \ref audio_positional)
-	virtual void
+	virtual
+	void
 	rolloff_factor(
-		audio::scalar) = 0;
+		sge::audio::scalar
+	) = 0;
 
 	/// Sets the reference distance (see \ref audio_positional)
-	virtual void
+	virtual
+	void
 	reference_distance(
-		audio::scalar) = 0;
+		sge::audio::scalar
+	) = 0;
 
 	/// Sets the maximum distance (see \ref audio_positional)
-	virtual void
+	virtual
+	void
 	max_distance(
-		audio::scalar) = 0;
+		sge::audio::scalar
+	) = 0;
 
 	/// Sets the direction distance (see \ref audio_positional)
-	virtual void
+	virtual
+	void
 	direction(
-		sound::optional_direction const &) = 0;
+		sge::audio::sound::optional_direction const &
+	) = 0;
 
 	/// Sets the inner cone angle (see \ref audio_positional)
-	virtual void
+	virtual
+	void
 	inner_cone_angle(
-		audio::scalar) = 0;
+		sge::audio::scalar
+	) = 0;
 
 	/// Sets the outer cone angle (see \ref audio_positional)
-	virtual void
+	virtual
+	void
 	outer_cone_angle(
-		audio::scalar) = 0;
+		sge::audio::scalar
+	) = 0;
 
 	/// Sets the outer cone gain (see \ref audio_positional)
-	virtual void
+	virtual
+	void
 	outer_cone_gain(
-		audio::scalar) = 0;
+		sge::audio::scalar
+	) = 0;
 };
+
 }
 }
 }

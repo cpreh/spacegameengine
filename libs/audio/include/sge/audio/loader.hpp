@@ -65,7 +65,7 @@ public:
 
 	SGE_AUDIO_DETAIL_SYMBOL
 	virtual
-	~loader() = 0;
+	~loader();
 };
 
 }

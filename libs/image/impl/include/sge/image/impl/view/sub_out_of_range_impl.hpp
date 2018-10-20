@@ -59,6 +59,52 @@ sge::image::view::sub_out_of_range<
 template<
 	typename Tag
 >
+sge::image::view::sub_out_of_range<
+	Tag
+>::sub_out_of_range(
+	sub_out_of_range &&
+)
+= default;
+
+template<
+	typename Tag
+>
+sge::image::view::sub_out_of_range<
+	Tag
+>::sub_out_of_range(
+	sub_out_of_range const &
+)
+= default;
+
+template<
+	typename Tag
+>
+sge::image::view::sub_out_of_range<
+	Tag
+> &
+sge::image::view::sub_out_of_range<
+	Tag
+>::operator=(
+	sub_out_of_range &&
+)
+= default;
+
+template<
+	typename Tag
+>
+sge::image::view::sub_out_of_range<
+	Tag
+> &
+sge::image::view::sub_out_of_range<
+	Tag
+>::operator=(
+	sub_out_of_range const &
+)
+= default;
+
+template<
+	typename Tag
+>
 typename
 sge::image::view::sub_out_of_range<
 	Tag
@@ -91,7 +137,7 @@ template<
 >
 sge::image::view::sub_out_of_range<
 	Tag
->::~sub_out_of_range() throw()
+>::~sub_out_of_range() noexcept
 {
 }
 

@@ -32,9 +32,11 @@ namespace audio
 namespace player_plugin
 {
 
-typedef sge::plugin::collection<
+typedef
+sge::plugin::collection<
 	sge::audio::player
-> collection;
+>
+collection;
 
 }
 }

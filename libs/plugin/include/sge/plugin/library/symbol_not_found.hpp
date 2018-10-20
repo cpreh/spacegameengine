@@ -47,6 +47,28 @@ public:
 	);
 
 	SGE_PLUGIN_DETAIL_SYMBOL
+	symbol_not_found(
+		symbol_not_found &&
+	);
+
+	SGE_PLUGIN_DETAIL_SYMBOL
+	symbol_not_found(
+		symbol_not_found const &
+	);
+
+	SGE_PLUGIN_DETAIL_SYMBOL
+	symbol_not_found &
+	operator=(
+		symbol_not_found &&
+	);
+
+	SGE_PLUGIN_DETAIL_SYMBOL
+	symbol_not_found &
+	operator=(
+		symbol_not_found const &
+	);
+
+	SGE_PLUGIN_DETAIL_SYMBOL
 	fcppt::string const &
 	library_name() const;
 

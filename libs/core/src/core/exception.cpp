@@ -52,6 +52,28 @@ sge::core::exception::exception(
 {
 }
 
+sge::core::exception::exception(
+	exception &&
+)
+= default;
+
+sge::core::exception::exception(
+	exception const &
+)
+= default;
+
+sge::core::exception &
+sge::core::exception::operator=(
+	exception &&
+)
+= default;
+
+sge::core::exception &
+sge::core::exception::operator=(
+	exception const &
+)
+= default;
+
 sge::core::exception::~exception() noexcept
 {
 }

@@ -23,8 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/color/format_fwd.hpp>
+#include <sge/image/view/declare_make.hpp>
 #include <sge/image3d/dim_fwd.hpp>
 #include <sge/image3d/pitch_fwd.hpp>
+#include <sge/image3d/tag.hpp>
 #include <sge/image3d/detail/symbol.hpp>
 #include <sge/image3d/view/object_fwd.hpp>
 
@@ -48,5 +50,9 @@ make(
 }
 }
 }
+
+SGE_IMAGE_VIEW_DECLARE_MAKE(
+	sge::image3d::tag
+);
 
 #endif

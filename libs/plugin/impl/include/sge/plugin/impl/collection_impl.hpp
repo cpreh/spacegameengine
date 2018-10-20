@@ -24,17 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/category_array.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
-#include <sge/plugin/exception.hpp>
 #include <sge/plugin/iterator.hpp>
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/output_to_fcppt_string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/type_name_from_info.hpp>
-#include <fcppt/cast/size.hpp>
-#include <fcppt/cast/to_signed.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <typeinfo>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 template<
@@ -46,9 +37,9 @@ sge::plugin::collection<
 	sge::plugin::category_array const &_plugins
 )
 :
-	plugins_(
+	plugins_{
 		_plugins
-	)
+	}
 {
 }
 
@@ -58,14 +49,24 @@ template<
 sge::plugin::collection<
 	Type
 >::collection(
-	collection const &_other
+	collection const &
 )
-:
-	plugins_(
-		_other.plugins_
-	)
-{
-}
+=
+default;
+
+template<
+	typename Type
+>
+sge::plugin::collection<
+	Type
+> &
+sge::plugin::collection<
+	Type
+>::operator=(
+	collection const &
+)
+=
+default;
 
 template<
 	typename Type
@@ -89,7 +90,7 @@ sge::plugin::collection<
 {
 	return
 		iterator(
-			plugins_.begin()
+			plugins_.get().begin()
 		);
 }
 
@@ -106,60 +107,7 @@ sge::plugin::collection<
 {
 	return
 		iterator(
-			plugins_.end()
-		);
-}
-
-template<
-	typename Type
->
-typename
-sge::plugin::collection<
-	Type
->::context
-sge::plugin::collection<
-	Type
->::get(
-	size_type const _index
-) const
-{
-	if(
-		_index
-		>=
-		this->size()
-	)
-		throw sge::plugin::exception(
-			FCPPT_TEXT("plugin::collection::get(): Index ")
-			+
-			fcppt::output_to_fcppt_string(
-				_index
-			)
-			+
-			FCPPT_TEXT(" out of range for type: \"")
-			+
-			fcppt::from_std_string(
-				fcppt::type_name_from_info(
-					typeid(
-						Type
-					)
-				)
-			)
-			+
-			FCPPT_TEXT("\"!")
-		);
-
-	return
-		*(
-			this->begin()
-			+
-			fcppt::cast::size<
-				typename
-				iterator::difference_type
-			>(
-				fcppt::cast::to_signed(
-					_index
-				)
-			)
+			plugins_.get().end()
 		);
 }
 
@@ -175,7 +123,7 @@ sge::plugin::collection<
 >::size() const
 {
 	return
-		plugins_.size();
+		plugins_.get().size();
 }
 
 #endif

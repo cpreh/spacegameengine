@@ -22,15 +22,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::plugin::exception::exception(
-	fcppt::string const &_error
+	fcppt::string &&_error
 )
 :
 	sge::core::exception(
 		FCPPT_TEXT("plugin: ")
-		+ _error
+		+
+		std::move(
+			_error
+		)
 	)
+{
+}
+
+sge::plugin::exception::exception(
+	exception &&
+)
+= default;
+
+sge::plugin::exception::exception(
+	exception const &
+)
+= default;
+
+sge::plugin::exception &
+sge::plugin::exception::operator=(
+	exception &&
+)
+= default;
+
+sge::plugin::exception &
+sge::plugin::exception::operator=(
+	exception const &
+)
+= default;
+
+sge::plugin::exception::~exception() noexcept
 {
 }

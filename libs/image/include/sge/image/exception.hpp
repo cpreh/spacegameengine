@@ -42,7 +42,7 @@ public:
 	SGE_IMAGE_DETAIL_SYMBOL
 	explicit
 	exception(
-		fcppt::string const &
+		fcppt::string &&
 	);
 
 	SGE_IMAGE_DETAIL_SYMBOL
@@ -50,6 +50,32 @@ public:
 	exception(
 		fcppt::assert_::information const &
 	);
+
+	SGE_IMAGE_DETAIL_SYMBOL
+	exception(
+		exception &&
+	);
+
+	SGE_IMAGE_DETAIL_SYMBOL
+	exception(
+		exception const &
+	);
+
+	SGE_IMAGE_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception &&
+	);
+
+	SGE_IMAGE_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception const &
+	);
+
+	SGE_IMAGE_DETAIL_SYMBOL
+	~exception() noexcept
+	override;
 };
 
 }

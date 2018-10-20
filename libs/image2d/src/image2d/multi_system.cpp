@@ -21,9 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/load_stream_result.hpp>
 #include <sge/image2d/multi_system.hpp>
-#include <sge/image2d/multi_system_parameters_fwd.hpp>
+#include <sge/image2d/multi_system_parameters.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
+#include <sge/image2d/plugin/collection.hpp>
+#include <sge/image2d/plugin/context.hpp>
+#include <sge/image2d/plugin/iterator.hpp>
+#include <sge/image2d/plugin/object.hpp>
 #include <sge/image2d/plugin/traits.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/media/extension_fwd.hpp>

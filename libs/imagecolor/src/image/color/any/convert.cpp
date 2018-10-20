@@ -40,16 +40,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/srgba8_format.hpp>
 #include <sge/image/color/tag.hpp>
 #include <sge/image/color/any/convert.hpp>
-#include <sge/image/color/any/object_fwd.hpp>
-#include <sge/image/color/impl/pp_formats.hpp>
+#include <sge/image/color/any/object.hpp>
+#include <sge/image/color/detail/pp_formats.hpp>
 #include <sge/image/color/impl/traits/static_converter.hpp>
 #include <sge/image/color/traits/static_formats.hpp>
 #include <sge/image/impl/pixel/convert_impl.hpp>
 #include <sge/image/impl/pixel/instantiate_convert.hpp>
 #include <sge/image/pixel/mizuiro_type.hpp>
-#include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -76,9 +74,7 @@ sge::image::color::any::convert(
 		);
 }
 
-// TODO: Abstract his?
-
-#define SGE_INSTANTIATE_COLOR_CONVERT(\
+#define SGE_IMAGE_COLOR_INSTANTIATE_CONVERT(\
 	seq,\
 	_,\
 	format_arg\
@@ -104,9 +100,7 @@ SGE_IMAGE_IMPL_PIXEL_INSTANTIATE_CONVERT(\
 ;
 
 BOOST_PP_SEQ_FOR_EACH(
-	SGE_INSTANTIATE_COLOR_CONVERT,
+	SGE_IMAGE_COLOR_INSTANTIATE_CONVERT,
 	_,
-	SGE_IMAGE_COLOR_IMPL_PP_FORMATS
+	SGE_IMAGE_COLOR_DETAIL_PP_FORMATS
 )
-
-#undef SGE_INSTANTIATE_COLOR_CONVERT

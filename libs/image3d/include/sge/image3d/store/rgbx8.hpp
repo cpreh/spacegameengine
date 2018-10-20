@@ -22,7 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE3D_STORE_RGBX8_HPP_INCLUDED
 
 #include <sge/image/store/basic.hpp>
+#include <sge/image/store/declare_basic.hpp>
+#include <sge/image3d/rgbx8_format.hpp>
 #include <sge/image3d/store/rgbx8_fwd.hpp>
 
+
+SGE_IMAGE_STORE_DECLARE_BASIC(
+	sge::image3d::rgbx8_format
+);
 
 #endif

@@ -128,12 +128,10 @@ public:
 	void
 	update() = 0;
 
-	/** \virtualdtor */
 	SGE_AUDIO_DETAIL_SYMBOL
 	virtual
-	~base() = 0;
+	~base();
 protected:
-	/** \protectedctor */
 	SGE_AUDIO_DETAIL_SYMBOL
 	base();
 };

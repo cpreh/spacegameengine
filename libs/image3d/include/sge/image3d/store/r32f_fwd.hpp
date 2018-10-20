@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE3D_STORE_R32F_FWD_HPP_INCLUDED
 
 #include <sge/image/store/basic_fwd.hpp>
+#include <sge/image/store/declare_basic.hpp>
 #include <sge/image3d/r32f_format.hpp>
 
 

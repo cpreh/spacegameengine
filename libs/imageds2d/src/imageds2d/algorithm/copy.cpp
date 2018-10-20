@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/impl/algorithm/instantiate_copy.hpp>
 #include <sge/imageds2d/tag.hpp>
 #include <sge/imageds2d/algorithm/copy.hpp>
+#include <sge/imageds2d/algorithm/invalid_copy.hpp>
 #include <sge/imageds2d/view/const_object.hpp>
+#include <sge/imageds2d/view/format.hpp>
 #include <sge/imageds2d/view/object.hpp>
 
 

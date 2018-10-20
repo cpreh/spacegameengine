@@ -116,7 +116,7 @@ public:
 
 	SGE_AUDIO_DETAIL_SYMBOL
 	virtual
-	~file() = 0;
+	~file();
 };
 
 }

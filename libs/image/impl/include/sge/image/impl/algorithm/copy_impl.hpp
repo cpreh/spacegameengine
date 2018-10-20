@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE_IMPL_ALGORITHM_COPY_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_ALGORITHM_COPY_IMPL_HPP_INCLUDED
 
+#include <sge/image/invalid_copy.hpp>
 #include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/algorithm/copy.hpp>
-#include <sge/image/algorithm/invalid_copy.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/impl/algorithm/convert_may_overlap.hpp>
@@ -100,7 +100,7 @@ catch(
 )
 {
 	throw
-		sge::image::algorithm::invalid_copy<
+		sge::image::invalid_copy<
 			sge::image::traits::image::color_tag<
 				Tag
 			>

@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image2d/multi_system_parameters.hpp>
 #include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/plugin/collection.hpp>
 #include <sge/media/impl/instantiate_muxer_parameters.hpp>
 
 

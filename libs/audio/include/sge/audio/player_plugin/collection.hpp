@@ -18,45 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_IMPL_ALGORITHM_INVALID_COPY_IMPL_HPP_INCLUDED
-#define SGE_IMAGE_IMPL_ALGORITHM_INVALID_COPY_IMPL_HPP_INCLUDED
+#ifndef SGE_AUDIO_PLAYER_PLUGIN_COLLECTION_HPP_INCLUDED
+#define SGE_AUDIO_PLAYER_PLUGIN_COLLECTION_HPP_INCLUDED
 
-#include <sge/image/exception.hpp>
-#include <sge/image/algorithm/invalid_copy.hpp>
-#include <sge/image/traits/pixel/format_to_string.hpp>
-#include <fcppt/text.hpp>
+#include <sge/audio/player_fwd.hpp>
+#include <sge/audio/player_plugin/collection_fwd.hpp>
+#include <sge/plugin/declare_collection.hpp>
 
 
-template<
-	typename Tag
->
-sge::image::algorithm::invalid_copy<
-	Tag
->::invalid_copy(
-	format const _source,
-	format const _dest
-)
-:
-	sge::image::exception{
-		FCPPT_TEXT("Invalid image copy from ")
-		+
-		sge::image::traits::pixel::format_to_string<
-			Tag
-		>(
-			_source
-		)
-		+
-		FCPPT_TEXT(" to ")
-		+
-		sge::image::traits::pixel::format_to_string<
-			Tag
-		>(
-			_dest
-		)
-		+
-		FCPPT_TEXT(". The two formats must be the same!")
-	}
-{
-}
+SGE_PLUGIN_DECLARE_COLLECTION(
+	sge::audio::player
+);
 
 #endif

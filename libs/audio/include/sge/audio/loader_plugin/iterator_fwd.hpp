@@ -18,21 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_IMPL_ALGORITHM_INSTANTIATE_INVALID_COPY_HPP_INCLUDED
-#define SGE_IMAGE_IMPL_ALGORITHM_INSTANTIATE_INVALID_COPY_HPP_INCLUDED
+#ifndef SGE_AUDIO_LOADER_PLUGIN_ITERATOR_FWD_HPP_INCLUDED
+#define SGE_AUDIO_LOADER_PLUGIN_ITERATOR_FWD_HPP_INCLUDED
 
-#include <sge/core/impl/export_class_instantiation.hpp>
-#include <sge/image/impl/algorithm/invalid_copy_impl.hpp>
+#include <sge/audio/loader_fwd.hpp>
+#include <sge/plugin/iterator_fwd.hpp>
 
 
-#define SGE_IMAGE_IMPL_ALGORITHM_INSTANTIATE_INVALID_COPY(\
-	tag\
-)\
-template \
-class \
-SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION \
-sge::image::algorithm::invalid_copy<\
-	tag\
+namespace sge
+{
+namespace audio
+{
+namespace loader_plugin
+{
+
+typedef
+sge::plugin::iterator<
+	sge::audio::loader
 >
+iterator;
+
+}
+}
+}
 
 #endif
