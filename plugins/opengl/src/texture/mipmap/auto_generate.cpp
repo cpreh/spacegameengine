@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/mipmap/auto_generate.hpp>
 #include <sge/opengl/texture/mipmap/context.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -51,7 +51,7 @@ sge::opengl::texture::mipmap::auto_generate(
 		]{
 			FCPPT_LOG_ERROR(
 				_log,
-				fcppt::log::_
+				fcppt::log::out
 					<< FCPPT_TEXT("Building mipmaps is not supported.")
 					<< FCPPT_TEXT(" The mip_filter will not work correctly.")
 			);

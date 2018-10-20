@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
@@ -58,7 +58,7 @@ sge::openal::buffer::buffer(
 {
 	FCPPT_LOG_DEBUG(
 		_log,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("Reading a whole file into a buffer")
 	);
 
@@ -68,7 +68,7 @@ sge::openal::buffer::buffer(
 
 	FCPPT_LOG_DEBUG(
 		_log,
-		fcppt::log::_
+		fcppt::log::out
 			<<
 			FCPPT_TEXT("creating buffer of size ")
 			<<

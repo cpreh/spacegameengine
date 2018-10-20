@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/default_parameters.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/int_to_float.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
@@ -187,7 +187,7 @@ sge::cegui::syringe::inject(
 		]{
 			FCPPT_LOG_WARNING(
 				log_,
-				fcppt::log::_
+				fcppt::log::out
 					<< FCPPT_TEXT("Warning: got a button which I couldn't process. Its code is: ")
 					<< sge::input::cursor::button_code_to_string(
 						_event.button_code()
@@ -304,7 +304,7 @@ process_key_code(
 			]{
 				FCPPT_LOG_WARNING(
 					_log,
-					fcppt::log::_
+					fcppt::log::out
 						<< FCPPT_TEXT("Got a key which I couldn't process. Its code is: ")
 						<< sge::input::key::code_to_string(
 							_orig_code

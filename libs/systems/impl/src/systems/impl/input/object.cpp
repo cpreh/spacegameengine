@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/comparison.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
@@ -103,7 +103,7 @@ sge::systems::impl::input::object::object(
 		{
 			FCPPT_LOG_WARNING(
 				_log,
-				fcppt::log::_
+				fcppt::log::out
 					<<
 					FCPPT_TEXT("None of your input plugins handles capability ")
 					<<

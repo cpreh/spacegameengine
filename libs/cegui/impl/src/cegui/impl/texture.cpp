@@ -62,7 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
@@ -105,7 +105,7 @@ sge::cegui::impl::texture::texture(
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<<
 			FCPPT_TEXT("texture(")
 			<<
@@ -183,7 +183,7 @@ sge::cegui::impl::texture::texture(
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<<
 			FCPPT_TEXT("texture(")
 			<<
@@ -321,7 +321,7 @@ sge::cegui::impl::texture::loadFromFile(
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<<
 			FCPPT_TEXT("texture(")
 			<<
@@ -378,7 +378,7 @@ sge::cegui::impl::texture::loadFromMemory(
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<<
 			FCPPT_TEXT("texture(")
 			<<

@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/size_type.hpp>
@@ -75,7 +75,7 @@ warn_min(
 		{
 			FCPPT_LOG_DEBUG(
 				_log,
-				fcppt::log::_
+				fcppt::log::out
 					<< FCPPT_TEXT("OpenGL implementations are not required to support ")
 					<< _what
 					<< FCPPT_TEXT("s smaller than ")

@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/io/read.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/info.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -198,7 +198,7 @@ sge::wave::read_info(
 				)
 					FCPPT_LOG_INFO(
 						_log,
-						fcppt::log::_
+						fcppt::log::out
 							<<
 							sge::media::error_string(
 								_name,

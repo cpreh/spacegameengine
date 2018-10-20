@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/x11/cursor/object_fwd.hpp>
 #include <awl/backends/x11/window/base_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
@@ -57,7 +57,7 @@ catch(
 {
 	FCPPT_LOG_ERROR(
 		_log,
-		fcppt::log::_
+		fcppt::log::out
 			<<
 			_error.string()
 	);

@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/buffer/object.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
 #include <fcppt/container/raw_vector/object_impl.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/verbose.hpp>
@@ -375,7 +375,7 @@ sge::opencl::program::object::check_program_return_values()
 			// TODO: error?
 			FCPPT_LOG_VERBOSE(
 				log_,
-				fcppt::log::_
+				fcppt::log::out
 					<< FCPPT_TEXT("Program build failed, build log:\n")
 					<< fcppt::from_std_string(build_log));
 		}

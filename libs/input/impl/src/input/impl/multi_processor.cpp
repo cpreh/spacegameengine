@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/map_concat.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/cast/bad_dynamic.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -87,7 +87,7 @@ sge::input::impl::multi_processor::multi_processor(
 				{
 					FCPPT_LOG_WARNING(
 						_log,
-						fcppt::log::_
+						fcppt::log::out
 							<<
 							FCPPT_TEXT("Unusuable input plugin: ")
 							<<

@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/shape/base.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/math/vector/output.hpp>
@@ -70,7 +70,7 @@ inertia_for_shape(
 	{
 		FCPPT_LOG_DEBUG(
 			_log,
-			fcppt::log::_
+			fcppt::log::out
 				<< FCPPT_TEXT("solid body with mass ") << mass << FCPPT_TEXT(" so calculating inertia"));
 		shape.calculateLocalInertia(
 			mass,
@@ -133,7 +133,7 @@ sge::projectile::body::object::object(
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< this
 			<< FCPPT_TEXT(": Created a new body, position ")
 			<< p.position().get()
@@ -159,7 +159,7 @@ sge::projectile::body::object::object(
 	{
 		FCPPT_LOG_DEBUG(
 			log_,
-			fcppt::log::_
+			fcppt::log::out
 				<< this
 				<< FCPPT_TEXT(": Setting to nonsolid (no contact response)"));
 		body_->setCollisionFlags(
@@ -208,7 +208,7 @@ sge::projectile::body::object::position(
 {
 	FCPPT_LOG_VERBOSE(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< this
 			<< FCPPT_TEXT(": Somebody reset the body's position to ")
 			<<
@@ -247,7 +247,7 @@ sge::projectile::body::object::linear_velocity(
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< this
 			<< FCPPT_TEXT(": Somebody reset the body's linear velocity to ")
 			<<
@@ -273,7 +273,7 @@ sge::projectile::body::object::angular_velocity(
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< this
 			<< FCPPT_TEXT(": Somebody reset the body's angular velocity to ")
 			<<
@@ -311,7 +311,7 @@ sge::projectile::body::object::rotation(
 {
 	FCPPT_LOG_VERBOSE(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< this
 			<< FCPPT_TEXT(": Somebody reset the body's rotation to ")
 			<<
@@ -370,13 +370,13 @@ sge::projectile::body::object::setWorldTransform(
 {
 	FCPPT_LOG_VERBOSE(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< this
 			<< FCPPT_TEXT(": Somebody wants to reset our world transformation! "));
 	(*transformation_) = t;
 	FCPPT_LOG_VERBOSE(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< this
 			<< FCPPT_TEXT(": New position ")
 			<<
@@ -386,7 +386,7 @@ sge::projectile::body::object::setWorldTransform(
 				this->rotation());
 	FCPPT_LOG_VERBOSE(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< this
 			<< FCPPT_TEXT(": New linear velocity ")
 			<<

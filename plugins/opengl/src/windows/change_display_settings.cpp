@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/refresh_rate.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -74,7 +74,7 @@ sge::opengl::windows::change_display_settings(
 	)
 		FCPPT_LOG_ERROR(
 			_log,
-			fcppt::log::_
+			fcppt::log::out
 				<< FCPPT_TEXT("Cannot change resolution to ")
 				<< _mode
 				<< FCPPT_TEXT("! Reverting to window mode!")

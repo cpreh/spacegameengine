@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
@@ -289,7 +289,7 @@ sge::cegui::detail::system_impl::viewport_change(
 {
 	FCPPT_LOG_DEBUG(
 		system_log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("viewport_change() with ")
 			<< _viewport.get()
 	);

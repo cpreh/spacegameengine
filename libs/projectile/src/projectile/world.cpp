@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/pre_message.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -149,7 +149,7 @@ sge::projectile::world::world(
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_ << FCPPT_TEXT("constructed world"));
+		fcppt::log::out << FCPPT_TEXT("constructed world"));
 	// bullet sets some default gravity
 	world_->setGravity(
 		btVector3(
@@ -180,7 +180,7 @@ sge::projectile::world::update_discrete(
 
 	FCPPT_LOG_VERBOSE(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("Doing a fixed simulation step with delta ")
 			<< delta.get().count());
 
@@ -198,7 +198,7 @@ sge::projectile::world::update_continuous(
 {
 	FCPPT_LOG_VERBOSE(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("Doing a variable simulation step with delta ")
 			<< delta.get().count());
 
@@ -369,7 +369,7 @@ sge::projectile::world::internal_tick_callback(
 
 		FCPPT_LOG_VERBOSE(
 			log_,
-			fcppt::log::_ << FCPPT_TEXT("There has been a collision between two bodies"));
+			fcppt::log::out << FCPPT_TEXT("There has been a collision between two bodies"));
 		body_collision_(
 			void_ptr_to_body(
 				(*current_manifold)->getBody0()),

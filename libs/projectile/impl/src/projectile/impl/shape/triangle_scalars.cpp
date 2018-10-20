@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/shape/triangle_sequence.hpp>
 #include <sge/projectile/shape/detail/scalar_container.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/verbose.hpp>
@@ -46,7 +46,7 @@ sge::projectile::impl::shape::triangle_scalars(
 
 	FCPPT_LOG_DEBUG(
 		_log,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("constructing triangle mesh with ")
 			<< _triangles.size()
 			<< FCPPT_TEXT(" triangles"));
@@ -79,7 +79,7 @@ sge::projectile::impl::shape::triangle_scalars(
 		{
 			FCPPT_LOG_VERBOSE(
 				_log,
-				fcppt::log::_
+				fcppt::log::out
 					<< FCPPT_TEXT("triangle begin"));
 
 			for(
@@ -90,7 +90,7 @@ sge::projectile::impl::shape::triangle_scalars(
 			{
 				FCPPT_LOG_VERBOSE(
 					_log,
-					fcppt::log::_
+					fcppt::log::out
 						<< FCPPT_TEXT("adding point ")
 						<< current_triangle_point.x()
 						<< FCPPT_TEXT(',')
@@ -105,7 +105,7 @@ sge::projectile::impl::shape::triangle_scalars(
 
 			FCPPT_LOG_VERBOSE(
 				_log,
-				fcppt::log::_
+				fcppt::log::out
 					<< FCPPT_TEXT("triangle end"));
 		}
 	}

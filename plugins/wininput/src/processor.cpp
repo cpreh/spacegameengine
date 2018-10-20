@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -200,7 +200,7 @@ sge::wininput::processor::on_focus_out()
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("focus out")
 	);
 

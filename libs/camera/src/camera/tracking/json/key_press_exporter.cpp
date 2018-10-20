@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/info.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -131,7 +131,7 @@ sge::camera::tracking::json::key_press_exporter::key_event(
 	{
 		FCPPT_LOG_INFO(
 			log_,
-			fcppt::log::_
+			fcppt::log::out
 				<< FCPPT_TEXT("Storing keyframe...")
 		);
 
@@ -144,7 +144,7 @@ sge::camera::tracking::json::key_press_exporter::key_event(
 
 		FCPPT_LOG_INFO(
 			log_,
-			fcppt::log::_
+			fcppt::log::out
 				<< FCPPT_TEXT("Done!")
 		);
 	}
@@ -156,7 +156,7 @@ sge::camera::tracking::json::key_press_exporter::key_event(
 	{
 		FCPPT_LOG_INFO(
 			log_,
-			fcppt::log::_
+			fcppt::log::out
 				<< FCPPT_TEXT("Storing keyframe file ")
 				<< target_path_
 				<< FCPPT_TEXT("...")
@@ -187,7 +187,7 @@ sge::camera::tracking::json::key_press_exporter::key_event(
 
 		FCPPT_LOG_INFO(
 			log_,
-			fcppt::log::_
+			fcppt::log::out
 				<< FCPPT_TEXT("Done!")
 		);
 	}

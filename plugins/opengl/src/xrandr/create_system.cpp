@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/xrandr/version.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -49,7 +49,7 @@ sge::opengl::xrandr::create_system(
 			]{
 				FCPPT_LOG_WARNING(
 					_log,
-					fcppt::log::_
+					fcppt::log::out
 						<< FCPPT_TEXT("xrandr extension not found")
 				);
 
@@ -81,7 +81,7 @@ sge::opengl::xrandr::create_system(
 				{
 					FCPPT_LOG_WARNING(
 						_log,
-						fcppt::log::_
+						fcppt::log::out
 							<< FCPPT_TEXT("xrandr version ")
 							<< version
 							<< FCPPT_TEXT(" too old")

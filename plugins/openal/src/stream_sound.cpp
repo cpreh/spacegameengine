@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/make.hpp>
@@ -129,7 +129,7 @@ sge::openal::stream_sound::update()
 
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< processed
 			<< FCPPT_TEXT(" buffers processed")
 	);
@@ -248,7 +248,7 @@ sge::openal::stream_sound::do_play()
 
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("queued ")
 			<< buffers_.container().size()
 			<<  FCPPT_TEXT(" buffers")
@@ -286,7 +286,7 @@ sge::openal::stream_sound::fill_buffer(
 
 			FCPPT_LOG_DEBUG(
 				log_,
-				fcppt::log::_
+				fcppt::log::out
 					<< FCPPT_TEXT("read ")
 					<< samples_read
 					<< FCPPT_TEXT(" samples")
@@ -300,7 +300,7 @@ sge::openal::stream_sound::fill_buffer(
 			{
 				FCPPT_LOG_DEBUG(
 					log_,
-					fcppt::log::_
+					fcppt::log::out
 						<< FCPPT_TEXT("at the end of last buffer")
 				);
 
@@ -421,7 +421,7 @@ sge::openal::stream_sound::stream_sound(
 {
 	FCPPT_LOG_DEBUG(
 		_log,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("Created ")
 			<< buffers_.container().size()
 			<< FCPPT_TEXT(" buffers for this audio file (expected package size ")

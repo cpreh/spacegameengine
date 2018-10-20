@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/buffer/to_raw_vector.hpp>
 #include <fcppt/endianness/host_format.hpp>
 #include <fcppt/endianness/reverse_mem.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/info.hpp>
 #include <fcppt/log/object_fwd.hpp>
@@ -120,7 +120,7 @@ sge::wave::file::reset()
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("wave: resetting file")
 	);
 

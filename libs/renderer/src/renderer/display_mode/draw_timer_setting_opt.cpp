@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/refresh_rate.hpp>
 #include <awl/timer/setting.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/info.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
@@ -67,7 +67,7 @@ sge::renderer::display_mode::draw_timer_setting_opt(
 
 								FCPPT_LOG_INFO(
 									_log,
-									fcppt::log::_
+									fcppt::log::out
 										<<
 										FCPPT_TEXT("Using draw interval of ")
 										<<
@@ -87,7 +87,7 @@ sge::renderer::display_mode::draw_timer_setting_opt(
 			]{
 				FCPPT_LOG_WARNING(
 					_log,
-					fcppt::log::_
+					fcppt::log::out
 						<<
 						FCPPT_TEXT("Cannot determine display refresh rate -")
 						<<

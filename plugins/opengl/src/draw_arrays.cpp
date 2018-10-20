@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
 
@@ -51,7 +51,7 @@ sge::opengl::draw_arrays(
 	{
 		FCPPT_LOG_WARNING(
 			_log,
-			fcppt::log::_
+			fcppt::log::out
 				<< FCPPT_TEXT("Empty render() call. ")
 				<< FCPPT_TEXT("vertex_count was 0.")
 		);

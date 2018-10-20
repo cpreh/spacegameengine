@@ -69,7 +69,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/assign.hpp>
@@ -169,7 +169,7 @@ keyboard_keymap(
 	{
 		FCPPT_LOG_ERROR(
 			data.log_,
-			fcppt::log::_
+			fcppt::log::out
 				<<
 				_error.string()
 		);

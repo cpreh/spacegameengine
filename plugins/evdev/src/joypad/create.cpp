@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/bind.hpp>
@@ -112,7 +112,7 @@ try_create(
 				{
 					FCPPT_LOG_ERROR(
 						_log,
-						fcppt::log::_
+						fcppt::log::out
 							<<
 							fcppt::filesystem::path_to_string(
 								_path

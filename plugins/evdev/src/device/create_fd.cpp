@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/error/strerrno.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -63,7 +63,7 @@ sge::evdev::device::create_fd(
 	// Failure for some evdev files is expected.
 	FCPPT_LOG_DEBUG(
 		_log,
-		fcppt::log::_
+		fcppt::log::out
 			<<
 			FCPPT_TEXT("Opening \"")
 			<<

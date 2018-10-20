@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/buffer/object_impl.hpp>
 #include <fcppt/container/buffer/read_from.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/info.hpp>
 #include <fcppt/log/object_fwd.hpp>
@@ -136,7 +136,7 @@ sge::libpng::file_rep_from_stream(
 
 	FCPPT_LOG_DEBUG(
 		_log,
-		fcppt::log::_
+		fcppt::log::out
 			<<
 			FCPPT_TEXT("png: dimensions: ")
 			<<
@@ -162,7 +162,7 @@ sge::libpng::file_rep_from_stream(
 		case PNG_COLOR_TYPE_PALETTE:
 			FCPPT_LOG_INFO(
 				_log,
-				fcppt::log::_
+				fcppt::log::out
 					<<
 					sge::media::error_string(
 						_name,
@@ -268,7 +268,7 @@ sge::libpng::file_rep_from_stream(
 			]{
 				FCPPT_LOG_INFO(
 					_log,
-					fcppt::log::_
+					fcppt::log::out
 						<<
 						sge::media::error_string(
 							_name,

@@ -87,7 +87,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
@@ -188,7 +188,7 @@ sge::cegui::impl::geometry_buffer::geometry_buffer(
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("geometry_buffer(")
 			<< this
 			<< FCPPT_TEXT(")::geometry_buffer")
@@ -210,7 +210,7 @@ sge::cegui::impl::geometry_buffer::draw() const
 
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("geometry_buffer(")
 			<< this
 			<< FCPPT_TEXT(")::draw()")
@@ -446,7 +446,7 @@ sge::cegui::impl::geometry_buffer::setClippingRegion(
 
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("geometry_buffer(")
 			<< this
 			<< FCPPT_TEXT(")::setClippingRegion(")

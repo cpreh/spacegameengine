@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size_fun.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
@@ -97,7 +97,7 @@ sge::projectile::detail::debug_drawer_impl::update()
 
 		FCPPT_LOG_DEBUG(
 			log_,
-			fcppt::log::_ << FCPPT_TEXT("acquired lock"));
+			fcppt::log::out << FCPPT_TEXT("acquired lock"));
 
 		lock->value().clear();
 
@@ -110,7 +110,7 @@ sge::projectile::detail::debug_drawer_impl::update()
 
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_ << FCPPT_TEXT("released lock"));
+		fcppt::log::out << FCPPT_TEXT("released lock"));
 }
 
 void
@@ -263,7 +263,7 @@ sge::projectile::detail::debug_drawer_impl::reportErrorWarning(
 {
 	FCPPT_LOG_WARNING(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<<
 			fcppt::from_std_string(
 				warningString

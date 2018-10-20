@@ -54,7 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/set_intersection.hpp>
 #include <fcppt/container/set_union.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -160,7 +160,7 @@ FCPPT_PP_POP_WARNING
 				)
 					FCPPT_LOG_DEBUG(
 						log_,
-						fcppt::log::_
+						fcppt::log::out
 							<<
 							FCPPT_TEXT("System ")
 							<<
@@ -207,7 +207,7 @@ FCPPT_PP_POP_WARNING
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<<
 			FCPPT_TEXT("Available extensions for system ")
 			<<

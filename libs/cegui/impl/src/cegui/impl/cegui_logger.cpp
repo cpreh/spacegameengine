@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/log/default_parameters.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/name.hpp>
@@ -83,14 +83,14 @@ sge::cegui::impl::cegui_logger::logEvent(
 		case CEGUI::Errors:
 			FCPPT_LOG_ERROR(
 				log_,
-				fcppt::log::_
+				fcppt::log::out
 					<< converted
 			);
 			break;
 		case CEGUI::Warnings:
 			FCPPT_LOG_WARNING(
 				log_,
-				fcppt::log::_
+				fcppt::log::out
 					<< converted
 			);
 			break;
@@ -98,14 +98,14 @@ sge::cegui::impl::cegui_logger::logEvent(
 		case CEGUI::Informative:
 			FCPPT_LOG_DEBUG(
 				log_,
-				fcppt::log::_
+				fcppt::log::out
 					<< converted
 			);
 			break;
 		case CEGUI::Insane:
 			FCPPT_LOG_VERBOSE(
 				log_,
-				fcppt::log::_
+				fcppt::log::out
 					<< converted
 				);
 			break;

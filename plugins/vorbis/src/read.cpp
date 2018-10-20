@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/endianness/is_little_endian.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
@@ -89,7 +89,7 @@ sge::vorbis::read(
 	case OV_HOLE:
 		FCPPT_LOG_WARNING(
 			_log,
-			fcppt::log::_ <<
+			fcppt::log::out <<
 				sge::media::error_string(
 					_name,
 					FCPPT_TEXT("Encountered corrupt vorbis data.")
@@ -118,7 +118,7 @@ sge::vorbis::read(
 	{
 		FCPPT_LOG_DEBUG(
 			_log,
-			fcppt::log::_
+			fcppt::log::out
 				<< FCPPT_TEXT("Read until the end.")
 		);
 	}

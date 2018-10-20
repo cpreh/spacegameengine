@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/warning.hpp>
@@ -278,7 +278,7 @@ public:
 
 			FCPPT_LOG_WARNING(
 				log_,
-				fcppt::log::_
+				fcppt::log::out
 					<<
 					FCPPT_TEXT("obj (mtl): dissolve currently not supported")
 			);
@@ -327,7 +327,7 @@ public:
 			default:
 				FCPPT_LOG_WARNING(
 					log_,
-					fcppt::log::_
+					fcppt::log::out
 						<<
 						FCPPT_TEXT("obj (mtl): invalid light model: ")
 						<<
@@ -376,7 +376,7 @@ public:
 		{
 			FCPPT_LOG_WARNING(
 				log_,
-				fcppt::log::_
+				fcppt::log::out
 					<<
 					FCPPT_TEXT("obj (mtl): invalid prefix")
 			);

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic_cross.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -56,7 +56,7 @@ sge::opengl::egl::visual::to_config(
 			{
 				FCPPT_LOG_WARNING(
 					_log,
-					fcppt::log::_
+					fcppt::log::out
 						<< FCPPT_TEXT("Visual is not an EGL visual.")
 				);
 

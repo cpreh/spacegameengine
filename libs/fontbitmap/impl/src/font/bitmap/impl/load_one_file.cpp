@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/char_type.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -117,7 +117,7 @@ sge::font::bitmap::impl::load_one_file(
 		{
 			FCPPT_LOG_ERROR(
 				_log,
-				fcppt::log::_
+				fcppt::log::out
 					<< FCPPT_TEXT("Invalid character in bitmap font: \"")
 					<< name
 					<< FCPPT_TEXT("\"")
@@ -173,7 +173,7 @@ sge::font::bitmap::impl::load_one_file(
 	{
 		FCPPT_LOG_ERROR(
 			_log,
-			fcppt::log::_
+			fcppt::log::out
 				<< FCPPT_TEXT("Skipping character in bitmap font because \"")
 				<< _exception.string()
 				<< FCPPT_TEXT('"')

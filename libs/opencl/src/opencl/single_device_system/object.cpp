@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/name.hpp>
@@ -111,7 +111,7 @@ choose_platform(
 
 	FCPPT_LOG_WARNING(
 		_log,
-		fcppt::log::_ << FCPPT_TEXT("You preferred a GPU platform, but I didn't find one, so choosing a non-GPU platform now."));
+		fcppt::log::out << FCPPT_TEXT("You preferred a GPU platform, but I didn't find one, so choosing a non-GPU platform now."));
 
 	return
 		objects.front();
@@ -292,7 +292,7 @@ sge::opencl::single_device_system::object::error_callback(
 
 	FCPPT_LOG_ERROR(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("An error in a context occured: \"")
 			<<
 				boost::algorithm::trim_copy(

@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/enum/array_impl.hpp>
 #include <fcppt/enum/array_init.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -67,7 +67,7 @@ sge::plugin::manager::manager(
 		]{
 			FCPPT_LOG_DEBUG(
 				log_,
-				fcppt::log::_
+				fcppt::log::out
 					<< FCPPT_TEXT("Scanning for plugins in ")
 					<< fcppt::filesystem::path_to_string(
 						_path

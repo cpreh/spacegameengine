@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
 
@@ -82,7 +82,7 @@ sge::libpng::error_context::handle_warning_impl(
 {
 	FCPPT_LOG_WARNING(
 		log_,
-		fcppt::log::_ <<
+		fcppt::log::out <<
 			sge::media::error_string(
 				name_,
 				fcppt::from_std_string(

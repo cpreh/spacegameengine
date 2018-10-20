@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/container/buffer/object_impl.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -191,7 +191,7 @@ sge::x11input::focus::lookup_string(
 	{
 		FCPPT_LOG_ERROR(
 			_log,
-			fcppt::log::_
+			fcppt::log::out
 				<< FCPPT_TEXT("XwcLookupString mismatch of lengths!")
 				FCPPT_TEXT(" This usually happens if your locale is not set.")
 		);

@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
@@ -82,7 +82,7 @@ sge::cegui::impl::resource_provider::loadRawDataContainer(
 
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<<
 			FCPPT_TEXT("loadRawDataContainer(")
 			<<
@@ -175,7 +175,7 @@ sge::cegui::impl::resource_provider::unloadRawDataContainer(
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("unloadRawDataContainer()")
 	);
 
@@ -202,7 +202,7 @@ sge::cegui::impl::resource_provider::getResourceGroupFileNames(
 
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<<
 			FCPPT_TEXT("loadRawDataContainer(")
 			<<

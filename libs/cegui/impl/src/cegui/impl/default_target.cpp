@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
@@ -98,7 +98,7 @@ sge::cegui::impl::default_target::draw(
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("default_target(")
 			<< this
 			<< FCPPT_TEXT(")::draw(GeometryBuffer)")
@@ -114,7 +114,7 @@ sge::cegui::impl::default_target::draw(
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("default_target(")
 			<< this
 			<< FCPPT_TEXT(")::draw(RenderQueue)")
@@ -194,7 +194,7 @@ sge::cegui::impl::default_target::activate()
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("default_target(")
 			<< this
 			<< FCPPT_TEXT(")::activate()")
@@ -227,7 +227,7 @@ sge::cegui::impl::default_target::deactivate()
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("default_target(")
 			<< this
 			<< FCPPT_TEXT(")::deactivate()")

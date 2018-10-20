@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/openal/current_context.hpp>
 #include <sge/openal/funcs/alc_make_context_current.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
@@ -41,7 +41,7 @@ sge::openal::current_context::current_context(
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("making audio context the current context")
 	);
 
@@ -52,7 +52,7 @@ sge::openal::current_context::current_context(
 
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("made audio context the current context")
 	);
 }
@@ -61,7 +61,7 @@ sge::openal::current_context::~current_context()
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("resetting current context")
 	);
 

@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/shape/triangle_sequence.hpp>
 #include <sge/projectile/shape/detail/index_container.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/verbose.hpp>
@@ -43,7 +43,7 @@ sge::projectile::impl::shape::triangle_indices(
 
 	FCPPT_LOG_DEBUG(
 		_log,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("filled scalar container, now filling index container")
 	);
 
@@ -99,7 +99,7 @@ sge::projectile::impl::shape::triangle_indices(
 
 	FCPPT_LOG_DEBUG(
 		_log,
-		fcppt::log::_
+		fcppt::log::out
 			<<
 			FCPPT_TEXT("filled index container (last index was ")
 			<<

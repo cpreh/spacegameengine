@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/format.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
@@ -66,7 +66,7 @@ sge::opengl::texture::funcs::set_active_level(
 
 			FCPPT_LOG_ERROR(
 				_log,
-				fcppt::log::_
+				fcppt::log::out
 					<< FCPPT_TEXT("Tried to set texture stage ")
 					<< _stage
 					<< FCPPT_TEXT(" but opengl does not support it.")
@@ -87,7 +87,7 @@ sge::opengl::texture::funcs::set_active_level(
 			{
 				FCPPT_LOG_WARNING(
 					_log,
-					fcppt::log::_
+					fcppt::log::out
 						<< FCPPT_TEXT("GL_MAX_COMBINED_TEXTURE_UNITS is ")
 						<< _config.max_level()
 						<< FCPPT_TEXT(". Setting texture stage ")

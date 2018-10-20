@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/libpng/srgb_gamma.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
@@ -54,7 +54,7 @@ sge::libpng::make_format(
 	{
 		FCPPT_LOG_ERROR(
 			_log,
-			fcppt::log::_
+			fcppt::log::out
 				<< FCPPT_TEXT("PNG file has gAMA ")
 				<< _gamma
 				<< FCPPT_TEXT(" which is not the expected sRGB gAMA of ")

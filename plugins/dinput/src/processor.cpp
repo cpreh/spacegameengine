@@ -67,7 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/container/join.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -368,7 +368,7 @@ sge::dinput::processor::on_focus_in()
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("DirectInput: focus in")
 	);
 
@@ -385,7 +385,7 @@ sge::dinput::processor::on_focus_out()
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("DirectInput: focus out")
 	);
 

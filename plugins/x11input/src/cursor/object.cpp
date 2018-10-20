@@ -60,7 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/container/join.hpp>
 #include <fcppt/container/make.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/make_if.hpp>
@@ -351,7 +351,7 @@ sge::x11input::cursor::object::on_enter(
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<<
 			FCPPT_TEXT("XIEnter: ")
 			<<
@@ -385,7 +385,7 @@ sge::x11input::cursor::object::on_leave(
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("XILeave")
 	);
 
@@ -403,7 +403,7 @@ sge::x11input::cursor::object::on_focus_out()
 {
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::_
+		fcppt::log::out
 			<< FCPPT_TEXT("XIFocusOut")
 	);
 

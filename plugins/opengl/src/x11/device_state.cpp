@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/_.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/bind.hpp>
@@ -124,7 +124,7 @@ sge::opengl::x11::device_state::display_mode(
 						]{
 							FCPPT_LOG_ERROR(
 								log_,
-								fcppt::log::_
+								fcppt::log::out
 									<< FCPPT_TEXT("Xrandr was not found. Can't change the display mode.")
 							);
 
