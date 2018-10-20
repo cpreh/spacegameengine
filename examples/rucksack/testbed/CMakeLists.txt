@@ -22,5 +22,6 @@ add_sge_example_library(
 		sgeviewport
 		sgewindow
 	ADDITIONAL_DEPS
+		${awl_TARGET}
 		${fcppt_core_TARGET}
 )
