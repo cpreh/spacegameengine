@@ -48,7 +48,6 @@ set(
 	libs/config/include/sge/config/homedir.hpp
 	libs/config/include/sge/config/log_path.hpp
 	libs/config/include/sge/config/media_path.hpp
-	libs/config/include/sge/config/no_such_env_var.hpp
 	libs/config/include/sge/config/own_app_name.hpp
 	libs/config/include/sge/config/own_company_name.hpp
 	libs/config/include/sge/config/own_log_path.hpp
@@ -63,7 +62,6 @@ set(
 	libs/config/src/config/homedir.cpp
 	libs/config/src/config/log_path.cpp
 	libs/config/src/config/media_path.cpp
-	libs/config/src/config/no_such_env_var.cpp
 	libs/config/src/config/own_app_name.cpp
 	libs/config/src/config/own_company_name.cpp
 	libs/config/src/config/own_log_path.cpp

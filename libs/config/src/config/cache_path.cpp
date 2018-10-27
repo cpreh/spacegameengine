@@ -47,7 +47,7 @@ sge::config::cache_path(
 	return
 		sge::config::impl::try_create_path(
 			boost::filesystem::path(
-				config::getenv_exn(
+				sge::config::getenv_exn(
 					FCPPT_TEXT("APPDATA")
 				)
 			)

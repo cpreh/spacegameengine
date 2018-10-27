@@ -421,7 +421,7 @@ public:
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
-	~core() = 0;
+	~core();
 };
 
 }

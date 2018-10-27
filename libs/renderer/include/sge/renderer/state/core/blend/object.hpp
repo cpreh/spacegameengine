@@ -49,7 +49,7 @@ protected:
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
-	~object() = 0;
+	~object();
 };
 
 }

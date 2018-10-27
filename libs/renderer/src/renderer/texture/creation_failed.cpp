@@ -22,15 +22,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/texture/creation_failed.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::texture::creation_failed::creation_failed(
-	fcppt::string const &_string
+	fcppt::string &&_string
 )
 :
-	renderer::exception(
+	sge::renderer::exception(
 		FCPPT_TEXT("texture creation failed: ")
-		+ _string
+		+
+		std::move(
+			_string
+		)
 	)
+{
+}
+
+sge::renderer::texture::creation_failed::creation_failed(
+	creation_failed &&
+)
+= default;
+
+sge::renderer::texture::creation_failed::creation_failed(
+	creation_failed const &
+)
+= default;
+
+sge::renderer::texture::creation_failed &
+sge::renderer::texture::creation_failed::operator=(
+	creation_failed &&
+)
+= default;
+
+sge::renderer::texture::creation_failed &
+sge::renderer::texture::creation_failed::operator=(
+	creation_failed const &
+)
+= default;
+
+sge::renderer::texture::creation_failed::~creation_failed() noexcept
 {
 }

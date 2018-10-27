@@ -51,7 +51,7 @@ protected:
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	~depth_stencil()
-	override = 0;
+	override;
 
 	typedef
 	sge::renderer::dim2

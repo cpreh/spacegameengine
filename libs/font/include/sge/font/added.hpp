@@ -43,7 +43,7 @@ protected:
 public:
 	SGE_FONT_DETAIL_SYMBOL
 	virtual
-	~added() = 0;
+	~added();
 };
 
 }

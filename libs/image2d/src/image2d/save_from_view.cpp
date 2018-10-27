@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/exception.hpp>
+#include <sge/image2d/exception.hpp>
 #include <sge/image2d/create_exn.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/save_from_view.hpp>
@@ -51,7 +51,7 @@ sge::image2d::save_from_view(
 				&_path
 			]{
 				return
-					sge::image::exception{
+					sge::image2d::exception{
 						FCPPT_TEXT("Path has no extension ")
 						+
 						fcppt::filesystem::path_to_string(

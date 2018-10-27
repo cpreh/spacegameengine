@@ -44,7 +44,7 @@ protected:
 public:
 	SGE_RENDERER_CG_DETAIL_SYMBOL
 	virtual
-	~loaded_texture() = 0;
+	~loaded_texture();
 };
 
 }

@@ -41,7 +41,7 @@ public:
 	SGE_INPUT_DETAIL_SYMBOL
 	explicit
 	exception(
-		fcppt::string const &
+		fcppt::string &&
 	);
 
 	SGE_INPUT_DETAIL_SYMBOL
@@ -49,6 +49,32 @@ public:
 	exception(
 		fcppt::assert_::information const &info
 	);
+
+	SGE_INPUT_DETAIL_SYMBOL
+	exception(
+		exception &&
+	);
+
+	SGE_INPUT_DETAIL_SYMBOL
+	exception(
+		exception const &
+	);
+
+	SGE_INPUT_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception &&
+	);
+
+	SGE_INPUT_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception const &
+	);
+
+	SGE_INPUT_DETAIL_SYMBOL
+	~exception() noexcept
+	override;
 };
 
 }

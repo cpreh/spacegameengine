@@ -48,7 +48,7 @@ protected:
 public:
 	SGE_FONT_DETAIL_SYMBOL
 	virtual
-	~object() = 0;
+	~object();
 
 	virtual
 	sge::font::text_unique_ptr

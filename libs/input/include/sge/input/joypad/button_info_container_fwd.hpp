@@ -33,10 +33,12 @@ namespace input
 namespace joypad
 {
 
-typedef input::info::container<
+typedef
+sge::input::info::container<
 	sge::input::joypad::button_id,
 	sge::input::joypad::button_info
-> button_info_container;
+>
+button_info_container;
 
 }
 }

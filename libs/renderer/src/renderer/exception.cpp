@@ -23,16 +23,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/information_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::exception::exception(
-	fcppt::string const &_what
+	fcppt::string &&_what
 )
 :
 	sge::core::exception(
 		FCPPT_TEXT("renderer: ")
 		+
-		_what
+		std::move(
+			_what
+		)
 	)
 {
 }
@@ -44,5 +49,31 @@ sge::renderer::exception::exception(
 	sge::core::exception(
 		_information
 	)
+{
+}
+
+sge::renderer::exception::exception(
+	exception &&
+)
+= default;
+
+sge::renderer::exception::exception(
+	exception const &
+)
+= default;
+
+sge::renderer::exception &
+sge::renderer::exception::operator=(
+	exception &&
+)
+= default;
+
+sge::renderer::exception &
+sge::renderer::exception::operator=(
+	exception const &
+)
+= default;
+
+sge::renderer::exception::~exception() noexcept
 {
 }

@@ -55,7 +55,7 @@ protected:
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
-	~declaration() = 0;
+	~declaration();
 };
 
 }

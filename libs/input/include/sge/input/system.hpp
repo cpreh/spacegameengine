@@ -46,7 +46,7 @@ protected:
 public:
 	SGE_INPUT_DETAIL_SYMBOL
 	virtual
-	~system() = 0;
+	~system();
 
 	virtual
 	sge::input::processor_unique_ptr

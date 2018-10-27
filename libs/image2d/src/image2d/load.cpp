@@ -18,8 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/exception.hpp>
+#include <sge/image2d/exception.hpp>
 #include <sge/image2d/file.hpp>
+#include <sge/image2d/file_exception.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/load.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
@@ -39,7 +40,7 @@ sge::image2d::load(
 	return
 		sge::media::impl::load<
 			sge::image2d::file_unique_ptr,
-			sge::image::exception
+			sge::image2d::exception
 		>(
 			_system,
 			_path

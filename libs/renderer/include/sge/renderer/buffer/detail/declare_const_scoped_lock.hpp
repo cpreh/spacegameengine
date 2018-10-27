@@ -18,12 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/ds/invalid_convert.hpp>
-#include <sge/image/ds/tag.hpp>
-#include <sge/image/ds/traits/format_to_string.hpp>
-#include <sge/image/impl/instantiate_invalid_convert.hpp>
+#ifndef SGE_RENDERER_BUFFER_DETAIL_DECLARE_CONST_SCOPED_LOCK_HPP_INCLUDED
+#define SGE_RENDERER_BUFFER_DETAIL_DECLARE_CONST_SCOPED_LOCK_HPP_INCLUDED
+
+#include <sge/core/detail/export_class_declaration.hpp>
+#include <sge/renderer/buffer/const_scoped_lock.hpp>
 
 
-SGE_IMAGE_IMPL_INSTANTIATE_INVALID_CONVERT(
-	sge::image::ds::tag
-);
+#define SGE_RENDERER_BUFFER_DETAIL_DECLARE_CONST_SCOPED_LOCK(\
+	tag\
+)\
+extern \
+template \
+class \
+SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \
+sge::renderer::buffer::const_scoped_lock<\
+	tag\
+>
+
+#endif

@@ -18,7 +18,6 @@ set(
 	libs/imageds/include/sge/image/ds/init/depth.hpp
 	libs/imageds/include/sge/image/ds/init/detail/make.hpp
 	libs/imageds/include/sge/image/ds/init/stencil.hpp
-	libs/imageds/include/sge/image/ds/invalid_convert.hpp
 	libs/imageds/include/sge/image/ds/invalid_copy.hpp
 	libs/imageds/include/sge/image/ds/layout/depth.hpp
 	libs/imageds/include/sge/image/ds/layout/depth_stencil.hpp
@@ -37,7 +36,6 @@ set(
 	libs/imageds/include/sge/image/ds/view/d32_format.hpp
 	libs/imageds/src/image/ds/format_stride.cpp
 	libs/imageds/src/image/ds/format_to_string.cpp
-	libs/imageds/src/image/ds/invalid_convert.cpp
 	libs/imageds/src/image/ds/invalid_copy.cpp
 	libs/imageds/src/image/ds/traits/format_stride.cpp
 	libs/imageds/src/image/ds/traits/format_to_string.cpp

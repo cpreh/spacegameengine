@@ -20,13 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/core/impl/export_class_instantiation.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/impl/index/instantiate_all.hpp>
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/view.hpp>
-#include <sge/renderer/index/dynamic/basic_view.hpp>
+#include <sge/renderer/index/detail/pp_formats.hpp>
+#include <sge/renderer/index/dynamic/const_view.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
+#include <sge/renderer/index/dynamic/view.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -155,6 +159,8 @@ sge::renderer::index::view<
 }
 
 #define SGE_RENDERER_INDEX_DEFINE_VIEW(\
+	seq,\
+	_,\
 	format\
 )\
 template \
@@ -162,10 +168,10 @@ class \
 SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION \
 sge::renderer::index::view<\
 	format \
->
+> ;
 
-SGE_RENDERER_IMPL_INDEX_INSTANTIATE_ALL(
-	SGE_RENDERER_INDEX_DEFINE_VIEW
-);
-
-#undef SGE_RENDERER_INDEX_DEFINE_VIEW
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_RENDERER_INDEX_DEFINE_VIEW,
+	_,
+	SGE_RENDERER_INDEX_DETAIL_PP_FORMATS
+)

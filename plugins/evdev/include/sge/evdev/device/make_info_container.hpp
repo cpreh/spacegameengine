@@ -76,14 +76,14 @@ make_info_container(
 	info_container::vector
 	result_vector;
 
-	result_vector ids;
+	result_vector ids{};
 
 	typedef
 	typename
 	basic_info::event_map_type
 	result_map;
 
-	result_map event_map;
+	result_map event_map{};
 
 	typedef
 	sge::evdev::device::read_bits_result<
@@ -130,9 +130,13 @@ make_info_container(
 	return
 		basic_info(
 			info_container(
-				ids
+				std::move(
+					ids
+				)
 			),
-			event_map
+			std::move(
+				event_map
+			)
 		);
 }
 

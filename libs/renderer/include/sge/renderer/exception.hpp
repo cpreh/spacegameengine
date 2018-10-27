@@ -43,27 +43,43 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL exception
 	public sge::core::exception
 {
 public:
-	/**
-	\brief Constructs the exception from a string
-
-	Constructs the exception from \a what
-	*/
 	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	exception(
-		fcppt::string const &what
+		fcppt::string &&
 	);
 
-	/**
-	\brief Constructs the exception from an assert info
-
-	Constructs the exception from \a info
-	*/
 	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	exception(
 		fcppt::assert_::information const &info
 	);
+
+	SGE_RENDERER_DETAIL_SYMBOL
+	exception(
+		exception &&
+	);
+
+	SGE_RENDERER_DETAIL_SYMBOL
+	exception(
+		exception const &
+	);
+
+	SGE_RENDERER_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception &&
+	);
+
+	SGE_RENDERER_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception const &
+	);
+
+	SGE_RENDERER_DETAIL_SYMBOL
+	~exception() noexcept
+	override;
 };
 
 }

@@ -50,8 +50,11 @@ set(
 	libs/font/include/sge/font/parameters.hpp
 	libs/font/include/sge/font/parameters_fwd.hpp
 	libs/font/include/sge/font/parameters_to_string.hpp
+	libs/font/include/sge/font/plugin/collection.hpp
 	libs/font/include/sge/font/plugin/collection_fwd.hpp
+	libs/font/include/sge/font/plugin/context.hpp
 	libs/font/include/sge/font/plugin/context_fwd.hpp
+	libs/font/include/sge/font/plugin/iterator.hpp
 	libs/font/include/sge/font/plugin/iterator_fwd.hpp
 	libs/font/include/sge/font/plugin/object.hpp
 	libs/font/include/sge/font/plugin/object_fwd.hpp

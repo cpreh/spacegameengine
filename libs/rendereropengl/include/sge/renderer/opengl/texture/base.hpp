@@ -57,7 +57,7 @@ public:
 
 	SGE_RENDERER_OPENGL_DETAIL_SYMBOL
 	virtual
-	~base() = 0;
+	~base();
 };
 
 }

@@ -40,8 +40,34 @@ public:
 	SGE_PARSE_DETAIL_SYMBOL
 	explicit
 	exception(
-		fcppt::string const &
+		fcppt::string &&
 	);
+
+	SGE_PARSE_DETAIL_SYMBOL
+	exception(
+		exception &&
+	);
+
+	SGE_PARSE_DETAIL_SYMBOL
+	exception(
+		exception const &
+	);
+
+	SGE_PARSE_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception &&
+	);
+
+	SGE_PARSE_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception const &
+	);
+
+	SGE_PARSE_DETAIL_SYMBOL
+	~exception() noexcept
+	override;
 };
 
 }

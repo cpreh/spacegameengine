@@ -32,9 +32,11 @@ namespace font
 namespace plugin
 {
 
-typedef sge::plugin::collection<
+typedef
+sge::plugin::collection<
 	sge::font::system
-> collection;
+>
+collection;
 
 }
 }

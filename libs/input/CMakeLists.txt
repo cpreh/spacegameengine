@@ -88,6 +88,7 @@ set(
 	libs/input/include/sge/input/focus/string.hpp
 	libs/input/include/sge/input/info/container.hpp
 	libs/input/include/sge/input/info/container_fwd.hpp
+	libs/input/include/sge/input/info/detail/declare_container.hpp
 	libs/input/include/sge/input/info/id.hpp
 	libs/input/include/sge/input/info/name.hpp
 	libs/input/include/sge/input/info/unique_id.hpp
@@ -293,8 +294,12 @@ set(
 	libs/input/include/sge/input/mouse/info.hpp
 	libs/input/include/sge/input/mouse/info_fwd.hpp
 	libs/input/include/sge/input/mouse/shared_ptr.hpp
+	libs/input/include/sge/input/plugin/collection.hpp
 	libs/input/include/sge/input/plugin/collection_fwd.hpp
+	libs/input/include/sge/input/plugin/context.hpp
 	libs/input/include/sge/input/plugin/context_fwd.hpp
+	libs/input/include/sge/input/plugin/iterator.hpp
+	libs/input/include/sge/input/plugin/iterator_fwd.hpp
 	libs/input/include/sge/input/plugin/object.hpp
 	libs/input/include/sge/input/plugin/object_fwd.hpp
 	libs/input/include/sge/input/plugin/traits.hpp

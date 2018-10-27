@@ -76,7 +76,7 @@ protected:
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
-	~core() = 0;
+	~core();
 
 	/**
 	\brief The target that has been used to create this context

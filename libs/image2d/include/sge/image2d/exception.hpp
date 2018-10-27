@@ -18,30 +18,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CONFIG_NO_SUCH_ENV_VAR_HPP_INCLUDED
-#define SGE_CONFIG_NO_SUCH_ENV_VAR_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_EXCEPTION_HPP_INCLUDED
+#define SGE_IMAGE2D_EXCEPTION_HPP_INCLUDED
 
-#include <sge/config/exception.hpp>
-#include <sge/config/detail/symbol.hpp>
 #include <sge/core/detail/class_symbol.hpp>
+#include <sge/image/exception.hpp>
+#include <sge/image2d/exception_fwd.hpp>
+#include <sge/image2d/detail/symbol.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/assert/information_fwd.hpp>
 
 
 namespace sge
 {
-namespace config
+namespace image2d
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL no_such_env_var
+class SGE_CORE_DETAIL_CLASS_SYMBOL exception
 :
-	public sge::config::exception
+	public sge::image::exception
 {
 public:
-	SGE_CONFIG_DETAIL_SYMBOL
+	SGE_IMAGE2D_DETAIL_SYMBOL
 	explicit
-	no_such_env_var(
-		fcppt::string const &env_var
+	exception(
+		fcppt::string &&
 	);
+
+	SGE_IMAGE2D_DETAIL_SYMBOL
+	explicit
+	exception(
+		fcppt::assert_::information const &
+	);
+
+	SGE_IMAGE2D_DETAIL_SYMBOL
+	exception(
+		exception &&
+	);
+
+	SGE_IMAGE2D_DETAIL_SYMBOL
+	exception(
+		exception const &
+	);
+
+	SGE_IMAGE2D_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception &&
+	);
+
+	SGE_IMAGE2D_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception const &
+	);
+
+	SGE_IMAGE2D_DETAIL_SYMBOL
+	~exception() noexcept
+	override;
 };
 
 }

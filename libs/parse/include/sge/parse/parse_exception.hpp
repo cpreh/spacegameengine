@@ -54,7 +54,29 @@ public:
 	error_string() const;
 
 	SGE_PARSE_DETAIL_SYMBOL
-	~parse_exception() throw()
+	parse_exception(
+		parse_exception &&
+	);
+
+	SGE_PARSE_DETAIL_SYMBOL
+	parse_exception(
+		parse_exception const &
+	);
+
+	SGE_PARSE_DETAIL_SYMBOL
+	parse_exception &
+	operator=(
+		parse_exception &&
+	);
+
+	SGE_PARSE_DETAIL_SYMBOL
+	parse_exception &
+	operator=(
+		parse_exception const &
+	);
+
+	SGE_PARSE_DETAIL_SYMBOL
+	~parse_exception() noexcept
 	override;
 private:
 	sge::parse::result_code result_code_;

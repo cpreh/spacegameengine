@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image/exception.hpp>
 #include <sge/image/color/format_to_string.hpp>
 #include <sge/image2d/create_exn.hpp>
+#include <sge/image2d/exception.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
@@ -49,7 +49,7 @@ sge::image2d::create_exn(
 				&_extension
 			]{
 				return
-					sge::image::exception(
+					sge::image2d::exception(
 						FCPPT_TEXT("No image2d system can create an image with extension ")
 						+
 						_extension.get()

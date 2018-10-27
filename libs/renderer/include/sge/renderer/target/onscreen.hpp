@@ -65,7 +65,7 @@ public:
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	~onscreen()
-	override = 0;
+	override;
 };
 
 }

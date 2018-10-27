@@ -107,7 +107,7 @@ public:
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	~offscreen()
-	override = 0;
+	override;
 };
 
 }

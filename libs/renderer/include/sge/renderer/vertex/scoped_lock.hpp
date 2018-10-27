@@ -21,11 +21,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_VERTEX_SCOPED_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_SCOPED_LOCK_HPP_INCLUDED
 
-#include <sge/renderer/buffer/scoped_lock.hpp>
+#include <sge/renderer/buffer/detail/declare_scoped_lock.hpp>
 #include <sge/renderer/vertex/scoped_lock_fwd.hpp>
+#include <sge/renderer/vertex/tag.hpp>
 #include <sge/renderer/vertex/traits/dimension.hpp>
 #include <sge/renderer/vertex/traits/view_fwd.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
 
+
+SGE_RENDERER_BUFFER_DETAIL_DECLARE_SCOPED_LOCK(
+	sge::renderer::vertex::tag
+);
 
 #endif

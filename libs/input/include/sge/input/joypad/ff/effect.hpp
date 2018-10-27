@@ -48,7 +48,7 @@ protected:
 public:
 	SGE_INPUT_DETAIL_SYMBOL
 	virtual
-	~effect() = 0;
+	~effect();
 
 	virtual
 	void

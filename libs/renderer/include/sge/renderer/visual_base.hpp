@@ -52,7 +52,7 @@ public:
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
-	~visual_base() = 0;
+	~visual_base();
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::pixel_format::object const &

@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/plugin/context.hpp>
+#include <sge/image2d/plugin/iterator.hpp>
 #include <sge/plugin/impl/instantiate_iterator.hpp>
 
 

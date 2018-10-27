@@ -54,7 +54,7 @@ protected:
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
-	~core() = 0;
+	~core();
 
 	virtual
 	sge::renderer::system_unique_ptr

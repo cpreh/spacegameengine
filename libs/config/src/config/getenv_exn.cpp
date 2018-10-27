@@ -18,12 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/config/exception.hpp>
 #include <sge/config/getenv.hpp>
 #include <sge/config/getenv_exn.hpp>
-#include <sge/config/no_such_env_var.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/optional/to_exception.hpp>
 
+
+// TODO: Remove this
 
 fcppt::string
 sge::config::getenv_exn(
@@ -39,7 +42,9 @@ sge::config::getenv_exn(
 				&_name
 			]{
 				return
-					sge::config::no_such_env_var(
+					sge::config::exception(
+						FCPPT_TEXT("Missing env var: ")
+						+
 						_name
 					);
 			}

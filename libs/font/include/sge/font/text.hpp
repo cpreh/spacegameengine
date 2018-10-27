@@ -49,7 +49,7 @@ protected:
 public:
 	SGE_FONT_DETAIL_SYMBOL
 	virtual
-	~text() = 0;
+	~text();
 
 	virtual
 	void

@@ -50,7 +50,7 @@ protected:
 public:
 	SGE_FONT_DETAIL_SYMBOL
 	virtual
-	~system() = 0;
+	~system();
 
 	virtual
 	sge::font::object_unique_ptr

@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/plugin/impl/instantiate_manager.hpp>
 #include <sge/renderer/core_fwd.hpp>
+#include <sge/renderer/plugin/collection.hpp>
 #include <sge/renderer/plugin/traits.hpp>
 
 

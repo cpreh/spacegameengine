@@ -17,6 +17,8 @@ set(
 	libs/image2d/include/sge/image2d/create_exn.hpp
 	libs/image2d/include/sge/image2d/dim.hpp
 	libs/image2d/include/sge/image2d/dim_fwd.hpp
+	libs/image2d/include/sge/image2d/exception.hpp
+	libs/image2d/include/sge/image2d/exception_fwd.hpp
 	libs/image2d/include/sge/image2d/file.hpp
 	libs/image2d/include/sge/image2d/file_exception.hpp
 	libs/image2d/include/sge/image2d/file_exception_fwd.hpp
@@ -129,6 +131,7 @@ set(
 	libs/image2d/src/image2d/algorithm/fill.cpp
 	libs/image2d/src/image2d/algorithm/print.cpp
 	libs/image2d/src/image2d/create_exn.cpp
+	libs/image2d/src/image2d/exception.cpp
 	libs/image2d/src/image2d/file.cpp
 	libs/image2d/src/image2d/file_exception.cpp
 	libs/image2d/src/image2d/load.cpp

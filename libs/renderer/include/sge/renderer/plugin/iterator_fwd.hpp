@@ -18,20 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/config/exception.hpp>
-#include <sge/config/no_such_env_var.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
+#ifndef SGE_RENDERER_PLUGIN_ITERATOR_FWD_HPP_INCLUDED
+#define SGE_RENDERER_PLUGIN_ITERATOR_FWD_HPP_INCLUDED
+
+#include <sge/plugin/iterator_fwd.hpp>
+#include <sge/renderer/core_fwd.hpp>
 
 
-sge::config::no_such_env_var::no_such_env_var(
-	fcppt::string const &_env_var
-)
-:
-	sge::config::exception(
-		FCPPT_TEXT("no such environment variable: \"")
-		+ _env_var
-		+ FCPPT_TEXT("\"!")
-	)
+namespace sge
 {
+namespace renderer
+{
+namespace plugin
+{
+
+typedef
+sge::plugin::iterator<
+	sge::renderer::core
+>
+iterator;
+
 }
+}
+}
+
+#endif

@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/input/info/container.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -33,11 +36,13 @@ sge::input::info::container<
 	Id,
 	Obj
 >::container(
-	vector const &_vector
+	vector &&_vector
 )
 :
 	vector_(
-		_vector
+		std::move(
+			_vector
+		)
 	)
 {
 }
@@ -109,7 +114,8 @@ sge::input::info::container<
 	Obj
 >::get() const
 {
-	return vector_;
+	return
+		vector_;
 }
 
 #endif

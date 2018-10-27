@@ -57,7 +57,7 @@ protected:
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	~ffp()
-	override = 0;
+	override;
 
 	virtual
 	void

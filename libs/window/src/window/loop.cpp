@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/event/base_unique_ptr.hpp>
 #include <awl/event/container.hpp>
 #include <awl/main/exit_code.hpp>
-#include <awl/main/exit_failure.hpp>
 #include <awl/system/event/result.hpp>
+#include <fcppt/assert/unreachable.hpp>
 
 
 awl::main::exit_code
@@ -60,6 +60,5 @@ sge::window::loop(
 			);
 	}
 
-	return
-		awl::main::exit_failure();
+	FCPPT_ASSERT_UNREACHABLE;
 }

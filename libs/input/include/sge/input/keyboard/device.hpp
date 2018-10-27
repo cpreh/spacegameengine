@@ -46,7 +46,7 @@ protected:
 public:
 	SGE_INPUT_DETAIL_SYMBOL
 	virtual
-	~device() = 0;
+	~device();
 
 	virtual
 	sge::window::object &

@@ -18,29 +18,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_DS_INVALID_CONVERT_HPP_INCLUDED
-#define SGE_IMAGE_DS_INVALID_CONVERT_HPP_INCLUDED
+#ifndef SGE_RENDERER_BUFFER_DETAIL_DECLARE_WRITABLE_HPP_INCLUDED
+#define SGE_RENDERER_BUFFER_DETAIL_DECLARE_WRITABLE_HPP_INCLUDED
 
-#include <sge/image/invalid_convert.hpp>
-#include <sge/image/ds/tag.hpp>
-#include <sge/image/ds/traits/format_fwd.hpp>
+#include <sge/core/detail/export_class_declaration.hpp>
+#include <sge/renderer/buffer/writable.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace ds
-{
-
-typedef
-sge::image::invalid_convert<
-	sge::image::ds::tag
+#define SGE_RENDERER_BUFFER_DETAIL_DECLARE_WRITABLE(\
+	tag\
+)\
+extern \
+template \
+class \
+SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \
+sge::renderer::buffer::writable<\
+	tag\
 >
-invalid_convert;
-
-}
-}
-}
 
 #endif

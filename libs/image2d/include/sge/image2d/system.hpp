@@ -70,7 +70,7 @@ public:
 
 	SGE_IMAGE2D_DETAIL_SYMBOL
 	virtual
-	~system() = 0;
+	~system();
 };
 
 }

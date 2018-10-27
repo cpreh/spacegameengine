@@ -69,7 +69,7 @@ public:
 
 	SGE_IMAGE2D_DETAIL_SYMBOL
 	virtual
-	~file() = 0;
+	~file();
 };
 
 }

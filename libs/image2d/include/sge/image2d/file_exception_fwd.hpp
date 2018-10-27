@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_FILE_EXCEPTION_FWD_HPP_INCLUDED
 #define SGE_IMAGE2D_FILE_EXCEPTION_FWD_HPP_INCLUDED
 
-#include <sge/image/exception_fwd.hpp>
+#include <sge/image2d/exception_fwd.hpp>
 #include <sge/media/file_exception_fwd.hpp>
 
 
@@ -30,10 +30,9 @@ namespace sge
 namespace image2d
 {
 
-// TODO: sge::image2d::exception
 typedef
 sge::media::file_exception<
-	sge::image::exception
+	sge::image2d::exception
 >
 file_exception;
 

@@ -71,7 +71,29 @@ public:
 	possible_extensions() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	~unsupported() throw()
+	unsupported(
+		unsupported &&
+	);
+
+	SGE_RENDERER_DETAIL_SYMBOL
+	unsupported(
+		unsupported const &
+	);
+
+	SGE_RENDERER_DETAIL_SYMBOL
+	unsupported &
+	operator=(
+		unsupported &&
+	);
+
+	SGE_RENDERER_DETAIL_SYMBOL
+	unsupported &
+	operator=(
+		unsupported const &
+	);
+
+	SGE_RENDERER_DETAIL_SYMBOL
+	~unsupported() noexcept
 	override;
 private:
 	fcppt::string

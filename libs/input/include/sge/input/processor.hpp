@@ -49,7 +49,7 @@ protected:
 public:
 	SGE_INPUT_DETAIL_SYMBOL
 	virtual
-	~processor() = 0;
+	~processor();
 
 	// TODO: Can we remove this?
 	virtual

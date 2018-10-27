@@ -96,7 +96,7 @@ public:
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
-	~system() = 0;
+	~system();
 };
 
 }

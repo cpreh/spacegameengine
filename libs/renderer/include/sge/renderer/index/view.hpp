@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_VIEW_HPP_INCLUDED
 
+#include <sge/core/detail/export_class_declaration.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/index/const_tag.hpp>
@@ -29,8 +30,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/iterator_fwd.hpp>
 #include <sge/renderer/index/to_nonconst_format.hpp>
 #include <sge/renderer/index/view_fwd.hpp>
+#include <sge/renderer/index/detail/pp_formats.hpp>
 #include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -139,5 +142,24 @@ private:
 }
 }
 }
+
+#define SGE_RENDERER_INDEX_DETAIL_DECLARE_VIEW(\
+	seq,\
+	_,\
+	format\
+)\
+extern \
+template \
+class \
+SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \
+sge::renderer::index::view<\
+	format \
+> ;
+
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_RENDERER_INDEX_DETAIL_DECLARE_VIEW,
+	_,
+	SGE_RENDERER_INDEX_DETAIL_PP_FORMATS
+)
 
 #endif

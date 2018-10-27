@@ -53,7 +53,7 @@ public:
 	SGE_INPUT_DETAIL_SYMBOL
 	explicit
 	container(
-		vector const &
+		vector &&
 	);
 
 	SGE_INPUT_DETAIL_SYMBOL

@@ -40,9 +40,36 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL creation_failed
 {
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
-	explicit creation_failed(
-		fcppt::string const &
+	explicit
+	creation_failed(
+		fcppt::string &&
 	);
+
+	SGE_RENDERER_DETAIL_SYMBOL
+	creation_failed(
+		creation_failed &&
+	);
+
+	SGE_RENDERER_DETAIL_SYMBOL
+	creation_failed(
+		creation_failed const &
+	);
+
+	SGE_RENDERER_DETAIL_SYMBOL
+	creation_failed &
+	operator=(
+		creation_failed &&
+	);
+
+	SGE_RENDERER_DETAIL_SYMBOL
+	creation_failed &
+	operator=(
+		creation_failed const &
+	);
+
+	SGE_RENDERER_DETAIL_SYMBOL
+	~creation_failed() noexcept
+	override;
 };
 
 }

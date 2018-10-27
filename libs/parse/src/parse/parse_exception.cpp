@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/exception.hpp>
 #include <sge/parse/parse_exception.hpp>
 #include <sge/parse/result_code.hpp>
+#include <fcppt/string.hpp>
 
 
 sge::parse::parse_exception::parse_exception(
@@ -30,7 +31,9 @@ sge::parse::parse_exception::parse_exception(
 )
 :
 	sge::parse::exception(
-		_error_string.get()
+		fcppt::string{
+			_error_string.get()
+		}
 	),
 	result_code_(
 		_result_code
@@ -44,15 +47,39 @@ sge::parse::parse_exception::parse_exception(
 sge::parse::result_code
 sge::parse::parse_exception::result_code() const
 {
-	return result_code_;
+	return
+		result_code_;
 }
 
 sge::parse::error_string const &
 sge::parse::parse_exception::error_string() const
 {
-	return error_string_;
+	return
+		error_string_;
 }
 
-sge::parse::parse_exception::~parse_exception() throw()
+sge::parse::parse_exception::parse_exception(
+	parse_exception &&
+)
+= default;
+
+sge::parse::parse_exception::parse_exception(
+	parse_exception const &
+)
+= default;
+
+sge::parse::parse_exception &
+sge::parse::parse_exception::operator=(
+	parse_exception &&
+)
+= default;
+
+sge::parse::parse_exception &
+sge::parse::parse_exception::operator=(
+	parse_exception const &
+)
+= default;
+
+sge::parse::parse_exception::~parse_exception() noexcept
 {
 }

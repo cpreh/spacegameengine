@@ -22,6 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/key/code_to_digit.hpp>
 #include <sge/input/key/digit.hpp>
 #include <sge/input/key/optional_digit.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 sge::input::key::optional_digit
@@ -39,6 +42,9 @@ case sge::input::key::code::_ ## num: \
 				num ## u \
 			) \
 		)
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wswitch-enum)
 
 	switch(
 		_code
@@ -58,4 +64,7 @@ case sge::input::key::code::_ ## num: \
 		return
 			sge::input::key::optional_digit();
 	}
+
+FCPPT_PP_POP_WARNING
+
 }

@@ -23,7 +23,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/device/basic_info_decl.hpp>
 #include <sge/evdev/joypad/relative_axis/info_container_fwd.hpp>
+#include <sge/input/joypad/relative_axis_id.hpp>
 #include <sge/input/joypad/relative_axis_info.hpp>
+#include <sge/input/joypad/relative_axis_info_container.hpp>
 
+
+extern
+template
+class
+sge::evdev::device::basic_info<
+	sge::input::joypad::relative_axis_id,
+	sge::input::joypad::relative_axis_info
+>;
 
 #endif

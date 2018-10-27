@@ -22,16 +22,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::parse::exception::exception(
-	fcppt::string const &_what
+	fcppt::string &&_what
 )
 :
 	sge::core::exception(
 		FCPPT_TEXT("parse: ")
 		+
-		_what
+		std::move(
+			_what
+		)
 	)
+{
+}
+
+sge::parse::exception::exception(
+	exception &&
+)
+= default;
+
+sge::parse::exception::exception(
+	exception const &
+)
+= default;
+
+sge::parse::exception &
+sge::parse::exception::operator=(
+	exception &&
+)
+= default;
+
+sge::parse::exception &
+sge::parse::exception::operator=(
+	exception const &
+)
+= default;
+
+sge::parse::exception::~exception() noexcept
 {
 }

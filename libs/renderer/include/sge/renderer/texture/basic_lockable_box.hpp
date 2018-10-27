@@ -55,7 +55,7 @@ protected:
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	~basic_lockable_box()
-	override = 0;
+	override;
 
 	typedef
 	sge::image::dim<

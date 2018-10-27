@@ -14,7 +14,6 @@ set(
 	libs/renderer/impl/include/sge/renderer/impl/index/dynamic/basic_view_impl.hpp
 	libs/renderer/impl/include/sge/renderer/impl/index/dynamic/format_enum_static.hpp
 	libs/renderer/impl/include/sge/renderer/impl/index/dynamic/instantiate_basic_view.hpp
-	libs/renderer/impl/include/sge/renderer/impl/index/instantiate_all.hpp
 	libs/renderer/impl/include/sge/renderer/impl/instantiate_float.hpp
 	libs/renderer/impl/include/sge/renderer/impl/is_epsilon_equal.hpp
 	libs/renderer/impl/include/sge/renderer/impl/log_name.hpp
@@ -57,6 +56,11 @@ set(
 	libs/renderer/include/sge/renderer/buffer/base_fwd.hpp
 	libs/renderer/include/sge/renderer/buffer/const_scoped_lock.hpp
 	libs/renderer/include/sge/renderer/buffer/const_scoped_lock_fwd.hpp
+	libs/renderer/include/sge/renderer/buffer/detail/declare_base.hpp
+	libs/renderer/include/sge/renderer/buffer/detail/declare_const_scoped_lock.hpp
+	libs/renderer/include/sge/renderer/buffer/detail/declare_readable.hpp
+	libs/renderer/include/sge/renderer/buffer/detail/declare_scoped_lock.hpp
+	libs/renderer/include/sge/renderer/buffer/detail/declare_writable.hpp
 	libs/renderer/include/sge/renderer/buffer/readable.hpp
 	libs/renderer/include/sge/renderer/buffer/readable_fwd.hpp
 	libs/renderer/include/sge/renderer/buffer/scoped_lock.hpp
@@ -226,11 +230,13 @@ set(
 	libs/renderer/include/sge/renderer/index/count.hpp
 	libs/renderer/include/sge/renderer/index/create_buffer_from_view.hpp
 	libs/renderer/include/sge/renderer/index/detail/iterator_base.hpp
+	libs/renderer/include/sge/renderer/index/detail/pp_formats.hpp
 	libs/renderer/include/sge/renderer/index/difference_type.hpp
 	libs/renderer/include/sge/renderer/index/dynamic/basic_view.hpp
 	libs/renderer/include/sge/renderer/index/dynamic/basic_view_fwd.hpp
 	libs/renderer/include/sge/renderer/index/dynamic/const_view.hpp
 	libs/renderer/include/sge/renderer/index/dynamic/const_view_fwd.hpp
+	libs/renderer/include/sge/renderer/index/dynamic/detail/declare_basic_view.hpp
 	libs/renderer/include/sge/renderer/index/dynamic/format.hpp
 	libs/renderer/include/sge/renderer/index/dynamic/format_element.hpp
 	libs/renderer/include/sge/renderer/index/dynamic/format_fwd.hpp
@@ -322,7 +328,12 @@ set(
 	libs/renderer/include/sge/renderer/pixel_rect.hpp
 	libs/renderer/include/sge/renderer/pixel_rect_fwd.hpp
 	libs/renderer/include/sge/renderer/pixel_unit.hpp
+	libs/renderer/include/sge/renderer/plugin/collection.hpp
 	libs/renderer/include/sge/renderer/plugin/collection_fwd.hpp
+	libs/renderer/include/sge/renderer/plugin/context.hpp
+	libs/renderer/include/sge/renderer/plugin/context_fwd.hpp
+	libs/renderer/include/sge/renderer/plugin/iterator.hpp
+	libs/renderer/include/sge/renderer/plugin/iterator_fwd.hpp
 	libs/renderer/include/sge/renderer/plugin/object.hpp
 	libs/renderer/include/sge/renderer/plugin/object_fwd.hpp
 	libs/renderer/include/sge/renderer/plugin/traits.hpp
@@ -749,6 +760,9 @@ set(
 	libs/renderer/include/sge/renderer/texture/depth_stencil_parameters.hpp
 	libs/renderer/include/sge/renderer/texture/depth_stencil_parameters_fwd.hpp
 	libs/renderer/include/sge/renderer/texture/depth_stencil_unique_ptr.hpp
+	libs/renderer/include/sge/renderer/texture/detail/declare_basic_lockable_box.hpp
+	libs/renderer/include/sge/renderer/texture/detail/declare_basic_parameters.hpp
+	libs/renderer/include/sge/renderer/texture/detail/declare_basic_scoped_lock.hpp
 	libs/renderer/include/sge/renderer/texture/emulate_srgb.hpp
 	libs/renderer/include/sge/renderer/texture/emulate_srgb_from_caps.hpp
 	libs/renderer/include/sge/renderer/texture/emulate_srgb_fwd.hpp
@@ -855,6 +869,7 @@ set(
 	libs/renderer/include/sge/renderer/vf/dynamic/const_view_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/converter.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/detail/converter_impl_fwd.hpp
+	libs/renderer/include/sge/renderer/vf/dynamic/detail/declare_basic_view.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/detail/element_c.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/detail/format_to_element.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/detail/lock_interval_set.hpp

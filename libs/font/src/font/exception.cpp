@@ -22,15 +22,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::font::exception::exception(
-	fcppt::string const &_what
+	fcppt::string &&_what
 )
 :
 	sge::core::exception(
 		FCPPT_TEXT("font: ")
-		+ _what
+		+
+		std::move(
+			_what
+		)
 	)
+{
+}
+
+sge::font::exception::exception(
+	exception &&
+)
+= default;
+
+sge::font::exception::exception(
+	exception const &
+)
+= default;
+
+sge::font::exception &
+sge::font::exception::operator=(
+	exception &&
+)
+= default;
+
+sge::font::exception &
+sge::font::exception::operator=(
+	exception const &
+)
+= default;
+
+sge::font::exception::~exception() noexcept
 {
 }

@@ -21,9 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE2D_FILE_EXCEPTION_HPP_INCLUDED
 #define SGE_IMAGE2D_FILE_EXCEPTION_HPP_INCLUDED
 
-#include <sge/image/exception.hpp>
+#include <sge/image2d/exception.hpp>
 #include <sge/image2d/file_exception_fwd.hpp>
-#include <sge/media/file_exception.hpp>
+#include <sge/media/declare_file_exception.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wweak-template-vtables)
+
+SGE_MEDIA_DECLARE_FILE_EXCEPTION(
+	sge::image2d::exception
+);
+
+FCPPT_PP_POP_WARNING
 
 #endif

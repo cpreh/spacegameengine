@@ -18,29 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_IMPL_INDEX_INSTANTIATE_ALL_HPP_INCLUDED
-#define SGE_RENDERER_IMPL_INDEX_INSTANTIATE_ALL_HPP_INCLUDED
+#ifndef SGE_FONT_PLUGIN_CONTEXT_HPP_INCLUDED
+#define SGE_FONT_PLUGIN_CONTEXT_HPP_INCLUDED
 
-#include <sge/renderer/index/const_format_16.hpp>
-#include <sge/renderer/index/const_format_32.hpp>
-#include <sge/renderer/index/format_16.hpp>
-#include <sge/renderer/index/format_32.hpp>
+#include <sge/font/system_fwd.hpp>
+#include <sge/font/plugin/context_fwd.hpp>
+#include <sge/plugin/declare_context.hpp>
 
 
-#define SGE_RENDERER_IMPL_INDEX_INSTANTIATE_ALL(\
-	macro\
-)\
-macro(\
-	sge::renderer::index::format_16\
-);\
-macro(\
-	sge::renderer::index::format_32\
-);\
-macro(\
-	sge::renderer::index::const_format_16\
-);\
-macro(\
-	sge::renderer::index::const_format_32\
-)
+SGE_PLUGIN_DECLARE_CONTEXT(
+	sge::font::system
+);
 
 #endif

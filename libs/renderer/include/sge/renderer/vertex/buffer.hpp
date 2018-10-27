@@ -82,7 +82,7 @@ public:
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
-	~buffer() = 0;
+	~buffer();
 };
 
 }
