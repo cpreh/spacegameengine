@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/index/format.hpp>
 #include <sge/renderer/index/nonconst_tag.hpp>
 #include <sge/renderer/index/proxy_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -42,9 +41,6 @@ template<
 >
 class proxy
 {
-	FCPPT_NONASSIGNABLE(
-		proxy
-	);
 public:
 	static_assert(
 		std::is_same<
@@ -77,7 +73,7 @@ public:
 	value_type
 	get() const;
 private:
-	pointer const data_;
+	pointer data_;
 };
 
 }

@@ -49,7 +49,7 @@ protected:
 	);
 public:
 	virtual
-	~base() = 0;
+	~base();
 
 	void
 	draw(

@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_MUXING_FCPPT_STREAMBUF_HPP_INCLUDED
 #define SGE_CONSOLE_MUXING_FCPPT_STREAMBUF_HPP_INCLUDED
 
+#include <sge/console/muxing_narrow_streambuf.hpp>
 #include <sge/console/muxing_streambuf.hpp>
+#include <sge/console/muxing_wide_streambuf.hpp>
 #include <fcppt/char_type.hpp>
 
 

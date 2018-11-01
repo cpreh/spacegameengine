@@ -22,16 +22,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/model/obj/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::model::obj::exception::exception(
-	fcppt::string const &_what
+	fcppt::string &&_what
 )
 :
 	sge::core::exception(
 		FCPPT_TEXT("obj: ")
 		+
-		_what
+		std::move(
+			_what
+		)
 	)
+{
+}
+
+sge::model::obj::exception::exception(
+	exception &&
+)
+= default;
+
+sge::model::obj::exception::exception(
+	exception const &
+)
+= default;
+
+sge::model::obj::exception &
+sge::model::obj::exception::operator=(
+	exception &&
+)
+= default;
+
+sge::model::obj::exception &
+sge::model::obj::exception::operator=(
+	exception const &
+)
+= default;
+
+sge::model::obj::exception::~exception() noexcept
 {
 }

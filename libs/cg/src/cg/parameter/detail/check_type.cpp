@@ -22,9 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/impl/parameter/type_base_enum.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/parameter/detail/check_type.hpp>
-#include <sge/cg/parameter/detail/generate_types.hpp>
+#include <sge/cg/parameter/detail/pp_types.hpp>
 #include <sge/core/impl/export_function_instantiation.hpp>
 #include <fcppt/assert/error.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -47,6 +50,8 @@ sge::cg::parameter::detail::check_type(
 }
 
 #define SGE_CG_INSTANTIATE_PARAMETER_DETAIL_CHECK_TYPE(\
+	seq,\
+	_,\
 	type\
 )\
 template \
@@ -58,6 +63,8 @@ sge::cg::parameter::detail::check_type<\
 	sge::cg::parameter::object const &\
 );\
 
-SGE_CG_PARAMETER_DETAIL_GENERATE_TYPES(
-	SGE_CG_INSTANTIATE_PARAMETER_DETAIL_CHECK_TYPE
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_CG_INSTANTIATE_PARAMETER_DETAIL_CHECK_TYPE,
+	_,
+	SGE_CG_PARAMETER_DETAIL_PP_TYPES
 )

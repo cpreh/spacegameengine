@@ -48,7 +48,7 @@ protected:
 public:
 	SGE_TEXTURE_DETAIL_SYMBOL
 	virtual
-	~part() = 0;
+	~part();
 
 	virtual
 	void

@@ -14,7 +14,6 @@ set(
 	libs/renderer/impl/include/sge/renderer/impl/index/dynamic/basic_view_impl.hpp
 	libs/renderer/impl/include/sge/renderer/impl/index/dynamic/format_enum_static.hpp
 	libs/renderer/impl/include/sge/renderer/impl/index/dynamic/instantiate_basic_view.hpp
-	libs/renderer/impl/include/sge/renderer/impl/instantiate_float.hpp
 	libs/renderer/impl/include/sge/renderer/impl/is_epsilon_equal.hpp
 	libs/renderer/impl/include/sge/renderer/impl/log_name.hpp
 	libs/renderer/impl/include/sge/renderer/impl/projection/check_near.hpp
@@ -334,6 +333,7 @@ set(
 	libs/renderer/include/sge/renderer/plugin/context_fwd.hpp
 	libs/renderer/include/sge/renderer/plugin/iterator.hpp
 	libs/renderer/include/sge/renderer/plugin/iterator_fwd.hpp
+	libs/renderer/include/sge/renderer/plugin/manager.hpp
 	libs/renderer/include/sge/renderer/plugin/object.hpp
 	libs/renderer/include/sge/renderer/plugin/object_fwd.hpp
 	libs/renderer/include/sge/renderer/plugin/traits.hpp

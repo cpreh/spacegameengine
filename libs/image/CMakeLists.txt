@@ -113,6 +113,7 @@ set(
 	libs/image/include/sge/image/channel32f.hpp
 	libs/image/include/sge/image/channel8.hpp
 	libs/image/include/sge/image/const_raw_pointer.hpp
+	libs/image/include/sge/image/declare_format_from_static.hpp
 	libs/image/include/sge/image/declare_invalid_convert.hpp
 	libs/image/include/sge/image/declare_invalid_copy.hpp
 	libs/image/include/sge/image/difference_type.hpp

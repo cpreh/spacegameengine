@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
-#include <sge/renderer/impl/instantiate_float.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
@@ -122,6 +121,10 @@ sge::renderer::lock_rect_to_coords<\
 	sge::renderer::dim2 const &\
 )
 
-SGE_RENDERER_IMPL_INSTANTIATE_FLOAT(
-	SGE_RENDERER_INSTANTIATE_LOCK_RECT_TO_COORDS
-)
+SGE_RENDERER_INSTANTIATE_LOCK_RECT_TO_COORDS(
+	float
+);
+
+SGE_RENDERER_INSTANTIATE_LOCK_RECT_TO_COORDS(
+	double
+);

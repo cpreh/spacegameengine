@@ -22,12 +22,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CG_PARAMETER_VECTOR_DETAIL_SET_HPP_INCLUDED
 
 #include <sge/cg/parameter/object_fwd.hpp>
-#include <sge/cg/parameter/detail/generate_types.hpp>
+#include <sge/cg/parameter/detail/pp_types.hpp>
 #include <sge/cg/parameter/vector/detail/set_double.hpp>
 #include <sge/cg/parameter/vector/detail/set_float.hpp>
 #include <sge/cg/parameter/vector/detail/set_int.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -42,6 +46,8 @@ namespace detail
 {
 
 #define SGE_CG_PARAMETER_VECTOR_DETAIL_SET(\
+	seq,\
+	_,\
 	type\
 )\
 template<\
@@ -58,18 +64,18 @@ set(\
 	> const &_vector\
 )\
 {\
-	sge::cg::parameter::vector::detail::set_ ## type(\
+	sge::cg::parameter::vector::detail:: BOOST_PP_CAT(set_, type)(\
 		_parameter,\
 		_vector.storage().data(),\
 		N\
 	);\
 }
 
-SGE_CG_PARAMETER_DETAIL_GENERATE_TYPES(
-	SGE_CG_PARAMETER_VECTOR_DETAIL_SET
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_CG_PARAMETER_VECTOR_DETAIL_SET,
+	_,
+	SGE_CG_PARAMETER_DETAIL_PP_TYPES
 )
-
-#undef SGE_CG_PARAMETER_VECTOR_DETAIL_SET
 
 }
 }

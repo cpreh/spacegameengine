@@ -18,18 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_RENDERER_IMPL_INSTANTIATE_FLOAT_HPP_INCLUDED
-#define SGE_RENDERER_IMPL_INSTANTIATE_FLOAT_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_PLUGIN_MANAGER_HPP_INCLUDED
+#define SGE_IMAGE2D_PLUGIN_MANAGER_HPP_INCLUDED
+
+#include <sge/image2d/system_fwd.hpp>
+#include <sge/plugin/declare_manager.hpp>
 
 
-#define SGE_RENDERER_IMPL_INSTANTIATE_FLOAT(\
-	macro\
-)\
-macro(\
-	float\
-);\
-macro(\
-	double\
+SGE_PLUGIN_DECLARE_MANAGER(
+	sge::image2d::system
 );
 
 #endif

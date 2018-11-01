@@ -22,25 +22,51 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/core/exception.hpp>
 #include <sge/font/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::console::exception::exception(
-	sge::font::string const &_console_string
+	sge::font::string &&_console_string
 )
 :
 	sge::core::exception(
 		FCPPT_TEXT("console error")
 	),
 	console_string_(
-		_console_string
+		std::move(
+			_console_string
+		)
 	)
 {
 }
 
-sge::console::exception::~exception() throw()
+sge::console::exception::exception(
+	exception &&
+)
+= default;
+
+sge::console::exception::exception(
+	exception const &
+)
+= default;
+
+sge::console::exception &
+sge::console::exception::operator=(
+	exception &&
+)
+= default;
+
+sge::console::exception &
+sge::console::exception::operator=(
+	exception const &
+)
+= default;
+
+sge::console::exception::~exception() noexcept
 {
 }
-
 
 sge::font::string const &
 sge::console::exception::console_string() const

@@ -50,7 +50,7 @@ protected:
 public:
 	SGE_GUI_DETAIL_SYMBOL
 	virtual
-	~base() = 0;
+	~base();
 
 	virtual
 	void

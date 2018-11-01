@@ -52,7 +52,7 @@ public:
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	~is_dynamic()
-	override = 0;
+	override;
 };
 
 }

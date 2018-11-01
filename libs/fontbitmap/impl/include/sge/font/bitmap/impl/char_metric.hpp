@@ -45,8 +45,6 @@ public:
 		sge::font::unit x_advance
 	);
 
-	~char_metric();
-
 	sge::font::bitmap::impl::const_view
 	view() const;
 

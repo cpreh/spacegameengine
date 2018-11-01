@@ -42,7 +42,7 @@ protected:
 	base();
 
 	virtual
-	~base() = 0;
+	~base();
 public:
 	virtual
 	sge::gui::widget::base &

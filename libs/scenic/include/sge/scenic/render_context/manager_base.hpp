@@ -34,20 +34,25 @@ namespace scenic
 {
 namespace render_context
 {
+
 class SGE_CORE_DETAIL_CLASS_SYMBOL manager_base
 {
-FCPPT_NONCOPYABLE(
-	manager_base);
+	FCPPT_NONCOPYABLE(
+		manager_base
+	);
 public:
-	virtual sge::scenic::render_context::base_unique_ptr
+	virtual
+	sge::scenic::render_context::base_unique_ptr
 	create_context(
-		sge::renderer::context::core &) = 0;
+		sge::renderer::context::core &
+	) = 0;
 
 	virtual
-	~manager_base() = 0;
+	~manager_base();
 protected:
 	manager_base();
 };
+
 }
 }
 }

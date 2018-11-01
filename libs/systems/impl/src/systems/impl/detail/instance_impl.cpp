@@ -20,10 +20,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
+#include <sge/audio/loader_plugin/collection.hpp>
+#include <sge/audio/loader_plugin/manager.hpp>
+#include <sge/audio/player_plugin/collection.hpp>
+#include <sge/audio/player_plugin/manager.hpp>
 #include <sge/font/system_fwd.hpp>
+#include <sge/font/plugin/collection.hpp>
+#include <sge/font/plugin/manager.hpp>
 #include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/plugin/collection.hpp>
+#include <sge/image2d/plugin/manager.hpp>
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
+#include <sge/input/plugin/collection.hpp>
+#include <sge/input/plugin/manager.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/parse/ini/optional_start_fwd.hpp>
@@ -34,6 +44,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/plugin/collection.hpp>
+#include <sge/renderer/plugin/manager.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/font_fwd.hpp>

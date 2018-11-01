@@ -44,7 +44,7 @@ protected:
 	base();
 public:
 	virtual
-	~base() = 0;
+	~base();
 
 	virtual
 	sge::window::object &

@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/buffers/parameters_fwd.hpp>
 #include <sge/sprite/detail/symbol.hpp>
 #include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -37,9 +38,6 @@ namespace buffers
 
 class parameters
 {
-	FCPPT_NONASSIGNABLE(
-		parameters
-	);
 public:
 	SGE_SPRITE_DETAIL_SYMBOL
 	parameters(
@@ -55,9 +53,13 @@ public:
 	sge::renderer::vertex::declaration const &
 	vertex_declaration() const;
 private:
-	sge::renderer::device::core &device_;
+	fcppt::reference<
+		sge::renderer::device::core
+	> device_;
 
-	sge::renderer::vertex::declaration const &vertex_declaration_;
+	fcppt::reference<
+		sge::renderer::vertex::declaration const
+	> vertex_declaration_;
 };
 
 }

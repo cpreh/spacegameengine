@@ -8,6 +8,7 @@ set(
 	libs/parse/impl/include/sge/parse/impl/parse_file_opt.hpp
 	libs/parse/impl/include/sge/parse/impl/parse_stream.hpp
 	libs/parse/impl/include/sge/parse/impl/result_with_value_impl.hpp
+	libs/parse/include/sge/parse/declare_result_with_value.hpp
 	libs/parse/include/sge/parse/encoding.hpp
 	libs/parse/include/sge/parse/error_string.hpp
 	libs/parse/include/sge/parse/exception.hpp

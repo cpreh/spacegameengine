@@ -18,17 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/exception.hpp>
+#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/invalid_get.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::parse::json::invalid_get::invalid_get(
-	fcppt::string const &_string
+	fcppt::string &&_string
 )
 :
-	sge::parse::exception(
-		_string
+	sge::parse::json::exception(
+		std::move(
+			_string
+		)
 	)
+{
+}
+
+sge::parse::json::invalid_get::invalid_get(
+	invalid_get &&
+)
+= default;
+
+sge::parse::json::invalid_get::invalid_get(
+	invalid_get const &
+)
+= default;
+
+sge::parse::json::invalid_get &
+sge::parse::json::invalid_get::operator=(
+	invalid_get &&
+)
+= default;
+
+sge::parse::json::invalid_get &
+sge::parse::json::invalid_get::operator=(
+	invalid_get const &
+)
+= default;
+
+sge::parse::json::invalid_get::~invalid_get() noexcept
 {
 }

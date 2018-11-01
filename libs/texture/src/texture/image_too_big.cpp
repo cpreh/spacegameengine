@@ -41,3 +41,29 @@ sge::texture::image_too_big::image_too_big(
 	)
 {
 }
+
+sge::texture::image_too_big::image_too_big(
+	image_too_big &&
+)
+= default;
+
+sge::texture::image_too_big::image_too_big(
+	image_too_big const &
+)
+= default;
+
+sge::texture::image_too_big &
+sge::texture::image_too_big::operator=(
+	image_too_big &&
+)
+= default;
+
+sge::texture::image_too_big &
+sge::texture::image_too_big::operator=(
+	image_too_big const &
+)
+= default;
+
+sge::texture::image_too_big::~image_too_big() noexcept
+{
+}

@@ -31,7 +31,7 @@ set(
 	libs/cg/include/sge/cg/parameter/created_fwd.hpp
 	libs/cg/include/sge/cg/parameter/detail/check_base_type.hpp
 	libs/cg/include/sge/cg/parameter/detail/check_type.hpp
-	libs/cg/include/sge/cg/parameter/detail/generate_types.hpp
+	libs/cg/include/sge/cg/parameter/detail/pp_types.hpp
 	libs/cg/include/sge/cg/parameter/element_type.hpp
 	libs/cg/include/sge/cg/parameter/element_type_fwd.hpp
 	libs/cg/include/sge/cg/parameter/is_int_float_double.hpp

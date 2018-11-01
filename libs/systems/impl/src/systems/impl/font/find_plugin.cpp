@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/font/plugin/collection_fwd.hpp>
-#include <sge/font/plugin/context_fwd.hpp>
-#include <sge/font/plugin/iterator_fwd.hpp>
+#include <sge/font/plugin/collection.hpp>
+#include <sge/font/plugin/context.hpp>
+#include <sge/font/plugin/iterator.hpp>
 #include <sge/font/plugin/object.hpp>
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>

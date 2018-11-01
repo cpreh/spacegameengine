@@ -26,10 +26,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
+
 namespace sge
 {
 namespace shader
 {
+
 class SGE_CORE_DETAIL_CLASS_SYMBOL exception
 :
 	public sge::core::exception
@@ -38,8 +40,36 @@ public:
 	SGE_SHADER_DETAIL_SYMBOL
 	explicit
 	exception(
-		fcppt::string const &);
+		fcppt::string &&
+	);
+
+	SGE_SHADER_DETAIL_SYMBOL
+	exception(
+		exception &&
+	);
+
+	SGE_SHADER_DETAIL_SYMBOL
+	exception(
+		exception const &
+	);
+
+	SGE_SHADER_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception &&
+	);
+
+	SGE_SHADER_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception const &
+	);
+
+	SGE_SHADER_DETAIL_SYMBOL
+	~exception() noexcept
+	override;
 };
+
 }
 }
 

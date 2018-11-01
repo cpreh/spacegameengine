@@ -44,7 +44,7 @@ protected:
 	system_base();
 public:
 	virtual
-	~system_base() = 0;
+	~system_base();
 
 	virtual
 	sge::window::system &

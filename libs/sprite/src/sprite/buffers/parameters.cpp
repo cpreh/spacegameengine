@@ -41,12 +41,12 @@ sge::renderer::device::core &
 sge::sprite::buffers::parameters::device() const
 {
 	return
-		device_;
+		device_.get();
 }
 
 sge::renderer::vertex::declaration const &
 sge::sprite::buffers::parameters::vertex_declaration() const
 {
 	return
-		vertex_declaration_;
+		vertex_declaration_.get();
 }

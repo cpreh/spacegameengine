@@ -18,22 +18,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/camera/coordinate_system/object.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/fov.hpp>
+#include <sge/renderer/projection/near.hpp>
 #include <sge/scenic/scene/camera_properties.hpp>
+
 
 sge::scenic::scene::camera_properties::camera_properties(
 	sge::camera::coordinate_system::object const &_coordinate_system,
 	sge::renderer::projection::fov const &_fov,
 	sge::renderer::projection::near const &_near,
-	sge::renderer::projection::far const &_far)
+	sge::renderer::projection::far const &_far
+)
 :
 	coordinate_system_(
-		_coordinate_system),
+		_coordinate_system
+	),
 	fov_(
-		_fov),
+		_fov
+	),
 	near_(
-		_near),
+		_near
+	),
 	far_(
-		_far)
+		_far
+	)
 {
 }
 
@@ -63,8 +73,4 @@ sge::scenic::scene::camera_properties::far() const
 {
 		return
 			far_;
-}
-
-sge::scenic::scene::camera_properties::~camera_properties()
-{
 }

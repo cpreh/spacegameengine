@@ -22,10 +22,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_CG_PARAMETER_SCALAR_DETAIL_SET_HPP_INCLUDED
 
 #include <sge/cg/parameter/object_fwd.hpp>
-#include <sge/cg/parameter/detail/generate_types.hpp>
+#include <sge/cg/parameter/detail/pp_types.hpp>
 #include <sge/cg/parameter/scalar/detail/set_double.hpp>
 #include <sge/cg/parameter/scalar/detail/set_float.hpp>
 #include <sge/cg/parameter/scalar/detail/set_int.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -40,6 +44,8 @@ namespace detail
 {
 
 #define SGE_CG_PARAMETER_SCALAR_DETAIL_SET(\
+	seq,\
+	_,\
 	type\
 )\
 inline \
@@ -49,17 +55,17 @@ set(\
 	type const _scalar\
 )\
 {\
-	sge::cg::parameter::scalar::detail::set_ ## type(\
+	sge::cg::parameter::scalar::detail:: BOOST_PP_CAT(set_, type)(\
 		_parameter,\
 		_scalar\
 	);\
 }
 
-SGE_CG_PARAMETER_DETAIL_GENERATE_TYPES(
-	SGE_CG_PARAMETER_SCALAR_DETAIL_SET
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_CG_PARAMETER_SCALAR_DETAIL_SET,
+	_,
+	SGE_CG_PARAMETER_DETAIL_PP_TYPES
 )
-
-#undef SGE_CG_PARAMETER_SCALAR_DETAIL_SET
 
 }
 }

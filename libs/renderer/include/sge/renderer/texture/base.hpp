@@ -49,7 +49,7 @@ protected:
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	virtual
-	~base() = 0;
+	~base();
 
 	virtual
 	sge::renderer::resource_flags_field

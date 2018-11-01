@@ -36,13 +36,15 @@ namespace scene
 {
 class camera_properties
 {
+
 public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	camera_properties(
 		sge::camera::coordinate_system::object const &,
 		sge::renderer::projection::fov const &,
 		sge::renderer::projection::near const &,
-		sge::renderer::projection::far const &);
+		sge::renderer::projection::far const &
+	);
 
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::camera::coordinate_system::object const &
@@ -59,15 +61,16 @@ public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::renderer::projection::far const &
 	far() const;
-
-	SGE_SCENIC_DETAIL_SYMBOL
-	~camera_properties();
 private:
 	sge::camera::coordinate_system::object coordinate_system_;
+
 	sge::renderer::projection::fov fov_;
+
 	sge::renderer::projection::near near_;
+
 	sge::renderer::projection::far far_;
 };
+
 }
 }
 }

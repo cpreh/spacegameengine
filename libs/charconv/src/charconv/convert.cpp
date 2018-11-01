@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
+#include <sge/charconv/detail/pp_encodings.hpp>
 #include <sge/core/impl/export_function_instantiation.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
@@ -250,13 +251,7 @@ sge::charconv::convert<\
 	> const & \
 );
 
-#define SGE_CHARCONV_ENCODINGS \
-(sge::charconv::encoding::utf8)\
-(sge::charconv::encoding::utf16)\
-(sge::charconv::encoding::utf32)\
-(sge::charconv::encoding::wchar)
-
 BOOST_PP_SEQ_FOR_EACH_PRODUCT(
 	SGE_CHARCONV_INSTANTIATE_ENCODING,
-	(SGE_CHARCONV_ENCODINGS)(SGE_CHARCONV_ENCODINGS)
+	(SGE_CHARCONV_DETAIL_PP_ENCODINGS)(SGE_CHARCONV_DETAIL_PP_ENCODINGS)
 )

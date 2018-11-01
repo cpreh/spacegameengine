@@ -78,7 +78,7 @@ public:
 	target() = 0;
 
 	virtual
-	~base() = 0;
+	~base();
 protected:
 	base();
 };

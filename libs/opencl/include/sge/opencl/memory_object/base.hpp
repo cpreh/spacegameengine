@@ -31,19 +31,23 @@ namespace opencl
 {
 namespace memory_object
 {
+
 class base
 {
-FCPPT_NONCOPYABLE(
-	base);
+	FCPPT_NONCOPYABLE(
+		base
+	);
 public:
-	virtual cl_mem
+	virtual
+	cl_mem
 	impl() = 0;
 
-	virtual ~base() = 0;
+	virtual
+	~base();
 protected:
-	explicit
 	base();
 };
+
 }
 }
 }

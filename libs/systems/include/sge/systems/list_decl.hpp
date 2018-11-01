@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_SYSTEMS_LIST_DECL_HPP_INCLUDED
 
 #include <sge/systems/list_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/container/tuple/push_back_result.hpp>
 
 
@@ -36,9 +35,6 @@ template<
 >
 class list
 {
-	FCPPT_NONASSIGNABLE(
-		list
-	);
 public:
 	explicit
 	list(

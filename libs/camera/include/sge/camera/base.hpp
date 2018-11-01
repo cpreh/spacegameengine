@@ -58,7 +58,7 @@ public:
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	virtual
-	~base() = 0;
+	~base();
 };
 
 }

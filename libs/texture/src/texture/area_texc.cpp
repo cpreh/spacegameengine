@@ -20,11 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/core/impl/export_function_instantiation.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
-#include <sge/renderer/impl/instantiate_float.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/texture/area_texc.hpp>
 #include <sge/texture/exception.hpp>
 #include <sge/texture/part.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/box/rect.hpp>
@@ -71,8 +71,16 @@ sge::texture::area_texc(
 		!fcppt::math::vector::componentwise_equal(
 			_repeat,
 			vector_type(
-				1.f,
-				1.f
+				fcppt::literal<
+					T
+				>(
+					1
+				),
+				fcppt::literal<
+					T
+				>(
+					1
+				)
 			),
 			std::numeric_limits<
 				T
@@ -118,28 +126,32 @@ sge::texture::area_texc(
 }
 
 #define SGE_TEXTURE_INSTANTIATE_AREA_TEXC(\
-	ftype\
+	floattype\
 )\
 template \
 SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
 std::enable_if_t< \
 	fcppt::type_traits::is_float_or_double< \
-		ftype \
+		floattype \
 	>::value, \
 	fcppt::math::box::rect<\
-		ftype\
+		floattype\
 	> \
 > \
 sge::texture::area_texc<\
-	ftype\
+	floattype\
 >( \
 	sge::texture::part const &,\
 	fcppt::math::vector::static_<\
-		ftype,\
+		floattype,\
 		2\
 	> const &\
 )
 
-SGE_RENDERER_IMPL_INSTANTIATE_FLOAT(
-	SGE_TEXTURE_INSTANTIATE_AREA_TEXC
-)
+SGE_TEXTURE_INSTANTIATE_AREA_TEXC(
+	float
+);
+
+SGE_TEXTURE_INSTANTIATE_AREA_TEXC(
+	double
+);

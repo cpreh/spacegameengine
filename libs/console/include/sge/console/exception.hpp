@@ -40,11 +40,33 @@ public:
 	SGE_CONSOLE_DETAIL_SYMBOL
 	explicit
 	exception(
-		sge::font::string const &
+		sge::font::string &&
 	);
 
 	SGE_CONSOLE_DETAIL_SYMBOL
-	~exception() throw()
+	exception(
+		exception &&
+	);
+
+	SGE_CONSOLE_DETAIL_SYMBOL
+	exception(
+		exception const &
+	);
+
+	SGE_CONSOLE_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception &&
+	);
+
+	SGE_CONSOLE_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception const &
+	);
+
+	SGE_CONSOLE_DETAIL_SYMBOL
+	~exception() noexcept
 	override;
 
 	SGE_CONSOLE_DETAIL_SYMBOL

@@ -22,12 +22,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/shader/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::shader::exception::exception(
-	fcppt::string const &_what)
+	fcppt::string &&_what)
 :
-	sge::core::exception(
-		FCPPT_TEXT("shader: ")+_what)
+	sge::core::exception{
+		FCPPT_TEXT("shader: ")
+		+
+		std::move(
+			_what
+		)
+	}
+{
+}
+
+sge::shader::exception::exception(
+	exception &&
+)
+= default;
+
+sge::shader::exception::exception(
+	exception const &
+)
+= default;
+
+sge::shader::exception &
+sge::shader::exception::operator=(
+	exception &&
+)
+= default;
+
+sge::shader::exception &
+sge::shader::exception::operator=(
+	exception const &
+)
+= default;
+
+sge::shader::exception::~exception() noexcept
 {
 }

@@ -93,12 +93,12 @@ sge::model::md3::impl::read_string< \
 	maxc\
 >( \
 	std::istream &\
-);
+)
 
 SGE_MODEL_MD3_INSTANTIATE_READ_STRING(
 	sge::model::md3::impl::max_qpath::value
-)
+);
 
 SGE_MODEL_MD3_INSTANTIATE_READ_STRING(
 	16
-)
+);

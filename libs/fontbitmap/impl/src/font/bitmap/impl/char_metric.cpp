@@ -42,10 +42,6 @@ sge::font::bitmap::impl::char_metric::char_metric(
 {
 }
 
-sge::font::bitmap::impl::char_metric::~char_metric()
-{
-}
-
 sge::font::bitmap::impl::const_view
 sge::font::bitmap::impl::char_metric::view() const
 {

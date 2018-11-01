@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -38,9 +38,6 @@ namespace impl
 
 class texture_parameters
 {
-	FCPPT_NONASSIGNABLE(
-		texture_parameters
-	);
 public:
 	texture_parameters(
 		sge::cegui::impl::prefix const &,
@@ -61,13 +58,17 @@ public:
 	sge::renderer::texture::emulate_srgb
 	emulate_srgb() const;
 private:
-	sge::cegui::impl::prefix const prefix_;
+	sge::cegui::impl::prefix prefix_;
 
-	sge::image2d::system &image_system_;
+	fcppt::reference<
+		sge::image2d::system
+	> image_system_;
 
-	sge::renderer::device::ffp &renderer_;
+	fcppt::reference<
+		sge::renderer::device::ffp
+	> renderer_;
 
-	sge::renderer::texture::emulate_srgb const emulate_srgb_;
+	sge::renderer::texture::emulate_srgb emulate_srgb_;
 };
 
 }

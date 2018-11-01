@@ -21,8 +21,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_TEXTURE_PART_RAW_PTR_HPP_INCLUDED
 #define SGE_TEXTURE_PART_RAW_PTR_HPP_INCLUDED
 
-#include <sge/texture/basic_part_raw.hpp>
+#include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/texture/part_raw_ptr_fwd.hpp>
+#include <sge/texture/detail/declare_basic_part_raw.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wweak-template-vtables)
+
+SGE_TEXTURE_DETAIL_DECLARE_BASIC_PART_RAW(
+	sge::renderer::texture::planar_unique_ptr &&
+);
+
+FCPPT_PP_POP_WARNING
 
 #endif

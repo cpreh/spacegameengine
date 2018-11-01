@@ -22,20 +22,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/core/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::cegui::exception::exception(
-	fcppt::string const &_string
+	fcppt::string &&_string
 )
 :
 	sge::core::exception(
 		FCPPT_TEXT("cegui: ")
 		+
-		_string
+		std::move(
+			_string
+		)
 	)
 {
 }
 
-sge::cegui::exception::~exception() throw()
+sge::cegui::exception::exception(
+	exception &&
+)
+= default;
+
+sge::cegui::exception::exception(
+	exception const &
+)
+= default;
+
+sge::cegui::exception &
+sge::cegui::exception::operator=(
+	exception &&
+)
+= default;
+
+sge::cegui::exception &
+sge::cegui::exception::operator=(
+	exception const &
+)
+= default;
+
+sge::cegui::exception::~exception() noexcept
 {
 }

@@ -59,4 +59,36 @@ area_texc(
 }
 }
 
+#define SGE_TEXTURE_DETAIL_DECLARE_AREA_TEXC(\
+	floattype\
+)\
+extern \
+template \
+SGE_TEXTURE_DETAIL_SYMBOL \
+std::enable_if_t< \
+	fcppt::type_traits::is_float_or_double< \
+		floattype \
+	>::value, \
+	fcppt::math::box::rect<\
+		floattype\
+	> \
+> \
+sge::texture::area_texc<\
+	floattype\
+>( \
+	sge::texture::part const &,\
+	fcppt::math::vector::static_<\
+		floattype,\
+		2\
+	> const &\
+)
+
+SGE_TEXTURE_DETAIL_DECLARE_AREA_TEXC(
+	float
+);
+
+SGE_TEXTURE_DETAIL_DECLARE_AREA_TEXC(
+	double
+);
+
 #endif

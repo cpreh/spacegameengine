@@ -58,6 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -388,6 +389,9 @@ sge::console::gfx::object::key_action(
 	sge::input::focus::key const &_key
 )
 {
+	FCPPT_PP_PUSH_WARNING
+	FCPPT_PP_DISABLE_CLANG_WARNING(-Wswitch-enum)
+
 	switch(
 		_key.code()
 	)
@@ -500,9 +504,11 @@ sge::console::gfx::object::key_action(
 				SGE_FONT_LIT("")
 			);
 		break;
-		// else we get a million warnings about unhandled enumeration values
-		default: break;
+		default:
+		break;
 	}
+
+	FCPPT_PP_POP_WARNING
 }
 
 void

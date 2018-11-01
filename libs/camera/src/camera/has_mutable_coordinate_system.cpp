@@ -20,9 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/camera/has_mutable_coordinate_system.hpp>
 
+
 sge::camera::has_mutable_coordinate_system::has_mutable_coordinate_system()
-:
-	sge::camera::base()
 {
 }
 

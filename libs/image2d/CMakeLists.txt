@@ -46,6 +46,7 @@ set(
 	libs/image2d/include/sge/image2d/plugin/context_fwd.hpp
 	libs/image2d/include/sge/image2d/plugin/iterator.hpp
 	libs/image2d/include/sge/image2d/plugin/iterator_fwd.hpp
+	libs/image2d/include/sge/image2d/plugin/manager.hpp
 	libs/image2d/include/sge/image2d/plugin/object.hpp
 	libs/image2d/include/sge/image2d/plugin/object_fwd.hpp
 	libs/image2d/include/sge/image2d/plugin/traits.hpp

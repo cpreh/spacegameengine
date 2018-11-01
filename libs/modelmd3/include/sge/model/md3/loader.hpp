@@ -64,7 +64,7 @@ public:
 
 	SGE_MODEL_MD3_DETAIL_SYMBOL
 	virtual
-	~loader() = 0;
+	~loader();
 };
 
 }

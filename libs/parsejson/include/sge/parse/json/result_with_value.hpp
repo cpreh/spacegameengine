@@ -21,9 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_RESULT_WITH_VALUE_HPP_INCLUDED
 #define SGE_PARSE_JSON_RESULT_WITH_VALUE_HPP_INCLUDED
 
-#include <sge/parse/result_with_value.hpp>
+#include <sge/parse/declare_result_with_value.hpp>
 #include <sge/parse/json/result_with_value_fwd.hpp>
 #include <sge/parse/json/start.hpp>
+
+
+SGE_PARSE_DECLARE_RESULT_WITH_VALUE(
+	sge::parse::json::start
+);
 
 
 #endif

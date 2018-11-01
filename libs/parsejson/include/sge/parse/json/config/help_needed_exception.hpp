@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_CONFIG_HELP_NEEDED_EXCEPTION_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/parse/exception.hpp>
+#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
@@ -35,17 +35,45 @@ namespace json
 {
 namespace config
 {
+
 class SGE_CORE_DETAIL_CLASS_SYMBOL help_needed_exception
 :
-	public sge::parse::exception
+	public sge::parse::json::exception
 {
 public:
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	explicit
 	help_needed_exception(
-		fcppt::string const &
+		fcppt::string &&
 	);
+
+	SGE_PARSE_JSON_DETAIL_SYMBOL
+	help_needed_exception(
+		help_needed_exception &&
+	);
+
+	SGE_PARSE_JSON_DETAIL_SYMBOL
+	help_needed_exception(
+		help_needed_exception const &
+	);
+
+	SGE_PARSE_JSON_DETAIL_SYMBOL
+	help_needed_exception &
+	operator=(
+		help_needed_exception &&
+	);
+
+	SGE_PARSE_JSON_DETAIL_SYMBOL
+	help_needed_exception &
+	operator=(
+		help_needed_exception const &
+	);
+
+	SGE_PARSE_JSON_DETAIL_SYMBOL
+	~help_needed_exception() noexcept
+	override;
 };
+
 }
 }
 }

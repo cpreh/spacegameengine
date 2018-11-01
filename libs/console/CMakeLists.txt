@@ -18,6 +18,7 @@ set(
 	libs/console/include/sge/console/callback/parameters.hpp
 	libs/console/include/sge/console/callback/parameters_fwd.hpp
 	libs/console/include/sge/console/callback/short_description.hpp
+	libs/console/include/sge/console/declare_muxing_streambuf.hpp
 	libs/console/include/sge/console/error_callback.hpp
 	libs/console/include/sge/console/error_function.hpp
 	libs/console/include/sge/console/exception.hpp

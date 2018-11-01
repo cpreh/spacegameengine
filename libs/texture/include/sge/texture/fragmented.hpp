@@ -47,7 +47,7 @@ protected:
 public:
 	SGE_TEXTURE_DETAIL_SYMBOL
 	virtual
-	~fragmented() = 0;
+	~fragmented();
 
 	virtual
 	sge::texture::optional_part_unique_ptr

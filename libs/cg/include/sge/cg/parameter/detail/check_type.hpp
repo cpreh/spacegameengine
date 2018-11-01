@@ -23,6 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/cg/detail/symbol.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
+#include <sge/cg/parameter/detail/pp_types.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -47,5 +51,26 @@ check_type(
 }
 }
 }
+
+#define SGE_CG_PARAMETER_DETAIL_DECLARE_CHECK_TYPE(\
+	seq,\
+	_,\
+	base_type\
+)\
+extern \
+template \
+SGE_CG_DETAIL_SYMBOL \
+void \
+sge::cg::parameter::detail::check_type<\
+	base_type\
+>(\
+	sge::cg::parameter::object const &\
+);\
+
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_CG_PARAMETER_DETAIL_DECLARE_CHECK_TYPE,
+	_,
+	SGE_CG_PARAMETER_DETAIL_PP_TYPES
+)
 
 #endif

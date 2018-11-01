@@ -47,8 +47,6 @@ Calculates the texture coordinates for \a area using the texture size \a size.
 
 \param size The size of the texture
 
-\tparam Ret The floating point type for the resulting rect to use
-
 \return The texture coordinates in [(0,0),(1,1)]
 
 \warning The behaviour is undefined if \a area lies outside of \a size
@@ -72,5 +70,34 @@ lock_rect_to_coords(
 
 }
 }
+
+#define SGE_RENDERER_DETAIL_DECLARE_LOCK_RECT_TO_COORDS(\
+	floattype\
+)\
+extern \
+template \
+SGE_RENDERER_DETAIL_SYMBOL \
+std::enable_if_t< \
+	fcppt::type_traits::is_float_or_double< \
+		floattype \
+	>::value, \
+	fcppt::math::box::rect< \
+		floattype \
+	> \
+> \
+sge::renderer::lock_rect_to_coords<\
+	floattype \
+>(\
+	sge::renderer::lock_rect const &, \
+	sge::renderer::dim2 const &\
+)
+
+SGE_RENDERER_DETAIL_DECLARE_LOCK_RECT_TO_COORDS(
+	float
+);
+
+SGE_RENDERER_DETAIL_DECLARE_LOCK_RECT_TO_COORDS(
+	double
+);
 
 #endif

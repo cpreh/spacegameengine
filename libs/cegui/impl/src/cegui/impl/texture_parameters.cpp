@@ -58,14 +58,14 @@ sge::image2d::system &
 sge::cegui::impl::texture_parameters::image_system() const
 {
 	return
-		image_system_;
+		image_system_.get();
 }
 
 sge::renderer::device::ffp &
 sge::cegui::impl::texture_parameters::renderer() const
 {
 	return
-		renderer_;
+		renderer_.get();
 }
 
 sge::renderer::texture::emulate_srgb

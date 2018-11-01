@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_MODEL_MD3_IMPL_READ_STRING_HPP_INCLUDED
 
 #include <sge/model/md3/string.hpp>
+#include <sge/model/md3/impl/max_qpath.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -48,5 +49,25 @@ read_string(
 }
 }
 }
+
+#define SGE_MODEL_MD3_IMPL_DECLARE_READ_STRING(\
+	maxc\
+)\
+extern \
+template \
+sge::model::md3::string \
+sge::model::md3::impl::read_string< \
+	maxc\
+>( \
+	std::istream &\
+)
+
+SGE_MODEL_MD3_IMPL_DECLARE_READ_STRING(
+	sge::model::md3::impl::max_qpath::value
+);
+
+SGE_MODEL_MD3_IMPL_DECLARE_READ_STRING(
+	16
+);
 
 #endif

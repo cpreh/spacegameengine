@@ -33,6 +33,7 @@ namespace opencl
 {
 namespace program
 {
+
 class SGE_CORE_DETAIL_CLASS_SYMBOL build_error
 :
 	public sge::opencl::exception
@@ -41,18 +42,42 @@ public:
 	SGE_OPENCL_DETAIL_SYMBOL
 	explicit
 	build_error(
-		fcppt::string const &);
+		fcppt::string const &
+	);
+
+	SGE_OPENCL_DETAIL_SYMBOL
+	build_error(
+		build_error &&
+	);
+
+	SGE_OPENCL_DETAIL_SYMBOL
+	build_error(
+		build_error const &
+	);
+
+	SGE_OPENCL_DETAIL_SYMBOL
+	build_error &
+	operator=(
+		build_error &&
+	);
+
+	SGE_OPENCL_DETAIL_SYMBOL
+	build_error &
+	operator=(
+		build_error const &
+	);
+
+	SGE_OPENCL_DETAIL_SYMBOL
+	~build_error() noexcept
+	override;
 
 	SGE_OPENCL_DETAIL_SYMBOL
 	fcppt::string const &
 	message() const;
-
-	SGE_OPENCL_DETAIL_SYMBOL
-	~build_error() throw()
-	override;
 private:
 	fcppt::string message_;
 };
+
 }
 }
 }

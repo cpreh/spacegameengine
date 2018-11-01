@@ -23,16 +23,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/information_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::resource_tree::exception::exception(
-	fcppt::string const &_what
+	fcppt::string &&_what
 )
 :
 	sge::core::exception(
 		FCPPT_TEXT("resource_tree: ")
 		+
-		_what
+		std::move(
+			_what
+		)
 	)
 {
 }
@@ -44,5 +49,31 @@ sge::resource_tree::exception::exception(
 	sge::core::exception(
 		_info
 	)
+{
+}
+
+sge::resource_tree::exception::exception(
+	exception &&
+)
+= default;
+
+sge::resource_tree::exception::exception(
+	exception const &
+)
+= default;
+
+sge::resource_tree::exception &
+sge::resource_tree::exception::operator=(
+	exception &&
+)
+= default;
+
+sge::resource_tree::exception &
+sge::resource_tree::exception::operator=(
+	exception const &
+)
+= default;
+
+sge::resource_tree::exception::~exception() noexcept
 {
 }

@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/vf/pointer.hpp>
 #include <sge/renderer/vf/vertex_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -39,9 +38,6 @@ template<
 >
 class vertex
 {
-	FCPPT_NONASSIGNABLE(
-		vertex
-	);
 public:
 	typedef
 	sge::renderer::vf::pointer<
@@ -73,7 +69,7 @@ public:
 	Field::packed_type
 	get() const;
 private:
-	pointer const data_;
+	pointer data_;
 };
 
 }

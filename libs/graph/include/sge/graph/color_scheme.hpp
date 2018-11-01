@@ -91,10 +91,6 @@ public:
 	SGE_GRAPH_DETAIL_SYMBOL
 	sge::graph::color const &
 	baseline_color() const;
-
-	SGE_GRAPH_DETAIL_SYMBOL
-	~color_scheme();
-
 private:
 	sge::graph::color
 	foreground_color_;

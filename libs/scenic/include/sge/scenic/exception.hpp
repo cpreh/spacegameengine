@@ -31,7 +31,8 @@ namespace sge
 {
 namespace scenic
 {
-class exception
+
+class SGE_CORE_DETAIL_CLASS_SYMBOL exception
 :
 	public sge::core::exception
 {
@@ -39,8 +40,36 @@ public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	explicit
 	exception(
-		fcppt::string const &);
+		fcppt::string &&
+	);
+
+	SGE_SCENIC_DETAIL_SYMBOL
+	exception(
+		exception &&
+	);
+
+	SGE_SCENIC_DETAIL_SYMBOL
+	exception(
+		exception const &
+	);
+
+	SGE_SCENIC_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception &&
+	);
+
+	SGE_SCENIC_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception const &
+	);
+
+	SGE_SCENIC_DETAIL_SYMBOL
+	~exception() noexcept
+	override;
 };
+
 }
 }
 

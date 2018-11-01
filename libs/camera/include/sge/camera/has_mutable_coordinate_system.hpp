@@ -31,12 +31,14 @@ namespace sge
 {
 namespace camera
 {
+
 class SGE_CORE_DETAIL_CLASS_SYMBOL has_mutable_coordinate_system
 :
 	public virtual sge::camera::base
 {
-FCPPT_NONCOPYABLE(
-	has_mutable_coordinate_system);
+	FCPPT_NONCOPYABLE(
+		has_mutable_coordinate_system
+	);
 protected:
 	SGE_CAMERA_DETAIL_SYMBOL
 	has_mutable_coordinate_system();
@@ -49,8 +51,9 @@ public:
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	~has_mutable_coordinate_system()
-	override = 0;
+	override ;
 };
+
 }
 }
 

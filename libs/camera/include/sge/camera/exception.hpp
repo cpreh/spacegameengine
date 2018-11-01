@@ -42,16 +42,37 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL exception
 	public sge::core::exception
 {
 public:
-	/**
-	\brief Constructs the exception from a string
-
-	Constructs the exception from \a what
-	*/
 	SGE_CAMERA_DETAIL_SYMBOL
 	explicit
 	exception(
-		fcppt::string const &what
+		fcppt::string &&
 	);
+
+	SGE_CAMERA_DETAIL_SYMBOL
+	exception(
+		exception &&
+	);
+
+	SGE_CAMERA_DETAIL_SYMBOL
+	exception(
+		exception const &
+	);
+
+	SGE_CAMERA_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception &&
+	);
+
+	SGE_CAMERA_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception const &
+	);
+
+	SGE_CAMERA_DETAIL_SYMBOL
+	~exception() noexcept
+	override;
 };
 
 }

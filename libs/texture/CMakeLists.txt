@@ -22,6 +22,7 @@ set(
 	libs/texture/include/sge/texture/const_part_ref_fwd.hpp
 	libs/texture/include/sge/texture/const_part_shared_ptr.hpp
 	libs/texture/include/sge/texture/const_part_unique_ptr.hpp
+	libs/texture/include/sge/texture/detail/declare_basic_part_raw.hpp
 	libs/texture/include/sge/texture/detail/ref_store_type.hpp
 	libs/texture/include/sge/texture/exception.hpp
 	libs/texture/include/sge/texture/fragmented.hpp

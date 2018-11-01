@@ -22,13 +22,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::scenic::exception::exception(
-	fcppt::string const &_what)
+	fcppt::string &&_what
+)
 :
-	sge::core::exception(
+	sge::core::exception{
 		FCPPT_TEXT("scenic: ")
-		+_what)
+		+
+		std::move(
+			_what
+		)
+	}
+{
+}
+
+sge::scenic::exception::exception(
+	exception &&
+)
+= default;
+
+sge::scenic::exception::exception(
+	exception const &
+)
+= default;
+
+sge::scenic::exception &
+sge::scenic::exception::operator=(
+	exception &&
+)
+= default;
+
+sge::scenic::exception &
+sge::scenic::exception::operator=(
+	exception const &
+)
+= default;
+
+sge::scenic::exception::~exception() noexcept
 {
 }

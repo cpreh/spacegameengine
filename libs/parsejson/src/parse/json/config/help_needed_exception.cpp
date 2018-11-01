@@ -18,17 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/exception.hpp>
+#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/config/help_needed_exception.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::parse::json::config::help_needed_exception::help_needed_exception(
-	fcppt::string const &_string
+	fcppt::string &&_string
 )
 :
-	sge::parse::exception(
-		_string
+	sge::parse::json::exception(
+		std::move(
+			_string
+		)
 	)
+{
+}
+
+sge::parse::json::config::help_needed_exception::help_needed_exception(
+	help_needed_exception &&
+)
+= default;
+
+sge::parse::json::config::help_needed_exception::help_needed_exception(
+	help_needed_exception const &
+)
+= default;
+
+sge::parse::json::config::help_needed_exception &
+sge::parse::json::config::help_needed_exception::operator=(
+	help_needed_exception &&
+)
+= default;
+
+sge::parse::json::config::help_needed_exception &
+sge::parse::json::config::help_needed_exception::operator=(
+	help_needed_exception const &
+)
+= default;
+
+sge::parse::json::config::help_needed_exception::~help_needed_exception() noexcept
 {
 }

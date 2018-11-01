@@ -40,11 +40,33 @@ public:
 	SGE_CEGUI_DETAIL_SYMBOL
 	explicit
 	exception(
-		fcppt::string const &
+		fcppt::string &&
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL
-	~exception() throw()
+	exception(
+		exception &&
+	);
+
+	SGE_CEGUI_DETAIL_SYMBOL
+	exception(
+		exception const &
+	);
+
+	SGE_CEGUI_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception &&
+	);
+
+	SGE_CEGUI_DETAIL_SYMBOL
+	exception &
+	operator=(
+		exception const &
+	);
+
+	SGE_CEGUI_DETAIL_SYMBOL
+	~exception() noexcept
 	override;
 };
 

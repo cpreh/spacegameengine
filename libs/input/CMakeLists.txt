@@ -300,6 +300,7 @@ set(
 	libs/input/include/sge/input/plugin/context_fwd.hpp
 	libs/input/include/sge/input/plugin/iterator.hpp
 	libs/input/include/sge/input/plugin/iterator_fwd.hpp
+	libs/input/include/sge/input/plugin/manager.hpp
 	libs/input/include/sge/input/plugin/object.hpp
 	libs/input/include/sge/input/plugin/object_fwd.hpp
 	libs/input/include/sge/input/plugin/traits.hpp

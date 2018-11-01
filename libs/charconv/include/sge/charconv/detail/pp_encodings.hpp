@@ -18,21 +18,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_CG_PARAMETER_DETAIL_GENERATE_TYPES_HPP_INCLUDED
-#define SGE_CG_PARAMETER_DETAIL_GENERATE_TYPES_HPP_INCLUDED
+#ifndef SGE_CHARCONV_DETAIL_PP_ENCODINGS_HPP_INCLUDED
+#define SGE_CHARCONV_DETAIL_PP_ENCODINGS_HPP_INCLUDED
+
+#include <sge/charconv/encoding.hpp>
 
 
-#define SGE_CG_PARAMETER_DETAIL_GENERATE_TYPES(\
-	macro\
-)\
-macro(\
-	double\
-)\
-macro(\
-	float\
-)\
-macro(\
-	int\
-)\
+#define SGE_CHARCONV_DETAIL_PP_ENCODINGS \
+	(sge::charconv::encoding::utf8)\
+	(sge::charconv::encoding::utf16)\
+	(sge::charconv::encoding::utf32)\
+	(sge::charconv::encoding::wchar)
 
 #endif

@@ -21,7 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/core.hpp>
 #include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
-#include <sge/renderer/plugin/collection_fwd.hpp>
+#include <sge/renderer/plugin/collection.hpp>
+#include <sge/renderer/plugin/context.hpp>
+#include <sge/renderer/plugin/iterator.hpp>
 #include <sge/renderer/plugin/traits.hpp>
 #include <sge/systems/optional_name_fwd.hpp>
 #include <sge/systems/renderer_caps.hpp>

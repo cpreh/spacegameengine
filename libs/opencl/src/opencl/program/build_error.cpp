@@ -25,21 +25,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opencl::program::build_error::build_error(
-	fcppt::string const &_message)
+	fcppt::string const &_message
+)
 :
 	sge::opencl::exception(
-		FCPPT_TEXT("Error building OpenCL program: ")+_message),
+		FCPPT_TEXT("Error building OpenCL program: ")
+		+
+		_message
+	),
 	message_(
-		_message)
+		_message
+	)
+{
+}
+
+sge::opencl::program::build_error::build_error(
+	build_error &&
+)
+= default;
+
+sge::opencl::program::build_error::build_error(
+	build_error const &
+)
+= default;
+
+sge::opencl::program::build_error &
+sge::opencl::program::build_error::operator=(
+	build_error &&
+)
+= default;
+
+sge::opencl::program::build_error &
+sge::opencl::program::build_error::operator=(
+	build_error const &
+)
+= default;
+
+sge::opencl::program::build_error::~build_error() noexcept
 {
 }
 
 fcppt::string const &
 sge::opencl::program::build_error::message() const
 {
-	return message_;
-}
-
-sge::opencl::program::build_error::~build_error() throw()
-{
+	return
+		message_;
 }

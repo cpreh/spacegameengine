@@ -35,7 +35,9 @@ sge::opencl::memory_object::buffer::buffer(
 	memory_object::flags_field const &_flags,
 	memory_object::byte_size const &_byte_size)
 :
-	impl_(0),
+	impl_(
+		nullptr
+	),
 	byte_size_(
 		_byte_size)
 {
@@ -46,7 +48,7 @@ sge::opencl::memory_object::buffer::buffer(
 			sge::opencl::impl::memory_object::to_opencl_mem_flags(
 				_flags),
 			_byte_size.get(),
-			0,
+			nullptr,
 			&error_code);
 
 	opencl::impl::handle_error(
@@ -59,7 +61,7 @@ sge::opencl::memory_object::buffer::buffer(
 	sge::renderer::vertex::buffer &_vb,
 	memory_object::renderer_buffer_lock_mode const _lock_mode)
 :
-	impl_(0),
+	impl_(nullptr),
 	byte_size_(
 		static_cast<byte_size::value_type>(
 			_vb.linear_size() * _vb.format().get().stride().get()))

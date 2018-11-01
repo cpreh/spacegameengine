@@ -372,7 +372,7 @@ sge::font::bitmap::impl::text::iterate(
 		);
 
 		for(
-			auto const metric
+			auto const &metric
 			:
 			line.char_metrics()
 		)

@@ -38,6 +38,7 @@ set(
 	libs/parsejson/include/sge/parse/json/detail/value_wrapper.hpp
 	libs/parsejson/include/sge/parse/json/detail/value_wrapper_fwd.hpp
 	libs/parsejson/include/sge/parse/json/element_vector.hpp
+	libs/parsejson/include/sge/parse/json/exception.hpp
 	libs/parsejson/include/sge/parse/json/find_and_convert_member.hpp
 	libs/parsejson/include/sge/parse/json/find_member.hpp
 	libs/parsejson/include/sge/parse/json/find_member_exn.hpp
@@ -103,6 +104,7 @@ set(
 	libs/parsejson/src/parse/json/config/merge_command_line_parameters.cpp
 	libs/parsejson/src/parse/json/config/merge_trees.cpp
 	libs/parsejson/src/parse/json/config/modify_user_value.cpp
+	libs/parsejson/src/parse/json/exception.cpp
 	libs/parsejson/src/parse/json/find_object.cpp
 	libs/parsejson/src/parse/json/find_object_exn.cpp
 	libs/parsejson/src/parse/json/invalid_get.cpp

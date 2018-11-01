@@ -56,6 +56,7 @@ set(
 	libs/font/include/sge/font/plugin/context_fwd.hpp
 	libs/font/include/sge/font/plugin/iterator.hpp
 	libs/font/include/sge/font/plugin/iterator_fwd.hpp
+	libs/font/include/sge/font/plugin/manager.hpp
 	libs/font/include/sge/font/plugin/object.hpp
 	libs/font/include/sge/font/plugin/object_fwd.hpp
 	libs/font/include/sge/font/plugin/traits.hpp

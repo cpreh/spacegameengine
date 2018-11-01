@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/geometry/random_access_range_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/type_traits/is_iterator_of_category.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
@@ -42,9 +41,6 @@ template<
 >
 class random_access_range
 {
-	FCPPT_NONASSIGNABLE(
-		random_access_range
-	);
 public:
 	static_assert(
 		fcppt::type_traits::is_iterator_of_category<
@@ -81,7 +77,7 @@ public:
 		Compare const &
 	) const;
 private:
-	iterator const
+	iterator
 		begin_,
 		end_;
 };

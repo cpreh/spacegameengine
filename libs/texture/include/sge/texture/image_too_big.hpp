@@ -42,6 +42,32 @@ public:
 	image_too_big(
 		sge::renderer::dim2 const &
 	);
+
+	SGE_TEXTURE_DETAIL_SYMBOL
+	image_too_big(
+		image_too_big &&
+	);
+
+	SGE_TEXTURE_DETAIL_SYMBOL
+	image_too_big(
+		image_too_big const &
+	);
+
+	SGE_TEXTURE_DETAIL_SYMBOL
+	image_too_big &
+	operator=(
+		image_too_big &&
+	);
+
+	SGE_TEXTURE_DETAIL_SYMBOL
+	image_too_big &
+	operator=(
+		image_too_big const &
+	);
+
+	SGE_TEXTURE_DETAIL_SYMBOL
+	~image_too_big() noexcept
+	override;
 };
 
 }

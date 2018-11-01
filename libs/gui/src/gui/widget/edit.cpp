@@ -75,6 +75,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/fill.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -305,6 +308,9 @@ sge::gui::widget::edit::on_key(
 	sge::input::key::code const _code
 )
 {
+	FCPPT_PP_PUSH_WARNING
+	FCPPT_PP_DISABLE_CLANG_WARNING(-Wswitch-enum)
+
 	switch(
 		_code
 	)
@@ -358,6 +364,8 @@ sge::gui::widget::edit::on_key(
 	default:
 		break;
 	}
+
+	FCPPT_PP_POP_WARNING
 }
 
 void

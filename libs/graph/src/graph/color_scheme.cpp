@@ -117,7 +117,3 @@ sge::graph::color_scheme::baseline_color() const
 {
 	return baseline_color_;
 }
-
-sge::graph::color_scheme::~color_scheme()
-{
-}

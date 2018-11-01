@@ -23,7 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/encoding_fwd.hpp>
 #include <sge/charconv/string_type.hpp>
+#include <sge/charconv/detail/pp_encodings.hpp>
 #include <sge/charconv/detail/symbol.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/seq/elem.hpp>
+#include <boost/preprocessor/seq/for_each_product.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -47,5 +52,29 @@ convert(
 
 }
 }
+
+#define SGE_CHARCONV_DETAIL_DECLARE_CONVERT(\
+	r,\
+	param\
+)\
+extern \
+template \
+SGE_CHARCONV_DETAIL_SYMBOL \
+sge::charconv::string_type< \
+	BOOST_PP_SEQ_ELEM(0, param) \
+> \
+sge::charconv::convert<\
+	BOOST_PP_SEQ_ELEM(0, param),\
+	BOOST_PP_SEQ_ELEM(1, param)\
+>( \
+	sge::charconv::string_type< \
+		BOOST_PP_SEQ_ELEM(1, param) \
+	> const & \
+);
+
+BOOST_PP_SEQ_FOR_EACH_PRODUCT(
+	SGE_CHARCONV_DETAIL_DECLARE_CONVERT,
+	(SGE_CHARCONV_DETAIL_PP_ENCODINGS)(SGE_CHARCONV_DETAIL_PP_ENCODINGS)
+)
 
 #endif

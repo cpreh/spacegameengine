@@ -50,6 +50,7 @@ set(
 	libs/plugin/include/sge/plugin/declare_collection.hpp
 	libs/plugin/include/sge/plugin/declare_context.hpp
 	libs/plugin/include/sge/plugin/declare_iterator.hpp
+	libs/plugin/include/sge/plugin/declare_manager.hpp
 	libs/plugin/include/sge/plugin/declare_object.hpp
 	libs/plugin/include/sge/plugin/description.hpp
 	libs/plugin/include/sge/plugin/detail/address_name.hpp
