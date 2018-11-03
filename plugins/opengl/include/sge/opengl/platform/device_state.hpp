@@ -43,7 +43,7 @@ protected:
 	device_state();
 public:
 	virtual
-	~device_state() = 0;
+	~device_state();
 
 	virtual
 	sge::renderer::display_mode::optional_object

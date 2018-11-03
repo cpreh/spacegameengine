@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/state/ffp/misc/default_context_parameters_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
 
@@ -40,9 +40,6 @@ namespace misc
 
 class default_context_parameters
 {
-	FCPPT_NONASSIGNABLE(
-		default_context_parameters
-	);
 public:
 	default_context_parameters(
 		fcppt::log::object &,
@@ -55,9 +52,13 @@ public:
 	sge::opengl::context::object &
 	context() const;
 private:
-	fcppt::log::object &log_;
+	fcppt::reference<
+		fcppt::log::object
+	> log_;
 
-	sge::opengl::context::object &context_;
+	fcppt::reference<
+		sge::opengl::context::object
+	> context_;
 };
 
 }

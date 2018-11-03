@@ -42,7 +42,7 @@ protected:
 	context();
 public:
 	virtual
-	~context() = 0;
+	~context();
 
 	virtual
 	sge::opengl::backend::current_unique_ptr

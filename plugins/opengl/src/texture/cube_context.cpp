@@ -34,10 +34,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/optional_cube_config.hpp>
 #include <sge/opengl/texture/convert/make_buffer_type.hpp>
 #include <sge/opengl/texture/convert/make_type.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
 
 sge::opengl::texture::cube_side_array const normal_sides{{{
 	sge::opengl::texture::convert::make_buffer_type(
@@ -81,6 +87,7 @@ sge::opengl::texture::cube_side_array const arb_sides{{{
 	)
 }}};
 
+FCPPT_PP_POP_WARNING
 }
 
 sge::opengl::texture::cube_context::cube_context(
@@ -140,7 +147,12 @@ sge::opengl::texture::cube_context::config() const
 		config_;
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
+
 sge::opengl::context::id const
 sge::opengl::texture::cube_context::static_id(
 	sge::opengl::context::make_id()
 );
+
+FCPPT_PP_POP_WARNING

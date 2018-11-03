@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_EVDEV_DEVICE_EVENT_HPP_INCLUDED
 
 #include <sge/evdev/device/event_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
 #include <fcppt/config/external_end.hpp>
@@ -37,9 +36,6 @@ namespace device
 
 class event
 {
-	FCPPT_NONASSIGNABLE(
-		event
-	);
 public:
 	explicit
 	event(
@@ -49,7 +45,7 @@ public:
 	input_event const &
 	get() const;
 private:
-	input_event const event_;
+	input_event event_;
 };
 
 }

@@ -37,10 +37,12 @@ namespace ffp
 namespace clip_plane
 {
 
-typedef sge::opengl::state::unary_object<
+typedef
+sge::opengl::state::unary_object<
 	sge::renderer::state::ffp::clip_plane::object,
 	GLenum
-> object;
+>
+object;
 
 }
 }

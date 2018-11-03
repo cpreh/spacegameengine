@@ -22,9 +22,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/color_order.hpp>
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
-#include <sge/opengl/texture/instantiate_dim.hpp>
+#include <sge/opengl/texture/pp_dims.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -174,14 +177,18 @@ sge::opengl::texture::mipmap::parameters<
 }
 
 #define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_PARAMETERS(\
+	seq,\
+	_,\
 	dimension\
 )\
 template \
 class \
 sge::opengl::texture::mipmap::parameters<\
 	dimension\
->
+>;
 
-SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(
-	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_PARAMETERS
-);
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_PARAMETERS,
+	_,
+	SGE_OPENGL_TEXTURE_PP_DIMS
+)

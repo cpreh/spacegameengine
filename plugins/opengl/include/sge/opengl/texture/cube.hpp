@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/texture/basic.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
-#include <sge/opengl/texture/cube_basic.hpp>
+#include <sge/opengl/texture/cube_basic_fwd.hpp>
 #include <sge/opengl/texture/cube_config_fwd.hpp>
 #include <sge/opengl/texture/cube_types.hpp>
 #include <sge/renderer/size_type.hpp>

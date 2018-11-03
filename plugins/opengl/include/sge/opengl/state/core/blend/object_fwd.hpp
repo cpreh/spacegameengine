@@ -36,9 +36,11 @@ namespace core
 namespace blend
 {
 
-typedef sge::opengl::state::object<
+typedef
+sge::opengl::state::object<
 	sge::renderer::state::core::blend::object
-> object;
+>
+object;
 
 }
 }

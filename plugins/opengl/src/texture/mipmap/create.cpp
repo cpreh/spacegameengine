@@ -19,13 +19,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/texture/instantiate_dim.hpp>
+#include <sge/opengl/texture/pp_dims.hpp>
 #include <sge/opengl/texture/mipmap/all_levels.hpp>
 #include <sge/opengl/texture/mipmap/create.hpp>
 #include <sge/opengl/texture/mipmap/levels.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/variant/match.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -82,6 +85,8 @@ sge::opengl::texture::mipmap::create(
 }
 
 #define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_CREATE(\
+	seq,\
+	_,\
 	dimension\
 )\
 template \
@@ -97,6 +102,8 @@ sge::opengl::texture::mipmap::create<\
 	sge::renderer::texture::mipmap::object const &\
 )
 
-SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(
-	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_CREATE
-);
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_CREATE,
+	_,
+	SGE_OPENGL_TEXTURE_PP_DIMS
+)

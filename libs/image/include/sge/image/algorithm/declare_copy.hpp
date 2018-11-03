@@ -18,41 +18,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_VIEW_FLIPPED_HPP_INCLUDED
-#define SGE_IMAGE2D_VIEW_FLIPPED_HPP_INCLUDED
+#ifndef SGE_IMAGE_ALGORITHM_DECLARE_COPY_HPP_INCLUDED
+#define SGE_IMAGE_ALGORITHM_DECLARE_COPY_HPP_INCLUDED
 
-#include <sge/image/view/declare_flipped.hpp>
-#include <sge/image2d/tag.hpp>
-#include <sge/image2d/detail/symbol.hpp>
-#include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/image2d/view/object_fwd.hpp>
+#include <sge/image/algorithm/copy.hpp>
+#include <sge/image/algorithm/may_overlap_fwd.hpp>
+#include <sge/image/algorithm/uninitialized_fwd.hpp>
+#include <sge/image/detail/instantiate/symbol.hpp>
+#include <sge/image/view/const_object_fwd.hpp>
+#include <sge/image/view/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image2d
-{
-namespace view
-{
-
-SGE_IMAGE2D_DETAIL_SYMBOL
-sge::image2d::view::object
-flipped(
-	sge::image2d::view::object const &
-);
-
-SGE_IMAGE2D_DETAIL_SYMBOL
-sge::image2d::view::const_object
-flipped(
-	sge::image2d::view::const_object const &
-);
-
-}
-}
-}
-
-SGE_IMAGE_VIEW_DECLARE_FLIPPED(
-	sge::image2d::tag
-);
+#define SGE_IMAGE_ALGORITHM_DECLARE_COPY(\
+	tag\
+)\
+extern \
+template \
+SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL \
+void \
+sge::image::algorithm::copy( \
+	sge::image::view::const_object< \
+		tag \
+	> const &, \
+	sge::image::view::object< \
+		tag \
+	> const &, \
+	sge::image::algorithm::may_overlap, \
+	sge::image::algorithm::uninitialized \
+)
 
 #endif

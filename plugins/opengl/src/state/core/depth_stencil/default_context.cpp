@@ -28,6 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/default.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 sge::opengl::state::core::depth_stencil::default_context::default_context(
@@ -59,7 +62,12 @@ sge::opengl::state::core::depth_stencil::default_context::default_state() const
 		*default_state_;
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
+
 sge::opengl::context::id const
 sge::opengl::state::core::depth_stencil::default_context::static_id(
 	sge::opengl::context::make_id()
 );
+
+FCPPT_PP_POP_WARNING

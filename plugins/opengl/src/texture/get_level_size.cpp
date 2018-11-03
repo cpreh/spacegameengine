@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/get_level_size.hpp>
-#include <sge/opengl/texture/instantiate_dim.hpp>
+#include <sge/opengl/texture/pp_dims.hpp>
 #include <sge/opengl/texture/funcs/level_parameter.hpp>
 #include <sge/renderer/basic_dim.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -33,6 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/push_back.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace
@@ -141,6 +144,8 @@ sge::opengl::texture::get_level_size(
 }
 
 #define SGE_OPENGL_TEXTURE_INSTANTIATE_GET_LEVEL_SIZE(\
+	seq,\
+	_,\
 	dimension\
 )\
 template \
@@ -153,8 +158,10 @@ sge::opengl::texture::get_level_size<\
 	sge::opengl::texture::binding const &,\
 	sge::opengl::texture::buffer_type,\
 	sge::renderer::texture::mipmap::level\
-)
-
-SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(
-	SGE_OPENGL_TEXTURE_INSTANTIATE_GET_LEVEL_SIZE
 );
+
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_OPENGL_TEXTURE_INSTANTIATE_GET_LEVEL_SIZE,
+	_,
+	SGE_OPENGL_TEXTURE_PP_DIMS
+)

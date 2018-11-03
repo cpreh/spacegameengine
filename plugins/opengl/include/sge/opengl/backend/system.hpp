@@ -45,7 +45,7 @@ protected:
 	system();
 public:
 	virtual
-	~system() = 0;
+	~system();
 
 	virtual
 	awl::visual::object_unique_ptr

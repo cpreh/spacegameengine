@@ -43,7 +43,7 @@ protected:
 	binding();
 
 	virtual
-	~binding() = 0;
+	~binding();
 public:
 	virtual
 	sge::renderer::texture::stage

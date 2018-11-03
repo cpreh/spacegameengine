@@ -36,6 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/info/minor_version.hpp>
 #include <sge/opengl/info/version_at_least.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -144,7 +145,12 @@ sge::opengl::buffer::pbo_context::unpack_buffer() const
 		);
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
+
 sge::opengl::context::id const
 sge::opengl::buffer::pbo_context::static_id(
 	sge::opengl::context::make_id()
 );
+
+FCPPT_PP_POP_WARNING

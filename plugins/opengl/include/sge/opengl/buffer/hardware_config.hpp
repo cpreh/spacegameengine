@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/buffer/hardware_config_fwd.hpp>
 #include <sge/opengl/buffer/is_native.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/optional/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
@@ -41,9 +40,6 @@ namespace buffer
 
 class hardware_config
 {
-	FCPPT_NONASSIGNABLE(
-		hardware_config
-	);
 public:
 	typedef
 	sge::opengl::fun_ref<
@@ -141,7 +137,7 @@ public:
 	optional_gl_map_buffer_range
 	map_buffer_range() const;
 private:
-	sge::opengl::buffer::is_native const is_native_;
+	sge::opengl::buffer::is_native is_native_;
 
 	gl_gen_buffers gen_buffers_;
 
@@ -157,7 +153,7 @@ private:
 
 	gl_buffer_sub_data buffer_sub_data_;
 
-	optional_gl_map_buffer_range const map_buffer_range_;
+	optional_gl_map_buffer_range map_buffer_range_;
 };
 
 }

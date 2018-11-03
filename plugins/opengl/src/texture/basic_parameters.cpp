@@ -41,12 +41,12 @@ fcppt::log::object &
 sge::opengl::texture::basic_parameters::log() const
 {
 	return
-		log_;
+		log_.get();
 }
 
 sge::opengl::context::object &
 sge::opengl::texture::basic_parameters::context() const
 {
 	return
-		context_;
+		context_.get();
 }

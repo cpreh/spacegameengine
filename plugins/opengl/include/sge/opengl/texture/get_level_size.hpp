@@ -23,9 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
+#include <sge/opengl/texture/pp_dims.hpp>
 #include <sge/renderer/basic_dim_fwd.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -50,5 +54,29 @@ get_level_size(
 }
 }
 }
+
+#define SGE_OPENGL_TEXTURE_DECLARE_GET_LEVEL_SIZE(\
+	seq,\
+	_,\
+	dimension\
+)\
+extern \
+template \
+sge::renderer::basic_dim<\
+	dimension\
+> \
+sge::opengl::texture::get_level_size<\
+	dimension\
+>(\
+	sge::opengl::texture::binding const &,\
+	sge::opengl::texture::buffer_type,\
+	sge::renderer::texture::mipmap::level\
+);
+
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_OPENGL_TEXTURE_DECLARE_GET_LEVEL_SIZE,
+	_,
+	SGE_OPENGL_TEXTURE_PP_DIMS
+)
 
 #endif

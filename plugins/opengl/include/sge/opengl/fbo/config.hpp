@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fbo/config_fwd.hpp>
 #include <sge/opengl/fbo/error_string_map.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -39,9 +38,6 @@ namespace fbo
 
 class config
 {
-	FCPPT_NONASSIGNABLE(
-		config
-	);
 public:
 	typedef
 	sge::opengl::fun_ref<
@@ -201,19 +197,19 @@ private:
 
 	gl_framebuffer_renderbuffer framebuffer_renderbuffer_;
 
-	GLenum const framebuffer_target_;
+	GLenum framebuffer_target_;
 
-	sge::opengl::fbo::attachment_type const color_attachment_;
+	sge::opengl::fbo::attachment_type color_attachment_;
 
-	GLenum const framebuffer_complete_;
+	GLenum framebuffer_complete_;
 
-	sge::opengl::fbo::error_string_map const error_strings_;
+	sge::opengl::fbo::error_string_map error_strings_;
 
-	GLenum const renderbuffer_target_;
+	GLenum renderbuffer_target_;
 
-	sge::opengl::fbo::attachment_type const depth_attachment_;
+	sge::opengl::fbo::attachment_type depth_attachment_;
 
-	sge::opengl::fbo::optional_attachment_type const depth_stencil_attachment_;
+	sge::opengl::fbo::optional_attachment_type depth_stencil_attachment_;
 };
 
 }

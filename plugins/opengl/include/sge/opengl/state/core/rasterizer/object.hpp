@@ -24,6 +24,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/object.hpp>
 #include <sge/opengl/state/core/rasterizer/object_fwd.hpp>
 #include <sge/renderer/state/core/rasterizer/object.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wweak-template-vtables)
+
+extern
+template
+class
+sge::opengl::state::object<
+	sge::renderer::state::core::rasterizer::object
+>;
+
+FCPPT_PP_POP_WARNING
 
 #endif

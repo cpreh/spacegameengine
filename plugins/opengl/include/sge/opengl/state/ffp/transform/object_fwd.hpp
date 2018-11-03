@@ -37,10 +37,12 @@ namespace ffp
 namespace transform
 {
 
-typedef sge::opengl::state::unary_object<
+typedef
+sge::opengl::state::unary_object<
 	sge::renderer::state::ffp::transform::object,
 	sge::renderer::state::ffp::transform::mode
-> object;
+>
+object;
 
 }
 }

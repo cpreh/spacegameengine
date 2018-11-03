@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_STATE_ERROR_HANDLER_HPP_INCLUDED
 
 #include <sge/opengl/state/check_error.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
@@ -41,9 +40,6 @@ template<
 >
 class error_handler
 {
-	FCPPT_NONASSIGNABLE(
-		error_handler
-	);
 public:
 	error_handler(
 		Actor const &_actor,
@@ -86,9 +82,9 @@ public:
 		);
 	}
 private:
-	Actor const actor_;
+	Actor actor_;
 
-	fcppt::string const name_;
+	fcppt::string name_;
 };
 
 }

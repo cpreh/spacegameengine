@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/config_fwd.hpp>
 #include <fcppt/make_strong_typedef.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -43,9 +42,6 @@ namespace point_sprite
 
 class config
 {
-	FCPPT_NONASSIGNABLE(
-		config
-	);
 public:
 	FCPPT_MAKE_STRONG_TYPEDEF(
 		GLenum,
@@ -77,11 +73,11 @@ public:
 	coord_replace_flag_type
 	coord_replace_flag() const;
 private:
-	point_sprite_flag_type const point_sprite_flag_;
+	point_sprite_flag_type point_sprite_flag_;
 
-	vertex_shader_size_flag_type const vertex_shader_size_flag_;
+	vertex_shader_size_flag_type vertex_shader_size_flag_;
 
-	coord_replace_flag_type const coord_replace_flag_;
+	coord_replace_flag_type coord_replace_flag_;
 };
 
 }

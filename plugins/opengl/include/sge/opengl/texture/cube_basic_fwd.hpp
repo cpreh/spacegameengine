@@ -18,41 +18,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE2D_VIEW_FLIPPED_HPP_INCLUDED
-#define SGE_IMAGE2D_VIEW_FLIPPED_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_CUBE_BASIC_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_CUBE_BASIC_FWD_HPP_INCLUDED
 
-#include <sge/image/view/declare_flipped.hpp>
-#include <sge/image2d/tag.hpp>
-#include <sge/image2d/detail/symbol.hpp>
-#include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/image2d/view/object_fwd.hpp>
+#include <sge/opengl/texture/basic_fwd.hpp>
+#include <sge/opengl/texture/cube_types_fwd.hpp>
 
 
 namespace sge
 {
-namespace image2d
+namespace opengl
 {
-namespace view
+namespace texture
 {
 
-SGE_IMAGE2D_DETAIL_SYMBOL
-sge::image2d::view::object
-flipped(
-	sge::image2d::view::object const &
-);
-
-SGE_IMAGE2D_DETAIL_SYMBOL
-sge::image2d::view::const_object
-flipped(
-	sge::image2d::view::const_object const &
-);
+typedef
+sge::opengl::texture::basic<
+	sge::opengl::texture::cube_types
+>
+cube_basic;
 
 }
 }
 }
-
-SGE_IMAGE_VIEW_DECLARE_FLIPPED(
-	sge::image2d::tag
-);
 
 #endif

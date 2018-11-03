@@ -27,6 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/library/detail/interface_pre.hpp>
 #include <sge/plugin/library/detail/iterate_functions.hpp>
 #include <sge/plugin/library/detail/make_version_function.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -48,6 +51,11 @@ sge_info_function() \
 \
 }\
 \
+FCPPT_PP_PUSH_WARNING \
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wmissing-variable-declarations) \
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors) \
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wexit-time-destructors) \
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wundefined-func-template) \
 SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 	sge::plugin::library::function_map::container{\
 		sge::plugin::library::detail::make_version_function(\
@@ -59,6 +67,7 @@ SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
 			plugin_functions\
 		)\
 	}\
-SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST
+SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST \
+FCPPT_PP_POP_WARNING
 
 #endif

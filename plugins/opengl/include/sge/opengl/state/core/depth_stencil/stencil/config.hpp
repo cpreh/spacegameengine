@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/state/core/depth_stencil/stencil/config_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -42,9 +41,6 @@ namespace stencil
 
 class config
 {
-	FCPPT_NONASSIGNABLE(
-		config
-	);
 public:
 	typedef
 	sge::opengl::fun_ref<

@@ -21,8 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_IMAGE3D_ALGORITHM_COPY_HPP_INCLUDED
 #define SGE_IMAGE3D_ALGORITHM_COPY_HPP_INCLUDED
 
+#include <sge/image/algorithm/declare_copy.hpp>
 #include <sge/image/algorithm/may_overlap_fwd.hpp>
 #include <sge/image/algorithm/uninitialized_fwd.hpp>
+#include <sge/image3d/tag.hpp>
 #include <sge/image3d/detail/symbol.hpp>
 #include <sge/image3d/view/const_object_fwd.hpp>
 #include <sge/image3d/view/object_fwd.hpp>
@@ -47,5 +49,9 @@ copy(
 }
 }
 }
+
+SGE_IMAGE_ALGORITHM_DECLARE_COPY(
+	sge::image3d::tag
+);
 
 #endif

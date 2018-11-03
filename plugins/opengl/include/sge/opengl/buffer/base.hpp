@@ -45,7 +45,7 @@ protected:
 	base();
 public:
 	virtual
-	~base() = 0;
+	~base();
 
 	virtual
 	sge::opengl::buffer::id

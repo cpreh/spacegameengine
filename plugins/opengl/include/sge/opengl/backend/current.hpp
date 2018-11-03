@@ -46,7 +46,7 @@ protected:
 	current();
 public:
 	virtual
-	~current() = 0;
+	~current();
 
 	virtual
 	sge::opengl::backend::fun_ptr

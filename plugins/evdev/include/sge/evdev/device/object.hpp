@@ -52,7 +52,7 @@ public:
 	);
 
 	virtual
-	~object() = 0;
+	~object();
 
 	awl::event::container
 	on_event();

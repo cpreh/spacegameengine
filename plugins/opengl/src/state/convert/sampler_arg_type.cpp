@@ -27,6 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/sampler/arg2.hpp>
 #include <sge/renderer/state/ffp/sampler/arg3.hpp>
 #include <sge/renderer/state/ffp/sampler/color_op_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -59,50 +62,39 @@ sge::opengl::state::convert::sampler_arg_type<
 		>::get();
 }
 
-#define SGE_OPENGL_STATE_CONVERT_INSTANTIATE_SAMPLER_ARG_TYPE(\
-	op_type,\
+#define SGE_OPENGL_STATE_CONVERT_INSTANTIATE_SAMPLER_ALPHA_ARG_TYPE(\
+	seq,\
+	_,\
 	arg_type\
-)\
+) \
 template \
 struct \
 sge::opengl::state::convert::sampler_arg_type<\
-	op_type,\
-	arg_type\
->
-
-#define SGE_OPENGL_STATE_CONVERT_INSTANTIATE_SAMPLER_ALPHA_ARG_TYPE(\
-	arg_type\
-) \
-SGE_OPENGL_STATE_CONVERT_INSTANTIATE_SAMPLER_ARG_TYPE(\
-	sge::renderer::state::ffp::sampler::alpha_op, \
-	arg_type \
-)
+	sge::renderer::state::ffp::sampler::alpha_op,\
+	sge::renderer::state::ffp::sampler:: arg_type \
+>;
 
 #define SGE_OPENGL_STATE_CONVERT_INSTANTIATE_SAMPLER_COLOR_ARG_TYPE(\
+	seq,\
+	_,\
 	arg_type\
 ) \
-SGE_OPENGL_STATE_CONVERT_INSTANTIATE_SAMPLER_ARG_TYPE(\
+extern \
+template \
+struct \
+sge::opengl::state::convert::sampler_arg_type<\
 	sge::renderer::state::ffp::sampler::color_op, \
-	arg_type \
-)
+	sge::renderer::state::ffp::sampler:: arg_type \
+>;
 
-#define SGE_OPENGL_STATE_CONVERT_INSTANTIATE_ARGS(\
-	macro\
-)\
-macro(\
-	sge::renderer::state::ffp::sampler::arg1\
-);\
-macro(\
-	sge::renderer::state::ffp::sampler::arg2\
-);\
-macro(\
-	sge::renderer::state::ffp::sampler::arg3\
-)
-
-SGE_OPENGL_STATE_CONVERT_INSTANTIATE_ARGS(
-	SGE_OPENGL_STATE_CONVERT_INSTANTIATE_SAMPLER_ALPHA_ARG_TYPE
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_OPENGL_STATE_CONVERT_INSTANTIATE_SAMPLER_ALPHA_ARG_TYPE,
+	_,
+	SGE_RENDERER_STATE_FFP_SAMPLER_PP_ARG_TYPES
 );
 
-SGE_OPENGL_STATE_CONVERT_INSTANTIATE_ARGS(
-	SGE_OPENGL_STATE_CONVERT_INSTANTIATE_SAMPLER_COLOR_ARG_TYPE
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_OPENGL_STATE_CONVERT_INSTANTIATE_SAMPLER_COLOR_ARG_TYPE,
+	_,
+	SGE_RENDERER_STATE_FFP_SAMPLER_PP_ARG_TYPES
 );

@@ -33,6 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/math/box/null.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 sge::opengl::target::onscreen::onscreen(
@@ -104,8 +107,13 @@ sge::opengl::target::onscreen::height() const
 		);
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wweak-template-vtables)
+
 template
 class
 sge::opengl::target::basic<
 	sge::renderer::target::onscreen
 >;
+
+FCPPT_PP_POP_WARNING

@@ -44,7 +44,7 @@ protected:
 	system();
 public:
 	virtual
-	~system() = 0;
+	~system();
 
 	virtual
 	sge::opengl::platform::device_state_unique_ptr

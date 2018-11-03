@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/instantiate_dim.hpp>
+#include <sge/opengl/texture/pp_dims.hpp>
 #include <sge/opengl/texture/mipmap/get_levels.hpp>
 #include <sge/renderer/basic_dim.hpp>
 #include <sge/renderer/texture/mipmap/all_levels_rep_fwd.hpp>
@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/algorithm/max_element.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -95,6 +96,8 @@ sge::opengl::texture::mipmap::get_levels(
 }
 
 #define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_GET_LEVELS(\
+	seq,\
+	_,\
 	dimension\
 )\
 template \
@@ -108,6 +111,8 @@ sge::opengl::texture::mipmap::get_levels<\
 	> const &\
 )
 
-SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(
-	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_GET_LEVELS
-);
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_GET_LEVELS,
+	_,
+	SGE_OPENGL_TEXTURE_PP_DIMS
+)

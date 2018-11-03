@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_config_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -41,9 +40,6 @@ namespace filter
 
 class anisotropy_config
 {
-	FCPPT_NONASSIGNABLE(
-		anisotropy_config
-	);
 public:
 	anisotropy_config(
 		GLenum anisotropy_flag,
@@ -56,9 +52,9 @@ public:
 	GLenum
 	max_anisotropy_flag() const;
 private:
-	GLenum const anisotropy_flag_;
+	GLenum anisotropy_flag_;
 
-	GLenum const max_anisotropy_flag_;
+	GLenum max_anisotropy_flag_;
 };
 
 }

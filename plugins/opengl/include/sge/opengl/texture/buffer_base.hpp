@@ -50,8 +50,7 @@ protected:
 	);
 public:
 	virtual
-	~buffer_base()
-	= 0;
+	~buffer_base();
 
 	sge::opengl::texture::buffer_type
 	buffer_type() const;

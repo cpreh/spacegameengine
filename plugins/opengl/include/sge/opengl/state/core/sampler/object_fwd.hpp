@@ -37,10 +37,12 @@ namespace core
 namespace sampler
 {
 
-typedef sge::opengl::state::unary_object<
+typedef
+sge::opengl::state::unary_object<
 	sge::renderer::state::core::sampler::object,
 	sge::opengl::texture::binding
-> object;
+>
+object;
 
 }
 }

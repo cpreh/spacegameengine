@@ -19,8 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/image/color/traits/format_stride.hpp>
+#include <sge/image2d/algorithm/copy.hpp>
 #include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/flipped.hpp>
+#include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/object.hpp>
+#include <sge/image2d/view/sub.hpp>
+#include <sge/image2d/view/to_const.hpp>
 #include <sge/opengl/texture/basic_buffer_impl.hpp>
 #include <sge/opengl/texture/basic_lockable_buffer_impl.hpp>
 #include <sge/opengl/texture/buffer_surface_types.hpp>

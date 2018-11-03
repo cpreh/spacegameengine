@@ -23,7 +23,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/state/unary_object.hpp>
 #include <sge/opengl/state/core/sampler/object_fwd.hpp>
+#include <sge/opengl/texture/binding.hpp>
 #include <sge/renderer/state/core/sampler/object.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wweak-template-vtables)
+
+extern
+template
+class
+sge::opengl::state::unary_object<
+	sge::renderer::state::core::sampler::object,
+	sge::opengl::texture::binding
+>;
+
+FCPPT_PP_POP_WARNING
 
 #endif

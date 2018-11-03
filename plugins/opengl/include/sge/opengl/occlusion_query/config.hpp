@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/occlusion_query/config_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -36,9 +35,6 @@ namespace occlusion_query
 
 class config
 {
-	FCPPT_NONASSIGNABLE(
-		config
-	);
 public:
 	typedef
 	sge::opengl::fun_ref<
@@ -127,11 +123,11 @@ private:
 
 	gl_get_query_object_uiv get_query_object_uiv_;
 
-	GLenum const samples_target_;
+	GLenum samples_target_;
 
-	GLenum const query_result_available_;
+	GLenum query_result_available_;
 
-	GLenum const query_result_;
+	GLenum query_result_;
 };
 
 }

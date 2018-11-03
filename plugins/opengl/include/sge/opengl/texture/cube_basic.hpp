@@ -21,23 +21,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_CUBE_BASIC_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_CUBE_BASIC_HPP_INCLUDED
 
-#include <sge/opengl/texture/basic_fwd.hpp>
-#include <sge/opengl/texture/cube_types_fwd.hpp>
+#include <sge/opengl/texture/basic.hpp>
+#include <sge/opengl/texture/cube_basic_fwd.hpp>
+#include <sge/opengl/texture/cube_types.hpp>
+#include <sge/renderer/texture/cube.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wweak-template-vtables)
 
-typedef sge::opengl::texture::basic<
+extern
+template
+class
+sge::opengl::texture::basic<
 	sge::opengl::texture::cube_types
-> cube_basic;
+>;
 
-}
-}
-}
+FCPPT_PP_POP_WARNING
 
 #endif

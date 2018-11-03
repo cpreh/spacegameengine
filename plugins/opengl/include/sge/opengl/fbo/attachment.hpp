@@ -41,7 +41,7 @@ protected:
 	attachment();
 public:
 	virtual
-	~attachment() = 0;
+	~attachment();
 };
 
 }

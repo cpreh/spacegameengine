@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/texture/check_dim.hpp>
-#include <sge/opengl/texture/instantiate_dim.hpp>
+#include <sge/opengl/texture/pp_dims.hpp>
 #include <sge/opengl/texture/warn_min.hpp>
 #include <sge/opengl/texture/warn_pow2.hpp>
 #include <sge/renderer/basic_dim.hpp>
@@ -27,6 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/string.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/size_type.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -57,6 +60,8 @@ sge::opengl::texture::check_dim(
 }
 
 #define SGE_OPENGL_TEXTURE_INSTANTIATE_CHECK_DIM(\
+	seq,\
+	_,\
 	dimension\
 )\
 template \
@@ -70,8 +75,10 @@ sge::opengl::texture::check_dim<\
 	> const &, \
 	sge::renderer::size_type, \
 	fcppt::string const & \
-)
-
-SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(
-	SGE_OPENGL_TEXTURE_INSTANTIATE_CHECK_DIM
 );
+
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_OPENGL_TEXTURE_INSTANTIATE_CHECK_DIM,
+	_,
+	SGE_OPENGL_TEXTURE_PP_DIMS
+)
