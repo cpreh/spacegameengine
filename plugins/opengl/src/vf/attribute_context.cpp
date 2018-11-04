@@ -33,6 +33,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/attribute_config.hpp>
 #include <sge/opengl/vf/attribute_context.hpp>
 #include <sge/opengl/vf/optional_attribute_config.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 sge::opengl::vf::attribute_context::attribute_context(
@@ -138,7 +141,12 @@ sge::opengl::vf::attribute_context::config() const
 		config_;
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
+
 sge::opengl::context::id const
 sge::opengl::vf::attribute_context::static_id(
 	sge::opengl::context::make_id()
 );
+
+FCPPT_PP_POP_WARNING

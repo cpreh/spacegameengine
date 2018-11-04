@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/vf/attribute_config_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -36,9 +35,6 @@ namespace vf
 
 class attribute_config
 {
-	FCPPT_NONASSIGNABLE(
-		attribute_config
-	);
 public:
 	typedef
 	sge::opengl::fun_ref<

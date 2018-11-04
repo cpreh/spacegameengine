@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/console/muxing.hpp>
-#include <sge/console/muxing_streambuf.hpp>
+#include <sge/console/muxing_fcppt_streambuf.hpp>
 #include <sge/console/object.hpp>
 #include <sge/console/prefix.hpp>
 #include <sge/console/gfx/font_color.hpp>
@@ -156,7 +156,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/either/match.hpp>
 #include <fcppt/enum/make_range.hpp>
 #include <fcppt/io/cout.hpp>
-#include <fcppt/io/ostream.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/box/null.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -592,10 +591,7 @@ input_main(
 		)
 	);
 
-	sge::console::muxing_streambuf<
-		fcppt::io::ostream::char_type,
-		fcppt::io::ostream::traits_type
-	> muxing_streambuf(
+	sge::console::muxing_fcppt_streambuf muxing_streambuf(
 		fcppt::io::cout(),
 		console,
 		sge::console::muxing::enabled

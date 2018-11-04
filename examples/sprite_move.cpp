@@ -338,7 +338,8 @@ try
 					)
 				);
 				break;
-			default:
+			case sge::input::mouse::axis_code::wheel:
+			case sge::input::mouse::axis_code::unknown:
 				break;
 			}
 		}

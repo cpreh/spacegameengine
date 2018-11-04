@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wave/loader.hpp>
 #include <sge/wave/read_info.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/log/context_fwd.hpp>
@@ -48,9 +49,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 
-sge::media::extension const extension(
-	FCPPT_TEXT("wav")
-);
+sge::media::extension
+extension()
+{
+	return
+		sge::media::extension{
+			fcppt::string{
+				FCPPT_TEXT("wav")
+			}
+		};
+}
 
 }
 
@@ -84,7 +92,7 @@ sge::wave::loader::load_stream(
 {
 	return
 		sge::media::check_extension(
-			extension,
+			extension(),
 			_extension
 		)
 		?
@@ -145,6 +153,6 @@ sge::wave::loader::extensions() const
 {
 	return
 		sge::media::extension_set{
-			extension
+			extension()
 		};
 }

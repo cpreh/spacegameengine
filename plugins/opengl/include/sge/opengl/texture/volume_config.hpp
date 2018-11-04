@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/volume_config_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -37,9 +36,6 @@ namespace texture
 
 class volume_config
 {
-	FCPPT_NONASSIGNABLE(
-		volume_config
-	);
 public:
 	typedef
 	sge::opengl::fun_ref<
@@ -72,13 +68,13 @@ public:
 	GLenum
 	max_extent_flag() const;
 private:
-	sge::opengl::texture::type const volume_texture_type_;
+	sge::opengl::texture::type volume_texture_type_;
 
 	gl_tex_image_3d tex_image_3d_;
 
 	gl_tex_sub_image_3d tex_sub_image_3d_;
 
-	GLenum const max_extent_flag_;
+	GLenum max_extent_flag_;
 };
 
 }

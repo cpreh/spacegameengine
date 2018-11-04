@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/texture/multi_config_fwd.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -37,9 +36,6 @@ namespace texture
 
 class multi_config
 {
-	FCPPT_NONASSIGNABLE(
-		multi_config
-	);
 public:
 	typedef
 	sge::opengl::fun_ref<
@@ -78,7 +74,7 @@ private:
 
 	gl_client_active_texture client_active_texture_;
 
-	sge::renderer::caps::texture_stages const max_level_;
+	sge::renderer::caps::texture_stages max_level_;
 };
 
 }

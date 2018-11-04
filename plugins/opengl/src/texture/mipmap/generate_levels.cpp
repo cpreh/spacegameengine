@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/opengl/texture/instantiate_dim.hpp>
+#include <sge/opengl/texture/pp_dims.hpp>
 #include <sge/opengl/texture/mipmap/generate_levels.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
 #include <sge/renderer/basic_dim.hpp>
@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/init.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
@@ -172,6 +173,8 @@ reduce_dim(
 
 
 #define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_GENERATE_LEVELS(\
+	seq,\
+	_,\
 	dimension\
 )\
 template \
@@ -183,8 +186,10 @@ sge::opengl::texture::mipmap::generate_levels<\
 		dimension\
 	> const &,\
 	sge::renderer::texture::mipmap::level_count\
-)
-
-SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(
-	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_GENERATE_LEVELS
 );
+
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_GENERATE_LEVELS,
+	_,
+	SGE_OPENGL_TEXTURE_PP_DIMS
+)

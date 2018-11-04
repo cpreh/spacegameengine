@@ -19,7 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/opengl/texture/instantiate_dim.hpp>
+#include <sge/opengl/texture/pp_dims.hpp>
 #include <sge/opengl/texture/mipmap/all_levels.hpp>
 #include <sge/opengl/texture/mipmap/auto_generate.hpp>
 #include <sge/opengl/texture/mipmap/generate_levels.hpp>
@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
 #include <limits>
 #include <fcppt/config/external_end.hpp>
 
@@ -69,6 +70,8 @@ sge::opengl::texture::mipmap::all_levels(
 }
 
 #define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_ALL_LEVELS(\
+	seq,\
+	_,\
 	dimension\
 )\
 template \
@@ -82,8 +85,10 @@ sge::opengl::texture::mipmap::all_levels<\
 		dimension\
 	> const &,\
 	sge::renderer::texture::mipmap::all_levels_rep const &\
-)
-
-SGE_OPENGL_TEXTURE_INSTANTIATE_DIM(
-	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_ALL_LEVELS
 );
+
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_ALL_LEVELS,
+	_,
+	SGE_OPENGL_TEXTURE_PP_DIMS
+)

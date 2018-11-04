@@ -37,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/graph/object.hpp>
 #include <sge/graph/optional_axis_constraint.hpp>
 #include <sge/graph/position.hpp>
+#include <sge/graph/scalar.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image2d/file.hpp>
@@ -137,6 +138,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/vector/fill.hpp>
 #include <fcppt/math/vector/length.hpp>
@@ -714,7 +716,11 @@ try
 			);
 
 			graph.push(
-				cursor_speed.current_speed()
+				fcppt::cast::size<
+					sge::graph::scalar
+				>(
+					cursor_speed.current_speed()
+				)
 			);
 
 			sound_siren->pitch(

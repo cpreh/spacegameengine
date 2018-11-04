@@ -29,6 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/out.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/warning.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 sge::libpng::error_context::error_context(
@@ -62,6 +65,9 @@ sge::libpng::error_context::handle_warning(
 	);
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wmissing-noreturn)
+
 void
 sge::libpng::error_context::handle_error(
 	png_structp const _read_ptr,
@@ -74,6 +80,8 @@ sge::libpng::error_context::handle_error(
 		_data
 	);
 }
+
+FCPPT_PP_POP_WARNING
 
 void
 sge::libpng::error_context::handle_warning_impl(

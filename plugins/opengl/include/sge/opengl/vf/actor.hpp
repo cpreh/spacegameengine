@@ -61,7 +61,7 @@ public:
 	) const = 0;
 
 	virtual
-	~actor() = 0;
+	~actor();
 };
 
 }

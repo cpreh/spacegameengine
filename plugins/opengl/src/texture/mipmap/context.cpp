@@ -32,6 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/info/version_at_least.hpp>
 #include <sge/opengl/texture/mipmap/context.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 sge::opengl::texture::mipmap::context::context(
@@ -106,7 +109,12 @@ sge::opengl::texture::mipmap::context::generate_mipmap() const
 		generate_mipmap_;
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
+
 sge::opengl::context::id const
 sge::opengl::texture::mipmap::context::static_id(
 	sge::opengl::context::make_id()
 );
+
+FCPPT_PP_POP_WARNING

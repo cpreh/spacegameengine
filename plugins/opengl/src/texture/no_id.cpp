@@ -20,10 +20,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/no_id.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
 
 sge::opengl::texture::id
 const
 sge::opengl::texture::no_id{
 	0u
 };
+
+FCPPT_PP_POP_WARNING

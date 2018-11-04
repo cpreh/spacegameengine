@@ -5,6 +5,7 @@ set(
 	libs/charconv/include/sge/charconv/conversion_failed.hpp
 	libs/charconv/include/sge/charconv/convert.hpp
 	libs/charconv/include/sge/charconv/detail/char_type.hpp
+	libs/charconv/include/sge/charconv/detail/pp_encodings.hpp
 	libs/charconv/include/sge/charconv/encoding.hpp
 	libs/charconv/include/sge/charconv/encoding_fwd.hpp
 	libs/charconv/include/sge/charconv/encoding_to_string.hpp

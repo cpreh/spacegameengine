@@ -165,9 +165,14 @@ sge::opengl::vf::client_state::attribute_states() const
 namespace
 {
 
-fcppt::string const common_error(
-	FCPPT_TEXT(" This usually happens if you forget to call renderer::device::unset_vertex_buffer() before setting a new one.")
-);
+fcppt::string
+common_error()
+{
+	return
+		fcppt::string{
+			FCPPT_TEXT(" This usually happens if you forget to call renderer::device::unset_vertex_buffer() before setting a new one.")
+		};
+}
 
 template<
 	typename Set
@@ -187,8 +192,10 @@ insert_checked(
 		FCPPT_LOG_ERROR(
 			_log,
 			fcppt::log::out
-				<< FCPPT_TEXT("Duplicate state inserted in opengl::vf!")
-				<< common_error
+				<<
+				FCPPT_TEXT("Duplicate state inserted in opengl::vf!")
+				<<
+				common_error()
 		);
 }
 
@@ -210,8 +217,10 @@ erase_checked(
 		FCPPT_LOG_ERROR(
 			_log,
 			fcppt::log::out
-				<< FCPPT_TEXT("State erased in opengl::vf that was not there!")
-				<< common_error
+				<<
+				FCPPT_TEXT("State erased in opengl::vf that was not there!")
+				<<
+				common_error()
 		);
 }
 

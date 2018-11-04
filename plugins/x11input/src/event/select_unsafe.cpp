@@ -74,7 +74,7 @@ FCPPT_PP_POP_WARNING
 	);
 
 	for(
-		sge::x11input::event::type const event
+		sge::x11input::event::type const &event
 		:
 		_types
 	)

@@ -21,9 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_INPUT_MOUSE_BUTTON_INFO_CONTAINER_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_BUTTON_INFO_CONTAINER_HPP_INCLUDED
 
-#include <sge/input/info/container.hpp>
+#include <sge/input/info/detail/declare_container.hpp>
+#include <sge/input/mouse/button_id.hpp>
 #include <sge/input/mouse/button_info.hpp>
 #include <sge/input/mouse/button_info_container_fwd.hpp>
 
+
+SGE_INPUT_INFO_DETAIL_DECLARE_CONTAINER(
+	sge::input::mouse::button_id,
+	sge::input::mouse::button_info
+);
 
 #endif

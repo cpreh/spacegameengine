@@ -491,6 +491,7 @@ set(
 	plugins/opengl/include/sge/opengl/texture/create_volume.hpp
 	plugins/opengl/include/sge/opengl/texture/cube.hpp
 	plugins/opengl/include/sge/opengl/texture/cube_basic.hpp
+	plugins/opengl/include/sge/opengl/texture/cube_basic_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/cube_config.hpp
 	plugins/opengl/include/sge/opengl/texture/cube_config_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/cube_context.hpp
@@ -501,6 +502,7 @@ set(
 	plugins/opengl/include/sge/opengl/texture/cube_types_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/depth_stencil.hpp
 	plugins/opengl/include/sge/opengl/texture/depth_stencil_basic.hpp
+	plugins/opengl/include/sge/opengl/texture/depth_stencil_basic_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/depth_stencil_format_types.hpp
 	plugins/opengl/include/sge/opengl/texture/depth_stencil_format_types_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/depth_stencil_fwd.hpp
@@ -539,7 +541,6 @@ set(
 	plugins/opengl/include/sge/opengl/texture/id.hpp
 	plugins/opengl/include/sge/opengl/texture/init.hpp
 	plugins/opengl/include/sge/opengl/texture/init_function.hpp
-	plugins/opengl/include/sge/opengl/texture/instantiate_dim.hpp
 	plugins/opengl/include/sge/opengl/texture/is_render_target.hpp
 	plugins/opengl/include/sge/opengl/texture/lock_base.hpp
 	plugins/opengl/include/sge/opengl/texture/lock_base_fwd.hpp
@@ -573,9 +574,11 @@ set(
 	plugins/opengl/include/sge/opengl/texture/optional_volume_config_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/planar.hpp
 	plugins/opengl/include/sge/opengl/texture/planar_basic.hpp
+	plugins/opengl/include/sge/opengl/texture/planar_basic_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/planar_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/planar_types.hpp
 	plugins/opengl/include/sge/opengl/texture/planar_types_fwd.hpp
+	plugins/opengl/include/sge/opengl/texture/pp_dims.hpp
 	plugins/opengl/include/sge/opengl/texture/readonly_lock.hpp
 	plugins/opengl/include/sge/opengl/texture/readwrite_lock.hpp
 	plugins/opengl/include/sge/opengl/texture/render_binding.hpp
@@ -591,6 +594,7 @@ set(
 	plugins/opengl/include/sge/opengl/texture/type.hpp
 	plugins/opengl/include/sge/opengl/texture/volume.hpp
 	plugins/opengl/include/sge/opengl/texture/volume_basic.hpp
+	plugins/opengl/include/sge/opengl/texture/volume_basic_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/volume_config.hpp
 	plugins/opengl/include/sge/opengl/texture/volume_config_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/volume_context.hpp

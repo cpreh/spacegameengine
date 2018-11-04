@@ -29,7 +29,7 @@ namespace sge
 namespace libpng
 {
 
-sge::media::extension const &
+sge::media::extension
 extension();
 
 }

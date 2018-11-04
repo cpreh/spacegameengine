@@ -100,7 +100,7 @@ sge::opengl::texture::mipmap::create<\
 		dimension \
 	> const &, \
 	sge::renderer::texture::mipmap::object const &\
-)
+);
 
 BOOST_PP_SEQ_FOR_EACH(
 	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_CREATE,

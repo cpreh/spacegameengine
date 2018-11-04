@@ -21,25 +21,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_DEPTH_STENCIL_BASIC_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_DEPTH_STENCIL_BASIC_HPP_INCLUDED
 
-#include <sge/opengl/texture/basic_box_fwd.hpp>
-#include <sge/opengl/texture/depth_stencil_types_fwd.hpp>
+#include <sge/opengl/texture/basic.hpp>
+#include <sge/opengl/texture/basic_box.hpp>
+#include <sge/opengl/texture/depth_stencil_basic_fwd.hpp>
+#include <sge/opengl/texture/depth_stencil_surface_types.hpp>
+#include <sge/opengl/texture/depth_stencil_types.hpp>
+#include <sge/renderer/texture/depth_stencil.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wweak-template-vtables)
 
-typedef
+extern
+template
+class
+sge::opengl::texture::basic<
+	sge::opengl::texture::depth_stencil_types
+>;
+
+extern
+template
+class
 sge::opengl::texture::basic_box<
 	sge::opengl::texture::depth_stencil_types
->
-depth_stencil_basic;
+>;
 
-}
-}
-}
+FCPPT_PP_POP_WARNING
 
 #endif

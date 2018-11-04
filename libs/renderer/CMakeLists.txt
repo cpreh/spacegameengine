@@ -667,6 +667,7 @@ set(
 	libs/renderer/include/sge/renderer/state/ffp/sampler/parameters.hpp
 	libs/renderer/include/sge/renderer/state/ffp/sampler/parameters_both.hpp
 	libs/renderer/include/sge/renderer/state/ffp/sampler/parameters_fwd.hpp
+	libs/renderer/include/sge/renderer/state/ffp/sampler/pp_arg_types.hpp
 	libs/renderer/include/sge/renderer/state/ffp/sampler/scoped.hpp
 	libs/renderer/include/sge/renderer/state/ffp/sampler/scoped_fwd.hpp
 	libs/renderer/include/sge/renderer/state/ffp/sampler/scoped_unique_ptr.hpp

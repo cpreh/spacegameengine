@@ -23,7 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/glx/visual/rgb_triple_fwd.hpp>
 #include <fcppt/make_strong_typedef.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -38,9 +37,6 @@ namespace visual
 
 class rgb_triple
 {
-	FCPPT_NONASSIGNABLE(
-		rgb_triple
-	);
 public:
 	FCPPT_MAKE_STRONG_TYPEDEF(
 		int,
@@ -72,11 +68,11 @@ public:
 	sge::opengl::glx::visual::rgb_triple::blue_bits
 	blue() const;
 private:
-	sge::opengl::glx::visual::rgb_triple::red_bits const red_;
+	sge::opengl::glx::visual::rgb_triple::red_bits red_;
 
-	sge::opengl::glx::visual::rgb_triple::green_bits const green_;
+	sge::opengl::glx::visual::rgb_triple::green_bits green_;
 
-	sge::opengl::glx::visual::rgb_triple::blue_bits const blue_;
+	sge::opengl::glx::visual::rgb_triple::blue_bits blue_;
 };
 
 }

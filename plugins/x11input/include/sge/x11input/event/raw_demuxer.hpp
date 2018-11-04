@@ -23,6 +23,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/x11input/event/demuxer_decl.hpp>
 #include <sge/x11input/event/raw_demuxer_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <X11/extensions/XInput2.h>
+#include <fcppt/config/external_end.hpp>
 
+
+extern
+template
+class
+sge::x11input::event::demuxer<
+	XIRawEvent
+>;
 
 #endif

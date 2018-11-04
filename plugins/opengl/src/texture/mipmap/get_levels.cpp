@@ -109,7 +109,7 @@ sge::opengl::texture::mipmap::get_levels<\
 	sge::renderer::basic_dim<\
 		dimension\
 	> const &\
-)
+);
 
 BOOST_PP_SEQ_FOR_EACH(
 	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_GET_LEVELS,

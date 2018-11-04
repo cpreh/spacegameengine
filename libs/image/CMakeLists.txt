@@ -92,6 +92,7 @@ set(
 	libs/image/include/sge/image/algorithm/compare.hpp
 	libs/image/include/sge/image/algorithm/copy.hpp
 	libs/image/include/sge/image/algorithm/copy_and_convert.hpp
+	libs/image/include/sge/image/algorithm/declare_copy.hpp
 	libs/image/include/sge/image/algorithm/fill.hpp
 	libs/image/include/sge/image/algorithm/may_overlap.hpp
 	libs/image/include/sge/image/algorithm/may_overlap_fwd.hpp
@@ -180,6 +181,7 @@ set(
 	libs/image/include/sge/image/view/const_object_fwd.hpp
 	libs/image/include/sge/image/view/data.hpp
 	libs/image/include/sge/image/view/declare_const_object.hpp
+	libs/image/include/sge/image/view/declare_flipped.hpp
 	libs/image/include/sge/image/view/declare_format.hpp
 	libs/image/include/sge/image/view/declare_make.hpp
 	libs/image/include/sge/image/view/declare_object.hpp

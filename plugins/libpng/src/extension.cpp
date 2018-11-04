@@ -20,21 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/libpng/extension.hpp>
 #include <sge/media/extension.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
 
-namespace
-{
-
-sge::media::extension const supported_extension(
-	FCPPT_TEXT("png")
-);
-
-}
-
-sge::media::extension const &
+sge::media::extension
 sge::libpng::extension()
 {
 	return
-		supported_extension;
+		sge::media::extension{
+			fcppt::string{
+				FCPPT_TEXT("png")
+			}
+		};
 }

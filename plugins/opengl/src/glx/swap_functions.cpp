@@ -40,6 +40,7 @@ sge::opengl::glx::swap_functions::swap_functions(
 				sge::opengl::glx::raw_function_ref const _func
 			)
 			{
+				// FIXME
 				return
 					fcppt::make_ref(
 						reinterpret_cast<
@@ -61,6 +62,7 @@ sge::opengl::glx::swap_functions::swap_functions(
 				sge::opengl::glx::raw_function_ref const _func
 			)
 			{
+				// FIXME
 				return
 					fcppt::make_ref(
 						reinterpret_cast<

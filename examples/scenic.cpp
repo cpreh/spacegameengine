@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/config/media_path.hpp>
 #include <sge/graph/color_schemes.hpp>
 #include <sge/graph/object.hpp>
+#include <sge/graph/scalar.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/input/event_base.hpp>
@@ -106,6 +107,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/dynamic.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/either/match.hpp>
 #include <fcppt/math/matrix/output.hpp>
 #include <fcppt/math/vector/output.hpp>
@@ -487,14 +489,26 @@ main_program(
 		},
 		sys.renderer_device_ffp(),
 		sge::graph::baseline{
-			1.0f
-			/
-			30.0f
+			fcppt::literal<
+				sge::graph::scalar
+			>(
+				1.f
+				/
+				30.f
+			)
 		},
 		sge::graph::optional_axis_constraint{
 			sge::graph::axis_constraint{
-				0.0f,
-				0.1f
+				fcppt::literal<
+					sge::graph::scalar
+				>(
+					0.f
+				),
+				fcppt::literal<
+					sge::graph::scalar
+				>(
+					0.1f
+				)
 			}
 		},
 		sge::graph::color_schemes::default_()
@@ -535,7 +549,11 @@ main_program(
 			);
 
 			graph.push(
-				difference_since_last_frame.count()
+				fcppt::cast::size<
+					sge::graph::scalar
+				>(
+					difference_since_last_frame.count()
+				)
 			);
 
 			fcppt::optional::maybe_void(

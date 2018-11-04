@@ -18,71 +18,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_LIBPNG_ERROR_CONTEXT_HPP_INCLUDED
-#define SGE_LIBPNG_ERROR_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_TEXTURE_PLANAR_BASIC_FWD_HPP_INCLUDED
+#define SGE_OPENGL_TEXTURE_PLANAR_BASIC_FWD_HPP_INCLUDED
 
-#include <sge/libpng/error_context_fwd.hpp>
-#include <sge/libpng/png.hpp>
-#include <sge/media/optional_name.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
-#include <fcppt/optional/object.hpp>
+#include <sge/opengl/texture/basic_box_fwd.hpp>
+#include <sge/opengl/texture/planar_types_fwd.hpp>
 
 
 namespace sge
 {
-namespace libpng
+namespace opengl
+{
+namespace texture
 {
 
-class error_context
-{
-	FCPPT_NONCOPYABLE(
-		error_context
-	);
-public:
-	error_context(
-		fcppt::log::object &,
-		sge::media::optional_name const &
-	);
+typedef
+sge::opengl::texture::basic_box<
+	sge::opengl::texture::planar_types
+>
+planar_basic;
 
-	~error_context();
-
-	static
-	void
-	handle_warning(
-		png_structp,
-		png_const_charp
-	);
-
-	static
-	void
-	handle_error(
-		png_structp,
-		png_const_charp
-	);
-private:
-	fcppt::log::object &log_;
-
-	sge::media::optional_name const name_;
-
-	void
-	handle_warning_impl(
-		png_const_charp
-	);
-
-	[[noreturn]]
-	void
-	handle_error_impl(
-		png_const_charp
-	);
-
-	static
-	error_context &
-	get_instance(
-		png_structp
-	);
-};
-
+}
 }
 }
 
