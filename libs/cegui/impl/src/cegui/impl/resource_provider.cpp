@@ -238,9 +238,6 @@ sge::cegui::impl::resource_provider::getResourceGroupFileNames(
 	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
 		FCPPT_TEXT("resource_provider::getResourceGroupFilenames not implemented yet!")
 	);
-
-	return
-		0u;
 }
 
 sge::cegui::impl::resource_provider::~resource_provider()

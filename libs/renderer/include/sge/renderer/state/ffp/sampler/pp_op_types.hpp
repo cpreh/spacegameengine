@@ -18,21 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_STATE_FFP_SAMPLER_INSTANTIATE_OP_TYPE_HPP_INCLUDED
-#define SGE_OPENGL_STATE_FFP_SAMPLER_INSTANTIATE_OP_TYPE_HPP_INCLUDED
+#ifndef SGE_RENDERER_STATE_FFP_SAMPLER_PP_OP_TYPES_HPP_INCLUDED
+#define SGE_RENDERER_STATE_FFP_SAMPLER_PP_OP_TYPES_HPP_INCLUDED
 
-#include <sge/renderer/state/ffp/sampler/alpha_op_fwd.hpp>
-#include <sge/renderer/state/ffp/sampler/color_op_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/alpha_op.hpp>
+#include <sge/renderer/state/ffp/sampler/color_op.hpp>
 
 
-#define SGE_OPENGL_STATE_FFP_SAMPLER_INSTANTIATE_OP_TYPE(\
-	macro\
-)\
-macro(\
-	sge::renderer::state::ffp::sampler::alpha_op \
-);\
-macro(\
-	sge::renderer::state::ffp::sampler::color_op\
-)
+#define SGE_RENDERER_STATE_FFP_SAMPLER_PP_OP_TYPES \
+	(alpha_op) \
+	(color_op)
 
 #endif

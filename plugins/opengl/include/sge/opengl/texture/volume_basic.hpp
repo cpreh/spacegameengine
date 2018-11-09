@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/volume_basic_fwd.hpp>
 #include <sge/opengl/texture/volume_types.hpp>
 #include <sge/renderer/texture/basic_lockable_box.hpp>
+#include <sge/renderer/texture/volume.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

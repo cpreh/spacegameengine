@@ -372,7 +372,6 @@ set(
 	plugins/opengl/include/sge/opengl/state/ffp/sampler/context.hpp
 	plugins/opengl/include/sge/opengl/state/ffp/sampler/create.hpp
 	plugins/opengl/include/sge/opengl/state/ffp/sampler/default_context.hpp
-	plugins/opengl/include/sge/opengl/state/ffp/sampler/instantiate_op_type.hpp
 	plugins/opengl/include/sge/opengl/state/ffp/sampler/make_actors.hpp
 	plugins/opengl/include/sge/opengl/state/ffp/sampler/make_one_op.hpp
 	plugins/opengl/include/sge/opengl/state/ffp/sampler/object.hpp

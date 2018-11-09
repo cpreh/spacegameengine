@@ -23,9 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/state/convert/sampler_arg_type.hpp>
 #include <sge/opengl/state/convert/sampler_color_arg_type.hpp>
 #include <sge/renderer/state/ffp/sampler/alpha_op_fwd.hpp>
-#include <sge/renderer/state/ffp/sampler/arg1.hpp>
-#include <sge/renderer/state/ffp/sampler/arg2.hpp>
-#include <sge/renderer/state/ffp/sampler/arg3.hpp>
 #include <sge/renderer/state/ffp/sampler/color_op_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>

@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/cube_config_fwd.hpp>
 #include <sge/opengl/texture/cube_side_array.hpp>
 #include <sge/opengl/texture/type.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -36,9 +35,6 @@ namespace texture
 
 class cube_config
 {
-	FCPPT_NONASSIGNABLE(
-		cube_config
-	);
 public:
 	cube_config(
 		sge::opengl::texture::type,
@@ -51,9 +47,9 @@ public:
 	sge::opengl::texture::cube_side_array const &
 	cube_sides() const;
 private:
-	sge::opengl::texture::type const cube_texture_type_;
+	sge::opengl::texture::type cube_texture_type_;
 
-	sge::opengl::texture::cube_side_array const cube_sides_;
+	sge::opengl::texture::cube_side_array cube_sides_;
 };
 
 }
