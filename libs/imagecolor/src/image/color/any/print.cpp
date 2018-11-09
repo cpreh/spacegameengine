@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/image/color/tag.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/image/color/any/print.hpp>
 #include <sge/image/impl/pixel/instantiate_object_output.hpp>
 
 

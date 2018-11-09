@@ -130,6 +130,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/input.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -402,6 +403,9 @@ private:
 		sge::input::key::code const _key_code
 	)
 	{
+		FCPPT_PP_PUSH_WARNING
+		FCPPT_PP_DISABLE_CLANG_WARNING(-Wswitch-enum)
+
 		switch(
 			_key_code
 		)
@@ -436,6 +440,8 @@ private:
 					sge::projectile::vector2
 				>();
 		}
+
+		FCPPT_PP_POP_WARNING
 	}
 
 	static

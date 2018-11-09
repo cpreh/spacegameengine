@@ -30,5 +30,4 @@ SGE_PLUGIN_DECLARE_CONTEXT(
 	sge::audio::loader
 );
 
-
 #endif

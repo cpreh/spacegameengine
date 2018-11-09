@@ -226,20 +226,21 @@ add_sge_console_example(
 		${Boost_SYSTEM_LIBRARIES}
 )
 
-add_sge_console_example(
-	audio_minimal
-	SGE_DEPS
-		sgeaudio
-		sgeconfig
-		sgemedia_interface
-		sgelog
-		sgeplugin
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-		${fcppt_log_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
-)
+# FIXME
+#add_sge_console_example(
+#	audio_minimal
+#	SGE_DEPS
+#		sgeaudio
+#		sgeconfig
+#		sgemedia_interface
+#		sgelog
+#		sgeplugin
+#	ADDITIONAL_DEPS
+#		${fcppt_core_TARGET}
+#		${fcppt_log_TARGET}
+#		${Boost_FILESYSTEM_LIBRARIES}
+#		${Boost_SYSTEM_LIBRARIES}
+#)
 
 add_sge_example(
 	bitmapfont
@@ -261,19 +262,20 @@ add_sge_example(
 		${Boost_SYSTEM_LIBRARIES}
 )
 
-add_sge_console_example(
-	caps
-	SGE_DEPS
-		sgeconfig
-		sgelog
-		sgeplugin
-		sgerenderer
-		sgewindow
-	ADDITIONAL_DEPS
-		${awl_TARGET}
-		${fcppt_core_TARGET}
-		${fcppt_log_TARGET}
-)
+# FIXME
+#add_sge_console_example(
+#	caps
+#	SGE_DEPS
+#		sgeconfig
+#		sgelog
+#		sgeplugin
+#		sgerenderer
+#		sgewindow
+#	ADDITIONAL_DEPS
+#		${awl_TARGET}
+#		${fcppt_core_TARGET}
+#		${fcppt_log_TARGET}
+#)
 
 add_sge_console_example(
 	color_string_convert

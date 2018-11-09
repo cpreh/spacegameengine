@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/info_fwd.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/plugin/impl/context_base.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -51,14 +52,22 @@ template<
 sge::plugin::context<
 	Type
 >::context(
-	context const &_other
+	context const &
 )
-:
-	context_base_(
-		_other.context_base_
-	)
-{
-}
+= default;
+
+template<
+	typename Type
+>
+sge::plugin::context<
+	Type
+> &
+sge::plugin::context<
+	Type
+>::operator=(
+	context const &
+)
+= default;
 
 template<
 	typename Type
@@ -84,7 +93,7 @@ sge::plugin::context<
 		sge::plugin::object<
 			Type
 		>(
-			context_base_.load()
+			context_base_.get().load()
 		);
 }
 
@@ -97,7 +106,7 @@ sge::plugin::context<
 >::path() const
 {
 	return
-		context_base_.path();
+		context_base_.get().path();
 }
 
 template<
@@ -109,7 +118,7 @@ sge::plugin::context<
 >::info() const
 {
 	return
-		context_base_.info();
+		context_base_.get().info();
 }
 
 #endif

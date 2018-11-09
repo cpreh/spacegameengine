@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/bvh/bounding_box.hpp>
 #include <sge/bvh/empty_node.hpp>
 #include <sge/bvh/traits/box.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/to_array.hpp>
@@ -91,36 +90,6 @@ private:
 	fcppt::math::size_type axis_;
 };
 
-template<typename T>
-class less_than
-{
-FCPPT_NONASSIGNABLE(
-	less_than);
-public:
-	less_than(
-		T const &_comparable,
-		sge::bvh::detail::construct_median_cut_comparator const &_comparator)
-	:
-		comparable_(
-			_comparable),
-		comparator_(
-			_comparator)
-	{
-	}
-
-	bool
-	operator()(
-		T const &t) const
-	{
-		return
-			comparator_(
-				t,
-				comparable_);
-	}
-private:
-	T comparable_;
-	sge::bvh::detail::construct_median_cut_comparator const &comparator_;
-};
 }
 
 template<typename Traits>
@@ -196,9 +165,20 @@ construct_median_cut(
 	std::partition(
 		_leaves.begin(),
 		_leaves.end(),
-		sge::bvh::detail::less_than<typename Traits::leaf_wrapper>(
+		[
 			median,
-			comparator));
+			&comparator
+		](
+			typename Traits::leaf_wrapper const &_value
+		)
+		{
+			return
+				comparator(
+					_value,
+					median
+				);
+		}
+	);
 
 	/*
 	typename Traits::leaf_wrapper_sequence left_side,right_side;

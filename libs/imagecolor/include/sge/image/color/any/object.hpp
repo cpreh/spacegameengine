@@ -32,5 +32,4 @@ SGE_IMAGE_PIXEL_DECLARE_OBJECT(
 	sge::image::color::tag
 );
 
-
 #endif

@@ -120,6 +120,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/options/parse_help.hpp>
 #include <fcppt/options/result.hpp>
 #include <fcppt/options/result_of.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -445,6 +446,9 @@ public:
 				&tree,
 				&_event
 			]{
+				FCPPT_PP_PUSH_WARNING
+				FCPPT_PP_DISABLE_CLANG_WARNING(-Wswitch-enum)
+
 				switch(
 					_event.get().code()
 				)
@@ -468,6 +472,8 @@ public:
 						return
 							bvh_tree_traits::tree_representation::const_optional_ref{};
 				}
+
+				FCPPT_PP_POP_WARNING
 			}
 		);
 

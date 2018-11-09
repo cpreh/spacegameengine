@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/intrusive/range_fwd.hpp>
 #include <sge/sprite/intrusive/detail/list.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
@@ -44,10 +43,6 @@ template<
 >
 class range
 {
-	FCPPT_NONASSIGNABLE(
-		range
-	);
-
 	typedef
 	sge::sprite::intrusive::detail::list<
 		Choices
@@ -101,9 +96,9 @@ public:
 		Equal const &
 	) const;
 private:
-	reference const list_;
+	reference list_;
 
-	sge::sprite::count const size_;
+	sge::sprite::count size_;
 };
 
 }

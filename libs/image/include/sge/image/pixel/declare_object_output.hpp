@@ -18,15 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE_COLOR_ANY_PRINT_HPP_INCLUDED
-#define SGE_IMAGE_COLOR_ANY_PRINT_HPP_INCLUDED
+#ifndef SGE_IMAGE_PIXEL_DECLARE_OBJECT_OUTPUT_HPP_INCLUDED
+#define SGE_IMAGE_PIXEL_DECLARE_OBJECT_OUTPUT_HPP_INCLUDED
 
-#include <sge/image/color/tag.hpp>
-#include <sge/image/pixel/declare_object_output.hpp>
+#include <sge/image/detail/instantiate/symbol.hpp>
+#include <sge/image/pixel/object_fwd.hpp>
+#include <sge/image/pixel/object_output.hpp>
+#include <fcppt/io/ostream_fwd.hpp>
 
 
-SGE_IMAGE_PIXEL_DECLARE_OBJECT_OUTPUT(
-	sge::image::color::tag
-);
+#define SGE_IMAGE_PIXEL_DECLARE_OBJECT_OUTPUT(\
+	tag\
+)\
+extern \
+template \
+SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL \
+fcppt::io::ostream & \
+sge::image::pixel::operator<< < \
+	tag \
+>( \
+	fcppt::io::ostream &, \
+	sge::image::pixel::object< \
+		tag \
+	> const & \
+)
 
 #endif

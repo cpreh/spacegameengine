@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_OPENGL_BUFFER_BASE_HPP_INCLUDED
 #define SGE_RENDERER_OPENGL_BUFFER_BASE_HPP_INCLUDED
 
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/opengl/buffer/base_fwd.hpp>
 #include <sge/renderer/opengl/buffer/id.hpp>
 #include <sge/renderer/opengl/detail/symbol.hpp>
@@ -36,7 +37,7 @@ namespace opengl
 namespace buffer
 {
 
-class base
+class SGE_CORE_DETAIL_CLASS_SYMBOL base
 {
 	FCPPT_NONCOPYABLE(
 		base

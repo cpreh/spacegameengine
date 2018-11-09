@@ -34,6 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image2d/system_unique_ptr.hpp>
 #include <sge/image2d/algorithm/compare.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
+#include <sge/image2d/plugin/collection.hpp>
+#include <sge/image2d/plugin/context.hpp>
+#include <sge/image2d/plugin/iterator.hpp>
+#include <sge/image2d/plugin/manager.hpp>
 #include <sge/image2d/plugin/object.hpp>
 #include <sge/image2d/store/rgba8.hpp>
 #include <sge/image2d/view/const_object.hpp>

@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/plugin/info_fwd.hpp>
 #include <sge/plugin/object_fwd.hpp>
 #include <sge/plugin/detail/instantiate/symbol.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -42,9 +42,6 @@ template<
 >
 class context
 {
-	FCPPT_NONASSIGNABLE(
-		context
-	);
 public:
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	explicit
@@ -54,6 +51,12 @@ public:
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	context(
+		context const &
+	);
+
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
+	context &
+	operator=(
 		context const &
 	);
 
@@ -78,7 +81,9 @@ public:
 	sge::plugin::info const &
 	info() const;
 private:
-	sge::plugin::context_base &context_base_;
+	fcppt::reference<
+		sge::plugin::context_base
+	> context_base_;
 };
 
 }

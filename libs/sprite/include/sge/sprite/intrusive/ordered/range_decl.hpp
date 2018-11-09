@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/intrusive/ordered/iterator_fwd.hpp>
 #include <sge/sprite/intrusive/ordered/range_fwd.hpp>
 #include <sge/sprite/intrusive/ordered/detail/map.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
@@ -48,10 +47,6 @@ template<
 >
 class range
 {
-	FCPPT_NONASSIGNABLE(
-		range
-	);
-
 	typedef
 	sge::sprite::intrusive::ordered::detail::map<
 		Order,
@@ -103,9 +98,9 @@ public:
 		Equal const &
 	) const;
 private:
-	ordered_map_reference const ordered_map_;
+	ordered_map_reference ordered_map_;
 
-	sge::sprite::count const size_;
+	sge::sprite::count size_;
 };
 
 }

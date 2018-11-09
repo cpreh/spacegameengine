@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/console/callback/name.hpp>
 #include <sge/console/detail/symbol.hpp>
 #include <sge/font/string.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -39,9 +38,6 @@ namespace callback
 
 class parameters
 {
-	FCPPT_NONASSIGNABLE(
-		parameters
-	);
 public:
 	SGE_CONSOLE_DETAIL_SYMBOL
 	parameters(
@@ -77,9 +73,9 @@ public:
 	sge::console::long_description const &
 	long_description() const;
 private:
-	sge::console::callback::function const function_;
+	sge::console::callback::function function_;
 
-	sge::font::string const name_;
+	sge::font::string name_;
 
 	sge::console::short_description short_description_;
 

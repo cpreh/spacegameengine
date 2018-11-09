@@ -140,6 +140,7 @@ set(
 	libs/image/include/sge/image/pixel/convert.hpp
 	libs/image/include/sge/image/pixel/declare_convert.hpp
 	libs/image/include/sge/image/pixel/declare_object.hpp
+	libs/image/include/sge/image/pixel/declare_object_output.hpp
 	libs/image/include/sge/image/pixel/elements.hpp
 	libs/image/include/sge/image/pixel/mizuiro_type.hpp
 	libs/image/include/sge/image/pixel/mizuiro_type_fwd.hpp

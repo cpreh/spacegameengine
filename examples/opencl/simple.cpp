@@ -619,7 +619,7 @@ try
 			scoped_vb.value());
 
 		for(
-			auto const &vertex
+			auto const vertex
 			:
 			vertices
 		)

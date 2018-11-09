@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/texture/basic.hpp>
 #include <sge/opengl/texture/basic_box.hpp>
+#include <sge/opengl/texture/buffer_surface_types.hpp>
 #include <sge/opengl/texture/depth_stencil_basic_fwd.hpp>
 #include <sge/opengl/texture/depth_stencil_surface_types.hpp>
 #include <sge/opengl/texture/depth_stencil_types.hpp>
