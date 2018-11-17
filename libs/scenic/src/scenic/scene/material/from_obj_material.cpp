@@ -21,13 +21,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/scene/identifier.hpp>
 #include <sge/scenic/scene/material/ambient_color.hpp>
 #include <sge/scenic/scene/material/diffuse_color.hpp>
-#include <sge/scenic/scene/material/emissive_color.hpp>
 #include <sge/scenic/scene/material/diffuse_texture_path.hpp>
+#include <sge/scenic/scene/material/emissive_color.hpp>
 #include <sge/scenic/scene/material/from_obj_material.hpp>
+#include <sge/scenic/scene/material/object.hpp>
+#include <sge/scenic/scene/material/shininess.hpp>
 #include <sge/scenic/scene/material/specular_color.hpp>
 #include <sge/scenic/scene/material/specular_texture_path.hpp>
-#include <sge/scenic/scene/material/shininess.hpp>
-#include <sge/scenic/scene/material/object.hpp>
 
 
 sge::scenic::scene::material::object

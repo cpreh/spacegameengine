@@ -34,8 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/to_array.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/range/algorithm/max_element.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/range/algorithm/max_element.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

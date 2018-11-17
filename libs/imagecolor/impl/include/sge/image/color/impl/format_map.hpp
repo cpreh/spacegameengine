@@ -39,8 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/sbgra8_format.hpp>
 #include <sge/image/color/srgb8_format.hpp>
 #include <sge/image/color/srgba8_format.hpp>
-#include <sge/image/color/impl/make_format_pair.hpp>
 #include <sge/image/color/detail/pp_formats.hpp>
+#include <sge/image/color/impl/make_format_pair.hpp>
 #include <sge/image/impl/format_map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/for_each_i.hpp>

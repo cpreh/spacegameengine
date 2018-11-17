@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/image2d/exception.hpp>
 #include <sge/image2d/create_exn.hpp>
+#include <sge/image2d/exception.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/save_from_view.hpp>
 #include <sge/image2d/system_fwd.hpp>
