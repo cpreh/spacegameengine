@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/caps/light_indices.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -40,9 +40,6 @@ namespace render_context
 
 class parameters
 {
-	FCPPT_NONASSIGNABLE(
-		parameters
-	);
 public:
 	parameters(
 		IDirect3DDevice9 &,
@@ -71,17 +68,25 @@ public:
 	sge::d3d9::state::ffp::defaults const &
 	ffp_defaults() const;
 private:
-	IDirect3DDevice9 &device_;
+	fcppt::reference<
+		IDirect3DDevice9
+	> device_;
 
-	sge::renderer::target::base &target_;
+	fcppt::reference<
+		sge::renderer::target::base
+	> target_;
 
 	sge::renderer::caps::texture_stages const texture_stages_;
 
 	sge::renderer::caps::light_indices const light_indices_;
 
-	sge::d3d9::state::core::defaults const &core_defaults_;
+	fcppt::reference<
+		sge::d3d9::state::core::defaults const
+	> core_defaults_;
 
-	sge::d3d9::state::ffp::defaults const &ffp_defaults_;
+	fcppt::reference<
+		sge::d3d9::state::ffp::defaults const
+	> ffp_defaults_;
 };
 
 }

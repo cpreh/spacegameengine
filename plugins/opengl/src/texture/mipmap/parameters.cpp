@@ -82,7 +82,7 @@ sge::opengl::texture::mipmap::parameters<
 >::binding() const
 {
 	return
-		binding_;
+		binding_.get();
 }
 
 template<
@@ -109,7 +109,7 @@ sge::opengl::texture::mipmap::parameters<
 >::config() const
 {
 	return
-		config_;
+		config_.get();
 }
 
 template<

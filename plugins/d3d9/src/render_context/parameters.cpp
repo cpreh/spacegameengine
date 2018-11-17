@@ -60,35 +60,41 @@ sge::d3d9::render_context::parameters::parameters(
 IDirect3DDevice9 &
 sge::d3d9::render_context::parameters::device() const
 {
-	return device_;
+	return
+		device_.get();
 }
 
 sge::renderer::target::base &
 sge::d3d9::render_context::parameters::target() const
 {
-	return target_;
+	return
+		target_.get();
 }
 
 sge::renderer::caps::texture_stages const
 sge::d3d9::render_context::parameters::texture_stages() const
 {
-	return texture_stages_;
+	return
+		texture_stages_;
 }
 
 sge::renderer::caps::light_indices const
 sge::d3d9::render_context::parameters::light_indices() const
 {
-	return light_indices_;
+	return
+		light_indices_;
 }
 
 sge::d3d9::state::core::defaults const &
 sge::d3d9::render_context::parameters::core_defaults() const
 {
-	return core_defaults_;
+	return
+		core_defaults_.get();
 }
 
 sge::d3d9::state::ffp::defaults const &
 sge::d3d9::render_context::parameters::ffp_defaults() const
 {
-	return ffp_defaults_;
+	return
+		ffp_defaults_.get();
 }

@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/deref_texture.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/geometry/detail/fill_texture_level_impl.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/tag_type.hpp>
 
 
@@ -43,9 +43,6 @@ template<
 >
 class fill_texture_level
 {
-	FCPPT_NONASSIGNABLE(
-		fill_texture_level
-	);
 public:
 	typedef sge::sprite::object<
 		Choices
@@ -83,18 +80,20 @@ public:
 			level
 		>(
 			iterator_,
-			object_,
+			object_.get(),
 			sge::sprite::deref_texture(
-				object_. template texture_level<
+				object_.get(). template texture_level<
 					level::value
 				>()
 			)
 		);
 	}
 private:
-	Iterator const iterator_;
+	Iterator iterator_;
 
-	object const &object_;
+	fcppt::reference<
+		object const
+	> object_;
 };
 
 }

@@ -44,7 +44,7 @@ sge::d3d9::state::convert::light::visitor::operator()(
 ) const
 {
 	sge::d3d9::state::convert::light::directional(
-		object_,
+		object_.get(),
 		_directional
 	);
 }
@@ -55,7 +55,7 @@ sge::d3d9::state::convert::light::visitor::operator()(
 ) const
 {
 	sge::d3d9::state::convert::light::point(
-		object_,
+		object_.get(),
 		_point
 	);
 }
@@ -66,7 +66,7 @@ sge::d3d9::state::convert::light::visitor::operator()(
 ) const
 {
 	sge::d3d9::state::convert::light::spot(
-		object_,
+		object_.get(),
 		_spot
 	);
 }

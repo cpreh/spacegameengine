@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/media/detail/instantiate/symbol.hpp>
 #include <sge/plugin/collection.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/log/context_fwd.hpp>
 
 
@@ -39,9 +39,6 @@ template<
 >
 class muxer_parameters
 {
-	FCPPT_NONASSIGNABLE(
-		muxer_parameters
-	);
 public:
 	typedef
 	sge::plugin::collection<
@@ -68,11 +65,13 @@ public:
 	sge::media::optional_extension_set const &
 	extensions() const;
 private:
-	fcppt::log::context &log_context_;
+	fcppt::reference<
+		fcppt::log::context
+	> log_context_;
 
-	collection_type const collection_;
+	collection_type collection_;
 
-	sge::media::optional_extension_set const extensions_;
+	sge::media::optional_extension_set extensions_;
 };
 
 }

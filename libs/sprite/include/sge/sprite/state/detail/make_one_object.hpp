@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/state/render_device.hpp>
 #include <sge/sprite/state/detail/parameters_class.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/get.hpp>
@@ -51,9 +51,6 @@ template<
 >
 class make_one_object
 {
-	FCPPT_NONASSIGNABLE(
-		make_one_object
-	);
 public:
 	typedef
 	sge::sprite::state::render_device<
@@ -139,14 +136,14 @@ public:
 			state_for_role<
 				Role
 			>::make(
-				render_device_,
+				render_device_.get(),
 				fcppt::record::get<
 					typename
 					state_for_role<
 						Role
 					>::parameter_role
 				>(
-					parameters_
+					parameters_.get()
 				)
 			);
 	}
@@ -183,9 +180,13 @@ public:
 			>();
 	}
 private:
-	render_device &render_device_;
+	fcppt::reference<
+		render_device
+	> render_device_;
 
-	parameters_class const &parameters_;
+	fcppt::reference<
+		parameters_class const
+	> parameters_;
 };
 
 }

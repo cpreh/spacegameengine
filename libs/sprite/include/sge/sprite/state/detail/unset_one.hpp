@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/state/render_context.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/tag.hpp>
 #include <fcppt/record/get.hpp>
 
@@ -42,9 +42,6 @@ template<
 >
 class unset_one
 {
-	FCPPT_NONASSIGNABLE(
-		unset_one
-	);
 public:
 	typedef
 	sge::sprite::state::detail::options_class<
@@ -88,17 +85,21 @@ public:
 			fcppt::record::get<
 				typename Type::role
 			>(
-				options_
+				options_.get()
 			)
 		)
 			Type::unset(
-				render_context_
+				render_context_.get()
 			);
 	}
 private:
-	render_context &render_context_;
+	fcppt::reference<
+		render_context
+	> render_context_;
 
-	options_class const &options_;
+	fcppt::reference<
+		options_class const
+	> options_;
 };
 
 }

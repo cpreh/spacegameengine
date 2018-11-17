@@ -92,21 +92,21 @@ fcppt::log::object &
 sge::opengl::texture::basic_buffer_parameters::log() const
 {
 	return
-		log_;
+		log_.get();
 }
 
 sge::opengl::texture::binding const &
 sge::opengl::texture::basic_buffer_parameters::binding() const
 {
 	return
-		binding_;
+		binding_.get();
 }
 
 sge::opengl::context::object &
 sge::opengl::texture::basic_buffer_parameters::context() const
 {
 	return
-		context_;
+		context_.get();
 }
 
 sge::renderer::texture::mipmap::level

@@ -25,8 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/state/render_device.hpp>
 #include <sge/sprite/state/detail/object_class.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/not.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/tag.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/record/get.hpp>
@@ -51,9 +51,6 @@ template<
 >
 class set_one
 {
-	FCPPT_NONASSIGNABLE(
-		set_one
-	);
 public:
 	typedef
 	sge::sprite::state::detail::object_class<
@@ -124,18 +121,18 @@ public:
 				typename
 				Type::role
 			>(
-				options_
+				options_.get()
 			)
 		)
 			return;
 
 		Type::set(
-			render_context_,
+			render_context_.get(),
 			*fcppt::record::get<
 				typename
 				Type::role
 			>(
-				objects_
+				objects_.get()
 			)
 		);
 	}
@@ -160,7 +157,7 @@ public:
 				typename
 				Type::role
 			>(
-				options_
+				options_.get()
 			)
 		)
 			return;
@@ -172,15 +169,15 @@ public:
 			typename
 			Type::role
 		>(
-			objects_,
+			objects_.get(),
 			Type::make(
-				render_device_,
-				render_context_,
+				render_device_.get(),
+				render_context_.get(),
 				fcppt::record::get<
 					typename
 					Type::option_role
 				>(
-					options_
+					options_.get()
 				)
 			)
 		);
@@ -190,7 +187,7 @@ public:
 				typename
 				Type::role
 			>(
-				objects_
+				objects_.get()
 			),
 			[
 				this
@@ -200,20 +197,28 @@ public:
 			)
 			{
 				Type::set(
-					render_context_,
+					render_context_.get(),
 					*_state
 				);
 			}
 		);
 	}
 private:
-	render_device &render_device_;
+	fcppt::reference<
+		render_device
+	> render_device_;
 
-	render_context &render_context_;
+	fcppt::reference<
+		render_context
+	> render_context_;
 
-	options_class const &options_;
+	fcppt::reference<
+		options_class const
+	> options_;
 
-	object_class &objects_;
+	fcppt::reference<
+		object_class
+	> objects_;
 };
 
 }

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/projectile/body/solidity/variant.hpp>
 #include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/shape/shared_base_ptr.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
 
@@ -44,9 +44,6 @@ namespace body
 
 class parameters
 {
-	FCPPT_NONASSIGNABLE(
-		parameters
-	);
 public:
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	parameters(
@@ -84,7 +81,9 @@ public:
 	sge::projectile::body::user_data const &
 	user_data() const;
 private:
-	fcppt::log::object &log_;
+	fcppt::reference<
+		fcppt::log::object
+	> log_;
 
 	sge::projectile::body::position position_;
 

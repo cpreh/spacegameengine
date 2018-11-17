@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/sprite/render/parameters_fwd.hpp>
 #include <sge/sprite/state/render_context.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -39,9 +39,6 @@ template<
 >
 class parameters
 {
-	FCPPT_NONASSIGNABLE(
-		parameters
-	);
 public:
 	typedef
 	sge::sprite::state::render_context<
@@ -60,9 +57,13 @@ public:
 	sge::renderer::vertex::declaration const &
 	vertex_declaration() const;
 private:
-	render_context_type &render_context_;
+	fcppt::reference<
+		render_context_type
+	> render_context_;
 
-	sge::renderer::vertex::declaration const &vertex_declaration_;
+	fcppt::reference<
+		sge::renderer::vertex::declaration const
+	> vertex_declaration_;
 };
 
 }

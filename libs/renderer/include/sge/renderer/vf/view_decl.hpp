@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/pointer.hpp>
 #include <sge/renderer/vf/view_fwd.hpp>
 #include <sge/renderer/vf/dynamic/basic_view_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -42,9 +41,6 @@ template<
 >
 class view
 {
-	FCPPT_NONASSIGNABLE(
-		view
-	);
 public:
 	typedef sge::renderer::vf::iterator<
 		Part,
@@ -84,9 +80,9 @@ public:
 	iterator
 	end() const;
 private:
-	pointer const data_;
+	pointer data_;
 
-	size_type const size_;
+	size_type size_;
 };
 
 }

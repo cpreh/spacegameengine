@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vf/dynamic/normal_fwd.hpp>
 #include <sge/renderer/vf/dynamic/pos_fwd.hpp>
 #include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -42,9 +41,6 @@ namespace convert
 
 class index_visitor
 {
-	FCPPT_NONASSIGNABLE(
-		index_visitor
-	);
 public:
 	explicit
 	index_visitor(
@@ -78,7 +74,7 @@ public:
 		sge::renderer::vf::dynamic::extra const &
 	) const;
 private:
-	sge::d3d9::vf::texture_coordinate_count const texture_coordinates_;
+	sge::d3d9::vf::texture_coordinate_count texture_coordinates_;
 };
 
 }

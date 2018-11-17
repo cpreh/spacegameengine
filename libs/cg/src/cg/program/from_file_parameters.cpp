@@ -63,7 +63,7 @@ sge::cg::context::object const &
 sge::cg::program::from_file_parameters::context() const
 {
 	return
-		context_;
+		context_.get();
 }
 
 sge::cg::program::source_type
@@ -77,7 +77,7 @@ sge::cg::profile::object const &
 sge::cg::program::from_file_parameters::profile() const
 {
 	return
-		profile_;
+		profile_.get();
 }
 
 boost::filesystem::path const &

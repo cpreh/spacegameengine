@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_NOISE_SAMPLE_PARAMETERS_DECL_HPP_INCLUDED
 
 #include <fcppt/make_strong_typedef.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -36,9 +35,6 @@ template<
 >
 class sample_parameters
 {
-	FCPPT_NONASSIGNABLE(
-		sample_parameters
-	);
 public:
 	FCPPT_MAKE_STRONG_TYPEDEF(
 		typename
@@ -82,13 +78,13 @@ public:
 	octaves_type
 	octaves() const;
 private:
-	position_type const &position_;
+	position_type position_;
 
-	amplitude_type const &amplitude_;
+	amplitude_type amplitude_;
 
-	frequency_type const &frequency_;
+	frequency_type frequency_;
 
-	octaves_type const octaves_;
+	octaves_type octaves_;
 };
 
 }

@@ -72,7 +72,7 @@ fcppt::log::object &
 sge::projectile::body::parameters::log() const
 {
 	return
-		log_;
+		log_.get();
 }
 
 sge::projectile::body::position const &

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/parameters_fwd.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -37,9 +37,6 @@ namespace device
 
 class parameters
 {
-	FCPPT_NONASSIGNABLE(
-		parameters
-	);
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	parameters(
@@ -57,7 +54,9 @@ public:
 private:
 	sge::renderer::display_mode::parameters const display_mode_;
 
-	sge::window::object &window_;
+	fcppt::reference<
+		sge::window::object
+	> window_;
 };
 
 }

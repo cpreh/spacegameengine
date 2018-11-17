@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -37,9 +37,6 @@ namespace vf
 
 class actor_parameters
 {
-	FCPPT_NONASSIGNABLE(
-		actor_parameters
-	);
 public:
 	actor_parameters(
 		sge::renderer::vf::dynamic::stride,
@@ -56,11 +53,13 @@ public:
 	sge::opengl::context::object &
 	context() const;
 private:
-	sge::renderer::vf::dynamic::stride const stride_;
+	sge::renderer::vf::dynamic::stride stride_;
 
-	sge::renderer::vf::dynamic::offset const offset_;
+	sge::renderer::vf::dynamic::offset offset_;
 
-	opengl::context::object &context_;
+	fcppt::reference<
+		sge::opengl::context::object
+	> context_;
 };
 
 }

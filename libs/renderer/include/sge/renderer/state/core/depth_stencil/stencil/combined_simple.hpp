@@ -33,7 +33,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/value.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -74,9 +73,6 @@ constructor. The following tables lists all of the default values:
 */
 class combined_simple
 {
-	FCPPT_NONASSIGNABLE(
-		combined_simple
-	);
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
@@ -124,7 +120,7 @@ public:
 		sge::renderer::state::core::depth_stencil::stencil::op
 	);
 private:
-	sge::renderer::state::core::depth_stencil::stencil::func const func_;
+	sge::renderer::state::core::depth_stencil::stencil::func func_;
 
 	sge::renderer::state::core::depth_stencil::stencil::ref ref_;
 

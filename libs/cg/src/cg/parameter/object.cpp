@@ -40,20 +40,6 @@ sge::cg::parameter::object::object(
 	);
 }
 
-sge::cg::parameter::object::object(
-	sge::cg::parameter::object const &_other
-)
-:
-	parameter_(
-		_other.parameter_
-	)
-{
-}
-
-sge::cg::parameter::object::~object()
-{
-}
-
 CGparameter
 sge::cg::parameter::object::get() const
 {

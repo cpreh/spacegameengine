@@ -51,7 +51,7 @@ sge::renderer::vertex::declaration const &
 sge::renderer::vertex::buffer_parameters::declaration() const
 {
 	return
-		declaration_;
+		declaration_.get();
 }
 
 sge::renderer::vf::dynamic::part_index

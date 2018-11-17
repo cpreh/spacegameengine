@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/window_fwd.hpp>
 #include <sge/systems/detail/instance_impl_fwd.hpp>
 #include <sge/systems/detail/renderer_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -42,9 +42,6 @@ namespace impl
 
 class any_visitor
 {
-	FCPPT_NONASSIGNABLE(
-		any_visitor
-	);
 public:
 	explicit
 	any_visitor(
@@ -91,7 +88,9 @@ public:
 		sge::systems::font const &
 	) const;
 private:
-	sge::systems::detail::instance_impl &impl_;
+	fcppt::reference<
+		sge::systems::detail::instance_impl
+	> impl_;
 };
 
 }

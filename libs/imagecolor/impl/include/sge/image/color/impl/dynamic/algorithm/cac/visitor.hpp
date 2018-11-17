@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/image/color/impl/dynamic/algorithm/cac/copy.hpp>
 #include <sge/image/color/impl/dynamic/algorithm/cac/permutate_compare.hpp>
 #include <sge/image/color/impl/dynamic/view/color_layout.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
@@ -51,9 +50,6 @@ namespace cac
 
 class visitor
 {
-	FCPPT_NONASSIGNABLE(
-		visitor
-	);
 public:
 	visitor(
 		sge::image::algorithm::may_overlap const _overlap,
@@ -138,9 +134,9 @@ public:
 		);
 	}
 private:
-	sge::image::algorithm::may_overlap const overlap_;
+	sge::image::algorithm::may_overlap overlap_;
 
-	sge::image::algorithm::uninitialized const uninitialized_;
+	sge::image::algorithm::uninitialized uninitialized_;
 };
 
 }

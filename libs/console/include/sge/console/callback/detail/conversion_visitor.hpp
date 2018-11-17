@@ -27,8 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/lit.hpp>
 #include <fcppt/extract_from_string.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/output_to_string.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/tag.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -54,9 +54,6 @@ template<
 >
 struct conversion_visitor
 {
-	FCPPT_NONASSIGNABLE(
-		conversion_visitor
-	);
 public:
 	conversion_visitor(
 		sge::console::object &_console,
@@ -87,21 +84,20 @@ public:
 	) const
 	{
 		typedef
-		typename
-		std::remove_reference<
+		std::remove_reference_t<
 			typename
 			boost::fusion::result_of::at_c<
 				ParameterTypes,
 				Index::value
 			>::type
-		>::type
+		>
 		result_type;
 
 		fcppt::optional::maybe(
 			fcppt::extract_from_string<
 				result_type
 			>(
-				args_[
+				this->args_.get()[
 					Index::value
 					+
 					1
@@ -110,7 +106,7 @@ public:
 			[
 				this
 			]{
-				console_.emit_error(
+				this->console_.get().emit_error(
 					SGE_FONT_LIT("Couldn't convert argument ")
 					+
 					fcppt::output_to_string<
@@ -141,19 +137,26 @@ public:
 				boost::fusion::at_c<
 					Index::value
 				>(
-					parameters_
+					this->parameters_.get()
 				) =
 					_converted;
 			}
 		);
 	}
 private:
-	sge::console::object &console_;
+	fcppt::reference<
+		sge::console::object
+	> console_;
 
-	ParameterTypes &parameters_;
+	fcppt::reference<
+		ParameterTypes
+	> parameters_;
 
-	sge::console::arg_list const &args_;
+	fcppt::reference<
+		sge::console::arg_list const
+	> args_;
 };
+
 }
 }
 }

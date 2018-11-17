@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/record/element.hpp>
 
 
@@ -55,9 +55,6 @@ template<
 >
 class render_part_element
 {
-	FCPPT_NONASSIGNABLE(
-		render_part_element
-	);
 public:
 	typedef
 	sge::sprite::buffers::slice<
@@ -125,7 +122,7 @@ public:
 	{
 		return
 			sge::renderer::vertex::first(
-				slice_.first_vertex().get()
+				slice_.get().first_vertex().get()
 				+
 				sge::sprite::buffers::vertex_count<
 					Choices
@@ -167,7 +164,7 @@ public:
 	{
 		return
 			sge::renderer::index::first(
-				slice_.first_index().get()
+				slice_.get().first_index().get()
 				+
 				sge::sprite::buffers::index_count<
 					Choices
@@ -194,20 +191,24 @@ public:
 		return
 			fcppt::make_cref(
 				sge::sprite::deref_texture(
-					object_. template texture_level<
+					object_.get(). template texture_level<
 						Level
 					>()
 				).texture()
 			);
 	}
 private:
-	slice_type const &slice_;
+	fcppt::reference<
+		slice_type const
+	> slice_;
 
-	sge::sprite::count const offset_;
+	sge::sprite::count offset_;
 
-	sge::sprite::count const count_;
+	sge::sprite::count count_;
 
-	object_type const &object_;
+	fcppt::reference<
+		object_type const
+	> object_;
 };
 
 }

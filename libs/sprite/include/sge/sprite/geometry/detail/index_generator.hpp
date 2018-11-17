@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/geometry/detail/index_array.hpp>
 #include <sge/sprite/geometry/detail/index_array_type.hpp>
 #include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/tag.hpp>
 #include <fcppt/cast/size.hpp>
 
@@ -48,10 +48,6 @@ class index_generator
 		Choices
 	>
 	index_array_type;
-
-	FCPPT_NONASSIGNABLE(
-		index_generator
-	);
 public:
 	index_generator()
 	:
@@ -64,7 +60,7 @@ public:
 			0u
 		),
 		ptr_(
-			indices_.begin()
+			indices_.get().begin()
 		)
 	{
 	}
@@ -90,10 +86,10 @@ public:
 		);
 
 		if(
-			ptr_ == indices_.end()
+			ptr_ == indices_.get().end()
 		)
 		{
-			ptr_ = indices_.begin();
+			ptr_ = indices_.get().begin();
 
 			index_ +=
 				fcppt::cast::size<
@@ -110,7 +106,9 @@ public:
 			ret;
 	}
 private:
-	index_array_type const &indices_;
+	fcppt::reference<
+		index_array_type const
+	> indices_;
 
 	mutable typename index_array_type::value_type index_;
 

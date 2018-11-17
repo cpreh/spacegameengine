@@ -47,7 +47,7 @@ fcppt::log::object &
 sge::projectile::ghost::parameters::log() const
 {
 	return
-		log_;
+		log_.get();
 }
 
 sge::projectile::ghost::position const &

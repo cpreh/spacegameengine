@@ -55,7 +55,7 @@ IDirectInput8 &
 sge::dinput::device::parameters::instance() const
 {
 	return
-		instance_;
+		instance_.get();
 }
 
 GUID
@@ -69,19 +69,19 @@ sge::window::object &
 sge::dinput::device::parameters::sge_window() const
 {
 	return
-		sge_window_;
+		sge_window_.get();
 }
 
 awl::backends::windows::window::object &
 sge::dinput::device::parameters::window() const
 {
 	return
-		window_;
+		window_.get();
 }
 
 awl::backends::windows::system::event::handle &
 sge::dinput::device::parameters::event_handle() const
 {
 	return
-		event_handle_;
+		event_handle_.get();
 }

@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/pp_dims.hpp>
 #include <sge/opengl/texture/mipmap/parameters_fwd.hpp>
 #include <sge/renderer/basic_dim.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
@@ -52,9 +52,6 @@ template<
 >
 class parameters
 {
-	FCPPT_NONASSIGNABLE(
-		parameters
-	);
 public:
 	typedef
 	sge::renderer::basic_dim<
@@ -109,19 +106,23 @@ public:
 	init_function_type
 	init_function() const;
 private:
-	sge::opengl::texture::binding const &binding_;
+	fcppt::reference<
+		sge::opengl::texture::binding const
+	> binding_;
 
-	sge::opengl::texture::buffer_type const buffer_type_;
+	sge::opengl::texture::buffer_type buffer_type_;
 
-	config_type const &config_;
+	fcppt::reference<
+		config_type const
+	> config_;
 
-	sge::opengl::color_order const format_order_;
+	sge::opengl::color_order format_order_;
 
-	sge::opengl::color_base_type const format_base_type_;
+	sge::opengl::color_base_type format_base_type_;
 
-	sge::opengl::internal_color_format const internal_format_;
+	sge::opengl::internal_color_format internal_format_;
 
-	dim const size_;
+	dim size_;
 
 	init_function_type init_function_;
 };

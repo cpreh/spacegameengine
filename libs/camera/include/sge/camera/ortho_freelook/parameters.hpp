@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/rect.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -41,9 +40,6 @@ namespace ortho_freelook
 
 class parameters
 {
-	FCPPT_NONASSIGNABLE(
-		parameters
-	);
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	parameters(
@@ -108,9 +104,9 @@ private:
 
 	sge::camera::ortho_freelook::optional_projection_rectangle projection_rectangle_;
 
-	sge::renderer::projection::near const near_;
+	sge::renderer::projection::near near_;
 
-	sge::renderer::projection::far const far_;
+	sge::renderer::projection::far far_;
 
 	sge::camera::ortho_freelook::action::mapping action_mapping_;
 };

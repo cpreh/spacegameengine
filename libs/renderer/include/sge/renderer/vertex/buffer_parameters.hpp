@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -39,9 +39,6 @@ namespace vertex
 
 class buffer_parameters
 {
-	FCPPT_NONASSIGNABLE(
-		buffer_parameters
-	);
 public:
 	/**
 	\brief Describes a vertex buffer.
@@ -83,7 +80,9 @@ public:
 	sge::renderer::resource_flags_field
 	flags() const;
 private:
-	sge::renderer::vertex::declaration const &declaration_;
+	fcppt::reference<
+		sge::renderer::vertex::declaration const
+	> declaration_;
 
 	sge::renderer::vf::dynamic::part_index const part_;
 

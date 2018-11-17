@@ -33,7 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
 
@@ -46,9 +46,6 @@ namespace texture
 
 class basic_buffer_parameters
 {
-	FCPPT_NONASSIGNABLE(
-		basic_buffer_parameters
-	);
 public:
 	basic_buffer_parameters(
 		fcppt::log::object &,
@@ -101,29 +98,35 @@ public:
 	sge::opengl::texture::is_render_target
 	is_render_target() const;
 private:
-	fcppt::log::object &log_;
+	fcppt::reference<
+		fcppt::log::object
+	> log_;
 
-	sge::opengl::texture::binding const &binding_;
+	fcppt::reference<
+		sge::opengl::texture::binding const
+	> binding_;
 
-	sge::opengl::context::object &context_;
+	fcppt::reference<
+		sge::opengl::context::object
+	> context_;
 
-	sge::renderer::texture::mipmap::level const level_;
+	sge::renderer::texture::mipmap::level level_;
 
-	sge::opengl::texture::type const type_;
+	sge::opengl::texture::type type_;
 
-	sge::opengl::texture::buffer_type const buffer_type_;
+	sge::opengl::texture::buffer_type buffer_type_;
 
-	sge::opengl::texture::id const id_;
+	sge::opengl::texture::id id_;
 
-	sge::renderer::resource_flags_field const resource_flags_;
+	sge::renderer::resource_flags_field resource_flags_;
 
-	sge::opengl::color_order const color_order_;
+	sge::opengl::color_order color_order_;
 
-	sge::opengl::color_base_type const color_base_type_;
+	sge::opengl::color_base_type color_base_type_;
 
-	sge::opengl::internal_color_format const internal_color_format_;
+	sge::opengl::internal_color_format internal_color_format_;
 
-	sge::opengl::texture::is_render_target const is_render_target_;
+	sge::opengl::texture::is_render_target is_render_target_;
 };
 
 }

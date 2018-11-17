@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/platform/object_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/reference.hpp>
 
 
@@ -38,10 +38,9 @@ namespace opencl
 {
 namespace context
 {
+
 class parameters
 {
-FCPPT_NONASSIGNABLE(
-	parameters);
 public:
 	typedef
 	fcppt::optional::reference<
@@ -51,42 +50,49 @@ public:
 
 	SGE_OPENCL_DETAIL_SYMBOL
 	parameters(
-		platform::object &,
-		opencl::device::object_ref_sequence const &);
+		sge::opencl::platform::object &,
+		sge::opencl::device::object_ref_sequence const &
+	);
 
 	SGE_OPENCL_DETAIL_SYMBOL
-	parameters(
-		parameters const &);
-
-	SGE_OPENCL_DETAIL_SYMBOL
-	~parameters();
-
-	SGE_OPENCL_DETAIL_SYMBOL opencl::context::parameters &
+	sge::opencl::context::parameters &
 	error_callback(
-		context::error_callback const &);
+		sge::opencl::context::error_callback const &
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL context::parameters &
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::context::parameters &
 	share_with(
-		renderer::device::core &);
+		sge::renderer::device::core &
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL opencl::device::object_ref_sequence const &
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::device::object_ref_sequence const &
 	device_refs() const;
 
 	SGE_OPENCL_DETAIL_SYMBOL
-	context::optional_error_callback const &
+	sge::opencl::context::optional_error_callback const &
 	error_callback() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL optional_renderer const &
+	SGE_OPENCL_DETAIL_SYMBOL
+	optional_renderer const &
 	shared_renderer() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL platform::object &
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::platform::object &
 	platform() const;
 private:
-	platform::object &platform_;
-	device::object_ref_sequence device_refs_;
-	context::optional_error_callback error_callback_;
+	fcppt::reference<
+		sge::opencl::platform::object
+	> platform_;
+
+	sge::opencl::device::object_ref_sequence device_refs_;
+
+	sge::opencl::context::optional_error_callback error_callback_;
+
 	optional_renderer shared_renderer_;
 };
+
 }
 }
 }

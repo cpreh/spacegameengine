@@ -36,7 +36,7 @@ sge::opengl::xrandr::modes_view::const_iterator
 sge::opengl::xrandr::modes_view::begin() const
 {
 	return
-		resources_.get_ref().modes;
+		resources_.get().get_ref().modes;
 }
 
 sge::opengl::xrandr::modes_view::const_iterator
@@ -45,5 +45,5 @@ sge::opengl::xrandr::modes_view::end() const
 	return
 		this->begin()
 		+
-		resources_.get_ref().nmode;
+		resources_.get().get_ref().nmode;
 }

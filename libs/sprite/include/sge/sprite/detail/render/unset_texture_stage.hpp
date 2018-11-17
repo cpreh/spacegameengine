@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/tag_type.hpp>
 
 
@@ -39,9 +39,6 @@ namespace render
 
 class unset_texture_stage
 {
-	FCPPT_NONASSIGNABLE(
-		unset_texture_stage
-	);
 public:
 	explicit
 	unset_texture_stage(
@@ -62,8 +59,8 @@ public:
 		Level const &
 	) const
 	{
-		render_context_.texture(
-			renderer::texture::const_optional_base_ref(),
+		this->render_context_.get().texture(
+			sge::renderer::texture::const_optional_base_ref(),
 			sge::renderer::texture::stage(
 				fcppt::tag_type<
 					Level
@@ -72,7 +69,9 @@ public:
 		);
 	}
 private:
-	sge::renderer::context::core &render_context_;
+	fcppt::reference<
+		sge::renderer::context::core
+	> render_context_;
 };
 
 }

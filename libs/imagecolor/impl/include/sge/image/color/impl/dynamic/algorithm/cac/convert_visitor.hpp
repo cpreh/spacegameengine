@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_IMAGE_COLOR_IMPL_DYNAMIC_ALGORITHM_CAC_CONVERT_VISITOR_HPP_INCLUDED
 
 #include <sge/image/mizuiro_color_traits.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -45,9 +44,6 @@ template<
 >
 class convert_visitor
 {
-	FCPPT_NONASSIGNABLE(
-		convert_visitor
-	);
 public:
 	explicit
 	convert_visitor(
@@ -81,7 +77,7 @@ public:
 			);
 	}
 private:
-	Function const function_;
+	Function function_;
 };
 
 }

@@ -36,7 +36,7 @@ sge::opengl::xrandr::crtcs_view::const_iterator
 sge::opengl::xrandr::crtcs_view::begin() const
 {
 	return
-		resources_.get_ref().crtcs;
+		resources_.get().get_ref().crtcs;
 }
 
 sge::opengl::xrandr::crtcs_view::const_iterator
@@ -45,5 +45,5 @@ sge::opengl::xrandr::crtcs_view::end() const
 	return
 		this->begin()
 		+
-		resources_.get_ref().ncrtc;
+		resources_.get().get_ref().ncrtc;
 }

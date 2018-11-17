@@ -32,20 +32,6 @@ sge::cg::parameter::named::named(
 {
 }
 
-sge::cg::parameter::named::named(
-	named const &_other
-)
-:
-	impl_(
-		_other.impl_
-	)
-{
-}
-
-sge::cg::parameter::named::~named()
-{
-}
-
 sge::cg::parameter::object const &
 sge::cg::parameter::named::object() const
 {

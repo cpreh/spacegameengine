@@ -52,7 +52,7 @@ sge::systems::impl::any_visitor::operator()(
 	sge::systems::detail::renderer const &_param
 ) const
 {
-	impl_.init_renderer(
+	impl_.get().init_renderer(
 		_param
 	);
 }
@@ -62,7 +62,7 @@ sge::systems::impl::any_visitor::operator()(
 	sge::systems::window const &_param
 ) const
 {
-	impl_.init_window_object(
+	impl_.get().init_window_object(
 		_param
 	);
 }
@@ -72,7 +72,7 @@ sge::systems::impl::any_visitor::operator()(
 	sge::systems::image2d const &_param
 ) const
 {
-	impl_.init_image2d(
+	impl_.get().init_image2d(
 		_param
 	);
 }
@@ -82,7 +82,7 @@ sge::systems::impl::any_visitor::operator()(
 	sge::systems::audio_loader const &_param
 ) const
 {
-	impl_.init_audio_loader(
+	impl_.get().init_audio_loader(
 		_param
 	);
 }
@@ -92,7 +92,7 @@ sge::systems::impl::any_visitor::operator()(
 	sge::systems::audio_player const &_param
 ) const
 {
-	impl_.init_audio_player(
+	impl_.get().init_audio_player(
 		_param
 	);
 }
@@ -102,7 +102,7 @@ sge::systems::impl::any_visitor::operator()(
 	sge::systems::input const &_param
 ) const
 {
-	impl_.init_input(
+	impl_.get().init_input(
 		_param
 	);
 }
@@ -112,7 +112,7 @@ sge::systems::impl::any_visitor::operator()(
 	sge::systems::font const &_param
 ) const
 {
-	impl_.init_font(
+	impl_.get().init_font(
 		_param
 	);
 }

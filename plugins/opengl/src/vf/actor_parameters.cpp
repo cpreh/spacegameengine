@@ -60,5 +60,5 @@ sge::opengl::context::object &
 sge::opengl::vf::actor_parameters::context() const
 {
 	return
-		context_;
+		context_.get();
 }

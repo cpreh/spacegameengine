@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/detail/symbol.hpp>
 #include <sge/cg/parameter/named_fwd.hpp>
 #include <sge/cg/parameter/object.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -36,9 +35,6 @@ namespace parameter
 
 class named
 {
-	FCPPT_NONASSIGNABLE(
-		named
-	);
 public:
 	explicit
 	named(
@@ -46,18 +42,10 @@ public:
 	);
 
 	SGE_CG_DETAIL_SYMBOL
-	named(
-		named const &
-	);
-
-	SGE_CG_DETAIL_SYMBOL
-	~named();
-
-	SGE_CG_DETAIL_SYMBOL
 	sge::cg::parameter::object const &
 	object() const;
 private:
-	sge::cg::parameter::object const impl_;
+	sge::cg::parameter::object impl_;
 };
 
 }

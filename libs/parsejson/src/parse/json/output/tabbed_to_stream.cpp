@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/output/tabbed_to_stream.hpp>
 #include <fcppt/format.hpp>
-#include <fcppt/nonassignable.hpp>
 #include <fcppt/output_to_string.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/ostream.hpp>
@@ -47,9 +47,6 @@ namespace
 // TODO: Simplify this
 struct output_visitor
 {
-	FCPPT_NONASSIGNABLE(
-		output_visitor
-	);
 public:
 	typedef
 	void
@@ -78,7 +75,7 @@ public:
 		sge::parse::json::object const &_object
 	) const
 	{
-		stream_
+		this->stream_.get()
 			<<
 			(
 				fcppt::format(
@@ -95,7 +92,8 @@ public:
 			++it
 		)
 		{
-			stream_ <<
+			this->stream_.get()
+				<<
 				(
 					fcppt::format(
 						FCPPT_TEXT("%s\"%s\" :\n")
@@ -106,7 +104,7 @@ public:
 
 			fcppt::variant::apply(
 				output_visitor(
-					stream_,
+					this->stream_.get(),
 					tabs_+2
 				),
 				it->second
@@ -117,12 +115,14 @@ public:
 				!=
 				_object.members.end()
 			)
-				stream_ << FCPPT_TEXT(',');
+				this->stream_.get()
+					<< FCPPT_TEXT(',');
 
-			stream_ << FCPPT_TEXT('\n');
+			this->stream_.get()
+				<< FCPPT_TEXT('\n');
 		}
 
-		stream_
+		this->stream_.get()
 			<< this->make_tabs()
 			<< FCPPT_TEXT('}');
 	}
@@ -132,7 +132,7 @@ public:
 		sge::parse::json::array const &_array
 	) const
 	{
-		stream_
+		this->stream_.get()
 			<<
 			(
 				fcppt::format(
@@ -152,7 +152,7 @@ public:
 		{
 			fcppt::variant::apply(
 				output_visitor(
-					stream_,
+					this->stream_.get(),
 					tabs_+1
 				),
 				*it
@@ -163,12 +163,14 @@ public:
 				!=
 				_array.elements.end()
 			)
-				stream_ << FCPPT_TEXT(',');
+				this->stream_.get()
+					<< FCPPT_TEXT(',');
 
-			stream_ << FCPPT_TEXT('\n');
+			this->stream_.get()
+				<< FCPPT_TEXT('\n');
 		}
 
-		stream_
+		this->stream_.get()
 			<< this->make_tabs()
 			<< FCPPT_TEXT(']');
 	}
@@ -188,7 +190,7 @@ public:
 				FCPPT_TEXT("quoted strings are unsupported")
 			);
 
-		stream_
+		this->stream_.get()
 			<< this->make_tabs()
 			<< FCPPT_TEXT('"')
 			<< _string
@@ -200,7 +202,7 @@ public:
 		bool const _bool
 	) const
 	{
-		stream_
+		this->stream_.get()
 			<< this->make_tabs()
 			<<
 			(
@@ -221,7 +223,7 @@ public:
 		sge::parse::json::null const &
 	) const
 	{
-		stream_
+		this->stream_.get()
 			<< this->make_tabs()
 			<< FCPPT_TEXT("null");
 	}
@@ -231,7 +233,7 @@ public:
 		sge::parse::json::int_type const _int
 	) const
 	{
-		stream_
+		this->stream_.get()
 			<< this->make_tabs()
 			<< fcppt::output_to_string<
 				fcppt::string
@@ -245,7 +247,7 @@ public:
 		sge::parse::json::float_type const _float
 	) const
 	{
-		stream_
+		this->stream_.get()
 			<< this->make_tabs()
 			<<
 			(
@@ -257,7 +259,9 @@ public:
 			).str();
 	}
 private:
-	fcppt::io::ostream &stream_;
+	fcppt::reference<
+		fcppt::io::ostream
+	> stream_;
 
 	tab_count const tabs_;
 
@@ -284,9 +288,6 @@ private:
 
 class start_visitor
 {
-	FCPPT_NONASSIGNABLE(
-		start_visitor
-	);
 public:
 	explicit
 	start_visitor(
@@ -310,14 +311,16 @@ public:
 	) const
 	{
 		output_visitor(
-			stream_,
+			this->stream_.get(),
 			0u
 		)(
 			_type
 		);
 	}
 private:
-	fcppt::io::ostream &stream_;
+	fcppt::reference<
+		fcppt::io::ostream
+	> stream_;
 };
 
 }

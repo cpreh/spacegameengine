@@ -55,7 +55,8 @@ sge::sprite::render::parameters<
 	StateOptions
 >::render_context() const
 {
-	return render_context_;
+	return
+		render_context_.get();
 }
 
 template<
@@ -66,7 +67,8 @@ sge::sprite::render::parameters<
 	StateOptions
 >::vertex_declaration() const
 {
-	return vertex_declaration_;
+	return
+		vertex_declaration_.get();
 }
 
 #endif

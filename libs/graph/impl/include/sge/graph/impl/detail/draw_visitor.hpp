@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_GRAPH_IMPL_DETAIL_DRAW_VISITOR_HPP_INCLUDED
 
 #include <sge/graph/object.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
+
 
 namespace sge
 {
@@ -30,35 +31,39 @@ namespace graph
 {
 namespace detail
 {
+
 class draw_visitor
 {
-FCPPT_NONASSIGNABLE(
-	draw_visitor);
 public:
-	typedef
-	void
-	result_type;
-
 	explicit
 	draw_visitor(
-		sge::graph::object &_graph)
+		sge::graph::object &_graph
+	)
 	:
 		graph_(
-			_graph)
+			_graph
+		)
 	{
 	}
 
-	template<typename T>
-	result_type
+	template<
+		typename T
+	>
+	void
 	operator()(
-		T const &_t) const
+		T const &_t
+	) const
 	{
-		graph_.draw_data(
-			_t);
+		this->graph_.get().draw_data(
+			_t
+		);
 	}
 private:
-	sge::graph::object &graph_;
+	fcppt::reference<
+		sge::graph::object
+	> graph_;
 };
+
 }
 }
 }

@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/lighting/light/directional_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/light/point_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/light/spot_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -41,9 +41,6 @@ namespace light
 
 class visitor
 {
-	FCPPT_NONASSIGNABLE(
-		visitor
-	);
 public:
 	explicit
 	visitor(
@@ -67,7 +64,9 @@ public:
 		sge::renderer::state::ffp::lighting::light::spot const &
 	) const;
 private:
-	D3DLIGHT9 &object_;
+	fcppt::reference<
+		D3DLIGHT9
+	> object_;
 };
 
 }

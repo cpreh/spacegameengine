@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/cg/program/main_function.hpp>
 #include <sge/cg/program/source.hpp>
 #include <sge/cg/program/source_type.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -41,9 +41,6 @@ namespace program
 
 class from_string_parameters
 {
-	FCPPT_NONASSIGNABLE(
-		from_string_parameters
-	);
 public:
 	SGE_CG_DETAIL_SYMBOL
 	from_string_parameters(
@@ -73,17 +70,21 @@ public:
 	sge::cg::program::compile_options const &
 	compile_options() const;
 private:
-	sge::cg::context::object const &context_;
+	fcppt::reference<
+		sge::cg::context::object const
+	> context_;
 
-	sge::cg::program::source_type const source_type_;
+	sge::cg::program::source_type source_type_;
 
-	sge::cg::profile::object const &profile_;
+	fcppt::reference<
+		sge::cg::profile::object const
+	> profile_;
 
-	sge::cg::program::source const source_;
+	sge::cg::program::source source_;
 
-	sge::cg::program::main_function const main_function_;
+	sge::cg::program::main_function main_function_;
 
-	sge::cg::program::compile_options const compile_options_;
+	sge::cg::program::compile_options compile_options_;
 };
 
 }

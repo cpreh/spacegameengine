@@ -48,5 +48,5 @@ sge::window::object &
 sge::renderer::device::parameters::window() const
 {
 	return
-		window_;
+		window_.get();
 }

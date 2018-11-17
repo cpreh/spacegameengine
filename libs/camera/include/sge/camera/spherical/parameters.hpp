@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/spherical/origin.hpp>
 #include <sge/camera/spherical/action/mapping.hpp>
 #include <sge/camera/spherical/coordinate_system/object.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -44,9 +43,6 @@ namespace spherical
 
 class parameters
 {
-	FCPPT_NONASSIGNABLE(
-		parameters
-	);
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	parameters(
@@ -136,9 +132,9 @@ public:
 private:
 	sge::camera::spherical::movement_speed movement_speed_;
 
-	sge::camera::spherical::coordinate_system::object const coordinate_system_;
+	sge::camera::spherical::coordinate_system::object coordinate_system_;
 
-	sge::camera::spherical::action::mapping const action_mapping_;
+	sge::camera::spherical::action::mapping action_mapping_;
 
 	sge::camera::spherical::origin origin_;
 

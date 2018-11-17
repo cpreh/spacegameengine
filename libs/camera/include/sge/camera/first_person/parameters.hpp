@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/first_person/mouse_speed_multiplier.hpp>
 #include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/action/mapping.hpp>
-#include <fcppt/nonassignable.hpp>
 
 
 namespace sge
@@ -40,9 +39,6 @@ namespace first_person
 
 class parameters
 {
-	FCPPT_NONASSIGNABLE(
-		parameters
-	);
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	parameters(

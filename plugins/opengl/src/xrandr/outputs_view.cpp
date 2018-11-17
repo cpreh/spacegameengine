@@ -36,7 +36,7 @@ sge::opengl::xrandr::outputs_view::const_iterator
 sge::opengl::xrandr::outputs_view::begin() const
 {
 	return
-		resources_.get_ref().outputs;
+		resources_.get().get_ref().outputs;
 }
 
 sge::opengl::xrandr::outputs_view::const_iterator
@@ -45,5 +45,5 @@ sge::opengl::xrandr::outputs_view::end() const
 	return
 		this->begin()
 		+
-		resources_.get_ref().noutput;
+		resources_.get().get_ref().noutput;
 }

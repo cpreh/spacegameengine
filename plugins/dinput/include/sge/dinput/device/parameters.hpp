@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/object_fwd.hpp>
 #include <awl/backends/windows/system/event/handle_fwd.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -38,9 +38,6 @@ namespace device
 
 class parameters
 {
-	FCPPT_NONASSIGNABLE(
-		parameters
-	);
 public:
 	parameters(
 		IDirectInput8 &,
@@ -65,15 +62,23 @@ public:
 	awl::backends::windows::system::event::handle &
 	event_handle() const;
 private:
-	IDirectInput8 &instance_;
+	fcppt::reference<
+		IDirectInput8
+	> instance_;
 
-	GUID const guid_;
+	GUID guid_;
 
-	sge::window::object &sge_window_;
+	fcppt::reference<
+		sge::window::object
+	> sge_window_;
 
-	awl::backends::windows::window::object &window_;
+	fcppt::reference<
+		awl::backends::windows::window::object
+	> window_;
 
-	awl::backends::windows::system::event::handle &event_handle_;
+	fcppt::reference<
+		awl::backends::windows::system::event::handle
+	> event_handle_;
 };
 
 }

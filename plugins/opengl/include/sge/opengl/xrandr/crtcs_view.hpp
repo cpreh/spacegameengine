@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_XRANDR_CRTCS_VIEW_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/screen_resources_fwd.hpp>
-#include <fcppt/nonassignable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
@@ -37,9 +37,6 @@ namespace xrandr
 
 class crtcs_view
 {
-	FCPPT_NONASSIGNABLE(
-		crtcs_view
-	);
 public:
 	explicit
 	crtcs_view(
@@ -56,7 +53,9 @@ public:
 	const_iterator
 	end() const;
 private:
-	sge::opengl::xrandr::screen_resources const &resources_;
+	fcppt::reference<
+		sge::opengl::xrandr::screen_resources const
+	> resources_;
 };
 
 }
