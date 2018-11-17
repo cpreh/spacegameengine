@@ -56,13 +56,19 @@ sge::dinput::joypad::make_info(
 		sge::dinput::joypad::info(
 			sge::input::joypad::info(
 				sge::input::joypad::absolute_axis_info_container(
-					object.absolute_axis()
+					sge::input::joypad::absolute_axis_info_container::vector{
+						object.absolute_axis()
+					}
 				),
 				sge::input::joypad::button_info_container(
-					object.buttons()
+					sge::input::joypad::button_info_container::vector{
+						object.buttons()
+					}
 				),
 				sge::input::joypad::relative_axis_info_container(
-					object.relative_axis()
+					sge::input::joypad::relative_axis_info_container::vector{
+						object.relative_axis()
+					}
 				),
 				sge::dinput::joypad::ff::enum_effects(
 					_device

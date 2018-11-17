@@ -50,10 +50,14 @@ sge::dinput::mouse::make_info(
 		sge::dinput::mouse::info(
 			sge::input::mouse::info(
 				sge::input::mouse::axis_info_container(
-					object.axis()
+					sge::input::mouse::axis_info_container::vector{
+						object.axis()
+					}
 				),
 				sge::input::mouse::button_info_container(
-					object.buttons()
+					sge::input::mouse::button_info_container::vector{
+						object.buttons()
+					}
 				),
 				_name
 			),
