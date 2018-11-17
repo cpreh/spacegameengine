@@ -76,7 +76,6 @@ sge::opengl::state::convert::sampler_arg_type<\
 	_,\
 	arg_type\
 ) \
-extern \
 template \
 struct \
 sge::opengl::state::convert::sampler_arg_type<\

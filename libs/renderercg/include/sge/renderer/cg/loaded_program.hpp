@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_RENDERER_CG_LOADED_PROGRAM_HPP_INCLUDED
 #define SGE_RENDERER_CG_LOADED_PROGRAM_HPP_INCLUDED
 
+#include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
 #include <sge/renderer/cg/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -33,7 +34,7 @@ namespace renderer
 namespace cg
 {
 
-class loaded_program
+class SGE_CORE_DETAIL_CLASS_SYMBOL loaded_program
 {
 	FCPPT_NONCOPYABLE(
 		loaded_program
