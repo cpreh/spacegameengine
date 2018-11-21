@@ -43,6 +43,11 @@ set(
 	libs/imageds2d/src/imageds2d/view/to_const.cpp
 )
 
+find_package(
+	mizuiro
+	REQUIRED
+)
+
 add_sge_base_library(
 	imageds2d
 	SGE_DEPS
