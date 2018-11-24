@@ -97,7 +97,7 @@ sge::libpng::error_context::handle_warning_impl(
 					_message
 				)
 			)
-	);
+	)
 }
 
 void

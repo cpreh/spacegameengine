@@ -42,7 +42,7 @@ sge::cg::impl::parameter::get_type(
 	SGE_CG_CHECK_STATE(
 		FCPPT_TEXT("cgGetParameterType failed"),
 		sge::cg::exception
-	);
+	)
 
 	FCPPT_ASSERT_THROW(
 		ret

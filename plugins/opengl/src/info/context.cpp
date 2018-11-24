@@ -64,7 +64,7 @@ sge::opengl::info::context::context(
 			<< version_.major()
 			<< FCPPT_TEXT('.')
 			<< version_.minor()
-	);
+	)
 }
 
 sge::opengl::info::context::~context()

@@ -67,7 +67,7 @@ sge::opengl::draw_elements(
 			_log,
 			fcppt::log::out
 				<< FCPPT_TEXT("Rendering point lists with index buffers is not portable!")
-		);
+		)
 	}
 
 	if(
@@ -81,7 +81,7 @@ sge::opengl::draw_elements(
 			fcppt::log::out
 				<< FCPPT_TEXT("Empty render() call with index_buffer. ")
 				<< FCPPT_TEXT("vertex_count was 0.")
-		);
+		)
 
 		return;
 	}

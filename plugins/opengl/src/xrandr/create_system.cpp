@@ -51,7 +51,7 @@ sge::opengl::xrandr::create_system(
 					_log,
 					fcppt::log::out
 						<< FCPPT_TEXT("xrandr extension not found")
-				);
+				)
 
 				return
 					sge::opengl::xrandr::optional_system_unique_ptr();
@@ -85,7 +85,7 @@ sge::opengl::xrandr::create_system(
 							<< FCPPT_TEXT("xrandr version ")
 							<< version
 							<< FCPPT_TEXT(" too old")
-					);
+					)
 
 					return
 						sge::opengl::xrandr::optional_system_unique_ptr();

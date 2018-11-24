@@ -192,7 +192,7 @@ sge::cegui::impl::geometry_buffer::geometry_buffer(
 			<< FCPPT_TEXT("geometry_buffer(")
 			<< this
 			<< FCPPT_TEXT(")::geometry_buffer")
-	);
+	)
 }
 
 sge::cegui::impl::geometry_buffer::~geometry_buffer()
@@ -214,7 +214,7 @@ sge::cegui::impl::geometry_buffer::draw() const
 			<< FCPPT_TEXT("geometry_buffer(")
 			<< this
 			<< FCPPT_TEXT(")::draw()")
-	);
+	)
 
 	sge::renderer::state::ffp::transform::object_unique_ptr const transform_state(
 		renderer_.create_transform_state(
@@ -452,7 +452,7 @@ sge::cegui::impl::geometry_buffer::setClippingRegion(
 			<< FCPPT_TEXT(")::setClippingRegion(")
 			<< converted
 			<< FCPPT_TEXT(')')
-	);
+	)
 
 	scissor_area_ =
 		sge::renderer::target::scissor_area{

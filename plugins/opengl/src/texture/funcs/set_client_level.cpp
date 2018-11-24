@@ -70,7 +70,7 @@ sge::opengl::texture::funcs::set_client_level(
 					<< FCPPT_TEXT("Tried to set texture coordinates for stage ")
 					<< _stage
 					<< FCPPT_TEXT(" but opengl does not support it.")
-			);
+			)
 		},
 		[
 			_stage

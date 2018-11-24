@@ -179,7 +179,7 @@ FCPPT_PP_POP_WARNING
 							)
 							<<
 							FCPPT_TEXT(" to be useful.")
-					);
+					)
 
 				return
 					result;
@@ -226,7 +226,7 @@ FCPPT_PP_POP_WARNING
 			)
 			<<
 			FCPPT_TEXT('.')
-	);
+	)
 }
 
 template<

@@ -102,7 +102,7 @@ sge::cegui::impl::default_target::draw(
 			<< FCPPT_TEXT("default_target(")
 			<< this
 			<< FCPPT_TEXT(")::draw(GeometryBuffer)")
-	);
+	)
 
 	_buffer.draw();
 }
@@ -118,7 +118,7 @@ sge::cegui::impl::default_target::draw(
 			<< FCPPT_TEXT("default_target(")
 			<< this
 			<< FCPPT_TEXT(")::draw(RenderQueue)")
-	);
+	)
 
 	_queue.draw();
 }
@@ -198,7 +198,7 @@ sge::cegui::impl::default_target::activate()
 			<< FCPPT_TEXT("default_target(")
 			<< this
 			<< FCPPT_TEXT(")::activate()")
-	);
+	)
 
 	fcppt::optional::maybe_void(
 		transform_,
@@ -231,7 +231,7 @@ sge::cegui::impl::default_target::deactivate()
 			<< FCPPT_TEXT("default_target(")
 			<< this
 			<< FCPPT_TEXT(")::deactivate()")
-	);
+	)
 
 	FCPPT_ASSERT_OPTIONAL_ERROR(
 		render_context_

@@ -126,7 +126,7 @@ sge::opengl::x11::device_state::display_mode(
 								log_,
 								fcppt::log::out
 									<< FCPPT_TEXT("Xrandr was not found. Can't change the display mode.")
-							);
+							)
 
 							return
 								optional_resolution_unique_ptr();

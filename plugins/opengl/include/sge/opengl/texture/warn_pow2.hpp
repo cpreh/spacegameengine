@@ -79,7 +79,7 @@ warn_pow2(
 					FCPPT_TEXT(" Specified size was ")
 					<< _dim
 					<< FCPPT_TEXT('.')
-			);
+			)
 
 			return;
 		}

@@ -111,7 +111,10 @@ choose_platform(
 
 	FCPPT_LOG_WARNING(
 		_log,
-		fcppt::log::out << FCPPT_TEXT("You preferred a GPU platform, but I didn't find one, so choosing a non-GPU platform now."));
+		fcppt::log::out
+			<<
+			FCPPT_TEXT("You preferred a GPU platform, but I didn't find one, so choosing a non-GPU platform now.")
+	)
 
 	return
 		objects.front();
@@ -293,10 +296,15 @@ sge::opencl::single_device_system::object::error_callback(
 	FCPPT_LOG_ERROR(
 		log_,
 		fcppt::log::out
-			<< FCPPT_TEXT("An error in a context occured: \"")
 			<<
-				boost::algorithm::trim_copy(
-					fcppt::from_std_string(
-						_error_information))
-			<< FCPPT_TEXT("\""));
+			FCPPT_TEXT("An error in a context occured: \"")
+			<<
+			boost::algorithm::trim_copy(
+				fcppt::from_std_string(
+					_error_information
+				)
+			)
+			<<
+			FCPPT_TEXT("\"")
+	)
 }

@@ -281,7 +281,7 @@ public:
 				fcppt::log::out
 					<<
 					FCPPT_TEXT("obj (mtl): dissolve currently not supported")
-			);
+			)
 			/*
 			(*diffuse_)[3] =
 				dissolve;
@@ -332,7 +332,7 @@ public:
 						FCPPT_TEXT("obj (mtl): invalid light model: ")
 						<<
 						light_model
-				);
+				)
 				break;
 			}
 		}
@@ -379,7 +379,7 @@ public:
 				fcppt::log::out
 					<<
 					FCPPT_TEXT("obj (mtl): invalid prefix")
-			);
+			)
 		}
 	}
 

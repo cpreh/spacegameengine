@@ -43,7 +43,7 @@ sge::openal::current_context::current_context(
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("making audio context the current context")
-	);
+	)
 
 	sge::openal::funcs::alc_make_context_current(
 		context_.aldevice(),
@@ -54,7 +54,7 @@ sge::openal::current_context::current_context(
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("made audio context the current context")
-	);
+	)
 }
 
 sge::openal::current_context::~current_context()
@@ -63,7 +63,7 @@ sge::openal::current_context::~current_context()
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("resetting current context")
-	);
+	)
 
 	sge::openal::funcs::alc_make_context_current(
 		context_.aldevice(),

@@ -60,7 +60,7 @@ sge::openal::buffer::buffer(
 		_log,
 		fcppt::log::out
 			<< FCPPT_TEXT("Reading a whole file into a buffer")
-	);
+	)
 
 	sge::audio::sample_container data(
 		_file.read_all()
@@ -83,7 +83,7 @@ sge::openal::buffer::buffer(
 			FCPPT_TEXT(" and sample rate ")
 			<<
 			_file.sample_rate()
-	);
+	)
 
 	if(
 		data.empty()

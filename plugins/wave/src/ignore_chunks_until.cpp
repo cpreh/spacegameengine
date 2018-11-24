@@ -83,7 +83,7 @@ sge::wave::ignore_chunks_until(
 									_cur.end()
 								)
 							)
-					);
+					)
 
 				return
 					do_continue;

@@ -202,7 +202,7 @@ sge::wininput::processor::on_focus_out()
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("focus out")
-	);
+	)
 
 	cursor_->focus_out();
 }

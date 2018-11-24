@@ -54,7 +54,7 @@ sge::opengl::draw_arrays(
 			fcppt::log::out
 				<< FCPPT_TEXT("Empty render() call. ")
 				<< FCPPT_TEXT("vertex_count was 0.")
-		);
+		)
 
 		return;
 	}

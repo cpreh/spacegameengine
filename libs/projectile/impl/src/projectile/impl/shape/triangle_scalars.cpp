@@ -47,9 +47,13 @@ sge::projectile::impl::shape::triangle_scalars(
 	FCPPT_LOG_DEBUG(
 		_log,
 		fcppt::log::out
-			<< FCPPT_TEXT("constructing triangle mesh with ")
-			<< _triangles.size()
-			<< FCPPT_TEXT(" triangles"));
+			<<
+			FCPPT_TEXT("constructing triangle mesh with ")
+			<<
+			_triangles.size()
+			<<
+			FCPPT_TEXT(" triangles")
+	)
 
 	sge::projectile::shape::detail::scalar_container::iterator current_scalar =
 		scalars.begin();
@@ -80,7 +84,8 @@ sge::projectile::impl::shape::triangle_scalars(
 			FCPPT_LOG_VERBOSE(
 				_log,
 				fcppt::log::out
-					<< FCPPT_TEXT("triangle begin"));
+					<< FCPPT_TEXT("triangle begin")
+			)
 
 			for(
 				auto const &current_triangle_point
@@ -91,12 +96,19 @@ sge::projectile::impl::shape::triangle_scalars(
 				FCPPT_LOG_VERBOSE(
 					_log,
 					fcppt::log::out
-						<< FCPPT_TEXT("adding point ")
-						<< current_triangle_point.x()
-						<< FCPPT_TEXT(',')
-						<< current_triangle_point.y()
-						<< FCPPT_TEXT(',')
-						<< current_z);
+						<<
+						FCPPT_TEXT("adding point ")
+						<<
+						current_triangle_point.x()
+						<<
+						FCPPT_TEXT(',')
+						<<
+						current_triangle_point.y()
+						<<
+						FCPPT_TEXT(',')
+						<<
+						current_z
+				)
 
 				*current_scalar++ = current_triangle_point.x();
 				*current_scalar++ = current_triangle_point.y();
@@ -106,7 +118,8 @@ sge::projectile::impl::shape::triangle_scalars(
 			FCPPT_LOG_VERBOSE(
 				_log,
 				fcppt::log::out
-					<< FCPPT_TEXT("triangle end"));
+					<< FCPPT_TEXT("triangle end")
+			)
 		}
 	}
 

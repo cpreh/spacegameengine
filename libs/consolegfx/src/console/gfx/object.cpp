@@ -321,7 +321,7 @@ sge::console::gfx::object::render_line(
 		_current_y
 		-
 		static_text.rect().bottom()
-	);;
+	);
 
 	static_text.pos(
 		pos

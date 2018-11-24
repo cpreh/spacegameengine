@@ -196,7 +196,7 @@ insert_checked(
 				FCPPT_TEXT("Duplicate state inserted in opengl::vf!")
 				<<
 				common_error()
-		);
+		)
 }
 
 template<
@@ -221,7 +221,7 @@ erase_checked(
 				FCPPT_TEXT("State erased in opengl::vf that was not there!")
 				<<
 				common_error()
-		);
+		)
 }
 
 }

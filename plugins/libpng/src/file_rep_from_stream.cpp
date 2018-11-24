@@ -153,7 +153,7 @@ sge::libpng::file_rep_from_stream(
 			fcppt::cast::promote_int(
 				channels
 			)
-	);
+	)
 
 	switch(
 		color_type
@@ -168,7 +168,7 @@ sge::libpng::file_rep_from_stream(
 						_name,
 						FCPPT_TEXT("Palette images are not supported.")
 					)
-			);
+			)
 
 			return
 				sge::libpng::optional_file_rep();
@@ -280,7 +280,7 @@ sge::libpng::file_rep_from_stream(
 						fcppt::cast::promote_int(
 							bpp
 						)
-				);
+				)
 
 				return
 					sge::libpng::optional_file_rep();

@@ -44,7 +44,7 @@ sge::cg::error_listing(
 	SGE_CG_CHECK_STATE(
 		FCPPT_TEXT("cgGetLastListing failed"),
 		sge::cg::exception
-	);
+	)
 
 	return
 		ret

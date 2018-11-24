@@ -70,7 +70,7 @@ sge::opengl::texture::funcs::set_active_level(
 					<< FCPPT_TEXT("Tried to set texture stage ")
 					<< _stage
 					<< FCPPT_TEXT(" but opengl does not support it.")
-			);
+			)
 		},
 		[
 			&_log,
@@ -93,7 +93,7 @@ sge::opengl::texture::funcs::set_active_level(
 						<< FCPPT_TEXT(". Setting texture stage ")
 						<< _stage
 						<< FCPPT_TEXT(" ignored!")
-				);
+				)
 
 				return;
 			}

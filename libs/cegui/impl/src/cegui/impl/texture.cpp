@@ -126,7 +126,7 @@ sge::cegui::impl::texture::texture(
 			)
 			<<
 			FCPPT_TEXT(')')
-	);
+	)
 }
 
 sge::cegui::impl::texture::texture(
@@ -210,7 +210,7 @@ sge::cegui::impl::texture::texture(
 			)
 			<<
 			FCPPT_TEXT(')')
-	);
+	)
 }
 
 sge::cegui::impl::texture::~texture()
@@ -356,7 +356,7 @@ sge::cegui::impl::texture::loadFromFile(
 			)
 			<<
 			FCPPT_TEXT(')')
-	);
+	)
 
 	this->create_from_view(
 		sge::image2d::load_exn(
@@ -391,7 +391,7 @@ sge::cegui::impl::texture::loadFromMemory(
 			)
 			<<
 			FCPPT_TEXT(')')
-	);
+	)
 
 	typedef
 	fcppt::math::dim::static_<

@@ -110,7 +110,7 @@ sge::systems::impl::input::object::object(
 					sge::input::capabilities_to_string(
 						element
 					)
-			);
+			)
 		}
 }
 

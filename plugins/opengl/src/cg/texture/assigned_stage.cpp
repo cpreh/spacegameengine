@@ -55,7 +55,7 @@ sge::opengl::cg::texture::assigned_stage(
 	SGE_CG_CHECK_STATE(
 		FCPPT_TEXT("cgGLGetTextureEnum failed"),
 		sge::renderer::exception
-	);
+	)
 
 	FCPPT_ASSERT_ERROR(
 		ret >= GL_TEXTURE0_ARB

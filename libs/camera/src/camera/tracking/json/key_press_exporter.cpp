@@ -133,7 +133,7 @@ sge::camera::tracking::json::key_press_exporter::key_event(
 			log_,
 			fcppt::log::out
 				<< FCPPT_TEXT("Storing keyframe...")
-		);
+		)
 
 		keyframes_.push_back(
 			sge::camera::tracking::keyframe(
@@ -146,7 +146,7 @@ sge::camera::tracking::json::key_press_exporter::key_event(
 			log_,
 			fcppt::log::out
 				<< FCPPT_TEXT("Done!")
-		);
+		)
 	}
 	else if(
 		_key_event.get().code()
@@ -160,7 +160,7 @@ sge::camera::tracking::json::key_press_exporter::key_event(
 				<< FCPPT_TEXT("Storing keyframe file ")
 				<< target_path_
 				<< FCPPT_TEXT("...")
-		);
+		)
 
 		if(
 			!sge::parse::json::output::to_file(
@@ -189,6 +189,6 @@ sge::camera::tracking::json::key_press_exporter::key_event(
 			log_,
 			fcppt::log::out
 				<< FCPPT_TEXT("Done!")
-		);
+		)
 	}
 }

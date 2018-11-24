@@ -39,5 +39,5 @@ sge::openal::funcs::alc_destroy_context(
 		_device,
 		FCPPT_TEXT("alcDestroyContext failed"),
 		sge::audio::exception
-	);
+	)
 }

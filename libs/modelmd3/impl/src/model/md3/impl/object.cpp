@@ -102,7 +102,7 @@ sge::model::md3::impl::object::object(
 			_log,
 			fcppt::log::out
 				<< FCPPT_TEXT("md3 version is not 15 but continuing anyway.")
-		);
+		)
 	}
 
 	name_ =

@@ -60,7 +60,7 @@ catch(
 		fcppt::log::out
 			<<
 			_error.string()
-	);
+	)
 
 	return
 		sge::x11input::cursor::optional_grab_unique_ptr{};

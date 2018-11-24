@@ -152,7 +152,7 @@ sge::opengl::glx::current::vsync(
 						FCPPT_TEXT("GLX extensions not available.")
 						FCPPT_TEXT(" Setting vsync is not supported.")
 
-				);
+				)
 			},
 			[
 				this

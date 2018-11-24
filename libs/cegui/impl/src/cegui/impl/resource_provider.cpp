@@ -113,7 +113,7 @@ sge::cegui::impl::resource_provider::loadRawDataContainer(
 			)
 			<<
 			FCPPT_TEXT(")")
-	);
+	)
 
 	boost::filesystem::path const load_path(
 		converted_resource_group.empty()
@@ -177,7 +177,7 @@ sge::cegui::impl::resource_provider::unloadRawDataContainer(
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("unloadRawDataContainer()")
-	);
+	)
 
 	data.release();
 }
@@ -233,7 +233,7 @@ sge::cegui::impl::resource_provider::getResourceGroupFileNames(
 			)
 			<<
 			FCPPT_TEXT(")")
-	);
+	)
 
 	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
 		FCPPT_TEXT("resource_provider::getResourceGroupFilenames not implemented yet!")

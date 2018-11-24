@@ -97,7 +97,10 @@ sge::projectile::detail::debug_drawer_impl::update()
 
 		FCPPT_LOG_DEBUG(
 			log_,
-			fcppt::log::out << FCPPT_TEXT("acquired lock"));
+			fcppt::log::out
+				<<
+				FCPPT_TEXT("acquired lock")
+		)
 
 		lock->value().clear();
 
@@ -110,7 +113,10 @@ sge::projectile::detail::debug_drawer_impl::update()
 
 	FCPPT_LOG_DEBUG(
 		log_,
-		fcppt::log::out << FCPPT_TEXT("released lock"));
+		fcppt::log::out
+			<<
+			FCPPT_TEXT("released lock")
+	)
 }
 
 void
@@ -268,7 +274,7 @@ sge::projectile::detail::debug_drawer_impl::reportErrorWarning(
 			fcppt::from_std_string(
 				warningString
 			)
-	);
+	)
 }
 
 void

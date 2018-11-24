@@ -87,7 +87,7 @@ warn_min(
 					<< FCPPT_TEXT(". Specified texture size was ")
 					<< _dim
 					<< FCPPT_TEXT('.')
-			);
+			)
 
 			return;
 		}

@@ -89,7 +89,7 @@ sge::systems::impl::audio::find_player_plugin(
 						fcppt::log::out
 							<< FCPPT_TEXT("Unable to load an audio player that is not null.")
 							<< FCPPT_TEXT(" Trying to load a null audio player instead.")
-					);
+					)
 
 					return
 						sge::systems::impl::find_plugin<

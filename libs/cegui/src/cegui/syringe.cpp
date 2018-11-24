@@ -193,7 +193,7 @@ sge::cegui::syringe::inject(
 						_event.button_code()
 					)
 					<< FCPPT_TEXT("; Doing nothing.")
-			);
+			)
 		},
 		[
 			&_event,
@@ -309,7 +309,8 @@ process_key_code(
 						<< sge::input::key::code_to_string(
 							_orig_code
 						)
-						<< FCPPT_TEXT("; Doing nothing."));
+						<< FCPPT_TEXT("; Doing nothing.")
+				)
 
 				return
 					sge::cegui::impl::optional_key_scan();

@@ -72,7 +72,7 @@ sge::opengl::init_srgb(
 					_log,
 					fcppt::log::out
 						<< FCPPT_TEXT("srgb::try_ was specified but srgb is not supported!")
-				);
+				)
 			}
 			else
 				throw

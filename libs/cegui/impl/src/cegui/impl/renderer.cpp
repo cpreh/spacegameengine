@@ -141,7 +141,7 @@ sge::cegui::impl::renderer::renderer(
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("renderer()")
-	);
+	)
 }
 
 sge::cegui::impl::renderer::~renderer()
@@ -178,7 +178,7 @@ sge::cegui::impl::renderer::createGeometryBuffer()
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("createGeometryBuffer()")
-	);
+	)
 
 	geometry_buffers_.push_back(
 		fcppt::make_unique_ptr<
@@ -204,7 +204,7 @@ sge::cegui::impl::renderer::destroyGeometryBuffer(
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("destroyGeometryBuffer()")
-	);
+	)
 
 	sge::cegui::impl::geometry_buffer const &sge_buffer(
 		dynamic_cast<
@@ -240,7 +240,7 @@ sge::cegui::impl::renderer::destroyAllGeometryBuffers()
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("destroyAllGeometryBuffers()")
-	);
+	)
 
 	geometry_buffers_.clear();
 }
@@ -252,7 +252,7 @@ sge::cegui::impl::renderer::createTextureTarget()
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("createTextureTarget()")
-	);
+	)
 
 	texture_targets_.push_back(
 		fcppt::make_unique_ptr<
@@ -279,7 +279,7 @@ sge::cegui::impl::renderer::destroyTextureTarget(
 			<< FCPPT_TEXT("destroyTextureTarget(")
 			<< _texture
 			<< FCPPT_TEXT(')')
-	);
+	)
 
 	FCPPT_ASSERT_PRE(
 		_texture
@@ -319,7 +319,7 @@ sge::cegui::impl::renderer::destroyAllTextureTargets()
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("destroyAllTextureTargets()")
-	);
+	)
 
 	texture_targets_.clear();
 }
@@ -333,7 +333,7 @@ sge::cegui::impl::renderer::createTexture(
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("createTexture()")
-	);
+	)
 
 	return
 		this->insert_texture(
@@ -388,7 +388,7 @@ sge::cegui::impl::renderer::createTexture(
 			)
 			<<
 			FCPPT_TEXT(')')
-	);
+	)
 
 	CEGUI::Texture &result(
 		this->insert_texture(
@@ -429,7 +429,7 @@ sge::cegui::impl::renderer::createTexture(
 			)
 			<<
 			FCPPT_TEXT(')')
-	);
+	)
 
 	return
 		this->insert_texture(
@@ -508,7 +508,7 @@ sge::cegui::impl::renderer::destroyTexture(
 				}
 			)
 			<< FCPPT_TEXT(')')
-	);
+	)
 
 	FCPPT_ASSERT_ERROR_MESSAGE(
 		textures_.erase(
@@ -525,7 +525,7 @@ sge::cegui::impl::renderer::destroyAllTextures()
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("destroyAllTextures()")
-	);
+	)
 
 	textures_.clear();
 }
@@ -585,7 +585,7 @@ sge::cegui::impl::renderer::beginRendering()
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("beginRendering()")
-	);
+	)
 
 	FCPPT_ASSERT_PRE(
 		render_context_.has_value()
@@ -599,7 +599,7 @@ sge::cegui::impl::renderer::endRendering()
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("endRendering()")
-	);
+	)
 
 	FCPPT_ASSERT_PRE(
 		render_context_.has_value()
@@ -622,7 +622,7 @@ sge::cegui::impl::renderer::setDisplaySize(
 			)
 			<<
 			FCPPT_TEXT(')')
-	);
+	)
 
 	display_size_ =
 		_display_size;

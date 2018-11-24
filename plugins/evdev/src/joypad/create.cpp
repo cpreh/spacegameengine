@@ -121,7 +121,7 @@ try_create(
 							FCPPT_TEXT(": ")
 							<<
 							_exception.string()
-					);
+					)
 
 					return
 						sge::evdev::joypad::optional_shared_ptr{};

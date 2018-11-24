@@ -56,7 +56,7 @@ sge::x11input::xim::create_method(
 					fcppt::log::out
 						<< FCPPT_TEXT("LC_CTYPE is not set.")
 						<< FCPPT_TEXT(" Character conversion of X11 will not work properly!")
-				);
+				)
 
 				return
 					fcppt::make_unique_ptr<

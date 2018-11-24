@@ -380,7 +380,7 @@ sge::model::obj::prototype::prototype(
 					fcppt::from_std_string(
 						prefix
 					)
-			);
+			)
 		}
 	}
 

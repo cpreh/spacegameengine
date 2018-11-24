@@ -47,7 +47,7 @@ sge::openal::buffer_holder::~buffer_holder()
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("Deleting a buffer")
-	);
+	)
 
 	sge::openal::funcs::delete_buffer(
 		buffer_

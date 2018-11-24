@@ -54,7 +54,7 @@ sge::opengl::texture::mipmap::auto_generate(
 				fcppt::log::out
 					<< FCPPT_TEXT("Building mipmaps is not supported.")
 					<< FCPPT_TEXT(" The mip_filter will not work correctly.")
-			);
+			)
 		},
 		[
 			&_binding

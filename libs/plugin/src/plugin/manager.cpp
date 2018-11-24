@@ -72,7 +72,7 @@ sge::plugin::manager::manager(
 					<< fcppt::filesystem::path_to_string(
 						_path
 					)
-			);
+			)
 
 			return
 				sge::plugin::impl::load_plugins(

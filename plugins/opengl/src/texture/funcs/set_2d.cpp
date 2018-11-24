@@ -89,5 +89,5 @@ sge::opengl::texture::funcs::set_2d(
 			% _dim
 		).str(),
 		sge::renderer::texture::creation_failed
-	);
+	)
 }

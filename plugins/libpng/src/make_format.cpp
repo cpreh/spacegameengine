@@ -60,7 +60,7 @@ sge::libpng::make_format(
 				<< FCPPT_TEXT(" which is not the expected sRGB gAMA of ")
 				<< sge::libpng::srgb_gamma()
 				<< FCPPT_TEXT('!')
-		);
+		)
 
 		return
 			sge::libpng::optional_format();

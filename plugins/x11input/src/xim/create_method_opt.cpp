@@ -104,7 +104,7 @@ try
 		fcppt::log::out
 			<<
 			FCPPT_TEXT("The selected XIM IME does not support PreeditNothing | StatusNothing!")
-	);
+	)
 
 	return
 		sge::x11input::xim::optional_method_unique_ptr{};
@@ -120,7 +120,7 @@ catch(
 			FCPPT_TEXT("Failed to open XIM: ")
 			<<
 			_error.string()
-	);
+	)
 
 	return
 		sge::x11input::xim::optional_method_unique_ptr();

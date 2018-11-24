@@ -74,7 +74,7 @@ sge::evdev::device::create_fd(
 			FCPPT_TEXT("\" failed: ")
 			<<
 			fcppt::error::strerrno()
-	);
+	)
 
 	return
 		sge::evdev::device::optional_fd_unique_ptr();

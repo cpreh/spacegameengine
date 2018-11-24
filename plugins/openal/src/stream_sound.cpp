@@ -132,7 +132,7 @@ sge::openal::stream_sound::update()
 		fcppt::log::out
 			<< processed
 			<< FCPPT_TEXT(" buffers processed")
-	);
+	)
 
 	// The description for this "hack" comes directly from a Creative Labs guy:
 	// http://opensource.creative.com/pipermail/openal/2010-June/012128.html
@@ -252,7 +252,7 @@ sge::openal::stream_sound::do_play()
 			<< FCPPT_TEXT("queued ")
 			<< buffers_.container().size()
 			<<  FCPPT_TEXT(" buffers")
-	);
+	)
 }
 
 bool
@@ -290,7 +290,7 @@ sge::openal::stream_sound::fill_buffer(
 					<< FCPPT_TEXT("read ")
 					<< samples_read
 					<< FCPPT_TEXT(" samples")
-			);
+			)
 
 			if(
 				samples_read
@@ -302,7 +302,7 @@ sge::openal::stream_sound::fill_buffer(
 					log_,
 					fcppt::log::out
 						<< FCPPT_TEXT("at the end of last buffer")
-				);
+				)
 
 				// there's nothing more to load, but the sound should be looped? then reset
 				// and start from the beginning
@@ -429,5 +429,5 @@ sge::openal::stream_sound::stream_sound(
 			<< FCPPT_TEXT(", sample rate ")
 			<< audio_file_.sample_rate()
 			<< FCPPT_TEXT(")")
-	);
+	)
 }

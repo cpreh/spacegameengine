@@ -47,7 +47,7 @@ sge::openal::source_holder::~source_holder()
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("Deleting a source")
-	);
+	)
 
 	sge::openal::funcs::delete_source(
 		value_

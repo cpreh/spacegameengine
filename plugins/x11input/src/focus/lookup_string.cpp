@@ -194,7 +194,7 @@ sge::x11input::focus::lookup_string(
 			fcppt::log::out
 				<< FCPPT_TEXT("XwcLookupString mismatch of lengths!")
 				FCPPT_TEXT(" This usually happens if your locale is not set.")
-		);
+		)
 	}
 
 	switch(

@@ -377,7 +377,8 @@ sge::opencl::program::object::check_program_return_values()
 				log_,
 				fcppt::log::out
 					<< FCPPT_TEXT("Program build failed, build log:\n")
-					<< fcppt::from_std_string(build_log));
+					<< fcppt::from_std_string(build_log)
+			)
 		}
 
 		/*

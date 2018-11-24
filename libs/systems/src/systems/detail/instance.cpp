@@ -149,7 +149,7 @@ sge::systems::detail::instance::instance(
 					impl_->log(),
 					fcppt::log::out
 						<< _error
-				);
+				)
 			}
 		);
 		break;

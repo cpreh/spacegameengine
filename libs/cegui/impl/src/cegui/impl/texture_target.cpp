@@ -129,7 +129,7 @@ sge::cegui::impl::texture_target::texture_target(
 			<< FCPPT_TEXT("texture_target(")
 			<< this
 			<< FCPPT_TEXT(")::texture_target")
-	);
+	)
 }
 
 sge::cegui::impl::texture_target::~texture_target()
@@ -154,7 +154,7 @@ sge::cegui::impl::texture_target::draw(
 			<< FCPPT_TEXT("texture_target(")
 			<< this
 			<< FCPPT_TEXT(")::draw(GeometryBuffer)")
-	);
+	)
 
 	_buffer.draw();
 }
@@ -177,7 +177,7 @@ sge::cegui::impl::texture_target::draw(
 			<< FCPPT_TEXT("texture_target(")
 			<< this
 			<< FCPPT_TEXT(")::draw(RenderQueue)")
-	);
+	)
 
 	_queue.draw();
 }
@@ -212,8 +212,8 @@ sge::cegui::impl::texture_target::setArea(
 				area
 				<<
 				FCPPT_TEXT(')')
-		);
-	};
+		)
+	}
 
 	area_ =
 		_area;
@@ -282,7 +282,7 @@ sge::cegui::impl::texture_target::activate()
 			<< FCPPT_TEXT("texture_target(")
 			<< this
 			<< FCPPT_TEXT(")::activate()")
-	);
+	)
 
 	sge::renderer::context::ffp &render_context(
 		FCPPT_ASSERT_OPTIONAL_ERROR(
@@ -332,7 +332,7 @@ sge::cegui::impl::texture_target::deactivate()
 			<< FCPPT_TEXT("texture_target(")
 			<< this
 			<< FCPPT_TEXT(")::deactivate()")
-	);
+	)
 
 	if(
 		!FCPPT_ASSERT_OPTIONAL_ERROR(
@@ -378,7 +378,7 @@ sge::cegui::impl::texture_target::clear()
 			<< FCPPT_TEXT("texture_target(")
 			<< this
 			<< FCPPT_TEXT(")::clear()")
-	);
+	)
 
 	sge::cegui::impl::texture &texture(
 		*FCPPT_ASSERT_OPTIONAL_ERROR(
@@ -465,7 +465,7 @@ sge::cegui::impl::texture_target::declareRenderSize(
 			)
 			<<
 			FCPPT_TEXT(')')
-	);
+	)
 
 	this->setArea(
 		CEGUI::Rectf(

@@ -74,7 +74,7 @@ sge::renderer::display_mode::draw_timer_setting_opt(
 										result.period().get().count()
 										<<
 										FCPPT_TEXT(" milliseconds")
-								);
+								)
 
 								return
 									result;
@@ -92,7 +92,7 @@ sge::renderer::display_mode::draw_timer_setting_opt(
 						FCPPT_TEXT("Cannot determine display refresh rate -")
 						<<
 						FCPPT_TEXT(" using a refresh rate of 60.")
-				);
+				)
 
 				return
 					sge::renderer::display_mode::draw_timer_setting(

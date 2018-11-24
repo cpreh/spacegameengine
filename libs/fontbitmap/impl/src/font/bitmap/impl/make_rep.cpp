@@ -139,7 +139,7 @@ sge::font::bitmap::impl::make_rep(
 					)
 					<<
 					FCPPT_TEXT("' not available!")
-			);
+			)
 
 			continue;
 		}

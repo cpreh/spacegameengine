@@ -121,7 +121,7 @@ sge::font::bitmap::impl::load_one_file(
 					<< FCPPT_TEXT("Invalid character in bitmap font: \"")
 					<< name
 					<< FCPPT_TEXT("\"")
-			);
+			)
 
 			continue;
 		}
@@ -177,7 +177,7 @@ sge::font::bitmap::impl::load_one_file(
 				<< FCPPT_TEXT("Skipping character in bitmap font because \"")
 				<< _exception.string()
 				<< FCPPT_TEXT('"')
-		);
+		)
 	}
 
 	return

@@ -66,7 +66,8 @@ sge::projectile::ghost::object::object(
 			<< FCPPT_TEXT(": Created a new ghost, position ")
 			<< p.position().get()
 			<< FCPPT_TEXT(", size ")
-			<< p.size().get());
+			<< p.size().get()
+	)
 
 	ghost_object_->setCollisionFlags(
 		ghost_object_->getCollisionFlags() |

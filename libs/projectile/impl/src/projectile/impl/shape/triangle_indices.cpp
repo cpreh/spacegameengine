@@ -45,7 +45,7 @@ sge::projectile::impl::shape::triangle_indices(
 		_log,
 		fcppt::log::out
 			<< FCPPT_TEXT("filled scalar container, now filling index container")
-	);
+	)
 
 	sge::projectile::shape::detail::index_container::iterator current_index_iterator(
 		indices.begin()
@@ -106,7 +106,7 @@ sge::projectile::impl::shape::triangle_indices(
 			current_index
 			<<
 			FCPPT_TEXT("), now creating bullet shape")
-	);
+	)
 
 	return
 		indices;

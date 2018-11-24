@@ -57,7 +57,7 @@ sge::opengl::glx::vsync(
 					_log,
 					fcppt::log::out
 						<< FCPPT_TEXT("Using glXSwapIntervalExt")
-				);
+				)
 
 				_swap.get()(
 					_display.get(),
@@ -88,7 +88,7 @@ sge::opengl::glx::vsync(
 					_log,
 					fcppt::log::out
 						<< FCPPT_TEXT("Using glXSwapIntervalSGI")
-				);
+				)
 
 				if(
 					_swap.get()(

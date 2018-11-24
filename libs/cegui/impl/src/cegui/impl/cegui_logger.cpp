@@ -85,14 +85,14 @@ sge::cegui::impl::cegui_logger::logEvent(
 				log_,
 				fcppt::log::out
 					<< converted
-			);
+			)
 			break;
 		case CEGUI::Warnings:
 			FCPPT_LOG_WARNING(
 				log_,
 				fcppt::log::out
 					<< converted
-			);
+			)
 			break;
 		case CEGUI::Standard:
 		case CEGUI::Informative:
@@ -100,14 +100,14 @@ sge::cegui::impl::cegui_logger::logEvent(
 				log_,
 				fcppt::log::out
 					<< converted
-			);
+			)
 			break;
 		case CEGUI::Insane:
 			FCPPT_LOG_VERBOSE(
 				log_,
 				fcppt::log::out
 					<< converted
-				);
+			)
 			break;
 	}
 }

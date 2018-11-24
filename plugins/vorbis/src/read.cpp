@@ -94,7 +94,7 @@ sge::vorbis::read(
 					_name,
 					FCPPT_TEXT("Encountered corrupt vorbis data.")
 				)
-		);
+		)
 		break;
 	case OV_EBADLINK:
 		throw
@@ -120,7 +120,7 @@ sge::vorbis::read(
 			_log,
 			fcppt::log::out
 				<< FCPPT_TEXT("Read until the end.")
-		);
+		)
 	}
 
 	return

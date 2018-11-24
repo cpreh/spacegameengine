@@ -370,7 +370,7 @@ sge::dinput::processor::on_focus_in()
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("DirectInput: focus in")
-	);
+	)
 
 	has_focus_ =
 		sge::dinput::has_focus(
@@ -387,7 +387,7 @@ sge::dinput::processor::on_focus_out()
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("DirectInput: focus out")
-	);
+	)
 
 	has_focus_ =
 		sge::dinput::has_focus(

@@ -53,7 +53,7 @@ sge::opengl::texture::funcs::level_parameter(
 	SGE_OPENGL_CHECK_STATE(
 		FCPPT_TEXT("glGetTexLevelParameteriv() failed!"),
 		sge::renderer::exception
-	);
+	)
 
 	return
 		ret;

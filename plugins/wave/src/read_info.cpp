@@ -208,7 +208,7 @@ sge::wave::read_info(
 							FCPPT_TEXT(" Format is ")
 							<<
 							_format
-					);
+					)
 
 				return
 					unsupported;

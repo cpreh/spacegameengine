@@ -98,7 +98,7 @@ sge::plugin::impl::load_plugins(
 							sge::plugin::file_extension()
 							<<
 							FCPPT_TEXT(" and thus is ignored!")
-					);
+					)
 
 					return
 						optional_result();
@@ -137,7 +137,7 @@ sge::plugin::impl::load_plugins(
 							)
 							<<
 							FCPPT_TEXT("\" is missing!")
-					);
+					)
 				}
 				catch(
 					sge::core::exception const &_exception
@@ -156,7 +156,7 @@ sge::plugin::impl::load_plugins(
 							_exception.string()
 							<<
 							FCPPT_TEXT("\"!")
-					);
+					)
 				}
 
 				return

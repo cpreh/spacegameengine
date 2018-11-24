@@ -360,7 +360,7 @@ sge::x11input::cursor::object::on_enter(
 			FCPPT_TEXT(",")
 			<<
 			_event.event_y
-	);
+	)
 
 	if(
 		first_enter_
@@ -387,7 +387,7 @@ sge::x11input::cursor::object::on_leave(
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("XILeave")
-	);
+	)
 
 	position_ =
 		sge::input::cursor::optional_position{};
@@ -405,7 +405,7 @@ sge::x11input::cursor::object::on_focus_out()
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("XIFocusOut")
-	);
+	)
 
 	this->ungrab();
 }

@@ -292,7 +292,7 @@ sge::cegui::detail::system_impl::viewport_change(
 		fcppt::log::out
 			<< FCPPT_TEXT("viewport_change() with ")
 			<< _viewport.get()
-	);
+	)
 
 	if(
 		sge::renderer::target::viewport_is_null(
