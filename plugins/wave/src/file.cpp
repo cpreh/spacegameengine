@@ -122,7 +122,7 @@ sge::wave::file::reset()
 		log_,
 		fcppt::log::out
 			<< FCPPT_TEXT("wave: resetting file")
-	);
+	)
 
 	file_->seekg(
 		data_segment_
