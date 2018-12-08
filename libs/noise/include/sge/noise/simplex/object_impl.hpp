@@ -34,9 +34,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/dot.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/unit.hpp>
+#include <fcppt/random/generator/mt19937.hpp>
+#include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/range/algorithm/random_shuffle.hpp>
-#include <boost/range/algorithm_ext/iota.hpp>
+#include <algorithm>
 #include <cmath>
 #include <cstddef>
 #include <vector>
@@ -66,8 +67,9 @@ sge::noise::simplex::object<
 		)
 	)
 {
-	boost::iota(
-		perm_,
+	std::iota(
+		perm_.begin(),
+		perm_.end(),
 		static_cast<
 			index_type
 		>(
@@ -75,9 +77,23 @@ sge::noise::simplex::object<
 		)
 	);
 
-	boost::random_shuffle(
-		perm_
-	);
+	{
+		typedef
+		fcppt::random::generator::mt19937
+		generator_type;
+
+		generator_type randgen{
+			fcppt::random::generator::seed_from_chrono<
+				generator_type::seed
+			>()
+		};
+
+		std::shuffle(
+			perm_.begin(),
+			perm_.end(),
+			randgen
+		);
+	}
 
 	for (typename vector_type::size_type i = 0u; i < N; i++)
 	{
