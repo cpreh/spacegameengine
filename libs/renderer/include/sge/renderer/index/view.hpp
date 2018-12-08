@@ -25,10 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/index/const_tag.hpp>
-#include <sge/renderer/index/format_fwd.hpp>
+#include <sge/renderer/index/format.hpp>
 #include <sge/renderer/index/is_format.hpp>
 #include <sge/renderer/index/iterator_fwd.hpp>
-#include <sge/renderer/index/to_nonconst_format.hpp>
 #include <sge/renderer/index/view_fwd.hpp>
 #include <sge/renderer/index/detail/pp_formats.hpp>
 #include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
@@ -83,14 +82,6 @@ public:
 	iterator;
 
 	typedef
-	sge::renderer::index::view<
-		sge::renderer::index::to_nonconst_format<
-			Format
-		>
-	>
-	nonconst_type;
-
-	typedef
 	sge::renderer::index::dynamic::basic_view<
 		std::is_same<
 			typename
@@ -104,12 +95,6 @@ public:
 	view(
 		pointer,
 		size_type
-	);
-
-	SGE_RENDERER_DETAIL_SYMBOL
-	explicit
-	view(
-		nonconst_type const &
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL

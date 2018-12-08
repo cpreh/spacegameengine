@@ -267,7 +267,6 @@ set(
 	libs/renderer/include/sge/renderer/index/scoped_lock_fwd.hpp
 	libs/renderer/include/sge/renderer/index/tag.hpp
 	libs/renderer/include/sge/renderer/index/to_const_format.hpp
-	libs/renderer/include/sge/renderer/index/to_nonconst_format.hpp
 	libs/renderer/include/sge/renderer/index/traits/color_tag.hpp
 	libs/renderer/include/sge/renderer/index/traits/const_view_fwd.hpp
 	libs/renderer/include/sge/renderer/index/traits/dimension.hpp

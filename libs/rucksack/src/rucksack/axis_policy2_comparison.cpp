@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/axis_policy2_comparison.hpp>
-#include <fcppt/variant/equal.hpp>
+#include <fcppt/variant/comparison.hpp>
 
 
 bool

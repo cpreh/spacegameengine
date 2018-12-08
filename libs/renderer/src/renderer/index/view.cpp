@@ -61,24 +61,6 @@ template<
 sge::renderer::index::view<
 	Format
 >::view(
-	nonconst_type const &_other
-)
-:
-	data_(
-		_other.data()
-	),
-	size_(
-		_other.size()
-	)
-{
-}
-
-template<
-	typename Format
->
-sge::renderer::index::view<
-	Format
->::view(
 	dynamic_view_type const &_view
 )
 :

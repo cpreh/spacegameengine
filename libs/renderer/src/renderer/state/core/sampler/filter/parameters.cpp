@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/state/core/sampler/filter/parameters.hpp>
 #include <sge/renderer/state/core/sampler/filter/variant.hpp>
-#include <fcppt/variant/equal.hpp>
+#include <fcppt/variant/comparison.hpp>
 
 
 sge::renderer::state::core::sampler::filter::parameters::parameters(
@@ -36,7 +36,8 @@ sge::renderer::state::core::sampler::filter::parameters::parameters(
 sge::renderer::state::core::sampler::filter::variant const &
 sge::renderer::state::core::sampler::filter::parameters::variant() const
 {
-	return variant_;
+	return
+		variant_;
 }
 
 bool

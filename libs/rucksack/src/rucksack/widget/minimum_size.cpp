@@ -123,10 +123,10 @@ sge::rucksack::widget::minimum_size::relayout()
 	child_.size(
 		sge::rucksack::dim(
 			sge::rucksack::impl::extract_size(
-				child_.axis_policy().x()
+				policy.x()
 			),
 			sge::rucksack::impl::extract_size(
-				child_.axis_policy().y()
+				policy.y()
 			)
 		)
 	);
