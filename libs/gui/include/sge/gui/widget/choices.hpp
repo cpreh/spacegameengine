@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/gui/widget/choices_fwd.hpp>
 #include <sge/gui/widget/text.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
+#include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -50,6 +51,9 @@ class choices
 :
 	public sge::gui::widget::box_container
 {
+	FCPPT_NONCOPYABLE(
+		choices
+	);
 public:
 	SGE_GUI_DETAIL_SYMBOL
 	choices(

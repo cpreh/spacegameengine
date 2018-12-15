@@ -52,7 +52,7 @@ public:
 	sge::window::object &
 	window() const;
 private:
-	sge::renderer::display_mode::parameters const display_mode_;
+	sge::renderer::display_mode::parameters display_mode_;
 
 	fcppt::reference<
 		sge::window::object

@@ -84,11 +84,11 @@ private:
 		sge::renderer::vertex::declaration const
 	> declaration_;
 
-	sge::renderer::vf::dynamic::part_index const part_;
+	sge::renderer::vf::dynamic::part_index part_;
 
-	sge::renderer::vertex::count const count_;
+	sge::renderer::vertex::count count_;
 
-	sge::renderer::resource_flags_field const flags_;
+	sge::renderer::resource_flags_field flags_;
 };
 
 }

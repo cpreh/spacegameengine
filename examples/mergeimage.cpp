@@ -49,6 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/args_char.hpp>
 #include <fcppt/args_from_second.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/main.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/text.hpp>
@@ -101,7 +102,12 @@ calc_size(
 	)
 	{
 		sge::image::size_type const size(
-			1u << index
+			fcppt::literal<
+				sge::image::size_type
+			>(
+				1
+			)
+			<< index
 		);
 
 		if(

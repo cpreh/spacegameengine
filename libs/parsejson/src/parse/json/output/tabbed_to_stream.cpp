@@ -263,7 +263,7 @@ private:
 		fcppt::io::ostream
 	> stream_;
 
-	tab_count const tabs_;
+	tab_count tabs_;
 
 	fcppt::string
 	make_tabs() const

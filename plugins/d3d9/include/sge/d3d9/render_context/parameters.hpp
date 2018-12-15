@@ -76,9 +76,9 @@ private:
 		sge::renderer::target::base
 	> target_;
 
-	sge::renderer::caps::texture_stages const texture_stages_;
+	sge::renderer::caps::texture_stages texture_stages_;
 
-	sge::renderer::caps::light_indices const light_indices_;
+	sge::renderer::caps::light_indices light_indices_;
 
 	fcppt::reference<
 		sge::d3d9::state::core::defaults const
