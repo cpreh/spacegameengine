@@ -4,7 +4,6 @@ set(
 	libs/parsejson/include/sge/parse/json/array_fwd.hpp
 	libs/parsejson/include/sge/parse/json/array_or_object.hpp
 	libs/parsejson/include/sge/parse/json/array_or_object_fwd.hpp
-	libs/parsejson/include/sge/parse/json/config/command_line_parameters.hpp
 	libs/parsejson/include/sge/parse/json/config/help_needed_exception.hpp
 	libs/parsejson/include/sge/parse/json/config/merge_command_line_parameters.hpp
 	libs/parsejson/include/sge/parse/json/config/merge_trees.hpp

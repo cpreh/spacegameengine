@@ -25,9 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/string_to_value.hpp>
-#include <sge/parse/json/config/command_line_parameters.hpp>
 #include <sge/parse/json/config/help_needed_exception.hpp>
 #include <sge/parse/json/config/merge_command_line_parameters.hpp>
+#include <fcppt/args_vector.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
@@ -209,7 +209,7 @@ FCPPT_PP_POP_WARNING
 sge::parse::json::object
 sge::parse::json::config::merge_command_line_parameters(
 	sge::parse::json::object input,
-	sge::parse::json::config::command_line_parameters const &_parameters
+	fcppt::args_vector const &_parameters
 )
 {
 	if(
