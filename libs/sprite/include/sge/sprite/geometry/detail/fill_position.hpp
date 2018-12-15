@@ -29,6 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/geometry/detail/fill_position_rotated.hpp>
 #include <sge/sprite/geometry/detail/fill_position_unrotated.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
 #include <type_traits>
@@ -97,10 +98,11 @@ template<
 >
 inline
 std::enable_if_t<
-	not
-	sge::sprite::detail::config::has_rotation<
-		Choices
-	>::value
+	fcppt::not_(
+		sge::sprite::detail::config::has_rotation<
+			Choices
+		>::value
+	)
 	&&
 	sge::sprite::detail::config::has_normal_size<
 		Choices

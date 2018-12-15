@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/detail/config/has_custom_texture_point_pos.hpp>
 #include <sge/sprite/detail/vf/texture_point_pos.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <brigand/sequences/at.hpp>
 #include <type_traits>
@@ -84,10 +85,11 @@ template<
 >
 inline
 std::enable_if_t<
-	not
-	sge::sprite::detail::config::has_custom_texture_point_pos<
-		Choices
-	>::value,
+	fcppt::not_(
+		sge::sprite::detail::config::has_custom_texture_point_pos<
+			Choices
+		>::value
+	),
 	void
 >
 fill_texture_point_pos(

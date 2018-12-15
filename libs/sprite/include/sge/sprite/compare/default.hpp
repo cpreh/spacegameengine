@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/compare/nothing.hpp>
 #include <sge/sprite/compare/textures.hpp>
 #include <sge/sprite/detail/config/has_texture.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <brigand/functions/logical/not.hpp>
 #include <type_traits>
@@ -87,10 +88,11 @@ struct default_
 	>
 	inline
 	std::enable_if_t<
-		not
-		sge::sprite::detail::config::has_texture<
-			Choices
-		>::value,
+		fcppt::not_(
+			sge::sprite::detail::config::has_texture<
+				Choices
+			>::value
+		),
 		result_type
 	>
 	operator()(

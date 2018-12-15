@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/state/render_device.hpp>
 #include <sge/sprite/state/detail/parameters_class.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/record/element.hpp>
@@ -153,10 +154,11 @@ public:
 		typename Role
 	>
 	std::enable_if_t<
-		not
-		state_for_role<
-			Role
-		>::persistent::value,
+		fcppt::not_(
+			state_for_role<
+				Role
+			>::persistent::value
+		),
 		fcppt::optional::object<
 			typename
 			state_for_role<
