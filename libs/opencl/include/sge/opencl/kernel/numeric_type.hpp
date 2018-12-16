@@ -22,11 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENCL_KERNEL_NUMERIC_TYPE_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
+#include <fcppt/brigand/unique.hpp>
 #include <fcppt/config/gcc_version_at_least.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <brigand/sequences/list.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -43,18 +47,22 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wignored-attributes)
 #endif
 
 typedef
-fcppt::variant::variadic<
-	cl_char,
-	cl_uchar,
-	cl_short,
-	cl_ushort,
-	cl_int,
-	cl_uint,
-	cl_long,
-	cl_ulong,
-	cl_half,
-	cl_float,
-	cl_double
+fcppt::variant::object<
+	fcppt::brigand::unique<
+		::brigand::list<
+			cl_char,
+			cl_uchar,
+			cl_short,
+			cl_ushort,
+			cl_int,
+			cl_uint,
+			cl_long,
+			cl_ulong,
+			cl_half,
+			cl_float,
+			cl_double
+		>
+	>
 >
 numeric_type;
 
