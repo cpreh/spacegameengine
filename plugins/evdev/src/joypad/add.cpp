@@ -25,6 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/discover.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <awl/backends/posix/processor_fwd.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -42,6 +43,7 @@ awl::event::optional_base_unique_ptr
 sge::evdev::joypad::add(
 	fcppt::log::object &_log,
 	sge::window::object &_window,
+	awl::backends::posix::processor &_processor,
 	sge::evdev::joypad::map &_map,
 	boost::filesystem::path const &_path
 )
@@ -51,6 +53,7 @@ sge::evdev::joypad::add(
 			sge::evdev::joypad::create(
 				_log,
 				_window,
+				_processor,
 				_path
 			),
 			[

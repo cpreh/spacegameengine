@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/joypad/map.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <awl/backends/posix/processor_fwd.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -41,6 +42,7 @@ awl::event::optional_base_unique_ptr
 add(
 	fcppt::log::object &,
 	sge::window::object &,
+	awl::backends::posix::processor &,
 	sge::evdev::joypad::map &,
 	boost::filesystem::path const &
 );

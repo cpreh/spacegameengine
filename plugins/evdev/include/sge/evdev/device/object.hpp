@@ -25,6 +25,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/device/fd_fwd.hpp>
 #include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <awl/backends/posix/fd.hpp>
+#include <awl/backends/posix/processor_fwd.hpp>
+#include <awl/event/connection_unique_ptr.hpp>
 #include <awl/event/container.hpp>
 #include <awl/event/optional_base_unique_ptr_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -48,6 +50,7 @@ class object
 public:
 	object(
 		sge::evdev::device::fd_unique_ptr &&,
+		awl::backends::posix::processor &,
 		boost::filesystem::path const &
 	);
 
@@ -73,6 +76,8 @@ private:
 	) = 0;
 
 	sge::evdev::device::fd_unique_ptr const fd_;
+
+	awl::event::connection_unique_ptr const fd_connection_;
 
 	boost::filesystem::path const path_;
 };

@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/shared_ptr.hpp>
 #include <sge/input/exception.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <awl/backends/posix/processor_fwd.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/text.hpp>
@@ -55,6 +56,7 @@ sge::evdev::joypad::optional_shared_ptr
 try_create(
 	fcppt::log::object &_log,
 	sge::window::object &_window,
+	awl::backends::posix::processor &_processor,
 	boost::filesystem::path const &_path
 )
 {
@@ -67,6 +69,7 @@ try_create(
 			[
 				&_log,
 				&_window,
+				&_processor,
 				&_path
 			](
 				sge::evdev::device::fd_unique_ptr &&_fd
@@ -89,6 +92,7 @@ try_create(
 								&info,
 								&_path,
 								&_window,
+								&_processor,
 								&_fd
 							]{
 								return
@@ -101,6 +105,7 @@ try_create(
 											),
 											_path,
 											_window,
+											_processor,
 											info
 										)
 									};
@@ -137,6 +142,7 @@ sge::evdev::joypad::optional_shared_ptr
 sge::evdev::joypad::create(
 	fcppt::log::object &_log,
 	sge::window::object &_window,
+	awl::backends::posix::processor &_processor,
 	boost::filesystem::path const &_path
 )
 {
@@ -156,12 +162,14 @@ sge::evdev::joypad::create(
 				[
 					&_log,
 					&_window,
+					&_processor,
 					&_path
 				]{
 					return
 						try_create(
 							_log,
 							_window,
+							_processor,
 							_path
 						);
 				}

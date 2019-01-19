@@ -68,7 +68,7 @@ bool
 sge::evdev::device::fd::valid() const
 {
 	return
-		fd_.get()
+		this->fd_.get()
 		!=
 		-1;
 }

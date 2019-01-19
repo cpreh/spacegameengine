@@ -32,6 +32,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/mouse/container.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <awl/backends/posix/event_fwd.hpp>
+#include <awl/backends/posix/processor_fwd.hpp>
+#include <awl/event/connection_unique_ptr.hpp>
 #include <awl/event/container.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -111,9 +113,13 @@ private:
 
 	boost::filesystem::path const path_;
 
+	sge::window::object &window_;
+
+	awl::backends::posix::processor &processor_;
+
 	sge::evdev::inotify::reader dev_watch_;
 
-	sge::window::object &window_;
+	awl::event::connection_unique_ptr const dev_watch_connection_;
 
 	sge::evdev::joypad::map joypads_;
 

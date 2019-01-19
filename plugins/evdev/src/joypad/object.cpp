@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/joypad/ff/effect_unique_ptr.hpp>
 #include <sge/input/joypad/ff/parameters_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <awl/backends/posix/processor_fwd.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/enable_shared_from_this_impl.hpp>
@@ -51,6 +52,7 @@ sge::evdev::joypad::object::object(
 	sge::evdev::device::fd_unique_ptr &&_fd,
 	boost::filesystem::path const &_path,
 	sge::window::object &_window,
+	awl::backends::posix::processor &_processor,
 	sge::evdev::joypad::info const &_info
 )
 :
@@ -59,6 +61,7 @@ sge::evdev::joypad::object::object(
 		std::move(
 			_fd
 		),
+		_processor,
 		_path
 	},
 	fcppt::enable_shared_from_this<

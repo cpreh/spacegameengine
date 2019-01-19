@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/joypad/object.hpp>
 #include <sge/evdev/joypad/shared_ptr.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <awl/backends/posix/processor_fwd.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/filesystem/directory_range.hpp>
 #include <fcppt/log/object_fwd.hpp>
@@ -37,6 +38,7 @@ sge::evdev::joypad::map
 sge::evdev::joypad::init(
 	fcppt::log::object &_log,
 	sge::window::object &_window,
+	awl::backends::posix::processor &_processor,
 	boost::filesystem::path const &_path
 )
 {
@@ -49,7 +51,8 @@ sge::evdev::joypad::init(
 			),
 			[
 				&_log,
-				&_window
+				&_window,
+				&_processor
 			](
 				boost::filesystem::path const &_cur
 			)
@@ -59,6 +62,7 @@ sge::evdev::joypad::init(
 						sge::evdev::joypad::create(
 							_log,
 							_window,
+							_processor,
 							_cur
 						),
 						[](

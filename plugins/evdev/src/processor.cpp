@@ -39,14 +39,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system.hpp>
 #include <sge/window/system_event_function.hpp>
 #include <awl/backends/posix/event.hpp>
+#include <awl/backends/posix/processor.hpp>
+#include <awl/backends/posix/processor_base.hpp>
 #include <awl/event/base.hpp>
+#include <awl/event/connection.hpp>
 #include <awl/event/container.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
+#include <awl/system/object.hpp>
 #include <awl/system/event/processor.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/cast/dynamic.hpp>
+#include <fcppt/cast/dynamic_cross_exn.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/container/map_values_copy.hpp>
 #include <fcppt/log/object_fwd.hpp>
@@ -54,7 +59,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
-#include <functional>
 #include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -72,17 +76,30 @@ sge::evdev::processor::processor(
 	path_{
 		"/dev/input"
 	},
-	dev_watch_{
-		path_
-	},
 	window_{
 		_window
+	},
+	processor_{
+		fcppt::cast::dynamic_cross_exn<
+			awl::backends::posix::processor_base &
+		>(
+			_window.system().awl_system().processor()
+		).fd_processor()
+	},
+	dev_watch_{
+		this->path_
+	},
+	dev_watch_connection_{
+		this->processor_.register_fd(
+			this->dev_watch_.fd()
+		)
 	},
 	joypads_{
 		sge::evdev::joypad::init(
 			this->log_,
 			this->window_,
-			path_
+			this->processor_,
+			this->path_
 		)
 	},
 	event_connection_{
@@ -113,7 +130,7 @@ sge::window::object &
 sge::evdev::processor::window() const
 {
 	return
-		window_;
+		this->window_;
 }
 
 sge::input::cursor::container
@@ -142,7 +159,7 @@ sge::evdev::processor::joypads() const
 					sge::evdev::joypad::shared_ptr
 				>
 			>(
-				joypads_
+				this->joypads_
 			),
 			[](
 				sge::evdev::joypad::shared_ptr &&_ptr
@@ -214,17 +231,23 @@ sge::evdev::processor::fd_event(
 	return
 		_event.fd()
 		==
-		dev_watch_.fd()
+		this->dev_watch_.fd()
 		?
 			fcppt::algorithm::map_optional<
 				awl::event::container
 			>(
-				dev_watch_.on_event(),
-				std::bind(
-					&sge::evdev::processor::inotify_event,
-					this,
-					std::placeholders::_1
+				this->dev_watch_.on_event(),
+				[
+					this
+				](
+					sge::evdev::inotify::event const &_inotify_event
 				)
+				{
+					return
+						this->inotify_event(
+							_inotify_event
+						);
+				}
 			)
 		:
 			this->device_event(
@@ -239,7 +262,7 @@ sge::evdev::processor::inotify_event(
 )
 {
 	boost::filesystem::path const file_path(
-		path_
+		this->path_
 		/
 		_event.filename()
 	);
@@ -251,23 +274,25 @@ sge::evdev::processor::inotify_event(
 	case sge::evdev::inotify::event_type::add:
 		return
 			sge::evdev::joypad::add(
-				log_,
-				window_,
-				joypads_,
+				this->log_,
+				this->window_,
+				this->processor_,
+				this->joypads_,
 				file_path
 			);
 	case sge::evdev::inotify::event_type::remove:
 		return
 			sge::evdev::joypad::remove(
-				joypads_,
+				this->joypads_,
 				file_path
 			);
 	case sge::evdev::inotify::event_type::attrib:
 		return
 			sge::evdev::joypad::attrib(
-				log_,
-				window_,
-				joypads_,
+				this->log_,
+				this->window_,
+				this->processor_,
+				this->joypads_,
 				file_path
 			);
 	}
@@ -285,7 +310,7 @@ sge::evdev::processor::device_event(
 		fcppt::optional::from(
 			fcppt::optional::map(
 				fcppt::container::find_opt_mapped(
-					joypads_,
+					this->joypads_,
 					_event.fd()
 				),
 				[](

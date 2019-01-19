@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/evdev/joypad/optional_shared_ptr.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <awl/backends/posix/processor_fwd.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -40,6 +41,7 @@ sge::evdev::joypad::optional_shared_ptr
 create(
 	fcppt::log::object &,
 	sge::window::object &,
+	awl::backends::posix::processor &,
 	boost::filesystem::path const &
 );
 

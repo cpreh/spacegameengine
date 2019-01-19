@@ -24,8 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/evdev/device/object.hpp>
 #include <sge/input/exception.hpp>
 #include <awl/backends/posix/fd.hpp>
+#include <awl/backends/posix/processor.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/base_unique_ptr.hpp>
+#include <awl/event/connection.hpp>
 #include <awl/event/container.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -40,12 +42,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::evdev::device::object::object(
 	sge::evdev::device::fd_unique_ptr &&_fd,
+	awl::backends::posix::processor &_processor,
 	boost::filesystem::path const &_path
 )
 :
 	fd_{
 		std::move(
 			_fd
+		)
+	},
+	fd_connection_{
+		_processor.register_fd(
+			this->fd_->get()
 		)
 	},
 	path_{
@@ -68,7 +76,7 @@ sge::evdev::device::object::on_event()
 	input_event event;
 
 	// TODO: Make a range for this
-	awl::event::container events;
+	awl::event::container events{};
 
 	while(
 		(
