@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/exception.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/out.hpp>
@@ -142,8 +143,10 @@ sge::evdev::joypad::create(
 	return
 		fcppt::optional::join(
 			fcppt::optional::make_if(
-				boost::filesystem::is_directory(
-					_path
+				fcppt::not_(
+					boost::filesystem::is_directory(
+						_path
+					)
 				)
 				&&
 				boost::algorithm::starts_with(
