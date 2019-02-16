@@ -13,9 +13,8 @@ set(
 	libs/parseini/include/sge/parse/ini/get_or_create_entry.hpp
 	libs/parseini/include/sge/parse/ini/get_or_create_section.hpp
 	libs/parseini/include/sge/parse/ini/grammar.hpp
-	libs/parseini/include/sge/parse/ini/grammar_decl.hpp
+	libs/parseini/include/sge/parse/ini/grammar_base_fwd.hpp
 	libs/parseini/include/sge/parse/ini/grammar_fwd.hpp
-	libs/parseini/include/sge/parse/ini/grammar_impl.hpp
 	libs/parseini/include/sge/parse/ini/optional_start.hpp
 	libs/parseini/include/sge/parse/ini/optional_start_fwd.hpp
 	libs/parseini/include/sge/parse/ini/optional_value.hpp
@@ -28,21 +27,19 @@ set(
 	libs/parseini/include/sge/parse/ini/output/to_range.hpp
 	libs/parseini/include/sge/parse/ini/output/to_stream.hpp
 	libs/parseini/include/sge/parse/ini/parse_file.hpp
-	libs/parseini/include/sge/parse/ini/parse_file_exn.hpp
-	libs/parseini/include/sge/parse/ini/parse_file_opt.hpp
-	libs/parseini/include/sge/parse/ini/parse_range.hpp
 	libs/parseini/include/sge/parse/ini/parse_stream.hpp
-	libs/parseini/include/sge/parse/ini/result_with_value.hpp
-	libs/parseini/include/sge/parse/ini/result_with_value_fwd.hpp
+	libs/parseini/include/sge/parse/ini/parse_string.hpp
+	libs/parseini/include/sge/parse/ini/result.hpp
+	libs/parseini/include/sge/parse/ini/result_fwd.hpp
 	libs/parseini/include/sge/parse/ini/section.hpp
 	libs/parseini/include/sge/parse/ini/section_fwd.hpp
 	libs/parseini/include/sge/parse/ini/section_name.hpp
 	libs/parseini/include/sge/parse/ini/section_name_equal.hpp
 	libs/parseini/include/sge/parse/ini/section_vector.hpp
 	libs/parseini/include/sge/parse/ini/set_or_create.hpp
+	libs/parseini/include/sge/parse/ini/skipper.hpp
 	libs/parseini/include/sge/parse/ini/start.hpp
 	libs/parseini/include/sge/parse/ini/start_fwd.hpp
-	libs/parseini/include/sge/parse/ini/string.hpp
 	libs/parseini/include/sge/parse/ini/value.hpp
 	libs/parseini/src/parse/ini/entry.cpp
 	libs/parseini/src/parse/ini/entry_name_equal.cpp
@@ -50,13 +47,12 @@ set(
 	libs/parseini/src/parse/ini/get_or_create.cpp
 	libs/parseini/src/parse/ini/get_or_create_entry.cpp
 	libs/parseini/src/parse/ini/get_or_create_section.cpp
+	libs/parseini/src/parse/ini/grammar.cpp
 	libs/parseini/src/parse/ini/output/to_file.cpp
 	libs/parseini/src/parse/ini/output/to_stream.cpp
 	libs/parseini/src/parse/ini/parse_file.cpp
-	libs/parseini/src/parse/ini/parse_file_exn.cpp
-	libs/parseini/src/parse/ini/parse_file_opt.cpp
 	libs/parseini/src/parse/ini/parse_stream.cpp
-	libs/parseini/src/parse/ini/result_with_value.cpp
+	libs/parseini/src/parse/ini/parse_string.cpp
 	libs/parseini/src/parse/ini/section.cpp
 	libs/parseini/src/parse/ini/section_name_equal.cpp
 	libs/parseini/src/parse/ini/set_or_create.cpp
@@ -73,10 +69,12 @@ add_sge_base_library(
 		core
 	ADDITIONAL_DEPS
 		fcppt_core_interface
+		fcppt_parse_interface
 		${Boost_FILESYSTEM_LIBRARIES}
 		${Boost_SYSTEM_LIBRARIES}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
+		fcppt_parse_interface
 	IMPLEMENT_FROM
 		parse
 )

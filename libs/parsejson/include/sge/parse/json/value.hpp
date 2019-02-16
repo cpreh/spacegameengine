@@ -21,11 +21,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_VALUE_HPP_INCLUDED
 #define SGE_PARSE_JSON_VALUE_HPP_INCLUDED
 
-#include <sge/parse/json/array.hpp>
-#include <sge/parse/json/null.hpp>
-#include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value_fwd.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <sge/parse/json/value_variant.hpp>
+#include <sge/parse/json/detail/symbol.hpp>
 
+
+namespace sge
+{
+namespace parse
+{
+namespace json
+{
+
+struct value
+{
+	SGE_PARSE_JSON_DETAIL_SYMBOL
+	explicit
+	value(
+		sge::parse::json::value_variant &&
+	);
+
+	value_variant impl;
+};
+
+}
+}
+}
 
 #endif

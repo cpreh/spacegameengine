@@ -29,9 +29,6 @@ namespace parse
 namespace json
 {
 
-template<
-	typename In
->
 class grammar;
 
 }

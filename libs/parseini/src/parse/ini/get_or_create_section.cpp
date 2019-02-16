@@ -57,7 +57,9 @@ sge::parse::ini::get_or_create_section(
 			sections.insert(
 				sections.end(),
 				sge::parse::ini::section(
-					_section_name
+					sge::parse::ini::section_name{
+						_section_name
+					}
 				)
 			);
 

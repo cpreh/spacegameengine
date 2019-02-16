@@ -36,16 +36,20 @@ namespace ini
 struct start
 {
 	SGE_PARSE_INI_DETAIL_SYMBOL
-	start();
-
-	SGE_PARSE_INI_DETAIL_SYMBOL
 	explicit
 	start(
-		sge::parse::ini::section_vector const &
+		sge::parse::ini::section_vector &&
 	);
 
 	sge::parse::ini::section_vector sections;
 };
+
+SGE_PARSE_INI_DETAIL_SYMBOL
+bool
+operator==(
+	sge::parse::ini::start const &,
+	sge::parse::ini::start const &
+);
 
 }
 }

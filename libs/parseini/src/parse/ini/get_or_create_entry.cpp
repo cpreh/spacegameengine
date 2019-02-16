@@ -58,8 +58,12 @@ sge::parse::ini::get_or_create_entry(
 			entries.insert(
 				entries.end(),
 				sge::parse::ini::entry(
-					_entry_name,
-					_value
+					sge::parse::ini::entry_name{
+						_entry_name
+					},
+					sge::parse::ini::value{
+						_value
+					}
 				)
 			);
 

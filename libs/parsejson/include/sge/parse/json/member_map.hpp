@@ -23,8 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/string.hpp>
 #include <sge/parse/json/value_fwd.hpp>
+#include <fcppt/parse/recursive_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/unordered_map.hpp>
+#include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,10 +36,14 @@ namespace parse
 namespace json
 {
 
-typedef boost::unordered_map<
+typedef
+std::unordered_map<
 	sge::parse::json::string,
-	sge::parse::json::value
-> member_map;
+	fcppt::parse::recursive<
+		sge::parse::json::value
+	>
+>
+member_map;
 
 }
 }

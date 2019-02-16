@@ -23,8 +23,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/array_fwd.hpp>
 #include <sge/parse/json/element_vector.hpp>
-#include <sge/parse/json/optional_element_vector.hpp>
-#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/symbol.hpp>
 
 
@@ -43,25 +41,7 @@ struct array
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	explicit
 	array(
-		sge::parse::json::element_vector const &
-	);
-
-	SGE_PARSE_JSON_DETAIL_SYMBOL
-	explicit
-	array(
 		sge::parse::json::element_vector &&
-	);
-
-	SGE_PARSE_JSON_DETAIL_SYMBOL
-	explicit
-	array(
-		sge::parse::json::optional_element_vector const &
-	);
-
-	SGE_PARSE_JSON_DETAIL_SYMBOL
-	explicit
-	array(
-		sge::parse::json::optional_element_vector &&
 	);
 
 	sge::parse::json::element_vector elements;

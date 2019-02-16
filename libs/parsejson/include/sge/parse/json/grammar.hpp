@@ -21,9 +21,76 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_GRAMMAR_HPP_INCLUDED
 #define SGE_PARSE_JSON_GRAMMAR_HPP_INCLUDED
 
-#include <sge/parse/json/grammar_decl.hpp>
-#include <sge/parse/json/grammar_fwd.hpp>
-#include <sge/parse/json/grammar_impl.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/null.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/start.hpp>
+#include <sge/parse/json/value.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/parse/grammar_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
+
+namespace sge
+{
+namespace parse
+{
+namespace json
+{
+
+class grammar
+:
+	public
+		sge::parse::json::grammar_base
+{
+	FCPPT_NONCOPYABLE(
+		grammar
+	);
+public:
+	grammar();
+
+	~grammar();
+private:
+	base_type<
+		sge::parse::json::null
+	>
+	null_;
+
+	base_type<
+		bool
+	>
+	bool_;
+
+	base_type<
+		std::string
+	>
+	quoted_string_;
+
+	base_type<
+		sge::parse::json::array
+	>
+	array_;
+
+	base_type<
+		sge::parse::json::object
+	>
+	object_;
+
+	base_type<
+		sge::parse::json::value
+	>
+	value_;
+
+	base_type<
+		sge::parse::json::start
+	>
+	start_;
+};
+
+}
+}
+}
 
 #endif

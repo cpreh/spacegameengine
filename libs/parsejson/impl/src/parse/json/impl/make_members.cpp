@@ -18,37 +18,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_OBJECT_HPP_INCLUDED
-#define SGE_PARSE_JSON_OBJECT_HPP_INCLUDED
-
 #include <sge/parse/json/member_map.hpp>
-#include <sge/parse/json/object_fwd.hpp>
-#include <sge/parse/json/detail/symbol.hpp>
+#include <sge/parse/json/impl/make_members.hpp>
+#include <sge/parse/json/impl/member_vector.hpp>
 
 
-namespace sge
+sge::parse::json::member_map
+sge::parse::json::impl::make_members(
+	sge::parse::json::impl::member_vector &&_args
+)
 {
-namespace parse
-{
-namespace json
-{
+	return
+		fcppt::algorithm::fold(
+			fcppt::container::make_move_range(
+				std::move(
+					_args
+				)
+			),
+			sge::parse::json::member_map{},
+			[](
+				std::tuple<
+					std::string,
+					fcppt::recursive<
+						sge::parse::json::value
+					>
+				> &&_element,
+				sge::parse::json::member_map &&_state
+			)
+			{
+				if(
+					fcppt::not_(
+						fcppt::container::insert(
+							_state,
+							object::value_type{
+								std::move(
+									std::get<0>(_element)
+								),
+								std::move(
+									std::get<1>(_element)
+								)
+							}
+						)
+					)
+				)
+					throw
+						double_insert{};
 
-struct object
-{
-	SGE_PARSE_JSON_DETAIL_SYMBOL
-	object();
-
-	SGE_PARSE_JSON_DETAIL_SYMBOL
-	explicit
-	object(
-		sge::parse::json::member_map &&
-	);
-
-	sge::parse::json::member_map members;
-};
-
+			return
+				std::move(
+					_state
+				);
+			}
+		);
 }
-}
-}
 
-#endif
+

@@ -29,9 +29,6 @@ namespace parse
 namespace ini
 {
 
-template<
-	typename In
->
 class grammar;
 
 }

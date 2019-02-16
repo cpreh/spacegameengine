@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_PARSE_STREAM_HPP_INCLUDED
 #define SGE_PARSE_INI_PARSE_STREAM_HPP_INCLUDED
 
-#include <sge/parse/result_fwd.hpp>
-#include <sge/parse/ini/start_fwd.hpp>
+#include <sge/parse/ini/result.hpp>
 #include <sge/parse/ini/detail/symbol.hpp>
-#include <fcppt/io/istream_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <iosfwd>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -35,10 +36,9 @@ namespace ini
 {
 
 SGE_PARSE_INI_DETAIL_SYMBOL
-sge::parse::result
+sge::parse::ini::result
 parse_stream(
-	fcppt::io::istream &,
-	sge::parse::ini::start &ret
+	std::istream &
 );
 
 }

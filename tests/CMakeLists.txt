@@ -167,6 +167,10 @@ add_sge_test(
 		sgeparseini
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_catch_interface
+		fcppt_parse_interface
+	COMPILE_DEFINITIONS
+		CATCH_CONFIG_ENABLE_TUPLE_STRINGMAKER
 )
 
 add_sge_test(

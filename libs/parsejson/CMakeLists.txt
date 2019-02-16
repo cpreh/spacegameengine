@@ -49,6 +49,7 @@ set(
 	libs/parsejson/include/sge/parse/json/get_exn.hpp
 	libs/parsejson/include/sge/parse/json/get_exn_message.hpp
 	libs/parsejson/include/sge/parse/json/grammar.hpp
+	libs/parsejson/include/sge/parse/json/grammar_base_fwd.hpp
 	libs/parsejson/include/sge/parse/json/grammar_decl.hpp
 	libs/parsejson/include/sge/parse/json/grammar_fwd.hpp
 	libs/parsejson/include/sge/parse/json/grammar_impl.hpp
@@ -63,10 +64,6 @@ set(
 	libs/parsejson/include/sge/parse/json/null_fwd.hpp
 	libs/parsejson/include/sge/parse/json/object.hpp
 	libs/parsejson/include/sge/parse/json/object_fwd.hpp
-	libs/parsejson/include/sge/parse/json/optional_element_vector.hpp
-	libs/parsejson/include/sge/parse/json/optional_element_vector_fwd.hpp
-	libs/parsejson/include/sge/parse/json/optional_member.hpp
-	libs/parsejson/include/sge/parse/json/optional_member_fwd.hpp
 	libs/parsejson/include/sge/parse/json/optional_object_ref.hpp
 	libs/parsejson/include/sge/parse/json/optional_object_ref_fwd.hpp
 	libs/parsejson/include/sge/parse/json/output/grammar.hpp
@@ -89,13 +86,15 @@ set(
 	libs/parsejson/include/sge/parse/json/path_to_string.hpp
 	libs/parsejson/include/sge/parse/json/result_with_value.hpp
 	libs/parsejson/include/sge/parse/json/result_with_value_fwd.hpp
+	libs/parsejson/include/sge/parse/json/skipper.hpp
 	libs/parsejson/include/sge/parse/json/start.hpp
 	libs/parsejson/include/sge/parse/json/start_fwd.hpp
-	libs/parsejson/include/sge/parse/json/string.hpp
 	libs/parsejson/include/sge/parse/json/string_to_path.hpp
 	libs/parsejson/include/sge/parse/json/string_to_value.hpp
 	libs/parsejson/include/sge/parse/json/value.hpp
 	libs/parsejson/include/sge/parse/json/value_fwd.hpp
+	libs/parsejson/include/sge/parse/json/value_variant.hpp
+	libs/parsejson/include/sge/parse/json/value_variant_fwd.hpp
 	libs/parsejson/src/parse/json/array.cpp
 	libs/parsejson/src/parse/json/config/help_needed_exception.cpp
 	libs/parsejson/src/parse/json/config/merge_command_line_parameters.cpp

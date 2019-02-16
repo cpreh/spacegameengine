@@ -18,55 +18,90 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/result.hpp>
-#include <sge/parse/result_code.hpp>
-#include <sge/parse/ini/parse_stream.hpp>
+#include <sge/parse/ini/entry.hpp>
+#include <sge/parse/ini/entry_name.hpp>
+#include <sge/parse/ini/entry_vector.hpp>
+#include <sge/parse/ini/parse_string.hpp>
+#include <sge/parse/ini/section.hpp>
+#include <sge/parse/ini/section_name.hpp>
+#include <sge/parse/ini/section_vector.hpp>
 #include <sge/parse/ini/start.hpp>
-#include <sge/parse/ini/output/to_stream.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/io/cout.hpp>
-#include <fcppt/io/istringstream.hpp>
+#include <sge/parse/ini/value.hpp>
+#include <fcppt/strong_typedef_comparison.hpp>
+#include <fcppt/catch/convert.hpp>
+#include <fcppt/catch/either.hpp>
+#include <fcppt/catch/strong_typedef.hpp>
+#include <fcppt/either/comparison.hpp>
+#include <fcppt/parse/make_success.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
-#include <ios>
+#include <string>
+#include <tuple>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace
+namespace Catch
 {
 
-void
-check_failure(
-	fcppt::string const &_input
-)
+template<>
+struct StringMaker<
+	sge::parse::ini::start
+>
 {
-	fcppt::io::istringstream stream(
-		_input
-	);
+	static
+	std::string
+	convert(
+		sge::parse::ini::start const &_value
+	)
+	{
+		return
+			fcppt::catch_::convert(
+				_value.sections
+			);
+	}
+};
 
-	stream.unsetf(
-		std::ios_base::skipws
-	);
+template<>
+struct StringMaker<
+	sge::parse::ini::section
+>
+{
+	static
+	std::string
+	convert(
+		sge::parse::ini::section const &_value
+	)
+	{
+		return
+			fcppt::catch_::convert(
+				std::make_tuple(
+					_value.name,
+					_value.entries
+				)
+			);
+	}
+};
 
-	sge::parse::ini::start result;
-
-	CHECK(
-		sge::parse::ini::parse_stream(
-			stream,
-			result
-		).result_code()
-		!=
-		sge::parse::result_code::ok
-	);
-
-	CHECK(
-		sge::parse::ini::output::to_stream(
-			fcppt::io::cout(),
-			result
-		)
-	);
-}
+template<>
+struct StringMaker<
+	sge::parse::ini::entry
+>
+{
+	static
+	std::string
+	convert(
+		sge::parse::ini::entry const &_value
+	)
+	{
+		return
+			fcppt::catch_::convert(
+				std::make_tuple(
+					_value.name,
+					_value.value
+				)
+			);
+	}
+};
 
 }
 
@@ -75,111 +110,73 @@ TEST_CASE(
 	"[sge]"
 )
 {
-	fcppt::string const test(
-		FCPPT_TEXT("[section]\n")
-			FCPPT_TEXT("foo1 = bar1\n")
-		FCPPT_TEXT("[sectionfoo]\n")
-			FCPPT_TEXT("foo3 =	 bar3\n")
-			FCPPT_TEXT("foo4=bar4\n")
-			FCPPT_TEXT("\n")
-			FCPPT_TEXT("empty=\n")
-	);
-
-	fcppt::io::istringstream stream(
-		test
-	);
-
-	stream.unsetf(
-		std::ios_base::skipws
-	);
-
-	sge::parse::ini::start result;
-
-	REQUIRE(
-		sge::parse::ini::parse_stream(
-			stream,
-			result
-		).result_code()
-		==
-		sge::parse::result_code::ok
-	);
-
-	REQUIRE(
-		sge::parse::ini::output::to_stream(
-			fcppt::io::cout(),
-			result
+	CHECK(
+		sge::parse::ini::parse_string(
+			std::string{
+				"[section]\n"
+					"foo1 = bar1\n"
+				"[sectionfoo]\n"
+					"foo3 = bar3\n"
+					"foo4=bar4\n"
+					"\n"
+					"empty=\n"
+			}
 		)
-	);
-
-	REQUIRE(
-		stream.eof()
-	);
-
-	// TODO: Improve this
-	REQUIRE(
-		result.sections.size()
 		==
-		2u
-	);
-
-	REQUIRE(
-		result.sections[0].entries.size()
-		==
-		1u
-	);
-
-	REQUIRE(
-		result.sections[1].entries.size()
-		==
-		3u
-	);
-
-	CHECK(
-		result.sections[0].entries[0].name
-		==
-		FCPPT_TEXT("foo1")
-	);
-
-	CHECK(
-		result.sections[0].entries[0].value
-		==
-		FCPPT_TEXT("bar1")
-	);
-
-	CHECK(
-		result.sections[1].entries[0].name
-		==
-		FCPPT_TEXT("foo3")
-	);
-
-	CHECK(
-		result.sections[1].entries[0].value
-		==
-		FCPPT_TEXT("bar3")
-	);
-
-	CHECK(
-		result.sections[1].entries[1].name
-		==
-		FCPPT_TEXT("foo4")
-	);
-
-	CHECK(
-		result.sections[1].entries[1].value
-		==
-		FCPPT_TEXT("bar4")
-	);
-
-	CHECK(
-		result.sections[1].entries[2].name
-		==
-		FCPPT_TEXT("empty")
-	);
-
-	CHECK(
-		result.sections[1].entries[2].value
-		==
-		FCPPT_TEXT("")
+		fcppt::parse::make_success<
+			char
+		>(
+			sge::parse::ini::start{
+				sge::parse::ini::section_vector{
+					sge::parse::ini::section{
+						sge::parse::ini::section_name{
+							std::string{"section"}
+						},
+						sge::parse::ini::entry_vector{
+							sge::parse::ini::entry{
+								sge::parse::ini::entry_name{
+									std::string{"foo1"}
+								},
+								sge::parse::ini::value{
+									std::string{"bar1"}
+								}
+							}
+						}
+					},
+					sge::parse::ini::section{
+						sge::parse::ini::section_name{
+							std::string{"sectionfoo"}
+						},
+						sge::parse::ini::entry_vector{
+							sge::parse::ini::entry{
+								sge::parse::ini::entry_name{
+									std::string{"foo3"}
+								},
+								sge::parse::ini::value{
+									std::string{"bar3"}
+								}
+							},
+							sge::parse::ini::entry{
+								sge::parse::ini::entry_name{
+									std::string{"foo4"}
+								},
+								sge::parse::ini::value{
+									std::string{"bar4"}
+								}
+							},
+							sge::parse::ini::entry{
+								sge::parse::ini::entry_name{
+									std::string{"empty"}
+								},
+								sge::parse::ini::value{
+									std::string{}
+								}
+							}
+						}
+					}
+				}
+			}
+		)
 	);
 }
 
@@ -188,17 +185,21 @@ TEST_CASE(
 	"[sge]"
 )
 {
-	check_failure(
-		FCPPT_TEXT("garbage")
+	CHECK(
+		sge::parse::ini::parse_string(
+			std::string{"garbage"}
+		).has_failure()
 	);
 
-	check_failure(
-		FCPPT_TEXT("[foo]")
-		FCPPT_TEXT("missing_newline")
+	CHECK(
+		sge::parse::ini::parse_string(
+			std::string{"[foo] missing_newline"}
+		).has_failure()
 	);
 
-	check_failure(
-		FCPPT_TEXT("[foo]")
-		FCPPT_TEXT("invalid name=foo")
+	CHECK(
+		sge::parse::ini::parse_string(
+			std::string{"[foo]\n invalid name=foo"}
+		).has_failure()
 	);
 }

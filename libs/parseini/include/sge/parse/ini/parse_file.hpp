@@ -21,8 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_PARSE_FILE_HPP_INCLUDED
 #define SGE_PARSE_INI_PARSE_FILE_HPP_INCLUDED
 
-#include <sge/parse/result_fwd.hpp>
-#include <sge/parse/ini/start_fwd.hpp>
+#include <sge/parse/ini/result.hpp>
 #include <sge/parse/ini/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -37,10 +36,9 @@ namespace ini
 {
 
 SGE_PARSE_INI_DETAIL_SYMBOL
-sge::parse::result
+sge::parse::ini::result
 parse_file(
-	boost::filesystem::path const &,
-	sge::parse::ini::start &ret
+	boost::filesystem::path const &
 );
 
 }

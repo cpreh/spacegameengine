@@ -21,9 +21,67 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_GRAMMAR_HPP_INCLUDED
 #define SGE_PARSE_INI_GRAMMAR_HPP_INCLUDED
 
-#include <sge/parse/ini/grammar_decl.hpp>
+#include <sge/parse/ini/entry.hpp>
+#include <sge/parse/ini/grammar_base_fwd.hpp>
 #include <sge/parse/ini/grammar_fwd.hpp>
-#include <sge/parse/ini/grammar_impl.hpp>
+#include <sge/parse/ini/section.hpp>
+#include <sge/parse/ini/section_vector.hpp>
+#include <sge/parse/ini/start.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/parse/grammar_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
+
+namespace sge
+{
+namespace parse
+{
+namespace ini
+{
+
+class grammar
+:
+	public
+		sge::parse::ini::grammar_base
+{
+	FCPPT_NONCOPYABLE(
+		grammar
+	);
+public:
+	grammar();
+
+	~grammar();
+private:
+	base_type<
+		sge::parse::ini::entry
+	>
+	entry_;
+
+	base_type<
+		std::string
+	>
+	header_;
+
+	base_type<
+		sge::parse::ini::section
+	>
+	section_;
+
+	base_type<
+		sge::parse::ini::section_vector
+	>
+	section_vector_;
+
+	base_type<
+		sge::parse::ini::start
+	>
+	ini_;
+};
+
+}
+}
+}
 
 #endif

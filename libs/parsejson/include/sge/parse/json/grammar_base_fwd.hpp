@@ -18,27 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_INI_SECTION_NAME_HPP_INCLUDED
-#define SGE_PARSE_INI_SECTION_NAME_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_GRAMMAR_BASE_FWD_HPP_INCLUDED
+#define SGE_PARSE_JSON_GRAMMAR_BASE_FWD_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <string>
-#include <fcppt/config/external_end.hpp>
+#include <sge/parse/json/skipper.hpp>
+#include <sge/parse/json/start_fwd.hpp>
+#include <fcppt/parse/grammar_fwd.hpp>
 
 
 namespace sge
 {
 namespace parse
 {
-namespace ini
+namespace json
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	std::string,
-	section_name
-);
+typedef
+fcppt::parse::grammar<
+	sge::parse::json::start,
+	char,
+	decltype(
+		sge::parse::json::skipper()
+	)
+>
+grammar_base;
 
 }
 }

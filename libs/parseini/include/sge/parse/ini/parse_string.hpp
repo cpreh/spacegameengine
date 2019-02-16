@@ -18,11 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_INI_SECTION_NAME_HPP_INCLUDED
-#define SGE_PARSE_INI_SECTION_NAME_HPP_INCLUDED
+#ifndef SGE_PARSE_INI_PARSE_STRING_HPP_INCLUDED
+#define SGE_PARSE_INI_PARSE_STRING_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/parse/ini/result.hpp>
+#include <sge/parse/ini/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -35,9 +35,10 @@ namespace parse
 namespace ini
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
-	std::string,
-	section_name
+SGE_PARSE_INI_DETAIL_SYMBOL
+sge::parse::ini::result
+parse_string(
+	std::string &&
 );
 
 }

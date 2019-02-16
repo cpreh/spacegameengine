@@ -25,8 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/section_name.hpp>
 #include <sge/parse/ini/set_or_create.hpp>
 #include <sge/parse/ini/start_fwd.hpp>
-#include <sge/parse/ini/string.hpp>
 #include <sge/parse/ini/value.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
 
 void
@@ -44,7 +46,7 @@ sge::parse::ini::set_or_create(
 		),
 		_entry_name,
 		sge::parse::ini::value(
-			sge::parse::ini::string()
+			std::string{}
 		)
 	).value =
 		_value.get();

@@ -18,11 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_INI_SECTION_NAME_HPP_INCLUDED
-#define SGE_PARSE_INI_SECTION_NAME_HPP_INCLUDED
+#ifndef SGE_PARSE_JSON_VALUE_VARIANT_FWD_HPP_INCLUDED
+#define SGE_PARSE_JSON_VALUE_VARIANT_FWD_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/null.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/value_fwd.hpp>
+#include <sge/parse/json/array_fwd.hpp>
+#include <sge/parse/json/float_type.hpp>
+#include <sge/parse/json/int_type.hpp>
+#include <sge/parse/json/null.hpp>
+#include <sge/parse/json/object_fwd.hpp>
+#include <fcppt/variant/variadic_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -32,13 +40,20 @@ namespace sge
 {
 namespace parse
 {
-namespace ini
+namespace json
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+typedef
+fcppt::variant::variadic<
+	sge::parse::json::object
+	sge::parse::json::array,
+	bool,
 	std::string,
-	section_name
-);
+	sge::parse::json::float_type,
+	sge::parse::json::int_type,
+	sge::parse::json::null
+>
+value_variant;
 
 }
 }

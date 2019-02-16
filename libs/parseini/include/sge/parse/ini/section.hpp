@@ -24,8 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/entry_vector.hpp>
 #include <sge/parse/ini/section_fwd.hpp>
 #include <sge/parse/ini/section_name.hpp>
-#include <sge/parse/ini/string.hpp>
 #include <sge/parse/ini/detail/symbol.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -38,18 +40,28 @@ namespace ini
 struct section
 {
 	SGE_PARSE_INI_DETAIL_SYMBOL
-	section();
-
-	SGE_PARSE_INI_DETAIL_SYMBOL
 	explicit
 	section(
-		sge::parse::ini::section_name const &
+		sge::parse::ini::section_name &&
 	);
 
-	sge::parse::ini::string name;
+	SGE_PARSE_INI_DETAIL_SYMBOL
+	section(
+		sge::parse::ini::section_name &&,
+		sge::parse::ini::entry_vector &&
+	);
+
+	std::string name;
 
 	sge::parse::ini::entry_vector entries;
 };
+
+SGE_PARSE_INI_DETAIL_SYMBOL
+bool
+operator==(
+	sge::parse::ini::section const &,
+	sge::parse::ini::section const &
+);
 
 }
 }

@@ -23,9 +23,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/ini/entry_fwd.hpp>
 #include <sge/parse/ini/entry_name.hpp>
-#include <sge/parse/ini/string.hpp>
 #include <sge/parse/ini/value.hpp>
 #include <sge/parse/ini/detail/symbol.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -38,18 +40,22 @@ namespace ini
 struct entry
 {
 	SGE_PARSE_INI_DETAIL_SYMBOL
-	entry();
-
-	SGE_PARSE_INI_DETAIL_SYMBOL
 	entry(
-		sge::parse::ini::entry_name const &,
-		sge::parse::ini::value const &
+		sge::parse::ini::entry_name &&,
+		sge::parse::ini::value &&
 	);
 
-	sge::parse::ini::string
+	std::string
 		name,
 		value;
 };
+
+SGE_PARSE_INI_DETAIL_SYMBOL
+bool
+operator==(
+	sge::parse::ini::entry const &,
+	sge::parse::ini::entry const &
+);
 
 }
 }

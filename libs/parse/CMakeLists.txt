@@ -1,37 +1,14 @@
 set(
 	SGE_PARSE_FILES
-	libs/parse/impl/include/sge/parse/impl/instantiate_result_with_value.hpp
 	libs/parse/impl/include/sge/parse/impl/output/to_file.hpp
 	libs/parse/impl/include/sge/parse/impl/output/to_stream.hpp
 	libs/parse/impl/include/sge/parse/impl/parse_file.hpp
-	libs/parse/impl/include/sge/parse/impl/parse_file_exn.hpp
-	libs/parse/impl/include/sge/parse/impl/parse_file_opt.hpp
 	libs/parse/impl/include/sge/parse/impl/parse_stream.hpp
-	libs/parse/impl/include/sge/parse/impl/result_with_value_impl.hpp
-	libs/parse/include/sge/parse/declare_result_with_value.hpp
+	libs/parse/impl/include/sge/parse/impl/parse_string.hpp
 	libs/parse/include/sge/parse/encoding.hpp
-	libs/parse/include/sge/parse/error_string.hpp
 	libs/parse/include/sge/parse/exception.hpp
 	libs/parse/include/sge/parse/exception_fwd.hpp
-	libs/parse/include/sge/parse/info_to_string.hpp
-	libs/parse/include/sge/parse/install_error_handler.hpp
-	libs/parse/include/sge/parse/make_error_string.hpp
-	libs/parse/include/sge/parse/make_result.hpp
-	libs/parse/include/sge/parse/optional_error_string.hpp
-	libs/parse/include/sge/parse/optional_error_string_fwd.hpp
-	libs/parse/include/sge/parse/parse_exception.hpp
-	libs/parse/include/sge/parse/parse_exception_fwd.hpp
-	libs/parse/include/sge/parse/result.hpp
-	libs/parse/include/sge/parse/result_code.hpp
-	libs/parse/include/sge/parse/result_code_fwd.hpp
-	libs/parse/include/sge/parse/result_fwd.hpp
-	libs/parse/include/sge/parse/result_with_value.hpp
-	libs/parse/include/sge/parse/result_with_value_fwd.hpp
 	libs/parse/src/parse/exception.cpp
-	libs/parse/src/parse/info_to_string.cpp
-	libs/parse/src/parse/make_error_string.cpp
-	libs/parse/src/parse/parse_exception.cpp
-	libs/parse/src/parse/result.cpp
 )
 
 sge_generate_instantiate_symbol_header(
@@ -51,5 +28,6 @@ add_sge_base_library(
 		${fcppt_core_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
+		fcppt_parse_interface
 		${fcppt_filesystem_TARGET}
 )

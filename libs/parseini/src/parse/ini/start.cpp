@@ -20,20 +20,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/ini/section_vector.hpp>
 #include <sge/parse/ini/start.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::parse::ini::start::start()
+sge::parse::ini::start::start(
+	sge::parse::ini::section_vector &&_sections
+)
 :
-	sections()
+	sections{
+		std::move(
+			_sections
+		)
+	}
 {
 }
 
-sge::parse::ini::start::start(
-	sge::parse::ini::section_vector const &_sections
+bool
+sge::parse::ini::operator==(
+	sge::parse::ini::start const &_left,
+	sge::parse::ini::start const &_right
 )
-:
-	sections(
-		_sections
-	)
 {
+	return
+		_left.sections
+		==
+		_right.sections;
 }

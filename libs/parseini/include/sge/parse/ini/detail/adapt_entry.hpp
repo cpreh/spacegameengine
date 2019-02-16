@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/fusion/adapted/struct/adapt_struct.hpp>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,8 +36,8 @@ FCPPT_PP_DISABLE_CLANG_WARNING(-Wdisabled-macro-expansion)
 
 BOOST_FUSION_ADAPT_STRUCT(
 	sge::parse::ini::entry,
-	(sge::parse::ini::string, name)
-	(sge::parse::ini::string, value)
+	(std::string, name)
+	(std::string, value)
 )
 
 FCPPT_PP_POP_WARNING

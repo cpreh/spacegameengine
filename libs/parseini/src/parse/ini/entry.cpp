@@ -21,25 +21,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/value.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::parse::ini::entry::entry()
+sge::parse::ini::entry::entry(
+	sge::parse::ini::entry_name &&_name,
+	sge::parse::ini::value &&_value
+)
 :
-	name(),
-	value()
+	name{
+		std::move(
+			_name.get()
+		)
+	},
+	value{
+		std::move(
+			_value.get()
+		)
+	}
 {
 }
 
-sge::parse::ini::entry::entry(
-	sge::parse::ini::entry_name const &_name,
-	sge::parse::ini::value const &_value
+bool
+sge::parse::ini::operator==(
+	sge::parse::ini::entry const &_left,
+	sge::parse::ini::entry const &_right
 )
-:
-	name(
-		_name.get()
-	),
-	value(
-		_value.get()
-	)
 {
+	return
+		_left.name
+		==
+		_right.name
+		&&
+		_left.value
+		==
+		_right.value;
 }

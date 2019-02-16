@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_DETAIL_ADAPT_START_HPP_INCLUDED
 #define SGE_PARSE_INI_DETAIL_ADAPT_START_HPP_INCLUDED
 
+#include <sge/parse/ini/section_vector.hpp>
 #include <sge/parse/ini/start.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

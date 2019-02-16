@@ -21,9 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_VALUE_HPP_INCLUDED
 #define SGE_PARSE_INI_VALUE_HPP_INCLUDED
 
-#include <sge/parse/ini/string.hpp>
 #include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -34,7 +36,7 @@ namespace ini
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	sge::parse::ini::string,
+	std::string,
 	value
 );
 
