@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_WININPUT_CURSOR_GRAB_HPP_INCLUDED
 
 #include <awl/backends/windows/window/object_fwd.hpp>
-#include <fcppt/preprocessor/warn_unused_result.hpp>
 
 
 namespace sge
@@ -32,11 +31,11 @@ namespace wininput
 namespace cursor
 {
 
+[[nodiscard]]
 bool
 grab(
 	awl::backends::windows::window::object &
-)
-FCPPT_PP_WARN_UNUSED_RESULT;
+);
 
 }
 }

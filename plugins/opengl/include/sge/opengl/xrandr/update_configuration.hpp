@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_XRANDR_UPDATE_CONFIGURATION_HPP_INCLUDED
 
 #include <awl/backends/x11/window/event/object_fwd.hpp>
-#include <fcppt/preprocessor/warn_unused_result.hpp>
 
 
 namespace sge
@@ -32,11 +31,11 @@ namespace opengl
 namespace xrandr
 {
 
+[[nodiscard]]
 bool
 update_configuration(
 	awl::backends::x11::window::event::object const &
-)
-FCPPT_PP_WARN_UNUSED_RESULT;
+);
 
 }
 }

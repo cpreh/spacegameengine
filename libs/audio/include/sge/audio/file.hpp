@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/audio/detail/symbol.hpp>
 #include <sge/core/detail/class_symbol.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/preprocessor/warn_unused_result.hpp>
 
 
 namespace sge
@@ -62,6 +61,7 @@ public:
 
 	\return The number of samples actually read. This might differ from \a _samples because EOF was reached (or for some other reason)
 	*/
+	[[nodiscard]]
 	virtual
 	sge::audio::sample_count
 	// TODO: Return the buffer here?
@@ -69,7 +69,6 @@ public:
 		sge::audio::sample_count _samples,
 		sge::audio::sample_buffer &_destination
 	)
-	FCPPT_PP_WARN_UNUSED_RESULT
 	= 0;
 
 	/**

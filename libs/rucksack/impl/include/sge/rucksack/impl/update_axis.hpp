@@ -25,7 +25,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/rucksack/axis_to_index.hpp>
 #include <sge/rucksack/scalar.hpp>
 #include <fcppt/enum/size.hpp>
-#include <fcppt/preprocessor/warn_unused_result.hpp>
 
 
 namespace sge
@@ -38,17 +37,7 @@ namespace impl
 template<
 	typename Ret
 >
-Ret
-update_axis(
-	Ret,
-	sge::rucksack::axis,
-	sge::rucksack::scalar
-)
-FCPPT_PP_WARN_UNUSED_RESULT;
-
-template<
-	typename Ret
->
+[[nodiscard]]
 Ret
 update_axis(
 	Ret _result,

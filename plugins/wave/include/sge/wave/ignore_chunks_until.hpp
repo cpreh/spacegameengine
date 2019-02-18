@@ -24,7 +24,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/wave/header.hpp>
 #include <fcppt/endianness/format_fwd.hpp>
 #include <fcppt/log/object_fwd.hpp>
-#include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -35,14 +34,14 @@ namespace sge
 namespace wave
 {
 
+[[nodiscard]]
 bool
 ignore_chunks_until(
 	fcppt::log::object &,
 	std::istream &,
 	sge::wave::header const &,
 	fcppt::endianness::format
-)
-FCPPT_PP_WARN_UNUSED_RESULT;
+);
 
 }
 }

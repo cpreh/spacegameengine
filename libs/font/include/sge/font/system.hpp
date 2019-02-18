@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/system_fwd.hpp>
 #include <sge/font/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/preprocessor/warn_unused_result.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -52,20 +51,20 @@ public:
 	virtual
 	~system();
 
+	[[nodiscard]]
 	virtual
 	sge::font::object_unique_ptr
 	create_font(
 		sge::font::parameters const &
 	)
-	FCPPT_PP_WARN_UNUSED_RESULT
 	= 0;
 
+	[[nodiscard]]
 	virtual
 	sge::font::added_unique_ptr
 	add_font(
 		boost::filesystem::path const &
 	)
-	FCPPT_PP_WARN_UNUSED_RESULT
 	= 0;
 };
 
