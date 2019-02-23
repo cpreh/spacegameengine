@@ -1071,7 +1071,6 @@ set(
 	plugins/opengl/include/sge/opengl/wgl/scoped_current_fwd.hpp
 	plugins/opengl/include/sge/opengl/wgl/system.hpp
 	plugins/opengl/include/sge/opengl/wgl/visual/attribute_container.hpp
-	plugins/opengl/include/sge/opengl/wgl/visual/attribute_container_fwd.hpp
 	plugins/opengl/include/sge/opengl/wgl/visual/choose_format.hpp
 	plugins/opengl/include/sge/opengl/wgl/visual/config.hpp
 	plugins/opengl/include/sge/opengl/wgl/visual/config_fwd.hpp
@@ -1454,6 +1453,7 @@ set(
 	sgeplugin
 	sgerenderer
 	sgerendereropengl
+	sgewindow
 )
 
 set(

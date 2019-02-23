@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/window/object_unique_ptr.hpp>
 #include <awl/window/parameters.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/cast/dynamic_cross_exn.hpp>
+#include <fcppt/cast/dynamic_exn.hpp>
 
 
 sge::opengl::wgl::config
@@ -58,7 +58,7 @@ sge::opengl::wgl::get_config(
 	);
 
 	sge::opengl::windows::gdi_device const gdi_device(
-		fcppt::cast::dynamic_cross_exn<
+		fcppt::cast::dynamic_exn<
 			awl::backends::windows::window::object &
 		>(
 			*window
