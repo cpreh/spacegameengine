@@ -36,7 +36,7 @@ sge::gdifont::draw_text(
 	UINT const _format
 )
 {
-	if(
+	int const result{
 		DrawTextW(
 			_device_context.get(),
 			_string.data(),
@@ -50,6 +50,10 @@ sge::gdifont::draw_text(
 			&_rect,
 			_format
 		)
+	};
+
+	if(
+		result
 		==
 		0
 	)
@@ -57,6 +61,11 @@ sge::gdifont::draw_text(
 			sge::font::exception{
 				FCPPT_TEXT("DrawText failed!")
 			};
+
+	_rect.bottom =
+		_rect.top
+		+
+		result;
 
 	return
 		_rect;

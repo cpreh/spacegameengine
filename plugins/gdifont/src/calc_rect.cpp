@@ -68,7 +68,7 @@ sge::gdifont::calc_rect(
 						_align_h
 					),
 					fcppt::const_(
-						zero
+						LONG{1}
 					),
 					[](
 						sge::font::align_h::max_width const _max_width
