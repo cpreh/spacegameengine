@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -31,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/texture/wrap_npot.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/math/dim/map.hpp>
 #include <fcppt/math/vector/null.hpp>
 
 
@@ -40,6 +42,27 @@ sge::texture::wrap_npot(
 	sge::renderer::texture::planar_parameters const &_parameters
 )
 {
+	// TODO: Use minimum required size here
+	sge::renderer::dim2 const padded_size{
+		fcppt::math::dim::map(
+			_parameters.size(),
+			[](
+				sge::renderer::size_type const _sz
+			)
+			{
+				return
+					_sz
+					==
+					0u
+					?
+						1u
+					:
+						_sz
+					;
+			}
+		)
+	};
+
 	return
 		fcppt::unique_ptr_to_base<
 			sge::texture::part
@@ -51,10 +74,10 @@ sge::texture::wrap_npot(
 					sge::renderer::texture::planar_parameters(
 						_device.caps().non_power_of_2_textures().get()
 						?
-							_parameters.size()
+							padded_size
 						:
 							sge::texture::next_power_of_2(
-								_parameters.size()
+								padded_size
 							)
 						,
 						_parameters.format(),
