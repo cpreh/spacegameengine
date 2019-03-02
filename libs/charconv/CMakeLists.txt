@@ -35,6 +35,13 @@ set(
 	libs/charconv/src/charconv/utf8_string_to_fcppt.cpp
 )
 
+find_package(
+	Boost
+	REQUIRED
+	COMPONENTS
+	locale
+)
+
 add_sge_base_library(
 	charconv
 	HAS_IMPL_DIR
@@ -49,4 +56,5 @@ add_sge_base_library(
 		${fcppt_filesystem_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
 		${Boost_SYSTEM_LIBRARIES}
+		${Boost_LOCALE_LIBRARIES}
 )
