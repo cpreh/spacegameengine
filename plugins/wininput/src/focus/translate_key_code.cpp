@@ -326,6 +326,114 @@ sge::wininput::focus::translate_key_code(
 	//case VK_NONAME:
 	//case VK_PA1:
 	//case VK_OEM_CLEAR:
+	case 0x30:
+		return
+			sge::input::key::code::_0;
+	case 0x31:
+		return
+			sge::input::key::code::_1;
+	case 0x32:
+		return
+			sge::input::key::code::_2;
+	case 0x33:
+		return
+			sge::input::key::code::_3;
+	case 0x34:
+		return
+			sge::input::key::code::_4;
+	case 0x35:
+		return
+			sge::input::key::code::_5;
+	case 0x36:
+		return
+			sge::input::key::code::_6;
+	case 0x37:
+		return
+			sge::input::key::code::_7;
+	case 0x38:
+		return
+			sge::input::key::code::_8;
+	case 0x39:
+		return
+			sge::input::key::code::_9;
+	case 0x41:
+		return
+			sge::input::key::code::a;
+	case 0x42:
+		return
+			sge::input::key::code::b;
+	case 0x43:
+		return
+			sge::input::key::code::c;
+	case 0x44:
+		return
+			sge::input::key::code::d;
+	case 0x45:
+		return
+			sge::input::key::code::e;
+	case 0x46:
+		return
+			sge::input::key::code::f;
+	case 0x47:
+		return
+			sge::input::key::code::g;
+	case 0x48:
+		return
+			sge::input::key::code::h;
+	case 0x49:
+		return
+			sge::input::key::code::i;
+	case 0x4A:
+		return
+			sge::input::key::code::j;
+	case 0x4B:
+		return
+			sge::input::key::code::k;
+	case 0x4C:
+		return
+			sge::input::key::code::l;
+	case 0x4D:
+		return
+			sge::input::key::code::m;
+	case 0x4E:
+		return
+			sge::input::key::code::n;
+	case 0x4F:
+		return
+			sge::input::key::code::o;
+	case 0x50:
+		return
+			sge::input::key::code::p;
+	case 0x51:
+		return
+			sge::input::key::code::q;
+	case 0x52:
+		return
+			sge::input::key::code::r;
+	case 0x53:
+		return
+			sge::input::key::code::s;
+	case 0x54:
+		return
+			sge::input::key::code::t;
+	case 0x55:
+		return
+			sge::input::key::code::u;
+	case 0x56:
+		return
+			sge::input::key::code::v;
+	case 0x57:
+		return
+			sge::input::key::code::w;
+	case 0x58:
+		return
+			sge::input::key::code::x;
+	case 0x59:
+		return
+			sge::input::key::code::y;
+	case 0x5A:
+		return
+			sge::input::key::code::z;
 	}
 
 	return
