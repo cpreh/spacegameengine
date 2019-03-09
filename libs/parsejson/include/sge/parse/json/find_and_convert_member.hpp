@@ -136,7 +136,7 @@ find_and_convert_member(
 								FCPPT_TEXT("\"")
 							);
 					}
-				).get()
+				).get().get()
 			);
 	}
 	catch(

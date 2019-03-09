@@ -18,41 +18,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_IMPL_MEMBER_VECTOR_HPP_INCLUDED
-#define SGE_PARSE_JSON_IMPL_MEMBER_VECTOR_HPP_INCLUDED
-
-#include <sge/parse/json/value_fwd.hpp>
-#include <fcppt/recursive_impl.hpp>
+#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/value_variant.hpp>
+#include <fcppt/variant/comparison.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <string>
-#include <tuple>
-#include <vector>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::parse::json::value::value(
+	sge::parse::json::value_variant &&_impl
+)
+:
+	impl{
+		std::move(
+			_impl
+		)
+	}
 {
-namespace parse
-{
-namespace json
-{
-namespace impl
-{
-
-typedef
-std::vector<
-	std::tuple<
-		std::string,
-		fcppt::recursive<
-			sge::parse::json::value
-		>
-	>
->
-member_vector;
-
-}
-}
-}
 }
 
-#endif
+sge::parse::json::value_variant const &
+sge::parse::json::value::get() const
+{
+	return
+		impl;
+}
+
+sge::parse::json::value_variant &
+sge::parse::json::value::get()
+{
+	return
+		impl;
+}
+
+bool
+sge::parse::json::operator==(
+	sge::parse::json::value const &_left,
+	sge::parse::json::value const &_right
+)
+{
+	return
+		_left.get()
+		==
+		_right.get();
+}

@@ -58,14 +58,14 @@ sge::font::bitmap::impl::load_rect(
 			sge::parse::json::get_exn<
 				sge::parse::json::array
 			>(
-				elements[0]
+				elements[0].get()
 			).elements
 		),
 		&second_elements(
 			sge::parse::json::get_exn<
 				sge::parse::json::array
 			>(
-				elements[1]
+				elements[1].get()
 			).elements
 		);
 
@@ -86,7 +86,7 @@ sge::font::bitmap::impl::load_rect(
 					sge::parse::json::get_exn<
 						sge::parse::json::int_type
 					>(
-						first_elements[0]
+						first_elements[0].get()
 					)
 				),
 				static_cast<
@@ -95,7 +95,7 @@ sge::font::bitmap::impl::load_rect(
 					sge::parse::json::get_exn<
 						sge::parse::json::int_type
 					>(
-						first_elements[1]
+						first_elements[1].get()
 					)
 				)
 			),
@@ -106,7 +106,7 @@ sge::font::bitmap::impl::load_rect(
 					sge::parse::json::get_exn<
 						sge::parse::json::int_type
 					>(
-						second_elements[0]
+						second_elements[0].get()
 					)
 				),
 				static_cast<
@@ -115,7 +115,7 @@ sge::font::bitmap::impl::load_rect(
 					sge::parse::json::get_exn<
 						sge::parse::json::int_type
 					>(
-						second_elements[1]
+						second_elements[1].get()
 					)
 				)
 			)

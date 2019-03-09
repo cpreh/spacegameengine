@@ -18,48 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/make_error_string.hpp>
-#include <sge/parse/parse_exception.hpp>
-#include <sge/parse/result.hpp>
-#include <sge/parse/result_code.hpp>
-#include <sge/parse/json/parse_range.hpp>
-#include <sge/parse/json/parse_string_exn.hpp>
-#include <sge/parse/json/start.hpp>
+#ifndef SGE_PARSE_IMPL_FILE_ERROR_STRING_HPP_INCLUDED
+#define SGE_PARSE_IMPL_FILE_ERROR_STRING_HPP_INCLUDED
+
+#include <sge/parse/detail/symbol.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/parse/error_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <boost/filesystem/path.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::parse::json::start
-sge::parse::json::parse_string_exn(
-	fcppt::string const &_string
-)
+namespace sge
 {
-	sge::parse::json::start result;
+namespace parse
+{
+namespace impl
+{
 
-	fcppt::string::const_iterator current(
-		_string.begin()
-	);
+SGE_PARSE_DETAIL_SYMBOL
+fcppt::string
+file_error_string(
+	boost::filesystem::path const &,
+	fcppt::parse::error<
+		char
+	> &&
+);
 
-	sge::parse::result const ret(
-		sge::parse::json::parse_range(
-			current,
-			_string.end(),
-			result
-		)
-	);
+SGE_PARSE_DETAIL_SYMBOL
+fcppt::string
+file_error_string(
+	boost::filesystem::path const &,
+	fcppt::parse::error<
+		wchar_t
+	> &&
+);
 
-	if(
-		ret.result_code()
-		!=
-		sge::parse::result_code::ok
-	)
-		throw
-			sge::parse::parse_exception(
-				ret.result_code(),
-				sge::parse::make_error_string(
-					ret
-				)
-			);
-
-	return
-		result;
 }
+}
+}
+
+#endif

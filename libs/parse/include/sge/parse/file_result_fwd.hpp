@@ -18,17 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_RESULT_WITH_VALUE_HPP_INCLUDED
-#define SGE_PARSE_JSON_RESULT_WITH_VALUE_HPP_INCLUDED
+#ifndef SGE_PARSE_FILE_RESULT_FWD_HPP_INCLUDED
+#define SGE_PARSE_FILE_RESULT_FWD_HPP_INCLUDED
 
-#include <sge/parse/declare_result_with_value.hpp>
-#include <sge/parse/json/result_with_value_fwd.hpp>
-#include <sge/parse/json/start.hpp>
+#include <fcppt/either/object_fwd.hpp>
+#include <fcppt/optional/object_fwd.hpp>
+#include <fcppt/parse/error_fwd.hpp>
 
 
-SGE_PARSE_DECLARE_RESULT_WITH_VALUE(
-	sge::parse::json::start
-);
+namespace sge
+{
+namespace parse
+{
 
+template<
+	typename Ch,
+	typename Result
+>
+using file_result
+=
+fcppt::either::object<
+	fcppt::optional::object<
+		fcppt::parse::error<
+			Ch
+		>
+	>,
+	Result
+>;
+
+}
+}
 
 #endif

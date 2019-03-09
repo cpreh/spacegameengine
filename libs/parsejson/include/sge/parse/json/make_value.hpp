@@ -18,25 +18,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/impl/parse_file_opt.hpp>
-#include <sge/parse/json/parse_file_opt.hpp>
-#include <sge/parse/json/parse_stream.hpp>
-#include <sge/parse/json/result_with_value.hpp>
-#include <sge/parse/json/start.hpp>
+#ifndef SGE_PARSE_JSON_MAKE_VALUE_HPP_INCLUDED
+#define SGE_PARSE_JSON_MAKE_VALUE_HPP_INCLUDED
+
+#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/value_variant.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::parse::json::result_with_value
-sge::parse::json::parse_file_opt(
-	boost::filesystem::path const &_path
+namespace sge
+{
+namespace parse
+{
+namespace json
+{
+
+template<
+	typename Type
+>
+sge::parse::json::value
+make_value(
+	Type &&_value
 )
 {
 	return
-		sge::parse::impl::parse_file_opt<
-			sge::parse::json::start
-		>(
-			_path
-		);
+		sge::parse::json::value{
+			sge::parse::json::value_variant{
+				std::forward<
+					Type
+				>(
+					_value
+				)
+			}
+		};
 }
+
+}
+}
+}
+
+#endif

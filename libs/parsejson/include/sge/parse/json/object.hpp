@@ -36,9 +36,6 @@ namespace json
 struct object
 {
 	SGE_PARSE_JSON_DETAIL_SYMBOL
-	object();
-
-	SGE_PARSE_JSON_DETAIL_SYMBOL
 	explicit
 	object(
 		sge::parse::json::member_map &&
@@ -46,6 +43,13 @@ struct object
 
 	sge::parse::json::member_map members;
 };
+
+SGE_PARSE_JSON_DETAIL_SYMBOL
+bool
+operator==(
+	sge::parse::json::object const &,
+	sge::parse::json::object const &
+);
 
 }
 }

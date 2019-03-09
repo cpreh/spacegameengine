@@ -41,8 +41,23 @@ struct value
 		sge::parse::json::value_variant &&
 	);
 
-	value_variant impl;
+	SGE_PARSE_JSON_DETAIL_SYMBOL
+	sge::parse::json::value_variant const &
+	get() const;
+
+	SGE_PARSE_JSON_DETAIL_SYMBOL
+	sge::parse::json::value_variant &
+	get();
+
+	sge::parse::json::value_variant impl;
 };
+
+SGE_PARSE_JSON_DETAIL_SYMBOL
+bool
+operator==(
+	sge::parse::json::value const &,
+	sge::parse::json::value const &
+);
 
 }
 }

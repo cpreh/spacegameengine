@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_GET_EXN_MESSAGE_HPP_INCLUDED
 
 #include <sge/parse/json/invalid_get.hpp>
+#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/get_return_type.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
@@ -43,12 +44,12 @@ namespace json
 {
 
 template<
-	typename T,
+	typename Type,
 	typename Arg,
 	typename MakeMessage
 >
 sge::parse::json::detail::get_return_type<
-	T,
+	Type,
 	Arg
 >
 get_exn_message(
@@ -56,18 +57,27 @@ get_exn_message(
 	MakeMessage const &_make_message
 )
 {
+	static_assert(
+		std::is_same_v<
+			std::remove_const_t<
+				Arg
+			>,
+			sge::parse::json::value
+		>
+	);
+
 	return
 		fcppt::optional::to_exception(
 			fcppt::variant::to_optional_ref<
 				std::conditional_t<
-					std::is_const<
+					std::is_const_v<
 						Arg
-					>::value,
-					T const,
-					T
+					>,
+					Type const,
+					Type
 				>
 			>(
-				_val
+				_val.get()
 			),
 			[
 				&_val,
@@ -79,7 +89,9 @@ get_exn_message(
 						+
 						fcppt::from_std_string(
 							fcppt::type_name_from_info(
-								typeid(T)
+								typeid(
+									Type
+								)
 							)
 						)
 						+
@@ -88,7 +100,7 @@ get_exn_message(
 						fcppt::from_std_string(
 							fcppt::type_name_from_info(
 								fcppt::variant::type_info(
-									_val
+									_val.get()
 								)
 							)
 						)

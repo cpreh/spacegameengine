@@ -48,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/convert/to_int.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/recursive_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/fold.hpp>
@@ -120,7 +121,9 @@ sge::font::bitmap::impl::object::object(
 				&_image_system,
 				this
 			](
-				sge::parse::json::value const &_element
+				fcppt::recursive<
+					sge::parse::json::value
+				> const &_element
 			)
 			{
 				return
@@ -130,7 +133,7 @@ sge::font::bitmap::impl::object::object(
 						sge::parse::json::get_exn<
 							sge::parse::json::object
 						>(
-							_element
+							_element.get()
 						),
 						_image_system,
 						char_map_

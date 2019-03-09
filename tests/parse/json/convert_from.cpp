@@ -22,7 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/convert_from.hpp>
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/int_type.hpp>
+#include <sge/parse/json/make_value.hpp>
 #include <sge/parse/json/value.hpp>
+#include <fcppt/make_recursive.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/math/matrix/comparison.hpp>
@@ -46,9 +48,11 @@ TEST_CASE(
 				int
 			> const &_values
 		)
+		->
+		sge::parse::json::value
 		{
 			return
-				sge::parse::json::value(
+				sge::parse::json::make_value(
 					sge::parse::json::array(
 						fcppt::algorithm::map<
 							sge::parse::json::element_vector
@@ -59,11 +63,13 @@ TEST_CASE(
 							)
 							{
 								return
-									sge::parse::json::value(
-										fcppt::cast::size<
-											sge::parse::json::int_type
-										>(
-											_value
+									fcppt::make_recursive(
+										sge::parse::json::make_value(
+											fcppt::cast::size<
+												sge::parse::json::int_type
+											>(
+												_value
+											)
 										)
 									);
 							}
@@ -83,9 +89,11 @@ TEST_CASE(
 				>
 			> const &_values
 		)
+		->
+		sge::parse::json::value
 		{
 			return
-				sge::parse::json::value(
+				sge::parse::json::make_value(
 					sge::parse::json::array(
 						fcppt::algorithm::map<
 							sge::parse::json::element_vector
@@ -100,8 +108,10 @@ TEST_CASE(
 							)
 							{
 								return
-									make_row(
-										_inner
+									fcppt::make_recursive(
+										make_row(
+											_inner
+										)
 									);
 							}
 						)

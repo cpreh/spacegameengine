@@ -18,69 +18,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/make_error_string.hpp>
-#include <sge/parse/parse_exception.hpp>
-#include <sge/parse/result.hpp>
-#include <sge/parse/result_code.hpp>
+#include <sge/parse/exception.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/parse_stream.hpp>
-#include <sge/parse/json/start.hpp>
+#include <sge/parse/json/find_member_value_exn.hpp>
+#include <sge/parse/json/parse_string.hpp>
 #include <sge/parse/json/string_to_value.hpp>
 #include <sge/parse/json/value.hpp>
-#include <fcppt/format.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/io/istringstream.hpp>
-#include <fcppt/variant/get_exn.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/either/to_exception.hpp>
+#include <fcppt/parse/error.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::parse::json::value
 sge::parse::json::string_to_value(
-	fcppt::string const &_string
+	std::string &&_string
 )
 {
-	fcppt::string const edited(
-		(
-			fcppt::format(
-				FCPPT_TEXT("{ \"value\" : %s }")
-			)
-			%
-			_string
-		).str()
-	);
-
-	fcppt::io::istringstream stream(
-		edited
-	);
-
-	sge::parse::json::start result;
-
-	sge::parse::result const ret(
-		sge::parse::json::parse_stream(
-			stream,
-			result
-		)
-	);
-
-	if(
-		ret.result_code()
-		!=
-		sge::parse::result_code::ok
-	)
-		throw sge::parse::parse_exception(
-			ret.result_code(),
-			sge::parse::make_error_string(
-				ret
-			)
-		);
-
 	return
-		fcppt::variant::get_exn<
-			sge::parse::json::object
-		>(
-			result.variant
-		).members.find(
-			FCPPT_TEXT("value")
-		)->second;
+		sge::parse::json::find_member_value_exn(
+			fcppt::either::to_exception(
+				sge::parse::json::parse_string(
+					"{ \"value\" : "
+					+
+					std::move(
+						_string
+					)
+					+
+					" }"
+				),
+				[](
+					fcppt::parse::error<
+						char
+					> &&_error
+				)
+				{
+					return
+						sge::parse::exception{
+							fcppt::from_std_string(
+								std::move(
+									_error.get()
+								)
+							)
+						};
+				}
+			).object().members,
+			"value"
+		);
 }

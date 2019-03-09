@@ -18,29 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_PARSE_STRING_EXN_HPP_INCLUDED
-#define SGE_PARSE_JSON_PARSE_STRING_EXN_HPP_INCLUDED
+#ifndef SGE_PARSE_INI_FILE_RESULT_HPP_INCLUDED
+#define SGE_PARSE_INI_FILE_RESULT_HPP_INCLUDED
 
-#include <sge/parse/json/start.hpp>
-#include <sge/parse/json/detail/symbol.hpp>
-#include <fcppt/string.hpp>
+#include <sge/parse/ini/file_result_fwd.hpp>
+#include <sge/parse/ini/start.hpp>
+#include <sge/parse/file_result.hpp>
 
-
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-
-SGE_PARSE_JSON_DETAIL_SYMBOL
-sge::parse::json::start
-parse_string_exn(
-	fcppt::string const &
-);
-
-}
-}
-}
 
 #endif

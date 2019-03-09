@@ -36,9 +36,6 @@ namespace json
 struct array
 {
 	SGE_PARSE_JSON_DETAIL_SYMBOL
-	array();
-
-	SGE_PARSE_JSON_DETAIL_SYMBOL
 	explicit
 	array(
 		sge::parse::json::element_vector &&
@@ -46,6 +43,13 @@ struct array
 
 	sge::parse::json::element_vector elements;
 };
+
+SGE_PARSE_JSON_DETAIL_SYMBOL
+bool
+operator==(
+	sge::parse::json::array const &,
+	sge::parse::json::array const &
+);
 
 }
 }

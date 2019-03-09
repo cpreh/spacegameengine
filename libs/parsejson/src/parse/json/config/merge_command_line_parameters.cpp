@@ -52,6 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <boost/spirit/include/qi_parse.hpp>
 #include <boost/spirit/include/support_standard.hpp>
 #include <iterator>
+#include <string>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -196,11 +197,13 @@ FCPPT_PP_POP_WARNING
 		}
 	).get() =
 		sge::parse::json::string_to_value(
-			boost::fusion::at_c<
-				1
-			>(
-				result
-			)
+			std::string{
+				boost::fusion::at_c<
+					1
+				>(
+					result
+				)
+			}
 		);
 }
 

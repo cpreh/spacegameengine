@@ -21,12 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_IMPL_PARSE_FILE_HPP_INCLUDED
 #define SGE_PARSE_IMPL_PARSE_FILE_HPP_INCLUDED
 
+#include <sge/parse/file_result.hpp>
 #include <sge/parse/impl/parse_stream.hpp>
 #include <fcppt/string_literal.hpp>
 #include <fcppt/either/make_failure.hpp>
 #include <fcppt/either/map_failure.hpp>
 #include <fcppt/filesystem/open.hpp>
+#include <fcppt/optional/make.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/parse/error.hpp>
 #include <fcppt/parse/grammar_fwd.hpp>
 #include <fcppt/parse/result.hpp>
@@ -51,7 +54,7 @@ template<
 	typename Ch,
 	typename Skipper
 >
-fcppt::parse::result<
+sge::parse::file_result<
 	Ch,
 	Result
 >
@@ -74,27 +77,16 @@ parse_file(
 				_path,
 				std::ios_base::binary
 			),
-			[
-				&_path
-			]{
+			[]{
 				return
 					fcppt::either::make_failure<
 						Result
 					>(
-						fcppt::parse::error<
-							Ch
-						>{
-							FCPPT_STRING_LITERAL(
-								Ch,
-								"Failed to open "
-							)
-							+
-							_path.string<
-								std::basic_string<
-									Ch
-								>
-							>()
-						}
+						fcppt::optional::object<
+							fcppt::parse::error<
+								Ch
+							>
+						>{}
 					);
 			},
 			[
@@ -125,29 +117,31 @@ parse_file(
 						)
 						{
 							return
-								fcppt::parse::error<
-									Ch
-								>{
-									FCPPT_STRING_LITERAL(
-										Ch,
-										"Failed to parse \""
-									)
-									+
-									_path.string<
-										std::basic_string<
-											Ch
-										>
-									>()
-									+
-									FCPPT_STRING_LITERAL(
-										Ch,
-										"\": "
-									)
-									+
-									std::move(
-										_failure.get()
-									)
-								};
+								fcppt::optional::make(
+									fcppt::parse::error<
+										Ch
+									>{
+										FCPPT_STRING_LITERAL(
+											Ch,
+											"Failed to parse \""
+										)
+										+
+										_path.string<
+											std::basic_string<
+												Ch
+											>
+										>()
+										+
+										FCPPT_STRING_LITERAL(
+											Ch,
+											"\": "
+										)
+										+
+										std::move(
+											_failure.get()
+										)
+									}
+								);
 						}
 					);
 			}

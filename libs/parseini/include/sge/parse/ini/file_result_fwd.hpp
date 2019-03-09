@@ -18,25 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_RESULT_WITH_VALUE_FWD_HPP_INCLUDED
-#define SGE_PARSE_JSON_RESULT_WITH_VALUE_FWD_HPP_INCLUDED
+#ifndef SGE_PARSE_INI_FILE_RESULT_FWD_HPP_INCLUDED
+#define SGE_PARSE_INI_FILE_RESULT_FWD_HPP_INCLUDED
 
-#include <sge/parse/result_with_value_fwd.hpp>
-#include <sge/parse/json/start_fwd.hpp>
+#include <sge/parse/ini/start_fwd.hpp>
+#include <sge/parse/file_result_fwd.hpp>
 
 
 namespace sge
 {
 namespace parse
 {
-namespace json
+namespace ini
 {
 
 typedef
-sge::parse::result_with_value<
-	sge::parse::json::start
+sge::parse::file_result<
+	char,
+	sge::parse::ini::start
 >
-result_with_value;
+file_result;
 
 }
 }

@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_OUTPUT_GRAMMAR_IMPL_HPP_INCLUDED
 #define SGE_PARSE_INI_OUTPUT_GRAMMAR_IMPL_HPP_INCLUDED
 
-#include <sge/parse/encoding.hpp>
 #include <sge/parse/ini/detail/adapt_entry.hpp>
 #include <sge/parse/ini/detail/adapt_section.hpp>
 #include <sge/parse/ini/detail/adapt_start.hpp>
@@ -32,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/spirit/home/support/common_terminals.hpp>
 #include <boost/spirit/include/karma_char.hpp>
 #include <boost/spirit/include/karma_operator.hpp>
 #include <boost/spirit/include/karma_string.hpp>
@@ -54,7 +54,7 @@ sge::parse::ini::output::grammar<
 	section_vector_(),
 	ini_()
 {
-	using encoding::char_;
+	using boost::spirit::standard::char_;
 	using boost::spirit::lit;
 
 FCPPT_PP_PUSH_WARNING

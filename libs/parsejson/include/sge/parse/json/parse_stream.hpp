@@ -21,10 +21,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_PARSE_STREAM_HPP_INCLUDED
 #define SGE_PARSE_JSON_PARSE_STREAM_HPP_INCLUDED
 
-#include <sge/parse/result_fwd.hpp>
-#include <sge/parse/json/start_fwd.hpp>
+#include <sge/parse/json/result.hpp>
 #include <sge/parse/json/detail/symbol.hpp>
-#include <fcppt/io/istream_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <iosfwd>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -35,10 +36,9 @@ namespace json
 {
 
 SGE_PARSE_JSON_DETAIL_SYMBOL
-sge::parse::result
+sge::parse::json::result
 parse_stream(
-	fcppt::io::istream &,
-	sge::parse::json::start &
+	std::istream &
 );
 
 }

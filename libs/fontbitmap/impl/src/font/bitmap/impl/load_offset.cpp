@@ -58,12 +58,12 @@ sge::font::bitmap::impl::load_offset(
 			sge::parse::json::convert::to_int<
 				sge::font::unit
 			>(
-				elements[0]
+				elements[0].get()
 			),
 			sge::parse::json::convert::to_int<
 				sge::font::unit
 			>(
-				elements[1]
+				elements[1].get()
 			)
 		);
 }

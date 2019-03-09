@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/path_to_string.hpp>
 #include <sge/parse/json/config/modify_user_value.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_recursive.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -53,7 +54,7 @@ sge::parse::json::config::modify_user_value(
 			structure_json,
 			input_path);
 
-	if(old_value.type_index() != new_value.type_index())
+	if(old_value.get().type_index() != new_value.get().type_index())
 		throw
 			sge::parse::exception{
 				FCPPT_TEXT("Error trying to update the user configuration node \"")
@@ -67,7 +68,7 @@ sge::parse::json::config::modify_user_value(
 				fcppt::from_std_string(
 					fcppt::type_name_from_info(
 						fcppt::variant::type_info(
-							old_value
+							old_value.get()
 						)
 					)
 				)
@@ -77,7 +78,7 @@ sge::parse::json::config::modify_user_value(
 				fcppt::from_std_string(
 					fcppt::type_name_from_info(
 						fcppt::variant::type_info(
-							new_value
+							new_value.get()
 						)
 					)
 				)
@@ -108,5 +109,8 @@ sge::parse::json::config::modify_user_value(
 				input_path.back(),
 				new_value));
 	else
-		it->second = new_value;
+		it->second =
+			fcppt::make_recursive(
+				new_value
+			);
 }

@@ -20,29 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/optional_element_vector.hpp>
-#include <fcppt/optional/from.hpp>
+#include <sge/parse/json/value.hpp>
+#include <fcppt/recursive_comparison.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::parse::json::array::array()
-:
-	elements()
-{
-}
-
-sge::parse::json::array::array(
-	sge::parse::json::element_vector const &_elements
-)
-:
-	elements(
-		_elements
-	)
-{
-}
 
 sge::parse::json::array::array(
 	sge::parse::json::element_vector &&_elements
@@ -56,36 +39,14 @@ sge::parse::json::array::array(
 {
 }
 
-sge::parse::json::array::array(
-	sge::parse::json::optional_element_vector const &_elements
+bool
+sge::parse::json::operator==(
+	sge::parse::json::array const &_left,
+	sge::parse::json::array const &_right
 )
-:
-	elements(
-		fcppt::optional::from(
-			_elements,
-			[]{
-				return
-					sge::parse::json::element_vector();
-			}
-		)
-	)
 {
-}
-
-sge::parse::json::array::array(
-	sge::parse::json::optional_element_vector &&_elements
-)
-:
-	elements(
-		fcppt::optional::from(
-			std::move(
-				_elements
-			),
-			[]{
-				return
-					sge::parse::json::element_vector();
-			}
-		)
-	)
-{
+	return
+		_left.elements
+		==
+		_right.elements;
 }

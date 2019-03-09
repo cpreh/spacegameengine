@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_MEMBER_HPP_INCLUDED
 #define SGE_PARSE_JSON_MEMBER_HPP_INCLUDED
 
-#include <sge/parse/json/string.hpp>
-#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/value_fwd.hpp>
+#include <fcppt/recursive_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <string>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -35,10 +36,14 @@ namespace parse
 namespace json
 {
 
-typedef std::pair<
-	sge::parse::json::string,
-	sge::parse::json::value
-> member;
+typedef
+std::pair<
+	std::string,
+	fcppt::recursive<
+		sge::parse::json::value
+	>
+>
+member;
 
 }
 }

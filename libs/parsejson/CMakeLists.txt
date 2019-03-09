@@ -1,5 +1,8 @@
 set(
 	SGE_PARSEJSON_FILES
+	libs/parsejson/impl/include/sge/parse/json/impl/make_members.hpp
+	libs/parsejson/impl/include/sge/parse/json/impl/member_vector.hpp
+	libs/parsejson/impl/src/parse/json/impl/make_members.cpp
 	libs/parsejson/include/sge/parse/json/array.hpp
 	libs/parsejson/include/sge/parse/json/array_fwd.hpp
 	libs/parsejson/include/sge/parse/json/array_or_object.hpp
@@ -37,6 +40,8 @@ set(
 	libs/parsejson/include/sge/parse/json/detail/value_wrapper_fwd.hpp
 	libs/parsejson/include/sge/parse/json/element_vector.hpp
 	libs/parsejson/include/sge/parse/json/exception.hpp
+	libs/parsejson/include/sge/parse/json/file_result.hpp
+	libs/parsejson/include/sge/parse/json/file_result_fwd.hpp
 	libs/parsejson/include/sge/parse/json/find_and_convert_member.hpp
 	libs/parsejson/include/sge/parse/json/find_member.hpp
 	libs/parsejson/include/sge/parse/json/find_member_exn.hpp
@@ -50,13 +55,12 @@ set(
 	libs/parsejson/include/sge/parse/json/get_exn_message.hpp
 	libs/parsejson/include/sge/parse/json/grammar.hpp
 	libs/parsejson/include/sge/parse/json/grammar_base_fwd.hpp
-	libs/parsejson/include/sge/parse/json/grammar_decl.hpp
 	libs/parsejson/include/sge/parse/json/grammar_fwd.hpp
-	libs/parsejson/include/sge/parse/json/grammar_impl.hpp
 	libs/parsejson/include/sge/parse/json/int_type.hpp
 	libs/parsejson/include/sge/parse/json/invalid_get.hpp
 	libs/parsejson/include/sge/parse/json/is_null.hpp
 	libs/parsejson/include/sge/parse/json/make_recursive_objects.hpp
+	libs/parsejson/include/sge/parse/json/make_value.hpp
 	libs/parsejson/include/sge/parse/json/member.hpp
 	libs/parsejson/include/sge/parse/json/member_map.hpp
 	libs/parsejson/include/sge/parse/json/member_not_found.hpp
@@ -77,15 +81,14 @@ set(
 	libs/parsejson/include/sge/parse/json/output/to_stream.hpp
 	libs/parsejson/include/sge/parse/json/parse_file.hpp
 	libs/parsejson/include/sge/parse/json/parse_file_exn.hpp
-	libs/parsejson/include/sge/parse/json/parse_file_opt.hpp
 	libs/parsejson/include/sge/parse/json/parse_range.hpp
 	libs/parsejson/include/sge/parse/json/parse_stream.hpp
-	libs/parsejson/include/sge/parse/json/parse_string_exn.hpp
+	libs/parsejson/include/sge/parse/json/parse_string.hpp
 	libs/parsejson/include/sge/parse/json/path.hpp
 	libs/parsejson/include/sge/parse/json/path_fwd.hpp
 	libs/parsejson/include/sge/parse/json/path_to_string.hpp
-	libs/parsejson/include/sge/parse/json/result_with_value.hpp
-	libs/parsejson/include/sge/parse/json/result_with_value_fwd.hpp
+	libs/parsejson/include/sge/parse/json/result.hpp
+	libs/parsejson/include/sge/parse/json/result_fwd.hpp
 	libs/parsejson/include/sge/parse/json/skipper.hpp
 	libs/parsejson/include/sge/parse/json/start.hpp
 	libs/parsejson/include/sge/parse/json/start_fwd.hpp
@@ -103,10 +106,12 @@ set(
 	libs/parsejson/src/parse/json/exception.cpp
 	libs/parsejson/src/parse/json/find_object.cpp
 	libs/parsejson/src/parse/json/find_object_exn.cpp
+	libs/parsejson/src/parse/json/grammar.cpp
 	libs/parsejson/src/parse/json/invalid_get.cpp
 	libs/parsejson/src/parse/json/is_null.cpp
 	libs/parsejson/src/parse/json/make_recursive_objects.cpp
 	libs/parsejson/src/parse/json/member_not_found.cpp
+	libs/parsejson/src/parse/json/null.cpp
 	libs/parsejson/src/parse/json/object.cpp
 	libs/parsejson/src/parse/json/output/tabbed_to_stream.cpp
 	libs/parsejson/src/parse/json/output/tabbed_to_string.cpp
@@ -114,25 +119,26 @@ set(
 	libs/parsejson/src/parse/json/output/to_stream.cpp
 	libs/parsejson/src/parse/json/parse_file.cpp
 	libs/parsejson/src/parse/json/parse_file_exn.cpp
-	libs/parsejson/src/parse/json/parse_file_opt.cpp
 	libs/parsejson/src/parse/json/parse_stream.cpp
-	libs/parsejson/src/parse/json/parse_string_exn.cpp
+	libs/parsejson/src/parse/json/parse_string.cpp
 	libs/parsejson/src/parse/json/path.cpp
 	libs/parsejson/src/parse/json/path_to_string.cpp
-	libs/parsejson/src/parse/json/result_with_value.cpp
 	libs/parsejson/src/parse/json/start.cpp
 	libs/parsejson/src/parse/json/string_to_path.cpp
 	libs/parsejson/src/parse/json/string_to_value.cpp
+	libs/parsejson/src/parse/json/value.cpp
 )
 
 add_sge_base_library(
 	parse/json
+	HAS_IMPL_DIR
 	SGE_DEPS
 		sgeparse
 	TRANSITIVE_SGE_DEPS
 		sgeparse
 	USE_IMPL_INCLUDE_OF
 		core
+		parse
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		fcppt_boost_interface
@@ -141,6 +147,4 @@ add_sge_base_library(
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
 		fcppt_boost_interface
-	IMPLEMENT_FROM
-		parse
 )

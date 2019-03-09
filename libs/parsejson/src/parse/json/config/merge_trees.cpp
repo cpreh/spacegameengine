@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_value.hpp>
+#include <sge/parse/json/make_value.hpp>
 #include <sge/parse/json/member.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
@@ -56,12 +57,12 @@ struct visitor
 	) const
 	{
 		return
-			sge::parse::json::value{
+			sge::parse::json::make_value(
 				sge::parse::json::config::merge_trees(
 					_original,
 					_update
 				)
-			};
+			);
 	}
 
 	template<
@@ -75,9 +76,9 @@ struct visitor
 	) const
 	{
 		return
-			sge::parse::json::value{
+			sge::parse::json::make_value(
 				_update
-			};
+			);
 	}
 };
 
@@ -141,9 +142,9 @@ sge::parse::json::config::merge_trees(
 								{
 									return
 										fcppt::variant::apply(
-											visitor(),
-											_original_value,
-											_update_value
+											visitor{},
+											_original_value.get(),
+											_update_value.get()
 										);
 								}
 							),

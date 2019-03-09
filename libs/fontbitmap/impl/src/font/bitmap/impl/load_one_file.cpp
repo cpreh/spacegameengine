@@ -97,7 +97,7 @@ sge::font::bitmap::impl::load_one_file(
 			sge::parse::json::get_exn<
 				sge::parse::json::object
 			>(
-				elem
+				elem.get()
 			).members
 		);
 

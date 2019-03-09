@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/parse/json/string.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/is_iterable.hpp>
 #include <sge/parse/json/detail/is_math_type.hpp>
@@ -49,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/type_traits/is_std_array.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
+#include <string>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -226,7 +226,7 @@ struct convert_from_impl<
 						>(
 							outer_array[
 								_index
-							]
+							].get()
 						).elements
 					);
 
@@ -269,7 +269,7 @@ struct convert_from_impl<
 								inner
 							).get()[
 								_index.column()
-							]
+							].get()
 						);
 				}
 			);
@@ -299,10 +299,10 @@ struct convert_from_impl<
 		)
 		&&
 		fcppt::not_(
-			std::is_same<
+			std::is_same_v<
 				Result,
-				sge::parse::json::string
-			>::value
+				std::string
+			>
 		)
 	>
 >
@@ -405,7 +405,7 @@ struct convert_from_impl<
 						>(
 							array.elements[
 								_index()
-							]
+							].get()
 						);
 				}
 			);
@@ -470,20 +470,20 @@ template<
 struct convert_from_impl<
 	Result,
 	std::enable_if_t<
-		std::is_same<
+		std::is_same_v<
 			sge::parse::json::object,
 			Result
-		>::value
+		>
 		||
-		std::is_same<
+		std::is_same_v<
 			sge::parse::json::array,
 			Result
-		>::value
+		>
 		||
-		std::is_same<
-			sge::parse::json::string,
+		std::is_same_v<
+			std::string,
 			Result
-		>::value
+		>
 	>
 >
 {

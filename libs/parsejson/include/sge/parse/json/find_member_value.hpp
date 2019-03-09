@@ -22,9 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_FIND_MEMBER_VALUE_HPP_INCLUDED
 
 #include <sge/parse/json/find_member_return_type.hpp>
+#include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/value.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -34,10 +40,6 @@ namespace parse
 namespace json
 {
 
-/// Searches for a member with the name @a name
-/**
- * @return 0 if the member was not found
-*/
 template<
 	typename Arg
 >
@@ -50,10 +52,30 @@ find_member_value(
 	fcppt::string const &_name
 )
 {
+	static_assert(
+		std::is_same_v<
+			std::remove_const_t<
+				Arg
+			>,
+			sge::parse::json::member_map
+		>
+	);
+
 	return
-		fcppt::container::find_opt_mapped(
-			_members,
-			_name
+		fcppt::optional::map(
+			fcppt::container::find_opt_mapped(
+				_members,
+				_name
+			),
+			[](
+				auto const _ref
+			)
+			{
+				return
+					fcppt::make_ref(
+						_ref.get().get()
+					);
+			}
 		);
 }
 

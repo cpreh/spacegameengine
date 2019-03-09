@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_JSON_NULL_HPP_INCLUDED
 
 #include <sge/parse/json/null_fwd.hpp>
+#include <sge/parse/json/detail/symbol.hpp>
 
 
 namespace sge
@@ -34,6 +35,13 @@ namespace json
 struct null
 {
 };
+
+SGE_PARSE_JSON_DETAIL_SYMBOL
+bool
+operator==(
+	sge::parse::json::null const &,
+	sge::parse::json::null const &
+);
 
 }
 }

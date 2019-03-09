@@ -28,11 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/input/system_fwd.hpp>
 #include <sge/log/apply_options.hpp>
 #include <sge/log/option_container.hpp>
-#include <sge/parse/error_string.hpp>
-#include <sge/parse/result.hpp>
-#include <sge/parse/result_code.hpp>
-#include <sge/parse/ini/parse_file_opt.hpp>
-#include <sge/parse/ini/result_with_value.hpp>
+#include <sge/parse/ini/file_result.hpp>
+#include <sge/parse/ini/parse_file.hpp>
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/renderer/core_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
@@ -56,12 +53,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/either/failure_opt.hpp>
+#include <fcppt/either/success_opt.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/object.hpp>
+#include <fcppt/parse/error.hpp>
 #include <fcppt/variant/apply.hpp>
 
 
@@ -117,8 +118,8 @@ sge::systems::detail::instance::instance(
 		)
 	);
 
-	sge::parse::ini::result_with_value const ini_result_value(
-		sge::parse::ini::parse_file_opt(
+	sge::parse::ini::file_result const ini_result_value(
+		sge::parse::ini::parse_file(
 			sge::config::config_path(
 				sge::config::own_app_name()
 			)
@@ -127,36 +128,39 @@ sge::systems::detail::instance::instance(
 		)
 	);
 
-	sge::parse::result const &ini_result(
-		ini_result_value.result()
-	);
-
-	switch(
-		ini_result.result_code()
-	)
-	{
-	case sge::parse::result_code::failure:
-	case sge::parse::result_code::partial:
-		fcppt::optional::maybe_void(
-			ini_result.error_string(),
-			[
-				this
-			](
-				sge::parse::error_string const &_error
-			)
-			{
-				FCPPT_LOG_ERROR(
-					impl_->log(),
-					fcppt::log::out
-						<< _error
+	fcppt::optional::maybe_void(
+		fcppt::either::failure_opt(
+			ini_result_value
+		),
+		[
+			this
+		](
+			fcppt::optional::object<
+				fcppt::parse::error<
+					char
+				>
+			> const &_error
+		)
+		{
+			fcppt::optional::maybe_void(
+				_error,
+				[
+					this
+				](
+					fcppt::parse::error<
+						char
+					> const &_parse_error
 				)
-			}
-		);
-		break;
-	case sge::parse::result_code::ok:
-	case sge::parse::result_code::not_open:
-		break;
-	}
+				{
+					FCPPT_LOG_ERROR(
+						this->impl_->log(),
+						fcppt::log::out
+							<< _parse_error
+					)
+				}
+			);
+		}
+	);
 
 	sge::systems::detail::any_map const &map(
 		_list.get()
@@ -198,7 +202,9 @@ sge::systems::detail::instance::instance(
 		{
 			impl_->init_renderer_system(
 				_param,
-				ini_result_value.start()
+				fcppt::either::success_opt(
+					ini_result_value
+				)
 			);
 		}
 	);

@@ -26,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/start.hpp>
-#include <sge/parse/json/string.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/output/tabbed_to_stream.hpp>
 #include <fcppt/format.hpp>
@@ -38,6 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -107,7 +107,7 @@ public:
 					this->stream_.get(),
 					tabs_+2
 				),
-				it->second
+				it->second.get().get()
 			);
 
 			if(
@@ -155,7 +155,7 @@ public:
 					this->stream_.get(),
 					tabs_+1
 				),
-				*it
+				it->get().get()
 			);
 
 			if(
@@ -177,14 +177,14 @@ public:
 
 	result_type
 	operator()(
-		sge::parse::json::string const &_string
+		std::string const &_string
 	) const
 	{
 		if(
 			_string.find(
 				FCPPT_TEXT('\"')
 			)
-			!= sge::parse::json::string::npos
+			!= std::string::npos
 		)
 			throw sge::parse::exception(
 				FCPPT_TEXT("quoted strings are unsupported")

@@ -18,126 +18,135 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/make_error_string.hpp>
-#include <sge/parse/result.hpp>
-#include <sge/parse/result_code.hpp>
-#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/int_type.hpp>
-#include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/parse/json/parse_stream.hpp>
+#include <sge/parse/json/parse_string.hpp>
 #include <sge/parse/json/start.hpp>
-#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/output/to_stream.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/either/match.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
-#include <fcppt/io/istringstream.hpp>
+#include <fcppt/parse/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <ostream>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 
-int main()
+int
+main()
 try
 {
-	fcppt::string const test(
-		FCPPT_TEXT("{ \"foo\": 42, \"bar\" : { \"inner\" : 5.5, \"booltest\" : true } }")
-	);
-
-	fcppt::io::istringstream
-		ss(
-			test
-		);
-
-	sge::parse::json::start result;
-
-	sge::parse::result const ret(
-		sge::parse::json::parse_stream(
-			ss,
-			result
-		)
-	);
-
-	if(
-		ret.result_code()
-		!=
-		sge::parse::result_code::ok
-	)
-	{
-		fcppt::io::cerr()
-			<< sge::parse::make_error_string(
-				ret
+	return
+		fcppt::either::match(
+			sge::parse::json::parse_string(
+				std::string{
+					"{ \"foo\": 42, \"bar\" : { \"inner\" : 5.5, \"booltest\" : true } }"
+				}
+			),
+			[](
+				fcppt::parse::error<
+					char
+				> const &_error
 			)
-			<< FCPPT_TEXT('\n');
+			{
+				fcppt::io::cerr()
+					<<
+					fcppt::from_std_string(
+						_error.get()
+					)
+					<<
+					FCPPT_TEXT('\n');
 
-		return EXIT_FAILURE;
-	}
+				return
+					EXIT_FAILURE;
+			},
+			[](
+				sge::parse::json::start const &_result
+			)
+			{
+				// assert that we have member foo
+				sge::parse::json::find_member_exn<
+					sge::parse::json::int_type
+				>(
+					_result.object().members,
+					"foo"
+				);
 
-	// assert that we have member foo
-	sge::parse::json::find_member_exn<
-		sge::parse::json::int_type
-	>(
-		result.object().members,
-		FCPPT_TEXT("foo")
-	);
+				// test if this also works with const results
+				{
+					sge::parse::json::object const &const_result(
+						_result.object()
+					);
 
-	// test if this also works with const results
-	{
-		sge::parse::json::object const &const_result(
-			result.object()
+					sge::parse::json::find_member_exn<
+						sge::parse::json::int_type
+					>(
+						const_result.members,
+						"foo"
+					);
+				}
+
+				if(
+					fcppt::not_(
+						sge::parse::json::output::to_stream(
+							fcppt::io::cout(),
+							_result
+						)
+					)
+				)
+				{
+					fcppt::io::cerr()
+						<<
+						FCPPT_TEXT("output failed\n");
+
+					return
+						EXIT_FAILURE;
+				}
+
+				fcppt::io::cout()
+					<<
+					FCPPT_TEXT('\n');
+
+				return
+					EXIT_SUCCESS;
+			}
 		);
-
-		sge::parse::json::find_member_exn<
-			sge::parse::json::int_type
-		>(
-			const_result.members,
-			FCPPT_TEXT("foo")
-		);
-	}
-
-	if(
-		!sge::parse::json::output::to_stream(
-			fcppt::io::cout(),
-			result
-		)
-	)
-	{
-		fcppt::io::cerr()
-			<< FCPPT_TEXT("output failed\n");
-
-		return EXIT_FAILURE;
-	}
-
-	fcppt::io::cout()
-		<< FCPPT_TEXT('\n');
 }
 catch(
 	fcppt::exception const &_exception
 )
 {
 	fcppt::io::cerr()
-		<< FCPPT_TEXT("caugth exception: ")
-		<< _exception.string()
-		<< FCPPT_TEXT('\n');
+		<<
+		FCPPT_TEXT("caugth exception: ")
+		<<
+		_exception.string()
+		<<
+		FCPPT_TEXT('\n');
 
-	return EXIT_FAILURE;
+	return
+		EXIT_FAILURE;
 }
 catch(
 	std::exception const &_exception
 )
 {
 	std::cout
-		<< "caught exception: "
-		<< _exception.what()
-		<< '\n';
+		<<
+		"caught exception: "
+		<<
+		_exception.what()
+		<<
+		'\n';
 
-	return EXIT_FAILURE;
+	return
+		EXIT_FAILURE;
 }

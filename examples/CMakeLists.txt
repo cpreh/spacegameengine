@@ -433,6 +433,7 @@ add_sge_console_example(
 		sgeparseini
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_parse_interface
 )
 
 add_sge_example(
@@ -492,6 +493,7 @@ add_sge_console_example(
 		sgeparsejson
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_parse_interface
 )
 
 add_sge_example(

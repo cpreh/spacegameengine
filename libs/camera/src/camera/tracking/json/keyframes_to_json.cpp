@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/tracking/json/keyframes_to_json.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
-#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/make_value.hpp>
+#include <fcppt/make_recursive.hpp>
 #include <fcppt/algorithm/map.hpp>
 
 
@@ -44,11 +45,13 @@ sge::camera::tracking::json::keyframes_to_json(
 				)
 				{
 					return
-						sge::parse::json::value{
-							sge::camera::tracking::json::keyframe_to_json(
-								_keyframe
+						fcppt::make_recursive(
+							sge::parse::json::make_value(
+								sge::camera::tracking::json::keyframe_to_json(
+									_keyframe
+								)
 							)
-						};
+						);
 				}
 			)
 		};

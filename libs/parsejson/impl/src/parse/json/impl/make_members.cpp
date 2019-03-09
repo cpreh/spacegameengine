@@ -18,13 +18,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/json/member.hpp>
 #include <sge/parse/json/member_map.hpp>
+#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/impl/make_members.hpp>
 #include <sge/parse/json/impl/member_vector.hpp>
+#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/not.hpp>
+#include <fcppt/recursive_impl.hpp>
+#include <fcppt/strong_typedef_impl.hpp>
+#include <fcppt/algorithm/fold.hpp>
+#include <fcppt/container/insert.hpp>
+#include <fcppt/container/make_move_range.hpp>
+#include <fcppt/either/try_call.hpp>
+#include <fcppt/parse/error.hpp>
+#include <fcppt/parse/result.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <tuple>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
+
+namespace
+{
+
+FCPPT_MAKE_STRONG_TYPEDEF(
+	std::string,
+	double_insert
+);
 
 sge::parse::json::member_map
-sge::parse::json::impl::make_members(
+make_members_impl(
 	sge::parse::json::impl::member_vector &&_args
 )
 {
@@ -50,19 +75,33 @@ sge::parse::json::impl::make_members(
 					fcppt::not_(
 						fcppt::container::insert(
 							_state,
-							object::value_type{
-								std::move(
-									std::get<0>(_element)
+							sge::parse::json::member{
+								std::get<
+									0
+								>(
+									_element
 								),
 								std::move(
-									std::get<1>(_element)
+									std::get<
+										1
+									>(
+										_element
+									)
 								)
 							}
 						)
 					)
 				)
 					throw
-						double_insert{};
+						double_insert{
+							std::move(
+								std::get<
+									0
+								>(
+									_element
+								)
+							)
+						};
 
 			return
 				std::move(
@@ -72,4 +111,44 @@ sge::parse::json::impl::make_members(
 		);
 }
 
+}
 
+fcppt::parse::result<
+	char,
+	sge::parse::json::member_map
+>
+sge::parse::json::impl::make_members(
+	sge::parse::json::impl::member_vector &&_args
+)
+{
+	return
+		fcppt::either::try_call<
+			double_insert
+		>(
+			[
+				&_args
+			]{
+				return
+					make_members_impl(
+						std::move(
+							_args
+						)
+					);
+			},
+			[](
+				double_insert const &_error
+			)
+			{
+				return
+					fcppt::parse::error<
+						char
+					>{
+						std::string{
+							"Duplicate object name: "
+						}
+						+
+						_error.get()
+					};
+			}
+		);
+}

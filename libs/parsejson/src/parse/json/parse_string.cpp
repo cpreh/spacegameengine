@@ -18,41 +18,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_IMPL_MEMBER_VECTOR_HPP_INCLUDED
-#define SGE_PARSE_JSON_IMPL_MEMBER_VECTOR_HPP_INCLUDED
-
-#include <sge/parse/json/value_fwd.hpp>
-#include <fcppt/recursive_impl.hpp>
+#include <sge/parse/impl/parse_string.hpp>
+#include <sge/parse/json/grammar.hpp>
+#include <sge/parse/json/parse_string.hpp>
+#include <sge/parse/json/result.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
-#include <tuple>
-#include <vector>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::parse::json::result
+sge::parse::json::parse_string(
+	std::string &&_string
+)
 {
-namespace parse
-{
-namespace json
-{
-namespace impl
-{
-
-typedef
-std::vector<
-	std::tuple<
-		std::string,
-		fcppt::recursive<
-			sge::parse::json::value
-		>
-	>
->
-member_vector;
-
+	return
+		sge::parse::impl::parse_string(
+			std::move(
+				_string
+			),
+			sge::parse::json::grammar{}
+		);
 }
-}
-}
-}
-
-#endif

@@ -1,13 +1,17 @@
 set(
 	SGE_PARSE_FILES
+	libs/parse/impl/include/sge/parse/impl/file_error_string.hpp
 	libs/parse/impl/include/sge/parse/impl/output/to_file.hpp
 	libs/parse/impl/include/sge/parse/impl/output/to_stream.hpp
 	libs/parse/impl/include/sge/parse/impl/parse_file.hpp
+	libs/parse/impl/include/sge/parse/impl/parse_file_exn.hpp
 	libs/parse/impl/include/sge/parse/impl/parse_stream.hpp
 	libs/parse/impl/include/sge/parse/impl/parse_string.hpp
-	libs/parse/include/sge/parse/encoding.hpp
+	libs/parse/impl/src/parse/impl/file_error_string.cpp
 	libs/parse/include/sge/parse/exception.hpp
 	libs/parse/include/sge/parse/exception_fwd.hpp
+	libs/parse/include/sge/parse/file_result.hpp
+	libs/parse/include/sge/parse/file_result_fwd.hpp
 	libs/parse/src/parse/exception.cpp
 )
 
@@ -26,6 +30,8 @@ add_sge_base_library(
 		core
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_parse_interface
+		${fcppt_filesystem_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
 		fcppt_parse_interface

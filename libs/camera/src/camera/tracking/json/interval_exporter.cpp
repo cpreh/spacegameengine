@@ -24,6 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/camera/tracking/json/keyframes_to_json.hpp>
 #include <sge/parse/json/array_or_object.hpp>
 #include <sge/parse/json/start.hpp>
+#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/output/to_file.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>

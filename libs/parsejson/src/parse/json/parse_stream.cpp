@@ -18,23 +18,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/result.hpp>
 #include <sge/parse/impl/parse_stream.hpp>
-#include <sge/parse/json/parse_range.hpp>
+#include <sge/parse/json/grammar.hpp>
 #include <sge/parse/json/parse_stream.hpp>
-#include <sge/parse/json/start_fwd.hpp>
-#include <fcppt/io/istream_fwd.hpp>
+#include <sge/parse/json/result.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <iosfwd>
+#include <fcppt/config/external_end.hpp>
 
 
-sge::parse::result
+sge::parse::json::result
 sge::parse::json::parse_stream(
-	fcppt::io::istream &_stream,
-	sge::parse::json::start &_result
+	std::istream &_stream
 )
 {
 	return
 		sge::parse::impl::parse_stream(
 			_stream,
-			_result
+			sge::parse::json::grammar{}
 		);
 }

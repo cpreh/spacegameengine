@@ -43,9 +43,9 @@ find_member_return_type
 =
 fcppt::optional::reference<
 	std::conditional_t<
-		std::is_const<
+		std::is_const_v<
 			Arg
-		>::value,
+		>,
 		std::add_const_t<
 			T
 		>,

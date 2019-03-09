@@ -150,6 +150,8 @@ add_sge_test(
 		sgeparsejson
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_catch_interface
+		fcppt_parse_interface
 )
 
 add_sge_test(

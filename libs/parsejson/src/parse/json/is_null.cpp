@@ -29,12 +29,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 bool
 sge::parse::json::is_null(
-	sge::parse::json::value const &_value)
+	sge::parse::json::value const &_value
+)
 {
 	return
 		fcppt::variant::holds_type<
 			sge::parse::json::null
 		>(
-			_value
+			_value.get()
 		);
 }

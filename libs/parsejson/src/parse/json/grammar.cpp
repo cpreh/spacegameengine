@@ -18,21 +18,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_GRAMMAR_IMPL_HPP_INCLUDED
-#define SGE_PARSE_JSON_GRAMMAR_IMPL_HPP_INCLUDED
-
-#include <sge/parse/install_error_handler.hpp>
-#include <sge/parse/optional_error_string.hpp>
-#include <sge/parse/json/grammar_decl.hpp>
+#include <sge/parse/json/array.hpp>
+#include <sge/parse/json/float_type.hpp>
+#include <sge/parse/json/grammar.hpp>
+#include <sge/parse/json/grammar_base_fwd.hpp>
+#include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/null.hpp>
-#include <sge/parse/json/detail/adapt_array.hpp>
-#include <sge/parse/json/detail/adapt_object.hpp>
-#include <sge/parse/json/detail/adapt_start.hpp>
-#include <sge/parse/json/detail/insert_member.hpp>
-#include <fcppt/make_ref.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/config/compiler.hpp>
+#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/skipper.hpp>
+#include <sge/parse/json/start.hpp>
+#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/impl/make_members.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/parse/char_set.hpp>
+#include <fcppt/parse/construct.hpp>
+#include <fcppt/parse/convert_const.hpp>
+#include <fcppt/parse/float.hpp>
+#include <fcppt/parse/grammar_impl.hpp>
+#include <fcppt/parse/int.hpp>
+#include <fcppt/parse/literal.hpp>
+#include <fcppt/parse/make_convert_if.hpp>
+#include <fcppt/parse/make_lexeme.hpp>
+#include <fcppt/parse/make_recursive.hpp>
+#include <fcppt/parse/separator.hpp>
+#include <fcppt/parse/string.hpp>
+#include <fcppt/parse/operators/alternative.hpp>
+#include <fcppt/parse/operators/complement.hpp>
+#include <fcppt/parse/operators/sequence.hpp>
+#include <fcppt/parse/operators/repetition.hpp>
 
 
 sge::parse::json::grammar::grammar()
@@ -52,7 +65,7 @@ sge::parse::json::grammar::grammar()
 				sge::parse::json::null{}
 			)
 		)
-	}
+	},
 	bool_{
 		this->make_base(
 			fcppt::parse::convert_const(
@@ -94,7 +107,7 @@ sge::parse::json::grammar::grammar()
 							this->value_
 						)
 					),
-					fcppt::parse::literal(',')
+					','
 				}
 				>>
 				fcppt::parse::literal(']')
@@ -106,7 +119,7 @@ sge::parse::json::grammar::grammar()
 			fcppt::parse::construct<
 				sge::parse::json::object
 			>(
-				fcppt::parse::make_convert(
+				fcppt::parse::make_convert_if(
 					fcppt::parse::literal{'{'}
 					>>
 					fcppt::parse::separator{
@@ -121,54 +134,62 @@ sge::parse::json::grammar::grammar()
 								this->value_
 							)
 						),
-						fcppt::parse::literal{','}
+						','
 					}
 					>>
 					fcppt::parse::literal{'}'},
-					&make_members
+					&sge::parse::json::impl::make_members
 				)
 			)
 		)
 	},
 	value_{
 		this->make_base(
-			fcppt::make_cref(
-				this->object_
-			)
-			|
-			fcppt::make_cref(
-				this->array_
-			)
-			|
-			fcppt::make_cref(
-				this->bool_
-			)
-			|
-			fcppt::make_cref(
-				this->quoted_string_
-			)
-			|
-			fcppt::parse::float_<
-				float
-			>{}
-			|
-			fcppt::parse::int_<
-				int
-			>{}
-			|
-			fcppt::make_cref(
-				this->null_
+			fcppt::parse::construct<
+				sge::parse::json::value
+			>(
+				fcppt::make_cref(
+					this->object_
+				)
+				|
+				fcppt::make_cref(
+					this->array_
+				)
+				|
+				fcppt::make_cref(
+					this->bool_
+				)
+				|
+				fcppt::make_cref(
+					this->quoted_string_
+				)
+				|
+				fcppt::parse::float_<
+					sge::parse::json::float_type
+				>{}
+				|
+				fcppt::parse::int_<
+					sge::parse::json::int_type
+				>{}
+				|
+				fcppt::make_cref(
+					this->null_
+				)
 			)
 		)
 	},
 	start_{
 		this->make_base(
-			fcppt::make_cref(
-				this->array_
-			)
-			|
-			fcppt::make_cref(
-				this->object_
+			fcppt::parse::construct<
+				sge::parse::json::start
+			>(
+				fcppt::make_cref(
+					this->array_
+				)
+				|
+				fcppt::make_cref(
+					this->object_
+				)
 			)
 		)
 	}
@@ -178,5 +199,3 @@ sge::parse::json::grammar::grammar()
 sge::parse::json::grammar::~grammar()
 {
 }
-
-#endif

@@ -24,12 +24,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
+#include <fcppt/recursive_impl.hpp>
 #include <fcppt/algorithm/map.hpp>
 
 
 sge::camera::tracking::keyframe_sequence
 sge::camera::tracking::json::keyframes_from_json(
-	sge::parse::json::array const &_array)
+	sge::parse::json::array const &_array
+)
 {
 	return
 		fcppt::algorithm::map<
@@ -37,7 +39,9 @@ sge::camera::tracking::json::keyframes_from_json(
 		>(
 			_array.elements,
 			[](
-				sge::parse::json::value const &_value
+				fcppt::recursive<
+					sge::parse::json::value
+				> const &_value
 			)
 			{
 				return
@@ -45,7 +49,7 @@ sge::camera::tracking::json::keyframes_from_json(
 						sge::parse::json::get_exn<
 							sge::parse::json::object const
 						>(
-							_value
+							_value.get()
 						)
 					);
 			}

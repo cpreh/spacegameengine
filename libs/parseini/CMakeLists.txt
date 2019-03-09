@@ -8,6 +8,8 @@ set(
 	libs/parseini/include/sge/parse/ini/entry_name.hpp
 	libs/parseini/include/sge/parse/ini/entry_name_equal.hpp
 	libs/parseini/include/sge/parse/ini/entry_vector.hpp
+	libs/parseini/include/sge/parse/ini/file_result.hpp
+	libs/parseini/include/sge/parse/ini/file_result_fwd.hpp
 	libs/parseini/include/sge/parse/ini/find_value.hpp
 	libs/parseini/include/sge/parse/ini/get_or_create.hpp
 	libs/parseini/include/sge/parse/ini/get_or_create_entry.hpp
@@ -67,6 +69,7 @@ add_sge_base_library(
 		sgeparse_interface
 	USE_IMPL_INCLUDE_OF
 		core
+		parse
 	ADDITIONAL_DEPS
 		fcppt_core_interface
 		fcppt_parse_interface
@@ -75,6 +78,4 @@ add_sge_base_library(
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
 		fcppt_parse_interface
-	IMPLEMENT_FROM
-		parse
 )

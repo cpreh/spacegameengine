@@ -23,6 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/impl/member_vector.hpp>
+#include <fcppt/parse/result.hpp>
 
 
 namespace sge
@@ -34,7 +35,10 @@ namespace json
 namespace impl
 {
 
-sge::parse::json::member_map
+fcppt::parse::result<
+	char,
+	sge::parse::json::member_map
+>
 make_members(
 	sge::parse::json::impl::member_vector &&
 );

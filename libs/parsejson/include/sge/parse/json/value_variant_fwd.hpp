@@ -45,7 +45,7 @@ namespace json
 
 typedef
 fcppt::variant::variadic<
-	sge::parse::json::object
+	sge::parse::json::object,
 	sge::parse::json::array,
 	bool,
 	std::string,

@@ -22,31 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/array_or_object.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/start.hpp>
+#include <sge/parse/json/value.hpp>
+#include <fcppt/variant/comparison.hpp>
 #include <fcppt/variant/get_exn.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::parse::json::start::start()
-:
-	// Just put something here because spirit needs default initialized
-	// objects
-	variant(
-		sge::parse::json::array()
-	)
-{
-}
-
-sge::parse::json::start::start(
-	sge::parse::json::array_or_object const &_variant
-)
-:
-	variant(
-		_variant
-	)
-{
-}
 
 sge::parse::json::start::start(
 	sge::parse::json::array_or_object &&_variant
@@ -102,4 +84,16 @@ sge::parse::json::start::object() const
 		>(
 			variant
 		);
+}
+
+bool
+sge::parse::json::operator==(
+	sge::parse::json::start const &_left,
+	sge::parse::json::start const &_right
+)
+{
+	return
+		_left.variant
+		==
+		_right.variant;
 }

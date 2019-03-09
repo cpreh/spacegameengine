@@ -19,7 +19,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/coordinate_system/object.hpp>
-#include <sge/charconv/utf8_file_to_fcppt_string_exn.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgb32f.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -29,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/parse/json/parse_string_exn.hpp>
+#include <sge/parse/json/parse_file_exn.hpp>
 #include <sge/parse/json/start.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/renderer/matrix4.hpp>
@@ -40,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/scenic/scene/prototype.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/recursive_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace
 {
 // We need this a lot
-sge::image::color::rgb32f const
+sge::image::color::rgb32f
 vector3_to_rgb32f(
 	sge::renderer::vector3 const &v)
 {
@@ -70,21 +70,23 @@ vector3_to_rgb32f(
 }
 
 // This just switches y and z
-sge::renderer::vector3 const
+sge::renderer::vector3
 from_blender_vector(
-	sge::renderer::vector3 const &_v)
+	sge::renderer::vector3 const &_v
+)
 {
 	return
 		sge::renderer::vector3(
 			_v.x(),
 			_v.z(),
-			_v.y());
+			_v.y()
+		);
 }
 
 // Converts a blender euler angle vector to a rotation matrix.
 // This _seems_ to be different for the camera. For everything else,
 // see "rotation_from_angles_entity" below
-sge::renderer::matrix4 const
+sge::renderer::matrix4
 rotation_from_angles_camera(
 	sge::renderer::vector3 const &_angles)
 {
@@ -99,7 +101,7 @@ rotation_from_angles_camera(
 
 // Converts a blender euler angle vector to a rotation matrix. This
 // was created using Trial & Error (tm)
-sge::renderer::matrix4 const
+sge::renderer::matrix4
 rotation_from_angles_entity(
 	sge::renderer::vector3 const &_angles)
 {
@@ -112,19 +114,27 @@ rotation_from_angles_entity(
 			-_angles.x());
 }
 
-sge::scenic::scene::camera_properties const
+sge::scenic::scene::camera_properties
 parse_camera_properties(
-	sge::parse::json::object const &_json_camera)
+	sge::parse::json::object const &_json_camera
+)
 {
 	// Here, we use rotation_from_angles_camera to determine the
 	// rotation matrix. See above.
 	sge::renderer::matrix4 const camera_rotation(
 		rotation_from_angles_camera(
 			from_blender_vector(
-				sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+				sge::parse::json::find_and_convert_member<
+					sge::renderer::vector3
+				>(
 					_json_camera,
 					sge::parse::json::path(
-						FCPPT_TEXT("rotation"))))));
+						FCPPT_TEXT("rotation")
+					)
+				)
+			)
+		)
+	);
 
 	// We start with blender's default camera coordinate system, which
 	// has some funky values for the different axes.
@@ -178,7 +188,7 @@ parse_camera_properties(
 							FCPPT_TEXT("far")))));
 }
 
-sge::scenic::render_context::fog::optional_properties const
+sge::scenic::render_context::fog::optional_properties
 parse_fog_properties(
 	sge::parse::json::object const &_json_fog)
 {
@@ -211,7 +221,7 @@ parse_fog_properties(
 			sge::scenic::render_context::fog::optional_properties();
 }
 
-sge::scenic::render_context::ambient_color const
+sge::scenic::render_context::ambient_color
 parse_ambient_color(
 	sge::parse::json::object const &_json_world)
 {
@@ -269,15 +279,21 @@ load_entities(
 	sge::parse::json::array const &_json_entities)
 {
 	for(
-		sge::parse::json::value const &current
+		fcppt::recursive<
+			sge::parse::json::value
+		> const &current
 		:
 		_json_entities.elements
 	)
 		load_entity(
 			_base_path,
 			_scene,
-			sge::parse::json::get_exn<sge::parse::json::object const>(
-				current));
+			sge::parse::json::get_exn<
+				sge::parse::json::object const
+			>(
+				current.get()
+			)
+		);
 }
 
 sge::scenic::render_context::light::attenuation const
@@ -440,7 +456,9 @@ load_lights(
 	sge::parse::json::array const &_json_lights)
 {
 	for(
-		sge::parse::json::value const &light
+		fcppt::recursive<
+			sge::parse::json::value
+		> const &light
 		:
 		_json_lights.elements
 	)
@@ -449,7 +467,7 @@ load_lights(
 			sge::parse::json::get_exn<
 				sge::parse::json::object const
 			>(
-				light
+				light.get()
 			)
 		);
 }
@@ -460,9 +478,11 @@ sge::scenic::scene::from_blender_file(
 	boost::filesystem::path const &_path)
 {
 	sge::parse::json::object const json_file(
-		sge::parse::json::parse_string_exn(
-			sge::charconv::utf8_file_to_fcppt_string_exn(
-				_path)).object());
+		sge::parse::json::parse_file_exn(
+			// TODO: Is the encoding correct here?
+			_path
+		).object()
+	);
 
 	// The prototype is created with the world properties in the
 	// ctor. Entities and lights are added below.

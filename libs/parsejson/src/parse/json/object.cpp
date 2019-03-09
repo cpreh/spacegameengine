@@ -18,29 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/parse/json/value.hpp>
+#include <fcppt/recursive_comparison.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::parse::json::object::object()
-:
-	members()
-{
-}
-
-sge::parse::json::object::object(
-	sge::parse::json::member_map const &_members
-)
-:
-	members(
-		_members
-	)
-{
-}
 
 sge::parse::json::object::object(
 	sge::parse::json::member_map &&_members
@@ -52,4 +37,16 @@ sge::parse::json::object::object(
 		)
 	)
 {
+}
+
+bool
+sge::parse::json::operator==(
+	sge::parse::json::object const &_left,
+	sge::parse::json::object const &_right
+)
+{
+	return
+		_left.members
+		==
+		_right.members;
 }
