@@ -49,8 +49,8 @@ fcppt::variant::variadic<
 	sge::parse::json::array,
 	bool,
 	std::string,
-	sge::parse::json::float_type,
 	sge::parse::json::int_type,
+	sge::parse::json::float_type,
 	sge::parse::json::null
 >
 value_variant;

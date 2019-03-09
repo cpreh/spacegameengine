@@ -44,6 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/parse/string.hpp>
 #include <fcppt/parse/operators/alternative.hpp>
 #include <fcppt/parse/operators/complement.hpp>
+#include <fcppt/parse/operators/not.hpp>
 #include <fcppt/parse/operators/sequence.hpp>
 #include <fcppt/parse/operators/repetition.hpp>
 
@@ -164,12 +165,19 @@ sge::parse::json::grammar::grammar()
 					this->quoted_string_
 				)
 				|
+				(
+					fcppt::parse::int_<
+						sge::parse::json::int_type
+					>{}
+					>>
+					!
+					fcppt::parse::literal{
+						'.'
+					}
+				)
+				|
 				fcppt::parse::float_<
 					sge::parse::json::float_type
-				>{}
-				|
-				fcppt::parse::int_<
-					sge::parse::json::int_type
 				>{}
 				|
 				fcppt::make_cref(

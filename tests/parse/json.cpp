@@ -18,7 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/array_or_object.hpp>
+#include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/make_value.hpp>
@@ -29,10 +31,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/start.hpp>
 #include <fcppt/make_recursive.hpp>
 #include <fcppt/strong_typedef_comparison.hpp>
+#include <fcppt/catch/convert.hpp>
 #include <fcppt/catch/either.hpp>
 #include <fcppt/catch/optional.hpp>
 #include <fcppt/catch/recursive.hpp>
 #include <fcppt/catch/strong_typedef.hpp>
+#include <fcppt/catch/variant.hpp>
 #include <fcppt/either/comparison.hpp>
 #include <fcppt/parse/make_success.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -40,6 +44,83 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
+
+namespace Catch
+{
+
+template<>
+struct StringMaker<
+	sge::parse::json::start
+>
+{
+	static
+	std::string
+	convert(
+		sge::parse::json::start const &_value
+	)
+	{
+		return
+			fcppt::catch_::convert(
+				_value.variant
+			);
+	}
+};
+
+template<>
+struct StringMaker<
+	sge::parse::json::array
+>
+{
+	static
+	std::string
+	convert(
+		sge::parse::json::array const &_value
+	)
+	{
+		return
+			fcppt::catch_::convert(
+				_value.elements
+			);
+	}
+};
+
+template<>
+struct StringMaker<
+	sge::parse::json::object
+>
+{
+	static
+	std::string
+	convert(
+		sge::parse::json::object const &_value
+	)
+	{
+		return
+			fcppt::catch_::convert(
+				_value.members
+			);
+	}
+};
+
+template<>
+struct StringMaker<
+	sge::parse::json::value
+>
+{
+	static
+	std::string
+	convert(
+		sge::parse::json::value const &_value
+	)
+	{
+		return
+			fcppt::catch_::convert(
+				_value.get()
+			);
+	}
+};
+
+}
 
 TEST_CASE(
 	"parse_json object",
@@ -122,28 +203,47 @@ TEST_CASE(
 	);
 }
 
-/*
 TEST_CASE(
 	"parse_json array",
 	"[sge]"
 )
 {
-	fcppt::string const test(
-		FCPPT_TEXT("[")
-			FCPPT_TEXT("42,")
-			FCPPT_TEXT("100")
-		FCPPT_TEXT("]")
-	);
-
-	sge::parse::json::start result;
-
-	REQUIRE(
-		sge::parse::json::parse_stream(
-			ss,
-			result
-		).result_code()
+	CHECK(
+		sge::parse::json::parse_string(
+			std::string{
+				"["
+					"42,"
+					"100"
+				"]"
+			}
+		)
 		==
-		sge::parse::result_code::ok
+		fcppt::parse::make_success<
+			char
+		>(
+			sge::parse::json::start{
+				sge::parse::json::array_or_object{
+					sge::parse::json::array{
+						sge::parse::json::element_vector{
+							fcppt::make_recursive(
+								sge::parse::json::make_value(
+									sge::parse::json::int_type{
+										42
+									}
+								)
+							),
+							fcppt::make_recursive(
+								sge::parse::json::make_value(
+									sge::parse::json::int_type{
+										100
+									}
+								)
+							)
+						}
+					}
+				}
+			}
+		)
 	);
 }
 
@@ -152,30 +252,18 @@ TEST_CASE(
 	"[sge]"
 )
 {
-	fcppt::string const test(
-		FCPPT_TEXT("{")
-			FCPPT_TEXT("\"foo\": 42,")
-			FCPPT_TEXT("\"bar\" :")
-			FCPPT_TEXT("{")
-				FCPPT_TEXT("\"inner\" : 5.5,")
-				FCPPT_TEXT("\"booltest\" : true")
-			FCPPT_TEXT("}")
-		FCPPT_TEXT("")
-	);
-
-	sge::parse::json::start result;
-
-	sge::parse::result const ret(
-		sge::parse::json::parse_stream(
-			ss,
-			result
-		)
-	);
-
-	REQUIRE(
-		ret.result_code()
-		!=
-		sge::parse::result_code::ok
+	CHECK(
+		sge::parse::json::parse_string(
+			std::string{
+				"{"
+					"\"foo\": 42,"
+					"\"bar\" :"
+					"{"
+						"\"inner\" : 5.5,"
+						"\"booltest\" : true"
+					"}"
+				""
+			}
+		).has_failure()
 	);
 }
-*/

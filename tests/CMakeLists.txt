@@ -152,6 +152,8 @@ add_sge_test(
 		${fcppt_core_TARGET}
 		fcppt_catch_interface
 		fcppt_parse_interface
+	COMPILE_DEFINITIONS
+		CATCH_CONFIG_ENABLE_PAIR_STRINGMAKER
 )
 
 add_sge_test(
