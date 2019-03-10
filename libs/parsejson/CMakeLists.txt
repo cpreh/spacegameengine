@@ -36,6 +36,7 @@ set(
 	libs/parsejson/include/sge/parse/json/detail/is_iterable.hpp
 	libs/parsejson/include/sge/parse/json/detail/is_math_type.hpp
 	libs/parsejson/include/sge/parse/json/detail/member_wrapper.hpp
+	libs/parsejson/include/sge/parse/json/detail/to_fcppt_string.hpp
 	libs/parsejson/include/sge/parse/json/detail/value_wrapper.hpp
 	libs/parsejson/include/sge/parse/json/detail/value_wrapper_fwd.hpp
 	libs/parsejson/include/sge/parse/json/element_vector.hpp
@@ -70,14 +71,9 @@ set(
 	libs/parsejson/include/sge/parse/json/object_fwd.hpp
 	libs/parsejson/include/sge/parse/json/optional_object_ref.hpp
 	libs/parsejson/include/sge/parse/json/optional_object_ref_fwd.hpp
-	libs/parsejson/include/sge/parse/json/output/grammar.hpp
-	libs/parsejson/include/sge/parse/json/output/grammar_decl.hpp
-	libs/parsejson/include/sge/parse/json/output/grammar_fwd.hpp
-	libs/parsejson/include/sge/parse/json/output/grammar_impl.hpp
 	libs/parsejson/include/sge/parse/json/output/tabbed_to_stream.hpp
 	libs/parsejson/include/sge/parse/json/output/tabbed_to_string.hpp
 	libs/parsejson/include/sge/parse/json/output/to_file.hpp
-	libs/parsejson/include/sge/parse/json/output/to_range.hpp
 	libs/parsejson/include/sge/parse/json/output/to_stream.hpp
 	libs/parsejson/include/sge/parse/json/parse_file.hpp
 	libs/parsejson/include/sge/parse/json/parse_file_exn.hpp
@@ -103,6 +99,7 @@ set(
 	libs/parsejson/src/parse/json/config/merge_command_line_parameters.cpp
 	libs/parsejson/src/parse/json/config/merge_trees.cpp
 	libs/parsejson/src/parse/json/config/modify_user_value.cpp
+	libs/parsejson/src/parse/json/detail/to_fcppt_string.cpp
 	libs/parsejson/src/parse/json/exception.cpp
 	libs/parsejson/src/parse/json/find_object.cpp
 	libs/parsejson/src/parse/json/find_object_exn.cpp
@@ -133,8 +130,10 @@ add_sge_base_library(
 	parse/json
 	HAS_IMPL_DIR
 	SGE_DEPS
+		sgecharconv
 		sgeparse
 	TRANSITIVE_SGE_DEPS
+		sgecharconv
 		sgeparse
 	USE_IMPL_INCLUDE_OF
 		core

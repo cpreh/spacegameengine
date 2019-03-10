@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_VALUE_VARIANT_FWD_HPP_INCLUDED
 #define SGE_PARSE_JSON_VALUE_VARIANT_FWD_HPP_INCLUDED
 
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
@@ -31,9 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/variant/variadic_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <string>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -48,7 +46,7 @@ fcppt::variant::variadic<
 	sge::parse::json::object,
 	sge::parse::json::array,
 	bool,
-	std::string,
+	sge::charconv::utf8_string,
 	sge::parse::json::int_type,
 	sge::parse::json::float_type,
 	sge::parse::json::null

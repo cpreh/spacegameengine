@@ -18,22 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
 
 
-fcppt::string
+sge::charconv::utf8_string
 sge::parse::json::path_to_string(
-	sge::parse::json::path const &p)
+	sge::parse::json::path const &_path
+)
 {
-	fcppt::string result;
-	for(json::path::const_iterator i = p.begin(); i != p.end(); ++i)
+	sge::charconv::utf8_string result{};
+
+	// TODO
+	for(auto i = _path.get().begin(); i != _path.get().end(); ++i)
 	{
 		result += *i;
-		if(i != --p.end())
-			result += FCPPT_TEXT("/");
+		if(i != --_path.get().end())
+			result += "/";
 	}
+
 	return result;
 }

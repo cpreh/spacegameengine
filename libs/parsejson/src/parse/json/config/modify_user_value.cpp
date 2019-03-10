@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/path_to_string.hpp>
 #include <sge/parse/json/config/modify_user_value.hpp>
+#include <sge/parse/json/detail/to_fcppt_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_recursive.hpp>
 #include <fcppt/text.hpp>
@@ -47,20 +48,27 @@ sge::parse::json::config::modify_user_value(
 )
 {
 	FCPPT_ASSERT_PRE(
-		!input_path.empty());
+		!input_path.get().empty()
+	);
 
-	sge::parse::json::value const &old_value =
-		sge::parse::json::find_and_convert_member<sge::parse::json::value>(
+	sge::parse::json::value const &old_value{
+		sge::parse::json::find_and_convert_member<
+			sge::parse::json::value
+		>(
 			structure_json,
-			input_path);
+			input_path
+		)
+	};
 
 	if(old_value.get().type_index() != new_value.get().type_index())
 		throw
 			sge::parse::exception{
 				FCPPT_TEXT("Error trying to update the user configuration node \"")
 				+
-				sge::parse::json::path_to_string(
-					input_path
+				sge::parse::json::detail::to_fcppt_string(
+					sge::parse::json::path_to_string(
+						input_path
+					)
 				)
 				+
 				FCPPT_TEXT("\", the types of the old and new value didn't match. The old type was \"")
@@ -87,26 +95,31 @@ sge::parse::json::config::modify_user_value(
 	sge::parse::json::object &target =
 		// 0 is not permitted, 1 would mean: just take a value from
 		// user_json, > 1 means: recursively make a path in the user_json
-		(std::distance(
-			input_path.begin(),
-			input_path.end()) > 1)
+		input_path.get().size() > 1
 		?
-			json::make_recursive_objects(
+			sge::parse::json::make_recursive_objects(
 				user_json,
-				json::path(
-					input_path.begin(),
-					std::prev(input_path.end())))
+				// TODO: path::pop_back?
+				sge::parse::json::path{
+					sge::parse::json::path::sequence_type{
+						input_path.get().begin(),
+						std::prev(
+							input_path.get().end()
+						)
+					}
+				}
+			)
 		:
 			user_json;
 
 	sge::parse::json::member_map::iterator const it =
 		target.members.find(
-			input_path.back());
+			input_path.get().back());
 
 	if(it == target.members.end())
 		target.members.insert(
-			json::member(
-				input_path.back(),
+			sge::parse::json::member(
+				input_path.get().back(),
 				new_value));
 	else
 		it->second =

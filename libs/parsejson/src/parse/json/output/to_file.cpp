@@ -34,7 +34,9 @@ sge::parse::json::output::to_file(
 )
 {
 	return
-		sge::parse::impl::output::to_file(
+		sge::parse::impl::output::to_file<
+			char
+		>(
 			&sge::parse::json::output::to_stream,
 			_path,
 			_data

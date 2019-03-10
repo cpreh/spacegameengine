@@ -18,34 +18,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/string_to_path.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::parse::json::path
 sge::parse::json::string_to_path(
-	fcppt::string const &_input_path
+	sge::charconv::utf8_string const &_input_path
 )
 {
-	sge::parse::json::path::sequence_type parts;
+	sge::parse::json::path::sequence_type parts{};
 
 	boost::algorithm::split(
 		parts,
 		_input_path,
 		boost::algorithm::is_any_of(
-			FCPPT_TEXT("/")
+			"/"
 		)
 	);
 
 	return
 		sge::parse::json::path(
-			parts.begin(),
-			parts.end()
+			std::move(
+				parts
+			)
 		);
 }

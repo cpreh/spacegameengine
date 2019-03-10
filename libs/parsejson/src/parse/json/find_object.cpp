@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/const_optional_object_ref.hpp>
 #include <sge/parse/json/find_member_value.hpp>
@@ -27,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/optional_object_ref.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
+#include <sge/parse/json/detail/to_fcppt_string.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
@@ -64,9 +66,9 @@ find_object_impl(
 	);
 
 	for(
-		auto const &current_member
+		sge::charconv::utf8_string const &current_member
 		:
-		_path
+		_path.get()
 	)
 	{
 		if(
@@ -99,13 +101,17 @@ find_object_impl(
 									return
 										FCPPT_TEXT("Couldn't navigate to \"")
 										+
-										sge::parse::json::path_to_string(
-											_path
+										sge::parse::json::detail::to_fcppt_string(
+											sge::parse::json::path_to_string(
+												_path
+											)
 										)
 										+
 										FCPPT_TEXT("\", stopped at \"")
 										+
-										current_member;
+										sge::parse::json::detail::to_fcppt_string(
+											current_member
+										);
 								}
 							)
 						);

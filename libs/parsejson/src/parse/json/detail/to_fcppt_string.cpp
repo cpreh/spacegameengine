@@ -18,67 +18,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_PARSE_JSON_OUTPUT_TO_RANGE_HPP_INCLUDED
-#define SGE_PARSE_JSON_OUTPUT_TO_RANGE_HPP_INCLUDED
-
-#include <sge/parse/json/start_fwd.hpp>
-//#include <sge/parse/json/output/grammar.hpp>
-#include <sge/parse/json/output/tabbed_to_string.hpp>
+#include <sge/charconv/utf8_string.hpp>
+#include <sge/charconv/utf8_string_to_fcppt.hpp>
+#include <sge/parse/json/detail/to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/include/karma_generate.hpp>
-#include <algorithm>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/optional/from.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-namespace output
-{
-
-template<
-	typename Out
->
-bool
-to_range(
-	Out &_beg,
-	sge::parse::json::start const &_data
+fcppt::string
+sge::parse::json::detail::to_fcppt_string(
+	sge::charconv::utf8_string const &_string
 )
 {
-	fcppt::string const result(
-		sge::parse::json::output::tabbed_to_string(
-			_data
-		)
-	);
-
-	std::copy(
-		result.begin(),
-		result.end(),
-		_beg
-	);
-
 	return
-		true;
-/*
-	output::grammar<
-		Out
-	> parser;
-
-	return
-		boost::spirit::karma::generate(
-			beg,
-			parser,
-			data
-		);*/
+		fcppt::optional::from(
+			sge::charconv::utf8_string_to_fcppt(
+				_string
+			),
+			[]{
+				return
+					fcppt::string{
+						FCPPT_TEXT("Conversion error")
+					};
+			}
+		);
 }
-
-}
-}
-}
-}
-
-#endif

@@ -18,33 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/impl/output/to_stream.hpp>
 #include <sge/parse/json/start_fwd.hpp>
-#include <sge/parse/json/output/to_range.hpp>
+#include <sge/parse/json/output/tabbed_to_stream.hpp>
 #include <sge/parse/json/output/to_stream.hpp>
-#include <fcppt/io/ostream_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <ostream>
+#include <fcppt/config/external_end.hpp>
 
 
 bool
 sge::parse::json::output::to_stream(
-	fcppt::io::ostream &_stream,
+	std::ostream &_stream,
 	sge::parse::json::start const &_data
 )
 {
+	sge::parse::json::output::tabbed_to_stream(
+		_stream,
+		_data
+	);
+
 	return
-		sge::parse::impl::output::to_stream(
-			[](
-				auto &_out,
-				auto const &_inner_data
-			)
-			{
-				return
-					sge::parse::json::output::to_range(
-						_out,
-						_inner_data
-					);
-			},
-			_stream,
-			_data
-		);
+		_stream.good();
 }

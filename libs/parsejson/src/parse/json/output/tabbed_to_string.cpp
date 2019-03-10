@@ -18,19 +18,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/start_fwd.hpp>
 #include <sge/parse/json/output/tabbed_to_stream.hpp>
 #include <sge/parse/json/output/tabbed_to_string.hpp>
-#include <fcppt/string.hpp>
-#include <fcppt/io/ostringstream.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <sstream>
+#include <fcppt/config/external_end.hpp>
 
 
-fcppt::string
+sge::charconv::utf8_string
 sge::parse::json::output::tabbed_to_string(
 	sge::parse::json::start const &_start
 )
 {
-	fcppt::io::ostringstream stream;
+	std::ostringstream stream{};
 
 	json::output::tabbed_to_stream(
 		stream,

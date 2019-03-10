@@ -21,9 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_FIND_MEMBER_VALUE_EXN_HPP_INCLUDED
 #define SGE_PARSE_JSON_FIND_MEMBER_VALUE_EXN_HPP_INCLUDED
 
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/member_not_found.hpp>
-#include <fcppt/string.hpp>
+#include <sge/parse/json/detail/to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -42,15 +43,15 @@ template<
 	typename Arg
 >
 std::conditional_t<
-	std::is_const<
+	std::is_const_v<
 		Arg
-	>::value,
+	>,
 	sge::parse::json::value const &,
 	sge::parse::json::value &
 >
 find_member_value_exn(
 	Arg &_members,
-	fcppt::string const &_name
+	sge::charconv::utf8_string const &_name
 )
 {
 	return
@@ -66,7 +67,9 @@ find_member_value_exn(
 					sge::parse::json::member_not_found(
 						FCPPT_TEXT("Cannot find member \"")
 						+
-						_name
+						sge::parse::json::detail::to_fcppt_string(
+							_name
+						)
 						+
 						FCPPT_TEXT("\" in a json object's member list!")
 					);

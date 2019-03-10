@@ -18,16 +18,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/fcppt_string_to_utf8.hpp>
 #include <sge/parse/exception.hpp>
-#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/find_member_value.hpp>
+#include <sge/parse/json/member.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/string_to_value.hpp>
 #include <sge/parse/json/config/help_needed_exception.hpp>
 #include <sge/parse/json/config/merge_command_line_parameters.hpp>
+#include <sge/parse/json/detail/to_fcppt_string.hpp>
 #include <fcppt/args_vector.hpp>
+#include <fcppt/char_type.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
@@ -37,22 +40,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/compiler.hpp>
+#include <fcppt/container/maybe_front.hpp>
+#include <fcppt/either/to_exception.hpp>
 #include <fcppt/io/cout.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_exception.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/parse/basic_char.hpp>
+#include <fcppt/parse/basic_char_set.hpp>
+#include <fcppt/parse/basic_literal.hpp>
+#include <fcppt/parse/epsilon.hpp>
+#include <fcppt/parse/error.hpp>
+#include <fcppt/parse/separator.hpp>
+#include <fcppt/parse/parse_string.hpp>
+#include <fcppt/parse/operators/complement.hpp>
+#include <fcppt/parse/operators/repetition.hpp>
+#include <fcppt/parse/operators/sequence.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/fusion/container/vector.hpp>
-#include <boost/fusion/sequence/intrinsic/at.hpp>
-#include <boost/range/iterator_range_core.hpp>
-#include <boost/spirit/include/qi_char.hpp>
-#include <boost/spirit/include/qi_lit.hpp>
-#include <boost/spirit/include/qi_operator.hpp>
-#include <boost/spirit/include/qi_parse.hpp>
-#include <boost/spirit/include/support_standard.hpp>
-#include <iterator>
-#include <string>
+#include <tuple>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -73,46 +77,72 @@ process_option(
 	string_vector;
 
 	typedef
-	boost::fusion::vector<
+	std::tuple<
 		string_vector,
 		fcppt::string
 	>
 	result_type;
 
-	namespace encoding = boost::spirit::standard;
+	typedef
+	fcppt::parse::basic_char_set<
+		fcppt::char_type
+	>
+	char_set;
 
-	result_type result;
+	typedef
+	fcppt::parse::basic_char<
+		fcppt::char_type
+	>
+	char_;
 
-FCPPT_PP_PUSH_WARNING
-#if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
-FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
-#endif
+	typedef
+	fcppt::parse::basic_literal<
+		fcppt::char_type
+	>
+	literal;
 
-	if(
-		!boost::spirit::qi::parse(
-			_input.begin(),
-			_input.end(),
-			(
-				*~encoding::char_("/=")
-				% boost::spirit::lit('/')
+	result_type result{
+		fcppt::either::to_exception(
+			fcppt::parse::parse_string(
+				fcppt::parse::separator{
+					*~char_set{FCPPT_TEXT('/'),FCPPT_TEXT('=')},
+					FCPPT_TEXT('/')
+				}
+				>>
+				literal{FCPPT_TEXT('=')}
+				>>
+				*char_{},
+				fcppt::string{
+					_input
+				},
+				fcppt::parse::epsilon{}
+			),
+			[
+				&_input
+			](
+				fcppt::parse::error<
+					fcppt::char_type
+				> &&_error
 			)
-			>> boost::spirit::lit('=')
-			>> *encoding::char_,
-			result
+			{
+				return
+					sge::parse::exception{
+						FCPPT_TEXT("The command line parameter \"")
+						+
+						_input
+						+
+						FCPPT_TEXT("\" has an invalid format. See --help. The error is: ")
+						+
+						std::move(
+							_error.get()
+						)
+					};
+			}
 		)
-	)
-		throw sge::parse::exception{
-			FCPPT_TEXT("The command line parameter \"")
-			+
-			_input
-			+
-			FCPPT_TEXT("\" has an invalid format. See --help to see what that means.")
-		};
-
-FCPPT_PP_POP_WARNING
+	};
 
 	string_vector &first(
-		boost::fusion::at_c<
+		std::get<
 			0
 		>(
 			result
@@ -154,7 +184,9 @@ FCPPT_PP_POP_WARNING
 							sge::parse::json::object
 						>(
 							_cur.get().members,
-							_value
+							sge::charconv::fcppt_string_to_utf8(
+								_value
+							)
 						)
 					);
 			}
@@ -164,7 +196,9 @@ FCPPT_PP_POP_WARNING
 	fcppt::optional::to_exception(
 		sge::parse::json::find_member_value(
 			target.get().members,
-			element
+			sge::charconv::fcppt_string_to_utf8(
+				element
+			)
 		),
 		[
 			&target,
@@ -184,11 +218,15 @@ FCPPT_PP_POP_WARNING
 						>(
 							target.get().members,
 							[](
-								sge::parse::json::member_map::value_type const &_element
+								sge::parse::json::member const &_element
 							)
+							->
+							fcppt::string
 							{
 								return
-									_element.first;
+									sge::parse::json::detail::to_fcppt_string(
+										_element.first
+									);
 							}
 						),
 						FCPPT_TEXT(", ")
@@ -197,13 +235,13 @@ FCPPT_PP_POP_WARNING
 		}
 	).get() =
 		sge::parse::json::string_to_value(
-			std::string{
-				boost::fusion::at_c<
+			sge::charconv::fcppt_string_to_utf8(
+				std::get<
 					1
 				>(
 					result
 				)
-			}
+			)
 		);
 }
 
@@ -215,46 +253,54 @@ sge::parse::json::config::merge_command_line_parameters(
 	fcppt::args_vector const &_parameters
 )
 {
-	if(
-		_parameters.size() >= 2
-		&&
-		_parameters[1] == FCPPT_TEXT("--help")
-	)
-	{
-		fcppt::io::cout() <<
-			FCPPT_TEXT(
-			"Command line options are of the form:\n\n"
-			"foo/bar/baz=qux\n\n"
-			"where foo/bar/baz is a sequence of objects in the config.json file.\n"
-			"qux can be any json type (strings, arrays, etc.)\n"
-			"For example, if config.json looks like this:\n\n"
-			"{ \"renderer\" : { \"screen_size\" : [640,480] } }\n\n"
-			"You could change the resolution via:\n\n"
-			"renderer/screen_size=[1024,768]\n\n"
-			"Be aware of two things, though:\n"
-			"1. You can use _any_ json type, so it's possible to write\n\n"
-			"renderer/screen_size=1.0\n\n"
-			"which, of course, makes no sense. Try to use the correct type.\n"
-			"2. Be aware of your shell' special characters. For example, in bash\n"
-			"to set a json string, you have to write:\n\n"
-			"player/name='\"foobar\"'\n\n"
-			"It's a good idea to always put the argument in apostrophes.\n"
-			);
-		throw
-			sge::parse::json::config::help_needed_exception{
-				FCPPT_TEXT("Help was needed")
-			};
-	}
+	fcppt::optional::maybe_void(
+		fcppt::container::maybe_front(
+			_parameters
+		),
+		[](
+			fcppt::reference<
+				fcppt::string const
+			> const _arg
+		)
+		{
+			if(
+				_arg.get()
+				==
+				FCPPT_TEXT("--help")
+			)
+			{
+				fcppt::io::cout() <<
+					FCPPT_TEXT(
+					"Command line options are of the form:\n\n"
+					"foo/bar/baz=qux\n\n"
+					"where foo/bar/baz is a sequence of objects in the config.json file.\n"
+					"qux can be any json type (strings, arrays, etc.)\n"
+					"For example, if config.json looks like this:\n\n"
+					"{ \"renderer\" : { \"screen_size\" : [640,480] } }\n\n"
+					"You could change the resolution via:\n\n"
+					"renderer/screen_size=[1024,768]\n\n"
+					"Be aware of two things, though:\n"
+					"1. You can use _any_ json type, so it's possible to write\n\n"
+					"renderer/screen_size=1.0\n\n"
+					"which, of course, makes no sense. Try to use the correct type.\n"
+					"2. Be aware of your shell' special characters. For example, in bash\n"
+					"to set a json string, you have to write:\n\n"
+					"player/name='\"foobar\"'\n\n"
+					"It's a good idea to always put the argument in apostrophes.\n"
+					);
+
+				throw
+					sge::parse::json::config::help_needed_exception{
+						FCPPT_TEXT("Help was needed")
+					};
+			}
+		}
+	);
 
 	for(
 		auto const &element
 		:
-		boost::make_iterator_range(
-			std::next(
-				_parameters.begin()
-			),
-			_parameters.end()
-		)
+		_parameters
 	)
 		::process_option(
 			input,

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_FIND_AND_CONVERT_MEMBER_HPP_INCLUDED
 #define SGE_PARSE_JSON_FIND_AND_CONVERT_MEMBER_HPP_INCLUDED
 
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/exception.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/convert_from.hpp>
@@ -31,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
 #include <sge/parse/json/value.hpp>
-#include <fcppt/string.hpp>
+#include <sge/parse/json/detail/to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
@@ -83,16 +84,16 @@ find_and_convert_member(
 {
 	// TODO: path split
 	FCPPT_ASSERT_PRE(
-		!_input_path.empty()
+		!_input_path.get().empty()
 	);
 
 	sge::parse::json::path const shortened_path{
-		sge::parse::json::path(
-			_input_path.begin(),
+		sge::parse::json::path::sequence_type{
+			_input_path.get().begin(),
 			std::prev(
-				_input_path.end()
+				_input_path.get().end()
 			)
-		)
+		}
 	};
 
 	sge::parse::json::object const &found_object{
@@ -102,8 +103,8 @@ find_and_convert_member(
 		)
 	};
 
-	fcppt::string const &path_back(
-		_input_path.back()
+	sge::charconv::utf8_string const &path_back(
+		_input_path.get().back()
 	);
 
 	try
@@ -125,12 +126,16 @@ find_and_convert_member(
 							sge::parse::exception(
 								FCPPT_TEXT("Couldn't find member \"")
 								+
-								path_back
+								sge::parse::json::detail::to_fcppt_string(
+									path_back
+								)
 								+
 								FCPPT_TEXT("\" in the object \"")
 								+
-								sge::parse::json::path_to_string(
-									shortened_path
+								sge::parse::json::detail::to_fcppt_string(
+									sge::parse::json::path_to_string(
+										shortened_path
+									)
 								)
 								+
 								FCPPT_TEXT("\"")
@@ -147,12 +152,16 @@ find_and_convert_member(
 			sge::parse::exception(
 				FCPPT_TEXT("Unable to parse member \"")
 				+
-				path_back
+				sge::parse::json::detail::to_fcppt_string(
+					path_back
+				)
 				+
 				FCPPT_TEXT("\" of object \"")
 				+
-				sge::parse::json::path_to_string(
-					shortened_path
+				sge::parse::json::detail::to_fcppt_string(
+					sge::parse::json::path_to_string(
+						shortened_path
+					)
 				)
 				+
 				FCPPT_TEXT("\": ")

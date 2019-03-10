@@ -28,9 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/is_iterable.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <string>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -47,30 +47,30 @@ template<
 	typename T
 >
 std::enable_if_t<
-	std::is_same<
+	std::is_same_v<
 		T,
 		sge::parse::json::object
-	>::value
+	>
 	||
-	std::is_same<
+	std::is_same_v<
 		T,
 		sge::parse::json::array
-	>::value
+	>
 	||
-	std::is_same<
+	std::is_same_v<
 		T,
 		sge::parse::json::null
-	>::value
+	>
 	||
-	std::is_same<
+	std::is_same_v<
 		T,
-		fcppt::string
-	>::value
+		std::string
+	>
 	||
-	std::is_same<
+	std::is_same_v<
 		T,
 		bool
-	>::value,
+	>,
 	sge::parse::json::value
 >
 convert_to(
@@ -145,11 +145,12 @@ std::enable_if_t<
 		T
 	>::value
 	&&
-	not
-	std::is_same<
-		T,
-		fcppt::string
-	>::value,
+	fcppt::not_(
+		std::is_same_v<
+			T,
+			std::string
+		>
+	),
 	sge::parse::json::value
 >
 convert_to(

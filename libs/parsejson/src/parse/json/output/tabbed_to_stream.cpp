@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/exception.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/float_type.hpp>
@@ -28,15 +29,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/start.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/output/tabbed_to_stream.hpp>
-#include <fcppt/format.hpp>
-#include <fcppt/output_to_string.hpp>
+#include <fcppt/output_to_std_string.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/io/ostream.hpp>
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/format.hpp>
 #include <iterator>
+#include <ostream>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
@@ -53,11 +53,11 @@ public:
 	result_type;
 
 	typedef
-	fcppt::string::size_type
+	sge::charconv::utf8_string::size_type
 	tab_count;
 
 	output_visitor(
-		fcppt::io::ostream &_stream,
+		std::ostream &_stream,
 		tab_count const _tabs
 	)
 	:
@@ -78,8 +78,8 @@ public:
 		this->stream_.get()
 			<<
 			(
-				fcppt::format(
-					FCPPT_TEXT("%s{\n")
+				boost::format(
+					"%s{\n"
 				)
 				% this->make_tabs()
 			).str();
@@ -95,8 +95,8 @@ public:
 			this->stream_.get()
 				<<
 				(
-					fcppt::format(
-						FCPPT_TEXT("%s\"%s\" :\n")
+					boost::format(
+						"%s\"%s\" :\n"
 					)
 					% this->make_more_tabs()
 					% it->first
@@ -116,15 +116,15 @@ public:
 				_object.members.end()
 			)
 				this->stream_.get()
-					<< FCPPT_TEXT(',');
+					<< ',';
 
 			this->stream_.get()
-				<< FCPPT_TEXT('\n');
+				<< '\n';
 		}
 
 		this->stream_.get()
 			<< this->make_tabs()
-			<< FCPPT_TEXT('}');
+			<< '}';
 	}
 
 	result_type
@@ -135,8 +135,8 @@ public:
 		this->stream_.get()
 			<<
 			(
-				fcppt::format(
-					FCPPT_TEXT("%s[\n")
+				boost::format(
+					"%s[\n"
 				)
 				%
 				this->make_tabs()
@@ -164,15 +164,15 @@ public:
 				_array.elements.end()
 			)
 				this->stream_.get()
-					<< FCPPT_TEXT(',');
+					<< ',';
 
 			this->stream_.get()
-				<< FCPPT_TEXT('\n');
+				<< '\n';
 		}
 
 		this->stream_.get()
 			<< this->make_tabs()
-			<< FCPPT_TEXT(']');
+			<< ']';
 	}
 
 	result_type
@@ -182,7 +182,7 @@ public:
 	{
 		if(
 			_string.find(
-				FCPPT_TEXT('\"')
+				'\"'
 			)
 			!= std::string::npos
 		)
@@ -192,9 +192,9 @@ public:
 
 		this->stream_.get()
 			<< this->make_tabs()
-			<< FCPPT_TEXT('"')
+			<< '"'
 			<< _string
-			<< FCPPT_TEXT('"');
+			<< '"';
 	}
 
 	result_type
@@ -208,13 +208,13 @@ public:
 			(
 				_bool
 				?
-					fcppt::string(
-						FCPPT_TEXT("true")
-					)
+					sge::charconv::utf8_string{
+						"true"
+					}
 				:
-				fcppt::string(
-					FCPPT_TEXT("false")
-				)
+					sge::charconv::utf8_string{
+						"false"
+					}
 			);
 	}
 
@@ -225,7 +225,7 @@ public:
 	{
 		this->stream_.get()
 			<< this->make_tabs()
-			<< FCPPT_TEXT("null");
+			<< "null";
 	}
 
 	result_type
@@ -235,9 +235,8 @@ public:
 	{
 		this->stream_.get()
 			<< this->make_tabs()
-			<< fcppt::output_to_string<
-				fcppt::string
-			>(
+			<<
+			fcppt::output_to_std_string(
 				_int
 			);
 	}
@@ -251,8 +250,8 @@ public:
 			<< this->make_tabs()
 			<<
 			(
-				fcppt::format(
-					FCPPT_TEXT("%1$.2f")
+				boost::format(
+					"%1$.2f"
 				)
 				%
 				_float
@@ -260,82 +259,55 @@ public:
 	}
 private:
 	fcppt::reference<
-		fcppt::io::ostream
+		std::ostream
 	> stream_;
 
 	tab_count tabs_;
 
-	fcppt::string
+	sge::charconv::utf8_string
 	make_tabs() const
 	{
 		return
-			fcppt::string(
+			sge::charconv::utf8_string(
 				tabs_,
-				FCPPT_TEXT('\t')
+				'\t'
 			);
 	}
 
-	fcppt::string
+	sge::charconv::utf8_string
 	make_more_tabs() const
 	{
 		return
-			fcppt::string(
+			sge::charconv::utf8_string(
 				tabs_ + 1u,
-				FCPPT_TEXT('\t')
+				'\t'
 			);
 	}
-};
-
-class start_visitor
-{
-public:
-	explicit
-	start_visitor(
-		fcppt::io::ostream &_stream
-	)
-	:
-		stream_(
-			_stream
-		)
-	{
-	}
-
-	typedef void result_type;
-
-	template<
-		typename Type
-	>
-	result_type
-	operator()(
-		Type const &_type
-	) const
-	{
-		output_visitor(
-			this->stream_.get(),
-			0u
-		)(
-			_type
-		);
-	}
-private:
-	fcppt::reference<
-		fcppt::io::ostream
-	> stream_;
 };
 
 }
 
 void
 sge::parse::json::output::tabbed_to_stream(
-	fcppt::io::ostream &_stream,
+	std::ostream &_stream,
 	sge::parse::json::start const &_start
 )
 {
 	return
 		fcppt::variant::apply(
-			start_visitor(
-				_stream
-			),
+			[
+				&_stream
+			](
+				auto const &_value
+			)
+			{
+				output_visitor{
+					_stream,
+					0u
+				}(
+					_value
+				);
+			},
 			_start.variant
 		);
 }

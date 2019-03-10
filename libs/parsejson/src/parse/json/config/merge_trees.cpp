@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/make_value.hpp>
@@ -25,7 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/config/merge_trees.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/container/key_set.hpp>
 #include <fcppt/container/set_union.hpp>
@@ -92,7 +92,7 @@ sge::parse::json::config::merge_trees(
 {
 	typedef
 	std::set<
-		fcppt::string
+		sge::charconv::utf8_string
 	>
 	string_set;
 
@@ -117,7 +117,7 @@ sge::parse::json::config::merge_trees(
 					&_original,
 					&_update
 				](
-					fcppt::string const &_key
+					sge::charconv::utf8_string const &_key
 				)
 				{
 					return

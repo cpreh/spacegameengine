@@ -18,72 +18,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/path.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::parse::json::path::path(
-	const_iterator const _begin,
-	const_iterator const _end)
+	sge::charconv::utf8_string &&_first
+)
 :
-	sequence_(
-		_begin,
-		_end)
+	sequence_{
+		std::move(
+			_first
+		)
+	}
 {
 }
 
 sge::parse::json::path::path(
-	fcppt::string const &s)
+	sequence_type &&_sequence
+)
 :
-	sequence_()
+	sequence_{
+		std::move(
+			_sequence
+		)
+	}
 {
-	sequence_.push_back(
-		s);
-}
-
-sge::parse::json::path::const_iterator
-sge::parse::json::path::begin() const
-{
-	return sequence_.begin();
-}
-
-sge::parse::json::path::const_iterator
-sge::parse::json::path::end() const
-{
-	return sequence_.end();
-}
-
-sge::parse::json::path::size_type
-sge::parse::json::path::size() const
-{
-	return sequence_.size();
-}
-
-sge::parse::json::path::const_reference
-sge::parse::json::path::back() const
-{
-	return sequence_.back();
-}
-
-bool
-sge::parse::json::path::empty() const
-{
-	return sequence_.empty();
 }
 
 sge::parse::json::path
 sge::parse::json::path::operator/(
-	fcppt::string const &s) const
+	sge::charconv::utf8_string &&_element
+) &&
 {
-	sequence_type new_sequence(
-		sequence_.begin(),
-		sequence_.end());
-
-	new_sequence.push_back(
-		s);
+	this->sequence_.push_back(
+		std::move(
+			_element
+		)
+	);
 
 	return
-		path(
-			new_sequence.begin(),
-			new_sequence.end());
+		std::move(
+			*this
+		);
+}
+
+sge::parse::json::path::sequence_type const &
+sge::parse::json::path::get() const
+{
+	return
+		this->sequence_;
 }

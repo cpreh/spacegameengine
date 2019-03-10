@@ -22,11 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_IMPL_OUTPUT_TO_FILE_HPP_INCLUDED
 
 #include <sge/parse/exception.hpp>
-#include <fcppt/filesystem/ofstream.hpp>
 #include <fcppt/filesystem/open_exn.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <ios>
+#include <fstream>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -40,6 +40,7 @@ namespace output
 {
 
 template<
+	typename Ch,
 	typename ToStream,
 	typename Data
 >
@@ -50,9 +51,13 @@ to_file(
 	Data const &_data
 )
 {
-	fcppt::filesystem::ofstream ofs{
+	std::basic_ofstream<
+		Ch
+	> ofs{
 		fcppt::filesystem::open_exn<
-			fcppt::filesystem::ofstream,
+			std::basic_ofstream<
+				Ch
+			>,
 			sge::parse::exception
 		>(
 			_path,

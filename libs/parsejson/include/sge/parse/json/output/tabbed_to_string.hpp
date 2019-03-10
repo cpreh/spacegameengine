@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_OUTPUT_TABBED_TO_STRING_HPP_INCLUDED
 #define SGE_PARSE_JSON_OUTPUT_TABBED_TO_STRING_HPP_INCLUDED
 
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/start_fwd.hpp>
 #include <sge/parse/json/detail/symbol.hpp>
-#include <fcppt/string.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ namespace output
 {
 
 SGE_PARSE_JSON_DETAIL_SYMBOL
-fcppt::string
+sge::charconv::utf8_string
 tabbed_to_string(
 	sge::parse::json::start const &
 );
