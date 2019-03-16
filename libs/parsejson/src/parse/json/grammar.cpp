@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/utf8_char.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/grammar.hpp>
@@ -30,24 +31,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/impl/make_members.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/parse/char_set.hpp>
+#include <fcppt/parse/basic_char_set.hpp>
+#include <fcppt/parse/basic_literal.hpp>
+#include <fcppt/parse/basic_string.hpp>
 #include <fcppt/parse/construct.hpp>
 #include <fcppt/parse/convert_const.hpp>
 #include <fcppt/parse/float.hpp>
 #include <fcppt/parse/grammar_impl.hpp>
 #include <fcppt/parse/int.hpp>
-#include <fcppt/parse/literal.hpp>
 #include <fcppt/parse/make_convert_if.hpp>
 #include <fcppt/parse/make_lexeme.hpp>
 #include <fcppt/parse/make_recursive.hpp>
 #include <fcppt/parse/separator.hpp>
-#include <fcppt/parse/string.hpp>
 #include <fcppt/parse/operators/alternative.hpp>
 #include <fcppt/parse/operators/complement.hpp>
 #include <fcppt/parse/operators/not.hpp>
 #include <fcppt/parse/operators/sequence.hpp>
 #include <fcppt/parse/operators/repetition.hpp>
 
+
+namespace
+{
+
+typedef
+fcppt::parse::basic_literal<
+	sge::charconv::utf8_char
+>
+literal;
+
+typedef
+fcppt::parse::basic_char_set<
+	sge::charconv::utf8_char
+>
+char_set;
+
+typedef
+fcppt::parse::basic_string<
+	sge::charconv::utf8_char
+>
+string;
+
+}
 
 sge::parse::json::grammar::grammar()
 :
@@ -60,7 +84,7 @@ sge::parse::json::grammar::grammar()
 	null_{
 		this->make_base(
 			fcppt::parse::convert_const(
-				fcppt::parse::string{
+				string{
 					"null"
 				},
 				sge::parse::json::null{}
@@ -70,14 +94,14 @@ sge::parse::json::grammar::grammar()
 	bool_{
 		this->make_base(
 			fcppt::parse::convert_const(
-				fcppt::parse::string(
+				string(
 					"true"
 				),
 				true
 			)
 			|
 			fcppt::parse::convert_const(
-				fcppt::parse::string(
+				string(
 					"false"
 				),
 				false
@@ -86,13 +110,13 @@ sge::parse::json::grammar::grammar()
 	},
 	quoted_string_{
 		this->make_base(
-			fcppt::parse::literal{'"'}
+			literal{'"'}
 			>>
 			fcppt::parse::make_lexeme(
-				*~fcppt::parse::char_set{'"'}
+				*~char_set{'"'}
 			)
 			>>
-			fcppt::parse::literal{'"'}
+			literal{'"'}
 		)
 	},
 	array_{
@@ -100,7 +124,7 @@ sge::parse::json::grammar::grammar()
 			fcppt::parse::construct<
 				sge::parse::json::array
 			>(
-				fcppt::parse::literal('[')
+				literal('[')
 				>>
 				fcppt::parse::separator{
 					fcppt::parse::make_recursive(
@@ -111,7 +135,7 @@ sge::parse::json::grammar::grammar()
 					','
 				}
 				>>
-				fcppt::parse::literal(']')
+				literal(']')
 			)
 		)
 	},
@@ -121,14 +145,14 @@ sge::parse::json::grammar::grammar()
 				sge::parse::json::object
 			>(
 				fcppt::parse::make_convert_if(
-					fcppt::parse::literal{'{'}
+					literal{'{'}
 					>>
 					fcppt::parse::separator{
 						fcppt::make_cref(
 							this->quoted_string_
 						)
 						>>
-						fcppt::parse::literal{':'}
+						literal{':'}
 						>>
 						fcppt::parse::make_recursive(
 							fcppt::make_cref(
@@ -138,7 +162,7 @@ sge::parse::json::grammar::grammar()
 						','
 					}
 					>>
-					fcppt::parse::literal{'}'},
+					literal{'}'},
 					&sge::parse::json::impl::make_members
 				)
 			)
@@ -171,7 +195,7 @@ sge::parse::json::grammar::grammar()
 					>{}
 					>>
 					!
-					fcppt::parse::literal{
+					literal{
 						'.'
 					}
 				)

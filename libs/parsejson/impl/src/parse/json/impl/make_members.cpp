@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/member.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/value.hpp>
@@ -44,7 +45,7 @@ namespace
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	std::string,
+	sge::charconv::utf8_string,
 	double_insert
 );
 
@@ -63,7 +64,7 @@ make_members_impl(
 			sge::parse::json::member_map{},
 			[](
 				std::tuple<
-					std::string,
+					sge::charconv::utf8_string,
 					fcppt::recursive<
 						sge::parse::json::value
 					>
@@ -147,6 +148,7 @@ sge::parse::json::impl::make_members(
 							"Duplicate object name: "
 						}
 						+
+						// TODO: Convert this?
 						_error.get()
 					};
 			}

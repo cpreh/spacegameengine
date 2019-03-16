@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_GRAMMAR_HPP_INCLUDED
 #define SGE_PARSE_JSON_GRAMMAR_HPP_INCLUDED
 
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/grammar_base_fwd.hpp>
@@ -29,9 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/value.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/parse/grammar_decl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <string>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -65,7 +63,7 @@ private:
 	bool_;
 
 	base_type<
-		std::string
+		sge::charconv::utf8_string
 	>
 	quoted_string_;
 
