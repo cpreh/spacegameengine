@@ -34,7 +34,7 @@ namespace backend
 using
 fun_ptr
 =
-void (* SGE_OPENGL_APIENTRY)();
+void (SGE_OPENGL_APIENTRY *)();
 
 }
 }

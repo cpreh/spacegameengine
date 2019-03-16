@@ -31,8 +31,7 @@ namespace dinput
 
 typedef
 BOOL
-CALLBACK
-(*enum_devices_function)(
+(CALLBACK *enum_devices_function)(
 	LPCDIDEVICEINSTANCE,
 	LPVOID
 );
