@@ -66,7 +66,6 @@ add_sge_base_library(
 		sgefont_interface
 	USE_IMPL_INCLUDE_OF
 		core
-		parse
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		fcppt_parse_interface

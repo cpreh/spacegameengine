@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/impl/parse_string.hpp>
 #include <sge/parse/ini/grammar.hpp>
 #include <sge/parse/ini/parse_string.hpp>
 #include <sge/parse/ini/result.hpp>
+#include <fcppt/parse/grammar_parse_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <utility>
@@ -34,7 +34,7 @@ sge::parse::ini::parse_string(
 )
 {
 	return
-		sge::parse::impl::parse_string(
+		fcppt::parse::grammar_parse_string(
 			std::move(
 				_string
 			),

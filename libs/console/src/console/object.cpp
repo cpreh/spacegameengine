@@ -34,7 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/char_type.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
-#include <sge/parse/impl/parse_string.hpp>
 #include <fcppt/output_to_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
@@ -49,6 +48,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/parse/error.hpp>
+#include <fcppt/parse/grammar_parse_string.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -219,7 +219,7 @@ sge::console::object::eval(
 			}
 
 			fcppt::either::match(
-				sge::parse::impl::parse_string(
+				fcppt::parse::grammar_parse_string(
 					_sp.substr(1),
 					sge::console::impl::eval_grammar{}
 				),

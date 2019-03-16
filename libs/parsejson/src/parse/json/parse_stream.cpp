@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/impl/parse_stream.hpp>
 #include <sge/parse/json/grammar.hpp>
 #include <sge/parse/json/parse_stream.hpp>
 #include <sge/parse/json/result.hpp>
+#include <fcppt/parse/grammar_parse_stream.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -33,7 +33,7 @@ sge::parse::json::parse_stream(
 )
 {
 	return
-		sge::parse::impl::parse_stream(
+		fcppt::parse::grammar_parse_stream(
 			_stream,
 			sge::parse::json::grammar{}
 		);

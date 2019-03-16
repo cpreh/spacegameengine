@@ -22,7 +22,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_PARSE_IMPL_PARSE_FILE_HPP_INCLUDED
 
 #include <sge/parse/file_result.hpp>
-#include <sge/parse/impl/parse_stream.hpp>
 #include <fcppt/string_literal.hpp>
 #include <fcppt/either/make_failure.hpp>
 #include <fcppt/either/map_failure.hpp>
@@ -32,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/parse/error.hpp>
 #include <fcppt/parse/grammar_fwd.hpp>
+#include <fcppt/parse/grammar_parse_stream.hpp>
 #include <fcppt/parse/result.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
@@ -104,7 +104,7 @@ parse_file(
 
 				return
 					fcppt::either::map_failure(
-						sge::parse::impl::parse_stream(
+						fcppt::parse::grammar_parse_stream(
 							_ifs,
 							_grammar
 						),

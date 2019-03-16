@@ -4,8 +4,6 @@ set(
 	libs/parse/impl/include/sge/parse/impl/output/to_file.hpp
 	libs/parse/impl/include/sge/parse/impl/parse_file.hpp
 	libs/parse/impl/include/sge/parse/impl/parse_file_exn.hpp
-	libs/parse/impl/include/sge/parse/impl/parse_stream.hpp
-	libs/parse/impl/include/sge/parse/impl/parse_string.hpp
 	libs/parse/impl/src/parse/impl/file_error_string.cpp
 	libs/parse/include/sge/parse/exception.hpp
 	libs/parse/include/sge/parse/exception_fwd.hpp
