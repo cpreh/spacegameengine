@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/systems/optional_name.hpp>
 #include <sge/systems/impl/ini_section_name.hpp>
 #include <sge/systems/impl/merge_config_strings.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/map.hpp>
 
@@ -66,7 +67,9 @@ sge::systems::impl::merge_config_strings(
 				{
 					return
 						sge::plugin::name(
-							_ini_value.get()
+							fcppt::from_std_string(
+								_ini_value.get()
+							)
 						);
 				}
 			)

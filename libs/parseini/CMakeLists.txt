@@ -21,12 +21,7 @@ set(
 	libs/parseini/include/sge/parse/ini/optional_start_fwd.hpp
 	libs/parseini/include/sge/parse/ini/optional_value.hpp
 	libs/parseini/include/sge/parse/ini/optional_value_fwd.hpp
-	libs/parseini/include/sge/parse/ini/output/grammar.hpp
-	libs/parseini/include/sge/parse/ini/output/grammar_decl.hpp
-	libs/parseini/include/sge/parse/ini/output/grammar_fwd.hpp
-	libs/parseini/include/sge/parse/ini/output/grammar_impl.hpp
 	libs/parseini/include/sge/parse/ini/output/to_file.hpp
-	libs/parseini/include/sge/parse/ini/output/to_range.hpp
 	libs/parseini/include/sge/parse/ini/output/to_stream.hpp
 	libs/parseini/include/sge/parse/ini/parse_file.hpp
 	libs/parseini/include/sge/parse/ini/parse_stream.hpp

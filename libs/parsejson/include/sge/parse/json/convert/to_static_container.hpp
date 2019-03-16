@@ -93,11 +93,12 @@ to_static_container(
 				>(
 					_array.elements[
 						index
-					]
+					].get()
 				)
 			);
 
-	return result;
+	return
+		result;
 }
 
 }

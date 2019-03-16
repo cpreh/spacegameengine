@@ -94,22 +94,10 @@ try
 					);
 				}
 
-				if(
-					fcppt::not_(
-						sge::parse::json::output::to_stream(
-							fcppt::io::cout(),
-							_result
-						)
-					)
-				)
-				{
-					fcppt::io::cerr()
-						<<
-						FCPPT_TEXT("output failed\n");
-
-					return
-						EXIT_FAILURE;
-				}
+				sge::parse::json::output::to_stream(
+					std::cout,
+					_result
+				);
 
 				fcppt::io::cout()
 					<<

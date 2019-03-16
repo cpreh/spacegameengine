@@ -51,8 +51,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/either/failure_opt.hpp>
 #include <fcppt/either/success_opt.hpp>
 #include <fcppt/log/context_fwd.hpp>
@@ -155,7 +155,10 @@ sge::systems::detail::instance::instance(
 					FCPPT_LOG_ERROR(
 						this->impl_->log(),
 						fcppt::log::out
-							<< _parse_error
+							<<
+							fcppt::from_std_string(
+								_parse_error.get()
+							)
 					)
 				}
 			);

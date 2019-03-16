@@ -18,8 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/charconv/convert.hpp>
+#include <sge/charconv/encoding.hpp>
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/core/exception.hpp>
+#include <sge/font/char_type.hpp>
 #include <sge/font/exception.hpp>
+#include <sge/font/from_std_wstring.hpp>
+#include <sge/font/string.hpp>
+#include <sge/font/to_fcppt_string.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/bitmap/impl/char_map.hpp>
 #include <sge/font/bitmap/impl/char_metric.hpp>
@@ -41,12 +48,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/convert/to_int.hpp>
-#include <fcppt/char_type.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <utility>
@@ -72,10 +79,10 @@ sge::font::bitmap::impl::load_one_file(
 			_stem
 			/
 			sge::parse::json::find_member_exn<
-				fcppt::string
+				sge::charconv::utf8_string
 			>(
 				top_members,
-				FCPPT_TEXT("filename")
+				"filename"
 			)
 		)
 	);
@@ -88,7 +95,7 @@ sge::font::bitmap::impl::load_one_file(
 			sge::parse::json::array
 		>(
 			top_members,
-			FCPPT_TEXT("glyphs")
+			"glyphs"
 		).elements
 	)
 	try
@@ -101,14 +108,21 @@ sge::font::bitmap::impl::load_one_file(
 			).members
 		);
 
-		fcppt::string const name(
-			sge::parse::json::find_member_exn<
-				fcppt::string
-			>(
-				members,
-				FCPPT_TEXT("name")
+		sge::font::string const name{
+			sge::font::from_std_wstring(
+				sge::charconv::convert<
+					sge::charconv::encoding::wchar,
+					sge::charconv::encoding::utf8
+				>(
+					sge::parse::json::find_member_exn<
+						sge::charconv::utf8_string
+					>(
+						members,
+						"name"
+					)
+				)
 			)
-		);
+		};
 
 		// TODO: maybe_front!
 		if(
@@ -118,15 +132,28 @@ sge::font::bitmap::impl::load_one_file(
 			FCPPT_LOG_ERROR(
 				_log,
 				fcppt::log::out
-					<< FCPPT_TEXT("Invalid character in bitmap font: \"")
-					<< name
-					<< FCPPT_TEXT("\"")
+					<<
+					FCPPT_TEXT("Invalid character in bitmap font: \"")
+					<<
+					fcppt::optional::from(
+						sge::font::to_fcppt_string(
+							name
+						),
+						[]{
+							return
+								fcppt::string{
+									FCPPT_TEXT("CONVERSION_FAILURE")
+								};
+						}
+					)
+					<<
+					FCPPT_TEXT("\"")
 			)
 
 			continue;
 		}
 
-		fcppt::char_type const element{
+		sge::font::char_type const element{
 			name[0]
 		};
 
@@ -149,7 +176,7 @@ sge::font::bitmap::impl::load_one_file(
 						>(
 							sge::parse::json::find_member_value_exn(
 								members,
-								FCPPT_TEXT("x_advance")
+								"x_advance"
 							)
 						)
 					}
@@ -160,9 +187,19 @@ sge::font::bitmap::impl::load_one_file(
 				sge::font::exception{
 					FCPPT_TEXT("Double insert of '")
 					+
-					fcppt::string{
-						element
-					}
+					fcppt::optional::from(
+						sge::font::to_fcppt_string(
+							sge::font::string{
+								element
+							}
+						),
+						[]{
+							return
+								fcppt::string{
+									FCPPT_TEXT("CONVERSION_FAILURE")
+								};
+						}
+					)
 					+
 					FCPPT_TEXT(" in bitmap font")
 				};

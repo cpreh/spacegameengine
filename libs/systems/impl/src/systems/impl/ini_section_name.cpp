@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/ini/section_name.hpp>
 #include <sge/systems/impl/ini_section_name.hpp>
-#include <fcppt/text.hpp>
 
 
 sge::parse::ini::section_name
@@ -28,6 +27,6 @@ sge::systems::impl::ini_section_name()
 {
 	return
 		sge::parse::ini::section_name(
-			FCPPT_TEXT("systems")
+			"systems"
 		);
 }

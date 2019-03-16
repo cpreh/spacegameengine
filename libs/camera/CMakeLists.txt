@@ -157,6 +157,7 @@ add_sge_base_library(
 	camera
 	HAS_IMPL_DIR
 	SGE_DEPS
+		sgecharconv_interface
 		sgecore
 		sgeinput
 		sgelog

@@ -101,7 +101,7 @@ sge::font::bitmap::impl::object::object(
 		>(
 			sge::parse::json::find_member_value_exn(
 				_start.object().members,
-				FCPPT_TEXT("line_height")
+				"line_height"
 			)
 		)
 	),
@@ -114,7 +114,7 @@ sge::font::bitmap::impl::object::object(
 				sge::parse::json::array
 			>(
 				_start.object().members,
-				FCPPT_TEXT("textures")
+				"textures"
 			).elements,
 			[
 				&_path,

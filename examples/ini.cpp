@@ -22,14 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/ini/start_fwd.hpp>
 #include <sge/parse/ini/output/to_stream.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/not.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/either/match.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/io/cout.hpp>
 #include <fcppt/parse/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdlib>
+#include <iostream>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
@@ -66,21 +65,10 @@ main()
 				sge::parse::ini::start const &_result
 			)
 			{
-				if(
-					fcppt::not_(
-						sge::parse::ini::output::to_stream(
-							fcppt::io::cout(),
-							_result
-						)
-					)
-				)
-				{
-					fcppt::io::cerr()
-						<< FCPPT_TEXT("Output failed\n");
-
-					return
-						EXIT_FAILURE;
-				}
+				sge::parse::ini::output::to_stream(
+					std::cout,
+					_result
+				);
 
 				return
 					EXIT_SUCCESS;

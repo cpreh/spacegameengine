@@ -51,6 +51,7 @@ to_file(
 	Data const &_data
 )
 {
+	// TODO: Should we return false instead of throwing an exception?
 	std::basic_ofstream<
 		Ch
 	> ofs{
@@ -65,11 +66,13 @@ to_file(
 		)
 	};
 
+	_to_stream(
+		ofs,
+		_data
+	);
+
 	return
-		_to_stream(
-			ofs,
-			_data
-		);
+		ofs.good();
 }
 
 }

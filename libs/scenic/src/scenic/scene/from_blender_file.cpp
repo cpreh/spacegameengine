@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/camera/coordinate_system/object.hpp>
+#include <sge/charconv/utf8_string.hpp>
+#include <sge/charconv/utf8_string_to_fcppt.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgb32f.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -53,6 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/narrow_cast.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/optional/from.hpp>
 
 
 namespace
@@ -129,7 +132,9 @@ parse_camera_properties(
 				>(
 					_json_camera,
 					sge::parse::json::path(
-						FCPPT_TEXT("rotation")
+						sge::charconv::utf8_string{
+							"rotation"
+						}
 					)
 				)
 			)
@@ -157,82 +162,159 @@ parse_camera_properties(
 	// The rest of the properties are simple to extract from the json,
 	// so it's done inline here.
 	return
-		sge::scenic::scene::camera_properties(
-			sge::camera::coordinate_system::object(
+		sge::scenic::scene::camera_properties{
+			sge::camera::coordinate_system::object{
 				sge::camera::coordinate_system::right(
-					right),
+					right
+				),
 				sge::camera::coordinate_system::up(
-					up),
+					up
+				),
 				sge::camera::coordinate_system::forward(
-					forward),
-				sge::camera::coordinate_system::position(
+					forward
+				),
+				sge::camera::coordinate_system::position{
 					-from_blender_vector(
-						sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+						sge::parse::json::find_and_convert_member<
+							sge::renderer::vector3
+						>(
 							_json_camera,
-							sge::parse::json::path(
-								FCPPT_TEXT("position")))))),
-				sge::renderer::projection::fov(
-					sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
-						_json_camera,
-						sge::parse::json::path(
-							FCPPT_TEXT("fov")))),
-				sge::renderer::projection::near(
-					sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
-						_json_camera,
-						sge::parse::json::path(
-							FCPPT_TEXT("near")))),
-				sge::renderer::projection::far(
-					sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
-						_json_camera,
-						sge::parse::json::path(
-							FCPPT_TEXT("far")))));
+							sge::parse::json::path{
+								sge::charconv::utf8_string{
+									"position"
+								}
+							}
+						)
+					)
+				}
+			},
+			sge::renderer::projection::fov{
+				sge::parse::json::find_and_convert_member<
+					sge::renderer::scalar
+				>(
+					_json_camera,
+					sge::parse::json::path{
+						sge::charconv::utf8_string{
+							"fov"
+						}
+					}
+				)
+			},
+			sge::renderer::projection::near{
+				sge::parse::json::find_and_convert_member<
+					sge::renderer::scalar
+				>(
+					_json_camera,
+					sge::parse::json::path{
+						sge::charconv::utf8_string{
+							"near"
+						}
+					}
+				)
+			},
+			sge::renderer::projection::far{
+				sge::parse::json::find_and_convert_member<
+					sge::renderer::scalar
+				>(
+					_json_camera,
+					sge::parse::json::path{
+						sge::charconv::utf8_string{
+							"far"
+						}
+					}
+				)
+			}
+		};
 }
 
 sge::scenic::render_context::fog::optional_properties
 parse_fog_properties(
-	sge::parse::json::object const &_json_fog)
+	sge::parse::json::object const &_json_fog
+)
 {
 	return
-		sge::parse::json::find_and_convert_member<bool>(
+		sge::parse::json::find_and_convert_member<
+			bool
+		>(
 			_json_fog,
-			sge::parse::json::path(
-				FCPPT_TEXT("enabled")))
+			sge::parse::json::path{
+				sge::charconv::utf8_string{
+					"enabled"
+				}
+			}
+		)
 		?
-			sge::scenic::render_context::fog::optional_properties(
-				sge::scenic::render_context::fog::properties(
-					sge::scenic::render_context::fog::start(
-						sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+			sge::scenic::render_context::fog::optional_properties{
+				sge::scenic::render_context::fog::properties{
+					sge::scenic::render_context::fog::start{
+						sge::parse::json::find_and_convert_member<
+							sge::renderer::scalar
+						>(
 							_json_fog,
-							sge::parse::json::path(
-								FCPPT_TEXT("start")))),
-					sge::scenic::render_context::fog::end(
-						sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+							sge::parse::json::path{
+								sge::charconv::utf8_string{
+									"start"
+								}
+							}
+						)
+					},
+					sge::scenic::render_context::fog::end{
+						sge::parse::json::find_and_convert_member<
+							sge::renderer::scalar
+						>(
 							_json_fog,
-							sge::parse::json::path(
-								FCPPT_TEXT("end")))),
-					sge::scenic::render_context::fog::color(
-						sge::image::color::any::object(
+							sge::parse::json::path{
+								sge::charconv::utf8_string{
+									"end"
+								}
+							}
+						)
+					},
+					sge::scenic::render_context::fog::color{
+						sge::image::color::any::object{
 							vector3_to_rgb32f(
-								sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+								sge::parse::json::find_and_convert_member<
+									sge::renderer::vector3
+								>(
 									_json_fog,
-									sge::parse::json::path(
-										FCPPT_TEXT("color"))))))))
+									sge::parse::json::path{
+										sge::charconv::utf8_string{
+											"color"
+										}
+									}
+								)
+							)
+						}
+					}
+				}
+			}
 		:
-			sge::scenic::render_context::fog::optional_properties();
+			sge::scenic::render_context::fog::optional_properties{}
+		;
 }
 
 sge::scenic::render_context::ambient_color
 parse_ambient_color(
-	sge::parse::json::object const &_json_world)
+	sge::parse::json::object const &_json_world
+)
 {
 	return
-		sge::scenic::render_context::ambient_color(
-			sge::image::color::any::object(
+		sge::scenic::render_context::ambient_color{
+			sge::image::color::any::object{
 				vector3_to_rgb32f(
-					sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+					sge::parse::json::find_and_convert_member<
+						sge::renderer::vector3
+					>(
 						_json_world,
-						sge::parse::json::path(
-							FCPPT_TEXT("ambient-color"))))));
+						sge::parse::json::path{
+							sge::charconv::utf8_string{
+								"ambient-color"
+							}
+						}
+					)
+				)
+			}
+		};
 }
 
 // Loads a single entity. Is called for every entity.
@@ -240,35 +322,75 @@ void
 load_entity(
 	boost::filesystem::path const &_base_path,
 	sge::scenic::scene::prototype &_scene,
-	sge::parse::json::object const &_json_entity)
+	sge::parse::json::object const &_json_entity
+)
 {
 	_scene.entities().push_back(
-		sge::scenic::scene::entity(
-			sge::scenic::scene::mesh_path(
-				_base_path /
-				(sge::parse::json::find_and_convert_member<fcppt::string>(
-					_json_entity,
-					sge::parse::json::path(
-						FCPPT_TEXT("name")))+FCPPT_TEXT(".obj"))),
-			sge::scenic::scene::position(
-				from_blender_vector(
-					sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+		sge::scenic::scene::entity{
+			sge::scenic::scene::mesh_path{
+				_base_path
+				/
+				(
+					sge::parse::json::find_and_convert_member<
+						sge::charconv::utf8_string
+					>(
 						_json_entity,
-						sge::parse::json::path(
-							FCPPT_TEXT("position"))))),
-			sge::scenic::scene::rotation(
+						sge::parse::json::path{
+							sge::charconv::utf8_string{
+								"name"
+							}
+						}
+					)
+					+
+					".obj"
+				)
+			},
+			sge::scenic::scene::position{
+				from_blender_vector(
+					sge::parse::json::find_and_convert_member<
+						sge::renderer::vector3
+					>(
+						_json_entity,
+						sge::parse::json::path{
+							sge::charconv::utf8_string{
+								"position"
+							}
+						}
+					)
+				)
+			},
+			sge::scenic::scene::rotation{
 				rotation_from_angles_entity(
 					from_blender_vector(
-						sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+						sge::parse::json::find_and_convert_member<
+							sge::renderer::vector3
+						>(
 							_json_entity,
-							sge::parse::json::path(
-								FCPPT_TEXT("rotation")))))),
-			sge::scenic::scene::scale(
+							sge::parse::json::path{
+								sge::charconv::utf8_string{
+									"rotation"
+								}
+							}
+						)
+					)
+				)
+			},
+			sge::scenic::scene::scale{
 				from_blender_vector(
-					sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+					sge::parse::json::find_and_convert_member<
+						sge::renderer::vector3
+					>(
 						_json_entity,
-						sge::parse::json::path(
-							FCPPT_TEXT("scale")))))));
+						sge::parse::json::path{
+							sge::charconv::utf8_string{
+								"scale"
+							}
+						}
+					)
+				)
+			}
+		}
+	);
 }
 
 // This is just a wrapper calling load_entity on every entity.
@@ -276,7 +398,8 @@ void
 load_entities(
 	boost::filesystem::path const &_base_path,
 	sge::scenic::scene::prototype &_scene,
-	sge::parse::json::array const &_json_entities)
+	sge::parse::json::array const &_json_entities
+)
 {
 	for(
 		fcppt::recursive<
@@ -296,92 +419,154 @@ load_entities(
 		);
 }
 
-sge::scenic::render_context::light::attenuation const
+sge::scenic::render_context::light::attenuation
 parse_light_attenuation(
-	sge::parse::json::object const &_json_attenuation)
+	sge::parse::json::object const &_json_attenuation
+)
 {
 	return
-		sge::scenic::render_context::light::attenuation(
-			sge::scenic::render_context::light::constant_attenuation(
-				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+		sge::scenic::render_context::light::attenuation{
+			sge::scenic::render_context::light::constant_attenuation{
+				sge::parse::json::find_and_convert_member<
+					sge::renderer::scalar
+				>(
 					_json_attenuation,
-					sge::parse::json::path(
-						FCPPT_TEXT("constant-falloff")))),
-			sge::scenic::render_context::light::linear_attenuation(
-				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+					sge::parse::json::path{
+						sge::charconv::utf8_string{
+							"constant-falloff"
+						}
+					}
+				)
+			},
+			sge::scenic::render_context::light::linear_attenuation{
+				sge::parse::json::find_and_convert_member<
+					sge::renderer::scalar
+				>(
 					_json_attenuation,
-					sge::parse::json::path(
-						FCPPT_TEXT("linear-falloff")))),
+					sge::parse::json::path{
+						sge::charconv::utf8_string{
+							"linear-falloff"
+						}
+					}
+				)
+			},
 			sge::scenic::render_context::light::quadratic_attenuation(
-				sge::parse::json::find_and_convert_member<sge::renderer::scalar>(
+				sge::parse::json::find_and_convert_member<
+					sge::renderer::scalar
+				>(
 					_json_attenuation,
-					sge::parse::json::path(
-						FCPPT_TEXT("quadratic-falloff")))));
+					sge::parse::json::path{
+						sge::charconv::utf8_string{
+							"quadratic-falloff"
+						}
+					}
+				)
+			)
+		};
 }
 
-sge::scenic::render_context::light::direction const
+sge::scenic::render_context::light::direction
 parse_light_direction(
-	sge::parse::json::object const &_json_parent)
+	sge::parse::json::object const &_json_parent
+)
 {
 	return
 		sge::scenic::render_context::light::direction(
 			fcppt::math::matrix::transform_direction(
 				rotation_from_angles_entity(
 					from_blender_vector(
-						sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+						sge::parse::json::find_and_convert_member<
+							sge::renderer::vector3
+						>(
 							_json_parent,
-							sge::parse::json::path(
-								FCPPT_TEXT("rotation"))))),
-				sge::renderer::vector3(
+							sge::parse::json::path{
+								sge::charconv::utf8_string{
+									"rotation"
+								}
+							}
+						)
+					)
+				),
+				sge::renderer::vector3{
 					0.0f,
 					1.0f,
-					0.0f)));
+					0.0f
+				}
+			)
+		);
 }
 
-sge::scenic::render_context::light::position const
+sge::scenic::render_context::light::position
 parse_light_position(
-	sge::parse::json::object const &_json_parent)
+	sge::parse::json::object const &_json_parent
+)
 {
 	return
-		sge::scenic::render_context::light::position(
+		sge::scenic::render_context::light::position{
 			from_blender_vector(
-				sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+				sge::parse::json::find_and_convert_member<
+					sge::renderer::vector3
+				>(
 					_json_parent,
-					sge::parse::json::path(
-						FCPPT_TEXT("position")))));
+					sge::parse::json::path{
+						sge::charconv::utf8_string{
+							"position"
+						}
+					}
+				)
+			)
+		};
 }
 
 void
 load_light(
 	sge::scenic::scene::prototype &_scene,
-	sge::parse::json::object const &_json_light)
+	sge::parse::json::object const &_json_light
+)
 {
-	fcppt::string const light_type(
-		sge::parse::json::find_and_convert_member<fcppt::string>(
+	sge::charconv::utf8_string const light_type{
+		sge::parse::json::find_and_convert_member<
+			sge::charconv::utf8_string
+		>(
 			_json_light,
-			sge::parse::json::path(
-				FCPPT_TEXT("light-type"))));
+			sge::parse::json::path{
+				sge::charconv::utf8_string{
+					"light-type"
+				}
+			}
+		)
+	};
 
-	sge::image::color::any::object const converted_color(
+	sge::image::color::any::object const converted_color{
 		vector3_to_rgb32f(
-			sge::parse::json::find_and_convert_member<sge::renderer::vector3>(
+			sge::parse::json::find_and_convert_member<
+				sge::renderer::vector3
+			>(
 				_json_light,
-				sge::parse::json::path(
-					FCPPT_TEXT("color")))));
+				sge::parse::json::path{
+					sge::charconv::utf8_string{
+						"color"
+					}
+				}
+			)
+		)
+	};
 
-	sge::scenic::render_context::diffuse_color const diffuse_color(
-		converted_color);
+	sge::scenic::render_context::diffuse_color const diffuse_color{
+		converted_color
+	};
 
-	sge::scenic::render_context::specular_color const specular_color(
-		converted_color);
+	sge::scenic::render_context::specular_color const specular_color{
+		converted_color
+	};
 
-	sge::scenic::render_context::ambient_color ambient_color(
+	sge::scenic::render_context::ambient_color ambient_color{
 		sge::image::color::any::object{
 			sge::image::color::predef::black()
 		}
-	);
+	};
 
-	if(light_type == FCPPT_TEXT("directional"))
+	if(light_type == "directional")
 	{
 		_scene.lights().push_back(
 			sge::scenic::render_context::light::object(
@@ -398,7 +583,7 @@ load_light(
 			)
 		);
 	}
-	else if(light_type == FCPPT_TEXT("point"))
+	else if(light_type == "point")
 	{
 		_scene.lights().push_back(
 			sge::scenic::render_context::light::object(
@@ -418,7 +603,7 @@ load_light(
 			)
 		);
 	}
-	else if(light_type == FCPPT_TEXT("spot"))
+	else if(light_type == "spot")
 	{
 		/*
 		_scene.lights().push_back(
@@ -444,9 +629,22 @@ load_light(
 	{
 		throw
 			sge::scenic::exception(
-				FCPPT_TEXT("Invalid light type \"")+
-				light_type+
-				FCPPT_TEXT("\""));
+				FCPPT_TEXT("Invalid light type \"")
+				+
+				fcppt::optional::from(
+					sge::charconv::utf8_string_to_fcppt(
+						light_type
+					),
+					[]{
+						return
+							fcppt::string{
+								FCPPT_TEXT("CONVERSION_ERROR")
+							};
+					}
+				)
+				+
+				FCPPT_TEXT("\"")
+			);
 	}
 }
 
@@ -475,11 +673,11 @@ load_lights(
 
 sge::scenic::scene::prototype_unique_ptr
 sge::scenic::scene::from_blender_file(
-	boost::filesystem::path const &_path)
+	boost::filesystem::path const &_path
+)
 {
 	sge::parse::json::object const json_file(
 		sge::parse::json::parse_file_exn(
-			// TODO: Is the encoding correct here?
 			_path
 		).object()
 	);
@@ -487,37 +685,80 @@ sge::scenic::scene::from_blender_file(
 	// The prototype is created with the world properties in the
 	// ctor. Entities and lights are added below.
 	sge::scenic::scene::prototype_unique_ptr result(
-		fcppt::make_unique_ptr<sge::scenic::scene::prototype>(
+		fcppt::make_unique_ptr<
+			sge::scenic::scene::prototype
+		>(
 			parse_camera_properties(
-				sge::parse::json::find_and_convert_member<sge::parse::json::object>(
+				sge::parse::json::find_and_convert_member<
+					sge::parse::json::object
+				>(
 					json_file,
-					sge::parse::json::path(
-						FCPPT_TEXT("camera")))),
+					sge::parse::json::path{
+						sge::charconv::utf8_string{
+							"camera"
+						}
+					}
+				)
+			),
 			parse_fog_properties(
-				sge::parse::json::find_and_convert_member<sge::parse::json::object>(
+				sge::parse::json::find_and_convert_member<
+					sge::parse::json::object
+				>(
 					json_file,
-					sge::parse::json::path(
-						FCPPT_TEXT("world")) / FCPPT_TEXT("fog"))),
+					sge::parse::json::path{
+						sge::charconv::utf8_string{
+							"world"
+						}
+					}
+					/
+					sge::charconv::utf8_string{
+						"fog"
+					}
+				)
+			),
 			parse_ambient_color(
-				sge::parse::json::find_and_convert_member<sge::parse::json::object>(
+				sge::parse::json::find_and_convert_member<
+					sge::parse::json::object
+				>(
 					json_file,
-					sge::parse::json::path(
-						FCPPT_TEXT("world"))))));
+					sge::parse::json::path{
+						sge::charconv::utf8_string{
+							"world"
+						}
+					}
+				)
+			)
+		)
+	);
 
 	load_entities(
 		_path.parent_path(),
 		*result,
-		sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+		sge::parse::json::find_and_convert_member<
+			sge::parse::json::array
+		>(
 			json_file,
-			sge::parse::json::path(
-				FCPPT_TEXT("meshes"))));
+			sge::parse::json::path{
+				sge::charconv::utf8_string{
+					"meshes"
+				}
+			}
+		)
+	);
 
 	load_lights(
 		*result,
-		sge::parse::json::find_and_convert_member<sge::parse::json::array>(
+		sge::parse::json::find_and_convert_member<
+			sge::parse::json::array
+		>(
 			json_file,
-			sge::parse::json::path(
-				FCPPT_TEXT("lights"))));
+			sge::parse::json::path{
+				sge::charconv::utf8_string{
+					"lights"
+				}
+			}
+		)
+	);
 
 	return
 		result;

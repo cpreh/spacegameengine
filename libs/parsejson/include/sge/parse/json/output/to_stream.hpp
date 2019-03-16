@@ -37,9 +37,8 @@ namespace json
 namespace output
 {
 
-[[nodiscard]]
 SGE_PARSE_JSON_DETAIL_SYMBOL
-bool
+void
 to_stream(
 	std::ostream &,
 	sge::parse::json::start const &

@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_JSON_CONVERT_CHOOSE_FUNDAMENTAL_HPP_INCLUDED
 #define SGE_PARSE_JSON_CONVERT_CHOOSE_FUNDAMENTAL_HPP_INCLUDED
 
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/float_type.hpp>
 #include <sge/parse/json/int_type.hpp>
-#include <sge/parse/json/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -50,13 +50,15 @@ template<
 struct choose_fundamental<
 	Type,
 	std::enable_if_t<
-		std::is_integral<
+		std::is_integral_v<
 			Type
-		>::value
+		>
 	>
 >
 {
-	typedef sge::parse::json::int_type type;
+	typedef
+	sge::parse::json::int_type
+	type;
 };
 
 template<
@@ -65,13 +67,15 @@ template<
 struct choose_fundamental<
 	Type,
 	std::enable_if_t<
-		std::is_floating_point<
+		std::is_floating_point_v<
 			Type
-		>::value
+		>
 	>
 >
 {
-	typedef sge::parse::json::float_type type;
+	typedef
+	sge::parse::json::float_type
+	type;
 };
 
 template<
@@ -80,14 +84,16 @@ template<
 struct choose_fundamental<
 	Type,
 	std::enable_if_t<
-		std::is_same<
+		std::is_same_v<
 			Type,
-			json::string
-		>::value
+			sge::charconv::utf8_string
+		>
 	>
 >
 {
-	typedef sge::parse::json::string type;
+	typedef
+	sge::charconv::utf8_string
+	type;
 };
 
 }

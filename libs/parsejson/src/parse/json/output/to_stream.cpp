@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
-bool
+void
 sge::parse::json::output::to_stream(
 	std::ostream &_stream,
 	sge::parse::json::start const &_data
@@ -36,7 +36,4 @@ sge::parse::json::output::to_stream(
 		_stream,
 		_data
 	);
-
-	return
-		_stream.good();
 }

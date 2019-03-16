@@ -41,7 +41,7 @@ sge::font::bitmap::impl::load_offset(
 			sge::parse::json::array const
 		>(
 			_members,
-			FCPPT_TEXT("offset")
+			"offset"
 		).elements
 	);
 
@@ -49,9 +49,10 @@ sge::font::bitmap::impl::load_offset(
 	if(
 		elements.size() != 2
 	)
-		throw sge::font::exception(
-			FCPPT_TEXT("Bogus offset detected")
-		);
+		throw
+			sge::font::exception{
+				FCPPT_TEXT("Bogus offset detected")
+			};
 
 	return
 		sge::font::vector(

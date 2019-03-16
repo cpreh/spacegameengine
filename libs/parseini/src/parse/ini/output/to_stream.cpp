@@ -18,33 +18,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#include <sge/parse/impl/output/to_stream.hpp>
+#include <sge/parse/ini/entry.hpp>
+#include <sge/parse/ini/section.hpp>
 #include <sge/parse/ini/start.hpp>
-#include <sge/parse/ini/output/to_range.hpp>
 #include <sge/parse/ini/output/to_stream.hpp>
-#include <fcppt/io/ostream_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <ostream>
+#include <fcppt/config/external_end.hpp>
 
 
-bool
+void
 sge::parse::ini::output::to_stream(
-	fcppt::io::ostream &_stream,
+	std::ostream &_stream,
 	sge::parse::ini::start const &_result
 )
 {
-	return
-		sge::parse::impl::output::to_stream(
-			[](
-				auto &_out,
-				auto const &_inner_data
-			)
-			{
-				return
-					sge::parse::ini::output::to_range(
-						_out,
-						_inner_data
-					);
-			},
-			_stream,
-			_result
-		);
+	for(
+		sge::parse::ini::section const &section
+		:
+		_result.sections
+	)
+	{
+		_stream
+			<< '['
+			<< section.name
+			<< ']'
+			<< '\n';
+
+		for(
+			sge::parse::ini::entry const &entry
+			:
+			section.entries
+		)
+			_stream
+				<< '\t'
+				<< entry.name
+				<< '='
+				<< entry.value
+				<< '\n';
+	}
 }

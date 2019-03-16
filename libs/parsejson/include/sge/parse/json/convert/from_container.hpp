@@ -23,9 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
-#include <sge/parse/json/object.hpp>
-#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/make_value.hpp>
 #include <sge/parse/json/convert/choose_fundamental.hpp>
+#include <fcppt/make_recursive.hpp>
 #include <fcppt/algorithm/map.hpp>
 
 
@@ -57,15 +57,17 @@ from_container(
 				)
 				{
 					return
-						sge::parse::json::value(
-							static_cast<
-								typename
-								sge::parse::json::convert::choose_fundamental<
+						fcppt::make_recursive(
+							sge::parse::json::make_value(
+								static_cast<
 									typename
-									Container::value_type
-								>::type
-							>(
-								_element
+									sge::parse::json::convert::choose_fundamental<
+										typename
+										Container::value_type
+									>::type
+								>(
+									_element
+								)
 							)
 						);
 				}

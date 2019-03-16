@@ -31,7 +31,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/log/context_fwd.hpp>
 
 
@@ -54,7 +53,7 @@ sge::systems::impl::renderer::system::system(
 				_parameters.parameters().name(),
 				_config,
 				sge::parse::ini::entry_name(
-					FCPPT_TEXT("renderer")
+					"renderer"
 				)
 			),
 			_parameters.parameters().caps(),

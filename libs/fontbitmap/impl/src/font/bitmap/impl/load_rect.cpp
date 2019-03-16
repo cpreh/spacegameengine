@@ -41,7 +41,7 @@ sge::font::bitmap::impl::load_rect(
 			sge::parse::json::array
 		>(
 			_members,
-			FCPPT_TEXT("rect")
+			"rect"
 		).elements
 	);
 

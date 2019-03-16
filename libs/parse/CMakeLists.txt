@@ -2,7 +2,6 @@ set(
 	SGE_PARSE_FILES
 	libs/parse/impl/include/sge/parse/impl/file_error_string.hpp
 	libs/parse/impl/include/sge/parse/impl/output/to_file.hpp
-	libs/parse/impl/include/sge/parse/impl/output/to_stream.hpp
 	libs/parse/impl/include/sge/parse/impl/parse_file.hpp
 	libs/parse/impl/include/sge/parse/impl/parse_file_exn.hpp
 	libs/parse/impl/include/sge/parse/impl/parse_stream.hpp
