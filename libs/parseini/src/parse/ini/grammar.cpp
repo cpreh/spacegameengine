@@ -32,9 +32,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/parse/char_set.hpp>
 #include <fcppt/parse/construct.hpp>
 #include <fcppt/parse/grammar_impl.hpp>
-#include <fcppt/parse/lexeme.hpp>
-#include <fcppt/parse/ignore.hpp>
 #include <fcppt/parse/literal.hpp>
+#include <fcppt/parse/make_ignore.hpp>
+#include <fcppt/parse/make_lexeme.hpp>
 #include <fcppt/parse/result_of.hpp>
 #include <fcppt/parse/operators/complement.hpp>
 #include <fcppt/parse/operators/not.hpp>
@@ -81,17 +81,17 @@ sge::parse::ini::grammar::grammar()
 				fcppt::parse::construct<
 					sge::parse::ini::value
 				>(
-					fcppt::parse::lexeme{
+					fcppt::parse::make_lexeme(
 						*~eol()
-					}
+					)
 				)
-				>> fcppt::parse::ignore{+eol()}
+				>> fcppt::parse::make_ignore(+eol())
 			)
 		)
 	},
 	header_{
 		this->make_base(
-			fcppt::parse::lexeme{
+			fcppt::parse::make_lexeme(
 				fcppt::parse::literal{'['}
 				>> +(
 					~fcppt::parse::char_set{']', '\n'}
@@ -100,8 +100,8 @@ sge::parse::ini::grammar::grammar()
 	//				eol()
 				)
 				>> fcppt::parse::literal{']'}
-			}
-			>> fcppt::parse::ignore{+eol()}
+			)
+			>> fcppt::parse::make_ignore(+eol())
 		)
 	},
 	section_{
