@@ -27,18 +27,11 @@ set(
 	libs/parsejson/include/sge/parse/json/convert_from_fwd.hpp
 	libs/parsejson/include/sge/parse/json/convert_from_impl.hpp
 	libs/parsejson/include/sge/parse/json/convert_to.hpp
-	libs/parsejson/include/sge/parse/json/detail/adapt_array.hpp
-	libs/parsejson/include/sge/parse/json/detail/adapt_object.hpp
-	libs/parsejson/include/sge/parse/json/detail/adapt_start.hpp
 	libs/parsejson/include/sge/parse/json/detail/get_return_type.hpp
 	libs/parsejson/include/sge/parse/json/detail/get_return_type_impl.hpp
-	libs/parsejson/include/sge/parse/json/detail/insert_member.hpp
 	libs/parsejson/include/sge/parse/json/detail/is_iterable.hpp
 	libs/parsejson/include/sge/parse/json/detail/is_math_type.hpp
-	libs/parsejson/include/sge/parse/json/detail/member_wrapper.hpp
 	libs/parsejson/include/sge/parse/json/detail/to_fcppt_string.hpp
-	libs/parsejson/include/sge/parse/json/detail/value_wrapper.hpp
-	libs/parsejson/include/sge/parse/json/detail/value_wrapper_fwd.hpp
 	libs/parsejson/include/sge/parse/json/element_vector.hpp
 	libs/parsejson/include/sge/parse/json/exception.hpp
 	libs/parsejson/include/sge/parse/json/file_result.hpp

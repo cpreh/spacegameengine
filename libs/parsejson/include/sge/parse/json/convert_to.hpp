@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/is_iterable.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>

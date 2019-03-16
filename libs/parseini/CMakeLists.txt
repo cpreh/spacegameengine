@@ -1,8 +1,5 @@
 set(
 	SGE_PARSEINI_FILES
-	libs/parseini/include/sge/parse/ini/detail/adapt_entry.hpp
-	libs/parseini/include/sge/parse/ini/detail/adapt_section.hpp
-	libs/parseini/include/sge/parse/ini/detail/adapt_start.hpp
 	libs/parseini/include/sge/parse/ini/entry.hpp
 	libs/parseini/include/sge/parse/ini/entry_fwd.hpp
 	libs/parseini/include/sge/parse/ini/entry_name.hpp
