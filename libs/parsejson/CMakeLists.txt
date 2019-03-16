@@ -77,7 +77,6 @@ set(
 	libs/parsejson/include/sge/parse/json/output/to_stream.hpp
 	libs/parsejson/include/sge/parse/json/parse_file.hpp
 	libs/parsejson/include/sge/parse/json/parse_file_exn.hpp
-	libs/parsejson/include/sge/parse/json/parse_range.hpp
 	libs/parsejson/include/sge/parse/json/parse_stream.hpp
 	libs/parsejson/include/sge/parse/json/parse_string.hpp
 	libs/parsejson/include/sge/parse/json/path.hpp
