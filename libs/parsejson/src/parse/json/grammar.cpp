@@ -46,8 +46,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/parse/operators/alternative.hpp>
 #include <fcppt/parse/operators/complement.hpp>
 #include <fcppt/parse/operators/not.hpp>
-#include <fcppt/parse/operators/sequence.hpp>
 #include <fcppt/parse/operators/repetition.hpp>
+#include <fcppt/parse/operators/sequence.hpp>
 
 
 namespace

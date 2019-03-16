@@ -23,8 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/null.hpp>
 #include <sge/parse/json/grammar_base_fwd.hpp>
+#include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/start.hpp>
 #include <sge/parse/json/value.hpp>

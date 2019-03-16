@@ -21,9 +21,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_PARSE_INI_FILE_RESULT_HPP_INCLUDED
 #define SGE_PARSE_INI_FILE_RESULT_HPP_INCLUDED
 
+#include <sge/parse/file_result.hpp>
 #include <sge/parse/ini/file_result_fwd.hpp>
 #include <sge/parse/ini/start.hpp>
-#include <sge/parse/file_result.hpp>
 
 
 #endif
