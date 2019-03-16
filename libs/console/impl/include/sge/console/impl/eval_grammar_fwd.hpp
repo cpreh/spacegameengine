@@ -29,9 +29,6 @@ namespace console
 namespace impl
 {
 
-template<
-	typename Iterator
->
 class eval_grammar;
 
 }

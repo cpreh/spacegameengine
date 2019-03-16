@@ -21,9 +21,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_CONSOLE_IMPL_EVAL_GRAMMAR_HPP_INCLUDED
 #define SGE_CONSOLE_IMPL_EVAL_GRAMMAR_HPP_INCLUDED
 
-#include <sge/console/impl/eval_grammar_decl.hpp>
+#include <sge/console/arg_list.hpp>
 #include <sge/console/impl/eval_grammar_fwd.hpp>
-#include <sge/console/impl/eval_grammar_impl.hpp>
+#include <sge/font/char_type.hpp>
+#include <sge/font/string.hpp>
+#include <fcppt/noncopyable.hpp>
+#include <fcppt/parse/epsilon.hpp>
+#include <fcppt/parse/grammar_decl.hpp>
 
+
+namespace sge
+{
+namespace console
+{
+namespace impl
+{
+
+class eval_grammar final
+:
+public
+	fcppt::parse::grammar<
+		sge::console::arg_list,
+		sge::font::char_type,
+		fcppt::parse::epsilon
+	>
+{
+	FCPPT_NONCOPYABLE(
+		eval_grammar
+	);
+public:
+	eval_grammar();
+
+	~eval_grammar();
+private:
+	base_type<
+		sge::font::string
+	> word_;
+
+	base_type<
+		sge::font::string
+	> quoted_string_;
+
+	base_type<
+		sge::font::string
+	> argument_;
+
+	base_type<
+		sge::console::arg_list
+	> start_;
+};
+
+}
+}
+}
 
 #endif

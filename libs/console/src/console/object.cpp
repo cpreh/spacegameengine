@@ -34,6 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/font/char_type.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
+#include <sge/parse/impl/parse_string.hpp>
 #include <fcppt/output_to_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
@@ -43,9 +44,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/container/get_or_insert.hpp>
 #include <fcppt/container/maybe_front.hpp>
+#include <fcppt/either/match.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/parse/error.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -53,7 +56,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/unregister/function.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/spirit/include/qi_parse.hpp>
 #include <functional>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -216,39 +218,40 @@ sge::console::object::eval(
 				return;
 			}
 
-			sge::font::string const rest(
-				_sp.substr(1)
-			);
-
-			sge::console::arg_list args;
-
-			sge::console::impl::eval_grammar<
-				sge::font::string::const_iterator
-			> grammar;
-
-			sge::font::string::const_iterator beg(
-				rest.begin()
-			);
-
-			if(
-				boost::spirit::qi::parse(
-					beg,
-					rest.end(),
-					grammar,
-					args
+			fcppt::either::match(
+				sge::parse::impl::parse_string(
+					_sp.substr(1),
+					sge::console::impl::eval_grammar{}
+				),
+				[
+					this
+				](
+					fcppt::parse::error<
+						sge::font::char_type
+					> &&_error
 				)
-			)
-				this->eval(
-					args
-				);
-			else
-				this->emit_error(
-					SGE_FONT_LIT("Failed to parse command \"")
-					+
-					rest
-					+
-					SGE_FONT_LIT('"')
-				);
+				{
+					this->emit_error(
+						SGE_FONT_LIT("Failed to parse command \"")
+						+
+						std::move(
+							_error.get()
+						)
+						+
+						SGE_FONT_LIT('"')
+					);
+				},
+				[
+					this
+				](
+					sge::console::arg_list const &_args
+				)
+				{
+					this->eval(
+						_args
+					);
+				}
+			);
 		}
 	);
 }

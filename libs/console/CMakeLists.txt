@@ -1,12 +1,11 @@
 set(
 	SGE_CONSOLE_FILES
 	libs/console/impl/include/sge/console/impl/eval_grammar.hpp
-	libs/console/impl/include/sge/console/impl/eval_grammar_decl.hpp
 	libs/console/impl/include/sge/console/impl/eval_grammar_fwd.hpp
-	libs/console/impl/include/sge/console/impl/eval_grammar_impl.hpp
 	libs/console/impl/include/sge/console/impl/from_string.hpp
 	libs/console/impl/include/sge/console/impl/instantiate_muxing_streambuf.hpp
 	libs/console/impl/include/sge/console/impl/muxing_streambuf_impl.hpp
+	libs/console/impl/src/console/impl/eval_grammar.cpp
 	libs/console/impl/src/console/impl/from_string.cpp
 	libs/console/include/sge/console/arg_list.hpp
 	libs/console/include/sge/console/callback/convenience.hpp
@@ -61,13 +60,16 @@ add_sge_base_library(
 	SGE_DEPS
 		sgecore
 		sgefont
+		sgeparse
 	TRANSITIVE_SGE_DEPS
 		sgecore
 		sgefont_interface
 	USE_IMPL_INCLUDE_OF
 		core
+		parse
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		fcppt_parse_interface
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
 		fcppt_boost_interface
