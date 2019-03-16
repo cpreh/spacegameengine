@@ -106,7 +106,7 @@ process_option(
 			fcppt::parse::parse_string(
 				fcppt::parse::separator{
 					*~char_set{FCPPT_TEXT('/'),FCPPT_TEXT('=')},
-					FCPPT_TEXT('/')
+					literal{FCPPT_TEXT('/')}
 				}
 				>>
 				literal{FCPPT_TEXT('=')}

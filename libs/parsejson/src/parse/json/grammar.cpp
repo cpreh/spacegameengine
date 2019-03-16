@@ -132,7 +132,7 @@ sge::parse::json::grammar::grammar()
 							this->value_
 						)
 					),
-					','
+					literal{','}
 				}
 				>>
 				literal(']')
@@ -159,7 +159,7 @@ sge::parse::json::grammar::grammar()
 								this->value_
 							)
 						),
-						','
+						literal{','}
 					}
 					>>
 					literal{'}'},
