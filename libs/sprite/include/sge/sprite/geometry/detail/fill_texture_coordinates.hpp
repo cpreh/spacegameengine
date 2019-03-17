@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/geometry/detail/fill_texture_coordinates_rect.hpp>
 #include <sge/texture/area_texc.hpp>
 #include <sge/texture/part.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -133,8 +134,7 @@ std::enable_if_t<
 		Choices
 	>::value
 	&&
-	not
-	(
+	fcppt::not_(
 		sge::sprite::detail::config::has_repetition<
 			Choices
 		>::value

@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_TEXTURE_WARN_POW2_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_WARN_POW2_HPP_INCLUDED
 
+#include <fcppt/not.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/debug.hpp>
@@ -64,9 +65,10 @@ warn_pow2(
 		)
 	)
 		if(
-			not
-			fcppt::math::is_power_of_2(
-				element
+			fcppt::not_(
+				fcppt::math::is_power_of_2(
+					element
+				)
 			)
 		)
 		{
