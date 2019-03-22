@@ -62,7 +62,8 @@ template<
 	typename Choices
 >
 template<
-	typename... Args
+	typename... Args,
+	typename
 >
 sge::sprite::object<
 	Choices
@@ -107,24 +108,6 @@ template<
 sge::sprite::object<
 	Choices
 >::object(
-	object &_other
-)
-:
-	elements_(
-		_other.elements_
-	)
-{
-	sge::sprite::detail::assign_post(
-		*this
-	);
-}
-
-template<
-	typename Choices
->
-sge::sprite::object<
-	Choices
->::object(
 	object &&_other
 )
 :
@@ -132,24 +115,6 @@ sge::sprite::object<
 		std::move(
 			_other.elements_
 		)
-	)
-{
-	sge::sprite::detail::assign_post(
-		*this
-	);
-}
-
-template<
-	typename Choices
->
-sge::sprite::object<
-	Choices
->::object(
-	object const &&_other
-)
-:
-	elements_(
-		_other.elements_
 	)
 {
 	sge::sprite::detail::assign_post(

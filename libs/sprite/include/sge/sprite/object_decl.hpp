@@ -46,9 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/sprite/types/basic/homogenous_pair_decl.hpp>
 #include <sge/sprite/types/basic/unit.hpp>
 #include <sge/sprite/types/basic/vector_decl.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/record/enable_vararg_ctor.hpp>
 #include <fcppt/record/label_value_type.hpp>
 
 
@@ -56,9 +54,6 @@ namespace sge
 {
 namespace sprite
 {
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Choices
@@ -200,7 +195,11 @@ public:
 	connection_type;
 
 	template<
-		typename... Args
+		typename... Args,
+		typename =
+			fcppt::record::enable_vararg_ctor<
+				Args...
+			>
 	>
 	explicit
 	object(
@@ -212,15 +211,7 @@ public:
 	);
 
 	object(
-		object &
-	);
-
-	object(
 		object &&
-	);
-
-	object(
-		object const &&
 	);
 
 	object &
@@ -441,8 +432,6 @@ public:
 private:
 	element_type elements_;
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }
