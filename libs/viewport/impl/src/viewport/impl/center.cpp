@@ -32,40 +32,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/null.hpp>
 
 
+namespace
+{
+
+sge::renderer::pixel_unit
+center_position(
+	sge::window::dim::value_type const _target_size,
+	sge::window::dim::value_type const _window_size
+)
+{
+	FCPPT_ASSERT_PRE(
+		_window_size >= _target_size
+	);
+
+	return
+		fcppt::cast::size<
+			sge::renderer::pixel_unit
+		>(
+			fcppt::cast::to_signed(
+			(
+				_window_size
+				-
+				_target_size
+				)
+				/ 2u
+			)
+		);
+}
+
+}
+
 sge::renderer::target::viewport
 sge::viewport::impl::center(
 	sge::window::dim const &_ref_dim,
 	sge::window::dim const &_window_dim
 )
 {
-	auto const center_position(
-		[](
-			sge::window::dim::value_type const _target_size,
-			sge::window::dim::value_type const _window_size
-		)
-		->
-		sge::renderer::pixel_unit
-		{
-			FCPPT_ASSERT_PRE(
-				_window_size >= _target_size
-			);
-
-			return
-				fcppt::cast::size<
-					sge::renderer::pixel_unit
-				>(
-					fcppt::cast::to_signed(
-						(
-							_window_size
-							-
-							_target_size
-						)
-						/ 2u
-					)
-				);
-		}
-	);
-
 	return
 		_ref_dim.w()
 		> _window_dim.w()
