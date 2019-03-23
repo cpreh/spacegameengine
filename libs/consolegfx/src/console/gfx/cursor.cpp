@@ -35,6 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/reference.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 sge::console::gfx::cursor::cursor()
@@ -61,6 +64,9 @@ sge::console::gfx::cursor::edited() const
 		SGE_FONT_LIT('_')
 	};
 
+	FCPPT_PP_PUSH_WARNING
+	FCPPT_PP_DISABLE_CLANG_WARNING(-Wunused-lambda-capture)
+
 	fcppt::optional::maybe(
 		fcppt::container::at_optional(
 			result,
@@ -86,6 +92,8 @@ sge::console::gfx::cursor::edited() const
 				caret;
 		}
 	);
+
+	FCPPT_PP_POP_WARNING
 
 	return
 		result;
@@ -336,6 +344,9 @@ sge::console::gfx::cursor::complete_word(
 		)
 	);
 
+	FCPPT_PP_PUSH_WARNING
+	FCPPT_PP_DISABLE_CLANG_WARNING(-Wunused-lambda-capture)
+
 	fcppt::optional::maybe_void(
 		upper_bound(
 			search_string
@@ -393,4 +404,6 @@ sge::console::gfx::cursor::complete_word(
 			}
 		}
 	);
+
+	FCPPT_PP_POP_WARNING
 }
