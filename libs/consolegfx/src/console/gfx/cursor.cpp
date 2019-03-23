@@ -57,7 +57,7 @@ sge::console::gfx::cursor::edited() const
 		line_
 	);
 
-	sge::font::char_type const caret{
+	constexpr sge::font::char_type const caret{
 		SGE_FONT_LIT('_')
 	};
 
@@ -67,13 +67,16 @@ sge::console::gfx::cursor::edited() const
 			pos_
 		),
 		[
+			caret,
 			&result
 		]{
 			result.push_back(
 				caret
 			);
 		},
-		[](
+		[
+			caret
+		](
 			fcppt::reference<
 				sge::font::char_type
 			> const _ref
@@ -320,7 +323,7 @@ sge::console::gfx::cursor::complete_word(
 		}
 	);
 
-	size_type const start_pos{
+	constexpr size_type const start_pos{
 		1u
 	};
 
@@ -338,6 +341,7 @@ sge::console::gfx::cursor::complete_word(
 			search_string
 		),
 		[
+			start_pos,
 			&search_string,
 			this
 		](
