@@ -21,7 +21,7 @@ set(
 	libs/viewport/include/sge/viewport/optional_resize_callback_fwd.hpp
 	libs/viewport/include/sge/viewport/resize_callback.hpp
 	libs/viewport/include/sge/viewport/resize_function.hpp
-	libs/viewport/src/aspect_from_screen_size.cpp
+	libs/viewport/src/viewport/aspect_from_screen_size.cpp
 	libs/viewport/src/viewport/center_on_resize.cpp
 	libs/viewport/src/viewport/fill_on_resize.cpp
 	libs/viewport/src/viewport/fractional_aspect.cpp
