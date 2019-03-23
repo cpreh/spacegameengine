@@ -18,43 +18,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_IMAGE3D_VIEW_MAKE_CONST_HPP_INCLUDED
-#define SGE_IMAGE3D_VIEW_MAKE_CONST_HPP_INCLUDED
+#ifndef SGE_IMAGE_VIEW_DECLARE_MAKE_CONST_HPP_INCLUDED
+#define SGE_IMAGE_VIEW_DECLARE_MAKE_CONST_HPP_INCLUDED
 
 #include <sge/image/const_raw_pointer.hpp>
-#include <sge/image/color/format_fwd.hpp>
-#include <sge/image/color/traits/format_fwd.hpp>
-#include <sge/image/view/declare_make_const.hpp>
-#include <sge/image3d/dim_fwd.hpp>
-#include <sge/image3d/pitch_fwd.hpp>
-#include <sge/image3d/detail/symbol.hpp>
-#include <sge/image3d/traits/color_tag.hpp>
-#include <sge/image3d/traits/dimension.hpp>
-#include <sge/image3d/view/const_object_fwd.hpp>
+#include <sge/image/dim_fwd.hpp>
+#include <sge/image/pitch_fwd.hpp>
+#include <sge/image/detail/instantiate/symbol.hpp>
+#include <sge/image/traits/image/color_tag.hpp>
+#include <sge/image/traits/pixel/format_fwd.hpp>
+#include <sge/image/view/const_object.hpp>
+#include <sge/image/view/make_const.hpp>
 
 
-namespace sge
-{
-namespace image3d
-{
-namespace view
-{
-
-SGE_IMAGE3D_DETAIL_SYMBOL
-sge::image3d::view::const_object
-make_const(
-	sge::image::const_raw_pointer,
-	sge::image3d::dim const &,
-	sge::image::color::format,
-	sge::image3d::pitch const &
-);
-
-}
-}
-}
-
-SGE_IMAGE_VIEW_DECLARE_MAKE_CONST(
-	sge::image3d::tag
-);
+#define SGE_IMAGE_VIEW_DECLARE_MAKE_CONST(\
+	tag\
+)\
+extern \
+template \
+SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL \
+sge::image::view::const_object< \
+	tag \
+> \
+sge::image::view::make_const( \
+	sge::image::const_raw_pointer, \
+	sge::image::dim< \
+		tag \
+	> const &, \
+	sge::image::traits::pixel::format< \
+		sge::image::traits::image::color_tag< \
+			tag \
+		> \
+	>, \
+	sge::image::pitch< \
+		tag \
+	> const & \
+)
 
 #endif

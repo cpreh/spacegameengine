@@ -185,6 +185,7 @@ set(
 	libs/image/include/sge/image/view/declare_flipped.hpp
 	libs/image/include/sge/image/view/declare_format.hpp
 	libs/image/include/sge/image/view/declare_make.hpp
+	libs/image/include/sge/image/view/declare_make_const.hpp
 	libs/image/include/sge/image/view/declare_object.hpp
 	libs/image/include/sge/image/view/declare_size.hpp
 	libs/image/include/sge/image/view/declare_sub.hpp
