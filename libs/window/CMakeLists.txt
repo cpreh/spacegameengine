@@ -34,7 +34,7 @@ add_sge_base_library(
 	window
 	ADDITIONAL_DEPS
 		${awl_TARGET}
-		fcppt_core_interface
+		${fcppt_core_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS
 		awl_interface
 		fcppt_core_interface
