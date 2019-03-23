@@ -108,7 +108,6 @@ set(
 	libs/imagecolor/include/sge/image/color/bgrx8_format.hpp
 	libs/imagecolor/include/sge/image/color/bgrx8_fwd.hpp
 	libs/imagecolor/include/sge/image/color/convert.hpp
-	libs/imagecolor/include/sge/image/color/detail/is_convertible.hpp
 	libs/imagecolor/include/sge/image/color/detail/pp_formats.hpp
 	libs/imagecolor/include/sge/image/color/element_count.hpp
 	libs/imagecolor/include/sge/image/color/enable_if_has_format.hpp

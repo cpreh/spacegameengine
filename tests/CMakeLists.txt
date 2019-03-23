@@ -113,6 +113,7 @@ add_sge_test(
 	image/color/convert
 	NO_CODE
 	SGE_DEPS
+		sgeimage
 		sgeimagecolor
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}

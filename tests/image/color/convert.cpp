@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/image/mizuiro_color_traits.hpp>
 #include <sge/image/color/a8_format.hpp>
 #include <sge/image/color/bgra8_format.hpp>
 #include <sge/image/color/is_convertible.hpp>
@@ -43,5 +44,4 @@ main()
 		>::value,
 		"a8 should not be convertible to bgra8"
 	);
-
 }
