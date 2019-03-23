@@ -121,6 +121,108 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
+namespace
+{
+
+typedef
+sge::image::color::rgba8_format
+color_format;
+
+typedef
+sge::sprite::config::choices<
+	sge::sprite::config::type_choices<
+		sge::sprite::config::unit_type<
+			int
+		>,
+		sge::sprite::config::float_type<
+			float
+		>
+	>,
+	sge::sprite::config::pos<
+		sge::sprite::config::pos_option::pos
+	>,
+	sge::sprite::config::normal_size<
+		sge::sprite::config::texture_size_option::never
+	>,
+	brigand::list<
+		sge::sprite::config::with_color<
+			color_format
+		>
+	>
+>
+sprite_choices;
+
+typedef
+sge::sprite::buffers::with_declaration<
+	sge::sprite::buffers::single<
+		sprite_choices
+	>
+>
+sprite_buffers_type;
+
+typedef
+sge::sprite::object<
+	sprite_choices
+>
+sprite_object;
+
+typedef
+sge::sprite::state::all_choices
+sprite_state_choices;
+
+typedef
+sge::sprite::state::object<
+	sprite_state_choices
+>
+sprite_state_object;
+
+typedef
+sge::sprite::state::parameters<
+	sprite_state_choices
+>
+sprite_state_parameters;
+
+sprite_object::dim const cell_size(
+	32,
+	32
+);
+
+typedef
+fcppt::container::grid::object<
+	sprite_object,
+	2
+>
+sprite_grid;
+
+sprite_object
+make_sprite(
+	sprite_grid::pos const _pos
+)
+{
+	return
+		sprite_object(
+			sge::sprite::roles::pos{} =
+				fcppt::math::vector::structure_cast<
+					sprite_object::vector,
+					fcppt::cast::size_fun
+				>(
+					_pos
+				)
+				*
+				cell_size,
+			sge::sprite::roles::size{} =
+				cell_size,
+			sge::sprite::roles::color{} =
+				sge::image::color::convert<
+					color_format
+				>(
+					sge::image::color::predef::white()
+				)
+		);
+}
+
+}
+
 awl::main::exit_code const
 example_main(
 	awl::main::function_context const &
@@ -172,64 +274,6 @@ try
 		)
 	);
 
-	typedef
-	sge::image::color::rgba8_format
-	color_format;
-
-	typedef
-	sge::sprite::config::choices<
-		sge::sprite::config::type_choices<
-			sge::sprite::config::unit_type<
-				int
-			>,
-			sge::sprite::config::float_type<
-				float
-			>
-		>,
-		sge::sprite::config::pos<
-			sge::sprite::config::pos_option::pos
-		>,
-		sge::sprite::config::normal_size<
-			sge::sprite::config::texture_size_option::never
-		>,
-		brigand::list<
-			sge::sprite::config::with_color<
-				color_format
-			>
-		>
-	>
-	sprite_choices;
-
-	typedef
-	sge::sprite::buffers::with_declaration<
-		sge::sprite::buffers::single<
-			sprite_choices
-		>
-	>
-	sprite_buffers_type;
-
-	typedef
-	sge::sprite::object<
-		sprite_choices
-	>
-	sprite_object;
-
-	typedef
-	sge::sprite::state::all_choices
-	sprite_state_choices;
-
-	typedef
-	sge::sprite::state::object<
-		sprite_state_choices
-	>
-	sprite_state_object;
-
-	typedef
-	sge::sprite::state::parameters<
-		sprite_state_choices
-	>
-	sprite_state_parameters;
-
 	sprite_state_object sprite_state(
 		sys.renderer_device_ffp(),
 		sprite_state_parameters()
@@ -238,48 +282,6 @@ try
 	sprite_buffers_type sprite_buffers(
 		sys.renderer_device_ffp(),
 		sge::sprite::buffers::option::dynamic
-	);
-
-	typedef
-	fcppt::container::grid::object<
-		sprite_object,
-		2
-	>
-	sprite_grid;
-
-	sprite_object::dim const cell_size(
-		32,
-		32
-	);
-
-	auto const make_sprite(
-		[
-			cell_size
-		](
-			sprite_grid::pos const _pos
-		)
-		{
-			return
-				sprite_object(
-					sge::sprite::roles::pos{} =
-						fcppt::math::vector::structure_cast<
-							sprite_object::vector,
-							fcppt::cast::size_fun
-						>(
-							_pos
-						)
-						*
-						cell_size,
-					sge::sprite::roles::size{} =
-						cell_size,
-					sge::sprite::roles::color{} =
-						sge::image::color::convert<
-							color_format
-						>(
-							sge::image::color::predef::white()
-						)
-				);
-		}
 	);
 
 	sprite_grid sprites(
@@ -319,9 +321,7 @@ try
 		sys.viewport_manager().manage_callback(
 			sge::viewport::manage_callback{
 				[
-					&sprites,
-					make_sprite,
-					cell_size
+					&sprites
 				](
 					sge::renderer::target::viewport const &_viewport
 				)
@@ -361,8 +361,7 @@ try
 	auto const button_event(
 		[
 			&sprites,
-			&last_position,
-			cell_size
+			&last_position
 		](
 			sge::input::cursor::event::button const &_event
 		)
