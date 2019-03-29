@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/timer/absolute_decl.hpp>
 #include <sge/timer/clocks/is_stateful.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 
 template<
@@ -44,6 +47,9 @@ sge::timer::absolute<
 	);
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
+
 template<
 	typename Clock
 >
@@ -61,6 +67,8 @@ sge::timer::absolute<
 	}
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 template<
 	typename Clock
