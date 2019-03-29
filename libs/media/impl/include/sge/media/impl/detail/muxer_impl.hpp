@@ -60,6 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/reference.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/match.hpp>
@@ -69,6 +70,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 template<
 	typename System,
@@ -159,7 +163,7 @@ FCPPT_PP_POP_WARNING
 					!result.has_value()
 				)
 					FCPPT_LOG_DEBUG(
-						log_,
+						this->log_,
 						fcppt::log::out
 							<<
 							FCPPT_TEXT("System ")
@@ -188,7 +192,7 @@ FCPPT_PP_POP_WARNING
 	),
 	extensions_(
 		fcppt::algorithm::fold(
-			plugins_,
+			this->plugins_,
 			sge::media::extension_set(),
 			[](
 				plugin_system_pair const &_plugin,
@@ -206,7 +210,7 @@ FCPPT_PP_POP_WARNING
 	)
 {
 	FCPPT_LOG_DEBUG(
-		log_,
+		this->log_,
 		fcppt::log::out
 			<<
 			FCPPT_TEXT("Available extensions for system ")
@@ -222,12 +226,14 @@ FCPPT_PP_POP_WARNING
 			FCPPT_TEXT(" are ")
 			<<
 			fcppt::container::output(
-				extensions_
+				this->extensions_
 			)
 			<<
 			FCPPT_TEXT('.')
 	)
 }
+
+FCPPT_PP_POP_WARNING
 
 template<
 	typename System,

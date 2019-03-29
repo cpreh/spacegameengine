@@ -44,7 +44,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_signed.hpp>
 #include <fcppt/math/vector/dim.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::gui::widget::image::image(
 	sge::gui::style::base const &_style,
@@ -74,14 +80,14 @@ sge::gui::widget::image::image(
 								>(
 									fcppt::cast::to_signed(
 										sge::rucksack::access_axis(
-											texture_.size(),
+											this->texture_.size(),
 											_axis
 										)
 									)
 								)
 								+
 								sge::rucksack::access_axis(
-									style_.image_spacing(),
+									this->style_.image_spacing(),
 									_axis
 								)
 							}
@@ -92,6 +98,8 @@ sge::gui::widget::image::image(
 	}
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::gui::widget::image::~image()
 {

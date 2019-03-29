@@ -57,9 +57,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::gui::widget::button::button(
 	sge::gui::style::base const &_style,
@@ -97,7 +103,7 @@ sge::gui::widget::button::button(
 							this
 						]{
 							return
-								static_text_.logical_size().w();
+								this->static_text_.logical_size().w();
 						},
 						[](
 							sge::gui::needed_width const _needed_width
@@ -123,6 +129,8 @@ sge::gui::widget::button::button(
 	click_()
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::gui::widget::button::~button()
 {

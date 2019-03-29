@@ -41,10 +41,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::plugin::manager::manager(
 	fcppt::log::context &_log_context,
@@ -66,17 +72,19 @@ sge::plugin::manager::manager(
 			&_cache
 		]{
 			FCPPT_LOG_DEBUG(
-				log_,
+				this->log_,
 				fcppt::log::out
-					<< FCPPT_TEXT("Scanning for plugins in ")
-					<< fcppt::filesystem::path_to_string(
+					<<
+					FCPPT_TEXT("Scanning for plugins in ")
+					<<
+					fcppt::filesystem::path_to_string(
 						_path
 					)
 			)
 
 			return
 				sge::plugin::impl::load_plugins(
-					log_,
+					this->log_,
 					_path,
 					_cache
 				);
@@ -129,6 +137,8 @@ sge::plugin::manager::manager(
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::plugin::manager::~manager()
 {

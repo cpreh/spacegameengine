@@ -41,7 +41,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::systems::impl::input::object::object(
 	fcppt::log::context &_log_context,
@@ -113,6 +119,8 @@ sge::systems::impl::input::object::object(
 			)
 		}
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::systems::impl::input::object::~object()
 {
