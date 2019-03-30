@@ -23,7 +23,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/sprite/intrusive/ordered/iterator_decl.hpp>
 #include <sge/sprite/intrusive/ordered/detail/iterator_empty.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 template<
 	typename Choices,
@@ -53,6 +59,8 @@ sge::sprite::intrusive::ordered::iterator<
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 template<
 	typename Choices,

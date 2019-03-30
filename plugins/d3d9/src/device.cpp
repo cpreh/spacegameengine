@@ -177,6 +177,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_container.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
@@ -205,6 +208,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #endif
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::d3d9::device::device(
 	IDirect3D9 &_system,
@@ -351,6 +357,8 @@ sge::d3d9::device::device(
 	}
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::d3d9::device::~device()
 {

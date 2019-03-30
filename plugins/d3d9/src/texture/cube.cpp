@@ -40,11 +40,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/enum/array_impl.hpp>
 #include <fcppt/enum/array_init.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/type_iso/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::d3d9::texture::cube::cube(
 	IDirect3DDevice9 &_device,
@@ -107,6 +113,8 @@ sge::d3d9::texture::cube::cube(
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::d3d9::texture::cube::~cube()
 {
