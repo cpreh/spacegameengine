@@ -23,6 +23,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/state/check_error.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -34,6 +37,9 @@ namespace opengl
 {
 namespace state
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4626)
 
 template<
 	typename Actor
@@ -86,6 +92,8 @@ private:
 
 	fcppt::string name_;
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 }
