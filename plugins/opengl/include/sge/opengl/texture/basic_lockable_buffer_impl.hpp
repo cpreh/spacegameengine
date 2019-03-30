@@ -251,7 +251,7 @@ sge::opengl::texture::basic_lockable_buffer<
 			)
 		);
 
-		Types::dim_types::sub_function()(
+		Types::dim_types::sub_function().get()(
 			binding,
 			context_,
 			config_,

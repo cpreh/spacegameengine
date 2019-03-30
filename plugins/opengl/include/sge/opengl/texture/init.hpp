@@ -132,7 +132,7 @@ init(
 		)
 	);
 
-	Types::buffer_types::dim_types::init_function()(
+	Types::buffer_types::dim_types::init_function().get()(
 		_binding,
 		_config,
 		_buffer_type,

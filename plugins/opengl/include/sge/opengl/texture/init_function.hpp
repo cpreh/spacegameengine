@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/basic_dim_fwd.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/math/size_type.hpp>
 
 
@@ -46,23 +47,23 @@ template<
 using
 init_function
 =
-void
-(&)
-(
-	sge::opengl::texture::binding const &,
-	sge::opengl::texture::config<
-		Size
-	> const &,
-	sge::opengl::texture::buffer_type,
-	sge::opengl::color_order,
-	sge::opengl::color_base_type,
-	sge::opengl::internal_color_format,
-	sge::renderer::texture::mipmap::level,
-	sge::renderer::basic_dim<
-		Size
-	> const &,
-	sge::renderer::const_raw_pointer
-);
+fcppt::reference<
+	void (
+		sge::opengl::texture::binding const &,
+		sge::opengl::texture::config<
+			Size
+		> const &,
+		sge::opengl::texture::buffer_type,
+		sge::opengl::color_order,
+		sge::opengl::color_base_type,
+		sge::opengl::internal_color_format,
+		sge::renderer::texture::mipmap::level,
+		sge::renderer::basic_dim<
+			Size
+		> const &,
+		sge::renderer::const_raw_pointer
+	)
+>;
 
 }
 }

@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/texture/funcs/set_3d.hpp>
 #include <sge/opengl/texture/funcs/set_box.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 sge::renderer::size_type
@@ -35,12 +36,16 @@ sge::opengl::texture::buffer_volume_types::init_function_type
 sge::opengl::texture::buffer_volume_types::init_function()
 {
 	return
-		sge::opengl::texture::funcs::set_3d;
+		fcppt::make_ref(
+			sge::opengl::texture::funcs::set_3d
+		);
 }
 
 sge::opengl::texture::buffer_volume_types::sub_function_type
 sge::opengl::texture::buffer_volume_types::sub_function()
 {
 	return
-		sge::opengl::texture::funcs::set_box;
+		fcppt::make_ref(
+			sge::opengl::texture::funcs::set_box
+		);
 }
