@@ -40,6 +40,7 @@ namespace state
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4626)
+FCPPT_PP_DISABLE_VC_WARNING(5027)
 
 template<
 	typename Actor

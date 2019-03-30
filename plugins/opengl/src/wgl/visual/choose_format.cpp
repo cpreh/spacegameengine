@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/wgl/visual/attribute_container.hpp>
 #include <sge/opengl/wgl/visual/choose_format.hpp>
 #include <sge/opengl/wgl/visual/config.hpp>
@@ -66,10 +67,15 @@ sge::opengl::wgl::visual::choose_format(
 	UINT num_results;
 
 	if(
-		pixel_format_types.choose_pixel_format()(
+		sge::opengl::call_fun_ref(
+			pixel_format_types.choose_pixel_format(),
 			_device.hdc(),
 			attributes.data(),
-			nullptr,
+			static_cast<
+				FLOAT const *
+			>(
+				nullptr
+			),
 			1u,
 			&result,
 			&num_results

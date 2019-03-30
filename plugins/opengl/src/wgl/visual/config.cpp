@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/deref_fun_ptr.hpp>
 #include <sge/opengl/wgl/ext.hpp>
 #include <sge/opengl/wgl/extension.hpp>
 #include <sge/opengl/wgl/extension_set.hpp>
@@ -27,7 +28,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/wgl/visual/config.hpp>
 #include <sge/opengl/wgl/visual/optional_pixel_format_types.hpp>
 #include <sge/opengl/wgl/visual/pixel_format_types.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+namespace
+{
+
+sge::opengl::wgl::visual::pixel_format_types::wgl_choose_pixel_format
+cast_pixel_format_function(
+	PROC const _function
+)
+{
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4191)
+	return
+		sge::opengl::deref_fun_ptr(
+			reinterpret_cast<
+				PFNWGLCHOOSEPIXELFORMATARBPROC
+			>(
+				_function
+			)
+		);
+FCPPT_PP_POP_WARNING
+}
+
+}
 
 sge::opengl::wgl::visual::config::config(
 	sge::opengl::wgl::extension_set const &_extensions,
@@ -68,7 +95,7 @@ sge::opengl::wgl::visual::config::config(
 					sge::opengl::wgl::visual::pixel_format_types::stencil_bits_flag(
 						WGL_STENCIL_BITS_ARB
 					),
-					sge::opengl::wgl::visual::pixel_format_types::wgl_choose_pixel_format(
+					cast_pixel_format_function(
 						sge::opengl::wgl::get_proc_address(
 							"wglChoosePixelFormatARB"
 						)
@@ -109,7 +136,7 @@ sge::opengl::wgl::visual::config::config(
 						sge::opengl::wgl::visual::pixel_format_types::stencil_bits_flag(
 							WGL_STENCIL_BITS_EXT
 						),
-						sge::opengl::wgl::visual::pixel_format_types::wgl_choose_pixel_format(
+						cast_pixel_format_function(
 							sge::opengl::wgl::get_proc_address(
 								"wglChoosePixelFormatEXT"
 							)

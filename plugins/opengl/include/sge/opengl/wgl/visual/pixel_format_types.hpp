@@ -21,6 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_WGL_VISUAL_PIXEL_FORMAT_TYPES_HPP_INCLUDED
 #define SGE_OPENGL_WGL_VISUAL_PIXEL_FORMAT_TYPES_HPP_INCLUDED
 
+#include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/wgl/ext.hpp>
 #include <sge/opengl/wgl/visual/pixel_format_types_fwd.hpp>
 #include <awl/backends/windows/windows.hpp>
@@ -81,9 +82,10 @@ public:
 	);
 
 	// Same signature for ARB and EXT
-	// TODO: fun_ref
 	typedef
-	PFNWGLCHOOSEPIXELFORMATARBPROC
+	sge::opengl::fun_ref<
+		PFNWGLCHOOSEPIXELFORMATARBPROC
+	>
 	wgl_choose_pixel_format;
 
 	pixel_format_types(
