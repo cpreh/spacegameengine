@@ -46,7 +46,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/enum/array_impl.hpp>
 #include <fcppt/enum/array_init.hpp>
+#include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::opengl::texture::cube::cube(
 	sge::opengl::texture::cube_config const &_config,
@@ -119,6 +125,8 @@ sge::opengl::texture::cube::cube(
 	)
 {
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::opengl::texture::cube::~cube()
 {
