@@ -220,4 +220,6 @@ add_sge_base_library(
 		plugin
 	USE_IMPL_INCLUDE_OF
 		imagecolor
+	COMPILE_FLAGS
+		${SGE_MSVC_BIGOBJ_FLAGS}
 )

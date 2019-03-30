@@ -1028,3 +1028,12 @@ function(
 		${PLUGIN_INSTALL_DIR}
 	)
 endfunction()
+
+if(
+	MSVC
+)
+	set(
+		SGE_MSVC_BIGOBJ_FLAGS
+		"/bigobj"
+	)
+endif()
