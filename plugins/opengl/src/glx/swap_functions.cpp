@@ -24,7 +24,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glx/swap_functions.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/optional/map.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
+
+namespace
+{
+
+template<
+	typename Ret
+>
+fcppt::reference<
+	Ret
+>
+cast_function(
+	sge::opengl::glx::raw_function_ref const _func
+)
+{
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wundefined-reinterpret-cast)
+
+	return
+		fcppt::make_ref(
+			reinterpret_cast<
+				std::add_lvalue_reference_t<
+					Ret
+				>
+			>(
+				_func.get()
+			)
+		);
+
+FCPPT_PP_POP_WARNING
+
+}
+
+}
 
 sge::opengl::glx::swap_functions::swap_functions(
 	sge::opengl::glx::proc_address_function _proc_address
@@ -40,14 +80,11 @@ sge::opengl::glx::swap_functions::swap_functions(
 				sge::opengl::glx::raw_function_ref const _func
 			)
 			{
-				// FIXME
 				return
-					fcppt::make_ref(
-						reinterpret_cast<
-							glx_swap_interval_sgi
-						>(
-							_func.get()
-						)
+					cast_function<
+						glx_swap_interval_sgi
+					>(
+						_func
 					);
 			}
 		)
@@ -62,14 +99,11 @@ sge::opengl::glx::swap_functions::swap_functions(
 				sge::opengl::glx::raw_function_ref const _func
 			)
 			{
-				// FIXME
 				return
-					fcppt::make_ref(
-						reinterpret_cast<
-							glx_swap_interval_ext
-						>(
-							_func.get()
-						)
+					cast_function<
+						glx_swap_interval_ext
+					>(
+						_func
 					);
 			}
 		)

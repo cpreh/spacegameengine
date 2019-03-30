@@ -28,7 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <X11/Xlib.h>
-#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -49,16 +48,14 @@ public:
 
 	typedef
 	int(
-		&glx_swap_interval_sgi
+		glx_swap_interval_sgi
 	)(
 		int
 	);
 
 	typedef
 	fcppt::optional::reference<
-		std::remove_reference<
-			glx_swap_interval_sgi
-		>::type
+		glx_swap_interval_sgi
 	>
 	optional_glx_swap_interval_sgi;
 
@@ -68,7 +65,7 @@ public:
 
 	typedef
 	void(
-		&glx_swap_interval_ext
+		glx_swap_interval_ext
 	)(
 		Display *,
 		GLXDrawable,
@@ -77,9 +74,7 @@ public:
 
 	typedef
 	fcppt::optional::reference<
-		std::remove_reference<
-			glx_swap_interval_ext
-		>::type
+		glx_swap_interval_ext
 	>
 	optional_glx_swap_interval_ext;
 
