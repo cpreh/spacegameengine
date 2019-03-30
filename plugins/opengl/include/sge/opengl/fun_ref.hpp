@@ -21,7 +21,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #ifndef SGE_OPENGL_FUN_REF_HPP_INCLUDED
 #define SGE_OPENGL_FUN_REF_HPP_INCLUDED
 
-#include <sge/opengl/fun_ref_impl.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -35,10 +38,11 @@ template<
 using
 fun_ref
 =
-typename
-sge::opengl::fun_ref_impl<
-	Type
->::type;
+fcppt::reference<
+	std::remove_pointer_t<
+		Type
+	>
+>;
 
 }
 }

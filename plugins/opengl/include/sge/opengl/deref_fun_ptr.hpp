@@ -22,6 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_DEREF_FUN_PTR_HPP_INCLUDED
 
 #include <sge/opengl/fun_ref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/assert/pre.hpp>
 
 
@@ -47,7 +48,9 @@ deref_fun_ptr(
 	);
 
 	return
-		*_function;
+		fcppt::make_ref(
+			*_function
+		);
 
 }
 

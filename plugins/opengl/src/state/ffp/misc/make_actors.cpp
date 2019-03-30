@@ -18,9 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/enable_bool.hpp>
-#include <sge/opengl/get_fun_ref.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/convert/to_gl_enum.hpp>
 #include <sge/opengl/state/actor.hpp>
@@ -32,9 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/container/join.hpp>
 #include <fcppt/log/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor_vector
@@ -48,30 +45,37 @@ sge::opengl::state::ffp::misc::make_actors(
 		fcppt::container::join(
 			sge::opengl::state::actor_vector{
 				sge::opengl::state::actor{
-					std::bind(
-						sge::opengl::enable_bool,
-						sge::opengl::convert::to_gl_enum<
-							GL_NORMALIZE
-						>(),
-						_parameters.normalize_normals().get()
-					)
+					[
+						normalize_normals = _parameters.normalize_normals()
+					]{
+						return
+							sge::opengl::enable_bool(
+								sge::opengl::convert::to_gl_enum<
+									GL_NORMALIZE
+								>(),
+								normalize_normals.get()
+							);
+					}
 				},
 				sge::opengl::state::wrap_error_handler<
 					sge::opengl::state::actor
 				>(
-					std::bind(
-						sge::opengl::get_fun_ref(
-							::glLightModeli
-						),
-						sge::opengl::convert::to_gl_enum<
-							GL_LIGHT_MODEL_LOCAL_VIEWER
-						>(),
-						_parameters.local_viewer().get()
-						?
-							1
-						:
-							0
-					),
+					[
+						local_viewer = _parameters.local_viewer()
+					]{
+						return
+							sge::opengl::call(
+								::glLightModeli,
+								sge::opengl::convert::to_gl_enum<
+									GL_LIGHT_MODEL_LOCAL_VIEWER
+								>(),
+								local_viewer.get()
+								?
+									1
+								:
+									0
+							);
+					},
 					FCPPT_TEXT("glLightModeli failed")
 				)
 			},

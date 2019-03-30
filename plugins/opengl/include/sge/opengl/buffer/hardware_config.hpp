@@ -23,12 +23,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/fun_ref.hpp>
+#include <sge/opengl/fun_ref_value_type.hpp>
 #include <sge/opengl/buffer/hardware_config_fwd.hpp>
 #include <sge/opengl/buffer/is_native.hpp>
 #include <fcppt/optional/reference.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -91,10 +89,9 @@ public:
 
 	typedef
 	fcppt::optional::reference<
-		typename
-		std::remove_reference<
+		sge::opengl::fun_ref_value_type<
 			gl_map_buffer_range
-		>::type
+		>
 	>
 	optional_gl_map_buffer_range;
 

@@ -18,15 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/get_fun_ref.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/ffp/fog/float.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor
@@ -39,13 +36,17 @@ sge::opengl::state::ffp::fog::float_(
 		sge::opengl::state::wrap_error_handler<
 			sge::opengl::state::actor
 		>(
-			std::bind(
-				sge::opengl::get_fun_ref(
-					::glFogf
-				),
+			[
 				_what,
 				_value
-			),
+			]{
+				return
+					sge::opengl::call(
+						::glFogf,
+						_what,
+						_value
+					);
+			},
 			FCPPT_TEXT("glFogf")
 		);
 }

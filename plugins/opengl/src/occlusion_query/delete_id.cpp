@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/occlusion_query/config.hpp>
 #include <sge/opengl/occlusion_query/delete_id.hpp>
@@ -32,7 +33,8 @@ sge::opengl::occlusion_query::delete_id(
 	sge::opengl::occlusion_query::id const _id
 )
 {
-	_config.delete_queries()(
+	sge::opengl::call_fun_ref(
+		_config.delete_queries(),
 		1,
 		&_id.get()
 	);

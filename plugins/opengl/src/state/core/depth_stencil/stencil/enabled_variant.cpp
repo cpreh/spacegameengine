@@ -18,8 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/get_fun_ref.hpp>
 #include <sge/opengl/context/object.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/state/actor.hpp>
@@ -44,9 +44,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/variant/match.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor_vector
@@ -74,37 +71,47 @@ sge::opengl::state::core::depth_stencil::stencil::enabled_variant(
 						sge::opengl::state::wrap_error_handler<
 							sge::opengl::state::actor
 						>(
-							std::bind(
-								sge::opengl::get_fun_ref(
-									::glStencilFunc
-								),
-								sge::opengl::state::convert::stencil_func(
-									_combined.desc().func()
-								),
-								fcppt::cast::to_signed(
-									_ref.get()
-								),
-								_read_mask.get()
-							),
+							[
+								_ref,
+								_read_mask,
+								func = _combined.desc().func()
+							]{
+								return
+									sge::opengl::call(
+										::glStencilFunc,
+										sge::opengl::state::convert::stencil_func(
+											func
+										),
+										fcppt::cast::to_signed(
+											_ref.get()
+										),
+										_read_mask.get()
+									);
+							},
 							FCPPT_TEXT("glStencilFunc")
 						),
 						sge::opengl::state::wrap_error_handler<
 							sge::opengl::state::actor
 						>(
-							std::bind(
-								sge::opengl::get_fun_ref(
-									::glStencilOp
-								),
-								sge::opengl::state::convert::stencil_op(
-									_combined.desc().fail_op().get()
-								),
-								sge::opengl::state::convert::stencil_op(
-									_combined.desc().depth_fail_op().get()
-								),
-								sge::opengl::state::convert::stencil_op(
-									_combined.desc().pass_op().get()
-								)
-							),
+							[
+								fail_op = _combined.desc().fail_op(),
+								depth_fail_op = _combined.desc().depth_fail_op(),
+								pass_op = _combined.desc().pass_op()
+							]{
+								return
+									sge::opengl::call(
+										::glStencilOp,
+										sge::opengl::state::convert::stencil_op(
+											fail_op.get()
+										),
+										sge::opengl::state::convert::stencil_op(
+											depth_fail_op.get()
+										),
+										sge::opengl::state::convert::stencil_op(
+											pass_op.get()
+										)
+									);
+							},
 							FCPPT_TEXT("glStencilOp")
 						),
 						sge::opengl::state::core::depth_stencil::stencil::write_mask(

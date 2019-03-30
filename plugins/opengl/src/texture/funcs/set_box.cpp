@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/color_base_type.hpp>
 #include <sge/opengl/color_order.hpp>
@@ -39,6 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/cast/to_void_ptr.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/output.hpp>
 
@@ -98,7 +100,8 @@ sge::opengl::texture::funcs::set_box(
 		_lock_box.size()
 	);
 
-	_config.tex_sub_image_3d()(
+	sge::opengl::call_fun_ref(
+		_config.tex_sub_image_3d(),
 		_buffer_type.get(),
 		fcppt::cast::to_signed(
 			_level.get()
@@ -147,7 +150,9 @@ sge::opengl::texture::funcs::set_box(
 		),
 		_format.get(),
 		_format_type.get(),
-		_src
+		fcppt::cast::to_void_ptr(
+			_src
+		)
 	);
 
 	SGE_OPENGL_CHECK_STATE(

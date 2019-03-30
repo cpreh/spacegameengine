@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/fbo/attach_texture_2d.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
@@ -39,7 +40,8 @@ sge::opengl::fbo::attach_texture_2d(
 	sge::renderer::texture::mipmap::level const _level
 )
 {
-	_context.framebuffer_texture_2d()(
+	sge::opengl::call_fun_ref(
+		_context.framebuffer_texture_2d(),
 		_context.framebuffer_target(),
 		_attachment.get(),
 		_texture_type.get(),

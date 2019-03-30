@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/internal_color_format.hpp>
@@ -46,7 +47,8 @@ sge::opengl::fbo::render_buffer::render_buffer(
 {
 	this->bind();
 
-	context_.renderbuffer_storage()(
+	sge::opengl::call_fun_ref(
+		context_.renderbuffer_storage(),
 		context_.renderbuffer_target(),
 		fcppt::cast::to_unsigned(
 			_internal_format.get()
@@ -88,7 +90,8 @@ sge::opengl::fbo::render_buffer::id() const
 void
 sge::opengl::fbo::render_buffer::bind() const
 {
-	context_.bind_renderbuffer()(
+	sge::opengl::call_fun_ref(
+		context_.bind_renderbuffer(),
 		context_.renderbuffer_target(),
 		this->id()
 	);

@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/fbo/attach_render_buffer.hpp>
@@ -34,7 +35,8 @@ sge::opengl::fbo::attach_render_buffer(
 	GLuint const _buffer
 )
 {
-	_context.framebuffer_renderbuffer()(
+	sge::opengl::call_fun_ref(
+		_context.framebuffer_renderbuffer(),
 		_context.framebuffer_target(),
 		_what.get(),
 		_context.renderbuffer_target(),

@@ -18,10 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_FUN_REF_IMPL_HPP_INCLUDED
-#define SGE_OPENGL_FUN_REF_IMPL_HPP_INCLUDED
+#ifndef SGE_OPENGL_FUN_REF_VALUE_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_FUN_REF_VALUE_TYPE_HPP_INCLUDED
 
-#include <sge/opengl/apientry.hpp>
+#include <fcppt/is_reference.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -30,25 +33,19 @@ namespace opengl
 {
 
 template<
-	typename Type
+	typename Ref,
+	typename =
+		std::enable_if_t<
+			fcppt::is_reference<
+				Ref
+			>::value
+		>
 >
-struct fun_ref_impl;
-
-template<
-	typename Ret,
-	typename ...Args
->
-struct fun_ref_impl<
-	Ret (SGE_OPENGL_APIENTRY *)(
-		Args...
-	)
->
-{
-	typedef
-	Ret (SGE_OPENGL_APIENTRY &type)(
-		Args...
-	);
-};
+using
+fun_ref_value_type
+=
+typename
+Ref::type;
 
 }
 }

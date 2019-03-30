@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
@@ -28,9 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/fail_op.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/pass_op.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor
@@ -46,19 +44,28 @@ sge::opengl::state::core::depth_stencil::stencil::op_separate(
 		sge::opengl::state::wrap_error_handler<
 			sge::opengl::state::actor
 		>(
-			std::bind(
-				_config.stencil_op_separate(),
+			[
+				&_config,
 				_side,
-				sge::opengl::state::convert::stencil_op(
-					_fail_op.get()
-				),
-				sge::opengl::state::convert::stencil_op(
-					_depth_fail_op.get()
-				),
-				sge::opengl::state::convert::stencil_op(
-					_pass_op.get()
-				)
-			),
+				_fail_op,
+				_depth_fail_op,
+				_pass_op
+			]{
+				return
+					sge::opengl::call_fun_ref(
+						_config.stencil_op_separate(),
+						_side,
+						sge::opengl::state::convert::stencil_op(
+							_fail_op.get()
+						),
+						sge::opengl::state::convert::stencil_op(
+							_depth_fail_op.get()
+						),
+						sge::opengl::state::convert::stencil_op(
+							_pass_op.get()
+						)
+					);
+			},
 			FCPPT_TEXT("glStencilOpSeparate")
 		);
 }

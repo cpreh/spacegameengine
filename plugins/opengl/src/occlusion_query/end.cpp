@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/occlusion_query/config.hpp>
 #include <sge/opengl/occlusion_query/end.hpp>
@@ -30,7 +31,8 @@ sge::opengl::occlusion_query::end(
 	sge::opengl::occlusion_query::config const &_config
 )
 {
-	_config.end_query()(
+	sge::opengl::call_fun_ref(
+		_config.end_query(),
 		_config.samples_target()
 	);
 

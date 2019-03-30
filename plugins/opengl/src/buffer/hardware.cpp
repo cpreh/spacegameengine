@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/base.hpp>
@@ -60,7 +61,8 @@ sge::opengl::buffer::hardware::gen_buffer()
 {
 	GLuint new_id;
 
-	config_.gen_buffers()(
+	sge::opengl::call_fun_ref(
+		config_.gen_buffers(),
 		1,
 		&new_id
 	);
@@ -81,7 +83,8 @@ sge::opengl::buffer::hardware::delete_buffer(
 	sge::opengl::buffer::id const _id
 )
 {
-	config_.delete_buffers()(
+	sge::opengl::call_fun_ref(
+		config_.delete_buffers(),
 		1,
 		&_id.get()
 	);
@@ -118,7 +121,8 @@ sge::opengl::buffer::hardware::bind_buffer(
 		)
 	);
 
-	config_.bind_buffer()(
+	sge::opengl::call_fun_ref(
+		config_.bind_buffer(),
 		type_.get(),
 		id.get()
 	);
@@ -136,7 +140,8 @@ sge::opengl::buffer::hardware::map_buffer(
 {
 	GLvoid *const ret(
 		fcppt::cast::to_void_ptr(
-			config_.map_buffer()(
+			sge::opengl::call_fun_ref(
+				config_.map_buffer(),
 				type_.get(),
 				_flags
 			)
@@ -154,16 +159,17 @@ sge::opengl::buffer::hardware::map_buffer(
 
 GLvoid *
 sge::opengl::buffer::hardware::map_buffer_range(
-	GLenum const _flags,
-	GLsizei const _first,
-	GLsizei const _size
+	GLbitfield const _flags,
+	GLintptr const _first,
+	GLsizeiptr const _size
 )
 {
 	GLvoid *const ret(
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			config_.map_buffer_range()
-		).get()(
-			type_.get(),
+		sge::opengl::call_fun_ref(
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				this->config_.map_buffer_range()
+			),
+			this->type_.get(),
 			_first,
 			_size,
 			_flags
@@ -189,7 +195,8 @@ sge::opengl::buffer::hardware::map_buffer_range_supported() const
 void
 sge::opengl::buffer::hardware::unmap_buffer()
 {
-	config_.unmap_buffer()(
+	sge::opengl::call_fun_ref(
+		config_.unmap_buffer(),
 		type_.get()
 	);
 
@@ -201,12 +208,13 @@ sge::opengl::buffer::hardware::unmap_buffer()
 
 void
 sge::opengl::buffer::hardware::buffer_data(
-	GLsizei const _size,
+	GLsizeiptr const _size,
 	GLvoid const *const _data,
 	GLenum const _flags
 )
 {
-	config_.buffer_data()(
+	sge::opengl::call_fun_ref(
+		config_.buffer_data(),
 		type_.get(),
 		_size,
 		_data,
@@ -221,12 +229,13 @@ sge::opengl::buffer::hardware::buffer_data(
 
 void
 sge::opengl::buffer::hardware::buffer_sub_data(
-	GLsizei const _first,
-	GLsizei const _size,
+	GLintptr const _first,
+	GLsizeiptr const _size,
 	GLvoid const *const _data
 )
 {
-	config_.buffer_sub_data()(
+	sge::opengl::call_fun_ref(
+		config_.buffer_sub_data(),
 		type_.get(),
 		_first,
 		_size,
@@ -241,7 +250,7 @@ sge::opengl::buffer::hardware::buffer_sub_data(
 
 void *
 sge::opengl::buffer::hardware::buffer_offset(
-	GLsizei const _offset
+	GLintptr const _offset
 ) const
 {
 	return

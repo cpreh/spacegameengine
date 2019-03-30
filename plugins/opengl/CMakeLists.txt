@@ -40,6 +40,7 @@ set(
 	plugins/opengl/include/sge/opengl/buffer/vbo_context.hpp
 	plugins/opengl/include/sge/opengl/buffer/wrapper.hpp
 	plugins/opengl/include/sge/opengl/call.hpp
+	plugins/opengl/include/sge/opengl/call_fun_ref.hpp
 	plugins/opengl/include/sge/opengl/check_state.hpp
 	plugins/opengl/include/sge/opengl/check_state_always.hpp
 	plugins/opengl/include/sge/opengl/check_state_once.hpp
@@ -144,9 +145,8 @@ set(
 	plugins/opengl/include/sge/opengl/fbo/texture_binding_fwd.hpp
 	plugins/opengl/include/sge/opengl/fbo/unbind.hpp
 	plugins/opengl/include/sge/opengl/fun_ref.hpp
-	plugins/opengl/include/sge/opengl/fun_ref_impl.hpp
+	plugins/opengl/include/sge/opengl/fun_ref_value_type.hpp
 	plugins/opengl/include/sge/opengl/get_device_caps.hpp
-	plugins/opengl/include/sge/opengl/get_fun_ref.hpp
 	plugins/opengl/include/sge/opengl/get_int.hpp
 	plugins/opengl/include/sge/opengl/get_ints.hpp
 	plugins/opengl/include/sge/opengl/get_string.hpp

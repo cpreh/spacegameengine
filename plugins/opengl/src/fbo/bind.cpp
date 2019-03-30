@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/fbo/bind.hpp>
 #include <sge/opengl/fbo/config.hpp>
@@ -32,7 +33,8 @@ sge::opengl::fbo::bind(
 	sge::opengl::fbo::id const _id
 )
 {
-	_context.bind_framebuffer()(
+	sge::opengl::call_fun_ref(
+		_context.bind_framebuffer(),
 		_context.framebuffer_target(),
 		_id.get()
 	);

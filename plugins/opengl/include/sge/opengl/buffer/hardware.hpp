@@ -77,9 +77,9 @@ private:
 
 	GLvoid *
 	map_buffer_range(
-		GLenum flags,
-		GLsizei first,
-		GLsizei size
+		GLbitfield flags,
+		GLintptr first,
+		GLsizeiptr size
 	)
 	override;
 
@@ -93,7 +93,7 @@ private:
 
 	void
 	buffer_data(
-		GLsizei size,
+		GLsizeiptr size,
 		GLvoid const *data,
 		GLenum flags
 	)
@@ -101,15 +101,15 @@ private:
 
 	void
 	buffer_sub_data(
-		GLsizei first,
-		GLsizei size,
+		GLintptr first,
+		GLsizeiptr size,
 		GLvoid const *data
 	)
 	override;
 
 	void *
 	buffer_offset(
-		GLsizei offset
+		GLintptr offset
 	) const
 	override;
 

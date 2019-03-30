@@ -117,9 +117,9 @@ sge::opengl::buffer::software::map_buffer(
 
 GLvoid *
 sge::opengl::buffer::software::map_buffer_range(
-	GLenum const,
-	GLsizei const _first,
-	GLsizei const
+	GLbitfield,
+	GLintptr const _first,
+	GLsizeiptr
 )
 {
 	return
@@ -145,7 +145,7 @@ sge::opengl::buffer::software::unmap_buffer()
 
 void
 sge::opengl::buffer::software::buffer_data(
-	GLsizei const _size,
+	GLsizeiptr const _size,
 	void const *const _data,
 	GLenum
 )
@@ -177,17 +177,18 @@ sge::opengl::buffer::software::buffer_data(
 
 void
 sge::opengl::buffer::software::buffer_sub_data(
-	GLsizei const _first,
-	GLsizei const _size,
+	GLintptr const _first,
+	GLsizeiptr const _size,
 	void const *const _data
 )
 {
 	if(
 		!_data
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("buffer_sub_data(): data may not be 0!")
-		);
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("buffer_sub_data(): data may not be 0!")
+			};
 
 	std::copy_n(
 		fcppt::cast::to_char_ptr<
@@ -206,7 +207,7 @@ sge::opengl::buffer::software::buffer_sub_data(
 
 void *
 sge::opengl::buffer::software::buffer_offset(
-	GLsizei const _offset
+	GLintptr const _offset
 ) const
 {
 	return

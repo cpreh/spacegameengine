@@ -72,9 +72,9 @@ public:
 	virtual
 	GLvoid *
 	map_buffer_range(
-		GLenum flags,
-		GLsizei first,
-		GLsizei size
+		GLbitfield flags,
+		GLintptr first,
+		GLsizeiptr size
 	) = 0;
 
 	virtual
@@ -88,7 +88,7 @@ public:
 	virtual
 	void
 	buffer_data(
-		GLsizei size,
+		GLsizeiptr size,
 		GLvoid const *data,
 		GLenum flags
 	) = 0;
@@ -96,15 +96,15 @@ public:
 	virtual
 	void
 	buffer_sub_data(
-		GLsizei first,
-		GLsizei size,
+		GLintptr first,
+		GLsizeiptr size,
 		GLvoid const *data
 	) = 0;
 
 	virtual
 	GLvoid *
 	buffer_offset(
-		GLsizei offset
+		GLintptr offset
 	) const = 0;
 
 	virtual

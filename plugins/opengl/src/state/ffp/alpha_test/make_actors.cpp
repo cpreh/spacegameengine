@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
-#include <sge/opengl/get_fun_ref.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
@@ -32,9 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/ffp/alpha_test/parameters.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/variant/match.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor_vector
@@ -52,10 +49,12 @@ sge::opengl::state::ffp::alpha_test::make_actors(
 				return
 					sge::opengl::state::actor_vector{
 						sge::opengl::state::actor{
-							std::bind(
-								sge::opengl::disable,
-								GL_ALPHA_TEST
-							)
+							[]{
+								return
+									sge::opengl::disable(
+										GL_ALPHA_TEST
+									);
+							}
 						}
 					};
 			},
@@ -66,23 +65,28 @@ sge::opengl::state::ffp::alpha_test::make_actors(
 				return
 					sge::opengl::state::actor_vector{
 						sge::opengl::state::actor{
-							std::bind(
-								sge::opengl::enable,
-								GL_ALPHA_TEST
-							)
+							[]{
+								return
+									sge::opengl::enable(
+										GL_ALPHA_TEST
+									);
+							}
 						},
 						sge::opengl::state::wrap_error_handler<
 							sge::opengl::state::actor
 						>(
-							std::bind(
-								sge::opengl::get_fun_ref(
-									::glAlphaFunc
-								),
-								sge::opengl::state::convert::alpha_func(
-									_enabled.func()
-								),
-								_enabled.ref().get()
-							),
+							[
+								_enabled
+							]{
+								return
+									sge::opengl::call(
+										::glAlphaFunc,
+										sge::opengl::state::convert::alpha_func(
+											_enabled.func()
+										),
+										_enabled.ref().get()
+									);
+							},
 							FCPPT_TEXT("glAlphaFunc")
 						)
 					};

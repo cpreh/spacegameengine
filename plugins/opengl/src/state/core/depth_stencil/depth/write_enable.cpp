@@ -18,17 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/get_fun_ref.hpp>
 #include <sge/opengl/convert/to_gl_bool.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/core/depth_stencil/depth/write_enable.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/write_enable.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor
@@ -40,14 +37,17 @@ sge::opengl::state::core::depth_stencil::depth::write_enable(
 		sge::opengl::state::wrap_error_handler<
 			sge::opengl::state::actor
 		>(
-			std::bind(
-				sge::opengl::get_fun_ref(
-					::glDepthMask
-				),
-				sge::opengl::convert::to_gl_bool(
-					_write_enable.get()
-				)
-			),
+			[
+				_write_enable
+			]{
+				return
+					sge::opengl::call(
+						::glDepthMask,
+						sge::opengl::convert::to_gl_bool(
+							_write_enable.get()
+						)
+					);
+			},
 			FCPPT_TEXT("glDepthMask")
 		);
 }

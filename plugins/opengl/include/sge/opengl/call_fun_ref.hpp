@@ -18,10 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GET_FUN_REF_HPP_INCLUDED
-#define SGE_OPENGL_GET_FUN_REF_HPP_INCLUDED
+#ifndef SGE_OPENGL_CALL_FUN_REF_HPP_INCLUDED
+#define SGE_OPENGL_CALL_FUN_REF_HPP_INCLUDED
 
 #include <sge/opengl/apientry.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -33,20 +34,19 @@ template<
 	typename Result,
 	typename... Args
 >
-auto
 inline
-get_fun_ref(
-	Result (SGE_OPENGL_APIENTRY &_fun)(
-		Args...
-	)
-)
-->
-Result (SGE_OPENGL_APIENTRY &)(
-	Args...
+Result
+call_fun_ref(
+	fcppt::reference<
+		Result SGE_OPENGL_APIENTRY (Args...)
+	> const _fun,
+	Args... _args
 )
 {
 	return
-		_fun;
+		_fun.get()(
+			_args...
+		);
 }
 
 }

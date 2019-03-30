@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
-#include <sge/opengl/get_fun_ref.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
@@ -34,9 +34,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/depth/write_enable.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/variant/match.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor_vector
@@ -54,10 +51,12 @@ sge::opengl::state::core::depth_stencil::depth::make_actors(
 				return
 					sge::opengl::state::actor_vector{
 						sge::opengl::state::actor{
-							std::bind(
-								sge::opengl::disable,
-								GL_DEPTH_TEST
-							)
+							[]{
+								return
+									sge::opengl::disable(
+										GL_DEPTH_TEST
+									);
+							}
 						},
 						sge::opengl::state::core::depth_stencil::depth::write_enable(
 							sge::renderer::state::core::depth_stencil::depth::write_enable(
@@ -81,14 +80,17 @@ sge::opengl::state::core::depth_stencil::depth::make_actors(
 						sge::opengl::state::wrap_error_handler<
 							sge::opengl::state::actor
 						>(
-							std::bind(
-								sge::opengl::get_fun_ref(
-									::glDepthFunc
-								),
-								sge::opengl::state::convert::depth_func(
-									_enabled.func()
-								)
-							),
+							[
+								_enabled
+							]{
+								return
+									sge::opengl::call(
+										::glDepthFunc,
+										sge::opengl::state::convert::depth_func(
+											_enabled.func()
+										)
+									);
+							},
 							FCPPT_TEXT("glDepthFunc")
 						),
 						sge::opengl::state::core::depth_stencil::depth::write_enable(

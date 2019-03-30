@@ -29,7 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/info/minor_version.hpp>
 #include <sge/opengl/info/version_at_least.hpp>
 #include <sge/opengl/state/ffp/transform/context.hpp>
-#include <fcppt/make_ref.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -56,14 +55,12 @@ sge::opengl::state::ffp::transform::context::context(
 		)
 		?
 			optional_load_transpose_matrix_f(
-				fcppt::make_ref(
-					sge::opengl::deref_fun_ptr(
-						sge::opengl::info::cast_function<
-							gl_load_transpose_matrix_proc
-						>(
-							_info.load_function(
-								"glLoadTransposeMatrixf"
-							)
+				sge::opengl::deref_fun_ptr(
+					sge::opengl::info::cast_function<
+						gl_load_transpose_matrix_proc
+					>(
+						_info.load_function(
+							"glLoadTransposeMatrixf"
 						)
 					)
 				)

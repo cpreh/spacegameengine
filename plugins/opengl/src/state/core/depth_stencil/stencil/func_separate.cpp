@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
@@ -28,9 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/state/core/depth_stencil/stencil/read_mask.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
 sge::opengl::state::actor
@@ -46,15 +45,26 @@ sge::opengl::state::core::depth_stencil::stencil::func_separate(
 		sge::opengl::state::wrap_error_handler<
 			sge::opengl::state::actor
 		>(
-			std::bind(
-				_config.stencil_func_separate(),
+			[
+				&_config,
 				_side,
-				sge::opengl::state::convert::stencil_func(
-					_func
-				),
-				_ref.get(),
-				_read_mask.get()
-			),
+				_func,
+				_ref,
+				_read_mask
+			]{
+				return
+					sge::opengl::call_fun_ref(
+						_config.stencil_func_separate(),
+						_side,
+						sge::opengl::state::convert::stencil_func(
+							_func
+						),
+						fcppt::cast::to_signed(
+							_ref.get()
+						),
+						_read_mask.get()
+					);
+			},
 			FCPPT_TEXT("glStencilFuncSeparate")
 		);
 }

@@ -22,15 +22,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_TEXTURE_MIPMAP_CONTEXT_HPP_INCLUDED
 
 #include <sge/opengl/fun_ref.hpp>
+#include <sge/opengl/fun_ref_value_type.hpp>
 #include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/info/context_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional/reference.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -73,10 +71,9 @@ public:
 
 	typedef
 	fcppt::optional::reference<
-		typename
-		std::remove_reference<
+		sge::opengl::fun_ref_value_type<
 			gl_generate_mipmap
-		>::type
+		>
 	>
 	optional_gl_generate_mipmap;
 

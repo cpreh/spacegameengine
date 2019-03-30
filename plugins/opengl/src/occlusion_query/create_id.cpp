@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/occlusion_query/config.hpp>
@@ -34,7 +35,8 @@ sge::opengl::occlusion_query::create_id(
 {
 	GLuint id;
 
-	_config.gen_queries()(
+	sge::opengl::call_fun_ref(
+		_config.gen_queries(),
 		1,
 		&id
 	);

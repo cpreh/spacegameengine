@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/vf/attribute_config.hpp>
@@ -34,9 +35,10 @@ sge::opengl::vf::enable_vertex_attrib_array(
 	GLuint const _index
 )
 {
-	sge::opengl::vf::get_attribute_config(
-		_context
-	).enable_vertex_attrib_array()(
+	sge::opengl::call_fun_ref(
+		sge::opengl::vf::get_attribute_config(
+			_context
+		).enable_vertex_attrib_array(),
 		_index
 	);
 
