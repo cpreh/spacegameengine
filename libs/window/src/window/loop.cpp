@@ -25,8 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/event/base_unique_ptr.hpp>
 #include <awl/event/container.hpp>
 #include <awl/main/exit_code.hpp>
-#include <awl/system/event/result.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/either/loop.hpp>
 
 
 awl::main::exit_code
@@ -35,30 +34,28 @@ sge::window::loop(
 	sge::window::loop_function const &_function
 )
 {
-	// TODO: This is ugly
-	for(
-		;;
-	)
-	{
-		awl::system::event::result const result{
-			_system.next()
-		};
-
-		if(
-			result.has_failure()
-		)
-			return
-				result.get_failure_unsafe();
-
-		for(
-			awl::event::base_unique_ptr const &event
-			:
-			result.get_success_unsafe()
-		)
-			_function(
-				*event
-			);
-	}
-
-	FCPPT_ASSERT_UNREACHABLE;
+	return
+		fcppt::either::loop(
+			[
+				&_system
+			]{
+				return
+					_system.next();
+			},
+			[
+				&_function
+			](
+				awl::event::container const &_events
+			)
+			{
+				for(
+					awl::event::base_unique_ptr const &event
+					:
+					_events
+				)
+					_function(
+						*event
+					);
+			}
+		);
 }
