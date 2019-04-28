@@ -18,8 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/opencl/exception.hpp>
+#include <sge/opencl/program/source_string_sequence.hpp>
 #include <sge/opencl/program/file_to_source_string_sequence.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/stream_to_string.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/path.hpp>
@@ -37,8 +42,22 @@ sge::opencl::program::file_to_source_string_sequence(
 
 	return
 		sge::opencl::program::source_string_sequence{
-			fcppt::io::stream_to_string(
-				stream
+			fcppt::optional::to_exception(
+				fcppt::io::stream_to_string(
+					stream
+				),
+				[
+					&_path
+				]{
+					return
+						sge::opencl::exception{
+							FCPPT_TEXT("Failed to read ")
+							+
+							fcppt::filesystem::path_to_string(
+								_path
+							)
+						};
+				}
 			)
 		};
 }

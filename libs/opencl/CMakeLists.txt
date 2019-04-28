@@ -195,6 +195,7 @@ add_sge_base_library(
 		sgerenderer_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
+		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
 		${OpenCL_LIBRARIES}
 		${OPENGL_gl_LIBRARY}

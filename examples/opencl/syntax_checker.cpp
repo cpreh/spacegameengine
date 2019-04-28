@@ -124,8 +124,22 @@ main_program(
 		log_context,
 		opencl_system.context(),
 		sge::opencl::program::source_string_sequence{
-			fcppt::io::stream_to_string(
-				stream
+			fcppt::optional::to_exception(
+				fcppt::io::stream_to_string(
+					stream
+				),
+				[
+					&_target_file_name
+				]{
+					return
+						fcppt::exception{
+							FCPPT_TEXT("Failed to load ")
+							+
+							fcppt::filesystem::path_to_string(
+								_target_file_name
+							)
+						};
+				}
 			)
 		},
 		sge::opencl::program::optional_build_parameters()
