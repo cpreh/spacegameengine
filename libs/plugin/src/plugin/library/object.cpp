@@ -168,13 +168,15 @@ sge::plugin::library::object::~object()
 		return;
 
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-	// NOTE: we can't free the library here,
+	// NOTE: We can't free the library here,
 	// because an exception might be propagating that
-	// has been risen from a dll
-	// if we destroy the dll here, the catch of
-	// exception will crash
+	// has been thrown from a DLL.
+	// If we destroy the DLL here, the catch of
+	// exception will crash.
 	if(
-		std::uncaught_exception()
+		std::uncaught_exceptions()
+		>
+		0
 	)
 		libraries.push_back(
 			fcppt::make_unique_ptr<
