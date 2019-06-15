@@ -28,6 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/window/system.hpp>
 #include <awl/cursor/const_optional_object_ref.hpp>
 #include <awl/cursor/object.hpp>
+#include <awl/cursor/optional_type.hpp>
 #include <awl/cursor/type.hpp>
 #include <awl/system/object.hpp>
 #include <awl/system/event/processor.hpp>
@@ -70,9 +71,11 @@ sge::systems::impl::window::original::original(
 		_system.awl_system().create_cursor(
 			_parameters.hide_cursor()
 			?
-				awl::cursor::type::invisible
+				awl::cursor::optional_type{}
 			:
-				awl::cursor::type::arrow
+				awl::cursor::optional_type{
+					awl::cursor::type::arrow
+				}
 		)
 	),
 	awl_window_(
