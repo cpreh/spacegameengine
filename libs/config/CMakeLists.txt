@@ -96,6 +96,7 @@ add_sge_base_library(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${fcppt_filesystem_TARGET}
+		${fcppt_system_TARGET}
 		${Boost_FILESYSTEM_LIBRARIES}
 		${Boost_SYSTEM_LIBRARIES}
 		${SGE_CONFIG_ADDITIONAL_LIBS}

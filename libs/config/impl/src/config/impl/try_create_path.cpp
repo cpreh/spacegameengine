@@ -20,10 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/config/exception.hpp>
 #include <sge/config/impl/try_create_path.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/either/error_from_optional.hpp>
 #include <fcppt/either/to_exception.hpp>
 #include <fcppt/filesystem/create_directories_recursive.hpp>
-#include <fcppt/filesystem/create_directory_error.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/system/error_code_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/system/error_code.hpp>
@@ -49,8 +51,15 @@ sge::config::impl::try_create_path(
 		{
 			return
 				sge::config::exception{
-					fcppt::filesystem::create_directory_error(
-						_path,
+					FCPPT_TEXT("Failed to create ")
+					+
+					fcppt::filesystem::path_to_string(
+						_path
+					)
+					+
+					FCPPT_TEXT(". Reason: ")
+					+
+					fcppt::system::error_code_to_string(
 						_error
 					)
 				};
