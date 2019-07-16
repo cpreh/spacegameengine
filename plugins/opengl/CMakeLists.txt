@@ -1411,6 +1411,10 @@ set(
 	plugins/opengl/src/egl/wayland/window_holder.cpp
 )
 
+set(
+	SGE_OPENGL_SDL_FILES
+)
+
 include(
 	FindPkgConfig
 )
@@ -1607,6 +1611,44 @@ if(
 		APPEND
 		SGE_OPENGL_ADDITIONAL_DEPS
 		PkgConfig::EGL
+	)
+endif()
+
+option(
+	ENABLE_OPENGL_SDL
+	"Enable SDL backend in OpenGL"
+	${ENABLE_SDL}
+)
+
+if(
+	ENABLE_OPENGL_SDL
+)
+	find_package(
+		SDL2
+		REQUIRED
+	)
+
+	set(
+		SGE_OPENGL_HAVE_SDL
+		TRUE
+	)
+
+	list(
+		APPEND
+		SGE_OPENGL_FILES
+		${SGE_OPENGL_SDL_FILES}
+	)
+
+	list(
+		APPEND
+		SGE_OPENGL_INCLUDE_DIRS
+		${SDL2_INCLUDE_DIRS}
+	)
+
+	list(
+		APPEND
+		SGE_OPENGL_ADDITIONAL_DEPS
+		${SDL2_LIBRARIES}
 	)
 endif()
 

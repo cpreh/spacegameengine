@@ -197,6 +197,10 @@ update_opengl \
 	SGE_OPENGL_EGL_WAYLAND_FILES \
 	$(opengl_inc_src egl/wayland)
 
+update_opengl \
+	SGE_OPENGL_SDL_FILES \
+	$(opengl_inc_src sdl)
+
 update_plugin audio_null
 
 function d3d9_inc_src() {
