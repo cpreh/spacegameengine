@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #if defined(SGE_OPENGL_HAVE_EGL)
 #include <sge/opengl/egl/system.hpp>
 #endif
-#if defined(SGE_OPENGL_HAVE_X11)
+#if defined(SGE_OPENGL_HAVE_GLX)
 #include <sge/opengl/glx/system.hpp>
 #include <awl/backends/x11/system/object.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
@@ -99,7 +99,7 @@ create_functions_exn()
 				}
 			},
 #endif
-#if defined(SGE_OPENGL_HAVE_X11)
+#if defined(SGE_OPENGL_HAVE_GLX)
 			create_function_exn{
 				[](
 					fcppt::log::object &_log,

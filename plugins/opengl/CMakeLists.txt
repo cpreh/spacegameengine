@@ -1480,6 +1480,12 @@ option(
 	${X11_OPENGL_FOUND}
 )
 
+option(
+	ENABLE_OPENGL_GLX
+	"Enable GLX backend in OpenGL"
+	${ENABLE_OPENGL_X11}
+)
+
 if(
 	ENABLE_OPENGL_X11
 )
@@ -1514,13 +1520,22 @@ if(
 			SGE_OPENGL_FILES
 			${SGE_OPENGL_EGL_X11_FILES}
 		)
-	else()
+	endif()
+
+	if(
+		ENABLE_OPENGL_GLX
+	)
+		set(
+			SGE_OPENGL_HAVE_GLX
+			TRUE
+		)
+
 		list(
 			APPEND
 			SGE_OPENGL_FILES
 			${SGE_OPENGL_GLX_FILES}
 		)
-	endif()
+endif()
 endif()
 
 if(
