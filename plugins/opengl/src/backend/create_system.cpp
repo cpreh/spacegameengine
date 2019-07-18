@@ -154,7 +154,9 @@ create_functions_exn()
 				{
 					throw
 						sge::renderer::exception{
-							fcppt::string{}
+							fcppt::string{
+								FCPPT_TEXT("All possibilities exhausted.")
+							}
 						};
 				}
 			}
@@ -266,7 +268,7 @@ sge::opengl::backend::create_system(
 			{
 				return
 					sge::renderer::exception{
-						FCPPT_TEXT("Cannot create an OpenGL backends: ")
+						FCPPT_TEXT("Cannot create an OpenGL backend: ")
 						+
 						fcppt::algorithm::join_strings(
 							_failures,

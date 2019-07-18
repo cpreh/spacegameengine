@@ -47,6 +47,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 #include <fcppt/config/platform.hpp>
+#if defined(SGE_OPENGL_HAVE_SDL)
+#include <sge/opengl/sdl/platform_system.hpp>
+#include <awl/backends/sdl/system/object.hpp>
+#endif
 #if defined(SGE_OPENGL_HAVE_X11)
 #include <sge/opengl/x11/system.hpp>
 #include <awl/backends/x11/system/object.hpp>
@@ -60,7 +64,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #endif
 
 
-#if defined(SGE_OPENGL_HAVE_X11) || defined(SGE_OPENGL_HAVE_WAYLAND)
+#if defined(SGE_OPENGL_HAVE_X11) || defined(SGE_OPENGL_HAVE_WAYLAND) || defined(SGE_OPENGL_HAVE_SDL)
 #define SGE_OPENGL_NEED_TRY_CREATE
 #define SGE_OPENGL_NEED_SYSTEM
 #endif
@@ -193,6 +197,32 @@ sge::opengl::platform::create_system(
 		fcppt::either::to_exception(
 			fcppt::either::first_success(
 				fcppt::container::array::make(
+#if defined(SGE_OPENGL_HAVE_SDL)
+					try_create<
+						sge::opengl::sdl::platform_system,
+						awl::backends::sdl::system::object
+					>(
+						_awl_system,
+						create_function<
+							sge::opengl::sdl::platform_system,
+							awl::backends::sdl::system::object
+						>{
+							[](
+								fcppt::reference<
+									awl::backends::sdl::system::object
+								> const _system
+							)
+							{
+								return
+									fcppt::make_unique_ptr<
+										sge::opengl::sdl::platform_system
+									>(
+										_system.get()
+									);
+							}
+						}
+					),
+#endif
 #if defined(SGE_OPENGL_HAVE_X11)
 					try_create(
 						_awl_system,
