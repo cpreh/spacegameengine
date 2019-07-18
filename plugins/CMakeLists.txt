@@ -61,6 +61,16 @@ pkg_check_modules(
 	x11
 )
 
+find_package(
+	SDL2
+)
+
+option(
+	ENABLE_SDL
+	"Enable SDL support in plugins"
+	${SDL2_FOUND}
+)
+
 add_sge_lib(
 	audio_null
 	"Build the null audio player plugin"

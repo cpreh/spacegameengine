@@ -1413,6 +1413,10 @@ set(
 
 set(
 	SGE_OPENGL_SDL_FILES
+	plugins/opengl/include/sge/opengl/sdl/device_state.hpp
+	plugins/opengl/include/sge/opengl/sdl/platform_system.hpp
+	plugins/opengl/src/sdl/device_state.cpp
+	plugins/opengl/src/sdl/platform_system.cpp
 )
 
 include(
@@ -1535,7 +1539,7 @@ if(
 			SGE_OPENGL_FILES
 			${SGE_OPENGL_GLX_FILES}
 		)
-endif()
+	endif()
 endif()
 
 if(
