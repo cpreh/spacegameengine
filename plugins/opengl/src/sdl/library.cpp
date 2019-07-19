@@ -18,60 +18,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SDL_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_SDL_CONTEXT_HPP_INCLUDED
-
-#include <sge/opengl/backend/context.hpp>
-#include <sge/opengl/backend/current_unique_ptr.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <awl/backends/sdl/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/opengl/sdl/library.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_video.h>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
+sge::opengl::sdl::library::library()
 {
-namespace opengl
-{
-namespace sdl
-{
-
-class context
-:
-	public
-		sge::opengl::backend::context
-{
-	FCPPT_NONCOPYABLE(
-		context
-	);
-public:
-	explicit
-	context(
-		sge::window::object &
-	);
-
-	~context()
-	override;
-
-	sge::opengl::backend::current_unique_ptr
-	activate()
-	override;
-
-	void
-	deactivate(
-		sge::opengl::backend::current_unique_ptr &&
+	if(
+		SDL_GL_LoadLibrary(
+			nullptr
+		)
+		!=
+		0
 	)
-	override;
-private:
-	awl::backends::sdl::window::object &window_;
-
-	SDL_GLContext const context_;
-};
-
-}
-}
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("Failed to load SDL OpenGL library!")
+			};
 }
 
-#endif
+sge::opengl::sdl::library::~library()
+{
+	SDL_GL_UnloadLibrary();
+}

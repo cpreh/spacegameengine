@@ -28,6 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <SDL_video.h>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::sdl::context::context(
@@ -41,12 +44,20 @@ sge::opengl::sdl::context::context(
 		>(
 			_window.awl_object()
 		)
+	},
+	context_{
+		SDL_GL_CreateContext(
+			&this->window_.get()
+		)
 	}
 {
 }
 
 sge::opengl::sdl::context::~context()
 {
+	SDL_GL_DeleteContext(
+		this->context_
+	);
 }
 
 sge::opengl::backend::current_unique_ptr
@@ -59,14 +70,15 @@ sge::opengl::sdl::context::activate()
 			fcppt::make_unique_ptr<
 				sge::opengl::sdl::current
 			>(
-				this->window_
+				this->window_,
+				this->context_
 			)
 		);
 }
 
 void
 sge::opengl::sdl::context::deactivate(
-	sge::opengl::backend::current_unique_ptr &&_current
+	sge::opengl::backend::current_unique_ptr &&
 )
 {
 }

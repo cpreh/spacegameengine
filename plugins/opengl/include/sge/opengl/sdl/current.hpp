@@ -27,6 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/sdl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <SDL_video.h>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
@@ -47,9 +48,9 @@ class current
 		current
 	);
 public:
-	explicit
 	current(
-		awl::backends::sdl::window::object &
+		awl::backends::sdl::window::object &,
+		SDL_GLContext
 	);
 
 	~current()
@@ -74,6 +75,10 @@ public:
 		sge::renderer::display_mode::vsync
 	)
 	override;
+private:
+	awl::backends::sdl::window::object &window_;
+
+	SDL_GLContext const context_;
 };
 
 }

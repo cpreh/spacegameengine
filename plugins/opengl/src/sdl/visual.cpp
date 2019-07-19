@@ -19,9 +19,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/sdl/visual.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
 #include <awl/backends/sdl/visual/flags.hpp>
 #include <awl/backends/sdl/visual/object.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/cast/enum_to_underlying.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_video.h>
 #include <fcppt/config/external_end.hpp>
@@ -49,5 +53,46 @@ sge::opengl::sdl::visual::~visual()
 void
 sge::opengl::sdl::visual::apply() const
 {
+	auto const set_attribute(
+		[](
+			SDL_GLattr const _attr,
+			int const _value
+		)
+		{
+			if(
+				SDL_GL_SetAttribute(
+					_attr,
+					_value
+				)
+				!=
+				0
+			)
+				throw
+					sge::renderer::exception{
+						FCPPT_TEXT("Failed to set SDL GL attribute ")
+						+
+						fcppt::output_to_fcppt_string(
+							fcppt::cast::enum_to_underlying(
+								_attr
+							)
+						)
+						+
+						FCPPT_TEXT(" to ")
+						+
+						fcppt::output_to_fcppt_string(
+							_value
+						)
+						+
+						FCPPT_TEXT("!")
+					};
+		}
+	);
+
+	set_attribute(
+		SDL_GL_DOUBLEBUFFER,
+		1
+	);
+
 	// TODO: Apply pixel_format
+
 }

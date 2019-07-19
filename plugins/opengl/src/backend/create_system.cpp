@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/join_strings.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/either/first_success.hpp>
 #include <fcppt/either/object_impl.hpp>
 #include <fcppt/either/try_call.hpp>
@@ -42,13 +43,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <vector>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
+#if defined(SGE_OPENGL_HAVE_SDL)
+#include <sge/opengl/sdl/backend_system.hpp>
+#include <awl/backends/sdl/system/object.hpp>
+#endif
 #if defined(SGE_OPENGL_HAVE_EGL)
 #include <sge/opengl/egl/system.hpp>
 #endif
 #if defined(SGE_OPENGL_HAVE_GLX)
 #include <sge/opengl/glx/system.hpp>
 #include <awl/backends/x11/system/object.hpp>
-#include <fcppt/cast/dynamic_exn.hpp>
 #endif
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/opengl/wgl/system.hpp>
@@ -78,6 +82,30 @@ create_functions_exn()
 {
 	return
 		create_function_exn_vector{
+#if defined(SGE_OPENGL_HAVE_SDL)
+			create_function_exn{
+				[](
+					fcppt::log::object &,
+					awl::system::object &_awl_system
+				)
+				{
+					return
+						fcppt::unique_ptr_to_base<
+							sge::opengl::backend::system
+						>(
+							fcppt::make_unique_ptr<
+								sge::opengl::sdl::backend_system
+							>(
+								fcppt::cast::dynamic_exn<
+									awl::backends::sdl::system::object &
+								>(
+									_awl_system
+								)
+							)
+						);
+				}
+			},
+#endif
 #if defined(SGE_OPENGL_HAVE_EGL)
 			create_function_exn{
 				[](

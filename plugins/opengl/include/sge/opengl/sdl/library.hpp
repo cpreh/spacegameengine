@@ -18,17 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SDL_CONTEXT_HPP_INCLUDED
-#define SGE_OPENGL_SDL_CONTEXT_HPP_INCLUDED
+#ifndef SGE_OPENGL_SDL_LIBRARY_HPP_INCLUDED
+#define SGE_OPENGL_SDL_LIBRARY_HPP_INCLUDED
 
-#include <sge/opengl/backend/context.hpp>
-#include <sge/opengl/backend/current_unique_ptr.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <awl/backends/sdl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <SDL_video.h>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -38,36 +31,15 @@ namespace opengl
 namespace sdl
 {
 
-class context
-:
-	public
-		sge::opengl::backend::context
+class library
 {
 	FCPPT_NONCOPYABLE(
-		context
+		library
 	);
 public:
-	explicit
-	context(
-		sge::window::object &
-	);
+	library();
 
-	~context()
-	override;
-
-	sge::opengl::backend::current_unique_ptr
-	activate()
-	override;
-
-	void
-	deactivate(
-		sge::opengl::backend::current_unique_ptr &&
-	)
-	override;
-private:
-	awl::backends::sdl::window::object &window_;
-
-	SDL_GLContext const context_;
+	~library();
 };
 
 }

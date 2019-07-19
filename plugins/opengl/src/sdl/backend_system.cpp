@@ -29,13 +29,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <SDL.h>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::sdl::backend_system::backend_system(
 	awl::backends::sdl::system::object &
 )
 :
-	sge::opengl::backend::system{}
+	sge::opengl::backend::system{},
+	init_video_{
+		SDL_INIT_VIDEO
+	}
 {
 }
 

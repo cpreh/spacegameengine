@@ -22,22 +22,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/fun_ptr.hpp>
 #include <sge/opengl/sdl/current.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
-#include <awl/backends/sdl/window/object_fwd.hpp>
+#include <awl/backends/sdl/window/object.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <SDL_video.h>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::sdl::current::current(
-	awl::backends::sdl::window::object &_window
+	awl::backends::sdl::window::object &_window,
+	SDL_GLContext const _context
 )
 :
-	sge::opengl::backend::current{}
+	sge::opengl::backend::current{},
+	window_{
+		_window
+	},
+	context_{
+		_context
+	}
 {
+	// TODO: What does this return?
+	int const result{
+		SDL_GL_MakeCurrent(
+			&_window.get(),
+			this->context_
+		)
+	};
 }
 
 sge::opengl::sdl::current::~current()
 {
+	// TODO: Remove Current?
 }
 
 sge::opengl::backend::fun_ptr
@@ -45,6 +61,14 @@ sge::opengl::sdl::current::load_function(
 	std::string const &_function
 ) const
 {
+	return
+		reinterpret_cast<
+			sge::opengl::backend::fun_ptr
+		>(
+			SDL_GL_GetProcAddress(
+				_function.c_str()
+			)
+		);
 }
 
 void
@@ -55,6 +79,9 @@ sge::opengl::sdl::current::begin_rendering()
 void
 sge::opengl::sdl::current::end_rendering()
 {
+	SDL_GL_SwapWindow(
+		&this->window_.get()
+	);
 }
 
 void
