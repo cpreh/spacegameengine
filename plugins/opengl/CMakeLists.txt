@@ -657,6 +657,9 @@ set(
 	plugins/opengl/include/sge/opengl/vf/texpos_actor.hpp
 	plugins/opengl/include/sge/opengl/vf/to_actor.hpp
 	plugins/opengl/include/sge/opengl/vf/vertex_attrib_pointer.hpp
+	plugins/opengl/include/sge/opengl/visual/convert_color.hpp
+	plugins/opengl/include/sge/opengl/visual/rgb_triple.hpp
+	plugins/opengl/include/sge/opengl/visual/rgb_triple_fwd.hpp
 	plugins/opengl/src/backend/context.cpp
 	plugins/opengl/src/backend/create_system.cpp
 	plugins/opengl/src/backend/current.cpp
@@ -1048,6 +1051,8 @@ set(
 	plugins/opengl/src/vf/texpos_actor.cpp
 	plugins/opengl/src/vf/to_actor.cpp
 	plugins/opengl/src/vf/vertex_attrib_pointer.cpp
+	plugins/opengl/src/visual/convert_color.cpp
+	plugins/opengl/src/visual/rgb_triple.cpp
 )
 
 set(
@@ -1163,15 +1168,12 @@ set(
 	plugins/opengl/include/sge/opengl/glx/system.hpp
 	plugins/opengl/include/sge/opengl/glx/visual/attribute_container.hpp
 	plugins/opengl/include/sge/opengl/glx/visual/choose.hpp
-	plugins/opengl/include/sge/opengl/glx/visual/convert_color.hpp
 	plugins/opengl/include/sge/opengl/glx/visual/create.hpp
 	plugins/opengl/include/sge/opengl/glx/visual/get_srgb_flag.hpp
 	plugins/opengl/include/sge/opengl/glx/visual/make_attributes.hpp
 	plugins/opengl/include/sge/opengl/glx/visual/object.hpp
 	plugins/opengl/include/sge/opengl/glx/visual/optional_srgb_flag.hpp
 	plugins/opengl/include/sge/opengl/glx/visual/optional_srgb_flag_fwd.hpp
-	plugins/opengl/include/sge/opengl/glx/visual/rgb_triple.hpp
-	plugins/opengl/include/sge/opengl/glx/visual/rgb_triple_fwd.hpp
 	plugins/opengl/include/sge/opengl/glx/visual/srgb_flag.hpp
 	plugins/opengl/include/sge/opengl/glx/visual/srgb_flag_fwd.hpp
 	plugins/opengl/include/sge/opengl/glx/vsync.hpp
@@ -1185,12 +1187,10 @@ set(
 	plugins/opengl/src/glx/swap_functions.cpp
 	plugins/opengl/src/glx/system.cpp
 	plugins/opengl/src/glx/visual/choose.cpp
-	plugins/opengl/src/glx/visual/convert_color.cpp
 	plugins/opengl/src/glx/visual/create.cpp
 	plugins/opengl/src/glx/visual/get_srgb_flag.cpp
 	plugins/opengl/src/glx/visual/make_attributes.cpp
 	plugins/opengl/src/glx/visual/object.cpp
-	plugins/opengl/src/glx/visual/rgb_triple.cpp
 	plugins/opengl/src/glx/vsync.cpp
 )
 

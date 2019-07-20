@@ -18,24 +18,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_VISUAL_RGB_TRIPLE_FWD_HPP_INCLUDED
-#define SGE_OPENGL_GLX_VISUAL_RGB_TRIPLE_FWD_HPP_INCLUDED
+#include <sge/opengl/visual/rgb_triple.hpp>
 
 
-namespace sge
+sge::opengl::visual::rgb_triple::rgb_triple(
+	sge::opengl::visual::rgb_triple::red_bits const _red,
+	sge::opengl::visual::rgb_triple::green_bits const _green,
+	sge::opengl::visual::rgb_triple::blue_bits const _blue
+)
+:
+	red_(
+		_red
+	),
+	green_(
+		_green
+	),
+	blue_(
+		_blue
+	)
 {
-namespace opengl
-{
-namespace glx
-{
-namespace visual
-{
-
-class rgb_triple;
-
-}
-}
-}
 }
 
-#endif
+sge::opengl::visual::rgb_triple::red_bits
+sge::opengl::visual::rgb_triple::red() const
+{
+	return
+		red_;
+}
+
+sge::opengl::visual::rgb_triple::green_bits
+sge::opengl::visual::rgb_triple::green() const
+{
+	return
+		green_;
+}
+
+sge::opengl::visual::rgb_triple::blue_bits
+sge::opengl::visual::rgb_triple::blue() const
+{
+	return
+		blue_;
+}

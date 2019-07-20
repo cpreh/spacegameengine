@@ -156,6 +156,7 @@ update_cmake \
 	$(opengl_inc_src target) \
 	$(opengl_inc_src texture) \
 	$(opengl_inc_src vertex) \
+	$(opengl_inc_src visual) \
 	$(opengl_inc_src vf)
 
 update_opengl \

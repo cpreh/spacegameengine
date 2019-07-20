@@ -19,11 +19,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opengl/glx/visual/attribute_container.hpp>
-#include <sge/opengl/glx/visual/convert_color.hpp>
 #include <sge/opengl/glx/visual/make_attributes.hpp>
 #include <sge/opengl/glx/visual/optional_srgb_flag.hpp>
-#include <sge/opengl/glx/visual/rgb_triple.hpp>
 #include <sge/opengl/glx/visual/srgb_flag.hpp>
+#include <sge/opengl/visual/convert_color.hpp>
+#include <sge/opengl/visual/rgb_triple.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/bit_count.hpp>
 #include <sge/renderer/pixel_format/depth_bits.hpp>
@@ -56,8 +56,8 @@ sge::opengl::glx::visual::make_attributes(
 	);
 
 	{
-		sge::opengl::glx::visual::rgb_triple const rgb(
-			sge::opengl::glx::visual::convert_color(
+		sge::opengl::visual::rgb_triple const rgb(
+			sge::opengl::visual::convert_color(
 				_format.color()
 			)
 		);

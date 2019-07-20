@@ -18,10 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_GLX_VISUAL_RGB_TRIPLE_HPP_INCLUDED
-#define SGE_OPENGL_GLX_VISUAL_RGB_TRIPLE_HPP_INCLUDED
+#ifndef SGE_OPENGL_VISUAL_RGB_TRIPLE_HPP_INCLUDED
+#define SGE_OPENGL_VISUAL_RGB_TRIPLE_HPP_INCLUDED
 
-#include <sge/opengl/glx/visual/rgb_triple_fwd.hpp>
+#include <sge/opengl/visual/rgb_triple_fwd.hpp>
 #include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
@@ -29,8 +29,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 namespace sge
 {
 namespace opengl
-{
-namespace glx
 {
 namespace visual
 {
@@ -54,28 +52,27 @@ public:
 	);
 
 	rgb_triple(
-		sge::opengl::glx::visual::rgb_triple::red_bits,
-		sge::opengl::glx::visual::rgb_triple::green_bits,
-		sge::opengl::glx::visual::rgb_triple::blue_bits
+		sge::opengl::visual::rgb_triple::red_bits,
+		sge::opengl::visual::rgb_triple::green_bits,
+		sge::opengl::visual::rgb_triple::blue_bits
 	);
 
-	sge::opengl::glx::visual::rgb_triple::red_bits
+	sge::opengl::visual::rgb_triple::red_bits
 	red() const;
 
-	sge::opengl::glx::visual::rgb_triple::green_bits
+	sge::opengl::visual::rgb_triple::green_bits
 	green() const;
 
-	sge::opengl::glx::visual::rgb_triple::blue_bits
+	sge::opengl::visual::rgb_triple::blue_bits
 	blue() const;
 private:
-	sge::opengl::glx::visual::rgb_triple::red_bits red_;
+	sge::opengl::visual::rgb_triple::red_bits red_;
 
-	sge::opengl::glx::visual::rgb_triple::green_bits green_;
+	sge::opengl::visual::rgb_triple::green_bits green_;
 
-	sge::opengl::glx::visual::rgb_triple::blue_bits blue_;
+	sge::opengl::visual::rgb_triple::blue_bits blue_;
 };
 
-}
 }
 }
 }
