@@ -89,7 +89,7 @@ sge::input::impl::multi_processor::multi_processor(
 						_log,
 						fcppt::log::out
 							<<
-							FCPPT_TEXT("Unusuable input plugin: ")
+							FCPPT_TEXT("Unusable input plugin: ")
 							<<
 							_error.string()
 					)
