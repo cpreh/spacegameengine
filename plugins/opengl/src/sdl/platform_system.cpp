@@ -48,13 +48,15 @@ sge::opengl::sdl::platform_system::create_device_state(
 	sge::window::object &_window
 )
 {
-	// TODO
 	return
 		fcppt::unique_ptr_to_base<
 			sge::opengl::platform::device_state
 		>(
 			fcppt::make_unique_ptr<
 				sge::opengl::sdl::device_state
-			>()
+			>(
+				_display_mode,
+				_window
+			)
 		);
 }

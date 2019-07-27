@@ -26,6 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/vsync.hpp>
 #include <awl/backends/sdl/window/object.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_video.h>
 #include <string>
@@ -92,15 +93,31 @@ sge::opengl::sdl::current::vsync(
 	sge::renderer::display_mode::vsync const _vsync
 )
 {
+	auto const convert_mode(
+		[](
+			sge::renderer::display_mode::vsync const _mode
+		{
+			switch(
+				_mode
+			)
+			{
+			case sge::renderer::display_mode::vsync::on
+				return
+					1;
+			case sge::renderer::display_mode::vsync::off:
+				return
+					0;
+			}
+
+			FCPPT_ASSERT_UNREACHABLE;
+		}
+	);
+
 	if(
 		SDL_GL_SetSwapInterval(
-			_vsync
-			==
-			sge::renderer::display_mode::vsync::on
-			?
-				1
-			:
-				0
+			convert_mode(
+				_vsync
+			)
 		)
 		!=
 		0
