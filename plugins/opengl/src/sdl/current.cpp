@@ -96,12 +96,13 @@ sge::opengl::sdl::current::vsync(
 	auto const convert_mode(
 		[](
 			sge::renderer::display_mode::vsync const _mode
+		)
 		{
 			switch(
 				_mode
 			)
 			{
-			case sge::renderer::display_mode::vsync::on
+			case sge::renderer::display_mode::vsync::on:
 				return
 					1;
 			case sge::renderer::display_mode::vsync::off:
