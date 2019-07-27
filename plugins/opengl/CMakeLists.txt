@@ -1418,6 +1418,7 @@ set(
 	plugins/opengl/include/sge/opengl/sdl/current.hpp
 	plugins/opengl/include/sge/opengl/sdl/device_state.hpp
 	plugins/opengl/include/sge/opengl/sdl/library.hpp
+	plugins/opengl/include/sge/opengl/sdl/make_current.hpp
 	plugins/opengl/include/sge/opengl/sdl/platform_system.hpp
 	plugins/opengl/include/sge/opengl/sdl/visual.hpp
 	plugins/opengl/src/sdl/backend_system.cpp
@@ -1425,6 +1426,7 @@ set(
 	plugins/opengl/src/sdl/current.cpp
 	plugins/opengl/src/sdl/device_state.cpp
 	plugins/opengl/src/sdl/library.cpp
+	plugins/opengl/src/sdl/make_current.cpp
 	plugins/opengl/src/sdl/platform_system.cpp
 	plugins/opengl/src/sdl/visual.cpp
 )
