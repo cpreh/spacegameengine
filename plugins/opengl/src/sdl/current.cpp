@@ -22,8 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/fun_ptr.hpp>
 #include <sge/opengl/sdl/current.hpp>
 #include <sge/opengl/sdl/make_current.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
 #include <awl/backends/sdl/window/object.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_video.h>
 #include <string>
@@ -90,4 +92,21 @@ sge::opengl::sdl::current::vsync(
 	sge::renderer::display_mode::vsync const _vsync
 )
 {
+	if(
+		SDL_GL_SetSwapInterval(
+			_vsync
+			==
+			sge::renderer::display_mode::vsync::on
+			?
+				1
+			:
+				0
+		)
+		!=
+		0
+	)
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("SDL_GL_SetSwapInterval failed")
+			};
 }
