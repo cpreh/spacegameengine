@@ -77,6 +77,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/device/parameters.hpp>
 #include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/draw_timer_setting_opt.hpp>
+#include <sge/renderer/display_mode/optional_fullscreen.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/event/render.hpp>
 #include <sge/renderer/index/buffer.hpp>
@@ -728,8 +729,8 @@ sge::d3d9::device::display_mode() const
 }
 
 void
-sge::d3d9::device::display_mode(
-	sge::renderer::display_mode::optional_object const &_display_mode
+sge::d3d9::device::fullscreen(
+	sge::renderer::display_mode::optional_fullscreen const &_fullscreen
 )
 {
 	// TODO

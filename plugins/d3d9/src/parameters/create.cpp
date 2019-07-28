@@ -25,7 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/d3d9/parameters/convert/depth_stencil_buffer.hpp>
 #include <sge/d3d9/parameters/convert/multi_sample.hpp>
 #include <sge/d3d9/parameters/convert/multi_sample_quality.hpp>
+#include <sge/renderer/display_mode/fullscreen.hpp>
 #include <sge/renderer/display_mode/object.hpp>
+#include <sge/renderer/display_mode/optional_refresh_rate.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/refresh_rate.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
@@ -34,9 +36,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <awl/backends/windows/window/object.hpp>
 #include <awl/window/object.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/bind.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
+#include <fcppt/optional/bind.hpp>
+#include <fcppt/optional/join.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/variant/to_optional.hpp>
 
 
 D3DPRESENT_PARAMETERS
@@ -48,7 +53,20 @@ sge::d3d9::parameters::create(
 {
 	sge::renderer::screen_size const back_buffer_size(
 		sge::d3d9::parameters::extract_size(
-			_parameters.display_mode(),
+			fcppt::optional::bind(
+				_parameters.fullscreen(),
+				[](
+					sge::renderer::display_mode::fullscreen const &_fullscreen
+				)
+				{
+					return
+						fcppt::variant::to_optional<
+							sge::renderer::display_mode::object
+						>(
+							_fullscreen
+						);
+				}
+			),
 			_window
 		)
 	);
@@ -79,7 +97,7 @@ sge::d3d9::parameters::create(
 		>(
 			_window
 		).hwnd(), // hDeviceWindow
-		!_parameters.display_mode().has_value(), // Windowed
+		!_parameters.fullscreen().has_value(), // Windowed
 		has_depth_stencil, // EnableAutoDepthStencil
 		sge::d3d9::parameters::convert::depth_stencil_buffer(
 			_pixel_format.depth_stencil()
@@ -92,13 +110,30 @@ sge::d3d9::parameters::create(
 		// FullScreen_RefreshRateInHz
 		fcppt::optional::maybe(
 			fcppt::optional::bind(
-				_parameters.display_mode(),
+				_parameters.fullscreen(),
 				[](
-					sge::renderer::display_mode::object const &_display_mode
+					sge::renderer::display_mode::fullscreen const &_fullscreen
 				)
+				->
+				sge::renderer::display_mode::optional_refresh_rate
 				{
 					return
-						_display_mode.refresh_rate();
+						fcppt::optional::join(
+							fcppt::optional::map(
+								fcppt::variant::to_optional<
+									sge::renderer::display_mode::object
+								>(
+									_fullscreen
+								),
+								[](
+									sge::renderer::display_mode::object const &_display_mode
+								)
+								{
+									return
+										_display_mode.refresh_rate();
+								}
+							)
+						);
 				}
 			),
 			fcppt::const_(

@@ -39,6 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/device/parameters_fwd.hpp>
+#include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <sge/renderer/index/buffer_parameters_fwd.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
@@ -273,8 +274,8 @@ private:
 	override;
 
 	void
-	display_mode(
-		sge::renderer::display_mode::optional_object const &
+	fullscreen(
+		sge::renderer::display_mode::optional_fullscreen const &
 	)
 	override;
 
