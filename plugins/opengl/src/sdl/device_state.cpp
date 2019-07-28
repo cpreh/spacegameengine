@@ -22,10 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/sdl/device_state.hpp>
 #include <sge/opengl/sdl/get_window_display_mode.hpp>
 #include <sge/renderer/screen_size.hpp>
+#include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_dimensions.hpp>
 #include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
-#include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/pixel_size.hpp>
 #include <sge/renderer/display_mode/refresh_rate.hpp>
 #include <sge/window/object.hpp>

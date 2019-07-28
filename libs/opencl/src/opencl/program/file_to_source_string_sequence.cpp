@@ -19,8 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 #include <sge/opencl/exception.hpp>
-#include <sge/opencl/program/source_string_sequence.hpp>
 #include <sge/opencl/program/file_to_source_string_sequence.hpp>
+#include <sge/opencl/program/source_string_sequence.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/stream_to_string.hpp>
