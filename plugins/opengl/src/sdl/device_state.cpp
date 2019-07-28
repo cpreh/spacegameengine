@@ -22,8 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/sdl/device_state.hpp>
 #include <sge/opengl/sdl/get_window_display_mode.hpp>
 #include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/optional_dimensions.hpp>
+#include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/pixel_size.hpp>
@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 sge::opengl::sdl::device_state::device_state(
-	sge::renderer::display_mode::optional_object const &_display_mode,
+	sge::renderer::display_mode::optional_fullscreen const &_fullscreen,
 	sge::window::object &_window
 )
 :
@@ -53,6 +53,9 @@ sge::opengl::sdl::device_state::device_state(
 		)
 	}
 {
+	this->fullscreen(
+		_fullscreen
+	);
 }
 
 sge::opengl::sdl::device_state::~device_state()
@@ -105,17 +108,8 @@ sge::opengl::sdl::device_state::display_mode() const
 }
 
 void
-sge::opengl::sdl::device_state::display_mode(
-	sge::renderer::display_mode::optional_object const &_display_mode
+sge::opengl::sdl::device_state::fullscreen(
+	sge::renderer::display_mode::optional_fullscreen const &_fullscreen
 )
 {
-}
-
-sge::renderer::display_mode::container
-sge::opengl::sdl::device_state::display_modes() const
-{
-	// TODO:
-
-	return
-		sge::renderer::display_mode::container{};
 }

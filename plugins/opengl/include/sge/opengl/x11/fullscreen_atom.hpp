@@ -18,53 +18,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_SDL_DEVICE_STATE_HPP_INCLUDED
-#define SGE_OPENGL_SDL_DEVICE_STATE_HPP_INCLUDED
+#ifndef SGE_OPENGL_X11_FULLSCREEN_ATOM_HPP_INCLUDED
+#define SGE_OPENGL_X11_FULLSCREEN_ATOM_HPP_INCLUDED
 
-#include <sge/opengl/platform/device_state.hpp>
-#include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
-#include <sge/renderer/display_mode/optional_object_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <awl/backends/sdl/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/backends/x11/atom.hpp>
+#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp>
 
 
 namespace sge
 {
 namespace opengl
 {
-namespace sdl
+namespace x11
 {
 
-class device_state
-:
-	public
-		sge::opengl::platform::device_state
-{
-	FCPPT_NONCOPYABLE(
-		device_state
-	);
-public:
-	device_state(
-		sge::renderer::display_mode::optional_fullscreen const &,
-		sge::window::object &
-	);
-
-	~device_state()
-	override;
-
-	sge::renderer::display_mode::optional_object
-	display_mode() const
-	override;
-
-	void
-	fullscreen(
-		sge::renderer::display_mode::optional_fullscreen const &
-	)
-	override;
-private:
-	awl::backends::sdl::window::object &window_;
-};
+FCPPT_MAKE_STRONG_TYPEDEF(
+	awl::backends::x11::atom,
+	fullscreen_atom
+);
 
 }
 }

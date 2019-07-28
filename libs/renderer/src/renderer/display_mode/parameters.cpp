@@ -18,9 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
+#include <sge/renderer/display_mode/fullscreen.hpp>
+#include <sge/renderer/display_mode/object.hpp>
+#include <sge/renderer/display_mode/optional_fullscreen.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <fcppt/optional/map.hpp>
 
 
 sge::renderer::display_mode::parameters::parameters(
@@ -28,11 +32,34 @@ sge::renderer::display_mode::parameters::parameters(
 	sge::renderer::display_mode::optional_object const &_display_mode
 )
 :
+	sge::renderer::display_mode::parameters::parameters(
+		_vsync,
+		fcppt::optional::map(
+			_display_mode,
+			[](
+				sge::renderer::display_mode::object const &_mode
+			)
+			{
+				return
+					sge::renderer::display_mode::fullscreen{
+						_mode
+					};
+			}
+		)
+	)
+{
+}
+
+sge::renderer::display_mode::parameters::parameters(
+	sge::renderer::display_mode::vsync const _vsync,
+	sge::renderer::display_mode::optional_fullscreen const &_fullscreen
+)
+:
 	vsync_(
 		_vsync
 	),
-	display_mode_(
-		_display_mode
+	fullscreen_(
+		_fullscreen
 	)
 {
 }
@@ -44,9 +71,9 @@ sge::renderer::display_mode::parameters::vsync() const
 		vsync_;
 }
 
-sge::renderer::display_mode::optional_object
-sge::renderer::display_mode::parameters::display_mode() const
+sge::renderer::display_mode::optional_fullscreen const &
+sge::renderer::display_mode::parameters::fullscreen() const
 {
 	return
-		display_mode_;
+		fullscreen_;
 }

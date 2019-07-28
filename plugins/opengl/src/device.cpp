@@ -67,6 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/draw_timer_setting_opt.hpp>
+#include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/index/buffer.hpp>
@@ -183,7 +184,7 @@ sge::opengl::device::device(
 	},
 	device_state_(
 		_platform_system.create_device_state(
-			_display_mode.display_mode(),
+			_display_mode.fullscreen(),
 			_window
 		)
 	),
@@ -672,20 +673,21 @@ sge::opengl::device::display_mode() const
 }
 
 void
-sge::opengl::device::display_mode(
-	sge::renderer::display_mode::optional_object const &_display_mode
+sge::opengl::device::fullscreen(
+	sge::renderer::display_mode::optional_fullscreen const &_fullscreen
 )
 {
-	device_state_->display_mode(
-		_display_mode
+	device_state_->fullscreen(
+		_fullscreen
 	);
 }
 
 sge::renderer::display_mode::container
 sge::opengl::device::display_modes() const
 {
+	// FIXME
 	return
-		device_state_->display_modes();
+		sge::renderer::display_mode::container{};
 }
 
 sge::opengl::texture::basic_parameters

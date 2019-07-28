@@ -18,46 +18,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_PLATFORM_DEVICE_STATE_HPP_INCLUDED
-#define SGE_OPENGL_PLATFORM_DEVICE_STATE_HPP_INCLUDED
+#ifndef SGE_RENDERER_DISPLAY_MODE_FULLSCREEN_HPP_INCLUDED
+#define SGE_RENDERER_DISPLAY_MODE_FULLSCREEN_HPP_INCLUDED
 
-#include <sge/opengl/platform/device_state_fwd.hpp>
-#include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
-#include <sge/renderer/display_mode/optional_object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/display_mode/fullscreen_desktop.hpp>
+#include <sge/renderer/display_mode/fullscreen_fwd.hpp>
+#include <sge/renderer/display_mode/object.hpp>
+#include <fcppt/variant/variadic.hpp>
 
-
-namespace sge
-{
-namespace opengl
-{
-namespace platform
-{
-
-class device_state
-{
-	FCPPT_NONCOPYABLE(
-		device_state
-	);
-protected:
-	device_state();
-public:
-	virtual
-	~device_state();
-
-	virtual
-	sge::renderer::display_mode::optional_object
-	display_mode() const = 0;
-
-	virtual
-	void
-	fullscreen(
-		sge::renderer::display_mode::optional_fullscreen const &
-	) = 0;
-};
-
-}
-}
-}
 
 #endif

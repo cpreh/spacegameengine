@@ -31,6 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/display_mode/container.hpp>
+#include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <sge/renderer/index/buffer_parameters_fwd.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
@@ -384,7 +385,7 @@ public:
 	caps() const = 0;
 
 	/**
-	\brief Returns the current display mode
+	\brief Returns the current display mode.
 
 	The display mode can change over time (for example, if the window is
 	moved between monitors). It can be used for dpi or refresh rate
@@ -405,8 +406,8 @@ public:
 	*/
 	virtual
 	void
-	display_mode(
-		sge::renderer::display_mode::optional_object const &mode
+	fullscreen(
+		sge::renderer::display_mode::optional_fullscreen const &
 	) = 0;
 
 	/**

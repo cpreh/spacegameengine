@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/platform/system.hpp>
 #include <sge/opengl/sdl/device_state.hpp>
 #include <sge/opengl/sdl/platform_system.hpp>
-#include <sge/renderer/display_mode/optional_object_fwd.hpp>
+#include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <awl/backends/sdl/system/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -44,7 +44,7 @@ sge::opengl::sdl::platform_system::~platform_system()
 
 sge::opengl::platform::device_state_unique_ptr
 sge::opengl::sdl::platform_system::create_device_state(
-	sge::renderer::display_mode::optional_object const &_display_mode,
+	sge::renderer::display_mode::optional_fullscreen const &_fullscreen,
 	sge::window::object &_window
 )
 {
@@ -55,7 +55,7 @@ sge::opengl::sdl::platform_system::create_device_state(
 			fcppt::make_unique_ptr<
 				sge::opengl::sdl::device_state
 			>(
-				_display_mode,
+				_fullscreen,
 				_window
 			)
 		);

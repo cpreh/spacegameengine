@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/windows/change_display_settings.hpp>
 #include <sge/opengl/windows/current_display_mode.hpp>
 #include <sge/opengl/windows/device_state.hpp>
-#include <sge/renderer/display_mode/container.hpp>
+#include <sge/renderer/display_mode/optional_fullscreen.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -30,22 +30,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::windows::device_state::device_state(
 	fcppt::log::object &_log,
-	sge::renderer::display_mode::optional_object const &_opt_display_mode
+	sge::renderer::display_mode::optional_fullscreen const &_opt_fullscreen
 )
 :
-	sge::opengl::platform::device_state()
+	sge::opengl::platform::device_state(),
+	log_{
+		_log
+	}
 {
 	fcppt::optional::maybe_void(
-		_opt_display_mode,
+		_opt_fullscreen,
 		[
-			&_log
+			this
 		](
-			sge::renderer::display_mode::object const &_display_mode
+			sge::renderer::display_mode::fullscreen const &_fullscreen
 		)
 		{
-			sge::opengl::windows::change_display_settings(
-				_log,
-				_display_mode
+			this->fullscreen(
+				_fullscreen
 			);
 		}
 	);
@@ -58,6 +60,7 @@ sge::opengl::windows::device_state::~device_state()
 sge::renderer::display_mode::optional_object
 sge::opengl::windows::device_state::display_mode() const
 {
+	// TODO
 	return
 		sge::renderer::display_mode::optional_object(
 			sge::opengl::windows::current_display_mode()
@@ -65,17 +68,14 @@ sge::opengl::windows::device_state::display_mode() const
 }
 
 void
-sge::opengl::windows::device_state::display_mode(
-	sge::renderer::display_mode::optional_object const &_display_mode
+sge::opengl::windows::device_state::fullscreen(
+	sge::renderer::display_mode::optional_fullscren const &_fullscreen
 )
 {
 	// TODO!
-}
-
-sge::renderer::display_mode::container
-sge::opengl::windows::device_state::display_modes() const
-{
-	// TODO
-	return
-		sge::renderer::display_mode::container();
+/*
+	sge::opengl::windows::change_display_settings(
+		this->log_,
+		_fullscreen
+	);*/
 }

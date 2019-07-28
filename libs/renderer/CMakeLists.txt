@@ -176,10 +176,16 @@ set(
 	libs/renderer/include/sge/renderer/display_mode/dpi_unit.hpp
 	libs/renderer/include/sge/renderer/display_mode/draw_timer_setting.hpp
 	libs/renderer/include/sge/renderer/display_mode/draw_timer_setting_opt.hpp
+	libs/renderer/include/sge/renderer/display_mode/fullscreen.hpp
+	libs/renderer/include/sge/renderer/display_mode/fullscreen_desktop.hpp
+	libs/renderer/include/sge/renderer/display_mode/fullscreen_desktop_fwd.hpp
+	libs/renderer/include/sge/renderer/display_mode/fullscreen_fwd.hpp
 	libs/renderer/include/sge/renderer/display_mode/object.hpp
 	libs/renderer/include/sge/renderer/display_mode/object_fwd.hpp
 	libs/renderer/include/sge/renderer/display_mode/optional_dimensions.hpp
 	libs/renderer/include/sge/renderer/display_mode/optional_dimensions_fwd.hpp
+	libs/renderer/include/sge/renderer/display_mode/optional_fullscreen.hpp
+	libs/renderer/include/sge/renderer/display_mode/optional_fullscreen_fwd.hpp
 	libs/renderer/include/sge/renderer/display_mode/optional_object.hpp
 	libs/renderer/include/sge/renderer/display_mode/optional_object_fwd.hpp
 	libs/renderer/include/sge/renderer/display_mode/optional_pixel_size.hpp

@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_RENDERER_DISPLAY_MODE_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/renderer/display_mode/optional_fullscreen.hpp>
+#include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <sge/renderer/display_mode/parameters_fwd.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
 
@@ -35,43 +36,37 @@ namespace display_mode
 {
 
 /**
-\brief Parameters used to set a display mode
+\brief Parameters used to set a display mode.
 
 \see sge::renderer::system::create_device
 */
 class parameters
 {
 public:
-	/**
-	\brief Constructs display mode parameters
-
-	\param vsync Switches vsync on or off
-
-	\param display_mode An optional display mode to switch to
-	*/
+	// TODO: Remove this
 	SGE_RENDERER_DETAIL_SYMBOL
 	parameters(
-		sge::renderer::display_mode::vsync vsync,
-		sge::renderer::display_mode::optional_object const &display_mode
+		sge::renderer::display_mode::vsync,
+		sge::renderer::display_mode::optional_object const &
 	);
 
-	/**
-	\brief Returns whether vsync should be used
-	*/
+	SGE_RENDERER_DETAIL_SYMBOL
+	parameters(
+		sge::renderer::display_mode::vsync,
+		sge::renderer::display_mode::optional_fullscreen const &
+	);
+
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::display_mode::vsync
 	vsync() const;
 
-	/**
-	\brief Returns the optional display mode
-	*/
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::display_mode::optional_object
-	display_mode() const;
+	sge::renderer::display_mode::optional_fullscreen const &
+	fullscreen() const;
 private:
 	sge::renderer::display_mode::vsync vsync_;
 
-	sge::renderer::display_mode::optional_object display_mode_;
+	sge::renderer::display_mode::optional_fullscreen fullscreen_;
 };
 
 }

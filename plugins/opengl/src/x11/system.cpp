@@ -25,8 +25,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/x11/system.hpp>
 #include <sge/opengl/xrandr/create_system.hpp>
 #include <sge/opengl/xrandr/system.hpp>
-#include <sge/renderer/display_mode/optional_object_fwd.hpp>
+#include <sge/renderer/display_mode/optional_fullscreen.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <awl/backends/x11/intern_atom.hpp>
 #include <awl/backends/x11/system/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -47,7 +48,19 @@ sge::opengl::x11::system::system(
 			_log,
 			_awl_system.display()
 		)
-	)
+	),
+	wm_state_{
+		awl::backends::x11::intern_atom(
+			_awl_system.display(),
+			"_NET_WM_STATE"
+		)
+	},
+	wm_fullscreen_{
+		awl::backends::x11::intern_atom(
+			_awl_system.display(),
+			"_NET_WM_STATE_FULLSCREEN"
+		)
+	}
 {
 }
 
@@ -57,7 +70,7 @@ sge::opengl::x11::system::~system()
 
 sge::opengl::platform::device_state_unique_ptr
 sge::opengl::x11::system::create_device_state(
-	sge::renderer::display_mode::optional_object const &_display_mode,
+	sge::renderer::display_mode::optional_fullscreen const &_fullscreen,
 	sge::window::object &_window
 )
 {
@@ -68,12 +81,14 @@ sge::opengl::x11::system::create_device_state(
 			fcppt::make_unique_ptr<
 				sge::opengl::x11::device_state
 			>(
-				log_,
+				this->log_,
 				fcppt::optional::deref(
-					xrandr_system_
+					this->xrandr_system_
 				),
-				_display_mode,
-				_window
+				_fullscreen,
+				_window,
+				this->wm_state_,
+				this->wm_fullscreen_
 			)
 		);
 }

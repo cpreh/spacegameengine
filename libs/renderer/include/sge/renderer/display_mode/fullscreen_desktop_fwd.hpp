@@ -18,51 +18,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
 
-#ifndef SGE_OPENGL_WINDOWS_DEVICE_STATE_HPP_INCLUDED
-#define SGE_OPENGL_WINDOWS_DEVICE_STATE_HPP_INCLUDED
-
-#include <sge/opengl/platform/device_state.hpp>
-#include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
-#include <sge/renderer/display_mode/optional_object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#ifndef SGE_RENDERER_DISPLAY_MODE_FULLSCREEN_DESKTOP_FWD_HPP_INCLUDED
+#define SGE_RENDERER_DISPLAY_MODE_FULLSCREEN_DESKTOP_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace opengl
+namespace renderer
 {
-namespace windows
+namespace display_mode
 {
 
-class device_state
-:
-	public sge::opengl::platform::device_state
-{
-	FCPPT_NONCOPYABLE(
-		device_state
-	);
-public:
-	device_state(
-		fcppt::log::object &,
-		sge::renderer::display_mode::optional_fullscreen const &
-	);
-
-	~device_state()
-	override;
-private:
-	sge::renderer::display_mode::optional_object
-	display_mode() const
-	override;
-
-	void
-	fullscreen(
-		sge::renderer::display_mode::optional_fullscreen const &
-	)
-	override;
-
-	fcppt::log::object &log_;
-};
+struct fullscreen_desktop;
 
 }
 }

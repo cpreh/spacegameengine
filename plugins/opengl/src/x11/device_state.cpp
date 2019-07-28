@@ -20,13 +20,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/platform/device_state.hpp>
 #include <sge/opengl/x11/device_state.hpp>
+#include <sge/opengl/x11/fullscreen_atom.hpp>
+#include <sge/opengl/x11/state_atom.hpp>
 #include <sge/opengl/xrandr/optional_system_ref.hpp>
 #include <sge/opengl/xrandr/resolution.hpp>
 #include <sge/opengl/xrandr/state.hpp>
 #include <sge/opengl/xrandr/state_unique_ptr.hpp>
 #include <sge/opengl/xrandr/system.hpp>
-#include <sge/renderer/display_mode/container.hpp>
+#include <sge/renderer/display_mode/fullscreen.hpp>
 #include <sge/renderer/display_mode/object.hpp>
+#include <sge/renderer/display_mode/optional_fullscreen.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -37,13 +40,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/variant/to_optional.hpp>
 
 
 sge::opengl::x11::device_state::device_state(
 	fcppt::log::object &_log,
 	sge::opengl::xrandr::optional_system_ref const &_xrandr_system,
-	sge::renderer::display_mode::optional_object const &_display_mode,
-	sge::window::object &_window
+	sge::renderer::display_mode::optional_fullscreen const &_fullscreen,
+	sge::window::object &_window,
+	sge::opengl::x11::state_atom const _wm_state,
+	sge::opengl::x11::fullscreen_atom const _wm_fullscreen
 )
 :
 	sge::opengl::platform::device_state(),
@@ -68,13 +75,19 @@ sge::opengl::x11::device_state::device_state(
 			}
 		)
 	),
+	wm_state_{
+		_wm_state
+	},
+	wm_fullscreen_{
+		_wm_fullscreen
+	},
 	resolution_()
 {
 	if(
-		_display_mode.has_value()
+		_fullscreen.has_value()
 	)
-		this->display_mode(
-			_display_mode
+		this->fullscreen(
+			_fullscreen
 		);
 }
 
@@ -99,72 +112,65 @@ sge::opengl::x11::device_state::display_mode() const
 }
 
 void
-sge::opengl::x11::device_state::display_mode(
-	sge::renderer::display_mode::optional_object const &_opt_display_mode
+sge::opengl::x11::device_state::fullscreen(
+	sge::renderer::display_mode::optional_fullscreen const &_opt_fullscreen
 )
 {
-	// TODO: Optimize this
-	resolution_ =
+	this->resolution_ =
 		optional_resolution_unique_ptr();
 
-	resolution_ =
-		fcppt::optional::bind(
-			_opt_display_mode,
-			[
-				this
-			](
-				sge::renderer::display_mode::object const &_display_mode
-			)
-			{
-				return
-					fcppt::optional::maybe(
-						xrandr_state_,
-						[
-							this
-						]{
-							FCPPT_LOG_ERROR(
-								log_,
-								fcppt::log::out
-									<< FCPPT_TEXT("Xrandr was not found. Can't change the display mode.")
-							)
-
-							return
-								optional_resolution_unique_ptr();
-						},
-						[
-							&_display_mode
-						](
-							xrandr_state_unique_ptr const &_state
-						){
-							return
-								optional_resolution_unique_ptr(
-									_state->choose_resolution(
-										_display_mode
+	fcppt::optional::maybe_void(
+		_opt_fullscreen,
+		[
+			this
+		](
+			sge::renderer::display_mode::fullscreen const &_fullscreen
+		)
+		{
+			// TODO: Setup fullscreen
+			this->resolution_ =
+				fcppt::optional::bind(
+					fcppt::variant::to_optional<
+						sge::renderer::display_mode::object
+					>(
+						_fullscreen
+					),
+					[
+						this
+					](
+						sge::renderer::display_mode::object const &_display_mode
+					)
+					{
+						return
+							fcppt::optional::maybe(
+								this->xrandr_state_,
+								[
+									this
+								]{
+									FCPPT_LOG_ERROR(
+										this->log_,
+										fcppt::log::out
+											<< FCPPT_TEXT("Xrandr was not found. Can't change the display mode.")
 									)
-								);
-						}
-					);
-			}
-		);
-}
 
-
-sge::renderer::display_mode::container
-sge::opengl::x11::device_state::display_modes() const
-{
-	return
-		fcppt::optional::maybe(
-			xrandr_state_,
-			[]{
-				return
-					sge::renderer::display_mode::container();
-			},
-			[](
-				xrandr_state_unique_ptr const &_state
-			)
-			{
-				return
-					_state->display_modes();
-			}
-		);
+									return
+										optional_resolution_unique_ptr();
+								},
+								[
+									&_display_mode
+								](
+									xrandr_state_unique_ptr const &_state
+								){
+									return
+										optional_resolution_unique_ptr(
+											_state->choose_resolution(
+												_display_mode
+											)
+										);
+								}
+							);
+					}
+				);
+		}
+	);
 }
