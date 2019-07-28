@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define SGE_OPENGL_WAYLAND_DEVICE_STATE_HPP_INCLUDED
 
 #include <sge/opengl/platform/device_state.hpp>
-#include <sge/renderer/display_mode/container.hpp>
+#include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
@@ -44,7 +44,7 @@ class device_state
 public:
 	explicit
 	device_state(
-		sge::renderer::display_mode::optional_object const &
+		sge::renderer::display_mode::optional_fullscreen const &
 	);
 
 	~device_state()
@@ -55,13 +55,9 @@ private:
 	override;
 
 	void
-	display_mode(
-		sge::renderer::display_mode::optional_object const &
+	fullscreen(
+		sge::renderer::display_mode::optional_fullscreen const &
 	)
-	override;
-
-	sge::renderer::display_mode::container
-	display_modes() const
 	override;
 };
 
