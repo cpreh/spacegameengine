@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 #include <sge/opengl/platform/device_state.hpp>
 #include <sge/opengl/x11/device_state.hpp>
+#include <sge/opengl/x11/fullscreen.hpp>
 #include <sge/opengl/x11/fullscreen_atom.hpp>
 #include <sge/opengl/x11/state_atom.hpp>
 #include <sge/opengl/xrandr/optional_system_ref.hpp>
@@ -31,16 +32,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_fullscreen.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object.hpp>
+#include <awl/backends/x11/window/base.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/variant/to_optional.hpp>
 
 
@@ -81,6 +83,13 @@ sge::opengl::x11::device_state::device_state(
 	wm_fullscreen_{
 		_wm_fullscreen
 	},
+	window_{
+		fcppt::cast::dynamic_exn<
+			awl::backends::x11::window::base &
+		>(
+			_window.awl_object()
+		)
+	},
 	resolution_()
 {
 	if(
@@ -116,18 +125,45 @@ sge::opengl::x11::device_state::fullscreen(
 	sge::renderer::display_mode::optional_fullscreen const &_opt_fullscreen
 )
 {
+	auto const set_fullscreen(
+		[
+			this
+		](
+			bool const _value
+		)
+		{
+			sge::opengl::x11::fullscreen(
+				this->window_,
+				this->wm_state_,
+				this->wm_fullscreen_,
+				_value
+			);
+		}
+	);
+
 	this->resolution_ =
 		optional_resolution_unique_ptr();
 
-	fcppt::optional::maybe_void(
+	fcppt::optional::maybe(
 		_opt_fullscreen,
 		[
+			&set_fullscreen
+		]{
+			set_fullscreen(
+				false
+			);
+		},
+		[
+			&set_fullscreen,
 			this
 		](
 			sge::renderer::display_mode::fullscreen const &_fullscreen
 		)
 		{
-			// TODO: Setup fullscreen
+			set_fullscreen(
+				true
+			);
+
 			this->resolution_ =
 				fcppt::optional::bind(
 					fcppt::variant::to_optional<

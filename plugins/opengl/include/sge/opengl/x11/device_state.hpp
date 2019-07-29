@@ -30,6 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <awl/backends/x11/window/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/object_fwd.hpp>
@@ -104,6 +105,8 @@ private:
 	sge::opengl::x11::state_atom const wm_state_;
 
 	sge::opengl::x11::fullscreen_atom const wm_fullscreen_;
+
+	awl::backends::x11::window::base &window_;
 
 	optional_resolution_unique_ptr resolution_;
 };

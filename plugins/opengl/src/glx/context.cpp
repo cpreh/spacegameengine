@@ -26,9 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glx/make_current.hpp>
 #include <sge/opengl/glx/optional_proc_address_function.hpp>
 #include <sge/renderer/exception.hpp>
+#include <awl/backends/x11/window/base.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/visual/object.hpp>
-#include <awl/backends/x11/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 sge::opengl::glx::context::context(
 	fcppt::log::object &_log,
-	awl::backends::x11::window::object &_window,
+	awl::backends::x11::window::base &_window,
 	sge::opengl::glx::optional_proc_address_function const _proc_address
 )
 :

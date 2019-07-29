@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/backend/current_unique_ptr.hpp>
 #include <sge/opengl/glx/context_fwd.hpp>
 #include <sge/opengl/glx/optional_proc_address_function.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
+#include <awl/backends/x11/window/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -50,7 +50,7 @@ class context
 public:
 	context(
 		fcppt::log::object &,
-		awl::backends::x11::window::object &,
+		awl::backends::x11::window::base &,
 		sge::opengl::glx::optional_proc_address_function
 	);
 
@@ -69,7 +69,7 @@ private:
 
 	fcppt::log::object &log_;
 
-	awl::backends::x11::window::object &window_;
+	awl::backends::x11::window::base &window_;
 
 	sge::opengl::glx::optional_proc_address_function const proc_address_;
 

@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/opengl/glx/visual/get_srgb_flag.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <sge/window/object.hpp>
+#include <awl/backends/x11/window/base.hpp>
 #include <awl/backends/x11/system/object.hpp>
-#include <awl/backends/x11/window/object.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object.hpp>
@@ -113,7 +113,7 @@ sge::opengl::glx::system::create_context(
 			>(
 				log_,
 				fcppt::cast::dynamic_exn<
-					awl::backends::x11::window::object &
+					awl::backends::x11::window::base &
 				>(
 					_window.awl_object()
 				),

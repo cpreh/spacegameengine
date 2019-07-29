@@ -1138,10 +1138,12 @@ set(
 set(
 	SGE_OPENGL_X11_FILES
 	plugins/opengl/include/sge/opengl/x11/device_state.hpp
+	plugins/opengl/include/sge/opengl/x11/fullscreen.hpp
 	plugins/opengl/include/sge/opengl/x11/fullscreen_atom.hpp
 	plugins/opengl/include/sge/opengl/x11/state_atom.hpp
 	plugins/opengl/include/sge/opengl/x11/system.hpp
 	plugins/opengl/src/x11/device_state.cpp
+	plugins/opengl/src/x11/fullscreen.cpp
 	plugins/opengl/src/x11/system.cpp
 )
 

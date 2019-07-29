@@ -29,7 +29,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/scoped_core.hpp>
 #include <sge/renderer/device/core.hpp>
-#include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/renderer/display_mode/fullscreen.hpp>
+#include <sge/renderer/display_mode/fullscreen_desktop.hpp>
+#include <sge/renderer/display_mode/optional_fullscreen.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
 #include <sge/renderer/event/render.hpp>
@@ -134,7 +136,11 @@ try
 				),
 				sge::renderer::display_mode::parameters(
 					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_object()
+					sge::renderer::display_mode::optional_fullscreen{
+						sge::renderer::display_mode::fullscreen{
+							sge::renderer::display_mode::fullscreen_desktop{}
+						}
+					}
 				),
 				sge::viewport::optional_resize_callback{
 					sge::viewport::fill_on_resize()
