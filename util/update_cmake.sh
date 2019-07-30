@@ -254,6 +254,8 @@ update_plugin openal
 
 update_plugin pango
 
+update_plugin sdlinput
+
 update_plugin vorbis
 
 update_plugin wave

@@ -126,6 +126,12 @@ add_sge_lib(
 )
 
 add_sge_lib(
+	sdlinput
+	"Build the SDL2 input plugin"
+	"${SDL2_FOUND}"
+)
+
+add_sge_lib(
 	vorbis
 	"Build the vorbis loader plugin"
 	"${VORBIS_FOUND}"

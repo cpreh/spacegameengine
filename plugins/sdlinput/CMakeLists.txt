@@ -1,0 +1,36 @@
+set(
+	SGE_SDLINPUT_FILES
+	plugins/sdlinput/include/sge/sdlinput/cursor/object.hpp
+	plugins/sdlinput/include/sge/sdlinput/focus/object.hpp
+	plugins/sdlinput/include/sge/sdlinput/keyboard/device.hpp
+	plugins/sdlinput/include/sge/sdlinput/mouse/device.hpp
+	plugins/sdlinput/include/sge/sdlinput/processor.hpp
+	plugins/sdlinput/include/sge/sdlinput/system.hpp
+	plugins/sdlinput/src/cursor/object.cpp
+	plugins/sdlinput/src/exports.cpp
+	plugins/sdlinput/src/focus/object.cpp
+	plugins/sdlinput/src/keyboard/device.cpp
+	plugins/sdlinput/src/mouse/device.cpp
+	plugins/sdlinput/src/processor.cpp
+	plugins/sdlinput/src/system.cpp
+)
+
+find_package(
+	SDL2
+	REQUIRED
+)
+
+add_sge_plugin(
+	sdlinput
+	SGE_DEPS
+		sgeinput
+		sgeplugin
+		sgewindow
+	ADDITIONAL_DEPS
+		${awl_TARGET}
+		fcppt_core_interface
+		fcppt_log_interface
+		${SDL2_LIBRARIES}
+	INCLUDE_DIRS
+		${SDL2_INCLUDE_DIRS}
+)
