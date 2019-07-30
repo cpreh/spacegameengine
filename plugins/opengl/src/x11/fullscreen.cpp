@@ -40,8 +40,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <fcppt/config/external_end.hpp>
 
 
+namespace
+{
+
 void
-sge::opengl::x11::fullscreen(
+set_property(
 	awl::backends::x11::window::base &_window,
 	sge::opengl::x11::state_atom const _wm_state,
 	sge::opengl::x11::fullscreen_atom const _wm_fullscreen,
@@ -92,7 +95,15 @@ sge::opengl::x11::fullscreen(
 				_wm_state.get()
 			}
 		);
+}
 
+void
+send_event(
+	awl::backends::x11::window::base &_window,
+	sge::opengl::x11::state_atom const _wm_state,
+	bool const _value
+)
+{
 	XEvent event{};
 	event.xany.type = ClientMessage;
 	event.xclient.message_type = _wm_state.get().get();
@@ -116,5 +127,29 @@ sge::opengl::x11::fullscreen(
 		awl::backends::x11::window::event::object{
 			event
 		}
+	);
+}
+
+}
+
+void
+sge::opengl::x11::fullscreen(
+	awl::backends::x11::window::base &_window,
+	sge::opengl::x11::state_atom const _wm_state,
+	sge::opengl::x11::fullscreen_atom const _wm_fullscreen,
+	bool const _value
+)
+{
+	set_property(
+		_window,
+		_wm_state,
+		_wm_fullscreen,
+		_value
+	);
+
+	send_event(
+		_window,
+		_wm_state,
+		_value
 	);
 }
