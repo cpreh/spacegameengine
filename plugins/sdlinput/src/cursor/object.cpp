@@ -7,17 +7,31 @@
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/sdlinput/cursor/get_focus.hpp>
+#include <sge/sdlinput/cursor/get_position.hpp>
 #include <sge/sdlinput/cursor/object.hpp>
+#include <sge/sdlinput/cursor/set_mode.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <awl/backends/sdl/window/object.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/optional/bind.hpp>
+#include <fcppt/optional/make_if.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <SDL_video.h>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::sdlinput::cursor::object::object(
-	sge::window::object &_window
+	sge::window::object &_window,
+	awl::backends::sdl::window::object &_sdl_window
 )
 :
 	sge::input::cursor::object{},
 	window_{
 		_window
+	},
+	sdl_window_{
+		_sdl_window
 	}
 {
 }
@@ -36,9 +50,29 @@ sge::sdlinput::cursor::object::window() const
 sge::input::cursor::optional_position
 sge::sdlinput::cursor::object::position() const
 {
-	// TODO
 	return
-		sge::input::cursor::optional_position{};
+		fcppt::optional::bind(
+			sge::sdlinput::cursor::get_focus(),
+			[
+				this
+			](
+				fcppt::reference<
+					SDL_Window
+				> const _window
+			)
+			{
+				return
+					fcppt::optional::make_if(
+						&_window.get()
+						==
+						&this->sdl_window_.get(),
+						[]{
+							return
+								sge::sdlinput::cursor::get_position();
+						}
+					);
+			}
+		);
 }
 
 void
@@ -46,4 +80,7 @@ sge::sdlinput::cursor::object::mode(
 	sge::input::cursor::mode const _mode
 )
 {
+	sge::sdlinput::cursor::set_mode(
+		_mode
+	);
 }

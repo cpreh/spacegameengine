@@ -1,18 +1,41 @@
 set(
 	SGE_SDLINPUT_FILES
+	plugins/sdlinput/include/sge/sdlinput/cursor/get_focus.hpp
+	plugins/sdlinput/include/sge/sdlinput/cursor/get_position.hpp
 	plugins/sdlinput/include/sge/sdlinput/cursor/object.hpp
+	plugins/sdlinput/include/sge/sdlinput/cursor/set_mode.hpp
 	plugins/sdlinput/include/sge/sdlinput/focus/object.hpp
+	plugins/sdlinput/include/sge/sdlinput/focus/translate_text_event.hpp
 	plugins/sdlinput/include/sge/sdlinput/keyboard/device.hpp
 	plugins/sdlinput/include/sge/sdlinput/mouse/device.hpp
 	plugins/sdlinput/include/sge/sdlinput/processor.hpp
+	plugins/sdlinput/include/sge/sdlinput/same_windows.hpp
+	plugins/sdlinput/include/sge/sdlinput/same_windows_impl.hpp
 	plugins/sdlinput/include/sge/sdlinput/system.hpp
+	plugins/sdlinput/include/sge/sdlinput/translate_event.hpp
+	plugins/sdlinput/include/sge/sdlinput/translate_keyboard_event.hpp
+	plugins/sdlinput/include/sge/sdlinput/translate_mouse_button_event.hpp
+	plugins/sdlinput/include/sge/sdlinput/translate_mouse_motion_event.hpp
+	plugins/sdlinput/include/sge/sdlinput/translate_mouse_wheel_event.hpp
+	plugins/sdlinput/include/sge/sdlinput/translate_window_event.hpp
+	plugins/sdlinput/src/cursor/get_focus.cpp
+	plugins/sdlinput/src/cursor/get_position.cpp
 	plugins/sdlinput/src/cursor/object.cpp
+	plugins/sdlinput/src/cursor/set_mode.cpp
 	plugins/sdlinput/src/exports.cpp
 	plugins/sdlinput/src/focus/object.cpp
+	plugins/sdlinput/src/focus/translate_text_event.cpp
 	plugins/sdlinput/src/keyboard/device.cpp
 	plugins/sdlinput/src/mouse/device.cpp
 	plugins/sdlinput/src/processor.cpp
+	plugins/sdlinput/src/same_windows_impl.cpp
 	plugins/sdlinput/src/system.cpp
+	plugins/sdlinput/src/translate_event.cpp
+	plugins/sdlinput/src/translate_keyboard_event.cpp
+	plugins/sdlinput/src/translate_mouse_button_event.cpp
+	plugins/sdlinput/src/translate_mouse_motion_event.cpp
+	plugins/sdlinput/src/translate_mouse_wheel_event.cpp
+	plugins/sdlinput/src/translate_window_event.cpp
 )
 
 find_package(

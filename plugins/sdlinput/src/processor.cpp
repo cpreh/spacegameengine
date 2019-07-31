@@ -11,6 +11,7 @@
 #include <sge/input/keyboard/container.hpp>
 #include <sge/input/mouse/container.hpp>
 #include <sge/sdlinput/processor.hpp>
+#include <sge/sdlinput/translate_event.hpp>
 #include <sge/sdlinput/cursor/object.hpp>
 #include <sge/sdlinput/focus/object.hpp>
 #include <sge/sdlinput/keyboard/device.hpp>
@@ -19,11 +20,15 @@
 #include <sge/window/system.hpp>
 #include <sge/window/system_event_function.hpp>
 #include <awl/backends/sdl/window/object.hpp>
+#include <awl/backends/sdl/system/event/object.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
 #include <awl/window/object.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
+#include <fcppt/optional/maybe.hpp>
 
 
 sge::sdlinput::processor::processor(
@@ -45,7 +50,8 @@ sge::sdlinput::processor::processor(
 		fcppt::make_shared_ptr<
 			sge::sdlinput::cursor::object
 		>(
-			_window
+			_window,
+			this->sdl_window_
 		)
 	},
 	focus_{
@@ -149,7 +155,34 @@ sge::sdlinput::processor::on_event(
 	awl::event::base const &_event
 )
 {
-	// TODO:
 	return
-		awl::event::container{};
+		fcppt::optional::maybe(
+			fcppt::cast::dynamic<
+				awl::backends::sdl::system::event::object const
+			>(
+				_event
+			),
+			[]{
+				return
+					awl::event::container{};
+			},
+			[
+				this
+			](
+				fcppt::reference<
+					awl::backends::sdl::system::event::object const
+				> const _sdl_event
+			)
+			{
+				return
+					sge::sdlinput::translate_event(
+						this->cursor_,
+						this->focus_,
+						this->keyboard_,
+						this->mouse_,
+						this->sdl_window_,
+						_sdl_event.get()
+					);
+			}
+		);
 }

@@ -11,6 +11,7 @@
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <awl/backends/sdl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -30,9 +31,9 @@ class object
 		object
 	);
 public:
-	explicit
 	object(
-		sge::window::object &
+		sge::window::object &,
+		awl::backends::sdl::window::object &
 	);
 
 	~object()
@@ -53,6 +54,8 @@ public:
 	override;
 private:
 	sge::window::object &window_;
+
+	awl::backends::sdl::window::object &sdl_window_;
 };
 
 }
