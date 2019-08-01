@@ -7,7 +7,7 @@
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/mouse/shared_ptr.hpp>
 #include <sge/sdlinput/same_windows.hpp>
-#include <sge/sdlinput/translate_mouse_motion_event.hpp>
+#include <sge/sdlinput/translate/mouse_wheel_event.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
 #include <awl/backends/sdl/window/object_fwd.hpp>
@@ -18,11 +18,11 @@
 
 
 awl::event::container
-sge::sdlinput::translate_mouse_motion_event(
+sge::sdlinput::translate::mouse_wheel_event(
 	sge::input::cursor::shared_ptr const &_cursor,
 	sge::input::mouse::shared_ptr const &_mouse,
 	awl::backends::sdl::window::object const &_window,
-	SDL_MouseMotionEvent const &_event
+	SDL_MouseWheelEvent const &_event
 )
 {
 	if(

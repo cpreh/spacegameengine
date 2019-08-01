@@ -11,8 +11,8 @@
 #include <sge/input/focus/event/in.hpp>
 #include <sge/input/focus/event/out.hpp>
 #include <sge/sdlinput/same_windows.hpp>
-#include <sge/sdlinput/translate_window_event.hpp>
 #include <sge/sdlinput/cursor/get_position.hpp>
+#include <sge/sdlinput/translate/window_event.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
 #include <awl/backends/sdl/window/object_fwd.hpp>
@@ -27,7 +27,7 @@
 
 
 awl::event::container
-sge::sdlinput::translate_window_event(
+sge::sdlinput::translate::window_event(
 	sge::input::cursor::shared_ptr const &_cursor,
 	sge::input::focus::shared_ptr const &_focus,
 	awl::backends::sdl::window::object const &_window,

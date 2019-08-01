@@ -20,9 +20,11 @@ namespace sge
 {
 namespace sdlinput
 {
+namespace translate
+{
 
 awl::event::container
-translate_event(
+event(
 	sge::input::cursor::shared_ptr const &,
 	sge::input::focus::shared_ptr const &,
 	sge::input::keyboard::shared_ptr const &,
@@ -31,6 +33,7 @@ translate_event(
 	awl::backends::sdl::system::event::object const &
 );
 
+}
 }
 }
 

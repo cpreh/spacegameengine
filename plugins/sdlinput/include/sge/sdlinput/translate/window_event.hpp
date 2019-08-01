@@ -4,11 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_SDLINPUT_TRANSLATE_MOUSE_BUTTON_EVENT_HPP_INCLUDED
-#define SGE_SDLINPUT_TRANSLATE_MOUSE_BUTTON_EVENT_HPP_INCLUDED
+#ifndef SGE_SDLINPUT_TRANSLATE_WINDOW_EVENT_HPP_INCLUDED
+#define SGE_SDLINPUT_TRANSLATE_WINDOW_EVENT_HPP_INCLUDED
 
 #include <sge/input/cursor/shared_ptr.hpp>
-#include <sge/input/mouse/shared_ptr.hpp>
+#include <sge/input/focus/shared_ptr.hpp>
 #include <awl/event/container.hpp>
 #include <awl/backends/sdl/window/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -20,15 +20,18 @@ namespace sge
 {
 namespace sdlinput
 {
+namespace translate
+{
 
 awl::event::container
-translate_mouse_button_event(
+window_event(
 	sge::input::cursor::shared_ptr const &,
-	sge::input::mouse::shared_ptr const &,
+	sge::input::focus::shared_ptr const &,
 	awl::backends::sdl::window::object const &,
-	SDL_MouseButtonEvent const &
+	SDL_WindowEvent const &
 );
 
+}
 }
 }
 

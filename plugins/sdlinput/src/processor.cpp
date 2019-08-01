@@ -11,11 +11,11 @@
 #include <sge/input/keyboard/container.hpp>
 #include <sge/input/mouse/container.hpp>
 #include <sge/sdlinput/processor.hpp>
-#include <sge/sdlinput/translate_event.hpp>
 #include <sge/sdlinput/cursor/object.hpp>
 #include <sge/sdlinput/focus/object.hpp>
 #include <sge/sdlinput/keyboard/device.hpp>
 #include <sge/sdlinput/mouse/device.hpp>
+#include <sge/sdlinput/translate/event.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/system_event_function.hpp>
@@ -175,7 +175,7 @@ sge::sdlinput::processor::on_event(
 			)
 			{
 				return
-					sge::sdlinput::translate_event(
+					sge::sdlinput::translate::event(
 						this->cursor_,
 						this->focus_,
 						this->keyboard_,

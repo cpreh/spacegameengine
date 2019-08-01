@@ -8,13 +8,13 @@
 #include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/keyboard/shared_ptr.hpp>
 #include <sge/input/mouse/shared_ptr.hpp>
-#include <sge/sdlinput/translate_event.hpp>
-#include <sge/sdlinput/translate_keyboard_event.hpp>
-#include <sge/sdlinput/translate_mouse_button_event.hpp>
-#include <sge/sdlinput/translate_mouse_motion_event.hpp>
-#include <sge/sdlinput/translate_mouse_wheel_event.hpp>
-#include <sge/sdlinput/translate_window_event.hpp>
 #include <sge/sdlinput/focus/translate_text_event.hpp>
+#include <sge/sdlinput/translate/event.hpp>
+#include <sge/sdlinput/translate/keyboard_event.hpp>
+#include <sge/sdlinput/translate/mouse_button_event.hpp>
+#include <sge/sdlinput/translate/mouse_motion_event.hpp>
+#include <sge/sdlinput/translate/mouse_wheel_event.hpp>
+#include <sge/sdlinput/translate/window_event.hpp>
 #include <awl/backends/sdl/system/event/object.hpp>
 #include <awl/backends/sdl/window/object_fwd.hpp>
 #include <awl/event/base.hpp>
@@ -25,7 +25,7 @@
 
 
 awl::event::container
-sge::sdlinput::translate_event(
+sge::sdlinput::translate::event(
 	sge::input::cursor::shared_ptr const &_cursor,
 	sge::input::focus::shared_ptr const &_focus,
 	sge::input::keyboard::shared_ptr const &_keyboard,
@@ -40,7 +40,7 @@ sge::sdlinput::translate_event(
 	{
 	case SDL_WINDOWEVENT:
 		return
-			sge::sdlinput::translate_window_event(
+			sge::sdlinput::translate::window_event(
 				_cursor,
 				_focus,
 				_window,
@@ -49,7 +49,7 @@ sge::sdlinput::translate_event(
 	case SDL_KEYDOWN:
 	case SDL_KEYUP:
 		return
-			sge::sdlinput::translate_keyboard_event(
+			sge::sdlinput::translate::keyboard_event(
 				_focus,
 				_keyboard,
 				_window,
@@ -64,7 +64,7 @@ sge::sdlinput::translate_event(
 			);
 	case SDL_MOUSEMOTION:
 		return
-			sge::sdlinput::translate_mouse_motion_event(
+			sge::sdlinput::translate::mouse_motion_event(
 				_cursor,
 				_mouse,
 				_window,
@@ -73,7 +73,7 @@ sge::sdlinput::translate_event(
 	case SDL_MOUSEBUTTONDOWN:
 	case SDL_MOUSEBUTTONUP:
 		return
-			sge::sdlinput::translate_mouse_button_event(
+			sge::sdlinput::translate::mouse_button_event(
 				_cursor,
 				_mouse,
 				_window,
@@ -81,7 +81,7 @@ sge::sdlinput::translate_event(
 			);
 	case SDL_MOUSEWHEEL:
 		return
-			sge::sdlinput::translate_mouse_wheel_event(
+			sge::sdlinput::translate::mouse_wheel_event(
 				_cursor,
 				_mouse,
 				_window,
