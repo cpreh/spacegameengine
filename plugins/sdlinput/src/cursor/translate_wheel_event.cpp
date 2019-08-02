@@ -4,11 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/input/mouse/axis_code.hpp>
-#include <sge/input/mouse/shared_ptr.hpp>
-#include <sge/input/mouse/event/axis.hpp>
-#include <sge/sdlinput/mouse/make_axis.hpp>
-#include <sge/sdlinput/mouse/translate_motion_event.hpp>
+#include <sge/input/cursor/scroll_code.hpp>
+#include <sge/input/cursor/shared_ptr.hpp>
+#include <sge/input/cursor/event/scroll.hpp>
+#include <sge/sdlinput/cursor/translate_wheel_event.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -20,21 +19,22 @@
 
 
 awl::event::container
-sge::sdlinput::mouse::translate_motion_event(
-	sge::input::mouse::shared_ptr const &_mouse,
-	SDL_MouseMotionEvent const &_event
+sge::sdlinput::cursor::translate_wheel_event(
+	sge::input::cursor::shared_ptr const &_cursor,
+	SDL_MouseWheelEvent const &_event
 )
 {
 	awl::event::container result{};
 
-	auto const add_event(
+	auto const make_event(
 		[
 			&result,
-			&_mouse
+			&_cursor
 		](
-			std::int32_t const _value,
-			sge::input::mouse::axis_code const _code
-		){
+			sge::input::cursor::scroll_code const _code,
+			std::int32_t const _value
+		)
+		{
 			if(
 				_value
 				!=
@@ -45,12 +45,10 @@ sge::sdlinput::mouse::translate_motion_event(
 						awl::event::base
 					>(
 						fcppt::make_unique_ptr<
-							sge::input::mouse::event::axis
+							sge::input::cursor::event::scroll
 						>(
-							_mouse,
-							sge::sdlinput::mouse::make_axis(
-								_code
-							),
+							_cursor,
+							_code,
 							_value
 						)
 					)
@@ -58,14 +56,14 @@ sge::sdlinput::mouse::translate_motion_event(
 		}
 	);
 
-	add_event(
-		_event.xrel,
-		sge::input::mouse::axis_code::x
+	make_event(
+		sge::input::cursor::scroll_code::horizontal,
+		_event.x
 	);
 
-	add_event(
-		_event.yrel,
-		sge::input::mouse::axis_code::y
+	make_event(
+		sge::input::cursor::scroll_code::vertical,
+		_event.y
 	);
 
 	return

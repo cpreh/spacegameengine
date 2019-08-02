@@ -7,11 +7,14 @@
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/mouse/shared_ptr.hpp>
 #include <sge/sdlinput/same_windows.hpp>
+#include <sge/sdlinput/cursor/translate_wheel_event.hpp>
+#include <sge/sdlinput/mouse/translate_wheel_event.hpp>
 #include <sge/sdlinput/translate/mouse_wheel_event.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
 #include <awl/backends/sdl/window/object_fwd.hpp>
 #include <fcppt/not.hpp>
+#include <fcppt/container/join.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_events.h>
 #include <fcppt/config/external_end.hpp>
@@ -36,7 +39,15 @@ sge::sdlinput::translate::mouse_wheel_event(
 		return
 			awl::event::container{};
 
-	// TODO
 	return
-		awl::event::container{};
+		fcppt::container::join(
+			sge::sdlinput::cursor::translate_wheel_event(
+				_cursor,
+				_event
+			),
+			sge::sdlinput::mouse::translate_wheel_event(
+				_mouse,
+				_event
+			)
+		);
 }

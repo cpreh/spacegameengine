@@ -7,15 +7,18 @@ set(
 	plugins/sdlinput/include/sge/sdlinput/cursor/translate_button_code.hpp
 	plugins/sdlinput/include/sge/sdlinput/cursor/translate_button_event.hpp
 	plugins/sdlinput/include/sge/sdlinput/cursor/translate_motion_event.hpp
+	plugins/sdlinput/include/sge/sdlinput/cursor/translate_wheel_event.hpp
 	plugins/sdlinput/include/sge/sdlinput/focus/object.hpp
 	plugins/sdlinput/include/sge/sdlinput/focus/translate_keyboard_event.hpp
 	plugins/sdlinput/include/sge/sdlinput/focus/translate_text_event.hpp
 	plugins/sdlinput/include/sge/sdlinput/keyboard/device.hpp
 	plugins/sdlinput/include/sge/sdlinput/keyboard/translate_event.hpp
 	plugins/sdlinput/include/sge/sdlinput/mouse/device.hpp
+	plugins/sdlinput/include/sge/sdlinput/mouse/make_axis.hpp
 	plugins/sdlinput/include/sge/sdlinput/mouse/translate_button_code.hpp
 	plugins/sdlinput/include/sge/sdlinput/mouse/translate_button_event.hpp
 	plugins/sdlinput/include/sge/sdlinput/mouse/translate_motion_event.hpp
+	plugins/sdlinput/include/sge/sdlinput/mouse/translate_wheel_event.hpp
 	plugins/sdlinput/include/sge/sdlinput/processor.hpp
 	plugins/sdlinput/include/sge/sdlinput/same_windows.hpp
 	plugins/sdlinput/include/sge/sdlinput/same_windows_impl.hpp
@@ -36,6 +39,7 @@ set(
 	plugins/sdlinput/src/cursor/translate_button_code.cpp
 	plugins/sdlinput/src/cursor/translate_button_event.cpp
 	plugins/sdlinput/src/cursor/translate_motion_event.cpp
+	plugins/sdlinput/src/cursor/translate_wheel_event.cpp
 	plugins/sdlinput/src/exports.cpp
 	plugins/sdlinput/src/focus/object.cpp
 	plugins/sdlinput/src/focus/translate_keyboard_event.cpp
@@ -43,9 +47,11 @@ set(
 	plugins/sdlinput/src/keyboard/device.cpp
 	plugins/sdlinput/src/keyboard/translate_event.cpp
 	plugins/sdlinput/src/mouse/device.cpp
+	plugins/sdlinput/src/mouse/make_axis.cpp
 	plugins/sdlinput/src/mouse/translate_button_code.cpp
 	plugins/sdlinput/src/mouse/translate_button_event.cpp
 	plugins/sdlinput/src/mouse/translate_motion_event.cpp
+	plugins/sdlinput/src/mouse/translate_wheel_event.cpp
 	plugins/sdlinput/src/processor.cpp
 	plugins/sdlinput/src/same_windows_impl.cpp
 	plugins/sdlinput/src/system.cpp

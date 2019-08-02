@@ -8,7 +8,7 @@
 #include <sge/input/mouse/shared_ptr.hpp>
 #include <sge/input/mouse/event/axis.hpp>
 #include <sge/sdlinput/mouse/make_axis.hpp>
-#include <sge/sdlinput/mouse/translate_motion_event.hpp>
+#include <sge/sdlinput/mouse/translate_wheel_event.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -20,21 +20,22 @@
 
 
 awl::event::container
-sge::sdlinput::mouse::translate_motion_event(
+sge::sdlinput::mouse::translate_wheel_event(
 	sge::input::mouse::shared_ptr const &_mouse,
-	SDL_MouseMotionEvent const &_event
+	SDL_MouseWheelEvent const &_event
 )
 {
 	awl::event::container result{};
 
-	auto const add_event(
+	auto const make_event(
 		[
 			&result,
 			&_mouse
 		](
-			std::int32_t const _value,
-			sge::input::mouse::axis_code const _code
-		){
+			sge::input::mouse::axis_code const _code,
+			std::int32_t const _value
+		)
+		{
 			if(
 				_value
 				!=
@@ -58,14 +59,10 @@ sge::sdlinput::mouse::translate_motion_event(
 		}
 	);
 
-	add_event(
-		_event.xrel,
-		sge::input::mouse::axis_code::x
-	);
-
-	add_event(
-		_event.yrel,
-		sge::input::mouse::axis_code::y
+	// TODO: Add horizontal wheel code!
+	make_event(
+		sge::input::mouse::axis_code::wheel,
+		_event.y
 	);
 
 	return
