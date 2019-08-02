@@ -42,7 +42,6 @@ sge::sdlinput::translate::keyboard_event(
 		return
 			awl::event::container{};
 
-	// TODO
 	return
 		fcppt::optional::cat<
 			awl::event::container
