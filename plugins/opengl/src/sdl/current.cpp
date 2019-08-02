@@ -103,7 +103,8 @@ sge::opengl::sdl::current::vsync(
 	if(
 		SDL_GL_SetSwapInterval(
 			convert_mode(
-				_vsync
+				sge::renderer::display_mode::vsync::off
+//				_vsync
 			)
 		)
 		!=
