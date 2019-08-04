@@ -13,6 +13,9 @@
 #include <sge/sdlinput/processor.hpp>
 #include <sge/sdlinput/cursor/object.hpp>
 #include <sge/sdlinput/focus/object.hpp>
+#include <sge/sdlinput/joypad/device.hpp>
+#include <sge/sdlinput/joypad/init.hpp>
+#include <sge/sdlinput/joypad/shared_ptr.hpp>
 #include <sge/sdlinput/keyboard/device.hpp>
 #include <sge/sdlinput/mouse/device.hpp>
 #include <sge/sdlinput/translate/event.hpp>
@@ -26,6 +29,7 @@
 #include <awl/window/object.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -73,6 +77,25 @@ sge::sdlinput::processor::processor(
 			sge::sdlinput::mouse::device
 		>(
 			_window
+		)
+	},
+	joypads_{
+		fcppt::algorithm::map<
+			sge::sdlinput::processor::joypad_map
+		>(
+			sge::sdlinput::joypad::init(
+				_window
+			),
+			[](
+				sge::sdlinput::joypad::shared_ptr const &_ptr
+			)
+			{
+				return
+					sge::sdlinput::processor::joypad_map::value_type{
+						_ptr->id(),
+						_ptr
+					};
+			}
 		)
 	},
 	event_connection_{

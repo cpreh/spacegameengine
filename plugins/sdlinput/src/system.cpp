@@ -14,12 +14,16 @@
 #include <sge/sdlinput/system.hpp>
 #include <awl/backends/sdl/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <SDL.h>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::sdlinput::system::system()
 :
-	sge::input::system()
+	sge::input::system{},
+	init_{
+		SDL_INIT_JOYSTICK
+	}
 {
 }
 

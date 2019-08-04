@@ -11,6 +11,7 @@
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/system.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <awl/backends/sdl/system/init.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -41,6 +42,8 @@ private:
 	sge::input::capabilities_field
 	capabilities() const
 	override;
+
+	awl::backends::sdl::system::init const init_;
 };
 
 }

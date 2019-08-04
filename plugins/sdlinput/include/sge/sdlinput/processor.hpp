@@ -13,12 +13,17 @@
 #include <sge/input/joypad/container.hpp>
 #include <sge/input/keyboard/container.hpp>
 #include <sge/input/mouse/container.hpp>
+#include <sge/sdlinput/joypad/shared_ptr.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <awl/backends/sdl/window/object_fwd.hpp>
 #include <awl/event/base_fwd.hpp>
 #include <awl/event/container.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <SDL_joystick.h>
+#include <unordered_map>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -83,8 +88,16 @@ private:
 
 	sge::input::mouse::shared_ptr const mouse_;
 
-	fcppt::signal::auto_connection const event_connection_;
+	typedef
+	std::unordered_map<
+		SDL_JoystickID,
+		sge::sdlinput::joypad::shared_ptr
+	>
+	joypad_map;
 
+	joypad_map joypads_;
+
+	fcppt::signal::auto_connection const event_connection_;
 };
 
 }
