@@ -9,6 +9,7 @@
 
 #include <sge/sdlinput/joypad/shared_ptr.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -25,7 +26,8 @@ std::vector<
 	sge::sdlinput::joypad::shared_ptr
 >
 init(
-	sge::window::object &
+	sge::window::object &,
+	fcppt::log::object &
 );
 
 }

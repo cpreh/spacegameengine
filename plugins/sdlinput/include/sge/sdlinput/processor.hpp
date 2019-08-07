@@ -19,6 +19,7 @@
 #include <awl/event/base_fwd.hpp>
 #include <awl/event/container.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_joystick.h>
@@ -39,9 +40,9 @@ class processor
 		processor
 	);
 public:
-	explicit
 	processor(
-		sge::window::object &
+		sge::window::object &,
+		fcppt::log::object &
 	);
 
 	~processor()
@@ -77,6 +78,8 @@ private:
 	);
 
 	sge::window::object &window_;
+
+	fcppt::log::object &log_;
 
 	awl::backends::sdl::window::object &sdl_window_;
 

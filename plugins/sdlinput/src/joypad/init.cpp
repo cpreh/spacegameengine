@@ -14,6 +14,9 @@
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
+#include <fcppt/log/error.hpp>
+#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_joystick.h>
@@ -25,7 +28,8 @@ std::vector<
 	sge::sdlinput::joypad::shared_ptr
 >
 sge::sdlinput::joypad::init(
-	sge::window::object &_window
+	sge::window::object &_window,
+	fcppt::log::object &_log
 )
 {
 	return
@@ -38,7 +42,8 @@ sge::sdlinput::joypad::init(
 				SDL_NumJoysticks()
 			),
 			[
-				&_window
+				&_window,
+				&_log
 			](
 				int const _index
 			)
@@ -67,7 +72,15 @@ sge::sdlinput::joypad::init(
 					sge::input::exception const &_error
 				)
 				{
-					// TODO: Add logging
+					FCPPT_LOG_ERROR(
+						_log,
+						fcppt::log::out
+							<<
+							FCPPT_TEXT("Unable to initialize an SDL joystick: ")
+							<<
+							_error.string()
+					)
+
 					return
 						result_type{};
 				}

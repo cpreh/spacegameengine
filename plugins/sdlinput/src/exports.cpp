@@ -53,7 +53,7 @@ FCPPT_PP_POP_WARNING
 
 sge::input::system_unique_ptr
 create_input_system(
-	fcppt::log::context &
+	fcppt::log::context &_log_context
 )
 {
 	return
@@ -62,7 +62,9 @@ create_input_system(
 		>(
 			fcppt::make_unique_ptr<
 				sge::sdlinput::system
-			>()
+			>(
+				_log_context
+			)
 		);
 }
 

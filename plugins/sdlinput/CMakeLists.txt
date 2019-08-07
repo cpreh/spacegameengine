@@ -89,6 +89,7 @@ add_sge_plugin(
 	sdlinput
 	SGE_DEPS
 		sgeinput
+		sgelog
 		sgeplugin
 		sgewindow
 	ADDITIONAL_DEPS

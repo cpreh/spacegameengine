@@ -13,6 +13,8 @@
 #include <sge/window/object_fwd.hpp>
 #include <awl/backends/sdl/system/init.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/object.hpp>
 
 
 namespace sge
@@ -28,7 +30,10 @@ class system
 		system
 	);
 public:
-	system();
+	explicit
+	system(
+		fcppt::log::context &
+	);
 
 	~system()
 	override;
@@ -44,6 +49,8 @@ private:
 	override;
 
 	awl::backends::sdl::system::init const init_;
+
+	fcppt::log::object log_;
 };
 
 }

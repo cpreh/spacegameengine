@@ -8,6 +8,7 @@
 #include <sge/input/cursor/container.hpp>
 #include <sge/input/focus/container.hpp>
 #include <sge/input/joypad/container.hpp>
+#include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/keyboard/container.hpp>
 #include <sge/input/mouse/container.hpp>
 #include <sge/sdlinput/processor.hpp>
@@ -32,16 +33,21 @@
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe.hpp>
 
 
 sge::sdlinput::processor::processor(
-	sge::window::object &_window
+	sge::window::object &_window,
+	fcppt::log::object &_log
 )
 :
 	sge::input::processor{},
 	window_{
 		_window
+	},
+	log_{
+		_log
 	},
 	sdl_window_{
 		fcppt::cast::dynamic_exn<
@@ -84,7 +90,8 @@ sge::sdlinput::processor::processor(
 			sge::sdlinput::processor::joypad_map
 		>(
 			sge::sdlinput::joypad::init(
-				_window
+				_window,
+				this->log_
 			),
 			[](
 				sge::sdlinput::joypad::shared_ptr const &_ptr
@@ -150,9 +157,21 @@ sge::sdlinput::processor::foci() const
 sge::input::joypad::container
 sge::sdlinput::processor::joypads() const
 {
-	// TODO
 	return
-		sge::input::joypad::container{};
+		fcppt::algorithm::map<
+			sge::input::joypad::container
+		>(
+			this->joypads_,
+			[](
+				sge::sdlinput::processor::joypad_map::value_type const &_element
+			)
+			{
+				return
+					sge::input::joypad::shared_ptr{
+						_element.second
+					};
+			}
+		);
 }
 
 sge::input::keyboard::container
