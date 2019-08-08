@@ -7,17 +7,22 @@
 #ifndef SGE_SDLINPUT_JOYPAD_DEVICE_HPP_INCLUDED
 #define SGE_SDLINPUT_JOYPAD_DEVICE_HPP_INCLUDED
 
+#include <sge/input/joypad/absolute_axis.hpp>
 #include <sge/input/joypad/device.hpp>
 #include <sge/input/joypad/info.hpp>
+#include <sge/input/joypad/relative_axis.hpp>
 #include <sge/input/joypad/ff/effect_unique_ptr.hpp>
 #include <sge/input/joypad/ff/parameters_fwd.hpp>
+#include <sge/sdlinput/joypad/ball_direction_fwd.hpp>
 #include <sge/sdlinput/joypad/device_id.hpp>
 #include <sge/sdlinput/joypad/device_fwd.hpp>
+#include <sge/sdlinput/joypad/hat_direction_fwd.hpp>
 #include <sge/sdlinput/joypad/instance.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_joystick.h>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -61,6 +66,23 @@ public:
 
 	SDL_JoystickID
 	id() const;
+
+	sge::input::joypad::absolute_axis
+	axis(
+		std::uint8_t
+	) const;
+
+	sge::input::joypad::relative_axis
+	ball_axis(
+		std::uint8_t,
+		sge::sdlinput::joypad::ball_direction
+	) const;
+
+	sge::input::joypad::absolute_axis
+	hat_axis(
+		std::uint8_t,
+		sge::sdlinput::joypad::hat_direction
+	) const;
 private:
 	sge::sdlinput::joypad::instance const instance_;
 

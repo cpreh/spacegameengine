@@ -28,13 +28,27 @@ template<
 class container
 {
 public:
-	typedef Id id;
+	typedef
+	Id
+	id;
 
-	typedef Obj object;
+	typedef
+	id
+	size_type;
 
-	typedef std::vector<
+	typedef
+	Obj
+	object;
+
+	typedef
+	object
+	value_type;
+
+	typedef
+	std::vector<
 		Obj
-	> vector;
+	>
+	vector;
 
 	SGE_INPUT_DETAIL_SYMBOL
 	explicit

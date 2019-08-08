@@ -11,9 +11,12 @@
 #include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/keyboard/shared_ptr.hpp>
 #include <sge/input/mouse/shared_ptr.hpp>
+#include <sge/sdlinput/joypad/map.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <awl/backends/sdl/system/event/object_fwd.hpp>
 #include <awl/backends/sdl/window/object_fwd.hpp>
 #include <awl/event/container.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -25,10 +28,14 @@ namespace translate
 
 awl::event::container
 event(
+	fcppt::reference<
+		sge::sdlinput::joypad::map
+	>,
 	sge::input::cursor::shared_ptr const &,
 	sge::input::focus::shared_ptr const &,
 	sge::input::keyboard::shared_ptr const &,
 	sge::input::mouse::shared_ptr const &,
+	sge::window::object &,
 	awl::backends::sdl::window::object const &,
 	awl::backends::sdl::system::event::object const &
 );

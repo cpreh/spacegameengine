@@ -16,6 +16,7 @@
 #include <sge/sdlinput/focus/object.hpp>
 #include <sge/sdlinput/joypad/device.hpp>
 #include <sge/sdlinput/joypad/init.hpp>
+#include <sge/sdlinput/joypad/map.hpp>
 #include <sge/sdlinput/joypad/shared_ptr.hpp>
 #include <sge/sdlinput/keyboard/device.hpp>
 #include <sge/sdlinput/mouse/device.hpp>
@@ -87,7 +88,7 @@ sge::sdlinput::processor::processor(
 	},
 	joypads_{
 		fcppt::algorithm::map<
-			sge::sdlinput::processor::joypad_map
+			sge::sdlinput::joypad::map
 		>(
 			sge::sdlinput::joypad::init(
 				_window,
@@ -98,7 +99,7 @@ sge::sdlinput::processor::processor(
 			)
 			{
 				return
-					sge::sdlinput::processor::joypad_map::value_type{
+					sge::sdlinput::joypad::map::value_type{
 						_ptr->id(),
 						_ptr
 					};
@@ -163,7 +164,7 @@ sge::sdlinput::processor::joypads() const
 		>(
 			this->joypads_,
 			[](
-				sge::sdlinput::processor::joypad_map::value_type const &_element
+				sge::sdlinput::joypad::map::value_type const &_element
 			)
 			{
 				return
@@ -218,10 +219,14 @@ sge::sdlinput::processor::on_event(
 			{
 				return
 					sge::sdlinput::translate::event(
+						fcppt::make_ref(
+							this->joypads_
+						),
 						this->cursor_,
 						this->focus_,
 						this->keyboard_,
 						this->mouse_,
+						this->window_,
 						this->sdl_window_,
 						_sdl_event.get()
 					);

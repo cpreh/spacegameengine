@@ -11,15 +11,31 @@ set(
 	plugins/sdlinput/include/sge/sdlinput/focus/object.hpp
 	plugins/sdlinput/include/sge/sdlinput/focus/translate_keyboard_event.hpp
 	plugins/sdlinput/include/sge/sdlinput/focus/translate_text_event.hpp
+	plugins/sdlinput/include/sge/sdlinput/joypad/ball_direction.hpp
+	plugins/sdlinput/include/sge/sdlinput/joypad/ball_direction_fwd.hpp
 	plugins/sdlinput/include/sge/sdlinput/joypad/device.hpp
 	plugins/sdlinput/include/sge/sdlinput/joypad/device_fwd.hpp
 	plugins/sdlinput/include/sge/sdlinput/joypad/device_id.hpp
+	plugins/sdlinput/include/sge/sdlinput/joypad/discover.hpp
 	plugins/sdlinput/include/sge/sdlinput/joypad/ff_effect.hpp
+	plugins/sdlinput/include/sge/sdlinput/joypad/from_event.hpp
+	plugins/sdlinput/include/sge/sdlinput/joypad/from_event_impl.hpp
+	plugins/sdlinput/include/sge/sdlinput/joypad/hat_direction.hpp
+	plugins/sdlinput/include/sge/sdlinput/joypad/hat_direction_fwd.hpp
 	plugins/sdlinput/include/sge/sdlinput/joypad/init.hpp
 	plugins/sdlinput/include/sge/sdlinput/joypad/instance.hpp
 	plugins/sdlinput/include/sge/sdlinput/joypad/instance_id.hpp
 	plugins/sdlinput/include/sge/sdlinput/joypad/make_info.hpp
+	plugins/sdlinput/include/sge/sdlinput/joypad/map.hpp
+	plugins/sdlinput/include/sge/sdlinput/joypad/num_axes.hpp
+	plugins/sdlinput/include/sge/sdlinput/joypad/num_balls.hpp
+	plugins/sdlinput/include/sge/sdlinput/joypad/num_hats.hpp
+	plugins/sdlinput/include/sge/sdlinput/joypad/remove.hpp
 	plugins/sdlinput/include/sge/sdlinput/joypad/shared_ptr.hpp
+	plugins/sdlinput/include/sge/sdlinput/joypad/translate_axis_event.hpp
+	plugins/sdlinput/include/sge/sdlinput/joypad/translate_ball_event.hpp
+	plugins/sdlinput/include/sge/sdlinput/joypad/translate_button_event.hpp
+	plugins/sdlinput/include/sge/sdlinput/joypad/translate_hat_event.hpp
 	plugins/sdlinput/include/sge/sdlinput/keyboard/device.hpp
 	plugins/sdlinput/include/sge/sdlinput/keyboard/translate_event.hpp
 	plugins/sdlinput/include/sge/sdlinput/mouse/device.hpp
@@ -54,11 +70,21 @@ set(
 	plugins/sdlinput/src/focus/translate_keyboard_event.cpp
 	plugins/sdlinput/src/focus/translate_text_event.cpp
 	plugins/sdlinput/src/joypad/device.cpp
+	plugins/sdlinput/src/joypad/discover.cpp
 	plugins/sdlinput/src/joypad/ff_effect.cpp
+	plugins/sdlinput/src/joypad/from_event_impl.cpp
 	plugins/sdlinput/src/joypad/init.cpp
 	plugins/sdlinput/src/joypad/instance.cpp
 	plugins/sdlinput/src/joypad/instance_id.cpp
 	plugins/sdlinput/src/joypad/make_info.cpp
+	plugins/sdlinput/src/joypad/num_axes.cpp
+	plugins/sdlinput/src/joypad/num_balls.cpp
+	plugins/sdlinput/src/joypad/num_hats.cpp
+	plugins/sdlinput/src/joypad/remove.cpp
+	plugins/sdlinput/src/joypad/translate_axis_event.cpp
+	plugins/sdlinput/src/joypad/translate_ball_event.cpp
+	plugins/sdlinput/src/joypad/translate_button_event.cpp
+	plugins/sdlinput/src/joypad/translate_hat_event.cpp
 	plugins/sdlinput/src/keyboard/device.cpp
 	plugins/sdlinput/src/keyboard/translate_event.cpp
 	plugins/sdlinput/src/mouse/device.cpp

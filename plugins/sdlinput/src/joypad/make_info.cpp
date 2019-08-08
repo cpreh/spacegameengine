@@ -18,6 +18,9 @@
 #include <sge/input/joypad/relative_axis_info_container.hpp>
 #include <sge/input/joypad/ff/type_field.hpp>
 #include <sge/sdlinput/joypad/make_info.hpp>
+#include <sge/sdlinput/joypad/num_axes.hpp>
+#include <sge/sdlinput/joypad/num_balls.hpp>
+#include <sge/sdlinput/joypad/num_hats.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
@@ -101,32 +104,6 @@ get_guid(
 		};
 }
 
-sge::input::joypad::absolute_axis_info_container::vector::size_type
-num_axes(
-	SDL_Joystick &_joystick
-)
-{
-	return
-		fcppt::cast::to_unsigned(
-			SDL_JoystickNumAxes(
-				&_joystick
-			)
-		);
-}
-
-sge::input::joypad::relative_axis_info_container::vector::size_type
-num_balls(
-	SDL_Joystick &_joystick
-)
-{
-	return
-		fcppt::cast::to_unsigned(
-			SDL_JoystickNumBalls(
-				&_joystick
-			)
-		);
-}
-
 sge::input::joypad::button_info_container::vector::size_type
 num_buttons(
 	SDL_Joystick &_joystick
@@ -135,19 +112,6 @@ num_buttons(
 	return
 		fcppt::cast::to_unsigned(
 			SDL_JoystickNumButtons(
-				&_joystick
-			)
-		);
-}
-
-sge::input::joypad::absolute_axis_info_container::vector::size_type
-num_hats(
-	SDL_Joystick &_joystick
-)
-{
-	return
-		fcppt::cast::to_unsigned(
-			SDL_JoystickNumHats(
 				&_joystick
 			)
 		);
@@ -165,7 +129,7 @@ sge::sdlinput::joypad::make_info(
 			sge::input::joypad::absolute_axis_info_container{
 				fcppt::container::join(
 					sge::input::joypad::absolute_axis_info_container::vector{
-						num_axes(
+						sge::sdlinput::joypad::num_axes(
 							_joystick
 						),
 						sge::input::joypad::absolute_axis_info{
@@ -180,7 +144,7 @@ sge::sdlinput::joypad::make_info(
 						}
 					},
 					sge::input::joypad::absolute_axis_info_container::vector{
-						num_hats(
+						sge::sdlinput::joypad::num_hats(
 							_joystick
 						),
 						sge::input::joypad::absolute_axis_info{
@@ -224,7 +188,7 @@ sge::sdlinput::joypad::make_info(
 			sge::input::joypad::relative_axis_info_container{
 				fcppt::container::join(
 					sge::input::joypad::relative_axis_info_container::vector{
-						num_balls(
+						sge::sdlinput::joypad::num_balls(
 							_joystick
 						),
 						sge::input::joypad::relative_axis_info{
@@ -233,7 +197,7 @@ sge::sdlinput::joypad::make_info(
 						}
 					},
 					sge::input::joypad::relative_axis_info_container::vector{
-						num_balls(
+						sge::sdlinput::joypad::num_balls(
 							_joystick
 						),
 						sge::input::joypad::relative_axis_info{
