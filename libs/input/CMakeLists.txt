@@ -216,13 +216,11 @@ set(
 	libs/input/include/sge/input/joypad/relative_axis_info_container_fwd.hpp
 	libs/input/include/sge/input/joypad/relative_axis_info_fwd.hpp
 	libs/input/include/sge/input/joypad/shared_ptr.hpp
-	libs/input/include/sge/input/key/callback.hpp
 	libs/input/include/sge/input/key/code.hpp
 	libs/input/include/sge/input/key/code_fwd.hpp
 	libs/input/include/sge/input/key/code_to_digit.hpp
 	libs/input/include/sge/input/key/code_to_string.hpp
 	libs/input/include/sge/input/key/digit.hpp
-	libs/input/include/sge/input/key/function.hpp
 	libs/input/include/sge/input/key/is_alt.hpp
 	libs/input/include/sge/input/key/is_control.hpp
 	libs/input/include/sge/input/key/is_shift.hpp
