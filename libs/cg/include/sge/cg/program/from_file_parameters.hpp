@@ -16,7 +16,7 @@
 #include <sge/cg/program/source_type.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,7 +35,7 @@ public:
 		sge::cg::context::object const &,
 		sge::cg::program::source_type,
 		sge::cg::profile::object const &,
-		boost::filesystem::path const &,
+		std::filesystem::path const &,
 		sge::cg::program::main_function const &,
 		sge::cg::program::compile_options const &
 	);
@@ -49,7 +49,7 @@ public:
 	sge::cg::profile::object const &
 	profile() const;
 
-	boost::filesystem::path const &
+	std::filesystem::path const &
 	path() const;
 
 	sge::cg::program::main_function const &
@@ -68,7 +68,7 @@ private:
 		sge::cg::profile::object const
 	> profile_;
 
-	boost::filesystem::path path_;
+	std::filesystem::path path_;
 
 	sge::cg::program::main_function main_function_;
 

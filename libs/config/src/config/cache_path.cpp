@@ -10,7 +10,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)
@@ -24,7 +24,7 @@
 #endif
 
 
-boost::filesystem::path
+std::filesystem::path
 sge::config::cache_path(
 	sge::config::app_name const &_app_name
 )
@@ -32,7 +32,7 @@ sge::config::cache_path(
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	return
 		sge::config::impl::try_create_path(
-			boost::filesystem::path(
+			std::filesystem::path(
 				sge::config::getenv_exn(
 					FCPPT_TEXT("APPDATA")
 				)
@@ -47,7 +47,7 @@ sge::config::cache_path(
 		)
 	);
 
-	boost::filesystem::path const path(
+	std::filesystem::path const path(
 		fcppt::optional::maybe(
 			xdg_cache_path,
 			[]{
@@ -61,7 +61,7 @@ sge::config::cache_path(
 			)
 			{
 				return
-					boost::filesystem::path(
+					std::filesystem::path(
 						_path
 					);
 			}

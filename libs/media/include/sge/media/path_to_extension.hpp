@@ -10,7 +10,7 @@
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -22,7 +22,7 @@ namespace media
 SGE_MEDIA_DETAIL_SYMBOL
 sge::media::optional_extension
 path_to_extension(
-	boost::filesystem::path const &
+	std::filesystem::path const &
 );
 
 }

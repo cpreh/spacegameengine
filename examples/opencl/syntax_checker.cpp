@@ -55,7 +55,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <boost/xpressive/xpressive.hpp>
 #include <cstdlib>
 #include <exception>
@@ -74,7 +74,7 @@ namespace
 
 int
 main_program(
-	boost::filesystem::path const &_target_file_name,
+	std::filesystem::path const &_target_file_name,
 	std::vector<
 		fcppt::string
 	> const &_additional_args

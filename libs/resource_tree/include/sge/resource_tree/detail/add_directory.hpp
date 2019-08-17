@@ -17,8 +17,7 @@
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <boost/range/iterator_range_core.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -65,16 +64,16 @@ add_directory(
 			resource_container
 		>(
 			boost::make_iterator_range(
-				boost::filesystem::directory_iterator(
+				std::filesystem::directory_iterator(
 					_sub_path.get()
 				),
-				boost::filesystem::directory_iterator()
+				std::filesystem::directory_iterator()
 			),
 			[
 				&_sub_path,
 				&_path_to_resource
 			](
-				boost::filesystem::path const &_path
+				std::filesystem::path const &_path
 			)
 			{
 				typedef
@@ -90,7 +89,7 @@ add_directory(
 				result_type;
 
 				return
-					boost::filesystem::is_regular_file(
+					std::filesystem::is_regular_file(
 						_path
 					)
 					?

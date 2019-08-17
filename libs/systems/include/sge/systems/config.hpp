@@ -13,7 +13,7 @@
 #include <sge/systems/optional_plugin_path.hpp>
 #include <sge/systems/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -31,7 +31,7 @@ public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::config &
 	plugin_path(
-		boost::filesystem::path const &
+		std::filesystem::path const &
 	);
 
 	SGE_SYSTEMS_DETAIL_SYMBOL

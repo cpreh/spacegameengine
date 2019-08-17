@@ -22,7 +22,7 @@
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -46,7 +46,7 @@ class object
 public:
 	object(
 		fcppt::log::context &,
-		boost::filesystem::path const &,
+		std::filesystem::path const &,
 		sge::image2d::system &
 	);
 
@@ -55,7 +55,7 @@ public:
 private:
 	object(
 		fcppt::log::context &,
-		boost::filesystem::path const &,
+		std::filesystem::path const &,
 		sge::image2d::system &,
 		sge::parse::json::start const &
 	);

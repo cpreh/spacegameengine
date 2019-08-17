@@ -9,7 +9,7 @@
 
 #include <sge/cegui/impl/prefix.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,7 +25,7 @@ namespace cegui
 namespace impl
 {
 
-boost::filesystem::path
+std::filesystem::path
 to_absolute_path(
 	sge::cegui::impl::prefix const &,
 	CEGUI::String const &filename

@@ -16,7 +16,7 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -49,7 +49,7 @@ sge::pango::system::create_font(
 
 sge::font::added_unique_ptr
 sge::pango::system::add_font(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	return

@@ -9,7 +9,7 @@
 #include <fcppt/config/platform.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
@@ -20,16 +20,10 @@
 #include <fcppt/container/buffer/read_from.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
 #include <fcppt/container/raw_vector/object_impl.hpp>
-#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
-#include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/operations.hpp>
-#include <fcppt/config/external_end.hpp>
-#else
-#error "Implement me!"
 #endif
 
 
-boost::filesystem::path
+std::filesystem::path
 sge::config::app_path()
 {
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
@@ -82,19 +76,19 @@ sge::config::app_path()
 	};
 
 	return
-		boost::filesystem::path(
+		std::filesystem::path(
 			fcppt::string{
 				buf.data(),
 				buf.data_end()
 			}
 		).parent_path();
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
-	boost::filesystem::path const self(
+	std::filesystem::path const self(
 		"/proc/self/exe"
 	);
 
 	if(
-		!boost::filesystem::exists(
+		!std::filesystem::exists(
 			self
 		)
 	)
@@ -104,7 +98,7 @@ sge::config::app_path()
 			};
 
 	return
-		boost::filesystem::read_symlink(
+		std::filesystem::read_symlink(
 			self
 		).parent_path();
 #else

@@ -14,7 +14,7 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -49,7 +49,7 @@ private:
 
 	void
 	save(
-		boost::filesystem::path const &
+		std::filesystem::path const &
 	) const
 	override;
 

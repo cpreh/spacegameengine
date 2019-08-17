@@ -199,8 +199,7 @@ add_sge_base_library(
 		${fcppt_log_TARGET}
 		${OpenCL_LIBRARIES}
 		${OPENGL_gl_LIBRARY}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
 		fcppt_log_interface

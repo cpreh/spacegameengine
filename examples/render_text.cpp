@@ -73,7 +73,7 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <brigand/sequences/list.hpp>
 #include <cstdlib>
 #include <exception>
@@ -197,7 +197,7 @@ render_text_main(
 		sge::image2d::view::const_object{
 			store.const_wrapped_view()
 		},
-		boost::filesystem::path{
+		std::filesystem::path{
 			fcppt::record::get<
 				output_file_label
 			>(

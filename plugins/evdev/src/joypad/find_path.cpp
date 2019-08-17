@@ -11,7 +11,7 @@
 #include <fcppt/const.hpp>
 #include <fcppt/optional/make_if.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
@@ -19,7 +19,7 @@
 sge::evdev::joypad::optional_iterator
 sge::evdev::joypad::find_path(
 	sge::evdev::joypad::map &_map,
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	// TODO: Make an algorithm for this

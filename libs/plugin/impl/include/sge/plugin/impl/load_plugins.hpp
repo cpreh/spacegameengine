@@ -11,7 +11,7 @@
 #include <sge/plugin/detail/context_base_vector.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,7 +25,7 @@ namespace impl
 sge::plugin::detail::context_base_vector
 load_plugins(
 	fcppt::log::object &,
-	boost::filesystem::path const &,
+	std::filesystem::path const &,
 	sge::plugin::optional_cache_ref const &
 );
 

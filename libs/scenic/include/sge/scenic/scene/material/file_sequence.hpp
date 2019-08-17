@@ -8,7 +8,7 @@
 #define SGE_SCENIC_SCENE_MATERIAL_FILE_SEQUENCE_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -21,7 +21,7 @@ namespace scene
 namespace material
 {
 typedef
-std::vector<boost::filesystem::path>
+std::vector<std::filesystem::path>
 file_sequence;
 }
 }

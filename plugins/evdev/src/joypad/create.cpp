@@ -28,8 +28,7 @@
 #include <fcppt/optional/join.hpp>
 #include <fcppt/optional/make_if.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <boost/algorithm/string/predicate.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -43,7 +42,7 @@ try_create(
 	fcppt::log::object &_log,
 	sge::window::object &_window,
 	awl::backends::posix::processor &_processor,
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	return
@@ -129,14 +128,14 @@ sge::evdev::joypad::create(
 	fcppt::log::object &_log,
 	sge::window::object &_window,
 	awl::backends::posix::processor &_processor,
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	return
 		fcppt::optional::join(
 			fcppt::optional::make_if(
 				fcppt::not_(
-					boost::filesystem::is_directory(
+					std::filesystem::is_directory(
 						_path
 					)
 				)

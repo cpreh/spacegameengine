@@ -16,8 +16,8 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
+#include <fstream>
 #include <ios>
 #include <fcppt/config/external_end.hpp>
 
@@ -42,11 +42,11 @@ sge::model::md3::impl::loader::~loader()
 
 sge::model::md3::object_unique_ptr
 sge::model::md3::impl::loader::load(
-	boost::filesystem::path const &_path,
+	std::filesystem::path const &_path,
 	sge::model::md3::load_flags_field const _flags
 )
 {
-	boost::filesystem::ifstream file(
+	std::ifstream file(
 		_path,
 		std::ios_base::binary
 	);

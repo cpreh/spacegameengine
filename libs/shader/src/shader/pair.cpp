@@ -20,7 +20,9 @@
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
+#include <filesystem>
+#include <fstream>
+#include <istream>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -28,20 +30,28 @@
 namespace
 {
 typedef
-fcppt::unique_ptr<std::istream>
+fcppt::unique_ptr<
+	std::istream
+>
 istream_unique_ptr;
 
 istream_unique_ptr
 open_istream_exn(
-	boost::filesystem::path const &_path)
+	std::filesystem::path const &_path)
 {
 	typedef
-	fcppt::unique_ptr<boost::filesystem::ifstream>
-	boost_filesystem_ifstream_unique_ptr;
+	fcppt::unique_ptr<
+		std::ifstream
+	>
+	ifstream_unique_ptr;
 
-	boost_filesystem_ifstream_unique_ptr result(
-		fcppt::make_unique_ptr<boost::filesystem::ifstream>(
-			_path));
+	ifstream_unique_ptr result(
+		fcppt::make_unique_ptr<
+			std::ifstream
+		>(
+			_path
+		)
+	);
 
 	if(!result->is_open())
 		throw

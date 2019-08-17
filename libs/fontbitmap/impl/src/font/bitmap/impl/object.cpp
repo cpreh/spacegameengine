@@ -42,13 +42,13 @@
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::font::bitmap::impl::object::object(
 	fcppt::log::context &_log_context,
-	boost::filesystem::path const &_path,
+	std::filesystem::path const &_path,
 	sge::image2d::system &_image_system
 )
 :
@@ -69,7 +69,7 @@ sge::font::bitmap::impl::object::~object()
 
 sge::font::bitmap::impl::object::object(
 	fcppt::log::context &_log_context,
-	boost::filesystem::path const &_path,
+	std::filesystem::path const &_path,
 	sge::image2d::system &_image_system,
 	sge::parse::json::start const &_start
 )

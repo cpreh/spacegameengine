@@ -13,7 +13,7 @@
 #include <sge/font/system.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -43,7 +43,7 @@ private:
 
 	sge::font::added_unique_ptr
 	add_font(
-		boost::filesystem::path const &
+		std::filesystem::path const &
 	)
 	override;
 };

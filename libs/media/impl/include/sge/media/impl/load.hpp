@@ -19,8 +19,8 @@
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
+#include <fstream>
 #include <ios>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -43,12 +43,12 @@ fcppt::optional::object<
 >
 load(
 	System &_system,
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	auto file_stream(
 		fcppt::make_unique_ptr<
-			boost::filesystem::ifstream
+			std::ifstream
 		>(
 			_path,
 			std::ios_base::binary

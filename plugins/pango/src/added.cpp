@@ -11,13 +11,13 @@
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fontconfig/fontconfig.h>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::pango::added::added(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 :
 	sge::font::added()

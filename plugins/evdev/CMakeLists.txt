@@ -175,6 +175,5 @@ add_sge_plugin(
 		${awl_TARGET}
 		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )

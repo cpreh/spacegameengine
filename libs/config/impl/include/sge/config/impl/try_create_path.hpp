@@ -8,7 +8,7 @@
 #define SGE_CONFIG_IMPL_TRY_CREATE_PATH_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -19,9 +19,9 @@ namespace config
 namespace impl
 {
 
-boost::filesystem::path
+std::filesystem::path
 try_create_path(
-	boost::filesystem::path const &
+	std::filesystem::path const &
 );
 
 }

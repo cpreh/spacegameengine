@@ -13,12 +13,12 @@
 #include <fcppt/assert/error.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::gdifont::added::added(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 :
 	path_(

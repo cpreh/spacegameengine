@@ -9,13 +9,13 @@
 #include <sge/parse/json/parse_file_exn.hpp>
 #include <sge/parse/json/start.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::parse::json::start
 sge::parse::json::parse_file_exn(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	return

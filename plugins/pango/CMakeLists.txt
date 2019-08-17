@@ -73,6 +73,5 @@ add_sge_plugin(
 		PkgConfig::PANGO
 		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )

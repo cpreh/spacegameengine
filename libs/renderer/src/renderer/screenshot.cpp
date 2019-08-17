@@ -10,7 +10,7 @@
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -18,7 +18,7 @@ void
 sge::renderer::screenshot(
 	sge::renderer::device::core const &_renderer,
 	sge::image2d::system &_system,
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	sge::renderer::color_buffer::const_scoped_surface_lock const lock(

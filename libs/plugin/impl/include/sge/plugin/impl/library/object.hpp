@@ -14,7 +14,7 @@
 #include <fcppt/config/platform.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
@@ -39,7 +39,7 @@ public:
 	SGE_PLUGIN_DETAIL_SYMBOL
 	explicit
 	object(
-		boost::filesystem::path const &
+		std::filesystem::path const &
 	);
 
 	SGE_PLUGIN_DETAIL_SYMBOL
@@ -50,10 +50,10 @@ public:
 		sge::plugin::library::symbol_string const &
 	);
 
-	boost::filesystem::path const &
+	std::filesystem::path const &
 	name() const;
 private:
-	boost::filesystem::path const name_;
+	std::filesystem::path const name_;
 
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	HMODULE const handle_;

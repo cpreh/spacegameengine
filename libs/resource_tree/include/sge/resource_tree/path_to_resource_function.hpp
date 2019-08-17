@@ -9,7 +9,7 @@
 
 #include <fcppt/function_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,7 +25,7 @@ using path_to_resource_function
 =
 fcppt::function<
 	T (
-		boost::filesystem::path const &
+		std::filesystem::path const &
 	)
 >;
 

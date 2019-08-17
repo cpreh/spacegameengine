@@ -11,18 +11,19 @@
 #include <awl/backends/posix/fd.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
 #include <linux/limits.h>
 #include <sys/inotify.h>
 #include <array>
+#include <cstring>
 #include <cstddef>
+#include <filesystem>
 #include <string>
 #include <unistd.h>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::evdev::inotify::reader::reader(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 :
 	object_{},
@@ -122,7 +123,7 @@ sge::evdev::inotify::reader::on_event()
 
 		result.push_back(
 			sge::evdev::inotify::event{
-				boost::filesystem::path(
+				std::filesystem::path(
 					path_name
 				),
 				sge::evdev::inotify::convert_event_type(

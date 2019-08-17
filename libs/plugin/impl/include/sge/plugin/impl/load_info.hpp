@@ -9,7 +9,7 @@
 
 #include <sge/plugin/info_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -22,7 +22,7 @@ namespace impl
 
 sge::plugin::info
 load_info(
-	boost::filesystem::path const &
+	std::filesystem::path const &
 );
 
 }

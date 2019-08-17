@@ -17,7 +17,7 @@
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -25,7 +25,7 @@
 sge::evdev::device::optional_fd_unique_ptr
 sge::evdev::device::create_fd(
 	fcppt::log::object &_log,
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	sge::evdev::device::fd_unique_ptr ret(

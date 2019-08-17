@@ -11,7 +11,7 @@
 #include <sge/image2d/detail/symbol.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,7 +25,7 @@ void
 save_from_view(
 	sge::image2d::system &,
 	sge::image2d::view::const_object const &,
-	boost::filesystem::path const &
+	std::filesystem::path const &
 );
 
 }

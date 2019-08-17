@@ -12,7 +12,7 @@
 #include <awl/backends/posix/processor_fwd.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -28,7 +28,7 @@ init(
 	fcppt::log::object &,
 	sge::window::object &,
 	awl::backends::posix::processor &,
-	boost::filesystem::path const &
+	std::filesystem::path const &
 );
 
 }

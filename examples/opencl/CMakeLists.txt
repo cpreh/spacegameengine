@@ -10,8 +10,7 @@ add_sge_console_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		fcppt_log_interface
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_console_example(

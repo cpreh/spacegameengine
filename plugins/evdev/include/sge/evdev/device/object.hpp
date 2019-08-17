@@ -17,7 +17,7 @@
 #include <awl/event/optional_base_unique_ptr_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -37,7 +37,7 @@ public:
 	object(
 		sge::evdev::device::fd_unique_ptr &&,
 		awl::backends::posix::processor &,
-		boost::filesystem::path const &
+		std::filesystem::path const &
 	);
 
 	virtual
@@ -49,7 +49,7 @@ public:
 	awl::backends::posix::fd
 	posix_fd() const;
 
-	boost::filesystem::path const &
+	std::filesystem::path const &
 	path() const;
 protected:
 	sge::evdev::device::fd const &
@@ -65,7 +65,7 @@ private:
 
 	awl::event::connection_unique_ptr const fd_connection_;
 
-	boost::filesystem::path const path_;
+	std::filesystem::path const path_;
 };
 
 }

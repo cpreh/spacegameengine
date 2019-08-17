@@ -9,11 +9,11 @@
 #include <sge/config/own_company_name.hpp>
 #include <sge/config/own_log_path.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
-boost::filesystem::path
+std::filesystem::path
 sge::config::own_log_path(
 	sge::config::app_name const &_app_name
 )

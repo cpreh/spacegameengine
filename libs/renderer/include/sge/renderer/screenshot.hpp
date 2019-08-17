@@ -11,7 +11,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,7 +42,7 @@ void
 screenshot(
 	sge::renderer::device::core const &device,
 	sge::image2d::system &system,
-	boost::filesystem::path const &path
+	std::filesystem::path const &path
 );
 
 }

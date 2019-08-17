@@ -11,7 +11,7 @@
 #include <sge/config/company_name.hpp>
 #include <sge/config/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -21,7 +21,7 @@ namespace config
 {
 
 SGE_CONFIG_DETAIL_SYMBOL
-boost::filesystem::path
+std::filesystem::path
 log_path(
 	sge::config::company_name const &,
 	sge::config::app_name const &

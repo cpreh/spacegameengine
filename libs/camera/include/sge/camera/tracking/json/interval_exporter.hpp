@@ -15,7 +15,7 @@
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -36,7 +36,7 @@ public:
 	interval_exporter(
 		sge::camera::base const &,
 		sge::camera::update_duration const &,
-		boost::filesystem::path const &);
+		std::filesystem::path const &);
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	void
@@ -50,7 +50,7 @@ public:
 private:
 	sge::camera::base const &camera_;
 	sge::timer::basic<sge::timer::clocks::standard> update_timer_;
-	boost::filesystem::path const export_file_path_;
+	std::filesystem::path const export_file_path_;
 	sge::camera::tracking::keyframe_sequence keyframes_;
 };
 }

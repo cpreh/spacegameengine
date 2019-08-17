@@ -8,11 +8,11 @@
 #include <sge/cegui/impl/prefix.hpp>
 #include <sge/cegui/impl/to_absolute_path.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
-boost::filesystem::path
+std::filesystem::path
 sge::cegui::impl::to_absolute_path(
 	sge::cegui::impl::prefix const &_prefix,
 	CEGUI::String const &_filename

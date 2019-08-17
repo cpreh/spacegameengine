@@ -11,7 +11,7 @@
 #include <sge/model/obj/detail/symbol.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -26,7 +26,7 @@ SGE_MODEL_OBJ_DETAIL_SYMBOL
 sge::model::obj::material_map
 parse_mtllib(
 	fcppt::log::context &,
-	boost::filesystem::path const &
+	std::filesystem::path const &
 );
 
 }

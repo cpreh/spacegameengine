@@ -16,14 +16,14 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
 awl::event::optional_base_unique_ptr
 sge::evdev::joypad::remove(
 	sge::evdev::joypad::map &_map,
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	return

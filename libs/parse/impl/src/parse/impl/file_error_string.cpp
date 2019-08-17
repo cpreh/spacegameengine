@@ -13,7 +13,7 @@
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/parse/error.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -23,7 +23,7 @@ namespace
 
 fcppt::string
 common_error(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	return
@@ -40,7 +40,7 @@ common_error(
 
 fcppt::string
 sge::parse::impl::file_error_string(
-	boost::filesystem::path const &_path,
+	std::filesystem::path const &_path,
 	fcppt::parse::error<
 		char
 	> &&_error
@@ -60,7 +60,7 @@ sge::parse::impl::file_error_string(
 
 fcppt::string
 sge::parse::impl::file_error_string(
-	boost::filesystem::path const &_path,
+	std::filesystem::path const &_path,
 	fcppt::parse::error<
 		wchar_t
 	> &&_error

@@ -12,7 +12,7 @@
 #include <sge/cegui/detail/symbol.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -27,28 +27,28 @@ public:
 	SGE_CEGUI_DETAIL_SYMBOL
 	explicit
 	load_context(
-		boost::filesystem::path const &scheme_file
+		std::filesystem::path const &scheme_file
 	);
 
-	boost::filesystem::path const &
+	std::filesystem::path const &
 	scheme_file() const;
 
 	SGE_CEGUI_DETAIL_SYMBOL
 	sge::cegui::load_context &
 	font_directory(
-		boost::filesystem::path const &
+		std::filesystem::path const &
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL
 	sge::cegui::load_context &
 	looknfeel_directory(
-		boost::filesystem::path const &
+		std::filesystem::path const &
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL
 	sge::cegui::load_context &
 	imageset_directory(
-		boost::filesystem::path const &
+		std::filesystem::path const &
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL
@@ -58,7 +58,7 @@ public:
 	);
 
 	typedef fcppt::optional::object<
-		boost::filesystem::path
+		std::filesystem::path
 	> optional_path;
 
 	typedef fcppt::optional::object<
@@ -77,7 +77,7 @@ public:
 	sge::cegui::load_context::optional_default_font const &
 	default_font() const;
 private:
-	boost::filesystem::path scheme_file_;
+	std::filesystem::path scheme_file_;
 
 	sge::cegui::load_context::optional_path font_directory_;
 

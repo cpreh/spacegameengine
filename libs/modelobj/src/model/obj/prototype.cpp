@@ -23,10 +23,11 @@
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
 #include <algorithm>
 #include <array>
 #include <cstddef>
+#include <filesystem>
+#include <fstream>
 #include <map>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -111,7 +112,7 @@ parse_face_vertex(
 
 sge::model::obj::prototype::prototype(
 	fcppt::log::context &_log_context,
-	boost::filesystem::path const &_filename
+	std::filesystem::path const &_filename
 )
 :
 	log_{
@@ -133,7 +134,7 @@ sge::model::obj::prototype::prototype(
 		>()
 	)
 {
-	boost::filesystem::ifstream stream(
+	std::ifstream stream(
 		_filename);
 
 	if(!stream.is_open())
@@ -149,7 +150,7 @@ sge::model::obj::prototype::prototype(
 		//boost::unordered_map<sge::model::obj::face_vertex,std::size_t>
 	face_vertex_to_index_map;
 
-	boost::filesystem::path const _obj_file_path(
+	std::filesystem::path const _obj_file_path(
 		_filename.parent_path());
 
 	face_vertex_to_index_map face_vertex_to_index;

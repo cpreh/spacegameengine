@@ -12,17 +12,17 @@
 #include <fcppt/io/stream_to_string.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
+#include <fstream>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::opencl::program::source_string_sequence
 sge::opencl::program::file_to_source_string_sequence(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
-	boost::filesystem::ifstream stream(
+	std::ifstream stream(
 		_path
 	);
 

@@ -10,7 +10,7 @@
 #include <sge/charconv/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -22,7 +22,7 @@ namespace charconv
 SGE_CHARCONV_DETAIL_SYMBOL
 fcppt::string
 utf8_file_to_fcppt_string_exn(
-	boost::filesystem::path const &
+	std::filesystem::path const &
 );
 
 }

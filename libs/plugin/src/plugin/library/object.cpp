@@ -13,7 +13,7 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
@@ -105,7 +105,7 @@ public:
 #endif
 
 sge::plugin::library::object::object(
-	boost::filesystem::path const &_name
+	std::filesystem::path const &_name
 )
 :
 	name_(
@@ -182,7 +182,7 @@ sge::plugin::library::object::~object()
 #endif
 }
 
-boost::filesystem::path const &
+std::filesystem::path const &
 sge::plugin::library::object::name() const
 {
 	return

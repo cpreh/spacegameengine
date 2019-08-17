@@ -33,7 +33,8 @@
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
+#include <filesystem>
+#include <fstream>
 #include <sstream>
 #include <string>
 #include <utility>
@@ -52,7 +53,7 @@ class parser
 public:
 	parser(
 		fcppt::log::context &_log_context,
-		boost::filesystem::path const &_filename
+		std::filesystem::path const &_filename
 	)
 	:
 		log_{
@@ -80,7 +81,7 @@ public:
 		diffuse_texture_(),
 		specular_texture_()
 	{
-		boost::filesystem::ifstream stream(
+		std::ifstream stream(
 			_filename);
 
 		if(!stream.is_open())
@@ -328,7 +329,7 @@ public:
 				optional_path(
 					parent_path_
 					/
-					boost::filesystem::path(
+					std::filesystem::path(
 						_rest_of_line
 					)
 				);
@@ -339,7 +340,7 @@ public:
 				optional_path(
 					parent_path_
 					/
-					boost::filesystem::path(
+					std::filesystem::path(
 						_rest_of_line
 					)
 				);
@@ -453,7 +454,7 @@ public:
 							diffuse_texture_,
 							[]{
 								return
-									boost::filesystem::path();
+									std::filesystem::path();
 							}
 						)
 					),
@@ -462,7 +463,7 @@ public:
 							specular_texture_,
 							[]{
 								return
-									boost::filesystem::path();
+									std::filesystem::path();
 							}
 						)
 					)
@@ -473,7 +474,7 @@ public:
 private:
 	fcppt::log::object log_;
 
-	boost::filesystem::path const parent_path_;
+	std::filesystem::path const parent_path_;
 
 	sge::model::obj::material_map result_;
 
@@ -505,7 +506,7 @@ private:
 
 	typedef
 	fcppt::optional::object<
-		boost::filesystem::path
+		std::filesystem::path
 	>
 	optional_path;
 
@@ -519,7 +520,7 @@ private:
 sge::model::obj::material_map
 sge::model::obj::parse_mtllib(
 	fcppt::log::context &_log_context,
-	boost::filesystem::path const &_filename
+	std::filesystem::path const &_filename
 )
 {
 	parser p(

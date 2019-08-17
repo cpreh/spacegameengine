@@ -14,7 +14,7 @@
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
@@ -47,7 +47,7 @@ public:
 private:
 	sge::model::md3::object_unique_ptr
 	load(
-		boost::filesystem::path const &,
+		std::filesystem::path const &,
 		sge::model::md3::load_flags_field
 	)
 	override;

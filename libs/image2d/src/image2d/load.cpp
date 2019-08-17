@@ -13,14 +13,14 @@
 #include <sge/image2d/system.hpp>
 #include <sge/media/impl/load.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::image2d::optional_file_unique_ptr
 sge::image2d::load(
 	sge::image2d::system &_system,
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	return

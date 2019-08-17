@@ -52,7 +52,7 @@
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <brigand/sequences/list.hpp>
 #include <cstdlib>
 #include <exception>
@@ -66,7 +66,7 @@ namespace
 
 void
 main_program(
-	boost::filesystem::path const &_target_file_path
+	std::filesystem::path const &_target_file_path
 )
 {
 	fcppt::io::cout()
@@ -269,7 +269,7 @@ try
 			)
 			{
 				main_program(
-					boost::filesystem::path{
+					std::filesystem::path{
 						fcppt::record::get<
 							path_label
 						>(

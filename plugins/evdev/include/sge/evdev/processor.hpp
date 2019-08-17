@@ -26,7 +26,7 @@
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -97,7 +97,7 @@ private:
 
 	fcppt::log::object &log_;
 
-	boost::filesystem::path const path_;
+	std::filesystem::path const path_;
 
 	sge::window::object &window_;
 

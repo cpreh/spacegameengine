@@ -10,7 +10,7 @@
 #include <sge/parse/json/start_fwd.hpp>
 #include <sge/parse/json/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -27,7 +27,7 @@ namespace output
 SGE_PARSE_JSON_DETAIL_SYMBOL
 bool
 to_file(
-	boost::filesystem::path const &,
+	std::filesystem::path const &,
 	sge::parse::json::start const &
 );
 

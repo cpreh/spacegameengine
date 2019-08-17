@@ -16,14 +16,14 @@
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
 
 sge::renderer::texture::planar_unique_ptr
 sge::renderer::texture::create_planar_from_path(
-	boost::filesystem::path const &_file,
+	std::filesystem::path const &_file,
 	sge::renderer::device::core &_renderer,
 	sge::image2d::system &_system,
 	sge::renderer::texture::mipmap::object const &_mipmap,

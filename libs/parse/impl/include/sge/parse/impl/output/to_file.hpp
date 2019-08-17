@@ -10,7 +10,7 @@
 #include <sge/parse/exception.hpp>
 #include <fcppt/filesystem/open_exn.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fstream>
 #include <ios>
 #include <fcppt/config/external_end.hpp>
@@ -33,7 +33,7 @@ template<
 bool
 to_file(
 	ToStream const &_to_stream,
-	boost::filesystem::path const &_path,
+	std::filesystem::path const &_path,
 	Data const &_data
 )
 {

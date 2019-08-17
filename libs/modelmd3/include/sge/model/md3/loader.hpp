@@ -14,7 +14,7 @@
 #include <sge/model/md3/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
@@ -37,7 +37,7 @@ public:
 	virtual
 	sge::model::md3::object_unique_ptr
 	load(
-		boost::filesystem::path const &,
+		std::filesystem::path const &,
 		sge::model::md3::load_flags_field
 	) = 0;
 

@@ -54,8 +54,7 @@ add_sge_base_library(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${fcppt_log_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_log_interface
 )

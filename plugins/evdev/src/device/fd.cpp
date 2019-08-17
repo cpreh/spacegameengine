@@ -8,7 +8,7 @@
 #include <awl/backends/posix/fd.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <fcntl.h>
@@ -17,7 +17,7 @@
 
 
 sge::evdev::device::fd::fd(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 :
 	fd_(

@@ -13,7 +13,7 @@
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -30,7 +30,7 @@ namespace impl
 sge::image2d::file_unique_ptr
 load_one_file(
 	fcppt::log::object &,
-	boost::filesystem::path const &stem,
+	std::filesystem::path const &stem,
 	sge::parse::json::object const &,
 	sge::image2d::system &,
 	sge::font::bitmap::impl::char_map &

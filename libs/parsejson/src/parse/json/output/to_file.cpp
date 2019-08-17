@@ -9,13 +9,13 @@
 #include <sge/parse/json/output/to_file.hpp>
 #include <sge/parse/json/output/to_stream.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
 bool
 sge::parse::json::output::to_file(
-	boost::filesystem::path const &_path,
+	std::filesystem::path const &_path,
 	sge::parse::json::start const &_data
 )
 {

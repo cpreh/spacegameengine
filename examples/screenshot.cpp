@@ -97,7 +97,7 @@
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <brigand/sequences/list.hpp>
 #include <example_main.hpp>
 #include <exception>
@@ -315,7 +315,7 @@ try
 				sge::renderer::screenshot(
 					sys.renderer_device_ffp(),
 					sys.image_system(),
-					boost::filesystem::path(
+					std::filesystem::path(
 						FCPPT_TEXT("output.png")
 					)
 				);

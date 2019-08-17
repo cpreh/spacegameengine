@@ -11,7 +11,7 @@
 #include <fcppt/string.hpp>
 #include <fcppt/parse/error_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,7 +25,7 @@ namespace impl
 SGE_PARSE_DETAIL_SYMBOL
 fcppt::string
 file_error_string(
-	boost::filesystem::path const &,
+	std::filesystem::path const &,
 	fcppt::parse::error<
 		char
 	> &&
@@ -34,7 +34,7 @@ file_error_string(
 SGE_PARSE_DETAIL_SYMBOL
 fcppt::string
 file_error_string(
-	boost::filesystem::path const &,
+	std::filesystem::path const &,
 	fcppt::parse::error<
 		wchar_t
 	> &&

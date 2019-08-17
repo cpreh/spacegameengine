@@ -22,7 +22,7 @@
 #include <fcppt/enable_shared_from_this_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -50,7 +50,7 @@ class object
 public:
 	object(
 		sge::evdev::device::fd_unique_ptr &&,
-		boost::filesystem::path const &,
+		std::filesystem::path const &,
 		sge::window::object &,
 		awl::backends::posix::processor &,
 		sge::evdev::joypad::info const &

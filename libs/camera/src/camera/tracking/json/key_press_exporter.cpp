@@ -36,7 +36,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::camera::tracking::json::key_press_exporter::key_press_exporter(
 	fcppt::log::context &_log_context,
 	sge::camera::base const &_camera,
-	boost::filesystem::path const &_target_path,
+	std::filesystem::path const &_target_path,
 	sge::camera::update_duration const &_duration,
 	keyframe_keypress const &_keyframe_keypress,
 	export_keypress const &_export_keypress

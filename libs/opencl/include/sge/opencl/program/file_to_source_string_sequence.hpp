@@ -10,7 +10,7 @@
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/program/source_string_sequence.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -22,7 +22,7 @@ namespace program
 {
 SGE_OPENCL_DETAIL_SYMBOL program::source_string_sequence
 file_to_source_string_sequence(
-	boost::filesystem::path const &);
+	std::filesystem::path const &);
 }
 }
 }

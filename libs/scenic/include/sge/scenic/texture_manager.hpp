@@ -14,7 +14,7 @@
 #include <sge/scenic/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <map>
 #include <fcppt/config/external_end.hpp>
 
@@ -36,7 +36,7 @@ public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::renderer::texture::planar &
 	texture_for_path(
-		boost::filesystem::path const &);
+		std::filesystem::path const &);
 
 	SGE_SCENIC_DETAIL_SYMBOL
 	~texture_manager();
@@ -44,7 +44,7 @@ private:
 	typedef
 	std::map
 	<
-		boost::filesystem::path,
+		std::filesystem::path,
 		sge::renderer::texture::planar_unique_ptr
 	>
 	path_to_texture_map;

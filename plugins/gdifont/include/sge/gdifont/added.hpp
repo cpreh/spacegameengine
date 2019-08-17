@@ -10,7 +10,7 @@
 #include <sge/font/added.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -29,13 +29,13 @@ class added
 public:
 	explicit
 	added(
-		boost::filesystem::path const &
+		std::filesystem::path const &
 	);
 
 	~added()
 	override;
 private:
-	boost::filesystem::path const path_;
+	std::filesystem::path const path_;
 };
 
 }

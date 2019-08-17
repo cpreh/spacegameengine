@@ -10,7 +10,7 @@
 #include <sge/config/app_name.hpp>
 #include <sge/config/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -20,7 +20,7 @@ namespace config
 {
 
 SGE_CONFIG_DETAIL_SYMBOL
-boost::filesystem::path
+std::filesystem::path
 config_path(
 	sge::config::app_name const &
 );

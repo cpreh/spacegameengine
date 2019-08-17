@@ -11,7 +11,7 @@
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -24,7 +24,7 @@ SGE_AUDIO_DETAIL_SYMBOL
 sge::audio::file_unique_ptr
 load_exn(
 	sge::audio::loader &,
-	boost::filesystem::path const &
+	std::filesystem::path const &
 );
 
 }

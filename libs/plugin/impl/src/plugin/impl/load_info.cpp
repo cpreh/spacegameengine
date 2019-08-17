@@ -11,13 +11,13 @@
 #include <sge/plugin/impl/library/version_function_name.hpp>
 #include <sge/plugin/library/detail/version_function.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::plugin::info
 sge::plugin::impl::load_info(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	sge::plugin::library::object lib{

@@ -16,7 +16,7 @@
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <cstdlib>
 #include <fcppt/config/external_end.hpp>
 
@@ -24,11 +24,11 @@
 namespace
 {
 
-typedef boost::filesystem::path resource;
+typedef std::filesystem::path resource;
 
 resource
 path_to_resource(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	fcppt::io::cout()

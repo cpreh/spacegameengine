@@ -7,13 +7,13 @@
 #include <sge/evdev/inotify/event.hpp>
 #include <sge/evdev/inotify/event_type.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::evdev::inotify::event::event(
-	boost::filesystem::path &&_filename,
+	std::filesystem::path &&_filename,
 	sge::evdev::inotify::event_type const _event_type
 )
 :
@@ -28,7 +28,7 @@ sge::evdev::inotify::event::event(
 {
 }
 
-boost::filesystem::path const &
+std::filesystem::path const &
 sge::evdev::inotify::event::filename() const
 {
 	return

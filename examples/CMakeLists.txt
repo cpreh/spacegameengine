@@ -212,8 +212,7 @@ add_sge_example(
 		${fcppt_core_TARGET}
 		${fcppt_options_TARGET}
 		fcppt_log_interface
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_console_example(
@@ -222,8 +221,7 @@ add_sge_console_example(
 		sgeconfig
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 # FIXME
@@ -238,8 +236,7 @@ add_sge_console_example(
 #	ADDITIONAL_DEPS
 #		${fcppt_core_TARGET}
 #		${fcppt_log_TARGET}
-#		${Boost_FILESYSTEM_LIBRARIES}
-#		${Boost_SYSTEM_LIBRARIES}
+#		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 #)
 
 add_sge_example(
@@ -258,8 +255,7 @@ add_sge_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${fcppt_options_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 # FIXME
@@ -296,8 +292,7 @@ add_sge_console_example(
 		sgeconfig
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -318,8 +313,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -338,8 +332,7 @@ add_sge_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		fcppt_log_interface
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -372,8 +365,7 @@ add_sge_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		fcppt_log_interface
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -404,8 +396,7 @@ add_sge_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		fcppt_log_interface
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -422,8 +413,7 @@ add_sge_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		fcppt_log_interface
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_console_example(
@@ -454,8 +444,7 @@ add_sge_example(
 		${fcppt_core_TARGET}
 		${fcppt_options_TARGET}
 		fcppt_log_interface
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -482,8 +471,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_console_example(
@@ -511,8 +499,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -530,8 +517,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -573,8 +559,7 @@ if(
 			${fcppt_filesystem_TARGET}
 			${fcppt_options_TARGET}
 			fcppt_log_interface
-			${Boost_FILESYSTEM_LIBRARIES}
-			${Boost_SYSTEM_LIBRARIES}
+			${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 	)
 endif()
 
@@ -584,8 +569,7 @@ add_sge_console_example(
 		sgeconfig
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_console_example(
@@ -603,8 +587,7 @@ add_sge_console_example(
 		${fcppt_core_TARGET}
 		${fcppt_options_TARGET}
 		${FCPPT_UTILS_MAIN_LINK_LIBS}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -621,8 +604,7 @@ add_sge_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		fcppt_log_interface
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -638,8 +620,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -660,8 +641,7 @@ add_sge_example(
 		mizuiro_interface
 		${fcppt_core_TARGET}
 		fcppt_log_interface
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_console_example(
@@ -674,8 +654,7 @@ add_sge_console_example(
 		${fcppt_core_TARGET}
 		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_console_example(
@@ -689,8 +668,7 @@ add_sge_console_example(
 		sgewindow_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -713,8 +691,7 @@ add_sge_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		fcppt_log_interface
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_console_example(
@@ -731,8 +708,7 @@ add_sge_console_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${fcppt_log_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -750,8 +726,7 @@ add_sge_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		fcppt_log_interface
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_console_example(
@@ -765,8 +740,7 @@ add_sge_console_example(
 		${fcppt_core_TARGET}
 		${fcppt_log_TARGET}
 		${fcppt_options_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 		${FCPPT_UTILS_MAIN_LINK_LIBS}
 	COMPILE_OPTIONS
 		${FCPPT_UTILS_MAIN_COMPILE_OPTIONS}
@@ -780,8 +754,7 @@ add_sge_console_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${fcppt_filesystem_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -803,8 +776,7 @@ add_sge_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		${fcppt_options_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -823,8 +795,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_console_example(
@@ -839,8 +810,7 @@ add_sge_console_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		fcppt_log_interface
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -856,8 +826,7 @@ add_sge_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		fcppt_log_interface
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -876,8 +845,7 @@ add_sge_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		fcppt_log_interface
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -896,8 +864,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -914,8 +881,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -938,8 +904,7 @@ add_sge_example(
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
 		fcppt_log_interface
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -957,8 +922,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -980,8 +944,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_console_example(
@@ -993,8 +956,7 @@ add_sge_console_example(
 		sgesystems
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_console_example(
@@ -1007,8 +969,7 @@ add_sge_console_example(
 		sgetimer_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -1024,8 +985,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -1038,8 +998,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -1052,8 +1011,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -1066,8 +1024,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -1081,8 +1038,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -1102,8 +1058,7 @@ add_sge_example(
 	ADDITIONAL_DEPS
 		mizuiro_interface
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_sge_example(
@@ -1116,8 +1071,7 @@ add_sge_example(
 		sgewindow
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
 add_subdirectory(

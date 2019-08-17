@@ -12,7 +12,7 @@
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -31,7 +31,7 @@ template<
 Result
 load_exn(
 	System &_system,
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	return

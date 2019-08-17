@@ -9,7 +9,7 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <catch2/catch.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -21,7 +21,7 @@ TEST_CASE(
 {
 	fcppt::string const result(
 		sge::charconv::utf8_file_to_fcppt_string_exn(
-			boost::filesystem::path(
+			std::filesystem::path(
 				SGE_TESTS_CHARCONV_TEST_DATA
 			)
 			/ "config.json"

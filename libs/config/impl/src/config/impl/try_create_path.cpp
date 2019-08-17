@@ -6,21 +6,21 @@
 
 #include <sge/config/exception.hpp>
 #include <sge/config/impl/try_create_path.hpp>
+#include <fcppt/error_code_to_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/either/error_from_optional.hpp>
 #include <fcppt/either/to_exception.hpp>
 #include <fcppt/filesystem/create_directories_recursive.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/system/error_code_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
-#include <boost/system/error_code.hpp>
+#include <filesystem>
+#include <system_error>
 #include <fcppt/config/external_end.hpp>
 
 
-boost::filesystem::path
+std::filesystem::path
 sge::config::impl::try_create_path(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	fcppt::either::to_exception(
@@ -32,7 +32,7 @@ sge::config::impl::try_create_path(
 		[
 			&_path
 		](
-			boost::system::error_code const _error
+			std::error_code const _error
 		)
 		{
 			return
@@ -45,7 +45,7 @@ sge::config::impl::try_create_path(
 					+
 					FCPPT_TEXT(". Reason: ")
 					+
-					fcppt::system::error_code_to_string(
+					fcppt::error_code_to_string(
 						_error
 					)
 				};

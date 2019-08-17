@@ -10,13 +10,13 @@
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/WindowManager.h>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::cegui::toolbox::scoped_layout::scoped_layout(
 	sge::cegui::system &_system,
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 :
 	system_(

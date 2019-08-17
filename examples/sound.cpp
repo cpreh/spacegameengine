@@ -56,8 +56,7 @@
 #include <fcppt/math/pi.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <boost/range/iterator_range.hpp>
 #include <brigand/sequences/list.hpp>
 #include <algorithm>
@@ -65,6 +64,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <exception>
+#include <fstream>
 #include <ios>
 #include <iostream>
 #include <iterator>
@@ -81,11 +81,11 @@ namespace
 // Test for raw loading
 sge::audio::file_unique_ptr
 load_raw(
-	boost::filesystem::path const &_path,
+	std::filesystem::path const &_path,
 	sge::audio::loader &_audio_loader
 )
 {
-	boost::filesystem::ifstream raw_stream(
+	std::ifstream raw_stream(
 		_path,
 		std::ios::binary
 	);
@@ -157,7 +157,7 @@ int
 main()
 try
 {
-	boost::filesystem::path const
+	std::filesystem::path const
 		file_name =
 			sge::config::media_path() /
 			FCPPT_TEXT("sounds") /

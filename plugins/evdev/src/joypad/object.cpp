@@ -29,14 +29,14 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::evdev::joypad::object::object(
 	sge::evdev::device::fd_unique_ptr &&_fd,
-	boost::filesystem::path const &_path,
+	std::filesystem::path const &_path,
 	sge::window::object &_window,
 	awl::backends::posix::processor &_processor,
 	sge::evdev::joypad::info const &_info

@@ -10,13 +10,13 @@
 #include <fcppt/string.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::media::optional_extension
 sge::media::path_to_extension(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	fcppt::string const ext(

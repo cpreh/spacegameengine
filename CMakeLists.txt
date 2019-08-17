@@ -66,15 +66,9 @@ option(
 	OFF
 )
 
-set(
-	NEEDED_BOOST_LIBS
-	filesystem
-	system
-)
-
 find_package(
-	Boost 1.47.0 REQUIRED COMPONENTS
-	"${NEEDED_BOOST_LIBS}"
+	Boost
+	REQUIRED
 )
 
 find_package(

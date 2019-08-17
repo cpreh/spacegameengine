@@ -57,12 +57,11 @@
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
 #include <brigand/sequences/list.hpp>
 #include <algorithm>
 #include <cstdlib>
 #include <exception>
+#include <filesystem>
 #include <iostream>
 #include <iterator>
 #include <ostream>
@@ -112,11 +111,11 @@ calc_size(
 
 sge::image2d::dim
 first_dim(
-	boost::filesystem::path const &_path,
+	std::filesystem::path const &_path,
 	sge::image2d::system &_system
 )
 {
-	boost::filesystem::directory_iterator const it(
+	std::filesystem::directory_iterator const it(
 		_path
 	);
 
@@ -129,20 +128,20 @@ first_dim(
 
 typedef
 std::vector<
-	boost::filesystem::path
+	std::filesystem::path
 >
 path_vector;
 
 path_vector
 sort_paths(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	path_vector ret{
-		boost::filesystem::directory_iterator(
+		std::filesystem::directory_iterator(
 			_path
 		),
-		boost::filesystem::directory_iterator()
+		std::filesystem::directory_iterator()
 	};
 
 	std::sort(
@@ -156,7 +155,7 @@ sort_paths(
 
 int
 program_main(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	sge::systems::instance<
@@ -188,10 +187,10 @@ program_main(
 		>(
 			fcppt::cast::to_unsigned(
 				std::distance(
-					boost::filesystem::directory_iterator(
+					std::filesystem::directory_iterator(
 						_path
 					),
-					boost::filesystem::directory_iterator()
+					std::filesystem::directory_iterator()
 				)
 			)
 		)
@@ -403,7 +402,7 @@ try
 			)
 			{
 				program_main(
-					boost::filesystem::path{
+					std::filesystem::path{
 						fcppt::record::get<
 							path_label
 						>(

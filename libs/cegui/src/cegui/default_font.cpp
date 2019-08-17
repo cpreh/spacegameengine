@@ -6,12 +6,12 @@
 
 #include <sge/cegui/default_font.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::cegui::default_font::default_font(
-	boost::filesystem::path const &_path,
+	std::filesystem::path const &_path,
 	float const _font_size
 )
 :
@@ -20,7 +20,7 @@ sge::cegui::default_font::default_font(
 {
 }
 
-boost::filesystem::path const &
+std::filesystem::path const &
 sge::cegui::default_font::path() const
 {
 	return path_;

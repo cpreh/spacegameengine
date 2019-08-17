@@ -161,7 +161,7 @@ sge::scenic::scene::object::load_entities()
 		);
 
 		for(
-			boost::filesystem::path const &current_material_file
+			std::filesystem::path const &current_material_file
 			:
 			new_prototype.material_files()
 		)

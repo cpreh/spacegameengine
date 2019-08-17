@@ -11,7 +11,7 @@
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -24,7 +24,7 @@ SGE_IMAGE2D_DETAIL_SYMBOL
 sge::image2d::optional_file_unique_ptr
 load(
 	sge::image2d::system &,
-	boost::filesystem::path const &
+	std::filesystem::path const &
 );
 
 }

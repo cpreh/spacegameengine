@@ -13,14 +13,14 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::font::object_unique_ptr
 sge::font::bitmap::create(
 	fcppt::log::context &_log_context,
-	boost::filesystem::path const &_path,
+	std::filesystem::path const &_path,
 	sge::image2d::system &_system
 )
 {

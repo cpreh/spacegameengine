@@ -23,8 +23,7 @@
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <boost/range/iterator_range_core.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -32,7 +31,7 @@
 sge::plugin::detail::context_base_vector
 sge::plugin::impl::load_plugins(
 	fcppt::log::object &_log,
-	boost::filesystem::path const &_path,
+	std::filesystem::path const &_path,
 	sge::plugin::optional_cache_ref const &_cache
 )
 {
@@ -41,16 +40,16 @@ sge::plugin::impl::load_plugins(
 			sge::plugin::detail::context_base_vector
 		>(
 			boost::make_iterator_range(
-				boost::filesystem::directory_iterator(
+				std::filesystem::directory_iterator(
 					_path
 				),
-				boost::filesystem::directory_iterator()
+				std::filesystem::directory_iterator()
 			),
 			[
 				&_log,
 				&_cache
 			](
-				boost::filesystem::path const &_cur_path
+				std::filesystem::path const &_cur_path
 			)
 			{
 				typedef
@@ -60,7 +59,7 @@ sge::plugin::impl::load_plugins(
 				optional_result;
 
 				if(
-					boost::filesystem::is_directory(
+					std::filesystem::is_directory(
 						_cur_path
 					)
 					||

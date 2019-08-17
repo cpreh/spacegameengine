@@ -10,7 +10,7 @@
 #include <sge/systems/optional_plugin_path.hpp>
 #include <sge/systems/plugin_path.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -23,7 +23,7 @@ sge::systems::config::config()
 
 sge::systems::config &
 sge::systems::config::plugin_path(
-	boost::filesystem::path const &_plugin_path
+	std::filesystem::path const &_plugin_path
 )
 {
 	plugin_path_ =

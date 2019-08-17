@@ -306,7 +306,7 @@ parse_ambient_color(
 // Loads a single entity. Is called for every entity.
 void
 load_entity(
-	boost::filesystem::path const &_base_path,
+	std::filesystem::path const &_base_path,
 	sge::scenic::scene::prototype &_scene,
 	sge::parse::json::object const &_json_entity
 )
@@ -382,7 +382,7 @@ load_entity(
 // This is just a wrapper calling load_entity on every entity.
 void
 load_entities(
-	boost::filesystem::path const &_base_path,
+	std::filesystem::path const &_base_path,
 	sge::scenic::scene::prototype &_scene,
 	sge::parse::json::array const &_json_entities
 )
@@ -659,7 +659,7 @@ load_lights(
 
 sge::scenic::scene::prototype_unique_ptr
 sge::scenic::scene::from_blender_file(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	sge::parse::json::object const json_file(

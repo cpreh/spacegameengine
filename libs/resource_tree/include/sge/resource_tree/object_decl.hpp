@@ -12,7 +12,7 @@
 #include <sge/resource_tree/detail/element_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -109,7 +109,7 @@ This makes two things possible:
 	</li>
 </ol>
 
-Note that we're not using boost::filesystem::path to denote a path in the tree,
+Note that we're not using std::filesystem::path to denote a path in the tree,
 but our own class, sge::resource_tree::path.
 
 \section resource_tree_internals Internals
@@ -157,7 +157,7 @@ public:
 	\brief Construct a new resource tree
 	*/
 	object(
-		boost::filesystem::path const &,
+		std::filesystem::path const &,
 		path_to_resource_function const &,
 		rng_type &
 	);

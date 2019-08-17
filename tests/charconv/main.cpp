@@ -13,8 +13,8 @@
 #include <fcppt/algorithm/loop_break_brigand.hpp>
 #include <fcppt/brigand/enum_range.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
+#include <fstream>
 #include <catch2/catch.hpp>
 #include <sstream>
 #include <string>
@@ -26,14 +26,14 @@ TEST_CASE(
 	"[sge]"
 )
 {
-	boost::filesystem::path const test_data_path(
-		boost::filesystem::path(
+	std::filesystem::path const test_data_path(
+		std::filesystem::path(
 			SGE_TESTS_CHARCONV_TEST_DATA
 		)
 		/ "test_data.txt"
 	);
 
-	boost::filesystem::ifstream stream(
+	std::ifstream stream(
 		test_data_path
 	);
 

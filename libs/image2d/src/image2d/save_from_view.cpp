@@ -15,7 +15,7 @@
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -23,7 +23,7 @@ void
 sge::image2d::save_from_view(
 	sge::image2d::system &_system,
 	sge::image2d::view::const_object const &_view,
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	sge::image2d::create_exn(

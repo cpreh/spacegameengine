@@ -314,7 +314,7 @@ main_program(
 							sge::camera::optional_projection_matrix(),
 							sge::camera::tracking::json::keyframes_from_json(
 								sge::parse::json::parse_file_exn(
-									boost::filesystem::path(
+									std::filesystem::path(
 										_track_from_file
 									)
 								).array()
@@ -366,7 +366,7 @@ main_program(
 								_options
 							)
 						},
-						boost::filesystem::path(
+						std::filesystem::path(
 							_record_to_file
 						)
 					);

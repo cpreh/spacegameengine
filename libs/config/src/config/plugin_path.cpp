@@ -8,11 +8,11 @@
 #include <sge/config/plugin_path.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
-boost::filesystem::path
+std::filesystem::path
 sge::config::plugin_path()
 {
 	return

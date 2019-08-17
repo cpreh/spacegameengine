@@ -41,7 +41,7 @@
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -49,7 +49,7 @@
 sge::image2d::file_unique_ptr
 sge::font::bitmap::impl::load_one_file(
 	fcppt::log::object &_log,
-	boost::filesystem::path const &_stem,
+	std::filesystem::path const &_stem,
 	sge::parse::json::object const &_object,
 	sge::image2d::system &_image_system,
 	sge::font::bitmap::impl::char_map &_char_map

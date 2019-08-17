@@ -9,7 +9,7 @@
 
 #include <sge/cegui/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -24,17 +24,17 @@ class default_font
 public:
 	SGE_CEGUI_DETAIL_SYMBOL
 	default_font(
-		boost::filesystem::path const &,
+		std::filesystem::path const &,
 		float font_size
 	);
 
-	boost::filesystem::path const &
+	std::filesystem::path const &
 	path() const;
 
 	float
 	font_size() const;
 private:
-	boost::filesystem::path path_;
+	std::filesystem::path path_;
 
 	float font_size_;
 };

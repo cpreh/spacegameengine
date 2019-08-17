@@ -9,11 +9,11 @@
 #include <fcppt/text.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
-boost::filesystem::path
+std::filesystem::path
 sge::config::homedir()
 {
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)

@@ -20,10 +20,9 @@
 #include <fcppt/parse/grammar_parse_stream.hpp>
 #include <fcppt/parse/result.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fstream>
 #include <ios>
-#include <string>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -45,7 +44,7 @@ sge::parse::file_result<
 	Result
 >
 parse_file(
-	boost::filesystem::path const &_path,
+	std::filesystem::path const &_path,
 	fcppt::parse::grammar<
 		Result,
 		Ch,
@@ -113,9 +112,7 @@ parse_file(
 										)
 										+
 										_path.string<
-											std::basic_string<
-												Ch
-											>
+											Ch
 										>()
 										+
 										FCPPT_STRING_LITERAL(

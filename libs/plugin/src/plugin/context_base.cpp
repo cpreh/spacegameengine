@@ -19,13 +19,13 @@
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::plugin::context_base::context_base(
 	sge::plugin::optional_cache_ref const &_cache,
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 :
 	cache_(
@@ -47,7 +47,7 @@ sge::plugin::context_base::~context_base()
 {
 }
 
-boost::filesystem::path const &
+std::filesystem::path const &
 sge::plugin::context_base::path() const
 {
 	return

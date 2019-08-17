@@ -20,7 +20,7 @@
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -31,7 +31,7 @@ sge::evdev::joypad::add(
 	sge::window::object &_window,
 	awl::backends::posix::processor &_processor,
 	sge::evdev::joypad::map &_map,
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	return

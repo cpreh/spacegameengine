@@ -7,11 +7,11 @@
 #include <sge/build/media_path.hpp>
 #include <sge/config/media_path.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
-boost::filesystem::path
+std::filesystem::path
 sge::config::media_path()
 {
 	return

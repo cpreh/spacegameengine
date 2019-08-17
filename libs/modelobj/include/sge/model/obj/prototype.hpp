@@ -19,7 +19,7 @@
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
@@ -38,7 +38,7 @@ public:
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	prototype(
 		fcppt::log::context &,
-		boost::filesystem::path const &
+		std::filesystem::path const &
 	);
 
 	SGE_MODEL_OBJ_DETAIL_SYMBOL

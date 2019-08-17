@@ -13,7 +13,7 @@ file(
 
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 #define SGE_CONFIG_TEXT_WRAPPER(\\
@@ -27,7 +27,7 @@ namespace @SGE_CONFIG_LIBRARY_NAME@
 {
 
 inline
-boost::filesystem::path
+std::filesystem::path
 build_@SGE_CONFIG_PATH_NAME@_path()
 {
 	return

@@ -16,7 +16,7 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/weak_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -33,13 +33,13 @@ class context_base
 public:
 	context_base(
 		sge::plugin::optional_cache_ref const &,
-		boost::filesystem::path const &
+		std::filesystem::path const &
 	);
 
 	~context_base();
 
 	SGE_PLUGIN_DETAIL_SYMBOL
-	boost::filesystem::path const &
+	std::filesystem::path const &
 	path() const;
 
 	SGE_PLUGIN_DETAIL_SYMBOL
@@ -52,7 +52,7 @@ public:
 private:
 	sge::plugin::optional_cache_ref const cache_;
 
-	boost::filesystem::path const path_;
+	std::filesystem::path const path_;
 
 	sge::plugin::info const info_;
 

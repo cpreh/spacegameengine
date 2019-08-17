@@ -14,7 +14,7 @@
 #include <sge/plugin/detail/instantiate/symbol.hpp>
 #include <fcppt/reference_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -60,7 +60,7 @@ public:
 	load() const;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	boost::filesystem::path const &
+	std::filesystem::path const &
 	path() const;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL

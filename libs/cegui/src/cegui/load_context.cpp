@@ -7,12 +7,12 @@
 #include <sge/cegui/default_font.hpp>
 #include <sge/cegui/load_context.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::cegui::load_context::load_context(
-	boost::filesystem::path const &_scheme_file
+	std::filesystem::path const &_scheme_file
 )
 :
 	scheme_file_{
@@ -25,7 +25,7 @@ sge::cegui::load_context::load_context(
 {
 }
 
-boost::filesystem::path const &
+std::filesystem::path const &
 sge::cegui::load_context::scheme_file() const
 {
 	return
@@ -34,7 +34,7 @@ sge::cegui::load_context::scheme_file() const
 
 sge::cegui::load_context &
 sge::cegui::load_context::font_directory(
-	boost::filesystem::path const &_font_directory
+	std::filesystem::path const &_font_directory
 )
 {
 	font_directory_ =
@@ -48,7 +48,7 @@ sge::cegui::load_context::font_directory(
 
 sge::cegui::load_context &
 sge::cegui::load_context::looknfeel_directory(
-	boost::filesystem::path const &_looknfeel_directory
+	std::filesystem::path const &_looknfeel_directory
 )
 {
 	looknfeel_directory_ =
@@ -62,7 +62,7 @@ sge::cegui::load_context::looknfeel_directory(
 
 sge::cegui::load_context &
 sge::cegui::load_context::imageset_directory(
-	boost::filesystem::path const &_imageset_directory
+	std::filesystem::path const &_imageset_directory
 )
 {
 	imageset_directory_ =

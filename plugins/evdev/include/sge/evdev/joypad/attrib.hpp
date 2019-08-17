@@ -13,7 +13,7 @@
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -30,7 +30,7 @@ attrib(
 	sge::window::object &,
 	awl::backends::posix::processor &,
 	sge::evdev::joypad::map &,
-	boost::filesystem::path const &
+	std::filesystem::path const &
 );
 
 }

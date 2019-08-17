@@ -77,8 +77,7 @@ add_sge_test(
 		sgecharconv
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_BINARY_DIR}/include"
 )
@@ -89,8 +88,7 @@ add_sge_test(
 		sgecharconv
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}
-		${Boost_FILESYSTEM_LIBRARIES}
-		${Boost_SYSTEM_LIBRARIES}
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 	INCLUDE_DIRS
 		"${CMAKE_CURRENT_BINARY_DIR}/include"
 )

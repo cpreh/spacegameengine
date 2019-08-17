@@ -12,14 +12,14 @@
 #include <sge/audio/loader.hpp>
 #include <sge/media/impl/load_exn.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::audio::file_unique_ptr
 sge::audio::load_exn(
 	sge::audio::loader &_loader,
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	return

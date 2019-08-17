@@ -12,13 +12,13 @@
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
 fcppt::string
 sge::charconv::utf8_file_to_fcppt_string_exn(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	return

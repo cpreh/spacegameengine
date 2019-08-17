@@ -19,8 +19,7 @@
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <cstddef>
 #include <fstream>
 #include <ios>
@@ -101,21 +100,21 @@ sge::cegui::impl::resource_provider::loadRawDataContainer(
 			FCPPT_TEXT(")")
 	)
 
-	boost::filesystem::path const load_path(
+	std::filesystem::path const load_path(
 		converted_resource_group.empty()
 		?
-			boost::filesystem::path(
+			std::filesystem::path(
 				converted_filename
 			)
 		:
-			boost::filesystem::path(
+			std::filesystem::path(
 				converted_resource_group
 			)
 			/
 			converted_filename
 	);
 
-	boost::filesystem::ifstream file_stream(
+	std::ifstream file_stream(
 		load_path,
 		std::ios::binary);
 

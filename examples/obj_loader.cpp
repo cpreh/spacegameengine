@@ -24,7 +24,7 @@
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <cstdlib>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
@@ -87,7 +87,7 @@ try
 			FCPPT_TEXT("Material files:\n");
 
 		for(
-			boost::filesystem::path const &path
+			std::filesystem::path const &path
 			:
 			loaded_model.material_files()
 		)

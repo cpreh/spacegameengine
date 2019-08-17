@@ -12,7 +12,7 @@
 #include <sge/image2d/system_fwd.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -27,7 +27,7 @@ SGE_FONT_BITMAP_DETAIL_SYMBOL
 sge::font::object_unique_ptr
 create(
 	fcppt::log::context &,
-	boost::filesystem::path const &,
+	std::filesystem::path const &,
 	sge::image2d::system &
 );
 

@@ -10,7 +10,7 @@
 #include <sge/evdev/joypad/map.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -24,7 +24,7 @@ namespace joypad
 awl::event::optional_base_unique_ptr
 remove(
 	sge::evdev::joypad::map &,
-	boost::filesystem::path const &
+	std::filesystem::path const &
 );
 
 }

@@ -13,7 +13,7 @@
 #include <sge/plugin/impl/context_base.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -86,7 +86,7 @@ sge::plugin::context<
 template<
 	typename Type
 >
-boost::filesystem::path const &
+std::filesystem::path const &
 sge::plugin::context<
 	Type
 >::path() const

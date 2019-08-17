@@ -14,7 +14,7 @@
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
@@ -44,7 +44,7 @@ public:
 	virtual
 	void
 	save(
-		boost::filesystem::path const &
+		std::filesystem::path const &
 	) const = 0;
 
 	virtual

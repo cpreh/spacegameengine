@@ -10,7 +10,7 @@
 #include <sge/evdev/joypad/map.hpp>
 #include <sge/evdev/joypad/optional_iterator.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -24,7 +24,7 @@ namespace joypad
 sge::evdev::joypad::optional_iterator
 find_path(
 	sge::evdev::joypad::map &,
-	boost::filesystem::path const &
+	std::filesystem::path const &
 );
 
 }

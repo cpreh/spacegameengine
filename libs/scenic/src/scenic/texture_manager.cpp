@@ -29,7 +29,7 @@ sge::scenic::texture_manager::texture_manager(
 
 sge::renderer::texture::planar &
 sge::scenic::texture_manager::texture_for_path(
-	boost::filesystem::path const &_path)
+	std::filesystem::path const &_path)
 {
 	path_to_texture_map::iterator it =
 		path_to_texture_.find(

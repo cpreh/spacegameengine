@@ -19,7 +19,7 @@
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <cerrno>
 #include <unistd.h>
 #include <utility>
@@ -29,7 +29,7 @@
 sge::evdev::device::object::object(
 	sge::evdev::device::fd_unique_ptr &&_fd,
 	awl::backends::posix::processor &_processor,
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 :
 	fd_{
@@ -123,7 +123,7 @@ sge::evdev::device::object::posix_fd() const
 		this->fd().get();
 }
 
-boost::filesystem::path const &
+std::filesystem::path const &
 sge::evdev::device::object::path() const
 {
 	return

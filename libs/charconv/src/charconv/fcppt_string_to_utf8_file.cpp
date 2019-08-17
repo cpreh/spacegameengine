@@ -12,8 +12,8 @@
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
+#include <fstream>
 #include <ios>
 #include <fcppt/config/external_end.hpp>
 
@@ -21,10 +21,10 @@
 bool
 sge::charconv::fcppt_string_to_utf8_file(
 	fcppt::string const &_string,
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
-	boost::filesystem::ofstream file(
+	std::ofstream file(
 		_path
 	);
 

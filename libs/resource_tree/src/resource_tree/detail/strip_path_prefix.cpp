@@ -10,7 +10,7 @@
 #include <sge/resource_tree/detail/sub_path.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
@@ -22,7 +22,7 @@ sge::resource_tree::detail::strip_path_prefix(
 {
 	sge::resource_tree::path result;
 	for(
-		boost::filesystem::path::const_iterator it =
+		std::filesystem::path::const_iterator it =
 			std::next(
 				_sub_path.get().begin(),
 				std::distance(

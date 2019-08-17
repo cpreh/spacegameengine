@@ -18,7 +18,7 @@
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -30,7 +30,7 @@ sge::resource_tree::object<
 	T,
 	Rng
 >::object(
-	boost::filesystem::path const &_path,
+	std::filesystem::path const &_path,
 	path_to_resource_function const &_path_to_resource,
 	rng_type &_random_generator
 )

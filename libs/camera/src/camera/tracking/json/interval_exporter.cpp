@@ -24,7 +24,7 @@
 sge::camera::tracking::json::interval_exporter::interval_exporter(
 	sge::camera::base const &_camera,
 	sge::camera::update_duration const &_update_duration,
-	boost::filesystem::path const &_export_file_path
+	std::filesystem::path const &_export_file_path
 )
 :
 	camera_(

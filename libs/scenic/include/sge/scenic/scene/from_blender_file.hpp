@@ -10,7 +10,7 @@
 #include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/scene/prototype_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -23,7 +23,7 @@ namespace scene
 SGE_SCENIC_DETAIL_SYMBOL
 sge::scenic::scene::prototype_unique_ptr
 from_blender_file(
-	boost::filesystem::path const &);
+	std::filesystem::path const &);
 }
 }
 }

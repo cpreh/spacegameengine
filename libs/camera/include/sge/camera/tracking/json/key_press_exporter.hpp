@@ -20,7 +20,7 @@
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -53,7 +53,7 @@ public:
 	key_press_exporter(
 		fcppt::log::context &,
 		sge::camera::base const &,
-		boost::filesystem::path const &,
+		std::filesystem::path const &,
 		sge::camera::update_duration const &,
 		keyframe_keypress const &,
 		export_keypress const &
@@ -72,7 +72,7 @@ private:
 
 	sge::camera::base const &camera_;
 
-	boost::filesystem::path const target_path_;
+	std::filesystem::path const target_path_;
 
 	sge::camera::update_duration const duration_;
 

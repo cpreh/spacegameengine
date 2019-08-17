@@ -13,7 +13,7 @@
 #include <sge/evdev/inotify/watch.hpp>
 #include <awl/backends/posix/fd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -32,7 +32,7 @@ class reader
 public:
 	explicit
 	reader(
-		boost::filesystem::path const &
+		std::filesystem::path const &
 	);
 
 	~reader();

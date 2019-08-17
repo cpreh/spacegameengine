@@ -10,18 +10,18 @@
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
+#include <fstream>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
 
 fcppt::optional_string
 sge::charconv::utf8_file_to_fcppt_string(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
-	boost::filesystem::ifstream file_stream(
+	std::ifstream file_stream(
 		_path
 	);
 

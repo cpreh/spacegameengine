@@ -10,7 +10,7 @@
 #include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -20,7 +20,7 @@ namespace systems
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	boost::filesystem::path,
+	std::filesystem::path,
 	plugin_path
 );
 

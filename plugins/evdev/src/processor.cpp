@@ -44,7 +44,7 @@
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -247,7 +247,7 @@ sge::evdev::processor::inotify_event(
 	sge::evdev::inotify::event const &_event
 )
 {
-	boost::filesystem::path const file_path(
+	std::filesystem::path const file_path(
 		this->path_
 		/
 		_event.filename()

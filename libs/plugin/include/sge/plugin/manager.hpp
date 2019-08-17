@@ -20,7 +20,7 @@
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,7 +38,7 @@ public:
 	SGE_PLUGIN_DETAIL_SYMBOL
 	manager(
 		fcppt::log::context &,
-		boost::filesystem::path const &,
+		std::filesystem::path const &,
 		sge::plugin::optional_cache_ref const &
 	);
 

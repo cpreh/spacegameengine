@@ -9,13 +9,13 @@
 #include <sge/parse/ini/grammar.hpp>
 #include <sge/parse/ini/parse_file.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::parse::ini::file_result
 sge::parse::ini::parse_file(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 )
 {
 	return

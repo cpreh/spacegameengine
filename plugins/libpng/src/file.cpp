@@ -21,8 +21,8 @@
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
+#include <fstream>
 #include <ios>
 #include <iosfwd>
 #include <utility>
@@ -78,10 +78,10 @@ sge::libpng::file::size() const
 
 void
 sge::libpng::file::save(
-	boost::filesystem::path const &_path
+	std::filesystem::path const &_path
 ) const
 {
-	boost::filesystem::ofstream output(
+	std::ofstream output(
 		_path,
 		std::ios_base::binary
 	);

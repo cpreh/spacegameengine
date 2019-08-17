@@ -18,8 +18,7 @@
 #include <fcppt/container/join.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/operations.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <boost/range/iterator_range_core.hpp>
 #include <boost/range/adaptor/filtered.hpp>
 #include <vector>
@@ -42,7 +41,7 @@ sge::resource_tree::detail::element_vector<
 	Rng
 >
 init(
-	boost::filesystem::path const &_path,
+	std::filesystem::path const &_path,
 	sge::resource_tree::path_to_resource_function<
 		T
 	> const &_path_to_resource,
@@ -50,7 +49,7 @@ init(
 )
 {
 	FCPPT_ASSERT_THROW_MESSAGE(
-		boost::filesystem::exists(
+		std::filesystem::exists(
 			_path
 		),
 		sge::resource_tree::exception,
@@ -62,7 +61,7 @@ init(
 	);
 
 	FCPPT_ASSERT_THROW_MESSAGE(
-		boost::filesystem::is_directory(
+		std::filesystem::is_directory(
 			_path
 		),
 		sge::resource_tree::exception,
@@ -75,7 +74,7 @@ init(
 
 	typedef
 	std::vector<
-		boost::filesystem::path
+		std::filesystem::path
 	>
 	path_vector;
 
@@ -85,19 +84,19 @@ init(
 				_path
 			},
 			boost::make_iterator_range(
-				boost::filesystem::recursive_directory_iterator(
+				std::filesystem::recursive_directory_iterator(
 					_path
 				),
-				boost::filesystem::recursive_directory_iterator()
+				std::filesystem::recursive_directory_iterator()
 			)
 			|
 			boost::adaptors::filtered(
 				[](
-					boost::filesystem::path const &_cur_path
+					std::filesystem::path const &_cur_path
 				)
 				{
 					return
-						boost::filesystem::is_directory(
+						std::filesystem::is_directory(
 							_cur_path
 						);
 				}
@@ -118,7 +117,7 @@ init(
 				&_path_to_resource,
 				&_random_generator
 			](
-				boost::filesystem::path const &_cur_path
+				std::filesystem::path const &_cur_path
 			)
 			{
 				return

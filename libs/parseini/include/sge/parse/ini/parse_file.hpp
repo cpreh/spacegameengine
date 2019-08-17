@@ -10,7 +10,7 @@
 #include <sge/parse/ini/file_result.hpp>
 #include <sge/parse/ini/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/filesystem/path.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -24,7 +24,7 @@ namespace ini
 SGE_PARSE_INI_DETAIL_SYMBOL
 sge::parse::ini::file_result
 parse_file(
-	boost::filesystem::path const &
+	std::filesystem::path const &
 );
 
 }
