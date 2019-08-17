@@ -11,8 +11,8 @@
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <filesystem>
 #include <fontconfig/fontconfig.h>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 

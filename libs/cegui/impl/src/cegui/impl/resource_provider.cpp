@@ -19,8 +19,8 @@
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <filesystem>
 #include <cstddef>
+#include <filesystem>
 #include <fstream>
 #include <ios>
 #include <string>

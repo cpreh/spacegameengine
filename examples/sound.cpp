@@ -56,7 +56,6 @@
 #include <fcppt/math/pi.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <filesystem>
 #include <boost/range/iterator_range.hpp>
 #include <brigand/sequences/list.hpp>
 #include <algorithm>
@@ -64,6 +63,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <exception>
+#include <filesystem>
 #include <fstream>
 #include <ios>
 #include <iostream>
