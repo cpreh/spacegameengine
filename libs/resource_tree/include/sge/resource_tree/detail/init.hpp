@@ -14,12 +14,13 @@
 #include <sge/resource_tree/detail/element_vector.hpp>
 #include <sge/resource_tree/detail/sub_path.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/assert/throw_message.hpp>
 #include <fcppt/container/join.hpp>
+#include <fcppt/filesystem/directory_range.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/optional/make_if.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/range/iterator_range_core.hpp>
-#include <boost/range/adaptor/filtered.hpp>
 #include <filesystem>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -83,21 +84,29 @@ init(
 			path_vector{
 				_path
 			},
-			boost::make_iterator_range(
-				std::filesystem::recursive_directory_iterator(
+			fcppt::algorithm::map_optional<
+				std::vector<
+					std::filesystem::path
+				>
+			>(
+				fcppt::filesystem::directory_range(
 					_path
 				),
-				std::filesystem::recursive_directory_iterator()
-			)
-			|
-			boost::adaptors::filtered(
 				[](
 					std::filesystem::path const &_cur_path
 				)
 				{
 					return
-						std::filesystem::is_directory(
-							_cur_path
+						fcppt::optional::make_if(
+							std::filesystem::is_directory(
+								_cur_path
+							),
+							[
+								&_cur_path
+							]{
+								return
+									_cur_path;
+							}
 						);
 				}
 			)

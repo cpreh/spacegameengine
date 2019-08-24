@@ -9,8 +9,8 @@
 
 #include <sge/opengl/extension_set.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/iterator/make_range.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/range/iterator_range_core.hpp>
 #include <iterator>
 #include <sstream>
 #include <string>
@@ -49,7 +49,7 @@ parse_extensions(
 				Type
 			>
 		>(
-			boost::make_iterator_range(
+			fcppt::iterator::make_range(
 				iterator(
 					stream
 				),

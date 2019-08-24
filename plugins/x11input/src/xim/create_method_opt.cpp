@@ -17,12 +17,12 @@
 #include <fcppt/algorithm/contains_if.hpp>
 #include <fcppt/bit/mask_c.hpp>
 #include <fcppt/bit/test.hpp>
+#include <fcppt/iterator/make_range.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
-#include <boost/range/iterator_range_core.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -49,7 +49,7 @@ try
 
 	if(
 		fcppt::algorithm::contains_if(
-			boost::make_iterator_range(
+			fcppt::iterator::make_range(
 				styles->supported_styles,
 				styles->supported_styles
 				+

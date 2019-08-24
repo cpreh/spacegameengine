@@ -16,6 +16,7 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
+#include <fcppt/filesystem/directory_range.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/object_fwd.hpp>
@@ -23,7 +24,6 @@
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/range/iterator_range_core.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
@@ -39,11 +39,8 @@ sge::plugin::impl::load_plugins(
 		fcppt::algorithm::map_optional<
 			sge::plugin::detail::context_base_vector
 		>(
-			boost::make_iterator_range(
-				std::filesystem::directory_iterator(
-					_path
-				),
-				std::filesystem::directory_iterator()
+			fcppt::filesystem::directory_range(
+				_path
 			),
 			[
 				&_log,

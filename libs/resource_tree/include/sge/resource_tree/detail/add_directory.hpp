@@ -15,9 +15,9 @@
 #include <sge/resource_tree/detail/strip_path_prefix.hpp>
 #include <sge/resource_tree/detail/sub_path.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
+#include <fcppt/filesystem/directory_range.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/range/iterator_range_core.hpp>
 #include <filesystem>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -63,11 +63,8 @@ add_directory(
 		fcppt::algorithm::map_optional<
 			resource_container
 		>(
-			boost::make_iterator_range(
-				std::filesystem::directory_iterator(
-					_sub_path.get()
-				),
-				std::filesystem::directory_iterator()
+			fcppt::filesystem::directory_range(
+				_sub_path.get()
 			),
 			[
 				&_sub_path,

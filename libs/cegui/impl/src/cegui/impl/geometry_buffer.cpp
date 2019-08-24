@@ -73,6 +73,7 @@
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
+#include <fcppt/iterator/make_range.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
@@ -98,7 +99,6 @@
 #include <CEGUI/RenderEffect.h>
 #include <CEGUI/Vector.h>
 #include <CEGUI/Vertex.h>
-#include <boost/range/iterator_range.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -500,7 +500,7 @@ sge::cegui::impl::geometry_buffer::appendGeometry(
 	for(
 		CEGUI::Vertex const &vertex
 		:
-		boost::make_iterator_range(
+		fcppt::iterator::make_range(
 			_vertices,
 			_vertices + _vertex_count
 		)

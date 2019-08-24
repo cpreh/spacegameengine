@@ -40,6 +40,7 @@
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
+#include <fcppt/iterator/make_range.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -51,7 +52,6 @@
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/range/iterator_range_core.hpp>
 #include <brigand/sequences/list.hpp>
 #include <functional>
 #include <locale>
@@ -152,7 +152,7 @@ sge::console::gfx::object::render(
 	for(
 		auto const &element
 		:
-		boost::make_iterator_range(
+		fcppt::iterator::make_range(
 			output_lines_.point(),
 			output_lines_.end()
 		)
