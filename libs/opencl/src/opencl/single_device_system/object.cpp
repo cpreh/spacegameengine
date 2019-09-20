@@ -158,7 +158,10 @@ sge::opencl::single_device_system::object::object(
 	error_occured_(
 		false),
 	error_information_(),
-	error_data_(),
+	error_data_(
+		nullptr,
+		nullptr
+	),
 	error_callback_(
 		_params.error_callback())
 {

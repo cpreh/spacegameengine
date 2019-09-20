@@ -7,17 +7,20 @@
 #ifndef SGE_OPENCL_BINARY_ERROR_DATA_HPP_INCLUDED
 #define SGE_OPENCL_BINARY_ERROR_DATA_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <boost/range/iterator_range.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/iterator/range_impl.hpp>
+
 
 namespace sge
 {
 namespace opencl
 {
+
 typedef
-boost::iterator_range<unsigned char const *>
+fcppt::iterator::range<
+	unsigned char const *
+>
 binary_error_data;
+
 }
 }
 

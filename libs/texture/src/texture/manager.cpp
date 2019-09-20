@@ -25,8 +25,8 @@
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/range/from_pair.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/range/iterator_range_core.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -97,7 +97,7 @@ sge::texture::manager::add(
 	return
 		fcppt::optional::from(
 			fcppt::algorithm::find_by_opt(
-				boost::make_iterator_range(
+				fcppt::range::from_pair(
 					textures_.equal_range(
 						color_format
 					)

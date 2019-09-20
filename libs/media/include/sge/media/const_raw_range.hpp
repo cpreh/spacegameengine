@@ -8,9 +8,7 @@
 #define SGE_MEDIA_CONST_RAW_RANGE_HPP_INCLUDED
 
 #include <sge/media/const_raw_pointer.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/range/iterator_range_core.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/iterator/range_impl.hpp>
 
 
 namespace sge
@@ -18,9 +16,11 @@ namespace sge
 namespace media
 {
 
-typedef boost::iterator_range<
+typedef
+fcppt::iterator::range<
 	sge::media::const_raw_pointer
-> const_raw_range;
+>
+const_raw_range;
 
 }
 }
