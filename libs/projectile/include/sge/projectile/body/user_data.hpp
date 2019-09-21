@@ -8,8 +8,9 @@
 #define SGE_PROJECTILE_BODY_USER_DATA_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <boost/any.hpp>
+#include <any>
 #include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -17,9 +18,11 @@ namespace projectile
 {
 namespace body
 {
+
 typedef
-boost::any
+std::any
 user_data;
+
 }
 }
 }
