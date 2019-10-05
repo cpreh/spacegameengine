@@ -18,8 +18,8 @@
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/brigand/all_of.hpp>
 #include <fcppt/brigand/found_t.hpp>
-#include <fcppt/brigand/implication.hpp>
 #include <fcppt/container/join.hpp>
+#include <fcppt/type_traits/implication.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <brigand/functions/lambda/apply.hpp>
 #include <brigand/functions/lambda/bind.hpp>
@@ -50,7 +50,7 @@ make_list(
 		fcppt::brigand::all_of<
 			Choices,
 			brigand::bind<
-				fcppt::brigand::implication,
+				fcppt::type_traits::implication,
 				brigand::bind<
 					sge::systems::detail::extract_needs_init,
 					brigand::_1
