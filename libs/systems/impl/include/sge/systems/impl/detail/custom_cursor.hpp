@@ -36,7 +36,7 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -92,7 +92,7 @@ private:
 		sge::sprite::config::normal_size<
 			sge::sprite::config::texture_size_option::always
 		>,
-		brigand::list<
+		metal::list<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
 					1u

@@ -13,7 +13,7 @@
 #include <sge/sprite/types/point_size.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,7 +42,7 @@ public:
 	struct apply
 	{
 		typedef
-		brigand::list<
+		metal::list<
 			fcppt::record::element<
 				sge::sprite::roles::point_size,
 				sge::sprite::types::point_size<

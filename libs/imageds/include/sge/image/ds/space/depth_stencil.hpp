@@ -10,9 +10,7 @@
 #include <sge/image/ds/channel/depth_fwd.hpp>
 #include <sge/image/ds/channel/stencil_fwd.hpp>
 #include <sge/image/ds/space/depth_stencil_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/metal/set/make.hpp>
 
 
 namespace sge
@@ -27,7 +25,7 @@ namespace space
 struct depth_stencil
 {
 	typedef
-	brigand::list<
+	fcppt::metal::set::make<
 		sge::image::ds::channel::depth,
 		sge::image::ds::channel::stencil
 	>

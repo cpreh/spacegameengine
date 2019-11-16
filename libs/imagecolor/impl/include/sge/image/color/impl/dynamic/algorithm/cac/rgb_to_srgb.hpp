@@ -11,7 +11,6 @@
 #include <mizuiro/color/space/srgb.hpp>
 #include <mizuiro/color/types/space.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/logical/and.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -39,7 +38,7 @@ template<
 using
 rgb_to_srgb
 =
-brigand::and_<
+std::conjunction<
 	std::is_same<
 		mizuiro::color::types::space<
 			typename

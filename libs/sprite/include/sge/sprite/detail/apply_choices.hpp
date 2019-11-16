@@ -8,7 +8,7 @@
 #define SGE_SPRITE_DETAIL_APPLY_CHOICES_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -32,13 +32,13 @@ template<
 >
 struct apply_choices<
 	Choices,
-	brigand::list<
+	metal::list<
 		Functions...
 	>
 >
 {
 	typedef
-	brigand::list<
+	metal::list<
 		typename
 		Functions :: template apply<
 			Choices

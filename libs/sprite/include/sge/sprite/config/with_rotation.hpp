@@ -12,7 +12,7 @@
 #include <sge/sprite/types/rotation.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -31,7 +31,7 @@ struct with_rotation
 	struct apply
 	{
 		typedef
-		brigand::list<
+		metal::list<
 			fcppt::record::element<
 				sge::sprite::roles::rotation,
 				sge::sprite::types::rotation<

@@ -12,10 +12,10 @@
 #include <sge/renderer/vf/detail/element_stride.hpp>
 #include <sge/renderer/vf/detail/raw_data.hpp>
 #include <sge/renderer/vf/detail/read_wrapper_impl.hpp>
-#include <fcppt/brigand/found_t.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/index_of.hpp>
-#include <brigand/sequences/at.hpp>
+#include <metal/list/at.hpp>
+#include <metal/list/contains.hpp>
+#include <metal/list/find.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -52,7 +52,7 @@ sge::renderer::vf::vertex<
 )
 {
 	static_assert(
-		fcppt::brigand::found_t<
+		metal::contains<
 			elements,
 			Field
 		>::value,
@@ -60,21 +60,21 @@ sge::renderer::vf::vertex<
 	);
 
 	typedef
-	brigand::index_of<
+	metal::find<
 		elements,
 		Field
 	>
 	index;
 
 	typedef
-	brigand::at<
+	metal::at<
 		elements,
 		index
 	>
 	element;
 
 	typedef
-	brigand::at<
+	metal::at<
 		offsets,
 		index
 	>
@@ -108,7 +108,7 @@ sge::renderer::vf::vertex<
 >::get() const
 {
 	static_assert(
-		fcppt::brigand::found_t<
+		metal::contains<
 			elements,
 			Field
 		>::value,
@@ -116,21 +116,21 @@ sge::renderer::vf::vertex<
 	);
 
 	typedef
-	brigand::index_of<
+	metal::find<
 		elements,
 		Field
 	>
 	index;
 
 	typedef
-	brigand::at<
+	metal::at<
 		elements,
 		index
 	>
 	element;
 
 	typedef
-	brigand::at<
+	metal::at<
 		offsets,
 		index
 	>

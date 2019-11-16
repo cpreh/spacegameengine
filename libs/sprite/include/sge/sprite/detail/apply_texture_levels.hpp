@@ -10,7 +10,7 @@
 #include <sge/sprite/config/is_texture_level_count.hpp>
 #include <sge/sprite/detail/make_texture_levels.hpp>
 #include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_brigand.hpp>
+#include <fcppt/algorithm/loop_break_metal.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>

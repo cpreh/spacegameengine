@@ -12,7 +12,7 @@
 #include <sge/sprite/state/with_rasterizer.hpp>
 #include <sge/sprite/state/with_transform.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,7 +25,7 @@ namespace state
 
 typedef
 sge::sprite::state::choices<
-	brigand::list<
+	metal::list<
 		sge::sprite::state::with_blend,
 		sge::sprite::state::with_rasterizer,
 		sge::sprite::state::with_transform

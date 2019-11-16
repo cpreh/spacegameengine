@@ -124,7 +124,7 @@
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <chrono>
 #include <example_main.hpp>
 #include <exception>
@@ -588,7 +588,7 @@ example_main(
 try
 {
 	sge::systems::instance<
-		brigand::list<
+		metal::list<
 			sge::systems::with_window,
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
@@ -892,7 +892,7 @@ try
 
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
-							brigand::list<
+							metal::list<
 								sge::input::keyboard::event::key const,
 								sge::renderer::event::render const
 							>,

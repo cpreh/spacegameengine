@@ -12,7 +12,7 @@
 #include <sge/scenic/vf/position.hpp>
 #include <sge/scenic/vf/texcoord.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,7 +25,7 @@ namespace vf
 
 typedef
 sge::renderer::vf::part<
-	brigand::list<
+	metal::list<
 		sge::scenic::vf::position,
 		sge::scenic::vf::normal,
 		sge::scenic::vf::texcoord

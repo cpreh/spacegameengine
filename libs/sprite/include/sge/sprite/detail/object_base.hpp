@@ -9,8 +9,8 @@
 
 #include <sge/sprite/detail/config/is_intrusive.hpp>
 #include <sge/sprite/intrusive/detail/object_base_hook.hpp>
+#include <fcppt/unit.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/types/empty_base.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -32,7 +32,7 @@ std::conditional_t<
 		Choices
 	>::value,
 	sge::sprite::intrusive::detail::object_base_hook,
-	brigand::empty_base
+	fcppt::unit
 >;
 
 }

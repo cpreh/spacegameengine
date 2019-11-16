@@ -12,7 +12,7 @@
 #include <sge/sprite/roles/color.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,7 +38,7 @@ struct with_color
 	struct apply
 	{
 		typedef
-		brigand::list<
+		metal::list<
 			fcppt::record::element<
 				sge::sprite::roles::color,
 				sge::image::pixel::mizuiro_type<

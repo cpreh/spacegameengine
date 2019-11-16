@@ -8,10 +8,8 @@
 #define SGE_SPRITE_DETAIL_CONFIG_FIND_IF_IMPL_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/find.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/sequences/size.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/copy_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -33,11 +31,10 @@ template<
 struct find_if_impl
 {
 	typedef
-	brigand::find<
+	metal::copy_if<
 		Elements,
-		brigand::bind<
-			Predicate,
-			brigand::_1
+		metal::lambda<
+			Predicate
 		>
 	>
 	type;
@@ -45,7 +42,7 @@ struct find_if_impl
 	// TODO
 /*
 	static_assert(
-		brigand::size<
+		metal::size<
 			type
 		>::value
 		<=

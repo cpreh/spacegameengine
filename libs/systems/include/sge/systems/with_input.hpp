@@ -11,7 +11,7 @@
 #include <sge/systems/with_input_fwd.hpp>
 #include <sge/systems/with_window_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -32,7 +32,7 @@ struct with_input
 	parameter_type;
 
 	typedef
-	brigand::list<
+	metal::list<
 		sge::systems::with_window
 	>
 	needs_before;

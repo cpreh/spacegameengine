@@ -9,7 +9,7 @@
 
 #include <sge/image/impl/format_key.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/pair.hpp>
+#include <metal/pair/pair.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -28,7 +28,7 @@ template<
 using
 format_pair
 =
-brigand::pair<
+metal::pair<
 	sge::image::impl::format_key<
 		Dynamic,
 		DynamicValue

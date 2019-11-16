@@ -14,7 +14,7 @@
 #include <fcppt/type_traits/remove_cv_ref_t.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -33,7 +33,7 @@ template<
 >
 std::enable_if_t<
 	fcppt::brigand::found_t<
-		brigand::list<
+		metal::list<
 			XIButtonClassInfo,
 			XIValuatorClassInfo,
 			XIKeyClassInfo,

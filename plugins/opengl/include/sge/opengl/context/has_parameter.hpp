@@ -8,7 +8,6 @@
 #define SGE_OPENGL_CONTEXT_HAS_PARAMETER_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/logical/not.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -25,7 +24,7 @@ template<
 >
 using has_parameter
 =
-brigand::not_<
+std::negation<
 	std::is_same<
 		typename Type::parameter,
 		void

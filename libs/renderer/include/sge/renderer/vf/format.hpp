@@ -8,7 +8,9 @@
 #define SGE_RENDERER_VF_FORMAT_HPP_INCLUDED
 
 #include <sge/renderer/vf/format_fwd.hpp>
-#include <fcppt/type_traits/is_brigand_sequence.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <metal/list/list.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -24,10 +26,10 @@ template<
 struct format
 {
 	static_assert(
-		fcppt::type_traits::is_brigand_sequence<
+		metal::is_list<
 			PartList
 		>::value,
-		"PartList must be a brigand sequence"
+		"PartList must be a metal sequence"
 	);
 
 	typedef PartList parts;

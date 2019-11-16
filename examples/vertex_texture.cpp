@@ -96,7 +96,7 @@
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <fcppt/config/external_end.hpp>
@@ -109,7 +109,7 @@ example_main(
 try
 {
 	sge::systems::instance<
-		brigand::list<
+		metal::list<
 			sge::systems::with_window,
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::core
@@ -185,7 +185,7 @@ try
 
 	typedef
 	sge::renderer::vf::part<
-		brigand::list<
+		metal::list<
 			pos3_type,
 			texpos2_type
 		>
@@ -194,7 +194,7 @@ try
 
 	typedef
 	sge::renderer::vf::format<
-		brigand::list<
+		metal::list<
 			format_part
 		>
 	>

@@ -10,12 +10,13 @@
 #include <sge/renderer/vf/part_fwd.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/detail/element_stride.hpp>
-#include <fcppt/brigand/partial_sums.hpp>
-#include <fcppt/type_traits/is_brigand_sequence.hpp>
+#include <fcppt/metal/from_number.hpp>
+#include <fcppt/metal/partial_sums.hpp>
+#include <fcppt/metal/to_number_list.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/transform.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/list.hpp>
+#include <metal/list/transform.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -36,26 +37,29 @@ struct part
 	elements;
 
 	static_assert(
-		fcppt::type_traits::is_brigand_sequence<
+		metal::is_list<
 			ElementList
 		>::value,
-		"ElementList must be a brigand sequence"
+		"ElementList must be a metal sequence"
 	);
 
 	typedef
-	brigand::transform<
-		elements,
-		brigand::bind<
-			sge::renderer::vf::detail::element_stride,
-			brigand::_1
-		>
+	metal::transform<
+		metal::lambda<
+			sge::renderer::vf::detail::element_stride
+		>,
+		elements
 	>
 	strides;
 
 	typedef
-	fcppt::brigand::partial_sums<
-		strides,
-		sge::renderer::vf::vertex_size
+	fcppt::metal::from_number<
+		sge::renderer::vf::vertex_size,
+		fcppt::metal::partial_sums<
+			fcppt::metal::to_number_list<
+				strides
+			>
+		>
 	>
 	offsets;
 

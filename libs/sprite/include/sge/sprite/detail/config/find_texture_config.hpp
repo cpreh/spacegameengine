@@ -11,7 +11,7 @@
 #include <sge/sprite/config/is_with_texture_point_size.hpp>
 #include <sge/sprite/detail/config/find_if.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -51,7 +51,7 @@ public:
 	std::conditional_t<
 		std::is_same<
 			with_texture_list,
-			brigand::list<>
+			metal::list<>
 		>::value,
 		with_texture_point_size_list,
 		with_texture_list

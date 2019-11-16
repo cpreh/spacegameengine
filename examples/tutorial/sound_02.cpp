@@ -40,7 +40,7 @@
 #include <fcppt/math/twopi.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <chrono>
 #include <cmath>
 #include <cstdlib>
@@ -55,7 +55,7 @@ main()
 try
 {
 	sge::systems::instance<
-		brigand::list<
+		metal::list<
 			sge::systems::with_audio_loader,
 			sge::systems::with_audio_player
 		>

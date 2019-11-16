@@ -56,7 +56,7 @@
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <cstdlib>
 #include <exception>
 #include <iostream>
@@ -69,7 +69,7 @@ main()
 try
 {
 	sge::systems::instance<
-		brigand::list<
+		metal::list<
 			sge::systems::with_window,
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::core
@@ -142,7 +142,7 @@ try
 		<< FCPPT_TEXT('\n');
 
 	typedef sge::renderer::vf::part<
-		brigand::list<
+		metal::list<
 			sge::renderer::vf::pos<
 				float,
 				3
@@ -151,7 +151,7 @@ try
 	> vf_part;
 
 	typedef sge::renderer::vf::format<
-		brigand::list<
+		metal::list<
 			vf_part
 		>
 	> vf_format;

@@ -18,7 +18,7 @@
 #include <sge/image/color/impl/dynamic/format/srgb_c8_3.hpp>
 #include <sge/image/color/impl/dynamic/format/srgb_c8_4.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -36,7 +36,7 @@ namespace format
 {
 
 typedef
-brigand::list<
+metal::list<
 	sge::image::color::impl::dynamic::format::empty_c8_1,
 	sge::image::color::impl::dynamic::format::luminance_c8_1,
 	sge::image::color::impl::dynamic::format::luminance_c8_2,

@@ -26,7 +26,7 @@
 #include <sge/image/color/srgb8_format.hpp>
 #include <sge/image/color/srgba8_format.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,7 +38,7 @@ namespace color
 {
 
 typedef
-brigand::list<
+metal::list<
 	sge::image::color::a8_format,
 	sge::image::color::l8_format,
 	sge::image::color::r32f_format,

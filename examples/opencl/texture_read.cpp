@@ -52,7 +52,7 @@
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <cstdlib>
 #include <exception>
 #include <filesystem>
@@ -73,7 +73,7 @@ main_program(
 		<< FCPPT_TEXT("Creating systems object\n");
 
 	sge::systems::instance<
-		brigand::list<
+		metal::list<
 			sge::systems::with_image2d
 		>
 	> const sys(

@@ -37,7 +37,7 @@
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -127,7 +127,7 @@ sge::camera::ortho_freelook::object::process_event(
 {
 	fcppt::optional::maybe_void(
 		fcppt::variant::dynamic_cast_<
-			brigand::list<
+			metal::list<
 				sge::input::keyboard::event::key const,
 				sge::input::mouse::event::axis const
 			>,

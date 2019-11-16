@@ -21,7 +21,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -46,7 +46,7 @@ sge::systems::impl::window::quit::quit(
 				{
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
-							brigand::list<
+							metal::list<
 								awl::window::event::destroy const,
 								awl::window::event::close const
 							>,

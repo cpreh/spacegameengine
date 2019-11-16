@@ -54,7 +54,7 @@
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/optional_level.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <cstdlib>
 #include <exception>
 #include <iostream>
@@ -81,7 +81,7 @@ try
 	);
 
 	typedef
-	brigand::list<
+	metal::list<
 		sge::audio::loader,
 		sge::audio::player,
 		sge::font::system,

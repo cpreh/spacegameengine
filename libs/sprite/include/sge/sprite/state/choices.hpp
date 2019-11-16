@@ -8,7 +8,9 @@
 #define SGE_SPRITE_STATE_CHOICES_HPP_INCLUDED
 
 #include <sge/sprite/state/choices_fwd.hpp>
-#include <fcppt/type_traits/is_brigand_sequence.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <metal/list/list.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -26,7 +28,7 @@ struct choices
 	typedef OptionalElements optional_elements;
 
 	static_assert(
-		fcppt::type_traits::is_brigand_sequence<
+		metal::is_list<
 			OptionalElements
 		>::value,
 		"OptionalElements must be an mpl sequence"

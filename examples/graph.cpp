@@ -67,7 +67,7 @@
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <fcppt/config/external_end.hpp>
@@ -79,7 +79,7 @@ example_main(
 try
 {
 	sge::systems::instance<
-		brigand::list<
+		metal::list<
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
 			>,

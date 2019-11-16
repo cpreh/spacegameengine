@@ -55,7 +55,7 @@
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -232,7 +232,7 @@ sge::wlinput::processor::on_event(
 	return
 		fcppt::optional::maybe(
 			fcppt::variant::dynamic_cast_<
-				brigand::list<
+				metal::list<
 					awl::backends::wayland::system::event::seat_caps const,
 					awl::backends::wayland::system::event::seat_removed const,
 					awl::backends::posix::event const

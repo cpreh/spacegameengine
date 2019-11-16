@@ -9,7 +9,7 @@
 
 #include <sge/sprite/detail/make_texture_levels.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/transform.hpp>
+#include <metal/list/transform.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -27,11 +27,11 @@ template<
 using
 transform_texture_levels_static
 =
-brigand::transform<
+metal::transform<
+	Function,
 	sge::sprite::detail::make_texture_levels<
 		Levels
-	>,
-	Function
+	>
 >;
 
 }

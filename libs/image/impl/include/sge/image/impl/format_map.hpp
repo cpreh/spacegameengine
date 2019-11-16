@@ -8,7 +8,7 @@
 #define SGE_IMAGE_IMPL_FORMAT_MAP_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/map.hpp>
+#include <metal/map/map.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,7 +25,7 @@ template<
 using
 format_map
 =
-brigand::map<
+metal::map<
 	Args...
 >;
 

@@ -143,7 +143,7 @@
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <array>
 #include <chrono>
 #include <example_main.hpp>
@@ -178,7 +178,7 @@ typedef sge::renderer::vf::texpos<
 > vf_texpos1;
 
 typedef sge::renderer::vf::part<
-	brigand::list<
+	metal::list<
 		vf_pos,
 		vf_texpos0,
 		vf_texpos1
@@ -186,7 +186,7 @@ typedef sge::renderer::vf::part<
 > vf_part;
 
 typedef sge::renderer::vf::format<
-	brigand::list<
+	metal::list<
 		vf_part
 	>
 > vf_format;
@@ -520,7 +520,7 @@ example_main(
 try
 {
 	sge::systems::instance<
-		brigand::list<
+		metal::list<
 			sge::systems::with_window,
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
@@ -858,7 +858,7 @@ try
 
 			fcppt::optional::maybe_void(
 				fcppt::variant::dynamic_cast_<
-					brigand::list<
+					metal::list<
 						sge::renderer::event::render const,
 						sge::input::event_base const
 					>,

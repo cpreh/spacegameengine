@@ -8,9 +8,8 @@
 #define SGE_SPRITE_STATE_DETAIL_NEEDS_FFP_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/any.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/trait.hpp>
+#include <metal/list/any_of.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,15 +34,15 @@ private:
 	using
 	extract
 	=
-	typename Type::needs_ffp;
+	typename
+	Type::needs_ffp;
 public:
 	typedef
-	brigand::any<
+	metal::any_of<
 		typename
 		StateChoices::optional_elements,
-		brigand::bind<
-			extract,
-			brigand::_1
+		metal::trait<
+			extract
 		>
 	>
 	type;

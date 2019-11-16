@@ -14,7 +14,7 @@
 #include <sge/sprite/types/size_or_texture_size_fwd.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,7 +42,7 @@ struct normal_size<
 >
 {
 	typedef
-	brigand::list<
+	metal::list<
 		fcppt::record::element<
 			sge::sprite::roles::size,
 			sge::sprite::types::dim<
@@ -63,7 +63,7 @@ struct normal_size<
 >
 {
 	typedef
-	brigand::list<>
+	metal::list<>
 	type;
 };
 
@@ -76,7 +76,7 @@ struct normal_size<
 >
 {
 	typedef
-	brigand::list<
+	metal::list<
 		fcppt::record::element<
 			sge::sprite::roles::size_or_texture_size,
 			sge::sprite::types::size_or_texture_size<

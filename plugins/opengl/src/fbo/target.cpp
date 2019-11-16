@@ -61,7 +61,7 @@
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -278,7 +278,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 			fcppt::variant::match(
 				fcppt::optional::to_exception(
 					fcppt::variant::dynamic_cast_<
-						brigand::list<
+						metal::list<
 							sge::opengl::fbo::depth_stencil_surface,
 							sge::opengl::texture::buffer_base
 						>,

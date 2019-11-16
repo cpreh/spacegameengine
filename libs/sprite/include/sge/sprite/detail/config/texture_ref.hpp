@@ -11,11 +11,10 @@
 #include <sge/sprite/detail/config/lazy_head.hpp>
 #include <sge/sprite/detail/primitives/texture_ref_type.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/eval_if.hpp>
-#include <brigand/functions/arithmetic/identity.hpp>
-#include <brigand/sequences/list.hpp>
-#include <brigand/types/no_such_type.hpp>
-#include <type_traits>
+#include <metal/lambda/invoke.hpp>
+#include <metal/list/empty.hpp>
+#include <metal/number/if.hpp>
+#include <metal/value/value.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -53,20 +52,20 @@ private:
 	texture_list;
 public:
 	typedef
-	typename
-	brigand::eval_if<
-		std::is_same<
-			texture_list,
-			brigand::list<>
-		>,
-		brigand::identity<
-			brigand::no_such_type_
-		>,
-		sge::sprite::detail::config::lazy_head<
-			obtain_ref_type,
-			texture_list
+	metal::invoke<
+		metal::if_<
+			metal::empty<
+				texture_list
+			>,
+			metal::always<
+				metal::nil
+			>,
+			sge::sprite::detail::config::lazy_head<
+				obtain_ref_type,
+				texture_list
+			>
 		>
-	>::type
+	>
 	type;
 };
 

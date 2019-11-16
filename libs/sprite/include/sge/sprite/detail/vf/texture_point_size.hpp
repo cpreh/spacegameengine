@@ -12,10 +12,10 @@
 #include <sge/sprite/detail/transform_texture_levels_static.hpp>
 #include <sge/sprite/detail/config/find_with_texture_point_size.hpp>
 #include <sge/sprite/detail/config/texture_levels.hpp>
+#include <fcppt/metal/to_number.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/sequences/at.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/at.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -65,18 +65,19 @@ private:
 			Choices::type_choices::float_type,
 			1
 		>,
-		brigand::at<
+		metal::at<
 			typename
 			point_size::attribute_indices,
-			Level
+			fcppt::metal::to_number<
+				Level
+			>
 		>
 	>;
 public:
 	typedef
 	sge::sprite::detail::transform_texture_levels_static<
-		brigand::bind<
-			make_size,
-			brigand::_1
+		metal::lambda<
+			make_size
 		>,
 		texture_levels
 	>

@@ -32,7 +32,7 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -98,7 +98,7 @@ private:
 		sge::sprite::config::normal_size<
 			sge::sprite::config::texture_size_option::never
 		>,
-		brigand::list<
+		metal::list<
 			sge::sprite::config::with_color<
 				color_format
 			>

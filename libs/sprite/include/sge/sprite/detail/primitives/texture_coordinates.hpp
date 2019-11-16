@@ -12,8 +12,7 @@
 #include <sge/sprite/types/texture_coordinates_fwd.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -51,9 +50,8 @@ private:
 public:
 	typedef
 	sge::sprite::detail::transform_texture_levels_static<
-		brigand::bind<
-			make_role,
-			brigand::_1
+		metal::lambda<
+			make_role
 		>,
 		Levels
 	>

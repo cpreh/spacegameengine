@@ -97,7 +97,7 @@
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <filesystem>
@@ -111,7 +111,7 @@ example_main(
 try
 {
 	sge::systems::instance<
-		brigand::list<
+		metal::list<
 			sge::systems::with_window,
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
@@ -208,7 +208,7 @@ try
 		sge::sprite::config::normal_size<
 			sge::sprite::config::texture_size_option::always
 		>,
-		brigand::list<
+		metal::list<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
 					1u
@@ -341,7 +341,7 @@ try
 
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
-							brigand::list<
+							metal::list<
 								sge::renderer::event::render const,
 								sge::input::keyboard::event::key const
 							>,

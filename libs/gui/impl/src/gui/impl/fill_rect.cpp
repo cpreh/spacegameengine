@@ -25,7 +25,7 @@
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/size.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -63,7 +63,7 @@ sge::gui::impl::fill_rect(
 		sge::sprite::config::normal_size<
 			sge::sprite::config::texture_size_option::never
 		>,
-		brigand::list<
+		metal::list<
 			sge::sprite::config::with_color<
 				color_format
 			>

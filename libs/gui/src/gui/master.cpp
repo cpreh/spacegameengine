@@ -36,7 +36,7 @@
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -110,7 +110,7 @@ sge::gui::master::process_event(
 {
 	fcppt::optional::maybe_void(
 		fcppt::variant::dynamic_cast_<
-			brigand::list<
+			metal::list<
 				sge::input::focus::event::key const,
 				sge::input::focus::event::key_repeat const,
 				sge::input::focus::event::text const,

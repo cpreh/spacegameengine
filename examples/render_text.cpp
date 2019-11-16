@@ -73,7 +73,7 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <cstdlib>
 #include <exception>
 #include <filesystem>
@@ -119,7 +119,7 @@ render_text_main(
 )
 {
 	sge::systems::instance<
-		brigand::list<
+		metal::list<
 			sge::systems::with_image2d,
 			sge::systems::with_font
 		>

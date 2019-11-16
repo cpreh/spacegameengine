@@ -10,7 +10,7 @@
 #include <sge/renderer/vf/format.hpp>
 #include <sge/sprite/detail/vf/format_part.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,7 +25,7 @@ template<
 struct vertex_format
 {
 	typedef sge::renderer::vf::format<
-		brigand::list<
+		metal::list<
 			typename sge::sprite::detail::vf::format_part<
 				Choices
 			>::type

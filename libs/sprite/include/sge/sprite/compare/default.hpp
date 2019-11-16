@@ -13,7 +13,6 @@
 #include <sge/sprite/detail/config/has_texture.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/logical/not.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -37,7 +36,7 @@ struct default_
 	using
 	is_trivial
 	=
-	brigand::not_<
+	std::negation<
 		sge::sprite::detail::config::has_texture<
 			Choices
 		>

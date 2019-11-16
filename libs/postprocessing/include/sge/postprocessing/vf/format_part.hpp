@@ -11,7 +11,7 @@
 #include <sge/postprocessing/vf/texcoord.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -24,7 +24,7 @@ namespace vf
 
 typedef
 sge::renderer::vf::part<
-	brigand::list<
+	metal::list<
 		sge::postprocessing::vf::position,
 		sge::postprocessing::vf::texcoord
 	>

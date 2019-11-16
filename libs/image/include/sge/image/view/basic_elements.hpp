@@ -13,10 +13,11 @@
 #include <sge/image/view/basic_format_c.hpp>
 #include <sge/image/view/mizuiro_type.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/transform.hpp>
-#include <brigand/functions/lambda/apply.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/always.hpp>
+#include <metal/lambda/arg.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/transform.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -34,24 +35,30 @@ template<
 using
 basic_elements
 =
-brigand::transform<
-	sge::image::traits::pixel::static_formats<
-		sge::image::traits::image::color_tag<
-			Tag
-		>
-	>,
-	brigand::bind<
-		sge::image::view::mizuiro_type,
-		brigand::bind<
-			sge::image::view::basic_format_c,
-			brigand::pin<
+metal::transform<
+	metal::bind<
+		metal::lambda<
+			sge::image::view::mizuiro_type
+		>,
+		metal::bind<
+			metal::lambda<
+				sge::image::view::basic_format_c
+			>,
+			metal::always<
 				sge::image::traits::image::dimension<
 					Tag
 				>
 			>,
-			brigand::_1
+			metal::_1
 		>,
-		Constness
+		metal::always<
+			Constness
+		>
+	>,
+	sge::image::traits::pixel::static_formats<
+		sge::image::traits::image::color_tag<
+			Tag
+		>
 	>
 >;
 

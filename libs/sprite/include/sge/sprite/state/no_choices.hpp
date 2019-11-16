@@ -9,7 +9,7 @@
 
 #include <sge/sprite/state/choices.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -22,7 +22,7 @@ namespace state
 
 typedef
 sge::sprite::state::choices<
-	brigand::list<>
+	metal::list<>
 >
 no_choices;
 

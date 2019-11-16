@@ -30,7 +30,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <cstdlib>
 #include <exception>
 #include <iostream>
@@ -43,7 +43,7 @@ main()
 try
 {
 	sge::systems::instance<
-		brigand::list<
+		metal::list<
 			sge::systems::with_audio_loader,
 			sge::systems::with_audio_player
 		>

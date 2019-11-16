@@ -212,7 +212,7 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <chrono>
 #include <cmath>
 #include <example_main.hpp>
@@ -258,7 +258,7 @@ normal;
 
 typedef
 sge::renderer::vf::part<
-	brigand::list<
+	metal::list<
 		position,
 		normal
 	>
@@ -267,7 +267,7 @@ format_part;
 
 typedef
 sge::renderer::vf::format<
-	brigand::list<
+	metal::list<
 		format_part
 	>
 >
@@ -947,7 +947,7 @@ main_program(
 )
 {
 	sge::systems::instance<
-		brigand::list<
+		metal::list<
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
 			>,
@@ -1340,7 +1340,7 @@ main_program(
 
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
-							brigand::list<
+							metal::list<
 								sge::renderer::event::render const,
 								sge::input::event_base const
 							>,

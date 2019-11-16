@@ -52,7 +52,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 
@@ -132,7 +132,7 @@ sge::x11input::focus::object::object(
 	}
 {
 	sge::x11input::event::select<
-		brigand::list<
+		metal::list<
 			sge::x11input::event::type_c<
 				XI_KeyPress
 			>,

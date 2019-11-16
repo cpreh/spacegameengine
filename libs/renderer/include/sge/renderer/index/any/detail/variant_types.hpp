@@ -9,11 +9,13 @@
 
 #include <sge/renderer/index/any/detail/make_view_element.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
-#include <fcppt/brigand/enum_range.hpp>
+#include <fcppt/metal/enum_range.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/transform.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/always.hpp>
+#include <metal/lambda/arg.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/transform.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -34,14 +36,18 @@ template<
 using
 variant_types
 =
-brigand::transform<
-	fcppt::brigand::enum_range<
-		sge::renderer::index::dynamic::format
+metal::transform<
+	metal::bind<
+		metal::lambda<
+			sge::renderer::index::any::detail::make_view_element
+		>,
+		metal::_1,
+		metal::always<
+			Constness
+		>
 	>,
-	brigand::bind<
-		sge::renderer::index::any::detail::make_view_element,
-		brigand::_1,
-		Constness
+	fcppt::metal::enum_range<
+		sge::renderer::index::dynamic::format
 	>
 >;
 

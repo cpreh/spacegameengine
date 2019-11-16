@@ -8,9 +8,7 @@
 #define SGE_SPRITE_DETAIL_MAKE_TEXTURE_LEVELS_HPP_INCLUDED
 
 #include <sge/sprite/texture_level.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/range.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/metal/interval.hpp>
 
 
 namespace sge
@@ -25,7 +23,7 @@ template<
 >
 using make_texture_levels
 =
-brigand::range<
+fcppt::metal::interval<
 	sge::sprite::texture_level,
 	0u,
 	Levels::value

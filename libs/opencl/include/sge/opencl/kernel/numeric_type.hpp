@@ -15,7 +15,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -35,7 +35,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wignored-attributes)
 typedef
 fcppt::variant::object<
 	fcppt::brigand::unique<
-		::brigand::list<
+		::metal::list<
 			cl_char,
 			cl_uchar,
 			cl_short,

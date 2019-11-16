@@ -30,7 +30,7 @@
 #include <brigand/functions/lambda/apply.hpp>
 #include <brigand/functions/lambda/bind.hpp>
 #include <brigand/sequences/append.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <brigand/types/args.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -80,7 +80,7 @@ private:
 	index_count_role;
 
 	typedef
-	brigand::list<
+	metal::list<
 		first_vertex_role,
 		vertex_count_role
 	>
@@ -89,7 +89,7 @@ private:
 	typedef
 	brigand::append<
 		base_types,
-		brigand::list<
+		metal::list<
 			first_index_role,
 			index_count_role
 		>
@@ -126,7 +126,7 @@ private:
 	{
 		typedef
 		brigand::append<
-			brigand::list<
+			metal::list<
 				GeometryTypes
 			>,
 			sge::sprite::detail::transform_texture_levels_static<

@@ -18,7 +18,7 @@
 #include <sge/sprite/config/texture_size_option.hpp>
 #include <sge/sprite/config/with_texture.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -44,7 +44,7 @@ sge::sprite::config::choices<
 	sge::sprite::config::normal_size<
 		TextureSize
 	>,
-	brigand::list<
+	metal::list<
 		sge::sprite::config::with_texture<
 			sge::sprite::config::texture_level_count<
 				1u

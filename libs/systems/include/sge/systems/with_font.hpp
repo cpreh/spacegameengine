@@ -10,7 +10,7 @@
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/with_font_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -31,7 +31,7 @@ struct with_font
 	parameter_type;
 
 	typedef
-	brigand::list<>
+	metal::list<>
 	needs_before;
 };
 

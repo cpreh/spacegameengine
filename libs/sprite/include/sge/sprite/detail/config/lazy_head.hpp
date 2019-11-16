@@ -8,7 +8,10 @@
 #define SGE_SPRITE_DETAIL_CONFIG_LAZY_HEAD_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/front.hpp>
+#include <metal/lambda/always.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/front.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -27,16 +30,22 @@ template<
 	> class Function,
 	typename List
 >
-struct lazy_head
-{
-	typedef
-	Function<
-		brigand::front<
+using
+lazy_head
+=
+metal::bind<
+	metal::lambda<
+		Function
+	>,
+	metal::bind<
+		metal::lambda<
+			metal::front
+		>,
+		metal::always<
 			List
 		>
 	>
-	type;
-};
+>;
 
 }
 }

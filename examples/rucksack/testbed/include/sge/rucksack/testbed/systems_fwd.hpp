@@ -13,7 +13,7 @@
 #include <sge/systems/with_renderer_fwd.hpp>
 #include <sge/systems/with_window_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -26,7 +26,7 @@ namespace testbed
 
 typedef
 sge::systems::instance<
-	brigand::list<
+	metal::list<
 		sge::systems::with_window,
 		sge::systems::with_renderer<
 			sge::systems::renderer_caps::ffp

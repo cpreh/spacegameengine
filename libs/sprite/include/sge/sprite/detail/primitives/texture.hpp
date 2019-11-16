@@ -13,7 +13,7 @@
 #include <sge/sprite/detail/primitives/texture_ptr.hpp>
 #include <sge/sprite/detail/primitives/texture_repetition.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/append.hpp>
+#include <metal/list/join.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -47,7 +47,7 @@ struct texture<
 >
 {
 	typedef
-	brigand::append<
+	metal::join<
 		typename sge::sprite::detail::primitives::texture_ptr<
 			Choices,
 			TextureLevels,
@@ -74,7 +74,7 @@ struct texture<
 >
 {
 	typedef
-	brigand::append<
+	metal::join<
 		typename sge::sprite::detail::primitives::texture_ptr<
 			Choices,
 			TextureLevels,

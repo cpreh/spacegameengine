@@ -11,13 +11,15 @@
 #include <sge/sprite/detail/config/has_custom_texture_point_size.hpp>
 #include <sge/sprite/detail/vf/texture_point_pos.hpp>
 #include <sge/sprite/detail/vf/texture_point_size.hpp>
+#include <fcppt/metal/to_number.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/eval_if.hpp>
-#include <brigand/functions/arithmetic/identity.hpp>
-#include <brigand/functions/lambda/apply.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/sequences/back.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/lambda/always.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/invoke.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/append.hpp>
+#include <metal/list/list.hpp>
+#include <metal/number/if.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -39,36 +41,37 @@ private:
 	template<
 		typename Type
 	>
-	struct make_vector
-	{
-		typedef
-		brigand::list<
-			typename
-			Type::type
-		>
-		type;
-	};
+	using
+	make_vector
+	=
+	metal::list<
+		typename
+		Type::type
+	>;
 
 	typedef
-	typename
-	brigand::eval_if<
-		sge::sprite::detail::config::has_custom_texture_point_pos<
-			Choices
-		>,
-		brigand::apply<
-			brigand::bind<
-				make_vector,
-				brigand::pin<
+	metal::invoke<
+		metal::if_<
+			fcppt::metal::to_number<
+				sge::sprite::detail::config::has_custom_texture_point_pos<
+					Choices
+				>
+			>,
+			metal::bind<
+				metal::lambda<
+					make_vector
+				>,
+				metal::always<
 					sge::sprite::detail::vf::texture_point_pos<
 						Choices
 					>
 				>
+			>,
+			metal::always<
+				metal::list<>
 			>
-		>,
-		brigand::identity<
-			brigand::list<>
 		>
-	>::type
+	>
 	vec1;
 
 	template<
@@ -77,34 +80,37 @@ private:
 	using
 	append_size
 	=
-	brigand::push_back<
+	metal::append<
 		vec1,
-		brigand::list<
+		metal::list<
 			typename
 			Type::type
 		>
 	>;
 public:
 	typedef
-	typename
-	brigand::eval_if<
-		sge::sprite::detail::config::has_custom_texture_point_size<
-			Choices
-		>,
-		brigand::apply<
-			brigand::bind<
-				append_size,
-				brigand::pin<
+	metal::invoke<
+		metal::if_<
+			fcppt::metal::to_number<
+				sge::sprite::detail::config::has_custom_texture_point_size<
+					Choices
+				>
+			>,
+			metal::bind<
+				metal::lambda<
+					append_size
+				>,
+				metal::always<
 					sge::sprite::detail::vf::texture_point_size<
 						Choices
 					>
 				>
+			>,
+			metal::always<
+				vec1
 			>
-		>,
-		brigand::identity<
-			vec1
 		>
-	>::type
+	>
 	type;
 };
 

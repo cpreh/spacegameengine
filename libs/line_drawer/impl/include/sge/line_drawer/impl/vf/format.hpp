@@ -10,7 +10,7 @@
 #include <sge/line_drawer/impl/vf/part.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,7 +25,7 @@ namespace vf
 
 typedef
 sge::renderer::vf::format<
-	brigand::list<
+	metal::list<
 		sge::line_drawer::impl::vf::part
 	>
 >

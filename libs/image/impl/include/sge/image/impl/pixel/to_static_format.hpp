@@ -10,7 +10,7 @@
 #include <sge/image/impl/format_key.hpp>
 #include <sge/image/impl/traits/pixel/format_map.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/map.hpp>
+#include <metal/map/at_key.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -30,7 +30,7 @@ template<
 using
 to_static_format
 =
-brigand::lookup<
+metal::at_key<
 	sge::image::impl::traits::pixel::format_map<
 		Tag
 	>,

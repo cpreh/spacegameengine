@@ -9,8 +9,7 @@
 
 #include <sge/sprite/detail/config/has_texture_levels.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/logical/and.hpp>
-#include <brigand/functions/logical/not.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -29,11 +28,11 @@ template<
 >
 using do_default_sort
 =
-brigand::and_<
+std::conjunction<
 	sge::sprite::detail::config::has_texture_levels<
 		Choices
 	>,
-	brigand::not_<
+	std::negation<
 		typename Compare:: template is_trivial<
 			Choices
 		>::type

@@ -10,7 +10,7 @@
 #include <sge/renderer/vf/iterator_decl.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/back.hpp>
+#include <metal/list/back.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -29,7 +29,7 @@ sge::renderer::vf::iterator<
 {
 	return
 		fcppt::cast::to_signed(
-			brigand::back<
+			metal::back<
 				typename Part::offsets
 			>::type::value
 		);

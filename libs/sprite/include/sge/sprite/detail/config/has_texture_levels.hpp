@@ -10,7 +10,7 @@
 #include <sge/sprite/detail/config/has_texture.hpp>
 #include <sge/sprite/detail/config/has_texture_point_size.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/logical/or.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -28,7 +28,7 @@ template<
 >
 using has_texture_levels
 =
-brigand::or_<
+std::disjunction<
 	sge::sprite::detail::config::has_texture<
 		Choices
 	>,

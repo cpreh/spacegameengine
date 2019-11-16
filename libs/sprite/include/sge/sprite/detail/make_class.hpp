@@ -10,9 +10,9 @@
 #include <sge/sprite/detail/apply_choices.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/flatten.hpp>
-#include <brigand/sequences/append.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/flatten.hpp>
+#include <metal/list/join.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -29,14 +29,14 @@ template<
 using make_class
 =
 fcppt::record::object<
-	brigand::flatten<
+	metal::flatten<
 		typename
 		sge::sprite::detail::apply_choices<
 			Choices,
-			brigand::append<
+			metal::join<
 				typename
 				Choices::optional_elements,
-				brigand::list<
+				metal::list<
 					typename
 					Choices::pos_choice,
 					typename

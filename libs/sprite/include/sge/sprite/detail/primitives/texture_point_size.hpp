@@ -15,7 +15,7 @@
 #include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <brigand/functions/lambda/bind.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <brigand/sequences/size.hpp>
 #include <brigand/types/args.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -49,7 +49,7 @@ struct texture_point_size<
 >
 {
 	typedef
-	brigand::list<>
+	metal::list<>
 	type;
 };
 

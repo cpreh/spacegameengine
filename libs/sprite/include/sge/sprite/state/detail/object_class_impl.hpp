@@ -11,9 +11,8 @@
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/transform.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/transform.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -55,13 +54,12 @@ private:
 public:
 	typedef
 	fcppt::record::object<
-		brigand::transform<
+		metal::transform<
+			metal::lambda<
+				object_class_element
+			>,
 			typename
-			StateChoices::optional_elements,
-			brigand::bind<
-				object_class_element,
-				brigand::_1
-			>
+			StateChoices::optional_elements
 		>
 	>
 	type;

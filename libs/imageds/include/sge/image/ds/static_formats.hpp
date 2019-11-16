@@ -11,7 +11,7 @@
 #include <sge/image/ds/d24s8_format.hpp>
 #include <sge/image/ds/d32_format.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -23,7 +23,7 @@ namespace ds
 {
 
 typedef
-brigand::list<
+metal::list<
 	sge::image::ds::d16_format,
 	sge::image::ds::d32_format,
 	sge::image::ds::d24s8_format

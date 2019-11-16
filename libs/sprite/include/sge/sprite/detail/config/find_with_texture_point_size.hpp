@@ -10,7 +10,7 @@
 #include <sge/sprite/config/is_with_texture_point_size.hpp>
 #include <sge/sprite/detail/config/find_if.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/front.hpp>
+#include <metal/list/front.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -29,7 +29,7 @@ template<
 using
 find_with_texture_point_size
 =
-brigand::front<
+metal::front<
 	sge::sprite::detail::config::find_if<
 		typename
 		Choices::optional_elements,

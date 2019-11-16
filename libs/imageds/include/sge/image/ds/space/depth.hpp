@@ -9,9 +9,7 @@
 
 #include <sge/image/ds/channel/depth_fwd.hpp>
 #include <sge/image/ds/space/depth_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/metal/set/make.hpp>
 
 
 namespace sge
@@ -26,7 +24,7 @@ namespace space
 struct depth
 {
 	typedef
-	brigand::list<
+	fcppt::metal::set::make<
 		sge::image::ds::channel::depth
 	>
 	required_channels;

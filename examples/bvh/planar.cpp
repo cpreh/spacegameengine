@@ -126,7 +126,7 @@
 #include <fcppt/variant/output.hpp>
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <chrono>
 #include <example_main.hpp>
 #include <exception>
@@ -155,7 +155,7 @@ sge::sprite::config::choices<
 	sge::sprite::config::normal_size<
 		sge::sprite::config::texture_size_option::never
 	>,
-	brigand::list<
+	metal::list<
 		sge::sprite::config::with_color<
 			sge::image::color::rgba8_format
 		>
@@ -570,7 +570,7 @@ main_program(
 	);
 
 	sge::systems::instance<
-		brigand::list<
+		metal::list<
 			sge::systems::with_window,
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::ffp
@@ -858,7 +858,7 @@ main_program(
 
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
-							brigand::list<
+							metal::list<
 								sge::renderer::event::render const,
 								sge::input::keyboard::event::key const
 							>,

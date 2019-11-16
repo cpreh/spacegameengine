@@ -7,11 +7,11 @@
 #ifndef SGE_IMAGE_PIXEL_ELEMENTS_HPP_INCLUDED
 #define SGE_IMAGE_PIXEL_ELEMENTS_HPP_INCLUDED
 
-#include <sge/image/pixel/mizuiro_type_tpl.hpp>
+#include <sge/image/pixel/mizuiro_type.hpp>
 #include <sge/image/traits/pixel/static_formats.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/transform.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/transform.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -28,12 +28,12 @@ template<
 using
 elements
 =
-brigand::transform<
+metal::transform<
+	metal::lambda<
+		sge::image::pixel::mizuiro_type
+	>,
 	sge::image::traits::pixel::static_formats<
 		Tag
-	>,
-	sge::image::pixel::mizuiro_type_tpl<
-		brigand::_1
 	>
 >;
 

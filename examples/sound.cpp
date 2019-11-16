@@ -57,7 +57,7 @@
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <algorithm>
 #include <chrono>
 #include <cmath>
@@ -173,7 +173,7 @@ try
 	wait_for_input();
 
 	sge::systems::instance<
-		brigand::list<
+		metal::list<
 			sge::systems::with_audio_player,
 			sge::systems::with_audio_loader
 		>

@@ -8,9 +8,8 @@
 #define SGE_SPRITE_DETAIL_CONFIG_CONTAINS_IF_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/find.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/list/any_of.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -32,11 +31,10 @@ template<
 using
 contains_if
 =
-brigand::found<
+metal::any_of<
 	Elements,
-	brigand::bind<
-		Predicate,
-		brigand::_1
+	metal::lambda<
+		Predicate
 	>
 >;
 

@@ -94,7 +94,7 @@
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/join.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <cstdlib>
 #include <functional>
 #include <ios>
@@ -140,7 +140,7 @@ scalar_quantity;
 
 typedef
 sge::renderer::vf::part<
-	brigand::list<
+	metal::list<
 		vf::scalar_quantity
 	>
 >
@@ -148,7 +148,7 @@ part;
 
 typedef
 sge::renderer::vf::format<
-	brigand::list<
+	metal::list<
 		vf::part
 	>
 >
@@ -318,7 +318,7 @@ try
 	};
 
 	sge::systems::instance<
-		brigand::list<
+		metal::list<
 			sge::systems::with_window,
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::core

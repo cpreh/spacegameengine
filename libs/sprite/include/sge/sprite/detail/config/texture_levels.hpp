@@ -9,7 +9,7 @@
 
 #include <sge/sprite/detail/config/find_texture_config.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/front.hpp>
+#include <metal/list/front.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -29,7 +29,7 @@ struct texture_levels
 {
 	typedef
 	typename
-	brigand::front<
+	metal::front<
 		typename
 		sge::sprite::detail::config::find_texture_config<
 			Choices

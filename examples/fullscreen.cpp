@@ -57,7 +57,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
 #include <chrono>
 #include <example_main.hpp>
 #include <exception>
@@ -71,7 +71,7 @@ example_main(
 try
 {
 	sge::systems::instance<
-		brigand::list<
+		metal::list<
 			sge::systems::with_renderer<
 				sge::systems::renderer_caps::core
 			>,

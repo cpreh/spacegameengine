@@ -16,8 +16,8 @@
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/if.hpp>
-#include <brigand/sequences/list.hpp>
+#include <metal/list/list.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -52,19 +52,18 @@ private:
 public:
 	typedef
 	fcppt::record::object<
-		typename
-		brigand::if_<
+		std::conditional_t<
 			sge::sprite::detail::config::needs_index_buffer<
 				Choices
-			>,
-			brigand::list<
+			>::value,
+			metal::list<
 				vertex_buffer_role,
 				index_buffer_role
 			>,
-			brigand::list<
+			metal::list<
 				vertex_buffer_role
 			>
-		>::type
+		>
 	>
 	type;
 };

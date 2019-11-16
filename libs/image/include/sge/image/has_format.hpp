@@ -9,10 +9,11 @@
 
 #include <sge/image/traits/pixel/static_formats.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/find.hpp>
-#include <brigand/functions/lambda/apply.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/always.hpp>
+#include <metal/lambda/arg.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/trait.hpp>
+#include <metal/list/any_of.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -29,16 +30,18 @@ template<
 using
 has_format
 =
-brigand::found<
+metal::any_of<
 	sge::image::traits::pixel::static_formats<
 		Tag
 	>,
-	brigand::bind<
-		std::is_same,
-		brigand::pin<
+	metal::bind<
+		metal::trait<
+			std::is_same
+		>,
+		metal::always<
 			Format
 		>,
-		brigand::_1
+		metal::_1
 	>
 >;
 
