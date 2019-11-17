@@ -9,7 +9,7 @@
 
 #include <fcppt/config/external_begin.hpp>
 #include <metal/list/any_of.hpp>
-#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/trait.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -33,7 +33,7 @@ contains_if
 =
 metal::any_of<
 	Elements,
-	metal::lambda<
+	metal::trait<
 		Predicate
 	>
 >;

@@ -11,13 +11,12 @@
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/remove.hpp>
-#include <brigand/algorithms/transform.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/functions/logical/and.hpp>
-#include <brigand/functions/logical/not.hpp>
-#include <brigand/sequences/append.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/trait.hpp>
+#include <metal/list/copy_if.hpp>
+#include <metal/list/join.hpp>
+#include <metal/list/transform.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -42,8 +41,8 @@ private:
 	using
 	has_option
 	=
-	brigand::and_<
-		brigand::not_<
+	std::conjunction<
+		std::negation<
 			typename
 			Type::persistent
 		>,
@@ -66,28 +65,25 @@ private:
 public:
 	typedef
 	fcppt::record::object<
-		brigand::append<
-			brigand::transform<
-				brigand::filter<
+		metal::join<
+			metal::transform<
+				metal::lambda<
+					option_class_element
+				>,
+				metal::copy_if<
 					typename
 					StateChoices::optional_elements,
-					brigand::bind<
-						has_option,
-						brigand::_1
+					metal::trait<
+						has_option
 					>
-				>,
-				brigand::bind<
-					option_class_element,
-					brigand::_1
 				>
 			>,
-			brigand::transform<
+			metal::transform<
+				metal::lambda<
+					sge::sprite::state::detail::options_class_element
+				>,
 				typename
-				StateChoices::optional_elements,
-				brigand::bind<
-					sge::sprite::state::detail::options_class_element,
-					brigand::_1
-				>
+				StateChoices::optional_elements
 			>
 		>
 	>

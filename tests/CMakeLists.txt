@@ -177,6 +177,18 @@ add_sge_test(
 )
 
 add_sge_test(
+	sprite/types
+	SGE_DEPS
+		sgeimage
+		sgeimagecolor
+		sgesprite
+		sgetexture
+	ADDITIONAL_DEPS
+		fcppt_core_interface
+	NO_CODE
+)
+
+add_sge_test(
 	rucksack/box
 	SGE_DEPS
 		sgerucksack

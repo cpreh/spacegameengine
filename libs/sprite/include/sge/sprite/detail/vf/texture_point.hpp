@@ -11,7 +11,6 @@
 #include <sge/sprite/detail/config/has_custom_texture_point_size.hpp>
 #include <sge/sprite/detail/vf/texture_point_pos.hpp>
 #include <sge/sprite/detail/vf/texture_point_size.hpp>
-#include <fcppt/metal/to_number.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal/lambda/always.hpp>
 #include <metal/lambda/bind.hpp>
@@ -19,7 +18,7 @@
 #include <metal/lambda/lambda.hpp>
 #include <metal/list/append.hpp>
 #include <metal/list/list.hpp>
-#include <metal/number/if.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -51,12 +50,10 @@ private:
 
 	typedef
 	metal::invoke<
-		metal::if_<
-			fcppt::metal::to_number<
-				sge::sprite::detail::config::has_custom_texture_point_pos<
-					Choices
-				>
-			>,
+		std::conditional_t<
+			sge::sprite::detail::config::has_custom_texture_point_pos<
+				Choices
+			>::value,
 			metal::bind<
 				metal::lambda<
 					make_vector
@@ -90,12 +87,10 @@ private:
 public:
 	typedef
 	metal::invoke<
-		metal::if_<
-			fcppt::metal::to_number<
-				sge::sprite::detail::config::has_custom_texture_point_size<
-					Choices
-				>
-			>,
+		std::conditional_t<
+			sge::sprite::detail::config::has_custom_texture_point_size<
+				Choices
+			>::value,
 			metal::bind<
 				metal::lambda<
 					append_size

@@ -14,7 +14,6 @@
 int
 main()
 {
-
 	static_assert(
 		sge::image::color::is_convertible<
 			sge::image::color::rgba8_format,

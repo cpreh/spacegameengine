@@ -11,7 +11,7 @@
 #include <sge/sprite/state/options_impl.hpp>
 #include <sge/sprite/state/detail/set_one.hpp>
 #include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_brigand.hpp>
+#include <fcppt/algorithm/loop_break_metal.hpp>
 
 
 namespace sge

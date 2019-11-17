@@ -23,6 +23,7 @@
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
+#include <metal/lambda/trait.hpp>
 #include <metal/list/contains.hpp>
 #include <metal/list/flatten.hpp>
 #include <metal/list/join.hpp>
@@ -111,7 +112,7 @@ private:
 	typedef
 	metal::list<
 		metal::pair<
-			metal::lambda<
+			metal::trait<
 				sge::sprite::config::is_with_color
 			>,
 			make_vector<
@@ -121,7 +122,7 @@ private:
 			>
 		>,
 		metal::pair<
-			metal::lambda<
+			metal::trait<
 				sge::sprite::config::is_with_texture
 			>,
 			sge::sprite::detail::vf::texpos<
@@ -129,7 +130,7 @@ private:
 			>
 		>,
 		metal::pair<
-			metal::lambda<
+			metal::trait<
 				sge::sprite::config::is_with_texture_point_size
 			>,
 			sge::sprite::detail::vf::texture_point<

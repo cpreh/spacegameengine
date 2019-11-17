@@ -11,7 +11,7 @@
 #include <sge/sprite/types/texture_coordinates.hpp>
 #include <sge/sprite/types/basic/float_vector.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/at.hpp>
+#include <metal/list/at.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -44,7 +44,7 @@ fill_texture_coordinates_rect(
 	tex_pos;
 
 	typedef
-	brigand::at<
+	metal::at<
 		typename
 		sge::sprite::detail::vf::texpos<
 			Choices

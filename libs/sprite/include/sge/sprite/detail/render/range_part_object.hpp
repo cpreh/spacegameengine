@@ -24,14 +24,13 @@
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/flatten.hpp>
-#include <brigand/functions/eval_if.hpp>
-#include <brigand/functions/arithmetic/identity.hpp>
-#include <brigand/functions/lambda/apply.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/sequences/append.hpp>
+#include <metal/lambda/always.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/invoke.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/flatten.hpp>
 #include <metal/list/list.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/list/join.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -87,7 +86,7 @@ private:
 	base_types;
 
 	typedef
-	brigand::append<
+	metal::join<
 		base_types,
 		metal::list<
 			first_index_role,
@@ -122,48 +121,45 @@ private:
 	template<
 		typename GeometryTypes
 	>
-	struct make_textures
-	{
-		typedef
-		brigand::append<
-			metal::list<
-				GeometryTypes
+	using
+	make_textures
+	=
+	metal::join<
+		metal::list<
+			GeometryTypes
+		>,
+		sge::sprite::detail::transform_texture_levels_static<
+			metal::lambda<
+				make_texture_role
 			>,
-			sge::sprite::detail::transform_texture_levels_static<
-				brigand::bind<
-					make_texture_role,
-					brigand::_1
-				>,
-				typename
-				sge::sprite::detail::config::texture_levels<
-					Choices
-				>::type
-			>
+			typename
+			sge::sprite::detail::config::texture_levels<
+				Choices
+			>::type
 		>
-		type;
-	};
-
+	>;
 public:
 	typedef
 	fcppt::record::object<
-		brigand::flatten<
-			typename
-			brigand::eval_if<
-				sge::sprite::detail::config::has_texture_levels<
-					Choices
-				>,
-				brigand::apply<
-					brigand::bind<
-						make_textures,
-						brigand::pin<
+		metal::flatten<
+			metal::invoke<
+				std::conditional_t<
+					sge::sprite::detail::config::has_texture_levels<
+						Choices
+					>::value,
+					metal::bind<
+						metal::lambda<
+							make_textures
+						>,
+						metal::always<
 							geometry_types
 						>
+					>,
+					metal::always<
+						geometry_types
 					>
-				>,
-				brigand::identity<
-					geometry_types
 				>
-			>::type
+			>
 		>
 	>
 	type;

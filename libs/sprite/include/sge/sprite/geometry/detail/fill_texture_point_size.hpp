@@ -12,7 +12,7 @@
 #include <sge/sprite/detail/vf/texture_point_size.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/at.hpp>
+#include <metal/list/at.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -46,7 +46,7 @@ fill_texture_point_size(
 )
 {
 	typedef
-	brigand::at<
+	metal::at<
 		typename
 		sge::sprite::detail::vf::texture_point_size<
 			Choices

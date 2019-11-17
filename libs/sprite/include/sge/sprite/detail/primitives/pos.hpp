@@ -14,6 +14,9 @@
 #include <sge/sprite/types/pos_or_center_fwd.hpp>
 #include <sge/sprite/types/vector_fwd.hpp>
 #include <fcppt/record/element.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <metal/list/list.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -40,11 +43,13 @@ struct pos<
 >
 {
 	typedef
-	fcppt::record::element<
-		sge::sprite::roles::pos,
-		sge::sprite::types::vector<
-			typename
-			Choices::type_choices
+	metal::list<
+		fcppt::record::element<
+			sge::sprite::roles::pos,
+			sge::sprite::types::vector<
+				typename
+				Choices::type_choices
+			>
 		>
 	>
 	type;
@@ -59,11 +64,13 @@ struct pos<
 >
 {
 	typedef
-	fcppt::record::element<
-		sge::sprite::roles::center,
-		sge::sprite::types::vector<
-			typename
-			Choices::type_choices
+	metal::list<
+		fcppt::record::element<
+			sge::sprite::roles::center,
+			sge::sprite::types::vector<
+				typename
+				Choices::type_choices
+			>
 		>
 	>
 	type;
@@ -78,11 +85,13 @@ struct pos<
 >
 {
 	typedef
-	fcppt::record::element<
-		sge::sprite::roles::pos_or_center,
-		sge::sprite::types::pos_or_center<
-			typename
-			Choices::type_choices
+	metal::list<
+		fcppt::record::element<
+			sge::sprite::roles::pos_or_center,
+			sge::sprite::types::pos_or_center<
+				typename
+				Choices::type_choices
+			>
 		>
 	>
 	type;

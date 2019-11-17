@@ -8,7 +8,7 @@
 #define SGE_SPRITE_DETAIL_CONFIG_FIND_IF_IMPL_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/trait.hpp>
 #include <metal/list/copy_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -33,7 +33,7 @@ struct find_if_impl
 	typedef
 	metal::copy_if<
 		Elements,
-		metal::lambda<
+		metal::trait<
 			Predicate
 		>
 	>

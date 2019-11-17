@@ -15,11 +15,12 @@
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/find.hpp>
-#include <brigand/functions/lambda/apply.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/sequences/front.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/always.hpp>
+#include <metal/lambda/arg.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/trait.hpp>
+#include <metal/list/copy_if.hpp>
+#include <metal/list/front.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -85,14 +86,16 @@ private:
 	using
 	state_for_role
 	=
-	brigand::front<
-		brigand::find<
+	metal::front<
+		metal::copy_if<
 			typename
 			StateChoices::optional_elements,
-			brigand::bind<
-				state_has_role,
-				brigand::_1,
-				brigand::pin<
+			metal::bind<
+				metal::trait<
+					state_has_role
+				>,
+				metal::_1,
+				metal::always<
 					Role
 				>
 			>
