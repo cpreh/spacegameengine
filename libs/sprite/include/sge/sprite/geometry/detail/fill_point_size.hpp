@@ -44,10 +44,9 @@ fill_point_size(
 )
 {
 	typedef
-	typename
 	sge::sprite::detail::vf::point_size<
 		Choices
-	>::type
+	>
 	point_size;
 
 	(*_iterator). template set<

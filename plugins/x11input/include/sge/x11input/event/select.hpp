@@ -14,13 +14,14 @@
 #include <sge/x11input/event/type_container.hpp>
 #include <fcppt/tag_type.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/algorithm/loop_break_brigand.hpp>
+#include <fcppt/algorithm/loop_break_metal.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/brigand/all_of.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/lambda/apply.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/always.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/trait.hpp>
+#include <metal/list/all_of.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -45,15 +46,16 @@ select(
 )
 {
 	static_assert(
-		fcppt::brigand::all_of<
+		metal::all_of<
 			Events,
-			brigand::bind<
-				std::is_same,
-				brigand::bind<
-					sge::x11input::event::static_type,
-					brigand::_1
+			metal::bind<
+				metal::trait<
+					std::is_same
 				>,
-				brigand::pin<
+				metal::lambda<
+					sge::x11input::event::static_type
+				>,
+				metal::always<
 					EventType
 				>
 			>

@@ -154,6 +154,7 @@ set(
 	libs/sprite/include/sge/sprite/detail/process/geometry.hpp
 	libs/sprite/include/sge/sprite/detail/process/is_same_geometry_options.hpp
 	libs/sprite/include/sge/sprite/detail/render/inner.hpp
+	libs/sprite/include/sge/sprite/detail/render/make_textures.hpp
 	libs/sprite/include/sge/sprite/detail/render/range.hpp
 	libs/sprite/include/sge/sprite/detail/render/range_object.hpp
 	libs/sprite/include/sge/sprite/detail/render/range_part_object.hpp
@@ -173,12 +174,15 @@ set(
 	libs/sprite/include/sge/sprite/detail/transform_texture_levels_static.hpp
 	libs/sprite/include/sge/sprite/detail/unlink.hpp
 	libs/sprite/include/sge/sprite/detail/vf/color.hpp
+	libs/sprite/include/sge/sprite/detail/vf/color_types.hpp
 	libs/sprite/include/sge/sprite/detail/vf/format_part.hpp
 	libs/sprite/include/sge/sprite/detail/vf/format_part_from_object.hpp
 	libs/sprite/include/sge/sprite/detail/vf/part_index.hpp
 	libs/sprite/include/sge/sprite/detail/vf/point_size.hpp
+	libs/sprite/include/sge/sprite/detail/vf/point_size_extra.hpp
 	libs/sprite/include/sge/sprite/detail/vf/pos.hpp
 	libs/sprite/include/sge/sprite/detail/vf/texpos.hpp
+	libs/sprite/include/sge/sprite/detail/vf/texpos_impl.hpp
 	libs/sprite/include/sge/sprite/detail/vf/texture_point.hpp
 	libs/sprite/include/sge/sprite/detail/vf/texture_point_pos.hpp
 	libs/sprite/include/sge/sprite/detail/vf/texture_point_size.hpp

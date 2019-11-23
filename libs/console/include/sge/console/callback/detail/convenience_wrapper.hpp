@@ -13,7 +13,8 @@
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
 #include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_brigand.hpp>
+#include <fcppt/algorithm/loop_break_metal.hpp>
+#include <fcppt/metal/interval.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/function_types/function_arity.hpp>
 #include <boost/function_types/parameter_types.hpp>
@@ -21,7 +22,6 @@
 #include <boost/fusion/container/vector/convert.hpp>
 #include <boost/fusion/functional/invocation/invoke.hpp>
 #include <boost/fusion/include/mpl.hpp>
-#include <brigand/sequences/range.hpp>
 #include <cstddef>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
@@ -101,8 +101,8 @@ public:
 		argument_tuple parameter_tuple;
 
 		fcppt::algorithm::loop(
-			brigand::range<
-				console::arg_list::size_type,
+			fcppt::metal::interval<
+				sge::console::arg_list::size_type,
 				0,
 				boost::function_types::function_arity<
 					function_type

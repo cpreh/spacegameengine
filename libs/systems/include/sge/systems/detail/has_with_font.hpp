@@ -8,7 +8,9 @@
 #define SGE_SYSTEMS_DETAIL_HAS_WITH_FONT_HPP_INCLUDED
 
 #include <sge/systems/with_font_fwd.hpp>
-#include <fcppt/brigand/found_t.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <metal/list/contains.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -24,7 +26,7 @@ template<
 using
 has_with_font
 =
-fcppt::brigand::found_t<
+metal::contains<
 	Choices,
 	sge::systems::with_font
 >;

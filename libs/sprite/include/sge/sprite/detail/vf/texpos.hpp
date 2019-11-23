@@ -7,13 +7,7 @@
 #ifndef SGE_SPRITE_DETAIL_VF_TEXPOS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VF_TEXPOS_HPP_INCLUDED
 
-#include <sge/renderer/vf/index.hpp>
-#include <sge/renderer/vf/texpos.hpp>
-#include <sge/sprite/detail/transform_texture_levels_static.hpp>
-#include <sge/sprite/detail/config/texture_levels.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/sprite/detail/vf/texpos_impl.hpp>
 
 
 namespace sge
@@ -28,36 +22,13 @@ namespace vf
 template<
 	typename Choices
 >
-struct texpos
-{
-private:
-	template<
-		typename Level
-	>
-	using
-	make_pos
-	=
-	sge::renderer::vf::texpos<
-		typename
-		Choices::type_choices::float_type,
-		2,
-		sge::renderer::vf::index<
-			Level::value
-		>
-	>;
-public:
-	typedef
-	sge::sprite::detail::transform_texture_levels_static<
-		metal::lambda<
-			make_pos
-		>,
-		typename
-		sge::sprite::detail::config::texture_levels<
-			Choices
-		>::type
-	>
-	type;
-};
+using
+texpos
+=
+typename
+sge::sprite::detail::vf::texpos_impl<
+	Choices
+>::type;
 
 }
 }

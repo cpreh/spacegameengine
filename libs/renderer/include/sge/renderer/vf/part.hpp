@@ -10,7 +10,7 @@
 #include <sge/renderer/vf/part_fwd.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/detail/element_stride.hpp>
-#include <fcppt/metal/from_number.hpp>
+#include <fcppt/metal/from_number_list.hpp>
 #include <fcppt/metal/partial_sums.hpp>
 #include <fcppt/metal/to_number_list.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -53,7 +53,7 @@ struct part
 	strides;
 
 	typedef
-	fcppt::metal::from_number<
+	fcppt::metal::from_number_list<
 		sge::renderer::vf::vertex_size,
 		fcppt::metal::partial_sums<
 			fcppt::metal::to_number_list<
@@ -62,7 +62,6 @@ struct part
 		>
 	>
 	offsets;
-
 };
 
 }

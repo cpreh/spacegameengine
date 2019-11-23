@@ -13,22 +13,13 @@
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/sprite/buffers/roles/first_index.hpp>
 #include <sge/sprite/buffers/roles/first_vertex.hpp>
-#include <sge/sprite/detail/transform_texture_levels_static.hpp>
-#include <sge/sprite/detail/config/has_texture_levels.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
-#include <sge/sprite/detail/config/texture_levels.hpp>
+#include <sge/sprite/detail/render/make_textures.hpp>
 #include <sge/sprite/detail/roles/index_count.hpp>
-#include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
-#include <sge/sprite/render/texture_ref.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/always.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/list/flatten.hpp>
 #include <metal/list/list.hpp>
 #include <metal/list/join.hpp>
 #include <type_traits>
@@ -104,62 +95,15 @@ private:
 		base_types
 	>
 	geometry_types;
-
-	template<
-		typename Level
-	>
-	using
-	make_texture_role
-	=
-	fcppt::record::element<
-		sge::sprite::detail::roles::texture<
-			Level::value
-		>,
-		sge::sprite::render::texture_ref
-	>;
-
-	template<
-		typename GeometryTypes
-	>
-	using
-	make_textures
-	=
-	metal::join<
-		metal::list<
-			GeometryTypes
-		>,
-		sge::sprite::detail::transform_texture_levels_static<
-			metal::lambda<
-				make_texture_role
-			>,
-			typename
-			sge::sprite::detail::config::texture_levels<
-				Choices
-			>::type
-		>
-	>;
 public:
 	typedef
 	fcppt::record::object<
-		metal::flatten<
-			metal::invoke<
-				std::conditional_t<
-					sge::sprite::detail::config::has_texture_levels<
-						Choices
-					>::value,
-					metal::bind<
-						metal::lambda<
-							make_textures
-						>,
-						metal::always<
-							geometry_types
-						>
-					>,
-					metal::always<
-						geometry_types
-					>
-				>
-			>
+		metal::join<
+			geometry_types,
+			typename
+			sge::sprite::detail::render::make_textures<
+				Choices
+			>::type
 		>
 	>
 	type;

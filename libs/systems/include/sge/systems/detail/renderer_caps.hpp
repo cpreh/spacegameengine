@@ -9,10 +9,9 @@
 
 #include <sge/systems/detail/is_with_renderer.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/find.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/sequences/front.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/trait.hpp>
+#include <metal/list/at.hpp>
+#include <metal/list/find_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -30,12 +29,12 @@ using
 renderer_caps
 =
 typename
-brigand::front<
-	brigand::find<
+metal::at<
+	Choices,
+	metal::find_if<
 		Choices,
-		brigand::bind<
-			sge::systems::detail::is_with_renderer,
-			brigand::_1
+		metal::trait<
+			sge::systems::detail::is_with_renderer
 		>
 	>
 >::caps;

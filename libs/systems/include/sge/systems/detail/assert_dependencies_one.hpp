@@ -7,11 +7,13 @@
 #ifndef SGE_SYSTEMS_DETAIL_ASSERT_DEPENDENCIES_ONE_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_ASSERT_DEPENDENCIES_ONE_HPP_INCLUDED
 
-#include <fcppt/brigand/all_of.hpp>
-#include <fcppt/brigand/found_t.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/lambda/apply.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/always.hpp>
+#include <metal/lambda/arg.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/all_of.hpp>
+#include <metal/list/contains.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -29,15 +31,17 @@ template<
 using
 assert_dependencies_one
 =
-fcppt::brigand::all_of<
+metal::all_of<
 	typename
 	Option::needs_before,
-	brigand::bind<
-		fcppt::brigand::found_t,
-		brigand::pin<
+	metal::bind<
+		metal::lambda<
+			metal::contains
+		>,
+		metal::always<
 			Choices
 		>,
-		brigand::_1
+		metal::_1
 	>
 >;
 

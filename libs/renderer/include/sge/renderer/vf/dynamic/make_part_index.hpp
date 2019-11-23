@@ -11,7 +11,8 @@
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/index_of.hpp>
+#include <metal/list/contains.hpp>
+#include <metal/list/find.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -31,12 +32,19 @@ template<
 sge::renderer::vf::dynamic::part_index
 make_part_index()
 {
+	static_assert(
+		metal::contains<
+			typename Format::parts,
+			Part
+		>::value
+	);
+
 	return
 		fcppt::strong_typedef_construct_cast<
 			sge::renderer::vf::dynamic::part_index,
 			fcppt::cast::static_cast_fun
 		>(
-			brigand::index_of<
+			metal::find<
 				typename Format::parts,
 				Part
 			>::value

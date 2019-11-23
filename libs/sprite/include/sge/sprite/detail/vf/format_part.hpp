@@ -8,13 +8,12 @@
 #define SGE_SPRITE_DETAIL_VF_FORMAT_PART_HPP_INCLUDED
 
 #include <sge/renderer/vf/part.hpp>
-#include <sge/sprite/config/is_point_size.hpp>
 #include <sge/sprite/config/is_with_color.hpp>
 #include <sge/sprite/config/is_with_texture.hpp>
 #include <sge/sprite/config/is_with_texture_point_size.hpp>
 #include <sge/sprite/config/normal_size_fwd.hpp>
-#include <sge/sprite/detail/vf/color.hpp>
-#include <sge/sprite/detail/vf/point_size.hpp>
+#include <sge/sprite/detail/vf/color_types.hpp>
+#include <sge/sprite/detail/vf/point_size_extra.hpp>
 #include <sge/sprite/detail/vf/pos.hpp>
 #include <sge/sprite/detail/vf/texpos.hpp>
 #include <sge/sprite/detail/vf/texture_point.hpp>
@@ -24,7 +23,7 @@
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
 #include <metal/lambda/trait.hpp>
-#include <metal/list/contains.hpp>
+#include <metal/list/any_of.hpp>
 #include <metal/list/flatten.hpp>
 #include <metal/list/join.hpp>
 #include <metal/list/list.hpp>
@@ -34,7 +33,6 @@
 #include <metal/pair/first.hpp>
 #include <metal/pair/pair.hpp>
 #include <metal/pair/second.hpp>
-#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -62,52 +60,15 @@ private:
 	>
 	basic;
 
-	template<
-		typename Container
-	>
-	using
-	point_size_extra
-	=
-	metal::join<
-		Container,
-		metal::list<
-			typename
-			sge::sprite::detail::vf::point_size<
-				Choices
-			>::type
-		>
-	>;
-
 	typedef
-	metal::invoke<
-		std::conditional_t<
-			sge::sprite::config::is_point_size<
-				typename Choices::size_choice
-			>::value,
-			metal::bind<
-				metal::lambda<
-					point_size_extra
-				>,
-				metal::always<
-					basic
-				>
-			>,
-			metal::always<
-				basic
-			>
-		>
+	metal::join<
+		basic,
+		typename
+		sge::sprite::detail::vf::point_size_extra<
+			Choices
+		>::type
 	>
 	basic_with_size;
-
-	template<
-		typename Type
-	>
-	using
-	make_vector
-	=
-	metal::list<
-		typename Type::type
-	>;
 
 	typedef
 	metal::list<
@@ -115,8 +76,11 @@ private:
 			metal::trait<
 				sge::sprite::config::is_with_color
 			>,
-			make_vector<
-				sge::sprite::detail::vf::color<
+			metal::bind<
+				metal::lambda<
+					sge::sprite::detail::vf::color_types
+				>,
+				metal::always<
 					Choices
 				>
 			>
@@ -125,22 +89,31 @@ private:
 			metal::trait<
 				sge::sprite::config::is_with_texture
 			>,
-			sge::sprite::detail::vf::texpos<
-				Choices
+			metal::bind<
+				metal::lambda<
+					sge::sprite::detail::vf::texpos
+				>,
+				metal::always<
+					Choices
+				>
 			>
 		>,
 		metal::pair<
 			metal::trait<
 				sge::sprite::config::is_with_texture_point_size
 			>,
-			sge::sprite::detail::vf::texture_point<
-				Choices
+			metal::bind<
+				metal::lambda<
+					sge::sprite::detail::vf::texture_point
+				>,
+				metal::always<
+					Choices
+				>
 			>
 		>
 	>
 	optional_primitives;
 
-	// TODO
 	template<
 		typename Pair
 	>
@@ -149,19 +122,19 @@ private:
 	=
 	metal::invoke<
 		metal::if_<
-			metal::contains<
+			metal::any_of<
 				typename
 				Choices::optional_elements,
 				metal::first<
 					Pair
 				>
+			>,
+			metal::second<
+				Pair
+			>,
+			metal::always<
+				metal::nil
 			>
-		>,
-		metal::lambda<
-			metal::second
-		>,
-		metal::always<
-			metal::nil
 		>
 	>;
 public:

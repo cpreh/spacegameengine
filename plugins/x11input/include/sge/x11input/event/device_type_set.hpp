@@ -8,9 +8,9 @@
 #define SGE_X11INPUT_EVENT_DEVICE_TYPE_SET_HPP_INCLUDED
 
 #include <sge/x11input/event/type_c.hpp>
+#include <fcppt/metal/set/make.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
-#include <brigand/sequences/set.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -22,7 +22,7 @@ namespace event
 {
 
 typedef
-brigand::set<
+fcppt::metal::set::make<
 	sge::x11input::event::type_c<
 		XI_ButtonPress
 	>,

@@ -8,11 +8,12 @@
 #define SGE_SYSTEMS_DETAIL_ASSERT_DEPENDENCIES_HPP_INCLUDED
 
 #include <sge/systems/detail/assert_dependencies_one.hpp>
-#include <fcppt/brigand/all_of.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/lambda/apply.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/always.hpp>
+#include <metal/lambda/arg.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/list/all_of.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -29,14 +30,16 @@ template<
 using
 assert_dependencies
 =
-fcppt::brigand::all_of<
+metal::all_of<
 	Choices,
-	brigand::bind<
-		sge::systems::detail::assert_dependencies_one,
-		brigand::pin<
+	metal::bind<
+		metal::lambda<
+			sge::systems::detail::assert_dependencies_one
+		>,
+		metal::always<
 			Choices
 		>,
-		brigand::_1
+		metal::_1
 	>
 >;
 

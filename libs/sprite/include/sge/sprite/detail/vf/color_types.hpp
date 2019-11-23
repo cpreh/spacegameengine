@@ -4,29 +4,35 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_PART_LIST_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_PART_LIST_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_VF_COLOR_TYPES_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_VF_COLOR_TYPES_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic/part.hpp>
+#include <sge/sprite/detail/vf/color.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vector>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace sge
 {
-namespace renderer
+namespace sprite
+{
+namespace detail
 {
 namespace vf
 {
-namespace dynamic
-{
 
-typedef
-std::vector<
-	sge::renderer::vf::dynamic::part
+template<
+	typename Choices
 >
-part_list;
+using
+color_types
+=
+metal::list<
+	sge::sprite::detail::vf::color<
+		Choices
+	>
+>;
 
 }
 }

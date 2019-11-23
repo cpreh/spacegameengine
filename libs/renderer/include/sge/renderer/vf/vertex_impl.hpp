@@ -87,7 +87,7 @@ sge::renderer::vf::vertex<
 		sge::renderer::vf::detail::element_stride<
 			element
 		>::value,
-		data_
+		this->data_
 		+
 		offset::value
 	);
@@ -146,7 +146,7 @@ sge::renderer::vf::vertex<
 	> ret{};
 
 	sge::renderer::vf::detail::copy_n(
-		data_
+		this->data_
 		+
 		offset::value,
 		sge::renderer::vf::detail::element_stride<

@@ -23,14 +23,15 @@ namespace vf
 template<
 	typename Choices
 >
-struct color
-{
-	typedef sge::renderer::vf::color<
-		typename sge::sprite::detail::config::color_format<
-			Choices
-		>::type
-	> type;
-};
+using
+color
+=
+sge::renderer::vf::color<
+	typename
+	sge::sprite::detail::config::color_format<
+		Choices
+	>::type
+>;
 
 }
 }

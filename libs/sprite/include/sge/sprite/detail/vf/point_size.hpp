@@ -24,16 +24,18 @@ namespace vf
 template<
 	typename Choices
 >
-struct point_size
-{
-	typedef sge::renderer::vf::extra<
-		sge::renderer::vf::vector<
-			typename Choices::type_choices::float_type,
-			1
-		>,
-		typename Choices::size_choice::attribute_index
-	> type;
-};
+using
+point_size
+=
+sge::renderer::vf::extra<
+	sge::renderer::vf::vector<
+		typename
+		Choices::type_choices::float_type,
+		1
+	>,
+	typename
+	Choices::size_choice::attribute_index
+>;
 
 }
 }

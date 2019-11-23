@@ -8,8 +8,8 @@
 #define SGE_OPENCL_KERNEL_NUMERIC_TYPE_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
-#include <fcppt/brigand/unique.hpp>
 #include <fcppt/config/gcc_version_at_least.hpp>
+#include <fcppt/metal/unique.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -34,7 +34,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wignored-attributes)
 
 typedef
 fcppt::variant::object<
-	fcppt::brigand::unique<
+	fcppt::metal::unique<
 		::metal::list<
 			cl_char,
 			cl_uchar,

@@ -16,14 +16,16 @@
 #include <sge/systems/detail/make_list_element.hpp>
 #include <fcppt/algorithm/loop_break_tuple.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/brigand/all_of.hpp>
-#include <fcppt/brigand/found_t.hpp>
 #include <fcppt/container/join.hpp>
 #include <fcppt/type_traits/implication.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/lambda/apply.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/always.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/trait.hpp>
+#include <metal/list/all_of.hpp>
+#include <metal/list/contains.hpp>
+#include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -47,22 +49,26 @@ make_list(
 {
 	// Check that every subsystem that needs initialization is initialized
 	static_assert(
-		fcppt::brigand::all_of<
+		metal::all_of<
 			Choices,
-			brigand::bind<
-				fcppt::type_traits::implication,
-				brigand::bind<
-					sge::systems::detail::extract_needs_init,
-					brigand::_1
+			metal::bind<
+				metal::trait<
+					fcppt::type_traits::implication
 				>,
-				brigand::bind<
-					fcppt::brigand::found_t,
-					brigand::pin<
-						Inits
+				metal::trait<
+					sge::systems::detail::extract_needs_init
+				>,
+				metal::bind<
+					metal::lambda<
+						metal::contains
 					>,
-					brigand::bind<
-						sge::systems::detail::extract_parameter_type,
-						brigand::_1
+					metal::always<
+						metal::as_list<
+							Inits
+						>
+					>,
+					metal::lambda<
+						sge::systems::detail::extract_parameter_type
 					>
 				>
 			>

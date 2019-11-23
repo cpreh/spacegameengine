@@ -27,7 +27,7 @@ public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	format(
-		sge::renderer::vf::dynamic::part_list const &
+		sge::renderer::vf::dynamic::part_list &&
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL

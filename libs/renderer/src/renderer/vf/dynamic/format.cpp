@@ -6,14 +6,19 @@
 
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/part_list.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::vf::dynamic::format::format(
-	sge::renderer::vf::dynamic::part_list const &_parts
+	sge::renderer::vf::dynamic::part_list &&_parts
 )
 :
 	parts_(
-		_parts
+		std::move(
+			_parts
+		)
 	)
 {
 }
@@ -21,5 +26,6 @@ sge::renderer::vf::dynamic::format::format(
 sge::renderer::vf::dynamic::part_list const &
 sge::renderer::vf::dynamic::format::parts() const
 {
-	return parts_;
+	return
+		this->parts_;
 }

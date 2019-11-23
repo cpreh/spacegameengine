@@ -12,10 +12,11 @@
 #include <sge/systems/detail/extract_parameter_type.hpp>
 #include <sge/systems/detail/make_list_element_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/find.hpp>
-#include <brigand/functions/lambda/apply.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/always.hpp>
+#include <metal/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
+#include <metal/lambda/trait.hpp>
+#include <metal/list/any_of.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -45,16 +46,17 @@ make_list_element(
 			sge::systems::config
 		>::value
 		||
-		brigand::found<
+		metal::any_of<
 			Choices,
-			brigand::bind<
-				std::is_same,
-				brigand::pin<
+			metal::bind<
+				metal::trait<
+					std::is_same
+				>,
+				metal::always<
 					Type
 				>,
-				brigand::bind<
-					sge::systems::detail::extract_parameter_type,
-					brigand::_1
+				metal::lambda<
+					sge::systems::detail::extract_parameter_type
 				>
 			>
 		>::value,

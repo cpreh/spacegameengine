@@ -55,9 +55,9 @@ fill_color(
 			&_sprite
 		]{
 			(*_iterator++). template set<
-				typename sge::sprite::detail::vf::color<
+				sge::sprite::detail::vf::color<
 					Choices
-				>::type
+				>
 			>(
 				_sprite.color()
 			);

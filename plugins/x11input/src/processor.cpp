@@ -65,7 +65,7 @@
 #include <fcppt/tag_type.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/algorithm/loop_break_brigand.hpp>
+#include <fcppt/algorithm/loop_break_metal.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
@@ -73,6 +73,7 @@
 #include <fcppt/container/join.hpp>
 #include <fcppt/container/map_values_copy.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/metal/set/to_list.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/cat.hpp>
 #include <fcppt/optional/deref.hpp>
@@ -85,7 +86,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
-#include <brigand/adapted/list.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -144,7 +144,7 @@ sge::x11input::processor::processor(
 			fcppt::algorithm::map<
 				handler_map
 			>(
-				brigand::as_list<
+				fcppt::metal::set::to_list<
 					sge::x11input::event::device_type_set
 				>{},
 				[

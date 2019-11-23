@@ -9,9 +9,8 @@
 
 #include <sge/systems/detail/is_with_input.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/algorithms/find.hpp>
-#include <brigand/functions/lambda/bind.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/lambda/trait.hpp>
+#include <metal/list/any_of.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -28,11 +27,10 @@ template<
 using
 has_with_input
 =
-brigand::found<
+metal::any_of<
 	Choices,
-	brigand::bind<
-		sge::systems::detail::is_with_input,
-		brigand::_1
+	metal::trait<
+		sge::systems::detail::is_with_input
 	>
 >;
 

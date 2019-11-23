@@ -44,6 +44,7 @@
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
@@ -82,6 +83,7 @@
 #include <metal/list/list.hpp>
 #include <example_main.hpp>
 #include <exception>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -171,6 +173,43 @@ try
 	>
 	format_part;
 //! [format_part_declaration]
+
+	static_assert(
+		std::is_same_v<
+			format_part::strides,
+			metal::list<
+				std::integral_constant<
+					sge::renderer::vf::vertex_size,
+					3 * sizeof(float)
+				>,
+				std::integral_constant<
+					sge::renderer::vf::vertex_size,
+					4
+				>
+			>
+		>
+	);
+
+	static_assert(
+		std::is_same_v<
+			format_part::offsets,
+			metal::list<
+				std::integral_constant<
+					sge::renderer::vf::vertex_size,
+					0
+				>,
+				std::integral_constant<
+					sge::renderer::vf::vertex_size,
+					3 * sizeof(float)
+				>,
+				std::integral_constant<
+					sge::renderer::vf::vertex_size,
+					3 * sizeof(float)
+					+ 4
+				>
+			>
+		>
+	);
 
 //! [format_declaration]
 	typedef

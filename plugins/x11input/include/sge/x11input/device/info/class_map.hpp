@@ -11,7 +11,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
-#include <brigand/sequences/map.hpp>
+#include <metal/map/map.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,7 +25,7 @@ namespace info
 {
 
 typedef
-brigand::map<
+metal::map<
 	SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(
 		XIButtonClass
 	),

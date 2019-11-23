@@ -9,7 +9,6 @@
 
 #include <fcppt/type_traits/is_float_or_double.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/logical/or.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -27,7 +26,7 @@ template<
 using
 is_int_float_double
 =
-brigand::or_<
+std::disjunction<
 	std::is_same<
 		Type,
 		int

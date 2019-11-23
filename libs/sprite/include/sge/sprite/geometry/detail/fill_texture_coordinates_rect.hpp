@@ -10,6 +10,7 @@
 #include <sge/sprite/detail/vf/texpos.hpp>
 #include <sge/sprite/types/texture_coordinates.hpp>
 #include <sge/sprite/types/basic/float_vector.hpp>
+#include <fcppt/metal/to_number.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal/list/at.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -45,11 +46,12 @@ fill_texture_coordinates_rect(
 
 	typedef
 	metal::at<
-		typename
 		sge::sprite::detail::vf::texpos<
 			Choices
-		>::type,
-		Level
+		>,
+		fcppt::metal::to_number<
+			Level
+		>
 	>
 	vertex_texpos;
 

@@ -8,7 +8,7 @@
 #define SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/pair.hpp>
+#include <metal/pair/pair.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -16,7 +16,7 @@
 #define SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(\
 	name\
 )\
-brigand::pair<\
+metal::pair<\
 	name ## Info ,\
 	std::integral_constant<\
 		int,\
