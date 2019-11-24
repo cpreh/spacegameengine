@@ -21,5 +21,16 @@ sge::renderer::vf::dynamic::pos::pos(
 sge::renderer::vf::dynamic::vector const &
 sge::renderer::vf::dynamic::pos::type() const
 {
-	return type_;
+	return
+		this->type_;
+}
+
+bool
+sge::renderer::vf::dynamic::operator==(
+	sge::renderer::vf::dynamic::pos const &_left,
+	sge::renderer::vf::dynamic::pos const &_right
+)
+{
+	return
+		_left.type() == _right.type();
 }

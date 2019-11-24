@@ -14,6 +14,9 @@
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::vf::dynamic::part::part(
@@ -73,6 +76,22 @@ sge::renderer::vf::dynamic::part::part(
 {
 }
 
+sge::renderer::vf::dynamic::part::part(
+	sge::renderer::vf::dynamic::ordered_element_list &&_elements,
+	sge::renderer::vf::dynamic::stride const _stride
+)
+:
+	elements_{
+		std::move(
+			_elements
+		)
+	},
+	stride_{
+		_stride
+	}
+{
+}
+
 sge::renderer::vf::dynamic::ordered_element_list const &
 sge::renderer::vf::dynamic::part::elements() const
 {
@@ -85,4 +104,16 @@ sge::renderer::vf::dynamic::part::stride() const
 {
 	return
 		stride_;
+}
+
+bool
+sge::renderer::vf::dynamic::operator==(
+	sge::renderer::vf::dynamic::part const &_left,
+	sge::renderer::vf::dynamic::part const &_right
+)
+{
+	return
+		_left.elements() == _right.elements()
+		&&
+		_left.stride() == _right.stride();
 }

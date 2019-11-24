@@ -44,6 +44,13 @@ private:
 	sge::renderer::vf::dynamic::index index_;
 };
 
+SGE_RENDERER_DETAIL_SYMBOL
+bool
+operator==(
+	sge::renderer::vf::dynamic::extra const &,
+	sge::renderer::vf::dynamic::extra const &
+);
+
 }
 }
 }

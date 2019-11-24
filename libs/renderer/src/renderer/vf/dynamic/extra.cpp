@@ -7,6 +7,7 @@
 #include <sge/renderer/vf/dynamic/extra.hpp>
 #include <sge/renderer/vf/dynamic/extra_any.hpp>
 #include <sge/renderer/vf/dynamic/index.hpp>
+#include <fcppt/variant/comparison.hpp>
 
 
 sge::renderer::vf::dynamic::extra::extra(
@@ -27,12 +28,24 @@ sge::renderer::vf::dynamic::extra_any const &
 sge::renderer::vf::dynamic::extra::type() const
 {
 	return
-		type_;
+		this->type_;
 }
 
 sge::renderer::vf::dynamic::index
 sge::renderer::vf::dynamic::extra::index() const
 {
 	return
-		index_;
+		this->index_;
+}
+
+bool
+sge::renderer::vf::dynamic::operator==(
+	sge::renderer::vf::dynamic::extra const &_left,
+	sge::renderer::vf::dynamic::extra const &_right
+)
+{
+	return
+		_left.type() == _right.type()
+		&&
+		_left.index() == _right.index();
 }

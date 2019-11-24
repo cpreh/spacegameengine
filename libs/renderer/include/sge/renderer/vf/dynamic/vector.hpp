@@ -44,6 +44,13 @@ private:
 	sge::renderer::vf::dynamic::element_count element_count_;
 };
 
+SGE_RENDERER_DETAIL_SYMBOL
+bool
+operator==(
+	sge::renderer::vf::dynamic::vector const &,
+	sge::renderer::vf::dynamic::vector const &
+);
+
 }
 }
 }

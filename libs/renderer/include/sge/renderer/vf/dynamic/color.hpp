@@ -37,6 +37,13 @@ private:
 	sge::image::color::format color_format_;
 };
 
+SGE_RENDERER_DETAIL_SYMBOL
+bool
+operator==(
+	sge::renderer::vf::dynamic::color const &,
+	sge::renderer::vf::dynamic::color const &
+);
+
 }
 }
 }

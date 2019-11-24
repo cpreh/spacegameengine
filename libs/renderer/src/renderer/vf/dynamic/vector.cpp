@@ -27,12 +27,24 @@ sge::renderer::vf::dynamic::element_type
 sge::renderer::vf::dynamic::vector::element_type() const
 {
 	return
-		element_type_;
+		this->element_type_;
 }
 
 sge::renderer::vf::dynamic::element_count
 sge::renderer::vf::dynamic::vector::element_count() const
 {
 	return
-		element_count_;
+		this->element_count_;
+}
+
+bool
+sge::renderer::vf::dynamic::operator==(
+	sge::renderer::vf::dynamic::vector const &_left,
+	sge::renderer::vf::dynamic::vector const &_right
+)
+{
+	return
+		_left.element_type() == _right.element_type()
+		&&
+		_left.element_count() == _right.element_count();
 }

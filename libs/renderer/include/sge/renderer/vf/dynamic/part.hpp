@@ -34,6 +34,12 @@ public:
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
+	part(
+		sge::renderer::vf::dynamic::ordered_element_list &&,
+		sge::renderer::vf::dynamic::stride
+	);
+
+	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::ordered_element_list const &
 	elements() const;
 
@@ -45,6 +51,13 @@ private:
 
 	sge::renderer::vf::dynamic::stride stride_;
 };
+
+SGE_RENDERER_DETAIL_SYMBOL
+bool
+operator==(
+	sge::renderer::vf::dynamic::part const &,
+	sge::renderer::vf::dynamic::part const &
+);
 
 }
 }

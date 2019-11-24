@@ -8,7 +8,10 @@
 #define SGE_RENDERER_VF_FORMAT_HPP_INCLUDED
 
 #include <sge/renderer/vf/format_fwd.hpp>
+#include <sge/renderer/vf/is_part.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <metal/lambda/trait.hpp>
+#include <metal/list/all_of.hpp>
 #include <metal/list/list.hpp>
 #include <fcppt/config/external_end.hpp>
 
@@ -30,6 +33,16 @@ struct format
 			PartList
 		>::value,
 		"PartList must be a metal sequence"
+	);
+
+	static_assert(
+		metal::all_of<
+			PartList,
+			metal::trait<
+				sge::renderer::vf::is_part
+			>
+		>::value,
+		"PartList must be a list of sge::renderer::vf::part"
 	);
 
 	typedef PartList parts;

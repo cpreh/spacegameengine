@@ -932,6 +932,7 @@ set(
 	libs/renderer/include/sge/renderer/vf/format_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/index.hpp
 	libs/renderer/include/sge/renderer/vf/index_type.hpp
+	libs/renderer/include/sge/renderer/vf/is_part.hpp
 	libs/renderer/include/sge/renderer/vf/iterator.hpp
 	libs/renderer/include/sge/renderer/vf/iterator_decl.hpp
 	libs/renderer/include/sge/renderer/vf/iterator_fwd.hpp

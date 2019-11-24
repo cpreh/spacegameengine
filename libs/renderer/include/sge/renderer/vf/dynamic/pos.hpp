@@ -37,6 +37,13 @@ private:
 	sge::renderer::vf::dynamic::vector type_;
 };
 
+SGE_RENDERER_DETAIL_SYMBOL
+bool
+operator==(
+	sge::renderer::vf::dynamic::pos const &,
+	sge::renderer::vf::dynamic::pos const &
+);
+
 }
 }
 }

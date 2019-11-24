@@ -21,5 +21,16 @@ sge::renderer::vf::dynamic::color::color(
 sge::image::color::format
 sge::renderer::vf::dynamic::color::color_format() const
 {
-	return color_format_;
+	return
+		this->color_format_;
+}
+
+bool
+sge::renderer::vf::dynamic::operator==(
+	sge::renderer::vf::dynamic::color const &_left,
+	sge::renderer::vf::dynamic::color const &_right
+)
+{
+	return
+		_left.color_format() == _right.color_format();
 }

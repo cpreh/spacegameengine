@@ -36,3 +36,15 @@ sge::renderer::vf::dynamic::ordered_element::offset() const
 	return
 		offset_;
 }
+
+bool
+sge::renderer::vf::dynamic::operator==(
+	sge::renderer::vf::dynamic::ordered_element const &_left,
+	sge::renderer::vf::dynamic::ordered_element const &_right
+)
+{
+	return
+		_left.element() == _right.element()
+		&&
+		_left.offset() == _right.offset();
+}

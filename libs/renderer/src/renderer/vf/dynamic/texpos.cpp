@@ -27,12 +27,24 @@ sge::renderer::vf::dynamic::vector const &
 sge::renderer::vf::dynamic::texpos::type() const
 {
 	return
-		type_;
+		this->type_;
 }
 
 sge::renderer::vf::dynamic::index
 sge::renderer::vf::dynamic::texpos::index() const
 {
 	return
-		index_;
+		this->index_;
+}
+
+bool
+sge::renderer::vf::dynamic::operator==(
+	sge::renderer::vf::dynamic::texpos const &_left,
+	sge::renderer::vf::dynamic::texpos const &_right
+)
+{
+	return
+		_left.type() == _right.type()
+		&&
+		_left.index() == _right.index();
 }

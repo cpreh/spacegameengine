@@ -4,12 +4,12 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_ORDERED_ELEMENT_LIST_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_ORDERED_ELEMENT_LIST_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_IS_PART_HPP_INCLUDED
+#define SGE_RENDERER_VF_IS_PART_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic/ordered_element.hpp>
+#include <sge/renderer/vf/part_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vector>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -19,16 +19,29 @@ namespace renderer
 {
 namespace vf
 {
-namespace dynamic
-{
 
-typedef
-std::vector<
-	sge::renderer::vf::dynamic::ordered_element
+template<
+	typename Type
 >
-ordered_element_list;
+struct is_part
+:
+std::false_type
+{
+};
 
-}
+template<
+	typename ElementList
+>
+struct is_part<
+	sge::renderer::vf::part<
+		ElementList
+	>
+>
+:
+std::true_type
+{
+};
+
 }
 }
 }

@@ -37,6 +37,13 @@ private:
 	sge::renderer::vf::dynamic::element_type element_type_;
 };
 
+SGE_RENDERER_DETAIL_SYMBOL
+bool
+operator==(
+	sge::renderer::vf::dynamic::normal const &,
+	sge::renderer::vf::dynamic::normal const &
+);
+
 }
 }
 }

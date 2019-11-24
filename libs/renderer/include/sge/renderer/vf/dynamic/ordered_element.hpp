@@ -44,6 +44,13 @@ private:
 	sge::renderer::vf::dynamic::offset offset_;
 };
 
+SGE_RENDERER_DETAIL_SYMBOL
+bool
+operator==(
+	sge::renderer::vf::dynamic::ordered_element const &,
+	sge::renderer::vf::dynamic::ordered_element const &
+);
+
 }
 }
 }

@@ -177,6 +177,15 @@ add_sge_test(
 )
 
 add_sge_test(
+	renderer/vf
+	SGE_DEPS
+		sgeimagecolor
+		sgerenderer
+	ADDITIONAL_DEPS
+		fcppt_core_interface
+)
+
+add_sge_test(
 	sprite/types
 	SGE_DEPS
 		sgeimage

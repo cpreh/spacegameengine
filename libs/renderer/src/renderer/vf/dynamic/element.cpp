@@ -6,6 +6,7 @@
 
 #include <sge/renderer/vf/dynamic/any.hpp>
 #include <sge/renderer/vf/dynamic/element.hpp>
+#include <fcppt/variant/comparison.hpp>
 
 
 sge::renderer::vf::dynamic::element::element(
@@ -21,5 +22,16 @@ sge::renderer::vf::dynamic::element::element(
 sge::renderer::vf::dynamic::any const &
 sge::renderer::vf::dynamic::element::info() const
 {
-	return info_;
+	return
+		this->info_;
+}
+
+bool
+sge::renderer::vf::dynamic::operator==(
+	sge::renderer::vf::dynamic::element const &_left,
+	sge::renderer::vf::dynamic::element const &_right
+)
+{
+	return
+		_left.info() == _right.info();
 }

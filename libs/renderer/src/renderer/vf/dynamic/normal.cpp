@@ -21,5 +21,16 @@ sge::renderer::vf::dynamic::normal::normal(
 sge::renderer::vf::dynamic::element_type
 sge::renderer::vf::dynamic::normal::element_type() const
 {
-	return element_type_;
+	return
+		this->element_type_;
+}
+
+bool
+sge::renderer::vf::dynamic::operator==(
+	sge::renderer::vf::dynamic::normal const &_left,
+	sge::renderer::vf::dynamic::normal const &_right
+)
+{
+	return
+		_left.element_type() == _right.element_type();
 }
