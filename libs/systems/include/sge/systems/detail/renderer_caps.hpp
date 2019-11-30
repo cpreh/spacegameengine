@@ -8,10 +8,10 @@
 #define SGE_SYSTEMS_DETAIL_RENDERER_CAPS_HPP_INCLUDED
 
 #include <sge/systems/detail/is_with_renderer.hpp>
+#include <fcppt/metal/index_of_if.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal/lambda/trait.hpp>
 #include <metal/list/at.hpp>
-#include <metal/list/find_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -31,7 +31,7 @@ renderer_caps
 typename
 metal::at<
 	Choices,
-	metal::find_if<
+	fcppt::metal::index_of_if<
 		Choices,
 		metal::trait<
 			sge::systems::detail::is_with_renderer

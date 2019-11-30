@@ -9,9 +9,6 @@
 
 #include <sge/renderer/vf/iterator_decl.hpp>
 #include <fcppt/cast/to_signed.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal/list/back.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -29,9 +26,7 @@ sge::renderer::vf::iterator<
 {
 	return
 		fcppt::cast::to_signed(
-			metal::back<
-				typename Part::offsets
-			>::type::value
+			Part::stride::value
 		);
 }
 

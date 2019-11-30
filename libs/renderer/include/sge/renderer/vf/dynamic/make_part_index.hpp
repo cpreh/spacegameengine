@@ -10,10 +10,7 @@
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal/list/contains.hpp>
-#include <metal/list/find.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/metal/index_of.hpp>
 
 
 namespace sge
@@ -32,19 +29,12 @@ template<
 sge::renderer::vf::dynamic::part_index
 make_part_index()
 {
-	static_assert(
-		metal::contains<
-			typename Format::parts,
-			Part
-		>::value
-	);
-
 	return
 		fcppt::strong_typedef_construct_cast<
 			sge::renderer::vf::dynamic::part_index,
 			fcppt::cast::static_cast_fun
 		>(
-			metal::find<
+			fcppt::metal::index_of<
 				typename Format::parts,
 				Part
 			>::value

@@ -15,6 +15,7 @@
 #include <fcppt/metal/to_number_list.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal/lambda/lambda.hpp>
+#include <metal/list/back.hpp>
 #include <metal/list/list.hpp>
 #include <metal/list/transform.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -44,24 +45,26 @@ struct part
 	);
 
 	typedef
-	metal::transform<
-		metal::lambda<
-			sge::renderer::vf::detail::element_stride
-		>,
-		elements
-	>
-	strides;
-
-	typedef
 	fcppt::metal::from_number_list<
 		sge::renderer::vf::vertex_size,
 		fcppt::metal::partial_sums<
 			fcppt::metal::to_number_list<
-				strides
+				metal::transform<
+					metal::lambda<
+						sge::renderer::vf::detail::element_stride
+					>,
+					elements
+				>
 			>
 		>
 	>
 	offsets;
+
+	typedef
+	metal::back<
+		offsets
+	>
+	stride;
 };
 
 }

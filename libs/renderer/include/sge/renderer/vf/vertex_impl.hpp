@@ -12,10 +12,9 @@
 #include <sge/renderer/vf/detail/element_stride.hpp>
 #include <sge/renderer/vf/detail/raw_data.hpp>
 #include <sge/renderer/vf/detail/read_wrapper_impl.hpp>
+#include <fcppt/metal/index_of.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal/list/at.hpp>
-#include <metal/list/contains.hpp>
-#include <metal/list/find.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -51,16 +50,8 @@ sge::renderer::vf::vertex<
 	typename Field::packed_type const &_value
 )
 {
-	static_assert(
-		metal::contains<
-			elements,
-			Field
-		>::value,
-		"Field not part of vertex format"
-	);
-
 	typedef
-	metal::find<
+	fcppt::metal::index_of<
 		elements,
 		Field
 	>
@@ -107,16 +98,8 @@ sge::renderer::vf::vertex<
 	Constness
 >::get() const
 {
-	static_assert(
-		metal::contains<
-			elements,
-			Field
-		>::value,
-		"Field not part of vertex format"
-	);
-
 	typedef
-	metal::find<
+	fcppt::metal::index_of<
 		elements,
 		Field
 	>
