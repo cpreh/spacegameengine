@@ -8,10 +8,13 @@
 #define SGE_SPRITE_GEOMETRY_DETAIL_FILL_TEXTURE_LEVELS_HPP_INCLUDED
 
 #include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/config/is_normal_size.hpp>
 #include <sge/sprite/detail/apply_texture_levels.hpp>
+#include <sge/sprite/detail/config/has_texture.hpp>
 #include <sge/sprite/detail/config/has_texture_levels.hpp>
 #include <sge/sprite/detail/config/texture_levels.hpp>
 #include <sge/sprite/geometry/detail/fill_texture_level.hpp>
+#include <fcppt/type_traits/implication.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -44,6 +47,19 @@ fill_texture_levels(
 	> const &_sprite
 )
 {
+	static_assert(
+		fcppt::type_traits::implication<
+			sge::sprite::detail::config::has_texture<
+				Choices
+			>,
+			sge::sprite::config::is_normal_size<
+				typename
+				Choices::size_choice
+			>
+		>::value,
+		"Normal textures require normal sizes"
+	);
+
 	sge::sprite::detail::apply_texture_levels<
 		typename sge::sprite::detail::config::texture_levels<
 			Choices

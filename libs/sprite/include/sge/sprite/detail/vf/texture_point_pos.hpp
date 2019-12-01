@@ -22,13 +22,11 @@ namespace vf
 template<
 	typename Choices
 >
-struct texture_point_pos
-:
+using texture_point_pos
+=
 sge::sprite::detail::vf::texpos<
 	Choices
->
-{
-};
+>;
 
 }
 }

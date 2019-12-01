@@ -7,16 +7,7 @@
 #ifndef SGE_SPRITE_DETAIL_VF_TEXTURE_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VF_TEXTURE_POINT_SIZE_HPP_INCLUDED
 
-#include <sge/renderer/vf/extra.hpp>
-#include <sge/renderer/vf/vector.hpp>
-#include <sge/sprite/detail/transform_texture_levels_static.hpp>
-#include <sge/sprite/detail/config/find_with_texture_point_size.hpp>
-#include <sge/sprite/detail/config/texture_levels.hpp>
-#include <fcppt/metal/to_number.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/list/at.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/sprite/detail/vf/texture_point_size_impl.hpp>
 
 
 namespace sge
@@ -31,58 +22,13 @@ namespace vf
 template<
 	typename Choices
 >
-struct texture_point_size
-{
-private:
-	typedef
-	typename
-	sge::sprite::detail::config::texture_levels<
-		Choices
-	>::type
-	texture_levels;
-
-	typedef
-	typename
-	sge::sprite::detail::config::find_with_texture_point_size<
-		Choices
-	>::type
-	with_texture_point_size;
-
-	typedef
-	typename
-	with_texture_point_size::point_size
-	point_size;
-
-	template<
-		typename Level
-	>
-	using
-	make_size
-	=
-	sge::renderer::vf::extra<
-		sge::renderer::vf::vector<
-			typename
-			Choices::type_choices::float_type,
-			1
-		>,
-		metal::at<
-			typename
-			point_size::attribute_indices,
-			fcppt::metal::to_number<
-				Level
-			>
-		>
-	>;
-public:
-	typedef
-	sge::sprite::detail::transform_texture_levels_static<
-		metal::lambda<
-			make_size
-		>,
-		texture_levels
-	>
-	type;
-};
+using
+texture_point_size
+=
+typename
+sge::sprite::detail::vf::texture_point_size_impl<
+	Choices
+>::type;
 
 }
 }

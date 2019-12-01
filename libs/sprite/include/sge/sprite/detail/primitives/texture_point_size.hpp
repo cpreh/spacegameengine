@@ -14,10 +14,9 @@
 #include <sge/sprite/types/texture_point_size.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/functions/lambda/bind.hpp>
+#include <metal/lambda/lambda.hpp>
 #include <metal/list/list.hpp>
-#include <brigand/sequences/size.hpp>
-#include <brigand/types/args.hpp>
+#include <metal/list/size.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -30,7 +29,6 @@ namespace detail
 namespace primitives
 {
 
-// TODO: Add a test for this or remove.
 template<
 	typename Choices,
 	typename Levels,
@@ -84,7 +82,7 @@ private:
 	>;
 
 	static_assert(
-		brigand::size<
+		metal::size<
 			AttributeNames
 		>::value
 		==
@@ -94,9 +92,8 @@ private:
 public:
 	typedef
 	sge::sprite::detail::transform_texture_levels_static<
-		brigand::bind<
-			make_role,
-			brigand::_1
+		metal::lambda<
+			make_role
 		>,
 		Levels
 	>

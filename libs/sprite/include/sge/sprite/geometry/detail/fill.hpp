@@ -84,7 +84,7 @@ fill(
 	Compare const &_compare,
 	sge::sprite::buffers::slice<
 		Choices
-	> &_slice
+	> const &_slice
 )
 {
 	return

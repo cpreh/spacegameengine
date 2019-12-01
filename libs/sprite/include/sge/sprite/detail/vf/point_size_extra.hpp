@@ -9,6 +9,7 @@
 
 #include <sge/sprite/config/is_point_size.hpp>
 #include <sge/sprite/detail/vf/point_size.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal/list/list.hpp>
 #include <type_traits>

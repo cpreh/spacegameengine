@@ -16,7 +16,7 @@
 #include <sge/sprite/detail/primitives/texture_point_size.hpp>
 #include <sge/sprite/detail/primitives/texture_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <brigand/sequences/append.hpp>
+#include <metal/list/join.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -76,27 +76,25 @@ struct with_texture_point_size<
 	struct apply
 	{
 		typedef
-		brigand::append<
+		metal::join<
 			typename
 			sge::sprite::detail::primitives::texture_ptr<
 				Choices,
 				texture_levels,
 				ownership::value
 			>::type,
-			brigand::append<
-				typename
-				sge::sprite::detail::primitives::texture_point_pos<
-					Choices,
-					texture_levels,
-					point_pos
-				>::type,
-				typename
-				sge::sprite::detail::primitives::texture_point_size<
-					Choices,
-					texture_levels,
-					point_size
-				>::type
-			>
+			typename
+			sge::sprite::detail::primitives::texture_point_pos<
+				Choices,
+				texture_levels,
+				point_pos
+			>::type,
+			typename
+			sge::sprite::detail::primitives::texture_point_size<
+				Choices,
+				texture_levels,
+				point_size
+			>::type
 		>
 		type;
 	};

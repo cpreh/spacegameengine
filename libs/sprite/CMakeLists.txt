@@ -130,7 +130,6 @@ set(
 	libs/sprite/include/sge/sprite/detail/config/lazy_head.hpp
 	libs/sprite/include/sge/sprite/detail/config/needs_index_buffer.hpp
 	libs/sprite/include/sge/sprite/detail/config/needs_use_center.hpp
-	libs/sprite/include/sge/sprite/detail/config/needs_use_texture_size.hpp
 	libs/sprite/include/sge/sprite/detail/config/texture_levels.hpp
 	libs/sprite/include/sge/sprite/detail/config/texture_ref.hpp
 	libs/sprite/include/sge/sprite/detail/destroy.hpp

@@ -16,8 +16,8 @@
 #include <metal/lambda/bind.hpp>
 #include <metal/lambda/invoke.hpp>
 #include <metal/lambda/lambda.hpp>
-#include <metal/list/append.hpp>
 #include <metal/list/list.hpp>
+#include <metal/list/join.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -34,58 +34,21 @@ namespace vf
 template<
 	typename Choices
 >
-struct texture_point
-{
-private:
-	template<
-		typename Type
-	>
-	using
-	make_vector
-	=
-	metal::list<
-		typename
-		Type::type
-	>;
-
-	typedef
-	metal::invoke<
-		std::conditional_t<
-			sge::sprite::detail::config::has_custom_texture_point_pos<
-				Choices
-			>::value,
-			metal::bind<
-				metal::lambda<
-					make_vector
-				>,
-				metal::always<
-					sge::sprite::detail::vf::texture_point_pos<
-						Choices
-					>
-				>
-			>,
-			metal::always<
-				metal::list<>
-			>
-		>
-	>
-	vec1;
-
-	template<
-		typename Type
-	>
-	using
-	append_size
-	=
-	metal::append<
-		vec1,
+using
+texture_point
+=
+metal::join<
+	std::conditional_t<
+		sge::sprite::detail::config::has_custom_texture_point_pos<
+			Choices
+		>::value,
 		metal::list<
-			typename
-			Type::type
-		>
-	>;
-public:
-	typedef
+			sge::sprite::detail::vf::texture_point_pos<
+				Choices
+			>
+		>,
+		metal::list<>
+	>,
 	metal::invoke<
 		std::conditional_t<
 			sge::sprite::detail::config::has_custom_texture_point_size<
@@ -93,21 +56,18 @@ public:
 			>::value,
 			metal::bind<
 				metal::lambda<
-					append_size
+					sge::sprite::detail::vf::texture_point_size
 				>,
 				metal::always<
-					sge::sprite::detail::vf::texture_point_size<
-						Choices
-					>
+					Choices
 				>
 			>,
 			metal::always<
-				vec1
+				metal::list<>
 			>
 		>
 	>
-	type;
-};
+>;
 
 }
 }

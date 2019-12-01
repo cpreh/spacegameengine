@@ -8,8 +8,8 @@
 #define SGE_SPRITE_CONFIG_CUSTOM_TEXTURE_POINT_SIZE_HPP_INCLUDED
 
 #include <sge/sprite/config/custom_texture_point_size_fwd.hpp>
-#include <fcppt/type_traits/is_brigand_sequence.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <metal/list/list.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -31,10 +31,10 @@ struct custom_texture_point_size
 	is_texture_point_size;
 
 	static_assert(
-		fcppt::type_traits::is_brigand_sequence<
+		::metal::is_list<
 			AttributeNames
 		>::value,
-		"AttributeNames must be an mpl sequence"
+		"AttributeNames must be a metal::list"
 	);
 
 	typedef

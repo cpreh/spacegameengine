@@ -73,8 +73,7 @@ allocate(
 }
 
 template<
-	typename Choices,
-	typename Buffers
+	typename Choices
 >
 inline
 std::enable_if_t<

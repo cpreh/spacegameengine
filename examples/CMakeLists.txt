@@ -694,6 +694,25 @@ add_sge_example(
 		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 )
 
+add_sge_example(
+	point_sprite
+	SGE_DEPS
+		sgeconfig
+		sgeimagecolor
+		sgelog
+		sgemedia_interface
+		sgerenderer
+		sgesprite
+		sgesystems
+		sgetexture
+		sgeviewport
+		sgewindow
+	ADDITIONAL_DEPS
+		${fcppt_core_TARGET}
+		fcppt_log_interface
+		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
+)
+
 add_sge_console_example(
 	plugin
 	SGE_DEPS
