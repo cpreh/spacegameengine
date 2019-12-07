@@ -124,7 +124,6 @@
 #include <ios>
 #include <limits>
 #include <map>
-#include <metal.hpp>
 #include <numeric>
 #include <string>
 #include <type_traits>
@@ -641,13 +640,11 @@ main_program(
 	device_totals;
 
 	sge::systems::instance<
-		metal::list<
-			sge::systems::with_window,
-			sge::systems::with_renderer<
-				sge::systems::renderer_caps::ffp
-			>,
-			sge::systems::with_font
-		>
+		sge::systems::with_window,
+		sge::systems::with_renderer<
+			sge::systems::renderer_caps::ffp
+		>,
+		sge::systems::with_font
 	> const sys(
 		sge::systems::make_list
 		(

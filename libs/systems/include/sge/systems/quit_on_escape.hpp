@@ -18,12 +18,12 @@ namespace systems
 {
 
 template<
-	typename Choices
+	typename... Choices
 >
 void
 quit_on_escape(
 	sge::systems::instance<
-		Choices
+		Choices...
 	> const &_instance,
 	awl::event::base const &_event
 )

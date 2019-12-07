@@ -38,7 +38,7 @@ namespace systems
 {
 
 template<
-	typename Choices
+	typename... Choices
 >
 class instance
 {
@@ -46,16 +46,15 @@ class instance
 		instance
 	);
 
-	static_assert(
-		metal::is_list<
-			Choices
-		>::value,
-		"Choices must be a metal sequence"
-	);
+	typedef
+	metal::list<
+		Choices...
+	>
+	choices_list;
 
 	static_assert(
 		sge::systems::detail::assert_dependencies<
-			Choices
+			choices_list
 		>::value,
 		"systems::instance dependencies are not met"
 	);

@@ -129,7 +129,6 @@
 #include <chrono>
 #include <example_main.hpp>
 #include <exception>
-#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -218,14 +217,12 @@ main_program(
 	);
 
 	sge::systems::instance<
-		metal::list<
-			sge::systems::with_window,
-			sge::systems::with_renderer<
-				sge::systems::renderer_caps::ffp
-			>,
-			sge::systems::with_input,
-			sge::systems::with_image2d
-		>
+		sge::systems::with_window,
+		sge::systems::with_renderer<
+			sge::systems::renderer_caps::ffp
+		>,
+		sge::systems::with_input,
+		sge::systems::with_image2d
 	> const sys(
 		sge::systems::make_list(
 			sge::systems::window{

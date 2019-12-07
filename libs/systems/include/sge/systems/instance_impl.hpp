@@ -37,13 +37,13 @@
 
 
 template<
-	typename Choices
+	typename... Choices
 >
 template<
 	typename Inits
 >
 sge::systems::instance<
-	Choices
+	Choices...
 >::instance(
 	sge::systems::list<
 		Inits
@@ -52,7 +52,7 @@ sge::systems::instance<
 :
 	instance_(
 		sge::systems::detail::make_list<
-			Choices
+			choices_list
 		>(
 			_list
 		)
@@ -61,20 +61,20 @@ sge::systems::instance<
 }
 
 template<
-	typename Choices
+	typename... Choices
 >
 sge::systems::instance<
-	Choices
+	Choices...
 >::~instance()
 {
 }
 
 template<
-	typename Choices
+	typename... Choices
 >
 fcppt::log::context &
 sge::systems::instance<
-	Choices
+	Choices...
 >::log_context() const
 {
 	return
@@ -82,11 +82,11 @@ sge::systems::instance<
 }
 
 template<
-	typename Choices
+	typename... Choices
 >
 sge::plugin::manager &
 sge::systems::instance<
-	Choices
+	Choices...
 >::plugin_manager()
 {
 	return
@@ -94,16 +94,16 @@ sge::systems::instance<
 }
 
 template<
-	typename Choices
+	typename... Choices
 >
 sge::renderer::core &
 sge::systems::instance<
-	Choices
+	Choices...
 >::renderer_core() const
 {
 	static_assert(
 		sge::systems::detail::has_with_renderer<
-			Choices
+			choices_list
 		>::value,
 		"configuration has no renderer"
 	);
@@ -113,16 +113,16 @@ sge::systems::instance<
 }
 
 template<
-	typename Choices
+	typename... Choices
 >
 sge::renderer::system &
 sge::systems::instance<
-	Choices
+	Choices...
 >::renderer_system() const
 {
 	static_assert(
 		sge::systems::detail::has_with_renderer<
-			Choices
+			choices_list
 		>::value,
 		"configuration has no renderer"
 	);
@@ -132,23 +132,23 @@ sge::systems::instance<
 }
 
 template<
-	typename Choices
+	typename... Choices
 >
 sge::renderer::device::ffp &
 sge::systems::instance<
-	Choices
+	Choices...
 >::renderer_device_ffp() const
 {
 	static_assert(
 		sge::systems::detail::has_with_renderer<
-			Choices
+			choices_list
 		>::value,
 		"configuration has no renderer"
 	);
 
 	static_assert(
 		sge::systems::detail::renderer_caps<
-			Choices
+			choices_list
 		>::value
 		==
 		sge::systems::renderer_caps::ffp,
@@ -160,16 +160,16 @@ sge::systems::instance<
 }
 
 template<
-	typename Choices
+	typename... Choices
 >
 sge::renderer::device::core &
 sge::systems::instance<
-	Choices
+	Choices...
 >::renderer_device_core() const
 {
 	static_assert(
 		sge::systems::detail::has_with_renderer<
-			Choices
+			choices_list
 		>::value,
 		"configuration has no renderer"
 	);
@@ -179,16 +179,16 @@ sge::systems::instance<
 }
 
 template<
-	typename Choices
+	typename... Choices
 >
 sge::input::system &
 sge::systems::instance<
-	Choices
+	Choices...
 >::input_system() const
 {
 	static_assert(
 		sge::systems::detail::has_with_input<
-			Choices
+			choices_list
 		>::value,
 		"configuration has no input"
 	);
@@ -198,16 +198,16 @@ sge::systems::instance<
 }
 
 template<
-	typename Choices
+	typename... Choices
 >
 sge::input::processor &
 sge::systems::instance<
-	Choices
+	Choices...
 >::input_processor() const
 {
 	static_assert(
 		sge::systems::detail::has_with_input<
-			Choices
+			choices_list
 		>::value,
 		"configuration has no input"
 	);
@@ -217,16 +217,16 @@ sge::systems::instance<
 }
 
 template<
-	typename Choices
+	typename... Choices
 >
 sge::image2d::system &
 sge::systems::instance<
-	Choices
+	Choices...
 >::image_system() const
 {
 	static_assert(
 		sge::systems::detail::has_with_image2d<
-			Choices
+			choices_list
 		>::value,
 		"configuration has no image2d system"
 	);
@@ -236,16 +236,16 @@ sge::systems::instance<
 }
 
 template<
-	typename Choices
+	typename... Choices
 >
 sge::audio::loader &
 sge::systems::instance<
-	Choices
+	Choices...
 >::audio_loader() const
 {
 	static_assert(
 		sge::systems::detail::has_with_audio_loader<
-			Choices
+			choices_list
 		>::value,
 		"configuration has no audio loader"
 	);
@@ -255,16 +255,16 @@ sge::systems::instance<
 }
 
 template<
-	typename Choices
+	typename... Choices
 >
 sge::audio::player &
 sge::systems::instance<
-	Choices
+	Choices...
 >::audio_player() const
 {
 	static_assert(
 		sge::systems::detail::has_with_audio_player<
-			Choices
+			choices_list
 		>::value,
 		"configuration has no audio player"
 	);
@@ -274,16 +274,16 @@ sge::systems::instance<
 }
 
 template<
-	typename Choices
+	typename... Choices
 >
 sge::font::system &
 sge::systems::instance<
-	Choices
+	Choices...
 >::font_system() const
 {
 	static_assert(
 		sge::systems::detail::has_with_font<
-			Choices
+			choices_list
 		>::value,
 		"configuration has no font system"
 	);
@@ -293,16 +293,16 @@ sge::systems::instance<
 }
 
 template<
-	typename Choices
+	typename... Choices
 >
 sge::window::system &
 sge::systems::instance<
-	Choices
+	Choices...
 >::window_system() const
 {
 	static_assert(
 		sge::systems::detail::has_with_window<
-			Choices
+			choices_list
 		>::value,
 		"configuration has no window"
 	);
@@ -312,16 +312,16 @@ sge::systems::instance<
 }
 
 template<
-	typename Choices
+	typename... Choices
 >
 sge::window::object &
 sge::systems::instance<
-	Choices
+	Choices...
 >::window() const
 {
 	static_assert(
 		sge::systems::detail::has_with_window<
-			Choices
+			choices_list
 		>::value,
 		"configuration has no window"
 	);
@@ -331,16 +331,16 @@ sge::systems::instance<
 }
 
 template<
-	typename Choices
+	typename... Choices
 >
 sge::viewport::manager &
 sge::systems::instance<
-	Choices
+	Choices...
 >::viewport_manager() const
 {
 	static_assert(
 		sge::systems::detail::has_with_renderer<
-			Choices
+			choices_list
 		>::value,
 		"configuration has no renderer"
 	);

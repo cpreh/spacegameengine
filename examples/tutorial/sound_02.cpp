@@ -45,7 +45,6 @@
 #include <cstdlib>
 #include <exception>
 #include <iostream>
-#include <metal.hpp>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
@@ -55,10 +54,8 @@ main()
 try
 {
 	sge::systems::instance<
-		metal::list<
-			sge::systems::with_audio_loader,
-			sge::systems::with_audio_player
-		>
+		sge::systems::with_audio_loader,
+		sge::systems::with_audio_player
 	> const sys(
 		sge::systems::make_list
 		(

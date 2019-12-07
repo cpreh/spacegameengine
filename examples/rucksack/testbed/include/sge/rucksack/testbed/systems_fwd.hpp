@@ -12,9 +12,6 @@
 #include <sge/systems/with_input_fwd.hpp>
 #include <sge/systems/with_renderer_fwd.hpp>
 #include <sge/systems/with_window_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -26,13 +23,11 @@ namespace testbed
 
 typedef
 sge::systems::instance<
-	metal::list<
-		sge::systems::with_window,
-		sge::systems::with_renderer<
-			sge::systems::renderer_caps::ffp
-		>,
-		sge::systems::with_input
-	>
+	sge::systems::with_window,
+	sge::systems::with_renderer<
+		sge::systems::renderer_caps::ffp
+	>,
+	sge::systems::with_input
 >
 systems;
 

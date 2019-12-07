@@ -68,7 +68,6 @@
 #include <iostream>
 #include <iterator>
 #include <limits>
-#include <metal.hpp>
 #include <ostream>
 #include <string>
 #include <vector>
@@ -173,10 +172,8 @@ try
 	wait_for_input();
 
 	sge::systems::instance<
-		metal::list<
-			sge::systems::with_audio_player,
-			sge::systems::with_audio_loader
-		>
+		sge::systems::with_audio_player,
+		sge::systems::with_audio_loader
 	> const sys(
 		sge::systems::make_list
 		(

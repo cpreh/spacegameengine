@@ -77,7 +77,6 @@
 #include <exception>
 #include <filesystem>
 #include <iostream>
-#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -119,10 +118,8 @@ render_text_main(
 )
 {
 	sge::systems::instance<
-		metal::list<
-			sge::systems::with_image2d,
-			sge::systems::with_font
-		>
+		sge::systems::with_image2d,
+		sge::systems::with_font
 	> const sys{
 		sge::systems::make_list
 		(

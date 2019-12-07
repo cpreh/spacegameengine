@@ -116,14 +116,12 @@ example_main(
 try
 {
 	sge::systems::instance<
-		metal::list<
-			sge::systems::with_window,
-			sge::systems::with_renderer<
-				sge::systems::renderer_caps::core
-			>,
-			sge::systems::with_input,
-			sge::systems::with_image2d
-		>
+		sge::systems::with_window,
+		sge::systems::with_renderer<
+			sge::systems::renderer_caps::core
+		>,
+		sge::systems::with_input,
+		sge::systems::with_image2d
 	> const sys(
 		sge::systems::make_list
 		(

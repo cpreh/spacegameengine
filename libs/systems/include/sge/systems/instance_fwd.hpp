@@ -14,7 +14,7 @@ namespace systems
 {
 
 template<
-	typename Choices
+	typename... Choices
 >
 class instance;
 

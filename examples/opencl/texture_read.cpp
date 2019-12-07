@@ -56,7 +56,6 @@
 #include <exception>
 #include <filesystem>
 #include <iostream>
-#include <metal.hpp>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
@@ -73,9 +72,7 @@ main_program(
 		<< FCPPT_TEXT("Creating systems object\n");
 
 	sge::systems::instance<
-		metal::list<
-			sge::systems::with_image2d
-		>
+		sge::systems::with_image2d
 	> const sys(
 		sge::systems::make_list
 		(

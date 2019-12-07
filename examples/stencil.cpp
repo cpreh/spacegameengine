@@ -135,14 +135,12 @@ try
 	//   using any connected keyboard
 	// - The image2d system is used to load some png files
 	sge::systems::instance<
-		metal::list<
-			sge::systems::with_renderer<
-				sge::systems::renderer_caps::ffp
-			>,
-			sge::systems::with_window,
-			sge::systems::with_input,
-			sge::systems::with_image2d
-		>
+		sge::systems::with_renderer<
+			sge::systems::renderer_caps::ffp
+		>,
+		sge::systems::with_window,
+		sge::systems::with_input,
+		sge::systems::with_image2d
 	> const sys(
 		sge::systems::make_list
 		(

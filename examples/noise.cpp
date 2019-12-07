@@ -227,11 +227,9 @@ try
 		<< FCPPT_TEXT('\n');
 
 	sge::systems::instance<
-		metal::list<
-			sge::systems::with_window,
-			sge::systems::with_renderer<
-				sge::systems::renderer_caps::ffp
-			>
+		sge::systems::with_window,
+		sge::systems::with_renderer<
+			sge::systems::renderer_caps::ffp
 		>
 	> const sys(
 		sge::systems::make_list
