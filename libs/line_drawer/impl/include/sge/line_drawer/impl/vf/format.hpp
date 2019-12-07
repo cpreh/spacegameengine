@@ -9,9 +9,6 @@
 
 #include <sge/line_drawer/impl/vf/part.hpp>
 #include <sge/renderer/vf/format.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -25,9 +22,7 @@ namespace vf
 
 typedef
 sge::renderer::vf::format<
-	metal::list<
-		sge::line_drawer::impl::vf::part
-	>
+	sge::line_drawer::impl::vf::part
 >
 format;
 

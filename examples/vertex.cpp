@@ -82,7 +82,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -163,10 +162,8 @@ try
 //! [format_part_declaration]
 	typedef
 	sge::renderer::vf::part<
-		metal::list<
-			pos3_type,
-			color_type
-		>
+		pos3_type,
+		color_type
 	>
 	format_part;
 //! [format_part_declaration]
@@ -174,9 +171,7 @@ try
 //! [format_declaration]
 	typedef
 	sge::renderer::vf::format<
-		metal::list<
-			format_part
-		>
+		format_part
 	>
 	format;
 //! [format_declaration]

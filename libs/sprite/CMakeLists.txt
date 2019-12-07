@@ -185,6 +185,7 @@ set(
 	libs/sprite/include/sge/sprite/detail/vf/texture_point.hpp
 	libs/sprite/include/sge/sprite/detail/vf/texture_point_pos.hpp
 	libs/sprite/include/sge/sprite/detail/vf/texture_point_size.hpp
+	libs/sprite/include/sge/sprite/detail/vf/texture_point_size_impl.hpp
 	libs/sprite/include/sge/sprite/geometry/detail/convert_texture_rect.hpp
 	libs/sprite/include/sge/sprite/geometry/detail/count.hpp
 	libs/sprite/include/sge/sprite/geometry/detail/count_constant.hpp

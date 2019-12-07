@@ -7,7 +7,7 @@
 #ifndef SGE_SPRITE_DETAIL_VF_FORMAT_PART_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VF_FORMAT_PART_HPP_INCLUDED
 
-#include <sge/renderer/vf/part.hpp>
+#include <sge/renderer/vf/part_from_list.hpp>
 #include <sge/sprite/config/is_with_color.hpp>
 #include <sge/sprite/config/is_with_texture.hpp>
 #include <sge/sprite/config/is_with_texture_point_size.hpp>
@@ -125,7 +125,7 @@ private:
 	>;
 public:
 	typedef
-	sge::renderer::vf::part<
+	sge::renderer::vf::part_from_list<
 		metal::join<
 			basic_with_size,
 			metal::flatten<

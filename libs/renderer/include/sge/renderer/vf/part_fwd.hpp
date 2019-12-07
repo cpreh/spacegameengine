@@ -16,7 +16,7 @@ namespace vf
 {
 
 template<
-	typename ElementList
+	typename... Elements
 >
 struct part;
 

@@ -10,9 +10,6 @@
 #include <sge/line_drawer/impl/vf/color.hpp>
 #include <sge/line_drawer/impl/vf/position.hpp>
 #include <sge/renderer/vf/part.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -26,10 +23,8 @@ namespace vf
 
 typedef
 sge::renderer::vf::part<
-	metal::list<
-		sge::line_drawer::impl::vf::position,
-		sge::line_drawer::impl::vf::color
-	>
+	sge::line_drawer::impl::vf::position,
+	sge::line_drawer::impl::vf::color
 >
 part;
 

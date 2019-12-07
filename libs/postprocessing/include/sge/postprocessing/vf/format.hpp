@@ -9,9 +9,6 @@
 
 #include <sge/postprocessing/vf/format_part.hpp>
 #include <sge/renderer/vf/format.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -23,9 +20,7 @@ namespace vf
 
 typedef
 sge::renderer::vf::format<
-	metal::list<
-		sge::postprocessing::vf::format_part
-	>
+	sge::postprocessing::vf::format_part
 >
 format;
 

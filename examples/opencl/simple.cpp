@@ -100,7 +100,6 @@
 #include <iostream>
 #include <istream>
 #include <limits>
-#include <metal.hpp>
 #include <ostream>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -140,17 +139,13 @@ scalar_quantity;
 
 typedef
 sge::renderer::vf::part<
-	metal::list<
-		vf::scalar_quantity
-	>
+	vf::scalar_quantity
 >
 part;
 
 typedef
 sge::renderer::vf::format<
-	metal::list<
-		vf::part
-	>
+	vf::part
 >
 format;
 

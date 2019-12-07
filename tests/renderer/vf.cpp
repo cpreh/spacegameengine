@@ -99,10 +99,8 @@ TEST_CASE(
 
 	typedef
 	sge::renderer::vf::part<
-		metal::list<
-			pos3_type,
-			color_type
-		>
+		pos3_type,
+		color_type
 	>
 	format_part;
 
@@ -126,9 +124,7 @@ TEST_CASE(
 
 	typedef
 	sge::renderer::vf::format<
-		metal::list<
-			format_part
-		>
+		format_part
 	>
 	format;
 

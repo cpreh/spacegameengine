@@ -79,7 +79,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -144,23 +143,16 @@ try
 	> color_type;
 
 	typedef sge::renderer::vf::part<
-		metal::list<
-			pos3_type
-		>
+		pos3_type
 	> pos_format_part;
 
 	typedef sge::renderer::vf::part<
-		metal::list<
-			color_type
-		>
+		color_type
 	> color_format_part;
 
-
 	typedef sge::renderer::vf::format<
-		metal::list<
-			pos_format_part,
-			color_format_part
-		>
+		pos_format_part,
+		color_format_part
 	> format;
 
 	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(

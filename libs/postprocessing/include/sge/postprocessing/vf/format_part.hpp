@@ -10,9 +10,6 @@
 #include <sge/postprocessing/vf/position.hpp>
 #include <sge/postprocessing/vf/texcoord.hpp>
 #include <sge/renderer/vf/part.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -24,10 +21,8 @@ namespace vf
 
 typedef
 sge::renderer::vf::part<
-	metal::list<
-		sge::postprocessing::vf::position,
-		sge::postprocessing::vf::texcoord
-	>
+	sge::postprocessing::vf::position,
+	sge::postprocessing::vf::texcoord
 >
 format_part;
 

@@ -178,17 +178,13 @@ typedef sge::renderer::vf::texpos<
 > vf_texpos1;
 
 typedef sge::renderer::vf::part<
-	metal::list<
-		vf_pos,
-		vf_texpos0,
-		vf_texpos1
-	>
+	vf_pos,
+	vf_texpos0,
+	vf_texpos1
 > vf_part;
 
 typedef sge::renderer::vf::format<
-	metal::list<
-		vf_part
-	>
+	vf_part
 > vf_format;
 
 typedef vf_pos::packed_type pos_vector;

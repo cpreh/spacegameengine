@@ -34,9 +34,9 @@ make_vertex_format()
 
 	return
 		sge::renderer::vf::dynamic::make_format<
-			typename sge::sprite::vertex_format<
+			sge::sprite::vertex_format<
 				Choices
-			>::type
+			>
 		>();
 }
 

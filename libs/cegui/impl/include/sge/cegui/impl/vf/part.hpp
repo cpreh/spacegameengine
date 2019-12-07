@@ -11,9 +11,6 @@
 #include <sge/cegui/impl/vf/position.hpp>
 #include <sge/cegui/impl/vf/texcoord.hpp>
 #include <sge/renderer/vf/part.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -27,11 +24,9 @@ namespace vf
 
 typedef
 sge::renderer::vf::part<
-	metal::list<
-		sge::cegui::impl::vf::position,
-		sge::cegui::impl::vf::texcoord,
-		sge::cegui::impl::vf::color
-	>
+	sge::cegui::impl::vf::position,
+	sge::cegui::impl::vf::texcoord,
+	sge::cegui::impl::vf::color
 >
 part;
 

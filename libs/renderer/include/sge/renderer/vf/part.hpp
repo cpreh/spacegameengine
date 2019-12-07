@@ -26,20 +26,15 @@ namespace vf
 {
 
 template<
-	typename ElementList
+	typename... Elements
 >
 struct part
 {
 	typedef
-	ElementList
+	metal::list<
+		Elements...
+	>
 	elements;
-
-	static_assert(
-		metal::is_list<
-			ElementList
-		>::value,
-		"ElementList must be a metal sequence"
-	);
 
 	typedef
 	fcppt::metal::from_number_list<

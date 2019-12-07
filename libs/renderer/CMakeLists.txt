@@ -941,6 +941,7 @@ set(
 	libs/renderer/include/sge/renderer/vf/normal.hpp
 	libs/renderer/include/sge/renderer/vf/normal_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/part.hpp
+	libs/renderer/include/sge/renderer/vf/part_from_list.hpp
 	libs/renderer/include/sge/renderer/vf/part_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/pointer.hpp
 	libs/renderer/include/sge/renderer/vf/pos.hpp

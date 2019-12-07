@@ -98,7 +98,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -183,18 +182,14 @@ try
 
 	typedef
 	sge::renderer::vf::part<
-		metal::list<
-			pos3_type,
-			texpos2_type
-		>
+		pos3_type,
+		texpos2_type
 	>
 	format_part;
 
 	typedef
 	sge::renderer::vf::format<
-		metal::list<
-			format_part
-		>
+		format_part
 	>
 	format;
 //! [texture_vf_declaration]

@@ -4,8 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_RENDERER_VF_FORMAT_FWD_HPP_INCLUDED
-#define SGE_RENDERER_VF_FORMAT_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_PART_FROM_LIST_HPP_INCLUDED
+#define SGE_RENDERER_VF_PART_FROM_LIST_HPP_INCLUDED
+
+#include <sge/renderer/vf/part.hpp>
+#include <fcppt/metal/list_to_variadic.hpp>
 
 
 namespace sge
@@ -16,9 +19,15 @@ namespace vf
 {
 
 template<
-	typename... Parts
+	typename List
 >
-struct format;
+using
+part_from_list
+=
+fcppt::metal::list_to_variadic<
+	sge::renderer::vf::part,
+	List
+>;
 
 }
 }

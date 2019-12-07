@@ -59,7 +59,6 @@
 #include <cstdlib>
 #include <exception>
 #include <iostream>
-#include <metal.hpp>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
@@ -140,18 +139,14 @@ try
 		<< FCPPT_TEXT('\n');
 
 	typedef sge::renderer::vf::part<
-		metal::list<
-			sge::renderer::vf::pos<
-				float,
-				3
-			>
+		sge::renderer::vf::pos<
+			float,
+			3
 		>
 	> vf_part;
 
 	typedef sge::renderer::vf::format<
-		metal::list<
-			vf_part
-		>
+		vf_part
 	> vf_format;
 
 	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(

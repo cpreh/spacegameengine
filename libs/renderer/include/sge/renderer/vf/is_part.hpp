@@ -30,11 +30,11 @@ std::false_type
 };
 
 template<
-	typename ElementList
+	typename... Elements
 >
 struct is_part<
 	sge::renderer::vf::part<
-		ElementList
+		Elements...
 	>
 >
 :

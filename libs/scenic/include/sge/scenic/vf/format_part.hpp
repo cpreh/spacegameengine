@@ -11,9 +11,6 @@
 #include <sge/scenic/vf/normal.hpp>
 #include <sge/scenic/vf/position.hpp>
 #include <sge/scenic/vf/texcoord.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -25,11 +22,9 @@ namespace vf
 
 typedef
 sge::renderer::vf::part<
-	metal::list<
-		sge::scenic::vf::position,
-		sge::scenic::vf::normal,
-		sge::scenic::vf::texcoord
-	>
+	sge::scenic::vf::position,
+	sge::scenic::vf::normal,
+	sge::scenic::vf::texcoord
 >
 format_part;
 

@@ -22,28 +22,25 @@ namespace vf
 {
 
 template<
-	typename PartList
+	typename... Parts
 >
 struct format
 {
-	static_assert(
-		metal::is_list<
-			PartList
-		>::value,
-		"PartList must be a metal sequence"
-	);
+	typedef
+	metal::list<
+		Parts...
+	>
+	parts;
 
 	static_assert(
 		metal::all_of<
-			PartList,
+			parts,
 			metal::trait<
 				sge::renderer::vf::is_part
 			>
 		>::value,
 		"PartList must be a list of sge::renderer::vf::part"
 	);
-
-	typedef PartList parts;
 };
 
 }

@@ -258,18 +258,14 @@ normal;
 
 typedef
 sge::renderer::vf::part<
-	metal::list<
-		position,
-		normal
-	>
+	position,
+	normal
 >
 format_part;
 
 typedef
 sge::renderer::vf::format<
-	metal::list<
-		format_part
-	>
+	format_part
 >
 format;
 
