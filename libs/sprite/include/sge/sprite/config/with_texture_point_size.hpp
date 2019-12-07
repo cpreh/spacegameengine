@@ -16,7 +16,7 @@
 #include <sge/sprite/detail/primitives/texture_point_size.hpp>
 #include <sge/sprite/detail/primitives/texture_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/join.hpp>
+#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 

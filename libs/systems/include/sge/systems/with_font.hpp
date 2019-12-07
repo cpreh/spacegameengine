@@ -10,7 +10,7 @@
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/with_font_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 

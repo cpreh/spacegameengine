@@ -30,9 +30,7 @@
 #include <fcppt/metal/maps_equal.hpp>
 #include <fcppt/record/element_map.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
-#include <metal/map/map.hpp>
-#include <metal/pair/pair.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

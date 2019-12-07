@@ -9,11 +9,7 @@
 
 #include <sge/systems/detail/assert_dependencies_one.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/always.hpp>
-#include <metal/lambda/arg.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/list/all_of.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

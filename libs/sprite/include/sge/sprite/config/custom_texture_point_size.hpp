@@ -9,7 +9,7 @@
 
 #include <sge/sprite/config/custom_texture_point_size_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 

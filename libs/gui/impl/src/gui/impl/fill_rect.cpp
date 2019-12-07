@@ -25,7 +25,7 @@
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/size.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

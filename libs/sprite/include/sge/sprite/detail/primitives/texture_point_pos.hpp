@@ -13,8 +13,7 @@
 #include <sge/sprite/types/texture_point_pos.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

@@ -39,7 +39,7 @@
 #include <sge/sprite/state/parameters_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/circular_buffer.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

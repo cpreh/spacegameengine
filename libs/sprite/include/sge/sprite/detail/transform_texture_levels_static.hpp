@@ -9,7 +9,7 @@
 
 #include <sge/sprite/detail/make_texture_levels.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/transform.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

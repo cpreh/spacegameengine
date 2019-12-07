@@ -8,7 +8,7 @@
 #define SGE_IMAGE_IMPL_FORMAT_MAP_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <metal/map/map.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

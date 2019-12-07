@@ -103,9 +103,9 @@
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
 #include <example_main.hpp>
 #include <exception>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

@@ -13,7 +13,7 @@
 #include <sge/systems/with_renderer_fwd.hpp>
 #include <sge/systems/with_window_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

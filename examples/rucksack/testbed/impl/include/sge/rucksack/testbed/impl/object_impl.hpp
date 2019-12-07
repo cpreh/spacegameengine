@@ -32,7 +32,7 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>

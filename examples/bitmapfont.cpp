@@ -91,9 +91,9 @@
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
 #include <example_main.hpp>
 #include <exception>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

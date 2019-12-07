@@ -9,7 +9,7 @@
 
 #include <sge/image/impl/format_key.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/pair/pair.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

@@ -12,7 +12,7 @@
 #include <sge/sprite/state/with_rasterizer.hpp>
 #include <sge/sprite/state/with_transform.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

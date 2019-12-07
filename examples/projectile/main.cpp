@@ -124,7 +124,6 @@
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
 #include <chrono>
 #include <example_main.hpp>
 #include <exception>
@@ -132,6 +131,7 @@
 #include <ios>
 #include <iostream>
 #include <istream>
+#include <metal.hpp>
 #include <ostream>
 #include <sstream>
 #include <vector>

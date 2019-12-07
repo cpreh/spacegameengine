@@ -14,7 +14,7 @@
 #include <sge/renderer/vf/detail/read_wrapper_impl.hpp>
 #include <fcppt/metal/index_of.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/at.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

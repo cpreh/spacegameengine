@@ -10,8 +10,7 @@
 #include <sge/systems/detail/is_with_renderer.hpp>
 #include <fcppt/metal/index_of_if.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/trait.hpp>
-#include <metal/list/at.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

@@ -12,7 +12,7 @@
 #include <sge/sprite/types/basic/float_vector.hpp>
 #include <fcppt/metal/to_number.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/at.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

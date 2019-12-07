@@ -10,7 +10,7 @@
 #include <sge/renderer/vf/format.hpp>
 #include <sge/scenic/vf/format_part.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

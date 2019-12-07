@@ -12,7 +12,7 @@
 #include <sge/scenic/vf/position.hpp>
 #include <sge/scenic/vf/texcoord.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

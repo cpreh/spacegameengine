@@ -10,7 +10,7 @@
 #include <sge/image/impl/traits/pixel/format_map.hpp>
 #include <fcppt/metal/flip_map.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/map/at_key.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

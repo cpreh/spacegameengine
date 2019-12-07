@@ -12,7 +12,7 @@
 #include <sge/sprite/config/is_size_choice.hpp>
 #include <sge/sprite/config/is_type_choices.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

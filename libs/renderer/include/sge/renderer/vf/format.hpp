@@ -10,9 +10,7 @@
 #include <sge/renderer/vf/format_fwd.hpp>
 #include <sge/renderer/vf/is_part.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/trait.hpp>
-#include <metal/list/all_of.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

@@ -10,7 +10,7 @@
 #include <sge/sprite/config/is_with_texture.hpp>
 #include <sge/sprite/detail/config/find_if.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/front.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

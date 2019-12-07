@@ -11,11 +11,7 @@
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/trait.hpp>
-#include <metal/list/copy_if.hpp>
-#include <metal/list/join.hpp>
-#include <metal/list/transform.hpp>
+#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 

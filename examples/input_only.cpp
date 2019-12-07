@@ -25,9 +25,9 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
 #include <example_main.hpp>
 #include <exception>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

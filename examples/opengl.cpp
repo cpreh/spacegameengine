@@ -56,10 +56,10 @@
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
 #include <cstdlib>
 #include <exception>
 #include <iostream>
+#include <metal.hpp>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 

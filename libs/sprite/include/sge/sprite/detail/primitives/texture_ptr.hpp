@@ -13,7 +13,7 @@
 #include <sge/sprite/roles/texture.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/lambda.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

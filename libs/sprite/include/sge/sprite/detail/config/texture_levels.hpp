@@ -9,7 +9,7 @@
 
 #include <sge/sprite/detail/config/find_texture_config.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/front.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

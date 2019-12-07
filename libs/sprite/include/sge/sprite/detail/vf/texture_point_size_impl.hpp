@@ -14,8 +14,7 @@
 #include <sge/sprite/detail/config/texture_levels.hpp>
 #include <fcppt/metal/to_number.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/list/at.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

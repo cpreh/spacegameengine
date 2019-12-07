@@ -44,7 +44,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <array>
 #include <cstddef>
 #include <cstring>

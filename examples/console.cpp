@@ -91,10 +91,10 @@
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
 #include <example_main.hpp>
 #include <exception>
 #include <iostream>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

@@ -19,13 +19,7 @@
 #include <fcppt/container/join.hpp>
 #include <fcppt/type_traits/implication.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/always.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/trait.hpp>
-#include <metal/list/all_of.hpp>
-#include <metal/list/contains.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

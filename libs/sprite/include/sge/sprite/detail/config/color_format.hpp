@@ -11,11 +11,7 @@
 #include <sge/sprite/detail/config/find_if.hpp>
 #include <sge/sprite/detail/config/lazy_head.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/always.hpp>
-#include <metal/lambda/invoke.hpp>
-#include <metal/list/empty.hpp>
-#include <metal/number/if.hpp>
-#include <metal/value/value.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

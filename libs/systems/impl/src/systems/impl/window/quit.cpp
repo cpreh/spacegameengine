@@ -21,7 +21,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

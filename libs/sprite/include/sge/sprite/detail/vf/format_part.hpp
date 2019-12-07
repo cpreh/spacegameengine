@@ -18,21 +18,7 @@
 #include <sge/sprite/detail/vf/texpos.hpp>
 #include <sge/sprite/detail/vf/texture_point.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/always.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/invoke.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/lambda/trait.hpp>
-#include <metal/list/any_of.hpp>
-#include <metal/list/flatten.hpp>
-#include <metal/list/join.hpp>
-#include <metal/list/list.hpp>
-#include <metal/list/remove.hpp>
-#include <metal/list/transform.hpp>
-#include <metal/number/if.hpp>
-#include <metal/pair/first.hpp>
-#include <metal/pair/pair.hpp>
-#include <metal/pair/second.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

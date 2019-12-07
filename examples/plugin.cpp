@@ -54,10 +54,10 @@
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/optional_level.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
 #include <cstdlib>
 #include <exception>
 #include <iostream>
+#include <metal.hpp>
 #include <ostream>
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>

@@ -8,10 +8,7 @@
 #define SGE_SPRITE_DETAIL_CONFIG_LAZY_HEAD_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/always.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/list/front.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

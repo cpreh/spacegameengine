@@ -12,7 +12,7 @@
 #include <sge/sprite/detail/transform_texture_levels_static.hpp>
 #include <sge/sprite/detail/config/texture_levels.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/lambda.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

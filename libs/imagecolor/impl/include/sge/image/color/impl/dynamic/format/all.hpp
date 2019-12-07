@@ -18,7 +18,7 @@
 #include <sge/image/color/impl/dynamic/format/srgb_c8_3.hpp>
 #include <sge/image/color/impl/dynamic/format/srgb_c8_4.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

@@ -11,11 +11,7 @@
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <fcppt/metal/enum_range.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/always.hpp>
-#include <metal/lambda/arg.hpp>
-#include <metal/lambda/bind.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/list/transform.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

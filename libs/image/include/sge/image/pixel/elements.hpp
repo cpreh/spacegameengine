@@ -10,8 +10,7 @@
 #include <sge/image/pixel/mizuiro_type.hpp>
 #include <sge/image/traits/pixel/static_formats.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/list/transform.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

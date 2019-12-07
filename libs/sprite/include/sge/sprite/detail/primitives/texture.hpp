@@ -13,7 +13,7 @@
 #include <sge/sprite/detail/primitives/texture_ptr.hpp>
 #include <sge/sprite/detail/primitives/texture_repetition.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/join.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

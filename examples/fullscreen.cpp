@@ -57,10 +57,10 @@
 #include <fcppt/text.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
 #include <chrono>
 #include <example_main.hpp>
 #include <exception>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

@@ -11,7 +11,7 @@
 #include <sge/sprite/detail/vf/point_size.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 

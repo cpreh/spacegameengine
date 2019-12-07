@@ -12,7 +12,7 @@
 #include <sge/cegui/impl/vf/texcoord.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

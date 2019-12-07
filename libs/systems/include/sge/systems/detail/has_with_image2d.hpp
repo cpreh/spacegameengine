@@ -9,7 +9,7 @@
 
 #include <sge/systems/with_image2d_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/contains.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

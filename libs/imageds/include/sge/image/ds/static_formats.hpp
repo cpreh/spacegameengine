@@ -11,7 +11,7 @@
 #include <sge/image/ds/d24s8_format.hpp>
 #include <sge/image/ds/d32_format.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

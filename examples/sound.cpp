@@ -57,7 +57,6 @@
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <metal/list/list.hpp>
 #include <algorithm>
 #include <chrono>
 #include <cmath>
@@ -69,6 +68,7 @@
 #include <iostream>
 #include <iterator>
 #include <limits>
+#include <metal.hpp>
 #include <ostream>
 #include <string>
 #include <vector>

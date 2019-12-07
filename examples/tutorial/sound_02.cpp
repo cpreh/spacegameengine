@@ -40,12 +40,12 @@
 #include <fcppt/math/twopi.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
 #include <chrono>
 #include <cmath>
 #include <cstdlib>
 #include <exception>
 #include <iostream>
+#include <metal.hpp>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 

@@ -8,8 +8,7 @@
 #define SGE_SPRITE_STATE_DETAIL_NEEDS_FFP_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/trait.hpp>
-#include <metal/list/any_of.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

@@ -9,8 +9,7 @@
 
 #include <sge/systems/detail/is_with_input.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/trait.hpp>
-#include <metal/list/any_of.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

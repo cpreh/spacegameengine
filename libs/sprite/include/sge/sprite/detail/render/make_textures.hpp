@@ -7,16 +7,15 @@
 #ifndef SGE_SPRITE_DETAIL_RENDER_MAKE_TEXTURES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_MAKE_TEXTURES_HPP_INCLUDED
 
+#include <sge/sprite/detail/transform_texture_levels_static.hpp>
 #include <sge/sprite/detail/config/has_texture_levels.hpp>
 #include <sge/sprite/detail/config/texture_levels.hpp>
-#include <sge/sprite/detail/transform_texture_levels_static.hpp>
-#include <sge/sprite/render/texture_ref.hpp>
 #include <sge/sprite/detail/roles/texture.hpp>
+#include <sge/sprite/render/texture_ref.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/lambda/lambda.hpp>
-#include <metal/list/list.hpp>
+#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 

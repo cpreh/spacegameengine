@@ -94,13 +94,13 @@
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/join.hpp>
-#include <metal/list/list.hpp>
 #include <cstdlib>
 #include <functional>
 #include <ios>
 #include <iostream>
 #include <istream>
 #include <limits>
+#include <metal.hpp>
 #include <ostream>
 #include <string>
 #include <fcppt/config/external_end.hpp>

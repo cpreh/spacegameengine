@@ -14,7 +14,7 @@
 #include <fcppt/optional/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
-#include <metal/map/at_key.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

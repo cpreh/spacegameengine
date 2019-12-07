@@ -8,8 +8,7 @@
 #define SGE_SPRITE_DETAIL_CONFIG_CONTAINS_IF_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/any_of.hpp>
-#include <metal/lambda/trait.hpp>
+#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

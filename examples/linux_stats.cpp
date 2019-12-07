@@ -117,7 +117,6 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
 #include <array>
 #include <example_main.hpp>
 #include <exception>
@@ -125,6 +124,7 @@
 #include <ios>
 #include <limits>
 #include <map>
+#include <metal.hpp>
 #include <numeric>
 #include <string>
 #include <type_traits>

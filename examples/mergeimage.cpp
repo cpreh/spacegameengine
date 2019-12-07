@@ -57,13 +57,13 @@
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal/list/list.hpp>
 #include <algorithm>
 #include <cstdlib>
 #include <exception>
 #include <filesystem>
 #include <iostream>
 #include <iterator>
+#include <metal.hpp>
 #include <ostream>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
