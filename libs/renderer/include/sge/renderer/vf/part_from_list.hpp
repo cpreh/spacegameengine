@@ -8,7 +8,7 @@
 #define SGE_RENDERER_VF_PART_FROM_LIST_HPP_INCLUDED
 
 #include <sge/renderer/vf/part.hpp>
-#include <fcppt/metal/list_to_variadic.hpp>
+#include <fcppt/metal/as.hpp>
 
 
 namespace sge
@@ -24,7 +24,7 @@ template<
 using
 part_from_list
 =
-fcppt::metal::list_to_variadic<
+fcppt::metal::as<
 	sge::renderer::vf::part,
 	List
 >;
