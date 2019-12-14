@@ -10,7 +10,7 @@
 #include <sge/x11input/device/valuator/absolute.hpp>
 #include <sge/x11input/device/valuator/any_fwd.hpp>
 #include <sge/x11input/device/valuator/relative.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

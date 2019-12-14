@@ -10,7 +10,7 @@
 #include <sge/renderer/display_mode/fullscreen_desktop.hpp>
 #include <sge/renderer/display_mode/fullscreen_fwd.hpp>
 #include <sge/renderer/display_mode/object.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

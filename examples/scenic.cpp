@@ -121,8 +121,8 @@
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
+#include <fcppt/record/object_impl.hpp>
 #include <fcppt/record/permute.hpp>
-#include <fcppt/record/variadic.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -156,7 +156,7 @@ FCPPT_RECORD_MAKE_LABEL(
 );
 
 typedef
-fcppt::record::variadic<
+fcppt::record::object<
 	fcppt::record::element<
 		record_to_file_label,
 		fcppt::optional::object<

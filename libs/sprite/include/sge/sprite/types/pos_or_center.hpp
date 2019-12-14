@@ -10,7 +10,7 @@
 #include <sge/sprite/types/center.hpp>
 #include <sge/sprite/types/pos.hpp>
 #include <sge/sprite/types/pos_or_center_fwd.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

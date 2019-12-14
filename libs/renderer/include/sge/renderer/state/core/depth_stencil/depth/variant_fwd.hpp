@@ -9,7 +9,7 @@
 
 #include <sge/renderer/state/core/depth_stencil/depth/enabled_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/off_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -26,7 +26,7 @@ namespace depth
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::renderer::state::core::depth_stencil::depth::off,
 	sge::renderer::state::core::depth_stencil::depth::enabled
 >

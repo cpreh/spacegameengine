@@ -11,7 +11,7 @@
 #include <sge/font/align_h/left.hpp>
 #include <sge/font/align_h/right.hpp>
 #include <sge/font/align_h/variant_fwd.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

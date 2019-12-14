@@ -118,8 +118,8 @@
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
+#include <fcppt/record/object_impl.hpp>
 #include <fcppt/record/permute.hpp>
-#include <fcppt/record/variadic.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/get_exn.hpp>
 #include <fcppt/variant/match.hpp>
@@ -542,7 +542,7 @@ FCPPT_RECORD_MAKE_LABEL(
 );
 
 typedef
-fcppt::record::variadic<
+fcppt::record::object<
 	fcppt::record::element<
 		rectangle_count_label,
 		unsigned

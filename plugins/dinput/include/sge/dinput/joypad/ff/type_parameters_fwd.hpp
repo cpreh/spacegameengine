@@ -8,7 +8,7 @@
 #define SGE_DINPUT_JOYPAD_FF_TYPE_PARAMETERS_FWD_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -21,7 +21,7 @@ namespace ff
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	DICONDITION,
 	DIPERIODIC,
 	DICONSTANTFORCE,

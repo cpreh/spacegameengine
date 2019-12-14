@@ -12,7 +12,7 @@
 #include <sge/renderer/vf/dynamic/normal_fwd.hpp>
 #include <sge/renderer/vf/dynamic/pos_fwd.hpp>
 #include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -25,7 +25,7 @@ namespace dynamic
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::renderer::vf::dynamic::pos,
 	sge::renderer::vf::dynamic::normal,
 	sge::renderer::vf::dynamic::color,

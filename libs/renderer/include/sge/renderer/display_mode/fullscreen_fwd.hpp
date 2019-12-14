@@ -9,7 +9,7 @@
 
 #include <sge/renderer/display_mode/fullscreen_desktop_fwd.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -20,7 +20,7 @@ namespace display_mode
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::renderer::display_mode::fullscreen_desktop,
 	sge::renderer::display_mode::object
 >

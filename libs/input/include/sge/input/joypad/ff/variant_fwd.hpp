@@ -11,7 +11,7 @@
 #include <sge/input/joypad/ff/constant_fwd.hpp>
 #include <sge/input/joypad/ff/periodic_fwd.hpp>
 #include <sge/input/joypad/ff/ramp_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -24,7 +24,7 @@ namespace ff
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::input::joypad::ff::constant,
 	sge::input::joypad::ff::ramp,
 	sge::input::joypad::ff::periodic,

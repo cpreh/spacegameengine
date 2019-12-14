@@ -10,7 +10,7 @@
 #include <sge/renderer/state/ffp/sampler/binary_op_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/ternary_op_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/unary_op_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -25,7 +25,7 @@ namespace sampler
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::renderer::state::ffp::sampler::unary_op,
 	sge::renderer::state::ffp::sampler::binary_op,
 	sge::renderer::state::ffp::sampler::ternary_op

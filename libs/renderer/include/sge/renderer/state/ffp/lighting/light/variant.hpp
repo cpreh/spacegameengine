@@ -11,7 +11,7 @@
 #include <sge/renderer/state/ffp/lighting/light/point.hpp>
 #include <sge/renderer/state/ffp/lighting/light/spot.hpp>
 #include <sge/renderer/state/ffp/lighting/light/variant_fwd.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

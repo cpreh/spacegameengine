@@ -13,7 +13,7 @@
 #include <sge/sprite/buffers/roles/first_vertex.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
 #include <fcppt/record/element.hpp>
-#include <fcppt/record/object_impl.hpp>
+#include <fcppt/record/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <type_traits>
@@ -50,7 +50,7 @@ private:
 	index_buffer_role;
 public:
 	typedef
-	fcppt::record::object<
+	fcppt::record::from_list<
 		std::conditional_t<
 			sge::sprite::detail::config::needs_index_buffer<
 				Choices

@@ -10,7 +10,7 @@
 #include <sge/renderer/state/core/blend/alpha_enabled.hpp>
 #include <sge/renderer/state/core/blend/alpha_off.hpp>
 #include <sge/renderer/state/core/blend/alpha_variant_fwd.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

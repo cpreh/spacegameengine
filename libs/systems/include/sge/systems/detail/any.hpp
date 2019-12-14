@@ -16,7 +16,7 @@
 #include <sge/systems/window.hpp>
 #include <sge/systems/detail/any_fwd.hpp>
 #include <sge/systems/detail/renderer.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

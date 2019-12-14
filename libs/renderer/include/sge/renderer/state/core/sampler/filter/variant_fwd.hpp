@@ -9,7 +9,7 @@
 
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters_fwd.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/parameters_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -26,7 +26,7 @@ namespace filter
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::renderer::state::core::sampler::filter::anisotropic::parameters,
 	sge::renderer::state::core::sampler::filter::normal::parameters
 >

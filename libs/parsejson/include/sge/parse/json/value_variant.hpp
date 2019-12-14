@@ -8,7 +8,7 @@
 #define SGE_PARSE_JSON_VALUE_VARIANT_HPP_INCLUDED
 
 #include <sge/parse/json/value_variant_fwd.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

@@ -12,7 +12,7 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/context_fwd.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 namespace sge
@@ -39,7 +39,7 @@ public:
 	get() const;
 private:
 	typedef
-	fcppt::variant::variadic<
+	fcppt::variant::object<
 		fcppt::unique_ptr<
 			fcppt::log::context
 		>,

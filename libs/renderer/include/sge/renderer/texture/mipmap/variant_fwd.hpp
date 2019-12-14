@@ -10,7 +10,7 @@
 #include <sge/renderer/texture/mipmap/all_levels_rep.hpp>
 #include <sge/renderer/texture/mipmap/levels_rep.hpp>
 #include <sge/renderer/texture/mipmap/off_rep.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -23,7 +23,7 @@ namespace mipmap
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::renderer::texture::mipmap::off_rep,
 	sge::renderer::texture::mipmap::all_levels_rep,
 	sge::renderer::texture::mipmap::levels_rep

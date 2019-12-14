@@ -15,7 +15,7 @@
 #include <sge/systems/input_fwd.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/systems/detail/renderer_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -26,7 +26,7 @@ namespace detail
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::systems::config,
 	sge::systems::window,
 	sge::systems::detail::renderer,

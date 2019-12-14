@@ -9,7 +9,7 @@
 
 #include <sge/sprite/types/center_fwd.hpp>
 #include <sge/sprite/types/pos_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -25,7 +25,7 @@ template<
 using
 pos_or_center
 =
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::sprite::types::pos<
 		TypeChoices
 	>,

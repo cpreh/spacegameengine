@@ -13,7 +13,7 @@
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -33,7 +33,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wignored-attributes)
 #endif
 
 typedef
-fcppt::variant::object<
+fcppt::variant::from_list<
 	fcppt::metal::unique<
 		::metal::list<
 			cl_char,

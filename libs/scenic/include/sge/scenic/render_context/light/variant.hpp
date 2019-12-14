@@ -9,7 +9,7 @@
 
 #include <sge/scenic/render_context/light/directional.hpp>
 #include <sge/scenic/render_context/light/point.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 namespace sge
@@ -22,7 +22,7 @@ namespace light
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::scenic::render_context::light::directional,
 	sge::scenic::render_context::light::point
 >

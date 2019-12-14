@@ -10,7 +10,7 @@
 #include <sge/projectile/body/solidity/nonsolid_fwd.hpp>
 #include <sge/projectile/body/solidity/solid_fwd.hpp>
 #include <sge/projectile/body/solidity/static_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -23,7 +23,7 @@ namespace solidity
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::projectile::body::solidity::static_,
 	sge::projectile::body::solidity::solid,
 	sge::projectile::body::solidity::nonsolid

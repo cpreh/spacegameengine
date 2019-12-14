@@ -9,7 +9,7 @@
 
 #include <sge/parse/json/array_fwd.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -20,7 +20,7 @@ namespace json
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::parse::json::array,
 	sge::parse::json::object
 >

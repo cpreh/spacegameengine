@@ -17,7 +17,7 @@
 #include <sge/image/traits/pixel/format_fwd.hpp>
 #include <fcppt/no_init_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -46,7 +46,7 @@ public:
 	store_elements;
 
 	typedef
-	fcppt::variant::object<
+	fcppt::variant::from_list<
 		store_elements
 	>
 	variant;

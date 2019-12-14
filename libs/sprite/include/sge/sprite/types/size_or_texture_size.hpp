@@ -10,7 +10,7 @@
 #include <sge/sprite/types/dim.hpp>
 #include <sge/sprite/types/size_or_texture_size_fwd.hpp>
 #include <sge/sprite/types/texture_size.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

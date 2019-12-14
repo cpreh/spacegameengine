@@ -10,7 +10,7 @@
 #include <sge/renderer/state/core/depth_stencil/stencil/combined.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/enabled_variant_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/separate.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

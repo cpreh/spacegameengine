@@ -12,7 +12,7 @@
 #include <sge/input/joypad/ff/periodic.hpp>
 #include <sge/input/joypad/ff/ramp.hpp>
 #include <sge/input/joypad/ff/variant_fwd.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

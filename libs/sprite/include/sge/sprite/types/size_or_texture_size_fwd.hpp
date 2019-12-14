@@ -9,7 +9,7 @@
 
 #include <sge/sprite/types/dim_fwd.hpp>
 #include <sge/sprite/types/texture_size_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -25,7 +25,7 @@ template<
 using
 size_or_texture_size
 =
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::sprite::types::dim<
 		TypeChoices
 	>,

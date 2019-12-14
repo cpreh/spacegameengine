@@ -13,7 +13,7 @@
 #include <sge/image/pixel/elements.hpp>
 #include <sge/image/pixel/mizuiro_type_fwd.hpp>
 #include <sge/image/pixel/object_fwd.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/from_list.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ public:
 	elements;
 
 	typedef
-	fcppt::variant::object<
+	fcppt::variant::from_list<
 		elements
 	>
 	variant;

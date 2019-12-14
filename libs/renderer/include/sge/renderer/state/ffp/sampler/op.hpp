@@ -11,7 +11,7 @@
 #include <sge/renderer/state/ffp/sampler/op_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/ternary_op.hpp>
 #include <sge/renderer/state/ffp/sampler/unary_op.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

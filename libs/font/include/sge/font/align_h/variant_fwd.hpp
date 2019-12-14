@@ -10,7 +10,7 @@
 #include <sge/font/align_h/center_fwd.hpp>
 #include <sge/font/align_h/left_fwd.hpp>
 #include <sge/font/align_h/right_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -21,7 +21,7 @@ namespace align_h
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::font::align_h::left,
 	sge::font::align_h::center,
 	sge::font::align_h::right

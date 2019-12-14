@@ -9,7 +9,7 @@
 
 #include <sge/renderer/state/ffp/lighting/enabled_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/off_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -24,7 +24,7 @@ namespace lighting
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::renderer::state::ffp::lighting::off,
 	sge::renderer::state::ffp::lighting::enabled
 >

@@ -11,7 +11,7 @@
 #include <sge/projectile/body/solidity/solid.hpp>
 #include <sge/projectile/body/solidity/static.hpp>
 #include <sge/projectile/body/solidity/variant_fwd.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

@@ -11,7 +11,7 @@
 #include <sge/bvh/leaf_wrapper.hpp>
 #include <sge/bvh/node_wrapper.hpp>
 #include <fcppt/container/tree/object.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -67,7 +67,7 @@ struct tree_traits
 	leaf_wrapper_sequence;
 
 	typedef
-	fcppt::variant::variadic<
+	fcppt::variant::object<
 		node_wrapper,
 		leaf_wrapper_sequence,
 		sge::bvh::empty_node

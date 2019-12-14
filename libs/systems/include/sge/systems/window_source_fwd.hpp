@@ -9,7 +9,7 @@
 
 #include <sge/systems/original_window_fwd.hpp>
 #include <sge/systems/wrapped_window_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -18,7 +18,7 @@ namespace systems
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::systems::original_window,
 	sge::systems::wrapped_window
 >

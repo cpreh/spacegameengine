@@ -10,7 +10,7 @@
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/window_source_fwd.hpp>
 #include <sge/systems/wrapped_window.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

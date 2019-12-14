@@ -10,7 +10,7 @@
 #include <sge/media/load_stream_result_fwd.hpp>
 #include <sge/media/stream_unique_ptr.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

@@ -15,7 +15,7 @@
 #include <sge/image/view/mizuiro_type_fwd.hpp>
 #include <sge/image/view/object_fwd.hpp>
 #include <mizuiro/nonconst_tag.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/from_list.hpp>
 
 
 namespace sge
@@ -38,7 +38,7 @@ public:
 	elements;
 
 	typedef
-	fcppt::variant::object<
+	fcppt::variant::from_list<
 		elements
 	>
 	variant;

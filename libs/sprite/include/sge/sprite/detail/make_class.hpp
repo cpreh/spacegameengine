@@ -8,7 +8,7 @@
 #define SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
 
 #include <sge/sprite/detail/apply_choices.hpp>
-#include <fcppt/record/object_impl.hpp>
+#include <fcppt/record/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -26,7 +26,7 @@ template<
 >
 using make_class
 =
-fcppt::record::object<
+fcppt::record::from_list<
 	metal::flatten<
 		typename
 		sge::sprite::detail::apply_choices<

@@ -10,7 +10,7 @@
 #include <sge/renderer/state/ffp/alpha_test/enabled.hpp>
 #include <sge/renderer/state/ffp/alpha_test/off.hpp>
 #include <sge/renderer/state/ffp/alpha_test/variant_fwd.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

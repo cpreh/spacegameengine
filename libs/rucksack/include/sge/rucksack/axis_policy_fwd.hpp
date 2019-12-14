@@ -9,7 +9,7 @@
 
 #include <sge/rucksack/minimum_size_fwd.hpp>
 #include <sge/rucksack/preferred_size_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -18,7 +18,7 @@ namespace rucksack
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::rucksack::minimum_size,
 	sge::rucksack::preferred_size
 >

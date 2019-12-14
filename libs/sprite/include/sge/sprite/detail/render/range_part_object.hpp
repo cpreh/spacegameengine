@@ -18,7 +18,7 @@
 #include <sge/sprite/detail/roles/index_count.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
 #include <fcppt/record/element.hpp>
-#include <fcppt/record/object_impl.hpp>
+#include <fcppt/record/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <type_traits>
@@ -96,7 +96,7 @@ private:
 	geometry_types;
 public:
 	typedef
-	fcppt::record::object<
+	fcppt::record::from_list<
 		metal::join<
 			geometry_types,
 			typename

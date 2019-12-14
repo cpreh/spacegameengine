@@ -9,7 +9,7 @@
 
 #include <sge/renderer/state/core/blend/combined_fwd.hpp>
 #include <sge/renderer/state/core/blend/separate_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -24,7 +24,7 @@ namespace blend
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::renderer::state::core::blend::combined,
 	sge::renderer::state::core::blend::separate
 >

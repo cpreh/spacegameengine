@@ -9,7 +9,7 @@
 
 #include <sge/image/size_type.hpp>
 #include <sge/image/color/impl/dynamic/view/basic_elements.hpp>
-#include <fcppt/variant/object_fwd.hpp>
+#include <fcppt/variant/from_list_fwd.hpp>
 
 
 namespace sge
@@ -31,7 +31,7 @@ template<
 >
 using basic_variant
 =
-fcppt::variant::object<
+fcppt::variant::from_list<
 	sge::image::color::impl::dynamic::view::basic_elements<
 		Dim,
 		Constness

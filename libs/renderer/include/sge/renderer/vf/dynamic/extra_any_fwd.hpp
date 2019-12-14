@@ -9,7 +9,7 @@
 
 #include <sge/renderer/vf/dynamic/color_fwd.hpp>
 #include <sge/renderer/vf/dynamic/vector_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -22,7 +22,7 @@ namespace dynamic
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::renderer::vf::dynamic::vector,
 	sge::renderer::vf::dynamic::color
 >

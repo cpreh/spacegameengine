@@ -10,7 +10,7 @@
 #include <sge/renderer/state/ffp/lighting/light/directional_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/light/point_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/light/spot_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -27,7 +27,7 @@ namespace light
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::renderer::state::ffp::lighting::light::directional,
 	sge::renderer::state::ffp::lighting::light::point,
 	sge::renderer::state::ffp::lighting::light::spot

@@ -10,7 +10,7 @@
 #include <sge/renderer/state/core/sampler/filter/variant_fwd.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/parameters.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

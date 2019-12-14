@@ -9,7 +9,7 @@
 
 #include <sge/x11input/device/valuator/absolute_fwd.hpp>
 #include <sge/x11input/device/valuator/relative_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -22,7 +22,7 @@ namespace valuator
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::x11input::device::valuator::absolute,
 	sge::x11input::device::valuator::relative
 >

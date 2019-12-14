@@ -10,7 +10,7 @@
 #include <sge/renderer/state/ffp/fog/enabled.hpp>
 #include <sge/renderer/state/ffp/fog/off.hpp>
 #include <sge/renderer/state/ffp/fog/variant_fwd.hpp>
-#include <fcppt/variant/variadic.hpp>
+#include <fcppt/variant/object_impl.hpp>
 
 
 #endif

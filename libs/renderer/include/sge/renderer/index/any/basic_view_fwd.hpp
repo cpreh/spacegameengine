@@ -8,7 +8,7 @@
 #define SGE_RENDERER_INDEX_ANY_BASIC_VIEW_FWD_HPP_INCLUDED
 
 #include <sge/renderer/index/any/detail/variant_types.hpp>
-#include <fcppt/variant/object_fwd.hpp>
+#include <fcppt/variant/from_list_fwd.hpp>
 
 
 namespace sge
@@ -26,7 +26,7 @@ template<
 using
 basic_view
 =
-fcppt::variant::object<
+fcppt::variant::from_list<
 	sge::renderer::index::any::detail::variant_types<
 		Constness
 	>

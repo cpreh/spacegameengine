@@ -9,7 +9,7 @@
 
 #include <sge/renderer/state/ffp/alpha_test/enabled_fwd.hpp>
 #include <sge/renderer/state/ffp/alpha_test/off_fwd.hpp>
-#include <fcppt/variant/variadic_fwd.hpp>
+#include <fcppt/variant/object_fwd.hpp>
 
 
 namespace sge
@@ -24,7 +24,7 @@ namespace alpha_test
 {
 
 typedef
-fcppt::variant::variadic<
+fcppt::variant::object<
 	sge::renderer::state::ffp::alpha_test::off,
 	sge::renderer::state::ffp::alpha_test::enabled
 >
