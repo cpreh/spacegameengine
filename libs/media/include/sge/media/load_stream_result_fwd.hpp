@@ -10,9 +10,6 @@
 #include <sge/media/stream_unique_ptr_fwd.hpp>
 #include <fcppt/unique_ptr_fwd.hpp>
 #include <fcppt/variant/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <boost/mpl/vector/vector10.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
