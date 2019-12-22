@@ -17,7 +17,6 @@
 #include <sge/sprite/geometry/detail/fill_texture_coordinates_rect.hpp>
 #include <sge/texture/area_texc.hpp>
 #include <sge/texture/part.hpp>
-#include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -39,16 +38,18 @@ template<
 >
 inline
 std::enable_if_t<
-	sge::sprite::detail::config::has_texture_coordinates<
-		Choices
-	>::value
-	&&
-	sge::sprite::detail::config::has_normal_size<
-		Choices
-	>::value,
+	std::conjunction_v<
+		sge::sprite::detail::config::has_texture_coordinates<
+			Choices
+		>,
+		sge::sprite::detail::config::has_normal_size<
+			Choices
+		>
+	>,
 	void
 >
 fill_texture_coordinates(
+	Level const &,
 	Iterator const &_iterator,
 	sge::sprite::object<
 		Choices
@@ -74,16 +75,18 @@ template<
 >
 inline
 std::enable_if_t<
-	sge::sprite::detail::config::has_repetition<
-		Choices
-	>::value
-	&&
-	sge::sprite::detail::config::has_normal_size<
-		Choices
-	>::value,
+	std::conjunction_v<
+		sge::sprite::detail::config::has_repetition<
+			Choices
+		>,
+		sge::sprite::detail::config::has_normal_size<
+			Choices
+		>
+	>,
 	void
 >
 fill_texture_coordinates(
+	Level const &,
 	Iterator const &_iterator,
 	sge::sprite::object<
 		Choices
@@ -116,22 +119,25 @@ template<
 >
 inline
 std::enable_if_t<
-	sge::sprite::detail::config::has_normal_size<
-		Choices
-	>::value
-	&&
-	fcppt::not_(
-		sge::sprite::detail::config::has_repetition<
+	std::conjunction_v<
+		sge::sprite::detail::config::has_normal_size<
 			Choices
-		>::value
-		||
-		sge::sprite::detail::config::has_texture_coordinates<
-			Choices
-		>::value
-	),
+		>,
+		std::negation<
+			std::disjunction<
+				sge::sprite::detail::config::has_repetition<
+					Choices
+				>,
+				sge::sprite::detail::config::has_texture_coordinates<
+					Choices
+				>
+			>
+		>
+	>,
 	void
 >
 fill_texture_coordinates(
+	Level const &,
 	Iterator const &_iterator,
 	sge::sprite::object<
 		Choices

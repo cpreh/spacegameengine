@@ -40,6 +40,7 @@ std::enable_if_t<
 	void
 >
 fill_texture_level_impl(
+	Level const &_level,
 	Iterator const _iterator,
 	sge::sprite::object<
 		Choices
@@ -47,9 +48,8 @@ fill_texture_level_impl(
 	sge::texture::part const &_texture
 )
 {
-	sge::sprite::geometry::detail::fill_texture_coordinates<
-		Level
-	>(
+	sge::sprite::geometry::detail::fill_texture_coordinates(
+		_level,
 		_iterator,
 		_sprite,
 		_texture
@@ -69,6 +69,7 @@ std::enable_if_t<
 	void
 >
 fill_texture_level_impl(
+	Level const &_level,
 	Iterator const _iterator,
 	sge::sprite::object<
 		Choices
@@ -76,9 +77,8 @@ fill_texture_level_impl(
 	sge::texture::part const &
 )
 {
-	sge::sprite::geometry::detail::fill_texture_point<
-		Level
-	>(
+	sge::sprite::geometry::detail::fill_texture_point(
+		_level,
 		_iterator,
 		_sprite
 	);

@@ -62,9 +62,8 @@ public:
 		>
 		level;
 
-		sge::sprite::geometry::detail::fill_texture_level_impl<
-			level
-		>(
+		sge::sprite::geometry::detail::fill_texture_level_impl(
+			level{},
 			iterator_,
 			object_.get(),
 			sge::sprite::deref_texture(
