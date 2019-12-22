@@ -10,6 +10,7 @@
 #include <sge/image/color/is_convertible.hpp>
 #include <sge/image/pixel/mizuiro_type.hpp>
 #include <mizuiro/color/convert_static.hpp>
+#include <fcppt/tag.hpp>
 
 
 namespace sge
@@ -39,9 +40,10 @@ convert(
 	);
 
 	return
-		mizuiro::color::convert_static::convert<
-			DestFormat
-		>(
+		mizuiro::color::convert_static::convert(
+			fcppt::tag<
+				DestFormat
+			>{},
 			_src
 		);
 }
