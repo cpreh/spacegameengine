@@ -66,10 +66,9 @@ public:
 		metal::lambda<
 			make_texture_role
 		>,
-		typename
 		sge::sprite::detail::config::texture_levels<
 			Choices
-		>::type
+		>
 	>
 	type;
 };

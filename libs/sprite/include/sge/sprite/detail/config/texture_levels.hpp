@@ -25,18 +25,16 @@ namespace config
 template<
 	typename Choices
 >
-struct texture_levels
-{
-	typedef
+using
+texture_levels
+=
+typename
+metal::front<
 	typename
-	metal::front<
-		typename
-		sge::sprite::detail::config::find_texture_config<
-			Choices
-		>::type
-	>::texture_levels
-	type;
-};
+	sge::sprite::detail::config::find_texture_config<
+		Choices
+	>::type
+>::texture_levels;
 
 }
 }

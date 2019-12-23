@@ -34,10 +34,9 @@ struct texture_point_size_impl
 {
 private:
 	typedef
-	typename
 	sge::sprite::detail::config::texture_levels<
 		Choices
-	>::type
+	>
 	texture_levels;
 
 	typedef

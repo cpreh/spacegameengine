@@ -60,7 +60,7 @@ struct textures
 			sge::sprite::compare::detail::textures<
 				sge::sprite::detail::config::texture_levels<
 					Choices
-				>::type::value
+				>::value
 			>::execute(
 				_left,
 				_right

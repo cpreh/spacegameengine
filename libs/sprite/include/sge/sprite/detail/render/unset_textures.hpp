@@ -40,9 +40,9 @@ unset_textures(
 )
 {
 	sge::sprite::detail::render::unset_texture_stages<
-		typename sge::sprite::detail::config::texture_levels<
+		sge::sprite::detail::config::texture_levels<
 			Choices
-		>::type
+		>
 	>(
 		_render_context
 	);

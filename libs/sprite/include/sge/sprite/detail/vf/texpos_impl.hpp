@@ -51,10 +51,9 @@ public:
 		metal::lambda<
 			make_pos
 		>,
-		typename
 		sge::sprite::detail::config::texture_levels<
 			Choices
-		>::type
+		>
 	>
 	type;
 };

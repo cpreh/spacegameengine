@@ -61,9 +61,9 @@ fill_texture_levels(
 	);
 
 	sge::sprite::detail::apply_texture_levels<
-		typename sge::sprite::detail::config::texture_levels<
+		sge::sprite::detail::config::texture_levels<
 			Choices
-		>::type
+		>
 	>(
 		sge::sprite::geometry::detail::fill_texture_level<
 			Iterator,
