@@ -28,7 +28,7 @@ pos_packed_type
 typename
 sge::sprite::detail::vf::pos<
 	Choices
->::type::packed_type;
+>::packed_type;
 
 }
 }

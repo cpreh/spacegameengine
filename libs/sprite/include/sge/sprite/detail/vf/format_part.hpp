@@ -39,10 +39,9 @@ struct format_part
 private:
 	typedef
 	metal::list<
-		typename
 		sge::sprite::detail::vf::pos<
 			Choices
-		>::type
+		>
 	>
 	basic;
 

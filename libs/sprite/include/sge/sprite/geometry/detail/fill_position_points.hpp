@@ -42,9 +42,9 @@ fill_position_points(
 	vector_float;
 
 	(*_iterator). template set<
-		typename sge::sprite::detail::vf::pos<
+		sge::sprite::detail::vf::pos<
 			Choices
-		>::type
+		>
 	>(
 		sge::sprite::geometry::detail::make_position<
 			Choices

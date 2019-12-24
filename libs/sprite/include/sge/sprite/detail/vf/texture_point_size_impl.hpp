@@ -40,10 +40,9 @@ private:
 	texture_levels;
 
 	typedef
-	typename
 	sge::sprite::detail::config::find_with_texture_point_size<
 		Choices
-	>::type
+	>
 	with_texture_point_size;
 
 	typedef

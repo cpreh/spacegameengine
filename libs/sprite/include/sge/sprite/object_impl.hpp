@@ -220,7 +220,7 @@ sge::sprite::object<
 		sge::sprite::detail::get_pos<
 			Choices
 		>(
-			elements_
+			this->elements_
 		);
 }
 
@@ -238,7 +238,7 @@ sge::sprite::object<
 		sge::sprite::detail::get_center<
 			Choices
 		>(
-			elements_
+			this->elements_
 		);
 }
 
@@ -292,7 +292,7 @@ sge::sprite::object<
 		sge::sprite::detail::get_size<
 			Choices
 		>(
-			elements_
+			this->elements_
 		);
 }
 
@@ -309,9 +309,7 @@ sge::sprite::object<
 	return
 		this->get<
 			sge::sprite::roles::point_size
-		>(
-			elements_
-		);
+		>();
 }
 
 template<
@@ -348,9 +346,7 @@ sge::sprite::object<
 			sge::sprite::roles::texture_point_pos<
 				Level
 			>
-		>(
-			elements_
-		);
+		>();
 }
 
 template<
@@ -594,7 +590,7 @@ sge::sprite::object<
 	sge::sprite::detail::set_pos<
 		Choices
 	>(
-		elements_,
+		this->elements_,
 		pos_type(
 			_pos
 		)
@@ -614,7 +610,7 @@ sge::sprite::object<
 	sge::sprite::detail::set_center<
 		Choices
 	>(
-		elements_,
+		this->elements_,
 		center_type(
 			_center
 		)
@@ -670,7 +666,7 @@ sge::sprite::object<
 	sge::sprite::detail::set_size<
 		Choices
 	>(
-		elements_,
+		this->elements_,
 		_dim
 	);
 }
@@ -921,7 +917,7 @@ sge::sprite::object<
 		fcppt::record::get<
 			Role
 		>(
-			elements_
+			this->elements_
 		);
 }
 
@@ -945,7 +941,7 @@ sge::sprite::object<
 	fcppt::record::set<
 		Role
 	>(
-		elements_,
+		this->elements_,
 		_value
 	);
 }

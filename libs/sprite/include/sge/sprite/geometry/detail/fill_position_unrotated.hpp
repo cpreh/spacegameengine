@@ -39,9 +39,11 @@ fill_position_unrotated(
 {
 	typedef typename Choices::type_choices type_choices;
 
-	typedef typename sge::sprite::detail::vf::pos<
+	typedef
+	sge::sprite::detail::vf::pos<
 		Choices
-	>::type vertex_pos;
+	>
+	vertex_pos;
 
 	typedef sge::sprite::geometry::detail::float_rect<
 		type_choices

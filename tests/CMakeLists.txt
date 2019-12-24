@@ -190,6 +190,7 @@ add_sge_test(
 	SGE_DEPS
 		sgeimage
 		sgeimagecolor
+		sgerenderer
 		sgesprite
 		sgetexture
 	ADDITIONAL_DEPS

@@ -108,8 +108,6 @@ example_main(
 )
 try
 {
-	// FIXME
-/*
 	sge::systems::instance<
 		sge::systems::with_window,
 		sge::systems::with_renderer<
@@ -349,9 +347,7 @@ try
 					);
 				}
 			}
-		);*/
-	return
-		awl::main::exit_failure();
+		);
 }
 catch(
 	fcppt::exception const &_error

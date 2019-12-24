@@ -144,9 +144,11 @@ fill_position_rotated(
 		)
 	);
 
-	typedef typename sge::sprite::detail::vf::pos<
+	typedef
+	sge::sprite::detail::vf::pos<
 		Choices
-	>::type vertex_pos;
+	>
+	vertex_pos;
 
 	for(
 		auto const &cur_pos

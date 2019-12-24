@@ -22,13 +22,14 @@ namespace vf
 template<
 	typename Choices
 >
-struct pos
-{
-	typedef sge::renderer::vf::pos<
-		typename Choices::type_choices::float_type,
-		3
-	> type;
-};
+using
+pos
+=
+sge::renderer::vf::pos<
+	typename
+	Choices::type_choices::float_type,
+	3
+>;
 
 }
 }
