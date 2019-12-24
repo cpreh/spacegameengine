@@ -9,9 +9,6 @@
 
 #include <sge/renderer/vf/dynamic/element_type.hpp>
 #include <sge/renderer/vf/dynamic/detail/element_c.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 
 namespace sge
@@ -44,9 +41,6 @@ sge::renderer::vf::dynamic::detail::element_c<\
 >\
 {\
 }
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_FORMAT_TO_ELEMENT(
 	float,
@@ -87,8 +81,6 @@ SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_FORMAT_TO_ELEMENT(
 	unsigned,
 	uint
 );
-
-FCPPT_PP_POP_WARNING
 
 #undef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_FORMAT_TO_ELEMENT
 

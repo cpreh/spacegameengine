@@ -9,9 +9,6 @@
 
 #include <sge/renderer/vf/detail/read_wrapper_decl.hpp>
 #include <fcppt/no_init.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -59,9 +56,6 @@ sge::renderer::vf::detail::read_wrapper<
 	return value_;
 }
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	typename T
 >
@@ -77,8 +71,6 @@ sge::renderer::vf::detail::read_wrapper<
 // Don't initialize value_
 {
 }
-
-FCPPT_PP_POP_WARNING
 
 template<
 	typename T

@@ -14,10 +14,6 @@
 #include <sge/renderer/vf/vector_base.hpp>
 #include <sge/renderer/vf/vector_fwd.hpp>
 #include <mizuiro/color/format/homogenous_static_fwd.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -29,9 +25,6 @@ namespace renderer
 {
 namespace vf
 {
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Format,
@@ -92,8 +85,6 @@ sge::renderer::vf::extra_base<
 >
 {
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }

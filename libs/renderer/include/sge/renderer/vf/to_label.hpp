@@ -4,10 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_RENDERER_VF_EXTRA_BASE_HPP_INCLUDED
-#define SGE_RENDERER_VF_EXTRA_BASE_HPP_INCLUDED
-
-#include <sge/renderer/vf/labels/extra.hpp>
+#ifndef SGE_RENDERER_VF_TO_LABEL_HPP_INCLUDED
+#define SGE_RENDERER_VF_TO_LABEL_HPP_INCLUDED
 
 
 namespace sge
@@ -18,21 +16,13 @@ namespace vf
 {
 
 template<
-	typename Base,
-	typename Index
+	typename Type
 >
-struct extra_base
-:
-	Base
-{
-	typedef Index index;
-
-	typedef
-	sge::renderer::vf::labels::extra<
-		Index::value
-	>
-	label;
-};
+using
+to_label
+=
+typename
+Type::label;
 
 }
 }

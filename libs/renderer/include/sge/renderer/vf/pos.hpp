@@ -10,9 +10,7 @@
 #include <sge/renderer/vf/element_count_type.hpp>
 #include <sge/renderer/vf/pos_fwd.hpp>
 #include <sge/renderer/vf/vector_base.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/renderer/vf/labels/pos.hpp>
 #include <fcppt/type_traits/is_float_or_double.hpp>
 
 
@@ -22,9 +20,6 @@ namespace renderer
 {
 namespace vf
 {
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Format,
@@ -48,9 +43,11 @@ sge::renderer::vf::vector_base<
 		NumSubElements >= 2 && NumSubElements <= 4,
 		"A vertex format pos must have between 2 and 4 elements"
 	);
-};
 
-FCPPT_PP_POP_WARNING
+	typedef
+	sge::renderer::vf::labels::pos
+	label;
+};
 
 }
 }

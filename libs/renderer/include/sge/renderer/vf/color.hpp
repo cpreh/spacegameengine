@@ -9,9 +9,7 @@
 
 #include <sge/renderer/vf/color_base.hpp>
 #include <sge/renderer/vf/color_fwd.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/renderer/vf/labels/color.hpp>
 
 
 namespace sge
@@ -20,9 +18,6 @@ namespace renderer
 {
 namespace vf
 {
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Format
@@ -33,9 +28,10 @@ sge::renderer::vf::color_base<
 	Format
 >
 {
+	typedef
+	sge::renderer::vf::labels::color
+	label;
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }

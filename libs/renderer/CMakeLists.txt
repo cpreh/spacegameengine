@@ -937,6 +937,11 @@ set(
 	libs/renderer/include/sge/renderer/vf/iterator_decl.hpp
 	libs/renderer/include/sge/renderer/vf/iterator_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/iterator_impl.hpp
+	libs/renderer/include/sge/renderer/vf/labels/color.hpp
+	libs/renderer/include/sge/renderer/vf/labels/extra.hpp
+	libs/renderer/include/sge/renderer/vf/labels/normal.hpp
+	libs/renderer/include/sge/renderer/vf/labels/pos.hpp
+	libs/renderer/include/sge/renderer/vf/labels/texpos.hpp
 	libs/renderer/include/sge/renderer/vf/nonconst_tag.hpp
 	libs/renderer/include/sge/renderer/vf/normal.hpp
 	libs/renderer/include/sge/renderer/vf/normal_fwd.hpp
@@ -948,6 +953,8 @@ set(
 	libs/renderer/include/sge/renderer/vf/pos_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/texpos.hpp
 	libs/renderer/include/sge/renderer/vf/texpos_fwd.hpp
+	libs/renderer/include/sge/renderer/vf/to_label.hpp
+	libs/renderer/include/sge/renderer/vf/to_packed_type.hpp
 	libs/renderer/include/sge/renderer/vf/vector.hpp
 	libs/renderer/include/sge/renderer/vf/vector3_base.hpp
 	libs/renderer/include/sge/renderer/vf/vector_base.hpp

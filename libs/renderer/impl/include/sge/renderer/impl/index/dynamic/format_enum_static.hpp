@@ -10,9 +10,6 @@
 #include <sge/renderer/index/format_is_16.hpp>
 #include <sge/renderer/index/format_is_32.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -34,9 +31,6 @@ template<
 	typename Enable = void
 >
 struct format_enum_static;
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Format
@@ -75,8 +69,6 @@ std::integral_constant<
 >
 {
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }

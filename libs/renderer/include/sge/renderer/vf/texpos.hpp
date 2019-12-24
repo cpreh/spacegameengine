@@ -10,9 +10,7 @@
 #include <sge/renderer/vf/element_count_type.hpp>
 #include <sge/renderer/vf/texpos_fwd.hpp>
 #include <sge/renderer/vf/vector_base.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <sge/renderer/vf/labels/texpos.hpp>
 #include <fcppt/type_traits/is_float_or_double.hpp>
 
 
@@ -22,9 +20,6 @@ namespace renderer
 {
 namespace vf
 {
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Format,
@@ -52,9 +47,13 @@ sge::renderer::vf::vector_base<
 	);
 
 	typedef Index index;
-};
 
-FCPPT_PP_POP_WARNING
+	typedef
+	sge::renderer::vf::labels::texpos<
+		Index::value
+	>
+	label;
+};
 
 }
 }
