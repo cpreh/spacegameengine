@@ -39,23 +39,21 @@ std::enable_if_t<
 	void
 >
 fill_texture_point(
-	Level const &,
+	Level const &_level,
 	Iterator const _iterator,
 	sge::sprite::object<
 		Choices
 	> const &_sprite
 )
 {
-	sge::sprite::geometry::detail::fill_texture_point_pos<
-		Level
-	>(
+	sge::sprite::geometry::detail::fill_texture_point_pos(
+		_level,
 		_iterator,
 		_sprite
 	);
 
-	sge::sprite::geometry::detail::fill_texture_point_size<
-		Level
-	>(
+	sge::sprite::geometry::detail::fill_texture_point_size(
+		_level,
 		_iterator,
 		_sprite
 	);

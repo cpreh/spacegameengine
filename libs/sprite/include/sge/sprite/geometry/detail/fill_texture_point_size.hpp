@@ -39,6 +39,7 @@ std::enable_if_t<
 	void
 >
 fill_texture_point_size(
+	Level const &,
 	Iterator const _iterator,
 	sge::sprite::object<
 		Choices
@@ -81,6 +82,7 @@ std::enable_if_t<
 	void
 >
 fill_texture_point_size(
+	Level const &,
 	Iterator,
 	sge::sprite::object<
 		Choices
