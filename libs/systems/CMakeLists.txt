@@ -10,7 +10,6 @@ set(
 	libs/systems/impl/include/sge/systems/impl/audio/player_pair.hpp
 	libs/systems/impl/include/sge/systems/impl/audio/player_pair_fwd.hpp
 	libs/systems/impl/include/sge/systems/impl/audio/player_unique_ptr.hpp
-	libs/systems/impl/include/sge/systems/impl/detail/custom_cursor.hpp
 	libs/systems/impl/include/sge/systems/impl/detail/instance_impl.hpp
 	libs/systems/impl/include/sge/systems/impl/extract_config.hpp
 	libs/systems/impl/include/sge/systems/impl/extract_plugin_path.hpp
@@ -76,7 +75,6 @@ set(
 	libs/systems/impl/src/systems/impl/audio/loader.cpp
 	libs/systems/impl/src/systems/impl/audio/player.cpp
 	libs/systems/impl/src/systems/impl/audio/player_pair.cpp
-	libs/systems/impl/src/systems/impl/detail/custom_cursor.cpp
 	libs/systems/impl/src/systems/impl/detail/instance_impl.cpp
 	libs/systems/impl/src/systems/impl/extract_config.cpp
 	libs/systems/impl/src/systems/impl/extract_plugin_path.cpp
@@ -114,14 +112,10 @@ set(
 	libs/systems/include/sge/systems/audio_player_fwd.hpp
 	libs/systems/include/sge/systems/config.hpp
 	libs/systems/include/sge/systems/config_fwd.hpp
-	libs/systems/include/sge/systems/cursor_hotspot.hpp
-	libs/systems/include/sge/systems/cursor_hotspot_fwd.hpp
 	libs/systems/include/sge/systems/cursor_option.hpp
 	libs/systems/include/sge/systems/cursor_option_field.hpp
 	libs/systems/include/sge/systems/cursor_option_field_fwd.hpp
 	libs/systems/include/sge/systems/cursor_option_fwd.hpp
-	libs/systems/include/sge/systems/custom_cursor.hpp
-	libs/systems/include/sge/systems/custom_cursor_fwd.hpp
 	libs/systems/include/sge/systems/detail/any.hpp
 	libs/systems/include/sge/systems/detail/any_fwd.hpp
 	libs/systems/include/sge/systems/detail/any_key.hpp
@@ -130,7 +124,6 @@ set(
 	libs/systems/include/sge/systems/detail/any_map.hpp
 	libs/systems/include/sge/systems/detail/assert_dependencies.hpp
 	libs/systems/include/sge/systems/detail/assert_dependencies_one.hpp
-	libs/systems/include/sge/systems/detail/custom_cursor_fwd.hpp
 	libs/systems/include/sge/systems/detail/extract_needs_init.hpp
 	libs/systems/include/sge/systems/detail/extract_parameter_type.hpp
 	libs/systems/include/sge/systems/detail/has_with_audio_loader.hpp
@@ -217,7 +210,6 @@ set(
 	libs/systems/src/systems/audio_player.cpp
 	libs/systems/src/systems/audio_player_default.cpp
 	libs/systems/src/systems/config.cpp
-	libs/systems/src/systems/custom_cursor.cpp
 	libs/systems/src/systems/detail/instance.cpp
 	libs/systems/src/systems/detail/list.cpp
 	libs/systems/src/systems/detail/quit_on_escape.cpp
@@ -256,8 +248,6 @@ add_sge_base_library(
 		sgeparseini
 		sgeplugin
 		sgerenderer
-		sgesprite
-		sgetexture
 		sgeviewport
 		sgewindow
 	TRANSITIVE_SGE_DEPS
@@ -270,7 +260,6 @@ add_sge_base_library(
 		sgemedia_interface
 		sgeplugin_interface
 		sgerenderer_interface
-		sgetexture_interface
 		sgeviewport_interface
 		sgewindow_interface
 	ADDITIONAL_DEPS

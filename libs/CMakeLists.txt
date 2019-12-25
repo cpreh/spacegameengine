@@ -366,6 +366,12 @@ add_sge_lib(
 	ON
 )
 
+add_sge_lib(
+	cursor
+	"Build the cursor library"
+	ON
+)
+
 ##################################################
 # Libraries with Cg dependencies
 ##################################################

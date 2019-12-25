@@ -4,16 +4,16 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_SYSTEMS_CUSTOM_CURSOR_HPP_INCLUDED
-#define SGE_SYSTEMS_CUSTOM_CURSOR_HPP_INCLUDED
+#ifndef SGE_CURSOR_OBJECT_HPP_INCLUDED
+#define SGE_CURSOR_OBJECT_HPP_INCLUDED
 
+#include <sge/cursor/hotspot_fwd.hpp>
+#include <sge/cursor/object_fwd.hpp>
+#include <sge/cursor/detail/object_fwd.hpp>
+#include <sge/cursor/detail/symbol.hpp>
 #include <sge/input/processor_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/systems/cursor_hotspot_fwd.hpp>
-#include <sge/systems/custom_cursor_fwd.hpp>
-#include <sge/systems/detail/custom_cursor_fwd.hpp>
-#include <sge/systems/detail/symbol.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -21,49 +21,49 @@
 
 namespace sge
 {
-namespace systems
+namespace cursor
 {
 
-class custom_cursor
+class object
 {
 	FCPPT_NONCOPYABLE(
-		custom_cursor
+		object
 	);
 public:
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	custom_cursor(
+	SGE_CURSOR_DETAIL_SYMBOL
+	object(
 		sge::input::processor const &,
 		sge::renderer::device::ffp &,
 		sge::texture::part const &,
-		sge::systems::cursor_hotspot
+		sge::cursor::hotspot
 	);
 
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	custom_cursor(
-		custom_cursor &&
+	SGE_CURSOR_DETAIL_SYMBOL
+	object(
+		object &&
 	);
 
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	custom_cursor &
+	SGE_CURSOR_DETAIL_SYMBOL
+	object &
 	operator=(
-		custom_cursor &&
+		object &&
 	);
 
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	~custom_cursor();
+	SGE_CURSOR_DETAIL_SYMBOL
+	~object();
 
-	SGE_SYSTEMS_DETAIL_SYMBOL
+	SGE_CURSOR_DETAIL_SYMBOL
 	void
 	draw(
 		sge::renderer::context::ffp &
 	);
 
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::cursor_hotspot
+	SGE_CURSOR_DETAIL_SYMBOL
+	sge::cursor::hotspot
 	hotspot() const;
 private:
 	fcppt::unique_ptr<
-		sge::systems::detail::custom_cursor
+		sge::cursor::detail::object
 	> impl_;
 };
 

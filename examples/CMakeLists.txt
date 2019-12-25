@@ -320,6 +320,7 @@ add_sge_example(
 	custom_cursor
 	SGE_DEPS
 		sgeconfig
+		sgecursor
 		sgeimagecolor
 		sgeinput
 		sgelog

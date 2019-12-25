@@ -1,0 +1,28 @@
+set(
+	SGE_CURSOR_FILES
+	libs/cursor/impl/include/sge/cursor/impl/detail/object.hpp
+	libs/cursor/impl/src/cursor/impl/detail/object.cpp
+	libs/cursor/include/sge/cursor/detail/object_fwd.hpp
+	libs/cursor/include/sge/cursor/hotspot.hpp
+	libs/cursor/include/sge/cursor/hotspot_fwd.hpp
+	libs/cursor/include/sge/cursor/object.hpp
+	libs/cursor/include/sge/cursor/object_fwd.hpp
+	libs/cursor/src/cursor/object.cpp
+)
+
+add_sge_base_library(
+	cursor
+	HAS_IMPL_DIR
+	SGE_DEPS
+		sgeinput
+		sgerenderer
+		sgesprite
+		sgetexture
+	TRANSITIVE_SGE_DEPS
+		sgeinput_interface
+		sgerenderer_interface
+		sgetexture_interface
+	ADDITIONAL_DEPS
+	TRANSITIVE_ADDITIONAL_DEPS
+		fcppt_core_interface
+)

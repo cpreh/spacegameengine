@@ -4,16 +4,16 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_SYSTEMS_CUSTOM_CURSOR_FWD_HPP_INCLUDED
-#define SGE_SYSTEMS_CUSTOM_CURSOR_FWD_HPP_INCLUDED
+#ifndef SGE_CURSOR_OBJECT_FWD_HPP_INCLUDED
+#define SGE_CURSOR_OBJECT_FWD_HPP_INCLUDED
 
 
 namespace sge
 {
-namespace systems
+namespace cursor
 {
 
-class custom_cursor;
+class object;
 
 }
 }

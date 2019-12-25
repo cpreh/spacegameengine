@@ -4,6 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/cursor/hotspot.hpp>
+#include <sge/cursor/impl/detail/object.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
@@ -22,8 +24,6 @@
 #include <sge/sprite/roles/texture0.hpp>
 #include <sge/sprite/state/object_impl.hpp>
 #include <sge/sprite/state/parameters_impl.hpp>
-#include <sge/systems/cursor_hotspot.hpp>
-#include <sge/systems/impl/detail/custom_cursor.hpp>
 #include <sge/texture/const_part_ref.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
@@ -38,11 +38,11 @@
 #include <fcppt/config/external_end.hpp>
 
 
-sge::systems::detail::custom_cursor::custom_cursor(
+sge::cursor::detail::object::object(
 	sge::input::processor const &_processor,
 	sge::renderer::device::ffp &_renderer,
 	sge::texture::part const &_texture,
-	sge::systems::cursor_hotspot const _hotspot
+	sge::cursor::hotspot const _hotspot
 )
 :
 	processor_{
@@ -65,12 +65,12 @@ sge::systems::detail::custom_cursor::custom_cursor(
 {
 }
 
-sge::systems::detail::custom_cursor::~custom_cursor()
+sge::cursor::detail::object::~object()
 {
 }
 
 void
-sge::systems::detail::custom_cursor::draw(
+sge::cursor::detail::object::draw(
 	sge::renderer::context::ffp &_context
 )
 {
@@ -110,15 +110,15 @@ sge::systems::detail::custom_cursor::draw(
 	);
 }
 
-sge::systems::cursor_hotspot
-sge::systems::detail::custom_cursor::hotspot() const
+sge::cursor::hotspot
+sge::cursor::detail::object::hotspot() const
 {
 	return
 		hotspot_;
 }
 
-sge::systems::detail::custom_cursor::optional_sprite
-sge::systems::detail::custom_cursor::make_sprite(
+sge::cursor::detail::object::optional_sprite
+sge::cursor::detail::object::make_sprite(
 	sge::input::cursor::optional_position const _opt_pos
 ) const
 {

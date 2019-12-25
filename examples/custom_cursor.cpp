@@ -5,6 +5,8 @@
 
 
 #include <sge/config/media_path.hpp>
+#include <sge/cursor/hotspot.hpp>
+#include <sge/cursor/object.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/input/log_location.hpp>
@@ -34,9 +36,7 @@
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/systems/config.hpp>
-#include <sge/systems/cursor_hotspot.hpp>
 #include <sge/systems/cursor_option_field.hpp>
-#include <sge/systems/custom_cursor.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
@@ -182,12 +182,12 @@ try
 		)
 	);
 
-	sge::systems::custom_cursor custom_cursor{
+	sge::cursor::object custom_cursor{
 		sys.input_processor(),
 		sys.renderer_device_ffp(),
 		*texture_part,
-		sge::systems::cursor_hotspot(
-			sge::systems::cursor_hotspot::value_type(
+		sge::cursor::hotspot(
+			sge::cursor::hotspot::value_type(
 				10u,
 				10u
 			)

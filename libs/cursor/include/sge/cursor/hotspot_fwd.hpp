@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_SYSTEMS_CURSOR_HOTSPOT_FWD_HPP_INCLUDED
-#define SGE_SYSTEMS_CURSOR_HOTSPOT_FWD_HPP_INCLUDED
+#ifndef SGE_CURSOR_HOTSPOT_FWD_HPP_INCLUDED
+#define SGE_CURSOR_HOTSPOT_FWD_HPP_INCLUDED
 
 #include <sge/texture/pos_fwd.hpp>
 #include <fcppt/make_strong_typedef.hpp>
@@ -13,12 +13,12 @@
 
 namespace sge
 {
-namespace systems
+namespace cursor
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::texture::pos,
-	cursor_hotspot
+	hotspot
 );
 
 }

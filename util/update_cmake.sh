@@ -73,6 +73,7 @@ BASE_LIBS=(
 	config
 	console
 	consolegfx
+	cursor
 	font
 	fontbitmap
 	fontdraw
