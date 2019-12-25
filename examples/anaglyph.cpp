@@ -114,10 +114,12 @@
 #include <sge/renderer/vf/normal.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
-#include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/vf/set_proxy.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
+#include <sge/renderer/vf/labels/pos.hpp>
+#include <sge/renderer/vf/labels/normal.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
@@ -470,9 +472,9 @@ compiled_model::compiled_model(
 			model_vertices
 		)
 		{
-			(*current_vertex).set<
-				vf::position
-			>(
+			sge::renderer::vf::set_proxy(
+				*current_vertex,
+				sge::renderer::vf::labels::pos{},
 				fcppt::math::vector::structure_cast<
 					vf::position::packed_type,
 					fcppt::cast::size_fun
@@ -481,9 +483,9 @@ compiled_model::compiled_model(
 				)
 			);
 
-			(*current_vertex++).set<
-				vf::normal
-			>(
+			sge::renderer::vf::set_proxy(
+				*current_vertex,
+				sge::renderer::vf::labels::normal{},
 				fcppt::math::vector::structure_cast<
 					vf::normal::packed_type,
 					fcppt::cast::size_fun
@@ -491,6 +493,8 @@ compiled_model::compiled_model(
 					*current_model_normal++
 				)
 			);
+
+			++current_vertex;
 		}
 	}
 

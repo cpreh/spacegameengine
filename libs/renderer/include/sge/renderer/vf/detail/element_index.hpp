@@ -4,12 +4,13 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_RENDERER_VF_DETAIL_RAW_DATA_TYPE_HPP_INCLUDED
-#define SGE_RENDERER_VF_DETAIL_RAW_DATA_TYPE_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_DETAIL_ELEMENT_INDEX_HPP_INCLUDED
+#define SGE_RENDERER_VF_DETAIL_ELEMENT_INDEX_HPP_INCLUDED
 
-#include <sge/renderer/const_raw_pointer.hpp>
-#include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/vf/to_label.hpp>
+#include <fcppt/metal/index_of_if.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -24,17 +25,25 @@ namespace detail
 {
 
 template<
-	typename T
+	typename Elements,
+	typename Label
 >
 using
-raw_data_type
+element_index
 =
-std::conditional_t<
-	std::is_const_v<
-		T
-	>,
-	sge::renderer::const_raw_pointer,
-	sge::renderer::raw_pointer
+fcppt::metal::index_of_if<
+	Elements,
+	metal::bind<
+		metal::trait<
+			std::is_same
+		>,
+		metal::always<
+			Label
+		>,
+		metal::lambda<
+			sge::renderer::vf::to_label
+		>
+	>
 >;
 
 }
@@ -43,4 +52,3 @@ std::conditional_t<
 }
 
 #endif
-

@@ -7,8 +7,6 @@
 #ifndef SGE_RENDERER_VF_VERTEX_HPP_INCLUDED
 #define SGE_RENDERER_VF_VERTEX_HPP_INCLUDED
 
-#include <sge/renderer/vf/vertex_decl.hpp>
-#include <sge/renderer/vf/vertex_fwd.hpp>
 #include <sge/renderer/vf/vertex_impl.hpp>
 
 

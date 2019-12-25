@@ -93,10 +93,12 @@
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/texpos.hpp>
-#include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/vf/set_proxy.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
+#include <sge/renderer/vf/labels/pos.hpp>
+#include <sge/renderer/vf/labels/texpos.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
@@ -156,43 +158,57 @@
 namespace
 {
 
-typedef sge::renderer::vf::pos<
+typedef
+sge::renderer::vf::pos<
 	sge::renderer::scalar,
 	3
-> vf_pos;
+>
+vf_pos;
 
-typedef sge::renderer::vf::texpos<
+typedef
+sge::renderer::vf::texpos<
 	sge::renderer::scalar,
 	3,
 	sge::renderer::vf::index<
 		0
 	>
-> vf_texpos0;
+>
+vf_texpos0;
 
-typedef sge::renderer::vf::texpos<
+typedef
+sge::renderer::vf::texpos<
 	sge::renderer::scalar,
 	3,
 	sge::renderer::vf::index<
 		1
 	>
-> vf_texpos1;
+>
+vf_texpos1;
 
-typedef sge::renderer::vf::part<
+typedef
+sge::renderer::vf::part<
 	vf_pos,
 	vf_texpos0,
 	vf_texpos1
-> vf_part;
+>
+vf_part;
 
-typedef sge::renderer::vf::format<
+typedef
+sge::renderer::vf::format<
 	vf_part
-> vf_format;
+>
+vf_format;
 
-typedef vf_pos::packed_type pos_vector;
+typedef
+vf_pos::packed_type
+pos_vector;
 
-typedef std::array<
+typedef
+std::array<
 	pos_vector,
 	2 * 3 * 6
-> pos_array;
+>
+pos_array;
 
 void
 fill_geometry(
@@ -341,15 +357,16 @@ fill_geometry(
 		view.begin()
 	);
 
+	// TODO: Use vf::vertex?
 	for(
 		auto const &position
 		:
 		positions
 	)
 	{
-		(*vb_it).set<
-			vf_pos
-		>(
+		sge::renderer::vf::set_proxy(
+			*vb_it,
+			sge::renderer::vf::labels::pos{},
 			position
 		);
 
@@ -370,17 +387,19 @@ fill_geometry(
 			)
 		);
 
-		(*vb_it).set<
-			vf_texpos0
-		>(
+		sge::renderer::vf::set_proxy(
+			*vb_it,
+			sge::renderer::vf::labels::texpos<0>{},
 			texpos
 		);
 
-		(*vb_it++).set<
-			vf_texpos1
-		>(
+		sge::renderer::vf::set_proxy(
+			*vb_it,
+			sge::renderer::vf::labels::texpos<1>{},
 			texpos
 		);
+
+		++vb_it;
 	}
 }
 

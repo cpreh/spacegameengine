@@ -7,6 +7,8 @@
 #ifndef SGE_SPRITE_GEOMETRY_DETAIL_FILL_POSITION_ROTATED_HPP_INCLUDED
 #define SGE_SPRITE_GEOMETRY_DETAIL_FILL_POSITION_ROTATED_HPP_INCLUDED
 
+#include <sge/renderer/vf/set_proxy.hpp>
+#include <sge/renderer/vf/labels/pos.hpp>
 #include <sge/sprite/bounding_rect.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/geometry/detail/float_rect.hpp>
@@ -144,20 +146,15 @@ fill_position_rotated(
 		)
 	);
 
-	typedef
-	sge::sprite::detail::vf::pos<
-		Choices
-	>
-	vertex_pos;
-
 	for(
 		auto const &cur_pos
 		:
 		positions
 	)
-		(*_iterator++). template set<
-			vertex_pos
-		>(
+	{
+		sge::renderer::vf::set_proxy(
+			*_iterator,
+			sge::renderer::vf::labels::pos{},
 			sge::sprite::geometry::detail::make_position<
 				Choices
 			>(
@@ -165,6 +162,9 @@ fill_position_rotated(
 				_sprite
 			)
 		);
+
+		++_iterator;
+	}
 }
 
 }

@@ -7,8 +7,10 @@
 #ifndef SGE_SPRITE_GEOMETRY_DETAIL_FILL_POSITION_UNROTATED_HPP_INCLUDED
 #define SGE_SPRITE_GEOMETRY_DETAIL_FILL_POSITION_UNROTATED_HPP_INCLUDED
 
+#include <sge/renderer/vf/iterator_impl.hpp>
+#include <sge/renderer/vf/set_proxy.hpp>
+#include <sge/renderer/vf/labels/pos.hpp>
 #include <sge/sprite/bounding_rect.hpp>
-#include <sge/sprite/detail/vf/pos.hpp>
 #include <sge/sprite/geometry/detail/float_rect.hpp>
 #include <sge/sprite/geometry/detail/make_position.hpp>
 #include <sge/sprite/types/basic/float_vector.hpp>
@@ -39,12 +41,6 @@ fill_position_unrotated(
 {
 	typedef typename Choices::type_choices type_choices;
 
-	typedef
-	sge::sprite::detail::vf::pos<
-		Choices
-	>
-	vertex_pos;
-
 	typedef sge::sprite::geometry::detail::float_rect<
 		type_choices
 	> float_rect;
@@ -64,9 +60,9 @@ fill_position_unrotated(
 		type_choices
 	> float_vector;
 
-	(*_iterator++). template set<
-		vertex_pos
-	>(
+	sge::renderer::vf::set_proxy(
+		*_iterator,
+		sge::renderer::vf::labels::pos{},
 		sge::sprite::geometry::detail::make_position<
 			Choices
 		>(
@@ -78,9 +74,11 @@ fill_position_unrotated(
 		)
 	);
 
-	(*_iterator++). template set<
-		vertex_pos
-	>(
+	++_iterator;
+
+	sge::renderer::vf::set_proxy(
+		*_iterator,
+		sge::renderer::vf::labels::pos{},
 		sge::sprite::geometry::detail::make_position<
 			Choices
 		>(
@@ -92,9 +90,11 @@ fill_position_unrotated(
 		)
 	);
 
-	(*_iterator++). template set<
-		vertex_pos
-	>(
+	++_iterator;
+
+	sge::renderer::vf::set_proxy(
+		*_iterator,
+		sge::renderer::vf::labels::pos{},
 		sge::sprite::geometry::detail::make_position<
 			Choices
 		>(
@@ -106,9 +106,9 @@ fill_position_unrotated(
 		)
 	);
 
-	(*_iterator++). template set<
-		vertex_pos
-	>(
+	sge::renderer::vf::set_proxy(
+		*_iterator,
+		sge::renderer::vf::labels::pos{},
 		sge::sprite::geometry::detail::make_position<
 			Choices
 		>(

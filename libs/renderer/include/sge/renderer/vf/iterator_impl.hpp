@@ -9,6 +9,7 @@
 
 #include <sge/renderer/vf/iterator_decl.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/iterator/base_impl.hpp>
 
 
 template<
@@ -55,39 +56,9 @@ void
 sge::renderer::vf::iterator<
 	Part,
 	Constness
->::advance(
-	difference_type const _diff
-)
-{
-	data_ +=
-		this->stride() * _diff;
-}
-
-template<
-	typename Part,
-	typename Constness
->
-void
-sge::renderer::vf::iterator<
-	Part,
-	Constness
 >::increment()
 {
-	data_ +=
-		this->stride();
-}
-
-template<
-	typename Part,
-	typename Constness
->
-void
-sge::renderer::vf::iterator<
-	Part,
-	Constness
->::decrement()
-{
-	data_ -=
+	this->data_ +=
 		this->stride();
 }
 
@@ -104,29 +75,7 @@ sge::renderer::vf::iterator<
 ) const
 {
 	return
-		data_ == _other.data_;
-}
-
-template<
-	typename Part,
-	typename Constness
->
-typename
-sge::renderer::vf::iterator<
-	Part,
-	Constness
->::difference_type
-sge::renderer::vf::iterator<
-	Part,
-	Constness
->::distance_to(
-	iterator const &_other
-) const
-{
-	return
-		(_other.data_ - data_)
-		/
-		stride();
+		this->data_ == _other.data_;
 }
 
 template<
@@ -145,8 +94,32 @@ sge::renderer::vf::iterator<
 {
 	return
 		vertex_type(
-			data_
+			this->data_
 		);
+}
+
+template<
+	typename Part,
+	typename Constness
+>
+sge::renderer::vf::iterator<
+	Part,
+	Constness
+> &
+sge::renderer::vf::iterator<
+	Part,
+	Constness
+>::operator+=(
+	difference_type const _diff
+)
+{
+	this->data_ +=
+		this->stride()
+		*
+		_diff;
+
+	return
+		*this;
 }
 
 #endif

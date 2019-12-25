@@ -8,10 +8,11 @@
 #define SGE_RENDERER_VF_DETAIL_ITERATOR_BASE_HPP_INCLUDED
 
 #include <sge/renderer/vf/iterator_fwd.hpp>
+#include <sge/renderer/vf/proxy_fwd.hpp>
 #include <sge/renderer/vf/vertex_difference.hpp>
-#include <sge/renderer/vf/vertex_fwd.hpp>
+#include <fcppt/iterator/base_decl.hpp>
+#include <fcppt/iterator/types.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/iterator/iterator_facade.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
@@ -29,23 +30,26 @@ template<
 	typename Part,
 	typename Constness
 >
-using iterator_base
+using
+iterator_base
 =
-boost::iterator_facade<
-	sge::renderer::vf::iterator<
-		Part,
-		Constness
-	>,
-	sge::renderer::vf::vertex<
-		Part,
-		Constness
-	>,
-	std::random_access_iterator_tag,
-	sge::renderer::vf::vertex<
-		Part,
-		Constness
-	>,
-	sge::renderer::vf::vertex_difference
+fcppt::iterator::base<
+	fcppt::iterator::types<
+		sge::renderer::vf::iterator<
+			Part,
+			Constness
+		>,
+		sge::renderer::vf::proxy<
+			Part,
+			Constness
+		>,
+		sge::renderer::vf::proxy<
+			Part,
+			Constness
+		>,
+		sge::renderer::vf::vertex_difference,
+		std::input_iterator_tag
+	>
 >;
 
 }

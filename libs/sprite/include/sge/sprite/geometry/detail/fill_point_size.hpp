@@ -7,6 +7,9 @@
 #ifndef SGE_SPRITE_GEOMETRY_DETAIL_FILL_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_GEOMETRY_DETAIL_FILL_POINT_SIZE_HPP_INCLUDED
 
+#include <sge/renderer/vf/set_proxy.hpp>
+#include <sge/renderer/vf/to_packed_type.hpp>
+#include <sge/renderer/vf/labels/extra.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/detail/config/has_point_size.hpp>
 #include <sge/sprite/detail/vf/point_size.hpp>
@@ -49,11 +52,14 @@ fill_point_size(
 	>
 	point_size;
 
-	(*_iterator). template set<
-		point_size
-	>(
-		typename
-		point_size::packed_type(
+	sge::renderer::vf::set_proxy(
+		*_iterator,
+		sge::renderer::vf::labels::extra<
+			point_size::index::value
+		>{},
+		sge::renderer::vf::to_packed_type<
+			point_size
+		>(
 			static_cast<
 				typename
 				Choices::type_choices::float_type

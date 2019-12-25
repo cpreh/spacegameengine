@@ -8,14 +8,11 @@
 #define SGE_RENDERER_VF_PART_HPP_INCLUDED
 
 #include <sge/renderer/vf/part_fwd.hpp>
-#include <sge/renderer/vf/to_label.hpp>
-#include <sge/renderer/vf/to_packed_type.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/detail/element_stride.hpp>
 #include <fcppt/metal/from_number_list.hpp>
 #include <fcppt/metal/partial_sums.hpp>
 #include <fcppt/metal/to_number_list.hpp>
-#include <fcppt/record/element.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -38,23 +35,6 @@ struct part
 		Elements...
 	>
 	elements;
-
-	typedef
-	metal::transform<
-		metal::bind<
-			metal::lambda<
-				fcppt::record::element
-			>,
-			metal::lambda<
-				sge::renderer::vf::to_label
-			>,
-			metal::lambda<
-				sge::renderer::vf::to_packed_type
-			>
-		>,
-		elements
-	>
-	record_elements;
 
 	typedef
 	fcppt::metal::from_number_list<

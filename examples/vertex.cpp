@@ -43,11 +43,14 @@
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
-#include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/vf/proxy.hpp>
+#include <sge/renderer/vf/set_proxy.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
+#include <sge/renderer/vf/labels/color.hpp>
+#include <sge/renderer/vf/labels/pos.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
@@ -237,17 +240,17 @@ try
 		pos3_type::packed_type
 		vec3;
 
-		(*vb_it).set<
-			pos3_type
-		>(
+		sge::renderer::vf::set_proxy(
+			*vb_it,
+			sge::renderer::vf::labels::pos{},
 			vec3(-1.f, 1.f, 0.f)
 		);
 //! [vertex_write_pos_1]
 
 //! [vertex_write_color_1]
-		(*vb_it).set<
-			color_type
-		>(
+		sge::renderer::vf::set_proxy(
+			*vb_it,
+			sge::renderer::vf::labels::color{},
 			sge::image::color::convert<
 				color_format
 			>(
@@ -259,15 +262,15 @@ try
 //! [vertex_write_rest]
 		++vb_it;
 
-		(*vb_it).set<
-			pos3_type
-		>(
+		sge::renderer::vf::set_proxy(
+			*vb_it,
+			sge::renderer::vf::labels::pos{},
 			vec3(-1.f, -1.f, 0.f)
 		);
 
-		(*vb_it).set<
-			color_type
-		>(
+		sge::renderer::vf::set_proxy(
+			*vb_it,
+			sge::renderer::vf::labels::color{},
 			sge::image::color::convert<
 				color_format
 			>(
@@ -277,15 +280,15 @@ try
 
 		++vb_it;
 
-		(*vb_it).set<
-			pos3_type
-		>(
+		sge::renderer::vf::set_proxy(
+			*vb_it,
+			sge::renderer::vf::labels::pos{},
 			vec3(1.f, 1.f, 0.f)
 		);
 
-		(*vb_it).set<
-			color_type
-		>(
+		sge::renderer::vf::set_proxy(
+			*vb_it,
+			sge::renderer::vf::labels::color{},
 			sge::image::color::convert<
 				color_format
 			>(

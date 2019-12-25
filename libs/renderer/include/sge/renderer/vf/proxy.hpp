@@ -4,24 +4,12 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_RENDERER_VF_VERTEX_FWD_HPP_INCLUDED
-#define SGE_RENDERER_VF_VERTEX_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_PROXY_HPP_INCLUDED
+#define SGE_RENDERER_VF_PROXY_HPP_INCLUDED
 
+#include <sge/renderer/vf/proxy_decl.hpp>
+#include <sge/renderer/vf/proxy_fwd.hpp>
+#include <sge/renderer/vf/proxy_impl.hpp>
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-
-template<
-	typename Part
->
-class vertex;
-
-}
-}
-}
 
 #endif

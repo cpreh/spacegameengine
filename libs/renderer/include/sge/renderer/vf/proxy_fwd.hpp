@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_RENDERER_VF_VERTEX_FWD_HPP_INCLUDED
-#define SGE_RENDERER_VF_VERTEX_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_VF_PROXY_FWD_HPP_INCLUDED
+#define SGE_RENDERER_VF_PROXY_FWD_HPP_INCLUDED
 
 
 namespace sge
@@ -16,9 +16,10 @@ namespace vf
 {
 
 template<
-	typename Part
+	typename Part,
+	typename Constness
 >
-class vertex;
+class proxy;
 
 }
 }

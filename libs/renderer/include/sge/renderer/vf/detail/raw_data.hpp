@@ -31,10 +31,9 @@ template<
 inline
 std::enable_if_t<
 	fcppt::math::vector::is_vector<
-		typename
-		std::remove_const<
+		std::remove_const_t<
 			T
-		>::type
+		>
 	>::value,
 	sge::renderer::vf::detail::raw_data_type<
 		T
@@ -59,9 +58,9 @@ template<
 >
 inline
 std::enable_if_t<
-	std::is_fundamental<
+	std::is_fundamental_v<
 		T
-	>::value,
+	>,
 	sge::renderer::vf::detail::raw_data_type<
 		T
 	>
@@ -86,10 +85,9 @@ template<
 inline
 std::enable_if_t<
 	mizuiro::color::is_color<
-		typename
-		std::remove_const<
+		std::remove_const_t<
 			T
-		>::type
+		>
 	>::value,
 	sge::renderer::vf::detail::raw_data_type<
 		T

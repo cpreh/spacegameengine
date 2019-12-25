@@ -7,8 +7,11 @@
 #ifndef SGE_RENDERER_VF_VERTEX_DECL_HPP_INCLUDED
 #define SGE_RENDERER_VF_VERTEX_DECL_HPP_INCLUDED
 
-#include <sge/renderer/vf/pointer.hpp>
 #include <sge/renderer/vf/vertex_fwd.hpp>
+#include <sge/renderer/vf/detail/vertex.hpp>
+#include <fcppt/record/enable_vararg_ctor.hpp>
+#include <fcppt/record/label_value_type.hpp>
+#include <fcppt/record/object_impl.hpp>
 
 
 namespace sge
@@ -19,43 +22,55 @@ namespace vf
 {
 
 template<
-	typename Part,
-	typename Constness
+	typename Part
 >
 class vertex
 {
 public:
 	typedef
-	sge::renderer::vf::pointer<
-		Constness
+	Part
+	format_part;
+
+	typedef
+	typename
+	sge::renderer::vf::detail::vertex<
+		Part
+	>::type
+	record_type;
+
+	template<
+		typename... Args,
+		typename =
+			fcppt::record::enable_vararg_ctor<
+				Args...
+			>
 	>
-	pointer;
-
-	typedef typename Part::elements elements;
-
-	typedef typename Part::offsets offsets;
-
 	explicit
 	vertex(
-		pointer
+		Args &&...
 	);
 
 	template<
-		typename Field
+		typename Label
+	>
+	fcppt::record::label_value_type<
+		record_type,
+		Label
+	> const &
+	get() const;
+
+	template<
+		typename Label
 	>
 	void
 	set(
-		typename Field::packed_type const &
+		fcppt::record::label_value_type<
+			record_type,
+			Label
+		> const &
 	);
-
-	template<
-		typename Field
-	>
-	typename
-	Field::packed_type
-	get() const;
 private:
-	pointer data_;
+	record_type elements_;
 };
 
 }

@@ -8,140 +8,84 @@
 #define SGE_RENDERER_VF_VERTEX_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/vf/vertex_decl.hpp>
-#include <sge/renderer/vf/detail/copy_n.hpp>
-#include <sge/renderer/vf/detail/element_stride.hpp>
-#include <sge/renderer/vf/detail/raw_data.hpp>
-#include <sge/renderer/vf/detail/read_wrapper_impl.hpp>
-#include <fcppt/metal/index_of.hpp>
+#include <fcppt/record/get.hpp>
+#include <fcppt/record/label_value_type.hpp>
+#include <fcppt/record/set.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 template<
-	typename Part,
-	typename Constness
+	typename Part
+>
+template<
+	typename... Args,
+	typename
 >
 sge::renderer::vf::vertex<
-	Part,
-	Constness
+	Part
 >::vertex(
-	pointer const _data
+	Args &&..._args
 )
 :
-	data_(
-		_data
-	)
+	elements_{
+		std::forward<
+			Args
+		>(
+			_args
+		)...
+	}
 {
 }
 
 template<
-	typename Part,
-	typename Constness
+	typename Part
 >
 template<
-	typename Field
+	typename Label
+>
+fcppt::record::label_value_type<
+	typename
+	sge::renderer::vf::vertex<
+		Part
+	>::record_type,
+	Label
+> const &
+sge::renderer::vf::vertex<
+	Part
+>::get() const
+{
+	return
+		fcppt::record::get<
+			Label
+		>(
+			this->elements_
+		);
+}
+
+template<
+	typename Part
+>
+template<
+	typename Label
 >
 void
 sge::renderer::vf::vertex<
-	Part,
-	Constness
+	Part
 >::set(
-	typename Field::packed_type const &_value
+	fcppt::record::label_value_type<
+		record_type,
+		Label
+	> const &_value
 )
 {
-	typedef
-	fcppt::metal::index_of<
-		elements,
-		Field
-	>
-	index;
-
-	typedef
-	metal::at<
-		elements,
-		index
-	>
-	element;
-
-	typedef
-	metal::at<
-		offsets,
-		index
-	>
-	offset;
-
-	sge::renderer::vf::detail::copy_n(
-		sge::renderer::vf::detail::raw_data(
-			_value
-		),
-		sge::renderer::vf::detail::element_stride<
-			element
-		>::value,
-		this->data_
-		+
-		offset::value
+	fcppt::record::set<
+		Label
+	>(
+		this->elements_,
+		_value
 	);
-}
-
-template<
-	typename Part,
-	typename Constness
->
-template<
-	typename Field
->
-typename
-Field::packed_type
-sge::renderer::vf::vertex<
-	Part,
-	Constness
->::get() const
-{
-	typedef
-	fcppt::metal::index_of<
-		elements,
-		Field
-	>
-	index;
-
-	typedef
-	metal::at<
-		elements,
-		index
-	>
-	element;
-
-	typedef
-	metal::at<
-		offsets,
-		index
-	>
-	offset;
-
-	typedef
-	typename
-	element::packed_type
-	packed_type;
-
-	sge::renderer::vf::detail::read_wrapper<
-		packed_type
-	> ret{};
-
-	sge::renderer::vf::detail::copy_n(
-		this->data_
-		+
-		offset::value,
-		sge::renderer::vf::detail::element_stride<
-			element
-		>::value,
-		sge::renderer::vf::detail::raw_data(
-			ret.get()
-		)
-	);
-
-	return
-		ret.get();
 }
 
 #endif

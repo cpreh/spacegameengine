@@ -7,9 +7,10 @@
 #ifndef SGE_SPRITE_GEOMETRY_DETAIL_FILL_COLOR_HPP_INCLUDED
 #define SGE_SPRITE_GEOMETRY_DETAIL_FILL_COLOR_HPP_INCLUDED
 
+#include <sge/renderer/vf/set_proxy.hpp>
+#include <sge/renderer/vf/labels/color.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/detail/config/has_color.hpp>
-#include <sge/sprite/detail/vf/color.hpp>
 #include <sge/sprite/geometry/detail/count.hpp>
 #include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
 #include <fcppt/not.hpp>
@@ -54,13 +55,13 @@ fill_color(
 			&_iterator,
 			&_sprite
 		]{
-			(*_iterator++). template set<
-				sge::sprite::detail::vf::color<
-					Choices
-				>
-			>(
+			sge::renderer::vf::set_proxy(
+				*_iterator,
+				sge::renderer::vf::labels::color{},
 				_sprite.color()
 			);
+
+			++_iterator;
 		}
 	);
 }

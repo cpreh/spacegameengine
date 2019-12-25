@@ -15,10 +15,7 @@
 #include <sge/cegui/impl/optional_render_context_ref.hpp>
 #include <sge/cegui/impl/texture.hpp>
 #include <sge/cegui/impl/to_blend_parameters.hpp>
-#include <sge/cegui/impl/vf/color.hpp>
-#include <sge/cegui/impl/vf/format.hpp>
-#include <sge/cegui/impl/vf/position.hpp>
-#include <sge/cegui/impl/vf/texcoord.hpp>
+#include <sge/cegui/impl/vf/part.hpp>
 #include <sge/cegui/impl/vf/vertex_view.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/init/alpha.hpp>
@@ -61,7 +58,11 @@
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/proxy.hpp>
 #include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/vf/labels/color.hpp>
+#include <sge/renderer/vf/labels/pos.hpp>
+#include <sge/renderer/vf/labels/texpos.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
@@ -73,7 +74,6 @@
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
-#include <fcppt/iterator/make_range.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
@@ -99,6 +99,7 @@
 #include <CEGUI/RenderEffect.h>
 #include <CEGUI/Vector.h>
 #include <CEGUI/Vertex.h>
+#include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -492,49 +493,36 @@ sge::cegui::impl::geometry_buffer::appendGeometry(
 		vblock.value()
 	);
 
-	sge::cegui::impl::vf::vertex_view::iterator vb_it(
-		vertex_view.begin()
-	);
-
-	// TODO: Algorithm
-	for(
-		CEGUI::Vertex const &vertex
-		:
-		fcppt::iterator::make_range(
-			_vertices,
-			_vertices + _vertex_count
+	std::transform(
+		_vertices,
+		_vertices + _vertex_count,
+		vertex_view.begin(),
+		[](
+			CEGUI::Vertex const &_vertex
 		)
-	)
-	{
-		vb_it->set<
-			sge::cegui::impl::vf::position
-		>(
-			sge::cegui::impl::from_cegui_vector3(
-				vertex.position
-			)
-		);
-
-		vb_it->set<
-			sge::cegui::impl::vf::texcoord
-		>(
-			sge::cegui::impl::from_cegui_vector2(
-				vertex.tex_coords
-			)
-		);
-
-		vb_it->set<
-			sge::cegui::impl::vf::color
-		>(
-			sge::image::color::rgba8(
-				(sge::image::color::init::red() %= vertex.colour_val.getRed())
-				(sge::image::color::init::green() %= vertex.colour_val.getGreen())
-				(sge::image::color::init::blue() %= vertex.colour_val.getBlue())
-				(sge::image::color::init::alpha() %= vertex.colour_val.getAlpha())
-			)
-		);
-
-		++vb_it;
-	}
+		{
+			return
+				sge::renderer::vf::vertex<
+					sge::cegui::impl::vf::part
+				>{
+					sge::renderer::vf::labels::pos{} =
+						sge::cegui::impl::from_cegui_vector3(
+							_vertex.position
+						),
+					sge::renderer::vf::labels::texpos<0>{} =
+						sge::cegui::impl::from_cegui_vector2(
+							_vertex.tex_coords
+						),
+					sge::renderer::vf::labels::color{}=
+						sge::image::color::rgba8(
+							(sge::image::color::init::red() %= _vertex.colour_val.getRed())
+							(sge::image::color::init::green() %= _vertex.colour_val.getGreen())
+							(sge::image::color::init::blue() %= _vertex.colour_val.getBlue())
+							(sge::image::color::init::alpha() %= _vertex.colour_val.getAlpha())
+						)
+				};
+		}
+	);
 }
 
 void

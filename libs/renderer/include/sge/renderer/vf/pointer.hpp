@@ -28,15 +28,14 @@ template<
 using
 pointer
 =
-typename
-std::conditional<
-	std::is_same<
+std::conditional_t<
+	std::is_same_v<
 		Constness,
 		sge::renderer::vf::const_tag
-	>::value,
+	>,
 	sge::renderer::const_raw_pointer,
 	sge::renderer::raw_pointer
->::type;
+>;
 
 }
 }

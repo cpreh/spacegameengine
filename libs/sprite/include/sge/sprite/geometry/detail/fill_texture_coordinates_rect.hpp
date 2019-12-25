@@ -7,13 +7,10 @@
 #ifndef SGE_SPRITE_GEOMETRY_DETAIL_FILL_TEXTURE_COORDINATES_RECT_HPP_INCLUDED
 #define SGE_SPRITE_GEOMETRY_DETAIL_FILL_TEXTURE_COORDINATES_RECT_HPP_INCLUDED
 
-#include <sge/sprite/detail/vf/texpos.hpp>
+#include <sge/renderer/vf/set_proxy.hpp>
+#include <sge/renderer/vf/labels/texpos.hpp>
 #include <sge/sprite/types/texture_coordinates.hpp>
 #include <sge/sprite/types/basic/float_vector.hpp>
-#include <fcppt/metal/to_number.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -45,46 +42,47 @@ fill_texture_coordinates_rect(
 	tex_pos;
 
 	typedef
-	metal::at<
-		sge::sprite::detail::vf::texpos<
-			Choices
-		>,
-		fcppt::metal::to_number<
-			Level
-		>
+	sge::renderer::vf::labels::texpos<
+		Level::value
 	>
-	vertex_texpos;
+	label;
 
-	(*_iterator++). template set<
-		vertex_texpos
-	>(
+	sge::renderer::vf::set_proxy(
+		*_iterator,
+		label{},
 		tex_pos(
 			_rt.first.x(),
 			_rt.first.y()
 		)
 	);
 
-	(*_iterator++). template set<
-		vertex_texpos
-	>(
+	++_iterator;
+
+	sge::renderer::vf::set_proxy(
+		*_iterator,
+		label{},
 		tex_pos(
 			_rt.second.x(),
 			_rt.first.y()
 		)
 	);
 
-	(*_iterator++). template set<
-		vertex_texpos
-	>(
+	++_iterator;
+
+	sge::renderer::vf::set_proxy(
+		*_iterator,
+		label{},
 		tex_pos(
 			_rt.second.x(),
 			_rt.second.y()
 		)
 	);
 
-	(*_iterator++). template set<
-		vertex_texpos
-	>(
+	++_iterator;
+
+	sge::renderer::vf::set_proxy(
+		*_iterator,
+		label{},
 		tex_pos(
 			_rt.first.x(),
 			_rt.second.y()

@@ -19,30 +19,36 @@ namespace sge
 {
 namespace postprocessing
 {
+
 class fullscreen_quad
 {
-FCPPT_NONCOPYABLE(
-	fullscreen_quad);
+	FCPPT_NONCOPYABLE(
+		fullscreen_quad
+	);
 public:
 	fullscreen_quad(
 		sge::renderer::device::core &,
-		sge::renderer::vertex::declaration &);
+		sge::renderer::vertex::declaration &
+	);
 
 	void
 	render(
-		sge::renderer::context::core &);
+		sge::renderer::context::core &
+	);
 
 	~fullscreen_quad();
 
 	static
 	sge::renderer::vertex::declaration_unique_ptr
 	create_vertex_declaration(
-		sge::renderer::device::core &);
+		sge::renderer::device::core &
+	);
 private:
-	sge::renderer::device::core &renderer_;
 	sge::renderer::vertex::declaration &vertex_declaration_;
+
 	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer_;
 };
+
 }
 }
 

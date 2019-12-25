@@ -4,10 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/object.hpp>
-#include <sge/line_drawer/impl/vf/color.hpp>
 #include <sge/line_drawer/impl/vf/format.hpp>
-#include <sge/line_drawer/impl/vf/position.hpp>
 #include <sge/line_drawer/impl/vf/vertex_view.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
@@ -38,9 +37,12 @@
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/proxy.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <sge/renderer/vf/labels/color.hpp>
+#include <sge/renderer/vf/labels/pos.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>
@@ -193,45 +195,53 @@ sge::line_drawer::object::unlock()
 				)
 			);
 
-	sge::renderer::vertex::scoped_lock const vblock(
+	sge::renderer::vertex::scoped_lock const vblock{
 		// TODO: Better optional support for this
 		*FCPPT_ASSERT_OPTIONAL_ERROR(
 			vb_
 		),
-		sge::renderer::lock_mode::writeonly);
+		sge::renderer::lock_mode::writeonly
+	};
 
-	sge::line_drawer::impl::vf::vertex_view const vertices(
-		vblock.value());
+	sge::line_drawer::impl::vf::vertex_view const vertices{
+		vblock.value()
+	};
 
-	sge::line_drawer::impl::vf::vertex_view::iterator vb_it(
-		vertices.begin());
+	sge::line_drawer::impl::vf::vertex_view::iterator vb_it{
+		vertices.begin()
+	};
 
+	typedef
+	sge::renderer::vf::vertex<
+		sge::line_drawer::impl::vf::part
+	>
+	vertex;
+
+	// TODO: Improve this
 	for(
-		auto const &line : lines_
+		sge::line_drawer::line const &line
+		:
+		lines_
 	)
 	{
-		(vb_it)->set<
-			sge::line_drawer::impl::vf::position
-		>(
-			line.begin()
-		);
+		*vb_it =
+			vertex{
+				sge::renderer::vf::labels::pos{} =
+					line.begin(),
+				sge::renderer::vf::labels::color{} =
+					line.begin_color()
+			};
 
-		(vb_it++)->set<
-			sge::line_drawer::impl::vf::color
-		>(
-			line.begin_color()
-		);
+		++vb_it;
 
-		(vb_it)->set<
-			sge::line_drawer::impl::vf::position
-		>(
-			line.end()
-		);
+		*vb_it =
+			vertex{
+				sge::renderer::vf::labels::pos{} =
+					line.end(),
+				sge::renderer::vf::labels::color{} =
+					line.end_color()
+			};
 
-		(vb_it++)->set<
-			sge::line_drawer::impl::vf::color
-		>(
-			line.end_color()
-		);
+		++vb_it;
 	}
 }

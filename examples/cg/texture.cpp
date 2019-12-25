@@ -21,7 +21,6 @@
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
-#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/cg/loaded_program.hpp>
@@ -49,26 +48,24 @@
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
-#include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/const_buffer_ref_container.hpp>
 #include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/create_buffer_from_vertices.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vertex/scoped_declaration_and_buffers.hpp>
-#include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/index.hpp>
-#include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/texpos.hpp>
 #include <sge/renderer/vf/vertex.hpp>
-#include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/renderer/vf/dynamic/make_part_index.hpp>
+#include <sge/renderer/vf/labels/pos.hpp>
+#include <sge/renderer/vf/labels/texpos.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
@@ -101,6 +98,7 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
+#include <fcppt/container/array/make.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
@@ -312,111 +310,70 @@ try
 		)
 	);
 
+	typedef
+	pos3_type::packed_type
+	pos3;
+
+	typedef
+	texpos2_type::packed_type
+	texpos2;
+
+	typedef
+	sge::renderer::vf::vertex<
+		format_part
+	>
+	vertex;
+
 	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
-		sys.renderer_device_core().create_vertex_buffer(
-			sge::renderer::vertex::buffer_parameters(
-				*vertex_declaration,
-				sge::renderer::vf::dynamic::make_part_index<
-					format,
-					format_part
-				>(),
-				sge::renderer::vertex::count(
-					3u
-				),
-				sge::renderer::resource_flags_field::null()
+		sge::renderer::vertex::create_buffer_from_vertices<
+			format
+		>(
+			sys.renderer_device_core(),
+			*vertex_declaration,
+			sge::renderer::resource_flags_field::null(),
+			fcppt::container::array::make(
+				vertex{
+					sge::renderer::vf::labels::pos{} =
+						pos3(
+							-1.f,
+							1.f,
+							0.f
+						),
+					sge::renderer::vf::labels::texpos<0>{} =
+						texpos2(
+							0.f,
+							0.f
+						)
+				},
+				vertex{
+					sge::renderer::vf::labels::pos{} =
+						pos3(
+							-1.f,
+							-1.f,
+							0.f
+						),
+					sge::renderer::vf::labels::texpos<0>{} =
+						texpos2(
+							0.f,
+							1.f
+						)
+				},
+				vertex{
+					sge::renderer::vf::labels::pos{} =
+						pos3(
+							1.f,
+							1.f,
+							0.f
+						),
+					sge::renderer::vf::labels::texpos<0>{} =
+						texpos2(
+							1.f,
+							0.f
+						)
+				}
 			)
 		)
 	);
-
-	{
-		sge::renderer::vertex::scoped_lock const vblock(
-			*vertex_buffer,
-			sge::renderer::lock_mode::writeonly
-		);
-
-		typedef
-		sge::renderer::vf::view<
-			format_part
-		>
-		vertex_view;
-
-		vertex_view const vertices(
-			vblock.value()
-		);
-
-		vertex_view::iterator vb_it(
-			vertices.begin()
-		);
-
-		typedef
-		pos3_type::packed_type
-		pos3;
-
-		typedef
-		texpos2_type::packed_type
-		texpos2;
-
-		(*vb_it).set<
-			pos3_type
-		>(
-			pos3(
-				-1.f,
-				1.f,
-				0.f
-			)
-		);
-
-		(*vb_it).set<
-			texpos2_type
-		>(
-			texpos2(
-				0.f,
-				0.f
-			)
-		);
-
-		++vb_it;
-
-		(*vb_it).set<
-			pos3_type
-		>(
-			pos3(
-				-1.f,
-				-1.f,
-				0.f
-			)
-		);
-
-		(*vb_it).set<
-			texpos2_type
-		>(
-			texpos2(
-				0.f,
-				1.f
-			)
-		);
-
-		++vb_it;
-
-		(*vb_it).set<
-			pos3_type
-		>(
-			pos3(
-				1.f,
-				1.f,
-				0.f
-			)
-		);
-
-		(*vb_it).set<
-			texpos2_type
-		>(
-			texpos2(
-				1.f,
-				0.f
-			)
-		);
-	}
 
 	sge::renderer::texture::planar_unique_ptr const texture(
 		sge::renderer::texture::create_planar_from_path(

@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/model/obj/face_vertex.hpp>
 #include <sge/model/obj/prototype.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/device/core.hpp>
@@ -22,16 +23,18 @@
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/iterator.hpp>
-#include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/vf/set_proxy.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
+#include <sge/renderer/vf/labels/normal.hpp>
+#include <sge/renderer/vf/labels/pos.hpp>
+#include <sge/renderer/vf/labels/texpos.hpp>
 #include <sge/scenic/scene/mesh/object.hpp>
 #include <sge/scenic/vf/format.hpp>
 #include <sge/scenic/vf/format_part.hpp>
 #include <sge/scenic/vf/normal.hpp>
 #include <sge/scenic/vf/position.hpp>
 #include <sge/scenic/vf/texcoord.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
@@ -143,20 +146,36 @@ sge::scenic::scene::mesh::object::fill_vertex_buffer(
 		_prototype.normals());
 
 	for(
-		auto const &vertex : _prototype.face_vertices()
+		sge::model::obj::face_vertex const &vertex
+		:
+		_prototype.face_vertices()
 	)
 	{
-		(*current_vertex).set<sge::scenic::vf::position>(
+		sge::renderer::vf::set_proxy(
+			*current_vertex,
+			sge::renderer::vf::labels::pos{},
 			vertex_coordinates[
-				vertex.vertex_coordinate_index().get()]);
+				vertex.vertex_coordinate_index().get()
+			]
+		);
 
-		(*current_vertex).set<sge::scenic::vf::texcoord>(
+		sge::renderer::vf::set_proxy(
+			*current_vertex,
+			sge::renderer::vf::labels::texpos<0>{},
 			texture_coordinates[
-				vertex.texture_coordinate_index().get()]);
+				vertex.texture_coordinate_index().get()
+			]
+		);
 
-		(*current_vertex++).set<sge::scenic::vf::normal>(
+		sge::renderer::vf::set_proxy(
+			*current_vertex,
+			sge::renderer::vf::labels::normal{},
 			normals[
-				vertex.normal_index().get()]);
+				vertex.normal_index().get()
+			]
+		);
+
+		++current_vertex;
 	}
 }
 

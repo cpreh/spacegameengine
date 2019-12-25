@@ -53,6 +53,11 @@ function(
 	)
 endfunction()
 
+find_package(
+	mizuiro
+	REQUIRED
+)
+
 set(
 	SGE_TESTS_CHARCONV_TEST_DATA
 	"${CMAKE_CURRENT_SOURCE_DIR}/charconv/test_data"
@@ -182,6 +187,7 @@ add_sge_test(
 		sgeimagecolor
 		sgerenderer
 	ADDITIONAL_DEPS
+		mizuiro_interface
 		fcppt_core_interface
 )
 

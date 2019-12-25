@@ -60,26 +60,24 @@
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
-#include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/create_buffer_from_vertices.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
-#include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/index.hpp>
-#include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/texpos.hpp>
 #include <sge/renderer/vf/vertex.hpp>
-#include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/renderer/vf/dynamic/make_part_index.hpp>
+#include <sge/renderer/vf/labels/pos.hpp>
+#include <sge/renderer/vf/labels/texpos.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
@@ -113,6 +111,7 @@
 #include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
+#include <fcppt/container/array/make.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -272,127 +271,68 @@ try
 		)
 	);
 
-	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
-		sys.renderer_device_ffp().create_vertex_buffer(
-			sge::renderer::vertex::buffer_parameters(
-				*vertex_declaration,
-				sge::renderer::vf::dynamic::make_part_index<
-					vf_format,
-					vf_format_part
-				>(),
-				sge::renderer::vertex::count(
-					4u
-				),
-				sge::renderer::resource_flags_field::null()
+	typedef
+	sge::renderer::vf::vertex<
+		vf_format_part
+	>
+	vertex;
+
+	typedef
+	vf_pos::packed_type pos;
+
+	typedef
+	vf_texpos0::packed_type texpos0;
+
+	typedef
+	vf_texpos1::packed_type texpos1;
+
+	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer{
+		sge::renderer::vertex::create_buffer_from_vertices<
+			vf_format
+		>(
+			sys.renderer_device_ffp(),
+			*vertex_declaration,
+			sge::renderer::resource_flags_field::null(),
+			fcppt::container::array::make(
+				// top left
+				vertex{
+					sge::renderer::vf::labels::pos{} =
+						pos(-1.f, 1.f, 0.f),
+					sge::renderer::vf::labels::texpos<0>{} =
+						texpos0(0.f, 0.f),
+					sge::renderer::vf::labels::texpos<1>{} =
+						texpos1(0.f, 0.f)
+				},
+				// bottom left
+				vertex{
+					sge::renderer::vf::labels::pos{} =
+						pos(-1.f, -1.f, 0.f),
+					sge::renderer::vf::labels::texpos<0>{} =
+						texpos0(0.f, 1.f),
+					sge::renderer::vf::labels::texpos<1>{} =
+						texpos1(0.f, 1.f)
+				},
+				// top right
+				vertex{
+					sge::renderer::vf::labels::pos{} =
+						pos(1.f, 1.f, 0.f),
+					sge::renderer::vf::labels::texpos<0>{} =
+						texpos0(1.f, 0.f),
+					sge::renderer::vf::labels::texpos<1>{} =
+						texpos1(1.f, 0.f)
+				},
+				// bottom right
+				vertex{
+					sge::renderer::vf::labels::pos{} =
+						pos(1.f, -1.f, 0.f),
+					sge::renderer::vf::labels::texpos<0>{} =
+						texpos0(1.f, 1.f),
+					sge::renderer::vf::labels::texpos<1>{} =
+						texpos1(1.f, 1.f)
+				}
 			)
 		)
-	);
-
-	{
-		sge::renderer::vertex::scoped_lock const vblock(
-			*vertex_buffer,
-			sge::renderer::lock_mode::writeonly
-		);
-
-		typedef
-		sge::renderer::vf::view<
-			vf_format_part
-		>
-		vertex_view;
-
-		vertex_view const vertices(
-			vblock.value()
-		);
-
-		vertex_view::iterator vb_it(
-			vertices.begin()
-		);
-
-		typedef
-		vf_pos::packed_type pos;
-
-		typedef
-		vf_texpos0::packed_type texpos0;
-
-		typedef
-		vf_texpos1::packed_type texpos1;
-
-		// top left
-		(*vb_it).set<
-			vf_pos
-		>(
-			pos(-1.f, 1.f, 0.f)
-		);
-
-		(*vb_it).set<
-			vf_texpos0
-		>(
-			texpos0(0.f, 0.f)
-		);
-
-		(*vb_it++).set<
-			vf_texpos1
-		>(
-			texpos1(0.f, 0.f)
-		);
-
-		// bottom left
-		(*vb_it).set<
-			vf_pos
-		>(
-			pos(-1.f, -1.f, 0.f)
-		);
-
-		(*vb_it).set<
-			vf_texpos0
-		>(
-			texpos0(0.f, 1.f)
-		);
-
-		(*vb_it++).set<
-			vf_texpos1
-		>(
-			texpos1(0.f, 1.f)
-		);
-
-		// top right
-		(*vb_it).set<
-			vf_pos
-		>(
-			pos(1.f, 1.f, 0.f)
-		);
-
-		(*vb_it).set<
-			vf_texpos0
-		>(
-			texpos0(1.f, 0.f)
-		);
-
-		(*vb_it++).set<
-			vf_texpos1
-		>(
-			texpos1(1.f, 0.f)
-		);
-
-		// bottom right
-		(*vb_it).set<
-			vf_pos
-		>(
-			pos(1.f, -1.f, 0.f)
-		);
-
-		(*vb_it).set<
-			vf_texpos0
-		>(
-			texpos0(1.f, 1.f)
-		);
-
-		(*vb_it++).set<
-			vf_texpos1
-		>(
-			texpos1(1.f, 1.f)
-		);
-	}
+	};
 
 	typedef
 	sge::renderer::index::format_16
@@ -436,6 +376,7 @@ try
 			indices.begin()
 		};
 
+		// TODO!
 		(*ib_it++).set(0);
 		(*ib_it++).set(1);
 		(*ib_it++).set(2);

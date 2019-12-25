@@ -54,15 +54,16 @@
 #include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
+#include <sge/renderer/vf/get_proxy.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/vector.hpp>
-#include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
+#include <sge/renderer/vf/labels/pos.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/instance.hpp>
 #include <sge/systems/list.hpp>
@@ -604,8 +605,13 @@ try
 		)
 		{
 			fcppt::io::cout()
-				<< vertex.get<vf::scalar_quantity>()
-				<< FCPPT_TEXT('\n');
+				<<
+				sge::renderer::vf::get_proxy(
+					vertex,
+					sge::renderer::vf::labels::pos{}
+				)
+				<<
+				FCPPT_TEXT('\n');
 		}
 	}
 

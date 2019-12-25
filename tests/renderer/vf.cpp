@@ -15,6 +15,8 @@
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
+#include <sge/renderer/vf/proxy.hpp>
+#include <sge/renderer/vf/set_proxy.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/view.hpp>
@@ -35,6 +37,9 @@
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
+#include <sge/renderer/vf/labels/color.hpp>
+#include <sge/renderer/vf/labels/pos.hpp>
+#include <mizuiro/color/object_fwd.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/math/vector/static.hpp>
@@ -42,6 +47,9 @@
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/record/are_equivalent.hpp>
+#include <fcppt/record/element.hpp>
+#include <fcppt/record/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
 #include <metal.hpp>
@@ -122,6 +130,29 @@ TEST_CASE(
 		>
 	);
 
+	static_assert(
+		fcppt::record::are_equivalent<
+			sge::renderer::vf::vertex<
+				format_part
+			>::record_type,
+			fcppt::record::object<
+				fcppt::record::element<
+					sge::renderer::vf::labels::pos,
+					fcppt::math::vector::static_<
+						float,
+						3
+					>
+				>,
+				fcppt::record::element<
+					sge::renderer::vf::labels::color,
+					mizuiro::color::object<
+						color_format
+					>
+				>
+			>
+		>::value
+	);
+
 	typedef
 	sge::renderer::vf::format<
 		format_part
@@ -191,6 +222,12 @@ TEST_CASE(
 	pos3_type::packed_type
 	vec3;
 
+	typedef
+	sge::renderer::vf::vertex<
+		format_part
+	>
+	vertex;
+
 	{
 		sge::renderer::vf::dynamic::view const dynamic_view{
 			test_data.data(),
@@ -209,14 +246,15 @@ TEST_CASE(
 			view.begin()
 		};
 
+		// Assignment of individual values
 		(*it).set<
-			pos3_type
+			sge::renderer::vf::labels::pos
 		>(
 			vec3(-1.f, 1.f, 0.f)
 		);
 
 		(*it).set<
-			color_type
+			sge::renderer::vf::labels::color
 		>(
 			sge::image::color::convert<
 				color_format
@@ -227,33 +265,31 @@ TEST_CASE(
 
 		++it;
 
-		(*it).set<
-			pos3_type
-		>(
-			vec3(-1.f, -1.f, 0.f)
-		);
-
-		(*it).set<
-			color_type
-		>(
-			sge::image::color::convert<
-				color_format
-			>(
-				sge::image::color::predef::yellow()
-			)
-		);
+		// Assignment of a whole vertex
+		*it =
+			vertex{
+				sge::renderer::vf::labels::pos{} =
+					vec3(-1.f, -1.f, 0.f),
+				sge::renderer::vf::labels::color{} =
+					sge::image::color::convert<
+						color_format
+					>(
+						sge::image::color::predef::yellow()
+					)
+			};
 
 		++it;
 
-		(*it).set<
-			pos3_type
-		>(
+		// Assignment using the free function
+		sge::renderer::vf::set_proxy(
+			*it,
+			sge::renderer::vf::labels::pos{},
 			vec3(1.f, 1.f, 0.f)
 		);
 
-		(*it).set<
-			color_type
-		>(
+		sge::renderer::vf::set_proxy(
+			*it,
+			sge::renderer::vf::labels::color{},
 			sge::image::color::convert<
 				color_format
 			>(
@@ -261,6 +297,8 @@ TEST_CASE(
 			)
 		);
 	}
+
+	// TODO: Test get
 
 	auto const vec3_from(
 		[

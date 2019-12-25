@@ -7,7 +7,7 @@
 #ifndef SGE_SPRITE_GEOMETRY_DETAIL_FILL_POSITION_POINTS_HPP_INCLUDED
 #define SGE_SPRITE_GEOMETRY_DETAIL_FILL_POSITION_POINTS_HPP_INCLUDED
 
-#include <sge/sprite/detail/vf/pos.hpp>
+#include <sge/renderer/vf/labels/pos.hpp>
 #include <sge/sprite/geometry/detail/make_position.hpp>
 #include <sge/sprite/types/basic/float_vector.hpp>
 
@@ -41,15 +41,14 @@ fill_position_points(
 	>
 	vector_float;
 
-	(*_iterator). template set<
-		sge::sprite::detail::vf::pos<
-			Choices
-		>
-	>(
+	sge::renderer::vf::set_proxy(
+		*_iterator,
+		sge::renderer::vf::labels::pos{},
 		sge::sprite::geometry::detail::make_position<
 			Choices
 		>(
 			vector_float(
+				// TODO
 				static_cast<
 					typename vector_float::value_type
 				>(

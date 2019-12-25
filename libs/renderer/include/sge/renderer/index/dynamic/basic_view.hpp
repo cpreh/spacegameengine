@@ -34,12 +34,11 @@ class basic_view
 {
 public:
 	typedef
-	typename
-	std::conditional<
+	std::conditional_t<
 		IsConst,
 		sge::renderer::const_raw_pointer,
 		sge::renderer::raw_pointer
-	>::type
+	>
 	pointer;
 
 	typedef

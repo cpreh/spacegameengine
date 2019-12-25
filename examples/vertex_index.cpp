@@ -7,6 +7,7 @@
 #include <sge/image/color/bgra8_format.hpp>
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/predef.hpp>
+#include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
@@ -34,25 +35,24 @@
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
-#include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/const_buffer_ref_container.hpp>
 #include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/create_buffer_from_vertices.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vertex/scoped_declaration_and_buffers.hpp>
-#include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/color.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/vertex.hpp>
-#include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <sge/renderer/vf/dynamic/make_part_index.hpp>
+#include <sge/renderer/vf/labels/color.hpp>
+#include <sge/renderer/vf/labels/pos.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
@@ -84,6 +84,7 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
+#include <fcppt/container/array/make.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
@@ -176,116 +177,73 @@ try
 		)
 	);
 
-	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
-		sys.renderer_device_core().create_vertex_buffer(
-			sge::renderer::vertex::buffer_parameters(
-				*vertex_declaration,
-				sge::renderer::vf::dynamic::make_part_index<
-					format,
-					format_part
-				>(),
-				sge::renderer::vertex::count(
-					4u
-				),
-				sge::renderer::resource_flags_field::null()
-			)
+	typedef
+	sge::renderer::vf::vertex<
+		format_part
+	>
+	vertex;
+
+	auto const make_color(
+		[](
+			sge::image::color::rgba8 const _color
 		)
+		{
+			return
+				sge::image::color::convert<
+					sge::image::color::bgra8_format
+				>(
+					_color
+				);
+		}
 	);
 
-	{
-		sge::renderer::vertex::scoped_lock const vblock(
-			*vertex_buffer,
-			sge::renderer::lock_mode::writeonly
-		);
+	typedef
+	pos3_type::packed_type
+	vec3;
 
-		typedef
-		sge::renderer::vf::view<
-			format_part
-		>
-		vertex_view;
-
-		vertex_view const vertices(
-			vblock.value()
-		);
-
-		vertex_view::iterator vb_it(
-			vertices.begin()
-		);
-
-		typedef
-		pos3_type::packed_type
-		vec3;
-
-		(*vb_it).set<
-			pos3_type
+	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer{
+		sge::renderer::vertex::create_buffer_from_vertices<
+			format
 		>(
-			vec3(-1.f, 1.f, 0.f)
-		);
-
-		(*vb_it).set<
-			color_type
-		>(
-			sge::image::color::convert<
-				sge::image::color::bgra8_format
-			>(
-				sge::image::color::predef::cyan()
+			sys.renderer_device_core(),
+			*vertex_declaration,
+			sge::renderer::resource_flags_field::null(),
+			fcppt::container::array::make(
+				vertex{
+					sge::renderer::vf::labels::pos{} =
+						vec3(-1.f, 1.f, 0.f),
+					sge::renderer::vf::labels::color{} =
+						make_color(
+							sge::image::color::predef::cyan()
+						)
+				},
+				vertex{
+					sge::renderer::vf::labels::pos{} =
+						vec3(-1.f, -1.f, 0.f),
+					sge::renderer::vf::labels::color{} =
+						make_color(
+							sge::image::color::predef::yellow()
+						)
+				},
+				vertex{
+					sge::renderer::vf::labels::pos{} =
+						vec3(1.f, 1.f, 0.f),
+					sge::renderer::vf::labels::color{} =
+						make_color(
+							sge::image::color::predef::magenta()
+						)
+				},
+				vertex{
+					sge::renderer::vf::labels::pos{} =
+						vec3(1.f, -1.f, 0.f),
+					sge::renderer::vf::labels::color{} =
+						make_color(
+							sge::image::color::predef::red()
+						)
+				}
 			)
-		);
-
-		++vb_it;
-
-		(*vb_it).set<
-			pos3_type
-		>(
-			vec3(-1.f, -1.f, 0.f)
-		);
-
-		(*vb_it).set<
-			color_type
-		>(
-			sge::image::color::convert<
-				sge::image::color::bgra8_format
-			>(
-				sge::image::color::predef::yellow()
-			)
-		);
-
-		++vb_it;
-
-		(*vb_it).set<
-			pos3_type
-		>(
-			vec3(1.f, 1.f, 0.f)
-		);
-
-		(*vb_it).set<
-			color_type
-		>(
-			sge::image::color::convert<
-				sge::image::color::bgra8_format
-			>(
-				sge::image::color::predef::magenta()
-			)
-		);
-
-		++vb_it;
-
-		(*vb_it).set<
-			pos3_type
-		>(
-			vec3(1.f, -1.f, 0.f)
-		);
-
-		(*vb_it).set<
-			color_type
-		>(
-			sge::image::color::convert<
-				sge::image::color::bgra8_format
-			>(
-				sge::image::color::predef::red()
-			)
-		);
-	}
+		)
+	};
 
 //! [index_format_declaration]
 	typedef

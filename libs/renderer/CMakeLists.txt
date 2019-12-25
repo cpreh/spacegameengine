@@ -833,6 +833,7 @@ set(
 	libs/renderer/include/sge/renderer/vertex/const_scoped_lock.hpp
 	libs/renderer/include/sge/renderer/vertex/const_scoped_lock_fwd.hpp
 	libs/renderer/include/sge/renderer/vertex/count.hpp
+	libs/renderer/include/sge/renderer/vertex/create_buffer_from_vertices.hpp
 	libs/renderer/include/sge/renderer/vertex/create_buffer_from_view.hpp
 	libs/renderer/include/sge/renderer/vertex/declaration.hpp
 	libs/renderer/include/sge/renderer/vertex/declaration_fwd.hpp
@@ -859,12 +860,14 @@ set(
 	libs/renderer/include/sge/renderer/vf/color_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/const_tag.hpp
 	libs/renderer/include/sge/renderer/vf/detail/copy_n.hpp
+	libs/renderer/include/sge/renderer/vf/detail/element_index.hpp
 	libs/renderer/include/sge/renderer/vf/detail/element_stride.hpp
 	libs/renderer/include/sge/renderer/vf/detail/iterator_base.hpp
 	libs/renderer/include/sge/renderer/vf/detail/raw_data.hpp
 	libs/renderer/include/sge/renderer/vf/detail/raw_data_type.hpp
 	libs/renderer/include/sge/renderer/vf/detail/read_wrapper_decl.hpp
 	libs/renderer/include/sge/renderer/vf/detail/read_wrapper_impl.hpp
+	libs/renderer/include/sge/renderer/vf/detail/vertex.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/any.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/any_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/basic_view.hpp
@@ -930,13 +933,16 @@ set(
 	libs/renderer/include/sge/renderer/vf/extra_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/format.hpp
 	libs/renderer/include/sge/renderer/vf/format_fwd.hpp
+	libs/renderer/include/sge/renderer/vf/get_proxy.hpp
 	libs/renderer/include/sge/renderer/vf/index.hpp
 	libs/renderer/include/sge/renderer/vf/index_type.hpp
 	libs/renderer/include/sge/renderer/vf/is_part.hpp
+	libs/renderer/include/sge/renderer/vf/is_vertex.hpp
 	libs/renderer/include/sge/renderer/vf/iterator.hpp
 	libs/renderer/include/sge/renderer/vf/iterator_decl.hpp
 	libs/renderer/include/sge/renderer/vf/iterator_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/iterator_impl.hpp
+	libs/renderer/include/sge/renderer/vf/label_value_type.hpp
 	libs/renderer/include/sge/renderer/vf/labels/color.hpp
 	libs/renderer/include/sge/renderer/vf/labels/extra.hpp
 	libs/renderer/include/sge/renderer/vf/labels/normal.hpp
@@ -951,6 +957,11 @@ set(
 	libs/renderer/include/sge/renderer/vf/pointer.hpp
 	libs/renderer/include/sge/renderer/vf/pos.hpp
 	libs/renderer/include/sge/renderer/vf/pos_fwd.hpp
+	libs/renderer/include/sge/renderer/vf/proxy.hpp
+	libs/renderer/include/sge/renderer/vf/proxy_decl.hpp
+	libs/renderer/include/sge/renderer/vf/proxy_fwd.hpp
+	libs/renderer/include/sge/renderer/vf/proxy_impl.hpp
+	libs/renderer/include/sge/renderer/vf/set_proxy.hpp
 	libs/renderer/include/sge/renderer/vf/texpos.hpp
 	libs/renderer/include/sge/renderer/vf/texpos_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/to_label.hpp
