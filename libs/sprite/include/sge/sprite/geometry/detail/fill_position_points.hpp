@@ -7,7 +7,9 @@
 #ifndef SGE_SPRITE_GEOMETRY_DETAIL_FILL_POSITION_POINTS_HPP_INCLUDED
 #define SGE_SPRITE_GEOMETRY_DETAIL_FILL_POSITION_POINTS_HPP_INCLUDED
 
+#include <sge/renderer/vf/set_proxy.hpp>
 #include <sge/renderer/vf/labels/pos.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/geometry/detail/make_position.hpp>
 #include <sge/sprite/types/basic/float_vector.hpp>
 

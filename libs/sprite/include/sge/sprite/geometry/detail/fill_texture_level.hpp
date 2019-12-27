@@ -8,7 +8,7 @@
 #define SGE_SPRITE_GEOMETRY_DETAIL_FILL_TEXTURE_LEVEL_HPP_INCLUDED
 
 #include <sge/sprite/deref_texture.hpp>
-#include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/geometry/detail/fill_texture_level_impl.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/tag_type.hpp>

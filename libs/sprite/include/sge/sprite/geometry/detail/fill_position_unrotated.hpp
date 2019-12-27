@@ -11,6 +11,7 @@
 #include <sge/renderer/vf/set_proxy.hpp>
 #include <sge/renderer/vf/labels/pos.hpp>
 #include <sge/sprite/bounding_rect.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/geometry/detail/float_rect.hpp>
 #include <sge/sprite/geometry/detail/make_position.hpp>
 #include <sge/sprite/types/basic/float_vector.hpp>

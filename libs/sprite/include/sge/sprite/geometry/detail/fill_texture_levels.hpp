@@ -7,7 +7,7 @@
 #ifndef SGE_SPRITE_GEOMETRY_DETAIL_FILL_TEXTURE_LEVELS_HPP_INCLUDED
 #define SGE_SPRITE_GEOMETRY_DETAIL_FILL_TEXTURE_LEVELS_HPP_INCLUDED
 
-#include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/config/is_normal_size.hpp>
 #include <sge/sprite/detail/apply_texture_levels.hpp>
 #include <sge/sprite/detail/config/has_texture.hpp>
