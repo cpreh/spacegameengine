@@ -7,16 +7,12 @@
 #ifndef SGE_RENDERER_INDEX_DETAIL_PP_FORMATS_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_DETAIL_PP_FORMATS_HPP_INCLUDED
 
-#include <sge/renderer/index/const_format_16.hpp>
-#include <sge/renderer/index/const_format_32.hpp>
 #include <sge/renderer/index/format_16.hpp>
 #include <sge/renderer/index/format_32.hpp>
 
 
 #define SGE_RENDERER_INDEX_DETAIL_PP_FORMATS\
 	(sge::renderer::index::format_16)\
-	(sge::renderer::index::format_32)\
-	(sge::renderer::index::const_format_16)\
-	(sge::renderer::index::const_format_32)
+	(sge::renderer::index::format_32)
 
 #endif

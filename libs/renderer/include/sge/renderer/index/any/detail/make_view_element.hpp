@@ -35,9 +35,9 @@ sge::renderer::index::view<
 		typename
 		sge::renderer::index::dynamic::format_element<
 			Element::value
-		>::type,
-		Constness
-	>
+		>::type
+	>,
+	Constness
 >;
 
 }

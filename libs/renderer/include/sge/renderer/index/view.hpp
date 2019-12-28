@@ -12,8 +12,11 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/index/const_tag.hpp>
 #include <sge/renderer/index/format.hpp>
+#include <sge/renderer/index/is_const_tag.hpp>
 #include <sge/renderer/index/is_format.hpp>
 #include <sge/renderer/index/iterator_fwd.hpp>
+#include <sge/renderer/index/nonconst_tag.hpp>
+#include <sge/renderer/index/pointer.hpp>
 #include <sge/renderer/index/view_fwd.hpp>
 #include <sge/renderer/index/detail/pp_formats.hpp>
 #include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
@@ -31,7 +34,8 @@ namespace index
 {
 
 template<
-	typename Format
+	typename Format,
+	typename Constness
 >
 class view
 {
@@ -39,8 +43,13 @@ public:
 	static_assert(
 		sge::renderer::index::is_format<
 			Format
-		>::value,
-		"sge::renderer::index::view only accepts index formats"
+		>::value
+	);
+
+	static_assert(
+		sge::renderer::index::is_const_tag<
+			Constness
+		>::value
 	);
 
 	typedef
@@ -53,8 +62,9 @@ public:
 	value_type;
 
 	typedef
-	typename
-	format_type::pointer
+	sge::renderer::index::pointer<
+		Constness
+	>
 	pointer;
 
 	typedef
@@ -63,17 +73,17 @@ public:
 
 	typedef
 	sge::renderer::index::iterator<
-		Format
+		Format,
+		Constness
 	>
 	iterator;
 
 	typedef
 	sge::renderer::index::dynamic::basic_view<
-		std::is_same<
-			typename
-			Format::constness,
+		std::is_same_v<
+			Constness,
 			sge::renderer::index::const_tag
-		>::value
+		>
 	>
 	dynamic_view_type;
 
@@ -114,21 +124,47 @@ private:
 }
 }
 
-#define SGE_RENDERER_INDEX_DETAIL_DECLARE_VIEW(\
-	seq,\
-	_,\
-	format\
+#define SGE_RENDERER_INDEX_DETAIL_DECLARE_VIEW_BASE(\
+	format,\
+	constness\
 )\
 extern \
 template \
 class \
 SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \
 sge::renderer::index::view<\
-	format \
+	format, \
+	constness \
 > ;
+
+#define SGE_RENDERER_INDEX_DETAIL_DECLARE_VIEW(\
+	seq,\
+	_,\
+	format\
+)\
+SGE_RENDERER_INDEX_DETAIL_DECLARE_VIEW_BASE(\
+	format,\
+	sge::renderer::index::nonconst_tag\
+)
+
+#define SGE_RENDERER_INDEX_DETAIL_DECLARE_CONST_VIEW(\
+	seq,\
+	_,\
+	format\
+)\
+SGE_RENDERER_INDEX_DETAIL_DECLARE_VIEW_BASE(\
+	format,\
+	sge::renderer::index::const_tag\
+)
 
 BOOST_PP_SEQ_FOR_EACH(
 	SGE_RENDERER_INDEX_DETAIL_DECLARE_VIEW,
+	_,
+	SGE_RENDERER_INDEX_DETAIL_PP_FORMATS
+)
+
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_RENDERER_INDEX_DETAIL_DECLARE_CONST_VIEW,
 	_,
 	SGE_RENDERER_INDEX_DETAIL_PP_FORMATS
 )

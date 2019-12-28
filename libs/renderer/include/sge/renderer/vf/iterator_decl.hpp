@@ -8,6 +8,8 @@
 #define SGE_RENDERER_VF_ITERATOR_DECL_HPP_INCLUDED
 
 #include <sge/renderer/vf/iterator_fwd.hpp>
+#include <sge/renderer/vf/is_const_tag.hpp>
+#include <sge/renderer/vf/is_part.hpp>
 #include <sge/renderer/vf/pointer.hpp>
 #include <sge/renderer/vf/view_fwd.hpp>
 #include <sge/renderer/vf/detail/iterator_base.hpp>
@@ -38,6 +40,18 @@ class iterator final
 		Constness
 	>
 	base;
+
+	static_assert(
+		sge::renderer::vf::is_part<
+			Part
+		>::value
+	);
+
+	static_assert(
+		sge::renderer::vf::is_const_tag<
+			Constness
+		>::value
+	);
 public:
 	typedef typename base::value_type value_type;
 

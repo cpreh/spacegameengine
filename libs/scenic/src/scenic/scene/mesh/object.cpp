@@ -15,6 +15,7 @@
 #include <sge/renderer/index/format_32.hpp>
 #include <sge/renderer/index/i32.hpp>
 #include <sge/renderer/index/iterator.hpp>
+#include <sge/renderer/index/nonconst_tag.hpp>
 #include <sge/renderer/index/scoped_lock.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
@@ -194,8 +195,12 @@ sge::scenic::scene::mesh::object::fill_index_buffer(
 	// ...then we declare an iterator for the buffer. Again, you we meet
 	// the index format. We could have designed the following code to be
 	// agnostic of the integer type, but that would be even more code.
-	sge::renderer::index::iterator<sge::renderer::index::format_32> current_index(
-		indices.data());
+	sge::renderer::index::iterator<
+		sge::renderer::index::format_32,
+		sge::renderer::index::nonconst_tag
+	> current_index(
+		indices.data()
+	);
 
 	sge::renderer::size_type current_index_begin =
 		0u;

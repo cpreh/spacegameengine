@@ -8,6 +8,8 @@
 #define SGE_RENDERER_VF_VIEW_DECL_HPP_INCLUDED
 
 #include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vf/is_const_tag.hpp>
+#include <sge/renderer/vf/is_part.hpp>
 #include <sge/renderer/vf/iterator_fwd.hpp>
 #include <sge/renderer/vf/pointer.hpp>
 #include <sge/renderer/vf/view_fwd.hpp>
@@ -28,10 +30,24 @@ template<
 class view
 {
 public:
-	typedef sge::renderer::vf::iterator<
+	static_assert(
+		sge::renderer::vf::is_part<
+			Part
+		>::value
+	);
+
+	static_assert(
+		sge::renderer::vf::is_const_tag<
+			Constness
+		>::value
+	);
+
+	typedef
+	sge::renderer::vf::iterator<
 		Part,
 		Constness
-	> iterator;
+	>
+	iterator;
 
 	typedef
 	sge::renderer::vf::pointer<
@@ -39,11 +55,15 @@ public:
 	>
 	pointer;
 
-	typedef sge::renderer::vf::dynamic::basic_view<
+	typedef
+	sge::renderer::vf::dynamic::basic_view<
 		pointer
-	> dynamic_view_type;
+	>
+	dynamic_view_type;
 
-	typedef sge::renderer::vertex::count size_type;
+	typedef
+	sge::renderer::vertex::count
+	size_type;
 
 	explicit
 	view(

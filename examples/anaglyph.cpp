@@ -58,6 +58,7 @@
 #include <sge/renderer/index/format_16.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/index/iterator.hpp>
+#include <sge/renderer/index/nonconst_tag.hpp>
 #include <sge/renderer/index/scoped_lock.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
@@ -507,7 +508,8 @@ compiled_model::compiled_model(
 		iblock.value());
 
 	sge::renderer::index::iterator<
-		sge::renderer::index::format_16
+		sge::renderer::index::format_16,
+		sge::renderer::index::nonconst_tag
 	> current_index(
 		indices.data()
 	);

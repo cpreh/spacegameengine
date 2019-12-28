@@ -10,9 +10,8 @@
 #include <sge/renderer/index/const_proxy_fwd.hpp>
 #include <sge/renderer/index/const_tag.hpp>
 #include <sge/renderer/index/format.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
+#include <sge/renderer/index/is_format.hpp>
+#include <sge/renderer/index/pointer.hpp>
 
 
 namespace sge
@@ -29,11 +28,9 @@ class const_proxy
 {
 public:
 	static_assert(
-		std::is_same<
-			typename Format::constness,
-			sge::renderer::index::const_tag
-		>::value,
-		"const_proxy can only use const formats"
+		sge::renderer::index::is_format<
+			Format
+		>::value
 	);
 
 	typedef
@@ -42,8 +39,9 @@ public:
 	value_type;
 
 	typedef
-	typename
-	Format::pointer
+	sge::renderer::index::pointer<
+		sge::renderer::index::const_tag
+	>
 	pointer;
 
 	explicit

@@ -7,6 +7,7 @@
 #ifndef SGE_RENDERER_VF_CONST_TAG_HPP_INCLUDED
 #define SGE_RENDERER_VF_CONST_TAG_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace renderer

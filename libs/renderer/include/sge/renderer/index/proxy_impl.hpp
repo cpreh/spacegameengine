@@ -9,7 +9,6 @@
 
 #include <sge/renderer/index/const_proxy_impl.hpp>
 #include <sge/renderer/index/proxy_decl.hpp>
-#include <sge/renderer/index/to_const_format.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstring>
 #include <fcppt/config/external_end.hpp>
@@ -24,10 +23,30 @@ sge::renderer::index::proxy<
 	pointer const _data
 )
 :
-	data_(
+	data_{
 		_data
-	)
+	}
 {
+}
+
+template<
+	typename Format
+>
+sge::renderer::index::proxy<
+	Format
+> &
+sge::renderer::index::proxy<
+	Format
+>::operator=(
+	value_type const _value
+)
+{
+	this->set(
+		_value
+	);
+
+	return
+		*this;
 }
 
 template<
@@ -41,7 +60,7 @@ sge::renderer::index::proxy<
 )
 {
 	std::memcpy(
-		data_,
+		this->data_,
 		&_value,
 		sizeof(
 			value_type
@@ -62,11 +81,9 @@ sge::renderer::index::proxy<
 {
 	return
 		sge::renderer::index::const_proxy<
-			sge::renderer::index::to_const_format<
-				Format
-			>
+			Format
 		>(
-			data_
+			this->data_
 		).get();
 }
 

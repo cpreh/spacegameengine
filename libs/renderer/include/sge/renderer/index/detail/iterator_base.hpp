@@ -12,8 +12,9 @@
 #include <sge/renderer/index/iterator_fwd.hpp>
 #include <sge/renderer/index/nonconst_tag.hpp>
 #include <sge/renderer/index/proxy_fwd.hpp>
+#include <fcppt/iterator/base_decl.hpp>
+#include <fcppt/iterator/types.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/iterator/iterator_facade.hpp>
 #include <iterator>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -29,33 +30,36 @@ namespace detail
 {
 
 template<
-	typename Format
+	typename Format,
+	typename Constness
 >
 using
 iterator_base
 =
-boost::iterator_facade<
-	sge::renderer::index::iterator<
-		Format
-	>,
-	typename
-	Format::index_type,
-	std::random_access_iterator_tag,
-	typename
-	std::conditional<
-		std::is_same<
-			typename
-			Format::constness,
-			sge::renderer::index::nonconst_tag
-		>::value,
-		sge::renderer::index::proxy<
-			Format
+fcppt::iterator::base<
+	fcppt::iterator::types<
+		sge::renderer::index::iterator<
+			Format,
+			Constness
 		>,
-		sge::renderer::index::const_proxy<
-			Format
-		>
-	>::type,
-	sge::renderer::index::difference_type
+		typename
+		Format::index_type,
+		std::conditional_t<
+			std::is_same_v<
+				Constness,
+				sge::renderer::index::nonconst_tag
+			>,
+			sge::renderer::index::proxy<
+				Format
+			>,
+			sge::renderer::index::const_proxy<
+				Format
+			>
+		>,
+		sge::renderer::index::difference_type,
+		// TODO: output_iterator?
+		std::input_iterator_tag
+	>
 >;
 
 }

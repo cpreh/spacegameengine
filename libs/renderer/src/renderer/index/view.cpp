@@ -6,7 +6,9 @@
 
 #include <sge/core/impl/export_class_instantiation.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/index/const_tag.hpp>
 #include <sge/renderer/index/iterator.hpp>
+#include <sge/renderer/index/nonconst_tag.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/detail/pp_formats.hpp>
 #include <sge/renderer/index/dynamic/const_view.hpp>
@@ -20,32 +22,36 @@
 
 
 template<
-	typename Format
+	typename Format,
+	typename Constness
 >
 sge::renderer::index::view<
-	Format
+	Format,
+	Constness
 >::view(
 	pointer const _data,
 	size_type const _size
 )
 :
-	data_(
+	data_{
 		_data
-	),
-	size_(
+	},
+	size_{
 		_size
-	)
+	}
 {
 	FCPPT_ASSERT_PRE(
-		data_
+		this->data_
 	);
 }
 
 template<
-	typename Format
+	typename Format,
+	typename Constness
 >
 sge::renderer::index::view<
-	Format
+	Format,
+	Constness
 >::view(
 	dynamic_view_type const &_view
 )
@@ -67,39 +73,49 @@ sge::renderer::index::view<
 }
 
 template<
-	typename Format
+	typename Format,
+	typename Constness
 >
-typename sge::renderer::index::view<
-	Format
+typename
+sge::renderer::index::view<
+	Format,
+	Constness
 >::pointer
 sge::renderer::index::view<
-	Format
+	Format,
+	Constness
 >::data() const
 {
 	return
-		data_;
+		this->data_;
 }
 
 template<
-	typename Format
+	typename Format,
+	typename Constness
 >
 sge::renderer::size_type
 sge::renderer::index::view<
-	Format
+	Format,
+	Constness
 >::size() const
 {
 	return
-		size_;
+		this->size_;
 }
 
 template<
-	typename Format
+	typename Format,
+	typename Constness
 >
-typename sge::renderer::index::view<
-	Format
+typename
+sge::renderer::index::view<
+	Format,
+	Constness
 >::iterator
 sge::renderer::index::view<
-	Format
+	Format,
+	Constness
 >::begin() const
 {
 	return
@@ -109,13 +125,17 @@ sge::renderer::index::view<
 }
 
 template<
-	typename Format
+	typename Format,
+	typename Constness
 >
-typename sge::renderer::index::view<
-	Format
+typename
+sge::renderer::index::view<
+	Format,
+	Constness
 >::iterator
 sge::renderer::index::view<
-	Format
+	Format,
+	Constness
 >::end() const
 {
 	return
@@ -126,20 +146,46 @@ sge::renderer::index::view<
 		);
 }
 
-#define SGE_RENDERER_INDEX_DEFINE_VIEW(\
-	seq,\
-	_,\
-	format\
+#define SGE_RENDERER_INDEX_DEFINE_VIEW_BASE(\
+	format,\
+	constness\
 )\
 template \
 class \
 SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION \
 sge::renderer::index::view<\
-	format \
+	format, \
+	constness \
 > ;
+
+#define SGE_RENDERER_INDEX_DEFINE_VIEW(\
+	seq,\
+	_,\
+	format\
+)\
+SGE_RENDERER_INDEX_DEFINE_VIEW_BASE(\
+	format,\
+	sge::renderer::index::nonconst_tag\
+)
+
+#define SGE_RENDERER_INDEX_DEFINE_CONST_VIEW(\
+	seq,\
+	_,\
+	format\
+)\
+SGE_RENDERER_INDEX_DEFINE_VIEW_BASE(\
+	format,\
+	sge::renderer::index::const_tag\
+)
 
 BOOST_PP_SEQ_FOR_EACH(
 	SGE_RENDERER_INDEX_DEFINE_VIEW,
+	_,
+	SGE_RENDERER_INDEX_DETAIL_PP_FORMATS
+)
+
+BOOST_PP_SEQ_FOR_EACH(
+	SGE_RENDERER_INDEX_DEFINE_CONST_VIEW,
 	_,
 	SGE_RENDERER_INDEX_DETAIL_PP_FORMATS
 )

@@ -8,11 +8,10 @@
 #define SGE_RENDERER_INDEX_PROXY_DECL_HPP_INCLUDED
 
 #include <sge/renderer/index/format.hpp>
+#include <sge/renderer/index/is_format.hpp>
 #include <sge/renderer/index/nonconst_tag.hpp>
+#include <sge/renderer/index/pointer.hpp>
 #include <sge/renderer/index/proxy_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -29,11 +28,9 @@ class proxy
 {
 public:
 	static_assert(
-		std::is_same<
-			typename Format::constness,
-			sge::renderer::index::nonconst_tag
-		>::value,
-		"proxy can only use nonconst formats"
+		sge::renderer::index::is_format<
+			Format
+		>::value
 	);
 
 	typedef
@@ -42,13 +39,19 @@ public:
 	value_type;
 
 	typedef
-	typename
-	Format::pointer
+	sge::renderer::index::pointer<
+		sge::renderer::index::nonconst_tag
+	>
 	pointer;
 
 	explicit
 	proxy(
 		pointer
+	);
+
+	proxy &
+	operator=(
+		value_type
 	);
 
 	void

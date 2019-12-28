@@ -16,8 +16,7 @@ namespace index
 {
 
 template<
-	typename Index,
-	typename Constness
+	typename Index
 >
 struct format;
 

@@ -8,7 +8,6 @@
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
-#include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/context/core.hpp>
@@ -19,15 +18,11 @@
 #include <sge/renderer/display_mode/vsync.hpp>
 #include <sge/renderer/event/render.hpp>
 #include <sge/renderer/index/buffer.hpp>
-#include <sge/renderer/index/buffer_parameters.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
+#include <sge/renderer/index/create_buffer_from_indices.hpp>
 #include <sge/renderer/index/count.hpp>
 #include <sge/renderer/index/first.hpp>
-#include <sge/renderer/index/format_16.hpp>
-#include <sge/renderer/index/iterator.hpp>
-#include <sge/renderer/index/scoped_lock.hpp>
-#include <sge/renderer/index/view.hpp>
-#include <sge/renderer/index/dynamic/make_format.hpp>
+#include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
@@ -252,55 +247,23 @@ try
 	};
 
 	typedef
-	sge::renderer::index::format_16
-	index_format;
+	sge::renderer::index::i16
+	i16;
 
-	sge::renderer::index::buffer_unique_ptr const index_buffer(
-		sys.renderer_device_core().create_index_buffer(
-			sge::renderer::index::buffer_parameters(
-				sge::renderer::index::dynamic::make_format<
-					index_format
-				>(),
-				sge::renderer::index::count(
-					6u
-				),
-				sge::renderer::resource_flags_field::null()
+	sge::renderer::index::buffer_unique_ptr const index_buffer{
+		sge::renderer::index::create_buffer_from_indices(
+			sys.renderer_device_core(),
+			sge::renderer::resource_flags_field::null(),
+			fcppt::container::array::make(
+				fcppt::literal<i16>(0),
+				fcppt::literal<i16>(1),
+				fcppt::literal<i16>(2),
+				fcppt::literal<i16>(1),
+				fcppt::literal<i16>(3),
+				fcppt::literal<i16>(2)
 			)
 		)
-	);
-
-	{
-		sge::renderer::index::scoped_lock const iblock(
-			*index_buffer,
-			sge::renderer::lock_mode::writeonly
-		);
-
-		typedef
-		sge::renderer::index::view<
-			index_format
-		>
-		index_view;
-
-		index_view const view(
-			iblock.value()
-		);
-
-		index_view::iterator it(
-			view.begin()
-		);
-
-		typedef
-		index_view::value_type
-		index_value_type;
-
-		// TODO: Initialize this directly
-		(*it++).set(fcppt::literal<index_value_type>(0));
-		(*it++).set(fcppt::literal<index_value_type>(1));
-		(*it++).set(fcppt::literal<index_value_type>(2));
-		(*it++).set(fcppt::literal<index_value_type>(1));
-		(*it++).set(fcppt::literal<index_value_type>(3));
-		(*it++).set(fcppt::literal<index_value_type>(2));
-	}
+	};
 
 	sge::renderer::texture::planar_unique_ptr const texture(
 		sge::renderer::texture::create_planar_from_path(

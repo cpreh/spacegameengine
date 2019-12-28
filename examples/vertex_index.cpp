@@ -26,6 +26,7 @@
 #include <sge/renderer/index/first.hpp>
 #include <sge/renderer/index/format_16.hpp>
 #include <sge/renderer/index/iterator.hpp>
+#include <sge/renderer/index/nonconst_tag.hpp>
 #include <sge/renderer/index/scoped_lock.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
@@ -245,13 +246,10 @@ try
 		)
 	};
 
-//! [index_format_declaration]
 	typedef
 	sge::renderer::index::format_16
 	index_format;
-//! [index_format_declaration]
 
-//! [index_buffer_declaration]
 	sge::renderer::index::buffer_unique_ptr const index_buffer(
 		sys.renderer_device_core().create_index_buffer(
 			sge::renderer::index::buffer_parameters(
@@ -265,9 +263,7 @@ try
 			)
 		)
 	);
-//! [index_buffer_declaration]
 
-//! [index_buffer_lock]
 	{
 		sge::renderer::index::scoped_lock const iblock(
 			*index_buffer,
@@ -276,15 +272,15 @@ try
 
 		typedef
 		sge::renderer::index::view<
-			index_format
+			index_format,
+			sge::renderer::index::nonconst_tag
 		>
 		index_view;
 
 		index_view const view(
 			iblock.value()
 		);
-//! [index_buffer_lock]
-//! [index_buffer_fill]
+
 		index_view::iterator it(
 			view.begin()
 		);
@@ -293,7 +289,6 @@ try
 		index_view::value_type
 		index_value_type;
 
-		// TODO: Create a range for this
 		(*it++).set(fcppt::literal<index_value_type>(0));
 		(*it++).set(fcppt::literal<index_value_type>(1));
 		(*it++).set(fcppt::literal<index_value_type>(2));
@@ -301,7 +296,6 @@ try
 		(*it++).set(fcppt::literal<index_value_type>(3));
 		(*it++).set(fcppt::literal<index_value_type>(2));
 	}
-//! [index_buffer_fill]
 
 	auto const draw(
 		[
@@ -325,7 +319,6 @@ try
 				}
 			);
 
-//! [render_indexed]
 			scoped_block.get().render_indexed(
 				*index_buffer,
 				sge::renderer::vertex::first(
@@ -342,7 +335,6 @@ try
 					6u
 				)
 			);
-//! [render_indexed]
 		}
 	);
 

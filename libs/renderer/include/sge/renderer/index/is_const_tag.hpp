@@ -4,10 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_RENDERER_INDEX_IS_FORMAT_HPP_INCLUDED
-#define SGE_RENDERER_INDEX_IS_FORMAT_HPP_INCLUDED
+#ifndef SGE_RENDERER_INDEX_IS_CONST_TAG_HPP_INCLUDED
+#define SGE_RENDERER_INDEX_IS_CONST_TAG_HPP_INCLUDED
 
-#include <sge/renderer/index/format_fwd.hpp>
+#include <sge/renderer/index/const_tag.hpp>
+#include <sge/renderer/index/nonconst_tag.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -21,21 +22,26 @@ namespace index
 {
 
 template<
-	typename Format
+	typename Type
 >
-struct is_format
+struct is_const_tag
 :
 std::false_type
 {
 };
 
-template<
-	typename Index
+template<>
+struct is_const_tag<
+	sge::renderer::index::const_tag
 >
-struct is_format<
-	sge::renderer::index::format<
-		Index
-	>
+:
+std::true_type
+{
+};
+
+template<>
+struct is_const_tag<
+	sge::renderer::index::nonconst_tag
 >
 :
 std::true_type

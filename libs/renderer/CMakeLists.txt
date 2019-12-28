@@ -223,8 +223,6 @@ set(
 	libs/renderer/include/sge/renderer/index/buffer_parameters_fwd.hpp
 	libs/renderer/include/sge/renderer/index/buffer_shared_ptr.hpp
 	libs/renderer/include/sge/renderer/index/buffer_unique_ptr.hpp
-	libs/renderer/include/sge/renderer/index/const_format_16.hpp
-	libs/renderer/include/sge/renderer/index/const_format_32.hpp
 	libs/renderer/include/sge/renderer/index/const_proxy.hpp
 	libs/renderer/include/sge/renderer/index/const_proxy_decl.hpp
 	libs/renderer/include/sge/renderer/index/const_proxy_fwd.hpp
@@ -233,6 +231,7 @@ set(
 	libs/renderer/include/sge/renderer/index/const_scoped_lock_fwd.hpp
 	libs/renderer/include/sge/renderer/index/const_tag.hpp
 	libs/renderer/include/sge/renderer/index/count.hpp
+	libs/renderer/include/sge/renderer/index/create_buffer_from_indices.hpp
 	libs/renderer/include/sge/renderer/index/create_buffer_from_view.hpp
 	libs/renderer/include/sge/renderer/index/detail/iterator_base.hpp
 	libs/renderer/include/sge/renderer/index/detail/pp_formats.hpp
@@ -259,12 +258,14 @@ set(
 	libs/renderer/include/sge/renderer/index/format_is_32.hpp
 	libs/renderer/include/sge/renderer/index/i16.hpp
 	libs/renderer/include/sge/renderer/index/i32.hpp
+	libs/renderer/include/sge/renderer/index/is_const_tag.hpp
 	libs/renderer/include/sge/renderer/index/is_format.hpp
 	libs/renderer/include/sge/renderer/index/iterator.hpp
 	libs/renderer/include/sge/renderer/index/iterator_decl.hpp
 	libs/renderer/include/sge/renderer/index/iterator_fwd.hpp
 	libs/renderer/include/sge/renderer/index/iterator_impl.hpp
 	libs/renderer/include/sge/renderer/index/nonconst_tag.hpp
+	libs/renderer/include/sge/renderer/index/pointer.hpp
 	libs/renderer/include/sge/renderer/index/proxy.hpp
 	libs/renderer/include/sge/renderer/index/proxy_decl.hpp
 	libs/renderer/include/sge/renderer/index/proxy_fwd.hpp
@@ -272,7 +273,6 @@ set(
 	libs/renderer/include/sge/renderer/index/scoped_lock.hpp
 	libs/renderer/include/sge/renderer/index/scoped_lock_fwd.hpp
 	libs/renderer/include/sge/renderer/index/tag.hpp
-	libs/renderer/include/sge/renderer/index/to_const_format.hpp
 	libs/renderer/include/sge/renderer/index/traits/color_tag.hpp
 	libs/renderer/include/sge/renderer/index/traits/const_view_fwd.hpp
 	libs/renderer/include/sge/renderer/index/traits/dimension.hpp
@@ -936,6 +936,7 @@ set(
 	libs/renderer/include/sge/renderer/vf/get_proxy.hpp
 	libs/renderer/include/sge/renderer/vf/index.hpp
 	libs/renderer/include/sge/renderer/vf/index_type.hpp
+	libs/renderer/include/sge/renderer/vf/is_const_tag.hpp
 	libs/renderer/include/sge/renderer/vf/is_part.hpp
 	libs/renderer/include/sge/renderer/vf/is_vertex.hpp
 	libs/renderer/include/sge/renderer/vf/iterator.hpp

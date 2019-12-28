@@ -7,9 +7,6 @@
 #ifndef SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/const_raw_pointer.hpp>
-#include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/index/const_tag.hpp>
 #include <sge/renderer/index/format_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
@@ -24,8 +21,7 @@ namespace index
 {
 
 template<
-	typename Index,
-	typename Constness
+	typename Index
 >
 struct format
 {
@@ -33,21 +29,11 @@ struct format
 	Index
 	index_type;
 
-	typedef
-	Constness
-	constness;
-
-	typedef
-	typename
-	std::conditional<
-		std::is_same<
-			Constness,
-			sge::renderer::index::const_tag
-		>::value,
-		sge::renderer::const_raw_pointer,
-		sge::renderer::raw_pointer
-	>::type
-	pointer;
+	static_assert(
+		std::is_integral_v<
+			Index
+		>
+	);
 };
 
 }

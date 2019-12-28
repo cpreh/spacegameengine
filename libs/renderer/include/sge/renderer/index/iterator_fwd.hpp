@@ -16,7 +16,8 @@ namespace index
 {
 
 template<
-	typename Format
+	typename Format,
+	typename Constness
 >
 class iterator;
 

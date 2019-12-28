@@ -7,6 +7,8 @@
 #ifndef SGE_RENDERER_VF_PROXY_DECL_HPP_INCLUDED
 #define SGE_RENDERER_VF_PROXY_DECL_HPP_INCLUDED
 
+#include <sge/renderer/vf/is_const_tag.hpp>
+#include <sge/renderer/vf/is_part.hpp>
 #include <sge/renderer/vf/label_value_type.hpp>
 #include <sge/renderer/vf/pointer.hpp>
 #include <sge/renderer/vf/proxy_fwd.hpp>
@@ -27,6 +29,18 @@ template<
 class proxy
 {
 public:
+	static_assert(
+		sge::renderer::vf::is_part<
+			Part
+		>::value
+	);
+
+	static_assert(
+		sge::renderer::vf::is_const_tag<
+			Constness
+		>::value
+	);
+
 	typedef
 	sge::renderer::vf::pointer<
 		Constness

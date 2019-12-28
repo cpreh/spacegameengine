@@ -14,45 +14,56 @@
 
 
 template<
-	typename Format
+	typename Format,
+	typename Constness
 >
 sge::renderer::index::iterator<
-	Format
+	Format,
+	Constness
 >::iterator(
 	pointer const _data
 )
 :
-	data_(
+	data_{
 		_data
-	)
+	}
 {
 }
 
 template<
-	typename Format
+	typename Format,
+	typename Constness
 >
-typename sge::renderer::index::iterator<
-	Format
+typename
+sge::renderer::index::iterator<
+	Format,
+	Constness
 >::pointer
 sge::renderer::index::iterator<
-	Format
+	Format,
+	Constness
 >::data() const
 {
 	return
-		data_;
+		this->data_;
 }
 
 template<
-	typename Format
+	typename Format,
+	typename Constness
 >
-void
 sge::renderer::index::iterator<
-	Format
->::advance(
+	Format,
+	Constness
+> &
+sge::renderer::index::iterator<
+	Format,
+	Constness
+>::operator+=(
 	difference_type const _diff
 )
 {
-	data_ +=
+	this->data_ +=
 		_diff
 		*
 		fcppt::cast::to_signed(
@@ -60,91 +71,59 @@ sge::renderer::index::iterator<
 				value_type
 			)
 		);
+
+	return
+		*this;
 }
 
 template<
-	typename Format
+	typename Format,
+	typename Constness
 >
 void
 sge::renderer::index::iterator<
-	Format
+	Format,
+	Constness
 >::increment()
 {
-	this->advance(
-		1
-	);
+	(*this) += 1;
 }
 
 template<
-	typename Format
->
-void
-sge::renderer::index::iterator<
-	Format
->::decrement()
-{
-	this->advance(
-		-1
-	);
-}
-
-template<
-	typename Format
+	typename Format,
+	typename Constness
 >
 bool
 sge::renderer::index::iterator<
-	Format
+	Format,
+	Constness
 >::equal(
 	iterator const &_other
 ) const
 {
 	return
-		data_
+		this->data_
 		==
 		_other.data_;
 }
 
 template<
-	typename Format
+	typename Format,
+	typename Constness
 >
 typename
 sge::renderer::index::iterator<
-	Format
->::difference_type
-sge::renderer::index::iterator<
-	Format
->::distance_to(
-	iterator const &_other
-) const
-{
-	return
-		(
-			_other.data_
-			-
-			data_
-		)
-		/
-		fcppt::cast::to_signed(
-			sizeof(
-				value_type
-			)
-		);
-}
-
-template<
-	typename Format
->
-typename
-sge::renderer::index::iterator<
-	Format
+	Format,
+	Constness
 >::reference
 sge::renderer::index::iterator<
-	Format
+	Format,
+	Constness
 >::dereference() const
 {
 	return
 		reference(
-			data_
+			this->data_
 		);
 }
 

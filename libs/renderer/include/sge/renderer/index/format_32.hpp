@@ -9,7 +9,6 @@
 
 #include <sge/renderer/index/format_fwd.hpp>
 #include <sge/renderer/index/i32.hpp>
-#include <sge/renderer/index/nonconst_tag.hpp>
 
 
 namespace sge
@@ -21,8 +20,7 @@ namespace index
 
 typedef
 sge::renderer::index::format<
-	sge::renderer::index::i32,
-	sge::renderer::index::nonconst_tag
+	sge::renderer::index::i32
 >
 format_32;
 
