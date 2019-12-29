@@ -107,6 +107,8 @@ fill_position_unrotated(
 		)
 	);
 
+	++_iterator;
+
 	sge::renderer::vf::set_proxy(
 		*_iterator,
 		sge::renderer::vf::labels::pos{},
