@@ -8,21 +8,25 @@
 #define SGE_RENDERER_OPENGL_GLINCLUDE_HPP_INCLUDED
 
 #include <fcppt/config/platform.hpp>
-#include <fcppt/config/external_begin.hpp>
 #if defined(FCPPT_CONFIG_DARWIN_PLATFORM)
-#	include <OpenGL/gl.h>
-#else
-#	if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-#		if !defined(WIN32_LEAN_AND_MEAN)
-#			define WIN32_LEAN_AND_MEAN
-#		endif
-#		if !defined(NOMINMAX)
-#			define NOMINMAX
-#		endif
-#		include <windows.h>
-#	endif
-#	include <GL/gl.h>
-#endif
+#include <fcppt/config/external_begin.hpp>
+#include <OpenGL/gl.h>
 #include <fcppt/config/external_end.hpp>
+#else
+#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#if !defined(WIN32_LEAN_AND_MEAN)
+#define WIN32_LEAN_AND_MEAN
+#endif
+#if !defined(NOMINMAX)
+#define NOMINMAX
+#endif
+#include <fcppt/config/external_begin.hpp>
+#include <windows.h>
+#include <fcppt/config/external_end.hpp>
+#endif
+#include <fcppt/config/external_begin.hpp>
+#include <GL/gl.h>
+#include <fcppt/config/external_end.hpp>
+#endif
 
 #endif
