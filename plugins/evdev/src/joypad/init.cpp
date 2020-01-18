@@ -9,14 +9,19 @@
 #include <sge/evdev/joypad/map.hpp>
 #include <sge/evdev/joypad/object.hpp>
 #include <sge/evdev/joypad/shared_ptr.hpp>
+#include <sge/input/exception.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <awl/backends/posix/processor_fwd.hpp>
+#include <fcppt/error_code_to_string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
-#include <fcppt/filesystem/directory_range.hpp>
+#include <fcppt/either/to_exception.hpp>
+#include <fcppt/filesystem/make_directory_range.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
+#include <system_error>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -32,8 +37,24 @@ sge::evdev::joypad::init(
 		fcppt::algorithm::map_optional<
 			sge::evdev::joypad::map
 		>(
-			fcppt::filesystem::directory_range(
-				_path
+			fcppt::either::to_exception(
+				fcppt::filesystem::make_directory_range(
+					_path,
+					std::filesystem::directory_options::none
+				),
+				[](
+					std::error_code const _error
+				)
+				{
+					return
+						sge::input::exception{
+							FCPPT_TEXT("Cannot access joystick directory: ")
+							+
+							fcppt::error_code_to_string(
+								_error
+							)
+						};
+				}
 			),
 			[
 				&_log,

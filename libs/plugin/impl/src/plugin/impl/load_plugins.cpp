@@ -6,18 +6,21 @@
 
 #include <sge/core/exception.hpp>
 #include <sge/plugin/context_base_unique_ptr.hpp>
+#include <sge/plugin/exception.hpp>
 #include <sge/plugin/file_extension.hpp>
 #include <sge/plugin/optional_cache_ref_fwd.hpp>
 #include <sge/plugin/detail/context_base_vector.hpp>
 #include <sge/plugin/impl/context_base.hpp>
 #include <sge/plugin/impl/load_plugins.hpp>
 #include <sge/plugin/library/symbol_not_found.hpp>
+#include <fcppt/error_code_to_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
-#include <fcppt/filesystem/directory_range.hpp>
+#include <fcppt/either/to_exception.hpp>
 #include <fcppt/filesystem/extension_without_dot.hpp>
+#include <fcppt/filesystem/make_directory_range.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
@@ -25,6 +28,7 @@
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
+#include <system_error>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -39,8 +43,24 @@ sge::plugin::impl::load_plugins(
 		fcppt::algorithm::map_optional<
 			sge::plugin::detail::context_base_vector
 		>(
-			fcppt::filesystem::directory_range(
-				_path
+			fcppt::either::to_exception(
+				fcppt::filesystem::make_directory_range(
+					_path,
+					std::filesystem::directory_options::none
+				),
+				[](
+					std::error_code const _error
+				)
+				{
+					return
+						sge::plugin::exception{
+							FCPPT_TEXT("Cannot access plugin directory: ")
+							+
+							fcppt::error_code_to_string(
+								_error
+							)
+						};
+				}
 			),
 			[
 				&_log,

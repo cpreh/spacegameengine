@@ -7,6 +7,7 @@
 #ifndef SGE_RESOURCE_TREE_DETAIL_ADD_DIRECTORY_HPP_INCLUDED
 #define SGE_RESOURCE_TREE_DETAIL_ADD_DIRECTORY_HPP_INCLUDED
 
+#include <sge/resource_tree/exception.hpp>
 #include <sge/resource_tree/path_to_resource_function.hpp>
 #include <sge/resource_tree/detail/base_path.hpp>
 #include <sge/resource_tree/detail/element_impl.hpp>
@@ -14,11 +15,14 @@
 #include <sge/resource_tree/detail/strip_file_extension.hpp>
 #include <sge/resource_tree/detail/strip_path_prefix.hpp>
 #include <sge/resource_tree/detail/sub_path.hpp>
+#include <fcppt/error_code_to_string.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
-#include <fcppt/filesystem/directory_range.hpp>
+#include <fcppt/either/to_exception.hpp>
+#include <fcppt/filesystem/make_directory_range.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
+#include <system_error>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -63,8 +67,22 @@ add_directory(
 		fcppt::algorithm::map_optional<
 			resource_container
 		>(
-			fcppt::filesystem::directory_range(
-				_sub_path.get()
+			fcppt::either::to_exception(
+				fcppt::filesystem::make_directory_range(
+					_sub_path.get(),
+					std::filesystem::directory_options::none
+				),
+				[](
+					std::error_code const _error
+				)
+				{
+					return
+						sge::resource_tree::exception{
+							fcppt::error_code_to_string(
+								_error
+							)
+						};
+				}
 			),
 			[
 				&_sub_path,

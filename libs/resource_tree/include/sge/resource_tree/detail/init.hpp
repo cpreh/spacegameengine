@@ -13,15 +13,18 @@
 #include <sge/resource_tree/detail/base_path.hpp>
 #include <sge/resource_tree/detail/element_vector.hpp>
 #include <sge/resource_tree/detail/sub_path.hpp>
+#include <fcppt/error_code_to_string.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/assert/throw_message.hpp>
 #include <fcppt/container/join.hpp>
-#include <fcppt/filesystem/directory_range.hpp>
+#include <fcppt/either/to_exception.hpp>
+#include <fcppt/filesystem/make_directory_range.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/optional/make_if.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
+#include <system_error>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -89,8 +92,22 @@ init(
 					std::filesystem::path
 				>
 			>(
-				fcppt::filesystem::directory_range(
-					_path
+				fcppt::either::to_exception(
+					fcppt::filesystem::make_directory_range(
+						_path,
+						std::filesystem::directory_options::none
+					),
+					[](
+						std::error_code const _error
+					)
+					{
+						return
+							sge::resource_tree::exception{
+								fcppt::error_code_to_string(
+									_error
+								)
+							};
+					}
 				),
 				[](
 					std::filesystem::path const &_cur_path
