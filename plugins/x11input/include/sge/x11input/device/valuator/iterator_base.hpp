@@ -9,8 +9,10 @@
 
 #include <sge/x11input/device/valuator/iterator_fwd.hpp>
 #include <sge/x11input/device/valuator/pair_fwd.hpp>
+#include <fcppt/iterator/base_impl.hpp>
+#include <fcppt/iterator/types.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/iterator/iterator_facade.hpp>
+#include <cstdlib>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
@@ -25,11 +27,14 @@ namespace valuator
 {
 
 typedef
-boost::iterator_facade<
-	sge::x11input::device::valuator::iterator,
-	sge::x11input::device::valuator::pair,
-	std::forward_iterator_tag,
-	sge::x11input::device::valuator::pair
+fcppt::iterator::base<
+	fcppt::iterator::types<
+		sge::x11input::device::valuator::iterator,
+		sge::x11input::device::valuator::pair,
+		sge::x11input::device::valuator::pair,
+		std::ptrdiff_t,
+		std::input_iterator_tag
+	>
 >
 iterator_base;
 

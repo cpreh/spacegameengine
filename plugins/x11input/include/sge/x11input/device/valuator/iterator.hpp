@@ -11,12 +11,8 @@
 #include <sge/x11input/device/valuator/iterator_base.hpp>
 #include <sge/x11input/device/valuator/iterator_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
-#include <boost/iterator/iterator_facade.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -29,9 +25,6 @@ namespace device
 namespace valuator
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 class iterator
 :
 	public sge::x11input::device::valuator::iterator_base
@@ -41,8 +34,6 @@ public:
 		sge::x11input::device::valuator::index,
 		XIValuatorState const &
 	);
-private:
-	friend class boost::iterator_core_access;
 
 	void
 	increment();
@@ -54,7 +45,7 @@ private:
 
 	reference
 	dereference() const;
-
+private:
 	void
 	index_to_next_valuator();
 
@@ -68,8 +59,6 @@ private:
 
 	sge::x11input::device::valuator::index length_;
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }
