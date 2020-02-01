@@ -13,7 +13,7 @@
 #include <sge/projectile/triangulation/traits/scalar.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/range/algorithm_ext/iota.hpp>
+#include <numeric>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -89,8 +89,9 @@ triangulate(
 			_contour
 		)
 	)
-		boost::iota(
-			indices,
+		std::iota(
+			indices.begin(),
+			indices.end(),
 			static_cast<
 				size_type
 			>(
