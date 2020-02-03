@@ -11,6 +11,8 @@
 #include <sge/console/object.hpp>
 #include <sge/console/prefix.hpp>
 #include <sge/console/callback/convenience.hpp>
+#include <sge/console/callback/name.hpp>
+#include <sge/console/callback/short_description.hpp>
 #include <sge/console/gfx/font_color.hpp>
 #include <sge/console/gfx/input_active.hpp>
 #include <sge/console/gfx/object.hpp>
@@ -92,9 +94,9 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
+#include <metal.hpp>
 #include <exception>
 #include <iostream>
-#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 
