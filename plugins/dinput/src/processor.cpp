@@ -18,10 +18,10 @@
 #include <sge/input/cursor/container.hpp>
 #include <sge/input/focus/container.hpp>
 #include <sge/input/info/name.hpp>
-#include <sge/input/keyboard/container.hpp>
-#include <sge/input/keyboard/shared_ptr.hpp>
 #include <sge/input/joypad/container.hpp>
 #include <sge/input/joypad/shared_ptr.hpp>
+#include <sge/input/keyboard/container.hpp>
+#include <sge/input/keyboard/shared_ptr.hpp>
 #include <sge/input/mouse/container.hpp>
 #include <sge/input/mouse/shared_ptr.hpp>
 #include <sge/window/event_function.hpp>
@@ -53,9 +53,9 @@
 #include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/container/join.hpp>
-#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

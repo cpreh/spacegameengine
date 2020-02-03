@@ -10,8 +10,8 @@
 #include <sge/d3d9/surface/color_onscreen_target.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/target/surface_index.hpp>
-#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 
 sge::d3d9::surface::color_create_function

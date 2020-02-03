@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
-ARGS=(--library sge --library awl --library mizuiro --library fcppt)
+LIBS=(--library alda --library sge --library awl --library mizuiro --library fcppt)
+DIRS=(examples libs plugins tests)
 
-find examples libs plugins tests tools \( \( -name '*.hpp' -o -name '*.cpp' \) \) -exec update_headers.sh '{}' "${ARGS[@]}" \;
+prettify_includes "${LIBS[@]}" "${DIRS[@]}"
+
+prettify_includes --library control_config "${LIBS[@]}" tools/control_config

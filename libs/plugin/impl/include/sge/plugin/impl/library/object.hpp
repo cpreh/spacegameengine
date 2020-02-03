@@ -8,11 +8,11 @@
 #define SGE_PLUGIN_IMPL_LIBRARY_OBJECT_HPP_INCLUDED
 
 #include <sge/plugin/detail/symbol.hpp>
+#include <sge/plugin/impl/library/loaded_symbol.hpp>
 #include <sge/plugin/library/object_fwd.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
-#include <sge/plugin/impl/library/loaded_symbol.hpp>
-#include <fcppt/config/platform.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/config/platform.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>

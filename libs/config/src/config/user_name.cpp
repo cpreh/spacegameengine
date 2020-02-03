@@ -8,25 +8,25 @@
 #include <fcppt/config/platform.hpp>
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #include <sge/config/exception.hpp>
+#include <fcppt/from_std_string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/container/dynamic_array.hpp>
 #include <fcppt/error/strerrno.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/from_std_string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <sys/types.h>
 #include <pwd.h>
 #include <unistd.h>
+#include <sys/types.h>
 #include <fcppt/config/external_end.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/config/exception.hpp>
 #include <awl/backends/windows/format_message.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/char_type.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
-#include <windows.h>
 #include <lmcons.h>
+#include <windows.h>
+#include <array>
 #include <fcppt/config/external_end.hpp>
 #endif
 

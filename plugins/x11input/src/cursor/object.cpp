@@ -55,10 +55,10 @@
 #include <fcppt/optional/to_container.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <metal.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
 #include <functional>
-#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

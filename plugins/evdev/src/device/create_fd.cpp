@@ -13,9 +13,9 @@
 #include <fcppt/text.hpp>
 #include <fcppt/error/strerrno.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/out.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <utility>

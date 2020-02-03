@@ -12,8 +12,8 @@
 #include <sge/evdev/joypad/attrib.hpp>
 #include <sge/evdev/joypad/init.hpp>
 #include <sge/evdev/joypad/object.hpp>
-#include <sge/evdev/joypad/shared_ptr.hpp>
 #include <sge/evdev/joypad/remove.hpp>
+#include <sge/evdev/joypad/shared_ptr.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/container.hpp>
 #include <sge/input/focus/container.hpp>

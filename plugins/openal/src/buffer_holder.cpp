@@ -9,9 +9,9 @@
 #include <sge/openal/funcs/delete_buffer.hpp>
 #include <sge/openal/funcs/gen_buffer.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/out.hpp>
 
 
 sge::openal::buffer_holder::buffer_holder(

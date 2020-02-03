@@ -10,13 +10,13 @@
 #include <sge/sdlinput/focus/translate_keyboard_event.hpp>
 #include <sge/sdlinput/keyboard/translate_event.hpp>
 #include <sge/sdlinput/translate/keyboard_event.hpp>
-#include <fcppt/not.hpp>
-#include <fcppt/container/make.hpp>
-#include <fcppt/optional/cat.hpp>
+#include <awl/backends/sdl/window/object_fwd.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
-#include <awl/backends/sdl/window/object_fwd.hpp>
+#include <fcppt/not.hpp>
+#include <fcppt/container/make.hpp>
+#include <fcppt/optional/cat.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_events.h>
 #include <vector>

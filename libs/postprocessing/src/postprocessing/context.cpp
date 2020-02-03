@@ -7,19 +7,25 @@
 #include <sge/config/media_path.hpp>
 #include <sge/image/ds/format.hpp>
 #include <sge/postprocessing/context.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/color_buffer/optional_surface_ref.hpp>
 #include <sge/renderer/color_buffer/surface.hpp>
 #include <sge/renderer/color_buffer/writable_surface.hpp>
+#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/scoped_core.hpp>
 #include <sge/renderer/depth_stencil_buffer/optional_surface_ref.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_parameters.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/device/core.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/context/core.hpp>
-#include <sge/renderer/context/scoped_core.hpp>
-#include <sge/renderer/target/from_texture.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/object.hpp>
+#include <sge/renderer/state/core/sampler/parameters.hpp>
+#include <sge/renderer/state/core/sampler/scoped.hpp>
+#include <sge/renderer/state/core/sampler/address/default.hpp>
+#include <sge/renderer/state/core/sampler/filter/point.hpp>
+#include <sge/renderer/target/from_texture.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/onscreen_unique_ptr.hpp>
@@ -28,15 +34,9 @@
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
-#include <sge/renderer/state/core/sampler/const_object_ref.hpp>
-#include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
-#include <sge/renderer/state/core/sampler/parameters.hpp>
-#include <sge/renderer/state/core/sampler/address/default.hpp>
-#include <sge/renderer/state/core/sampler/scoped.hpp>
-#include <sge/renderer/state/core/sampler/filter/point.hpp>
 	/*
 #include <sge/renderer/texture/address_mode.hpp>
 #include <sge/renderer/texture/address_mode2.hpp>
@@ -51,8 +51,6 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_to_base.hpp>
-#include <fcppt/optional/assign.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
@@ -60,6 +58,8 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_signed.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -491,4 +491,3 @@ sge::postprocessing::context::finalize()
 	return
 		result;
 }
-

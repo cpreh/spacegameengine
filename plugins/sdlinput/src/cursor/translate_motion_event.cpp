@@ -9,10 +9,10 @@
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/move.hpp>
 #include <sge/sdlinput/cursor/translate_motion_event.hpp>
-#include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/unique_ptr_to_base.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/base_unique_ptr.hpp>
+#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_events.h>
 #include <fcppt/config/external_end.hpp>

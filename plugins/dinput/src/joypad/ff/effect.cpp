@@ -11,8 +11,8 @@
 #include <sge/dinput/joypad/ff/effect.hpp>
 #include <sge/dinput/joypad/ff/start.hpp>
 #include <sge/dinput/joypad/ff/stop.hpp>
-#include <sge/dinput/joypad/ff/with_parameters.hpp>
 #include <sge/dinput/joypad/ff/variant_to_guid.hpp>
+#include <sge/dinput/joypad/ff/with_parameters.hpp>
 #include <sge/input/joypad/ff/effect.hpp>
 #include <sge/input/joypad/ff/optional_play_count.hpp>
 #include <sge/input/joypad/ff/parameters.hpp>

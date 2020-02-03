@@ -4,14 +4,14 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/plugin/library/exception.hpp>
-#include <sge/plugin/library/symbol_string.hpp>
 #include <sge/plugin/impl/library/error.hpp>
 #include <sge/plugin/impl/library/object.hpp>
-#include <fcppt/config/platform.hpp>
-#include <fcppt/filesystem/path_to_string.hpp>
+#include <sge/plugin/library/exception.hpp>
+#include <sge/plugin/library/symbol_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/platform.hpp>
+#include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>

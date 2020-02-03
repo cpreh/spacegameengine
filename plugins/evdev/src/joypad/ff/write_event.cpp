@@ -13,10 +13,10 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <linux/input.h>
-#include <sys/time.h>
 #include <time.h>
 #include <unistd.h>
+#include <linux/input.h>
+#include <sys/time.h>
 #include <fcppt/config/external_end.hpp>
 
 

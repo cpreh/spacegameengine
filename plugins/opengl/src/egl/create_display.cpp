@@ -15,8 +15,8 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/type_name_from_info.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/join_strings.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/container/array/make.hpp>

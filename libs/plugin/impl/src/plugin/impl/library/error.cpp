@@ -7,8 +7,8 @@
 #include <sge/plugin/impl/library/error.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-#include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/format_message.hpp>
+#include <awl/backends/windows/windows.hpp>
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>

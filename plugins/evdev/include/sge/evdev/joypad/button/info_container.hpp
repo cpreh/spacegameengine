@@ -8,9 +8,9 @@
 #define SGE_EVDEV_JOYPAD_BUTTON_INFO_CONTAINER_HPP_INCLUDED
 
 #include <sge/evdev/device/basic_info_decl.hpp>
+#include <sge/evdev/joypad/button/info_container_fwd.hpp>
 #include <sge/input/joypad/button_id.hpp>
 #include <sge/input/joypad/button_info.hpp>
-#include <sge/evdev/joypad/button/info_container_fwd.hpp>
 #include <sge/input/joypad/button_info_container.hpp>
 
 

@@ -54,8 +54,8 @@
 #include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
-#include <sge/renderer/vf/get_proxy.hpp>
 #include <sge/renderer/vf/format.hpp>
+#include <sge/renderer/vf/get_proxy.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>

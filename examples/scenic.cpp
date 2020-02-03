@@ -126,8 +126,8 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <chrono>
 #include <example_main.hpp>
+#include <chrono>
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 

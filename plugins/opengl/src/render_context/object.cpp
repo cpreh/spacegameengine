@@ -18,8 +18,8 @@
 #include <sge/opengl/state/ffp/clip_plane/set.hpp>
 #include <sge/opengl/state/ffp/fog/set.hpp>
 #include <sge/opengl/state/ffp/lighting/set.hpp>
-#include <sge/opengl/state/ffp/lighting/material/set.hpp>
 #include <sge/opengl/state/ffp/lighting/light/set.hpp>
+#include <sge/opengl/state/ffp/lighting/material/set.hpp>
 #include <sge/opengl/state/ffp/misc/set.hpp>
 #include <sge/opengl/state/ffp/sampler/set.hpp>
 #include <sge/opengl/state/ffp/transform/set.hpp>
@@ -62,17 +62,17 @@
 #include <sge/renderer/vertex/first.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/opengl/cg/program/activate.hpp>
 #include <sge/opengl/cg/program/deactivate.hpp>
-#include <sge/opengl/cg/texture/enable.hpp>
 #include <sge/opengl/cg/texture/disable.hpp>
+#include <sge/opengl/cg/texture/enable.hpp>
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
 #include <sge/renderer/cg/loaded_texture_fwd.hpp>
 #endif

@@ -14,8 +14,8 @@
 #include <sge/input/joypad/ff/effect_unique_ptr.hpp>
 #include <sge/input/joypad/ff/parameters_fwd.hpp>
 #include <sge/sdlinput/joypad/ball_direction_fwd.hpp>
-#include <sge/sdlinput/joypad/device_id.hpp>
 #include <sge/sdlinput/joypad/device_fwd.hpp>
+#include <sge/sdlinput/joypad/device_id.hpp>
 #include <sge/sdlinput/joypad/hat_direction_fwd.hpp>
 #include <sge/sdlinput/joypad/instance.hpp>
 #include <sge/window/object_fwd.hpp>

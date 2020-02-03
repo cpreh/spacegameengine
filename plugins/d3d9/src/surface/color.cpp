@@ -24,15 +24,15 @@
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/optional/assign.hpp>
-#include <fcppt/optional/object_impl.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/math/dim/comparison.hpp>
+#include <fcppt/optional/assign.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 sge::d3d9::surface::color::color(

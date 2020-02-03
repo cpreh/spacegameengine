@@ -8,8 +8,8 @@
 #define SGE_SDLINPUT_FOCUS_TRANSLATE_TEXT_EVENT_HPP_INCLUDED
 
 #include <sge/input/focus/shared_ptr.hpp>
-#include <awl/event/container.hpp>
 #include <awl/backends/sdl/window/object_fwd.hpp>
+#include <awl/event/container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_events.h>
 #include <fcppt/config/external_end.hpp>

@@ -119,8 +119,8 @@
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
-#include <sge/renderer/vf/labels/pos.hpp>
 #include <sge/renderer/vf/labels/normal.hpp>
+#include <sge/renderer/vf/labels/pos.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
@@ -215,11 +215,11 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <example_main.hpp>
+#include <metal.hpp>
 #include <chrono>
 #include <cmath>
-#include <example_main.hpp>
 #include <exception>
-#include <metal.hpp>
 #include <string>
 #include <vector>
 #include <fcppt/config/external_end.hpp>

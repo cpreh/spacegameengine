@@ -35,7 +35,6 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 
 
 FCPPT_PP_PUSH_WARNING

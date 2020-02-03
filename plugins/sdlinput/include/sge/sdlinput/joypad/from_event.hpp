@@ -7,9 +7,9 @@
 #ifndef SGE_SDLINPUT_JOYPAD_FROM_EVENT_HPP_INCLUDED
 #define SGE_SDLINPUT_JOYPAD_FROM_EVENT_HPP_INCLUDED
 
-#include <sge/sdlinput/joypad/shared_ptr.hpp>
 #include <sge/sdlinput/joypad/from_event_impl.hpp>
 #include <sge/sdlinput/joypad/map.hpp>
+#include <sge/sdlinput/joypad/shared_ptr.hpp>
 
 
 namespace sge

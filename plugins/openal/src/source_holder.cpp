@@ -9,9 +9,9 @@
 #include <sge/openal/funcs/delete_source.hpp>
 #include <sge/openal/funcs/gen_source.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/out.hpp>
 
 
 sge::openal::source_holder::source_holder(

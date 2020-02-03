@@ -5,8 +5,8 @@
 
 
 #include <sge/image/color/format.hpp>
-#include <sge/pango/freetype/pixel_mode.hpp>
 #include <sge/pango/freetype/optional_pixel_mode.hpp>
+#include <sge/pango/freetype/pixel_mode.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ft2build.h>

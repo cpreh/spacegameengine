@@ -13,9 +13,9 @@
 #include <sge/sdlinput/same_windows.hpp>
 #include <sge/sdlinput/cursor/get_position.hpp>
 #include <sge/sdlinput/translate/window_event.hpp>
+#include <awl/backends/sdl/window/object_fwd.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
-#include <awl/backends/sdl/window/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>

@@ -9,13 +9,13 @@
 #include <sge/opengl/get_device_caps.hpp>
 #include <sge/opengl/init_multi_sampling.hpp>
 #include <sge/opengl/init_srgb.hpp>
-#include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/context.hpp>
+#include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/system.hpp>
 #include <sge/opengl/fbo/create_depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/create_target.hpp>
-#include <sge/opengl/occlusion_query/create.hpp>
 #include <sge/opengl/index/create_buffer.hpp>
+#include <sge/opengl/occlusion_query/create.hpp>
 #include <sge/opengl/platform/device_state.hpp>
 #include <sge/opengl/platform/system.hpp>
 #include <sge/opengl/render_context/create.hpp>
@@ -131,18 +131,18 @@
 #include <awl/window/object.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/cast/dynamic_cross.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
+#include <sge/cg/profile/object.hpp>
+#include <sge/cg/profile/shader_type.hpp>
 #include <sge/cg/program/compile_options.hpp>
 #include <sge/cg/program/object_fwd.hpp>
 #include <sge/cg/program/source.hpp>
-#include <sge/cg/profile/object.hpp>
-#include <sge/cg/profile/shader_type.hpp>
 #include <sge/opengl/cg/profile/create.hpp>
 #include <sge/opengl/cg/program/load.hpp>
 #include <sge/opengl/cg/program/optimal_options.hpp>

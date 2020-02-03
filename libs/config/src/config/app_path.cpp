@@ -6,8 +6,8 @@
 
 #include <sge/config/app_path.hpp>
 #include <sge/config/exception.hpp>
-#include <fcppt/config/platform.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/platform.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>

@@ -83,11 +83,11 @@
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
+#include <sge/cg/profile/object_fwd.hpp>
+#include <sge/cg/profile/shader_type_fwd.hpp>
 #include <sge/cg/program/compile_options.hpp>
 #include <sge/cg/program/object_fwd.hpp>
 #include <sge/cg/program/source.hpp>
-#include <sge/cg/profile/object_fwd.hpp>
-#include <sge/cg/profile/shader_type_fwd.hpp>
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>

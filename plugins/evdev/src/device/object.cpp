@@ -18,10 +18,10 @@
 #include <fcppt/text.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <linux/input.h>
-#include <filesystem>
-#include <cerrno>
 #include <unistd.h>
+#include <linux/input.h>
+#include <cerrno>
+#include <filesystem>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 

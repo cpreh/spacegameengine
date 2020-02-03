@@ -19,7 +19,6 @@
 #include <mizuiro/const_tag.hpp>
 #include <mizuiro/nonconst_tag.hpp>
 #include <fcppt/variant/apply.hpp>
-#include <fcppt/variant/apply.hpp>
 
 
 namespace sge

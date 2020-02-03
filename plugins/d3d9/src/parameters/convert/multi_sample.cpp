@@ -10,8 +10,8 @@
 #include <sge/renderer/pixel_format/multi_samples.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/optional/maybe.hpp>
 
 
 D3DMULTISAMPLE_TYPE

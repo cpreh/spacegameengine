@@ -92,8 +92,8 @@
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
-#include <sge/renderer/vf/texpos.hpp>
 #include <sge/renderer/vf/set_proxy.hpp>
+#include <sge/renderer/vf/texpos.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
@@ -145,12 +145,12 @@
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <example_main.hpp>
+#include <metal.hpp>
 #include <array>
 #include <chrono>
-#include <example_main.hpp>
 #include <exception>
 #include <iostream>
-#include <metal.hpp>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 

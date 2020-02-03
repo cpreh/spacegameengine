@@ -24,9 +24,9 @@
 #include <sge/input/joypad/ff/trigger.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/function_impl.hpp>
-#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_if_opt.hpp>
@@ -34,8 +34,8 @@
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/deref.hpp>
 #include <fcppt/optional/from.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/map.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/optional/to_pointer.hpp>
 #include <fcppt/variant/apply.hpp>

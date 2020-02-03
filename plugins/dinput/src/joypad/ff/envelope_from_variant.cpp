@@ -13,8 +13,8 @@
 #include <sge/input/joypad/ff/periodic.hpp>
 #include <sge/input/joypad/ff/ramp.hpp>
 #include <sge/input/joypad/ff/variant.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/map.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/variant/match.hpp>
 
 

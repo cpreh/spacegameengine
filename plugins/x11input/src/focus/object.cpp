@@ -50,10 +50,10 @@
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <metal.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
 #include <functional>
-#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

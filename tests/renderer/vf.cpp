@@ -42,8 +42,8 @@
 #include <mizuiro/color/object_fwd.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
-#include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/static.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -51,8 +51,8 @@
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <catch2/catch.hpp>
 #include <metal.hpp>
+#include <catch2/catch.hpp>
 #include <array>
 #include <cstddef>
 #include <cstring>

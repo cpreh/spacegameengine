@@ -4,19 +4,19 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/opencl/clinclude.hpp>
+#include <sge/opencl/config.hpp>
 #include <sge/opencl/context/error_callback.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/context/parameters.hpp>
-#include <sge/opencl/platform/object.hpp>
 #include <sge/opencl/device/object.hpp>
-#include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/config.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
+#include <sge/opencl/platform/object.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #if defined(SGE_OPENCL_HAVE_GLX)
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>

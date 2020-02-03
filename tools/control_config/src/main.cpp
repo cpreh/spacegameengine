@@ -5,13 +5,13 @@
 
 
 #include <control_config/test.hpp>
-#include <fcppt/exception.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/io/cerr.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/exit_success.hpp>
 #include <awl/main/function_context_fwd.hpp>
+#include <fcppt/exception.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/io/cerr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <tool_main.hpp>
 #include <exception>

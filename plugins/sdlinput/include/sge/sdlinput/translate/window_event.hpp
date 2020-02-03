@@ -9,8 +9,8 @@
 
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/focus/shared_ptr.hpp>
-#include <awl/event/container.hpp>
 #include <awl/backends/sdl/window/object_fwd.hpp>
+#include <awl/event/container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_events.h>
 #include <fcppt/config/external_end.hpp>

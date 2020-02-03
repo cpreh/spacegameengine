@@ -126,11 +126,11 @@
 #include <fcppt/variant/output.hpp>
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <chrono>
 #include <example_main.hpp>
+#include <metal.hpp>
+#include <chrono>
 #include <exception>
 #include <iostream>
-#include <metal.hpp>
 #include <ostream>
 #include <vector>
 #include <fcppt/config/external_end.hpp>

@@ -7,8 +7,8 @@
 #ifndef SGE_SDLINPUT_JOYPAD_FROM_EVENT_IMPL_HPP_INCLUDED
 #define SGE_SDLINPUT_JOYPAD_FROM_EVENT_IMPL_HPP_INCLUDED
 
-#include <sge/sdlinput/joypad/shared_ptr.hpp>
 #include <sge/sdlinput/joypad/map.hpp>
+#include <sge/sdlinput/joypad/shared_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_joystick.h>
 #include <fcppt/config/external_end.hpp>

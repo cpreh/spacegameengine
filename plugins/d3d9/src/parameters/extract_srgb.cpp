@@ -10,8 +10,8 @@
 #include <awl/visual/object.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/cast/dynamic.hpp>
+#include <fcppt/optional/maybe.hpp>
 
 
 sge::renderer::pixel_format::srgb

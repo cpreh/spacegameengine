@@ -38,8 +38,8 @@
 #include <sge/sprite/state/object_decl.hpp>
 #include <sge/sprite/state/parameters_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/circular_buffer.hpp>
 #include <metal.hpp>
+#include <boost/circular_buffer.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

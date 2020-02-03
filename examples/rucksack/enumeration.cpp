@@ -27,8 +27,8 @@
 #include <fcppt/random/generator/minstd_rand.hpp>
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
 #include <example_main.hpp>
+#include <array>
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 

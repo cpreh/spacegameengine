@@ -9,12 +9,12 @@
 
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/context/core_unique_ptr.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
@@ -50,11 +50,11 @@
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
+#include <sge/cg/profile/object_fwd.hpp>
+#include <sge/cg/profile/shader_type_fwd.hpp>
 #include <sge/cg/program/compile_options.hpp>
 #include <sge/cg/program/object_fwd.hpp>
 #include <sge/cg/program/source.hpp>
-#include <sge/cg/profile/object_fwd.hpp>
-#include <sge/cg/profile/shader_type_fwd.hpp>
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>

@@ -7,14 +7,14 @@
 #ifndef SGE_D3D9_DEVICE_HPP_INCLUDED
 #define SGE_D3D9_DEVICE_HPP_INCLUDED
 
-#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/d3d_device_unique_ptr.hpp>
+#include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/device_index.hpp>
 #include <sge/d3d9/resource_manager.hpp>
-#include <sge/d3d9/swapchain/d3d_unique_ptr.hpp>
-#include <sge/d3d9/target/onscreen_fwd.hpp>
 #include <sge/d3d9/state/core/defaults_fwd.hpp>
 #include <sge/d3d9/state/ffp/defaults_fwd.hpp>
+#include <sge/d3d9/swapchain/d3d_unique_ptr.hpp>
+#include <sge/d3d9/target/onscreen_fwd.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
@@ -86,11 +86,11 @@
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
+#include <sge/cg/profile/object_fwd.hpp>
+#include <sge/cg/profile/shader_type_fwd.hpp>
 #include <sge/cg/program/compile_options.hpp>
 #include <sge/cg/program/object_fwd.hpp>
 #include <sge/cg/program/source.hpp>
-#include <sge/cg/profile/object_fwd.hpp>
-#include <sge/cg/profile/shader_type_fwd.hpp>
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/texture/base_fwd.hpp>

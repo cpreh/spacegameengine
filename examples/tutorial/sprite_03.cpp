@@ -89,10 +89,10 @@
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
 #include <example_main.hpp>
-#include <exception>
 #include <metal.hpp>
+#include <array>
+#include <exception>
 #include <fcppt/config/external_end.hpp>
 
 

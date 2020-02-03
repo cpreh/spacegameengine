@@ -98,9 +98,9 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
+#include <metal.hpp>
 #include <exception>
 #include <filesystem>
-#include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
 
 

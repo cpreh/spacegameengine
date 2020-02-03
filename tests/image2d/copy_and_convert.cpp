@@ -6,13 +6,13 @@
 
 #include <sge/image/channel8.hpp>
 #include <sge/image/dim.hpp>
-#include <sge/image/pixel/mizuiro_type.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/init/alpha.hpp>
 #include <sge/image/color/init/blue.hpp>
 #include <sge/image/color/init/green.hpp>
 #include <sge/image/color/init/red.hpp>
+#include <sge/image/pixel/mizuiro_type.hpp>
 #include <sge/image/store/basic.hpp>
 #include <sge/image/view/wrap.hpp>
 #include <sge/image2d/bgra8_format.hpp>

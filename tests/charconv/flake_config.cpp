@@ -9,8 +9,8 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <filesystem>
 #include <catch2/catch.hpp>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 

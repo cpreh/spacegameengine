@@ -13,8 +13,8 @@
 #include <sge/evdev/joypad/object.hpp>
 #include <sge/evdev/joypad/absolute_axis/make_event.hpp>
 #include <sge/evdev/joypad/button/make_event.hpp>
-#include <sge/evdev/joypad/relative_axis/make_event.hpp>
 #include <sge/evdev/joypad/ff/effect.hpp>
+#include <sge/evdev/joypad/relative_axis/make_event.hpp>
 #include <sge/input/joypad/device.hpp>
 #include <sge/input/joypad/info.hpp>
 #include <sge/input/joypad/ff/effect.hpp>

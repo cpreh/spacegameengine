@@ -102,8 +102,8 @@
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
-#include <exception>
 #include <metal.hpp>
+#include <exception>
 #include <fcppt/config/external_end.hpp>
 
 

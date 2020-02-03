@@ -4,11 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/plugin/library/function_map.hpp>
-#include <sge/plugin/library/function_base.hpp>
-#include <sge/plugin/library/symbol_string.hpp>
 #include <sge/plugin/impl/library/load_function_base.hpp>
 #include <sge/plugin/impl/library/object.hpp>
+#include <sge/plugin/library/function_base.hpp>
+#include <sge/plugin/library/function_map.hpp>
+#include <sge/plugin/library/symbol_string.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/plugin/impl/library/cast_function_unsafe.hpp>

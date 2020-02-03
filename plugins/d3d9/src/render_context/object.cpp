@@ -63,12 +63,12 @@
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/reference_impl.hpp>
-#include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/d3d9/cg/program/activate.hpp>

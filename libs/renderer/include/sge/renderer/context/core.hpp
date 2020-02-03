@@ -10,9 +10,9 @@
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/primitive_type_fwd.hpp>
-#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/index/buffer_fwd.hpp>
 #include <sge/renderer/index/count.hpp>
 #include <sge/renderer/index/first.hpp>

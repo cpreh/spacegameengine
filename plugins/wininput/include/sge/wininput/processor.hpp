@@ -19,8 +19,8 @@
 #include <awl/backends/windows/window/event/generic_fwd.hpp>
 #include <awl/event/container.hpp>
 #include <awl/window/event/base_fwd.hpp>
-#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/shared_ptr_decl.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 

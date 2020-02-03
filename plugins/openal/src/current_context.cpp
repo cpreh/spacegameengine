@@ -8,9 +8,9 @@
 #include <sge/openal/current_context.hpp>
 #include <sge/openal/funcs/alc_make_context_current.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/out.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/out.hpp>
 
 
 sge::openal::current_context::current_context(

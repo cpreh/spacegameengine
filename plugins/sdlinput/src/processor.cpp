@@ -24,8 +24,8 @@
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/system_event_function.hpp>
-#include <awl/backends/sdl/window/object.hpp>
 #include <awl/backends/sdl/system/event/object.hpp>
+#include <awl/backends/sdl/window/object.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
 #include <awl/window/object.hpp>

@@ -17,8 +17,6 @@
 #include <sge/renderer/index/buffer_fwd.hpp>
 #include <sge/renderer/index/count.hpp>
 #include <sge/renderer/index/first.hpp>
-#include <sge/renderer/target/base_fwd.hpp>
-#include <sge/renderer/target/optional_offscreen_ref_fwd.hpp>
 #include <sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/core/rasterizer/const_optional_object_ref_fwd.hpp>
@@ -31,8 +29,10 @@
 #include <sge/renderer/state/ffp/lighting/material/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/ffp/misc/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
-#include <sge/renderer/state/ffp/transform/mode_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref_fwd.hpp>
+#include <sge/renderer/state/ffp/transform/mode_fwd.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
+#include <sge/renderer/target/optional_offscreen_ref_fwd.hpp>
 #include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
@@ -40,9 +40,9 @@
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/optional/object_decl.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/optional/object_decl.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/renderer/cg/loaded_program_fwd.hpp>

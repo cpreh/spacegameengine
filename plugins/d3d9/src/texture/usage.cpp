@@ -6,8 +6,8 @@
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/usage.hpp>
-#include <sge/d3d9/texture/usage.hpp>
 #include <sge/d3d9/convert/resource_flags.hpp>
+#include <sge/d3d9/texture/usage.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/texture/capabilities.hpp>

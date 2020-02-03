@@ -14,11 +14,11 @@
 #include <sge/dinput/device/funcs/unacquire.hpp>
 #include <sge/input/exception.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <awl/backends/windows/system/event/handle.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/base_unique_ptr.hpp>
 #include <awl/event/container.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
-#include <awl/backends/windows/system/event/handle.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>

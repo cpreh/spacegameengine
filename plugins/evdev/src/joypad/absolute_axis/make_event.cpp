@@ -5,11 +5,11 @@
 
 
 #include <sge/evdev/device/event.hpp>
-#include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/evdev/joypad/absolute_axis/make_event.hpp>
 #include <sge/input/joypad/absolute_axis.hpp>
 #include <sge/input/joypad/absolute_axis_id.hpp>
 #include <sge/input/joypad/absolute_axis_info_container.hpp>
+#include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/absolute_axis.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/base_unique_ptr.hpp>

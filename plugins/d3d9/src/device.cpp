@@ -6,8 +6,8 @@
 
 #include <sge/d3d9/create_device.hpp>
 #include <sge/d3d9/current_display_mode.hpp>
-#include <sge/d3d9/device.hpp>
 #include <sge/d3d9/d3dinclude.hpp>
+#include <sge/d3d9/device.hpp>
 #include <sge/d3d9/get_device_caps.hpp>
 #include <sge/d3d9/get_display_modes.hpp>
 #include <sge/d3d9/index_buffer.hpp>
@@ -25,8 +25,6 @@
 #include <sge/d3d9/render_context/create.hpp>
 #include <sge/d3d9/render_context/needs_present.hpp>
 #include <sge/d3d9/render_context/parameters.hpp>
-#include <sge/d3d9/surface/depth_stencil_offscreen.hpp>
-#include <sge/d3d9/swapchainfuncs/present.hpp>
 #include <sge/d3d9/state/core/defaults.hpp>
 #include <sge/d3d9/state/core/blend/create.hpp>
 #include <sge/d3d9/state/core/depth_stencil/create.hpp>
@@ -42,6 +40,8 @@
 #include <sge/d3d9/state/ffp/misc/create.hpp>
 #include <sge/d3d9/state/ffp/sampler/create.hpp>
 #include <sge/d3d9/state/ffp/transform/create.hpp>
+#include <sge/d3d9/surface/depth_stencil_offscreen.hpp>
+#include <sge/d3d9/swapchainfuncs/present.hpp>
 #include <sge/d3d9/target/offscreen.hpp>
 #include <sge/d3d9/target/onscreen.hpp>
 #include <sge/d3d9/texture/cube.hpp>
@@ -178,11 +178,11 @@
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/cg/context/object_fwd.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
+#include <sge/cg/profile/object.hpp>
+#include <sge/cg/profile/shader_type.hpp>
 #include <sge/cg/program/compile_options.hpp>
 #include <sge/cg/program/object_fwd.hpp>
 #include <sge/cg/program/source.hpp>
-#include <sge/cg/profile/object.hpp>
-#include <sge/cg/profile/shader_type.hpp>
 #include <sge/d3d9/cg/profile/create.hpp>
 #include <sge/d3d9/cg/program/create_loaded.hpp>
 #include <sge/d3d9/cg/program/optimal_options.hpp>

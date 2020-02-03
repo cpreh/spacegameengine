@@ -14,11 +14,11 @@
 #include <fcppt/config/external_end.hpp>
 
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)
-#include <sge/config/homedir.hpp>
 #include <sge/config/getenv.hpp>
-#include <fcppt/optional/maybe.hpp>
+#include <sge/config/homedir.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/optional/maybe.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/config/getenv_exn.hpp>
 #endif

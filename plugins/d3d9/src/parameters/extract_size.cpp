@@ -8,9 +8,9 @@
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <awl/window/object.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/optional/maybe.hpp>
 
 
 sge::renderer::screen_size const

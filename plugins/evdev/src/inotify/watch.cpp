@@ -9,8 +9,8 @@
 #include <sge/input/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <filesystem>
 #include <sys/inotify.h>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 

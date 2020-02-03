@@ -7,10 +7,10 @@
 #include <sge/opengl/check_state_always.hpp>
 #include <sge/opengl/check_state_once.hpp>
 #if !defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
-#include <sge/renderer/exception.hpp>
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/error_string.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #endif

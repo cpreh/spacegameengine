@@ -25,8 +25,8 @@
 #include <sge/renderer/event/render.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
-#include <sge/renderer/index/create_buffer_from_indices.hpp>
 #include <sge/renderer/index/count.hpp>
+#include <sge/renderer/index/create_buffer_from_indices.hpp>
 #include <sge/renderer/index/first.hpp>
 #include <sge/renderer/index/i16.hpp>
 #include <sge/renderer/pixel_format/color.hpp>

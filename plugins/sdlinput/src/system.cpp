@@ -11,16 +11,18 @@
 #include <sge/input/system.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
-#include <sge/window/object_fwd.hpp>
 #include <sge/sdlinput/processor.hpp>
 #include <sge/sdlinput/system.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <awl/backends/sdl/window/object.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/name.hpp>
-#include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
 #include <SDL.h>
-#include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::sdlinput::system::system(

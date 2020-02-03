@@ -7,20 +7,20 @@
 #ifndef SGE_RENDERER_VERTEX_CREATE_BUFFER_FROM_VERTICES_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_CREATE_BUFFER_FROM_VERTICES_HPP_INCLUDED
 
-#include <fcppt/algorithm/range_element_type.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
-#include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vertex/count.hpp>
-#include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/is_vertex.hpp>
+#include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/proxy.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
+#include <fcppt/algorithm/range_element_type.hpp>
 #include <fcppt/range/begin.hpp>
 #include <fcppt/range/end.hpp>
 #include <fcppt/range/size.hpp>

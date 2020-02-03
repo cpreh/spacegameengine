@@ -10,14 +10,14 @@
 #include <sge/opengl/platform/system_unique_ptr.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/system/object.hpp>
-#include <fcppt/function_impl.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/function_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/type_name_from_info.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/join_strings.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/container/array/make.hpp>

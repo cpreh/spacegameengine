@@ -13,9 +13,9 @@
 #include <fcppt/algorithm/loop_break_metal.hpp>
 #include <fcppt/metal/enum_range.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <catch2/catch.hpp>
 #include <filesystem>
 #include <fstream>
-#include <catch2/catch.hpp>
 #include <sstream>
 #include <string>
 #include <fcppt/config/external_end.hpp>

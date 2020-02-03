@@ -8,8 +8,8 @@
 #include <sge/wlinput/focus/key_pressed.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstdint>
 #include <wayland-client-protocol.h>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 

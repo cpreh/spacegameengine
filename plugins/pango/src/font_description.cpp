@@ -13,8 +13,8 @@
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <pango/pango-font.h>
 #include <glib.h>
+#include <pango/pango-font.h>
 #include <fcppt/config/external_end.hpp>
 
 

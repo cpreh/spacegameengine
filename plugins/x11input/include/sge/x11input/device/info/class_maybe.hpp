@@ -13,8 +13,8 @@
 #include <fcppt/make_cref.hpp>
 #include <fcppt/optional/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
 #include <metal.hpp>
+#include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
 

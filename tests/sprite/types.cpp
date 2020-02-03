@@ -14,8 +14,8 @@
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/custom_texture_point_pos.hpp>
 #include <sge/sprite/config/float_type.hpp>
-#include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/no_texture_point_size.hpp>
+#include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/point_size.hpp>
 #include <sge/sprite/config/pos.hpp>
 #include <sge/sprite/config/pos_option.hpp>
@@ -28,6 +28,7 @@
 #include <sge/sprite/config/with_color.hpp>
 #include <sge/sprite/config/with_texture.hpp>
 #include <sge/sprite/config/with_texture_point_size.hpp>
+#include <sge/sprite/detail/make_class.hpp>
 #include <sge/sprite/detail/vf/color.hpp>
 #include <sge/sprite/detail/vf/point_size.hpp>
 #include <sge/sprite/detail/vf/pos.hpp>
@@ -40,7 +41,6 @@
 #include <sge/sprite/types/dim.hpp>
 #include <sge/sprite/types/point_size.hpp>
 #include <sge/sprite/types/vector.hpp>
-#include <sge/sprite/detail/make_class.hpp>
 #include <sge/texture/const_part_shared_ptr.hpp>
 #include <fcppt/metal/maps_equal.hpp>
 #include <fcppt/record/element_map.hpp>

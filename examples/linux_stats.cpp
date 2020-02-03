@@ -117,8 +117,8 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
 #include <example_main.hpp>
+#include <array>
 #include <exception>
 #include <fstream>
 #include <ios>

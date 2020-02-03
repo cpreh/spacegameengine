@@ -138,11 +138,11 @@
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <example_main.hpp>
+#include <metal.hpp>
 #include <boost/circular_buffer.hpp>
 #include <cmath>
-#include <example_main.hpp>
 #include <exception>
-#include <metal.hpp>
 #include <numeric>
 #include <fcppt/config/external_end.hpp>
 

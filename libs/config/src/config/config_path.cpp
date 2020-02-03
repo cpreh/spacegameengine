@@ -7,8 +7,8 @@
 #include <sge/config/app_name.hpp>
 #include <sge/config/config_path.hpp>
 #include <sge/config/impl/try_create_path.hpp>
-#include <fcppt/config/platform.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/platform.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
@@ -16,9 +16,9 @@
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #include <sge/config/getenv.hpp>
 #include <sge/config/homedir.hpp>
-#include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/optional/maybe.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/config/getenv_exn.hpp>
 #endif
