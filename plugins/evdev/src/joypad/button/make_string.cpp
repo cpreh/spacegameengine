@@ -8,7 +8,6 @@
 #include <sge/evdev/device/event_type.hpp>
 #include <sge/evdev/joypad/button/make_string.hpp>
 #include <fcppt/optional_string.hpp>
-#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
 #include <fcppt/config/external_end.hpp>
@@ -108,8 +107,8 @@ sge::evdev::joypad::button::make_string(
 		SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(
 			BTN_THUMBR
 		);
-		default:
-			return
-				fcppt::optional_string();
 	}
+
+	return
+		fcppt::optional_string();
 }

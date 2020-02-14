@@ -8,7 +8,6 @@
 #include <sge/evdev/device/event_type.hpp>
 #include <sge/evdev/joypad/relative_axis/make_string.hpp>
 #include <fcppt/optional_string.hpp>
-#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
 #include <fcppt/config/external_end.hpp>
@@ -55,5 +54,6 @@ sge::evdev::joypad::relative_axis::make_string(
 		);
 	}
 
-	FCPPT_ASSERT_UNREACHABLE;
+	return
+		fcppt::optional_string{};
 }
