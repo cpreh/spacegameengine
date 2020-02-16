@@ -12,18 +12,27 @@
 #include <sge/console/callback/detail/conversion_visitor.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
+#include <fcppt/function_impl.hpp>
 #include <fcppt/algorithm/loop.hpp>
 #include <fcppt/algorithm/loop_break_metal.hpp>
+#include <fcppt/algorithm/loop_break_tuple.hpp>
+#include <fcppt/algorithm/map_tuple.hpp>
+#include <fcppt/container/array/from_range.hpp>
+#include <fcppt/container/tuple/apply.hpp>
+#include <fcppt/container/tuple/from_array.hpp>
+#include <fcppt/metal/as_tuple.hpp>
+#include <fcppt/metal/function_args.hpp>
+#include <fcppt/metal/from_number.hpp>
 #include <fcppt/metal/interval.hpp>
+#include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/sequence.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/function_types/function_arity.hpp>
-#include <boost/function_types/parameter_types.hpp>
-#include <boost/fusion/adapted/mpl.hpp>
-#include <boost/fusion/container/vector/convert.hpp>
-#include <boost/fusion/functional/invocation/invoke.hpp>
-#include <boost/fusion/include/mpl.hpp>
+#include <metal.hpp>
+#include <array>
 #include <cstddef>
-#include <functional>
+#include <tuple>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -69,61 +78,101 @@ public:
 		sge::console::object &_console
 	) const
 	{
-		std::size_t const arity{
-			boost::function_types::function_arity<
-				function_type
-			>::value
-		};
-
-		if(_args.size() - 1u != arity)
-		{
-			_console.emit_error(
-				SGE_FONT_LIT("Given too few or too many arguments!"));
-			_console.emit_error(
-				short_description_);
-			return;
-		}
-
-		// TODO: Fix this
 		typedef
-		boost::function_types::parameter_types<
+		fcppt::metal::function_args<
 			function_type
 		>
-		arguments;
+		arg_types;
 
 		typedef
-		typename
-		boost::fusion::result_of::as_vector<
-			arguments
-		>::type
-		argument_tuple;
+		fcppt::metal::from_number<
+			std::size_t,
+			::metal::size<
+				arg_types
+			>
+		>
+		arg_count;
 
-		argument_tuple parameter_tuple;
+		typedef
+		std::array<
+			sge::font::string,
+			arg_count::value
+		>
+		static_args;
 
-		fcppt::algorithm::loop(
-			fcppt::metal::interval<
-				sge::console::arg_list::size_type,
-				0,
-				boost::function_types::function_arity<
-					function_type
-				>::value
-			>{},
-			sge::console::callback::detail::conversion_visitor<
-				argument_tuple
+		fcppt::optional::maybe(
+			fcppt::container::array::from_range<
+				arg_count::value
 			>(
-				_console,
-				parameter_tuple,
+				// TODO: Range from begin + 1 to end?
 				_args
-			)
-		);
+			),
+			[
+				&_console,
+				this
+			]{
+				_console.emit_error(
+					SGE_FONT_LIT("Given too few or too many arguments!")
+				);
 
-		boost::fusion::invoke(
-			function_,
-			parameter_tuple
+				_console.emit_error(
+					this->short_description_
+				);
+			},
+			[
+				&_console,
+				this
+			](
+				static_args const &_static_args
+			)
+			{
+				typedef
+				fcppt::metal::as_tuple<
+					arg_types
+				>
+				arguments;
+
+				fcppt::optional::maybe_void(
+					fcppt::optional::sequence<
+						arguments
+					>(
+						fcppt::container::tuple::apply(
+							sge::console::callback::detail::conversion_visitor<
+								arg_types
+							>{
+								_console
+							},
+							fcppt::metal::as_tuple<
+								fcppt::metal::interval<
+									std::size_t,
+									0u,
+									arg_count::value
+								>
+							>{},
+							fcppt::container::tuple::from_array(
+								_static_args
+							)
+						)
+					),
+					[
+						this
+					](
+						arguments &&_inner_args
+					)
+					{
+						std::apply(
+							this->function_,
+							std::move(
+								_inner_args
+							)
+						);
+					}
+				);
+			}
 		);
 	}
 private:
-	std::function<
+	fcppt::function<
 		function_type
 	> function_;
 
