@@ -31,17 +31,21 @@ sge::opencl::command_queue::object::object(
 		clCreateCommandQueue(
 			context_.context_,
 			device_.device_id_,
-			(execution_mode == command_queue::execution_mode::out_of_order
+			(
+			execution_mode == command_queue::execution_mode::out_of_order
 			?
 				CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE
 			:
-				static_cast<cl_command_queue_properties>(0))
+				static_cast<cl_command_queue_properties>(0)
+			)
 			|
-			(profiling_mode == command_queue::profiling_mode::enabled)
+			(
+			profiling_mode == command_queue::profiling_mode::enabled
 			?
 				CL_QUEUE_PROFILING_ENABLE
 			:
-				static_cast<cl_command_queue_properties>(0),
+				static_cast<cl_command_queue_properties>(0)
+			),
 			&error_code);
 
 	opencl::impl::handle_error(
