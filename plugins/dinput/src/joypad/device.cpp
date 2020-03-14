@@ -24,6 +24,7 @@
 #include <sge/input/joypad/info_fwd.hpp>
 #include <sge/input/joypad/relative_axis.hpp>
 #include <sge/input/joypad/relative_axis_id.hpp>
+#include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/absolute_axis.hpp>
 #include <sge/input/joypad/event/button.hpp>
 #include <sge/input/joypad/event/relative_axis.hpp>
@@ -133,7 +134,9 @@ sge::dinput::joypad::device::on_dispatch(
 					fcppt::make_unique_ptr<
 						sge::input::joypad::event::absolute_axis
 					>(
-						this->fcppt_shared_from_this(),
+						sge::input::joypad::shared_ptr{
+							this->fcppt_shared_from_this()
+						},
 						sge::input::joypad::absolute_axis(
 							this->info_.input_info().absolute_axes()[
 								_id
@@ -168,7 +171,9 @@ sge::dinput::joypad::device::on_dispatch(
 					fcppt::make_unique_ptr<
 						sge::input::joypad::event::button
 					>(
-						this->fcppt_shared_from_this(),
+						sge::input::joypad::shared_ptr{
+							this->fcppt_shared_from_this()
+						},
 						_id,
 						sge::input::joypad::button_pressed{
 							sge::dinput::is_down(
@@ -197,7 +202,9 @@ sge::dinput::joypad::device::on_dispatch(
 					fcppt::make_unique_ptr<
 						sge::input::joypad::event::relative_axis
 					>(
-						this->fcppt_shared_from_this(),
+						sge::input::joypad::shared_ptr{
+							this->fcppt_shared_from_this()
+						},
 						sge::input::joypad::relative_axis(
 							info_.input_info().relative_axes()[
 								_id

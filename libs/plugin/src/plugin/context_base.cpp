@@ -79,7 +79,9 @@ sge::plugin::context_base::load()
 				);
 
 				library_ptr_ =
-					ret;
+					library_weak_ptr{
+						ret
+					};
 
 				if(
 					this->info().flags()

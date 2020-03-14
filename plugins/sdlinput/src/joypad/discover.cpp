@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/discover.hpp>
 #include <sge/sdlinput/joypad/device.hpp>
 #include <sge/sdlinput/joypad/device_id.hpp>
@@ -62,7 +63,9 @@ sge::sdlinput::joypad::discover(
 					fcppt::make_unique_ptr<
 						sge::input::joypad::event::discover
 					>(
-						result
+						sge::input::joypad::shared_ptr{
+							result
+						}
 					)
 				)
 			)

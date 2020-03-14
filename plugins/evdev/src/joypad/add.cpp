@@ -9,6 +9,7 @@
 #include <sge/evdev/joypad/map.hpp>
 #include <sge/evdev/joypad/object.hpp>
 #include <sge/evdev/joypad/shared_ptr.hpp>
+#include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/discover.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <awl/backends/posix/processor_fwd.hpp>
@@ -64,7 +65,9 @@ sge::evdev::joypad::add(
 						fcppt::make_unique_ptr<
 							sge::input::joypad::event::discover
 						>(
-							_ptr
+							sge::input::joypad::shared_ptr{
+								_ptr
+							}
 						)
 					);
 			}

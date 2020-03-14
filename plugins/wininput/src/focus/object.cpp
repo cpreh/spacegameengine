@@ -7,6 +7,7 @@
 #include <sge/input/focus/char_type.hpp>
 #include <sge/input/focus/key.hpp>
 #include <sge/input/focus/object.hpp>
+#include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/focus/string.hpp>
 #include <sge/input/focus/event/in.hpp>
 #include <sge/input/focus/event/key.hpp>
@@ -135,7 +136,9 @@ sge::wininput::focus::object::on_window_event(
 					fcppt::make_unique_ptr<
 						sge::input::focus::event::text
 					>(
-						this->fcppt_shared_from_this(),
+						sge::input::focus::shared_ptr{
+							this->fcppt_shared_from_this()
+						},
 						sge::input::focus::string{
 							// TODO: Conversion function
 							static_cast<
@@ -176,7 +179,9 @@ sge::wininput::focus::object::on_window_event(
 					fcppt::make_unique_ptr<
 						sge::input::focus::event::in
 					>(
-						this->fcppt_shared_from_this()
+						sge::input::focus::shared_ptr{
+							this->fcppt_shared_from_this()
+						}
 					)
 				)
 			};
@@ -189,7 +194,9 @@ sge::wininput::focus::object::on_window_event(
 					fcppt::make_unique_ptr<
 						sge::input::focus::event::out
 					>(
-						this->fcppt_shared_from_this()
+						sge::input::focus::shared_ptr{
+							this->fcppt_shared_from_this()
+						}
 					)
 				)
 			};
@@ -224,7 +231,9 @@ sge::wininput::focus::object::on_key(
 				fcppt::make_unique_ptr<
 					sge::input::focus::event::key_repeat
 				>(
-					this->fcppt_shared_from_this(),
+					sge::input::focus::shared_ptr{
+						this->fcppt_shared_from_this()
+					},
 					key
 				)
 			)
@@ -235,7 +244,9 @@ sge::wininput::focus::object::on_key(
 				fcppt::make_unique_ptr<
 					sge::input::focus::event::key
 				>(
-					this->fcppt_shared_from_this(),
+					sge::input::focus::shared_ptr{
+						this->fcppt_shared_from_this()
+					},
 					key,
 					_pressed
 				)

@@ -12,6 +12,7 @@
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/input/cursor/scroll_code.hpp>
+#include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/button.hpp>
 #include <sge/input/cursor/event/move.hpp>
 #include <sge/input/cursor/event/scroll.hpp>
@@ -361,7 +362,9 @@ sge::wininput::cursor::object::on_move_event(
 			fcppt::make_unique_ptr<
 				sge::input::cursor::event::move
 			>(
-				this->fcppt_shared_from_this(),
+				sge::input::cursor::shared_ptr{
+					this->fcppt_shared_from_this()
+				},
 				sge::input::cursor::optional_position{
 					sge::input::cursor::position{
 						LOWORD(
@@ -390,7 +393,9 @@ sge::wininput::cursor::object::on_button_event(
 			fcppt::make_unique_ptr<
 				sge::input::cursor::event::button
 			>(
-				this->fcppt_shared_from_this(),
+				sge::input::cursor::shared_ptr{
+					this->fcppt_shared_from_this()
+				},
 				_code,
 				sge::input::cursor::position(
 					LOWORD(
@@ -418,7 +423,9 @@ sge::wininput::cursor::object::on_scroll_event(
 			fcppt::make_unique_ptr<
 				sge::input::cursor::event::scroll
 			>(
-				this->fcppt_shared_from_this(),
+				sge::input::cursor::shared_ptr{
+					this->fcppt_shared_from_this()
+				},
 				_code,
 				// TODO: How do we want to scale this?
 				GET_WHEEL_DELTA_WPARAM(

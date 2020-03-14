@@ -17,6 +17,7 @@
 #include <sge/evdev/joypad/relative_axis/make_event.hpp>
 #include <sge/input/joypad/device.hpp>
 #include <sge/input/joypad/info.hpp>
+#include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/ff/effect.hpp>
 #include <sge/input/joypad/ff/effect_unique_ptr.hpp>
 #include <sge/input/joypad/ff/parameters_fwd.hpp>
@@ -92,7 +93,9 @@ sge::evdev::joypad::object::process_event(
 	case EV_ABS:
 		return
 			sge::evdev::device::conditional_event(
-				this->fcppt_shared_from_this(),
+				sge::input::joypad::shared_ptr{
+					this->fcppt_shared_from_this()
+				},
 				_event,
 				info_.event_map().absolute_axis(),
 				info_.input_info().absolute_axes(),
@@ -101,7 +104,9 @@ sge::evdev::joypad::object::process_event(
 	case EV_KEY:
 		return
 			sge::evdev::device::conditional_event(
-				this->fcppt_shared_from_this(),
+				sge::input::joypad::shared_ptr{
+					this->fcppt_shared_from_this()
+				},
 				_event,
 				info_.event_map().buttons(),
 				info_.input_info().buttons(),
@@ -110,7 +115,9 @@ sge::evdev::joypad::object::process_event(
 	case EV_REL:
 		return
 			sge::evdev::device::conditional_event(
-				this->fcppt_shared_from_this(),
+				sge::input::joypad::shared_ptr{
+					this->fcppt_shared_from_this()
+				},
 				_event,
 				info_.event_map().relative_axis(),
 				info_.input_info().relative_axes(),

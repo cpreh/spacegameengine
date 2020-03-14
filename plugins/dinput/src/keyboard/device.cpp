@@ -10,8 +10,10 @@
 #include <sge/dinput/keyboard/make_info.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/pressed.hpp>
+#include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_id.hpp>
+#include <sge/input/keyboard/shared_ptr.hpp>
 #include <sge/input/keyboard/event/key.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <awl/event/base.hpp>
@@ -109,7 +111,9 @@ sge::dinput::keyboard::device::on_dispatch(
 				fcppt::make_unique_ptr<
 					sge::input::keyboard::event::key
 				>(
-					this->fcppt_shared_from_this(),
+					sge::input::keyboard::shared_ptr{
+						this->fcppt_shared_from_this()
+					},
 					key,
 					key_value
 				)

@@ -5,6 +5,8 @@
 
 
 #include <sge/input/key/pressed.hpp>
+#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/shared_ptr.hpp>
 #include <sge/input/keyboard/event/key.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/event/device_function.hpp>
@@ -178,7 +180,9 @@ sge::x11input::keyboard::device::make_key_event(
 			fcppt::make_unique_ptr<
 				sge::input::keyboard::event::key
 			>(
-				this->fcppt_shared_from_this(),
+				sge::input::keyboard::shared_ptr{
+					this->fcppt_shared_from_this()
+				},
 				sge::x11input::keyboard::key_from_event(
 					window_.display(),
 					_event

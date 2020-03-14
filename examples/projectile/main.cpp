@@ -684,15 +684,17 @@ try
 		log,
 		world,
 		first_group,
-		fcppt::make_shared_ptr<
-			sge::projectile::shape::circle
-		>(
-			fcppt::literal<
-				sge::projectile::scalar
+		sge::projectile::shape::shared_base_ptr{
+			fcppt::make_shared_ptr<
+				sge::projectile::shape::circle
 			>(
-				5
+				fcppt::literal<
+					sge::projectile::scalar
+				>(
+					5
+				)
 			)
-		),
+		},
 		sge::projectile::body::solidity::variant{
 			sge::projectile::body::solidity::solid(
 				sge::projectile::body::mass(
@@ -723,28 +725,30 @@ try
 		log,
 		world,
 		second_group,
-		fcppt::make_shared_ptr<
-			sge::projectile::shape::triangle_mesh
-		>(
-			log,
-			sge::projectile::triangulation::triangulate<
-				sge::projectile::triangulation::default_tag,
-				sge::projectile::shape::triangle_sequence
+		sge::projectile::shape::shared_base_ptr{
+			fcppt::make_shared_ptr<
+				sge::projectile::shape::triangle_mesh
 			>(
-				container_from_stream<
-					std::vector<
-						sge::projectile::vector2
-					>
+				log,
+				sge::projectile::triangulation::triangulate<
+					sge::projectile::triangulation::default_tag,
+					sge::projectile::shape::triangle_sequence
 				>(
-					polygon_stream
-				),
-				fcppt::literal<
-					sge::projectile::scalar
-				>(
-					0.00001
+					container_from_stream<
+						std::vector<
+							sge::projectile::vector2
+						>
+					>(
+						polygon_stream
+					),
+					fcppt::literal<
+						sge::projectile::scalar
+					>(
+						0.00001
+					)
 				)
 			)
-		),
+		},
 		sge::projectile::body::solidity::variant{
 			sge::projectile::body::solidity::static_()
 		},

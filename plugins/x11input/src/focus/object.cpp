@@ -5,6 +5,8 @@
 
 
 #include <sge/input/focus/key.hpp>
+#include <sge/input/focus/object.hpp>
+#include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/focus/string.hpp>
 #include <sge/input/focus/event/in.hpp>
 #include <sge/input/focus/event/key.hpp>
@@ -268,7 +270,9 @@ sge::x11input::focus::object::on_key_press(
 							fcppt::make_unique_ptr<
 								sge::input::focus::event::text
 							>(
-								this->fcppt_shared_from_this(),
+								sge::input::focus::shared_ptr{
+									this->fcppt_shared_from_this()
+								},
 								fcppt::algorithm::map<
 									sge::input::focus::string
 								>(
@@ -294,7 +298,9 @@ sge::x11input::focus::object::on_key_release(
 			fcppt::make_unique_ptr<
 				sge::input::focus::event::key
 			>(
-				this->fcppt_shared_from_this(),
+				sge::input::focus::shared_ptr{
+					this->fcppt_shared_from_this()
+				},
 				sge::input::focus::key{
 					sge::x11input::key::event_to_sge_code(
 						window_.display(),
@@ -330,7 +336,9 @@ sge::x11input::focus::object::on_focus_in()
 			fcppt::make_unique_ptr<
 				sge::input::focus::event::in
 			>(
-				this->fcppt_shared_from_this()
+				sge::input::focus::shared_ptr{
+					this->fcppt_shared_from_this()
+				}
 			)
 		);
 }
@@ -357,7 +365,9 @@ sge::x11input::focus::object::on_focus_out()
 			fcppt::make_unique_ptr<
 				sge::input::focus::event::out
 			>(
-				this->fcppt_shared_from_this()
+				sge::input::focus::shared_ptr{
+					this->fcppt_shared_from_this()
+				}
 			)
 		);
 }
@@ -381,7 +391,9 @@ sge::x11input::focus::object::process_key_down(
 				fcppt::make_unique_ptr<
 					sge::input::focus::event::key_repeat
 				>(
-					this->fcppt_shared_from_this(),
+					sge::input::focus::shared_ptr{
+						this->fcppt_shared_from_this()
+					},
 					key
 				)
 			)
@@ -392,7 +404,9 @@ sge::x11input::focus::object::process_key_down(
 				fcppt::make_unique_ptr<
 					sge::input::focus::event::key
 				>(
-					this->fcppt_shared_from_this(),
+					sge::input::focus::shared_ptr{
+						this->fcppt_shared_from_this()
+					},
 					key,
 					sge::input::key::pressed{
 						true

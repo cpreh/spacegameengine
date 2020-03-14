@@ -8,6 +8,7 @@
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
+#include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/button.hpp>
 #include <sge/input/cursor/event/move.hpp>
 #include <sge/input/cursor/event/scroll.hpp>
@@ -308,7 +309,9 @@ sge::x11input::cursor::object::on_motion(
 										fcppt::make_unique_ptr<
 											sge::input::cursor::event::scroll
 										>(
-											this->fcppt_shared_from_this(),
+											sge::input::cursor::shared_ptr{
+												this->fcppt_shared_from_this()
+											},
 											_valuator.get().code(),
 											_valuator.get().update(
 												_element.value()
@@ -422,7 +425,9 @@ sge::x11input::cursor::object::make_position_event()
 			fcppt::make_unique_ptr<
 				sge::input::cursor::event::move
 			>(
-				this->fcppt_shared_from_this(),
+				sge::input::cursor::shared_ptr{
+					this->fcppt_shared_from_this()
+				},
 				position_
 			)
 		);
@@ -483,7 +488,9 @@ sge::x11input::cursor::object::button_event(
 						fcppt::make_unique_ptr<
 							sge::input::cursor::event::button
 						>(
-							this->fcppt_shared_from_this(),
+							sge::input::cursor::shared_ptr{
+								this->fcppt_shared_from_this()
+							},
 							sge::x11input::cursor::button_code(
 								_event.detail
 							),

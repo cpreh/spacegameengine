@@ -21,6 +21,7 @@
 #include <sge/input/mouse/button_pressed.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/info_fwd.hpp>
+#include <sge/input/mouse/shared_ptr.hpp>
 #include <sge/input/mouse/event/axis.hpp>
 #include <sge/input/mouse/event/button.hpp>
 #include <sge/window/object_fwd.hpp>
@@ -106,7 +107,9 @@ sge::dinput::mouse::device::on_dispatch(
 					fcppt::make_unique_ptr<
 						sge::input::mouse::event::axis
 					>(
-						this->fcppt_shared_from_this(),
+						sge::input::mouse::shared_ptr{
+							this->fcppt_shared_from_this()
+						},
 						sge::input::mouse::axis(
 							info_.input_info().axes()[
 								_id
@@ -141,7 +144,9 @@ sge::dinput::mouse::device::on_dispatch(
 					fcppt::make_unique_ptr<
 						sge::input::mouse::event::button
 					>(
-						this->fcppt_shared_from_this(),
+						sge::input::mouse::shared_ptr{
+							this->fcppt_shared_from_this()
+						},
 						sge::input::mouse::button(
 							info_.input_info().buttons()[
 								_id
