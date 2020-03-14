@@ -37,6 +37,7 @@ namespace wlinput
 
 template<
 	awl::backends::wayland::system::seat::caps Caps,
+	typename BasePtr,
 	typename Discover,
 	typename Remove,
 	typename Object
@@ -108,7 +109,9 @@ change_caps(
 								fcppt::make_unique_ptr<
 									Discover
 								>(
-									result.first->second
+									BasePtr{
+										result.first->second
+									}
 								)
 							);
 					}
@@ -144,7 +147,9 @@ change_caps(
 								fcppt::make_unique_ptr<
 									Remove
 								>(
-									_iterator->second
+									BasePtr{
+										_iterator->second
+									}
 								)
 							)
 						};

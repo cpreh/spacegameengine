@@ -6,9 +6,11 @@
 
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/container.hpp>
+#include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/discover.hpp>
 #include <sge/input/cursor/event/remove.hpp>
 #include <sge/input/focus/container.hpp>
+#include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/focus/event/discover.hpp>
 #include <sge/input/focus/event/remove.hpp>
 #include <sge/input/joypad/container.hpp>
@@ -180,7 +182,9 @@ sge::wlinput::processor::cursors() const
 			)
 			{
 				return
-					_pair.second;
+					sge::input::cursor::shared_ptr{
+						_pair.second
+					};
 			}
 		);
 }
@@ -198,7 +202,9 @@ sge::wlinput::processor::foci() const
 			)
 			{
 				return
-					_pair.second;
+					sge::input::focus::shared_ptr{
+						_pair.second
+					};
 			}
 		);
 }
@@ -341,6 +347,7 @@ sge::wlinput::processor::seat_caps(
 			>(
 				sge::wlinput::change_caps<
 					awl::backends::wayland::system::seat::caps::keyboard,
+					sge::input::focus::shared_ptr,
 					sge::input::focus::event::discover,
 					sge::input::focus::event::remove
 				>(
@@ -362,6 +369,7 @@ sge::wlinput::processor::seat_caps(
 			>(
 				sge::wlinput::change_caps<
 					awl::backends::wayland::system::seat::caps::pointer,
+					sge::input::cursor::shared_ptr,
 					sge::input::cursor::event::discover,
 					sge::input::cursor::event::remove
 				>(
@@ -395,6 +403,7 @@ sge::wlinput::processor::remove_seat(
 			>(
 				sge::wlinput::remove_seat<
 					awl::backends::wayland::system::seat::caps::keyboard,
+					sge::input::focus::shared_ptr,
 					sge::input::focus::event::remove
 				>(
 					foci_,
@@ -407,6 +416,7 @@ sge::wlinput::processor::remove_seat(
 			>(
 				sge::wlinput::remove_seat<
 					awl::backends::wayland::system::seat::caps::pointer,
+					sge::input::cursor::shared_ptr,
 					sge::input::cursor::event::remove
 				>(
 					cursors_,

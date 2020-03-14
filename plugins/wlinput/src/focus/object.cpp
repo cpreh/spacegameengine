@@ -542,7 +542,9 @@ sge::input::focus::shared_ptr
 sge::wlinput::focus::object::get_shared_ptr()
 {
 	return
-		this->fcppt_shared_from_this();
+		sge::input::focus::shared_ptr{
+			this->fcppt_shared_from_this()
+		};
 }
 
 awl::event::container

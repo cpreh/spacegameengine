@@ -33,6 +33,7 @@ namespace wlinput
 
 template<
 	awl::backends::wayland::system::seat::caps Caps,
+	typename BasePtr,
 	typename RemoveEvent,
 	typename Object
 >
@@ -78,7 +79,9 @@ remove_seat(
 								fcppt::make_unique_ptr<
 									RemoveEvent
 								>(
-									_iterator->second
+									BasePtr{
+										_iterator->second
+									}
 								)
 							)
 						};

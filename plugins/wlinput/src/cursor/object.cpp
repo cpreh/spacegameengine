@@ -369,5 +369,7 @@ sge::input::cursor::shared_ptr
 sge::wlinput::cursor::object::get_shared_ptr()
 {
 	return
-		this->fcppt_shared_from_this();
+		sge::input::cursor::shared_ptr{
+			this->fcppt_shared_from_this()
+		};
 }
