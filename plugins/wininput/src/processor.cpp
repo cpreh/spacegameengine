@@ -5,7 +5,9 @@
 
 
 #include <sge/input/cursor/container.hpp>
+#include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/focus/container.hpp>
+#include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/joypad/container.hpp>
 #include <sge/input/keyboard/container.hpp>
 #include <sge/input/mouse/container.hpp>
@@ -104,7 +106,9 @@ sge::wininput::processor::cursors() const
 {
 	return
 		sge::input::cursor::container{
-			cursor_
+			sge::input::cursor::shared_ptr{
+				cursor_
+			}
 		};
 }
 
@@ -113,7 +117,9 @@ sge::wininput::processor::foci() const
 {
 	return
 		sge::input::focus::container{
-			focus_
+			sge::input::focus::shared_ptr{
+				focus_
+			}
 		};
 }
 

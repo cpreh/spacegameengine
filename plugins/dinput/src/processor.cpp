@@ -186,11 +186,11 @@ sge::dinput::processor::joypads() const
 			[](
 				joypad_shared_ptr const &_joypad
 			)
-			->
-			sge::input::joypad::shared_ptr
 			{
 				return
-					_joypad;
+					sge::input::joypad::shared_ptr{
+						_joypad
+					};
 			}
 		);
 }
@@ -206,11 +206,11 @@ sge::dinput::processor::keyboards() const
 			[](
 				keyboard_shared_ptr const &_keyboard
 			)
-			->
-			sge::input::keyboard::shared_ptr
 			{
 				return
-					_keyboard;
+					sge::input::keyboard::shared_ptr{
+						_keyboard
+					};
 			}
 		);
 }
@@ -226,11 +226,11 @@ sge::dinput::processor::mice() const
 			[](
 				mouse_shared_ptr const &_mouse
 			)
-			->
-			sge::input::mouse::shared_ptr
 			{
 				return
-					_mouse;
+					sge::input::mouse::shared_ptr{
+						_mouse
+					};
 			}
 		);
 }
