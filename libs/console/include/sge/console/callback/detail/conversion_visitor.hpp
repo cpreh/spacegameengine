@@ -22,8 +22,8 @@
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <cstddef>
-#include <typeinfo>
 #include <type_traits>
+#include <typeinfo>
 #include <fcppt/config/external_end.hpp>
 
 

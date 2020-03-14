@@ -21,8 +21,8 @@
 #include <fcppt/container/tuple/apply.hpp>
 #include <fcppt/container/tuple/from_array.hpp>
 #include <fcppt/metal/as_tuple.hpp>
-#include <fcppt/metal/function_args.hpp>
 #include <fcppt/metal/from_number.hpp>
+#include <fcppt/metal/function_args.hpp>
 #include <fcppt/metal/interval.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
