@@ -36,7 +36,7 @@ public:
 	manager(
 		sge::renderer::device::core &,
 		sge::window::object &,
-		sge::viewport::optional_resize_callback const &
+		sge::viewport::optional_resize_callback &&
 	);
 
 	SGE_VIEWPORT_DETAIL_SYMBOL
@@ -45,13 +45,13 @@ public:
 	SGE_VIEWPORT_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	manage_callback(
-		sge::viewport::manage_callback const &
+		sge::viewport::manage_callback &&
 	);
 
 	SGE_VIEWPORT_DETAIL_SYMBOL
 	void
 	resize_callback(
-		sge::viewport::optional_resize_callback const &
+		sge::viewport::optional_resize_callback &&
 	);
 
 	SGE_VIEWPORT_DETAIL_SYMBOL

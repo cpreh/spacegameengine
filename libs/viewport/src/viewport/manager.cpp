@@ -13,12 +13,15 @@
 #include <sge/window/object_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::viewport::manager::manager(
 	sge::renderer::device::core &_device,
 	sge::window::object &_window,
-	sge::viewport::optional_resize_callback const &_resize_callback
+	sge::viewport::optional_resize_callback &&_resize_callback
 )
 :
 	impl_(
@@ -27,7 +30,9 @@ sge::viewport::manager::manager(
 		>(
 			_device,
 			_window,
-			_resize_callback
+			std::move(
+				_resize_callback
+			)
 		)
 	)
 {
@@ -39,22 +44,26 @@ sge::viewport::manager::~manager()
 
 fcppt::signal::auto_connection
 sge::viewport::manager::manage_callback(
-	sge::viewport::manage_callback const &_callback
+	sge::viewport::manage_callback &&_callback
 )
 {
 	return
 		impl_->manage_callback(
-			_callback
+			std::move(
+				_callback
+			)
 		);
 }
 
 void
 sge::viewport::manager::resize_callback(
-	sge::viewport::optional_resize_callback const &_resize_callback
+	sge::viewport::optional_resize_callback &&_resize_callback
 )
 {
 	impl_->resize_callback(
-		_resize_callback
+		std::move(
+			_resize_callback
+		)
 	);
 }
 

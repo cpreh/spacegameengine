@@ -72,12 +72,14 @@ sge::window::system::quit(
 
 fcppt::signal::auto_connection
 sge::window::system::event_handler(
-	sge::window::system_event_function const _function
+	sge::window::system_event_function &&_function
 )
 {
 	return
 		event_signal_.connect(
-			_function
+			std::move(
+				_function
+			)
 		);
 }
 

@@ -60,7 +60,7 @@ public:
 	SGE_GUI_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	click(
-		sge::gui::click_callback const &
+		sge::gui::click_callback &&
 	);
 
 	SGE_GUI_DETAIL_SYMBOL

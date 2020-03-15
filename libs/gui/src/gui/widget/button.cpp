@@ -48,6 +48,9 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -124,12 +127,14 @@ sge::gui::widget::button::~button()
 
 fcppt::signal::auto_connection
 sge::gui::widget::button::click(
-	sge::gui::click_callback const &_callback
+	sge::gui::click_callback &&_callback
 )
 {
 	return
 		click_.connect(
-			_callback
+			std::move(
+				_callback
+			)
 		);
 }
 

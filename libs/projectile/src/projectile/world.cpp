@@ -33,6 +33,7 @@
 #include <LinearMath/btScalar.h>
 #include <LinearMath/btVector3.h>
 #include <limits>
+#include <utility>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -211,11 +212,15 @@ sge::projectile::world::make_groups_collide(
 
 fcppt::signal::auto_connection
 sge::projectile::world::body_collision(
-	body::collision const &f)
+	sge::projectile::body::collision &&f
+)
 {
 	return
 		body_collision_.connect(
-			f);
+			std::move(
+				f
+			)
+		);
 }
 
 void

@@ -30,6 +30,7 @@
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <LinearMath/btMatrix3x3.h>
 #include <LinearMath/btTransform.h>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -333,20 +334,28 @@ sge::projectile::body::object::rotation(
 
 fcppt::signal::auto_connection
 sge::projectile::body::object::position_change(
-	sge::projectile::body::position_change const &f)
+	sge::projectile::body::position_change &&f
+)
 {
 	return
 		position_change_.connect(
-			f);
+			std::move(
+				f
+			)
+		);
 }
 
 fcppt::signal::auto_connection
 sge::projectile::body::object::rotation_change(
-	sge::projectile::body::rotation_change const &f)
+	sge::projectile::body::rotation_change &&f
+)
 {
 	return
 		rotation_change_.connect(
-			f);
+			std::move(
+				f
+			)
+		);
 }
 
 sge::projectile::body::user_data const &

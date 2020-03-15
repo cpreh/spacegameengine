@@ -66,9 +66,11 @@ public:
 		group::object &,
 		group::object &);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL fcppt::signal::auto_connection
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	fcppt::signal::auto_connection
 	body_collision(
-		body::collision const &);
+		sge::projectile::body::collision &&
+	);
 
 	SGE_PROJECTILE_DETAIL_SYMBOL void
 	add_body(

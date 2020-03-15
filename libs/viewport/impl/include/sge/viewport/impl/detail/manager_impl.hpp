@@ -37,19 +37,19 @@ public:
 	manager_impl(
 		sge::renderer::device::core &,
 		sge::window::object &,
-		sge::viewport::optional_resize_callback const &
+		sge::viewport::optional_resize_callback &&
 	);
 
 	~manager_impl();
 
 	fcppt::signal::auto_connection
 	manage_callback(
-		sge::viewport::manage_callback const &
+		sge::viewport::manage_callback &&
 	);
 
 	void
 	resize_callback(
-		sge::viewport::optional_resize_callback const &
+		sge::viewport::optional_resize_callback &&
 	);
 
 	sge::renderer::target::viewport

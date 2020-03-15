@@ -13,6 +13,7 @@
 #include <sge/systems/impl/renderer/system_fwd.hpp>
 #include <sge/systems/impl/window/object.hpp>
 #include <sge/viewport/manager.hpp>
+#include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/dim.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
@@ -33,7 +34,9 @@ sge::systems::impl::renderer::device::device(
 	viewport_manager_(
 		*renderer_device_,
 		_window.get(),
-		_parameters.parameters().resize_callback()
+		sge::viewport::optional_resize_callback{
+			_parameters.parameters().resize_callback()
+		}
 	)
 {
 }

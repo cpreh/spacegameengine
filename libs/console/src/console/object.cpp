@@ -129,7 +129,9 @@ sge::console::object::insert(
 					);
 			}
 		).signal().connect(
-			_params.function(),
+			sge::console::callback::function{
+				_params.function()
+			},
 			fcppt::signal::unregister::function{
 				std::bind(
 					&sge::console::object::remove_function,
@@ -142,34 +144,40 @@ sge::console::object::insert(
 
 fcppt::signal::auto_connection
 sge::console::object::register_fallback(
-	sge::console::fallback const &_callback
+	sge::console::fallback &&_callback
 )
 {
 	return
 		fallback_.connect(
-			_callback
+			std::move(
+				_callback
+			)
 		);
 }
 
 fcppt::signal::auto_connection
 sge::console::object::register_error_callback(
-	sge::console::error_callback const &_callback
+	sge::console::error_callback &&_callback
 )
 {
 	return
 		error_.connect(
-			_callback
+			std::move(
+				_callback
+			)
 		);
 }
 
 fcppt::signal::auto_connection
 sge::console::object::register_message_callback(
-	sge::console::message_callback const &_callback
+	sge::console::message_callback &&_callback
 )
 {
 	return
 		message_.connect(
-			_callback
+			std::move(
+				_callback
+			)
 		);
 }
 

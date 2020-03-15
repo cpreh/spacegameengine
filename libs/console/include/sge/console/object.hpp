@@ -55,19 +55,19 @@ public:
 	SGE_CONSOLE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_fallback(
-		sge::console::fallback const &
+		sge::console::fallback &&
 	);
 
 	SGE_CONSOLE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_error_callback(
-		sge::console::error_callback const &
+		sge::console::error_callback &&
 	);
 
 	SGE_CONSOLE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_message_callback(
-		sge::console::message_callback const &
+		sge::console::message_callback &&
 	);
 
 	SGE_CONSOLE_DETAIL_SYMBOL

@@ -71,6 +71,7 @@
 #include <algorithm>
 #include <chrono>
 #include <locale>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -153,12 +154,14 @@ sge::gui::widget::edit::text() const
 
 fcppt::signal::auto_connection
 sge::gui::widget::edit::text_change(
-	sge::gui::text_callback const &_callback
+	sge::gui::text_callback &&_callback
 )
 {
 	return
 		text_change_.connect(
-			_callback
+			std::move(
+				_callback
+			)
 		);
 }
 

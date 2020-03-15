@@ -35,6 +35,7 @@
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -163,12 +164,14 @@ sge::gui::widget::choices::~choices()
 
 fcppt::signal::auto_connection
 sge::gui::widget::choices::change(
-	sge::gui::index_callback const &_callback
+	sge::gui::index_callback &&_callback
 )
 {
 	return
 		index_changed_.connect(
-			_callback
+			std::move(
+				_callback
+			)
 		);
 }
 

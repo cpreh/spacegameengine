@@ -69,7 +69,7 @@ public:
 	SGE_GUI_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	text_change(
-		sge::gui::text_callback const &
+		sge::gui::text_callback &&
 	);
 
 	SGE_GUI_DETAIL_SYMBOL

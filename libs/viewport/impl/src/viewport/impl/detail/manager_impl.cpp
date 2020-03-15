@@ -25,6 +25,7 @@
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <functional>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -33,14 +34,16 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::viewport::detail::manager_impl::manager_impl(
 	sge::renderer::device::core &_device,
 	sge::window::object &_window,
-	sge::viewport::optional_resize_callback const &_resize_callback
+	sge::viewport::optional_resize_callback &&_resize_callback
 )
 :
 	target_{
 		_device.onscreen_target()
 	},
 	resize_callback_{
-		_resize_callback
+		std::move(
+			_resize_callback
+		)
 	},
 	event_connection_{
 		_window.event_handler(
@@ -64,22 +67,26 @@ sge::viewport::detail::manager_impl::~manager_impl()
 
 fcppt::signal::auto_connection
 sge::viewport::detail::manager_impl::manage_callback(
-	sge::viewport::manage_callback const &_callback
+	sge::viewport::manage_callback &&_callback
 )
 {
 	return
 		manage_signal_.connect(
-			_callback
+			std::move(
+				_callback
+			)
 		);
 }
 
 void
 sge::viewport::detail::manager_impl::resize_callback(
-	sge::viewport::optional_resize_callback const &_resize_callback
+	sge::viewport::optional_resize_callback &&_resize_callback
 )
 {
 	resize_callback_ =
-		_resize_callback;
+		std::move(
+			_resize_callback
+		);
 }
 
 sge::renderer::target::viewport

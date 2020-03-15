@@ -50,13 +50,17 @@ public:
 	position(
 		sge::projectile::vector2 const &);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL fcppt::signal::auto_connection
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	fcppt::signal::auto_connection
 	body_enter(
-		sge::projectile::ghost::body_enter const &);
+		sge::projectile::ghost::body_enter &&
+	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL fcppt::signal::auto_connection
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	fcppt::signal::auto_connection
 	body_exit(
-		sge::projectile::ghost::body_exit const &);
+		sge::projectile::ghost::body_exit &&
+	);
 
 	SGE_PROJECTILE_DETAIL_SYMBOL ~object();
 private:

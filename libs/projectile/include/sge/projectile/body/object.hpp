@@ -95,13 +95,13 @@ public:
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	position_change(
-		sge::projectile::body::position_change const &
+		sge::projectile::body::position_change &&
 	);
 
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	rotation_change(
-		sge::projectile::body::rotation_change const &
+		sge::projectile::body::rotation_change &&
 	);
 
 	SGE_PROJECTILE_DETAIL_SYMBOL

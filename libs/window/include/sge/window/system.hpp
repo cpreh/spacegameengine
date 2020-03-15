@@ -56,7 +56,7 @@ public:
 	SGE_WINDOW_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	event_handler(
-		sge::window::system_event_function
+		sge::window::system_event_function &&
 	);
 
 	SGE_WINDOW_DETAIL_SYMBOL

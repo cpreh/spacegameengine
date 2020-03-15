@@ -21,6 +21,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionDispatch/btGhostObject.h>
 #include <BulletCollision/CollisionShapes/btBoxShape.h>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -90,20 +91,28 @@ sge::projectile::ghost::object::position(
 
 fcppt::signal::auto_connection
 sge::projectile::ghost::object::body_enter(
-	sge::projectile::ghost::body_enter const &f)
+	sge::projectile::ghost::body_enter &&f
+)
 {
 	return
 		body_enter_.connect(
-			f);
+			std::move(
+				f
+			)
+		);
 }
 
 fcppt::signal::auto_connection
 sge::projectile::ghost::object::body_exit(
-	sge::projectile::ghost::body_exit const &f)
+	sge::projectile::ghost::body_exit &&f
+)
 {
 	return
 		body_exit_.connect(
-			f);
+			std::move(
+				f
+			)
+		);
 }
 
 sge::projectile::ghost::object::~object()
