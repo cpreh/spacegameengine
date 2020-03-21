@@ -11,7 +11,7 @@ find_package(
 )
 
 find_package(
-	DInput
+	DINPUT
 )
 
 find_package(
