@@ -92,6 +92,9 @@
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_pointer.hpp>
+#include <fcppt/preprocessor/disable_gnu_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
 #include <CEGUI/Quaternion.h>
@@ -285,7 +288,7 @@ sge::cegui::impl::geometry_buffer::draw() const
 		)
 	);
 
-	sge::renderer::state::core::rasterizer::const_optional_object_ref prev_rasterizer;
+	sge::renderer::state::core::rasterizer::const_optional_object_ref prev_rasterizer{};
 
 	for(
 		int const pass
@@ -341,6 +344,9 @@ sge::cegui::impl::geometry_buffer::draw() const
 					)
 				);
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GNU_GCC_WARNING(-Wmaybe-uninitialized)
+
 				if(
 					new_state
 					!=
@@ -353,6 +359,9 @@ sge::cegui::impl::geometry_buffer::draw() const
 						new_state
 					);
 				}
+
+FCPPT_PP_POP_WARNING
+
 			}
 
 			render_context.render_nonindexed(
