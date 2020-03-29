@@ -7,7 +7,7 @@
 #ifndef SGE_PLUGIN_DETAIL_LOADER_FUNCTION_TPL_HPP_INCLUDED
 #define SGE_PLUGIN_DETAIL_LOADER_FUNCTION_TPL_HPP_INCLUDED
 
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 
 
 namespace sge
@@ -36,7 +36,7 @@ struct loader_function_tpl<
 	type
 	=
 	Result (
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		Args...
 	);
 };

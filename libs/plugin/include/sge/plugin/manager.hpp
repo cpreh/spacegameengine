@@ -17,7 +17,7 @@
 #include <sge/plugin/detail/instantiate/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/enum/array_decl.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
@@ -37,7 +37,7 @@ class manager
 public:
 	SGE_PLUGIN_DETAIL_SYMBOL
 	manager(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		std::filesystem::path const &,
 		sge::plugin::optional_cache_ref const &
 	);

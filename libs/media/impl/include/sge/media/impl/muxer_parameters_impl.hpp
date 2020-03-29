@@ -9,7 +9,7 @@
 
 #include <sge/media/muxer_parameters.hpp>
 #include <sge/media/optional_extension_set.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 
 
 template<
@@ -18,7 +18,7 @@ template<
 sge::media::muxer_parameters<
 	System
 >::muxer_parameters(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	collection_type const &_collection,
 	sge::media::optional_extension_set const &_extensions
 )
@@ -38,13 +38,13 @@ sge::media::muxer_parameters<
 template<
 	typename System
 >
-fcppt::log::context &
+fcppt::log::context_reference
 sge::media::muxer_parameters<
 	System
 >::log_context() const
 {
 	return
-		log_context_.get();
+		log_context_;
 }
 
 template<

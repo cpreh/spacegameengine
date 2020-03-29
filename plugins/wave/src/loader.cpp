@@ -23,7 +23,7 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -49,7 +49,7 @@ extension()
 }
 
 sge::wave::loader::loader(
-	fcppt::log::context &_log_context
+	fcppt::log::context_reference const _log_context
 )
 :
 	sge::audio::loader(),

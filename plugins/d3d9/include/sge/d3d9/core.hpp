@@ -12,7 +12,7 @@
 #include <sge/renderer/caps/system_field_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 
 
@@ -31,7 +31,7 @@ class core
 public:
 	explicit
 	core(
-		fcppt::log::context &
+		fcppt::log::context_reference
 	);
 
 	~core()

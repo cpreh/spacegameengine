@@ -15,7 +15,7 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/math/box/extend_bounding_box.hpp>
@@ -111,7 +111,7 @@ parse_face_vertex(
 }
 
 sge::model::obj::prototype::prototype(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	std::filesystem::path const &_filename
 )
 :

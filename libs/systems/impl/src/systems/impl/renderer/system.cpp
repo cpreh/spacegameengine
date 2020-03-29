@@ -17,11 +17,11 @@
 #include <sge/window/system.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 
 
 sge::systems::impl::renderer::system::system(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	sge::renderer::plugin::collection const &_collection,
 	sge::systems::detail::renderer const &_parameters,
 	sge::parse::ini::optional_start const &_config,

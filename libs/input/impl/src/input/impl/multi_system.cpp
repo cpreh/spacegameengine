@@ -26,11 +26,11 @@
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 
 
 sge::input::impl::multi_system::multi_system(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	sge::input::plugin::collection const &_collection
 )
 :

@@ -24,7 +24,7 @@
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_exception.hpp>
@@ -49,7 +49,7 @@ sge::systems::impl::plugin_pair<
 	System
 >
 find_plugin(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	sge::plugin::collection<
 		System
 	> const &_collection,

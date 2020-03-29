@@ -11,7 +11,7 @@
 #include <sge/window/system.hpp>
 #include <awl/system/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ class original_system
 public:
 	explicit
 	original_system(
-		fcppt::log::context &
+		fcppt::log::context_reference
 	);
 
 	~original_system()

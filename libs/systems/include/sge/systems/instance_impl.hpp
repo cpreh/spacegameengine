@@ -33,7 +33,7 @@
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 
 
 template<
@@ -72,7 +72,7 @@ sge::systems::instance<
 template<
 	typename... Choices
 >
-fcppt::log::context &
+fcppt::log::context_reference
 sge::systems::instance<
 	Choices...
 >::log_context() const

@@ -13,7 +13,7 @@
 #include <sge/systems/impl/audio/player_fwd.hpp>
 #include <sge/systems/impl/audio/player_pair.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
 
@@ -33,7 +33,7 @@ class player
 	);
 public:
 	player(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		fcppt::log::object &,
 		sge::audio::player_plugin::collection const &,
 		sge::systems::audio_player const &

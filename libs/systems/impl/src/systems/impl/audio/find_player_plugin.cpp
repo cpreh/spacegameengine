@@ -16,7 +16,7 @@
 #include <sge/systems/impl/audio/find_player_plugin.hpp>
 #include <sge/systems/impl/audio/player_pair.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/log/warning.hpp>
@@ -25,7 +25,7 @@
 
 sge::systems::impl::audio::player_pair
 sge::systems::impl::audio::find_player_plugin(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	fcppt::log::object &_log,
 	sge::audio::player_plugin::collection const &_collection,
 	sge::systems::audio_player const &_parameters

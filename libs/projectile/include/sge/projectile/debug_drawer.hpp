@@ -14,7 +14,7 @@
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	debug_drawer(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		sge::projectile::world &,
 		sge::renderer::device::core &);
 

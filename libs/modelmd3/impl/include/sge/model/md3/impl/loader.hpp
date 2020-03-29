@@ -11,7 +11,7 @@
 #include <sge/model/md3/loader.hpp>
 #include <sge/model/md3/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
@@ -39,7 +39,7 @@ class loader
 public:
 	explicit
 	loader(
-		fcppt::log::context &
+		fcppt::log::context_reference
 	);
 
 	~loader()

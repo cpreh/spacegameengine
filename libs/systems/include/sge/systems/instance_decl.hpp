@@ -26,7 +26,7 @@
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -71,7 +71,7 @@ public:
 
 	~instance();
 
-	fcppt::log::context &
+	fcppt::log::context_reference
 	log_context() const;
 
 	sge::plugin::manager &

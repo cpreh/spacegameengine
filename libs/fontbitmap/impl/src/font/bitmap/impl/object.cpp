@@ -39,7 +39,7 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
@@ -47,7 +47,7 @@
 
 
 sge::font::bitmap::impl::object::object(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	std::filesystem::path const &_path,
 	sge::image2d::system &_image_system
 )
@@ -68,7 +68,7 @@ sge::font::bitmap::impl::object::~object()
 }
 
 sge::font::bitmap::impl::object::object(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	std::filesystem::path const &_path,
 	sge::image2d::system &_image_system,
 	sge::parse::json::start const &_start

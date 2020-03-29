@@ -41,7 +41,7 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/either/failure_opt.hpp>
 #include <fcppt/either/success_opt.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/bind.hpp>
@@ -217,7 +217,7 @@ sge::systems::detail::instance::~instance()
 {
 }
 
-fcppt::log::context &
+fcppt::log::context_reference
 sge::systems::detail::instance::log_context() const
 {
 	return

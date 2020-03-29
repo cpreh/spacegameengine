@@ -312,7 +312,7 @@ sge::systems::detail::instance_impl::post_init()
 	);
 }
 
-fcppt::log::context &
+fcppt::log::context_reference
 sge::systems::detail::instance_impl::log_context()
 {
 	return

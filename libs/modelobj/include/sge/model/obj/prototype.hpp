@@ -16,7 +16,7 @@
 #include <sge/model/obj/detail/symbol.hpp>
 #include <sge/model/obj/material/file_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
@@ -37,7 +37,7 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	prototype(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		std::filesystem::path const &
 	);
 

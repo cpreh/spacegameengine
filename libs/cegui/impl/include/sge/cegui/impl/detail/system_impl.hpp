@@ -24,7 +24,7 @@
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -46,7 +46,7 @@ class system_impl
 	);
 public:
 	system_impl(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		sge::cegui::load_context const &,
 		sge::renderer::device::ffp &,
 		sge::image2d::system &,

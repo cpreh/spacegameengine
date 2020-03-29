@@ -19,6 +19,7 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/main.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
@@ -93,7 +94,9 @@ main_program(
 	);
 
 	sge::opencl::single_device_system::object opencl_system{
-		log_context,
+		fcppt::make_ref(
+			log_context
+		),
 		sge::opencl::single_device_system::parameters()
 	};
 
@@ -107,7 +110,9 @@ main_program(
 	);
 
 	sge::opencl::program::object main_program(
-		log_context,
+		fcppt::make_ref(
+			log_context
+		),
 		opencl_system.context(),
 		sge::opencl::program::source_string_sequence{
 			fcppt::optional::to_exception(

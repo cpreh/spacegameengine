@@ -9,11 +9,11 @@
 #include <sge/systems/impl/window/system.hpp>
 #include <sge/systems/impl/window/system_base.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 
 
 sge::systems::impl::window::system::system(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	sge::systems::window const &_parameters
 )
 :

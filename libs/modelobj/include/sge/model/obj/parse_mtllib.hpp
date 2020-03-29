@@ -9,7 +9,7 @@
 
 #include <sge/model/obj/material_map.hpp>
 #include <sge/model/obj/detail/symbol.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
@@ -25,7 +25,7 @@ namespace obj
 SGE_MODEL_OBJ_DETAIL_SYMBOL
 sge::model::obj::material_map
 parse_mtllib(
-	fcppt::log::context &,
+	fcppt::log::context_reference,
 	std::filesystem::path const &
 );
 

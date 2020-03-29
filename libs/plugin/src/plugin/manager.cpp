@@ -23,7 +23,7 @@
 #include <fcppt/enum/array_impl.hpp>
 #include <fcppt/enum/array_init.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -39,7 +39,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::plugin::manager::manager(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	std::filesystem::path const &_path,
 	sge::plugin::optional_cache_ref const &_cache
 )

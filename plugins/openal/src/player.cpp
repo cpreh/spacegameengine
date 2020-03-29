@@ -33,13 +33,13 @@
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/size.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/math/vector/null.hpp>
 
 
 sge::openal::player::player(
-	fcppt::log::context &_log_context
+	fcppt::log::context_reference const _log_context
 )
 :
 	log_{

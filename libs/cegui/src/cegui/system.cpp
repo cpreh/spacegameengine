@@ -15,14 +15,14 @@
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/WindowManager.h>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::cegui::system::system(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	sge::cegui::load_context const &_load_context,
 	sge::renderer::device::ffp &_renderer,
 	sge::image2d::system &_image_system,

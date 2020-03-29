@@ -20,7 +20,7 @@
 #include <sge/opencl/single_device_system/parameters_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <mutex>
@@ -40,7 +40,7 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_OPENCL_DETAIL_SYMBOL
 	object(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		sge::opencl::single_device_system::parameters const &
 	);
 

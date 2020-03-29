@@ -10,7 +10,7 @@
 #include <sge/projectile/log_fwd.hpp>
 #include <sge/projectile/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 
 
@@ -28,7 +28,7 @@ public:
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	explicit
 	log(
-		fcppt::log::context &
+		fcppt::log::context_reference
 	);
 
 	SGE_PROJECTILE_DETAIL_SYMBOL

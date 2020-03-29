@@ -10,12 +10,12 @@
 #include <sge/model/md3/impl/loader.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 
 
 sge::model::md3::loader_unique_ptr
 sge::model::md3::create(
-	fcppt::log::context &_log_context
+	fcppt::log::context_reference const _log_context
 )
 {
 	return

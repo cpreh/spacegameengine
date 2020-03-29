@@ -27,7 +27,7 @@
 #include <fcppt/container/buffer/object.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
 #include <fcppt/container/raw_vector/object_impl.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/log/verbose.hpp>
@@ -42,7 +42,7 @@
 
 
 sge::opencl::program::object::object(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	sge::opencl::context::object &_context,
 	sge::opencl::program::source_string_sequence const &_source_strings,
 	sge::opencl::program::optional_build_parameters const &_opt_params)
@@ -209,7 +209,7 @@ sge::opencl::program::object::~object()
 }
 
 sge::opencl::program::object::object(
-	fcppt::log::context &_log_context
+	fcppt::log::context_reference const _log_context
 )
 :
 	log_{

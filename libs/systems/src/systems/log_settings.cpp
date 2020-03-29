@@ -7,8 +7,7 @@
 #include <sge/log/option_container.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/optional_log_context_ref.hpp>
-#include <fcppt/make_ref.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 
 
 sge::systems::log_settings::log_settings(
@@ -24,14 +23,12 @@ sge::systems::log_settings::log_settings(
 
 sge::systems::log_settings &
 sge::systems::log_settings::log_context(
-	fcppt::log::context &_log_context
+	fcppt::log::context_reference const _log_context
 )
 {
 	log_context_ =
 		sge::systems::optional_log_context_ref{
-			fcppt::make_ref(
-				_log_context
-			)
+			_log_context
 		};
 
 	return

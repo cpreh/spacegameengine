@@ -21,7 +21,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/info.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -34,7 +34,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::camera::tracking::json::key_press_exporter::key_press_exporter(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	sge::camera::base const &_camera,
 	std::filesystem::path const &_target_path,
 	sge::camera::update_duration const &_duration,

@@ -44,7 +44,7 @@
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
@@ -118,7 +118,7 @@ public:
 	void
 	post_init();
 
-	fcppt::log::context &
+	fcppt::log::context_reference
 	log_context();
 
 	fcppt::log::object &

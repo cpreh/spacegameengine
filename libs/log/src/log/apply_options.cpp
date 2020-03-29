@@ -8,12 +8,13 @@
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
 #include <fcppt/log/context.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/optional_level.hpp>
 
 
 void
 sge::log::apply_options(
-	fcppt::log::context &_context,
+	fcppt::log::context_reference const _context,
 	sge::log::option_container const &_options
 )
 {
@@ -22,7 +23,7 @@ sge::log::apply_options(
 		:
 		_options
 	)
-		_context.set(
+		_context.get().set(
 			option.location(),
 			fcppt::log::optional_level{
 				option.level()

@@ -11,6 +11,7 @@
 #include <sge/systems/log_settings_fwd.hpp>
 #include <sge/systems/optional_log_context_ref.hpp>
 #include <sge/systems/detail/symbol.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 
 
 namespace sge
@@ -30,7 +31,7 @@ public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::log_settings &
 	log_context(
-		fcppt::log::context &
+		fcppt::log::context_reference
 	);
 
 	sge::log::option_container const &

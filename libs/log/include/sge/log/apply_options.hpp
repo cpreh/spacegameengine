@@ -9,7 +9,7 @@
 
 #include <sge/log/option_container.hpp>
 #include <sge/log/detail/symbol.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 
 
 namespace sge
@@ -20,7 +20,7 @@ namespace log
 SGE_LOG_DETAIL_SYMBOL
 void
 apply_options(
-	fcppt::log::context &,
+	fcppt::log::context_reference,
 	sge::log::option_container const &
 );
 

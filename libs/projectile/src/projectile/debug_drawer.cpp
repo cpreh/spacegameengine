@@ -10,11 +10,11 @@
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 
 
 sge::projectile::debug_drawer::debug_drawer(
-	fcppt::log::context &_log,
+	fcppt::log::context_reference const _log,
 	sge::projectile::world &_world,
 	sge::renderer::device::core &_renderer
 )

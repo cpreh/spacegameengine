@@ -13,7 +13,7 @@
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 
 
@@ -32,7 +32,7 @@ class system
 public:
 	explicit
 	system(
-		fcppt::log::context &
+		fcppt::log::context_reference
 	);
 
 	~system()

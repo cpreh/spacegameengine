@@ -10,6 +10,7 @@
 #include <sge/model/obj/parse_mtllib.hpp>
 #include <sge/model/obj/prototype.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
@@ -42,7 +43,9 @@ try
 	};
 
 	sge::model::obj::prototype const loaded_model{
-		log_context,
+		fcppt::make_ref(
+			log_context
+		),
 		sge::config::media_path()
 		/
 		FCPPT_TEXT("objs")
@@ -103,7 +106,9 @@ try
 				FCPPT_TEXT("Loading...\n");
 
 			sge::model::obj::parse_mtllib(
-				log_context,
+				fcppt::make_ref(
+					log_context
+				),
 				sge::config::media_path()
 				/
 				FCPPT_TEXT("mtls")

@@ -19,7 +19,7 @@
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/parse/json/start_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
@@ -45,7 +45,7 @@ class object
 	);
 public:
 	object(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		std::filesystem::path const &,
 		sge::image2d::system &
 	);
@@ -54,7 +54,7 @@ public:
 	override;
 private:
 	object(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		std::filesystem::path const &,
 		sge::image2d::system &,
 		sge::parse::json::start const &

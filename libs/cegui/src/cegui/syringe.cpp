@@ -27,7 +27,7 @@
 #include <sge/log/default_parameters.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/int_to_float.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/out.hpp>
@@ -53,7 +53,7 @@ process_key_code(
 }
 
 sge::cegui::syringe::syringe(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	sge::cegui::system &_system
 )
 :

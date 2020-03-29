@@ -18,12 +18,12 @@
 #include <sge/systems/impl/renderer/plugin_core_pair.hpp>
 #include <fcppt/container/bitfield/is_subset_eq.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 
 
 sge::systems::impl::renderer::plugin_core_pair
 sge::systems::impl::renderer::find_plugin(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	sge::renderer::plugin::collection const &_collection,
 	sge::systems::optional_name const &_name,
 	sge::renderer::caps::system_field const &_caps,

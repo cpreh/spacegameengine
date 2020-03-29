@@ -20,7 +20,7 @@
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 
 
 namespace sge
@@ -39,7 +39,7 @@ class system
 	);
 public:
 	system(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		sge::renderer::plugin::collection const &,
 		sge::systems::detail::renderer const &,
 		sge::parse::ini::optional_start const &,

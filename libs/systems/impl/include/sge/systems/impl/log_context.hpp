@@ -11,7 +11,7 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/variant/object_impl.hpp>
 
 
@@ -35,7 +35,7 @@ public:
 
 	~log_context();
 
-	fcppt::log::context &
+	fcppt::log::context_reference
 	get() const;
 private:
 	typedef

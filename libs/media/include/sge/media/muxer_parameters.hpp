@@ -11,8 +11,7 @@
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/media/detail/instantiate/symbol.hpp>
 #include <sge/plugin/collection.hpp>
-#include <fcppt/reference_impl.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 
 
 namespace sge
@@ -34,13 +33,13 @@ public:
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
 	muxer_parameters(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		collection_type const &,
 		sge::media::optional_extension_set const &
 	);
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
-	fcppt::log::context &
+	fcppt::log::context_reference
 	log_context() const;
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
@@ -51,9 +50,7 @@ public:
 	sge::media::optional_extension_set const &
 	extensions() const;
 private:
-	fcppt::reference<
-		fcppt::log::context
-	> log_context_;
+	fcppt::log::context_reference log_context_;
 
 	collection_type collection_;
 

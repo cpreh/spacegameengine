@@ -13,7 +13,7 @@
 #include <sge/systems/impl/audio/loader_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ class loader
 	);
 public:
 	loader(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		sge::audio::loader_plugin::collection const &,
 		sge::systems::audio_loader const &
 	);

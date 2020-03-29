@@ -18,7 +18,7 @@
 #include <sge/input/focus/event/key_repeat_fwd.hpp>
 #include <sge/input/focus/event/text_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 
 
@@ -41,7 +41,7 @@ class syringe
 public:
 	SGE_CEGUI_DETAIL_SYMBOL
 	syringe(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		sge::cegui::system &
 	);
 

@@ -41,6 +41,7 @@
 #include <sge/renderer/plugin/manager.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/tag_type.hpp>
 #include <fcppt/text.hpp>
@@ -75,7 +76,9 @@ try
 	);
 
 	sge::plugin::manager manager(
-		log_context,
+		fcppt::make_ref(
+			log_context
+		),
 		sge::config::plugin_path(),
 		sge::plugin::optional_cache_ref()
 	);

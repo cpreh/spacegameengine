@@ -11,12 +11,12 @@
 #include <sge/input/plugin/collection_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 
 
 sge::input::system_unique_ptr
 sge::input::create_multi_system(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	sge::input::plugin::collection const &_collection
 )
 {

@@ -12,7 +12,7 @@
 #include <sge/systems/impl/window/system_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 
 
 namespace sge
@@ -31,7 +31,7 @@ class system
 	);
 public:
 	system(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		sge::systems::window const &
 	);
 

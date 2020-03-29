@@ -11,11 +11,11 @@
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/impl/audio/loader.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 
 
 sge::systems::impl::audio::loader::loader(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	sge::audio::loader_plugin::collection const &_collection,
 	sge::systems::audio_loader const &_parameters
 )

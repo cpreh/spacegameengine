@@ -16,7 +16,7 @@
 #include <sge/systems/impl/plugin_pair_decl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
@@ -40,7 +40,7 @@ fcppt::optional::object<
 	>
 >
 find_plugin_opt(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	sge::plugin::collection<
 		System
 	> const &_collection,

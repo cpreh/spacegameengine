@@ -20,7 +20,7 @@
 #include <sge/openal/device.hpp>
 #include <sge/openal/listener.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 
 
@@ -39,7 +39,7 @@ class player
 public:
 	explicit
 	player(
-		fcppt::log::context &
+		fcppt::log::context_reference
 	);
 
 	~player()

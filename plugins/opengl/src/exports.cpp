@@ -21,7 +21,7 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -55,7 +55,7 @@ FCPPT_PP_POP_WARNING
 
 sge::renderer::core_unique_ptr
 create_renderer_core(
-	fcppt::log::context &_log_context
+	fcppt::log::context_reference const _log_context
 )
 {
 	return

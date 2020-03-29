@@ -14,7 +14,7 @@
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/media/stream_unique_ptr_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 
 
@@ -33,7 +33,7 @@ class loader
 public:
 	explicit
 	loader(
-		fcppt::log::context &
+		fcppt::log::context_reference
 	);
 
 	~loader()

@@ -26,7 +26,7 @@
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 
 
 namespace sge
@@ -52,7 +52,7 @@ public:
 	~instance();
 
 	SGE_SYSTEMS_DETAIL_SYMBOL
-	fcppt::log::context &
+	fcppt::log::context_reference
 	log_context() const;
 
 	SGE_SYSTEMS_DETAIL_SYMBOL

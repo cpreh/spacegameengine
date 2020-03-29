@@ -9,7 +9,7 @@
 
 #include <sge/systems/window_fwd.hpp>
 #include <sge/systems/impl/window/system_base_unique_ptr.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 
 
 namespace sge
@@ -23,7 +23,7 @@ namespace window
 
 sge::systems::impl::window::system_base_unique_ptr
 make_system_base(
-	fcppt::log::context &,
+	fcppt::log::context_reference,
 	sge::systems::window const &
 );
 

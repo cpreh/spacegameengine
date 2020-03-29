@@ -21,7 +21,7 @@
 #include <sge/scenic/scene/mesh/object_fwd.hpp>
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <map>
@@ -41,7 +41,7 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	object(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		sge::scenic::scene::manager &,
 		sge::viewport::manager &,
 		sge::camera::base &,
@@ -71,7 +71,7 @@ private:
 	>
 	material_map;
 
-	fcppt::log::context &log_context_;
+	fcppt::log::context_reference const log_context_;
 	sge::scenic::scene::manager &scene_manager_;
 	sge::camera::base &camera_;
 	sge::scenic::scene::prototype_unique_ptr const prototype_;

@@ -14,7 +14,7 @@
 #include <sge/systems/impl/image2d/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ class object
 	);
 public:
 	object(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		sge::image2d::plugin::collection const &,
 		sge::systems::image2d const &
 	);

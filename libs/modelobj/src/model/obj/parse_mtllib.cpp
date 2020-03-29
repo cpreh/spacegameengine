@@ -23,7 +23,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/log/warning.hpp>
@@ -52,7 +52,7 @@ class parser
 	);
 public:
 	parser(
-		fcppt::log::context &_log_context,
+		fcppt::log::context_reference const _log_context,
 		std::filesystem::path const &_filename
 	)
 	:
@@ -519,7 +519,7 @@ private:
 
 sge::model::obj::material_map
 sge::model::obj::parse_mtllib(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	std::filesystem::path const &_filename
 )
 {

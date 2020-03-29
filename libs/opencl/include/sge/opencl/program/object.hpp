@@ -17,7 +17,7 @@
 #include <sge/opencl/program/source_string_sequence.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/container/raw_vector/object_fwd.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/optional/object.hpp>
 
@@ -35,7 +35,7 @@ FCPPT_NONCOPYABLE(
 public:
 	SGE_OPENCL_DETAIL_SYMBOL
 	object(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		sge::opencl::context::object &,
 		sge::opencl::program::source_string_sequence const &,
 		sge::opencl::program::optional_build_parameters const &);
@@ -51,7 +51,7 @@ public:
 private:
 	explicit
 	object(
-		fcppt::log::context &
+		fcppt::log::context_reference
 	);
 
 	friend class sge::opencl::kernel::object;

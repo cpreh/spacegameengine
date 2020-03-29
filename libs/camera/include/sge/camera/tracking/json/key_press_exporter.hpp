@@ -17,7 +17,7 @@
 #include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/strong_typedef.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
@@ -51,7 +51,7 @@ public:
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	key_press_exporter(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		sge::camera::base const &,
 		std::filesystem::path const &,
 		sge::camera::update_duration const &,

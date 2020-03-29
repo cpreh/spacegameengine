@@ -16,7 +16,7 @@
 #include <sge/plugin/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
@@ -39,7 +39,7 @@ class multi_system
 	);
 public:
 	multi_system(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		sge::input::plugin::collection const &
 	);
 

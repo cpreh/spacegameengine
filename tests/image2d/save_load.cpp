@@ -41,6 +41,7 @@
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
@@ -86,7 +87,9 @@ TEST_CASE(
 	};
 
 	sge::plugin::manager plugins(
-		log_context,
+		fcppt::make_ref(
+			log_context
+		),
 		sge::config::plugin_path(),
 		sge::plugin::optional_cache_ref()
 	);
@@ -107,7 +110,9 @@ TEST_CASE(
 
 		sge::image2d::system_unique_ptr const system(
 			plugin.get()(
-				log_context
+				fcppt::make_ref(
+					log_context
+				)
 			)
 		);
 

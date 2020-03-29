@@ -26,7 +26,7 @@
 #include <sge/scenic/scene/mesh/object.hpp>
 #include <sge/scenic/vf/format.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/scaling.hpp>
@@ -39,7 +39,7 @@
 
 
 sge::scenic::scene::object::object(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	sge::scenic::scene::manager &_scene_manager,
 	sge::viewport::manager &_viewport_manager,
 	sge::camera::base &_camera,

@@ -12,7 +12,7 @@
 #include <sge/systems/optional_name_fwd.hpp>
 #include <sge/systems/renderer_caps_fwd.hpp>
 #include <sge/systems/impl/renderer/plugin_core_pair_fwd.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 
 
 namespace sge
@@ -26,7 +26,7 @@ namespace renderer
 
 sge::systems::impl::renderer::plugin_core_pair
 find_plugin(
-	fcppt::log::context &,
+	fcppt::log::context_reference,
 	sge::renderer::plugin::collection const &,
 	sge::systems::optional_name const &,
 	sge::renderer::caps::system_field const &,

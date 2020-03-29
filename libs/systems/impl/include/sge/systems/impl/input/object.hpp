@@ -18,7 +18,7 @@
 #include <sge/systems/impl/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
@@ -39,7 +39,7 @@ class object
 	);
 public:
 	object(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		fcppt::log::object &,
 		sge::input::plugin::collection const &,
 		sge::systems::input const &,

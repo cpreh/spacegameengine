@@ -19,7 +19,7 @@
 #include <sge/viewport/manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference_fwd.hpp>
 
 
 namespace CEGUI
@@ -41,7 +41,7 @@ class system
 public:
 	SGE_CEGUI_DETAIL_SYMBOL
 	system(
-		fcppt::log::context &,
+		fcppt::log::context_reference,
 		sge::cegui::load_context const &,
 		sge::renderer::device::ffp &,
 		sge::image2d::system &,

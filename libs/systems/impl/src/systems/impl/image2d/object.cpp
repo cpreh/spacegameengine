@@ -11,11 +11,11 @@
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/impl/image2d/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 
 
 sge::systems::impl::image2d::object::object(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	sge::image2d::plugin::collection const &_collection,
 	sge::systems::image2d const &_parameters
 )

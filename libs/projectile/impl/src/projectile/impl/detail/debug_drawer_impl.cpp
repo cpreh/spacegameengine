@@ -22,7 +22,7 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size_fun.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/out.hpp>
@@ -39,7 +39,7 @@
 
 
 sge::projectile::detail::debug_drawer_impl::debug_drawer_impl(
-	fcppt::log::context &_log_context,
+	fcppt::log::context_reference const _log_context,
 	sge::projectile::world &_world,
 	sge::renderer::device::core &_renderer)
 :

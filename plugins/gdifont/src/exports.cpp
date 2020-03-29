@@ -20,7 +20,7 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/log/context_fwd.hpp>
+#include <fcppt/log/context_reference.hpp>
 
 
 namespace
@@ -43,7 +43,7 @@ sge::plugin::info const info(
 
 sge::font::system_unique_ptr
 create_font_system(
-	fcppt::log::context &
+	fcppt::log::context_reference
 )
 {
 	return

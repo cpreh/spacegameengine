@@ -8,10 +8,12 @@
 #include <sge/log/default_level_streams.hpp>
 #include <sge/systems/optional_log_context_ref.hpp>
 #include <sge/systems/impl/log_context.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/context.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/variant/match.hpp>
 
@@ -54,7 +56,7 @@ sge::systems::impl::log_context::~log_context()
 {
 }
 
-fcppt::log::context &
+fcppt::log::context_reference
 sge::systems::impl::log_context::get() const
 {
 	return
@@ -66,10 +68,12 @@ sge::systems::impl::log_context::get() const
 				> const &_context
 			)
 			->
-			fcppt::log::context &
+			fcppt::log::context_reference
 			{
 				return
-					*_context;
+					fcppt::make_ref(
+						*_context
+					);
 			},
 			[](
 				fcppt::reference<
@@ -77,10 +81,10 @@ sge::systems::impl::log_context::get() const
 				> const &_context
 			)
 			->
-			fcppt::log::context &
+			fcppt::log::context_reference
 			{
 				return
-					_context.get();
+					_context;
 			}
 		);
 }
