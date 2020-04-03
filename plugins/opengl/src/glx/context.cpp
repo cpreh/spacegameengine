@@ -44,7 +44,7 @@ sge::opengl::glx::context::context(
 	),
 	context_(
 		::glXCreateContext(
-			_window.display().get(),
+			_window.display().get().get(),
 			const_cast<
 				XVisualInfo *
 			>(
@@ -68,7 +68,7 @@ sge::opengl::glx::context::context(
 sge::opengl::glx::context::~context()
 {
 	::glXDestroyContext(
-		window_.display().get(),
+		window_.display().get().get(),
 		context_
 	);
 }
@@ -77,7 +77,7 @@ sge::opengl::backend::current_unique_ptr
 sge::opengl::glx::context::activate()
 {
 	sge::opengl::glx::make_current(
-		window_.display().get(),
+		window_.display().get().get(),
 		window_.get(),
 		context_
 	);
@@ -102,7 +102,7 @@ sge::opengl::glx::context::deactivate(
 )
 {
 	sge::opengl::glx::make_current(
-		window_.display().get(),
+		window_.display().get().get(),
 		None,
 		nullptr
 	);

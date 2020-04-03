@@ -112,7 +112,7 @@ sge::opengl::glx::current::end_rendering()
 		!window_.destroyed()
 	)
 		::glXSwapBuffers(
-			window_.display().get(),
+			window_.display().get().get(),
 			window_.get()
 		);
 }
@@ -149,7 +149,7 @@ sge::opengl::glx::current::vsync(
 				sge::opengl::glx::vsync(
 					log_,
 					_swap_functions,
-					window_.display()
+					window_.display().get()
 				);
 			}
 		);

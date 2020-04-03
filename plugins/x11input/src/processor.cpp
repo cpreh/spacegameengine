@@ -126,7 +126,7 @@ sge::x11input::processor::processor(
 	xim_method_{
 		sge::x11input::xim::create_method_opt(
 			_log,
-			x11_window_.display()
+			x11_window_.display().get()
 		)
 	},
 	window_demuxer_{
@@ -248,7 +248,7 @@ sge::x11input::processor::processor(
 	}
 {
 	sge::x11input::device::info::multi const current_devices(
-		x11_window_.display()
+		x11_window_.display().get()
 	);
 
 	for(
@@ -457,7 +457,7 @@ sge::x11input::processor::hierarchy_info(
 	)
 	{
 		sge::x11input::device::info::single const info{
-			x11_window_.display(),
+			x11_window_.display().get(),
 			sge::x11input::device::id{
 				_info.deviceid
 			}

@@ -184,7 +184,7 @@ sge::x11input::keyboard::device::make_key_event(
 					this->fcppt_shared_from_this()
 				},
 				sge::x11input::keyboard::key_from_event(
-					window_.display(),
+					window_.display().get(),
 					_event
 				),
 				_pressed

@@ -8,7 +8,7 @@
 #define SGE_OPENGL_GLX_GET_EXTENSIONS_HPP_INCLUDED
 
 #include <sge/opengl/glx/extension_set.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 
 
 namespace sge
@@ -20,7 +20,7 @@ namespace glx
 
 sge::opengl::glx::extension_set
 get_extensions(
-	awl::backends::x11::display const &
+	awl::backends::x11::display_ref
 );
 
 }

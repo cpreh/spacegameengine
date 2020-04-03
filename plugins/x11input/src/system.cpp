@@ -66,7 +66,7 @@ sge::x11input::system::create_processor(
 	sge::x11input::opcode const opcode(
 		fcppt::optional::to_exception(
 			sge::x11input::xi_opcode(
-				x11_window.display()
+				x11_window.display().get()
 			),
 			[]{
 				return
@@ -80,7 +80,7 @@ sge::x11input::system::create_processor(
 	// The first supported version we ask for and that is supported will be used
 	if(
 		!sge::x11input::xi_version(
-			x11_window.display(),
+			x11_window.display().get(),
 			2,
 			1
 		)

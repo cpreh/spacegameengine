@@ -9,6 +9,7 @@
 #include <awl/backends/x11/display_fwd.hpp>
 #include <awl/backends/x11/visual/get_info.hpp>
 #include <awl/backends/x11/visual/info_unique_ptr.hpp>
+#include <awl/backends/x11/visual/mask.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
@@ -36,7 +37,9 @@ sge::opengl::egl::x11::create_visual_info(
 	return
 		awl::backends::x11::visual::get_info(
 			_display,
-			VisualIDMask,
+			awl::backends::x11::visual::mask{
+				VisualIDMask
+			},
 			info
 		);
 }

@@ -39,7 +39,7 @@ sge::opengl::egl::x11::display::display(
 		_log
 	},
 	x11_display_{
-		_awl_system.display()
+		_awl_system.display().get()
 	},
 	display_{
 		sge::opengl::egl::get_display(

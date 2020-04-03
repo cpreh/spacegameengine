@@ -32,7 +32,7 @@ sge::opengl::x11::system::system(
 	xrandr_system_(
 		sge::opengl::xrandr::create_system(
 			_log,
-			_awl_system.display()
+			_awl_system.display().get()
 		)
 	),
 	wm_state_{

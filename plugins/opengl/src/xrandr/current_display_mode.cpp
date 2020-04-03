@@ -63,7 +63,7 @@ sge::opengl::xrandr::current_display_mode(
 	)
 	{
 		sge::opengl::xrandr::crtc_info const crtc_info(
-			_window.display(),
+			_window.display().get(),
 			resources,
 			crtc
 		);
@@ -102,7 +102,7 @@ sge::opengl::xrandr::current_display_mode(
 		)
 		{
 			sge::opengl::xrandr::output_info const output_info(
-				_window.display(),
+				_window.display().get(),
 				resources,
 				output
 			);

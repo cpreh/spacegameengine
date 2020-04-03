@@ -20,7 +20,7 @@ sge::opengl::xrandr::screen_resources::screen_resources(
 :
 	resources_(
 		::XRRGetScreenResources(
-			_window.display().get(),
+			_window.display().get().get(),
 			_window.get()
 		)
 

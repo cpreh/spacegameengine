@@ -33,7 +33,7 @@ sge::opengl::glx::visual::create(
 				sge::opengl::glx::visual::object
 			>(
 				sge::opengl::glx::visual::choose(
-					_awl_system.display(),
+					_awl_system.display().get(),
 					_awl_system.screen(),
 					sge::opengl::glx::visual::make_attributes(
 						_srgb_flag,

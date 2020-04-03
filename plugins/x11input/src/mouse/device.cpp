@@ -68,7 +68,7 @@ sge::x11input::mouse::device::device(
 	accus_{},
 	info_{
 		sge::x11input::mouse::info(
-			_window.display(),
+			_window.display().get(),
 			_info
 		)
 	},

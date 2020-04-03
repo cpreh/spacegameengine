@@ -40,7 +40,7 @@ sge::opengl::xrandr::set_resolution(
 		]{
 			if(
 				::XRRSetScreenConfig(
-					_window.display().get(),
+					_window.display().get().get(),
 					_config.get(),
 					_window.get(),
 					_mode_index.get(),
@@ -66,7 +66,7 @@ sge::opengl::xrandr::set_resolution(
 		{
 			if(
 				::XRRSetScreenConfigAndRate(
-					_window.display().get(),
+					_window.display().get().get(),
 					_config.get(),
 					_window.get(),
 					_mode_index.get(),

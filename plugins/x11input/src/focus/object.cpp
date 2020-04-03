@@ -234,7 +234,7 @@ sge::x11input::focus::object::on_key_press(
 						this->process_key_down(
 							repeated,
 							sge::x11input::key::event_to_sge_code(
-								window_.display(),
+								window_.display().get(),
 								_event
 							)
 						)
@@ -303,7 +303,7 @@ sge::x11input::focus::object::on_key_release(
 				},
 				sge::input::focus::key{
 					sge::x11input::key::event_to_sge_code(
-						window_.display(),
+						window_.display().get(),
 						_event
 					)
 				},

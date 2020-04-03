@@ -39,7 +39,7 @@ sge::x11input::cursor::grab::grab(
 
 	Status const ret(
 		::XIGrabDevice(
-			_window.display().get(),
+			_window.display().get().get(),
 			_id.get(),
 			_window.get(),
 			CurrentTime,
@@ -70,7 +70,7 @@ sge::x11input::cursor::grab::grab(
 sge::x11input::cursor::grab::~grab()
 {
 	::XIUngrabDevice(
-		window_.display().get(),
+		window_.display().get().get(),
 		id_.get(),
 		CurrentTime
 	);

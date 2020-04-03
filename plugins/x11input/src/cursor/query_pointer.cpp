@@ -42,7 +42,7 @@ sge::x11input::cursor::query_pointer(
 
 	if(
 		::XIQueryPointer(
-			_window.display().get(),
+			_window.display().get().get(),
 			_id.get(),
 			_window.get(),
 			&root_return,

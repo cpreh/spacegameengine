@@ -20,7 +20,7 @@ sge::opengl::xrandr::configuration::configuration(
 :
 	config_{
 		::XRRGetScreenInfo(
-			_window.display().get(),
+			_window.display().get().get(),
 			_window.get()
 		)
 	}

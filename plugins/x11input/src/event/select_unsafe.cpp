@@ -81,7 +81,7 @@ FCPPT_PP_POP_WARNING
 
 	if(
 		::XISelectEvents(
-			_window.display().get(),
+			_window.display().get().get(),
 			_window.get(),
 			&mask,
 			1

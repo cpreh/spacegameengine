@@ -10,6 +10,7 @@
 #include <sge/opengl/glx/get_extensions.hpp>
 #include <awl/backends/x11/default_screen.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <fcppt/config/external_end.hpp>
@@ -17,13 +18,13 @@
 
 sge::opengl::glx::extension_set
 sge::opengl::glx::get_extensions(
-	awl::backends::x11::display const &_display
+	awl::backends::x11::display_ref const _display
 )
 {
 #if defined(GLX_VERSION_1_1)
 	const char *const result(
 		::glXQueryExtensionsString(
-			_display.get(),
+			_display.get().get(),
 			awl::backends::x11::default_screen(
 				_display
 			).get()
