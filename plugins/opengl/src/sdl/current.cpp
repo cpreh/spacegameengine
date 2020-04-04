@@ -70,7 +70,7 @@ void
 sge::opengl::sdl::current::end_rendering()
 {
 	SDL_GL_SwapWindow(
-		&this->window_.get()
+		&this->window_.get().get()
 	);
 }
 

@@ -21,7 +21,7 @@ sge::opengl::sdl::make_current(
 {
 	if(
 		SDL_GL_MakeCurrent(
-			&_window.get(),
+			&_window.get().get(),
 			_context
 		)
 		!=

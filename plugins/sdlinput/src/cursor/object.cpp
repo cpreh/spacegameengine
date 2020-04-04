@@ -65,7 +65,7 @@ sge::sdlinput::cursor::object::position() const
 					fcppt::optional::make_if(
 						&_window.get()
 						==
-						&this->sdl_window_.get(),
+						&this->sdl_window_.get().get(),
 						[]{
 							return
 								sge::sdlinput::cursor::get_position();

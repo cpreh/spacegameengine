@@ -114,7 +114,7 @@ sge::opengl::sdl::device_state::fullscreen(
 		{
 			if(
 				SDL_SetWindowFullscreen(
-					&this->window_.get(),
+					&this->window_.get().get(),
 					_value
 				)
 				==

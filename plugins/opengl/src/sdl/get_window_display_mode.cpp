@@ -25,7 +25,7 @@ sge::opengl::sdl::get_window_display_mode(
 	return
 		fcppt::optional::make_if(
 			SDL_GetWindowDisplayMode(
-				&_window.get(),
+				&_window.get().get(),
 				&result
 			)
 			==

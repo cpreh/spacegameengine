@@ -33,7 +33,7 @@ sge::opengl::sdl::context::context(
 	},
 	context_{
 		SDL_GL_CreateContext(
-			&this->window_.get()
+			&this->window_.get().get()
 		)
 	}
 {

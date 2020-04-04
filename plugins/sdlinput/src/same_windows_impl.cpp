@@ -41,7 +41,7 @@ sge::sdlinput::same_windows_impl(
 				return
 					&_other.get()
 					==
-					&_window.get();
+					&_window.get().get();
 			}
 		);
 }
