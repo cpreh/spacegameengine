@@ -178,6 +178,11 @@ configure_file(
 	${CMAKE_CURRENT_BINARY_DIR}/include/sge/opencl/config.hpp
 )
 
+set(
+	OPENCL_TARGET
+	"CL_TARGET_OPENCL_VERSION=110"
+)
+
 add_sge_base_library(
 	opencl
 	HAS_IMPL_DIR
@@ -209,4 +214,7 @@ add_sge_base_library(
 		"${CMAKE_CURRENT_BINARY_DIR}/include"
 	COMPILE_DEFINITIONS
 		"CL_USE_DEPRECATED_OPENCL_1_1_APIS"
+		${OPENCL_TARGET}
+	TRANSITIVE_COMPILE_DEFINITIONS
+		${OPENCL_TARGET}
 )
