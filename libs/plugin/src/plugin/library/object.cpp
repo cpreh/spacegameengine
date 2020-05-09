@@ -100,7 +100,7 @@ public:
 	destroyer()
 	= default;
 
-	destroyer()
+	~destroyer()
 	{
 		libraries.clear();
 	}

@@ -40,7 +40,8 @@ public:
 	SGE_IMAGE_DETAIL_SYMBOL
 	exception(
 		exception &&
-	);
+	)
+	noexcept;
 
 	SGE_IMAGE_DETAIL_SYMBOL
 	exception(
@@ -51,7 +52,8 @@ public:
 	exception &
 	operator=(
 		exception &&
-	);
+	)
+	noexcept;
 
 	SGE_IMAGE_DETAIL_SYMBOL
 	exception &

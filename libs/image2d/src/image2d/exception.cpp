@@ -41,6 +41,7 @@ sge::image2d::exception::exception(
 sge::image2d::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::image2d::exception::exception(
@@ -52,6 +53,7 @@ sge::image2d::exception &
 sge::image2d::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::image2d::exception &
@@ -60,6 +62,6 @@ sge::image2d::exception::operator=(
 )
 = default;
 
-sge::image2d::exception::~exception() noexcept
-{
-}
+sge::image2d::exception::~exception()
+noexcept
+= default;

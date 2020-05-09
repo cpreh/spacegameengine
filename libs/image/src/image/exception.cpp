@@ -41,6 +41,7 @@ sge::image::exception::exception(
 sge::image::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::image::exception::exception(
@@ -52,6 +53,7 @@ sge::image::exception &
 sge::image::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::image::exception &
@@ -60,6 +62,6 @@ sge::image::exception::operator=(
 )
 = default;
 
-sge::image::exception::~exception() noexcept
-{
-}
+sge::image::exception::~exception()
+noexcept
+= default;
