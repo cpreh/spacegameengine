@@ -7,6 +7,7 @@
 #ifndef SGE_PLUGIN_DETAIL_ADDRESS_NAME_HPP_INCLUDED
 #define SGE_PLUGIN_DETAIL_ADDRESS_NAME_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace plugin
@@ -14,7 +15,10 @@ namespace plugin
 namespace detail
 {
 
-typedef char const *address_name;
+using
+address_name
+=
+char const *;
 
 }
 }

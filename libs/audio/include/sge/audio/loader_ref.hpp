@@ -4,28 +4,25 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_AUDIO_LOADER_PLUGIN_OBJECT_FWD_HPP_INCLUDED
-#define SGE_AUDIO_LOADER_PLUGIN_OBJECT_FWD_HPP_INCLUDED
+#ifndef SGE_AUDIO_LOADER_REF_HPP_INCLUDED
+#define SGE_AUDIO_LOADER_REF_HPP_INCLUDED
 
 #include <sge/audio/loader_fwd.hpp>
-#include <sge/plugin/object.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
 {
 namespace audio
 {
-namespace loader_plugin
-{
 
 using
-object
+loader_ref
 =
-sge::plugin::object<
+fcppt::reference<
 	sge::audio::loader
 >;
 
-}
 }
 }
 

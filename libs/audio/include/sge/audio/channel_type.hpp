@@ -14,7 +14,10 @@ namespace audio
 {
 
 /// Unsigned integral type to denote the number of channels (in a file or sound)
-typedef unsigned channel_type;
+using
+channel_type
+=
+unsigned;
 
 }
 }

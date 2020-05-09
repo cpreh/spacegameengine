@@ -18,11 +18,12 @@ namespace sge
 namespace plugin
 {
 
-typedef
+using
+category_array
+=
 std::vector<
 	sge::plugin::context_base_ref
->
-category_array;
+>;
 
 }
 }

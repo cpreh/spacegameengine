@@ -36,7 +36,8 @@ public:
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
 	file_exception(
 		file_exception &&
-	);
+	)
+	noexcept;
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
 	file_exception(
@@ -47,7 +48,8 @@ public:
 	file_exception &
 	operator=(
 		file_exception &&
-	);
+	)
+	noexcept;
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
 	file_exception &

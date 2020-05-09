@@ -11,6 +11,7 @@
 #include <sge/plugin/impl/library/load_function_base.hpp>
 #include <sge/plugin/library/object_fwd.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -27,7 +28,9 @@ template<
 >
 Function
 load_function(
-	sge::plugin::library::object &_object,
+	fcppt::reference<
+		sge::plugin::library::object
+	> const _object,
 	sge::plugin::library::symbol_string const &_symbol
 )
 {

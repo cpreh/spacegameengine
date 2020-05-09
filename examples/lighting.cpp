@@ -110,6 +110,7 @@
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
@@ -257,7 +258,9 @@ try
 
 	sge::image2d::file_unique_ptr const image(
 		sge::image2d::load_exn(
-			sys.image_system(),
+			fcppt::make_ref(
+				sys.image_system()
+			),
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
 			/ FCPPT_TEXT("grass.png")

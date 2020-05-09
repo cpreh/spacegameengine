@@ -41,6 +41,7 @@ sge::core::exception::exception(
 sge::core::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::core::exception::exception(
@@ -52,6 +53,7 @@ sge::core::exception &
 sge::core::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::core::exception &
@@ -60,6 +62,6 @@ sge::core::exception::operator=(
 )
 = default;
 
-sge::core::exception::~exception() noexcept
-{
-}
+sge::core::exception::~exception()
+noexcept
+= default;

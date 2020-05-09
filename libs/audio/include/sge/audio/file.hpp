@@ -16,7 +16,8 @@
 #include <sge/audio/sample_rate.hpp>
 #include <sge/audio/detail/symbol.hpp>
 #include <sge/core/detail/class_symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -31,7 +32,7 @@ For a short introduction to file loading, see \ref audio_example.
 */
 class SGE_CORE_DETAIL_CLASS_SYMBOL file
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		file
 	);
 protected:
@@ -50,16 +51,19 @@ public:
 	[[nodiscard]]
 	virtual
 	sge::audio::sample_count
-	// TODO: Return the buffer here?
+	// TODO(philipp): Return the buffer here?
 	read(
 		sge::audio::sample_count _samples,
-		sge::audio::sample_buffer &_destination
+		fcppt::reference<
+			sge::audio::sample_buffer
+		> _destination
 	)
 	= 0;
 
 	/**
 	\brief Read ALL the samples from the file.
 	*/
+	[[nodiscard]]
 	virtual
 	sge::audio::sample_container
 	read_all() = 0;
@@ -75,21 +79,25 @@ public:
 	You probably won't call this function directly. It is, however,
 	important for streaming sounds, as it is a great help for caching.
 	*/
+	[[nodiscard]]
 	virtual
 	sge::audio::sample_count
 	expected_package_size() const = 0;
 
 	/// How many channels does this file hold
+	[[nodiscard]]
 	virtual
 	sge::audio::channel_count
 	channels() const = 0;
 
 	/// What's the sample rate (in number of samples) of the file
+	[[nodiscard]]
 	virtual
 	sge::audio::sample_rate
 	sample_rate() const = 0;
 
 	/// How many bits per sample are there
+	[[nodiscard]]
 	virtual
 	sge::audio::bits_per_sample
 	bits_per_sample() const = 0;

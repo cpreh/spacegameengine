@@ -107,6 +107,7 @@
 #include <awl/main/exit_success.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
@@ -239,7 +240,9 @@ try
 		sge::gui::create_texture(
 			sys.renderer_device_core(),
 			sge::image2d::load_exn(
-				sys.image_system(),
+				fcppt::make_ref(
+					sys.image_system()
+				),
 				sge::config::media_path()
 				/
 				FCPPT_TEXT("images")

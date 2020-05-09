@@ -16,11 +16,12 @@ namespace sge
 namespace audio
 {
 
-typedef
+using
+file_exception
+=
 sge::media::file_exception<
 	sge::audio::exception
->
-file_exception;
+>;
 
 }
 }

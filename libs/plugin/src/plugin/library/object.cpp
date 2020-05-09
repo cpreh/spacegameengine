@@ -14,12 +14,13 @@
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <exception>
@@ -49,7 +50,7 @@ free_library(
 
 struct context
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		context
 	);
 public:
@@ -92,10 +93,13 @@ library_vector libraries;
 
 struct sge::plugin::library::object::destroyer
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		destroyer
 	);
 public:
+	destroyer()
+	= default;
+
 	destroyer()
 	{
 		libraries.clear();
@@ -105,17 +109,19 @@ public:
 #endif
 
 sge::plugin::library::object::object(
-	std::filesystem::path const &_name
+	std::filesystem::path &&_name
 )
 :
 	name_(
-		_name
+		std::move(
+			_name
+		)
 	),
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	handle_(
 		::LoadLibrary(
 			fcppt::filesystem::path_to_string(
-				_name
+				name_
 			).c_str()
 		)
 	),
@@ -127,15 +133,18 @@ sge::plugin::library::object::object(
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 	handle_(
 		::dlopen(
-			_name.string().c_str(),
+			name_.string().c_str(),
 			RTLD_NOW
 		)
 	)
 #endif
 {
 	if(
-		!handle_
+		handle_
+		==
+		nullptr
 	)
+	{
 		throw
 			sge::plugin::library::exception{
 				fcppt::string(
@@ -144,14 +153,19 @@ sge::plugin::library::object::object(
 					sge::plugin::impl::library::error()
 				)
 			};
+	}
 }
 
 sge::plugin::library::object::~object()
 {
 	if(
-		!handle_
+		handle_
+		==
+		nullptr
 	)
+	{
 		return;
+	}
 
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 	// NOTE: We can't free the library here,
@@ -237,6 +251,7 @@ sge::plugin::library::object::load(
 		!=
 		nullptr
 	)
+	{
 		throw
 			sge::plugin::library::exception{
 				fcppt::from_std_string(
@@ -249,6 +264,7 @@ sge::plugin::library::object::load(
 					this->name()
 				)
 			};
+	}
 
 	return
 		ret;

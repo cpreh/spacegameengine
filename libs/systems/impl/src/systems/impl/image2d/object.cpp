@@ -8,6 +8,7 @@
 #include <sge/image2d/multi_system_parameters.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/plugin/collection_fwd.hpp>
+#include <sge/media/optional_extension_set.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/impl/image2d/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -27,7 +28,9 @@ sge::systems::impl::image2d::object::object(
 			sge::image2d::multi_system_parameters{
 				_log_context,
 				_collection,
-				_parameters.extensions()
+				sge::media::optional_extension_set{
+					_parameters.extensions()
+				}
 			}
 		)
 	)

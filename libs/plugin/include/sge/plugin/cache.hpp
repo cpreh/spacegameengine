@@ -10,7 +10,7 @@
 #include <sge/plugin/cache_fwd.hpp>
 #include <sge/plugin/detail/symbol.hpp>
 #include <sge/plugin/library/object_shared_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -23,7 +23,7 @@ namespace plugin
 
 class cache
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		cache
 	);
 public:
@@ -38,9 +38,12 @@ public:
 		sge::plugin::library::object_shared_ptr const &
 	);
 private:
-	typedef std::vector<
+	using
+	plugin_container
+	=
+	std::vector<
 		sge::plugin::library::object_shared_ptr
-	> plugin_container;
+	>;
 
 	plugin_container plugins_;
 };

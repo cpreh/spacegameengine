@@ -18,11 +18,12 @@ namespace audio
 namespace player_plugin
 {
 
-typedef
+using
+collection
+=
 sge::plugin::collection<
 	sge::audio::player
->
-collection;
+>;
 
 }
 }

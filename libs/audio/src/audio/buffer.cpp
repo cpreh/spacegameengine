@@ -6,10 +6,9 @@
 
 #include <sge/audio/buffer.hpp>
 
+
 sge::audio::buffer::~buffer()
-{
-}
+= default;
 
 sge::audio::buffer::buffer()
-{
-}
+= default;

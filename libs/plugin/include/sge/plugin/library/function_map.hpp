@@ -25,12 +25,13 @@ namespace library
 class function_map
 {
 public:
-	typedef
+	using
+	container
+	=
 	std::unordered_map<
 		sge::plugin::library::symbol_string,
 		sge::plugin::library::function_base
-	>
-	container;
+	>;
 
 	SGE_PLUGIN_DETAIL_SYMBOL
 	explicit
@@ -38,12 +39,14 @@ public:
 		container &&
 	);
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::library::function_base
 	function(
 		sge::plugin::library::symbol_string const &
 	) const;
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_SYMBOL
 	container const &
 	get() const;

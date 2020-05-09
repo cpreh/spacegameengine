@@ -29,36 +29,42 @@ public
 	>
 {
 public:
-	typedef
+	using
+	base_type
+	=
 	sge::plugin::detail::iterator_base_type<
 		T
-	>
-	base_type;
+	>;
 
-	typedef
+	using
+	value_type
+	=
 	typename
-	base_type::value_type
-	value_type;
+	base_type::value_type;
 
-	typedef
+	using
+	reference
+	=
 	typename
-	base_type::reference
-	reference;
+	base_type::reference;
 
-	typedef
+	using
+	pointer
+	=
 	typename
-	base_type::pointer
-	pointer;
+	base_type::pointer;
 
-	typedef
+	using
+	difference_type
+	=
 	typename
-	base_type::difference_type
-	difference_type;
+	base_type::difference_type;
 
-	typedef
+	using
+	iterator_category
+	=
 	typename
-	base_type::iterator_category
-	iterator_category;
+	base_type::iterator_category;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	explicit
@@ -70,12 +76,14 @@ public:
 	void
 	increment();
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	bool
 	equal(
 		iterator const &
 	) const;
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	reference
 	dereference() const;

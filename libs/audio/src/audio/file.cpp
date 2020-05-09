@@ -8,9 +8,7 @@
 
 
 sge::audio::file::file()
-{
-}
+= default;
 
 sge::audio::file::~file()
-{
-}
+= default;

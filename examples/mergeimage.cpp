@@ -38,6 +38,7 @@
 #include <fcppt/literal.hpp>
 #include <fcppt/main.hpp>
 #include <fcppt/make_int_range_count.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
@@ -120,7 +121,9 @@ first_dim(
 
 	return
 		sge::image2d::load_exn(
-			_system,
+			fcppt::make_ref(
+				_system
+			),
 			*it
 		)->size();
 }
@@ -276,7 +279,9 @@ program_main(
 	{
 		sge::image2d::file_unique_ptr const img(
 			sge::image2d::load_exn(
-				il,
+				fcppt::make_ref(
+					il
+				),
 				cur_path
 			)
 		);

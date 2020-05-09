@@ -115,6 +115,7 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/function.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -610,7 +611,9 @@ try
 
 	sge::audio::file_unique_ptr const af_siren(
 		sge::audio::load_exn(
-			sys.audio_loader(),
+			fcppt::make_ref(
+				sys.audio_loader()
+			),
 			sge::config::media_path()
 			/ FCPPT_TEXT("sounds")
 			/ FCPPT_TEXT("wind.wav")

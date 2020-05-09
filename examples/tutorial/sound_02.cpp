@@ -35,6 +35,7 @@
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/twopi.hpp>
@@ -76,7 +77,9 @@ try
 
 	sge::audio::file_unique_ptr const file(
 		sge::audio::load_exn(
-			sys.audio_loader(),
+			fcppt::make_ref(
+				sys.audio_loader()
+			),
 			sge::config::media_path()
 			/	FCPPT_TEXT("sounds")
 			/ FCPPT_TEXT("ding.wav")

@@ -39,12 +39,14 @@ public:
 
 	/// Get the position
 	/** \see sge::audio::sound::positional::position */
+	[[nodiscard]]
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::vector
 	position() const;
 
 	/// Get the linear velocity
 	/** \see sge::audio::sound::positional::linear_velocity */
+	[[nodiscard]]
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::vector
 	linear_velocity() const;
@@ -59,6 +61,7 @@ public:
 
 	/// Get the gain
 	/** \see sge::audio::sound::base::gain */
+	[[nodiscard]]
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::scalar
 	gain() const;
@@ -73,6 +76,7 @@ public:
 
 	/// Get the pitch
 	/** \see sge::audio::sound::base::pitch */
+	[[nodiscard]]
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::scalar
 	pitch() const;
@@ -87,6 +91,7 @@ public:
 
 	/// Get the rolloff factor
 	/** \see sge::audio::sound::positional::rolloff_factor */
+	[[nodiscard]]
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::scalar
 	rolloff_factor() const;
@@ -101,6 +106,7 @@ public:
 
 	/// Get the reference distance
 	/** \see sge::audio::sound::positional::reference_distance */
+	[[nodiscard]]
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::scalar
 	reference_distance() const;
@@ -115,6 +121,7 @@ public:
 
 	/// Get the maximum distance
 	/** \see sge::audio::sound::positional::max_distance */
+	[[nodiscard]]
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::scalar
 	max_distance() const;
@@ -129,6 +136,7 @@ public:
 
 	/// Get the direction
 	/** \see sge::audio::sound::positional::direction */
+	[[nodiscard]]
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::sound::optional_direction const &
 	direction() const;
@@ -143,6 +151,7 @@ public:
 
 	/// Get the inner cone angle
 	/** \see sge::audio::sound::positional::inner_cone_angle */
+	[[nodiscard]]
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::scalar
 	inner_cone_angle() const;
@@ -157,6 +166,7 @@ public:
 
 	/// Get the outer cone angle
 	/** \see sge::audio::sound::positional::outer_cone_angle */
+	[[nodiscard]]
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::scalar
 	outer_cone_angle() const;
@@ -171,6 +181,7 @@ public:
 
 	/// Get the outer cone gain
 	/** \see sge::audio::sound::positional::outer_cone_gain */
+	[[nodiscard]]
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::scalar
 	outer_cone_gain() const;

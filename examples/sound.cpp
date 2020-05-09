@@ -47,6 +47,7 @@
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -108,7 +109,9 @@ load_raw(
 
 	return
 		sge::audio::load_raw_exn(
-			_audio_loader,
+			fcppt::make_ref(
+				_audio_loader
+			),
 			sge::media::const_raw_range(
 				fcppt::cast::to_char_ptr<
 					sge::media::const_raw_pointer
@@ -386,7 +389,9 @@ try
 
 	sge::audio::file_unique_ptr const streaming_file(
 		sge::audio::load_exn(
-			sys.audio_loader(),
+			fcppt::make_ref(
+				sys.audio_loader()
+			),
 			streaming_file_name
 		)
 	);

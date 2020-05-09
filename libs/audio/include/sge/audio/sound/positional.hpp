@@ -13,7 +13,7 @@
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/optional_direction_fwd.hpp>
 #include <sge/core/detail/class_symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL positional
 :
 	public sge::audio::sound::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		positional
 	);
 protected:

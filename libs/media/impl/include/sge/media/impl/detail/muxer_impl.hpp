@@ -102,11 +102,12 @@ sge::media::detail::muxer<
 					)
 				);
 
-				typedef
+				using
+				optional_plugin_system_pair
+				=
 				fcppt::optional::object<
 					plugin_system_pair
-				>
-				optional_plugin_system_pair;
+				>;
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)
@@ -229,8 +230,7 @@ sge::media::detail::muxer<
 	System,
 	File
 >::~muxer()
-{
-}
+= default;
 
 template<
 	typename System,
@@ -423,7 +423,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)
 							sge::media::stream_unique_ptr &&_cur_stream
 						)
 						{
-							// TODO: This doesn't need to be done in the first iteration
+							// TODO(philipp): This doesn't need to be done in the first iteration
 							_cur_stream->seekg(
 								0,
 								std::ios_base::beg

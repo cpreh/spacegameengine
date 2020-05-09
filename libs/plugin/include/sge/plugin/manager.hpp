@@ -15,7 +15,7 @@
 #include <sge/plugin/detail/context_base_vector.hpp>
 #include <sge/plugin/detail/symbol.hpp>
 #include <sge/plugin/detail/instantiate/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/enum/array_decl.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
@@ -31,7 +31,7 @@ namespace plugin
 
 class manager
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		manager
 	);
 public:
@@ -56,12 +56,13 @@ public:
 private:
 	fcppt::log::object log_;
 
-	typedef
+	using
+	plugin_map
+	=
 	fcppt::enum_::array<
 		sge::plugin::capabilities,
 		sge::plugin::category_array
-	>
-	plugin_map;
+	>;
 
 	sge::plugin::detail::context_base_vector const plugins_;
 

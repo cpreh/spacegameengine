@@ -27,6 +27,7 @@ sge::audio::bad_sound_alloc::bad_sound_alloc(
 sge::audio::bad_sound_alloc::bad_sound_alloc(
 	bad_sound_alloc &&
 )
+noexcept
 = default;
 
 sge::audio::bad_sound_alloc::bad_sound_alloc(
@@ -38,6 +39,7 @@ sge::audio::bad_sound_alloc &
 sge::audio::bad_sound_alloc::operator=(
 	bad_sound_alloc &&
 )
+noexcept
 = default;
 
 sge::audio::bad_sound_alloc &
@@ -46,6 +48,6 @@ sge::audio::bad_sound_alloc::operator=(
 )
 = default;
 
-sge::audio::bad_sound_alloc::~bad_sound_alloc() noexcept
-{
-}
+sge::audio::bad_sound_alloc::~bad_sound_alloc()
+noexcept
+= default;

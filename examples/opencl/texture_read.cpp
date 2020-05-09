@@ -77,7 +77,7 @@ main_program(
 		sge::systems::make_list
 		(
 			sge::systems::image2d(
-				sge::media::all_extensions
+				sge::media::all_extensions()
 			)
 		)
 	);

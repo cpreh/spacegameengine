@@ -60,5 +60,4 @@ sge::audio::multi_loader::extensions() const
 }
 
 sge::audio::multi_loader::~multi_loader()
-{
-}
+= default;

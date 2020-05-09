@@ -28,14 +28,15 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL symbol_not_found
 public:
 	SGE_PLUGIN_DETAIL_SYMBOL
 	symbol_not_found(
-		fcppt::string const &,
-		sge::plugin::library::symbol_string const &
+		fcppt::string &&,
+		sge::plugin::library::symbol_string &&
 	);
 
 	SGE_PLUGIN_DETAIL_SYMBOL
 	symbol_not_found(
 		symbol_not_found &&
-	);
+	)
+	noexcept;
 
 	SGE_PLUGIN_DETAIL_SYMBOL
 	symbol_not_found(
@@ -46,7 +47,8 @@ public:
 	symbol_not_found &
 	operator=(
 		symbol_not_found &&
-	);
+	)
+	noexcept;
 
 	SGE_PLUGIN_DETAIL_SYMBOL
 	symbol_not_found &
@@ -54,10 +56,12 @@ public:
 		symbol_not_found const &
 	);
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_SYMBOL
 	fcppt::string const &
 	library_name() const;
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::library::symbol_string const &
 	symbol() const;

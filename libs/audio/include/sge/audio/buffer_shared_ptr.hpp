@@ -15,11 +15,14 @@ namespace sge
 {
 namespace audio
 {
-typedef
+
+using
+buffer_shared_ptr
+=
 fcppt::shared_ptr<
 	sge::audio::buffer
->
-buffer_shared_ptr;
+>;
+
 }
 }
 

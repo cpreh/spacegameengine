@@ -18,11 +18,12 @@ namespace audio
 namespace player_plugin
 {
 
-typedef
+using
+iterator
+=
 sge::plugin::iterator<
 	sge::audio::player
->
-iterator;
+>;
 
 }
 }

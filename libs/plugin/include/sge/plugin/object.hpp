@@ -29,38 +29,43 @@ class object
 		object
 	);
 public:
-	typedef
+	using
+	loader_function
+	=
 	sge::plugin::loader_function<
 		Type
-	>
-	loader_function;
+	>;
 
-	typedef
+	using
+	library_shared_ptr
+	=
 	fcppt::shared_ptr<
 		sge::plugin::library::object
-	>
-	library_shared_ptr;
+	>;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	explicit
 	object(
-		library_shared_ptr const &
+		library_shared_ptr
 	);
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	object(
 		object &&
-	);
+	)
+	noexcept;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	object &
 	operator=(
 		object &&
-	);
+	)
+	noexcept;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	~object();
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	loader_function
 	get() const;

@@ -16,11 +16,12 @@ namespace sge
 namespace media
 {
 
-typedef
+using
+optional_extension
+=
 fcppt::optional::object<
 	sge::media::extension
->
-optional_extension;
+>;
 
 }
 }

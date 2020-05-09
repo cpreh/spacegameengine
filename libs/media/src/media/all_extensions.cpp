@@ -6,16 +6,11 @@
 
 #include <sge/media/all_extensions.hpp>
 #include <sge/media/optional_extension_set.hpp>
-#include <fcppt/preprocessor/disable_clang_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_CLANG_WARNING(-Wexit-time-destructors)
-FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
-
-sge::media::optional_extension_set const
-sge::media::all_extensions{};
-
-FCPPT_PP_POP_WARNING
+sge::media::optional_extension_set
+sge::media::all_extensions()
+{
+	return
+		sge::media::optional_extension_set{};
+}

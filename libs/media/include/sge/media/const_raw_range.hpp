@@ -16,11 +16,12 @@ namespace sge
 namespace media
 {
 
-typedef
+using
+const_raw_range
+=
 fcppt::iterator::range<
 	sge::media::const_raw_pointer
->
-const_raw_range;
+>;
 
 }
 }

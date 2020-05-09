@@ -8,6 +8,7 @@
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/multi_loader_parameters.hpp>
 #include <sge/audio/loader_plugin/collection_fwd.hpp>
+#include <sge/media/optional_extension_set.hpp>
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/impl/audio/loader.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -27,7 +28,9 @@ sge::systems::impl::audio::loader::loader(
 			sge::audio::multi_loader_parameters(
 				_log_context,
 				_collection,
-				_parameters.extensions()
+				sge::media::optional_extension_set{
+					_parameters.extensions()
+				}
 			)
 		)
 	)

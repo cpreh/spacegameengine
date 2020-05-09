@@ -18,11 +18,12 @@ namespace audio
 namespace loader_plugin
 {
 
-typedef
+using
+context
+=
 sge::plugin::context<
 	sge::audio::loader
->
-context;
+>;
 
 }
 }

@@ -10,6 +10,9 @@
 #include <sge/media/muxer_parameters.hpp>
 #include <sge/media/optional_extension_set.hpp>
 #include <fcppt/log/context_reference.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -19,18 +22,22 @@ sge::media::muxer_parameters<
 	System
 >::muxer_parameters(
 	fcppt::log::context_reference const _log_context,
-	collection_type const &_collection,
-	sge::media::optional_extension_set const &_extensions
+	collection_type _collection,
+	sge::media::optional_extension_set &&_extensions
 )
 :
 	log_context_(
 		_log_context
 	),
 	collection_(
-		_collection
+		std::move(
+			_collection
+		)
 	),
 	extensions_(
-		_extensions
+		std::move(
+			_extensions
+		)
 	)
 {
 }

@@ -16,11 +16,12 @@ namespace sge
 namespace audio
 {
 
-typedef
+using
+load_stream_result
+=
 sge::media::load_stream_result<
 	sge::audio::file
->
-load_stream_result;
+>;
 
 }
 }

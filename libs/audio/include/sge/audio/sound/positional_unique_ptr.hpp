@@ -18,11 +18,12 @@ namespace audio
 namespace sound
 {
 
-typedef
+using
+positional_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::audio::sound::positional
->
-positional_unique_ptr;
+>;
 
 }
 }

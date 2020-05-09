@@ -12,6 +12,7 @@
 #include <sge/media/optional_name.hpp>
 #include <sge/media/impl/raw_streambuf.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -34,7 +35,9 @@ fcppt::optional::object<
 	Result
 >
 load_raw(
-	System &_system,
+	fcppt::reference<
+		System
+	> const _system,
 	sge::media::const_raw_range const &_range,
 	sge::media::optional_extension const &_extension
 )
@@ -47,7 +50,7 @@ load_raw(
 		fcppt::variant::to_optional<
 			Result
 		>(
-			_system.load_stream(
+			_system.get().load_stream(
 				fcppt::make_unique_ptr<
 					std::istream
 				>(

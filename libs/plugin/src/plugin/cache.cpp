@@ -15,8 +15,7 @@ sge::plugin::cache::cache()
 }
 
 sge::plugin::cache::~cache()
-{
-}
+= default;
 
 void
 sge::plugin::cache::add(

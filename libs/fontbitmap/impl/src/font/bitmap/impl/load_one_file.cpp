@@ -34,6 +34,7 @@
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/convert/to_int.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>
@@ -61,7 +62,9 @@ sge::font::bitmap::impl::load_one_file(
 
 	sge::image2d::file_unique_ptr return_file(
 		sge::image2d::load_exn(
-			_image_system,
+			fcppt::make_ref(
+				_image_system
+			),
 			_stem
 			/
 			sge::parse::json::find_member_exn<

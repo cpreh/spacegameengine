@@ -15,7 +15,7 @@
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/media/stream_unique_ptr_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -30,13 +30,14 @@ For a short introduction to loading an audio file, see \ref audio_example.
 */
 class SGE_CORE_DETAIL_CLASS_SYMBOL loader
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		loader
 	);
 protected:
 	SGE_AUDIO_DETAIL_SYMBOL
 	loader();
 public:
+	[[nodiscard]]
 	virtual
 	sge::audio::load_stream_result
 	load_stream(
@@ -45,6 +46,7 @@ public:
 		sge::media::optional_name const &
 	) = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::media::extension_set
 	extensions() const = 0;

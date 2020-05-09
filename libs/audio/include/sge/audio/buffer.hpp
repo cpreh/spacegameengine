@@ -13,7 +13,7 @@
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
 #include <sge/core/detail/class_symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace audio
  */
 class SGE_CORE_DETAIL_CLASS_SYMBOL buffer
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		buffer
 	);
 public:

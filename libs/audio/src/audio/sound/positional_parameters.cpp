@@ -14,15 +14,18 @@
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <limits>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::audio::sound::positional_parameters::positional_parameters(
-	sge::audio::position const _position
+	sge::audio::position _position
 )
 :
 	position_(
-		_position.get()
+		std::move(
+			_position.get()
+		)
 	),
 	linear_velocity_(
 		fcppt::math::vector::null<
@@ -100,11 +103,13 @@ sge::audio::sound::positional_parameters::linear_velocity() const
 
 sge::audio::sound::positional_parameters &
 sge::audio::sound::positional_parameters::linear_velocity(
-	sge::audio::vector const _linear_velocity
+	sge::audio::vector _linear_velocity
 )
 {
 	linear_velocity_ =
-		_linear_velocity;
+		std::move(
+			_linear_velocity
+		);
 
 	return
 		*this;
@@ -214,12 +219,14 @@ sge::audio::sound::positional_parameters::direction() const
 
 sge::audio::sound::positional_parameters &
 sge::audio::sound::positional_parameters::direction(
-	sge::audio::vector const _direction
+	sge::audio::vector _direction
 )
 {
 	direction_ =
 		sge::audio::sound::optional_direction{
-			_direction
+			std::move(
+				_direction
+			)
 		};
 
 	return

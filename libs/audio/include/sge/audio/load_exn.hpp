@@ -8,7 +8,7 @@
 #define SGE_AUDIO_LOAD_EXN_HPP_INCLUDED
 
 #include <sge/audio/file_unique_ptr.hpp>
-#include <sge/audio/loader_fwd.hpp>
+#include <sge/audio/loader_ref.hpp>
 #include <sge/audio/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
@@ -23,7 +23,7 @@ namespace audio
 SGE_AUDIO_DETAIL_SYMBOL
 sge::audio::file_unique_ptr
 load_exn(
-	sge::audio::loader &,
+	sge::audio::loader_ref,
 	std::filesystem::path const &
 );
 

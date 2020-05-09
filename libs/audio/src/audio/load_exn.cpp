@@ -10,6 +10,7 @@
 #include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/load_exn.hpp>
 #include <sge/audio/loader.hpp>
+#include <sge/audio/loader_ref.hpp>
 #include <sge/media/impl/load_exn.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
@@ -18,7 +19,7 @@
 
 sge::audio::file_unique_ptr
 sge::audio::load_exn(
-	sge::audio::loader &_loader,
+	sge::audio::loader_ref const _loader,
 	std::filesystem::path const &_path
 )
 {

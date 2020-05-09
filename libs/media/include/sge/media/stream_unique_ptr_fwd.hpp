@@ -18,11 +18,12 @@ namespace sge
 namespace media
 {
 
-typedef
+using
+stream_unique_ptr
+=
 fcppt::unique_ptr<
 	std::istream
->
-stream_unique_ptr;
+>;
 
 }
 }

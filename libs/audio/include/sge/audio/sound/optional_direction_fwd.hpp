@@ -18,11 +18,12 @@ namespace audio
 namespace sound
 {
 
-typedef
+using
+optional_direction
+=
 fcppt::optional::object<
 	sge::audio::vector
->
-optional_direction;
+>;
 
 }
 }

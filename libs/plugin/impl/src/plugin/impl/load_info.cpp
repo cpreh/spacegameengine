@@ -10,6 +10,7 @@
 #include <sge/plugin/impl/library/object.hpp>
 #include <sge/plugin/impl/library/version_function_name.hpp>
 #include <sge/plugin/library/detail/version_function.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
@@ -21,14 +22,18 @@ sge::plugin::impl::load_info(
 )
 {
 	sge::plugin::library::object lib{
-		_path
+		std::filesystem::path{
+			_path
+		}
 	};
 
 	return
 		sge::plugin::impl::library::load_function<
 			sge::plugin::library::detail::version_function
 		>(
-			lib,
+			fcppt::make_ref(
+				lib
+			),
 			sge::plugin::impl::library::version_function_name()
 		)();
 }

@@ -18,7 +18,7 @@
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
 #include <sge/core/detail/class_symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -35,13 +35,14 @@ namespace audio
  */
 class SGE_CORE_DETAIL_CLASS_SYMBOL player
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		player
 	);
 protected:
 	SGE_AUDIO_DETAIL_SYMBOL
 	player();
 public:
+	[[nodiscard]]
 	virtual
 	sge::audio::listener &
 	listener() = 0;
@@ -82,28 +83,32 @@ public:
 	) = 0;
 
 	/// Create a buffer from a file
+	[[nodiscard]]
 	virtual
 	sge::audio::buffer_unique_ptr
 	create_buffer(
-		sge::audio::file &
-	) = 0;
+		sge::audio::file & // NOLINT(google-runtime-references)
+	) = 0; // NOLINT(google-runtime-references)
 
 	/// Create a positional stream from a file
+	[[nodiscard]]
 	virtual
 	sge::audio::sound::positional_unique_ptr
 	create_positional_stream(
-		sge::audio::file &,
+		sge::audio::file &, // NOLINT(google-runtime-references)
 		sge::audio::sound::positional_parameters const &
 	) = 0;
 
 	/// Create a nonpositional stream from a file
+	[[nodiscard]]
 	virtual
 	sge::audio::sound::base_unique_ptr
 	create_nonpositional_stream(
-		sge::audio::file &,
+		sge::audio::file &, // NOLINT(google-runtime-references)
 		sge::audio::sound::nonpositional_parameters const &
 	) = 0;
 
+	[[nodiscard]]
 	virtual
 	bool
 	is_null() const = 0;

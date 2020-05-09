@@ -18,9 +18,12 @@ namespace audio
 namespace loader_plugin
 {
 
-typedef sge::plugin::collection<
+using
+collection
+=
+sge::plugin::collection<
 	sge::audio::loader
-> collection;
+>;
 
 }
 }

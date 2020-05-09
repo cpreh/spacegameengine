@@ -45,6 +45,18 @@ template<
 >
 sge::plugin::collection<
 	Type
+>::collection(
+	collection &&
+)
+noexcept
+=
+default;
+
+template<
+	typename Type
+>
+sge::plugin::collection<
+	Type
 > &
 sge::plugin::collection<
 	Type
@@ -59,9 +71,23 @@ template<
 >
 sge::plugin::collection<
 	Type
+> &
+sge::plugin::collection<
+	Type
+>::operator=(
+	collection &&
+)
+noexcept
+=
+default;
+
+template<
+	typename Type
+>
+sge::plugin::collection<
+	Type
 >::~collection()
-{
-}
+= default;
 
 template<
 	typename Type

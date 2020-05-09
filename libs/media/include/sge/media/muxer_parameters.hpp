@@ -25,27 +25,31 @@ template<
 class muxer_parameters
 {
 public:
-	typedef
+	using
+	collection_type
+	=
 	sge::plugin::collection<
 		System
-	>
-	collection_type;
+	>;
 
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
 	muxer_parameters(
 		fcppt::log::context_reference,
-		collection_type const &,
-		sge::media::optional_extension_set const &
+		collection_type,
+		sge::media::optional_extension_set &&
 	);
 
+	[[nodiscard]]
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
 	fcppt::log::context_reference
 	log_context() const;
 
+	[[nodiscard]]
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
 	collection_type const &
 	collection() const;
 
+	[[nodiscard]]
 	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
 	sge::media::optional_extension_set const &
 	extensions() const;

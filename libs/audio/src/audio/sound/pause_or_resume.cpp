@@ -20,11 +20,15 @@ sge::audio::sound::pause_or_resume(
 	if(
 		_do_pause.get()
 	)
+	{
 		sge::audio::sound::pause(
 			_sound
 		);
+	}
 	else
+	{
 		sge::audio::sound::resume(
 			_sound
 		);
+	}
 }

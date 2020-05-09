@@ -17,11 +17,14 @@ namespace audio
 {
 namespace sound
 {
-typedef
+
+using
+positional_shared_ptr
+=
 fcppt::shared_ptr<
 	sge::audio::sound::positional
->
-positional_shared_ptr;
+>;
+
 }
 }
 }

@@ -16,7 +16,7 @@
 #include <sge/media/stream_unique_ptr_fwd.hpp>
 #include <sge/media/detail/muxer_fwd.hpp>
 #include <sge/plugin/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/optional/reference_fwd.hpp>
@@ -39,41 +39,47 @@ template<
 >
 class muxer
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		muxer
 	);
 public:
-	typedef
-	System
-	system;
+	using
+	system
+	=
+	System;
 
-	typedef
-	File
-	file;
+	using
+	file
+	=
+	File;
 
-	typedef
+	using
+	parameters
+	=
 	sge::media::muxer_parameters<
 		system
-	>
-	parameters;
+	>;
 
-	typedef
+	using
+	file_unique_ptr
+	=
 	fcppt::unique_ptr<
 		file
-	>
-	file_unique_ptr;
+	>;
 
-	typedef
+	using
+	load_stream_result
+	=
 	sge::media::load_stream_result<
 		File
-	>
-	load_stream_result;
+	>;
 
-	typedef
+	using
+	optional_system_ref
+	=
 	fcppt::optional::reference<
 		System
-	>
-	optional_system_ref;
+	>;
 
 	explicit
 	muxer(
@@ -82,6 +88,7 @@ public:
 
 	~muxer();
 
+	[[nodiscard]]
 	load_stream_result
 	mux_stream(
 		sge::media::stream_unique_ptr &&,
@@ -89,50 +96,58 @@ public:
 		sge::media::optional_name const &
 	) const;
 
+	[[nodiscard]]
 	optional_system_ref
 	mux_extension(
 		sge::media::extension const &
 	) const;
 
+	[[nodiscard]]
 	sge::media::extension_set
 	extensions() const;
 private:
+	[[nodiscard]]
 	load_stream_result
 	mux_stream_try_all(
 		sge::media::stream_unique_ptr &&,
 		sge::media::optional_name const &
 	) const;
 
-	typedef
+	using
+	plugin_type
+	=
 	sge::plugin::object<
 		system
-	>
-	plugin_type;
+	>;
 
-	typedef
+	using
+	plugin_container
+	=
 	std::vector<
 		plugin_type
-	>
-	plugin_container;
+	>;
 
-	typedef
+	using
+	system_unique_ptr
+	=
 	fcppt::unique_ptr<
 		system
-	>
-	system_unique_ptr;
+	>;
 
-	typedef
+	using
+	plugin_system_pair
+	=
 	std::pair<
 		plugin_type,
 		system_unique_ptr
-	>
-	plugin_system_pair;
+	>;
 
-	typedef
+	using
+	plugin_system_pair_container
+	=
 	std::vector<
 		plugin_system_pair
-	>
-	plugin_system_pair_container;
+	>;
 
 	fcppt::log::object log_;
 

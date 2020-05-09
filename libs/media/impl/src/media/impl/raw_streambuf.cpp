@@ -60,5 +60,4 @@ sge::media::impl::raw_streambuf::raw_streambuf(
 }
 
 sge::media::impl::raw_streambuf::~raw_streambuf()
-{
-}
+= default;

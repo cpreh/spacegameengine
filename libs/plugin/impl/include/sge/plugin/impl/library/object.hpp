@@ -11,7 +11,7 @@
 #include <sge/plugin/impl/library/loaded_symbol.hpp>
 #include <sge/plugin/library/object_fwd.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
@@ -32,24 +32,26 @@ namespace library
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	SGE_PLUGIN_DETAIL_SYMBOL
 	explicit
 	object(
-		std::filesystem::path const &
+		std::filesystem::path &&
 	);
 
 	SGE_PLUGIN_DETAIL_SYMBOL
 	~object();
 
+	[[nodiscard]]
 	sge::plugin::impl::library::loaded_symbol
 	load(
 		sge::plugin::library::symbol_string const &
 	);
 
+	[[nodiscard]]
 	std::filesystem::path const &
 	name() const;
 private:

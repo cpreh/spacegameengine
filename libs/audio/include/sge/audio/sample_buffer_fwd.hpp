@@ -16,11 +16,12 @@ namespace sge
 namespace audio
 {
 
-typedef
+using
+sample_buffer
+=
 fcppt::container::buffer::object<
 	sge::audio::raw_data
->
-sample_buffer;
+>;
 
 }
 }

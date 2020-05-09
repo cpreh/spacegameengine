@@ -9,7 +9,7 @@
 
 #include <sge/media/extension.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <set>
+#include <unordered_set>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -18,9 +18,12 @@ namespace sge
 namespace media
 {
 
-typedef std::set<
+using
+extension_set
+=
+std::unordered_set<
 	sge::media::extension
-> extension_set;
+>;
 
 }
 }

@@ -18,6 +18,8 @@
 #include <sge/wave/info.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size.hpp>
@@ -121,7 +123,9 @@ sge::wave::file::reset()
 sge::audio::sample_count
 sge::wave::file::read(
 	sge::audio::sample_count const _sample_count,
-	sge::audio::sample_buffer &_array
+	fcppt::reference<
+		sge::audio::sample_buffer
+	> const _array
 )
 {
 	sge::audio::sample_count const samples_to_read{
@@ -163,7 +167,7 @@ sge::wave::file::read(
 		bytes_per_sample
 	};
 
-	_array.resize_write_area(
+	_array.get().resize_write_area(
 		fcppt::cast::size<
 			sge::audio::sample_buffer::size_type
 		>(
@@ -175,13 +179,13 @@ sge::wave::file::read(
 		fcppt::cast::to_char_ptr<
 			char *
 		>(
-			_array.write_data()
+			_array.get().write_data()
 		),
 		fcppt::cast::size<
 			std::streamsize
 		>(
 			fcppt::cast::to_signed(
-				_array.write_size()
+				_array.get().write_size()
 			)
 		)
 	);
@@ -211,10 +215,10 @@ sge::wave::file::read(
 	)
 		for(
 			sge::audio::sample_container::pointer data(
-				_array.write_data()
+				_array.get().write_data()
 			);
 			// FIXME
-			data < _array.write_data() + bytes_read;
+			data < _array.get().write_data() + bytes_read;
 			data += bytes_per_sample
 		)
 			fcppt::endianness::reverse_mem(
@@ -223,7 +227,7 @@ sge::wave::file::read(
 			);
 
 	// TODO: Make this easier!
-	_array.written(
+	_array.get().written(
 		bytes_read
 	);
 
@@ -250,7 +254,9 @@ sge::wave::file::read_all()
 
 	this->read(
 		to_read,
-		result
+		fcppt::make_ref(
+			result
+		)
 	);
 
 	return

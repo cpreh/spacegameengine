@@ -24,7 +24,7 @@ namespace impl
 
 sge::plugin::detail::context_base_vector
 load_plugins(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	std::filesystem::path const &,
 	sge::plugin::optional_cache_ref const &
 );

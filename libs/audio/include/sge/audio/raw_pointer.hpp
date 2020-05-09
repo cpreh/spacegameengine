@@ -15,9 +15,10 @@ namespace sge
 namespace audio
 {
 
-typedef
-sge::audio::raw_data *
-raw_pointer;
+using
+raw_pointer
+=
+sge::audio::raw_data *;
 
 }
 }

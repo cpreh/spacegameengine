@@ -28,6 +28,7 @@
 #include <fcppt/literal.hpp>
 #include <fcppt/loop.hpp>
 #include <fcppt/make_int_range_count.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/loop_break.hpp>
@@ -266,7 +267,9 @@ sge::openal::stream_sound::fill_buffer(
 			sge::audio::sample_count samples_read(
 				audio_file_.read(
 					buffer_samples_,
-					data
+					fcppt::make_ref(
+						data
+					)
 				)
 			);
 
@@ -305,7 +308,9 @@ sge::openal::stream_sound::fill_buffer(
 				samples_read =
 					audio_file_.read(
 						buffer_samples_,
-						data
+						fcppt::make_ref(
+							data
+						)
 					);
 			}
 

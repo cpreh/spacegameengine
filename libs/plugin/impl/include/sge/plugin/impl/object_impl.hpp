@@ -11,6 +11,10 @@
 #include <sge/plugin/detail/traits.hpp>
 #include <sge/plugin/impl/library/load_function.hpp>
 #include <sge/plugin/impl/library/object.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -19,17 +23,21 @@ template<
 sge::plugin::object<
 	Type
 >::object(
-	library_shared_ptr const &_lib
+	library_shared_ptr _lib
 )
 :
 	lib_(
-		_lib
+		std::move(
+			_lib
+		)
 	),
 	loader_(
 		sge::plugin::impl::library::load_function<
 			loader_function
 		>(
-			*lib_,
+			fcppt::make_ref(
+				*lib_
+			),
 			sge::plugin::detail::traits<
 				Type
 			>::plugin_loader_name()
@@ -45,7 +53,9 @@ sge::plugin::object<
 	Type
 >::object(
 	object &&
-) = default;
+)
+noexcept
+= default;
 
 template<
 	typename Type
@@ -57,7 +67,9 @@ sge::plugin::object<
 	Type
 >::operator=(
 	object &&
-) = default;
+)
+noexcept
+= default;
 
 template<
 	typename Type
@@ -65,8 +77,7 @@ template<
 sge::plugin::object<
 	Type
 >::~object()
-{
-}
+= default;
 
 template<
 	typename Type

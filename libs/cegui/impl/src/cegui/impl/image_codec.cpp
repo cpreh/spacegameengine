@@ -12,6 +12,7 @@
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/optional_extension.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -53,7 +54,9 @@ sge::cegui::impl::image_codec::load(
 		*_result_texture
 	).create_from_view(
 		sge::image2d::load_raw_exn(
-			image_system_,
+			fcppt::make_ref(
+				image_system_
+			),
 			sge::media::const_raw_range(
 				_data.getDataPtr(),
 				_data.getDataPtr() + _data.getSize()

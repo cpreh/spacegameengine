@@ -16,7 +16,7 @@
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/media/stream_unique_ptr_fwd.hpp>
 #include <sge/media/detail/muxer_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/optional/reference_fwd.hpp>
 
@@ -32,35 +32,40 @@ template<
 >
 class muxer
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		muxer
 	);
 public:
-	typedef
-	System
-	system;
+	using
+	system
+	=
+	System;
 
-	typedef
-	File
-	file;
+	using
+	file
+	=
+	File;
 
-	typedef
+	using
+	parameters
+	=
 	sge::media::muxer_parameters<
 		system
-	>
-	parameters;
+	>;
 
-	typedef
+	using
+	optional_system_ref
+	=
 	fcppt::optional::reference<
 		System
-	>
-	optional_system_ref;
+	>;
 
-	typedef
+	using
+	load_stream_result
+	=
 	sge::media::load_stream_result<
 		File
-	>
-	load_stream_result;
+	>;
 
 	explicit
 	muxer(
@@ -69,6 +74,7 @@ public:
 
 	~muxer();
 
+	[[nodiscard]]
 	load_stream_result
 	mux_stream(
 		sge::media::stream_unique_ptr &&,
@@ -76,26 +82,30 @@ public:
 		sge::media::optional_name const &
 	) const;
 
+	[[nodiscard]]
 	optional_system_ref
 	mux_extension(
 		sge::media::extension const &
 	) const;
 
+	[[nodiscard]]
 	sge::media::extension_set
 	extensions() const;
 private:
-	typedef
+	using
+	muxer_impl
+	=
 	sge::media::detail::muxer<
 		System,
 		File
-	>
-	muxer_impl;
+	>;
 
-	typedef
+	using
+	muxer_impl_unique_ptr
+	=
 	fcppt::unique_ptr<
 		muxer_impl
-	>
-	muxer_impl_unique_ptr;
+	>;
 
 	muxer_impl_unique_ptr const impl_;
 };

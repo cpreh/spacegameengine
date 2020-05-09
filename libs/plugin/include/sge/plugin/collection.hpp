@@ -26,29 +26,34 @@ template<
 class collection
 {
 public:
-	typedef
-	sge::plugin::category_array::size_type
-	size_type;
+	using
+	size_type
+	=
+	sge::plugin::category_array::size_type;
 
-	typedef
+	using
+	iterator
+	=
 	sge::plugin::iterator<
 		Type
-	>
+	>;
+
+	using
+	const_iterator
+	=
 	iterator;
 
-	typedef
-	iterator
-	const_iterator;
-
-	typedef
+	using
+	context
+	=
 	sge::plugin::context<
 		Type
-	>
-	context;
+	>;
 
-	typedef
-	context
-	value_type;
+	using
+	value_type
+	=
+	context;
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	explicit
@@ -62,22 +67,38 @@ public:
 	);
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
+	collection(
+		collection &&
+	)
+	noexcept;
+
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	collection &
 	operator=(
 		collection const &
 	);
 
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	~collection();
+	collection &
+	operator=(
+		collection &&
+	)
+	noexcept;
 
+	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
+	~collection(); // NOLINT(performance-trivially-destructible)
+
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	iterator
 	begin() const;
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	iterator
 	end() const;
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
 	size_type
 	size() const;

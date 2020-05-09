@@ -30,6 +30,7 @@ sge::plugin::library::exception::exception(
 sge::plugin::library::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::plugin::library::exception::exception(
@@ -41,6 +42,7 @@ sge::plugin::library::exception &
 sge::plugin::library::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::plugin::library::exception &
@@ -49,6 +51,6 @@ sge::plugin::library::exception::operator=(
 )
 = default;
 
-sge::plugin::library::exception::~exception() noexcept
-{
-}
+sge::plugin::library::exception::~exception()
+noexcept
+= default;

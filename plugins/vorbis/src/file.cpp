@@ -20,6 +20,8 @@
 #include <sge/vorbis/seek.hpp>
 #include <sge/vorbis/stream.hpp>
 #include <sge/vorbis/stream_unique_ptr.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
@@ -68,7 +70,9 @@ sge::vorbis::file::file(
 sge::audio::sample_count
 sge::vorbis::file::read(
 	sge::audio::sample_count const _samples,
-	sge::audio::sample_buffer &_buffer
+	fcppt::reference<
+		sge::audio::sample_buffer
+	> const _buffer
 )
 {
 	sge::audio::sample_count const bytes_per_sample(
@@ -87,13 +91,13 @@ sge::vorbis::file::read(
 
 	// TODO: Make this API less ugly
 	sge::audio::sample_buffer::size_type const old_size{
-		_buffer.read_size()
+		_buffer.get().read_size()
 	};
 
-	_buffer =
+	_buffer.get() =
 		fcppt::container::buffer::append_from(
 			std::move(
-				_buffer
+				_buffer.get()
 			),
 			bytes_to_read,
 			[
@@ -130,7 +134,7 @@ sge::vorbis::file::read(
 
 	return
 		(
-			_buffer.read_size()
+			_buffer.get().read_size()
 			-
 			old_size
 		)
@@ -152,7 +156,9 @@ sge::vorbis::file::read_all()
 				*
 				4096u
 			},
-			result
+			fcppt::make_ref(
+				result
+			)
 		)
 		!=
 		sge::audio::sample_count{

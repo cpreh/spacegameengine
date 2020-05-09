@@ -15,6 +15,7 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
@@ -35,7 +36,9 @@ sge::renderer::texture::create_planar_from_path(
 		sge::renderer::texture::create_planar_from_file(
 			_renderer,
 			*sge::image2d::load_exn(
-				_system,
+				fcppt::make_ref(
+					_system
+				),
 				_file
 			),
 			_mipmap,

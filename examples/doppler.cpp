@@ -117,6 +117,7 @@
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
@@ -380,7 +381,9 @@ try
 
 	sge::audio::file_unique_ptr const af_siren(
 		sge::audio::load_exn(
-			sys.audio_loader(),
+			fcppt::make_ref(
+				sys.audio_loader()
+			),
 			sge::config::media_path()
 			/ FCPPT_TEXT("sounds")
 			/ FCPPT_TEXT("siren.ogg")

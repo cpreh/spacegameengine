@@ -6,8 +6,9 @@
 
 #include <sge/audio/loader.hpp>
 
+
 sge::audio::loader::loader()
-{}
+= default;
 
 sge::audio::loader::~loader()
-{}
+= default;

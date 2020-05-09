@@ -41,6 +41,7 @@
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -346,7 +347,9 @@ sge::cegui::impl::texture::loadFromFile(
 
 	this->create_from_view(
 		sge::image2d::load_exn(
-			texture_parameters_.image_system(),
+			fcppt::make_ref(
+				texture_parameters_.image_system()
+			),
 			sge::cegui::impl::to_absolute_path(
 				texture_parameters_.prefix(),
 				_filename

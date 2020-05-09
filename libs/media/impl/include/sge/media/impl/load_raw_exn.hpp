@@ -10,6 +10,7 @@
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/impl/load_raw.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional/to_exception.hpp>
 
@@ -28,7 +29,9 @@ template<
 >
 Result
 load_raw_exn(
-	System &_system,
+	fcppt::reference<
+		System
+	> const _system,
 	sge::media::const_raw_range const &_range,
 	sge::media::optional_extension const &_extension
 )

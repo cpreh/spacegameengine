@@ -20,23 +20,26 @@
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::plugin::context_base::context_base(
 	sge::plugin::optional_cache_ref const &_cache,
-	std::filesystem::path const &_path
+	std::filesystem::path &&_path
 )
 :
 	cache_(
 		_cache
 	),
 	path_(
-		_path
+		std::move(
+			_path
+		)
 	),
 	info_(
 		sge::plugin::impl::load_info(
-			_path
+			path_
 		)
 	),
 	library_ptr_()
@@ -44,8 +47,7 @@ sge::plugin::context_base::context_base(
 }
 
 sge::plugin::context_base::~context_base()
-{
-}
+= default;
 
 std::filesystem::path const &
 sge::plugin::context_base::path() const
@@ -70,11 +72,13 @@ sge::plugin::context_base::load()
 			[
 				this
 			]{
-				sge::plugin::library::object_shared_ptr const ret(
+				sge::plugin::library::object_shared_ptr ret(
 					fcppt::make_shared_ptr<
 						sge::plugin::library::object
 					>(
-						path_
+						std::filesystem::path{
+							path_
+						}
 					)
 				);
 
@@ -88,6 +92,7 @@ sge::plugin::context_base::load()
 					&
 					sge::plugin::flags::delayed_unload
 				)
+				{
 					fcppt::optional::maybe_void(
 						cache_,
 						[
@@ -103,6 +108,7 @@ sge::plugin::context_base::load()
 							);
 						}
 					);
+				}
 
 				return
 					ret;

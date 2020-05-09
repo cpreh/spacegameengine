@@ -35,26 +35,32 @@ public:
 		sge::plugin::flags_field const &
 	);
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::name const &
 	name() const;
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::description const &
 	description() const;
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::version
 	version() const;
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::min_core_version
 	min_core_version() const;
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::capabilities_field const &
 	capabilities() const;
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::flags_field const &
 	flags() const;

@@ -19,5 +19,7 @@ sge::audio::sound::pause(
 		==
 		sge::audio::sound::play_status::playing
 	)
+	{
 		_sound.toggle_pause();
+	}
 }

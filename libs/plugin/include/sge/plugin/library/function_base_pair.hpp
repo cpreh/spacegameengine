@@ -21,12 +21,13 @@ namespace plugin
 namespace library
 {
 
-typedef
+using
+function_base_pair
+=
 std::pair<
 	sge::plugin::library::symbol_string,
 	sge::plugin::library::function_base
->
-function_base_pair;
+>;
 
 }
 }

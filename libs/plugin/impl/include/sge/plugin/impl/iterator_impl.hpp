@@ -68,7 +68,7 @@ sge::plugin::iterator<
 		sge::plugin::context<
 			Type
 		>(
-			it_->get()
+			*it_
 		);
 }
 

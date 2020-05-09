@@ -20,7 +20,7 @@ namespace audio
 SGE_AUDIO_DETAIL_SYMBOL
 sge::audio::vector
 vector2_to_vector(
-	sge::audio::vector2
+	sge::audio::vector2 const &
 );
 
 }

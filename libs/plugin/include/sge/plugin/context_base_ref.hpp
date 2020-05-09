@@ -16,11 +16,12 @@ namespace sge
 namespace plugin
 {
 
-typedef
+using
+context_base_ref
+=
 fcppt::reference<
 	sge::plugin::context_base
->
-context_base_ref;
+>;
 
 }
 }

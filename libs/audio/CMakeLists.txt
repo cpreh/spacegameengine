@@ -41,6 +41,7 @@ set(
 	libs/audio/include/sge/audio/loader_plugin/object.hpp
 	libs/audio/include/sge/audio/loader_plugin/object_fwd.hpp
 	libs/audio/include/sge/audio/loader_plugin/traits.hpp
+	libs/audio/include/sge/audio/loader_ref.hpp
 	libs/audio/include/sge/audio/loader_unique_ptr.hpp
 	libs/audio/include/sge/audio/log_location.hpp
 	libs/audio/include/sge/audio/multi_loader.hpp

@@ -11,6 +11,7 @@
 #include <sge/image2d/load.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
+#include <sge/image2d/system_ref.hpp>
 #include <sge/media/impl/load.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
@@ -19,7 +20,7 @@
 
 sge::image2d::optional_file_unique_ptr
 sge::image2d::load(
-	sge::image2d::system &_system,
+	sge::image2d::system_ref const _system,
 	std::filesystem::path const &_path
 )
 {

@@ -54,6 +54,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4191)
 FCPPT_PP_DISABLE_GCC_WARNING(-Wcast-function-type)
 #endif
 	return
+		// NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
 		reinterpret_cast<
 			Target
 		>(

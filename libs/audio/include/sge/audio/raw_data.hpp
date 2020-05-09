@@ -13,9 +13,10 @@ namespace sge
 namespace audio
 {
 
-typedef
-unsigned char
-raw_data;
+using
+raw_data
+=
+unsigned char;
 
 }
 }

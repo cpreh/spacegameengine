@@ -40,6 +40,7 @@ sge::media::file_exception<
 >::file_exception(
 	file_exception &&
 )
+noexcept
 = default;
 
 template<
@@ -63,6 +64,7 @@ sge::media::file_exception<
 >::operator=(
 	file_exception &&
 )
+noexcept
 = default;
 
 template<
@@ -83,8 +85,8 @@ template<
 >
 sge::media::file_exception<
 	Base
->::~file_exception() noexcept
-{
-}
+>::~file_exception()
+noexcept
+= default;
 
 #endif

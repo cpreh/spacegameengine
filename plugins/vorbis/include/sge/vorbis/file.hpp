@@ -18,6 +18,7 @@
 #include <sge/media/stream_unique_ptr.hpp>
 #include <sge/vorbis/stream_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/reference_fwd.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vorbis/codec.h>
@@ -47,7 +48,9 @@ public:
 	sge::audio::sample_count
 	read(
 		sge::audio::sample_count,
-		sge::audio::sample_buffer &
+		fcppt::reference<
+			sge::audio::sample_buffer
+		>
 	)
 	override;
 

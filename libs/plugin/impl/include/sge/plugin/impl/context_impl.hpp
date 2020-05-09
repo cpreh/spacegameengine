@@ -7,11 +7,11 @@
 #ifndef SGE_PLUGIN_IMPL_CONTEXT_IMPL_HPP_INCLUDED
 #define SGE_PLUGIN_IMPL_CONTEXT_IMPL_HPP_INCLUDED
 
+#include <sge/plugin/context_base_ref.hpp>
 #include <sge/plugin/context.hpp>
 #include <sge/plugin/info_fwd.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/plugin/impl/context_base.hpp>
-#include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
@@ -23,7 +23,7 @@ template<
 sge::plugin::context<
 	Type
 >::context(
-	sge::plugin::context_base &_context_base
+	sge::plugin::context_base_ref const _context_base
 )
 :
 	context_base_(
@@ -47,6 +47,17 @@ template<
 >
 sge::plugin::context<
 	Type
+>::context(
+	context &&
+)
+noexcept
+= default;
+
+template<
+	typename Type
+>
+sge::plugin::context<
+	Type
 > &
 sge::plugin::context<
 	Type
@@ -60,9 +71,22 @@ template<
 >
 sge::plugin::context<
 	Type
+> &
+sge::plugin::context<
+	Type
+>::operator=(
+	context &&
+)
+noexcept
+= default;
+
+template<
+	typename Type
+>
+sge::plugin::context<
+	Type
 >::~context()
-{
-}
+= default;
 
 template<
 	typename Type

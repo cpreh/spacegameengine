@@ -13,6 +13,7 @@
 #include <sge/media/path_to_extension.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -42,7 +43,9 @@ fcppt::optional::object<
 	Result
 >
 load(
-	System &_system,
+	fcppt::reference<
+		System
+	> const _system,
 	std::filesystem::path const &_path
 )
 {
@@ -58,6 +61,7 @@ load(
 	if(
 		!file_stream->is_open()
 	)
+	{
 		throw
 			Exception{
 				FCPPT_TEXT("Couldn't open ")
@@ -66,6 +70,7 @@ load(
 					_path
 				)
 			};
+	}
 
 	sge::media::optional_name const cur_name{
 		sge::media::name{
@@ -81,7 +86,7 @@ load(
 			fcppt::variant::to_optional<
 				Result
 			>(
-				_system.load_stream(
+				_system.get().load_stream(
 					fcppt::unique_ptr_to_base<
 						std::istream
 					>(

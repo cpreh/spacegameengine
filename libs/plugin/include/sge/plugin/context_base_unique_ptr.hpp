@@ -16,11 +16,12 @@ namespace sge
 namespace plugin
 {
 
-typedef
+using
+context_base_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::plugin::context_base
->
-context_base_unique_ptr;
+>;
 
 }
 }

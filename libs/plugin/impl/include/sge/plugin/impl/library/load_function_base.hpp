@@ -11,6 +11,7 @@
 #include <sge/plugin/library/function_base.hpp>
 #include <sge/plugin/library/object_fwd.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -25,7 +26,9 @@ namespace library
 SGE_PLUGIN_DETAIL_SYMBOL
 sge::plugin::library::function_base
 load_function_base(
-	sge::plugin::library::object &,
+	fcppt::reference<
+		sge::plugin::library::object
+	>,
 	sge::plugin::library::symbol_string const &
 );
 

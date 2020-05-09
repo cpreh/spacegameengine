@@ -19,7 +19,10 @@ namespace plugin
 namespace library
 {
 
-typedef std::string symbol_string;
+using
+symbol_string
+=
+std::string;
 
 }
 }

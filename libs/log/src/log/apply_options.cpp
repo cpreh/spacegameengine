@@ -23,10 +23,12 @@ sge::log::apply_options(
 		:
 		_options
 	)
+	{
 		_context.get().set(
 			option.location(),
 			fcppt::log::optional_level{
 				option.level()
 			}
 		);
+	}
 }

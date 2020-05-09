@@ -10,20 +10,23 @@
 #include <sge/audio/sound/base_fwd.hpp>
 #include <fcppt/shared_ptr_impl.hpp>
 
+
 namespace sge
 {
 namespace audio
 {
 namespace sound
 {
-typedef
+
+using
+base_shared_ptr
+=
 fcppt::shared_ptr<
 	sge::audio::sound::base
->
-base_shared_ptr;
+>;
+
 }
 }
 }
 
 #endif
-

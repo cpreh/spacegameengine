@@ -22,7 +22,7 @@ namespace sound
 SGE_AUDIO_DETAIL_SYMBOL
 void
 pause_or_resume(
-	sge::audio::sound::base &,
+	sge::audio::sound::base &, // NOLINT(google-runtime-references)
 	sge::audio::sound::do_pause
 );
 

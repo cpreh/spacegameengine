@@ -23,13 +23,15 @@ class option
 public:
 	SGE_LOG_DETAIL_SYMBOL
 	option(
-		fcppt::log::location const &,
+		fcppt::log::location &&,
 		fcppt::log::level
 	);
 
+	[[nodiscard]]
 	fcppt::log::location const &
 	location() const;
 
+	[[nodiscard]]
 	fcppt::log::level
 	level() const;
 private:

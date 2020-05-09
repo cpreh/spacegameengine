@@ -16,11 +16,12 @@ namespace sge
 namespace plugin
 {
 
-typedef
+using
+flags_field
+=
 fcppt::container::bitfield::enum_object<
 	sge::plugin::flags
->
-flags_field;
+>;
 
 }
 }

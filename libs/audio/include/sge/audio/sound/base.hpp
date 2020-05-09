@@ -12,7 +12,7 @@
 #include <sge/audio/sound/play_status_fwd.hpp>
 #include <sge/audio/sound/repeat_fwd.hpp>
 #include <sge/core/detail/class_symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace sound
  */
 class SGE_CORE_DETAIL_CLASS_SYMBOL base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 public:
@@ -68,6 +68,7 @@ public:
 	 * neccessary since the status of this variable changes without the
 	 * user interfering.
 	*/
+	[[nodiscard]]
 	virtual
 	sge::audio::sound::play_status
 	status() const = 0;

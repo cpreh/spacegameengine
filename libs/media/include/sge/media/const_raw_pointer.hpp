@@ -15,7 +15,10 @@ namespace sge
 namespace media
 {
 
-typedef sge::media::raw_value const *const_raw_pointer;
+using
+const_raw_pointer
+=
+sge::media::raw_value const *;
 
 }
 }

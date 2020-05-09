@@ -17,9 +17,8 @@ namespace media
 {
 
 SGE_MEDIA_DETAIL_SYMBOL
-extern
-sge::media::optional_extension_set const
-all_extensions;
+sge::media::optional_extension_set
+all_extensions();
 
 }
 }

@@ -30,6 +30,8 @@ sge::plugin::impl::library::error()
 
 	return
 		err
+		!=
+		nullptr
 		?
 			fcppt::from_std_string(
 				err

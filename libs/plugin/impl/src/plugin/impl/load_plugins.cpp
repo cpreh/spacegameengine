@@ -114,7 +114,9 @@ sge::plugin::impl::load_plugins(
 								sge::plugin::context_base
 							>(
 								_cache,
-								_cur_path
+								std::filesystem::path{
+									_cur_path
+								}
 							)
 						);
 				}

@@ -41,6 +41,7 @@ sge::audio::exception::exception(
 sge::audio::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::audio::exception::exception(
@@ -52,6 +53,7 @@ sge::audio::exception &
 sge::audio::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::audio::exception &
@@ -60,6 +62,6 @@ sge::audio::exception::operator=(
 )
 = default;
 
-sge::audio::exception::~exception() noexcept
-{
-}
+sge::audio::exception::~exception()
+noexcept
+= default;

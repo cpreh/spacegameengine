@@ -4,12 +4,15 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/positional.hpp>
 
+
 sge::audio::sound::positional::positional()
+:
+	sge::audio::sound::base{}
 {
 }
 
 sge::audio::sound::positional::~positional()
-{
-}
+= default;

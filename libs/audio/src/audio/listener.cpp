@@ -6,8 +6,9 @@
 
 #include <sge/audio/listener.hpp>
 
+
 sge::audio::listener::listener()
-{}
+= default;
 
 sge::audio::listener::~listener()
-{}
+= default;

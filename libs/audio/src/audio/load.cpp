@@ -10,6 +10,7 @@
 #include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/load.hpp>
 #include <sge/audio/loader.hpp>
+#include <sge/audio/loader_ref.hpp>
 #include <sge/audio/optional_file_unique_ptr.hpp>
 #include <sge/media/impl/load.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -19,7 +20,7 @@
 
 sge::audio::optional_file_unique_ptr
 sge::audio::load(
-	sge::audio::loader &_loader,
+	sge::audio::loader_ref const _loader,
 	std::filesystem::path const &_path
 )
 {

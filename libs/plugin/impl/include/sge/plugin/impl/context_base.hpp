@@ -13,7 +13,7 @@
 #include <sge/plugin/detail/symbol.hpp>
 #include <sge/plugin/library/object_fwd.hpp>
 #include <sge/plugin/library/object_shared_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/weak_ptr_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
@@ -27,25 +27,28 @@ namespace plugin
 
 class context_base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		context_base
 	);
 public:
 	context_base(
 		sge::plugin::optional_cache_ref const &,
-		std::filesystem::path const &
+		std::filesystem::path &&
 	);
 
 	~context_base();
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_SYMBOL
 	std::filesystem::path const &
 	path() const;
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::info const &
 	info() const;
 
+	[[nodiscard]]
 	SGE_PLUGIN_DETAIL_SYMBOL
 	sge::plugin::library::object_shared_ptr
 	load();
@@ -56,11 +59,12 @@ private:
 
 	sge::plugin::info const info_;
 
-	typedef
+	using
+	library_weak_ptr
+	=
 	fcppt::weak_ptr<
 		sge::plugin::library::object
-	>
-	library_weak_ptr;
+	>;
 
 	library_weak_ptr library_ptr_;
 };

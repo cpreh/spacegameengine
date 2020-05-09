@@ -16,11 +16,12 @@ namespace sge
 namespace plugin
 {
 
-typedef
+using
+optional_cache_ref
+=
 fcppt::optional::reference<
 	sge::plugin::cache
->
-optional_cache_ref;
+>;
 
 }
 }

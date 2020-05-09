@@ -18,11 +18,12 @@ namespace audio
 namespace loader_plugin
 {
 
-typedef
+using
+iterator
+=
 sge::plugin::iterator<
 	sge::audio::loader
->
-iterator;
+>;
 
 }
 }

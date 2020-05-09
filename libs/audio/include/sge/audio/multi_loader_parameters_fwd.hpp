@@ -16,11 +16,12 @@ namespace sge
 namespace audio
 {
 
-typedef
+using
+multi_loader_parameters
+=
 sge::media::muxer_parameters<
 	sge::audio::loader
->
-multi_loader_parameters;
+>;
 
 }
 }

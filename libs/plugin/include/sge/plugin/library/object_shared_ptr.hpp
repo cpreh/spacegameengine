@@ -18,9 +18,12 @@ namespace plugin
 namespace library
 {
 
-typedef fcppt::shared_ptr<
+using
+object_shared_ptr
+=
+fcppt::shared_ptr<
 	sge::plugin::library::object
-> object_shared_ptr;
+>;
 
 }
 }

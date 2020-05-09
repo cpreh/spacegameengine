@@ -104,6 +104,7 @@ set(
 	libs/image2d/include/sge/image2d/store/view.hpp
 	libs/image2d/include/sge/image2d/system.hpp
 	libs/image2d/include/sge/image2d/system_fwd.hpp
+	libs/image2d/include/sge/image2d/system_ref.hpp
 	libs/image2d/include/sge/image2d/system_unique_ptr.hpp
 	libs/image2d/include/sge/image2d/tag.hpp
 	libs/image2d/include/sge/image2d/traits/color_tag.hpp

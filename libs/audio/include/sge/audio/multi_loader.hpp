@@ -19,7 +19,7 @@
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/media/stream_unique_ptr_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -31,7 +31,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL multi_loader
 :
 	public sge::audio::loader
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		multi_loader
 	);
 public:
@@ -41,6 +41,7 @@ public:
 		sge::audio::multi_loader_parameters const &
 	);
 
+	[[nodiscard]]
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::load_stream_result
 	load_stream(
@@ -50,6 +51,7 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::media::extension_set
 	extensions() const
@@ -59,12 +61,13 @@ public:
 	~multi_loader()
 	override;
 private:
-	typedef
+	using
+	muxer
+	=
 	sge::media::muxer<
 		sge::audio::loader,
 		sge::audio::file
-	>
-	muxer;
+	>;
 
 	muxer muxer_;
 };

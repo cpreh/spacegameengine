@@ -16,12 +16,13 @@ namespace sge
 namespace audio
 {
 
-typedef
+using
+vector
+=
 fcppt::math::vector::static_<
 	sge::audio::scalar,
 	3
->
-vector;
+>;
 
 }
 }

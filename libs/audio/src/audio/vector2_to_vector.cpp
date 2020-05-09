@@ -13,7 +13,7 @@
 
 sge::audio::vector
 sge::audio::vector2_to_vector(
-	sge::audio::vector2 const _pos
+	sge::audio::vector2 const &_pos
 )
 {
 	return

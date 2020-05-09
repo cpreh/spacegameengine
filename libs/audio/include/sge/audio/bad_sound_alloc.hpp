@@ -39,7 +39,8 @@ public:
 	SGE_AUDIO_DETAIL_SYMBOL
 	bad_sound_alloc(
 		bad_sound_alloc &&
-	);
+	)
+	noexcept;
 
 	SGE_AUDIO_DETAIL_SYMBOL
 	bad_sound_alloc(
@@ -50,7 +51,8 @@ public:
 	bad_sound_alloc &
 	operator=(
 		bad_sound_alloc &&
-	);
+	)
+	noexcept;
 
 	SGE_AUDIO_DETAIL_SYMBOL
 	bad_sound_alloc &

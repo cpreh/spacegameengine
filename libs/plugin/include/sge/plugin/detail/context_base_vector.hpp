@@ -20,11 +20,12 @@ namespace plugin
 namespace detail
 {
 
-typedef
+using
+context_base_vector
+=
 std::vector<
 	sge::plugin::context_base_unique_ptr
->
-context_base_vector;
+>;
 
 }
 }

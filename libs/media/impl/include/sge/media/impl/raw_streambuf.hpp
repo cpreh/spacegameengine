@@ -10,7 +10,7 @@
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <streambuf>
 #include <fcppt/config/external_end.hpp>
@@ -28,7 +28,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL raw_streambuf
 	public
 		std::streambuf
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		raw_streambuf
 	);
 public:

@@ -29,6 +29,7 @@ public:
 		sge::audio::direction::up const &
 	);
 
+	[[nodiscard]]
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::vector
 	forward() const;
@@ -39,6 +40,7 @@ public:
 		sge::audio::vector const &
 	);
 
+	[[nodiscard]]
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::vector
 	up() const;

@@ -7,15 +7,20 @@
 #include <sge/log/option.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::log::option::option(
-	fcppt::log::location const &_location,
+	fcppt::log::location &&_location,
 	fcppt::log::level const _level
 )
 :
 	location_(
-		_location
+		std::move(
+			_location
+		)
 	),
 	level_(
 		_level

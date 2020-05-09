@@ -8,6 +8,7 @@
 #define SGE_MEDIA_IMPL_LOAD_EXN_HPP_INCLUDED
 
 #include <sge/media/impl/load.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/optional/to_exception.hpp>
@@ -30,7 +31,9 @@ template<
 >
 Result
 load_exn(
-	System &_system,
+	fcppt::reference<
+		System
+	> const _system,
 	std::filesystem::path const &_path
 )
 {

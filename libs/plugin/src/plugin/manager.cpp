@@ -127,5 +127,4 @@ sge::plugin::manager::manager(
 FCPPT_PP_POP_WARNING
 
 sge::plugin::manager::~manager()
-{
-}
+= default;

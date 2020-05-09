@@ -16,11 +16,12 @@ namespace sge
 namespace audio
 {
 
-typedef
+using
+player_shared_ptr
+=
 fcppt::shared_ptr<
 	sge::audio::player
->
-player_shared_ptr;
+>;
 
 }
 }

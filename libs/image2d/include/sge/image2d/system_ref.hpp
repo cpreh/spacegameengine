@@ -4,19 +4,24 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_MEDIA_RAW_VALUE_HPP_INCLUDED
-#define SGE_MEDIA_RAW_VALUE_HPP_INCLUDED
+#ifndef SGE_IMAGE2D_SYSTEM_REF_HPP_INCLUDED
+#define SGE_IMAGE2D_SYSTEM_REF_HPP_INCLUDED
+
+#include <sge/image2d/system_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
 {
-namespace media
+namespace image2d
 {
 
 using
-raw_value
+system_ref
 =
-unsigned char;
+fcppt::reference<
+	sge::image2d::system
+>;
 
 }
 }

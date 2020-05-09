@@ -6,10 +6,9 @@
 
 #include <sge/audio/sound/base.hpp>
 
+
 sge::audio::sound::base::base()
-{
-}
+= default;
 
 sge::audio::sound::base::~base()
-{
-}
+= default;

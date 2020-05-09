@@ -16,11 +16,12 @@ namespace sge
 namespace audio
 {
 
-typedef
+using
+buffer_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::audio::buffer
->
-buffer_unique_ptr;
+>;
 
 }
 }

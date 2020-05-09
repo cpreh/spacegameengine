@@ -23,9 +23,15 @@ namespace library
 {
 
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)
-typedef void *loaded_symbol;
+using
+loaded_symbol
+=
+void *;
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-typedef FARPROC loaded_symbol;
+using
+loaded_symbol
+=
+FARPROC;
 #else
 #error "Don't know what a library's symbol is!"
 #endif

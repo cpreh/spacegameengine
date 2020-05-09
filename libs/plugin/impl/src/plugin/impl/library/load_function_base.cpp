@@ -9,6 +9,7 @@
 #include <sge/plugin/library/function_base.hpp>
 #include <sge/plugin/library/function_map.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/plugin/impl/library/cast_function_unsafe.hpp>
@@ -19,7 +20,9 @@
 
 sge::plugin::library::function_base
 sge::plugin::impl::library::load_function_base(
-	sge::plugin::library::object &_object,
+	fcppt::reference<
+		sge::plugin::library::object
+	> const _object,
 	sge::plugin::library::symbol_string const &_name
 )
 {
@@ -37,7 +40,7 @@ sge::plugin::impl::library::load_function_base(
 		sge::plugin::impl::library::cast_function_unsafe<
 			map_function
 		>(
-			_object.load(
+			_object.get().load(
 				map_name
 			)
 		)()->function(
@@ -48,7 +51,7 @@ sge::plugin::impl::library::load_function_base(
 		fcppt::cast::from_void_ptr<
 			sge::plugin::library::function_map *
 		>(
-			_object.load(
+			_object.get().load(
 				map_name
 			)
 		)->function(

@@ -27,6 +27,7 @@ public:
 
 	/// Get the gain
 	/** \see sge::audio::sound::base::gain */
+	[[nodiscard]]
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::scalar
 	gain() const;
@@ -41,6 +42,7 @@ public:
 
 	/// Get the pitch
 	/** \see sge::audio::sound::base::pitch */
+	[[nodiscard]]
 	SGE_AUDIO_DETAIL_SYMBOL
 	sge::audio::scalar
 	pitch() const;

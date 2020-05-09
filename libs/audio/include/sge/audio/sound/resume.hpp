@@ -21,8 +21,8 @@ namespace sound
 SGE_AUDIO_DETAIL_SYMBOL
 void
 resume(
-	sge::audio::sound::base &
-);
+	sge::audio::sound::base & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }
