@@ -16,7 +16,7 @@
 #include <sge/font/vector_fwd.hpp>
 #include <sge/font/view_fwd.hpp>
 #include <sge/font/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,7 +26,7 @@ namespace font
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL text
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		text
 	);
 protected:
@@ -43,20 +43,24 @@ public:
 		sge::font::view const &
 	) = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::font::rect
 	rect() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::font::dim
 	logical_size() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::font::rect
 	cursor_rect(
 		sge::font::index
 	) const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::font::optional_index
 	pos_to_index(

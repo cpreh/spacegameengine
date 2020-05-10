@@ -28,7 +28,8 @@ public:
 	SGE_CHARCONV_DETAIL_SYMBOL
 	conversion_failed(
 		conversion_failed &&
-	);
+	)
+	noexcept;
 
 	SGE_CHARCONV_DETAIL_SYMBOL
 	conversion_failed(
@@ -39,7 +40,8 @@ public:
 	conversion_failed &
 	operator=(
 		conversion_failed &&
-	);
+	)
+	noexcept;
 
 	SGE_CHARCONV_DETAIL_SYMBOL
 	conversion_failed &

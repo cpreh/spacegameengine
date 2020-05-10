@@ -20,6 +20,7 @@ sge::charconv::conversion_failed::conversion_failed()
 sge::charconv::conversion_failed::conversion_failed(
 	conversion_failed &&
 )
+noexcept
 = default;
 
 sge::charconv::conversion_failed::conversion_failed(
@@ -31,6 +32,7 @@ sge::charconv::conversion_failed &
 sge::charconv::conversion_failed::operator=(
 	conversion_failed &&
 )
+noexcept
 = default;
 
 sge::charconv::conversion_failed &
@@ -39,6 +41,6 @@ sge::charconv::conversion_failed::operator=(
 )
 = default;
 
-sge::charconv::conversion_failed::~conversion_failed() noexcept
-{
-}
+sge::charconv::conversion_failed::~conversion_failed()
+noexcept
+= default;

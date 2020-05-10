@@ -8,9 +8,7 @@
 
 
 sge::font::added::added()
-{
-}
+= default;
 
 sge::font::added::~added()
-{
-}
+= default;

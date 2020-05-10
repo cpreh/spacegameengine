@@ -17,7 +17,10 @@ namespace sge
 namespace image
 {
 
-typedef std::uint8_t channel8;
+using
+channel8
+=
+std::uint8_t;
 
 }
 }

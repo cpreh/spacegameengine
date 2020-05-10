@@ -17,36 +17,48 @@ sge::charconv::utf8_bytes(
 )
 {
 	if(
-		(_ch & 0x80)
+		// NOLINTNEXTLINE(hicpp-signed-bitwise)
+		(_ch & 0x80) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		==
 		0
 	)
+	{
 		return
-			1u;
+			1U;
+	}
 
 	if(
-		(_ch & 0xE0)
+		// NOLINTNEXTLINE(hicpp-signed-bitwise)
+		(_ch & 0xE0) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		==
-		0xC0
+		0xC0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	)
+	{
 		return
-			2u;
+			2U;
+	}
 
 	if(
-		(_ch & 0xF0)
+		// NOLINTNEXTLINE(hicpp-signed-bitwise)
+		(_ch & 0xF0) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		==
-		0xE0
+		0xE0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	)
+	{
 		return
-			3u;
+			3U;
+	}
 
 	if(
-		(_ch & 0xF8)
+		// NOLINTNEXTLINE(hicpp-signed-bitwise)
+		(_ch & 0xF8) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		==
-		0xF0
+		0xF0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	)
+	{
 		return
-			4u;
+			4U;
+	}
 
 	throw
 		sge::charconv::exception{

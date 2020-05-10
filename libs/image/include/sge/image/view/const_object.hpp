@@ -32,23 +32,26 @@ template<
 class const_object
 {
 public:
-	typedef
+	using
+	nonconst_object
+	=
 	sge::image::view::object<
 		Tag
-	>
-	nonconst_object;
+	>;
 
-	typedef
+	using
+	elements
+	=
 	sge::image::view::const_elements<
 		Tag
-	>
-	elements;
+	>;
 
-	typedef
+	using
+	variant
+	=
 	fcppt::variant::from_list<
 		elements
-	>
-	variant;
+	>;
 
 	template<
 		typename Format
@@ -97,14 +100,28 @@ public:
 	);
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+	const_object(
+		const_object &&
+	)
+	noexcept;
+
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	const_object &
 	operator=(
 		const_object const &
 	);
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+	const_object &
+	operator=(
+		const_object &&
+	)
+	noexcept;
+
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	~const_object();
 
+	[[nodiscard]]
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	variant const &
 	get() const;

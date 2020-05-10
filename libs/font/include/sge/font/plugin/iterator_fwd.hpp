@@ -18,11 +18,12 @@ namespace font
 namespace plugin
 {
 
-typedef
+using
+iterator
+=
 sge::plugin::iterator<
 	sge::font::system
->
-iterator;
+>;
 
 }
 }

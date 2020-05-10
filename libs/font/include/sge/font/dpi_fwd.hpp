@@ -16,10 +16,13 @@ namespace sge
 namespace font
 {
 
-typedef fcppt::math::dim::static_<
+using
+dpi
+=
+fcppt::math::dim::static_<
 	sge::font::dpi_unit,
 	2
-> dpi;
+>;
 
 }
 }

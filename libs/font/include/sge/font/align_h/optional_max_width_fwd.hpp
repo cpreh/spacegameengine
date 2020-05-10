@@ -18,11 +18,12 @@ namespace font
 namespace align_h
 {
 
-typedef
+using
+optional_max_width
+=
 fcppt::optional::object<
 	sge::font::align_h::max_width
->
-optional_max_width;
+>;
 
 }
 }

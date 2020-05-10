@@ -10,7 +10,7 @@
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/font/added_fwd.hpp>
 #include <sge/font/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -20,7 +20,7 @@ namespace font
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL added
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		added
 	);
 protected:

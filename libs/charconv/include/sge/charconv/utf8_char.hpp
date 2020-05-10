@@ -16,11 +16,12 @@ namespace sge
 namespace charconv
 {
 
-typedef
+using
+utf8_char
+=
 sge::charconv::char_type<
 	sge::charconv::encoding::utf8
->
-utf8_char;
+>;
 
 }
 }

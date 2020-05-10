@@ -28,12 +28,17 @@ sge::charconv::utf8_file_to_fcppt_string(
 	if(
 		!file_stream.is_open()
 	)
+	{
 		return
 			fcppt::optional_string();
+	}
 
-	typedef std::istreambuf_iterator<
+	using
+	iterator
+	=
+	std::istreambuf_iterator<
 		char
-	> iterator;
+	>;
 
 	return
 		fcppt::optional_string(

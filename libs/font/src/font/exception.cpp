@@ -30,6 +30,7 @@ sge::font::exception::exception(
 sge::font::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::font::exception::exception(
@@ -41,6 +42,7 @@ sge::font::exception &
 sge::font::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::font::exception &
@@ -49,6 +51,6 @@ sge::font::exception::operator=(
 )
 = default;
 
-sge::font::exception::~exception() noexcept
-{
-}
+sge::font::exception::~exception()
+noexcept
+= default;

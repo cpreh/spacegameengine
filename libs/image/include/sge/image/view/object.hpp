@@ -31,17 +31,19 @@ template<
 class object
 {
 public:
-	typedef
+	using
+	elements
+	=
 	sge::image::view::elements<
 		Tag
-	>
-	elements;
+	>;
 
-	typedef
+	using
+	variant
+	=
 	fcppt::variant::from_list<
 		elements
-	>
-	variant;
+	>;
 
 	template<
 		typename Format
@@ -84,14 +86,28 @@ public:
 	);
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+	object(
+		object &&
+	)
+	noexcept;
+
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	object &
 	operator=(
 		object const &
 	);
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+	object &
+	operator=(
+		object &&
+	)
+	noexcept;
+
+	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	~object();
 
+	[[nodiscard]]
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	variant const &
 	get() const;

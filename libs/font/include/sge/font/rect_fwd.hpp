@@ -16,11 +16,12 @@ namespace sge
 namespace font
 {
 
-typedef
+using
+rect
+=
 fcppt::math::box::rect<
 	sge::font::unit
->
-rect;
+>;
 
 }
 }

@@ -26,6 +26,7 @@ public:
 		sge::font::height
 	);
 
+	[[nodiscard]]
 	SGE_FONT_DETAIL_SYMBOL
 	sge::font::height
 	height() const;

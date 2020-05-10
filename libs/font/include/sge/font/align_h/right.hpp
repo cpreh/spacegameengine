@@ -28,6 +28,7 @@ public:
 		sge::font::align_h::max_width
 	);
 
+	[[nodiscard]]
 	SGE_FONT_DETAIL_SYMBOL
 	sge::font::align_h::max_width
 	max_width() const;

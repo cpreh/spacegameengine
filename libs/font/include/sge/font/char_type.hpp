@@ -13,7 +13,10 @@ namespace sge
 namespace font
 {
 
-typedef wchar_t char_type;
+using
+char_type
+=
+wchar_t;
 
 }
 }

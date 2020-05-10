@@ -20,13 +20,14 @@ namespace font
 namespace align_h
 {
 
-typedef
+using
+variant
+=
 fcppt::variant::object<
 	sge::font::align_h::left,
 	sge::font::align_h::center,
 	sge::font::align_h::right
->
-variant;
+>;
 
 }
 }

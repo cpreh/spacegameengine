@@ -16,9 +16,12 @@ namespace sge
 namespace font
 {
 
-typedef fcppt::optional::object<
+using
+optional_dpi
+=
+fcppt::optional::object<
 	sge::font::dpi
-> optional_dpi;
+>;
 
 }
 }

@@ -27,11 +27,13 @@ struct traits<
 	sge::font::system
 >
 {
+	[[nodiscard]]
 	SGE_FONT_DETAIL_SYMBOL
 	static
 	sge::plugin::detail::address_name
 	plugin_loader_name();
 
+	[[nodiscard]]
 	SGE_FONT_DETAIL_SYMBOL
 	static
 	sge::plugin::capabilities

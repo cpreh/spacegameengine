@@ -40,6 +40,17 @@ template<
 >
 sge::image::view::object<
 	Tag
+>::object(
+	object &&
+)
+noexcept
+= default;
+
+template<
+	typename Tag
+>
+sge::image::view::object<
+	Tag
 > &
 sge::image::view::object<
 	Tag
@@ -52,9 +63,22 @@ template<
 >
 sge::image::view::object<
 	Tag
+> &
+sge::image::view::object<
+	Tag
+>::operator=(
+	object &&
+)
+noexcept
+= default;
+
+template<
+	typename Tag
+>
+sge::image::view::object<
+	Tag
 >::~object()
-{
-}
+= default;
 
 template<
 	typename Tag

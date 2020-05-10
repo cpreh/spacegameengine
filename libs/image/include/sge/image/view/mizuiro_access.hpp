@@ -17,9 +17,10 @@ namespace image
 namespace view
 {
 
-typedef
-mizuiro::access::raw
-mizuiro_access;
+using
+mizuiro_access
+=
+mizuiro::access::raw;
 
 }
 }

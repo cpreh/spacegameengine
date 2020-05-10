@@ -19,12 +19,13 @@ namespace image
 namespace color
 {
 
-typedef
+using
+a8_format
+=
 sge::image::homogenous_format<
 	sge::image::channel8,
 	mizuiro::color::layout::alpha
->
-a8_format;
+>;
 
 }
 }

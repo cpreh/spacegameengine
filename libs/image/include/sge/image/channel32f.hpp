@@ -13,7 +13,10 @@ namespace sge
 namespace image
 {
 
-typedef float channel32f;
+using
+channel32f
+=
+float;
 
 }
 }

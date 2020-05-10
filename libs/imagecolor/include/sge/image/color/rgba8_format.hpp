@@ -19,12 +19,13 @@ namespace image
 namespace color
 {
 
-typedef
+using
+rgba8_format
+=
 sge::image::homogenous_format<
 	sge::image::channel8,
 	mizuiro::color::layout::rgba
->
-rgba8_format;
+>;
 
 }
 }

@@ -58,22 +58,27 @@ public:
 	sge::font::parameters &
 	italic();
 
+	[[nodiscard]]
 	SGE_FONT_DETAIL_SYMBOL
 	sge::font::optional_dpi const &
 	dpi() const;
 
+	[[nodiscard]]
 	SGE_FONT_DETAIL_SYMBOL
 	sge::font::optional_ttf_size const &
 	ttf_size() const;
 
+	[[nodiscard]]
 	SGE_FONT_DETAIL_SYMBOL
 	sge::font::optional_family const &
 	family() const;
 
+	[[nodiscard]]
 	SGE_FONT_DETAIL_SYMBOL
 	sge::font::weight::optional_unit const &
 	weight() const;
 
+	[[nodiscard]]
 	SGE_FONT_DETAIL_SYMBOL
 	bool
 	italic() const;

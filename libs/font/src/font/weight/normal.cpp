@@ -11,5 +11,6 @@
 sge::font::weight::unit
 sge::font::weight::normal()
 {
-	return 400u;
+	return
+		400U; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 }

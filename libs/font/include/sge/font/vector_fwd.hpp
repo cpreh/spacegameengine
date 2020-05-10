@@ -16,10 +16,13 @@ namespace sge
 namespace font
 {
 
-typedef fcppt::math::vector::static_<
+using
+vector
+=
+fcppt::math::vector::static_<
 	sge::font::unit,
 	2
-> vector;
+>;
 
 }
 }

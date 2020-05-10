@@ -16,11 +16,12 @@ namespace sge
 namespace font
 {
 
-typedef
+using
+optional_index
+=
 fcppt::optional::object<
 	sge::font::index
->
-optional_index;
+>;
 
 }
 }

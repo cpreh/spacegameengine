@@ -18,11 +18,12 @@ namespace font
 namespace plugin
 {
 
-typedef
+using
+context
+=
 sge::plugin::context<
 	sge::font::system
->
-context;
+>;
 
 }
 }

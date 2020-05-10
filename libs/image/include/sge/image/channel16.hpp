@@ -17,7 +17,10 @@ namespace sge
 namespace image
 {
 
-typedef std::uint16_t channel16;
+using
+channel16
+=
+std::uint16_t;
 
 }
 }

@@ -8,9 +8,7 @@
 
 
 sge::font::text::text()
-{
-}
+= default;
 
 sge::font::text::~text()
-{
-}
+= default;

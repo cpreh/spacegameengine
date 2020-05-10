@@ -15,9 +15,10 @@ namespace sge
 namespace font
 {
 
-typedef
-sge::image2d::view::object
-view;
+using
+view
+=
+sge::image2d::view::object;
 
 }
 }

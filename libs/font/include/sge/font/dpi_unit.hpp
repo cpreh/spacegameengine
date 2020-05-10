@@ -13,7 +13,10 @@ namespace sge
 namespace font
 {
 
-typedef double dpi_unit;
+using
+dpi_unit
+=
+double;
 
 }
 }

@@ -31,8 +31,10 @@ sge::charconv::fcppt_string_to_utf8_file(
 	if(
 		!file.is_open()
 	)
+	{
 		return
 			false;
+	}
 
 	sge::charconv::utf8_string const result(
 		sge::charconv::fcppt_string_to_utf8(

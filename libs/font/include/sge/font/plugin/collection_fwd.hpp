@@ -18,11 +18,12 @@ namespace font
 namespace plugin
 {
 
-typedef
+using
+collection
+=
 sge::plugin::collection<
 	sge::font::system
->
-collection;
+>;
 
 }
 }

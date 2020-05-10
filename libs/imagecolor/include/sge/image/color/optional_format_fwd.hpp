@@ -18,9 +18,12 @@ namespace image
 namespace color
 {
 
-typedef fcppt::optional::object<
+using
+optional_format
+=
+fcppt::optional::object<
 	sge::image::color::format
-> optional_format;
+>;
 
 }
 }

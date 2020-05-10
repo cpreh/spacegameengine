@@ -53,6 +53,7 @@ sge::image::invalid_copy<
 >::invalid_copy(
 	invalid_copy &&
 )
+noexcept
 = default;
 
 template<
@@ -76,6 +77,7 @@ sge::image::invalid_copy<
 >::operator=(
 	invalid_copy &&
 )
+noexcept
 = default;
 
 template<
@@ -96,8 +98,8 @@ template<
 >
 sge::image::invalid_copy<
 	Tag
->::~invalid_copy() noexcept
-{
-}
+>::~invalid_copy()
+noexcept
+= default;
 
 #endif

@@ -8,9 +8,7 @@
 
 
 sge::font::object::object()
-{
-}
+= default;
 
 sge::font::object::~object()
-{
-}
+= default;

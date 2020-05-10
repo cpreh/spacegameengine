@@ -26,9 +26,10 @@ struct static_formats_tpl<
 	sge::image::color::tag
 >
 {
-	typedef
-	sge::image::color::static_formats
-	type;
+	using
+	type
+	=
+	sge::image::color::static_formats;
 };
 
 }

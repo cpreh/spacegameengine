@@ -18,9 +18,12 @@ namespace font
 namespace weight
 {
 
-typedef fcppt::optional::object<
+using
+optional_unit
+=
+fcppt::optional::object<
 	sge::font::weight::unit
-> optional_unit;
+>;
 
 }
 }

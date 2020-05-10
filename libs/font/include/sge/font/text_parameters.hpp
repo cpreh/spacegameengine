@@ -22,7 +22,7 @@ namespace font
 class text_parameters
 {
 public:
-	// TODO:
+	// TODO(philipp):
 	// - Add gravity for Japanese text
 	SGE_FONT_DETAIL_SYMBOL
 	explicit
@@ -36,10 +36,12 @@ public:
 		sge::font::flags_field const &
 	);
 
+	[[nodiscard]]
 	SGE_FONT_DETAIL_SYMBOL
 	sge::font::align_h::variant const &
 	align_h() const;
 
+	[[nodiscard]]
 	SGE_FONT_DETAIL_SYMBOL
 	sge::font::flags_field const &
 	flags() const;

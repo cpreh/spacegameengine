@@ -30,6 +30,7 @@ sge::charconv::exception::exception(
 sge::charconv::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::charconv::exception::exception(
@@ -41,6 +42,7 @@ sge::charconv::exception &
 sge::charconv::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::charconv::exception &
@@ -49,6 +51,6 @@ sge::charconv::exception::operator=(
 )
 = default;
 
-sge::charconv::exception::~exception() noexcept
-{
-}
+sge::charconv::exception::~exception()
+noexcept
+= default;

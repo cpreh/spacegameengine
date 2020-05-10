@@ -37,7 +37,9 @@ namespace image
 namespace color
 {
 
-typedef
+using
+static_formats
+=
 metal::list<
 	sge::image::color::a8_format,
 	sge::image::color::l8_format,
@@ -57,8 +59,7 @@ metal::list<
 	sge::image::color::srgba8_format,
 	sge::image::color::sbgr8_format,
 	sge::image::color::sbgra8_format
->
-static_formats;
+>;
 
 }
 }

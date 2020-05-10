@@ -52,7 +52,31 @@ template<
 sge::image::view::const_object<
 	Tag
 >::const_object(
-	const_object const &_other
+	const_object const &
+)
+= default;
+
+template<
+	typename Tag
+>
+sge::image::view::const_object<
+	Tag
+>::const_object(
+	const_object &&
+)
+noexcept
+= default;
+
+template<
+	typename Tag
+>
+sge::image::view::const_object<
+	Tag
+> &
+sge::image::view::const_object<
+	Tag
+>::operator=(
+	const_object const &
 )
 = default;
 
@@ -65,8 +89,9 @@ sge::image::view::const_object<
 sge::image::view::const_object<
 	Tag
 >::operator=(
-	const_object const &_other
+	const_object &&
 )
+noexcept
 = default;
 
 template<
@@ -75,8 +100,7 @@ template<
 sge::image::view::const_object<
 	Tag
 >::~const_object()
-{
-}
+= default;
 
 template<
 	typename Tag

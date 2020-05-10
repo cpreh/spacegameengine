@@ -16,7 +16,7 @@ sge::charconv::utf8_indices(
 )
 {
 	sge::charconv::index_vector result{
-		0u
+		0U
 	};
 
 	for(

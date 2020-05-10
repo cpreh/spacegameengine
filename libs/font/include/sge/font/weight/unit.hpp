@@ -15,7 +15,10 @@ namespace font
 namespace weight
 {
 
-typedef unsigned unit;
+using
+unit
+=
+unsigned;
 
 }
 }

@@ -11,5 +11,6 @@
 sge::font::weight::unit
 sge::font::weight::semi_bold()
 {
-	return 600u;
+	return
+		600U; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 }

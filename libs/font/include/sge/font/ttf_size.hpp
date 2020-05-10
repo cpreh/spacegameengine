@@ -13,7 +13,10 @@ namespace sge
 namespace font
 {
 
-typedef unsigned ttf_size;
+using
+ttf_size
+=
+unsigned;
 
 }
 }

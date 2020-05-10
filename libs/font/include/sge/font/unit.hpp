@@ -13,7 +13,10 @@ namespace sge
 namespace font
 {
 
-typedef int unit;
+using
+unit
+=
+int;
 
 }
 }

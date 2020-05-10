@@ -27,7 +27,10 @@ struct char_type<
 	sge::charconv::encoding::utf8
 >
 {
-	typedef char type;
+	using
+	type
+	=
+	char;
 };
 
 template<>
@@ -35,7 +38,10 @@ struct char_type<
 	sge::charconv::encoding::utf16
 >
 {
-	typedef char16_t type;
+	using
+	type
+	=
+	char16_t;
 };
 
 template<>
@@ -43,7 +49,10 @@ struct char_type<
 	sge::charconv::encoding::utf32
 >
 {
-	typedef char32_t type;
+	using
+	type
+	=
+	char32_t;
 };
 
 template<>
@@ -51,7 +60,10 @@ struct char_type<
 	sge::charconv::encoding::wchar
 >
 {
-	typedef wchar_t type;
+	using
+	type
+	=
+	wchar_t;
 };
 
 }

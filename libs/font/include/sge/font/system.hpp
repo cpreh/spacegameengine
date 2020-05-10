@@ -13,7 +13,7 @@
 #include <sge/font/parameters_fwd.hpp>
 #include <sge/font/system_fwd.hpp>
 #include <sge/font/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
@@ -26,7 +26,7 @@ namespace font
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		system
 	);
 protected:

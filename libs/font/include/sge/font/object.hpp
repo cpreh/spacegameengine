@@ -15,7 +15,7 @@
 #include <sge/font/text_unique_ptr.hpp>
 #include <sge/font/detail/symbol.hpp>
 #include <sge/image/color/optional_format_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -25,7 +25,7 @@ namespace font
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 protected:
@@ -36,6 +36,7 @@ public:
 	virtual
 	~object();
 
+	[[nodiscard]]
 	virtual
 	sge::font::text_unique_ptr
 	create_text(
@@ -46,10 +47,12 @@ public:
 	/**
 	\brief Tells which color format is preferred by this font, if any.
 	*/
+	[[nodiscard]]
 	virtual
 	sge::image::color::optional_format
 	preferred_color_format() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::font::metrics
 	metrics() const = 0;

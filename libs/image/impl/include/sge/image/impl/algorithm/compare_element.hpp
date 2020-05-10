@@ -59,9 +59,9 @@ struct compare_element
 		typename T
 	>
 	std::enable_if_t<
-		std::is_integral<
+		std::is_integral_v<
 			T
-		>::value,
+		>,
 		bool
 	>
 	operator()(
@@ -79,9 +79,9 @@ struct compare_element
 		typename T
 	>
 	std::enable_if_t<
-		std::is_floating_point<
+		std::is_floating_point_v<
 			T
-		>::value,
+		>,
 		bool
 	>
 	operator()(
@@ -89,6 +89,14 @@ struct compare_element
 		T const _value2
 	) const
 	{
+		T const epsilon{
+			fcppt::literal<
+				T
+			>(
+				0.00001
+			)
+		};
+
 		return
 			std::abs(
 				_value1
@@ -96,11 +104,7 @@ struct compare_element
 				_value2
 			)
 			<
-			fcppt::literal<
-				T
-			>(
-				0.00001
-			);
+			epsilon;
 	}
 };
 

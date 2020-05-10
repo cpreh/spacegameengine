@@ -16,11 +16,12 @@ namespace sge
 namespace font
 {
 
-typedef
+using
+added_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::font::added
->
-added_unique_ptr;
+>;
 
 }
 }

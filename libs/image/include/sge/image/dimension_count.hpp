@@ -15,9 +15,10 @@ namespace sge
 namespace image
 {
 
-typedef
-fcppt::math::size_type
-dimension_count;
+using
+dimension_count
+=
+fcppt::math::size_type;
 
 }
 }
