@@ -39,12 +39,13 @@ to_mizuiro_dim(
 	> const &_src
 )
 {
-	typedef
+	using
+	result_type
+	=
 	mizuiro::image::dimension<
 		N,
 		T
-	>
-	result_type;
+	>;
 
 	return
 		result_type{

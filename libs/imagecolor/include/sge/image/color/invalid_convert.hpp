@@ -23,11 +23,12 @@ namespace image
 namespace color
 {
 
-typedef
+using
+invalid_convert
+=
 sge::image::invalid_convert<
 	sge::image::color::tag
->
-invalid_convert;
+>;
 
 }
 }

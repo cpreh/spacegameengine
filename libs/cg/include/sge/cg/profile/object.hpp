@@ -30,6 +30,7 @@ public:
 		CGprofile
 	);
 
+	[[nodiscard]]
 	SGE_CG_DETAIL_SYMBOL
 	CGprofile
 	get() const;

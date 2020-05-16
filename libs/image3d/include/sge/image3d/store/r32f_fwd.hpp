@@ -19,11 +19,12 @@ namespace image3d
 namespace store
 {
 
-typedef
+using
+r32f
+=
 sge::image::store::basic<
 	sge::image3d::r32f_format
->
-r32f;
+>;
 
 }
 }

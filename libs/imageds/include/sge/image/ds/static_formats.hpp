@@ -22,13 +22,14 @@ namespace image
 namespace ds
 {
 
-typedef
+using
+static_formats
+=
 metal::list<
 	sge::image::ds::d16_format,
 	sge::image::ds::d32_format,
 	sge::image::ds::d24s8_format
->
-static_formats;
+>;
 
 }
 }

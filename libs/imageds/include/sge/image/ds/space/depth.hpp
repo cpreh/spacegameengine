@@ -23,11 +23,12 @@ namespace space
 
 struct depth
 {
-	typedef
+	using
+	required_channels
+	=
 	fcppt::metal::set::make<
 		sge::image::ds::channel::depth
-	>
-	required_channels;
+	>;
 };
 
 }

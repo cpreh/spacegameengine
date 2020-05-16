@@ -15,11 +15,12 @@ namespace sge
 namespace imageds2d
 {
 
-typedef
+using
+d32_format
+=
 sge::image::ds::view::d32_format<
 	2
->
-d32_format;
+>;
 
 }
 }

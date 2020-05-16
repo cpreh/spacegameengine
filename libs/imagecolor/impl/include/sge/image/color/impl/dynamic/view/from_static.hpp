@@ -47,7 +47,9 @@ from_static(
 	View const &_view
 )
 {
-	typedef
+	using
+	dest_type
+	=
 	sge::image::view::mizuiro_type<
 		sge::image::view::basic_format<
 			View::dim::static_size,
@@ -58,13 +60,13 @@ from_static(
 		>,
 		typename
 		View::constness
-	>
-	dest_type;
+	>;
 
-	typedef
+	using
+	dest_format
+	=
 	typename
-	dest_type::format
-	dest_format;
+	dest_type::format;
 
 	return
 		dest_type(

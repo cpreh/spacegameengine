@@ -28,9 +28,10 @@ struct format_map_tpl<
 	sge::image::color::tag
 >
 {
-	typedef
-	sge::image::color::impl::format_map
-	type;
+	using
+	type
+	=
+	sge::image::color::impl::format_map;
 };
 
 }

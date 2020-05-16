@@ -25,17 +25,19 @@ namespace program
 class compile_options
 {
 public:
-	typedef
+	using
+	string_sequence
+	=
 	std::vector<
 		sge::cg::string
-	>
-	string_sequence;
+	>;
 
-	typedef
+	using
+	pointer_sequence
+	=
 	std::vector<
 		sge::cg::char_type const *
-	>
-	pointer_sequence;
+	>;
 
 	SGE_CG_DETAIL_SYMBOL
 	compile_options();
@@ -52,10 +54,12 @@ public:
 		string_sequence
 	);
 
+	[[nodiscard]]
 	SGE_CG_DETAIL_SYMBOL
 	pointer_sequence
 	pointers() const;
 
+	[[nodiscard]]
 	SGE_CG_DETAIL_SYMBOL
 	string_sequence const &
 	value() const;

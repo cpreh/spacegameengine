@@ -16,11 +16,12 @@ namespace sge
 namespace image2d
 {
 
-typedef
+using
+file_exception
+=
 sge::media::file_exception<
 	sge::image2d::exception
->
-file_exception;
+>;
 
 }
 }

@@ -23,11 +23,12 @@ namespace image2d
 namespace view
 {
 
-typedef
+using
+sub_out_of_range
+=
 sge::image::view::sub_out_of_range<
 	sge::image2d::tag
->
-sub_out_of_range;
+>;
 
 }
 }

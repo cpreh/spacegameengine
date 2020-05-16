@@ -11,15 +11,18 @@
 #include <sge/cg/program/main_function.hpp>
 #include <sge/cg/program/source.hpp>
 #include <sge/cg/program/source_type.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::cg::program::from_string_parameters::from_string_parameters(
 	sge::cg::context::object const &_context,
 	sge::cg::program::source_type const _source_type,
 	sge::cg::profile::object const &_profile,
-	sge::cg::program::source const &_source,
-	sge::cg::program::main_function const &_main_function,
-	sge::cg::program::compile_options const &_compile_options
+	sge::cg::program::source &&_source,
+	sge::cg::program::main_function &&_main_function,
+	sge::cg::program::compile_options &&_compile_options
 )
 :
 	context_(
@@ -32,13 +35,19 @@ sge::cg::program::from_string_parameters::from_string_parameters(
 		_profile
 	),
 	source_(
-		_source
+		std::move(
+			_source
+		)
 	),
 	main_function_(
-		_main_function
+		std::move(
+			_main_function
+		)
 	),
 	compile_options_(
-		_compile_options
+		std::move(
+			_compile_options
+		)
 	)
 {
 }

@@ -16,11 +16,12 @@ namespace sge
 namespace image2d
 {
 
-typedef
+using
+optional_file_unique_ptr
+=
 fcppt::optional::object<
 	sge::image2d::file_unique_ptr
->
-optional_file_unique_ptr;
+>;
 
 }
 }

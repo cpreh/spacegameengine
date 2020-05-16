@@ -25,13 +25,14 @@ namespace dynamic
 namespace format
 {
 
-typedef
+using
+r_c32f_1
+=
 sge::image::color::impl::dynamic::format::object<
 	mizuiro::color::space::r,
 	sge::image::channel32f,
 	1
->
-r_c32f_1;
+>;
 
 }
 }

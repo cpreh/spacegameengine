@@ -13,7 +13,10 @@ namespace sge
 namespace cg
 {
 
-typedef char char_type;
+using
+char_type
+=
+char;
 
 }
 }

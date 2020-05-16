@@ -23,7 +23,7 @@ namespace image2d
 SGE_IMAGE2D_DETAIL_SYMBOL
 void
 save_from_view(
-	sge::image2d::system &,
+	sge::image2d::system &, // NOLINT(google-runtime-references)
 	sge::image2d::view::const_object const &,
 	std::filesystem::path const &
 );

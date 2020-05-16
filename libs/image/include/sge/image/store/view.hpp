@@ -11,6 +11,7 @@
 #include <sge/image/store/object_fwd.hpp>
 #include <sge/image/view/const_object_fwd.hpp>
 #include <sge/image/view/object_fwd.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -28,9 +29,11 @@ sge::image::view::object<
 	Tag
 >
 view(
-	sge::image::store::object<
-		Tag
-	> &
+	fcppt::reference<
+		sge::image::store::object<
+			Tag
+		>
+	>
 );
 
 template<
@@ -41,9 +44,11 @@ sge::image::view::const_object<
 	Tag
 >
 view(
-	sge::image::store::object<
-		Tag
-	> const &
+	fcppt::reference<
+		sge::image::store::object<
+			Tag
+		> const
+	>
 );
 
 }

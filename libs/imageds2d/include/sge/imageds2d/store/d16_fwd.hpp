@@ -18,11 +18,12 @@ namespace imageds2d
 namespace store
 {
 
-typedef
+using
+d16
+=
 sge::image::store::basic<
 	sge::imageds2d::d16_format
->
-d16;
+>;
 
 }
 }

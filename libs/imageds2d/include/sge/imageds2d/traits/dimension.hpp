@@ -27,11 +27,12 @@ struct dimension_tpl<
 	sge::imageds2d::tag
 >
 {
-	typedef
+	using
+	type
+	=
 	sge::image::dimension_integral_c<
-		2u
-	>
-	type;
+		2U
+	>;
 };
 
 }

@@ -27,7 +27,7 @@ SGE_CG_DETAIL_SYMBOL
 void
 check_size(
 	sge::cg::parameter::object const &,
-	sge::cg::parameter::matrix::detail::size
+	sge::cg::parameter::matrix::detail::size const &
 );
 
 }

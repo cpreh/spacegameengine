@@ -50,6 +50,7 @@ sge::image::view::sub_out_of_range<
 >::sub_out_of_range(
 	sub_out_of_range &&
 )
+noexcept
 = default;
 
 template<
@@ -73,6 +74,7 @@ sge::image::view::sub_out_of_range<
 >::operator=(
 	sub_out_of_range &&
 )
+noexcept
 = default;
 
 template<
@@ -123,8 +125,8 @@ template<
 >
 sge::image::view::sub_out_of_range<
 	Tag
->::~sub_out_of_range() noexcept
-{
-}
+>::~sub_out_of_range()
+noexcept
+= default;
 
 #endif

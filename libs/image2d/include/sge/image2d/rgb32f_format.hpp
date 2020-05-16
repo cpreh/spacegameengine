@@ -16,12 +16,13 @@ namespace sge
 namespace image2d
 {
 
-typedef
+using
+rgb32f_format
+=
 sge::image::view::basic_format<
 	2,
 	sge::image::color::rgb32f_format
->
-rgb32f_format;
+>;
 
 }
 }

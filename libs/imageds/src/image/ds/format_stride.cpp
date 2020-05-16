@@ -27,13 +27,7 @@ sge::image::ds::format_stride(
 				sge::image::channel16
 			);
 	case sge::image::ds::format::d32:
-		return
-			sizeof(
-				sge::image::channel32
-			);
-
 	case sge::image::ds::format::d24s8:
-		// TODO: Do we need a channel24?
 		return
 			sizeof(
 				sge::image::channel32

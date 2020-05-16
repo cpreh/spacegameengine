@@ -34,20 +34,24 @@ permutate_compare(
 	Layout const &_layout2
 )
 {
-	// TODO: Algorithm
+	// TODO(philipp): Algorithm
 	for(
 		auto const &elem
 		:
 		_layout1
 	)
+	{
 		if(
 			!fcppt::algorithm::contains(
 				_layout2,
 				elem
 			)
 		)
+		{
 			return
 				false;
+		}
+	}
 
 	return
 		true;

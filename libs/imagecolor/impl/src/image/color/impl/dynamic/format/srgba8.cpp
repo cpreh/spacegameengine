@@ -18,6 +18,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wexit-time-destructors)
 
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects)
 sge::image::color::impl::dynamic::format::srgb_c8_4 const
 sge::image::color::impl::dynamic::format::srgba8{
 	mizuiro::color::layout::s_rgba{},

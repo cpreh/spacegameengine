@@ -29,6 +29,7 @@ public:
 		CGparameter
 	);
 
+	[[nodiscard]]
 	SGE_CG_DETAIL_SYMBOL
 	CGparameter
 	get() const;

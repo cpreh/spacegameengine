@@ -27,7 +27,7 @@ sge::image::color::any::clear(
 	sge::image::color::format const _format
 )
 {
-	// TODO: Make this more generic
+	// TODO(philipp): Make this more generic
 	switch(
 		_format
 	)

@@ -15,11 +15,12 @@ namespace sge
 namespace imageds2d
 {
 
-typedef
+using
+dim
+=
 sge::image::basic_dim<
 	2
->
-dim;
+>;
 
 }
 }

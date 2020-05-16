@@ -94,7 +94,9 @@ sge::image::store::object<
 	Tag
 >::object(
 	object &&
-) = default;
+)
+noexcept
+= default;
 
 template<
 	typename Tag
@@ -106,7 +108,9 @@ sge::image::store::object<
 	Tag
 >::operator=(
 	object &&
-) = default;
+)
+noexcept
+= default;
 
 template<
 	typename Tag
@@ -114,8 +118,7 @@ template<
 sge::image::store::object<
 	Tag
 >::~object()
-{
-}
+= default;
 
 template<
 	typename Tag

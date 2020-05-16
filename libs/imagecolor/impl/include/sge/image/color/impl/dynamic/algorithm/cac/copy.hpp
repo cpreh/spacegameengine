@@ -68,19 +68,23 @@ copy(
 			_dest
 		)
 	)
+	{
 		mizuiro::image::algorithm::copy_same_channel_order(
 			_source,
 			_dest,
 			mizuiro_overlap,
 			mizuiro_uninitialized
 		);
+	}
 	else
+	{
 		mizuiro::image::algorithm::copy_different_channel_order(
 			_source,
 			_dest,
 			mizuiro_overlap,
 			mizuiro_uninitialized
 		);
+	}
 }
 
 }

@@ -12,6 +12,7 @@
 #include <sge/cg/program/source_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -19,9 +20,9 @@ sge::cg::program::from_file_parameters::from_file_parameters(
 	sge::cg::context::object const &_context,
 	sge::cg::program::source_type const _source_type,
 	sge::cg::profile::object const &_profile,
-	std::filesystem::path const &_path,
-	sge::cg::program::main_function const &_main_function,
-	sge::cg::program::compile_options const &_compile_options
+	std::filesystem::path &&_path,
+	sge::cg::program::main_function &&_main_function,
+	sge::cg::program::compile_options &&_compile_options
 )
 :
 	context_(
@@ -34,13 +35,19 @@ sge::cg::program::from_file_parameters::from_file_parameters(
 		_profile
 	),
 	path_(
-		_path
+		std::move(
+			_path
+		)
 	),
 	main_function_(
-		_main_function
+		std::move(
+			_main_function
+		)
 	),
 	compile_options_(
-		_compile_options
+		std::move(
+			_compile_options
+		)
 	)
 {
 }

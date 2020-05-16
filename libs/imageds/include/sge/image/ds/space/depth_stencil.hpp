@@ -24,12 +24,13 @@ namespace space
 
 struct depth_stencil
 {
-	typedef
+	using
+	required_channels
+	=
 	fcppt::metal::set::make<
 		sge::image::ds::channel::depth,
 		sge::image::ds::channel::stencil
-	>
-	required_channels;
+	>;
 };
 
 }

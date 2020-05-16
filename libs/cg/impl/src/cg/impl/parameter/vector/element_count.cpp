@@ -22,9 +22,9 @@ sge::cg::impl::parameter::vector::element_count(
 	sge::cg::parameter::object const &_parameter
 )
 {
-	int
-		rows,
-		columns;
+	int rows{-1};
+
+	int columns{-1};
 
 	if(
 		::cgGetTypeSizes(
@@ -37,8 +37,10 @@ sge::cg::impl::parameter::vector::element_count(
 		==
 		sge::cg::impl::true_
 	)
+	{
 		return
 			0;
+	}
 
 	FCPPT_ASSERT_ERROR(
 		rows

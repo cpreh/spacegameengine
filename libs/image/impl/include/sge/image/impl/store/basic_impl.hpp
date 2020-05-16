@@ -111,6 +111,17 @@ template<
 >
 sge::image::store::basic<
 	Format
+>::basic(
+	basic &&
+)
+noexcept
+= default;
+
+template<
+	typename Format
+>
+sge::image::store::basic<
+	Format
 > &
 sge::image::store::basic<
 	Format
@@ -123,21 +134,14 @@ template<
 >
 sge::image::store::basic<
 	Format
->::basic(
-	basic &&
-) = default;
-
-template<
-	typename Format
->
-sge::image::store::basic<
-	Format
 > &
 sge::image::store::basic<
 	Format
 >::operator=(
 	basic &&
-) = default;
+)
+noexcept
+= default;
 
 template<
 	typename Format
@@ -145,8 +149,7 @@ template<
 sge::image::store::basic<
 	Format
 >::~basic()
-{
-}
+= default;
 
 template<
 	typename Format

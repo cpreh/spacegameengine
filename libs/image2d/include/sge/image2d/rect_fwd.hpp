@@ -15,11 +15,12 @@ namespace sge
 namespace image2d
 {
 
-typedef
+using
+rect
+=
 sge::image::basic_box<
 	2
->
-rect;
+>;
 
 }
 }

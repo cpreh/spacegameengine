@@ -10,6 +10,7 @@
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
+#include <sge/image2d/system_ref.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/format.hpp>
 #include <sge/media/extension_fwd.hpp>
@@ -19,14 +20,14 @@
 
 sge::image2d::file_unique_ptr
 sge::image2d::create_exn(
-	sge::image2d::system &_system,
+	sge::image2d::system_ref const  _system,
 	sge::image2d::view::const_object const &_view,
 	sge::media::extension const &_extension
 )
 {
 	return
 		fcppt::optional::to_exception(
-			_system.create(
+			_system.get().create(
 				_view,
 				_extension
 			),

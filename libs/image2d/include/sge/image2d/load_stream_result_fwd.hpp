@@ -16,11 +16,12 @@ namespace sge
 namespace image2d
 {
 
-typedef
+using
+load_stream_result
+=
 sge::media::load_stream_result<
 	sge::image2d::file
->
-load_stream_result;
+>;
 
 }
 }

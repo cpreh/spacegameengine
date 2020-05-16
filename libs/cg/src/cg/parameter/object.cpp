@@ -12,7 +12,7 @@
 
 
 sge::cg::parameter::object::object(
-	CGparameter const _parameter
+	CGparameter const _parameter // NOLINT(misc-misplaced-const)
 )
 :
 	parameter_(

@@ -16,12 +16,13 @@ namespace sge
 namespace image3d
 {
 
-typedef
+using
+bgrx8_format
+=
 sge::image::view::basic_format<
 	3,
 	sge::image::color::bgrx8_format
->
-bgrx8_format;
+>;
 
 }
 }

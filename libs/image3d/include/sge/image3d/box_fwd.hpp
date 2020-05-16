@@ -15,11 +15,12 @@ namespace sge
 namespace image3d
 {
 
-typedef
+using
+box
+=
 sge::image::basic_box<
 	3
->
-box;
+>;
 
 }
 }

@@ -25,15 +25,16 @@ namespace ds
 namespace layout
 {
 
-typedef
+using
+depth_stencil
+=
 mizuiro::color::layout::make<
 	sge::image::ds::space::depth_stencil,
 	metal::list<
 		sge::image::ds::channel::depth,
 		sge::image::ds::channel::stencil
 	>
->
-depth_stencil;
+>;
 
 }
 }

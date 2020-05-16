@@ -27,6 +27,7 @@ public:
 		sge::cg::parameter::object const &
 	);
 
+	[[nodiscard]]
 	SGE_CG_DETAIL_SYMBOL
 	sge::cg::parameter::object const &
 	object() const;

@@ -26,9 +26,10 @@ struct static_converter_tpl<
 	sge::image::color::tag
 >
 {
-	typedef
-	sge::image::color::impl::converter
-	type;
+	using
+	type
+	=
+	sge::image::color::impl::converter;
 };
 
 }

@@ -18,11 +18,12 @@ namespace image2d
 namespace store
 {
 
-typedef
+using
+object
+=
 sge::image::store::object<
 	sge::image2d::tag
->
-object;
+>;
 
 }
 }

@@ -25,7 +25,7 @@ basic_pitch
 =
 fcppt::math::dim::static_<
 	sge::image::difference_type,
-	Dim - 1u
+	Dim - 1U
 >;
 
 }

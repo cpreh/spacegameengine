@@ -11,11 +11,14 @@
 #include <sge/image2d/store/view.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 sge::image2d::view::object
 sge::image2d::store::view(
-	sge::image2d::store::object &_store
+	fcppt::reference<
+		sge::image2d::store::object
+	> const _store
 )
 {
 	return
@@ -28,7 +31,9 @@ sge::image2d::store::view(
 
 sge::image2d::view::const_object
 sge::image2d::store::view(
-	sge::image2d::store::object const &_store
+	fcppt::reference<
+		sge::image2d::store::object const
+	> const _store
 )
 {
 	return

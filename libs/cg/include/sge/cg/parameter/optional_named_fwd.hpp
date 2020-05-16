@@ -18,9 +18,12 @@ namespace cg
 namespace parameter
 {
 
-typedef fcppt::optional::object<
+using
+optional_named
+=
+fcppt::optional::object<
 	sge::cg::parameter::named
-> optional_named;
+>;
 
 }
 }

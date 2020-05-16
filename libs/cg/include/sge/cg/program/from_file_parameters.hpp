@@ -35,26 +35,32 @@ public:
 		sge::cg::context::object const &,
 		sge::cg::program::source_type,
 		sge::cg::profile::object const &,
-		std::filesystem::path const &,
-		sge::cg::program::main_function const &,
-		sge::cg::program::compile_options const &
+		std::filesystem::path &&,
+		sge::cg::program::main_function &&,
+		sge::cg::program::compile_options &&
 	);
 
+	[[nodiscard]]
 	sge::cg::context::object const &
 	context() const;
 
+	[[nodiscard]]
 	sge::cg::program::source_type
 	source_type() const;
 
+	[[nodiscard]]
 	sge::cg::profile::object const &
 	profile() const;
 
+	[[nodiscard]]
 	std::filesystem::path const &
 	path() const;
 
+	[[nodiscard]]
 	sge::cg::program::main_function const &
 	main_function() const;
 
+	[[nodiscard]]
 	sge::cg::program::compile_options const &
 	compile_options() const;
 private:

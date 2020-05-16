@@ -23,7 +23,9 @@ namespace ds
 namespace impl
 {
 
-typedef
+using
+format_map
+=
 sge::image::impl::format_map<
 	SGE_IMAGE_DS_IMPL_MAKE_FORMAT_PAIR(
 		d16
@@ -34,8 +36,7 @@ sge::image::impl::format_map<
 	SGE_IMAGE_DS_IMPL_MAKE_FORMAT_PAIR(
 		d32
 	)
->
-format_map;
+>;
 
 }
 }

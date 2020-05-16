@@ -35,7 +35,9 @@ namespace dynamic
 namespace format
 {
 
-typedef
+using
+all
+=
 metal::list<
 	sge::image::color::impl::dynamic::format::empty_c8_1,
 	sge::image::color::impl::dynamic::format::luminance_c8_1,
@@ -47,8 +49,7 @@ metal::list<
 	sge::image::color::impl::dynamic::format::rgb_c32f_4,
 	sge::image::color::impl::dynamic::format::srgb_c8_3,
 	sge::image::color::impl::dynamic::format::srgb_c8_4
->
-all;
+>;
 
 }
 }

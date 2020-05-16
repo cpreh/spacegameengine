@@ -18,11 +18,12 @@ namespace image2d
 namespace plugin
 {
 
-typedef
+using
+iterator
+=
 sge::plugin::iterator<
 	sge::image2d::system
->
-iterator;
+>;
 
 }
 }

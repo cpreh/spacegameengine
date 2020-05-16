@@ -33,15 +33,16 @@ struct tag_of<
 	>
 >
 {
-	typedef
+	using
+	type
+	=
 	mizuiro::color::format::homogenous_dynamic_ns::tag<
 		sge::image::color::impl::dynamic::format::object<
 			Space,
 			BaseType,
 			NumChannels
 		>
-	>
-	type;
+	>;
 };
 
 }

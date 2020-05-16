@@ -28,6 +28,7 @@ sge::image::color::impl::dynamic::format::object<
 	Layout const &_layout,
 	color_format_type const _color_format
 )
+noexcept
 :
 	base(
 		_layout
@@ -48,7 +49,6 @@ sge::image::color::impl::dynamic::format::object<
 	BaseType,
 	NumChannels
 >::~object()
-{
-}
+= default;
 
 #endif

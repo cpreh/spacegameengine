@@ -13,7 +13,7 @@
 #include <sge/cg/parameter/element_type_fwd.hpp>
 #include <sge/cg/parameter/named_fwd.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
@@ -28,7 +28,7 @@ namespace parameter
 
 class created
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		created
 	);
 public:
@@ -41,6 +41,7 @@ public:
 	SGE_CG_DETAIL_SYMBOL
 	~created();
 
+	[[nodiscard]]
 	SGE_CG_DETAIL_SYMBOL
 	sge::cg::parameter::object
 	object() const;
@@ -57,7 +58,7 @@ public:
 		sge::cg::parameter::named const &
 	);
 private:
-	CGparameter const parameter_;
+	CGparameter const parameter_; // NOLINT(misc-misplaced-const)
 };
 
 }

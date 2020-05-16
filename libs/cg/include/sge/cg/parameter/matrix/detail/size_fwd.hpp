@@ -22,12 +22,13 @@ namespace matrix
 namespace detail
 {
 
-typedef
+using
+size
+=
 fcppt::math::dim::static_<
 	fcppt::math::size_type,
 	2
->
-size;
+>;
 
 }
 }

@@ -33,65 +33,75 @@ template<
 class basic
 {
 public:
-	typedef
+	using
+	internal_type
+	=
 	mizuiro::image::store<
 		Format,
 		sge::image::view::mizuiro_access
-	>
-	internal_type;
+	>;
 
-	typedef
+	using
+	pointer
+	=
 	typename
-	internal_type::pointer
-	pointer;
+	internal_type::pointer;
 
-	typedef
+	using
+	const_pointer
+	=
 	typename
-	internal_type::const_pointer
-	const_pointer;
+	internal_type::const_pointer;
 
-	typedef
+	using
+	dim
+	=
 	sge::image::basic_dim<
 		Format::dim::static_size
-	>
-	dim;
+	>;
 
-	typedef
+	using
+	view_type
+	=
 	typename
-	internal_type::view_type
-	view_type;
+	internal_type::view_type;
 
-	typedef
+	using
+	const_view_type
+	=
 	typename
-	internal_type::const_view_type
-	const_view_type;
+	internal_type::const_view_type;
 
-	typedef
+	using
+	wrapped_view_type
+	=
 	sge::image::view::to_wrapped_type<
 		view_type
-	>
-	wrapped_view_type;
+	>;
 
-	typedef
+	using
+	const_wrapped_view_type
+	=
 	sge::image::view::to_wrapped_type<
 		const_view_type
-	>
-	const_wrapped_view_type;
+	>;
 
-	typedef
+	using
+	mizuiro_color
+	=
 	sge::image::pixel::mizuiro_type<
 		typename
 		Format::color_format
-	>
-	mizuiro_color;
+	>;
 
-	typedef
+	using
+	init_function
+	=
 	fcppt::function<
 		void (
 			view_type const &
 		)
-	>
-	init_function;
+	>;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	explicit
@@ -125,7 +135,8 @@ public:
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	basic(
 		basic &&
-	);
+	)
+	noexcept;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	basic &
@@ -137,39 +148,48 @@ public:
 	basic &
 	operator=(
 		basic &&
-	);
+	)
+	noexcept;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	~basic();
 
+	[[nodiscard]]
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	pointer
 	data();
 
+	[[nodiscard]]
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	const_pointer
 	data() const;
 
+	[[nodiscard]]
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	view_type
 	view();
 
+	[[nodiscard]]
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	const_view_type
 	view() const;
 
+	[[nodiscard]]
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	wrapped_view_type
 	wrapped_view();
 
+	[[nodiscard]]
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	const_wrapped_view_type
 	wrapped_view() const;
 
+	[[nodiscard]]
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	const_wrapped_view_type
 	const_wrapped_view() const;
 
+	[[nodiscard]]
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	dim
 	size() const;

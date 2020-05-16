@@ -15,11 +15,12 @@ namespace sge
 namespace image3d
 {
 
-typedef
+using
+dim
+=
 sge::image::basic_dim<
 	3
->
-dim;
+>;
 
 }
 }

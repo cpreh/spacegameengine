@@ -24,11 +24,12 @@ namespace color
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wshadow)
 
-typedef
+using
+r32f
+=
 sge::image::pixel::mizuiro_type<
 	sge::image::color::r32f_format
->
-r32f;
+>;
 
 FCPPT_PP_POP_WARNING
 

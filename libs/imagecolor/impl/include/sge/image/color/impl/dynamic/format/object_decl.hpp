@@ -11,7 +11,7 @@
 #include <sge/image/color/impl/dynamic/format/object_base_decl.hpp>
 #include <sge/image/color/impl/dynamic/format/object_fwd.hpp>
 #include <mizuiro/size_type.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -47,21 +47,23 @@ class object final
 		NumChannels
 	>
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
-	typedef
+	using
+	base
+	=
 	sge::image::color::impl::dynamic::format::object_base<
 		Space,
 		BaseType,
 		NumChannels
-	>
-	base;
+	>;
 
-	typedef
-	sge::image::color::format
-	color_format_type;
+	using
+	color_format_type
+	=
+	sge::image::color::format;
 
 	template<
 		typename Layout
@@ -69,11 +71,12 @@ public:
 	object(
 		Layout const &,
 		color_format_type
-	);
+	)
+	noexcept;
 
 	~object();
 
-	color_format_type const color_format;
+	color_format_type const color_format; // NOLINT(misc-non-private-member-variables-in-classes)
 };
 
 FCPPT_PP_POP_WARNING

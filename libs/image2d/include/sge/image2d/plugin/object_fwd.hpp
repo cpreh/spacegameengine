@@ -18,11 +18,12 @@ namespace image2d
 namespace plugin
 {
 
-typedef
+using
+object
+=
 sge::plugin::object<
 	sge::image2d::system
->
-object;
+>;
 
 }
 }

@@ -42,9 +42,10 @@ public:
 	{
 	}
 
-	typedef
-	void
-	result_type;
+	using
+	result_type
+	=
+	void;
 
 	template<
 		typename Src,

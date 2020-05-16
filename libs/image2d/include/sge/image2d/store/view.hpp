@@ -11,6 +11,7 @@
 #include <sge/image2d/store/object_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/object_fwd.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -23,13 +24,17 @@ namespace store
 SGE_IMAGE2D_DETAIL_SYMBOL
 sge::image2d::view::object
 view(
-	sge::image2d::store::object &
+	fcppt::reference<
+		sge::image2d::store::object
+	>
 );
 
 SGE_IMAGE2D_DETAIL_SYMBOL
 sge::image2d::view::const_object
 view(
-	sge::image2d::store::object const &
+	fcppt::reference<
+		sge::image2d::store::object const
+	>
 );
 
 }

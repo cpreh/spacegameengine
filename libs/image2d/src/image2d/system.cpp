@@ -8,9 +8,7 @@
 
 
 sge::image2d::system::system()
-{
-}
+= default;
 
 sge::image2d::system::~system()
-{
-}
+= default;

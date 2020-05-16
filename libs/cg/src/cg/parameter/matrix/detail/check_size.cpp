@@ -24,20 +24,28 @@
 #include <fcppt/config/external_end.hpp>
 
 
-void
-sge::cg::parameter::matrix::detail::check_size(
-	sge::cg::parameter::object const &_parameter,
-	sge::cg::parameter::matrix::detail::size const _dim
+namespace
+{
+
+using
+cg_size
+=
+fcppt::math::dim::static_<
+	int,
+	2
+>;
+
+cg_size
+get_size(
+	CGtype const _type
 )
 {
-	int
-		rows,
-		columns;
+	int rows{-1};
+
+	int columns{-1};
 
 	::cgGetMatrixSize(
-		sge::cg::impl::parameter::get_type(
-			_parameter
-		),
+		_type,
 		&rows,
 		&columns
 	);
@@ -47,13 +55,28 @@ sge::cg::parameter::matrix::detail::check_size(
 		sge::cg::exception
 	)
 
-	fcppt::math::dim::static_<
-		int,
-		2
-	> const result(
-		rows,
-		columns
-	);
+	return
+		cg_size{
+			rows,
+			columns
+		};
+}
+
+}
+
+void
+sge::cg::parameter::matrix::detail::check_size(
+	sge::cg::parameter::object const &_parameter,
+	sge::cg::parameter::matrix::detail::size const &_dim
+)
+{
+	cg_size const result{
+		get_size(
+			sge::cg::impl::parameter::get_type(
+				_parameter
+			)
+		)
+	};
 
 	FCPPT_ASSERT_ERROR_MESSAGE(
 		fcppt::math::dim::contents(

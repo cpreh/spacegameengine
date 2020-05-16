@@ -23,9 +23,12 @@ sge::cg::context::object::object()
 		==
 		nullptr
 	)
-		throw sge::cg::exception(
-			FCPPT_TEXT("cgCreateContext failed")
-		);
+	{
+		throw
+			sge::cg::exception{
+				FCPPT_TEXT("cgCreateContext failed")
+			};
+	}
 }
 
 sge::cg::context::object::~object()
@@ -38,5 +41,6 @@ sge::cg::context::object::~object()
 CGcontext
 sge::cg::context::object::get() const
 {
-	return context_;
+	return
+		context_;
 }

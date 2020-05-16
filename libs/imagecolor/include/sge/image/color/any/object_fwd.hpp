@@ -20,11 +20,12 @@ namespace color
 namespace any
 {
 
-typedef
+using
+object
+=
 sge::image::pixel::object<
 	sge::image::color::tag
->
-object;
+>;
 
 }
 }

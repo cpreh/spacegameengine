@@ -17,9 +17,10 @@ namespace imageds2d
 namespace algorithm
 {
 
-typedef
-sge::image::ds::invalid_copy
-invalid_copy;
+using
+invalid_copy
+=
+sge::image::ds::invalid_copy;
 
 }
 }

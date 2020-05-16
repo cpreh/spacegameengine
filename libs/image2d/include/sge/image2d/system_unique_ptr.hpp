@@ -16,11 +16,12 @@ namespace sge
 namespace image2d
 {
 
-typedef
+using
+system_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::image2d::system
->
-system_unique_ptr;
+>;
 
 }
 }

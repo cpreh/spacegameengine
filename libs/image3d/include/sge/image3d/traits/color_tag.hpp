@@ -26,9 +26,10 @@ struct color_tag_tpl<
 	sge::image3d::tag
 >
 {
-	typedef
-	sge::image::color::tag
-	type;
+	using
+	type
+	=
+	sge::image::color::tag;
 };
 
 }

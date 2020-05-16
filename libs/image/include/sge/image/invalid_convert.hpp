@@ -27,11 +27,12 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL invalid_convert
 	public sge::image::exception
 {
 public:
-	typedef
+	using
+	format
+	=
 	sge::image::traits::pixel::format<
 		Tag
-	>
-	format;
+	>;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	invalid_convert(
@@ -42,7 +43,8 @@ public:
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	invalid_convert(
 		invalid_convert &&
-	);
+	)
+	noexcept;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	invalid_convert(
@@ -53,7 +55,8 @@ public:
 	invalid_convert &
 	operator=(
 		invalid_convert &&
-	);
+	)
+	noexcept;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	invalid_convert &

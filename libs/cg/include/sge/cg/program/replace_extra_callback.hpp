@@ -18,11 +18,12 @@ namespace cg
 namespace program
 {
 
-typedef
+using
+replace_extra_callback
+=
 fcppt::function<
 	sge::cg::program::replace_extra_function
->
-replace_extra_callback;
+>;
 
 }
 }

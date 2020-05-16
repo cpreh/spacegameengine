@@ -39,31 +39,35 @@ class object
 		object
 	);
 public:
-	typedef
+	using
+	store_elements
+	=
 	sge::image::store::elements<
 		Tag
-	>
-	store_elements;
+	>;
 
-	typedef
+	using
+	variant
+	=
 	fcppt::variant::from_list<
 		store_elements
-	>
-	variant;
+	>;
 
-	typedef
+	using
+	dim
+	=
 	sge::image::dim<
 		Tag
-	>
-	dim;
+	>;
 
-	typedef
+	using
+	format
+	=
 	sge::image::traits::pixel::format<
 		sge::image::traits::image::color_tag<
 			Tag
 		>
-	>
-	format;
+	>;
 
 	template<
 		typename Format
@@ -111,21 +115,25 @@ public:
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	object(
 		object &&
-	);
+	)
+	noexcept;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	object &
 	operator=(
 		object &&
-	);
+	)
+	noexcept;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	~object();
 
+	[[nodiscard]]
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	variant &
 	get();
 
+	[[nodiscard]]
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	variant const &
 	get() const;

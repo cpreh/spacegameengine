@@ -19,12 +19,13 @@ namespace image
 namespace ds
 {
 
-typedef
+using
+d16_format
+=
 sge::image::homogenous_format<
 	sge::image::channel16,
 	sge::image::ds::layout::depth
->
-d16_format;
+>;
 
 }
 }

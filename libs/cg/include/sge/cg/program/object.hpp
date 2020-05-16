@@ -15,7 +15,7 @@
 #include <sge/cg/program/from_file_parameters_fwd.hpp>
 #include <sge/cg/program/from_string_parameters_fwd.hpp>
 #include <sge/cg/program/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
@@ -30,7 +30,7 @@ namespace program
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
@@ -49,29 +49,33 @@ public:
 	SGE_CG_DETAIL_SYMBOL
 	~object();
 
+	[[nodiscard]]
 	SGE_CG_DETAIL_SYMBOL
 	sge::cg::profile::object const &
 	profile() const;
 
+	[[nodiscard]]
 	SGE_CG_DETAIL_SYMBOL
 	sge::cg::parameter::named
 	parameter(
 		sge::cg::string const &
 	) const;
 
+	[[nodiscard]]
 	SGE_CG_DETAIL_SYMBOL
 	sge::cg::parameter::optional_named
 	parameter_opt(
 		sge::cg::string const &
 	) const;
 
+	[[nodiscard]]
 	SGE_CG_DETAIL_SYMBOL
 	CGprogram
 	get() const;
 private:
 	sge::cg::profile::object const &profile_;
 
-	CGprogram const program_;
+	CGprogram const program_; // NOLINT(misc-misplaced-const)
 };
 
 }

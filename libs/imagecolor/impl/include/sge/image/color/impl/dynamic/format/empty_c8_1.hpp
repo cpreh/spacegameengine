@@ -25,13 +25,14 @@ namespace dynamic
 namespace format
 {
 
-typedef
+using
+empty_c8_1
+=
 sge::image::color::impl::dynamic::format::object<
 	mizuiro::color::space::empty,
 	sge::image::channel8,
 	1
->
-empty_c8_1;
+>;
 
 }
 }

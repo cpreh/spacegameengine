@@ -25,13 +25,14 @@ namespace dynamic
 namespace format
 {
 
-typedef
+using
+rgb_c8_3
+=
 sge::image::color::impl::dynamic::format::object<
 	mizuiro::color::space::rgb,
 	sge::image::channel8,
 	3
->
-rgb_c8_3;
+>;
 
 }
 }

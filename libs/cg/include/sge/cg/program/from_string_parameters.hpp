@@ -33,26 +33,32 @@ public:
 		sge::cg::context::object const &,
 		sge::cg::program::source_type,
 		sge::cg::profile::object const &,
-		sge::cg::program::source const &,
-		sge::cg::program::main_function const &,
-		sge::cg::program::compile_options const &
+		sge::cg::program::source &&,
+		sge::cg::program::main_function &&,
+		sge::cg::program::compile_options &&
 	);
 
+	[[nodiscard]]
 	sge::cg::context::object const &
 	context() const;
 
+	[[nodiscard]]
 	sge::cg::program::source_type
 	source_type() const;
 
+	[[nodiscard]]
 	sge::cg::profile::object const &
 	profile() const;
 
+	[[nodiscard]]
 	sge::cg::program::source const &
 	source() const;
 
+	[[nodiscard]]
 	sge::cg::program::main_function const &
 	main_function() const;
 
+	[[nodiscard]]
 	sge::cg::program::compile_options const &
 	compile_options() const;
 private:

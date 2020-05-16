@@ -18,9 +18,12 @@ namespace sge
 namespace cg
 {
 
-typedef std::basic_string<
+using
+string
+=
+std::basic_string<
 	sge::cg::char_type
-> string;
+>;
 
 }
 }

@@ -8,6 +8,7 @@
 #define SGE_IMAGE_COLOR_IMPL_DYNAMIC_FORMAT_FROM_STATIC_TYPE_HPP_INCLUDED
 
 #include <sge/image/color/impl/dynamic/format/from_static.hpp>
+#include <fcppt/type_traits/remove_cv_ref_t.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -31,18 +32,15 @@ template<
 >
 using from_static_type
 =
-typename
-std::remove_const<
-	typename std::remove_reference<
-		decltype(
-			sge::image::color::impl::dynamic::format::from_static(
-				std::declval<
-					Format
-				>()
-			)
+fcppt::type_traits::remove_cv_ref_t<
+	decltype(
+		sge::image::color::impl::dynamic::format::from_static(
+			std::declval<
+				Format
+			>()
 		)
-	>::type
->::type;
+	)
+>;
 
 }
 }

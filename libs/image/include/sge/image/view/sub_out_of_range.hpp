@@ -29,11 +29,12 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL sub_out_of_range
 	public sge::image::exception
 {
 public:
-	typedef
+	using
+	box
+	=
 	sge::image::box<
 		Tag
-	>
-	box;
+	>;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	sub_out_of_range(
@@ -44,7 +45,8 @@ public:
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	sub_out_of_range(
 		sub_out_of_range &&
-	);
+	)
+	noexcept;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	sub_out_of_range(
@@ -55,7 +57,8 @@ public:
 	sub_out_of_range &
 	operator=(
 		sub_out_of_range &&
-	);
+	)
+	noexcept;
 
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	sub_out_of_range &
@@ -63,10 +66,12 @@ public:
 		sub_out_of_range const &
 	);
 
+	[[nodiscard]]
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	box const &
 	outer() const;
 
+	[[nodiscard]]
 	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
 	box const &
 	inner() const;

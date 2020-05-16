@@ -53,6 +53,7 @@ sge::image::invalid_convert<
 >::invalid_convert(
 	invalid_convert &&
 )
+noexcept
 = default;
 
 template<
@@ -76,6 +77,7 @@ sge::image::invalid_convert<
 >::operator=(
 	invalid_convert &&
 )
+noexcept
 = default;
 
 template<
@@ -96,8 +98,8 @@ template<
 >
 sge::image::invalid_convert<
 	Tag
->::~invalid_convert() noexcept
-{
-}
+>::~invalid_convert()
+noexcept
+= default;
 
 #endif

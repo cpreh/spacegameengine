@@ -26,9 +26,10 @@ struct format_tpl<
 	sge::image::ds::tag
 >
 {
-	typedef
-	sge::image::ds::format
-	type;
+	using
+	type
+	=
+	sge::image::ds::format;
 };
 
 }

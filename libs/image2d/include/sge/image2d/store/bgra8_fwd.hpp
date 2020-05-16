@@ -18,11 +18,12 @@ namespace image2d
 namespace store
 {
 
-typedef
+using
+bgra8
+=
 sge::image::store::basic<
 	sge::image2d::bgra8_format
->
-bgra8;
+>;
 
 }
 }

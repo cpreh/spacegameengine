@@ -244,7 +244,9 @@ function(
 		TRANSITIVE_ADDITIONAL_DEPS
 		TRANSITIVE_ADDITIONAL_DEPS_PKGCONFIG
 		INCLUDE_DIRS
+		SYSTEM_INCLUDE_DIRS
 		TRANSITIVE_INCLUDE_DIRS
+		TRANSITIVE_SYSTEM_INCLUDE_DIRS
 		COMPILE_DEFINITIONS
 		TRANSITIVE_COMPILE_DEFINITIONS
 		COMPILE_FLAGS
@@ -408,6 +410,13 @@ function(
 			${_INCLUDE_DIRS}
 		)
 
+		target_include_directories(
+			${SGE_LIB_NAME}
+			SYSTEM
+			PRIVATE
+			${_SYSTEM_INCLUDE_DIRS}
+		)
+
 		if(
 			_HAS_IMPL_DIR
 		)
@@ -459,6 +468,13 @@ function(
 		INTERFACE
 		${PUBLIC_INCLUDES}
 		${_TRANSITIVE_INCLUDE_DIRS}
+	)
+
+	target_include_directories(
+		${SGE_LIB_NAME}
+		INTERFACE
+		${PUBLIC_INCLUDES}
+		${_TRANSITIVE_SYSTEM_INCLUDE_DIRS}
 	)
 
 	if(
@@ -580,7 +596,9 @@ function(
 		TRANSITIVE_ADDITIONAL_DEPS
 		TRANSITIVE_ADDITIONAL_DEPS_PKGCONFIG
 		INCLUDE_DIRS
+		SYSTEM_INCLUDE_DIRS
 		TRANSITIVE_INCLUDE_DIRS
+		TRANSITIVE_SYSTEM_INCLUDE_DIRS
 		COMPILE_DEFINITIONS
 		TRANSITIVE_COMPILE_DEFINITIONS
 		COMPILE_FLAGS
@@ -808,9 +826,15 @@ endfunction()
 # INCLUDE_DIRS:
 #	A list of include directories the library needs to be built.
 #
+# SYSTEM_INCLUDE_DIRS:
+#	Like INCLUDE_DIRS, but treated as system headers.
+#
 # TRANSITIVE_INCLUDE_DIRS:
 #	A list of include directories a consumer of the library needs to be
 #	built.
+#
+# TRANSITIVE_SYSTEM_INCLUDE_DIRS:
+#   Like TRANSITIVE_INCLUDE_DIRS, but treated as system headers.
 #
 # COMPILE_DEFINITIONS:
 #	A list of compile definitions to add.

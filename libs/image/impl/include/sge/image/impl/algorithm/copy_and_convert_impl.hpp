@@ -36,7 +36,7 @@ sge::image::algorithm::copy_and_convert(
 	sge::image::algorithm::uninitialized const _uninitialized
 )
 {
-	// TODO: automatically use the static version if the dynamic one is not specialized
+	// TODO(philipp): automatically use the static version if the dynamic one is not specialized
 #if defined(SGE_IMAGE_STATIC_COPY_AND_CONVERT)
 	sge::image::impl::algorithm::copy_and_convert_static<
 		Tag

@@ -18,11 +18,12 @@ namespace image3d
 namespace store
 {
 
-typedef
+using
+srgb8
+=
 sge::image::store::basic<
 	sge::image3d::srgb8_format
->
-srgb8;
+>;
 
 }
 }

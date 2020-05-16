@@ -18,9 +18,10 @@ namespace cg
 namespace program
 {
 
-typedef
-sge::cg::string
-replace_extra_function(
+using
+replace_extra_function
+=
+sge::cg::string(
 	sge::cg::program::extra_index
 );
 

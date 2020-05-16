@@ -16,12 +16,13 @@ namespace sge
 namespace image2d
 {
 
-typedef
+using
+l8_format
+=
 sge::image::view::basic_format<
 	2,
 	sge::image::color::l8_format
->
-l8_format;
+>;
 
 }
 }

@@ -11,6 +11,7 @@
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/media/path_to_extension.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/optional/to_exception.hpp>
@@ -27,7 +28,9 @@ sge::image2d::save_from_view(
 )
 {
 	sge::image2d::create_exn(
-		_system,
+		fcppt::make_ref(
+			_system
+		),
 		_view,
 		fcppt::optional::to_exception(
 			sge::media::path_to_extension(

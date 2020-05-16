@@ -9,7 +9,7 @@
 
 #include <sge/cg/context/object_fwd.hpp>
 #include <sge/cg/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
@@ -24,7 +24,7 @@ namespace context
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
@@ -34,11 +34,12 @@ public:
 	SGE_CG_DETAIL_SYMBOL
 	~object();
 
+	[[nodiscard]]
 	SGE_CG_DETAIL_SYMBOL
 	CGcontext
 	get() const;
 private:
-	CGcontext const context_;
+	CGcontext const context_; // NOLINT(misc-misplaced-const)
 };
 
 }

@@ -12,6 +12,7 @@
 #include <sge/image/store/view.hpp>
 #include <sge/image/view/const_object.hpp>
 #include <sge/image/view/object.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 template<
@@ -21,9 +22,11 @@ sge::image::view::object<
 	Tag
 >
 sge::image::store::view(
-	sge::image::store::object<
-		Tag
-	> &_store
+	fcppt::reference<
+		sge::image::store::object<
+			Tag
+		>
+	> const _store
 )
 {
 	return
@@ -43,9 +46,11 @@ sge::image::view::const_object<
 	Tag
 >
 sge::image::store::view(
-	sge::image::store::object<
-		Tag
-	> const &_store
+	fcppt::reference<
+		sge::image::store::object<
+			Tag
+		> const
+	> const _store
 )
 {
 	return

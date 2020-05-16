@@ -51,9 +51,10 @@ public:
 	{
 	}
 
-	typedef
-	void
-	result_type;
+	using
+	result_type
+	=
+	void;
 
 	template<
 		typename Source,
@@ -81,18 +82,22 @@ public:
 				)
 			)
 		)
+		{
 			sge::image::color::impl::dynamic::algorithm::cac::copy(
 				_source,
 				_dest,
 				overlap_,
 				uninitialized_
 			);
+		}
 		else
+		{
 			sge::image::color::impl::dynamic::algorithm::cac::convert(
 				_source,
 				_dest,
 				uninitialized_
 			);
+		}
 	}
 
 	template<

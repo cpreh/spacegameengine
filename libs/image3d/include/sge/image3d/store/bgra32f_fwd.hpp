@@ -18,11 +18,12 @@ namespace image3d
 namespace store
 {
 
-typedef
+using
+bgra32f
+=
 sge::image::store::basic<
 	sge::image3d::bgra32f_format
->
-bgra32f;
+>;
 
 }
 }

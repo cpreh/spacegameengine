@@ -15,11 +15,12 @@ namespace sge
 namespace image2d
 {
 
-typedef
+using
+pitch
+=
 sge::image::basic_pitch<
 	2
->
-pitch;
+>;
 
 }
 }

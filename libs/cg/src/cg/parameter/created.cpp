@@ -71,7 +71,7 @@ sge::cg::parameter::created::connect(
 }
 
 void
-sge::cg::parameter::created::disconnect(
+sge::cg::parameter::created::disconnect( // NOLINT(readability-convert-member-functions-to-static)
 	sge::cg::parameter::named const &_named
 )
 {

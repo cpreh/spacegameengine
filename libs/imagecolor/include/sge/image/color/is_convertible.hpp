@@ -23,7 +23,7 @@ namespace image
 namespace color
 {
 
-// TODO: Remove this
+// TODO(philipp): Remove this
 template<
 	typename SourceFormat,
 	typename DestFormat

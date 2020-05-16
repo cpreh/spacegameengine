@@ -18,11 +18,12 @@ namespace image2d
 namespace plugin
 {
 
-typedef
+using
+context
+=
 sge::plugin::context<
 	sge::image2d::system
->
-context;
+>;
 
 }
 }

@@ -23,11 +23,12 @@ namespace image
 namespace ds
 {
 
-typedef
+using
+invalid_copy
+=
 sge::image::invalid_copy<
 	sge::image::ds::tag
->
-invalid_copy;
+>;
 
 }
 }

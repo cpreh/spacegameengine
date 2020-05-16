@@ -34,7 +34,7 @@ void
 assert_program(
 	sge::cg::context::object const &,
 	CGprogram,
-	fcppt::string
+	fcppt::string const &
 );
 
 }
@@ -139,7 +139,7 @@ sge::cg::program::object::parameter_opt(
 	sge::cg::string const &_name
 ) const
 {
-	CGparameter const ret(
+	CGparameter const ret( // NOLINT(misc-misplaced-const)
 		::cgGetNamedParameter(
 			this->get(),
 			_name.c_str()
@@ -181,8 +181,8 @@ namespace
 void
 assert_program(
 	sge::cg::context::object const &_context,
-	CGprogram const _program,
-	fcppt::string const _what
+	CGprogram const _program, // NOLINT(misc-misplaced-const)
+	fcppt::string const &_what
 )
 {
 	SGE_CG_CHECK_STATE_LISTING(

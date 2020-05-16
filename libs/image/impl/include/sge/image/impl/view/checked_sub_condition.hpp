@@ -38,11 +38,12 @@ noexcept(
 	false
 )
 {
-	typedef
+	using
+	box
+	=
 	sge::image::box<
 		Tag
-	>
-	box;
+	>;
 
 	box const outer(
 		fcppt::math::vector::null<
@@ -62,6 +63,7 @@ noexcept(
 			_box
 		)
 	)
+	{
 		throw
 			sge::image::view::sub_out_of_range<
 				Tag
@@ -69,6 +71,7 @@ noexcept(
 				outer,
 				_box
 			};
+	}
 }
 
 }

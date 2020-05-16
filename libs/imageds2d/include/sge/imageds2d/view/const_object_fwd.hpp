@@ -18,11 +18,12 @@ namespace imageds2d
 namespace view
 {
 
-typedef
+using
+const_object
+=
 sge::image::view::const_object<
 	sge::imageds2d::tag
->
-const_object;
+>;
 
 }
 }

@@ -7,6 +7,7 @@
 #ifndef SGE_IMAGE_IMPL_STORE_VIEW_ANY_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_STORE_VIEW_ANY_HPP_INCLUDED
 
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/variant/apply.hpp>
 
 
@@ -25,7 +26,9 @@ template<
 >
 Result
 view_any(
-	Store &_store
+	fcppt::reference<
+		Store
+	> const _store
 )
 {
 	return
@@ -39,7 +42,7 @@ view_any(
 						_store_inner.wrapped_view()
 					);
 			},
-			_store.get()
+			_store.get().get()
 		);
 }
 

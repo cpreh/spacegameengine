@@ -18,11 +18,12 @@ namespace image3d
 namespace view
 {
 
-typedef
+using
+const_object
+=
 sge::image::view::const_object<
 	sge::image3d::tag
->
-const_object;
+>;
 
 }
 }

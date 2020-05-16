@@ -38,8 +38,7 @@ sge::image2d::multi_system::multi_system(
 }
 
 sge::image2d::multi_system::~multi_system()
-{
-}
+= default;
 
 sge::image2d::load_stream_result
 sge::image2d::multi_system::load_stream(

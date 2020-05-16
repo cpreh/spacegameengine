@@ -15,9 +15,10 @@ namespace sge
 namespace image
 {
 
-typedef
-mizuiro::difference_type
-difference_type;
+using
+difference_type
+=
+mizuiro::difference_type;
 
 }
 }

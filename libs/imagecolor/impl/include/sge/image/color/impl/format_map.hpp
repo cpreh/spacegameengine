@@ -42,15 +42,16 @@ namespace color
 namespace impl
 {
 
-typedef
+using
+format_map
+=
 sge::image::impl::format_map<
 	BOOST_PP_SEQ_FOR_EACH_I(
 		SGE_IMAGE_COLOR_IMPL_MAKE_FORMAT_PAIR,
 		_,
 		SGE_IMAGE_COLOR_DETAIL_PP_FORMATS
 	)
->
-format_map;
+>;
 
 }
 }

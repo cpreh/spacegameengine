@@ -25,11 +25,19 @@ sge::cg::program::compile_options::compile_options(
 :
 	value_()
 {
-	// TODO: Refactor this
-	for(;*_pointers;++_pointers)
+	// TODO(philipp): Refactor this
+	for(
+		;
+		*_pointers != nullptr;
+		++_pointers // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+	)
+	{
 		value_.push_back(
 			sge::cg::string(
-				*_pointers));
+				*_pointers
+			)
+		);
+	}
 }
 
 sge::cg::program::compile_options::compile_options(

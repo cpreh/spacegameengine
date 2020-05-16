@@ -19,15 +19,16 @@ namespace image
 namespace ds
 {
 
-typedef
+using
+d24s8_format
+=
 sge::image::heterogenous_format<
 	mizuiro::size_list<
-		24u,
-		8u
+		24U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		8U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	>,
 	sge::image::ds::layout::depth_stencil
->
-d24s8_format;
+>;
 
 }
 }

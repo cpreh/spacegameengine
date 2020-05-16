@@ -12,7 +12,7 @@
 #include <sge/image2d/file_fwd.hpp>
 #include <sge/image2d/detail/symbol.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <iosfwd>
@@ -26,17 +26,19 @@ namespace image2d
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL file
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		file
 	);
 protected:
 	SGE_IMAGE2D_DETAIL_SYMBOL
 	file();
 public:
+	[[nodiscard]]
 	virtual
 	sge::image2d::view::const_object
 	view() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::image2d::dim
 	size() const = 0;

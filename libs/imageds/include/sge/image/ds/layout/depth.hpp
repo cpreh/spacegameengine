@@ -24,14 +24,15 @@ namespace ds
 namespace layout
 {
 
-typedef
+using
+depth
+=
 mizuiro::color::layout::make<
 	sge::image::ds::space::depth,
 	metal::list<
 		sge::image::ds::channel::depth
 	>
->
-depth;
+>;
 
 }
 }

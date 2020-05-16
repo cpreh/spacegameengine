@@ -6,10 +6,9 @@
 
 #include <sge/image2d/file.hpp>
 
+
 sge::image2d::file::file()
-{
-}
+= default;
 
 sge::image2d::file::~file()
-{
-}
+= default;

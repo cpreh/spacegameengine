@@ -21,7 +21,7 @@
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/media/stream_unique_ptr_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ class multi_system
 :
 	public sge::image2d::system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		multi_system
 	);
 public:
@@ -47,6 +47,7 @@ public:
 	~multi_system()
 	override;
 
+	[[nodiscard]]
 	SGE_IMAGE2D_DETAIL_SYMBOL
 	sge::image2d::load_stream_result
 	load_stream(
@@ -56,6 +57,7 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	SGE_IMAGE2D_DETAIL_SYMBOL
 	sge::image2d::optional_file_unique_ptr
 	create(
@@ -64,17 +66,19 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	SGE_IMAGE2D_DETAIL_SYMBOL
 	sge::media::extension_set
 	extensions() const
 	override;
 private:
-	typedef
+	using
+	muxer
+	=
 	sge::media::muxer<
 		sge::image2d::system,
 		sge::image2d::file
-	>
-	muxer;
+	>;
 
 	muxer muxer_;
 };

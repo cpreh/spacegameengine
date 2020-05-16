@@ -25,13 +25,14 @@ namespace dynamic
 namespace format
 {
 
-typedef
+using
+luminance_c8_2
+=
 sge::image::color::impl::dynamic::format::object<
 	mizuiro::color::space::luminance,
 	sge::image::channel8,
 	2
->
-luminance_c8_2;
+>;
 
 }
 }

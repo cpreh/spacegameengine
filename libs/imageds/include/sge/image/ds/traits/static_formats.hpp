@@ -26,9 +26,10 @@ struct static_formats_tpl<
 	sge::image::ds::tag
 >
 {
-	typedef
-	sge::image::ds::static_formats
-	type;
+	using
+	type
+	=
+	sge::image::ds::static_formats;
 };
 
 }

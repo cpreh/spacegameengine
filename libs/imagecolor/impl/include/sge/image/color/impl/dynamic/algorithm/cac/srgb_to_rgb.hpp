@@ -30,7 +30,7 @@ namespace algorithm
 namespace cac
 {
 
-// TODO: Simplify this?
+// TODO(philipp): Simplify this?
 template<
 	typename SourceFormat,
 	typename DestFormat

@@ -32,7 +32,7 @@ sge::image::view::object<
 	Tag
 >
 sge::image::view::make(
-	sge::image::raw_pointer const _data,
+	sge::image::raw_pointer const _data, // NOLINT(readability-non-const-parameter)
 	sge::image::dim<
 		Tag
 	> const &_dim,
@@ -67,20 +67,20 @@ sge::image::view::make(
 					_static_format
 				);
 
-				typedef
+				using
+				view_type
+				=
 				sge::image::view::mizuiro_type<
 					sge::image::impl::view::to_static_format<
 						Tag,
-						typename
-						std::decay<
+						std::decay_t<
 							decltype(
 								_static_format
 							)
-						>::type
+						>
 					>,
 					mizuiro::nonconst_tag
-				>
-				view_type;
+				>;
 
 				return
 					sge::image::view::object<

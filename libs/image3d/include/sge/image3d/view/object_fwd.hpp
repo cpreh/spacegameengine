@@ -18,11 +18,12 @@ namespace image3d
 namespace view
 {
 
-typedef
+using
+object
+=
 sge::image::view::object<
 	sge::image3d::tag
->
-object;
+>;
 
 }
 }

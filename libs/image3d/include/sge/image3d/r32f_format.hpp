@@ -16,12 +16,13 @@ namespace sge
 namespace image3d
 {
 
-typedef
+using
+r32f_format
+=
 sge::image::view::basic_format<
 	3,
 	sge::image::color::r32f_format
->
-r32f_format;
+>;
 
 }
 }

@@ -16,11 +16,12 @@ namespace sge
 namespace image2d
 {
 
-typedef
+using
+multi_system_parameters
+=
 sge::media::muxer_parameters<
 	sge::image2d::system
->
-multi_system_parameters;
+>;
 
 }
 }
