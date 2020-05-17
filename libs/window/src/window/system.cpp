@@ -11,6 +11,7 @@
 #include <awl/event/container.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/system/object.hpp>
+#include <awl/system/reference.hpp>
 #include <awl/system/event/processor.hpp>
 #include <awl/system/event/result.hpp>
 #include <fcppt/algorithm/map_concat.hpp>
@@ -24,7 +25,7 @@
 
 
 sge::window::system::system(
-	awl::system::object &_awl_system
+	awl::system::reference const _awl_system
 )
 :
 	awl_system_{
@@ -39,15 +40,14 @@ sge::window::system::system(
 }
 
 sge::window::system::~system()
-{
-}
+= default;
 
 awl::system::event::result
 sge::window::system::poll()
 {
 	return
 		this->transform_events(
-			awl_system_.processor().poll()
+			this->awl_system().processor().poll()
 		);
 }
 
@@ -56,7 +56,7 @@ sge::window::system::next()
 {
 	return
 		this->transform_events(
-			awl_system_.processor().next()
+			this->awl_system().processor().next()
 		);
 }
 
@@ -65,7 +65,7 @@ sge::window::system::quit(
 	awl::main::exit_code const _exit_code
 )
 {
-	awl_system_.processor().quit(
+	this->awl_system().processor().quit(
 		_exit_code
 	);
 }
@@ -87,7 +87,7 @@ awl::system::object &
 sge::window::system::awl_system()
 {
 	return
-		awl_system_;
+		awl_system_.get();
 }
 
 awl::system::event::result
@@ -115,7 +115,7 @@ sge::window::system::transform_events(
 				awl::event::container &&_events
 			)
 			{
-				awl::event::container new_events(
+				auto new_events(
 					fcppt::algorithm::map_concat<
 						awl::event::container
 					>(

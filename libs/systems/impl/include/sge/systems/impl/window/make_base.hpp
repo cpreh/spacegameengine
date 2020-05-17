@@ -10,7 +10,7 @@
 #include <sge/systems/window_fwd.hpp>
 #include <sge/systems/impl/renderer/optional_system_ref_fwd.hpp>
 #include <sge/systems/impl/window/base_unique_ptr.hpp>
-#include <sge/window/system_fwd.hpp>
+#include <sge/window/system_ref.hpp>
 
 
 namespace sge
@@ -25,7 +25,7 @@ namespace window
 sge::systems::impl::window::base_unique_ptr
 make_base(
 	sge::systems::window const &,
-	sge::window::system &,
+	sge::window::system_ref,
 	sge::systems::impl::renderer::optional_system_ref const &
 );
 

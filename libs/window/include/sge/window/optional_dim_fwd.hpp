@@ -16,9 +16,12 @@ namespace sge
 namespace window
 {
 
-typedef fcppt::optional::object<
+using
+optional_dim
+=
+fcppt::optional::object<
 	sge::window::dim
-> optional_dim;
+>;
 
 }
 }

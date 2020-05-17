@@ -7,6 +7,7 @@
 #ifndef SGE_WINDOW_SYSTEM_FWD_HPP_INCLUDED
 #define SGE_WINDOW_SYSTEM_FWD_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace window

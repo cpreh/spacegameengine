@@ -10,7 +10,7 @@
 #include <sge/systems/wrapped_window_fwd.hpp>
 #include <sge/systems/impl/window/base.hpp>
 #include <sge/window/object.hpp>
-#include <sge/window/system_fwd.hpp>
+#include <sge/window/system_ref.hpp>
 #include <fcppt/noncopyable.hpp>
 
 
@@ -33,7 +33,7 @@ class wrapped
 public:
 	wrapped(
 		sge::systems::wrapped_window const &,
-		sge::window::system &
+		sge::window::system_ref
 	);
 
 	~wrapped()

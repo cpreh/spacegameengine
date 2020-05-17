@@ -16,10 +16,13 @@ namespace sge
 namespace window
 {
 
-typedef fcppt::math::dim::static_<
+using
+dim
+=
+fcppt::math::dim::static_<
 	sge::window::unit,
 	2
-> dim;
+>;
 
 }
 }

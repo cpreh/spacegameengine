@@ -5,13 +5,13 @@
 
 
 #include <sge/systems/wrapped_window.hpp>
-#include <awl/system/object_fwd.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <awl/system/reference.hpp>
+#include <awl/window/reference.hpp>
 
 
 sge::systems::wrapped_window::wrapped_window(
-	awl::system::object &_awl_system,
-	awl::window::object &_awl_window
+	awl::system::reference const _awl_system,
+	awl::window::reference const _awl_window
 )
 :
 	awl_system_{
@@ -23,16 +23,16 @@ sge::systems::wrapped_window::wrapped_window(
 {
 }
 
-awl::system::object &
+awl::system::reference
 sge::systems::wrapped_window::awl_system() const
 {
 	return
-		awl_system_.get();
+		awl_system_;
 }
 
-awl::window::object &
+awl::window::reference
 sge::systems::wrapped_window::awl_window() const
 {
 	return
-		awl_window_.get();
+		awl_window_;
 }

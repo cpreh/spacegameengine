@@ -12,6 +12,7 @@
 #include <sge/systems/impl/window/to_awl_parameters.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
+#include <sge/window/system_ref.hpp>
 #include <awl/cursor/const_optional_object_ref.hpp>
 #include <awl/cursor/object.hpp>
 #include <awl/cursor/optional_type.hpp>
@@ -22,13 +23,14 @@
 #include <awl/window/object.hpp>
 #include <awl/window/parameters.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe.hpp>
 
 
 sge::systems::impl::window::original::original(
 	sge::systems::original_window const &_parameters,
-	sge::window::system &_system,
+	sge::window::system_ref const  _system,
 	sge::systems::impl::renderer::optional_system_ref const &_opt_renderer_system
 )
 :
@@ -37,10 +39,10 @@ sge::systems::impl::window::original::original(
 		fcppt::optional::maybe(
 			_opt_renderer_system,
 			[
-				&_system
+				_system
 			]{
 				return
-					_system.awl_system().default_visual();
+					_system.get().awl_system().default_visual();
 			},
 			[](
 				fcppt::reference<
@@ -54,7 +56,7 @@ sge::systems::impl::window::original::original(
 		)
 	),
 	awl_cursor_(
-		_system.awl_system().create_cursor(
+		_system.get().awl_system().create_cursor(
 			_parameters.hide_cursor()
 			?
 				awl::cursor::optional_type{}
@@ -65,7 +67,7 @@ sge::systems::impl::window::original::original(
 		)
 	),
 	awl_window_(
-		_system.awl_system().create_window(
+		_system.get().awl_system().create_window(
 			sge::systems::impl::window::to_awl_parameters(
 				*awl_visual_,
 				awl::cursor::const_optional_object_ref(
@@ -79,7 +81,9 @@ sge::systems::impl::window::original::original(
 	),
 	window_(
 		_system,
-		*awl_window_
+		fcppt::make_ref(
+			*awl_window_
+		)
 	)
 {
 }

@@ -12,9 +12,11 @@
 #include <sge/window/event_function_type.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
+#include <sge/window/system_ref.hpp>
 #include <sge/window/detail/symbol.hpp>
 #include <awl/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/window/reference.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_decl.hpp>
 
@@ -26,14 +28,14 @@ namespace window
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	SGE_WINDOW_DETAIL_SYMBOL
 	object(
-		sge::window::system &,
-		awl::window::object &
+		sge::window::system_ref,
+		awl::window::reference
 	);
 
 	SGE_WINDOW_DETAIL_SYMBOL
@@ -61,15 +63,16 @@ public:
 	sge::window::system &
 	system() const;
 private:
-	sge::window::system &system_;
+	sge::window::system_ref const system_;
 
-	awl::window::object &awl_object_;
+	awl::window::reference const awl_object_;
 
-	typedef
+	using
+	event_signal
+	=
 	fcppt::signal::object<
 		sge::window::event_function_type
-	>
-	event_signal;
+	>;
 
 	event_signal event_signal_;
 

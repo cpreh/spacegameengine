@@ -39,9 +39,11 @@ sge::window::loop(
 					:
 					_events
 				)
+				{
 					_function(
 						*event
 					);
+				}
 			}
 		);
 }

@@ -13,7 +13,10 @@ namespace sge
 namespace window
 {
 
-typedef unsigned unit;
+using
+unit
+=
+unsigned;
 
 }
 }

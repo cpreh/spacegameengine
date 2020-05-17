@@ -9,9 +9,8 @@
 
 #include <sge/systems/wrapped_window_fwd.hpp>
 #include <sge/systems/detail/symbol.hpp>
-#include <awl/system/object_fwd.hpp>
-#include <awl/window/object_fwd.hpp>
-#include <fcppt/reference_impl.hpp>
+#include <awl/system/reference.hpp>
+#include <awl/window/reference.hpp>
 
 
 namespace sge
@@ -24,23 +23,19 @@ class wrapped_window
 public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	wrapped_window(
-		awl::system::object &,
-		awl::window::object &
+		awl::system::reference,
+		awl::window::reference
 	);
 
-	awl::system::object &
+	awl::system::reference
 	awl_system() const;
 
-	awl::window::object &
+	awl::window::reference
 	awl_window() const;
 private:
-	fcppt::reference<
-		awl::system::object
-	> awl_system_;
+	awl::system::reference awl_system_;
 
-	fcppt::reference<
-		awl::window::object
-	> awl_window_;
+	awl::window::reference awl_window_;
 };
 
 }

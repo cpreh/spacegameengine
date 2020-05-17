@@ -16,11 +16,12 @@ namespace sge
 namespace window
 {
 
-typedef
+using
+event_function
+=
 fcppt::function<
 	sge::window::event_function_type
->
-event_function;
+>;
 
 }
 }

@@ -12,6 +12,7 @@
 #include <sge/systems/impl/window/quit.hpp>
 #include <sge/systems/impl/window/system.hpp>
 #include <sge/window/object.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -26,7 +27,9 @@ sge::systems::impl::window::object::object(
 	base_(
 		sge::systems::impl::window::make_base(
 			_parameters,
-			_window_system.get(),
+			fcppt::make_ref(
+				_window_system.get()
+			),
 			_renderer_system
 		)
 	),

@@ -13,8 +13,9 @@
 #include <sge/window/detail/symbol.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/system/object_fwd.hpp>
+#include <awl/system/reference.hpp>
 #include <awl/system/event/result_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
 
@@ -26,23 +27,25 @@ namespace window
 
 class system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		system
 	);
 public:
 	SGE_WINDOW_DETAIL_SYMBOL
 	explicit
 	system(
-		awl::system::object &
+		awl::system::reference
 	);
 
 	SGE_WINDOW_DETAIL_SYMBOL
 	~system();
 
+	[[nodiscard]]
 	SGE_WINDOW_DETAIL_SYMBOL
 	awl::system::event::result
 	poll();
 
+	[[nodiscard]]
 	SGE_WINDOW_DETAIL_SYMBOL
 	awl::system::event::result
 	next();
@@ -53,28 +56,32 @@ public:
 		awl::main::exit_code
 	);
 
+	[[nodiscard]]
 	SGE_WINDOW_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	event_handler(
 		sge::window::system_event_function &&
 	);
 
+	[[nodiscard]]
 	SGE_WINDOW_DETAIL_SYMBOL
 	awl::system::object &
 	awl_system();
 private:
+	[[nodiscard]]
 	awl::system::event::result
 	transform_events(
 		awl::system::event::result &&
 	);
 
-	awl::system::object &awl_system_;
+	awl::system::reference const awl_system_;
 
-	typedef
+	using
+	event_signal
+	=
 	fcppt::signal::object<
 		sge::window::system_event_function_type
-	>
-	event_signal;
+	>;
 
 	event_signal event_signal_;
 };

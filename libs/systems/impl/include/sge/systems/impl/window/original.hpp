@@ -11,7 +11,7 @@
 #include <sge/systems/impl/renderer/optional_system_ref_fwd.hpp>
 #include <sge/systems/impl/window/base.hpp>
 #include <sge/window/object.hpp>
-#include <sge/window/system_fwd.hpp>
+#include <sge/window/system_ref.hpp>
 #include <awl/cursor/object_unique_ptr.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_unique_ptr.hpp>
@@ -37,7 +37,7 @@ class original
 public:
 	original(
 		sge::systems::original_window const &,
-		sge::window::system &,
+		sge::window::system_ref,
 		sge::systems::impl::renderer::optional_system_ref const &
 	);
 

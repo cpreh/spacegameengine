@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_CONFIG_GETENV_EXN_HPP_INCLUDED
-#define SGE_CONFIG_GETENV_EXN_HPP_INCLUDED
+#ifndef SGE_CONFIG_IMPL_GETENV_EXN_HPP_INCLUDED
+#define SGE_CONFIG_IMPL_GETENV_EXN_HPP_INCLUDED
 
 #include <fcppt/string.hpp>
 

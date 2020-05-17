@@ -10,6 +10,7 @@
 #include <awl/system/create.hpp>
 #include <awl/system/object.hpp>
 #include <awl/system/event/processor.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/log/context_reference.hpp>
 
 
@@ -24,7 +25,9 @@ sge::systems::impl::window::original_system::original_system(
 		)
 	},
 	system_{
-		*awl_system_
+		fcppt::make_ref(
+			*awl_system_
+		)
 	}
 {
 }

@@ -8,12 +8,12 @@
 #include <sge/systems/impl/window/base.hpp>
 #include <sge/systems/impl/window/wrapped.hpp>
 #include <sge/window/object.hpp>
-#include <sge/window/system_fwd.hpp>
+#include <sge/window/system_ref.hpp>
 
 
 sge::systems::impl::window::wrapped::wrapped(
 	sge::systems::wrapped_window const &_parameters,
-	sge::window::system &_system
+	sge::window::system_ref const _system
 )
 :
 	sge::systems::impl::window::base(),

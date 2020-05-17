@@ -21,7 +21,7 @@ namespace window
 SGE_WINDOW_DETAIL_SYMBOL
 awl::main::exit_code
 loop(
-	sge::window::system &,
+	sge::window::system &, // NOLINT(google-runtime-references)
 	sge::window::loop_function const &
 );
 

@@ -4,11 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_WINDOW_LOOP_FUNCTION_HPP_INCLUDED
-#define SGE_WINDOW_LOOP_FUNCTION_HPP_INCLUDED
+#ifndef SGE_WINDOW_SYSTEM_REF_HPP_INCLUDED
+#define SGE_WINDOW_SYSTEM_REF_HPP_INCLUDED
 
-#include <awl/event/base_fwd.hpp>
-#include <fcppt/function_impl.hpp>
+#include <sge/window/system_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -17,12 +17,10 @@ namespace window
 {
 
 using
-loop_function
+system_ref
 =
-fcppt::function<
-	void (
-		awl::event::base const &
-	)
+fcppt::reference<
+	sge::window::system
 >;
 
 }

@@ -9,10 +9,12 @@
 #include <sge/window/event_function.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
+#include <sge/window/system_ref.hpp>
 #include <sge/window/system_event_function.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
 #include <awl/window/object.hpp>
+#include <awl/window/reference.hpp>
 #include <awl/window/event/base.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/dynamic.hpp>
@@ -33,8 +35,8 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::window::object::object(
-	sge::window::system &_system,
-	awl::window::object &_awl_window
+	sge::window::system_ref const _system,
+	awl::window::reference const _awl_window
 )
 :
 	system_{
@@ -49,7 +51,7 @@ sge::window::object::object(
 		}
 	},
 	connection_{
-		_system.event_handler(
+		this->system().event_handler(
 			sge::window::system_event_function{
 				[
 					this
@@ -95,8 +97,7 @@ sge::window::object::object(
 FCPPT_PP_POP_WARNING
 
 sge::window::object::~object()
-{
-}
+= default;
 
 sge::window::dim
 sge::window::object::size() const
@@ -111,7 +112,7 @@ sge::window::object::size() const
 }
 
 void
-sge::window::object::show()
+sge::window::object::show() // NOLINT(readability-make-member-function-const)
 {
 	this->awl_object().show();
 }
@@ -120,7 +121,7 @@ awl::window::object &
 sge::window::object::awl_object() const
 {
 	return
-		awl_object_;
+		this->awl_object_.get();
 }
 
 fcppt::signal::auto_connection
@@ -129,7 +130,7 @@ sge::window::object::event_handler(
 )
 {
 	return
-		event_signal_.connect(
+		this->event_signal_.connect(
 			std::move(
 				_function
 			)
@@ -140,5 +141,5 @@ sge::window::system &
 sge::window::object::system() const
 {
 	return
-		system_;
+		this->system_.get();
 }

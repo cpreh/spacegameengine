@@ -13,7 +13,7 @@
 #include <sge/systems/impl/window/make_base.hpp>
 #include <sge/systems/impl/window/original.hpp>
 #include <sge/systems/impl/window/wrapped.hpp>
-#include <sge/window/system_fwd.hpp>
+#include <sge/window/system_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/variant/match.hpp>
@@ -22,7 +22,7 @@
 sge::systems::impl::window::base_unique_ptr
 sge::systems::impl::window::make_base(
 	sge::systems::window const &_parameters,
-	sge::window::system &_system,
+	sge::window::system_ref const _system,
 	sge::systems::impl::renderer::optional_system_ref const &_renderer_system
 )
 {
@@ -30,7 +30,7 @@ sge::systems::impl::window::make_base(
 		fcppt::variant::match(
 			_parameters.source(),
 			[
-				&_system,
+				_system,
 				&_renderer_system
 			](
 				sge::systems::original_window const &_original
@@ -50,7 +50,7 @@ sge::systems::impl::window::make_base(
 					);
 			},
 			[
-				&_system
+				_system
 			](
 				sge::systems::wrapped_window const &_wrapped
 			)
