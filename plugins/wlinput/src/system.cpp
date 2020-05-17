@@ -11,7 +11,7 @@
 #include <sge/input/system.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/wlinput/processor.hpp>
 #include <sge/wlinput/system.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -44,7 +44,7 @@ sge::wlinput::system::~system()
 
 sge::input::processor_unique_ptr
 sge::wlinput::system::create_processor(
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 {
 	return
@@ -55,7 +55,7 @@ sge::wlinput::system::create_processor(
 				sge::wlinput::processor
 			>(
 				log_,
-				_window
+				_window.get() // TODO
 			)
 		);
 }
