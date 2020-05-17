@@ -59,7 +59,10 @@ sge::dinput::joypad::make_info(
 				sge::dinput::joypad::ff::enum_effects(
 					_device
 				),
-				_name,
+				// TODO
+				sge::input::info::name{
+					_name
+				},
 				sge::input::info::unique_id(
 					sge::dinput::guid_to_string(
 						_guid

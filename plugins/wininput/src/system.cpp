@@ -13,6 +13,7 @@
 #include <sge/window/object_ref.hpp>
 #include <sge/wininput/processor.hpp>
 #include <sge/wininput/system.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -52,7 +53,9 @@ sge::wininput::system::create_processor(
 			fcppt::make_unique_ptr<
 				sge::wininput::processor
 			>(
-				log_,
+				fcppt::make_ref(
+					log_
+				),
 				_window
 			)
 		);

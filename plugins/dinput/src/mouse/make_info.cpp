@@ -22,7 +22,7 @@ sge::dinput::mouse::make_info(
 	sge::input::info::name const &_name
 )
 {
-	sge::dinput::mouse::enumerator object;
+	sge::dinput::mouse::enumerator object{};
 
 	sge::dinput::device::enumerate_objects(
 		_device,
@@ -45,7 +45,10 @@ sge::dinput::mouse::make_info(
 						object.buttons()
 					}
 				),
-				_name
+				// TODO
+				sge::input::info::name{
+					_name
+				}
 			),
 			object.axis_map(),
 			object.button_map()

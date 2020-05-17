@@ -59,7 +59,7 @@ sge::wininput::processor::processor(
 			fcppt::cast::dynamic_exn<
 				awl::backends::windows::window::object &
 			>(
-				_window.awl_object()
+				this->window().awl_object()
 			)
 		)
 	},
@@ -71,7 +71,7 @@ sge::wininput::processor::processor(
 		)
 	},
 	event_connection_{
-		_window.event_handler(
+		this->window().event_handler(
 			sge::window::event_function{
 				[
 					this

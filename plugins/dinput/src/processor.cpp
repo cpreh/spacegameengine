@@ -87,14 +87,14 @@ sge::dinput::processor::processor(
 		fcppt::cast::dynamic_exn<
 			awl::backends::windows::window::object &
 		>(
-			_window.awl_object()
+			this->window().awl_object()
 		)
 	},
 	event_handle_{
 		fcppt::cast::dynamic_exn<
 			awl::backends::windows::system::event::processor &
 		>(
-			_window.system().awl_system().processor()
+			this->window().system().awl_system().processor()
 		).create_event_handle()
 	},
 	has_focus_{
@@ -106,7 +106,7 @@ sge::dinput::processor::processor(
 	mice_{},
 	joypads_{},
 	event_connection_{
-		_window.system().event_handler(
+		this->window().system().event_handler(
 			sge::window::system_event_function{
 				[
 					this
@@ -123,7 +123,7 @@ sge::dinput::processor::processor(
 		)
 	},
 	window_event_connection_{
-		_window.event_handler(
+		this->window().event_handler(
 			sge::window::event_function{
 				[
 					this

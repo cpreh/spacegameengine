@@ -43,7 +43,7 @@ sge::config::user_name()
 		UNLEN+1
 	>;
 
-	raw_character_sequence raw_characters{}
+	raw_character_sequence raw_characters{};
 	// I don't know if the size argument can be NULL.
 	DWORD size{
 		static_cast<DWORD>(

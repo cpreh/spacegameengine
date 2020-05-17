@@ -17,7 +17,7 @@
 #include <sge/input/cursor/event/move.hpp>
 #include <sge/input/cursor/event/scroll.hpp>
 #include <sge/window/event_function.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object.hpp>
 #include <sge/window/object_ref.hpp>
 #include <sge/wininput/cursor/exclusive_mode.hpp>
 #include <sge/wininput/cursor/get_pos.hpp>
@@ -77,7 +77,7 @@ sge::wininput::cursor::object::object(
 	},
 	exclusive_mode_{},
 	event_connection_{
-		_window.event_handler(
+		this->window().event_handler(
 			sge::window::event_function{
 				[
 					this
