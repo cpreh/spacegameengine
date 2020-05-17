@@ -35,28 +35,39 @@ fcppt::string
 sge::config::user_name()
 {
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-	typedef
-	std::array<fcppt::char_type,UNLEN+1>
-	raw_character_sequence;
+	using
+	raw_character_sequence
+	=
+	std::array<
+		fcppt::char_type,
+		UNLEN+1
+	>;
 
-	raw_character_sequence raw_characters;
+	raw_character_sequence raw_characters{}
 	// I don't know if the size argument can be NULL.
-	DWORD size =
+	DWORD size{
 		static_cast<DWORD>(
-			raw_characters.size());
+			raw_characters.size()
+		)
+	};
 
 	if(!GetUserName(raw_characters.data(),&size))
+	{
 		throw
 			sge::config::exception(
-				FCPPT_TEXT("Couldn't get user name: ")+
+				FCPPT_TEXT("Couldn't get user name: ")
+				+
 				awl::backends::windows::format_message(
-					GetLastError()));
+					GetLastError()
+				)
+			);
+	}
 
 	return
 		fcppt::string(
 			raw_characters.data());
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
-	long const bufsize{
+	long const bufsize{ // NOLINT(google-runtime-int)
 		sysconf(
 			_SC_GETPW_R_SIZE_MAX
 		)
@@ -67,16 +78,19 @@ sge::config::user_name()
 		==
 		-1
 	)
+	{
 		throw
 			sge::config::exception{
 				FCPPT_TEXT("Couldn't determine maximum user name length")
 			};
+	}
 
-	typedef
+	using
+	raw_byte_sequence
+	=
 	fcppt::container::dynamic_array<
 		char
-	>
-	raw_byte_sequence;
+	>;
 
 	raw_byte_sequence buf{
 		fcppt::cast::to_unsigned(
@@ -84,8 +98,10 @@ sge::config::user_name()
 		)
 	};
 
-	struct passwd pwd;
-	struct passwd *result;
+	struct passwd pwd{};
+	struct passwd *result{
+		nullptr
+	};
 
 	int const error_code{
 		getpwuid_r(
@@ -97,18 +113,19 @@ sge::config::user_name()
 		)
 	};
 
-	// TODO: We should check for ERANGE here.
 	if(
 		error_code
 		!=
 		0
 	)
+	{
 		throw
 			sge::config::exception{
 				FCPPT_TEXT("Couldn't determine user name: ")
 				+
 				fcppt::error::strerrno()
 			};
+	}
 
 	return
 		fcppt::from_std_string(

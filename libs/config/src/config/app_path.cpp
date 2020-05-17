@@ -27,11 +27,12 @@ std::filesystem::path
 sge::config::app_path()
 {
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-	typedef
+	using
+	buffer_type
+	=
 	fcppt::container::raw_vector::object<
 		fcppt::char_type
-	>
-	buffer_type;
+	>;
 
 	buffer_type const buf{
 		fcppt::container::buffer::to_raw_vector(
@@ -63,10 +64,12 @@ sge::config::app_path()
 						==
 						0u
 					)
+					{
 						throw
 							sge::config::exception{
 								FCPPT_TEXT("GetModuleFileName() failed!")
 							};
+					}
 
 					return
 						count;
@@ -92,10 +95,12 @@ sge::config::app_path()
 			self
 		)
 	)
+	{
 		throw
 			sge::config::exception{
 				FCPPT_TEXT("/prof/self/exe does not exist")
 			};
+	}
 
 	return
 		std::filesystem::read_symlink(

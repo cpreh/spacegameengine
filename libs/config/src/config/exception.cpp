@@ -30,6 +30,7 @@ sge::config::exception::exception(
 sge::config::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::config::exception::exception(
@@ -41,6 +42,7 @@ sge::config::exception &
 sge::config::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::config::exception &
@@ -49,6 +51,6 @@ sge::config::exception::operator=(
 )
 = default;
 
-sge::config::exception::~exception() noexcept
-{
-}
+sge::config::exception::~exception()
+noexcept
+= default;
