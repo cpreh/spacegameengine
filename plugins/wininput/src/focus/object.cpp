@@ -17,6 +17,7 @@
 #include <sge/input/key/pressed.hpp>
 #include <sge/window/event_function.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/wininput/focus/key_repeated.hpp>
 #include <sge/wininput/focus/object.hpp>
 #include <sge/wininput/focus/translate_key_code.hpp>
@@ -43,7 +44,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::wininput::focus::object::object(
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 :
 	sge::input::focus::object{},
@@ -54,7 +55,7 @@ sge::wininput::focus::object::object(
 		_window
 	},
 	event_connection_{
-		_window.event_handler(
+		this->window().event_handler(
 			sge::window::event_function{
 				[
 					this
@@ -83,7 +84,7 @@ sge::window::object &
 sge::wininput::focus::object::window() const
 {
 	return
-		window_;
+		window_.get();
 }
 
 awl::event::container

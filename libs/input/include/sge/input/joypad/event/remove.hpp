@@ -12,7 +12,7 @@
 #include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/base.hpp>
 #include <sge/input/joypad/event/remove_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -28,7 +28,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL remove
 :
 	public sge::input::joypad::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		remove
 	);
 public:

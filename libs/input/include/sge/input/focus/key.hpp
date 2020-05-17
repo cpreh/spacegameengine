@@ -28,6 +28,7 @@ public:
 		sge::input::key::code
 	);
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::key::code
 	code() const;

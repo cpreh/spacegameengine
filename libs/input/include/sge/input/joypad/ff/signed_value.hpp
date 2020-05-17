@@ -17,9 +17,10 @@ namespace joypad
 namespace ff
 {
 
-typedef
-int
-signed_value;
+using
+signed_value
+=
+int;
 
 }
 }

@@ -18,11 +18,12 @@ namespace input
 namespace key
 {
 
-typedef
+using
+optional_modifier
+=
 fcppt::optional::object<
 	sge::input::key::modifier
->
-optional_modifier;
+>;
 
 }
 }

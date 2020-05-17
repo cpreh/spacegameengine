@@ -13,7 +13,7 @@
 #include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/focus/event/base.hpp>
 #include <sge/input/focus/event/key_repeat_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -29,7 +29,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL key_repeat
 :
 	public sge::input::focus::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		key_repeat
 	);
 public:
@@ -43,6 +43,7 @@ public:
 	~key_repeat()
 	override;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::focus::key const &
 	key() const;

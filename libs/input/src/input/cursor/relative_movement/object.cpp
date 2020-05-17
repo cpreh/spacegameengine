@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/input/processor_fwd.hpp>
+#include <sge/input/processor_ref.hpp>
 #include <sge/input/cursor/relative_movement/object.hpp>
 #include <sge/input/impl/cursor/relative_movement/detail/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -12,7 +12,7 @@
 
 
 sge::input::cursor::relative_movement::object::object(
-	sge::input::processor &_processor
+	sge::input::processor_ref const _processor
 )
 :
 	impl_{
@@ -26,5 +26,4 @@ sge::input::cursor::relative_movement::object::object(
 }
 
 sge::input::cursor::relative_movement::object::~object()
-{
-}
+= default;

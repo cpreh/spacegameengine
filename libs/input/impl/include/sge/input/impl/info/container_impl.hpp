@@ -82,16 +82,15 @@ sge::input::info::container<
 >::empty() const
 {
 	return
-		vector_.size()
-		==
-		0u;
+		vector_.empty();
 }
 
 template<
 	typename Id,
 	typename Obj
 >
-typename sge::input::info::container<
+typename
+sge::input::info::container<
 	Id,
 	Obj
 >::vector const &

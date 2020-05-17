@@ -20,6 +20,7 @@
 #include <sge/input/joypad/container.hpp>
 #include <sge/input/keyboard/container.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/windows/system/event/handle_unique_ptr.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <awl/event/base_fwd.hpp>
@@ -27,7 +28,7 @@
 #include <awl/window/event/base_fwd.hpp>
 #include <fcppt/function_fwd.hpp>
 #include <fcppt/shared_ptr_decl.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
@@ -48,8 +49,8 @@ class processor
 	);
 public:
 	processor(
-		fcppt::log::object &,
-		sge::window::object &
+		fcppt::log::object_reference,
+		sge::window::object_ref
 	);
 
 	~processor()
@@ -146,9 +147,9 @@ private:
 		LPVOID
 	);
 
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
-	sge::window::object &window_;
+	sge::window::object_ref const window_;
 
 	sge::dinput::dinput_unique_ptr const dinput_;
 

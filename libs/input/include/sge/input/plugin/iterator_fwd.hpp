@@ -18,11 +18,12 @@ namespace input
 namespace plugin
 {
 
-typedef
+using
+iterator
+=
 sge::plugin::iterator<
 	sge::input::system
->
-iterator;
+>;
 
 }
 }

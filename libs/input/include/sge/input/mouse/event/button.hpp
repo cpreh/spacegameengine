@@ -15,7 +15,7 @@
 #include <sge/input/mouse/shared_ptr.hpp>
 #include <sge/input/mouse/event/base.hpp>
 #include <sge/input/mouse/event/button_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -31,7 +31,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL button
 :
 	public sge::input::mouse::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		button
 	);
 public:
@@ -46,14 +46,17 @@ public:
 	~button()
 	override;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::mouse::button_code
 	button_code() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::mouse::button const &
 	get() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	bool
 	pressed() const;

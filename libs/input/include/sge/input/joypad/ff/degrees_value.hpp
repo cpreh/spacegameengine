@@ -21,9 +21,10 @@ namespace joypad
 namespace ff
 {
 
-typedef
-std::uint32_t
-degrees_value;
+using
+degrees_value
+=
+std::uint32_t;
 
 }
 }

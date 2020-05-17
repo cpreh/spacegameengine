@@ -18,11 +18,12 @@ namespace input
 namespace cursor
 {
 
-typedef
+using
+shared_ptr
+=
 fcppt::shared_ptr<
 	sge::input::cursor::object
->
-shared_ptr;
+>;
 
 }
 }

@@ -14,7 +14,7 @@
 #include <sge/input/keyboard/shared_ptr.hpp>
 #include <sge/input/keyboard/event/base.hpp>
 #include <sge/input/keyboard/event/key_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL key
 :
 	public sge::input::keyboard::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		key
 	);
 public:
@@ -42,12 +42,15 @@ public:
 	);
 
 	SGE_INPUT_DETAIL_SYMBOL
-	~key();
+	~key()
+	override;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::keyboard::key const &
 	get() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	bool
 	pressed() const;

@@ -13,7 +13,7 @@
 #include <sge/input/cursor/relative_movement/difference.hpp>
 #include <sge/input/cursor/relative_movement/event_fwd.hpp>
 #include <sge/input/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -29,7 +29,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL event
 :
 	public sge::input::cursor::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		event
 	);
 public:
@@ -43,6 +43,7 @@ public:
 	~event()
 	override;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::cursor::relative_movement::difference
 	difference() const;

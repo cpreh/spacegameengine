@@ -13,7 +13,7 @@
 #include <sge/input/cursor/event/base.hpp>
 #include <sge/input/cursor/event/move_fwd.hpp>
 #include <sge/input/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -29,20 +29,21 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL move
 :
 	public sge::input::cursor::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		move
 	);
 public:
 	SGE_INPUT_DETAIL_SYMBOL
 	move(
 		sge::input::cursor::shared_ptr,
-		sge::input::cursor::optional_position const &
+		sge::input::cursor::optional_position
 	);
 
 	SGE_INPUT_DETAIL_SYMBOL
 	~move()
 	override;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::cursor::optional_position const &
 	position() const;

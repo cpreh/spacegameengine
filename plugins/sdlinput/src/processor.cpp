@@ -22,6 +22,7 @@
 #include <sge/sdlinput/mouse/device.hpp>
 #include <sge/sdlinput/translate/event.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/system_event_function.hpp>
 #include <awl/backends/sdl/system/event/object.hpp>
@@ -34,13 +35,13 @@
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/maybe.hpp>
 
 
 sge::sdlinput::processor::processor(
-	sge::window::object &_window,
-	fcppt::log::object &_log
+	sge::window::object_ref const _window,
+	fcppt::log::object_reference const _log
 )
 :
 	sge::input::processor{},
@@ -54,14 +55,14 @@ sge::sdlinput::processor::processor(
 		fcppt::cast::dynamic_exn<
 			awl::backends::sdl::window::object &
 		>(
-			_window.awl_object()
+			this->window().awl_object()
 		)
 	},
 	cursor_{
 		fcppt::make_shared_ptr<
 			sge::sdlinput::cursor::object
 		>(
-			_window,
+			this->window(),
 			this->sdl_window_
 		)
 	},
@@ -69,21 +70,21 @@ sge::sdlinput::processor::processor(
 		fcppt::make_shared_ptr<
 			sge::sdlinput::focus::object
 		>(
-			_window
+			this->window()
 		)
 	},
 	keyboard_{
 		fcppt::make_shared_ptr<
 			sge::sdlinput::keyboard::device
 		>(
-			_window
+			this->window()
 		)
 	},
 	mouse_{
 		fcppt::make_shared_ptr<
 			sge::sdlinput::mouse::device
 		>(
-			_window
+			this->window()
 		)
 	},
 	joypads_{
@@ -91,8 +92,8 @@ sge::sdlinput::processor::processor(
 			sge::sdlinput::joypad::map
 		>(
 			sge::sdlinput::joypad::init(
-				_window,
-				this->log_
+				this->window(),
+				this->log_.get()
 			),
 			[](
 				sge::sdlinput::joypad::shared_ptr const &_ptr
@@ -107,7 +108,7 @@ sge::sdlinput::processor::processor(
 		)
 	},
 	event_connection_{
-		_window.system().event_handler(
+		this->window().system().event_handler(
 			sge::window::system_event_function{
 				[
 					this
@@ -134,7 +135,7 @@ sge::window::object &
 sge::sdlinput::processor::window() const
 {
 	return
-		this->window_;
+		this->window_.get();
 }
 
 sge::input::cursor::container
@@ -226,7 +227,7 @@ sge::sdlinput::processor::on_event(
 						this->focus_,
 						this->keyboard_,
 						this->mouse_,
-						this->window_,
+						this->window_.get(), // TODO
 						this->sdl_window_,
 						_sdl_event.get()
 					);

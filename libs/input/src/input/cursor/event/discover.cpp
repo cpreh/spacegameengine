@@ -20,5 +20,4 @@ sge::input::cursor::event::discover::discover(
 }
 
 sge::input::cursor::event::discover::~discover()
-{
-}
+= default;

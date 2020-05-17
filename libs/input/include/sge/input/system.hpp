@@ -12,8 +12,8 @@
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/detail/symbol.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/window/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -23,7 +23,7 @@ namespace input
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		system
 	);
 protected:
@@ -34,12 +34,14 @@ public:
 	virtual
 	~system();
 
+	[[nodiscard]]
 	virtual
 	sge::input::processor_unique_ptr
 	create_processor(
-		sge::window::object &
+		sge::window::object_ref
 	) = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::input::capabilities_field
 	capabilities() const = 0;

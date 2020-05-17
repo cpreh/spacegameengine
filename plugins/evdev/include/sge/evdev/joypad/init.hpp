@@ -8,7 +8,7 @@
 #define SGE_EVDEV_JOYPAD_INIT_HPP_INCLUDED
 
 #include <sge/evdev/joypad/map.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/posix/processor_fwd.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -26,7 +26,7 @@ namespace joypad
 sge::evdev::joypad::map
 init(
 	fcppt::log::object &,
-	sge::window::object &,
+	sge::window::object_ref,
 	awl::backends::posix::processor &,
 	std::filesystem::path const &
 );

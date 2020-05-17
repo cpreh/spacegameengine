@@ -23,30 +23,36 @@ sge::input::key::to_modifier(
 			_code
 		)
 	)
+	{
 		return
 			sge::input::key::optional_modifier(
 				sge::input::key::modifier::control
 			);
+	}
 
 	if(
 		sge::input::key::is_alt(
 			_code
 		)
 	)
+	{
 		return
 			sge::input::key::optional_modifier(
 				sge::input::key::modifier::alt
 			);
+	}
 
 	if(
 		sge::input::key::is_shift(
 			_code
 		)
 	)
+	{
 		return
 			sge::input::key::optional_modifier(
 				sge::input::key::modifier::shift
 			);
+	}
 
 	return
 		sge::input::key::optional_modifier();

@@ -13,7 +13,7 @@
 #include <sge/input/focus/string.hpp>
 #include <sge/input/focus/event/base.hpp>
 #include <sge/input/focus/event/text_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -29,7 +29,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL text
 :
 	public sge::input::focus::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		text
 	);
 public:
@@ -43,6 +43,7 @@ public:
 	~text()
 	override;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::focus::string const &
 	get() const;

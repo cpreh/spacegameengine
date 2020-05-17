@@ -7,18 +7,22 @@
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/base.hpp>
 #include <sge/input/cursor/event/remove.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::cursor::event::remove::remove(
-	sge::input::cursor::shared_ptr const _cursor
+	sge::input::cursor::shared_ptr _cursor
 )
 :
 	sge::input::cursor::event::base{
-		_cursor
+		std::move(
+			_cursor
+		)
 	}
 {
 }
 
 sge::input::cursor::event::remove::~remove()
-{
-}
+= default;

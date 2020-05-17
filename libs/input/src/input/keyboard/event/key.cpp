@@ -9,16 +9,21 @@
 #include <sge/input/keyboard/shared_ptr.hpp>
 #include <sge/input/keyboard/event/base.hpp>
 #include <sge/input/keyboard/event/key.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::keyboard::event::key::key(
-	sge::input::keyboard::shared_ptr const _keyboard,
+	sge::input::keyboard::shared_ptr _keyboard,
 	sge::input::keyboard::key const &_key,
 	sge::input::key::pressed const _pressed
 )
 :
 	sge::input::keyboard::event::base{
-		_keyboard
+		std::move(
+			_keyboard
+		)
 	},
 	key_{
 		_key
@@ -30,8 +35,7 @@ sge::input::keyboard::event::key::key(
 }
 
 sge::input::keyboard::event::key::~key()
-{
-}
+= default;
 
 sge::input::keyboard::key const &
 sge::input::keyboard::event::key::get() const

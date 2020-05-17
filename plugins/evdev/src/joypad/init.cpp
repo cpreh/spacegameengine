@@ -10,7 +10,7 @@
 #include <sge/evdev/joypad/object.hpp>
 #include <sge/evdev/joypad/shared_ptr.hpp>
 #include <sge/input/exception.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/posix/processor_fwd.hpp>
 #include <fcppt/error_code_to_string.hpp>
 #include <fcppt/text.hpp>
@@ -28,7 +28,7 @@
 sge::evdev::joypad::map
 sge::evdev::joypad::init(
 	fcppt::log::object &_log,
-	sge::window::object &_window,
+	sge::window::object_ref const _window,
 	awl::backends::posix::processor &_processor,
 	std::filesystem::path const &_path
 )
@@ -58,7 +58,7 @@ sge::evdev::joypad::init(
 			),
 			[
 				&_log,
-				&_window,
+				_window,
 				&_processor
 			](
 				std::filesystem::path const &_cur

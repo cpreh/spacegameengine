@@ -20,11 +20,12 @@ namespace input
 namespace keyboard
 {
 
-typedef
+using
+container
+=
 std::vector<
 	sge::input::keyboard::shared_ptr
->
-container;
+>;
 
 }
 }

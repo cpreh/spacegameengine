@@ -15,7 +15,10 @@ namespace input
 namespace info
 {
 
-typedef unsigned id;
+using
+id
+=
+unsigned;
 
 }
 }

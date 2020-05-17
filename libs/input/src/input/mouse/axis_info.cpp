@@ -7,18 +7,23 @@
 #include <sge/input/mouse/axis_code.hpp>
 #include <sge/input/mouse/axis_info.hpp>
 #include <fcppt/optional_string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::mouse::axis_info::axis_info(
 	sge::input::mouse::axis_code const _code,
-	fcppt::optional_string const &_name
+	fcppt::optional_string &&_name
 )
 :
 	code_(
 		_code
 	),
 	name_(
-		_name
+		std::move(
+			_name
+		)
 	)
 {
 }

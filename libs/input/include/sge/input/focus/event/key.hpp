@@ -14,7 +14,7 @@
 #include <sge/input/focus/event/base.hpp>
 #include <sge/input/focus/event/key_fwd.hpp>
 #include <sge/input/key/pressed.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL key
 :
 	public sge::input::focus::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		key
 	);
 public:
@@ -45,10 +45,12 @@ public:
 	~key()
 	override;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::focus::key const &
 	get() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	bool
 	pressed() const;

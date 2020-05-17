@@ -52,7 +52,10 @@ sge::x11input::mouse::button_infos(
 						sge::x11input::mouse::button_code(
 							name
 						),
-						name
+						// TODO
+						fcppt::optional_string{
+							name
+						}
 					);
 			}
 		);

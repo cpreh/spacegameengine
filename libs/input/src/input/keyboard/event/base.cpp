@@ -29,8 +29,7 @@ sge::input::keyboard::event::base::base(
 }
 
 sge::input::keyboard::event::base::~base()
-{
-}
+= default;
 
 sge::input::keyboard::shared_ptr const &
 sge::input::keyboard::event::base::keyboard() const

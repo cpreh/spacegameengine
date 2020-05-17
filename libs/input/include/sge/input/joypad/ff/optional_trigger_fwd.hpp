@@ -20,11 +20,12 @@ namespace joypad
 namespace ff
 {
 
-typedef
+using
+optional_trigger
+=
 fcppt::optional::object<
 	sge::input::joypad::ff::trigger
->
-optional_trigger;
+>;
 
 }
 }

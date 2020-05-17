@@ -14,8 +14,8 @@
 #include <sge/input/plugin/collection_fwd.hpp>
 #include <sge/input/plugin/object.hpp>
 #include <sge/plugin/manager_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/window/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -34,7 +34,7 @@ class multi_system
 :
 	public sge::input::system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		multi_system
 	);
 public:
@@ -46,23 +46,26 @@ public:
 	~multi_system()
 	override;
 private:
+	[[nodiscard]]
 	sge::input::processor_unique_ptr
 	create_processor(
-		sge::window::object &
+		sge::window::object_ref
 	)
 	override;
 
+	[[nodiscard]]
 	sge::input::capabilities_field
 	capabilities() const
 	override;
 
 	fcppt::log::object log_;
 
-	typedef
+	using
+	plugin_vector
+	=
 	std::vector<
 		sge::input::plugin::object
-	>
-	plugin_vector;
+	>;
 
 	plugin_vector plugins_;
 

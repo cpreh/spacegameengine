@@ -11,7 +11,7 @@
 #include <sge/input/keyboard/shared_ptr.hpp>
 #include <sge/input/keyboard/event/base.hpp>
 #include <sge/input/keyboard/event/discover_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -27,7 +27,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL discover
 :
 	public sge::input::keyboard::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		discover
 	);
 public:

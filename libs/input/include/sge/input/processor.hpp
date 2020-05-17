@@ -16,7 +16,7 @@
 #include <sge/input/keyboard/container.hpp>
 #include <sge/input/mouse/container.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,7 +26,7 @@ namespace input
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL processor
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		processor
 	);
 protected:
@@ -37,27 +37,32 @@ public:
 	virtual
 	~processor();
 
-	// TODO: Can we remove this?
+	[[nodiscard]]
 	virtual
 	sge::window::object &
 	window() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::input::cursor::container
 	cursors() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::input::focus::container
 	foci() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::input::joypad::container
 	joypads() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::input::keyboard::container
 	keyboards() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::input::mouse::container
 	mice() const = 0;

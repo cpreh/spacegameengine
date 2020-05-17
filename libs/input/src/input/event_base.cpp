@@ -23,5 +23,4 @@ sge::input::event_base::event_base(
 }
 
 sge::input::event_base::~event_base()
-{
-}
+= default;

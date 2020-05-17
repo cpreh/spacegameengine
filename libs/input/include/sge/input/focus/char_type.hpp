@@ -15,7 +15,10 @@ namespace input
 namespace focus
 {
 
-typedef wchar_t char_type;
+using
+char_type
+=
+wchar_t;
 
 }
 }

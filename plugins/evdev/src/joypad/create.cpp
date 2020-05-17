@@ -15,7 +15,7 @@
 #include <sge/evdev/joypad/optional_shared_ptr.hpp>
 #include <sge/evdev/joypad/shared_ptr.hpp>
 #include <sge/input/exception.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/posix/processor_fwd.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/not.hpp>
@@ -40,7 +40,7 @@ namespace
 sge::evdev::joypad::optional_shared_ptr
 try_create(
 	fcppt::log::object &_log,
-	sge::window::object &_window,
+	sge::window::object_ref const _window,
 	awl::backends::posix::processor &_processor,
 	std::filesystem::path const &_path
 )
@@ -53,7 +53,7 @@ try_create(
 			),
 			[
 				&_log,
-				&_window,
+				_window,
 				&_processor,
 				&_path
 			](
@@ -76,7 +76,7 @@ try_create(
 							[
 								&info,
 								&_path,
-								&_window,
+								_window,
 								&_processor,
 								&_fd
 							]{
@@ -126,7 +126,7 @@ try_create(
 sge::evdev::joypad::optional_shared_ptr
 sge::evdev::joypad::create(
 	fcppt::log::object &_log,
-	sge::window::object &_window,
+	sge::window::object_ref const _window,
 	awl::backends::posix::processor &_processor,
 	std::filesystem::path const &_path
 )
@@ -146,7 +146,7 @@ sge::evdev::joypad::create(
 				),
 				[
 					&_log,
-					&_window,
+					_window,
 					&_processor,
 					&_path
 				]{

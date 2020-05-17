@@ -19,7 +19,7 @@ namespace joypad
 
 enum class axis_code
 {
-	// TODO!
+	// TODO(philipp)
 	x,
 	y,
 	z,

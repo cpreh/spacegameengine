@@ -9,16 +9,21 @@
 #include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/base.hpp>
 #include <sge/input/joypad/event/relative_axis.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::joypad::event::relative_axis::relative_axis(
-	sge::input::joypad::shared_ptr const _joypad,
+	sge::input::joypad::shared_ptr _joypad,
 	sge::input::joypad::relative_axis const &_axis,
 	sge::input::joypad::axis_value const _axis_value
 )
 :
 	sge::input::joypad::event::base{
-		_joypad
+		std::move(
+			_joypad
+		)
 	},
 	axis_{
 		_axis
@@ -30,8 +35,7 @@ sge::input::joypad::event::relative_axis::relative_axis(
 }
 
 sge::input::joypad::event::relative_axis::~relative_axis()
-{
-}
+= default;
 
 sge::input::joypad::relative_axis const &
 sge::input::joypad::event::relative_axis::axis() const

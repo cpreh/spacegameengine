@@ -20,11 +20,12 @@ namespace joypad
 namespace ff
 {
 
-typedef
+using
+type_field
+=
 fcppt::container::bitfield::enum_object<
 	sge::input::joypad::ff::type
->
-type_field;
+>;
 
 }
 }

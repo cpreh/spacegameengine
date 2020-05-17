@@ -7,6 +7,10 @@
 #ifndef SGE_INPUT_CURSOR_SCROLL_VALUE_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_SCROLL_VALUE_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -15,7 +19,10 @@ namespace input
 namespace cursor
 {
 
-typedef long scroll_value;
+using
+scroll_value
+=
+std::int64_t;
 
 }
 }

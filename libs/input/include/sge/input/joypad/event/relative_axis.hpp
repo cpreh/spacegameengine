@@ -14,7 +14,7 @@
 #include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/base.hpp>
 #include <sge/input/joypad/event/relative_axis_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL relative_axis
 :
 	public sge::input::joypad::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		relative_axis
 	);
 public:
@@ -45,10 +45,12 @@ public:
 	~relative_axis()
 	override;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::relative_axis const &
 	axis() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::axis_value
 	value() const;

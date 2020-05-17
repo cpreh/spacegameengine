@@ -35,18 +35,22 @@ public:
 		sge::input::joypad::ff::fade_time
 	);
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::attack_level
 	attack_level() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::attack_time
 	attack_time() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::fade_level
 	fade_level() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::fade_time
 	fade_time() const;

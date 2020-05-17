@@ -41,30 +41,37 @@ public:
 		sge::input::joypad::ff::deadband_size
 	);
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::condition_type
 	type() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::left_coefficient
 	left_coefficient() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::right_coefficient
 	right_coefficient() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::left_saturation
 	left_saturation() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::right_saturation
 	right_saturation() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::deadband_center
 	deadband_center() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::deadband_size
 	deadband_size() const;

@@ -17,13 +17,14 @@
 #include <sge/input/keyboard/container.hpp>
 #include <sge/input/mouse/container.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/posix/event_fwd.hpp>
 #include <awl/backends/posix/processor_fwd.hpp>
 #include <awl/event/connection_unique_ptr.hpp>
 #include <awl/event/container.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
@@ -44,8 +45,8 @@ class processor
 	);
 public:
 	processor(
-		fcppt::log::object &,
-		sge::window::object &
+		fcppt::log::object_reference,
+		sge::window::object_ref
 	);
 
 	~processor()
@@ -95,11 +96,11 @@ private:
 		awl::backends::posix::event const &
 	);
 
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
 	std::filesystem::path const path_;
 
-	sge::window::object &window_;
+	sge::window::object_ref const window_;
 
 	awl::backends::posix::processor &processor_;
 

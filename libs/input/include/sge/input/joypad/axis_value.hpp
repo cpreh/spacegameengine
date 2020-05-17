@@ -7,6 +7,10 @@
 #ifndef SGE_INPUT_JOYPAD_AXIS_VALUE_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_AXIS_VALUE_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -15,7 +19,10 @@ namespace input
 namespace joypad
 {
 
-typedef long axis_value;
+using
+axis_value
+=
+std::int64_t;
 
 }
 }

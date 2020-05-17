@@ -9,16 +9,21 @@
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/base.hpp>
 #include <sge/input/cursor/event/scroll.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::cursor::event::scroll::scroll(
-	sge::input::cursor::shared_ptr const _cursor,
+	sge::input::cursor::shared_ptr _cursor,
 	sge::input::cursor::scroll_code const _code,
 	sge::input::cursor::scroll_value const _value
 )
 :
 	sge::input::cursor::event::scroll::base{
-		_cursor
+		std::move(
+			_cursor
+		)
 	},
 	code_{
 		_code
@@ -30,8 +35,7 @@ sge::input::cursor::event::scroll::scroll(
 }
 
 sge::input::cursor::event::scroll::~scroll()
-{
-}
+= default;
 
 sge::input::cursor::scroll_code
 sge::input::cursor::event::scroll::code() const

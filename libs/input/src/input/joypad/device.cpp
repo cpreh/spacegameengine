@@ -8,9 +8,7 @@
 
 
 sge::input::joypad::device::device()
-{
-}
+= default;
 
 sge::input::joypad::device::~device()
-{
-}
+= default;

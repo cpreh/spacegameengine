@@ -8,9 +8,7 @@
 
 
 sge::input::focus::object::object()
-{
-}
+= default;
 
 sge::input::focus::object::~object()
-{
-}
+= default;

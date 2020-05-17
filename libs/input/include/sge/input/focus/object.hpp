@@ -11,7 +11,7 @@
 #include <sge/input/detail/symbol.hpp>
 #include <sge/input/focus/object_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -23,7 +23,7 @@ namespace focus
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 protected:
@@ -34,6 +34,7 @@ public:
 	virtual
 	~object();
 
+	[[nodiscard]]
 	virtual
 	sge::window::object &
 	window() const = 0;

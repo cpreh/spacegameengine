@@ -21,7 +21,7 @@ namespace ff
 
 enum class condition_type
 {
-	// TODO: Which ones are right here?
+	// TODO(philipp): Which ones do we need?
 	spring,
 	damper,
 	inertia,

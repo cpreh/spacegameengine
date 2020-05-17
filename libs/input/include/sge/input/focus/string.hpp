@@ -20,11 +20,12 @@ namespace input
 namespace focus
 {
 
-typedef
+using
+string
+=
 std::basic_string<
 	sge::input::focus::char_type
->
-string;
+>;
 
 }
 }

@@ -29,10 +29,12 @@ public:
 		sge::input::joypad::relative_axis_id
 	);
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::axis_code
 	code() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::relative_axis_id
 	id() const;

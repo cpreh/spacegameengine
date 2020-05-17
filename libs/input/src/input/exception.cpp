@@ -41,6 +41,7 @@ sge::input::exception::exception(
 sge::input::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::input::exception::exception(
@@ -52,6 +53,7 @@ sge::input::exception &
 sge::input::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::input::exception &
@@ -60,6 +62,6 @@ sge::input::exception::operator=(
 )
 = default;
 
-sge::input::exception::~exception() noexcept
-{
-}
+sge::input::exception::~exception()
+noexcept
+= default;

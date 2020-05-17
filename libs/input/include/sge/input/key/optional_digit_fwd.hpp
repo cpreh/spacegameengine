@@ -18,11 +18,12 @@ namespace input
 namespace key
 {
 
-typedef
+using
+optional_digit
+=
 fcppt::optional::object<
 	sge::input::key::digit
->
-optional_digit;
+>;
 
 }
 }

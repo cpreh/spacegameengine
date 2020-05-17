@@ -29,8 +29,7 @@ sge::input::cursor::event::base::base(
 }
 
 sge::input::cursor::event::base::~base()
-{
-}
+= default;
 
 sge::input::cursor::shared_ptr const &
 sge::input::cursor::event::base::cursor() const

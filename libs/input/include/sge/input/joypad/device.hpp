@@ -14,7 +14,7 @@
 #include <sge/input/joypad/ff/effect_unique_ptr.hpp>
 #include <sge/input/joypad/ff/parameters_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,7 +26,7 @@ namespace joypad
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL device
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		device
 	);
 protected:
@@ -37,14 +37,17 @@ public:
 	virtual
 	~device();
 
+	[[nodiscard]]
 	virtual
 	sge::window::object &
 	window() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::input::joypad::info const &
 	info() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::input::joypad::ff::effect_unique_ptr
 	create_ff_effect(

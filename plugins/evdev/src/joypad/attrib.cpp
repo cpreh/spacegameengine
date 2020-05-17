@@ -8,7 +8,7 @@
 #include <sge/evdev/joypad/attrib.hpp>
 #include <sge/evdev/joypad/find_path.hpp>
 #include <sge/evdev/joypad/map.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/posix/processor_fwd.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
@@ -23,7 +23,7 @@
 awl::event::optional_base_unique_ptr
 sge::evdev::joypad::attrib(
 	fcppt::log::object &_log,
-	sge::window::object &_window,
+	sge::window::object_ref const _window,
 	awl::backends::posix::processor &_processor,
 	sge::evdev::joypad::map &_map,
 	std::filesystem::path const &_path
@@ -38,7 +38,7 @@ sge::evdev::joypad::attrib(
 				).has_value(),
 				[
 					&_log,
-					&_window,
+					_window,
 					&_processor,
 					&_map,
 					&_path

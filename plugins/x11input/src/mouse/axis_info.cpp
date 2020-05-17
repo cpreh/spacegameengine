@@ -34,6 +34,9 @@ sge::x11input::mouse::axis_info(
 			sge::x11input::mouse::axis_code(
 				name
 			),
-			name
+			// TODO
+			fcppt::optional_string{
+				name
+			}
 		);
 }

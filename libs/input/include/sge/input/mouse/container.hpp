@@ -20,11 +20,12 @@ namespace input
 namespace mouse
 {
 
-typedef
+using
+container
+=
 std::vector<
 	sge::input::mouse::shared_ptr
->
-container;
+>;
 
 }
 }

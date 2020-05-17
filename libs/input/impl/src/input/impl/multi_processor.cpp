@@ -25,14 +25,11 @@
 #include <fcppt/log/out.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/object_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::input::impl::multi_processor::multi_processor(
 	fcppt::log::object &_log,
-	sge::window::object &_window,
+	sge::window::object_ref const _window,
 	sge::input::impl::system_ptr_vector const &_systems
 )
 :
@@ -47,23 +44,24 @@ sge::input::impl::multi_processor::multi_processor(
 			_systems,
 			[
 				&_log,
-				&_window
+				this
 			](
 				sge::input::system_unique_ptr const &_system
 			)
 			{
-				typedef
+				using
+				optional_processor
+				=
 				fcppt::optional::object<
 					sge::input::processor_unique_ptr
-				>
-				optional_processor;
+				>;
 
 				try
 				{
 					return
 						optional_processor{
 							_system->create_processor(
-								_window
+								this->window_
 							)
 						};
 				}
@@ -90,14 +88,13 @@ sge::input::impl::multi_processor::multi_processor(
 }
 
 sge::input::impl::multi_processor::~multi_processor()
-{
-}
+= default;
 
 sge::window::object &
 sge::input::impl::multi_processor::window() const
 {
 	return
-		window_;
+		this->window_.get();
 }
 
 sge::input::cursor::container
@@ -108,10 +105,13 @@ sge::input::impl::multi_processor::cursors() const
 			collect_function<
 				sge::input::cursor::container
 			>(
-				std::bind(
-					&sge::input::processor::cursors,
-					std::placeholders::_1
+				[](
+					sge::input::processor const &_processor
 				)
+				{
+					return
+						_processor.cursors();
+				}
 			)
 		);
 }
@@ -124,10 +124,13 @@ sge::input::impl::multi_processor::foci() const
 			collect_function<
 				sge::input::focus::container
 			>(
-				std::bind(
-					&sge::input::processor::foci,
-					std::placeholders::_1
+				[](
+					sge::input::processor const &_processor
 				)
+				{
+					return
+						_processor.foci();
+				}
 			)
 		);
 }
@@ -140,10 +143,13 @@ sge::input::impl::multi_processor::joypads() const
 			collect_function<
 				sge::input::joypad::container
 			>(
-				std::bind(
-					&sge::input::processor::joypads,
-					std::placeholders::_1
+				[](
+					sge::input::processor const &_processor
 				)
+				{
+					return
+						_processor.joypads();
+				}
 			)
 		);
 }
@@ -156,10 +162,13 @@ sge::input::impl::multi_processor::keyboards() const
 			collect_function<
 				sge::input::keyboard::container
 			>(
-				std::bind(
-					&sge::input::processor::keyboards,
-					std::placeholders::_1
+				[](
+					sge::input::processor const &_processor
 				)
+				{
+					return
+						_processor.keyboards();
+				}
 			)
 		);
 }
@@ -172,10 +181,13 @@ sge::input::impl::multi_processor::mice() const
 			collect_function<
 				sge::input::mouse::container
 			>(
-				std::bind(
-					&sge::input::processor::mice,
-					std::placeholders::_1
+				[](
+					sge::input::processor const &_processor
 				)
+				{
+					return
+						_processor.mice();
+				}
 			)
 		);
 }
@@ -194,7 +206,7 @@ sge::input::impl::multi_processor::collect(
 		fcppt::algorithm::map_concat<
 			Container
 		>(
-			processors_,
+			this->processors_,
 			[
 				&_function
 			](

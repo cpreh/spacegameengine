@@ -20,11 +20,12 @@ namespace input
 namespace impl
 {
 
-typedef
+using
+system_ptr_vector
+=
 std::vector<
 	sge::input::system_unique_ptr
->
-system_ptr_vector;
+>;
 
 }
 }

@@ -8,9 +8,7 @@
 
 
 sge::input::mouse::device::device()
-{
-}
+= default;
 
 sge::input::mouse::device::~device()
-{
-}
+= default;

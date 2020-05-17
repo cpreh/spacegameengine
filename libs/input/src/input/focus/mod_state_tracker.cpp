@@ -44,8 +44,7 @@ sge::input::focus::mod_state_tracker::mod_state_tracker()
 }
 
 sge::input::focus::mod_state_tracker::~mod_state_tracker()
-{
-}
+= default;
 
 void
 sge::input::focus::mod_state_tracker::event(
@@ -158,7 +157,7 @@ sge::input::focus::mod_state_tracker::event(
 									[
 										false_array
 									](
-										sge::input::focus::shared_ptr
+										sge::input::focus::shared_ptr const &
 									){
 										return
 											false_array();

@@ -29,8 +29,7 @@ sge::input::joypad::event::base::base(
 }
 
 sge::input::joypad::event::base::~base()
-{
-}
+= default;
 
 sge::input::joypad::shared_ptr const &
 sge::input::joypad::event::base::joypad() const

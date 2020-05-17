@@ -13,8 +13,9 @@
 #include <sge/log/location.hpp>
 #include <sge/sdlinput/processor.hpp>
 #include <sge/sdlinput/system.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/sdl/window/object.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -51,7 +52,7 @@ sge::sdlinput::system::~system()
 
 sge::input::processor_unique_ptr
 sge::sdlinput::system::create_processor(
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 {
 	return
@@ -62,7 +63,9 @@ sge::sdlinput::system::create_processor(
 				sge::sdlinput::processor
 			>(
 				_window,
-				this->log_
+				fcppt::make_ref(
+					this->log_
+				)
 			)
 		);
 }

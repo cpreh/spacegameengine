@@ -4,28 +4,25 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_INPUT_PLUGIN_OBJECT_FWD_HPP_INCLUDED
-#define SGE_INPUT_PLUGIN_OBJECT_FWD_HPP_INCLUDED
+#ifndef SGE_WINDOW_OBJECT_REF_HPP_INCLUDED
+#define SGE_WINDOW_OBJECT_REF_HPP_INCLUDED
 
-#include <sge/input/system_fwd.hpp>
-#include <sge/plugin/object_fwd.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
 {
-namespace input
-{
-namespace plugin
+namespace window
 {
 
 using
-object
+object_ref
 =
-sge::plugin::object<
-	sge::input::system
+fcppt::reference<
+	sge::window::object
 >;
 
-}
 }
 }
 

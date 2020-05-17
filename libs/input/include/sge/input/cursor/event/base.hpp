@@ -12,7 +12,7 @@
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/base_fwd.hpp>
 #include <sge/input/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -28,7 +28,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL base
 :
 	public sge::input::event_base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 public:
@@ -42,6 +42,7 @@ public:
 	~base()
 	override;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::cursor::shared_ptr const &
 	cursor() const;

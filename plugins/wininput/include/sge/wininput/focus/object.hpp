@@ -10,6 +10,7 @@
 #include <sge/input/focus/object.hpp>
 #include <sge/input/key/pressed.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/wininput/focus/object_fwd.hpp>
 #include <awl/backends/windows/window/event/generic_fwd.hpp>
 #include <awl/event/base_unique_ptr.hpp>
@@ -43,7 +44,7 @@ class object
 public:
 	explicit
 	object(
-		sge::window::object &
+		sge::window::object_ref
 	);
 
 	~object()
@@ -69,7 +70,7 @@ private:
 		sge::input::key::pressed
 	);
 
-	sge::window::object &window_;
+	sge::window::object_ref const window_;
 
 	fcppt::signal::auto_connection const event_connection_;
 };

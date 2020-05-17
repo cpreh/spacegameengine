@@ -19,11 +19,12 @@
 #include <sge/input/mouse/shared_ptr.hpp>
 #include <sge/sdlinput/joypad/map.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/sdl/window/object_fwd.hpp>
 #include <awl/event/base_fwd.hpp>
 #include <awl/event/container.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
@@ -41,8 +42,8 @@ class processor
 	);
 public:
 	processor(
-		sge::window::object &,
-		fcppt::log::object &
+		sge::window::object_ref,
+		fcppt::log::object_reference
 	);
 
 	~processor()
@@ -77,9 +78,9 @@ private:
 		awl::event::base const &
 	);
 
-	sge::window::object &window_;
+	sge::window::object_ref const window_;
 
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
 	awl::backends::sdl::window::object &sdl_window_;
 

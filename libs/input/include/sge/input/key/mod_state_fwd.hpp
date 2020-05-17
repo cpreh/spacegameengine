@@ -18,11 +18,12 @@ namespace input
 namespace key
 {
 
-typedef
+using
+mod_state
+=
 fcppt::container::bitfield::enum_object<
 	sge::input::key::modifier
->
-mod_state;
+>;
 
 }
 }

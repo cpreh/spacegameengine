@@ -15,7 +15,7 @@
 #include <sge/input/cursor/event/base.hpp>
 #include <sge/input/cursor/event/button_fwd.hpp>
 #include <sge/input/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -31,7 +31,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL button
 :
 	public sge::input::cursor::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		button
 	);
 public:
@@ -47,14 +47,17 @@ public:
 	~button()
 	override;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::cursor::button_code
 	button_code() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::cursor::position
 	position() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	bool
 	pressed() const;

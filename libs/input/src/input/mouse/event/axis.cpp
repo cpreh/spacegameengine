@@ -10,16 +10,21 @@
 #include <sge/input/mouse/shared_ptr.hpp>
 #include <sge/input/mouse/event/axis.hpp>
 #include <sge/input/mouse/event/base.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::mouse::event::axis::axis(
-	sge::input::mouse::shared_ptr const _mouse,
+	sge::input::mouse::shared_ptr _mouse,
 	sge::input::mouse::axis const &_axis,
 	sge::input::mouse::axis_value const _value
 )
 :
 	sge::input::mouse::event::base{
-		_mouse
+		std::move(
+			_mouse
+		)
 	},
 	axis_{
 		_axis
@@ -31,8 +36,7 @@ sge::input::mouse::event::axis::axis(
 }
 
 sge::input::mouse::event::axis::~axis()
-{
-}
+= default;
 
 sge::input::mouse::axis const &
 sge::input::mouse::event::axis::get() const

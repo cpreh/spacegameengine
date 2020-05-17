@@ -26,13 +26,15 @@ public:
 	SGE_INPUT_DETAIL_SYMBOL
 	button_info(
 		sge::input::mouse::button_code,
-		fcppt::optional_string const &
+		fcppt::optional_string &&
 	);
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::mouse::button_code
 	code() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	fcppt::optional_string const &
 	name() const;

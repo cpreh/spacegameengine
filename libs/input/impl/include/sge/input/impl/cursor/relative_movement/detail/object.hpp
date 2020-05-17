@@ -7,7 +7,7 @@
 #ifndef SGE_INPUT_IMPL_CURSOR_RELATIVE_MOVEMENT_DETAIL_OBJECT_HPP_INCLUDED
 #define SGE_INPUT_IMPL_CURSOR_RELATIVE_MOVEMENT_DETAIL_OBJECT_HPP_INCLUDED
 
-#include <sge/input/processor_fwd.hpp>
+#include <sge/input/processor_ref.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/move_fwd.hpp>
@@ -15,7 +15,7 @@
 #include <sge/input/cursor/relative_movement/detail/object_fwd.hpp>
 #include <awl/event/container.hpp>
 #include <awl/window/event/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/shared_ptr_std_hash.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -37,22 +37,23 @@ namespace detail
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	explicit
 	object(
-		sge::input::processor &
+		sge::input::processor_ref
 	);
 
 	~object();
 private:
-	typedef
+	using
+	optional_difference
+	=
 	fcppt::optional::object<
 		sge::input::cursor::relative_movement::difference
-	>
-	optional_difference;
+	>;
 
 	awl::event::container
 	on_event(
@@ -64,12 +65,13 @@ private:
 		sge::input::cursor::event::move const &
 	);
 
-	typedef
+	using
+	position_map
+	=
 	std::unordered_map<
 		sge::input::cursor::shared_ptr,
 		sge::input::cursor::optional_position
-	>
-	position_map;
+	>;
 
 	position_map positions_;
 

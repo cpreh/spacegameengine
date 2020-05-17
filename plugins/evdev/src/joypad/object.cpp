@@ -22,6 +22,7 @@
 #include <sge/input/joypad/ff/effect_unique_ptr.hpp>
 #include <sge/input/joypad/ff/parameters_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/posix/processor_fwd.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
@@ -38,7 +39,7 @@
 sge::evdev::joypad::object::object(
 	sge::evdev::device::fd_unique_ptr &&_fd,
 	std::filesystem::path const &_path,
-	sge::window::object &_window,
+	sge::window::object_ref const _window,
 	awl::backends::posix::processor &_processor,
 	sge::evdev::joypad::info const &_info
 )
@@ -71,7 +72,7 @@ sge::window::object &
 sge::evdev::joypad::object::window() const
 {
 	return
-		window_;
+		window_.get();
 }
 
 sge::input::joypad::info const &

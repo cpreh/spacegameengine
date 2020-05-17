@@ -12,7 +12,7 @@
 #include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/focus/event/base.hpp>
 #include <sge/input/focus/event/in_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -28,7 +28,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL in
 :
 	public sge::input::focus::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		in
 	);
 public:

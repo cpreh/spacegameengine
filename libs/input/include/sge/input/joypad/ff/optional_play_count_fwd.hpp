@@ -20,11 +20,12 @@ namespace joypad
 namespace ff
 {
 
-typedef
+using
+optional_play_count
+=
 fcppt::optional::object<
 	sge::input::joypad::ff::play_count
->
-optional_play_count;
+>;
 
 }
 }

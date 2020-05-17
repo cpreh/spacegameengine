@@ -20,11 +20,12 @@ namespace joypad
 namespace ff
 {
 
-typedef
+using
+effect_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::input::joypad::ff::effect
->
-effect_unique_ptr;
+>;
 
 }
 }

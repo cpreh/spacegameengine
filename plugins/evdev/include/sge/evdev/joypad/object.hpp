@@ -17,6 +17,7 @@
 #include <sge/input/joypad/ff/effect_unique_ptr.hpp>
 #include <sge/input/joypad/ff/parameters_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/posix/processor_fwd.hpp>
 #include <awl/event/optional_base_unique_ptr_fwd.hpp>
 #include <fcppt/enable_shared_from_this_decl.hpp>
@@ -51,7 +52,7 @@ public:
 	object(
 		sge::evdev::device::fd_unique_ptr &&,
 		std::filesystem::path const &,
-		sge::window::object &,
+		sge::window::object_ref,
 		awl::backends::posix::processor &,
 		sge::evdev::joypad::info const &
 	);
@@ -79,7 +80,7 @@ private:
 	)
 	override;
 
-	sge::window::object &window_;
+	sge::window::object_ref const window_;
 
 	sge::evdev::joypad::info const info_;
 };

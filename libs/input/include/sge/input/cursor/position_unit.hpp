@@ -15,7 +15,10 @@ namespace input
 namespace cursor
 {
 
-typedef int position_unit;
+using
+position_unit
+=
+int;
 
 }
 }

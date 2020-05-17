@@ -22,6 +22,7 @@
 #include <sge/input/keyboard/container.hpp>
 #include <sge/input/mouse/container.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/system_event_function.hpp>
 #include <awl/backends/posix/event.hpp>
@@ -40,7 +41,7 @@
 #include <fcppt/cast/dynamic_cross_exn.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/container/map_values_copy.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -51,8 +52,8 @@
 
 
 sge::evdev::processor::processor(
-	fcppt::log::object &_log,
-	sge::window::object &_window
+	fcppt::log::object_reference const _log,
+	sge::window::object_ref const _window
 )
 :
 	sge::input::processor{},
@@ -69,7 +70,7 @@ sge::evdev::processor::processor(
 		fcppt::cast::dynamic_cross_exn<
 			awl::backends::posix::processor_base &
 		>(
-			_window.system().awl_system().processor()
+			this->window().system().awl_system().processor()
 		).fd_processor()
 	},
 	dev_watch_{
@@ -82,14 +83,14 @@ sge::evdev::processor::processor(
 	},
 	joypads_{
 		sge::evdev::joypad::init(
-			this->log_,
+			this->log_.get(),
 			this->window_,
 			this->processor_,
 			this->path_
 		)
 	},
 	event_connection_{
-		_window.system().event_handler(
+		this->window().system().event_handler(
 			sge::window::system_event_function{
 				[
 					this
@@ -116,7 +117,7 @@ sge::window::object &
 sge::evdev::processor::window() const
 {
 	return
-		this->window_;
+		this->window_.get();
 }
 
 sge::input::cursor::container
@@ -260,7 +261,7 @@ sge::evdev::processor::inotify_event(
 	case sge::evdev::inotify::event_type::add:
 		return
 			sge::evdev::joypad::add(
-				this->log_,
+				this->log_.get(),
 				this->window_,
 				this->processor_,
 				this->joypads_,
@@ -275,7 +276,7 @@ sge::evdev::processor::inotify_event(
 	case sge::evdev::inotify::event_type::attrib:
 		return
 			sge::evdev::joypad::attrib(
-				this->log_,
+				this->log_.get(),
 				this->window_,
 				this->processor_,
 				this->joypads_,

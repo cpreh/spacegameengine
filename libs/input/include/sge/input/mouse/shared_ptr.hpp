@@ -18,11 +18,12 @@ namespace input
 namespace mouse
 {
 
-typedef
+using
+shared_ptr
+=
 fcppt::shared_ptr<
 	sge::input::mouse::device
->
-shared_ptr;
+>;
 
 }
 }

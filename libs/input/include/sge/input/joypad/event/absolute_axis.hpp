@@ -14,7 +14,7 @@
 #include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/absolute_axis_fwd.hpp>
 #include <sge/input/joypad/event/base.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL absolute_axis
 :
 	public sge::input::joypad::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		absolute_axis
 	);
 public:
@@ -45,10 +45,12 @@ public:
 	~absolute_axis()
 	override;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::absolute_axis const &
 	axis() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::axis_value
 	value() const;

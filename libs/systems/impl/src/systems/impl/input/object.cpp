@@ -17,6 +17,7 @@
 #include <sge/systems/impl/input/cursor_modifier_unique_ptr.hpp>
 #include <sge/systems/impl/input/object.hpp>
 #include <sge/systems/impl/window/object.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/bitfield/comparison.hpp>
@@ -51,7 +52,9 @@ sge::systems::impl::input::object::object(
 	},
 	input_processor_{
 		input_system_->create_processor(
-			_window_object.get()
+			fcppt::make_ref(
+				_window_object.get()
+			)
 		)
 	},
 	cursor_modifier_{

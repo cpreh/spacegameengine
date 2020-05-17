@@ -33,14 +33,17 @@ public:
 		sge::input::joypad::ff::envelope const &
 	);
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::start_magnitude
 	start_magnitude() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::end_magnitude
 	end_magnitude() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::envelope const &
 	envelope() const;

@@ -9,11 +9,14 @@
 #include <sge/input/joypad/axis_max.hpp>
 #include <sge/input/joypad/axis_min.hpp>
 #include <fcppt/optional_string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::joypad::absolute_axis_info::absolute_axis_info(
 	sge::input::joypad::axis_code const _code,
-	fcppt::optional_string const &_name,
+	fcppt::optional_string &&_name,
 	sge::input::joypad::axis_min const _min,
 	sge::input::joypad::axis_max const _max
 )
@@ -22,7 +25,9 @@ sge::input::joypad::absolute_axis_info::absolute_axis_info(
 		_code
 	),
 	name_(
-		_name
+		std::move(
+			_name
+		)
 	),
 	min_(
 		_min

@@ -17,7 +17,8 @@
 #include <sge/input/cursor/event/move.hpp>
 #include <sge/input/cursor/event/scroll.hpp>
 #include <sge/window/event_function.hpp>
-#include <sge/window/object.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/wininput/cursor/exclusive_mode.hpp>
 #include <sge/wininput/cursor/get_pos.hpp>
 #include <sge/wininput/cursor/object.hpp>
@@ -52,7 +53,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::wininput::cursor::object::object(
-	sge::window::object &_window,
+	sge::window::object_ref const _window,
 	awl::backends::windows::window::object &_windows_window
 )
 :
@@ -167,7 +168,7 @@ sge::window::object &
 sge::wininput::cursor::object::window() const
 {
 	return
-		window_;
+		window_.get();
 }
 
 void

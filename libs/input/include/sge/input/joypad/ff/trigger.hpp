@@ -31,10 +31,12 @@ public:
 		sge::input::joypad::ff::trigger_cooldown
 	);
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::button_id
 	button() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::trigger_cooldown
 	cooldown() const;

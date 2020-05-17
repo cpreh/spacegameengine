@@ -20,11 +20,12 @@ namespace input
 namespace joypad
 {
 
-typedef
+using
+container
+=
 std::vector<
 	sge::input::joypad::shared_ptr
->
-container;
+>;
 
 }
 }

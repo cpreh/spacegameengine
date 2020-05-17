@@ -6,14 +6,19 @@
 
 #include <sge/input/joypad/button_info.hpp>
 #include <fcppt/optional_string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::joypad::button_info::button_info(
-	fcppt::optional_string const &_name
+	fcppt::optional_string &&_name
 )
 :
 	name_(
-		_name
+		std::move(
+			_name
+		)
 	)
 {
 }

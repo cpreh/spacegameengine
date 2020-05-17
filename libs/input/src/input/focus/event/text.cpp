@@ -14,12 +14,14 @@
 
 
 sge::input::focus::event::text::text(
-	sge::input::focus::shared_ptr const _focus,
+	sge::input::focus::shared_ptr _focus,
 	sge::input::focus::string &&_text
 )
 :
 	sge::input::focus::event::base{
-		_focus
+		std::move(
+			_focus
+		)
 	},
 	text_{
 		std::move(
@@ -30,8 +32,7 @@ sge::input::focus::event::text::text(
 }
 
 sge::input::focus::event::text::~text()
-{
-}
+= default;
 
 sge::input::focus::string const &
 sge::input::focus::event::text::get() const

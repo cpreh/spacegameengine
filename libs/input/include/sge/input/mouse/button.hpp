@@ -29,10 +29,12 @@ public:
 		sge::input::mouse::button_id
 	);
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::mouse::button_code
 	code() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::mouse::button_id
 	id() const;

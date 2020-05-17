@@ -20,11 +20,12 @@ namespace input
 namespace focus
 {
 
-typedef
+using
+container
+=
 std::vector<
 	sge::input::focus::shared_ptr
->
-container;
+>;
 
 }
 }

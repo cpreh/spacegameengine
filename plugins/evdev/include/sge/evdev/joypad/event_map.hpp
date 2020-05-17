@@ -23,26 +23,29 @@ namespace joypad
 class event_map
 {
 public:
-	typedef
+	using
+	absolute_axis_map
+	=
 	sge::evdev::device::event_map<
 		sge::input::joypad::absolute_axis_id
-	>
-	absolute_axis_map;
+	>;
 
-	typedef
-	sge::evdev::joypad::button::event_map
-	button_map;
+	using
+	button_map
+	=
+	sge::evdev::joypad::button::event_map;
 
-	typedef
+	using
+	relative_axis_map
+	=
 	sge::evdev::device::event_map<
 		sge::input::joypad::relative_axis_id
-	>
-	relative_axis_map;
+	>;
 
 	event_map(
-		absolute_axis_map const &,
-		button_map const &,
-		relative_axis_map const &
+		absolute_axis_map &&,
+		button_map &&,
+		relative_axis_map &&
 	);
 
 	absolute_axis_map const &

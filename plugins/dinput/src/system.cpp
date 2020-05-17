@@ -12,7 +12,7 @@
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -42,7 +42,7 @@ sge::dinput::system::~system()
 
 sge::input::processor_unique_ptr
 sge::dinput::system::create_processor(
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 {
 	return

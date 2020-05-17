@@ -16,11 +16,12 @@ namespace sge
 namespace input
 {
 
-typedef
+using
+capabilities_field
+=
 fcppt::container::bitfield::enum_object<
 	sge::input::capabilities
->
-capabilities_field;
+>;
 
 }
 }

@@ -23,14 +23,15 @@ namespace joypad
 namespace ff
 {
 
-typedef
+using
+variant
+=
 fcppt::variant::object<
 	sge::input::joypad::ff::constant,
 	sge::input::joypad::ff::ramp,
 	sge::input::joypad::ff::periodic,
 	sge::input::joypad::ff::condition
->
-variant;
+>;
 
 }
 }

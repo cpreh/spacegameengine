@@ -18,11 +18,12 @@ namespace input
 namespace joypad
 {
 
-typedef
+using
+shared_ptr
+=
 fcppt::shared_ptr<
 	sge::input::joypad::device
->
-shared_ptr;
+>;
 
 }
 }

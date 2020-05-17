@@ -19,10 +19,13 @@ namespace input
 namespace joypad
 {
 
-typedef input::info::container<
+using
+relative_axis_info_container
+=
+input::info::container<
 	sge::input::joypad::relative_axis_id,
 	sge::input::joypad::relative_axis_info
-> relative_axis_info_container;
+>;
 
 }
 }

@@ -31,10 +31,12 @@ public:
 		sge::input::joypad::ff::envelope const &
 	);
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::magnitude
 	magnitude() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::envelope const &
 	envelope() const;

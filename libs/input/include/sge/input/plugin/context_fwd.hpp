@@ -18,11 +18,12 @@ namespace input
 namespace plugin
 {
 
-typedef
+using
+context
+=
 sge::plugin::context<
 	sge::input::system
->
-context;
+>;
 
 }
 }

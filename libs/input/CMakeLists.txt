@@ -38,7 +38,6 @@ set(
 	libs/input/include/sge/input/cursor/mode_fwd.hpp
 	libs/input/include/sge/input/cursor/object.hpp
 	libs/input/include/sge/input/cursor/object_fwd.hpp
-	libs/input/include/sge/input/cursor/object_unique_ptr.hpp
 	libs/input/include/sge/input/cursor/optional_position.hpp
 	libs/input/include/sge/input/cursor/optional_position_fwd.hpp
 	libs/input/include/sge/input/cursor/position.hpp
@@ -83,7 +82,6 @@ set(
 	libs/input/include/sge/input/focus/mod_state_tracker_fwd.hpp
 	libs/input/include/sge/input/focus/object.hpp
 	libs/input/include/sge/input/focus/object_fwd.hpp
-	libs/input/include/sge/input/focus/object_unique_ptr.hpp
 	libs/input/include/sge/input/focus/shared_ptr.hpp
 	libs/input/include/sge/input/focus/string.hpp
 	libs/input/include/sge/input/info/container.hpp
@@ -239,7 +237,6 @@ set(
 	libs/input/include/sge/input/keyboard/container.hpp
 	libs/input/include/sge/input/keyboard/device.hpp
 	libs/input/include/sge/input/keyboard/device_fwd.hpp
-	libs/input/include/sge/input/keyboard/device_unique_ptr.hpp
 	libs/input/include/sge/input/keyboard/event/base.hpp
 	libs/input/include/sge/input/keyboard/event/base_fwd.hpp
 	libs/input/include/sge/input/keyboard/event/discover.hpp
@@ -278,7 +275,6 @@ set(
 	libs/input/include/sge/input/mouse/container.hpp
 	libs/input/include/sge/input/mouse/device.hpp
 	libs/input/include/sge/input/mouse/device_fwd.hpp
-	libs/input/include/sge/input/mouse/device_unique_ptr.hpp
 	libs/input/include/sge/input/mouse/event/axis.hpp
 	libs/input/include/sge/input/mouse/event/axis_fwd.hpp
 	libs/input/include/sge/input/mouse/event/base.hpp
@@ -304,6 +300,7 @@ set(
 	libs/input/include/sge/input/plugin/traits.hpp
 	libs/input/include/sge/input/processor.hpp
 	libs/input/include/sge/input/processor_fwd.hpp
+	libs/input/include/sge/input/processor_ref.hpp
 	libs/input/include/sge/input/processor_unique_ptr.hpp
 	libs/input/include/sge/input/system.hpp
 	libs/input/include/sge/input/system_fwd.hpp

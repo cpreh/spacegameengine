@@ -14,7 +14,7 @@
 #include <sge/input/cursor/event/base.hpp>
 #include <sge/input/cursor/event/scroll_fwd.hpp>
 #include <sge/input/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL scroll
 :
 	public sge::input::cursor::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scroll
 	);
 public:
@@ -45,10 +45,12 @@ public:
 	~scroll()
 	override;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::cursor::scroll_code
 	code() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::cursor::scroll_value
 	value() const;

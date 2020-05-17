@@ -7,18 +7,22 @@
 #include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/focus/event/base.hpp>
 #include <sge/input/focus/event/discover.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::focus::event::discover::discover(
-	sge::input::focus::shared_ptr const _focus
+	sge::input::focus::shared_ptr _focus
 )
 :
 	sge::input::focus::event::base{
-		_focus
+		std::move(
+			_focus
+		)
 	}
 {
 }
 
 sge::input::focus::event::discover::~discover()
-{
-}
+= default;

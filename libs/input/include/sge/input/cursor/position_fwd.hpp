@@ -18,10 +18,13 @@ namespace input
 namespace cursor
 {
 
-typedef fcppt::math::vector::static_<
+using
+position
+=
+fcppt::math::vector::static_<
 	sge::input::cursor::position_unit,
 	2
-> position;
+>;
 
 }
 }

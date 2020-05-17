@@ -13,7 +13,7 @@
 #include <sge/input/cursor/optional_position_fwd.hpp>
 #include <sge/input/detail/symbol.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -25,7 +25,7 @@ namespace cursor
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 protected:
@@ -36,10 +36,12 @@ public:
 	virtual
 	~object();
 
+	[[nodiscard]]
 	virtual
 	sge::window::object &
 	window() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::input::cursor::optional_position
 	position() const = 0;

@@ -11,7 +11,7 @@
 #include <sge/evdev/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/discover.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/posix/processor_fwd.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
@@ -29,7 +29,7 @@
 awl::event::optional_base_unique_ptr
 sge::evdev::joypad::add(
 	fcppt::log::object &_log,
-	sge::window::object &_window,
+	sge::window::object_ref const _window,
 	awl::backends::posix::processor &_processor,
 	sge::evdev::joypad::map &_map,
 	std::filesystem::path const &_path

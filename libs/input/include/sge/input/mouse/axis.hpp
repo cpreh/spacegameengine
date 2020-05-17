@@ -29,10 +29,12 @@ public:
 		sge::input::mouse::axis_id
 	);
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::mouse::axis_code
 	code() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::mouse::axis_id
 	id() const;

@@ -24,5 +24,4 @@ class base;
 }
 }
 
-
 #endif

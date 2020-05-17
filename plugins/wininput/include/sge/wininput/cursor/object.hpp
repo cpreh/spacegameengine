@@ -15,6 +15,7 @@
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/scroll_code_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/wininput/cursor/exclusive_mode_fwd.hpp>
 #include <sge/wininput/cursor/object_fwd.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
@@ -50,7 +51,7 @@ class object
 	);
 public:
 	object(
-		sge::window::object &,
+		sge::window::object_ref,
 		awl::backends::windows::window::object &
 	);
 
@@ -108,7 +109,7 @@ private:
 		sge::input::cursor::scroll_code
 	);
 
-	sge::window::object &window_;
+	sge::window::object_ref const window_;
 
 	awl::backends::windows::window::object &windows_window_;
 

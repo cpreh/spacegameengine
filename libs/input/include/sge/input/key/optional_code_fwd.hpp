@@ -18,11 +18,12 @@ namespace input
 namespace key
 {
 
-typedef
+using
+optional_code
+=
 fcppt::optional::object<
 	sge::input::key::code
->
-optional_code;
+>;
 
 }
 }

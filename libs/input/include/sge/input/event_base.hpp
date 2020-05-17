@@ -12,7 +12,7 @@
 #include <sge/input/detail/symbol.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <awl/window/event/base.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -24,7 +24,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL event_base
 :
 	public awl::window::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		event_base
 	);
 public:

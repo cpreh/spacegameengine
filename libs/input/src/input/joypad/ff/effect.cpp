@@ -8,9 +8,7 @@
 
 
 sge::input::joypad::ff::effect::effect()
-{
-}
+= default;
 
 sge::input::joypad::ff::effect::~effect()
-{
-}
+= default;

@@ -18,11 +18,12 @@ namespace input
 namespace keyboard
 {
 
-typedef
+using
+shared_ptr
+=
 fcppt::shared_ptr<
 	sge::input::keyboard::device
->
-shared_ptr;
+>;
 
 }
 }

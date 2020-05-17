@@ -8,25 +8,31 @@
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/base.hpp>
 #include <sge/input/cursor/event/move.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::cursor::event::move::move(
-	sge::input::cursor::shared_ptr const _cursor,
-	sge::input::cursor::optional_position const &_position
+	sge::input::cursor::shared_ptr _cursor,
+	sge::input::cursor::optional_position _position
 )
 :
 	sge::input::cursor::event::base{
-		_cursor
+		std::move(
+			_cursor
+		)
 	},
 	position_{
-		_position
+		std::move(
+			_position
+		)
 	}
 {
 }
 
 sge::input::cursor::event::move::~move()
-{
-}
+= default;
 
 sge::input::cursor::optional_position const &
 sge::input::cursor::event::move::position() const

@@ -6,6 +6,7 @@
 
 #include <sge/window/event_function.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/wininput/cursor/exclusive_mode.hpp>
 #include <sge/wininput/cursor/grab.hpp>
 #include <sge/wininput/cursor/ungrab.hpp>
@@ -36,7 +37,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::wininput::cursor::exclusive_mode::exclusive_mode(
-	sge::window::object &_sge_window,
+	sge::window::object_ref const _sge_window,
 	awl::backends::windows::window::object &_window
 )
 :
@@ -45,7 +46,7 @@ sge::wininput::cursor::exclusive_mode::exclusive_mode(
 		_window
 	},
 	event_connection_{
-		_sge_window.event_handler(
+		_sge_window.get().event_handler(
 			sge::window::event_function{
 				[
 					this

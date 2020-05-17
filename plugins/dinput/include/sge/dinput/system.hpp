@@ -10,7 +10,7 @@
 #include <sge/input/capabilities_field_fwd.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/system.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
@@ -39,7 +39,7 @@ public:
 private:
 	sge::input::processor_unique_ptr
 	create_processor(
-		sge::window::object &
+		sge::window::object_ref
 	)
 	override;
 

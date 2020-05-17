@@ -7,7 +7,7 @@
 #ifndef SGE_WININPUT_CURSOR_EXCLUSIVE_MODE_HPP_INCLUDED
 #define SGE_WININPUT_CURSOR_EXCLUSIVE_MODE_HPP_INCLUDED
 
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/wininput/cursor/exclusive_mode_fwd.hpp>
 #include <awl/backends/windows/message_type.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
@@ -33,7 +33,7 @@ class exclusive_mode
 	);
 public:
 	exclusive_mode(
-		sge::window::object &,
+		sge::window::object_ref,
 		awl::backends::windows::window::object &
 	);
 

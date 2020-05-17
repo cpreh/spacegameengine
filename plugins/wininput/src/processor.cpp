@@ -13,6 +13,7 @@
 #include <sge/input/mouse/container.hpp>
 #include <sge/window/event_function.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/wininput/processor.hpp>
 #include <sge/wininput/cursor/object.hpp>
 #include <sge/wininput/focus/object.hpp>
@@ -29,7 +30,7 @@
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/log/debug.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -40,8 +41,8 @@
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::wininput::processor::processor(
-	fcppt::log::object &_log,
-	sge::window::object &_window
+	fcppt::log::object_reference const _log,
+	sge::window::object_ref const _window
 )
 :
 	log_{
@@ -98,7 +99,7 @@ sge::window::object &
 sge::wininput::processor::window() const
 {
 	return
-		window_;
+		window_.get();
 }
 
 sge::input::cursor::container
@@ -191,7 +192,7 @@ void
 sge::wininput::processor::on_focus_out()
 {
 	FCPPT_LOG_DEBUG(
-		log_,
+		log_.get(),
 		fcppt::log::out
 			<< FCPPT_TEXT("focus out")
 	)

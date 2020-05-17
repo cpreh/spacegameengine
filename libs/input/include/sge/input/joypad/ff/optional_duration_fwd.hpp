@@ -20,11 +20,12 @@ namespace joypad
 namespace ff
 {
 
-typedef
+using
+optional_duration
+=
 fcppt::optional::object<
 	sge::input::joypad::ff::duration
->
-optional_duration;
+>;
 
 }
 }

@@ -25,9 +25,10 @@ public:
 	SGE_INPUT_DETAIL_SYMBOL
 	explicit
 	button_info(
-		fcppt::optional_string const &
+		fcppt::optional_string &&
 	);
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	fcppt::optional_string const &
 	name() const;

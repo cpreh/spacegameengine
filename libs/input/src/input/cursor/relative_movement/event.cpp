@@ -15,7 +15,7 @@
 
 sge::input::cursor::relative_movement::event::event(
 	sge::input::cursor::shared_ptr _cursor,
-	sge::input::cursor::relative_movement::difference const _difference
+	sge::input::cursor::relative_movement::difference _difference
 )
 :
 	sge::input::cursor::event::base{
@@ -24,14 +24,15 @@ sge::input::cursor::relative_movement::event::event(
 		)
 	},
 	difference_{
-		_difference
+		std::move(
+			_difference
+		)
 	}
 {
 }
 
 sge::input::cursor::relative_movement::event::~event()
-{
-}
+= default;
 
 sge::input::cursor::relative_movement::difference
 sge::input::cursor::relative_movement::event::difference() const

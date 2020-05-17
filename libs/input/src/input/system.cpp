@@ -8,9 +8,7 @@
 
 
 sge::input::system::system()
-{
-}
+= default;
 
 sge::input::system::~system()
-{
-}
+= default;

@@ -10,16 +10,21 @@
 #include <sge/input/mouse/shared_ptr.hpp>
 #include <sge/input/mouse/event/base.hpp>
 #include <sge/input/mouse/event/button.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::mouse::event::button::button(
-	sge::input::mouse::shared_ptr const _mouse,
+	sge::input::mouse::shared_ptr _mouse,
 	sge::input::mouse::button const &_button,
 	sge::input::mouse::button_pressed const _pressed
 )
 :
 	sge::input::mouse::event::base{
-		_mouse
+		std::move(
+			_mouse
+		)
 	},
 	button_{
 		_button
@@ -31,8 +36,7 @@ sge::input::mouse::event::button::button(
 }
 
 sge::input::mouse::event::button::~button()
-{
-}
+= default;
 
 sge::input::mouse::button_code
 sge::input::mouse::event::button::button_code() const

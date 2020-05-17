@@ -7,18 +7,22 @@
 #include <sge/input/mouse/shared_ptr.hpp>
 #include <sge/input/mouse/event/base.hpp>
 #include <sge/input/mouse/event/remove.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::mouse::event::remove::remove(
-	sge::input::mouse::shared_ptr const _mouse
+	sge::input::mouse::shared_ptr _mouse
 )
 :
 	sge::input::mouse::event::base{
-		_mouse
+		std::move(
+			_mouse
+		)
 	}
 {
 }
 
 sge::input::mouse::event::remove::~remove()
-{
-}
+= default;

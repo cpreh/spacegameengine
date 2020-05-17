@@ -8,9 +8,7 @@
 
 
 sge::input::keyboard::device::device()
-{
-}
+= default;
 
 sge::input::keyboard::device::~device()
-{
-}
+= default;

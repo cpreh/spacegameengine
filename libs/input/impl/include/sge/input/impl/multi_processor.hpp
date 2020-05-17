@@ -16,8 +16,9 @@
 #include <sge/input/keyboard/container.hpp>
 #include <sge/input/mouse/container.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <fcppt/function_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
@@ -35,39 +36,45 @@ class multi_processor
 :
 	public sge::input::processor
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		multi_processor
 	);
 public:
 	multi_processor(
-		fcppt::log::object &,
-		sge::window::object &,
+		fcppt::log::object &, // NOLINT(google-runtime-references)
+		sge::window::object_ref,
 		sge::input::impl::system_ptr_vector const &
 	);
 
 	~multi_processor()
 	override;
 private:
+	[[nodiscard]]
 	sge::window::object &
 	window() const
 	override;
 
+	[[nodiscard]]
 	sge::input::cursor::container
 	cursors() const
 	override;
 
+	[[nodiscard]]
 	sge::input::focus::container
 	foci() const
 	override;
 
+	[[nodiscard]]
 	sge::input::joypad::container
 	joypads() const
 	override;
 
+	[[nodiscard]]
 	sge::input::keyboard::container
 	keyboards() const
 	override;
 
+	[[nodiscard]]
 	sge::input::mouse::container
 	mice() const
 	override;
@@ -87,6 +94,7 @@ private:
 	template<
 		typename Container
 	>
+	[[nodiscard]]
 	Container
 	collect(
 		collect_function<
@@ -94,13 +102,14 @@ private:
 		> const &
 	) const;
 
-	sge::window::object &window_;
+	sge::window::object_ref const  window_;
 
-	typedef
+	using
+	processor_vector
+	=
 	std::vector<
 		sge::input::processor_unique_ptr
-	>
-	processor_vector;
+	>;
 
 	processor_vector const processors_;
 };

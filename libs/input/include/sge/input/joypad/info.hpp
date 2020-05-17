@@ -29,34 +29,40 @@ class info
 public:
 	SGE_INPUT_DETAIL_SYMBOL
 	info(
-		sge::input::joypad::absolute_axis_info_container const &,
-		sge::input::joypad::button_info_container const &,
-		sge::input::joypad::relative_axis_info_container const &,
+		sge::input::joypad::absolute_axis_info_container &&,
+		sge::input::joypad::button_info_container &&,
+		sge::input::joypad::relative_axis_info_container &&,
 		sge::input::joypad::ff::type_field,
-		sge::input::info::name const &,
-		sge::input::info::unique_id const &
+		sge::input::info::name &&,
+		sge::input::info::unique_id &&
 	);
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::absolute_axis_info_container const &
 	absolute_axes() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::button_info_container const &
 	buttons() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::relative_axis_info_container const &
 	relative_axes() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::ff::type_field
 	ff_types() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::info::name const &
 	name() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::info::unique_id const &
 	unique_id() const;

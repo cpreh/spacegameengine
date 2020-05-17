@@ -21,9 +21,10 @@ namespace joypad
 namespace ff
 {
 
-typedef
-std::chrono::microseconds
-duration;
+using
+duration
+=
+std::chrono::microseconds;
 
 }
 }

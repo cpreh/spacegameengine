@@ -8,9 +8,7 @@
 
 
 sge::input::processor::processor()
-{
-}
+= default;
 
 sge::input::processor::~processor()
-{
-}
+= default;

@@ -28,23 +28,27 @@ public:
 	SGE_INPUT_DETAIL_SYMBOL
 	absolute_axis_info(
 		sge::input::joypad::axis_code,
-		fcppt::optional_string const &,
+		fcppt::optional_string &&,
 		sge::input::joypad::axis_min,
 		sge::input::joypad::axis_max
 	);
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::axis_code
 	code() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	fcppt::optional_string const &
 	name() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::axis_min
 	min() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::axis_max
 	max() const;

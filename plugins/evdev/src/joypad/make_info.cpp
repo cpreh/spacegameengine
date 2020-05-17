@@ -25,19 +25,19 @@ sge::evdev::joypad::make_info(
 	sge::evdev::device::fd const &_fd
 )
 {
-	sge::evdev::joypad::absolute_axis::info_container const absolute_axis(
+	sge::evdev::joypad::absolute_axis::info_container absolute_axis(
 		sge::evdev::joypad::absolute_axis::make_info_container(
 			_fd
 		)
 	);
 
-	sge::evdev::joypad::button::info_container const buttons(
+	sge::evdev::joypad::button::info_container buttons(
 		sge::evdev::joypad::button::make_info_container(
 			_fd
 		)
 	);
 
-	sge::evdev::joypad::relative_axis::info_container const relative_axis(
+	sge::evdev::joypad::relative_axis::info_container relative_axis(
 		sge::evdev::joypad::relative_axis::make_info_container(
 			_fd
 		)
@@ -46,9 +46,15 @@ sge::evdev::joypad::make_info(
 	return
 		sge::evdev::joypad::info(
 			sge::input::joypad::info(
-				absolute_axis.infos(),
-				buttons.infos(),
-				relative_axis.infos(),
+				std::move(
+					absolute_axis.infos()
+				),
+				std::move(
+					buttons.infos()
+				),
+				std::move(
+					relative_axis.infos()
+				),
 				sge::evdev::joypad::ff::make_info(
 					_fd
 				),
@@ -60,9 +66,15 @@ sge::evdev::joypad::make_info(
 				)
 			),
 			sge::evdev::joypad::event_map(
-				absolute_axis.event_map(),
-				buttons.event_map(),
-				relative_axis.event_map()
+				std::move(
+					absolute_axis.event_map()
+				),
+				std::move(
+					buttons.event_map()
+				),
+				std::move(
+					relative_axis.event_map()
+				)
 			)
 		);
 }

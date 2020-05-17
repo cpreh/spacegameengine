@@ -21,10 +21,13 @@ namespace joypad
 namespace absolute_axis
 {
 
-typedef sge::evdev::device::basic_info<
+using
+info_container
+=
+sge::evdev::device::basic_info<
 	sge::input::joypad::absolute_axis_id,
 	sge::input::joypad::absolute_axis_info
-> info_container;
+>;
 
 }
 }

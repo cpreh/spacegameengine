@@ -17,9 +17,10 @@ namespace joypad
 namespace ff
 {
 
-typedef
-unsigned
-unsigned_value;
+using
+unsigned_value
+=
+unsigned;
 
 }
 }

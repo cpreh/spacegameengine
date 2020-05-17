@@ -5,6 +5,7 @@
 
 
 #include <sge/input/processor.hpp>
+#include <sge/input/processor_ref.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/shared_ptr.hpp>
@@ -40,14 +41,14 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::input::cursor::relative_movement::detail::object::object(
-	sge::input::processor &_processor
+	sge::input::processor_ref const _processor
 )
 :
 	positions_{
 		fcppt::algorithm::map<
 			position_map
 		>(
-			_processor.cursors(),
+			_processor.get().cursors(),
 			[](
 				sge::input::cursor::shared_ptr const &_cursor
 			)
@@ -61,7 +62,7 @@ sge::input::cursor::relative_movement::detail::object::object(
 		)
 	},
 	connection_{
-		_processor.window().event_handler(
+		_processor.get().window().event_handler(
 			sge::window::event_function{
 				[
 					this
@@ -85,8 +86,7 @@ sge::input::cursor::relative_movement::detail::object::object(
 FCPPT_PP_POP_WARNING
 
 sge::input::cursor::relative_movement::detail::object::~object()
-{
-}
+= default;
 
 awl::event::container
 sge::input::cursor::relative_movement::detail::object::on_event(
@@ -119,7 +119,7 @@ sge::input::cursor::relative_movement::detail::object::on_event(
 							[
 								_move_event
 							](
-								sge::input::cursor::relative_movement::difference const _difference
+								sge::input::cursor::relative_movement::difference const &_difference
 							)
 							{
 								return
@@ -146,11 +146,11 @@ sge::input::cursor::relative_movement::detail::object::update_pos(
 	sge::input::cursor::event::move const &_move_event
 )
 {
-	optional_difference const difference{
+	optional_difference difference{
 		fcppt::optional::apply(
 			[](
-				sge::input::cursor::position const _old_pos,
-				sge::input::cursor::position const _new_pos
+				sge::input::cursor::position const &_old_pos,
+				sge::input::cursor::position const &_new_pos
 			)
 			{
 				return

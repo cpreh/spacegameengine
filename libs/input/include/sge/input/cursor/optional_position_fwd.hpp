@@ -18,9 +18,12 @@ namespace input
 namespace cursor
 {
 
-typedef fcppt::optional::object<
+using
+optional_position
+=
+fcppt::optional::object<
 	sge::input::cursor::position
-> optional_position;
+>;
 
 }
 }

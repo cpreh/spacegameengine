@@ -29,8 +29,7 @@ sge::input::focus::event::base::base(
 }
 
 sge::input::focus::event::base::~base()
-{
-}
+= default;
 
 sge::input::focus::shared_ptr const &
 sge::input::focus::event::base::focus() const

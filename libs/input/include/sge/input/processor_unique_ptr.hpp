@@ -16,11 +16,12 @@ namespace sge
 namespace input
 {
 
-typedef
+using
+processor_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::input::processor
->
-processor_unique_ptr;
+>;
 
 }
 }

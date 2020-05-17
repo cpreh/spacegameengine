@@ -8,9 +8,7 @@
 
 
 sge::input::cursor::object::object()
-{
-}
+= default;
 
 sge::input::cursor::object::~object()
-{
-}
+= default;

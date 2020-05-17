@@ -10,12 +10,14 @@ set(
 	libs/window/include/sge/window/loop_function.hpp
 	libs/window/include/sge/window/object.hpp
 	libs/window/include/sge/window/object_fwd.hpp
+	libs/window/include/sge/window/object_ref.hpp
 	libs/window/include/sge/window/optional_dim.hpp
 	libs/window/include/sge/window/optional_dim_fwd.hpp
 	libs/window/include/sge/window/system.hpp
 	libs/window/include/sge/window/system_event_function.hpp
 	libs/window/include/sge/window/system_event_function_type.hpp
 	libs/window/include/sge/window/system_fwd.hpp
+	libs/window/include/sge/window/system_ref.hpp
 	libs/window/include/sge/window/title.hpp
 	libs/window/include/sge/window/unit.hpp
 	libs/window/src/window/default_class_name.cpp

@@ -11,7 +11,7 @@
 #include <sge/input/detail/symbol.hpp>
 #include <sge/input/joypad/ff/effect_fwd.hpp>
 #include <sge/input/joypad/ff/optional_play_count_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -25,7 +25,7 @@ namespace ff
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL effect
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		effect
 	);
 protected:

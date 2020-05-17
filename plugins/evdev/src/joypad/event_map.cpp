@@ -5,22 +5,31 @@
 
 
 #include <sge/evdev/joypad/event_map.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::evdev::joypad::event_map::event_map(
-	sge::evdev::joypad::event_map::absolute_axis_map const &_absolute_axis,
-	sge::evdev::joypad::event_map::button_map const &_buttons,
-	sge::evdev::joypad::event_map::relative_axis_map const &_relative_axis
+	sge::evdev::joypad::event_map::absolute_axis_map &&_absolute_axis,
+	sge::evdev::joypad::event_map::button_map &&_buttons,
+	sge::evdev::joypad::event_map::relative_axis_map &&_relative_axis
 )
 :
 	absolute_axis_(
-		_absolute_axis
+		std::move(
+			_absolute_axis
+		)
 	),
 	buttons_(
-		_buttons
+		std::move(
+			_buttons
+		)
 	),
 	relative_axis_(
-		_relative_axis
+		std::move(
+			_relative_axis
+		)
 	)
 {
 }

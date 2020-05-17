@@ -19,10 +19,13 @@ namespace input
 namespace mouse
 {
 
-typedef sge::input::info::container<
+using
+axis_info_container
+=
+sge::input::info::container<
 	sge::input::mouse::axis_id,
 	sge::input::mouse::axis_info
-> axis_info_container;
+>;
 
 }
 }

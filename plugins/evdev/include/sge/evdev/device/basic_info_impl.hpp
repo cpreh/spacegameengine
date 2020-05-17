@@ -57,11 +57,47 @@ typename
 sge::evdev::device::basic_info<
 	Id,
 	Info
+>::info_container &
+sge::evdev::device::basic_info<
+	Id,
+	Info
+>::infos()
+{
+	return
+		infos_;
+}
+
+template<
+	typename Id,
+	typename Info
+>
+typename
+sge::evdev::device::basic_info<
+	Id,
+	Info
 >::event_map_type const &
 sge::evdev::device::basic_info<
 	Id,
 	Info
 >::event_map() const
+{
+	return
+		event_map_;
+}
+
+template<
+	typename Id,
+	typename Info
+>
+typename
+sge::evdev::device::basic_info<
+	Id,
+	Info
+>::event_map_type &
+sge::evdev::device::basic_info<
+	Id,
+	Info
+>::event_map()
 {
 	return
 		event_map_;

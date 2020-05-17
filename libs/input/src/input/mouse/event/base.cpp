@@ -29,8 +29,7 @@ sge::input::mouse::event::base::base(
 }
 
 sge::input::mouse::event::base::~base()
-{
-}
+= default;
 
 sge::input::mouse::shared_ptr const &
 sge::input::mouse::event::base::mouse() const

@@ -9,16 +9,21 @@
 #include <sge/input/focus/event/base.hpp>
 #include <sge/input/focus/event/key.hpp>
 #include <sge/input/key/pressed.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::focus::event::key::key(
-	sge::input::focus::shared_ptr const _focus,
+	sge::input::focus::shared_ptr _focus,
 	sge::input::focus::key const &_key,
 	sge::input::key::pressed const _pressed
 )
 :
 	sge::input::focus::event::base{
-		_focus
+		std::move(
+			_focus
+		)
 	},
 	key_{
 		_key
@@ -30,8 +35,7 @@ sge::input::focus::event::key::key(
 }
 
 sge::input::focus::event::key::~key()
-{
-}
+= default;
 
 sge::input::focus::key const &
 sge::input::focus::event::key::get() const

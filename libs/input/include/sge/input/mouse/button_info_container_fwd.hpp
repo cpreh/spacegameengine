@@ -19,12 +19,13 @@ namespace input
 namespace mouse
 {
 
-typedef
+using
+button_info_container
+=
 input::info::container<
 	sge::input::mouse::button_id,
 	sge::input::mouse::button_info
->
-button_info_container;
+>;
 
 }
 }

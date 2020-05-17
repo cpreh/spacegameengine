@@ -29,10 +29,12 @@ public:
 		sge::input::keyboard::key_id
 	);
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::key::code
 	code() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::keyboard::key_id
 	id() const;

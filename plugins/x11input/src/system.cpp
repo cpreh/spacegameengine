@@ -13,6 +13,7 @@
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/x11input/opcode.hpp>
 #include <sge/x11input/processor.hpp>
 #include <sge/x11input/system.hpp>
@@ -52,14 +53,14 @@ sge::x11input::system::~system()
 
 sge::input::processor_unique_ptr
 sge::x11input::system::create_processor(
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 {
 	awl::backends::x11::window::object const &x11_window(
 		fcppt::cast::dynamic_exn<
 			awl::backends::x11::window::object const &
 		>(
-			_window.awl_object()
+			_window.get().awl_object()
 		)
 	);
 
@@ -98,7 +99,7 @@ sge::x11input::system::create_processor(
 				sge::x11input::processor
 			>(
 				log_,
-				_window,
+				_window.get(), // TODO
 				opcode
 			)
 		);

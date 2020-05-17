@@ -9,16 +9,21 @@
 #include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/base.hpp>
 #include <sge/input/joypad/event/button.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::joypad::event::button::button(
-	sge::input::joypad::shared_ptr const _joypad,
+	sge::input::joypad::shared_ptr _joypad,
 	sge::input::joypad::button_id const _button_id,
 	sge::input::joypad::button_pressed const _pressed
 )
 :
 	sge::input::joypad::event::base{
-		_joypad
+		std::move(
+			_joypad
+		)
 	},
 	button_id_{
 		_button_id
@@ -30,8 +35,7 @@ sge::input::joypad::event::button::button(
 }
 
 sge::input::joypad::event::button::~button()
-{
-}
+= default;
 
 sge::input::joypad::button_id
 sge::input::joypad::event::button::button_id() const

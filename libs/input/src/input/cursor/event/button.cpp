@@ -10,23 +10,30 @@
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/base.hpp>
 #include <sge/input/cursor/event/button.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::cursor::event::button::button(
-	sge::input::cursor::shared_ptr const _cursor,
+	sge::input::cursor::shared_ptr _cursor,
 	sge::input::cursor::button_code const _button_code,
-	sge::input::cursor::position const _position,
+	sge::input::cursor::position _position,
 	sge::input::cursor::button_pressed const _pressed
 )
 :
 	sge::input::cursor::event::base{
-		_cursor
+		std::move(
+			_cursor
+		)
 	},
 	button_code_{
 		_button_code
 	},
 	position_{
-		_position
+		std::move(
+			_position
+		)
 	},
 	pressed_{
 		_pressed
@@ -35,8 +42,7 @@ sge::input::cursor::event::button::button(
 }
 
 sge::input::cursor::event::button::~button()
-{
-}
+= default;
 
 sge::input::cursor::button_code
 sge::input::cursor::event::button::button_code() const

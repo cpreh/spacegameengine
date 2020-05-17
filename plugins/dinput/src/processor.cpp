@@ -26,6 +26,7 @@
 #include <sge/input/mouse/shared_ptr.hpp>
 #include <sge/window/event_function.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/system_event_function.hpp>
 #include <awl/backends/windows/system/event/handle.hpp>
@@ -54,7 +55,7 @@
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/container/join.hpp>
 #include <fcppt/log/debug.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -68,8 +69,8 @@
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::dinput::processor::processor(
-	fcppt::log::object &_log,
-	sge::window::object &_window
+	fcppt::log::object_reference const _log,
+	sge::window::object_ref const _window
 )
 :
 	sge::input::processor{},
@@ -158,7 +159,7 @@ sge::window::object &
 sge::dinput::processor::window() const
 {
 	return
-		window_;
+		window_.get();
 }
 
 sge::input::cursor::container
@@ -353,7 +354,7 @@ void
 sge::dinput::processor::on_focus_in()
 {
 	FCPPT_LOG_DEBUG(
-		log_,
+		log_.get(),
 		fcppt::log::out
 			<< FCPPT_TEXT("DirectInput: focus in")
 	)
@@ -370,7 +371,7 @@ void
 sge::dinput::processor::on_focus_out()
 {
 	FCPPT_LOG_DEBUG(
-		log_,
+		log_.get(),
 		fcppt::log::out
 			<< FCPPT_TEXT("DirectInput: focus out")
 	)
@@ -502,7 +503,7 @@ sge::dinput::processor::enum_devices_callback(
 	sge::dinput::device::parameters const parameters{
 		*instance.dinput_,
 		_ddi->guidInstance,
-		instance.window_,
+		instance.window_.get(), // TODO: Pass a reference
 		instance.windows_window_,
 		*instance.event_handle_
 	};

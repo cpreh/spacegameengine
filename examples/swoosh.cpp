@@ -651,7 +651,9 @@ try
 	);
 
 	sge::input::cursor::relative_movement::object const relative_cursor_movement{
-		sys.input_processor()
+		fcppt::make_ref(
+			sys.input_processor()
+		)
 	};
 
 	auto const draw(

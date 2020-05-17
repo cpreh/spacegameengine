@@ -4,28 +4,25 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_INPUT_PLUGIN_COLLECTION_FWD_HPP_INCLUDED
-#define SGE_INPUT_PLUGIN_COLLECTION_FWD_HPP_INCLUDED
+#ifndef SGE_INPUT_PROCESSOR_REF_HPP_INCLUDED
+#define SGE_INPUT_PROCESSOR_REF_HPP_INCLUDED
 
-#include <sge/input/system_fwd.hpp>
-#include <sge/plugin/collection_fwd.hpp>
+#include <sge/input/processor_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
 {
 namespace input
 {
-namespace plugin
-{
 
 using
-collection
+processor_ref
 =
-sge::plugin::collection<
-	sge::input::system
+fcppt::reference<
+	sge::input::processor
 >;
 
-}
 }
 }
 

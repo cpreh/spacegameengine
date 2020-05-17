@@ -7,11 +7,11 @@
 #ifndef SGE_INPUT_CURSOR_RELATIVE_MOVEMENT_OBJECT_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_RELATIVE_MOVEMENT_OBJECT_HPP_INCLUDED
 
-#include <sge/input/processor_fwd.hpp>
+#include <sge/input/processor_ref.hpp>
 #include <sge/input/cursor/relative_movement/object_fwd.hpp>
 #include <sge/input/cursor/relative_movement/detail/object_fwd.hpp>
 #include <sge/input/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 
 
@@ -26,24 +26,25 @@ namespace relative_movement
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	SGE_INPUT_DETAIL_SYMBOL
 	explicit
 	object(
-		sge::input::processor &
+		sge::input::processor_ref
 	);
 
 	SGE_INPUT_DETAIL_SYMBOL
 	~object();
 private:
-	typedef
+	using
+	impl
+	=
 	fcppt::unique_ptr<
 		sge::input::cursor::relative_movement::detail::object
-	>
-	impl;
+	>;
 
 	impl const impl_;
 };

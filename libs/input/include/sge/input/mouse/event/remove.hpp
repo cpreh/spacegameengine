@@ -12,7 +12,7 @@
 #include <sge/input/mouse/shared_ptr.hpp>
 #include <sge/input/mouse/event/base.hpp>
 #include <sge/input/mouse/event/remove_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -28,7 +28,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL remove
 :
 	public sge::input::mouse::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		remove
 	);
 public:

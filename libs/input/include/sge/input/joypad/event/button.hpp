@@ -14,7 +14,7 @@
 #include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/base.hpp>
 #include <sge/input/joypad/event/button_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL button
 :
 	public sge::input::joypad::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		button
 	);
 public:
@@ -45,10 +45,12 @@ public:
 	~button()
 	override;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::joypad::button_id
 	button_id() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	bool
 	pressed() const;

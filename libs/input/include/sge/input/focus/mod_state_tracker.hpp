@@ -14,7 +14,7 @@
 #include <sge/input/key/mod_state_fwd.hpp>
 #include <sge/input/key/modifier.hpp>
 #include <sge/input/key/pressed.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/shared_ptr_std_hash.hpp>
 #include <fcppt/enum/array_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -31,7 +31,7 @@ namespace focus
 
 class mod_state_tracker
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		mod_state_tracker
 	);
 public:
@@ -47,25 +47,28 @@ public:
 		sge::input::focus::event::base const &
 	);
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	sge::input::key::mod_state
 	mod_state(
 		sge::input::focus::shared_ptr const &
 	) const;
 private:
-	typedef
+	using
+	pressed_array
+	=
 	fcppt::enum_::array<
 		sge::input::key::modifier,
 		sge::input::key::pressed
-	>
-	pressed_array;
+	>;
 
-	typedef
+	using
+	map_type
+	=
 	std::unordered_map<
 		sge::input::focus::shared_ptr,
 		pressed_array
-	>
-	map_type;
+	>;
 
 	map_type map_;
 };

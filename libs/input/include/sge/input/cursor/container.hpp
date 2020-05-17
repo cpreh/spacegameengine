@@ -20,11 +20,12 @@ namespace input
 namespace cursor
 {
 
-typedef
+using
+container
+=
 std::vector<
 	sge::input::cursor::shared_ptr
->
-container;
+>;
 
 }
 }

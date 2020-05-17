@@ -28,27 +28,32 @@ template<
 class container
 {
 public:
-	typedef
-	Id
+	using
+	id
+	=
+	Id;
+
+	using
+	size_type
+	=
 	id;
 
-	typedef
-	id
-	size_type;
+	using
+	object
+	=
+	Obj;
 
-	typedef
-	Obj
+	using
+	value_type
+	=
 	object;
 
-	typedef
-	object
-	value_type;
-
-	typedef
+	using
+	vector
+	=
 	std::vector<
 		Obj
-	>
-	vector;
+	>;
 
 	SGE_INPUT_DETAIL_SYMBOL
 	explicit
@@ -56,20 +61,24 @@ public:
 		vector &&
 	);
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	Obj const &
 	operator[](
 		Id const &
 	) const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	Id
 	size() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	bool
 	empty() const;
 
+	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
 	vector const &
 	get() const;

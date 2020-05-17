@@ -7,11 +7,14 @@
 #include <sge/input/joypad/axis_code.hpp>
 #include <sge/input/joypad/relative_axis_info.hpp>
 #include <fcppt/optional_string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::input::joypad::relative_axis_info::relative_axis_info(
 	sge::input::joypad::axis_code const _code,
-	fcppt::optional_string const &_name
+	fcppt::optional_string &&_name
 )
 :
 	code_(

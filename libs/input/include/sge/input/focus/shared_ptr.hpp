@@ -18,11 +18,12 @@ namespace input
 namespace focus
 {
 
-typedef
+using
+shared_ptr
+=
 fcppt::shared_ptr<
 	sge::input::focus::object
->
-shared_ptr;
+>;
 
 }
 }
