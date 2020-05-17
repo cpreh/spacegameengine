@@ -6,16 +6,14 @@
 
 #include <sge/config/exception.hpp>
 #include <sge/config/getenv.hpp>
-#include <sge/config/getenv_exn.hpp>
+#include <sge/config/impl/getenv_exn.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional/to_exception.hpp>
 
 
-// TODO: Remove this
-
 fcppt::string
-sge::config::getenv_exn(
+sge::config::impl::getenv_exn(
 	fcppt::string const &_name
 )
 {

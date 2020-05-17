@@ -35,7 +35,9 @@ sge_config_add_custom_path(
 
 set(
 	SGE_CONFIG_FILES
+	libs/config/impl/include/sge/config/impl/getenv_exn.hpp
 	libs/config/impl/include/sge/config/impl/try_create_path.hpp
+	libs/config/impl/src/config/impl/getenv_exn.cpp
 	libs/config/impl/src/config/impl/try_create_path.cpp
 	libs/config/include/sge/config/app_name.hpp
 	libs/config/include/sge/config/app_path.hpp
@@ -44,7 +46,6 @@ set(
 	libs/config/include/sge/config/config_path.hpp
 	libs/config/include/sge/config/exception.hpp
 	libs/config/include/sge/config/getenv.hpp
-	libs/config/include/sge/config/getenv_exn.hpp
 	libs/config/include/sge/config/homedir.hpp
 	libs/config/include/sge/config/log_path.hpp
 	libs/config/include/sge/config/media_path.hpp
@@ -58,7 +59,6 @@ set(
 	libs/config/src/config/config_path.cpp
 	libs/config/src/config/exception.cpp
 	libs/config/src/config/getenv.cpp
-	libs/config/src/config/getenv_exn.cpp
 	libs/config/src/config/homedir.cpp
 	libs/config/src/config/log_path.cpp
 	libs/config/src/config/media_path.cpp

@@ -7,7 +7,6 @@
 #ifndef SGE_CONFIG_GETENV_EXN_HPP_INCLUDED
 #define SGE_CONFIG_GETENV_EXN_HPP_INCLUDED
 
-#include <sge/config/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
 
@@ -15,13 +14,15 @@ namespace sge
 {
 namespace config
 {
+namespace impl
+{
 
-SGE_CONFIG_DETAIL_SYMBOL
 fcppt::string
 getenv_exn(
 	fcppt::string const &
 );
 
+}
 }
 }
 

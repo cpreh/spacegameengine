@@ -20,7 +20,7 @@
 #include <fcppt/string.hpp>
 #include <fcppt/optional/maybe.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-#include <sge/config/getenv_exn.hpp>
+#include <sge/config/impl/getenv_exn.hpp>
 #endif
 
 
@@ -33,7 +33,7 @@ sge::config::cache_path(
 	return
 		sge::config::impl::try_create_path(
 			std::filesystem::path(
-				sge::config::getenv_exn(
+				sge::config::impl::getenv_exn(
 					FCPPT_TEXT("APPDATA")
 				)
 			)
