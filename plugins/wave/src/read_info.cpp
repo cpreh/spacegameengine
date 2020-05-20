@@ -26,8 +26,8 @@
 #include <fcppt/log/info.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
+#include <fcppt/optional/apply.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/maybe_multi.hpp>
 #include <fcppt/optional/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
@@ -278,11 +278,7 @@ sge::wave::read_info(
 	);
 
 	return
-		fcppt::optional::maybe_multi(
-			[]{
-				return
-					sge::wave::optional_info();
-			},
+		fcppt::optional::apply(
 			[
 				endianness
 			](
@@ -309,30 +305,28 @@ sge::wave::read_info(
 				};
 
 				return
-					sge::wave::optional_info{
-						sge::wave::info{
-							endianness,
-							channels_result,
-							sge::audio::sample_rate{
-								fcppt::cast::size<
-									sge::audio::sample_count
-								>(
-									_sample_rate
-								)
-							},
-							bits_per_sample_result,
+					sge::wave::info{
+						endianness,
+						channels_result,
+						sge::audio::sample_rate{
 							fcppt::cast::size<
 								sge::audio::sample_count
 							>(
-								_data_size
+								_sample_rate
 							)
-							/
-							channels_result.get()
-							/
-							sge::audio::bytes_per_sample(
-								bits_per_sample_result
-							)
-						}
+						},
+						bits_per_sample_result,
+						fcppt::cast::size<
+							sge::audio::sample_count
+						>(
+							_data_size
+						)
+						/
+						channels_result.get()
+						/
+						sge::audio::bytes_per_sample(
+							bits_per_sample_result
+						)
 					};
 			},
 			channels,
