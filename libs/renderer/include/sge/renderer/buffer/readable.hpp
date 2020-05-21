@@ -13,7 +13,7 @@
 #include <sge/renderer/buffer/readable_fwd.hpp>
 #include <sge/renderer/buffer/traits/const_view.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL readable
 			ImageTag
 		>
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		readable
 	);
 protected:
@@ -44,53 +44,60 @@ public:
 	~readable()
 	override;
 
-	typedef
+	using
+	base_type
+	=
 	sge::renderer::buffer::base<
 		ImageTag
-	>
-	base_type;
+	>;
 
-	typedef
+	using
+	image_tag
+	=
 	typename
-	base_type::image_tag
-	image_tag;
+	base_type::image_tag;
 
-	typedef
+	using
+	dim
+	=
 	typename
-	base_type::dim
-	dim;
+	base_type::dim;
 
-	typedef
+	using
+	format_tag
+	=
 	typename
-	base_type::format_tag
-	format_tag;
+	base_type::format_tag;
 
-	typedef
+	using
+	format_type
+	=
 	typename
-	base_type::format_type
-	format_type;
+	base_type::format_type;
 
 	/**
 	\brief The lock area type
 
 	Specifies the lock area in pixels
 	*/
-	typedef
+	using
+	lock_area
+	=
 	sge::image::box<
 		ImageTag
-	>
-	lock_area;
+	>;
 
 	/**
 	\brief The const view type
 
 	The view type of const locks
 	*/
-	typedef
+	using
+	const_view
+	=
 	sge::renderer::buffer::traits::const_view<
 		ImageTag
-	>
-	const_view;
+	>;
 
 	/**
 	\brief Locks the whole buffer readonly
@@ -101,6 +108,7 @@ public:
 
 	\warning The behavior is undefined if the buffer is already locked
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	const_view
 	lock_c() const;
@@ -118,6 +126,7 @@ public:
 
 	\warning The behavior is undefined if \a area is out of range
 	*/
+	[[nodiscard]]
 	virtual
 	const_view
 	lock_c(

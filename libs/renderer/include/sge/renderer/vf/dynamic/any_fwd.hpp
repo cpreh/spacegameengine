@@ -24,15 +24,16 @@ namespace vf
 namespace dynamic
 {
 
-typedef
+using
+any
+=
 fcppt::variant::object<
 	sge::renderer::vf::dynamic::pos,
 	sge::renderer::vf::dynamic::normal,
 	sge::renderer::vf::dynamic::color,
 	sge::renderer::vf::dynamic::texpos,
 	sge::renderer::vf::dynamic::extra
->
-any;
+>;
 
 }
 }

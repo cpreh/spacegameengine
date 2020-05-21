@@ -23,7 +23,10 @@ namespace filter
 namespace anisotropic
 {
 
-typedef unsigned level_value;
+using
+level_value
+=
+unsigned;
 
 }
 }

@@ -30,6 +30,7 @@ public:
 		sge::image::color::format
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::image::color::format
 	color_format() const;

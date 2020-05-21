@@ -74,14 +74,17 @@ public:
 		sge::renderer::clear::stencil_buffer_value
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::clear::optional_back_buffer const &
 	back_buffer() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::clear::optional_depth_buffer const &
 	depth_buffer() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::clear::optional_stencil_buffer const &
 	stencil_buffer() const;

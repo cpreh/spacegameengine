@@ -23,11 +23,12 @@ namespace clear
 
 \ingroup sge_renderer
 */
-typedef
+using
+optional_back_buffer
+=
 fcppt::optional::object<
 	sge::renderer::clear::back_buffer_value
->
-optional_back_buffer;
+>;
 
 }
 }

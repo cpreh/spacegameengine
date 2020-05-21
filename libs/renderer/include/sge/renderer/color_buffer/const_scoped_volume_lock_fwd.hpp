@@ -23,11 +23,12 @@ namespace color_buffer
 
 \ingroup sge_renderer
 */
-typedef
+using
+const_scoped_volume_lock
+=
 sge::renderer::buffer::const_scoped_lock<
 	sge::image3d::tag
->
-const_scoped_volume_lock;
+>;
 
 }
 }

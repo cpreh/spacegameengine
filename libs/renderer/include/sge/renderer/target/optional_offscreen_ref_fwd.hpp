@@ -18,11 +18,12 @@ namespace renderer
 namespace target
 {
 
-typedef
+using
+optional_offscreen_ref
+=
 fcppt::optional::reference<
 	sge::renderer::target::offscreen
->
-optional_offscreen_ref;
+>;
 
 }
 }

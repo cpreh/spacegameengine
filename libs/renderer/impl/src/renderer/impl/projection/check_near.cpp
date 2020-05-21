@@ -27,8 +27,10 @@ sge::renderer::impl::projection::check_near(
 			)
 		)
 	)
+	{
 		throw
 			sge::renderer::exception{
 				FCPPT_TEXT("projection: near must not be 0!")
 			};
+	}
 }

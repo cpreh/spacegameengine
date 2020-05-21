@@ -22,11 +22,12 @@ namespace core
 namespace blend
 {
 
-typedef
+using
+const_optional_object_ref
+=
 fcppt::optional::reference<
 	sge::renderer::state::core::blend::object const
->
-const_optional_object_ref;
+>;
 
 }
 }

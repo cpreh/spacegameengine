@@ -39,10 +39,12 @@ public:
 		sge::renderer::vf::dynamic::stride
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::ordered_element_list const &
 	elements() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::stride
 	stride() const;

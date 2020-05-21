@@ -13,7 +13,7 @@
 #include <sge/image/traits/pixel/format_fwd.hpp>
 #include <sge/renderer/buffer/base_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -28,7 +28,7 @@ template<
 >
 class SGE_CORE_DETAIL_CLASS_SYMBOL base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 protected:
@@ -39,32 +39,38 @@ public:
 	virtual
 	~base();
 
-	typedef
-	ImageTag
-	image_tag;
+	using
+	image_tag
+	=
+	ImageTag;
 
-	typedef
+	using
+	dim
+	=
 	sge::image::dim<
 		ImageTag
-	>
-	dim;
+	>;
 
-	typedef
+	using
+	format_tag
+	=
 	sge::image::traits::image::color_tag<
 		ImageTag
-	>
-	format_tag;
+	>;
 
-	typedef
+	using
+	format_type
+	=
 	sge::image::traits::pixel::format<
 		format_tag
-	>
-	format_type;
+	>;
 
+	[[nodiscard]]
 	virtual
 	dim
 	size() const = 0;
 
+	[[nodiscard]]
 	virtual
 	format_type
 	format() const = 0;

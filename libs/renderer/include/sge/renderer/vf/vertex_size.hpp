@@ -17,7 +17,10 @@ namespace renderer
 namespace vf
 {
 
-typedef sge::renderer::size_type vertex_size;
+using
+vertex_size
+=
+sge::renderer::size_type;
 
 }
 }

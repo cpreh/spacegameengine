@@ -18,11 +18,12 @@ namespace renderer
 namespace texture
 {
 
-typedef
+using
+const_optional_base_ref
+=
 fcppt::optional::reference<
 	sge::renderer::texture::base const
->
-const_optional_base_ref;
+>;
 
 }
 }

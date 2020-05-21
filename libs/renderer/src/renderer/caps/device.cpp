@@ -19,13 +19,16 @@
 #include <sge/renderer/caps/srgb_framebuffer.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::caps::device::device(
-	sge::renderer::caps::driver_name const &_driver_name,
-	sge::renderer::caps::description const &_description,
-	sge::renderer::caps::normalized_cvv const &_normalized_cvv,
-	sge::renderer::caps::max_texture_size const &_max_texture_size,
+	sge::renderer::caps::driver_name &&_driver_name,
+	sge::renderer::caps::description &&_description,
+	sge::renderer::caps::normalized_cvv const _normalized_cvv,
+	sge::renderer::caps::max_texture_size _max_texture_size,
 	sge::renderer::caps::max_volume_texture_extent const _max_volume_texture_extent,
 	sge::renderer::caps::non_power_of_2_textures const _non_power_of_2_textures,
 	sge::renderer::caps::max_anisotropy const _max_anisotropy,
@@ -39,16 +42,22 @@ sge::renderer::caps::device::device(
 )
 :
 	driver_name_(
-		_driver_name
+		std::move(
+			_driver_name
+		)
 	),
 	description_(
-		_description
+		std::move(
+			_description
+		)
 	),
 	normalized_cvv_(
 		_normalized_cvv
 	),
 	max_texture_size_(
-		_max_texture_size
+		std::move(
+			_max_texture_size
+		)
 	),
 	max_volume_texture_extent_(
 		_max_volume_texture_extent

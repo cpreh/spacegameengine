@@ -23,11 +23,12 @@ namespace clear
 
 \ingroup sge_renderer
 */
-typedef
+using
+optional_depth_buffer
+=
 fcppt::optional::object<
 	sge::renderer::clear::depth_buffer_value
->
-optional_depth_buffer;
+>;
 
 }
 }

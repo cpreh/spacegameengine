@@ -18,11 +18,12 @@ namespace renderer
 namespace context
 {
 
-typedef
+using
+core_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::context::core
->
-core_unique_ptr;
+>;
 
 }
 }

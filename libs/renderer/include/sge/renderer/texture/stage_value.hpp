@@ -17,7 +17,10 @@ namespace renderer
 namespace texture
 {
 
-typedef sge::renderer::state::index_count stage_value;
+using
+stage_value
+=
+sge::renderer::state::index_count;
 
 }
 }

@@ -28,7 +28,7 @@
 #include <sge/renderer/vertex/const_optional_declaration_ref_fwd.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
@@ -53,7 +53,7 @@ sge::renderer::device::core::begin_rendering on a render target.
 */
 class SGE_CORE_DETAIL_CLASS_SYMBOL core
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		core
 	);
 protected:

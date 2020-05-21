@@ -30,6 +30,7 @@ public:
 		sge::renderer::vf::dynamic::vector const &
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::vector const &
 	type() const;

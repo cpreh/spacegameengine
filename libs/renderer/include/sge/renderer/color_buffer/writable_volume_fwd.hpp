@@ -23,13 +23,14 @@ namespace color_buffer
 
 \ingroup sge_renderer
 */
-typedef
+using
+writable_volume
+=
 sge::renderer::buffer::writable<
 	sge::renderer::color_buffer::tag_from_dimension<
-		3u
+		3U
 	>
->
-writable_volume;
+>;
 
 }
 }

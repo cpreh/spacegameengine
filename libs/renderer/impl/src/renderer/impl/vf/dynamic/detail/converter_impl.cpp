@@ -45,11 +45,12 @@ sge::renderer::vf::dynamic::detail::converter_impl::converter_impl(
 				sge::renderer::vf::dynamic::ordered_element const &_element
 			)
 			{
-				typedef
+				using
+				optional_result
+				=
 				fcppt::optional::object<
 					sge::renderer::impl::vf::dynamic::element_converter
-				>
-				optional_result;
+				>;
 
 				auto const convert_color(
 					[
@@ -158,8 +159,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::converter_impl(
 }
 
 sge::renderer::vf::dynamic::detail::converter_impl::~converter_impl()
-{
-}
+= default;
 
 void
 sge::renderer::vf::dynamic::detail::converter_impl::convert_lock(
@@ -178,6 +178,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::convert_lock(
 			_current_lock
 		)
 	)
+	{
 		this->do_convert(
 			_data,
 			_pos,
@@ -186,6 +187,7 @@ sge::renderer::vf::dynamic::detail::converter_impl::convert_lock(
 				false
 			}
 		);
+	}
 }
 
 void
@@ -218,10 +220,12 @@ sge::renderer::vf::dynamic::detail::converter_impl::do_convert(
 		:
 		element_converters_
 	)
+	{
 		conv.convert(
 			_interval,
 			_data,
 			_pos,
 			_unlock
 		);
+	}
 }

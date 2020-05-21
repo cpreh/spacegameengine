@@ -22,7 +22,7 @@ FCPPT_PP_DISABLE_CLANG_WARNING(-Wweak-template-vtables)
 
 SGE_RENDERER_BUFFER_DETAIL_DECLARE_CONST_SCOPED_LOCK(
 	sge::renderer::color_buffer::tag_from_dimension<
-		3u
+		3U
 	>
 );
 

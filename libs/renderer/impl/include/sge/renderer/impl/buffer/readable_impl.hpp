@@ -31,8 +31,7 @@ template<
 sge::renderer::buffer::readable<
 	Tag
 >::~readable()
-{
-}
+= default;
 
 template<
 	typename Tag

@@ -20,9 +20,10 @@ namespace renderer
 
 \ingroup sge_renderer
 */
-typedef
-sge::image::size_type
-size_type;
+using
+size_type
+=
+sge::image::size_type;
 
 }
 }

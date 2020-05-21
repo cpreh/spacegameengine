@@ -23,11 +23,12 @@ namespace vertex
 
 \see sge::renderer::device::vertex_declaration
 */
-typedef
+using
+const_optional_declaration_ref
+=
 fcppt::optional::reference<
 	sge::renderer::vertex::declaration const
->
-const_optional_declaration_ref;
+>;
 
 }
 }

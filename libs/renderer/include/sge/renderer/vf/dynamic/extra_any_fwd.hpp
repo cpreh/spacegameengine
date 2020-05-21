@@ -21,12 +21,13 @@ namespace vf
 namespace dynamic
 {
 
-typedef
+using
+extra_any
+=
 fcppt::variant::object<
 	sge::renderer::vf::dynamic::vector,
 	sge::renderer::vf::dynamic::color
->
-extra_any;
+>;
 
 }
 }

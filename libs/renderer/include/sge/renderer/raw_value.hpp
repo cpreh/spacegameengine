@@ -22,7 +22,10 @@ Buffer data can be accessed raw as if it was an array of bytes. This can be
 useful if you want to bypass the type system so you can directly copy into or
 read from a buffer.
 */
-typedef unsigned char raw_value;
+using
+raw_value
+=
+unsigned char;
 
 }
 }

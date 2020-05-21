@@ -20,9 +20,10 @@ namespace clear
 
 \ingroup sge_renderer
 */
-typedef
-int
-stencil_buffer_value;
+using
+stencil_buffer_value
+=
+int;
 
 }
 }

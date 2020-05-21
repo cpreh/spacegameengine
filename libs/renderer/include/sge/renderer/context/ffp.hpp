@@ -20,7 +20,7 @@
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/mode_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL ffp
 :
 	public sge::renderer::context::core
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		ffp
 	);
 protected:

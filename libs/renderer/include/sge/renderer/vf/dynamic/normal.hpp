@@ -30,6 +30,7 @@ public:
 		sge::renderer::vf::dynamic::element_type
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::element_type
 	element_type() const;

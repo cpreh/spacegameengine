@@ -31,10 +31,12 @@ public:
 		sge::renderer::vf::dynamic::index
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::extra_any const &
 	type() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::index
 	index() const;

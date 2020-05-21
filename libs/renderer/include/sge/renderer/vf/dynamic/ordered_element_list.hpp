@@ -22,11 +22,12 @@ namespace vf
 namespace dynamic
 {
 
-typedef
+using
+ordered_element_list
+=
 std::vector<
 	sge::renderer::vf::dynamic::ordered_element
->
-ordered_element_list;
+>;
 
 }
 }

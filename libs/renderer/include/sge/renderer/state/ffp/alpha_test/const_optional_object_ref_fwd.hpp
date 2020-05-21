@@ -22,11 +22,12 @@ namespace ffp
 namespace alpha_test
 {
 
-typedef
+using
+const_optional_object_ref
+=
 fcppt::optional::reference<
 	sge::renderer::state::ffp::alpha_test::object const
->
-const_optional_object_ref;
+>;
 
 }
 }

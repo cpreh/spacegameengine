@@ -22,9 +22,12 @@ namespace vf
 namespace dynamic
 {
 
-typedef std::vector<
+using
+offset_list
+=
+std::vector<
 	sge::renderer::vf::dynamic::offset
-> offset_list;
+>;
 
 }
 }

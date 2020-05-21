@@ -15,7 +15,10 @@ namespace renderer
 namespace vf
 {
 
-typedef unsigned index_type;
+using
+index_type
+=
+unsigned;
 
 }
 }

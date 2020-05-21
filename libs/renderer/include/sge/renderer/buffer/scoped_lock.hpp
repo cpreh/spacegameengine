@@ -13,7 +13,7 @@
 #include <sge/renderer/buffer/writable_fwd.hpp>
 #include <sge/renderer/buffer/traits/view.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -36,27 +36,30 @@ template<
 >
 class scoped_lock
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_lock
 	);
 public:
-	typedef
+	using
+	buffer_type
+	=
 	sge::renderer::buffer::writable<
 		Tag
-	>
-	buffer_type;
+	>;
 
-	typedef
+	using
+	lock_area
+	=
 	sge::image::box<
 		Tag
-	>
-	lock_area;
+	>;
 
-	typedef
+	using
+	view
+	=
 	sge::renderer::buffer::traits::view<
 		Tag
-	>
-	view;
+	>;
 
 	/**
 	\brief Locks an entire buffer
@@ -100,6 +103,7 @@ public:
 
 	\return The view of the locked region
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	view
 	value() const;

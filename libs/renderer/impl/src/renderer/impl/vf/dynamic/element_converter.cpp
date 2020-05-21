@@ -70,7 +70,9 @@ sge::renderer::impl::vf::dynamic::element_converter::convert(
 		==
 		backend_format_.get()
 	)
+	{
 		return;
+	}
 
 	// pos refers to the beginning of the lock
 	FCPPT_ASSERT_PRE(
@@ -94,7 +96,7 @@ sge::renderer::impl::vf::dynamic::element_converter::convert(
 	);
 
 	sge::image2d::dim const dim(
-		1u,
+		1U,
 		_interval.upper()
 		-
 		_interval.lower()

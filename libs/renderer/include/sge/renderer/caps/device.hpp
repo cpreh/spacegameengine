@@ -52,10 +52,10 @@ public:
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
 	device(
-		sge::renderer::caps::driver_name const &,
-		sge::renderer::caps::description const &,
-		sge::renderer::caps::normalized_cvv const &,
-		sge::renderer::caps::max_texture_size const &,
+		sge::renderer::caps::driver_name &&,
+		sge::renderer::caps::description &&,
+		sge::renderer::caps::normalized_cvv,
+		sge::renderer::caps::max_texture_size,
 		sge::renderer::caps::max_volume_texture_extent,
 		sge::renderer::caps::non_power_of_2_textures,
 		sge::renderer::caps::max_anisotropy,
@@ -73,6 +73,7 @@ public:
 
 	A string representation of the driver name.
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::driver_name const &
 	driver_name() const;
@@ -83,6 +84,7 @@ public:
 	This usually contains the vendor or the model name of the graphics
 	card.
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::description const &
 	description() const;
@@ -101,6 +103,7 @@ public:
 	DirectX has "half a unit cube". The Z value is in [0,1] while the X and
 	Y values are in [-1,1].
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::normalized_cvv
 	normalized_cvv() const;
@@ -114,6 +117,7 @@ public:
 	and your graphics card. Typical values might be (4096,4096) or
 	(8192,8192).
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::max_texture_size const &
 	max_texture_size() const;
@@ -124,6 +128,7 @@ public:
 	This is the maximum size for each side of a volume texture. Creating
 	anything bigger than that is not supported.
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::max_volume_texture_extent
 	max_volume_texture_extent() const;
@@ -135,6 +140,7 @@ public:
 	in a virtual machine, over vnc or rdesktop, etc.) might not support non
 	power of 2 textures.
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::non_power_of_2_textures
 	non_power_of_2_textures() const;
@@ -145,6 +151,7 @@ public:
 	This is the maximum anisotropy supported for anisotropic texture
 	filters. If this is 0, no anisotropic filtering is supported.
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::max_anisotropy
 	max_anisotropy() const;
@@ -155,6 +162,7 @@ public:
 	If no render targets are supported, then you cannot use
 	sge::renderer::device::create_target.
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::render_target_supported
 	render_target_supported() const;
@@ -166,6 +174,7 @@ public:
 	vertically. If render targets are not supported, this value has no
 	meaning.
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::render_target_inverted
 	render_target_inverted() const;
@@ -176,6 +185,7 @@ public:
 	Valid clip plane indices range from 0 to the returned value - 1. If
 	this value is 0, no clip planes are supported.
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::clip_plane_indices
 	clip_plane_indices() const;
@@ -186,6 +196,7 @@ public:
 	Valid light indices range from 0 to the returned value - 1. If this
 	value is 0, no lights are supported.
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::light_indices
 	light_indices() const;
@@ -196,6 +207,7 @@ public:
 	Valid texture stages range from 0 to the returned value - 1. The 0th
 	texture stage is always supported.
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::texture_stages
 	texture_stages() const;
@@ -206,6 +218,7 @@ public:
 	Valid target surface indices range from 0 to the returned value - 1.
 	The 0th index is always supported.
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::target_surface_indices
 	target_surfaces() const;
@@ -215,6 +228,7 @@ public:
 
 	This is required for creating a pixel format with srgb support.
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::caps::srgb_framebuffer
 	srgb_framebuffer() const;

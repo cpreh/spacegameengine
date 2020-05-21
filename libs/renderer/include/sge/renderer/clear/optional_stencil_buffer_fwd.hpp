@@ -23,11 +23,12 @@ namespace clear
 
 \ingroup sge_renderer
 */
-typedef
+using
+optional_stencil_buffer
+=
 fcppt::optional::object<
 	sge::renderer::clear::stencil_buffer_value
->
-optional_stencil_buffer;
+>;
 
 }
 }

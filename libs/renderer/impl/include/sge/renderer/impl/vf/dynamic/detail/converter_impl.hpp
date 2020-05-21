@@ -16,7 +16,7 @@
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
 #include <sge/renderer/vf/dynamic/detail/converter_impl_fwd.hpp>
 #include <sge/renderer/vf/dynamic/detail/lock_interval_set.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -35,7 +35,7 @@ namespace detail
 
 class converter_impl
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		converter_impl
 	);
 public:
@@ -69,11 +69,12 @@ private:
 		sge::renderer::impl::vf::dynamic::unlock
 	);
 
-	typedef
+	using
+	element_converter_vector
+	=
 	std::vector<
 		sge::renderer::impl::vf::dynamic::element_converter
-	>
-	element_converter_vector;
+	>;
 
 	element_converter_vector const element_converters_;
 };

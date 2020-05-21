@@ -30,6 +30,7 @@ public:
 		sge::renderer::vf::dynamic::any const &
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::any const &
 	info() const;

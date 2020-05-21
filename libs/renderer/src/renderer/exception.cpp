@@ -41,6 +41,7 @@ sge::renderer::exception::exception(
 sge::renderer::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::renderer::exception::exception(
@@ -52,6 +53,7 @@ sge::renderer::exception &
 sge::renderer::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::renderer::exception &
@@ -60,6 +62,6 @@ sge::renderer::exception::operator=(
 )
 = default;
 
-sge::renderer::exception::~exception() noexcept
-{
-}
+sge::renderer::exception::~exception()
+noexcept
+= default;

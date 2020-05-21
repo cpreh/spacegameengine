@@ -17,7 +17,10 @@ namespace renderer
 namespace vf
 {
 
-typedef fcppt::math::size_type element_count_type;
+using
+element_count_type
+=
+fcppt::math::size_type;
 
 }
 }

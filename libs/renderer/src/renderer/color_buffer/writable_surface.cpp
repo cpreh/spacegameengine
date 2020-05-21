@@ -12,6 +12,6 @@
 
 SGE_RENDERER_IMPL_BUFFER_INSTANTIATE_WRITABLE(
 	sge::renderer::color_buffer::tag_from_dimension<
-		2u
+		2U
 	>
 );

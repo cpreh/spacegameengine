@@ -16,8 +16,7 @@ template<
 sge::renderer::buffer::base<
 	Tag
 >::base()
-{
-}
+= default;
 
 template<
 	typename Tag
@@ -25,7 +24,6 @@ template<
 sge::renderer::buffer::base<
 	Tag
 >::~base()
-{
-}
+= default;
 
 #endif

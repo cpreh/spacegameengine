@@ -20,21 +20,21 @@ sge::renderer::aspect(
 		_size.w() != 0 && _size.h() != 0
 	);
 
-	sge::renderer::scalar const
-		width(
-			fcppt::cast::int_to_float<
-				sge::renderer::scalar
-			>(
-				_size.w()
-			)
-		),
-		height(
-			fcppt::cast::int_to_float<
-				sge::renderer::scalar
-			>(
-				_size.h()
-			)
-		);
+	auto const width(
+		fcppt::cast::int_to_float<
+			sge::renderer::scalar
+		>(
+			_size.w()
+		)
+	);
+
+	auto const height(
+		fcppt::cast::int_to_float<
+			sge::renderer::scalar
+		>(
+			_size.h()
+		)
+	);
 
 	return
 		width > height

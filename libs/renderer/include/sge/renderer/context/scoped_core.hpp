@@ -13,7 +13,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -25,7 +25,7 @@ namespace context
 
 class scoped_core
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_core
 	);
 public:
@@ -38,6 +38,7 @@ public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped_core();
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::context::core &
 	get() const;

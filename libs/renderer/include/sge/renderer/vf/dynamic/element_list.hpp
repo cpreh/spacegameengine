@@ -22,9 +22,12 @@ namespace vf
 namespace dynamic
 {
 
-typedef std::vector<
+using
+element_list
+=
+std::vector<
 	sge::renderer::vf::dynamic::element
-> element_list;
+>;
 
 }
 }

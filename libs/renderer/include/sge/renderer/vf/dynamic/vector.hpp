@@ -31,10 +31,12 @@ public:
 		sge::renderer::vf::dynamic::element_count
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::element_type
 	element_type() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::element_count
 	element_count() const;

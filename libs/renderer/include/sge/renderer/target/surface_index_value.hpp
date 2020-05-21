@@ -15,7 +15,10 @@ namespace renderer
 namespace target
 {
 
-typedef unsigned surface_index_value;
+using
+surface_index_value
+=
+unsigned;
 
 }
 }

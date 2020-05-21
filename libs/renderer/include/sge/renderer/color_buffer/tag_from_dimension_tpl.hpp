@@ -26,22 +26,24 @@ struct tag_from_dimension_tpl;
 
 template<>
 struct tag_from_dimension_tpl<
-	2u
+	2U
 >
 {
-	typedef
-	sge::image2d::tag
-	type;
+	using
+	type
+	=
+	sge::image2d::tag;
 };
 
 template<>
 struct tag_from_dimension_tpl<
-	3u
+	3U
 >
 {
-	typedef
-	sge::image3d::tag
-	type;
+	using
+	type
+	=
+	sge::image3d::tag;
 };
 
 }

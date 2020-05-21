@@ -21,12 +21,13 @@ namespace renderer
 
 \ingroup sge_renderer
 */
-typedef
+using
+screen_size
+=
 fcppt::math::dim::static_<
 	sge::renderer::screen_unit,
 	2
->
-screen_size;
+>;
 
 }
 }

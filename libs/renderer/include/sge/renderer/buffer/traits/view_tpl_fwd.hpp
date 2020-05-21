@@ -24,11 +24,12 @@ template<
 >
 struct view_tpl
 {
-	typedef
+	using
+	type
+	=
 	sge::image::view::object<
 		Tag
-	>
-	type;
+	>;
 };
 
 }

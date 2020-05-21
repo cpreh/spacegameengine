@@ -31,10 +31,12 @@ public:
 		sge::renderer::vf::dynamic::offset
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::element const &
 	element() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::offset
 	offset() const;

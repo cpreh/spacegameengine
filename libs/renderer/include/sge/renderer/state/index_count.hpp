@@ -15,7 +15,10 @@ namespace renderer
 namespace state
 {
 
-typedef unsigned index_count;
+using
+index_count
+=
+unsigned;
 
 }
 }

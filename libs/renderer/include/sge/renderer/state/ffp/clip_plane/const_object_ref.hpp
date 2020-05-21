@@ -22,9 +22,12 @@ namespace ffp
 namespace clip_plane
 {
 
-typedef fcppt::reference<
+using
+const_object_ref
+=
+fcppt::reference<
 	sge::renderer::state::ffp::clip_plane::object const
-> const_object_ref;
+>;
 
 }
 }

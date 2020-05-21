@@ -24,11 +24,12 @@ namespace lighting
 namespace material
 {
 
-typedef
+using
+const_optional_object_ref
+=
 fcppt::optional::reference<
 	sge::renderer::state::ffp::lighting::material::object const
->
-const_optional_object_ref;
+>;
 
 }
 }

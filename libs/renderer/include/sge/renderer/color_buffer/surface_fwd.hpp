@@ -23,13 +23,14 @@ namespace color_buffer
 
 \ingroup sge_renderer
 */
-typedef
+using
+surface
+=
 sge::renderer::buffer::base<
 	sge::renderer::color_buffer::tag_from_dimension<
-		2u
+		2U
 	>
->
-surface;
+>;
 
 }
 }

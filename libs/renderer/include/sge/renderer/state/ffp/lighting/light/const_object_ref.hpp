@@ -24,11 +24,12 @@ namespace lighting
 namespace light
 {
 
-typedef
+using
+const_object_ref
+=
 fcppt::reference<
 	sge::renderer::state::ffp::lighting::light::object const
->
-const_object_ref;
+>;
 
 }
 }

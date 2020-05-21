@@ -18,7 +18,10 @@ namespace renderer
 
 \ingroup sge_renderer
 */
-typedef unsigned screen_unit;
+using
+screen_unit
+=
+unsigned;
 
 }
 }

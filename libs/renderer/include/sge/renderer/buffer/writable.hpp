@@ -13,7 +13,7 @@
 #include <sge/renderer/buffer/writable_fwd.hpp>
 #include <sge/renderer/buffer/traits/view.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -33,7 +33,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL writable
 			ImageTag
 		>
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		writable
 	);
 protected:
@@ -44,47 +44,54 @@ public:
 	~writable()
 	override;
 
-	typedef
+	using
+	base
+	=
 	sge::renderer::buffer::readable<
 		ImageTag
-	>
-	base;
+	>;
 
-	typedef
+	using
+	image_tag
+	=
 	typename
-	base::image_tag
-	image_tag;
+	base::image_tag;
 
-	typedef
+	using
+	dim
+	=
 	typename
-	base::dim
-	dim;
+	base::dim;
 
-	typedef
+	using
+	format_tag
+	=
 	typename
-	base::format_tag
-	format_tag;
+	base::format_tag;
 
-	typedef
+	using
+	format_type
+	=
 	typename
-	base::format_type
-	format_type;
+	base::format_type;
 
-	typedef
+	using
+	lock_area
+	=
 	typename
-	base::lock_area
-	lock_area;
+	base::lock_area;
 
 	/**
 	\brief The view type
 
 	The view type of nonconst locks
 	*/
-	typedef
+	using
+	view
+	=
 	sge::renderer::buffer::traits::view<
 		ImageTag
-	>
-	view;
+	>;
 
 	/**
 	\brief Locks the whole buffer readwrite or writeonly
@@ -97,6 +104,7 @@ public:
 
 	\warning The behavior is undefined if the buffer is already locked
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	view
 	lock(
@@ -117,6 +125,7 @@ public:
 
 	\warning The behavior is undefined if the buffer is already locked
 	*/
+	[[nodiscard]]
 	virtual
 	view
 	lock(

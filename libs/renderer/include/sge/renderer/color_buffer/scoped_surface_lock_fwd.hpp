@@ -23,11 +23,12 @@ namespace color_buffer
 
 \ingroup sge_renderer
 */
-typedef
+using
+scoped_surface_lock
+=
 sge::renderer::buffer::scoped_lock<
 	sge::image2d::tag
->
-scoped_surface_lock;
+>;
 
 }
 }

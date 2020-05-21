@@ -20,11 +20,12 @@ namespace renderer
 
 \ingroup sge_renderer
 */
-typedef
+using
+lock_segment
+=
 sge::renderer::basic_lock_box<
 	1
->
-lock_segment;
+>;
 
 }
 }

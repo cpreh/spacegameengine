@@ -22,11 +22,12 @@ namespace ffp
 namespace fog
 {
 
-typedef
+using
+const_optional_object_ref
+=
 fcppt::optional::reference<
 	sge::renderer::state::ffp::fog::object const
->
-const_optional_object_ref;
+>;
 
 }
 }

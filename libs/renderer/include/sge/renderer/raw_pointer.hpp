@@ -22,7 +22,10 @@ namespace renderer
 
 \see sge::renderer::raw_value
 */
-typedef sge::renderer::raw_value *raw_pointer;
+using
+raw_pointer
+=
+sge::renderer::raw_value *;
 
 }
 }

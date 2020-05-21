@@ -27,7 +27,7 @@ epsilon()
 		fcppt::literal<
 			sge::renderer::scalar
 		>(
-			0.001
+			0.001 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		);
 }
 

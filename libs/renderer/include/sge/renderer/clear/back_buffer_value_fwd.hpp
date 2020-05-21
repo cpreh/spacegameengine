@@ -24,9 +24,10 @@ namespace clear
 
 Backbuffers are cleared using any color.
 */
-typedef
-sge::image::color::any::object
-back_buffer_value;
+using
+back_buffer_value
+=
+sge::image::color::any::object;
 
 }
 }

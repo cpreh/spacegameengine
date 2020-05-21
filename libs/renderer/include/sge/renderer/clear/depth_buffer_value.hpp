@@ -24,9 +24,10 @@ namespace clear
 
 Depth buffers are cleared using scalars in [0,1].
 */
-typedef
-sge::renderer::scalar
-depth_buffer_value;
+using
+depth_buffer_value
+=
+sge::renderer::scalar;
 
 }
 }

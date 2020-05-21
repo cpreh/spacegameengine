@@ -24,9 +24,10 @@ sge::renderer::impl::projection::check_near_far(
 			_near.get()
 		)
 	)
+	{
 		throw
 			sge::renderer::exception{
 				FCPPT_TEXT("projection: far may not be near!")
 			};
-
+	}
 }

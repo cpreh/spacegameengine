@@ -22,9 +22,12 @@ namespace ffp
 namespace sampler
 {
 
-typedef fcppt::reference<
+using
+const_object_ref
+=
+fcppt::reference<
 	sge::renderer::state::ffp::sampler::object const
-> const_object_ref;
+>;
 
 }
 }
