@@ -9,7 +9,7 @@
 
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/const_view_fwd.hpp>
 
@@ -39,7 +39,7 @@ Creates an index buffer copied from \a view with resource flags \a flags.
 SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::index::buffer_unique_ptr
 create_buffer_from_view(
-	sge::renderer::device::core &device,
+	sge::renderer::device::core_ref device,
 	sge::renderer::index::dynamic::const_view const &view,
 	sge::renderer::resource_flags_field const &flags
 );

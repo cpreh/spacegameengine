@@ -15,6 +15,7 @@
 #include <sge/systems/impl/renderer/create_device.hpp>
 #include <sge/systems/impl/renderer/system.hpp>
 #include <sge/systems/impl/window/object.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
@@ -27,7 +28,9 @@ sge::systems::impl::renderer::create_device(
 {
 	sge::renderer::device::parameters const parameters(
 		_parameters.parameters().display_mode(),
-		_window.get()
+		fcppt::make_ref(
+			_window.get()
+		)
 	);
 
 	return

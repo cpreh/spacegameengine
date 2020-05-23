@@ -19,7 +19,10 @@ namespace renderer
 namespace index
 {
 
-typedef std::uint16_t i16;
+using
+i16
+=
+std::uint16_t;
 
 }
 }

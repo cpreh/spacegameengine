@@ -18,9 +18,12 @@ namespace renderer
 namespace display_mode
 {
 
-typedef fcppt::optional::object<
+using
+optional_object
+=
+fcppt::optional::object<
 	sge::renderer::display_mode::object
-> optional_object;
+>;
 
 }
 }

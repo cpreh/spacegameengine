@@ -46,6 +46,7 @@
 #include <sge/renderer/state/ffp/sampler/parameters_both.hpp>
 #include <sge/renderer/state/ffp/sampler/unary_op.hpp>
 #include <sge/renderer/state/ffp/sampler/unary_op_type.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
@@ -105,6 +106,8 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/container/array/make.hpp>
@@ -402,8 +405,16 @@ try
 			&vertex_declaration
 		]{
 			sge::renderer::context::scoped_ffp const scoped_block(
-				sys.renderer_device_ffp(),
-				sys.renderer_device_ffp().onscreen_target()
+				fcppt::make_ref(
+					sys.renderer_device_ffp()
+				),
+				fcppt::reference_to_base<
+					sge::renderer::target::base
+				>(
+					fcppt::make_ref(
+						sys.renderer_device_ffp().onscreen_target()
+					)
+				)
 			);
 
 			sge::renderer::vertex::scoped_declaration const vb_declaration_context(

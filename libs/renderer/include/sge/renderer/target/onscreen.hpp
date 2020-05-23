@@ -12,7 +12,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -35,7 +35,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL onscreen
 :
 	public sge::renderer::target::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		onscreen
 	);
 protected:
@@ -45,6 +45,7 @@ public:
 	/**
 	\brief Returns the associated color surface
 	*/
+	[[nodiscard]]
 	virtual
 	sge::renderer::color_buffer::readable_surface const &
 	surface() const = 0;

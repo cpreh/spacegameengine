@@ -24,7 +24,10 @@ Creates a box with value type renderer::size_type.
 
 \see sge::renderer::raw_value
 */
-typedef sge::renderer::raw_value const *const_raw_pointer;
+using
+const_raw_pointer
+=
+sge::renderer::raw_value const *;
 
 }
 }

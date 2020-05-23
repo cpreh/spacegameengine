@@ -22,11 +22,12 @@ namespace ffp
 namespace sampler
 {
 
-typedef
+using
+object_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::state::ffp::sampler::object
->
-object_unique_ptr;
+>;
 
 }
 }

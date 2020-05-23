@@ -21,11 +21,12 @@ namespace device
 /**
 \brief A unique pointer to an sge::renderer::device::ffp
 */
-typedef
+using
+ffp_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::device::ffp
->
-ffp_unique_ptr;
+>;
 
 }
 }

@@ -18,9 +18,12 @@ namespace renderer
 namespace occlusion_query
 {
 
-typedef fcppt::optional::object<
+using
+optional_pixel_count
+=
+fcppt::optional::object<
 	sge::renderer::occlusion_query::pixel_count
-> optional_pixel_count;
+>;
 
 }
 }

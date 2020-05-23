@@ -18,10 +18,13 @@ namespace renderer
 namespace display_mode
 {
 
-typedef fcppt::math::dim::static_<
+using
+dpi
+=
+fcppt::math::dim::static_<
 	sge::renderer::display_mode::dpi_unit,
 	2
-> dpi;
+>;
 
 }
 }

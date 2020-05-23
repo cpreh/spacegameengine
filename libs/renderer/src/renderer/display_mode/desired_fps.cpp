@@ -8,7 +8,6 @@
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/refresh_rate_value.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/literal.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/maybe.hpp>
 
@@ -18,6 +17,11 @@ sge::renderer::display_mode::desired_fps(
 	sge::renderer::display_mode::optional_object const &_opt_display_mode
 )
 {
+	// TODO(philipp): Remove this
+	constexpr sge::renderer::display_mode::refresh_rate_value const default_value{
+		60
+	};
+
 	return
 		fcppt::optional::maybe(
 			fcppt::optional::bind(
@@ -31,11 +35,7 @@ sge::renderer::display_mode::desired_fps(
 				}
 			),
 			fcppt::const_(
-				fcppt::literal<
-					sge::renderer::display_mode::refresh_rate_value
-				>(
-					60
-				)
+				default_value
 			),
 			[](
 				sge::renderer::display_mode::refresh_rate const _rate

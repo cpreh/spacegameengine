@@ -18,11 +18,12 @@ namespace renderer
 namespace plugin
 {
 
-typedef
+using
+context
+=
 sge::plugin::context<
 	sge::renderer::core
->
-context;
+>;
 
 }
 }

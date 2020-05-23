@@ -18,11 +18,12 @@ namespace renderer
 namespace texture
 {
 
-typedef
+using
+depth_stencil_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::texture::depth_stencil
->
-depth_stencil_unique_ptr;
+>;
 
 }
 }

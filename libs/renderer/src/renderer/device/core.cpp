@@ -8,9 +8,7 @@
 
 
 sge::renderer::device::core::core()
-{
-}
+= default;
 
 sge::renderer::device::core::~core()
-{
-}
+= default;

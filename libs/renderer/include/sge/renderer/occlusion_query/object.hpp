@@ -12,7 +12,7 @@
 #include <sge/renderer/occlusion_query/blocking_wait.hpp>
 #include <sge/renderer/occlusion_query/object_fwd.hpp>
 #include <sge/renderer/occlusion_query/optional_pixel_count_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -24,7 +24,7 @@ namespace occlusion_query
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 protected:
@@ -70,6 +70,7 @@ public:
 	\return The number of pixels that passed the depth test or an empty
 	optional if the result could not be obtained
 	*/
+	[[nodiscard]]
 	virtual
 	sge::renderer::occlusion_query::optional_pixel_count
 	result(

@@ -19,12 +19,13 @@ namespace renderer
 namespace texture
 {
 
-typedef
+using
+cube_parameters
+=
 sge::renderer::texture::basic_parameters<
 	sge::renderer::size_type,
 	sge::renderer::texture::color_format
->
-cube_parameters;
+>;
 
 }
 }

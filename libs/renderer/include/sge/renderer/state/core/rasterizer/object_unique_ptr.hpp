@@ -22,11 +22,12 @@ namespace core
 namespace rasterizer
 {
 
-typedef
+using
+object_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::state::core::rasterizer::object
->
-object_unique_ptr;
+>;
 
 }
 }

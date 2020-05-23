@@ -73,6 +73,7 @@ set(
 	libs/cg/include/sge/cg/program/main_function.hpp
 	libs/cg/include/sge/cg/program/object.hpp
 	libs/cg/include/sge/cg/program/object_fwd.hpp
+	libs/cg/include/sge/cg/program/object_ref.hpp
 	libs/cg/include/sge/cg/program/replace_extra.hpp
 	libs/cg/include/sge/cg/program/replace_extra_callback.hpp
 	libs/cg/include/sge/cg/program/replace_extra_function.hpp

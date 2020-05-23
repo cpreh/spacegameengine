@@ -12,7 +12,7 @@
 #include <sge/renderer/event/base_fwd.hpp>
 #include <awl/window/reference.hpp>
 #include <awl/window/event/base.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,11 +26,10 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL base
 :
 	public awl::window::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 public:
-	// TODO: Which parameters do we want?
 	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	base(

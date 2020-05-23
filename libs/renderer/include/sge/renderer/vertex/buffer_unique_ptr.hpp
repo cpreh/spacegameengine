@@ -21,11 +21,12 @@ namespace vertex
 /**
 \brief A unique pointer to an sge::renderer::vertex::buffer
 */
-typedef
+using
+buffer_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::vertex::buffer
->
-buffer_unique_ptr;
+>;
 
 }
 }

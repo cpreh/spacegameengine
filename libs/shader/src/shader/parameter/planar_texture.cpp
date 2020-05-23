@@ -11,12 +11,14 @@
 #include <sge/renderer/cg/scoped_texture.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/optional/assign.hpp>
@@ -87,7 +89,11 @@ sge::shader::parameter::planar_texture::set(
 							loaded_texture_,
 							renderer_.load_cg_texture(
 								parameter_.object(),
-								_texture.get()
+								fcppt::reference_to_base<
+									sge::renderer::texture::base
+								>(
+									_texture
+								)
 							)
 						)
 					);

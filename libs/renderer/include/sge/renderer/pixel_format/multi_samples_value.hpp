@@ -15,7 +15,10 @@ namespace renderer
 namespace pixel_format
 {
 
-typedef unsigned multi_samples_value;
+using
+multi_samples_value
+=
+unsigned;
 
 }
 }

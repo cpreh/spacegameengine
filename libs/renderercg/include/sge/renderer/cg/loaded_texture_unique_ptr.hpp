@@ -18,11 +18,12 @@ namespace renderer
 namespace cg
 {
 
-typedef
+using
+loaded_texture_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::cg::loaded_texture
->
-loaded_texture_unique_ptr;
+>;
 
 }
 }

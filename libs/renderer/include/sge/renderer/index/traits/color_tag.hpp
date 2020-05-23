@@ -25,9 +25,10 @@ struct color_tag_tpl<
 	sge::renderer::index::tag
 >
 {
-	typedef
-	sge::renderer::index::tag
-	type;
+	using
+	type
+	=
+	sge::renderer::index::tag;
 };
 
 }

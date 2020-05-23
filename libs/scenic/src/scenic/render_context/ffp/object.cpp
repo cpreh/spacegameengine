@@ -8,6 +8,7 @@
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/caps/device.hpp>
+#include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/state/core/blend/object.hpp>
@@ -49,6 +50,7 @@
 #include <sge/scenic/render_context/ffp/object.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
@@ -222,8 +224,17 @@ sge::scenic::render_context::ffp::object::object(
 		_context,
 		*depth_stencil_state_),
 	scoped_blend_state_(
-		_context,
-		*blend_state_),
+		fcppt::reference_to_base<
+			sge::renderer::context::core
+		>(
+			fcppt::make_ref(
+				_context
+			)
+		),
+		fcppt::make_cref(
+			*blend_state_
+		)
+	),
 	scoped_rasterizer_state_(
 		_context,
 		*rasterizer_state_)

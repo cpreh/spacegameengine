@@ -34,12 +34,13 @@ class iterator final
 			Constness
 		>
 {
-	typedef
+	using
+	base
+	=
 	sge::renderer::index::detail::iterator_base<
 		Format,
 		Constness
-	>
-	base;
+	>;
 
 	static_assert(
 		sge::renderer::index::is_format<
@@ -53,37 +54,43 @@ class iterator final
 		>::value
 	);
 public:
-	typedef
+	using
+	value_type
+	=
 	typename
-	base::value_type
-	value_type;
+	base::value_type;
 
-	typedef
+	using
+	reference
+	=
 	typename
-	base::reference
-	reference;
+	base::reference;
 
-	typedef
+	using
+	pointer
+	=
 	sge::renderer::index::pointer<
 		Constness
-	>
-	pointer;
+	>;
 
-	typedef
+	using
+	difference_type
+	=
 	typename
-	base::difference_type
-	difference_type;
+	base::difference_type;
 
-	typedef
+	using
+	iterator_category
+	=
 	typename
-	base::iterator_category
-	iterator_category;
+	base::iterator_category;
 
 	explicit
 	iterator(
 		pointer
 	);
 
+	[[nodiscard]]
 	pointer
 	data() const;
 
@@ -95,11 +102,13 @@ public:
 	void
 	increment();
 
+	[[nodiscard]]
 	bool
 	equal(
 		iterator const &
 	) const;
 
+	[[nodiscard]]
 	reference
 	dereference() const;
 private:

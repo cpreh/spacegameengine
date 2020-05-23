@@ -22,11 +22,12 @@ namespace ffp
 namespace fog
 {
 
-typedef
+using
+object_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::state::ffp::fog::object
->
-object_unique_ptr;
+>;
 
 }
 }

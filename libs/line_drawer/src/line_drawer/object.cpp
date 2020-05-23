@@ -44,6 +44,8 @@
 #include <sge/renderer/vf/labels/color.hpp>
 #include <sge/renderer/vf/labels/pos.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -107,13 +109,18 @@ sge::line_drawer::object::render(
 				return;
 
 			sge::renderer::state::core::blend::scoped const scoped_blend(
-				_render_context,
-				*blend_state_
+				fcppt::make_ref(
+					_render_context
+				),
+				fcppt::make_cref(
+					*blend_state_
+				)
 			);
 
 			sge::renderer::vertex::scoped_declaration const scoped_decl(
 				_render_context,
-				*vertex_declaration_);
+				*vertex_declaration_
+			);
 
 			sge::renderer::vertex::scoped_buffer const scoped_vb(
 				_render_context,

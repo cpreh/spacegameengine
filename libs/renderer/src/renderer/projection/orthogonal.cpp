@@ -26,42 +26,44 @@ sge::renderer::projection::orthogonal(
 		_far
 	);
 
-	sge::renderer::scalar const
-		one(
-			1.f
-		),
-		zero(
-			0.f
-		),
-		left(
-			_rect.left()
-		),
-		right(
-			_rect.right()
-		),
-		top(
-			_rect.top()
-		),
-		bottom(
-			_rect.bottom()
-		),
-		near(
-			_near.get()
-		),
-		far(
-			_far.get()
-		);
+	sge::renderer::scalar const one(
+		1.F
+	);
+	sge::renderer::scalar const zero(
+		0.F
+	);
+	sge::renderer::scalar const two(
+		2.F
+	);
+	sge::renderer::scalar const left(
+		_rect.left()
+	);
+	sge::renderer::scalar const right(
+		_rect.right()
+	);
+	sge::renderer::scalar const top(
+		_rect.top()
+	);
+	sge::renderer::scalar const bottom(
+		_rect.bottom()
+	);
+	sge::renderer::scalar const near(
+		_near.get()
+	);
+	sge::renderer::scalar const far(
+		_far.get()
+	);
 
 	return
 		sge::renderer::matrix4(
 			fcppt::math::matrix::row(
-				2.f / (right - left), zero, zero, (left + right) / (left - right)
+				two / (right - left), zero, zero, (left + right) / (left - right)
 			),
 			fcppt::math::matrix::row(
-				zero, 2.f / (top - bottom), zero, (top + bottom) / (bottom - top)
+				zero, two / (top - bottom), zero, (top + bottom) / (bottom - top)
 			),
 			fcppt::math::matrix::row(
-				zero, zero, 1.f / (far - near), near / (near - far)
+				zero, zero, one / (far - near), near / (near - far)
 			),
 			fcppt::math::matrix::row(
 				zero, zero, zero, one

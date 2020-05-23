@@ -19,12 +19,13 @@ namespace renderer
 namespace display_mode
 {
 
-typedef
+using
+fullscreen
+=
 fcppt::variant::object<
 	sge::renderer::display_mode::fullscreen_desktop,
 	sge::renderer::display_mode::object
->
-fullscreen;
+>;
 
 }
 }

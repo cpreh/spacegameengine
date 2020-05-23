@@ -19,11 +19,12 @@ namespace index
 namespace dynamic
 {
 
-typedef
+using
+view
+=
 sge::renderer::index::dynamic::basic_view<
 	false
->
-view;
+>;
 
 }
 }

@@ -19,10 +19,13 @@ namespace renderer
 namespace texture
 {
 
-typedef sge::renderer::texture::basic_parameters<
+using
+depth_stencil_parameters
+=
+sge::renderer::texture::basic_parameters<
 	sge::renderer::dim2,
 	sge::image::ds::format
-> depth_stencil_parameters;
+>;
 
 }
 }

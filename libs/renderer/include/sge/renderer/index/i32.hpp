@@ -19,7 +19,10 @@ namespace renderer
 namespace index
 {
 
-typedef std::uint32_t i32;
+using
+i32
+=
+std::uint32_t;
 
 }
 }

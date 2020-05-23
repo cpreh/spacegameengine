@@ -15,7 +15,10 @@ namespace renderer
 namespace display_mode
 {
 
-typedef unsigned refresh_rate_value;
+using
+refresh_rate_value
+=
+unsigned;
 
 }
 }

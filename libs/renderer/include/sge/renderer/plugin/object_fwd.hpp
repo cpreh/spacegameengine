@@ -18,11 +18,12 @@ namespace renderer
 namespace plugin
 {
 
-typedef
+using
+object
+=
 sge::plugin::object<
 	sge::renderer::core
->
-object;
+>;
 
 }
 }

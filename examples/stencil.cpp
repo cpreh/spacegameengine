@@ -52,6 +52,7 @@
 #include <sge/renderer/state/core/depth_stencil/stencil/func.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/op.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/variant.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
@@ -109,8 +110,10 @@
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/math/vector/null.hpp>
@@ -406,8 +409,16 @@ try
 		]{
 			// Declare a render block, using the renderer's onscreen target.
 			sge::renderer::context::scoped_ffp const scoped_block(
-				sys.renderer_device_ffp(),
-				sys.renderer_device_ffp().onscreen_target()
+				fcppt::make_ref(
+					sys.renderer_device_ffp()
+				),
+				fcppt::reference_to_base<
+					sge::renderer::target::base
+				>(
+					fcppt::make_ref(
+						sys.renderer_device_ffp().onscreen_target()
+					)
+				)
 			);
 
 			// Here, we clear the back buffer with the clear color black() on each frame.

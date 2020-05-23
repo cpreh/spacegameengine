@@ -24,11 +24,12 @@ namespace lighting
 namespace material
 {
 
-typedef
+using
+object_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::state::ffp::lighting::material::object
->
-object_unique_ptr;
+>;
 
 }
 }

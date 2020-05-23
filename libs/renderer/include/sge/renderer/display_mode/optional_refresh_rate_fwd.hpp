@@ -18,9 +18,12 @@ namespace renderer
 namespace display_mode
 {
 
-typedef fcppt::optional::object<
+using
+optional_refresh_rate
+=
+fcppt::optional::object<
 	sge::renderer::display_mode::refresh_rate
-> optional_refresh_rate;
+>;
 
 }
 }

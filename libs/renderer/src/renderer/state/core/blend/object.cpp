@@ -8,9 +8,7 @@
 
 
 sge::renderer::state::core::blend::object::object()
-{
-}
+= default;
 
 sge::renderer::state::core::blend::object::~object()
-{
-}
+= default;

@@ -18,11 +18,12 @@ namespace renderer
 namespace index
 {
 
-typedef
+using
+buffer_base
+=
 sge::renderer::buffer::writable<
 	sge::renderer::index::tag
->
-buffer_base;
+>;
 
 }
 }

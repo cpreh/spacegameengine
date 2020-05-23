@@ -19,10 +19,13 @@ namespace renderer
 namespace texture
 {
 
-typedef sge::renderer::texture::basic_parameters<
+using
+planar_parameters
+=
+sge::renderer::texture::basic_parameters<
 	sge::renderer::dim2,
 	sge::renderer::texture::color_format
-> planar_parameters;
+>;
 
 }
 }

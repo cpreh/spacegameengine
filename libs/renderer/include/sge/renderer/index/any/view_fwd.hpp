@@ -20,11 +20,12 @@ namespace index
 namespace any
 {
 
-typedef
+using
+view
+=
 sge::renderer::index::any::basic_view<
 	sge::renderer::index::nonconst_tag
->
-view;
+>;
 
 }
 }

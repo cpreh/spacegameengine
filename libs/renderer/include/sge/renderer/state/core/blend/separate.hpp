@@ -37,18 +37,22 @@ public:
 		sge::renderer::state::core::blend::alpha_dest
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::color_source
 	color_source() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::color_dest
 	color_dest() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::alpha_source
 	alpha_source() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::alpha_dest
 	alpha_dest() const;

@@ -22,12 +22,12 @@ sge::renderer::pixel_format::color_bits(
 	case sge::renderer::pixel_format::color::depth16:
 		return
 			sge::renderer::pixel_format::bit_count(
-				16u
+				16U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			);
 	case sge::renderer::pixel_format::color::depth32:
 		return
 			sge::renderer::pixel_format::bit_count(
-				32u
+				32U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			);
 	}
 

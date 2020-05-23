@@ -12,8 +12,8 @@
 #include <sge/renderer/system_unique_ptr.hpp>
 #include <sge/renderer/caps/system_field_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/window/system_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/window/system_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -31,7 +31,7 @@ capabilities.
 */
 class SGE_CORE_DETAIL_CLASS_SYMBOL core
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		core
 	);
 protected:
@@ -42,12 +42,14 @@ public:
 	virtual
 	~core();
 
+	[[nodiscard]]
 	virtual
 	sge::renderer::system_unique_ptr
 	create_system(
-		sge::window::system &
+		sge::window::system_ref
 	) = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::renderer::caps::system_field
 	caps() const = 0;

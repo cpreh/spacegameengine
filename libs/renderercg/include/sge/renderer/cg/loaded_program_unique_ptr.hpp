@@ -18,11 +18,12 @@ namespace renderer
 namespace cg
 {
 
-typedef
+using
+loaded_program_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::cg::loaded_program
->
-loaded_program_unique_ptr;
+>;
 
 }
 }

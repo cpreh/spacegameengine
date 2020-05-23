@@ -29,7 +29,7 @@ namespace display_mode
 class parameters
 {
 public:
-	// TODO: Remove this
+	// TODO(philipp): Remove this
 	SGE_RENDERER_DETAIL_SYMBOL
 	parameters(
 		sge::renderer::display_mode::vsync,
@@ -39,13 +39,15 @@ public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	parameters(
 		sge::renderer::display_mode::vsync,
-		sge::renderer::display_mode::optional_fullscreen const &
+		sge::renderer::display_mode::optional_fullscreen
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::display_mode::vsync
 	vsync() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::display_mode::optional_fullscreen const &
 	fullscreen() const;

@@ -17,7 +17,10 @@ namespace renderer
 namespace occlusion_query
 {
 
-typedef sge::renderer::size_type pixel_count_value;
+using
+pixel_count_value
+=
+sge::renderer::size_type;
 
 }
 }

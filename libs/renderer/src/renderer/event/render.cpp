@@ -20,5 +20,4 @@ sge::renderer::event::render::render(
 }
 
 sge::renderer::event::render::~render()
-{
-}
+= default;

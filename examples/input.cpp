@@ -93,6 +93,7 @@
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/systems/config.hpp>
@@ -129,9 +130,11 @@
 #include <fcppt/args_from_second.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_wstring.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/reference.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/shared_ptr_output.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
@@ -806,8 +809,16 @@ draw(
 	);
 
 	sge::renderer::context::scoped_ffp const scoped_ffp(
-		_renderer_device,
-		_renderer_device.onscreen_target()
+		fcppt::make_ref(
+			_renderer_device
+		),
+		fcppt::reference_to_base<
+			sge::renderer::target::base
+		>(
+			fcppt::make_ref(
+				_renderer_device.onscreen_target()
+			)
+		)
 	);
 
 	scoped_ffp.get().clear(

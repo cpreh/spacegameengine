@@ -12,6 +12,7 @@
 #include <sge/shader/exception.hpp>
 #include <sge/shader/load_edited_string.hpp>
 #include <sge/shader/pair.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -124,10 +125,18 @@ sge::shader::pair::pair(
 	),
 	loaded_vertex_program_(
 		context_.renderer().load_cg_program(
-			vertex_program_)),
+			fcppt::make_ref(
+				vertex_program_
+			)
+		)
+	),
 	loaded_pixel_program_(
 		context_.renderer().load_cg_program(
-			pixel_program_)),
+			fcppt::make_ref(
+				pixel_program_
+			)
+		)
+	),
 	planar_textures_()
 {
 }
@@ -182,10 +191,18 @@ sge::shader::pair::pair(
 	),
 	loaded_vertex_program_(
 		context_.renderer().load_cg_program(
-			vertex_program_)),
+			fcppt::make_ref(
+				vertex_program_
+			)
+		)
+	),
 	loaded_pixel_program_(
 		context_.renderer().load_cg_program(
-			pixel_program_)),
+			fcppt::make_ref(
+				pixel_program_
+			)
+		)
+	),
 	planar_textures_()
 {
 }

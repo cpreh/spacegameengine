@@ -71,19 +71,27 @@ sge::renderer::display_mode::draw_timer_setting_opt(
 			[
 				&_log
 			]{
+				constexpr sge::renderer::display_mode::refresh_rate_value const default_fps{
+					60
+				};
+
 				FCPPT_LOG_WARNING(
 					_log,
 					fcppt::log::out
 						<<
 						FCPPT_TEXT("Cannot determine display refresh rate -")
 						<<
-						FCPPT_TEXT(" using a refresh rate of 60.")
+						FCPPT_TEXT(" using a refresh rate of ")
+						<<
+						default_fps
+						<<
+						FCPPT_TEXT('.')
 				)
 
 				return
 					sge::renderer::display_mode::draw_timer_setting(
 						sge::renderer::display_mode::refresh_rate{
-							60u
+							default_fps
 						}
 					);
 			}

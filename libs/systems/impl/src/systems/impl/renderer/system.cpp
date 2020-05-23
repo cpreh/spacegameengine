@@ -17,6 +17,7 @@
 #include <sge/window/system.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/log/context_reference.hpp>
 
 
@@ -48,7 +49,9 @@ sge::systems::impl::renderer::system::system(
 	),
 	renderer_system_(
 		plugin_core_pair_.system().create_system(
-			_window_system.get()
+			fcppt::make_ref(
+				_window_system.get()
+			)
 		)
 	)
 {

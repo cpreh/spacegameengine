@@ -7,6 +7,7 @@
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_parameters.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
@@ -22,13 +23,13 @@
 
 sge::renderer::index::buffer_unique_ptr
 sge::renderer::index::create_buffer_from_view(
-	sge::renderer::device::core &_device,
+	sge::renderer::device::core_ref const _device,
 	sge::renderer::index::dynamic::const_view const &_view,
 	sge::renderer::resource_flags_field const &_resource_flags
 )
 {
 	sge::renderer::index::buffer_unique_ptr buffer(
-		_device.create_index_buffer(
+		_device.get().create_index_buffer(
 			sge::renderer::index::buffer_parameters(
 				_view.format(),
 				sge::renderer::index::count(

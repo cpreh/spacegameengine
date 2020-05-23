@@ -19,10 +19,13 @@ namespace renderer
 namespace texture
 {
 
-typedef sge::renderer::texture::basic_parameters<
+using
+volume_parameters
+=
+sge::renderer::texture::basic_parameters<
 	sge::renderer::dim3,
 	sge::renderer::texture::color_format
-> volume_parameters;
+>;
 
 }
 }

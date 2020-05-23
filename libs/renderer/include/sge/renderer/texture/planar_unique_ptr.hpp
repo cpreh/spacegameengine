@@ -18,11 +18,12 @@ namespace renderer
 namespace texture
 {
 
-typedef
+using
+planar_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::texture::planar
->
-planar_unique_ptr;
+>;
 
 }
 }

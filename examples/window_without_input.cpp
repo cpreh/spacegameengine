@@ -64,7 +64,9 @@
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/container/array/make.hpp>
@@ -221,8 +223,16 @@ try
 			&vertex_declaration
 		]{
 			sge::renderer::context::scoped_core const scoped_block(
-				sys.renderer_device_core(),
-				sys.renderer_device_core().onscreen_target()
+				fcppt::make_ref(
+					sys.renderer_device_core()
+				),
+				fcppt::reference_to_base<
+					sge::renderer::target::base
+				>(
+					fcppt::make_ref(
+						sys.renderer_device_core().onscreen_target()
+					)
+				)
 			);
 
 			scoped_block.get().clear(

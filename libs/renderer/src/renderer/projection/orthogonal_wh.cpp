@@ -26,36 +26,38 @@ sge::renderer::projection::orthogonal_wh(
 		_far
 	);
 
-	sge::renderer::scalar const
-		one(
-			1.f
-		),
-		zero(
-			0.f
-		),
-		width(
-			_dim.w()
-		),
-		height(
-			_dim.h()
-		),
-		near(
-			_near.get()
-		),
-		far(
-			_far.get()
-		);
+	sge::renderer::scalar const one(
+		1.F
+	);
+	sge::renderer::scalar const zero(
+		0.F
+	);
+	sge::renderer::scalar const two(
+		2.F
+	);
+	sge::renderer::scalar const width(
+		_dim.w()
+	);
+	sge::renderer::scalar const height(
+		_dim.h()
+	);
+	sge::renderer::scalar const near(
+		_near.get()
+	);
+	sge::renderer::scalar const far(
+		_far.get()
+	);
 
 	return
 		sge::renderer::matrix4(
 			fcppt::math::matrix::row(
-				2.f / width, zero, zero, -one
+				two / width, zero, zero, -one
 			),
 			fcppt::math::matrix::row(
-				zero, - 2.f / height, zero, one
+				zero, - two / height, zero, one
 			),
 			fcppt::math::matrix::row(
-				zero, zero, 1.f / (far - near), near / (near - far)
+				zero, zero, one / (far - near), near / (near - far)
 			),
 			fcppt::math::matrix::row(
 				zero, zero, zero, one

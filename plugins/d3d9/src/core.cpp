@@ -13,7 +13,7 @@
 #include <sge/renderer/system_unique_ptr.hpp>
 #include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
-#include <sge/window/system_fwd.hpp>
+#include <sge/window/system_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -44,7 +44,7 @@ sge::d3d9::core::~core()
 
 sge::renderer::system_unique_ptr
 sge::d3d9::core::create_system(
-	sge::window::system &
+	sge::window::system_ref
 )
 {
 	return

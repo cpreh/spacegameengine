@@ -40,18 +40,22 @@ public:
 		sge::renderer::pixel_format::srgb
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::pixel_format::color
 	color() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::pixel_format::depth_stencil
 	depth_stencil() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::pixel_format::optional_multi_samples
 	multi_samples() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::pixel_format::srgb
 	srgb() const;

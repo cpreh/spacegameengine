@@ -23,7 +23,7 @@ namespace display_mode
 SGE_RENDERER_DETAIL_SYMBOL
 awl::timer::setting
 draw_timer_setting_opt(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	sge::renderer::display_mode::optional_object const &
 );
 

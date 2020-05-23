@@ -28,6 +28,7 @@
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/from_texture.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
@@ -98,6 +99,7 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/math/vector/null.hpp>
@@ -339,8 +341,16 @@ try
 		);
 
 		sge::renderer::context::scoped_ffp const scoped_block(
-			sys.renderer_device_ffp(),
-			*target
+			fcppt::make_ref(
+				sys.renderer_device_ffp()
+			),
+			fcppt::reference_to_base<
+				sge::renderer::target::base
+			>(
+				fcppt::make_ref(
+					*target
+				)
+			)
 		);
 
 		scoped_block.get().clear(
@@ -382,8 +392,16 @@ try
 			&sys
 		]{
 			sge::renderer::context::scoped_ffp const scoped_block(
-				sys.renderer_device_ffp(),
-				sys.renderer_device_ffp().onscreen_target()
+				fcppt::make_ref(
+					sys.renderer_device_ffp()
+				),
+				fcppt::reference_to_base<
+					sge::renderer::target::base
+				>(
+					fcppt::make_ref(
+						sys.renderer_device_ffp().onscreen_target()
+					)
+				)
 			);
 
 			scoped_block.get().clear(

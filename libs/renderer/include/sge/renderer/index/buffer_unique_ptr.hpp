@@ -21,11 +21,12 @@ namespace index
 /**
 \brief A unique pointer to an sge::renderer::index_buffer
 */
-typedef
+using
+buffer_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::index::buffer
->
-buffer_unique_ptr;
+>;
 
 }
 }

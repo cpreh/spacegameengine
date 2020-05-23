@@ -8,9 +8,7 @@
 
 
 sge::renderer::device::ffp::ffp()
-{
-}
+= default;
 
 sge::renderer::device::ffp::~ffp()
-{
-}
+= default;

@@ -68,6 +68,7 @@
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_volume_from_view.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
@@ -131,7 +132,9 @@
 #include <mizuiro/image/algorithm/uninitialized.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
@@ -821,8 +824,16 @@ try
 			);
 
 			sge::renderer::context::scoped_ffp const scoped_block(
-				sys.renderer_device_ffp(),
-				sys.renderer_device_ffp().onscreen_target()
+				fcppt::make_ref(
+					sys.renderer_device_ffp()
+				),
+				fcppt::reference_to_base<
+					sge::renderer::target::base
+				>(
+					fcppt::make_ref(
+						sys.renderer_device_ffp().onscreen_target()
+					)
+				)
 			);
 
 			scoped_block.get().clear(

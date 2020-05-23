@@ -33,17 +33,19 @@ template<
 class basic_view
 {
 public:
-	typedef
+	using
+	pointer
+	=
 	std::conditional_t<
 		IsConst,
 		sge::renderer::const_raw_pointer,
 		sge::renderer::raw_pointer
-	>
-	pointer;
+	>;
 
-	typedef
-	sge::renderer::size_type
-	size_type;
+	using
+	size_type
+	=
+	sge::renderer::size_type;
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	basic_view(
@@ -52,14 +54,17 @@ public:
 		sge::renderer::index::dynamic::format
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	pointer
 	data() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	size_type
 	size() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::index::dynamic::format
 	format() const;

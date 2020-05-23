@@ -18,11 +18,12 @@ namespace renderer
 namespace caps
 {
 
-typedef
+using
+system_field
+=
 fcppt::container::bitfield::enum_object<
 	sge::renderer::caps::system
->
-system_field;
+>;
 
 }
 }

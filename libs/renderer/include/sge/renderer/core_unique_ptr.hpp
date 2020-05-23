@@ -21,11 +21,12 @@ namespace renderer
 
 \ingroup sge_renderer
 */
-typedef
+using
+core_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::core
->
-core_unique_ptr;
+>;
 
 }
 }

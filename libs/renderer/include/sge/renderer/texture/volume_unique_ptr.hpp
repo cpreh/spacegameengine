@@ -18,11 +18,12 @@ namespace renderer
 namespace texture
 {
 
-typedef
+using
+volume_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::texture::volume
->
-volume_unique_ptr;
+>;
 
 }
 }

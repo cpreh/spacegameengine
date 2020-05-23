@@ -11,9 +11,9 @@
 #include <sge/renderer/context/ffp_unique_ptr.hpp>
 #include <sge/renderer/context/scoped_ffp_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/target/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
+#include <sge/renderer/target/base_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -25,24 +25,25 @@ namespace context
 
 class scoped_ffp
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_ffp
 	);
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	scoped_ffp(
-		sge::renderer::device::ffp &,
-		sge::renderer::target::base &
+		sge::renderer::device::ffp_ref,
+		sge::renderer::target::base_ref
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped_ffp();
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::context::ffp &
 	get() const;
 private:
-	sge::renderer::device::ffp &device_;
+	sge::renderer::device::ffp_ref const device_;
 
 	sge::renderer::context::ffp_unique_ptr const context_;
 };

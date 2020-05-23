@@ -7,11 +7,11 @@
 #ifndef SGE_RENDERER_CONTEXT_SCOPED_OFFSCREEN_TARGET_HPP_INCLUDED
 #define SGE_RENDERER_CONTEXT_SCOPED_OFFSCREEN_TARGET_HPP_INCLUDED
 
-#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/context/scoped_offscreen_target_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/target/offscreen_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/target/offscreen_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -23,20 +23,20 @@ namespace context
 
 class scoped_offscreen_target
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_offscreen_target
 	);
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	scoped_offscreen_target(
-		sge::renderer::context::core &,
-		sge::renderer::target::offscreen &
+		sge::renderer::context::core_ref,
+		sge::renderer::target::offscreen_ref
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped_offscreen_target();
 private:
-	sge::renderer::context::core &context_;
+	sge::renderer::context::core_ref const context_;
 };
 
 }

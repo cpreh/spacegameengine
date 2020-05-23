@@ -22,11 +22,12 @@ namespace ffp
 namespace alpha_test
 {
 
-typedef
+using
+object_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::state::ffp::alpha_test::object
->
-object_unique_ptr;
+>;
 
 }
 }

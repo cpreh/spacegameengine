@@ -12,7 +12,7 @@
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/index/buffer_base.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -47,7 +47,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL buffer
 	public
 		sge::renderer::index::buffer_base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		buffer
 	);
 protected:
@@ -57,10 +57,12 @@ public:
 	/**
 	\brief Returns the resource flags the buffer has been created with
 	*/
+	[[nodiscard]]
 	virtual
 	sge::renderer::resource_flags_field
 	resource_flags() const = 0;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::size_type
 	linear_size() const;

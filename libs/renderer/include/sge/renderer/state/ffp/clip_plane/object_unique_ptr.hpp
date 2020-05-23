@@ -22,11 +22,12 @@ namespace ffp
 namespace clip_plane
 {
 
-typedef
+using
+object_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::state::ffp::clip_plane::object
->
-object_unique_ptr;
+>;
 
 }
 }

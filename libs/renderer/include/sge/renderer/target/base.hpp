@@ -13,7 +13,7 @@
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/scissor_area_fwd.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -40,7 +40,7 @@ namespace target
 */
 class SGE_CORE_DETAIL_CLASS_SYMBOL base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 protected:
@@ -63,6 +63,7 @@ public:
 	/**
 	 * \brief Returns the current viewport
 	*/
+	[[nodiscard]]
 	virtual
 	sge::renderer::target::viewport
 	viewport() const = 0;
@@ -83,6 +84,7 @@ public:
 	/**
 	 * \brief Returns the current scissor area
 	*/
+	[[nodiscard]]
 	virtual
 	sge::renderer::target::scissor_area
 	scissor_area() const = 0;

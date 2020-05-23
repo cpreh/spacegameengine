@@ -18,11 +18,12 @@ namespace renderer
 namespace projection
 {
 
-typedef
+using
+rect
+=
 fcppt::math::box::rect<
 	sge::renderer::scalar
->
-rect;
+>;
 
 }
 }

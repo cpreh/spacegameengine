@@ -21,11 +21,12 @@ namespace renderer
 
 \ingroup sge_renderer
 */
-typedef
+using
+optional_matrix4
+=
 fcppt::optional::object<
 	sge::renderer::matrix4
->
-optional_matrix4;
+>;
 
 }
 }

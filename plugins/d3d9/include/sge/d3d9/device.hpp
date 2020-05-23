@@ -57,7 +57,7 @@
 #include <sge/renderer/state/ffp/sampler/parameters_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
-#include <sge/renderer/target/base_fwd.hpp>
+#include <sge/renderer/target/base_ref.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
@@ -89,11 +89,11 @@
 #include <sge/cg/profile/object_fwd.hpp>
 #include <sge/cg/profile/shader_type_fwd.hpp>
 #include <sge/cg/program/compile_options.hpp>
-#include <sge/cg/program/object_fwd.hpp>
+#include <sge/cg/program/object_ref.hpp>
 #include <sge/cg/program/source.hpp>
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
-#include <sge/renderer/texture/base_fwd.hpp>
+#include <sge/renderer/texture/base_ref.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #endif
 
@@ -122,7 +122,7 @@ public:
 private:
 	sge::renderer::context::core_unique_ptr
 	begin_rendering(
-		sge::renderer::target::base &
+		sge::renderer::target::base_ref
 	)
 	override;
 
@@ -228,14 +228,14 @@ private:
 
 	sge::renderer::cg::loaded_program_unique_ptr
 	load_cg_program(
-		sge::cg::program::object &
+		sge::cg::program::object_ref
 	)
 	override;
 
 	sge::renderer::cg::loaded_texture_unique_ptr
 	load_cg_texture(
 		sge::cg::parameter::object const &,
-		sge::renderer::texture::base &
+		sge::renderer::texture::base_ref
 	)
 	override;
 
@@ -271,7 +271,7 @@ private:
 
 	sge::renderer::context::ffp_unique_ptr
 	begin_rendering_ffp(
-		sge::renderer::target::base &
+		sge::renderer::target::base_ref
 	)
 	override;
 

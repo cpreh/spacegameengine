@@ -22,11 +22,12 @@ namespace core
 namespace blend
 {
 
-typedef
+using
+object_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::state::core::blend::object
->
-object_unique_ptr;
+>;
 
 }
 }

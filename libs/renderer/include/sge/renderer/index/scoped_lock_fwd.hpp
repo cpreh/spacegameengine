@@ -21,11 +21,12 @@ namespace index
 /**
 \brief A scoped lock that locks an sge::renderer::index::buffer
 */
-typedef
+using
+scoped_lock
+=
 sge::renderer::buffer::scoped_lock<
 	sge::renderer::index::tag
->
-scoped_lock;
+>;
 
 }
 }

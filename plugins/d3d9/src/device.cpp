@@ -110,7 +110,7 @@
 #include <sge/renderer/state/ffp/transform/object.hpp>
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
-#include <sge/renderer/target/base_fwd.hpp>
+#include <sge/renderer/target/base_ref.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
@@ -181,7 +181,7 @@
 #include <sge/cg/profile/object.hpp>
 #include <sge/cg/profile/shader_type.hpp>
 #include <sge/cg/program/compile_options.hpp>
-#include <sge/cg/program/object_fwd.hpp>
+#include <sge/cg/program/object_ref.hpp>
 #include <sge/cg/program/source.hpp>
 #include <sge/d3d9/cg/profile/create.hpp>
 #include <sge/d3d9/cg/program/create_loaded.hpp>
@@ -192,6 +192,7 @@
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/renderer/cg/loaded_texture.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
+#include <sge/renderer/texture/base_ref.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #endif
 
@@ -213,7 +214,7 @@ sge::d3d9::device::device(
 	),
 	srgb_(
 		sge::d3d9::parameters::extract_srgb(
-			_parameters.window().awl_object().visual()
+			_parameters.window().get().awl_object().visual()
 		)
 	),
 	caps_(
@@ -225,10 +226,10 @@ sge::d3d9::device::device(
 	present_parameters_(
 		sge::d3d9::parameters::create(
 			sge::d3d9::parameters::extract_pixel_format(
-				_parameters.window().awl_object().visual()
+				_parameters.window().get().awl_object().visual()
 			),
 			_parameters.display_mode(),
-			_parameters.window().awl_object()
+			_parameters.window().get().awl_object()
 		)
 	),
 	device_(
@@ -262,7 +263,7 @@ sge::d3d9::device::device(
 						fcppt::cast::size_fun
 					>(
 						fcppt::math::dim::to_signed(
-							_parameters.window().size()
+							_parameters.window().get().size()
 						)
 					)
 				)
@@ -291,17 +292,17 @@ sge::d3d9::device::device(
 			index_,
 			sge::d3d9::parameters::convert::bit_depth(
 				sge::d3d9::parameters::extract_pixel_format(
-					_parameters.window().awl_object().visual()
+					_parameters.window().get().awl_object().visual()
 				).color()
 			)
 		)
 	),
 	window_{
-		_parameters.window()
+		_parameters.window().get()
 	},
 	draw_timer_{
 		// TODO: How do we know when this changes?
-		_parameters.window().system().awl_system().processor().create_timer(
+		_parameters.window().get().system().awl_system().processor().create_timer(
 			sge::renderer::display_mode::draw_timer_setting_opt(
 				_log,
 				this->display_mode()
@@ -309,7 +310,7 @@ sge::d3d9::device::device(
 		)
 	},
 	window_event_connection_{
-		_parameters.window().event_handler(
+		_parameters.window().get().event_handler(
 			sge::window::event_function{
 				[
 					this
@@ -326,7 +327,7 @@ sge::d3d9::device::device(
 		)
 	},
 	system_event_connection_{
-		_parameters.window().system().event_handler(
+		_parameters.window().get().system().event_handler(
 			sge::window::system_event_function{
 				[
 					this
@@ -353,7 +354,7 @@ sge::d3d9::device::~device()
 
 sge::renderer::context::core_unique_ptr
 sge::d3d9::device::begin_rendering(
-	sge::renderer::target::base &_target
+	sge::renderer::target::base_ref const _target
 )
 {
 	return
@@ -650,27 +651,27 @@ sge::d3d9::device::cg_compile_options(
 
 sge::renderer::cg::loaded_program_unique_ptr
 sge::d3d9::device::load_cg_program(
-	sge::cg::program::object &_program
+	sge::cg::program::object_ref const _program
 )
 {
 	return
 		sge::d3d9::cg::program::create_loaded(
 			*device_,
-			_program
+			_program.get()
 		);
 }
 
 sge::renderer::cg::loaded_texture_unique_ptr
 sge::d3d9::device::load_cg_texture(
 	sge::cg::parameter::object const &_parameter,
-	sge::renderer::texture::base &_texture
+	sge::renderer::texture::base_ref const _texture
 )
 {
 	return
 		sge::d3d9::cg::texture::create_loaded(
 			*device_,
 			_parameter,
-			_texture,
+			_texture.get(),
 			caps_.texture_stages()
 		);
 }
@@ -731,7 +732,7 @@ sge::d3d9::device::display_modes() const
 
 sge::renderer::context::ffp_unique_ptr
 sge::d3d9::device::begin_rendering_ffp(
-	sge::renderer::target::base &_target
+	sge::renderer::target::base_ref const _target
 )
 {
 	sge::d3d9::devicefuncs::begin_scene(
@@ -742,7 +743,7 @@ sge::d3d9::device::begin_rendering_ffp(
 		sge::d3d9::render_context::create(
 			sge::d3d9::render_context::parameters(
 				*device_,
-				_target,
+				_target.get(),
 				caps_.texture_stages(),
 				caps_.light_indices(),
 				*core_defaults_,

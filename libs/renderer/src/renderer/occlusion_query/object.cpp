@@ -8,9 +8,7 @@
 
 
 sge::renderer::occlusion_query::object::object()
-{
-}
+= default;
 
 sge::renderer::occlusion_query::object::~object()
-{
-}
+= default;

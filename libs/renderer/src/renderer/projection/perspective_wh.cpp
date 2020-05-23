@@ -31,33 +31,35 @@ sge::renderer::projection::perspective_wh(
 		_near
 	);
 
-	sge::renderer::scalar const
-		far(
-			_far.get()
-		),
-		near(
-			_near.get()
-		),
-		h(
-			_dim.h()
-		),
-		w(
-			_dim.w()
-		),
-		zero(
-			0.f
-		),
-		one(
-			1.f
-		);
+	sge::renderer::scalar const zero{
+		0.F
+	};
+	sge::renderer::scalar const one{
+		1.F
+	};
+	sge::renderer::scalar const two{
+		2.F
+	};
+	sge::renderer::scalar const far(
+		_far.get()
+	);
+	sge::renderer::scalar const near(
+		_near.get()
+	);
+	sge::renderer::scalar const h(
+		_dim.h()
+	);
+	sge::renderer::scalar const w(
+		_dim.w()
+	);
 
 	return
 		sge::renderer::matrix4(
 			fcppt::math::matrix::row(
-				2 * near / w, zero, zero, zero
+				two * near / w, zero, zero, zero
 			),
 			fcppt::math::matrix::row(
-				zero, 2 * near / h, zero, zero
+				zero, two * near / h, zero, zero
 			),
 			fcppt::math::matrix::row(
 				zero, zero, far / (far - near), near * far / (near - far)

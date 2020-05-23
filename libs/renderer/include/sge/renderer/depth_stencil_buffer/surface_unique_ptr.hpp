@@ -21,11 +21,12 @@ namespace depth_stencil_buffer
 /**
 \brief A unique pointer to an sge::renderer::depth_stencil_buffer::surface
 */
-typedef
+using
+surface_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::depth_stencil_buffer::surface
->
-surface_unique_ptr;
+>;
 
 }
 }

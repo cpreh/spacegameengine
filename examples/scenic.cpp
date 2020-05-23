@@ -40,6 +40,7 @@
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/scenic/grid/object.hpp>
 #include <sge/scenic/grid/orientation.hpp>
@@ -86,7 +87,9 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
@@ -550,8 +553,16 @@ main_program(
 			);
 
 			sge::renderer::context::scoped_ffp const scoped_block{
-				sys.renderer_device_ffp(),
-				sys.renderer_device_ffp().onscreen_target()
+				fcppt::make_ref(
+					sys.renderer_device_ffp()
+				),
+				fcppt::reference_to_base<
+					sge::renderer::target::base
+				>(
+					fcppt::make_ref(
+						sys.renderer_device_ffp().onscreen_target()
+					)
+				)
 			};
 
 			scoped_block.get().clear(

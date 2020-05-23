@@ -30,7 +30,7 @@ sge::renderer::pixel_format::stencil_bits(
 		return
 			sge::renderer::pixel_format::optional_bit_count(
 				sge::renderer::pixel_format::bit_count(
-					8u
+					8U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			);
 	}

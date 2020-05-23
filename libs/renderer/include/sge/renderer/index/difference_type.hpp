@@ -20,11 +20,12 @@ namespace renderer
 namespace index
 {
 
-typedef
-std::make_signed<
+using
+difference_type
+=
+std::make_signed_t<
 	sge::renderer::size_type
->::type
-difference_type;
+>;
 
 }
 }

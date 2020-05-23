@@ -26,6 +26,7 @@
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
@@ -78,7 +79,9 @@
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -305,8 +308,16 @@ try
 			&sys
 		]{
 			sge::renderer::context::scoped_core const scoped_block(
-				sys.renderer_device_core(),
-				sys.renderer_device_core().onscreen_target()
+				fcppt::make_ref(
+					sys.renderer_device_core()
+				),
+				fcppt::reference_to_base<
+					sge::renderer::target::base
+				>(
+					fcppt::make_ref(
+						sys.renderer_device_core().onscreen_target()
+					)
+				)
 			);
 
 			sge::renderer::context::core &context(

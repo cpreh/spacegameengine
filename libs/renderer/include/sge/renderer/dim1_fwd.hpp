@@ -20,11 +20,12 @@ namespace renderer
 
 \ingroup sge_renderer
 */
-typedef
+using
+dim1
+=
 sge::renderer::basic_dim<
 	1
->
-dim1;
+>;
 
 }
 }

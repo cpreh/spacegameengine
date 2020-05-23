@@ -18,7 +18,10 @@ namespace renderer
 
 \ingroup sge_renderer
 */
-typedef int pixel_unit;
+using
+pixel_unit
+=
+int;
 
 }
 }

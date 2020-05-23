@@ -54,7 +54,7 @@ sge::renderer::display_mode::to_dpi(
 											_dim.get()
 										),
 										[](
-											sge::renderer::display_mode::dpi const _value
+											sge::renderer::display_mode::dpi const &_value
 										)
 										-> sge::renderer::display_mode::dpi
 										{

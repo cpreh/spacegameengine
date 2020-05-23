@@ -18,11 +18,12 @@ namespace renderer
 namespace texture
 {
 
-typedef
+using
+planar
+=
 sge::renderer::texture::basic_lockable_box<
 	sge::image2d::tag
->
-planar;
+>;
 
 }
 }

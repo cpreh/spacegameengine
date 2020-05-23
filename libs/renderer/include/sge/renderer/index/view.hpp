@@ -52,40 +52,46 @@ public:
 		>::value
 	);
 
-	typedef
-	Format
-	format_type;
+	using
+	format_type
+	=
+	Format;
 
-	typedef
+	using
+	value_type
+	=
 	typename
-	format_type::index_type
-	value_type;
+	format_type::index_type;
 
-	typedef
+	using
+	pointer
+	=
 	sge::renderer::index::pointer<
 		Constness
-	>
-	pointer;
+	>;
 
-	typedef
-	sge::renderer::size_type
-	size_type;
+	using
+	size_type
+	=
+	sge::renderer::size_type;
 
-	typedef
+	using
+	iterator
+	=
 	sge::renderer::index::iterator<
 		Format,
 		Constness
-	>
-	iterator;
+	>;
 
-	typedef
+	using
+	dynamic_view_type
+	=
 	sge::renderer::index::dynamic::basic_view<
 		std::is_same_v<
 			Constness,
 			sge::renderer::index::const_tag
 		>
-	>
-	dynamic_view_type;
+	>;
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	view(
@@ -99,18 +105,22 @@ public:
 		dynamic_view_type const &
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	pointer
 	data() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	size_type
 	size() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	iterator
 	begin() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	iterator
 	end() const;

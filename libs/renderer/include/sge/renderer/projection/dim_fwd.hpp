@@ -18,10 +18,13 @@ namespace renderer
 namespace projection
 {
 
-typedef fcppt::math::dim::static_<
+using
+dim
+=
+fcppt::math::dim::static_<
 	sge::renderer::scalar,
 	2
-> dim;
+>;
 
 }
 }

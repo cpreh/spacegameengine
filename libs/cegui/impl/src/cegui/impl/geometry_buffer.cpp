@@ -28,6 +28,7 @@
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
+#include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/state/core/blend/alpha_variant.hpp>
@@ -68,6 +69,7 @@
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_comparison.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/optional_error.hpp>
@@ -252,8 +254,16 @@ sge::cegui::impl::geometry_buffer::draw() const
 	);
 
 	sge::renderer::state::core::blend::scoped const scoped_blend(
-		render_context,
-		*blend_state
+		fcppt::reference_to_base<
+			sge::renderer::context::core
+		>(
+			fcppt::make_ref(
+				render_context
+			)
+		),
+		fcppt::make_cref(
+			*blend_state
+		)
 	);
 
 	sge::renderer::target::base &current_target(

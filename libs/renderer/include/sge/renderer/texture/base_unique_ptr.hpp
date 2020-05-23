@@ -18,11 +18,12 @@ namespace renderer
 namespace texture
 {
 
-typedef
+using
+base_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::texture::base
->
-base_unique_ptr;
+>;
 
 }
 }

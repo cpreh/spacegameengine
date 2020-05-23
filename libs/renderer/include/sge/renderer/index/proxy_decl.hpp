@@ -33,16 +33,18 @@ public:
 		>::value
 	);
 
-	typedef
+	using
+	value_type
+	=
 	typename
-	Format::index_type
-	value_type;
+	Format::index_type;
 
-	typedef
+	using
+	pointer
+	=
 	sge::renderer::index::pointer<
 		sge::renderer::index::nonconst_tag
-	>
-	pointer;
+	>;
 
 	explicit
 	proxy(
@@ -59,6 +61,7 @@ public:
 		value_type
 	);
 
+	[[nodiscard]]
 	value_type
 	get() const;
 private:

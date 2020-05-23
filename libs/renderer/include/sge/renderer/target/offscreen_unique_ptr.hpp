@@ -21,11 +21,12 @@ namespace target
 /**
 \brief A unique pointer to an sge::renderer::target::offscreen
 */
-typedef
+using
+offscreen_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::target::offscreen
->
-offscreen_unique_ptr;
+>;
 
 }
 }

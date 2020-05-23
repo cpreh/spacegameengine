@@ -31,9 +31,10 @@ struct format_element<
 	sge::renderer::index::dynamic::format::i16
 >
 {
-	typedef
-	sge::renderer::index::i16
-	type;
+	using
+	type
+	=
+	sge::renderer::index::i16;
 };
 
 template<>
@@ -41,9 +42,10 @@ struct format_element<
 	sge::renderer::index::dynamic::format::i32
 >
 {
-	typedef
-	sge::renderer::index::i32
-	type;
+	using
+	type
+	=
+	sge::renderer::index::i32;
 };
 
 }

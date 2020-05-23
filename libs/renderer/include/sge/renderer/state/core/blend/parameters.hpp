@@ -33,10 +33,12 @@ public:
 		sge::renderer::state::core::blend::write_mask const &
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::alpha_variant const &
 	alpha_variant() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::write_mask const &
 	write_mask() const;

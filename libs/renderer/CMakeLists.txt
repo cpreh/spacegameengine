@@ -130,6 +130,7 @@ set(
 	libs/renderer/include/sge/renderer/const_raw_pointer.hpp
 	libs/renderer/include/sge/renderer/context/core.hpp
 	libs/renderer/include/sge/renderer/context/core_fwd.hpp
+	libs/renderer/include/sge/renderer/context/core_ref.hpp
 	libs/renderer/include/sge/renderer/context/core_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/context/ffp.hpp
 	libs/renderer/include/sge/renderer/context/ffp_fwd.hpp
@@ -154,9 +155,11 @@ set(
 	libs/renderer/include/sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/device/core.hpp
 	libs/renderer/include/sge/renderer/device/core_fwd.hpp
+	libs/renderer/include/sge/renderer/device/core_ref.hpp
 	libs/renderer/include/sge/renderer/device/core_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/device/ffp.hpp
 	libs/renderer/include/sge/renderer/device/ffp_fwd.hpp
+	libs/renderer/include/sge/renderer/device/ffp_ref.hpp
 	libs/renderer/include/sge/renderer/device/ffp_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/device/parameters.hpp
 	libs/renderer/include/sge/renderer/device/parameters_fwd.hpp
@@ -300,6 +303,7 @@ set(
 	libs/renderer/include/sge/renderer/occlusion_query/blocking_wait.hpp
 	libs/renderer/include/sge/renderer/occlusion_query/object.hpp
 	libs/renderer/include/sge/renderer/occlusion_query/object_fwd.hpp
+	libs/renderer/include/sge/renderer/occlusion_query/object_ref.hpp
 	libs/renderer/include/sge/renderer/occlusion_query/object_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/occlusion_query/optional_pixel_count.hpp
 	libs/renderer/include/sge/renderer/occlusion_query/optional_pixel_count_fwd.hpp
@@ -706,9 +710,11 @@ set(
 	libs/renderer/include/sge/renderer/target/aspect_from_viewport.hpp
 	libs/renderer/include/sge/renderer/target/base.hpp
 	libs/renderer/include/sge/renderer/target/base_fwd.hpp
+	libs/renderer/include/sge/renderer/target/base_ref.hpp
 	libs/renderer/include/sge/renderer/target/from_texture.hpp
 	libs/renderer/include/sge/renderer/target/offscreen.hpp
 	libs/renderer/include/sge/renderer/target/offscreen_fwd.hpp
+	libs/renderer/include/sge/renderer/target/offscreen_ref.hpp
 	libs/renderer/include/sge/renderer/target/offscreen_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/target/onscreen.hpp
 	libs/renderer/include/sge/renderer/target/onscreen_fwd.hpp
@@ -727,6 +733,7 @@ set(
 	libs/renderer/include/sge/renderer/target/viewport_size.hpp
 	libs/renderer/include/sge/renderer/texture/base.hpp
 	libs/renderer/include/sge/renderer/texture/base_fwd.hpp
+	libs/renderer/include/sge/renderer/texture/base_ref.hpp
 	libs/renderer/include/sge/renderer/texture/base_shared_ptr.hpp
 	libs/renderer/include/sge/renderer/texture/base_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/texture/basic_lockable_box.hpp

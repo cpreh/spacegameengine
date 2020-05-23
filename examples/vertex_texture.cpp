@@ -27,6 +27,7 @@
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
@@ -84,7 +85,9 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/container/array/make.hpp>
@@ -289,8 +292,16 @@ try
 			&vertex_declaration
 		]{
 			sge::renderer::context::scoped_core const scoped_block(
-				sys.renderer_device_core(),
-				sys.renderer_device_core().onscreen_target()
+				fcppt::make_ref(
+					sys.renderer_device_core()
+				),
+				fcppt::reference_to_base<
+					sge::renderer::target::base
+				>(
+					fcppt::make_ref(
+						sys.renderer_device_core().onscreen_target()
+					)
+				)
 			);
 
 			sge::renderer::vertex::scoped_declaration_and_buffers const vb_context(

@@ -13,13 +13,12 @@
 sge::renderer::matrix4
 sge::renderer::projection::orthogonal_xy()
 {
-	sge::renderer::scalar const
-		one(
-			1.f
-		),
-		zero(
-			0.f
-		);
+	sge::renderer::scalar const one(
+		1.F
+	);
+	sge::renderer::scalar const zero(
+		0.F
+	);
 
 	return
 		sge::renderer::matrix4(

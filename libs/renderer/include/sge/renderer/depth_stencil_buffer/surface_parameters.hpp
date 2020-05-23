@@ -25,14 +25,16 @@ class surface_parameters
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	surface_parameters(
-		sge::renderer::dim2 const &,
+		sge::renderer::dim2,
 		sge::image::ds::format
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::dim2 const &
 	size() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::image::ds::format
 	format() const;

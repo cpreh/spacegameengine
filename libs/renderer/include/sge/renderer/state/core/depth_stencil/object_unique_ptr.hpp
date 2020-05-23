@@ -22,11 +22,12 @@ namespace core
 namespace depth_stencil
 {
 
-typedef
+using
+object_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::state::core::depth_stencil::object
->
-object_unique_ptr;
+>;
 
 }
 }

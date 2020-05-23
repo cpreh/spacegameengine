@@ -27,11 +27,13 @@ struct traits<
 	sge::renderer::core
 >
 {
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	static
 	sge::plugin::detail::address_name
 	plugin_loader_name();
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	static
 	sge::plugin::capabilities

@@ -27,28 +27,28 @@ sge::renderer::pixel_format::depth_bits(
 		return
 			sge::renderer::pixel_format::optional_bit_count(
 				sge::renderer::pixel_format::bit_count(
-					16u
+					16U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			);
 	case sge::renderer::pixel_format::depth_stencil::d24:
 		return
 			sge::renderer::pixel_format::optional_bit_count(
 				sge::renderer::pixel_format::bit_count(
-					24u
+					24U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			);
 	case sge::renderer::pixel_format::depth_stencil::d32:
 		return
 			sge::renderer::pixel_format::optional_bit_count(
 				sge::renderer::pixel_format::bit_count(
-					32u
+					32U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			);
 	case sge::renderer::pixel_format::depth_stencil::d24s8:
 		return
 			sge::renderer::pixel_format::optional_bit_count(
 				sge::renderer::pixel_format::bit_count(
-					24u
+					24U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			);
 	}

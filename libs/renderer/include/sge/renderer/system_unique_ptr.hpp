@@ -21,11 +21,12 @@ namespace renderer
 
 \ingroup sge_renderer
 */
-typedef
+using
+system_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::system
->
-system_unique_ptr;
+>;
 
 }
 }

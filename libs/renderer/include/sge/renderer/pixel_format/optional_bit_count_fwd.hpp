@@ -18,9 +18,12 @@ namespace renderer
 namespace pixel_format
 {
 
-typedef fcppt::optional::object<
+using
+optional_bit_count
+=
+fcppt::optional::object<
 	sge::renderer::pixel_format::bit_count
-> optional_bit_count;
+>;
 
 }
 }

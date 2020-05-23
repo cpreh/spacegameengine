@@ -21,11 +21,12 @@ namespace renderer
 
 \ingroup sge_renderer
 */
-typedef
+using
+pixel_rect
+=
 fcppt::math::box::rect<
 	sge::renderer::pixel_unit
->
-pixel_rect;
+>;
 
 }
 }

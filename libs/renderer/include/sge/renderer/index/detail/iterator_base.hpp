@@ -57,7 +57,7 @@ fcppt::iterator::base<
 			>
 		>,
 		sge::renderer::index::difference_type,
-		// TODO: output_iterator?
+		// TODO(philipp): output_iterator?
 		std::input_iterator_tag
 	>
 >;

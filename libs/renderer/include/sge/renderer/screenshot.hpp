@@ -41,7 +41,7 @@ SGE_RENDERER_DETAIL_SYMBOL
 void
 screenshot(
 	sge::renderer::device::core const &device,
-	sge::image2d::system &system,
+	sge::image2d::system &system, // NOLINT(google-runtime-references)
 	std::filesystem::path const &path
 );
 

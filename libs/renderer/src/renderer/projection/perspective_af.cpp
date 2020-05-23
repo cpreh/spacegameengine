@@ -36,33 +36,35 @@ sge::renderer::projection::perspective_af(
 		_near
 	);
 
-	sge::renderer::scalar const
-		far(
-			_far.get()
-		),
-		near(
-			_near.get()
-		),
-		scale_y(
-			1.f
+	sge::renderer::scalar const one{
+		1.F
+	};
+	sge::renderer::scalar const zero{
+		0.F
+	};
+	sge::renderer::scalar const two{
+		2.F
+	};
+	sge::renderer::scalar const far(
+		_far.get()
+	);
+	sge::renderer::scalar const near(
+		_near.get()
+	);
+	sge::renderer::scalar const scale_y(
+		one
+		/
+		std::tan(
+			_fov.get()
 			/
-			std::tan(
-				_fov.get()
-				/
-				2.f
-			)
-		),
-		scale_x(
-			scale_y
-			/
-			_aspect.get()
-		),
-		zero(
-			0.f
-		),
-		one(
-			1.f
-		);
+			two
+		)
+	);
+	sge::renderer::scalar const scale_x(
+		scale_y
+		/
+		_aspect.get()
+	);
 
 	return
 		sge::renderer::matrix4(

@@ -17,8 +17,7 @@ sge::renderer::index::buffer::buffer()
 }
 
 sge::renderer::index::buffer::~buffer()
-{
-}
+= default;
 
 sge::renderer::size_type
 sge::renderer::index::buffer::linear_size() const

@@ -10,7 +10,7 @@
 #include <sge/renderer/core.hpp>
 #include <sge/renderer/system_unique_ptr.hpp>
 #include <sge/renderer/caps/system_field_fwd.hpp>
-#include <sge/window/system_fwd.hpp>
+#include <sge/window/system_ref.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
@@ -39,7 +39,7 @@ public:
 private:
 	sge::renderer::system_unique_ptr
 	create_system(
-		sge::window::system &
+		sge::window::system_ref
 	)
 	override;
 

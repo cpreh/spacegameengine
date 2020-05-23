@@ -83,7 +83,7 @@ sge::opengl::system::create_ffp_renderer(
 			>(
 				log_,
 				_parameters.display_mode(),
-				_parameters.window(),
+				_parameters.window().get(),
 				*platform_system_,
 				*backend_system_
 			)

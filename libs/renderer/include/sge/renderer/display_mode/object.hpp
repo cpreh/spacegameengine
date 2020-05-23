@@ -43,14 +43,15 @@ public:
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
 	object(
-		sge::renderer::display_mode::pixel_size const &pixel_size,
-		sge::renderer::display_mode::optional_dimensions const &dimensions,
+		sge::renderer::display_mode::pixel_size pixel_size,
+		sge::renderer::display_mode::optional_dimensions dimensions,
 		sge::renderer::display_mode::optional_refresh_rate refresh_rate
 	);
 
 	/**
 	\brief Returns the pixel size
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::display_mode::pixel_size const &
 	pixel_size() const;
@@ -58,6 +59,7 @@ public:
 	/**
 	\brief Returns the dimensions
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::display_mode::optional_dimensions const &
 	dimensions() const;
@@ -65,6 +67,7 @@ public:
 	/**
 	\brief Returns the refresh rate
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::display_mode::optional_refresh_rate
 	refresh_rate() const;

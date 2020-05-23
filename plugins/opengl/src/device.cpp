@@ -100,7 +100,7 @@
 #include <sge/renderer/state/ffp/transform/object.hpp>
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
-#include <sge/renderer/target/base_fwd.hpp>
+#include <sge/renderer/target/base_ref.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen.hpp>
@@ -141,7 +141,7 @@
 #include <sge/cg/profile/object.hpp>
 #include <sge/cg/profile/shader_type.hpp>
 #include <sge/cg/program/compile_options.hpp>
-#include <sge/cg/program/object_fwd.hpp>
+#include <sge/cg/program/object_ref.hpp>
 #include <sge/cg/program/source.hpp>
 #include <sge/opengl/cg/profile/create.hpp>
 #include <sge/opengl/cg/program/load.hpp>
@@ -152,7 +152,7 @@
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/renderer/cg/loaded_texture.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
-#include <sge/renderer/texture/base_fwd.hpp>
+#include <sge/renderer/texture/base_ref.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #endif
 
@@ -258,7 +258,7 @@ sge::opengl::device::~device()
 
 sge::renderer::context::core_unique_ptr
 sge::opengl::device::begin_rendering(
-	sge::renderer::target::base &_target
+	sge::renderer::target::base_ref const _target
 )
 {
 	return
@@ -472,19 +472,19 @@ sge::opengl::device::cg_compile_options(
 
 sge::renderer::cg::loaded_program_unique_ptr
 sge::opengl::device::load_cg_program(
-	sge::cg::program::object &_program
+	sge::cg::program::object_ref const _program
 )
 {
 	return
 		sge::opengl::cg::program::load(
-			_program
+			_program.get()
 		);
 }
 
 sge::renderer::cg::loaded_texture_unique_ptr
 sge::opengl::device::load_cg_texture(
 	sge::cg::parameter::object const &_parameter,
-	sge::renderer::texture::base &_texture
+	sge::renderer::texture::base_ref const _texture
 )
 {
 	return
@@ -492,7 +492,7 @@ sge::opengl::device::load_cg_texture(
 			log_,
 			context_,
 			_parameter,
-			_texture
+			_texture.get()
 		);
 }
 
@@ -526,7 +526,7 @@ sge::opengl::device::caps() const
 
 sge::renderer::context::ffp_unique_ptr
 sge::opengl::device::begin_rendering_ffp(
-	sge::renderer::target::base &_target
+	sge::renderer::target::base_ref const _target
 )
 {
 	scoped_current_.get().begin_rendering();
@@ -535,7 +535,7 @@ sge::opengl::device::begin_rendering_ffp(
 		sge::opengl::render_context::create(
 			log_,
 			context_,
-			_target
+			_target.get()
 		);
 }
 

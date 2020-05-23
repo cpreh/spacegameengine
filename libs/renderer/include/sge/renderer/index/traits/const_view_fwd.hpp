@@ -26,9 +26,10 @@ struct const_view_tpl<
 	sge::renderer::index::tag
 >
 {
-	typedef
-	sge::renderer::index::dynamic::const_view
-	type;
+	using
+	type
+	=
+	sge::renderer::index::dynamic::const_view;
 };
 
 }

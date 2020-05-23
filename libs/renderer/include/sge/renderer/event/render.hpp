@@ -12,7 +12,7 @@
 #include <sge/renderer/event/base.hpp>
 #include <sge/renderer/event/render_fwd.hpp>
 #include <awl/window/reference.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,11 +26,11 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL render
 :
 	public sge::renderer::event::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		render
 	);
 public:
-	// TODO: Which parameters do we want?
+	// TODO(philipp): Which parameters do we want?
 	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	render(

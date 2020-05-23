@@ -31,7 +31,7 @@ sge::renderer::display_mode::operator<<(
 		[
 			&_stream
 		](
-			sge::renderer::display_mode::dimensions const _dim
+			sge::renderer::display_mode::dimensions const &_dim
 		)
 		{
 			_stream

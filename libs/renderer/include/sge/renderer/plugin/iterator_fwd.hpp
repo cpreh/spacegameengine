@@ -18,11 +18,12 @@ namespace renderer
 namespace plugin
 {
 
-typedef
+using
+iterator
+=
 sge::plugin::iterator<
 	sge::renderer::core
->
-iterator;
+>;
 
 }
 }

@@ -22,11 +22,12 @@ namespace core
 namespace sampler
 {
 
-typedef
+using
+object_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::state::core::sampler::object
->
-object_unique_ptr;
+>;
 
 }
 }

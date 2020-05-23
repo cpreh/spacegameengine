@@ -25,6 +25,7 @@
 #include <sge/renderer/state/core/sampler/scoped.hpp>
 #include <sge/renderer/state/core/sampler/address/default.hpp>
 #include <sge/renderer/state/core/sampler/filter/point.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/from_texture.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/onscreen.hpp>
@@ -140,9 +141,17 @@ sge::postprocessing::context::create_render_context()
 		fcppt::make_unique_ptr<
 			sge::renderer::context::scoped_core
 		>(
-			renderer_,
-			*FCPPT_ASSERT_OPTIONAL_ERROR(
-				offscreen_target_
+			fcppt::make_ref(
+				renderer_
+			),
+			fcppt::reference_to_base<
+				sge::renderer::target::base
+			>(
+				fcppt::make_ref(
+					*FCPPT_ASSERT_OPTIONAL_ERROR(
+						offscreen_target_
+					)
+				)
 			)
 		);
 }
@@ -457,8 +466,16 @@ sge::postprocessing::context::finalize()
 		fcppt::make_unique_ptr<
 			sge::renderer::context::scoped_core
 		>(
-			renderer_,
-			renderer_.onscreen_target()
+			fcppt::make_ref(
+				renderer_
+			),
+			fcppt::reference_to_base<
+				sge::renderer::target::base
+			>(
+				fcppt::make_ref(
+					renderer_.onscreen_target()
+				)
+			)
 		)
 	);
 

@@ -24,11 +24,12 @@ namespace lighting
 namespace light
 {
 
-typedef
+using
+object_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::state::ffp::lighting::light::object
->
-object_unique_ptr;
+>;
 
 }
 }

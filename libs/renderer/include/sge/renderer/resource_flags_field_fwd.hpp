@@ -21,11 +21,12 @@ namespace renderer
 
 \ingroup sge_renderer
 */
-typedef
+using
+resource_flags_field
+=
 fcppt::container::bitfield::enum_object<
 	sge::renderer::resource_flags
->
-resource_flags_field;
+>;
 
 }
 }

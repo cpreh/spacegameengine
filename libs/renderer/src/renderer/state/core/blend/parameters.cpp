@@ -7,6 +7,9 @@
 #include <sge/renderer/state/core/blend/alpha_variant.hpp>
 #include <sge/renderer/state/core/blend/parameters.hpp>
 #include <sge/renderer/state/core/blend/write_mask.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::state::core::blend::parameters::parameters(
@@ -26,11 +29,13 @@ sge::renderer::state::core::blend::parameters::parameters(
 sge::renderer::state::core::blend::alpha_variant const &
 sge::renderer::state::core::blend::parameters::alpha_variant() const
 {
-	return alpha_variant_;
+	return
+		alpha_variant_;
 }
 
 sge::renderer::state::core::blend::write_mask const &
 sge::renderer::state::core::blend::parameters::write_mask() const
 {
-	return write_mask_;
+	return
+		write_mask_;
 }

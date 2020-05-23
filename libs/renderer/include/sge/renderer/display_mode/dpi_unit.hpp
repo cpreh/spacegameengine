@@ -15,7 +15,10 @@ namespace renderer
 namespace display_mode
 {
 
-typedef double dpi_unit;
+using
+dpi_unit
+=
+double;
 
 }
 }

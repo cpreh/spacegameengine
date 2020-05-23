@@ -11,16 +11,20 @@
 
 
 sge::renderer::display_mode::object::object(
-	sge::renderer::display_mode::pixel_size const &_pixel_size,
-	sge::renderer::display_mode::optional_dimensions const &_dimensions,
+	sge::renderer::display_mode::pixel_size _pixel_size,
+	sge::renderer::display_mode::optional_dimensions _dimensions,
 	sge::renderer::display_mode::optional_refresh_rate const _refresh_rate
 )
 :
 	pixel_size_(
-		_pixel_size
+		std::move(
+			_pixel_size
+		)
 	),
 	dimensions_(
-		_dimensions
+		std::move(
+			_dimensions
+		)
 	),
 	refresh_rate_(
 		_refresh_rate

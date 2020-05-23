@@ -42,6 +42,7 @@
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/clear/depth_buffer_value.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/core.hpp>
@@ -159,11 +160,14 @@
 #include <fcppt/args_from_second.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -1217,8 +1221,16 @@ main_program(
 			{
 				// Set the color mask to "red"
 				sge::renderer::state::core::blend::scoped const scoped_blend(
-					_context,
-					*blend_red_state
+					fcppt::reference_to_base<
+						sge::renderer::context::core
+					>(
+						fcppt::make_ref(
+							_context
+						)
+					),
+					fcppt::make_cref(
+						*blend_red_state
+					)
 				);
 
 				model_collection.render(
@@ -1244,8 +1256,16 @@ main_program(
 			{
 				// Set the color mask to cyan
 				sge::renderer::state::core::blend::scoped const scoped_blend(
-					_context,
-					*blend_cyan_state
+					fcppt::reference_to_base<
+						sge::renderer::context::core
+					>(
+						fcppt::make_ref(
+							_context
+						)
+					),
+					fcppt::make_cref(
+						*blend_cyan_state
+					)
 				);
 
 				model_collection.render(
@@ -1283,8 +1303,16 @@ main_program(
 			);
 
 			sge::renderer::context::scoped_ffp const scoped_block(
-				sys.renderer_device_ffp(),
-				sys.renderer_device_ffp().onscreen_target()
+				fcppt::make_ref(
+					sys.renderer_device_ffp()
+				),
+				fcppt::reference_to_base<
+					sge::renderer::target::base
+				>(
+					fcppt::make_ref(
+						sys.renderer_device_ffp().onscreen_target()
+					)
+				)
 			);
 
 			sge::renderer::context::ffp &context(

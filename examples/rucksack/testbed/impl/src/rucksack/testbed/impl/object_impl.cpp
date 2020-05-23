@@ -22,6 +22,7 @@
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
+#include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/rucksack/testbed/systems.hpp>
 #include <sge/rucksack/testbed/impl/object_impl.hpp>
@@ -59,6 +60,7 @@
 #include <awl/main/exit_code.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/dynamic.hpp>
@@ -177,8 +179,16 @@ sge::rucksack::testbed::object_impl::run()
 			this->update();
 
 			sge::renderer::context::scoped_ffp const scoped_block(
-				this->systems_.renderer_device_ffp(),
-				this->systems_.renderer_device_ffp().onscreen_target()
+				fcppt::make_ref(
+					this->systems_.renderer_device_ffp()
+				),
+				fcppt::reference_to_base<
+					sge::renderer::target::base
+				>(
+					fcppt::make_ref(
+						this->systems_.renderer_device_ffp().onscreen_target()
+					)
+				)
 			);
 
 			this->render(

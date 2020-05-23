@@ -23,12 +23,13 @@ namespace core
 namespace blend
 {
 
-typedef
+using
+alpha_enabled
+=
 fcppt::variant::object<
 	sge::renderer::state::core::blend::combined,
 	sge::renderer::state::core::blend::separate
->
-alpha_enabled;
+>;
 
 }
 }

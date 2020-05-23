@@ -18,11 +18,12 @@ namespace renderer
 namespace occlusion_query
 {
 
-typedef
+using
+object_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::occlusion_query::object
->
-object_unique_ptr;
+>;
 
 }
 }

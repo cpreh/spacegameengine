@@ -22,11 +22,12 @@ namespace ffp
 namespace misc
 {
 
-typedef
+using
+object_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::state::ffp::misc::object
->
-object_unique_ptr;
+>;
 
 }
 }

@@ -33,10 +33,12 @@ public:
 		sge::renderer::state::core::blend::dest
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::source
 	source() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::dest
 	dest() const;

@@ -23,11 +23,12 @@ namespace index
 
 \see sge::renderer::const_linear_buffer_scoped_lock
 */
-typedef
+using
+const_scoped_lock
+=
 sge::renderer::buffer::const_scoped_lock<
 	sge::renderer::index::tag
->
-const_scoped_lock;
+>;
 
 }
 }

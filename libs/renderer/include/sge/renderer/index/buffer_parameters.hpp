@@ -38,14 +38,17 @@ public:
 		sge::renderer::resource_flags_field const &flags
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::index::dynamic::format
 	format() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::index::count
 	count() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::resource_flags_field const &
 	flags() const;

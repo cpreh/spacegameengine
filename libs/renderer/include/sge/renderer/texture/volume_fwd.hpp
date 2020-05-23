@@ -18,11 +18,12 @@ namespace renderer
 namespace texture
 {
 
-typedef
+using
+volume
+=
 sge::renderer::texture::basic_lockable_box<
 	sge::image3d::tag
->
-volume;
+>;
 
 }
 }

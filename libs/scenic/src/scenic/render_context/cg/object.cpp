@@ -24,6 +24,7 @@
 #include <sge/scenic/render_context/light/object.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
@@ -56,8 +57,13 @@ sge::scenic::render_context::cg::object::object(
 		_context,
 		*manager_.depth_stencil_state_),
 	blend_state_(
-		_context,
-		*manager_.blend_state_),
+		fcppt::make_ref(
+			_context
+		),
+		fcppt::make_cref(
+			*manager_.blend_state_
+		)
+	),
 	rasterizer_state_(
 		_context,
 		*manager_.rasterizer_state_),

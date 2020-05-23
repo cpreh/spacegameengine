@@ -10,8 +10,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/device/parameters_fwd.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <fcppt/reference_impl.hpp>
+#include <sge/window/object_ref.hpp>
 
 
 namespace sge
@@ -26,23 +25,23 @@ class parameters
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	parameters(
-		sge::renderer::display_mode::parameters const &,
-		sge::window::object &
+		sge::renderer::display_mode::parameters,
+		sge::window::object_ref
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::display_mode::parameters const &
 	display_mode() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
-	sge::window::object &
+	sge::window::object_ref
 	window() const;
 private:
 	sge::renderer::display_mode::parameters display_mode_;
 
-	fcppt::reference<
-		sge::window::object
-	> window_;
+	sge::window::object_ref window_;
 };
 
 }

@@ -37,18 +37,22 @@ public:
 		sge::renderer::state::core::blend::write_alpha
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::write_red
 	write_red() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::write_blue
 	write_blue() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::write_green
 	write_green() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::blend::write_alpha
 	write_alpha() const;

@@ -18,11 +18,12 @@ namespace renderer
 namespace depth_stencil_buffer
 {
 
-typedef
+using
+surface
+=
 sge::renderer::buffer::base<
 	sge::imageds2d::tag
->
-surface;
+>;
 
 }
 }

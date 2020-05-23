@@ -25,9 +25,10 @@ template<
 >
 struct format
 {
-	typedef
-	Index
-	index_type;
+	using
+	index_type
+	=
+	Index;
 
 	static_assert(
 		std::is_integral_v<

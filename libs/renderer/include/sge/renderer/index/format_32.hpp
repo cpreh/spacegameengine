@@ -18,11 +18,12 @@ namespace renderer
 namespace index
 {
 
-typedef
+using
+format_32
+=
 sge::renderer::index::format<
 	sge::renderer::index::i32
->
-format_32;
+>;
 
 }
 }
