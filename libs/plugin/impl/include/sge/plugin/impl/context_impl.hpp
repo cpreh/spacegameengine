@@ -7,8 +7,8 @@
 #ifndef SGE_PLUGIN_IMPL_CONTEXT_IMPL_HPP_INCLUDED
 #define SGE_PLUGIN_IMPL_CONTEXT_IMPL_HPP_INCLUDED
 
-#include <sge/plugin/context_base_ref.hpp>
 #include <sge/plugin/context.hpp>
+#include <sge/plugin/context_base_ref.hpp>
 #include <sge/plugin/info_fwd.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/plugin/impl/context_base.hpp>

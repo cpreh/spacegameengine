@@ -84,8 +84,8 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/make_ref.hpp>
 #include <fcppt/make_int_range_count.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/strong_typedef_output.hpp>

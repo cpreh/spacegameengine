@@ -9,8 +9,8 @@
 #include <sge/window/event_function.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system.hpp>
-#include <sge/window/system_ref.hpp>
 #include <sge/window/system_event_function.hpp>
+#include <sge/window/system_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
 #include <awl/window/object.hpp>

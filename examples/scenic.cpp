@@ -86,8 +86,8 @@
 #include <fcppt/args_from_second.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/string.hpp>

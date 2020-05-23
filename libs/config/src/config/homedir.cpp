@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/config/impl/getenv_exn.hpp>
 #include <sge/config/homedir.hpp>
+#include <sge/config/impl/getenv_exn.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/config/external_begin.hpp>

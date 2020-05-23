@@ -162,8 +162,8 @@
 #include <fcppt/literal.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/reference_impl.hpp>
