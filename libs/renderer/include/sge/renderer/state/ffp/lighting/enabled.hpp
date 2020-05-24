@@ -29,14 +29,16 @@ class enabled
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	enabled(
-		sge::renderer::state::ffp::lighting::ambient_color const &,
+		sge::renderer::state::ffp::lighting::ambient_color,
 		sge::renderer::state::ffp::lighting::diffuse_from_vertex
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::ambient_color const &
 	ambient_color() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::diffuse_from_vertex
 	diffuse_from_vertex() const;

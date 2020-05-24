@@ -37,18 +37,22 @@ public:
 		sge::renderer::state::ffp::sampler::arg3
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::sampler::ternary_op_type
 	type() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::sampler::arg1
 	arg1() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::sampler::arg2
 	arg2() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::sampler::arg3
 	arg3() const;

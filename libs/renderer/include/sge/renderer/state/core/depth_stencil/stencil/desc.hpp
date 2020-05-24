@@ -39,18 +39,22 @@ public:
 		sge::renderer::state::core::depth_stencil::stencil::func
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::fail_op
 	fail_op() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::depth_fail_op
 	depth_fail_op() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::pass_op
 	pass_op() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::func
 	func() const;

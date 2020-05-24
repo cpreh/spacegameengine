@@ -5,12 +5,13 @@
 
 
 #include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/ffp_ref.hpp>
 #include <sge/renderer/state/ffp/clip_plane/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/clip_plane/scoped.hpp>
 
 
 sge::renderer::state::ffp::clip_plane::scoped::scoped(
-	sge::renderer::context::ffp &_context,
+	sge::renderer::context::ffp_ref const _context,
 	sge::renderer::state::ffp::clip_plane::const_object_ref_vector const &_states
 )
 :
@@ -18,14 +19,14 @@ sge::renderer::state::ffp::clip_plane::scoped::scoped(
 		_context
 	)
 {
-	context_.clip_plane_state(
+	context_.get().clip_plane_state(
 		_states
 	);
 }
 
 sge::renderer::state::ffp::clip_plane::scoped::~scoped()
 {
-	context_.clip_plane_state(
+	context_.get().clip_plane_state(
 		sge::renderer::state::ffp::clip_plane::const_object_ref_vector()
 	);
 }

@@ -37,10 +37,12 @@ public:
 		sge::renderer::state::core::sampler::filter::anisotropic::level
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::sampler::filter::anisotropic::mip
 	mip() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::sampler::filter::anisotropic::level
 	level() const;

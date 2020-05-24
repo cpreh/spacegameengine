@@ -8,6 +8,7 @@
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
+#include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/state/core/depth_stencil/object.hpp>
@@ -22,6 +23,9 @@
 #include <sge/renderer/target/viewport_size.hpp>
 #include <sge/scenic/grid/object.hpp>
 #include <sge/scenic/grid/orientation.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -185,8 +189,16 @@ sge::scenic::grid::object::render(
 			);
 
 			sge::renderer::state::core::depth_stencil::scoped const depth_transform(
-				_context,
-				*depth_state
+				fcppt::reference_to_base<
+					sge::renderer::context::core
+				>(
+					fcppt::make_ref(
+						_context
+					)
+				),
+				fcppt::make_cref(
+					*depth_state
+				)
 			);
 
 			sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
@@ -208,15 +220,23 @@ sge::scenic::grid::object::render(
 			);
 
 			sge::renderer::state::ffp::transform::scoped const projection_transform(
-				_context,
+				fcppt::make_ref(
+					_context
+				),
 				sge::renderer::state::ffp::transform::mode::projection,
-				*projection_state
+				fcppt::make_cref(
+					*projection_state
+				)
 			);
 
 			sge::renderer::state::ffp::transform::scoped const world_transform(
-				_context,
+				fcppt::make_ref(
+					_context
+				),
 				sge::renderer::state::ffp::transform::mode::world,
-				*world_state
+				fcppt::make_cref(
+					*world_state
+				)
 			);
 
 			line_drawer_.render(

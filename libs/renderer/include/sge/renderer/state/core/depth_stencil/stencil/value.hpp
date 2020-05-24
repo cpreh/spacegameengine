@@ -21,7 +21,10 @@ namespace depth_stencil
 namespace stencil
 {
 
-typedef unsigned value;
+using
+value
+=
+unsigned;
 
 }
 }

@@ -51,6 +51,7 @@
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
@@ -807,23 +808,39 @@ try
 
 			{
 				sge::renderer::state::ffp::transform::scoped const projection_transform(
-					_context,
+					fcppt::make_ref(
+						_context
+					),
 					sge::renderer::state::ffp::transform::mode::projection,
-					*projection_state
+					fcppt::make_cref(
+						*projection_state
+					)
 				);
 
 				sge::renderer::state::ffp::transform::scoped const world_transform(
-					_context,
+					fcppt::make_ref(
+						_context
+					),
 					sge::renderer::state::ffp::transform::mode::world,
-					*world_state
+					fcppt::make_cref(
+						*world_state
+					)
 				);
 
 				sge::renderer::state::core::sampler::scoped_single const scoped_filter(
-					_context,
+					fcppt::reference_to_base<
+						sge::renderer::context::core
+					>(
+						fcppt::make_ref(
+							_context
+						)
+					),
 					sge::renderer::texture::stage(
 						0u
 					),
-					current_filter.get().second.get()
+					fcppt::make_cref(
+						current_filter.get().second.get()
+					)
 				);
 
 				sge::sprite::render::range_with_options(

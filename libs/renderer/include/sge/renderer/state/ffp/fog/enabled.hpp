@@ -39,22 +39,27 @@ public:
 		sge::renderer::state::ffp::fog::color
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::fog::mode
 	mode() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::fog::start
 	start() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::fog::end
 	end() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::fog::density
 	density() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::fog::color
 	color() const;

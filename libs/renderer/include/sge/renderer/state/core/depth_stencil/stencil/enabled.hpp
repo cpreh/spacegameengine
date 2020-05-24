@@ -39,18 +39,22 @@ public:
 		sge::renderer::state::core::depth_stencil::stencil::write_mask
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::enabled_variant const &
 	enabled_variant() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::ref
 	ref() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::read_mask
 	read_mask() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::write_mask
 	write_mask() const;

@@ -31,14 +31,16 @@ class point
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	point(
-		sge::renderer::state::ffp::lighting::light::position const &,
+		sge::renderer::state::ffp::lighting::light::position,
 		sge::renderer::state::ffp::lighting::light::attenuation const &
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::position const &
 	position() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::attenuation const &
 	attenuation() const;

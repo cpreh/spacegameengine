@@ -6,14 +6,19 @@
 
 #include <sge/renderer/state/ffp/lighting/parameters.hpp>
 #include <sge/renderer/state/ffp/lighting/variant.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::state::ffp::lighting::parameters::parameters(
-	sge::renderer::state::ffp::lighting::variant const &_variant
+	sge::renderer::state::ffp::lighting::variant _variant
 )
 :
 	variant_(
-		_variant
+		std::move(
+			_variant
+		)
 	)
 {
 }
@@ -21,5 +26,6 @@ sge::renderer::state::ffp::lighting::parameters::parameters(
 sge::renderer::state::ffp::lighting::variant const &
 sge::renderer::state::ffp::lighting::parameters::variant() const
 {
-	return variant_;
+	return
+		variant_;
 }

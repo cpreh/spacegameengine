@@ -5,33 +5,34 @@
 
 
 #include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/state/core/rasterizer/const_optional_object_ref.hpp>
 #include <sge/renderer/state/core/rasterizer/object_fwd.hpp>
 #include <sge/renderer/state/core/rasterizer/scoped.hpp>
-#include <fcppt/make_cref.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 sge::renderer::state::core::rasterizer::scoped::scoped(
-	sge::renderer::context::core &_context,
-	sge::renderer::state::core::rasterizer::object const &_object
+	sge::renderer::context::core_ref const _context,
+	fcppt::reference<
+		sge::renderer::state::core::rasterizer::object const
+	> const _object
 )
 :
 	context_(
 		_context
 	)
 {
-	context_.rasterizer_state(
+	context_.get().rasterizer_state(
 		sge::renderer::state::core::rasterizer::const_optional_object_ref(
-			fcppt::make_cref(
-				_object
-			)
+			_object
 		)
 	);
 }
 
 sge::renderer::state::core::rasterizer::scoped::~scoped()
 {
-	context_.rasterizer_state(
+	context_.get().rasterizer_state(
 		sge::renderer::state::core::rasterizer::const_optional_object_ref()
 	);
 }

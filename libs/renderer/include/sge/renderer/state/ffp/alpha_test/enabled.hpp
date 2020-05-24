@@ -33,10 +33,12 @@ public:
 		sge::renderer::state::ffp::alpha_test::ref
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::alpha_test::func
 	func() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::alpha_test::ref
 	ref() const;

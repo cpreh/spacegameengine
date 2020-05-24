@@ -31,6 +31,7 @@
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
@@ -110,6 +111,7 @@
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -442,8 +444,16 @@ try
 				// every entry in the stencill buffer will be 1 where
 				// small_sprite is rendered.
 				sge::renderer::state::core::depth_stencil::scoped const scoped_state(
-					scoped_block.get(),
-					*inc_state
+					fcppt::reference_to_base<
+						sge::renderer::context::core
+					>(
+						fcppt::make_ref(
+							scoped_block.get()
+						)
+					),
+					fcppt::make_cref(
+						*inc_state
+					)
 				);
 
 				// Render small sprite.
@@ -460,8 +470,16 @@ try
 				// which means it passes everywhere where small_sprite
 				// has _not_ been rendered.
 				sge::renderer::state::core::depth_stencil::scoped const scoped_state(
-					scoped_block.get(),
-					*compare_state
+					fcppt::reference_to_base<
+						sge::renderer::context::core
+					>(
+						fcppt::make_ref(
+							scoped_block.get()
+						)
+					),
+					fcppt::make_cref(
+						*compare_state
+					)
 				);
 
 				// Render big sprite.

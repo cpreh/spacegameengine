@@ -8,9 +8,7 @@
 
 
 sge::renderer::state::ffp::transform::object::object()
-{
-}
+= default;
 
 sge::renderer::state::ffp::transform::object::~object()
-{
-}
+= default;

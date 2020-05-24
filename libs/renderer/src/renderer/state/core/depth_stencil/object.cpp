@@ -8,9 +8,7 @@
 
 
 sge::renderer::state::core::depth_stencil::object::object()
-{
-}
+= default;
 
 sge::renderer::state::core::depth_stencil::object::~object()
-{
-}
+= default;

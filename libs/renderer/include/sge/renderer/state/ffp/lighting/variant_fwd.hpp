@@ -23,12 +23,13 @@ namespace ffp
 namespace lighting
 {
 
-typedef
+using
+variant
+=
 fcppt::variant::object<
 	sge::renderer::state::ffp::lighting::off,
 	sge::renderer::state::ffp::lighting::enabled
->
-variant;
+>;
 
 }
 }

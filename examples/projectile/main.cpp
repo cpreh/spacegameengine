@@ -105,6 +105,7 @@
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/no_init.hpp>
@@ -872,9 +873,13 @@ try
 					);
 
 					sge::renderer::state::ffp::transform::scoped const scoped_transform(
-						scoped_block.get(),
+						fcppt::make_ref(
+							scoped_block.get()
+						),
 						sge::renderer::state::ffp::transform::mode::projection,
-						*transform_state
+						fcppt::make_cref(
+							*transform_state
+						)
 					);
 
 					debug_drawer.render(

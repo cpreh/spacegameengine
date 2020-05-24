@@ -4,29 +4,28 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_RENDERER_VECTOR2_FWD_HPP_INCLUDED
-#define SGE_RENDERER_VECTOR2_FWD_HPP_INCLUDED
+#ifndef SGE_RENDERER_CONTEXT_FFP_REF_HPP_INCLUDED
+#define SGE_RENDERER_CONTEXT_FFP_REF_HPP_INCLUDED
 
-#include <sge/renderer/basic_vector_fwd.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
 {
 namespace renderer
 {
+namespace context
+{
 
-/**
-\brief A two dimensional vector of renderer::scalars
-
-\ingroup sge_renderer
-*/
 using
-vector2
+ffp_ref
 =
-sge::renderer::basic_vector<
-	2
+fcppt::reference<
+	sge::renderer::context::ffp
 >;
 
+}
 }
 }
 

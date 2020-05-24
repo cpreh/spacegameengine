@@ -33,10 +33,12 @@ public:
 		sge::renderer::state::core::sampler::filter::parameters const &
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::sampler::address::parameters const &
 	address() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::sampler::filter::parameters const &
 	filter() const;

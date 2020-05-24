@@ -37,14 +37,17 @@ public:
 		sge::renderer::state::ffp::lighting::light::quadratic_attenuation
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::constant_attenuation
 	constant() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::linear_attenuation
 	linear() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::quadratic_attenuation
 	quadratic() const;

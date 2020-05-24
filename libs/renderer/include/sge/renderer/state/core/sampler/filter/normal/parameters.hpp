@@ -39,14 +39,17 @@ public:
 		sge::renderer::state::core::sampler::filter::normal::mip
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::sampler::filter::normal::mag
 	mag() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::sampler::filter::normal::min
 	min() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::sampler::filter::normal::mip
 	mip() const;

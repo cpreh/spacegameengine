@@ -29,6 +29,7 @@
 #include <sge/parse/json/parse_file_exn.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
@@ -585,7 +586,13 @@ main_program(
 			{
 				sge::scenic::render_context::base_unique_ptr const wrapped_context{
 					scene_manager.create_render_context(
-						scoped_block.get()
+						fcppt::reference_to_base<
+							sge::renderer::context::core
+						>(
+							fcppt::make_ref(
+								scoped_block.get()
+							)
+						)
 					)
 				};
 

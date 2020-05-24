@@ -10,27 +10,38 @@
 #include <sge/renderer/state/ffp/lighting/material/emissive_color.hpp>
 #include <sge/renderer/state/ffp/lighting/material/parameters.hpp>
 #include <sge/renderer/state/ffp/lighting/material/shininess.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::state::ffp::lighting::material::parameters::parameters(
-	sge::renderer::state::ffp::lighting::diffuse_color const &_diffuse,
-	sge::renderer::state::ffp::lighting::ambient_color const &_ambient,
-	sge::renderer::state::ffp::lighting::specular_color const &_specular,
-	sge::renderer::state::ffp::lighting::material::emissive_color const &_emissive,
+	sge::renderer::state::ffp::lighting::diffuse_color _diffuse,
+	sge::renderer::state::ffp::lighting::ambient_color _ambient,
+	sge::renderer::state::ffp::lighting::specular_color _specular,
+	sge::renderer::state::ffp::lighting::material::emissive_color _emissive,
 	sge::renderer::state::ffp::lighting::material::shininess const _shininess
 )
 :
 	diffuse_(
-		_diffuse
+		std::move(
+			_diffuse
+		)
 	),
 	ambient_(
-		_ambient
+		std::move(
+			_ambient
+		)
 	),
 	specular_(
-		_specular
+		std::move(
+			_specular
+		)
 	),
 	emissive_(
-		_emissive
+		std::move(
+			_emissive
+		)
 	),
 	shininess_(
 		_shininess

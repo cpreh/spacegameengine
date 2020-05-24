@@ -794,9 +794,14 @@ random_model_collection::render(
 
 		// Set the world transformation and render
 		sge::renderer::state::ffp::transform::scoped const world_transform{
-			_context,
+			// TODO
+			fcppt::make_ref(
+				_context
+			),
 			sge::renderer::state::ffp::transform::mode::world,
-			*world_state
+			fcppt::make_cref(
+				*world_state
+			)
 		};
 
 		current_model->render(
@@ -1207,9 +1212,14 @@ main_program(
 			);
 
 			sge::renderer::state::ffp::transform::scoped const projection_transform(
-				_context,
+				// TODO
+				fcppt::make_ref(
+					_context
+				),
 				sge::renderer::state::ffp::transform::mode::projection,
-				*projection_state
+				fcppt::make_cref(
+					*projection_state
+				)
 			);
 
 			// The vertex declaration can be set once in this case

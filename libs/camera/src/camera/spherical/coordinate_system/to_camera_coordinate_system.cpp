@@ -68,9 +68,9 @@ sge::camera::spherical::coordinate_system::to_camera_coordinate_system(
 				fcppt::math::vector::cross(
 					forward_vector.get(),
 					sge::renderer::vector3{
-						0.0f,
-						1.0f,
-						0.0f
+						0.0F,
+						1.0F,
+						0.0F
 					}
 				)
 			)

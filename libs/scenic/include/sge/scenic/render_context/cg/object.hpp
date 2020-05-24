@@ -8,7 +8,7 @@
 #define SGE_SCENIC_RENDER_CONTEXT_CG_OBJECT_HPP_INCLUDED
 
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/index/buffer_fwd.hpp>
 #include <sge/renderer/state/core/blend/scoped.hpp>
 #include <sge/renderer/state/core/depth_stencil/scoped.hpp>
@@ -44,13 +44,14 @@ class object
 :
 	public sge::scenic::render_context::base
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONCOPYABLE(
+		object
+	);
 public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	object(
 		sge::scenic::render_context::cg::manager &,
-		sge::renderer::context::core &
+		sge::renderer::context::core_ref
 	);
 
 	SGE_SCENIC_DETAIL_SYMBOL
@@ -113,7 +114,7 @@ private:
 	optional_vertex_buffer;
 
 	sge::scenic::render_context::cg::manager &manager_;
-	sge::renderer::context::core &context_;
+	sge::renderer::context::core_ref const context_;
 	sge::renderer::vertex::scoped_declaration scoped_vd_;
 	sge::renderer::state::core::depth_stencil::scoped depth_stencil_state_;
 	sge::renderer::state::core::blend::scoped blend_state_;

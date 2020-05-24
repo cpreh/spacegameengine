@@ -33,10 +33,12 @@ public:
 		sge::renderer::state::core::depth_stencil::stencil::variant const &
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::depth::variant const &
 	depth_variant() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::variant const &
 	stencil_variant() const;

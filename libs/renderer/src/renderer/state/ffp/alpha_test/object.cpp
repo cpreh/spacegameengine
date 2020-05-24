@@ -8,9 +8,7 @@
 
 
 sge::renderer::state::ffp::alpha_test::object::object()
-{
-}
+= default;
 
 sge::renderer::state::ffp::alpha_test::object::~object()
-{
-}
+= default;

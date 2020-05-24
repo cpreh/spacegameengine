@@ -35,14 +35,17 @@ public:
 		sge::renderer::state::ffp::misc::normalize_normals
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::misc::enable_point_sprites
 	enable_point_sprites() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::misc::local_viewer
 	local_viewer() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::misc::normalize_normals
 	normalize_normals() const;

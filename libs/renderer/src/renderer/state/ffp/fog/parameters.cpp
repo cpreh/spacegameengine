@@ -6,14 +6,19 @@
 
 #include <sge/renderer/state/ffp/fog/parameters.hpp>
 #include <sge/renderer/state/ffp/fog/variant.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::state::ffp::fog::parameters::parameters(
-	sge::renderer::state::ffp::fog::variant const &_variant
+	sge::renderer::state::ffp::fog::variant _variant
 )
 :
 	variant_(
-		_variant
+		std::move(
+			_variant
+		)
 	)
 {
 }

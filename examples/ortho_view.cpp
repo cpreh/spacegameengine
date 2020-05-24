@@ -115,6 +115,7 @@
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -440,15 +441,24 @@ try
 			);
 
 			sge::renderer::state::ffp::transform::scoped const projection_transform(
-				_context,
+				// TODO
+				fcppt::make_ref(
+					_context
+				),
 				sge::renderer::state::ffp::transform::mode::projection,
-				*projection_state
+				fcppt::make_cref(
+					*projection_state
+				)
 			);
 
 			sge::renderer::state::ffp::transform::scoped const world_transform(
-				_context,
+				fcppt::make_ref(
+					_context
+				),
 				sge::renderer::state::ffp::transform::mode::world,
-				*world_state
+				fcppt::make_cref(
+					*world_state
+				)
 			);
 
 			sge::sprite::state::scoped<

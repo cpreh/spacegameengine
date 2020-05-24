@@ -134,6 +134,7 @@ set(
 	libs/renderer/include/sge/renderer/context/core_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/context/ffp.hpp
 	libs/renderer/include/sge/renderer/context/ffp_fwd.hpp
+	libs/renderer/include/sge/renderer/context/ffp_ref.hpp
 	libs/renderer/include/sge/renderer/context/ffp_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/context/scoped_core.hpp
 	libs/renderer/include/sge/renderer/context/scoped_core_fwd.hpp

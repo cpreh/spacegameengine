@@ -10,6 +10,7 @@
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/ffp_ref.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/state/core/blend/object.hpp>
 #include <sge/renderer/state/core/blend/parameters.hpp>
@@ -129,19 +130,24 @@ transform_light(
 
 sge::scenic::render_context::ffp::object::object(
 	sge::scenic::render_context::ffp::manager &_manager,
-	sge::renderer::context::ffp &_context)
+	sge::renderer::context::ffp_ref const _context
+)
 :
 	manager_(
-		_manager),
+		_manager
+	),
 	context_(
-		_context),
+		_context
+	),
 	scoped_vertex_declaration_(
-		context_,
-		manager_.vertex_declaration_),
+		context_.get(), // TODO
+		manager_.vertex_declaration_
+	),
 	projection_transform_(),
 	world_transform_(),
 	current_vertex_buffer_size_(
-		0u),
+		0u
+	),
 	current_vertex_buffer_(),
 	current_material_(),
 	diffuse_texture_sampler_(
@@ -149,10 +155,19 @@ sge::scenic::render_context::ffp::object::object(
 			sge::renderer::state::core::sampler::parameters(
 				sge::renderer::state::core::sampler::address::parameters(
 					sge::renderer::state::core::sampler::address::mode_all(
-						sge::renderer::state::core::sampler::address::mode::repeat)),
-				sge::renderer::state::core::sampler::filter::trilinear()))),
+						sge::renderer::state::core::sampler::address::mode::repeat
+					)
+				),
+				sge::renderer::state::core::sampler::filter::trilinear()
+			)
+		)
+	),
 	scoped_sampler_{
-		_context,
+		fcppt::reference_to_base<
+			sge::renderer::context::core
+		>(
+			_context
+		),
 		sge::renderer::state::core::sampler::const_object_ref_map{
 			sge::renderer::state::core::sampler::const_object_ref_map::value_type{
 				sge::renderer::texture::stage{
@@ -221,25 +236,37 @@ sge::scenic::render_context::ffp::object::object(
 		)
 	),
 	scoped_depth_stencil_state_(
-		_context,
-		*depth_stencil_state_),
+		fcppt::reference_to_base<
+			sge::renderer::context::core
+		>(
+			_context
+		),
+		fcppt::make_cref(
+			*depth_stencil_state_
+		)
+	),
 	scoped_blend_state_(
 		fcppt::reference_to_base<
 			sge::renderer::context::core
 		>(
-			fcppt::make_ref(
-				_context
-			)
+			_context
 		),
 		fcppt::make_cref(
 			*blend_state_
 		)
 	),
 	scoped_rasterizer_state_(
-		_context,
-		*rasterizer_state_)
+		fcppt::reference_to_base<
+			sge::renderer::context::core
+		>(
+			_context
+		),
+		fcppt::make_cref(
+			*rasterizer_state_
+		)
+	)
 {
-	context_.lighting_state(
+	context_.get().lighting_state(
 		sge::renderer::state::ffp::lighting::const_optional_object_ref(
 			fcppt::make_cref(
 				*current_lighting_
@@ -270,7 +297,7 @@ sge::scenic::render_context::ffp::object::transform(
 				)
 			);
 
-			context_.transform(
+			context_.get().transform(
 				sge::renderer::state::ffp::transform::mode::projection,
 				sge::renderer::state::ffp::transform::const_optional_object_ref(
 					fcppt::make_cref(
@@ -294,7 +321,7 @@ sge::scenic::render_context::ffp::object::transform(
 				)
 			);
 
-			context_.transform(
+			context_.get().transform(
 				sge::renderer::state::ffp::transform::mode::world,
 				sge::renderer::state::ffp::transform::const_optional_object_ref(
 					fcppt::make_cref(
@@ -333,7 +360,7 @@ sge::scenic::render_context::ffp::object::material(
 		)
 	);
 
-	context_.material_state(
+	context_.get().material_state(
 		sge::renderer::state::ffp::lighting::material::const_optional_object_ref(
 			fcppt::make_cref(
 				*current_material
@@ -341,7 +368,7 @@ sge::scenic::render_context::ffp::object::material(
 		)
 	);
 
-	context_.texture(
+	context_.get().texture(
 		fcppt::optional::map(
 			_material.diffuse_texture(),
 			[](
@@ -371,7 +398,7 @@ sge::scenic::render_context::ffp::object::lights(
 	FCPPT_ASSERT_PRE(
 		_lights.size() < manager_.renderer_.caps().light_indices().get());
 
-	context_.lights_state(
+	context_.get().lights_state(
 		sge::renderer::state::ffp::lighting::light::const_object_ref_vector());
 
 	lights_ =
@@ -394,7 +421,7 @@ sge::scenic::render_context::ffp::object::lights(
 			}
 		);
 
-	context_.lights_state(
+	context_.get().lights_state(
 		fcppt::algorithm::map<
 			sge::renderer::state::ffp::lighting::light::const_object_ref_vector
 		>(
@@ -424,7 +451,7 @@ sge::scenic::render_context::ffp::object::vertex_buffer(
 			fcppt::make_unique_ptr<
 				sge::renderer::vertex::scoped_buffer
 			>(
-				context_,
+				context_.get(), // TODO
 				_vertex_buffer
 			)
 		);
@@ -446,7 +473,7 @@ sge::scenic::render_context::ffp::object::render(
 	sge::renderer::index::buffer const &_index_buffer,
 	sge::scenic::index_buffer_range const &_index_buffer_range)
 {
-	context_.render_indexed(
+	context_.get().render_indexed(
 		_index_buffer,
 		sge::renderer::vertex::first(
 			0u),
@@ -460,33 +487,33 @@ sge::renderer::target::base &
 sge::scenic::render_context::ffp::object::target()
 {
 	return
-		context_.target();
+		context_.get().target();
 }
 
 sge::scenic::render_context::ffp::object::~object()
 {
-	context_.material_state(
+	context_.get().material_state(
 		sge::renderer::state::ffp::lighting::material::const_optional_object_ref());
 
-	context_.transform(
+	context_.get().transform(
 		sge::renderer::state::ffp::transform::mode::world,
 		sge::renderer::state::ffp::transform::const_optional_object_ref());
 
-	context_.transform(
+	context_.get().transform(
 		sge::renderer::state::ffp::transform::mode::projection,
 		sge::renderer::state::ffp::transform::const_optional_object_ref());
 
-	context_.texture(
+	context_.get().texture(
 		sge::renderer::texture::const_optional_base_ref(),
 		sge::renderer::texture::stage(
 			0u));
 
-	context_.sampler_state(
+	context_.get().sampler_state(
 		sge::renderer::state::core::sampler::const_optional_object_ref_map());
 
-	context_.lights_state(
+	context_.get().lights_state(
 		sge::renderer::state::ffp::lighting::light::const_object_ref_vector());
 
-	context_.lighting_state(
+	context_.get().lighting_state(
 		sge::renderer::state::ffp::lighting::const_optional_object_ref());
 }

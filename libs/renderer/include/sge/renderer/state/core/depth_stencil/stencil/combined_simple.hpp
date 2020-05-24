@@ -66,6 +66,7 @@ public:
 		sge::renderer::state::core::depth_stencil::stencil::func
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::enabled
 	to_enabled() const;

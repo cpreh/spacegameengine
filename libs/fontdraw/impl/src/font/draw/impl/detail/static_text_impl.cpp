@@ -50,6 +50,7 @@
 #include <sge/sprite/types/vector.hpp>
 #include <sge/texture/const_part_ref.hpp>
 #include <sge/texture/part.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/optional/map.hpp>
@@ -159,7 +160,9 @@ sge::font::draw::detail::static_text_impl::draw(
 					fcppt::make_unique_ptr<
 						sge::renderer::state::ffp::sampler::scoped
 					>(
-						_context,
+						fcppt::make_ref(
+							_context
+						),
 						sge::renderer::state::ffp::sampler::const_object_ref_vector{
 							sge::renderer::state::ffp::sampler::const_object_ref(
 								*_sampler_state

@@ -26,13 +26,14 @@ namespace lighting
 namespace light
 {
 
-typedef
+using
+variant
+=
 fcppt::variant::object<
 	sge::renderer::state::ffp::lighting::light::directional,
 	sge::renderer::state::ffp::lighting::light::point,
 	sge::renderer::state::ffp::lighting::light::spot
->
-variant;
+>;
 
 }
 }

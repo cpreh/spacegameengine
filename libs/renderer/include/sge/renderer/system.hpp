@@ -14,9 +14,8 @@
 #include <sge/renderer/device/ffp_unique_ptr.hpp>
 #include <sge/renderer/device/parameters_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -36,7 +35,7 @@ renderable windows, it also creates devices.
 */
 class SGE_CORE_DETAIL_CLASS_SYMBOL system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		system
 	);
 protected:

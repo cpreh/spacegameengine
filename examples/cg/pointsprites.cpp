@@ -450,8 +450,12 @@ try
 			);
 
 			sge::renderer::state::ffp::misc::scoped const scoped_misc(
-				scoped_block.get(),
-				*misc_state
+				fcppt::make_ref(
+					scoped_block.get()
+				),
+				fcppt::make_cref(
+					*misc_state
+				)
 			);
 
 			sge::renderer::vertex::scoped_declaration_and_buffers const vb_context(

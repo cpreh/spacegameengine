@@ -7,6 +7,7 @@
 #ifndef SGE_SCENIC_RENDER_CONTEXT_FFP_MANAGER_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_FFP_MANAGER_HPP_INCLUDED
 
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/scenic/detail/symbol.hpp>
@@ -39,7 +40,7 @@ public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::base_unique_ptr
 	create_context(
-		sge::renderer::context::core &
+		sge::renderer::context::core_ref
 	)
 	override;
 

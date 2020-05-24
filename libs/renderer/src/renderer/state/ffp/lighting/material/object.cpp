@@ -8,9 +8,7 @@
 
 
 sge::renderer::state::ffp::lighting::material::object::object()
-{
-}
+= default;
 
 sge::renderer::state::ffp::lighting::material::object::~object()
-{
-}
+= default;

@@ -23,12 +23,13 @@ namespace ffp
 namespace alpha_test
 {
 
-typedef
+using
+variant
+=
 fcppt::variant::object<
 	sge::renderer::state::ffp::alpha_test::off,
 	sge::renderer::state::ffp::alpha_test::enabled
->
-variant;
+>;
 
 }
 }

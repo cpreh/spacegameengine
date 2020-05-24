@@ -35,10 +35,12 @@ public:
 		sge::renderer::state::core::depth_stencil::stencil::back const &
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::front const &
 	front() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::stencil::back const &
 	back() const;

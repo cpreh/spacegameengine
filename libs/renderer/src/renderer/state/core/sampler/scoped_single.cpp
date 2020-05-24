@@ -4,19 +4,18 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref.hpp>
 #include <sge/renderer/state/core/sampler/object_fwd.hpp>
 #include <sge/renderer/state/core/sampler/scoped_single.hpp>
 #include <sge/renderer/state/core/sampler/single.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/make_cref.hpp>
 
 
 sge::renderer::state::core::sampler::scoped_single::scoped_single(
-	sge::renderer::context::core &_context,
+	sge::renderer::context::core_ref const _context,
 	sge::renderer::texture::stage const _stage,
-	sge::renderer::state::core::sampler::object const &_object
+	sge::renderer::state::core::sampler::const_object_ref const _object
 )
 :
 	context_(
@@ -30,9 +29,7 @@ sge::renderer::state::core::sampler::scoped_single::scoped_single(
 		context_,
 		stage_,
 		sge::renderer::state::core::sampler::const_optional_object_ref(
-			fcppt::make_cref(
-				_object
-			)
+			_object
 		)
 	);
 }

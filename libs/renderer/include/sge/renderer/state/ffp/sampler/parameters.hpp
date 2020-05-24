@@ -33,10 +33,12 @@ public:
 		sge::renderer::state::ffp::sampler::alpha_op
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::sampler::color_op
 	color_op() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::sampler::alpha_op
 	alpha_op() const;

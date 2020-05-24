@@ -8,9 +8,7 @@
 
 
 sge::renderer::state::ffp::sampler::object::object()
-{
-}
+= default;
 
 sge::renderer::state::ffp::sampler::object::~object()
-{
-}
+= default;

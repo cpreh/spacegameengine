@@ -29,9 +29,10 @@ public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	parameters(
-		sge::renderer::state::ffp::clip_plane::area const &
+		sge::renderer::state::ffp::clip_plane::area
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::clip_plane::area const &
 	area() const;

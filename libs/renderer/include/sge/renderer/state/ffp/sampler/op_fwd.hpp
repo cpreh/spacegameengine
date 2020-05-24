@@ -24,13 +24,14 @@ namespace ffp
 namespace sampler
 {
 
-typedef
+using
+op
+=
 fcppt::variant::object<
 	sge::renderer::state::ffp::sampler::unary_op,
 	sge::renderer::state::ffp::sampler::binary_op,
 	sge::renderer::state::ffp::sampler::ternary_op
->
-op;
+>;
 
 }
 }

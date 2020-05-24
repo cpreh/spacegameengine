@@ -229,9 +229,13 @@ sge::cegui::impl::geometry_buffer::draw() const
 	);
 
 	sge::renderer::state::ffp::transform::scoped const scoped_world(
-		render_context,
+		fcppt::make_ref(
+			render_context
+		),
 		sge::renderer::state::ffp::transform::mode::world,
-		*transform_state
+		fcppt::make_cref(
+			*transform_state
+		)
 	);
 
 	FCPPT_ASSERT_ERROR(

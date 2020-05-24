@@ -36,6 +36,7 @@ public:
 		sge::camera::coordinate_system::position const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::coordinate_system::right const &
 	right() const;
@@ -46,6 +47,7 @@ public:
 		sge::camera::coordinate_system::right const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::coordinate_system::up const &
 	up() const;
@@ -56,6 +58,7 @@ public:
 		sge::camera::coordinate_system::up const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::coordinate_system::forward const &
 	forward() const;
@@ -66,6 +69,7 @@ public:
 		sge::camera::coordinate_system::forward const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::coordinate_system::position const &
 	position() const;

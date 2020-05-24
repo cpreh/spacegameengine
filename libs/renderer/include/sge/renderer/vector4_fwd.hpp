@@ -20,11 +20,12 @@ namespace renderer
 
 \ingroup sge_renderer
 */
-typedef
+using
+vector4
+=
 sge::renderer::basic_vector<
 	4
->
-vector4;
+>;
 
 }
 }

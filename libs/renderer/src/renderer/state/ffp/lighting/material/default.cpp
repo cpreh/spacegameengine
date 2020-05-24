@@ -28,9 +28,9 @@ sge::renderer::state::ffp::lighting::material::default_()
 				sge::image::color::any::object(
 					sge::image::color::rgba8
 					(
-						(sge::image::color::init::red() %= .8)
-						(sge::image::color::init::green() %= .8)
-						(sge::image::color::init::blue() %= .8)
+						(sge::image::color::init::red() %= .8) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+						(sge::image::color::init::green() %= .8) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+						(sge::image::color::init::blue() %= .8) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 						(sge::image::color::init::alpha() %= 1.)
 					)
 				)
@@ -39,9 +39,9 @@ sge::renderer::state::ffp::lighting::material::default_()
 				sge::image::color::any::object(
 					sge::image::color::rgba8
 					(
-						(sge::image::color::init::red() %= .2)
-						(sge::image::color::init::green() %= .2)
-						(sge::image::color::init::blue() %= .2)
+						(sge::image::color::init::red() %= .2) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+						(sge::image::color::init::green() %= .2) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+						(sge::image::color::init::blue() %= .2) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 						(sge::image::color::init::alpha() %= 1.)
 					)
 				)
@@ -69,7 +69,7 @@ sge::renderer::state::ffp::lighting::material::default_()
 				)
 			),
 			sge::renderer::state::ffp::lighting::material::shininess(
-				0.0f
+				0.0F
 			)
 		);
 }

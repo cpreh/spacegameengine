@@ -481,10 +481,13 @@ sge::postprocessing::context::finalize()
 
 	sge::shader::scoped_pair scoped_shader(
 		result->get(),
-		finalize_shader_);
+		finalize_shader_
+	);
 
 	sge::renderer::state::core::sampler::scoped scoped_filter(
-		result->get(),
+		fcppt::make_ref(
+			result->get()
+		),
 		sge::renderer::state::core::sampler::const_object_ref_map{
 			sge::renderer::state::core::sampler::const_object_ref_map::value_type{
 				finalize_input_texture_parameter_.stage(),
@@ -503,7 +506,8 @@ sge::postprocessing::context::finalize()
 	*/
 
 	fullscreen_quad_.render(
-		result->get());
+		result->get()
+	);
 
 	return
 		result;

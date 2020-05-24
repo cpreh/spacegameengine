@@ -25,12 +25,13 @@ namespace depth_stencil
 namespace depth
 {
 
-typedef
+using
+variant
+=
 fcppt::variant::object<
 	sge::renderer::state::core::depth_stencil::depth::off,
 	sge::renderer::state::core::depth_stencil::depth::enabled
->
-variant;
+>;
 
 }
 }

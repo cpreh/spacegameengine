@@ -8,9 +8,7 @@
 
 
 sge::renderer::state::core::sampler::object::object()
-{
-}
+= default;
 
 sge::renderer::state::core::sampler::object::~object()
-{
-}
+= default;

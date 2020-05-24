@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
@@ -58,11 +59,12 @@ sge::scenic::scene::manager::manager(
 
 sge::scenic::render_context::base_unique_ptr
 sge::scenic::scene::manager::create_render_context(
-	sge::renderer::context::core &_context)
+	sge::renderer::context::core_ref const _context)
 {
 	return
 		render_context_manager_->create_context(
-			_context);
+			_context
+		);
 }
 
 sge::renderer::device::core &

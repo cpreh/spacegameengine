@@ -7,15 +7,20 @@
 #include <sge/renderer/state/ffp/lighting/ambient_color.hpp>
 #include <sge/renderer/state/ffp/lighting/diffuse_from_vertex.hpp>
 #include <sge/renderer/state/ffp/lighting/enabled.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::state::ffp::lighting::enabled::enabled(
-	sge::renderer::state::ffp::lighting::ambient_color const &_ambient_color,
+	sge::renderer::state::ffp::lighting::ambient_color _ambient_color,
 	sge::renderer::state::ffp::lighting::diffuse_from_vertex const _diffuse_from_vertex
 )
 :
 	ambient_color_(
-		_ambient_color
+		std::move(
+			_ambient_color
+		)
 	),
 	diffuse_from_vertex_(
 		_diffuse_from_vertex

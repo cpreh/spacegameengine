@@ -31,9 +31,10 @@ public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	directional(
-		sge::renderer::state::ffp::lighting::light::direction const &
+		sge::renderer::state::ffp::lighting::light::direction
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::direction const &
 	direction() const;

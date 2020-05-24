@@ -8,9 +8,7 @@
 
 
 sge::renderer::state::ffp::fog::object::object()
-{
-}
+= default;
 
 sge::renderer::state::ffp::fog::object::~object()
-{
-}
+= default;

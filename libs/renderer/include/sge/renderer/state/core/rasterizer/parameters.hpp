@@ -35,14 +35,17 @@ public:
 		sge::renderer::state::core::rasterizer::enable_scissor_test
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::rasterizer::cull_mode
 	cull_mode() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::rasterizer::fill_mode
 	fill_mode() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::rasterizer::enable_scissor_test
 	enable_scissor_test() const;

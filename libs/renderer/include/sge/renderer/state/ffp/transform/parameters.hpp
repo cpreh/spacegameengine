@@ -29,9 +29,10 @@ public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	parameters(
-		sge::renderer::matrix4 const &
+		sge::renderer::matrix4
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::matrix4 const &
 	matrix() const;

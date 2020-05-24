@@ -7,12 +7,13 @@
 #ifndef SGE_RENDERER_STATE_FFP_TRANSFORM_SCOPED_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_TRANSFORM_SCOPED_HPP_INCLUDED
 
-#include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/context/ffp_ref.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/scoped_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -34,21 +35,23 @@ resets the matrix to the identity in the destructor.
 */
 class scoped
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped
 	);
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	scoped(
-		sge::renderer::context::ffp &context,
+		sge::renderer::context::ffp_ref context,
 		sge::renderer::state::ffp::transform::mode,
-		sge::renderer::state::ffp::transform::object const &
+		fcppt::reference<
+			sge::renderer::state::ffp::transform::object const
+		>
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped();
 private:
-	sge::renderer::context::ffp &context_;
+	sge::renderer::context::ffp_ref const context_;
 
 	sge::renderer::state::ffp::transform::mode const mode_;
 };

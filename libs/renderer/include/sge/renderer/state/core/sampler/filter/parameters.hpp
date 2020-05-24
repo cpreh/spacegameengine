@@ -34,6 +34,7 @@ public:
 		sge::renderer::state::core::sampler::filter::variant const &
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::sampler::filter::variant const &
 	variant() const;

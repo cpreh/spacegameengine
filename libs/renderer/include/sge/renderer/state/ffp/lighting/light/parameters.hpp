@@ -33,24 +33,28 @@ class parameters
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	parameters(
-		sge::renderer::state::ffp::lighting::diffuse_color const &,
-		sge::renderer::state::ffp::lighting::specular_color const &,
-		sge::renderer::state::ffp::lighting::ambient_color const &,
-		sge::renderer::state::ffp::lighting::light::variant const &
+		sge::renderer::state::ffp::lighting::diffuse_color,
+		sge::renderer::state::ffp::lighting::specular_color,
+		sge::renderer::state::ffp::lighting::ambient_color,
+		sge::renderer::state::ffp::lighting::light::variant
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::diffuse_color const &
 	diffuse() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::specular_color const &
 	specular() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::ambient_color const &
 	ambient() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::variant const &
 	variant() const;

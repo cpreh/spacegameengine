@@ -7,11 +7,12 @@
 #ifndef SGE_RENDERER_STATE_FFP_LIGHTING_MATERIAL_SCOPED_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_LIGHTING_MATERIAL_SCOPED_HPP_INCLUDED
 
-#include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/context/ffp_ref.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/lighting/material/object_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/material/scoped_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -29,20 +30,22 @@ namespace material
 
 class scoped
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped
 	);
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	scoped(
-		sge::renderer::context::ffp &context,
-		sge::renderer::state::ffp::lighting::material::object const &
+		sge::renderer::context::ffp_ref context,
+		fcppt::reference<
+			sge::renderer::state::ffp::lighting::material::object const
+		>
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped();
 private:
-	sge::renderer::context::ffp &context_;
+	sge::renderer::context::ffp_ref const context_;
 };
 
 }

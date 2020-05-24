@@ -5,12 +5,13 @@
 
 
 #include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/ffp_ref.hpp>
 #include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/lighting/light/scoped.hpp>
 
 
 sge::renderer::state::ffp::lighting::light::scoped::scoped(
-	sge::renderer::context::ffp &_context,
+	sge::renderer::context::ffp_ref const _context,
 	sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &_states
 )
 :
@@ -18,14 +19,14 @@ sge::renderer::state::ffp::lighting::light::scoped::scoped(
 		_context
 	)
 {
-	context_.lights_state(
+	context_.get().lights_state(
 		_states
 	);
 }
 
 sge::renderer::state::ffp::lighting::light::scoped::~scoped()
 {
-	context_.lights_state(
+	context_.get().lights_state(
 		sge::renderer::state::ffp::lighting::light::const_object_ref_vector()
 	);
 }

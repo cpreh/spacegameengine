@@ -35,10 +35,12 @@ public:
 		sge::renderer::state::core::depth_stencil::depth::write_enable
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::depth::func
 	func() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::depth_stencil::depth::write_enable
 	write_enable() const;

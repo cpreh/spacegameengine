@@ -5,33 +5,34 @@
 
 
 #include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/ffp_ref.hpp>
 #include <sge/renderer/state/ffp/misc/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/misc/object_fwd.hpp>
 #include <sge/renderer/state/ffp/misc/scoped.hpp>
-#include <fcppt/make_cref.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 sge::renderer::state::ffp::misc::scoped::scoped(
-	sge::renderer::context::ffp &_context,
-	sge::renderer::state::ffp::misc::object const &_state
+	sge::renderer::context::ffp_ref const _context,
+	fcppt::reference<
+		sge::renderer::state::ffp::misc::object const
+	> const _state
 )
 :
 	context_(
 		_context
 	)
 {
-	context_.misc_state(
+	context_.get().misc_state(
 		sge::renderer::state::ffp::misc::const_optional_object_ref(
-			fcppt::make_cref(
-				_state
-			)
+			_state
 		)
 	);
 }
 
 sge::renderer::state::ffp::misc::scoped::~scoped()
 {
-	context_.misc_state(
+	context_.get().misc_state(
 		sge::renderer::state::ffp::misc::const_optional_object_ref()
 	);
 }

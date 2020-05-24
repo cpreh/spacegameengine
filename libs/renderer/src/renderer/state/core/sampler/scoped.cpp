@@ -5,6 +5,7 @@
 
 
 #include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/impl/state/core/sampler/null_states.hpp>
 #include <sge/renderer/impl/state/core/sampler/scoped_states.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
@@ -12,7 +13,7 @@
 
 
 sge::renderer::state::core::sampler::scoped::scoped(
-	sge::renderer::context::core &_context,
+	sge::renderer::context::core_ref const _context,
 	sge::renderer::state::core::sampler::const_object_ref_map const &_states
 )
 :
@@ -25,7 +26,7 @@ sge::renderer::state::core::sampler::scoped::scoped(
 		)
 	)
 {
-	context_.sampler_state(
+	context_.get().sampler_state(
 		sge::renderer::impl::state::core::sampler::scoped_states(
 			_states
 		)
@@ -34,7 +35,7 @@ sge::renderer::state::core::sampler::scoped::scoped(
 
 sge::renderer::state::core::sampler::scoped::~scoped()
 {
-	context_.sampler_state(
+	context_.get().sampler_state(
 		null_states_
 	);
 }

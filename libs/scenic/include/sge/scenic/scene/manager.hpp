@@ -8,7 +8,7 @@
 #define SGE_SCENIC_SCENE_MANAGER_HPP_INCLUDED
 
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
@@ -40,7 +40,8 @@ public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::base_unique_ptr
 	create_render_context(
-		sge::renderer::context::core &);
+		sge::renderer::context::core_ref
+	);
 
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::renderer::device::core &

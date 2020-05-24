@@ -21,6 +21,8 @@
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/assert/optional_error.hpp>
 
 
@@ -28,7 +30,8 @@ void
 sge::line_drawer::render_to_screen(
 	sge::renderer::device::ffp &_render_device,
 	sge::renderer::context::ffp &_render_context,
-	sge::line_drawer::object &_drawer)
+	sge::line_drawer::object &_drawer
+)
 {
 	sge::renderer::state::ffp::transform::object_unique_ptr const projection(
 		_render_device.create_transform_state(
@@ -49,9 +52,13 @@ sge::line_drawer::render_to_screen(
 	);
 
 	sge::renderer::state::ffp::transform::scoped const projection_scope(
-		_render_context,
+		fcppt::make_ref(
+			_render_context
+		),
 		sge::renderer::state::ffp::transform::mode::projection,
-		*projection
+		fcppt::make_cref(
+			*projection
+		)
 	);
 
 	_render_context.transform(

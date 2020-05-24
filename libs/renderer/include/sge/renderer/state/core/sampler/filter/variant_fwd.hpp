@@ -25,12 +25,13 @@ namespace sampler
 namespace filter
 {
 
-typedef
+using
+variant
+=
 fcppt::variant::object<
 	sge::renderer::state::core::sampler::filter::anisotropic::parameters,
 	sge::renderer::state::core::sampler::filter::normal::parameters
->
-variant;
+>;
 
 }
 }

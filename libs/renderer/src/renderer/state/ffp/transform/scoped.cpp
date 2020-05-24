@@ -5,17 +5,20 @@
 
 
 #include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/ffp_ref.hpp>
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
-#include <fcppt/make_cref.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 sge::renderer::state::ffp::transform::scoped::scoped(
-	sge::renderer::context::ffp &_context,
+	sge::renderer::context::ffp_ref const _context,
 	sge::renderer::state::ffp::transform::mode const _mode,
-	sge::renderer::state::ffp::transform::object const &_object
+	fcppt::reference<
+		sge::renderer::state::ffp::transform::object const
+	> const _object
 )
 :
 	context_(
@@ -25,19 +28,17 @@ sge::renderer::state::ffp::transform::scoped::scoped(
 		_mode
 	)
 {
-	context_.transform(
+	context_.get().transform(
 		mode_,
 		sge::renderer::state::ffp::transform::const_optional_object_ref(
-			fcppt::make_cref(
-				_object
-			)
+			_object
 		)
 	);
 }
 
 sge::renderer::state::ffp::transform::scoped::~scoped()
 {
-	context_.transform(
+	context_.get().transform(
 		mode_,
 		sge::renderer::state::ffp::transform::const_optional_object_ref()
 	);

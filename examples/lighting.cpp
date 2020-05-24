@@ -395,12 +395,18 @@ try
 			);
 
 			sge::renderer::state::ffp::lighting::scoped const scoped_lighting{
-				scoped_block.get(),
-				*light_state
+				fcppt::make_ref(
+					scoped_block.get()
+				),
+				fcppt::make_cref(
+					*light_state
+				)
 			};
 
 			sge::renderer::state::ffp::lighting::light::scoped const scoped_lights{
-				scoped_block.get(),
+				fcppt::make_ref(
+					scoped_block.get()
+				),
 				sge::renderer::state::ffp::lighting::light::const_object_ref_vector{
 					fcppt::make_cref(
 						*light

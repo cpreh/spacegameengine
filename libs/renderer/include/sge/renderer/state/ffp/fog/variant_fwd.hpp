@@ -23,12 +23,13 @@ namespace ffp
 namespace fog
 {
 
-typedef
+using
+variant
+=
 fcppt::variant::object<
 	sge::renderer::state::ffp::fog::off,
 	sge::renderer::state::ffp::fog::enabled
->
-variant;
+>;
 
 }
 }

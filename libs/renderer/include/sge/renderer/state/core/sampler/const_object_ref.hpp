@@ -22,11 +22,12 @@ namespace core
 namespace sampler
 {
 
-typedef
+using
+const_object_ref
+=
 fcppt::reference<
 	sge::renderer::state::core::sampler::object const
->
-const_object_ref;
+>;
 
 }
 }

@@ -32,6 +32,7 @@ public:
 		sge::renderer::state::ffp::alpha_test::variant const &
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::alpha_test::variant const &
 	variant() const;

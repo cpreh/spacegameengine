@@ -33,24 +33,28 @@ class spot
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	spot(
-		sge::renderer::state::ffp::lighting::light::position const &,
-		sge::renderer::state::ffp::lighting::light::direction const &,
+		sge::renderer::state::ffp::lighting::light::position,
+		sge::renderer::state::ffp::lighting::light::direction,
 		sge::renderer::state::ffp::lighting::light::cutoff_angle,
 		sge::renderer::state::ffp::lighting::light::attenuation const &
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::position const &
 	position() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::direction const &
 	direction() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::cutoff_angle
 	cutoff_angle() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::lighting::light::attenuation const &
 	attenuation() const;

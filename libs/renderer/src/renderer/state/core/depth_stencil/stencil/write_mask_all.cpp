@@ -13,6 +13,6 @@ sge::renderer::state::core::depth_stencil::stencil::write_mask_all()
 {
 	return
 		sge::renderer::state::core::depth_stencil::stencil::write_mask(
-			~0u
+			~0U
 		);
 }

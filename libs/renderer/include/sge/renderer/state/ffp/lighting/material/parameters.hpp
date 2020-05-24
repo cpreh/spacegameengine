@@ -55,13 +55,14 @@ public:
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
 	parameters(
-		sge::renderer::state::ffp::lighting::diffuse_color const &diffuse,
-		sge::renderer::state::ffp::lighting::ambient_color const &ambient,
-		sge::renderer::state::ffp::lighting::specular_color const &specular,
-		sge::renderer::state::ffp::lighting::material::emissive_color const &emissive,
+		sge::renderer::state::ffp::lighting::diffuse_color diffuse,
+		sge::renderer::state::ffp::lighting::ambient_color ambient,
+		sge::renderer::state::ffp::lighting::specular_color specular,
+		sge::renderer::state::ffp::lighting::material::emissive_color emissive,
 		sge::renderer::state::ffp::lighting::material::shininess shininess
 	);
 
+	[[nodiscard]]
 	/**
 	 * \brief Returns the diffuse part
 	*/
@@ -69,6 +70,7 @@ public:
 	sge::renderer::state::ffp::lighting::diffuse_color const &
 	diffuse() const;
 
+	[[nodiscard]]
 	/**
 	 * \brief Returns the ambient part
 	*/
@@ -76,6 +78,7 @@ public:
 	sge::renderer::state::ffp::lighting::ambient_color const &
 	ambient() const;
 
+	[[nodiscard]]
 	/**
 	 * \brief Returns the specular part
 	*/
@@ -83,6 +86,7 @@ public:
 	sge::renderer::state::ffp::lighting::specular_color const &
 	specular() const;
 
+	[[nodiscard]]
 	/**
 	 * \brief Returns the emissive part
 	*/
@@ -90,6 +94,7 @@ public:
 	sge::renderer::state::ffp::lighting::material::emissive_color const &
 	emissive() const;
 
+	[[nodiscard]]
 	/**
 	 * \brief Returns the shininess
 	*/

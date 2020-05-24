@@ -35,14 +35,17 @@ public:
 		sge::renderer::state::ffp::sampler::arg2
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::sampler::binary_op_type
 	type() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::sampler::arg1
 	arg1() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::sampler::arg2
 	arg2() const;

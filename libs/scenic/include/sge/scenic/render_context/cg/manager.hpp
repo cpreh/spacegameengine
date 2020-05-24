@@ -9,6 +9,7 @@
 
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/rasterizer/object_unique_ptr.hpp>
@@ -46,18 +47,20 @@ class manager
 :
 	public sge::scenic::render_context::manager_base
 {
-FCPPT_NONCOPYABLE(
-	manager);
+	FCPPT_NONCOPYABLE(
+		manager
+	);
 public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	manager(
 		sge::shader::context &,
-		sge::renderer::vertex::declaration &);
+		sge::renderer::vertex::declaration &
+	);
 
 	/* override */
 	sge::scenic::render_context::base_unique_ptr
 	create_context(
-		sge::renderer::context::core &
+		sge::renderer::context::core_ref
 	)
 	override;
 

@@ -7,7 +7,7 @@
 #ifndef SGE_SCENIC_RENDER_CONTEXT_FFP_OBJECT_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_FFP_OBJECT_HPP_INCLUDED
 
-#include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/context/ffp_ref.hpp>
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/scoped.hpp>
 #include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
@@ -53,7 +53,7 @@ public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	object(
 		sge::scenic::render_context::ffp::manager &_manager,
-		sge::renderer::context::ffp &
+		sge::renderer::context::ffp_ref
 	);
 
 	SGE_SCENIC_DETAIL_SYMBOL
@@ -113,7 +113,7 @@ private:
 
 	sge::scenic::render_context::ffp::manager &manager_;
 
-	sge::renderer::context::ffp &context_;
+	sge::renderer::context::ffp_ref const context_;
 
 	sge::renderer::vertex::scoped_declaration scoped_vertex_declaration_;
 

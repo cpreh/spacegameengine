@@ -10,6 +10,9 @@
 #include <sge/renderer/state/ffp/fog/end.hpp>
 #include <sge/renderer/state/ffp/fog/mode.hpp>
 #include <sge/renderer/state/ffp/fog/start.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::state::ffp::fog::enabled::enabled(
@@ -17,7 +20,7 @@ sge::renderer::state::ffp::fog::enabled::enabled(
 	sge::renderer::state::ffp::fog::start const _start,
 	sge::renderer::state::ffp::fog::end const _end,
 	sge::renderer::state::ffp::fog::density const _density,
-	sge::renderer::state::ffp::fog::color const _color
+	sge::renderer::state::ffp::fog::color _color
 )
 :
 	mode_(
@@ -33,7 +36,9 @@ sge::renderer::state::ffp::fog::enabled::enabled(
 		_density
 	),
 	color_(
-		_color
+		std::move(
+			_color
+		)
 	)
 {
 }

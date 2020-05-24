@@ -8,9 +8,7 @@
 
 
 sge::renderer::system::system()
-{
-}
+= default;
 
 sge::renderer::system::~system()
-{
-}
+= default;

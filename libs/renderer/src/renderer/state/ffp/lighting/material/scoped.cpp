@@ -5,33 +5,34 @@
 
 
 #include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/ffp_ref.hpp>
 #include <sge/renderer/state/ffp/lighting/material/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/lighting/material/object_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/material/scoped.hpp>
-#include <fcppt/make_cref.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 sge::renderer::state::ffp::lighting::material::scoped::scoped(
-	sge::renderer::context::ffp &_context,
-	sge::renderer::state::ffp::lighting::material::object const &_state
+	sge::renderer::context::ffp_ref const _context,
+	fcppt::reference<
+		sge::renderer::state::ffp::lighting::material::object const
+	> const _state
 )
 :
 	context_(
 		_context
 	)
 {
-	context_.material_state(
+	context_.get().material_state(
 		sge::renderer::state::ffp::lighting::material::const_optional_object_ref(
-			fcppt::make_cref(
-				_state
-			)
+			_state
 		)
 	);
 }
 
 sge::renderer::state::ffp::lighting::material::scoped::~scoped()
 {
-	context_.material_state(
+	context_.get().material_state(
 		sge::renderer::state::ffp::lighting::material::const_optional_object_ref()
 	);
 }

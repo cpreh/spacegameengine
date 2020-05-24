@@ -30,7 +30,7 @@ sge::renderer::state::core::depth_stencil::stencil::combined_simple::combined_si
 		_func
 	),
 	ref_(
-		0u
+		0U
 	),
 	read_mask_(
 		sge::renderer::state::core::depth_stencil::stencil::read_mask_all()

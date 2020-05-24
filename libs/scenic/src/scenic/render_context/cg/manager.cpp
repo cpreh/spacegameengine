@@ -6,6 +6,7 @@
 
 #include <sge/config/media_path.hpp>
 #include <sge/renderer/vector4.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/state/core/blend/object.hpp>
 #include <sge/renderer/state/core/blend/parameters.hpp>
 #include <sge/renderer/state/core/blend/write_mask_all.hpp>
@@ -274,7 +275,8 @@ sge::scenic::render_context::cg::manager::manager(
 
 sge::scenic::render_context::base_unique_ptr
 sge::scenic::render_context::cg::manager::create_context(
-	sge::renderer::context::core &_context)
+	sge::renderer::context::core_ref const _context
+)
 {
 	return
 		fcppt::unique_ptr_to_base<

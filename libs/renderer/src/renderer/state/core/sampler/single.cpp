@@ -5,6 +5,7 @@
 
 
 #include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/single.hpp>
@@ -13,12 +14,12 @@
 
 void
 sge::renderer::state::core::sampler::single(
-	sge::renderer::context::core &_context,
+	sge::renderer::context::core_ref const _context,
 	sge::renderer::texture::stage const _stage,
 	sge::renderer::state::core::sampler::const_optional_object_ref const &_object
 )
 {
-	_context.sampler_state(
+	_context.get().sampler_state(
 		sge::renderer::state::core::sampler::const_optional_object_ref_map{
 			sge::renderer::state::core::sampler::const_optional_object_ref_map::value_type{
 				_stage,

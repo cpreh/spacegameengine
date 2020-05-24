@@ -29,9 +29,10 @@ public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	parameters(
-		sge::renderer::state::ffp::fog::variant const &
+		sge::renderer::state::ffp::fog::variant
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::ffp::fog::variant const &
 	variant() const;

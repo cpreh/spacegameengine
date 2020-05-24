@@ -9,26 +9,37 @@
 #include <sge/renderer/state/ffp/lighting/specular_color.hpp>
 #include <sge/renderer/state/ffp/lighting/light/parameters.hpp>
 #include <sge/renderer/state/ffp/lighting/light/variant.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::state::ffp::lighting::light::parameters::parameters(
-	sge::renderer::state::ffp::lighting::diffuse_color const &_diffuse,
-	sge::renderer::state::ffp::lighting::specular_color const &_specular,
-	sge::renderer::state::ffp::lighting::ambient_color const &_ambient,
-	sge::renderer::state::ffp::lighting::light::variant const &_variant
+	sge::renderer::state::ffp::lighting::diffuse_color _diffuse,
+	sge::renderer::state::ffp::lighting::specular_color _specular,
+	sge::renderer::state::ffp::lighting::ambient_color _ambient,
+	sge::renderer::state::ffp::lighting::light::variant _variant
 )
 :
 	diffuse_(
-		_diffuse
+		std::move(
+			_diffuse
+		)
 	),
 	specular_(
-		_specular
+		std::move(
+			_specular
+		)
 	),
 	ambient_(
-		_ambient
+		std::move(
+			_ambient
+		)
 	),
 	variant_(
-		_variant
+		std::move(
+			_variant
+		)
 	)
 {
 }
@@ -36,23 +47,27 @@ sge::renderer::state::ffp::lighting::light::parameters::parameters(
 sge::renderer::state::ffp::lighting::diffuse_color const &
 sge::renderer::state::ffp::lighting::light::parameters::diffuse() const
 {
-	return diffuse_;
+	return
+		diffuse_;
 }
 
 sge::renderer::state::ffp::lighting::specular_color const &
 sge::renderer::state::ffp::lighting::light::parameters::specular() const
 {
-	return specular_;
+	return
+		specular_;
 }
 
 sge::renderer::state::ffp::lighting::ambient_color const &
 sge::renderer::state::ffp::lighting::light::parameters::ambient() const
 {
-	return ambient_;
+	return
+		ambient_;
 }
 
 sge::renderer::state::ffp::lighting::light::variant const &
 sge::renderer::state::ffp::lighting::light::parameters::variant() const
 {
-	return variant_;
+	return
+		variant_;
 }

@@ -36,14 +36,17 @@ public:
 		sge::renderer::state::core::sampler::address::mode_u
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::sampler::address::mode_s
 	mode_s() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::sampler::address::mode_t
 	mode_t() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::state::core::sampler::address::mode_u
 	mode_u() const;

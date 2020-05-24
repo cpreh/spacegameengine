@@ -7,11 +7,12 @@
 #ifndef SGE_RENDERER_STATE_CORE_RASTERIZER_SCOPED_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_RASTERIZER_SCOPED_HPP_INCLUDED
 
-#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/rasterizer/object_fwd.hpp>
 #include <sge/renderer/state/core/rasterizer/scoped_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -27,20 +28,22 @@ namespace rasterizer
 
 class scoped
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped
 	);
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	scoped(
-		sge::renderer::context::core &,
-		sge::renderer::state::core::rasterizer::object const &
+		sge::renderer::context::core_ref,
+		fcppt::reference<
+			sge::renderer::state::core::rasterizer::object const
+		>
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped();
 private:
-	sge::renderer::context::core &context_;
+	sge::renderer::context::core_ref const context_;
 };
 
 }

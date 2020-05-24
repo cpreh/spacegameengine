@@ -28,6 +28,7 @@
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/core.hpp>
@@ -752,12 +753,28 @@ try
 			);
 
 			sge::renderer::state::core::depth_stencil::scoped const scoped_depth_stencil(
-				_context,
-				*depth_stencil_state
+				fcppt::reference_to_base<
+					sge::renderer::context::core
+				>(
+					// TODO
+					fcppt::make_ref(
+						_context
+					)
+				),
+				fcppt::make_cref(
+					*depth_stencil_state
+				)
 			);
 
 			sge::renderer::state::core::sampler::scoped const scoped_sampler(
-				_context,
+				fcppt::reference_to_base<
+					sge::renderer::context::core
+				>(
+					// TODO
+					fcppt::make_ref(
+						_context
+					)
+				),
 				samplers
 			);
 
@@ -780,15 +797,25 @@ try
 			);
 
 			sge::renderer::state::ffp::transform::scoped const projection_transform(
-				_context,
+				// TODO
+				fcppt::make_ref(
+					_context
+				),
 				sge::renderer::state::ffp::transform::mode::projection,
-				*projection_state
+				fcppt::make_cref(
+					*projection_state
+				)
 			);
 
 			sge::renderer::state::ffp::transform::scoped const world_transform(
-				_context,
+				// TODO
+				fcppt::make_ref(
+					_context
+				),
 				sge::renderer::state::ffp::transform::mode::world,
-				*world_state
+				fcppt::make_cref(
+					*world_state
+				)
 			);
 
 			_context.render_nonindexed(
