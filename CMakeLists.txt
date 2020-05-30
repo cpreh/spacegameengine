@@ -49,6 +49,7 @@ set(
 	FCPPT_UTILS_CLANG_TIDY_ADDITIONAL_CHECKS
 	"-fuchsia-default-arguments-calls"
 	"-fuchsia-default-arguments-declarations"
+	"-fuchsia-virtual-inheritance"
 )
 
 include(
