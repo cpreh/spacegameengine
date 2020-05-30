@@ -13,6 +13,7 @@
 #include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/convert/choose_fundamental.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
@@ -35,6 +36,7 @@ to_static_container(
 	sge::parse::json::array const &_array
 )
 {
+	// TODO: array::from_container
 	if(
 		_array.elements.size()
 		!=
@@ -77,10 +79,12 @@ to_static_container(
 						Container::value_type
 					>::type
 				>(
-					_array.elements[
-						index
-					].get()
-				)
+					fcppt::make_cref(
+						_array.elements[
+							index
+						].get()
+					)
+				).get()
 			);
 
 	return

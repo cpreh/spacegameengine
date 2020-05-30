@@ -16,6 +16,7 @@
 #include <sge/input/keyboard/event/key.hpp>
 #include <sge/input/mouse/event/axis.hpp>
 #include <sge/renderer/vector4.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
@@ -232,37 +233,49 @@ sge::camera::first_person::object::key_event(
 )
 {
 	sge::camera::impl::set_pressed_if_appropriate(
-		left_pressed_,
+		fcppt::make_ref(
+			left_pressed_
+		),
 		action_mapping_.left().get(),
 		_key_event
 	);
 
 	sge::camera::impl::set_pressed_if_appropriate(
-		right_pressed_,
+		fcppt::make_ref(
+			right_pressed_
+		),
 		action_mapping_.right().get(),
 		_key_event
 	);
 
 	sge::camera::impl::set_pressed_if_appropriate(
-		up_pressed_,
+		fcppt::make_ref(
+			up_pressed_
+		),
 		action_mapping_.up().get(),
 		_key_event
 	);
 
 	sge::camera::impl::set_pressed_if_appropriate(
-		down_pressed_,
+		fcppt::make_ref(
+			down_pressed_
+		),
 		action_mapping_.down().get(),
 		_key_event
 	);
 
 	sge::camera::impl::set_pressed_if_appropriate(
-		forward_pressed_,
+		fcppt::make_ref(
+			forward_pressed_
+		),
 		action_mapping_.forward().get(),
 		_key_event
 	);
 
 	sge::camera::impl::set_pressed_if_appropriate(
-		backward_pressed_,
+		fcppt::make_ref(
+			backward_pressed_
+		),
 		action_mapping_.backward().get(),
 		_key_event
 	);

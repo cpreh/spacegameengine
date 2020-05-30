@@ -13,7 +13,8 @@
 #include <sge/camera/tracking/keyframe_sequence.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
@@ -27,16 +28,21 @@ namespace tracking
 {
 namespace json
 {
+
 class interval_exporter
 {
-FCPPT_NONCOPYABLE(
-	interval_exporter);
+	FCPPT_NONMOVABLE(
+		interval_exporter
+	);
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	interval_exporter(
-		sge::camera::base const &,
+		fcppt::reference<
+			sge::camera::base const
+		>,
 		sge::camera::update_duration const &,
-		std::filesystem::path const &);
+		std::filesystem::path &&
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	void
@@ -48,11 +54,19 @@ public:
 		false
 	);
 private:
-	sge::camera::base const &camera_;
-	sge::timer::basic<sge::timer::clocks::standard> update_timer_;
+	fcppt::reference<
+		sge::camera::base const
+	> const camera_;
+
+	sge::timer::basic<
+		sge::timer::clocks::standard
+	> update_timer_;
+
 	std::filesystem::path const export_file_path_;
+
 	sge::camera::tracking::keyframe_sequence keyframes_;
 };
+
 }
 }
 }

@@ -58,9 +58,9 @@ template<
 struct convert_from_impl<
 	Result,
 	std::enable_if_t<
-		std::is_floating_point<
+		std::is_floating_point_v<
 			Result
-		>::value
+		>
 	>
 >
 {
@@ -77,8 +77,10 @@ struct convert_from_impl<
 				sge::parse::json::get_exn<
 					sge::parse::json::float_type
 				>(
-					_value
-				)
+					fcppt::make_cref(
+						_value
+					)
+				).get()
 			);
 	}
 };
@@ -98,8 +100,10 @@ struct convert_from_impl<
 			sge::parse::json::get_exn<
 				bool const
 			>(
-				_value
-			);
+				fcppt::make_cref(
+					_value
+				)
+			).get();
 	}
 };
 
@@ -109,15 +113,15 @@ template<
 struct convert_from_impl<
 	Result,
 	std::enable_if_t<
-		std::is_integral<
+		std::is_integral_v<
 			Result
-		>::value
+		>
 		&&
 		fcppt::not_(
-			std::is_same<
+			std::is_same_v<
 				Result,
 				bool
-			>::value
+			>
 		)
 	>
 >
@@ -135,8 +139,10 @@ struct convert_from_impl<
 				sge::parse::json::get_exn<
 					sge::parse::json::int_type
 				>(
-					_value
-				)
+					fcppt::make_cref(
+						_value
+					)
+				).get()
 			);
 	}
 };
@@ -163,38 +169,45 @@ struct convert_from_impl<
 			sge::parse::json::get_exn<
 				sge::parse::json::array
 			>(
-				_value
-			).elements
+				fcppt::make_cref(
+					_value
+				)
+			).get().elements
 		);
 
-		typedef
+		using
+		outer_size
+		=
 		typename
-		Result::static_rows
-		outer_size;
+		Result::static_rows;
 
-		typedef
+		using
+		inner_size
+		=
 		typename
-		Result::static_columns
-		inner_size;
+		Result::static_columns;
 
 		if(
 			outer_array.size()
 			!=
 			outer_size::value
 		)
+		{
 			throw
 				sge::parse::exception(
 					FCPPT_TEXT("Matrix row count does not match")
 				);
+		}
 
-		typedef
+		using
+		inner_array
+		=
 		std::array<
 			fcppt::reference<
 				sge::parse::json::element_vector const
 			>,
 			outer_size::value
-		>
-		inner_array;
+		>;
 
 		inner_array const inner(
 			fcppt::container::array::init<
@@ -210,10 +223,12 @@ struct convert_from_impl<
 						sge::parse::json::get_exn<
 							sge::parse::json::array
 						>(
-							outer_array[
-								_index
-							].get()
-						).elements
+							fcppt::make_cref(
+								outer_array[
+									_index
+								].get()
+							)
+						).get().elements
 					);
 
 					if(
@@ -221,10 +236,12 @@ struct convert_from_impl<
 						!=
 						inner_size::value
 					)
+					{
 						throw
 							sge::parse::exception(
 								FCPPT_TEXT("Matrix column count does not match")
 							);
+					}
 
 					return
 						fcppt::make_cref(
@@ -306,8 +323,10 @@ struct convert_from_impl<
 				sge::parse::json::get_exn<
 					sge::parse::json::array
 				>(
-					_value
-				).elements,
+					fcppt::make_ref(
+						_value
+					)
+				).get().elements,
 				[](
 					sge::parse::json::value const &_inner
 				)
@@ -342,12 +361,14 @@ struct convert_from_impl<
 		sge::parse::json::value const &_value
 	)
 	{
-		sge::parse::json::array const &array(
+		auto const &array(
 			sge::parse::json::get_exn<
 				sge::parse::json::array
 			>(
-				_value
-			)
+				fcppt::make_cref(
+					_value
+				)
+			).get()
 		);
 
 		if(
@@ -357,6 +378,7 @@ struct convert_from_impl<
 			!=
 			array.elements.size()
 		)
+		{
 			throw
 				sge::parse::exception(
 					FCPPT_TEXT("Tried to convert into an array, but the dimensions did not match. Target array has dimension ")
@@ -373,6 +395,7 @@ struct convert_from_impl<
 						array.elements.size()
 					)
 				);
+		}
 
 		return
 			fcppt::container::array::init<
@@ -439,7 +462,7 @@ struct convert_from_impl<
 >
 {
 	static
-	sge::parse::json::value const &
+	sge::parse::json::value
 	execute(
 		sge::parse::json::value const &_value
 	)
@@ -474,7 +497,7 @@ struct convert_from_impl<
 >
 {
 	static
-	Result const &
+	Result
 	execute(
 		sge::parse::json::value const &_value
 	)
@@ -483,8 +506,10 @@ struct convert_from_impl<
 			sge::parse::json::get_exn<
 				Result
 			>(
-				_value
-			);
+				fcppt::make_cref(
+					_value
+				)
+			).get();
 	}
 };
 

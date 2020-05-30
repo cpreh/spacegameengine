@@ -36,7 +36,8 @@ public:
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	help_needed_exception(
 		help_needed_exception &&
-	);
+	)
+	noexcept;
 
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	help_needed_exception(
@@ -47,7 +48,8 @@ public:
 	help_needed_exception &
 	operator=(
 		help_needed_exception &&
-	);
+	)
+	noexcept;
 
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	help_needed_exception &

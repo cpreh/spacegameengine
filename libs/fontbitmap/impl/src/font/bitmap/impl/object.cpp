@@ -33,6 +33,7 @@
 #include <sge/parse/json/start.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/convert/to_int.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/recursive_impl.hpp>
 #include <fcppt/text.hpp>
@@ -86,9 +87,11 @@ sge::font::bitmap::impl::object::object(
 			sge::font::unit
 		>(
 			sge::parse::json::find_member_value_exn(
-				_start.object().members,
+				fcppt::make_cref(
+					_start.object().members
+				),
 				"line_height"
-			)
+			).get()
 		)
 	),
 	char_map_(),
@@ -99,9 +102,11 @@ sge::font::bitmap::impl::object::object(
 			sge::parse::json::find_member_exn<
 				sge::parse::json::array
 			>(
-				_start.object().members,
+				fcppt::make_cref(
+					_start.object().members
+				),
 				"textures"
-			).elements,
+			).get().elements,
 			[
 				&_path,
 				&_image_system,
@@ -119,8 +124,10 @@ sge::font::bitmap::impl::object::object(
 						sge::parse::json::get_exn<
 							sge::parse::json::object
 						>(
-							_element.get()
-						),
+							fcppt::make_cref(
+								_element.get()
+							)
+						).get(),
 						_image_system,
 						char_map_
 					);

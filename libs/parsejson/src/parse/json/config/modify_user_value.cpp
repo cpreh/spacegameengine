@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/exception.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/make_recursive_objects.hpp>
@@ -15,9 +16,11 @@
 #include <sge/parse/json/detail/to_fcppt_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_recursive.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/assert/pre.hpp>
+#include <fcppt/container/get_or_insert_with_result.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/variant/type_info.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -28,7 +31,9 @@
 void
 sge::parse::json::config::modify_user_value(
 	sge::parse::json::object const &structure_json,
-	sge::parse::json::object &user_json,
+	fcppt::reference<
+		sge::parse::json::object
+	> const user_json,
 	sge::parse::json::path const &input_path,
 	sge::parse::json::value const &new_value
 )
@@ -47,6 +52,7 @@ sge::parse::json::config::modify_user_value(
 	};
 
 	if(old_value.get().type_index() != new_value.get().type_index())
+	{
 		throw
 			sge::parse::exception{
 				FCPPT_TEXT("Error trying to update the user configuration node \"")
@@ -77,6 +83,7 @@ sge::parse::json::config::modify_user_value(
 					)
 				)
 			};
+	}
 
 	sge::parse::json::object &target =
 		// 0 is not permitted, 1 would mean: just take a value from
@@ -85,7 +92,7 @@ sge::parse::json::config::modify_user_value(
 		?
 			sge::parse::json::make_recursive_objects(
 				user_json,
-				// TODO: path::pop_back?
+				// TODO(philipp): path::pop_back?
 				sge::parse::json::path{
 					sge::parse::json::path::sequence_type{
 						input_path.get().begin(),
@@ -94,22 +101,34 @@ sge::parse::json::config::modify_user_value(
 						)
 					}
 				}
-			)
+			).get()
 		:
-			user_json;
+			user_json.get()
+		;
 
-	sge::parse::json::member_map::iterator const it =
-		target.members.find(
-			input_path.get().back());
+	auto const result{
+		fcppt::container::get_or_insert_with_result(
+			target.members,
+			input_path.get().back(),
+			[
+				&new_value
+			](
+				sge::charconv::utf8_string const &
+			)
+			{
+				return
+					new_value;
+			}
+		)
+	};
 
-	if(it == target.members.end())
-		target.members.insert(
-			sge::parse::json::member(
-				input_path.get().back(),
-				new_value));
-	else
-		it->second =
+	if(
+		!result.inserted()
+	)
+	{
+		result.element() =
 			fcppt::make_recursive(
 				new_value
 			);
+	}
 }

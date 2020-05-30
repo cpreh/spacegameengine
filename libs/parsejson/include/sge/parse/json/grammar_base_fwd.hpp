@@ -19,15 +19,16 @@ namespace parse
 namespace json
 {
 
-typedef
+using
+grammar_base
+=
 fcppt::parse::grammar<
 	sge::parse::json::start,
 	char,
 	decltype(
 		sge::parse::json::skipper()
 	)
->
-grammar_base;
+>;
 
 }
 }

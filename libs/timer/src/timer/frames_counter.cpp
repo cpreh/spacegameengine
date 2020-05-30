@@ -8,6 +8,7 @@
 #include <sge/timer/frames_counter.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -42,7 +43,9 @@ sge::timer::frames_counter::update()
 
 	if(
 		sge::timer::reset_when_expired(
-			timer_
+			fcppt::make_ref(
+				timer_
+			)
 		)
 	)
 	{
@@ -69,5 +72,4 @@ sge::timer::frames_counter::frames_str() const
 }
 
 sge::timer::frames_counter::~frames_counter()
-{
-}
+= default;

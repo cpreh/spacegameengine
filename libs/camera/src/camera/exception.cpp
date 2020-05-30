@@ -30,6 +30,7 @@ sge::camera::exception::exception(
 sge::camera::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::camera::exception::exception(
@@ -41,6 +42,7 @@ sge::camera::exception &
 sge::camera::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::camera::exception &
@@ -49,6 +51,6 @@ sge::camera::exception::operator=(
 )
 = default;
 
-sge::camera::exception::~exception() noexcept
-{
-}
+sge::camera::exception::~exception()
+noexcept
+= default;

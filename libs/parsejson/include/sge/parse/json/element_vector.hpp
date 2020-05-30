@@ -21,13 +21,14 @@ namespace parse
 namespace json
 {
 
-typedef
+using
+element_vector
+=
 std::vector<
 	fcppt::recursive<
 		sge::parse::json::value
 	>
->
-element_vector;
+>;
 
 }
 }

@@ -12,6 +12,7 @@
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
 #include <sge/parse/json/detail/to_fcppt_string.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional/to_exception.hpp>
 
@@ -22,9 +23,13 @@ namespace
 template<
 	typename Object
 >
-Object &
+fcppt::reference<
+	Object
+>
 find_object_exn_impl(
-	Object &_input_object,
+	fcppt::reference<
+		Object
+	> const _input_object,
 	sge::parse::json::path const &_path
 )
 {
@@ -50,14 +55,18 @@ find_object_exn_impl(
 						FCPPT_TEXT("\" because we couldn't find the object here!")
 					);
 			}
-		).get();
+		);
 }
 
 }
 
-sge::parse::json::object &
+fcppt::reference<
+	sge::parse::json::object
+>
 sge::parse::json::find_object_exn(
-	sge::parse::json::object &_input_object,
+	fcppt::reference<
+		sge::parse::json::object
+	> const _input_object,
 	sge::parse::json::path const &_path
 )
 {
@@ -68,9 +77,13 @@ sge::parse::json::find_object_exn(
 		);
 }
 
-sge::parse::json::object const &
+fcppt::reference<
+	sge::parse::json::object const
+>
 sge::parse::json::find_object_exn(
-	sge::parse::json::object const &_input_object,
+	fcppt::reference<
+		sge::parse::json::object const
+	> const _input_object,
 	sge::parse::json::path const &_path
 )
 {

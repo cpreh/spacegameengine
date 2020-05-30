@@ -18,11 +18,12 @@ namespace parse
 namespace json
 {
 
-typedef
+using
+const_optional_object_ref
+=
 fcppt::optional::reference<
 	sge::parse::json::object const
->
-const_optional_object_ref;
+>;
 
 }
 }

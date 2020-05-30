@@ -11,6 +11,7 @@
 #include <sge/timer/clocks/is_stateful.hpp>
 
 
+// NOLINTNEXTLINE(cppcoreguidelines-pro-type-member-init,hicpp-member-init)
 template<
 	typename Clock
 >

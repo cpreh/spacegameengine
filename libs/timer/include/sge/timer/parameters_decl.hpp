@@ -25,20 +25,23 @@ class parameters final
 		Clock
 	>
 {
-	typedef
+	using
+	state_base
+	=
 	sge::timer::clocks::detail::wrapper<
 		Clock
-	>
-	state_base;
+	>;
 public:
-	typedef
-	Clock
-	clock_type;
+	using
+	clock_type
+	=
+	Clock;
 
-	typedef
+	using
+	duration
+	=
 	typename
-	clock_type::duration
-	duration;
+	clock_type::duration;
 
 	explicit
 	parameters(
@@ -60,15 +63,19 @@ public:
 		bool
 	);
 
+	[[nodiscard]]
 	duration
 	interval() const;
 
+	[[nodiscard]]
 	state_base const &
 	clock() const;
 
+	[[nodiscard]]
 	bool
 	active() const;
 
+	[[nodiscard]]
 	bool
 	expired() const;
 private:

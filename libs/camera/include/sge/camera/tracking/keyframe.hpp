@@ -18,18 +18,22 @@ namespace camera
 {
 namespace tracking
 {
+
 class keyframe
 {
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	keyframe(
 		sge::camera::update_duration const &,
-		sge::camera::coordinate_system::object const &);
+		sge::camera::coordinate_system::object const &
+	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::update_duration const &
 	duration() const;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::coordinate_system::object const &
 	coordinate_system() const;
@@ -37,6 +41,7 @@ private:
 	sge::camera::update_duration duration_;
 	sge::camera::coordinate_system::object coordinate_system_;
 };
+
 }
 }
 }

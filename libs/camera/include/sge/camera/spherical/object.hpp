@@ -27,7 +27,7 @@
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/event_base_fwd.hpp>
 #include <sge/input/keyboard/event/key_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -37,13 +37,14 @@ namespace camera
 namespace spherical
 {
 
+// NOLINTNEXTLINE(fuchsia-multiple-inheritance)
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 :
 	public virtual sge::camera::base,
 	public sge::camera::is_dynamic,
 	public sge::camera::has_mutable_projection
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
@@ -53,11 +54,13 @@ public:
 		sge::camera::spherical::parameters const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::coordinate_system::object
 	coordinate_system() const
 	override;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::optional_projection_matrix
 	projection_matrix() const

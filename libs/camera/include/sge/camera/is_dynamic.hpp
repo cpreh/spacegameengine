@@ -11,7 +11,7 @@
 #include <sge/camera/update_duration.hpp>
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/core/detail/class_symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -23,7 +23,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL is_dynamic
 :
 	public virtual sge::camera::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		is_dynamic
 	);
 protected:

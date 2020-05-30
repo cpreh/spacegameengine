@@ -26,6 +26,7 @@
 #include <sge/scenic/scene/entity.hpp>
 #include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/scenic/scene/prototype.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/recursive_impl.hpp>
 #include <fcppt/string.hpp>
@@ -400,8 +401,10 @@ load_entities(
 			sge::parse::json::get_exn<
 				sge::parse::json::object const
 			>(
-				current.get()
-			)
+				fcppt::make_cref(
+					current.get()
+				)
+			).get()
 		);
 }
 
@@ -651,8 +654,10 @@ load_lights(
 			sge::parse::json::get_exn<
 				sge::parse::json::object const
 			>(
-				light.get()
-			)
+				fcppt::make_cref(
+					light.get()
+				)
+			).get()
 		);
 }
 }

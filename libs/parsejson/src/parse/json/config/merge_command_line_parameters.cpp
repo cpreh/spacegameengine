@@ -52,40 +52,47 @@ namespace
 
 void
 process_option(
-	sge::parse::json::object &_object,
+	fcppt::reference<
+		sge::parse::json::object
+	> const _object,
 	fcppt::string const &_input
 )
 {
-	typedef
+	using
+	string_vector
+	=
 	std::vector<
 		fcppt::string
-	>
-	string_vector;
+	>;
 
-	typedef
+	using
+	result_type
+	=
 	std::tuple<
 		string_vector,
 		fcppt::string
-	>
-	result_type;
+	>;
 
-	typedef
+	using
+	char_set
+	=
 	fcppt::parse::basic_char_set<
 		fcppt::char_type
-	>
-	char_set;
+	>;
 
-	typedef
+	using
+	char_
+	=
 	fcppt::parse::basic_char<
 		fcppt::char_type
-	>
-	char_;
+	>;
 
-	typedef
+	using
+	literal
+	=
 	fcppt::parse::basic_literal<
 		fcppt::char_type
-	>
-	literal;
+	>;
 
 	result_type result{
 		fcppt::either::to_exception(
@@ -147,32 +154,31 @@ process_option(
 
 	first.pop_back();
 
-	typedef
+	using
+	object_ref
+	=
 	fcppt::reference<
 		sge::parse::json::object
-	>
-	object_ref;
+	>;
 
 	object_ref target{
 		fcppt::algorithm::fold(
 			first,
-			fcppt::make_ref(
-				_object
-			),
+			_object,
 			[](
 				fcppt::string const &_value,
 				object_ref const _cur
 			)
 			{
 				return
-					fcppt::make_ref(
-						sge::parse::json::find_member_exn<
-							sge::parse::json::object
-						>(
-							_cur.get().members,
-							sge::charconv::fcppt_string_to_utf8(
-								_value
-							)
+					sge::parse::json::find_member_exn<
+						sge::parse::json::object
+					>(
+						fcppt::make_ref(
+							_cur.get().members
+						),
+						sge::charconv::fcppt_string_to_utf8(
+							_value
 						)
 					);
 			}
@@ -181,7 +187,9 @@ process_option(
 
 	fcppt::optional::to_exception(
 		sge::parse::json::find_member_value(
-			target.get().members,
+			fcppt::make_ref(
+				target.get().members
+			),
 			sge::charconv::fcppt_string_to_utf8(
 				element
 			)
@@ -288,10 +296,14 @@ sge::parse::json::config::merge_command_line_parameters(
 		:
 		_parameters
 	)
+	{
 		::process_option(
-			input,
+			fcppt::make_ref(
+				input
+			),
 			element
 		);
+	}
 
 	return
 		input;

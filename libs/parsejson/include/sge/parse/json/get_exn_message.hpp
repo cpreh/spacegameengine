@@ -7,10 +7,11 @@
 #ifndef SGE_PARSE_JSON_GET_EXN_MESSAGE_HPP_INCLUDED
 #define SGE_PARSE_JSON_GET_EXN_MESSAGE_HPP_INCLUDED
 
+#include <sge/parse/json/get_return_type.hpp>
 #include <sge/parse/json/invalid_get.hpp>
 #include <sge/parse/json/value.hpp>
-#include <sge/parse/json/detail/get_return_type.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/optional/to_exception.hpp>
@@ -34,12 +35,14 @@ template<
 	typename Arg,
 	typename MakeMessage
 >
-sge::parse::json::detail::get_return_type<
+sge::parse::json::get_return_type<
 	Type,
 	Arg
 >
 get_exn_message(
-	Arg &_val,
+	fcppt::reference<
+		Arg
+	> const _val,
 	MakeMessage const &_make_message
 )
 {
@@ -63,7 +66,7 @@ get_exn_message(
 					Type
 				>
 			>(
-				_val.get()
+				_val.get().get()
 			),
 			[
 				&_val,
@@ -86,7 +89,7 @@ get_exn_message(
 						fcppt::from_std_string(
 							fcppt::type_name_from_info(
 								fcppt::variant::type_info(
-									_val.get()
+									_val.get().get()
 								)
 							)
 						)
@@ -96,7 +99,7 @@ get_exn_message(
 						_make_message()
 					);
 			}
-		).get();
+		);
 }
 
 }

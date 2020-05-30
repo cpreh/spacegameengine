@@ -30,6 +30,7 @@ public:
 	{
 	}
 
+	[[nodiscard]]
 	Clock
 	clock_base() const
 	{

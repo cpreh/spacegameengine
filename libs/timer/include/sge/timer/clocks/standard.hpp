@@ -20,13 +20,14 @@ namespace timer
 namespace clocks
 {
 
-typedef
-std::conditional<
+using
+standard
+=
+std::conditional_t<
 	std::chrono::high_resolution_clock::is_steady,
 	std::chrono::high_resolution_clock,
 	std::chrono::steady_clock
->::type
-standard;
+>;
 
 }
 }

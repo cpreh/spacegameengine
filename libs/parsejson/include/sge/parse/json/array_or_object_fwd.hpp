@@ -19,12 +19,13 @@ namespace parse
 namespace json
 {
 
-typedef
+using
+array_or_object
+=
 fcppt::variant::object<
 	sge::parse::json::array,
 	sge::parse::json::object
->
-array_or_object;
+>;
 
 }
 }

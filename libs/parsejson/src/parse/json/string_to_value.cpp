@@ -11,6 +11,7 @@
 #include <sge/parse/json/string_to_value.hpp>
 #include <sge/parse/json/value.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/either/to_exception.hpp>
 #include <fcppt/parse/error.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -26,32 +27,34 @@ sge::parse::json::string_to_value(
 {
 	return
 		sge::parse::json::find_member_value_exn(
-			fcppt::either::to_exception(
-				sge::parse::json::parse_string(
-					"{ \"value\" : "
-					+
-					std::move(
-						_string
+			fcppt::make_cref(
+				fcppt::either::to_exception(
+					sge::parse::json::parse_string(
+						"{ \"value\" : "
+						+
+						std::move(
+							_string
+						)
+						+
+						" }"
+					),
+					[](
+						fcppt::parse::error<
+							char
+						> &&_error
 					)
-					+
-					" }"
-				),
-				[](
-					fcppt::parse::error<
-						char
-					> &&_error
-				)
-				{
-					return
-						sge::parse::exception{
-							fcppt::from_std_string(
-								std::move(
-									_error.get()
+					{
+						return
+							sge::parse::exception{
+								fcppt::from_std_string(
+									std::move(
+										_error.get()
+									)
 								)
-							)
-						};
-				}
-			).object().members,
+							};
+					}
+				).object().members
+			),
 			"value"
-		);
+		).get();
 }

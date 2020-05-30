@@ -16,6 +16,7 @@
 #include <sge/parse/json/path_to_string.hpp>
 #include <sge/parse/json/detail/to_fcppt_string.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -32,20 +33,25 @@ fcppt::optional::reference<
 	Object
 >
 find_object_impl(
-	Object &_input_object,
-	sge::parse::json::path const &_path)
-{
-	typedef
 	fcppt::reference<
 		Object
-	>
-	object_ref;
+	> const _input_object,
+	sge::parse::json::path const &_path
+)
+{
+	using
+	object_ref
+	=
+	fcppt::reference<
+		Object
+	>;
 
-	typedef
+	using
+	result_type
+	=
 	fcppt::optional::reference<
 		Object
-	>
-	result_type;
+	>;
 
 	object_ref current_object(
 		_input_object
@@ -60,7 +66,9 @@ find_object_impl(
 		if(
 			fcppt::optional::maybe(
 				sge::parse::json::find_member_value(
-					current_object.get().members,
+					fcppt::make_ref(
+						current_object.get().members
+					),
 					current_member
 				),
 				fcppt::const_(
@@ -79,7 +87,7 @@ find_object_impl(
 							sge::parse::json::get_exn_message<
 								Object
 							>(
-								_val.get(),
+								_val,
 								[
 									&_path,
 									&current_member
@@ -107,8 +115,10 @@ find_object_impl(
 				}
 			)
 		)
+		{
 			return
 				result_type();
+		}
 	}
 
 	return
@@ -121,7 +131,9 @@ find_object_impl(
 
 sge::parse::json::optional_object_ref
 sge::parse::json::find_object(
-	sge::parse::json::object &_input_object,
+	fcppt::reference<
+		sge::parse::json::object
+	> const _input_object,
 	sge::parse::json::path const &_path
 )
 {
@@ -134,7 +146,9 @@ sge::parse::json::find_object(
 
 sge::parse::json::const_optional_object_ref
 sge::parse::json::find_object(
-	sge::parse::json::object const &_input_object,
+	fcppt::reference<
+		sge::parse::json::object const
+	> const _input_object,
 	sge::parse::json::path const &_path
 )
 {

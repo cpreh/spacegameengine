@@ -36,10 +36,12 @@ public:
 		sge::camera::spherical::action::mapping const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::spherical::coordinate_system::object const &
 	coordinate_system() const;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::spherical::action::mapping const &
 	action_mapping() const;
@@ -50,6 +52,7 @@ public:
 		sge::camera::spherical::movement_speed const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::spherical::movement_speed const &
 	movement_speed() const;
@@ -60,6 +63,7 @@ public:
 		sge::camera::spherical::origin const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::spherical::origin const &
 	origin() const;
@@ -70,6 +74,7 @@ public:
 		sge::camera::spherical::minimum_radius
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::spherical::minimum_radius
 	minimum_radius() const;
@@ -80,6 +85,7 @@ public:
 		sge::camera::spherical::maximum_radius
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::spherical::maximum_radius
 	maximum_radius() const;
@@ -90,6 +96,7 @@ public:
 		sge::camera::spherical::acceleration_factor const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::spherical::acceleration_factor const &
 	acceleration_factor() const;
@@ -100,6 +107,7 @@ public:
 		sge::camera::spherical::damping_factor const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::spherical::damping_factor const &
 	damping_factor() const;
@@ -112,6 +120,7 @@ public:
 		sge::camera::projection_matrix const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::optional_projection_matrix const &
 	projection_matrix() const;

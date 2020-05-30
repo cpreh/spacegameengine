@@ -14,17 +14,22 @@
 #include <sge/parse/json/output/to_file.hpp>
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/reset_when_expired.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::camera::tracking::json::interval_exporter::interval_exporter(
-	sge::camera::base const &_camera,
+	fcppt::reference<
+		sge::camera::base const
+	> const _camera,
 	sge::camera::update_duration const &_update_duration,
-	std::filesystem::path const &_export_file_path
+	std::filesystem::path &&_export_file_path
 )
 :
 	camera_(
@@ -42,7 +47,9 @@ sge::camera::tracking::json::interval_exporter::interval_exporter(
 		)
 	),
 	export_file_path_(
-		_export_file_path
+		std::move(
+			_export_file_path
+		)
 	),
 	keyframes_()
 {
@@ -53,10 +60,14 @@ sge::camera::tracking::json::interval_exporter::update()
 {
 	if(
 		!sge::timer::reset_when_expired(
-			update_timer_
+			fcppt::make_ref(
+				update_timer_
+			)
 		)
 	)
+	{
 		return;
+	}
 
 	keyframes_.push_back(
 		sge::camera::tracking::keyframe(
@@ -65,7 +76,7 @@ sge::camera::tracking::json::interval_exporter::update()
 			>(
 				update_timer_.interval()
 			),
-			camera_.coordinate_system()
+			camera_.get().coordinate_system()
 		)
 	);
 }
@@ -87,6 +98,7 @@ noexcept(
 			)
 		)
 	)
+	{
 		throw
 			sge::camera::exception(
 				FCPPT_TEXT("Couldn't write to file \"")
@@ -97,4 +109,5 @@ noexcept(
 				+
 				FCPPT_TEXT('"')
 			);
+	}
 }

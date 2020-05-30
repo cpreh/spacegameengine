@@ -43,6 +43,7 @@ public:
 		spherical::coordinate_system::azimuth const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::spherical::coordinate_system::inclination const &
 	inclination() const;
@@ -53,6 +54,7 @@ public:
 		spherical::coordinate_system::inclination const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::spherical::coordinate_system::radius const &
 	radius() const;

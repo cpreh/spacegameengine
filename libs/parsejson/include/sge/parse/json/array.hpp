@@ -27,7 +27,7 @@ struct array
 		sge::parse::json::element_vector &&
 	);
 
-	sge::parse::json::element_vector elements;
+	sge::parse::json::element_vector elements; // NOLINT(misc-non-private-member-variables-in-classes)
 };
 
 SGE_PARSE_JSON_DETAIL_SYMBOL

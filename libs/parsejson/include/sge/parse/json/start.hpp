@@ -30,23 +30,27 @@ struct start
 		sge::parse::json::array_or_object &&
 	);
 
+	[[nodiscard]]
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	sge::parse::json::array &
 	array();
 
+	[[nodiscard]]
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	sge::parse::json::array const &
 	array() const;
 
+	[[nodiscard]]
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	sge::parse::json::object &
 	object();
 
+	[[nodiscard]]
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	sge::parse::json::object const &
 	object() const;
 
-	sge::parse::json::array_or_object variant;
+	sge::parse::json::array_or_object variant; // NOLINT(misc-non-private-member-variables-in-classes)
 };
 
 SGE_PARSE_JSON_DETAIL_SYMBOL

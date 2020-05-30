@@ -14,6 +14,7 @@
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/convert/to_int.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -26,12 +27,14 @@ sge::font::bitmap::impl::load_offset(
 		sge::parse::json::find_member_exn<
 			sge::parse::json::array const
 		>(
-			_members,
+			fcppt::make_cref(
+				_members
+			),
 			"offset"
-		).elements
+		).get().elements
 	);
 
-	// TODO: at_optional
+	// TODO: array::from_container
 	if(
 		elements.size() != 2
 	)

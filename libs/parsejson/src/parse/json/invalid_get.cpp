@@ -27,6 +27,7 @@ sge::parse::json::invalid_get::invalid_get(
 sge::parse::json::invalid_get::invalid_get(
 	invalid_get &&
 )
+noexcept
 = default;
 
 sge::parse::json::invalid_get::invalid_get(
@@ -38,6 +39,7 @@ sge::parse::json::invalid_get &
 sge::parse::json::invalid_get::operator=(
 	invalid_get &&
 )
+noexcept
 = default;
 
 sge::parse::json::invalid_get &
@@ -46,6 +48,6 @@ sge::parse::json::invalid_get::operator=(
 )
 = default;
 
-sge::parse::json::invalid_get::~invalid_get() noexcept
-{
-}
+sge::parse::json::invalid_get::~invalid_get()
+noexcept
+= default;

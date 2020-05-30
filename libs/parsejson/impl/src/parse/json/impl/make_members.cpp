@@ -79,8 +79,9 @@ make_members_impl(
 						)
 					)
 				)
-					throw
-						double_insert{
+				{
+					throw // NOLINT(hicpp-exception-baseclass)
+						double_insert{ // NOLINT(hicpp-exception-baseclass)
 							std::move(
 								std::get<
 									0
@@ -89,6 +90,7 @@ make_members_impl(
 								)
 							)
 						};
+				}
 
 			return
 				std::move(
@@ -134,7 +136,6 @@ sge::parse::json::impl::make_members(
 							"Duplicate object name: "
 						}
 						+
-						// TODO: Convert this?
 						_error.get()
 					};
 			}

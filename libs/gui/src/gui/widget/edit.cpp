@@ -188,7 +188,9 @@ sge::gui::widget::edit::on_update(
 
 	if(
 		sge::timer::reset_when_expired(
-			cursor_blink_timer_
+			fcppt::make_ref(
+				cursor_blink_timer_
+			)
 		)
 	)
 		show_cursor_ =

@@ -35,11 +35,12 @@
 namespace
 {
 
-typedef
+using
+object_reference
+=
 fcppt::reference<
 	sge::parse::json::object
->
-object_reference;
+>;
 
 object_reference
 create_or_navigate_path(
@@ -51,13 +52,17 @@ create_or_navigate_path(
 	return
 		fcppt::optional::maybe(
 			sge::parse::json::find_member_value(
-				_old.get().members,
+				fcppt::make_ref(
+					_old.get().members
+				),
 				_new_member
 			),
 			[
 				&_old,
 				&_new_member
-			]{
+			]()
+			-> object_reference
+			{
 				std::pair<
 					sge::parse::json::member_map::iterator,
 					bool
@@ -79,10 +84,10 @@ create_or_navigate_path(
 				);
 
 				return
-					fcppt::make_ref(
-						sge::parse::json::get_exn<
-							sge::parse::json::object
-						>(
+					sge::parse::json::get_exn<
+						sge::parse::json::object
+					>(
+						fcppt::make_ref(
 							insert_ret.first->second.get()
 						)
 					);
@@ -95,51 +100,53 @@ create_or_navigate_path(
 					sge::parse::json::value
 				> const _value
 			)
+			-> object_reference
 			{
 				return
-					fcppt::make_ref(
-						sge::parse::json::get_exn_message<
-							sge::parse::json::object
-						>(
-							_value.get(),
-							[
-								&_input_path,
-								&_new_member
-							]{
-								return
-									FCPPT_TEXT("Couldn't navigate to (make_recursive) \"")
-									+
-									sge::parse::json::detail::to_fcppt_string(
-										sge::parse::json::path_to_string(
-											_input_path
-										)
+					sge::parse::json::get_exn_message<
+						sge::parse::json::object
+					>(
+						_value,
+						[
+							&_input_path,
+							&_new_member
+						]{
+							return
+								FCPPT_TEXT("Couldn't navigate to (make_recursive) \"")
+								+
+								sge::parse::json::detail::to_fcppt_string(
+									sge::parse::json::path_to_string(
+										_input_path
 									)
-									+
-									FCPPT_TEXT("\", stopped at \"")
-									+
-									sge::parse::json::detail::to_fcppt_string(
-										_new_member
-									);
-							}
-						)
+								)
+								+
+								FCPPT_TEXT("\", stopped at \"")
+								+
+								sge::parse::json::detail::to_fcppt_string(
+									_new_member
+								);
+						}
 					);
 			}
 		);
 }
+
 }
 
-sge::parse::json::object &
+fcppt::reference<
+	sge::parse::json::object
+>
 sge::parse::json::make_recursive_objects(
-	sge::parse::json::object &_input_object,
+	fcppt::reference<
+		sge::parse::json::object
+	> const _input_object,
 	sge::parse::json::path const &_input_path
 )
 {
 	return
 		fcppt::algorithm::fold(
 			_input_path.get(),
-			fcppt::make_ref(
-				_input_object
-			),
+			_input_object,
 			[
 				&_input_path
 			](
@@ -156,5 +163,5 @@ sge::parse::json::make_recursive_objects(
 						_string
 					);
 			}
-		).get();
+		);
 }

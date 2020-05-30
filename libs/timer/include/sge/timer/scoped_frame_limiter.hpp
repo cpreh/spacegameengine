@@ -10,7 +10,7 @@
 #include <sge/timer/scoped_frame_limiter_fwd.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/timer/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,17 +26,19 @@ simulation "tick" to a specified amount of milliseconds.
 */
 class scoped_frame_limiter
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_frame_limiter
 	);
 public:
-	typedef
-	sge::timer::clocks::standard
-	clock_type;
+	using
+	clock_type
+	=
+	sge::timer::clocks::standard;
 
-	typedef
-	unsigned
-	ticks_per_second;
+	using
+	ticks_per_second
+	=
+	unsigned;
 
 	/**
 	\brief Notes the current time for later comparison

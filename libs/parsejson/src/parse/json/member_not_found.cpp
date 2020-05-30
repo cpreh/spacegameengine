@@ -27,6 +27,7 @@ sge::parse::json::member_not_found::member_not_found(
 sge::parse::json::member_not_found::member_not_found(
 	member_not_found &&
 )
+noexcept
 = default;
 
 sge::parse::json::member_not_found::member_not_found(
@@ -38,6 +39,7 @@ sge::parse::json::member_not_found &
 sge::parse::json::member_not_found::operator=(
 	member_not_found &&
 )
+noexcept
 = default;
 
 sge::parse::json::member_not_found &
@@ -46,6 +48,6 @@ sge::parse::json::member_not_found::operator=(
 )
 = default;
 
-sge::parse::json::member_not_found::~member_not_found() noexcept
-{
-}
+sge::parse::json::member_not_found::~member_not_found()
+noexcept
+= default;

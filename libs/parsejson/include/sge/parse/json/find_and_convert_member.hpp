@@ -9,7 +9,6 @@
 
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/exception.hpp>
-#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/convert_from.hpp>
 #include <sge/parse/json/find_object_exn.hpp>
 #include <sge/parse/json/invalid_get.hpp>
@@ -17,14 +16,13 @@
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
-#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/to_fcppt_string.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
-#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,37 +36,13 @@ namespace json
 template<
 	typename T
 >
-std::conditional_t<
-	// TODO: This check is broken
-	std::is_same<
-		std::remove_const_t<
-			T
-		>,
-		sge::parse::json::value
-	>::value
-	||
-	std::is_same<
-		std::remove_const_t<
-			T
-		>,
-		sge::parse::json::object
-	>::value
-	||
-	std::is_same<
-		std::remove_const<
-			T
-		>,
-		sge::parse::json::array
-	>::value,
-	T const &,
-	T
->
+T
 find_and_convert_member(
 	sge::parse::json::object const &_object,
 	sge::parse::json::path const &_input_path
 )
 {
-	// TODO: path split
+	// TODO(philipp): path split
 	FCPPT_ASSERT_PRE(
 		!_input_path.get().empty()
 	);
@@ -82,9 +56,13 @@ find_and_convert_member(
 		}
 	};
 
-	sge::parse::json::object const &found_object{
+	fcppt::reference<
+		sge::parse::json::object const
+	> const found_object{
 		sge::parse::json::find_object_exn(
-			_object,
+			fcppt::make_cref(
+				_object
+			),
 			shortened_path
 		)
 	};
@@ -101,7 +79,7 @@ find_and_convert_member(
 			>(
 				fcppt::optional::to_exception(
 					fcppt::container::find_opt_mapped(
-						found_object.members,
+						found_object.get().members,
 						path_back
 					),
 					[

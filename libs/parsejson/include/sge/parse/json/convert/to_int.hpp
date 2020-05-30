@@ -10,6 +10,7 @@
 #include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/value.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/cast/truncation_check.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
@@ -34,9 +35,9 @@ to_int(
 )
 {
 	static_assert(
-		std::is_integral<
+		std::is_integral_v<
 			IntType
-		>::value,
+		>,
 		"IntType must be an integral type"
 	);
 
@@ -47,8 +48,10 @@ to_int(
 			sge::parse::json::get_exn<
 				sge::parse::json::int_type const
 			>(
-				_value
-			)
+				fcppt::make_cref(
+					_value
+				)
+			).get()
 		);
 }
 

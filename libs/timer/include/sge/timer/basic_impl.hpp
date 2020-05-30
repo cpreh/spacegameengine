@@ -54,6 +54,7 @@ sge::timer::basic<
 >::basic(
 	basic &&
 )
+noexcept
 = default;
 
 template<
@@ -67,6 +68,7 @@ sge::timer::basic<
 >::operator=(
 	basic &&
 )
+noexcept
 = default;
 
 template<
@@ -75,8 +77,7 @@ template<
 sge::timer::basic<
 	Clock
 >::~basic()
-{
-}
+= default;
 
 template<
 	typename Clock
@@ -143,7 +144,9 @@ sge::timer::basic<
 		==
 		_active
 	)
+	{
 		return;
+	}
 
 	if(
 		active_

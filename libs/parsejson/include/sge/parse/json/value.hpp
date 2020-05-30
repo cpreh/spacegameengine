@@ -27,15 +27,17 @@ struct value
 		sge::parse::json::value_variant &&
 	);
 
+	[[nodiscard]]
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	sge::parse::json::value_variant const &
 	get() const;
 
+	[[nodiscard]]
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	sge::parse::json::value_variant &
 	get();
 
-	sge::parse::json::value_variant impl;
+	sge::parse::json::value_variant impl; // NOLINT(misc-non-private-member-variables-in-classes)
 };
 
 SGE_PARSE_JSON_DETAIL_SYMBOL

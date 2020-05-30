@@ -32,7 +32,8 @@ public:
 	SGE_PARSE_DETAIL_SYMBOL
 	exception(
 		exception &&
-	);
+	)
+	noexcept;
 
 	SGE_PARSE_DETAIL_SYMBOL
 	exception(
@@ -43,7 +44,8 @@ public:
 	exception &
 	operator=(
 		exception &&
-	);
+	)
+	noexcept;
 
 	SGE_PARSE_DETAIL_SYMBOL
 	exception &

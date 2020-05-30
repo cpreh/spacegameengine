@@ -27,6 +27,7 @@ sge::parse::json::config::help_needed_exception::help_needed_exception(
 sge::parse::json::config::help_needed_exception::help_needed_exception(
 	help_needed_exception &&
 )
+noexcept
 = default;
 
 sge::parse::json::config::help_needed_exception::help_needed_exception(
@@ -38,6 +39,7 @@ sge::parse::json::config::help_needed_exception &
 sge::parse::json::config::help_needed_exception::operator=(
 	help_needed_exception &&
 )
+noexcept
 = default;
 
 sge::parse::json::config::help_needed_exception &
@@ -46,6 +48,6 @@ sge::parse::json::config::help_needed_exception::operator=(
 )
 = default;
 
-sge::parse::json::config::help_needed_exception::~help_needed_exception() noexcept
-{
-}
+sge::parse::json::config::help_needed_exception::~help_needed_exception()
+noexcept
+= default;

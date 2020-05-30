@@ -14,6 +14,7 @@
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
 
 
@@ -26,12 +27,14 @@ sge::font::bitmap::impl::load_rect(
 		sge::parse::json::find_member_exn<
 			sge::parse::json::array
 		>(
-			_members,
+			fcppt::make_cref(
+				_members
+			),
 			"rect"
-		).elements
+		).get().elements
 	);
 
-	// TODO: at_optional
+	// TODO: array::from_container
 	if(
 		elements.size() != 2
 	)
@@ -44,15 +47,19 @@ sge::font::bitmap::impl::load_rect(
 			sge::parse::json::get_exn<
 				sge::parse::json::array
 			>(
-				elements[0].get()
-			).elements
+				fcppt::make_cref(
+					elements[0].get()
+				)
+			).get().elements
 		),
 		&second_elements(
 			sge::parse::json::get_exn<
 				sge::parse::json::array
 			>(
-				elements[1].get()
-			).elements
+				fcppt::make_cref(
+					elements[1].get()
+				)
+			).get().elements
 		);
 
 	if(
@@ -72,8 +79,10 @@ sge::font::bitmap::impl::load_rect(
 					sge::parse::json::get_exn<
 						sge::parse::json::int_type
 					>(
-						first_elements[0].get()
-					)
+						fcppt::make_cref(
+							first_elements[0].get()
+						)
+					).get()
 				),
 				static_cast<
 					sge::image2d::rect::value_type
@@ -81,8 +90,10 @@ sge::font::bitmap::impl::load_rect(
 					sge::parse::json::get_exn<
 						sge::parse::json::int_type
 					>(
-						first_elements[1].get()
-					)
+						fcppt::make_cref(
+							first_elements[1].get()
+						)
+					).get()
 				)
 			),
 			sge::image2d::rect::dim(
@@ -92,8 +103,10 @@ sge::font::bitmap::impl::load_rect(
 					sge::parse::json::get_exn<
 						sge::parse::json::int_type
 					>(
-						second_elements[0].get()
-					)
+						fcppt::make_cref(
+							second_elements[0].get()
+						)
+					).get()
 				),
 				static_cast<
 					sge::image2d::rect::value_type
@@ -101,8 +114,10 @@ sge::font::bitmap::impl::load_rect(
 					sge::parse::json::get_exn<
 						sge::parse::json::int_type
 					>(
-						second_elements[1].get()
-					)
+						fcppt::make_cref(
+							second_elements[1].get()
+						)
+					).get()
 				)
 			)
 		);

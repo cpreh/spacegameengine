@@ -8,6 +8,7 @@
 #define SGE_TIMER_RESET_WHEN_EXPIRED_HPP_INCLUDED
 
 #include <sge/timer/basic.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -18,20 +19,25 @@ namespace timer
 template<
 	typename Clock
 >
+[[nodiscard]]
 bool
 reset_when_expired(
-	sge::timer::basic<
-		Clock
-	> &_timer
+	fcppt::reference<
+		sge::timer::basic<
+			Clock
+		>
+	> const _timer
 )
 {
 	if(
-		!_timer.expired()
+		!_timer.get().expired()
 	)
+	{
 		return
 			false;
+	}
 
-	_timer.reset();
+	_timer.get().reset();
 
 	return
 		true;

@@ -34,7 +34,8 @@ public:
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	member_not_found(
 		member_not_found &&
-	);
+	)
+	noexcept;
 
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	member_not_found(
@@ -45,7 +46,8 @@ public:
 	member_not_found &
 	operator=(
 		member_not_found &&
-	);
+	)
+	noexcept;
 
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	member_not_found &

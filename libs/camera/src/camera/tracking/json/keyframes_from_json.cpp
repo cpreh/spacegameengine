@@ -10,6 +10,7 @@
 #include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/recursive_impl.hpp>
 #include <fcppt/algorithm/map.hpp>
 
@@ -35,8 +36,10 @@ sge::camera::tracking::json::keyframes_from_json(
 						sge::parse::json::get_exn<
 							sge::parse::json::object const
 						>(
-							_value.get()
-						)
+							fcppt::make_cref(
+								_value.get()
+							)
+						).get()
 					);
 			}
 		);

@@ -12,6 +12,7 @@
 #include <sge/parse/json/output/to_stream.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/either/match.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -62,7 +63,9 @@ try
 				sge::parse::json::find_member_exn<
 					sge::parse::json::int_type
 				>(
-					_result.object().members,
+					fcppt::make_cref(
+						_result.object().members
+					),
 					"foo"
 				);
 
@@ -75,7 +78,9 @@ try
 					sge::parse::json::find_member_exn<
 						sge::parse::json::int_type
 					>(
-						const_result.members,
+						fcppt::make_cref(
+							const_result.members
+						),
 						"foo"
 					);
 				}

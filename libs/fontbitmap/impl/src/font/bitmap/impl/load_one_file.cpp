@@ -34,6 +34,7 @@
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/convert/to_int.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -70,9 +71,11 @@ sge::font::bitmap::impl::load_one_file(
 			sge::parse::json::find_member_exn<
 				sge::charconv::utf8_string
 			>(
-				top_members,
+				fcppt::make_cref(
+					top_members
+				),
 				"filename"
-			)
+			).get()
 		)
 	);
 
@@ -83,9 +86,11 @@ sge::font::bitmap::impl::load_one_file(
 		sge::parse::json::find_member_exn<
 			sge::parse::json::array
 		>(
-			top_members,
+			fcppt::make_cref(
+				top_members
+			),
 			"glyphs"
-		).elements
+		).get().elements
 	)
 	try
 	{
@@ -93,8 +98,10 @@ sge::font::bitmap::impl::load_one_file(
 			sge::parse::json::get_exn<
 				sge::parse::json::object
 			>(
-				elem.get()
-			).members
+				fcppt::make_cref(
+					elem.get()
+				)
+			).get().members
 		);
 
 		sge::font::string const name{
@@ -106,9 +113,11 @@ sge::font::bitmap::impl::load_one_file(
 					sge::parse::json::find_member_exn<
 						sge::charconv::utf8_string
 					>(
-						members,
+						fcppt::make_cref(
+							members
+						),
 						"name"
-					)
+					).get()
 				)
 			)
 		};
@@ -164,9 +173,11 @@ sge::font::bitmap::impl::load_one_file(
 							sge::font::unit
 						>(
 							sge::parse::json::find_member_value_exn(
-								members,
+								fcppt::make_cref(
+									members
+								),
 								"x_advance"
-							)
+							).get()
 						)
 					}
 				)

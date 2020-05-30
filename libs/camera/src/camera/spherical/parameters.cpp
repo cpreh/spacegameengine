@@ -26,6 +26,19 @@
 #include <fcppt/config/external_end.hpp>
 
 
+namespace
+{
+
+constexpr sge::renderer::scalar const default_acceleration{
+	3.0F
+};
+
+constexpr sge::renderer::scalar const default_damping{
+	0.0001F
+};
+
+}
+
 sge::camera::spherical::parameters::parameters(
 	sge::camera::spherical::coordinate_system::object const &_coordinate_system,
 	sge::camera::spherical::action::mapping const &_action_mapping
@@ -34,13 +47,13 @@ sge::camera::spherical::parameters::parameters(
 	movement_speed_{
 		sge::camera::spherical::coordinate_system::object{
 			sge::camera::spherical::coordinate_system::azimuth{
-				1.0f
+				1.0F
 			},
 			sge::camera::spherical::coordinate_system::inclination{
-				1.0f
+				1.0F
 			},
 			sge::camera::spherical::coordinate_system::radius{
-				1.0f
+				1.0F
 			}
 		}
 	},
@@ -56,7 +69,7 @@ sge::camera::spherical::parameters::parameters(
 		>()
 	},
 	minimum_radius_{
-		0.0f
+		0.0F
 	},
 	maximum_radius_{
 		std::numeric_limits<
@@ -66,26 +79,26 @@ sge::camera::spherical::parameters::parameters(
 	acceleration_factor_{
 		sge::camera::spherical::coordinate_system::object{
 			sge::camera::spherical::coordinate_system::azimuth{
-				3.0f
+				default_acceleration
 			},
 			sge::camera::spherical::coordinate_system::inclination{
-				3.0f
+				default_acceleration
 			},
 			sge::camera::spherical::coordinate_system::radius{
-				3.0f
+				default_acceleration
 			}
 		}
 	},
 	damping_factor_{
 		sge::camera::spherical::coordinate_system::object{
 			sge::camera::spherical::coordinate_system::azimuth{
-				0.0001f
+				default_damping
 			},
 			sge::camera::spherical::coordinate_system::inclination{
-				0.0001f
+				default_damping
 			},
 			sge::camera::spherical::coordinate_system::radius{
-				0.0001f
+				default_damping
 			}
 		}
 	},

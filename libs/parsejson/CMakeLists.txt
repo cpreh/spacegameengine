@@ -27,8 +27,6 @@ set(
 	libs/parsejson/include/sge/parse/json/convert_from_fwd.hpp
 	libs/parsejson/include/sge/parse/json/convert_from_impl.hpp
 	libs/parsejson/include/sge/parse/json/convert_to.hpp
-	libs/parsejson/include/sge/parse/json/detail/get_return_type.hpp
-	libs/parsejson/include/sge/parse/json/detail/get_return_type_impl.hpp
 	libs/parsejson/include/sge/parse/json/detail/is_iterable.hpp
 	libs/parsejson/include/sge/parse/json/detail/is_math_type.hpp
 	libs/parsejson/include/sge/parse/json/detail/to_fcppt_string.hpp
@@ -47,6 +45,7 @@ set(
 	libs/parsejson/include/sge/parse/json/float_type.hpp
 	libs/parsejson/include/sge/parse/json/get_exn.hpp
 	libs/parsejson/include/sge/parse/json/get_exn_message.hpp
+	libs/parsejson/include/sge/parse/json/get_return_type.hpp
 	libs/parsejson/include/sge/parse/json/grammar.hpp
 	libs/parsejson/include/sge/parse/json/grammar_base_fwd.hpp
 	libs/parsejson/include/sge/parse/json/grammar_fwd.hpp

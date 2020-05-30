@@ -16,6 +16,7 @@
 #include <sge/input/event_base.hpp>
 #include <sge/input/keyboard/event/key.hpp>
 #include <sge/renderer/vector4.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/math/clamp.hpp>
@@ -134,8 +135,8 @@ sge::camera::spherical::object::update(
 {
 	velocity_.azimuth(
 		sge::camera::spherical::coordinate_system::azimuth(
-			1.0f - (
-				1.0f - damping_factor_.get().azimuth().get()
+			1.0F - (
+				1.0F - damping_factor_.get().azimuth().get()
 			) * _time_delta.count()
 		)
 		*
@@ -151,8 +152,8 @@ sge::camera::spherical::object::update(
 
 	velocity_.inclination(
 		sge::camera::spherical::coordinate_system::inclination(
-			1.0f - (
-				1.0f - damping_factor_.get().inclination().get()
+			1.0F - (
+				1.0F - damping_factor_.get().inclination().get()
 			) * _time_delta.count()
 		)
 		*
@@ -168,8 +169,8 @@ sge::camera::spherical::object::update(
 
 	velocity_.radius(
 		sge::camera::spherical::coordinate_system::radius(
-			1.0f - (
-				1.0f - damping_factor_.get().radius().get()
+			1.0F - (
+				1.0F - damping_factor_.get().radius().get()
 			) * _time_delta.count()
 		)
 		*
@@ -205,8 +206,8 @@ sge::camera::spherical::object::update(
 		)
 	);
 
-	sge::renderer::scalar const inclination_epsilon{
-		0.01f
+	constexpr sge::renderer::scalar const inclination_epsilon{
+		0.01F
 	};
 
 	coordinate_system_.inclination(
@@ -250,8 +251,7 @@ sge::camera::spherical::object::process_event(
 }
 
 sge::camera::spherical::object::~object()
-{
-}
+= default;
 
 namespace
 {
@@ -265,13 +265,13 @@ direction_from_booleans(
 	return
 		_left && !_right
 		?
-			-1.0f
+			-1.0F
 		:
 			_right && !_left
 			?
-				1.0f
+				1.0F
 			:
-				0.0f;
+				0.0F;
 }
 
 }
@@ -282,37 +282,49 @@ sge::camera::spherical::object::key_event(
 )
 {
 	sge::camera::impl::set_pressed_if_appropriate(
-		increase_azimuth_pressed_,
+		fcppt::make_ref(
+			increase_azimuth_pressed_
+		),
 		action_mapping_.increase_azimuth().get(),
 		_key_event
 	);
 
 	sge::camera::impl::set_pressed_if_appropriate(
-		decrease_azimuth_pressed_,
+		fcppt::make_ref(
+			decrease_azimuth_pressed_
+		),
 		action_mapping_.decrease_azimuth().get(),
 		_key_event
 	);
 
 	sge::camera::impl::set_pressed_if_appropriate(
-		increase_inclination_pressed_,
+		fcppt::make_ref(
+			increase_inclination_pressed_
+		),
 		action_mapping_.increase_inclination().get(),
 		_key_event
 	);
 
 	sge::camera::impl::set_pressed_if_appropriate(
-		decrease_inclination_pressed_,
+		fcppt::make_ref(
+			decrease_inclination_pressed_
+		),
 		action_mapping_.decrease_inclination().get(),
 		_key_event
 	);
 
 	sge::camera::impl::set_pressed_if_appropriate(
-		increase_radius_pressed_,
+		fcppt::make_ref(
+			increase_radius_pressed_
+		),
 		action_mapping_.increase_radius().get(),
 		_key_event
 	);
 
 	sge::camera::impl::set_pressed_if_appropriate(
-		decrease_radius_pressed_,
+		fcppt::make_ref(
+			decrease_radius_pressed_
+		),
 		action_mapping_.decrease_radius().get(),
 		_key_event
 	);

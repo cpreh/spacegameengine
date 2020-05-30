@@ -37,31 +37,36 @@ class basic final
 		basic
 	);
 
-	typedef
+	using
+	base
+	=
 	sge::timer::clocks::detail::wrapper<
 		Clock
-	>
-	base;
+	>;
 public:
-	typedef
-	Clock
-	clock_type;
+	using
+	clock_type
+	=
+	Clock;
 
-	typedef
+	using
+	parameters
+	=
 	sge::timer::parameters<
 		clock_type
-	>
-	parameters;
+	>;
 
-	typedef
+	using
+	time_point
+	=
 	typename
-	clock_type::time_point
-	time_point;
+	clock_type::time_point;
 
-	typedef
+	using
+	duration
+	=
 	typename
-	clock_type::duration
-	duration;
+	clock_type::duration;
 
 	explicit
 	basic(
@@ -70,15 +75,18 @@ public:
 
 	basic(
 		basic &&
-	);
+	)
+	noexcept;
 
 	basic &
 	operator=(
 		basic &&
-	);
+	)
+	noexcept;
 
 	~basic();
 
+	[[nodiscard]]
 	bool
 	expired() const;
 
@@ -87,6 +95,7 @@ public:
 		bool
 	);
 
+	[[nodiscard]]
 	bool
 	active() const;
 
@@ -95,6 +104,7 @@ public:
 		bool
 	);
 
+	[[nodiscard]]
 	duration
 	interval() const;
 
@@ -103,9 +113,11 @@ public:
 		duration
 	);
 
+	[[nodiscard]]
 	time_point
 	now() const;
 
+	[[nodiscard]]
 	time_point
 	last_time() const;
 

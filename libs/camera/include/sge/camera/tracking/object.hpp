@@ -20,6 +20,7 @@
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/event_base_fwd.hpp>
 #include <fcppt/cyclic_iterator_decl.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -35,7 +36,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL object
 	public sge::camera::is_dynamic,
 	public sge::camera::has_mutable_projection
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:

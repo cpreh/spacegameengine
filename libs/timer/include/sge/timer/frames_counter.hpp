@@ -11,8 +11,11 @@
 #include <sge/timer/frames_counter_fwd.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/timer/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -22,17 +25,19 @@ namespace timer
 
 class frames_counter
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		frames_counter
 	);
 public:
-	typedef
-	sge::timer::clocks::standard
-	clock;
+	using
+	clock
+	=
+	sge::timer::clocks::standard;
 
-	typedef
-	unsigned long
-	counter;
+	using
+	counter
+	=
+	std::uint64_t;
 
 	SGE_TIMER_DETAIL_SYMBOL
 	frames_counter();
@@ -41,10 +46,12 @@ public:
 	void
 	update();
 
+	[[nodiscard]]
 	SGE_TIMER_DETAIL_SYMBOL
 	counter
 	frames() const;
 
+	[[nodiscard]]
 	SGE_TIMER_DETAIL_SYMBOL
 	fcppt::string
 	frames_str() const;

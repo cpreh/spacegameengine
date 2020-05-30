@@ -26,7 +26,9 @@ namespace parse
 namespace json
 {
 
-typedef
+using
+value_variant
+=
 fcppt::variant::object<
 	sge::parse::json::object,
 	sge::parse::json::array,
@@ -35,8 +37,7 @@ fcppt::variant::object<
 	sge::parse::json::int_type,
 	sge::parse::json::float_type,
 	sge::parse::json::null
->
-value_variant;
+>;
 
 }
 }

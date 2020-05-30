@@ -14,7 +14,7 @@
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/start.hpp>
 #include <sge/parse/json/value.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/parse/grammar_decl.hpp>
 
 
@@ -30,7 +30,7 @@ class grammar
 	public
 		sge::parse::json::grammar_base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		grammar
 	);
 public:

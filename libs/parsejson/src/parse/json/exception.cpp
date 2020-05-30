@@ -30,6 +30,7 @@ sge::parse::json::exception::exception(
 sge::parse::json::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::parse::json::exception::exception(
@@ -41,6 +42,7 @@ sge::parse::json::exception &
 sge::parse::json::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::parse::json::exception &
@@ -49,6 +51,6 @@ sge::parse::json::exception::operator=(
 )
 = default;
 
-sge::parse::json::exception::~exception() noexcept
-{
-}
+sge::parse::json::exception::~exception()
+noexcept
+= default;

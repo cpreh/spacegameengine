@@ -25,7 +25,9 @@ namespace json
 namespace impl
 {
 
-typedef
+using
+member_vector
+=
 std::vector<
 	std::tuple<
 		sge::charconv::utf8_string,
@@ -33,8 +35,7 @@ std::vector<
 			sge::parse::json::value
 		>
 	>
->
-member_vector;
+>;
 
 }
 }

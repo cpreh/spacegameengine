@@ -21,13 +21,14 @@ namespace renderer
 
 \ingroup sge_renderer
 */
-typedef
+using
+matrix4
+=
 fcppt::math::matrix::static_<
 	sge::renderer::scalar,
 	4,
 	4
->
-matrix4;
+>;
 
 }
 }

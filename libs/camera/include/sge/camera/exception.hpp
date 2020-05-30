@@ -37,7 +37,8 @@ public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	exception(
 		exception &&
-	);
+	)
+	noexcept;
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	exception(
@@ -48,7 +49,8 @@ public:
 	exception &
 	operator=(
 		exception &&
-	);
+	)
+	noexcept;
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	exception &

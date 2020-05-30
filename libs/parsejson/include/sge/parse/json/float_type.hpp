@@ -15,7 +15,10 @@ namespace parse
 namespace json
 {
 
-typedef double float_type;
+using
+float_type
+=
+double;
 
 }
 }

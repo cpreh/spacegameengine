@@ -12,7 +12,7 @@
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/event_base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -22,16 +22,18 @@ namespace camera
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 protected:
 	base();
 public:
+	[[nodiscard]]
 	virtual
 	sge::camera::coordinate_system::object
 	coordinate_system() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::camera::optional_projection_matrix
 	projection_matrix() const = 0;

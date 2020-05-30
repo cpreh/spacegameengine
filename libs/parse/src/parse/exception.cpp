@@ -30,6 +30,7 @@ sge::parse::exception::exception(
 sge::parse::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::parse::exception::exception(
@@ -41,6 +42,7 @@ sge::parse::exception &
 sge::parse::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::parse::exception &
@@ -49,6 +51,6 @@ sge::parse::exception::operator=(
 )
 = default;
 
-sge::parse::exception::~exception() noexcept
-{
-}
+sge::parse::exception::~exception()
+noexcept
+= default;

@@ -42,23 +42,26 @@
 namespace
 {
 
-typedef
+using
+literal
+=
 fcppt::parse::basic_literal<
 	sge::charconv::utf8_char
->
-literal;
+>;
 
-typedef
+using
+char_set
+=
 fcppt::parse::basic_char_set<
 	sge::charconv::utf8_char
->
-char_set;
+>;
 
-typedef
+using
+string
+=
 fcppt::parse::basic_string<
 	sge::charconv::utf8_char
->
-string;
+>;
 
 }
 
@@ -74,7 +77,7 @@ sge::parse::json::grammar::grammar()
 		sge::parse::json::skipper()
 	},
 	null_{
-		this->make_base(
+		sge::parse::json::grammar_base::make_base(
 			fcppt::parse::convert_const(
 				string{
 					"null"
@@ -84,7 +87,7 @@ sge::parse::json::grammar::grammar()
 		)
 	},
 	bool_{
-		this->make_base(
+		sge::parse::json::grammar_base::make_base(
 			fcppt::parse::convert_const(
 				string(
 					"true"
@@ -101,7 +104,7 @@ sge::parse::json::grammar::grammar()
 		)
 	},
 	quoted_string_{
-		this->make_base(
+		sge::parse::json::grammar_base::make_base(
 			literal{'"'}
 			>>
 			fcppt::parse::make_lexeme(
@@ -112,7 +115,7 @@ sge::parse::json::grammar::grammar()
 		)
 	},
 	array_{
-		this->make_base(
+		sge::parse::json::grammar_base::make_base(
 			fcppt::parse::construct<
 				sge::parse::json::array
 			>(
@@ -132,7 +135,7 @@ sge::parse::json::grammar::grammar()
 		)
 	},
 	object_{
-		this->make_base(
+		sge::parse::json::grammar_base::make_base(
 			fcppt::parse::construct<
 				sge::parse::json::object
 			>(
@@ -161,7 +164,7 @@ sge::parse::json::grammar::grammar()
 		)
 	},
 	value_{
-		this->make_base(
+		sge::parse::json::grammar_base::make_base(
 			fcppt::parse::construct<
 				sge::parse::json::value
 			>(
@@ -203,7 +206,7 @@ sge::parse::json::grammar::grammar()
 		)
 	},
 	start_{
-		this->make_base(
+		sge::parse::json::grammar_base::make_base(
 			fcppt::parse::construct<
 				sge::parse::json::start
 			>(
@@ -223,5 +226,4 @@ sge::parse::json::grammar::grammar()
 FCPPT_PP_POP_WARNING
 
 sge::parse::json::grammar::~grammar()
-{
-}
+= default;

@@ -9,7 +9,10 @@
 
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/find_member_value_exn.hpp>
+#include <sge/parse/json/get_return_type.hpp>
 #include <sge/parse/json/get_exn.hpp>
+#include <sge/parse/json/member_map.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
@@ -32,18 +35,26 @@ template<
 	typename T,
 	typename Arg
 >
-std::conditional_t<
-	std::is_const_v<
-		Arg
-	>,
-	T const &,
-	T &
+sge::parse::json::get_return_type<
+	T,
+	Arg
 >
 find_member_exn(
-	Arg &_members,
+	fcppt::reference<
+		Arg
+	> const _members,
 	sge::charconv::utf8_string const &_name
 )
 {
+	static_assert(
+		std::is_same_v<
+			std::remove_const_t<
+				Arg
+			>,
+			sge::parse::json::member_map
+		>
+	);
+
 	return
 		sge::parse::json::get_exn<
 			T

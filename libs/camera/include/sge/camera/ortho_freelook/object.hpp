@@ -25,6 +25,7 @@
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/rect.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -47,7 +48,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL object
 	public virtual sge::camera::base,
 	public sge::camera::is_dynamic
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:

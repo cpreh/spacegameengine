@@ -22,14 +22,15 @@ namespace parse
 namespace json
 {
 
-typedef
+using
+member
+=
 std::pair<
 	sge::charconv::utf8_string,
 	fcppt::recursive<
 		sge::parse::json::value
 	>
->
-member;
+>;
 
 }
 }

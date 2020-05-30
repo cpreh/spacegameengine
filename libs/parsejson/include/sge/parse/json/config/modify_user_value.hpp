@@ -11,6 +11,7 @@
 #include <sge/parse/json/path_fwd.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/symbol.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -36,7 +37,9 @@ SGE_PARSE_JSON_DETAIL_SYMBOL
 void
 modify_user_value(
 	sge::parse::json::object const &structure_json,
-	sge::parse::json::object &user_json,
+	fcppt::reference<
+		sge::parse::json::object
+	> user_json,
 	sge::parse::json::path const &path,
 	sge::parse::json::value const &new_value
 );

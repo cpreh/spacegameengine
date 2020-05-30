@@ -24,11 +24,12 @@ namespace json
 class path
 {
 public:
-	typedef
+	using
+	sequence_type
+	=
 	std::vector<
 		sge::charconv::utf8_string
-	>
-	sequence_type;
+	>;
 
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	explicit
@@ -42,12 +43,14 @@ public:
 		sequence_type &&
 	);
 
+	[[nodiscard]]
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	path
 	operator/(
 		sge::charconv::utf8_string &&
 	) &&;
 
+	[[nodiscard]]
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	sequence_type const &
 	get() const;

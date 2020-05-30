@@ -45,7 +45,9 @@ sge::timer::scoped_frame_limiter::~scoped_frame_limiter()
 	if(
 		diff > minimum_frame_length_
 	)
+	{
 		return;
+	}
 
 	std::this_thread::sleep_for(
 		minimum_frame_length_ - diff

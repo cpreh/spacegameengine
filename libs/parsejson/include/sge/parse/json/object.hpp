@@ -27,7 +27,7 @@ struct object
 		sge::parse::json::member_map &&
 	);
 
-	sge::parse::json::member_map members;
+	sge::parse::json::member_map members; // NOLINT(misc-non-private-member-variables-in-classes)
 };
 
 SGE_PARSE_JSON_DETAIL_SYMBOL

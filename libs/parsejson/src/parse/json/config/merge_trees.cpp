@@ -12,6 +12,7 @@
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/config/merge_trees.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/container/key_set.hpp>
 #include <fcppt/container/set_union.hpp>
@@ -32,9 +33,10 @@ namespace
 
 struct visitor
 {
-	typedef
-	sge::parse::json::value
-	result_type;
+	using
+	result_type
+	=
+	sge::parse::json::value;
 
 	result_type
 	operator()(
@@ -76,11 +78,12 @@ sge::parse::json::config::merge_trees(
 	sge::parse::json::object const &_update
 )
 {
-	typedef
+	using
+	string_set
+	=
 	std::set<
 		sge::charconv::utf8_string
-	>
-	string_set;
+	>;
 
 	return
 		sge::parse::json::object(
@@ -111,13 +114,17 @@ sge::parse::json::config::merge_trees(
 							fcppt::optional::combine(
 								fcppt::optional::copy_value(
 									sge::parse::json::find_member_value(
-										_original.members,
+										fcppt::make_cref(
+											_original.members
+										),
 										_key
 									)
 								),
 								fcppt::optional::copy_value(
 									sge::parse::json::find_member_value(
-										_update.members,
+										fcppt::make_cref(
+											_update.members
+										),
 										_key
 									)
 								),

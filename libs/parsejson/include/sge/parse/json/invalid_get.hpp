@@ -34,7 +34,8 @@ public:
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	invalid_get(
 		invalid_get &&
-	);
+	)
+	noexcept;
 
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	invalid_get(
@@ -45,7 +46,8 @@ public:
 	invalid_get &
 	operator=(
 		invalid_get &&
-	);
+	)
+	noexcept;
 
 	SGE_PARSE_JSON_DETAIL_SYMBOL
 	invalid_get &

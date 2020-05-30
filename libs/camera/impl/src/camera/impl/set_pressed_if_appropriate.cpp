@@ -8,12 +8,15 @@
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/optional_code.hpp>
 #include <sge/input/keyboard/event/key.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
 
 void
 sge::camera::impl::set_pressed_if_appropriate(
-	bool &_result,
+	fcppt::reference<
+		bool
+	> const _result,
 	sge::input::key::optional_code const &_optional_key,
 	sge::input::keyboard::event::key const &_key_event
 )
@@ -32,7 +35,7 @@ sge::camera::impl::set_pressed_if_appropriate(
 				==
 				_key_event.get().code()
 			)
-				_result =
+				_result.get() =
 					_key_event.pressed();
 		}
 	);

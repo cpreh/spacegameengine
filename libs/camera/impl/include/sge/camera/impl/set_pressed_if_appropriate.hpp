@@ -9,6 +9,7 @@
 
 #include <sge/input/key/optional_code_fwd.hpp>
 #include <sge/input/keyboard/event/key_fwd.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -20,7 +21,9 @@ namespace impl
 
 void
 set_pressed_if_appropriate(
-	bool &,
+	fcppt::reference<
+		bool
+	>,
 	sge::input::key::optional_code const &,
 	sge::input::keyboard::event::key const &
 );

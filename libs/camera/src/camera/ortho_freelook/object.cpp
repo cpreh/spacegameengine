@@ -24,6 +24,7 @@
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/projection/rect.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/math/box/stretch_relative.hpp>
@@ -348,19 +349,25 @@ sge::camera::ortho_freelook::object::key_event(
 )
 {
 	sge::camera::impl::set_pressed_if_appropriate(
-		zoom_in_pressed_,
+		fcppt::make_ref(
+			zoom_in_pressed_
+		),
 		action_mapping_.zoom_in().get(),
 		_key_event
 	);
 
 	sge::camera::impl::set_pressed_if_appropriate(
-		zoom_out_pressed_,
+		fcppt::make_ref(
+			zoom_out_pressed_
+		),
 		action_mapping_.zoom_out().get(),
 		_key_event
 	);
 
 	sge::camera::impl::set_pressed_if_appropriate(
-		pan_pressed_,
+		fcppt::make_ref(
+			pan_pressed_
+		),
 		action_mapping_.activate_pan().get(),
 		_key_event
 	);

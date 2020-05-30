@@ -12,7 +12,7 @@
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/value.hpp>
-#include <fcppt/make_cref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/map.hpp>
 
 
@@ -37,7 +37,9 @@ sge::parse::json::find_member_return_type<
 	Arg
 >
 find_member(
-	Arg &_members,
+	fcppt::reference<
+		Arg
+	> const _members,
 	sge::charconv::utf8_string const &_name
 )
 {
@@ -48,16 +50,14 @@ find_member(
 				_name
 			),
 			[](
-				auto const _arg
+				auto const _arg_ref
 			)
 			{
 				return
-					fcppt::make_ref(
-						sge::parse::json::get_exn<
-							T
-						>(
-							_arg.get()
-						)
+					sge::parse::json::get_exn<
+						T
+					>(
+						_arg_ref
 					);
 			}
 		);

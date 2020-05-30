@@ -12,6 +12,7 @@
 #include <sge/parse/json/optional_object_ref.hpp>
 #include <sge/parse/json/path_fwd.hpp>
 #include <sge/parse/json/detail/symbol.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -24,14 +25,18 @@ namespace json
 SGE_PARSE_JSON_DETAIL_SYMBOL
 sge::parse::json::optional_object_ref
 find_object(
-	sge::parse::json::object &,
+	fcppt::reference<
+		sge::parse::json::object
+	>,
 	sge::parse::json::path const &
 );
 
 SGE_PARSE_JSON_DETAIL_SYMBOL
 sge::parse::json::const_optional_object_ref
 find_object(
-	sge::parse::json::object const &,
+	fcppt::reference<
+		sge::parse::json::object const
+	>,
 	sge::parse::json::path const &
 );
 

@@ -28,6 +28,9 @@
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -36,7 +39,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::camera::tracking::json::key_press_exporter::key_press_exporter(
 	fcppt::log::context_reference const _log_context,
 	sge::camera::base const &_camera,
-	std::filesystem::path const &_target_path,
+	std::filesystem::path &&_target_path,
 	sge::camera::update_duration const &_duration,
 	keyframe_keypress const &_keyframe_keypress,
 	export_keypress const &_export_keypress
@@ -53,7 +56,9 @@ sge::camera::tracking::json::key_press_exporter::key_press_exporter(
 		_camera
 	},
 	target_path_{
-		_target_path
+		std::move(
+			_target_path
+		)
 	},
 	duration_{
 		_duration
@@ -71,8 +76,7 @@ sge::camera::tracking::json::key_press_exporter::key_press_exporter(
 FCPPT_PP_POP_WARNING
 
 sge::camera::tracking::json::key_press_exporter::~key_press_exporter()
-{
-}
+= default;
 
 void
 sge::camera::tracking::json::key_press_exporter::process_event(
@@ -108,7 +112,9 @@ sge::camera::tracking::json::key_press_exporter::key_event(
 	if(
 		!_key_event.pressed()
 	)
+	{
 		return;
+	}
 
 	if(
 		_key_event.get().code()
@@ -161,6 +167,7 @@ sge::camera::tracking::json::key_press_exporter::key_event(
 				)
 			)
 		)
+		{
 			throw
 				sge::camera::exception(
 					FCPPT_TEXT("Couldn't write to file \"")
@@ -171,6 +178,7 @@ sge::camera::tracking::json::key_press_exporter::key_event(
 					+
 					FCPPT_TEXT('"')
 				);
+		}
 
 		FCPPT_LOG_INFO(
 			log_,
