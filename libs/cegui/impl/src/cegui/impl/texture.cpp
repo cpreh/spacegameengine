@@ -32,6 +32,7 @@
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/texture/capabilities_field_fwd.hpp>
 #include <sge/renderer/texture/color_format.hpp>
@@ -42,6 +43,7 @@
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
@@ -259,7 +261,13 @@ sge::cegui::impl::texture::create_from_view(
 	texture_ =
 		optional_planar_unique_ptr(
 			sge::renderer::texture::create_planar_from_view(
-				texture_parameters_.renderer(),
+				fcppt::reference_to_base<
+					sge::renderer::device::core
+				>(
+					fcppt::make_ref(
+						texture_parameters_.renderer()
+					)
+				),
 				_view,
 				sge::renderer::texture::mipmap::off(),
 				sge::renderer::resource_flags_field::null(),
@@ -418,9 +426,11 @@ sge::cegui::impl::texture::loadFromMemory(
 	);
 
 	sge::renderer::texture::scoped_planar_lock const lock(
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			this->impl()
-		).get(),
+		fcppt::make_ref(
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				this->impl()
+			).get()
+		),
 		sge::renderer::lock_mode::writeonly
 	);
 

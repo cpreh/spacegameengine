@@ -25,8 +25,10 @@ sge::renderer::texture::translate_srgb_emulation(
 		==
 		sge::renderer::texture::emulate_srgb::no
 	)
+	{
 		return
 			format;
+	}
 
 	switch(
 		format

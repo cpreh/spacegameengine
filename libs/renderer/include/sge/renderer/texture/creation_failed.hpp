@@ -34,7 +34,8 @@ public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	creation_failed(
 		creation_failed &&
-	);
+	)
+	noexcept;
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	creation_failed(
@@ -45,7 +46,8 @@ public:
 	creation_failed &
 	operator=(
 		creation_failed &&
-	);
+	)
+	noexcept;
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	creation_failed &

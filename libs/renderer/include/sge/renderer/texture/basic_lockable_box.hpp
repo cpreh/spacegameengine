@@ -15,7 +15,7 @@
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/basic_lockable_box_fwd.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL basic_lockable_box
 :
 	public sge::renderer::texture::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		basic_lockable_box
 	);
 protected:
@@ -43,34 +43,40 @@ public:
 	~basic_lockable_box()
 	override;
 
-	typedef
+	using
+	dim
+	=
 	sge::image::dim<
 		Tag
-	>
-	dim;
+	>;
 
-	typedef
+	using
+	const_buffer
+	=
 	sge::renderer::buffer::readable<
 		Tag
-	>
-	const_buffer;
+	>;
 
-	typedef
+	using
+	nonconst_buffer
+	=
 	sge::renderer::buffer::writable<
 		Tag
-	>
-	nonconst_buffer;
+	>;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	dim
 	size() const;
 
+	[[nodiscard]]
 	virtual
 	nonconst_buffer &
 	level(
 		sge::renderer::texture::mipmap::level
 	) = 0;
 
+	[[nodiscard]]
 	virtual
 	const_buffer const &
 	level(

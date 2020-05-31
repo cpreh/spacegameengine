@@ -18,11 +18,12 @@ namespace renderer
 namespace texture
 {
 
-typedef
+using
+capabilities_field
+=
 fcppt::container::bitfield::enum_object<
 	sge::renderer::texture::capabilities
->
-capabilities_field;
+>;
 
 }
 }

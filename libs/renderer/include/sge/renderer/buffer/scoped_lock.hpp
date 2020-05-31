@@ -13,7 +13,9 @@
 #include <sge/renderer/buffer/writable_fwd.hpp>
 #include <sge/renderer/buffer/traits/view.hpp>
 #include <sge/renderer/detail/symbol.hpp>
+#include <sge/renderer/index/dynamic/view.hpp>
 #include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -48,6 +50,13 @@ public:
 	>;
 
 	using
+	buffer_ref
+	=
+	fcppt::reference<
+		buffer_type
+	>;
+
+	using
 	lock_area
 	=
 	sge::image::box<
@@ -72,7 +81,7 @@ public:
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
 	scoped_lock(
-		buffer_type &buffer,
+		buffer_ref buffer,
 		sge::renderer::lock_mode mode
 	);
 
@@ -93,7 +102,7 @@ public:
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
 	scoped_lock(
-		buffer_type &buffer,
+		buffer_ref buffer,
 		lock_area const &area,
 		sge::renderer::lock_mode mode
 	);
@@ -117,7 +126,7 @@ public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped_lock();
 private:
-	buffer_type &buffer_;
+	buffer_ref const buffer_;
 
 	view const view_;
 };

@@ -18,11 +18,12 @@ namespace renderer
 namespace texture
 {
 
-typedef
+using
+const_scoped_volume_lock
+=
 sge::renderer::texture::const_basic_scoped_lock<
 	sge::image3d::tag
->
-const_scoped_volume_lock;
+>;
 
 }
 }

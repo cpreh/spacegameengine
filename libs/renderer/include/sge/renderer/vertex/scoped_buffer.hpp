@@ -7,11 +7,11 @@
 #ifndef SGE_RENDERER_VERTEX_SCOPED_BUFFER_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_SCOPED_BUFFER_HPP_INCLUDED
 
-#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/vertex/buffer_fwd.hpp>
+#include <sge/renderer/vertex/const_buffer_ref.hpp>
 #include <sge/renderer/vertex/scoped_buffer_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -28,7 +28,7 @@ Sets a vertex buffer in the constructor and unsets it in the destructor.
 */
 class scoped_buffer
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_buffer
 	);
 public:
@@ -48,8 +48,8 @@ public:
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
 	scoped_buffer(
-		sge::renderer::context::core &context,
-		sge::renderer::vertex::buffer const &vertex_buffer
+		sge::renderer::context::core_ref context,
+		sge::renderer::vertex::const_buffer_ref vertex_buffer
 	);
 
 	/**
@@ -61,9 +61,9 @@ public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped_buffer();
 private:
-	sge::renderer::context::core &context_;
+	sge::renderer::context::core_ref const context_;
 
-	sge::renderer::vertex::buffer const &vertex_buffer_;
+	sge::renderer::vertex::const_buffer_ref const vertex_buffer_;
 };
 
 }

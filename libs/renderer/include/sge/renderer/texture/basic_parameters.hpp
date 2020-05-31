@@ -30,29 +30,34 @@ class basic_parameters
 public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	basic_parameters(
-		Dim const &,
+		Dim,
 		Format const &,
 		sge::renderer::texture::mipmap::object const &,
 		sge::renderer::resource_flags_field const &,
 		sge::renderer::texture::capabilities_field const &
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	Dim const &
 	size() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	Format
 	format() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::texture::mipmap::object const &
 	mipmap() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::resource_flags_field const &
 	resource_flags() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::texture::capabilities_field const &
 	capabilities() const;

@@ -7,12 +7,12 @@
 #ifndef SGE_RENDERER_CG_SCOPED_TEXTURE_HPP_INCLUDED
 #define SGE_RENDERER_CG_SCOPED_TEXTURE_HPP_INCLUDED
 
-#include <sge/renderer/cg/loaded_texture_fwd.hpp>
+#include <sge/renderer/cg/const_loaded_texture_ref.hpp>
 #include <sge/renderer/cg/scoped_texture_fwd.hpp>
 #include <sge/renderer/cg/detail/symbol.hpp>
-#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -24,14 +24,14 @@ namespace cg
 
 class scoped_texture
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_texture
 	);
 public:
 	SGE_RENDERER_CG_DETAIL_SYMBOL
 	scoped_texture(
-		sge::renderer::context::core &,
-		sge::renderer::cg::loaded_texture const &
+		sge::renderer::context::core_ref,
+		sge::renderer::cg::const_loaded_texture_ref
 	);
 
 	SGE_RENDERER_CG_DETAIL_SYMBOL
@@ -41,9 +41,9 @@ public:
 	sge::renderer::texture::stage
 	stage() const;
 private:
-	sge::renderer::context::core &context_;
+	sge::renderer::context::core_ref const context_;
 
-	sge::renderer::cg::loaded_texture const &texture_;
+	sge::renderer::cg::const_loaded_texture_ref const texture_;
 
 	sge::renderer::texture::stage const stage_;
 };

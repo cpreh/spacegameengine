@@ -11,9 +11,9 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vertex/buffer_parameters_fwd.hpp>
 #include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -44,31 +44,33 @@ public:
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
 	buffer_parameters(
-		sge::renderer::vertex::declaration const &declaration,
+		sge::renderer::vertex::const_declaration_ref declaration,
 		sge::renderer::vf::dynamic::part_index part,
 		sge::renderer::vertex::count count,
 		sge::renderer::resource_flags_field const &flags
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vertex::declaration const &
 	declaration() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::part_index
 	part() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vertex::count
 	count() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::resource_flags_field
 	flags() const;
 private:
-	fcppt::reference<
-		sge::renderer::vertex::declaration const
-	> declaration_;
+	sge::renderer::vertex::const_declaration_ref declaration_;
 
 	sge::renderer::vf::dynamic::part_index part_;
 

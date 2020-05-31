@@ -11,6 +11,9 @@
 #include <sge/renderer/texture/basic_parameters.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -21,7 +24,7 @@ sge::renderer::texture::basic_parameters<
 	Dim,
 	Format
 >::basic_parameters(
-	Dim const &_dim,
+	Dim _dim,
 	Format const &_format,
 	sge::renderer::texture::mipmap::object const &_mipmap,
 	sge::renderer::resource_flags_field const &_resource_flags,
@@ -29,7 +32,9 @@ sge::renderer::texture::basic_parameters<
 )
 :
 	dim_(
-		_dim
+		std::move(
+			_dim
+		)
 	),
 	format_(
 		_format
@@ -56,7 +61,8 @@ sge::renderer::texture::basic_parameters<
 	Format
 >::size() const
 {
-	return dim_;
+	return
+		dim_;
 }
 
 template<
@@ -69,7 +75,8 @@ sge::renderer::texture::basic_parameters<
 	Format
 >::format() const
 {
-	return format_;
+	return
+		format_;
 }
 
 template<
@@ -82,7 +89,8 @@ sge::renderer::texture::basic_parameters<
 	Format
 >::mipmap() const
 {
-	return mipmap_;
+	return
+		mipmap_;
 }
 
 template<
@@ -95,7 +103,8 @@ sge::renderer::texture::basic_parameters<
 	Format
 >::resource_flags() const
 {
-	return resource_flags_;
+	return
+		resource_flags_;
 }
 
 template<
@@ -108,7 +117,8 @@ sge::renderer::texture::basic_parameters<
 	Format
 >::capabilities() const
 {
-	return capabilities_;
+	return
+		capabilities_;
 }
 
 #endif

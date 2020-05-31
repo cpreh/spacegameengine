@@ -12,6 +12,7 @@
 #include <sge/renderer/basic_lock_box.hpp>
 #include <sge/renderer/texture/const_basic_scoped_lock.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
+#include <fcppt/make_cref.hpp>
 
 
 template<
@@ -20,13 +21,15 @@ template<
 sge::renderer::texture::const_basic_scoped_lock<
 	Tag
 >::const_basic_scoped_lock(
-	texture_type const &_texture
+	texture_ref const _texture
 )
 :
 	lock_(
-		_texture.level(
-			sge::renderer::texture::mipmap::level(
-				0u
+		fcppt::make_cref(
+			_texture.get().level(
+				sge::renderer::texture::mipmap::level(
+					0U
+				)
 			)
 		)
 	)
@@ -39,14 +42,16 @@ template<
 sge::renderer::texture::const_basic_scoped_lock<
 	Tag
 >::const_basic_scoped_lock(
-	texture_type const &_texture,
+	texture_ref const _texture,
 	lock_area const &_area
 )
 :
 	lock_(
-		_texture.level(
-			sge::renderer::texture::mipmap::level(
-				0u
+		fcppt::make_cref(
+			_texture.get().level(
+				sge::renderer::texture::mipmap::level(
+					0U
+				)
 			)
 		),
 		_area
@@ -75,7 +80,6 @@ template<
 sge::renderer::texture::const_basic_scoped_lock<
 	Tag
 >::~const_basic_scoped_lock()
-{
-}
+= default;
 
 #endif

@@ -8,5 +8,4 @@
 
 
 sge::renderer::texture::mipmap::off_rep::off_rep()
-{
-}
+= default;

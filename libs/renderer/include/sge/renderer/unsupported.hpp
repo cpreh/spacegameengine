@@ -28,6 +28,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL unsupported
 	public sge::renderer::exception
 {
 public:
+	// TODO(philipp): strong typedefs
 	SGE_RENDERER_DETAIL_SYMBOL
 	unsupported(
 		fcppt::string const &feature,
@@ -38,6 +39,7 @@ public:
 	/**
 	\brief Returns the name of the missing feature
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	fcppt::string const &
 	feature() const;
@@ -45,6 +47,7 @@ public:
 	/**
 	\brief Returns the minimum version that is required to get the feature
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	fcppt::string const &
 	minimum_version_required() const;
@@ -52,6 +55,7 @@ public:
 	/**
 	\brief Returns possible extensions that could provide the feature
 	*/
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	fcppt::string const &
 	possible_extensions() const;
@@ -59,7 +63,8 @@ public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	unsupported(
 		unsupported &&
-	);
+	)
+	noexcept;
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	unsupported(
@@ -70,7 +75,8 @@ public:
 	unsupported &
 	operator=(
 		unsupported &&
-	);
+	)
+	noexcept;
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	unsupported &

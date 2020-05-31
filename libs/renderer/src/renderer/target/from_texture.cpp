@@ -11,6 +11,7 @@
 #include <sge/renderer/color_buffer/surface.hpp>
 #include <sge/renderer/color_buffer/writable_surface.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/target/from_texture.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
@@ -19,6 +20,7 @@
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_ref.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>
@@ -32,25 +34,27 @@
 
 sge::renderer::target::offscreen_unique_ptr
 sge::renderer::target::from_texture(
-	sge::renderer::device::core &_device,
-	sge::renderer::texture::planar &_texture
+	sge::renderer::device::core_ref const _device,
+	sge::renderer::texture::planar_ref const _texture
 )
 {
 	if(
 		!(
-			_texture.capabilities()
+			_texture.get().capabilities()
 			&
 			sge::renderer::texture::capabilities::render_target
 		)
 	)
+	{
 		throw
 			sge::renderer::exception(
 				FCPPT_TEXT("renderer::target_from_texture() called with a texture ")
 				FCPPT_TEXT("that is not a render target!")
 			);
+	}
 
 	sge::renderer::target::offscreen_unique_ptr target(
-		_device.create_target()
+		_device.get().create_target()
 	);
 
 	target->color_surface(
@@ -59,16 +63,16 @@ sge::renderer::target::from_texture(
 				sge::renderer::color_buffer::surface
 			>(
 				fcppt::make_ref(
-					_texture.level(
+					_texture.get().level(
 						sge::renderer::texture::mipmap::level(
-							0u
+							0U
 						)
 					)
 				)
 			)
 		),
 		sge::renderer::target::surface_index(
-			0u
+			0U
 		)
 	);
 
@@ -86,7 +90,7 @@ sge::renderer::target::from_texture(
 						sge::renderer::screen_size,
 						fcppt::cast::size_fun
 					>(
-						_texture.size()
+						_texture.get().size()
 					)
 				)
 			)

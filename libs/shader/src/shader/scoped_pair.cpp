@@ -8,20 +8,34 @@
 #include <sge/shader/pair.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 sge::shader::scoped_pair::scoped_pair(
 	sge::renderer::context::core &_render_context,
-	sge::shader::pair &_parent)
+	sge::shader::pair &_parent
+)
 :
 	parent_(
-		_parent),
+		_parent
+	),
 	scoped_vertex_program_(
-		_render_context,
-		parent_.loaded_vertex_program()),
+		fcppt::make_ref(
+			_render_context
+		),
+		fcppt::make_cref(
+			parent_.loaded_vertex_program()
+		)
+	),
 	scoped_pixel_program_(
-		_render_context,
-		parent_.loaded_pixel_program())
+		fcppt::make_ref(
+			_render_context
+		),
+		fcppt::make_cref(
+			parent_.loaded_pixel_program()
+		)
+	)
 {
 	for(
 		auto const ptr
@@ -29,7 +43,8 @@ sge::shader::scoped_pair::scoped_pair(
 		parent_.planar_textures_
 	)
 		ptr->activate(
-			_render_context);
+			_render_context
+		);
 }
 
 sge::shader::scoped_pair::~scoped_pair()

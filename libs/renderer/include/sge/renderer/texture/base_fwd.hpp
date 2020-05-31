@@ -7,6 +7,7 @@
 #ifndef SGE_RENDERER_TEXTURE_BASE_FWD_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_BASE_FWD_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace renderer

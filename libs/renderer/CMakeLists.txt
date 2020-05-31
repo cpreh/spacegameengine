@@ -225,8 +225,10 @@ set(
 	libs/renderer/include/sge/renderer/index/buffer_fwd.hpp
 	libs/renderer/include/sge/renderer/index/buffer_parameters.hpp
 	libs/renderer/include/sge/renderer/index/buffer_parameters_fwd.hpp
+	libs/renderer/include/sge/renderer/index/buffer_ref.hpp
 	libs/renderer/include/sge/renderer/index/buffer_shared_ptr.hpp
 	libs/renderer/include/sge/renderer/index/buffer_unique_ptr.hpp
+	libs/renderer/include/sge/renderer/index/const_buffer_ref.hpp
 	libs/renderer/include/sge/renderer/index/const_proxy.hpp
 	libs/renderer/include/sge/renderer/index/const_proxy_decl.hpp
 	libs/renderer/include/sge/renderer/index/const_proxy_fwd.hpp
@@ -749,6 +751,7 @@ set(
 	libs/renderer/include/sge/renderer/texture/capabilities_fwd.hpp
 	libs/renderer/include/sge/renderer/texture/color_format.hpp
 	libs/renderer/include/sge/renderer/texture/color_format_fwd.hpp
+	libs/renderer/include/sge/renderer/texture/const_base_ref.hpp
 	libs/renderer/include/sge/renderer/texture/const_basic_scoped_lock.hpp
 	libs/renderer/include/sge/renderer/texture/const_basic_scoped_lock_fwd.hpp
 	libs/renderer/include/sge/renderer/texture/const_optional_base_ref.hpp
@@ -803,6 +806,7 @@ set(
 	libs/renderer/include/sge/renderer/texture/planar_fwd.hpp
 	libs/renderer/include/sge/renderer/texture/planar_parameters.hpp
 	libs/renderer/include/sge/renderer/texture/planar_parameters_fwd.hpp
+	libs/renderer/include/sge/renderer/texture/planar_ref.hpp
 	libs/renderer/include/sge/renderer/texture/planar_shared_ptr.hpp
 	libs/renderer/include/sge/renderer/texture/planar_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/texture/scoped.hpp
@@ -832,10 +836,12 @@ set(
 	libs/renderer/include/sge/renderer/vertex/buffer_fwd.hpp
 	libs/renderer/include/sge/renderer/vertex/buffer_parameters.hpp
 	libs/renderer/include/sge/renderer/vertex/buffer_parameters_fwd.hpp
+	libs/renderer/include/sge/renderer/vertex/buffer_ref.hpp
 	libs/renderer/include/sge/renderer/vertex/buffer_shared_ptr.hpp
 	libs/renderer/include/sge/renderer/vertex/buffer_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/vertex/const_buffer_ref.hpp
 	libs/renderer/include/sge/renderer/vertex/const_buffer_ref_container.hpp
+	libs/renderer/include/sge/renderer/vertex/const_declaration_ref.hpp
 	libs/renderer/include/sge/renderer/vertex/const_optional_declaration_ref.hpp
 	libs/renderer/include/sge/renderer/vertex/const_optional_declaration_ref_fwd.hpp
 	libs/renderer/include/sge/renderer/vertex/const_scoped_lock.hpp
@@ -883,6 +889,7 @@ set(
 	libs/renderer/include/sge/renderer/vf/dynamic/color.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/color_format_vector.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/color_fwd.hpp
+	libs/renderer/include/sge/renderer/vf/dynamic/const_part_ref.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/const_view.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/const_view_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/converter.hpp
@@ -922,7 +929,6 @@ set(
 	libs/renderer/include/sge/renderer/vf/dynamic/ordered_element_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/ordered_element_list.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/part.hpp
-	libs/renderer/include/sge/renderer/vf/dynamic/part_cref.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/part_fwd.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/part_index.hpp
 	libs/renderer/include/sge/renderer/vf/dynamic/part_list.hpp

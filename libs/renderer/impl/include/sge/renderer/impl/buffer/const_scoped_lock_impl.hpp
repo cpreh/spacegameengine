@@ -16,14 +16,14 @@ template<
 sge::renderer::buffer::const_scoped_lock<
 	Tag
 >::const_scoped_lock(
-	buffer_type const &_buffer
+	buffer_ref const _buffer
 )
 :
 	buffer_(
 		_buffer
 	),
 	view_(
-		buffer_.lock_c()
+		buffer_.get().lock_c()
 	)
 {
 }
@@ -34,7 +34,7 @@ template<
 sge::renderer::buffer::const_scoped_lock<
 	Tag
 >::const_scoped_lock(
-	buffer_type const &_buffer,
+	buffer_ref const _buffer,
 	lock_area const &_area
 )
 :
@@ -42,7 +42,7 @@ sge::renderer::buffer::const_scoped_lock<
 		_buffer
 	),
 	view_(
-		buffer_.lock_c(
+		buffer_.get().lock_c(
 			_area
 		)
 	)
@@ -71,7 +71,7 @@ sge::renderer::buffer::const_scoped_lock<
 	Tag
 >::~const_scoped_lock()
 {
-	buffer_.unlock();
+	buffer_.get().unlock();
 }
 
 #endif

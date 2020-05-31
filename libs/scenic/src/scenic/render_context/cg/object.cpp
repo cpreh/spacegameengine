@@ -55,8 +55,10 @@ sge::scenic::render_context::cg::object::object(
 		_context
 	),
 	scoped_vd_(
-		_context.get(), // TODO
-		_manager.vertex_declaration_
+		_context,
+		fcppt::make_cref(
+			_manager.vertex_declaration_
+		)
 	),
 	depth_stencil_state_(
 		_context,
@@ -331,7 +333,9 @@ sge::scenic::render_context::cg::object::vertex_buffer(
 		);
 
 	context_.get().activate_vertex_buffer(
-		_new_vertex_buffer
+		fcppt::make_cref(
+			_new_vertex_buffer
+		)
 	);
 }
 

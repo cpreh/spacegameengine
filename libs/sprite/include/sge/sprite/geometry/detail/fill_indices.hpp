@@ -16,6 +16,7 @@
 #include <sge/sprite/buffers/index_count.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
 #include <sge/sprite/geometry/detail/index_generator.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 namespace sge
@@ -39,7 +40,9 @@ fill_indices(
 )
 {
 	sge::renderer::index::scoped_lock const lock(
-		_slice.index_buffer(),
+		fcppt::make_ref(
+			_slice.index_buffer()
+		),
 		sge::renderer::lock_segment{
 			sge::renderer::lock_segment::vector{
 				_slice.first_index().get()

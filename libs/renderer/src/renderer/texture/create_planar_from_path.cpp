@@ -8,7 +8,7 @@
 #include <sge/image2d/load_exn.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/texture/create_planar_from_file.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
@@ -25,7 +25,7 @@
 sge::renderer::texture::planar_unique_ptr
 sge::renderer::texture::create_planar_from_path(
 	std::filesystem::path const &_file,
-	sge::renderer::device::core &_renderer,
+	sge::renderer::device::core_ref const _renderer,
 	sge::image2d::system &_system,
 	sge::renderer::texture::mipmap::object const &_mipmap,
 	sge::renderer::resource_flags_field const &_flags,

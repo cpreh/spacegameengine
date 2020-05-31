@@ -4,10 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/vertex/const_buffer_ref.hpp>
 #include <sge/renderer/vertex/const_buffer_ref_container.hpp>
-#include <sge/renderer/vertex/declaration_fwd.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/renderer/vertex/scoped_declaration_and_buffers.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -15,8 +15,8 @@
 
 
 sge::renderer::vertex::scoped_declaration_and_buffers::scoped_declaration_and_buffers(
-	sge::renderer::context::core &_context,
-	sge::renderer::vertex::declaration const &_vertex_declaration,
+	sge::renderer::context::core_ref const _context,
+	sge::renderer::vertex::const_declaration_ref const _vertex_declaration,
 	sge::renderer::vertex::const_buffer_ref_container const &_vertex_buffers
 )
 :
@@ -40,7 +40,7 @@ sge::renderer::vertex::scoped_declaration_and_buffers::scoped_declaration_and_bu
 						sge::renderer::vertex::scoped_buffer
 					>(
 						_context,
-						_ref.get()
+						_ref
 					);
 			}
 		)
@@ -49,5 +49,4 @@ sge::renderer::vertex::scoped_declaration_and_buffers::scoped_declaration_and_bu
 }
 
 sge::renderer::vertex::scoped_declaration_and_buffers::~scoped_declaration_and_buffers()
-{
-}
+= default;

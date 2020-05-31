@@ -14,7 +14,8 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/texture/basic_lockable_box_fwd.hpp>
 #include <sge/renderer/texture/const_basic_scoped_lock_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -29,43 +30,54 @@ template<
 >
 class const_basic_scoped_lock
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		const_basic_scoped_lock
 	);
 public:
-	typedef
+	using
+	texture_type
+	=
 	sge::renderer::texture::basic_lockable_box<
 		Tag
-	>
-	texture_type;
+	>;
 
-	typedef
+	using
+	texture_ref
+	=
+	fcppt::reference<
+		texture_type const
+	>;
+
+	using
+	buffer
+	=
 	sge::renderer::buffer::readable<
 		Tag
-	>
-	buffer;
+	>;
 
-	typedef
+	using
+	lock_area
+	=
 	sge::image::box<
 		Tag
-	>
-	lock_area;
+	>;
 
-	typedef
+	using
+	const_view
+	=
 	sge::image::view::const_object<
 		Tag
-	>
-	const_view;
+	>;
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	const_basic_scoped_lock(
-		texture_type const &
+		texture_ref
 	);
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	const_basic_scoped_lock(
-		texture_type const &,
+		texture_ref,
 		lock_area const &
 	);
 
@@ -76,11 +88,12 @@ public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	~const_basic_scoped_lock();
 private:
-	typedef
+	using
+	buffer_lock
+	=
 	sge::renderer::buffer::const_scoped_lock<
 		Tag
-	>
-	buffer_lock;
+	>;
 
 	buffer_lock const lock_;
 };

@@ -8,9 +8,7 @@
 
 
 sge::renderer::target::onscreen::onscreen()
-{
-}
+= default;
 
 sge::renderer::target::onscreen::~onscreen()
-{
-}
+= default;

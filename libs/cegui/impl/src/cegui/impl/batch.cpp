@@ -14,6 +14,7 @@
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <fcppt/make_cref.hpp>
 
 
 sge::cegui::impl::batch::batch(
@@ -30,7 +31,9 @@ sge::cegui::impl::batch::batch(
 	vertex_buffer_(
 		_renderer.create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
-				_vertex_declaration,
+				fcppt::make_cref(
+					_vertex_declaration
+				),
 				sge::renderer::vf::dynamic::part_index(
 					0u
 				),

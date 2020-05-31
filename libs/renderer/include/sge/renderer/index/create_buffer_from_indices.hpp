@@ -10,6 +10,7 @@
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_parameters.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
@@ -19,6 +20,7 @@
 #include <sge/renderer/index/nonconst_tag.hpp>
 #include <sge/renderer/index/scoped_lock.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/algorithm/range_element_type.hpp>
 #include <fcppt/range/begin.hpp>
 #include <fcppt/range/end.hpp>
@@ -40,7 +42,7 @@ template<
 >
 sge::renderer::index::buffer_unique_ptr
 create_buffer_from_indices(
-	sge::renderer::device::core &_device,
+	sge::renderer::device::core_ref const _device,
 	sge::renderer::resource_flags_field const &_resource_flags,
 	Range const &_range
 )
@@ -60,7 +62,7 @@ create_buffer_from_indices(
 	format;
 
 	sge::renderer::index::buffer_unique_ptr buffer(
-		_device.create_index_buffer(
+		_device.get().create_index_buffer(
 			sge::renderer::index::buffer_parameters(
 				sge::renderer::index::dynamic::make_format<
 					format
@@ -76,7 +78,9 @@ create_buffer_from_indices(
 	);
 
 	sge::renderer::index::scoped_lock const lock{
-		*buffer,
+		fcppt::make_ref(
+			*buffer
+		),
 		sge::renderer::lock_mode::writeonly
 	};
 

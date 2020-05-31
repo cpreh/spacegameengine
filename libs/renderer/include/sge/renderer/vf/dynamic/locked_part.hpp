@@ -31,7 +31,7 @@ public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	locked_part(
 		sge::renderer::raw_pointer,
-		sge::renderer::lock_segment const &,
+		sge::renderer::lock_segment,
 		sge::renderer::lock_flags::method
 	);
 

@@ -17,8 +17,7 @@ sge::renderer::vertex::buffer::buffer()
 }
 
 sge::renderer::vertex::buffer::~buffer()
-{
-}
+= default;
 
 sge::renderer::size_type
 sge::renderer::vertex::buffer::linear_size() const

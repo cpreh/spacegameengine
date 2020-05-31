@@ -481,7 +481,9 @@ try
 						sge::config::media_path()
 						/ FCPPT_TEXT("images")
 						/ FCPPT_TEXT("grass.png"),
-						sys.renderer_device_ffp(),
+						fcppt::make_ref(
+							sys.renderer_device_core()
+						),
 						sys.image_system(),
 						sge::renderer::texture::mipmap::off(),
 						sge::renderer::resource_flags_field::null(),
@@ -506,7 +508,9 @@ try
 						sge::config::media_path()
 						/ FCPPT_TEXT("images")
 						/ FCPPT_TEXT("tux.png"),
-						sys.renderer_device_ffp(),
+						fcppt::make_ref(
+							sys.renderer_device_core()
+						),
 						sys.image_system(),
 						sge::renderer::texture::mipmap::off(),
 						sge::renderer::resource_flags_field::null(),

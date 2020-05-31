@@ -25,9 +25,10 @@ struct color_tag_tpl<
 	sge::renderer::vertex::tag
 >
 {
-	typedef
-	sge::renderer::vertex::tag
-	type;
+	using
+	type
+	=
+	sge::renderer::vertex::tag;
 };
 
 }

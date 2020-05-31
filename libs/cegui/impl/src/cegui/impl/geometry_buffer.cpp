@@ -50,6 +50,7 @@
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
 #include <sge/renderer/target/scoped_scissor_area.hpp>
+#include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
@@ -275,13 +276,23 @@ sge::cegui::impl::geometry_buffer::draw() const
 	);
 
 	sge::renderer::target::scoped_scissor_area const scoped_scissor_area(
-		current_target,
+		fcppt::make_ref(
+			current_target
+		),
 		scissor_area_
 	);
 
 	sge::renderer::vertex::scoped_declaration const scoped_vdecl(
-		render_context,
-		vertex_declaration_
+		fcppt::reference_to_base<
+			sge::renderer::context::core
+		>(
+			fcppt::make_ref(
+				render_context
+			)
+		),
+		fcppt::make_cref(
+			vertex_declaration_
+		)
 	);
 
 	int const pass_count(
@@ -335,13 +346,33 @@ sge::cegui::impl::geometry_buffer::draw() const
 		)
 		{
 			sge::renderer::vertex::scoped_buffer const scoped_vb(
-				render_context,
-				batch.vertex_buffer()
+				fcppt::reference_to_base<
+					sge::renderer::context::core
+				>(
+					fcppt::make_ref(
+						render_context
+					)
+				),
+				fcppt::make_cref(
+					batch.vertex_buffer()
+				)
 			);
 
 			sge::renderer::texture::scoped const scoped_texture(
-				render_context,
-				batch.texture(),
+				fcppt::reference_to_base<
+					sge::renderer::context::core
+				>(
+					fcppt::make_ref(
+						render_context
+					)
+				),
+				fcppt::reference_to_base<
+					sge::renderer::texture::base const
+				>(
+					fcppt::make_cref(
+						batch.texture()
+					)
+				),
 				sge::renderer::texture::stage(
 					0u
 				)
@@ -508,7 +539,9 @@ sge::cegui::impl::geometry_buffer::appendGeometry(
 	);
 
 	sge::renderer::vertex::scoped_lock const vblock(
-		batches_.back().vertex_buffer(),
+		fcppt::make_ref(
+			batches_.back().vertex_buffer()
+		),
 		sge::renderer::lock_mode::writeonly
 	);
 

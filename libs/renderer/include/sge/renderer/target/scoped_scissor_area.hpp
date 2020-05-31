@@ -8,9 +8,9 @@
 #define SGE_RENDERER_TARGET_SCOPED_SCISSOR_AREA_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/target/base_fwd.hpp>
+#include <sge/renderer/target/base_ref.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -28,7 +28,7 @@ namespace target
 */
 class scoped_scissor_area
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_scissor_area
 	);
 public:
@@ -45,7 +45,7 @@ public:
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
 	scoped_scissor_area(
-		sge::renderer::target::base &target,
+		sge::renderer::target::base_ref target,
 		sge::renderer::target::scissor_area const &area
 	);
 
@@ -55,9 +55,9 @@ public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped_scissor_area();
 private:
-	sge::renderer::target::base &target_;
+	sge::renderer::target::base_ref const target_;
 
-	sge::renderer::target::scissor_area old_area_;
+	sge::renderer::target::scissor_area const old_area_;
 };
 
 }

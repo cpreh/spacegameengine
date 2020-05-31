@@ -632,7 +632,9 @@ try
 							sge::texture::part_raw_ptr
 						>(
 							sge::renderer::texture::create_planar_from_view(
-								sys.renderer_device_core(),
+								fcppt::make_ref(
+									sys.renderer_device_core()
+								),
 								sge::image2d::view::const_object(
 									whole_store.const_wrapped_view()
 								),

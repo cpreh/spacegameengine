@@ -10,6 +10,7 @@
 #include <sge/renderer/lock_flags/read.hpp>
 #include <sge/renderer/lock_flags/write.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
+#include <sge/renderer/vf/dynamic/const_part_ref.hpp>
 #include <sge/renderer/vf/dynamic/converter.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
@@ -18,18 +19,23 @@
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::vf::dynamic::converter::converter(
-	sge::renderer::vf::dynamic::part const &_part,
-	sge::renderer::vf::dynamic::color_format_vector const &_accepted_formats
+	sge::renderer::vf::dynamic::const_part_ref const _part,
+	sge::renderer::vf::dynamic::color_format_vector &&_accepted_formats
 )
 :
 	part_(
 		_part
 	),
 	accepted_formats_(
-		_accepted_formats
+		std::move(
+			_accepted_formats
+		)
 	),
 	written_intervals_(),
 	locked_part_(),
@@ -38,8 +44,7 @@ sge::renderer::vf::dynamic::converter::converter(
 }
 
 sge::renderer::vf::dynamic::converter::~converter()
-{
-}
+= default;
 
 void
 sge::renderer::vf::dynamic::converter::lock(
@@ -55,6 +60,7 @@ sge::renderer::vf::dynamic::converter::lock(
 			_locked_part.lock_flags()
 		)
 	)
+	{
 		fcppt::optional::maybe_void(
 			converter_,
 			[
@@ -73,6 +79,7 @@ sge::renderer::vf::dynamic::converter::lock(
 				);
 			}
 		);
+	}
 
 	locked_part_ =
 		optional_locked_part(
@@ -92,15 +99,17 @@ sge::renderer::vf::dynamic::converter::unlock()
 	if(
 		!converter_.has_value()
 	)
+	{
 		converter_ =
 			optional_converter_unique_ptr(
 				fcppt::make_unique_ptr<
 					sge::renderer::vf::dynamic::detail::converter_impl
 				>(
-					part_,
+					part_.get(),
 					accepted_formats_
 				)
 			);
+	}
 
 	if(
 		sge::renderer::lock_flags::write(

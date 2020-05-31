@@ -14,6 +14,7 @@
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/create_volume_from_view.hpp>
@@ -23,11 +24,12 @@
 #include <sge/renderer/texture/volume_parameters.hpp>
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 sge::renderer::texture::volume_unique_ptr
 sge::renderer::texture::create_volume_from_view(
-	sge::renderer::device::core &_renderer,
+	sge::renderer::device::core_ref const _renderer,
 	sge::image3d::view::const_object const &_view,
 	sge::renderer::texture::mipmap::object const &_mipmap,
 	sge::renderer::resource_flags_field const &_resource_flags,
@@ -35,7 +37,7 @@ sge::renderer::texture::create_volume_from_view(
 )
 {
 	sge::renderer::texture::volume_unique_ptr tex(
-		_renderer.create_volume_texture(
+		_renderer.get().create_volume_texture(
 			sge::renderer::texture::volume_parameters(
 				sge::image3d::view::size(
 					_view
@@ -54,7 +56,9 @@ sge::renderer::texture::create_volume_from_view(
 	);
 
 	sge::renderer::texture::scoped_volume_lock const lock(
-		*tex,
+		fcppt::make_ref(
+			*tex
+		),
 		sge::renderer::lock_mode::writeonly
 	);
 

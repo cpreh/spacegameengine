@@ -23,11 +23,12 @@ namespace color_buffer
 
 \ingroup sge_renderer
 */
-typedef
+using
+optional_surface_ref
+=
 fcppt::optional::reference<
 	sge::renderer::color_buffer::surface
->
-optional_surface_ref;
+>;
 
 }
 }

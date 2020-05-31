@@ -8,7 +8,7 @@
 #define SGE_RENDERER_IMPL_VF_DYNAMIC_BASIC_VIEW_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/vf/dynamic/basic_view.hpp>
-#include <sge/renderer/vf/dynamic/part_cref.hpp>
+#include <sge/renderer/vf/dynamic/const_part_ref.hpp>
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 
@@ -21,7 +21,7 @@ sge::renderer::vf::dynamic::basic_view<
 >::basic_view(
 	pointer const _data,
 	size_type const _size,
-	sge::renderer::vf::dynamic::part_cref const _part,
+	sge::renderer::vf::dynamic::const_part_ref const _part,
 	sge::renderer::vf::dynamic::part_index const _part_index
 )
 :

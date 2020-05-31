@@ -30,6 +30,7 @@ sge::renderer::texture::creation_failed::creation_failed(
 sge::renderer::texture::creation_failed::creation_failed(
 	creation_failed &&
 )
+noexcept
 = default;
 
 sge::renderer::texture::creation_failed::creation_failed(
@@ -41,6 +42,7 @@ sge::renderer::texture::creation_failed &
 sge::renderer::texture::creation_failed::operator=(
 	creation_failed &&
 )
+noexcept
 = default;
 
 sge::renderer::texture::creation_failed &
@@ -49,6 +51,6 @@ sge::renderer::texture::creation_failed::operator=(
 )
 = default;
 
-sge::renderer::texture::creation_failed::~creation_failed() noexcept
-{
-}
+sge::renderer::texture::creation_failed::~creation_failed()
+noexcept
+= default;

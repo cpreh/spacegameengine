@@ -15,5 +15,4 @@ sge::renderer::texture::cube::cube()
 }
 
 sge::renderer::texture::cube::~cube()
-{
-}
+= default;

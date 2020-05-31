@@ -8,9 +8,7 @@
 
 
 sge::renderer::texture::base::base()
-{
-}
+= default;
 
 sge::renderer::texture::base::~base()
-{
-}
+= default;

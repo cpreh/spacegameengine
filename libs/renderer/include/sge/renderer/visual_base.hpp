@@ -11,7 +11,7 @@
 #include <sge/renderer/visual_base_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,7 +26,7 @@ namespace renderer
 */
 class SGE_CORE_DETAIL_CLASS_SYMBOL visual_base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		visual_base
 	);
 public:
@@ -40,6 +40,7 @@ public:
 	virtual
 	~visual_base();
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::pixel_format::object const &
 	pixel_format() const;

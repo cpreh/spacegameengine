@@ -13,6 +13,7 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 sge::renderer::texture::planar_unique_ptr
@@ -23,7 +24,9 @@ sge::gui::create_texture(
 {
 	return
 		sge::renderer::texture::create_planar_from_view(
-			_renderer,
+			fcppt::make_ref(
+				_renderer
+			),
 			_view,
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),

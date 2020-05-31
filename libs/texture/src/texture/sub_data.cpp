@@ -15,6 +15,7 @@
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <sge/texture/pos.hpp>
 #include <sge/texture/sub_data.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 void
@@ -26,7 +27,9 @@ sge::texture::sub_data(
 )
 {
 	sge::renderer::texture::scoped_planar_lock const lock(
-		_texture,
+		fcppt::make_ref(
+			_texture
+		),
 		sge::renderer::lock_rect(
 			_pos,
 			sge::image2d::view::size(

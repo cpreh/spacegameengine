@@ -29,10 +29,12 @@ public:
 		sge::renderer::texture::emulate_srgb
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::image::color::format
 	format() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::texture::emulate_srgb
 	emulate_srgb() const;

@@ -36,6 +36,8 @@
 #include <sge/scenic/vf/normal.hpp>
 #include <sge/scenic/vf/position.hpp>
 #include <sge/scenic/vf/texcoord.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
@@ -50,7 +52,9 @@ sge::scenic::scene::mesh::object::object(
 	vertex_buffer_(
 		_renderer.create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
-				_vertex_declaration,
+				fcppt::make_cref(
+					_vertex_declaration
+				),
 				sge::renderer::vf::dynamic::make_part_index
 				<
 					sge::scenic::vf::format,
@@ -124,8 +128,11 @@ sge::scenic::scene::mesh::object::fill_vertex_buffer(
 	sge::model::obj::prototype const &_prototype)
 {
 	sge::renderer::vertex::scoped_lock const vblock(
-		*vertex_buffer_,
-		sge::renderer::lock_mode::writeonly);
+		fcppt::make_ref(
+			*vertex_buffer_
+		),
+		sge::renderer::lock_mode::writeonly
+	);
 
 	typedef
 	sge::renderer::vf::view<sge::scenic::vf::format_part>
@@ -185,8 +192,11 @@ sge::scenic::scene::mesh::object::fill_index_buffer(
 	sge::model::obj::prototype const &_prototype)
 {
 	sge::renderer::index::scoped_lock const iblock(
-		*index_buffer_,
-		sge::renderer::lock_mode::writeonly);
+		fcppt::make_ref(
+			*index_buffer_
+		),
+		sge::renderer::lock_mode::writeonly
+	);
 
 	// then we create a dynamic view to the buffer...
 	sge::renderer::index::dynamic::view const indices(

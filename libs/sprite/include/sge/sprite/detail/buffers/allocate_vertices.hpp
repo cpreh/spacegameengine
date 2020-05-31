@@ -17,6 +17,7 @@
 #include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/vertex_count.hpp>
 #include <sge/sprite/detail/vf/part_index.hpp>
+#include <fcppt/make_cref.hpp>
 
 
 namespace sge
@@ -41,7 +42,9 @@ allocate_vertices(
 	return
 		_parameters.device().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
-				_parameters.vertex_declaration(),
+				fcppt::make_cref(
+					_parameters.vertex_declaration()
+				),
 				sge::sprite::detail::vf::part_index(),
 				sge::sprite::buffers::vertex_count<
 					Choices

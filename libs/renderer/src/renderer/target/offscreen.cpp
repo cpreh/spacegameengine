@@ -8,9 +8,7 @@
 
 
 sge::renderer::target::offscreen::offscreen()
-{
-}
+= default;
 
 sge::renderer::target::offscreen::~offscreen()
-{
-}
+= default;

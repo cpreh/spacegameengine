@@ -1,5 +1,7 @@
 set(
 	SGE_RENDERERCG_FILES
+	libs/renderercg/include/sge/renderer/cg/const_loaded_program_ref.hpp
+	libs/renderercg/include/sge/renderer/cg/const_loaded_texture_ref.hpp
 	libs/renderercg/include/sge/renderer/cg/loaded_program.hpp
 	libs/renderercg/include/sge/renderer/cg/loaded_program_fwd.hpp
 	libs/renderercg/include/sge/renderer/cg/loaded_program_unique_ptr.hpp

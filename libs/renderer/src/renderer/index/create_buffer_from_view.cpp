@@ -16,6 +16,7 @@
 #include <sge/renderer/index/scoped_lock.hpp>
 #include <sge/renderer/index/dynamic/const_view.hpp>
 #include <sge/renderer/index/dynamic/format_stride.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstring>
 #include <fcppt/config/external_end.hpp>
@@ -41,7 +42,9 @@ sge::renderer::index::create_buffer_from_view(
 	);
 
 	sge::renderer::index::scoped_lock const lock(
-		*buffer,
+		fcppt::make_ref(
+			*buffer
+		),
 		sge::renderer::lock_mode::writeonly
 	);
 

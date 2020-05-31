@@ -5,16 +5,16 @@
 
 
 #include <sge/renderer/context/core.hpp>
-#include <sge/renderer/texture/base_fwd.hpp>
+#include <sge/renderer/context/core_ref.hpp>
+#include <sge/renderer/texture/const_base_ref.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/make_cref.hpp>
 
 
 sge::renderer::texture::scoped::scoped(
-	sge::renderer::context::core &_context,
-	sge::renderer::texture::base const &_texture,
+	sge::renderer::context::core_ref const _context,
+	sge::renderer::texture::const_base_ref const _texture,
 	sge::renderer::texture::stage const _stage
 )
 :
@@ -25,11 +25,9 @@ sge::renderer::texture::scoped::scoped(
 		_stage
 	)
 {
-	context_.texture(
+	context_.get().texture(
 		sge::renderer::texture::const_optional_base_ref(
-			fcppt::make_cref(
-				_texture
-			)
+			_texture
 		),
 		stage_
 	);
@@ -37,7 +35,7 @@ sge::renderer::texture::scoped::scoped(
 
 sge::renderer::texture::scoped::~scoped()
 {
-	context_.texture(
+	context_.get().texture(
 		sge::renderer::texture::const_optional_base_ref(),
 		stage_
 	);

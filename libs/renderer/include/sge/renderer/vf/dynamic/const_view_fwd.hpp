@@ -20,9 +20,12 @@ namespace vf
 namespace dynamic
 {
 
-typedef sge::renderer::vf::dynamic::basic_view<
+using
+const_view
+=
+sge::renderer::vf::dynamic::basic_view<
 	sge::renderer::const_raw_pointer
-> const_view;
+>;
 
 }
 }

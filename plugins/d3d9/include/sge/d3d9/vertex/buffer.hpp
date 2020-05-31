@@ -18,10 +18,10 @@
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters_fwd.hpp>
 #include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vf/dynamic/const_part_ref.hpp>
 #include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
 #include <sge/renderer/vf/dynamic/converter.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
-#include <sge/renderer/vf/dynamic/part_cref.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <sge/renderer/vf/dynamic/view_fwd.hpp>
@@ -81,7 +81,7 @@ public:
 	resource_flags() const
 	override;
 
-	sge::renderer::vf::dynamic::part_cref
+	sge::renderer::vf::dynamic::const_part_ref
 	format() const
 	override;
 

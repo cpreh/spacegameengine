@@ -22,6 +22,8 @@
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/labels/pos.hpp>
 #include <sge/renderer/vf/labels/texpos.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/container/array/make.hpp>
 #include <fcppt/math/vector/static.hpp>
 
@@ -50,8 +52,12 @@ sge::postprocessing::fullscreen_quad::fullscreen_quad(
 		sge::renderer::vertex::create_buffer_from_vertices<
 			sge::postprocessing::vf::format
 		>(
-			_renderer,
-			_vertex_declaration,
+			fcppt::make_ref(
+				_renderer
+			),
+			fcppt::make_cref(
+				_vertex_declaration
+			),
 			sge::renderer::resource_flags_field::null(),
 			fcppt::container::array::make(
 				// Left top
@@ -118,13 +124,21 @@ sge::postprocessing::fullscreen_quad::render(
 )
 {
 	sge::renderer::vertex::scoped_declaration const scoped_vd(
-		_context,
-		this->vertex_declaration_
+		fcppt::make_ref(
+			_context
+		),
+		fcppt::make_cref(
+			this->vertex_declaration_
+		)
 	);
 
 	sge::renderer::vertex::scoped_buffer const scoped_vb(
-		_context,
-		*this->vertex_buffer_
+		fcppt::make_ref(
+			_context
+		),
+		fcppt::make_cref(
+			*this->vertex_buffer_
+		)
 	);
 
 	_context.render_nonindexed(

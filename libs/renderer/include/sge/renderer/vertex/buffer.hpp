@@ -14,7 +14,7 @@
 #include <sge/renderer/vertex/buffer_base.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -40,7 +40,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL buffer
 	public
 		sge::renderer::vertex::buffer_base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		buffer
 	);
 protected:
@@ -50,6 +50,7 @@ public:
 	/**
 	\brief Returns the resource flags the buffer has been created with
 	*/
+	[[nodiscard]]
 	virtual
 	sge::renderer::resource_flags_field
 	resource_flags() const = 0;
@@ -58,17 +59,19 @@ public:
 	\brief Returns the index of the vertex format part the buffer
 	represents
 	*/
+	[[nodiscard]]
 	virtual
 	sge::renderer::vf::dynamic::part_index
 	format_part_index() const = 0;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::size_type
 	linear_size() const;
 
 	SGE_RENDERER_DETAIL_SYMBOL
-	virtual
-	~buffer();
+	~buffer()
+	override;
 };
 
 }

@@ -18,7 +18,7 @@ template<
 sge::renderer::buffer::scoped_lock<
 	Tag
 >::scoped_lock(
-	buffer_type &_buffer,
+	buffer_ref const _buffer,
 	sge::renderer::lock_mode const _mode
 )
 :
@@ -26,7 +26,7 @@ sge::renderer::buffer::scoped_lock<
 		_buffer
 	),
 	view_(
-		buffer_.lock(
+		buffer_.get().lock(
 			_mode
 		)
 	)
@@ -39,7 +39,7 @@ template<
 sge::renderer::buffer::scoped_lock<
 	Tag
 >::scoped_lock(
-	buffer_type &_buffer,
+	buffer_ref const _buffer,
 	lock_area const &_area,
 	sge::renderer::lock_mode const _mode
 )
@@ -48,7 +48,7 @@ sge::renderer::buffer::scoped_lock<
 		_buffer
 	),
 	view_(
-		buffer_.lock(
+		buffer_.get().lock(
 			_area,
 			_mode
 		)
@@ -78,7 +78,7 @@ sge::renderer::buffer::scoped_lock<
 	Tag
 >::~scoped_lock()
 {
-	buffer_.unlock();
+	buffer_.get().unlock();
 }
 
 #endif

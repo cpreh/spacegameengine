@@ -16,6 +16,7 @@
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/clear/parameters.hpp>
+#include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
@@ -48,6 +49,7 @@
 #include <sge/renderer/state/ffp/sampler/unary_op_type.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar.hpp>
@@ -198,7 +200,9 @@ try
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
 			/ FCPPT_TEXT("cloudsquare.png"),
-			sys.renderer_device_ffp(),
+			fcppt::make_ref(
+				sys.renderer_device_core()
+			),
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),
@@ -211,7 +215,9 @@ try
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
 			/ FCPPT_TEXT("grass.png"),
-			sys.renderer_device_ffp(),
+			fcppt::make_ref(
+				sys.renderer_device_core()
+			),
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),
@@ -289,8 +295,12 @@ try
 		sge::renderer::vertex::create_buffer_from_vertices<
 			vf_format
 		>(
-			sys.renderer_device_ffp(),
-			*vertex_declaration,
+			fcppt::make_ref(
+				sys.renderer_device_core()
+			),
+			fcppt::make_cref(
+				*vertex_declaration
+			),
 			sge::renderer::resource_flags_field::null(),
 			fcppt::container::array::make(
 				// top left
@@ -339,7 +349,9 @@ try
 
 	sge::renderer::index::buffer_unique_ptr const index_buffer{
 		sge::renderer::index::create_buffer_from_indices(
-			sys.renderer_device_ffp(),
+			fcppt::make_ref(
+				sys.renderer_device_core()
+			),
 			sge::renderer::resource_flags_field::null(),
 			fcppt::container::array::make(
 				fcppt::literal<i16>(0),
@@ -418,24 +430,64 @@ try
 			);
 
 			sge::renderer::vertex::scoped_declaration const vb_declaration_context(
-				scoped_block.get(),
-				*vertex_declaration
+				fcppt::reference_to_base<
+					sge::renderer::context::core
+				>(
+					fcppt::make_ref(
+						scoped_block.get()
+					)
+				),
+				fcppt::make_cref(
+					*vertex_declaration
+				)
 			);
 
 			sge::renderer::vertex::scoped_buffer const vb_context(
-				scoped_block.get(),
-				*vertex_buffer
+				fcppt::reference_to_base<
+					sge::renderer::context::core
+				>(
+					fcppt::make_ref(
+						scoped_block.get()
+					)
+				),
+				fcppt::make_cref(
+					*vertex_buffer
+				)
 			);
 
 			sge::renderer::texture::scoped const tex0_context(
-				scoped_block.get(),
-				*texture1,
+				fcppt::reference_to_base<
+					sge::renderer::context::core
+				>(
+					fcppt::make_ref(
+						scoped_block.get()
+					)
+				),
+				fcppt::reference_to_base<
+					sge::renderer::texture::base const
+				>(
+					fcppt::make_cref(
+						*texture1
+					)
+				),
 				sge::renderer::texture::stage(0u)
 			);
 
 			sge::renderer::texture::scoped const tex1_context(
-				scoped_block.get(),
-				*texture2,
+				fcppt::reference_to_base<
+					sge::renderer::context::core
+				>(
+					fcppt::make_ref(
+						scoped_block.get()
+					)
+				),
+				fcppt::reference_to_base<
+					sge::renderer::texture::base const
+				>(
+					fcppt::make_cref(
+						*texture2
+					)
+				),
 				sge::renderer::texture::stage(1u)
 			);
 

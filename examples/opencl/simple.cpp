@@ -83,6 +83,7 @@
 #include <fcppt/dynamic_pointer_cast.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/string.hpp>
@@ -506,7 +507,9 @@ try
 	sge::renderer::vertex::buffer_unique_ptr const vb(
 		sys.renderer_device_core().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
-				*vertex_declaration,
+				fcppt::make_cref(
+					*vertex_declaration
+				),
 				sge::renderer::vf::dynamic::make_part_index<
 					vf::format,
 					vf::part
@@ -588,7 +591,9 @@ try
 
 	{
 		sge::renderer::vertex::scoped_lock const scoped_vb(
-			*vb,
+			fcppt::make_ref(
+				*vb
+			),
 			sge::renderer::lock_mode::readwrite);
 
 		typedef

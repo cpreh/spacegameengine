@@ -10,6 +10,7 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/all_levels.hpp>
 #include <sge/scenic/texture_manager.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -31,6 +32,7 @@ sge::renderer::texture::planar &
 sge::scenic::texture_manager::texture_for_path(
 	std::filesystem::path const &_path)
 {
+	// TODO: get_or_insert
 	path_to_texture_map::iterator it =
 		path_to_texture_.find(
 			_path);
@@ -44,12 +46,18 @@ sge::scenic::texture_manager::texture_for_path(
 				_path,
 				sge::renderer::texture::create_planar_from_path(
 					_path,
-					renderer_,
+					fcppt::make_ref(
+						renderer_
+					),
 					image_loader_,
 					sge::renderer::texture::mipmap::all_levels(
-						sge::renderer::texture::mipmap::auto_generate::yes),
+						sge::renderer::texture::mipmap::auto_generate::yes
+					),
 					sge::renderer::resource_flags_field::null(),
-					sge::renderer::texture::emulate_srgb::no))).first->second;
+					sge::renderer::texture::emulate_srgb::no
+				)
+			)
+		).first->second;
 }
 
 sge::scenic::texture_manager::~texture_manager()

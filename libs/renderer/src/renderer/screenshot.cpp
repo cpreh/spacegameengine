@@ -9,6 +9,7 @@
 #include <sge/renderer/color_buffer/const_scoped_surface_lock.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
@@ -22,7 +23,9 @@ sge::renderer::screenshot(
 )
 {
 	sge::renderer::color_buffer::const_scoped_surface_lock const lock(
-		_renderer.onscreen_target().surface()
+		fcppt::make_cref(
+			_renderer.onscreen_target().surface()
+		)
 	);
 
 	sge::image2d::save_from_view(

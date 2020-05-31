@@ -140,8 +140,14 @@ sge::scenic::render_context::ffp::object::object(
 		_context
 	),
 	scoped_vertex_declaration_(
-		context_.get(), // TODO
-		manager_.vertex_declaration_
+		fcppt::reference_to_base<
+			sge::renderer::context::core
+		>(
+			context_
+		),
+		fcppt::make_cref(
+			manager_.vertex_declaration_
+		)
 	),
 	projection_transform_(),
 	world_transform_(),
@@ -451,8 +457,14 @@ sge::scenic::render_context::ffp::object::vertex_buffer(
 			fcppt::make_unique_ptr<
 				sge::renderer::vertex::scoped_buffer
 			>(
-				context_.get(), // TODO
-				_vertex_buffer
+				fcppt::reference_to_base<
+					sge::renderer::context::core
+				>(
+					context_
+				),
+				fcppt::make_cref(
+					_vertex_buffer
+				)
 			)
 		);
 

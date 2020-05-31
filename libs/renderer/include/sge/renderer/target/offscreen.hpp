@@ -14,7 +14,7 @@
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/offscreen_fwd.hpp>
 #include <sge/renderer/target/surface_index.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -49,7 +49,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL offscreen
 :
 	public sge::renderer::target::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		offscreen
 	);
 protected:

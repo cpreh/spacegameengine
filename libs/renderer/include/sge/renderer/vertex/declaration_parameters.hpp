@@ -26,9 +26,10 @@ public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	explicit
 	declaration_parameters(
-		sge::renderer::vf::dynamic::format const &format
+		sge::renderer::vf::dynamic::format format
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::format const &
 	format() const;

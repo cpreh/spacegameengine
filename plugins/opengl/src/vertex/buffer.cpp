@@ -19,10 +19,10 @@
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/count.hpp>
+#include <sge/renderer/vf/dynamic/const_part_ref.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
-#include <sge/renderer/vf/dynamic/part_cref.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
 #include <fcppt/make_cref.hpp>
@@ -45,7 +45,9 @@ sge::opengl::vertex::buffer::buffer(
 		_format_part
 	),
 	converter_(
-		format_part_,
+		fcppt::make_cref(
+			format_part_
+		),
 		sge::opengl::vf::color_formats()
 	),
 	buffer_(
@@ -178,7 +180,7 @@ sge::opengl::vertex::buffer::resource_flags() const
 		buffer_.flags();
 }
 
-sge::renderer::vf::dynamic::part_cref
+sge::renderer::vf::dynamic::const_part_ref
 sge::opengl::vertex::buffer::format() const
 {
 	return

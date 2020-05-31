@@ -18,11 +18,12 @@ namespace renderer
 namespace texture
 {
 
-typedef
+using
+const_scoped_planar_lock
+=
 sge::renderer::texture::const_basic_scoped_lock<
 	sge::image2d::tag
->
-const_scoped_planar_lock;
+>;
 
 }
 }

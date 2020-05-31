@@ -12,7 +12,8 @@
 #include <sge/sprite/detail/render/scoped_vertex_declaration.hpp>
 #include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/state/vertex_options.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,7 +27,7 @@ namespace render
 
 class scoped_vertex
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_vertex
 	);
 public:
@@ -65,7 +66,9 @@ public:
 			set_buffer_
 		)
 			render_context_.activate_vertex_buffer(
-				vertex_buffer_
+				fcppt::make_cref(
+					vertex_buffer_
+				)
 			);
 	}
 

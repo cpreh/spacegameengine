@@ -32,14 +32,16 @@ sge::renderer::vf::dynamic::part::part(
 			if(
 				_elements.size()
 				+
-				1u
+				1U
 				!=
 				_offsets.size()
 			)
+			{
 				throw
 					sge::renderer::exception{
 						FCPPT_TEXT("dynamic::format: Invalid sizes of vectors!")
 					};
+			}
 
 			return
 				fcppt::algorithm::map<

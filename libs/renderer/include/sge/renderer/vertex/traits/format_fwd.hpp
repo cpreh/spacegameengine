@@ -9,7 +9,7 @@
 
 #include <sge/image/traits/pixel/format_tpl_fwd.hpp>
 #include <sge/renderer/vertex/tag.hpp>
-#include <sge/renderer/vf/dynamic/part_cref.hpp>
+#include <sge/renderer/vf/dynamic/const_part_ref.hpp>
 
 
 namespace sge
@@ -26,9 +26,10 @@ struct format_tpl<
 	sge::renderer::vertex::tag
 >
 {
-	typedef
-	sge::renderer::vf::dynamic::part_cref
-	type;
+	using
+	type
+	=
+	sge::renderer::vf::dynamic::const_part_ref;
 };
 
 }

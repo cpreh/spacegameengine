@@ -24,6 +24,7 @@
 #include <sge/sprite/geometry/detail/make_render_part.hpp>
 #include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
 #include <sge/sprite/render/range_impl.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
@@ -86,7 +87,9 @@ fill_vertices(
 	choices;
 
 	sge::renderer::vertex::scoped_lock const vblock(
-		_slice.vertex_buffer(),
+		fcppt::make_ref(
+			_slice.vertex_buffer()
+		),
 		sge::renderer::lock_segment{
 			sge::renderer::lock_segment::vector{
 				_slice.first_vertex().get()

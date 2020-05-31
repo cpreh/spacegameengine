@@ -4,15 +4,16 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/renderer/cg/loaded_texture_fwd.hpp>
+#include <sge/renderer/cg/const_loaded_texture_ref.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
 #include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
 
 
 sge::renderer::cg::scoped_texture::scoped_texture(
-	sge::renderer::context::core &_context,
-	sge::renderer::cg::loaded_texture const &_texture
+	sge::renderer::context::core_ref const _context,
+	sge::renderer::cg::const_loaded_texture_ref const _texture
 )
 :
 	context_(
@@ -22,7 +23,7 @@ sge::renderer::cg::scoped_texture::scoped_texture(
 		_texture
 	),
 	stage_(
-		context_.set_cg_texture(
+		context_.get().set_cg_texture(
 			texture_
 		)
 	)
@@ -31,8 +32,8 @@ sge::renderer::cg::scoped_texture::scoped_texture(
 
 sge::renderer::cg::scoped_texture::~scoped_texture()
 {
-	context_.unset_cg_texture(
-		texture_
+	context_.get().unset_cg_texture(
+		texture_.get()
 	);
 }
 

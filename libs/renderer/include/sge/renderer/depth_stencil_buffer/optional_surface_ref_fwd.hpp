@@ -18,11 +18,12 @@ namespace renderer
 namespace depth_stencil_buffer
 {
 
-typedef
+using
+optional_surface_ref
+=
 fcppt::optional::reference<
 	sge::renderer::depth_stencil_buffer::surface
->
-optional_surface_ref;
+>;
 
 }
 }

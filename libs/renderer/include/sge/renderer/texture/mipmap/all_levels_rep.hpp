@@ -29,6 +29,7 @@ public:
 		sge::renderer::texture::mipmap::auto_generate
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::texture::mipmap::auto_generate
 	auto_generate() const;

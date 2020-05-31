@@ -17,7 +17,10 @@ namespace texture
 namespace mipmap
 {
 
-typedef unsigned level_type;
+using
+level_type
+=
+unsigned;
 
 }
 }

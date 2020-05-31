@@ -18,11 +18,12 @@ namespace renderer
 namespace vertex
 {
 
-typedef
+using
+buffer_base
+=
 sge::renderer::buffer::writable<
 	sge::renderer::vertex::tag
->
-buffer_base;
+>;
 
 }
 }

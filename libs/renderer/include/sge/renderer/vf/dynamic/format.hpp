@@ -30,6 +30,7 @@ public:
 		sge::renderer::vf::dynamic::part_list &&
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::part_list const &
 	parts() const;

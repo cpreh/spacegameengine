@@ -31,8 +31,7 @@ template<
 sge::renderer::texture::basic_lockable_box<
 	Tag
 >::~basic_lockable_box()
-{
-}
+= default;
 
 template<
 	typename Tag
@@ -48,7 +47,7 @@ sge::renderer::texture::basic_lockable_box<
 	return
 		this->level(
 			sge::renderer::texture::mipmap::level(
-				0u
+				0U
 			)
 		).size();
 }

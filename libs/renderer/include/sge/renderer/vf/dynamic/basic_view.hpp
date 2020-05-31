@@ -10,7 +10,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vf/dynamic/basic_view_fwd.hpp>
-#include <sge/renderer/vf/dynamic/part_cref.hpp>
+#include <sge/renderer/vf/dynamic/const_part_ref.hpp>
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 
@@ -30,34 +30,40 @@ template<
 class basic_view
 {
 public:
-	typedef
-	Pointer
-	pointer;
+	using
+	pointer
+	=
+	Pointer;
 
-	typedef
-	sge::renderer::vertex::count
-	size_type;
+	using
+	size_type
+	=
+	sge::renderer::vertex::count;
 
 	SGE_RENDERER_DETAIL_SYMBOL
 	basic_view(
 		pointer data,
 		size_type elements,
-		sge::renderer::vf::dynamic::part_cref,
+		sge::renderer::vf::dynamic::const_part_ref,
 		sge::renderer::vf::dynamic::part_index
 	);
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	pointer
 	data() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	size_type
 	size() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::part const &
 	part() const;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	sge::renderer::vf::dynamic::part_index
 	part_index() const;
@@ -66,7 +72,7 @@ private:
 
 	size_type size_;
 
-	sge::renderer::vf::dynamic::part_cref part_;
+	sge::renderer::vf::dynamic::const_part_ref part_;
 
 	sge::renderer::vf::dynamic::part_index part_index_;
 };

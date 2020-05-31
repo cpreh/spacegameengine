@@ -7,10 +7,10 @@
 #ifndef SGE_RENDERER_VERTEX_SCOPED_DECLARATION_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_SCOPED_DECLARATION_HPP_INCLUDED
 
-#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/vertex/declaration_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -27,7 +27,7 @@ Sets a vertex declaration in the constructor and unsets it in the destructor.
 */
 class scoped_declaration
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_declaration
 	);
 public:
@@ -42,8 +42,8 @@ public:
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
 	scoped_declaration(
-		sge::renderer::context::core &context,
-		sge::renderer::vertex::declaration const &vertex_declaration
+		sge::renderer::context::core_ref context,
+		sge::renderer::vertex::const_declaration_ref vertex_declaration
 	);
 
 	/**
@@ -52,7 +52,7 @@ public:
 	SGE_RENDERER_DETAIL_SYMBOL
 	~scoped_declaration();
 private:
-	sge::renderer::context::core &context_;
+	sge::renderer::context::core_ref const context_;
 };
 
 }

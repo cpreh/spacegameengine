@@ -43,6 +43,7 @@
 #include <mizuiro/color/operators.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/make_int_range_count.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/math/clamp.hpp>
@@ -337,8 +338,11 @@ sge::graph::object::object(
 		)
 {
 	sge::renderer::texture::scoped_planar_lock const lock(
-		*texture_,
-		sge::renderer::lock_mode::writeonly);
+		fcppt::make_ref(
+			*texture_
+		),
+		sge::renderer::lock_mode::writeonly
+	);
 
 	fcppt::variant::apply(
 		sge::graph::detail::draw_visitor(
@@ -377,13 +381,17 @@ sge::graph::object::render(
 {
 	{
 		sge::renderer::texture::scoped_planar_lock const lock(
-			*texture_,
-			sge::renderer::lock_mode::writeonly);
+			fcppt::make_ref(
+				*texture_
+			),
+			sge::renderer::lock_mode::writeonly
+		);
 
 		fcppt::variant::apply(
 			sge::graph::detail::draw_visitor(
 				*this),
-			lock.value().get());
+			lock.value().get()
+		);
 	}
 
 	sge::sprite::process::one(

@@ -118,13 +118,21 @@ sge::line_drawer::object::render(
 			);
 
 			sge::renderer::vertex::scoped_declaration const scoped_decl(
-				_render_context,
-				*vertex_declaration_
+				fcppt::make_ref(
+					_render_context
+				),
+				fcppt::make_cref(
+					*vertex_declaration_
+				)
 			);
 
 			sge::renderer::vertex::scoped_buffer const scoped_vb(
-				_render_context,
-				*_buffer
+				fcppt::make_ref(
+					_render_context
+				),
+				fcppt::make_cref(
+					*_buffer
+				)
 			);
 
 			_render_context.render_nonindexed(
@@ -190,7 +198,9 @@ sge::line_drawer::object::unlock()
 			optional_vertex_buffer_unique_ptr(
 				renderer_.create_vertex_buffer(
 					sge::renderer::vertex::buffer_parameters(
-						*vertex_declaration_,
+						fcppt::make_cref(
+							*vertex_declaration_
+						),
 						sge::renderer::vf::dynamic::part_index(
 							0u
 						),
@@ -203,9 +213,11 @@ sge::line_drawer::object::unlock()
 			);
 
 	sge::renderer::vertex::scoped_lock const vblock{
-		// TODO: Better optional support for this
-		*FCPPT_ASSERT_OPTIONAL_ERROR(
-			vb_
+		fcppt::make_ref(
+			// TODO: Better optional support for this
+			*FCPPT_ASSERT_OPTIONAL_ERROR(
+				vb_
+			)
 		),
 		sge::renderer::lock_mode::writeonly
 	};

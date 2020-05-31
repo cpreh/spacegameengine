@@ -198,7 +198,9 @@ try
 	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
 		sys.renderer_device_core().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
-				*vertex_declaration,
+				fcppt::make_cref(
+					*vertex_declaration
+				),
 				sge::renderer::vf::dynamic::make_part_index<
 					format,
 					format_part
@@ -215,7 +217,9 @@ try
 //! [vblock_declaration]
 	{
 		sge::renderer::vertex::scoped_lock const vblock(
-			*vertex_buffer,
+			fcppt::make_ref(
+				*vertex_buffer
+			),
 			sge::renderer::lock_mode::writeonly
 		);
 //! [vblock_declaration]
@@ -335,8 +339,12 @@ try
 
 //! [scoped_declaration]
 			sge::renderer::vertex::scoped_declaration_and_buffers const vb_context(
-				context,
-				*vertex_declaration,
+				fcppt::make_ref(
+					context
+				),
+				fcppt::make_cref(
+					*vertex_declaration
+				),
 				sge::renderer::vertex::const_buffer_ref_container{
 					fcppt::make_cref(
 						*vertex_buffer

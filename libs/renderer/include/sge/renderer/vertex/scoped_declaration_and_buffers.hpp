@@ -7,13 +7,13 @@
 #ifndef SGE_RENDERER_VERTEX_SCOPED_DECLARATION_AND_BUFFERS_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_SCOPED_DECLARATION_AND_BUFFERS_HPP_INCLUDED
 
-#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vertex/const_buffer_ref_container.hpp>
-#include <sge/renderer/vertex/declaration_fwd.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/scoped_buffer_fwd.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
@@ -35,7 +35,7 @@ constructor and unsets them in the reverse order in the destructor.
 */
 class scoped_declaration_and_buffers
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_declaration_and_buffers
 	);
 public:
@@ -54,8 +54,8 @@ public:
 	*/
 	SGE_RENDERER_DETAIL_SYMBOL
 	scoped_declaration_and_buffers(
-		sge::renderer::context::core &context,
-		sge::renderer::vertex::declaration const &vertex_declaration,
+		sge::renderer::context::core_ref context,
+		sge::renderer::vertex::const_declaration_ref vertex_declaration,
 		sge::renderer::vertex::const_buffer_ref_container const &vertex_buffers
 	);
 
@@ -67,17 +67,19 @@ public:
 private:
 	sge::renderer::vertex::scoped_declaration const scoped_declaration_;
 
-	typedef
+	using
+	scoped_buffer_ptr
+	=
 	fcppt::unique_ptr<
 		sge::renderer::vertex::scoped_buffer
-	>
-	scoped_buffer_ptr;
+	>;
 
-	typedef
+	using
+	scoped_buffer_vector
+	=
 	std::vector<
 		scoped_buffer_ptr
-	>
-	scoped_buffer_vector;
+	>;
 
 	scoped_buffer_vector const scoped_buffers_;
 };

@@ -25,12 +25,15 @@
 #include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
+#include <sge/renderer/vertex/const_buffer_ref.hpp>
 #include <sge/renderer/vertex/const_optional_declaration_ref_fwd.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <fcppt/nonmovable.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
+#include <sge/renderer/cg/const_loaded_program_ref.hpp>
+#include <sge/renderer/cg/const_loaded_texture_ref.hpp>
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
 #include <sge/renderer/cg/loaded_texture_fwd.hpp>
 #endif
@@ -203,7 +206,7 @@ public:
 	virtual
 	void
 	activate_vertex_buffer(
-		sge::renderer::vertex::buffer const &vertex_buffer
+		sge::renderer::vertex::const_buffer_ref vertex_buffer
 	) = 0;
 
 	/**
@@ -333,7 +336,7 @@ public:
 	virtual
 	void
 	set_cg_program(
-		sge::renderer::cg::loaded_program const &
+		sge::renderer::cg::const_loaded_program_ref
 	) = 0;
 
 	virtual
@@ -345,7 +348,7 @@ public:
 	virtual
 	sge::renderer::texture::stage
 	set_cg_texture(
-		sge::renderer::cg::loaded_texture const &
+		sge::renderer::cg::const_loaded_texture_ref
 	) = 0;
 
 	virtual

@@ -67,6 +67,7 @@ sge::renderer::unsupported::possible_extensions() const
 sge::renderer::unsupported::unsupported(
 	unsupported &&
 )
+noexcept
 = default;
 
 sge::renderer::unsupported::unsupported(
@@ -78,6 +79,7 @@ sge::renderer::unsupported &
 sge::renderer::unsupported::operator=(
 	unsupported &&
 )
+noexcept
 = default;
 
 sge::renderer::unsupported &
@@ -86,6 +88,6 @@ sge::renderer::unsupported::operator=(
 )
 = default;
 
-sge::renderer::unsupported::~unsupported() noexcept
-{
-}
+sge::renderer::unsupported::~unsupported()
+noexcept
+= default;

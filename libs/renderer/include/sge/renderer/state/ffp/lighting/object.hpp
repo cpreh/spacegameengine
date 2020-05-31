@@ -10,7 +10,7 @@
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/lighting/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,7 +26,7 @@ namespace lighting
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 protected:

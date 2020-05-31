@@ -14,7 +14,7 @@
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/depth_stencil_fwd.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -28,7 +28,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL depth_stencil
 :
 	public sge::renderer::texture::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		depth_stencil
 	);
 protected:
@@ -39,28 +39,34 @@ public:
 	~depth_stencil()
 	override;
 
-	typedef
-	sge::renderer::dim2
-	dim;
+	using
+	dim
+	=
+	sge::renderer::dim2;
 
-	typedef
-	sge::renderer::depth_stencil_buffer::surface
-	const_buffer;
+	using
+	const_buffer
+	=
+	sge::renderer::depth_stencil_buffer::surface;
 
-	typedef
-	sge::renderer::depth_stencil_buffer::surface
-	nonconst_buffer;
+	using
+	nonconst_buffer
+	=
+	sge::renderer::depth_stencil_buffer::surface;
 
+	[[nodiscard]]
 	SGE_RENDERER_DETAIL_SYMBOL
 	dim
 	size() const;
 
+	[[nodiscard]]
 	virtual
 	nonconst_buffer &
 	level(
 		sge::renderer::texture::mipmap::level
 	) = 0;
 
+	[[nodiscard]]
 	virtual
 	const_buffer const &
 	level(

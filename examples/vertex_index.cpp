@@ -209,8 +209,12 @@ try
 		sge::renderer::vertex::create_buffer_from_vertices<
 			format
 		>(
-			sys.renderer_device_core(),
-			*vertex_declaration,
+			fcppt::make_ref(
+				sys.renderer_device_core()
+			),
+			fcppt::make_cref(
+				*vertex_declaration
+			),
 			sge::renderer::resource_flags_field::null(),
 			fcppt::container::array::make(
 				vertex{
@@ -269,7 +273,9 @@ try
 
 	{
 		sge::renderer::index::scoped_lock const iblock(
-			*index_buffer,
+			fcppt::make_ref(
+				*index_buffer
+			),
 			sge::renderer::lock_mode::writeonly
 		);
 
@@ -321,8 +327,12 @@ try
 			);
 
 			sge::renderer::vertex::scoped_declaration_and_buffers const vb_context(
-				scoped_block.get(),
-				*vertex_declaration,
+				fcppt::make_ref(
+					scoped_block.get()
+				),
+				fcppt::make_cref(
+					*vertex_declaration
+				),
 				sge::renderer::vertex::const_buffer_ref_container{
 					fcppt::make_cref(
 						*vertex_buffer

@@ -26,9 +26,10 @@ struct view_tpl<
 	sge::renderer::vertex::tag
 >
 {
-	typedef
-	sge::renderer::vf::dynamic::view
-	type;
+	using
+	type
+	=
+	sge::renderer::vf::dynamic::view;
 };
 
 }

@@ -8,7 +8,7 @@
 #define SGE_RENDERER_VERTEX_CONST_BUFFER_REF_HPP_INCLUDED
 
 #include <sge/renderer/vertex/buffer_fwd.hpp>
-#include <fcppt/reference.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -19,11 +19,14 @@ namespace vertex
 {
 
 /**
-\brief A reference wrapper to const vertex buffer references
+\brief A reference wrapper to const vertex buffers
 */
-typedef fcppt::reference<
+using
+const_buffer_ref
+=
+fcppt::reference<
 	sge::renderer::vertex::buffer const
-> const_buffer_ref;
+>;
 
 }
 }

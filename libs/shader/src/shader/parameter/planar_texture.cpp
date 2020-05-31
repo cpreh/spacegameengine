@@ -15,6 +15,7 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -103,8 +104,10 @@ sge::shader::parameter::planar_texture::set(
 							fcppt::make_unique_ptr<
 								sge::renderer::cg::scoped_texture
 							>(
-								_render_context.get(),
-								*cur_loaded_texture
+								_render_context,
+								fcppt::make_cref(
+									*cur_loaded_texture
+								)
 							)
 						);
 				}

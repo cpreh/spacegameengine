@@ -8,9 +8,9 @@
 #define SGE_RENDERER_TARGET_FROM_TEXTURE_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/renderer/texture/planar_ref.hpp>
 
 
 namespace sge
@@ -23,8 +23,8 @@ namespace target
 SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::target::offscreen_unique_ptr
 from_texture(
-	sge::renderer::device::core &,
-	sge::renderer::texture::planar &
+	sge::renderer::device::core_ref,
+	sge::renderer::texture::planar_ref
 );
 
 }

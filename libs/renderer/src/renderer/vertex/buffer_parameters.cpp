@@ -6,13 +6,14 @@
 
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 
 
 sge::renderer::vertex::buffer_parameters::buffer_parameters(
-	sge::renderer::vertex::declaration const &_declaration,
+	sge::renderer::vertex::const_declaration_ref const _declaration,
 	sge::renderer::vf::dynamic::part_index const _part,
 	sge::renderer::vertex::count const _count,
 	sge::renderer::resource_flags_field const &_flags

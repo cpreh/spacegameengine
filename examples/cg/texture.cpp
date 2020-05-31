@@ -336,8 +336,12 @@ try
 		sge::renderer::vertex::create_buffer_from_vertices<
 			format
 		>(
-			sys.renderer_device_core(),
-			*vertex_declaration,
+			fcppt::make_ref(
+				sys.renderer_device_core()
+			),
+			fcppt::make_cref(
+				*vertex_declaration
+			),
 			sge::renderer::resource_flags_field::null(),
 			fcppt::container::array::make(
 				vertex{
@@ -388,7 +392,9 @@ try
 			sge::config::media_path()
 			/ FCPPT_TEXT("images")
 			/ FCPPT_TEXT("uvtestgrid.png"),
-			sys.renderer_device_core(),
+			fcppt::make_ref(
+				sys.renderer_device_core()
+			),
 			sys.image_system(),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),
@@ -445,8 +451,12 @@ try
 			);
 
 			sge::renderer::vertex::scoped_declaration_and_buffers const vb_context(
-				scoped_block.get(),
-				*vertex_declaration,
+				fcppt::make_ref(
+					scoped_block.get()
+				),
+				fcppt::make_cref(
+					*vertex_declaration
+				),
 				sge::renderer::vertex::const_buffer_ref_container{
 					fcppt::make_cref(
 						*vertex_buffer
@@ -455,18 +465,30 @@ try
 			);
 
 			sge::renderer::cg::scoped_program const scoped_vertex_program(
-				scoped_block.get(),
-				*loaded_vertex_program
+				fcppt::make_ref(
+					scoped_block.get()
+				),
+				fcppt::make_cref(
+					*loaded_vertex_program
+				)
 			);
 
 			sge::renderer::cg::scoped_program const scoped_pixel_program(
-				scoped_block.get(),
-				*loaded_pixel_program
+				fcppt::make_ref(
+					scoped_block.get()
+				),
+				fcppt::make_cref(
+					*loaded_pixel_program
+				)
 			);
 
 			sge::renderer::cg::scoped_texture const scoped_texture(
-				scoped_block.get(),
-				*loaded_texture
+				fcppt::make_ref(
+					scoped_block.get()
+				),
+				fcppt::make_cref(
+					*loaded_texture
+				)
 			);
 
 			scoped_block.get().render_nonindexed(

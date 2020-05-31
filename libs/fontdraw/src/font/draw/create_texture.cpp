@@ -21,6 +21,7 @@
 #include <sge/texture/part.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/wrap_npot.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
@@ -67,7 +68,9 @@ sge::font::draw::create_texture(
 	)
 	{
 		sge::renderer::texture::scoped_planar_lock const lock(
-			result->texture(),
+			fcppt::make_ref(
+				result->texture()
+			),
 			sge::renderer::lock_mode::writeonly
 		);
 

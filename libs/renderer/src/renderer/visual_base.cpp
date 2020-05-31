@@ -19,8 +19,7 @@ sge::renderer::visual_base::visual_base(
 }
 
 sge::renderer::visual_base::~visual_base()
-{
-}
+= default;
 
 sge::renderer::pixel_format::object const &
 sge::renderer::visual_base::pixel_format() const

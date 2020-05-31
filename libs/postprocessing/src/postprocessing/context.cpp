@@ -253,8 +253,12 @@ sge::postprocessing::context::viewport_callback()
 		fcppt::optional::assign(
 			offscreen_target_,
 			sge::renderer::target::from_texture(
-				renderer_,
-				*result_texture
+				fcppt::make_ref(
+					renderer_
+				),
+				fcppt::make_ref(
+					*result_texture
+				)
 			)
 		)
 	);

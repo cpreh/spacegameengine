@@ -14,7 +14,6 @@ sge::renderer::texture::emulate_srgb_from_caps(
 	sge::renderer::caps::device const &_caps
 )
 {
-	// TODO: We need to find a way to test this properly
 	return
 		_caps.srgb_framebuffer().get()
 		?

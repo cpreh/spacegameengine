@@ -51,6 +51,7 @@
 #include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/title.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -162,7 +163,9 @@ try
 	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
 		sys.renderer_device_core().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
-				*vertex_declaration,
+				fcppt::make_cref(
+					*vertex_declaration
+				),
 				sge::renderer::vf::dynamic::make_part_index<
 					vf_format,
 					vf_part

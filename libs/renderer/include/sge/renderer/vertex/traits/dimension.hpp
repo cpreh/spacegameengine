@@ -26,11 +26,12 @@ struct dimension_tpl<
 	sge::renderer::vertex::tag
 >
 {
-	typedef
+	using
+	type
+	=
 	sge::image::dimension_integral_c<
 		1
-	>
-	type;
+	>;
 };
 
 }

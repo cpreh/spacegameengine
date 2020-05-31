@@ -351,7 +351,9 @@ try
 
 	sge::renderer::texture::planar_unique_ptr const noise_texture(
 		sge::renderer::texture::create_planar_from_view(
-			sys.renderer_device_ffp(),
+			fcppt::make_ref(
+				sys.renderer_device_core()
+			),
 			sge::image2d::view::const_object(
 				store.const_wrapped_view()
 			),

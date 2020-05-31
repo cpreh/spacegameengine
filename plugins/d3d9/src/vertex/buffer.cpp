@@ -22,9 +22,9 @@
 #include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
+#include <sge/renderer/vf/dynamic/const_part_ref.hpp>
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
-#include <sge/renderer/vf/dynamic/part_cref.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
@@ -64,7 +64,9 @@ sge::d3d9::vertex::buffer::buffer(
 		_parameters.flags()
 	),
 	converter_(
-		format_part_,
+		fcppt::make_cref(
+			format_part_
+		),
 		sge::renderer::vf::dynamic::color_format_vector{
 			sge::image::color::format::bgra8
 		}
@@ -156,7 +158,7 @@ sge::d3d9::vertex::buffer::resource_flags() const
 		resource_flags_;
 }
 
-sge::renderer::vf::dynamic::part_cref
+sge::renderer::vf::dynamic::const_part_ref
 sge::d3d9::vertex::buffer::format() const
 {
 	return

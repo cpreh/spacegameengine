@@ -408,7 +408,9 @@ compiled_model::compiled_model(
 	vb_(
 		renderer_.create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
-				_vd,
+				fcppt::make_cref(
+					_vd
+				),
 				sge::renderer::vf::dynamic::make_part_index<
 					vf::format,
 					vf::format_part
@@ -441,7 +443,9 @@ compiled_model::compiled_model(
 {
 	{
 		sge::renderer::vertex::scoped_lock const vblock{
-			*vb_,
+			fcppt::make_ref(
+				*vb_
+			),
 			sge::renderer::lock_mode::writeonly
 		};
 
@@ -504,12 +508,15 @@ compiled_model::compiled_model(
 	}
 
 	sge::renderer::index::scoped_lock const iblock{
-		*ib_,
+		fcppt::make_ref(
+			*ib_
+		),
 		sge::renderer::lock_mode::writeonly
 	};
 
 	sge::renderer::index::dynamic::view const indices(
-		iblock.value());
+		iblock.value()
+	);
 
 	sge::renderer::index::iterator<
 		sge::renderer::index::format_16,
@@ -774,8 +781,16 @@ random_model_collection::render(
 	// Finally, we activate the vertex buffer so we can render stuff
 	// with it. We only activate it once, however, not for every model.
 	sge::renderer::vertex::scoped_buffer const scoped_vb{
-		_context,
-		backend_.vb()
+		fcppt::reference_to_base<
+			sge::renderer::context::core
+		>(
+			fcppt::make_ref(
+				_context
+			)
+		),
+		fcppt::make_cref(
+			backend_.vb()
+		)
 	};
 
 	for(
@@ -1224,8 +1239,16 @@ main_program(
 
 			// The vertex declaration can be set once in this case
 			sge::renderer::vertex::scoped_declaration const scoped_vd(
-				_context,
-				*vertex_declaration
+				fcppt::reference_to_base<
+					sge::renderer::context::core
+				>(
+					fcppt::make_ref(
+						_context
+					)
+				),
+				fcppt::make_cref(
+					*vertex_declaration
+				)
 			);
 
 			{

@@ -4,10 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_RENDERER_VF_DYNAMIC_PART_CREF_HPP_INCLUDED
-#define SGE_RENDERER_VF_DYNAMIC_PART_CREF_HPP_INCLUDED
+#ifndef SGE_RENDERER_CG_CONST_LOADED_TEXTURE_REF_HPP_INCLUDED
+#define SGE_RENDERER_CG_CONST_LOADED_TEXTURE_REF_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic/part_fwd.hpp>
+#include <sge/renderer/cg/loaded_texture_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 
 
@@ -15,18 +15,16 @@ namespace sge
 {
 namespace renderer
 {
-namespace vf
-{
-namespace dynamic
+namespace cg
 {
 
-typedef
+using
+const_loaded_texture_ref
+=
 fcppt::reference<
-	sge::renderer::vf::dynamic::part const
->
-part_cref;
+	sge::renderer::cg::loaded_texture const
+>;
 
-}
 }
 }
 }

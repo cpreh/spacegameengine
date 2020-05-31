@@ -71,6 +71,7 @@
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/create_volume_from_view.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/scoped.hpp>
@@ -343,7 +344,9 @@ fill_geometry(
 	}};
 
 	sge::renderer::vertex::scoped_lock const vb_lock(
-		_vertex_buffer,
+		fcppt::make_ref(
+			_vertex_buffer
+		),
 		sge::renderer::lock_mode::writeonly
 	);
 
@@ -409,7 +412,8 @@ fill_geometry(
 
 sge::renderer::texture::volume_unique_ptr
 create_noise_texture(
-	sge::renderer::device::core &_device)
+	sge::renderer::device::core &_device
+)
 {
 	typedef
 	sge::image3d::store::l8
@@ -520,7 +524,9 @@ create_noise_texture(
 
 	return
 		sge::renderer::texture::create_volume_from_view(
-			_device,
+			fcppt::make_ref(
+				_device
+			),
 			sge::image3d::view::const_object(
 				store.const_wrapped_view()
 			),
@@ -602,7 +608,9 @@ try
 	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
 		sys.renderer_device_core().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
-				*vertex_declaration,
+				fcppt::make_cref(
+					*vertex_declaration
+				),
 				sge::renderer::vf::dynamic::make_part_index<
 					vf_format,
 					vf_part
@@ -727,26 +735,66 @@ try
 		)
 		{
 			sge::renderer::vertex::scoped_declaration const scoped_vd(
-				_context,
-				*vertex_declaration
+				fcppt::reference_to_base<
+					sge::renderer::context::core
+				>(
+					fcppt::make_ref(
+						_context
+					)
+				),
+				fcppt::make_cref(
+					*vertex_declaration
+				)
 			);
 
 			sge::renderer::vertex::scoped_buffer const scoped_vb(
-				_context,
-				*vertex_buffer
+				fcppt::reference_to_base<
+					sge::renderer::context::core
+				>(
+					fcppt::make_ref(
+						_context
+					)
+				),
+				fcppt::make_cref(
+					*vertex_buffer
+				)
 			);
 
 			sge::renderer::texture::scoped const scoped_texture1(
-				_context,
-				*texture,
+				fcppt::reference_to_base<
+					sge::renderer::context::core
+				>(
+					fcppt::make_ref(
+						_context
+					)
+				),
+				fcppt::reference_to_base<
+					sge::renderer::texture::base const
+				>(
+					fcppt::make_cref(
+						*texture
+					)
+				),
 				sge::renderer::texture::stage(
 					0u
 				)
 			);
 
 			sge::renderer::texture::scoped const scoped_texture2(
-				_context,
-				*texture,
+				fcppt::reference_to_base<
+					sge::renderer::context::core
+				>(
+					fcppt::make_ref(
+						_context
+					)
+				),
+				fcppt::reference_to_base<
+					sge::renderer::texture::base const
+				>(
+					fcppt::make_cref(
+						*texture
+					)
+				),
 				sge::renderer::texture::stage(
 					1u
 				)

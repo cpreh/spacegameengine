@@ -58,6 +58,7 @@
 #include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
+#include <sge/renderer/vertex/const_buffer_ref.hpp>
 #include <sge/renderer/vertex/const_optional_declaration_ref.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
@@ -75,6 +76,8 @@
 #include <sge/d3d9/cg/program/deactivate.hpp>
 #include <sge/d3d9/cg/texture/activate.hpp>
 #include <sge/d3d9/cg/texture/deactivate.hpp>
+#include <sge/renderer/cg/const_loaded_program_ref.hpp>
+#include <sge/renderer/cg/const_loaded_texture_ref.hpp>
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
 #include <sge/renderer/cg/loaded_texture_fwd.hpp>
 #endif
@@ -250,12 +253,12 @@ sge::d3d9::render_context::object::render_nonindexed(
 
 void
 sge::d3d9::render_context::object::activate_vertex_buffer(
-	sge::renderer::vertex::buffer const &_buffer
+	sge::renderer::vertex::const_buffer_ref const _buffer
 )
 {
 	sge::d3d9::devicefuncs::set_stream_source(
 		parameters_.device(),
-		_buffer,
+		_buffer.get(),
 		true
 	);
 }
@@ -356,11 +359,11 @@ sge::d3d9::render_context::object::sampler_state(
 #if defined(SGE_RENDERER_HAVE_CG)
 void
 sge::d3d9::render_context::object::set_cg_program(
-	sge::renderer::cg::loaded_program const &_program
+	sge::renderer::cg::const_loaded_program_ref const _program
 )
 {
 	sge::d3d9::cg::program::activate(
-		_program
+		_program.get()
 	);
 }
 
@@ -374,14 +377,14 @@ sge::d3d9::render_context::object::unset_cg_program(
 	);
 }
 
-sge::renderer::texture::stage const
+sge::renderer::texture::stage
 sge::d3d9::render_context::object::set_cg_texture(
-	sge::renderer::cg::loaded_texture const &_texture
+	sge::renderer::cg::const_loaded_texture_ref const _texture
 )
 {
 	return
 		sge::d3d9::cg::texture::activate(
-			_texture
+			_texture>get()
 		);
 }
 

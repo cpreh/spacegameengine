@@ -14,7 +14,7 @@
 #include <sge/renderer/texture/capabilities_field_fwd.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,7 +26,7 @@ namespace texture
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 protected:
@@ -37,18 +37,22 @@ public:
 	virtual
 	~base();
 
+	[[nodiscard]]
 	virtual
 	sge::renderer::resource_flags_field
 	resource_flags() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::renderer::texture::capabilities_field
 	capabilities() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::renderer::texture::mipmap::object
 	mipmap() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::renderer::texture::mipmap::level_count
 	levels() const = 0;

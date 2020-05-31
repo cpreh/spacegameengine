@@ -8,9 +8,7 @@
 
 
 sge::renderer::state::ffp::clip_plane::object::object()
-{
-}
+= default;
 
 sge::renderer::state::ffp::clip_plane::object::~object()
-{
-}
+= default;

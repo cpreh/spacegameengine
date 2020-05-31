@@ -10,9 +10,11 @@
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/is_vertex.hpp>
@@ -20,6 +22,7 @@
 #include <sge/renderer/vf/proxy.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/algorithm/range_element_type.hpp>
 #include <fcppt/range/begin.hpp>
 #include <fcppt/range/end.hpp>
@@ -43,19 +46,20 @@ template<
 >
 sge::renderer::vertex::buffer_unique_ptr
 create_buffer_from_vertices(
-	sge::renderer::device::core &_device,
-	sge::renderer::vertex::declaration &_vertex_declaration,
+	sge::renderer::device::core_ref const _device,
+	sge::renderer::vertex::const_declaration_ref const _vertex_declaration,
 	sge::renderer::resource_flags_field const &_resource_flags,
 	Range const &_vertices
 )
 {
-	typedef
+	using
+	vertex_type
+	=
 	fcppt::type_traits::remove_cv_ref_t<
 		fcppt::algorithm::range_element_type<
 			Range
 		>
-	>
-	vertex_type;
+	>;
 
 	static_assert(
 		sge::renderer::vf::is_vertex<
@@ -63,13 +67,14 @@ create_buffer_from_vertices(
 		>::value
 	);
 
-	typedef
+	using
+	format_part
+	=
 	typename
-	vertex_type::format_part
-	format_part;
+	vertex_type::format_part;
 
 	sge::renderer::vertex::buffer_unique_ptr buffer{
-		_device.create_vertex_buffer(
+		_device.get().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
 				_vertex_declaration,
 				sge::renderer::vf::dynamic::make_part_index<
@@ -87,15 +92,18 @@ create_buffer_from_vertices(
 	};
 
 	sge::renderer::vertex::scoped_lock const lock{
-		*buffer,
+		fcppt::make_ref(
+			*buffer
+		),
 		sge::renderer::lock_mode::writeonly
 	};
 
-	typedef
+	using
+	view
+	=
 	sge::renderer::vf::view<
 		format_part
-	>
-	view;
+	>;
 
 	view const dest{
 		lock.value()

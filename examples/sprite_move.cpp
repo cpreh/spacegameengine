@@ -253,7 +253,9 @@ try
 
 	sge::renderer::texture::planar_unique_ptr const image_texture(
 		sge::renderer::texture::create_planar_from_view(
-			sys.renderer_device_ffp(),
+			fcppt::make_ref(
+				sys.renderer_device_core()
+			),
 			image->view(),
 			sge::renderer::texture::mipmap::off(),
 			sge::renderer::resource_flags_field::null(),
