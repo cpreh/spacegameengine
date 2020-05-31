@@ -115,7 +115,7 @@ private:
 
 	void
 	activate_vertex_buffer(
-		sge::renderer::vertex::buffer const &
+		sge::renderer::vertex::const_buffer_ref
 	)
 	override;
 
