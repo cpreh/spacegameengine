@@ -9,8 +9,8 @@
 
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/find_member_value_exn.hpp>
-#include <sge/parse/json/get_return_type.hpp>
 #include <sge/parse/json/get_exn.hpp>
+#include <sge/parse/json/get_return_type.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/object_impl.hpp>
