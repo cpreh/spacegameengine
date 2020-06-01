@@ -26,7 +26,7 @@ sge::evdev::joypad::ff::find_button(
 	sge::input::joypad::button_id const _id
 )
 {
-	// TODO: Use a bimap here?
+	// TODO(philipp): Use a bimap here?
 	return
 		fcppt::optional::to_exception(
 			fcppt::optional::deref(

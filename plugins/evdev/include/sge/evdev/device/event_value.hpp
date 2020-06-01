@@ -19,9 +19,10 @@ namespace evdev
 namespace device
 {
 
-typedef
-std::int32_t
-event_value;
+using
+event_value
+=
+std::int32_t;
 
 }
 }

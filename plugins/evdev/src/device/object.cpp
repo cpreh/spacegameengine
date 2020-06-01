@@ -11,6 +11,7 @@
 #include <sge/input/exception.hpp>
 #include <awl/backends/posix/fd.hpp>
 #include <awl/backends/posix/processor.hpp>
+#include <awl/backends/posix/processor_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/base_unique_ptr.hpp>
 #include <awl/event/connection.hpp>
@@ -28,8 +29,8 @@
 
 sge::evdev::device::object::object(
 	sge::evdev::device::fd_unique_ptr &&_fd,
-	awl::backends::posix::processor &_processor,
-	std::filesystem::path const &_path
+	awl::backends::posix::processor_ref const _processor,
+	std::filesystem::path &&_path
 )
 :
 	fd_{
@@ -38,19 +39,20 @@ sge::evdev::device::object::object(
 		)
 	},
 	fd_connection_{
-		_processor.register_fd(
+		_processor.get().register_fd(
 			this->fd_->get()
 		)
 	},
 	path_{
-		_path
+		std::move(
+			_path
+		)
 	}
 {
 }
 
 sge::evdev::device::object::~object()
-{
-}
+= default;
 
 awl::event::container
 sge::evdev::device::object::on_event()
@@ -59,9 +61,8 @@ sge::evdev::device::object::on_event()
 		-1
 	};
 
-	input_event event;
+	input_event event{};
 
-	// TODO: Make a range for this
 	awl::event::container events{};
 
 	while(
@@ -78,6 +79,7 @@ sge::evdev::device::object::on_event()
 		)
 		> 0
 	)
+	{
 		fcppt::optional::maybe_void(
 			this->process_event(
 				sge::evdev::device::event(
@@ -97,6 +99,7 @@ sge::evdev::device::object::on_event()
 				);
 			}
 		);
+	}
 
 	if(
 		result
@@ -107,17 +110,19 @@ sge::evdev::device::object::on_event()
 		!=
 		EAGAIN
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("Reading a device failed")
 			};
+	}
 
 	return
 		events;
 }
 
 awl::backends::posix::fd
-sge::evdev::device::object::posix_fd() const
+sge::evdev::device::object::posix_fd()
 {
 	return
 		this->fd().get();
@@ -130,8 +135,8 @@ sge::evdev::device::object::path() const
 		path_;
 }
 
-sge::evdev::device::fd const &
-sge::evdev::device::object::fd() const
+sge::evdev::device::fd &
+sge::evdev::device::object::fd()
 {
 	return
 		*fd_;

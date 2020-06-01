@@ -21,11 +21,12 @@ namespace joypad
 namespace ff
 {
 
-typedef
+using
+variant
+=
 decltype(
 	ff_effect::u
-)
-variant;
+);
 
 }
 }

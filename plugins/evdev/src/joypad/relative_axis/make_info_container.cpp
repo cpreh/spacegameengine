@@ -19,7 +19,7 @@
 
 sge::evdev::joypad::relative_axis::info_container
 sge::evdev::joypad::relative_axis::make_info_container(
-	sge::evdev::device::fd const &_fd
+	sge::evdev::device::fd &_fd
 )
 {
 	return

@@ -18,11 +18,12 @@ namespace evdev
 namespace joypad
 {
 
-typedef
+using
+shared_ptr
+=
 fcppt::shared_ptr<
 	sge::evdev::joypad::object
->
-shared_ptr;
+>;
 
 }
 }

@@ -209,7 +209,7 @@ struct convert_from_impl<
 			outer_size::value
 		>;
 
-		inner_array const inner(
+		auto const inner(
 			fcppt::container::array::init<
 				inner_array
 			>(

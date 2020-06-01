@@ -9,7 +9,7 @@
 
 #include <sge/evdev/joypad/optional_shared_ptr.hpp>
 #include <sge/window/object_ref.hpp>
-#include <awl/backends/posix/processor_fwd.hpp>
+#include <awl/backends/posix/processor_ref.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
@@ -25,9 +25,9 @@ namespace joypad
 
 sge::evdev::joypad::optional_shared_ptr
 create(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	sge::window::object_ref,
-	awl::backends::posix::processor &,
+	awl::backends::posix::processor_ref,
 	std::filesystem::path const &
 );
 

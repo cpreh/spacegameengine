@@ -18,11 +18,12 @@ namespace evdev
 namespace joypad
 {
 
-typedef
+using
+optional_iterator
+=
 fcppt::optional::object<
 	sge::evdev::joypad::map::iterator
->
-optional_iterator;
+>;
 
 }
 }

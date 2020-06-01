@@ -22,8 +22,8 @@ namespace button
 
 sge::evdev::joypad::button::info_container
 make_info_container(
-	sge::evdev::device::fd const &
-);
+	sge::evdev::device::fd & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

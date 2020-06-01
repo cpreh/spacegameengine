@@ -7,9 +7,9 @@
 #ifndef SGE_EVDEV_JOYPAD_FF_UPLOADED_EFFECT_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_FF_UPLOADED_EFFECT_HPP_INCLUDED
 
-#include <sge/evdev/device/fd_fwd.hpp>
+#include <sge/evdev/device/fd_ref.hpp>
 #include <sge/evdev/joypad/ff/id.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
 #include <fcppt/config/external_end.hpp>
@@ -26,21 +26,22 @@ namespace ff
 
 class uploaded_effect
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		uploaded_effect
 	);
 public:
 	uploaded_effect(
-		sge::evdev::device::fd const &,
+		sge::evdev::device::fd_ref,
 		ff_effect
 	);
 
 	~uploaded_effect();
 
+	[[nodiscard]]
 	sge::evdev::joypad::ff::id
 	id() const;
 private:
-	sge::evdev::device::fd const &fd_;
+	sge::evdev::device::fd_ref const fd_;
 
 	ff_effect effect_;
 };

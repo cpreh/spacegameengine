@@ -14,6 +14,7 @@ set(
 	plugins/evdev/include/sge/evdev/device/event_value.hpp
 	plugins/evdev/include/sge/evdev/device/fd.hpp
 	plugins/evdev/include/sge/evdev/device/fd_fwd.hpp
+	plugins/evdev/include/sge/evdev/device/fd_ref.hpp
 	plugins/evdev/include/sge/evdev/device/fd_unique_ptr.hpp
 	plugins/evdev/include/sge/evdev/device/make_info_container.hpp
 	plugins/evdev/include/sge/evdev/device/name.hpp
@@ -33,6 +34,7 @@ set(
 	plugins/evdev/include/sge/evdev/inotify/event_type_fwd.hpp
 	plugins/evdev/include/sge/evdev/inotify/object.hpp
 	plugins/evdev/include/sge/evdev/inotify/object_fwd.hpp
+	plugins/evdev/include/sge/evdev/inotify/object_ref.hpp
 	plugins/evdev/include/sge/evdev/inotify/reader.hpp
 	plugins/evdev/include/sge/evdev/inotify/reader_fwd.hpp
 	plugins/evdev/include/sge/evdev/inotify/watch.hpp

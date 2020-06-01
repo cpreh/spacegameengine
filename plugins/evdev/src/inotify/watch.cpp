@@ -16,7 +16,7 @@
 
 sge::evdev::inotify::watch::watch(
 	std::filesystem::path const &_watch_path,
-	sge::evdev::inotify::object const &_object
+	sge::evdev::inotify::object_ref const _object
 )
 :
 	object_(
@@ -24,9 +24,9 @@ sge::evdev::inotify::watch::watch(
 	),
 	fd_(
 		::inotify_add_watch(
-			object_.fd().get(),
+			object_.get().fd().get(),
 			_watch_path.string().c_str(),
-			IN_CREATE
+			IN_CREATE // NOLINT(hicpp-signed-bitwise)
 			|
 			IN_DELETE
 			|
@@ -39,15 +39,18 @@ sge::evdev::inotify::watch::watch(
 		==
 		-1
 	)
-		throw sge::input::exception(
-			FCPPT_TEXT("inotify_add_watch failed")
-		);
+	{
+		throw
+			sge::input::exception(
+				FCPPT_TEXT("inotify_add_watch failed")
+			);
+	}
 }
 
 sge::evdev::inotify::watch::~watch()
 {
 	::inotify_rm_watch(
-		object_.fd().get(),
+		object_.get().fd().get(),
 		fd_.get()
 	);
 }

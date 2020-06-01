@@ -11,7 +11,7 @@
 #include <sge/renderer/opengl/buffer/base_fwd.hpp>
 #include <sge/renderer/opengl/buffer/id.hpp>
 #include <sge/renderer/opengl/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -25,7 +25,7 @@ namespace buffer
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 protected:
@@ -36,10 +36,12 @@ public:
 	virtual
 	~base();
 
+	[[nodiscard]]
 	virtual
 	sge::renderer::opengl::buffer::id
 	id() const = 0;
 
+	[[nodiscard]]
 	virtual
 	bool
 	native() const = 0;

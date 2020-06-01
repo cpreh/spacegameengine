@@ -48,11 +48,13 @@ sge::evdev::joypad::is_joypad(
 					value
 					<= BTN_TASK
 				)
+				{
 					return
 						std::make_pair(
 							fcppt::loop::break_,
 							false
 						);
+				}
 
 				if(
 					value
@@ -61,11 +63,13 @@ sge::evdev::joypad::is_joypad(
 					value
 					< BTN_DIGI
 				)
+				{
 					return
 						std::make_pair(
 							fcppt::loop::continue_,
 							true
 						);
+				}
 
 				return
 					std::make_pair(

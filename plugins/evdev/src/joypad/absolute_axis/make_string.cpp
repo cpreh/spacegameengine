@@ -100,7 +100,7 @@ sge::evdev::joypad::absolute_axis::make_string(
 		SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(
 			ABS_MISC
 		);
-		// TODO); discard multi touch stuff?
+		// TODO(philipp) discard multi touch stuff?
 		SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(ABS_MT_SLOT);
 		SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(ABS_MT_TOUCH_MAJOR);
 		SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(ABS_MT_TOUCH_MINOR);

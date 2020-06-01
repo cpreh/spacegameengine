@@ -8,9 +8,7 @@
 
 
 sge::renderer::cg::loaded_program::loaded_program()
-{
-}
+= default;
 
 sge::renderer::cg::loaded_program::~loaded_program()
-{
-}
+= default;

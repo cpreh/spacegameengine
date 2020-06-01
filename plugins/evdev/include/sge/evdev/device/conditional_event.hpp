@@ -23,7 +23,7 @@ namespace evdev
 namespace device
 {
 
-// TODO: Better typing
+// TODO(philipp): Better typing
 template<
 	typename Type,
 	typename Map,

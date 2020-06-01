@@ -9,7 +9,7 @@
 
 #include <sge/evdev/joypad/map.hpp>
 #include <sge/window/object_ref.hpp>
-#include <awl/backends/posix/processor_fwd.hpp>
+#include <awl/backends/posix/processor_ref.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -26,10 +26,10 @@ namespace joypad
 
 awl::event::optional_base_unique_ptr
 add(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	sge::window::object_ref,
-	awl::backends::posix::processor &,
-	sge::evdev::joypad::map &,
+	awl::backends::posix::processor_ref,
+	sge::evdev::joypad::map &, // NOLINT(google-runtime-references)
 	std::filesystem::path const &
 );
 

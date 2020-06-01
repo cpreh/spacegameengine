@@ -10,7 +10,7 @@
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/cg/loaded_texture_fwd.hpp>
 #include <sge/renderer/cg/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -22,7 +22,7 @@ namespace cg
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL loaded_texture
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		loaded_texture
 	);
 protected:

@@ -9,7 +9,7 @@
 
 #include <sge/evdev/device/fd_fwd.hpp>
 #include <awl/backends/posix/fd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
@@ -24,7 +24,7 @@ namespace device
 
 class fd
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		fd
 	);
 public:
@@ -36,9 +36,11 @@ public:
 	~fd();
 
 	// FIXME: Return optional_fd here
+	[[nodiscard]]
 	awl::backends::posix::fd
-	get() const;
+	get();
 
+	[[nodiscard]]
 	bool
 	valid() const;
 private:

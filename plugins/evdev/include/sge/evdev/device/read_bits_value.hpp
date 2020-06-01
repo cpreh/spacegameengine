@@ -15,9 +15,10 @@ namespace evdev
 namespace device
 {
 
-typedef
-unsigned long
-read_bits_value;
+using
+read_bits_value
+=
+unsigned long; // NOLINT(google-runtime-int)
 
 }
 }

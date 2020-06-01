@@ -66,7 +66,7 @@ sge::evdev::joypad::ff::convert_variant(
 			sge::input::joypad::ff::condition const &_condition
 		)
 		{
-			// TODO: Should we separate this?
+			// TODO(philipp): Should we separate this?
 
 			ff_condition_effect const effect(
 				sge::evdev::joypad::ff::convert_condition(

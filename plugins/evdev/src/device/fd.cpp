@@ -21,9 +21,9 @@ sge::evdev::device::fd::fd(
 )
 :
 	fd_(
-		::open(
+		::open( // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)
 			_path.string().c_str(),
-			O_RDONLY | O_NONBLOCK
+			O_RDONLY | O_NONBLOCK | O_CLOEXEC // NOLINT(hicpp-signed-bitwise)
 		)
 	)
 {
@@ -34,13 +34,15 @@ sge::evdev::device::fd::~fd()
 	if(
 		this->valid()
 	)
+	{
 		::close(
 			fd_.get()
 		);
+	}
 }
 
 awl::backends::posix::fd
-sge::evdev::device::fd::get() const
+sge::evdev::device::fd::get()
 {
 	FCPPT_ASSERT_PRE(
 		this->valid()

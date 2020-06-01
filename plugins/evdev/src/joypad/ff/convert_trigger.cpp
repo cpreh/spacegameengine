@@ -28,7 +28,7 @@ sge::evdev::joypad::ff::convert_trigger(
 		fcppt::optional::maybe(
 			_opt_trigger,
 			[]{
-				// TODO: What to put here?
+				// TODO(philipp): What to put here?
 				return
 					ff_trigger{
 						fcppt::literal<
@@ -57,7 +57,7 @@ sge::evdev::joypad::ff::convert_trigger(
 						fcppt::optional::maybe(
 							_trigger.cooldown().get(),
 							[]{
-								// TODO: What to put here?
+								// TODO(philipp): What to put here?
 								return
 									fcppt::literal<
 										std::uint16_t

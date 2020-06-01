@@ -27,9 +27,11 @@ public:
 		sge::evdev::joypad::event_map &&
 	);
 
+	[[nodiscard]]
 	sge::input::joypad::info const &
 	input_info() const;
 
+	[[nodiscard]]
 	sge::evdev::joypad::event_map const &
 	event_map() const;
 private:

@@ -23,10 +23,11 @@
 #include <sge/input/joypad/ff/parameters_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/object_ref.hpp>
-#include <awl/backends/posix/processor_fwd.hpp>
+#include <awl/backends/posix/processor_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/enable_shared_from_this_impl.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -38,10 +39,10 @@
 
 sge::evdev::joypad::object::object(
 	sge::evdev::device::fd_unique_ptr &&_fd,
-	std::filesystem::path const &_path,
+	std::filesystem::path &&_path,
 	sge::window::object_ref const _window,
-	awl::backends::posix::processor &_processor,
-	sge::evdev::joypad::info const &_info
+	awl::backends::posix::processor_ref const _processor,
+	sge::evdev::joypad::info &&_info
 )
 :
 	sge::input::joypad::device{},
@@ -50,7 +51,9 @@ sge::evdev::joypad::object::object(
 			_fd
 		),
 		_processor,
-		_path
+		std::move(
+			_path
+		)
 	},
 	fcppt::enable_shared_from_this<
 		sge::evdev::joypad::object
@@ -59,14 +62,15 @@ sge::evdev::joypad::object::object(
 		_window
 	},
 	info_{
-		_info
+		std::move(
+			_info
+		)
 	}
 {
 }
 
 sge::evdev::joypad::object::~object()
-{
-}
+= default;
 
 sge::window::object &
 sge::evdev::joypad::object::window() const
@@ -142,7 +146,9 @@ sge::evdev::joypad::object::create_ff_effect(
 			fcppt::make_unique_ptr<
 				sge::evdev::joypad::ff::effect
 			>(
-				this->fd(),
+				fcppt::make_ref(
+					this->fd()
+				),
 				info_.event_map().buttons(),
 				_parameters
 			)

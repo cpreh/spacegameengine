@@ -26,7 +26,7 @@ namespace inotify
 
 class reader
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		reader
 	);
 public:
@@ -37,13 +37,15 @@ public:
 
 	~reader();
 
+	[[nodiscard]]
 	sge::evdev::inotify::event_container
 	on_event();
 
+	[[nodiscard]]
 	awl::backends::posix::fd
-	fd() const;
+	fd();
 private:
-	sge::evdev::inotify::object const object_;
+	sge::evdev::inotify::object object_;
 
 	sge::evdev::inotify::watch const watch_;
 };

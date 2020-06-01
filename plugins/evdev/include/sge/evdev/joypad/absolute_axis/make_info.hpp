@@ -23,7 +23,7 @@ namespace absolute_axis
 
 sge::input::joypad::absolute_axis_info
 make_info(
-	sge::evdev::device::fd const &,
+	sge::evdev::device::fd &, // NOLINT(google-runtime-references)
 	sge::evdev::device::event_type
 );
 

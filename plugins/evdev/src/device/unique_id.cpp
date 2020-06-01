@@ -19,22 +19,23 @@
 
 sge::input::info::unique_id
 sge::evdev::device::unique_id(
-	sge::evdev::device::fd const &_fd
+	sge::evdev::device::fd &_fd
 )
 {
-	typedef
+	using
+	buffer_type
+	=
 	std::array<
 		char,
-		1024
-	>
-	buffer_type;
+		1024 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+	>;
 
 	buffer_type buffer;
 
 	if(
-		::ioctl(
+		::ioctl( // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)
 			_fd.get().get(),
-			EVIOCGUNIQ(
+			EVIOCGUNIQ( // NOLINT(hicpp-signed-bitwise)
 				buffer.size() - 1
 			)
 			,
@@ -50,18 +51,20 @@ sge::evdev::device::unique_id(
 		!=
 		'\0'
 	)
+	{
 		return
 			sge::input::info::unique_id(
 				fcppt::from_std_string(
 					buffer.data()
 				)
 			);
+	}
 
 	// If there is no unique id, we try to get the physical id instead.
 	if(
-		::ioctl(
+		::ioctl( // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)
 			_fd.get().get(),
-			EVIOCGPHYS(
+			EVIOCGPHYS( // NOLINT(hicpp-signed-bitwise)
 				buffer.size() - 1
 			)
 			,
@@ -70,10 +73,12 @@ sge::evdev::device::unique_id(
 		==
 		-1
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("ioctl EVIOCGPHYS failed")
 			};
+	}
 
 	return
 		sge::input::info::unique_id(

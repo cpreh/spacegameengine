@@ -23,7 +23,7 @@ namespace joypad
 
 awl::event::optional_base_unique_ptr
 remove(
-	sge::evdev::joypad::map &,
+	sge::evdev::joypad::map &, // NOLINT(google-runtime-references)
 	std::filesystem::path const &
 );
 

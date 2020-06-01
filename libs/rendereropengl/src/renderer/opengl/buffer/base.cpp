@@ -6,10 +6,9 @@
 
 #include <sge/renderer/opengl/buffer/base.hpp>
 
+
 sge::renderer::opengl::buffer::base::base()
-{
-}
+= default;
 
 sge::renderer::opengl::buffer::base::~base()
-{
-}
+= default;

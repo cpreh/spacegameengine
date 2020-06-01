@@ -11,11 +11,11 @@
 #include <sge/evdev/device/fd_fwd.hpp>
 #include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <awl/backends/posix/fd.hpp>
-#include <awl/backends/posix/processor_fwd.hpp>
+#include <awl/backends/posix/processor_ref.hpp>
 #include <awl/event/connection_unique_ptr.hpp>
 #include <awl/event/container.hpp>
 #include <awl/event/optional_base_unique_ptr_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
@@ -30,31 +30,36 @@ namespace device
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	object(
 		sge::evdev::device::fd_unique_ptr &&,
-		awl::backends::posix::processor &,
-		std::filesystem::path const &
+		awl::backends::posix::processor_ref,
+		std::filesystem::path &&
 	);
 
 	virtual
 	~object();
 
+	[[nodiscard]]
 	awl::event::container
 	on_event();
 
+	[[nodiscard]]
 	awl::backends::posix::fd
-	posix_fd() const;
+	posix_fd();
 
+	[[nodiscard]]
 	std::filesystem::path const &
 	path() const;
 protected:
-	sge::evdev::device::fd const &
-	fd() const;
+	[[nodiscard]]
+	sge::evdev::device::fd &
+	fd();
 private:
+	[[nodiscard]]
 	virtual
 	awl::event::optional_base_unique_ptr
 	process_event(

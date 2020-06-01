@@ -40,8 +40,7 @@ sge::evdev::system::system(
 }
 
 sge::evdev::system::~system()
-{
-}
+= default;
 
 sge::input::processor_unique_ptr
 sge::evdev::system::create_processor(

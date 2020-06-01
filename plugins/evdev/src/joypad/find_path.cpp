@@ -22,7 +22,7 @@ sge::evdev::joypad::find_path(
 	std::filesystem::path const &_path
 )
 {
-	// TODO: Make an algorithm for this
+	// TODO(philipp): Make an algorithm for this
 	sge::evdev::joypad::map::iterator const pos{
 		std::find_if(
 			_map.begin(),

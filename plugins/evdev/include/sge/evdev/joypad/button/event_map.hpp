@@ -20,11 +20,12 @@ namespace joypad
 namespace button
 {
 
-typedef
+using
+event_map
+=
 sge::evdev::device::event_map<
 	sge::input::joypad::button_id
->
-event_map;
+>;
 
 }
 }

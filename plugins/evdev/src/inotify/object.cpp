@@ -17,7 +17,9 @@
 sge::evdev::inotify::object::object()
 :
 	fd_(
-		::inotify_init()
+		::inotify_init1(
+			IN_CLOEXEC
+		)
 	)
 {
 	if(
@@ -25,9 +27,12 @@ sge::evdev::inotify::object::object()
 		==
 		-1
 	)
-		throw sge::input::exception(
-			FCPPT_TEXT("inotify_init failed")
-		);
+	{
+		throw
+			sge::input::exception(
+				FCPPT_TEXT("inotify_init failed")
+			);
+	}
 }
 
 sge::evdev::inotify::object::~object()
@@ -38,7 +43,7 @@ sge::evdev::inotify::object::~object()
 }
 
 awl::backends::posix::fd
-sge::evdev::inotify::object::fd() const
+sge::evdev::inotify::object::fd()
 {
 	return
 		fd_;

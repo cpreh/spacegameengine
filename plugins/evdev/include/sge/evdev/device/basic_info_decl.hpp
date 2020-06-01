@@ -47,19 +47,23 @@ public:
 	>;
 
 	basic_info(
-		info_container const &,
-		event_map_type const &
+		info_container &&,
+		event_map_type &&
 	);
 
+	[[nodiscard]]
 	info_container const &
 	infos() const;
 
+	[[nodiscard]]
 	info_container &
 	infos();
 
+	[[nodiscard]]
 	event_map_type const &
 	event_map() const;
 
+	[[nodiscard]]
 	event_map_type &
 	event_map();
 private:

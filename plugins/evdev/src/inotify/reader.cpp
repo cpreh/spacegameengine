@@ -9,6 +9,7 @@
 #include <sge/evdev/inotify/event_container.hpp>
 #include <sge/evdev/inotify/reader.hpp>
 #include <awl/backends/posix/fd.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <unistd.h>
@@ -29,20 +30,24 @@ sge::evdev::inotify::reader::reader(
 	object_{},
 	watch_{
 		_path,
-		object_
+		fcppt::make_ref(
+			object_
+		)
 	}
 {
 }
 
 sge::evdev::inotify::reader::~reader()
-{
-}
+= default;
 
 sge::evdev::inotify::event_container
 sge::evdev::inotify::reader::on_event()
 {
 	// The manpage says that this is enough to read at least one inotify event
-	typedef std::array<
+	using
+	buffer_array
+	=
+	std::array<
 		char,
 		sizeof(
 			inotify_event
@@ -50,8 +55,8 @@ sge::evdev::inotify::reader::on_event()
 		+
 		NAME_MAX
 		+
-		1u
-	> buffer_array;
+		1U
+	>;
 
 	buffer_array buffer;
 
@@ -67,7 +72,7 @@ sge::evdev::inotify::reader::on_event()
 		ret != -1
 	);
 
-	std::size_t const bytes(
+	auto const bytes(
 		static_cast<
 			std::size_t
 		>(
@@ -76,10 +81,9 @@ sge::evdev::inotify::reader::on_event()
 	);
 
 	std::size_t index(
-		0u
+		0U
 	);
 
-	// TODO: Make a range for this
 	sge::evdev::inotify::event_container result;
 
 	while(
@@ -98,18 +102,18 @@ sge::evdev::inotify::reader::on_event()
 			)
 		);
 
-		inotify_event event;
+		inotify_event event{};
 
 		std::memcpy(
 			&event,
-			buffer.data() + index,
+			buffer.data() + index, // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 			sizeof(
 				inotify_event
 			)
 		);
 
 		FCPPT_ASSERT_ERROR(
-			event.len != 0u
+			event.len != 0U
 		);
 
 		index +=
@@ -118,7 +122,7 @@ sge::evdev::inotify::reader::on_event()
 			);
 
 		std::string const path_name(
-			buffer.data() + index
+			buffer.data() + index // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 		);
 
 		result.push_back(
@@ -147,7 +151,7 @@ sge::evdev::inotify::reader::on_event()
 }
 
 awl::backends::posix::fd
-sge::evdev::inotify::reader::fd() const
+sge::evdev::inotify::reader::fd()
 {
 	return
 		object_.fd();

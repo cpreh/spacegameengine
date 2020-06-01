@@ -19,22 +19,23 @@
 
 sge::input::info::name
 sge::evdev::device::name(
-	sge::evdev::device::fd const &_fd
+	sge::evdev::device::fd &_fd
 )
 {
-	typedef
+	using
+	buffer_type
+	=
 	std::array<
 		char,
-		1024
-	>
-	buffer_type;
+		1024 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+	>;
 
 	buffer_type buffer;
 
 	if(
-		::ioctl(
+		::ioctl( // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)
 			_fd.get().get(),
-			EVIOCGNAME(
+			EVIOCGNAME( // NOLINT(hicpp-signed-bitwise)
 				buffer.size() - 1
 			)
 			,
@@ -43,10 +44,12 @@ sge::evdev::device::name(
 		==
 		-1
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("ioctl EVIOCGNAME failed")
 			};
+	}
 
 	return
 		sge::input::info::name(

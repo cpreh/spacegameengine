@@ -23,7 +23,7 @@ namespace ff
 
 void
 write_event(
-	sge::evdev::device::fd const &,
+	sge::evdev::device::fd &, // NOLINT(google-runtime-references)
 	sge::evdev::joypad::ff::id,
 	sge::evdev::device::event_value
 );

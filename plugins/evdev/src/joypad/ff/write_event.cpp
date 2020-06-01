@@ -13,7 +13,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <time.h>
+#include <time.h> // NOLINT(hicpp-deprecated-headers,modernize-deprecated-headers)
 #include <unistd.h>
 #include <linux/input.h>
 #include <sys/time.h>
@@ -22,7 +22,7 @@
 
 void
 sge::evdev::joypad::ff::write_event(
-	sge::evdev::device::fd const &_fd,
+	sge::evdev::device::fd &_fd,
 	sge::evdev::joypad::ff::id const _id,
 	sge::evdev::device::event_value const _value
 )
@@ -58,8 +58,10 @@ sge::evdev::joypad::ff::write_event(
 		==
 		-1
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("Writing a FF event failed")
 			};
+	}
 }

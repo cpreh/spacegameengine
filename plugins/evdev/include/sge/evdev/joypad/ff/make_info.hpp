@@ -22,8 +22,8 @@ namespace ff
 
 sge::input::joypad::ff::type_field
 make_info(
-	sge::evdev::device::fd const &
-);
+	sge::evdev::device::fd & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

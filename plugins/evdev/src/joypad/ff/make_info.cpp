@@ -44,13 +44,13 @@ to_linux_effect(
 			FF_DAMPER;
 	case sge::input::joypad::ff::type::inertia:
 		return
-			FF_RAMP;
+			FF_INERTIA;
 	case sge::input::joypad::ff::type::ramp:
 		return
-			FF_SQUARE;
+			FF_RAMP;
 	case sge::input::joypad::ff::type::square:
 		return
-			FF_SINE;
+			FF_SQUARE;
 	case sge::input::joypad::ff::type::sine:
 		return
 			FF_SINE;
@@ -72,7 +72,7 @@ to_linux_effect(
 
 sge::input::joypad::ff::type_field
 sge::evdev::joypad::ff::make_info(
-	sge::evdev::device::fd const &_fd
+	sge::evdev::device::fd &_fd
 )
 {
 	sge::evdev::device::read_bits_result<

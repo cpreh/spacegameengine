@@ -12,7 +12,7 @@
 #include <sge/renderer/opengl/texture/base_fwd.hpp>
 #include <sge/renderer/opengl/texture/id.hpp>
 #include <sge/renderer/opengl/texture/type.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,17 +26,19 @@ namespace texture
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 protected:
 	SGE_RENDERER_OPENGL_DETAIL_SYMBOL
 	base();
 public:
+	[[nodiscard]]
 	virtual
 	sge::renderer::opengl::texture::id
 	id() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::renderer::opengl::texture::type
 	type() const = 0;

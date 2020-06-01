@@ -4,25 +4,26 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_EVDEV_DEVICE_EVENT_TYPE_VALUE_HPP_INCLUDED
-#define SGE_EVDEV_DEVICE_EVENT_TYPE_VALUE_HPP_INCLUDED
+#ifndef SGE_EVDEV_INOTIFY_OBJECT_REF_HPP_INCLUDED
+#define SGE_EVDEV_INOTIFY_OBJECT_REF_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <cstdint>
-#include <fcppt/config/external_end.hpp>
+#include <sge/evdev/inotify/object_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
 {
 namespace evdev
 {
-namespace device
+namespace inotify
 {
 
 using
-event_type_value
+object_ref
 =
-std::uint16_t;
+fcppt::reference<
+	sge::evdev::inotify::object
+>;
 
 }
 }

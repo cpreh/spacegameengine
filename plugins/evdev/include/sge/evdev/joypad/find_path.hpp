@@ -23,7 +23,7 @@ namespace joypad
 
 sge::evdev::joypad::optional_iterator
 find_path(
-	sge::evdev::joypad::map &,
+	sge::evdev::joypad::map &, // NOLINT(google-runtime-references)
 	std::filesystem::path const &
 );
 

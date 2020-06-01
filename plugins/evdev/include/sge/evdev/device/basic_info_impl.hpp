@@ -8,6 +8,9 @@
 #define SGE_EVDEV_DEVICE_BASIC_INFO_IMPL_HPP_INCLUDED
 
 #include <sge/evdev/device/basic_info_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -18,15 +21,19 @@ sge::evdev::device::basic_info<
 	Id,
 	Info
 >::basic_info(
-	info_container const &_infos,
-	event_map_type const &_event_map
+	info_container &&_infos,
+	event_map_type &&_event_map
 )
 :
 	infos_(
-		_infos
+		std::move(
+			_infos
+		)
 	),
 	event_map_(
-		_event_map
+		std::move(
+			_event_map
+		)
 	)
 {
 }

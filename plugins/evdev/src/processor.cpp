@@ -34,6 +34,7 @@
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <awl/system/object.hpp>
 #include <awl/system/event/processor.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
@@ -46,7 +47,6 @@
 #include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
-#include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -67,17 +67,19 @@ sge::evdev::processor::processor(
 		_window
 	},
 	processor_{
-		fcppt::cast::dynamic_cross_exn<
-			awl::backends::posix::processor_base &
-		>(
-			this->window().system().awl_system().processor()
-		).fd_processor()
+		fcppt::make_ref(
+			fcppt::cast::dynamic_cross_exn<
+				awl::backends::posix::processor_base &
+			>(
+				window_.get().system().awl_system().processor()
+			).fd_processor()
+		)
 	},
 	dev_watch_{
 		this->path_
 	},
 	dev_watch_connection_{
-		this->processor_.register_fd(
+		this->processor_.get().register_fd(
 			this->dev_watch_.fd()
 		)
 	},
@@ -90,7 +92,7 @@ sge::evdev::processor::processor(
 		)
 	},
 	event_connection_{
-		this->window().system().event_handler(
+		window_.get().system().event_handler(
 			sge::window::system_event_function{
 				[
 					this
@@ -110,8 +112,7 @@ sge::evdev::processor::processor(
 }
 
 sge::evdev::processor::~processor()
-{
-}
+= default;
 
 sge::window::object &
 sge::evdev::processor::window() const
@@ -149,14 +150,12 @@ sge::evdev::processor::joypads() const
 				this->joypads_
 			),
 			[](
-				sge::evdev::joypad::shared_ptr &&_ptr
+				sge::evdev::joypad::shared_ptr const &_ptr
 			)
 			{
 				return
 					sge::input::joypad::shared_ptr{
-						std::move(
-							_ptr
-						)
+						_ptr
 					};
 			}
 		);

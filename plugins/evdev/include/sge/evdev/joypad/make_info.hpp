@@ -20,8 +20,8 @@ namespace joypad
 
 sge::evdev::joypad::info
 make_info(
-	sge::evdev::device::fd const &
-);
+	sge::evdev::device::fd & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

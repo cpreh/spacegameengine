@@ -19,11 +19,11 @@
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/object_ref.hpp>
 #include <awl/backends/posix/event_fwd.hpp>
-#include <awl/backends/posix/processor_fwd.hpp>
+#include <awl/backends/posix/processor_ref.hpp>
 #include <awl/event/connection_unique_ptr.hpp>
 #include <awl/event/container.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -40,7 +40,7 @@ class processor
 :
 	public sge::input::processor
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		processor
 	);
 public:
@@ -52,45 +52,55 @@ public:
 	~processor()
 	override;
 private:
+	[[nodiscard]]
 	sge::window::object &
 	window() const
 	override;
 
+	[[nodiscard]]
 	sge::input::cursor::container
 	cursors() const
 	override;
 
+	[[nodiscard]]
 	sge::input::focus::container
 	foci() const
 	override;
 
+	[[nodiscard]]
 	sge::input::joypad::container
 	joypads() const
 	override;
 
+	[[nodiscard]]
 	sge::input::keyboard::container
 	keyboards() const
 	override;
 
+	[[nodiscard]]
 	sge::input::mouse::container
 	mice() const
 	override;
 
+	[[nodiscard]]
 	awl::event::container
 	system_event(
 		awl::event::base const &
 	);
 
+	[[nodiscard]]
 	awl::event::container
 	fd_event(
 		awl::backends::posix::event const &
 	);
 
+	[[nodiscard]]
 	awl::event::optional_base_unique_ptr
 	inotify_event(
 		sge::evdev::inotify::event const &
 	);
 
+	[[nodiscard]]
 	awl::event::container
 	device_event(
 		awl::backends::posix::event const &
@@ -102,7 +112,7 @@ private:
 
 	sge::window::object_ref const window_;
 
-	awl::backends::posix::processor &processor_;
+	awl::backends::posix::processor_ref const processor_;
 
 	sge::evdev::inotify::reader dev_watch_;
 

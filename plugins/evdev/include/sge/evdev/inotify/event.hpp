@@ -29,9 +29,11 @@ public:
 		sge::evdev::inotify::event_type
 	);
 
+	[[nodiscard]]
 	std::filesystem::path const &
 	filename() const;
 
+	[[nodiscard]]
 	sge::evdev::inotify::event_type
 	event_type() const;
 private:

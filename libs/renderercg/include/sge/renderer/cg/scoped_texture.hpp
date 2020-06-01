@@ -37,6 +37,7 @@ public:
 	SGE_RENDERER_CG_DETAIL_SYMBOL
 	~scoped_texture();
 
+	[[nodiscard]]
 	SGE_RENDERER_CG_DETAIL_SYMBOL
 	sge::renderer::texture::stage
 	stage() const;

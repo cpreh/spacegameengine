@@ -23,16 +23,16 @@
 
 sge::input::joypad::absolute_axis_info
 sge::evdev::joypad::absolute_axis::make_info(
-	sge::evdev::device::fd const &_fd,
+	sge::evdev::device::fd &_fd,
 	sge::evdev::device::event_type const _event
 )
 {
-	input_absinfo ret;
+	input_absinfo ret{};
 
 	if(
-		::ioctl(
+		::ioctl( // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)
 			_fd.get().get(),
-			EVIOCGABS(
+			EVIOCGABS( // NOLINT(hicpp-signed-bitwise)
 				static_cast<
 					unsigned
 				>(
@@ -44,9 +44,12 @@ sge::evdev::joypad::absolute_axis::make_info(
 		==
 		-1
 	)
-		throw sge::input::exception(
-			FCPPT_TEXT("ioctl for abs info failed!")
-		);
+	{
+		throw
+			sge::input::exception(
+				FCPPT_TEXT("ioctl for abs info failed!")
+			);
+	}
 
 	return
 		sge::input::joypad::absolute_axis_info(

@@ -28,6 +28,7 @@ public:
 		input_event const &
 	);
 
+	[[nodiscard]]
 	input_event const &
 	get() const;
 private:

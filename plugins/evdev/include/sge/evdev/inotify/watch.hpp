@@ -7,10 +7,10 @@
 #ifndef SGE_EVDEV_INOTIFY_WATCH_HPP_INCLUDED
 #define SGE_EVDEV_INOTIFY_WATCH_HPP_INCLUDED
 
-#include <sge/evdev/inotify/object_fwd.hpp>
+#include <sge/evdev/inotify/object_ref.hpp>
 #include <sge/evdev/inotify/watch_fwd.hpp>
 #include <awl/backends/posix/fd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
@@ -25,18 +25,18 @@ namespace inotify
 
 class watch
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		watch
 	);
 public:
 	watch(
 		std::filesystem::path const &,
-		sge::evdev::inotify::object const &
+		sge::evdev::inotify::object_ref
 	);
 
 	~watch();
 private:
-	sge::evdev::inotify::object const &object_;
+	sge::evdev::inotify::object_ref const object_;
 
 	awl::backends::posix::fd const fd_;
 };

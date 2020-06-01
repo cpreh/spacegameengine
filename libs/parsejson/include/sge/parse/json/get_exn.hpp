@@ -35,7 +35,7 @@ sge::parse::json::get_return_type<
 	Arg
 >
 get_exn(
-	fcppt::reference<
+	fcppt::reference< // NOLINT(readability-avoid-const-params-in-decls)
 		Arg
 	> const _val
 )

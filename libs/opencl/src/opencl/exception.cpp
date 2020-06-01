@@ -41,6 +41,7 @@ sge::opencl::exception::exception(
 sge::opencl::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::opencl::exception::exception(
@@ -52,6 +53,7 @@ sge::opencl::exception &
 sge::opencl::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::opencl::exception &
@@ -60,6 +62,6 @@ sge::opencl::exception::operator=(
 )
 = default;
 
-sge::opencl::exception::~exception() noexcept
-{
-}
+sge::opencl::exception::~exception()
+noexcept
+= default;

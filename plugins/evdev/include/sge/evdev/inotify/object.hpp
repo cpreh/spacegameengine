@@ -9,7 +9,7 @@
 
 #include <sge/evdev/inotify/object_fwd.hpp>
 #include <awl/backends/posix/fd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -21,7 +21,7 @@ namespace inotify
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
@@ -29,10 +29,11 @@ public:
 
 	~object();
 
+	[[nodiscard]]
 	awl::backends::posix::fd
-	fd() const;
+	fd();
 private:
-	awl::backends::posix::fd const fd_;
+	awl::backends::posix::fd fd_;
 };
 
 }

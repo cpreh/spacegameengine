@@ -20,8 +20,8 @@ namespace device
 
 sge::input::info::unique_id
 unique_id(
-	sge::evdev::device::fd const &
-);
+	sge::evdev::device::fd & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

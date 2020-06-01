@@ -41,7 +41,7 @@ sge::evdev::joypad::ff::convert_effect(
 			>(
 				_parameters.direction().get().get()
 				/
-				1000u
+				1000U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			),
 			sge::evdev::joypad::ff::convert_trigger(
 				_buttons,

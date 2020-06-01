@@ -45,37 +45,42 @@ make_info_container(
 	Function const &_function
 )
 {
-	typedef
+	using
+	basic_info
+	=
 	sge::evdev::device::basic_info<
 		Id,
 		Info
-	>
-	basic_info;
+	>;
 
-	typedef
+	using
+	info_container
+	=
 	typename
-	basic_info::info_container
-	info_container;
+	basic_info::info_container;
 
-	typedef
+	using
+	result_vector
+	=
 	typename
-	info_container::vector
-	result_vector;
+	info_container::vector;
 
 	result_vector ids{};
 
-	typedef
+	using
+	result_map
+	=
 	typename
-	basic_info::event_map_type
-	result_map;
+	basic_info::event_map_type;
 
 	result_map event_map{};
 
-	typedef
+	using
+	bit_container
+	=
 	sge::evdev::device::read_bits_result<
 		BitCount
-	>
-	bit_container;
+	>;
 
 	for(
 		sge::evdev::device::event_type const index

@@ -39,12 +39,14 @@ sge::evdev::device::create_fd(
 	if(
 		ret->valid()
 	)
+	{
 		return
 			sge::evdev::device::optional_fd_unique_ptr{
 				std::move(
 					ret
 				)
 			};
+	}
 
 	// Failure for some evdev files is expected.
 	FCPPT_LOG_DEBUG(

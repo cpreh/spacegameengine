@@ -8,9 +8,7 @@
 
 
 sge::renderer::cg::loaded_texture::loaded_texture()
-{
-}
+= default;
 
 sge::renderer::cg::loaded_texture::~loaded_texture()
-{
-}
+= default;

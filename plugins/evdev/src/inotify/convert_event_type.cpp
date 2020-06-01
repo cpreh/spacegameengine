@@ -19,19 +19,28 @@ sge::evdev::inotify::convert_event_type(
 )
 {
 	if(
-		_mask & IN_CREATE
+		(_mask & IN_CREATE) != 0 // NOLINT(hicpp-signed-bitwise)
 	)
-		return sge::evdev::inotify::event_type::add;
+	{
+		return
+			sge::evdev::inotify::event_type::add;
+	}
 
 	if(
-		_mask & IN_DELETE
+		(_mask & IN_DELETE) != 0 // NOLINT(hicpp-signed-bitwise)
 	)
-		return sge::evdev::inotify::event_type::remove;
+	{
+		return
+			sge::evdev::inotify::event_type::remove;
+	}
 
 	if(
-		_mask & IN_ATTRIB
+		(_mask & IN_ATTRIB) != 0 // NOLINT(hicpp-signed-bitwise)
 	)
-		return sge::evdev::inotify::event_type::attrib;
+	{
+		return
+			sge::evdev::inotify::event_type::attrib;
+	}
 
 	FCPPT_ASSERT_UNREACHABLE;
 }

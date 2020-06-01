@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/evdev/device/event_type.hpp>
 #include <sge/evdev/device/fd_fwd.hpp>
 #include <sge/evdev/device/make_info_container.hpp>
 #include <sge/evdev/device/read_bits.hpp>
@@ -14,13 +15,12 @@
 #include <sge/input/joypad/absolute_axis_info.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
-#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::evdev::joypad::absolute_axis::info_container
 sge::evdev::joypad::absolute_axis::make_info_container(
-	sge::evdev::device::fd const &_fd
+	sge::evdev::device::fd &_fd
 )
 {
 	return
@@ -35,12 +35,17 @@ sge::evdev::joypad::absolute_axis::make_info_container(
 				_fd,
 				EV_ABS
 			),
-			std::bind(
-				&sge::evdev::joypad::absolute_axis::make_info,
-				std::cref(
-					_fd
-				),
-				std::placeholders::_1
+			[
+				&_fd
+			](
+				sge::evdev::device::event_type const _event
 			)
+			{
+				return
+					sge::evdev::joypad::absolute_axis::make_info(
+						_fd,
+						_event
+					);
+			}
 		);
 }

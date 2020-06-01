@@ -22,7 +22,7 @@
 
 sge::evdev::joypad::info
 sge::evdev::joypad::make_info(
-	sge::evdev::device::fd const &_fd
+	sge::evdev::device::fd &_fd
 )
 {
 	sge::evdev::joypad::absolute_axis::info_container absolute_axis(

@@ -21,10 +21,13 @@ namespace joypad
 namespace relative_axis
 {
 
-typedef sge::evdev::device::basic_info<
+using
+info_container
+=
+sge::evdev::device::basic_info<
 	sge::input::joypad::relative_axis_id,
 	sge::input::joypad::relative_axis_info
-> info_container;
+>;
 
 }
 }

@@ -5,7 +5,7 @@
 
 
 #include <sge/evdev/device/event_value.hpp>
-#include <sge/evdev/device/fd_fwd.hpp>
+#include <sge/evdev/device/fd_ref.hpp>
 #include <sge/evdev/joypad/button/event_map.hpp>
 #include <sge/evdev/joypad/ff/convert_effect.hpp>
 #include <sge/evdev/joypad/ff/effect.hpp>
@@ -25,7 +25,7 @@
 
 
 sge::evdev::joypad::ff::effect::effect(
-	sge::evdev::device::fd const &_fd,
+	sge::evdev::device::fd_ref const _fd,
 	sge::evdev::joypad::button::event_map const &_buttons,
 	sge::input::joypad::ff::parameters const &_parameters
 )
@@ -45,8 +45,7 @@ sge::evdev::joypad::ff::effect::effect(
 }
 
 sge::evdev::joypad::ff::effect::~effect()
-{
-}
+= default;
 
 void
 sge::evdev::joypad::ff::effect::play(
@@ -54,12 +53,12 @@ sge::evdev::joypad::ff::effect::play(
 )
 {
 	sge::evdev::joypad::ff::write_event(
-		fd_,
+		fd_.get(),
 		uploaded_effect_.id(),
 		fcppt::optional::maybe(
 			_opt_play_count,
 			[]{
-				// TODO: What do we put here?
+				// TODO(philipp): What do we put here?
 				return
 					std::numeric_limits<
 						sge::evdev::device::event_value
@@ -86,7 +85,7 @@ void
 sge::evdev::joypad::ff::effect::stop()
 {
 	sge::evdev::joypad::ff::write_event(
-		fd_,
+		fd_.get(),
 		uploaded_effect_.id(),
 		fcppt::literal<
 			sge::evdev::device::event_value

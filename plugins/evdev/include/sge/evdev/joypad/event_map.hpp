@@ -48,12 +48,15 @@ public:
 		relative_axis_map &&
 	);
 
+	[[nodiscard]]
 	absolute_axis_map const &
 	absolute_axis() const;
 
+	[[nodiscard]]
 	button_map const &
 	buttons() const;
 
+	[[nodiscard]]
 	relative_axis_map const &
 	relative_axis() const;
 private:

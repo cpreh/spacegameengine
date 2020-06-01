@@ -6,10 +6,9 @@
 
 #include <sge/renderer/opengl/texture/base.hpp>
 
+
 sge::renderer::opengl::texture::base::base()
-{
-}
+= default;
 
 sge::renderer::opengl::texture::base::~base()
-{
-}
+= default;

@@ -34,27 +34,29 @@ sge::evdev::device::read_bits_result<
 	Count
 >
 read_bits(
-	sge::evdev::device::fd const &_fd,
+	sge::evdev::device::fd &_fd, // NOLINT(google-runtime-references)
 	unsigned const _type
 )
 {
-	typedef
+	using
+	result_type
+	=
 	sge::evdev::device::read_bits_result<
 		Count
-	>
-	result_type;
+	>;
 
-	typedef
+	using
+	array_type
+	=
 	typename
-	result_type::array_type
-	array_type;
+	result_type::array_type;
 
 	array_type result;
 
 	if(
-		::ioctl(
+		::ioctl( // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)
 			_fd.get().get(),
-			EVIOCGBIT(
+			EVIOCGBIT( // NOLINT(hicpp-signed-bitwise)
 				_type,
 				fcppt::cast::size<
 					unsigned
@@ -67,10 +69,12 @@ read_bits(
 		==
 		-1
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("ioctl reading device capabilities failed!")
 			};
+	}
 
 	return
 		result_type(

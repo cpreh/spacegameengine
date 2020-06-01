@@ -51,7 +51,7 @@ sge::evdev::joypad::absolute_axis::make_code(
 	case ABS_TOOL_WIDTH:
 	case ABS_VOLUME:
 	case ABS_MISC:
-	// TODO: discard multi touch stuff?
+	// TODO(philipp): discard multi touch stuff?
 	case ABS_MT_SLOT:
 	case ABS_MT_TOUCH_MAJOR:
 	case ABS_MT_TOUCH_MINOR:
