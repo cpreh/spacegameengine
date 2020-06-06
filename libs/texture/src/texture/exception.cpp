@@ -30,6 +30,7 @@ sge::texture::exception::exception(
 sge::texture::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::texture::exception::exception(
@@ -41,6 +42,7 @@ sge::texture::exception &
 sge::texture::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::texture::exception &
@@ -49,6 +51,6 @@ sge::texture::exception::operator=(
 )
 = default;
 
-sge::texture::exception::~exception() noexcept
-{
-}
+sge::texture::exception::~exception()
+noexcept
+= default;

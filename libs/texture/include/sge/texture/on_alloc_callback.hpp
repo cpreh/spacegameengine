@@ -16,11 +16,12 @@ namespace sge
 namespace texture
 {
 
-typedef
+using
+on_alloc_callback
+=
 fcppt::function<
 	sge::texture::on_alloc_function
->
-on_alloc_callback;
+>;
 
 }
 }

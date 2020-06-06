@@ -16,11 +16,12 @@ namespace sge
 namespace texture
 {
 
-typedef
+using
+optional_part_unique_ptr
+=
 fcppt::optional::object<
 	sge::texture::part_unique_ptr
->
-optional_part_unique_ptr;
+>;
 
 }
 }

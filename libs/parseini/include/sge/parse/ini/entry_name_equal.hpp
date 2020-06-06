@@ -10,6 +10,7 @@
 #include <sge/parse/ini/entry_fwd.hpp>
 #include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/detail/symbol.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -22,12 +23,12 @@ namespace ini
 class entry_name_equal
 {
 public:
-	typedef bool result_type;
-
 	SGE_PARSE_INI_DETAIL_SYMBOL
 	explicit
 	entry_name_equal(
-		sge::parse::ini::entry_name const &
+		fcppt::reference<
+			sge::parse::ini::entry_name const
+		>
 	);
 
 	SGE_PARSE_INI_DETAIL_SYMBOL
@@ -36,7 +37,9 @@ public:
 		sge::parse::ini::entry const &
 	) const;
 private:
-	sge::parse::ini::entry_name name_;
+	fcppt::reference<
+		sge::parse::ini::entry_name const
+	> name_;
 };
 
 }

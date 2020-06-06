@@ -31,9 +31,9 @@ struct entry
 		sge::parse::ini::value &&
 	);
 
-	std::string
-		name,
-		value;
+	std::string name; // NOLINT(misc-non-private-member-variables-in-classes)
+
+	std::string value; // NOLINT(misc-non-private-member-variables-in-classes)
 };
 
 SGE_PARSE_INI_DETAIL_SYMBOL

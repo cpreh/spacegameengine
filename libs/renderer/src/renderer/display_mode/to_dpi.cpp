@@ -73,15 +73,19 @@ sge::renderer::display_mode::to_dpi(
 				}
 			),
 			[]{
+				constexpr auto const default_dpi{
+					fcppt::literal<
+						sge::renderer::display_mode::dpi_unit
+					>(
+						96.f
+					)
+				};
+
 				return
 					fcppt::math::dim::fill<
 						sge::renderer::display_mode::dpi
 					>(
-						fcppt::literal<
-							sge::renderer::display_mode::dpi_unit
-						>(
-							96.f
-						)
+						default_dpi
 					);
 			}
 		);

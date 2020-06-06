@@ -15,7 +15,7 @@
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <sge/texture/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -25,7 +25,7 @@ namespace texture
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL part
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		part
 	);
 protected:
@@ -43,18 +43,22 @@ public:
 		sge::image::algorithm::uninitialized
 	) = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::renderer::lock_rect
 	area() const = 0;
 
+	[[nodiscard]]
 	SGE_TEXTURE_DETAIL_SYMBOL
 	sge::renderer::dim2
 	size() const;
 
+	[[nodiscard]]
 	virtual
 	sge::renderer::texture::planar &
 	texture() const = 0;
 
+	[[nodiscard]]
 	virtual
 	bool
 	repeatable() const = 0;

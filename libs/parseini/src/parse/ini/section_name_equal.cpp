@@ -7,23 +7,28 @@
 #include <sge/parse/ini/section.hpp>
 #include <sge/parse/ini/section_name.hpp>
 #include <sge/parse/ini/section_name_equal.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 sge::parse::ini::section_name_equal::section_name_equal(
-	sge::parse::ini::section_name const &_name
+	fcppt::reference<
+		sge::parse::ini::section_name const
+	> const _name
 )
 :
-	name_(
+	name_{
 		_name
-	)
+	}
 {
 }
 
-sge::parse::ini::section_name_equal::result_type
+bool
 sge::parse::ini::section_name_equal::operator()(
 	sge::parse::ini::section const &_section
 ) const
 {
 	return
-		_section.name == name_.get();
+		_section.name
+		==
+		this->name_.get().get();
 }

@@ -37,9 +37,9 @@ struct section
 		sge::parse::ini::entry_vector &&
 	);
 
-	std::string name;
+	std::string name; // NOLINT(misc-non-private-member-variables-in-classes)
 
-	sge::parse::ini::entry_vector entries;
+	sge::parse::ini::entry_vector entries; // NOLINT(misc-non-private-member-variables-in-classes)
 };
 
 SGE_PARSE_INI_DETAIL_SYMBOL

@@ -34,19 +34,22 @@ sge::resource_tree::path() / FCPPT_TEXT("foo") / FCPPT_TEXT("bar")
 class path
 {
 private:
-	typedef
+	using
+	element_sequence
+	=
 	std::vector<
 		fcppt::string
-	>
-	element_sequence;
+	>;
 public:
-	typedef
-	element_sequence::iterator
-	iterator;
+	using
+	iterator
+	=
+	element_sequence::iterator;
 
-	typedef
-	element_sequence::const_iterator
-	const_iterator;
+	using
+	const_iterator
+	=
+	element_sequence::const_iterator;
 
 	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	path();
@@ -57,20 +60,24 @@ public:
 		fcppt::string const &
 	);
 
+	[[nodiscard]]
 	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	path
 	operator/(
 		fcppt::string const &
 	) const;
 
+	[[nodiscard]]
 	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	const_iterator
 	begin() const;
 
+	[[nodiscard]]
 	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	const_iterator
 	end() const;
 
+	[[nodiscard]]
 	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	bool
 	operator==(
@@ -80,6 +87,7 @@ public:
 	/**
 	\brief Return the last element of the path
 	*/
+	[[nodiscard]]
 	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	fcppt::string const &
 	back() const;
@@ -87,6 +95,7 @@ public:
 	/**
 	\brief Output the path as a string for display in error messages
 	*/
+	[[nodiscard]]
 	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	fcppt::string
 	string() const;

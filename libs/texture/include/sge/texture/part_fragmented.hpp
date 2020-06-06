@@ -11,12 +11,12 @@
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/texture/fragmented_fwd.hpp>
+#include <sge/texture/fragmented_ref.hpp>
 #include <sge/texture/part.hpp>
 #include <sge/texture/atlasing/inner_rect.hpp>
 #include <sge/texture/atlasing/outer_rect_fwd.hpp>
 #include <sge/texture/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -28,13 +28,13 @@ class part_fragmented
 :
 	public sge::texture::part
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		part_fragmented
 	);
 public:
 	SGE_TEXTURE_DETAIL_SYMBOL
 	part_fragmented(
-		sge::texture::fragmented &,
+		sge::texture::fragmented_ref,
 		sge::texture::atlasing::outer_rect const &
 	);
 
@@ -46,16 +46,19 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	SGE_TEXTURE_DETAIL_SYMBOL
 	sge::renderer::lock_rect
 	area() const
 	override;
 
+	[[nodiscard]]
 	SGE_TEXTURE_DETAIL_SYMBOL
 	sge::renderer::texture::planar &
 	texture() const
 	override;
 
+	[[nodiscard]]
 	SGE_TEXTURE_DETAIL_SYMBOL
 	bool
 	repeatable() const
@@ -65,7 +68,7 @@ public:
 	~part_fragmented()
 	override;
 private:
-	sge::texture::fragmented &fragment_;
+	sge::texture::fragmented_ref const fragment_;
 
 	sge::texture::atlasing::inner_rect const inner_area_;
 };

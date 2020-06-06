@@ -22,7 +22,7 @@ void
 sge::texture::sub_data(
 	sge::renderer::texture::planar &_texture,
 	sge::image2d::view::const_object const &_view,
-	sge::texture::pos const _pos,
+	sge::texture::pos const &_pos,
 	sge::image::algorithm::uninitialized const _uninitialized
 )
 {

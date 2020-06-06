@@ -31,6 +31,7 @@ sge::texture::image_too_big::image_too_big(
 sge::texture::image_too_big::image_too_big(
 	image_too_big &&
 )
+noexcept
 = default;
 
 sge::texture::image_too_big::image_too_big(
@@ -42,6 +43,7 @@ sge::texture::image_too_big &
 sge::texture::image_too_big::operator=(
 	image_too_big &&
 )
+noexcept
 = default;
 
 sge::texture::image_too_big &
@@ -50,6 +52,6 @@ sge::texture::image_too_big::operator=(
 )
 = default;
 
-sge::texture::image_too_big::~image_too_big() noexcept
-{
-}
+sge::texture::image_too_big::~image_too_big()
+noexcept
+= default;

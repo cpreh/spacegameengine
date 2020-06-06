@@ -24,7 +24,7 @@ namespace atlasing
 SGE_TEXTURE_DETAIL_SYMBOL
 void
 border_h(
-	sge::renderer::texture::planar &,
+	sge::renderer::texture::planar &, // NOLINT(google-runtime-references)
 	sge::image2d::view::const_object const &,
 	sge::texture::atlasing::inner_rect const &,
 	sge::image::algorithm::uninitialized

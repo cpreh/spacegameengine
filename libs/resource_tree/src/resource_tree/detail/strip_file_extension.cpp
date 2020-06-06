@@ -17,17 +17,21 @@
 
 sge::resource_tree::path
 sge::resource_tree::detail::strip_file_extension(
-	sge::resource_tree::path const &p)
+	sge::resource_tree::path const &p
+)
 {
-	fcppt::string const filename =
-		p.back();
+	fcppt::string const &filename{
+		p.back()
+	};
 
 	fcppt::string::size_type const dot_position =
 		filename.find(
 			FCPPT_TEXT('.'));
 
 	if(dot_position == fcppt::string::npos)
+	{
 		return p;
+	}
 
 	return
 		std::accumulate(

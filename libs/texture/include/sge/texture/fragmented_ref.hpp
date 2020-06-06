@@ -4,11 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_TEXTURE_FRAGMENTED_UNIQUE_PTR_HPP_INCLUDED
-#define SGE_TEXTURE_FRAGMENTED_UNIQUE_PTR_HPP_INCLUDED
+#ifndef SGE_TEXTURE_FRAGMENTED_REF_HPP_INCLUDED
+#define SGE_TEXTURE_FRAGMENTED_REF_HPP_INCLUDED
 
 #include <sge/texture/fragmented_fwd.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -17,9 +17,9 @@ namespace texture
 {
 
 using
-fragmented_unique_ptr
+fragmented_ref
 =
-fcppt::unique_ptr<
+fcppt::reference<
 	sge::texture::fragmented
 >;
 

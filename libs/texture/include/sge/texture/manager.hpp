@@ -14,7 +14,7 @@
 #include <sge/texture/on_alloc_callback.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>
 #include <fcppt/config/external_end.hpp>
@@ -27,19 +27,20 @@ namespace texture
 
 class manager
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		manager
 	);
 public:
 	SGE_TEXTURE_DETAIL_SYMBOL
 	explicit
 	manager(
-		sge::texture::on_alloc_callback const &
+		sge::texture::on_alloc_callback &&
 	);
 
 	SGE_TEXTURE_DETAIL_SYMBOL
 	~manager();
 
+	[[nodiscard]]
 	SGE_TEXTURE_DETAIL_SYMBOL
 	sge::texture::part_unique_ptr
 	add(
@@ -58,12 +59,13 @@ public:
 private:
 	sge::texture::on_alloc_callback on_alloc_;
 
-	typedef
+	using
+	fragmented_map
+	=
 	std::multimap<
 		sge::image::color::format,
 		sge::texture::fragmented_unique_ptr
-	>
-	fragmented_map;
+	>;
 
 	sge::texture::manager::fragmented_map textures_;
 };

@@ -14,7 +14,7 @@
 #include <sge/texture/optional_part_unique_ptr_fwd.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <sge/texture/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -24,7 +24,7 @@ namespace texture
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL fragmented
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		fragmented
 	);
 protected:
@@ -35,6 +35,7 @@ public:
 	virtual
 	~fragmented();
 
+	[[nodiscard]]
 	virtual
 	sge::texture::optional_part_unique_ptr
 	consume_fragment(
@@ -47,18 +48,22 @@ public:
 		sge::texture::part const &
 	) = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::renderer::texture::planar &
 	texture() = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::renderer::texture::planar const &
 	texture() const = 0;
 
+	[[nodiscard]]
 	virtual
 	bool
 	repeatable() const = 0;
 
+	[[nodiscard]]
 	virtual
 	bool
 	empty() const = 0;

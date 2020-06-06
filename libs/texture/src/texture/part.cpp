@@ -10,12 +10,10 @@
 
 
 sge::texture::part::part()
-{
-}
+= default;
 
 sge::texture::part::~part()
-{
-}
+= default;
 
 sge::renderer::dim2
 sge::texture::part::size() const

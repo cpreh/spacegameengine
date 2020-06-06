@@ -47,10 +47,13 @@ sge::texture::area_texc(
 	> const &_repeat
 )
 {
-	typedef fcppt::math::vector::static_<
+	using
+	vector_type
+	=
+	fcppt::math::vector::static_<
 		T,
 		2
-	> vector_type;
+	>;
 
 	// FIXME: Use optionals for repetition
 	if(
@@ -74,6 +77,7 @@ sge::texture::area_texc(
 		)
 		&& !_part.repeatable()
 	)
+	{
 		throw
 			sge::texture::exception{
 				FCPPT_TEXT("texture not repeatable but repetition is ")
@@ -84,12 +88,14 @@ sge::texture::area_texc(
 				+
 				FCPPT_TEXT('!')
 			};
+	}
 
-	typedef
+	using
+	ret_type
+	=
 	fcppt::math::box::rect<
 		T
-	>
-	ret_type;
+	>;
 
 	ret_type const coords(
 		sge::renderer::lock_rect_to_coords<

@@ -10,7 +10,7 @@
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/dim2_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/texture/color_format_fwd.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
@@ -18,7 +18,7 @@
 #include <sge/texture/optional_part_unique_ptr_fwd.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <sge/texture/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -30,13 +30,13 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL rect_fragmented
 :
 	public sge::texture::fragmented
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		rect_fragmented
 	);
 public:
 	SGE_TEXTURE_DETAIL_SYMBOL
 	rect_fragmented(
-		sge::renderer::device::core &,
+		sge::renderer::device::core_ref,
 		sge::renderer::texture::color_format const &,
 		sge::renderer::texture::mipmap::object const &,
 		sge::renderer::dim2 const &initial_size
@@ -46,6 +46,7 @@ public:
 	~rect_fragmented()
 	override;
 private:
+	[[nodiscard]]
 	sge::texture::optional_part_unique_ptr
 	consume_fragment(
 		sge::renderer::dim2 const &
@@ -58,26 +59,31 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::renderer::texture::planar &
 	texture()
 	override;
 
+	[[nodiscard]]
 	sge::renderer::texture::planar const &
 	texture() const
 	override;
 
+	[[nodiscard]]
 	bool
 	repeatable() const
 	override;
 
+	[[nodiscard]]
 	bool
 	empty() const
 	override;
 
-	sge::renderer::size_type
-		cur_x_,
-		cur_y_,
-		cur_height_;
+	sge::renderer::size_type cur_x_;
+
+	sge::renderer::size_type cur_y_;
+
+	sge::renderer::size_type cur_height_;
 
 	sge::renderer::texture::planar_unique_ptr const texture_;
 

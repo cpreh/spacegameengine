@@ -29,7 +29,10 @@ struct ref_store_type<
 	T &
 >
 {
-	typedef T &type;
+	using
+	type
+	=
+	T &;
 };
 
 template<
@@ -41,11 +44,12 @@ struct ref_store_type<
 	> &&
 >
 {
-	typedef
+	using
+	type
+	=
 	fcppt::unique_ptr<
 		T
-	> const
-	type;
+	> const;
 };
 
 }

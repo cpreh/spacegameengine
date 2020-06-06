@@ -10,6 +10,7 @@
 #include <sge/parse/ini/section_fwd.hpp>
 #include <sge/parse/ini/section_name.hpp>
 #include <sge/parse/ini/detail/symbol.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -22,21 +23,23 @@ namespace ini
 class section_name_equal
 {
 public:
-	typedef bool result_type;
-
 	SGE_PARSE_INI_DETAIL_SYMBOL
 	explicit
 	section_name_equal(
-		sge::parse::ini::section_name const &
+		fcppt::reference<
+			sge::parse::ini::section_name const
+		>
 	);
 
 	SGE_PARSE_INI_DETAIL_SYMBOL
-	result_type
+	bool
 	operator()(
 		sge::parse::ini::section const &
 	) const;
 private:
-	sge::parse::ini::section_name name_;
+	fcppt::reference<
+		sge::parse::ini::section_name const
+	> name_;
 };
 
 }

@@ -16,12 +16,13 @@ namespace sge
 namespace texture
 {
 
-typedef
+using
+pos
+=
 fcppt::math::vector::static_<
 	sge::renderer::size_type,
-	2u
->
-pos;
+	2U
+>;
 
 }
 }

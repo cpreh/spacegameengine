@@ -7,10 +7,13 @@
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/entry_name_equal.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 sge::parse::ini::entry_name_equal::entry_name_equal(
-	sge::parse::ini::entry_name const &_name
+	fcppt::reference<
+		sge::parse::ini::entry_name const
+	> const _name
 )
 :
 	name_(
@@ -19,11 +22,13 @@ sge::parse::ini::entry_name_equal::entry_name_equal(
 {
 }
 
-sge::parse::ini::entry_name_equal::result_type
+bool
 sge::parse::ini::entry_name_equal::operator()(
 	sge::parse::ini::entry const &_entry
 ) const
 {
 	return
-		_entry.name == name_.get();
+		_entry.name
+		==
+		this->name_.get().get();
 }

@@ -41,6 +41,7 @@ sge::resource_tree::exception::exception(
 sge::resource_tree::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::resource_tree::exception::exception(
@@ -52,6 +53,7 @@ sge::resource_tree::exception &
 sge::resource_tree::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::resource_tree::exception &
@@ -60,6 +62,6 @@ sge::resource_tree::exception::operator=(
 )
 = default;
 
-sge::resource_tree::exception::~exception() noexcept
-{
-}
+sge::resource_tree::exception::~exception()
+noexcept
+= default;

@@ -36,11 +36,13 @@ sge::parse::ini::output::to_stream(
 			:
 			section.entries
 		)
+		{
 			_stream
 				<< '\t'
 				<< entry.name
 				<< '='
 				<< entry.value
 				<< '\n';
+		}
 	}
 }

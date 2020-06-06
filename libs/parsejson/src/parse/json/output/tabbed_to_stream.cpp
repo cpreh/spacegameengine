@@ -30,17 +30,14 @@
 namespace
 {
 
-// TODO: Simplify this
+// TODO(philipp): Simplify this
 struct output_visitor
 {
 public:
-	typedef
-	void
-	result_type;
-
-	typedef
-	sge::charconv::utf8_string::size_type
-	tab_count;
+	using
+	tab_count
+	=
+	sge::charconv::utf8_string::size_type;
 
 	output_visitor(
 		std::ostream &_stream,
@@ -56,7 +53,7 @@ public:
 	{
 	}
 
-	result_type
+	void
 	operator()(
 		sge::parse::json::object const &_object
 	) const
@@ -71,7 +68,7 @@ public:
 			).str();
 
 		for(
-			sge::parse::json::member_map::const_iterator it(
+			auto it(
 				_object.members.begin()
 			);
 			it != _object.members.end();
@@ -101,8 +98,10 @@ public:
 				!=
 				_object.members.end()
 			)
+			{
 				this->stream_.get()
 					<< ',';
+			}
 
 			this->stream_.get()
 				<< '\n';
@@ -113,7 +112,7 @@ public:
 			<< '}';
 	}
 
-	result_type
+	void
 	operator()(
 		sge::parse::json::array const &_array
 	) const
@@ -129,7 +128,7 @@ public:
 			).str();
 
 		for(
-			sge::parse::json::element_vector::const_iterator it(
+			auto it(
 				_array.elements.begin()
 			);
 			it != _array.elements.end();
@@ -149,8 +148,10 @@ public:
 				!=
 				_array.elements.end()
 			)
+			{
 				this->stream_.get()
 					<< ',';
+			}
 
 			this->stream_.get()
 				<< '\n';
@@ -161,7 +162,7 @@ public:
 			<< ']';
 	}
 
-	result_type
+	void
 	operator()(
 		std::string const &_string
 	) const
@@ -172,9 +173,12 @@ public:
 			)
 			!= std::string::npos
 		)
-			throw sge::parse::exception(
-				FCPPT_TEXT("quoted strings are unsupported")
-			);
+		{
+			throw
+				sge::parse::exception(
+					FCPPT_TEXT("quoted strings are unsupported")
+				);
+		}
 
 		this->stream_.get()
 			<< this->make_tabs()
@@ -183,7 +187,7 @@ public:
 			<< '"';
 	}
 
-	result_type
+	void
 	operator()(
 		bool const _bool
 	) const
@@ -204,7 +208,7 @@ public:
 			);
 	}
 
-	result_type
+	void
 	operator()(
 		sge::parse::json::null const &
 	) const
@@ -214,7 +218,7 @@ public:
 			<< "null";
 	}
 
-	result_type
+	void
 	operator()(
 		sge::parse::json::int_type const _int
 	) const
@@ -227,7 +231,7 @@ public:
 			);
 	}
 
-	result_type
+	void
 	operator()(
 		sge::parse::json::float_type const _float
 	) const
@@ -250,6 +254,7 @@ private:
 
 	tab_count tabs_;
 
+	[[nodiscard]]
 	sge::charconv::utf8_string
 	make_tabs() const
 	{
@@ -260,12 +265,13 @@ private:
 			);
 	}
 
+	[[nodiscard]]
 	sge::charconv::utf8_string
 	make_more_tabs() const
 	{
 		return
 			sge::charconv::utf8_string(
-				tabs_ + 1u,
+				tabs_ + 1U,
 				'\t'
 			);
 	}
@@ -289,7 +295,7 @@ sge::parse::json::output::tabbed_to_stream(
 			{
 				output_visitor{
 					_stream,
-					0u
+					0U
 				}(
 					_value
 				);

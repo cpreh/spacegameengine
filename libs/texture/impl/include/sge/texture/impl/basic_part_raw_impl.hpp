@@ -82,8 +82,7 @@ template<
 sge::texture::basic_part_raw<
 	Ref
 >::~basic_part_raw()
-{
-}
+= default;
 
 template<
 	typename Ref

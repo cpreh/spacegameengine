@@ -11,43 +11,74 @@
 #include <sge/parse/ini/section_name_equal.hpp>
 #include <sge/parse/ini/section_vector.hpp>
 #include <sge/parse/ini/start.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <algorithm>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/algorithm/find_by_opt.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/make_if.hpp>
 
 
-sge::parse::ini::section &
+fcppt::reference<
+	sge::parse::ini::section
+>
 sge::parse::ini::get_or_create_section(
-	sge::parse::ini::start &_start,
+	fcppt::reference<
+		sge::parse::ini::start
+	> const _start,
 	sge::parse::ini::section_name const &_section_name
 )
 {
 	sge::parse::ini::section_vector &sections(
-		_start.sections
+		_start.get().sections
 	);
 
-	sge::parse::ini::section_vector::iterator it(
-		std::find_if(
-			sections.begin(),
-			sections.end(),
-			sge::parse::ini::section_name_equal(
-				_section_name
-			)
-		)
-	);
-
-	if(
-		it == sections.end()
-	)
-		it =
-			sections.insert(
-				sections.end(),
-				sge::parse::ini::section(
-					sge::parse::ini::section_name{
-						_section_name
-					}
+	return
+		fcppt::optional::from(
+			fcppt::algorithm::find_by_opt(
+				sections,
+				[
+					&_section_name
+				](
+					sge::parse::ini::section &_section
 				)
-			);
+				{
+					return
+						fcppt::optional::make_if(
+							sge::parse::ini::section_name_equal{
+								fcppt::make_cref(
+									_section_name
+								)
+							}(
+								_section
+							),
+							[
+								&_section
+							]{
+								return
+									fcppt::make_ref(
+										_section
+									);
+							}
+						);
+				}
+			),
+			[
+				&_section_name,
+				&sections
+			]{
+				sections.push_back(
+					sge::parse::ini::section(
+						sge::parse::ini::section_name{
+							_section_name
+						}
+					)
+				);
 
-	return *it;
+				return
+					fcppt::make_ref(
+						sections.back()
+					);
+			}
+		);
 }

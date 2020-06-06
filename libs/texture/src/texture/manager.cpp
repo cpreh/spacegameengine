@@ -32,19 +32,20 @@
 
 
 sge::texture::manager::manager(
-	sge::texture::on_alloc_callback const &_on_alloc
+	sge::texture::on_alloc_callback &&_on_alloc
 )
 :
 	on_alloc_(
-		_on_alloc
+		std::move(
+			_on_alloc
+		)
 	),
 	textures_()
 {
 }
 
 sge::texture::manager::~manager()
-{
-}
+= default;
 
 sge::texture::part_unique_ptr
 sge::texture::manager::add(

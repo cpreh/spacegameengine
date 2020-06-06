@@ -13,7 +13,7 @@
 #include <sge/parse/ini/section.hpp>
 #include <sge/parse/ini/section_vector.hpp>
 #include <sge/parse/ini/start.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/parse/grammar_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
@@ -32,7 +32,7 @@ class grammar
 	public
 		sge::parse::ini::grammar_base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		grammar
 	);
 public:

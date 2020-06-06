@@ -18,12 +18,13 @@ namespace parse
 namespace ini
 {
 
-typedef
+using
+result
+=
 fcppt::parse::result<
 	char,
 	sge::parse::ini::start
->
-result;
+>;
 
 }
 }

@@ -16,12 +16,14 @@ sge::parse::json::path_to_string(
 {
 	sge::charconv::utf8_string result{};
 
-	// TODO
+	// TODO(philipp)
 	for(auto i = _path.get().begin(); i != _path.get().end(); ++i)
 	{
 		result += *i;
 		if(i != --_path.get().end())
+		{
 			result += "/";
+		}
 	}
 
 	return result;

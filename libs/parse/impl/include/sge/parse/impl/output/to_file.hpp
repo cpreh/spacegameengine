@@ -37,7 +37,7 @@ to_file(
 	Data const &_data
 )
 {
-	// TODO: Should we return false instead of throwing an exception?
+	// TODO(philipp): Should we return false instead of throwing an exception?
 	std::basic_ofstream<
 		Ch
 	> ofs{

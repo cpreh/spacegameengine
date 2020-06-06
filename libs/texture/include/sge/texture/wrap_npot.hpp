@@ -7,7 +7,7 @@
 #ifndef SGE_TEXTURE_WRAP_NPOT_HPP_INCLUDED
 #define SGE_TEXTURE_WRAP_NPOT_HPP_INCLUDED
 
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/detail/symbol.hpp>
@@ -21,7 +21,7 @@ namespace texture
 SGE_TEXTURE_DETAIL_SYMBOL
 sge::texture::part_unique_ptr
 wrap_npot(
-	sge::renderer::device::core &,
+	sge::renderer::device::core_ref,
 	sge::renderer::texture::planar_parameters const &
 );
 

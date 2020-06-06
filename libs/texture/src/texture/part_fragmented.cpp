@@ -9,6 +9,7 @@
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/texture/fragmented.hpp>
+#include <sge/texture/fragmented_ref.hpp>
 #include <sge/texture/part_fragmented.hpp>
 #include <sge/texture/sub_data.hpp>
 #include <sge/texture/atlasing/border_h.hpp>
@@ -18,7 +19,7 @@
 
 
 sge::texture::part_fragmented::part_fragmented(
-	sge::texture::fragmented &_fragment,
+	sge::texture::fragmented_ref const _fragment,
 	sge::texture::atlasing::outer_rect const &_outer_area
 )
 :
@@ -35,7 +36,7 @@ sge::texture::part_fragmented::part_fragmented(
 
 sge::texture::part_fragmented::~part_fragmented()
 {
-	fragment_.return_fragment(
+	fragment_.get().return_fragment(
 		*this
 	);
 }
@@ -79,7 +80,7 @@ sge::renderer::texture::planar &
 sge::texture::part_fragmented::texture() const
 {
 	return
-		fragment_.texture();
+		fragment_.get().texture();
 }
 
 bool

@@ -27,7 +27,7 @@ struct start
 		sge::parse::ini::section_vector &&
 	);
 
-	sge::parse::ini::section_vector sections;
+	sge::parse::ini::section_vector sections; // NOLINT(misc-non-private-member-variables-in-classes)
 };
 
 SGE_PARSE_INI_DETAIL_SYMBOL

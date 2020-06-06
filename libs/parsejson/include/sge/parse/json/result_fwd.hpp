@@ -18,12 +18,13 @@ namespace parse
 namespace json
 {
 
-typedef
+using
+result
+=
 fcppt::parse::result<
 	char,
 	sge::parse::json::start
->
-result;
+>;
 
 }
 }

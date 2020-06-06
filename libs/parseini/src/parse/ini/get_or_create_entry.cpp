@@ -11,47 +11,79 @@
 #include <sge/parse/ini/get_or_create_entry.hpp>
 #include <sge/parse/ini/section.hpp>
 #include <sge/parse/ini/value.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <algorithm>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/algorithm/find_by_opt.hpp>
+#include <fcppt/optional/from.hpp>
+#include <fcppt/optional/make_if.hpp>
 
 
-sge::parse::ini::entry &
+fcppt::reference<
+	sge::parse::ini::entry
+>
 sge::parse::ini::get_or_create_entry(
-	sge::parse::ini::section &_section,
+	fcppt::reference<
+		sge::parse::ini::section
+	> const _section,
 	sge::parse::ini::entry_name const &_entry_name,
 	sge::parse::ini::value const &_value
 )
 {
 	sge::parse::ini::entry_vector &entries(
-		_section.entries
+		_section.get().entries
 	);
 
-	sge::parse::ini::entry_vector::iterator it(
-		std::find_if(
-			entries.begin(),
-			entries.end(),
-			sge::parse::ini::entry_name_equal(
-				_entry_name
-			)
-		)
-	);
-
-	if(
-		it == entries.end()
-	)
-		it =
-			entries.insert(
-				entries.end(),
-				sge::parse::ini::entry(
-					sge::parse::ini::entry_name{
-						_entry_name
-					},
-					sge::parse::ini::value{
-						_value
-					}
+	return
+		fcppt::optional::from(
+			fcppt::algorithm::find_by_opt(
+				entries,
+				[
+					&_entry_name
+				](
+					sge::parse::ini::entry &_entry
 				)
-			);
+				{
+					return
+						fcppt::optional::make_if(
+							sge::parse::ini::entry_name_equal{
+								fcppt::make_cref(
+									_entry_name
+								)
+							}(
+								_entry
+							),
+							[
+								&_entry
+							]{
+								return
+									fcppt::make_ref(
+										_entry
+									);
+							}
+						);
+				}
+			),
+			[
+				&entries,
+				&_entry_name,
+				&_value
+			]{
+				entries.push_back(
+					sge::parse::ini::entry(
+						sge::parse::ini::entry_name{
+							_entry_name
+						},
+						sge::parse::ini::value{
+							_value
+						}
+					)
+				);
 
-	return *it;
+				return
+					fcppt::make_ref(
+						entries.back()
+					);
+			}
+		);
 }

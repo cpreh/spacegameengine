@@ -22,9 +22,9 @@ namespace texture
 SGE_TEXTURE_DETAIL_SYMBOL
 void
 sub_data(
-	sge::renderer::texture::planar &,
+	sge::renderer::texture::planar &, // NOLINT(google-runtime-references)
 	sge::image2d::view::const_object const &,
-	sge::texture::pos,
+	sge::texture::pos const &,
 	sge::image::algorithm::uninitialized
 );
 

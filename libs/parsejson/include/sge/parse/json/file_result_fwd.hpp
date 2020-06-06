@@ -18,12 +18,13 @@ namespace parse
 namespace json
 {
 
-typedef
+using
+file_result
+=
 sge::parse::file_result<
 	char,
 	sge::parse::json::start
->
-file_result;
+>;
 
 }
 }

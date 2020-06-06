@@ -12,6 +12,7 @@
 #include <sge/parse/ini/section_fwd.hpp>
 #include <sge/parse/ini/value.hpp>
 #include <sge/parse/ini/detail/symbol.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -22,9 +23,13 @@ namespace ini
 {
 
 SGE_PARSE_INI_DETAIL_SYMBOL
-sge::parse::ini::entry &
+fcppt::reference<
+	sge::parse::ini::entry
+>
 get_or_create_entry(
-	sge::parse::ini::section &,
+	fcppt::reference<
+		sge::parse::ini::section
+	>,
 	sge::parse::ini::entry_name const &,
 	sge::parse::ini::value const &
 );

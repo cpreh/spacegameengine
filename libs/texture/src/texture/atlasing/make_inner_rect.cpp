@@ -24,7 +24,7 @@ sge::texture::atlasing::make_inner_rect(
 				fcppt::math::vector::fill<
 					sge::renderer::lock_rect::vector
 				>(
-					1u
+					1U
 				)
 			)
 		);

@@ -39,7 +39,8 @@ public:
 	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	exception(
 		exception &&
-	);
+	)
+	noexcept;
 
 	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	exception(
@@ -50,7 +51,8 @@ public:
 	exception &
 	operator=(
 		exception &&
-	);
+	)
+	noexcept;
 
 	SGE_RESOURCE_TREE_DETAIL_SYMBOL
 	exception &

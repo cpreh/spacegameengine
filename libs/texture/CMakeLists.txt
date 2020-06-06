@@ -27,6 +27,7 @@ set(
 	libs/texture/include/sge/texture/exception.hpp
 	libs/texture/include/sge/texture/fragmented.hpp
 	libs/texture/include/sge/texture/fragmented_fwd.hpp
+	libs/texture/include/sge/texture/fragmented_ref.hpp
 	libs/texture/include/sge/texture/fragmented_unique_ptr.hpp
 	libs/texture/include/sge/texture/image_too_big.hpp
 	libs/texture/include/sge/texture/manager.hpp

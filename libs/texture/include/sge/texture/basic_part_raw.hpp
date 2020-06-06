@@ -15,7 +15,7 @@
 #include <sge/texture/part.hpp>
 #include <sge/texture/detail/ref_store_type.hpp>
 #include <sge/texture/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
 
@@ -31,13 +31,14 @@ class basic_part_raw
 :
 	public sge::texture::part
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		basic_part_raw
 	);
 public:
-	typedef
-	Ref
-	ref_type;
+	using
+	ref_type
+	=
+	Ref;
 
 	SGE_TEXTURE_DETAIL_SYMBOL
 	explicit
@@ -63,35 +64,40 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	SGE_TEXTURE_DETAIL_SYMBOL
 	sge::renderer::lock_rect
 	area() const
 	override;
 
+	[[nodiscard]]
 	SGE_TEXTURE_DETAIL_SYMBOL
 	sge::renderer::texture::planar &
 	texture() const
 	override;
 
+	[[nodiscard]]
 	SGE_TEXTURE_DETAIL_SYMBOL
 	bool
 	repeatable() const
 	override;
 private:
-	typedef
+	using
+	store_type
+	=
 	typename
 	sge::texture::detail::ref_store_type<
 		Ref
-	>::type
-	store_type;
+	>::type;
 
 	store_type texture_;
 
-	typedef
+	using
+	optional_rect
+	=
 	fcppt::optional::object<
 		sge::renderer::lock_rect
-	>
-	optional_rect;
+	>;
 
 	optional_rect const area_;
 };

@@ -9,6 +9,7 @@
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/texture/next_power_of_2.hpp>
@@ -24,11 +25,11 @@
 
 sge::texture::part_unique_ptr
 sge::texture::wrap_npot(
-	sge::renderer::device::core &_device,
+	sge::renderer::device::core_ref const _device,
 	sge::renderer::texture::planar_parameters const &_parameters
 )
 {
-	// TODO: Use minimum required size here
+	// TODO(philipp): Use minimum required size here
 	sge::renderer::dim2 const padded_size{
 		fcppt::math::dim::map(
 			_parameters.size(),
@@ -39,9 +40,9 @@ sge::texture::wrap_npot(
 				return
 					_sz
 					==
-					0u
+					0U
 					?
-						1u
+						1U
 					:
 						_sz
 					;
@@ -56,9 +57,9 @@ sge::texture::wrap_npot(
 			fcppt::make_unique_ptr<
 				sge::texture::part_raw_ptr
 			>(
-				_device.create_planar_texture(
+				_device.get().create_planar_texture(
 					sge::renderer::texture::planar_parameters(
-						_device.caps().non_power_of_2_textures().get()
+						_device.get().caps().non_power_of_2_textures().get()
 						?
 							padded_size
 						:

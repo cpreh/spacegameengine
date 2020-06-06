@@ -20,9 +20,12 @@ namespace parse
 namespace ini
 {
 
-typedef std::vector<
+using
+entry_vector
+=
+std::vector<
 	sge::parse::ini::entry
-> entry_vector;
+>;
 
 }
 }

@@ -16,9 +16,12 @@ namespace sge
 namespace texture
 {
 
-typedef sge::texture::basic_part_raw<
+using
+part_raw_ref
+=
+sge::texture::basic_part_raw<
 	sge::renderer::texture::planar &
-> part_raw_ref;
+>;
 
 }
 }

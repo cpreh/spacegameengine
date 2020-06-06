@@ -18,21 +18,30 @@
 sge::resource_tree::path
 sge::resource_tree::detail::strip_path_prefix(
 	sge::resource_tree::detail::base_path const &_base_path,
-	sge::resource_tree::detail::sub_path const &_sub_path)
+	sge::resource_tree::detail::sub_path const &_sub_path
+)
 {
 	sge::resource_tree::path result;
+
 	for(
-		std::filesystem::path::const_iterator it =
+		auto it =
 			std::next(
 				_sub_path.get().begin(),
 				std::distance(
 					_base_path.get().begin(),
-					_base_path.get().end()));
+					_base_path.get().end()
+				)
+			);
 		it != _sub_path.get().end();
-		++it)
+		++it
+	)
+	{
 		result /=
 			fcppt::filesystem::path_to_string(
-				it->string());
+				it->string()
+			);
+	}
+
 	return
 		result;
 }

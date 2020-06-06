@@ -32,7 +32,8 @@ public:
 	SGE_TEXTURE_DETAIL_SYMBOL
 	image_too_big(
 		image_too_big &&
-	);
+	)
+	noexcept;
 
 	SGE_TEXTURE_DETAIL_SYMBOL
 	image_too_big(
@@ -43,7 +44,8 @@ public:
 	image_too_big &
 	operator=(
 		image_too_big &&
-	);
+	)
+	noexcept;
 
 	SGE_TEXTURE_DETAIL_SYMBOL
 	image_too_big &

@@ -18,11 +18,12 @@ namespace parse
 namespace ini
 {
 
-typedef
+using
+optional_value
+=
 fcppt::optional::object<
 	sge::parse::ini::value
->
-optional_value;
+>;
 
 }
 }

@@ -41,13 +41,13 @@ sge::texture::atlasing::border_w(
 					sge::renderer::lock_rect::vector
 				>(),
 				sge::renderer::lock_rect::dim(
-					1u,
+					1U,
 					dim.h()
 				)
 			)
 		),
 		sge::texture::pos(
-			_inner_area.get().left() - 1u,
+			_inner_area.get().left() - 1U,
 			_inner_area.get().top()
 		),
 		_uninitialized
@@ -59,17 +59,17 @@ sge::texture::atlasing::border_w(
 			_source,
 			sge::renderer::lock_rect(
 				sge::renderer::lock_rect::vector(
-					dim.w() - 1u,
-					0u
+					dim.w() - 1U,
+					0U
 				),
 				sge::renderer::lock_rect::dim(
-					1u,
+					1U,
 					dim.h()
 				)
 			)
 		),
 		sge::texture::pos(
-			_inner_area.get().right() + 1u,
+			_inner_area.get().right() + 1U,
 			_inner_area.get().top()
 		),
 		_uninitialized

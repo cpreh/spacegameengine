@@ -16,9 +16,10 @@ namespace sge
 namespace texture
 {
 
-typedef
-sge::texture::fragmented_unique_ptr
-on_alloc_function(
+using
+on_alloc_function
+=
+sge::texture::fragmented_unique_ptr(
 	sge::image::color::format
 );
 

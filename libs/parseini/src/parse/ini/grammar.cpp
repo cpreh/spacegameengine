@@ -56,7 +56,7 @@ sge::parse::ini::grammar::grammar()
 		sge::parse::ini::skipper()
 	},
 	entry_{
-		this->make_base(
+		sge::parse::ini::grammar_base::make_base(
 			fcppt::parse::as_struct<
 				sge::parse::ini::entry
 			>(
@@ -82,12 +82,12 @@ sge::parse::ini::grammar::grammar()
 		)
 	},
 	header_{
-		this->make_base(
+		sge::parse::ini::grammar_base::make_base(
 			fcppt::parse::make_lexeme(
 				fcppt::parse::literal{'['}
 				>> +(
 					~fcppt::parse::char_set{']', '\n'}
-					// TODO
+					// TODO(philipp)
 	//				-
 	//				eol()
 				)
@@ -97,7 +97,7 @@ sge::parse::ini::grammar::grammar()
 		)
 	},
 	section_{
-		this->make_base(
+		sge::parse::ini::grammar_base::make_base(
 			fcppt::parse::as_struct<
 				sge::parse::ini::section
 			>(
@@ -111,12 +111,12 @@ sge::parse::ini::grammar::grammar()
 		)
 	},
 	section_vector_{
-		this->make_base(
+		sge::parse::ini::grammar_base::make_base(
 			*fcppt::make_cref(this->section_)
 		)
 	},
 	ini_{
-		this->make_base(
+		sge::parse::ini::grammar_base::make_base(
 			fcppt::parse::construct<
 				sge::parse::ini::start
 			>(
@@ -130,5 +130,4 @@ sge::parse::ini::grammar::grammar()
 FCPPT_PP_POP_WARNING
 
 sge::parse::ini::grammar::~grammar()
-{
-}
+= default;

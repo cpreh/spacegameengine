@@ -8,9 +8,7 @@
 
 
 sge::texture::fragmented::fragmented()
-{
-}
+= default;
 
 sge::texture::fragmented::~fragmented()
-{
-}
+= default;

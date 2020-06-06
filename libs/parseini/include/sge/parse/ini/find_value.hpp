@@ -25,8 +25,8 @@ SGE_PARSE_INI_DETAIL_SYMBOL
 sge::parse::ini::optional_value
 find_value(
 	sge::parse::ini::start const &,
-	sge::parse::ini::section_name,
-	sge::parse::ini::entry_name
+	sge::parse::ini::section_name const &,
+	sge::parse::ini::entry_name const &
 );
 
 }

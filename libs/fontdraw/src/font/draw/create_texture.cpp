@@ -38,7 +38,10 @@ sge::font::draw::create_texture(
 {
 	sge::texture::part_unique_ptr result(
 		sge::texture::wrap_npot(
-			_renderer,
+			// TODO
+			fcppt::make_ref(
+				_renderer
+			),
 			sge::renderer::texture::planar_parameters(
 				fcppt::math::dim::structure_cast<
 					sge::renderer::dim2,
