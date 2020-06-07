@@ -76,13 +76,14 @@ sge::renderer::vf::proxy<
 				_label_tag
 			);
 
-			typedef
+			using
+			label
+			=
 			fcppt::tag_type<
 				decltype(
 					_label_tag
 				)
-			>
-			label;
+			>;
 
 			this-> template set<
 				label
@@ -116,26 +117,29 @@ sge::renderer::vf::proxy<
 	> const &_value
 )
 {
-	typedef
+	using
+	index
+	=
 	sge::renderer::vf::detail::element_index<
 		elements,
 		Label
-	>
-	index;
+	>;
 
-	typedef
+	using
+	element
+	=
 	metal::at<
 		elements,
 		index
-	>
-	element;
+	>;
 
-	typedef
+	using
+	offset
+	=
 	metal::at<
 		offsets,
 		index
-	>
-	offset;
+	>;
 
 	sge::renderer::vf::detail::copy_n(
 		sge::renderer::vf::detail::raw_data(
@@ -166,32 +170,36 @@ sge::renderer::vf::proxy<
 	Constness
 >::get() const
 {
-	typedef
+	using
+	index
+	=
 	sge::renderer::vf::detail::element_index<
 		elements,
 		Label
-	>
-	index;
+	>;
 
-	typedef
+	using
+	element
+	=
 	metal::at<
 		elements,
 		index
-	>
-	element;
+	>;
 
-	typedef
+	using
+	offset
+	=
 	metal::at<
 		offsets,
 		index
-	>
-	offset;
+	>;
 
-	typedef
+	using
+	packed_type
+	=
 	sge::renderer::vf::to_packed_type<
 		element
-	>
-	packed_type;
+	>;
 
 	sge::renderer::vf::detail::read_wrapper<
 		packed_type

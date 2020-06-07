@@ -20,11 +20,12 @@ namespace renderer
 namespace vf
 {
 
-typedef
+using
+vertex_difference
+=
 std::make_signed_t<
 	sge::renderer::vf::vertex_size
->
-vertex_difference;
+>;
 
 }
 }

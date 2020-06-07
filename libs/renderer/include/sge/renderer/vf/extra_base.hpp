@@ -25,13 +25,17 @@ struct extra_base
 :
 	Base
 {
-	typedef Index index;
+	using
+	index
+	=
+	Index;
 
-	typedef
+	using
+	label
+	=
 	sge::renderer::vf::labels::extra<
 		Index::value
-	>
-	label;
+	>;
 };
 
 }

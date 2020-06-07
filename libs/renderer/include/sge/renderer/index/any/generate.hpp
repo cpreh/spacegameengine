@@ -45,6 +45,7 @@ generate(
 				:
 				_inner_view
 			)
+			{
 				item.set(
 					_gen(
 						fcppt::tag<
@@ -57,6 +58,7 @@ generate(
 						>{}
 					)
 				);
+			}
 		},
 		_view
 	);

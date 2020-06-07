@@ -20,11 +20,12 @@ namespace renderer
 namespace display_mode
 {
 
-typedef
+using
+container
+=
 std::vector<
 	sge::renderer::display_mode::object
->
-container;
+>;
 
 }
 }

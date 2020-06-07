@@ -22,11 +22,12 @@ namespace vf
 namespace dynamic
 {
 
-typedef
+using
+part_list
+=
 std::vector<
 	sge::renderer::vf::dynamic::part
->
-part_list;
+>;
 
 }
 }

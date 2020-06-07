@@ -17,7 +17,7 @@
 #include <sge/graph/detail/symbol.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
@@ -37,6 +37,7 @@
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object_decl.hpp>
 #include <sge/sprite/state/parameters_fwd.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <boost/circular_buffer.hpp>
@@ -47,29 +48,34 @@ namespace sge
 {
 namespace graph
 {
+
 class object
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONMOVABLE(
+		object
+	);
 public:
 	SGE_GRAPH_DETAIL_SYMBOL
 	object(
 		sge::graph::position const &,
 		sge::renderer::dim2 const &,
-		sge::renderer::device::ffp &,
+		sge::renderer::device::ffp_ref,
 		sge::graph::baseline,
 		sge::graph::optional_axis_constraint const &,
-		sge::graph::color_scheme const &);
+		sge::graph::color_scheme const &
+	);
 
 	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	push(
-		sge::graph::scalar _datum);
+		sge::graph::scalar
+	);
 
 	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	render(
-		sge::renderer::context::ffp &);
+		sge::renderer::context::ffp & // NOLINT(google-runtime-references)
+	);
 
 	SGE_GRAPH_DETAIL_SYMBOL
 	~object();
@@ -77,7 +83,10 @@ public:
 private:
 	friend class sge::graph::detail::draw_visitor;
 
-	typedef sge::sprite::config::choices<
+	using
+	sprite_choices
+	=
+	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
 				int
@@ -95,39 +104,55 @@ private:
 		metal::list<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
-					1u
+					1U
 				>,
 				sge::sprite::config::texture_coordinates::automatic,
 				sge::sprite::config::texture_ownership::shared
 			>
 		>
-	> sprite_choices;
+	>;
 
-	typedef sge::sprite::object<
+	using
+	sprite_object
+	=
+	sge::sprite::object<
 		sprite_choices
-	> sprite_object;
+	>;
 
-	typedef sge::sprite::buffers::with_declaration<
+	using
+	sprite_buffers_type
+	=
+	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
-	> sprite_buffers_type;
+	>;
 
-	typedef sge::sprite::state::all_choices sprite_state_choices;
+	using
+	sprite_state_choices
+	=
+	sge::sprite::state::all_choices;
 
-	typedef sge::sprite::state::object<
+	using
+	sprite_state
+	=
+	sge::sprite::state::object<
 		sprite_state_choices
-	> sprite_state;
+	>;
 
-	typedef sge::sprite::state::parameters<
+	using
+	sprite_state_parameters
+	=
+	sge::sprite::state::parameters<
 		sprite_state_choices
-	> sprite_state_parameters;
+	>;
 
-	typedef
+	using
+	buffer_type
+	=
 	boost::circular_buffer<
 		sge::graph::scalar
-	>
-	buffer_type;
+	>;
 
 	sge::renderer::dim2
 	dim_;
@@ -162,16 +187,23 @@ private:
 	sge::graph::scalar
 	current_max_;
 
-	template<typename View>
+	template<
+		typename View
+	>
 	void
 	clear(
-		View const &_view);
+		View const &
+	);
 
-	template<typename View>
+	template<
+		typename View
+	>
 	void
 	draw_data(
-		View const &_view);
+		View const &
+	);
 };
+
 }
 }
 

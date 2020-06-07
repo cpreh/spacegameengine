@@ -41,21 +41,31 @@ public:
 		>::value
 	);
 
-	typedef
+	using
+	pointer
+	=
 	sge::renderer::vf::pointer<
 		Constness
-	>
-	pointer;
+	>;
 
-	typedef
+	using
+	vertex_type
+	=
 	sge::renderer::vf::vertex<
 		Part
-	>
-	vertex_type;
+	>;
 
-	typedef typename Part::elements elements;
+	using
+	elements
+	=
+	typename
+	Part::elements;
 
-	typedef typename Part::offsets offsets;
+	using
+	offsets
+	=
+	typename
+	Part::offsets;
 
 	explicit
 	proxy(
@@ -81,6 +91,7 @@ public:
 	template<
 		typename Label
 	>
+	[[nodiscard]]
 	sge::renderer::vf::label_value_type<
 		Part,
 		Label

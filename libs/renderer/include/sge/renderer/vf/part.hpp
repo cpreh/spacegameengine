@@ -30,13 +30,16 @@ template<
 >
 struct part
 {
-	typedef
+	using
+	elements
+	=
 	metal::list<
 		Elements...
-	>
-	elements;
+	>;
 
-	typedef
+	using
+	offsets
+	=
 	fcppt::metal::from_number_list<
 		sge::renderer::vf::vertex_size,
 		fcppt::metal::partial_sums<
@@ -49,14 +52,14 @@ struct part
 				>
 			>
 		>
-	>
-	offsets;
+	>;
 
-	typedef
+	using
+	stride
+	=
 	metal::back<
 		offsets
-	>
-	stride;
+	>;
 };
 
 }

@@ -31,13 +31,16 @@ public:
 		sge::graph::foreground_alt_color const &,
 		sge::graph::background_color const &,
 		sge::graph::background_alt_color const &,
-		sge::graph::baseline_color const &);
+		sge::graph::baseline_color const &
+	);
 
 	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	foreground_color(
-		sge::graph::color const &);
+		sge::graph::color const &
+	);
 
+	[[nodiscard]]
 	SGE_GRAPH_DETAIL_SYMBOL
 	sge::graph::color const &
 	foreground_color() const;
@@ -45,8 +48,10 @@ public:
 	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	background_color(
-		sge::graph::color const &);
+		sge::graph::color const &
+	);
 
+	[[nodiscard]]
 	SGE_GRAPH_DETAIL_SYMBOL
 	sge::graph::color const &
 	background_color() const;
@@ -54,8 +59,10 @@ public:
 	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	foreground_alt_color(
-		sge::graph::color const &);
+		sge::graph::color const &
+	);
 
+	[[nodiscard]]
 	SGE_GRAPH_DETAIL_SYMBOL
 	sge::graph::color const &
 	foreground_alt_color() const;
@@ -63,8 +70,10 @@ public:
 	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	background_alt_color(
-		sge::graph::color const &);
+		sge::graph::color const &
+	);
 
+	[[nodiscard]]
 	SGE_GRAPH_DETAIL_SYMBOL
 	sge::graph::color const &
 	background_alt_color() const;
@@ -72,8 +81,10 @@ public:
 	SGE_GRAPH_DETAIL_SYMBOL
 	void
 	baseline_color(
-		sge::graph::color const &);
+		sge::graph::color const &
+	);
 
+	[[nodiscard]]
 	SGE_GRAPH_DETAIL_SYMBOL
 	sge::graph::color const &
 	baseline_color() const;

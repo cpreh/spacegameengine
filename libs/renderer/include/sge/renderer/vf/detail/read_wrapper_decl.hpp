@@ -7,7 +7,7 @@
 #ifndef SGE_RENDERER_VF_DETAIL_READ_WRAPPER_DECL_HPP_INCLUDED
 #define SGE_RENDERER_VF_DETAIL_READ_WRAPPER_DECL_HPP_INCLUDED
 
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -28,7 +28,7 @@ template<
 >
 class read_wrapper
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		read_wrapper
 	);
 public:
@@ -48,13 +48,13 @@ template<
 class read_wrapper<
 	T,
 	std::enable_if_t<
-		std::is_fundamental<
+		std::is_fundamental_v<
 			T
-		>::value
+		>
 	>
 >
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		read_wrapper
 	);
 public:

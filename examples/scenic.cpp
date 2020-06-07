@@ -477,7 +477,9 @@ main_program(
 			256u,
 			64u
 		},
-		sys.renderer_device_ffp(),
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
 		sge::graph::baseline{
 			fcppt::literal<
 				sge::graph::scalar

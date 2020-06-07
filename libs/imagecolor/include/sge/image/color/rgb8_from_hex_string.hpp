@@ -27,6 +27,7 @@ namespace image
 {
 namespace color
 {
+
 // NOTES
 // -----
 //
@@ -34,61 +35,84 @@ namespace color
 // - I wasn't sure if this function might be called for a string that
 //   is not std::string or std::wstring (like a utf8 string), so I
 //   kept this a template instead of two overloaded functions.
-template<typename String>
+template<
+	typename String
+>
 sge::image::color::rgb8
 rgb8_from_hex_string(
-	String const &_string)
+	String const &_string
+)
 {
 	FCPPT_ASSERT_PRE(
-		_string.length() == 6u);
+		_string.length() == 6U
+	);
 
 	// Store the channels in unsigned instead of uint8_t because it
 	// might be interpreted as a character instead of a number by the
 	// iostreams
-	typedef
-	std::array<unsigned,3u>
-	channel_array;
+	using
+	channel_array
+	=
+	std::array<
+		unsigned,
+		3U
+	>;
 
 	channel_array channels;
 
-	std::string::size_type current_position =
-		0u;
+	std::string::size_type current_position{
+		0U
+	};
 
-	typedef
-	std::basic_istringstream<typename String::value_type,typename String::traits_type>
-	stringstream_type;
+	using
+	stringstream_type
+	=
+	std::basic_istringstream<
+		typename String::value_type,
+		typename String::traits_type
+	>;
 
 	// Initialize the stringstream once for performance
-	stringstream_type ss;
+	stringstream_type ss{};
 
 	for(
-		auto &channel : channels)
+		auto &channel : channels
+	)
 	{
 		ss.clear();
 		ss.str(
 			_string.substr(
 				current_position,
-				2u));
+				2U
+			)
+		);
 		// We cannot output the color string here without character
 		// conversion, sorry.
 		if(!(ss >> std::hex >> channel) || !ss.eof())
-			throw sge::image::exception(
-				FCPPT_TEXT("Invalid color component, cannot convert"));
+		{
+			throw
+				sge::image::exception(
+					FCPPT_TEXT("Invalid color component, cannot convert")
+				);
+		}
 
 		current_position +=
-			2u;
+			2U;
 	}
 
-	typedef
-	sge::image::color::rgb8::format::channel_type
-	channel_type;
+	using
+	channel_type
+	=
+	sge::image::color::rgb8::format::channel_type;
 
 	return
 		sge::image::color::rgb8(
-			(sge::image::color::init::red() = static_cast<channel_type>(channels[0]))
-			(sge::image::color::init::green() = static_cast<channel_type>(channels[1]))
-			(sge::image::color::init::blue() = static_cast<channel_type>(channels[2])));
+			(sge::image::color::init::red() = static_cast<channel_type>(std::get<0>(channels)))
+			(sge::image::color::init::green() = static_cast<channel_type>(std::get<1>(channels)))
+			(sge::image::color::init::blue() = static_cast<channel_type>(std::get<2>(channels)))
+		);
 }
+
 }
 }
 }

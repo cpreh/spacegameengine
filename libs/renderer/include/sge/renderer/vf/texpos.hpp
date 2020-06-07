@@ -46,13 +46,17 @@ sge::renderer::vf::vector_base<
 		"NumSubElements mut be between 2 and 3"
 	);
 
-	typedef Index index;
+	using
+	index
+	=
+	Index;
 
-	typedef
+	using
+	label
+	=
 	sge::renderer::vf::labels::texpos<
 		Index::value
-	>
-	label;
+	>;
 };
 
 }

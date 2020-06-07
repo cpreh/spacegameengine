@@ -10,13 +10,19 @@
 #include <sge/graph/axis_constraint_fwd.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
+
 namespace sge
 {
 namespace graph
 {
-typedef
-fcppt::optional::object<sge::graph::axis_constraint>
-optional_axis_constraint;
+
+using
+optional_axis_constraint
+=
+fcppt::optional::object<
+	sge::graph::axis_constraint
+>;
+
 }
 }
 

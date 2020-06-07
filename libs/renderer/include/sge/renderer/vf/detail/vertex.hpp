@@ -40,7 +40,9 @@ struct vertex<
 	>
 >
 {
-	typedef
+	using
+	type
+	=
 	fcppt::record::from_list<
 		metal::transform<
 			metal::bind<
@@ -58,8 +60,7 @@ struct vertex<
 				Elements...
 			>
 		>
-	>
-	type;
+	>;
 };
 
 }

@@ -42,28 +42,32 @@ public:
 		>::value
 	);
 
-	typedef
+	using
+	iterator
+	=
 	sge::renderer::vf::iterator<
 		Part,
 		Constness
-	>
-	iterator;
+	>;
 
-	typedef
+	using
+	pointer
+	=
 	sge::renderer::vf::pointer<
 		Constness
-	>
-	pointer;
+	>;
 
-	typedef
+	using
+	dynamic_view_type
+	=
 	sge::renderer::vf::dynamic::basic_view<
 		pointer
-	>
-	dynamic_view_type;
+	>;
 
-	typedef
-	sge::renderer::vertex::count
-	size_type;
+	using
+	size_type
+	=
+	sge::renderer::vertex::count;
 
 	explicit
 	view(

@@ -23,11 +23,18 @@ template<
 >
 struct color_base
 {
-	typedef typename Format::channel_type subelement_type;
+	using
+	subelement_type
+	=
+	typename
+	Format::channel_type;
 
-	typedef mizuiro::color::object<
+	using
+	packed_type
+	=
+	mizuiro::color::object<
 		Format
-	> packed_type;
+	>;
 
 	static
 	sge::renderer::vf::element_count_type const num_subelements

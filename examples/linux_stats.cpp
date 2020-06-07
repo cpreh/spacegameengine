@@ -763,9 +763,12 @@ main_program(
 		>(
 			graph_dim
 		),
-		sys.renderer_device_ffp(),
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
 		sge::graph::baseline(
-			50.0),
+			50.0
+		),
 		sge::graph::optional_axis_constraint(
 			sge::graph::axis_constraint(
 				0.0,
@@ -792,7 +795,9 @@ main_program(
 		>(
 			graph_dim
 		),
-		sys.renderer_device_ffp(),
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
 		sge::graph::baseline(
 			50.0
 		),
@@ -869,9 +874,12 @@ main_program(
 						>(
 							graph_dim
 						),
-						sys.renderer_device_ffp(),
+						fcppt::make_ref(
+							sys.renderer_device_ffp()
+						),
 						sge::graph::baseline(
-							0.0),
+							0.0
+						),
 						sge::graph::optional_axis_constraint(),
 						sge::graph::color_schemes::bright()
 					),

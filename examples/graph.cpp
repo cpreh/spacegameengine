@@ -141,9 +141,12 @@ try
 			512u,
 			128u
 		),
-		sys.renderer_device_ffp(),
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
 		sge::graph::baseline(
-			20.0),
+			20.0
+		),
 		sge::graph::optional_axis_constraint(),
 		sge::graph::color_schemes::bright()
 	);

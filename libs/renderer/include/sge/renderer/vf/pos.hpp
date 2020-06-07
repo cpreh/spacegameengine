@@ -44,9 +44,10 @@ sge::renderer::vf::vector_base<
 		"A vertex format pos must have between 2 and 4 elements"
 	);
 
-	typedef
-	sge::renderer::vf::labels::pos
-	label;
+	using
+	label
+	=
+	sge::renderer::vf::labels::pos;
 };
 
 }

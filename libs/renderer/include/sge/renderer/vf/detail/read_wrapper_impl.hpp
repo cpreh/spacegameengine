@@ -39,8 +39,7 @@ sge::renderer::vf::detail::read_wrapper<
 	T,
 	Enable
 >::~read_wrapper()
-{
-}
+= default;
 
 template<
 	typename T,
@@ -53,7 +52,8 @@ sge::renderer::vf::detail::read_wrapper<
 	Enable
 >::get()
 {
-	return value_;
+	return
+		value_;
 }
 
 template<
@@ -63,9 +63,9 @@ inline
 sge::renderer::vf::detail::read_wrapper<
 	T,
 	std::enable_if_t<
-		std::is_fundamental<
+		std::is_fundamental_v<
 			T
-		>::value
+		>
 	>
 >::read_wrapper()
 // Don't initialize value_
@@ -79,13 +79,12 @@ inline
 sge::renderer::vf::detail::read_wrapper<
 	T,
 	std::enable_if_t<
-		std::is_fundamental<
+		std::is_fundamental_v<
 			T
-		>::value
+		>
 	>
 >::~read_wrapper()
-{
-}
+= default;
 
 template<
 	typename T
@@ -95,13 +94,14 @@ T &
 sge::renderer::vf::detail::read_wrapper<
 	T,
 	std::enable_if_t<
-		std::is_fundamental<
+		std::is_fundamental_v<
 			T
-		>::value
+		>
 	>
 >::get()
 {
-	return value_;
+	return
+		value_;
 }
 
 #endif

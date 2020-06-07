@@ -26,11 +26,12 @@ template<
 >
 struct format
 {
-	typedef
+	using
+	parts
+	=
 	metal::list<
 		Parts...
-	>
-	parts;
+	>;
 
 	static_assert(
 		metal::all_of<

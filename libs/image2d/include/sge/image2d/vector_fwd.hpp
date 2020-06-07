@@ -15,11 +15,12 @@ namespace sge
 namespace image2d
 {
 
-typedef
+using
+vector
+=
 sge::image::basic_vector<
 	2
->
-vector;
+>;
 
 }
 }

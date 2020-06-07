@@ -16,6 +16,16 @@
 #include <sge/image/color/rgba8_from_hex_string.hpp>
 
 
+namespace
+{
+
+constexpr
+sge::image::color::rgba8::format::channel_type const full_alpha{
+	255
+};
+
+}
+
 sge::graph::color_scheme
 sge::graph::color_schemes::default_()
 {
@@ -49,7 +59,7 @@ sge::graph::color_schemes::bright()
 					std::string(
 						"F6F792"
 					),
-					255
+					full_alpha
 				)
 			),
 			sge::graph::foreground_alt_color(
@@ -57,7 +67,7 @@ sge::graph::color_schemes::bright()
 					std::string(
 						"DAEDE2"
 					),
-					255
+					full_alpha
 				)
 			),
 			sge::graph::background_color(
@@ -65,7 +75,7 @@ sge::graph::color_schemes::bright()
 					std::string(
 						"333745"
 					),
-					255
+					full_alpha
 				)
 			),
 			sge::graph::background_alt_color(
@@ -73,7 +83,7 @@ sge::graph::color_schemes::bright()
 					std::string(
 						"77C4D3"
 					),
-					255
+					full_alpha
 				)
 			),
 			sge::graph::baseline_color(
@@ -81,7 +91,7 @@ sge::graph::color_schemes::bright()
 					std::string(
 						"EA2E49"
 					),
-					255
+					full_alpha
 				)
 			)
 		);
@@ -97,7 +107,7 @@ sge::graph::color_schemes::night()
 					std::string(
 						"008000"
 					),
-					255
+					full_alpha
 				)
 			),
 			sge::graph::foreground_alt_color(
@@ -105,7 +115,7 @@ sge::graph::color_schemes::night()
 					std::string(
 						"77C4D3"
 					),
-					255
+					full_alpha
 				)
 			),
 			sge::graph::background_color(
@@ -113,7 +123,7 @@ sge::graph::color_schemes::night()
 					std::string(
 						"2E2E2E"
 					),
-					255
+					full_alpha
 				)
 			),
 			sge::graph::background_alt_color(
@@ -121,7 +131,7 @@ sge::graph::color_schemes::night()
 					std::string(
 						"2E2E2E"
 					),
-					255
+					full_alpha
 				)
 			),
 			sge::graph::baseline_color(
@@ -129,7 +139,7 @@ sge::graph::color_schemes::night()
 					std::string(
 						"808080"
 					),
-					255
+					full_alpha
 				)
 			)
 		);
@@ -145,7 +155,7 @@ sge::graph::color_schemes::minimal()
 					std::string(
 						"808080"
 					),
-					255
+					full_alpha
 				)
 			),
 			sge::graph::foreground_alt_color(
@@ -153,7 +163,7 @@ sge::graph::color_schemes::minimal()
 					std::string(
 						"808080"
 					),
-					255
+					full_alpha
 				)
 			),
 			sge::graph::background_color(
@@ -177,7 +187,7 @@ sge::graph::color_schemes::minimal()
 					std::string(
 						"FFFFFF"
 					),
-					255
+					full_alpha
 				)
 			)
 		);

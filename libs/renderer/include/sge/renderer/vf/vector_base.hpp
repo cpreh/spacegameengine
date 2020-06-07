@@ -24,12 +24,18 @@ template<
 >
 struct vector_base
 {
-	typedef Format subelement_type;
+	using
+	subelement_type
+	=
+	Format;
 
-	typedef fcppt::math::vector::static_<
+	using
+	packed_type
+	=
+	fcppt::math::vector::static_<
 		Format,
 		NumSubElements
-	> packed_type;
+	>;
 
 	static
 	sge::renderer::vf::element_count_type const num_subelements

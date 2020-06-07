@@ -23,6 +23,7 @@
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
@@ -77,12 +78,12 @@ bresenham
 	Color const &c1
 )
 {
-	typedef typename
-	std::make_signed
-	<
+	using
+	int_type
+	=
+	std::make_signed_t<
 		typename View::dim::value_type
-	>::type
-	int_type;
+	>;
 
 	int_type x0 = static_cast<int_type>(start[0]);
 	int_type y0 = static_cast<int_type>(start[1]);
@@ -228,9 +229,10 @@ fit_into_scale(
 	sge::renderer::dim2::value_type const _height
 )
 {
-	typedef
-	sge::image2d::vector::value_type
-	value_type;
+	using
+	value_type
+	=
+	sge::image2d::vector::value_type;
 
 	return
 	static_cast<
@@ -268,16 +270,17 @@ fit_into_scale(
 sge::graph::object::object(
 	sge::graph::position const &_position,
 	sge::renderer::dim2 const &_dim,
-	sge::renderer::device::ffp &_renderer,
+	sge::renderer::device::ffp_ref const _renderer,
 	sge::graph::baseline _baseline,
 	sge::graph::optional_axis_constraint const &_axis_constraint,
 	sge::graph::color_scheme const &_color_scheme
 )
 :
 	dim_(
-		_dim),
+		_dim
+	),
 	texture_(
-		_renderer.create_planar_texture(
+		_renderer.get().create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				_dim,
 				sge::renderer::texture::color_format(
@@ -310,11 +313,11 @@ sge::graph::object::object(
 			}
 	},
 	sprite_buffers_(
-		_renderer,
+		_renderer.get(),
 		sge::sprite::buffers::option::dynamic
 	),
 	sprite_state_(
-		_renderer,
+		_renderer.get(),
 		sprite_state_parameters()
 	),
 	data_buffer_(
@@ -346,8 +349,12 @@ sge::graph::object::object(
 
 	fcppt::variant::apply(
 		sge::graph::detail::draw_visitor(
-			*this),
-		lock.value().get());
+			fcppt::make_ref(
+				*this
+			)
+		),
+		lock.value().get()
+	);
 }
 
 void
@@ -389,7 +396,10 @@ sge::graph::object::render(
 
 		fcppt::variant::apply(
 			sge::graph::detail::draw_visitor(
-				*this),
+				fcppt::make_ref(
+					*this
+				)
+			),
 			lock.value().get()
 		);
 	}
@@ -483,9 +493,10 @@ sge::graph::object::draw_data(
 		)
 	);
 
-	typedef
-	sge::image2d::vector::value_type
-	value_type;
+	using
+	value_type
+	=
+	sge::image2d::vector::value_type;
 
 	value_type const
 	baseline = fit_into_scale(
@@ -588,5 +599,4 @@ sge::graph::object::draw_data(
 }
 
 sge::graph::object::~object()
-{
-}
+= default;

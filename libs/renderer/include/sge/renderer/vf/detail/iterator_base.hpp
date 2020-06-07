@@ -39,7 +39,7 @@ fcppt::iterator::base<
 			Part,
 			Constness
 		>,
-		// TODO: Should this be renderer::vf::vertex?
+		// TODO(philipp): Should this be renderer::vf::vertex?
 		sge::renderer::vf::proxy<
 			Part,
 			Constness
@@ -49,7 +49,7 @@ fcppt::iterator::base<
 			Constness
 		>,
 		sge::renderer::vf::vertex_difference,
-		// TODO: output_iterator?
+		// TODO(philipp): output_iterator?
 		std::input_iterator_tag
 	>
 >;

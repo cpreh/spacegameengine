@@ -34,12 +34,13 @@ class iterator final
 			Constness
 		>
 {
-	typedef
+	using
+	base
+	=
 	sge::renderer::vf::detail::iterator_base<
 		Part,
 		Constness
-	>
-	base;
+	>;
 
 	static_assert(
 		sge::renderer::vf::is_part<
@@ -53,23 +54,47 @@ class iterator final
 		>::value
 	);
 public:
-	typedef typename base::value_type value_type;
+	using
+	value_type
+	=
+	typename
+	base::value_type;
 
-	typedef typename base::reference reference;
+	using
+	reference
+	=
+	typename
+	base::reference;
 
-	typedef typename base::pointer pointer;
+	using
+	pointer
+	=
+	typename
+	base::pointer;
 
-	typedef typename base::difference_type difference_type;
+	using
+	difference_type
+	=
+	typename
+	base::difference_type;
 
-	typedef typename base::iterator_category iterator_category;
+	using
+	iterator_category
+	=
+	typename
+	base::iterator_category;
 
-	typedef value_type vertex_type;
+	using
+	vertex_type
+	=
+	value_type;
 
-	typedef
+	using
+	internal_pointer
+	=
 	sge::renderer::vf::pointer<
 		Constness
-	>
-	internal_pointer;
+	>;
 
 	static
 	difference_type
@@ -83,11 +108,13 @@ public:
 	void
 	increment();
 
+	[[nodiscard]]
 	bool
 	equal(
 		iterator const &
 	) const;
 
+	[[nodiscard]]
 	vertex_type
 	dereference() const;
 
@@ -101,7 +128,8 @@ private:
 	template<
 		typename,
 		typename
-	> friend class sge::renderer::vf::view;
+	> friend class
+	sge::renderer::vf::view;
 };
 
 }

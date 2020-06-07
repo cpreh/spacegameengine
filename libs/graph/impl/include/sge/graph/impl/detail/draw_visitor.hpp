@@ -23,7 +23,9 @@ class draw_visitor
 public:
 	explicit
 	draw_visitor(
-		sge::graph::object &_graph
+		fcppt::reference<
+			sge::graph::object
+		> const _graph
 	)
 	:
 		graph_(

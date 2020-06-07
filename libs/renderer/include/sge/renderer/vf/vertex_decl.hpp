@@ -27,16 +27,18 @@ template<
 class vertex
 {
 public:
-	typedef
-	Part
-	format_part;
+	using
+	format_part
+	=
+	Part;
 
-	typedef
+	using
+	record_type
+	=
 	typename
 	sge::renderer::vf::detail::vertex<
 		Part
-	>::type
-	record_type;
+	>::type;
 
 	template<
 		typename... Args,
@@ -53,6 +55,7 @@ public:
 	template<
 		typename Label
 	>
+	[[nodiscard]]
 	fcppt::record::label_value_type<
 		record_type,
 		Label

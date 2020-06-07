@@ -10,7 +10,7 @@
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ to be set first.
 */
 class SGE_CORE_DETAIL_CLASS_SYMBOL declaration
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		declaration
 	);
 protected:
