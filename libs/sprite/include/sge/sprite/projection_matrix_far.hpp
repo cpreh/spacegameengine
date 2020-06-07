@@ -4,11 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_SPRITE_OPTIONAL_MATRIX_FWD_HPP_INCLUDED
-#define SGE_SPRITE_OPTIONAL_MATRIX_FWD_HPP_INCLUDED
+#ifndef SGE_SPRITE_PROJECTION_MATRIX_FAR_HPP_INCLUDED
+#define SGE_SPRITE_PROJECTION_MATRIX_FAR_HPP_INCLUDED
 
-#include <sge/sprite/matrix_fwd.hpp>
-#include <fcppt/optional/object_fwd.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/sprite/detail/symbol.hpp>
 
 
 namespace sge
@@ -16,12 +16,9 @@ namespace sge
 namespace sprite
 {
 
-using
-optional_matrix
-=
-fcppt::optional::object<
-	sge::sprite::matrix
->;
+SGE_SPRITE_DETAIL_SYMBOL
+sge::renderer::projection::far
+projection_matrix_far();
 
 }
 }

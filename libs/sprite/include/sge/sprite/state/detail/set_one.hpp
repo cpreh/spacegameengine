@@ -9,8 +9,10 @@
 
 #include <sge/sprite/state/render_context.hpp>
 #include <sge/sprite/state/render_device.hpp>
+#include <sge/sprite/state/detail/cast_device_ref.hpp>
 #include <sge/sprite/state/detail/object_class.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/tag.hpp>
@@ -114,11 +116,13 @@ public:
 
 		Type::set(
 			render_context_.get(),
-			*fcppt::record::get<
-				typename
-				Type::role
-			>(
-				objects_.get()
+			fcppt::make_cref(
+				*fcppt::record::get<
+					typename
+					Type::role
+				>(
+					objects_.get()
+				)
 			)
 		);
 	}
@@ -157,7 +161,11 @@ public:
 		>(
 			objects_.get(),
 			Type::make(
-				render_device_.get(),
+				sge::sprite::state::detail::cast_device_ref<
+					Type
+				>(
+					render_device_
+				),
 				render_context_.get(),
 				fcppt::record::get<
 					typename
@@ -184,7 +192,9 @@ public:
 			{
 				Type::set(
 					render_context_.get(),
-					*_state
+					fcppt::make_cref(
+						*_state
+					)
 				);
 			}
 		);

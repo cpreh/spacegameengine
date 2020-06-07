@@ -6,6 +6,7 @@
 
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/state/core/rasterizer/const_optional_object_ref.hpp>
 #include <sge/renderer/state/core/rasterizer/cull_mode.hpp>
 #include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
@@ -15,18 +16,18 @@
 #include <sge/renderer/state/core/rasterizer/parameters.hpp>
 #include <sge/sprite/state/with_rasterizer.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/make_cref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/from.hpp>
 
 
 sge::renderer::state::core::rasterizer::object_unique_ptr
 sge::sprite::state::with_rasterizer::make(
-	sge::renderer::device::core &_device,
+	sge::renderer::device::core_ref const _device,
 	sge::sprite::state::with_rasterizer::optional_extra_parameters const &_enable_scissor_test
 )
 {
 	return
-		_device.create_rasterizer_state(
+		_device.get().create_rasterizer_state(
 			sge::renderer::state::core::rasterizer::parameters(
 				sge::renderer::state::core::rasterizer::cull_mode::off,
 				sge::renderer::state::core::rasterizer::fill_mode::solid,
@@ -45,14 +46,14 @@ sge::sprite::state::with_rasterizer::make(
 void
 sge::sprite::state::with_rasterizer::set(
 	sge::renderer::context::core &_context,
-	sge::renderer::state::core::rasterizer::object const &_state
+	fcppt::reference<
+		sge::renderer::state::core::rasterizer::object const
+	> const _state
 )
 {
 	_context.rasterizer_state(
 		sge::renderer::state::core::rasterizer::const_optional_object_ref(
-			fcppt::make_cref(
-				_state
-			)
+			_state
 		)
 	);
 }

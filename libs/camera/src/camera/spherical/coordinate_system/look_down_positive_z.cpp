@@ -4,19 +4,30 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/camera/spherical/coordinate_system/azimuth.hpp>
+#include <sge/camera/spherical/coordinate_system/inclination.hpp>
 #include <sge/camera/spherical/coordinate_system/look_down_positive_z.hpp>
 #include <sge/camera/spherical/coordinate_system/object.hpp>
+#include <sge/camera/spherical/coordinate_system/radius.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <fcppt/math/pi.hpp>
+
 
 sge::camera::spherical::coordinate_system::object
 sge::camera::spherical::coordinate_system::look_down_positive_z(
-	spherical::coordinate_system::radius const &_radius)
+	sge::camera::spherical::coordinate_system::radius const &_radius
+)
 {
+	constexpr sge::renderer::scalar const two{2.0F};
+
 	return
-		spherical::coordinate_system::object(
-			spherical::coordinate_system::azimuth(
-				-fcppt::math::pi<sge::renderer::scalar>()/2.0f),
-			spherical::coordinate_system::inclination(
-				-fcppt::math::pi<sge::renderer::scalar>()/2.0f),
-			_radius);
+		sge::camera::spherical::coordinate_system::object(
+			sge::camera::spherical::coordinate_system::azimuth(
+				-fcppt::math::pi<sge::renderer::scalar>()/two
+			),
+			sge::camera::spherical::coordinate_system::inclination(
+				-fcppt::math::pi<sge::renderer::scalar>()/two
+			),
+			_radius
+		);
 }

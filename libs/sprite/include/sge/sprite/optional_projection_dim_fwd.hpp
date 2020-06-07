@@ -16,11 +16,12 @@ namespace sge
 namespace sprite
 {
 
-typedef
+using
+optional_projection_dim
+=
 fcppt::optional::object<
 	sge::sprite::projection_dim
->
-optional_projection_dim;
+>;
 
 }
 }

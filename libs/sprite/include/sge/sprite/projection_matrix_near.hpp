@@ -4,11 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_SPRITE_PROJECTION_MATRIX_FIXED_HPP_INCLUDED
-#define SGE_SPRITE_PROJECTION_MATRIX_FIXED_HPP_INCLUDED
+#ifndef SGE_SPRITE_PROJECTION_MATRIX_NEAR_HPP_INCLUDED
+#define SGE_SPRITE_PROJECTION_MATRIX_NEAR_HPP_INCLUDED
 
-#include <sge/sprite/optional_matrix_fwd.hpp>
-#include <sge/sprite/projection_dim_fwd.hpp>
+#include <sge/renderer/projection/near.hpp>
 #include <sge/sprite/detail/symbol.hpp>
 
 
@@ -18,10 +17,8 @@ namespace sprite
 {
 
 SGE_SPRITE_DETAIL_SYMBOL
-sge::sprite::optional_matrix
-projection_matrix_fixed(
-	sge::sprite::projection_dim const &
-);
+sge::renderer::projection::near
+projection_matrix_near();
 
 }
 }

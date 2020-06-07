@@ -8,6 +8,7 @@
 #define SGE_SPRITE_STATE_DETAIL_MAKE_ONE_OBJECT_HPP_INCLUDED
 
 #include <sge/sprite/state/render_device.hpp>
+#include <sge/sprite/state/detail/cast_device_ref.hpp>
 #include <sge/sprite/state/detail/parameters_class.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -35,17 +36,19 @@ template<
 class make_one_object
 {
 public:
-	typedef
+	using
+	render_device
+	=
 	sge::sprite::state::render_device<
 		StateChoices
-	>
-	render_device;
+	>;
 
-	typedef
+	using
+	parameters_class
+	=
 	sge::sprite::state::detail::parameters_class<
 		StateChoices
-	>
-	parameters_class;
+	>;
 
 	make_one_object(
 		render_device &_render_device,
@@ -65,15 +68,14 @@ private:
 		typename State,
 		typename Role
 	>
-	struct state_has_role
-	:
+	using
+	state_has_role
+	=
 	std::is_same<
 		typename
 		State::role,
 		Role
-	>
-	{
-	};
+	>;
 
 	template<
 		typename Role
@@ -121,7 +123,13 @@ public:
 			state_for_role<
 				Role
 			>::make(
-				render_device_.get(),
+				sge::sprite::state::detail::cast_device_ref<
+					state_for_role<
+						Role
+					>
+				>(
+					render_device_
+				),
 				fcppt::record::get<
 					typename
 					state_for_role<

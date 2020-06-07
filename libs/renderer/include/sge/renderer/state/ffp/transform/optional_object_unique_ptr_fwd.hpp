@@ -22,11 +22,12 @@ namespace ffp
 namespace transform
 {
 
-typedef
+using
+optional_object_unique_ptr
+=
 fcppt::optional::object<
 	sge::renderer::state::ffp::transform::object_unique_ptr
->
-optional_object_unique_ptr;
+>;
 
 }
 }

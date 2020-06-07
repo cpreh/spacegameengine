@@ -4,18 +4,15 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_GRAPH_AXIS_CONSTRAINT_FWD_HPP_INCLUDED
-#define SGE_GRAPH_AXIS_CONSTRAINT_FWD_HPP_INCLUDED
+#include <sge/renderer/projection/near.hpp>
+#include <sge/sprite/projection_matrix_near.hpp>
 
 
-namespace sge
+sge::renderer::projection::near
+sge::sprite::projection_matrix_near()
 {
-namespace graph
-{
-
-class axis_constraint;
-
+	return
+		sge::renderer::projection::near{
+			0.F
+		};
 }
-}
-
-#endif

@@ -5,11 +5,11 @@
 
 
 #include <sge/renderer/projection/dim.hpp>
-#include <sge/renderer/projection/far.hpp>
-#include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal_wh.hpp>
 #include <sge/sprite/optional_matrix.hpp>
 #include <sge/sprite/projection_dim.hpp>
+#include <sge/sprite/projection_matrix_far.hpp>
+#include <sge/sprite/projection_matrix_near.hpp>
 #include <sge/sprite/projection_matrix_fixed.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/dim/contents.hpp>
@@ -18,7 +18,7 @@
 
 sge::sprite::optional_matrix
 sge::sprite::projection_matrix_fixed(
-	sge::sprite::projection_dim const _size
+	sge::sprite::projection_dim const &_size
 )
 {
 	return
@@ -26,7 +26,7 @@ sge::sprite::projection_matrix_fixed(
 			_size.get()
 		)
 		!=
-		0u
+		0U
 		?
 			sge::sprite::optional_matrix(
 				sge::renderer::projection::orthogonal_wh(
@@ -36,13 +36,8 @@ sge::sprite::projection_matrix_fixed(
 					>(
 						_size.get()
 					),
-					// TODO
-					sge::renderer::projection::near{
-						0.f
-					},
-					sge::renderer::projection::far{
-						10.f
-					}
+					sge::sprite::projection_matrix_near(),
+					sge::sprite::projection_matrix_far()
 				)
 			)
 		:

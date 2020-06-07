@@ -292,7 +292,9 @@ set(
 	libs/sprite/include/sge/sprite/projection_dim.hpp
 	libs/sprite/include/sge/sprite/projection_dim_fwd.hpp
 	libs/sprite/include/sge/sprite/projection_matrix.hpp
+	libs/sprite/include/sge/sprite/projection_matrix_far.hpp
 	libs/sprite/include/sge/sprite/projection_matrix_fixed.hpp
+	libs/sprite/include/sge/sprite/projection_matrix_near.hpp
 	libs/sprite/include/sge/sprite/render/parameters.hpp
 	libs/sprite/include/sge/sprite/render/parameters_decl.hpp
 	libs/sprite/include/sge/sprite/render/parameters_fwd.hpp
@@ -329,7 +331,9 @@ set(
 	libs/sprite/include/sge/sprite/state/choices.hpp
 	libs/sprite/include/sge/sprite/state/choices_fwd.hpp
 	libs/sprite/include/sge/sprite/state/default_options.hpp
+	libs/sprite/include/sge/sprite/state/detail/cast_device_ref.hpp
 	libs/sprite/include/sge/sprite/state/detail/choose_ffp.hpp
+	libs/sprite/include/sge/sprite/state/detail/device_for_state.hpp
 	libs/sprite/include/sge/sprite/state/detail/init_one_option.hpp
 	libs/sprite/include/sge/sprite/state/detail/init_options.hpp
 	libs/sprite/include/sge/sprite/state/detail/make_objects.hpp
@@ -436,7 +440,9 @@ set(
 	libs/sprite/src/sprite/buffers/option_to_resource_flags.cpp
 	libs/sprite/src/sprite/buffers/parameters.cpp
 	libs/sprite/src/sprite/projection_matrix.cpp
+	libs/sprite/src/sprite/projection_matrix_far.cpp
 	libs/sprite/src/sprite/projection_matrix_fixed.cpp
+	libs/sprite/src/sprite/projection_matrix_near.cpp
 	libs/sprite/src/sprite/state/with_blend.cpp
 	libs/sprite/src/sprite/state/with_rasterizer.cpp
 	libs/sprite/src/sprite/state/with_transform.cpp

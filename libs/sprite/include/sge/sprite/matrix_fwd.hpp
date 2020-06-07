@@ -15,7 +15,10 @@ namespace sge
 namespace sprite
 {
 
-typedef sge::renderer::matrix4 matrix;
+using
+matrix
+=
+sge::renderer::matrix4;
 
 }
 }
