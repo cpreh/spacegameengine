@@ -127,7 +127,9 @@ sge::rucksack::testbed::object_impl::object_impl(
 		)
 	),
 	buffers_(
-		systems_.renderer_device_ffp(),
+		fcppt::make_ref(
+			systems_.renderer_device_core()
+		),
 		sge::sprite::buffers::option::dynamic
 	),
 	sprite_states_(

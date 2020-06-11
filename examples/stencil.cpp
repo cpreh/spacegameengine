@@ -273,7 +273,9 @@ try
 	// Allocate a sprite buffers object. This uses dynamic buffers, which
 	// means that they are updated every frame.
 	sprite_buffers_type sprite_buffers(
-		sys.renderer_device_ffp(),
+		fcppt::make_ref(
+			sys.renderer_device_core()
+		),
 		sge::sprite::buffers::option::dynamic
 	);
 

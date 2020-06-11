@@ -7,7 +7,7 @@
 #ifndef SGE_SPRITE_BUFFERS_WITH_DECLARATION_DECL_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_WITH_DECLARATION_DECL_HPP_INCLUDED
 
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/option.hpp>
@@ -33,7 +33,7 @@ class with_declaration
 	);
 public:
 	with_declaration(
-		sge::renderer::device::core &,
+		sge::renderer::device::core_ref,
 		sge::sprite::buffers::option
 	);
 

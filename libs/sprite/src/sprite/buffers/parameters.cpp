@@ -5,13 +5,15 @@
 
 
 #include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
 
 
 sge::sprite::buffers::parameters::parameters(
-	sge::renderer::device::core &_device,
-	sge::renderer::vertex::declaration const &_vertex_declaration
+	sge::renderer::device::core_ref const _device,
+	sge::renderer::vertex::const_declaration_ref const _vertex_declaration
 )
 :
 	device_(

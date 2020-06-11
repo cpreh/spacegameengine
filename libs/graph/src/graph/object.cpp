@@ -22,6 +22,7 @@
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
@@ -46,6 +47,7 @@
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -313,7 +315,11 @@ sge::graph::object::object(
 			}
 	},
 	sprite_buffers_(
-		_renderer.get(),
+		fcppt::reference_to_base<
+			sge::renderer::device::core
+		>(
+			_renderer
+		),
 		sge::sprite::buffers::option::dynamic
 	),
 	sprite_state_(

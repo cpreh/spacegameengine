@@ -21,6 +21,7 @@
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
@@ -52,6 +53,7 @@
 #include <sge/texture/part.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -98,7 +100,13 @@ sge::font::draw::detail::static_text_impl::static_text_impl(
 		)
 	),
 	sprite_buffers_(
-		_renderer,
+		fcppt::reference_to_base<
+			sge::renderer::device::core
+		>(
+			fcppt::make_ref(
+				_renderer
+			)
+		),
 		sge::sprite::buffers::option::static_
 	),
 	sprite_state_(

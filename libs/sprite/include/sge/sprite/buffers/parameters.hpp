@@ -8,10 +8,11 @@
 #define SGE_SPRITE_BUFFERS_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/sprite/buffers/parameters_fwd.hpp>
 #include <sge/sprite/detail/symbol.hpp>
-#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -26,25 +27,23 @@ class parameters
 public:
 	SGE_SPRITE_DETAIL_SYMBOL
 	parameters(
-		sge::renderer::device::core &,
-		sge::renderer::vertex::declaration const &
+		sge::renderer::device::core_ref,
+		sge::renderer::vertex::const_declaration_ref
 	);
 
+	[[nodiscard]]
 	SGE_SPRITE_DETAIL_SYMBOL
 	sge::renderer::device::core &
 	device() const;
 
+	[[nodiscard]]
 	SGE_SPRITE_DETAIL_SYMBOL
 	sge::renderer::vertex::declaration const &
 	vertex_declaration() const;
 private:
-	fcppt::reference<
-		sge::renderer::device::core
-	> device_;
+	sge::renderer::device::core_ref device_;
 
-	fcppt::reference<
-		sge::renderer::vertex::declaration const
-	> vertex_declaration_;
+	sge::renderer::vertex::const_declaration_ref vertex_declaration_;
 };
 
 }

@@ -12,6 +12,7 @@
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/buffers/option.hpp>
@@ -26,6 +27,8 @@
 #include <sge/sprite/state/parameters_impl.hpp>
 #include <sge/texture/const_part_ref.hpp>
 #include <sge/texture/part_fwd.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -55,7 +58,13 @@ sge::cursor::detail::object::object(
 		_hotspot
 	},
 	sprite_buffers_{
-		_renderer,
+		fcppt::reference_to_base<
+			sge::renderer::device::core
+		>(
+			fcppt::make_ref(
+				_renderer
+			)
+		),
 		sge::sprite::buffers::option::dynamic
 	},
 	sprite_state_{

@@ -8,6 +8,7 @@
 #define SGE_SPRITE_BUFFERS_WITH_DECLARATION_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/sprite/count.hpp>
@@ -15,6 +16,7 @@
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
+#include <fcppt/make_cref.hpp>
 
 
 template<
@@ -23,12 +25,12 @@ template<
 sge::sprite::buffers::with_declaration<
 	Buffers
 >::with_declaration(
-	sge::renderer::device::core &_device,
+	sge::renderer::device::core_ref const _device,
 	sge::sprite::buffers::option const _buffers_option
 )
 :
 	vertex_declaration_(
-		_device.create_vertex_declaration(
+		_device.get().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::sprite::make_vertex_format<
 					typename
@@ -40,7 +42,9 @@ sge::sprite::buffers::with_declaration<
 	buffers_(
 		sge::sprite::buffers::parameters(
 			_device,
-			*vertex_declaration_
+			fcppt::make_cref(
+				*vertex_declaration_
+			)
 		),
 		_buffers_option
 	)

@@ -582,7 +582,9 @@ try
 	sprite_state_parameters;
 
 	sprite_buffers_type sprite_buffers(
-		sys.renderer_device_core(),
+		fcppt::make_ref(
+			sys.renderer_device_core()
+		),
 		sge::sprite::buffers::option::static_
 	);
 
