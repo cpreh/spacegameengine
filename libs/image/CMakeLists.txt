@@ -74,8 +74,10 @@ set(
 	libs/image/impl/include/sge/image/impl/view/instantiate_sub.hpp
 	libs/image/impl/include/sge/image/impl/view/instantiate_sub_out_of_range.hpp
 	libs/image/impl/include/sge/image/impl/view/instantiate_to_const.hpp
+	libs/image/impl/include/sge/image/impl/view/make_any.hpp
 	libs/image/impl/include/sge/image/impl/view/make_const_impl.hpp
 	libs/image/impl/include/sge/image/impl/view/make_impl.hpp
+	libs/image/impl/include/sge/image/impl/view/object_from_constness.hpp
 	libs/image/impl/include/sge/image/impl/view/object_impl.hpp
 	libs/image/impl/include/sge/image/impl/view/pitch_any.hpp
 	libs/image/impl/include/sge/image/impl/view/pitch_impl.hpp

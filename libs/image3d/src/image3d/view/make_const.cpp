@@ -6,19 +6,17 @@
 
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/image/color/impl/traits/format_map.hpp>
 #include <sge/image/color/traits/format_fwd.hpp>
 #include <sge/image/impl/view/instantiate_make_const.hpp>
 #include <sge/image/impl/view/make_const_impl.hpp>
-#include <sge/image3d/dim.hpp>
-#include <sge/image3d/pitch.hpp>
+#include <sge/image3d/dim_fwd.hpp>
+#include <sge/image3d/pitch_fwd.hpp>
 #include <sge/image3d/tag.hpp>
 #include <sge/image3d/traits/color_tag.hpp>
 #include <sge/image3d/traits/dimension.hpp>
 #include <sge/image3d/view/const_object.hpp>
-#include <sge/image3d/view/make.hpp>
 #include <sge/image3d/view/make_const.hpp>
-#include <sge/image3d/view/object.hpp>
-#include <sge/image3d/view/to_const.hpp>
 
 
 sge::image3d::view::const_object

@@ -10,19 +10,12 @@
 #include <sge/image/dim.hpp>
 #include <sge/image/pitch.hpp>
 #include <sge/image/raw_pointer.hpp>
-#include <sge/image/impl/to_mizuiro_dim.hpp>
-#include <sge/image/impl/view/to_static_format.hpp>
+#include <sge/image/impl/view/make_any.hpp>
 #include <sge/image/traits/image/color_tag.hpp>
 #include <sge/image/traits/pixel/format_fwd.hpp>
 #include <sge/image/view/make.hpp>
-#include <sge/image/view/mizuiro_type.hpp>
 #include <sge/image/view/object.hpp>
 #include <mizuiro/nonconst_tag.hpp>
-#include <fcppt/use.hpp>
-#include <fcppt/enum/to_static.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -47,56 +40,14 @@ sge::image::view::make(
 )
 {
 	return
-		fcppt::enum_::to_static<
-			sge::image::traits::pixel::format<
-				sge::image::traits::image::color_tag<
-					Tag
-				>
-			>
+		sge::image::impl::view::make_any<
+			Tag,
+			mizuiro::nonconst_tag
 		>(
+			_data,
+			_dim,
 			_format,
-			[
-				&_dim,
-				&_pitch,
-				_data
-			](
-				auto const &_static_format
-			)
-			{
-				FCPPT_USE(
-					_static_format
-				);
-
-				using
-				view_type
-				=
-				sge::image::view::mizuiro_type<
-					sge::image::impl::view::to_static_format<
-						Tag,
-						std::decay_t<
-							decltype(
-								_static_format
-							)
-						>
-					>,
-					mizuiro::nonconst_tag
-				>;
-
-				return
-					sge::image::view::object<
-						Tag
-					>{
-						view_type{
-							sge::image::impl::to_mizuiro_dim(
-								_dim
-							),
-							_data,
-							sge::image::impl::to_mizuiro_dim(
-								_pitch
-							)
-						}
-					};
-			}
+			_pitch
 		);
 }
 

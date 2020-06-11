@@ -10,13 +10,12 @@
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/dim_fwd.hpp>
 #include <sge/image/pitch_fwd.hpp>
-#include <sge/image/raw_pointer.hpp>
+#include <sge/image/impl/view/make_any.hpp>
 #include <sge/image/traits/image/color_tag.hpp>
 #include <sge/image/traits/pixel/format_fwd.hpp>
 #include <sge/image/view/const_object.hpp>
-#include <sge/image/view/make.hpp>
 #include <sge/image/view/make_const.hpp>
-#include <sge/image/view/to_const.hpp>
+#include <mizuiro/const_tag.hpp>
 
 
 template<
@@ -41,21 +40,14 @@ sge::image::view::make_const(
 )
 {
 	return
-		sge::image::view::to_const<
-			Tag
+		sge::image::impl::view::make_any<
+			Tag,
+			mizuiro::const_tag
 		>(
-			sge::image::view::make<
-				Tag
-			>(
-				const_cast<
-					sge::image::raw_pointer
-				>(
-					_data
-				),
-				_dim,
-				_format,
-				_pitch
-			)
+			_data,
+			_dim,
+			_format,
+			_pitch
 		);
 }
 

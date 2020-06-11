@@ -8,9 +8,7 @@
 
 
 sge::renderer::vertex::declaration::declaration()
-{
-}
+= default;
 
 sge::renderer::vertex::declaration::~declaration()
-{
-}
+= default;

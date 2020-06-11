@@ -10,8 +10,8 @@
 #include <sge/image/color/traits/format_fwd.hpp>
 #include <sge/image/impl/view/instantiate_make.hpp>
 #include <sge/image/impl/view/make_impl.hpp>
-#include <sge/image2d/dim.hpp>
-#include <sge/image2d/pitch.hpp>
+#include <sge/image2d/dim_fwd.hpp>
+#include <sge/image2d/pitch_fwd.hpp>
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/traits/color_tag.hpp>
 #include <sge/image2d/traits/dimension.hpp>
