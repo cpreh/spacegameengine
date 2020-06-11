@@ -4,13 +4,13 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/viewport/optional_resize_callback_fwd.hpp>
 #include <sge/viewport/impl/detail/manager_impl.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -19,8 +19,8 @@
 
 
 sge::viewport::manager::manager(
-	sge::renderer::device::core &_device,
-	sge::window::object &_window,
+	sge::renderer::device::core_ref const _device,
+	sge::window::object_ref const _window,
 	sge::viewport::optional_resize_callback &&_resize_callback
 )
 :
@@ -39,8 +39,7 @@ sge::viewport::manager::manager(
 }
 
 sge::viewport::manager::~manager()
-{
-}
+= default;
 
 fcppt::signal::auto_connection
 sge::viewport::manager::manage_callback(

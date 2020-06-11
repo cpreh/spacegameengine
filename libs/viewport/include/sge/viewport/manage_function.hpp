@@ -15,9 +15,10 @@ namespace sge
 namespace viewport
 {
 
-typedef
-void
-manage_function(
+using
+manage_function
+=
+void (
 	sge::renderer::target::viewport const &
 );
 

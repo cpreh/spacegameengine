@@ -5,6 +5,7 @@
 
 
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/viewport/manage_callback.hpp>
@@ -12,6 +13,7 @@
 #include <sge/viewport/resize_callback.hpp>
 #include <sge/viewport/impl/detail/manager_impl.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/event/container.hpp>
 #include <awl/window/event/base.hpp>
 #include <awl/window/event/resize.hpp>
@@ -24,7 +26,6 @@
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <functional>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -32,13 +33,13 @@
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::viewport::detail::manager_impl::manager_impl(
-	sge::renderer::device::core &_device,
-	sge::window::object &_window,
+	sge::renderer::device::core_ref const _device,
+	sge::window::object_ref const _window,
 	sge::viewport::optional_resize_callback &&_resize_callback
 )
 :
 	target_{
-		_device.onscreen_target()
+		_device.get().onscreen_target()
 	},
 	resize_callback_{
 		std::move(
@@ -46,13 +47,19 @@ sge::viewport::detail::manager_impl::manager_impl(
 		)
 	},
 	event_connection_{
-		_window.event_handler(
+		_window.get().event_handler(
 			sge::window::event_function{
-				std::bind(
-					&sge::viewport::detail::manager_impl::on_resize,
-					this,
-					std::placeholders::_1
+				[
+					this
+				](
+					awl::window::event::base const &_event
 				)
+				{
+					return
+						this->on_resize(
+							_event
+						);
+				}
 			}
 		)
 	},
@@ -62,8 +69,7 @@ sge::viewport::detail::manager_impl::manager_impl(
 FCPPT_PP_POP_WARNING
 
 sge::viewport::detail::manager_impl::~manager_impl()
-{
-}
+= default;
 
 fcppt::signal::auto_connection
 sge::viewport::detail::manager_impl::manage_callback(
@@ -115,7 +121,7 @@ sge::viewport::detail::manager_impl::on_resize(
 			> const _resize
 		)
 		{
-			// TODO: Turn this into events that we can return.
+			// TODO(philipp): Turn this into events that we can return.
 			fcppt::optional::maybe_void(
 				resize_callback_,
 				[

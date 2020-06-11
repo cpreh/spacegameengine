@@ -16,9 +16,10 @@ namespace sge
 namespace viewport
 {
 
-typedef
-sge::renderer::target::viewport
-resize_function(
+using
+resize_function
+=
+sge::renderer::target::viewport(
 	awl::window::event::resize const &
 );
 

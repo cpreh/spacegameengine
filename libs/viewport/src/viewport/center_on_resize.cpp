@@ -16,7 +16,7 @@
 
 sge::viewport::resize_callback
 sge::viewport::center_on_resize(
-	sge::window::dim const _dim
+	sge::window::dim const &_dim
 )
 {
 	return

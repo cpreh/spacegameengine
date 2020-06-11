@@ -41,7 +41,7 @@ center_position(
 				-
 				_target_size
 				)
-				/ 2u
+				/ 2U
 			)
 		);
 }

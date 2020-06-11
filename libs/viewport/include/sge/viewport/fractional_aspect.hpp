@@ -20,7 +20,10 @@ namespace viewport
 class fractional_aspect
 {
 public:
-	typedef sge::window::unit value_type;
+	using
+	value_type
+	=
+	sge::window::unit;
 
 	SGE_VIEWPORT_DETAIL_SYMBOL
 	fractional_aspect(
@@ -28,10 +31,12 @@ public:
 		value_type denom
 	);
 
+	[[nodiscard]]
 	SGE_VIEWPORT_DETAIL_SYMBOL
 	value_type
 	num() const;
 
+	[[nodiscard]]
 	SGE_VIEWPORT_DETAIL_SYMBOL
 	value_type
 	denom() const;

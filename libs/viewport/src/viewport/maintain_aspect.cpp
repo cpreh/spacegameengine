@@ -9,9 +9,6 @@
 #include <sge/viewport/maintain_aspect.hpp>
 #include <sge/viewport/resize_callback.hpp>
 #include <sge/viewport/impl/maintain_aspect_function.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::viewport::resize_callback
@@ -21,10 +18,17 @@ sge::viewport::maintain_aspect(
 {
 	return
 		sge::viewport::resize_callback{
-			std::bind(
-				&sge::viewport::impl::maintain_aspect_function,
-				std::placeholders::_1,
+			[
 				_aspect
+			](
+				awl::window::event::resize const &_resize
 			)
+			{
+				return
+					sge::viewport::impl::maintain_aspect_function(
+						_resize,
+						_aspect
+					);
+			}
 		};
 }

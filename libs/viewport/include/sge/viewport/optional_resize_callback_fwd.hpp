@@ -16,11 +16,12 @@ namespace sge
 namespace viewport
 {
 
-typedef
+using
+optional_resize_callback
+=
 fcppt::optional::object<
 	sge::viewport::resize_callback
->
-optional_resize_callback;
+>;
 
 }
 }

@@ -7,16 +7,16 @@
 #ifndef SGE_VIEWPORT_IMPL_DETAIL_MANAGER_IMPL_HPP_INCLUDED
 #define SGE_VIEWPORT_IMPL_DETAIL_MANAGER_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/viewport/detail/manager_impl_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/event/container.hpp>
 #include <awl/window/event/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_decl.hpp>
 
@@ -30,18 +30,19 @@ namespace detail
 
 class manager_impl
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		manager_impl
 	);
 public:
 	manager_impl(
-		sge::renderer::device::core &,
-		sge::window::object &,
+		sge::renderer::device::core_ref,
+		sge::window::object_ref,
 		sge::viewport::optional_resize_callback &&
 	);
 
 	~manager_impl();
 
+	[[nodiscard]]
 	fcppt::signal::auto_connection
 	manage_callback(
 		sge::viewport::manage_callback &&
@@ -52,9 +53,11 @@ public:
 		sge::viewport::optional_resize_callback &&
 	);
 
+	[[nodiscard]]
 	sge::renderer::target::viewport
 	viewport() const;
 private:
+	[[nodiscard]]
 	awl::event::container
 	on_resize(
 		awl::window::event::base const &
@@ -66,11 +69,12 @@ private:
 
 	fcppt::signal::auto_connection const event_connection_;
 
-	typedef
+	using
+	manage_signal
+	=
 	fcppt::signal::object<
 		sge::viewport::manage_function
-	>
-	manage_signal;
+	>;
 
 	manage_signal manage_signal_;
 };

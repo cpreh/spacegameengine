@@ -20,7 +20,7 @@ namespace viewport
 SGE_VIEWPORT_DETAIL_SYMBOL
 sge::viewport::fractional_aspect
 aspect_from_screen_size(
-	sge::renderer::screen_size
+	sge::renderer::screen_size const &
 );
 
 }

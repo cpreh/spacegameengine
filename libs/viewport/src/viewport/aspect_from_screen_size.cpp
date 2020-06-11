@@ -12,7 +12,7 @@
 
 sge::viewport::fractional_aspect
 sge::viewport::aspect_from_screen_size(
-	sge::renderer::screen_size const _screen_size
+	sge::renderer::screen_size const &_screen_size
 )
 {
 	return

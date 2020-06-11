@@ -16,11 +16,12 @@ namespace sge
 namespace viewport
 {
 
-typedef
+using
+manage_callback
+=
 fcppt::function<
 	sge::viewport::manage_function
->
-manage_callback;
+>;
 
 }
 }

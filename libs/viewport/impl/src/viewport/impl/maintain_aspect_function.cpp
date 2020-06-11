@@ -55,13 +55,13 @@ sge::viewport::impl::maintain_aspect_function(
 		_aspect.denom()
 	);
 
-	rational::int_type const
-		width(
-			_event.dim().w()
-		),
-		height(
-			_event.dim().h()
-		);
+	rational::int_type const width(
+		_event.dim().w()
+	);
+
+	rational::int_type const height(
+		_event.dim().h()
+	);
 
 	rational const actual(
 		width,
@@ -71,6 +71,7 @@ sge::viewport::impl::maintain_aspect_function(
 	if(
 		actual == desired
 	)
+	{
 		return
 			sge::renderer::target::viewport(
 				sge::renderer::pixel_rect(
@@ -90,6 +91,7 @@ sge::viewport::impl::maintain_aspect_function(
 					)
 				)
 			);
+	}
 
 	bool const horizontal(
 		actual > desired

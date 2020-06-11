@@ -15,6 +15,7 @@
 #include <sge/viewport/manager.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/dim.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
 
@@ -32,8 +33,12 @@ sge::systems::impl::renderer::device::device(
 		)
 	),
 	viewport_manager_(
-		*renderer_device_,
-		_window.get(),
+		fcppt::make_ref(
+			*renderer_device_
+		),
+		fcppt::make_ref(
+			_window.get()
+		),
 		sge::viewport::optional_resize_callback{
 			_parameters.parameters().resize_callback()
 		}

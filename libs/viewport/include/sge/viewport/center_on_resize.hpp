@@ -20,7 +20,7 @@ namespace viewport
 SGE_VIEWPORT_DETAIL_SYMBOL
 sge::viewport::resize_callback
 center_on_resize(
-	sge::window::dim
+	sge::window::dim const &
 );
 
 }
