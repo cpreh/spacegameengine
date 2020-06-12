@@ -9,8 +9,8 @@
 #include <sge/sprite/optional_matrix.hpp>
 #include <sge/sprite/projection_dim.hpp>
 #include <sge/sprite/projection_matrix_far.hpp>
-#include <sge/sprite/projection_matrix_near.hpp>
 #include <sge/sprite/projection_matrix_fixed.hpp>
+#include <sge/sprite/projection_matrix_near.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
