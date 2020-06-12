@@ -21,6 +21,7 @@ namespace ortho_freelook
 {
 namespace action
 {
+
 /**
 \brief A mapping from camera "actions" to key codes
 \ingroup sgecamera
@@ -29,28 +30,32 @@ class mapping
 {
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
-	explicit
 	mapping(
-		action::zoom_in const &,
-		action::zoom_out const &,
-		action::activate_pan const &);
+		sge::camera::ortho_freelook::action::zoom_in const &,
+		sge::camera::ortho_freelook::action::zoom_out const &,
+		sge::camera::ortho_freelook::action::activate_pan const &
+	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
-	action::zoom_in const &
+	sge::camera::ortho_freelook::action::zoom_in const &
 	zoom_in() const;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
-	action::zoom_out const &
+	sge::camera::ortho_freelook::action::zoom_out const &
 	zoom_out() const;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
-	action::activate_pan const &
+	sge::camera::ortho_freelook::action::activate_pan const &
 	activate_pan() const;
 private:
-	action::zoom_in zoom_in_;
-	action::zoom_out zoom_out_;
-	action::activate_pan activate_pan_;
+	sge::camera::ortho_freelook::action::zoom_in zoom_in_;
+	sge::camera::ortho_freelook::action::zoom_out zoom_out_;
+	sge::camera::ortho_freelook::action::activate_pan activate_pan_;
 };
+
 }
 }
 }

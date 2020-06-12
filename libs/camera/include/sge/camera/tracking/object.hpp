@@ -30,6 +30,7 @@ namespace camera
 namespace tracking
 {
 
+// NOLINTNEXTLINE(fuchsia-multiple-inheritance)
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 :
 	public virtual sge::camera::base,
@@ -42,16 +43,18 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL object
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	object(
-		sge::camera::optional_projection_matrix const &,
-		sge::camera::tracking::keyframe_sequence const &,
+		sge::camera::optional_projection_matrix,
+		sge::camera::tracking::keyframe_sequence &&,
 		sge::camera::tracking::is_looping
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::coordinate_system::object
 	coordinate_system() const
 	override;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::optional_projection_matrix
 	projection_matrix() const
@@ -78,6 +81,7 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	bool
 	finished() const;
@@ -86,11 +90,12 @@ public:
 	~object()
 	override;
 private:
-	typedef
+	using
+	cyclic_iterator
+	=
 	fcppt::cyclic_iterator<
 		sge::camera::tracking::keyframe_sequence::const_iterator
-	>
-	cyclic_iterator;
+	>;
 
 	sge::camera::optional_projection_matrix projection_matrix_;
 

@@ -35,8 +35,10 @@ sge::camera::impl::set_pressed_if_appropriate(
 				==
 				_key_event.get().code()
 			)
+			{
 				_result.get() =
 					_key_event.pressed();
+			}
 		}
 	);
 }

@@ -25,7 +25,7 @@ public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	keyframe(
 		sge::camera::update_duration const &,
-		sge::camera::coordinate_system::object const &
+		sge::camera::coordinate_system::object
 	);
 
 	[[nodiscard]]

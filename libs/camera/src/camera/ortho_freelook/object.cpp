@@ -183,7 +183,9 @@ sge::camera::ortho_freelook::object::update(
 		==
 		zoom_out_pressed_
 	)
+	{
 		return;
+	}
 
 	fcppt::optional::maybe_void(
 		current_projection_rectangle_,
@@ -194,14 +196,13 @@ sge::camera::ortho_freelook::object::update(
 			sge::renderer::projection::rect const &_current_projection_rectangle
 		)
 		{
-			sge::renderer::vector2 const
-				ones{
-					1.0f,
-					1.0f
-				},
-				scaled_zoom_speed{
-					_delta.count() * zoom_speed_.get()
-				};
+			sge::renderer::vector2 const ones{
+				1.0F,
+				1.0F
+			};
+			sge::renderer::vector2 const scaled_zoom_speed{
+				_delta.count() * zoom_speed_.get()
+			};
 
 			auto const bool_to_scalar(
 				[](
@@ -212,9 +213,9 @@ sge::camera::ortho_freelook::object::update(
 					return
 						_value
 						?
-							1.f
+							1.F
 						:
-							0.f
+							0.F
 						;
 				}
 			);
@@ -258,8 +259,7 @@ sge::camera::ortho_freelook::object::projection_rectangle(
 }
 
 sge::camera::ortho_freelook::object::~object()
-{
-}
+= default;
 
 void
 sge::camera::ortho_freelook::object::mouse_axis_event(
@@ -269,7 +269,9 @@ sge::camera::ortho_freelook::object::mouse_axis_event(
 	if(
 		!pan_pressed_
 	)
+	{
 		return;
+	}
 
 	if(
 		_axis.code()
@@ -280,7 +282,9 @@ sge::camera::ortho_freelook::object::mouse_axis_event(
 		!=
 		input::mouse::axis_code::y
 	)
+	{
 		return;
+	}
 
 	fcppt::optional::maybe_void(
 		current_projection_rectangle_,
@@ -317,20 +321,19 @@ sge::camera::ortho_freelook::object::mouse_axis_event(
 				}
 			);
 
-			sge::renderer::vector2 const
-				pan_axis{
-					axis_to_float(
-						sge::input::mouse::axis_code::x
-					),
-					axis_to_float(
-						sge::input::mouse::axis_code::y
-					)
-				},
-				panning_speed(
-					pan_speed_.get() *
-					pan_axis *
-					_current_projection_rectangle.size()
-				);
+			sge::renderer::vector2 const pan_axis{
+				axis_to_float(
+					sge::input::mouse::axis_code::x
+				),
+				axis_to_float(
+					sge::input::mouse::axis_code::y
+				)
+			};
+			sge::renderer::vector2 const panning_speed{
+				pan_speed_.get() *
+				pan_axis *
+				_current_projection_rectangle.size()
+			};
 
 			_current_projection_rectangle =
 				sge::renderer::projection::rect(

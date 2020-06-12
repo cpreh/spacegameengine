@@ -43,7 +43,7 @@ of the screen is visible after a second of zooming.
 The panning speed is the amount of panning (measured in percent of the current
 rectangle) that is done when the mouse moves by "one".
 */
-class SGE_CORE_DETAIL_CLASS_SYMBOL object
+class SGE_CORE_DETAIL_CLASS_SYMBOL object // NOLINT(fuchsia-multiple-inheritance)
 :
 	public virtual sge::camera::base,
 	public sge::camera::is_dynamic
@@ -64,11 +64,13 @@ public:
 		sge::camera::ortho_freelook::zoom_speed const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::coordinate_system::object
 	coordinate_system() const
 	override;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::optional_projection_matrix
 	projection_matrix() const

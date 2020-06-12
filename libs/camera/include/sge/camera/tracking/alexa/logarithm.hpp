@@ -48,17 +48,17 @@ logarithm(
 			fcppt::literal<
 				T
 			>(
-				1.0e-4
+				1.0e-4 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			),
 			fcppt::literal<
 				T
 			>(
-				1.0e-9
+				1.0e-9 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			),
 			fcppt::literal<
 				T
 			>(
-				1.0e-6
+				1.0e-6 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		);
 }

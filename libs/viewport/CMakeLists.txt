@@ -17,6 +17,7 @@ set(
 	libs/viewport/include/sge/viewport/manage_function.hpp
 	libs/viewport/include/sge/viewport/manager.hpp
 	libs/viewport/include/sge/viewport/manager_fwd.hpp
+	libs/viewport/include/sge/viewport/manager_ref.hpp
 	libs/viewport/include/sge/viewport/optional_resize_callback.hpp
 	libs/viewport/include/sge/viewport/optional_resize_callback_fwd.hpp
 	libs/viewport/include/sge/viewport/resize_callback.hpp

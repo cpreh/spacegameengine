@@ -16,30 +16,29 @@ sge::camera::matrix_conversion::rotation(
 	sge::camera::coordinate_system::object const &_coordinate_system
 )
 {
-	sge::renderer::vector3 const
-		r(
-			_coordinate_system.right().get()
-		),
-		u(
-			_coordinate_system.up().get()
-		),
-		f(
-			_coordinate_system.forward().get()
-		);
+	sge::renderer::vector3 const r(
+		_coordinate_system.right().get()
+	);
+	sge::renderer::vector3 const u(
+		_coordinate_system.up().get()
+	);
+	sge::renderer::vector3 const f(
+		_coordinate_system.forward().get()
+	);
 
 	return
 		sge::renderer::matrix4(
 			fcppt::math::matrix::row(
-				r.x(),r.y(),r.z(),0.0f
+				r.x(),r.y(),r.z(),0.0F
 			),
 			fcppt::math::matrix::row(
-				u.x(),u.y(),u.z(),0.0f
+				u.x(),u.y(),u.z(),0.0F
 			),
 			fcppt::math::matrix::row(
-				f.x(),f.y(),f.z(),0.0f
+				f.x(),f.y(),f.z(),0.0F
 			),
 			fcppt::math::matrix::row(
-				0.0f,0.0f,0.0f,1.0f
+				0.0F,0.0F,0.0F,1.0F
 			)
 		);
 }

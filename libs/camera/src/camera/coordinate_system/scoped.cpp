@@ -5,24 +5,33 @@
 
 
 #include <sge/camera/has_mutable_coordinate_system.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/coordinate_system/scoped.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 sge::camera::coordinate_system::scoped::scoped(
-	sge::camera::has_mutable_coordinate_system &_camera,
-	sge::camera::coordinate_system::object const &_coordinate_system)
+	fcppt::reference<
+		sge::camera::has_mutable_coordinate_system
+	> const _camera,
+	sge::camera::coordinate_system::object const &_coordinate_system
+)
 :
 	camera_(
-		_camera),
+		_camera
+	),
 	old_coordinates_(
-		_camera.coordinate_system())
+		_camera.get().coordinate_system()
+	)
 {
-	camera_.update_coordinate_system(
-		_coordinate_system);
+	camera_.get().update_coordinate_system(
+		_coordinate_system
+	);
 }
 
 sge::camera::coordinate_system::scoped::~scoped()
 {
-	camera_.update_coordinate_system(
-		old_coordinates_);
+	camera_.get().update_coordinate_system(
+		old_coordinates_
+	);
 }

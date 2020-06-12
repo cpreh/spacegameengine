@@ -225,8 +225,12 @@ try
 	);
 
 	sge::camera::ortho_freelook::projection_rectangle_from_viewport const projection_rectangle_from_viewport(
-		camera,
-		sys.viewport_manager()
+		fcppt::make_ref(
+			camera
+		),
+		fcppt::make_ref(
+			sys.viewport_manager()
+		)
 	);
 
 	sge::texture::const_part_unique_ptr const tex_bg(

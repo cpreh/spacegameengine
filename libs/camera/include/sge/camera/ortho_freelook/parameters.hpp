@@ -39,6 +39,7 @@ public:
 		sge::camera::ortho_freelook::zoom_speed
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::ortho_freelook::zoom_speed
 	zoom_speed() const;
@@ -49,6 +50,7 @@ public:
 		sge::camera::ortho_freelook::action::mapping const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::ortho_freelook::action::mapping const &
 	action_mapping() const;
@@ -59,6 +61,7 @@ public:
 		sge::camera::ortho_freelook::pan_speed
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::ortho_freelook::pan_speed
 	pan_speed() const;
@@ -69,20 +72,20 @@ public:
 		sge::renderer::projection::rect const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::ortho_freelook::optional_projection_rectangle const &
 	projection_rectangle() const;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::renderer::projection::near
 	near() const;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::renderer::projection::far
 	far() const;
-
-	SGE_CAMERA_DETAIL_SYMBOL
-	~parameters();
 private:
 	sge::camera::ortho_freelook::zoom_speed zoom_speed_;
 

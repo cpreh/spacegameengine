@@ -34,46 +34,53 @@ class mapping
 {
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
-	explicit
 	mapping(
-		action::left const &,
-		action::right const &,
-		action::up const &,
-		action::down const &,
-		action::forward const &,
-		action::backward const &);
+		sge::camera::first_person::action::left const &,
+		sge::camera::first_person::action::right const &,
+		sge::camera::first_person::action::up const &,
+		sge::camera::first_person::action::down const &,
+		sge::camera::first_person::action::forward const &,
+		sge::camera::first_person::action::backward const &
+	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
-	action::left const &
+	sge::camera::first_person::action::left const &
 	left() const;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
-	action::right const &
+	sge::camera::first_person::action::right const &
 	right() const;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
-	action::up const &
+	sge::camera::first_person::action::up const &
 	up() const;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
-	action::down const &
+	sge::camera::first_person::action::down const &
 	down() const;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
-	action::forward const &
+	sge::camera::first_person::action::forward const &
 	forward() const;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
-	action::backward const &
+	sge::camera::first_person::action::backward const &
 	backward() const;
 private:
-	action::left left_;
-	action::right right_;
-	action::up up_;
-	action::down down_;
-	action::forward forward_;
-	action::backward backward_;
+	sge::camera::first_person::action::left left_;
+	sge::camera::first_person::action::right right_;
+	sge::camera::first_person::action::up up_;
+	sge::camera::first_person::action::down down_;
+	sge::camera::first_person::action::forward forward_;
+	sge::camera::first_person::action::backward backward_;
 };
+
 }
 }
 }

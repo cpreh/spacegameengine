@@ -10,8 +10,9 @@
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/ortho_freelook/object_fwd.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
-#include <sge/viewport/manager_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/viewport/manager_ref.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
@@ -21,26 +22,36 @@ namespace camera
 {
 namespace ortho_freelook
 {
+
 class projection_rectangle_from_viewport
 {
-FCPPT_NONCOPYABLE(
-	projection_rectangle_from_viewport);
+	FCPPT_NONMOVABLE(
+		projection_rectangle_from_viewport
+	);
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	projection_rectangle_from_viewport(
-		sge::camera::ortho_freelook::object &,
-		sge::viewport::manager &);
+		fcppt::reference<
+			sge::camera::ortho_freelook::object
+		>,
+		sge::viewport::manager_ref
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	~projection_rectangle_from_viewport();
 private:
-	sge::camera::ortho_freelook::object &camera_;
-	fcppt::signal::auto_connection viewport_callback_connection_;
+	fcppt::reference<
+		sge::camera::ortho_freelook::object
+	> const camera_;
+
+	fcppt::signal::auto_connection const viewport_callback_connection_;
 
 	void
 	viewport_callback(
-		sge::renderer::target::viewport const &);
+		sge::renderer::target::viewport const &
+	);
 };
+
 }
 }
 }

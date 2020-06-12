@@ -201,8 +201,7 @@ sge::camera::first_person::object::update(
 }
 
 sge::camera::first_person::object::~object()
-{
-}
+= default;
 
 namespace
 {
@@ -216,13 +215,13 @@ direction_from_booleans(
 	return
 		_left && !_right
 		?
-			-1.0f
+			-1.0F
 		:
 			_right && !_left
 			?
-				1.0f
+				1.0F
 			:
-				0.0f;
+				0.0F;
 }
 
 }
@@ -337,9 +336,9 @@ sge::camera::first_person::object::rotate_on_x(
 )
 {
 	sge::renderer::vector3 const y_axis(
-		0.0f,
-		1.0f,
-		0.0f
+		0.0F,
+		1.0F,
+		0.0F
 	);
 
 	sge::renderer::matrix4 const rotation_matrix{
@@ -352,7 +351,7 @@ sge::camera::first_person::object::rotate_on_x(
 	sge::renderer::vector4 const widened_forward{
 		fcppt::math::vector::push_back(
 			coordinate_system_.forward().get(),
-			0.f
+			0.F
 		)
 	};
 
@@ -404,32 +403,40 @@ sge::camera::first_person::object::rotate_on_y(
 	sge::renderer::scalar const _scaled_axis_value
 )
 {
-	sge::renderer::scalar const epsilon{
-		0.1f
+	constexpr sge::renderer::scalar const epsilon{
+		0.1F
 	};
 
 	sge::renderer::vector3 const y_axis{
-		0.0f,
-		1.0f,
-		0.0f
+		0.0F,
+		1.0F,
+		0.0F
 	};
 
 	if(
-		(fcppt::math::vector::length(
-			-y_axis -
-			coordinate_system_.forward().get()) < epsilon
+		(
+			fcppt::math::vector::length(
+				-y_axis -
+				coordinate_system_.forward().get()
+			)
+			< epsilon
 			&&
-			_scaled_axis_value > 0.0f
+			_scaled_axis_value > 0.0F
 		)
 		||
-		(fcppt::math::vector::length(
-			y_axis -
-			coordinate_system_.forward().get()) < epsilon
+		(
+			fcppt::math::vector::length(
+				y_axis -
+				coordinate_system_.forward().get()
+			)
+			< epsilon
 			&&
-			_scaled_axis_value < 0.0f
+			_scaled_axis_value < 0.0F
 		)
 	)
+	{
 		return;
+	}
 
 	sge::renderer::matrix4 const rotation_matrix{
 		fcppt::math::matrix::rotation_axis(
@@ -441,7 +448,7 @@ sge::camera::first_person::object::rotate_on_y(
 	sge::renderer::vector4 const widened_forward{
 		fcppt::math::vector::push_back(
 			coordinate_system_.forward().get(),
-			0.f
+			0.F
 		)
 	};
 
@@ -486,5 +493,4 @@ sge::camera::first_person::object::rotate_on_y(
 			)
 		)
 	);
-
 }

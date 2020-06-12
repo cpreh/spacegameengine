@@ -54,14 +54,23 @@ sge::camera::tracking::json::keyframe_to_json(
 		sge::parse::json::element_vector{}
 	};
 
-	// TODO: map?
-	for(sge::renderer::matrix4::size_type i = 0; i < matrix.rows(); ++i)
+	// TODO(philipp): map?
+	for(
+		sge::renderer::matrix4::size_type i = 0;
+		i < sge::renderer::matrix4::rows();
+		++i
+	)
 	{
 		sge::parse::json::array result_matrix_row{
 			sge::parse::json::element_vector{}
 		};
 
-		for(sge::renderer::matrix4::size_type j = 0; j < matrix.columns(); ++j)
+		for(
+			sge::renderer::matrix4::size_type j = 0;
+			j < sge::renderer::matrix4::columns();
+			++j
+		)
+		{
 			result_matrix_row.elements.push_back(
 				fcppt::make_recursive(
 					sge::parse::json::make_value(
@@ -71,6 +80,7 @@ sge::camera::tracking::json::keyframe_to_json(
 					)
 				)
 			);
+		}
 
 		result_matrix.elements.push_back(
 			fcppt::make_recursive(

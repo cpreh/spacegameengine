@@ -8,9 +8,7 @@
 
 
 sge::camera::has_mutable_coordinate_system::has_mutable_coordinate_system()
-{
-}
+= default;
 
 sge::camera::has_mutable_coordinate_system::~has_mutable_coordinate_system()
-{
-}
+= default;

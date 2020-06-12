@@ -8,6 +8,7 @@
 #define SGE_CAMERA_COORDINATE_SYSTEM_OBJECT_HPP_INCLUDED
 
 #include <sge/camera/coordinate_system/forward.hpp>
+#include <sge/camera/coordinate_system/object_fwd.hpp>
 #include <sge/camera/coordinate_system/position.hpp>
 #include <sge/camera/coordinate_system/right.hpp>
 #include <sge/camera/coordinate_system/up.hpp>
@@ -30,10 +31,10 @@ class object
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	object(
-		sge::camera::coordinate_system::right const &,
-		sge::camera::coordinate_system::up const &,
-		sge::camera::coordinate_system::forward const &,
-		sge::camera::coordinate_system::position const &
+		sge::camera::coordinate_system::right,
+		sge::camera::coordinate_system::up,
+		sge::camera::coordinate_system::forward,
+		sge::camera::coordinate_system::position
 	);
 
 	[[nodiscard]]

@@ -10,7 +10,8 @@
 #include <sge/camera/has_mutable_coordinate_system_fwd.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -19,22 +20,31 @@ namespace camera
 {
 namespace coordinate_system
 {
+
 class scoped
 {
-FCPPT_NONCOPYABLE(
-	scoped);
+	FCPPT_NONMOVABLE(
+		scoped
+	);
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	scoped(
-		sge::camera::has_mutable_coordinate_system &,
-		sge::camera::coordinate_system::object const &);
+		fcppt::reference<
+			sge::camera::has_mutable_coordinate_system
+		>,
+		sge::camera::coordinate_system::object const &
+	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
 	~scoped();
 private:
-	sge::camera::has_mutable_coordinate_system &camera_;
-	sge::camera::coordinate_system::object old_coordinates_;
+	fcppt::reference<
+		sge::camera::has_mutable_coordinate_system
+	> const camera_;
+
+	sge::camera::coordinate_system::object const old_coordinates_;
 };
+
 }
 }
 }

@@ -29,7 +29,7 @@ public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	parameters(
 		sge::camera::first_person::movement_speed const &,
-		sge::camera::coordinate_system::object const &
+		sge::camera::coordinate_system::object
 	);
 
 	SGE_CAMERA_DETAIL_SYMBOL
@@ -38,14 +38,17 @@ public:
 		sge::camera::first_person::action::mapping const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::first_person::action::mapping const &
 	action_mapping() const;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::first_person::movement_speed const &
 	movement_speed() const;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::coordinate_system::object const &
 	coordinate_system() const;
@@ -56,6 +59,7 @@ public:
 		sge::camera::first_person::mouse_speed_multiplier const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::first_person::mouse_speed_multiplier const &
 	mouse_speed_multiplier() const;
@@ -68,6 +72,7 @@ public:
 		sge::camera::projection_matrix const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::optional_projection_matrix const &
 	projection_matrix() const;

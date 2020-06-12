@@ -30,6 +30,7 @@
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -43,17 +44,19 @@ lerp_double(
 	sge::renderer::matrix4 const &_b
 )
 {
-	typedef
-	long double
-	real;
+	using
+	real
+	=
+	long double;
 
-	typedef
+	using
+	real_matrix
+	=
 	fcppt::math::matrix::static_<
 		real,
 		4,
 		4
-	>
-	real_matrix;
+	>;
 
 	return
 		fcppt::math::matrix::structure_cast<
@@ -84,8 +87,8 @@ lerp_double(
 }
 
 sge::camera::tracking::object::object(
-	sge::camera::optional_projection_matrix const &_projection_matrix,
-	sge::camera::tracking::keyframe_sequence const &_keyframes,
+	sge::camera::optional_projection_matrix _projection_matrix,
+	sge::camera::tracking::keyframe_sequence &&_keyframes,
 	sge::camera::tracking::is_looping const _is_looping
 )
 :
@@ -93,10 +96,14 @@ sge::camera::tracking::object::object(
 	sge::camera::is_dynamic{},
 	sge::camera::has_mutable_projection{},
 	projection_matrix_{
-		_projection_matrix
+		std::move(
+			_projection_matrix
+		)
 	},
 	keyframes_{
-		_keyframes
+		std::move(
+			_keyframes
+		)
 	},
 	is_looping_{
 		_is_looping
@@ -109,7 +116,7 @@ sge::camera::tracking::object::object(
 		}
 	},
 	current_time_point_{
-		0.0f
+		0.0F
 	},
 	coordinate_system_{
 		FCPPT_ASSERT_OPTIONAL_ERROR(
@@ -189,19 +196,19 @@ sge::camera::tracking::object::update(
 		}
 	}
 
-	sge::renderer::matrix4 const
-		left{
-			sge::camera::matrix_conversion::world(
-				current_keyframe_->coordinate_system()
-			)
-		},
-		right{
-			sge::camera::matrix_conversion::world(
-				std::next(
-					current_keyframe_
-				)->coordinate_system()
-			)
-		};
+	sge::renderer::matrix4 const left{
+		sge::camera::matrix_conversion::world(
+			current_keyframe_->coordinate_system()
+		)
+	};
+
+	sge::renderer::matrix4 const right{
+		sge::camera::matrix_conversion::world(
+			std::next(
+				current_keyframe_
+			)->coordinate_system()
+		)
+	};
 
 	coordinate_system_ =
 		sge::camera::matrix_conversion::world_matrix_to_coordinate_system(
@@ -235,5 +242,4 @@ sge::camera::tracking::object::finished() const
 }
 
 sge::camera::tracking::object::~object()
-{
-}
+= default;

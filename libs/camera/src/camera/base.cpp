@@ -6,10 +6,9 @@
 
 #include <sge/camera/base.hpp>
 
+
 sge::camera::base::base()
-{
-}
+= default;
 
 sge::camera::base::~base()
-{
-}
+= default;

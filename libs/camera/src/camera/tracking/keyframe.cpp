@@ -4,16 +4,27 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/camera/update_duration.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/tracking/keyframe.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
+
 
 sge::camera::tracking::keyframe::keyframe(
 	sge::camera::update_duration const &_duration,
-	sge::camera::coordinate_system::object const &_coordinate_system)
+	sge::camera::coordinate_system::object _coordinate_system
+)
 :
 	duration_(
-		_duration),
+		_duration
+	),
 	coordinate_system_(
-		_coordinate_system)
+		std::move(
+			_coordinate_system
+		)
+	)
 {
 }
 

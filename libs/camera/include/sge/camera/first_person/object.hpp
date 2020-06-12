@@ -26,7 +26,7 @@
 #include <sge/input/mouse/event/axis_fwd.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -36,6 +36,7 @@ namespace camera
 namespace first_person
 {
 
+// NOLINTNEXTLINE(fuchsia-multiple-inheritance)
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 :
 	public virtual sge::camera::base,
@@ -43,7 +44,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL object
 	public sge::camera::has_mutable_projection,
 	public sge::camera::has_mutable_coordinate_system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
@@ -53,6 +54,7 @@ public:
 		sge::camera::first_person::parameters const &
 	);
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::coordinate_system::object
 	coordinate_system() const
@@ -65,6 +67,7 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	SGE_CAMERA_DETAIL_SYMBOL
 	sge::camera::optional_projection_matrix
 	projection_matrix() const

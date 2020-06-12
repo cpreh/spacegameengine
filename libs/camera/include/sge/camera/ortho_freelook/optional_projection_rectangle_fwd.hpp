@@ -18,11 +18,12 @@ namespace camera
 namespace ortho_freelook
 {
 
-typedef
+using
+optional_projection_rectangle
+=
 fcppt::optional::object<
 	sge::renderer::projection::rect
->
-optional_projection_rectangle;
+>;
 
 }
 }
