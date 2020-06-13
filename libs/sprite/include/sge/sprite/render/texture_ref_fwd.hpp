@@ -18,11 +18,12 @@ namespace sprite
 namespace render
 {
 
-typedef
+using
+texture_ref
+=
 fcppt::reference<
 	sge::renderer::texture::planar const
->
-texture_ref;
+>;
 
 }
 }

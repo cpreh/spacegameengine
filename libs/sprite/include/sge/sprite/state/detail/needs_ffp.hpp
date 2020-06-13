@@ -36,15 +36,16 @@ private:
 	typename
 	Type::needs_ffp;
 public:
-	typedef
+	using
+	type
+	=
 	metal::any_of<
 		typename
 		StateChoices::optional_elements,
 		metal::trait<
 			extract
 		>
-	>
-	type;
+	>;
 };
 
 }

@@ -11,7 +11,8 @@
 #include <sge/sprite/state/parameters_fwd.hpp>
 #include <sge/sprite/state/render_device.hpp>
 #include <sge/sprite/state/detail/object_class.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -26,32 +27,40 @@ template<
 >
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
-	typedef StateChoices state_choices;
+	using
+	state_choices
+	=
+	StateChoices;
 
-	typedef
+	using
+	elements_type
+	=
 	sge::sprite::state::detail::object_class<
 		StateChoices
-	>
-	elements_type;
+	>;
 
-	typedef
+	using
+	parameters_type
+	=
 	sge::sprite::state::parameters<
 		state_choices
-	>
-	parameters_type;
+	>;
 
-	typedef
+	using
+	render_device
+	=
 	sge::sprite::state::render_device<
 		StateChoices
-	>
-	render_device;
+	>;
 
 	object(
-		render_device &,
+		fcppt::reference<
+			render_device
+		>,
 		parameters_type const &
 	);
 
@@ -66,7 +75,9 @@ public:
 	render_device &
 	renderer() const;
 private:
-	render_device &renderer_;
+	fcppt::reference<
+		render_device
+	> const renderer_;
 
 	elements_type elements_;
 };

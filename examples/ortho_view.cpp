@@ -353,7 +353,9 @@ try
 	sprite_state_parameters;
 
 	sprite_state_object sprite_states(
-		sys.renderer_device_ffp(),
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
 		sprite_state_parameters()
 	);
 
@@ -475,7 +477,9 @@ try
 				sprite_state_choices
 			> const scoped_state(
 				sys.renderer_device_ffp(),
-				_context,
+				fcppt::make_ref(
+					_context
+				),
 				sge::sprite::state::default_options<
 					sprite_state_choices
 				>(),

@@ -13,7 +13,10 @@ namespace sge
 namespace sprite
 {
 
-typedef unsigned texture_level;
+using
+texture_level
+=
+unsigned;
 
 }
 }

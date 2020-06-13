@@ -64,18 +64,22 @@ fill_position(
 				Choices
 			>::rotation_type
 		>(
-			0.0001f
+			0.0001F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		)
 	)
+	{
 		sge::sprite::geometry::detail::fill_position_unrotated(
 			_iterator,
 			_sprite
 		);
+	}
 	else
+	{
 		sge::sprite::geometry::detail::fill_position_rotated(
 			_iterator,
 			_sprite
 		);
+	}
 }
 
 template<

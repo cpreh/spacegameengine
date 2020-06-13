@@ -11,7 +11,7 @@
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/rect.hpp>
 #include <sge/sprite/object.hpp>
@@ -31,7 +31,7 @@
 
 void
 sge::gui::impl::fill_rect(
-	sge::renderer::device::ffp &_renderer,
+	sge::renderer::device::core &_renderer,
 	sge::renderer::context::ffp &_context,
 	sge::rucksack::rect const &_rect,
 	sge::image::color::any::object const &_color

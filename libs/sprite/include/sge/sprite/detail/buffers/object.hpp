@@ -36,21 +36,25 @@ template<
 struct object
 {
 private:
-	typedef
+	using
+	vertex_buffer_role
+	=
 	fcppt::record::element<
 		sge::sprite::buffers::roles::vertex_buffer,
 		sge::renderer::vertex::buffer_unique_ptr
-	>
-	vertex_buffer_role;
+	>;
 
-	typedef
+	using
+	index_buffer_role
+	=
 	fcppt::record::element<
 		sge::sprite::buffers::roles::index_buffer,
 		sge::renderer::index::buffer_unique_ptr
-	>
-	index_buffer_role;
+	>;
 public:
-	typedef
+	using
+	type
+	=
 	fcppt::record::from_list<
 		std::conditional_t<
 			sge::sprite::detail::config::needs_index_buffer<
@@ -64,8 +68,7 @@ public:
 				vertex_buffer_role
 			>
 		>
-	>
-	type;
+	>;
 };
 
 }

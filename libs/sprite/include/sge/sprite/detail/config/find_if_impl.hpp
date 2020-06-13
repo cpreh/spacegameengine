@@ -29,16 +29,17 @@ template<
 >
 struct find_if_impl
 {
-	typedef
+	using
+	type
+	=
 	metal::copy_if<
 		Elements,
 		metal::trait<
 			Predicate
 		>
-	>
-	type;
+	>;
 
-	// TODO
+	// TODO(philipp)
 /*
 	static_assert(
 		metal::size<

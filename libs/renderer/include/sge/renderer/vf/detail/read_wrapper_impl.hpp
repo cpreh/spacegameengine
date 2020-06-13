@@ -67,7 +67,7 @@ sge::renderer::vf::detail::read_wrapper<
 			T
 		>
 	>
->::read_wrapper()
+>::read_wrapper() // NOLINT(hicpp-use-equals-default,modernize-use-equals-default)
 // Don't initialize value_
 {
 }

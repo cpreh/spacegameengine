@@ -29,11 +29,12 @@ template<
 >
 class index_generator
 {
-	typedef
+	using
+	index_array_type
+	=
 	sge::sprite::geometry::detail::index_array_type<
 		Choices
-	>
-	index_array_type;
+	>;
 public:
 	index_generator()
 	:
@@ -43,7 +44,7 @@ public:
 			>::value
 		),
 		index_(
-			0u
+			0U
 		),
 		ptr_(
 			indices_.get().begin()
@@ -71,6 +72,7 @@ public:
 			)
 		);
 
+		// TODO(philipp): cyclic_iterator
 		if(
 			ptr_ == indices_.get().end()
 		)

@@ -96,6 +96,7 @@ sge::sprite::object<
 >::object(
 	object &&_other
 )
+noexcept
 :
 	elements_(
 		std::move(
@@ -147,6 +148,7 @@ sge::sprite::object<
 >::operator=(
 	object &&_other
 )
+noexcept
 {
 	sge::sprite::detail::assign_pre(
 		*this,

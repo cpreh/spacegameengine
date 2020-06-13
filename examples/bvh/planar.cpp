@@ -626,7 +626,9 @@ main_program(
 	);
 
 	sprite_state_object sprite_state(
-		sys.renderer_device_ffp(),
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
 		sprite_state_parameters()
 	);
 

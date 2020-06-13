@@ -3,17 +3,11 @@ set(
 	libs/sprite/include/sge/sprite/bounding_rect.hpp
 	libs/sprite/include/sge/sprite/buffers/allocate.hpp
 	libs/sprite/include/sge/sprite/buffers/index_count.hpp
-	libs/sprite/include/sge/sprite/buffers/multi.hpp
-	libs/sprite/include/sge/sprite/buffers/multi_decl.hpp
-	libs/sprite/include/sge/sprite/buffers/multi_fwd.hpp
-	libs/sprite/include/sge/sprite/buffers/multi_impl.hpp
 	libs/sprite/include/sge/sprite/buffers/object.hpp
 	libs/sprite/include/sge/sprite/buffers/offset_object.hpp
 	libs/sprite/include/sge/sprite/buffers/option.hpp
 	libs/sprite/include/sge/sprite/buffers/option_fwd.hpp
 	libs/sprite/include/sge/sprite/buffers/option_to_resource_flags.hpp
-	libs/sprite/include/sge/sprite/buffers/parameters.hpp
-	libs/sprite/include/sge/sprite/buffers/parameters_fwd.hpp
 	libs/sprite/include/sge/sprite/buffers/roles/first_index.hpp
 	libs/sprite/include/sge/sprite/buffers/roles/first_vertex.hpp
 	libs/sprite/include/sge/sprite/buffers/roles/index_buffer.hpp
@@ -295,10 +289,6 @@ set(
 	libs/sprite/include/sge/sprite/projection_matrix_far.hpp
 	libs/sprite/include/sge/sprite/projection_matrix_fixed.hpp
 	libs/sprite/include/sge/sprite/projection_matrix_near.hpp
-	libs/sprite/include/sge/sprite/render/parameters.hpp
-	libs/sprite/include/sge/sprite/render/parameters_decl.hpp
-	libs/sprite/include/sge/sprite/render/parameters_fwd.hpp
-	libs/sprite/include/sge/sprite/render/parameters_impl.hpp
 	libs/sprite/include/sge/sprite/render/range.hpp
 	libs/sprite/include/sge/sprite/render/range_decl.hpp
 	libs/sprite/include/sge/sprite/render/range_fwd.hpp
@@ -331,7 +321,6 @@ set(
 	libs/sprite/include/sge/sprite/state/choices.hpp
 	libs/sprite/include/sge/sprite/state/choices_fwd.hpp
 	libs/sprite/include/sge/sprite/state/default_options.hpp
-	libs/sprite/include/sge/sprite/state/detail/cast_device_ref.hpp
 	libs/sprite/include/sge/sprite/state/detail/choose_ffp.hpp
 	libs/sprite/include/sge/sprite/state/detail/device_for_state.hpp
 	libs/sprite/include/sge/sprite/state/detail/init_one_option.hpp
@@ -438,7 +427,8 @@ set(
 	libs/sprite/include/sge/sprite/types/vector_fwd.hpp
 	libs/sprite/include/sge/sprite/vertex_format.hpp
 	libs/sprite/src/sprite/buffers/option_to_resource_flags.cpp
-	libs/sprite/src/sprite/buffers/parameters.cpp
+	libs/sprite/src/sprite/detail/render/scoped_vertex.cpp
+	libs/sprite/src/sprite/detail/render/scoped_vertex_declaration.cpp
 	libs/sprite/src/sprite/projection_matrix.cpp
 	libs/sprite/src/sprite/projection_matrix_far.cpp
 	libs/sprite/src/sprite/projection_matrix_fixed.cpp

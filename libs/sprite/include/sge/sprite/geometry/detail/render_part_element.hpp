@@ -42,17 +42,19 @@ template<
 class render_part_element
 {
 public:
-	typedef
+	using
+	slice_type
+	=
 	sge::sprite::buffers::slice<
 		Choices
-	>
-	slice_type;
+	>;
 
-	typedef
+	using
+	object_type
+	=
 	sge::sprite::object<
 		Choices
-	>
-	object_type;
+	>;
 
 	render_part_element(
 		slice_type const &_slice,

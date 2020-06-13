@@ -37,25 +37,29 @@ template<
 struct format_part
 {
 private:
-	typedef
+	using
+	basic
+	=
 	metal::list<
 		sge::sprite::detail::vf::pos<
 			Choices
 		>
-	>
-	basic;
+	>;
 
-	typedef
+	using
+	basic_with_size
+	=
 	metal::join<
 		basic,
 		typename
 		sge::sprite::detail::vf::point_size_extra<
 			Choices
 		>::type
-	>
-	basic_with_size;
+	>;
 
-	typedef
+	using
+	optional_primitives
+	=
 	metal::list<
 		metal::pair<
 			metal::trait<
@@ -96,8 +100,7 @@ private:
 				>
 			>
 		>
-	>
-	optional_primitives;
+	>;
 
 	template<
 		typename Pair
@@ -123,7 +126,9 @@ private:
 		>
 	>;
 public:
-	typedef
+	using
+	type
+	=
 	sge::renderer::vf::part_from_list<
 		metal::join<
 			basic_with_size,
@@ -139,8 +144,7 @@ public:
 				>
 			>
 		>
-	>
-	type;
+	>;
 };
 
 }

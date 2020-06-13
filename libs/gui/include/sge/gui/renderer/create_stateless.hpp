@@ -9,7 +9,7 @@
 
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/renderer/base_unique_ptr.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 
 
 namespace sge
@@ -22,7 +22,7 @@ namespace renderer
 SGE_GUI_DETAIL_SYMBOL
 sge::gui::renderer::base_unique_ptr
 create_stateless(
-	sge::renderer::device::ffp &
+	sge::renderer::device::core &
 );
 
 }

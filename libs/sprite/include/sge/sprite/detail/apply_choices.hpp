@@ -25,7 +25,7 @@ template<
 >
 struct apply_choices;
 
-// TODO: Can we do this in a better way?
+// TODO(philipp): Can we do this in a better way?
 template<
 	typename Choices,
 	typename... Functions
@@ -37,14 +37,15 @@ struct apply_choices<
 	>
 >
 {
-	typedef
+	using
+	type
+	=
 	metal::list<
 		typename
 		Functions :: template apply<
 			Choices
 		>::type ...
-	>
-	type;
+	>;
 };
 
 }

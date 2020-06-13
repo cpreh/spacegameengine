@@ -35,21 +35,25 @@ template<
 struct offset_object
 {
 private:
-	typedef
+	using
+	vertex_buffer_role
+	=
 	fcppt::record::element<
 		sge::sprite::buffers::roles::first_vertex,
 		sge::renderer::vertex::first
-	>
-	vertex_buffer_role;
+	>;
 
-	typedef
+	using
+	index_buffer_role
+	=
 	fcppt::record::element<
 		sge::sprite::buffers::roles::first_index,
 		sge::renderer::index::first
-	>
-	index_buffer_role;
+	>;
 public:
-	typedef
+	using
+	type
+	=
 	fcppt::record::from_list<
 		std::conditional_t<
 			sge::sprite::detail::config::needs_index_buffer<
@@ -63,8 +67,7 @@ public:
 				vertex_buffer_role
 			>
 		>
-	>
-	type;
+	>;
 };
 
 }

@@ -30,33 +30,39 @@ template<
 class range_part
 {
 public:
-	typedef
+	using
+	range_part_object
+	=
 	typename
 	sge::sprite::detail::render::range_part_object<
 		Choices
-	>::type
-	range_part_object;
+	>::type;
 
 	explicit
 	range_part(
-		range_part_object const &
+		range_part_object
 	);
 
+	[[nodiscard]]
 	sge::renderer::index::first
 	first_index() const;
 
+	[[nodiscard]]
 	sge::renderer::vertex::first
 	first_vertex() const;
 
+	[[nodiscard]]
 	sge::renderer::vertex::count
 	vertex_count() const;
 
+	[[nodiscard]]
 	sge::renderer::index::count
 	index_count() const;
 
 	template<
 		sge::sprite::texture_level Level
 	>
+	[[nodiscard]]
 	sge::sprite::render::texture_ref
 	texture_level() const;
 private:

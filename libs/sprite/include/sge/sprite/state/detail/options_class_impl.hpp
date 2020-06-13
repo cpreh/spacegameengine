@@ -59,7 +59,9 @@ private:
 		Type::optional_extra_option
 	>;
 public:
-	typedef
+	using
+	type
+	=
 	fcppt::record::from_list<
 		metal::join<
 			metal::transform<
@@ -82,8 +84,7 @@ public:
 				StateChoices::optional_elements
 			>
 		>
-	>
-	type;
+	>;
 };
 
 }

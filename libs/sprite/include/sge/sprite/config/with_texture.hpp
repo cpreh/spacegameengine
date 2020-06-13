@@ -39,28 +39,38 @@ struct with_texture<
 >
 {
 	static_assert(
-		TextureLevels >= 1u,
+		TextureLevels >= 1U,
 		"with_texture requires at least one texture level"
 	);
 
-	typedef sge::sprite::config::texture_level_count<
+	using
+	texture_levels
+	=
+	sge::sprite::config::texture_level_count<
 		TextureLevels
-	> texture_levels;
+	>;
 
-	typedef std::integral_constant<
+	using
+	coordinates
+	=
+	std::integral_constant<
 		sge::sprite::config::texture_coordinates,
 		Coordinates
-	> coordinates;
+	>;
 
-	typedef std::integral_constant<
+	using
+	ownership
+	=
+	std::integral_constant<
 		sge::sprite::config::texture_ownership,
 		Ownership
-	> ownership;
+	>;
 
 	template<
 		typename Choices
 	>
-	using apply
+	using
+	apply
 	=
 	sge::sprite::detail::primitives::texture<
 		Choices,

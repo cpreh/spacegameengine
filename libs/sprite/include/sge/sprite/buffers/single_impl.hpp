@@ -8,12 +8,14 @@
 #define SGE_SPRITE_BUFFERS_SINGLE_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/allocate.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/option_to_resource_flags.hpp>
-#include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
 #include <sge/sprite/buffers/vertex_count.hpp>
@@ -32,13 +34,17 @@ template<
 sge::sprite::buffers::single<
 	Choices
 >::single(
-	sge::sprite::buffers::parameters const &_parameters,
+	sge::renderer::device::core_ref const _renderer,
+	sge::renderer::vertex::const_declaration_ref const _vertex_declaration,
 	sge::sprite::buffers::option const _buffers_option
 )
 :
-	parameters_(
-		_parameters
-	),
+	renderer_{
+		_renderer
+	},
+	vertex_declaration_{
+		_vertex_declaration
+	},
 	buffers_option_(
 		_buffers_option
 	),
@@ -52,8 +58,7 @@ template<
 sge::sprite::buffers::single<
 	Choices
 >::~single()
-{
-}
+= default;
 
 template<
 	typename Choices
@@ -84,7 +89,8 @@ sge::sprite::buffers::single<
 								sge::sprite::buffers::allocate<
 									Choices
 								>(
-									parameters_,
+									renderer_,
+									vertex_declaration_,
 									_num_sprites,
 									sge::sprite::buffers::option_to_resource_flags(
 										buffers_option_
@@ -114,16 +120,19 @@ sge::sprite::buffers::single<
 							_num_sprites
 						).get()
 					)
+					{
 						_buffers =
 							sge::sprite::buffers::allocate<
 								Choices
 							>(
-								parameters_,
+								renderer_,
+								vertex_declaration_,
 								_num_sprites,
 								sge::sprite::buffers::option_to_resource_flags(
 									buffers_option_
 								)
 							);
+					}
 
 					return
 						fcppt::make_cref(
@@ -140,13 +149,13 @@ sge::sprite::buffers::single<
 template<
 	typename Choices
 >
-sge::sprite::buffers::parameters const &
+sge::renderer::vertex::declaration const &
 sge::sprite::buffers::single<
 	Choices
->::parameters() const
+>::vertex_declaration() const
 {
 	return
-		parameters_;
+		vertex_declaration_.get();
 }
 
 #endif

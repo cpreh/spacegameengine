@@ -35,17 +35,19 @@ fill_texture_coordinates_rect(
 	> const &_rt
 )
 {
-	typedef
+	using
+	tex_pos
+	=
 	sge::sprite::types::basic::float_vector<
 		typename Choices::type_choices
-	>
-	tex_pos;
+	>;
 
-	typedef
+	using
+	label
+	=
 	sge::renderer::vf::labels::texpos<
 		Level::value
-	>
-	label;
+	>;
 
 	sge::renderer::vf::set_proxy(
 		*_iterator,

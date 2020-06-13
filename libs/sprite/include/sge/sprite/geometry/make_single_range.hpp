@@ -39,7 +39,7 @@ make_single_range(
 			> *
 		>(
 			&_object,
-			&_object + 1
+			&_object + 1 // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 		);
 }
 
@@ -64,7 +64,7 @@ make_single_range(
 			> const *
 		>(
 			&_object,
-			&_object + 1
+			&_object + 1 // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 		);
 }
 

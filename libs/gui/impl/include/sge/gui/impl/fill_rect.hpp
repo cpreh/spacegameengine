@@ -9,7 +9,7 @@
 
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/rucksack/rect_fwd.hpp>
 
 
@@ -22,7 +22,7 @@ namespace impl
 
 void
 fill_rect(
-	sge::renderer::device::ffp &,
+	sge::renderer::device::core &,
 	sge::renderer::context::ffp &,
 	sge::rucksack::rect const &,
 	sge::image::color::any::object const &

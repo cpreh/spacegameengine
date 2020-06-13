@@ -46,11 +46,11 @@ zero_offset()
 		>(
 			sge::sprite::buffers::roles::first_vertex{} =
 				sge::renderer::vertex::first{
-					0u
+					0U
 				},
 			sge::sprite::buffers::roles::first_index{} =
 				sge::renderer::index::first{
-					0u
+					0U
 				}
 		);
 }
@@ -77,7 +77,7 @@ zero_offset()
 		>(
 			sge::sprite::buffers::roles::first_vertex{} =
 				sge::renderer::vertex::first{
-					0u
+					0U
 				}
 		);
 }

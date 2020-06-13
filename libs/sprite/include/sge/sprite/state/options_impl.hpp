@@ -103,7 +103,7 @@ sge::sprite::state::options<
 sge::sprite::state::options<
 	StateChoices
 >::fixed_projection(
-	sge::sprite::projection_dim const _projection
+	sge::sprite::projection_dim const &_projection
 )
 {
 	return

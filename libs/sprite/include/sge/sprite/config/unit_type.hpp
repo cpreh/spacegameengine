@@ -25,12 +25,15 @@ template<
 >
 struct unit_type
 {
-	typedef Type type;
+	using
+	type
+	=
+	Type;
 
 	static_assert(
-		std::is_arithmetic<
-			typename unit_type::type
-		>::value,
+		std::is_arithmetic_v<
+			Type
+		>,
 		"The unit_type must be arithmetic"
 	);
 };

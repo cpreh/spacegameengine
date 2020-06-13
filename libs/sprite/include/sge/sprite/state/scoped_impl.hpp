@@ -10,6 +10,7 @@
 #include <sge/sprite/state/scoped_decl.hpp>
 #include <sge/sprite/state/set.hpp>
 #include <sge/sprite/state/unset.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 template<
@@ -19,7 +20,9 @@ sge::sprite::state::scoped<
 	StateChoices
 >::scoped(
 	render_device &_render_device,
-	render_context &_render_context,
+	fcppt::reference<
+		render_context
+	> const _render_context,
 	state_options const &_options,
 	state_object &_object
 )
@@ -33,7 +36,7 @@ sge::sprite::state::scoped<
 {
 	sge::sprite::state::set(
 		_render_device,
-		render_context_,
+		render_context_.get(),
 		options_,
 		_object
 	);
@@ -47,7 +50,7 @@ sge::sprite::state::scoped<
 >::~scoped()
 {
 	sge::sprite::state::unset(
-		render_context_,
+		render_context_.get(),
 		options_
 	);
 }

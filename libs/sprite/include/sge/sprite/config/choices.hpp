@@ -31,21 +31,25 @@ template<
 >
 struct choices
 {
-	typedef
-	TypeChoices
-	type_choices;
+	using
+	type_choices
+	=
+	TypeChoices;
 
-	typedef
-	PosChoice
-	pos_choice;
+	using
+	pos_choice
+	=
+	PosChoice;
 
-	typedef
-	SizeChoice
-	size_choice;
+	using
+	size_choice
+	=
+	SizeChoice;
 
-	typedef
-	OptionalElements
-	optional_elements;
+	using
+	optional_elements
+	=
+	OptionalElements;
 
 	static_assert(
 		sge::sprite::config::is_type_choices<

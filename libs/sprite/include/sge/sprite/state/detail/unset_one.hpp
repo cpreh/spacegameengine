@@ -29,21 +29,27 @@ template<
 class unset_one
 {
 public:
-	typedef
+	using
+	options_class
+	=
 	sge::sprite::state::detail::options_class<
 		StateChoices
-	>
-	options_class;
+	>;
 
-	typedef
+	using
+	render_context
+	=
 	sge::sprite::state::render_context<
 		StateChoices
-	>
-	render_context;
+	>;
 
 	unset_one(
-		render_context &_render_context,
-		options_class const &_options
+		fcppt::reference<
+			render_context
+		> const _render_context,
+		fcppt::reference<
+			options_class const
+		> const _options
 	)
 	:
 		render_context_(
@@ -55,12 +61,10 @@ public:
 	{
 	}
 
-	typedef void result_type;
-
 	template<
 		typename Type
 	>
-	result_type
+	void
 	operator()(
 		fcppt::tag<
 			Type
@@ -74,9 +78,11 @@ public:
 				options_.get()
 			)
 		)
+		{
 			Type::unset(
 				render_context_.get()
 			);
+		}
 	}
 private:
 	fcppt::reference<

@@ -56,7 +56,9 @@ private:
 		Type::optional_extra_parameters
 	>;
 public:
-	typedef
+	using
+	type
+	=
 	fcppt::record::from_list<
 		metal::transform<
 			metal::lambda<
@@ -70,8 +72,7 @@ public:
 				>
 			>
 		>
-	>
-	type;
+	>;
 };
 
 }

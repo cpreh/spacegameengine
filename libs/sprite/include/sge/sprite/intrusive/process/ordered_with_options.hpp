@@ -7,12 +7,10 @@
 #ifndef SGE_SPRITE_INTRUSIVE_PROCESS_ORDERED_WITH_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_PROCESS_ORDERED_WITH_OPTIONS_HPP_INCLUDED
 
-#include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/detail/render/scoped_vertex_declaration.hpp>
 #include <sge/sprite/intrusive/detail/render_one.hpp>
 #include <sge/sprite/intrusive/ordered/collection_impl.hpp>
 #include <sge/sprite/process/is_options.hpp>
-#include <sge/sprite/render/parameters_impl.hpp>
 #include <sge/sprite/state/object_fwd.hpp>
 #include <sge/sprite/state/options_impl.hpp>
 #include <sge/sprite/state/render_context.hpp>
@@ -79,12 +77,8 @@ ordered_with_options(
 	);
 
 	sge::sprite::detail::render::scoped_vertex_declaration const scoped_vertex_declaration(
-		sge::sprite::render::parameters<
-			StateChoices
-		>(
-			_render_context,
-			_buffers.parameters().vertex_declaration()
-		),
+		_render_context,
+		_buffers.vertex_declaration(),
 		_options.vertex_options()
 	);
 

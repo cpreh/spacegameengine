@@ -9,6 +9,7 @@
 
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_parameters.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
@@ -31,13 +32,13 @@ template<
 >
 sge::renderer::index::buffer_unique_ptr
 allocate_indices(
-	sge::renderer::device::core &_renderer,
+	sge::renderer::device::core_ref const _renderer,
 	sge::sprite::count const _num_sprites,
 	sge::renderer::resource_flags_field const &_resource_flags
 )
 {
 	return
-		_renderer.create_index_buffer(
+		_renderer.get().create_index_buffer(
 			sge::renderer::index::buffer_parameters(
 				sge::renderer::index::dynamic::format::i16,
 				sge::sprite::buffers::index_count<

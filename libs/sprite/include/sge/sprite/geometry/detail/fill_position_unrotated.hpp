@@ -40,13 +40,20 @@ fill_position_unrotated(
 	> const &_sprite
 )
 {
-	typedef typename Choices::type_choices type_choices;
+	using
+	type_choices
+	=
+	typename
+	Choices::type_choices;
 
-	typedef sge::sprite::geometry::detail::float_rect<
+	using
+	float_rect
+	=
+	sge::sprite::geometry::detail::float_rect<
 		type_choices
-	> float_rect;
+	>;
 
-	float_rect const rect(
+	auto const rect(
 		fcppt::math::box::structure_cast<
 			float_rect,
 			fcppt::cast::static_cast_fun
@@ -57,9 +64,12 @@ fill_position_unrotated(
 		)
 	);
 
-	typedef sge::sprite::types::basic::float_vector<
+	using
+	float_vector
+	=
+	sge::sprite::types::basic::float_vector<
 		type_choices
-	> float_vector;
+	>;
 
 	sge::renderer::vf::set_proxy(
 		*_iterator,

@@ -30,9 +30,12 @@ template<
 class fill_texture_level
 {
 public:
-	typedef sge::sprite::object<
+	using
+	object
+	=
+	sge::sprite::object<
 		Choices
-	> object;
+	>;
 
 	fill_texture_level(
 		Iterator const &_iterator,
@@ -56,11 +59,12 @@ public:
 		Level const &
 	) const
 	{
-		typedef
+		using
+		level
+		=
 		fcppt::tag_type<
 			Level
-		>
-		level;
+		>;
 
 		sge::sprite::geometry::detail::fill_texture_level_impl(
 			level{},

@@ -22,7 +22,10 @@ template<
 >
 struct float_type
 {
-	typedef Type type;
+	using
+	type
+	=
+	Type;
 };
 
 }

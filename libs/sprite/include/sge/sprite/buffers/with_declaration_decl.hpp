@@ -8,12 +8,12 @@
 #define SGE_SPRITE_BUFFERS_WITH_DECLARATION_DECL_HPP_INCLUDED
 
 #include <sge/renderer/device/core_ref.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/option.hpp>
-#include <sge/sprite/buffers/parameters_fwd.hpp>
 #include <sge/sprite/buffers/with_declaration_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -28,7 +28,7 @@ template<
 >
 class with_declaration
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		with_declaration
 	);
 public:
@@ -39,33 +39,40 @@ public:
 
 	~with_declaration();
 
-	typedef
-	Buffers
-	buffers_type;
+	using
+	buffers_type
+	=
+	Buffers;
 
-	typedef
+	using
+	choices
+	=
 	typename
-	buffers_type::choices
-	choices;
+	buffers_type::choices;
 
-	typedef
+	using
+	slice_type
+	=
 	typename
-	buffers_type::slice_type
-	slice_type;
+	buffers_type::slice_type;
 
+	[[nodiscard]]
 	slice_type
 	allocate(
 		sge::sprite::count
 	);
 
-	sge::sprite::buffers::parameters const &
-	parameters() const;
-
+	[[nodiscard]]
 	buffers_type &
 	impl();
 
+	[[nodiscard]]
 	buffers_type const &
 	impl() const;
+
+	[[nodiscard]]
+	sge::renderer::vertex::declaration const &
+	vertex_declaration() const;
 private:
 	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration_;
 

@@ -32,13 +32,21 @@ struct type_choices<
 	>
 >
 {
-	typedef typename sge::sprite::config::unit_type<
+	using
+	unit_type
+	=
+	typename
+	sge::sprite::config::unit_type<
 		Unit
-	>::type unit_type;
+	>::type;
 
-	typedef typename sge::sprite::config::float_type<
+	using
+	float_type
+	=
+	typename
+	sge::sprite::config::float_type<
 		Float
-	>::type float_type;
+	>::type;
 };
 
 }

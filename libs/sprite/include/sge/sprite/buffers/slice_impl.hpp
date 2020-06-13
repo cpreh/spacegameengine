@@ -17,6 +17,9 @@
 #include <sge/sprite/buffers/roles/index_buffer.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <fcppt/record/get.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -26,14 +29,16 @@ sge::sprite::buffers::slice<
 	Choices
 >::slice(
 	object_ref const _object,
-	offset_object const _offsets
+	offset_object _offsets
 )
 :
 	object_(
 		_object
 	),
 	offsets_(
-		_offsets
+		std::move(
+			_offsets
+		)
 	)
 {
 }

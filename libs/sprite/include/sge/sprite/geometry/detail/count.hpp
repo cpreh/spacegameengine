@@ -17,7 +17,10 @@ namespace geometry
 namespace detail
 {
 
-typedef unsigned count;
+using
+count
+=
+unsigned;
 
 }
 }

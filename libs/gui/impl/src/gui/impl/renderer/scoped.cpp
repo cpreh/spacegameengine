@@ -13,6 +13,7 @@
 #include <sge/sprite/state/object_impl.hpp>
 #include <sge/sprite/state/parameters_impl.hpp>
 #include <sge/sprite/state/scoped_impl.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 sge::gui::impl::renderer::scoped::scoped(
@@ -24,14 +25,18 @@ sge::gui::impl::renderer::scoped::scoped(
 		_renderer
 	),
 	state_(
-		_renderer,
+		fcppt::make_ref(
+			_renderer
+		),
 		sge::sprite::state::parameters<
 			sprite_state_choices
 		>()
 	),
 	scoped_state_(
 		_renderer,
-		_context,
+		fcppt::make_ref(
+			_context
+		),
 		sge::sprite::state::default_options<
 			sprite_state_choices
 		>(),

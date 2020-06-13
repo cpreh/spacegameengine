@@ -48,7 +48,7 @@ struct indices_per_sprite<
 >
 :
 sge::sprite::geometry::detail::count_constant<
-	6U
+	6U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 >
 {
 };

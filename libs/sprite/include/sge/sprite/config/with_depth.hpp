@@ -29,7 +29,9 @@ struct with_depth
 	>
 	struct apply
 	{
-		typedef
+		using
+		type
+		=
 		metal::list<
 			fcppt::record::element<
 				sge::sprite::roles::depth,
@@ -39,8 +41,7 @@ struct with_depth
 					Choices::type_choices
 				>::type
 			>
-		>
-		type;
+		>;
 	};
 };
 

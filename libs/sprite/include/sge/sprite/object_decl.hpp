@@ -52,133 +52,155 @@ class object final
 		>
 {
 public:
-	typedef
+	using
+	element_type
+	=
 	sge::sprite::detail::make_class<
 		Choices
-	>
-	element_type;
+	>;
 
-	typedef
+	using
+	all_types
+	=
 	typename
-	element_type::all_types
-	all_types;
+	element_type::all_types;
 
-	typedef
-	Choices
-	choices;
+	using
+	choices
+	=
+	Choices;
 
-	typedef
+	using
+	type_choices
+	=
 	typename
-	Choices::type_choices
-	type_choices;
+	Choices::type_choices;
 
-	typedef
+	using
+	unit
+	=
 	sge::sprite::types::basic::unit<
 		type_choices
-	>
-	unit;
+	>;
 
-	typedef
+	using
+	float_type
+	=
 	sge::sprite::types::basic::float_<
 		type_choices
-	>
-	float_type;
+	>;
 
-	typedef
+	using
+	depth_type
+	=
 	sge::sprite::types::depth<
 		type_choices
-	>
-	depth_type;
+	>;
 
-	typedef
+	using
+	rotation_type
+	=
 	sge::sprite::types::rotation<
 		type_choices
-	>
-	rotation_type;
+	>;
 
-	typedef
+	using
+	repetition_type
+	=
 	sge::sprite::types::repetition<
 		type_choices
-	>
-	repetition_type;
+	>;
 
-	typedef
+	using
+	texture_coordinates_type
+	=
 	sge::sprite::types::texture_coordinates<
 		type_choices
-	>
-	texture_coordinates_type;
+	>;
 
-	typedef
+	using
+	vector
+	=
 	sge::sprite::types::vector<
 		type_choices
-	>
-	vector;
+	>;
 
-	typedef
+	using
+	pos_type
+	=
 	sge::sprite::types::pos<
 		type_choices
-	>
-	pos_type;
+	>;
 
-	typedef
+	using
+	center_type
+	=
 	sge::sprite::types::center<
 		type_choices
-	>
-	center_type;
+	>;
 
-	typedef
+	using
+	pos_or_center_type
+	=
 	sge::sprite::types::pos_or_center<
 		type_choices
-	>
-	pos_or_center_type;
+	>;
 
-	typedef
+	using
+	dim
+	=
 	sge::sprite::types::dim<
 		type_choices
-	>
-	dim;
+	>;
 
-	typedef
+	using
+	size_or_texture_size_type
+	=
 	sge::sprite::types::size_or_texture_size<
 		type_choices
-	>
-	size_or_texture_size_type;
+	>;
 
-	typedef
+	using
+	point_size_type
+	=
 	sge::sprite::types::point_size<
 		type_choices
-	>
-	point_size_type;
+	>;
 
-	typedef
+	using
+	texture_point_pos_type
+	=
 	sge::sprite::types::texture_point_pos<
 		type_choices
-	>
-	texture_point_pos_type;
+	>;
 
-	typedef
+	using
+	texture_point_size_type
+	=
 	sge::sprite::types::texture_point_size<
 		type_choices
-	>
-	texture_point_size_type;
+	>;
 
-	typedef
+	using
+	color_type
+	=
 	sge::sprite::color<
 		choices
-	>
-	color_type;
+	>;
 
-	typedef
+	using
+	texture_type
+	=
 	sge::sprite::texture<
 		choices
-	>
-	texture_type;
+	>;
 
-	typedef
+	using
+	connection_type
+	=
 	sge::sprite::intrusive::connection<
 		choices
-	>
-	connection_type;
+	>;
 
 	template<
 		typename... Args,
@@ -198,7 +220,8 @@ public:
 
 	object(
 		object &&
-	);
+	)
+	noexcept;
 
 	object &
 	operator=(
@@ -208,79 +231,100 @@ public:
 	object &
 	operator=(
 		object &&
-	);
+	)
+	noexcept;
 
 	~object();
 
+	[[nodiscard]]
 	unit
 	x() const;
 
+	[[nodiscard]]
 	unit
 	y() const;
 
+	[[nodiscard]]
 	vector
 	pos() const;
 
+	[[nodiscard]]
 	vector
 	center() const;
 
+	[[nodiscard]]
 	unit
 	w() const;
 
+	[[nodiscard]]
 	unit
 	h() const;
 
+	[[nodiscard]]
 	dim
 	size() const;
 
+	[[nodiscard]]
 	point_size_type
 	point_size() const;
 
+	[[nodiscard]]
 	texture_point_pos_type
 	texture_point_pos() const;
 
 	template<
 		sge::sprite::texture_level
 	>
+	[[nodiscard]]
 	texture_point_pos_type
 	texture_point_pos_level() const;
 
+	[[nodiscard]]
 	texture_point_size_type
 	texture_point_size() const;
 
 	template<
 		sge::sprite::texture_level
 	>
+	[[nodiscard]]
 	texture_point_size_type
 	texture_point_size_level() const;
 
+	[[nodiscard]]
 	depth_type
 	z() const;
 
+	[[nodiscard]]
 	rotation_type
 	rotation() const;
 
+	[[nodiscard]]
 	repetition_type
 	repetition() const;
 
+	[[nodiscard]]
 	texture_coordinates_type
 	texture_coordinates() const;
 
 	template<
 		sge::sprite::texture_level
 	>
+	[[nodiscard]]
 	texture_coordinates_type
 	texture_coordinates_level() const;
 
+	[[nodiscard]]
 	color_type
 	color() const;
 
+	[[nodiscard]]
 	texture_type
 	texture() const;
 
 	template<
 		sge::sprite::texture_level
 	>
+	[[nodiscard]]
 	texture_type const &
 	texture_level() const;
 
@@ -399,6 +443,7 @@ public:
 	template<
 		typename Role
 	>
+	[[nodiscard]]
 	fcppt::record::label_value_type<
 		element_type,
 		Role

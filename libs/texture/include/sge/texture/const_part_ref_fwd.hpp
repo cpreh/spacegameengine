@@ -16,11 +16,12 @@ namespace sge
 namespace texture
 {
 
-typedef
+using
+const_part_ref
+=
 fcppt::reference<
 	sge::texture::part const
->
-const_part_ref;
+>;
 
 }
 }

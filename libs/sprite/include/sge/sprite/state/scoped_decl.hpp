@@ -12,7 +12,8 @@
 #include <sge/sprite/state/render_context.hpp>
 #include <sge/sprite/state/render_device.hpp>
 #include <sge/sprite/state/scoped_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -27,40 +28,52 @@ template<
 >
 class scoped
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped
 	);
 public:
-	typedef
+	using
+	render_device
+	=
 	sge::sprite::state::render_device<
 		StateChoices
-	>
-	render_device;
+	>;
 
-	typedef
+	using
+	render_context
+	=
 	sge::sprite::state::render_context<
 		StateChoices
-	>
-	render_context;
+	>;
 
-	typedef sge::sprite::state::options<
+	using
+	state_options
+	=
+	sge::sprite::state::options<
 		StateChoices
-	> state_options;
+	>;
 
-	typedef sge::sprite::state::object<
+	using
+	state_object
+	=
+	sge::sprite::state::object<
 		StateChoices
-	> state_object;
+	>;
 
 	scoped(
 		render_device &,
-		render_context &,
+		fcppt::reference<
+			render_context
+		>,
 		state_options const &,
 		state_object &
 	);
 
 	~scoped();
 private:
-	render_context &render_context_;
+	fcppt::reference<
+		render_context
+	> const render_context_;
 
 	state_options const options_;
 };

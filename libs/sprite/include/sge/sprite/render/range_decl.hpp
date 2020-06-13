@@ -31,23 +31,26 @@ class range
 		range
 	);
 public:
-	typedef
+	using
+	range_object
+	=
 	sge::sprite::detail::render::range_object<
 		Choices
-	>
-	range_object;
+	>;
 
-	typedef
+	using
+	range_part_type
+	=
 	sge::sprite::render::range_part<
 		Choices
-	>
-	range_part_type;
+	>;
 
-	typedef
+	using
+	range_part_vector
+	=
 	sge::sprite::render::range_part_vector<
 		Choices
-	>
-	range_part_vector;
+	>;
 
 	range();
 
@@ -58,20 +61,23 @@ public:
 
 	range(
 		range &&
-	);
+	)
+	noexcept;
 
 	range &
 	operator=(
 		range &&
-	);
+	)
+	noexcept;
 
 	~range();
 
-	typedef
+	using
+	optional_object
+	=
 	fcppt::optional::reference<
 		range_object const
-	>
-	optional_object;
+	>;
 
 	optional_object const &
 	object() const;

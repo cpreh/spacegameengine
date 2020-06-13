@@ -14,13 +14,14 @@
 #include <sge/gui/renderer/base.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/rucksack/rect.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/texture/part_fwd.hpp>
 
 
 sge::gui::impl::renderer::stateless::stateless(
-	sge::renderer::device::ffp &_renderer
+	sge::renderer::device::core &_renderer
 )
 :
 	sge::gui::renderer::base(),

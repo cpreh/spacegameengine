@@ -44,7 +44,7 @@ std::enable_if_t<
 	void
 >
 set_textures(
-	sge::renderer::context::core &_render_context,
+	sge::renderer::context::core &_render_context, // NOLINT(google-runtime-references)
 	sge::sprite::render::range_part<
 		Choices
 	> const &_range
@@ -104,7 +104,7 @@ std::enable_if_t<
 	void
 >
 set_textures(
-	sge::renderer::context::core &,
+	sge::renderer::context::core &, // NOLINT(google-runtime-references)
 	sge::sprite::render::range_part<
 		Choices
 	> const &

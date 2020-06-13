@@ -58,6 +58,7 @@ sge::sprite::render::range<
 >::range(
 	range &&
 )
+noexcept
 = default;
 
 template<
@@ -71,6 +72,7 @@ sge::sprite::render::range<
 >::operator=(
 	range &&
 )
+noexcept
 = default;
 
 template<
@@ -79,8 +81,7 @@ template<
 sge::sprite::render::range<
 	Choices
 >::~range()
-{
-}
+= default;
 
 template<
 	typename Choices

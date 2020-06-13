@@ -26,11 +26,12 @@ template<
 >
 class options
 {
-	typedef
+	using
+	elements_type
+	=
 	sge::sprite::state::detail::options_class<
 		StateChoices
-	>
-	elements_type;
+	>;
 public:
 	explicit
 	options(
@@ -48,9 +49,10 @@ public:
 
 	options &
 	fixed_projection(
-		sge::sprite::projection_dim
+		sge::sprite::projection_dim const &
 	);
 
+	[[nodiscard]]
 	sge::sprite::state::vertex_options
 	vertex_options() const;
 
@@ -65,6 +67,7 @@ public:
 		>
 	);
 
+	[[nodiscard]]
 	elements_type const &
 	elements() const;
 private:

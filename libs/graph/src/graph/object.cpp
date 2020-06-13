@@ -65,7 +65,7 @@
 namespace
 {
 
-// TODO: Use fcppt::math::bresenham?
+// TODO(philipp): Use fcppt::math::bresenham?
 template<
 	typename View,
 	typename Color
@@ -87,10 +87,10 @@ bresenham
 		typename View::dim::value_type
 	>;
 
-	int_type x0 = static_cast<int_type>(start[0]);
-	int_type y0 = static_cast<int_type>(start[1]);
-	int_type x1 = static_cast<int_type>(end[0]);
-	int_type y1 = static_cast<int_type>(end[1]);
+	auto x0 = static_cast<int_type>(start[0]);
+	auto y0 = static_cast<int_type>(start[1]);
+	auto x1 = static_cast<int_type>(end[0]);
+	auto y1 = static_cast<int_type>(end[1]);
 
 	bool const steep = std::abs(y1 - y0) > std::abs(x1 - x0);
 	if (steep){
@@ -127,9 +127,13 @@ bresenham
 		Color c = t * c1 + (1.0 - t) * c0;
 
 		if (steep)
+		{
 			v[typename View::dim(static_cast<typename View::dim::value_type>(y), static_cast<typename View::dim::value_type>(x))] = c;
+		}
 		else
+		{
 			v[typename View::dim(static_cast<typename View::dim::value_type>(x), static_cast<typename View::dim::value_type>(y))] = c;
+		}
 		error -= deltay;
 		if (error < 0)
 		{
@@ -178,7 +182,9 @@ normalize(
 )
 {
 	if (min >= max)
+	{
 		return 0.;
+	}
 	return
 		(t - min) /
 		(max - min);
@@ -323,7 +329,7 @@ sge::graph::object::object(
 		sge::sprite::buffers::option::dynamic
 	),
 	sprite_state_(
-		_renderer.get(),
+		_renderer,
 		sprite_state_parameters()
 	),
 	data_buffer_(
@@ -385,7 +391,9 @@ sge::graph::object::push(
 		);
 
 	if (current_max_ <= current_min_)
+	{
 		current_max_ += 1.0;
+	}
 }
 
 void
@@ -436,11 +444,11 @@ sge::graph::object::clear(
 			_view,
 			sge::image2d::vector(
 				x,
-				0u
+				0U
 			),
 			sge::image2d::vector(
 				x,
-				dim_.h() - 1u
+				dim_.h() - 1U
 			),
 			color_scheme_.background_color(),
 			color_scheme_.background_alt_color()
@@ -450,12 +458,12 @@ sge::graph::object::clear(
 	draw_rectangle(
 		_view,
 		sge::image2d::vector(
-			0u,
-			0u
+			0U,
+			0U
 		),
 		sge::image2d::vector(
-			dim_.w() - 1u,
-			dim_.h() - 1u
+			dim_.w() - 1U,
+			dim_.h() - 1U
 		),
 		color_scheme_.foreground_alt_color()
 	);
@@ -577,11 +585,11 @@ sge::graph::object::draw_data(
 	adapted_bresenham(
 		_view,
 		sge::image2d::vector(
-			0u,
+			0U,
 			zero
 		),
 		sge::image2d::vector(
-			dim_.w() - 1u,
+			dim_.w() - 1U,
 			zero
 		),
 		color_scheme_.foreground_alt_color(),
@@ -592,11 +600,11 @@ sge::graph::object::draw_data(
 	adapted_bresenham(
 		_view,
 		sge::image2d::vector(
-			0u,
+			0U,
 			baseline
 		),
 		sge::image2d::vector(
-			dim_.w() - 1u,
+			dim_.w() - 1U,
 			baseline
 		),
 		color_scheme_.baseline_color(),

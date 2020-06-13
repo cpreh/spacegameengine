@@ -21,11 +21,12 @@ namespace detail
 template<
 	typename Levels
 >
-using make_texture_levels
+using
+make_texture_levels
 =
 fcppt::metal::interval<
 	sge::sprite::texture_level,
-	0u,
+	0U,
 	Levels::value
 >;
 

@@ -25,7 +25,10 @@ template<
 >
 struct choices
 {
-	typedef OptionalElements optional_elements;
+	using
+	optional_elements
+	=
+	OptionalElements;
 
 	static_assert(
 		metal::is_list<

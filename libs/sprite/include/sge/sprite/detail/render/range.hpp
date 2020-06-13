@@ -29,7 +29,7 @@ template<
 >
 void
 range(
-	sge::renderer::context::core &_render_context,
+	sge::renderer::context::core &_render_context, // NOLINT(google-runtime-references)
 	sge::sprite::detail::render::range_object<
 		Choices
 	> const &_range_object,

@@ -114,7 +114,6 @@
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
 #include <sge/sprite/geometry/update_one.hpp>
-#include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/range_with_options.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/repetition.hpp>
@@ -589,7 +588,9 @@ try
 	);
 
 	sprite_state_object sprite_states(
-		sys.renderer_device_ffp(),
+		fcppt::make_ref(
+			sys.renderer_device_core()
+		),
 		sprite_state_parameters()
 	);
 
@@ -848,12 +849,8 @@ try
 				);
 
 				sge::sprite::render::range_with_options(
-					sge::sprite::render::parameters<
-						sprite_state_choices
-					>(
-						_context,
-						sprite_buffers.parameters().vertex_declaration()
-					),
+					_context,
+					sprite_buffers.vertex_declaration(),
 					sprite_range,
 					sprite_states,
 					sge::sprite::state::default_options<

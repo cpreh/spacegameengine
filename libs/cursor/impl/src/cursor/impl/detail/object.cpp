@@ -68,7 +68,9 @@ sge::cursor::detail::object::object(
 		sge::sprite::buffers::option::dynamic
 	},
 	sprite_state_{
-		_renderer,
+		fcppt::make_ref(
+			_renderer
+		),
 		sprite_state_parameters()
 	}
 {

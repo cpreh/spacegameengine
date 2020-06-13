@@ -7,12 +7,11 @@
 #ifndef SGE_SPRITE_DETAIL_RENDER_SCOPED_VERTEX_DECLARATION_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_SCOPED_VERTEX_DECLARATION_HPP_INCLUDED
 
-#include <sge/renderer/context/core.hpp>
-#include <sge/renderer/vertex/const_optional_declaration_ref.hpp>
-#include <sge/sprite/render/parameters.hpp>
+#include <sge/renderer/context/core_ref.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
+#include <sge/sprite/detail/symbol.hpp>
 #include <sge/sprite/state/vertex_options.hpp>
-#include <fcppt/make_cref.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,56 +25,21 @@ namespace render
 
 class scoped_vertex_declaration
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_vertex_declaration
 	);
 public:
-	template<
-		typename StateChoices
-	>
+	SGE_SPRITE_DETAIL_SYMBOL
 	scoped_vertex_declaration(
-		sge::sprite::render::parameters<
-			StateChoices
-		> const &_parameters,
-		sge::sprite::state::vertex_options const &_options
-	)
-	:
-		render_context_(
-			_parameters.render_context()
-		),
-		set_declaration_(
-			_options
-			==
-			sge::sprite::state::vertex_options::declaration
-			||
-			_options
-			==
-			sge::sprite::state::vertex_options::declaration_and_buffer
-		)
-	{
-		if(
-			set_declaration_
-		)
-			render_context_.vertex_declaration(
-				sge::renderer::vertex::const_optional_declaration_ref(
-					fcppt::make_cref(
-						_parameters.vertex_declaration()
-					)
-				)
-			);
-	}
+		sge::renderer::context::core_ref,
+		sge::renderer::vertex::const_declaration_ref,
+		sge::sprite::state::vertex_options const &
+	);
 
-	~scoped_vertex_declaration()
-	{
-		if(
-			set_declaration_
-		)
-			render_context_.vertex_declaration(
-				sge::renderer::vertex::const_optional_declaration_ref()
-			);
-	}
+	SGE_SPRITE_DETAIL_SYMBOL
+	~scoped_vertex_declaration();
 private:
-	sge::renderer::context::core &render_context_;
+	sge::renderer::context::core_ref const render_context_;
 
 	bool const set_declaration_;
 };

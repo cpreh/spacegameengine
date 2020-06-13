@@ -11,6 +11,7 @@
 #include <sge/sprite/state/detail/make_one_object.hpp>
 #include <sge/sprite/state/detail/object_class.hpp>
 #include <sge/sprite/state/detail/parameters_class.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/record/init.hpp>
 
 
@@ -31,9 +32,11 @@ sge::sprite::state::detail::object_class<
 	StateChoices
 >
 make_objects(
-	sge::sprite::state::render_device<
-		StateChoices
-	> &_device,
+	fcppt::reference<
+		sge::sprite::state::render_device<
+			StateChoices
+		>
+	> const _device,
 	sge::sprite::state::detail::parameters_class<
 		StateChoices
 	> const &_parameters

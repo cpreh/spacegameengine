@@ -31,32 +31,35 @@ template<
 struct find_texture_config
 {
 private:
-	typedef
+	using
+	with_texture_list
+	=
 	sge::sprite::detail::config::find_if<
 		typename
 		Choices::optional_elements,
 		sge::sprite::config::is_with_texture
-	>
-	with_texture_list;
+	>;
 
-	typedef
+	using
+	with_texture_point_size_list
+	=
 	sge::sprite::detail::config::find_if<
 		typename
 		Choices::optional_elements,
 		sge::sprite::config::is_with_texture_point_size
-	>
-	with_texture_point_size_list;
+	>;
 public:
-	typedef
+	using
+	type
+	=
 	std::conditional_t<
-		std::is_same<
+		std::is_same_v<
 			with_texture_list,
 			metal::list<>
-		>::value,
+		>,
 		with_texture_point_size_list,
 		with_texture_list
-	>
-	type;
+	>;
 };
 
 }

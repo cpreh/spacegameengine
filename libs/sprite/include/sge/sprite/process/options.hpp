@@ -26,10 +26,13 @@ template<
 >
 struct options
 {
-	typedef std::integral_constant<
+	using
+	geometry_options
+	=
+	std::integral_constant<
 		sge::sprite::process::geometry_options,
 		GeometryOptions
-	> geometry_options;
+	>;
 };
 
 }

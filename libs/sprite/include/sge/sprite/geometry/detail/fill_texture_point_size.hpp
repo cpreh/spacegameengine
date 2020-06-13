@@ -46,15 +46,16 @@ fill_texture_point_size(
 	> const &_sprite
 )
 {
-	typedef
+	using
+	texture_point_size
+	=
 	metal::at<
 		typename
 		sge::sprite::detail::vf::texture_point_size<
 			Choices
 		>::type,
 		Level
-	>
-	texture_point_size;
+	>;
 
 	(*_iterator). template set<
 		texture_point_size

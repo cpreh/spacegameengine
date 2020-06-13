@@ -30,13 +30,14 @@ template<
 struct color_format
 {
 private:
-	typedef
+	using
+	list
+	=
 	sge::sprite::detail::config::find_if<
 		typename
 		Choices::optional_elements,
 		sge::sprite::config::is_with_color
-	>
-	list;
+	>;
 
 	template<
 		typename Type
@@ -47,8 +48,10 @@ private:
 	typename
 	Type::color_format;
 public:
-	// TODO: Make a function for this
-	typedef
+	// TODO(philipp): Make a function for this
+	using
+	type
+	=
 	metal::invoke<
 		metal::if_<
 			metal::empty<
@@ -62,8 +65,7 @@ public:
 				list
 			>
 		>
-	>
-	type;
+	>;
 };
 
 }

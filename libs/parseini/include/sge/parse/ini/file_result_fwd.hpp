@@ -18,12 +18,13 @@ namespace parse
 namespace ini
 {
 
-typedef
+using
+file_result
+=
 sge::parse::file_result<
 	char,
 	sge::parse::ini::start
->
-file_result;
+>;
 
 }
 }

@@ -61,7 +61,9 @@ private:
 		sge::sprite::render::texture_ref
 	>;
 public:
-	typedef
+	using
+	type
+	=
 	sge::sprite::detail::transform_texture_levels_static<
 		metal::lambda<
 			make_texture_role
@@ -69,8 +71,7 @@ public:
 		sge::sprite::detail::config::texture_levels<
 			Choices
 		>
-	>
-	type;
+	>;
 };
 
 template<
@@ -87,9 +88,10 @@ struct make_textures<
 	>
 >
 {
-	typedef
-	metal::list<>
-	type;
+	using
+	type
+	=
+	metal::list<>;
 };
 
 }

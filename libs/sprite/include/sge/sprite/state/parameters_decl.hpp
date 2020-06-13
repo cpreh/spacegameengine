@@ -24,13 +24,17 @@ template<
 >
 class parameters
 {
-	typedef
+	using
+	elements_type
+	=
 	sge::sprite::state::detail::parameters_class<
 		StateChoices
-	>
-	elements_type;
+	>;
 public:
-	typedef StateChoices state_choices;
+	using
+	state_choices
+	=
+	StateChoices;
 
 	parameters();
 
@@ -55,6 +59,7 @@ public:
 		>
 	);
 
+	[[nodiscard]]
 	elements_type const &
 	elements() const;
 private:

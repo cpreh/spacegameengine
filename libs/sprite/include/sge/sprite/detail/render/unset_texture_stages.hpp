@@ -10,6 +10,7 @@
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/sprite/detail/apply_texture_levels.hpp>
 #include <sge/sprite/detail/render/unset_texture_stage.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 namespace sge
@@ -26,14 +27,16 @@ template<
 >
 void
 unset_texture_stages(
-	sge::renderer::context::core &_render_context
+	sge::renderer::context::core &_render_context // NOLINT(google-runtime-references)
 )
 {
 	sge::sprite::detail::apply_texture_levels<
 		TextureLevels
 	>(
 		sge::sprite::detail::render::unset_texture_stage(
-			_render_context
+			fcppt::make_ref(
+				_render_context
+			)
 		)
 	);
 }

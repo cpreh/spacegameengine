@@ -42,7 +42,9 @@ struct pos<
 	sge::sprite::config::pos_option::pos
 >
 {
-	typedef
+	using
+	type
+	=
 	metal::list<
 		fcppt::record::element<
 			sge::sprite::roles::pos,
@@ -51,8 +53,7 @@ struct pos<
 				Choices::type_choices
 			>
 		>
-	>
-	type;
+	>;
 };
 
 template<
@@ -63,7 +64,9 @@ struct pos<
 	sge::sprite::config::pos_option::center
 >
 {
-	typedef
+	using
+	type
+	=
 	metal::list<
 		fcppt::record::element<
 			sge::sprite::roles::center,
@@ -72,8 +75,7 @@ struct pos<
 				Choices::type_choices
 			>
 		>
-	>
-	type;
+	>;
 };
 
 template<
@@ -84,7 +86,9 @@ struct pos<
 	sge::sprite::config::pos_option::pos_or_center
 >
 {
-	typedef
+	using
+	type
+	=
 	metal::list<
 		fcppt::record::element<
 			sge::sprite::roles::pos_or_center,
@@ -93,8 +97,7 @@ struct pos<
 				Choices::type_choices
 			>
 		>
-	>
-	type;
+	>;
 };
 
 }

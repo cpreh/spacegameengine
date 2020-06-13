@@ -46,19 +46,22 @@ struct texture<
 	Ownership
 >
 {
-	typedef
+	using
+	type
+	=
 	metal::join<
-		typename sge::sprite::detail::primitives::texture_ptr<
+		typename
+		sge::sprite::detail::primitives::texture_ptr<
 			Choices,
 			TextureLevels,
 			Ownership
 		>::type,
-		typename sge::sprite::detail::primitives::texture_coordinates<
+		typename
+		sge::sprite::detail::primitives::texture_coordinates<
 			Choices,
 			TextureLevels
 		>::type
-	>
-	type;
+	>;
 };
 
 template<
@@ -73,18 +76,21 @@ struct texture<
 	Ownership
 >
 {
-	typedef
+	using
+	type
+	=
 	metal::join<
-		typename sge::sprite::detail::primitives::texture_ptr<
+		typename
+		sge::sprite::detail::primitives::texture_ptr<
 			Choices,
 			TextureLevels,
 			Ownership
 		>::type,
-		typename sge::sprite::detail::primitives::texture_repetition<
+		typename
+		sge::sprite::detail::primitives::texture_repetition<
 			Choices
 		>::type
-	>
-	type;
+	>;
 };
 
 template<
@@ -99,14 +105,15 @@ struct texture<
 	Ownership
 >
 {
-	typedef
+	using
+	type
+	=
 	typename
 	sge::sprite::detail::primitives::texture_ptr<
 		Choices,
 		TextureLevels,
 		Ownership
-	>::type
-	type;
+	>::type;
 };
 
 }

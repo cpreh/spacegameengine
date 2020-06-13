@@ -133,7 +133,9 @@ sge::rucksack::testbed::object_impl::object_impl(
 		sge::sprite::buffers::option::dynamic
 	),
 	sprite_states_(
-		systems_.renderer_device_ffp(),
+		fcppt::make_ref(
+			systems_.renderer_device_ffp()
+		),
 		sge::rucksack::testbed::object_impl::sprite_state_parameters()
 	),
 	sprites_()

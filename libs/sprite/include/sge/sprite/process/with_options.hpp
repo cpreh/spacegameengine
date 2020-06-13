@@ -9,7 +9,6 @@
 
 #include <sge/sprite/detail/process/geometry.hpp>
 #include <sge/sprite/process/is_options.hpp>
-#include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/range_with_options.hpp>
 #include <sge/sprite/state/object_fwd.hpp>
 #include <sge/sprite/state/options_fwd.hpp>
@@ -55,12 +54,8 @@ with_options(
 	);
 
 	sge::sprite::render::range_with_options(
-		sge::sprite::render::parameters<
-			StateChoices
-		>(
-			_render_context,
-			_buffers.parameters().vertex_declaration()
-		),
+		_render_context,
+		_buffers.vertex_declaration(),
 		sge::sprite::detail::process::geometry<
 			Options::geometry_options::value,
 			typename Buffers::choices

@@ -29,16 +29,18 @@ template<
 >
 struct texture_repetition
 {
-	typedef
+	using
+	type
+	=
 	metal::list<
 		fcppt::record::element<
 			sge::sprite::roles::repetition,
 			sge::sprite::types::repetition<
-				typename Choices::type_choices
+				typename
+				Choices::type_choices
 			>
 		>
-	>
-	type;
+	>;
 };
 
 }

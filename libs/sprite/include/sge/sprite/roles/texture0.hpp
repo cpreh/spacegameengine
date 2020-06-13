@@ -17,11 +17,12 @@ namespace sprite
 namespace roles
 {
 
-typedef
+using
+texture0
+=
 sge::sprite::roles::texture<
 	0
->
-texture0;
+>;
 
 }
 }

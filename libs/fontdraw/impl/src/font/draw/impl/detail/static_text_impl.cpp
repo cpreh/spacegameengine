@@ -35,7 +35,6 @@
 #include <sge/sprite/buffers/single_impl.hpp>
 #include <sge/sprite/buffers/with_declaration_impl.hpp>
 #include <sge/sprite/geometry/update_one.hpp>
-#include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/range_impl.hpp>
 #include <sge/sprite/render/range_with_options.hpp>
 #include <sge/sprite/roles/color.hpp>
@@ -110,7 +109,9 @@ sge::font::draw::detail::static_text_impl::static_text_impl(
 		sge::sprite::buffers::option::static_
 	),
 	sprite_state_(
-		_renderer,
+		fcppt::make_ref(
+			_renderer
+		),
 		sge::font::draw::detail::static_text_impl::sprite_state_parameters()
 	),
 	sprite_(
@@ -182,12 +183,8 @@ sge::font::draw::detail::static_text_impl::draw(
 	);
 
 	sge::sprite::render::range_with_options(
-		sge::sprite::render::parameters<
-			sprite_state_choices
-		>(
-			_context,
-			sprite_buffers_.parameters().vertex_declaration()
-		),
+		_context,
+		sprite_buffers_.vertex_declaration(),
 		sprite_range_,
 		sprite_state_,
 		sge::font::draw::detail::static_text_impl::sprite_state_options(

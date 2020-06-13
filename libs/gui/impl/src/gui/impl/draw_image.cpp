@@ -8,7 +8,7 @@
 #include <sge/gui/impl/draw_sprite.hpp>
 #include <sge/gui/impl/image_sprite_choices.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/config/texture_coordinates.hpp>
@@ -21,7 +21,7 @@
 
 void
 sge::gui::impl::draw_image(
-	sge::renderer::device::ffp &_renderer,
+	sge::renderer::device::core &_renderer,
 	sge::renderer::context::ffp &_context,
 	sge::texture::part const &_texture,
 	sge::rucksack::vector const _pos

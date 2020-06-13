@@ -36,12 +36,13 @@ fill_position_points(
 	> const &_sprite
 )
 {
-	typedef
+	using
+	vector_float
+	=
 	sge::sprite::types::basic::float_vector<
 		typename
 		Choices::type_choices
-	>
-	vector_float;
+	>;
 
 	sge::renderer::vf::set_proxy(
 		*_iterator,
@@ -50,7 +51,7 @@ fill_position_points(
 			Choices
 		>(
 			vector_float(
-				// TODO
+				// TODO(philipp)
 				static_cast<
 					typename vector_float::value_type
 				>(

@@ -51,7 +51,9 @@ private:
 		>
 	>;
 public:
-	typedef
+	using
+	type
+	=
 	fcppt::record::from_list<
 		metal::transform<
 			metal::lambda<
@@ -60,8 +62,7 @@ public:
 			typename
 			StateChoices::optional_elements
 		>
-	>
-	type;
+	>;
 };
 
 }

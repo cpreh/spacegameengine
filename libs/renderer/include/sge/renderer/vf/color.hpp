@@ -28,9 +28,10 @@ sge::renderer::vf::color_base<
 	Format
 >
 {
-	typedef
-	sge::renderer::vf::labels::color
-	label;
+	using
+	label
+	=
+	sge::renderer::vf::labels::color;
 };
 
 }

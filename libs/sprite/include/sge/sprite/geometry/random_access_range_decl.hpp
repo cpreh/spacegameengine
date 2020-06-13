@@ -36,22 +36,29 @@ public:
 		"Iterator must be a random access iterator"
 	);
 
-	typedef Iterator iterator;
+	using
+	iterator
+	=
+	Iterator;
 
 	random_access_range(
 		iterator begin,
 		iterator end
 	);
 
+	[[nodiscard]]
 	iterator
 	begin() const;
 
+	[[nodiscard]]
 	iterator
 	end() const;
 
+	[[nodiscard]]
 	sge::sprite::count
 	size() const;
 
+	[[nodiscard]]
 	bool
 	empty() const;
 

@@ -10,6 +10,7 @@
 #include <sge/sprite/state/object_decl.hpp>
 #include <sge/sprite/state/parameters_impl.hpp>
 #include <sge/sprite/state/detail/make_objects.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 template<
@@ -18,7 +19,9 @@ template<
 sge::sprite::state::object<
 	StateChoices
 >::object(
-	render_device &_renderer,
+	fcppt::reference<
+		render_device
+	> const _renderer,
 	parameters_type const &_parameters
 )
 :
@@ -42,8 +45,7 @@ template<
 sge::sprite::state::object<
 	StateChoices
 >::~object()
-{
-}
+= default;
 
 template<
 	typename StateChoices
@@ -56,7 +58,8 @@ sge::sprite::state::object<
 	StateChoices
 >::elements()
 {
-	return elements_;
+	return
+		elements_;
 }
 
 template<
@@ -70,7 +73,8 @@ sge::sprite::state::object<
 	StateChoices
 >::elements() const
 {
-	return elements_;
+	return
+		elements_;
 }
 
 template<
@@ -84,7 +88,8 @@ sge::sprite::state::object<
 	StateChoices
 >::renderer() const
 {
-	return renderer_;
+	return
+		renderer_.get();
 }
 
 #endif

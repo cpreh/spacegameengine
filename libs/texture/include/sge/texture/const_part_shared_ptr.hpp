@@ -16,9 +16,12 @@ namespace sge
 namespace texture
 {
 
-typedef fcppt::shared_ptr<
+using
+const_part_shared_ptr
+=
+fcppt::shared_ptr<
 	sge::texture::part const
-> const_part_shared_ptr;
+>;
 
 }
 }

@@ -32,9 +32,10 @@ struct texture_ref_type<
 	sge::sprite::config::texture_ownership::reference
 >
 {
-	typedef
-	sge::texture::const_part_ref
-	type;
+	using
+	type
+	=
+	sge::texture::const_part_ref;
 };
 
 template<>
@@ -42,9 +43,10 @@ struct texture_ref_type<
 	sge::sprite::config::texture_ownership::unique
 >
 {
-	typedef
-	sge::texture::const_part_unique_ptr
-	type;
+	using
+	type
+	=
+	sge::texture::const_part_unique_ptr;
 };
 
 template<>
@@ -52,9 +54,10 @@ struct texture_ref_type<
 	sge::sprite::config::texture_ownership::shared
 >
 {
-	typedef
-	sge::texture::const_part_shared_ptr
-	type;
+	using
+	type
+	=
+	sge::texture::const_part_shared_ptr;
 };
 
 }

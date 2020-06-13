@@ -36,7 +36,7 @@ std::enable_if_t<
 	void
 >
 unset_textures(
-	sge::renderer::context::core &_render_context
+	sge::renderer::context::core &_render_context // NOLINT(google-runtime-references)
 )
 {
 	sge::sprite::detail::render::unset_texture_stages<
@@ -60,7 +60,7 @@ std::enable_if_t<
 	void
 >
 unset_textures(
-	sge::renderer::context::core &
+	sge::renderer::context::core & // NOLINT(google-runtime-references)
 )
 {
 }

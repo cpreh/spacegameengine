@@ -48,14 +48,15 @@ private:
 		>
 	>;
 public:
-	typedef
+	using
+	type
+	=
 	sge::sprite::detail::transform_texture_levels_static<
 		metal::lambda<
 			make_role
 		>,
 		Levels
-	>
-	type;
+	>;
 };
 
 }

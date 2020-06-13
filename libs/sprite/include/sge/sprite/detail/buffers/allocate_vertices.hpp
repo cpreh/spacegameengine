@@ -9,15 +9,15 @@
 
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/vertex_count.hpp>
 #include <sge/sprite/detail/vf/part_index.hpp>
-#include <fcppt/make_cref.hpp>
 
 
 namespace sge
@@ -34,17 +34,16 @@ template<
 >
 sge::renderer::vertex::buffer_unique_ptr
 allocate_vertices(
-	sge::sprite::buffers::parameters const &_parameters,
+	sge::renderer::device::core_ref const _renderer,
+	sge::renderer::vertex::const_declaration_ref const _vertex_declaration,
 	sge::sprite::count const _num_sprites,
 	sge::renderer::resource_flags_field const &_resource_flags
 )
 {
 	return
-		_parameters.device().create_vertex_buffer(
+		_renderer.get().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
-				fcppt::make_cref(
-					_parameters.vertex_declaration()
-				),
+				_vertex_declaration,
 				sge::sprite::detail::vf::part_index(),
 				sge::sprite::buffers::vertex_count<
 					Choices

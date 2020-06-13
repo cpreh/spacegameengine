@@ -75,7 +75,7 @@ public:
 	void
 	render(
 		sge::renderer::context::ffp & // NOLINT(google-runtime-references)
-	);
+	); // NOLINT(google-runtime-references)
 
 	SGE_GRAPH_DETAIL_SYMBOL
 	~object();

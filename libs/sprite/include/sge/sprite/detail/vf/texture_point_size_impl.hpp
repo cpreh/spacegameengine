@@ -33,22 +33,25 @@ template<
 struct texture_point_size_impl
 {
 private:
-	typedef
+	using
+	texture_levels
+	=
 	sge::sprite::detail::config::texture_levels<
 		Choices
-	>
-	texture_levels;
+	>;
 
-	typedef
+	using
+	with_texture_point_size
+	=
 	sge::sprite::detail::config::find_with_texture_point_size<
 		Choices
-	>
-	with_texture_point_size;
+	>;
 
-	typedef
+	using
+	point_size
+	=
 	typename
-	with_texture_point_size::point_size
-	point_size;
+	with_texture_point_size::point_size;
 
 	template<
 		typename Level
@@ -71,14 +74,15 @@ private:
 		>
 	>;
 public:
-	typedef
+	using
+	type
+	=
 	sge::sprite::detail::transform_texture_levels_static<
 		metal::lambda<
 			make_size
 		>,
 		texture_levels
-	>
-	type;
+	>;
 };
 
 }

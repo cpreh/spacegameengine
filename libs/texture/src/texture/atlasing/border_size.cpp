@@ -15,5 +15,5 @@ sge::texture::atlasing::border_size(
 )
 {
 	return
-		_size + 2u * sge::texture::atlasing::gap();
+		_size + 2U * sge::texture::atlasing::gap();
 }

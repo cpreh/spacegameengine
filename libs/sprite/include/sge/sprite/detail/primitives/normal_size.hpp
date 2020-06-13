@@ -41,7 +41,9 @@ struct normal_size<
 	sge::sprite::config::texture_size_option::never
 >
 {
-	typedef
+	using
+	type
+	=
 	metal::list<
 		fcppt::record::element<
 			sge::sprite::roles::size,
@@ -50,8 +52,7 @@ struct normal_size<
 				Choices::type_choices
 			>
 		>
-	>
-	type;
+	>;
 };
 
 template<
@@ -62,9 +63,10 @@ struct normal_size<
 	sge::sprite::config::texture_size_option::always
 >
 {
-	typedef
-	metal::list<>
-	type;
+	using
+	type
+	=
+	metal::list<>;
 };
 
 template<
@@ -75,7 +77,9 @@ struct normal_size<
 	sge::sprite::config::texture_size_option::maybe
 >
 {
-	typedef
+	using
+	type
+	=
 	metal::list<
 		fcppt::record::element<
 			sge::sprite::roles::size_or_texture_size,
@@ -84,8 +88,7 @@ struct normal_size<
 				Choices::type_choices
 			>
 		>
-	>
-	type;
+	>;
 };
 
 }

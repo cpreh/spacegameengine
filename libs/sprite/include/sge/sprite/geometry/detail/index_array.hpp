@@ -25,11 +25,12 @@ template<
 >
 struct index_array
 {
-	typedef
+	using
+	array
+	=
 	sge::sprite::geometry::detail::index_array_type<
 		Choices
-	>
-	array;
+	>;
 
 	static array const value;
 };

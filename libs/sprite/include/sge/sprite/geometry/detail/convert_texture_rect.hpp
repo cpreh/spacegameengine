@@ -24,19 +24,26 @@ template<
 	typename Rect
 >
 sge::sprite::types::texture_coordinates<
-	typename Choices::type_choices
+	typename
+	Choices::type_choices
 >
 convert_texture_rect(
 	Rect const &_rect
 )
 {
-	typedef
+	using
+	return_type
+	=
 	sge::sprite::types::texture_coordinates<
-		typename Choices::type_choices
-	>
-	return_type;
+		typename
+		Choices::type_choices
+	>;
 
-	typedef typename return_type::first_type element_type;
+	using
+	element_type
+	=
+	typename
+	return_type::first_type;
 
 	return
 		return_type(

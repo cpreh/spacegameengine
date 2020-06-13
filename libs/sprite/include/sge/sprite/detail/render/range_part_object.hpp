@@ -40,62 +40,71 @@ template<
 struct range_part_object
 {
 private:
-	typedef
+	using
+	first_vertex_role
+	=
 	fcppt::record::element<
 		sge::sprite::buffers::roles::first_vertex,
 		sge::renderer::vertex::first
-	>
-	first_vertex_role;
+	>;
 
-	typedef
+	using
+	first_index_role
+	=
 	fcppt::record::element<
 		sge::sprite::buffers::roles::first_index,
 		sge::renderer::index::first
-	>
-	first_index_role;
+	>;
 
-	typedef
+	using
+	vertex_count_role
+	=
 	fcppt::record::element<
 		sge::sprite::detail::roles::vertex_count,
 		sge::renderer::vertex::count
-	>
-	vertex_count_role;
+	>;
 
-	typedef
+	using
+	index_count_role
+	=
 	fcppt::record::element<
 		sge::sprite::detail::roles::index_count,
 		sge::renderer::index::count
-	>
-	index_count_role;
+	>;
 
-	typedef
+	using
+	base_types
+	=
 	metal::list<
 		first_vertex_role,
 		vertex_count_role
-	>
-	base_types;
+	>;
 
-	typedef
+	using
+	indexed_types
+	=
 	metal::join<
 		base_types,
 		metal::list<
 			first_index_role,
 			index_count_role
 		>
-	>
-	indexed_types;
+	>;
 
-	typedef
+	using
+	geometry_types
+	=
 	std::conditional_t<
 		sge::sprite::detail::config::needs_index_buffer<
 			Choices
 		>::value,
 		indexed_types,
 		base_types
-	>
-	geometry_types;
+	>;
 public:
-	typedef
+	using
+	type
+	=
 	fcppt::record::from_list<
 		metal::join<
 			geometry_types,
@@ -104,8 +113,7 @@ public:
 				Choices
 			>::type
 		>
-	>
-	type;
+	>;
 };
 
 }

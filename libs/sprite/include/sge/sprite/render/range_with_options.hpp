@@ -7,16 +7,21 @@
 #ifndef SGE_SPRITE_RENDER_RANGE_WITH_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_RANGE_WITH_OPTIONS_HPP_INCLUDED
 
+#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <sge/sprite/detail/render/range.hpp>
 #include <sge/sprite/detail/render/range_object.hpp>
 #include <sge/sprite/detail/render/scoped_vertex.hpp>
-#include <sge/sprite/render/parameters.hpp>
 #include <sge/sprite/render/range_impl.hpp>
 #include <sge/sprite/state/object_fwd.hpp>
 #include <sge/sprite/state/options_fwd.hpp>
+#include <sge/sprite/state/render_context.hpp>
 #include <sge/sprite/state/scoped_impl.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/record/get.hpp>
 
@@ -34,9 +39,10 @@ template<
 >
 void
 range_with_options(
-	sge::sprite::render::parameters<
+	sge::sprite::state::render_context<
 		StateChoices
-	> const &_parameters,
+	> &_render_context,
+	sge::renderer::vertex::declaration const &_vertex_declaration,
 	sge::sprite::render::range<
 		Choices
 	> const &_range,
@@ -51,7 +57,8 @@ range_with_options(
 	fcppt::optional::maybe_void(
 		_range.object(),
 		[
-			&_parameters,
+			&_render_context,
+			&_vertex_declaration,
 			&_range,
 			&_states,
 			&_options
@@ -67,23 +74,36 @@ range_with_options(
 				StateChoices
 			> const states(
 				_states.renderer(),
-				_parameters.render_context(),
+				fcppt::make_ref(
+					_render_context
+				),
 				_options,
 				_states
 			);
 
 			sge::sprite::detail::render::scoped_vertex const scoped_vertex(
-				_parameters,
-				*fcppt::record::get<
-					sge::sprite::buffers::roles::vertex_buffer
+				fcppt::reference_to_base<
+					sge::renderer::context::core
 				>(
-					_range_object.get()
+					fcppt::make_ref(
+						_render_context
+					)
+				),
+				fcppt::make_cref(
+					_vertex_declaration
+				),
+				fcppt::make_cref(
+					*fcppt::record::get<
+						sge::sprite::buffers::roles::vertex_buffer
+					>(
+						_range_object.get()
+					)
 				),
 				_options.vertex_options()
 			);
 
 			sge::sprite::detail::render::range(
-				_parameters.render_context(),
+				_render_context,
 				_range_object.get(),
 				_range.parts()
 			);

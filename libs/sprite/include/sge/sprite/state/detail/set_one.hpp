@@ -9,12 +9,13 @@
 
 #include <sge/sprite/state/render_context.hpp>
 #include <sge/sprite/state/render_device.hpp>
-#include <sge/sprite/state/detail/cast_device_ref.hpp>
+#include <sge/sprite/state/detail/device_for_state.hpp>
 #include <sge/sprite/state/detail/object_class.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/tag.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/record/get.hpp>
@@ -40,35 +41,47 @@ template<
 class set_one
 {
 public:
-	typedef
+	using
+	object_class
+	=
 	sge::sprite::state::detail::object_class<
 		StateChoices
-	>
-	object_class;
+	>;
 
-	typedef
+	using
+	options_class
+	=
 	sge::sprite::state::detail::options_class<
 		StateChoices
-	>
-	options_class;
+	>;
 
-	typedef
+	using
+	render_device
+	=
 	sge::sprite::state::render_device<
 		StateChoices
-	>
-	render_device;
+	>;
 
-	typedef
+	using
+	render_context
+	=
 	sge::sprite::state::render_context<
 		StateChoices
-	>
-	render_context;
+	>;
 
 	set_one(
-		render_device &_render_device,
-		render_context &_render_context,
-		options_class const &_options,
-		object_class &_objects
+		fcppt::reference<
+			render_device
+		> const _render_device,
+		fcppt::reference<
+			render_context
+		> const _render_context,
+		fcppt::reference<
+			options_class const
+		> const _options,
+		fcppt::reference<
+			object_class
+		> const _objects
 	)
 	:
 		render_device_(
@@ -86,16 +99,12 @@ public:
 	{
 	}
 
-	typedef
-	void
-	result_type;
-
 	template<
 		typename Type
 	>
 	std::enable_if_t<
 		Type::persistent::value,
-		result_type
+		void
 	>
 	operator()(
 		fcppt::tag<
@@ -103,7 +112,7 @@ public:
 		>
 	) const
 	{
-		// TODO: Move this somewhere else
+		// TODO(philipp): Move this somewhere else
 		if(
 			!fcppt::record::get<
 				typename
@@ -112,7 +121,9 @@ public:
 				options_.get()
 			)
 		)
+		{
 			return;
+		}
 
 		Type::set(
 			render_context_.get(),
@@ -134,7 +145,7 @@ public:
 		fcppt::not_(
 			Type::persistent::value
 		),
-		result_type
+		void
 	>
 	operator()(
 		fcppt::tag<
@@ -150,19 +161,23 @@ public:
 				options_.get()
 			)
 		)
+		{
 			return;
+		}
 
 		// This should be more generic, but it will do for transform
 		// for now
-		// TODO: Check if the state has options or not
+		// TODO(philipp): Check if the state has options or not
 		fcppt::record::set<
 			typename
 			Type::role
 		>(
 			objects_.get(),
 			Type::make(
-				sge::sprite::state::detail::cast_device_ref<
-					Type
+				fcppt::reference_to_base<
+					sge::sprite::state::detail::device_for_state<
+						Type
+					>
 				>(
 					render_device_
 				),

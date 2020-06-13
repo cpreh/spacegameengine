@@ -9,6 +9,8 @@
 
 #include <sge/sprite/state/options_impl.hpp>
 #include <sge/sprite/state/detail/unset_one.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/algorithm/loop.hpp>
 #include <fcppt/algorithm/loop_break_metal.hpp>
 
@@ -38,8 +40,12 @@ unset(
 		sge::sprite::state::detail::unset_one<
 			StateChoices
 		>(
-			_render_context,
-			_options.elements()
+			fcppt::make_ref(
+				_render_context
+			),
+			fcppt::make_cref(
+				_options.elements()
+			)
 		)
 	);
 }

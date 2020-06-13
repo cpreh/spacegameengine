@@ -46,15 +46,16 @@ fill_texture_point_pos(
 	> const &_sprite
 )
 {
-	typedef
+	using
+	texture_point_pos
+	=
 	metal::at<
 		typename
 		sge::sprite::detail::vf::texture_point_pos<
 			Choices
 		>::type,
 		Level
-	>
-	texture_point_pos;
+	>;
 
 	(*_iterator). template set<
 		texture_point_pos

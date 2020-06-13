@@ -11,9 +11,6 @@
 #include <sge/sprite/config/size_choice.hpp>
 #include <sge/sprite/config/texture_size_option.hpp>
 #include <sge/sprite/detail/primitives/normal_size.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -26,9 +23,6 @@ namespace sprite
 namespace config
 {
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
-
 template<
 	sge::sprite::config::texture_size_option TextureSize
 >
@@ -36,12 +30,13 @@ struct normal_size final
 :
 	sge::sprite::config::size_choice
 {
-	typedef
+	using
+	texture_option
+	=
 	std::integral_constant<
 		sge::sprite::config::texture_size_option,
 		TextureSize
-	>
-	texture_option;
+	>;
 
 	template<
 		typename Choices
@@ -55,8 +50,6 @@ struct normal_size final
 	{
 	};
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }

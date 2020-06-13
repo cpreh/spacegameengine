@@ -51,15 +51,25 @@ fill_position_rotated(
 	> const &_sprite
 )
 {
-	typedef typename Choices::type_choices type_choices;
+	using
+	type_choices
+	=
+	typename
+	Choices::type_choices;
 
-	typedef sge::sprite::types::basic::float_<
+	using
+	funit
+	=
+	sge::sprite::types::basic::float_<
 		type_choices
-	> funit;
+	>;
 
-	typedef sge::sprite::types::basic::float_vector<
+	using
+	pos2
+	=
+	sge::sprite::types::basic::float_vector<
 		type_choices
-	> pos2;
+	>;
 
 	pos2 const centerf(
 		fcppt::math::vector::structure_cast<
@@ -70,9 +80,12 @@ fill_position_rotated(
 		)
 	);
 
-	typedef sge::sprite::geometry::detail::float_rect<
+	using
+	float_rect
+	=
+	sge::sprite::geometry::detail::float_rect<
 		type_choices
-	> float_rect;
+	>;
 
 	float_rect const rbs(
 		fcppt::math::box::structure_cast<
@@ -85,12 +98,15 @@ fill_position_rotated(
 		)
 	);
 
-	typedef std::array<
+	using
+	position_array
+	=
+	std::array<
 		pos2,
 		sge::sprite::geometry::detail::vertices_per_sprite<
 			Choices
 		>::value
-	> position_array;
+	>;
 
 	position_array const positions{{
 		pos2(
@@ -111,31 +127,37 @@ fill_position_rotated(
 		) - centerf
 	}};
 
-	typedef sge::sprite::types::rotation<
+	using
+	rotation_type
+	=
+	sge::sprite::types::rotation<
 		type_choices
-	> rotation_type;
+	>;
 
 	rotation_type const rot(
 		_sprite.rotation()
 	);
 
-	funit const
-		sinx(
-			std::sin(
-				rot
-			)
-		),
-		cosx(
-			std::cos(
-				rot
-			)
-		);
+	funit const sinx(
+		std::sin(
+			rot
+		)
+	);
 
-	typedef fcppt::math::matrix::static_<
+	funit const cosx(
+		std::cos(
+			rot
+		)
+	);
+
+	using
+	matrix2x2
+	=
+	fcppt::math::matrix::static_<
 		funit,
 		2,
 		2
-	> matrix2x2;
+	>;
 
 	matrix2x2 const mat_rot(
 		fcppt::math::matrix::row(

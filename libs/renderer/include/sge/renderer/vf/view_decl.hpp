@@ -84,9 +84,11 @@ public:
 		> const &
 	);
 
+	[[nodiscard]]
 	iterator
 	begin() const;
 
+	[[nodiscard]]
 	iterator
 	end() const;
 private:

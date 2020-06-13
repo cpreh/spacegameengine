@@ -46,11 +46,12 @@ fill_point_size(
 	> const &_sprite
 )
 {
-	typedef
+	using
+	point_size
+	=
 	sge::sprite::detail::vf::point_size<
 		Choices
-	>
-	point_size;
+	>;
 
 	sge::renderer::vf::set_proxy(
 		*_iterator,

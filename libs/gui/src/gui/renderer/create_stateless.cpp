@@ -8,14 +8,14 @@
 #include <sge/gui/renderer/base.hpp>
 #include <sge/gui/renderer/base_unique_ptr.hpp>
 #include <sge/gui/renderer/create_stateless.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::gui::renderer::base_unique_ptr
 sge::gui::renderer::create_stateless(
-	sge::renderer::device::ffp &_renderer
+	sge::renderer::device::core &_renderer
 )
 {
 	return

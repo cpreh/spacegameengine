@@ -44,13 +44,14 @@ struct point_size_extra<
 	>
 >
 {
-	typedef
+	using
+	type
+	=
 	metal::list<
 		sge::sprite::detail::vf::point_size<
 			Choices
 		>
-	>
-	type;
+	>;
 };
 
 template<
@@ -68,9 +69,10 @@ struct point_size_extra<
 	>
 >
 {
-	typedef
-	metal::list<>
-	type;
+	using
+	type
+	=
+	metal::list<>;
 };
 
 }

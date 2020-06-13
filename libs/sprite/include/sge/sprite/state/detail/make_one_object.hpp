@@ -8,10 +8,11 @@
 #define SGE_SPRITE_STATE_DETAIL_MAKE_ONE_OBJECT_HPP_INCLUDED
 
 #include <sge/sprite/state/render_device.hpp>
-#include <sge/sprite/state/detail/cast_device_ref.hpp>
+#include <sge/sprite/state/detail/device_for_state.hpp>
 #include <sge/sprite/state/detail/parameters_class.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/get.hpp>
@@ -51,7 +52,9 @@ public:
 	>;
 
 	make_one_object(
-		render_device &_render_device,
+		fcppt::reference<
+			render_device
+		> const _render_device,
 		parameters_class const &_parameters
 	)
 	:
@@ -123,9 +126,11 @@ public:
 			state_for_role<
 				Role
 			>::make(
-				sge::sprite::state::detail::cast_device_ref<
-					state_for_role<
-						Role
+				fcppt::reference_to_base<
+					sge::sprite::state::detail::device_for_state<
+						state_for_role<
+							Role
+						>
 					>
 				>(
 					render_device_

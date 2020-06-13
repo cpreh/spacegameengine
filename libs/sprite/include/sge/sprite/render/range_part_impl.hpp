@@ -20,6 +20,9 @@
 #include <sge/sprite/render/range_part_decl.hpp>
 #include <sge/sprite/render/texture_ref.hpp>
 #include <fcppt/record/get.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -28,11 +31,13 @@ template<
 sge::sprite::render::range_part<
 	Choices
 >::range_part(
-	range_part_object const &_object
+	range_part_object _object
 )
 :
 	object_(
-		_object
+		std::move(
+			_object
+		)
 	)
 {
 }

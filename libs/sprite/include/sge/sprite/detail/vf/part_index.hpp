@@ -20,12 +20,12 @@ namespace vf
 {
 
 inline
-sge::renderer::vf::dynamic::part_index const
+sge::renderer::vf::dynamic::part_index
 part_index()
 {
 	return
 		sge::renderer::vf::dynamic::part_index(
-			0u
+			0U
 		);
 }
 

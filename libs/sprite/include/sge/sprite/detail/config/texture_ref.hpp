@@ -41,14 +41,17 @@ private:
 		Element::ownership::value
 	>::type;
 
-	typedef
+	using
+	texture_list
+	=
 	typename
 	sge::sprite::detail::config::find_texture_config<
 		Choices
-	>::type
-	texture_list;
+	>::type;
 public:
-	typedef
+	using
+	type
+	=
 	metal::invoke<
 		metal::if_<
 			metal::empty<
@@ -62,8 +65,7 @@ public:
 				texture_list
 			>
 		>
-	>
-	type;
+	>;
 };
 
 }

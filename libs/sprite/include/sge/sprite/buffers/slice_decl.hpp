@@ -30,41 +30,49 @@ template<
 class slice
 {
 public:
-	typedef
+	using
+	object
+	=
 	sge::sprite::buffers::object<
 		Choices
-	>
-	object;
+	>;
 
-	typedef
+	using
+	object_ref
+	=
 	fcppt::reference<
 		object const
-	>
-	object_ref;
+	>;
 
-	typedef
+	using
+	offset_object
+	=
 	sge::sprite::buffers::offset_object<
 		Choices
-	>
-	offset_object;
+	>;
 
 	slice(
 		object_ref,
 		offset_object
 	);
 
+	[[nodiscard]]
 	sge::renderer::vertex::buffer &
 	vertex_buffer() const;
 
+	[[nodiscard]]
 	sge::renderer::index::buffer &
 	index_buffer() const;
 
+	[[nodiscard]]
 	sge::renderer::vertex::first
 	first_vertex() const;
 
+	[[nodiscard]]
 	sge::renderer::index::first
 	first_index() const;
 
+	[[nodiscard]]
 	object const &
 	buffer_object() const;
 private:

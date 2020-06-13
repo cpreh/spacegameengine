@@ -27,8 +27,8 @@
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/sprite/object.hpp>
-#include <sge/sprite/buffers/multi.hpp>
 #include <sge/sprite/buffers/option.hpp>
+#include <sge/sprite/buffers/single.hpp>
 #include <sge/sprite/buffers/with_declaration.hpp>
 #include <sge/sprite/config/choices.hpp>
 #include <sge/sprite/config/float_type.hpp>
@@ -180,10 +180,9 @@ try
 	>
 	sprite_choices;
 
-	// Use buffers::multi just for testing
 	typedef
 	sge::sprite::buffers::with_declaration<
-		sge::sprite::buffers::multi<
+		sge::sprite::buffers::single<
 			sprite_choices
 		>
 	>
@@ -212,7 +211,9 @@ try
 	sprite_state_parameters;
 
 	sprite_state_object sprite_state(
-		sys.renderer_device_ffp(),
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
 		sprite_state_parameters()
 	);
 

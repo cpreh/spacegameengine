@@ -55,36 +55,40 @@ fill_vertices(
 	> const &_slice
 )
 {
-	typedef
+	using
+	result_type
+	=
 	sge::sprite::render::range<
 		Choices
-	>
-	result_type;
+	>;
 
-	typedef
+	using
+	iterator
+	=
 	typename
-	Range::iterator
-	iterator;
+	Range::iterator;
 
-	iterator const
-		begin(
-			_range.begin()
-		),
-		end(
-			_range.end()
-		);
+	iterator const begin(
+		_range.begin()
+	);
 
-	typedef
+	iterator const end(
+		_range.end()
+	);
+
+	using
+	object_type
+	=
 	typename
 	std::iterator_traits<
 		iterator
-	>::value_type
-	object_type;
+	>::value_type;
 
-	typedef
+	using
+	choices
+	=
 	typename
-	object_type::choices
-	choices;
+	object_type::choices;
 
 	sge::renderer::vertex::scoped_lock const vblock(
 		fcppt::make_ref(
@@ -105,13 +109,14 @@ fill_vertices(
 		sge::renderer::lock_mode::writeonly
 	);
 
-	typedef
+	using
+	vertex_view
+	=
 	sge::renderer::vf::view<
 		sge::sprite::detail::vf::format_part_from_object<
 			object_type
 		>
-	>
-	vertex_view;
+	>;
 
 	vertex_view const vertices(
 		vblock.value()
@@ -121,22 +126,23 @@ fill_vertices(
 		vertices.begin()
 	);
 
-	typedef
+	using
+	range_part_vector
+	=
 	typename
-	result_type::range_part_vector
-	range_part_vector;
+	result_type::range_part_vector;
 
 	range_part_vector result;
 
 	sge::sprite::count offset(
-		0u
+		0U
 	);
 
 	sge::sprite::count cur_count(
-		0u
+		0U
 	);
 
-	// TODO: Simplify this!
+	// TODO(philipp): Simplify this!
 	for(
 		iterator cur(
 			begin
@@ -186,7 +192,7 @@ fill_vertices(
 
 			cur_count =
 				sge::sprite::count(
-					0u
+					0U
 				);
 		}
 

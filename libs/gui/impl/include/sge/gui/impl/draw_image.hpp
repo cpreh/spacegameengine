@@ -8,7 +8,7 @@
 #define SGE_GUI_IMPL_DRAW_IMAGE_HPP_INCLUDED
 
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/rucksack/vector_fwd.hpp>
 #include <sge/texture/part_fwd.hpp>
 
@@ -22,7 +22,7 @@ namespace impl
 
 void
 draw_image(
-	sge::renderer::device::ffp &,
+	sge::renderer::device::core &,
 	sge::renderer::context::ffp &,
 	sge::texture::part const &,
 	sge::rucksack::vector

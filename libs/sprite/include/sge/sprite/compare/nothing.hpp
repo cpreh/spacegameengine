@@ -22,10 +22,6 @@ namespace compare
 
 struct nothing
 {
-	typedef
-	bool
-	result_type;
-
 	template<
 		typename Choices
 	>
@@ -38,7 +34,7 @@ struct nothing
 		typename Choices
 	>
 	inline
-	result_type
+	bool
 	operator()(
 		sge::sprite::object<
 			Choices

@@ -7,13 +7,15 @@
 #ifndef SGE_SPRITE_BUFFERS_SINGLE_DECL_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_SINGLE_DECL_HPP_INCLUDED
 
+#include <sge/renderer/device/core_ref.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
+#include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/object.hpp>
 #include <sge/sprite/buffers/option.hpp>
-#include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/single_fwd.hpp>
 #include <sge/sprite/buffers/slice_decl.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
 
@@ -29,48 +31,57 @@ template<
 >
 class single
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		single
 	);
 public:
-	typedef
-	Choices
-	choices;
+	using
+	choices
+	=
+	Choices;
 
 	single(
-		sge::sprite::buffers::parameters const &,
+		sge::renderer::device::core_ref,
+		sge::renderer::vertex::const_declaration_ref,
 		sge::sprite::buffers::option
 	);
 
 	~single();
 
-	typedef
+	using
+	slice_type
+	=
 	sge::sprite::buffers::slice<
 		Choices
-	>
-	slice_type;
+	>;
 
+	[[nodiscard]]
 	slice_type
 	allocate(
 		sge::sprite::count
 	);
 
-	sge::sprite::buffers::parameters const &
-	parameters() const;
+	[[nodiscard]]
+	sge::renderer::vertex::declaration const &
+	vertex_declaration() const;
 private:
-	typedef
+	using
+	buffers_object
+	=
 	sge::sprite::buffers::object<
 		Choices
-	>
-	buffers_object;
+	>;
 
-	typedef
+	using
+	optional_buffers_object
+	=
 	fcppt::optional::object<
 		buffers_object
-	>
-	optional_buffers_object;
+	>;
 
-	sge::sprite::buffers::parameters const parameters_;
+	sge::renderer::device::core_ref const renderer_;
+
+	sge::renderer::vertex::const_declaration_ref const vertex_declaration_;
 
 	sge::sprite::buffers::option const buffers_option_;
 

@@ -14,7 +14,6 @@
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/make_vertex_format.hpp>
 #include <sge/sprite/buffers/option.hpp>
-#include <sge/sprite/buffers/parameters.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <fcppt/make_cref.hpp>
 
@@ -40,11 +39,9 @@ sge::sprite::buffers::with_declaration<
 		)
 	),
 	buffers_(
-		sge::sprite::buffers::parameters(
-			_device,
-			fcppt::make_cref(
-				*vertex_declaration_
-			)
+		_device,
+		fcppt::make_cref(
+			*vertex_declaration_
 		),
 		_buffers_option
 	)
@@ -57,13 +54,13 @@ template<
 sge::sprite::buffers::with_declaration<
 	Buffers
 >::~with_declaration()
-{
-}
+= default;
 
 template<
 	typename Buffers
 >
-typename sge::sprite::buffers::with_declaration<
+typename
+sge::sprite::buffers::with_declaration<
 	Buffers
 >::slice_type
 sge::sprite::buffers::with_declaration<
@@ -81,19 +78,8 @@ sge::sprite::buffers::with_declaration<
 template<
 	typename Buffers
 >
-sge::sprite::buffers::parameters const &
+typename
 sge::sprite::buffers::with_declaration<
-	Buffers
->::parameters() const
-{
-	return
-		buffers_.parameters();
-}
-
-template<
-	typename Buffers
->
-typename sge::sprite::buffers::with_declaration<
 	Buffers
 >::buffers_type &
 sge::sprite::buffers::with_declaration<
@@ -107,7 +93,8 @@ sge::sprite::buffers::with_declaration<
 template<
 	typename Buffers
 >
-typename sge::sprite::buffers::with_declaration<
+typename
+sge::sprite::buffers::with_declaration<
 	Buffers
 >::buffers_type const &
 sge::sprite::buffers::with_declaration<
@@ -116,6 +103,18 @@ sge::sprite::buffers::with_declaration<
 {
 	return
 		buffers_;
+}
+
+template<
+	typename Buffers
+>
+sge::renderer::vertex::declaration const &
+sge::sprite::buffers::with_declaration<
+	Buffers
+>::vertex_declaration() const
+{
+	return
+		*vertex_declaration_;
 }
 
 #endif
