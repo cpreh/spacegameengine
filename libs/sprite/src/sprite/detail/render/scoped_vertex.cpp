@@ -8,8 +8,8 @@
 #include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/vertex/const_buffer_ref.hpp>
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
-#include <sge/sprite/state/vertex_options.hpp>
 #include <sge/sprite/detail/render/scoped_vertex.hpp>
+#include <sge/sprite/state/vertex_options.hpp>
 
 
 sge::sprite::detail::render::scoped_vertex::scoped_vertex(

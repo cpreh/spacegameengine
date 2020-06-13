@@ -6,8 +6,8 @@
 
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/core_ref.hpp>
-#include <sge/renderer/vertex/const_optional_declaration_ref.hpp>
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
+#include <sge/renderer/vertex/const_optional_declaration_ref.hpp>
 #include <sge/sprite/detail/render/scoped_vertex_declaration.hpp>
 #include <sge/sprite/state/vertex_options.hpp>
 
