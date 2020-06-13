@@ -3,6 +3,10 @@ set(
 	libs/sprite/include/sge/sprite/bounding_rect.hpp
 	libs/sprite/include/sge/sprite/buffers/allocate.hpp
 	libs/sprite/include/sge/sprite/buffers/index_count.hpp
+	libs/sprite/include/sge/sprite/buffers/multi.hpp
+	libs/sprite/include/sge/sprite/buffers/multi_decl.hpp
+	libs/sprite/include/sge/sprite/buffers/multi_fwd.hpp
+	libs/sprite/include/sge/sprite/buffers/multi_impl.hpp
 	libs/sprite/include/sge/sprite/buffers/object.hpp
 	libs/sprite/include/sge/sprite/buffers/offset_object.hpp
 	libs/sprite/include/sge/sprite/buffers/option.hpp
