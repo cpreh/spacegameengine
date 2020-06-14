@@ -21,12 +21,13 @@ namespace md3
 namespace impl
 {
 
-typedef
+using
+max_qpath
+=
 std::integral_constant<
 	unsigned,
-	64u
->
-max_qpath;
+	64U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+>;
 
 }
 }

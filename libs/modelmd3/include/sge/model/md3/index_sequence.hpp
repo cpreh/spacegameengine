@@ -20,11 +20,12 @@ namespace model
 namespace md3
 {
 
-typedef
+using
+index_sequence
+=
 std::vector<
 	sge::model::md3::index
->
-index_sequence;
+>;
 
 }
 }

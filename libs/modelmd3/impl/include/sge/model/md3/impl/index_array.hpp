@@ -22,12 +22,13 @@ namespace md3
 namespace impl
 {
 
-typedef
+using
+index_array
+=
 std::array<
 	sge::model::md3::impl::s32,
 	3
->
-index_array;
+>;
 
 }
 }

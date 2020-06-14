@@ -20,32 +20,32 @@ sge::model::md3::impl::convert_normal(
 	sge::model::md3::impl::s16 const _normal
 )
 {
-	sge::model::md3::scalar const
-		lat(
-			fcppt::cast::int_to_float<
-				sge::model::md3::scalar
-			>(
-				(_normal >> 8)
-				& 255
-			)
-			*
-			fcppt::math::twopi<
-				sge::model::md3::scalar
-			>()
-			/ 255
-		),
-		lng(
-			fcppt::cast::int_to_float<
-				sge::model::md3::scalar
-			>(
-				_normal & 255
-			)
-			*
-			fcppt::math::twopi<
-				sge::model::md3::scalar
-			>()
-			/ 255
-		);
+	sge::model::md3::scalar const lat(
+		fcppt::cast::int_to_float<
+			sge::model::md3::scalar
+		>(
+			(_normal >> 8) // NOLINT(hicpp-signed-bitwise)
+			& 255 // NOLINT(hicpp-signed-bitwise)
+		)
+		*
+		fcppt::math::twopi<
+			sge::model::md3::scalar
+		>()
+		/ 255
+	);
+
+	sge::model::md3::scalar const lng(
+		fcppt::cast::int_to_float<
+			sge::model::md3::scalar
+		>(
+			_normal & 255 // NOLINT(hicpp-signed-bitwise)
+		)
+		*
+		fcppt::math::twopi<
+			sge::model::md3::scalar
+		>()
+		/ 255
+	);
 
 	return
 		sge::model::md3::impl::vec3(

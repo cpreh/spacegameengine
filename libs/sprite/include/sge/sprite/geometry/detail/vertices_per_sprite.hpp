@@ -49,7 +49,7 @@ struct vertices_per_sprite<
 >
 :
 sge::sprite::geometry::detail::count_constant<
-	4u
+	4U
 >
 {
 };
@@ -69,7 +69,7 @@ struct vertices_per_sprite<
 >
 :
 sge::sprite::geometry::detail::count_constant<
-	1u
+	1U
 >
 {
 };

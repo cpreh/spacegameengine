@@ -32,12 +32,15 @@ public:
 		std::istream &
 	);
 
+	[[nodiscard]]
 	sge::model::md3::string const &
 	name() const;
 
+	[[nodiscard]]
 	sge::model::md3::impl::vec3 const &
 	origin() const;
 
+	[[nodiscard]]
 	sge::model::md3::impl::axis_array const &
 	axis() const;
 private:

@@ -66,13 +66,14 @@ set_textures(
 				_level
 			);
 
-			typedef
+			using
+			cur_level
+			=
 			fcppt::tag_type<
 				decltype(
 					_level
 				)
-			>
-			cur_level;
+			>;
 
 			_render_context.texture(
 				sge::renderer::texture::const_optional_base_ref{

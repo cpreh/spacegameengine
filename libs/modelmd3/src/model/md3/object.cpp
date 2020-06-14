@@ -8,9 +8,7 @@
 
 
 sge::model::md3::object::object()
-{
-}
+= default;
 
 sge::model::md3::object::~object()
-{
-}
+= default;

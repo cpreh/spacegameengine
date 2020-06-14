@@ -39,7 +39,7 @@ sge::model::md3::impl::frame::frame(
 	),
 	name_(
 		sge::model::md3::impl::read_string<
-			16
+			16 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		>(
 			_stream
 		)

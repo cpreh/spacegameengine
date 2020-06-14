@@ -15,9 +15,10 @@ namespace model
 namespace md3
 {
 
-typedef
-float
-scalar;
+using
+scalar
+=
+float;
 
 }
 }

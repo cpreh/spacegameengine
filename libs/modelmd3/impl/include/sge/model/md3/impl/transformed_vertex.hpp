@@ -28,15 +28,17 @@ public:
 		sge::model::md3::impl::vertex const &
 	);
 
+	[[nodiscard]]
 	sge::model::md3::impl::vec3 const &
 	pos() const;
 
+	[[nodiscard]]
 	sge::model::md3::impl::vec3 const &
 	normal() const;
 private:
-	sge::model::md3::impl::vec3
-		pos_,
-		normal_;
+	sge::model::md3::impl::vec3 pos_;
+
+	sge::model::md3::impl::vec3 normal_;
 };
 
 }

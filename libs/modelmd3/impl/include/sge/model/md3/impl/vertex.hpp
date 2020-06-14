@@ -32,23 +32,29 @@ public:
 		sge::model::md3::load_flags_field
 	);
 
+	[[nodiscard]]
 	sge::model::md3::impl::s16
 	x() const;
 
+	[[nodiscard]]
 	sge::model::md3::impl::s16
 	y() const;
 
+	[[nodiscard]]
 	sge::model::md3::impl::s16
 	z() const;
 
+	[[nodiscard]]
 	sge::model::md3::impl::s16
 	normal() const;
 private:
-	sge::model::md3::impl::s16
-		x_,
-		y_,
-		z_,
-		normal_;
+	sge::model::md3::impl::s16 x_;
+
+	sge::model::md3::impl::s16 y_;
+
+	sge::model::md3::impl::s16 z_;
+
+	sge::model::md3::impl::s16 normal_;
 };
 
 }

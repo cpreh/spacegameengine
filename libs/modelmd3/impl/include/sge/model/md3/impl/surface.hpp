@@ -44,18 +44,23 @@ public:
 		num_frames
 	);
 
+	[[nodiscard]]
 	sge::model::md3::string const &
 	name() const;
 
+	[[nodiscard]]
 	sge::model::md3::impl::shader_vector const &
 	shaders() const;
 
+	[[nodiscard]]
 	sge::model::md3::impl::triangle_vector const &
 	triangles() const;
 
+	[[nodiscard]]
 	sge::model::md3::impl::texpos_vector const &
 	texpos() const;
 
+	[[nodiscard]]
 	sge::model::md3::impl::transformed_vertex_vector const &
 	transformed_vertices() const;
 private:

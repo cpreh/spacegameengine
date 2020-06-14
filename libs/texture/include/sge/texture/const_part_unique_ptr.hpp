@@ -16,11 +16,12 @@ namespace sge
 namespace texture
 {
 
-typedef
+using
+const_part_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::texture::part const
->
-const_part_unique_ptr;
+>;
 
 }
 }

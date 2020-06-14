@@ -20,11 +20,12 @@ namespace model
 namespace md3
 {
 
-typedef
+using
+vertex_sequence
+=
 std::vector<
 	sge::model::md3::position
->
-vertex_sequence;
+>;
 
 }
 }

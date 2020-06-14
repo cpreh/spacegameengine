@@ -30,6 +30,7 @@ sge::model::md3::exception::exception(
 sge::model::md3::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::model::md3::exception::exception(
@@ -41,6 +42,7 @@ sge::model::md3::exception &
 sge::model::md3::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::model::md3::exception &
@@ -49,6 +51,6 @@ sge::model::md3::exception::operator=(
 )
 = default;
 
-sge::model::md3::exception::~exception() noexcept
-{
-}
+sge::model::md3::exception::~exception()
+noexcept
+= default;

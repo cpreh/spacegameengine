@@ -22,18 +22,19 @@ sge::model::md3::impl::read_and_check_id3p(
 	std::istream &_stream
 )
 {
-	typedef
+	using
+	id3p_array
+	=
 	std::array<
 		sge::model::md3::u8,
 		4
-	>
-	id3p_array;
+	>;
 
 	id3p_array const to_check{{
 		0x49, 0x44, 0x50, 0x33
 	}};
 
-	// TODO: Make a function for this!
+	// TODO(philipp): Make a function for this!
 	id3p_array id3p;
 
 	for(
@@ -41,6 +42,7 @@ sge::model::md3::impl::read_and_check_id3p(
 		:
 		id3p
 	)
+	{
 		elem =
 			fcppt::optional::to_exception(
 				fcppt::io::read<
@@ -56,6 +58,7 @@ sge::model::md3::impl::read_and_check_id3p(
 						};
 				}
 			);
+	}
 
 	return
 		to_check

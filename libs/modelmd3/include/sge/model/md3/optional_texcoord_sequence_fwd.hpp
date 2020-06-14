@@ -18,11 +18,12 @@ namespace model
 namespace md3
 {
 
-typedef
+using
+optional_texcoord_sequence
+=
 fcppt::optional::object<
 	sge::model::md3::texcoord_sequence
->
-optional_texcoord_sequence;
+>;
 
 }
 }

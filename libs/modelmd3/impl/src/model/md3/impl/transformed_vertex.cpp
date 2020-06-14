@@ -18,7 +18,7 @@ sge::model::md3::impl::transformed_vertex::transformed_vertex(
 )
 :
 	pos_(
-		// TODO: Don't do this element-wise
+		// TODO(philipp): Don't do this element-wise
 		fcppt::cast::int_to_float<
 			sge::model::md3::scalar
 		>(

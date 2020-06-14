@@ -20,11 +20,12 @@ namespace model
 namespace md3
 {
 
-typedef
+using
+texcoord_sequence
+=
 std::vector<
 	sge::model::md3::texcoord
->
-texcoord_sequence;
+>;
 
 }
 }

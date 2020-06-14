@@ -61,7 +61,7 @@ std::enable_if_t<
 >
 unset_textures(
 	sge::renderer::context::core & // NOLINT(google-runtime-references)
-)
+) // NOLINT(google-runtime-references)
 {
 }
 

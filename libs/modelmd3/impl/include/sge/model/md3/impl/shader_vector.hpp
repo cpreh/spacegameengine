@@ -22,11 +22,12 @@ namespace md3
 namespace impl
 {
 
-typedef
+using
+shader_vector
+=
 std::vector<
 	sge::model::md3::impl::shader
->
-shader_vector;
+>;
 
 }
 }

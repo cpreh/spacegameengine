@@ -121,6 +121,16 @@ sge::sprite::object<
 	object const &_other
 )
 {
+	if(
+		this
+		==
+		&_other
+	)
+	{
+		return
+			*this;
+	}
+
 	sge::sprite::detail::assign_pre(
 		*this,
 		_other

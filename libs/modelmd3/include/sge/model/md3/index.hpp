@@ -7,6 +7,10 @@
 #ifndef SGE_MODEL_MD3_INDEX_HPP_INCLUDED
 #define SGE_MODEL_MD3_INDEX_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 
 namespace sge
 {
@@ -15,9 +19,10 @@ namespace model
 namespace md3
 {
 
-typedef
-unsigned long
-index;
+using
+index
+=
+std::uint64_t;
 
 }
 }

@@ -16,20 +16,20 @@ sge::model::md3::impl::triangle::triangle(
 	std::istream &_stream
 )
 :
-	// TODO: Direct initialization
+	// TODO(philipp): Direct initialization
 	indices_()
 {
 	for(
-		index_array::iterator it(
-			indices_.begin()
-		);
-		it != indices_.end();
-		++it
+		auto &index
+		:
+		indices_
 	)
-		*it =
+	{
+		index =
 			sge::model::md3::impl::read_s32(
 				_stream
 			);
+	}
 }
 
 sge::model::md3::impl::index_array const &

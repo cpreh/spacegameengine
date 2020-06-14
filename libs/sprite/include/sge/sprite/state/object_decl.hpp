@@ -66,12 +66,15 @@ public:
 
 	~object();
 
+	[[nodiscard]]
 	elements_type &
 	elements();
 
+	[[nodiscard]]
 	elements_type const &
 	elements() const;
 
+	[[nodiscard]]
 	render_device &
 	renderer() const;
 private:

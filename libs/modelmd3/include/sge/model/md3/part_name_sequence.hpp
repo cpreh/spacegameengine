@@ -20,11 +20,12 @@ namespace model
 namespace md3
 {
 
-typedef
+using
+part_name_sequence
+=
 std::vector<
 	sge::model::md3::string
->
-part_name_sequence;
+>;
 
 }
 }

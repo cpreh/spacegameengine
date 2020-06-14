@@ -18,12 +18,13 @@ namespace model
 namespace md3
 {
 
-typedef
+using
+texcoord
+=
 fcppt::math::vector::static_<
 	sge::model::md3::scalar,
 	2
->
-texcoord;
+>;
 
 }
 }

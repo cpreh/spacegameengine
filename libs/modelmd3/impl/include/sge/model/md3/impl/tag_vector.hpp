@@ -22,11 +22,12 @@ namespace md3
 namespace impl
 {
 
-typedef
+using
+tag_vector
+=
 std::vector<
 	sge::model::md3::impl::tag
->
-tag_vector;
+>;
 
 }
 }

@@ -22,11 +22,12 @@ namespace md3
 namespace impl
 {
 
-typedef
+using
+texpos_vector
+=
 std::vector<
 	sge::model::md3::impl::texpos
->
-texpos_vector;
+>;
 
 }
 }

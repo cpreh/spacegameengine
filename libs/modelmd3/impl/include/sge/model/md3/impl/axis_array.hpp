@@ -22,12 +22,13 @@ namespace md3
 namespace impl
 {
 
-typedef
+using
+axis_array
+=
 std::array<
 	sge::model::md3::impl::vec3,
 	3
->
-axis_array;
+>;
 
 }
 }

@@ -22,11 +22,12 @@ namespace md3
 namespace impl
 {
 
-typedef
+using
+triangle_vector
+=
 std::vector<
 	sge::model::md3::impl::triangle
->
-triangle_vector;
+>;
 
 }
 }

@@ -23,15 +23,16 @@ namespace sprite
 namespace state
 {
 
-typedef
+using
+all_choices
+=
 sge::sprite::state::choices<
 	metal::list<
 		sge::sprite::state::with_blend,
 		sge::sprite::state::with_rasterizer,
 		sge::sprite::state::with_transform
 	>
->
-all_choices;
+>;
 
 }
 }

@@ -20,11 +20,12 @@ namespace model
 namespace md3
 {
 
-typedef
+using
+normal_sequence
+=
 std::vector<
 	sge::model::md3::normal
->
-normal_sequence;
+>;
 
 }
 }

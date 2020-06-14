@@ -22,11 +22,12 @@ namespace md3
 namespace impl
 {
 
-typedef
+using
+frame_vector
+=
 std::vector<
 	sge::model::md3::impl::frame
->
-frame_vector;
+>;
 
 }
 }

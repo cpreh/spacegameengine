@@ -10,7 +10,7 @@
 #include <sge/model/md3/load_flags_field_fwd.hpp>
 #include <sge/model/md3/loader.hpp>
 #include <sge/model/md3/object_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -33,7 +33,7 @@ class loader
 :
 	public sge::model::md3::loader
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		loader
 	);
 public:
@@ -45,6 +45,7 @@ public:
 	~loader()
 	override;
 private:
+	[[nodiscard]]
 	sge::model::md3::object_unique_ptr
 	load(
 		std::filesystem::path const &,
@@ -52,6 +53,7 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::model::md3::object_unique_ptr
 	load_stream(
 		std::istream &,

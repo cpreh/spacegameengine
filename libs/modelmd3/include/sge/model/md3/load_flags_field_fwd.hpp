@@ -18,11 +18,12 @@ namespace model
 namespace md3
 {
 
-typedef
+using
+load_flags_field
+=
 fcppt::container::bitfield::enum_object<
 	sge::model::md3::load_flags
->
-load_flags_field;
+>;
 
 }
 }

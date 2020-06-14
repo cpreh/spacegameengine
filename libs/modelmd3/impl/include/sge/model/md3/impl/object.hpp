@@ -18,7 +18,7 @@
 #include <sge/model/md3/impl/frame_vector.hpp>
 #include <sge/model/md3/impl/surface_vector.hpp>
 #include <sge/model/md3/impl/tag_vector.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
@@ -39,12 +39,12 @@ class object
 :
 	public sge::model::md3::object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	object(
-		fcppt::log::object &,
+		fcppt::log::object &, // NOLINT(google-runtime-references)
 		std::istream &,
 		sge::model::md3::load_flags_field
 	);
@@ -52,37 +52,42 @@ public:
 	~object()
 	override;
 private:
+	[[nodiscard]]
 	sge::model::md3::index_sequence
 	indices(
 		sge::model::md3::string const &
 	) const
 	override;
 
+	[[nodiscard]]
 	sge::model::md3::vertex_sequence
 	vertices(
 		sge::model::md3::string const &
 	) const
 	override;
 
+	[[nodiscard]]
 	sge::model::md3::optional_texcoord_sequence
 	texcoords(
 		sge::model::md3::string const &
 	) const
 	override;
 
+	[[nodiscard]]
 	sge::model::md3::optional_normal_sequence
 	normals(
 		sge::model::md3::string const &
 	) const
 	override;
 
+	[[nodiscard]]
 	sge::model::md3::part_name_sequence
 	part_names() const
 	override;
 
-	std::size_t
-		vertices_,
-		indices_;
+	std::size_t vertices_;
+
+	std::size_t indices_;
 
 	sge::model::md3::string name_;
 
@@ -92,6 +97,7 @@ private:
 
 	sge::model::md3::impl::surface_vector surfaces_;
 
+	[[nodiscard]]
 	sge::model::md3::impl::surface_vector::const_reference
 	surface_by_name(
 		sge::model::md3::string const &

@@ -22,11 +22,12 @@ namespace md3
 namespace impl
 {
 
-typedef
+using
+surface_vector
+=
 std::vector<
 	sge::model::md3::impl::surface
->
-surface_vector;
+>;
 
 }
 }

@@ -65,7 +65,7 @@ public:
 		fcppt::reference<
 			render_context
 		>,
-		state_options const &,
+		state_options,
 		state_object &
 	);
 

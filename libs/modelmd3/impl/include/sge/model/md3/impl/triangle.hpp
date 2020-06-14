@@ -30,6 +30,7 @@ public:
 		std::istream &
 	);
 
+	[[nodiscard]]
 	sge::model::md3::impl::index_array const &
 	indices() const;
 private:

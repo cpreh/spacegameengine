@@ -21,7 +21,10 @@ namespace md3
 namespace impl
 {
 
-typedef std::int32_t s32;
+using
+s32
+=
+std::int32_t;
 
 }
 }

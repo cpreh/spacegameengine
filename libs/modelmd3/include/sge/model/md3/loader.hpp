@@ -12,7 +12,7 @@
 #include <sge/model/md3/loader_fwd.hpp>
 #include <sge/model/md3/object_unique_ptr.hpp>
 #include <sge/model/md3/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <iosfwd>
@@ -28,12 +28,13 @@ namespace md3
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL loader
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		loader
 	);
 protected:
 	loader();
 public:
+	[[nodiscard]]
 	virtual
 	sge::model::md3::object_unique_ptr
 	load(
@@ -41,6 +42,7 @@ public:
 		sge::model::md3::load_flags_field
 	) = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::model::md3::object_unique_ptr
 	load_stream(

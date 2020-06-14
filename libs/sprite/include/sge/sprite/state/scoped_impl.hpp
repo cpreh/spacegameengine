@@ -11,6 +11,9 @@
 #include <sge/sprite/state/set.hpp>
 #include <sge/sprite/state/unset.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -23,7 +26,7 @@ sge::sprite::state::scoped<
 	fcppt::reference<
 		render_context
 	> const _render_context,
-	state_options const &_options,
+	state_options _options,
 	state_object &_object
 )
 :
@@ -31,7 +34,9 @@ sge::sprite::state::scoped<
 		_render_context
 	),
 	options_(
-		_options
+		std::move(
+			_options
+		)
 	)
 {
 	sge::sprite::state::set(

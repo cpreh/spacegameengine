@@ -22,11 +22,12 @@ namespace md3
 namespace impl
 {
 
-typedef
+using
+transformed_vertex_vector
+=
 std::vector<
 	sge::model::md3::impl::transformed_vertex
->
-transformed_vertex_vector;
+>;
 
 }
 }

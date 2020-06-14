@@ -20,12 +20,13 @@ namespace md3
 namespace impl
 {
 
-typedef
+using
+vec3
+=
 fcppt::math::vector::static_<
 	sge::model::md3::scalar,
 	3
->
-vec3;
+>;
 
 }
 }

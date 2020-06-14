@@ -28,6 +28,7 @@ sge::model::md3::impl::read_string(
 	std::istream &_stream
 )
 {
+	// NOLINTNEXTLINE(cppcoreguidelines-pro-type-member-init,hicpp-member-init)
 	std::array<
 		sge::model::md3::string::value_type,
 		Max
@@ -49,10 +50,12 @@ sge::model::md3::impl::read_string(
 			)
 		)
 	)
+	{
 		throw
 			sge::model::md3::exception(
 				FCPPT_TEXT("Reading a string failed")
 			);
+	}
 
 	if(
 		!std::count(
@@ -61,10 +64,12 @@ sge::model::md3::impl::read_string(
 			0
 		)
 	)
+	{
 		throw
 			sge::model::md3::exception(
 				FCPPT_TEXT("String in md3 file not ended with a 0!")
 			);
+	}
 
 	return
 		tmp_name.data();

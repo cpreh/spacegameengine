@@ -37,8 +37,7 @@ sge::model::md3::impl::loader::loader(
 }
 
 sge::model::md3::impl::loader::~loader()
-{
-}
+= default;
 
 sge::model::md3::object_unique_ptr
 sge::model::md3::impl::loader::load(

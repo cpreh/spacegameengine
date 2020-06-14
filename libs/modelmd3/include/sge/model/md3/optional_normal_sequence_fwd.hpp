@@ -18,11 +18,12 @@ namespace model
 namespace md3
 {
 
-typedef
+using
+optional_normal_sequence
+=
 fcppt::optional::object<
 	sge::model::md3::normal_sequence
->
-optional_normal_sequence;
+>;
 
 }
 }

@@ -20,11 +20,12 @@ namespace model
 namespace md3
 {
 
-typedef
+using
+string
+=
 std::basic_string<
 	sge::model::md3::u8
->
-string;
+>;
 
 }
 }

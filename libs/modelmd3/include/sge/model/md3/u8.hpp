@@ -19,7 +19,10 @@ namespace model
 namespace md3
 {
 
-typedef std::uint8_t u8;
+using
+u8
+=
+std::uint8_t;
 
 }
 }

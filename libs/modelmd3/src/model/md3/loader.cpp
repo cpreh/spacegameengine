@@ -8,9 +8,7 @@
 
 
 sge::model::md3::loader::loader()
-{
-}
+= default;
 
 sge::model::md3::loader::~loader()
-{
-}
+= default;

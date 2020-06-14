@@ -34,7 +34,7 @@ xyz_scale()
 		fcppt::literal<
 			sge::model::md3::scalar
 		>(
-			64
+			64 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		);
 }
 

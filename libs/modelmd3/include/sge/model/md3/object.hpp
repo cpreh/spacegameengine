@@ -18,7 +18,7 @@
 #include <sge/model/md3/texcoord_sequence.hpp>
 #include <sge/model/md3/vertex_sequence.hpp>
 #include <sge/model/md3/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -30,37 +30,42 @@ namespace md3
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 protected:
 	SGE_MODEL_MD3_DETAIL_SYMBOL
 	object();
 public:
+	[[nodiscard]]
 	virtual
 	sge::model::md3::index_sequence
 	indices(
 		sge::model::md3::string const &name
 	) const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::model::md3::vertex_sequence
 	vertices(
 		sge::model::md3::string const &name
 	) const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::model::md3::optional_texcoord_sequence
 	texcoords(
 		sge::model::md3::string const &name
 	) const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::model::md3::optional_normal_sequence
 	normals(
 		sge::model::md3::string const &name
 	) const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::model::md3::part_name_sequence
 	part_names() const = 0;

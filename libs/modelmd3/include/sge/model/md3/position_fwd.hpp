@@ -18,12 +18,13 @@ namespace model
 namespace md3
 {
 
-typedef
+using
+position
+=
 fcppt::math::vector::static_<
 	sge::model::md3::scalar,
 	3
->
-position;
+>;
 
 }
 }

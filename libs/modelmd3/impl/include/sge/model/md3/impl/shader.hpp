@@ -31,9 +31,11 @@ public:
 		std::istream &
 	);
 
+	[[nodiscard]]
 	sge::model::md3::string const &
 	name() const;
 
+	[[nodiscard]]
 	sge::model::md3::impl::s32
 	shader_index() const;
 private:

@@ -32,25 +32,31 @@ public:
 		std::istream &
 	);
 
+	[[nodiscard]]
 	sge::model::md3::impl::vec3 const &
 	min_bounds() const;
 
+	[[nodiscard]]
 	sge::model::md3::impl::vec3 const &
 	max_bounds() const;
 
+	[[nodiscard]]
 	sge::model::md3::impl::vec3 const &
 	local_origin() const;
 
+	[[nodiscard]]
 	sge::model::md3::scalar
 	radius() const;
 
+	[[nodiscard]]
 	sge::model::md3::string const &
 	name() const;
 private:
-	sge::model::md3::impl::vec3
-		min_bounds_,
-		max_bounds_,
-		local_origin_;
+	sge::model::md3::impl::vec3 min_bounds_;
+
+	sge::model::md3::impl::vec3 max_bounds_;
+
+	sge::model::md3::impl::vec3 local_origin_;
 
 	sge::model::md3::scalar radius_;
 

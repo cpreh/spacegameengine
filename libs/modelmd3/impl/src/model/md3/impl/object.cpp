@@ -49,7 +49,7 @@ sge::model::md3::impl::object::object(
 	sge::model::md3::load_flags_field const _flags
 )
 :
-	// TODO: direct initialization
+	// TODO(philipp): direct initialization
 	vertices_{
 		0
 	},
@@ -70,9 +70,11 @@ sge::model::md3::impl::object::object(
 			_stream
 		)
 	)
+	{
 		throw sge::model::md3::exception(
 			FCPPT_TEXT("Invalid md3 format!")
 		);
+	}
 
 	sge::model::md3::impl::s32 const version(
 		md3::impl::read_s32(
@@ -80,14 +82,20 @@ sge::model::md3::impl::object::object(
 		)
 	);
 
+	constexpr sge::model::md3::impl::s32 const supported_version{
+		15
+	};
+
 	if(
-		version != 15
+		version != supported_version
 	)
 	{
 		FCPPT_LOG_WARNING(
 			_log,
 			fcppt::log::out
-				<< FCPPT_TEXT("md3 version is not 15 but continuing anyway.")
+				<< FCPPT_TEXT("md3 version is not ")
+				<< supported_version
+				<< FCPPT_TEXT(" but continuing anyway.")
 		)
 	}
 
@@ -103,22 +111,23 @@ sge::model::md3::impl::object::object(
 		_stream
 	);
 
-	sge::model::md3::impl::s32 const
-		num_frames(
-			sge::model::md3::impl::read_s32(
-				_stream
-			)
-		),
-		num_tags(
-			sge::model::md3::impl::read_s32(
-				_stream
-			)
-		),
-		num_surfaces(
-			sge::model::md3::impl::read_s32(
-				_stream
-			)
-		);
+	sge::model::md3::impl::s32 const num_frames(
+		sge::model::md3::impl::read_s32(
+			_stream
+		)
+	);
+
+	sge::model::md3::impl::s32 const num_tags(
+		sge::model::md3::impl::read_s32(
+			_stream
+		)
+	);
+
+	sge::model::md3::impl::s32 const num_surfaces(
+		sge::model::md3::impl::read_s32(
+			_stream
+		)
+	);
 
 	// num_skins
 	fcppt::io::read<
@@ -128,27 +137,29 @@ sge::model::md3::impl::object::object(
 		sge::model::md3::impl::endian()
 	);
 
-	sge::model::md3::impl::s32 const
-		ofs_frames(
-			sge::model::md3::impl::read_s32(
-				_stream
-			)
-		),
-		ofs_tags(
-			sge::model::md3::impl::read_s32(
-				_stream
-			)
-		),
-		ofs_surfaces(
-			sge::model::md3::impl::read_s32(
-				_stream
-			)
-		),
-		ofs_eof(
-			sge::model::md3::impl::read_s32(
-				_stream
-			)
-		);
+	sge::model::md3::impl::s32 const ofs_frames(
+		sge::model::md3::impl::read_s32(
+			_stream
+		)
+	);
+
+	sge::model::md3::impl::s32 const ofs_tags(
+		sge::model::md3::impl::read_s32(
+			_stream
+		)
+	);
+
+	sge::model::md3::impl::s32 const ofs_surfaces(
+		sge::model::md3::impl::read_s32(
+			_stream
+		)
+	);
+
+	sge::model::md3::impl::s32 const ofs_eof(
+		sge::model::md3::impl::read_s32(
+			_stream
+		)
+	);
 
 	_stream.seekg(
 		start
@@ -245,8 +256,7 @@ sge::model::md3::impl::object::object(
 }
 
 sge::model::md3::impl::object::~object()
-{
-}
+= default;
 
 sge::model::md3::index_sequence
 sge::model::md3::impl::object::indices(
@@ -267,17 +277,19 @@ sge::model::md3::impl::object::indices(
 		surf.triangles()
 	);
 
-	// TODO: map
+	// TODO(philipp): map
 	for(
 		auto const &triangle
 		:
 		triangles
 	)
+	{
 		for(
 			auto const &index
 			:
 			triangle.indices()
 		)
+		{
 			result.push_back(
 				static_cast<
 					sge::model::md3::index
@@ -286,6 +298,8 @@ sge::model::md3::impl::object::indices(
 				)
 				+ ib_offset
 			);
+		}
+	}
 
 	return result;
 }

@@ -34,7 +34,7 @@ sge::model::md3::impl::surface::surface(
 	sge::model::md3::impl::surface::num_frames const _num_frames_head
 )
 :
-	// TODO: Direct initialization
+	// TODO(philipp): Direct initialization
 	name_(),
 	shaders_(),
 	triangles_(),
@@ -50,10 +50,12 @@ sge::model::md3::impl::surface::surface(
 			_stream
 		)
 	)
+	{
 		throw
 			sge::model::md3::exception(
 				FCPPT_TEXT("Invalid md3 surface!")
 			);
+	}
 
 	name_ =
 		sge::model::md3::impl::read_string<
@@ -78,52 +80,60 @@ sge::model::md3::impl::surface::surface(
 		!=
 		_num_frames_head.get()
 	)
+	{
 		throw
 			sge::model::md3::exception(
 				FCPPT_TEXT("num_frames mismatch in md3::impl::surface!")
 			);
+	}
 
-	sge::model::md3::impl::s32 const
-		num_shaders(
-			sge::model::md3::impl::read_s32(
-				_stream
-			)
-		),
-		num_verts(
-			sge::model::md3::impl::read_s32(
-				_stream
-			)
-		),
-		num_triangles(
-			sge::model::md3::impl::read_s32(
-				_stream
-			)
-		),
-		ofs_triangles(
-			sge::model::md3::impl::read_s32(
-				_stream
-			)
-		),
-		ofs_shaders(
-			sge::model::md3::impl::read_s32(
-				_stream
-			)
-		),
-		ofs_st(
-			sge::model::md3::impl::read_s32(
-				_stream
-			)
-		),
-		ofs_xyznormal(
-			sge::model::md3::impl::read_s32(
-				_stream
-			)
-		),
-		ofs_end(
-			sge::model::md3::impl::read_s32(
-				_stream
-			)
-		);
+	sge::model::md3::impl::s32 const num_shaders(
+		sge::model::md3::impl::read_s32(
+			_stream
+		)
+	);
+
+	sge::model::md3::impl::s32 const num_verts(
+		sge::model::md3::impl::read_s32(
+			_stream
+		)
+	);
+
+	sge::model::md3::impl::s32 const num_triangles(
+		sge::model::md3::impl::read_s32(
+			_stream
+		)
+	);
+
+	sge::model::md3::impl::s32 const ofs_triangles(
+		sge::model::md3::impl::read_s32(
+			_stream
+		)
+	);
+
+	sge::model::md3::impl::s32 const ofs_shaders(
+		sge::model::md3::impl::read_s32(
+			_stream
+		)
+	);
+
+	sge::model::md3::impl::s32 const ofs_st(
+		sge::model::md3::impl::read_s32(
+			_stream
+		)
+	);
+
+	sge::model::md3::impl::s32 const ofs_xyznormal(
+		sge::model::md3::impl::read_s32(
+			_stream
+		)
+	);
+
+	sge::model::md3::impl::s32 const ofs_end(
+		sge::model::md3::impl::read_s32(
+			_stream
+		)
+	);
 
 	_stream.seekg(
 		start
@@ -133,17 +143,19 @@ sge::model::md3::impl::surface::surface(
 		std::ios_base::beg
 	);
 
-	// TODO: map
+	// TODO(philipp): map
 	for(
 		s32 i = 0;
 		i < num_triangles;
 		++i
 	)
+	{
 		triangles_.push_back(
 			sge::model::md3::impl::triangle(
 				_stream
 			)
 		);
+	}
 
 	_stream.seekg(
 		start
@@ -153,17 +165,19 @@ sge::model::md3::impl::surface::surface(
 		std::ios_base::beg
 	);
 
-	// TODO: map
+	// TODO(philipp): map
 	for(
 		s32 i = 0;
 		i < num_shaders;
 		++i
 	)
+	{
 		shaders_.push_back(
 			sge::model::md3::impl::shader(
 				_stream
 			)
 		);
+	}
 
 	_stream.seekg(
 		start
@@ -173,17 +187,19 @@ sge::model::md3::impl::surface::surface(
 		std::ios_base::beg
 	);
 
-	// TODO: map
+	// TODO(philipp): map
 	for(
 		s32 i = 0;
 		i < num_verts;
 		++i
 	)
+	{
 		texpos_.push_back(
 			sge::model::md3::impl::texpos(
 				_stream
 			)
 		);
+	}
 
 	_stream.seekg(
 		start
@@ -193,12 +209,13 @@ sge::model::md3::impl::surface::surface(
 		std::ios_base::beg
 	);
 
-	// TODO: map
+	// TODO(philipp): map
 	for(
 		s32 i = 0;
 		i < num_verts;
 		++i
 	)
+	{
 		transformed_vertices_.push_back(
 			sge::model::md3::impl::transformed_vertex(
 				sge::model::md3::impl::vertex(
@@ -207,6 +224,7 @@ sge::model::md3::impl::surface::surface(
 				)
 			)
 		);
+	}
 
 	_stream.seekg(
 		start
