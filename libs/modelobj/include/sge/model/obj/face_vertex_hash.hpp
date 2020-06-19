@@ -9,6 +9,9 @@
 
 #include <sge/model/obj/face_vertex_fwd.hpp>
 #include <sge/model/obj/detail/symbol.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <functional>
