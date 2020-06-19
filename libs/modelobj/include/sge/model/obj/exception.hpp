@@ -34,7 +34,8 @@ public:
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	exception(
 		exception &&
-	);
+	)
+	noexcept;
 
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	exception(
@@ -45,7 +46,8 @@ public:
 	exception &
 	operator=(
 		exception &&
-	);
+	)
+	noexcept;
 
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	exception &

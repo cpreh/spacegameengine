@@ -26,48 +26,58 @@ namespace obj
 {
 namespace material
 {
+
 class object
 {
 public:
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	object(
-		sge::model::obj::identifier const &,
-		sge::model::obj::material::diffuse_color const &,
-		sge::model::obj::material::ambient_color const &,
-		sge::model::obj::material::specular_color const &,
-		sge::model::obj::material::emissive_color const &,
+		sge::model::obj::identifier &&,
+		sge::model::obj::material::diffuse_color,
+		sge::model::obj::material::ambient_color,
+		sge::model::obj::material::specular_color,
+		sge::model::obj::material::emissive_color,
 		sge::model::obj::material::shininess const &,
-		sge::model::obj::material::diffuse_texture_path const &,
-		sge::model::obj::material::specular_texture_path const &);
+		sge::model::obj::material::diffuse_texture_path &&,
+		sge::model::obj::material::specular_texture_path &&
+	);
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::identifier const &
 	identifier() const;
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::material::diffuse_color const &
 	diffuse_color() const;
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::material::ambient_color const &
 	ambient_color() const;
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::material::specular_color const &
 	specular_color() const;
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::material::emissive_color const &
 	emissive_color() const;
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::material::shininess const &
 	shininess() const;
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::material::diffuse_texture_path const &
 	diffuse_texture() const;
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::material::specular_texture_path const &
 	specular_texture() const;
@@ -81,6 +91,7 @@ private:
 	sge::model::obj::material::diffuse_texture_path diffuse_texture_;
 	sge::model::obj::material::specular_texture_path specular_texture_;
 };
+
 }
 }
 }

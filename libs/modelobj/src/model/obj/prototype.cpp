@@ -7,6 +7,8 @@
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/model/obj/exception.hpp>
+#include <sge/model/obj/face_vertex.hpp>
+#include <sge/model/obj/face_vertex_hash.hpp>
 #include <sge/model/obj/prototype.hpp>
 #include <sge/model/obj/impl/log_name.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -26,87 +28,105 @@
 #include <algorithm>
 #include <array>
 #include <cstddef>
+#include <cstdint>
 #include <filesystem>
 #include <fstream>
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
-typedef
-unsigned long
-line_count;
+
+using
+line_count
+=
+std::uint64_t;
 
 sge::model::obj::face_vertex
 parse_face_vertex(
 	line_count const _current_line,
-	std::istream &_stream)
+	std::istream &_stream
+)
 {
-	std::size_t vertex_coordinate_index,texture_coordinate_index,normal_index;
+	std::size_t vertex_coordinate_index; // NOLINT(cppcoreguidelines-init-variables)
 
 	if(!(_stream >> vertex_coordinate_index))
+	{
 		throw
 			sge::model::obj::exception(
 				FCPPT_TEXT("Error on line ")+
 				fcppt::output_to_fcppt_string(
 					_current_line)+
 				FCPPT_TEXT(": Invalid face index"));
+	}
 
 	if(_stream.peek() != '/')
+	{
 		throw
 			sge::model::obj::exception(
 				FCPPT_TEXT("Error on line ")+
 				fcppt::output_to_fcppt_string(
 					_current_line)+
 				FCPPT_TEXT(": Invalid face delimiter (vertex)"));
+	}
 
 	_stream.ignore();
+
+	std::size_t texture_coordinate_index; // NOLINT(cppcoreguidelines-init-variables)
 
 	// No texture coordinate
 	if(_stream.peek() == '/')
 	{
 		texture_coordinate_index =
-			1u;
+			1U;
 	}
 	else
 	{
 		if(!(_stream >> texture_coordinate_index))
+		{
 			throw
 				sge::model::obj::exception(
 					FCPPT_TEXT("Error on line ")+
 					fcppt::output_to_fcppt_string(
 						_current_line)+
 					FCPPT_TEXT(": Invalid face index (texture coordinate)"));
+		}
 	}
 
 	if(_stream.peek() != '/')
+	{
 		throw
 			sge::model::obj::exception(
 				FCPPT_TEXT("Error on line ")+
 				fcppt::output_to_fcppt_string(
 					_current_line)+
 				FCPPT_TEXT(": Invalid face delimiter (normal)"));
+	}
 
 	_stream.ignore();
 
+	std::size_t normal_index; // NOLINT(cppcoreguidelines-init-variables)
+
 	if(!(_stream >> normal_index))
+	{
 		throw
 			sge::model::obj::exception(
 				FCPPT_TEXT("Error on line ")+
 				fcppt::output_to_fcppt_string(
 					_current_line)+
 				FCPPT_TEXT(": Invalid face index"));
+	}
 
 	return
 		sge::model::obj::face_vertex(
 			sge::model::obj::vertex_coordinate_index(
-				vertex_coordinate_index-1u),
+				vertex_coordinate_index-1U),
 			sge::model::obj::texture_coordinate_index(
-				texture_coordinate_index-1u),
+				texture_coordinate_index-1U),
 			sge::model::obj::normal_index(
-				normal_index-1u));
+				normal_index-1U));
 }
 }
 
@@ -138,24 +158,29 @@ sge::model::obj::prototype::prototype(
 		_filename);
 
 	if(!stream.is_open())
+	{
 		throw
 			sge::model::obj::exception(
 				FCPPT_TEXT("Couldn't open file \"")+
 				fcppt::filesystem::path_to_string(
 					_filename)+
 				FCPPT_TEXT("\""));
+	}
 
-	typedef
-		std::map<sge::model::obj::face_vertex,std::size_t>
-		//boost::unordered_map<sge::model::obj::face_vertex,std::size_t>
-	face_vertex_to_index_map;
+	using
+	face_vertex_to_index_map
+	=
+	std::unordered_map<
+		sge::model::obj::face_vertex,
+		std::size_t
+	>;
 
 	std::filesystem::path const _obj_file_path(
 		_filename.parent_path());
 
 	face_vertex_to_index_map face_vertex_to_index;
 
-	line_count line_counter = 0u;
+	line_count line_counter = 0U;
 
 	sge::model::obj::identifier current_material{
 		sge::charconv::utf8_string{}
@@ -170,18 +195,22 @@ sge::model::obj::prototype::prototype(
 		++line_counter;
 
 		if(line.empty() || line[0] == '#')
+		{
 			continue;
+		}
 
 		std::string::size_type const first_space_position =
 			line.find(' ');
 
 		if(first_space_position == std::string::npos)
+		{
 			throw
 				sge::model::obj::exception(
 					FCPPT_TEXT("Error on line ")+
 					fcppt::output_to_fcppt_string(
 						line_counter)+
 					FCPPT_TEXT(": No prefix found."));
+		}
 
 		std::string const prefix =
 			line.substr(
@@ -189,11 +218,13 @@ sge::model::obj::prototype::prototype(
 				first_space_position);
 
 		if(prefix[0] == 'o' || prefix[0] == 's' || prefix[0] == 'g')
+		{
 			continue;
+		}
 
 		std::string const rest_of_line(
 			line.substr(
-				first_space_position+1u));
+				first_space_position+1U));
 
 		if(prefix == "mtllib")
 		{
@@ -219,17 +250,20 @@ sge::model::obj::prototype::prototype(
 				fcppt::no_init()};
 
 			if(!(line_rest >> coordinate.x() >> coordinate.y() >> coordinate.z()))
+			{
 				throw
 					sge::model::obj::exception(
 						FCPPT_TEXT("Error on line ")+
 						fcppt::output_to_fcppt_string(
 							line_counter)+
 						FCPPT_TEXT(": Invalid coordinate(s)"));
+			}
 
 			// Flip z
 			coordinate.z() = -coordinate.z();
 
 			if(vertex_coordinates_.empty())
+			{
 				bounding_box_ =
 					sge::model::obj::box(
 						coordinate,
@@ -237,11 +271,14 @@ sge::model::obj::prototype::prototype(
 							sge::model::obj::box::dim
 						>()
 					);
+			}
 			else
+			{
 				bounding_box_ =
 					fcppt::math::box::extend_bounding_box(
 						bounding_box_,
 						coordinate);
+			}
 
 			vertex_coordinates_.push_back(
 				coordinate);
@@ -255,12 +292,14 @@ sge::model::obj::prototype::prototype(
 				fcppt::no_init()};
 
 			if(!(line_rest >> normal.x() >> normal.y() >> normal.z()))
+			{
 				throw
 					sge::model::obj::exception(
 						FCPPT_TEXT("Error on line ")+
 						fcppt::output_to_fcppt_string(
 							line_counter)+
 						FCPPT_TEXT(": Invalid normal(s)"));
+			}
 
 			// Flip z
 			normal.z() = -normal.z();
@@ -277,28 +316,31 @@ sge::model::obj::prototype::prototype(
 				fcppt::no_init()};
 
 			if(!(line_rest >> tex_coord.x() >> tex_coord.y()))
+			{
 				throw
 					sge::model::obj::exception(
 						FCPPT_TEXT("Error on line ")+
 						fcppt::output_to_fcppt_string(
 							line_counter)+
 						FCPPT_TEXT(": Invalid tex coord(s)"));
+			}
 
 			// Flip y
 			texture_coordinates_.push_back(
 				sge::renderer::vector2(
 					tex_coord.x(),
 					//1.0f - tex_coord.y()));
-					1.0f - tex_coord.y()));
+					1.0F - tex_coord.y()));
 		}
 		else if(prefix == "f")
 		{
 			std::istringstream line_rest(
 				rest_of_line);
 
-			typedef
-			std::array<sge::model::obj::face_vertex,3>
-			face_vertex_array;
+			using
+			face_vertex_array
+			=
+			std::array<sge::model::obj::face_vertex,3>;
 
 			face_vertex_array const temporary_face_vertices{{
 				parse_face_vertex(
@@ -316,7 +358,7 @@ sge::model::obj::prototype::prototype(
 
 			for(std::size_t i = 0; i < temporary_face_vertices.size(); ++i)
 			{
-				face_vertex_to_index_map::iterator it =
+				auto it =
 					face_vertex_to_index.find(
 						temporary_face_vertices[i]);
 
@@ -338,11 +380,11 @@ sge::model::obj::prototype::prototype(
 							std::make_pair(
 								temporary_face_vertices[i],
 								static_cast<std::size_t>(
-									face_vertices_.size()-1u))).first;
+									face_vertices_.size()-1U))).first;
 				}
 
 				// Flip triangle order
-				face[2u - i] =
+				face[2U - i] =
 				//face[i] =
 					it->second;
 				/*
@@ -419,12 +461,14 @@ std::size_t
 sge::model::obj::prototype::face_count() const
 {
 	std::size_t result =
-		0u;
+		0U;
 
 	for(
 		auto const &part : parts()
 	)
+	{
 		result += part.second.size();
+	}
 
 	return
 		result;
@@ -445,5 +489,4 @@ sge::model::obj::prototype::bounding_box() const
 }
 
 sge::model::obj::prototype::~prototype()
-{
-}
+= default;

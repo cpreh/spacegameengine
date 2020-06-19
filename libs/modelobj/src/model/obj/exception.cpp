@@ -30,6 +30,7 @@ sge::model::obj::exception::exception(
 sge::model::obj::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::model::obj::exception::exception(
@@ -41,6 +42,7 @@ sge::model::obj::exception &
 sge::model::obj::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::model::obj::exception &
@@ -49,6 +51,6 @@ sge::model::obj::exception::operator=(
 )
 = default;
 
-sge::model::obj::exception::~exception() noexcept
-{
-}
+sge::model::obj::exception::~exception()
+noexcept
+= default;

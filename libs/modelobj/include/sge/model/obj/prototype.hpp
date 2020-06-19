@@ -15,7 +15,7 @@
 #include <sge/model/obj/vertex_coordinate_sequence.hpp>
 #include <sge/model/obj/detail/symbol.hpp>
 #include <sge/model/obj/material/file_sequence.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -32,8 +32,9 @@ namespace obj
 {
 class prototype
 {
-FCPPT_NONCOPYABLE(
-	prototype);
+	FCPPT_NONMOVABLE(
+		prototype
+	);
 public:
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	prototype(
@@ -41,34 +42,42 @@ public:
 		std::filesystem::path const &
 	);
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::vertex_coordinate_sequence const &
 	vertex_coordinates() const;
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::texture_coordinate_sequence const &
 	texture_coordinates() const;
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::normal_sequence const &
 	normals() const;
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::face_vertex_sequence const &
 	face_vertices() const;
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::material_to_face_sequence const &
 	parts() const;
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	std::size_t
 	face_count() const;
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::material::file_sequence const &
 	material_files() const;
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::box const &
 	bounding_box() const;

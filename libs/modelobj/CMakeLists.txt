@@ -8,6 +8,8 @@ set(
 	libs/modelobj/include/sge/model/obj/face.hpp
 	libs/modelobj/include/sge/model/obj/face_sequence.hpp
 	libs/modelobj/include/sge/model/obj/face_vertex.hpp
+	libs/modelobj/include/sge/model/obj/face_vertex_fwd.hpp
+	libs/modelobj/include/sge/model/obj/face_vertex_hash.hpp
 	libs/modelobj/include/sge/model/obj/face_vertex_sequence.hpp
 	libs/modelobj/include/sge/model/obj/identifier.hpp
 	libs/modelobj/include/sge/model/obj/log_location.hpp
@@ -37,6 +39,7 @@ set(
 	libs/modelobj/include/sge/model/obj/vertex_coordinate_sequence.hpp
 	libs/modelobj/src/model/obj/exception.cpp
 	libs/modelobj/src/model/obj/face_vertex.cpp
+	libs/modelobj/src/model/obj/face_vertex_hash.cpp
 	libs/modelobj/src/model/obj/log_location.cpp
 	libs/modelobj/src/model/obj/material/object.cpp
 	libs/modelobj/src/model/obj/parse_mtllib.cpp

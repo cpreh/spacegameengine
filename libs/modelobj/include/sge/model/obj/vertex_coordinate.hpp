@@ -9,15 +9,19 @@
 
 #include <sge/renderer/vector3.hpp>
 
+
 namespace sge
 {
 namespace model
 {
 namespace obj
 {
-typedef
-sge::renderer::vector3
-vertex_coordinate;
+
+using
+vertex_coordinate
+=
+sge::renderer::vector3;
+
 }
 }
 }

@@ -7,6 +7,7 @@
 #ifndef SGE_MODEL_OBJ_FACE_VERTEX_HPP_INCLUDED
 #define SGE_MODEL_OBJ_FACE_VERTEX_HPP_INCLUDED
 
+#include <sge/model/obj/face_vertex_fwd.hpp>
 #include <sge/model/obj/normal_index.hpp>
 #include <sge/model/obj/texture_coordinate_index.hpp>
 #include <sge/model/obj/vertex_coordinate_index.hpp>
@@ -24,6 +25,7 @@ namespace model
 {
 namespace obj
 {
+
 class face_vertex
 {
 public:
@@ -31,23 +33,28 @@ public:
 	face_vertex(
 		sge::model::obj::vertex_coordinate_index const &,
 		sge::model::obj::texture_coordinate_index const &,
-		sge::model::obj::normal_index const &);
+		sge::model::obj::normal_index const &
+	);
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::vertex_coordinate_index
 	vertex_coordinate_index() const;
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::texture_coordinate_index
 	texture_coordinate_index() const;
 
+	[[nodiscard]]
 	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	sge::model::obj::normal_index
 	normal_index() const;
 
 	bool
 	operator==(
-		face_vertex const &_other) const
+		face_vertex const &_other
+	) const
 	{
 		return
 			indices_ == _other.indices_;
@@ -55,35 +62,24 @@ public:
 
 	bool
 	operator<(
-		face_vertex const &_other) const
+		face_vertex const &_other
+	) const
 	{
 		return
 			indices_ < _other.indices_;
 	}
-
-	friend std::size_t
-	hash_value(
-		face_vertex const &_vertex)
-	{
-		std::size_t seed = 0u;
-		boost::hash_combine(
-			seed,
-			_vertex.indices_[0u]);
-		boost::hash_combine(
-			seed,
-			_vertex.indices_[1u]);
-		boost::hash_combine(
-			seed,
-			_vertex.indices_[2u]);
-		return seed;
-	}
 private:
-	typedef
-	std::array<std::size_t,3>
-	index_array;
+	using
+	index_array
+	=
+	std::array<
+		std::size_t,
+		3
+	>;
 
 	index_array indices_;
 };
+
 }
 }
 }

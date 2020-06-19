@@ -9,15 +9,19 @@
 
 #include <sge/renderer/vector2.hpp>
 
+
 namespace sge
 {
 namespace model
 {
 namespace obj
 {
-typedef
-sge::renderer::vector2
-texture_coordinate;
+
+using
+texture_coordinate
+=
+sge::renderer::vector2;
+
 }
 }
 }

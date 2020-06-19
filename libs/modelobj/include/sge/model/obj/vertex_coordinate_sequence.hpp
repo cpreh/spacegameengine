@@ -19,9 +19,14 @@ namespace model
 {
 namespace obj
 {
-typedef
-std::vector<sge::model::obj::vertex_coordinate>
-vertex_coordinate_sequence;
+
+using
+vertex_coordinate_sequence
+=
+std::vector<
+	sge::model::obj::vertex_coordinate
+>;
+
 }
 }
 }

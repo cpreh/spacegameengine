@@ -19,9 +19,14 @@ namespace model
 {
 namespace obj
 {
-typedef
-std::vector<sge::model::obj::normal>
-normal_sequence;
+
+using
+normal_sequence
+=
+std::vector<
+	sge::model::obj::normal
+>;
+
 }
 }
 }

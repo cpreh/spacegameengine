@@ -19,9 +19,14 @@ namespace model
 {
 namespace obj
 {
-typedef
-std::vector<sge::model::obj::texture_coordinate>
-texture_coordinate_sequence;
+
+using
+texture_coordinate_sequence
+=
+std::vector<
+	sge::model::obj::texture_coordinate
+>;
+
 }
 }
 }

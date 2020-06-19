@@ -9,15 +9,19 @@
 
 #include <sge/renderer/vector3.hpp>
 
+
 namespace sge
 {
 namespace model
 {
 namespace obj
 {
-typedef
-sge::renderer::vector3
-normal;
+
+using
+normal
+=
+sge::renderer::vector3;
+
 }
 }
 }

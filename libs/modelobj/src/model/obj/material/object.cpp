@@ -4,34 +4,69 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/model/obj/identifier.hpp>
+#include <sge/model/obj/material/ambient_color.hpp>
+#include <sge/model/obj/material/diffuse_color.hpp>
+#include <sge/model/obj/material/diffuse_texture_path.hpp>
+#include <sge/model/obj/material/emissive_color.hpp>
 #include <sge/model/obj/material/object.hpp>
+#include <sge/model/obj/material/shininess.hpp>
+#include <sge/model/obj/material/specular_color.hpp>
+#include <sge/model/obj/material/specular_texture_path.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
+
 
 sge::model::obj::material::object::object(
-	sge::model::obj::identifier const &_identifier,
-	sge::model::obj::material::diffuse_color const &_diffuse_color,
-	sge::model::obj::material::ambient_color const &_ambient_color,
-	sge::model::obj::material::specular_color const &_specular_color,
-	sge::model::obj::material::emissive_color const &_emissive_color,
+	sge::model::obj::identifier &&_identifier,
+	sge::model::obj::material::diffuse_color _diffuse_color,
+	sge::model::obj::material::ambient_color _ambient_color,
+	sge::model::obj::material::specular_color _specular_color,
+	sge::model::obj::material::emissive_color _emissive_color,
 	sge::model::obj::material::shininess const &_shininess,
-	sge::model::obj::material::diffuse_texture_path const &_diffuse_texture,
-	sge::model::obj::material::specular_texture_path const &_specular_texture)
+	sge::model::obj::material::diffuse_texture_path &&_diffuse_texture,
+	sge::model::obj::material::specular_texture_path &&_specular_texture
+)
 :
 	identifier_(
-		_identifier),
+		std::move(
+			_identifier
+		)
+	),
 	diffuse_color_(
-		_diffuse_color),
+		std::move(
+			_diffuse_color
+		)
+	),
 	ambient_color_(
-		_ambient_color),
+		std::move(
+			_ambient_color
+		)
+	),
 	specular_color_(
-		_specular_color),
+		std::move(
+			_specular_color
+		)
+	),
 	emissive_color_(
-		_emissive_color),
+		std::move(
+			_emissive_color
+		)
+	),
 	shininess_(
-		_shininess),
+		_shininess
+	),
 	diffuse_texture_(
-		_diffuse_texture),
+		std::move(
+			_diffuse_texture
+		)
+	),
 	specular_texture_(
-		_specular_texture)
+		std::move(
+			_specular_texture
+		)
+	)
 {
 }
 

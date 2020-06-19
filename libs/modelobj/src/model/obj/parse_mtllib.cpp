@@ -17,7 +17,7 @@
 #include <sge/model/obj/impl/log_name.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/no_init.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -44,10 +44,10 @@
 namespace
 {
 
-// TODO: Refactor this
+// TODO(philipp): Refactor this
 class parser
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		parser
 	);
 public:
@@ -68,7 +68,7 @@ public:
 		),
 		result_(),
 		current_line_(
-			0u
+			0U
 		),
 		current_material_(
 			sge::charconv::utf8_string{}
@@ -85,24 +85,30 @@ public:
 			_filename);
 
 		if(!stream.is_open())
+		{
 			throw
 				sge::model::obj::exception(
 					FCPPT_TEXT("Couldn't open file \"")+
 					fcppt::filesystem::path_to_string(
 						_filename)+
 					FCPPT_TEXT("\""));
+		}
 
 		std::string line;
 
 		while(
 			std::getline(
 				stream,
-				line))
+				line
+			)
+		)
 		{
 			++current_line_;
 
 			if(line.empty() || line[0] == '#')
+			{
 				continue;
+			}
 
 			std::string::size_type const first_space_position =
 				line.find(' ');
@@ -118,7 +124,7 @@ public:
 
 			std::string const rest_of_line(
 				line.substr(
-					first_space_position+1u));
+					first_space_position+1U));
 
 			this->parse_line(
 				prefix,
@@ -128,6 +134,10 @@ public:
 		this->push_material();
 	}
 
+	~parser()
+	= default;
+
+	[[nodiscard]]
 	sge::model::obj::material_map const &
 	result() const
 	{
@@ -138,9 +148,12 @@ public:
 	void
 	throw_error_if(
 		bool const _condition,
-		fcppt::string const &_error_message)
+		fcppt::string const &_error_message
+	)
+	const
 	{
 		if(_condition)
+		{
 			throw
 				sge::model::obj::exception(
 					FCPPT_TEXT("Error on line ")+
@@ -148,19 +161,21 @@ public:
 						current_line_)+
 					FCPPT_TEXT(": ")+
 					_error_message);
+		}
 	}
 
 	void
 	parse_line(
 		std::string const &_prefix,
-		std::string const &_rest_of_line)
+		std::string const &_rest_of_line
+	)
 	{
 		if(_prefix == "Ns")
 		{
 			std::istringstream ss(
 				_rest_of_line);
 
-			sge::renderer::scalar new_shininess;
+			sge::renderer::scalar new_shininess; // NOLINT(cppcoreguidelines-init-variables)
 
 			this->throw_error_if(
 				!(ss >> new_shininess),
@@ -194,7 +209,7 @@ public:
 			std::istringstream ss(
 				_rest_of_line);
 
-			sge::renderer::scalar new_emissive;
+			sge::renderer::scalar new_emissive; // NOLINT(cppcoreguidelines-init-variables)
 
 			this->throw_error_if(
 				!(ss >> new_emissive),
@@ -254,7 +269,7 @@ public:
 			std::istringstream ss(
 				_rest_of_line);
 
-			sge::renderer::scalar dissolve;
+			sge::renderer::scalar dissolve; // NOLINT(cppcoreguidelines-init-variables)
 
 			this->throw_error_if(
 				!(ss >> dissolve),
@@ -286,14 +301,15 @@ public:
 			std::istringstream ss(
 				_rest_of_line);
 
-			unsigned light_model;
+			unsigned light_model; // NOLINT(cppcoreguidelines-init-variables)
+
 			this->throw_error_if(
 				!(ss >> light_model),
 				FCPPT_TEXT("Invalid light model"));
 
 			switch(light_model)
 			{
-			case 0u:
+			case 0U:
 				ambient_ =
 					optional_color(
 						fcppt::math::vector::null<
@@ -301,7 +317,7 @@ public:
 						>()
 					);
 				break;
-			case 1u:
+			case 1U:
 				specular_ =
 					optional_color(
 						fcppt::math::vector::null<
@@ -309,7 +325,7 @@ public:
 						>()
 					);
 				break;
-			case 2u:
+			case 2U:
 				break;
 			default:
 				FCPPT_LOG_WARNING(
@@ -349,7 +365,9 @@ public:
 		{
 			// First material we see? Do nothing.
 			if(!current_material_.get().empty())
+			{
 				this->push_material();
+			}
 
 			current_material_ =
 				sge::model::obj::identifier(
@@ -392,7 +410,7 @@ public:
 
 		auto const make_color(
 			[](
-				sge::renderer::vector3 const _vec
+				sge::renderer::vector3 const &_vec
 			)
 			{
 				return
@@ -410,7 +428,9 @@ public:
 			std::make_pair(
 				current_material_,
 				sge::model::obj::material::object(
-					current_material_,
+					sge::model::obj::identifier{
+						current_material_
+					},
 					sge::model::obj::material::diffuse_color(
 						make_color(
 							fcppt::optional::to_exception(
@@ -482,19 +502,21 @@ private:
 
 	sge::model::obj::identifier current_material_;
 
-	typedef
+	using
+	optional_shininess
+	=
 	fcppt::optional::object<
 		sge::renderer::scalar
-	>
-	optional_shininess;
+	>;
 
 	optional_shininess shininess_;
 
-	typedef
+	using
+	optional_color
+	=
 	fcppt::optional::object<
 		sge::renderer::vector3
-	>
-	optional_color;
+	>;
 
 	optional_color ambient_;
 
@@ -504,11 +526,12 @@ private:
 
 	optional_color emissive_;
 
-	typedef
+	using
+	optional_path
+	=
 	fcppt::optional::object<
 		std::filesystem::path
-	>
-	optional_path;
+	>;
 
 	optional_path diffuse_texture_;
 

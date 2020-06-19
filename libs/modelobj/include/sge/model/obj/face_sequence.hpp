@@ -19,9 +19,14 @@ namespace model
 {
 namespace obj
 {
-typedef
-std::vector<sge::model::obj::face>
-face_sequence;
+
+using
+face_sequence
+=
+std::vector<
+	sge::model::obj::face
+>;
+
 }
 }
 }
