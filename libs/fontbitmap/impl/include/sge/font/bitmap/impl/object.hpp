@@ -16,13 +16,14 @@
 #include <sge/font/bitmap/impl/line_height.hpp>
 #include <sge/image/color/optional_format.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
-#include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/system_ref.hpp>
 #include <sge/parse/json/start_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
+#include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -40,14 +41,14 @@ class object
 :
 	public sge::font::object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	object(
 		fcppt::log::context_reference,
 		std::filesystem::path const &,
-		sge::image2d::system &
+		sge::image2d::system_ref
 	);
 
 	~object()
@@ -56,10 +57,11 @@ private:
 	object(
 		fcppt::log::context_reference,
 		std::filesystem::path const &,
-		sge::image2d::system &,
+		sge::image2d::system_ref,
 		sge::parse::json::start const &
 	);
 
+	[[nodiscard]]
 	sge::font::text_unique_ptr
 	create_text(
 		sge::font::string const &,
@@ -67,10 +69,12 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::image::color::optional_format
 	preferred_color_format() const
 	override;
 
+	[[nodiscard]]
 	sge::font::metrics
 	metrics() const
 	override;
@@ -79,15 +83,17 @@ private:
 
 	sge::font::bitmap::impl::line_height const line_height_;
 
-	typedef
+	using
+	image_vector
+	=
 	std::vector<
 		sge::image2d::file_unique_ptr
-	>
-	image_vector;
+	>;
 
-	sge::font::bitmap::impl::char_map char_map_;
-
-	image_vector const images_;
+	std::pair<
+		image_vector,
+		sge::font::bitmap::impl::char_map
+	> const impl_;
 
 	sge::image::color::optional_format const color_format_;
 };

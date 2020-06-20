@@ -23,12 +23,13 @@ namespace bitmap
 namespace impl
 {
 
-typedef
+using
+char_map
+=
 std::unordered_map<
 	sge::font::char_type,
 	sge::font::bitmap::impl::char_metric
->
-char_map;
+>;
 
 }
 }

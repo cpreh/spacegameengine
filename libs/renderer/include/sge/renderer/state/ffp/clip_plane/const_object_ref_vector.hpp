@@ -24,9 +24,12 @@ namespace ffp
 namespace clip_plane
 {
 
-typedef std::vector<
+using
+const_object_ref_vector
+=
+std::vector<
 	sge::renderer::state::ffp::clip_plane::const_object_ref
-> const_object_ref_vector;
+>;
 
 }
 }

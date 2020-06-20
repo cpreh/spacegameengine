@@ -19,6 +19,7 @@
 #include <sge/font/align_h/right.hpp>
 #include <sge/font/bitmap/impl/char_map.hpp>
 #include <sge/font/bitmap/impl/char_metric.hpp>
+#include <sge/font/bitmap/impl/char_metric_ref.hpp>
 #include <sge/font/bitmap/impl/const_view.hpp>
 #include <sge/font/bitmap/impl/line.hpp>
 #include <sge/font/bitmap/impl/line_height.hpp>
@@ -79,8 +80,7 @@ sge::font::bitmap::impl::text::text(
 }
 
 sge::font::bitmap::impl::text::~text()
-{
-}
+= default;
 
 void
 sge::font::bitmap::impl::text::render(
@@ -174,18 +174,19 @@ sge::font::bitmap::impl::text::cursor_rect(
 	sge::font::index const _index
 ) const
 {
-	// TODO: This code would better be expressed using ranges.
+	// TODO(philipp): This code would better be expressed using ranges.
 
-	typedef
+	using
+	optional_rect
+	=
 	fcppt::optional::object<
 		sge::font::rect
-	>
-	optional_rect;
+	>;
 
 	optional_rect result;
 
 	sge::font::index index{
-		0u
+		0U
 	};
 
 	this->iterate(
@@ -194,7 +195,7 @@ sge::font::bitmap::impl::text::cursor_rect(
 			&index,
 			_index
 		](
-			sge::font::bitmap::impl::position const _position
+			sge::font::bitmap::impl::position const &_position
 		)
 		{
 			if(
@@ -242,12 +243,12 @@ sge::font::bitmap::impl::text::pos_to_index(
 	sge::font::vector const _pos
 ) const
 {
-	// TODO: This code would better be expressed using ranges.
+	// TODO(philipp): This code would better be expressed using ranges.
 
 	sge::font::optional_index result;
 
 	sge::font::index index{
-		0u
+		0U
 	};
 
 	this->iterate(
@@ -256,7 +257,7 @@ sge::font::bitmap::impl::text::pos_to_index(
 			&index,
 			_pos
 		](
-			sge::font::bitmap::impl::position const _position
+			sge::font::bitmap::impl::position const &_position
 		)
 		{
 			if(
@@ -307,7 +308,7 @@ sge::font::bitmap::impl::text::iterate(
 ) const
 {
 	sge::font::unit top(
-		0u
+		0U
 	);
 
 	for(
@@ -358,7 +359,7 @@ sge::font::bitmap::impl::text::iterate(
 		);
 
 		for(
-			auto const &metric
+			sge::font::bitmap::impl::char_metric_ref const &metric
 			:
 			line.char_metrics()
 		)
@@ -370,7 +371,7 @@ sge::font::bitmap::impl::text::iterate(
 							left,
 							top
 						},
-						metric.get()
+						metric
 					}
 				)
 			)

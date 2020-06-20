@@ -26,17 +26,20 @@ class char_metric
 {
 public:
 	char_metric(
-		sge::font::bitmap::impl::const_view const &,
-		sge::font::vector const &offset,
+		sge::font::bitmap::impl::const_view,
+		sge::font::vector offset,
 		sge::font::unit x_advance
 	);
 
+	[[nodiscard]]
 	sge::font::bitmap::impl::const_view
 	view() const;
 
+	[[nodiscard]]
 	sge::font::vector
 	offset() const;
 
+	[[nodiscard]]
 	sge::font::unit
 	x_advance() const;
 private:

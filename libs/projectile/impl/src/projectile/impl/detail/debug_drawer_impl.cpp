@@ -19,6 +19,7 @@
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -57,7 +58,10 @@ sge::projectile::detail::debug_drawer_impl::debug_drawer_impl(
 	debug_mode_(
 		btIDebugDraw::DBG_NoDebug), // should be zero
 	line_drawer_(
-		_renderer),
+		fcppt::make_ref(
+			_renderer
+		)
+	),
 	scoped_lock_()
 {
 	FCPPT_ASSERT_PRE(
@@ -76,7 +80,9 @@ sge::projectile::detail::debug_drawer_impl::update()
 				fcppt::make_unique_ptr<
 					sge::line_drawer::scoped_lock
 				>(
-					line_drawer_
+					fcppt::make_ref(
+						line_drawer_
+					)
 				)
 			)
 		);

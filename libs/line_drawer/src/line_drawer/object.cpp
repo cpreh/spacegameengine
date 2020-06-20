@@ -14,6 +14,7 @@
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/state/core/blend/alpha_enabled.hpp>
 #include <sge/renderer/state/core/blend/alpha_variant.hpp>
 #include <sge/renderer/state/core/blend/combined.hpp>
@@ -54,14 +55,14 @@
 
 
 sge::line_drawer::object::object(
-	sge::renderer::device::core &_renderer
+	sge::renderer::device::core_ref const _renderer
 )
 :
 	renderer_(
 		_renderer
 	),
 	vertex_declaration_(
-		renderer_.create_vertex_declaration(
+		renderer_.get().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<
 					sge::line_drawer::impl::vf::format
@@ -70,7 +71,7 @@ sge::line_drawer::object::object(
 		)
 	),
 	blend_state_(
-		renderer_.create_blend_state(
+		renderer_.get().create_blend_state(
 			sge::renderer::state::core::blend::parameters(
 				sge::renderer::state::core::blend::alpha_variant{
 					sge::renderer::state::core::blend::alpha_enabled(
@@ -106,7 +107,9 @@ sge::line_drawer::object::render(
 			if(
 				lines_.empty()
 			)
+			{
 				return;
+			}
 
 			sge::renderer::state::core::blend::scoped const scoped_blend(
 				fcppt::make_ref(
@@ -137,7 +140,7 @@ sge::line_drawer::object::render(
 
 			_render_context.render_nonindexed(
 				sge::renderer::vertex::first(
-					0u
+					0U
 				),
 				sge::renderer::vertex::count(
 					_buffer->linear_size()
@@ -149,8 +152,7 @@ sge::line_drawer::object::render(
 }
 
 sge::line_drawer::object::~object()
-{
-}
+= default;
 
 void
 sge::line_drawer::object::lock()
@@ -163,15 +165,17 @@ sge::line_drawer::object::unlock()
 	if(
 		lines_.empty()
 	)
+	{
 		return;
+	}
 
-	sge::renderer::size_type const needed_size(
+	auto const needed_size(
 		fcppt::cast::size<
 			sge::renderer::size_type
 		>(
 			lines_.size()
 			*
-			2u
+			2U
 		)
 	);
 
@@ -194,15 +198,16 @@ sge::line_drawer::object::unlock()
 			}
 		)
 	)
+	{
 		vb_ =
 			optional_vertex_buffer_unique_ptr(
-				renderer_.create_vertex_buffer(
+				renderer_.get().create_vertex_buffer(
 					sge::renderer::vertex::buffer_parameters(
 						fcppt::make_cref(
 							*vertex_declaration_
 						),
 						sge::renderer::vf::dynamic::part_index(
-							0u
+							0U
 						),
 						sge::renderer::vertex::count(
 							needed_size
@@ -211,10 +216,11 @@ sge::line_drawer::object::unlock()
 					)
 				)
 			);
+	}
 
 	sge::renderer::vertex::scoped_lock const vblock{
 		fcppt::make_ref(
-			// TODO: Better optional support for this
+			// TODO(philipp): Better optional support for this
 			*FCPPT_ASSERT_OPTIONAL_ERROR(
 				vb_
 			)
@@ -230,13 +236,14 @@ sge::line_drawer::object::unlock()
 		vertices.begin()
 	};
 
-	typedef
+	using
+	vertex
+	=
 	sge::renderer::vf::vertex<
 		sge::line_drawer::impl::vf::part
-	>
-	vertex;
+	>;
 
-	// TODO: Improve this
+	// TODO(philipp): Improve this
 	for(
 		sge::line_drawer::line const &line
 		:

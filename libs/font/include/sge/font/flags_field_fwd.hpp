@@ -16,11 +16,12 @@ namespace sge
 namespace font
 {
 
-typedef
+using
+flags_field
+=
 fcppt::container::bitfield::enum_object<
 	sge::font::flags
->
-flags_field;
+>;
 
 }
 }

@@ -26,7 +26,7 @@ namespace impl
 
 sge::font::bitmap::impl::rep
 make_rep(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	sge::font::bitmap::impl::char_map const &,
 	sge::font::bitmap::impl::line_height,
 	sge::font::string const &,

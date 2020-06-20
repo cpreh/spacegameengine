@@ -40,10 +40,10 @@ sge::line_drawer::render_to_screen(
 					sge::renderer::projection::orthogonal_viewport(
 						_render_context.target().viewport(),
 						sge::renderer::projection::near(
-							0.f
+							0.F
 						),
 						sge::renderer::projection::far(
-							1.f
+							1.F
 						)
 					)
 				)

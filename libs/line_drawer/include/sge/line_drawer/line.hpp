@@ -24,37 +24,45 @@ class line
 public:
 	SGE_LINE_DRAWER_DETAIL_SYMBOL
 	line(
-		sge::renderer::vector3 const &,
-		sge::renderer::vector3 const &
+		sge::renderer::vector3,
+		sge::renderer::vector3
 	);
 
 	SGE_LINE_DRAWER_DETAIL_SYMBOL
 	line(
-		sge::renderer::vector3 const &,
-		sge::renderer::vector3 const &,
+		sge::renderer::vector3,
+		sge::renderer::vector3,
 		sge::image::color::any::object const &,
 		sge::image::color::any::object const &
 	);
 
+	[[nodiscard]]
 	SGE_LINE_DRAWER_DETAIL_SYMBOL
 	sge::renderer::vector3 const &
 	begin() const;
 
+	[[nodiscard]]
 	SGE_LINE_DRAWER_DETAIL_SYMBOL
 	sge::renderer::vector3 const &
 	end() const;
 
+	[[nodiscard]]
 	SGE_LINE_DRAWER_DETAIL_SYMBOL
 	sge::line_drawer::color const &
 	begin_color() const;
 
+	[[nodiscard]]
 	SGE_LINE_DRAWER_DETAIL_SYMBOL
 	sge::line_drawer::color const &
 	end_color() const;
 private:
-	sge::renderer::vector3 begin_,end_;
+	sge::renderer::vector3 begin_;
 
-	sge::line_drawer::color begin_color_,end_color_;
+	sge::renderer::vector3 end_;
+
+	sge::line_drawer::color begin_color_;
+
+	sge::line_drawer::color end_color_;
 };
 
 }

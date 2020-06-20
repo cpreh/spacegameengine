@@ -7,15 +7,20 @@
 #include <sge/font/unit.hpp>
 #include <sge/font/bitmap/impl/char_metric_ref_vector.hpp>
 #include <sge/font/bitmap/impl/line.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::font::bitmap::impl::line::line(
-	sge::font::bitmap::impl::char_metric_ref_vector const &_char_metrics,
+	sge::font::bitmap::impl::char_metric_ref_vector &&_char_metrics,
 	sge::font::unit const _width
 )
 :
 	char_metrics_(
-		_char_metrics
+		std::move(
+			_char_metrics
+		)
 	),
 	width_(
 		_width
@@ -25,16 +30,19 @@ sge::font::bitmap::impl::line::line(
 
 sge::font::bitmap::impl::line::line(
 	line &&
-) = default;
+)
+noexcept
+= default;
 
 sge::font::bitmap::impl::line &
 sge::font::bitmap::impl::line::operator=(
 	line &&
-) = default;
+)
+noexcept
+= default;
 
 sge::font::bitmap::impl::line::~line()
-{
-}
+= default;
 
 sge::font::bitmap::impl::char_metric_ref_vector const &
 sge::font::bitmap::impl::line::char_metrics() const

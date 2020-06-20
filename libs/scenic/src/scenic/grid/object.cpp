@@ -10,6 +10,7 @@
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/state/core/depth_stencil/object.hpp>
 #include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
@@ -84,10 +85,20 @@ sge::scenic::grid::object::object(
 	camera_(
 		_camera),
 	line_drawer_(
-		_renderer)
+		fcppt::reference_to_base<
+			sge::renderer::device::core
+		>(
+			fcppt::make_ref(
+				_renderer
+			)
+		)
+	)
 {
 	sge::line_drawer::scoped_lock llock(
-		line_drawer_);
+		fcppt::make_ref(
+			line_drawer_
+		)
+	);
 
 	for(
 		sge::renderer::scalar y = _rect.pos().y();

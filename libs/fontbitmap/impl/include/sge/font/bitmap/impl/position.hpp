@@ -27,12 +27,16 @@ class position
 public:
 	position(
 		sge::font::vector,
-		sge::font::bitmap::impl::char_metric const &
+		fcppt::reference<
+			sge::font::bitmap::impl::char_metric const
+		>
 	);
 
+	[[nodiscard]]
 	sge::font::vector
 	pos() const;
 
+	[[nodiscard]]
 	sge::font::bitmap::impl::char_metric const &
 	metric() const;
 private:

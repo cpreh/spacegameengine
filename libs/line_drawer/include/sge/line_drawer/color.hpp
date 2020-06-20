@@ -15,9 +15,10 @@ namespace sge
 namespace line_drawer
 {
 
-typedef
-sge::image::color::rgba8
-color;
+using
+color
+=
+sge::image::color::rgba8;
 
 }
 }

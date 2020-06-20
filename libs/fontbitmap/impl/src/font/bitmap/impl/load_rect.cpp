@@ -34,41 +34,45 @@ sge::font::bitmap::impl::load_rect(
 		).get().elements
 	);
 
-	// TODO: array::from_container
+	// TODO(philipp): array::from_container
 	if(
 		elements.size() != 2
 	)
+	{
 		throw sge::font::exception(
 			FCPPT_TEXT("Bogus rect detected")
 		);
+	}
 
-	sge::parse::json::element_vector const
-		&first_elements(
-			sge::parse::json::get_exn<
-				sge::parse::json::array
-			>(
-				fcppt::make_cref(
-					elements[0].get()
-				)
-			).get().elements
-		),
-		&second_elements(
-			sge::parse::json::get_exn<
-				sge::parse::json::array
-			>(
-				fcppt::make_cref(
-					elements[1].get()
-				)
-			).get().elements
-		);
+	sge::parse::json::element_vector const &first_elements(
+		sge::parse::json::get_exn<
+			sge::parse::json::array
+		>(
+			fcppt::make_cref(
+				elements[0].get()
+			)
+		).get().elements
+	);
+
+	sge::parse::json::element_vector const &second_elements(
+		sge::parse::json::get_exn<
+			sge::parse::json::array
+		>(
+			fcppt::make_cref(
+				elements[1].get()
+			)
+		).get().elements
+	);
 
 	if(
 		first_elements.size() != 2
 		|| second_elements.size() != 2
 	)
+	{
 		throw sge::font::exception(
 			FCPPT_TEXT("Bogus rect subelements detected")
 		);
+	}
 
 	return
 		sge::image2d::rect(

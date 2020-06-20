@@ -6,24 +6,30 @@
 
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 sge::line_drawer::scoped_lock::scoped_lock(
-	object &_object)
+	fcppt::reference<
+		sge::line_drawer::object
+	> const _object
+)
 :
 	object_(
-		_object)
+		_object
+	)
 {
-	object_.lock();
+	object_.get().lock();
 }
 
 sge::line_drawer::line_sequence &
 sge::line_drawer::scoped_lock::value() const
 {
-	return object_.lines_;
+	return
+		object_.get().lines_;
 }
 
 sge::line_drawer::scoped_lock::~scoped_lock()
 {
-	object_.unlock();
+	object_.get().unlock();
 }

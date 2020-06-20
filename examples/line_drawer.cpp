@@ -219,7 +219,9 @@ try
 	sge::timer::frames_counter frames_counter;
 
 	sge::line_drawer::object line_drawer{
-		sys.renderer_device_ffp()
+		fcppt::make_ref(
+			sys.renderer_device_core()
+		)
 	};
 
 	auto const move_event(
@@ -239,7 +241,9 @@ try
 				{
 					// To change the line drawer's geometry, we have to create a lock.
 					sge::line_drawer::scoped_lock const lock{
-						line_drawer
+						fcppt::make_ref(
+							line_drawer
+						)
 					};
 
 					fcppt::optional::maybe_void(
@@ -290,7 +294,9 @@ try
 				return;
 
 			sge::line_drawer::scoped_lock const lock{
-				line_drawer
+				fcppt::make_ref(
+					line_drawer
+				)
 			};
 
 			fcppt::optional::maybe(

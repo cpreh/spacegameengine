@@ -26,12 +26,14 @@ class rep
 public:
 	rep(
 		sge::font::bitmap::impl::line_vector &&,
-		sge::font::rect const &
+		sge::font::rect
 	);
 
+	[[nodiscard]]
 	sge::font::bitmap::impl::line_vector const &
 	lines() const;
 
+	[[nodiscard]]
 	sge::font::rect
 	rect() const;
 private:

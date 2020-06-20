@@ -6,6 +6,7 @@ set(
 	libs/fontbitmap/impl/include/sge/font/bitmap/impl/char_metric_ref.hpp
 	libs/fontbitmap/impl/include/sge/font/bitmap/impl/char_metric_ref_vector.hpp
 	libs/fontbitmap/impl/include/sge/font/bitmap/impl/const_view.hpp
+	libs/fontbitmap/impl/include/sge/font/bitmap/impl/double_insert.hpp
 	libs/fontbitmap/impl/include/sge/font/bitmap/impl/line.hpp
 	libs/fontbitmap/impl/include/sge/font/bitmap/impl/line_fwd.hpp
 	libs/fontbitmap/impl/include/sge/font/bitmap/impl/line_height.hpp
@@ -22,6 +23,7 @@ set(
 	libs/fontbitmap/impl/include/sge/font/bitmap/impl/rep_fwd.hpp
 	libs/fontbitmap/impl/include/sge/font/bitmap/impl/text.hpp
 	libs/fontbitmap/impl/src/font/bitmap/impl/char_metric.cpp
+	libs/fontbitmap/impl/src/font/bitmap/impl/double_insert.cpp
 	libs/fontbitmap/impl/src/font/bitmap/impl/line.cpp
 	libs/fontbitmap/impl/src/font/bitmap/impl/load_offset.cpp
 	libs/fontbitmap/impl/src/font/bitmap/impl/load_one_file.cpp

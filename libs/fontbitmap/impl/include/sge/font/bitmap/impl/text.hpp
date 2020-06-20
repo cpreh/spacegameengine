@@ -20,7 +20,7 @@
 #include <sge/font/bitmap/impl/char_map.hpp>
 #include <sge/font/bitmap/impl/line_height.hpp>
 #include <sge/font/bitmap/impl/rep.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
 
@@ -37,12 +37,12 @@ class text
 :
 	public sge::font::text
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		text
 	);
 public:
 	text(
-		fcppt::log::object &,
+		fcppt::log::object &, // NOLINT(google-runtime-references)
 		sge::font::bitmap::impl::char_map const &,
 		sge::font::string const &,
 		sge::font::text_parameters const &,
@@ -58,20 +58,24 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::font::rect
 	rect() const
 	override;
 
+	[[nodiscard]]
 	sge::font::dim
 	logical_size() const
 	override;
 
+	[[nodiscard]]
 	sge::font::rect
 	cursor_rect(
 		sge::font::index
 	) const
 	override;
 
+	[[nodiscard]]
 	sge::font::optional_index
 	pos_to_index(
 		sge::font::vector

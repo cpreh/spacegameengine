@@ -17,11 +17,15 @@ namespace sge
 {
 namespace line_drawer
 {
-SGE_LINE_DRAWER_DETAIL_SYMBOL void
+
+SGE_LINE_DRAWER_DETAIL_SYMBOL
+void
 render_to_screen(
-	sge::renderer::device::ffp &,
-	sge::renderer::context::ffp &,
-	sge::line_drawer::object &);
+	sge::renderer::device::ffp &, // NOLINT(google-runtime-references)
+	sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
+	sge::line_drawer::object & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
+
 }
 }
 

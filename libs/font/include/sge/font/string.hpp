@@ -18,11 +18,12 @@ namespace sge
 namespace font
 {
 
-typedef
+using
+string
+=
 std::basic_string<
 	sge::font::char_type
->
-string;
+>;
 
 }
 }

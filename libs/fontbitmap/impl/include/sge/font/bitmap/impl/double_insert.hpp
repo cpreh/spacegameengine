@@ -4,10 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_FONT_BITMAP_IMPL_CONST_VIEW_HPP_INCLUDED
-#define SGE_FONT_BITMAP_IMPL_CONST_VIEW_HPP_INCLUDED
+#ifndef SGE_FONT_BITMAP_IMPL_DOUBLE_INSERT_HPP_INCLUDED
+#define SGE_FONT_BITMAP_IMPL_DOUBLE_INSERT_HPP_INCLUDED
 
-#include <sge/image2d/view/const_object.hpp>
+#include <sge/font/char_type.hpp>
+#include <sge/font/exception.hpp>
 
 
 namespace sge
@@ -19,10 +20,10 @@ namespace bitmap
 namespace impl
 {
 
-using
-const_view
-=
-sge::image2d::view::const_object;
+sge::font::exception
+double_insert(
+	sge::font::char_type
+);
 
 }
 }

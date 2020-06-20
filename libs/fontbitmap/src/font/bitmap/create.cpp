@@ -8,7 +8,7 @@
 #include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/bitmap/create.hpp>
 #include <sge/font/bitmap/impl/object.hpp>
-#include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/system_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/log/context_reference.hpp>
@@ -21,7 +21,7 @@ sge::font::object_unique_ptr
 sge::font::bitmap::create(
 	fcppt::log::context_reference const _log_context,
 	std::filesystem::path const &_path,
-	sge::image2d::system &_system
+	sge::image2d::system_ref const _system
 )
 {
 	return

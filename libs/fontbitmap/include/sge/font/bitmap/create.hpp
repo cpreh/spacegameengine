@@ -9,7 +9,7 @@
 
 #include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/bitmap/detail/symbol.hpp>
-#include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/system_ref.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
@@ -28,7 +28,7 @@ sge::font::object_unique_ptr
 create(
 	fcppt::log::context_reference,
 	std::filesystem::path const &,
-	sge::image2d::system &
+	sge::image2d::system_ref
 );
 
 }

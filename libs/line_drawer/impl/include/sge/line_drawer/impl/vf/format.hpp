@@ -20,11 +20,12 @@ namespace impl
 namespace vf
 {
 
-typedef
+using
+format
+=
 sge::renderer::vf::format<
 	sge::line_drawer::impl::vf::part
->
-format;
+>;
 
 }
 }

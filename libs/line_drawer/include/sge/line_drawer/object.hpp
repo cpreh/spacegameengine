@@ -11,11 +11,11 @@
 #include <sge/line_drawer/scoped_lock_fwd.hpp>
 #include <sge/line_drawer/detail/symbol.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
 
@@ -26,38 +26,39 @@ namespace line_drawer
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	SGE_LINE_DRAWER_DETAIL_SYMBOL
 	explicit
 	object(
-		sge::renderer::device::core &
+		sge::renderer::device::core_ref
 	);
 
 	SGE_LINE_DRAWER_DETAIL_SYMBOL
 	void
 	render(
-		sge::renderer::context::core &
-	);
+		sge::renderer::context::core & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
 	SGE_LINE_DRAWER_DETAIL_SYMBOL
 	~object();
 private:
 	friend class sge::line_drawer::scoped_lock;
 
-	sge::renderer::device::core &renderer_;
+	sge::renderer::device::core_ref const renderer_;
 
 	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration_;
 
 	sge::renderer::state::core::blend::object_unique_ptr const blend_state_;
 
-	typedef
+	using
+	optional_vertex_buffer_unique_ptr
+	=
 	fcppt::optional::object<
 		sge::renderer::vertex::buffer_unique_ptr
-	>
-	optional_vertex_buffer_unique_ptr;
+	>;
 
 	optional_vertex_buffer_unique_ptr vb_;
 

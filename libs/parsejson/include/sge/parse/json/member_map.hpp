@@ -22,14 +22,15 @@ namespace parse
 namespace json
 {
 
-typedef
+using
+member_map
+=
 std::unordered_map<
 	sge::charconv::utf8_string,
 	fcppt::recursive<
 		sge::parse::json::value
 	>
->
-member_map;
+>;
 
 }
 }

@@ -20,12 +20,13 @@ namespace impl
 namespace vf
 {
 
-typedef
+using
+position
+=
 sge::renderer::vf::pos<
 	sge::renderer::scalar,
 	3
->
-position;
+>;
 
 }
 }

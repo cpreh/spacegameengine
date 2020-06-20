@@ -7,15 +7,23 @@
 #include <sge/font/vector.hpp>
 #include <sge/font/bitmap/impl/char_metric_fwd.hpp>
 #include <sge/font/bitmap/impl/position.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::font::bitmap::impl::position::position(
-	sge::font::vector const _pos,
-	sge::font::bitmap::impl::char_metric const &_metric
+	sge::font::vector _pos,
+	fcppt::reference<
+		sge::font::bitmap::impl::char_metric const
+	> const _metric
 )
 :
 	pos_{
-		_pos
+		std::move(
+			_pos
+		)
 	},
 	metric_{
 		_metric

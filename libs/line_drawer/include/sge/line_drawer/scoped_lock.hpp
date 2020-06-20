@@ -11,7 +11,8 @@
 #include <sge/line_drawer/object_fwd.hpp>
 #include <sge/line_drawer/scoped_lock_fwd.hpp>
 #include <sge/line_drawer/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -21,16 +22,19 @@ namespace line_drawer
 
 class scoped_lock
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_lock
 	);
 public:
 	SGE_LINE_DRAWER_DETAIL_SYMBOL
 	explicit
 	scoped_lock(
-		sge::line_drawer::object &
+		fcppt::reference<
+			sge::line_drawer::object
+		>
 	);
 
+	[[nodiscard]]
 	SGE_LINE_DRAWER_DETAIL_SYMBOL
 	sge::line_drawer::line_sequence &
 	value() const;
@@ -38,7 +42,9 @@ public:
 	SGE_LINE_DRAWER_DETAIL_SYMBOL
 	~scoped_lock();
 private:
-	sge::line_drawer::object &object_;
+	fcppt::reference<
+		sge::line_drawer::object
+	> const object_;
 };
 
 }

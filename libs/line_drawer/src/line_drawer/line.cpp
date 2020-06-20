@@ -10,16 +10,23 @@
 #include <sge/line_drawer/color.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/renderer/vector3.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::line_drawer::line::line(
-	sge::renderer::vector3 const &_begin,
-	sge::renderer::vector3 const &_end
+	sge::renderer::vector3 _begin,
+	sge::renderer::vector3 _end
 )
 :
 	sge::line_drawer::line::line(
-		_begin,
-		_end,
+		std::move(
+			_begin
+		),
+		std::move(
+			_end
+		),
 		sge::image::color::any::object{
 			sge::image::color::predef::white()
 		},
@@ -31,17 +38,21 @@ sge::line_drawer::line::line(
 }
 
 sge::line_drawer::line::line(
-	sge::renderer::vector3 const &_begin,
-	sge::renderer::vector3 const &_end,
+	sge::renderer::vector3 _begin,
+	sge::renderer::vector3 _end,
 	sge::image::color::any::object const &_begin_color,
 	sge::image::color::any::object const &_end_color
 )
 :
 	begin_(
-		_begin
+		std::move(
+			_begin
+		)
 	),
 	end_(
-		_end
+		std::move(
+			_end
+		)
 	),
 	begin_color_(
 		sge::image::color::any::convert<

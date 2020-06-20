@@ -20,11 +20,12 @@ namespace impl
 namespace vf
 {
 
-typedef
+using
+color
+=
 sge::renderer::vf::color<
 	sge::line_drawer::color_format
->
-color;
+>;
 
 }
 }

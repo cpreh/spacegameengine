@@ -22,11 +22,12 @@ namespace bitmap
 namespace impl
 {
 
-typedef
+using
+char_metric_ref_vector
+=
 std::vector<
 	sge::font::bitmap::impl::char_metric_ref
->
-char_metric_ref_vector;
+>;
 
 }
 }

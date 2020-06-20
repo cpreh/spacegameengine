@@ -9,11 +9,12 @@
 
 #include <sge/font/bitmap/impl/char_map.hpp>
 #include <sge/image2d/file_unique_ptr.hpp>
-#include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/system_ref.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -26,14 +27,15 @@ namespace bitmap
 namespace impl
 {
 
-// TODO: Return char_map
-sge::image2d::file_unique_ptr
+std::pair<
+	sge::image2d::file_unique_ptr,
+	sge::font::bitmap::impl::char_map
+>
 load_one_file(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	std::filesystem::path const &stem,
 	sge::parse::json::object const &,
-	sge::image2d::system &,
-	sge::font::bitmap::impl::char_map &
+	sge::image2d::system_ref
 );
 
 }

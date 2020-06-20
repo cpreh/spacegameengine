@@ -20,11 +20,12 @@ namespace bitmap
 namespace impl
 {
 
-typedef
+using
+char_metric_ref
+=
 fcppt::reference<
 	sge::font::bitmap::impl::char_metric const
->
-char_metric_ref;
+>;
 
 }
 }

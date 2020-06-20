@@ -12,7 +12,9 @@
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/text_unique_ptr.hpp>
+#include <sge/font/bitmap/impl/char_map.hpp>
 #include <sge/font/bitmap/impl/char_metric.hpp>
+#include <sge/font/bitmap/impl/double_insert.hpp>
 #include <sge/font/bitmap/impl/load_one_file.hpp>
 #include <sge/font/bitmap/impl/log_name.hpp>
 #include <sge/font/bitmap/impl/object.hpp>
@@ -21,7 +23,8 @@
 #include <sge/image/color/format_to_string.hpp>
 #include <sge/image/color/optional_format.hpp>
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/file_unique_ptr.hpp>
+#include <sge/image2d/system_ref.hpp>
 #include <sge/image2d/view/format.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <sge/parse/json/array.hpp>
@@ -39,18 +42,18 @@
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/fold.hpp>
-#include <fcppt/algorithm/map.hpp>
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::font::bitmap::impl::object::object(
 	fcppt::log::context_reference const _log_context,
 	std::filesystem::path const &_path,
-	sge::image2d::system &_image_system
+	sge::image2d::system_ref const _image_system
 )
 :
 	object(
@@ -65,13 +68,12 @@ sge::font::bitmap::impl::object::object(
 }
 
 sge::font::bitmap::impl::object::~object()
-{
-}
+= default;
 
 sge::font::bitmap::impl::object::object(
 	fcppt::log::context_reference const _log_context,
 	std::filesystem::path const &_path,
-	sge::image2d::system &_image_system,
+	sge::image2d::system_ref const _image_system,
 	sge::parse::json::start const &_start
 )
 :
@@ -94,11 +96,8 @@ sge::font::bitmap::impl::object::object(
 			).get()
 		)
 	),
-	char_map_(),
-	images_(
-		fcppt::algorithm::map<
-			image_vector
-		>(
+	impl_(
+		fcppt::algorithm::fold(
 			sge::parse::json::find_member_exn<
 				sge::parse::json::array
 			>(
@@ -107,6 +106,10 @@ sge::font::bitmap::impl::object::object(
 				),
 				"textures"
 			).get().elements,
+			std::make_pair(
+				image_vector{},
+				sge::font::bitmap::impl::char_map{}
+			),
 			[
 				&_path,
 				&_image_system,
@@ -114,10 +117,17 @@ sge::font::bitmap::impl::object::object(
 			](
 				fcppt::recursive<
 					sge::parse::json::value
-				> const &_element
+				> const &_element,
+				std::pair<
+					image_vector,
+					sge::font::bitmap::impl::char_map
+				> &&_state
 			)
 			{
-				return
+				std::pair<
+					sge::image2d::file_unique_ptr,
+					sge::font::bitmap::impl::char_map
+				> cur_file{
 					sge::font::bitmap::impl::load_one_file(
 						log_,
 						_path.parent_path(),
@@ -128,15 +138,50 @@ sge::font::bitmap::impl::object::object(
 								_element.get()
 							)
 						).get(),
-						_image_system,
-						char_map_
+						_image_system
+					)
+				};
+
+				_state.first.push_back(
+					std::move(
+						cur_file.first
+					)
+				);
+
+				for(
+					sge::font::bitmap::impl::char_map::value_type &element
+					:
+					cur_file.second
+				)
+				{
+					if(
+						_state.second.insert(
+							std::make_pair(
+								element.first,
+								std::move(
+									element.second
+								)
+							)
+						).second
+					)
+					{
+						throw
+							sge::font::bitmap::impl::double_insert(
+								element.first
+							);
+					}
+				}
+
+				return
+					std::move(
+						_state
 					);
 			}
 		)
 	),
 	color_format_(
 		fcppt::algorithm::fold(
-			images_,
+			impl_.first,
 			sge::image::color::optional_format(),
 			[](
 				sge::image2d::file_unique_ptr const &_file,
@@ -162,6 +207,7 @@ sge::font::bitmap::impl::object::object(
 							!=
 							current_format
 						)
+						{
 							throw
 								sge::font::exception{
 									FCPPT_TEXT("Bitmapfont images can't differ in color formats! ")
@@ -177,6 +223,7 @@ sge::font::bitmap::impl::object::object(
 										current_format
 									)
 								};
+						}
 					}
 				);
 
@@ -204,7 +251,7 @@ sge::font::bitmap::impl::object::create_text(
 				sge::font::bitmap::impl::text
 			>(
 				log_,
-				char_map_,
+				impl_.second,
 				_string,
 				_text_parameters,
 				line_height_

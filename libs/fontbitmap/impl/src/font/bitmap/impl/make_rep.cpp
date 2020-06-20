@@ -52,7 +52,7 @@ sge::font::bitmap::impl::make_rep(
 	sge::font::text_parameters const &_text_parameters
 )
 {
-	sge::font::bitmap::impl::line_vector lines;
+	sge::font::bitmap::impl::line_vector lines{};
 
 	sge::font::unit current_x(
 		0
@@ -90,8 +90,8 @@ sge::font::bitmap::impl::make_rep(
 		++it
 	)
 	{
-		// TODO: find_opt
-		sge::font::bitmap::impl::char_map::const_iterator const char_it(
+		// TODO(philipp): find_opt
+		auto const char_it(
 			_char_map.find(
 				*it
 			)
@@ -112,7 +112,7 @@ sge::font::bitmap::impl::make_rep(
 					fcppt::optional::from(
 						sge::font::to_fcppt_string(
 							sge::font::string(
-								1u,
+								1U,
 								*it
 							)
 						),
@@ -183,7 +183,9 @@ sge::font::bitmap::impl::make_rep(
 			if(
 				current_line.empty()
 			)
+			{
 				break;
+			}
 
 			// FIXME: This is probably broken
 			if(
@@ -228,7 +230,10 @@ sge::font::bitmap::impl::make_rep(
 		{
 			lines.push_back(
 				sge::font::bitmap::impl::line{
-					current_line,
+					// TODO(philipp): Avoid this copy?
+					sge::font::bitmap::impl::char_metric_ref_vector{
+						current_line
+					},
 					current_width
 				}
 			);
@@ -244,7 +249,9 @@ sge::font::bitmap::impl::make_rep(
 				&
 				sge::font::flags::no_multi_line
 			)
+			{
 				break;
+			}
 
 			current_line.clear();
 

@@ -29,24 +29,28 @@ class line
 	);
 public:
 	line(
-		sge::font::bitmap::impl::char_metric_ref_vector const &,
+		sge::font::bitmap::impl::char_metric_ref_vector &&,
 		sge::font::unit width
 	);
 
 	line(
 		line &&
-	);
+	)
+	noexcept;
 
 	line &
 	operator=(
 		line &&
-	);
+	)
+	noexcept;
 
 	~line();
 
+	[[nodiscard]]
 	sge::font::bitmap::impl::char_metric_ref_vector const &
 	char_metrics() const;
 
+	[[nodiscard]]
 	sge::font::unit
 	width() const;
 private:

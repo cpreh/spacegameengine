@@ -174,7 +174,9 @@ main_program(
 			/ FCPPT_TEXT("fonts")
 			/ FCPPT_TEXT("bitmap")
 			/ FCPPT_TEXT("font.json"),
-			sys.image_system()
+			fcppt::make_ref(
+				sys.image_system()
+			)
 		)
 	);
 

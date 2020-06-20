@@ -22,11 +22,12 @@ namespace bitmap
 namespace impl
 {
 
-typedef
+using
+line_vector
+=
 std::vector<
 	sge::font::bitmap::impl::line
->
-line_vector;
+>;
 
 }
 }

@@ -21,12 +21,13 @@ namespace impl
 namespace vf
 {
 
-typedef
+using
+part
+=
 sge::renderer::vf::part<
 	sge::line_drawer::impl::vf::position,
 	sge::line_drawer::impl::vf::color
->
-part;
+>;
 
 }
 }

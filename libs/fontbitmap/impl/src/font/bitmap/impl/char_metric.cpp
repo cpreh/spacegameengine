@@ -8,19 +8,26 @@
 #include <sge/font/vector.hpp>
 #include <sge/font/bitmap/impl/char_metric.hpp>
 #include <sge/font/bitmap/impl/const_view.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::font::bitmap::impl::char_metric::char_metric(
-	sge::font::bitmap::impl::const_view const &_view,
-	sge::font::vector const &_offset,
+	sge::font::bitmap::impl::const_view _view,
+	sge::font::vector _offset,
 	sge::font::unit const _x_advance
 )
 :
 	view_(
-		_view
+		std::move(
+			_view
+		)
 	),
 	offset_(
-		_offset
+		std::move(
+			_offset
+		)
 	),
 	x_advance_(
 		_x_advance
