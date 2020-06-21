@@ -55,7 +55,7 @@ public:
 		);
 	}
 private:
-	sge::renderer::context::core_ref const render_context_;
+	sge::renderer::context::core_ref render_context_;
 };
 
 }
