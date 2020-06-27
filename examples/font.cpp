@@ -142,8 +142,12 @@ try
 	);
 
 	sge::font::draw::static_text static_text(
-		sys.renderer_device_ffp(),
-		*font,
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
+		fcppt::make_ref(
+			*font
+		),
 		SGE_FONT_LIT(
 			"Hello World!"
 		)

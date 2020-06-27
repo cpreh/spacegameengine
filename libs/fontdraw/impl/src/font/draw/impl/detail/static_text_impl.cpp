@@ -6,6 +6,7 @@
 
 #include <sge/font/dim.hpp>
 #include <sge/font/object.hpp>
+#include <sge/font/object_ref.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
@@ -23,6 +24,7 @@
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/sampler/object.hpp>
@@ -65,8 +67,8 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::font::draw::detail::static_text_impl::static_text_impl(
-	sge::renderer::device::ffp &_renderer,
-	sge::font::object &_font,
+	sge::renderer::device::ffp_ref const _renderer,
+	sge::font::object_ref const _font,
 	sge::font::string const &_string,
 	sge::font::text_parameters const &_text_parameters,
 	sge::font::vector const &_pos,
@@ -78,22 +80,26 @@ sge::font::draw::detail::static_text_impl::static_text_impl(
 		sge::font::draw::create_ffp_sampler(
 			_renderer,
 			sge::font::draw::color_format(
-				_font.preferred_color_format()
+				_font.get().preferred_color_format()
 			)
 		)
 	),
 	text_(
-		_font.create_text(
+		_font.get().create_text(
 			_string,
 			_text_parameters
 		)
 	),
 	texture_part_(
 		sge::font::draw::create_texture(
-			_renderer,
+			fcppt::reference_to_base<
+				sge::renderer::device::core
+			>(
+				_renderer
+			),
 			*text_,
 			sge::font::draw::color_format(
-				_font.preferred_color_format()
+				_font.get().preferred_color_format()
 			),
 			_emulate_srgb
 		)
@@ -102,16 +108,12 @@ sge::font::draw::detail::static_text_impl::static_text_impl(
 		fcppt::reference_to_base<
 			sge::renderer::device::core
 		>(
-			fcppt::make_ref(
-				_renderer
-			)
+			_renderer
 		),
 		sge::sprite::buffers::option::static_
 	),
 	sprite_state_(
-		fcppt::make_ref(
-			_renderer
-		),
+		_renderer,
 		sge::font::draw::detail::static_text_impl::sprite_state_parameters()
 	),
 	sprite_(
@@ -140,8 +142,7 @@ FCPPT_PP_POP_WARNING
 
 
 sge::font::draw::detail::static_text_impl::~static_text_impl()
-{
-}
+= default;
 
 void
 sge::font::draw::detail::static_text_impl::draw(
@@ -150,11 +151,12 @@ sge::font::draw::detail::static_text_impl::draw(
 	sge::font::draw::set_states const &_set_states
 )
 {
-	typedef
+	using
+	optional_scoped_sampler
+	=
 	fcppt::optional::object<
 		sge::renderer::state::ffp::sampler::scoped_unique_ptr
-	>
-	optional_scoped_sampler;
+	>;
 
 	optional_scoped_sampler const scoped_state(
 		fcppt::optional::map(

@@ -36,9 +36,10 @@ sge::renderer::vf::vector3_base<
 		"Format needs to be float or double"
 	);
 
-	typedef
-	sge::renderer::vf::labels::normal
-	label;
+	using
+	label
+	=
+	sge::renderer::vf::labels::normal;
 };
 
 }

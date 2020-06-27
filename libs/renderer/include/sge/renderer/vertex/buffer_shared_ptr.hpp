@@ -21,9 +21,12 @@ namespace vertex
 /**
 \brief A shared pointer to a sge::renderer::vertex::buffer
 */
-typedef fcppt::shared_ptr<
+using
+buffer_shared_ptr
+=
+fcppt::shared_ptr<
 	sge::renderer::vertex::buffer
-> buffer_shared_ptr;
+>;
 
 }
 }

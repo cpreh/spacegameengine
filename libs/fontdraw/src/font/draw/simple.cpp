@@ -14,6 +14,7 @@
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 void
@@ -29,8 +30,12 @@ sge::font::draw::simple(
 )
 {
 	sge::font::draw::static_text text(
-		_renderer,
-		_font,
+		fcppt::make_ref(
+			_renderer
+		),
+		fcppt::make_ref(
+			_font
+		),
 		_string,
 		_parameters,
 		_pos,

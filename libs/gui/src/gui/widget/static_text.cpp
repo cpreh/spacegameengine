@@ -26,6 +26,7 @@
 #include <sge/rucksack/preferred_size.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/null.hpp>
@@ -45,8 +46,12 @@ sge::gui::widget::static_text::static_text(
 		_style
 	),
 	static_text_(
-		_renderer,
-		_font,
+		fcppt::make_ref(
+			_renderer
+		),
+		fcppt::make_ref(
+			_font
+		),
 		_value,
 		sge::font::text_parameters(
 			sge::font::align_h::variant{

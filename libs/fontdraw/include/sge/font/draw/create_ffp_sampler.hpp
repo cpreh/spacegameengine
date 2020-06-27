@@ -9,7 +9,7 @@
 
 #include <sge/font/draw/detail/symbol.hpp>
 #include <sge/image/color/format_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/state/ffp/sampler/optional_object_unique_ptr.hpp>
 
 
@@ -23,7 +23,7 @@ namespace draw
 SGE_FONT_DRAW_DETAIL_SYMBOL
 sge::renderer::state::ffp::sampler::optional_object_unique_ptr
 create_ffp_sampler(
-	sge::renderer::device::ffp &,
+	sge::renderer::device::ffp_ref,
 	sge::image::color::format
 );
 

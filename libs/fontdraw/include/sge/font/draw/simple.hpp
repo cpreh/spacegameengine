@@ -28,9 +28,9 @@ namespace draw
 SGE_FONT_DRAW_DETAIL_SYMBOL
 void
 simple(
-	sge::renderer::device::ffp &,
-	sge::renderer::context::ffp &,
-	sge::font::object &,
+	sge::renderer::device::ffp &, // NOLINT(google-runtime-references)
+	sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
+	sge::font::object &, // NOLINT(google-runtime-references)
 	sge::font::string const &,
 	sge::font::text_parameters const &,
 	sge::font::vector const &,

@@ -18,9 +18,12 @@ namespace renderer
 namespace texture
 {
 
-typedef fcppt::shared_ptr<
+using
+base_shared_ptr
+=
+fcppt::shared_ptr<
 	sge::renderer::texture::base
-> base_shared_ptr;
+>;
 
 }
 }

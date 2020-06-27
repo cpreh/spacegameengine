@@ -79,9 +79,11 @@ public:
 		range_object const
 	>;
 
+	[[nodiscard]]
 	optional_object const &
 	object() const;
 
+	[[nodiscard]]
 	range_part_vector const &
 	parts() const;
 private:

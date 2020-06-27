@@ -8,7 +8,7 @@
 #define SGE_FONT_DRAW_IMPL_DETAIL_STATIC_TEXT_IMPL_HPP_INCLUDED
 
 #include <sge/font/dim_fwd.hpp>
-#include <sge/font/object_fwd.hpp>
+#include <sge/font/object_ref.hpp>
 #include <sge/font/rect_fwd.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters.hpp>
@@ -21,7 +21,7 @@
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/state/ffp/sampler/optional_object_unique_ptr.hpp>
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <sge/sprite/object_decl.hpp>
@@ -47,7 +47,7 @@
 #include <sge/sprite/state/parameters_fwd.hpp>
 #include <sge/sprite/types/vector_fwd.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -64,13 +64,13 @@ namespace detail
 
 class static_text_impl
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		static_text_impl
 	);
 public:
 	static_text_impl(
-		sge::renderer::device::ffp &,
-		sge::font::object &,
+		sge::renderer::device::ffp_ref,
+		sge::font::object_ref,
 		sge::font::string const &,
 		sge::font::text_parameters const &,
 		sge::font::vector const &,
@@ -82,7 +82,7 @@ public:
 
 	void
 	draw(
-		sge::renderer::context::ffp &,
+		sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
 		sge::font::draw::set_matrices const &,
 		sge::font::draw::set_states const &
 	);
@@ -97,15 +97,19 @@ public:
 		sge::image::color::any::object const &
 	);
 
+	[[nodiscard]]
 	sge::font::vector
 	pos() const;
 
+	[[nodiscard]]
 	sge::font::rect
 	rect() const;
 
+	[[nodiscard]]
 	sge::font::dim
 	logical_size() const;
 
+	[[nodiscard]]
 	sge::font::text const &
 	text() const;
 private:
@@ -118,11 +122,14 @@ private:
 
 	sge::texture::part_unique_ptr const texture_part_;
 
-	typedef
-	sge::image::color::rgba8_format
-	color_format;
+	using
+	color_format
+	=
+	sge::image::color::rgba8_format;
 
-	typedef
+	using
+	sprite_choices
+	=
 	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
@@ -144,66 +151,75 @@ private:
 			>,
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
-					1u
+					1U
 				>,
 				sge::sprite::config::texture_coordinates::automatic,
 				sge::sprite::config::texture_ownership::reference
 			>
 		>
-	>
-	sprite_choices;
+	>;
 
-	typedef
+	using
+	sprite_object
+	=
 	sge::sprite::object<
 		sprite_choices
-	>
-	sprite_object;
+	>;
 
-	typedef
+	using
+	sprite_buffers
+	=
 	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
-	>
-	sprite_buffers;
+	>;
 
-	typedef
-	sge::sprite::state::all_choices
-	sprite_state_choices;
+	using
+	sprite_state_choices
+	=
+	sge::sprite::state::all_choices;
 
-	typedef
+	using
+	sprite_state
+	=
 	sge::sprite::state::object<
 		sprite_state_choices
-	>
-	sprite_state;
+	>;
 
-	typedef
+	using
+	sprite_state_parameters
+	=
 	sge::sprite::state::parameters<
 		sprite_state_choices
-	>
-	sprite_state_parameters;
+	>;
 
-	typedef
+	using
+	sprite_state_options
+	=
 	sge::sprite::state::options<
 		sprite_state_choices
-	>
-	sprite_state_options;
+	>;
 
-	typedef
+	using
+	sprite_range
+	=
 	sge::sprite::render::range<
 		sprite_choices
-	>
-	sprite_range;
+	>;
 
+	[[nodiscard]]
 	sge::font::draw::detail::static_text_impl::sprite_range
 	make_sprite_range();
 
-	typedef
+	using
+	sprite_pos_type
+	=
 	sge::sprite::types::vector<
 		sprite_choices::type_choices
-	>
-	sprite_pos_type;
+	>;
 
+	[[nodiscard]]
 	sge::font::draw::detail::static_text_impl::sprite_pos_type
 	sprite_pos(
 		sge::font::vector const &

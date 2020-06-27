@@ -769,7 +769,6 @@ set(
 	libs/renderer/include/sge/renderer/texture/cube_fwd.hpp
 	libs/renderer/include/sge/renderer/texture/cube_parameters.hpp
 	libs/renderer/include/sge/renderer/texture/cube_parameters_fwd.hpp
-	libs/renderer/include/sge/renderer/texture/cube_shared_ptr.hpp
 	libs/renderer/include/sge/renderer/texture/cube_side.hpp
 	libs/renderer/include/sge/renderer/texture/cube_side_fwd.hpp
 	libs/renderer/include/sge/renderer/texture/cube_unique_ptr.hpp

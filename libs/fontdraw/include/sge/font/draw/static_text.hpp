@@ -8,7 +8,7 @@
 #define SGE_FONT_DRAW_STATIC_TEXT_HPP_INCLUDED
 
 #include <sge/font/dim_fwd.hpp>
-#include <sge/font/object_fwd.hpp>
+#include <sge/font/object_ref.hpp>
 #include <sge/font/rect_fwd.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text_fwd.hpp>
@@ -21,7 +21,7 @@
 #include <sge/font/draw/detail/symbol.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -42,8 +42,8 @@ class static_text
 public:
 	SGE_FONT_DRAW_DETAIL_SYMBOL
 	static_text(
-		sge::renderer::device::ffp &,
-		sge::font::object &,
+		sge::renderer::device::ffp_ref,
+		sge::font::object_ref,
 		sge::font::string const &,
 		sge::font::text_parameters const &,
 		sge::font::vector const &,
@@ -54,13 +54,15 @@ public:
 	SGE_FONT_DRAW_DETAIL_SYMBOL
 	static_text(
 		static_text &&
-	);
+	)
+	noexcept;
 
 	SGE_FONT_DRAW_DETAIL_SYMBOL
 	static_text  &
 	operator=(
 		static_text &&
-	);
+	)
+	noexcept;
 
 	SGE_FONT_DRAW_DETAIL_SYMBOL
 	~static_text();
@@ -68,13 +70,13 @@ public:
 	SGE_FONT_DRAW_DETAIL_SYMBOL
 	void
 	draw(
-		sge::renderer::context::ffp &
-	) const;
+		sge::renderer::context::ffp & // NOLINT(google-runtime-references)
+	) const; // NOLINT(google-runtime-references)
 
 	SGE_FONT_DRAW_DETAIL_SYMBOL
 	void
 	draw_advanced(
-		sge::renderer::context::ffp &,
+		sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
 		sge::font::draw::set_matrices const &,
 		sge::font::draw::set_states const &
 	) const;
@@ -91,27 +93,32 @@ public:
 		sge::image::color::any::object const &
 	);
 
+	[[nodiscard]]
 	SGE_FONT_DRAW_DETAIL_SYMBOL
 	sge::font::vector
 	pos() const;
 
+	[[nodiscard]]
 	SGE_FONT_DRAW_DETAIL_SYMBOL
 	sge::font::rect
 	rect() const;
 
+	[[nodiscard]]
 	SGE_FONT_DRAW_DETAIL_SYMBOL
 	sge::font::dim
 	logical_size() const;
 
+	[[nodiscard]]
 	SGE_FONT_DRAW_DETAIL_SYMBOL
 	sge::font::text const &
 	text() const;
 private:
-	typedef
+	using
+	impl_ptr
+	=
 	fcppt::unique_ptr<
 		sge::font::draw::detail::static_text_impl
-	>
-	impl_ptr;
+	>;
 
 	impl_ptr impl_;
 };

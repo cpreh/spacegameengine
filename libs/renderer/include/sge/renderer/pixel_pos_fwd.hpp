@@ -21,12 +21,13 @@ namespace renderer
 
 \ingroup sge_renderer
 */
-typedef
+using
+pixel_pos
+=
 fcppt::math::vector::static_<
 	sge::renderer::pixel_unit,
 	2
->
-pixel_pos;
+>;
 
 }
 }

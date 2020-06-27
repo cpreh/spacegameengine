@@ -47,19 +47,21 @@ create_buffer_from_indices(
 	Range const &_range
 )
 {
-	typedef
+	using
+	index_type
+	=
 	fcppt::type_traits::remove_cv_ref_t<
 		fcppt::algorithm::range_element_type<
 			Range
 		>
-	>
-	index_type;
+	>;
 
-	typedef
+	using
+	format
+	=
 	sge::renderer::index::format<
 		index_type
-	>
-	format;
+	>;
 
 	sge::renderer::index::buffer_unique_ptr buffer(
 		_device.get().create_index_buffer(

@@ -34,6 +34,7 @@
 #include <sge/rucksack/rect.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -144,8 +145,12 @@ sge::gui::widget::text::on_draw(
 	);
 
 	sge::font::draw::static_text const static_text(
-		renderer_,
-		font_,
+		fcppt::make_ref(
+			renderer_
+		),
+		fcppt::make_ref(
+			font_
+		),
 		value_,
 		sge::font::text_parameters(
 			sge::font::align_h::variant{

@@ -703,8 +703,12 @@ main_program(
 	);
 
 	sge::font::draw::static_text cpu_label(
-		sys.renderer_device_ffp(),
-		*font,
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
+		fcppt::make_ref(
+			*font
+		),
 		SGE_FONT_LIT(
 			"cpu"
 		),
@@ -724,8 +728,12 @@ main_program(
 	);
 
 	sge::font::draw::static_text mem_label(
-		sys.renderer_device_ffp(),
-		*font,
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
+		fcppt::make_ref(
+			*font
+		),
 		SGE_FONT_LIT(
 			"mem"
 		),
@@ -886,8 +894,12 @@ main_program(
 					fcppt::make_unique_ptr<
 						sge::font::draw::static_text
 					>(
-						sys.renderer_device_ffp(),
-						*font,
+						fcppt::make_ref(
+							sys.renderer_device_ffp()
+						),
+						fcppt::make_ref(
+							*font
+						),
 						sge::font::from_fcppt_string(
 							fcppt::from_std_string(
 								device

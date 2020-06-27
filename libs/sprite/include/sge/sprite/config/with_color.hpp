@@ -28,16 +28,19 @@ template<
 >
 struct with_color
 {
-	typedef
-	ColorFormat
-	color_format;
+	using
+	color_format
+	=
+	ColorFormat;
 
 	template<
 		typename Choices
 	>
 	struct apply
 	{
-		typedef
+		using
+		type
+		=
 		metal::list<
 			fcppt::record::element<
 				sge::sprite::roles::color,
@@ -45,8 +48,7 @@ struct with_color
 					color_format
 				>
 			>
-		>
-		type;
+		>;
 	};
 };
 

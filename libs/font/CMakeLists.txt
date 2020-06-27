@@ -38,6 +38,7 @@ set(
 	libs/font/include/sge/font/metrics_output.hpp
 	libs/font/include/sge/font/object.hpp
 	libs/font/include/sge/font/object_fwd.hpp
+	libs/font/include/sge/font/object_ref.hpp
 	libs/font/include/sge/font/object_unique_ptr.hpp
 	libs/font/include/sge/font/optional_dpi.hpp
 	libs/font/include/sge/font/optional_dpi_fwd.hpp

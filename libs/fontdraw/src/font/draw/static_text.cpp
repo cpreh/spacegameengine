@@ -5,7 +5,7 @@
 
 
 #include <sge/font/dim.hpp>
-#include <sge/font/object_fwd.hpp>
+#include <sge/font/object_ref.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
@@ -16,14 +16,14 @@
 #include <sge/font/draw/impl/detail/static_text_impl.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
 sge::font::draw::static_text::static_text(
-	sge::renderer::device::ffp &_device,
-	sge::font::object &_font,
+	sge::renderer::device::ffp_ref const _device,
+	sge::font::object_ref const _font,
 	sge::font::string const &_string,
 	sge::font::text_parameters const &_parameters,
 	sge::font::vector const &_pos,
@@ -49,16 +49,19 @@ sge::font::draw::static_text::static_text(
 
 sge::font::draw::static_text::static_text(
 	static_text &&
-) = default;
+)
+noexcept
+= default;
 
 sge::font::draw::static_text &
 sge::font::draw::static_text::operator=(
 	static_text &&
-) = default;
+)
+noexcept
+= default;
 
 sge::font::draw::static_text::~static_text()
-{
-}
+= default;
 
 void
 sge::font::draw::static_text::draw(

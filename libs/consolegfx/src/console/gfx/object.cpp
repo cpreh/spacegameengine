@@ -36,6 +36,7 @@
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/size.hpp>
@@ -282,8 +283,12 @@ sge::console::gfx::object::render_line(
 )
 {
 	sge::font::draw::static_text static_text(
-		renderer_,
-		font_object_,
+		fcppt::make_ref(
+			renderer_
+		),
+		fcppt::make_ref(
+			font_object_
+		),
 		_line,
 		sge::font::text_parameters(
 			sge::font::align_h::variant{

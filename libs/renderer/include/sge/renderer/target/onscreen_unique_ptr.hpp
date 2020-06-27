@@ -18,11 +18,12 @@ namespace renderer
 namespace target
 {
 
-typedef
+using
+onscreen_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::renderer::target::onscreen
->
-onscreen_unique_ptr;
+>;
 
 }
 }

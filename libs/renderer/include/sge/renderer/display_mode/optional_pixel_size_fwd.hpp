@@ -18,9 +18,12 @@ namespace renderer
 namespace display_mode
 {
 
-typedef fcppt::optional::object<
+using
+optional_pixel_size
+=
+fcppt::optional::object<
 	sge::renderer::display_mode::pixel_size
-> optional_pixel_size;
+>;
 
 }
 }

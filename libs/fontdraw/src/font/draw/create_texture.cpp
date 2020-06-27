@@ -11,7 +11,7 @@
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
@@ -30,7 +30,7 @@
 
 sge::texture::part_unique_ptr
 sge::font::draw::create_texture(
-	sge::renderer::device::core &_renderer,
+	sge::renderer::device::core_ref const _renderer,
 	sge::font::text &_text,
 	sge::image::color::format const _color_format,
 	sge::renderer::texture::emulate_srgb const _emulate_srgb
@@ -38,10 +38,7 @@ sge::font::draw::create_texture(
 {
 	sge::texture::part_unique_ptr result(
 		sge::texture::wrap_npot(
-			// TODO
-			fcppt::make_ref(
-				_renderer
-			),
+			_renderer,
 			sge::renderer::texture::planar_parameters(
 				fcppt::math::dim::structure_cast<
 					sge::renderer::dim2,
@@ -67,7 +64,7 @@ sge::font::draw::create_texture(
 			result->size()
 		)
 		!=
-		0u
+		0U
 	)
 	{
 		sge::renderer::texture::scoped_planar_lock const lock(

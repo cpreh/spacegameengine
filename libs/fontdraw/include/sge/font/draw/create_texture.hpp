@@ -10,7 +10,7 @@
 #include <sge/font/text_fwd.hpp>
 #include <sge/font/draw/detail/symbol.hpp>
 #include <sge/image/color/format_fwd.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
 
@@ -25,8 +25,8 @@ namespace draw
 SGE_FONT_DRAW_DETAIL_SYMBOL
 sge::texture::part_unique_ptr
 create_texture(
-	sge::renderer::device::core &,
-	sge::font::text &,
+	sge::renderer::device::core_ref,
+	sge::font::text &, // NOLINT(google-runtime-references)
 	sge::image::color::format,
 	sge::renderer::texture::emulate_srgb
 );

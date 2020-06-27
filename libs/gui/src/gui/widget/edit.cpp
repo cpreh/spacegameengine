@@ -432,8 +432,12 @@ sge::gui::widget::edit::make_static_text()
 {
 	return
 		sge::font::draw::static_text(
-			renderer_,
-			font_,
+			fcppt::make_ref(
+				renderer_
+			),
+			fcppt::make_ref(
+				font_
+			),
 			text_,
 			sge::font::text_parameters(
 				sge::font::align_h::variant{

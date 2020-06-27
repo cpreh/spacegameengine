@@ -181,8 +181,12 @@ main_program(
 	);
 
 	sge::font::draw::static_text const static_text_left(
-		sys.renderer_device_ffp(),
-		*font_object,
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
+		fcppt::make_ref(
+			*font_object
+		),
 		_text,
 		sge::font::text_parameters(
 			sge::font::align_h::variant(
@@ -204,8 +208,12 @@ main_program(
 	);
 
 	sge::font::draw::static_text const static_text_center(
-		sys.renderer_device_ffp(),
-		*font_object,
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
+		fcppt::make_ref(
+			*font_object
+		),
 		_text,
 		sge::font::text_parameters(
 			sge::font::align_h::variant(
@@ -227,8 +235,12 @@ main_program(
 	);
 
 	sge::font::draw::static_text const static_text_right(
-		sys.renderer_device_ffp(),
-		*font_object,
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
+		fcppt::make_ref(
+			*font_object
+		),
 		_text,
 		sge::font::text_parameters(
 			sge::font::align_h::variant(
