@@ -25,6 +25,7 @@
 #include <sge/scenic/scene/material/from_obj_material.hpp>
 #include <sge/scenic/scene/mesh/object.hpp>
 #include <sge/scenic/vf/format.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/math/dim/contents.hpp>
@@ -56,12 +57,20 @@ sge::scenic::scene::object::object(
 		std::move(
 			_prototype)),
 	camera_viewport_connection_(
-		dynamic_cast<sge::camera::has_mutable_projection &>(
-			camera_),
-		_viewport_manager,
+		fcppt::make_ref(
+			dynamic_cast<
+				sge::camera::has_mutable_projection &
+			>(
+				camera_
+			)
+		),
+		fcppt::make_ref(
+			_viewport_manager
+		),
 		prototype_->camera().near(),
 		prototype_->camera().far(),
-		prototype_->camera().fov()),
+		prototype_->camera().fov()
+	),
 	mesh_name_to_instance_(),
 	materials_(),
 	state_changes_{

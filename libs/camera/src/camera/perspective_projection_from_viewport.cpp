@@ -13,21 +13,22 @@
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
+#include <sge/viewport/manager_ref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::camera::perspective_projection_from_viewport::perspective_projection_from_viewport(
-	sge::camera::has_mutable_projection &_camera,
-	sge::viewport::manager &_viewport_manager,
+	fcppt::reference<
+		sge::camera::has_mutable_projection
+	> const _camera,
+	sge::viewport::manager_ref const _viewport_manager,
 	sge::renderer::projection::near const _near,
 	sge::renderer::projection::far const _far,
 	sge::renderer::projection::fov const _fov
@@ -46,13 +47,18 @@ sge::camera::perspective_projection_from_viewport::perspective_projection_from_v
 		_fov
 	),
 	viewport_callback_connection_(
-		_viewport_manager.manage_callback(
+		_viewport_manager.get().manage_callback(
 			sge::viewport::manage_callback{
-				std::bind(
-					&sge::camera::perspective_projection_from_viewport::viewport_callback,
-					this,
-					std::placeholders::_1
+				[
+					this
+				](
+					sge::renderer::target::viewport const &_viewport
 				)
+				{
+					this->viewport_callback(
+						_viewport
+					);
+				}
 			}
 		)
 	)
@@ -62,15 +68,14 @@ sge::camera::perspective_projection_from_viewport::perspective_projection_from_v
 FCPPT_PP_POP_WARNING
 
 sge::camera::perspective_projection_from_viewport::~perspective_projection_from_viewport()
-{
-}
+= default;
 
 void
 sge::camera::perspective_projection_from_viewport::viewport_callback(
 	sge::renderer::target::viewport const &_viewport
 )
 {
-	camera_.update_projection_matrix(
+	camera_.get().update_projection_matrix(
 		sge::camera::projection_matrix(
 			sge::renderer::projection::perspective_af(
 				sge::renderer::projection::aspect(

@@ -13,8 +13,9 @@
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
-#include <sge/viewport/manager_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/viewport/manager_ref.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
@@ -25,14 +26,16 @@ namespace camera
 
 class perspective_projection_from_viewport
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		perspective_projection_from_viewport
 	);
 public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	perspective_projection_from_viewport(
-		sge::camera::has_mutable_projection &,
-		sge::viewport::manager &,
+		fcppt::reference<
+			sge::camera::has_mutable_projection
+		>,
+		sge::viewport::manager_ref,
 		sge::renderer::projection::near,
 		sge::renderer::projection::far,
 		sge::renderer::projection::fov
@@ -41,7 +44,9 @@ public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	~perspective_projection_from_viewport();
 private:
-	sge::camera::has_mutable_projection &camera_;
+	fcppt::reference<
+		sge::camera::has_mutable_projection
+	> const camera_;
 
 	sge::renderer::projection::near const near_;
 

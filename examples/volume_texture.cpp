@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/perspective_projection_from_viewport.hpp>
 #include <sge/camera/projection_matrix.hpp>
 #include <sge/camera/coordinate_system/identity.hpp>
@@ -642,8 +643,16 @@ try
 	);
 
 	sge::camera::perspective_projection_from_viewport camera_viewport_connection(
-		camera,
-		sys.viewport_manager(),
+		fcppt::reference_to_base<
+			sge::camera::has_mutable_projection
+		>(
+			fcppt::make_ref(
+				camera
+			)
+		),
+		fcppt::make_ref(
+			sys.viewport_manager()
+		),
 		sge::renderer::projection::near(
 			0.1f
 		),
