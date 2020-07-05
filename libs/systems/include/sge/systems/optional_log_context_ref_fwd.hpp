@@ -16,11 +16,12 @@ namespace sge
 namespace systems
 {
 
-typedef
+using
+optional_log_context_ref
+=
 fcppt::optional::reference<
 	fcppt::log::context
->
-optional_log_context_ref;
+>;
 
 }
 }

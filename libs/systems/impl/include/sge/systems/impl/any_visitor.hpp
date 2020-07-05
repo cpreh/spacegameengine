@@ -31,7 +31,9 @@ class any_visitor
 public:
 	explicit
 	any_visitor(
-		sge::systems::detail::instance_impl &
+		fcppt::reference<
+			sge::systems::detail::instance_impl
+		>
 	);
 
 	void

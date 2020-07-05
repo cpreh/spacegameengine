@@ -20,11 +20,12 @@ namespace impl
 namespace image2d
 {
 
-typedef
+using
+object_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::systems::impl::image2d::object
->
-object_unique_ptr;
+>;
 
 }
 }

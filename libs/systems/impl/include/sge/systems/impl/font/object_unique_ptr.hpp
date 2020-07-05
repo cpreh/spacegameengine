@@ -20,11 +20,12 @@ namespace impl
 namespace font
 {
 
-typedef
+using
+object_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::systems::impl::font::object
->
-object_unique_ptr;
+>;
 
 }
 }

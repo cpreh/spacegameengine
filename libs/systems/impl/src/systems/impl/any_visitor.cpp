@@ -14,10 +14,13 @@
 #include <sge/systems/detail/renderer_fwd.hpp>
 #include <sge/systems/impl/any_visitor.hpp>
 #include <sge/systems/impl/detail/instance_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 sge::systems::impl::any_visitor::any_visitor(
-	sge::systems::detail::instance_impl &_impl
+	fcppt::reference<
+		sge::systems::detail::instance_impl
+	> const _impl
 )
 :
 	impl_(

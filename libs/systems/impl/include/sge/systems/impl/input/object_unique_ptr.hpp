@@ -20,11 +20,12 @@ namespace impl
 namespace input
 {
 
-typedef
+using
+object_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::systems::impl::input::object
->
-object_unique_ptr;
+>;
 
 }
 }

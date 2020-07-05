@@ -20,11 +20,12 @@ namespace impl
 namespace window
 {
 
-typedef
+using
+system_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::systems::impl::window::system
->
-system_unique_ptr;
+>;
 
 }
 }

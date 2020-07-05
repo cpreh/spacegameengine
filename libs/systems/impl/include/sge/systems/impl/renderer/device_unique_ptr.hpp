@@ -20,11 +20,12 @@ namespace impl
 namespace renderer
 {
 
-typedef
+using
+device_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::systems::impl::renderer::device
->
-device_unique_ptr;
+>;
 
 }
 }

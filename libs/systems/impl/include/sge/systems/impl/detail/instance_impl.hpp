@@ -43,7 +43,7 @@
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/optional/object_decl.hpp>
@@ -58,7 +58,7 @@ namespace detail
 
 class instance_impl
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		instance_impl
 	);
 public:
@@ -118,51 +118,67 @@ public:
 	void
 	post_init();
 
+	[[nodiscard]]
 	fcppt::log::context_reference
 	log_context();
 
+	[[nodiscard]]
 	fcppt::log::object &
 	log();
 
+	[[nodiscard]]
 	sge::plugin::manager &
 	plugin_manager();
 
+	[[nodiscard]]
 	sge::renderer::core &
 	renderer_core() const;
 
+	[[nodiscard]]
 	sge::renderer::system &
 	renderer_system() const;
 
+	[[nodiscard]]
 	sge::renderer::device::ffp &
 	renderer_device_ffp() const;
 
+	[[nodiscard]]
 	sge::renderer::device::core &
 	renderer_device_core() const;
 
+	[[nodiscard]]
 	sge::input::system &
 	input_system() const;
 
+	[[nodiscard]]
 	sge::input::processor &
 	input_processor() const;
 
+	[[nodiscard]]
 	sge::image2d::system &
 	image_system() const;
 
+	[[nodiscard]]
 	sge::audio::loader &
 	audio_loader() const;
 
+	[[nodiscard]]
 	sge::audio::player &
 	audio_player() const;
 
+	[[nodiscard]]
 	sge::font::system &
 	font_system() const;
 
+	[[nodiscard]]
 	sge::window::system &
 	window_system() const;
 
+	[[nodiscard]]
 	sge::window::object &
 	window() const;
 
+	[[nodiscard]]
 	sge::viewport::manager &
 	viewport_manager() const;
 private:
@@ -177,75 +193,84 @@ private:
 
 	sge::plugin::manager plugin_manager_;
 
-	typedef
+	using
+	optional_window_system
+	=
 	fcppt::optional::object<
 		sge::systems::impl::window::system_unique_ptr
-	>
-	optional_window_system;
+	>;
 
 	optional_window_system window_system_;
 
-	typedef
+	using
+	optional_renderer_system
+	=
 	fcppt::optional::object<
 		sge::systems::impl::renderer::system_unique_ptr
-	>
-	optional_renderer_system;
+	>;
 
 	optional_renderer_system renderer_system_;
 
-	typedef
+	using
+	optional_window_object
+	=
 	fcppt::optional::object<
 		sge::systems::impl::window::object_unique_ptr
-	>
-	optional_window_object;
+	>;
 
 	optional_window_object window_object_;
 
-	typedef
+	using
+	optional_renderer_device
+	=
 	fcppt::optional::object<
 		sge::systems::impl::renderer::device_unique_ptr
-	>
-	optional_renderer_device;
+	>;
 
 	optional_renderer_device renderer_device_;
 
-	typedef
+	using
+	optional_input
+	=
 	fcppt::optional::object<
 		sge::systems::impl::input::object_unique_ptr
-	>
-	optional_input;
+	>;
 
 	optional_input input_;
 
-	typedef
+	using
+	optional_audio_loader
+	=
 	fcppt::optional::object<
 		sge::systems::impl::audio::loader_unique_ptr
-	>
-	optional_audio_loader;
+	>;
 
 	optional_audio_loader audio_loader_;
 
-	typedef
+	using
+	optional_audio_player
+	=
 	fcppt::optional::object<
 		sge::systems::impl::audio::player_unique_ptr
-	>
-	optional_audio_player;
+	>;
 
 	optional_audio_player audio_player_;
 
-	typedef
+	using
+	optional_image2d
+	=
 	fcppt::optional::object<
 		sge::systems::impl::image2d::object_unique_ptr
-	>
-	optional_image2d;
+	>;
 
 	optional_image2d image2d_;
 
-	typedef
+	using
+	optional_font
+	=
 	fcppt::optional::object<
 		sge::systems::impl::font::object_unique_ptr
-	>
-	optional_font;
+	>;
 
 	optional_font font_;
 };

@@ -8,7 +8,7 @@
 #define SGE_SYSTEMS_IMPL_LOG_CONTEXT_HPP_INCLUDED
 
 #include <sge/systems/optional_log_context_ref_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/context_reference.hpp>
@@ -24,7 +24,7 @@ namespace impl
 
 class log_context
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		log_context
 	);
 public:
@@ -35,10 +35,13 @@ public:
 
 	~log_context();
 
+	[[nodiscard]]
 	fcppt::log::context_reference
 	get() const;
 private:
-	typedef
+	using
+	variant
+	=
 	fcppt::variant::object<
 		fcppt::unique_ptr<
 			fcppt::log::context
@@ -46,8 +49,7 @@ private:
 		fcppt::reference<
 			fcppt::log::context
 		>
-	>
-	variant;
+	>;
 
 	variant const impl_;
 };

@@ -38,6 +38,7 @@
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/either/failure_opt.hpp>
 #include <fcppt/either/success_opt.hpp>
@@ -205,7 +206,9 @@ sge::systems::detail::instance::instance(
 	)
 		fcppt::variant::apply(
 			sge::systems::impl::any_visitor(
-				*impl_
+				fcppt::make_ref(
+					*impl_
+				)
 			),
 			item.second
 		);
