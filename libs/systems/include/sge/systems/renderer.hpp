@@ -29,8 +29,8 @@ public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	renderer(
 		sge::renderer::pixel_format::object const &,
-		sge::renderer::display_mode::parameters const &,
-		sge::viewport::optional_resize_callback const &
+		sge::renderer::display_mode::parameters &&,
+		sge::viewport::optional_resize_callback &&
 	);
 
 	SGE_SYSTEMS_DETAIL_SYMBOL
@@ -42,21 +42,26 @@ public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::renderer &
 	name(
-		sge::plugin::name const &
+		sge::plugin::name &&
 	);
 
+	[[nodiscard]]
 	sge::renderer::pixel_format::object const &
 	pixel_format() const;
 
+	[[nodiscard]]
 	sge::renderer::display_mode::parameters const &
 	display_mode() const;
 
+	[[nodiscard]]
 	sge::viewport::optional_resize_callback const &
 	resize_callback() const;
 
+	[[nodiscard]]
 	sge::renderer::caps::system_field const &
 	caps() const;
 
+	[[nodiscard]]
 	sge::systems::optional_name const &
 	name() const;
 private:

@@ -27,9 +27,10 @@ public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::audio_player &
 	name(
-		sge::plugin::name const &
+		sge::plugin::name &&
 	);
 
+	[[nodiscard]]
 	sge::systems::optional_name const &
 	name() const;
 private:

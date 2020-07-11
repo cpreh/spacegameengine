@@ -16,7 +16,7 @@
 #include <sge/systems/impl/input/cursor_modifier_fwd.hpp>
 #include <sge/systems/impl/input/object_fwd.hpp>
 #include <sge/systems/impl/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object_fwd.hpp>
@@ -34,13 +34,13 @@ namespace input
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	object(
 		fcppt::log::context_reference,
-		fcppt::log::object &,
+		fcppt::log::object &, // NOLINT(google-runtime-references)
 		sge::input::plugin::collection const &,
 		sge::systems::input const &,
 		sge::systems::impl::window::object const &
@@ -48,9 +48,11 @@ public:
 
 	~object();
 
+	[[nodiscard]]
 	sge::input::system &
 	system() const;
 
+	[[nodiscard]]
 	sge::input::processor &
 	processor() const;
 private:
@@ -58,17 +60,19 @@ private:
 
 	sge::input::processor_unique_ptr const input_processor_;
 
-	typedef
+	using
+	cursor_modifier_unique_ptr
+	=
 	fcppt::unique_ptr<
 		sge::systems::impl::input::cursor_modifier
-	>
-	cursor_modifier_unique_ptr;
+	>;
 
-	typedef
+	using
+	optional_cursor_modifier_unique_ptr
+	=
 	fcppt::optional::object<
 		cursor_modifier_unique_ptr
-	>
-	optional_cursor_modifier_unique_ptr;
+	>;
 
 	optional_cursor_modifier_unique_ptr const cursor_modifier_;
 };

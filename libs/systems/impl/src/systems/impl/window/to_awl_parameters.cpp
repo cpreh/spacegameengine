@@ -36,7 +36,7 @@ sge::systems::impl::window::to_awl_parameters(
 		[
 			&result
 		](
-			sge::window::dim const _dim
+			sge::window::dim const &_dim
 		)
 		{
 			result.size(

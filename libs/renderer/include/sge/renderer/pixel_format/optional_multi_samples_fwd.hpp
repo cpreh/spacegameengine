@@ -18,9 +18,12 @@ namespace renderer
 namespace pixel_format
 {
 
-typedef fcppt::optional::object<
+using
+optional_multi_samples
+=
+fcppt::optional::object<
 	sge::renderer::pixel_format::multi_samples
-> optional_multi_samples;
+>;
 
 }
 }

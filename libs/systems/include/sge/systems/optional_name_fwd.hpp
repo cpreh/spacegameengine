@@ -16,9 +16,12 @@ namespace sge
 namespace systems
 {
 
-typedef fcppt::optional::object<
+using
+optional_name
+=
+fcppt::optional::object<
 	sge::plugin::name
-> optional_name;
+>;
 
 }
 }

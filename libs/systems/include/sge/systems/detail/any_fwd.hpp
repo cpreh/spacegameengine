@@ -25,7 +25,9 @@ namespace systems
 namespace detail
 {
 
-typedef
+using
+any
+=
 fcppt::variant::object<
 	sge::systems::config,
 	sge::systems::window,
@@ -35,8 +37,7 @@ fcppt::variant::object<
 	sge::systems::audio_player,
 	sge::systems::input,
 	sge::systems::font
->
-any;
+>;
 
 }
 }

@@ -7,7 +7,9 @@
 #include <sge/systems/impl/window/quit.hpp>
 #include <sge/window/event_function.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/window/system.hpp>
+#include <sge/window/system_ref.hpp>
 #include <awl/event/container.hpp>
 #include <awl/main/exit_success.hpp>
 #include <awl/window/event/base.hpp>
@@ -28,15 +30,15 @@
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::systems::impl::window::quit::quit(
-	sge::window::system &_system,
-	sge::window::object &_window
+	sge::window::system_ref const _system,
+	sge::window::object_ref const _window
 )
 :
 	system_{
 		_system
 	},
 	destroy_connection_{
-		_window.event_handler(
+		_window.get().event_handler(
 			sge::window::event_function{
 				[
 					this
@@ -60,7 +62,7 @@ sge::systems::impl::window::quit::quit(
 							auto const &
 						)
 						{
-							system_.quit(
+							this->system_.get().quit(
 								awl::main::exit_success()
 							);
 						}
@@ -77,5 +79,4 @@ sge::systems::impl::window::quit::quit(
 FCPPT_PP_POP_WARNING
 
 sge::systems::impl::window::quit::~quit()
-{
-}
+= default;

@@ -22,7 +22,7 @@ namespace detail
 SGE_SYSTEMS_DETAIL_SYMBOL
 void
 quit_on_escape(
-	sge::window::system &,
+	sge::window::system &, // NOLINT(google-runtime-references)
 	awl::event::base const &
 );
 

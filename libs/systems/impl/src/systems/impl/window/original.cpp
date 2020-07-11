@@ -89,8 +89,7 @@ sge::systems::impl::window::original::original(
 }
 
 sge::systems::impl::window::original::~original()
-{
-}
+= default;
 
 sge::window::object &
 sge::systems::impl::window::original::get() const

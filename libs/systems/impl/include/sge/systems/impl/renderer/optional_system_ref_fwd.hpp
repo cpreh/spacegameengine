@@ -20,11 +20,12 @@ namespace impl
 namespace renderer
 {
 
-typedef
+using
+optional_system_ref
+=
 fcppt::optional::reference<
 	sge::systems::impl::renderer::system
->
-optional_system_ref;
+>;
 
 }
 }

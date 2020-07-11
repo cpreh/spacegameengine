@@ -113,8 +113,7 @@ sge::systems::detail::instance_impl::instance_impl(
 FCPPT_PP_POP_WARNING
 
 sge::systems::detail::instance_impl::~instance_impl()
-{
-}
+= default;
 
 void
 sge::systems::detail::instance_impl::init_window_system(

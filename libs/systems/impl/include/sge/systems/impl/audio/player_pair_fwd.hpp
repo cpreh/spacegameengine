@@ -20,11 +20,12 @@ namespace impl
 namespace audio
 {
 
-typedef
+using
+player_pair
+=
 sge::systems::impl::plugin_pair<
 	sge::audio::player
->
-player_pair;
+>;
 
 }
 }

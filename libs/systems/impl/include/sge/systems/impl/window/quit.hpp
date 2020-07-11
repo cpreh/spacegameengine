@@ -8,9 +8,9 @@
 #define SGE_SYSTEMS_IMPL_WINDOW_QUIT_HPP_INCLUDED
 
 #include <sge/systems/impl/window/quit_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <sge/window/system_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/window/object_ref.hpp>
+#include <sge/window/system_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
@@ -25,18 +25,18 @@ namespace window
 
 class quit
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		quit
 	);
 public:
 	quit(
-		sge::window::system &,
-		sge::window::object &
+		sge::window::system_ref,
+		sge::window::object_ref
 	);
 
 	~quit();
 private:
-	sge::window::system &system_;
+	sge::window::system_ref const system_;
 
 	fcppt::signal::auto_connection const destroy_connection_;
 };

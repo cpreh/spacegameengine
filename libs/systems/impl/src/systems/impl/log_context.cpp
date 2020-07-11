@@ -53,8 +53,7 @@ sge::systems::impl::log_context::log_context(
 }
 
 sge::systems::impl::log_context::~log_context()
-{
-}
+= default;
 
 fcppt::log::context_reference
 sge::systems::impl::log_context::get() const

@@ -27,34 +27,38 @@ public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	explicit
 	original_window(
-		sge::window::title const &
+		sge::window::title &&
 	);
 
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::original_window &
 	dim(
-		sge::window::dim
+		sge::window::dim const &
 	);
 
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::original_window &
 	class_name(
-		fcppt::string const &
+		fcppt::string &&
 	);
 
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::original_window &
 	hide_cursor();
 
+	[[nodiscard]]
 	sge::window::title const &
 	title() const;
 
+	[[nodiscard]]
 	sge::window::optional_dim const &
 	dim() const;
 
+	[[nodiscard]]
 	fcppt::optional_string const &
 	class_name() const;
 
+	[[nodiscard]]
 	bool
 	hide_cursor() const;
 private:

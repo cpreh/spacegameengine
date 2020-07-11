@@ -34,6 +34,9 @@
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/log/context_reference.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -47,14 +50,16 @@ sge::systems::instance<
 >::instance(
 	sge::systems::list<
 		Inits
-	> const &_list
+	> &&_list
 )
 :
 	instance_(
 		sge::systems::detail::make_list<
 			choices_list
 		>(
-			_list
+			std::move(
+				_list
+			)
 		)
 	)
 {
@@ -66,8 +71,7 @@ template<
 sge::systems::instance<
 	Choices...
 >::~instance()
-{
-}
+= default;
 
 template<
 	typename... Choices

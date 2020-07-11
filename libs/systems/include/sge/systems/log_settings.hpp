@@ -25,18 +25,20 @@ public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	explicit
 	log_settings(
-		sge::log::option_container const &
+		sge::log::option_container &&
 	);
 
 	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::log_settings &
+	sge::systems::log_settings
 	log_context(
 		fcppt::log::context_reference
-	);
+	) &&;
 
+	[[nodiscard]]
 	sge::log::option_container const &
 	options() const;
 
+	[[nodiscard]]
 	sge::systems::optional_log_context_ref const &
 	log_context() const;
 private:

@@ -26,6 +26,7 @@ public:
 		sge::systems::cursor_option_field const &
 	);
 
+	[[nodiscard]]
 	sge::systems::cursor_option_field const &
 	cursor_options() const;
 private:

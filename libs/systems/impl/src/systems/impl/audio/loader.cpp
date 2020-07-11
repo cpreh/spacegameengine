@@ -38,8 +38,7 @@ sge::systems::impl::audio::loader::loader(
 }
 
 sge::systems::impl::audio::loader::~loader()
-{
-}
+= default;
 
 sge::audio::loader &
 sge::systems::impl::audio::loader::get() const

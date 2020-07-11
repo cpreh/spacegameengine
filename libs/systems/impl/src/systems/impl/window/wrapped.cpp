@@ -25,8 +25,7 @@ sge::systems::impl::window::wrapped::wrapped(
 }
 
 sge::systems::impl::window::wrapped::~wrapped()
-{
-}
+= default;
 
 sge::window::object &
 sge::systems::impl::window::wrapped::get() const

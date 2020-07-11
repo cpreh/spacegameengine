@@ -11,7 +11,7 @@
 #include <sge/systems/impl/window/base.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/system_ref.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -27,7 +27,7 @@ class wrapped
 :
 	public sge::systems::impl::window::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		wrapped
 	);
 public:
@@ -39,6 +39,7 @@ public:
 	~wrapped()
 	override;
 private:
+	[[nodiscard]]
 	sge::window::object &
 	get() const
 	override;

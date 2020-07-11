@@ -58,8 +58,7 @@ sge::systems::impl::renderer::system::system(
 }
 
 sge::systems::impl::renderer::system::~system()
-{
-}
+= default;
 
 awl::visual::object_unique_ptr
 sge::systems::impl::renderer::system::create_visual()

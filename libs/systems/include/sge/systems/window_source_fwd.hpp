@@ -17,12 +17,13 @@ namespace sge
 namespace systems
 {
 
-typedef
+using
+window_source
+=
 fcppt::variant::object<
 	sge::systems::original_window,
 	sge::systems::wrapped_window
->
-window_source;
+>;
 
 }
 }

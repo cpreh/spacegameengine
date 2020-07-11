@@ -29,6 +29,7 @@ public:
 		sge::systems::detail::any_list const &
 	);
 
+	[[nodiscard]]
 	sge::systems::detail::any_map const &
 	get() const;
 private:

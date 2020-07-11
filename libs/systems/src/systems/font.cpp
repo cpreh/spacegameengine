@@ -7,6 +7,9 @@
 #include <sge/plugin/name.hpp>
 #include <sge/systems/font.hpp>
 #include <sge/systems/optional_name.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::systems::font::font()
@@ -17,12 +20,14 @@ sge::systems::font::font()
 
 sge::systems::font &
 sge::systems::font::name(
-	sge::plugin::name const &_name
+	sge::plugin::name &&_name
 )
 {
 	name_ =
 		sge::systems::optional_name(
-			_name
+			std::move(
+				_name
+			)
 		);
 
 	return

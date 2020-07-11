@@ -16,11 +16,12 @@ namespace sge
 namespace systems
 {
 
-typedef
+using
+cursor_option_field
+=
 fcppt::container::bitfield::enum_object<
 	sge::systems::cursor_option
->
-cursor_option_field;
+>;
 
 }
 }

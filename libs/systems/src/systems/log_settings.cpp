@@ -8,23 +8,28 @@
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/optional_log_context_ref.hpp>
 #include <fcppt/log/context_reference.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::systems::log_settings::log_settings(
-	sge::log::option_container const &_options
+	sge::log::option_container &&_options
 )
 :
 	options_(
-		_options
+		std::move(
+			_options
+		)
 	),
 	log_context_()
 {
 }
 
-sge::systems::log_settings &
+sge::systems::log_settings
 sge::systems::log_settings::log_context(
 	fcppt::log::context_reference const _log_context
-)
+) &&
 {
 	log_context_ =
 		sge::systems::optional_log_context_ref{

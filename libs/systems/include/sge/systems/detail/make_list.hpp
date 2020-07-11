@@ -20,6 +20,7 @@
 #include <fcppt/type_traits/implication.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -38,7 +39,7 @@ sge::systems::detail::list
 make_list(
 	sge::systems::list<
 		Inits
-	> const &_init
+	> &&_init
 )
 {
 	// Check that every subsystem that needs initialization is initialized
@@ -77,16 +78,24 @@ make_list(
 				fcppt::algorithm::map<
 					sge::systems::detail::any_list
 				>(
-					_init.get(),
+					std::move(
+						_init.get()
+					),
 					[](
-						auto const &_element
+						auto &&_element
 					)
 					{
 						return
 							sge::systems::detail::make_list_element<
 								Choices
 							>(
-								_element
+								std::forward<
+									decltype(
+										_element
+									)
+								>(
+									_element
+								)
 							);
 					}
 				),

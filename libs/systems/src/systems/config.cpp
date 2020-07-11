@@ -11,6 +11,7 @@
 #include <sge/systems/plugin_path.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -23,13 +24,15 @@ sge::systems::config::config()
 
 sge::systems::config &
 sge::systems::config::plugin_path(
-	std::filesystem::path const &_plugin_path
+	std::filesystem::path &&_plugin_path
 )
 {
 	plugin_path_ =
 		sge::systems::optional_plugin_path(
 			sge::systems::plugin_path(
-				_plugin_path
+				std::move(
+					_plugin_path
+				)
 			)
 		);
 
@@ -39,12 +42,14 @@ sge::systems::config::plugin_path(
 
 sge::systems::config &
 sge::systems::config::log_settings(
-	sge::systems::log_settings const &_log_settings
+	sge::systems::log_settings &&_log_settings
 )
 {
 	log_settings_ =
 		sge::systems::optional_log_settings(
-			_log_settings
+			std::move(
+				_log_settings
+			)
 		);
 
 	return

@@ -59,33 +59,37 @@ find_plugin_opt(
 				> const &_element
 			)
 			{
-				typedef
+				using
+				pair_type
+				=
 				sge::systems::impl::plugin_pair<
 					System
-				>
-				pair_type;
+				>;
 
-				typedef
+				using
+				return_type
+				=
 				fcppt::optional::object<
 					pair_type
-				>
-				return_type;
+				>;
 
-				typedef
+				using
+				plugin_type
+				=
 				sge::plugin::object<
 					System
-				>
-				plugin_type;
+				>;
 
 				plugin_type plugin{
 					_element.load()
 				};
 
-				typedef
+				using
+				system_unique_ptr
+				=
 				fcppt::unique_ptr<
 					System
-				>
-				system_unique_ptr;
+				>;
 
 				system_unique_ptr system{
 					plugin.get()(

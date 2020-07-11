@@ -33,8 +33,7 @@ sge::systems::impl::window::original_system::original_system(
 }
 
 sge::systems::impl::window::original_system::~original_system()
-{
-}
+= default;
 
 sge::window::system &
 sge::systems::impl::window::original_system::get()

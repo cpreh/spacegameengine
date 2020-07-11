@@ -94,41 +94,47 @@ find_plugin(
 								> const &_element
 							)
 							{
-								typedef
+								using
+								return_type
+								=
 								sge::systems::impl::plugin_pair<
 									System
-								>
-								return_type;
+								>;
 
-								typedef
+								using
+								optional_result
+								=
 								fcppt::optional::object<
 									return_type
-								>
-								optional_result;
+								>;
 
 								if(
 									_element.info().name()
 									!=
 									_name
 								)
+								{
 									return
 										optional_result{};
+								}
 
-								typedef
+								using
+								plugin_type
+								=
 								sge::plugin::object<
 									System
-								>
-								plugin_type;
+								>;
 
 								plugin_type plugin(
 									_element.load()
 								);
 
-								typedef
+								using
+								system_unique_ptr
+								=
 								fcppt::unique_ptr<
 									System
-								>
-								system_unique_ptr;
+								>;
 
 								system_unique_ptr system(
 									plugin.get()(
@@ -141,6 +147,7 @@ find_plugin(
 										*system
 									)
 								)
+								{
 									return
 										optional_result{
 											return_type{
@@ -152,6 +159,7 @@ find_plugin(
 												)
 											}
 										};
+								}
 
 								throw
 									sge::systems::exception{

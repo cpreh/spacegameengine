@@ -43,8 +43,12 @@ sge::systems::impl::window::object::object(
 				fcppt::make_unique_ptr<
 					sge::systems::impl::window::quit
 				>(
-					_window_system.get(),
-					base_->get()
+					fcppt::make_ref(
+						_window_system.get()
+					),
+					fcppt::make_ref(
+						base_->get()
+					)
 				)
 			)
 		:
@@ -54,8 +58,7 @@ sge::systems::impl::window::object::object(
 }
 
 sge::systems::impl::window::object::~object()
-{
-}
+= default;
 
 sge::window::object &
 sge::systems::impl::window::object::get() const
@@ -65,10 +68,12 @@ sge::systems::impl::window::object::get() const
 }
 
 void
-sge::systems::impl::window::object::post_init()
+sge::systems::impl::window::object::post_init() const
 {
 	if(
 		show_on_post_
 	)
+	{
 		this->get().show();
+	}
 }

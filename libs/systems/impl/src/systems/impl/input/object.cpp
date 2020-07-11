@@ -72,7 +72,9 @@ sge::systems::impl::input::object::object(
 						sge::systems::impl::input::cursor_modifier
 					>(
 						*this->input_processor_,
-						_window_object.get(),
+						fcppt::make_ref(
+							_window_object.get()
+						),
 						_parameters.cursor_options()
 					);
 			}
@@ -88,6 +90,7 @@ sge::systems::impl::input::object::object(
 			sge::input::capabilities::mouse
 		}
 	)
+	{
 		if(
 			!(
 				input_system_->capabilities()
@@ -107,13 +110,13 @@ sge::systems::impl::input::object::object(
 					)
 			)
 		}
+	}
 }
 
 FCPPT_PP_POP_WARNING
 
 sge::systems::impl::input::object::~object()
-{
-}
+= default;
 
 sge::input::system &
 sge::systems::impl::input::object::system() const

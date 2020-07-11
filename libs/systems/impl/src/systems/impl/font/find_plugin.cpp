@@ -32,9 +32,9 @@ sge::systems::impl::font::find_plugin(
 	sge::systems::font const &_parameters
 )
 {
-	sge::systems::optional_name const name(
+	sge::systems::optional_name const &name{
 		_parameters.name()
-	);
+	};
 
 	return
 		fcppt::optional::to_exception(

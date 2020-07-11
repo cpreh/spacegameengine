@@ -25,7 +25,7 @@
 #include <sge/viewport/manager_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
@@ -42,15 +42,16 @@ template<
 >
 class instance
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		instance
 	);
 
-	typedef
+	using
+	choices_list
+	=
 	metal::list<
 		Choices...
-	>
-	choices_list;
+	>;
 
 	static_assert(
 		sge::systems::detail::assert_dependencies<
@@ -66,53 +67,68 @@ public:
 	instance(
 		sge::systems::list<
 			Inits
-		> const &
+		> &&
 	);
 
 	~instance();
 
+	[[nodiscard]]
 	fcppt::log::context_reference
 	log_context() const;
 
+	[[nodiscard]]
 	sge::plugin::manager &
 	plugin_manager();
 
+	[[nodiscard]]
 	sge::renderer::core &
 	renderer_core() const;
 
+	[[nodiscard]]
 	sge::renderer::system &
 	renderer_system() const;
 
+	[[nodiscard]]
 	sge::renderer::device::ffp &
 	renderer_device_ffp() const;
 
+	[[nodiscard]]
 	sge::renderer::device::core &
 	renderer_device_core() const;
 
+	[[nodiscard]]
 	sge::input::system &
 	input_system() const;
 
+	[[nodiscard]]
 	sge::input::processor &
 	input_processor() const;
 
+	[[nodiscard]]
 	sge::image2d::system &
 	image_system() const;
 
+	[[nodiscard]]
 	sge::audio::loader &
 	audio_loader() const;
 
+	[[nodiscard]]
 	sge::audio::player &
 	audio_player() const;
 
+	[[nodiscard]]
 	sge::font::system &
 	font_system() const;
 
+	[[nodiscard]]
 	sge::window::system &
 	window_system() const;
 
+	[[nodiscard]]
 	sge::window::object &
 	window() const;
 
+	[[nodiscard]]
 	sge::viewport::manager &
 	viewport_manager() const;
 private:

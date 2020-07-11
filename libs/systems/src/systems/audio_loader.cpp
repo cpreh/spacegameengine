@@ -6,14 +6,19 @@
 
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/systems/audio_loader.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::systems::audio_loader::audio_loader(
-	sge::media::optional_extension_set const &_extensions
+	sge::media::optional_extension_set &&_extensions
 )
 :
 	extensions_(
-		_extensions
+		std::move(
+			_extensions
+		)
 	)
 {
 }

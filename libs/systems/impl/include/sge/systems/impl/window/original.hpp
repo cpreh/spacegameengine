@@ -15,7 +15,7 @@
 #include <awl/cursor/object_unique_ptr.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -31,7 +31,7 @@ class original
 :
 	public sge::systems::impl::window::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		original
 	);
 public:
@@ -44,6 +44,7 @@ public:
 	~original()
 	override;
 private:
+	[[nodiscard]]
 	sge::window::object &
 	get() const
 	override;

@@ -10,16 +10,22 @@
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::rucksack::testbed::object::object(
-	sge::window::title const &_str)
+	sge::window::title &&_str
+)
 :
 	impl_(
 		fcppt::make_unique_ptr<
 			sge::rucksack::testbed::object_impl
 		>(
-			_str
+			std::move(
+				_str
+			)
 		)
 	)
 {

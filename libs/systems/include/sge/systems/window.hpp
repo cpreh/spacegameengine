@@ -23,7 +23,7 @@ public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	explicit
 	window(
-		sge::systems::window_source const &
+		sge::systems::window_source &&
 	);
 
 	SGE_SYSTEMS_DETAIL_SYMBOL
@@ -38,12 +38,15 @@ public:
 	sge::systems::window &
 	hide_cursor();
 
+	[[nodiscard]]
 	sge::systems::window_source const &
 	source() const;
 
+	[[nodiscard]]
 	bool
 	show() const;
 
+	[[nodiscard]]
 	bool
 	quit() const;
 private:

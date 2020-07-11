@@ -12,7 +12,7 @@
 #include <sge/image2d/plugin/collection_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
 #include <sge/systems/impl/image2d/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 
@@ -28,7 +28,7 @@ namespace image2d
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
@@ -40,14 +40,16 @@ public:
 
 	~object();
 
+	[[nodiscard]]
 	sge::image2d::system &
 	system() const;
 private:
-	typedef
+	using
+	image_multi_unique_ptr
+	=
 	fcppt::unique_ptr<
 		sge::image2d::multi_system
-	>
-	image_multi_unique_ptr;
+	>;
 
 	image_multi_unique_ptr const image_multi_system_;
 };

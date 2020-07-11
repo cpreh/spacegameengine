@@ -32,9 +32,7 @@ sge::systems::impl::audio::player::player(
 }
 
 sge::systems::impl::audio::player::~player()
-{
-}
-
+= default;
 
 sge::audio::player &
 sge::systems::impl::audio::player::get() const

@@ -35,7 +35,7 @@ public:
 	SGE_RUCKSACK_TESTBED_DETAIL_SYMBOL
 	explicit
 	object(
-		sge::window::title const &
+		sge::window::title &&
 	);
 
 	SGE_RUCKSACK_TESTBED_DETAIL_SYMBOL

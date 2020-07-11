@@ -17,9 +17,8 @@
 #include <sge/systems/impl/renderer/plugin_core_pair.hpp>
 #include <sge/systems/impl/renderer/system_fwd.hpp>
 #include <sge/systems/impl/window/system_fwd.hpp>
-#include <awl/system/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
@@ -34,7 +33,7 @@ namespace renderer
 
 class system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		system
 	);
 public:
@@ -48,12 +47,15 @@ public:
 
 	~system();
 
+	[[nodiscard]]
 	awl::visual::object_unique_ptr
 	create_visual();
 
+	[[nodiscard]]
 	sge::renderer::core &
 	core() const;
 
+	[[nodiscard]]
 	sge::renderer::system &
 	get() const;
 private:

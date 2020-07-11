@@ -20,11 +20,12 @@ namespace impl
 namespace renderer
 {
 
-typedef
+using
+plugin_core_pair
+=
 sge::systems::impl::plugin_pair<
 	sge::renderer::core
->
-plugin_core_pair;
+>;
 
 }
 }

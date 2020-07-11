@@ -76,7 +76,7 @@
 
 
 sge::rucksack::testbed::object_impl::object_impl(
-	sge::window::title const &_window_title
+	sge::window::title &&_window_title
 )
 :
 	systems_(
@@ -85,7 +85,9 @@ sge::rucksack::testbed::object_impl::object_impl(
 			sge::systems::window(
 				sge::systems::window_source(
 					sge::systems::original_window(
-						_window_title
+						std::move(
+							_window_title
+						)
 					)
 				)
 			)

@@ -43,7 +43,9 @@ sge::systems::impl::plugin_pair<
 	System
 >::plugin_pair(
 	plugin_pair &&
-) = default;
+)
+noexcept
+= default;
 
 template<
 	typename System
@@ -55,7 +57,9 @@ sge::systems::impl::plugin_pair<
 	System
 >::operator=(
 	plugin_pair &&
-) = default;
+)
+noexcept
+= default;
 
 template<
 	typename System
@@ -63,8 +67,7 @@ template<
 sge::systems::impl::plugin_pair<
 	System
 >::~plugin_pair()
-{
-}
+= default;
 
 template<
 	typename System

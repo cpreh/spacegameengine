@@ -169,7 +169,7 @@ sge::systems::detail::instance::instance(
 			sge::systems::window const &_window
 		)
 		{
-			// TODO: Take viewport settings into account here
+			// TODO(philipp): Take viewport settings into account here
 			impl_->init_window_system(
 				_window
 			);
@@ -204,6 +204,7 @@ sge::systems::detail::instance::instance(
 		:
 		map
 	)
+	{
 		fcppt::variant::apply(
 			sge::systems::impl::any_visitor(
 				fcppt::make_ref(
@@ -212,13 +213,13 @@ sge::systems::detail::instance::instance(
 			),
 			item.second
 		);
+	}
 
 	impl_->post_init();
 }
 
 sge::systems::detail::instance::~instance()
-{
-}
+= default;
 
 fcppt::log::context_reference
 sge::systems::detail::instance::log_context() const

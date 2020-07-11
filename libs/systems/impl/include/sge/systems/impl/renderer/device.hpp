@@ -15,7 +15,7 @@
 #include <sge/systems/impl/renderer/system_fwd.hpp>
 #include <sge/systems/impl/window/object_fwd.hpp>
 #include <sge/viewport/manager.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -29,7 +29,7 @@ namespace renderer
 
 class device
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		device
 	);
 public:
@@ -41,12 +41,15 @@ public:
 
 	~device();
 
+	[[nodiscard]]
 	sge::renderer::device::ffp &
 	get_ffp() const;
 
+	[[nodiscard]]
 	sge::renderer::device::core &
 	get_core() const;
 
+	[[nodiscard]]
 	sge::viewport::manager &
 	viewport_manager();
 private:

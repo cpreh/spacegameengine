@@ -12,22 +12,29 @@
 #include <sge/systems/optional_name.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::systems::renderer::renderer(
 	sge::renderer::pixel_format::object const &_pixel_format,
-	sge::renderer::display_mode::parameters const &_display_mode,
-	sge::viewport::optional_resize_callback const &_resize_callback
+	sge::renderer::display_mode::parameters &&_display_mode,
+	sge::viewport::optional_resize_callback &&_resize_callback
 )
 :
 	pixel_format_(
 		_pixel_format
 	),
 	display_mode_(
-		_display_mode
+		std::move(
+			_display_mode
+		)
 	),
 	resize_callback_(
-		_resize_callback
+		std::move(
+			_resize_callback
+		)
 	),
 	caps_(
 		sge::renderer::caps::system_field::null()
@@ -50,12 +57,14 @@ sge::systems::renderer::caps(
 
 sge::systems::renderer &
 sge::systems::renderer::name(
-	sge::plugin::name const &_name
+	sge::plugin::name &&_name
 )
 {
 	name_ =
 		sge::systems::optional_name(
-			_name
+			std::move(
+				_name
+			)
 		);
 
 	return

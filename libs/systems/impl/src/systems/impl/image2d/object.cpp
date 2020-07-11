@@ -38,8 +38,7 @@ sge::systems::impl::image2d::object::object(
 }
 
 sge::systems::impl::image2d::object::~object()
-{
-}
+= default;
 
 sge::image2d::system &
 sge::systems::impl::image2d::object::system() const

@@ -13,6 +13,7 @@
 #include <sge/systems/impl/input/cursor_modifier.hpp>
 #include <sge/window/event_function.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/event/container.hpp>
 #include <awl/window/event/base.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -22,16 +23,13 @@
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::systems::impl::input::cursor_modifier::cursor_modifier(
 	sge::input::processor const &_processor,
-	sge::window::object &_window,
+	sge::window::object_ref const _window,
 	sge::systems::cursor_option_field const &_options
 )
 :
@@ -39,13 +37,19 @@ sge::systems::impl::input::cursor_modifier::cursor_modifier(
 		_options
 	},
 	connection_{
-		_window.event_handler(
+		_window.get().event_handler(
 			sge::window::event_function{
-				std::bind(
-					&sge::systems::impl::input::cursor_modifier::on_event,
-					this,
-					std::placeholders::_1
+				[
+					this
+				](
+					awl::window::event::base const &_event
 				)
+				{
+					return
+						this->on_event(
+							_event
+						);
+				}
 			}
 		)
 	}
@@ -55,21 +59,23 @@ sge::systems::impl::input::cursor_modifier::cursor_modifier(
 		&
 		sge::systems::cursor_option::exclusive
 	)
+	{
 		for(
 			sge::input::cursor::shared_ptr const &cursor
 			:
 			_processor.cursors()
 		)
+		{
 			cursor->mode(
 				sge::input::cursor::mode::exclusive
 			);
-
+		}
+	}
 }
 FCPPT_PP_POP_WARNING
 
 sge::systems::impl::input::cursor_modifier::~cursor_modifier()
-{
-}
+= default;
 
 awl::event::container
 sge::systems::impl::input::cursor_modifier::on_event(
@@ -81,6 +87,7 @@ sge::systems::impl::input::cursor_modifier::on_event(
 		&
 		sge::systems::cursor_option::exclusive
 	)
+	{
 		fcppt::optional::maybe_void(
 			fcppt::cast::dynamic<
 				sge::input::cursor::event::discover const
@@ -98,6 +105,7 @@ sge::systems::impl::input::cursor_modifier::on_event(
 				);
 			}
 		);
+	}
 
 	return
 		awl::event::container();

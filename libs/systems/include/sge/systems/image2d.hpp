@@ -23,9 +23,10 @@ public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	explicit
 	image2d(
-		sge::media::optional_extension_set const &
+		sge::media::optional_extension_set &&
 	);
 
+	[[nodiscard]]
 	sge::media::optional_extension_set const &
 	extensions() const;
 private:

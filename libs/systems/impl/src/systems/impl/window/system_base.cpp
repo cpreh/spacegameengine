@@ -8,9 +8,7 @@
 
 
 sge::systems::impl::window::system_base::system_base()
-{
-}
+= default;
 
 sge::systems::impl::window::system_base::~system_base()
-{
-}
+= default;

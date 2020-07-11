@@ -35,8 +35,7 @@ sge::systems::impl::font::object::object(
 }
 
 sge::systems::impl::font::object::~object()
-{
-}
+= default;
 
 sge::font::system &
 sge::systems::impl::font::object::system() const

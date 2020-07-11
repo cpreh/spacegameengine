@@ -13,7 +13,7 @@
 #include <sge/font/plugin/object.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/impl/font/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
@@ -28,7 +28,7 @@ namespace font
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
@@ -40,6 +40,7 @@ public:
 
 	~object();
 
+	[[nodiscard]]
 	sge::font::system &
 	system() const;
 private:

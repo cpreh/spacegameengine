@@ -16,11 +16,12 @@ namespace sge
 namespace systems
 {
 
-typedef
+using
+optional_plugin_path
+=
 fcppt::optional::object<
 	sge::systems::plugin_path
->
-optional_plugin_path;
+>;
 
 }
 }

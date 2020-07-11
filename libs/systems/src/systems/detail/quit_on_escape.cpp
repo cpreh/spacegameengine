@@ -42,9 +42,11 @@ sge::systems::detail::quit_on_escape(
 				==
 				sge::input::key::code::escape
 			)
+			{
 				_window_system.quit(
 					awl::main::exit_success()
 				);
+			}
 		}
 	);
 }

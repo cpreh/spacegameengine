@@ -16,11 +16,12 @@ namespace sge
 namespace systems
 {
 
-typedef
+using
+optional_log_settings
+=
 fcppt::optional::object<
 	sge::systems::log_settings
->
-optional_log_settings;
+>;
 
 }
 }

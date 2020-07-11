@@ -11,6 +11,11 @@
 #include <sge/systems/detail/any.hpp>
 #include <sge/systems/detail/renderer.hpp>
 #include <sge/systems/detail/renderer_caps.hpp>
+#include <fcppt/type_traits/remove_cv_ref_t.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -20,35 +25,61 @@ namespace systems
 namespace detail
 {
 
+template<
+	typename Choices,
+	typename Type
+>
+std::enable_if_t<
+	std::negation_v<
+		std::is_same<
+			fcppt::type_traits::remove_cv_ref_t<
+				Type
+			>,
+			sge::systems::renderer
+		>
+	>,
+	sge::systems::detail::any
+>
+make_list_element_impl(
+	Type &&_value
+)
+{
+	return
+		sge::systems::detail::any{
+			std::forward<
+				Type
+			>(
+				_value
+			)
+		};
+}
 
 template<
 	typename Choices,
 	typename Type
 >
-sge::systems::detail::any
-make_list_element_impl(
-	Type const &_type
-)
-{
-	return
-		sge::systems::detail::any{
-			_type
-		};
-}
-
-template<
-	typename Choices
->
 inline
-sge::systems::detail::any
+std::enable_if_t<
+	std::is_same_v<
+		fcppt::type_traits::remove_cv_ref_t<
+			Type
+		>,
+		sge::systems::renderer
+	>,
+	sge::systems::detail::any
+>
 make_list_element_impl(
-	sge::systems::renderer const &_renderer
+	Type &&_value
 )
 {
 	return
 		sge::systems::detail::any{
 			sge::systems::detail::renderer{
-				_renderer,
+				std::forward<
+					Type
+				>(
+					_value
+				),
 				sge::systems::detail::renderer_caps<
 					Choices
 				>::value

@@ -26,7 +26,7 @@ namespace audio
 sge::systems::impl::audio::player_pair
 find_player_plugin(
 	fcppt::log::context_reference,
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	sge::audio::player_plugin::collection const &,
 	sge::systems::audio_player const &
 );

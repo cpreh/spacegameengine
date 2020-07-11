@@ -9,6 +9,7 @@
 
 #include <sge/systems/list_fwd.hpp>
 #include <fcppt/container/tuple/push_back_result.hpp>
+#include <fcppt/type_traits/remove_cv_ref_t.hpp>
 
 
 namespace sge
@@ -24,22 +25,30 @@ class list
 public:
 	explicit
 	list(
-		Inits const &
+		Inits &&
 	);
 
 	template<
 		typename Param
 	>
+	[[nodiscard]]
 	list<
 		fcppt::container::tuple::push_back_result<
 			Inits,
-			Param
+			fcppt::type_traits::remove_cv_ref_t<
+				Param
+			>
 		>
 	>
 	operator()(
-		Param const &
+		Param &&
 	) const;
 
+	[[nodiscard]]
+	Inits &
+	get();
+
+	[[nodiscard]]
 	Inits const &
 	get() const;
 private:

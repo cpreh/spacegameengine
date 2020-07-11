@@ -27,8 +27,7 @@ sge::systems::impl::window::system::system(
 }
 
 sge::systems::impl::window::system::~system()
-{
-}
+= default;
 
 sge::window::system &
 sge::systems::impl::window::system::get() const

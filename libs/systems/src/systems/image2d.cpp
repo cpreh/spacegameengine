@@ -6,14 +6,19 @@
 
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/systems/image2d.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::systems::image2d::image2d(
-	sge::media::optional_extension_set const &_extensions
+	sge::media::optional_extension_set &&_extensions
 )
 :
 	extensions_(
-		_extensions
+		std::move(
+			_extensions
+		)
 	)
 {
 }

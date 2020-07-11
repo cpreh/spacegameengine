@@ -10,6 +10,10 @@
 #include <sge/systems/list_decl.hpp>
 #include <fcppt/container/tuple/push_back.hpp>
 #include <fcppt/container/tuple/push_back_result.hpp>
+#include <fcppt/type_traits/remove_cv_ref_t.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -18,11 +22,13 @@ template<
 sge::systems::list<
 	Inits
 >::list(
-	Inits const &_inits
+	Inits &&_inits
 )
 :
 	inits_{
-		_inits
+		std::move(
+			_inits
+		)
 	}
 {
 }
@@ -36,27 +42,47 @@ template<
 sge::systems::list<
 	fcppt::container::tuple::push_back_result<
 		Inits,
-		Param
+		fcppt::type_traits::remove_cv_ref_t<
+			Param
+		>
 	>
 >
 sge::systems::list<
 	Inits
 >::operator()(
-	Param const &_param
+	Param &&_param
 ) const
 {
 	return
 		sge::systems::list<
 			fcppt::container::tuple::push_back_result<
 				Inits,
-				Param
+				fcppt::type_traits::remove_cv_ref_t<
+					Param
+				>
 			>
 		>(
 			fcppt::container::tuple::push_back(
 				inits_,
-				_param
+				std::forward<
+					Param
+				>(
+					_param
+				)
 			)
 		);
+}
+
+template<
+	typename Inits
+>
+Inits &
+sge::systems::list<
+	Inits
+>::get()
+{
+	return
+		inits_;
 }
 
 template<

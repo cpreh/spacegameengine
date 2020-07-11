@@ -27,9 +27,11 @@ public:
 		awl::window::reference
 	);
 
+	[[nodiscard]]
 	awl::system::reference
 	awl_system() const;
 
+	[[nodiscard]]
 	awl::window::reference
 	awl_window() const;
 private:

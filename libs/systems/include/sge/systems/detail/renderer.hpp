@@ -25,13 +25,15 @@ class renderer
 public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	renderer(
-		sge::systems::renderer const &,
+		sge::systems::renderer &&,
 		sge::systems::renderer_caps
 	);
 
+	[[nodiscard]]
 	sge::systems::renderer const &
 	parameters() const;
 
+	[[nodiscard]]
 	sge::systems::renderer_caps
 	caps() const;
 private:

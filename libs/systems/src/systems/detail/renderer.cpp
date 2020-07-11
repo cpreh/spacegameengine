@@ -7,30 +7,37 @@
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/detail/renderer.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::systems::detail::renderer::renderer(
-	sge::systems::renderer const &_parameters,
+	sge::systems::renderer &&_parameters,
 	sge::systems::renderer_caps const _caps
 )
 :
-	parameters_(
-		_parameters
-	),
-	caps_(
+	parameters_{
+		std::move(
+			_parameters
+		)
+	},
+	caps_{
 		_caps
-	)
+	}
 {
 }
 
 sge::systems::renderer const &
 sge::systems::detail::renderer::parameters() const
 {
-	return parameters_;
+	return
+		parameters_;
 }
 
 sge::systems::renderer_caps
 sge::systems::detail::renderer::caps() const
 {
-	return caps_;
+	return
+		caps_;
 }

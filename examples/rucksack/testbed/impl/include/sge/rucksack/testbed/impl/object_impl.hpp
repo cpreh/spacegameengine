@@ -53,7 +53,7 @@ class object_impl
 public:
 	explicit
 	object_impl(
-		sge::window::title const &
+		sge::window::title &&
 	);
 
 	void

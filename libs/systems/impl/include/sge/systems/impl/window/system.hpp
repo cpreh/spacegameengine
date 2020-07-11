@@ -11,7 +11,7 @@
 #include <sge/systems/impl/window/system_base_unique_ptr.hpp>
 #include <sge/systems/impl/window/system_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
@@ -26,7 +26,7 @@ namespace window
 
 class system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		system
 	);
 public:
@@ -37,6 +37,7 @@ public:
 
 	~system();
 
+	[[nodiscard]]
 	sge::window::system &
 	get() const;
 private:

@@ -22,8 +22,7 @@ sge::systems::impl::window::wrapped_system::wrapped_system(
 }
 
 sge::systems::impl::window::wrapped_system::~wrapped_system()
-{
-}
+= default;
 
 sge::window::system &
 sge::systems::impl::window::wrapped_system::get()

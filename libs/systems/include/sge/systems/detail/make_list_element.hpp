@@ -11,9 +11,11 @@
 #include <sge/systems/detail/any.hpp>
 #include <sge/systems/detail/extract_parameter_type.hpp>
 #include <sge/systems/detail/make_list_element_impl.hpp>
+#include <fcppt/type_traits/remove_cv_ref_t.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <type_traits>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -31,14 +33,16 @@ template<
 inline
 sge::systems::detail::any
 make_list_element(
-	Type const &_type
+	Type &&_value
 )
 {
 	// Check that the given parameter is actually part of the
 	// static subsystems
 	static_assert(
 		std::is_same<
-			Type,
+			fcppt::type_traits::remove_cv_ref_t<
+				Type
+			>,
 			sge::systems::config
 		>::value
 		||
@@ -49,7 +53,9 @@ make_list_element(
 					std::is_same
 				>,
 				metal::always<
-					Type
+					fcppt::type_traits::remove_cv_ref_t<
+						Type
+					>
 				>,
 				metal::lambda<
 					sge::systems::detail::extract_parameter_type
@@ -63,7 +69,11 @@ make_list_element(
 		sge::systems::detail::make_list_element_impl<
 			Choices
 		>(
-			_type
+			std::forward<
+				Type
+			>(
+				_value
+			)
 		);
 }
 

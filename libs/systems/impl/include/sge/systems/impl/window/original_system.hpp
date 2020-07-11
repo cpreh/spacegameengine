@@ -10,7 +10,7 @@
 #include <sge/systems/impl/window/system_base.hpp>
 #include <sge/window/system.hpp>
 #include <awl/system/object_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
@@ -27,7 +27,7 @@ class original_system
 :
 	public sge::systems::impl::window::system_base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		original_system
 	);
 public:
@@ -39,6 +39,7 @@ public:
 	~original_system()
 	override;
 private:
+	[[nodiscard]]
 	sge::window::system &
 	get()
 	override;

@@ -14,7 +14,7 @@
 #include <sge/systems/impl/window/quit_fwd.hpp>
 #include <sge/systems/impl/window/system_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
@@ -30,7 +30,7 @@ namespace window
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
@@ -42,27 +42,30 @@ public:
 
 	~object();
 
+	[[nodiscard]]
 	sge::window::object &
 	get() const;
 
 	void
-	post_init();
+	post_init() const;
 private:
 	sge::systems::impl::window::base_unique_ptr const base_;
 
 	bool const show_on_post_;
 
-	typedef
+	using
+	quit_unique_ptr
+	=
 	fcppt::unique_ptr<
 		sge::systems::impl::window::quit
-	>
-	quit_unique_ptr;
+	>;
 
-	typedef
+	using
+	optional_quit_unique_ptr
+	=
 	fcppt::optional::object<
 		quit_unique_ptr
-	>
-	optional_quit_unique_ptr;
+	>;
 
 	optional_quit_unique_ptr const quit_;
 };

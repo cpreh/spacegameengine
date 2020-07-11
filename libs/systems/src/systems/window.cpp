@@ -6,14 +6,19 @@
 
 #include <sge/systems/window.hpp>
 #include <sge/systems/window_source.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::systems::window::window(
-	sge::systems::window_source const &_source
+	sge::systems::window_source &&_source
 )
 :
 	source_(
-		_source
+		std::move(
+			_source
+		)
 	),
 	show_(
 		true

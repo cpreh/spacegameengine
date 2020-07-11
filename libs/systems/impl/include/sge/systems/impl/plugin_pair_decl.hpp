@@ -29,17 +29,19 @@ class plugin_pair
 		plugin_pair
 	);
 public:
-	typedef
+	using
+	plugin
+	=
 	sge::plugin::object<
 		System
-	>
-	plugin;
+	>;
 
-	typedef
+	using
+	system_unique_ptr
+	=
 	fcppt::unique_ptr<
 		System
-	>
-	system_unique_ptr;
+	>;
 
 	plugin_pair(
 		plugin &&,
@@ -48,15 +50,18 @@ public:
 
 	plugin_pair(
 		plugin_pair &&
-	);
+	)
+	noexcept;
 
 	plugin_pair &
 	operator=(
 		plugin_pair &&
-	);
+	)
+	noexcept;
 
 	~plugin_pair();
 
+	[[nodiscard]]
 	System &
 	system() const;
 private:

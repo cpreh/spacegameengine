@@ -11,14 +11,19 @@
 #include <sge/window/title.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::systems::original_window::original_window(
-	sge::window::title const &_title
+	sge::window::title &&_title
 )
 :
 	title_{
-		_title
+		std::move(
+			_title
+		)
 	},
 	class_name_{
 		sge::window::default_class_name()
@@ -32,7 +37,7 @@ sge::systems::original_window::original_window(
 
 sge::systems::original_window &
 sge::systems::original_window::dim(
-	sge::window::dim const _dim
+	sge::window::dim const &_dim
 )
 {
 	dim_ =
@@ -46,12 +51,14 @@ sge::systems::original_window::dim(
 
 sge::systems::original_window &
 sge::systems::original_window::class_name(
-	fcppt::string const &_class_name
+	fcppt::string &&_class_name
 )
 {
 	class_name_ =
 		fcppt::optional_string{
-			_class_name
+			std::move(
+				_class_name
+			)
 		};
 
 	return

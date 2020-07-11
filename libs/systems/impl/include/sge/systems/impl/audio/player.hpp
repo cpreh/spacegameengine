@@ -12,7 +12,7 @@
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/impl/audio/player_fwd.hpp>
 #include <sge/systems/impl/audio/player_pair.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
@@ -28,19 +28,20 @@ namespace audio
 
 class player
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		player
 	);
 public:
 	player(
 		fcppt::log::context_reference,
-		fcppt::log::object &,
+		fcppt::log::object &, // NOLINT(google-runtime-references)
 		sge::audio::player_plugin::collection const &,
 		sge::systems::audio_player const &
 	);
 
 	~player();
 
+	[[nodiscard]]
 	sge::audio::player &
 	get() const;
 private:

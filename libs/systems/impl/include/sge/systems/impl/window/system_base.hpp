@@ -9,7 +9,7 @@
 
 #include <sge/systems/impl/window/system_base_fwd.hpp>
 #include <sge/window/system_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -23,7 +23,7 @@ namespace window
 
 class system_base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		system_base
 	);
 protected:
@@ -32,6 +32,7 @@ public:
 	virtual
 	~system_base();
 
+	[[nodiscard]]
 	virtual
 	sge::window::system &
 	get() = 0;

@@ -11,7 +11,7 @@
 #include <sge/audio/loader_plugin/collection_fwd.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/impl/audio/loader_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 
@@ -27,7 +27,7 @@ namespace audio
 
 class loader
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		loader
 	);
 public:
@@ -39,14 +39,16 @@ public:
 
 	~loader();
 
+	[[nodiscard]]
 	sge::audio::loader &
 	get() const;
 private:
-	typedef
+	using
+	audio_multi_loader_ptr
+	=
 	fcppt::unique_ptr<
 		sge::audio::multi_loader
-	>
-	audio_multi_loader_ptr;
+	>;
 
 	audio_multi_loader_ptr const audio_multi_loader_;
 };

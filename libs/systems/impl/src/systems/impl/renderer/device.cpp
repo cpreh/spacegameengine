@@ -47,8 +47,7 @@ sge::systems::impl::renderer::device::device(
 }
 
 sge::systems::impl::renderer::device::~device()
-{
-}
+= default;
 
 sge::renderer::device::ffp &
 sge::systems::impl::renderer::device::get_ffp() const

@@ -20,11 +20,12 @@ namespace systems
 namespace detail
 {
 
-typedef
+using
+any_list
+=
 std::vector<
 	sge::systems::detail::any
->
-any_list;
+>;
 
 }
 }
