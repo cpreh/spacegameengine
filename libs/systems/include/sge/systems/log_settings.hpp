@@ -28,6 +28,7 @@ public:
 		sge::log::option_container &&
 	);
 
+	[[nodiscard]]
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	sge::systems::log_settings
 	log_context(
