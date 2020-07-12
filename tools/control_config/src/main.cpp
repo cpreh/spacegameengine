@@ -20,7 +20,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-awl::main::exit_code const
+awl::main::exit_code
 tool_main(
 	awl::main::function_context const &
 )
