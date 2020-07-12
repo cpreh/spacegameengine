@@ -23,9 +23,12 @@ namespace vertex
 /**
 \brief A container of const vertex buffer references
 */
-typedef std::vector<
+using
+const_buffer_ref_container
+=
+std::vector<
 	sge::renderer::vertex::const_buffer_ref
-> const_buffer_ref_container;
+>;
 
 }
 }

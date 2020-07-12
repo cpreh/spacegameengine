@@ -27,26 +27,30 @@ template<
 >
 struct with_renderer
 {
-	typedef
+	using
+	caps
+	=
 	std::integral_constant<
 		sge::systems::renderer_caps,
 		Caps
-	>
-	caps;
+	>;
 
-	typedef
-	std::true_type
-	needs_init;
+	using
+	needs_init
+	=
+	std::true_type;
 
-	typedef
-	sge::systems::renderer
-	parameter_type;
+	using
+	parameter_type
+	=
+	sge::systems::renderer;
 
-	typedef
+	using
+	needs_before
+	=
 	metal::list<
 		sge::systems::with_window
-	>
-	needs_before;
+	>;
 };
 
 }

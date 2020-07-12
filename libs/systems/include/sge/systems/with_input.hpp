@@ -23,19 +23,22 @@ namespace systems
 
 struct with_input
 {
-	typedef
-	std::true_type
-	needs_init;
+	using
+	needs_init
+	=
+	std::true_type;
 
-	typedef
-	sge::systems::input
-	parameter_type;
+	using
+	parameter_type
+	=
+	sge::systems::input;
 
-	typedef
+	using
+	needs_before
+	=
 	metal::list<
 		sge::systems::with_window
-	>
-	needs_before;
+	>;
 };
 
 }

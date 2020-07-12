@@ -1459,7 +1459,7 @@ main_program(
 
 }
 
-awl::main::exit_code const
+awl::main::exit_code
 example_main(
 	awl::main::function_context const &_function_context
 )

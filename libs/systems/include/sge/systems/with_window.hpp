@@ -22,17 +22,20 @@ namespace systems
 
 struct with_window
 {
-	typedef
-	std::true_type
-	needs_init;
+	using
+	needs_init
+	=
+	std::true_type;
 
-	typedef
-	sge::systems::window
-	parameter_type;
+	using
+	parameter_type
+	=
+	sge::systems::window;
 
-	typedef
-	metal::list<>
-	needs_before;
+	using
+	needs_before
+	=
+	metal::list<>;
 };
 
 }

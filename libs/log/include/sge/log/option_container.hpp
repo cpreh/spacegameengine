@@ -18,11 +18,12 @@ namespace sge
 namespace log
 {
 
-typedef
+using
+option_container
+=
 std::vector<
 	sge::log::option
->
-option_container;
+>;
 
 }
 }

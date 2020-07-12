@@ -91,7 +91,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-awl::main::exit_code const
+awl::main::exit_code
 example_main(
 	awl::main::function_context const &
 )
@@ -145,41 +145,46 @@ try
 	);
 
 //! [position_declaration]
-	typedef
+	using
+	pos3_type
+	=
 	sge::renderer::vf::pos<
 		float,
 		3
-	>
-	pos3_type;
+	>;
 //! [position_declaration]
 
 //! [color_declaration]
-	typedef
-	sge::image::color::bgra8_format
-	color_format;
+	using
+	color_format
+	=
+	sge::image::color::bgra8_format;
 
-	typedef
+	using
+	color_type
+	=
 	sge::renderer::vf::color<
 		color_format
-	>
-	color_type;
+	>;
 //! [color_declaration]
 
 //! [format_part_declaration]
-	typedef
+	using
+	format_part
+	=
 	sge::renderer::vf::part<
 		pos3_type,
 		color_type
-	>
-	format_part;
+	>;
 //! [format_part_declaration]
 
 //! [format_declaration]
-	typedef
+	using
+	format
+	=
 	sge::renderer::vf::format<
 		format_part
-	>
-	format;
+	>;
 //! [format_declaration]
 
 //! [vertex_declaration]
@@ -206,7 +211,7 @@ try
 					format_part
 				>(),
 				sge::renderer::vertex::count(
-					3u
+					3U
 				),
 				sge::renderer::resource_flags_field::null()
 			)
@@ -225,11 +230,12 @@ try
 //! [vblock_declaration]
 
 //! [vertex_view_declaration]
-		typedef
+		using
+		vertex_view
+		=
 		sge::renderer::vf::view<
 			format_part
-		>
-		vertex_view;
+		>;
 
 		vertex_view const vertices(
 			vblock.value()
@@ -243,14 +249,15 @@ try
 //! [vertex_iterator_declaration]
 
 //! [vertex_write_pos_1]
-		typedef
-		pos3_type::packed_type
-		vec3;
+		using
+		vec3
+		=
+		pos3_type::packed_type;
 
 		sge::renderer::vf::set_proxy(
 			*vb_it,
 			sge::renderer::vf::labels::pos{},
-			vec3(-1.f, 1.f, 0.f)
+			vec3(-1.F, 1.F, 0.F)
 		);
 //! [vertex_write_pos_1]
 
@@ -272,7 +279,7 @@ try
 		sge::renderer::vf::set_proxy(
 			*vb_it,
 			sge::renderer::vf::labels::pos{},
-			vec3(-1.f, -1.f, 0.f)
+			vec3(-1.F, -1.F, 0.F)
 		);
 
 		sge::renderer::vf::set_proxy(
@@ -290,7 +297,7 @@ try
 		sge::renderer::vf::set_proxy(
 			*vb_it,
 			sge::renderer::vf::labels::pos{},
-			vec3(1.f, 1.f, 0.f)
+			vec3(1.F, 1.F, 0.F)
 		);
 
 		sge::renderer::vf::set_proxy(
@@ -356,10 +363,10 @@ try
 //! [scoped_block]
 			context.render_nonindexed(
 				sge::renderer::vertex::first(
-					0u
+					0U
 				),
 				sge::renderer::vertex::count(
-					3u
+					3U
 				),
 				sge::renderer::primitive_type::triangle_list
 			);

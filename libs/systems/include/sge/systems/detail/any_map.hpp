@@ -21,10 +21,13 @@ namespace systems
 namespace detail
 {
 
-typedef std::map<
+using
+any_map
+=
+std::map<
 	sge::systems::detail::any_key,
 	sge::systems::detail::any
-> any_map;
+>;
 
 }
 }
