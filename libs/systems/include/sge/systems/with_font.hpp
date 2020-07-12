@@ -22,17 +22,20 @@ namespace systems
 
 struct with_font
 {
-	typedef
-	std::false_type
-	needs_init;
+	using
+	needs_init
+	=
+	std::false_type;
 
-	typedef
-	sge::systems::font
-	parameter_type;
+	using
+	parameter_type
+	=
+	sge::systems::font;
 
-	typedef
-	metal::list<>
-	needs_before;
+	using
+	needs_before
+	=
+	metal::list<>;
 };
 
 }

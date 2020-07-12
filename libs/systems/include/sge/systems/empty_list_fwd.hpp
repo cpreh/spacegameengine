@@ -18,11 +18,12 @@ namespace sge
 namespace systems
 {
 
-typedef
+using
+empty_list
+=
 sge::systems::list<
 	std::tuple<>
->
-empty_list;
+>;
 
 }
 }

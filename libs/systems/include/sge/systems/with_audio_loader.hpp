@@ -22,17 +22,20 @@ namespace systems
 
 struct with_audio_loader
 {
-	typedef
-	std::true_type
-	needs_init;
+	using
+	needs_init
+	=
+	std::true_type;
 
-	typedef
-	sge::systems::audio_loader
-	parameter_type;
+	using
+	parameter_type
+	=
+	sge::systems::audio_loader;
 
-	typedef
-	metal::list<>
-	needs_before;
+	using
+	needs_before
+	=
+	metal::list<>;
 };
 
 }

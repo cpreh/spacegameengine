@@ -15,13 +15,11 @@ namespace
 
 struct make_key_visitor
 {
-	typedef sge::systems::detail::any_key result_type;
-
 #define SGE_SYSTEMS_MAKE_KEY_CASE(\
 	type,\
 	name\
 )\
-	result_type \
+	sge::systems::detail::any_key \
 	operator()( \
 		sge::systems::type const & \
 	) const \

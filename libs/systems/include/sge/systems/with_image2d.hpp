@@ -22,17 +22,20 @@ namespace systems
 
 struct with_image2d
 {
-	typedef
-	std::true_type
-	needs_init;
+	using
+	needs_init
+	=
+	std::true_type;
 
-	typedef
-	sge::systems::image2d
-	parameter_type;
+	using
+	parameter_type
+	=
+	sge::systems::image2d;
 
-	typedef
-	metal::list<>
-	needs_before;
+	using
+	needs_before
+	=
+	metal::list<>;
 };
 
 }
