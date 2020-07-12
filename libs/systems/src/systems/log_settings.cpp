@@ -37,7 +37,9 @@ sge::systems::log_settings::log_context(
 		};
 
 	return
-		*this;
+		std::move(
+			*this
+		);
 }
 
 sge::log::option_container const &

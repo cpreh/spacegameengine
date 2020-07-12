@@ -26,17 +26,20 @@ public:
 		sge::systems::window_source &&
 	);
 
+	[[nodiscard]]
 	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::window &
-	dont_show();
+	sge::systems::window
+	dont_show() &&;
 
+	[[nodiscard]]
 	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::window &
-	dont_quit();
+	sge::systems::window
+	dont_quit() &&;
 
+	[[nodiscard]]
 	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::window &
-	hide_cursor();
+	sge::systems::window
+	hide_cursor() &&;
 
 	[[nodiscard]]
 	sge::systems::window_source const &

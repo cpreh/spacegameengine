@@ -33,17 +33,19 @@ public:
 		sge::viewport::optional_resize_callback &&
 	);
 
+	[[nodiscard]]
 	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::renderer &
+	sge::systems::renderer
 	caps(
 		sge::renderer::caps::system_field const &
-	);
+	) &&;
 
+	[[nodiscard]]
 	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::renderer &
+	sge::systems::renderer
 	name(
 		sge::plugin::name &&
-	);
+	) &&;
 
 	[[nodiscard]]
 	sge::renderer::pixel_format::object const &

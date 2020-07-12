@@ -57,7 +57,7 @@ sge::systems::impl::window::original::original(
 	),
 	awl_cursor_(
 		_system.get().awl_system().create_cursor(
-			_parameters.hide_cursor()
+			_parameters.get_hide_cursor()
 			?
 				awl::cursor::optional_type{}
 			:

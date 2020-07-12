@@ -18,10 +18,10 @@ sge::systems::font::font()
 {
 }
 
-sge::systems::font &
+sge::systems::font
 sge::systems::font::name(
 	sge::plugin::name &&_name
-)
+) &&
 {
 	name_ =
 		sge::systems::optional_name(
@@ -31,7 +31,9 @@ sge::systems::font::name(
 		);
 
 	return
-		*this;
+		std::move(
+			*this
+		);
 }
 
 sge::systems::optional_name const &

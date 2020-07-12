@@ -35,10 +35,10 @@ sge::systems::original_window::original_window(
 {
 }
 
-sge::systems::original_window &
+sge::systems::original_window
 sge::systems::original_window::dim(
 	sge::window::dim const &_dim
-)
+) &&
 {
 	dim_ =
 		sge::window::optional_dim{
@@ -49,10 +49,10 @@ sge::systems::original_window::dim(
 		*this;
 }
 
-sge::systems::original_window &
+sge::systems::original_window
 sge::systems::original_window::class_name(
 	fcppt::string &&_class_name
-)
+) &&
 {
 	class_name_ =
 		fcppt::optional_string{
@@ -65,8 +65,8 @@ sge::systems::original_window::class_name(
 		*this;
 }
 
-sge::systems::original_window &
-sge::systems::original_window::hide_cursor()
+sge::systems::original_window
+sge::systems::original_window::hide_cursor() &&
 {
 	hide_cursor_ =
 		true;
@@ -97,7 +97,7 @@ sge::systems::original_window::class_name() const
 }
 
 bool
-sge::systems::original_window::hide_cursor() const
+sge::systems::original_window::get_hide_cursor() const
 {
 	return
 		hide_cursor_;

@@ -24,11 +24,12 @@ public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	font();
 
+	[[nodiscard]]
 	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::font &
+	sge::systems::font
 	name(
 		sge::plugin::name &&
-	);
+	) &&;
 
 	[[nodiscard]]
 	sge::systems::optional_name const &

@@ -43,22 +43,24 @@ sge::systems::renderer::renderer(
 {
 }
 
-sge::systems::renderer &
+sge::systems::renderer
 sge::systems::renderer::caps(
 	sge::renderer::caps::system_field const &_caps
-)
+) &&
 {
 	caps_ =
 		_caps;
 
 	return
-		*this;
+		std::move(
+			*this
+		);
 }
 
-sge::systems::renderer &
+sge::systems::renderer
 sge::systems::renderer::name(
 	sge::plugin::name &&_name
-)
+) &&
 {
 	name_ =
 		sge::systems::optional_name(
@@ -68,7 +70,9 @@ sge::systems::renderer::name(
 		);
 
 	return
-		*this;
+		std::move(
+			*this
+		);
 }
 
 sge::renderer::pixel_format::object const &

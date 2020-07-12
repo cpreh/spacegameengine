@@ -30,21 +30,24 @@ public:
 		sge::window::title &&
 	);
 
+	[[nodiscard]]
 	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::original_window &
+	sge::systems::original_window
 	dim(
 		sge::window::dim const &
-	);
+	) &&;
 
+	[[nodiscard]]
 	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::original_window &
+	sge::systems::original_window
 	class_name(
 		fcppt::string &&
-	);
+	) &&;
 
+	[[nodiscard]]
 	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::original_window &
-	hide_cursor();
+	sge::systems::original_window
+	hide_cursor() &&;
 
 	[[nodiscard]]
 	sge::window::title const &
@@ -60,7 +63,7 @@ public:
 
 	[[nodiscard]]
 	bool
-	hide_cursor() const;
+	get_hide_cursor() const;
 private:
 	sge::window::title title_;
 

@@ -24,11 +24,12 @@ public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	audio_player();
 
+	[[nodiscard]]
 	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::audio_player &
+	sge::systems::audio_player
 	name(
 		sge::plugin::name &&
-	);
+	) &&;
 
 	[[nodiscard]]
 	sge::systems::optional_name const &

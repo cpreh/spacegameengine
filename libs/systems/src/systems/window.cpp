@@ -29,24 +29,28 @@ sge::systems::window::window(
 {
 }
 
-sge::systems::window &
-sge::systems::window::dont_show()
+sge::systems::window
+sge::systems::window::dont_show() &&
 {
 	show_ =
 		false;
 
 	return
-		*this;
+		std::move(
+			*this
+		);
 }
 
-sge::systems::window &
-sge::systems::window::dont_quit()
+sge::systems::window
+sge::systems::window::dont_quit() &&
 {
 	quit_ =
 		false;
 
 	return
-		*this;
+		std::move(
+			*this
+		);
 }
 
 sge::systems::window_source const &

@@ -18,10 +18,10 @@ sge::systems::audio_player::audio_player()
 {
 }
 
-sge::systems::audio_player &
+sge::systems::audio_player
 sge::systems::audio_player::name(
 	sge::plugin::name &&_name
-)
+) &&
 {
 	name_ =
 		sge::systems::optional_name(
@@ -31,7 +31,9 @@ sge::systems::audio_player::name(
 		);
 
 	return
-		*this;
+		std::move(
+			*this
+		);
 }
 
 sge::systems::optional_name const &
