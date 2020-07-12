@@ -145,8 +145,8 @@ try
 				sge::viewport::optional_resize_callback{
 					sge::viewport::center_on_resize(
 						sge::window::dim{
-							1024u,
-							768u
+							1024U,
+							768U
 						}
 					)
 				}
@@ -289,32 +289,42 @@ try
 	);
 
 	sge::console::gfx::object gfx(
-		object,
-		sys.renderer_device_ffp(),
+		fcppt::make_ref(
+			object
+		),
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
 		sge::console::gfx::font_color(
 			sge::image::color::any::object{
 				sge::image::color::predef::white()
 			}
 		),
-		*font_object,
+		fcppt::make_ref(
+			*font_object
+		),
 		sge::font::rect{
 			fcppt::math::vector::null<
 				sge::font::rect::vector
 			>(),
 			sge::font::rect::dim{
-				400,
-				300
+				400, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				300 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			}
 		},
 		sge::console::gfx::output_line_limit(
-			100u
+			100U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		)
 	);
 
-	// TODO: muxing_fcppt_streambuf?
+	// TODO(philipp): muxing_fcppt_streambuf?
 	sge::console::muxing_narrow_streambuf stdout_streambuf(
-		std::cout,
-		object,
+		fcppt::make_ref(
+			std::cout
+		),
+		fcppt::make_ref(
+			object
+		),
 		sge::console::muxing::enabled
 	);
 
@@ -323,8 +333,12 @@ try
 	std::cout << "You should see this message in the console and in the terminal (if available)\n";
 
 	sge::console::muxing_narrow_streambuf stderr_streambuf(
-		std::cerr,
-		object,
+		fcppt::make_ref(
+			std::cerr
+		),
+		fcppt::make_ref(
+			object
+		),
 		sge::console::muxing::disabled
 	);
 

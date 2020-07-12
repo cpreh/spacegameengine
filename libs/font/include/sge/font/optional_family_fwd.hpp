@@ -16,9 +16,12 @@ namespace sge
 namespace font
 {
 
-typedef fcppt::optional::object<
+using
+optional_family
+=
+fcppt::optional::object<
 	fcppt::string
-> optional_family;
+>;
 
 }
 }

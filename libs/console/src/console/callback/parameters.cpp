@@ -10,18 +10,25 @@
 #include <sge/console/callback/name.hpp>
 #include <sge/console/callback/parameters.hpp>
 #include <sge/font/string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::console::callback::parameters::parameters(
-	sge::console::callback::function const &_function,
-	sge::console::callback::name const &_name
+	sge::console::callback::function &&_function,
+	sge::console::callback::name &&_name
 )
 :
 	function_(
-		_function
+		std::move(
+			_function
+		)
 	),
 	name_(
-		_name.get()
+		std::move(
+			_name.get()
+		)
 	),
 	short_description_(
 		sge::font::string()
@@ -32,52 +39,94 @@ sge::console::callback::parameters::parameters(
 {
 }
 
-sge::console::callback::parameters &
+sge::console::callback::parameters
 sge::console::callback::parameters::short_description(
-	sge::font::string const &_short_description
-)
+	sge::font::string &&_short_description
+) &&
 {
 	short_description_ =
 		sge::console::short_description(
-			_short_description
+			std::move(
+				_short_description
+			)
 		);
 
-	return *this;
+	return
+		std::move(
+			*this
+		);
 }
 
-sge::console::callback::parameters &
+sge::console::callback::parameters
 sge::console::callback::parameters::long_description(
-	sge::font::string const &_long_description
-)
+	sge::font::string &&_long_description
+) &&
 {
 	long_description_ =
 		sge::console::long_description(
-			_long_description
+			std::move(
+				_long_description
+			)
 		);
 
-	return *this;
+	return
+		std::move(
+			*this
+		);
+}
+
+sge::console::callback::function &
+sge::console::callback::parameters::function()
+{
+	return
+		function_;
 }
 
 sge::console::callback::function const &
 sge::console::callback::parameters::function() const
 {
-	return function_;
+	return
+		function_;
+}
+
+sge::font::string &
+sge::console::callback::parameters::name()
+{
+	return
+		name_;
 }
 
 sge::font::string const &
 sge::console::callback::parameters::name() const
 {
-	return name_;
+	return
+		name_;
+}
+
+sge::console::short_description &
+sge::console::callback::parameters::short_description()
+{
+	return
+		short_description_;
 }
 
 sge::console::short_description const &
 sge::console::callback::parameters::short_description() const
 {
-	return short_description_;
+	return
+		short_description_;
+}
+
+sge::console::long_description &
+sge::console::callback::parameters::long_description()
+{
+	return
+		long_description_;
 }
 
 sge::console::long_description const &
 sge::console::callback::parameters::long_description() const
 {
-	return long_description_;
+	return
+		long_description_;
 }

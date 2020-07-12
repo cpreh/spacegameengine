@@ -40,6 +40,7 @@ set(
 	libs/console/include/sge/console/muxing_wide_streambuf.hpp
 	libs/console/include/sge/console/object.hpp
 	libs/console/include/sge/console/object_fwd.hpp
+	libs/console/include/sge/console/object_ref.hpp
 	libs/console/include/sge/console/prefix.hpp
 	libs/console/include/sge/console/prefix_fwd.hpp
 	libs/console/include/sge/console/short_description.hpp

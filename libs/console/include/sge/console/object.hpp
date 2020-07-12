@@ -20,7 +20,7 @@
 #include <sge/console/detail/symbol.hpp>
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/font/string.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -33,7 +33,7 @@ namespace console
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
@@ -46,24 +46,28 @@ public:
 	SGE_CONSOLE_DETAIL_SYMBOL
 	~object();
 
+	[[nodiscard]]
 	SGE_CONSOLE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	insert(
-		sge::console::callback::parameters const &
+		sge::console::callback::parameters &&
 	);
 
+	[[nodiscard]]
 	SGE_CONSOLE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_fallback(
 		sge::console::fallback &&
 	);
 
+	[[nodiscard]]
 	SGE_CONSOLE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_error_callback(
 		sge::console::error_callback &&
 	);
 
+	[[nodiscard]]
 	SGE_CONSOLE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	register_message_callback(
@@ -82,10 +86,12 @@ public:
 		sge::console::arg_list const &
 	);
 
+	[[nodiscard]]
 	SGE_CONSOLE_DETAIL_SYMBOL
 	sge::console::function_map const &
 	functions() const;
 
+	[[nodiscard]]
 	SGE_CONSOLE_DETAIL_SYMBOL
 	sge::console::prefix
 	prefix() const;
@@ -116,9 +122,9 @@ private:
 
 	sge::console::fallback_signal fallback_;
 
-	fcppt::signal::auto_connection const
-		help_connection_,
-		man_connection_;
+	fcppt::signal::auto_connection const help_connection_;
+
+	fcppt::signal::auto_connection const man_connection_;
 
 	void
 	help_callback(

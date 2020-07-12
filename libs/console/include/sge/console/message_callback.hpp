@@ -16,11 +16,12 @@ namespace sge
 namespace console
 {
 
-typedef
+using
+message_callback
+=
 fcppt::function<
 	sge::console::message_function
->
-message_callback;
+>;
 
 }
 }

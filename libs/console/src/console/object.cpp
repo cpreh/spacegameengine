@@ -109,7 +109,7 @@ sge::console::object::~object()
 
 fcppt::signal::auto_connection
 sge::console::object::insert(
-	sge::console::callback::parameters const &_params
+	sge::console::callback::parameters &&_params
 )
 {
 	return
@@ -124,19 +124,27 @@ sge::console::object::insert(
 			{
 				return
 					sge::console::function(
-						_params.short_description(),
-						_params.long_description()
+						std::move(
+							_params.short_description()
+						),
+						std::move(
+							_params.long_description()
+						)
 					);
 			}
 		).signal().connect(
 			sge::console::callback::function{
-				_params.function()
+				std::move(
+					_params.function()
+				)
 			},
 			fcppt::signal::unregister::function{
 				std::bind(
 					&sge::console::object::remove_function,
 					this,
-					_params.name()
+					std::move(
+						_params.name()
+					)
 				)
 			}
 		);

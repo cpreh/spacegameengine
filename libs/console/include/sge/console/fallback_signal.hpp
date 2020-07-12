@@ -16,11 +16,12 @@ namespace sge
 namespace console
 {
 
-typedef
+using
+fallback_signal
+=
 fcppt::signal::object<
 	sge::console::fallback_function
->
-fallback_signal;
+>;
 
 }
 }

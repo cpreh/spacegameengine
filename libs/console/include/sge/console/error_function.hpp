@@ -15,9 +15,10 @@ namespace sge
 namespace console
 {
 
-typedef
-void
-error_function(
+using
+error_function
+=
+void(
 	sge::font::string const &
 );
 

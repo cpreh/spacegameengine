@@ -44,7 +44,9 @@ struct conversion_visitor
 public:
 	explicit
 	conversion_visitor(
-		sge::console::object &_console
+		fcppt::reference<
+			sge::console::object
+		> const _console
 	)
 	:
 		console_{
@@ -77,7 +79,9 @@ public:
 		sge::font::string const &_value
 	) const
 	{
-		typedef
+		using
+		result_type
+		=
 		fcppt::type_traits::remove_cv_ref_t<
 			::metal::at<
 				ParameterTypes,
@@ -88,8 +92,7 @@ public:
 					>
 				>
 			>
-		>
-		result_type;
+		>;
 
 		fcppt::optional::object<
 			result_type
@@ -104,6 +107,7 @@ public:
 		if(
 			!result.has_value()
 		)
+		{
 			this->console_.get().emit_error(
 				SGE_FONT_LIT("Couldn't convert argument ")
 				+
@@ -125,6 +129,7 @@ public:
 					)
 				)
 			);
+		}
 
 		return
 			result;

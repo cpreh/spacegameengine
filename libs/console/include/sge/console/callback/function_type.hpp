@@ -18,9 +18,10 @@ namespace console
 namespace callback
 {
 
-typedef
-void
-function_type(
+using
+function_type
+=
+void(
 	sge::console::arg_list const &,
 	sge::console::object &
 );

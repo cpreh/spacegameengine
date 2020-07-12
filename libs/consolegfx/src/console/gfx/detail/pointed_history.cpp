@@ -8,6 +8,7 @@
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -36,11 +37,13 @@ sge::console::gfx::detail::pointed_history::~pointed_history()
 
 void
 sge::console::gfx::detail::pointed_history::push_front(
-	value_type const &_value
+	value_type &&_value
 )
 {
 	container_.push_front(
-		_value
+		std::move(
+			_value
+		)
 	);
 
 	if(
@@ -48,7 +51,9 @@ sge::console::gfx::detail::pointed_history::push_front(
 		>
 		limit_
 	)
+	{
 		container_.pop_back();
+	}
 }
 
 void
@@ -57,9 +62,11 @@ sge::console::gfx::detail::pointed_history::up()
 	if(
 		point_
 		!=
-		container_.size() - 1u
+		container_.size() - 1U
 	)
+	{
 		++point_;
+	}
 }
 
 void
@@ -68,23 +75,25 @@ sge::console::gfx::detail::pointed_history::down()
 	if(
 		point_
 		!=
-		0u
+		0U
 	)
+	{
 		--point_;
+	}
 }
 
 void
 sge::console::gfx::detail::pointed_history::to_begin()
 {
 	point_ =
-		0u;
+		0U;
 }
 
 void
 sge::console::gfx::detail::pointed_history::to_end()
 {
 	point_ =
-		container_.size() - 1u;
+		container_.size() - 1U;
 }
 
 sge::console::gfx::detail::pointed_history::const_iterator

@@ -13,7 +13,7 @@
 #include <sge/console/gfx/detail/symbol.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/font/string.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -25,7 +25,7 @@ namespace gfx
 
 class cursor
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		cursor
 	);
 public:
@@ -35,10 +35,12 @@ public:
 	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	~cursor();
 
+	[[nodiscard]]
 	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	sge::font::string
 	edited() const;
 
+	[[nodiscard]]
 	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	sge::font::string const &
 	string() const;
@@ -92,9 +94,10 @@ public:
 private:
 	sge::font::string line_;
 
-	typedef
-	sge::font::string::size_type
-	size_type;
+	using
+	size_type
+	=
+	sge::font::string::size_type;
 
 	size_type pos_;
 };

@@ -12,6 +12,10 @@
 #include <sge/console/callback/parameters.hpp>
 #include <sge/console/callback/short_description.hpp>
 #include <sge/console/callback/detail/convenience_wrapper.hpp>
+#include <sge/font/string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -28,8 +32,8 @@ template<
 inline
 sge::console::callback::parameters
 convenience(
-	Function const &_function,
-	sge::console::callback::name const &_name,
+	Function &&_function,
+	sge::console::callback::name &&_name,
 	sge::console::callback::short_description const &_short_description
 )
 {
@@ -39,14 +43,24 @@ convenience(
 				sge::console::callback::detail::convenience_wrapper<
 					FunctionType
 				>{
-					_function,
-					_short_description.get()
+					std::forward<
+						Function
+					>(
+						_function
+					),
+					sge::font::string{
+						_short_description.get()
+					}
 				}
 			},
-			_name
+			std::move(
+				_name
+			)
 		)
 		.short_description(
-			_short_description.get()
+			sge::font::string{
+				_short_description.get()
+			}
 		);
 }
 

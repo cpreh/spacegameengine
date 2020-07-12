@@ -15,9 +15,10 @@ namespace sge
 namespace console
 {
 
-typedef
-void
-fallback_function(
+using
+fallback_function
+=
+void(
 	sge::font::string const &
 );
 

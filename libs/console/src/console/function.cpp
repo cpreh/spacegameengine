@@ -8,36 +8,45 @@
 #include <sge/console/long_description.hpp>
 #include <sge/console/short_description.hpp>
 #include <sge/console/signal.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::console::function::function(
-	sge::console::short_description const &_short_description,
-	sge::console::long_description const &_long_description
+	sge::console::short_description &&_short_description,
+	sge::console::long_description &&_long_description
 )
 :
 	signal_(),
 	short_description_(
-		_short_description
+		std::move(
+			_short_description
+		)
 	),
 	long_description_(
-		_long_description
+		std::move(
+			_long_description
+		)
 	)
 {
 }
 
 sge::console::function::function(
 	function &&
-) = default;
-
+)
+noexcept
+= default;
 
 sge::console::function &
 sge::console::function::operator=(
 	function &&
-) = default;
+)
+noexcept
+= default;
 
 sge::console::function::~function()
-{
-}
+= default;
 
 sge::console::signal &
 sge::console::function::signal()

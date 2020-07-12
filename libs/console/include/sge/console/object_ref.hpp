@@ -4,28 +4,25 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_CONSOLE_CALLBACK_FUNCTION_HPP_INCLUDED
-#define SGE_CONSOLE_CALLBACK_FUNCTION_HPP_INCLUDED
+#ifndef SGE_CONSOLE_OBJECT_REF_HPP_INCLUDED
+#define SGE_CONSOLE_OBJECT_REF_HPP_INCLUDED
 
-#include <sge/console/callback/function_type.hpp>
-#include <fcppt/function_impl.hpp>
+#include <sge/console/object_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
 {
 namespace console
 {
-namespace callback
-{
 
 using
-function
+object_ref
 =
-fcppt::function<
-	sge::console::callback::function_type
+fcppt::reference<
+	sge::console::object
 >;
 
-}
 }
 }
 

@@ -9,9 +9,10 @@
 
 #include <sge/console/muxing.hpp>
 #include <sge/console/muxing_streambuf_fwd.hpp>
-#include <sge/console/object_fwd.hpp>
+#include <sge/console/object_ref.hpp>
 #include <sge/console/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
@@ -48,29 +49,33 @@ class muxing_streambuf
 		Traits
 	>
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		muxing_streambuf
 	);
 public:
-	typedef
+	using
+	streambuf_base
+	=
 	std::basic_streambuf<
 		Char,
 		Traits
-	>
-	streambuf_base;
+	>;
 
-	typedef
+	using
+	int_type
+	=
 	typename
-	streambuf_base::int_type
-	int_type;
+	streambuf_base::int_type;
 
 	SGE_CONSOLE_DETAIL_SYMBOL
 	muxing_streambuf(
-		std::basic_ostream<
-			Char,
-			Traits
-		> &,
-		sge::console::object &,
+		fcppt::reference<
+			std::basic_ostream<
+				Char,
+				Traits
+			>
+		>,
+		sge::console::object_ref,
 		sge::console::muxing
 	);
 
@@ -80,12 +85,14 @@ public:
 private:
 	bool in_progress_;
 
-	sge::console::object &object_;
+	sge::console::object_ref const object_;
 
-	std::basic_ostream<
-		Char,
-		Traits
-	> &stream_;
+	fcppt::reference<
+		std::basic_ostream<
+			Char,
+			Traits
+		>
+	> const stream_;
 
 	fcppt::unique_ptr<
 		std::basic_streambuf<

@@ -10,7 +10,9 @@
 #include <sge/console/muxing.hpp>
 #include <sge/console/muxing_streambuf.hpp>
 #include <sge/console/object.hpp>
+#include <sge/console/object_ref.hpp>
 #include <sge/console/impl/from_string.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -31,11 +33,13 @@ sge::console::muxing_streambuf<
 	Char,
 	Traits
 >::muxing_streambuf(
-	std::basic_ostream<
-		Char,
-		Traits
-	> &_stream,
-	sge::console::object &_object,
+	fcppt::reference<
+		std::basic_ostream<
+			Char,
+			Traits
+		>
+	> const _stream,
+	sge::console::object_ref const _object,
 	sge::console::muxing const _does_muxing
 )
 :
@@ -50,7 +54,7 @@ sge::console::muxing_streambuf<
 		_stream
 	),
 	old_streambuf_(
-		stream_.rdbuf(
+		stream_.get().rdbuf(
 			this
 		)
 	),
@@ -71,7 +75,7 @@ sge::console::muxing_streambuf<
 	Traits
 >::~muxing_streambuf()
 {
-	stream_.rdbuf(
+	stream_.get().rdbuf(
 		old_streambuf_.release_ownership()
 	);
 }
@@ -126,12 +130,12 @@ sge::console::muxing_streambuf<
 				_char
 			)
 			==
-			stream_.widen(
+			stream_.get().widen(
 				'\n'
 			)
 		)
 		{
-			object_.emit_message(
+			object_.get().emit_message(
 				sge::console::impl::from_string(
 					buffer_
 				)

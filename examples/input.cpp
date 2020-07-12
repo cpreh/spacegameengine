@@ -579,8 +579,12 @@ input_main(
 	);
 
 	sge::console::muxing_fcppt_streambuf muxing_streambuf(
-		fcppt::io::cout(),
-		console,
+		fcppt::make_ref(
+			fcppt::io::cout()
+		),
+		fcppt::make_ref(
+			console
+		),
 		sge::console::muxing::enabled
 	);
 
@@ -591,14 +595,20 @@ input_main(
 	);
 
 	sge::console::gfx::object console_gfx(
-		console,
-		sys.renderer_device_ffp(),
+		fcppt::make_ref(
+			console
+		),
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
 		sge::console::gfx::font_color(
 			sge::image::color::any::object{
 				sge::image::color::predef::white()
 			}
 		),
-		*font,
+		fcppt::make_ref(
+			*font
+		),
 		fcppt::math::box::null<
 			sge::font::rect
 		>(),

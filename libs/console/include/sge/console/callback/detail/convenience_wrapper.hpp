@@ -13,6 +13,7 @@
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
 #include <fcppt/function_impl.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/algorithm/loop.hpp>
 #include <fcppt/algorithm/loop_break_metal.hpp>
 #include <fcppt/algorithm/loop_break_tuple.hpp>
@@ -51,23 +52,30 @@ template<
 class convenience_wrapper
 {
 public:
-	typedef
-	FunctionType
-	function_type;
+	using
+	function_type
+	=
+	FunctionType;
 
 	template<
 		typename Function
 	>
 	convenience_wrapper(
-		Function const &_function,
-		sge::font::string const &_short_description
+		Function &&_function,
+		sge::font::string &&_short_description
 	)
 	:
 		function_(
-			_function
+			std::forward<
+				Function
+			>(
+				_function
+			)
 		),
 		short_description_(
-			_short_description
+			std::move(
+				_short_description
+			)
 		)
 	{
 	}
@@ -78,33 +86,36 @@ public:
 		sge::console::object &_console
 	) const
 	{
-		typedef
+		using
+		arg_types
+		=
 		fcppt::metal::function_args<
 			function_type
-		>
-		arg_types;
+		>;
 
-		typedef
+		using
+		arg_count
+		=
 		fcppt::metal::from_number<
 			std::size_t,
 			::metal::size<
 				arg_types
 			>
-		>
-		arg_count;
+		>;
 
-		typedef
+		using
+		static_args
+		=
 		std::array<
 			sge::font::string,
 			arg_count::value
-		>
-		static_args;
+		>;
 
 		fcppt::optional::maybe(
 			fcppt::container::array::from_range<
 				arg_count::value
 			>(
-				// TODO: Range from begin + 1 to end?
+				// TODO(philipp): Range from begin + 1 to end?
 				_args
 			),
 			[
@@ -126,11 +137,12 @@ public:
 				static_args const &_static_args
 			)
 			{
-				typedef
+				using
+				arguments
+				=
 				fcppt::metal::as_tuple<
 					arg_types
-				>
-				arguments;
+				>;
 
 				fcppt::optional::maybe_void(
 					fcppt::optional::sequence<
@@ -140,12 +152,14 @@ public:
 							sge::console::callback::detail::conversion_visitor<
 								arg_types
 							>{
-								_console
+								fcppt::make_ref(
+									_console
+								)
 							},
 							fcppt::metal::as_tuple<
 								fcppt::metal::interval<
 									std::size_t,
-									0u,
+									0U,
 									arg_count::value
 								>
 							>{},

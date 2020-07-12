@@ -8,13 +8,14 @@
 #include <sge/console/exception.hpp>
 #include <sge/console/message_callback.hpp>
 #include <sge/console/object.hpp>
+#include <sge/console/object_ref.hpp>
 #include <sge/console/gfx/font_color.hpp>
 #include <sge/console/gfx/input_active.hpp>
 #include <sge/console/gfx/object.hpp>
 #include <sge/console/gfx/output_line_limit.hpp>
 #include <sge/console/gfx/detail/pointed_history.hpp>
 #include <sge/font/lit.hpp>
-#include <sge/font/object_fwd.hpp>
+#include <sge/font/object_ref.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters.hpp>
@@ -33,10 +34,9 @@
 #include <sge/input/focus/event/text.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/modifier.hpp>
-#include <sge/renderer/context/ffp.hpp>
-#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/size.hpp>
@@ -54,8 +54,8 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
-#include <functional>
 #include <locale>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -63,10 +63,10 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::console::gfx::object::object(
-	sge::console::object &_object,
-	sge::renderer::device::ffp &_renderer,
+	sge::console::object_ref const _object,
+	sge::renderer::device::ffp_ref const _renderer,
 	sge::console::gfx::font_color const &_font_color,
-	sge::font::object &_font_object,
+	sge::font::object_ref const _font_object,
 	sge::font::rect const &_area,
 	sge::console::gfx::output_line_limit const _line_limit
 )
@@ -85,24 +85,38 @@ sge::console::gfx::object::object(
 	},
 	mod_state_tracker_{},
 	error_connection_(
-		object_.register_error_callback(
+		object_.get().register_error_callback(
 			sge::console::error_callback{
-				std::bind(
-					&sge::console::gfx::object::error,
-					this,
-					std::placeholders::_1
+				[
+					this
+				](
+					sge::font::string const &_string
 				)
+				{
+					this->error(
+						sge::font::string{
+							_string
+						}
+					);
+				}
 			}
 		)
 	),
 	message_connection_(
-		object_.register_message_callback(
+		object_.get().register_message_callback(
 			sge::console::message_callback{
-				std::bind(
-					&sge::console::gfx::object::print,
-					this,
-					std::placeholders::_1
+				[
+					this
+				](
+					sge::font::string const &_string
 				)
+				{
+					this->print(
+						sge::font::string{
+							_string
+						}
+					);
+				}
 			}
 		)
 	),
@@ -255,23 +269,25 @@ sge::console::object &
 sge::console::gfx::object::console_object()
 {
 	return
-		object_;
+		object_.get();
 }
 
 sge::console::object const &
 sge::console::gfx::object::console_object() const
 {
 	return
-		object_;
+		object_.get();
 }
 
 void
 sge::console::gfx::object::print(
-	sge::font::string const &_string
+	sge::font::string &&_string
 )
 {
 	output_lines_.push_front(
-		_string
+		std::move(
+			_string
+		)
 	);
 }
 
@@ -283,12 +299,8 @@ sge::console::gfx::object::render_line(
 )
 {
 	sge::font::draw::static_text static_text(
-		fcppt::make_ref(
-			renderer_
-		),
-		fcppt::make_ref(
-			font_object_
-		),
+		renderer_,
+		font_object_,
 		_line,
 		sge::font::text_parameters(
 			sge::font::align_h::variant{
@@ -406,8 +418,8 @@ sge::console::gfx::object::key_action(
 		break;
 		case sge::input::key::code::tab:
 			input_line_.complete_word(
-				object_.prefix(),
-				object_.functions()
+				object_.get().prefix(),
+				object_.get().functions()
 			);
 		break;
 		case sge::input::key::code::pageup:
@@ -468,7 +480,7 @@ sge::console::gfx::object::key_action(
 
 			try
 			{
-				object_.eval(
+				object_.get().eval(
 					input_line_.string()
 				);
 			}
@@ -504,12 +516,14 @@ sge::console::gfx::object::key_action(
 
 void
 sge::console::gfx::object::error(
-	sge::font::string const &_string
+	sge::font::string &&_string
 )
 {
 	this->print(
 		SGE_FONT_LIT("command error: ")
 		+
-		_string
+		std::move(
+			_string
+		)
 	);
 }

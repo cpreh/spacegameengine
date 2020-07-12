@@ -30,20 +30,22 @@ class function
 public:
 	SGE_CONSOLE_DETAIL_SYMBOL
 	function(
-		sge::console::short_description const &,
-		sge::console::long_description const &
+		sge::console::short_description &&,
+		sge::console::long_description &&
 	);
 
 	SGE_CONSOLE_DETAIL_SYMBOL
 	function(
 		function &&
-	);
+	)
+	noexcept;
 
 	SGE_CONSOLE_DETAIL_SYMBOL
 	function &
 	operator=(
 		function &&
-	);
+	)
+	noexcept;
 
 	SGE_CONSOLE_DETAIL_SYMBOL
 	~function();

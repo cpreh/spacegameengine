@@ -8,7 +8,7 @@
 #define SGE_CONSOLE_GFX_DETAIL_POINTED_HISTORY_HPP_INCLUDED
 
 #include <sge/font/string.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <deque>
 #include <fcppt/config/external_end.hpp>
@@ -25,28 +25,31 @@ namespace detail
 
 class pointed_history
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		pointed_history
 	);
 public:
-	typedef
-	sge::font::string
-	value_type;
+	using
+	value_type
+	=
+	sge::font::string;
 
-	typedef
-	std::deque
-	<
+	using
+	container
+	=
+	std::deque<
 		value_type
-	>
-	container;
+	>;
 
-	typedef
-	container::size_type
-	size_type;
+	using
+	size_type
+	=
+	container::size_type;
 
-	typedef
-	container::const_iterator
-	const_iterator;
+	using
+	const_iterator
+	=
+	container::const_iterator;
 
 	explicit
 	pointed_history(
@@ -57,7 +60,7 @@ public:
 
 	void
 	push_front(
-		value_type const &
+		value_type &&
 	);
 
 	void
@@ -72,9 +75,11 @@ public:
 	void
 	to_end();
 
+	[[nodiscard]]
 	const_iterator
 	point() const;
 
+	[[nodiscard]]
 	const_iterator
 	end() const;
 private:
